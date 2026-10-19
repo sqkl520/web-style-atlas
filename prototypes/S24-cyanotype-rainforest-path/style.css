@@ -1,0 +1,365 @@
+@charset "utf-8";
+/* S24 蓝晒雨林径 Cyanotype Rainforest Path
+   纸基 #E6EDF2 ｜ 主色 #5D43AD（白字 7.22:1）｜ 最深曝光 #0A1116（正文 16.08:1）
+   曝光色阶只有 6 个 CSS 变量（--exp2 / --exp4 / --exp8 / --exp16 / --exp32 / --exp64），
+   全站没有任何渐变函数，档与档之间靠 1px 纸白间隙跳变。
+   整页纹理挂 .deck::before / .deck::after 两个伪元素，body 保持纯色（契约 §9.2、§9.16）。 */
+
+:root{
+  /* 纸与墨 */
+  --paper:#E6EDF2;       /* 纸基未曝光的留白，30% */
+  --paper-2:#F3F8FB;     /* 浅一档的晒后留白 */
+  --paper-3:#DCE7EF;
+  --paper-4:#C9D8E4;
+  --ink:#0A1116;         /* 第 6 档最深曝光；正文对纸底 16.08:1 */
+  --ink-2:#3A4652;       /* 8.16:1 */
+  --grape:#5D43AD;       /* 主色 254.7° / 44.2%，对纸底 6.18:1，白字 7.22:1 */
+  --moss:#6E8B7A;        /* 苔绿：只画描边，以及深底上的 14px 标注（对最深曝光 5.11:1） */
+  --moss-2:#3C5F48;      /* 苔绿压深两档：纸上小字手写标注，对最深的浅底 #C9D8E4 也有 4.94:1 */
+  /* 曝光色阶：2 / 4 / 8 / 16 / 32 / 64 分钟；相邻档明度差 8.8 / 9.0 / 8.2 / 7.1 / 7.6 */
+  --exp2:#5D43AD;
+  --exp4:#4A3390;
+  --exp8:#3A276E;
+  --exp16:#2A1B50;
+  --exp32:#1B1136;
+  --exp64:#0A1116;
+  /* 栅格：基础 8px，8 栏加一条中轴，4 层缩进 28px，分支角 42°（56px 横走 / 50px 抬升） */
+  --base:8px;
+  --indent:28px;
+  --measure:38em;
+  --ease:cubic-bezier(0.2,0.7,0.1,1);
+  --grow:520ms;
+  --display:'Spectral','LXGW WenKai',Georgia,'Times New Roman',serif;
+  --text:'LXGW WenKai','Songti SC',Georgia,'Times New Roman',serif;
+  --mono:'IBM Plex Mono','Courier New',monospace;
+  /* 自绘 20px 镊子光标，尖端 2px，热点落在尖上 */
+  --tweezer:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScyMCcgaGVpZ2h0PScyMCcgdmlld0JveD0nMCAwIDIwIDIwJz48ZyBmaWxsPSdub25lJyBzdHJva2U9JyNFNkVERjInIHN0cm9rZS13aWR0aD0nMy4yJyBzdHJva2UtbGluZWNhcD0ncm91bmQnPjxwYXRoIGQ9J000IDEuNiA5LjQgMTYuMicvPjxwYXRoIGQ9J00xNiAxLjYgMTAuNiAxNi4yJy8+PHBhdGggZD0nTTkuNCAxNi4yIDEwIDE4LjIgMTAuNiAxNi4yJy8+PC9nPjxnIGZpbGw9J25vbmUnIHN0cm9rZT0nIzBBMTExNicgc3Ryb2tlLXdpZHRoPScxLjInIHN0cm9rZS1saW5lY2FwPSdyb3VuZCc+PHBhdGggZD0nTTQgMS42IDkuNCAxNi4yJy8+PHBhdGggZD0nTTE2IDEuNiAxMC42IDE2LjInLz48L2c+PHBhdGggZD0nTTkuNCAxNi4yIDEwIDE4LjIgMTAuNiAxNi4yJyBmaWxsPSdub25lJyBzdHJva2U9JyM2RThCN0EnIHN0cm9rZS13aWR0aD0nMicgc3Ryb2tlLWxpbmVjYXA9J3JvdW5kJy8+PC9zdmc+") 10 18,auto;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{background:var(--paper)}
+body{
+  margin:0;padding-top:104px;
+  background:var(--paper);color:var(--ink);
+  font-family:var(--text);font-size:16px;line-height:1.9;letter-spacing:.01em;
+}
+@media (pointer:fine){body{cursor:var(--tweezer)}}
+img{display:block;max-width:100%;height:auto}
+h1,h2,h3,h4{font-family:var(--display);font-weight:600;font-synthesis-weight:none;line-height:1.1;margin:0;letter-spacing:-.012em;text-wrap:balance}
+h1{font-size:clamp(36px,5.3vw,76px)}
+h2{font-size:clamp(26px,2.8vw,40px)}
+h3{font-size:clamp(20px,2vw,28px)}
+h4{font-size:clamp(18px,1.6vw,22px)}
+p{margin:0 0 16px;max-width:var(--measure)}
+p:last-child{margin-bottom:0}
+ul,ol{margin:0;padding:0;list-style:none}
+code{font-family:var(--mono);font-size:14px;letter-spacing:.02em;font-variant-numeric:tabular-nums;color:inherit}
+a{color:inherit;text-decoration:underline;text-decoration-color:var(--moss);text-underline-offset:3px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+
+/* ── 整页纹理：两个伪元素，fixed 覆盖 + multiply，不参与命中测试 ── */
+.deck{position:relative}
+.deck::after{
+  content:'';position:fixed;inset:0;z-index:3;pointer-events:none;
+  background-image:url('assets/texture-exposure-blotch.png');
+  background-size:384px 384px;background-repeat:repeat;
+  opacity:.45;mix-blend-mode:multiply;
+}
+.deck::before{
+  content:'';position:fixed;inset:0;z-index:4;pointer-events:none;
+  background-image:url('assets/texture-cyanotype-grain.png');
+  background-size:256px 256px;mix-blend-mode:multiply;
+}
+
+/* ── 常驻状态条：错误码 VEIN-47 在静态截图里就可见（契约 §9.12） ── */
+.hud{
+  position:fixed;inset:0 0 auto 0;z-index:6;
+  display:flex;flex-wrap:wrap;gap:4px 28px;align-items:baseline;
+  padding:12px 32px 16px;background:var(--paper);font-size:14px;line-height:1.5;
+}
+.hud::after{content:'';position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--ink)}
+.hud p{margin:0;max-width:none}
+.hud b{font-weight:400;color:var(--ink-2)}
+.hud code{color:inherit}
+.hud__fault code{text-decoration:underline;text-decoration-color:var(--grape);text-underline-offset:3px}
+
+/* ── 首屏：一片叶子压在纸上 ── */
+.masthead{
+  display:grid;grid-template-columns:5fr 4fr;gap:64px;align-items:end;
+  max-width:1400px;margin:0 auto;padding:40px 32px 96px;
+}
+.masthead h1{margin-bottom:20px}
+.claim{font-size:clamp(18px,1.5vw,22px);line-height:1.6;font-weight:600;max-width:28em;margin-bottom:20px}
+.masthead__meta{color:var(--ink);max-width:34em}
+.masthead__sig{margin:20px 0 0;font-size:14px;color:var(--moss-2);max-width:44em}
+/* 首屏的那张分叉图的开头：中轴 + 42° 的两支（112px 横走 / 100px 抬升 = 41.8°） */
+.start{margin:32px 0 0;max-width:420px}
+.start svg{display:block;width:100%;height:auto}
+.start path{fill:none;vector-effect:non-scaling-stroke;stroke-dasharray:100 100;stroke-dashoffset:0;stroke-linecap:butt}
+.start .sx{stroke:var(--ink-2);stroke-width:1}
+.start .sm{stroke:var(--ink);stroke-width:2.5}
+.start .sb{stroke:var(--ink);stroke-width:1}
+.start .snode{stroke:var(--moss);stroke-width:1}
+.start figcaption{margin:10px 0 0;font-size:14px;color:var(--ink-2);max-width:36em}
+.js .start path{stroke-dashoffset:100}
+.js .start.in path{animation:vein-grow var(--grow) var(--ease) both;animation-delay:calc(var(--d,0) * 70ms)}
+.masthead__cue{margin:28px 0 0;display:flex;flex-wrap:wrap;align-items:center;gap:16px;max-width:none}
+.masthead__cue .hint{font-size:14px;color:var(--ink-2)}
+.masthead__sheet{align-self:end}
+
+.btn{
+  display:inline-block;height:48px;padding:0 22px;border:0;border-radius:0;
+  background:var(--grape);color:#FFFFFF;
+  font-family:var(--text);font-size:16px;line-height:48px;letter-spacing:.01em;
+  text-decoration:none;cursor:pointer;
+}
+.btn:hover{background:var(--exp4)}
+.btn--deep{background:var(--ink);color:var(--paper)}
+.btn--deep:hover{background:var(--exp32)}
+
+/* 3px 未曝光纸白边：用纸色衬垫做出，不写 border，避免 1px 框被算成 outlined-box */
+.pluck{margin:0;background:var(--paper);padding:3px}
+.pluck figcaption{margin:12px 0 0;font-size:14px;line-height:1.75;color:var(--ink-2);max-width:38em}
+.ref{display:block;margin-top:6px;color:var(--moss-2)}
+
+/* ── 分叉：8 栏 + 中轴，5:3，4 层 ── */
+.fork{padding:96px 32px 112px;background:var(--paper-2)}
+.sec-head{max-width:1400px;margin:0 auto 56px}
+.sec-head h2{margin-bottom:16px}
+.lede{font-size:clamp(16px,1.25vw,18px);color:var(--ink);max-width:38em;margin:0}
+.fork__grid{position:relative;display:grid;grid-template-columns:repeat(8,1fr);gap:0 24px;max-width:1330px;margin:0 auto}
+.fork__axis{position:absolute;left:50%;top:0;bottom:0;width:8px;height:100%;margin-left:-4px;z-index:0}
+.fork__axis path{fill:none;stroke:var(--ink-2);stroke-width:1;vector-effect:non-scaling-stroke;stroke-dasharray:100 100;stroke-dashoffset:100}
+.lv{grid-column:1 / -1;display:grid;grid-template-columns:5fr 3fr;gap:64px 24px;padding-top:32px;z-index:1}
+.lv--1{padding-top:0}
+.lv--mirror{grid-template-columns:3fr 5fr}
+.lv--leaves{display:block;margin-top:64px;background:var(--exp64);padding:56px 40px 48px;color:var(--paper)}
+.leaves{display:flex;flex-wrap:wrap;align-items:flex-end;gap:24px}
+
+.br{position:relative;background:var(--paper-3);padding:28px 28px 32px}
+.lv--2 .br{background:var(--paper-4)}
+.br--w{grid-column:1}
+.br--n{grid-column:2;margin-top:24px}
+.lv--mirror .br--w{grid-column:2}
+.lv--mirror .br--n{grid-column:1;margin-top:24px}
+.br__head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.br__head h3{margin:0}
+.br__step{color:var(--ink-2)}
+.br p{max-width:34em;margin-bottom:14px}
+.br__foot{display:flex;flex-wrap:wrap;gap:12px;font-size:14px;color:var(--ink-2);margin-bottom:18px}
+.br .vein{margin:8px 0 18px}
+
+/* 叶脉：SVG stroke-dasharray 生长；主脉 2.5px、支脉 1 / 0.6 / 0.4px，节点处留 2px 缺口 */
+.vein{display:block;width:100%;height:auto;max-width:100%}
+.vein path{fill:none;stroke:var(--ink);stroke-linecap:butt;vector-effect:non-scaling-stroke;stroke-dasharray:100 100;stroke-dashoffset:0}
+.vein .vm{stroke-width:2.5}
+.vein .vb{stroke-width:1}
+.vein .vc{stroke-width:0.6}
+.vein .vd{stroke-width:0.4}
+.js .vein path{stroke-dashoffset:100}
+.js .in .vein path{animation:vein-grow var(--grow) var(--ease) both;animation-delay:calc(var(--d,0) * 70ms)}
+.js .fork__axis path{stroke-dashoffset:100}
+.js .fork__axis.in path{animation:vein-grow var(--grow) var(--ease) both}
+@keyframes vein-grow{0%{stroke-dashoffset:100}96%{stroke-dashoffset:-4}100%{stroke-dashoffset:0}}
+
+/* 42° 支线：56px 横走 / 50px 抬升 = 41.8°；窄屏改 28px 横走 / 26px 抬升 */
+.stub{position:absolute;width:56px;height:50px;bottom:-25px;right:8px;z-index:2}
+.br--n .stub{left:8px;right:auto;bottom:auto;top:-25px;transform:scaleX(-1)}
+.lv--mirror .br--w .stub{left:8px;right:auto;transform:scaleX(-1)}
+.lv--mirror .br--n .stub{right:8px;left:auto;top:-25px;transform:none}
+.stub path{fill:none;stroke:var(--ink);stroke-width:2.5;vector-effect:non-scaling-stroke;stroke-dasharray:100 100;stroke-dashoffset:0}
+.stub path.twig{stroke-width:1}
+.js .stub path{stroke-dashoffset:100}
+.js .in .stub path{animation:vein-grow var(--grow) var(--ease) both}
+.js .in .stub path.twig{animation-delay:140ms}
+
+/* 孢子节点：3–5 叶的不规则孢子形，不闭合描边；选中填纸色 + 1px 未曝光白晕 */
+.node{position:relative;flex:0 0 auto;width:44px;height:44px;padding:0;border:0;background:none;cursor:pointer}
+.node svg{display:block;width:44px;height:44px;overflow:visible}
+.node .spore{fill:none;stroke:var(--ink);stroke-width:1}
+.node .fibre{fill:none;stroke:var(--moss);stroke-width:0.8}
+.node .halo{fill:none;stroke:var(--paper);stroke-width:1.2;opacity:0;transform:scale(1.08);transform-origin:50% 50%}
+.node:hover .halo{opacity:1;transition:opacity 120ms linear}
+.node[aria-pressed="true"] .spore{fill:var(--paper)}
+.node[aria-pressed="true"] .halo{opacity:1}
+.node[aria-pressed="true"] .fibre{stroke:var(--ink-2)}
+
+/* 末端叶：只挂最深一层，右下角一枚 3×3px 纸白小点（字段 12） */
+.leaf{position:relative;padding:22px 22px 26px;color:var(--paper)}
+.leaf .vein path{stroke:var(--paper)}
+.leaf .vm{stroke-width:2.5}
+.leaf .vb{stroke-width:1}
+.leaf .vc{stroke-width:0.6}
+.leaf h4{margin:12px 0 10px;color:var(--paper)}
+.leaf p{color:var(--paper);max-width:30em;margin-bottom:12px}
+.leaf__meta{display:block;font-size:14px;color:var(--paper)}
+.leaf__pick{
+  margin-top:14px;height:44px;padding:0 16px;border:1px solid var(--paper);border-radius:0;
+  background:none;color:var(--paper);font-family:var(--text);font-size:16px;cursor:pointer;
+}
+.leaf__pick[aria-pressed="true"]{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+.leaf__gap{fill:var(--paper);opacity:0}
+.leaf[data-picked="true"] .leaf__gap{opacity:1}
+.leaf::after{content:'';position:absolute;right:14px;bottom:14px;width:3px;height:3px;background:var(--paper)}
+.leaf--a{flex:0 0 300px;background:var(--exp16)}
+.leaf--b{flex:0 0 212px;background:var(--exp32)}
+.leaf--c{flex:0 0 268px;background:var(--exp16)}
+.leaf--d{flex:0 0 186px;background:var(--exp32)}
+.leaf--empty{background:var(--exp8)}
+.leaf__empty-line{margin:12px 0 0;padding:12px;background:var(--exp16);font-size:14px;color:var(--paper)}
+
+/* ── 曝光色阶：6 档离散色，档间 1px 未曝光纸白（用 1px 间隙做，不画线） ── */
+.ladder{padding:96px 32px;background:var(--paper)}
+.ladder__grid{display:grid;grid-template-columns:5fr 4fr;gap:64px;max-width:1400px;margin:0 auto;align-items:start}
+.stack{display:flex;gap:1px;background:var(--paper);margin:0 0 10px}
+.stack__chip{flex:1 1 0;height:112px;background:var(--step)}
+.stack__label{display:flex;gap:1px;margin:0 0 8px;max-width:none}
+.stack__label span{flex:1 1 0;min-width:0;font-size:14px;color:var(--ink-2);letter-spacing:.01em}
+.js .stack__chip{animation:expose 180ms steps(3,end) both;animation-delay:calc(var(--i) * 120ms)}
+.js .stack.done .stack__chip{animation:none;opacity:1}
+@keyframes expose{from{opacity:0}to{opacity:1}}
+.stack__skip{margin-top:18px;height:44px;padding:0 18px;border:0;border-radius:0;background:var(--paper-3);color:var(--ink);font-family:var(--text);font-size:16px;cursor:pointer}
+.steps li{padding-bottom:14px;color:var(--ink);max-width:36em}
+.steps b{color:var(--ink);font-weight:400}
+.swatch{display:inline-block;width:14px;height:14px;vertical-align:-2px;margin-right:8px;background:var(--step)}
+
+/* ── 接触印相 ── */
+.print{padding:96px 32px;background:var(--paper-3)}
+.print__grid{display:grid;grid-template-columns:4fr 5fr;gap:64px;max-width:1400px;margin:0 auto;align-items:start}
+.notes li{color:var(--ink);padding-bottom:12px;max-width:32em}
+.notes b{color:var(--ink);font-weight:400}
+.icon{width:18px;height:18px;vertical-align:-3px;margin-right:6px;fill:none;stroke:var(--moss);stroke-width:1;stroke-linecap:round;stroke-linejoin:round}
+
+/* ── 错误态 VEIN-47 ── */
+.fault{padding:96px 32px;background:var(--exp64);color:var(--paper)}
+.fault__in{max-width:1000px;margin:0 auto}
+.fault h2{color:var(--paper);margin-bottom:18px}
+.fault__alert{font-size:clamp(16px,1.4vw,20px);line-height:1.7;max-width:34em;color:var(--paper);margin-bottom:20px}
+.fault p{color:var(--paper);max-width:36em}
+.fault code{color:var(--paper)}
+.fault__frame{font-size:14px;color:var(--moss);max-width:46em}
+.fault__cue{margin-top:24px;max-width:none}
+.fault .btn--deep{background:var(--paper);color:var(--ink)}
+.fault .btn--deep:hover{background:var(--paper-4)}
+.fault__state{font-size:14px;color:var(--moss);margin-top:16px;max-width:44em}
+
+/* ── 动效与降级 ── */
+.motion{padding:96px 32px;background:var(--paper-2)}
+.motion__grid{display:grid;grid-template-columns:5fr 4fr;gap:64px;max-width:1400px;margin:0 auto;align-items:start}
+.spec li{color:var(--ink);padding-bottom:14px;max-width:36em}
+.spec b{color:var(--ink);font-weight:400}
+.degrade{background:var(--paper);padding:24px;color:var(--ink);max-width:38em}
+.motion__grid .degrade p{color:var(--ink)}
+.cursor-sample{display:flex;align-items:center;gap:12px;font-size:14px;color:var(--ink);margin-bottom:20px;max-width:none}
+.cursor-sample svg{width:20px;height:20px;flex:0 0 auto}
+
+/* ── 断点行为 ── */
+.breaks{padding:96px 32px;background:var(--paper)}
+.breaks__table{width:100%;max-width:1200px;margin:0 auto;border-collapse:collapse}
+.breaks__table caption{text-align:left;font-size:14px;color:var(--ink-2);padding-bottom:12px}
+.breaks__table th,.breaks__table td{
+  text-align:left;vertical-align:top;padding:14px 18px 16px 0;border-bottom:1px solid var(--paper-4);
+  font-weight:400;color:var(--ink);max-width:38em;
+}
+.breaks__table th{color:var(--ink);white-space:nowrap}
+.breaks__table td b{color:var(--ink);font-weight:400}
+.breaks__note{max-width:1200px;margin:24px auto 0;font-size:14px;color:var(--ink);}
+
+/* ── 页脚：素材出处与签名式怪癖 ── */
+.foot{padding:96px 32px 120px;background:var(--exp32);color:var(--paper)}
+.foot__in{max-width:1200px;margin:0 auto}
+.foot h3{color:var(--paper);margin-bottom:16px}
+.foot p{color:var(--paper);max-width:44em}
+.foot__table{width:100%;border-collapse:collapse;font-size:14px;margin:8px 0 40px}
+.foot__table th,.foot__table td{text-align:left;vertical-align:top;padding:12px 18px 14px 0;border-bottom:1px solid var(--exp8);color:var(--paper);font-weight:400}
+.foot__table th{color:var(--moss)}
+.foot__table a{color:var(--paper)}
+.foot .notes li{color:var(--paper)}
+.foot .notes b{color:var(--paper)}
+.foot .src{margin:0 0 24px;padding:0}
+.foot .src li{font-size:14px;color:var(--paper);padding-bottom:10px;max-width:54em}
+.foot .src b{font-weight:400;color:var(--paper)}
+.foot .src a{color:var(--paper)}
+.foot .src-note{font-size:14px;color:var(--moss);max-width:44em;margin:0 0 40px}
+.foot__table code,.breaks__table code{overflow-wrap:anywhere}
+.sig{margin-top:40px;font-size:14px;color:var(--moss);max-width:56em}
+.quirk{display:flex;gap:14px;align-items:flex-start;margin-top:8px;max-width:none}
+.quirk p{margin:0;max-width:56em}
+.quirk__dot{flex:0 0 auto;width:3px;height:3px;margin-top:11px;background:var(--paper)}
+
+/* ── 入场：只动 opacity 与 transform ── */
+.js [data-grow]{opacity:0;transform:translateY(14px)}
+.js [data-grow].in{opacity:1;transform:none;transition:opacity 340ms var(--ease),transform 420ms var(--ease)}
+
+/* 回缩一层：同一路径再次点击，下一层的线按原路退回去 */
+.lv.is-retracted .vein path,.lv.is-retracted .stub path{animation:none;stroke-dashoffset:100;transition:stroke-dashoffset 320ms var(--ease)}
+.lv.is-retracted .br{background:var(--paper-2)}
+
+/* 叶脉小图：宽屏不显示，768–1023 用做回溯导航 */
+.veinmap{display:none;margin:0 0 24px;max-width:280px}
+.veinmap svg{width:100%;height:auto}
+.veinmap path{fill:none;stroke:var(--ink);stroke-width:1;vector-effect:non-scaling-stroke}
+.veinmap .on{stroke:var(--grape);stroke-width:2.5}
+.veinmap figcaption{font-size:14px;color:var(--ink-2);margin-top:8px}
+.path-index{display:none;flex-wrap:wrap;gap:10px;margin-top:28px}
+.path-index button{height:44px;padding:0 16px;border:0;border-radius:0;background:var(--paper-3);color:var(--ink);font-family:var(--text);font-size:16px;cursor:pointer}
+
+/* ── 1024–1439：第 4 层折成一次露出 1.6 张的横向轨道（满 1440 时平铺 4 张） ── */
+@media (min-width:1024px) and (max-width:1439px){
+  .lv--4-track .leaves{flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory}
+  .lv--4-track .leaf{flex:0 0 62.5%;scroll-snap-align:start}
+}
+
+/* ── 768–1023：只显示当前选中的那一条路径，用叶脉小图做回溯导航 ── */
+@media (min-width:768px) and (max-width:1023px){
+  body{padding-top:112px}
+  .masthead{grid-template-columns:1fr;gap:40px;padding:32px 24px 72px}
+  .masthead__sheet{align-self:start}
+  .fork,.ladder,.print,.fault,.motion,.breaks,.foot{padding-left:24px;padding-right:24px}
+  .fork__grid{grid-template-columns:1fr}
+  .fork__grid:not([data-path="a"]) .br[data-path="a"],
+  .fork__grid:not([data-path="b"]) .br[data-path="b"],
+  .fork__grid:not([data-path="c"]) .br[data-path="c"]{display:none}
+  .fork__axis{left:16px;margin-left:0}
+  .lv,.lv--mirror{grid-template-columns:1fr;gap:40px}
+  .br--w,.br--n,.lv--mirror .br--w,.lv--mirror .br--n{grid-column:1;margin-top:0}
+  .lv--leaves{flex-wrap:wrap;overflow-x:hidden;padding:40px 24px}
+  .lv--4-track .leaves{flex-wrap:wrap;overflow-x:hidden}
+  .leaf--a,.leaf--b,.leaf--c,.leaf--d{flex:1 1 100%}
+  .ladder__grid,.print__grid,.motion__grid{grid-template-columns:1fr;gap:40px}
+  .veinmap{display:block}
+  .path-index{display:flex}
+}
+
+/* ── <768：单栏，分叉机制完整保留为沿中轴左右交替，42° 分支角，每层缩进 28px ── */
+@media (max-width:767px){
+  body{padding-top:118px}
+  .hud{padding:10px 18px 14px;gap:2px 16px}
+  .masthead{padding:24px 18px 64px;grid-template-columns:1fr;gap:32px}
+  .masthead__sheet{align-self:start}
+  .fork,.ladder,.print,.fault,.motion,.breaks,.foot{padding-left:18px;padding-right:18px}
+  .fork{padding-top:64px;padding-bottom:72px}
+  .fork__grid{grid-template-columns:1fr}
+  .fork__axis{left:18px;margin-left:0}
+  .lv,.lv--mirror{grid-template-columns:1fr;gap:64px;padding-top:0}
+  .br--w,.br--n,.lv--mirror .br--w,.lv--mirror .br--n{grid-column:1;margin-top:0}
+  .br{padding:22px 18px 24px;margin-left:calc(var(--depth) * var(--indent))}
+  .lv--leaves{flex-wrap:wrap;overflow-x:hidden;padding:28px 18px 32px;gap:24px;margin-top:64px}
+  .lv--4-track .leaves{flex-wrap:wrap;overflow-x:hidden}
+  .leaf,.leaf--a,.leaf--b,.leaf--c,.leaf--d{flex:1 1 100%;margin-left:calc(var(--depth) * var(--indent))}
+  .ladder__grid,.print__grid,.motion__grid{grid-template-columns:1fr;gap:40px}
+  .stack__label{display:grid;grid-template-columns:repeat(3,1fr);gap:6px 10px}
+  .stub{width:28px;height:26px;bottom:-13px;right:0}
+  .br--n .stub,.lv--mirror .br--w .stub,.lv--mirror .br--n .stub{left:0;right:auto;top:-13px;bottom:auto;transform:none}
+  .stack__chip{height:88px}
+  .breaks__table,.foot__table{display:block;overflow-x:hidden}
+  .breaks__table th,.breaks__table td,.foot__table th,.foot__table td{padding-right:10px}
+}
+
+/* ── prefers-reduced-motion：逐级生长停止推进，分叉机制静态完整保留 ── */
+@media (prefers-reduced-motion:reduce){
+  .js .vein path,.js .stub path,.js .fork__axis path{stroke-dashoffset:0;animation:none}
+  .js .stack__chip{animation:none;opacity:1}
+  .js [data-grow]{opacity:1;transform:none;transition:opacity 120ms linear}
+  .node:hover .halo{transition:opacity 120ms linear}
+}

@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>手绘公文幕 · 一张被当成公文用的手绘海报｜片号 BP-1963-114 · 幕次 ACT-01 至 ACT-07</title>
+<meta name="description" content="手绘公文幕：抬头是片号与幕次总数，条款按幕次排下来，墨绿 #0E6258 与炭黑 #221C10 两块石版错开 1.8px 印在黄纸 #E8D7B5 上。正文对底 11.94:1，主色对底 5.10:1；错位量固定右上，窄屏收到 1.2px。">
+<link rel="stylesheet" href="../_fonts/css/chivo__700-800.css">
+<link rel="stylesheet" href="../_fonts/css/lxgw-wenkai__400.css">
+<link rel="stylesheet" href="../_fonts/css/martian-mono__400-600.css">
+<link rel="stylesheet" href="style.css">
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+<a class="skip" href="#dispatch">跳到幕次条款区</a>
+
+<!-- 常驻抬头条：抬头编号、幕次进度与错误码都在静态截图里可达（契约 §9.12）。
+     sticky 不用 fixed：sticky 不会让 bgBehind() 短路，对比度检查照常跑（契约 §9.2）。 -->
+<div class="headbar" role="status" aria-live="off">
+  <div class="headbar__in">
+    <p class="hb"><span class="hb__k">片号</span> <code>BP-1963-114</code></p>
+    <p class="hb"><span class="hb__k">当前幕次</span> <code class="hb__now" id="actnow">ACT-01</code></p>
+    <p class="hb"><span class="hb__k">幕次总数</span> <code>ACT-07</code></p>
+    <p class="hb"><span class="hb__k">签发栏</span> <span class="hb__v" id="signstate">待签收</span></p>
+    <p class="hb hb--fault"><span class="hb__k">状态</span> <code>LITHO-27</code> 石版错位，签发栏对不上</p>
+  </div>
+</div>
+
+<svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false"><defs>
+<!-- 字段 6（四）自绘图标：16 单位网格、1.6px 线宽、端点略钝（模仿刷子起落） -->
+<symbol id="g-curtain" viewBox="0 0 16 16"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M1.6 2.4h12.8"/><path d="M2.6 3.4c.6 3.4 2.2 5.6 3.4 6.6M13.4 3.4c-.6 3.4-2.2 5.6-3.4 6.6"/><path d="M2.4 13.6h3.2M10.4 13.6h3.2"/></g></symbol>
+<symbol id="g-seal" viewBox="0 0 16 16"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="8" cy="8" r="6.2"/><path d="M5.8 6.4h4.4M5.8 9.6h4.4M8 4.6v6.6"/></g></symbol>
+<symbol id="g-cell" viewBox="0 0 16 16"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2 2.8h12v10.4H2z"/><path d="M2 8h12M6 2.8v10.4M10 2.8v10.4"/></g></symbol>
+<!-- 字段 12：按 1960 年代孟买画师在木箱上写的编号描下来的九个手写数字，0.8px 硬线，尾巴各不相同 -->
+<symbol id="h0" viewBox="0 0 16 22"><g fill="none" stroke="currentColor" stroke-width=".8"><path d="M6.2 5.4 7.4 3.8h2.6l1.4 1.6v10.4l-1.4 1.6H7.4L6.2 15.8zM11.6 19.6h2.6"/></g></symbol>
+<symbol id="h1" viewBox="0 0 16 22"><g fill="none" stroke="currentColor" stroke-width=".8"><path d="M6.6 6.2 8.6 3.4v13.4M6 17.4h5.4"/></g></symbol>
+<symbol id="h2" viewBox="0 0 16 22"><g fill="none" stroke="currentColor" stroke-width=".8"><path d="M5.8 6 7 3.8h3.2L11.8 7 5.6 16.4h6.6M6.6 19.6h4"/></g></symbol>
+<symbol id="h3" viewBox="0 0 16 22"><g fill="none" stroke="currentColor" stroke-width=".8"><path d="M6 4h5.2l-2.8 5.6 1.4.6 1.2 3.6-1.6 2.8H6.4M11.8 19.4h2.4"/></g></symbol>
+<symbol id="h4" viewBox="0 0 16 22"><g fill="none" stroke="currentColor" stroke-width=".8"><path d="M9.8 3.4 5 12.6h6M9.8 3.4v13.2M5.6 19.8h5"/></g></symbol>
+<symbol id="h5" viewBox="0 0 16 22"><g fill="none" stroke="currentColor" stroke-width=".8"><path d="M11.4 3.8H6.6v5l2.6-.6 1.4 3.2-1.6 4H6.2M12 19.6h2.2"/></g></symbol>
+<symbol id="h6" viewBox="0 0 16 22"><g fill="none" stroke="currentColor" stroke-width=".8"><path d="M10.8 4.2 7.4 7.6l-1 6.6 1.8 2.4h2.4l1.4-1.8v-3.4l-1.4-1.6H7.6M11.4 19.8h2.8"/></g></symbol>
+<symbol id="h7" viewBox="0 0 16 22"><g fill="none" stroke="currentColor" stroke-width=".8"><path d="M5.4 4h6.4l-4 13M11.6 20h2.6"/></g></symbol>
+<symbol id="h8" viewBox="0 0 16 22"><g fill="none" stroke="currentColor" stroke-width=".8"><path d="M8 3.8 6.2 6.2 7 9l2 1.4 1.4 2.6-1 3.4-2.6.4-1.6-2.2.8-3 2.2-1.6.8-3.2zM11.8 19.6h2.4"/></g></symbol>
+<symbol id="h9" viewBox="0 0 16 22"><g fill="none" stroke="currentColor" stroke-width=".8"><path d="M6 5.4 7.6 4h2.6l1.2 1.6v3.6l-1.4 1.8H7.2M11.4 4.6 10.8 17.4M12 19.8h2.2"/></g></symbol>
+</defs></svg>
+
+<header class="dossier" id="top"><div class="wrap">
+<!-- 抬头占满 9 栏（片号、片名、幕次总数），整条压在墨绿版上。
+     h1 在 DOM 里排在最前：窄屏改单栏时，小字段都落在片名下面，不会变成标题上方的小标签。 -->
+<div class="head">
+<h1 class="head__title">手绘公文幕</h1>
+<p class="head__k head__k--no">片号 <code>BP-1963-114</code><svg class="tail" viewBox="0 0 16 22" aria-hidden="true"><use href="#h4"/></svg></p>
+<p class="head__k head__k--acts">幕次总数 <code>ACT-01—ACT-07</code></p>
+<p class="head__latin">Hand-Painted Bill Dispatch</p>
+</div>
+
+<div class="grid9 head__row2">
+<div class="head__left">
+<p class="claim">这部片子 1963 年在孟买放了 <b>11 周</b>，海报是画师爬在木架上刷的。</p>
+<p class="cue"><button class="btn" type="button" id="sign3">签收第三幕的场次表</button></p>
+<p class="meta">抬头占满 9 栏，条款分左右两区：正文 5 栏、签发栏 3 栏、第 9 栏留作装订边距，宽比 5:3，签发栏比正文整体下沉 4 个基线也就是 28px。墨绿 <code>#0E6258</code> 与炭黑 <code>#221C10</code> 两块石版错开 <code>1.8px</code>、方向固定右上，错位处露出黄纸 <code>#E8D7B5</code>；所有实色描边都带这 1.8px 偏移，不用混合模式。正文 <code>#221C10</code> 对纸底 <code>11.94:1</code>，主色 <code>#0E6258</code> 对纸底 <code>5.10:1</code>。基线单位 7px，条款之间 36px，幕次之间 84px。</p>
+</div>
+<figure class="head__plate">
+<div class="plate__frame"><img src="assets/reuse-s16-plate-01-figaro-manifesto.jpg" width="960" height="1395" alt="一张单张通告的印件翻拍，密排的铅字正文在纸面上分成两栏，纸边有折痕与订孔"></div>
+<figcaption><b>图版一</b> 单张通告的印件翻拍：密排两栏铅字、纸边订孔。抬头编号就是照这类单张的排法学来的。<span class="ref">Le Figaro · 公有领域 · <a href="https://commons.wikimedia.org/wiki/File:Manifesto_futurismo_Le_Figaro.jpg">原件页（Wikimedia Commons）</a></span></figcaption>
+</figure>
+</div>
+
+<nav class="acts-nav" aria-label="幕次索引"><ul>
+<li><a href="#act-01"><code>ACT-01</code> 木架上的刷子</a></li>
+<li><a href="#act-02"><code>ACT-02</code> 两块石版的错位</a></li>
+<li><a href="#act-03"><code>ACT-03</code> 幕布升降的时序</a></li>
+<li><a href="#act-04"><code>ACT-04</code> 抬头编号的归档</a></li>
+<li><a href="#act-05"><code>ACT-05</code> 签发栏与印章</a></li>
+<li><a href="#act-06"><code>ACT-06</code> 晒褪的墨绿</a></li>
+<li><a href="#act-07"><code>ACT-07</code> 场次表与排期</a></li>
+</ul></nav>
+</div></header>
+
+<main>
+<!-- 幕次条款区：整区是墨绿版的压印面，每一幕是一张压在上面的黄纸（契约 §9.2：纹理只挂本区伪元素） -->
+<section class="dispatch" id="dispatch" aria-labelledby="dispatch-h"><div class="wrap">
+<div class="sec-head">
+<h2 id="dispatch-h">幕次条款</h2>
+<p class="prose">七幕以一张纸为单位归档。分区不靠换底色：纸与纸之间是同一种黄纸，靠 1.8px 错位描边与幕次编号分开；墨绿只作底版压印面，不承担分区。往下滚，抬头编号每进一幕做一次 140ms 的原地跳变。</p>
+</div>
+
+<article class="act" id="act-01"><div class="act__sheet">
+<div class="act__head">
+<p class="act__no"><code>ACT-01</code></p>
+<h2 class="act__title" data-plate="木架上的刷子">木架上的刷子</h2>
+</div>
+<div class="act__slate"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><use href="#g-curtain"/></svg>
+<p><span class="k">场次</span> <code>SE-01</code></p>
+<p><span class="k">地点</span> 孟买 一家老影院的木架上</p>
+<p><span class="k">次数</span> 刷三遍，每遍间隔 40 分钟</p></div>
+<div class="act__body">
+<p class="clause"><b>第 1 条　</b>画师站在木架上，一版一色往下刷，等一遍干透才上第二遍。横档按 7px 一条排，脚踩上去不多不少落在档上；刷完一面墙要三个下午。</p>
+<p class="clause"><b>第 2 条　</b>纸是石版印刷的黄纸 <code>#E8D7B5</code>，饱和 22%、明度 81%，比屏幕白更黄。理由是石版印刷纸本来就这样，晒过一遍的墙也是这个色，两条对上了才用它。</p>
+<p class="clause"><b>第 3 条　</b>刷子落下时的端点略钝，线宽 <code>1.6px</code>，与手绘招牌的描线习惯一致。窄屏把画布收窄之后，笔画不重新起头，只按原样收进纸里；见 <a href="#act-06"><code>ACT-06</code></a> 第 2 条。</p>
+</div>
+<aside class="act__sign"><div class="signpane">
+<p class="signpane__h"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><use href="#g-seal"/></svg>签发栏</p>
+<dl><dt>署名</dt><dd>画师 A. 卡达姆</dd>
+<dt>材料</dt><dd>排笔 <code>3</code> 支、石版油墨两色</dd>
+<dt>交叉引用</dt><dd>见 <a href="#act-06"><code>ACT-06</code></a> 第 2 条</dd></dl>
+</div></aside>
+<p class="act__bind">装订边距</p>
+<div class="act__foot"><p><span class="k">归档号</span> <code>BP-1963-114 / ACT-01</code></p>
+<p><span class="k">抬头编号</span> <code>ACT-01</code></p></div>
+</div></article>
+
+<div class="seam" data-seam></div>
+
+<article class="act" id="act-02"><div class="act__sheet">
+<div class="act__head">
+<p class="act__no"><code>ACT-02</code></p>
+<h2 class="act__title" data-plate="两块石版的错位">两块石版的错位</h2>
+</div>
+<div class="act__slate"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><use href="#g-curtain"/></svg>
+<p><span class="k">场次</span> <code>SE-04</code></p>
+<p><span class="k">版数</span> 两版：墨绿与炭黑</p>
+<p><span class="k">错位</span> <code>1.8px</code> 右上，固定</p></div>
+<div class="act__body">
+<p class="clause"><b>第 1 条　</b>墨绿版与炭黑版共用一组定位孔，印刷时前者右上偏 <code>1.8px</code>。偏移量写死，不随机，也不做旧；两版之间的距离就是这一张纸的脾气。</p>
+<p class="clause"><b>第 2 条　</b>所有实色描边都带这 1.8px 偏移：分隔线、框线、编号块都是两层实色叠加，不用混合模式，也不用半透明。错开的地方露出一道纸色，那就是黄纸 <code>#E8D7B5</code> 本身，不是渐变。</p>
+<p class="clause"><b>第 3 条　</b>窄屏把错位量从 <code>1.8px</code> 收到 <code>1.2px</code>，再大就像坏图；收小之后两层实色叠加的关系不变，只是距离变了。见 <a href="#act-03"><code>ACT-03</code></a> 第 3 条。</p>
+</div>
+<aside class="act__sign"><div class="signpane">
+<p class="signpane__h"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><use href="#g-seal"/></svg>签发栏</p>
+<dl><dt>版序</dt><dd>墨绿版先，炭黑版后</dd>
+<dt>定位孔</dt><dd><code>4</code> 只，孔距 <code>112px</code></dd>
+<dt>交叉引用</dt><dd>见 <a href="#act-03"><code>ACT-03</code></a> 第 3 条</dd></dl>
+</div></aside>
+<p class="act__bind">装订边距</p>
+<div class="act__foot"><p><span class="k">归档号</span> <code>BP-1963-114 / ACT-02</code></p>
+<p><span class="k">抬头编号</span> <code>ACT-02</code></p></div>
+</div></article>
+
+<div class="seam" data-seam></div>
+
+<article class="act" id="act-03"><div class="act__sheet">
+<div class="act__head">
+<p class="act__no"><code>ACT-03</code></p>
+<h2 class="act__title" data-plate="幕布升降的时序">幕布升降的时序</h2>
+</div>
+<div class="act__slate"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><use href="#g-curtain"/></svg>
+<p><span class="k">场次</span> <code>SE-07</code></p>
+<p><span class="k">行程</span> 整块落下 <code>100%</code></p>
+<p><span class="k">时长</span> <code>480ms</code></p></div>
+<div class="act__body">
+<p class="clause"><b>第 1 条　</b>翻到下一幕，内容区整块从上方落下 <code>100%</code>，<code>480ms</code> 走完，缓动性格是重布下坠：先加速后硬停，曲线 <code>cubic-bezier(0.6,0,0.9,0.4)</code>。</p>
+<p class="clause"><b>第 2 条　</b>落到底部时露出下一幕；边缘带 <code>2px</code> 单向布褶阴影，方向固定向下，不做模糊，也不做成浮起来的卡片。阴影只加在纸的下缘一条，别的边一律干净。</p>
+<p class="clause"><b>第 3 条　</b>窄屏保留同一时序，只把错位描边从 <code>1.8px</code> 收到 <code>1.2px</code>；幕布不因为屏幕窄就把落下改成淡入。见 <a href="#act-02"><code>ACT-02</code></a> 第 3 条。</p>
+</div>
+<aside class="act__sign"><div class="signpane">
+<p class="signpane__h"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><use href="#g-seal"/></svg>签发栏</p>
+<dl><dt>缓动</dt><dd><code>0.6 / 0 / 0.9 / 0.4</code></dd>
+<dt>布褶阴影</dt><dd><code>0 2px 0</code>，单向向下</dd>
+<dt>交叉引用</dt><dd>见 <a href="#act-02"><code>ACT-02</code></a> 第 3 条</dd></dl>
+</div></aside>
+<p class="act__bind">装订边距</p>
+<div class="act__foot"><p><span class="k">归档号</span> <code>BP-1963-114 / ACT-03</code></p>
+<p><span class="k">抬头编号</span> <code>ACT-03</code></p></div>
+</div></article>
+
+<div class="seam" data-seam></div>
+
+<article class="act" id="act-04"><div class="act__sheet">
+<div class="act__head">
+<p class="act__no"><code>ACT-04</code></p>
+<h2 class="act__title" data-plate="抬头编号的归档">抬头编号的归档</h2>
+</div>
+<div class="act__slate"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><use href="#g-cell"/></svg>
+<p><span class="k">场次</span> <code>SE-09</code></p>
+<p><span class="k">抬头</span> 占满 <code>9</code> 栏</p>
+<p><span class="k">跳变</span> <code>140ms</code>，只换一位数字</p></div>
+<div class="act__body">
+<p class="clause"><b>第 1 条　</b>抬头占满 9 栏：片号、片名、幕次总数。片号 <code>BP-1963-114</code> 末尾多一位手写流水号，它不用等宽体，由 <code>0.8px</code> 硬线画成，九个数字各自的尾巴形状都不一样。</p>
+<p class="clause"><b>第 2 条　</b>进入新幕次时，抬头编号做一次 <code>140ms</code> 的原地跳变，只换一位数字，不做整串位移，也不换行。滚动推进幕次，编号跟着走，是这套公文的进度条。</p>
+<p class="clause"><b>第 3 条　</b>幕次编号按剧本幕次编排，从 <code>ACT-01</code> 到 <code>ACT-07</code>；编号用等宽体且小数点对齐，签发栏的条款可以直接把它当锚点引用。</p>
+</div>
+<aside class="act__sign"><div class="signpane">
+<p class="signpane__h"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><use href="#g-seal"/></svg>签发栏</p>
+<dl><dt>编号体制</dt><dd><code>ACT-01</code> 至 <code>ACT-07</code></dd>
+<dt>对齐</dt><dd>等宽体，小数点对齐</dd>
+<dt>交叉引用</dt><dd>见 <a href="#act-05"><code>ACT-05</code></a> 第 1 条</dd></dl>
+</div></aside>
+<p class="act__bind">装订边距</p>
+<div class="act__foot"><p><span class="k">归档号</span> <code>BP-1963-114 / ACT-04</code></p>
+<p><span class="k">抬头编号</span> <code>ACT-04</code></p></div>
+</div></article>
+
+<div class="seam" data-seam></div>
+
+<article class="act" id="act-05"><div class="act__sheet">
+<div class="act__head">
+<p class="act__no"><code>ACT-05</code></p>
+<h2 class="act__title" data-plate="签发栏与印章">签发栏与印章</h2>
+</div>
+<div class="act__slate"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><use href="#g-seal"/></svg>
+<p><span class="k">场次</span> <code>SE-11</code></p>
+<p><span class="k">下沉</span> <code>4</code> 个基线／<code>28px</code></p>
+<p><span class="k">压深</span> <code>6</code> 段 × <code>40ms</code></p></div>
+<div class="act__body">
+<p class="clause"><b>第 1 条　</b>签发栏的条款可以交叉引用幕次，例如「见 <a href="#act-03"><code>ACT-03</code></a> 第 2 条」。栏比正文整体下沉 4 个基线，也就是 <code>28px</code>：整张纸看上去就是一张要签字的东西。</p>
+<p class="clause"><b>第 2 条　</b>点印章时外圈按 6 段依次压深，每段 <code>40ms</code>，共 <code>240ms</code> 一圈走完，并在编号后面补一位流水号。压深的顺序固定从正上方起，顺时针走，不重复压同一段。</p>
+<p class="clause"><b>第 3 条　</b>这一栏没签收之前，场次表不出票；编号停在待签收状态，抬头条上写着待签收。见 <a href="#act-07"><code>ACT-07</code></a> 第 1 条。</p>
+</div>
+<aside class="act__sign"><div class="signpane">
+<p class="signpane__h"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><use href="#g-seal"/></svg>签发栏</p>
+<dl><dt>压深段数</dt><dd><code>6</code> 段，每段 <code>40ms</code></dd>
+<dt>流水号</dt><dd>签收后补一位，手写硬线</dd>
+<dt>交叉引用</dt><dd>见 <a href="#act-07"><code>ACT-07</code></a> 第 1 条</dd></dl>
+</div></aside>
+<p class="act__bind">装订边距</p>
+<div class="act__foot"><p><span class="k">归档号</span> <code>BP-1963-114 / ACT-05</code></p>
+<p><span class="k">抬头编号</span> <code>ACT-05</code></p></div>
+</div></article>
+
+<div class="seam" data-seam></div>
+
+<article class="act" id="act-06"><div class="act__sheet">
+<div class="act__head">
+<p class="act__no"><code>ACT-06</code></p>
+<h2 class="act__title" data-plate="晒褪的墨绿">晒褪的墨绿</h2>
+</div>
+<div class="act__slate"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><use href="#g-cell"/></svg>
+<p><span class="k">场次</span> <code>SE-14</code></p>
+<p><span class="k">色相</span> <code>173°</code></p>
+<p><span class="k">明度</span> <code>21.96%</code></p></div>
+<div class="act__body">
+<p class="clause"><b>第 1 条　</b>墨绿 <code>#0E6258</code> 取自门头上被阳光晒褪的刷色，色相 <code>173°</code>、明度 <code>21.96%</code>，是湿刷子的颜色：亮一点就成了配色表上的绿，暗一点就变成黑。</p>
+<p class="clause"><b>第 2 条　</b>描线端点略钝、线宽 <code>1.6px</code>、画在 16 单位网格上：「幕次」是拉起的幕布两角，「签发」是印章外圈加编号，「场次」是胶片格。线色继承文字色并降 25% 明度，不用彩色字形，也不用任何表情符号。</p>
+<p class="clause"><b>第 3 条　</b>全页只有三个色值：黄纸 <code>#E8D7B5</code>、墨绿 <code>#0E6258</code>、炭黑 <code>#221C10</code>，面积比 48 / 30 / 22。没有第四个色相，也没有渐变；深浅只来自两版之间的错位。</p>
+</div>
+<aside class="act__sign"><div class="signpane">
+<p class="signpane__h"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><use href="#g-seal"/></svg>签发栏</p>
+<dl><dt>色值</dt><dd><code>#E8D7B5</code> / <code>#0E6258</code> / <code>#221C10</code></dd>
+<dt>面积</dt><dd><code>48 / 30 / 22</code></dd>
+<dt>交叉引用</dt><dd>见 <a href="#act-01"><code>ACT-01</code></a> 第 2 条</dd></dl>
+</div></aside>
+<p class="act__bind">装订边距</p>
+<div class="act__foot"><p><span class="k">归档号</span> <code>BP-1963-114 / ACT-06</code></p>
+<p><span class="k">抬头编号</span> <code>ACT-06</code></p></div>
+</div></article>
+
+<div class="seam" data-seam></div>
+
+<article class="act" id="act-07"><div class="act__sheet">
+<div class="act__head">
+<p class="act__no"><code>ACT-07</code></p>
+<h2 class="act__title" data-plate="场次表与排期">场次表与排期</h2>
+</div>
+<div class="act__slate"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><use href="#g-cell"/></svg>
+<p><span class="k">场次</span> <code>SE-16</code></p>
+<p><span class="k">周数</span> <code>11</code></p>
+<p><span class="k">版本</span> 每周一版</p></div>
+<div class="act__body">
+<p class="clause"><b>第 1 条　</b>片子在 1963 年放了 <code>11</code> 周；场次表按周排，每周一版，版与版之间靠 1.8px 错位描边分开，不靠分隔线。第 <code>12</code> 周没有版，因为它没有上映。</p>
+<p class="clause"><b>第 2 条　</b>这一幕还没排期。先把场地档期填进签发栏，编号会自动补上。空着的场次不占编号位，等档期填进来再排，避免编号跳号。</p>
+<p class="clause"><b>第 3 条　</b>条款之间留 <code>36px</code>，幕次之间留 <code>84px</code> 并加一条带 1.8px 错位的实色分隔；基线单位 <code>7px</code>，所有竖向间距都是它的整数倍。</p>
+</div>
+<aside class="act__sign"><div class="signpane">
+<p class="signpane__h"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><use href="#g-seal"/></svg>签发栏</p>
+<dl><dt>上映周数</dt><dd><code>11</code> 周，每周一版</dd>
+<dt>当前状态</dt><dd>未排期，等场地档期</dd>
+<dt>交叉引用</dt><dd>见 <a href="#act-05"><code>ACT-05</code></a> 第 3 条</dd></dl>
+</div></aside>
+<p class="act__bind">装订边距</p>
+<div class="act__foot"><p><span class="k">归档号</span> <code>BP-1963-114 / ACT-07</code></p>
+<p><span class="k">抬头编号</span> <code>ACT-07</code></p></div>
+</div></article>
+</div></section>
+
+<!-- 签发栏与印章：印章的 6 段压深与流水号在这里可达可见（契约 §9.12） -->
+<section class="sign" aria-labelledby="sign-h"><div class="wrap sign__grid">
+<div class="sign__main">
+<h2 id="sign-h">签发栏</h2>
+<p class="prose">签发栏盖在纸的右下区，比正文下沉 28px。点一次印章，外圈按 6 段依次压深，每段 40ms，然后在编号后面补一位手写流水号；流水号不用等宽体，是 0.8px 硬线画出来的九个数字之一。</p>
+<div class="seal-wrap">
+<button class="seal" type="button" id="seal" aria-label="盖签发印章，外圈按六段依次压深"><svg viewBox="0 0 132 132" aria-hidden="true">
+<path class="ring" data-seg="0" d="M68.93 10.08A56 56 0 0 1 112.97 35.5"/>
+<path class="ring" data-seg="1" d="M115.9 40.58A56 56 0 0 1 115.9 91.42"/>
+<path class="ring" data-seg="2" d="M112.97 96.5A56 56 0 0 1 68.93 121.92"/>
+<path class="ring" data-seg="3" d="M63.07 121.92A56 56 0 0 1 19.03 96.5"/>
+<path class="ring" data-seg="4" d="M16.1 91.42A56 56 0 0 1 16.1 40.58"/>
+<path class="ring" data-seg="5" d="M19.03 35.5A56 56 0 0 1 63.07 10.08"/>
+<g class="core"><circle cx="66" cy="66" r="40"/><path d="M50 58h32M50 74h32M66 42v48"/></g>
+</svg></button>
+<div class="seal__out">
+<p>当前状态：<b id="sealstate">待签收</b></p>
+<p class="serial">签收编号 <code>BP-1963-114</code><svg class="tail" id="sealtail" viewBox="0 0 16 22" aria-hidden="true"><use href="#h4"/></svg></p>
+<p>压深段数 <code id="segs">0 / 6</code>　　流水号 <code id="serial">—</code></p>
+</div>
+</div>
+<p class="empty" id="empty">这一幕还没排期。先把场地档期填进签发栏，编号会自动补上。</p>
+</div>
+<div class="sign__side">
+<h3>十一周的场次表</h3>
+<table class="schedule">
+<caption>片号 <code>BP-1963-114</code> 的场次表，每周一版，第 12 周没有版</caption>
+<thead><tr><th scope="col">周次</th><th scope="col">版号</th><th scope="col">场次</th><th scope="col">归档号</th></tr></thead>
+<tbody>
+<tr><td>第 1 周</td><td><code>V-01</code></td><td><code>SE-01</code></td><td><code>BP-1963-114 / ACT-01 / 第 1 版</code></td></tr>
+<tr><td>第 2 周</td><td><code>V-02</code></td><td><code>SE-02</code></td><td><code>BP-1963-114 / ACT-01 / 第 2 版</code></td></tr>
+<tr><td>第 3 周</td><td><code>V-03</code></td><td><code>SE-04</code></td><td><code>BP-1963-114 / ACT-02 / 第 1 版</code></td></tr>
+<tr><td>第 4 周</td><td><code>V-04</code></td><td><code>SE-05</code></td><td><code>BP-1963-114 / ACT-02 / 第 2 版</code></td></tr>
+<tr><td>第 5 周</td><td><code>V-05</code></td><td><code>SE-07</code></td><td><code>BP-1963-114 / ACT-03 / 第 1 版</code></td></tr>
+<tr><td>第 6 周</td><td><code>V-06</code></td><td><code>SE-09</code></td><td><code>BP-1963-114 / ACT-04 / 第 1 版</code></td></tr>
+<tr><td>第 7 周</td><td><code>V-07</code></td><td><code>SE-11</code></td><td><code>BP-1963-114 / ACT-05 / 第 1 版</code></td></tr>
+<tr><td>第 8 周</td><td><code>V-08</code></td><td><code>SE-12</code></td><td><code>BP-1963-114 / ACT-05 / 第 2 版</code></td></tr>
+<tr><td>第 11 周</td><td><code>V-11</code></td><td><code>SE-16</code></td><td><code>BP-1963-114 / ACT-07 / 第 1 版</code></td></tr>
+<tr><td>第 12 周</td><td>—</td><td>—</td><td>没有版：这一周没有上映</td></tr>
+</tbody></table>
+</div>
+</div></section>
+
+<!-- 石版错位（错误态）：整条以可见区块列出，不藏在 JS 分支里（契约 §9.12） -->
+<section class="fault" aria-labelledby="fault-h"><div class="wrap">
+<h2 id="fault-h">石版错位，签发栏对不上</h2>
+<div class="grid9 fault__grid">
+<div class="fault__main">
+<p class="fault__line" role="alert">石版错位（错误码 <code>LITHO-27</code>）：墨绿版与炭黑版的定位孔对上了，签发栏那一块的框线却落在纸边上，压掉 <code>1.8px</code>，编号对不上。</p>
+<p class="fault__frame">这一版重印之前，<a href="#act-05"><code>ACT-05</code></a> 的条款与第七幕的场次表都按上一版的编号读；盖章不生效，流水号也不补位。上一版冻结在：抬头编号 <code>ACT-01</code>、纸底 <code>#E8D7B5</code>、正文对底 <code>11.94:1</code>。定位孔复检与两版间距重排都排在 <code>06:20</code> 的开印窗口。错误码 <code>LITHO-27</code> 由方案 27 的世界观补定，取意石版错位、签发栏对不上。</p>
+<p class="cue"><button class="btn" type="button" id="replate">把重印排进 06:20 开印窗口</button></p>
+<p class="packet" id="packet">重印队还没接到这一版。开印窗口是 <code>06:20</code>，到窗之前签发栏保持对不上，编号停在 <code>ACT-01</code>。</p>
+</div>
+<div class="fault__side">
+<h3>冻结值</h3>
+<ul class="fault__spec">
+<li>错位量 <code>1.8px</code>，方向固定右上</li>
+<li>窄屏错位量 <code>1.2px</code>，方向不变</li>
+<li>页边距 <code>48px</code>，栏距 <code>20px</code>，基线 <code>7px</code></li>
+<li>正文对底 <code>11.94:1</code>，主色对底 <code>5.10:1</code></li>
+<li>幕次间距 <code>84px</code>，条款间距 <code>36px</code></li>
+<li>签发栏下沉 <code>28px</code>（4 个基线）</li>
+</ul>
+</div>
+</div>
+</div></section>
+
+<!-- 图版区：只用印件与打字稿的原件翻拍，每张都带署名 -->
+<section class="plates-sec" aria-labelledby="plates-h"><div class="wrap">
+<h2 id="plates-h">原件翻拍图版</h2>
+<p class="prose">六张图版都是「印出来的单张通告」这一路东西的原件翻拍：宣言单张、打字稿、复写三联单、门口的手写公告。不做旧、不加滤镜，也不用图库式人物合影；每张标出原件页与权利状态，便于逐张比对抬头与编号的排法。</p>
+<ul class="plates">
+<li class="plate plate--a">
+<div class="plate__frame"><img src="assets/reuse-s16-plate-02-parole-liberta.jpg" width="1280" height="1369" alt="一册宣言单张的封面翻拍，标题排成大小不等的方块，四周是不规则留白"></div>
+<figcaption><b>图版二</b> 宣言单张封面：标题被拆成几块大小不等的字团，留白不成行。抬头编号的「同一条纸可以被归档」就是从这个排法里拿的。<span class="ref">F. T. Marinetti · 公有领域 · <a href="https://commons.wikimedia.org/wiki/File:Filippo_Tommaso_Marinetti_-_Parole_in_Liberta_1932_C.jpg">原件页（Wikimedia Commons）</a></span></figcaption>
+</li>
+<li class="plate plate--b">
+<div class="plate__frame"><img src="assets/reuse-s11-doc-05-typescript.jpg" width="1280" height="2026" alt="一张打字稿的翻拍，纸面有横向折痕，页边有手写批注与签名"></div>
+<figcaption><b>图版三</b> 打字稿一页：页边有两处铅笔批注，纸面留着横向折痕。签发栏的交叉引用格式照着这类页边批注写。<span class="ref">George Sterling／Ambrose Bierce · 公有领域 · <a href="https://commons.wikimedia.org/wiki/File:Jan._1904_George_Sterling_and_Ambrose_Bierce_comments_on_A_Wine_of_Wizardry_typescript.jpg">原件页（Wikimedia Commons）</a></span></figcaption>
+</li>
+<li class="plate plate--c">
+<div class="plate__frame"><img src="assets/reuse-s11-doc-02-carbon.jpg" width="1280" height="1517" alt="一叠复写三联单的翻拍，三张纸叠着，最下面一张字迹最淡"></div>
+<figcaption><b>图版四</b> 复写三联单：三张纸一次写成，第三联的碳粉最淡。这个「一版一色」的分层关系就是墨绿版与炭黑版的来处。<span class="ref">Jonathan Schilling · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File:Tape_Retention_Scratch_Control_triplicate_form.jpg">原件页（Wikimedia Commons）</a></span></figcaption>
+</li>
+<li class="plate plate--d">
+<div class="plate__frame"><img src="assets/reuse-s11-doc-07-copy.jpg" width="1280" height="1642" alt="一份打字稿副本的翻拍，左上角有档案编号，纸面有装订孔"></div>
+<figcaption><b>图版五</b> 打字稿副本：左上角的档案编号与装订孔的位置，就是第 9 栏装订边距要留多宽的参照。<span class="ref">美国国家档案（DPLA）· 公有领域 · <a href="https://dp.la/item/90e67e28ee184517bba8b26d45456111">原件页（Digital Public Library of America）</a></span></figcaption>
+</li>
+<li class="plate plate--e">
+<div class="plate__frame"><img src="assets/reuse-s01-plate-05-hearing.jpg" width="1280" height="1017" alt="一块手写公告牌的翻拍，粗笔写着满座三个字母，牌面有雨渍"></div>
+<figcaption><b>图版六</b> 门口的手写公告牌：粗笔一次写成，笔画端点略钝。自绘图标的 1.6px 线宽与钝端点照着它描。<span class="ref">Harris &amp; Ewing · 公有领域 · <a href="https://www.loc.gov/item/2016874466/">原件页（Library of Congress）</a></span></figcaption>
+</li>
+<li class="plate plate--f">
+<div class="plate__frame"><img src="assets/reuse-s16-plate-01-figaro-manifesto.jpg" width="960" height="1395" alt="单张通告的印件翻拍，密排两栏铅字，纸边有折痕与订孔"></div>
+<figcaption><b>图版七</b> 单张通告的印件：密排两栏铅字、纸边订孔。抬头三条字段的先后顺序与这张单张一致。<span class="ref">Le Figaro · 公有领域 · <a href="https://commons.wikimedia.org/wiki/File:Manifesto_futurismo_Le_Figaro.jpg">原件页（Wikimedia Commons）</a></span></figcaption>
+</li>
+</ul>
+</div></section>
+
+<!-- 动效与降级 -->
+<section class="motion-sec" aria-labelledby="motion-h"><div class="wrap">
+<h2 id="motion-h">动效与降级</h2>
+<p class="prose">位移只跑 transform 与 opacity 两个属性，不做模糊、不做色彩插值。滚动的推进量按幕次切分，每一幕有自己的一段；悬停的错位副本与盖章的压深都能在静态截图里看到结果。</p>
+<ul class="spec-list">
+<li><b>滚动　</b>纵向滚动推进幕次，每进入一个新幕次，抬头编号做一次 140ms 的原地跳变，只换一位数字；幕次分隔线的错位描边在进入视口 30% 时从 0 扩到 1.8px，180ms，阶跃不缓动。</li>
+<li><b>悬停　</b>条款行右端浮出 1.8px 的错位副本，100ms 生长到 108px，墨绿版在炭黑版右下方再错 1.8px，像手绘时多描了一笔；指针离开即收回。</li>
+<li><b>加载　</b>先出黄纸底 160ms，再按幕次顺序逐块压印：每幕 220ms，幕与幕之间间隔 60ms，最后一幕落定之后才落签发栏。压印只动不透明度与 14px 的竖向位移。</li>
+<li><b>转场　</b>点幕次索引里的任意一条，那一幕的内容区整块从上方落下 100%，480ms，缓动 cubic-bezier(0.6,0,0.9,0.4)：先加速后硬停，不做回弹。</li>
+<li><b>光标　</b>条款区与印章上用自绘的 26px 排笔图形作光标，笔尖 3px 宽，笔杆按石版刷色的宽度画；笔尖落点对准字符基线的左上角。</li>
+<li><b>微交互　</b>点印章时外圈按 6 段依次压深，每段 40ms，一圈 240ms 走完，并在编号后补一位手写流水号；流水号从九个描下来的数字里取，尾巴形状各不相同。</li>
+</ul>
+<p class="degrade bar-t"><b>减少动态时的再发明</b>（<code>prefers-reduced-motion: reduce</code>）：幕布下降与逐块压印停止推进，但压印机制完整静态保留：压印分区、1.8px 错位描边与 7px 基线全部按原值静态呈现，不把错位量归零、不改窄屏的 1.2px、不动 5:3 的栏宽比。过渡只压到 120ms 的不透明度切换：抬头编号不再跳变而是直接换字，分隔线的错位描边直接以 1.8px 呈现，悬停的错位副本仍然生长但只走 120ms。</p>
+</div></section>
+</main>
+
+<footer><div class="wrap foot-grid">
+<div><h3>抬头与编号</h3>
+<p>片号 <code>BP-1963-114</code>，幕次总数 <code>ACT-07</code>，片名占抬头中段。片号末尾那一位手写流水号由 0.8px 硬线画成，九个数字各自不同，是这套公文里唯一不肯对齐的东西。</p></div>
+<div><h3>当前状态</h3>
+<p>石版错位（错误码 <code>LITHO-27</code>）：签发栏的框线压掉 <code>1.8px</code>，编号对不上。重印排在 <code>06:20</code> 开印窗口；到窗之前七幕的条款与场次表照读，盖章不生效。</p></div>
+<div><h3>色值与图版</h3>
+<p>黄纸 <code>#E8D7B5</code> 48%、墨绿 <code>#0E6258</code> 30%、炭黑 <code>#221C10</code> 22%，没有第四色。六张图版取自 Wikimedia Commons、DPLA 与国会图书馆的公有领域与 CC 授权原件翻拍，作者与许可逐张记在 assets/CREDITS.md。</p></div>
+</div>
+<p class="wrap sig">方案 27 · 手绘公文幕（Hand-Painted Bill Dispatch）· 印度手绘电影海报／石版错位 · 本页为可运行原型，用于验证字段 3 的三色配比（<code>#E8D7B5</code> 48% ／ <code>#0E6258</code> 30% ／ <code>#221C10</code> 22%）、字段 5 的 9 栏公文抬头与 5:3 签发栏、字段 6 的 1.8px 石版分色错位与幕布升降、以及错误码 <code>LITHO-27</code> 的实现方式。</p>
+</footer>
+
+<script>
+(function () {
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  var actnow = document.getElementById('actnow');
+  var acts = [].slice.call(document.querySelectorAll('.act'));
+  var seams = [].slice.call(document.querySelectorAll('[data-seam]'));
+  var t1 = 0;
+
+  /* 字段 7 滚动：进入新幕次时抬头编号做一次 140ms 的原地跳变，只换一位数字 */
+  function jump(n) {
+    var code = 'ACT-0' + n;
+    if (actnow.textContent === code) return;
+    actnow.textContent = code;
+    if (reduce.matches) return;
+    actnow.classList.remove('is-jump'); void actnow.offsetWidth; actnow.classList.add('is-jump');
+    clearTimeout(t1);
+    t1 = setTimeout(function () { actnow.classList.remove('is-jump'); }, 160);
+  }
+
+  /* 字段 7 滚动：幕次分隔线的错位描边在进入视口 30% 时从 0 扩到 1.8px，180ms 阶跃 */
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (list) {
+      list.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var i = acts.indexOf(e.target);
+        jump(i + 1);
+        if (seams[i - 1]) seams[i - 1].classList.add('armed');
+      });
+    }, { threshold: [0.05, 0.3] });
+    acts.forEach(function (a) { io.observe(a); });
+    var ioS = new IntersectionObserver(function (list) {
+      list.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('armed'); ioS.unobserve(e.target);
+      });
+    }, { rootMargin: '0px 0px -70% 0px' });
+    seams.forEach(function (s) { ioS.observe(s); });
+  } else {
+    seams.forEach(function (s) { s.classList.add('armed'); });
+  }
+
+  /* 字段 7 转场：点幕次索引，那一幕整块从上方落下 100%（480ms），落到底才露出来 */
+  var nav = document.querySelector('.acts-nav');
+  if (nav) nav.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href^="#act-"]');
+    if (!a) return;
+    var target = document.getElementById(a.getAttribute('href').slice(1));
+    if (!target || reduce.matches) return;
+    target.classList.remove('is-dropping'); void target.offsetWidth; target.classList.add('is-dropping');
+    setTimeout(function () { target.classList.remove('is-dropping'); }, 520);
+  });
+
+  /* 字段 7 微交互：印章外圈按 6 段依次压深（每段 40ms），并在编号后补一位手写流水号 */
+  var seal = document.getElementById('seal');
+  var rings = [].slice.call(document.querySelectorAll('.seal .ring'));
+  var sego = document.getElementById('segs'), serial = document.getElementById('serial');
+  var sealtail = document.getElementById('sealtail'), sealstate = document.getElementById('sealstate');
+  var signstate = document.getElementById('signstate'), empty = document.getElementById('empty');
+
+  if (seal) seal.addEventListener('click', function () {
+    if (seal.disabled) return;
+    seal.disabled = true;
+    rings.forEach(function (r, i) {
+      setTimeout(function () {
+        r.classList.add('on');
+        sego.textContent = (i + 1) + ' / 6';
+        if (i === 5) {
+          serial.textContent = '07';
+          sealtail.innerHTML = '<use href="#h7"/>';
+          sealstate.textContent = '已签收';
+          signstate.textContent = '已签收';
+          empty.textContent = '第三幕的场次表已签收，编号补上流水号 07。空着的场次仍不占编号位，等档期填进来再排。';
+        }
+      }, 40 * (i + 1));
+    });
+  });
+
+  var sign3 = document.getElementById('sign3');
+  if (sign3) sign3.addEventListener('click', function () {
+    var t = document.getElementById('act-05');
+    if (t) t.scrollIntoView({ behavior: reduce.matches ? 'auto' : 'smooth', block: 'start' });
+    sign3.disabled = true;
+    sign3.textContent = '已把第三幕的场次表送到签发栏，等盖章';
+  });
+
+  var replate = document.getElementById('replate'), packet = document.getElementById('packet');
+  if (replate) replate.addEventListener('click', function () {
+    replate.disabled = true;
+    replate.textContent = '已排进 06:20 开印窗口，等定位孔复检';
+    packet.textContent = '重印队还没到。石版错位仍为错误码 LITHO-27，签发栏的框线继续压掉 1.8px；06:20 开印窗口打开后先复检 4 只定位孔、再把两版间距重排回 1.8px，编号才会回到当前幕次。';
+  });
+})();
+</script>
+</body>
+</html>

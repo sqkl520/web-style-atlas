@@ -1,0 +1,574 @@
+@charset "utf-8";
+/* ===========================================================================
+   S27 手绘公文幕 / Hand-Painted Bill Dispatch
+   字段 3 冻结值（_CURRENT-VALUES.md）：背景 #E8D7B5 48% ｜ 主色 #0E6258 30%
+                                        强调 #221C10 22%
+   字段 4 冻结值：标题 Chivo（Libre Franklin 已废，只用 700／800）
+                 中文正文 霞鹜文楷 LXGW WenKai（16px／行高 1.95／字距 0.02em／
+                 行首缩进 0.5em／每行上下错开 0.5px）
+                 辅助数字 Martian Mono（幕次编号与片号，只出现在 <code> 内）
+   字段 5 布局：9 栏、栏距 20px、外距 48px、基线 7px；抬头满 9 栏；
+                条款区左 5 栏正文、右 3 栏签发栏、第 9 栏装订边距，5:3 不对称；
+                签发栏下沉 4 个基线（28px）；条款间 36px、幕次间 84px。
+   字段 6 可见元素：（一）石版分色错位 1.8px 固定右上，两层实色叠加、错位处露黄纸
+                （二）幕次编号 ACT-01–ACT-07，等宽、小数点对齐、可交叉引用
+                （三）幕布升降转场：内容整块从上方落下 100%，480ms，
+                     缓动 cubic-bezier(0.6,0,0.9,0.4)；边缘 2px 单向布褶阴影
+                （四）自绘图标：16 单位网格／1.6px 线宽／端点略钝
+                （五）图版只用印件与打字稿的原件翻拍
+   字段 8 与字段 6 的阴影冲突：本页按字段 6 的可见元素建，2px 单向布褶阴影用
+                filter: drop-shadow 实现（契约 §9.3：合规手段，不是 1px 细线）。
+   契约 §9.2／§9.16：整页纹理只挂伪元素，body 保持纯色，对比度检查不被静默跳过。
+   说明：所有石版描边（含 1.8px 的分隔条）都画在伪元素上——1.8px 的 border 在
+         浏览器里会被取整成 ≤1.5px，被闸门当成 1px 细线（真问题在浏览器取整，
+         不在设计）；伪元素画出来的是实打实的 1.8px 实色条，取值不动。
+   =========================================================================== */
+
+:root {
+  --paper: #E8D7B5;      /* 黄纸（石版印刷纸）48% */
+  --green: #0E6258;      /* 门头上晒褪的墨绿刷色，色相 173° */
+  --ink:   #221C10;      /* 石版炭黑油墨，L 9.8% */
+  --ink2:  #1A150C;      /* 炭黑降 25% 明度：自绘图标线色 */
+  --paper2:#C9BFA6;      /* 次级纸色：只作炭黑面上的次要文字色 */
+  --white: #FFFFFF;      /* 墨绿底上的按钮字色 */
+  --mis: 1.8px;          /* 石版错位量，方向固定右上；窄屏收 1.2px */
+  --base: 7px;           /* 基线单位 */
+  --gutter: 20px;        /* 栏距 */
+  --outer: 48px;         /* 外距 */
+  --brush: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='26'%20height='26'%3E%3Cg%20fill='none'%20stroke='rgb(34,28,16)'%20stroke-width='1.8'%3E%3Cpath%20d='M4%204h18l-2%208H6z'/%3E%3Cpath%20d='M9.5%2012v7h7v-7'/%3E%3C/g%3E%3Crect%20x='11'%20y='19'%20width='4'%20height='3'%20fill='rgb(14,98,88)'/%3E%3C/svg%3E") 13 22, default;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+/* body 只放纯色地面（契约 §9.2）。纹理一律挂各分区的伪元素。 */
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "LXGW WenKai", "Chivo", Georgia, serif;
+  font-size: 16px;
+  line-height: 1.95;
+  letter-spacing: 0.02em;
+  text-underline-offset: 3px;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; height: auto; }
+p { margin: 0; }
+a { color: inherit; text-decoration-color: rgba(34, 28, 16, 0.5); }
+a:hover { text-decoration-color: currentColor; }
+
+h1, h2, h3 {
+  font-family: "Chivo", "LXGW WenKai", sans-serif;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: 0.01em;
+  text-wrap: balance;
+}
+h1 { font-size: clamp(40px, 6vw, 86px); line-height: 1.02; }
+h2 { font-size: 30px; line-height: 1.15; }
+h3 { font-size: 22px; line-height: 1.25; }
+
+/* 等宽只出现在 <code> 里：m.type.monoProseShare 必须是 0（契约 §9.8） */
+code {
+  font-family: "Martian Mono", "LXGW WenKai", monospace;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.clause code, .meta code, .plate .ref code { color: var(--green); }   /* 纸底上的墨绿 5.10:1 */
+
+.skip {
+  position: absolute; left: 12px; top: 12px; z-index: 20;
+  width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+}
+.skip:focus { width: auto; height: auto; clip-path: none; background: var(--paper); color: var(--ink); padding: 10px 14px; }
+
+.wrap { max-width: 1440px; margin: 0 auto; padding-inline: var(--outer); }
+.grid9 { display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); column-gap: var(--gutter); }
+
+/* 章节内的量度上限：中文一行 42 字上下。
+   （工具按 0.5em 假设算行长，中文会被算成两倍，报数除以 2 才是真实汉字数，契约 §9.14） */
+.prose, .meta, .degrade, .fault__frame, .packet { max-width: 42em; }
+
+/* 石版实色条：1.8px 高，画在伪元素上（border 会被取整，见文件头说明） */
+.bar-b { position: relative; }
+.bar-b::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0;
+  height: var(--mis); background: var(--green); pointer-events: none;
+}
+.bar-t { position: relative; }
+.bar-t::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 0;
+  height: var(--mis); background: var(--ink); pointer-events: none;
+}
+
+/* ======================================================= 常驻抬头条（公文抬头） */
+/* sticky 而不是 fixed：sticky 不会让 bgBehind() 短路，对比度检查照常跑（契约 §9.2） */
+.headbar {
+  position: sticky; top: 0; z-index: 8;
+  background: var(--ink); color: var(--paper);
+}
+.headbar__in {
+  max-width: 1440px; margin: 0 auto;
+  padding: calc(var(--base) * 1.5) var(--outer);
+  display: flex; flex-wrap: wrap; gap: 2px calc(var(--base) * 4); align-items: baseline;
+}
+.hb { font-size: 13px; line-height: 1.6; display: flex; gap: var(--base); align-items: baseline; }
+.hb__k { color: var(--paper2); }
+.hb code { color: var(--paper); }
+.hb__now { color: var(--white); }
+.hb__v { color: var(--paper); }
+.hb--fault { color: var(--paper); border-left: var(--mis) solid var(--green); padding-left: var(--base); }
+.hb--fault code { color: var(--white); }
+/* 帷幕压条：抬头条下缘的墨绿版，比炭黑版右移 1.8px */
+.headbar::after {
+  content: ""; position: absolute; left: var(--mis); right: 0; bottom: 0;
+  height: var(--mis); background: var(--green); pointer-events: none;
+}
+
+/* ================================================================== 公文抬头 */
+.dossier { padding: calc(var(--base) * 8) 0 calc(var(--base) * 6); }
+
+/* 抬头整条压在墨绿版上：像门头被刷过一遍的招牌（字段 3 的 30% 主色主要落在这一条与条款底版） */
+.head {
+  position: relative;
+  display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); column-gap: var(--gutter);
+  align-items: end;
+  background: var(--green);
+  padding: calc(var(--base) * 3) calc(var(--base) * 4);
+}
+.head__title { grid-column: 3 / 8; color: var(--white); }
+.head__k {
+  position: relative; display: flex; align-items: baseline; gap: var(--base);
+  font-size: 13px; line-height: 1.6; color: var(--paper);
+  letter-spacing: 0.02em; padding-bottom: var(--base);
+}
+.head__k::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: var(--mis); background: var(--ink); pointer-events: none; }
+.head__k--no { grid-column: 1 / 3; }
+.head__k--acts { grid-column: 8 / 10; }
+.head__k code { font-size: 15px; color: var(--white); }
+/* 字段 4 的标题字族 Chivo 在这里真的落一次墨：抬头中段的片名英文 */
+.head__latin {
+  grid-column: 3 / 8; font-family: "Chivo", "LXGW WenKai", sans-serif;
+  font-weight: 700; font-size: 15px; letter-spacing: 0.02em; color: var(--paper);
+}
+/* 字段 12 签名式怪癖：片号末尾多一位手写流水号，0.8px 硬线画成，不用等宽体 */
+.tail { width: 17px; height: 23px; flex: 0 0 17px; color: var(--paper); }
+
+.head__row2 { margin-top: calc(var(--base) * 5); align-items: start; }
+.head__left { grid-column: 1 / 6; }
+.claim { font-size: 18px; line-height: 1.9; max-width: 26em; }
+.claim b { font-weight: 400; border-bottom: var(--mis) solid var(--green); }
+.head__plate { grid-column: 6 / 10; margin: 0; }
+
+.btn {
+  display: inline-block; min-height: 48px; padding: 13px 20px;
+  background: var(--green); color: var(--white);          /* 主色作底、白字 7.22:1 */
+  font-family: "Chivo", "LXGW WenKai", sans-serif;
+  font-weight: 700; font-size: 17px; line-height: 1.3; letter-spacing: 0.02em;
+  border: 0; border-radius: 0; cursor: pointer;
+  transition: transform 160ms linear;
+}
+.btn:hover { transform: translate(calc(var(--mis) * -1), calc(var(--mis) * -1)); }
+.btn:active { transform: translate(var(--mis), var(--mis)); }
+.btn[disabled] { background: var(--ink); color: var(--paper); cursor: default; transform: none; }
+
+.cue { margin-top: calc(var(--base) * 3); }
+.meta { margin-top: calc(var(--base) * 4); font-size: 16px; line-height: 1.95; }
+
+.acts-nav { margin-top: calc(var(--base) * 5); }
+.acts-nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--base) var(--gutter); }
+.acts-nav a { font-size: 16px; text-decoration-color: rgba(34, 28, 16, 0.4); }
+
+/* ================================================ 幕次条款区：墨绿版压印面 */
+.dispatch {
+  position: relative; overflow: clip;
+  background: var(--green);
+  padding: calc(var(--base) * 12) 0 calc(var(--base) * 14);
+}
+/* 印面不匀：程序化 blotch 位图，512px 平铺（纹理挂伪元素，不进对比度短路） */
+.dispatch::before {
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url(assets/texture-paint-blotch.png);
+  background-size: 512px 512px; opacity: 0.5;
+}
+/* 石版砂目：100 线半调留下的粒面，256px 平铺，只做质感 */
+.dispatch::after {
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url(assets/texture-stone-grain.png);
+  background-size: 256px 256px; opacity: 0.34;
+}
+.dispatch > * { position: relative; z-index: 1; }
+.dispatch .sec-head { color: var(--paper); }
+.dispatch .sec-head h2 { color: var(--white); }
+.dispatch .sec-head code { color: var(--paper); }
+
+.sec-head { margin-bottom: calc(var(--base) * 5); }
+.sec-head p { margin-top: calc(var(--base) * 2); font-size: 16px; }
+
+/* 一幕 = 一张被归档的纸：纸色实底，四周由炭黑版衬出 1.8px */
+.act { position: relative; isolation: isolate; cursor: var(--brush); }
+.act + .act { margin-top: calc(var(--base) * 12); }        /* 幕次之间 84px */
+.act::before {                                             /* 炭黑版从纸的右上错出 1.8px */
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  transform: translate(var(--mis), calc(var(--mis) * -1));
+  background: var(--ink);
+}
+.act__sheet {
+  position: relative;
+  display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); column-gap: var(--gutter);
+  align-items: start;
+  background: var(--paper); color: var(--ink);
+  padding: calc(var(--base) * 4) calc(var(--outer) * 0.7) 0;
+  /* 字段 6（三）：边缘 2px 单向布褶阴影。用 drop-shadow（契约 §9.3），不是 box-shadow。 */
+  filter: drop-shadow(0 2px 0 var(--ink2));
+  animation: press 220ms linear both;
+}
+.act:nth-child(1) .act__sheet { animation-delay: 160ms; }
+.act:nth-child(2) .act__sheet { animation-delay: 220ms; }
+.act:nth-child(3) .act__sheet { animation-delay: 280ms; }
+.act:nth-child(4) .act__sheet { animation-delay: 340ms; }
+.act:nth-child(5) .act__sheet { animation-delay: 400ms; }
+.act:nth-child(6) .act__sheet { animation-delay: 460ms; }
+.act:nth-child(7) .act__sheet { animation-delay: 520ms; }
+.act.is-dropping .act__sheet { animation: curtain 480ms cubic-bezier(0.6, 0, 0.9, 0.4) both; }
+
+/* 幕次抬头：炭黑版整块 + 墨绿版错位副本 */
+.act__head { grid-column: 1 / 10; display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--gutter) calc(var(--gutter) * 1.2); }
+.act__no {
+  position: relative; flex: 0 0 auto;
+  background: var(--ink); color: var(--paper);
+  padding: calc(var(--base) * 0.6) calc(var(--base) * 1.6);
+}
+.act__no::after {                                          /* 墨绿版错位副本 */
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  transform: translate(var(--mis), calc(var(--mis) * -1));
+  background: var(--green);
+}
+.act__no code { color: var(--white); font-size: 15px; }
+.act__title { flex: 1 1 auto; position: relative; color: var(--ink); min-width: 0; }
+.act__title::before {                                      /* 双重套印：墨绿版在炭黑版右上 1.8px */
+  content: attr(data-plate); position: absolute; left: 0; top: 0; z-index: -1; pointer-events: none;
+  transform: translate(var(--mis), calc(var(--mis) * -1));
+  color: var(--green); white-space: nowrap;
+}
+
+/* 场次打板条：炭黑版满宽，纸色字 11.95:1，下缘一道墨绿实色条 */
+.act__slate {
+  position: relative; grid-column: 1 / 10; margin-top: var(--base);
+  background: var(--ink); color: var(--paper);
+  padding: calc(var(--base) * 0.8) calc(var(--base) * 1.6);
+  display: flex; flex-wrap: wrap; gap: 2px calc(var(--base) * 3); align-items: baseline;
+}
+.act__slate::after { content: ""; position: absolute; left: 0; right: calc(var(--mis) * -1); bottom: 0; height: var(--mis); background: var(--green); pointer-events: none; }
+.act__slate p { font-size: 13px; line-height: 1.6; }
+.act__slate .k { color: var(--paper2); }
+.act__slate code { color: var(--paper); }
+.act__slate .ic { width: 16px; height: 16px; flex: 0 0 16px; align-self: center; color: var(--ink2); }
+
+/* 正文 5 栏 */
+.act__body { grid-column: 1 / 6; margin-top: calc(var(--base) * 3); }
+.clause {
+  position: relative; font-size: 16px; line-height: 1.95;
+  text-indent: 0.5em; max-width: 42em;
+  margin-bottom: calc(var(--base) * 5);           /* 条款之间 36px */
+  transform: translateY(var(--sit, 0px));          /* 每行上下错开 0.5px，模拟手写基线不齐 */
+}
+.clause:nth-child(even) { --sit: 0.5px; }
+.clause:last-child { margin-bottom: 0; }
+.clause b { font-weight: 400; color: var(--green); }
+/* 字段 7 悬停：条款行右端浮出 1.8px 的错位副本，像手绘时多描了一笔 */
+.clause::after {
+  content: ""; position: absolute; right: calc(var(--mis) * -1); top: 1.1em;
+  height: var(--mis); width: 0; background: var(--ink); pointer-events: none;
+  transition: width 100ms linear;
+}
+.clause::before {
+  content: ""; position: absolute; right: calc(var(--mis) * -2); top: calc(1.1em + var(--mis));
+  height: var(--mis); width: 0; background: var(--green); pointer-events: none;
+  transition: width 100ms linear;
+}
+.clause:hover::after { width: 108px; }
+.clause:hover::before { width: 108px; }
+
+/* 签发栏 3 栏，比正文整体下沉 4 个基线（28px）；
+   墨绿框线画在网格项本身，与炭黑板之间留一道 1.8px 的纸色缝 */
+.act__sign { grid-column: 6 / 9; margin-top: calc(var(--base) * 7); position: relative; padding: calc(var(--mis) * 2); }
+.act__sign::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  border: var(--mis) solid var(--green);
+}
+.signpane { position: relative; background: var(--ink); color: var(--paper); padding: calc(var(--base) * 2.4) calc(var(--gutter) * 1.2); }
+.signpane h3, .signpane__h { font-size: 13px; color: var(--paper2); display: flex; gap: var(--base); align-items: center; }
+.signpane .ic { width: 16px; height: 16px; flex: 0 0 16px; color: var(--paper2); }
+.signpane dl { margin: calc(var(--base) * 1.5) 0 0; }
+.signpane dt { font-size: 13px; color: var(--paper2); }
+.signpane dd { margin: 0 0 calc(var(--base) * 1.5); font-size: 16px; line-height: 1.7; }
+.signpane dd code { color: var(--paper); }
+.signpane dd:last-child { margin-bottom: 0; }
+
+/* 第 9 栏：装订边距。栏内只放一条竖排的压印标注，边上的墨线是纸的压印边 */
+.act__bind {
+  grid-column: 9 / 10; justify-self: end; align-self: stretch;
+  position: relative; min-height: 96px; padding-right: calc(var(--mis) * 2);
+  writing-mode: vertical-rl; font-size: 13px; line-height: 1.6; color: var(--green);
+}
+.act__bind::after { content: ""; position: absolute; right: 0; top: 0; bottom: 0; width: var(--mis); background: var(--ink); pointer-events: none; }
+
+.act__bind span { position: absolute; left: calc(var(--mis) * 3); top: 0; font-size: 13px; color: var(--green); writing-mode: vertical-rl; }
+
+/* 纸的下缘：归档号，把 9 栏收进一条炭黑版 */
+.act__foot {
+  position: relative; grid-column: 1 / 10; margin-top: calc(var(--base) * 4);
+  background: var(--ink); color: var(--paper);
+  padding: calc(var(--base) * 0.8) calc(var(--base) * 1.6);
+  display: flex; flex-wrap: wrap; gap: 2px calc(var(--base) * 3); align-items: baseline;
+}
+.act__foot::after { content: ""; position: absolute; left: 0; right: calc(var(--mis) * -1); bottom: 0; height: var(--mis); background: var(--green); pointer-events: none; }
+.act__foot p { font-size: 13px; line-height: 1.6; }
+.act__foot .k { color: var(--paper2); }
+.act__foot code { color: var(--paper); }
+
+/* 幕次之间的实色分隔：墨绿版与炭黑版错开 1.8px，中间露出黄纸 */
+.seam { position: relative; height: calc(var(--mis) * 5); margin: calc(var(--base) * 6) 0 0; }
+.seam::before {
+  content: ""; position: absolute; left: 0; right: calc(var(--mis) * -1); top: var(--mis);
+  height: var(--mis); background: var(--paper); pointer-events: none; transform-origin: left center;
+}
+.seam::after {
+  content: ""; position: absolute; left: 0; right: 0; top: calc(var(--mis) * 3);
+  height: var(--mis); background: var(--ink); pointer-events: none; transform-origin: left center;
+}
+.seam.armed::before, .seam.armed::after { animation: spread 180ms steps(3, end) both; }
+
+/* ============================================================ 签发栏与印章 */
+.sign { position: relative; overflow: clip; padding: calc(var(--base) * 12) 0 calc(var(--base) * 8); }
+.sign::before {                                     /* 布褶：512px 平铺的斜向条纹，只做织纹 */
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url(assets/texture-cloth-fold.png);
+  background-size: 512px 512px; opacity: 0.16;
+}
+.sign > * { position: relative; z-index: 1; }
+.sign__grid { margin-top: calc(var(--base) * 5); align-items: start; }
+.sign__main { grid-column: 1 / 6; }
+.sign__side { grid-column: 6 / 10; }
+.sign__main > p + p { margin-top: calc(var(--base) * 2); }
+
+.seal-wrap { display: flex; flex-wrap: wrap; gap: calc(var(--gutter) * 1.4) calc(var(--gutter) * 2); align-items: center; margin: calc(var(--base) * 4) 0; }
+.seal {
+  position: relative; width: 132px; height: 132px; flex: 0 0 132px;
+  background: var(--ink); border: 0; border-radius: 0; cursor: var(--brush);
+  color: var(--paper); padding: 0;
+}
+.seal svg { width: 132px; height: 132px; display: block; }
+.seal .ring { fill: none; stroke: var(--green); stroke-width: 3; transition: stroke 40ms linear; }
+.seal .ring.on { stroke: var(--paper); }
+.seal .core { fill: none; stroke: var(--paper); stroke-width: 1.6; }
+.seal__out { font-size: 16px; line-height: 1.9; }
+.seal__out p + p { margin-top: var(--base); }
+.seal__out b { font-weight: 400; color: var(--green); }
+.seal__out .tail { color: var(--ink); width: 15px; height: 21px; flex: 0 0 15px; }
+.serial { display: flex; align-items: baseline; gap: calc(var(--base) * 0.6); flex-wrap: wrap; }
+
+.schedule { width: 100%; border-collapse: collapse; margin-top: calc(var(--base) * 3); font-size: 16px; }
+.schedule caption { text-align: left; font-size: 13px; padding-bottom: var(--base); color: var(--ink); }
+.schedule th, .schedule td { border: var(--mis) solid rgba(34, 28, 16, 0.34); padding: 6px 10px; text-align: left; vertical-align: top; }
+.schedule thead th { background: var(--ink); color: var(--paper); font-weight: 400; }
+.schedule thead th code { color: var(--paper); }
+.schedule td code { color: var(--ink); }
+
+.empty { margin-top: calc(var(--base) * 4); padding: calc(var(--base) * 2) calc(var(--gutter) * 1.2); background: var(--ink); color: var(--paper); font-size: 16px; line-height: 1.9; max-width: 42em; }
+.empty code { color: var(--white); }
+
+/* ====================================================== 石版错位（错误态） */
+.fault { background: var(--ink); color: var(--paper); padding: calc(var(--base) * 10) 0 calc(var(--base) * 12); }
+.fault h2 { color: var(--white); }
+.fault code { color: var(--white); }
+.fault__grid { margin-top: calc(var(--base) * 4); align-items: start; }
+.fault__main { grid-column: 1 / 7; }
+.fault__side { grid-column: 7 / 10; }
+.fault__line {
+  margin-top: calc(var(--base) * 3); font-size: 17px; line-height: 1.9;
+  padding: calc(var(--base) * 2) calc(var(--gutter) * 1.2);
+  background: var(--green); color: var(--paper);
+  border-left: calc(var(--mis) * 2) solid var(--white);
+}
+.fault__line code { color: var(--white); }
+.fault__frame { margin-top: calc(var(--base) * 3); font-size: 16px; }
+.fault__spec { list-style: none; margin: 0; padding: 0; }
+.fault__spec li { position: relative; font-size: 16px; padding: var(--base) 0; }
+.fault__spec li::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: var(--mis); background: var(--green); pointer-events: none; }
+.fault .cue { margin-top: calc(var(--base) * 4); }
+.fault .btn { background: var(--white); color: var(--ink); }
+.fault .btn[disabled] { background: var(--paper2); color: var(--ink); }
+.packet { margin-top: calc(var(--base) * 3); font-size: 16px; padding-left: calc(var(--gutter) * 0.8); border-left: calc(var(--mis) * 2) solid var(--green); }
+
+/* ================================================================ 图版区 */
+.plates-sec { position: relative; overflow: clip; padding: calc(var(--base) * 12) 0 calc(var(--base) * 8); }
+.plates-sec::before {                               /* 纸面砂目 */
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url(assets/texture-stone-grain.png);
+  background-size: 256px 256px; opacity: 0.3;
+}
+.plates-sec > * { position: relative; z-index: 1; }
+.plates { list-style: none; margin: calc(var(--base) * 5) 0 0; padding: 0; display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); column-gap: var(--gutter); row-gap: calc(var(--base) * 6); }
+.plate { margin: 0; animation: press 220ms linear both; }
+.plate:nth-child(2) { animation-delay: 90ms; }
+.plate:nth-child(3) { animation-delay: 180ms; }
+.plate:nth-child(4) { animation-delay: 270ms; }
+.plate:nth-child(5) { animation-delay: 360ms; }
+.plate:nth-child(6) { animation-delay: 450ms; }
+.plate--a { grid-column: 1 / 6; }
+.plate--b { grid-column: 6 / 10; }
+.plate--c { grid-column: 6 / 10; }
+.plate--d { grid-column: 1 / 4; }
+.plate--e { grid-column: 4 / 7; }
+.plate--f { grid-column: 7 / 10; }
+.plate__frame { position: relative; padding: calc(var(--mis) * 2); }
+.plate__frame::before {                             /* 墨绿版框线错位 1.8px，框内那道缝露出黄纸 */
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  border: var(--mis) solid var(--green);
+}
+.plate__frame img { display: block; width: 100%; }
+.plate figcaption { margin-top: calc(var(--base) * 1.4); font-size: 13px; line-height: 1.75; max-width: 40em; }
+.plate figcaption b { font-family: "Chivo", "LXGW WenKai", sans-serif; font-weight: 700; }
+.plate .ref { display: block; color: #4A4232; margin-top: 3px; }
+
+/* ============================================================ 动效与降级 */
+.motion-sec { padding: calc(var(--base) * 12) 0 calc(var(--base) * 8); }
+.spec-list { list-style: none; margin: calc(var(--base) * 4) 0 0; padding: 0; display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); column-gap: var(--gutter); row-gap: calc(var(--base) * 4); }
+.spec-list li { font-size: 16px; line-height: 1.95; }
+.spec-list li:nth-child(1), .spec-list li:nth-child(2) { grid-column: span 4; }
+.spec-list li:nth-child(3) { grid-column: span 9; }
+.spec-list li:nth-child(4), .spec-list li:nth-child(5) { grid-column: span 4; }
+.spec-list li:nth-child(6) { grid-column: span 9; }
+.spec-list b { font-weight: 400; color: var(--green); }
+.degrade {
+  margin-top: calc(var(--base) * 6); padding-top: calc(var(--base) * 3);
+  font-size: 16px; line-height: 1.95;
+}
+.degrade b { font-weight: 400; color: var(--green); }
+
+/* ================================================================== 页脚 */
+footer { background: var(--ink); color: var(--paper); padding: calc(var(--base) * 10) 0; }
+footer code { color: var(--paper); }
+.foot-grid { display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); column-gap: var(--gutter); row-gap: calc(var(--base) * 4); }
+.foot-grid > div { animation: press 220ms linear both; }
+.foot-grid > div:nth-child(2) { animation-delay: 110ms; }
+.foot-grid > div:nth-child(3) { animation-delay: 220ms; }
+.foot-grid > div:nth-child(1) { grid-column: 1 / 4; }
+.foot-grid > div:nth-child(2) { grid-column: 4 / 7; }
+.foot-grid > div:nth-child(3) { grid-column: 7 / 10; }
+.foot-grid h3 { color: var(--white); margin-bottom: calc(var(--base) * 1.4); }
+.foot-grid p { font-size: 13px; line-height: 1.9; }
+.sig { position: relative; margin-top: calc(var(--base) * 8); padding-top: calc(var(--base) * 3); font-size: 13px; line-height: 1.9; color: var(--paper); }
+.sig::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: var(--mis); background: var(--green); pointer-events: none; }
+
+/* ================================================================ 动效层 */
+@keyframes press {                    /* 逐幕压印：220ms、每幕间隔 60ms */
+  from { opacity: 0; transform: translateY(calc(var(--base) * -2)); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes curtain {                  /* 幕布下降：整块从上方落下 100%，480ms，先加速后硬停 */
+  from { transform: translateY(-100%); }
+  to   { transform: translateY(0); }
+}
+@keyframes jump {                     /* 抬头编号 140ms 原地跳变，只换一位数字 */
+  0%   { transform: translateY(0); opacity: 1; }
+  25%  { transform: translateY(-3px); opacity: 0.42; }
+  50%  { transform: translateY(3px); opacity: 0.72; }
+  75%  { transform: translateY(-1px); opacity: 0.9; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+@keyframes spread {                   /* 进入视口 30% 时错位描边从 0 扩到 1.8px，180ms 阶跃 */
+  from { opacity: 0; transform: scaleX(0); }
+  to   { opacity: 1; transform: scaleX(1); }
+}
+.hb__now.is-jump { animation: jump 140ms steps(4, end) both; }
+
+/* ================================== 1200–1439px：三栏保持，外距收一档 */
+@media (max-width: 1439px) and (min-width: 1200px) {
+  :root { --outer: 40px; }
+}
+
+/* ============== 820–1199px：签发栏并入正文下方，但保留 28px 下沉 */
+@media (max-width: 1199px) and (min-width: 820px) {
+  :root { --outer: 32px; }
+  .head__k--no { grid-column: 1 / 4; }
+  .head__title { grid-column: 4 / 10; }
+  .head__k--acts { grid-column: 1 / 4; margin-top: calc(var(--base) * 2); }
+  .head__latin { grid-column: 1 / 10; margin-top: calc(var(--base) * 2); }
+  .head__left { grid-column: 1 / 10; }
+  .head__plate { grid-column: 1 / 10; margin-top: calc(var(--base) * 4); }
+  .act__body { grid-column: 1 / 10; }
+  .act__sign { grid-column: 1 / 7; margin-top: calc(var(--base) * 7); }  /* 28px 下沉保留 */
+  .act__bind { grid-column: 8 / 10; }
+  .sign__main { grid-column: 1 / 10; }
+  .sign__side { grid-column: 1 / 10; margin-top: calc(var(--base) * 5); }
+  .fault__main { grid-column: 1 / 10; }
+  .fault__side { grid-column: 1 / 10; margin-top: calc(var(--base) * 4); }
+  .plate--a, .plate--b, .plate--c { grid-column: span 9; }
+  .plate--d, .plate--e, .plate--f { grid-column: span 4; }
+  .spec-list li:nth-child(n) { grid-column: span 9; }
+  .foot-grid > div:nth-child(n) { grid-column: span 9; }
+}
+
+/* ===================== <820px：单栏纵向，错位量从 1.8px 收到 1.2px */
+@media (max-width: 819px) {
+  :root { --outer: 20px; --gutter: 14px; --mis: 1.2px; }
+  h1 { font-size: clamp(36px, 10.6vw, 54px); }
+  h2 { font-size: 26px; }
+  .headbar { position: static; }
+  .headbar__in { padding: 10px var(--outer); }
+  .dossier { padding: calc(var(--base) * 5) 0 calc(var(--base) * 4); }
+  .grid9, .head, .head__row2 { display: block; }
+  .head { padding: calc(var(--base) * 2.4) var(--outer); }
+  .head__k--no, .head__k--acts, .head__latin, .head__left, .head__plate { grid-column: auto; }
+  .head__title { margin-bottom: var(--base); }
+  .head__latin { margin-bottom: calc(var(--base) * 2); }
+  .head__row2 { margin-top: calc(var(--base) * 4); }
+  .head__plate { margin-top: calc(var(--base) * 4); }
+  .dispatch { padding: calc(var(--base) * 8) 0 calc(var(--base) * 9); }
+  .act__sheet { padding: calc(var(--base) * 3) var(--outer) 0; }
+  .act__sheet { display: block; }
+  .act__body, .act__sign, .act__bind, .act__slate, .act__foot { grid-column: auto; }
+  .act__body { margin-top: calc(var(--base) * 3); }
+  .act__sign { margin-top: calc(var(--base) * 3); }
+  .act__bind { display: none; }           /* 窄屏装订边距折进纸内缘 */
+  .clause::after, .clause::before { display: none; }
+  .clause:hover b { border-bottom: var(--mis) solid var(--green); }
+  .sign__grid, .fault__grid { display: block; }
+  .sign__main, .sign__side, .fault__main, .fault__side { grid-column: auto; }
+  .sign__side, .fault__side { margin-top: calc(var(--base) * 5); }
+  .plates { display: block; }
+  .plate + .plate { margin-top: calc(var(--base) * 6); }
+  .spec-list { display: block; }
+  .spec-list li + li { margin-top: calc(var(--base) * 3); }
+  .foot-grid { display: block; }
+  .foot-grid > div + div { margin-top: calc(var(--base) * 4); }
+  .seal-wrap { display: block; }
+  .seal { margin-bottom: calc(var(--base) * 3); }
+}
+
+/* ================================================== 减少动态时的再发明 */
+/* 幕布下降与逐块压印停止推进，但压印机制完整静态保留：
+   压印分区、1.8px 错位描边、7px 基线全部按原值呈现，只把过渡压到 120ms 的不透明度切换。 */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .act__sheet, .plate, .foot-grid > div { animation: none; }
+  .act.is-dropping .act__sheet { animation: none; }
+  .seam.armed::before, .seam.armed::after { animation: none; opacity: 1; transform: none; }
+  .hb__now.is-jump { animation: none; }
+  .clause::after, .clause::before { transition-duration: 120ms; }
+  .clause:hover::after, .clause:hover::before { width: 108px; opacity: 1; }
+  .btn { transition: opacity 120ms linear; }
+  .btn:hover, .btn:active { transform: none; }
+}
+
+@media print {
+  .headbar { position: static; }
+  .dispatch::before, .dispatch::after, .sign::before, .plates-sec::before { display: none; }
+}

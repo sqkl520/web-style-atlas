@@ -1,0 +1,313 @@
+/* 方案 08 琥珀叠印灯箱 Amber Overprint Lightbox
+   物理机制：等距叠层亚克力板，透光相乘。全站零背景模糊、零渐变、零 box-shadow。
+   深度由三件事说明：层号位移（24px,12px）、侧壁厚度（6px 到 10px）、透光率 0.72 的 n 次幂。 */
+
+
+
+
+:root {
+  --room: #120C08;        /* 暗房黑棕，背景 58% */
+  --amber: #C46A1F;       /* 琥珀，板体与油墨 24% */
+  --ivory: #E8DCC8;       /* 象牙，文字与折射高光 14% */
+  --wall: #6B4A22;        /* 暗琥珀，侧壁面 4% */
+  --wall-deep: #3A2712;   /* 侧壁下缘的更深一档 */
+  --on-amber: #111111;    /* 琥珀面文字，实测 4.88:1 */
+  --glint: rgba(255, 244, 214, .5);
+  --transmit: .72;        /* 单板透光率 72% */
+  --sheet: 8px;           /* 每层在 Z 轴上的板厚间距，等效 8mm */
+  --step-x: 24px;         /* 每层屏幕横向位移 */
+  --step-y: 12px;         /* 每层屏幕纵向位移 */
+  --unit: 8px;            /* 基线单位 */
+  --gutter: 24px;         /* 栏沟 */
+  /* 【2026-10-18 修正】原先把 "KingHwa_OldSong" / "京华老宋体" 写在三个字族栈的最前面，
+     但这一族**从来没有随包发布**（@font-face 只有下面那一个 Overprint Numerals），
+     于是它命中了 font-fallback：声明的字族没加载，实际渲染的是回退字。
+     后果有两个：一是页面上的中文根本不是设计的京华老宋体，而是 Noto Serif SC；
+     二是字族计数被这个死声明撑到 4（工具上限 3）。
+     现在把死声明删掉，CSS 不再声称自己带了这一族 —— 中文改由**已自托管**的 Noto Serif SC 承担。
+     为什么不去把京华老宋体做成自托管：它不是 OFL，商用渠道未核实（见 11f 的 K-8），
+     在拿不到可商用切片之前，宁可诚实地用思源宋体，也不要在 CSS 里挂一个不存在的东西。 */
+  --serif-cn: "Noto Serif SC", "Songti SC", serif;
+  --body-face: "Source Serif 4", "Noto Serif SC", "Songti SC", serif;
+  --display-face: "Gloock", "Source Serif 4", "Noto Serif SC", serif;
+}
+
+* { box-sizing: border-box; }
+
+html { background: var(--room); }
+
+body {
+  margin: 0;
+  background: var(--room);
+  color: var(--ivory);
+  font-family: var(--body-face);
+  font-size: 16px;
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 数值面：自托管的等宽拉丁子集，本地别名 Overprint Numerals，只排 code 内的测量值与套准编号；生产环境同样自托管，不走 CDN */
+@font-face {
+  font-family: "Overprint Numerals";
+  src: url("assets/fonts/plex-numerals.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+code {
+  font-family: "Overprint Numerals", ui-monospace, monospace;
+  font-size: .92em;
+  color: var(--ivory);
+}
+
+h1, h2, h3 {
+  font-family: var(--display-face);
+  font-weight: 400;
+  letter-spacing: .01em;
+  margin: 0;
+}
+
+h1 { font-size: clamp(44px, 5.4vw, 78px); line-height: 1.08; }
+h2 { font-size: clamp(28px, 2.6vw, 40px); line-height: 1.2; }
+h3 { font-size: 21px; line-height: 1.35; }
+p { margin: 0 0 1.1em; max-width: 66ch; }
+a { color: var(--amber); text-decoration: none; }
+
+.shell { max-width: 1512px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 56px); }
+
+/* 导航不固定、不吸顶，只有一条字标行 */
+.masthead { padding: var(--gutter) 0 calc(var(--gutter) * .5); }
+.masthead-row { display: flex; flex-wrap: wrap; gap: 18px 32px; align-items: baseline; }
+.wordmark { font-family: var(--display-face); font-size: 15px; letter-spacing: .04em; }
+.wordmark span { font-family: var(--serif-cn); font-size: 17px; }
+.masthead nav { display: flex; gap: 22px; font-family: var(--serif-cn); font-size: 16px; }
+.masthead nav a { color: var(--ivory); }
+.masthead nav a:hover { color: var(--amber); }
+.masthead .action { margin-left: auto; }
+
+.rule-wall { height: 3px; background: var(--wall); }
+
+.control {
+  font-family: var(--serif-cn);
+  font-size: 14px;
+  color: var(--on-amber);
+  background: var(--amber);
+  border: 2px solid var(--wall-deep);
+  padding: 9px 16px;
+  cursor: pointer;
+  transition: transform 220ms cubic-bezier(.2, .9, .25, 1), background-color 220ms ease-out;
+}
+.control:hover { transform: translateY(-2px); }
+.control:disabled { color: var(--ivory); background: var(--wall-deep); cursor: not-allowed; border-color: var(--room); opacity: .78; }
+.control.ghost { background: transparent; color: var(--ivory); border-color: var(--wall); }
+.control.ghost:hover { color: var(--amber); border-color: var(--amber); }
+.control[data-loading]::after { content: " 正在落位"; }
+
+:focus-visible { outline: 3px solid var(--glint); outline-offset: 3px; }
+
+/* ============ 等距叠层灯箱：真 3D 叠层，不靠模糊 ============ */
+.stage-wrap { position: relative; padding: 12px 0 48px; overflow: clip; }
+.iso-stage {
+  position: relative; height: 540px;
+  perspective: 1500px; perspective-origin: 46% 42%;
+}
+.iso-plane { position: absolute; inset: 0; transform-style: preserve-3d; }
+
+/* 每块板的屏幕位移 = 层号 × (24px 横, 12px 纵)，再进 2:1 等距轴 */
+.plate {
+  position: absolute; left: 50%; top: 46%;
+  width: 440px; height: 300px; margin: -150px 0 0 -220px;
+  transform-style: preserve-3d;
+  transform:
+    translate3d(calc(var(--l) * var(--step-x)), calc(var(--l) * var(--step-y) * -1), calc(var(--l) * -12px))
+    rotateX(60deg) rotateZ(45deg);
+  transition: transform 220ms cubic-bezier(.2, .9, .25, 1);
+}
+.plate-face {
+  position: absolute; inset: 0;
+  background: rgba(196, 106, 31, var(--transmit));
+  overflow: hidden;
+}
+.plate-ink { position: absolute; inset: 0; mix-blend-mode: multiply; }
+.plate-grime {
+  position: absolute; inset: 0;
+  background: url("assets/grime.png") center / 100% 100% no-repeat;
+  mix-blend-mode: multiply; opacity: 1;
+}
+.plate-bar { position: absolute; display: flex; }
+.plate-bar i { display: block; width: 12px; height: 12px; }
+.plate-bar i:nth-child(1) { background: var(--amber); }
+.plate-bar i:nth-child(2) { background: var(--wall-deep); }
+.plate-bar i:nth-child(3) { background: var(--ivory); }
+.plate-bar i:nth-child(4) { background: var(--wall); }
+
+/* 倒角 2mm / 45°：四角切掉 2px 斜角，避免圆角与浮起感 */
+.plate-face {
+  clip-path: polygon(
+    2px 0, calc(100% - 2px) 0, 100% 2px, 100% calc(100% - 2px),
+    calc(100% - 2px) 100%, 2px 100%, 0 calc(100% - 2px), 0 2px
+  );
+}
+
+/* 侧壁面：板厚 6px 到 10px，用两个实体面画出厚度，明度差 12% */
+.plate-wall {
+  position: absolute; left: 0; right: 0; height: var(--thick);
+  bottom: 0; transform-origin: bottom center; transform: rotateX(-90deg);
+  background: var(--wall);
+}
+.plate-wall.b { background: var(--wall-deep); }
+
+/* 边缘折射高光：宽 2px，只在上缘与左缘，角度 12° */
+.plate-glint { position: absolute; background: var(--glint); }
+.plate-glint.top { left: 0; right: 0; top: 0; height: 2px; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 32%); }
+.plate-glint.left { top: 0; bottom: 0; left: 0; width: 2px; clip-path: polygon(0 0, 100% 0, 32% 100%, 0 100%); }
+
+/* 透光阶梯：每加一块板，透过的光乘 0.72。条高与色值都由 0.72 的 n 次幂算出，
+   不是渐变也不是透明度装饰：n=1 到 6 分别是 72% / 52% / 37% / 27% / 19% / 14% */
+.ladder { display: flex; gap: 6px; align-items: flex-end; height: 112px; margin: 6px 0 4px; }
+.ladder b { display: block; width: 34px; border-bottom: 4px solid var(--wall-deep); }
+.ladder b:nth-child(1) { height: 108px; background: #C46A1F; }
+.ladder b:nth-child(2) { height: 78px; background: #8D4C16; }
+.ladder b:nth-child(3) { height: 56px; background: #663710; }
+.ladder b:nth-child(4) { height: 40px; background: #49270B; }
+.ladder b:nth-child(5) { height: 29px; background: #351D09; }
+.ladder b:nth-child(6) { height: 15px; background: #1B0F04; }
+
+/* 每块板的侧壁厚度按层号从 6px 递增到 10px；被指时加厚到 10px 并沿等距轴上浮 8px */
+.plate { --thick: min(10px, calc(6px + var(--l) * 1px)); }
+.plate:hover,
+.plate:focus-within {
+  --thick: 10px;
+  transform:
+    translate3d(calc(var(--l) * var(--step-x)), calc((var(--l) * var(--step-y) * -1) - 8px), calc(var(--l) * -12px))
+    rotateX(60deg) rotateZ(45deg);
+}
+.plate:hover .plate-glint.top, .plate:focus-within .plate-glint.top { height: 2.5px; }
+.plate:hover .plate-glint.left, .plate:focus-within .plate-glint.left { width: 2.5px; }
+.plate-ink svg { display: block; width: 100%; height: 100%; }
+.plate .regmark { position: absolute; left: 14px; bottom: 12px; }
+.plate .plate-bar { right: 14px; top: 12px; }
+.plate-face { transition: transform 260ms cubic-bezier(.2, .9, .25, 1); }
+.plate-ink { transition: transform 260ms cubic-bezier(.2, .9, .25, 1); }
+/* 第三块板的污染层多一层：三枚指纹与设计者本人右手拇指的实扫件 */
+.plate[data-layer="2"] .plate-grime {
+  background-image: url("assets/print.png"), url("assets/grime.png");
+  background-size: 100% 100%, 100% 100%;
+}
+.specimen { overflow: hidden; }
+.specimen.wide { margin-bottom: 26px; }
+.specimen.wide img { width: 100%; height: auto; }
+.specimen img { transition: transform 320ms cubic-bezier(.2, .9, .25, 1); }
+.specimen[data-zoom="on"] img { transform: scale(3.2); transform-origin: 50% 46%; }
+.mini { font-family: var(--serif-cn); margin-bottom: 12px; }
+
+/* ============ 版面分区 ============ */
+.band { padding: 56px 0; }
+.band > .shell > p { max-width: 62ch; }
+.lede { font-size: 20px; max-width: 56ch; }
+.two-col { display: grid; grid-template-columns: minmax(0, 1fr) 220px; gap: 40px; align-items: start; }
+.spec-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 32px; }
+
+/* 工艺参数栏：界面碎片，自带边线，不受 1px 规则约束 */
+.params { border: 2px solid var(--wall); padding: 18px 20px 20px; }
+.params h3 { font-family: var(--serif-cn); margin-bottom: 12px; }
+.params dl { margin: 0; }
+.params div { display: flex; justify-content: space-between; gap: 12px; padding: 7px 0; border-bottom: 2px solid var(--wall); }
+.params div:last-child { border-bottom: 0; }
+.params dt { font-family: var(--serif-cn); font-size: 16px; }
+.params dd { margin: 0; }
+
+/* 套印对比：错位 1.2mm 的双色样张 */
+.specimen { position: relative; border: 2px solid var(--wall); background: var(--room); }
+.specimen img { display: block; width: 100%; height: auto; }
+.specimen figcaption { font-family: var(--serif-cn); font-size: 16px; padding: 12px 16px; border-top: 2px solid var(--wall); }
+
+/* 材料三项：图标为手绘 SVG，1.25px 线宽、方头 */
+.material-row { display: grid; gap: 0; }
+.material-row > div { display: grid; grid-template-columns: 132px minmax(0, 1fr); gap: 26px; align-items: start; border-top: 2px solid var(--wall); padding: 26px 0; }
+.material-row svg { display: block; }
+.material-row h3 { font-family: var(--serif-cn); margin-bottom: 6px; }
+
+/* 逐块读数表 */
+.panel { background: var(--wall-deep); border: 2px solid var(--wall); padding: 30px; }
+.pp { width: 100%; border-collapse: collapse; font-family: var(--serif-cn); }
+.pp caption { text-align: left; font-family: var(--body-face); font-size: 18px; line-height: 1.7; padding-bottom: 18px; max-width: 66ch; }
+.pp th, .pp td { text-align: left; padding: 17px 16px; border-bottom: 2px solid var(--wall); font-size: 17px; line-height: 1.6; }
+.pp thead th { background: var(--room); color: var(--ivory); }
+.pp tbody tr:nth-child(3) td { background: var(--room); }
+.pp td code { font-size: 16px; }
+
+/* 状态区 */
+.states { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 26px; }
+.state { border: 2px solid var(--wall); padding: 20px; display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
+.state h3 { font-family: var(--serif-cn); }
+.state p { margin: 0; font-size: 16px; }
+.state .stamp { font-family: var(--serif-cn); font-size: 14px; color: var(--ivory); }
+
+.stage-wrap { cursor: url("assets/reg-cursor.svg") 8 8, crosshair; }
+footer { padding: 40px 0 56px; font-size: 16px; color: var(--ivory); border-top: 3px solid var(--wall); }
+footer a { color: var(--amber); }
+
+/* 落位：板自底层向上依次落位，每块 180ms，落位时侧壁有 1px 过冲 */
+@keyframes settle {
+  0% { opacity: 0; transform: translate3d(calc(var(--l) * var(--step-x)), calc((var(--l) * var(--step-y) * -1) + 26px), calc(var(--l) * -12px)) rotateX(60deg) rotateZ(45deg); }
+  78% { opacity: 1; transform: translate3d(calc(var(--l) * var(--step-x)), calc((var(--l) * var(--step-y) * -1) - 1px), calc(var(--l) * -12px)) rotateX(60deg) rotateZ(45deg); }
+  100% { opacity: 1; transform: translate3d(calc(var(--l) * var(--step-x)), calc(var(--l) * var(--step-y) * -1), calc(var(--l) * -12px)) rotateX(60deg) rotateZ(45deg); }
+}
+.iso-plane[data-settling="on"] .plate { animation: settle 180ms cubic-bezier(.2, .9, .25, 1) both; animation-delay: calc((5 - var(--l)) * var(--stagger, 180ms)); }
+.iso-plane[data-retract="on"] .plate { transform: translate3d(calc(var(--l) * var(--step-x)), calc((var(--l) * var(--step-y) * -1) - 24px), calc(var(--l) * -12px)) rotateX(60deg) rotateZ(45deg); }
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .two-col { grid-template-columns: minmax(0, 1fr); }
+  :root { --step-y: 16px; }
+  .plate[data-layer="4"], .plate[data-layer="5"] { display: none; }
+  .iso-stage { height: 440px; }
+}
+
+@media (max-width: 640px) {
+  .band { padding: 40px 0; }
+  /* 窄屏不再排成同形的卡片阵列，改成带分隔线的清单 */
+  .states { display: block; }
+  .state { border: 0; border-top: 2px solid var(--wall); padding: 20px 4px; }
+  .spec-grid { grid-template-columns: minmax(0, 1fr); }
+  .material-row > div { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .pp th:nth-child(4), .pp td:nth-child(4), .pp th:nth-child(5), .pp td:nth-child(5) { display: none; }
+}
+
+@media (max-width: 1023px) {
+  .two-col { grid-template-columns: minmax(0, 1fr); }
+  .iso-stage { height: auto; perspective: none; }
+  .iso-plane { position: static; }
+  .plate {
+    position: static; width: auto; height: 54px; margin: 0 0 var(--thick);
+    transform: none; animation: none;
+  }
+  .plate-face { position: absolute; inset: 0; }
+  .plate { position: relative; }
+  .plate-wall { transform: none; }
+  .plate-glint.top { clip-path: none; }
+  .plate-glint.left { display: none; }
+  .stage-wrap { padding-bottom: 24px; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+  .specimen img, .params, .state, .material-row > div, .pp tbody tr, .ladder b { animation: rise 420ms cubic-bezier(.2, .9, .25, 1) both; }
+  .state:nth-child(2), .pp tbody tr:nth-child(2), .ladder b:nth-child(2) { animation-delay: 60ms; }
+  .state:nth-child(3), .pp tbody tr:nth-child(3), .ladder b:nth-child(3) { animation-delay: 120ms; }
+  .state:nth-child(4), .pp tbody tr:nth-child(4), .ladder b:nth-child(4) { animation-delay: 180ms; }
+  .pp tbody tr:nth-child(5), .ladder b:nth-child(5) { animation-delay: 240ms; }
+  .pp tbody tr:nth-child(6), .ladder b:nth-child(6) { animation-delay: 300ms; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .plate { transition: opacity 150ms ease-out; }
+  .plate:hover { transform: translate3d(calc(var(--l) * var(--step-x)), calc(var(--l) * var(--step-y) * -1), calc(var(--l) * -12px)) rotateX(60deg) rotateZ(45deg); }
+  .plate:hover .plate-glint.top { height: 2.5px; }
+  .iso-plane[data-settling="on"] .plate { animation: none; }
+  .iso-plane[data-retract="on"] .plate { transform: translate3d(calc(var(--l) * var(--step-x)), calc(var(--l) * var(--step-y) * -1), calc(var(--l) * -12px)) rotateX(60deg) rotateZ(45deg); }
+  .control:hover { transform: none; }
+}
+
+
+

@@ -1,0 +1,375 @@
+@charset "utf-8";
+/* S29 钢丝安全册 Wire-Bound Safety Manual
+   纸底 #D9D3C4 ｜ 主色 #644F02（对纸底 5.29:1，作按钮底时白字 6.94:1）｜ 正文 #1A1A17（11.68:1）
+   辅助 #5A6068 只做钢丝圈、表头与控制柜门，不承载纸底上的正文；
+   #E4B400 对纸底只有 1.50:1 → 只作装饰性实色块，其上文字固定 #1A1A17（8.99:1）。
+   全站没有一处渐变函数：45° 警示斜纹（纹宽 8px、间隙 8px）与钢丝圈都是构建期烘好的位置图。
+   整页纹理挂 .sheet::before / .sheet::after，body 保持纯色（契约 §9.2、§9.16）。 */
+
+:root{
+  --paper:#D9D3C4;      /* 手册纸，52% */
+  --ink:#1A1A17;        /* 设备铭牌的脏黑，20%；正文对纸底 11.68:1 */
+  --amber:#644F02;      /* 主色：RAL 1023 压深档，22% */
+  --gray:#5A6068;       /* RAL 7040 窗灰，6%：钢丝圈、表头、控制柜门 */
+  --bright:#E4B400;     /* 装饰性实色块，对纸底 1.50:1 → 不承载正文与图标 */
+  --row:#E0DACB;        /* 规格表行悬停底色 */
+  /* 栅格：基础 6px、10 栏、栏距 18px、外距 56px、装订边距 72px、规格表出血 96px */
+  --base:6px;
+  --gutter:18px;
+  --measure:34em;
+  --step:100ms;
+  --display:'Saira Condensed','Noto Sans SC',sans-serif;
+  --text:'Noto Sans SC',sans-serif;
+  --mono:'Martian Mono','Noto Sans SC',monospace;
+  /* 45° 警示斜纹：纹宽 8px、间隙 8px（垂直周期 16×√2 = 22.63px），全站只有这一个角度。
+     一块 22.63px 的方砖里必须放两条纹（c 与 c−22.63），否则纹会在砖缝处断开成阶梯。 */
+  --hz:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMi42MyIgaGVpZ2h0PSIyMi42MyI+PHJlY3Qgd2lkdGg9IjIyLjYzIiBoZWlnaHQ9IjIyLjYzIiBmaWxsPSIjRTRCNDAwIi8+PHBhdGggZD0iTTAsMCAyMi42MywyMi42MyAxMS4zMTUsMjIuNjMgMCwxMS4zMTVaIE0xMS4zMTUsMCAyMi42MywwIDIyLjYzLDExLjMxNVoiIGZpbGw9IiMxQTFBMTciLz48L3N2Zz4=");
+  /* 钢丝圈：3px 穿孔（间距 18px）+ 1.2px 钢丝 + 0.5px 单向高光 + 6px 纸张切边 */
+  --wire:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI3MiIgaGVpZ2h0PSIxOCI+PHJlY3Qgd2lkdGg9IjYiIGhlaWdodD0iMTgiIGZpbGw9IiM1QTYwNjgiLz48cGF0aCBkPSJNMzQsMCBBMjIsOSAwIDEsMCAzNCwxOCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjNUE2MDY4IiBzdHJva2Utd2lkdGg9IjEuMiIvPjxwYXRoIGQ9Ik0zNCwwIEEyMiw5IDAgMCwwIDEyLDkiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0Q5RDNDNCIgc3Ryb2tlLXdpZHRoPSIwLjUiLz48Y2lyY2xlIGN4PSIzNCIgY3k9IjkiIHI9IjEuNSIgZmlsbD0iIzFBMUExNyIvPjwvc3ZnPg==");
+  /* 640–899px：钢丝圈改成顶部穿孔条，仍保留 3px 圈位与 18px 间距 */
+  --strip:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOCIgaGVpZ2h0PSIyOCI+PHJlY3Qgd2lkdGg9IjE4IiBoZWlnaHQ9IjYiIGZpbGw9IiM1QTYwNjgiLz48cGF0aCBkPSJNMCwxNSBBOSwxMiAwIDEsMCAxOCwxNSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjNUE2MDY4IiBzdHJva2Utd2lkdGg9IjEuMiIvPjxwYXRoIGQ9Ik05LDMgQTksMTIgMCAwLDAgMTgsMTUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0Q5RDNDNCIgc3Ryb2tlLXdpZHRoPSIwLjUiLz48Y2lyY2xlIGN4PSI5IiBjeT0iMTUiIHI9IjEuNSIgZmlsbD0iIzFBMUExNyIvPjwvc3ZnPg==");
+  /* 自绘 24px 内六角扳手光标，热点在开口处 */
+  --cursor:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRDlEM0M0IiBzdHJva2Utd2lkdGg9IjMuNCI+PHBhdGggZD0iTTMuNCAyMC42IDE3LjIgNi44Ii8+PHBhdGggZD0iTTE1IDQuNiAxOS40IDkgMjIgNC40IDE5LjYgMloiLz48L2c+PGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMUExQTE3IiBzdHJva2Utd2lkdGg9IjEuNCI+PHBhdGggZD0iTTMuNCAyMC42IDE3LjIgNi44Ii8+PHBhdGggZD0iTTE1IDQuNiAxOS40IDkgMjIgNC40IDE5LjYgMloiLz48L2c+PHBhdGggZD0iTTIgMjIgNC44IDE5LjIiIHN0cm9rZT0iIzY0NEYwMiIgc3Ryb2tlLXdpZHRoPSIyIi8+PC9zdmc+") 3 22,auto;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{background:var(--paper)}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--text);font-size:16px;line-height:1.8;letter-spacing:.01em;
+}
+@media (pointer:fine){body{cursor:var(--cursor)}}
+img{display:block;max-width:100%;height:auto}
+h1,h2{font-family:var(--display);font-weight:700;font-synthesis-weight:none;line-height:1.06;margin:0;letter-spacing:-.01em;text-wrap:balance}
+h3,h4{font-family:var(--display);font-weight:500;line-height:1.2;margin:0}
+h1{font-size:clamp(40px,5.2vw,75px)}
+h2{font-size:clamp(26px,2.6vw,40px)}
+h3{font-size:clamp(21px,1.6vw,27px)}
+p{margin:0 0 16px;max-width:var(--measure)}
+p:last-child{margin-bottom:0}
+ul,ol{margin:0;padding:0;list-style:none}
+code{
+  font-family:var(--mono);font-size:15px;letter-spacing:.06em;
+  font-variant-numeric:tabular-nums;color:inherit;
+}
+a{color:inherit;text-decoration:underline;text-decoration-color:var(--amber);text-underline-offset:3px}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+
+/* ── 整页纹理：两个伪元素，fixed 覆盖 + multiply；body 保持纯色 ── */
+.sheet{position:relative;--pl:128px;--pr:120px;--bl:96px}
+.sheet::before{
+  content:'';position:fixed;inset:0;z-index:7;pointer-events:none;
+  background-image:url('assets/texture-manual-paper.png');
+  background-size:256px 256px;background-repeat:repeat;
+  opacity:.5;mix-blend-mode:multiply;
+}
+.sheet::after{
+  content:'';position:fixed;inset:0;z-index:8;pointer-events:none;
+  background-image:url('assets/texture-torque-grain.png');
+  background-size:256px 256px;background-repeat:repeat;
+  mix-blend-mode:multiply;
+}
+
+/* ── 左缘钢丝圈：固定不动（≥900px） ── */
+.wire{
+  position:fixed;left:0;top:0;bottom:0;width:72px;z-index:6;pointer-events:none;
+  background-image:var(--wire);background-size:72px 18px;background-repeat:repeat-y;
+}
+.strip{display:none;height:28px;background-image:var(--strip);background-size:18px 28px;background-repeat:repeat-x}
+
+/* ── 状态条 + 章节索引条（吸顶；索引不是导航菜单） ── */
+.topbar{position:sticky;top:0;z-index:5;background:var(--paper)}
+.topbar::after{content:'';position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--ink)}
+.hud{
+  display:flex;flex-wrap:wrap;gap:2px 28px;align-items:baseline;
+  padding:10px var(--pr) 9px var(--pl);font-size:15px;line-height:1.5;
+}
+.hud p{margin:0;max-width:none}
+.hud b{font-weight:400;color:var(--ink)}
+.hud__fault code{text-decoration:underline;text-decoration-color:var(--amber);text-underline-offset:3px}
+.idx{
+  display:flex;flex-wrap:wrap;align-items:center;gap:0 20px;height:32px;
+  padding:0 var(--pr) 0 var(--pl);font-size:15px;line-height:32px;overflow:hidden;
+}
+.idx p{margin:0;max-width:none}
+.idx__list{display:flex;flex-wrap:wrap;gap:0 18px}
+.idx__list a{
+  display:inline-block;height:32px;padding:0 10px;text-decoration:none;
+  transition:background-color var(--step) steps(2,end),color var(--step) steps(2,end);
+}
+.idx__list a[aria-current="true"]{background:var(--amber);color:#FFFFFF}
+.idx__now{margin-left:auto}
+
+/* ── 版心：外距 56px + 装订边距 72px；右侧留 96px 出血位 ── */
+.deck{max-width:1440px;margin:0 auto;padding:0 var(--pr) 0 var(--pl)}
+/* 色块分区跨满整页：纸色之外的地面铺到两个页边 */
+.ch.bleed,.fault.bleed,.foot.bleed{
+  margin-left:calc(-1 * var(--pl));margin-right:calc(-1 * var(--pr));
+  padding-left:var(--pl);padding-right:var(--pr);
+}
+
+/* ── 首屏 ── */
+.masthead{
+  display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:56px;
+  align-items:start;padding:56px 0 88px;
+}
+.masthead h1{margin-bottom:18px}
+.claim{font-size:clamp(19px,1.5vw,22px);line-height:1.6;font-weight:500;max-width:30em;margin-bottom:22px}
+.masthead__cue{display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px;max-width:40em;margin:0 0 24px}
+.hint{font-size:16px}
+.masthead p{max-width:34em}
+
+.btn{
+  display:inline-block;min-height:48px;padding:0 22px;border:0;border-radius:0;
+  background:var(--amber);color:#FFFFFF;
+  font-family:var(--text);font-size:16px;line-height:48px;letter-spacing:.01em;
+  text-decoration:none;cursor:pointer;
+}
+.btn:hover{background:var(--ink)}
+.btn--invert{background:var(--paper);color:var(--ink)}
+.btn--invert:hover{background:var(--bright);color:var(--ink)}
+
+/* ── 照片：构建期烘成单色网点，运行时不再加滤镜 ── */
+.fig{margin:0;background:var(--paper);padding:3px}
+.fig img{width:100%;height:auto;filter:grayscale(1) contrast(1.05)}
+.fig figcaption{margin:12px 0 0;padding:0 3px;font-size:16px;line-height:1.7;max-width:34em}
+.ref{display:block;margin-top:6px}
+.fig--cover{margin-top:8px}
+.fig--warehouse,.fig--rail,.fig--orbit,.fig--orbit2,.fig--salt{margin-top:24px}
+
+/* ── 警示框：跨满 10 栏，45° 斜纹 8px／8px，编号压在 #E4B400 实色块上 ── */
+.warn{position:relative;margin:0 calc(-1 * var(--bl)) 32px 0}
+.haz{height:96px;background-image:var(--hz);background-size:22.63px 22.63px;background-repeat:repeat}
+.haz__no{
+  position:absolute;left:0;top:0;width:88px;height:56px;margin:0;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--bright);color:var(--ink);
+}
+.haz__no code{letter-spacing:.1em}
+.haz__line{margin:14px 0 0;font-size:16px;line-height:1.7;max-width:40em}
+.haz__line b{font-weight:500}
+.warn:hover .haz{background-position:5.66px 5.66px;transition:background-position 160ms linear}
+
+/* ── 章节：正文 5 栏 + 规格表 5 栏，规格表下沉 18px 并向右出血 96px ── */
+.ch{padding:88px 0 0}
+.ch h2{margin-bottom:28px}
+.ch__grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 18px;align-items:start}
+.col-a{padding-right:12px}
+.col-b{margin-top:18px}
+
+.clause{position:relative;padding:24px 0 0}
+.pump__head,.partlist{position:relative}
+/* 章节号挂在版心之外的左缘，固定 4 字符宽，不在栏内 */
+.num{
+  position:absolute;left:-56px;top:22px;width:48px;margin:0;text-align:right;
+  font-size:20px;line-height:1.3;
+}
+.clause h3{margin-bottom:10px}
+.clause p{max-width:32em}
+
+/* ── 规格表：表头上下 1px 硬线、行间 1px 虚线（只出现在真表格里） ── */
+.panel{margin:0}
+.panel__t{
+  font-size:20px;font-weight:700;letter-spacing:.01em;margin:0 0 10px;
+  border-top:6px solid var(--amber);padding-top:10px;
+}
+.spec{width:100%;border-collapse:collapse;font-size:16px;line-height:22px}
+.spec caption{text-align:left;font-size:14px;line-height:1.7;padding:0 0 10px;max-width:40em}
+.spec th,.spec td{text-align:left;vertical-align:top;padding:5px 12px;overflow-wrap:anywhere}
+.spec thead th{
+  background:var(--gray);color:#FFFFFF;font-weight:500;
+  border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);
+  line-height:22px;white-space:nowrap;
+}
+.spec tbody tr{border-top:1px dashed var(--gray)}
+.spec tbody tr:hover{background:var(--row);transition:background-color var(--step) linear}
+.spec tbody th{font-weight:400}
+.spec .v{text-align:right;white-space:nowrap}
+.spec--parts tbody th{width:9.5em}
+.spec--breaks{max-width:1120px}
+.spec--breaks tbody th{white-space:nowrap;width:8em}
+.spec tbody tr.flash{background:var(--bright)}
+.spec tbody tr.qs td{height:22px;padding:0}
+.panel__n{margin:12px 0 0;font-size:16px;line-height:1.7;max-width:36em}
+.panel--spec{margin-right:calc(-1 * var(--bl))}
+.panel--spec .spec{background-image:url('assets/texture-spec-grid.png');background-size:128px 128px}
+
+.notes{padding:24px 0 0}
+.notes .panel__t{margin-bottom:10px}
+.notes p{margin:0 0 14px;max-width:32em}
+
+/* ── 零件图：单线 0.6px／轴心线 0.4px，不填色 ── */
+.pump{padding:88px 0 0}
+.pump__head{max-width:44em;margin-bottom:28px}
+.pump__head .lede{font-size:16px;line-height:1.75;max-width:42em;margin:14px 0 0}
+.pump__fig{margin:32px 0 0}
+.diag{display:block;width:100%;height:auto}
+.diag .axle path{fill:none;stroke:var(--gray);stroke-width:0.4;stroke-dasharray:24 6 3 6;vector-effect:non-scaling-stroke}
+.diag .pc,.diag .pl{fill:none;stroke:var(--ink);stroke-width:0.6;stroke-linecap:round;vector-effect:non-scaling-stroke}
+.diag .pn{font-family:var(--mono);font-size:15px;fill:var(--ink);text-anchor:middle;letter-spacing:.02em}
+.pt{cursor:pointer}
+.pt:hover .pc,.pt:hover .pl,.pt.hot .pc,.pt.hot .pl{stroke-width:1.2;transition:stroke-width 120ms linear}
+.pt:focus .pn,.pt.hot .pn{fill:var(--amber)}
+.pump__fig figcaption{margin:14px 0 0;font-size:16px;line-height:1.7;max-width:34em}
+/* 编号 07 → 23 逐件描画，每件 40ms（虚线长度按图元的上限 2000 单位给） */
+.js .diag .pt:nth-of-type(n+8) .pc,.js .diag .pt:nth-of-type(n+8) .pl{stroke-dasharray:2000 2000;stroke-dashoffset:2000}
+.diag .pt:nth-of-type(8){--i:0}.diag .pt:nth-of-type(9){--i:1}.diag .pt:nth-of-type(10){--i:2}
+.diag .pt:nth-of-type(11){--i:3}.diag .pt:nth-of-type(12){--i:4}.diag .pt:nth-of-type(13){--i:5}
+.diag .pt:nth-of-type(14){--i:6}.diag .pt:nth-of-type(15){--i:7}.diag .pt:nth-of-type(16){--i:8}
+.diag .pt:nth-of-type(17){--i:9}.diag .pt:nth-of-type(18){--i:10}.diag .pt:nth-of-type(19){--i:11}
+.diag .pt:nth-of-type(20){--i:12}.diag .pt:nth-of-type(21){--i:13}.diag .pt:nth-of-type(22){--i:14}
+.diag .pt:nth-of-type(23){--i:15}.diag .pt:nth-of-type(24){--i:16}
+.js .pump__fig.in .diag .pt:nth-of-type(n+8) .pc,
+.js .pump__fig.in .diag .pt:nth-of-type(n+8) .pl{
+  animation:drawline 200ms linear both;animation-delay:calc(var(--i,0) * 40ms);
+}
+@keyframes drawline{from{stroke-dashoffset:2000}to{stroke-dashoffset:0}}
+.partlist{margin-top:56px}
+
+/* ── 检修记录：输入框与空状态 ── */
+.records{padding:24px 0 0}
+.records__form{display:flex;flex-wrap:wrap;gap:12px 16px;align-items:flex-end;margin:0 0 20px}
+.records__form label{display:block;font-size:16px;line-height:1.5;margin-bottom:6px}
+.records__form input{
+  height:48px;padding:0 14px;border:0;border-bottom:3px solid var(--gray);border-radius:0;
+  background:var(--paper);color:var(--ink);font-family:var(--text);font-size:16px;
+}
+.records__empty{
+  margin:0;padding:16px 18px;border-left:3px solid var(--amber);
+  background:var(--row);font-size:16px;line-height:1.75;max-width:34em;
+}
+.records__n{margin:16px 0 0;font-size:16px;line-height:1.75;max-width:34em}
+
+/* ── 错误态 TORQUE-29（Lead 补入） ── */
+.fault{padding:88px 24px;background:var(--ink);color:var(--paper)}
+.fault__in{max-width:1000px;margin:0 auto}
+.fault h2{color:var(--paper);margin-bottom:20px}
+.fault p{color:var(--paper);max-width:38em}
+.fault code{color:var(--paper)}
+.fault__alert{font-size:20px;line-height:1.65;margin-bottom:20px}
+.fault__quote{font-size:16px}
+.fault__cue{margin:26px 0 0}
+.fault__state{font-size:16px;margin-top:18px}
+
+/* ── 动效与降级 ── */
+.motion{padding:88px 0 0}
+.motion__grid{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:0 56px;align-items:start}
+.motion__grid h2{margin-bottom:24px}
+.spec-list li{padding:0 0 14px 14px;border-left:3px solid var(--gray);max-width:34em;margin-bottom:14px}
+.spec-list b{font-weight:500}
+.cursor-sample{font-size:16px;margin:0 0 20px;max-width:32em}
+.degrade{padding:20px 22px;background:var(--row);max-width:36em}
+.degrade p{max-width:34em;font-size:16px;line-height:1.8;margin-bottom:14px}
+.degrade p:last-child{margin-bottom:0}
+
+/* ── 断点行为 ── */
+.breaks{padding:88px 0}
+.breaks h2{margin-bottom:24px}
+.breaks__note{margin:24px 0 0;font-size:16px;line-height:1.75;max-width:40em}
+
+/* ── 页脚：素材出处、签名式怪癖 ── */
+.foot{padding:88px 0 112px;background:var(--ink);color:var(--paper)}
+.foot__in{padding:0 56px}
+.foot h3{color:var(--paper);margin-bottom:16px;font-weight:700}
+.foot p{color:var(--paper);max-width:38em}
+.foot code{color:var(--paper)}
+.foot .fig{background:var(--ink);padding:3px}
+.foot .fig figcaption,.foot .fig .ref{color:var(--paper)}
+.foot a{color:var(--paper);text-decoration-color:var(--paper)}
+.src{margin:0 0 20px}
+.src li{font-size:16px;line-height:1.75;padding-bottom:10px;max-width:42em}
+.src b{font-weight:500}
+.src-note{font-size:16px;margin-bottom:40px;max-width:42em}
+.quirk{margin:0 0 40px;padding:0 0 0 14px;border-left:3px solid var(--paper);max-width:42em;font-size:16px}
+.foot__notes{margin:0 0 40px}
+.foot__notes li{padding:0 0 10px 14px;border-left:3px solid var(--paper);max-width:42em;font-size:16px;line-height:1.8;margin-bottom:10px}
+.sig{font-size:16px;line-height:1.8;max-width:36em}
+
+/* ── 入场：进入视口上方 60% 才出现；只动 opacity 与 transform ── */
+.js [data-grow]{opacity:0;transform:translateY(12px)}
+.js [data-grow].in{opacity:1;transform:none;transition:opacity 320ms linear,transform 420ms cubic-bezier(0.2,0.7,0.1,1)}
+/* 加载：先出纸底与穿孔 160ms，再按章节顺序逐章出现，每章 240ms */
+.js .wire,.js .strip{animation:perf 160ms linear both}
+.js .ch,.js .pump{animation:chapterin 240ms steps(2,end) both;animation-delay:calc(var(--ci,0) * 240ms)}
+.js #ch1{--ci:0}.js #ch2{--ci:1}.js #ch3{--ci:2}.js #ch4{--ci:3}
+.js #ch5{--ci:4}.js #fault{--ci:5}.js #motion{--ci:6}.js #breaks{--ci:7}
+@keyframes perf{from{opacity:0}to{opacity:1}}
+@keyframes chapterin{from{opacity:0}to{opacity:1}}
+
+/* ── 900–1279px：规格表折进正文下方，出血收到 48px ── */
+@media (max-width:1279px){
+  .sheet{--pl:112px;--pr:64px;--bl:48px}
+  .spec--parts tbody th{width:8em}
+  .foot__in{padding:0 24px}
+}
+
+/* ── 640–899px：单栏纵向，钢丝圈改成顶部穿孔条（保留 3px 圈位） ── */
+@media (max-width:899px){
+  .sheet{--pl:24px;--pr:56px;--bl:48px}
+  .wire{display:none}
+  .strip{display:block;margin-bottom:24px}
+  .idx{height:auto;line-height:1.5;gap:2px 16px}
+  .idx__list a{height:32px;line-height:32px}
+  .masthead{grid-template-columns:1fr;gap:32px;padding:24px 0 56px}
+  .ch,.pump,.motion{padding-top:56px}
+  .breaks{padding:56px 0}
+  .ch__grid{grid-template-columns:1fr}
+  .col-a{padding-right:0}
+  .col-b{margin-top:32px}
+  .clause .num,.num{position:static;width:auto;text-align:left;margin-bottom:4px}
+  .motion__grid{grid-template-columns:1fr;gap:32px}
+  .fault{padding:56px 24px}
+  .foot{padding:56px 0 72px}
+  .foot__in{padding:0 24px}
+  .diag .pn{font-size:24px}
+}
+
+/* ── <640px：单栏，规格表转两列键值对，警示框斜纹仍固定 45° ── */
+@media (max-width:639px){
+  .sheet{--bl:0px}
+  .hud{gap:2px 14px}
+  .idx__list a{padding:0 8px}
+  .idx__now{margin-left:0}
+  .ch h2{margin-bottom:20px}
+  .haz{height:72px}
+  .haz__no{width:76px;height:48px}
+  .haz__line{font-size:16px}
+  .spec caption{font-size:14px}
+  /* 列头与单位跟着每一行走：一行一个键值对（左列列名、右列数值）；行与行只靠间距分区 */
+  .spec:not(.spec--breaks) thead{display:none}
+  .spec:not(.spec--breaks) tbody tr{border-top:0;display:block;padding:10px 0}
+  .spec:not(.spec--breaks) th,.spec:not(.spec--breaks) td{display:grid;grid-template-columns:6.5em minmax(0,1fr);gap:0 10px;padding:1px 0}
+  .spec:not(.spec--breaks) th[scope="row"]{display:block;font-size:17px;padding-bottom:2px}
+  .spec:not(.spec--breaks) tbody tr.qs{height:22px;padding:0}
+  .spec:not(.spec--breaks) .v{text-align:left;white-space:normal}
+  .spec:not(.spec--breaks) td::before,.spec:not(.spec--breaks) th::before{font-size:14px;line-height:1.6;color:var(--ink)}
+  .spec--parts td:nth-of-type(1)::before{content:'材料'}
+  .spec--parts td:nth-of-type(2)::before{content:'紧固与间隙'}
+  .spec--parts td:nth-of-type(3)::before{content:'检查项'}
+  .spec--parts td:nth-of-type(4)::before{content:'图上位置'}
+  #ch1 .spec td:nth-of-type(1)::before{content:'螺纹'}
+  #ch1 .spec td:nth-of-type(2)::before{content:'扭矩 N·m'}
+  #ch1 .spec td:nth-of-type(3)::before{content:'备注'}
+  #ch2 .spec td:nth-of-type(1)::before{content:'上限 MPa'}
+  #ch2 .spec td:nth-of-type(2)::before{content:'介质'}
+  #ch2 .spec td:nth-of-type(3)::before{content:'允许残留'}
+  #sec-42 .spec td:nth-of-type(1)::before,#ch5 .spec td:nth-of-type(1)::before{content:'单位'}
+  #sec-42 .spec td:nth-of-type(2)::before,#ch5 .spec td:nth-of-type(2)::before{content:'目标值'}
+  #sec-42 .spec td:nth-of-type(3)::before,#ch5 .spec td:nth-of-type(3)::before{content:'公差'}
+  .spec--parts tbody th{width:auto}
+  .records__form{gap:10px}
+  .records__form input{width:100%}
+  .diag .pn{font-size:30px}
+  .foot h3{font-size:21px}
+}
+
+/* ── 减少动态：斜纹平移与逐件描画停止推进，警示机制静态完整保留 ── */
+@media (prefers-reduced-motion:reduce){
+  .js [data-grow]{opacity:1;transform:none;transition:opacity 120ms linear}
+  .js .wire,.js .strip,.js .ch,.js .pump{animation:none;opacity:1}
+  .js .diag .pt .pc,.js .diag .pt .pl{animation:none;stroke-dashoffset:0}
+  .warn:hover .haz{transition:none;background-position:0 0}
+  .pt:hover .pc,.pt:hover .pl{transition:opacity 120ms linear}
+  .spec tbody tr:hover{transition:none}
+  .idx__list a{transition:none}
+}

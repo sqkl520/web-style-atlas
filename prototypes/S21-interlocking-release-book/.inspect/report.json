@@ -1,0 +1,990 @@
+{
+ "url": "prototypes/S21-interlocking-release-book/index.html",
+ "at": "2026-10-17T18:57:52.048Z",
+ "allow": [],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 3,
+   "filled": [
+    0.18,
+    0.14,
+    0.26
+   ],
+   "motion": {
+    "elements": 16,
+    "css": 16,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 2581,
+     "screens": 2.9,
+     "words": 284,
+     "img": 0,
+     "video": 0,
+     "canvas": 0,
+     "svg": 1,
+     "sections": 4,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": []
+    },
+    "hero": {
+     "text": "联锁释放簿",
+     "words": 1,
+     "chars": 5,
+     "lines": 1,
+     "size": 86.4,
+     "vw": 6,
+     "font": "Antonio",
+     "weight": 600,
+     "tracking": 0.02,
+     "leading": 1.05,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "left",
+     "widthRatio": 0.38,
+     "top": 24,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "联锁释放簿",
+     "words": 1,
+     "lines": 1,
+     "size": 86.4,
+     "font": "Antonio"
+    },
+    "headings": [
+     {
+      "text": "联锁释放簿",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 86.4,
+      "vw": 6,
+      "font": "Antonio",
+      "weight": 600,
+      "tracking": 0.02,
+      "leading": 1.05,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.38,
+      "top": 24,
+      "tag": "h1",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 1,
+     "maxLines": 1,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": null,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "WenJin Mincho",
+       "share": 0.74,
+       "mono": false
+      },
+      {
+       "family": "IBM Plex Mono",
+       "share": 0.18,
+       "mono": true
+      },
+      {
+       "family": "Antonio",
+       "share": 0.08,
+       "mono": false
+      }
+     ],
+     "familyCount": 3,
+     "sizes": [
+      12,
+      13,
+      16,
+      17,
+      22,
+      27,
+      86
+     ],
+     "sizeCount": 7,
+     "notLoaded": [],
+     "body": {
+      "font": "WenJin Mincho",
+      "size": 16,
+      "leading": 1.85,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 8.4
+     },
+     "measureChars": 72,
+     "max": {
+      "size": 86.4,
+      "vw": 6,
+      "font": "Antonio",
+      "text": "联锁释放簿"
+     },
+     "monoShare": 0.18,
+     "monoProseShare": 0.18,
+     "monoFamilies": [
+      "IBM Plex Mono"
+     ],
+     "monoSamples": [
+      "22:04",
+      "22:00",
+      "23:00",
+      "23:00",
+      "00:00",
+      "05:00"
+     ],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0,
+     "centerShare": 0.03,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#e4dcc9",
+     "bodyBgHsl": {
+      "h": 42,
+      "s": 0.33,
+      "l": 0.84
+     },
+     "dark": false,
+     "sectionBgs": [],
+     "textColors": [
+      {
+       "color": "#3e3934",
+       "share": 0.6
+      },
+      {
+       "color": "#3e3a34",
+       "share": 0.34
+      },
+      {
+       "color": "#e4dcc9",
+       "share": 0.03
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.02
+      }
+     ],
+     "button": {
+      "bg": "#3e3a34",
+      "hsl": {
+       "h": 36,
+       "s": 0.09,
+       "l": 0.22
+      },
+      "fg": "#e4dcc9"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 2,
+     "inHero": 1,
+     "radius": 0,
+     "height": 42,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "跳到联锁表"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 0,
+     "fixed": false,
+     "height": 170,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "antonio",
+     "ibm plex mono",
+     "wenjin mincho"
+    ]
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 3,
+   "filled": [
+    0.37,
+    0.37,
+    0.4
+   ],
+   "motion": {
+    "elements": 16,
+    "css": 16,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 2508,
+     "screens": 2.4,
+     "words": 284,
+     "img": 0,
+     "video": 0,
+     "canvas": 0,
+     "svg": 1,
+     "sections": 4,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": []
+    },
+    "hero": {
+     "text": "联锁释放簿",
+     "words": 1,
+     "chars": 5,
+     "lines": 1,
+     "size": 46.1,
+     "vw": 6,
+     "font": "Antonio",
+     "weight": 600,
+     "tracking": 0.02,
+     "leading": 1.05,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "left",
+     "widthRatio": 0.38,
+     "top": 24,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "联锁释放簿",
+     "words": 1,
+     "lines": 1,
+     "size": 46.1,
+     "font": "Antonio"
+    },
+    "headings": [
+     {
+      "text": "联锁释放簿",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 46.1,
+      "vw": 6,
+      "font": "Antonio",
+      "weight": 600,
+      "tracking": 0.02,
+      "leading": 1.05,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.38,
+      "top": 24,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "第 7 号道岔未释放之前，任何信号都扳不动。",
+      "words": 3,
+      "chars": 22,
+      "lines": 2,
+      "size": 27,
+      "vw": 3.5,
+      "font": "Antonio",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.5,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.5,
+      "top": 268,
+      "tag": "p",
+      "kind": "statement"
+     }
+    ],
+    "headingSummary": {
+     "count": 2,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 1,
+     "centered": 0,
+     "medianWords": 3,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "WenJin Mincho",
+       "share": 0.74,
+       "mono": false
+      },
+      {
+       "family": "IBM Plex Mono",
+       "share": 0.18,
+       "mono": true
+      },
+      {
+       "family": "Antonio",
+       "share": 0.08,
+       "mono": false
+      }
+     ],
+     "familyCount": 3,
+     "sizes": [
+      12,
+      13,
+      16,
+      17,
+      22,
+      27,
+      46
+     ],
+     "sizeCount": 7,
+     "notLoaded": [],
+     "body": {
+      "font": "WenJin Mincho",
+      "size": 16,
+      "leading": 1.85,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 8.4
+     },
+     "measureChars": 72,
+     "max": {
+      "size": 46.1,
+      "vw": 6,
+      "font": "Antonio",
+      "text": "联锁释放簿"
+     },
+     "monoShare": 0.18,
+     "monoProseShare": 0.18,
+     "monoFamilies": [
+      "IBM Plex Mono"
+     ],
+     "monoSamples": [
+      "22:04",
+      "22:00",
+      "23:00",
+      "23:00",
+      "00:00",
+      "05:00"
+     ],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0,
+     "centerShare": 0.03,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#e4dcc9",
+     "bodyBgHsl": {
+      "h": 42,
+      "s": 0.33,
+      "l": 0.84
+     },
+     "dark": false,
+     "sectionBgs": [],
+     "textColors": [
+      {
+       "color": "#3e3934",
+       "share": 0.6
+      },
+      {
+       "color": "#3e3a34",
+       "share": 0.34
+      },
+      {
+       "color": "#e4dcc9",
+       "share": 0.03
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.02
+      }
+     ],
+     "button": {
+      "bg": "#3e3a34",
+      "hsl": {
+       "h": 36,
+       "s": 0.09,
+       "l": 0.22
+      },
+      "fg": "#e4dcc9"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 2,
+     "inHero": 1,
+     "radius": 0,
+     "height": 42,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "跳到联锁表"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 0,
+     "fixed": false,
+     "height": 250,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "antonio",
+     "ibm plex mono",
+     "wenjin mincho"
+    ]
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 9,
+   "filled": [
+    0.37,
+    0.08,
+    0.17,
+    0.08,
+    0.09,
+    0.18,
+    0.27,
+    0.44,
+    0.49
+   ],
+   "motion": {
+    "elements": 16,
+    "css": 16,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "page": {
+     "height": 7304,
+     "screens": 8.7,
+     "words": 280,
+     "img": 0,
+     "video": 0,
+     "canvas": 0,
+     "svg": 1,
+     "sections": 4,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": []
+    },
+    "hero": {
+     "text": "联锁释放簿",
+     "words": 1,
+     "chars": 5,
+     "lines": 1,
+     "size": 31,
+     "vw": 7.9,
+     "font": "Antonio",
+     "weight": 600,
+     "tracking": 0.02,
+     "leading": 1.05,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "left",
+     "widthRatio": 0.5,
+     "top": 24,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "联锁释放簿",
+     "words": 1,
+     "lines": 1,
+     "size": 31,
+     "font": "Antonio"
+    },
+    "headings": [
+     {
+      "text": "联锁释放簿",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 31,
+      "vw": 7.9,
+      "font": "Antonio",
+      "weight": 600,
+      "tracking": 0.02,
+      "leading": 1.05,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.5,
+      "top": 24,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "第 7 号道岔未释放之前，任何信号都扳不动。",
+      "words": 3,
+      "chars": 22,
+      "lines": 2,
+      "size": 22,
+      "vw": 5.6,
+      "font": "Antonio",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.5,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.71,
+      "top": 312,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "本时段联锁关系",
+      "words": 1,
+      "chars": 7,
+      "lines": 1,
+      "size": 22,
+      "vw": 5.6,
+      "font": "Antonio",
+      "weight": 600,
+      "tracking": 0.02,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.71,
+      "top": 402,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "切口角度表",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 22,
+      "vw": 5.6,
+      "font": "Antonio",
+      "weight": 600,
+      "tracking": 0.02,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.71,
+      "top": 4835,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "互斥清单",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 22,
+      "vw": 5.6,
+      "font": "Antonio",
+      "weight": 600,
+      "tracking": 0.02,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.71,
+      "top": 5830,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "登记状态",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 22,
+      "vw": 5.6,
+      "font": "Antonio",
+      "weight": 600,
+      "tracking": 0.02,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.71,
+      "top": 6099,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 6,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 1,
+     "centered": 0,
+     "medianWords": 1,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "WenJin Mincho",
+       "share": 0.74,
+       "mono": false
+      },
+      {
+       "family": "IBM Plex Mono",
+       "share": 0.18,
+       "mono": true
+      },
+      {
+       "family": "Antonio",
+       "share": 0.08,
+       "mono": false
+      }
+     ],
+     "familyCount": 3,
+     "sizes": [
+      12,
+      13,
+      16,
+      17,
+      22,
+      31
+     ],
+     "sizeCount": 6,
+     "notLoaded": [],
+     "body": {
+      "font": "WenJin Mincho",
+      "size": 16,
+      "leading": 1.85,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 8.4
+     },
+     "measureChars": 35,
+     "max": {
+      "size": 31,
+      "vw": 7.9,
+      "font": "Antonio",
+      "text": "联锁释放簿"
+     },
+     "monoShare": 0.18,
+     "monoProseShare": 0.18,
+     "monoFamilies": [
+      "IBM Plex Mono"
+     ],
+     "monoSamples": [
+      "22:04",
+      "22:00",
+      "23:00",
+      "23:00",
+      "00:00",
+      "05:00"
+     ],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0,
+     "centerShare": 0.03,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#e4dcc9",
+     "bodyBgHsl": {
+      "h": 42,
+      "s": 0.33,
+      "l": 0.84
+     },
+     "dark": false,
+     "sectionBgs": [],
+     "textColors": [
+      {
+       "color": "#3e3934",
+       "share": 0.62
+      },
+      {
+       "color": "#3e3a34",
+       "share": 0.33
+      },
+      {
+       "color": "#e4dcc9",
+       "share": 0.03
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.02
+      }
+     ],
+     "button": {
+      "bg": "#3e3a34",
+      "hsl": {
+       "h": 36,
+       "s": 0.09,
+       "l": 0.22
+      },
+      "fg": "#e4dcc9"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 2,
+     "inHero": 1,
+     "radius": 0,
+     "height": 42,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "跳到联锁表"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 0,
+     "fixed": false,
+     "height": 294,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "antonio",
+     "ibm plex mono",
+     "wenjin mincho"
+    ]
+   },
+   "consoleErrors": []
+  }
+ ],
+ "findings": [
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "width": 1440,
+   "message": "Monospace type outside code: IBM Plex Mono — e.g. \"22:04\", \"22:00\", \"23:00\", \"23:00\"",
+   "fix": "Set it in the text face. Monospace is for literal code inside <pre>/<code> only.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "font-count",
+   "width": 1440,
+   "message": "3 typefaces in use (WenJin Mincho, IBM Plex Mono, Antonio).",
+   "fix": "Two at most.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "few-pictures",
+   "width": 1440,
+   "message": "Only 0 picture(s) on the page (0 photographs, footage or raster images, 0 interface fragments). Drawings in SVG do not count.",
+   "fix": "Find real pictures of the subject's world with scripts/assets.mjs (photographs, archival images, maps, engravings, footage), download them to assets/ and give them room: a hero picture, one per section that has a subject, a full-width band. At least four, usually six to twelve."
+  },
+  {
+   "level": "WARN",
+   "id": "no-footage",
+   "width": 1440,
+   "message": "No video anywhere on the page.",
+   "fix": "Look for one honest clip with scripts/assets.mjs --video (the place, the material, the process) and use it as a muted loop with a poster frame. Defend its absence only if no clip fits the subject."
+  },
+  {
+   "level": "FAIL",
+   "id": "empty-screens",
+   "width": 1440,
+   "message": "2 of 3 desktop screens are almost empty ground (under 20% of the screen holds text, a picture or a colour field): screens 1, 2.",
+   "fix": "An empty screen is a rest only once per page. Elsewhere it means the section is underbuilt: set its content larger, give it the full information, put it on a colour field, or cut it."
+  }
+ ],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "D:\\Web\\style\\prototypes\\S21-interlocking-release-book\\.inspect\\desktop-fold.jpg",
+   "pages": [
+    "D:\\Web\\style\\prototypes\\S21-interlocking-release-book\\.inspect\\desktop-page-01.jpg"
+   ]
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "D:\\Web\\style\\prototypes\\S21-interlocking-release-book\\.inspect\\tablet-fold.jpg",
+   "pages": [
+    "D:\\Web\\style\\prototypes\\S21-interlocking-release-book\\.inspect\\tablet-page-01.jpg"
+   ]
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "D:\\Web\\style\\prototypes\\S21-interlocking-release-book\\.inspect\\mobile-fold.jpg",
+   "pages": [
+    "D:\\Web\\style\\prototypes\\S21-interlocking-release-book\\.inspect\\mobile-page-01.jpg",
+    "D:\\Web\\style\\prototypes\\S21-interlocking-release-book\\.inspect\\mobile-page-02.jpg"
+   ]
+  }
+ ]
+}

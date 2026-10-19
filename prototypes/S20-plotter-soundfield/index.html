@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>针笔声场图 · 0.35px 单线走位与滚动调参｜绘图仪图纸</title>
+<meta name="description" content="针笔声场图：1:1 图纸上一支 0.35px 针笔把声音走成一层层不交叉的等高线，滚动量映射为频率、振幅与走线间距，桌面每滚 100px、窄屏每滚 90px 走一格，走线段数上限 4000 段，超出时报 PLOT-4000。">
+<link rel="stylesheet" href="../_fonts/css/space-grotesk__400-500.css">
+<link rel="stylesheet" href="../_fonts/css/noto-sans-sc__100..900.css">
+<link rel="stylesheet" href="../_fonts/css/martian-mono-narrow__wdth75-400-600.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#soundfield">跳到图纸与参数面板</a>
+
+<!-- 绘图仪符号：20 单位网格、0.5px 单线 -->
+<svg class="sprite" aria-hidden="true" focusable="false"><defs>
+<symbol id="g-carriage" viewBox="0 0 20 20"><g fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="square"><path d="M4 4h12l-2.5 6h-7z"/><path d="M10 10v6"/><path d="M8.5 16h3"/></g></symbol>
+<symbol id="g-roller" viewBox="0 0 20 20"><g fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="square"><circle cx="10" cy="10" r="6"/><path d="M10 4v1.6M10 14.4V16M4 10h1.6M14.4 10H16M5.76 5.76l1.13 1.13M13.11 13.11l1.13 1.13M14.24 5.76l-1.13 1.13M6.89 13.11l-1.13 1.13"/></g></symbol>
+<symbol id="g-origin" viewBox="0 0 20 20"><g fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="square"><path d="M3 3h14v14H3z"/><path d="M6.6 6.6h6.8v6.8H6.6z"/></g></symbol>
+</defs></svg>
+
+<!-- 状态条：参数读数与 PLOT-4000 边界常驻（契约 §9.12） -->
+<div class="hud" role="status" aria-live="off">
+<p class="hud__line"><span class="hud__k">频率</span> <code id="r-f">220Hz</code> <span class="hud__k">振幅</span> <code id="r-a">0.62</code> <span class="hud__k">走线间距</span> <code id="r-s">1.2px</code> <span class="hud__k">段数</span> <code id="r-segs">1840 / 4000</code></p>
+<p class="hud__line"><span class="hud__k">滚程格数</span> <code id="r-n">n = 0</code> <span class="hud__k">圈数</span> <code id="r-c">23</code> <span class="hud__k">每圈点数</span> <code id="r-np">80</code> <span class="hud__k">画布</span> <code>804 × 804</code></p>
+<p class="hud__line"><span class="hud__k">指针下的圈</span> <code id="probe">i = — ，声压级 —</code> <span class="hud__k">读数刻度</span> 圈 0 <code>94.0dB</code> 每圈差 <code>2.4dB</code> 圈 22 <code>41.2dB</code></p>
+<p class="hud__line hud__line--fault"><span class="hud__k">上限边界</span> <code>PLOT-4000</code> <span id="hud-fault">间距 0.6px 且频率 240Hz 以上即压线：46 × 87 = 4002 段。本次只绘制前 4000 段，把走线间距提到 1.2px 后可完整重绘</span></p>
+</div>
+
+<header class="masthead">
+<div class="masthead__col">
+<h1>针笔声场图</h1>
+<p class="claim">当前参数：频率 220Hz，振幅 0.62，走线 1840 段</p>
+<p class="meta">一张 1:1 的白图纸贴在墙上：0.35px 针笔单线走位，不回头、不交叉复位，密度只靠走线间距表达。图纸白 <code>#FAF3E1</code> 52%、针笔墨蓝 <code>#26485C</code> 30%、坐标与暗部 <code>#0F1418</code> 12%、辅助针笔墨 <code>#55606B</code> 6%；全部图形只有线，没有发光与填充。</p>
+<p class="cue"><button class="btn" type="button" id="hold">按这组参数重绘，保持 3 秒</button></p>
+<p class="hint" id="hold-note">按下后图形锁定 3 秒：这 3 秒里滚动不改参数，图纸停在按下那一刻的读数上。</p>
+<dl class="facts">
+<dt>图纸</dt><dd><code>804 × 804</code> 正方形，四周 <code>24px</code> 走纸安全区</dd>
+<dt>走线</dt><dd><code>0.35px</code> 单线不回头，圈 23 × 每圈 80 点</dd>
+<dt>网格</dt><dd><code>0.2px</code> 浅线 / 间距 <code>8px</code> / 不透明度 <code>18%</code></dd>
+<dt>上限</dt><dd><code>4000</code> 段，越限报 <code>PLOT-4000</code> 并停在 4000 段</dd>
+</dl>
+</div>
+<figure class="masthead__plate">
+<img src="assets/reuse-s15-photo-06-chart.jpg" width="1280" height="2177" alt="奥斯陆峡湾航海图：等深线沿峡湾收缩又放开，压着罗盘花与三处图例方框">
+<figcaption>海图参照：等深线与航海图的图例是同一套「用线的疏密表示量级」的画法，走线间距的三级映射从这里来。
+<span class="ref">原件未标注作者 · 许可见原件页 · Wikimedia Commons（方案内复用素材）</span></figcaption>
+</figure>
+</header>
+
+<main>
+<!-- 图纸本体：纹理由伪元素承载，body 保持纯色（契约 §9.2 / §9.16） -->
+<section class="sheet-sec" id="soundfield" aria-labelledby="sf-h">
+<h2 id="sf-h">滚动就是拧参数旋钮</h2>
+<p class="lede">针笔是一次成线的：它不能回头，也不能填色，所以密度只能靠走线间距表达。滚动量映射为参数值而不是位移，桌面档每滚 100px 相当于频率档位走一格，窄屏每滚 90px 走一格；参数变一次，图就整体重排一次，图与参数是同一个对象的两面。画布本身不移动、不缩放、不做视差。</p>
+<div class="drop" id="drop">
+<p class="drop__line">还没有输入音频。把一段 20 秒的录音拖到画布左侧，针笔会走完它</p>
+<p class="drop__sub">样本 A 220Hz ／ B 260Hz ／ C 180Hz，各 20 秒。落文件口只登记文件名与时长，不解析音频内容；换样本时整张图在 240ms 内被擦除为空白再重绘。</p>
+</div>
+
+<div class="plot">
+<div class="plot__stage">
+<p class="axis"><code>x 24</code><code>x 402</code><code>x 780</code><code>8px 坐标格 / 24px 走纸安全区</code></p>
+<div class="sheet" id="sheet">
+<span class="sheet__reg" aria-hidden="true"></span>
+<svg class="sheet__canvas" id="canvas" viewBox="0 0 804 804" role="img" aria-label="804 × 804 的 1:1 图纸：8px 坐标网格与 23 圈不交叉的针笔走线，走线间距 9.6px，共 1840 段">
+<defs><pattern id="grid8" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M8 0V8M0 8H8" stroke="#26485C" stroke-width="0.2"/></pattern></defs>
+<rect x="24" y="24" width="756" height="756" fill="url(#grid8)" opacity="0.18"/>
+<!-- 基准三圈落在 HTML 里（无脚本也看得见），其余 20 圈按公式现算 -->
+<g class="walk" id="walk"><path class="ring" pathLength="1" style="--d:40;--t:180" d="M524 385l0 8 -1 7 -1 7 -2 8 -3 7 -3 7 -4 6 -4 6 -5 6 -5 6 -5 5 -6 5 -6 4 -7 4 -7 3 -7 2 -7 2 -8 2 -7 1 -8 0 -7 0 -8 -1 -7 -2 -7 -2 -7 -2 -7 -3 -7 -4 -6 -4 -6 -5 -5 -5 -6 -6 -4 -6 -4 -6 -4 -6 -3 -7 -3 -7 -2 -8 -1 -7 -1 -7 -1 -8 1 -8 1 -7 1 -7 2 -8 3 -7 3 -7 4 -6 4 -6 4 -6 6 -6 5 -5 6 -5 6 -4 7 -4 7 -3 7 -2 7 -2 7 -2 8 -1 7 0 8 0 7 1 8 2 7 2 7 2 7 3 7 4 6 4 6 5 5 5 5 6 5 6 4 6 4 6 3 7 3 7 2 8 1 7 1 7 0 8"/><path class="ring" pathLength="1" style="--d:40;--t:207" d="M534 385l0 8 -1 9 -2 8 -2 8 -3 7 -4 8 -3 7 -5 7 -5 7 -6 6 -6 5 -7 5 -6 5 -8 4 -7 4 -8 3 -8 2 -8 1 -8 1 -9 0 -8 0 -8 -1 -8 -1 -8 -2 -8 -3 -7 -4 -8 -4 -7 -5 -6 -5 -6 -5 -6 -6 -5 -7 -4 -7 -4 -7 -4 -8 -3 -7 -2 -8 -2 -8 -1 -9 0 -8 0 -8 1 -9 2 -8 2 -8 3 -7 3 -8 4 -7 5 -7 5 -7 6 -6 6 -5 6 -6 7 -4 7 -4 8 -4 8 -2 8 -3 8 -1 8 -1 8 -1 9 1 8 1 8 2 8 2 8 2 7 4 8 4 7 4 6 6 6 5 6 7 5 6 5 7 4 7 3 8 3 7 2 8 2 8 1 9 0 8"/><path class="ring" pathLength="1" style="--d:40;--t:236" d="M544 385l0 9 -1 9 -3 9 -2 8 -3 9 -4 8 -4 8 -5 8 -6 7 -6 7 -7 6 -7 5 -8 5 -7 4 -8 5 -9 3 -9 2 -9 2 -9 0 -9 1 -9 -1 -9 0 -9 -1 -8 -3 -9 -3 -8 -5 -7 -4 -8 -5 -7 -5 -7 -6 -7 -7 -5 -7 -4 -8 -5 -8 -4 -8 -3 -8 -3 -9 -2 -9 0 -9 0 -9 0 -9 1 -9 1 -9 3 -9 3 -8 4 -8 4 -8 6 -8 5 -7 6 -6 7 -7 7 -5 7 -6 8 -4 8 -3 9 -3 9 -3 8 -2 9 -1 9 -1 10 1 8 1 9 3 9 2 8 3 9 3 8 4 7 5 7 7 6 6 7 7 6 6 5 8 5 7 3 9 3 8 2 9 2 9 1 9 1 9"/><circle class="pen" cx="427.86" cy="385.60" r="0.6"/></g>
+<circle class="pen pen--stop" id="stopdot" cx="0" cy="0" r="0.8" display="none"/>
+</svg>
+</div>
+<p class="sheet__readout"><code id="seg-read">走线 1840 段 / 上限 4000 段，余量 2160 段</code></p>
+</div>
+
+<div class="plot__rule" aria-hidden="true"></div>
+
+<div class="plot__panel">
+<p class="panel__head">参数面板 · 右挂 3 栏，上边缘比画布低 32px</p>
+<div class="grp">
+<p class="grp__top"><svg class="gl" viewBox="0 0 20 20" aria-hidden="true"><use href="#g-carriage"/></svg><span class="grp__name">频率</span><code id="p-f">220Hz</code></p>
+<p class="grp__body">每滚 100px 走一格，共 15 格（120–400Hz）。每圈点数 N = 0.3636 × f，当前 80 点；波瓣数 = f ÷ 20，当前 11 瓣。</p>
+</div>
+<div class="grp">
+<p class="grp__top"><svg class="gl" viewBox="0 0 20 20" aria-hidden="true"><use href="#g-roller"/></svg><span class="grp__name">振幅</span><code id="p-a">0.62</code></p>
+<p class="grp__body">每 3 格走一档，共 31 档（0.20–0.80）。外半径 R = min(318, 96 + 356a) = 316.7px；318px 是 24px 走纸安全区扣掉质心偏移与 ±33px 波瓣深度之后的余量。</p>
+</div>
+<div class="grp">
+<p class="grp__top"><svg class="gl" viewBox="0 0 20 20" aria-hidden="true"><use href="#g-origin"/></svg><span class="grp__name">走线间距</span><code id="p-s">1.2px</code></p>
+<p class="grp__body">每 6 格换一档，只有三级 0.6 / 1.2 / 2.4px；画布按 8 倍图面输出，即 4.8 / 9.6 / 19.2px。间隙宽了圈数就少，窄了就多。</p>
+</div>
+<div class="grp">
+<p class="grp__top"><svg class="gl" viewBox="0 0 20 20" aria-hidden="true"><use href="#g-carriage"/></svg><span class="grp__name">走线段数</span><code id="p-segs">1840</code></p>
+<p class="grp__body">段数 = 圈数 × 每圈点数，上限 4000 段。当前 23 圈 × 80 点 = 1840 段，余量 2160 段。</p>
+</div>
+<figure class="legend">
+<svg class="legend__svg" viewBox="0 0 112 200" role="img" aria-label="声场图例：真实走线小段，间距 0.6、1.2、2.4px；下半为 8 倍放大后的 4.8、9.6、19.2px"><path class="ring" d="M5 12.0 h92"/><path class="ring" d="M5 12.6 h92"/><path class="ring" d="M5 25.0 h92"/><path class="ring" d="M5 26.2 h92"/><path class="ring" d="M5 38.0 h92"/><path class="ring" d="M5 40.4 h92"/><path class="ring" d="M5 62.0 h92"/><path class="ring" d="M5 66.8 h92"/><path class="ring" d="M5 71.6 h92"/><path class="ring" d="M5 106.0 h92"/><path class="ring" d="M5 115.6 h92"/><path class="ring" d="M5 125.2 h92"/><path class="ring" d="M5 150.0 h92"/><path class="ring" d="M5 169.2 h92"/><path class="ring" d="M5 188.4 h92"/></svg>
+<figcaption><b>声场图例</b>量级只用走线间距表达，不用颜色。上半 1:1：0.6px 的两根线在纸上并成一片墨，这是它的真实样子；下半 8 倍放大后 4.8 / 9.6 / 19.2px 才分得开。量级 I 85–94dB、II 70–84dB、III 55–69dB。</figcaption>
+</figure>
+</div>
+</div>
+
+<table class="params">
+<caption>参数与公式（滚程格数 n = 滚程 ÷ 100px，窄屏 ÷ 90px；加载时 n = 0）</caption>
+<thead><tr><th scope="col">参数</th><th scope="col">当前值</th><th scope="col">档位</th><th scope="col">公式</th></tr></thead>
+<tbody>
+<tr><td>频率 f</td><td><code>220Hz</code></td><td>第 6 档 / 共 15 档</td><td><code>f = 120 + 20 × ((n + 5) mod 15)</code></td></tr>
+<tr><td>振幅 a</td><td><code>0.62</code></td><td>第 22 档 / 共 31 档</td><td><code>a = 0.20 + 0.02 × ((n ÷ 3 取整 + 21) mod 31)</code></td></tr>
+<tr><td>走线间距 s</td><td><code>1.2px</code></td><td>第 2 档 / 共 3 档</td><td><code>s = {0.6, 1.2, 2.4}[((n ÷ 6 取整 + 1) mod 3)]</code></td></tr>
+<tr><td>每圈点数 N</td><td><code>80</code></td><td>随 f 变</td><td><code>N = round(f × 0.3636)</code></td></tr>
+<tr><td>圈数 C</td><td><code>23</code></td><td>下限 6 圈</td><td><code>C = max(6, round((min(318, 96 + 356a) − 96) ÷ (8s)))</code></td></tr>
+<tr><td>走线段数 C × N</td><td><code>1840</code></td><td>上限 4000，余量 2160</td><td>请求段数超过 4000 时只绘制前 4000 段，报 <code>PLOT-4000</code></td></tr>
+</tbody>
+</table>
+</section>
+
+<!-- 超限态：错误码 PLOT-4000，静态可见（契约 §9.12） -->
+<section class="fault" id="fault" aria-labelledby="fault-h">
+<h2 id="fault-h">走线段数超出上限</h2>
+<p class="fault__line" role="alert">走线段数超出上限（错误码 <code>PLOT-4000</code>）：本次只绘制前 4000 段，把走线间距提到 1.2px 后可完整重绘</p>
+<p class="fault__frame">越限是算出来的：间距 0.6px 时画布间距只有 4.8px，圈数被撑到 46 圈；滑杆拉到极值 400Hz、振幅 0.80 时每圈 145 点，46 × 145 = 6670 段，超了 2670 段。停笔落在第 28 圈的 58.6% 处，也就是第 4000 段——下面这张检视图里，圈 0 到圈 26 走完，圈 27 只走到六成，更外面的十九圈没落笔。</p>
+<div class="fault__view">
+<svg class="fault__svg" viewBox="0 0 804 804" role="img" aria-label="超限态检视图：46 圈走线只画出前 4000 段，停笔在圈 27 的 58.6% 处，更外面的十九圈停在空白纸面上">
+<g class="walk"><path class="ring" pathLength="1" d="M524 385l-3 25 -9 23 -15 20 -20 15 -23 9 -25 4 -24 -3 -23 -9 -20 -15 -16 -20 -10 -22 -4 -25 3 -25 9 -23 15 -20 19 -16 23 -10 24 -4 25 2 23 9 21 15 16 19 10 22 4 25 0 4"/><path class="ring" pathLength="1" d="M544 385l-4 30 -12 27 -18 24 -23 18 -28 12 -29 4 -30 -3 -27 -12 -25 -17 -18 -24 -13 -27 -3 -30 2 -29 11 -28 18 -24 23 -19 27 -12 30 -6 29 4 29 10 23 18 20 22 12 28 6 29 0 5"/><path class="ring" pathLength="1" d="M564 385l-6 34 -13 33 -21 28 -28 20 -31 16 -35 2 -35 -1 -31 -16 -30 -18 -19 -29 -17 -31 -3 -35 3 -35 12 -32 21 -28 26 -23 33 -12 34 -9 34 7 34 9 27 22 24 26 13 32 7 34 1 6"/><path class="ring" pathLength="1" d="M584 385l-8 39 -14 37 -24 33 -33 22 -35 20 -40 -1 -40 2 -35 -21 -36 -18 -20 -35 -20 -35 -3 -40 3 -39 14 -38 25 -31 29 -28 38 -11 38 -13 39 10 40 9 29 27 29 28 14 38 8 38 2 7"/><path class="ring" pathLength="1" d="M604 385l-10 44 -16 42 -25 37 -39 23 -38 25 -46 -3 -46 5 -37 -27 -42 -18 -21 -41 -25 -38 -1 -45 2 -45 16 -42 29 -34 31 -33 44 -11 43 -17 43 15 46 6 31 33 34 30 14 43 11 43 2 8"/><path class="ring" pathLength="1" d="M625 385l-13 49 -17 46 -28 42 -44 25 -41 29 -52 -6 -51 9 -40 -33 -49 -18 -21 -47 -30 -41 0 -51 2 -50 18 -46 32 -38 34 -38 50 -10 47 -21 48 19 52 4 33 40 40 31 14 49 13 48 3 8"/><path class="ring" pathLength="1" d="M645 385l-15 54 -19 51 -30 46 -49 26 -45 35 -56 -11 -57 14 -43 -40 -56 -16 -20 -55 -36 -44 2 -56 1 -54 19 -52 37 -40 36 -43 56 -9 51 -27 53 25 58 1 34 46 46 33 14 54 15 53 4 9"/><path class="ring ring--stop" pathLength="1" d="M661 385l-18 57 -19 55 -32 50 -53 26 -47 39 -61 -14 -61 18 -45 -45 -62 -15 -19 -60 -40 -46 4 -60 0 -59 20 -55"/><circle class="pen pen--stop" cx="228.39" cy="276.13" r="0.8"/></g>
+</svg>
+<dl class="fault__keys">
+<dt>越限参数</dt><dd>频率 <code>400Hz</code> · 振幅 <code>0.80</code> · 走线间距 <code>0.6px</code></dd>
+<dt>请求段数</dt><dd><code>6670</code> 段（46 圈 × 145 点）</dd>
+<dt>实际落笔</dt><dd><code>4000</code> 段，停笔于圈 27 的 58.6%，空出 19 圈</dd>
+<dt>滚动第一处越限</dt><dd>桌面滚到 1600px（n = 16）：240Hz / 0.72 / 0.6px → <code>4176</code> 段，停笔于圈 45 的 97.7%</dd>
+<dt>检视图画法</dt><dd>每 4 圈抽 1 圈、每圈按 1/6 采样（145 → 25 点）重画，圈的半径、4.8px 圈间距与停笔位置与真图一致</dd>
+<dt>修正后</dt><dd>间距回到 <code>1.2px</code>：23 圈 × 145 点 = <code>3335</code> 段，落回上限内</dd>
+</dl>
+</div>
+<p class="cue"><button class="btn btn--fix" type="button" id="fix">把走线间距提到 1.2px 后重绘</button></p>
+<p class="fault__after" id="fault-after">按下去会把走线间距这一档从滚动里摘出来、写死 1.2px，频率与振幅两档不动；按「交给滚动」才把它还回去。</p>
+</section>
+
+<!-- 关键视觉元素：单线走位、坐标网格、声场图例、图标逻辑、图像处理 -->
+<section class="keys" aria-labelledby="keys-h">
+<h2 id="keys-h">关键视觉元素</h2>
+<ul class="keys__list">
+<li><b>针笔单线走位</b>线宽 <code>0.35px</code> 单线，不回头、不交叉复位，线端方头，禁止任何填充色块与粗描边。23 圈由同一条半径函数生成：<code>r = 96 + i × 9.6 + t × (25 × sin(11θ + 0.35) + 8 × sin(13θ + 2.1))</code>，<code>θ = 2πj ÷ 80</code>，<code>t = (i ÷ 22) 的 1.6 次方</code>；相邻两圈半径差最小 <code>7.26px</code>，整张图数学上不可能交叉。</li>
+<li><b>坐标网格</b>线宽 <code>0.2px</code>、间距 <code>8px</code>、不透明度 <code>18%</code>，只出现在画布内、止于 24px 走纸安全区；网格与走线之间不叠加第三种线，全图只有 0.2px 与 0.35px 两级线宽。</li>
+<li><b>声场图例</b>量级用走线间距表达：0.6px / 1.2px / 2.4px 三级对应三个量级，不用颜色区分；图例本身就是真实走线小段，上半 1:1、下半 8 倍。</li>
+<li><b>图标逻辑</b>绘图仪符号全部自绘：笔架是倒梯形加竖针、走纸轮是圆加八个齿、原点是两个同心方框，都在 20 单位网格里、<code>0.5px</code> 单线，没有一个 Emoji。</li>
+<li><b>图像处理</b>图形一律矢量化输出：走线是 SVG 路径，<code>stroke-width: 0.35</code> 配 <code>vector-effect: non-scaling-stroke</code>，缩放时线宽恒定。另有三处只是纸的材质——纸纹叠三层、走纸轮定位格一层、走纸痕叠两层，全挂在伪元素上，只压纸面，不碰图形。</li>
+</ul>
+</section>
+
+<section class="plates-sec" aria-labelledby="plates-h">
+<h2 id="plates-h">针笔与仪表图版</h2>
+<p class="lede">六张图版取自公开档案与 NASA 图像库，题材是海图、座舱仪表板、遥测面板与 NASA 控制台；作者与许可逐张标在图片下方，全部可回溯原件页。</p>
+<ul class="plates">
+<li class="plate"><figure>
+<img src="assets/reuse-s14-cabin-04-telemetry-panel.jpg" width="1280" height="960" alt="NACA 试验台控制室：两名操作员站在仪表墙与操作台前，台面排着一列圆形刻度表">
+<figcaption><b>图版 01</b> NACA 火箭发动机试验台控制室：整面墙的刻度表排成一列，读数的疏密就是量级的疏密。<span class="ref">NASA 格伦研究中心 · 公有领域 · Wikimedia Commons（方案内复用素材）</span></figcaption>
+</figure></li>
+<li class="plate"><figure>
+<img src="assets/reuse-s14-cabin-10-panel-gauges.jpg" width="1280" height="853" alt="老式客机驾驶舱：仪表板上密排圆形仪表，中控台与操纵杆在前景">
+<figcaption><b>图版 02</b> 老式客机驾驶舱的仪表板：圆形仪表按飞行姿态与动力分两区排布，指针各占一格。<span class="ref">PattayaPatrol · CC BY-SA 4.0 · Wikimedia Commons（方案内复用素材）</span></figcaption>
+</figure></li>
+<li class="plate"><figure>
+<img src="assets/reuse-s18-nasa-kennedy-space-center-fla-during-pow.jpg" width="1280" height="834" alt="发现号轨道飞行器座舱内，技术人员伸手按下开关，前景是玻璃座舱显示面板与整排断路器">
+<figcaption><b>图版 03</b> 发现号轨道飞行器座舱通电：玻璃座舱的多功能显示子系统装到一半，面板读数已经像素化，刻线还是机械刻度。<span class="ref">NASA · 公有领域 · NASA 图像库 / Wikimedia Commons（方案内复用素材）</span></figcaption>
+</figure></li>
+<li class="plate"><figure>
+<img src="assets/reuse-s14-cabin-05-cockpit-1960s.jpg" width="1280" height="1574" alt="机库里的 DHC-1 花栗鼠教练机：机翼与机身是红白相间的条纹涂装，吊挂在桁架下">
+<figcaption><b>图版 04</b> 德哈维兰 DHC-1 花栗鼠：机翼上的红白条纹是最早的等间距条纹样板，间距一致、方向单一。<span class="ref">Art Scholl／De Havilland Canada Ltd · CC0 · Wikimedia Commons（方案内复用素材）</span></figcaption>
+</figure></li>
+<li class="plate"><figure>
+<img src="assets/reuse-s14-plate-05-chipmunk-cockpit.jpg" width="1000" height="1230" alt="同一架花栗鼠教练机的双色调照片：条纹压成深浅两级，机身与桁架同一灰阶">
+<figcaption><b>图版 05</b> 同一架花栗鼠的双色调处理：条纹被压成深浅两级，剩下的信息只有间距与方向。<span class="ref">原件未标注作者 · 许可见原件页 · Wikimedia Commons（方案内复用素材）</span></figcaption>
+</figure></li>
+<li class="plate"><figure>
+<img src="assets/reuse-s15-photo-06-chart.jpg" width="1280" height="2177" alt="奥斯陆峡湾航海图：等深线在峡湾口收成一束又在主航道放开，图例方框立在空白海面上">
+<figcaption><b>图版 06</b> 奥斯陆峡湾航海图：等深线在峡湾口收成一束、在主航道放开，图例在空白海面上单独立框，与走线密度无关。<span class="ref">原件未标注作者 · 许可见原件页 · Wikimedia Commons（方案内复用素材）</span></figcaption>
+</figure></li>
+</ul>
+</section>
+
+<section class="maps-sec" aria-labelledby="maps-h">
+<h2 id="maps-h">三级间距映射</h2>
+<p class="lede">量级只映射到间距这一个量上，颜色不参与。下表按频率 220Hz、振幅 0.62（外半径 316.7px）算：间距越窄圈数越多，段数逼近上限。</p>
+<table class="maps">
+<caption>三档走线间距在默认频率与振幅下的圈数与段数</caption>
+<thead><tr><th scope="col">量级</th><th scope="col">声压级带</th><th scope="col">走线间距</th><th scope="col">画布间距</th><th scope="col">圈数 C</th><th scope="col">走线段数</th></tr></thead>
+<tbody>
+<tr><td>量级 I</td><td><code>85–94dB</code></td><td><code>0.6px</code></td><td><code>4.8px</code></td><td><code>46</code></td><td><code>3680</code>（240Hz 以上越限）</td></tr>
+<tr><td>量级 II</td><td><code>70–84dB</code></td><td><code>1.2px</code></td><td><code>9.6px</code></td><td><code>23</code></td><td><code>1840</code>（默认档）</td></tr>
+<tr><td>量级 III</td><td><code>55–69dB</code></td><td><code>2.4px</code></td><td><code>19.2px</code></td><td><code>11</code></td><td><code>880</code></td></tr>
+</tbody>
+</table>
+<p class="table-note">三级间距的写法：同一圆心、同一波瓣函数，只改圈间距；0.6px 与 1.2px 差一倍，圈数就差一倍。频率只改每圈点数与波瓣数，不改半径。这也是本案最难被复用到别处的地方——换掉音频来源之后，这套映射仍然只对应声压级的量级关系。</p>
+</section>
+
+<section class="bp-sec" aria-labelledby="bp-h">
+<h2 id="bp-h">断点行为</h2>
+<p class="lede">四档断点改的是画布尺寸、面板位置、重绘帧率与滚动步进，不改的是滚动到参数的映射关系：每滚一格仍然只走一个频率档位。</p>
+<table class="bp">
+<caption>四档断点下的画布、面板、帧率、滚动步进与段数上限</caption>
+<thead><tr><th scope="col">档位</th><th scope="col">画布边长</th><th scope="col">参数面板</th><th scope="col">重绘</th><th scope="col">滚动步进</th><th scope="col">滑杆</th><th scope="col">段数上限</th></tr></thead>
+<tbody>
+<tr><td>≥1440px</td><td>视口高减 96px，1:1（1440×900 档 = <code>804px</code>）</td><td>右挂 3 栏 <code>324px</code>，上边缘比画布低 <code>32px</code></td><td><code>60fps</code></td><td><code>100px</code> 一格</td><td>无</td><td><code>4000</code> 段</td></tr>
+<tr><td>1024–1439px</td><td>视口宽减 120px，仍 1:1</td><td>折到画布下方、横排 3 列</td><td><code>45fps</code></td><td><code>100px</code> 一格</td><td>无</td><td><code>4000</code> 段</td></tr>
+<tr><td>&lt;1024px</td><td>视口宽减 24px，仍 1:1</td><td>折到画布下方、单列</td><td><code>30fps</code></td><td><code>90px</code> 一格</td><td>频率 / 振幅 / 走线间距三个滑杆</td><td><code>4000</code> 段</td></tr>
+<tr><td>&lt;768px</td><td>视口宽减 16px，仍 1:1</td><td>折到画布下方、单列</td><td><code>30fps</code></td><td><code>90px</code> 一格</td><td>三个滑杆改纵向两行排列</td><td><code>4000</code> 段</td></tr>
+</tbody>
+</table>
+<div class="sliders" id="sliders">
+<p class="sliders__head">触屏精调：滑杆与滚动作用于同一组参数，互不覆盖</p>
+<div class="sliders__rows">
+<label class="sld"><span class="sld__name">频率</span><input type="range" id="in-f" min="120" max="400" step="20" value="220"><code id="out-f">220Hz</code></label>
+<label class="sld"><span class="sld__name">振幅</span><input type="range" id="in-a" min="20" max="80" step="2" value="62"><code id="out-a">0.62</code></label>
+<label class="sld"><span class="sld__name">走线间距</span><input type="range" id="in-s" min="0" max="2" step="1" value="1"><code id="out-s">1.2px</code></label>
+</div>
+<p class="sliders__note">滑杆一动，该参数就从滚动手里接管过来，滚动不再写它；按「交给滚动」三个参数一起还给滚动。键盘左右键每按一次走一格：频率 <code>20Hz</code>、振幅 <code>0.02</code>、走线间距一档。</p>
+<p class="cue"><button class="btn btn--ghost" type="button" id="release">交给滚动</button></p>
+</div>
+</section>
+
+<section class="motion-sec" aria-labelledby="motion-h">
+<h2 id="motion-h">动效与降级</h2>
+<p class="lede">滚动到参数的映射每帧只算一次，重绘只改路径的 <code>d</code> 属性，不重建节点。重排时长 <code>420ms</code>，阻尼无过冲：旧线淡出 30%，新线按走线顺序逐段画出。</p>
+<ul class="spec-list">
+<li><b>加载</b>画布先出网格（<code>180ms</code>），针笔随后从原点起笔、按走线顺序画完，总 <code>1400ms</code>，缓动线性；每圈的起笔时刻与它自己的线长成正比，笔尖在纸上一路匀速。</li>
+<li><b>悬停</b>指针停到某条等高线上，该线加粗到 <code>0.5px</code> 并显示这一圈的声压级，<code>140ms</code>；读数从圈 0 的 <code>94.0dB</code> 到圈 22 的 <code>41.2dB</code>，每圈差 <code>2.4dB</code>。</li>
+<li><b>转场</b>换音频样本时整张图在 <code>240ms</code> 内被擦除为空白，再按新样本的基准频率重绘；擦除期间画布上不留走线。</li>
+<li><b>光标</b>画布内是 16px 细十字加 <code>0.35px</code> 单圈，圈线与走线同宽；指针离开画布就换回系统光标。</li>
+<li><b>微交互</b>拖滑杆或滚过一格时，画布右下角的段数读数实时跳动、不做补间；越限那一次当场翻成 <code>PLOT-4000</code>。</li>
+</ul>
+<p class="degrade"><b>减少动态时的写法</b>（<code>prefers-reduced-motion: reduce</code>）：参数每变一格，整图在 <code>120ms</code> 内整幅替换，不做逐段画出；走线间距仍分 <code>0.6 / 1.2 / 2.4px</code> 三级、外半径上限仍 <code>318px</code>、段数上限仍 <code>4000</code> 段、越限仍报 <code>PLOT-4000</code>；窄屏把 90px 一格的步进交给三个滑杆的左右键，每按一次 1 档，读数即时改写；画布仍 1:1，24px 走纸安全区与 0.2px 网格照旧。</p>
+</section>
+</main>
+
+<footer>
+<div class="foot-grid">
+<div><h3>图纸与走线</h3><p>图纸 804 × 804（1:1，视口高减 96px），四周 24px 走纸安全区；网格 0.2px、间距 8px、18% 不透明度；走线 0.35px 单线，圈 23、每圈 80 点，共 1840 段。</p></div>
+<div><h3>当前上限状态</h3><p>段数上限 4000 段。当前 1840 段，余量 2160 段；间距 0.6px 且频率 240Hz 以上会压到 4002 段，报 <code>PLOT-4000</code> 并停在第 4000 段。</p></div>
+<div><h3>图版与字体</h3><p>六张真实照片的作者与许可逐张记在 <code>assets/CREDITS.md</code>；三处纸面材质是代码生成的纹理。字体自托管：Space Grotesk、思源黑体 Noto Sans SC、Martian Mono 窄档。</p></div>
+</div>
+<p class="sig">方案 20 · 针笔声场图（Plotter Soundfield）· 参数化生成印刷｜单线走位与滚动即调参 · 本页为可运行原型，用于验证字段 3 的四色配比（<code>#FAF3E1</code> 52% / <code>#26485C</code> 30% / <code>#0F1418</code> 12% / <code>#55606B</code> 6%）、12 栏 8px 基线、1:1 画布与右挂 3 栏面板、滚动到参数的映射与 <code>PLOT-4000</code> 错误态的实现方式。</p>
+</footer>
+
+<script>
+(function () {
+var D0 = document.documentElement, WALK = document.getElementById('walk'), CV = document.getElementById('canvas'),
+DOT = document.getElementById('stopdot'), PB = document.getElementById('probe'), RED = matchMedia('(prefers-reduced-motion: reduce)'),
+CX = 428.46, CY = 385, R0 = 96, RC = 318, L1 = 11, A1 = 25, P1 = 0.35, L2 = 13, A2 = 8, P2 = 2.1,
+CAP = 4000, SP = [0.6, 1.2, 2.4], MAN = {}, held = 0, raf = 0, cur = null,
+POOL = [].slice.call(WALK.querySelectorAll('.ring'));
+function FIN(f, a, s, n) {
+  var N = Math.round(f * 0.3636), ro = Math.min(RC, R0 + 356 * a), sp = 8 * s,
+      C = Math.max(6, Math.round((ro - R0) / sp));
+  return { f: f, a: a, s: s, N: N, ro: ro, sp: sp, C: C, segs: C * N, n: n || 0 };
+}
+function PAR(n) {
+  return FIN(120 + 20 * ((n + 5) % 15),
+    Math.round((0.20 + 0.02 * ((Math.floor(n / 3) + 21) % 31)) * 100) / 100,
+    SP[(Math.floor(n / 6) + 1) % 3], n);
+}
+/* 走线：r = 96 + i·sp + t·(25 sin(11θ+0.35) + 8 sin(13θ+2.1))，θ = 2πj/N，t = (i/(C−1))^1.6 */
+function RD(i, C, N, sp, fr) {
+  var t = C > 1 ? Math.pow(i / (C - 1), 1.6) : 0, c = fr >= 1 ? N : Math.max(2, Math.round(N * fr)),
+      xs = [], ys = [], j, th, r, len = 0, d, px, py;
+  for (j = 0; j < c; j++) {
+    th = 2 * Math.PI * j / N;
+    r = R0 + i * sp + t * (A1 * Math.sin(L1 * th + P1) + A2 * Math.sin(L2 * th + P2));
+    xs.push(Math.round(CX + r * Math.cos(th))); ys.push(Math.round(CY + r * Math.sin(th)));
+  }
+  if (fr >= 1) { xs.push(xs[0]); ys.push(ys[0]); }
+  d = 'M' + xs[0] + ' ' + ys[0] + 'l'; px = xs[0]; py = ys[0];
+  for (j = 1; j < xs.length; j++) {
+    len += Math.hypot(xs[j] - px, ys[j] - py);
+    /* 每对之后补空格：否则 "0 8" 紧跟 "1 7" 会被 SVG 读成 "0 81 7" */
+    d += (xs[j] - px) + ' ' + (ys[j] - py) + ' '; px = xs[j]; py = ys[j];
+  }
+  return { d: d, len: len, last: [px, py] };
+}
+function NODE(i) {
+  while (POOL.length <= i) {
+    var e = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    e.setAttribute('class', 'ring'); WALK.appendChild(e); POOL.push(e);
+  }
+  return POOL[i];
+}
+/* 建图：按每圈线长排起笔时刻，针笔全场 1400ms 匀速（网格先占 180ms） */
+function BUILD(p) {
+  var lens = [], tot = 0, cum = 0, i, e, o;
+  if (POOL.length >= p.C && POOL[0].getAttribute('pathLength') === '1') return;
+  for (i = 0; i < p.C; i++) { o = RD(i, p.C, p.N, p.sp, 1); lens.push(o.len); tot += o.len; }
+  for (i = 0; i < p.C; i++) {
+    e = NODE(i);
+    e.setAttribute('pathLength', '1');
+    e.style.setProperty('--d', Math.max(40, Math.round(1400 * lens[i] / tot)));
+    e.style.setProperty('--t', 180 + Math.round(1400 * cum / tot));
+    cum += lens[i];
+  }
+}
+function PAINT(p, an) {
+  var dr = Math.min(p.segs, CAP), full = Math.floor(dr / p.N), fr = dr / p.N - full,
+      over = p.segs > CAP, i, f, o, r, last = null, e;
+  BUILD(p);
+  for (i = 0; i < p.C; i++) {
+    f = i < full ? 1 : (i === full ? fr : 0); o = POOL[i];
+    if (!f) { o.setAttribute('d', ''); o.setAttribute('display', 'none'); continue; }
+    o.removeAttribute('display'); r = RD(i, p.C, p.N, p.sp, f); o.setAttribute('d', r.d);
+    if (f < 1) last = r.last;
+  }
+  for (i = p.C; i < POOL.length; i++) { POOL[i].setAttribute('d', ''); POOL[i].setAttribute('display', 'none'); }
+  if (over && last) { DOT.setAttribute('cx', last[0]); DOT.setAttribute('cy', last[1]); DOT.removeAttribute('display'); }
+  else DOT.setAttribute('display', 'none');
+  CV.classList.toggle('is-over', over); D0.classList.toggle('is-over', over);
+  if (an && !RED.matches && WALK.animate) {
+    WALK.animate([{ opacity: 0.7 }, { opacity: 1 }], { duration: 420, easing: 'cubic-bezier(.22,.61,.36,1)' });
+    for (i = 0; i < Math.min(p.C, 24); i++) {
+      e = POOL[i];
+      if (e.getAttribute('display') !== 'none') e.animate([{ strokeDashoffset: 1 }, { strokeDashoffset: 0 }],
+        { duration: 300, delay: Math.min(180, i * 8), easing: 'linear', fill: 'backwards' });
+    }
+  }
+  READ(p, over, dr);
+}
+function S(id, v) { var e = document.getElementById(id); if (e) e.textContent = v; }
+function READ(p, over, dr) {
+  var F = p.f + 'Hz', A = p.a.toFixed(2), Z = p.s + 'px';
+  S('r-f', F); S('p-f', F); S('out-f', F);
+  S('r-a', A); S('p-a', A); S('out-a', A);
+  S('r-s', Z); S('p-s', Z); S('out-s', Z);
+  S('r-c', p.C); S('r-np', p.N); S('r-n', 'n = ' + p.n);
+  S('r-segs', dr + ' / ' + CAP); S('p-segs', dr);
+  S('seg-read', over ? '走线 ' + dr + ' 段 / 上限 ' + CAP + ' 段，请求 ' + p.segs + ' 段，越限，错误码 PLOT-4000'
+    : '走线 ' + dr + ' 段 / 上限 ' + CAP + ' 段，余量 ' + (CAP - dr) + ' 段');
+  S('hud-fault', over ? '本次只绘制前 4000 段，把走线间距提到 1.2px 后可完整重绘（请求 ' + p.segs + ' 段）'
+    : '间距 0.6px 且频率 240Hz 以上即压线：46 × 87 = 4002 段。本次只绘制前 4000 段，把走线间距提到 1.2px 后可完整重绘');
+}
+function STEP() { return window.innerWidth < 1024 ? 90 : 100; }
+function GO(an) {
+  if (held > Date.now()) return;
+  var n = Math.max(0, Math.floor(window.scrollY / STEP())), p = PAR(n);
+  if (MAN.f || MAN.a || MAN.s) p = FIN(MAN.f || p.f, MAN.a || p.a, MAN.s || p.s, n);
+  cur = p; PAINT(p, an);
+}
+function KICK() { if (!raf) raf = requestAnimationFrame(function () { raf = 0; GO(1); }); }
+window.addEventListener('scroll', KICK, { passive: true });
+window.addEventListener('resize', KICK);
+WALK.addEventListener('pointerover', function (e) {
+  var el = e.target, i;
+  if (!el.classList || !el.classList.contains('ring')) return;
+  i = POOL.indexOf(el); if (i < 0) return;
+  el.classList.add('is-probed');
+  PB.textContent = 'i = ' + i + ' ，声压级 ' + (94 - i * 2.4).toFixed(1) + 'dB';
+});
+WALK.addEventListener('pointerout', function (e) { if (e.target.classList) e.target.classList.remove('is-probed'); });
+var HB = document.getElementById('hold'), HN = document.getElementById('hold-note');
+function SN() { return cur ? cur.f + 'Hz ／ 振幅 ' + cur.a.toFixed(2) + ' ／ 间距 ' + cur.s + 'px ／ ' + Math.min(cur.segs, CAP) + ' 段' : '当前参数'; }
+HB.addEventListener('click', function () {
+  held = Date.now() + 3000; GO(1); HB.disabled = true;
+  HN.textContent = '已锁定 3 秒：滚动不改参数，图纸停在 ' + SN() + '。';
+  setTimeout(function () { HB.disabled = false; HN.textContent = '3 秒到了，滚动重新接管：接着滚，频率档位接着走。'; GO(1); }, 3000);
+});
+var FX = document.getElementById('fix'), AF = document.getElementById('fault-after');
+FX.addEventListener('click', function () {
+  MAN.s = 1.2; document.getElementById('in-s').value = 1; GO(1); FX.disabled = true;
+  AF.textContent = '走线间距已写死 1.2px：圈数回到 ' + cur.C + ' 圈，请求 ' + cur.segs + ' 段，落回 4000 段上限内，PLOT-4000 解除。频率与振幅两档仍由滚动驱动，间距这一档等按「交给滚动」再还回去。';
+});
+[['in-f', 'f', function (v) { return +v; }, 'out-f', function (v) { return v + 'Hz'; }],
+ ['in-a', 'a', function (v) { return +v / 100; }, 'out-a', function (v) { return (+v / 100).toFixed(2); }],
+ ['in-s', 's', function (v) { return SP[+v]; }, 'out-s', function (v) { return SP[+v] + 'px'; }]
+].forEach(function (c) {
+  var el = document.getElementById(c[0]);
+  el.addEventListener('input', function () {
+    MAN[c[1]] = c[2](el.value);
+    document.getElementById(c[3]).textContent = c[4](el.value);
+    GO(1);
+  });
+});
+document.getElementById('release').addEventListener('click', function () {
+  MAN = {}; FX.disabled = false;
+  AF.textContent = '三个参数都还给了滚动：继续滚，频率每 100px 走一格、振幅每 3 格走一档、走线间距每 6 格换一档。';
+  GO(1);
+});
+var DP = document.getElementById('drop');
+['dragenter', 'dragover', 'dragleave', 'drop'].forEach(function (t) {
+  DP.addEventListener(t, function (e) { e.preventDefault(); });
+});
+DP.addEventListener('drop', function () {
+  DP.querySelector('.drop__line').textContent = '已登记 SAMPLE-D：20.0 秒。原型不解析音频内容，按 240ms 的擦除转场重绘一次。';
+  CV.classList.add('is-erasing');
+  setTimeout(function () { CV.classList.remove('is-erasing'); GO(1); }, 240);
+});
+GO(0);
+})();
+</script>
+</body>
+</html>

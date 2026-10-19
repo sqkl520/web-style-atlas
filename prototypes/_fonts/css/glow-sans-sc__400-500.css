@@ -1,0 +1,33 @@
+/* S05 像素冷库台 —— 自托管字体（手写，非 _build/fetch-fonts.mjs 生成）
+   族：Glow Sans SC ＝未来荧黑（OFL 1.1，骨架硬且几何的黑体，规格局 C5）
+   字重：400／500／600 三档全部指向同一份 Regular 子集。
+   为什么这样写（字段 11：首屏 ≤380KB，不含抖动图）：
+     中文子集一份 171.3 KB，再加一份 Medium 就是 339.8 KB，光中文就吃掉预算；
+     而本页中文只用得到"读数、标签、说明"三个层级，层级差由字号与颜色承担，
+     不是靠字重。三档共用一个文件既省下 168.5 KB，也避免 600 档缺字时浏览器合成假粗体。
+   上游：https://github.com/lvwzhen/glow-sans 的 npm 分发物 @fontpkg/glow-sans-sc（Normal 宽度档）
+   为什么手写：该族不在 Google Fonts 渠道，且发布物只有 8.7 MB 全字库 OTF（无 woff2、无
+   unicode-range 切片），因此由 build/fetch-fonts-extra.mjs 取回 OTF 后，
+   交给 build/subset-glow.py 用 fontTools 按页面实际用字子集化为 woff2（字段 11 的同一工艺）。
+   子集重新生成：python build/subset-glow.py（会重新读 ../files/glow-sans-sc/*.woff2 覆盖本目录）。 */
+@font-face {
+  font-family: 'Glow Sans SC';
+  src: url('../files/glow-sans-sc/glow-sans-sc-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Glow Sans SC';
+  src: url('../files/glow-sans-sc/glow-sans-sc-regular.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Glow Sans SC';
+  src: url('../files/glow-sans-sc/glow-sans-sc-regular.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}

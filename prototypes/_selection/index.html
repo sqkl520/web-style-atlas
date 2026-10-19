@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>选型台 · 30 个网站设计风格方案</title>
+<meta name="description" content="30 个网站设计风格方案的选型台：每个方案配一个按同一口径渲染的可运行原型，含三档视口的真实截图、闸门结果、配色与字体当前有效值。">
+<link rel="stylesheet" href="../_fonts/css/archivo-vf__wdth-wght.css">
+<link rel="stylesheet" href="../_fonts/css/noto-sans-sc__100..900.css">
+<link rel="stylesheet" href="../_fonts/css/ibm-plex-mono__400-500.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<a class="skip" href="#ledger">跳到方案清单</a>
+
+<header class="mast">
+  <div class="mast-id">
+    <p class="mast-kicker">网站设计风格方案 · 选型台</p>
+    <h1>三十个案，一条渲染口径</h1>
+    <p class="mast-claim">每个方案都有一个可运行的原型，全部用同一条命令、同一套视口（桌面 1440×900、平板 768×1024、手机 390×844）渲染，闸门结果与截图都在这里摊开——选之前先看它实际长成什么样。</p>
+  </div>
+  <dl class="mast-facts" id="facts">
+    <div><dt>方案总数</dt><dd id="f-total">—</dd></div>
+    <div><dt>已建原型</dt><dd id="f-built">—</dd></div>
+    <div><dt>闸门 FAIL=0</dt><dd id="f-clean">—</dd></div>
+    <div><dt>截图总数</dt><dd id="f-shots">—</dd></div>
+  </dl>
+</header>
+
+<div class="bench">
+
+  <aside class="rail" aria-label="筛选">
+    <div class="rail-block">
+      <h2>结构类型</h2>
+      <div class="chips" id="flt-fr" role="group" aria-label="按结构类型筛选"></div>
+    </div>
+    <div class="rail-block">
+      <h2>认知门槛</h2>
+      <div class="chips" id="flt-thr" role="group" aria-label="按认知门槛筛选"></div>
+    </div>
+    <div class="rail-block">
+      <h2>调性</h2>
+      <div class="chips" id="flt-tone" role="group" aria-label="按调性筛选"></div>
+    </div>
+    <div class="rail-block">
+      <h2>建成状态</h2>
+      <div class="chips" id="flt-state" role="group" aria-label="按建成状态筛选"></div>
+    </div>
+    <div class="rail-block">
+      <h2>闸门</h2>
+      <div class="chips" id="flt-gate" role="group" aria-label="按闸门结果筛选"></div>
+    </div>
+    <div class="rail-block rail-note">
+      <h2>怎么用</h2>
+      <p>点任意一行展开它的 12 字段与整页截图。<kbd>1</kbd><kbd>2</kbd><kbd>3</kbd> 切视口，<kbd>J</kbd><kbd>K</kbd> 换方案，<kbd>/</kbd> 定位搜索框，<kbd>Esc</kbd> 收起。地址栏的 <code>#S07</code> 可以直接分享单个方案。</p>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="bar">
+      <label class="search">
+        <span>搜索</span>
+        <input id="q" type="search" placeholder="方案号、中文名、英文名、美学家族、字体、错误码…" autocomplete="off">
+      </label>
+      <p class="count" id="count">—</p>
+      <div class="sort">
+        <label for="sort">排序</label>
+        <select id="sort">
+          <option value="n">方案号</option>
+          <option value="fr">结构类型</option>
+          <option value="thr">认知门槛</option>
+          <option value="gate">闸门（FAIL 多的在前）</option>
+          <option value="built">未建的在前</option>
+        </select>
+      </div>
+      <button id="reset" type="button" class="btn-quiet">清空筛选</button>
+    </div>
+
+    <ol class="ledger" id="ledger"></ol>
+    <p class="empty" id="empty" hidden>没有符合条件的方案。清空筛选，或换一个关键词。</p>
+  </main>
+</div>
+
+<!-- 详情：桌面端是右侧栏，窄屏是全屏层 -->
+<aside class="detail" id="detail" hidden aria-label="方案详情">
+  <div class="detail-head">
+    <p class="detail-no" id="d-no">—</p>
+    <div class="detail-title">
+      <h2 id="d-cn">—</h2>
+      <p id="d-en">—</p>
+    </div>
+    <button id="d-close" type="button" class="btn-quiet">收起</button>
+  </div>
+  <div class="detail-body" id="d-body"></div>
+</aside>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

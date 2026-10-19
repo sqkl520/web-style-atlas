@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>钢丝安全册 · 拆机械密封前先泄压到 0.3MPa｜1980 年代德国工业安全规程手册</title>
+<meta name="description" content="钢丝安全册：1980 年代德国工业安全规程手册展开成页，左缘 72px 装订边距里一排 3px 穿孔（间距 18px）与 1.2px 钢丝圈，离心泵爆炸图拆成 23 个零件、线宽 0.6px 与 0.4px，每件带引出编号并与零件表双向交叉引用；警示框跳满 10 栏，45° 斜纹纹宽 8px、间隙 8px。">
+<link rel="stylesheet" href="../_fonts/css/saira-condensed__700.css">
+<link rel="stylesheet" href="../_fonts/css/noto-sans-sc__100..900.css">
+<link rel="stylesheet" href="../_fonts/css/martian-mono__400-500.css">
+<link rel="stylesheet" href="style.css">
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+<div class="sheet">
+<div class="wire" aria-hidden="true"></div>
+
+<div class="topbar">
+<div class="hud" role="status">
+  <p><b>设备</b> <code>P-204</code> <b>泵型</b> <code>CP-80/200</code></p>
+  <p><b>扭矩</b> <code>42 N·m</code> · <b>泄压上限</b> <code>0.3 MPa</code></p>
+  <p class="hud__fault"><b>状态</b> <code>TORQUE-29</code> 扭矩未复位到 42 N·m<span>（见 4.3 与页尾错误态）</span></p>
+</div>
+
+<div class="idx" role="group" aria-label="章节索引">
+  <p class="idx__book"><code>BGR-1987-214</code></p>
+  <ol class="idx__list">
+    <li><a href="#ch1" aria-current="true"><code>1</code> 适用范围</a></li>
+    <li><a href="#ch2" aria-current="false"><code>2</code> 泄压与排空</a></li>
+    <li><a href="#ch3" aria-current="false"><code>3</code> 零件图与零件表</a></li>
+    <li><a href="#ch4" aria-current="false"><code>4</code> 拆装与复位</a></li>
+  </ol>
+  <p class="idx__now">当前 <code>1.1</code></p>
+</div>
+</div>
+
+<div class="strip" aria-hidden="true"></div>
+
+<div class="deck">
+
+<header class="masthead" id="top">
+  <div class="masthead__text" data-grow>
+    <h1>钢丝安全册</h1>
+    <p class="claim">拆机械密封前先泄压到 0.3MPa 以下，扭矩按 42N·m 复位。</p>
+    <p class="masthead__cue">
+      <a class="btn" href="#sec-42">跳到第 4.2 节的拆卸步骤</a>
+      <span class="hint">进页面先读警告，再读内容：每章开头都压着一条警示框。</span>
+    </p>
+    <p>这本手册是 1987 年德国工业安全规程的排版顺序加上 DIN 476 的纸张规格：装订边距 <code>72px</code>，里面一排 <code>3px</code> 穿孔、间距 <code>18px</code>，穿 <code>1.2px</code> 钢丝圈，圈位左上带一条 <code>0.5px</code> 单向金属高光，没有一处柔和投影。章节编号挂在版心之外的左缘，固定 <code>4</code> 字符宽，正文在左 <code>5</code> 栏、规格表在右 <code>5</code> 栏。</p>
+    <p>纸底 <code>#D9D3C4</code> 占 <code>52%</code>；主色 <code>#644F02</code> 对纸底 <code>5.29:1</code>，作按钮底时白字 <code>6.94:1</code>；正文 <code>#1A1A17</code> 对纸底 <code>11.68:1</code>；辅助 <code>#5A6068</code> 只做钢丝圈、表头与控制柜门。警示框的斜纹里有一块 <code>#E4B400</code> 实色块，它对纸底只有 <code>1.50:1</code>，所以它是装饰性的，上面只许压固定色 <code>#1A1A17</code> 的编号，不承载正文，也不放图标。</p>
+  </div>
+  <figure class="fig fig--cover" data-grow>
+    <img src="assets/reuse-s10-road-04-raw.jpg" width="1280" height="882" alt="一辆黄色平板挂车满载成捆的盘条行驶在公路上，车尾挂着铁链与警示牌，路缘是黑白相间的警示块">
+    <figcaption>封面翻拍件：把设备运到现场的那一段路，也在本册的适用范围内。照片按 <code>133</code> 线、网屏角 <code>45°</code> 处理成单色网点后贴进手册，量具与划痕一律保留。
+      <span class="ref">Freight transportation by road on open truck · Sneha G Gupta · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File%3AFreight_transportation_by_road_on_open_truck.jpg">Wikimedia Commons</a></span>
+    </figcaption>
+  </figure>
+</header>
+
+<main>
+
+<section class="ch" id="ch1" data-chapter="1">
+  <h2>适用范围</h2>
+  <div class="warn" data-grow>
+    <div class="haz" aria-hidden="true"></div>
+    <p class="haz__no"><code>W-01</code></p>
+    <p class="haz__line"><b>先读警告，再读条款。</b>铭牌与泵体上的编号对不上时，停手核对，不要按近似型号套参数：本册所有数值只对 <code>CP-80/200</code> 这一型有效。</p>
+  </div>
+
+  <div class="ch__grid">
+    <div class="col-a">
+
+      <div class="clause" data-grow>
+        <p class="num"><code>1.1</code></p>
+        <div>
+          <h3>本册管哪些泵</h3>
+          <p>水平中开单级离心泵，流量 <code>80 m³/h</code>、扬程 <code>200 m</code>、转速 <code>2950 r/min</code>，介质为清水与含固量低于 <code>0.5%</code> 的冲洗液。泵组包含泵体、轴承箱、联轴器与底座，不含电机内部绕组；电机侧只写对中与地脚。</p>
+          <p>铭牌上的设备号是唯一身份。检修记录按设备号建，不按位置建：同一台泵挪到另一个工位，记录跟着走。</p>
+        </div>
+      </div>
+
+      <div class="clause" data-grow>
+        <p class="num"><code>1.2</code></p>
+        <div>
+          <h3>编号规则</h3>
+          <p>章节号用 <code>4.2.1</code> 式样，四段以内；零件号两位，从 <code>01</code> 到 <code>23</code>，与爆炸图的引出编号、零件表的第一列逐一对齐。两套编号必须双向能跳：图上点编号跳到零件表对应行，零件表那一行再点回来。</p>
+          <p>换品牌等于重编整本手册的编号体系，所以本册的编号不许挪用、不许跳号，缺件时保留空号。</p>
+        </div>
+      </div>
+
+      <div class="clause" data-grow>
+        <p class="num"><code>1.3</code></p>
+        <div>
+          <h3>一般规定</h3>
+          <p>拆任何紧固件之前先泄压、排空、断电、挂牌。断电图标是插头断开并带锁扣；高温图标是三角内加一道横线；禁止图标是圆加一道 <code>45°</code> 斜线——全站只此一处斜线图标，免得与警示框抢戏。</p>
+          <p>霜、油、水不得带入密封面。工具按规格列准备：内六角、扭矩扳手、百分表、铜棒、塞尺。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-b">
+      <div class="panel panel--spec" data-grow>
+        <h3 class="panel__t">紧固扭矩 N·m</h3>
+        <table class="spec">
+          <caption>按对角分三遍拧紧，第二遍与第三遍只校不转。</caption>
+          <thead>
+            <tr><th scope="col">紧固件</th><th scope="col">螺纹</th><th scope="col">扭矩 N·m</th><th scope="col">备注</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">机械密封压盖</th><td><code>M10</code></td><td class="v"><code>42</code></td><td>对角落三遍</td></tr>
+            <tr><th scope="row">叶轮螺母</th><td><code>M20×1.5</code></td><td class="v"><code>68</code></td><td>左旋螺纹</td></tr>
+            <tr><th scope="row">泵盖</th><td><code>M16</code></td><td class="v"><code>96</code></td><td>分两遍过</td></tr>
+            <tr><th scope="row">轴承箱端盖</th><td><code>M8</code></td><td class="v"><code>24</code></td><td>只压油封</td></tr>
+            <tr><th scope="row">吸入法兰</th><td><code>M12</code></td><td class="v"><code>36</code></td><td>垫片一次一换</td></tr>
+            <tr><th scope="row">排出法兰</th><td><code>M12</code></td><td class="v"><code>40</code></td><td>垫片不得挤出</td></tr>
+            <tr><th scope="row">联轴器</th><td><code>M10</code></td><td class="v"><code>12</code></td><td>压紧弹性块</td></tr>
+            <tr><th scope="row">底座地脚</th><td><code>M20</code></td><td class="v"><code>210</code></td><td>灌浆后复紧一次</td></tr>
+          </tbody>
+        </table>
+        <p class="panel__n">列头写单位，行里不重复；数值右对齐并做小数点对齐，单位 <code>N·m</code> 只出现在列头。</p>
+      </div>
+      <figure class="fig fig--warehouse" data-grow>
+        <img src="assets/reuse-s10-halftone-store-03.png" width="880" height="620" alt="仓库货架上成排码放的铸铁散热器，照片已处理成单色网点">
+        <figcaption>备件入库的那一排货架：零件表里的每一件都能在这里找到位置，拣出来的件按零件号挂牌。
+          <span class="ref">Warehouse of radiators · Pavel Ševela · CC BY-SA 3.0 · <a href="https://commons.wikimedia.org/wiki/File%3AWarehouse_of_radiators.jpg">Wikimedia Commons</a></span>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="ch ch--amber bleed" id="ch2" data-chapter="2">
+  <h2>泄压与排空</h2>
+  <div class="warn" data-grow>
+    <div class="haz" aria-hidden="true"></div>
+    <p class="haz__no"><code>W-02</code></p>
+    <p class="haz__line"><b>泄压未到零，扳手不上手。</b>泵体里只要还有 <code>0.05 MPa</code> 的余压，密封压盖就不是“紧”，是顶住的；拆最后两颗螺栓时它会弹开。</p>
+  </div>
+
+  <div class="ch__grid">
+    <div class="col-a">
+      <div class="clause" data-grow>
+        <p class="num"><code>2.1</code></p>
+        <div>
+          <h3>泄到零再动手</h3>
+          <p>关吸入阀，停泵，断开电机主回路并挂牌。开排空阀把泵体压力放到 <code>0.3 MPa</code> 以下，再放到底：本册把 <code>0.3 MPa</code> 当作“开始动作”的门槛，不是“可以拆密封”的门槛。</p>
+          <p>机械密封腔单独接冲洗口泄压，冲洗液温度降到 <code>60 ℃</code> 以下才允许碰压盖。</p>
+        </div>
+      </div>
+      <div class="clause" data-grow>
+        <p class="num"><code>2.2</code></p>
+        <div>
+          <h3>排空与置换</h3>
+          <p>从低点排空，高点开破真空。介质含固时先用清水置换两遍，置换液从密封冲洗口进、泵体低点出，不许反着走：反着走会把颗粒顶进密封面。</p>
+        </div>
+      </div>
+      <figure class="fig fig--rail" data-grow>
+        <img src="assets/reuse-s10-rail-02-raw.jpg" width="1280" height="884" alt="一台装满集装箱与罐式箱的货运列车停在站台边，灰绿色箱体上有密集的竖向压筋与编号">
+        <figcaption>押运到场：设备到场先核对箱体编号与铭牌，起吊前确认吊点。放大一件设备的世界，和放大一只零件一样，先看编号再看内容。
+          <span class="ref">Intermodal freight car 2001 2rd · Snow storm in Eastern Asia（英文维基百科） · Public domain · <a href="https://commons.wikimedia.org/wiki/File%3AIntermodal_freight_car_2001_2rd.jpg">Wikimedia Commons</a></span>
+        </figcaption>
+      </figure>
+    </div>
+    <div class="col-b">
+      <div class="panel panel--spec" data-grow>
+        <h3 class="panel__t">泄压与排空测点</h3>
+        <table class="spec">
+          <caption>五个测点逐个读到零，读不到零就停在这一步。</caption>
+          <thead>
+            <tr><th scope="col">测点</th><th scope="col">上限 MPa</th><th scope="col">介质</th><th scope="col">允许残留</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">泵体排空阀</th><td class="v"><code>0.30</code></td><td>清水</td><td>无压</td></tr>
+            <tr><th scope="row">密封冲洗口</th><td class="v"><code>0.15</code></td><td>冲洗液</td><td>无压</td></tr>
+            <tr><th scope="row">吸入管低点</th><td class="v"><code>0.05</code></td><td>清水</td><td><code>≤0.02 MPa</code></td></tr>
+            <tr><th scope="row">机械密封腔</th><td class="v"><code>0.30</code></td><td>冲洗液</td><td>无压</td></tr>
+            <tr><th scope="row">排出管高点</th><td class="v"><code>0.05</code></td><td>清水</td><td><code>≤0.02 MPa</code></td></tr>
+          </tbody>
+        </table>
+        <p class="panel__n">压力单位一律 <code>MPa</code>，写在列头；温度另写在 2.1 的条款里，不混进这张表。</p>
+      </div>
+      <div class="notes" data-grow>
+        <h3 class="panel__t">断电、挂牌、上锁</h3>
+        <p>断电顺序：停泵、断主回路、验电、挂牌、上锁，五步顺序不许并。挂牌上写设备号 <code>P-204</code> 与操作人，牌留在原处直到本体完工。</p>
+        <p>高温部位在 <code>60 ℃</code> 以上时，三处图标——断电、高温、禁止——必须同时贴在控制柜门上；图标 <code>1.4px</code> 方头线宽，<code>12px</code> 下也要认得出来。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pump" id="ch3" data-chapter="3">
+  <div class="pump__head" data-grow>
+    <p class="num"><code>3.1</code></p>
+    <h2>零件图与零件表</h2>
+    <p class="lede">一台离心泵拆成 <code>23</code> 个零件，单线画出：轮廓 <code>0.6px</code>、轴心线 <code>0.4px</code>，一律不许填色块。每件带引出编号，编号是等宽的，点图上任何一个编号都会跳到零件表里对应的那一行。</p>
+  </div>
+  <div class="warn" data-grow>
+    <div class="haz" aria-hidden="true"></div>
+    <p class="haz__no"><code>W-03</code></p>
+    <p class="haz__line"><b>编号对不上就停手。</b>图上 <code>07</code> 是机械密封，零件表第 7 行必须是同一件；对不上说明这一版的图与表不是同一次印刷。</p>
+  </div>
+
+  <figure class="pump__fig" data-grow>
+    <svg class="diag" viewBox="0 0 960 560" role="group" aria-label="离心泵爆炸图，23 个零件各带可点击的引出编号">
+      <g class="axle" aria-hidden="true">
+        <path d="M48,300H912"/>
+      </g>
+      <g class="pt" data-part="01" tabindex="0" role="button" aria-label="零件 01 吸入法兰，跳到零件表第 1 行"><path class="pc" d="M60,262h30v76h-30z M90,278h22v44h-22"/><path class="pl" d="M75,262V120h-27"/><text class="pn" x="48" y="104">01</text></g>
+      <g class="pt" data-part="02" tabindex="0" role="button" aria-label="零件 02 泵体蜗壳，跳到零件表第 2 行"><path class="pc" d="M204,300a72,76 0 1,0 144,0a72,76 0 1,0 -144,0 M276,376v22"/><path class="pl" d="M276,224V150h66"/><text class="pn" x="342" y="134">02</text></g>
+      <g class="pt" data-part="03" tabindex="0" role="button" aria-label="零件 03 耐磨环，跳到零件表第 3 行"><path class="pc" d="M160,264a36,36 0 0,1 0,72 M176,262a24,24 0 0,1 0,76"/><path class="pl" d="M170,258V180h-30"/><text class="pn" x="140" y="164">03</text></g>
+      <g class="pt" data-part="04" tabindex="0" role="button" aria-label="零件 04 叶轮，跳到零件表第 4 行"><path class="pc" d="M112,300a40,40 0 0,1 66,-30 M110,318a46,46 0 0,0 68,20 M124,272a34,34 0 0,1 52,14 M132,330a30,30 0 0,0 40,10"/><path class="pl" d="M126,262V200h-34"/><text class="pn" x="92" y="184">04</text></g>
+      <g class="pt" data-part="05" tabindex="0" role="button" aria-label="零件 05 叶轮螺母，跳到零件表第 5 行"><path class="pc" d="M94,288l12,-9l12,9v24l-12,9l-12,-9z M106,279v42"/><path class="pl" d="M94,288V240h-40"/><text class="pn" x="54" y="224">05</text></g>
+      <g class="pt" data-part="06" tabindex="0" role="button" aria-label="零件 06 键，跳到零件表第 6 行"><path class="pc" d="M120,306h20v7h-20z"/><path class="pl" d="M130,306V268h-38"/><text class="pn" x="92" y="252">06</text></g>
+      <g class="pt" data-part="07" tabindex="0" role="button" aria-label="零件 07 机械密封，跳到零件表第 7 行"><path class="pc" d="M320,272h22v56h-22z M342,278h9v44h-9 M351,266h10v68h-10"/><path class="pl" d="M340,272V212h56"/><text class="pn" x="396" y="196">07</text></g>
+      <g class="pt" data-part="08" tabindex="0" role="button" aria-label="零件 08 密封压盖，跳到零件表第 8 行"><path class="pc" d="M366,268h13v64h-13z M379,276h11v48h-11"/><path class="pl" d="M372,268V236h-52"/><text class="pn" x="320" y="220">08</text></g>
+      <g class="pt" data-part="09" tabindex="0" role="button" aria-label="零件 09 轴套，跳到零件表第 9 行"><path class="pc" d="M392,282h34v36h-34z M408,282v36"/><path class="pl" d="M409,282V224h58"/><text class="pn" x="467" y="208">09</text></g>
+      <g class="pt" data-part="10" tabindex="0" role="button" aria-label="零件 10 泵盖，跳到零件表第 10 行"><path class="pc" d="M432,256h17v88h-17z M449,272h12v56h-12"/><path class="pl" d="M440,256V170h-52"/><text class="pn" x="388" y="154">10</text></g>
+      <g class="pt" data-part="11" tabindex="0" role="button" aria-label="零件 11 泵轴，跳到零件表第 11 行"><path class="pc" d="M461,292h200v16h-200z M661,296h40v8h-40"/><path class="pl" d="M560,292V120h58"/><text class="pn" x="618" y="104">11</text></g>
+      <g class="pt" data-part="12" tabindex="0" role="button" aria-label="零件 12 轴套螺母，跳到零件表第 12 行"><path class="pc" d="M701,286h22v28h-22z M712,286v28"/><path class="pl" d="M701,286V244h-58"/><text class="pn" x="643" y="228">12</text></g>
+      <g class="pt" data-part="13" tabindex="0" role="button" aria-label="零件 13 轴承箱，跳到零件表第 13 行"><path class="pc" d="M724,250h86v100h-86z M810,266h13v68h-13"/><path class="pl" d="M770,250V150h62"/><text class="pn" x="832" y="134">13</text></g>
+      <g class="pt" data-part="14" tabindex="0" role="button" aria-label="零件 14 前轴承，跳到零件表第 14 行"><path class="pc" d="M748,300a26,26 0 1,0 0.1,0 M748,300a9,9 0 1,0 0.1,0"/><path class="pl" d="M756,274V132h-46"/><text class="pn" x="710" y="116">14</text></g>
+      <g class="pt" data-part="15" tabindex="0" role="button" aria-label="零件 15 后轴承，跳到零件表第 15 行"><path class="pc" d="M786,300a22,22 0 1,0 0.1,0 M786,300a8,8 0 1,0 0.1,0"/><path class="pl" d="M792,278V206h40"/><text class="pn" x="840" y="190">15</text></g>
+      <g class="pt" data-part="16" tabindex="0" role="button" aria-label="零件 16 油视镜，跳到零件表第 16 行"><path class="pc" d="M766,336a9,9 0 1,0 0.1,0"/><path class="pl" d="M775,344V382h-70"/><text class="pn" x="696" y="398">16</text></g>
+      <g class="pt" data-part="17" tabindex="0" role="button" aria-label="零件 17 放油塞，跳到零件表第 17 行"><path class="pc" d="M738,346h16v11h-16z"/><path class="pl" d="M746,357V420h-66"/><text class="pn" x="672" y="436">17</text></g>
+      <g class="pt" data-part="18" tabindex="0" role="button" aria-label="零件 18 油封，跳到零件表第 18 行"><path class="pc" d="M712,284h10v32h-10z"/><path class="pl" d="M712,300V476h-42"/><text class="pn" x="662" y="492">18</text></g>
+      <g class="pt" data-part="19" tabindex="0" role="button" aria-label="零件 19 联轴器，跳到零件表第 19 行"><path class="pc" d="M830,270h22v60h-22z M852,276h16v48h-16"/><path class="pl" d="M844,270V200h62"/><text class="pn" x="906" y="184">19</text></g>
+      <g class="pt" data-part="20" tabindex="0" role="button" aria-label="零件 20 弹性块，跳到零件表第 20 行"><path class="pc" d="M854,296h16v8h-16z"/><path class="pl" d="M862,296V232h60"/><text class="pn" x="922" y="216">20</text></g>
+      <g class="pt" data-part="21" tabindex="0" role="button" aria-label="零件 21 电机轴，跳到零件表第 21 行"><path class="pc" d="M868,292h66v16h-66z M934,266h16v68h-16"/><path class="pl" d="M900,308V440h46"/><text class="pn" x="946" y="456">21</text></g>
+      <g class="pt" data-part="22" tabindex="0" role="button" aria-label="零件 22 排出法兰，跳到零件表第 22 行"><path class="pc" d="M246,140h66v22h-66z M258,162h42v62h-42"/><path class="pl" d="M312,140V56h-64"/><text class="pn" x="240" y="40">22</text></g>
+      <g class="pt" data-part="23" tabindex="0" role="button" aria-label="零件 23 底座地脚，跳到零件表第 23 行"><path class="pc" d="M100,452h784v20h-784z M148,472v14 M300,472v14 M600,472v14 M856,472v14"/><path class="pl" d="M482,452V516h-92"/><text class="pn" x="382" y="532">23</text></g>
+    </svg>
+    <figcaption>爆炸图沿轴心展开：吸入侧在左，电机侧在右，底座在下面。轮廓线 <code>0.6px</code>、轴心线 <code>0.4px</code>，全图没有一处填充。零件 <code>07</code> 到 <code>23</code> 按编号逐件画出，每件 <code>40ms</code>；悬停时该件线宽从 <code>0.6px</code> 加到 <code>1.2px</code>，<code>120ms</code>。
+      <span class="ref">图为本页用内联 SVG 单线绘制，不是照片。</span>
+    </figcaption>
+  </figure>
+
+  <div class="partlist" data-grow>
+    <p class="num"><code>3.2</code></p>
+    <h3 class="panel__t">零件表 · 23 件</h3>
+    <table class="spec spec--parts">
+      <caption>编号与爆炸图上的引出编号一一对应。“紧固与间隙”一列里的 <code>N·m</code> 与 <code>mm</code> 是复位时的目标值，超过公差即返工。</caption>
+      <thead>
+        <tr><th scope="col">编号与名称</th><th scope="col">材料</th><th scope="col">紧固与间隙</th><th scope="col">检查项</th><th scope="col">图上位置</th></tr>
+      </thead>
+      <tbody>
+        <tr id="part-01"><th scope="row"><code>01 吸入法兰</code></th><td>铸铝</td><td class="v"><code>M12 · 36 N·m</code></td><td>密封面无径向划伤</td><td><a href="#ch3" data-back="01">看剖面</a></td></tr>
+        <tr id="part-02"><th scope="row"><code>02 泵体蜗壳</code></th><td>灰铸铁</td><td class="v">—</td><td>内壁无汽蚀坑</td><td><a href="#ch3" data-back="02">看剖面</a></td></tr>
+        <tr id="part-03"><th scope="row"><code>03 耐磨环</code></th><td>铜合金</td><td class="v"><code>间隙 0.35–0.55 mm</code></td><td>与叶轮的径向间隙</td><td><a href="#ch3" data-back="03">看剖面</a></td></tr>
+        <tr id="part-04"><th scope="row"><code>04 叶轮</code></th><td>不锈钢</td><td class="v"><code>螺母 68 N·m</code></td><td>六片后弯叶片无裂纹</td><td><a href="#ch3" data-back="04">看剖面</a></td></tr>
+        <tr id="part-05"><th scope="row"><code>05 叶轮螺母</code></th><td>不锈钢</td><td class="v"><code>68 N·m</code></td><td>左旋螺纹，防松垫片</td><td><a href="#ch3" data-back="05">看剖面</a></td></tr>
+        <tr id="part-06"><th scope="row"><code>06 键</code></th><td>45 号钢</td><td class="v"><code>侧隙 0.02 mm</code></td><td>与键槽贴合无松动</td><td><a href="#ch3" data-back="06">看剖面</a></td></tr>
+        <tr id="part-07"><th scope="row"><code>07 机械密封</code></th><td>碳化硅／石墨</td><td class="v"><code>压量 2.5–3.5 mm</code></td><td>拆前泄压到 <code>0.3 MPa</code></td><td><a href="#ch3" data-back="07">看剖面</a></td></tr>
+        <tr id="part-08"><th scope="row"><code>08 密封压盖</code></th><td>灰铸铁</td><td class="v"><code>M10 · 42 N·m</code></td><td>对角分三次拧紧</td><td><a href="#ch3" data-back="08">看剖面</a></td></tr>
+        <tr id="part-09"><th scope="row"><code>09 轴套</code></th><td>不锈钢</td><td class="v"><code>磨损 ≤0.20 mm</code></td><td>超过即更换</td><td><a href="#ch3" data-back="09">看剖面</a></td></tr>
+        <tr id="part-10"><th scope="row"><code>10 泵盖</code></th><td>灰铸铁</td><td class="v"><code>M16 · 96 N·m</code></td><td>垫片一次一换</td><td><a href="#ch3" data-back="10">看剖面</a></td></tr>
+        <tr id="part-11"><th scope="row"><code>11 泵轴</code></th><td>45 号钢</td><td class="v"><code>跳动 ≤0.03 mm</code></td><td>轴颈无拉伤</td><td><a href="#ch3" data-back="11">看剖面</a></td></tr>
+        <tr id="part-12"><th scope="row"><code>12 轴套螺母</code></th><td>不锈钢</td><td class="v"><code>24 N·m</code></td><td>与轴套端面贴紧</td><td><a href="#ch3" data-back="12">看剖面</a></td></tr>
+        <tr id="part-13"><th scope="row"><code>13 轴承箱</code></th><td>灰铸铁</td><td class="v">—</td><td>油位在视镜中线</td><td><a href="#ch3" data-back="13">看剖面</a></td></tr>
+        <tr id="part-14"><th scope="row"><code>14 前轴承</code></th><td>深沟球 6208</td><td class="v"><code>游隙 0.08–0.12 mm</code></td><td><code>150 ℃</code> 热装</td><td><a href="#ch3" data-back="14">看剖面</a></td></tr>
+        <tr id="part-15"><th scope="row"><code>15 后轴承</code></th><td>深沟球 6208</td><td class="v"><code>游隙 0.08–0.12 mm</code></td><td><code>150 ℃</code> 热装</td><td><a href="#ch3" data-back="15">看剖面</a></td></tr>
+        <tr id="part-16"><th scope="row"><code>16 油视镜</code></th><td>有机玻璃</td><td class="v"><code>24 N·m</code></td><td>无裂纹、无渗油</td><td><a href="#ch3" data-back="16">看剖面</a></td></tr>
+        <tr id="part-17"><th scope="row"><code>17 放油塞</code></th><td>45 号钢</td><td class="v"><code>24 N·m</code></td><td>铝垫圈压平即换</td><td><a href="#ch3" data-back="17">看剖面</a></td></tr>
+        <tr id="part-18"><th scope="row"><code>18 油封</code></th><td>丁腈橡胶</td><td class="v">唇口朝内</td><td>装前涂 <code>ISO VG 46</code></td><td><a href="#ch3" data-back="18">看剖面</a></td></tr>
+        <tr id="part-19"><th scope="row"><code>19 联轴器</code></th><td>灰铸铁</td><td class="v"><code>对中 0.05 mm</code></td><td>百分表两向读数</td><td><a href="#ch3" data-back="19">看剖面</a></td></tr>
+        <tr id="part-20"><th scope="row"><code>20 弹性块</code></th><td>聚氨酯</td><td class="v"><code>间隙 1.5 mm</code></td><td>八块成组更换</td><td><a href="#ch3" data-back="20">看剖面</a></td></tr>
+        <tr id="part-21"><th scope="row"><code>21 电机轴</code></th><td>45 号钢</td><td class="v"><code>对中 0.05 mm</code></td><td>与泵轴同轴度</td><td><a href="#ch3" data-back="21">看剖面</a></td></tr>
+        <tr id="part-22"><th scope="row"><code>22 排出法兰</code></th><td>灰铸铁</td><td class="v"><code>M12 · 40 N·m</code></td><td>垫片不得挤出</td><td><a href="#ch3" data-back="22">看剖面</a></td></tr>
+        <tr id="part-23"><th scope="row"><code>23 底座地脚</code></th><td>型钢</td><td class="v"><code>M20 · 210 N·m</code></td><td>垫铁成对、点焊固定</td><td><a href="#ch3" data-back="23">看剖面</a></td></tr>
+      </tbody>
+    </table>
+    <p class="panel__n">这张表与上一张图的编号互相交叉引用：点图上的引出编号，这一行底色闪一次 <code>80ms</code>；点行尾的“看剖面”，图上那一件加粗。<code>23</code> 件里没有一件是装饰。</p>
+  </div>
+</section>
+
+<section class="ch" id="ch4" data-chapter="4">
+  <h2>4.1 联轴器与轴承箱</h2>
+  <div class="warn" data-grow>
+    <div class="haz" aria-hidden="true"></div>
+    <p class="haz__no"><code>W-04</code></p>
+    <p class="haz__line"><b>扭矩没复位，泵不许进检修记录。</b>压盖螺栓的 <code>42 N·m</code> 是唯一进记录的数字；读数差 <code>2 N·m</code> 以上按 <code>TORQUE-29</code> 挂起。</p>
+  </div>
+
+  <div class="ch__grid">
+    <div class="col-a">
+      <div class="clause" data-grow>
+        <p class="num"><code>4.1.1</code></p>
+        <div>
+          <h3>先拆联轴器</h3>
+          <p>松开联轴器弹性块螺栓前，百分表先架在泵轴与电机轴上各读一次对中：径向 <code>0.05 mm</code>、端面 <code>0.03 mm</code>。这两组读数是复位时的参照，少了它只能“看着差不多”装回去。</p>
+          <p>轴承箱放油从低点放油塞走，油温低于 <code>60 ℃</code> 再放；油品型号写 <code>ISO VG 46</code>，容量 <code>1.2 L</code>，加到位后油位落在视镜中线。</p>
+        </div>
+      </div>
+      <div class="clause" data-grow>
+        <p class="num"><code>4.1.2</code></p>
+        <div>
+          <h3>轴承滚道只许看，不许摸</h3>
+          <p>拆下的轴承放在无纺布上，滚道与保持架不许直接接触台面。游隙用塞尺量，<code>0.08–0.12 mm</code> 之外换新；热装温度 <code>150 ℃</code>，不许用气焊烤。</p>
+        </div>
+      </div>
+      <figure class="fig fig--orbit" data-grow>
+        <img src="assets/nasa-earth-observations-taken-during-sts--vy5ds.jpg" width="1259" height="1280" alt="沙漠上空拍到的成片圆形灌溉设施，圆点是深色的中心支轴灌溉盘，地面上还有道路与浅色砂纹">
+        <figcaption>地面设施巡检的对照片：一片沙漠里成百个圆盘，每一个都要编号、都要有检修记录。编号一旦对不上，和一台泵对不上铭牌一样，只能停手。
+          <span class="ref">Earth observations taken during STS-83 mission · NASA · 公有领域（NASA 图像使用条款） · <a href="https://images-assets.nasa.gov/image/sts083-747-033/sts083-747-033~medium.jpg">NASA 图像库</a></span>
+        </figcaption>
+      </figure>
+    </div>
+
+    <div class="col-b">
+      <div class="panel panel--spec" id="sec-42" data-grow>
+        <h3 class="panel__t">4.2 机械密封拆卸参数</h3>
+        <table class="spec">
+          <caption>拆卸前逐项抄下当时的读数，复位时按同一张表回填。</caption>
+          <thead>
+            <tr><th scope="col">项目</th><th scope="col">单位</th><th scope="col">目标值</th><th scope="col">公差</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">压盖螺栓扭矩</th><td><code>N·m</code></td><td class="v"><code>42</code></td><td><code>±2</code></td></tr>
+            <tr><th scope="row">密封压量</th><td><code>mm</code></td><td class="v"><code>3.0</code></td><td><code>2.5–3.5</code></td></tr>
+            <tr><th scope="row">密封面平面度</th><td><code>mm</code></td><td class="v"><code>0.02</code></td><td><code>≤0.02</code></td></tr>
+            <tr><th scope="row">冲洗液压力</th><td><code>MPa</code></td><td class="v"><code>0.15</code></td><td><code>±0.02</code></td></tr>
+            <tr><th scope="row">轴套径向磨损</th><td><code>mm</code></td><td class="v"><code>0.05</code></td><td><code>≤0.20</code></td></tr>
+            <tr><th scope="row">静环座间隙</th><td><code>mm</code></td><td class="v"><code>0.50</code></td><td><code>0.35–0.55</code></td></tr>
+            <tr class="qs"><td colspan="4"></td></tr>
+          </tbody>
+        </table>
+        <p class="panel__n">最后那一行是空的，行高与上面每一行完全一致：手册原版在这一行被油墨糊掉过，参数找不回来了。它留在这里，提醒读者有些数据是真的丢了。</p>
+      </div>
+      <div class="clause clause--dark" data-grow>
+        <p class="num"><code>4.2.1</code></p>
+        <div>
+          <h3>拆卸步骤</h3>
+          <p>一，泄压到 <code>0.3 MPa</code> 以下并读到零；二，拆压盖四颗 <code>M10</code>，对角分三遍松开；三，取出静环与动环，环面朝上放在无纺布上；四，抽出轴套，量磨损；五，冲洗密封腔，异物清干净。每一步做完在检修记录上打一次勾，勾打不全不允许进下一步。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ch ch--amber bleed" id="ch5" data-chapter="4">
+  <h2>4.3 扭矩复位与检修记录</h2>
+  <div class="ch__grid">
+    <div class="col-a">
+      <div class="clause" data-grow>
+        <p class="num"><code>4.3.1</code></p>
+        <div>
+          <h3>按 42N·m 复位</h3>
+          <p>压盖螺栓按对角分三遍拧到 <code>42 N·m</code>：第一遍 <code>20 N·m</code> 预紧，第二遍到 <code>42 N·m</code>，第三遍只校不转。扭矩扳手每半年校一次，读数记在检修记录里，不记在便签上。</p>
+          <p>叶轮螺母 <code>68 N·m</code>、泵盖 <code>96 N·m</code>、地脚 <code>210 N·m</code>，全部按本册第 1.1 节那张表逐条过一遍；对中复查 <code>0.05 mm</code>，手动盘车两圈无卡涩才算完。</p>
+        </div>
+      </div>
+      <div class="clause" data-grow>
+        <p class="num"><code>4.3.2</code></p>
+        <div>
+          <h3>油品与加注</h3>
+          <p>轴承箱 <code>ISO VG 46</code> 齿轮油 <code>1.2 L</code>，密封冲洗液用 <code>32</code> 号液压油、压力 <code>0.15 MPa</code>。两种油不许混：混了以后视镜里会出现一层挂在壁上的膜，那本身就是故障。</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-b">
+      <div class="panel panel--spec" data-grow>
+        <h3 class="panel__t">复位参数</h3>
+        <table class="spec">
+          <caption>扭矩、间隙、油品三类数值分开写单位，行里只写数。</caption>
+          <thead>
+            <tr><th scope="col">项目</th><th scope="col">单位</th><th scope="col">目标值</th><th scope="col">公差</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">压盖螺栓扭矩</th><td><code>N·m</code></td><td class="v"><code>42</code></td><td><code>±2</code></td></tr>
+            <tr><th scope="row">叶轮螺母扭矩</th><td><code>N·m</code></td><td class="v"><code>68</code></td><td><code>±3</code></td></tr>
+            <tr><th scope="row">泵盖螺栓扭矩</th><td><code>N·m</code></td><td class="v"><code>96</code></td><td><code>±4</code></td></tr>
+            <tr><th scope="row">联轴器对中</th><td><code>mm</code></td><td class="v"><code>0.05</code></td><td><code>≤0.05</code></td></tr>
+            <tr><th scope="row">叶轮与耐磨环间隙</th><td><code>mm</code></td><td class="v"><code>0.45</code></td><td><code>0.35–0.55</code></td></tr>
+            <tr><th scope="row">轴承游隙</th><td><code>mm</code></td><td class="v"><code>0.10</code></td><td><code>0.08–0.12</code></td></tr>
+            <tr><th scope="row">轴承箱油品</th><td><code>油品型号</code></td><td class="v"><code>ISO VG 46</code></td><td><code>1.2 L</code></td></tr>
+            <tr><th scope="row">密封冲洗液</th><td><code>油品型号</code></td><td class="v"><code>32 号液压油</code></td><td><code>0.15 MPa</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="records" data-grow>
+        <h3 class="panel__t">检修记录</h3>
+        <form class="records__form" action="#fault" method="get">
+          <label for="tag-no">设备号（铭牌上的那一串）</label>
+          <input id="tag-no" name="tag" type="text" inputmode="text" autocomplete="off" placeholder="例如 P-204" size="12">
+          <button class="btn" type="submit">查这台泵的检修记录</button>
+        </form>
+        <p class="records__empty" role="status">这台泵还没有录入检修记录。把铭牌上的设备号填进上方输入框。</p>
+        <p class="records__n">每一条记录都带三个数：扭矩 <code>42 N·m</code>、间隙 <code>0.45 mm</code>、油品 <code>ISO VG 46</code>。缺一个数的记录不算记录，按 <code>TORQUE-29</code> 处理。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="fault bleed" id="fault">
+  <div class="fault__in">
+    <h2>扭矩未复位到 42 N·m</h2>
+    <p class="fault__alert" role="alert">压盖螺栓扭矩未复位到 <code>42 N·m</code>（错误码 <code>TORQUE-29</code>）：本次读数 <code>34 N·m</code>，比目标值低 <code>8 N·m</code>，超出 <code>±2</code> 的公差。</p>
+    <p>按 4.3.1 的顺序重来：第一遍 <code>20 N·m</code> 预紧，第二遍到 <code>42 N·m</code>，第三遍只校不转。扳手型号与批号写进记录，免得下一班拿另一把没校过的扳手复紧一遍。</p>
+    <p class="fault__quote">挂起期间这台泵不算“已复位”：<code>TORQUE-29</code> 会一直挂在这台 <code>P-204</code> 上，直到记录里出现 <code>42 N·m</code> 的那一行。</p>
+    <p class="fault__cue"><button class="btn btn--invert" type="button" data-recheck>重新读取本次扭矩读数</button></p>
+    <p class="fault__state" data-fault-state>读数还是 <code>34 N·m</code>。错误码 <code>TORQUE-29</code> 未清除，第 1.1 节那张扭矩表的其余条目不受影响。</p>
+  </div>
+</section>
+
+<section class="motion" id="motion">
+  <div class="motion__grid">
+    <div data-grow>
+      <h2>动效与降级</h2>
+      <ul class="spec-list">
+        <li><b>滚动</b>：章节索引条吸顶，滚到哪一章高亮哪一格，切换 <code>100ms</code> 阶跃、无过渡；索引条自身不模糊、不加底板投影。</li>
+        <li><b>悬停</b>：规格表行底色转 <code>#E0DACB</code>（<code>100ms</code>，行不位移）；爆炸图零件线宽 <code>0.6px</code> 加到 <code>1.2px</code>（<code>120ms</code>）。</li>
+        <li><b>警示框</b>：悬停时斜纹沿 <code>45°</code> 方向平移 <code>8px</code>（<code>160ms</code> 线性），像卷警示带转了一格。角度只有这一个。</li>
+        <li><b>加载</b>：先出纸底与穿孔 <code>160ms</code>，再按章节顺序逐章出现，每章 <code>240ms</code>；爆炸图零件按编号 <code>07</code> 到 <code>23</code> 逐个画出，每件 <code>40ms</code>。</li>
+        <li><b>转场</b>：翻章时警示框先合上 <code>120ms</code> 再展开 <code>180ms</code>，斜纹角度与纹宽在这两段里都不变。</li>
+        <li><b>微交互</b>：点零件编号跳到零件表，该行底色闪一次 <code>80ms</code>。</li>
+      </ul>
+    </div>
+    <div data-grow>
+      <p class="cursor-sample">光标图样：<code>24px</code> 内六角扳手，热点在开口处，只接指针精细的设备。</p>
+      <div class="degrade">
+        <p><b>减少动态时的再发明</b>（<code>prefers-reduced-motion: reduce</code>）：斜纹平移与逐件描画停止推进，但警示机制完整静态保留——<code>45°</code> 斜纹的纹宽 <code>8px</code>、间隙 <code>8px</code>、<code>#E4B400</code> 实色块与 <code>#1A1A17</code> 编号全部按原值静态呈现，爆炸图的 <code>0.6px</code> 轮廓、<code>0.4px</code> 轴心线与 <code>0.5px</code> 高光一个都不减，零件编号照旧可点。</p>
+        <p>窄屏那一套也照旧：<code>640–899px</code> 钢丝圈改成顶部穿孔条，仍保留 <code>3px</code> 圈位与 <code>18px</code> 间距；<code>&lt;640px</code> 规格表转成两列键值对，警示框斜纹角度仍然固定 <code>45°</code>，只把过渡压到 <code>120ms</code> 的不透明度切换。</p>
+      </div>
+      <figure class="fig fig--orbit2" data-grow>
+        <img src="assets/nasa-earth-observations-taken-by-the-expe-1m1xc.jpg" width="1280" height="847" alt="沙漠地表影像，浅色沙地上有交叉的道路与车辙痕迹，右下角是青绿色的浅水岸线">
+        <figcaption>动效的取舍和这张图一样：先看清结构，再谈好看。图上每一条道路、每一处水岸都有编号，动效只为让人看清编号怎么跳。
+          <span class="ref">Earth observations taken by the Expedition 12 crew · NASA · 公有领域 · <a href="https://images-assets.nasa.gov/image/iss012e11654/iss012e11654~medium.jpg">NASA 图像库</a></span>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="breaks" id="breaks">
+  <h2>断点行为</h2>
+  <table class="spec spec--breaks">
+    <caption>四档宽度下，装订与规格表的保留方式。</caption>
+    <thead>
+      <tr><th scope="col">宽度</th><th scope="col">装订与栅格</th></tr>
+    </thead>
+    <tbody>
+      <tr><th scope="row"><code>≥1280px</code></th><td>双栏 <b>5:5</b>，规格表向右出血 <code>96px</code> 并整体下沉 <code>18px</code>；左缘钢丝圈固定不动，<code>72px</code> 装订边距里的穿孔间距仍是 <code>18px</code>。</td></tr>
+      <tr><th scope="row"><code>900–1279px</code></th><td>规格表折进正文下方，出血收到 <code>48px</code>；装订边距压到 <code>96px</code>（<code>72px</code> 圈位加 <code>24px</code> 外距），钢丝圈继续固定在左缘。</td></tr>
+      <tr><th scope="row"><code>640–899px</code></th><td>单栏纵向；钢丝圈改成顶部穿孔条，保留 <code>3px</code> 圈位与 <code>18px</code> 间距，暗色的纸张切边从左侧改到上侧。</td></tr>
+      <tr><th scope="row"><code>&lt;640px</code></th><td>单栏；规格表转成两列键值对，列头与单位跟着每一行走；章节编号从左缘挪到条款上方，仍然固定 <code>4</code> 字符宽，警示框斜纹角度仍固定 <code>45°</code>。</td></tr>
+    </tbody>
+  </table>
+  <p class="breaks__note">基础 <code>6px</code> 基线：章节间 <code>88px</code>、条款间 <code>24px</code>、规格表行距 <code>22px</code>，三者都是 <code>6</code> 的整数倍。栏距 <code>18px</code>、外距 <code>56px</code>，<code>10</code> 栏的宽度在四档里都不重算，只重排。</p>
+</section>
+
+</main>
+
+<footer class="foot bleed">
+  <div class="foot__in">
+    <h3>素材出处：六张真图</h3>
+    <ul class="src">
+      <li><b>封面</b> Freight transportation by road on open truck · Sneha G Gupta · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File%3AFreight_transportation_by_road_on_open_truck.jpg">原件页</a>（原本为方案 10 抓取，本方案按题材复用）</li>
+      <li><b>备件货架</b> Warehouse of radiators · Pavel Ševela · CC BY-SA 3.0 · <a href="https://commons.wikimedia.org/wiki/File%3AWarehouse_of_radiators.jpg">原件页</a>（原本为方案 10 抓取，本方案按题材复用）</li>
+      <li><b>押运到场</b> Intermodal freight car 2001 2rd · Snow storm in Eastern Asia（英文维基百科） · Public domain · <a href="https://commons.wikimedia.org/wiki/File%3AIntermodal_freight_car_2001_2rd.jpg">原件页</a>（原本为方案 10 抓取，本方案按题材复用）</li>
+      <li><b>地面设施</b> Earth observations taken during STS-83 mission · NASA · 公有领域 · <a href="https://images-assets.nasa.gov/image/sts083-747-033/sts083-747-033~medium.jpg">原件页</a></li>
+      <li><b>道路与水岸</b> Earth observations taken by the Expedition 12 crew · NASA · 公有领域 · <a href="https://images-assets.nasa.gov/image/iss012e11654/iss012e11654~medium.jpg">原件页</a></li>
+      <li><b>山地与盐湖</b> Earth Obsersation taken by the Expedition 11 crew · NASA · 公有领域 · <a href="https://images-assets.nasa.gov/image/iss011e09680/iss011e09680~medium.jpg">原件页</a></li>
+    </ul>
+    <p class="src-note">六张文件各自的文件名、来源与许可逐条记在 <code>assets/CREDITS.md</code> 与 <code>assets/credits.json</code>；每张图下方也各带一条署名。三张纹理 <code>texture-manual-paper.png</code>、<code>texture-spec-grid.png</code>、<code>texture-torque-grain.png</code> 是程序化生成物，不是照片。</p>
+
+    <figure class="fig fig--salt" data-grow>
+      <img src="assets/nasa-earth-obsersation-taken-by-the-exped-15dax.jpg" width="1280" height="847" alt="山地影像，中央是一片发白的盐湖或露天矿坑区，四周是岩脊与深色山影，中心有细长的深色投影">
+      <figcaption>山地与盐湖：设备安装点的地形对照。图上一片发白的量具表面，和手册里一张纸的油墨不匀一样，都是要照着读的东西。
+        <span class="ref">Earth Obsersation taken by the Expedition 11 crew · NASA · 公有领域（NASA 图像使用条款） · <a href="https://images-assets.nasa.gov/image/iss011e09680/iss011e09680~medium.jpg">NASA 图像库</a></span>
+      </figcaption>
+    </figure>
+
+    <h3>签名式怪癖</h3>
+    <p class="quirk">4.2 节规格表的最后一行下面多出一条空白行，行高与真实行完全一致但没有任何内容：它对应手册原版上被油墨糊掉的那一行参数。它把“这本手册印坏过一次”留在页面上，也提醒读者有些数据是真的找不回来了。</p>
+
+    <h3>这一案故意反的四条</h3>
+    <ul class="notes foot__notes">
+      <li>反 24px 圆角加柔和投影的浮起卡片：全站直角，容器靠吨位差与 1px 硬线分区（硬线只出现在真正的表格里），页面里没有一处投影。</li>
+      <li>反首屏大标题加三张等宽卡片加常见问答：首屏是章节索引条、一条警示框与一段条款，既没有居中大标题，也没有三等宽卡片。</li>
+      <li>反每个 section 换一次铺底：全站单一 <code>#D9D3C4</code> 纸底，分区靠章节编号、钢丝圈与警示框完成。</li>
+      <li>反默认线性图标库的参数：图标自绘，<code>24</code> 单位网格、<code>1.4px</code> 方头线宽，<code>12px</code> 下可辨认；全站没有一格 Emoji。</li>
+    </ul>
+
+    <p class="sig">方案 29 · 钢丝安全册（Wire-Bound Safety Manual）· 德国工业安全规程手册 1987 · BGR 系列版面顺序加 DIN 476 纸张规格 · 错误码 <code>TORQUE-29</code>（Lead 补入）· 本页为可运行原型，用于验证字段 3 的色彩机制（<code>#D9D3C4</code> 纸底 / <code>#644F02</code> 主色 / <code>#1A1A17</code> 铭牌脏黑 / <code>#5A6068</code> 窗灰）、10 栏加左缘编号的栅格、<code>23</code> 件单线爆炸图与 <code>45°</code> 斜纹警示框（纹宽 <code>8px</code>、间隙 <code>8px</code>）的实现方式。</p>
+  </div>
+</footer>
+
+</div>
+</div>
+
+<script>
+(function () {
+  var doc = document.documentElement;
+
+  /* 入场：块进入视口上方 60% 才出现（不是整块淡入）；首屏里的先放行 */
+  var grow = [].slice.call(document.querySelectorAll('[data-grow]'));
+  var fold = innerHeight * 0.92;
+  grow.forEach(function (el) {
+    var r = el.getBoundingClientRect();
+    if (r.top < fold && r.bottom > 0) el.classList.add('in');
+  });
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (list) {
+      list.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      });
+    }, { rootMargin: '0px 0px -25% 0px', threshold: 0 });
+    grow.forEach(function (el) { io.observe(el); });
+  }
+  /* 兜底：瞬时跳步（含锚点跳转）会让落在视口下沿的块一次都不与观察区相交，
+     所以每次滚动再扫一遍“已经进了视口”的块——回到顶部重看时它们必须已经在。 */
+  function sweep() {
+    var h = innerHeight;
+    grow.forEach(function (el) {
+      if (el.classList.contains('in')) return;
+      var r = el.getBoundingClientRect();
+      if (r.top < h * 0.92 && r.bottom > 0) el.classList.add('in');
+    });
+  }
+  addEventListener('scroll', sweep, { passive: true });
+  addEventListener('resize', sweep, { passive: true });
+  addEventListener('load', sweep);
+  sweep();
+  document.addEventListener('focusin', function (e) {
+    var el = e.target.closest('[data-grow]');
+    if (el) el.classList.add('in');
+  });
+
+  /* 章节索引条：滚到哪一章高亮哪一格，100ms 阶跃，不模糊 */
+  var links = document.querySelectorAll('.idx__list a');
+  var chapters = [].slice.call(document.querySelectorAll('[data-chapter]'));
+  var now = document.querySelector('.idx__now code');
+  function mark() {
+    var y = innerHeight * 0.28, best = null;
+    chapters.forEach(function (c) { if (c.getBoundingClientRect().top <= y) best = c; });
+    if (!best) best = chapters[0];
+    if (!best) return;
+    links.forEach(function (a) { a.setAttribute('aria-current', a.getAttribute('href') === '#' + best.id ? 'true' : 'false'); });
+    var numEl = best.querySelector('.num code');
+    if (now) now.textContent = numEl ? numEl.textContent : best.getAttribute('data-chapter');
+  }
+  addEventListener('scroll', mark, { passive: true });
+  addEventListener('resize', mark, { passive: true });
+  mark();
+
+  /* 零件编号与零件表双向交叉引用 */
+  function flash(no) {
+    var row = document.getElementById('part-' + no);
+    if (!row) return;
+    row.classList.add('flash');
+    setTimeout(function () { row.classList.remove('flash'); }, 80);
+    row.scrollIntoView({ block: 'center' });
+  }
+  document.addEventListener('click', function (e) {
+    var pt = e.target.closest ? e.target.closest('.pt') : null;
+    if (pt) { flash(pt.getAttribute('data-part')); return; }
+    var back = e.target.closest ? e.target.closest('[data-back]') : null;
+    if (back) {
+      var g = document.querySelector('.pt[data-part="' + back.getAttribute('data-back') + '"]');
+      if (g) {
+        g.classList.add('hot');
+        setTimeout(function () { g.classList.remove('hot'); }, 600);
+        g.scrollIntoView({ block: 'center' });
+      }
+      return;
+    }
+    var re = e.target.closest ? e.target.closest('[data-recheck]') : null;
+    if (re) {
+      var state = document.querySelector('[data-fault-state]');
+      re.disabled = true;
+      re.textContent = '本次读数仍是 34 N·m';
+      if (state) state.textContent = '读数没有变：34 N·m。错误码 TORQUE-29 仍然挂着，按 4.3.1 重新分三遍拧到 42 N·m 才会清掉。';
+    }
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    var pt = e.target.closest ? e.target.closest('.pt') : null;
+    if (!pt) return;
+    e.preventDefault();
+    flash(pt.getAttribute('data-part'));
+  });
+})();
+</script>
+</body>
+</html>

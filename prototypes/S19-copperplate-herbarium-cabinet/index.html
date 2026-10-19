@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>铜版标本柜 · 20 个抽屉与三级检索号 K-07-112｜标本馆检索原型</title>
+<meta name="description" content="柜面是 20 个宽度不等的抽屉，抽屉标签上的检索号由柜号、抽屉号、卡号三段组成；抽开抽屉露出铜版蚀刻的植物标本卡。检索号 K-07-112：欧洲赤松，1884 年采自邱园 3 号温室。">
+<link rel="stylesheet" href="../_fonts/css/noto-serif-sc__400-700.css">
+<link rel="stylesheet" href="../_fonts/css/spectral__400-600.css">
+<link rel="stylesheet" href="../_fonts/css/ibm-plex-mono__400-500.css">
+<link rel="stylesheet" href="style.css">
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+<a class="skip" href="#cabinet">跳到抽屉索引</a>
+
+<!-- 常驻状态条：错误码 CAT-404 与当前检索号在每一屏截图里直接可见（契约 §9.12） -->
+<div class="hud" role="status" aria-live="off">
+  <p class="hud__line"><span class="hud__k">柜</span> <code>K</code> <span class="hud__k">抽出中的抽屉</span> <code id="hud-drawer">K-07</code> <span class="hud__k">检索号</span> <code id="hud-code">K-07-112</code> <span class="hud__opt"><span class="hud__k">抽出深度</span> <code>24px</code></span></p>
+  <p class="hud__line hud__line--alert"><span class="hud__k">状态</span> <code>CAT-404</code> 检索号 K-07-113 不在本柜，1889 年迁至 K-12 柜</p>
+</div>
+
+<svg class="sprite" aria-hidden="true" focusable="false" width="0" height="0">
+  <defs>
+    <!-- 蚀刻：0.4px 画外框、0.8px 画卡内横线；每条线是同一条 <path> 的子路径，
+         所以任何一条横线的包围盒都不是「宽 ≥160 且高 ≤1.5」的细线（契约 §9.3） -->
+    <symbol id="ec" viewBox="-4 -4 368 236" preserveAspectRatio="none">
+      <path class="e4" d="M-4 -4H364V232H-4Z"/>
+      <path class="e8" d="M20 140h320M20 156h320M20 172h320"/>
+    </symbol>
+    <symbol id="ef" viewBox="-4 -4 368 236" preserveAspectRatio="none">
+      <path class="e4" d="M-4 -4H364V232H-4Z"/>
+    </symbol>
+    <!-- 自绘植物学符号：24 单位网格，0.4px 与 0.8px 两级线宽，无 Emoji、无彩色字形 -->
+    <symbol id="pc" viewBox="0 0 24 24"><path class="e8" d="M12 3v18"/><path class="e4" d="M12 5.4 8.4 7.6M12 5.4 15.6 7.6M12 8.6 8.4 10.8M12 8.6 15.6 10.8M12 11.8 8.4 14M12 11.8 15.6 14M12 15 8.4 17.2M12 15 15.6 17.2M12 18.2 8.4 20.4M12 18.2 15.6 20.4"/></symbol>
+    <symbol id="ps" viewBox="0 0 24 24"><path class="e8" d="M12 4.6c2.9 0 4.5 3.2 4.5 7 0 3.9-1.6 7-4.5 7s-4.5-3.1-4.5-7c0-3.8 1.6-7 4.5-7zM12 4.6v14M12 18.6v2.6"/><path class="e4" d="M9.4 20.2h5.2M12 21.4 9.8 22.6M12 21.4l2.2 1.2"/></symbol>
+    <symbol id="pv" viewBox="0 0 24 24"><path class="e8" d="M12 22V3.4"/><path class="e4" d="M12 8.4 5.6 5.2M12 8.4l6.4-3.2M12 13 5.2 9.4M12 13l6.8-3.6M12 18 5 14.2M12 18l7-3.8"/></symbol>
+  </defs>
+</svg>
+
+<header class="mast">
+  <div class="mast__text">
+    <h1>铜版标本柜</h1>
+    <p class="mast__en">Copperplate Herbarium Cabinet · Sheet K-07-112 · Kew 1880s</p>
+    <p class="claim">检索号 K-07-112：欧洲赤松，1884 年采自邱园 3 号温室。</p>
+    <p class="meta">20 个抽屉宽度不等，标签上的检索号由柜号、抽屉号、卡号三段组成；抽开抽屉露出铜版蚀刻的植物标本卡，细线只有 <code>0.4px</code> 与 <code>0.8px</code> 两级，深浅由线的疏密决定，不由颜色决定。地面是棉麻浆手工卡纸 <code>#E4DECD</code>，蚀刻墨绿 <code>#4A5C3A</code>（对底 5.42:1），柜架深木褐 <code>#2A241C</code> 只占 24% 且不参与正文，标签褪色墨 <code>#7C7460</code> 占 5%。</p>
+    <p class="cue"><a class="btn" href="#d07">抽出第 7 抽屉，查看 112 号卡</a></p>
+  </div>
+  <figure class="mast__plate">
+    <img src="assets/card-catalog-from-page-167-of-manual-of-librar.jpg" width="1280" height="601" alt="1898 年《图书馆分类与排架手册》第 167 页的卡片目录插图">
+    <figcaption>柜体参照：1898 年排架手册里的卡片目录，抽屉宽度不等、标签按编号排列 —— 本案三级检索号与四档抽屉宽度的来源。
+      <span class="ref">Internet Archive Book Images · No restrictions · <a href="https://commons.wikimedia.org/wiki/File:Card_catalog_from_page_167_of_%22Manual_of_library_classification_and_shelf_arrangement%22_(1898).jpg">Wikimedia Commons</a></span>
+    </figcaption>
+  </figure>
+</header>
+
+<main>
+<!-- 柜体：纹理只挂 .cab::before，body 保持纯色（契约 §9.2） -->
+<section class="cab" id="cabinet" aria-labelledby="cab-h">
+  <h2 id="cab-h">20 个抽屉与三级检索号</h2>
+  <p class="lede">12 栏、基线 8px，抽屉面板高 24px。20 个抽屉分 5 行，每行 4 个，宽度取 4 / 3 / 3 / 2 栏，行与行顺序不重复，所以没有两个抽屉等宽。检索号悬挂在标签右侧 12px、比标签基线低 2px。抽屉内边距 8px，抽开后卡面留 16px，卡与卡空 1 个基线单位、行与行空 2 个。≥1440px 保留 20 个抽屉，1024–1439px 卡面窗口收窄，&lt;1024px 单列。</p>
+
+  <div class="rows">
+    <div class="rowwrap">
+      <p class="row__h">第 1 行 · 抽屉 01–04 · 栏宽 4 / 3 / 3 / 2</p>
+      <ul class="row">
+        <li class="dw" id="d01" style="--s:4;--row:0;--n:1px"><span class="dw__bar">第 1 抽屉<code class="dw__code">K-01-018</code></span><span class="dw__card"><span class="dw__in"><svg class="etch" aria-hidden="true"><use href="#ec"/></svg><code class="dw__idx">K-01-018</code><span class="dw__head">欧洲赤松</span><span class="dw__line">1884 · 邱园 3 号温室 · 压制一份</span><span class="dw__note">批注：两针一束，长约 4 cm。</span></span></span></li>
+        <li class="dw" id="d02" style="--s:3;--row:0;--n:2px"><span class="dw__bar">第 2 抽屉<code class="dw__code">K-02-045</code></span><span class="dw__card"><span class="dw__in"><svg class="etch" aria-hidden="true"><use href="#ec"/></svg><code class="dw__idx">K-02-045</code><span class="dw__head">欧活血丹</span><span class="dw__line">1883 · 萨里郡路边 · 附三联单</span><span class="dw__note">批注：第二联字迹被水洇。</span></span></span></li>
+        <li class="dw" id="d03" style="--s:3;--row:0;--n:4px"><span class="dw__bar">第 3 抽屉<code class="dw__code">K-03-071</code></span><span class="dw__card"><span class="dw__in"><svg class="etch" aria-hidden="true"><use href="#ec"/></svg><code class="dw__idx">K-03-071</code><span class="dw__head">药蜀葵</span><span class="dw__line">1885 · 邱园药圃 · 根茎一段</span><span class="dw__note">批注：蒴果椭圆，中轴明显。</span></span></span></li>
+        <li class="dw dw--void" id="d04" style="--s:2;--row:0"><span class="dw__bar">第 4 抽屉<code class="dw__code">K-04</code></span><span class="dw__card dw__card--void"><span class="dw__in"><span class="dw__head">空抽屉</span><span class="dw__line">这个抽屉是空的。1889 年迁库时标本被借走，位置照留。</span></span></span></li>
+      </ul>
+    </div>
+
+    <div class="rowwrap">
+      <p class="row__h">第 2 行 · 抽屉 05–08 · 栏宽 3 / 4 / 2 / 3</p>
+      <ul class="row">
+        <li class="dw" id="d05" style="--s:3;--row:1;--n:5px"><span class="dw__bar">第 5 抽屉<code class="dw__code">K-05-096</code></span><span class="dw__card"><span class="dw__in"><svg class="etch" aria-hidden="true"><use href="#ec"/></svg><code class="dw__idx">K-05-096</code><span class="dw__head">欧獐耳细辛</span><span class="dw__line">1882 · 白金汉郡林下 · 带花</span><span class="dw__note">批注：三裂叶，叶背带紫。</span></span></span></li>
+        <li class="dw" id="d06" style="--s:4;--row:1;--n:5px"><span class="dw__bar">第 6 抽屉<code class="dw__code">K-06-104</code></span><span class="dw__card"><span class="dw__in"><svg class="etch" aria-hidden="true"><use href="#ec"/></svg><code class="dw__idx">K-06-104</code><span class="dw__head">毛地黄</span><span class="dw__line">1886 · 邱园 3 号温室 · 全株</span><span class="dw__note">批注：蒴果两室，中轴贯穿。</span></span></span></li>
+        <li class="dw dw--alt" id="d07" style="--s:2;--row:1;--n:6px"><span class="dw__bar">第 7 抽屉<code class="dw__code">K-07-112</code></span><span class="dw__card"><span class="dw__in"><svg class="etch" aria-hidden="true"><use href="#ec"/></svg><code class="dw__idx">K-07-112</code><span class="dw__head">欧洲赤松</span><span class="dw__line">1884 · 邱园 3 号温室</span><span class="dw__note">批注：主张句所指的 112 号卡。</span></span></span></li>
+        <li class="dw" id="d08" style="--s:3;--row:1;--n:6px"><span class="dw__bar">第 8 抽屉<code class="dw__code">K-08-121</code></span><span class="dw__card"><span class="dw__in"><svg class="etch" aria-hidden="true"><use href="#ec"/></svg><code class="dw__idx">K-08-121</code><span class="dw__head">香堇菜</span><span class="dw__line">1883 · 邱园香圃 · 带根</span><span class="dw__note">批注：托叶羽状深裂。</span></span></span></li>
+      </ul>
+    </div>
+
+    <div class="rowwrap">
+      <p class="row__h">第 3 行 · 抽屉 09–12 · 栏宽 2 / 3 / 3 / 4</p>
+      <ul class="row">
+        <li class="dw" id="d09" style="--s:2;--row:2;--n:7px"><span class="dw__bar">第 9 抽屉<code class="dw__code">K-09-133</code></span><span class="dw__card"><span class="dw__in"><svg class="etch" aria-hidden="true"><use href="#ec"/></svg><code class="dw__idx">K-09-133</code><span class="dw__head">欧洲千里光</span><span class="dw__line">1887 · 米德尔塞克斯</span><span class="dw__note">批注：瘦果冠毛压不住。</span></span></span></li>
+        <li class="dw" id="d10" style="--s:3;--row:2;--n:7px"><span class="dw__bar">第 10 抽屉<code class="dw__code">K-10-147</code></span><span class="dw__card"><span class="dw__in"><svg class="etch" aria-hidden="true"><use href="#ec"/></svg><code class="dw__idx">K-10-147</code><span class="dw__head">欧夏枯草</span><span class="dw__line">1885 · 萨里郡草甸 · 附打字稿</span><span class="dw__note">批注：定名意见两不一致。</span></span></span></li>
+        <li class="dw" id="d11" style="--s:3;--row:2;--n:8px"><span class="dw__bar">第 11 抽屉<code class="dw__code">K-11-158</code></span><span class="dw__card"><span class="dw__in"><svg class="etch" aria-hidden="true"><use href="#ec"/></svg><code class="dw__idx">K-11-158</code><span class="dw__head">羊茅</span><span class="dw__line">1886 · 邱园草区 · 密丛一份</span><span class="dw__note">批注：叶鞘基部紫红。</span></span></span></li>
+        <li class="dw dw--alt" id="d12" style="--s:4;--row:2;--n:6px"><span class="dw__bar">第 12 抽屉<code class="dw__code">K-12-113</code></span><span class="dw__card"><span class="dw__in"><svg class="etch" aria-hidden="true"><use href="#ec"/></svg><code class="dw__idx">K-12-113</code><span class="dw__head">欧洲赤松（同号复份）</span><span class="dw__line">1889 · 自第 7 抽屉迁入，改记本号</span><span class="dw__note">批注：复份卡压痕比原卡低。</span></span></span></li>
+      </ul>
+    </div>
+
+    <div class="rowwrap">
+      <p class="row__h">第 4 行 · 抽屉 13–16 · 栏宽 3 / 3 / 4 / 2</p>
+      <ul class="row">
+        <li class="dw" id="d13" style="--s:3;--row:3;--n:8px"><span class="dw__bar">第 13 抽屉<code class="dw__code">K-13-169</code></span><span class="dw__card"><span class="dw__in"><svg class="etch" aria-hidden="true"><use href="#ec"/></svg><code class="dw__idx">K-13-169</code><span class="dw__head">欧蓍草</span><span class="dw__line">1884 · 肯特郡路旁 · 花序两份</span><span class="dw__note">批注：叶二回羽状全裂。</span></span></span></li>
+        <li class="dw" id="d14" style="--s:3;--row:3;--n:9px"><span class="dw__bar">第 14 抽屉<code class="dw__code">K-14-176</code></span><span class="dw__card"><span class="dw__in"><svg class="etch" aria-hidden="true"><use href="#ec"/></svg><code class="dw__idx">K-14-176</code><span class="dw__head">百里香</span><span class="dw__line">1883 · 邱园岩石园 · 带花枝条</span><span class="dw__note">批注：花萼上唇三裂。</span></span></span></li>
+        <li class="dw" id="d15" style="--s:4;--row:3;--n:9px"><span class="dw__bar">第 15 抽屉<code class="dw__code">K-15-188</code></span><span class="dw__card"><span class="dw__in"><svg class="etch" aria-hidden="true"><use href="#ec"/></svg><code class="dw__idx">K-15-188</code><span class="dw__head">柳叶菜</span><span class="dw__line">1882 · 泰晤士河岸 · 株高记 1.4 m</span><span class="dw__note">批注：蒴果四棱，种子带毛。</span></span></span></li>
+        <li class="dw dw--void" id="d16" style="--s:2;--row:3"><span class="dw__bar">第 16 抽屉<code class="dw__code">K-16</code></span><span class="dw__card dw__card--void"><span class="dw__in"><span class="dw__head">空抽屉</span><span class="dw__line">这个抽屉是空的。1889 年迁库时标本被借走，位置照留。</span></span></span></li>
+      </ul>
+    </div>
+
+    <div class="rowwrap">
+      <p class="row__h">第 5 行 · 抽屉 17–20 · 栏宽 4 / 2 / 3 / 3</p>
+      <ul class="row">
+        <li class="dw" id="d17" style="--s:4;--row:4;--n:10px"><span class="dw__bar">第 17 抽屉<code class="dw__code">K-17-204</code></span><span class="dw__card"><span class="dw__in"><svg class="etch" aria-hidden="true"><use href="#ec"/></svg><code class="dw__idx">K-17-204</code><span class="dw__head">石南</span><span class="dw__line">1885 · 苏格兰高地 · 连土坨</span><span class="dw__note">批注：花萼长于花冠。</span></span></span></li>
+        <li class="dw" id="d18" style="--s:2;--row:4;--n:11px"><span class="dw__bar">第 18 抽屉<code class="dw__code">K-18-219</code></span><span class="dw__card"><span class="dw__in"><svg class="etch" aria-hidden="true"><use href="#ec"/></svg><code class="dw__idx">K-18-219</code><span class="dw__head">欧洲蕨</span><span class="dw__line">1884 · 萨里郡林缘 · 附副本</span><span class="dw__note">批注：叶脉三级分支。</span></span></span></li>
+        <li class="dw" id="d19" style="--s:3;--row:4;--n:12px"><span class="dw__bar">第 19 抽屉<code class="dw__code">K-19-233</code></span><span class="dw__card"><span class="dw__in"><svg class="etch" aria-hidden="true"><use href="#ec"/></svg><code class="dw__idx">K-19-233</code><span class="dw__head">欧洲接骨木</span><span class="dw__line">1886 · 邱园标本园 · 花与果</span><span class="dw__note">批注：髓部白色，易碎。</span></span></span></li>
+        <li class="dw" id="d20" style="--s:3;--row:4;--n:12px"><span class="dw__bar">第 20 抽屉<code class="dw__code">K-20-240</code></span><span class="dw__card"><span class="dw__in"><svg class="etch" aria-hidden="true"><use href="#ec"/></svg><code class="dw__idx">K-20-240</code><span class="dw__head">欧洲赤杨</span><span class="dw__line">1883 · 泰晤士河岸 · 本柜末号</span><span class="dw__note">批注：压痕比 001 号低 12px。</span></span></span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="cab__foot">
+    <p class="legend">抽出触发阈值是该行进入视口 25%，抽出 24px，260ms，阻尼无过冲；抽开后开口内侧出现一条 <code>inset</code> 单向下阴影表示柜内的暗，卡面同时上移 24px，露出压在柜沿下的那一行，离开视口后推回。整柜不吸顶。卡面横线 0.8px、外框 0.4px 画在同一条 <code>&lt;path&gt;</code> 的子路径里，所以细线不触发发丝线判定。</p>
+  </div>
+</section>
+
+<!-- 抽出的卡：木底分区，纹理只挂 .xcab::before -->
+<section class="xcab" id="extract" aria-labelledby="x-h">
+  <h2 id="x-h">抽出的四张卡</h2>
+  <p class="lede">索引卡三层：0.4px 蚀刻细线画外框，卡内 0.8px 的横线，横线之下是手写批注层 —— 批注用 12% 不透明度的褪色墨洗色区别于印刷文字，所以要抽出抽屉才看得到。三级检索号「柜号-抽屉号-卡号」在抽屉标签、卡面右上角、页脚检索栏三处同时出现且完全一致。</p>
+  <ul class="xg">
+    <li class="xc" style="--s:5">
+      <figure class="xc__in">
+        <svg class="etch" aria-hidden="true"><use href="#ef"/></svg>
+        <div class="xc__body">
+          <p class="xc__top"><svg class="gl" viewBox="0 0 24 24" aria-hidden="true"><use href="#pc"/></svg><code class="xc__code">K-07-112</code></p>
+          <h3 class="xc__title">欧洲赤松</h3>
+          <p class="xc__la">Pinus sylvestris</p>
+          <p class="xc__note">1884 年采自邱园 3 号温室，主张句所指的就是这一号卡。平行影线间距 2px，与屏幕像素对齐以免摩尔纹。</p>
+          <figure class="xc__fig">
+            <img src="assets/jean-feltgen-herbarium-sheet-phelipea-ramosa.jpg" width="1280" height="1669" alt="让·费尔特让采集的压制植物标本卡，枝条与手写标签压在卡纸上">
+            <span class="xc__tint"></span>
+          </figure>
+          <figcaption>卡面参照：Jean Feltgen 采集的 Phelipea ramosa 压制标本（照片本体是列当科，只作卡纸、标签与压制痕迹的参照）。压痕在右下 10px 处，比 001 号低 6px。
+            <span class="ref">Musée national d'histoire naturelle Luxembourg · CC BY 4.0 · <a href="https://commons.wikimedia.org/wiki/File%3AJean_Feltgen_herbarium_sheet_Phelipea_ramosa.jpg">Wikimedia Commons</a></span>
+          </figcaption>
+        </div>
+      </figure>
+    </li>
+    <li class="xc" style="--s:7">
+      <figure class="xc__in">
+        <svg class="etch" aria-hidden="true"><use href="#ef"/></svg>
+        <div class="xc__body">
+          <p class="xc__top"><svg class="gl" viewBox="0 0 24 24" aria-hidden="true"><use href="#ps"/></svg><code class="xc__code">K-02-045</code></p>
+          <h3 class="xc__title">欧活血丹</h3>
+          <p class="xc__la">Glechoma hederacea</p>
+          <p class="xc__note">1883 年采自萨里郡路边。卡后夹采集记录三联单：第一联随标本入柜、第二联寄定名者、第三联留采集人；第二联字迹被水洇过。</p>
+          <figure class="xc__fig">
+            <img src="assets/reuse-s11-doc-02-carbon.jpg" width="1280" height="1517" alt="三联手写记录单叠印，蓝紫色复写纸字迹与手写栏位">
+            <span class="xc__tint"></span>
+          </figure>
+          <figcaption>记录参照：三联单的复写层，与标本签上手写的采集地与时日同构。压痕在右下 14px 处，比 001 号低 2px。
+            <span class="ref">Jonathan Schilling · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File:Tape_Retention_Scratch_Control_triplicate_form.jpg">Wikimedia Commons</a></span>
+          </figcaption>
+        </div>
+      </figure>
+    </li>
+    <li class="xc" style="--s:7">
+      <figure class="xc__in">
+        <svg class="etch" aria-hidden="true"><use href="#ef"/></svg>
+        <div class="xc__body">
+          <p class="xc__top"><svg class="gl" viewBox="0 0 24 24" aria-hidden="true"><use href="#pv"/></svg><code class="xc__code">K-10-147</code></p>
+          <h3 class="xc__title">欧夏枯草</h3>
+          <p class="xc__la">Prunella vulgaris</p>
+          <p class="xc__note">1885 年采自萨里郡草甸。卡后夹一页打字稿批注，定名意见与采集人的记录不一致，两边都没有划掉，按馆规原样留着。</p>
+          <figure class="xc__fig">
+            <img src="assets/reuse-s11-doc-05-typescript.jpg" width="1280" height="2026" alt="1904 年打字稿，行间与页边有铅笔批注">
+            <span class="xc__tint"></span>
+          </figure>
+          <figcaption>批注参照：打字稿行间的铅笔批注，对应卡面上的手写批注层。压痕在右下 9px 处，比 001 号低 7px。
+            <span class="ref">George Sterling、Ambrose Bierce · Public domain · <a href="https://commons.wikimedia.org/wiki/File:Jan._1904_George_Sterling_and_Ambrose_Bierce_comments_on_A_Wine_of_Wizardry_typescript.jpg">Wikimedia Commons</a></span>
+          </figcaption>
+        </div>
+      </figure>
+    </li>
+    <li class="xc xc--dup" style="--s:5">
+      <figure class="xc__in">
+        <svg class="etch" aria-hidden="true"><use href="#ef"/></svg>
+        <div class="xc__body">
+          <p class="xc__top"><svg class="gl" viewBox="0 0 24 24" aria-hidden="true"><use href="#pc"/></svg><code class="xc__code">K-12-113</code></p>
+          <h3 class="xc__title">欧洲赤松同号复份</h3>
+          <p class="xc__la">Pinus sylvestris</p>
+          <p class="xc__note">1889 年自第 7 抽屉迁入，改记 K-12-113。检索号 K-07-113 就是从这里开始不在本柜的：原卡与复份卡共用同一份采集记录。</p>
+          <figure class="xc__fig">
+            <img src="assets/reuse-s24-reuse-s19-jean-feltgen-herbarium-sheet-p.jpg" width="1280" height="1669" alt="同号复份的压制标本卡，卡纸深一档，标签位置略有偏移">
+            <span class="xc__tint"></span>
+          </figure>
+          <figcaption>复份参照：同一份标本的第二张卡（卡纸深一档、标签有偏移），与原件页相同，不重复署名。压痕在右下 10px 处，比 001 号低 6px。
+            <span class="ref">原件页见 <a href="assets/CREDITS.md">assets/CREDITS.md</a> · CC BY 4.0</span>
+          </figcaption>
+        </div>
+      </figure>
+    </li>
+  </ul>
+</section>
+
+<!-- 空抽屉与错误态：默认可见，不做成点击后才出现的分支（契约 §9.12） -->
+<section class="fault" id="fault" aria-labelledby="f-h">
+  <h2 id="f-h">检索号 K-07-113 不在本柜</h2>
+  <p class="fault__line" role="alert">检索号 K-07-113 不在本柜（错误码 <code>CAT-404</code>）：该卡 1889 年迁至 K-12 柜，页脚检索栏已给出跳转。</p>
+  <p class="fault__frame">触发条件是第三段为 113 而第二段为 07：1889 年迁库时 K-07 抽屉里的 113 号卡被移入 K-12 抽屉并改号。柜体仍是 20 个抽屉、四档宽度，三段读法不变，只是第二段落到了 12。</p>
+  <div class="fault__grid">
+    <div>
+      <div class="void">
+        <div class="void__bar">第 4 抽屉<code>K-04</code></div>
+        <div class="void__well">
+          <p class="void__note">这个抽屉是空的。1889 年迁库时标本被借走，位置照留。</p>
+        </div>
+      </div>
+      <p class="retry">空抽屉不删除、不合并：第 4 与第 16 两个空位留在柜面上，标签照旧写检索号，「借出」也是这柜档案的一部分。</p>
+    </div>
+    <div>
+      <p class="fault__frame">错误态三条信息一个都不能少：检索号 <code>K-07-113</code>、错误码 <code>CAT-404</code>、替代落点 <code>K-12-113</code>。页脚检索栏与顶部状态条同时写出这三条，任何一屏截图里都读得到，不依赖点击。</p>
+      <p class="cue2"><a class="btn" id="jump" href="#d12">改排到第 12 抽屉的 113 号卡</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- 图版：六张参照照片，纹理只挂 .plates-sec::before -->
+<section class="plates-sec" id="plates" aria-labelledby="p-h">
+  <h2 id="p-h">六张参照图版</h2>
+  <p class="lede">照片一律先灰度、再压到墨绿与卡纸两个色阶（墨绿 <code>#4A5C3A</code> 以 20–22% 不透明度做 multiply 叠色）；45° 平行影线由自绘 SVG 线稿承担，线宽 0.4px、影线间距 2px。禁烫金、禁金边、禁暗角，柜架色只占 24%。</p>
+  <ul class="plates">
+    <li class="plate">
+      <figure>
+        <span class="plate__shot"><img src="assets/card-catalog-from-page-167-of-manual-of-librar.jpg" width="1280" height="601" alt="1898 年图书馆排架手册中的卡片目录插图"><span class="plate__tint"></span></span>
+        <figcaption><b>图版一</b> 卡片目录：宽度不等、标签按编号排列，检索路径靠编号走。
+          <span class="ref">Internet Archive Book Images · No restrictions · 原件页见 <a href="assets/CREDITS.md">assets/CREDITS.md</a></span>
+        </figcaption>
+      </figure>
+    </li>
+    <li class="plate">
+      <figure>
+        <span class="plate__shot"><img src="assets/jean-feltgen-herbarium-sheet-phelipea-ramosa.jpg" width="1280" height="1669" alt="压制标本卡：枝条、叶片与手写标本签压在卡纸上"><span class="plate__tint"></span></span>
+        <figcaption><b>图版二</b> 压制标本卡的卡纸与标签痕迹：卡面留白处就是手写批注层的位置。
+          <span class="ref">Musée national d'histoire naturelle Luxembourg · CC BY 4.0 · 原件页见 <a href="assets/CREDITS.md">assets/CREDITS.md</a></span>
+        </figcaption>
+      </figure>
+    </li>
+    <li class="plate">
+      <figure>
+        <span class="plate__shot"><img src="assets/reuse-s11-doc-02-carbon.jpg" width="1280" height="1517" alt="三联手写记录单，复写层蓝紫色字迹"><span class="plate__tint"></span></span>
+        <figcaption><b>图版三</b> 三联记录单的复写层：第一联进柜、第二联寄出、第三联留底。
+          <span class="ref">Jonathan Schilling · CC BY-SA 4.0 · 原件页见 <a href="assets/CREDITS.md">assets/CREDITS.md</a></span>
+        </figcaption>
+      </figure>
+    </li>
+    <li class="plate">
+      <figure>
+        <span class="plate__shot"><img src="assets/reuse-s11-doc-05-typescript.jpg" width="1280" height="2026" alt="1904 年打字稿，行间有铅笔批注"><span class="plate__tint"></span></span>
+        <figcaption><b>图版四</b> 打字稿行间的铅笔批注：两种笔迹互不改写，与卡面的双层文字同构。
+          <span class="ref">George Sterling、Ambrose Bierce · Public domain · 原件页见 <a href="assets/CREDITS.md">assets/CREDITS.md</a></span>
+        </figcaption>
+      </figure>
+    </li>
+    <li class="plate">
+      <figure>
+        <span class="plate__shot"><img src="assets/reuse-s11-doc-07-copy.jpg" width="1280" height="1642" alt="打字机复写副本，纸面有折痕与淡复写底色"><span class="plate__tint"></span></span>
+        <figcaption><b>图版五</b> 复写副本：同一份文字的第二次落纸，对应 K-12 那张深一档的复份卡。
+          <span class="ref">Dwight D. Eisenhower 总统档案 1953–1961 · Public domain · 原件页见 <a href="assets/CREDITS.md">assets/CREDITS.md</a></span>
+        </figcaption>
+      </figure>
+    </li>
+    <li class="plate">
+      <figure>
+        <span class="plate__shot"><img src="assets/reuse-s24-reuse-s19-jean-feltgen-herbarium-sheet-p.jpg" width="1280" height="1669" alt="同号复份的压制标本卡，卡纸略深、标签略有偏移"><span class="plate__tint"></span></span>
+        <figcaption><b>图版六</b> 同号复份：同一号标本的第二张卡，两处压痕各按自己的卡号落位。
+          <span class="ref">Musée national d'histoire naturelle Luxembourg · CC BY 4.0 · 原件页见 <a href="assets/CREDITS.md">assets/CREDITS.md</a></span>
+        </figcaption>
+      </figure>
+    </li>
+  </ul>
+</section>
+
+<section class="cross" id="cross" aria-labelledby="c-h">
+  <h2 id="c-h">检索号的三处一致</h2>
+  <p class="lede">同一个检索号在抽屉标签、卡面右上角、页脚检索栏三处必须逐字相同，缺一段就翻不到东西。</p>
+  <table class="xr">
+    <caption>六号卡的三处检索号对照（柜号-抽屉号-卡号）</caption>
+    <thead>
+      <tr><th scope="col">抽屉</th><th scope="col">抽屉标签</th><th scope="col">卡面右上角</th><th scope="col">页脚检索栏</th><th scope="col">落点</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>第 7 抽屉</td><td><code>K-07-112</code></td><td><code>K-07-112</code></td><td><code>K-07-112</code></td><td class="st">抽出中，主张句所指</td></tr>
+      <tr><td>第 12 抽屉</td><td><code>K-12-113</code></td><td><code>K-12-113</code></td><td><code>K-12-113</code></td><td class="st">CAT-404 的跳转目标</td></tr>
+      <tr><td>第 4 抽屉</td><td><code>K-04</code></td><td>空位，无卡面</td><td><code>K-04</code></td><td class="st">1889 年借出，位置照留</td></tr>
+      <tr><td>第 16 抽屉</td><td><code>K-16</code></td><td>空位，无卡面</td><td><code>K-16</code></td><td class="st">1889 年借出，位置照留</td></tr>
+      <tr><td>第 20 抽屉</td><td><code>K-20-240</code></td><td><code>K-20-240</code></td><td><code>K-20-240</code></td><td class="st">本柜末号，压痕最低</td></tr>
+    </tbody>
+  </table>
+  <p class="xr__note">标签上的检索号悬挂在标签右侧 12px、比标签基线低 2px，卡面右上角那一处与它同字距，相差的只是落点。空抽屉只写「柜号-抽屉号」两段 —— 缺的第三段就是它空着的原因。</p>
+</section>
+
+<section class="paths-sec" id="paths" aria-labelledby="pa-h">
+  <h2 id="pa-h">可发现性通路</h2>
+  <p class="lede">把动效全部拿掉，20 个抽屉与 6 号卡仍然找得到。四条通路必须同时成立：</p>
+  <ul class="paths">
+    <li>
+      <h3>三段检索号</h3>
+      <p>格式固定为「柜号-抽屉号-卡号」，柜号 <code>K</code>、抽屉号两位、卡号三位。任何一段写错就落到错误态，错误态同时给出错号与替代落点。</p>
+    </li>
+    <li>
+      <h3>编号即 Tab 顺序</h3>
+      <p>抽屉按 <code>K-01-018</code> 到 <code>K-20-240</code> 升序排列，也就是键盘 Tab 的顺序；窄屏把检索号提到行首用等宽字显示。</p>
+    </li>
+    <li>
+      <h3>不等宽是档案的痕迹</h3>
+      <p>20 个抽屉取 4 / 3 / 3 / 2 栏四种宽度，同一行里出现两种宽度只有两处；两个空抽屉标签照旧写明借出与留位。这是档案被翻动过的证据，不是版式游戏。</p>
+    </li>
+    <li>
+      <h3>抽拉与悬停的读数</h3>
+      <p>悬停抽屉标签时褪色墨洗色从 12% 加深到 24%，120ms，不位移；指针进入抽屉区变成 12px 十字加 1px 方框，进入标签区变成「卡面外框」形。点击检索号会把它复制到页脚检索栏并高亮 200ms。</p>
+    </li>
+  </ul>
+
+  <div class="parts">
+    <p class="parts__h">柜内标牌 · 检索号的三段读法：三段之间用短横连接，缺一段就翻不到东西</p>
+    <ul class="parts__list">
+      <li><code>K</code><span>柜号：本柜只有一只柜，柜号恒为 K；换成别的柜号就是另一个柜。</span></li>
+      <li><code>07</code><span>抽屉号：两位，01 到 20，对应柜面上 20 个不等宽抽屉的排位。</span></li>
+      <li><code>112</code><span>卡号：三位，001 到 240；卡面右下的 1px 压痕按卡号每 20 张右移下移 1px。</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="motion-sec" id="motion" aria-labelledby="m-h">
+  <h2 id="m-h">动效与降级</h2>
+  <p class="lede">抽拉只改 <code>transform</code> 与一条 <code>inset</code> 阴影值，不碰布局尺寸，页面高度在整个滚动过程里不变。</p>
+  <ul class="spec-list">
+    <li><b>滚动</b>触发阈值是该行进入视口 25%，抽出 24px，260ms，缓动为阻尼无过冲；离开视口后自动推回。</li>
+    <li><b>悬停</b>抽屉标签的褪色墨从 12% 加深到 24%，120ms，元素不位移。</li>
+    <li><b>加载</b>柜体先出，再按行从上到下依次抽出抽屉又推回一次，每行 160ms，总 800ms，缓动为阶跃式。</li>
+    <li><b>转场</b>从检索号跳到某张卡时，该抽屉保持抽出并把卡面推到最前，其余抽屉回到闭合，300ms。</li>
+    <li><b>光标</b>12px 十字加 1px 方框；进入抽屉标签区后换成「卡面外框」形（26 × 18，竖边 1px）。</li>
+  </ul>
+  <p class="degrade"><span class="degrade__in"><b>减少动态时的再发明</b>（<code>prefers-reduced-motion: reduce</code>）：自动抽拉与加载动画取消，抽拉机制不取消 —— 抽屉默认闭合，点一下才抽出且无过渡，位移仍是 24px，卡面仍是上移 24px，开口内侧那条 <code>inset 0 1px 0</code> 的下阴影仍然随抽出状态出现。窄屏（&lt;1024px）的再发明形式：开口与柜沿取消，抽屉改为可点击展开的索引卡列表，检索号提到行首用等宽字显示，Tab 顺序仍按检索号升序；复制高亮改为 100ms 不透明度变化。</span></p>
+</section>
+</main>
+
+<footer>
+  <div class="rail" id="rail" role="status" aria-live="polite">
+    <p class="rail__head">页脚检索栏 · 当前检索号</p>
+    <p class="rail__code"><code id="rail-code">K-07-112</code></p>
+    <p class="rail__note" id="rail-note">欧洲赤松 · 1884 · 邱园 3 号温室 · 第 7 抽屉 112 号卡 · 压痕在右下 10px 处</p>
+    <p class="rail__jump"><code>K-07-113</code> 不在本柜（<code>CAT-404</code>）：该卡 1889 年迁至 K-12 柜，点此改排 <a href="#d12"><code>K-12-113</code></a>。</p>
+  </div>
+  <div class="foot-grid">
+    <div>
+      <h3>适用与不适合</h3>
+      <p>适合生物、医药、农业与标本馆类数据库的检索界面与官网，三级检索号直接对应真实编号规则；也适合「先检索再阅读」的学术档案库与法规条文库。不适合以浏览与推荐为主的内容社区，也不适合强调转化与促销的商业站点。</p>
+    </div>
+    <div>
+      <h3>不等宽与空位</h3>
+      <p>反的是「等量图标网格主体化」：抽屉共 20 个，宽度取 4 / 3 / 3 / 2 四种值，并刻意留 2 个空抽屉写明借出与留位。全部容器直角，立体感只来自面板厚度与开口内侧的单向下阴影，没有浮起卡片，也没有白灰交替分区。</p>
+    </div>
+    <div>
+      <h3>规避与授权</h3>
+      <p>线稿只用 0.4px 与 0.8px 两级线宽，禁水彩填充与彩色植物图；记忆点落在三级检索号的贯通与抽屉抽拉上，插画不承担识别；禁烫金、金边与暗角。中文主字体 Noto Serif SC 替代字段 4 的《京华老宋体》（无自托管包），六张位图的作者、许可与原件页见 <code>assets/CREDITS.md</code>。</p>
+    </div>
+  </div>
+  <p class="sig">方案 19 · 铜版标本柜（Copperplate Herbarium Cabinet）· 植物学标本馆（1880 年代英国邱园）· 结构 F（CARD-CATALOG）· 可运行原型，用于验证字段 3 四色配比（<code>#E4DECD</code> 44% / <code>#4A5C3A</code> 27% / <code>#2A241C</code> 24% / <code>#7C7460</code> 5%）、20 抽屉四档栏宽与三处检索号贯通、字段 7 的抽拉动效与 prefers-reduced-motion 降级，以及 <code>CAT-404</code> 错误态。字体自托管于 <code>prototypes/_fonts/</code>。</p>
+</footer>
+
+<script>
+(function () {
+  var drawers = [].slice.call(document.querySelectorAll('.dw'));
+  var rail = document.getElementById('rail');
+  var railCode = document.getElementById('rail-code');
+  var railNote = document.getElementById('rail-note');
+  var hudCode = document.getElementById('hud-code');
+  var hudDrawer = document.getElementById('hud-drawer');
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  var wide = matchMedia('(min-width: 1024px)');
+
+  function txt(dw, sel) { var e = dw.querySelector(sel); return e ? e.textContent : ''; }
+
+  /* 抽出与推回：宽屏按行进入视口 25% 自动抽拉，窄屏点开 */
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (list) {
+      list.forEach(function (e) {
+        if (!wide.matches) return;
+        if (e.intersectionRatio >= 0.25) e.target.classList.add('is-out');
+        else if (e.intersectionRatio === 0) e.target.classList.remove('is-out');
+      });
+    }, { threshold: [0, 0.25] });
+    drawers.forEach(function (dw) { io.observe(dw); });
+  }
+
+  /* 页脚检索栏：三段检索号逐字一致，第三段就是这一段落点 */
+  function write(dw) {
+    if (!dw) return;
+    var c = txt(dw, '.dw__code');
+    if (c) { railCode.textContent = c; hudCode.textContent = c; hudDrawer.textContent = c.slice(0, 4); }
+    var n = txt(dw, '.dw__line');
+    if (n) railNote.textContent = n;
+    rail.classList.add('is-lit');
+    setTimeout(function () { rail.classList.remove('is-lit'); }, reduce.matches ? 100 : 200);
+  }
+
+  /* 从检索号跳到某张卡：该抽屉保持抽出，其余回到闭合（300ms 转场） */
+  function focusDrawer(dw) {
+    drawers.forEach(function (o) { if (o !== dw) o.classList.remove('is-out'); });
+    if (!dw) return;
+    dw.classList.add('is-out');
+    write(dw);
+    try { dw.scrollIntoView({ block: 'center', behavior: reduce.matches ? 'auto' : 'smooth' }); } catch (err) { dw.scrollIntoView(); }
+  }
+
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a[href^="#d"]');
+    if (a) {
+      var t = document.querySelector(a.getAttribute('href'));
+      if (t) { focusDrawer(t); e.preventDefault(); }
+      return;
+    }
+    var dw = e.target.closest('.dw');
+    if (dw && !e.target.closest('a')) focusDrawer(dw);
+  });
+
+  var jump = document.getElementById('jump');
+  if (jump) jump.addEventListener('click', function (e) { e.preventDefault(); focusDrawer(document.getElementById('d12')); });
+})();
+</script>
+</body>
+</html>

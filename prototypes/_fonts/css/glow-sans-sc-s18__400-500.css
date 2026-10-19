@@ -1,0 +1,30 @@
+/* S18 磷光检修台 —— 自托管字体（手写，非 _build/fetch-fonts.mjs 生成）
+   族：Glow Sans SC ＝未来荧黑（OFL 1.1，硬骨架几何黑体，笔画端头平直，规格局 C5）
+   字重：400 指向 Regular 子集，500／600 指向 Medium 子集（标题与强调档，不做假粗体）。
+   为什么不与 S05／S12 共用：那两份是按它们各自页面的用字切的（cmap 547 / 515 码位），
+   实测对本页各缺 36 / 42 个字（缺「磷、光、台、牌、摘、阀、泵」等），
+   而覆盖别人的缓存文件会破坏 S05／S12 的交付物，因此另起 glow-sans-sc-s18__*，
+   多份并存、页面只链这一份（契约 §9.8）。
+   上游：https://github.com/lvwzhen/glow-sans 的 npm 分发物 @fontpkg/glow-sans-sc（Normal 宽度档），
+   由 fontTools 按本页实际用字子集化为 woff2。重跑：python _fonts/subset-glow-s18.py */
+@font-face {
+  font-family: 'Glow Sans SC';
+  src: url('../files/glow-sans-sc-s18/glow-sans-sc-s18-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Glow Sans SC';
+  src: url('../files/glow-sans-sc-s18/glow-sans-sc-s18-medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Glow Sans SC';
+  src: url('../files/glow-sans-sc-s18/glow-sans-sc-s18-medium.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}

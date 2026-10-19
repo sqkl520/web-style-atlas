@@ -1,0 +1,1193 @@
+{
+ "url": "prototypes/S01-red-wedge-broadsheet/index.html",
+ "at": "2026-10-16T23:17:30.053Z",
+ "allow": [],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 6,
+   "filled": [
+    0.68,
+    0.64,
+    0.8,
+    0.68,
+    0.74,
+    0.78
+   ],
+   "motion": {
+    "elements": 18,
+    "css": 18,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 5069,
+     "screens": 5.6,
+     "words": 198,
+     "img": 6,
+     "video": 0,
+     "canvas": 0,
+     "svg": 0,
+     "sections": 3,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 6,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "halftone-01-composing-room.png",
+      "halftone-02-pressroom.png",
+      "halftone-03-type-case.png",
+      "halftone-04-rotary-1932.png",
+      "halftone-05-hearing.png",
+      "halftone-06-linotype.png"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": []
+    },
+    "hero": {
+     "text": "红黑斜排报",
+     "words": 1,
+     "chars": 5,
+     "lines": 1,
+     "size": 96,
+     "vw": 6.7,
+     "font": "Noto Sans SC",
+     "weight": 900,
+     "tracking": -0.01,
+     "leading": 1,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 0.94,
+     "top": 4,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "红黑斜排报",
+     "words": 1,
+     "lines": 1,
+     "size": 96,
+     "font": "Noto Sans SC"
+    },
+    "headings": [
+     {
+      "text": "红黑斜排报",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 96,
+      "vw": 6.7,
+      "font": "Noto Sans SC",
+      "weight": 900,
+      "tracking": -0.01,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.94,
+      "top": 4,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "折角导读",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 28,
+      "vw": 1.9,
+      "font": "Noto Sans SC",
+      "weight": 900,
+      "tracking": -0.005,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.13,
+      "top": 200,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "听证会记录",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 28,
+      "vw": 1.9,
+      "font": "Noto Sans SC",
+      "weight": 900,
+      "tracking": -0.005,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.25,
+      "top": 268,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "编辑部通信",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 28,
+      "vw": 1.9,
+      "font": "Noto Sans SC",
+      "weight": 900,
+      "tracking": -0.005,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.2,
+      "top": 282,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "按姓氏重排之后",
+      "words": 1,
+      "chars": 7,
+      "lines": 1,
+      "size": 28,
+      "vw": 1.9,
+      "font": "Noto Sans SC",
+      "weight": 900,
+      "tracking": -0.005,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.2,
+      "top": 372,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "这一期还没上版",
+      "words": 1,
+      "chars": 7,
+      "lines": 1,
+      "size": 28,
+      "vw": 1.9,
+      "font": "Noto Sans SC",
+      "weight": 800,
+      "tracking": 0,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.38,
+      "top": 1103,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "档案图版",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 28,
+      "vw": 1.9,
+      "font": "Noto Sans SC",
+      "weight": 800,
+      "tracking": 0,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.86,
+      "top": 1429,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 7,
+     "maxLines": 1,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": 1,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Noto Sans SC",
+       "share": 0.92,
+       "mono": false
+      },
+      {
+       "family": "Martian Mono",
+       "share": 0.06,
+       "mono": true
+      },
+      {
+       "family": "Archivo",
+       "share": 0.02,
+       "mono": false
+      }
+     ],
+     "familyCount": 3,
+     "sizes": [
+      14,
+      15,
+      16,
+      17,
+      18,
+      22,
+      23,
+      28,
+      96
+     ],
+     "sizeCount": 9,
+     "notLoaded": [],
+     "body": {
+      "font": "Noto Sans SC",
+      "size": 16,
+      "leading": 1.75,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 14.6
+     },
+     "measureChars": 46,
+     "max": {
+      "size": 96,
+      "vw": 6.7,
+      "font": "Noto Sans SC",
+      "text": "红黑斜排报"
+     },
+     "monoShare": 0.06,
+     "monoProseShare": 0,
+     "monoFamilies": [
+      "Martian Mono"
+     ],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.05,
+     "centerShare": 0.01,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#efe7d7",
+     "bodyBgHsl": {
+      "h": 40,
+      "s": 0.43,
+      "l": 0.89
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#1a1614",
+       "top": 2,
+       "hsl": {
+        "h": 20,
+        "s": 0.13,
+        "l": 0.09
+       }
+      },
+      {
+       "color": "#c1121f",
+       "top": 0,
+       "hsl": {
+        "h": 356,
+        "s": 0.83,
+        "l": 0.41
+       }
+      },
+      {
+       "color": "#efe7d7",
+       "top": 1585,
+       "hsl": {
+        "h": 40,
+        "s": 0.43,
+        "l": 0.89
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#1a1614",
+       "share": 0.73
+      },
+      {
+       "color": "#efe7d7",
+       "share": 0.24
+      },
+      {
+       "color": "#c1121f",
+       "share": 0.04
+      }
+     ],
+     "button": {
+      "bg": "#1a1614",
+      "hsl": {
+       "h": 20,
+       "s": 0.13,
+       "l": 0.09
+      },
+      "fg": "#efe7d7"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 4,
+     "inHero": 3,
+     "radius": 0,
+     "height": 46,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "跳过报头，直达四栏正文",
+      "翻到折角里那 4 条短讯"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 6,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 0,
+     "fixed": false,
+     "height": 148,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "archivo",
+     "noto sans sc",
+     "martian mono"
+    ]
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 5,
+   "filled": [
+    0.58,
+    0.57,
+    0.69,
+    0.69,
+    0.83
+   ],
+   "motion": {
+    "elements": 16,
+    "css": 16,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 5108,
+     "screens": 5,
+     "words": 196,
+     "img": 6,
+     "video": 0,
+     "canvas": 0,
+     "svg": 0,
+     "sections": 3,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 6,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "halftone-01-composing-room.png",
+      "halftone-02-pressroom.png",
+      "halftone-03-type-case.png",
+      "halftone-04-rotary-1932.png",
+      "halftone-05-hearing.png",
+      "halftone-06-linotype.png"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": []
+    },
+    "hero": {
+     "text": "红黑斜排报",
+     "words": 1,
+     "chars": 5,
+     "lines": 1,
+     "size": 52,
+     "vw": 6.8,
+     "font": "Noto Sans SC",
+     "weight": 900,
+     "tracking": -0.01,
+     "leading": 1,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 0.9,
+     "top": 4,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "红黑斜排报",
+     "words": 1,
+     "lines": 1,
+     "size": 52,
+     "font": "Noto Sans SC"
+    },
+    "headings": [
+     {
+      "text": "红黑斜排报",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 52,
+      "vw": 6.8,
+      "font": "Noto Sans SC",
+      "weight": 900,
+      "tracking": -0.01,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 4,
+      "tag": "h1",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 1,
+     "maxLines": 1,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": null,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Noto Sans SC",
+       "share": 0.92,
+       "mono": false
+      },
+      {
+       "family": "Martian Mono",
+       "share": 0.06,
+       "mono": true
+      },
+      {
+       "family": "Archivo",
+       "share": 0.02,
+       "mono": false
+      }
+     ],
+     "familyCount": 3,
+     "sizes": [
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      24,
+      52
+     ],
+     "sizeCount": 8,
+     "notLoaded": [],
+     "body": {
+      "font": "Noto Sans SC",
+      "size": 16,
+      "leading": 1.75,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 14.6
+     },
+     "measureChars": 43,
+     "max": {
+      "size": 52,
+      "vw": 6.8,
+      "font": "Noto Sans SC",
+      "text": "红黑斜排报"
+     },
+     "monoShare": 0.06,
+     "monoProseShare": 0,
+     "monoFamilies": [
+      "Martian Mono"
+     ],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.05,
+     "centerShare": 0.01,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#efe7d7",
+     "bodyBgHsl": {
+      "h": 40,
+      "s": 0.43,
+      "l": 0.89
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#c1121f",
+       "top": 1588,
+       "hsl": {
+        "h": 356,
+        "s": 0.83,
+        "l": 0.41
+       }
+      },
+      {
+       "color": "#efe7d7",
+       "top": 2798,
+       "hsl": {
+        "h": 40,
+        "s": 0.43,
+        "l": 0.89
+       }
+      },
+      {
+       "color": "#1a1614",
+       "top": 4729,
+       "hsl": {
+        "h": 20,
+        "s": 0.13,
+        "l": 0.09
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#1a1614",
+       "share": 0.73
+      },
+      {
+       "color": "#efe7d7",
+       "share": 0.23
+      },
+      {
+       "color": "#c1121f",
+       "share": 0.04
+      }
+     ],
+     "button": {
+      "bg": "#1a1614",
+      "hsl": {
+       "h": 20,
+       "s": 0.13,
+       "l": 0.09
+      },
+      "fg": "#efe7d7"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 4,
+     "inHero": 2,
+     "radius": 0,
+     "height": 46,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "跳过报头，直达四栏正文",
+      "翻到折角里那 4 条短讯"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 6,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 0,
+     "fixed": false,
+     "height": 120,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "archivo",
+     "noto sans sc",
+     "martian mono"
+    ]
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 8,
+   "filled": [
+    0.59,
+    0.61,
+    0.57,
+    0.65,
+    0.79,
+    0.7,
+    0.73,
+    0.81
+   ],
+   "motion": {
+    "elements": 15,
+    "css": 15,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "page": {
+     "height": 6467,
+     "screens": 7.7,
+     "words": 196,
+     "img": 6,
+     "video": 0,
+     "canvas": 0,
+     "svg": 0,
+     "sections": 3,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 6,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "halftone-01-composing-room.png",
+      "halftone-02-pressroom.png",
+      "halftone-03-type-case.png",
+      "halftone-04-rotary-1932.png",
+      "halftone-05-hearing.png",
+      "halftone-06-linotype.png"
+     ],
+     "blendText": 0,
+     "sideScrollers": 1,
+     "brokenImages": [],
+     "emoji": []
+    },
+    "hero": {
+     "text": "红黑斜排报",
+     "words": 1,
+     "chars": 5,
+     "lines": 1,
+     "size": 52,
+     "vw": 13.3,
+     "font": "Noto Sans SC",
+     "weight": 900,
+     "tracking": -0.01,
+     "leading": 1,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 0.92,
+     "top": 10,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "红黑斜排报",
+     "words": 1,
+     "lines": 1,
+     "size": 52,
+     "font": "Noto Sans SC"
+    },
+    "headings": [
+     {
+      "text": "红黑斜排报",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 52,
+      "vw": 13.3,
+      "font": "Noto Sans SC",
+      "weight": 900,
+      "tracking": -0.01,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 10,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "听证会记录",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 24,
+      "vw": 6.2,
+      "font": "Noto Sans SC",
+      "weight": 900,
+      "tracking": -0.005,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 350,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "按姓氏重排之后",
+      "words": 1,
+      "chars": 7,
+      "lines": 1,
+      "size": 24,
+      "vw": 6.2,
+      "font": "Noto Sans SC",
+      "weight": 900,
+      "tracking": -0.005,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 1226,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "编辑部通信",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 24,
+      "vw": 6.2,
+      "font": "Noto Sans SC",
+      "weight": 900,
+      "tracking": -0.005,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 1891,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "折角导读",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 24,
+      "vw": 6.2,
+      "font": "Noto Sans SC",
+      "weight": 900,
+      "tracking": -0.005,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.85,
+      "top": 2533,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "这一期还没上版",
+      "words": 1,
+      "chars": 7,
+      "lines": 1,
+      "size": 24,
+      "vw": 6.2,
+      "font": "Noto Sans SC",
+      "weight": 800,
+      "tracking": 0,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 3121,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "档案图版",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 24,
+      "vw": 6.2,
+      "font": "Noto Sans SC",
+      "weight": 800,
+      "tracking": 0,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 3467,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 7,
+     "maxLines": 1,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": 1,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Noto Sans SC",
+       "share": 0.92,
+       "mono": false
+      },
+      {
+       "family": "Martian Mono",
+       "share": 0.06,
+       "mono": true
+      },
+      {
+       "family": "Archivo",
+       "share": 0.02,
+       "mono": false
+      }
+     ],
+     "familyCount": 3,
+     "sizes": [
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      24,
+      52
+     ],
+     "sizeCount": 8,
+     "notLoaded": [],
+     "body": {
+      "font": "Noto Sans SC",
+      "size": 16,
+      "leading": 1.69,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 14.6
+     },
+     "measureChars": 45,
+     "max": {
+      "size": 52,
+      "vw": 13.3,
+      "font": "Noto Sans SC",
+      "text": "红黑斜排报"
+     },
+     "monoShare": 0.06,
+     "monoProseShare": 0,
+     "monoFamilies": [
+      "Martian Mono"
+     ],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.05,
+     "centerShare": 0.01,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#efe7d7",
+     "bodyBgHsl": {
+      "h": 40,
+      "s": 0.43,
+      "l": 0.89
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#c1121f",
+       "top": 3091,
+       "hsl": {
+        "h": 356,
+        "s": 0.83,
+        "l": 0.41
+       }
+      },
+      {
+       "color": "#efe7d7",
+       "top": 4011,
+       "hsl": {
+        "h": 40,
+        "s": 0.43,
+        "l": 0.89
+       }
+      },
+      {
+       "color": "#1a1614",
+       "top": 5990,
+       "hsl": {
+        "h": 20,
+        "s": 0.13,
+        "l": 0.09
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#1a1614",
+       "share": 0.73
+      },
+      {
+       "color": "#efe7d7",
+       "share": 0.23
+      },
+      {
+       "color": "#c1121f",
+       "share": 0.04
+      }
+     ],
+     "button": {
+      "bg": "#1a1614",
+      "hsl": {
+       "h": 20,
+       "s": 0.13,
+       "l": 0.09
+      },
+      "fg": "#efe7d7"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 4,
+     "inHero": 2,
+     "radius": 0,
+     "height": 48,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "跳过报头，直达四栏正文",
+      "翻到折角里那 4 条短讯"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 6,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 0,
+     "fixed": false,
+     "height": 240,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "archivo",
+     "noto sans sc",
+     "martian mono"
+    ]
+   },
+   "consoleErrors": []
+  }
+ ],
+ "findings": [
+  {
+   "level": "WARN",
+   "id": "palette-cream",
+   "width": 1440,
+   "message": "Yellow-cream background (page background #efe7d7, section #efe7d7, text #efe7d7).",
+   "fix": "Use the drawn palette. If you want warmth, take a low-chroma stone or bone, not a yellow cream.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "font-count",
+   "width": 1440,
+   "message": "3 typefaces in use (Noto Sans SC, Martian Mono, Archivo).",
+   "fix": "Two at most.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "no-footage",
+   "width": 1440,
+   "message": "No video anywhere on the page.",
+   "fix": "Look for one honest clip with scripts/assets.mjs --video (the place, the material, the process) and use it as a muted loop with a poster frame. Defend its absence only if no clip fits the subject."
+  },
+  {
+   "level": "WARN",
+   "id": "side-scroll",
+   "width": 390,
+   "message": "1 row(s) scroll sideways with content past their edge.",
+   "fix": "Jurors and most visitors read a row cut at the edge as clipped, not as scrollable. Wrap it onto more lines, or end it inside the grid."
+  }
+ ],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "D:\\Web\\style\\prototypes\\S01-red-wedge-broadsheet\\.inspect\\desktop-fold.jpg",
+   "pages": [
+    "D:\\Web\\style\\prototypes\\S01-red-wedge-broadsheet\\.inspect\\desktop-page-01.jpg",
+    "D:\\Web\\style\\prototypes\\S01-red-wedge-broadsheet\\.inspect\\desktop-page-02.jpg"
+   ]
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "D:\\Web\\style\\prototypes\\S01-red-wedge-broadsheet\\.inspect\\tablet-fold.jpg",
+   "pages": [
+    "D:\\Web\\style\\prototypes\\S01-red-wedge-broadsheet\\.inspect\\tablet-page-01.jpg"
+   ]
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "D:\\Web\\style\\prototypes\\S01-red-wedge-broadsheet\\.inspect\\mobile-fold.jpg",
+   "pages": [
+    "D:\\Web\\style\\prototypes\\S01-red-wedge-broadsheet\\.inspect\\mobile-page-01.jpg"
+   ]
+  }
+ ]
+}

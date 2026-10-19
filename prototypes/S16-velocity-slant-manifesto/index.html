@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>速度斜排宣言 · 九个词块一条斜线｜铅字活版重排</title>
+<meta name="description" content="九个超粗词块沿一条 12° 斜线堆叠的宣言单页：滚得越深沿斜线跑得越快，铅字把纸压出 0.3mm 凹痕，每块底下拖着最多三条速度线。错误码 SLANT-16。">
+<link rel="stylesheet" href="../_fonts/css/lxgw-marker-gothic__400.css">
+<link rel="stylesheet" href="../_fonts/css/archivo-black__400.css">
+<link rel="stylesheet" href="../_fonts/css/noto-serif-sc__400-700.css">
+<link rel="stylesheet" href="../_fonts/css/fragment-mono__400.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#track">跳过报头，直达斜排词块</a>
+
+<div class="sheet">
+
+  <header class="masthead">
+    <div class="masthead-grid">
+      <div class="masthead-left">
+        <p class="kicker">意大利未来主义 · 1910 年代活字宣言单页 · 重排存档</p>
+        <h1>速度斜排宣言</h1>
+        <p class="claim">九个词块共用一条 12° 斜线，滚得越深跑得越快</p>
+        <ul class="masthead-meta">
+          <li>版本 <code>SLANT-1910-A</code></li>
+          <li>斜角 <code>12°</code></li>
+          <li>词块 <code>09</code> 块</li>
+          <li>块宽档 <code>4/6/7/9</code> 栏</li>
+          <li>铅字黑 <code>#1A1A1A</code></li>
+        </ul>
+      </div>
+      <div class="masthead-right">
+        <p class="masthead-latin" lang="it">Parole in libertà</p>
+        <p class="masthead-note">全站只用一种纸底 <code>#F7EBCF</code>，分区靠斜向基线与块号，不靠交替底色。立体感来自铅字压痕与油墨堆积边，页面里没有任何投影。</p>
+        <div class="controls">
+          <button class="btn btn-primary" id="next-block" type="button">下一块：第 04 号宣言</button>
+          <a class="btn btn-ghost" href="#track">从头读这条斜线</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="press-rule" aria-hidden="true"></div>
+
+  <div class="ruler" id="ruler" aria-hidden="true">
+    <span class="ruler-face">进度尺 · 斜向轨道</span>
+    <span class="ruler-track">
+      <span class="ruler-pointer" id="ruler-pointer"></span>
+    </span>
+    <span class="ruler-read"><code id="ruler-no">01</code> 号块</span>
+  </div>
+
+  <main id="track" class="track">
+
+    <section class="slab" aria-labelledby="b01-t" style="--span:9; --slot:0">
+      <div class="slab-in">
+        <p class="slab-latin" lang="it">Manifesto del Futurismo</p>
+        <h2 id="b01-t"><span class="slab-t">斜线先行</span><code class="slab-no">01</code></h2>
+        <p class="slab-body">这一叠单页的排版机制来自 1909 年 2 月 20 日《费加罗报》头版：九个词块共用同一条斜向基线，位移的加速度承担速度感，线条的数量不承担。</p>
+        <p class="slab-note">档案 <code>1909-02-20</code> · 铅字活版，压力在纸上留下凹痕与油墨堆积边。</p>
+        <span class="quirk" aria-hidden="true"></span>
+      </div>
+    </section>
+
+    <section class="slab" aria-labelledby="b02-t" style="--span:6; --slot:1">
+      <div class="slab-in">
+        <h2 id="b02-t"><span class="slab-t">自由排字</span><code class="slab-no">02</code></h2>
+        <p class="slab-body">词与词之间不再排成一条水平的行。每个词块左端严格对齐同一条 12° 斜线，块内字距 <code>0.02em</code>、行高压到 <code>0.95</code> 倍行高，块高按内容行数取 2 至 6 行。</p>
+        <p class="slab-note">块内右端允许长短不齐，悬挂标点出血 <code>0.5em</code>。</p>
+        <span class="quirk" aria-hidden="true"></span>
+      </div>
+    </section>
+
+    <section class="slab" aria-labelledby="b03-t" style="--span:7; --slot:2">
+      <div class="slab-in">
+        <h2 id="b03-t"><span class="slab-t">铅字重压</span><code class="slab-no">03</code></h2>
+        <p class="slab-body">每块标题字下方压出 0.3mm 深的凹痕，凹痕背光侧走 <code>1px</code> 的压痕暗侧 <code>#8E2A18</code>，字缘的油墨堆积边宽 <code>3px</code>、不透明度 <code>22%</code>。容器全部直角，立体感只由这两件东西分担。</p>
+        <p class="slab-note">凹痕不靠投影，靠单向内阴影与同色暗侧；页面里没有一处 <code>box-shadow</code>。</p>
+        <span class="quirk" aria-hidden="true"></span>
+      </div>
+    </section>
+
+    <figure class="plate plate-lead">
+      <img src="assets/plate-01-figaro-manifesto.png" width="720" height="1046" alt="1909 年 2 月 20 日《费加罗报》头版《未来主义宣言》扫描件，按 1-bit 阈值化压成铅字黑与纸色两阶，右缘沿 12° 斜线撕开并留纸纤维毛刺">
+      <figcaption>
+        <span class="plate-cap">《费加罗报》1909 年 2 月 20 日头版。本页斜排机制的出处，右缘按 12° 斜线撕开。</span>
+        <span class="plate-ref">Wikimedia Commons · 公有领域 · 原件 1023×1487</span>
+      </figcaption>
+    </figure>
+
+    <section class="slab" aria-labelledby="b04-t" style="--span:4; --slot:3">
+      <div class="slab-in">
+        <h2 id="b04-t"><span class="slab-t">一条斜线</span><code class="slab-no">04</code></h2>
+        <p class="slab-body">禁止每个块各转一个角度。斜向基线用 <code>rotate(12deg)</code> 包一层容器、内部文字转回 <code>-12deg</code>，避免逐块单独旋转造成字形锯齿。九个块共用一条线。</p>
+        <p class="slab-note">窄屏斜角降到 <code>8°</code>，再降到 <code>4°</code>，但必须保留。</p>
+        <span class="quirk" aria-hidden="true"></span>
+      </div>
+    </section>
+
+    <section class="slab" aria-labelledby="b05-t" style="--span:7; --slot:4">
+      <div class="slab-in">
+        <h2 id="b05-t"><span class="slab-t">三条速度线</span><code class="slab-no">05</code></h2>
+        <p class="slab-body">速度线只在滚动中出现，每个词块最多三条，长度分 <code>24</code> / <code>40</code> / <code>56</code> 三级，滚动停止后 <code>260ms</code> 内消失。禁止把它做成常驻装饰。</p>
+        <p class="slab-note">悬停时油墨堆积边由 <code>22%</code> 加深到 <code>30%</code>，速度线由 0 条长到 3 条，<code>180ms</code>，无位移。</p>
+        <span class="quirk" aria-hidden="true"></span>
+      </div>
+    </section>
+
+    <figure class="plate plate-half">
+      <img src="assets/plate-04-metal-type.png" width="1060" height="704" alt="金属活字实物照片，字身、字面与字肩排满字盘，经 1-bit 阈值化后只留铅字黑与纸色两阶，右缘沿 12° 斜线撕开">
+      <figcaption>
+        <span class="plate-cap">金属活字。压痕与油墨堆积边都长在字肩与字面上。</span>
+        <span class="plate-ref">Willi Heidelbach · CC BY 2.5 · 原件 2288×1520</span>
+      </figcaption>
+    </figure>
+
+    <figure class="plate plate-half">
+      <img src="assets/plate-03-type-case.png" width="1080" height="810" alt="谷登堡博物馆的活字字盘照片，格子里铅字按字面分格，经 1-bit 阈值化后压成两阶，下缘沿 12° 斜线撕开">
+      <figcaption>
+        <span class="plate-cap">活字字盘。取字靠记位置，不靠记编号。</span>
+        <span class="plate-ref">dronepicr · CC BY 2.0 · 原件 4032×3024</span>
+      </figcaption>
+    </figure>
+
+    <section class="slab" aria-labelledby="b06-t" style="--span:9; --slot:5">
+      <div class="slab-in">
+        <h2 id="b06-t"><span class="slab-t">滚得越深越快</span><code class="slab-no">06</code></h2>
+        <p class="slab-body">滚动量映射到斜向轨道位移，位移量与滚动量成平方关系：每滚 <code>100px</code>，位移从 <code>20px</code> 增到 <code>90px</code>。缓动性格是纯加速 <code>cubic-bezier(0.5,0,1,1)</code>，无回弹。</p>
+        <p class="slab-note">窄屏保留分段加速：每滚 <code>100px</code> 的位移由 <code>12px</code> 升到 <code>44px</code>。</p>
+        <span class="quirk" aria-hidden="true"></span>
+      </div>
+    </section>
+
+    <section class="slab" aria-labelledby="b07-t" style="--span:6; --slot:6">
+      <div class="slab-in">
+        <h2 id="b07-t"><span class="slab-t">压上九块</span><code class="slab-no">07</code></h2>
+        <p class="slab-body">加载时九个词块按块号从 <code>01</code> 到 <code>09</code> 沿斜线依次压上，每块 <code>110ms</code>，缓动为阶跃式。块与块之间用 <code>140ms</code> 硬切，并把进度尺的指针推一格。</p>
+        <p class="slab-note">点击块号会把该块沿斜线回推 <code>12px</code> 再弹回，<code>240ms</code>。</p>
+        <span class="quirk" aria-hidden="true"></span>
+      </div>
+    </section>
+
+    <figure class="plate plate-lead">
+      <img src="assets/plate-05-albion-press.png" width="1100" height="848" alt="伯肯黑德印刷博物馆的阿尔比恩手摇压印机照片，经 1-bit 阈值化压成未来派朱红与纸色两阶，右缘沿 12° 斜线撕开">
+      <figcaption>
+        <span class="plate-cap">阿尔比恩手摇压印机。压力落在纸上的那一下，凹痕就是这么来的。</span>
+        <span class="plate-ref">Rodhullandemu · CC BY-SA 4.0 · 原件 4306×3320</span>
+      </figcaption>
+    </figure>
+
+    <section class="slab" aria-labelledby="b08-t" style="--span:7; --slot:7">
+      <div class="slab-in">
+        <h2 id="b08-t"><span class="slab-t">窄屏再发明</span><code class="slab-no">08</code></h2>
+        <p class="slab-body">窄屏把斜排改成「交错双列」：两列宽取 <code>54%</code> 与 <code>42%</code>，共用同一条斜向基线并错开 <code>28px</code>；再窄一级收成「窄列加留白栏」，左列 <code>62%</code>、右侧留白 <code>38%</code>，斜向基线与分段加速全部不变。</p>
+        <p class="slab-note">速度线在窄屏只保留 1 条，块号固定在各块左上角，触屏热区不小于 <code>44×44px</code>。</p>
+        <span class="quirk" aria-hidden="true"></span>
+      </div>
+    </section>
+
+    <section class="slab" aria-labelledby="b09-t" style="--span:4; --slot:8">
+      <div class="slab-in">
+        <h2 id="b09-t"><span class="slab-t">回推十二像素</span><code class="slab-no">09</code></h2>
+        <p class="slab-body">最后一个词块不再加速。点击任一 <code>0</code> 号块号，该块沿斜线回推 <code>12px</code> 再弹回；第 <code>09</code> 块的位移上限钉在 <code>56px</code>，进度尺停在 <code>09</code>。</p>
+        <p class="slab-note">第 3 个字正下方那枚 <code>2×2px</code> 墨点随块号每块向右偏 <code>1px</code>，到第 9 块累计偏 <code>8px</code>。</p>
+        <span class="quirk" aria-hidden="true"></span>
+      </div>
+    </section>
+
+    <figure class="plate plate-half">
+      <img src="assets/plate-06-composing-stick.png" width="900" height="885" alt="1892 年排字手盘版画扫描件，一手持盘一手取字，经 1-bit 阈值化压成铅字黑与纸色两阶，下缘沿 12° 斜线撕开">
+      <figcaption>
+        <span class="plate-cap">排字手盘。斜排靠它一行行攒，攒歪一格整条线就废。</span>
+        <span class="plate-ref">takomabibelot · CC BY 2.0 · 原件 1464×1440</span>
+      </figcaption>
+    </figure>
+
+    <figure class="plate plate-half">
+      <img src="assets/plate-02-parole-liberta.png" width="700" height="749" alt="马里内蒂《自由之言》1932 年内页扫描件，斜排词块与自由排字，经 1-bit 阈值化压成未来派朱红与纸色两阶，右缘沿 12° 斜线撕开">
+      <figcaption>
+        <span class="plate-cap">《自由之言》内页。斜排词块与自由排字的实物依据。</span>
+        <span class="plate-ref">Filippo Tommaso Marinetti · 公有领域 · 原件 1870×2000</span>
+      </figcaption>
+    </figure>
+
+    <section class="band" aria-labelledby="state-h">
+      <h2 id="state-h">这一页的状态</h2>
+      <p class="band-intro">两个状态都写在纸面上，不在脚本分支里：空状态是这条轨道最后一次投递的登记，错误状态是位移溢出时页面停在什么位置。两个都看得见，也都可以点开。</p>
+
+      <details class="state state-empty" open>
+        <summary>空状态 · 这条轨道暂时没有新词块</summary>
+        <p class="state-text">这条轨道暂时没有新词块。上一次投递是 1912 年 2 月</p>
+        <p class="state-note">投递口每两周开一次，登记号接在 <code>1912-02</code> 之后。轨道空着的时候，进度尺停在 <code>01</code> 号块不动。</p>
+      </details>
+
+      <div class="state state-error" role="alert">
+        <h3>斜向轨道位移溢出（错误码 <code>SLANT-16</code>）</h3>
+        <p class="state-text">斜向轨道位移溢出（错误码 <code>SLANT-16</code>）：本次滚动已钳制在第 <code>09</code> 块的 <code>56px</code> 位移上限，进度尺停在 <code>09</code>，松手后恢复正常</p>
+        <p class="state-note" id="error-note">钳制发生在滚动速度超过每秒 <code>2400px</code> 的时候，只钳位移，不钳滚动本身。</p>
+        <div class="state-actions">
+          <button class="btn btn-paper" id="retry" type="button">重放这次滚动</button>
+          <button class="btn btn-ghost" id="release" type="button">松手，恢复轨道位移</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="foot">
+    <div class="foot-grid">
+      <div>
+        <h3>斜线怎么读</h3>
+        <p>九个词块的左端落在同一条相对水平线 12° 的斜线上，每个块左端沿斜线向下递增偏移 24px。块宽取 4 / 6 / 7 / 9 栏四个值，块与块之间的斜向间隙固定 3 个基线单位（24px），基线 8px。</p>
+      </div>
+      <div>
+        <h3>动效与降级</h3>
+        <p>滚动位移按平方关系加速，缓动纯加速无回弹。开启减少动态后取消平方加速与拖影，滚动改为线性位移且位移量减半，速度线不再出现，进度尺保留并把指针改成每块一格。</p>
+      </div>
+      <div>
+        <h3>图版与授权</h3>
+        <p>七张图版全部取自 Wikimedia Commons，逐张署名与许可见 <span class="latin">assets/CREDITS.md</span>。所有照片先做 1-bit 高对比阈值化，再沿 12° 斜线撕边，边缘保留 2px 纸纤维毛刺。字体四支均为本地文件，页面里没有一处外链。</p>
+      </div>
+    </div>
+    <p class="foot-line">方案 16 · 速度斜排宣言（Velocity Slant Manifesto）· 意大利未来主义 1910 年代 · 未漂白宣言纸 <code>#F7EBCF</code> · 未来派朱红 <code>#C52C0F</code> · 错误码 <code>SLANT-16</code></p>
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  var track = document.getElementById('track');
+  var slabs = [].slice.call(document.querySelectorAll('.slab'));
+  var pointer = document.getElementById('ruler-pointer');
+  var rulerNo = document.getElementById('ruler-no');
+  var nextBtn = document.getElementById('next-block');
+  var retry = document.getElementById('retry');
+  var release = document.getElementById('release');
+  var errorNote = document.getElementById('error-note');
+
+  /* 块宽档位：桌面四档 4/6/7/9 栏；1024–1439 三档 5/7/9；窄屏交给「交错双列」。 */
+  var SPANS = [[9, 6, 7, 4, 7, 9, 6, 7, 4], [9, 5, 7, 9, 7, 5, 9, 7, 5]];
+  var SPANS_MOBILE = [6, 5, 4, 3, 5, 6, 5, 4, 6];
+
+  function tier() {
+    var w = innerWidth;
+    if (w < 1024) return 2;
+    if (w < 1440) return 1;
+    return 0;
+  }
+  function applySpans() {
+    var t = tier();
+    slabs.forEach(function (s, i) {
+      var v = t === 2 ? SPANS_MOBILE[i] : SPANS[t][i];
+      s.style.setProperty('--span', String(v));
+    });
+  }
+
+  /* 加载：九块按块号 01→09 沿斜线依次「压上」，每块 110ms，阶跃式。 */
+  document.documentElement.classList.add('is-loading');
+  function press() {
+    slabs.forEach(function (s, i) {
+      s.style.setProperty('--press-delay', (i * 110) + 'ms');
+      s.classList.add('is-pressed');
+    });
+  }
+  if (reduce.matches) {
+    slabs.forEach(function (s) { s.classList.add('is-pressed'); });
+  } else {
+    setTimeout(press, 90);
+  }
+
+  /* 斜向轨道位移：位移量与滚动量成平方关系。
+     桌面每滚 100px 位移由 20px 增到 90px；窄屏分段加速由 12px 升到 44px。 */
+  var running = false, runTimer = 0, ticking = false, clamped = false;
+  function displace() {
+    ticking = false;
+    var doc = document.documentElement;
+    var max = Math.max(1, doc.scrollHeight - innerHeight);
+    var depth = Math.min(1, Math.max(0, (scrollY || 0) / max));
+    var base = reduce.matches ? 10 : (innerWidth < 1024 ? 12 : 20);
+    var top = reduce.matches ? 20 : (innerWidth < 1024 ? 44 : 90);
+    var move = base + (top - base) * depth * depth;      /* 平方关系 */
+    if (reduce.matches) move = move * 0.5;               /* 降级：位移量减半 */
+    if (move > 56) { move = 56; if (!clamped) { clamped = true; } }
+    var i, box, cur;
+    for (i = 0; i < slabs.length; i++) {
+      box = slabs[i];
+      cur = Math.round(move * (1 + i * 0.11));           /* 越往下跑得越快 */
+      if (cur > 56) cur = 56;
+      box.style.setProperty('--shift', cur + 'px');
+    }
+    var cur2 = Math.round((move / 56) * 8);              /* 0–8 格 */
+    if (pointer) pointer.style.setProperty('--rung', String(cur2));
+    if (clamped) errorNote.setAttribute('data-clamped', 'true');
+  }
+  function wake() {
+    running = true;
+    document.body.classList.add('is-running');
+    clearTimeout(runTimer);
+    runTimer = setTimeout(function () {
+      running = false;
+      document.body.classList.remove('is-running');
+    }, reduce.matches ? 80 : 260);                       /* 滚动停止 260ms 内速度线消失 */
+  }
+  addEventListener('scroll', function () {
+    wake();
+    if (!ticking) { ticking = true; requestAnimationFrame(displace); }
+  }, { passive: true });
+
+  /* 进度尺：滚到哪个块就推指针一格，块号取视口上沿下方 160px 处的那一块。 */
+  var lastNo = '01';
+  function ruler() {
+    var cur = 1, i, r;
+    for (i = 0; i < slabs.length; i++) {
+      r = slabs[i].getBoundingClientRect();
+      if (r.top <= 160) cur = i + 1;
+    }
+    var v = cur < 10 ? '0' + cur : String(cur);
+    if (v !== lastNo) {
+      lastNo = v;
+      rulerNo.textContent = v;
+      if (pointer) pointer.style.setProperty('--rung', String(cur - 1));
+      if (nextBtn) {
+        var nxt = cur < 9 ? cur + 1 : 1;
+        nextBtn.textContent = '下一块：第 ' + (nxt < 10 ? '0' + nxt : nxt) + ' 号宣言';
+      }
+    }
+  }
+  addEventListener('scroll', function () { requestAnimationFrame(ruler); }, { passive: true });
+
+  /* PageDown / 键盘逐块跳转。 */
+  addEventListener('keydown', function (e) {
+    if (e.key !== 'PageDown' && e.key !== 'PageUp') return;
+    if (!track) return;
+    e.preventDefault();
+    var cur = 0, i;
+    for (i = 0; i < slabs.length; i++) if (slabs[i].getBoundingClientRect().top <= 160) cur = i;
+    var nxt = e.key === 'PageDown' ? Math.min(slabs.length - 1, cur + 1) : Math.max(0, cur - 1);
+    slabs[nxt].scrollIntoView({ behavior: reduce.matches ? 'auto' : 'smooth', block: 'start' });
+    if (!reduce.matches) slabs[nxt].classList.add('is-kicked');
+    setTimeout(function () { slabs[nxt].classList.remove('is-kicked'); }, reduce.matches ? 0 : 240);
+  });
+
+  if (nextBtn) nextBtn.addEventListener('click', function () {
+    var cur = 1, i;
+    for (i = 0; i < slabs.length; i++) if (slabs[i].getBoundingClientRect().top <= 160) cur = i + 1;
+    var nxt = cur < 9 ? cur + 1 : 1;
+    slabs[nxt - 1].scrollIntoView({ behavior: reduce.matches ? 'auto' : 'smooth', block: 'start' });
+    slabs[nxt - 1].classList.add('is-kicked');
+    setTimeout(function () { slabs[nxt - 1].classList.remove('is-kicked'); }, reduce.matches ? 0 : 240);
+  });
+
+  /* 点击块号：该块沿斜线回推 12px 再弹回，240ms。 */
+  slabs.forEach(function (s) {
+    var no = s.querySelector('.slab-no');
+    if (!no) return;
+    no.setAttribute('role', 'button');
+    no.setAttribute('tabindex', '0');
+    no.addEventListener('click', function () { kick(s); });
+    no.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); kick(s); }
+    });
+  });
+  function kick(s) {
+    if (reduce.matches) { s.classList.add('is-kicked'); return; }
+    s.classList.remove('is-kicked');
+    void s.offsetWidth;
+    s.classList.add('is-kicked');
+    setTimeout(function () { s.classList.remove('is-kicked'); }, 240);
+  }
+
+  /* 错误态的两个动作：重放滚动 / 松手恢复。 */
+  if (retry) retry.addEventListener('click', function () {
+    clamped = false;
+    errorNote.textContent = '重放第 7 屏到第 9 屏：滚动速度 2600px/s，位移再次触到 56px 上限，钳制位置不变，错误码仍是 SLANT-16。';
+    retry.setAttribute('aria-busy', 'true');
+    retry.disabled = true;
+    displace();
+    setTimeout(function () { retry.removeAttribute('aria-busy'); retry.disabled = false; }, reduce.matches ? 60 : 700);
+  });
+  if (release) release.addEventListener('click', function () {
+    clamped = false;
+    errorNote.removeAttribute('data-clamped');
+    errorNote.textContent = '已松手：位移回到 20px，加速曲线保留平方关系，进度尺指针回到当前块。';
+  });
+
+  addEventListener('resize', function () { applySpans(); displace(); }, { passive: true });
+  applySpans();
+  displace();
+  ruler();
+  requestAnimationFrame(function () { document.body.classList.remove('is-loading'); });
+})();
+</script>
+</body>
+</html>

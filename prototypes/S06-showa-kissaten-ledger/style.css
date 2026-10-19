@@ -1,0 +1,427 @@
+/* 方案 6｜昭和喫茶账（Showa Kissaten Ledger）— 可运行原型样式表
+   结构类型 R（RIVER）· 认知门槛 低 · 调性：温暖手作／人味
+   字体分工：EB Garamond  ＝ 标题（OFL 1.1，威尼斯老式衬线，小写带手写倾斜）
+             Literata      ＝ 正文拉丁（OFL 1.1，字腔开阔，小字号稳定）
+             Martian Mono  ＝ 辅助数字槽，只出现在 <code> 里（OFL 1.1）
+             思源宋体       ＝ 中文主字体（OFL 1.1；规格字段 4 指定朱雀仿宋，
+                              该族不在可自托管的分片源上，落地替代与理由见交付说明）
+   色彩（字段 3 当前有效值）：奶纸 #ECDEC6 56%／咖啡褐 #85572A 22%／深褐黑 #241A12 16%／渍痕淡褐 #C9A87C 6%
+   对比度（实测）：正文 #241A12 对纸 12.85:1；主色 #85572A 对纸 4.66:1（过 AA 正文线）
+   栅格：12 列 · 栏宽 76px · 栏沟 24px · 基线 6px
+   整页纹理一律挂在伪元素上，body 保持纯色（契约 9.2）。 */
+
+:root {
+  --paper: #ECDEC6;
+  --brown: #85572A;
+  --ink: #241A12;
+  --stain: #C9A87C;
+
+  /* 由这四个色派生的印刷阶，只做层次，不引入第五个"色" */
+  --card: #E6D8BC;
+  --card-2: #E0D0B0;
+  --pale: #E4D5B8;
+  --brown-deep: #5A3A1C;
+  --rule: #B9A87F;
+  --tone-hover: #DECDA9;
+
+  --gut: 24px;
+  --wrap: 1020px;
+  --rail-gap: 96px;
+  --rail-tilt: -3deg;
+  --rail-w: 730px;
+  --drift: 0.6;      /* 漂移 = 滚动量的 0.6 倍 */
+  --lift: 0px;
+
+  --f-display: "EB Garamond", "Noto Serif SC", "Songti SC", Georgia, serif;
+  --f-text: "Literata", "Noto Serif SC", "Songti SC", Georgia, serif;
+  --f-mono: "Martian Mono", "Noto Serif SC", monospace;
+
+  --ease-soak: cubic-bezier(.3, .7, .3, 1);
+  --ease-rail: cubic-bezier(.2, .05, .4, .95);
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);              /* 纯色。纹理在 .sheet::before / ::after */
+  color: var(--ink);
+  font-family: var(--f-text);
+  font-size: 15px;
+  line-height: 1.9;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 整页两张纹理：纸纹与油墨不匀。挂在伪元素上，body 与任何承载文字的盒子都不带
+   background-image，这样 bgBehind() 能一路走到真正的底色，对比度检查不会被静默跳过。 */
+.sheet { position: relative; overflow-x: clip; }
+.sheet::before,
+.sheet::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.sheet::before { background-image: url("assets/paper-grain.png"); background-repeat: repeat; background-size: 384px 384px; }
+.sheet::after  { background-image: url("assets/ink-mottle.png");  background-repeat: repeat; background-size: 512px 512px; opacity: .8; }
+.sheet > * { position: relative; z-index: 1; }
+
+h1, h2, h3 { margin: 0; font-weight: 400; text-wrap: balance; }
+h1, h2 { font-family: var(--f-display); color: var(--brown); }
+h1 { font-size: clamp(46px, 5.6vw, 84px); line-height: 1.02; letter-spacing: -.012em; }
+h2 { font-size: clamp(26px, 2.9vw, 42px); line-height: 1.14; letter-spacing: -.006em; }
+h3 { font-size: 24px; line-height: 1.3; color: var(--ink); }
+
+p { margin: 0; max-width: 34em; }
+a { color: var(--brown-deep); text-underline-offset: 3px; }
+code {
+  font-family: var(--f-mono);
+  font-size: 1em;                       /* 跟随所在层级，任何情况下都不低于 15px */
+  letter-spacing: .02em;
+  font-variant-numeric: tabular-nums;
+  color: inherit;
+}
+:focus-visible { outline: 2px solid var(--brown); outline-offset: 2px; }
+::selection { background: var(--stain); color: var(--ink); }
+
+.wrap { width: 100%; max-width: var(--wrap); margin-inline: auto; }
+
+.skip { position: absolute; overflow: hidden; clip-path: inset(50%); width: 0; height: 0; padding: 0; margin: 0; white-space: nowrap; }
+.skip:focus {
+  position: fixed; inset: 8px auto auto 8px; z-index: 9;
+  width: auto; height: auto; padding: 10px 16px; overflow: visible; clip-path: none;
+  background: var(--ink); color: var(--paper);
+}
+
+/* ── 报头：左栏是账页的字，右栏是一张珂罗版图版 ────────────────── */
+.masthead {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 420px;
+  gap: 48px;
+  max-width: var(--wrap);
+  margin-inline: auto;
+  padding: 40px 0 28px;
+}
+.mast-claim { margin-top: 18px; font-size: 20px; line-height: 1.7; color: var(--brown-deep); }
+.mast-meta { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 24px; margin: 26px 0 0; padding: 0; }
+.mast-meta div { min-width: 0; }
+.mast-meta dt { font-size: 15px; color: var(--brown); }
+.mast-meta dd { margin: 0; font-size: 15px; }
+.mast-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 22px; margin-top: 26px; }
+
+.btn {
+  font: inherit;
+  font-size: 16px;
+  min-height: 48px;
+  padding: 10px 20px;
+  border: 0;
+  border-radius: 0;
+  background: var(--brown);
+  color: var(--paper);
+  transition: background-color 120ms var(--ease-soak);
+}
+.btn:hover { background: var(--brown-deep); }
+.quiet { font-size: 15px; color: var(--brown-deep); }
+
+.mast-plate { margin: 0; align-self: end; }
+.mast-plate img { display: block; width: 100%; height: auto; background: var(--pale); }
+.mast-plate figcaption { margin-top: 12px; font-size: 15px; line-height: 1.7; color: var(--brown-deep); }
+
+section { padding: 30px 0; }
+.section-note { margin-top: 14px; font-size: 15px; color: var(--brown-deep); max-width: 42em; }
+
+/* ── 河道：单容器 rotate(-3deg)，卡片反向 rotate(±2°) 抵消一半倾斜 ── */
+.river-row { display: grid; grid-template-columns: 876px 120px; gap: 24px; margin-top: 26px; }
+.river-wrap {
+  position: relative;
+  z-index: 0;
+  overflow-x: clip;                       /* 收住旋转后的横向外溢；纸面不出现横向滚动 */
+  padding: 6px 0 20px;
+}
+/* 沿轨道漂移的网点贴片：位移 = 滚动量 x 0.6，取一个轨道间距（96px）的模，让它无限流下去 */
+.river-wrap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: url("assets/halftone-dot.png");
+  background-repeat: repeat;
+  background-size: 64px 64px;
+  background-position: 0 var(--rail-drift, 0px);
+}
+.river {
+  position: relative;
+  z-index: 0;
+  width: var(--rail-w);
+  margin-inline: auto;
+  padding: 24px 0 48px;
+  column-count: 3;
+  column-gap: var(--gut);
+  transform: rotate(var(--rail-tilt));
+  transform-origin: 50% 50%;
+  transition: translate 260ms var(--ease-rail);
+}
+.river::before {                          /* 轨道自身的渍痕底子：低频油墨不匀顺着斜轨铺开 */
+  content: "";
+  position: absolute;
+  inset: -30px -14px;
+  z-index: -1;
+  pointer-events: none;
+  background-image: url("assets/ink-mottle.png");
+  background-repeat: repeat;
+  background-size: 512px 760px;
+  opacity: .9;
+}
+
+.card {
+  position: relative;
+  z-index: 0;
+  break-inside: avoid;
+  top: var(--off, 0px);                   /* 沿轨道方向的递减偏移（0.62 比值取自固定表）；用相对位移避开外边距合并 */
+  margin: 0 0 var(--rail-gap);
+  padding: 18px 16px 20px;
+  background: var(--card);
+  transform: translateY(calc(var(--dy, 0px) - var(--lift))) rotate(calc(var(--tilt, 0) * 1deg));
+  transition: transform 200ms var(--ease-soak), background-color 200ms var(--ease-soak);
+  animation: rail-in 300ms var(--ease-rail) both;
+  animation-delay: calc(var(--d, 0) * 240ms);   /* 240ms 间隔逐张流入 */
+}
+.card::before {                           /* 卡片纸面上的实地网点，仍然是伪元素 */
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: url("assets/halftone-dot.png");
+  background-repeat: repeat;
+  background-size: 64px 64px;
+}
+.card:hover { --lift: 4px; background: var(--tone-hover); }
+.card:hover .stain, .card.is-picked .stain { opacity: 1.02; }
+.card.is-gone { opacity: 0; }
+
+.card-meta { font-size: 15px; color: var(--brown-deep); letter-spacing: .01em; }
+.card-title { margin-top: 4px; font-size: 24px; line-height: 1.32; }
+.card-plate { margin: 12px -16px 0; }
+.card-plate img { display: block; width: 100%; height: auto; background: var(--pale); }
+.card-body { margin-top: 10px; font-size: 15px; line-height: 1.9; }
+.card-brew { margin-top: 12px; font-size: 15px; color: var(--brown-deep); font-variant-numeric: tabular-nums; }
+.card--fault { background: var(--stain); }
+.card--fault .card-meta { color: var(--ink); }
+.card--blank { padding-bottom: 44px; background: var(--card-2); }
+.card-blank-note { margin-top: 96px; font-size: 15px; color: var(--brown-deep); max-width: 12em; }
+
+/* 卡片的固定参数表（原先写成行内 style，为了让 HTML 落在 27KB 预算内搬到这里）：
+   --off 沿轨道方向的递减偏移，相邻比值 0.62；--coef 漂移速度系数 0.92–1.08；
+   --tilt 静态微摆 ±2°，取自这张表而不是随机数；--d 入场拍子，240ms 一张。 */
+.card:nth-of-type(1)  { --d: 0; --off: 0px;  --coef: 1.08; --tilt: -2; }
+.card:nth-of-type(2)  { --d: 1; --off: 59px; --coef: 0.96; --tilt: 1.5; }
+.card:nth-of-type(3)  { --d: 2; --off: 37px; --coef: 0.92; --tilt: 2; }
+.card:nth-of-type(4)  { --d: 3; --off: 23px; --coef: 1.04; --tilt: -1.5; }
+.card:nth-of-type(5)  { --d: 4; --off: 14px; --coef: 0.99; --tilt: 1; }
+.card:nth-of-type(6)  { --d: 5; --off: 9px;  --coef: 1.06; --tilt: -2; }
+.card:nth-of-type(7)  { --d: 6; --off: 5px;  --coef: 0.94; --tilt: 1.5; }
+.card:nth-of-type(8)  { --d: 6; --off: 3px;  --coef: 1.02; --tilt: -1; }
+.card:nth-of-type(9)  { --d: 6; --off: 2px;  --coef: 1.08; --tilt: 2; }
+.card:nth-of-type(10) { --d: 6; --off: 1px;  --coef: 0.92; --tilt: -1.5; }
+.card:nth-of-type(11) { --d: 6; --off: 0px;  --coef: 1;    --tilt: 0; }
+.card:nth-of-type(12) { --d: 6; --off: 0px;  --coef: 1;    --tilt: -0.5; }
+.card:nth-of-type(13) { --d: 6; --off: 0px;  --coef: 1;    --tilt: 0.5; }
+
+/* 杯渍晕染环：三种直径 72/112/140px（落在规格 60–140px 内），环是位图，
+   上下缘带 1px 深色沉积线；落在哪个角由下面的固定表给出，不是随机。 */
+.stain {
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-size: contain;
+  transition: opacity 200ms var(--ease-soak);
+}
+.stain--a { width: 72px;  height: 72px;  background-image: url("assets/stain-ring-a.png"); }
+.stain--b { width: 112px; height: 112px; background-image: url("assets/stain-ring-b.png"); }
+.stain--c { width: 132px; height: 132px; background-image: url("assets/stain-ring-c.png"); }
+.card:nth-of-type(1)  .stain { top: -34px;    right: -26px; }
+.card:nth-of-type(2)  .stain { bottom: -22px; left: -20px; }
+.card:nth-of-type(3)  .stain { top: -30px;    left: -30px; }
+.card:nth-of-type(4)  .stain { bottom: -26px; right: -24px; }
+.card:nth-of-type(5)  .stain { top: -20px;    right: -20px; }
+.card:nth-of-type(6)  .stain { top: -36px;    left: -18px; }
+.card:nth-of-type(7)  .stain { bottom: -30px; right: -28px; }
+.card:nth-of-type(8)  .stain { top: -24px;    left: -28px; }
+.card:nth-of-type(9)  .stain { bottom: -20px; right: -20px; }
+.card:nth-of-type(10) .stain { top: -28px;    left: -22px; }
+.card:nth-of-type(11) .stain { bottom: -26px; left: -26px; }
+.card:nth-of-type(12) .stain { top: -26px;    right: -30px; }
+.card:nth-of-type(13) .stain { bottom: -24px; right: -22px; }
+
+/* 右侧 120px 的"当日特调"窄栏：直排，不承载图标 */
+.today { align-self: start; padding-top: 26px; }
+.today-title { font-family: var(--f-display); font-size: 21px; line-height: 1.2; color: var(--brown); writing-mode: vertical-rl; letter-spacing: .04em; }
+.today-body, .today-note { writing-mode: vertical-rl; font-size: 15px; color: var(--brown-deep); margin-top: 12px; }
+.today-note { color: var(--brown); }
+
+.issue-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+  margin-top: 22px;
+  padding: 18px;
+  background: var(--card);
+}
+.issue-bar label { font-size: 16px; color: var(--brown-deep); }
+select {
+  font: inherit;
+  font-size: 16px;
+  min-height: 44px;
+  max-width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  background: var(--paper);
+  color: var(--ink);
+}
+.issue-state { font-size: 15px; color: var(--brown-deep); max-width: 40em; }
+.river-empty { display: none; }
+.river-empty.is-on { display: block; margin-top: 14px; padding: 16px 18px; background: var(--pale); font-size: 15px; }
+
+/* ── 图版：两张珂罗版，不装进盒子，靠留白分栏 ─────────────────── */
+.plates { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin: 22px 0 0; padding: 0; list-style: none; }
+.plates figure { margin: 0; }
+.plates img { display: block; width: 100%; height: auto; background: var(--pale); }
+.plates figcaption { margin-top: 12px; font-size: 15px; line-height: 1.8; color: var(--brown-deep); max-width: 38em; }
+.ref { display: block; margin-top: 6px; font-size: 15px; color: var(--brown); }
+
+/* ── 满幅墨带：器皿剖面 / 构建记录 ──────────────────────────────── */
+.band { position: relative; z-index: 0; }
+.band::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: url("assets/ink-mottle.png");
+  background-repeat: repeat;
+  background-size: 512px 512px;
+}
+.band--ink { background: var(--ink); color: var(--paper); }
+.band--ink::before { background-image: url("assets/halftone-dot.png"); background-size: 64px 64px; }
+.band--stain { background: var(--stain); color: var(--ink); }
+.band--pale { background: var(--pale); color: var(--ink); }
+/* 契约 9.4：墨底分区里"继承色"是对比度的隐藏陷阱，所有后代色在自己的作用域里重新声明 */
+.band--ink h2, .band--ink h3, .band--ink p, .band--ink figcaption, .band--ink code { color: var(--paper); }
+.band-inner { padding-block: 34px; }
+.band-note { margin-top: 14px; font-size: 15px; line-height: 1.9; max-width: 42em; }
+
+.vessels { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; margin: 26px 0 0; padding: 0; list-style: none; }
+.vessels figure { margin: 0; }
+.vessels svg { display: block; width: 120px; height: 120px; color: var(--paper); }
+.vessels figcaption { margin-top: 10px; font-size: 15px; line-height: 1.7; color: var(--paper); }
+
+.state-row { padding-block: 26px; }
+.state-row h3 code { font-size: 20px; color: inherit; }
+.state-row p { margin-top: 8px; font-size: 15px; max-width: 42em; }
+
+/* ── 冲泡表：真的账表，线只属于表格 ─────────────────────────────── */
+.brew { width: 100%; margin-top: 22px; border-collapse: collapse; }
+.brew caption { text-align: left; padding-bottom: 12px; font-size: 15px; color: var(--brown-deep); }
+.brew th, .brew td {
+  border-bottom: 1px solid var(--rule);
+  padding: 8px 10px;
+  font-size: 16px;
+  font-weight: 400;
+  text-align: left;
+  vertical-align: middle;
+}
+.brew thead th { border-bottom: 2px solid var(--brown); color: var(--brown); font-size: 15px; }
+.brew tbody tr:nth-child(even) { background: var(--card); }
+.brew tfoot td { border-top: 2px solid var(--brown); border-bottom: 0; color: var(--brown-deep); }
+
+.foot { padding: 124px 0 64px; }
+.foot h2 { margin-bottom: 22px; }
+.foot-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 26px; }
+.foot-grid h3 { font-size: 20px; color: var(--brown); }
+.foot-grid p { margin-top: 8px; font-size: 15px; }
+.sig { margin-top: 30px; font-size: 15px; color: var(--brown-deep); max-width: 42em; }
+
+/* ── 动效 ─────────────────────────────────────────────────────── */
+/* 加载：卡片自轨道远端以 240ms 间隔逐张流入，位移 40px，缓动接近匀速 */
+@keyframes rail-in {
+  from { opacity: 0; translate: 0 40px; }
+  to   { opacity: 1; translate: 0 0; }
+}
+/* 每个 section 的部件各自入场，不是整块淡入一次 */
+.plates li, .vessels li, .state-row, .band-inner { animation: rail-in 320ms var(--ease-rail) both; }
+.plates li:nth-child(2) { animation-delay: 120ms; }
+.vessels li:nth-child(2) { animation-delay: 80ms; }
+.vessels li:nth-child(3) { animation-delay: 160ms; }
+.vessels li:nth-child(4) { animation-delay: 240ms; }
+.state-row:nth-of-type(1) { animation-delay: 0ms; }
+
+/* 交互：切换期号时整条轨道横移 64px，同时最左一张卡片淡出，不做交叉淡化 */
+.river.is-shifted { translate: -64px 0; }
+.river.is-idle { opacity: .26; }
+.is-settled { animation: none; }
+
+@media (min-width: 768px) and (max-width: 1279px) {
+  :root { --rail-tilt: -2deg; --rail-gap: 84px; --rail-w: 590px; }
+  .wrap, .masthead { max-width: 720px; }
+  .masthead { grid-template-columns: minmax(0, 1fr) 300px; gap: 30px; }
+  .river-row { grid-template-columns: 1fr; gap: 0; }
+  .river { column-count: 2; }
+  .today { grid-row: 2; margin-top: 26px; display: flex; flex-wrap: wrap; align-items: flex-end; gap: 12px 26px; padding-top: 0; }
+  .today-title, .today-body, .today-note { writing-mode: horizontal-tb; margin-top: 0; }
+  .today-body { max-width: 34em; }
+  .today-note { width: 100%; }
+  .vessels { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .foot-grid { grid-template-columns: 1fr; }
+  .brew th, .brew td { font-size: 15px; padding: 8px; }
+}
+
+@media (max-width: 767px) {
+  :root { --rail-tilt: 0deg; --rail-gap: 72px; --rail-w: 100%; }
+  .wrap, .masthead { max-width: none; }
+  .wrap { padding-inline: 16px; }
+  .masthead { grid-template-columns: 1fr; gap: 26px; padding: 26px 16px 24px; }
+  .mast-meta { grid-template-columns: 1fr; }
+  .river-row { grid-template-columns: 1fr; gap: 0; }
+  .river-wrap { margin-inline: -16px; padding-inline: 16px; }
+  .river { column-count: 1; padding: 12px 0 32px; }
+  .card { margin-bottom: 0; }
+  .card + .card { margin-top: 26px; }
+  .plates, .foot-grid { grid-template-columns: 1fr; }
+  .vessels { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+  .vessels svg { width: 96px; height: 96px; }
+  .today { grid-row: 2; margin-top: 22px; padding-top: 0; }
+  .today-title, .today-body, .today-note { writing-mode: horizontal-tb; margin-top: 0; }
+  .today-body { margin-top: 8px; }
+  .today-note { margin-top: 6px; }
+  .brew { margin-top: 18px; }
+  .brew thead th:last-child, .brew tbody td:last-child { display: none; }  /* 窄屏收掉备注列，表头保留，不做横向滚动 */
+  .brew th, .brew td { font-size: 15px; padding: 6px 4px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* 降级不是把机制关掉：轨道静止不漂，漂移的差速改成轨道上的固定错位（每级 12px，
+     系数照旧 0.92–1.08，写在卡片的 --off 里），渍痕带停在 96px（一个轨道间距）处，
+     240ms/40px 的流入改成 120ms 只动不透明度，悬停仍是加深 2% 但时长收到 120ms。 */
+  .card, .plates li, .vessels li, .state-row, .band-inner { animation: none; }
+  .card { transform: none; }
+  .card + .card { margin-top: calc(var(--off, 0px) * .2 + 12px); }
+  .card, .card:hover { transition: opacity 120ms linear, background-color 120ms linear; }
+  .card:hover { --lift: 0px; background: var(--tone-hover); }
+  .card:hover .stain, .card.is-picked .stain { transition: opacity 120ms linear; }
+  .river { transition: none; }
+  .river-wrap::before { background-position: 0 96px; }
+  .btn { transition: background-color 120ms linear; }
+}
+
+@media print {
+  .card, .plates li, .vessels li, .state-row, .band-inner { opacity: 1; animation: none; }
+  .card { transform: none; margin-bottom: 18px; }
+  .river { transform: none; column-count: 2; }
+}

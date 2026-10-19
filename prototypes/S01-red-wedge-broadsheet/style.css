@@ -1,0 +1,484 @@
+@charset "utf-8";
+
+/* ============================================================
+   S01 红黑斜排报 · 第四期（存档页）
+   唯一权威值：底 #EFE7D7 / 主红 #C1121F / 正文墨 #1A1614 / 铅条灰 #6E6A5E
+   字族三支（全部自托管，见 ../_fonts/）：
+     Archivo          拉丁标题（variable wdth 62.5–125 + wght 100–900，用 63% 宽、900 重）
+     Noto Sans SC     中文标题与正文（variable 100–900）
+     Martian Mono     只出现在 <code> 里：栏号、档案号、错误码、制版单数字
+   页面里没有一处 http(s) 外链：字体走相对路径的本地 CSS，图版是 assets/ 里的本地 PNG。
+   ============================================================ */
+
+:root {
+  --paper: #EFE7D7;
+  --red: #C1121F;
+  --ink: #1A1614;
+  --lead: #6E6A5E;
+
+  --f-latin: "Archivo", "Noto Sans SC", sans-serif;
+  --f-text: "Noto Sans SC", "Source Han Sans SC", sans-serif;
+  --f-mono: "Martian Mono", "Noto Sans Mono", monospace;
+
+  --land: cubic-bezier(.2, .9, .15, 1);      /* 落版曲线：先快后顿 */
+  --pad-l: 40px;                              /* 外距 40px，四栏版心左偏 */
+  --pad-r: max(40px, 11vw);
+  --bar: 24px;                                /* 栏沟：实体铅条撑开，不是描边 */
+  --lead-step: 6px;                           /* 基线 */
+
+  --fs-meta: 15px;
+  --fs-body: 16px;
+  --fs-sub: 18px;
+  --fs-lead: clamp(19px, 1.6vw, 23px);
+  --fs-h2: clamp(24px, 1.95vw, 28px);
+  --fs-h1: clamp(48px, 6.67vw, 96px);
+}
+
+* { box-sizing: border-box; }
+
+html { background: var(--paper); }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--f-text);
+  font-size: var(--fs-body);
+  line-height: 28px;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+p { margin: 0 0 14px; }
+h1, h2, h3 { margin: 0; font-weight: 800; text-wrap: balance; }
+ol, ul { margin: 0; padding: 0; list-style: none; }
+img { display: block; max-width: 100%; height: auto; }
+figure { margin: 0; }
+table { border-collapse: collapse; }
+code {
+  font-family: var(--f-mono);
+  font-weight: 400;
+  font-size: .94em;
+  letter-spacing: 0;
+}
+.latin {
+  font-family: var(--f-latin);
+  font-weight: 900;
+  font-stretch: 63%;
+  text-transform: uppercase;
+  letter-spacing: .015em;
+}
+.sr-only {
+  position: absolute; width: 1px; height: 1px; margin: -1px;
+  padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+}
+
+.skip {
+  position: absolute; left: -9999px; top: 0; z-index: 9;
+  background: var(--ink); color: var(--paper); padding: 10px 16px;
+  font-size: var(--fs-meta); text-decoration: none;
+}
+.skip:focus { left: 8px; top: 8px; }
+
+.sheet { position: relative; overflow-x: clip; }
+
+/* 纸纹：整幅铺一次，加载时先出（0ms），四栏后落（300ms 起）。
+   颗粒挂在伪元素上，绝不下沉到任何文字元素自己的 background 上，
+   这样对比度采样仍然量得到真正的底（#EFE7D7）。 */
+.sheet::before {
+  content: ""; position: absolute; inset: 0; z-index: 0;
+  background-image: url("assets/paper-grain.png");
+  background-repeat: repeat;
+  pointer-events: none;
+  opacity: 0;
+  animation: grain-in 260ms linear 0ms both;
+}
+@keyframes grain-in { from { opacity: 0; } to { opacity: 1; } }
+
+/* ---------- 报头：148px 满幅，右侧红楔单层 clip-path ---------- */
+.masthead {
+  position: relative;
+  z-index: 2;
+  height: 148px;
+  padding: 0 var(--pad-l);
+  background: var(--paper);
+}
+.masthead-left { position: relative; z-index: 2; padding-top: 4px; }
+.masthead h1 { font-size: var(--fs-h1); line-height: 1; font-weight: 900; letter-spacing: -.01em; color: var(--ink); }
+.h1-squeeze { display: inline-block; transform: scaleX(.985); transform-origin: left center; }
+
+.masthead-meta {
+  display: flex; flex-wrap: wrap; gap: 0 14px;
+  margin: 6px 0 0; padding: 0;
+  font-size: var(--fs-meta); line-height: 20px; color: var(--ink);
+}
+.masthead-meta li::after { content: "·"; margin-left: 14px; color: var(--lead); }
+.masthead-meta li:last-child::after { content: ""; margin: 0; }
+.masthead-meta code { color: var(--red); }
+
+.masthead-right {
+  position: absolute; right: var(--pad-l); top: 14px; z-index: 2;
+  width: 330px; text-align: right;
+}
+.masthead-latin {
+  margin: 0 0 12px; padding: 0;
+  font-size: 22px; line-height: 24px; color: var(--ink);
+}
+.masthead-note { margin: 10px 0 0; font-size: var(--fs-meta); line-height: 20px; color: var(--ink); }
+.masthead-note code { color: var(--red); }
+
+/* 红楔：单层实色，11° 斜边。左边缘从顶端 (42%,0) 下到 (45.6%,89.3%)，
+   268px 处收成尖，正好压在第二栏顶部三行正文上；右斜边让红块止于第三栏左缘。
+   落版动画用 backwards 而不是 both：动画播完 transform 归零，元素不再被自己的
+   位移钉成一个层叠上下文，栏里那枚 6px 铅字方点才压得住这道红楔。 */
+.wedge, .wedge-mis {
+  position: absolute; left: 0; top: 0;
+  width: 100%; height: 300px;
+  clip-path: polygon(42% 0, 73.6% 0, 45.6% 89.3%);
+  animation: wedge-in 320ms var(--land) 300ms backwards;
+}
+/* 字段 6①：角上必须留 1.5px 的套印错位。clip-path 会把 filter 的投影一起裁掉，
+   所以错位不能靠 drop-shadow，得真的多一层：黑版剪影整体偏移 1.5px，压在红版底下。 */
+.wedge-mis { background: var(--ink); transform: translate(-1.5px, 1.5px); }
+.wedge { background: var(--red); z-index: 1; }
+@keyframes wedge-in {
+  from { transform: translate(-12px, 12px); opacity: .25; }
+  to   { transform: translate(0, 0); opacity: 1; }
+}
+
+/* 报头下方 12px 墨条 + 1.5px 套印不准的红边（红边藏在墨条下半） */
+.press-rule { position: relative; z-index: 1; height: 12px; background: var(--ink); }
+.press-rule::after {
+  content: ""; position: absolute; left: 0; right: 0; top: 10.5px; height: 3px;
+  background: var(--red);
+}
+
+/* ---------- 主按钮 ---------- */
+.btn {
+  display: inline-block;
+  min-height: 46px;
+  padding: 11px 18px;
+  border: 0;
+  border-radius: 0;
+  font-family: inherit;
+  font-size: var(--fs-body);
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: .01em;
+  cursor: pointer;
+  transition: transform 90ms steps(3);
+}
+.btn-ink { background: var(--ink); color: var(--paper); }
+.btn-paper { background: var(--paper); color: var(--red); }
+.btn:hover { transform: translate(1px, -1px); }
+.btn:focus-visible { outline: 3px solid var(--red); outline-offset: 2px; }
+.btn[disabled] { cursor: progress; }
+
+/* ---------- 四栏版心 ---------- */
+/* 版心不建层叠上下文（z-index 交给子元素）：这样第一栏那枚 6px 铅字方点
+   （z-index 3）能压住报头里 z-index 2 的红楔——窄屏红带正好扫过那三行留白。 */
+.front { position: relative; padding: 24px var(--pad-r) 0 var(--pad-l); }
+
+.columns {
+  display: grid;
+  grid-template-columns: 5fr var(--bar) 4fr var(--bar) 4fr var(--bar) 3fr;
+  align-items: stretch;
+  border-radius: 0;
+}
+.lead-bar { background: var(--lead); }
+.lead-bar:nth-of-type(1) { animation: bar-in 320ms var(--land) 300ms backwards; }
+.lead-bar:nth-of-type(2) { animation: bar-in 320ms var(--land) 360ms backwards; }
+.lead-bar:nth-of-type(3) { animation: bar-in 320ms var(--land) 420ms backwards; }
+@keyframes bar-in { from { transform: scaleY(.92); } to { transform: scaleY(1); } }
+
+.col { min-width: 0; }
+.col-1 { animation: land-in 320ms var(--land) 300ms backwards; }
+.col-2 { animation: land-in 320ms var(--land) 360ms backwards; }
+.col-3 { animation: land-in 320ms var(--land) 420ms backwards; }
+.col-4 { animation: land-in 320ms var(--land) 480ms backwards; }
+/* 落版：自左下 12px 就位，320ms，先快后顿 */
+@keyframes land-in {
+  from { transform: translate(-12px, 12px); opacity: 0; }
+  to   { transform: translate(0, 0); opacity: 1; }
+}
+
+.slug-slot {
+  position: relative; z-index: 3;   /* 铅字方点压得住窄屏那道红带：它是版记，不能被盖掉 */
+  height: 84px;                      /* 三行空白（3 × 28px），永久保留 */
+  display: grid; place-items: center;
+}
+.slug-dot { display: block; width: 6px; height: 6px; background: var(--ink); }
+
+.backref { font-size: var(--fs-meta); line-height: 20px; color: var(--ink); }
+
+.col-head { margin: 0 0 16px; }
+.col-head h2 { font-size: var(--fs-h2); line-height: 1.1; font-weight: 900; letter-spacing: -.005em; }
+.col-rule {
+  display: block; height: 5px; width: 0; margin: 8px 0 6px;
+  background: var(--red);
+  transition: width 90ms steps(3);
+}
+.col-head:hover .col-rule,
+.col-head:focus-within .col-rule { width: 100%; }
+.col-meta { margin: 0; font-size: var(--fs-meta); line-height: 20px; color: var(--ink); }
+.col-meta code { color: var(--red); }
+
+.standfirst {
+  font-size: var(--fs-lead); line-height: 1.4; font-weight: 500;
+  margin: 0 0 16px; color: var(--ink);
+  border-radius: 0;
+}
+
+.letters { margin: 18px 0 18px; }
+.letters h3 { font-size: var(--fs-sub); line-height: 1.3; margin: 0 0 6px; }
+.empty-state { margin: 0 0 8px; }
+.letters-note { font-size: var(--fs-meta); line-height: 22px; margin: 0; color: var(--ink); }
+
+/* ---------- 折角导读（第四栏，红底纸字；纸字必须落在自己的红底上） ---------- */
+.fold-panel {
+  position: relative; z-index: 1;
+  background: var(--red); color: var(--paper);
+  padding: 16px 14px 18px;
+  cursor: url("assets/cursor-fold.png") 6 6, pointer;
+}
+.fold-panel::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image: url("assets/paper-grain.png"); background-repeat: repeat;
+  opacity: .5;
+}
+.fold-panel h2, .fold-panel h3 { color: var(--paper); }
+/* 红底上的红边看不见，栏内换成纸色边，机制不变：0 -> 100% 宽，90ms，steps(3) */
+.col-head-red .col-rule { background: var(--paper); }
+.col-head-red .col-meta code { color: var(--paper); }
+/* 拉丁字与纸面同色：它在红底折角栏里，ink 落在红上只有 2.9:1 */
+.col-head-red .latin { font-size: var(--fs-meta); letter-spacing: .06em; color: var(--paper); }
+
+/* 96×96 折角：右上角一张纸色翻片，折痕 1px 压痕 + 1px 高光 */
+.fold-corner {
+  position: absolute; right: 0; top: 0; z-index: 3;
+  width: 96px; height: 96px;
+  padding: 0; border: 0; border-radius: 0;
+  background: var(--paper);
+  clip-path: polygon(100% 0, 100% 100%, 0 0);
+  cursor: url("assets/cursor-fold.png") 6 6, pointer;
+  transition: width 120ms linear, height 120ms linear;
+}
+.fold-corner::before,
+.fold-corner::after {
+  content: ""; position: absolute; left: 0; top: 0;
+  width: 136px; height: 1px;              /* 字段 6③：1px 深色压痕 */
+  transform-origin: 0 0; transform: rotate(45deg);
+}
+.fold-corner::before { background: rgba(26, 22, 20, .55); }
+.fold-corner::after {                    /* 0.5px 高光，落在压痕下侧一格 */
+  height: 0.5px; background: rgba(239, 231, 215, .6);
+  transform: translate(1px, 0.5px) rotate(45deg);
+}
+.fold-panel:not(.is-open) .fold-corner { width: 84px; height: 84px; }
+.fold-corner:focus-visible { outline: 3px solid var(--paper); outline-offset: -6px; }
+
+.fold-list { position: relative; z-index: 2; display: block; }
+.fold-list li + li { margin-top: 16px; }
+.fold-item {
+  display: block; width: 100%; padding: 0;
+  border: 0; border-radius: 0; background: none;
+  font-family: inherit; text-align: left; color: var(--paper);
+  cursor: url("assets/cursor-fold.png") 6 6, pointer;
+}
+.fold-t { display: block; font-size: var(--fs-sub); line-height: 1.25; font-weight: 800; }
+.fold-s { display: block; font-size: var(--fs-meta); line-height: 20px; font-weight: 400; }
+.fold-s code { color: var(--paper); }
+.fold-item[aria-expanded="true"] .fold-s::after { content: " · 已翻开"; }
+.fold-body p { margin: 6px 0 0; font-size: var(--fs-meta); line-height: 22px; }
+.fold-body code { color: var(--paper); }
+
+/* ---------- 制版单（第四栏，真实的表，表格线不受 hairline 约束） ---------- */
+.makeup { margin-top: 22px; }
+.makeup-h { font-size: var(--fs-sub); line-height: 1.3; margin: 0 0 6px; }
+.makeup-table { width: 100%; font-size: var(--fs-meta); line-height: 20px; }
+.makeup-table caption {
+  text-align: left; font-size: var(--fs-meta); line-height: 20px;
+  color: var(--ink); padding-bottom: 4px;   /* 铅灰只做结构色，不做文字色：4.4:1 不够 */
+}
+.makeup-table th, .makeup-table td {
+  text-align: left; padding: 4px 2px;
+  border-top: 1px solid var(--lead);
+}
+.makeup-table thead th { border-top: 3px solid var(--ink); }
+.makeup-table tbody th { font-weight: 400; }
+.makeup-note { margin: 8px 0 0; font-size: var(--fs-meta); line-height: 20px; color: var(--ink); }
+
+/* ---------- 错误态：满幅红带 ---------- */
+.state-band {
+  margin-top: 40px;
+  background: var(--red); color: var(--paper);
+  padding: 36px var(--pad-r) 38px var(--pad-l);
+  opacity: 0;
+  transform: translate(-12px, 12px);
+}
+.state-band.is-set { animation: land-in 320ms var(--land) both; }
+.state-inner { max-width: 62ch; }
+.state-band h2 { font-size: var(--fs-h2); line-height: 1.1; margin: 0 0 10px; color: var(--paper); }
+.state-band p { font-size: var(--fs-sub); line-height: 26px; margin: 0 0 14px; }
+.state-band code { color: var(--paper); }
+.state-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 20px; margin-bottom: 14px; }
+.state-link { color: var(--paper); font-size: var(--fs-body); text-underline-offset: 4px; }
+.state-link:hover { text-decoration-thickness: 3px; }
+.state-note { font-size: var(--fs-meta); line-height: 20px; margin: 0; }
+
+/* ---------- 档案图版：85 线双色套印 ---------- */
+.plates { padding: 54px var(--pad-r) 60px var(--pad-l); }
+.plates h2 { font-size: var(--fs-h2); line-height: 1.1; margin: 0 0 12px; }
+.plates-intro { max-width: 68ch; margin: 0 0 28px; }
+.plate-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 34px 24px; align-items: start;
+}
+.plate { opacity: 0; transform: translate(-12px, 12px); }
+.plate.is-set { animation: land-in 320ms var(--land) both; }
+.plate-lead, .plate:last-child { grid-column: 1 / -1; }
+.plate img {
+  width: 100%; height: auto;
+  border-radius: 0;
+  background: var(--paper);
+}
+.plate figcaption { margin-top: 8px; }
+.plate-cap { display: block; font-size: var(--fs-meta); line-height: 22px; }
+.plate-no { display: block; font-size: var(--fs-meta); line-height: 22px; color: var(--ink); }
+.plate-no code { color: var(--red); }
+.plates-source { margin: 26px 0 0; font-size: var(--fs-meta); line-height: 22px; color: var(--ink); }
+.plates-source .latin { font-size: var(--fs-meta); }
+
+/* ---------- 页脚：墨色满幅收尾 ---------- */
+.foot {
+  background: var(--ink); color: var(--paper);
+  padding: 46px var(--pad-r) 34px var(--pad-l);
+  opacity: 0;
+}
+.foot.is-set { animation: land-in 320ms var(--land) both; }
+.foot-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 24px; }
+.foot h3 { font-size: var(--fs-sub); line-height: 1.3; margin: 0 0 8px; color: var(--paper); }
+.foot p { font-size: var(--fs-meta); line-height: 22px; margin: 0; }
+.foot-line {
+  margin: 30px 0 0; padding-top: 12px;
+  border-top: 3px solid var(--paper);
+  font-size: var(--fs-meta); line-height: 22px;
+}
+.foot-line .latin { font-size: var(--fs-meta); }
+.foot-line code { color: var(--paper); }
+
+/* ---------- 滚动栏号：左侧铅号条，15px，永远不压正文（版心从 40px 起） ---------- */
+.col-meter {
+  position: fixed; left: 6px; top: 50%; z-index: 4;
+  width: 26px; margin: -70px 0 0;
+  padding: 10px 0;
+  background: var(--ink); color: var(--paper);
+  font-size: var(--fs-meta); line-height: 1;
+  text-align: center; writing-mode: vertical-rl;
+}
+.col-meter code { color: var(--paper); }
+
+/* ============================================================
+   断点
+   ============================================================ */
+
+/* 1024–1439：折成三栏（比 5:4:4）、报头降到 112px、折角导读移到第三栏下沿 */
+@media (max-width: 1439px) {
+  .masthead { height: 112px; }
+  .masthead h1 { font-size: clamp(52px, 6.1vw, 86px); }
+  .masthead-right { width: 268px; top: 6px; }
+  .masthead-latin { font-size: 18px; line-height: 20px; margin-bottom: 6px; }
+  .masthead-meta { margin-top: 2px; }
+  .wedge, .wedge-mis { height: 268px; clip-path: polygon(46% 0, 74% 0, 48.5% 100%); }
+  .columns { grid-template-columns: 5fr var(--bar) 4fr var(--bar) 4fr; }
+  .lead-bar:nth-of-type(3) { display: none; }
+  .col-4 {
+    grid-column: 1 / -1;
+    margin-top: 28px;
+    display: grid; grid-template-columns: 5fr var(--bar) 4fr; align-items: start;
+  }
+  .col-4 .makeup { grid-column: 1 / 3; }
+  .col-4 .fold-panel { grid-column: 3; }
+}
+
+/* 768–1023：两栏，楔形继续用百分比 */
+@media (max-width: 1023px) {
+  .masthead { height: 120px; }
+  .masthead-right { width: 210px; top: 8px; }
+  .masthead-latin { font-size: 15px; line-height: 18px; letter-spacing: .04em; }
+  .masthead-note { margin-top: 6px; }
+  .wedge, .wedge-mis { height: 240px; clip-path: polygon(52% 0, 78% 0, 55% 100%); }
+  .columns { grid-template-columns: 5fr var(--bar) 4fr; }
+  .lead-bar:nth-of-type(2), .lead-bar:nth-of-type(3) { display: none; }
+  .col-3, .col-4 { grid-column: 1 / -1; }
+  .col-3 { margin-top: 26px; }
+  .col-4 { margin-top: 26px; display: block; }
+  .col-meter { display: none; }
+  .foot-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* <768：单栏，折角导读改成顶部横向折条（露出 1.15 张卡），楔形改成报头下缘的斜带 */
+@media (max-width: 767px) {
+  :root { --pad-l: 16px; --pad-r: 16px; --bar: 14px; }
+  .masthead { height: auto; padding-bottom: 22px; }
+  .masthead-left { padding-top: 10px; }
+  .masthead-right { position: static; width: auto; text-align: left; margin-top: 12px; }
+  .masthead-latin { font-size: 15px; line-height: 18px; margin-bottom: 8px; }
+  .btn { width: 100%; min-height: 48px; text-align: center; }
+  .wedge, .wedge-mis {
+    left: 0; right: 0; top: auto; bottom: -70px;
+    width: auto; height: 84px;
+    /* 390px 宽上抬 75.6px ≈ 11°，最深只吃到铅条方点那一行，不碰第一栏的标题 */
+    clip-path: polygon(0 90%, 100% 0, 100% 100%, 0 100%);
+  }
+  .press-rule { margin-top: 4px; }
+  .front { padding-top: 20px; }
+  .columns { grid-template-columns: 1fr; }
+  .lead-bar { display: none; }
+  .col + .col, .col-3, .col-4 { margin-top: 26px; }
+  .col-3 { margin-top: 26px; }
+  .slug-slot { height: 74px; }
+  body { font-size: 16px; line-height: 27px; }
+  .fold-list {
+    display: flex; gap: 12px;
+    overflow-x: auto; overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 4px;
+  }
+  .fold-list li { flex: 0 0 87%; scroll-snap-align: start; }
+  .fold-list li + li { margin-top: 0; }
+  .plate-grid { grid-template-columns: 1fr; gap: 28px; }
+  .plate-lead, .plate:last-child { grid-column: auto; }
+  .foot-grid { grid-template-columns: 1fr; gap: 22px; }
+  .plates { padding-top: 44px; padding-bottom: 48px; }
+  .state-band { padding-top: 30px; padding-bottom: 32px; }
+  .state-actions { display: block; }
+  .state-link { display: inline-block; margin-top: 12px; }
+}
+
+/* ============================================================
+   动效退让：不是关掉签名机制，是把它换成不位移的版本并保留数值
+   —— 落版位移全部静止，四栏改为 120ms 不透明度切换、间隔仍是 60ms；
+      楔形不再位移，只做 120ms 淡入；折角保持静态但可点开；
+      横条滚动去掉平滑，scroll-snap 与 87% 卡宽保留。
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; }
+  .col, .lead-bar, .plate, .foot, .state-band, .wedge, .wedge-mis, .sheet::before { animation: none !important; }
+  .sheet::before { opacity: 1; }
+  .wedge { transform: none; opacity: 0; animation: rw-fade 120ms linear both !important; }
+  .wedge-mis { opacity: 0; animation: rw-fade 120ms linear both !important; }  /* 错位层保留 1.5px 偏移，只淡入 */
+  .col, .lead-bar { transform: none; opacity: 0; animation: rw-fade 120ms linear both !important; }
+  .col-1, .lead-bar:nth-of-type(1) { animation-delay: 0ms !important; }
+  .col-2, .lead-bar:nth-of-type(2) { animation-delay: 60ms !important; }
+  .col-3, .lead-bar:nth-of-type(3) { animation-delay: 120ms !important; }
+  .col-4 { animation-delay: 180ms !important; }
+  .plate, .foot, .state-band {
+    opacity: 0; transform: none;
+    animation: rw-fade 120ms linear both !important;
+  }
+  .fold-corner { transition: none; }
+  .btn:hover { transform: none; }
+}
+@keyframes rw-fade { from { opacity: 0; } to { opacity: 1; } }

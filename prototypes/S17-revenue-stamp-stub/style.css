@@ -1,0 +1,362 @@
+/* 方案 17｜税票存根联（Revenue Stamp Stub）— 真实原型样式表
+   奥斯曼帝国印花税票（1900 年代）· F（RECEIPT）· 调性：学术档案／严肃出版
+   字体分工：文津宋体＝中文正文（商业授权字体，未安装时回退到思源宋体等价字面）
+             Literata＝拉丁标题／条款（OFL 1.1）
+             Sometype Mono＝仅 <code> 内的票据编号与连号（OFL 1.1；见 README 裁定 M-1）
+   色彩（字段 3，面积和 100）：纸 #E1D6BD 52%／主墨 #5A2A50 30%／印花红 #7A2E2E 10%／压纸色 #C9BFA6 8% */
+
+:root {
+  --paper: #E1D6BD;
+  --stub: #C9BFA6;
+  --ink: #5A2A50;
+  --ink-deep: #3F1A38;
+  --seal: #7A2E2E;
+  --rule: #B9A98C;
+  --tone-hover: #DFD6BF;
+  --tone-hold: #D6C9AC;
+  --cell-size: 17px;
+  --row: 24px;
+  --gutter: 28px;
+  --stamp-shift: 2mm;
+  --stamp-misreg: 0.8px;
+  --ease-damped: cubic-bezier(0.16, 0.84, 0.28, 1);
+  --ease-step: cubic-bezier(0.9, 0.02, 1, 0.2);
+}
+
+* { box-sizing: border-box; }
+
+/* 文津宋体为方案 17 指定的中文主字体（商业授权，随产品分发）。此处声明本机字面，
+   未安装时按下方的回退阶梯渲染；评审截图即在该阶梯下产生。 */
+@font-face {
+  font-family: "文津宋体";
+  src: local("文津宋体"), local("WenJin Mincho SC"), local("AR WenJin Mincho SC");
+  font-display: swap;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "文津宋体", "WenJin Mincho SC", "Noto Serif SC", "Source Han Serif SC", "Songti SC", serif;
+  font-size: var(--cell-size);
+  line-height: 1.6;
+  font-variant-numeric: tabular-nums;
+}
+
+h1, h2, h3, .doc-series {
+  font-family: "Literata", "文津宋体", "Noto Serif SC", serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+h1 { font-size: clamp(46px, 6vw, 88px); line-height: 1.04; }
+h2 { font-size: 28px; line-height: 1.25; }
+h3 { font-size: 20px; line-height: 1.35; font-weight: 600; }
+
+p { margin: 0; max-width: 640px; }
+
+/* 票据编号与连号是机器可核验的字面数据，等宽只出现在 <code> 里 */
+code {
+  font-family: "Sometype Mono", "Noto Sans Mono", monospace;
+  font-size: 0.94em;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.01em;
+}
+
+a { color: inherit; text-underline-offset: 3px; }
+
+:focus-visible {
+  outline: 2px solid var(--seal);
+  outline-offset: 2px;
+}
+
+::selection { background: var(--stub); color: var(--ink-deep); }
+
+/* ── 页面骨架：一份单据，不是一叠卡片 ───────────────────────── */
+.sheet-head {
+  padding: 40px var(--gutter) 24px;
+  border-bottom: 2px solid var(--ink);
+  display: grid;
+  gap: 18px;
+}
+.doc-series {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.doc-identity { color: var(--ink-deep); }
+.doc-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 34px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 15px;
+}
+.doc-meta b { font-weight: 600; }
+
+.controls { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+
+.btn {
+  font: inherit;
+  font-size: 16px;
+  min-height: 46px;
+  padding: 10px 22px;
+  border: 0;
+  border-radius: 0;
+  cursor: pointer;
+  transition: background-color 140ms var(--ease-damped), color 140ms var(--ease-damped);
+}
+.btn-primary { background: var(--ink); color: var(--paper); }
+.btn-primary:hover { background: var(--ink-deep); }
+.btn-secondary {
+  background: transparent;
+  color: var(--ink);
+  border: 2px solid var(--ink);
+}
+.btn-secondary:hover { background: var(--stub); }
+.btn[disabled], .btn[aria-disabled="true"] {
+  background: var(--tone-hold);
+  color: #6B5A4A;
+  cursor: not-allowed;
+}
+.btn[aria-busy="true"] { background: var(--ink-deep); color: var(--paper); }
+
+main { padding: 0 var(--gutter) 72px; }
+section { padding-top: 56px; }
+
+/* ── 二联式：存根联 25% ／ 齿孔线 ／ 主联 75% ───────────────── */
+.sheet {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(210px, 3fr) 16px 9fr;
+  align-items: start;
+  margin-top: 20px;
+}
+.stub-cell {
+  background: var(--stub);
+  padding: 18px 16px 26px;
+  align-self: stretch;
+}
+.stub-label { font-size: 16px; font-weight: 600; }
+.stub-note { font-size: 14px; color: var(--ink-deep); margin-top: 10px; }
+
+/* 齿孔撕线：1.2px 孔径、6px 孔距的圆孔，不是虚线边框 */
+.perf {
+  position: relative;
+  align-self: stretch;
+  min-height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='6'%3E%3Ccircle cx='8' cy='3' r='1.2' fill='%23B9A98C'/%3E%3Ccircle cx='8' cy='3' r='1.9' fill='none' stroke='%23CFC0A2' stroke-width='0.5'/%3E%3C/svg%3E");
+  background-repeat: repeat-y;
+  background-position: center top;
+}
+
+/* ── 明细：线条只属于真实表格（会计对读所需），表外没有任何分隔线 ── */
+.main-cell { min-width: 0; }
+.ledger { width: 100%; border-collapse: collapse; }
+.ledger caption { text-align: left; padding: 0 0 12px; font-size: 15px; color: var(--ink-deep); }
+th, td {
+  border-bottom: 1px solid var(--rule);
+  padding: 0 12px;
+  height: var(--row);
+  font-size: 16px;
+  line-height: 21px;
+  text-align: left;
+  vertical-align: middle;
+  font-weight: 400;
+}
+thead th {
+  background: var(--stub);
+  border-bottom: 2px solid var(--ink);
+  font-size: 15px;
+  font-weight: 600;
+  height: 40px;
+}
+tbody tr { transition: background-color 120ms var(--ease-damped); }
+tbody tr:hover { background: var(--tone-hover); }
+tbody tr:hover .ticket-no { color: var(--ink-deep); }
+.ticket-no { color: var(--ink-deep); }
+td.num { text-align: end; }
+td.item { min-width: 200px; }
+tfoot td { border-top: 2px solid var(--ink); border-bottom: 0; height: 36px; font-weight: 600; }
+tfoot td.grand-total { font-size: 24px; }
+.is-open { color: var(--seal); font-weight: 600; }
+.was-reversed { text-decoration: line-through; text-decoration-thickness: 1px; color: var(--ink-deep); }
+
+/* ── 骑缝章：跨两联、距齿孔线 2mm、双色套印错位 0.8px ─────────── */
+.seal {
+  position: absolute;
+  left: 50%;
+  top: calc(100% - 54px);
+  width: 132px;
+  height: 132px;
+  margin-left: var(--stamp-shift);
+  transform: translate(-50%, -50%);
+  opacity: 1;
+  pointer-events: none;
+  overflow: visible;
+}
+.seal-bleed { color: var(--seal); opacity: 0.07; }
+.seal-ink-a { color: var(--seal); }
+.seal-ink-b { color: var(--ink); transform: translate(var(--stamp-misreg), var(--stamp-misreg)); }
+.seal-glyph { fill: currentColor; font-family: "文津宋体", "Noto Serif SC", serif; font-size: 13px; font-weight: 600; }
+
+/* ── 状态：加载中／空账期／编号不一致／导出禁用 ───────────────── */
+.states { display: grid; gap: 18px; margin-top: 20px; }
+.state { padding: 18px 20px; background: var(--stub); }
+.state p { font-size: 16px; margin-top: 6px; }
+.state-error, .state-error h3, .state-error p { background: var(--seal); color: var(--paper); }
+.state-empty { background: var(--tone-hold); }
+.state-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 14px; }
+.spinner {
+  width: 14px; height: 14px; display: inline-block;
+  border: 2px solid var(--paper);
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: turn 900ms linear infinite;
+}
+
+/* ── 馆藏图版：扫描件压到墨与纸两个色阶 ──────────────────────── */
+.plates {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(228px, 1fr));
+  gap: 22px;
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.plate { margin: 0; background: var(--stub); padding: 10px; }
+.plate img {
+  display: block;
+  width: 100%;
+  height: 232px;
+  object-fit: contain;
+  background: var(--paper);
+  filter: grayscale(1) contrast(1.12);
+  mix-blend-mode: multiply;
+}
+.plate figcaption { font-size: 15px; margin-top: 10px; }
+.plate .ref { font-size: 15px; color: var(--ink-deep); }
+
+footer { padding: 44px var(--gutter) 68px; border-top: 2px solid var(--ink); }
+.foot-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 26px; }
+.foot-grid p { font-size: 17px; }
+.foot-grid h3 { margin-bottom: 8px; }
+.sig { margin-top: 30px; font-size: 16px; color: var(--ink-deep); }
+
+/* ── 账期工具栏与合计行锁定 ─────────────────────────────────── */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  align-items: center;
+  margin-top: 18px;
+}
+.toolbar label { font-size: 16px; font-weight: 600; }
+select {
+  font: inherit;
+  font-size: 16px;
+  min-height: 44px;
+  max-width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  background: var(--paper);
+  color: var(--ink);
+}
+.toolbar-note { font-size: 16px; color: var(--ink-deep); }
+.ledger-status { font-size: 17px; margin-top: 16px; }
+.state-error { padding: 16px 20px; margin-top: 16px; font-size: 16px; }
+tfoot.is-locked td { background: var(--tone-hold); color: var(--ink-deep); }
+
+
+.skip {
+  position: absolute; overflow: hidden; clip-path: inset(50%);
+  width: 0; height: 0; padding: 0; margin: 0; white-space: nowrap;
+}
+.skip:focus {
+  position: fixed; top: 8px; left: 8px; z-index: 9;
+  width: auto; height: auto; margin: 0; padding: 10px 16px;
+  overflow: visible; clip-path: none;
+  background: var(--ink); color: var(--paper);
+  outline: 2px solid var(--seal);
+}
+
+/* ── 动效：行批次自下方 12px 落位，无回弹；只动 transform，画面永不空白 ── */
+@keyframes press-in { from { transform: translateY(12px); } to { transform: translateY(0); } }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes stamp-press { from { transform: translate(-50%, -50%) scale(1.08); } to { transform: translate(-50%, -50%) scale(1); } }
+@keyframes turn { to { transform: rotate(360deg); } }
+
+.row-in { animation: press-in 200ms var(--ease-damped) both; animation-delay: calc(var(--row-index, 0) * 18ms); }
+.enter { animation: press-in 240ms var(--ease-damped) both; }
+.is-stamped .seal { animation: stamp-press 180ms var(--ease-step) both; }
+.is-torn .stub-cell { transform: translateX(6px); }
+.is-torn .perf { background-position-x: calc(50% + 1px); }
+.stub-cell, .perf { transition: transform 320ms var(--ease-damped), background-position 320ms var(--ease-damped); }
+.flash { animation: fade-in 160ms var(--ease-damped) both; }
+
+/* ── 断点一：≥1440px 两联并列（存根 25%／主联 75%） ────────── */
+@media (min-width: 1440px) {
+  :root { --gutter: 44px; }
+  .sheet { grid-template-columns: 3fr 16px 9fr; }
+}
+
+/* ── 断点二：1024–1439px 存根联折到主联下方，保留齿孔线 ────── */
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .sheet { grid-template-columns: 1fr; }
+  .main-cell { order: 1; }
+  .perf {
+    order: 2;
+    height: 16px;
+    min-height: 0;
+    background-repeat: repeat-x;
+    background-position: left center;
+  }
+  .stub-cell { order: 3; }
+  .seal { top: 50%; left: 62%; width: 120px; height: 120px; margin-left: 0; margin-top: var(--stamp-shift); }
+  td.num { width: 88px; }
+}
+
+/* ── 断点三：<1024px 单栏，齿孔线成为顶部横向撕口，明细两行一组 ── */
+@media (max-width: 1023px) {
+  .sheet { grid-template-columns: 1fr; }
+  .perf {
+    order: 1;
+    height: 14px;
+    min-height: 0;
+    background-repeat: repeat-x;
+    background-position: left center;
+  }
+  .main-cell { order: 2; }
+  .stub-cell { order: 3; }
+  .seal { top: 50%; left: 50%; width: 104px; height: 104px; margin-left: 0; margin-top: var(--stamp-shift); }
+  .ledger thead { position: absolute; clip-path: inset(50%); }
+  .ledger tbody tr { display: block; padding: 10px 0; border-bottom: 1px solid var(--rule); }
+  .ledger td { display: block; height: auto; padding: 1px 12px; }
+  .ledger td::before { content: attr(data-label) "："; color: var(--ink-deep); }
+  .ledger td.num { text-align: start; }
+  .ledger td.grand-total, .ledger tfoot td { padding: 6px 12px; }
+  .plates { grid-template-columns: 1fr; }
+  .plate img { height: 260px; }
+  .btn { min-height: 48px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .row-in, .enter, .flash, .is-stamped .seal { animation: none; }
+  .btn, .stub-cell, .perf, tbody tr { transition-duration: 1ms; }
+  .is-torn .stub-cell { transform: none; opacity: 0.72; }
+  .spinner { animation-duration: 2400ms; }
+}
+
+@media print {
+  .perf { background-repeat: repeat-y; }
+  .seal { top: calc(100% - 54px); }
+  tfoot { break-inside: avoid; }
+}
+
+
+
+

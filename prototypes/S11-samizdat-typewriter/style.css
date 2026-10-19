@@ -1,0 +1,619 @@
+@charset "utf-8";
+/* 方案 11｜铁窗打字本（Samizdat Typewriter）— 可运行原型样式表
+   结构类型 F（MANUAL）／认知门槛 高／调性：学术档案 · 严肃出版
+   底色 #DCDDD2（未漂白书写纸）｜主色 #1B4A4A（复写纸第三联墨绿，对底 7.21:1）
+   正文 #221E19（打字机色带油墨，对底 13.6:1）｜批注 #6E7A64（褪色复写批注灰绿）
+   字体分工（三族，全部自托管于 ../_fonts/，页面里没有任何外网 <link>）：
+     标题与拉丁字面 EB Garamond 400/600（规格字段 4 的 Redaction 复核未过 -> 依原文的替代字条款整案替换）
+     正文与条款 LXGW WenKai TC 400（霞鹜文楷的 Google 版只有 TC 切口，楷体骨架不变）
+     规格表数字与引用编号 Martian Mono 400/600 的 wdth 75 窄档，只出现在 <code> 里
+   本表刻意不用 box-shadow／渐变／圆角／1px 分隔线：全站深度只由铁窗格的单向硬边投影给出。 */
+
+:root {
+  --paper: #DCDDD2;
+  --ink: #221E19;
+  --copy: #1B4A4A;          /* 主色：复写纸第三联墨绿 */
+  --note: #6E7A64;          /* 批注色：只在 ≥18.5px 粗体上落字（对底 3.73:1） */
+  --rail: 44px;             /* 版心外的方钢窗格带宽 */
+  --hang: 56px;             /* 章号悬挂栏宽 */
+  --base: 8px;              /* 基线单位：所有块间距取它的整数倍 */
+  --row: 28px;              /* 正文行高 */
+  --measure: 34em;          /* 正文行长 34 个汉字 */
+  --gap: 24px;              /* 栏间距 */
+  --ghost-1: 0.5px;         /* 复写重影第一层错位 */
+  --ghost-2: 1.5px;         /* 第二层 */
+  --ghost-3: 3px;           /* 第三层 */
+  --ghost-3-a: 0.12;        /* 第三层不透明度 12% */
+  --proof-gap: 12px;        /* 首屏工艺证据的层间距 */
+  --step: steps(4);         /* 全站唯一的缓动性格：打字机走纸的机械分步 */
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);          /* body 保持纯色：纹理挂在伪元素上（契约 §9.2） */
+  color: var(--ink);
+  font-family: "LXGW WenKai TC", "Kaiti SC", "KaiTi", "Noto Serif SC", serif;
+  font-size: 16px;
+  line-height: var(--row);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── 页面外壳：版心 + 版心外侧的方钢窗格 ───────────────────────── */
+.sheet { position: relative; }
+/* 纸纹（未漂白书写纸的木素斑点与横向纤维）挂伪元素，不挂 body；负 z-index 让它只压在地面之上、文字之下 */
+.sheet::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: url("assets/paper-lignin.png");
+  background-repeat: repeat;
+  background-size: 320px 320px;
+  opacity: 0.62;
+  pointer-events: none;
+}
+.page { position: relative; padding: 0 var(--rail); }
+.wrap { padding-left: var(--hang); }
+main { display: block; }
+
+/* ── 铁窗格：SVG <pattern> 画方钢，截面 8px，投影只朝一个方向且硬边无模糊 ── */
+.rail {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: var(--rail);
+  overflow: hidden;
+  pointer-events: none;
+}
+.rail-left { left: 0; }
+.rail-right { right: 0; }
+.rail svg { display: block; width: 100%; height: 100%; }
+
+/* ── 报头：封面墨块 + 版心 ─────────────────────────────────────── */
+.doc-head { padding: calc(var(--base) * 5) 0 calc(var(--base) * 3); }
+/* 封面墨块：全站唯一的大面积主色，承担首页的信息密度；分区仍不靠铺底 */
+.cover {
+  background: var(--copy);
+  color: var(--paper);
+  padding: calc(var(--base) * 5) calc(var(--base) * 4) calc(var(--base) * 4);
+}
+.cover h1, .cover .doc-latin, .cover .claim, .cover .doc-meta b, .cover .doc-id { color: var(--paper); }
+.doc-id {
+  margin: 0;
+  font-size: 15px;
+  line-height: 24px;
+  max-width: var(--measure);
+}
+h1 {
+  margin: calc(var(--base) * 2) 0 0;
+  font-family: "EB Garamond", "LXGW WenKai TC", "Noto Serif SC", serif;
+  font-size: clamp(46px, 7.4vw, 106px);
+  line-height: 1.04;
+  letter-spacing: -0.01em;
+  font-weight: 600;
+  color: var(--copy);
+}
+.doc-latin {
+  margin: calc(var(--base) * 1) 0 0;
+  font-family: "EB Garamond", "LXGW WenKai TC", "Noto Serif SC", serif;
+  font-size: 21px;
+  line-height: 32px;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+}
+.claim {
+  margin: calc(var(--base) * 2) 0 0;
+  font-size: 21px;
+  line-height: 36px;
+  max-width: var(--measure);
+  color: var(--ink);
+}
+.doc-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--base) / 2) calc(var(--base) * 4);
+  margin: calc(var(--base) * 2) 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 15px;
+  line-height: 24px;
+}
+.doc-meta b { font-weight: 700; color: var(--copy); }
+
+.controls { display: flex; flex-wrap: wrap; gap: var(--base) calc(var(--base) * 2); margin-top: calc(var(--base) * 3); }
+.btn {
+  font: inherit;
+  font-size: 16px;
+  min-height: 48px;
+  padding: 10px 20px;
+  border: 0;
+  border-radius: 0;
+  cursor: pointer;
+  font-family: "LXGW WenKai TC", "Kaiti SC", "KaiTi", serif;
+  transition: background-color 140ms var(--step), color 140ms var(--step);
+}
+.btn-primary { background: var(--copy); color: var(--paper); }
+.btn-primary:hover { background: var(--ink); }
+/* 次要按钮用 2px 实线边框，不用内阴影：边框是印刷件本身，阴影在这个方案里只属于铁窗格 */
+.btn-plain {
+  background: transparent;
+  color: var(--copy);
+  border: 2px solid var(--copy);
+  padding: 8px 18px;
+}
+.cover .btn-plain, .alert .btn-plain { color: var(--paper); border-color: var(--paper); }
+.btn-plain:hover { background: var(--copy); color: var(--paper); }
+.alert .btn-plain:hover { background: var(--paper); color: var(--copy); }
+.btn[disabled], .btn[aria-disabled="true"] { background: var(--copy); color: var(--paper); opacity: 0.55; cursor: not-allowed; }
+.btn[aria-busy="true"] { background: var(--ink); color: var(--paper); }
+
+/* ── 首屏工艺证据：同一句的第 3／5／7 次复写三层并置 ───────────── */
+.carbon-proof {
+  position: relative;
+  margin-top: calc(var(--base) * 4);
+  padding: calc(var(--base) * 3);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 12em;
+  gap: var(--gap);
+  box-shadow: inset 0 0 0 3px var(--copy);   /* 3px 硬边，不是 1px 细线 */
+}
+.carbon-stack { position: relative; height: 84px; }
+.carbon-line {
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 0;
+  width: 100%;
+  font-size: 20px;
+  line-height: 30px;
+  font-weight: 400;
+  max-width: var(--measure);
+}
+.carbon-line.l3 { transform: translate(var(--ghost-1), 0); }
+.carbon-line.l5 { transform: translate(var(--ghost-2), var(--proof-gap)); opacity: 0.62; mix-blend-mode: multiply; }
+.carbon-line.l7 { transform: translate(var(--ghost-3), calc(var(--proof-gap) * 2)); opacity: var(--ghost-3-a); mix-blend-mode: multiply; }
+.carbon-bleed {
+  position: absolute;
+  inset: 0;
+  background-image: url("assets/carbon-bleed.png");
+  background-repeat: repeat;
+  background-size: 480px 320px;
+  opacity: 0.34;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+/* 扫出：6px 纸色扫描线从左向右走一趟，不是盖住整块的遮罩。
+   静止态停在版面右侧之外，任何一张静态截图里都不会压掉三层重影 */
+.carbon-sweep {
+  position: absolute;
+  top: calc(var(--base) * -1);
+  bottom: calc(var(--base) * -1);
+  left: -2%;
+  width: 6px;
+  background: var(--paper);
+  pointer-events: none;
+  /* 加载总时长 700ms＝纸纹底先露出 120ms ＋ 扫描线走完 580ms；仍是阶跃步进 */
+  animation: carbon-sweep 580ms var(--step) 120ms both;
+}
+@keyframes carbon-sweep { from { left: -2%; } to { left: 102%; } }
+.carbon-key {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 15px;
+  line-height: 30px;
+  align-self: start;
+}
+.carbon-key li { display: flex; justify-content: space-between; gap: 8px; border-bottom: 0; }
+.carbon-key b { font-weight: 700; color: var(--copy); }
+.caret {
+  display: inline-block;
+  width: 1px;
+  height: 1.05em;
+  margin-left: 2px;
+  vertical-align: -0.15em;
+  background: var(--ink);
+  animation: caret-blink 1100ms steps(1, end) infinite;
+}
+@keyframes caret-blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0.12; } }
+
+/* ── 章节条：窄屏是可横滑的一条，一次露出 1.2 个章节 ──────────── */
+.chapter-strip {
+  margin-top: calc(var(--base) * 4);
+  padding: calc(var(--base) * 1) 0;
+  border-top: 3px solid var(--copy);
+  border-bottom: 3px solid var(--copy);
+}
+.chapter-strip ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 calc(var(--base) * 2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.chapter-strip a {
+  display: block;
+  padding: 6px 2px;
+  font-size: 15px;
+  line-height: 24px;
+  color: var(--copy);
+  text-decoration: none;
+  text-underline-offset: 3px;
+}
+.chapter-strip a:hover { text-decoration: underline; }
+
+/* ── 章节：章号悬挂在栏外 56px，正文 1–7 栏，规格表与警示 8–12 栏 ── */
+.chapter { padding-top: calc(var(--base) * 10); }   /* 与上一章之间：24px 章间距 + 56px 头部留白 */
+.chapter + .chapter { position: relative; }
+.chapter + .chapter::before {                        /* 1px 断针虚线：由伪元素铺点阵，不进正文区 */
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(var(--base) * 3);
+  height: 8px;
+  /* 命名空间里的冒号与斜杠也一并百分号编码：data URI 内不留明文协议头（契约硬规则：src/url() 不得指向远端），
+     解码后与标准写法逐字节一致 */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http%3A%2F%2Fwww.w3.org/2000/svg' width='9' height='8'%3E%3Crect x='0' y='3' width='5' height='1' fill='%231B4A4A' opacity='0.72'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+}
+.chapter-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gap);
+}
+.chapter-head { position: relative; grid-column: 1 / 8; }
+.hang {
+  position: absolute;
+  left: calc(var(--hang) * -1);
+  top: 6px;
+  width: var(--hang);
+  margin: 0;
+  text-align: right;
+  font-size: 15px;
+  line-height: 24px;
+  color: var(--copy);
+}
+.hang { letter-spacing: 0.02em; }
+/* 12 章的点状墨渍偏移量：逐章向左下 0.4px，第 12 章累计 4.8px（章号由 --ch 供给） */
+main > .chapter:nth-child(1) { --ch: 1; }
+main > .chapter:nth-child(2) { --ch: 2; }
+main > .chapter:nth-child(3) { --ch: 3; }
+main > .chapter:nth-child(4) { --ch: 4; }
+main > .chapter:nth-child(5) { --ch: 5; }
+main > .chapter:nth-child(6) { --ch: 6; }
+main > .chapter:nth-child(7) { --ch: 7; }
+main > .chapter:nth-child(8) { --ch: 8; }
+main > .chapter:nth-child(9) { --ch: 9; }
+main > .chapter:nth-child(10) { --ch: 10; }
+main > .chapter:nth-child(11) { --ch: 11; }
+main > .chapter:nth-child(12) { --ch: 12; }
+.wide-prose { grid-column: 1 / -1; }
+.plain-alert { cursor: default; }
+h2 {
+  margin: 0;
+  font-family: "EB Garamond", "LXGW WenKai TC", "Noto Serif SC", serif;
+  font-size: clamp(22px, 2.1vw, 30px);
+  line-height: 1.25;
+  font-weight: 600;
+  color: var(--copy);
+  text-wrap: balance;
+  /* 复写重影：0.5px／1.5px／3px 三层固定错位，第三层不透明度 12%。
+     用 filter: drop-shadow 而不是 text-shadow——text-shadow 给不出每层独立的不透明度，
+     而且 drop-shadow 不属于被禁的 box-shadow（契约 §9.3）。 */
+  filter: drop-shadow(var(--ghost-1) var(--ghost-1) 0 rgba(27, 74, 74, 0.5))
+          drop-shadow(var(--ghost-2) var(--ghost-2) 0 rgba(27, 74, 74, 0.2))
+          drop-shadow(var(--ghost-3) var(--ghost-3) 0 rgba(34, 30, 25, var(--ghost-3-a)));
+}
+.prose { grid-column: 1 / 8; }
+.aside { grid-column: 8 / 13; margin-top: 42px; }   /* 规格表比正文低 1.5 行 */
+
+.prose p { margin: 0 0 calc(var(--base) * 2); max-width: var(--measure); }
+.prose .lead { margin-top: var(--base); }
+h3 {
+  margin: calc(var(--base) * 3) 0 var(--base);
+  font-size: 19px;
+  line-height: 26px;
+  font-weight: 700;
+  color: var(--copy);
+  max-width: var(--measure);
+}
+.items { margin: 0; padding: 0; list-style: none; max-width: var(--measure); }
+/* 条号占行首固定一栏，等宽只出现在 <code> 里；悬停反白为正文墨底配纸色文字，不产生位移 */
+.items li {
+  display: flex;
+  align-items: baseline;
+  gap: var(--base);
+  padding: calc(var(--base) * 0.5) 0;
+  transition: background-color 120ms var(--step), color 120ms var(--step);
+}
+.items li > code { flex: 0 0 5.2em; color: var(--copy); }
+.items li:hover { background: var(--ink); color: var(--paper); }
+.items li:hover > code { color: var(--paper); }
+
+/* 打字机跳字：同一个字位被击打两次，字符重叠处的墨色不加深（同色实墨覆盖，不用叠加混合） */
+.slip { position: relative; white-space: nowrap; }
+.slip::after {
+  content: attr(data-slip);
+  position: absolute;
+  left: 2px;
+  top: 1px;
+  color: var(--ink);
+  pointer-events: none;
+}
+
+/* 批注：褪色复写批注色只在 19px 粗体上落字，对底 3.73:1 达大字线 */
+.note {
+  margin: calc(var(--base) * 2) 0;
+  padding-left: calc(var(--base) * 2);
+  border-left: 3px solid var(--note);
+  font-size: 19px;
+  line-height: 28px;
+  font-weight: 700;
+  color: var(--note);
+  max-width: var(--measure);
+}
+
+/* ── 状态：错误态在静态截图里就是可见的一整块，不藏在 JS 分支里 ── */
+.alert {
+  margin: 0 0 calc(var(--base) * 3);
+  padding: calc(var(--base) * 2.5) calc(var(--base) * 2.5);
+  background: var(--ink);                 /* 用墨底实块而不是 1px 描边框 */
+  color: var(--paper);
+  cursor: pointer;
+  transition: box-shadow 120ms var(--step), transform 120ms var(--step);
+}
+.alert h3, .alert p, .alert b, .alert .alert-code { color: var(--paper); }
+.alert h3 { margin: 0 0 var(--base); font-size: 19px; line-height: 26px; color: var(--paper); }
+.alert p { margin: 0; font-size: 16px; line-height: 28px; max-width: 32em; }
+.alert .alert-head { display: flex; align-items: flex-start; gap: var(--base); margin-bottom: var(--base); }
+.alert .alert-head svg { flex: 0 0 32px; margin-top: 2px; }
+.alert.is-pressed, .alert:active { box-shadow: inset 0 1px 0 rgba(220, 221, 210, 0.85); transform: translateY(1px); }
+.alert.is-recovered { background: var(--copy); }
+.alert-state {
+  display: inline-block;
+  margin-top: calc(var(--base) * 1.5);
+  font-size: 15px;
+  line-height: 24px;
+  color: var(--paper);
+}
+.state-note { font-size: 15px; line-height: 24px; color: var(--ink); margin: calc(var(--base)) 0 0; }
+
+.empty {
+  margin: 0 0 calc(var(--base) * 3);
+  padding: calc(var(--base) * 3) calc(var(--base) * 2.5);
+  background: var(--copy);
+  color: var(--paper);
+}
+.empty h3, .empty p { color: var(--paper); }
+.empty h3 { margin: 0 0 var(--base); font-size: 19px; line-height: 26px; }
+.empty p { margin: 0; max-width: 32em; }
+
+/* ── 规格表：线条只属于真表格，表外没有任何分隔线 ─────────────── */
+.spec { width: 100%; border-collapse: collapse; }
+.spec caption {
+  text-align: left;
+  padding-bottom: var(--base);
+  font-size: 15px;
+  line-height: 24px;
+  color: var(--ink);
+}
+.spec th, .spec td {
+  border-bottom: 1px solid var(--copy);
+  padding: 0 10px;
+  height: 32px;
+  font-size: 16px;
+  line-height: 22px;
+  text-align: left;
+  vertical-align: middle;
+  font-weight: 400;
+}
+.spec thead th { background: var(--copy); color: var(--paper); font-size: 15px; height: 40px; }
+.spec tbody tr { transition: background-color 120ms var(--step), color 120ms var(--step); }
+.spec tbody tr:hover { background: var(--ink); color: var(--paper); }
+.spec tbody tr:hover code { color: var(--paper); }
+.spec tfoot td { border-top: 3px solid var(--copy); border-bottom: 0; font-weight: 700; height: 40px; }
+.spec .num { text-align: right; }
+.landing { animation: row-land 60ms var(--step) both; animation-delay: calc(var(--i, 0) * 60ms); }
+@keyframes row-land { from { transform: translateY(-6px); } to { transform: translateY(0); } }
+
+.tools { margin: calc(var(--base) * 2) 0 0; display: grid; gap: var(--base); }
+.tools .tool { display: flex; align-items: flex-start; gap: calc(var(--base) * 1.5); font-size: 15px; line-height: 24px; }
+.tools svg { flex: 0 0 24px; margin-top: 3px; filter: brightness(0.7); }   /* 图标继承文字色并降 30% 明度 */
+
+/* ── 图版：抖动扫描件，两阶墨与纸；颗粒 tile 叠在伪元素上 ──────── */
+figure.plate { position: relative; margin: calc(var(--base) * 2) 0 0; }
+figure.plate img {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: grayscale(1) contrast(1.05);
+  mix-blend-mode: multiply;
+}
+figure.plate::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("assets/grain-128.png");
+  background-repeat: repeat;
+  pointer-events: none;
+}
+figure.plate figcaption { margin-top: var(--base); font-size: 15px; line-height: 24px; max-width: 34em; }
+figure.plate .src { display: block; color: var(--copy); margin-top: 2px; }
+.enter { animation: enter 240ms var(--step) both; }
+@keyframes enter { from { transform: translateY(10px); } to { transform: translateY(0); } }
+
+/* ── 断针三角 + 三位编号：警示符号，自绘，24 单位网格、1.25px 方头线宽 ── */
+.icon { fill: none; stroke: currentColor; stroke-width: 1.25; stroke-linecap: square; stroke-linejoin: miter; }
+.icon .knot { fill: currentColor; stroke: none; }
+
+/* ── 页脚 ─────────────────────────────────────────────────────── */
+footer { padding: calc(var(--base) * 6) 0 calc(var(--base) * 8); }
+.foot-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  gap: calc(var(--base) * 3) var(--gap);
+  border-top: 3px solid var(--copy);
+  padding-top: calc(var(--base) * 3);
+}
+.foot-grid h3 { margin: 0 0 var(--base); }
+.foot-grid p { margin: 0 0 var(--base); font-size: 15px; line-height: 24px; max-width: 34em; }
+.sig { margin: calc(var(--base) * 4) 0 0; font-size: 15px; line-height: 24px; color: var(--ink); max-width: var(--measure); }
+.credits-link { color: var(--copy); text-underline-offset: 3px; }
+
+/* ── 12 章的点状墨渍：第一行第一个汉字右下方 0.8px，逐章向左下偏 0.4px ── */
+.mottle { position: relative; }
+.mottle::after {
+  content: "";
+  position: absolute;
+  right: -1px;
+  bottom: -2px;
+  width: 0.8px;
+  height: 0.8px;
+  background: var(--ink);
+  transform: translate(calc(var(--ch, 1) * -0.4px), calc(var(--ch, 1) * 0.4px));
+}
+
+code {
+  font-family: "Martian Mono", "Noto Sans Mono", "Courier New", monospace;
+  font-size: 1em;
+  font-stretch: 75%;
+  letter-spacing: 0.01em;
+  font-variant-numeric: tabular-nums;
+}
+
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--copy); outline-offset: 3px; }
+::selection { background: var(--copy); color: var(--paper); }
+
+.skip {
+  position: absolute;
+  overflow: hidden;
+  clip-path: inset(50%);
+  width: 1px;
+  height: 1px;
+  white-space: nowrap;
+}
+.skip:focus {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 9;
+  width: auto;
+  height: auto;
+  padding: 10px 16px;
+  overflow: visible;
+  clip-path: none;
+  background: var(--copy);
+  color: var(--paper);
+}
+
+/* 章节切换的 120ms 硬切：不做交叉淡化，只给一条阶跃出现的 3px 墨条 */
+.chapter.is-cut > .chapter-grid > .chapter-head::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -8px;
+  height: 3px;
+  background: var(--copy);
+  animation: cut 120ms steps(1) both;
+}
+@keyframes cut { 0% { opacity: 0; } 35%, 100% { opacity: 1; } }
+
+/* ── 宽屏增强（≥1440px）：规格表右缘出血 16px ────────────────────────
+   表线越过 12 栏栅格的右界、压进栏外一小条；末列数字加内边距留在栏内，
+   保证「允许偏差」一列的字不会被铁窗格的竖挡压住。 */
+@media (min-width: 1440px) {
+  .aside .spec { width: calc(100% + 16px); }
+  .aside .spec th:last-child, .aside .spec td:last-child { padding-right: 26px; }
+}
+
+/* ── 断点二：1024–1439px —— 章号悬挂栏收到 32px，规格表压到 3 栏 ── */
+@media (min-width: 1024px) and (max-width: 1439px) {
+  :root { --rail: 28px; }
+  .wrap { padding-left: 32px; }
+  /* 悬挂栏由 56px 收到 32px：编号仍在栏外、仍随滚动移出画面，只缩进不吸顶 */
+  .hang { left: -32px; width: 32px; text-align: right; }
+  .spec th:nth-child(3), .spec td:nth-child(3) { display: none; }
+}
+
+/* ── 断点三：768–1023px —— 单栏堆叠，规格表仍 3 栏 ─────────────── */
+@media (min-width: 768px) and (max-width: 1023px) {
+  :root { --rail: 20px; --hang: 0px; }
+  .wrap { padding-left: 24px; }
+  .chapter-head { grid-column: 1 / -1; }
+  .chapter-grid { grid-template-columns: minmax(0, 1fr); }
+  .prose, .aside { grid-column: 1 / -1; }
+  .aside { margin-top: calc(var(--base) * 3); }
+  .hang { position: static; width: auto; text-align: left; margin: 0 0 var(--base); left: auto; top: auto; }
+  .carbon-proof { grid-template-columns: minmax(0, 1fr); }
+  .plates { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .foot-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* ── 断点四：<768px —— 单栏；规格表改「项目／参数」两列竖排明细 ── */
+@media (max-width: 767px) {
+  :root { --rail: 0px; --hang: 0px; --proof-gap: 8px; }
+  .rail { display: none; }                      /* 版心外没有余量时，铁窗格改为章节条上下的 3px 硬边 */
+  .page { padding: 0 16px; }
+  .wrap { padding-left: 0; }
+  h1 { font-size: clamp(40px, 12vw, 62px); }
+  .doc-latin, .claim { font-size: 19px; line-height: 30px; }
+  .chapter { padding-top: calc(var(--base) * 8); }
+  .chapter-grid { display: block; }
+  .hang { position: static; width: auto; text-align: left; margin: 0 0 var(--base); }
+  h2 { font-size: 22px; }
+  .carbon-proof { padding: var(--base) calc(var(--base) * 2); grid-template-columns: minmax(0, 1fr); }
+  .carbon-stack { height: 74px; }
+  .carbon-line { font-size: 18px; line-height: 28px; }
+  /* 章节条：横滑，一次露出 1.2 个章节（每项 83.33% 宽） */
+  .chapter-strip ul { flex-wrap: nowrap; overflow-x: auto; scroll-snap-type: x mandatory; }
+  .chapter-strip li { flex: 0 0 83.33%; scroll-snap-align: start; }
+  .chapter-strip a { font-size: 16px; padding: 8px 0; }
+  /* 规格表 -> 两列竖排明细 */
+  .spec, .spec thead, .spec tbody, .spec tr, .spec th, .spec td, .spec tfoot { display: block; width: 100%; }
+  .spec thead { position: absolute; clip-path: inset(50%); width: 1px; height: 1px; }
+  .spec tbody tr { padding: calc(var(--base)) 0; border-bottom: 3px solid var(--copy); }
+  .spec td { border: 0; height: auto; padding: 1px 0; }
+  /* 窄屏两列竖排：字段名由列序供给，表头整行隐去，明细自带标签 */
+  .spec td::before { color: var(--copy); font-weight: 700; }
+  .spec tbody td:nth-child(1)::before { content: "项目："; }
+  .spec tbody td:nth-child(2)::before { content: "出厂值："; }
+  .spec tbody td:nth-child(3)::before { content: "适用联次："; }
+  .spec tbody td:nth-child(4)::before { content: "允许偏差："; }
+  .spec tfoot td:nth-child(1)::before { content: "结论："; }
+  .spec tfoot td:nth-child(2)::before { content: "复测值："; }
+  .spec td.num { text-align: left; }
+  .spec tfoot td { border-top: 0; padding: 6px 0; }
+  .items li { display: block; }
+  .items li > code { margin-right: 6px; }
+  .plates { grid-template-columns: minmax(0, 1fr); }
+  .foot-grid { grid-template-columns: minmax(0, 1fr); }
+  .btn { min-height: 50px; }
+}
+
+/* ── 降级：机制不消失，只换成一次成形；数值全部写明 ───────────── */
+@media (prefers-reduced-motion: reduce) {
+  /* 三层重影仍在：错位 0.5px／1.5px／3px 与第三层 12% 不透明度不变，只是不再扫出，
+     改为 100ms 阶跃不透明度切换一次成形；逐行落下改为整表一次落位（60ms 单步）；
+     光标改成常亮（1px 竖条仍在）；窄屏（<768px）层间距由 12px 收到 8px，照样三层可数。 */
+  .carbon-sweep { animation: carbon-step 100ms steps(2) both; }
+  .caret { animation: none; opacity: 1; }
+  .landing { animation: row-land 60ms steps(1) both; animation-delay: 0ms; }
+  .enter { animation: row-land 100ms steps(2) both; }
+  .chapter.is-cut > .chapter-grid > .chapter-head::after { animation: cut 120ms steps(1) both; }
+  .btn, .items li, .spec tbody tr, .alert { transition-duration: 1ms; }
+}
+@keyframes carbon-step { from { opacity: 1; } to { opacity: 0; } }
+
+@media print {
+  .rail, .carbon-sweep { display: none; }
+  .chapter + .chapter::before { display: none; }
+}

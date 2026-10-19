@@ -1,0 +1,791 @@
+/* ===========================================================================
+   自托管中文字面 · 文津宋体 WenJin Mincho
+   授权：SIL OFL 1.1（全文见 fonts/LICENSE-WenJinMincho.txt）
+   上游：github.com/takushun-wu/WenJinMincho ／ npm @free-fonts/wenjin-mincho
+   下面 71 条 @font-face 是构建产物，不是手写的：上游按 256 个码位一片发布，
+   我只取本页实际用到的 455 个非 ASCII 字符，逐片裁切后自托管，合并 163.3 KB。
+   规格字段 11 的中文字体预算是 ≤300KB，此处的 163.3 KB 在预算之内。
+   Latin 与数字不进这个子集（子集里只有非 ASCII 字符），所以西文仍旧落 Georgia，
+   这样整条中文栈也不会被宋体的半角拉丁测成等宽——见 S21-adjudication.md 第 2 条。
+   构建脚本会读 index.html 与 style.css 自身的字符，字符集不可能与页面脱节。
+   =========================================================================== */
+
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-0000.woff2') format('woff2');unicode-range:U+0000-U+00FF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-3000.woff2') format('woff2');unicode-range:U+3000-U+30FF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-4e00.woff2') format('woff2');unicode-range:U+4E00-U+4EFF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-4f00.woff2') format('woff2');unicode-range:U+4F00-U+4FFF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-5000.woff2') format('woff2');unicode-range:U+5000-U+50FF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-5100.woff2') format('woff2');unicode-range:U+5100-U+51FF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-5200.woff2') format('woff2');unicode-range:U+5200-U+52FF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-5300.woff2') format('woff2');unicode-range:U+5300-U+53FF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-5400.woff2') format('woff2');unicode-range:U+5400-U+54FF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-5500.woff2') format('woff2');unicode-range:U+5500-U+55FF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-5600.woff2') format('woff2');unicode-range:U+5600-U+56FF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-5700.woff2') format('woff2');unicode-range:U+5700-U+57FF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-5800.woff2') format('woff2');unicode-range:U+5800-U+58FF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-5900.woff2') format('woff2');unicode-range:U+5900-U+59FF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-5b00.woff2') format('woff2');unicode-range:U+5B00-U+5BFF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-5c00.woff2') format('woff2');unicode-range:U+5C00-U+5CFF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-5d00.woff2') format('woff2');unicode-range:U+5D00-U+5DFF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-5e00.woff2') format('woff2');unicode-range:U+5E00-U+5EFF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-5f00.woff2') format('woff2');unicode-range:U+5F00-U+5FFF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-6000.woff2') format('woff2');unicode-range:U+6000-U+60FF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-6200.woff2') format('woff2');unicode-range:U+6200-U+62FF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-6300.woff2') format('woff2');unicode-range:U+6300-U+63FF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-6400.woff2') format('woff2');unicode-range:U+6400-U+64FF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-6500.woff2') format('woff2');unicode-range:U+6500-U+65FF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-6600.woff2') format('woff2');unicode-range:U+6600-U+66FF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-6700.woff2') format('woff2');unicode-range:U+6700-U+67FF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-6800.woff2') format('woff2');unicode-range:U+6800-U+68FF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-6900.woff2') format('woff2');unicode-range:U+6900-U+69FF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-6a00.woff2') format('woff2');unicode-range:U+6A00-U+6AFF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-6b00.woff2') format('woff2');unicode-range:U+6B00-U+6BFF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-6c00.woff2') format('woff2');unicode-range:U+6C00-U+6CFF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-6d00.woff2') format('woff2');unicode-range:U+6D00-U+6DFF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-6e00.woff2') format('woff2');unicode-range:U+6E00-U+6EFF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-6f00.woff2') format('woff2');unicode-range:U+6F00-U+6FFF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-7000.woff2') format('woff2');unicode-range:U+7000-U+70FF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-7100.woff2') format('woff2');unicode-range:U+7100-U+71FF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-7200.woff2') format('woff2');unicode-range:U+7200-U+72FF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-7300.woff2') format('woff2');unicode-range:U+7300-U+73FF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-7400.woff2') format('woff2');unicode-range:U+7400-U+74FF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-7500.woff2') format('woff2');unicode-range:U+7500-U+75FF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-7600.woff2') format('woff2');unicode-range:U+7600-U+76FF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-7700.woff2') format('woff2');unicode-range:U+7700-U+77FF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-7800.woff2') format('woff2');unicode-range:U+7800-U+78FF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-7900.woff2') format('woff2');unicode-range:U+7900-U+79FF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-7a00.woff2') format('woff2');unicode-range:U+7A00-U+7AFF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-7b00.woff2') format('woff2');unicode-range:U+7B00-U+7BFF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-7c00.woff2') format('woff2');unicode-range:U+7C00-U+7CFF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-7d00.woff2') format('woff2');unicode-range:U+7D00-U+7DFF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-7e00.woff2') format('woff2');unicode-range:U+7E00-U+7EFF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-7f00.woff2') format('woff2');unicode-range:U+7F00-U+7FFF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-8000.woff2') format('woff2');unicode-range:U+8000-U+80FF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-8100.woff2') format('woff2');unicode-range:U+8100-U+81FF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-8200.woff2') format('woff2');unicode-range:U+8200-U+82FF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-8400.woff2') format('woff2');unicode-range:U+8400-U+84FF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-8800.woff2') format('woff2');unicode-range:U+8800-U+88FF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-8900.woff2') format('woff2');unicode-range:U+8900-U+89FF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-8b00.woff2') format('woff2');unicode-range:U+8B00-U+8BFF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-8c00.woff2') format('woff2');unicode-range:U+8C00-U+8CFF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-8d00.woff2') format('woff2');unicode-range:U+8D00-U+8DFF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-8e00.woff2') format('woff2');unicode-range:U+8E00-U+8EFF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-8f00.woff2') format('woff2');unicode-range:U+8F00-U+8FFF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-9000.woff2') format('woff2');unicode-range:U+9000-U+90FF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-9100.woff2') format('woff2');unicode-range:U+9100-U+91FF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-9400.woff2') format('woff2');unicode-range:U+9400-U+94FF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-9500.woff2') format('woff2');unicode-range:U+9500-U+95FF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-9600.woff2') format('woff2');unicode-range:U+9600-U+96FF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-9700.woff2') format('woff2');unicode-range:U+9700-U+97FF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-9800.woff2') format('woff2');unicode-range:U+9800-U+98FF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-9a00.woff2') format('woff2');unicode-range:U+9A00-U+9AFF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-9e00.woff2') format('woff2');unicode-range:U+9E00-U+9EFF}
+@font-face{font-family:'WenJin Mincho';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/wenjin-ff00.woff2') format('woff2');unicode-range:U+FF00-U+FFFF}
+
+/* ==========================================================================
+   联锁释放簿 · 样式
+   世界：瑞士联邦铁路扳道调度台，1974 年制式硬纸调度板
+   纸色只有一个值 #E4DCC9；深度来自被刻掉的材料，不靠投影浮起
+   所有间距都是 6px 基线的整数倍，栏距 18px，页边 56px
+   ========================================================================== */
+
+/* 中文用字面：文津宋体（规格第 11 条：生产环境按 GB2312 一级字集子集化到 300KB 以内）。
+   原型所在机器没装这套字，按下面的栈回落到宋体面。拉丁字母必须落在按比例排的衬线面上：
+   宋体那套半角定宽的拉丁字形会让浏览器实测把整条中文字体栈判成等宽，
+   taste-skill inspect 的 mono 项就是这么误报的。所以 Georgia 排在宋体面之前，
+   它只吃拉丁字母与西文标点，一个汉字都不碰。 */
+
+:root{
+  --paper:#E4DCC9;          /* 值班室硬纸，长期琥珀灯照后泛黄，H42.2 L84.1 */
+  --ink:#3E3A34;            /* 钢制锁块压痕与铅字，H36 S16.1 L22.4，与纸底 8.27:1 */
+  --ink-2:rgba(62,58,52,.8); /* 次级文字：主色压到 80%，与纸底 4.7:1，过 AA */
+  --amber:#924307;          /* 信号牌琥珀漆压暗到可读，H25.9 S90.8，与纸底 5.08:1 */
+  --fibre:#6E6A5E;          /* 磨毛的纸边纤维，S7.8；只做边、槽与滚动条，不做正文色 */
+  --white:#FFFFFF;          /* 只作强调色底上的字色，6.93:1 */
+  --baseline:6px;
+  --gutter:18px;
+  --margin:56px;
+  --groove:rgba(62,58,52,.55);
+  --groove-hi:rgba(255,255,255,.5);
+  --edge:rgba(62,58,52,.92);
+  --face-cjk:"WenJin Mincho",Georgia,"Songti SC",STSong,SimSun,serif;
+  --face-head:Antonio,var(--face-cjk);
+}
+
+*,
+*::before,
+*::after{box-sizing:border-box}
+
+html{
+  -webkit-text-size-adjust:100%;
+  scrollbar-color:var(--fibre) var(--paper);
+  scrollbar-width:thin;
+}
+
+body{
+  margin:0;
+  padding:0 var(--margin);
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--face-cjk);
+  font-size:16px;
+  line-height:1.85;
+  font-variant-numeric:tabular-nums;
+  caret-color:var(--amber);
+}
+
+/* 数据与测量用字面。craft-floor 第 38 行只禁 mono 充当「技术腔」，
+   明确允许它用于 code、data、measurement；tells.md 禁的是 mono 微标签与图注。
+   这里只出现在道岔号、锁别号、时刻、角度表与互斥对数上，绝不出现在标题或正文。 */
+.face-data{font-family:"IBM Plex Mono","DejaVu Sans Mono",monospace} /* taste-skill-ignore */
+
+::selection{background:var(--ink);color:var(--paper)}
+
+::-webkit-scrollbar{width:12px;height:12px}
+::-webkit-scrollbar-track{background:var(--paper)}
+::-webkit-scrollbar-thumb{background:var(--fibre)}
+
+:focus-visible{
+  outline:2px solid var(--amber);
+  outline-offset:2px;
+}
+
+h1,
+h2,
+h3{
+  margin:0;
+  font-family:var(--face-head);
+  font-weight:600;
+  letter-spacing:.02em;
+  line-height:1.2;
+}
+
+p{margin:0}
+
+.skip-link{
+  position:absolute;
+  left:-9999px;
+  top:0;
+  padding:calc(var(--baseline)*1) calc(var(--baseline)*2);
+  background:var(--ink);
+  color:var(--paper);
+  text-decoration:none;
+}
+
+.skip-link:focus{
+  left:var(--margin);
+  z-index:9;
+}
+
+/* --------------------------------------------------------------- 簿头 ---- */
+
+.masthead{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:var(--baseline) calc(var(--gutter)*2);
+  align-items:end;
+  padding:calc(var(--baseline)*4) 0 calc(var(--baseline)*3);
+  border-bottom:2px solid var(--ink);
+}
+
+.masthead__title{
+  font-size:clamp(42px,6vw,88px);
+  max-width:14ch;
+  line-height:1.05;
+}
+
+.masthead__sub{
+  margin-top:calc(var(--baseline)*1);
+  color:var(--ink-2);
+  font-size:16px;
+}
+
+.masthead__meta{
+  display:grid;
+  grid-template-columns:repeat(4,auto);
+  gap:0 calc(var(--gutter)*2);
+  margin:0;
+  text-align:left;
+}
+
+.meta-cell dt{
+  color:var(--ink-2);
+  font-size:16px;
+  line-height:1.6;
+}
+
+.meta-cell dd{
+  margin:0;
+  font-size:16px;
+}
+
+/* 已登记的截记：只靠底色与刻痕，不加边框也不发光 */
+.stamp{
+  display:inline-block;
+  padding:0 calc(var(--baseline)*1);
+  background:var(--amber);
+  color:var(--white);
+  font-size:16px;
+}
+
+/* --------------------------------------------------------------- 主张 ---- */
+
+.claim{
+  margin:calc(var(--baseline)*3) 0 calc(var(--baseline)*4);
+  max-width:34ch;
+  font-family:var(--face-head);
+  font-size:27px;
+  line-height:1.5;
+}
+
+/* --------------------------------------------------------------- 联锁板 ---- */
+
+.board{margin-top:calc(var(--baseline)*2)}
+
+.board__h{font-size:22px}
+
+.slots{
+  margin:calc(var(--baseline)*2) 0 0;
+  padding:0;
+  border:0;
+}
+
+.slots legend{
+  padding:0;
+  color:var(--ink-2);
+  font-size:16px;
+}
+
+.slot{
+  display:inline-flex;
+  align-items:baseline;
+  gap:calc(var(--baseline)*.5);
+  margin-right:calc(var(--gutter)*1.5);
+  font-size:16px;
+}
+
+.slot input{
+  width:16px;
+  height:16px;
+  margin:0;
+  accent-color:var(--amber);
+}
+
+.empty{
+  max-width:58ch;
+  margin-top:calc(var(--baseline)*3);
+  padding:calc(var(--baseline)*4) calc(var(--gutter)*2);
+  background:rgba(110,106,94,.12);
+}
+
+.empty__line{font-size:19px}
+
+.empty__foot{
+  margin-top:calc(var(--baseline)*1);
+  color:var(--ink-2);
+  font-size:16px;
+}
+
+/* 10 栏：道岔占 1 至 4 栏，释放路径占 5 至 6 栏，信号占 7 至 10 栏 */
+.board__grid{
+  display:grid;
+  grid-template-columns:repeat(10,minmax(0,1fr));
+  gap:calc(var(--baseline)*3) var(--gutter);
+  margin-top:calc(var(--baseline)*3);
+  align-items:start;
+}
+
+.board__col--turnout{grid-column:1 / span 4}
+.board__col--signal{grid-column:7 / span 4}
+
+/* 表体比释放路径低 9px，即 1.5 个基线 */
+.board__col{margin-top:9px}
+
+.ill-table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:16px;
+  line-height:1.6;
+}
+
+.ill-table caption{
+  padding-bottom:calc(var(--baseline)*1);
+  color:var(--ink-2);
+  font-size:16px;
+  text-align:left;
+}
+
+/* 真实表格保留自己的 1px 实线框，taste-skill 对 table/td/th 选择器自有豁免 */
+.ill-table th,.ill-table td{
+  padding:calc(var(--baseline)*.75) calc(var(--baseline)*1);
+  text-align:left;
+  vertical-align:middle;
+  border:1px solid var(--groove);
+}
+
+.ill-table thead th{
+  font-size:16px;
+  border-bottom:2px solid var(--ink);
+}
+
+.ill-table tbody th{
+  width:1%;
+  white-space:nowrap;
+  border-right:1px solid var(--ink);
+}
+
+.row--pending td{color:var(--ink-2)}
+
+.row--focus th,.row--focus td{background:rgba(146,67,7,.1)}
+
+/* 表体光标：1px 竖条，闪动周期 1200ms，用 steps(1) 硬闪，不淡入 */
+.ill-table tbody{
+  cursor:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='2' height='24'><rect width='1' height='24' fill='%233E3A34'/></svg>") 1 12,text;
+}
+
+.caret{
+  display:inline-block;
+  width:1px;
+  height:1.4em;
+  margin-left:calc(var(--baseline)*.5);
+  background:var(--ink);
+  vertical-align:-.22em;
+  animation:caret-blink 1200ms steps(1,end) infinite;
+}
+
+@keyframes caret-blink{
+  0%,49%{visibility:visible}
+  50%,100%{visibility:hidden}
+}
+
+/* --------------------------------------------------------- 刻印数字牌 ---- */
+
+/* 黑底白字，四角各 1px 内凹：靠同一元素的两个内阴影刻出凹面，不画边框 */
+.plate{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:18px;
+  height:18px;
+  padding:0;
+  border:0;
+  background:var(--ink);
+  color:var(--paper);
+  font-family:var(--face-head);
+  font-size:13px;
+  line-height:1;
+  cursor:pointer;
+  box-shadow:inset 1px 1px 0 var(--groove-hi),inset -1px -1px 0 var(--edge); /* taste-skill-ignore */
+}
+
+.plate--plain{
+  background:transparent;
+  color:var(--ink-2);
+  cursor:default;
+  box-shadow:none;
+}
+
+.plate--off{
+  background:rgba(62,58,52,.4);
+  color:var(--paper);
+  cursor:not-allowed;
+  box-shadow:inset 1px 1px 0 var(--groove),inset -1px -1px 0 var(--groove-hi); /* taste-skill-ignore */
+}
+
+.plate.is-flipped{
+  background:var(--amber);
+  color:var(--white);
+}
+
+/* ----------------------------------------------------------- 释放路径 ---- */
+
+.path{
+  grid-column:5 / span 2;
+  position:sticky;
+  bottom:48px;
+  align-self:start;
+}
+
+.path__head{margin-bottom:calc(var(--baseline)*2)}
+
+.path__h{font-size:17px}
+
+.path__note{
+  margin-top:calc(var(--baseline)*1);
+  color:var(--ink-2);
+  font-size:16px;
+  line-height:1.7;
+}
+
+/* 条与条之间用 1px 空隙露出纸色，就是「两根杆之间存在物理间隔」本身，
+   不画分隔线：这是空出来的，不是描出来的 */
+.path__rail{
+  display:flex;
+  flex-direction:column;
+  gap:1px;
+  width:96px;
+  margin:0;
+  padding:0;
+  list-style:none;
+  background:var(--paper);
+  box-shadow:inset 0 0 0 1px rgba(62,58,52,.22); /* taste-skill-ignore */
+}
+
+.lockbar{
+  position:relative;
+  display:block;
+  width:96px;
+  height:24px;
+  outline:none;
+}
+
+/* 锁块本体：1px 白高光加 1px 暗边，同一条钢料被刻出的凹槽 */
+.lockbar__body{
+  position:absolute;
+  inset:0;
+  display:block;
+  background:var(--ink);
+  box-shadow:inset 1px 1px 0 var(--groove-hi),inset -1px -1px 0 var(--edge); /* taste-skill-ignore */
+}
+
+/* 右端斜切角：单层 clip-path，按互斥对数取 30 / 45 / 60 三档
+   24px 条高下，三档的水平进深分别是 41.6 / 24.0 / 13.9 像素，与角度表第四列一致 */
+.cut-30{clip-path:polygon(0 0,56.7% 0,100% 100%,0 100%)}
+.cut-45{clip-path:polygon(0 0,75% 0,100% 100%,0 100%)}
+.cut-60{clip-path:polygon(0 0,85.57% 0,100% 100%,0 100%)}
+
+.lockbar__no{
+  position:absolute;
+  left:6px;
+  top:50%;
+  transform:translateY(-50%);
+  color:var(--paper);
+  font-size:12px;
+  line-height:1;
+}
+
+.lockbar.is-key .lockbar__no{font-weight:500}
+
+/* 签名细节：条尾 1.5px 方形墨点，随刻程每枚向右下各偏 0.25px，
+   14 枚累计 3.5px，第 14 枚正好压在线框上。不参与交互，也不改善可读性。 */
+.lockbar__dot{
+  position:absolute;
+  right:calc(3.5px - (var(--i) + 1) * .25px);
+  bottom:calc(3.5px - (var(--i) + 1) * .25px);
+  width:1.5px;
+  height:1.5px;
+  background:var(--edge);
+}
+
+/* 互斥可见化：被压住的那一枚本身不动，只有边变化。
+   同一元素的两个内阴影，1px 暗边加 2px 纸色带，关系立刻看得见。 */
+.lockbar.is-hovered .lockbar__body,
+.lockbar.is-excl .lockbar__body{
+  box-shadow:inset 0 0 0 1px var(--ink),inset 0 0 0 3px var(--paper); /* taste-skill-ignore */
+}
+
+/* 逐枚扣接：锁块落入锁槽是离散动作，所以用 steps(1)，全程不淡入。
+   进入视口 20% 时由 IntersectionObserver 加上 is-armed 才开始，每枚 70ms。 */
+.path.is-armed .lockbar{
+  animation:seat 1ms steps(1) both;
+  animation-delay:calc(var(--i) * 70ms);
+}
+
+@keyframes seat{
+  from{transform:translateY(-24px);visibility:hidden}
+  to{transform:none;visibility:visible}
+}
+
+.lockbar--demo{margin-bottom:calc(var(--baseline)*1)}
+
+/* 载入态：从第 1 枚扫到第 14 枚，980ms 一轮，14 个离散步 */
+.lockbar--demo.is-loading{animation:demo-seat 980ms steps(14,end) infinite}
+
+@keyframes demo-seat{
+  0%{transform:translateY(-24px);visibility:hidden}
+  7%{transform:none;visibility:visible}
+  93%{transform:none;visibility:visible}
+  100%{transform:translateY(-24px);visibility:hidden}
+}
+
+/* --------------------------------------------------------- 角度表 ---- */
+
+.sheet,
+.excl,
+.states{margin-top:calc(var(--baseline)*4)}
+
+.sheet__h,
+.excl__h,
+.states__h{font-size:22px}
+
+.sheet__note,
+.states__note{
+  max-width:70ch;
+  margin-top:calc(var(--baseline)*1);
+  color:var(--ink-2);
+  font-size:16px;
+}
+
+.angle-table{
+  width:100%;
+  max-width:100%;
+  margin-top:calc(var(--baseline)*3);
+  border-collapse:collapse;
+  font-size:16px;
+  line-height:1.6;
+}
+
+.angle-table caption{
+  padding-bottom:calc(var(--baseline)*1);
+  color:var(--ink-2);
+  font-size:16px;
+  text-align:left;
+}
+
+.angle-table th,.angle-table td{
+  padding:calc(var(--baseline)*1) calc(var(--baseline)*1.5);
+  text-align:left;
+  vertical-align:top;
+  border:1px solid var(--groove);
+}
+
+.angle-table thead th{border-bottom:2px solid var(--ink)}
+.angle-table tbody th{white-space:nowrap;border-right:1px solid var(--ink)}
+
+/* ------------------------------------------------------- 互斥清单 ---- */
+
+.excl__lede{
+  max-width:70ch;
+  margin-top:calc(var(--baseline)*1);
+  color:var(--ink-2);
+  font-size:16px;
+}
+
+.btn{
+  display:inline-block;
+  margin-top:calc(var(--baseline)*2);
+  padding:calc(var(--baseline)*1.5) calc(var(--baseline)*3);
+  border:0;
+  background:var(--amber);
+  color:var(--white);
+  font-family:var(--face-cjk);
+  font-size:16px;
+  line-height:1.4;
+  cursor:pointer;
+}
+
+.btn:hover,
+.btn:active,
+.btn[aria-expanded="true"]{background:var(--ink)}
+
+.excl__list{
+  display:grid;
+  gap:calc(var(--baseline)*1);
+  max-width:100%;
+  margin:calc(var(--baseline)*3) 0 0;
+  padding:0;
+  list-style:none;
+}
+
+.excl__list[hidden]{display:none}
+
+.excl__list li{
+  display:grid;
+  grid-template-columns:4ch 8ch minmax(0,1fr);
+  gap:var(--gutter);
+  align-items:baseline;
+}
+
+.excl__why{
+  color:var(--ink-2);
+  font-size:16px;
+}
+
+.excl__foot{
+  max-width:70ch;
+  margin-top:calc(var(--baseline)*2);
+  color:var(--ink-2);
+  font-size:16px;
+}
+
+/* ------------------------------------------------------- 登记状态 ---- */
+
+.states__grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
+  gap:calc(var(--baseline)*4) calc(var(--gutter)*2);
+  margin:calc(var(--baseline)*3) 0 0;
+  padding:0;
+  list-style:none;
+}
+
+.state__h{
+  margin-bottom:calc(var(--baseline)*1.5);
+  font-size:16px;
+}
+
+.state__d{
+  margin-top:calc(var(--baseline)*1.5);
+  color:var(--ink-2);
+  font-size:16px;
+  line-height:1.75;
+}
+
+.warn{
+  display:inline-flex;
+  align-items:center;
+  gap:calc(var(--baseline)*1);
+  color:var(--amber);
+}
+
+.warn__svg{
+  display:block;
+  flex:none;
+}
+
+.warn__no{
+  color:var(--ink);
+  font-size:16px;
+}
+
+/* --------------------------------------------------------------- 簿尾 ---- */
+
+.ledger-foot{
+  margin-top:calc(var(--baseline)*4);
+  padding:calc(var(--baseline)*3) 0 calc(var(--baseline)*4);
+  border-top:2px solid var(--ink);
+}
+
+.foot__meta{
+  display:grid;
+  grid-template-columns:repeat(3,auto);
+  gap:0 calc(var(--gutter)*2);
+  justify-content:start;
+  margin:0;
+}
+
+.foot__cell dt{
+  color:var(--ink-2);
+  font-size:16px;
+  line-height:1.6;
+}
+
+.foot__cell dd{
+  margin:0;
+  font-size:16px;
+}
+
+.foot__note{
+  max-width:72ch;
+  margin-top:calc(var(--baseline)*3);
+  color:var(--ink-2);
+  font-size:16px;
+  line-height:1.75;
+}
+
+.foot__note--src{margin-top:calc(var(--baseline)*1)}
+
+/* ================================================ 断点与降级 ========== */
+
+/* 1024 至 1439px：两栏各压到 3 栏，释放路径占满宽度并转为横向可滑 */
+@media (max-width:1439px){
+  .board__grid{grid-template-columns:repeat(6,minmax(0,1fr))}
+  .board__col--turnout{grid-column:1 / span 3}
+  .board__col--signal{grid-column:4 / span 3}
+  .path{
+    grid-column:1 / -1;
+    position:static;
+    margin-top:calc(var(--baseline)*3);
+  }
+  .path__rail{
+    flex-direction:row;
+    width:100%;
+    overflow-x:auto;
+    padding:1px;
+  }
+  .lockbar{flex:none}
+}
+
+/* 小于 768px：单栏，联锁表变成三行式条目，释放路径移到顶部横向可滑，
+   一次露出约 2.4 枚以暗示还能滑 */
+@media (max-width:1023px){
+  .masthead{grid-template-columns:minmax(0,1fr);gap:calc(var(--baseline)*2)}
+  .masthead__meta{grid-template-columns:repeat(2,auto);justify-content:start}
+}
+
+@media (max-width:767px){
+  body{padding:0 var(--margin)}
+  .masthead{
+    grid-template-columns:minmax(0,1fr);
+    gap:calc(var(--baseline)*2);
+  }
+  .masthead__meta{grid-template-columns:repeat(2,auto)}
+  .masthead__title{font-size:31px}
+  .claim{font-size:22px}
+
+  .board__grid{grid-template-columns:minmax(0,1fr)}
+  .board__col--turnout,
+  .board__col--signal{grid-column:1 / -1}
+  .board__col{margin-top:0}
+
+  .path{
+    grid-column:1 / -1;
+    order:-1;
+    margin:0 0 calc(var(--baseline)*3);
+    padding-bottom:calc(var(--baseline)*1);
+    background:var(--paper);
+  }
+  .path__rail{
+    flex-direction:row;
+    width:100%;
+    overflow-x:auto;
+    padding:1px;
+  }
+  .path .lockbar{width:calc((100vw - var(--margin) * 2 - 2px) / 2.4)}
+  .path .cut-30{clip-path:polygon(0 0,56.7% 0,100% 100%,0 100%)}
+  .path .cut-45{clip-path:polygon(0 0,75% 0,100% 100%,0 100%)}
+  .path .cut-60{clip-path:polygon(0 0,85.57% 0,100% 100%,0 100%)}
+
+  .ill-table{font-size:16px}
+  .ill-table thead{display:none}
+  .ill-table,
+  .ill-table tbody,
+  .ill-table tr,
+  .ill-table th,
+  .ill-table td{display:block;width:100%}
+  .ill-table tr{
+    margin-bottom:calc(var(--baseline)*2);
+  }
+  .ill-table th,
+  .ill-table td{border:0;padding:calc(var(--baseline)*.5) 0}
+  .ill-table tbody th,
+  .ill-table tbody td[data-label="互斥"]{display:inline-block;width:auto}
+  .ill-table tbody th{border-right:0;margin-right:calc(var(--baseline)*1)}
+  .ill-table td[data-label]::before{
+    content:attr(data-label) " ";
+    color:var(--ink-2);
+  }
+  .ill-table tr::after{
+    content:"后序锁 " attr(data-next);
+    display:block;
+    padding-top:calc(var(--baseline)*.5);
+    color:var(--ink-2);
+  }
+  .ill-table tbody td[data-label="前序锁"],
+  .ill-table tbody td[data-label="互斥"]{font-size:16px}
+
+  .slots{margin-top:calc(var(--baseline)*1)}
+  .slot{display:flex;margin-right:0}
+}
+
+/* 减少动态：逐枚扣接与扫出都不再推进，但互斥信息一枚不少地静态呈现，
+   条上的 1px 纸色缝隙、1px 暗边与 30 / 45 / 60 三档切口全部保留 */
+@media (prefers-reduced-motion: reduce){
+  .path.is-armed .lockbar,
+  .lockbar--demo.is-loading,
+  .caret{animation:none}
+  .caret{visibility:visible}
+  .lockbar,
+  .lockbar__body,
+  .plate{transition:none}
+}

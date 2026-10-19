@@ -1,0 +1,14 @@
+/* S05 像素冷库台 —— 自托管字体（手写，非 _build/fetch-fonts.mjs 生成）
+   族：Departure Mono（OFL 1.1，像素等宽，笔画对齐 5x7 字模网格）
+   字重：400（发布物只有 Regular 一档，22.5 KB）
+   上游：https://github.com/rektdeckard/departure-mono 发布物 DepartureMono-1.500.woff2
+   为什么手写：该族不在 Google Fonts 渠道，_build/fetch-fonts.mjs 只能走 fonts.googleapis.com，
+   规格字段 4 又指定它承担数据与读数，所以改为直接从上游发布物取 woff2 落进共享缓存。
+   使用约束（契约 §9.8）：本文件在页面里只被 <code>／<pre> 命中，monoProseShare 必须为 0。 */
+@font-face {
+  font-family: 'Departure Mono';
+  src: url('../files/departure-mono/DepartureMono-1.500.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}

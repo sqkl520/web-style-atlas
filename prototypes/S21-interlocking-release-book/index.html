@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>联锁释放簿 · 扳道调度台值班记录</title>
+<meta name="description" content="瑞士联邦铁路扳道调度 1970 年代制式的联锁释放簿：14 枚锁闭条拼成释放路径，锁闭条右端斜线切口按互斥对数分 30°/45°/60° 三档。">
+<link rel="stylesheet" href="../_fonts/css/antonio__400-600.css">
+<link rel="stylesheet" href="../_fonts/css/ibm-plex-mono__400-500.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip-link" href="#board">跳到联锁表</a>
+
+<header class="masthead">
+  <div class="masthead__id">
+    <h1 class="masthead__title">联锁释放簿</h1>
+    <p class="masthead__sub">瑞士联邦铁路 · 扳道调度台 · 1974 年制式硬纸调度板</p>
+  </div>
+  <dl class="masthead__meta">
+    <div class="meta-cell">
+      <dt>班次</dt>
+      <dd>夜班 22:00 至 06:00</dd>
+    </div>
+    <div class="meta-cell">
+      <dt>值班员</dt>
+      <dd>E. 施奈德</dd>
+    </div>
+    <div class="meta-cell">
+      <dt>登记时刻</dt>
+      <dd class="face-data">22:04</dd>
+    </div>
+    <div class="meta-cell">
+      <dt>释放状态</dt>
+      <dd><span class="stamp">本时段已登记</span></dd>
+    </div>
+  </dl>
+</header>
+
+<main>
+  <p class="claim" id="claim">第 7 号道岔未释放之前，任何信号都扳不动。</p>
+
+  <section class="board" id="board" aria-labelledby="board-h">
+    <h2 class="board__h" id="board-h">本时段联锁关系</h2>
+
+    <fieldset class="slots" id="slots">
+      <legend>值班时段</legend>
+      <label class="slot"><input type="radio" name="slot" value="a" checked> <span class="slot__t face-data">22:00</span> 至 <span class="slot__t face-data">23:00</span> 已登记</label>
+      <label class="slot"><input type="radio" name="slot" value="b"> <span class="slot__t face-data">23:00</span> 至 <span class="slot__t face-data">00:00</span> 已登记</label>
+      <label class="slot"><input type="radio" name="slot" value="c"> <span class="slot__t face-data">05:00</span> 至 <span class="slot__t face-data">06:00</span> 未登记</label>
+    </fieldset>
+
+    <div class="empty" id="empty-state" hidden>
+      <p class="empty__line">本时段的锁闭关系尚未登记，值班员 22:40 交班前录入。</p>
+      <p class="empty__foot">空簿不等于无约束：上一时段的 14 枚锁闭条仍按原角度扣在原位，切口和纸色缝隙一枚未动。</p>
+    </div>
+
+    <div class="board__grid" id="board-grid">
+      <div class="board__col board__col--turnout">
+        <table class="ill-table" id="turnout-table">
+          <caption>道岔联锁表 · 1 至 12 号</caption>
+          <thead>
+            <tr>
+              <th scope="col">道岔号</th>
+              <th scope="col">锁别号</th>
+              <th scope="col">互斥</th>
+              <th scope="col">前序锁</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-next="锁 2">
+              <th scope="row"><button class="plate" type="button" data-flip="锁 1" aria-label="道岔 1 号号牌，按回车翻转查看锁别号">1</button></th>
+              <td data-label="锁别号" class="face-data">锁 1</td>
+              <td data-label="互斥" class="face-data">3</td>
+              <td data-label="前序锁" class="face-data">无</td>
+            </tr>
+            <tr data-next="锁 3">
+              <th scope="row"><button class="plate" type="button" data-flip="锁 2" aria-label="道岔 2 号号牌，按回车翻转查看锁别号">2</button></th>
+              <td data-label="锁别号" class="face-data">锁 2</td>
+              <td data-label="互斥" class="face-data">3</td>
+              <td data-label="前序锁" class="face-data">锁 1</td>
+            </tr>
+            <tr data-next="锁 4">
+              <th scope="row"><button class="plate" type="button" data-flip="锁 3" aria-label="道岔 3 号号牌，按回车翻转查看锁别号">3</button></th>
+              <td data-label="锁别号" class="face-data">锁 3</td>
+              <td data-label="互斥" class="face-data">4</td>
+              <td data-label="前序锁" class="face-data">锁 2</td>
+            </tr>
+            <tr data-next="无" class="row--pending">
+              <th scope="row"><span class="plate plate--plain">4</span></th>
+              <td data-label="锁别号">未登记</td>
+              <td data-label="互斥">／</td>
+              <td data-label="前序锁">／</td>
+            </tr>
+            <tr data-next="锁 5">
+              <th scope="row"><button class="plate" type="button" data-flip="锁 4" aria-label="道岔 5 号号牌，按回车翻转查看锁别号">5</button></th>
+              <td data-label="锁别号" class="face-data">锁 4</td>
+              <td data-label="互斥" class="face-data">2</td>
+              <td data-label="前序锁" class="face-data">锁 3</td>
+            </tr>
+            <tr data-next="无" class="row--pending">
+              <th scope="row"><span class="plate plate--plain">6</span></th>
+              <td data-label="锁别号">未登记</td>
+              <td data-label="互斥">／</td>
+              <td data-label="前序锁">／</td>
+            </tr>
+            <tr data-next="锁 6" class="row--focus">
+              <th scope="row"><button class="plate" type="button" data-flip="锁 5" aria-label="道岔 7 号号牌，按回车翻转查看锁别号">7</button><span class="caret" aria-hidden="true"></span></th>
+              <td data-label="锁别号" class="face-data">锁 5</td>
+              <td data-label="互斥" class="face-data">4</td>
+              <td data-label="前序锁" class="face-data">锁 4</td>
+            </tr>
+            <tr data-next="锁 7">
+              <th scope="row"><button class="plate" type="button" data-flip="锁 6" aria-label="道岔 8 号号牌，按回车翻转查看锁别号">8</button></th>
+              <td data-label="锁别号" class="face-data">锁 6</td>
+              <td data-label="互斥" class="face-data">3</td>
+              <td data-label="前序锁" class="face-data">锁 5</td>
+            </tr>
+            <tr data-next="无" class="row--pending">
+              <th scope="row"><span class="plate plate--plain">9</span></th>
+              <td data-label="锁别号">未登记</td>
+              <td data-label="互斥">／</td>
+              <td data-label="前序锁">／</td>
+            </tr>
+            <tr data-next="锁 8">
+              <th scope="row"><button class="plate" type="button" data-flip="锁 7" aria-label="道岔 10 号号牌，按回车翻转查看锁别号">10</button></th>
+              <td data-label="锁别号" class="face-data">锁 7</td>
+              <td data-label="互斥" class="face-data">3</td>
+              <td data-label="前序锁" class="face-data">锁 6</td>
+            </tr>
+            <tr data-next="无" class="row--pending">
+              <th scope="row"><span class="plate plate--plain">11</span></th>
+              <td data-label="锁别号">未登记</td>
+              <td data-label="互斥">／</td>
+              <td data-label="前序锁">／</td>
+            </tr>
+            <tr data-next="锁 9">
+              <th scope="row"><button class="plate" type="button" data-flip="锁 8" aria-label="道岔 12 号号牌，按回车翻转查看锁别号">12</button></th>
+              <td data-label="锁别号" class="face-data">锁 8</td>
+              <td data-label="互斥" class="face-data">2</td>
+              <td data-label="前序锁" class="face-data">锁 7</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="board__col board__col--signal">
+        <table class="ill-table" id="signal-table">
+          <caption>信号联锁表 · A 至 H</caption>
+          <thead>
+            <tr>
+              <th scope="col">信号号</th>
+              <th scope="col">锁别号</th>
+              <th scope="col">互斥</th>
+              <th scope="col">前序锁</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-next="锁 10">
+              <th scope="row"><button class="plate" type="button" data-flip="锁 9" aria-label="信号 A 号牌，按回车翻转查看锁别号">A</button></th>
+              <td data-label="锁别号" class="face-data">锁 9</td>
+              <td data-label="互斥" class="face-data">4</td>
+              <td data-label="前序锁" class="face-data">锁 8</td>
+            </tr>
+            <tr data-next="锁 11">
+              <th scope="row"><button class="plate" type="button" data-flip="锁 10" aria-label="信号 B 号牌，按回车翻转查看锁别号">B</button></th>
+              <td data-label="锁别号" class="face-data">锁 10</td>
+              <td data-label="互斥" class="face-data">3</td>
+              <td data-label="前序锁" class="face-data">锁 9</td>
+            </tr>
+            <tr data-next="无" class="row--pending" data-slot="a">
+              <th scope="row"><span class="plate plate--plain">C</span></th>
+              <td data-label="锁别号">未登记</td>
+              <td data-label="互斥">／</td>
+              <td data-label="前序锁">／</td>
+            </tr>
+            <tr data-next="锁 12">
+              <th scope="row"><button class="plate" type="button" data-flip="锁 11" aria-label="信号 D 号牌，按回车翻转查看锁别号">D</button></th>
+              <td data-label="锁别号" class="face-data">锁 11</td>
+              <td data-label="互斥" class="face-data">2</td>
+              <td data-label="前序锁" class="face-data">锁 10</td>
+            </tr>
+            <tr data-next="锁 13">
+              <th scope="row"><button class="plate" type="button" data-flip="锁 12" aria-label="信号 E 号牌，按回车翻转查看锁别号">E</button></th>
+              <td data-label="锁别号" class="face-data">锁 12</td>
+              <td data-label="互斥" class="face-data">3</td>
+              <td data-label="前序锁" class="face-data">锁 11</td>
+            </tr>
+            <tr data-next="无" class="row--pending" data-slot="a">
+              <th scope="row"><span class="plate plate--plain">F</span></th>
+              <td data-label="锁别号">未登记</td>
+              <td data-label="互斥">／</td>
+              <td data-label="前序锁">／</td>
+            </tr>
+            <tr data-next="锁 14">
+              <th scope="row"><button class="plate" type="button" data-flip="锁 13" aria-label="信号 G 号牌，按回车翻转查看锁别号">G</button></th>
+              <td data-label="锁别号" class="face-data">锁 13</td>
+              <td data-label="互斥" class="face-data">4</td>
+              <td data-label="前序锁" class="face-data">锁 12</td>
+            </tr>
+            <tr data-next="无">
+              <th scope="row"><button class="plate" type="button" data-flip="锁 14" aria-label="信号 H 号牌，按回车翻转查看锁别号">H</button></th>
+              <td data-label="锁别号" class="face-data">锁 14</td>
+              <td data-label="互斥" class="face-data">2</td>
+              <td data-label="前序锁" class="face-data">锁 13</td>
+            </tr>
+            <tr data-next="无" class="row--pending" data-slot="b">
+              <th scope="row"><span class="plate plate--plain">C</span></th>
+              <td data-label="锁别号">转入登记</td>
+              <td data-label="互斥">／</td>
+              <td data-label="前序锁">／</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    <div class="path" id="release-path" aria-labelledby="path-h">
+      <div class="path__head">
+        <h3 class="path__h" id="path-h">释放路径 · 本时段登记 14 枚锁闭条</h3>
+        <p class="path__note" id="path-note">条与条之间露出 1 像素纸色缝隙，表示两根杆之间存在物理间隔。把指针压在任一条上，与它互斥的条同时加 1 像素暗边。</p>
+      </div>
+      <ol class="path__rail" id="rail" aria-describedby="path-note">
+        <li class="lockbar" data-lock="1" data-lever="道岔 1" data-pairs="3" data-angle="45" data-excl="9,12,13" style="--i:0"><span class="lockbar__body cut-45"></span><span class="lockbar__no face-data">1</span><span class="lockbar__dot"></span></li>
+        <li class="lockbar" data-lock="2" data-lever="道岔 2" data-pairs="3" data-angle="45" data-excl="4,9,10" style="--i:1"><span class="lockbar__body cut-45"></span><span class="lockbar__no face-data">2</span><span class="lockbar__dot"></span></li>
+        <li class="lockbar is-key" data-lock="3" data-lever="道岔 3" data-pairs="4" data-angle="60" data-excl="9,12,13,14" style="--i:2"><span class="lockbar__body cut-60"></span><span class="lockbar__no face-data">3</span><span class="lockbar__dot"></span></li>
+        <li class="lockbar" data-lock="4" data-lever="道岔 5" data-pairs="2" data-angle="30" data-excl="2,6" style="--i:3"><span class="lockbar__body cut-30"></span><span class="lockbar__no face-data">4</span><span class="lockbar__dot"></span></li>
+        <li class="lockbar" data-lock="5" data-lever="道岔 7" data-pairs="4" data-angle="60" data-excl="7,9,13,14" style="--i:4"><span class="lockbar__body cut-60"></span><span class="lockbar__no face-data">5</span><span class="lockbar__dot"></span></li>
+        <li class="lockbar" data-lock="6" data-lever="道岔 8" data-pairs="3" data-angle="45" data-excl="4,12,13" style="--i:5"><span class="lockbar__body cut-45"></span><span class="lockbar__no face-data">6</span><span class="lockbar__dot"></span></li>
+        <li class="lockbar" data-lock="7" data-lever="道岔 10" data-pairs="3" data-angle="45" data-excl="5,10,11" style="--i:6"><span class="lockbar__body cut-45"></span><span class="lockbar__no face-data">7</span><span class="lockbar__dot"></span></li>
+        <li class="lockbar" data-lock="8" data-lever="道岔 12" data-pairs="2" data-angle="30" data-excl="10,11" style="--i:7"><span class="lockbar__body cut-30"></span><span class="lockbar__no face-data">8</span><span class="lockbar__dot"></span></li>
+        <li class="lockbar" data-lock="9" data-lever="信号 A" data-pairs="4" data-angle="60" data-excl="1,2,3,5" style="--i:8"><span class="lockbar__body cut-60"></span><span class="lockbar__no face-data">9</span><span class="lockbar__dot"></span></li>
+        <li class="lockbar" data-lock="10" data-lever="信号 B" data-pairs="3" data-angle="45" data-excl="2,7,8" style="--i:9"><span class="lockbar__body cut-45"></span><span class="lockbar__no face-data">10</span><span class="lockbar__dot"></span></li>
+        <li class="lockbar" data-lock="11" data-lever="信号 D" data-pairs="2" data-angle="30" data-excl="7,8" style="--i:10"><span class="lockbar__body cut-30"></span><span class="lockbar__no face-data">11</span><span class="lockbar__dot"></span></li>
+        <li class="lockbar" data-lock="12" data-lever="信号 E" data-pairs="3" data-angle="45" data-excl="1,3,6" style="--i:11"><span class="lockbar__body cut-45"></span><span class="lockbar__no face-data">12</span><span class="lockbar__dot"></span></li>
+        <li class="lockbar" data-lock="13" data-lever="信号 G" data-pairs="4" data-angle="60" data-excl="1,3,5,6" style="--i:12"><span class="lockbar__body cut-60"></span><span class="lockbar__no face-data">13</span><span class="lockbar__dot"></span></li>
+        <li class="lockbar" data-lock="14" data-lever="信号 H" data-pairs="2" data-angle="30" data-excl="3,5" style="--i:13"><span class="lockbar__body cut-30"></span><span class="lockbar__no face-data">14</span><span class="lockbar__dot"></span></li>
+      </ol>
+    </div>
+    </div>
+  </section>
+
+  <section class="sheet" aria-labelledby="angle-h">
+    <h2 class="sheet__h" id="angle-h">切口角度表</h2>
+    <p class="sheet__note">锁闭条右端的斜切角不按外观决定，只按该枚锁的互斥对数分三档。全站共用这一张表：换掉站名，这两组数仍然只属于联锁。</p>
+    <table class="angle-table" id="angle-table">
+      <caption>三档斜切角与互斥对数的对应关系</caption>
+      <thead>
+        <tr>
+          <th scope="col">斜切角</th>
+          <th scope="col">互斥对数</th>
+          <th scope="col">本时段锁数</th>
+          <th scope="col">切口水平进深</th>
+          <th scope="col">适用说明</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row" class="face-data">30 度</th>
+          <td class="face-data">2 对</td>
+          <td class="face-data">4 枚</td>
+          <td class="face-data">41.6 像素</td>
+          <td>只与同进路相邻的两根杆互斥，切口最缓。</td>
+        </tr>
+        <tr>
+          <th scope="row" class="face-data">45 度</th>
+          <td class="face-data">3 对</td>
+          <td class="face-data">6 枚</td>
+          <td class="face-data">24.0 像素</td>
+          <td>道岔与信号两组各有一条互斥，切口居中。</td>
+        </tr>
+        <tr>
+          <th scope="row" class="face-data">60 度</th>
+          <td class="face-data">4 对</td>
+          <td class="face-data">4 枚</td>
+          <td class="face-data">13.9 像素</td>
+          <td>进路交叠最多，切口最陡，等于把互斥关系刻在料头上。</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="excl" aria-labelledby="excl-h">
+    <h2 class="excl__h" id="excl-h">互斥清单</h2>
+    <p class="excl__lede">一枚锁的切口角度由它的互斥对数决定，所以清单是可核对的：数出几条，就能拿尺子量出切口该有多陡。</p>
+    <button class="btn" id="excl-btn" type="button" aria-expanded="false" aria-controls="excl-list">查看 3 号锁的互斥清单（4 条）</button>
+    <ul class="excl__list" id="excl-list" hidden>
+      <li><span class="face-data excl__no">9</span><span class="excl__lever">信号 A</span><span class="excl__why">与 3 号锁争用同一条进路交叉点</span></li>
+      <li><span class="face-data excl__no">12</span><span class="excl__lever">信号 E</span><span class="excl__why">反向进路，两根杆的锁闭块抢同一个锁槽</span></li>
+      <li><span class="face-data excl__no">13</span><span class="excl__lever">信号 G</span><span class="excl__why">侧向进路经 5 号道岔，与 3 号锁的路由交叠</span></li>
+      <li><span class="face-data excl__no">14</span><span class="excl__lever">信号 H</span><span class="excl__why">与 3 号锁共用同一段钢轨电路区段</span></li>
+    </ul>
+    <p class="excl__foot">3 号锁的切口因此定为 60 度，水平进深 13.9 像素，与上表第四列一致。</p>
+  </section>
+
+  <section class="states" aria-labelledby="states-h">
+    <h2 class="states__h" id="states-h">登记状态</h2>
+    <p class="states__note">四种状态各有各的样子：载入时锁块逐枚落入锁槽，停用的号牌压成凹面，故障用断针三角加三位编号标出，空簿仍然留着上一时段的扣接。</p>
+    <ul class="states__grid">
+      <li class="state">
+        <h3 class="state__h">载入中</h3>
+        <span class="lockbar lockbar--demo is-loading" data-lock="0" data-lever="道岔 3" data-pairs="4" data-angle="60">
+          <span class="lockbar__body cut-60"></span>
+          <span class="lockbar__no face-data">／</span>
+          <span class="lockbar__dot"></span>
+        </span>
+        <p class="state__d">锁块正沿锁槽扫到第 7 枚，每枚 70 毫秒，走完 14 枚共 980 毫秒，落地用 steps(1)，不淡入。</p>
+      </li>
+      <li class="state">
+        <h3 class="state__h">停用</h3>
+        <button class="plate plate--off" type="button" disabled aria-label="道岔 6 号号牌，检修窗口内停用">6</button>
+        <p class="state__d">6 号道岔在检修窗口内，号牌压成凹面，它的互斥关系暂不参与判定，切口角度保留不变。</p>
+      </li>
+      <li class="state">
+        <h3 class="state__h">故障</h3>
+        <span class="warn" role="img" aria-label="断针三角警示，编号 407">
+          <svg class="warn__svg" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false">
+            <path d="M12 3 L21.5 20 H2.5 Z" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="square" stroke-linejoin="miter"></path>
+            <path d="M12 8.5 V14.5" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="square"></path>
+            <path d="M9 13 L15 19" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="square"></path>
+          </svg>
+          <span class="warn__no face-data">407</span>
+        </span>
+        <p class="state__d">5 号道岔的锁闭块卡在行程中段，释放路径停在第 5 枚，后面 9 枚一律扣不上，任何信号都扳不动。</p>
+      </li>
+      <li class="state">
+        <h3 class="state__h">空簿</h3>
+        <p class="state__d">把上面的时段切到 05:00，联锁表让位给空状态：锁闭关系尚未登记，14 枚锁闭条仍按原角度扣在原位，没有被撤销。</p>
+      </li>
+    </ul>
+  </section>
+</main>
+
+<footer class="ledger-foot">
+  <dl class="foot__meta">
+    <div class="foot__cell">
+      <dt>值班员</dt>
+      <dd>E. 施奈德</dd>
+    </div>
+    <div class="foot__cell">
+      <dt>交班时刻</dt>
+      <dd class="face-data">06:00</dd>
+    </div>
+    <div class="foot__cell">
+      <dt>本簿刻印</dt>
+      <dd class="face-data">14</dd>
+    </div>
+  </dl>
+  <p class="foot__note">本簿 14 枚锁闭条由同一把刻刀逐条刻成，条尾墨点随刻程向右下各偏 0.25 像素，刻到第 14 枚时共偏出 3.5 像素，正好压在线框上。</p>
+  <p class="foot__note foot__note--src">形制参考：1900 至 1950 年代机械联锁机锁闭表、瑞士联邦铁路值班室行车序列表、道岔号牌的黑底白字刻印。本页不含蒸汽机车、钢轨或制服图形。</p>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+  var rm = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  var path = document.getElementById('release-path');
+  if (path) {
+    var arm = function () { path.classList.add('is-armed'); };
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.intersectionRatio >= 0.2) { arm(); io.disconnect(); }
+        });
+      }, { threshold: [0.2] });
+      io.observe(path);
+    } else { arm(); }
+  }
+
+  var bars = Array.prototype.slice.call(document.querySelectorAll('.lockbar[data-lock]'));
+  var byNo = {};
+  bars.forEach(function (b) { byNo[b.getAttribute('data-lock')] = b; });
+  var note = document.getElementById('path-note');
+  var noteDefault = note ? note.textContent : '';
+  var clear = function () {
+    bars.forEach(function (b) { b.classList.remove('is-excl', 'is-hovered'); });
+    if (note) { note.textContent = noteDefault; }
+  };
+  var light = function (bar) {
+    clear();
+    bar.classList.add('is-hovered');
+    var ex = (bar.getAttribute('data-excl') || '').split(',').filter(Boolean);
+    ex.forEach(function (n) {
+      var t = byNo[n.trim()];
+      if (t) { t.classList.add('is-excl'); }
+    });
+    if (note) {
+      note.textContent = '第 ' + bar.getAttribute('data-lock') + ' 枚锁闭条（'
+        + bar.getAttribute('data-lever') + '）与 ' + ex.length + ' 枚锁互斥：'
+        + ex.join(' 号、') + ' 号。切口 ' + bar.getAttribute('data-angle')
+        + ' 度，与角度表第四列的水平进深一致。';
+    }
+  };
+  bars.forEach(function (b) {
+    if (b.tagName !== 'BUTTON') { b.setAttribute('tabindex', '0'); }
+    b.addEventListener('mouseenter', function () { light(b); });
+    b.addEventListener('focus', function () { light(b); });
+    b.addEventListener('mouseleave', clear);
+    b.addEventListener('blur', clear);
+  });
+
+  Array.prototype.forEach.call(document.querySelectorAll('.plate[data-flip]'), function (p) {
+    var orig = p.textContent;
+    var busy = false;
+    var flip = function () {
+      if (busy) { return; }
+      busy = true;
+      p.textContent = p.getAttribute('data-flip');
+      p.classList.add('is-flipped');
+      window.setTimeout(function () {
+        p.textContent = orig;
+        p.classList.remove('is-flipped');
+        busy = false;
+      }, 140);
+    };
+    p.addEventListener('click', flip);
+    if (p.tagName !== 'BUTTON') {
+      p.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flip(); }
+      });
+    }
+  });
+
+  var grid = document.getElementById('board-grid');
+  var emptyState = document.getElementById('empty-state');
+  var slotInputs = Array.prototype.slice.call(document.querySelectorAll('input[name="slot"]'));
+  var applySlot = function (v) {
+    document.body.setAttribute('data-slot', v);
+    Array.prototype.forEach.call(document.querySelectorAll('tr[data-slot]'), function (tr) {
+      tr.hidden = tr.getAttribute('data-slot') !== v;
+    });
+    var isEmpty = (v === 'c');
+    if (grid) { grid.hidden = isEmpty; }
+    if (emptyState) { emptyState.hidden = !isEmpty; }
+    Array.prototype.forEach.call(document.querySelectorAll('.ill-table tbody'), function (tb) {
+      tb.classList.remove('is-cut');
+      void tb.offsetWidth;
+      tb.classList.add('is-cut');
+      window.setTimeout(function () { tb.classList.remove('is-cut'); }, 140);
+    });
+  };
+  slotInputs.forEach(function (s) {
+    s.addEventListener('change', function () { applySlot(s.value); });
+  });
+  applySlot('a');
+
+  var btn = document.getElementById('excl-btn');
+  var list = document.getElementById('excl-list');
+  if (btn && list) {
+    var openLabel = btn.textContent;
+    btn.addEventListener('click', function () {
+      var open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!open));
+      list.hidden = open;
+      btn.textContent = open ? openLabel : '收起 3 号锁的互斥清单（4 条）';
+    });
+  }
+
+  if (rm.addEventListener) {
+    rm.addEventListener('change', function (e) {
+      if (e.matches && path) { path.classList.add('is-armed'); }
+    });
+  }
+}());
+</script>
+</body>
+</html>

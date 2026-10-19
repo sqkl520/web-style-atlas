@@ -1,0 +1,489 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>渔场平面簿 · 三层硫酸纸叠在同一张网具舱平面图上</title>
+<meta name="description" content="渔场平面簿：三层硫酸纸叠在同一张网具舱平面图上，层间错位 0 / 3 / 7px，不透明度 100% / 78% / 56%，用 0.8px 铅笔硬线与橡皮擦痕记录 1934、1936、1938 三次测绘。">
+<link rel="stylesheet" href="../_fonts/css/newsreader__400-600-700.css">
+<link rel="stylesheet" href="../_fonts/css/noto-serif-sc__400-700.css">
+<link rel="stylesheet" href="../_fonts/css/reddit-mono__400-500.css">
+<link rel="stylesheet" href="style.css">
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+<a class="skip" href="#zones">跳到热区登记表</a>
+
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <symbol id="p-frame" viewBox="0 0 896 1024">
+    <g fill="none" stroke-linecap="square">
+      <rect x="32" y="24" width="832" height="976"/>
+      <rect x="64" y="56" width="768" height="912"/>
+      <path d="M64 28v56M36 56h56 M832 28v56M804 56h56 M64 940v56M36 968h56 M832 940v56M804 968h56 M448 24v32M448 968v32M32 512h32M832 512h32"/>
+      <path d="M96 24v32M160 24v32M224 24v32M288 24v32M352 24v32M416 24v32M480 24v32M544 24v32M608 24v32M672 24v32M736 24v32M800 24v32M96 968v32M160 968v32M224 968v32M288 968v32M352 968v32M416 968v32M480 968v32M544 968v32M608 968v32M672 968v32M736 968v32M800 968v32M32 88h32M32 152h32M32 216h32M32 280h32M32 344h32M32 408h32M32 472h32M32 536h32M32 600h32M32 664h32M32 728h32M32 792h32M32 856h32M32 920h32M32 984h32M832 88h32M832 152h32M832 216h32M832 280h32M832 344h32M832 408h32M832 472h32M832 536h32M832 600h32M832 664h32M832 728h32M832 792h32M832 856h32M832 920h32M832 984h32"/>
+    </g>
+  </symbol>
+  <symbol id="p-wall" viewBox="0 0 896 1024">
+    <g fill="none" stroke-linecap="square">
+      <path d="M96 88h704v480H96z"/>
+      <path d="M104 96h688v464H104z"/>
+      <path d="M96 568v40h704v-40"/>
+      <path d="M80 608h736"/>
+    </g>
+  </symbol>
+  <symbol id="p-grid" viewBox="0 0 896 1024">
+    <path fill="none" stroke-linecap="square" d="M136 96v464M200 96v464M264 96v464M328 96v464M392 96v464M456 96v464M520 96v464M584 96v464M648 96v464M712 96v464M104 128h688M104 192h688M104 256h688M104 320h688M104 384h688M104 448h688M104 512h688"/>
+  </symbol>
+  <symbol id="p-base" viewBox="0 0 896 1024">
+    <g fill="none" stroke-linecap="square">
+      <path d="M128 588a8 8 0 1 0 16 0a8 8 0 1 0 -16 0M208 588a8 8 0 1 0 16 0a8 8 0 1 0 -16 0M288 588a8 8 0 1 0 16 0a8 8 0 1 0 -16 0M368 588a8 8 0 1 0 16 0a8 8 0 1 0 -16 0M448 588a8 8 0 1 0 16 0a8 8 0 1 0 -16 0M528 588a8 8 0 1 0 16 0a8 8 0 1 0 -16 0M608 588a8 8 0 1 0 16 0a8 8 0 1 0 -16 0M688 588a8 8 0 1 0 16 0a8 8 0 1 0 -16 0M768 588a8 8 0 1 0 16 0a8 8 0 1 0 -16 0"/>
+      <path d="M720 608v112h64v-112M400 216h144v136H400zM400 216l144 136M544 216L400 352"/>
+      <path d="M408 464h128M408 480h128M408 496h128M408 512h128M408 528h128M408 544h128"/>
+      <path d="M736 384h-56M736 384a56 56 0 0 0 56 56M272 96v56M328 96v56M272 152h56M608 56h56M664 56v56"/>
+      <path d="M115 376a45 45 0 1 0 90 0a45 45 0 1 0 -90 0M139 376a21 21 0 1 0 42 0a21 21 0 1 0 -42 0M232 322v108M352 322v108M256 330v92M280 330v92M304 330v92M328 330v92"/>
+      <path d="M120 148a160 160 0 0 0 256 104M136 168a128 128 0 0 0 208 84M152 188a96 96 0 0 0 160 64M120 470h256M120 488h256M120 506h256M120 524h256"/>
+      <path d="M416 118h96v36h-96zM416 176h96v36h-96zM620 112h156v68h-156zM668 112v68M716 112v68M776 180a28 28 0 0 1 -28 28"/>
+      <path d="M584 284a36 36 0 1 0 72 0a36 36 0 1 0 -72 0M704 284a36 36 0 1 0 72 0a36 36 0 1 0 -72 0M656 284h48M424 384h120v44h-120zM560 392h24v28h-24z"/>
+      <path d="M568 470h208v64h-208zM660 502a22 22 0 1 0 44 0a22 22 0 1 0 -44 0M682 502v42M124 700a26 26 0 1 0 52 0a26 26 0 1 0 -52 0M150 686v28M136 700h28"/>
+      <path d="M136 596q20 40 48 58M288 596q22 44 52 62M608 596q24 46 56 64M96 40h704M96 34v12M800 34v12M352 34v12M544 34v12M48 88v480M42 88h12M42 568h12"/>
+    </g>
+  </symbol>
+  <symbol id="p-harbour" viewBox="0 0 896 1024">
+    <g fill="none" stroke-linecap="square">
+      <path d="M400 928h392M400 928v-14M480 928v-10M560 928v-10M640 928v-10M720 928v-10M792 914v14"/>
+      <path d="M196 760a8 8 0 1 0 16 0a8 8 0 1 0 -16 0M296 860a8 8 0 1 0 16 0a8 8 0 1 0 -16 0M472 786a8 8 0 1 0 16 0a8 8 0 1 0 -16 0"/>
+      <path d="M536 828h56v18h-56zM540 828l8 18M556 828l8 18M572 828l8 18M588 828l6 18"/>
+      <path d="M792 664h16M800 664v22M792 686h16z"/>
+      <path d="M240 700h12M268 714h12M212 730h12M300 646h12M336 668h12M418 700h12M500 660h12M664 720h12"/>
+      <path d="M144 880h56M224 908h72M480 880h64M600 744h56"/>
+    </g>
+  </symbol>
+  <symbol id="p-rev" viewBox="0 0 896 1024">
+    <path fill="none" stroke-linecap="square" d="M104 64h288M104 64v32M392 64v32M104 48h288"/>
+    <path fill="none" stroke-linecap="square" d="M608 216h184v88H608zM400 200h-32v152h32M408 376h56v24h-56z"/>
+  </symbol>
+  <symbol id="p-revmk" viewBox="0 0 896 1024">
+    <path fill="none" stroke-linecap="square" d="M424 64h28M416 60v8M460 60v8M600 296h44M600 292v8M644 292v8M392 236h-32M392 232v8M360 232v8"/>
+  </symbol>
+  <symbol id="p-smudge" viewBox="0 0 896 1024">
+    <g>
+      <rect x="336" y="236" width="96" height="18"/>
+      <rect x="596" y="288" width="72" height="14"/>
+      <rect x="128" y="470" width="88" height="14"/>
+      <rect x="416" y="632" width="104" height="16"/>
+    </g>
+  </symbol>
+  <symbol id="p-c1" viewBox="0 0 896 1024"><path fill="none" stroke-linecap="square" d="M104 704C240 664 400 700 520 720S760 748 800 726"/></symbol>
+  <symbol id="p-c2" viewBox="0 0 896 1024"><path fill="none" stroke-linecap="square" d="M104 824C260 780 420 812 540 840S768 868 800 846"/></symbol>
+  <symbol id="p-c3" viewBox="0 0 896 1024"><path fill="none" stroke-linecap="square" d="M112 656C280 640 420 660 560 672S760 688 800 680"/></symbol>
+  <symbol id="p-depth" viewBox="0 0 896 1024">
+    <g fill="none" stroke-linecap="square">
+      <path d="M160 808h20M170 798v20M496 892h20M506 882v20M704 700h20M714 690v20M624 916h20M634 906v20"/>
+      <path d="M96 960h704M96 954v12M800 954v12M448 954v12"/>
+    </g>
+  </symbol>
+  <symbol id="p-sound" viewBox="0 0 896 1024">
+    <g stroke="none">
+      <text x="188" y="800">4.2</text><text x="244" y="844">3.8</text><text x="300" y="772">5.1</text>
+      <text x="356" y="880">4.6</text><text x="412" y="736">3.2</text><text x="468" y="816">6.0</text>
+      <text x="524" y="884">5.4</text><text x="580" y="748">4.0</text><text x="636" y="824">3.5</text>
+      <text x="692" y="792">4.9</text><text x="748" y="860">5.7</text><text x="304" y="928">4.3</text>
+    </g>
+  </symbol>
+  <symbol id="g-tri" viewBox="0 0 40 40"><g fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="square"><path d="M20 4 34 30H6z"/></g><circle cx="20" cy="20" r="2.2" fill="currentColor"/></symbol>
+  <symbol id="g-contour" viewBox="0 0 40 40"><g fill="none" stroke="currentColor" stroke-linecap="square"><path stroke-width="1.2" d="M4 12c8-7 18-7 32-3"/><path stroke-width="1" d="M4 21c8-7 18-7 32-3"/><path stroke-width=".8" d="M4 30c8-7 18-7 32-3"/></g></symbol>
+  <symbol id="g-anchor" viewBox="0 0 40 40"><g fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="square"><path d="M20 5v30M6 20h28M13 12h14M20 5a3 3 0 1 0 .01 0"/></g></symbol>
+</svg>
+
+<div class="strip">
+  <p class="strip__item"><span class="k">图幅</span> <code>2 / 4</code> <span class="k">比例</span> <code>1:200</code></p>
+  <p class="strip__item">柱网 <code>0.8m</code> <span class="k">图廓留边</span> <code>32px</code></p>
+  <p class="strip__item">层 <code>1 / 3</code> 可读 · 层 <code>2</code> 缺页 · 层 <code>3</code> 可读</p>
+  <p class="strip__item">悬停登记号 <code id="regcode">B-3</code></p>
+  <p class="strip__item strip__item--fault" id="faultline">状态 <code>TRACE-36</code> 第 2 层（1936 年）缺页</p>
+</div>
+
+<div class="page-wrap">
+<header class="masthead">
+  <div class="masthead__lede">
+    <h1>渔场平面簿</h1>
+    <p class="claim">网具舱 B-3 区，1936 年 4 月登记 11 张拖网，水深重测过两次</p>
+    <p class="meta">三层硫酸纸叠在同一张网具舱平面图上，层间错位 <code>0 / 3 / 7px</code>，不透明度 <code>100% / 78% / 56%</code>。地面是硫酸纸透光色 <code>#E7EBE9</code>，铅笔标注压石墨 <code>#3A3F45</code>，重压处与图例底 <code>#22282B</code>，普通标注线 <code>#7A7466</code> 只画线、不承载文字；主色对底 <code>8.83:1</code>，全站没有第二个底色。</p>
+    <p class="cue"><a class="btn" href="#atlas">放大到 1:200 的 B-3 区</a></p>
+  </div>
+  <figure class="mount">
+    <img src="assets/photo-04-plan.jpg" width="1280" height="983" alt="蒸汽拖船 HERCULES 的半体船模线型图，台面视图、站线视图、侧剖视图与平面视图四栏并排">
+    <figcaption>图幅底用测绘纸的图廓留边与四角十字，内嵌扫描件：HAER 测绘的半体船模线型图（sheet 7 of 7，1920 年蒸汽拖船 HERCULES）。
+      <span class="ref">Lockett, Dana（测量与绘制：Maishman Starr；相关方共 22 项见原件页）· 公有领域 · <a href="https://commons.wikimedia.org/wiki/File:Half-Hull_Model_Lines_-_Steam_Tug_HERCULES%2C_Hyde_Street_Pier%2C_San_Francisco%2C_San_Francisco_County%2C_CA_HAER_CAL%2C38-SANFRA%2C201-_(sheet_7_of_7).tif">Wikimedia Commons</a></span></figcaption>
+  </figure>
+</header>
+
+<main>
+<section class="atlas" id="atlas">
+  <h2>网具舱与港池平面</h2>
+  <p class="lede">图幅按 12 栏排：平面图占 1 至 8 栏并向左出血 40px，图例挂 9 至 12 栏、高度只到平面图的 62%，顶部对齐平面图三分之一处。图廓留边 32px（4 个基线单位），档案条目之间只留 8px。滚过 200px 后平面图缩到 68% 并向上让位，图例不缩放。</p>
+
+  <div class="atlas__grid">
+    <div class="stack" id="stack" data-year="1934">
+      <div class="trace trace--1934">
+        <p class="trace__head">第 1 层 · 1934 原始平面（实线）：网具库外墙、隔断、柱网、码头岸线与 14 个热区边界</p>
+        <div class="trace__in">
+          <svg class="plate" viewBox="0 0 896 1024" role="img" aria-label="1934 年原始平面图：网具库、码头岸线与港池，共 14 个热区">
+            <use href="#p-frame" class="ink ink--frame"/>
+            <use href="#p-wall" class="ink ink--frame"/>
+            <use href="#p-grid" class="ink ink--pencil"/>
+            <use href="#p-base" class="ink ink--base"/>
+            <use href="#p-harbour" class="ink ink--base"/>
+            <g class="zones">
+        <a class="hot" href="#z-B-3" data-code="B-3" aria-label="B-3 拖网堆放区"><rect class="edge" x="104" y="96" width="288" height="208"/><rect class="ring" x="96" y="88" width="304" height="224"/><text class="zlab" x="113" y="116">B-3</text></a>
+        <a class="hot" href="#z-B-1" data-code="B-1" aria-label="B-1 圆形网具盘"><rect class="edge" x="104" y="312" width="112" height="128"/><rect class="ring" x="96" y="304" width="128" height="144"/><text class="zlab" x="113" y="332">B-1</text></a>
+        <a class="hot" href="#z-B-2" data-code="B-2" aria-label="B-2 手线卷架"><rect class="edge" x="224" y="312" width="168" height="128"/><rect class="ring" x="216" y="304" width="184" height="144"/><text class="zlab" x="233" y="332">B-2</text></a>
+        <a class="hot" href="#z-B-4" data-code="B-4" aria-label="B-4 待修网堆"><rect class="edge" x="104" y="448" width="288" height="112"/><rect class="ring" x="96" y="440" width="304" height="128"/><text class="zlab" x="113" y="468">B-4</text></a>
+        <a class="hot" href="#z-N-1" data-code="N-1" aria-label="N-1 修补网桌"><rect class="edge" x="400" y="96" width="200" height="112"/><rect class="ring" x="392" y="88" width="216" height="128"/><text class="zlab" x="409" y="116">N-1</text></a>
+        <a class="hot" href="#z-N-2" data-code="N-2" aria-label="N-2 铅坠与浮标柜"><rect class="edge" x="608" y="96" width="184" height="112"/><rect class="ring" x="600" y="88" width="200" height="128"/><text class="zlab" x="617" y="116">N-2</text></a>
+        <a class="hot" href="#z-W-1" data-code="W-1" aria-label="W-1 绞车基座"><rect class="edge" x="400" y="216" width="144" height="136"/><rect class="ring" x="392" y="208" width="160" height="152"/><text class="zlab" x="409" y="236">W-1</text></a>
+        <a class="hot" href="#z-W-2" data-code="W-2" aria-label="W-2 卷筒与缆索盘"><rect class="edge" x="552" y="216" width="240" height="136"/><rect class="ring" x="544" y="208" width="256" height="152"/><text class="zlab" x="561" y="236">W-2</text></a>
+        <a class="hot" href="#z-R-1" data-code="R-1" aria-label="R-1 登记角"><rect class="edge" x="400" y="360" width="200" height="80"/><rect class="ring" x="392" y="352" width="216" height="96"/><text class="zlab" x="409" y="380">R-1</text></a>
+        <a class="hot" href="#z-D-1" data-code="D-1" aria-label="D-1 东侧舱门"><rect class="edge" x="608" y="360" width="184" height="80"/><rect class="ring" x="600" y="352" width="200" height="96"/><text class="zlab" x="617" y="380">D-1</text></a>
+        <a class="hot" href="#z-D-2" data-code="D-2" aria-label="D-2 上甲板梯口"><rect class="edge" x="400" y="448" width="144" height="112"/><rect class="ring" x="392" y="440" width="160" height="128"/><text class="zlab" x="409" y="468">D-2</text></a>
+        <a class="hot" href="#z-S-1" data-code="S-1" aria-label="S-1 测深台"><rect class="edge" x="552" y="448" width="240" height="112"/><rect class="ring" x="544" y="440" width="256" height="128"/><text class="zlab" x="561" y="468">S-1</text></a>
+        <a class="hot" href="#z-M-1" data-code="M-1" aria-label="M-1 码头岸线"><rect class="edge" x="96" y="648" width="296" height="160"/><rect class="ring" x="88" y="640" width="312" height="176"/><text class="zlab" x="105" y="668">M-1</text></a>
+        <a class="hot" href="#z-G-1" data-code="G-1" aria-label="G-1 港池水深区"><rect class="edge" x="400" y="648" width="400" height="240"/><rect class="ring" x="392" y="640" width="416" height="256"/><text class="zlab" x="409" y="668">G-1</text></a>
+            </g>
+            <use href="#g-tri" class="glyph" x="120" y="616" width="40" height="40"/>
+            <use href="#g-anchor" class="glyph" x="700" y="896" width="40" height="40"/>
+            <text class="depth-code" x="116" y="946">基准面 −1.42m · 1938-03</text>
+            <text class="depth-code" x="152" y="716">系船浮筒</text>
+            <text class="depth-code" x="454" y="700">港池边界</text>
+            <text class="depth-code" x="536" y="812">沉船标记 1931</text>
+            <text class="depth-code" x="700" y="656">灯桩</text>
+          </svg>
+        </div>
+      </div>
+
+      <div class="trace trace--1936">
+        <p class="trace__head">第 2 层 · 1936 网具区修订（长虚线）：扫描缺页，本层按 30% 不透明度占位</p>
+        <div class="trace__in">
+          <svg class="plate" viewBox="0 0 896 1024" aria-hidden="true" focusable="false">
+            <use href="#p-frame" class="ink ink--frame"/>
+            <use href="#p-wall" class="ink ink--frame"/>
+            <use href="#p-rev" class="ink ink--rev"/>
+            <use href="#p-revmk" class="ink ink--base"/>
+            <use href="#p-smudge" class="ink ink--smudge"/>
+            <use href="#g-tri" class="glyph" x="120" y="616" width="40" height="40"/>
+            <text class="depth-code" x="424" y="56">R-3</text>
+            <text class="depth-code" x="600" y="286">R-7</text>
+            <text class="depth-code" x="352" y="230">R-9</text>
+          </svg>
+        </div>
+      </div>
+
+      <div class="trace trace--1938">
+        <p class="trace__head">第 3 层 · 1938 水深补测（点划线）：12 个测点与三条等深线</p>
+        <div class="trace__in">
+          <svg class="plate" viewBox="0 0 896 1024" aria-hidden="true" focusable="false">
+            <use href="#p-frame" class="ink ink--frame"/>
+            <use href="#p-wall" class="ink ink--frame"/>
+            <use href="#p-c3" class="ink ink--c1"/>
+            <use href="#p-c1" class="ink ink--c2"/>
+            <use href="#p-c2" class="ink ink--c3"/>
+            <use href="#p-depth" class="ink ink--base"/>
+            <use href="#p-sound" class="ink ink--text"/>
+            <use href="#g-anchor" class="glyph" x="700" y="896" width="40" height="40"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="rail">
+      <aside class="legend" aria-labelledby="legend-h">
+        <h3 id="legend-h">图例与线型</h3>
+        <p class="legend__lede">三层硫酸纸是同一支铅笔画的，只用线型区分层次，不用颜色区分：实线属 1934 年，长虚线属 1936 年网具区修订，点划线属 1938 年水深补测。</p>
+        <ul class="legend__lines">
+          <li data-layer="1934"><svg class="sw" viewBox="0 0 72 16" aria-hidden="true" focusable="false"><path class="sw__p sw__p--solid" d="M2 8h68"/></svg><span>1934 原始平面</span><code>实线 0.8px</code></li>
+          <li data-layer="1936"><svg class="sw" viewBox="0 0 72 16" aria-hidden="true" focusable="false"><path class="sw__p sw__p--longdash" d="M2 8h68"/></svg><span>1936 网具区修订</span><code>长虚线 0.8px</code></li>
+          <li data-layer="1938"><svg class="sw" viewBox="0 0 72 16" aria-hidden="true" focusable="false"><path class="sw__p sw__p--dotdash" d="M2 8h68"/></svg><span>1938 水深补测</span><code>点划线 0.8px</code></li>
+        </ul>
+        <p class="legend__sym">自绘测绘符号：三角点用等边三角加中心点，等深线用三级粗细递变曲线，锚位用带横杆的十字；线宽只有 0.8px 与 1.2px 两级，不用任何字形充当图标。</p>
+        <ul class="legend__symlist">
+          <li><svg class="gl" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><use href="#g-tri"/></svg><span>三角点</span><code>等边三角加中心点</code></li>
+          <li><svg class="gl" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><use href="#g-contour"/></svg><span>等深线</span><code>0.8 / 1.0 / 1.2px</code></li>
+          <li><svg class="gl" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><use href="#g-anchor"/></svg><span>锚位</span><code>带横杆的十字</code></li>
+        </ul>
+        <p class="legend__note">热区 14 个，面积按舱室真实面积等比：建筑内 12 区 <code>46.40m²</code>，建筑外 2 区 <code>22.40m²</code>，图幅合计 <code>68.80m²</code>。图例高度控制在平面图的 62% 以内，顶部对齐平面图的三分之一处。</p>
+      </aside>
+    </div>
+  </div>
+
+  <ul class="plan-notes">
+    <li>硫酸纸透叠：三层错位 <code>0 / 3 / 7px</code>，边缘 <code>1px</code> 纸张毛口；交叠处亮度自动降低 <code>6%</code>，由 multiply 混合模式算出，不是手工调的颜色。</li>
+    <li>铅笔标注：线宽固定 <code>0.8px</code> 硬线、端点方头，末端带 <code>2–6px</code> 橡皮擦除残迹（中断后留 <code>12%</code> 浅底），修订编号 <code>R-3 / R-7 / R-9</code> 写在擦痕旁。</li>
+    <li>第 2 层扫描缺页：这一层以 <code>30%</code> 不透明度占位，占位下只剩可辨认的轮廓；热区 14 个，面积按舱室真实面积等比，不等量、不等距。</li>
+  </ul>
+</section>
+
+<section class="year" aria-labelledby="year-h">
+  <h2 id="year-h">三层各是哪一年</h2>
+  <p class="lede">透叠是把不同年代的信息压在同一张图上，三层必须错开才读得出各自属于哪一年。切换年份时只有对应层升到 100%，其余降到 30%。</p>
+  <div class="yearbar" role="group" aria-label="切换硫酸纸层">
+    <button class="yb" type="button" data-year="1934" aria-pressed="true">第 1 层 · 1934 原始平面</button>
+    <button class="yb yb--fault" type="button" data-year="1936" aria-pressed="false">第 2 层 · 1936 网具区修订（缺页）</button>
+    <button class="yb" type="button" data-year="1938" aria-pressed="false">第 3 层 · 1938 水深补测</button>
+  </div>
+  <p class="yearbar__note">点第 2 层只把缺页的错误态翻出来，不改动叠层。当前叠层：第 1 层 <code>100%</code>、第 2 层 <code>30%</code> 占位、第 3 层 <code>56%</code>。</p>
+
+  <div class="folds">
+    <details open>
+      <summary>第 1 层 · 1934 原始平面（实线）</summary>
+      <ul>
+        <li>柱网 <code>32</code> 单位（<code>0.8m</code>），轴线全落在 <code>8px</code> 基线上；14 个热区的边界与登记面积在这一层定下。</li>
+        <li>图廓双线 <code>1.2px</code>，四角测绘十字、边中刻线各 <code>1</code> 处；图廓内 8px 纸格不参与测量。</li>
+        <li>码头前沿 <code>0.8px</code>、岸线 <code>1.2px</code>，岸线上 9 个系缆桩按 <code>80</code> 单位等距，引桥在东北角。</li>
+        <li>网具盘、绞车基座、卷筒、测深台与登记角里的家具都用同一支 <code>0.8px</code> 铅笔线画，不填色。</li>
+      </ul>
+    </details>
+    <details>
+      <summary>第 2 层 · 1936 网具区修订（长虚线）</summary>
+      <ul>
+        <li><code>R-3</code>：B-3 北界外移 <code>32</code> 单位，堆放面积从 <code>8.32m²</code> 加到 <code>9.36m²</code>。</li>
+        <li><code>R-7</code>：铅坠与浮标柜向东南移 <code>24</code> 单位，原位擦痕长 <code>72</code>、高 <code>14</code> 单位。</li>
+        <li><code>R-9</code>：绞车基座加大后原线被擦断，擦痕宽 <code>96</code>、高 <code>18</code> 单位，浅底 <code>12%</code>。</li>
+        <li>修订线一律长虚线 <code>14 / 5</code>，线宽与第 1 层同为 <code>0.8px</code>：三层是同一支铅笔。</li>
+      </ul>
+    </details>
+    <details>
+      <summary>第 3 层 · 1938 水深补测（点划线）</summary>
+      <ul>
+        <li><code>12</code> 个测点：最低 <code>3.2m</code>、最高 <code>6.0m</code>，全落在 G-1 港池水深区。</li>
+        <li>三条等深线按三级粗细递变 <code>0.8 / 1.0 / 1.2px</code>，用点划线与本层其余标注区分。</li>
+        <li>测点十字 <code>0.8px</code>，水深数字用等宽字面；港池边界、系船浮筒、沉船标记与灯桩在同一层补上。</li>
+      </ul>
+    </details>
+  </div>
+</section>
+
+<section class="trace-error" id="trace-error" aria-labelledby="err-h">
+  <h2 id="err-h">硫酸纸缺页登记</h2>
+  <p class="alert" role="alert">第 2 层（1936 年）硫酸纸扫描缺页（错误码 <code>TRACE-36</code>）：该层以 <code>30%</code> 不透明度占位，其余两层可正常读，重扫后自动补上</p>
+  <p class="alert__frame">缺页期间照常可用的：第 1 层的 14 个热区边界与登记面积、第 3 层的 12 个水深测点与三条等深线、图例的三种线型。读不到的是 <code>R-3 / R-7 / R-9</code> 三处修订的准确位置，占位层只剩 <code>30%</code> 轮廓，量出来的尺寸不作数。</p>
+  <p class="cue"><button class="btn btn--ghost" type="button" id="rescan">把第 2 层（1936 年）重扫一遍</button></p>
+  <p class="packet" id="packet">重扫登记：第 2 层排在队首，扫描分辨率固定 <code>600dpi</code>、色深 <code>8bit</code>，出图后按原线宽 <code>0.8px</code> 与 <code>1px</code> 纸张毛口核对。</p>
+</section>
+
+<section class="zones" id="zones" aria-labelledby="zones-h">
+  <h2 id="zones-h">热区登记表</h2>
+  <p class="lede">14 个热区按真实面积等比，编号就是阅读顺序与 Tab 顺序。点平面图上的任一个区，图例里对应的线型加粗一次；面积按图内 1 单位 = 1.25cm 换算。</p>
+  <table class="zones__table">
+    <caption>网具舱与港池的 14 个热区：编号、所在层与线型、登记面积、1936 年 4 月的登记数、最近一次修订</caption>
+    <thead>
+      <tr><th scope="col">编号</th><th scope="col">舱室</th><th scope="col">所在层与线型</th><th scope="col">面积</th><th scope="col">1936 登记</th><th scope="col">最近修订</th><th scope="col">状态</th></tr>
+    </thead>
+    <tbody>
+      <tr id="z-B-3"><td><code>B-3</code></td><td>拖网堆放区</td><td>1934 实线 ＋ 1936 长虚线</td><td><code>9.36m²</code></td><td>11 张拖网</td><td><code>1936-04-11</code></td><td>可读</td></tr>
+      <tr id="z-B-1"><td><code>B-1</code></td><td>圆形网具盘</td><td>1934 实线</td><td><code>2.24m²</code></td><td>3 盘</td><td><code>1934-11-02</code></td><td>可读</td></tr>
+      <tr id="z-B-2"><td><code>B-2</code></td><td>手线卷架</td><td>1934 实线</td><td><code>3.36m²</code></td><td>42 卷手线</td><td><code>1935-06-18</code></td><td>可读</td></tr>
+      <tr id="z-B-4"><td><code>B-4</code></td><td>待修网堆</td><td>1934 实线 ＋ 1936 长虚线</td><td><code>5.04m²</code></td><td>7 张待修</td><td><code>1936-04-11</code></td><td>可读</td></tr>
+      <tr id="z-N-1"><td><code>N-1</code></td><td>修补网桌</td><td>1934 实线</td><td><code>3.50m²</code></td><td>2 张网桌</td><td><code>1937-02-24</code></td><td>可读</td></tr>
+      <tr id="z-N-2"><td><code>N-2</code></td><td>铅坠与浮标柜</td><td>1936 长虚线</td><td><code>3.22m²</code></td><td>1 柜铅坠</td><td><code>1936-04-02</code></td><td>可读</td></tr>
+      <tr id="z-W-1"><td><code>W-1</code></td><td>绞车基座</td><td>1934 实线</td><td><code>3.06m²</code></td><td>1 台绞车</td><td><code>1935-09-09</code></td><td>可读</td></tr>
+      <tr id="z-W-2"><td><code>W-2</code></td><td>卷筒与缆索盘</td><td>1934 实线</td><td><code>5.10m²</code></td><td>2 盘缆索</td><td><code>1935-09-09</code></td><td>可读</td></tr>
+      <tr id="z-R-1"><td><code>R-1</code></td><td>登记角</td><td>1934 实线</td><td><code>2.50m²</code></td><td>1 册登记簿</td><td><code>1938-01-16</code></td><td>可读</td></tr>
+      <tr id="z-D-1"><td><code>D-1</code></td><td>东侧舱门</td><td>1934 实线</td><td><code>2.30m²</code></td><td>未登记</td><td><code>1934-11-02</code></td><td>可读</td></tr>
+      <tr id="z-D-2"><td><code>D-2</code></td><td>上甲板梯口</td><td>1934 实线</td><td><code>2.52m²</code></td><td>未登记</td><td><code>1934-11-02</code></td><td>可读</td></tr>
+      <tr id="z-S-1"><td><code>S-1</code></td><td>测深台</td><td>1938 点划线</td><td><code>4.20m²</code></td><td>1 台测深仪</td><td><code>1938-03-05</code></td><td>可读</td></tr>
+      <tr id="z-M-1"><td><code>M-1</code></td><td>码头岸线</td><td>1934 实线</td><td><code>7.40m²</code></td><td>未登记</td><td><code>1934-11-02</code></td><td>无记录</td></tr>
+      <tr id="z-G-1"><td><code>G-1</code></td><td>港池水深区</td><td>1938 点划线</td><td><code>15.00m²</code></td><td>12 个测点</td><td><code>1938-03-05</code></td><td>待重扫</td></tr>
+    </tbody>
+  </table>
+  <p class="empty">这个区域还没有测绘记录。第一份平面图登记于 1934 年冬</p>
+  <p class="table-note">空状态挂在 <code>M-1</code> 码头岸线上：它是 14 个热区里唯一只被登记、没被测绘过的区，图上只有岸线、系缆桩与引桥，没有测点也没有等深线。修正入口在硫酸纸缺页登记区块。</p>
+</section>
+
+<section class="plates" aria-labelledby="plates-h">
+  <h2 id="plates-h">档案图版</h2>
+  <p class="lede">六张照片与扫描件都本地化在 <code>assets/</code> 下，页面只引用这些文件。照片先扫成灰度，再压到石墨与纸色两个色阶，保留铅笔压痕的侧向阴影；不加暖色滤镜，也不叠纸张纹理贴图。</p>
+  <ul class="plates__grid">
+    <li class="pl pl--a">
+      <figure>
+        <img src="assets/photo-01-boat.jpg" width="1280" height="1707" alt="斯塔万格港的渔船侧靠码头，甲板上的网筒绞车与成捆渔网">
+        <figcaption><b>图版一</b> 斯塔万格港的渔船侧靠码头，甲板上的网筒绞车与成捆渔网；压成两级后缆绳与网衣的层次仍分得开。<span class="ref">Wolfmann · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File:SJARK_fiskeb%C3%A5t_fiskegarn_Salg_av_fisk_fra_b%C3%A5t_ved_kai_(SANGIS_R-5-S_10%2C5x4%2C6m_2000)_%C3%98STERV%C3%85GKAIEN_Stavanger_havn_harbour_NORWAY_2022-03-29_Sale_from_fishing_boat_Garnrulle_Net_drum_winch_Foto_fra_Jorenholmen_P-hus_B.jpg">Wikimedia Commons</a></span></figcaption>
+      </figure>
+    </li>
+    <li class="pl">
+      <figure>
+        <img src="assets/photo-03-harbour.jpg" width="1280" height="720" alt="罗弗敦群岛亨宁斯韦尔的港湾，栈桥、系泊的小船与水面倒影">
+        <figcaption><b>图版二</b> 罗弗敦群岛亨宁斯韦尔的港湾：港池的等深线在 1938 年那层，岸线在 1934 年那层。<span class="ref">Christoph Strässler（Oberdorf BL, Schweiz）· CC BY-SA 2.0 · <a href="https://commons.wikimedia.org/wiki/File:Henningsv%C3%A6r%2C_Lofoten%2C_Norway.jpg">Wikimedia Commons</a></span></figcaption>
+      </figure>
+    </li>
+    <li class="pl">
+      <figure>
+        <img src="assets/photo-02-nets.jpg" width="1280" height="960" alt="渔港岸边几个人蹲在地上修补摊开的渔网，绳索与网衣铺满地">
+        <figcaption><b>图版三</b> 渔网摊在岸上修补，绳圈与网衣直接铺地；B-4 待修网堆登记的 7 张就是这种状态。<span class="ref">Zaheed Sarwer Khan · CC BY 4.0 · <a href="https://commons.wikimedia.org/wiki/File:Mending_fishing_nets.jpg">Wikimedia Commons</a></span></figcaption>
+      </figure>
+    </li>
+    <li class="pl">
+      <figure>
+        <img src="assets/photo-05-stockfish.jpg" width="1280" height="914" alt="罗弗敦群岛奥镇晒鳕鱼的木架，成排鱼干挂在架上">
+        <figcaption><b>图版四</b> 奥镇的鳕鱼晾晒架：网具舱的通风口朝这一侧，1935 年的修订把通风口挪过 <code>24</code> 单位。<span class="ref">DXR · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File:Codfish_Drying_Flake%2C_%C3%85_i_Lofoten_20150608_1.jpg">Wikimedia Commons</a></span></figcaption>
+      </figure>
+    </li>
+    <li class="pl pl--tall">
+      <figure>
+        <img src="assets/photo-06-chart.jpg" width="1280" height="2177" alt="1903 年英国海军部第 2330 号海图，奥斯陆峡湾南岸，含罗盘玫瑰、灯塔插图与水深读数">
+        <figcaption><b>图版五</b> 英国海军部第 <code>2330</code> 号海图（1903 年，奥斯陆峡湾南岸第 4 幅）：图上那种手工水深读数与罗盘玫瑰，本页港池的 <code>12</code> 个测点沿用了这套写法。<span class="ref">United Kingdom Hydrographic Office · 公有领域 · <a href="https://commons.wikimedia.org/wiki/File:Admiralty_Chart_No_2330_Norway_South_Coast_Sheet_4_Oslo_Fjord%2C_Published_1903.jpg">Wikimedia Commons</a></span></figcaption>
+      </figure>
+    </li>
+    <li class="pl pl--b">
+      <figure>
+        <img src="assets/photo-04-plan.jpg" width="1280" height="983" alt="半体船模线型图的平面视图与站线视图，肋骨线与水线编号">
+        <figcaption><b>图版六</b> 同一张 HAER 测绘件的局部：平面视图里的肋骨线每 <code>32</code> 单位一根，与本案柱网同间距，编号 <code>0</code> 至 <code>21</code>。<span class="ref">Lockett, Dana · 公有领域 · <a href="https://commons.wikimedia.org/wiki/File:Half-Hull_Model_Lines_-_Steam_Tug_HERCULES%2C_Hyde_Street_Pier%2C_San_Francisco%2C_San_Francisco_County%2C_CA_HAER_CAL%2C38-SANFRA%2C201-_(sheet_7_of_7).tif">Wikimedia Commons</a></span></figcaption>
+      </figure>
+    </li>
+  </ul>
+</section>
+
+<section class="spec" aria-labelledby="spec-h">
+  <h2 id="spec-h">版面与柱网</h2>
+  <ul class="spec__list">
+    <li><b>栏与基线</b>12 栏、基线 <code>8px</code>、栏间距 <code>20px</code>，图廓留边 <code>32px</code>；标注线落在基线格上，0.8px 硬线压在整像素之间也不做位移补偿。</li>
+    <li><b>不对称</b>平面图占 1 至 8 栏并向左出血 <code>40px</code>；图例悬在 9 至 12 栏，高度只到平面图的 <code>62%</code>，顶部对齐平面图三分之一处；比例尺固定 <code>240px</code>，贴版心右下角。</li>
+    <li><b>留白节奏</b>图幅外围留 4 个基线单位，档案条目之间只留 1 个基线单位，形成图幅大留白、条目小间距的两级节奏。</li>
+    <li><b>行长与行高</b>说明文按 38 个汉字的行长排、行高 <code>1.9</code>，长宋宽排；标题用报纸衬线加思源宋体宽排，字距 <code>0.04em</code>。</li>
+    <li><b>窄屏折叠</b>单栏之后三层硫酸纸按层折叠成三个可展开的板块，点层标题展开该层标注；比例尺改贴图幅内沿 <code>24px</code>。</li>
+  </ul>
+  <table class="weights">
+    <caption>线宽配线表：全站只有四级线宽，等宽平面与窄屏补偿用的都是同一张表</caption>
+    <thead>
+      <tr><th scope="col">线宽</th><th scope="col">用在哪</th><th scope="col">处数</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>0.5px</code></td><td>热区外圈细圈，进入热区后变虚线；单独一层，不参与热区命中</td><td><code>14</code></td></tr>
+      <tr><td><code>0.8px</code></td><td>铅笔硬线：隔墙、热区边界、门扇与开启弧、系缆桩、梯踏面、测点十字、深虚线修订线</td><td>主层</td></tr>
+      <tr><td><code>1.0px</code></td><td>等深线中位一条，只出现在第 3 层</td><td><code>1</code></td></tr>
+      <tr><td><code>1.2px</code></td><td>图廓双线、外墙、码头岸线、等深线内外位、三角点与锚位符号</td><td><code>9</code></td></tr>
+      <tr><td><code>1.4–2px</code></td><td>窄屏（&lt;1024px）平面图按 0.8px × 1.7 补偿，热区边界 1.4px，图廓与外墙 2px</td><td>全部</td></tr>
+    </tbody>
+  </table>
+  <div class="spec__grid">
+    <p class="spec__cell"><b>≥1440px</b>12 栏，平面图满幅左出血 <code>40px</code>，比例尺 <code>240px</code>，图例在右侧 9 至 12 栏。</p>
+    <p class="spec__cell"><b>1024–1439px</b>折为 9 栏，图例移到平面图下方并横向排成 2 列，比例尺缩到 <code>180px</code>。</p>
+    <p class="spec__cell"><b>&lt;1024px</b>单栏，三层硫酸纸折叠成三个可展开板块，比例尺固定在页脚不随滚动，热区点击面积一律不小于 <code>44×44px</code>。</p>
+  </div>
+</section>
+
+<section class="motion" aria-labelledby="motion-h">
+  <h2 id="motion-h">动效与降级</h2>
+  <p class="lede">位移只跑 transform 与 opacity。滚动量不参与逐帧换算，只在滚过 <code>200px</code> 时翻一次状态，其余交给 <code>600ms</code> 阻尼缓动收尾。</p>
+  <ul class="spec__list">
+    <li><b>滚动</b>滚过 <code>200px</code> 后平面图缩到 <code>68%</code> 并向上让位，<code>600ms</code> 阻尼无过冲；图例保持原位不缩放。</li>
+    <li><b>悬停</b>热区边界由 <code>0.8px</code> 变 <code>1.2px</code> 并在状态条显示登记号，<code>140ms</code>、无位移；圈住热区的 <code>0.5px</code> 细圈进入后变虚线。</li>
+    <li><b>加载</b>三层硫酸纸按 1934 / 1936 / 1938 顺序依次叠上，每层 <code>220ms</code>，线性缓动，模拟手动落纸。</li>
+    <li><b>转场</b>年份切换用 <code>260ms</code> 交叉叠化，只有两层参与，第三层保持不动。</li>
+    <li><b>点击</b>点击热区时该区在图例中的对应线型同步加粗一次，<code>160ms</code>，只改线宽不改位置。</li>
+  </ul>
+  <p class="degrade"><b>减少动态时的再发明</b>（<code>prefers-reduced-motion: reduce</code>）：三层硫酸纸一次成型、静态全部可见，不透明度固定在 <code>100% / 30% / 56%</code>；平面图保持原尺寸、位移 <code>0px</code>；年份切换改 <code>100ms</code> 不透明度瞬切；比例尺改贴图幅内沿 <code>24px</code>，不贴视口下沿；线宽仍是 <code>0.8px</code> 与 <code>1.2px</code> 两级，14 个热区与 <code>44×44px</code> 触屏热区不变。</p>
+  <table class="matrix">
+    <caption>同一个机制的三种落地：桌面档、<code>prefers-reduced-motion: reduce</code>、单栏窄屏</caption>
+    <thead>
+      <tr><th scope="col">机制</th><th scope="col">桌面档</th><th scope="col">减少动态时</th><th scope="col">单栏窄屏</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>平面图缩放</td><td>滚过 <code>200px</code> 缩到 <code>68%</code>，<code>600ms</code> 阻尼</td><td>保持原尺寸，位移 <code>0px</code></td><td>保持原尺寸，图幅全量可见</td></tr>
+      <tr><td>三层叠上</td><td>1934 / 1936 / 1938 依次 <code>220ms</code> 线性</td><td>一次成型，静态全可见</td><td>折成三个可展开板块</td></tr>
+      <tr><td>年份切换</td><td><code>260ms</code> 交叉叠化，两层参与</td><td><code>100ms</code> 不透明度瞬切</td><td>同上，另可按层展开标注</td></tr>
+      <tr><td>热区反馈</td><td>边界 <code>0.8px</code> 变 <code>1.2px</code>，<code>140ms</code>，无位移</td><td>线宽照旧，去掉过渡</td><td>边界 <code>1.4px</code>，热区不小于 <code>44×44px</code></td></tr>
+      <tr><td>比例尺</td><td>贴视口下沿内 <code>24px</code></td><td>贴图幅内沿 <code>24px</code></td><td>固定在页脚，不随滚动</td></tr>
+    </tbody>
+  </table>
+</section>
+</main>
+
+<footer>
+  <div class="foot">
+    <div>
+      <h3>图幅与读数</h3>
+      <p>图幅 <code>2 / 4</code>，比例 <code>1:200</code>，图内 1 单位 = <code>1.25cm</code>；柱网 <code>32</code> 单位（<code>0.8m</code>），图廓留边 <code>32</code> 单位。建筑内 12 区 <code>46.40m²</code>，建筑外 2 区 <code>22.40m²</code>，合计 <code>68.80m²</code>。</p>
+    </div>
+    <div>
+      <h3>当前状态</h3>
+      <p>第 2 层（1936 年）硫酸纸扫描缺页（错误码 <code>TRACE-36</code>），该层以 <code>30%</code> 不透明度占位，其余两层可正常读。14 个热区里 <code>M-1</code> 码头岸线还没有测绘记录。</p>
+    </div>
+    <div>
+      <h3>素材与比例尺</h3>
+      <p>六张位图与九件程序化纹理都在本地 <code>assets/</code> 下，署名与许可见 <code>assets/CREDITS.md</code>。这根 1:200 比例尺上，第 <code>7</code> 格比其余格窄 <code>0.5px</code>、第 <code>13</code> 格宽 <code>0.5px</code>（按 <code>1400px</code> 原件计），量一下就知道它并不准。</p>
+    </div>
+  </div>
+  <p class="sig">方案 15 · 渔场平面簿（Fishery Floor Ledger）· 北欧渔业档案 1930s · 三层硫酸纸透叠与 0.8px 铅笔硬线 · 本页用于验证字段 3 的色彩配比（<code>#3A3F45</code> 46% / <code>#E7EBE9</code> 34% / <code>#22282B</code> 15% / <code>#7A7466</code> 5%）、三层错位 0 / 3 / 7px、擦痕的 12% 浅底、14 个不等面积热区与 <code>TRACE-36</code> 错误态。</p>
+</footer>
+
+<div class="scale-rail">
+  <figure class="scale">
+    <img src="assets/texture-scalebar-1to200.png" width="1400" height="96" alt="手绘 1:200 比例尺，14 格，格宽按 2 倍图绘制">
+    <figcaption><code>1:200</code> · 第 <code>7</code> 格窄 <code>0.5px</code>，第 <code>13</code> 格宽 <code>0.5px</code></figcaption>
+  </figure>
+</div>
+</div>
+
+<script>
+(function () {
+  var doc = document.documentElement, stack = document.getElementById('stack'),
+      reg = document.getElementById('regcode'), fault = document.getElementById('faultline'),
+      err = document.getElementById('trace-error'), packet = document.getElementById('packet'),
+      reduce = matchMedia('(prefers-reduced-motion: reduce)'),
+      ybs = document.querySelectorAll('.yb'), sw = document.querySelectorAll('.legend__lines li'),
+      hots = document.querySelectorAll('.hot'), timer = 0,
+      layerOf = { B: 1934, N: 1934, W: 1934, R: 1934, D: 1934, M: 1934, S: 1938, G: 1938 };
+
+  /* 滚动：滚过 200px 翻一次状态，缩小交给 600ms 阻尼缓动（style.css） */
+  function onScroll() { if (reduce.matches) return; doc.classList.toggle('is-scrolled', window.scrollY > 200); }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  /* 悬停热区：状态条显示登记号，图例里对应线型加粗一次（160ms） */
+  function cue(code) {
+    reg.textContent = code;
+    var y = layerOf[code.charAt(0)] || 1934, j;
+    for (j = 0; j < sw.length; j++) sw[j].classList.toggle('is-cued', +sw[j].dataset.layer === y);
+    window.clearTimeout(timer);
+    timer = window.setTimeout(function () {
+      for (var n = 0; n < sw.length; n++) sw[n].classList.remove('is-cued');
+    }, 240);
+  }
+
+  /* 年份切换：只有两层参与 260ms 交叉叠化，缺页的第 2 层保持 30% 不动 */
+  function setYear(year) {
+    stack.dataset.year = year;
+    for (var i = 0; i < ybs.length; i++) ybs[i].setAttribute('aria-pressed', ybs[i].dataset.year === year ? 'true' : 'false');
+  }
+
+  for (var i = 0; i < ybs.length; i++) {
+    ybs[i].addEventListener('click', function () {
+      var y = this.dataset.year;
+      if (y === '1936') {
+        err.classList.add('is-lit'); fault.classList.add('is-lit');
+        window.setTimeout(function () { err.classList.remove('is-lit'); }, 700);
+        return;
+      }
+      setYear(y);
+    });
+  }
+
+  for (var k = 0; k < hots.length; k++) {
+    hots[k].addEventListener('mouseenter', function () { cue(this.dataset.code); });
+    hots[k].addEventListener('focus', function () { cue(this.dataset.code); });
+    hots[k].addEventListener('click', function () { cue(this.dataset.code); });
+  }
+
+  /* 重扫：缺页那一层从 30% 占位回到 78%，状态条同步改写 */
+  document.getElementById('rescan').addEventListener('click', function () {
+    stack.classList.add('is-rescanned');
+    doc.style.setProperty('--trace36', '0.78');
+    fault.textContent = '状态 TRACE-36 已重扫，第 2 层按 78% 归位';
+    fault.classList.remove('strip__item--fault');
+    packet.textContent = '第 2 层已重扫归位：0.8px 原线宽与 1px 纸张毛口核对通过，R-3 / R-7 / R-9 三处修订可读。';
+  });
+})();
+</script>
+</body>
+</html>

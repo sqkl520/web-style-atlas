@@ -1,0 +1,1460 @@
+{
+ "url": "prototypes/S26-geometric-collision-columns/index.html",
+ "at": "2026-10-19T14:13:18.349Z",
+ "allow": [],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 12,
+   "filled": [
+    0.51,
+    0.56,
+    0.48,
+    0.69,
+    0.44,
+    0.44,
+    0.39,
+    0.43,
+    0.49,
+    0.6,
+    0.48,
+    0.43
+   ],
+   "motion": {
+    "elements": 46,
+    "css": 37,
+    "transitions": 9,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 10916,
+     "screens": 12.1,
+     "words": 868,
+     "img": 6,
+     "video": 0,
+     "canvas": 0,
+     "svg": 0,
+     "sections": 17,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 8,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "reuse-s16-plate-04-metal-type.jpg",
+      "reuse-s16-plate-06-composing-stick.jpg",
+      "reuse-s16-plate-05-albion-press.jpg",
+      "reuse-s01-plate-02-type-case.jpg",
+      "reuse-s12-memphis-collection.jpg",
+      "reuse-s12-carlton-bookcase.jpg"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": []
+    },
+    "hero": {
+     "text": "几何对撞栏",
+     "words": 1,
+     "chars": 5,
+     "lines": 1,
+     "size": 80,
+     "vw": 5.6,
+     "font": "Syne",
+     "weight": 700,
+     "tracking": -0.01,
+     "leading": 1.04,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "left",
+     "widthRatio": 0.53,
+     "top": 124,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "几何对撞栏",
+     "words": 1,
+     "lines": 1,
+     "size": 80,
+     "font": "Syne"
+    },
+    "headings": [
+     {
+      "text": "几何对撞栏",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 80,
+      "vw": 5.6,
+      "font": "Syne",
+      "weight": 700,
+      "tracking": -0.01,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.53,
+      "top": 124,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "同一条产线，A 班每吨耗电 412 度，B 班 386 度，差在换模那 9 分钟。",
+      "words": 9,
+      "chars": 41,
+      "lines": 2,
+      "size": 33.8,
+      "vw": 2.3,
+      "font": "Syne",
+      "weight": 700,
+      "tracking": -0.005,
+      "leading": 1.28,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.53,
+      "top": 265,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "两班读数并置",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 33.8,
+      "vw": 2.3,
+      "font": "Syne",
+      "weight": 700,
+      "tracking": -0.01,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.94,
+      "top": 1645,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "换模那 9 分钟",
+      "words": 3,
+      "chars": 8,
+      "lines": 1,
+      "size": 33.8,
+      "vw": 2.3,
+      "font": "Syne",
+      "weight": 700,
+      "tracking": -0.01,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.94,
+      "top": 2498,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "印版件与车间",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 33.8,
+      "vw": 2.3,
+      "font": "Syne",
+      "weight": 700,
+      "tracking": -0.01,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.94,
+      "top": 4032,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "套色公差与三处撞口",
+      "words": 1,
+      "chars": 9,
+      "lines": 1,
+      "size": 33.8,
+      "vw": 2.3,
+      "font": "Syne",
+      "weight": 700,
+      "tracking": -0.01,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.94,
+      "top": 5036,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "修补缺口 14 处",
+      "words": 3,
+      "chars": 9,
+      "lines": 1,
+      "size": 33.8,
+      "vw": 2.3,
+      "font": "Syne",
+      "weight": 700,
+      "tracking": -0.01,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.94,
+      "top": 6057,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "版式规格",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 33.8,
+      "vw": 2.3,
+      "font": "Syne",
+      "weight": 700,
+      "tracking": -0.01,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.94,
+      "top": 7327,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "采样与空档",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 33.8,
+      "vw": 2.3,
+      "font": "Syne",
+      "weight": 700,
+      "tracking": -0.01,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.94,
+      "top": 8230,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "异常与处置",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 33.8,
+      "vw": 2.3,
+      "font": "Syne",
+      "weight": 700,
+      "tracking": -0.01,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.94,
+      "top": 9842,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 10,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 1,
+     "centered": 0,
+     "medianWords": 1,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Noto Sans SC",
+       "share": 0.73,
+       "mono": false
+      },
+      {
+       "family": "IBM Plex Mono",
+       "share": 0.23,
+       "mono": true
+      },
+      {
+       "family": "Syne",
+       "share": 0.04,
+       "mono": false
+      }
+     ],
+     "familyCount": 3,
+     "sizes": [
+      13,
+      15,
+      17,
+      22,
+      24,
+      34,
+      46,
+      80
+     ],
+     "sizeCount": 8,
+     "notLoaded": [],
+     "body": {
+      "font": "Noto Sans SC",
+      "size": 17,
+      "leading": 1.8,
+      "weight": 400,
+      "tracking": 0.01,
+      "contrast": 12.3
+     },
+     "measureChars": 86,
+     "max": {
+      "size": 80,
+      "vw": 5.6,
+      "font": "Syne",
+      "text": "几何对撞栏"
+     },
+     "monoShare": 0.23,
+     "monoProseShare": 0,
+     "monoFamilies": [
+      "IBM Plex Mono"
+     ],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.07,
+     "centerShare": 0,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#d3d1ca",
+     "bodyBgHsl": {
+      "h": 47,
+      "s": 0.09,
+      "l": 0.81
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#485270",
+       "top": 686,
+       "hsl": {
+        "h": 225,
+        "s": 0.22,
+        "l": 0.36
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#121212",
+       "share": 0.79
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.1
+      },
+      {
+       "color": "#485270",
+       "share": 0.08
+      },
+      {
+       "color": "#d3d1ca",
+       "share": 0.02
+      }
+     ],
+     "button": {
+      "bg": "#485270",
+      "hsl": {
+       "h": 225,
+       "s": 0.22,
+       "l": 0.36
+      },
+      "fg": "#ffffff"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 1,
+     "inHero": 1,
+     "radius": 0,
+     "height": 52,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "把两组读数并到一栏比"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 8,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 8,
+     "fixed": true,
+     "height": 84,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "syne",
+     "noto sans sc",
+     "ibm plex mono"
+    ]
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 12,
+   "filled": [
+    0.37,
+    0.74,
+    0.58,
+    0.59,
+    0.83,
+    0.54,
+    0.68,
+    0.44,
+    0.46,
+    0.51,
+    0.63,
+    0.56
+   ],
+   "motion": {
+    "elements": 46,
+    "css": 37,
+    "transitions": 9,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 17097,
+     "screens": 16.7,
+     "words": 868,
+     "img": 6,
+     "video": 0,
+     "canvas": 0,
+     "svg": 0,
+     "sections": 17,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 8,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "reuse-s16-plate-04-metal-type.jpg",
+      "reuse-s16-plate-06-composing-stick.jpg",
+      "reuse-s16-plate-05-albion-press.jpg",
+      "reuse-s01-plate-02-type-case.jpg",
+      "reuse-s12-memphis-collection.jpg",
+      "reuse-s12-carlton-bookcase.jpg"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": []
+    },
+    "hero": {
+     "text": "几何对撞栏",
+     "words": 1,
+     "chars": 5,
+     "lines": 1,
+     "size": 44,
+     "vw": 5.7,
+     "font": "Syne",
+     "weight": 700,
+     "tracking": -0.01,
+     "leading": 1.04,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 0.92,
+     "top": 210,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "几何对撞栏",
+     "words": 1,
+     "lines": 1,
+     "size": 44,
+     "font": "Syne"
+    },
+    "headings": [
+     {
+      "text": "几何对撞栏",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 44,
+      "vw": 5.7,
+      "font": "Syne",
+      "weight": 700,
+      "tracking": -0.01,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 210,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "两班读数并置",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 26,
+      "vw": 3.4,
+      "font": "Syne",
+      "weight": 700,
+      "tracking": -0.01,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 2120,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "换模那 9 分钟",
+      "words": 3,
+      "chars": 8,
+      "lines": 1,
+      "size": 26,
+      "vw": 3.4,
+      "font": "Syne",
+      "weight": 700,
+      "tracking": -0.01,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 3622,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "印版件与车间",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 26,
+      "vw": 3.4,
+      "font": "Syne",
+      "weight": 700,
+      "tracking": -0.01,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 6011,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "套色公差与三处撞口",
+      "words": 1,
+      "chars": 9,
+      "lines": 1,
+      "size": 26,
+      "vw": 3.4,
+      "font": "Syne",
+      "weight": 700,
+      "tracking": -0.01,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 7219,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "修补缺口 14 处",
+      "words": 3,
+      "chars": 9,
+      "lines": 1,
+      "size": 26,
+      "vw": 3.4,
+      "font": "Syne",
+      "weight": 700,
+      "tracking": -0.01,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 8724,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "版式规格",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 26,
+      "vw": 3.4,
+      "font": "Syne",
+      "weight": 700,
+      "tracking": -0.01,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 11101,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "采样与空档",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 26,
+      "vw": 3.4,
+      "font": "Syne",
+      "weight": 700,
+      "tracking": -0.01,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 12803,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "异常与处置",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 26,
+      "vw": 3.4,
+      "font": "Syne",
+      "weight": 700,
+      "tracking": -0.01,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 15444,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 9,
+     "maxLines": 1,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": 1,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Noto Sans SC",
+       "share": 0.73,
+       "mono": false
+      },
+      {
+       "family": "IBM Plex Mono",
+       "share": 0.23,
+       "mono": true
+      },
+      {
+       "family": "Syne",
+       "share": 0.04,
+       "mono": false
+      }
+     ],
+     "familyCount": 3,
+     "sizes": [
+      13,
+      15,
+      16,
+      17,
+      24,
+      26,
+      34,
+      44
+     ],
+     "sizeCount": 8,
+     "notLoaded": [],
+     "body": {
+      "font": "Noto Sans SC",
+      "size": 17,
+      "leading": 1.8,
+      "weight": 400,
+      "tracking": 0.01,
+      "contrast": 12.3
+     },
+     "measureChars": 83,
+     "max": {
+      "size": 44,
+      "vw": 5.7,
+      "font": "Syne",
+      "text": "几何对撞栏"
+     },
+     "monoShare": 0.23,
+     "monoProseShare": 0,
+     "monoFamilies": [
+      "IBM Plex Mono"
+     ],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.07,
+     "centerShare": 0,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#d3d1ca",
+     "bodyBgHsl": {
+      "h": 47,
+      "s": 0.09,
+      "l": 0.81
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#485270",
+       "top": 1030,
+       "hsl": {
+        "h": 225,
+        "s": 0.22,
+        "l": 0.36
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#121212",
+       "share": 0.82
+      },
+      {
+       "color": "#485270",
+       "share": 0.08
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.07
+      },
+      {
+       "color": "#d3d1ca",
+       "share": 0.02
+      },
+      {
+       "color": "#c8341f",
+       "share": 0
+      }
+     ],
+     "button": {
+      "bg": "#485270",
+      "hsl": {
+       "h": 225,
+       "s": 0.22,
+       "l": 0.36
+      },
+      "fg": "#ffffff"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 1,
+     "inHero": 1,
+     "radius": 0,
+     "height": 52,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "把两组读数并到一栏比"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 8,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 8,
+     "fixed": true,
+     "height": 170,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "syne",
+     "noto sans sc",
+     "ibm plex mono"
+    ]
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 12,
+   "filled": [
+    0.6,
+    0.71,
+    0.53,
+    0.65,
+    0.61,
+    0.77,
+    0.76,
+    0.69,
+    0.56,
+    0.79,
+    0.49,
+    0.53
+   ],
+   "motion": {
+    "elements": 46,
+    "css": 37,
+    "transitions": 9,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "page": {
+     "height": 17446,
+     "screens": 20.7,
+     "words": 866,
+     "img": 6,
+     "video": 0,
+     "canvas": 0,
+     "svg": 0,
+     "sections": 17,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 8,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "reuse-s16-plate-04-metal-type.jpg",
+      "reuse-s16-plate-06-composing-stick.jpg",
+      "reuse-s16-plate-05-albion-press.jpg",
+      "reuse-s01-plate-02-type-case.jpg",
+      "reuse-s12-memphis-collection.jpg",
+      "reuse-s12-carlton-bookcase.jpg"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": []
+    },
+    "hero": {
+     "text": "几何对撞栏",
+     "words": 1,
+     "chars": 5,
+     "lines": 1,
+     "size": 44,
+     "vw": 11.3,
+     "font": "Syne",
+     "weight": 700,
+     "tracking": -0.01,
+     "leading": 1.04,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 0.9,
+     "top": 287,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "几何对撞栏",
+     "words": 1,
+     "lines": 1,
+     "size": 44,
+     "font": "Syne"
+    },
+    "headings": [
+     {
+      "text": "几何对撞栏",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 44,
+      "vw": 11.3,
+      "font": "Syne",
+      "weight": 700,
+      "tracking": -0.01,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 287,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "同一条产线，A 班每吨耗电 412 度，B 班 386 度，差在换模那 9 分钟。",
+      "words": 9,
+      "chars": 41,
+      "lines": 3,
+      "size": 24,
+      "vw": 6.2,
+      "font": "Syne",
+      "weight": 700,
+      "tracking": -0.005,
+      "leading": 1.28,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 383,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "两班读数并置",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Syne",
+      "weight": 700,
+      "tracking": -0.01,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 2194,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "换模那 9 分钟",
+      "words": 3,
+      "chars": 8,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Syne",
+      "weight": 700,
+      "tracking": -0.01,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 3821,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "印版件与车间",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Syne",
+      "weight": 700,
+      "tracking": -0.01,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 6000,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "套色公差与三处撞口",
+      "words": 1,
+      "chars": 9,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Syne",
+      "weight": 700,
+      "tracking": -0.01,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 7037,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "修补缺口 14 处",
+      "words": 3,
+      "chars": 9,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Syne",
+      "weight": 700,
+      "tracking": -0.01,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 8635,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "版式规格",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Syne",
+      "weight": 700,
+      "tracking": -0.01,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 10716,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "采样与空档",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Syne",
+      "weight": 700,
+      "tracking": -0.01,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 12821,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "异常与处置",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Syne",
+      "weight": 700,
+      "tracking": -0.01,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 15239,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 10,
+     "maxLines": 3,
+     "over2Lines": 0,
+     "statements": 1,
+     "centered": 0,
+     "medianWords": 1,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Noto Sans SC",
+       "share": 0.73,
+       "mono": false
+      },
+      {
+       "family": "IBM Plex Mono",
+       "share": 0.23,
+       "mono": true
+      },
+      {
+       "family": "Syne",
+       "share": 0.04,
+       "mono": false
+      }
+     ],
+     "familyCount": 3,
+     "sizes": [
+      13,
+      15,
+      16,
+      17,
+      24,
+      26,
+      34,
+      44
+     ],
+     "sizeCount": 8,
+     "notLoaded": [],
+     "body": {
+      "font": "Noto Sans SC",
+      "size": 17,
+      "leading": 1.8,
+      "weight": 400,
+      "tracking": 0.01,
+      "contrast": 12.3
+     },
+     "measureChars": 41,
+     "max": {
+      "size": 44,
+      "vw": 11.3,
+      "font": "Syne",
+      "text": "几何对撞栏"
+     },
+     "monoShare": 0.23,
+     "monoProseShare": 0,
+     "monoFamilies": [
+      "IBM Plex Mono"
+     ],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.07,
+     "centerShare": 0,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#d3d1ca",
+     "bodyBgHsl": {
+      "h": 47,
+      "s": 0.09,
+      "l": 0.81
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#485270",
+       "top": 1258,
+       "hsl": {
+        "h": 225,
+        "s": 0.22,
+        "l": 0.36
+       }
+      },
+      {
+       "color": "#c3c1b9",
+       "top": 13737,
+       "hsl": {
+        "h": 48,
+        "s": 0.08,
+        "l": 0.75
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#121212",
+       "share": 0.83
+      },
+      {
+       "color": "#485270",
+       "share": 0.08
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.06
+      },
+      {
+       "color": "#d3d1ca",
+       "share": 0.02
+      },
+      {
+       "color": "#c8341f",
+       "share": 0
+      }
+     ],
+     "button": {
+      "bg": "#485270",
+      "hsl": {
+       "h": 225,
+       "s": 0.22,
+       "l": 0.36
+      },
+      "fg": "#ffffff"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 1,
+     "inHero": 1,
+     "radius": 0,
+     "height": 52,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "把两组读数并到一栏比"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 8,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 0,
+     "fixed": true,
+     "height": 247,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "syne",
+     "noto sans sc",
+     "ibm plex mono"
+    ]
+   },
+   "consoleErrors": []
+  }
+ ],
+ "findings": [
+  {
+   "level": "WARN",
+   "id": "font-count",
+   "width": 1440,
+   "message": "3 typefaces in use (Noto Sans SC, IBM Plex Mono, Syne).",
+   "fix": "Two at most.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "no-footage",
+   "width": 1440,
+   "message": "No video anywhere on the page.",
+   "fix": "Look for one honest clip with scripts/assets.mjs --video (the place, the material, the process) and use it as a muted loop with a poster frame. Defend its absence only if no clip fits the subject."
+  }
+ ],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "D:\\Web\\style\\prototypes\\S26-geometric-collision-columns\\.inspect\\desktop-fold.jpg",
+   "pages": [
+    "D:\\Web\\style\\prototypes\\S26-geometric-collision-columns\\.inspect\\desktop-page-01.jpg",
+    "D:\\Web\\style\\prototypes\\S26-geometric-collision-columns\\.inspect\\desktop-page-02.jpg",
+    "D:\\Web\\style\\prototypes\\S26-geometric-collision-columns\\.inspect\\desktop-page-03.jpg"
+   ]
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "D:\\Web\\style\\prototypes\\S26-geometric-collision-columns\\.inspect\\tablet-fold.jpg",
+   "pages": [
+    "D:\\Web\\style\\prototypes\\S26-geometric-collision-columns\\.inspect\\tablet-page-01.jpg",
+    "D:\\Web\\style\\prototypes\\S26-geometric-collision-columns\\.inspect\\tablet-page-02.jpg"
+   ]
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "D:\\Web\\style\\prototypes\\S26-geometric-collision-columns\\.inspect\\mobile-fold.jpg",
+   "pages": [
+    "D:\\Web\\style\\prototypes\\S26-geometric-collision-columns\\.inspect\\mobile-page-01.jpg",
+    "D:\\Web\\style\\prototypes\\S26-geometric-collision-columns\\.inspect\\mobile-page-02.jpg"
+   ]
+  }
+ ]
+}

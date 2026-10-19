@@ -1,0 +1,1391 @@
+{
+ "url": "prototypes/S15-fishery-floor-ledger/index.html",
+ "at": "2026-10-19T03:40:13.088Z",
+ "allow": [],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 10,
+   "filled": [
+    0.35,
+    0.56,
+    0.28,
+    0.29,
+    0.33,
+    0.49,
+    0.56,
+    0.41,
+    0.31,
+    0.34
+   ],
+   "motion": {
+    "elements": 46,
+    "css": 45,
+    "transitions": 1,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 8765,
+     "screens": 9.7,
+     "words": 850,
+     "img": 8,
+     "video": 0,
+     "canvas": 0,
+     "svg": 10,
+     "sections": 7,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 7,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "photo-04-plan.jpg",
+      "photo-01-boat.jpg",
+      "photo-03-harbour.jpg",
+      "photo-02-nets.jpg",
+      "photo-05-stockfish.jpg",
+      "photo-06-chart.jpg",
+      "photo-04-plan.jpg"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": []
+    },
+    "hero": {
+     "text": "渔场平面簿",
+     "words": 1,
+     "chars": 5,
+     "lines": 1,
+     "size": 92,
+     "vw": 6.4,
+     "font": "Newsreader",
+     "weight": 400,
+     "tracking": 0.04,
+     "leading": 1.02,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "left",
+     "widthRatio": 0.45,
+     "top": 117,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "渔场平面簿",
+     "words": 1,
+     "lines": 1,
+     "size": 92,
+     "font": "Newsreader"
+    },
+    "headings": [
+     {
+      "text": "渔场平面簿",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 92,
+      "vw": 6.4,
+      "font": "Newsreader",
+      "weight": 400,
+      "tracking": 0.04,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.45,
+      "top": 117,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "网具舱与港池平面",
+      "words": 1,
+      "chars": 8,
+      "lines": 1,
+      "size": 30,
+      "vw": 2.1,
+      "font": "Newsreader",
+      "weight": 600,
+      "tracking": 0.04,
+      "leading": 1.25,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 875,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "三层各是哪一年",
+      "words": 1,
+      "chars": 7,
+      "lines": 1,
+      "size": 30,
+      "vw": 2.1,
+      "font": "Newsreader",
+      "weight": 600,
+      "tracking": 0.04,
+      "leading": 1.25,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 2381,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "硫酸纸缺页登记",
+      "words": 1,
+      "chars": 7,
+      "lines": 1,
+      "size": 30,
+      "vw": 2.1,
+      "font": "Newsreader",
+      "weight": 600,
+      "tracking": 0.04,
+      "leading": 1.25,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 3157,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "热区登记表",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 30,
+      "vw": 2.1,
+      "font": "Newsreader",
+      "weight": 600,
+      "tracking": 0.04,
+      "leading": 1.25,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 3570,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "档案图版",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 30,
+      "vw": 2.1,
+      "font": "Newsreader",
+      "weight": 600,
+      "tracking": 0.04,
+      "leading": 1.25,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 4867,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "版面与柱网",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 30,
+      "vw": 2.1,
+      "font": "Newsreader",
+      "weight": 600,
+      "tracking": 0.04,
+      "leading": 1.25,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 6498,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "动效与降级",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 30,
+      "vw": 2.1,
+      "font": "Newsreader",
+      "weight": 600,
+      "tracking": 0.04,
+      "leading": 1.25,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 7460,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 8,
+     "maxLines": 1,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": 1,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Noto Serif SC",
+       "share": 0.78,
+       "mono": false
+      },
+      {
+       "family": "Reddit Mono",
+       "share": 0.2,
+       "mono": true
+      },
+      {
+       "family": "Newsreader",
+       "share": 0.02,
+       "mono": false
+      }
+     ],
+     "familyCount": 3,
+     "sizes": [
+      13,
+      16,
+      17,
+      18,
+      21,
+      30,
+      92
+     ],
+     "sizeCount": 7,
+     "notLoaded": [],
+     "body": {
+      "font": "Noto Serif SC",
+      "size": 16,
+      "leading": 1.9,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 8.8
+     },
+     "measureChars": 107,
+     "max": {
+      "size": 92,
+      "vw": 6.4,
+      "font": "Newsreader",
+      "text": "渔场平面簿"
+     },
+     "monoShare": 0.2,
+     "monoProseShare": 0,
+     "monoFamilies": [
+      "Reddit Mono"
+     ],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.02,
+     "centerShare": 0.01,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#e7ebe9",
+     "bodyBgHsl": {
+      "h": 150,
+      "s": 0.09,
+      "l": 0.91
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#e7ebe9",
+       "top": 1030,
+       "hsl": {
+        "h": 150,
+        "s": 0.09,
+        "l": 0.91
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#3a3f45",
+       "share": 0.73
+      },
+      {
+       "color": "#4c5257",
+       "share": 0.14
+      },
+      {
+       "color": "#e7ebe9",
+       "share": 0.05
+      },
+      {
+       "color": "#c8cecc",
+       "share": 0.04
+      },
+      {
+       "color": "#dde2e0",
+       "share": 0.01
+      }
+     ],
+     "button": {
+      "bg": "#e7ebe9",
+      "hsl": {
+       "h": 150,
+       "s": 0.09,
+       "l": 0.91
+      },
+      "fg": "#22282b"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 5,
+     "inHero": 1,
+     "radius": 0,
+     "height": 48,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "放大到 1:200 的 B-3 区"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 7,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [
+     {
+      "type": "img",
+      "ratio": 0.18
+     }
+    ],
+    "nav": {
+     "links": 0,
+     "fixed": false,
+     "height": 735,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "newsreader",
+     "noto serif sc",
+     "reddit mono"
+    ]
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 12,
+   "filled": [
+    0.62,
+    0.73,
+    0.8,
+    0.9,
+    0.55,
+    0.42,
+    0.36,
+    0.67,
+    0.66,
+    0.58,
+    0.41,
+    0.36
+   ],
+   "motion": {
+    "elements": 42,
+    "css": 42,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 13354,
+     "screens": 13,
+     "words": 873,
+     "img": 8,
+     "video": 0,
+     "canvas": 0,
+     "svg": 10,
+     "sections": 7,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 7,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "photo-04-plan.jpg",
+      "photo-01-boat.jpg",
+      "photo-03-harbour.jpg",
+      "photo-02-nets.jpg",
+      "photo-05-stockfish.jpg",
+      "photo-06-chart.jpg",
+      "photo-04-plan.jpg"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": []
+    },
+    "hero": {
+     "text": "渔场平面簿",
+     "words": 1,
+     "chars": 5,
+     "lines": 1,
+     "size": 62,
+     "vw": 8.1,
+     "font": "Newsreader",
+     "weight": 400,
+     "tracking": 0.04,
+     "leading": 1.02,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 0.94,
+     "top": 130,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "渔场平面簿",
+     "words": 1,
+     "lines": 1,
+     "size": 62,
+     "font": "Newsreader"
+    },
+    "headings": [
+     {
+      "text": "渔场平面簿",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 62,
+      "vw": 8.1,
+      "font": "Newsreader",
+      "weight": 400,
+      "tracking": 0.04,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.94,
+      "top": 130,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "网具舱与港池平面",
+      "words": 1,
+      "chars": 8,
+      "lines": 1,
+      "size": 26,
+      "vw": 3.4,
+      "font": "Newsreader",
+      "weight": 600,
+      "tracking": 0.04,
+      "leading": 1.25,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.94,
+      "top": 1327,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "三层各是哪一年",
+      "words": 1,
+      "chars": 7,
+      "lines": 1,
+      "size": 26,
+      "vw": 3.4,
+      "font": "Newsreader",
+      "weight": 600,
+      "tracking": 0.04,
+      "leading": 1.25,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.94,
+      "top": 5017,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "硫酸纸缺页登记",
+      "words": 1,
+      "chars": 7,
+      "lines": 1,
+      "size": 26,
+      "vw": 3.4,
+      "font": "Newsreader",
+      "weight": 600,
+      "tracking": 0.04,
+      "leading": 1.25,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.94,
+      "top": 5721,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "热区登记表",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 26,
+      "vw": 3.4,
+      "font": "Newsreader",
+      "weight": 600,
+      "tracking": 0.04,
+      "leading": 1.25,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.94,
+      "top": 6277,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "档案图版",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 26,
+      "vw": 3.4,
+      "font": "Newsreader",
+      "weight": 600,
+      "tracking": 0.04,
+      "leading": 1.25,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.94,
+      "top": 7521,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "版面与柱网",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 26,
+      "vw": 3.4,
+      "font": "Newsreader",
+      "weight": 600,
+      "tracking": 0.04,
+      "leading": 1.25,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.94,
+      "top": 10223,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "动效与降级",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 26,
+      "vw": 3.4,
+      "font": "Newsreader",
+      "weight": 600,
+      "tracking": 0.04,
+      "leading": 1.25,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.94,
+      "top": 11520,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 8,
+     "maxLines": 1,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": 1,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Noto Serif SC",
+       "share": 0.79,
+       "mono": false
+      },
+      {
+       "family": "Reddit Mono",
+       "share": 0.19,
+       "mono": true
+      },
+      {
+       "family": "Newsreader",
+       "share": 0.02,
+       "mono": false
+      }
+     ],
+     "familyCount": 3,
+     "sizes": [
+      13,
+      16,
+      17,
+      18,
+      21,
+      26,
+      62
+     ],
+     "sizeCount": 7,
+     "notLoaded": [],
+     "body": {
+      "font": "Noto Serif SC",
+      "size": 16,
+      "leading": 1.9,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 8.8
+     },
+     "measureChars": 107,
+     "max": {
+      "size": 62,
+      "vw": 8.1,
+      "font": "Newsreader",
+      "text": "渔场平面簿"
+     },
+     "monoShare": 0.19,
+     "monoProseShare": 0,
+     "monoFamilies": [
+      "Reddit Mono"
+     ],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.02,
+     "centerShare": 0.01,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#e7ebe9",
+     "bodyBgHsl": {
+      "h": 150,
+      "s": 0.09,
+      "l": 0.91
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#e7ebe9",
+       "top": 502,
+       "hsl": {
+        "h": 150,
+        "s": 0.09,
+        "l": 0.91
+       }
+      },
+      {
+       "color": "#22282b",
+       "top": 4212,
+       "hsl": {
+        "h": 200,
+        "s": 0.12,
+        "l": 0.15
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#3a3f45",
+       "share": 0.74
+      },
+      {
+       "color": "#4c5257",
+       "share": 0.14
+      },
+      {
+       "color": "#e7ebe9",
+       "share": 0.05
+      },
+      {
+       "color": "#c8cecc",
+       "share": 0.04
+      },
+      {
+       "color": "#dde2e0",
+       "share": 0.01
+      }
+     ],
+     "button": {
+      "bg": "#e7ebe9",
+      "hsl": {
+       "h": 150,
+       "s": 0.09,
+       "l": 0.91
+      },
+      "fg": "#22282b"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 5,
+     "inHero": 1,
+     "radius": 0,
+     "height": 48,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "放大到 1:200 的 B-3 区"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 7,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [
+     {
+      "type": "img",
+      "ratio": 0.42
+     }
+    ],
+    "nav": {
+     "links": 0,
+     "fixed": false,
+     "height": 1185,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "newsreader",
+     "noto serif sc",
+     "reddit mono"
+    ]
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 12,
+   "filled": [
+    0.64,
+    0.62,
+    0.8,
+    0.87,
+    0.61,
+    0.67,
+    0.56,
+    0.63,
+    0.49,
+    0.71,
+    0.71,
+    0.81
+   ],
+   "motion": {
+    "elements": 42,
+    "css": 42,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "page": {
+     "height": 15398,
+     "screens": 18.2,
+     "words": 823,
+     "img": 8,
+     "video": 0,
+     "canvas": 0,
+     "svg": 10,
+     "sections": 7,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 7,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "photo-04-plan.jpg",
+      "photo-01-boat.jpg",
+      "photo-03-harbour.jpg",
+      "photo-02-nets.jpg",
+      "photo-05-stockfish.jpg",
+      "photo-06-chart.jpg",
+      "photo-04-plan.jpg"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": []
+    },
+    "hero": {
+     "text": "渔场平面簿",
+     "words": 1,
+     "chars": 5,
+     "lines": 1,
+     "size": 42.9,
+     "vw": 11,
+     "font": "Newsreader",
+     "weight": 400,
+     "tracking": 0.04,
+     "leading": 1.02,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 0.88,
+     "top": 181,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "渔场平面簿",
+     "words": 1,
+     "lines": 1,
+     "size": 42.9,
+     "font": "Newsreader"
+    },
+    "headings": [
+     {
+      "text": "渔场平面簿",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 42.9,
+      "vw": 11,
+      "font": "Newsreader",
+      "weight": 400,
+      "tracking": 0.04,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.88,
+      "top": 181,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "网具舱与港池平面",
+      "words": 1,
+      "chars": 8,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Newsreader",
+      "weight": 600,
+      "tracking": 0.04,
+      "leading": 1.25,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.88,
+      "top": 1231,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "三层各是哪一年",
+      "words": 1,
+      "chars": 7,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Newsreader",
+      "weight": 600,
+      "tracking": 0.04,
+      "leading": 1.25,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.88,
+      "top": 4161,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "硫酸纸缺页登记",
+      "words": 1,
+      "chars": 7,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Newsreader",
+      "weight": 600,
+      "tracking": 0.04,
+      "leading": 1.25,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.88,
+      "top": 5186,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "热区登记表",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Newsreader",
+      "weight": 600,
+      "tracking": 0.04,
+      "leading": 1.25,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.88,
+      "top": 5895,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "档案图版",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Newsreader",
+      "weight": 600,
+      "tracking": 0.04,
+      "leading": 1.25,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.88,
+      "top": 7527,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "版面与柱网",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Newsreader",
+      "weight": 600,
+      "tracking": 0.04,
+      "leading": 1.25,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.88,
+      "top": 10585,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "动效与降级",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Newsreader",
+      "weight": 600,
+      "tracking": 0.04,
+      "leading": 1.25,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.88,
+      "top": 12393,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 8,
+     "maxLines": 1,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": 1,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Noto Serif SC",
+       "share": 0.8,
+       "mono": false
+      },
+      {
+       "family": "Reddit Mono",
+       "share": 0.18,
+       "mono": true
+      },
+      {
+       "family": "Newsreader",
+       "share": 0.02,
+       "mono": false
+      }
+     ],
+     "familyCount": 3,
+     "sizes": [
+      13,
+      16,
+      17,
+      18,
+      21,
+      26,
+      43
+     ],
+     "sizeCount": 7,
+     "notLoaded": [],
+     "body": {
+      "font": "Noto Serif SC",
+      "size": 16,
+      "leading": 1.9,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 8.8
+     },
+     "measureChars": 53,
+     "max": {
+      "size": 42.9,
+      "vw": 11,
+      "font": "Newsreader",
+      "text": "渔场平面簿"
+     },
+     "monoShare": 0.18,
+     "monoProseShare": 0,
+     "monoFamilies": [
+      "Reddit Mono"
+     ],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.02,
+     "centerShare": 0,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#e7ebe9",
+     "bodyBgHsl": {
+      "h": 150,
+      "s": 0.09,
+      "l": 0.91
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#e7ebe9",
+       "top": 623,
+       "hsl": {
+        "h": 150,
+        "s": 0.09,
+        "l": 0.91
+       }
+      },
+      {
+       "color": "#22282b",
+       "top": 2993,
+       "hsl": {
+        "h": 200,
+        "s": 0.12,
+        "l": 0.15
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#3a3f45",
+       "share": 0.73
+      },
+      {
+       "color": "#4c5257",
+       "share": 0.15
+      },
+      {
+       "color": "#e7ebe9",
+       "share": 0.05
+      },
+      {
+       "color": "#c8cecc",
+       "share": 0.04
+      },
+      {
+       "color": "#dde2e0",
+       "share": 0.01
+      }
+     ],
+     "button": {
+      "bg": "#e7ebe9",
+      "hsl": {
+       "h": 150,
+       "s": 0.09,
+       "l": 0.91
+      },
+      "fg": "#22282b"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 5,
+     "inHero": 1,
+     "radius": 0,
+     "height": 48,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "放大到 1:200 的 B-3 区"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 7,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [
+     {
+      "type": "img",
+      "ratio": 0.2
+     }
+    ],
+    "nav": {
+     "links": 0,
+     "fixed": false,
+     "height": 1038,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "newsreader",
+     "noto serif sc",
+     "reddit mono"
+    ]
+   },
+   "consoleErrors": []
+  }
+ ],
+ "findings": [
+  {
+   "level": "WARN",
+   "id": "font-count",
+   "width": 1440,
+   "message": "3 typefaces in use (Noto Serif SC, Reddit Mono, Newsreader).",
+   "fix": "Two at most.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "no-footage",
+   "width": 1440,
+   "message": "No video anywhere on the page.",
+   "fix": "Look for one honest clip with scripts/assets.mjs --video (the place, the material, the process) and use it as a muted loop with a poster frame. Defend its absence only if no clip fits the subject."
+  },
+  {
+   "level": "WARN",
+   "id": "measure",
+   "width": 1440,
+   "message": "Longest paragraph runs about 107 characters per line.",
+   "fix": "Cap paragraphs at 45–75 characters (max-width: 60ch).",
+   "alsoAt": [
+    768
+   ]
+  }
+ ],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "D:\\Web\\style\\prototypes\\S15-fishery-floor-ledger\\.inspect\\desktop-fold.jpg",
+   "pages": [
+    "D:\\Web\\style\\prototypes\\S15-fishery-floor-ledger\\.inspect\\desktop-page-01.jpg",
+    "D:\\Web\\style\\prototypes\\S15-fishery-floor-ledger\\.inspect\\desktop-page-02.jpg",
+    "D:\\Web\\style\\prototypes\\S15-fishery-floor-ledger\\.inspect\\desktop-page-03.jpg"
+   ]
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "D:\\Web\\style\\prototypes\\S15-fishery-floor-ledger\\.inspect\\tablet-fold.jpg",
+   "pages": [
+    "D:\\Web\\style\\prototypes\\S15-fishery-floor-ledger\\.inspect\\tablet-page-01.jpg",
+    "D:\\Web\\style\\prototypes\\S15-fishery-floor-ledger\\.inspect\\tablet-page-02.jpg"
+   ]
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "D:\\Web\\style\\prototypes\\S15-fishery-floor-ledger\\.inspect\\mobile-fold.jpg",
+   "pages": [
+    "D:\\Web\\style\\prototypes\\S15-fishery-floor-ledger\\.inspect\\mobile-page-01.jpg",
+    "D:\\Web\\style\\prototypes\\S15-fishery-floor-ledger\\.inspect\\mobile-page-02.jpg"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,1628 @@
+{
+ "url": "prototypes/S19-copperplate-herbarium-cabinet/index.html",
+ "at": "2026-10-19T01:38:22.113Z",
+ "allow": [],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 12,
+   "filled": [
+    0.4,
+    0.83,
+    0.72,
+    1,
+    1,
+    1,
+    0.57,
+    1,
+    0.76,
+    0.43,
+    0.54,
+    0.48
+   ],
+   "motion": {
+    "elements": 78,
+    "css": 20,
+    "transitions": 58,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 10681,
+     "screens": 11.9,
+     "words": 905,
+     "img": 11,
+     "video": 0,
+     "canvas": 0,
+     "svg": 27,
+     "sections": 7,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 11,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "card-catalog-from-page-167-of-manual-of-librar.j",
+      "jean-feltgen-herbarium-sheet-phelipea-ramosa.jpg",
+      "reuse-s11-doc-02-carbon.jpg",
+      "reuse-s11-doc-05-typescript.jpg",
+      "reuse-s24-reuse-s19-jean-feltgen-herbarium-sheet",
+      "card-catalog-from-page-167-of-manual-of-librar.j",
+      "jean-feltgen-herbarium-sheet-phelipea-ramosa.jpg",
+      "reuse-s11-doc-02-carbon.jpg"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": []
+    },
+    "hero": {
+     "text": "铜版标本柜",
+     "words": 1,
+     "chars": 5,
+     "lines": 1,
+     "size": 72,
+     "vw": 5,
+     "font": "Noto Serif SC",
+     "weight": 700,
+     "tracking": 0.05,
+     "leading": 1.04,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "left",
+     "widthRatio": 0.46,
+     "top": 146,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "铜版标本柜",
+     "words": 1,
+     "lines": 1,
+     "size": 72,
+     "font": "Noto Serif SC"
+    },
+    "headings": [
+     {
+      "text": "铜版标本柜",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 72,
+      "vw": 5,
+      "font": "Noto Serif SC",
+      "weight": 700,
+      "tracking": 0.05,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.46,
+      "top": 146,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "20 个抽屉与三级检索号",
+      "words": 2,
+      "chars": 12,
+      "lines": 1,
+      "size": 34,
+      "vw": 2.4,
+      "font": "Noto Serif SC",
+      "weight": 700,
+      "tracking": 0.04,
+      "leading": 1.18,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 1,
+      "top": 657,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "抽出的四张卡",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 34,
+      "vw": 2.4,
+      "font": "Noto Serif SC",
+      "weight": 700,
+      "tracking": 0.04,
+      "leading": 1.18,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 1,
+      "top": 2420,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "检索号 K-07-113 不在本柜",
+      "words": 3,
+      "chars": 17,
+      "lines": 1,
+      "size": 34,
+      "vw": 2.4,
+      "font": "Noto Serif SC",
+      "weight": 700,
+      "tracking": 0.04,
+      "leading": 1.18,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 1,
+      "top": 5521,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "六张参照图版",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 34,
+      "vw": 2.4,
+      "font": "Noto Serif SC",
+      "weight": 700,
+      "tracking": 0.04,
+      "leading": 1.18,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 1,
+      "top": 6099,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "检索号的三处一致",
+      "words": 1,
+      "chars": 8,
+      "lines": 1,
+      "size": 34,
+      "vw": 2.4,
+      "font": "Noto Serif SC",
+      "weight": 700,
+      "tracking": 0.04,
+      "leading": 1.18,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 7967,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "可发现性通路",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 34,
+      "vw": 2.4,
+      "font": "Noto Serif SC",
+      "weight": 700,
+      "tracking": 0.04,
+      "leading": 1.18,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 8572,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "动效与降级",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 34,
+      "vw": 2.4,
+      "font": "Noto Serif SC",
+      "weight": 700,
+      "tracking": 0.04,
+      "leading": 1.18,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 9395,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 8,
+     "maxLines": 1,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": 1,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Noto Serif SC",
+       "share": 0.87,
+       "mono": false
+      },
+      {
+       "family": "IBM Plex Mono",
+       "share": 0.11,
+       "mono": true
+      },
+      {
+       "family": "Spectral",
+       "share": 0.02,
+       "mono": false
+      }
+     ],
+     "familyCount": 3,
+     "sizes": [
+      13,
+      15,
+      16,
+      17,
+      22,
+      26,
+      34,
+      72
+     ],
+     "sizeCount": 8,
+     "notLoaded": [],
+     "body": {
+      "font": "Noto Serif SC",
+      "size": 16,
+      "leading": 1.75,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 11.4
+     },
+     "measureChars": 78,
+     "max": {
+      "size": 72,
+      "vw": 5,
+      "font": "Noto Serif SC",
+      "text": "铜版标本柜"
+     },
+     "monoShare": 0.11,
+     "monoProseShare": 0,
+     "monoFamilies": [
+      "IBM Plex Mono"
+     ],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.01,
+     "centerShare": 0,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#e4decd",
+     "bodyBgHsl": {
+      "h": 44,
+      "s": 0.3,
+      "l": 0.85
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#2a241c",
+       "top": 2342,
+       "hsl": {
+        "h": 34,
+        "s": 0.2,
+        "l": 0.14
+       }
+      },
+      {
+       "color": "#e9e3d2",
+       "top": 2568,
+       "hsl": {
+        "h": 44,
+        "s": 0.34,
+        "l": 0.87
+       }
+      },
+      {
+       "color": "#4a5c3a",
+       "top": 2750,
+       "hsl": {
+        "h": 92,
+        "s": 0.23,
+        "l": 0.29
+       }
+      },
+      {
+       "color": "#d8cfb6",
+       "top": 3823,
+       "hsl": {
+        "h": 44,
+        "s": 0.3,
+        "l": 0.78
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#2a241c",
+       "share": 0.46
+      },
+      {
+       "color": "#d8cfb6",
+       "share": 0.16
+      },
+      {
+       "color": "#5e5443",
+       "share": 0.15
+      },
+      {
+       "color": "#a79c82",
+       "share": 0.07
+      },
+      {
+       "color": "#4a5c3a",
+       "share": 0.07
+      }
+     ],
+     "button": {
+      "bg": "#4a5c3a",
+      "hsl": {
+       "h": 92,
+       "s": 0.23,
+       "l": 0.29
+      },
+      "fg": "#e4decd"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 2,
+     "inHero": 1,
+     "radius": 0,
+     "height": 48,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "抽出第 7 抽屉，查看 112 号卡"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 11,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [
+     {
+      "type": "img",
+      "ratio": 0.12
+     }
+    ],
+    "nav": {
+     "links": 0,
+     "fixed": false,
+     "height": 553,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "noto serif sc",
+     "spectral",
+     "ibm plex mono"
+    ]
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 12,
+   "filled": [
+    0.6,
+    0.74,
+    0.8,
+    0.81,
+    0.89,
+    1,
+    1,
+    1,
+    1,
+    0.78,
+    0.87,
+    1
+   ],
+   "motion": {
+    "elements": 20,
+    "css": 20,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 15881,
+     "screens": 15.5,
+     "words": 880,
+     "img": 11,
+     "video": 0,
+     "canvas": 0,
+     "svg": 27,
+     "sections": 7,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 11,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "card-catalog-from-page-167-of-manual-of-librar.j",
+      "jean-feltgen-herbarium-sheet-phelipea-ramosa.jpg",
+      "reuse-s11-doc-02-carbon.jpg",
+      "reuse-s11-doc-05-typescript.jpg",
+      "reuse-s24-reuse-s19-jean-feltgen-herbarium-sheet",
+      "card-catalog-from-page-167-of-manual-of-librar.j",
+      "jean-feltgen-herbarium-sheet-phelipea-ramosa.jpg",
+      "reuse-s11-doc-02-carbon.jpg"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": []
+    },
+    "hero": {
+     "text": "铜版标本柜",
+     "words": 1,
+     "chars": 5,
+     "lines": 1,
+     "size": 56.8,
+     "vw": 7.4,
+     "font": "Noto Serif SC",
+     "weight": 700,
+     "tracking": 0.05,
+     "leading": 1.04,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 0.94,
+     "top": 128,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "铜版标本柜",
+     "words": 1,
+     "lines": 1,
+     "size": 56.8,
+     "font": "Noto Serif SC"
+    },
+    "headings": [
+     {
+      "text": "铜版标本柜",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 56.8,
+      "vw": 7.4,
+      "font": "Noto Serif SC",
+      "weight": 700,
+      "tracking": 0.05,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.94,
+      "top": 128,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "20 个抽屉与三级检索号",
+      "words": 2,
+      "chars": 12,
+      "lines": 1,
+      "size": 28,
+      "vw": 3.6,
+      "font": "Noto Serif SC",
+      "weight": 700,
+      "tracking": 0.04,
+      "leading": 1.18,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 1,
+      "top": 1045,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "抽出的四张卡",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 28,
+      "vw": 3.6,
+      "font": "Noto Serif SC",
+      "weight": 700,
+      "tracking": 0.04,
+      "leading": 1.18,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 1,
+      "top": 4637,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "检索号 K-07-113 不在本柜",
+      "words": 3,
+      "chars": 17,
+      "lines": 1,
+      "size": 28,
+      "vw": 3.6,
+      "font": "Noto Serif SC",
+      "weight": 700,
+      "tracking": 0.04,
+      "leading": 1.18,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 1,
+      "top": 9889,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "六张参照图版",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 28,
+      "vw": 3.6,
+      "font": "Noto Serif SC",
+      "weight": 700,
+      "tracking": 0.04,
+      "leading": 1.18,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 1,
+      "top": 10610,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "检索号的三处一致",
+      "words": 1,
+      "chars": 8,
+      "lines": 1,
+      "size": 28,
+      "vw": 3.6,
+      "font": "Noto Serif SC",
+      "weight": 700,
+      "tracking": 0.04,
+      "leading": 1.18,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.94,
+      "top": 12758,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "可发现性通路",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 28,
+      "vw": 3.6,
+      "font": "Noto Serif SC",
+      "weight": 700,
+      "tracking": 0.04,
+      "leading": 1.18,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.94,
+      "top": 13334,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "动效与降级",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 28,
+      "vw": 3.6,
+      "font": "Noto Serif SC",
+      "weight": 700,
+      "tracking": 0.04,
+      "leading": 1.18,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.94,
+      "top": 14189,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 8,
+     "maxLines": 1,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": 1,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Noto Serif SC",
+       "share": 0.87,
+       "mono": false
+      },
+      {
+       "family": "IBM Plex Mono",
+       "share": 0.11,
+       "mono": true
+      },
+      {
+       "family": "Spectral",
+       "share": 0.02,
+       "mono": false
+      }
+     ],
+     "familyCount": 3,
+     "sizes": [
+      13,
+      15,
+      16,
+      17,
+      22,
+      26,
+      28,
+      57
+     ],
+     "sizeCount": 8,
+     "notLoaded": [],
+     "body": {
+      "font": "Noto Serif SC",
+      "size": 16,
+      "leading": 1.75,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 11.4
+     },
+     "measureChars": 78,
+     "max": {
+      "size": 56.8,
+      "vw": 7.4,
+      "font": "Noto Serif SC",
+      "text": "铜版标本柜"
+     },
+     "monoShare": 0.11,
+     "monoProseShare": 0,
+     "monoFamilies": [
+      "IBM Plex Mono"
+     ],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.01,
+     "centerShare": 0,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#e4decd",
+     "bodyBgHsl": {
+      "h": 44,
+      "s": 0.3,
+      "l": 0.85
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#2a241c",
+       "top": 507,
+       "hsl": {
+        "h": 34,
+        "s": 0.2,
+        "l": 0.14
+       }
+      },
+      {
+       "color": "#e9e3d2",
+       "top": 4807,
+       "hsl": {
+        "h": 44,
+        "s": 0.34,
+        "l": 0.87
+       }
+      },
+      {
+       "color": "#4a5c3a",
+       "top": 4989,
+       "hsl": {
+        "h": 92,
+        "s": 0.23,
+        "l": 0.29
+       }
+      },
+      {
+       "color": "#d8cfb6",
+       "top": 8565,
+       "hsl": {
+        "h": 44,
+        "s": 0.3,
+        "l": 0.78
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#2a241c",
+       "share": 0.47
+      },
+      {
+       "color": "#d8cfb6",
+       "share": 0.16
+      },
+      {
+       "color": "#5e5443",
+       "share": 0.16
+      },
+      {
+       "color": "#a79c82",
+       "share": 0.07
+      },
+      {
+       "color": "#4a5c3a",
+       "share": 0.07
+      }
+     ],
+     "button": {
+      "bg": "#4a5c3a",
+      "hsl": {
+       "h": 92,
+       "s": 0.23,
+       "l": 0.29
+      },
+      "fg": "#e4decd"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 2,
+     "inHero": 1,
+     "radius": 0,
+     "height": 48,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "抽出第 7 抽屉，查看 112 号卡"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 11,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [
+     {
+      "type": "img",
+      "ratio": 0.31
+     }
+    ],
+    "nav": {
+     "links": 0,
+     "fixed": false,
+     "height": 953,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "noto serif sc",
+     "spectral",
+     "ibm plex mono"
+    ]
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 12,
+   "filled": [
+    0.71,
+    0.74,
+    0.83,
+    0.77,
+    0.86,
+    0.69,
+    1,
+    1,
+    1,
+    1,
+    0.69,
+    0.93
+   ],
+   "motion": {
+    "elements": 20,
+    "css": 20,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "page": {
+     "height": 16992,
+     "screens": 20.1,
+     "words": 866,
+     "img": 11,
+     "video": 0,
+     "canvas": 0,
+     "svg": 27,
+     "sections": 7,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 11,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "card-catalog-from-page-167-of-manual-of-librar.j",
+      "jean-feltgen-herbarium-sheet-phelipea-ramosa.jpg",
+      "reuse-s11-doc-02-carbon.jpg",
+      "reuse-s11-doc-05-typescript.jpg",
+      "reuse-s24-reuse-s19-jean-feltgen-herbarium-sheet",
+      "card-catalog-from-page-167-of-manual-of-librar.j",
+      "jean-feltgen-herbarium-sheet-phelipea-ramosa.jpg",
+      "reuse-s11-doc-02-carbon.jpg"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": []
+    },
+    "hero": {
+     "text": "铜版标本柜",
+     "words": 1,
+     "chars": 5,
+     "lines": 1,
+     "size": 44.5,
+     "vw": 11.4,
+     "font": "Noto Serif SC",
+     "weight": 700,
+     "tracking": 0.05,
+     "leading": 1.04,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 0.88,
+     "top": 104,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "铜版标本柜",
+     "words": 1,
+     "lines": 1,
+     "size": 44.5,
+     "font": "Noto Serif SC"
+    },
+    "headings": [
+     {
+      "text": "铜版标本柜",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 44.5,
+      "vw": 11.4,
+      "font": "Noto Serif SC",
+      "weight": 700,
+      "tracking": 0.05,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.88,
+      "top": 104,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "20 个抽屉与三级检索号",
+      "words": 2,
+      "chars": 12,
+      "lines": 1,
+      "size": 28,
+      "vw": 7.2,
+      "font": "Noto Serif SC",
+      "weight": 700,
+      "tracking": 0.04,
+      "leading": 1.18,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 1,
+      "top": 1012,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "抽出的四张卡",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 28,
+      "vw": 7.2,
+      "font": "Noto Serif SC",
+      "weight": 700,
+      "tracking": 0.04,
+      "leading": 1.18,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 1,
+      "top": 4822,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "欧洲赤松",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 22,
+      "vw": 5.6,
+      "font": "Noto Serif SC",
+      "weight": 700,
+      "tracking": 0.04,
+      "leading": 1.28,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.79,
+      "top": 5129,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "欧活血丹",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 22,
+      "vw": 5.6,
+      "font": "Noto Serif SC",
+      "weight": 700,
+      "tracking": 0.04,
+      "leading": 1.28,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.79,
+      "top": 5982,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "欧夏枯草",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 22,
+      "vw": 5.6,
+      "font": "Noto Serif SC",
+      "weight": 700,
+      "tracking": 0.04,
+      "leading": 1.28,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.79,
+      "top": 6769,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "欧洲赤松同号复份",
+      "words": 1,
+      "chars": 8,
+      "lines": 1,
+      "size": 22,
+      "vw": 5.6,
+      "font": "Noto Serif SC",
+      "weight": 700,
+      "tracking": 0.04,
+      "leading": 1.28,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.79,
+      "top": 7653,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "检索号 K-07-113 不在本柜",
+      "words": 3,
+      "chars": 17,
+      "lines": 2,
+      "size": 28,
+      "vw": 7.2,
+      "font": "Noto Serif SC",
+      "weight": 700,
+      "tracking": 0.04,
+      "leading": 1.18,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 1,
+      "top": 8518,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "六张参照图版",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 28,
+      "vw": 7.2,
+      "font": "Noto Serif SC",
+      "weight": 700,
+      "tracking": 0.04,
+      "leading": 1.18,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 1,
+      "top": 9438,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "检索号的三处一致",
+      "words": 1,
+      "chars": 8,
+      "lines": 1,
+      "size": 28,
+      "vw": 7.2,
+      "font": "Noto Serif SC",
+      "weight": 700,
+      "tracking": 0.04,
+      "leading": 1.18,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.88,
+      "top": 13011,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "可发现性通路",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 28,
+      "vw": 7.2,
+      "font": "Noto Serif SC",
+      "weight": 700,
+      "tracking": 0.04,
+      "leading": 1.18,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.88,
+      "top": 13619,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "三段检索号",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 22,
+      "vw": 5.6,
+      "font": "Noto Serif SC",
+      "weight": 700,
+      "tracking": 0.04,
+      "leading": 1.28,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.88,
+      "top": 13740,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "编号即 Tab 顺序",
+      "words": 3,
+      "chars": 10,
+      "lines": 1,
+      "size": 22,
+      "vw": 5.6,
+      "font": "Noto Serif SC",
+      "weight": 700,
+      "tracking": 0.04,
+      "leading": 1.28,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.88,
+      "top": 13876,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "不等宽是档案的痕迹",
+      "words": 1,
+      "chars": 9,
+      "lines": 1,
+      "size": 22,
+      "vw": 5.6,
+      "font": "Noto Serif SC",
+      "weight": 700,
+      "tracking": 0.04,
+      "leading": 1.28,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.88,
+      "top": 14012,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "抽拉与悬停的读数",
+      "words": 1,
+      "chars": 8,
+      "lines": 1,
+      "size": 22,
+      "vw": 5.6,
+      "font": "Noto Serif SC",
+      "weight": 700,
+      "tracking": 0.04,
+      "leading": 1.28,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.88,
+      "top": 14177,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "动效与降级",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 28,
+      "vw": 7.2,
+      "font": "Noto Serif SC",
+      "weight": 700,
+      "tracking": 0.04,
+      "leading": 1.18,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.88,
+      "top": 14785,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 16,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": 1,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Noto Serif SC",
+       "share": 0.87,
+       "mono": false
+      },
+      {
+       "family": "IBM Plex Mono",
+       "share": 0.11,
+       "mono": true
+      },
+      {
+       "family": "Spectral",
+       "share": 0.02,
+       "mono": false
+      }
+     ],
+     "familyCount": 3,
+     "sizes": [
+      13,
+      15,
+      16,
+      17,
+      22,
+      28,
+      45
+     ],
+     "sizeCount": 7,
+     "notLoaded": [],
+     "body": {
+      "font": "Noto Serif SC",
+      "size": 16,
+      "leading": 1.75,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 11.4
+     },
+     "measureChars": 46,
+     "max": {
+      "size": 44.5,
+      "vw": 11.4,
+      "font": "Noto Serif SC",
+      "text": "铜版标本柜"
+     },
+     "monoShare": 0.11,
+     "monoProseShare": 0,
+     "monoFamilies": [
+      "IBM Plex Mono"
+     ],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.01,
+     "centerShare": 0,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#e4decd",
+     "bodyBgHsl": {
+      "h": 44,
+      "s": 0.3,
+      "l": 0.85
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#2a241c",
+       "top": 4758,
+       "hsl": {
+        "h": 34,
+        "s": 0.2,
+        "l": 0.14
+       }
+      },
+      {
+       "color": "#e9e3d2",
+       "top": 5079,
+       "hsl": {
+        "h": 44,
+        "s": 0.34,
+        "l": 0.87
+       }
+      },
+      {
+       "color": "#4a5c3a",
+       "top": 5288,
+       "hsl": {
+        "h": 92,
+        "s": 0.23,
+        "l": 0.29
+       }
+      },
+      {
+       "color": "#d8cfb6",
+       "top": 7603,
+       "hsl": {
+        "h": 44,
+        "s": 0.3,
+        "l": 0.78
+       }
+      },
+      {
+       "color": "#24201a",
+       "top": 9960,
+       "hsl": {
+        "h": 36,
+        "s": 0.16,
+        "l": 0.12
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#2a241c",
+       "share": 0.48
+      },
+      {
+       "color": "#d8cfb6",
+       "share": 0.17
+      },
+      {
+       "color": "#5e5443",
+       "share": 0.16
+      },
+      {
+       "color": "#a79c82",
+       "share": 0.07
+      },
+      {
+       "color": "#e4decd",
+       "share": 0.06
+      }
+     ],
+     "button": {
+      "bg": "#4a5c3a",
+      "hsl": {
+       "h": 92,
+       "s": 0.23,
+       "l": 0.29
+      },
+      "fg": "#e4decd"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 2,
+     "inHero": 1,
+     "radius": 0,
+     "height": 48,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "抽出第 7 抽屉，查看 112 号卡"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 11,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [
+     {
+      "type": "img",
+      "ratio": 0.17
+     }
+    ],
+    "nav": {
+     "links": 0,
+     "fixed": false,
+     "height": 920,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "noto serif sc",
+     "spectral",
+     "ibm plex mono"
+    ]
+   },
+   "consoleErrors": []
+  }
+ ],
+ "findings": [
+  {
+   "level": "WARN",
+   "id": "font-count",
+   "width": 1440,
+   "message": "3 typefaces in use (Noto Serif SC, IBM Plex Mono, Spectral).",
+   "fix": "Two at most.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "no-footage",
+   "width": 1440,
+   "message": "No video anywhere on the page.",
+   "fix": "Look for one honest clip with scripts/assets.mjs --video (the place, the material, the process) and use it as a muted loop with a poster frame. Defend its absence only if no clip fits the subject."
+  }
+ ],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "D:\\Web\\style\\prototypes\\S19-copperplate-herbarium-cabinet\\.inspect\\desktop-fold.jpg",
+   "pages": [
+    "D:\\Web\\style\\prototypes\\S19-copperplate-herbarium-cabinet\\.inspect\\desktop-page-01.jpg",
+    "D:\\Web\\style\\prototypes\\S19-copperplate-herbarium-cabinet\\.inspect\\desktop-page-02.jpg",
+    "D:\\Web\\style\\prototypes\\S19-copperplate-herbarium-cabinet\\.inspect\\desktop-page-03.jpg"
+   ]
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "D:\\Web\\style\\prototypes\\S19-copperplate-herbarium-cabinet\\.inspect\\tablet-fold.jpg",
+   "pages": [
+    "D:\\Web\\style\\prototypes\\S19-copperplate-herbarium-cabinet\\.inspect\\tablet-page-01.jpg",
+    "D:\\Web\\style\\prototypes\\S19-copperplate-herbarium-cabinet\\.inspect\\tablet-page-02.jpg"
+   ]
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "D:\\Web\\style\\prototypes\\S19-copperplate-herbarium-cabinet\\.inspect\\mobile-fold.jpg",
+   "pages": [
+    "D:\\Web\\style\\prototypes\\S19-copperplate-herbarium-cabinet\\.inspect\\mobile-page-01.jpg",
+    "D:\\Web\\style\\prototypes\\S19-copperplate-herbarium-cabinet\\.inspect\\mobile-page-02.jpg"
+   ]
+  }
+ ]
+}

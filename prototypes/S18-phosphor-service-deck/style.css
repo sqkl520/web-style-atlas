@@ -1,0 +1,400 @@
+@charset "utf-8";
+/* S18 磷光检修台 Phosphor Service Deck
+   机房暗底 #0A0D0A 70% ｜ 磷光绿 #2FA84F 18%（对底 6.36:1）｜ 连续纸色 #C8C4AE 9%（对底 11.13:1）
+   牛皮纸牌色 #6E6350 3%（作填充时文字只用 #C8C4AE 且 ≥24px，3.36:1）
+   主色作填充时白字只有 3.07:1，不达标 —— 按钮字色一律 #111111（实测 6.15:1）。
+   全站没有一个渐变函数：折页压痕、边孔、扫描线全部是位图或 data: URI 的 SVG 图样。
+   整页纹理挂 .sheet::before（fixed 伪元素），body 保持纯色（契约 §9.2、§9.16）。 */
+
+:root{
+  --bay:#0A0D0A;        /* 机房暗底，L 2.5%，脏色，情绪幽冷；深色底只允许这一个值 */
+  --phos:#2FA84F;       /* 磷光绿 135.9°／56.3%；对底 6.36:1，与 #111111 是 6.15:1 */
+  --phos-deep:#278F43;  /* 悬停一档，对 #111111 仍有 4.58:1 */
+  --paper:#C8C4AE;      /* 连续纸色，饱和 19.1%，脏色；对底 11.13:1 */
+  --tag:#6E6350;        /* 牛皮纸牌，饱和 11%，脏色；占全站 3% */
+  --ink:#111111;        /* 填充色块上的深色文字，唯一合法值 */
+  --base:8px;           /* 栅格基线 */
+  --line:24px;          /* 行高 = 3 个基线单位 */
+  --pitch:12px;         /* 边孔孔距 */
+  --rail:8px;           /* 喂纸边孔带宽（<1024px 收窄到 5px） */
+  --measure:36em;
+  --wire:'Glow Sans SC','Songti SC',Georgia,'Times New Roman',serif;
+  --term:'VT323','Glow Sans SC',monospace;
+  --mono:'Martian Mono','Courier New',monospace;
+  /* 边孔：孔径 3px ＋ 孔内 0.5px 单向下阴影（纸被齿轮拽过的痕迹）。桌面档 8px 带宽 */
+  --hole8:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjEyIiB2aWV3Qm94PSIwIDAgOCAxMiI+PHJlY3QgeD0iMi41IiB5PSIyLjUiIHdpZHRoPSIzIiBoZWlnaHQ9IjMiIGZpbGw9IiMwQTBEMEEiLz48cmVjdCB4PSIyLjUiIHk9IjUuNSIgd2lkdGg9IjMiIGhlaWdodD0iMC41IiBmaWxsPSIjMDAwMDAwIiBmaWxsLW9wYWNpdHk9IjAuNTUiLz48L3N2Zz4=");
+  --hole5:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1IiBoZWlnaHQ9IjEyIiB2aWV3Qm94PSIwIDAgNSAxMiI+PHJlY3QgeD0iMSIgeT0iMi41IiB3aWR0aD0iMyIgaGVpZ2h0PSIzIiBmaWxsPSIjMEEwRDBBIi8+PHJlY3QgeD0iMSIgeT0iNS41IiB3aWR0aD0iMyIgaGVpZ2h0PSIwLjUiIGZpbGw9IiMwMDAwMDAiIGZpbGwtb3BhY2l0eT0iMC41NSIvPjwvc3ZnPg==");
+  --hole5b:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1IiBoZWlnaHQ9IjEyIiB2aWV3Qm94PSIwIDAgNSAxMiI+PHJlY3QgeD0iMC41IiB5PSIyLjUiIHdpZHRoPSI0IiBoZWlnaHQ9IjQiIGZpbGw9IiMwQTBEMEEiLz48cmVjdCB4PSIwLjUiIHk9IjYuNSIgd2lkdGg9IjQiIGhlaWdodD0iMC41IiBmaWxsPSIjMDAwMDAwIiBmaWxsLW9wYWNpdHk9IjAuNTUiLz48L3N2Zz4=");
+  /* 折页压痕：1px 固定行线，压痕两侧墨色淡 6%，每 20 行一道 */
+  --crease:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNDAiIGhlaWdodD0iMTIiIHZpZXdCb3g9IjAgMCAyNDAgMTIiPjxyZWN0IHk9IjAiIHdpZHRoPSIyNDAiIGhlaWdodD0iNSIgZmlsbD0iI0M4QzRBRSIgZmlsbC1vcGFjaXR5PSIwLjA2Ii8+PHJlY3QgeT0iNSIgd2lkdGg9IjI0MCIgaGVpZ2h0PSIxIiBmaWxsPSIjQzhDNEFFIiBmaWxsLW9wYWNpdHk9IjAuNDIiLz48cmVjdCB5PSI2IiB3aWR0aD0iMjQwIiBoZWlnaHQ9IjYiIGZpbGw9IiNDOEM0QUUiIGZpbGwtb3BhY2l0eT0iMC4wNiIvPjwvc3ZnPg==");
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{background:var(--bay)}
+body{
+  margin:0;padding:64px 0 96px;
+  background:var(--bay);color:var(--paper);
+  font-family:var(--wire);font-size:16px;line-height:1.8;letter-spacing:.01em;
+}
+img{display:block;max-width:100%;height:auto}
+h1,h2,h3{font-family:var(--wire);font-weight:500;font-synthesis-weight:none;line-height:1.12;margin:0;letter-spacing:-.008em;text-wrap:balance;color:var(--paper)}
+h1{font-size:clamp(36px,5.3vw,76px)}
+h2{font-size:clamp(26px,2.8vw,40px)}
+h3{font-size:22px;letter-spacing:0}
+p,li,figcaption{max-width:var(--measure)}
+p{margin:0 0 16px}
+p:last-child{margin-bottom:0}
+ul{margin:0;padding:0;list-style:none}
+b{font-weight:500}
+code{font-family:var(--mono);font-stretch:75%;font-size:14px;letter-spacing:0;font-variant-numeric:tabular-nums;color:inherit}
+a{color:inherit;text-decoration:underline;text-decoration-color:var(--phos);text-underline-offset:3px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--phos);outline-offset:2px}
+table{border-collapse:collapse;width:100%}
+/* 分区里的文字色一律 inherit，不靠继承来的纸色：纸白分区里的后代若还挂着暗底用的纸色，
+   就是 #C8C4AE 画在 #C8C4AE 上（契约 §9.4 的隐藏对比度陷阱，实测报过 1:1）。 */
+caption{text-align:left;font-size:14px;line-height:1.7;color:inherit;opacity:.86;padding-bottom:14px;max-width:40em}
+
+/* ── 整页纹理：只挂伪元素，body 保持纯色 ── */
+.sheet{position:relative}
+.sheet::before{
+  content:'';position:fixed;inset:0;z-index:5;pointer-events:none;
+  background-image:url('assets/texture-phosphor-grain.png');
+  background-size:256px 256px;background-repeat:repeat;
+  opacity:.5;
+}
+
+/* ── 喂纸边孔：整条纸的两个边缘，孔距 12px、孔径 3px、孔内 0.5px 单向下阴影 ── */
+.rail{
+  position:absolute;top:0;bottom:0;width:var(--rail);z-index:2;pointer-events:none;
+  background-color:var(--paper);
+  background-image:var(--hole8);
+  background-size:var(--rail) var(--pitch);
+  background-repeat:repeat-y;
+  background-position-y:calc(-1 * var(--tug,0px));
+  transition:transform 200ms steps(4,end);
+}
+.rail--l{left:0}
+.rail--r{right:0}
+
+/* ── 常驻走纸状态条：fixed、高 44px，落在工具给顶部贴条的豁免区内 ── */
+.feedbar{
+  position:fixed;inset:0 0 auto 0;z-index:8;
+  display:flex;flex-wrap:wrap;gap:2px 26px;align-items:baseline;
+  padding:10px 32px 12px;background:var(--bay);
+  font-size:14px;line-height:1.5;
+}
+.feedbar::after{content:'';position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--phos)}
+.fb{margin:0;max-width:none}
+.fb__k{color:var(--paper);opacity:.82}
+.fb--fault code{color:var(--phos)}
+.fb__to{opacity:.82}
+
+/* ── 按钮：填充 #2FA84F、字色 #111111（6.15:1）── */
+.btn{
+  display:inline-block;height:48px;padding:0 20px;border:0;border-radius:0;
+  background:var(--phos);color:var(--ink);
+  font-family:var(--wire);font-size:16px;line-height:48px;letter-spacing:.01em;
+  text-decoration:none;cursor:pointer;
+}
+.btn:hover{background:var(--phos-deep)}
+.btn code{color:var(--ink)}
+.btn--paper{background:var(--paper);color:var(--ink);height:44px;line-height:44px}
+.btn--paper:hover{background:#B9B59E}
+.btn[disabled]{opacity:.7;cursor:default}
+
+/* ── 照片落纸：灰度 → 反差 → 扫描线方向的行向颗粒，只有两个色阶 ── */
+.plate{margin:32px 0 0;max-width:640px}
+.frame{position:relative;display:block;background:var(--bay);padding:3px}
+.frame img{width:100%;filter:grayscale(1) contrast(1.45) brightness(.94)}
+.frame::after{
+  content:'';position:absolute;inset:3px;pointer-events:none;
+  background-image:url('assets/texture-scanline.png');
+  background-size:8px 8px;background-repeat:repeat;
+  mix-blend-mode:multiply;opacity:.5;
+}
+.plate__cap{margin:12px 0 0;font-size:14px;line-height:1.75;max-width:40em;color:inherit}
+.ref{display:block;margin-top:6px;opacity:.78}
+.ref a{text-decoration-color:var(--paper)}
+
+/* ── 回执牌：牛皮纸 24×12 的牌面逻辑，桌面档放到 76×40 ── */
+.hang{position:relative;display:flex;align-items:flex-start}
+/* 只有悬挂区里的牌是绝对定位的（按 --at 挂在对应回执行的右侧）；纸头那一张走正常流 */
+.hangrail .hang{position:absolute;left:0;top:calc(var(--at,0) * var(--line) + var(--line) + 2px)}
+.hang__cord{width:1px;height:18px;background:var(--paper);opacity:.45;transform-origin:50% 0}
+.hang__link{width:6px;height:1px;margin-top:18px;background:var(--paper);opacity:.45}
+.tag{
+  position:relative;display:inline-flex;align-items:center;gap:1px;height:40px;padding:0 10px;
+  background:var(--tag);color:var(--paper);
+}
+.tag::before{content:'';position:absolute;left:5px;top:5px;width:2px;height:2px;background:var(--bay);opacity:.75}
+.tag--off{opacity:.62}
+.tag__d{font-size:30px;line-height:1;letter-spacing:0}
+.tag__h{width:17px;height:24px;flex:0 0 auto;stroke:var(--paper);fill:none}
+.tag__h use{stroke:inherit}
+.mast__hang .tag{height:44px}
+.mast__hang .tag__d{font-size:30px}
+.hang--live .tag{animation:tag-sway 240ms ease-out 1 both}
+@keyframes tag-sway{from{transform:rotate(6deg)}to{transform:rotate(0)}}
+/* 悬停：牌绕挂绳摆 6° 并回位，240ms，无过冲 */
+.hang:hover .tag{transform:rotate(6deg);transition:transform 240ms ease-out}
+.hang:hover .hang__cord{transform:rotate(6deg);transition:transform 240ms ease-out}
+.hanghead{margin:0 0 18px;font-size:14px;line-height:1.7;max-width:30em;color:inherit}
+.hangnote{margin:22px 0 0;font-size:14px;line-height:1.7;max-width:30em;color:inherit;opacity:.86}
+
+/* ── 首屏 ── */
+.mast{padding:72px 4% 88px}
+.mast__grid{display:grid;grid-template-columns:56% 34%;gap:0 6%;max-width:1400px;margin:0 auto;align-items:start}
+.mast__col{padding-left:12%}
+.mast__hang{position:relative;padding-top:6px}
+.claim{font-size:22px;line-height:1.5;font-weight:500;margin:22px 0 0;max-width:26em}
+.cue{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin:26px 0 0;max-width:none}
+.hint{font-size:14px;line-height:1.6;color:inherit;opacity:.86;max-width:22em}
+.nameplate{margin:26px 0 0;font-size:22px;line-height:1.3}
+.nameplate code{font-family:var(--term);font-stretch:normal;font-size:22px;color:var(--phos);margin-right:14px}
+.meta{margin:22px 0 0;max-width:34em}
+.meta code{font-size:14px}
+.plate--lead{max-width:100%}
+
+/* ── 第 1 段：连续纸与命令流 ── */
+.stream{padding:112px 0 96px}
+.stream__head{max-width:1400px;margin:0 auto 48px;padding:0 4%}
+.stream__head h2{margin-bottom:16px}
+.lede{font-size:16px;line-height:1.85;max-width:34em;margin:0;color:inherit}
+.stream__grid{position:relative;display:grid;grid-template-columns:12% 54% 34%;max-width:1440px;margin:0 auto}
+.stream__col{grid-column:2}
+.blk + .blk{margin-top:var(--line)}
+.lines{
+  margin:0;white-space:pre-wrap;overflow-wrap:anywhere;
+  font-family:var(--term);font-size:17px;line-height:var(--line);letter-spacing:0;
+  color:var(--phos);
+}
+.ln{display:inline-block;position:relative}
+.ln b{font-weight:400;color:var(--paper)}
+.ln.is-sent{transform:translateX(3px)}
+.ln.is-sent::before{content:'';position:absolute;left:-5px;top:3px;bottom:3px;width:1px;background:var(--paper)}
+.fold{display:block;height:12px;background-image:var(--crease);background-repeat:repeat-x;background-size:240px 12px;transition:transform 200ms steps(4,end)}
+.stream__foot{margin:40px 0 0;padding-top:24px;font-size:14px;line-height:1.7;max-width:34em;color:inherit;opacity:.86}
+.stream__foot code{font-size:14px}
+.hangrail{grid-column:3;position:relative;padding-left:28px}
+.plate--wide{margin-top:calc(var(--line) * 22);max-width:100%}
+
+/* 行尾光标：8×14px 实心块，530ms 方波（半周期 530ms、全周期 1060ms） */
+.cu{display:inline-block;width:8px;height:14px;margin-left:8px;background:var(--phos);vertical-align:-2px;animation:cu-blink 1060ms steps(1,end) infinite}
+@keyframes cu-blink{0%,49.9%{opacity:1}50%,100%{opacity:0}}
+
+/* ── 第 2 段：纸白带（连续纸色 #C8C4AE 的地面） ── */
+.band{position:relative;padding:112px 0 96px;background:var(--paper);color:var(--bay)}
+.band::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:url('assets/texture-schematic-grid.png');
+  background-size:128px 128px;background-repeat:repeat;opacity:.45;
+}
+.band__in{position:relative;max-width:1400px;margin:0 auto;padding:0 4%}
+.band h2{margin-bottom:20px;color:var(--bay)}
+.band h3{margin:0 0 12px;color:var(--bay)}
+.band .body{color:var(--bay)}
+.band code{font-size:14px}
+.body{font-size:16px;line-height:1.85;max-width:36em;margin:0 0 18px;color:inherit}
+.folds{margin:40px 0 8px;max-width:1100px}
+.folds th,.folds td{text-align:left;vertical-align:top;padding:12px 18px 14px 0;border-bottom:1px solid rgba(10,13,10,.24);font-weight:400;font-size:14px;line-height:1.7;color:var(--bay)}
+.folds thead th{font-size:14px;opacity:.8}
+.folds th{white-space:nowrap}
+.band__split{display:grid;grid-template-columns:42% 50%;gap:0 8%;align-items:start;margin-top:48px}
+.plate--print{margin:0;max-width:100%}
+.plate--print .frame{background:var(--bay)}
+.band__notes p{margin-bottom:16px}
+.plate--print + .band__notes{margin-top:0}
+
+/* ── 第 3 段：挂牌制度（暗底 ＋ 牛皮纸带） ── */
+.tags{padding:112px 0 96px}
+.tags__in{max-width:1400px;margin:0 auto;padding:0 4%}
+.tags h2{margin-bottom:20px}
+.tags .lede{margin-bottom:44px}
+/* 牛皮纸带：带上的文字一律 ≥24px，因为纸牌色对纸白只有 3.36:1，够大字号用 */
+.tagband{
+  display:flex;flex-wrap:wrap;align-items:center;gap:20px 32px;
+  background:var(--tag);padding:34px 36px;margin:0 0 48px;
+}
+.tagband__say{margin:0;font-size:24px;line-height:1.35;font-weight:500;color:var(--paper);max-width:22em}
+.chip{position:relative;display:inline-flex;align-items:center;justify-content:center;width:150px;height:76px;background:var(--bay)}
+.chip--off{opacity:.55}
+.chip__hole{position:absolute;left:9px;top:9px;width:3px;height:3px;background:var(--tag)}
+.chip code{font-size:30px;line-height:1;color:var(--paper)}
+.tags__grid{display:grid;grid-template-columns:52% 40%;gap:0 8%;align-items:start}
+.plate--tag{margin:0;max-width:100%}
+
+/* ── 第 4 段：错误态 TAG-409（纸白带） ── */
+.fault{position:relative;padding:112px 0 96px;background:var(--paper);color:var(--bay)}
+.fault__in{max-width:1100px;margin:0 auto;padding:0 4%}
+.fault h2{margin-bottom:22px;color:var(--bay)}
+.alert{
+  margin:0 0 24px;padding:22px 26px;background:var(--phos);color:var(--ink);
+  font-size:17px;line-height:1.6;font-weight:500;max-width:34em;
+}
+.alert code{color:var(--ink)}
+.fault .body{color:var(--bay)}
+.fault code{font-size:14px}
+.fields{margin:0 0 32px;max-width:820px}
+.fields th,.fields td{text-align:left;vertical-align:top;padding:12px 20px 14px 0;border-bottom:1px solid rgba(10,13,10,.24);font-size:16px;line-height:1.7;font-weight:400;color:var(--bay)}
+.fields th{white-space:nowrap;opacity:.82;width:9em}
+.state{font-size:14px;line-height:1.8;max-width:34em;margin:24px 0 0;color:var(--bay);opacity:.86}
+.empty{margin:32px 0 0;padding-top:22px;border-top:4px solid var(--bay);font-size:16px;line-height:1.8;max-width:36em;color:var(--bay)}
+
+/* ── 第 5 段：动效与降级 ── */
+.motion{padding:112px 0 96px}
+.motion__grid{display:grid;grid-template-columns:54% 38%;gap:0 8%;max-width:1400px;margin:0 auto;padding:0 4%;align-items:start}
+.motion h2{margin-bottom:24px}
+.spec{margin:0 0 32px}
+.spec li{padding-bottom:16px;max-width:36em;color:inherit}
+.spec b{font-weight:500}
+.spec code{font-size:14px}
+.ic{width:16px;height:16px;margin-right:8px;vertical-align:-2px;fill:none;stroke:var(--phos);stroke-width:1.25;stroke-linecap:square}
+.sample{display:flex;align-items:center;gap:12px;font-size:14px;line-height:1.7;max-width:none;margin:0 0 22px;color:inherit;opacity:.86}
+.sample__blk{flex:0 0 auto;width:8px;height:14px;background:var(--phos);animation:cu-blink 1060ms steps(1,end) infinite}
+.degrade{background:var(--paper);color:var(--bay);padding:28px 30px}
+.degrade .body{color:var(--bay);max-width:34em}
+.degrade code{font-size:14px}
+.plate--tube{margin:32px 0 0;max-width:100%}
+
+/* ── 第 6 段：断点行为（纸白带） ── */
+.breaks{position:relative;padding:112px 0 96px;background:var(--paper);color:var(--bay)}
+.breaks__in{max-width:1280px;margin:0 auto;padding:0 4%}
+.breaks h2{margin-bottom:24px;color:var(--bay)}
+.breaks .body{color:var(--bay)}
+.breaks code{font-size:14px}
+.widths th,.widths td{text-align:left;vertical-align:top;padding:14px 20px 16px 0;border-bottom:1px solid rgba(10,13,10,.24);font-size:16px;line-height:1.7;font-weight:400;color:var(--bay)}
+.widths thead th{font-size:14px;opacity:.8}
+.widths th{white-space:nowrap}
+
+/* ── 页脚 ── */
+.foot{padding:112px 0 120px;background:var(--bay)}
+.foot__in{max-width:1200px;margin:0 auto;padding:0 4%}
+.foot h3{margin-bottom:18px}
+.foot h3 + .notes{margin-top:0}
+.notes li{padding-bottom:14px;max-width:40em;font-size:14px;line-height:1.75;color:inherit}
+.src li{font-size:14px;line-height:1.75;padding-bottom:12px;max-width:40em;color:inherit}
+.src b{font-weight:500}
+.src a{text-decoration-color:var(--paper)}
+.src__note{font-size:14px;line-height:1.75;max-width:40em;color:inherit;opacity:.86;margin:8px 0 44px}
+.quirk{display:flex;gap:16px;align-items:flex-start;margin:0 0 44px;max-width:none}
+.quirk p{margin:0;max-width:40em;font-size:14px;line-height:1.75;color:inherit}
+.quirk__mark{flex:0 0 auto;width:26px;height:36px;margin-top:2px}
+.quirk__mark svg{width:26px;height:36px;fill:none;stroke:var(--phos);stroke-width:.8}
+.quirk__mark use{stroke:inherit}
+.sig{margin:0;font-size:14px;line-height:1.8;max-width:40em;color:inherit;opacity:.86}
+
+/* ── 提示符行：固定在当前视口下沿内 48px，行身落在右侧悬挂区，不压命令流 ── */
+.promptline{
+  position:fixed;right:2%;bottom:48px;left:66%;z-index:9;
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 18px;
+  padding:8px 14px;background:var(--bay);
+  font-family:var(--mono);font-stretch:75%;font-size:14px;line-height:1.6;
+  color:var(--paper);
+}
+.promptline::before{content:'';position:absolute;left:0;right:0;top:0;height:2px;background:var(--phos)}
+.promptline code{font-size:14px}
+.ps{color:var(--phos)}
+.promptline__stat{opacity:.86}
+
+/* ── 落纸：逐行铺开，缓动阶跃；位移只跑 transform ── */
+.js [data-grow]{opacity:0;animation:drop-in 420ms steps(6,end) 1 both;animation-play-state:paused}
+.js [data-grow].in{animation-play-state:running}
+@keyframes drop-in{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:none}}
+
+/* ── 换纸：纸向上抽出 200ms，折页线与边孔保留 ── */
+.sheet.is-pulling .rail,.sheet.is-pulling .fold{transform:translateY(-48px)}
+
+/* ── 1024–1439：悬挂区收到 22%，命令流起点回到左侧 6% ── */
+@media (min-width:1024px) and (max-width:1439px){
+  .stream__grid{grid-template-columns:6% 72% 22%}
+  .mast__col{padding-left:6%}
+  .hangrail{padding-left:20px}
+  .promptline{left:78%}
+}
+
+/* ── 768–1023：边孔收窄到 5px、孔距仍 12px；悬挂区换成行内挂牌条 ── */
+@media (min-width:768px) and (max-width:1023px){
+  :root{--rail:5px}
+  body{padding-top:72px}
+  .feedbar{padding:8px 18px 10px;gap:2px 20px}
+  /* 纸右边缘留出 44px：边孔 5px ＋ 竖排提示符行 22px ＋ 缝 */
+  .mast,.stream,.band,.tags,.fault,.motion,.breaks,.foot{padding-left:0;padding-right:0;padding-top:88px;padding-bottom:72px}
+  .mast{padding-top:56px}
+  .foot{padding-bottom:100px}
+  .mast__grid,.stream__head,.band__in,.tags__in,.fault__in,.motion__grid,.breaks__in,.foot__in{padding:0 44px 0 4%}
+  .mast__grid{grid-template-columns:1fr;gap:36px}
+  .mast__col,.mast__hang{padding-left:0}
+  .stream__grid{grid-template-columns:1fr;padding:0 44px 0 4%}
+  .stream__col{grid-column:1}
+  .hangrail{grid-column:1;position:absolute;inset:0 44px 0 4%;padding:0;pointer-events:none}
+  .hang{display:block;width:32px;left:auto;right:0;top:calc(var(--at,0) * var(--line) + var(--line) + 4px)}
+  .hang__cord{display:none}
+  .hang__link{display:block;width:4px;height:1px;margin:0 0 0 20px}
+  /* 回执牌缩到 24×12px 的牛皮下标，挂在对应行尾下方 4px */
+  .tag{box-sizing:border-box;height:12px;width:24px;padding:0;gap:0;margin:0;overflow:hidden}
+  .tag__d{font-size:9px;line-height:1}
+  .tag__h{width:6px;height:9px}
+  .tag::before{left:2px;top:2px;width:1px;height:1px}
+  .mast__hang .tag{height:34px;width:auto;padding:0 9px;overflow:visible}
+  .mast__hang .tag__d{font-size:24px}
+  .mast__hang .tag__h{width:14px;height:20px}
+  .plate--wide{margin-top:var(--line)}
+  .band__split,.tags__grid,.motion__grid{grid-template-columns:1fr;gap:36px}
+  .tagband{padding:26px 24px}
+  /* 提示符行：窄屏竖排挂在纸右边缘内 48px，行身只占 22px 宽，压不到任何一行字 */
+  .promptline{left:auto;right:8px;bottom:48px;width:22px;max-width:none;writing-mode:vertical-rl;flex-wrap:nowrap;gap:2px;padding:10px 4px}
+  .promptline::before{left:0;right:auto;top:0;bottom:0;width:2px;height:auto}
+  .promptline__stat{display:none}
+}
+
+/* ── <768：孔径减到 4px、孔距仍 12px；挂牌条移到行尾右侧并改竖排 ── */
+@media (max-width:767px){
+  :root{--rail:5px}
+  body{padding:84px 0 104px;font-size:16px}
+  .feedbar{padding:8px 14px 10px;gap:2px 14px}
+  .fb--quiet{display:none}
+  .mast,.stream,.band,.tags,.fault,.motion,.breaks,.foot{padding-left:0;padding-right:0;padding-top:64px;padding-bottom:56px}
+  .mast{padding-top:40px}
+  .foot{padding-bottom:96px}
+  .mast__grid,.stream__head,.band__in,.tags__in,.fault__in,.motion__grid,.breaks__in,.foot__in{padding:0 52px 0 4%}
+  .mast__grid{grid-template-columns:1fr;gap:32px}
+  .mast__col,.mast__hang{padding-left:0}
+  .stream__grid{grid-template-columns:1fr;padding:0 52px 0 4%}
+  .stream__col{grid-column:1}
+  .hangrail{grid-column:1;position:absolute;inset:0 52px 0 4%;padding:0;pointer-events:none}
+  .hang{display:block;width:20px;left:auto;right:0;top:calc(var(--at,0) * var(--line) + var(--line) + 4px)}
+  .hang__cord{display:none}
+  .hang__link{display:block;width:4px;height:1px;margin:0 0 0 8px}
+  /* 竖排的下标：12 宽 × 24 高 */
+  .tag{box-sizing:border-box;height:24px;width:12px;padding:0;gap:0;margin:0;writing-mode:vertical-rl;justify-content:center;overflow:hidden}
+  .tag__d{font-size:9px;line-height:1}
+  .tag__h{width:9px;height:6px}
+  .tag::before{left:auto;right:2px;top:2px;width:1px;height:1px}
+  .mast__hang .tag{height:32px;width:auto;padding:0 8px;writing-mode:horizontal-tb;overflow:visible}
+  .mast__hang .tag__d{font-size:24px}
+  .mast__hang .tag__h{width:13px;height:19px}
+  .plate--wide{margin-top:var(--line)}
+  .band__split,.tags__grid,.motion__grid{grid-template-columns:1fr;gap:32px}
+  .tagband{padding:22px 18px;gap:14px 18px}
+  .tagband__say{font-size:24px}
+  .chip{width:104px;height:56px}
+  .chip code{font-size:26px}
+  .folds th,.folds td,.widths th,.widths td{padding-right:12px}
+  .folds,.widths{display:block}
+  /* 提示符行：竖排，行身 22px 宽，落在纸右边缘内 48px */
+  .promptline{left:auto;right:8px;bottom:44px;width:22px;max-width:none;writing-mode:vertical-rl;flex-wrap:nowrap;gap:2px;padding:10px 4px}
+  .promptline::before{left:0;right:auto;top:0;bottom:0;width:2px;height:auto}
+  .promptline__stat{display:none}
+}
+
+/* ── 减少动态：落纸顺序保留，位移与闪烁停，机制一件不减 ── */
+@media (prefers-reduced-motion:reduce){
+  .js [data-grow]{opacity:1;animation:none;transform:none}
+  .cu,.sample__blk{animation:none;opacity:1}
+  .hang--live .tag{animation:none}
+  .hang:hover .tag,.hang:hover .hang__cord{transform:none;transition:none}
+  /* 静止帧里留住「牌挂在绳上」：挂绳按 6° 静态偏角 */
+  .hang__cord{transform:rotate(6deg)}
+  .rail,.fold{transition:none}
+  .ln.is-sent{transform:translateX(3px)}
+}

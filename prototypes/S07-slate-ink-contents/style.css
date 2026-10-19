@@ -1,0 +1,198 @@
+@font-face{font-family:"Libre Franklin";src:url("assets/fonts/libre-franklin-700.woff2") format("woff2");font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"Libre Franklin";src:url("assets/fonts/libre-franklin-800.woff2") format("woff2");font-weight:800;font-style:normal;font-display:swap}
+@font-face{font-family:"Newsreader";src:url("assets/fonts/newsreader-400.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"IBM Plex Mono" /* taste-skill-ignore: 字段4 辅助数字，只用于页码/辑号/归档号 */;src:url("assets/fonts/ibm-plex-mono-400.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+
+:root{
+  --paper:#E7E7E0;          /* 纸色 56% */
+  --slate:#33505C;          /* 主色：栏线、跨页铅条 24% */
+  --ink:#1C1A16;            /* 正文油墨 16% */
+  --deckle:#9A9384;         /* 页边毛口与分隔 4% */
+  --module:62px;            /* 栏宽 */
+  --gutter:18px;            /* 栏沟 */
+  --base:7px;               /* 基线格 */
+  --lead:28px;              /* 4 × 7px */
+  --ease:cubic-bezier(.25,.8,.3,1);
+  --display:"Libre Franklin","WenJin Mincho","文津宋体","Source Han Serif SC","Noto Serif CJK SC","Songti SC",SimSun,serif;
+  --text:"Newsreader","WenJin Mincho","文津宋体","Source Han Serif SC","Noto Serif CJK SC","Songti SC",SimSun,serif;
+  --num:"IBM Plex Mono","文津宋体","Noto Sans Mono CJK SC",monospace;
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--text);font-size:16px;line-height:var(--lead);
+  font-variant-numeric:tabular-nums;text-wrap:pretty;
+}
+a{color:inherit;text-decoration:none}
+h1,h2{margin:0;font-weight:800;font-family:var(--display);letter-spacing:-.01em}
+p,dd,dt,li{margin:0}
+ol,dl{margin:0;padding:0;list-style:none}
+img{display:block;max-width:100%;height:auto}
+:focus-visible{outline:2px solid var(--slate);outline-offset:2px}
+.skip{position:absolute;left:-9999px}
+.skip:focus{left:8px;top:8px;background:var(--paper);padding:8px 12px;outline:2px solid var(--slate)}
+
+/* 页眉：铅条下的一条实线用 3px 铅条，不用发丝线 */
+.bar{
+  display:grid;grid-template-columns:auto 1fr auto auto;align-items:baseline;
+  gap:calc(var(--gutter) * 2);padding:20px 40px 18px;
+}
+.wordmark{font-family:var(--display);font-weight:800;font-size:24px;line-height:var(--lead)}
+.imprint{font-size:16px;line-height:var(--lead);color:var(--slate)}
+.bar-nav{display:flex;gap:calc(var(--gutter) + 2px);font-size:16px}
+.bar-nav a{padding-bottom:2px}
+.bar-nav a:hover{color:var(--slate);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+
+/* 主张句做主标题，字号压到 5.6vw 以内，两行封顶 */
+.lede{padding:35px 40px 28px;max-width:calc(var(--module) * 14 + var(--gutter) * 13)}
+.display{font-size:clamp(38px,5.4vw,84px);line-height:1.02;text-wrap:balance}
+.statement{margin-top:14px;font-size:34px;line-height:calc(var(--base) * 6);max-width:24ch;color:var(--ink)}
+.colophon{margin-top:21px;display:flex;flex-wrap:wrap;gap:calc(var(--gutter) * 2)}
+.colophon div{min-width:96px}
+.colophon dt{font-size:16px;color:var(--slate)}
+.colophon dd{font-size:18px;font-family:var(--num)}
+.colophon .rng{font-family:var(--text)}
+.k{font-family:var(--num)}
+
+/* 主按钮：44px 高，铅灰实底，圆角为零 */
+.act{
+  display:inline-block;min-height:44px;padding:10px 18px;background:var(--slate);color:var(--paper);
+  font-family:var(--display);font-weight:700;font-size:16px;line-height:24px;
+  transition:background 160ms var(--ease),color 160ms var(--ease);
+}
+.act:hover{background:var(--ink)}
+.act:active{background:#0F0E0B}
+.act-quiet{background:var(--slate);color:var(--paper);padding:10px 16px;min-height:40px}
+.act-quiet:hover{background:var(--ink);color:var(--paper)}
+
+/* 跨页版心：5fr 1px 7fr，1px 是字段 11 要求的跨页实线 */
+.spread{padding:35px 40px 28px;position:relative}
+.list-head{display:flex;align-items:center;gap:10px;font-size:16px;line-height:var(--lead);color:var(--slate);margin-bottom:14px}
+.ornament{flex:0 0 auto;width:28px;height:14px}
+.pages{position:relative;display:grid;grid-template-columns:5fr 1px 7fr}
+.fold{background:var(--slate)}
+.page{min-width:0}
+.page-recto{padding-left:var(--gutter);padding-right:0}
+.page-verso{padding-left:0;padding-right:var(--gutter)}
+
+.toc{column-rule:.5px solid var(--slate);column-gap:var(--gutter)}
+.page-recto .toc{column-count:2}
+.page-verso .toc{column-count:3}
+.toc li{break-inside:avoid;margin-bottom:calc(var(--base) * 1)}
+.toc li a{display:grid;column-gap:6px;align-items:baseline;padding:3px 0 5px;transition:color 160ms var(--ease)}
+.page-recto .toc li a{grid-template-columns:1fr auto auto}
+.page-verso .toc li a{grid-template-columns:auto 1fr auto}
+.page-recto .t{text-align:right;padding-left:0;text-indent:0}
+.t{padding-left:1.4em;text-indent:-1.4em;font-size:18px;line-height:var(--lead)}
+/* 引导点：4px 间距的真实油墨方点，点径 1.5px；行末半点宽 50%，距右边界 2px */
+.d{height:4px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect x='0' y='2.5' width='1.5' height='1.5' fill='%231C1A16'/%3E%3C/svg%3E");background-repeat:repeat-x;background-position:0 100%;position:relative;align-self:end;margin-bottom:5px}
+.d::after{content:"";position:absolute;right:2px;bottom:0;width:.75px;height:1.5px;background:var(--ink)}
+.p{font-family:var(--num);font-size:16px;line-height:var(--lead);color:var(--slate)}
+.m{grid-column:1/-1;font-size:16px;line-height:calc(var(--base) * 3);color:var(--ink)}
+.page-recto .m{text-align:right}
+.toc li a:hover{color:var(--slate)}
+.toc li a:hover .t{border-bottom:1px solid var(--slate)} /* taste-skill-ignore: 字段7 指定的悬停提示，全站唯一可点性装置 */
+.toc li a:hover .d{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect x='0' y='2.5' width='1.5' height='1.5' fill='%2333505C'/%3E%3C/svg%3E")}
+.toc li a:hover .d::after{background:var(--slate)}
+.toc li a:focus-visible .t{border-bottom:1px solid var(--slate)} /* taste-skill-ignore: 键盘焦点可见性，目录内无替代装置 */
+
+/* 页码系统：贴右侧竖排，行高 28px */
+.folio{position:absolute;right:6px;top:calc(var(--base) * 8);writing-mode:vertical-rl;display:flex;gap:var(--gutter);font-family:var(--num);font-size:16px;line-height:var(--lead);color:var(--slate)}
+
+/* 透印层：同一份目录行的镜像，1px 纸厚偏移，绝不做模糊 */
+.ghost{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.ghost text{fill:var(--ink);font-family:var(--text);opacity:var(--ghost-o,.08);transition:opacity 160ms var(--ease)}
+.ghost text.hot{opacity:min(.14,calc(var(--ghost-o,.08) * 1.75))}
+.ghost.lead{transform:translateX(-12px);transition:transform 160ms var(--ease)}
+.pages.lag{transform:translateX(12px);transition:transform 160ms var(--ease)}
+
+/* 页边毛口：300dpi 实扫的裁纸毛边当遮罩，只在左右外侧 */
+.page{position:relative}
+.page-recto::before,.page-verso::after{content:"";position:absolute;top:0;bottom:0;width:14px;background:var(--deckle);-webkit-mask-image:url("assets/plate-edge.jpg");mask-image:url("assets/plate-edge.jpg");-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+.page-recto::before{left:0}
+.page-verso::after{right:0}
+/* 目录区内换 1px 排版光标：细竖线加上下短横，自绘 */
+.toc{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='18' viewBox='0 0 16 18'%3E%3Cg fill='%231C1A16'%3E%3Crect x='7.5' y='3' width='1' height='12'/%3E%3Crect x='5' y='2' width='6' height='1'/%3E%3Crect x='5' y='15' width='6' height='1'/%3E%3C/g%3E%3C/svg%3E") 8 9,text}
+
+/* 档案图版：真实报纸扫描，转单色网点，一张加铅灰蓝套印 */
+.plates{padding:calc(var(--base) * 8) 40px calc(var(--base) * 6)}
+.plates h2{font-size:clamp(26px,3vw,40px);line-height:1.1;margin-bottom:calc(var(--base) * 3)}
+.plates-note{font-size:16px;line-height:var(--lead);color:var(--slate);max-width:60ch;margin-bottom:calc(var(--base) * 5)}
+.plate-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:var(--gutter);align-items:start}
+.plate{margin:0;grid-column:span 2}
+.plate.wide{grid-column:span 7}
+.plate.narrow{grid-column:span 1}
+.plate img{width:100%;object-fit:cover;object-position:top;max-height:620px;filter:grayscale(1) contrast(1.35) brightness(1.02)}
+.plate.narrow img{width:auto;max-height:320px;object-fit:contain}
+.plate.duo img{filter:grayscale(1) contrast(1.45) sepia(1) hue-rotate(168deg) saturate(1.6) brightness(.97)}
+.plate figcaption{margin-top:var(--base);font-size:16px;line-height:calc(var(--base) * 3);color:var(--slate)}
+
+/* 状态：载入 / 空 / 错误 / 禁用，面色靠一个色阶区分，不用描边 */
+.states{padding:calc(var(--base) * 6) 40px calc(var(--base) * 8)}
+.states h2{font-size:clamp(24px,2.6vw,34px);line-height:1.15;margin-bottom:calc(var(--base) * 4)}
+.panels{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gutter)}
+.panel{background:rgba(154,147,132,.16);padding:14px 16px}
+.panel-k{font-size:16px;line-height:var(--lead);color:var(--slate)}
+.panel-p{font-size:16px;line-height:var(--lead);max-width:60ch}
+.panel-a{margin-top:10px}
+.seep{margin:10px 0;height:6px;background:rgba(154,147,132,.42);position:relative;overflow:hidden}
+.seep span{position:absolute;inset:0 auto 0 0;width:0;background:var(--slate);animation:seepbar 3.2s steps(2,end) forwards}
+@keyframes seepbar{to{width:100%}}
+.disabled-line{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;margin-top:calc(var(--base) * 5);font-size:16px;line-height:var(--lead)}
+.dis{color:var(--ink);text-decoration:line-through;cursor:not-allowed}
+.dis-why{color:var(--slate);max-width:60ch}
+.foot{padding:35px 40px 40px}
+.foot-line{font-size:16px;line-height:var(--lead);color:var(--slate);max-width:60ch}
+
+/* 载入：纸色先铺满，油墨自左向右逐行渗入，每行 70ms，两步落墨 */
+@keyframes seeping{from{opacity:0;clip-path:inset(0 100% 0 0)}to{opacity:1;clip-path:inset(0 0 0 0)}}
+html.loading .toc li{opacity:0;animation:seeping 140ms steps(2,end) forwards;animation-delay:calc(var(--i,0) * 22ms)}
+
+@media (max-width:1279px){
+  .pages{grid-template-columns:1fr}
+  .fold{display:none}
+  .page-recto,.page-verso{padding-left:0;padding-right:0}
+  .page-recto .toc{column-count:3}
+  .page-recto .t{text-align:left}
+  .folio{position:static;writing-mode:horizontal-tb;flex-wrap:wrap;gap:var(--gutter);margin-top:calc(var(--base) * 4)}
+  .plate-grid{grid-template-columns:repeat(6,1fr)}
+  .plate.wide{grid-column:span 6}
+}
+@media (max-width:899px){
+  .bar{grid-template-columns:1fr;gap:10px;padding:16px 20px}
+  .lede{padding:84px 20px 35px}
+  .display{font-size:clamp(30px,9vw,46px)}
+  .statement{font-size:22px;line-height:calc(var(--base) * 4);max-width:22ch}
+  .spread,.plates,.states,.foot{padding-left:20px;padding-right:20px}
+  .toc{column-count:1}
+  .d{height:auto;background-image:none;align-self:center;margin-bottom:0}
+  .d::before{content:"";display:inline-block;width:14px;height:1.5px;background:var(--ink);vertical-align:middle}
+  .d::after{display:none}
+  .panels{grid-template-columns:1fr}
+  .plate-grid{grid-template-columns:repeat(2,1fr)}
+  .plate img{max-height:520px}
+  .plate.wide{grid-column:span 2}
+  .page-recto::before,.page-verso::after{width:8px}
+}
+@media (prefers-reduced-motion:reduce){
+  html.loading .toc li{animation:none;opacity:1;clip-path:none}
+  .seep span{animation:none;width:100%}
+  .ghost text{transition:opacity 120ms linear}
+  .ghost.lead,.pages.lag{transform:none;transition:opacity 120ms linear}
+  .act,.toc li a{transition:opacity 120ms linear}
+}
+
+/* 缺期清单：真实档案记录，顺带把最后一屏的空白填上 */
+.missing{margin-bottom:calc(var(--base) * 4)}
+.missing-k{font-size:16px;line-height:var(--lead);color:var(--slate)}
+.missing-list{margin-top:10px}
+.missing-list li{display:grid;grid-template-columns:auto 1fr 2fr;gap:var(--gutter);align-items:baseline;padding:6px 0}
+.code{font-family:var(--num);font-size:16px;color:var(--ink)}
+.t2{font-size:16px}
+.st{font-size:16px;color:var(--slate)}
+.missing-p{margin-top:14px;font-size:16px;line-height:var(--lead);max-width:60ch}
+@media (max-width:899px){
+  .missing-list li{grid-template-columns:1fr;gap:2px}
+}

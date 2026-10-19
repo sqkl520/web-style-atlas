@@ -1,0 +1,50 @@
+MIT License
+
+Copyright (c) 2026 sqkl520
+
+本许可适用于本仓库中的**代码与文档**：根目录的 index.html、README.md，
+prototypes/ 下各原型的 index.html 与 style.css，prototypes/_selection/ 的
+app.js 与 style.css，prototypes/_build/ 下的全部脚本，
+prototypes/_specs/ 与 _CONTRACT.md，以及 deliverables/ 下的全部文档。
+
+----- 不在此许可范围内的内容，请分别遵守各自的许可 -----
+
+1. 字体（prototypes/_fonts/）
+   各字体保留其原有许可，绝大多数为 SIL Open Font License 1.1，
+   少数为同类可商业使用许可。每一族的来源与许可见 _fonts/css/*.css 的文件头。
+
+2. 照片（各原型的 assets/ 目录）
+   这些是第三方素材，**不由本许可授权**。多为 Wikimedia Commons 上的
+   CC BY / CC BY-SA / CC0 / 公有领域作品，另有部分为 NASA 图像（公有领域）。
+   每一张的作者、许可与原件链接逐张列在该原型目录下的 assets/CREDITS.md。
+   复用前请按该表核对并遵守对应许可；CC BY 与 CC BY-SA 要求署名，
+   部分还要求以相同方式共享。
+
+3. 程序化纹理（assets/texture-*.png）
+   由 prototypes/_build/make-textures.py 生成，生成参数记录在 build/texture-job.json，
+   可逐字节复算，无第三方权利 —— 这部分适用上面的 MIT 许可。
+
+4. 第三方工具
+   taste-skill（MIT，https://github.com/Leonxlnx/taste-skill）
+   impeccable（Apache-2.0，https://github.com/pbakaus/impeccable）
+   **均未包含在本仓库中**，请向各自仓库获取并遵守其许可。
+
+----- 
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

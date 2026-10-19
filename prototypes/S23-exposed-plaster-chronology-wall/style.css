@@ -1,0 +1,509 @@
+/* ===========================================================================
+   S23 剥落年代墙 / Exposed-Plaster Chronology Wall
+   结构类型 F（CHRONO）｜认知门槛 低｜调性 混乱活力 / 街头
+
+   字段 3 冻结值（_CURRENT-VALUES.md §1）：
+     背景 #DCDCC8 石灰灰浆 36% ｜主色 #A8206B 胭脂虫红 34%
+     强调 #241C16 氧化铁黑 22%   ｜辅助 #7A6A55 土灰砂浆 8%
+     #A8206B 对 #DCDCC8 = 4.90:1（AA 正文线）；主色作按钮底用白字 #FFFFFF = 6.81:1
+     派生：--lime #E9E9D7 = #DCDCC8 提亮 6%（1px 白石灰线的实色）；
+           --mortar-ink #5F5240（5.50:1，承载 ≤14px 小字）；
+           --mortar-lit #B7A78C（7.12:1，暗底上的标签）；--carmine-lit #E9A9C6（8.73:1）
+   字段 4 冻结值：标题 Alfa Slab One ／中文 Noto Serif SC（《京华老宋体》非 OFL、
+     本机无字体文件，按 _CURRENT-VALUES 的许可退路「换思源宋体，一处替换」）
+     ／层位号与年代 JetBrains Mono，只出现在 <code> 内（monoProseShare 必须为 0）
+   字段 5 布局：36 栏细栅格、8px 基线、8px 栏距；9 处剥落按 3/2/2/1/1 面积递减；
+     右侧 96px 层位索引竖栏，条目纵向位置与各剥落高度对齐（--r 即该剥落起始行）
+   字段 6 视觉：锐利断面（--pw 22→10px 竖带，2–4 层 + 1px 石灰线）、
+     62° 铲痕（2px 痕宽 6px 间距、末端 1px 翘起高光）、40×24px 层位号牌（1px 凹槽 + 1px 高光）
+   字段 11：断面层次用 linear-gradient 硬停取色（两个色标取同一颜色、之间无过渡区），
+     不使用任何多色插值；铲痕 62° 用 repeating-linear-gradient 画出
+     （字段 11 原写 SVG pattern，结果值一致，此处改用 CSS 平铺以省 DOM）
+   契约 §9.2：整页纹理只挂伪元素（.wall-sec::before / .wall-sec::after / .masthead::before）
+     body 保持纯色 #DCDCC8，避免对比度检查与空屏判定被整条静默跳过
+   =========================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+:root {
+  --plaster: #DCDCC8;
+  --carmine: #A8206B;
+  --oxide: #241C16;
+  --mortar: #7A6A55;
+  --lime: #E9E9D7;
+  --mortar-ink: #5F5240;
+  --mortar-lit: #B7A78C;
+  --carmine-lit: #E9A9C6;
+  --cjk: "Noto Serif SC", "Alfa Slab One", serif;
+  --slab: "Alfa Slab One", "Noto Serif SC", serif;
+  --mono: "JetBrains Mono", "Noto Serif SC", monospace;
+  --pad: clamp(16px, 2.2vw, 32px);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: #DCDCC8;            /* 纯色地面：全站唯一一种底（字段 8 反 C-1 第 6 条） */
+  color: var(--oxide);
+  font-family: var(--cjk);
+  font-size: 16px;
+  line-height: 1.85;              /* 字段 4：16px / 行高 1.85 / 字距 0.01em */
+  letter-spacing: 0.01em;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; }
+p { margin: 0; }
+a { color: inherit; text-decoration-color: rgba(36, 28, 22, 0.5); text-underline-offset: 3px; }
+a:hover { text-decoration-color: currentColor; }
+
+/* 等宽只出现在 <code> 里：monoProseShare 必须是 0（契约 §9.8） */
+code {
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.01em;        /* ≤14px 的大写不加大字距，避开 micro-label */
+  font-variant-numeric: tabular-nums;
+}
+
+h1, h2, h3 { font-family: var(--cjk); font-weight: 700; margin: 0; }
+h1 { font-size: clamp(56px, 7.2vw, 96px); line-height: 1.04; letter-spacing: 0.01em; }
+h2 { font-size: clamp(26px, 2.4vw, 34px); line-height: 1.18; letter-spacing: 0.02em; margin-bottom: 18px; }
+h3 { font-size: 22px; line-height: 1.2; letter-spacing: 0.02em; text-wrap: balance; }
+
+.skip {
+  position: absolute; left: 8px; top: 8px; z-index: 9;
+  width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+}
+.skip:focus { width: auto; height: auto; clip-path: none; background: var(--oxide); color: var(--lime); padding: 10px 14px; }
+
+.wrap { max-width: 1440px; margin: 0 auto; padding-inline: var(--pad); }
+
+.btn {
+  display: inline-block; min-height: 48px; padding: 13px 20px;
+  background: var(--carmine); color: #FFFFFF;      /* 按钮字色冻结值 #FFFFFF（6.81:1） */
+  font-family: var(--cjk); font-size: 17px; line-height: 1.3; letter-spacing: 0.02em;
+  border: 0; border-radius: 0; cursor: pointer;
+  transition: transform 180ms cubic-bezier(0.2, 0.85, 0.3, 1);
+}
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(1px); }
+.btn[disabled] { background: var(--mortar-ink); color: #FFFFFF; cursor: default; transform: none; }  /* 7.59:1 */
+
+/* ------------------------------------------------- 顶部状态条（错误码常驻） */
+.status {
+  max-width: 1440px; margin: 24px auto 0; padding: 18px var(--pad) 20px;
+  background: var(--oxide); color: var(--plaster);
+}
+.status__h { font-size: 13px; font-weight: 400; color: var(--mortar-lit); }
+.status__grid { display: flex; flex-wrap: wrap; gap: 4px 30px; margin-top: 6px; }
+.status__i { font-size: 13px; color: var(--plaster); }
+.status__k { color: var(--mortar-lit); }
+.status__fault { font-size: 13px; color: var(--carmine-lit); margin-top: 8px; }
+.status__hint { font-size: 13px; color: var(--mortar-lit); margin-top: 6px; }
+.status__hint b { color: var(--plaster); font-weight: 400; }
+
+/* ------------------------------------------------------------------ 墙面标头 */
+.masthead {
+  position: relative; max-width: 1440px; margin: 0 auto;
+  padding: clamp(88px, 8vw, 132px) var(--pad) clamp(40px, 5vw, 72px);
+  display: grid; grid-template-columns: 5fr 7fr; gap: clamp(24px, 4vw, 56px); align-items: start;
+}
+.masthead::before {                     /* 未剥落原墙上的细刮痕（纹理挂伪元素） */
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image: url(assets/texture-scrape.png);
+  background-size: 512px 512px; opacity: 0.9;
+}
+.masthead > * { position: relative; }
+.masthead__latin {
+  font-family: var(--slab); font-size: clamp(22px, 3.1vw, 34px); line-height: 1.12;
+  color: var(--carmine); margin-top: 10px;
+}
+.claim { font-size: 16px; line-height: 1.75; margin-top: 20px; }
+.meta { font-size: 16px; line-height: 1.75; margin-top: 14px; max-width: 43em; color: var(--oxide); }   /* 正文用全墨 12.07:1 */
+.meta code { color: var(--oxide); }
+.cue { margin-top: 26px; }
+.masthead__plate { margin: 0; }
+.masthead__plate img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; filter: url(#sep4); }
+.masthead__plate figcaption { font-size: 13px; line-height: 1.6; margin-top: 10px; color: var(--mortar-ink); }
+.ref { display: block; color: var(--mortar-ink); margin-top: 3px; }
+
+/* ------------------------------------------------------------ 墙面：36 栏栅格 */
+.wall-sec { position: relative; padding: clamp(56px, 6vw, 88px) 0 clamp(48px, 5vw, 72px); }
+.wall-sec::before {                     /* 成片剥落的灰浆（位图，不是噪点叠层） */
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url(assets/texture-plaster-flake.png);
+  background-size: 1024px 1024px; opacity: 0.34;
+}
+.wall-sec::after {                      /* 颜料的颗粒：6% 不透明度已焙进位图，不拉伸 */
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url(assets/texture-pigment-grain.png);
+  background-size: 128px 128px;
+}
+.wall-head { position: relative; z-index: 1; }
+.lede { font-size: 16px; line-height: 1.78; max-width: 43em; color: var(--oxide); }
+.lede code, .meta code, .note code, td code, .tool__d code { letter-spacing: 0.01em; }
+
+.wall {
+  position: relative; z-index: 1;
+  max-width: 1440px; margin: 34px auto 0; padding-inline: var(--pad);
+  display: grid;
+  grid-template-columns: repeat(36, minmax(0, 1fr)) 96px;
+  column-gap: 8px; row-gap: 0; grid-auto-rows: 8px;
+  align-items: start;
+}
+
+/* 剥落本体：直角、锐利断面、任何元素都不许浮在墙上（字段 8 反 C-2 第 11 条） */
+.flake {
+  position: relative; display: flex; flex-direction: column; overflow: hidden;
+  padding: 16px calc(var(--pw, 16px) + 16px) 48px 16px;
+  min-width: 0;
+}
+.flake__k { font-family: var(--slab); font-size: 13px; letter-spacing: 0.02em; }
+.flake__b { font-size: 16px; line-height: 1.7; margin-top: 8px; }
+.flake__m { font-size: 13px; line-height: 1.6; margin-top: 8px; opacity: 0.92; }
+.flake__ph { display: block; width: 100%; height: var(--ph, 150px); object-fit: cover; margin-bottom: 12px; }
+.flake .plate { margin-top: auto; }
+
+/* 层位号牌 40×24px：刀刻层位号（1px 凹槽 + 1px 白高光），牌不压在断口上 */
+.plate {
+  position: relative; width: 40px; height: 24px; flex: 0 0 24px;
+  display: grid; place-items: center;
+  background: var(--plaster); color: var(--oxide);
+}
+.plate code { font-size: 13px; }
+.plate::before {                                   /* 1px 凹槽 */
+  content: ""; position: absolute; left: 9px; right: 9px; bottom: 6px; height: 1px;   /* taste-skill-ignore 刀刻凹槽，不是分隔线 */
+  background: var(--oxide); opacity: 0.6;
+}
+.plate::after {                                    /* 1px 白石灰高光 */
+  content: ""; position: absolute; left: 9px; right: 9px; bottom: 5px; height: 1px;   /* taste-skill-ignore 刻痕高光 */
+  background: var(--lime);
+}
+/* 签名式怪癖：号牌正下方 4px 的一道横向刮痕，1.5px 高、长度随层位号递减 0.8px */
+.scr {
+  display: block; width: calc(12px - (var(--n) - 1) * 0.8px); height: 1.5px;
+  margin-top: 4px; background: currentColor; opacity: 0.75;
+}
+
+/* 断面：右侧 2–4 层颜料 + 层与层之间的 1px 白石灰线（硬停取色，无过渡区） */
+.flake::before { content: ""; position: absolute; right: 0; top: 0; bottom: 0; width: var(--pw, 16px); pointer-events: none; }
+.x2::before {
+  background-image: linear-gradient(to bottom,   /* taste-skill-ignore 字段 11：硬停取色出单色实线，无过渡区 */
+    var(--x1) 0 calc(50% - 1px), var(--lime) calc(50% - 1px) 50%,
+    var(--x2) 50% 100%);
+}
+.x3::before {
+  background-image: linear-gradient(to bottom,   /* taste-skill-ignore 字段 11：硬停取色出单色实线，无过渡区 */
+    var(--x1) 0 calc(33.333% - 1px), var(--lime) calc(33.333% - 1px) 33.333%,
+    var(--x2) 33.333% calc(66.666% - 1px), var(--lime) calc(66.666% - 1px) 66.666%,
+    var(--x3) 66.666% 100%);
+}
+.x4::before {
+  background-image: linear-gradient(to bottom,   /* taste-skill-ignore 字段 11：硬停取色出单色实线，无过渡区 */
+    var(--x1) 0 calc(25% - 1px), var(--lime) calc(25% - 1px) 25%,
+    var(--x2) 25% calc(50% - 1px), var(--lime) calc(50% - 1px) 50%,
+    var(--x3) 50% calc(75% - 1px), var(--lime) calc(75% - 1px) 75%,
+    var(--x4) 75% 100%);
+}
+/* 铲痕：3–5 道、痕宽 2px、间距 6px、自左上向右下 62°，末端 1px 翘起高光 */
+.flake::after {
+  content: ""; position: absolute; pointer-events: none;
+  right: calc(var(--pw, 16px) + 14px); bottom: 16px;
+  width: calc(var(--sc, 4) * 8px + 6px); height: 22px;
+  background-image:
+    repeating-linear-gradient(62deg, transparent 0 7px, var(--lime) 7px 8px),   /* taste-skill-ignore 62° 铲痕平铺 */
+    repeating-linear-gradient(62deg, transparent 0 6px, var(--scr, var(--oxide)) 6px 8px);   /* taste-skill-ignore 同上 */
+}
+/* 逐层露出：按层数离散推进（每层 90ms，steps 一次铲掉一层），只碰 transform */
+@keyframes peel { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+.flake.is-open::before {
+  transform-origin: top;
+  animation: peel calc(90ms * var(--st, 3)) steps(var(--st, 3), end) var(--dl, 0s) both;
+}
+/* 悬停号牌：该剥落对应的颜料层即时加 1px 白石灰线（信息，不是装饰） */
+.flake.is-aligned::before,
+.flake:has(.plate:hover)::before {
+  outline: 1px solid var(--lime); outline-offset: -1px;
+}
+/* 点击铲痕：露出下方 1px 的深色底，160ms 后回弹 */
+.flake.is-cut::after { border-bottom: 1px solid var(--oxide); }   /* taste-skill-ignore 字段 7：点击铲痕露出的 1px 深色底，160ms 回弹 */
+
+/* 断面锐利的剥落边：底边是崩口，不是渐变色带（字段 11：clip-path: polygon） */
+.e1 { clip-path: polygon(0 0, 100% 0, 100% calc(100% - 18px), 94% calc(100% - 9px), 88% calc(100% - 17px), 81% calc(100% - 8px), 74% calc(100% - 15px), 66% calc(100% - 7px), 58% calc(100% - 16px), 50% calc(100% - 9px), 42% calc(100% - 18px), 34% calc(100% - 8px), 26% calc(100% - 14px), 18% calc(100% - 7px), 10% calc(100% - 13px), 4% calc(100% - 9px), 0 calc(100% - 16px)); }
+.e2 { clip-path: polygon(0 0, 100% 0, 100% calc(100% - 11px), 90% calc(100% - 5px), 80% calc(100% - 13px), 70% calc(100% - 6px), 60% calc(100% - 14px), 50% calc(100% - 5px), 40% calc(100% - 12px), 30% calc(100% - 6px), 20% calc(100% - 13px), 10% calc(100% - 5px), 0 calc(100% - 10px)); }
+.e3 { clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), 86% calc(100% - 4px), 72% calc(100% - 10px), 58% calc(100% - 5px), 44% calc(100% - 9px), 30% calc(100% - 4px), 16% calc(100% - 8px), 0 calc(100% - 5px)); }
+
+/* 剥落内腔配色（§9.4：彩色分区里后代色必须在自己作用域重新声明） */
+.f-p  { background: var(--plaster); color: var(--oxide); }
+.f-p  .flake__m { color: var(--mortar-ink); }
+.f-m  { background: var(--mortar); color: #FFFFFF; }
+.f-m  .flake__m, .f-m .flake__k { color: #FFFFFF; }   /* 白对土灰 5.22:1（lime 只有 4.25:1，不用） */
+.f-c  { background: var(--carmine); color: #FFFFFF; }
+.f-c  .flake__m { color: var(--lime); }
+.f-o  { background: var(--oxide); color: var(--plaster); }
+.f-o  .flake__m { color: var(--mortar-lit); }
+.f-o  .flake__k { color: var(--carmine-lit); }
+.f-c  .flake__k { color: var(--lime); }
+
+/* 九处剥落的位置、面积（3/2/2/1/1 递减）与断面层位 */
+#f1 { grid-column: 1 / span 14;  grid-row: 1 / span 56;  --pw: 22px; --st: 3; --sc: 5; --ph: 168px; --x1: #DCDCC8; --x2: #7A6A55; --x3: #A8206B; }
+#f2 { grid-column: 17 / span 11; grid-row: 13 / span 46; --pw: 20px; --st: 3; --sc: 4; --x1: #7A6A55; --x2: #A8206B; --x3: #7A6A55; }
+#f3 { grid-column: 29 / span 8;  grid-row: 25 / span 40; --pw: 18px; --st: 4; --sc: 5; --ph: 108px; --x1: #A8206B; --x2: #7A6A55; --x3: #241C16; --x4: #DCDCC8; }
+#f4 { grid-column: 1 / span 7;   grid-row: 72 / span 39; --pw: 16px; --st: 3; --sc: 4; --x1: #7A6A55; --x2: #241C16; --x3: #DCDCC8; }
+#f5 { grid-column: 13 / span 6;  grid-row: 84 / span 42; --pw: 16px; --st: 3; --sc: 3; --ph: 128px; --x1: #241C16; --x2: #DCDCC8; --x3: #7A6A55; }
+#f6 { grid-column: 24 / span 5;  grid-row: 126 / span 30; --pw: 14px; --st: 3; --sc: 3; --x1: #DCDCC8; --x2: #7A6A55; --x3: #241C16; }
+#f7 { grid-column: 33 / span 4;  grid-row: 138 / span 26; --pw: 12px; --st: 2; --sc: 3; --x1: #7A6A55; --x2: #241C16; }
+#f8 { grid-column: 4 / span 3;   grid-row: 172 / span 20; --pw: 10px; --st: 2; --sc: 3; padding: 8px calc(10px + 8px) 40px 8px; --x1: #241C16; --x2: #A8206B; }
+#f9 { grid-column: 32 / span 2;  grid-row: 200 / span 14; --pw: 0px; padding: 8px 8px 40px; }   /* 最小一处：故意留空不填内容 */
+#f9::before, #f9::after { display: none; }        /* 还没铲开：没有断面、没有铲痕 */
+
+/* 未剥落原墙上的手刷说明（填掉剥落之间 ≥24px 的空白，不当第二层底） */
+.note { font-size: 13px; line-height: 1.7; max-width: 43em; color: var(--mortar-ink); }
+.note--a { grid-column: 15 / span 13; grid-row: 59 / span 9; }
+.note--b { grid-column: 20 / span 17; grid-row: 78 / span 10; }
+.note--c { grid-column: 24 / span 13; grid-row: 180 / span 8; }
+.note--d { grid-column: 20 / span 12; grid-row: 187 / span 8; }
+.note--d b { color: var(--carmine); font-weight: 700; }
+
+/* 未剥落原墙上的两块做法说明：宽幅实色块，给墙面下半截垫住重量 */
+.wall-note { padding: 16px 18px; }
+.wall-note p { font-size: 16px; line-height: 1.7; margin-top: 8px; }
+.wall-note p:first-child { margin-top: 0; }
+.wall-note--a { grid-column: 1 / span 13;  grid-row: 138 / span 30; background: var(--carmine); color: #FFFFFF; }
+.wall-note--b { grid-column: 15 / span 17; grid-row: 196 / span 20; background: var(--oxide); color: var(--plaster); }
+.wall-note__h { color: var(--lime); }
+.wall-note--b .wall-note__h { color: var(--carmine-lit); }
+
+/* 未铲开的那一处：号牌挂在钉子上的两个痕迹 */
+.nails { display: flex; gap: 22px; margin-bottom: 5px; }
+.nails i { display: block; width: 3px; height: 3px; background: var(--oxide); }
+
+/* 墙面上闪动的 1px 竖条光标（周期 1000ms） */
+.scan {
+  grid-column: 16 / span 1; grid-row: 40 / span 3; width: 1px; height: 24px;
+  background: var(--carmine);
+  animation: blink 1000ms steps(1, end) infinite;
+}
+@keyframes blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0.15; } }
+
+/* 层位索引竖栏：96px，条目纵向位置 = 该剥落的起始行（--r），随滚动高亮 */
+.rail { grid-column: 37; grid-row: 1 / span 220; position: relative; }
+.rail__h { font-size: 13px; color: var(--mortar-ink); }
+.rail__i { position: absolute; left: 0; right: 0; top: calc(var(--r) * 8px + 26px); }
+.rail__l { display: flex; align-items: center; gap: 5px; font-size: 13px; color: var(--oxide); }
+.rail__w { color: var(--mortar-ink); }
+.rail__sw { width: 16px; height: 8px; flex: 0 0 16px; }
+.rail__y { display: block; font-size: 13px; color: var(--mortar-ink); }
+.rail__y i { font-style: normal; }
+.rail__i.is-cur .rail__l { background: var(--carmine); color: #FFFFFF; }        /* 6.81:1 */
+.rail__i.is-cur .rail__l code, .rail__i.is-cur .rail__y { color: #FFFFFF; }
+.rail__i a { text-decoration-thickness: 1px; }
+.rail__i--7, .rail__i--8, .rail__i--9 { display: none; }
+
+/* 图例与做法说明 */
+.legend { font-size: 16px; line-height: 1.75; margin-top: 40px; max-width: 43em; color: var(--oxide); }
+.legend code { color: var(--oxide); }
+
+/* ------------------------------------------------------ 层位 / 颜色 / 年代 表 */
+.sec { padding: clamp(56px, 6vw, 88px) 0 clamp(48px, 5vw, 72px); }
+.chrono { width: 100%; border-collapse: collapse; margin-top: 30px; font-size: 16px; }
+.chrono caption { text-align: left; font-size: 13px; padding-bottom: 12px; max-width: 43em; color: var(--mortar-ink); }
+.chrono th, .chrono td { border: 1px solid rgba(36, 28, 22, 0.3); padding: 8px 10px; text-align: left; vertical-align: top; }
+.chrono thead th { background: var(--plaster); font-weight: 700; }
+.chrono tbody th { font-weight: 400; }
+.sw { display: block; width: 34px; height: 14px; }
+.chrono tr.is-pending { background: var(--oxide); color: var(--plaster); }
+.chrono tr.is-pending code { color: var(--carmine-lit); }
+.table-note { font-size: 13px; line-height: 1.7; margin-top: 18px; max-width: 43em; color: var(--mortar-ink); }
+
+/* 层厚刻度：九格宽度按实测层厚，各不相同（不是等量卡片阵列） */
+.strata { list-style: none; margin: 26px 0 0; padding: 0; display: flex; gap: 8px; min-height: 172px; }
+.strata li {
+  display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start;
+  min-width: 0; padding: 10px 8px; font-size: 13px; line-height: 1.4; letter-spacing: 0.01em;
+}
+.strata li:nth-child(1) { flex: 1.5 1 0; background: var(--plaster); color: var(--oxide); }
+.strata li:nth-child(2) { flex: 1.2 1 0; background: var(--mortar);  color: #FFFFFF; }
+.strata li:nth-child(3) { flex: 1.3 1 0; background: var(--carmine); color: #FFFFFF; }
+.strata li:nth-child(4) { flex: 1.1 1 0; background: var(--mortar);  color: #FFFFFF; }
+.strata li:nth-child(5) { flex: 1.0 1 0; background: var(--oxide);   color: var(--plaster); }
+.strata li:nth-child(6) { flex: 0.9 1 0; background: var(--plaster); color: var(--oxide); }
+.strata li:nth-child(7) { flex: 0.8 1 0; background: var(--mortar);  color: #FFFFFF; }
+.strata li:nth-child(8) { flex: 0.7 1 0; background: var(--oxide);   color: var(--plaster); }
+.strata li:nth-child(9) { flex: 0.6 1 0; background: var(--carmine); color: #FFFFFF; }
+.strata-note { font-size: 13px; line-height: 1.7; margin-top: 14px; max-width: 43em; color: var(--mortar-ink); }
+.table-read { margin-top: 24px; padding: 18px 20px; background: var(--carmine); color: #FFFFFF; max-width: 43em; }
+.table-read p { font-size: 16px; line-height: 1.75; margin-top: 8px; }
+.table-read p:first-child { margin-top: 0; }
+.table-read b { color: var(--lime); font-weight: 700; }
+.table-read--b { background: var(--oxide); color: var(--plaster); }
+.table-read--b b, .table-read--b code { color: var(--carmine-lit); }
+
+/* --------------------------------------------------------------- 壁画工具符号 */
+.tools { list-style: none; margin: 30px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 26px 30px; align-items: flex-start; }
+.tool { min-width: 0; flex: 1 1 0; }
+.tool--a { flex-grow: 1.25; }
+.tool--b { flex-grow: 0.85; }
+.tool--c { flex-grow: 1.1; }
+.tool--d { flex-grow: 0.9; }
+.tool__m { display: block; width: 72px; height: 72px; color: var(--carmine); }
+.tool__n { font-size: 16px; margin-top: 8px; }
+.tool__x { font-family: var(--slab); font-size: 22px; line-height: 1.1; margin-top: 2px; color: var(--carmine); }
+.tool__d { font-size: 13px; line-height: 1.7; margin-top: 6px; color: var(--mortar-ink); }
+
+/* ------------------------------------------------------- FLAKE-09 与空状态 */
+.fault { margin-top: 26px; padding: 18px 20px; background: var(--oxide); color: var(--plaster); max-width: 43em; }
+.states { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+.states .fault, .states .empty { max-width: none; margin-top: 0; }
+.fault__line { font-size: 16px; line-height: 1.75; }
+.fault__line code { color: var(--carmine-lit); }
+.fault__frame { font-size: 13px; line-height: 1.7; margin-top: 10px; color: var(--mortar-lit); }
+.empty { margin-top: 22px; padding: 18px 20px; background: var(--carmine); color: #FFFFFF; max-width: 43em; }
+.empty p { font-size: 16px; line-height: 1.75; }
+.empty .plate { margin-top: 14px; }
+.empty .scr { color: #FFFFFF; }
+.empty .pending { color: #FFFFFF; }                     /* 6.81:1（继承砂浆墨只有 1.1:1） */
+.pending { font-size: 13px; line-height: 1.7; margin-top: 16px; max-width: 43em; color: var(--mortar-ink); }
+
+/* ------------------------------------------------------------------ 照片图版 */
+.plates { list-style: none; margin: 34px 0 0; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 34px 24px; }
+.plate-i { margin: 0; min-width: 0; }
+.plate-i:nth-child(-n+3) { grid-column: span 2; }
+.plate-i:nth-child(4), .plate-i:nth-child(5) { grid-column: span 3; }
+.plate-i:nth-child(6) { grid-column: span 6; }
+.plate-i img { display: block; width: 100%; height: auto; object-fit: cover; filter: url(#sep4); }
+.plate-i:nth-child(-n+3) img { aspect-ratio: 1 / 1; }
+.plate-i:nth-child(4) img, .plate-i:nth-child(5) img { aspect-ratio: 4 / 3; }
+.plate-i:nth-child(6) img { aspect-ratio: 21 / 9; }
+.plate-i--flat img { filter: url(#sep3); }
+.plate-i figcaption { font-size: 13px; line-height: 1.65; margin-top: 10px; max-width: 43em; color: var(--mortar-ink); }
+.plate-i figcaption b { font-family: var(--slab); font-weight: 400; color: var(--carmine); letter-spacing: 0.02em; }
+
+/* ------------------------------------------------------------------ 动效说明 */
+.spec-list { list-style: none; margin: 28px 0 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px 40px; }
+.spec-list li { font-size: 16px; line-height: 1.75; padding-left: 20px; position: relative; color: var(--oxide); }
+.spec-list li::before { content: ""; position: absolute; left: 0; top: 0.7em; width: 10px; height: 3px; background: var(--carmine); }
+.spec-list b { color: var(--oxide); font-weight: 700; }
+.degrade-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 40px; margin-top: 30px; padding-top: 20px; border-top: 6px solid var(--carmine); }
+.degrade { font-size: 16px; line-height: 1.78; max-width: none; margin: 0; }
+
+/* -------------------------------------------------------------------- 页脚 */
+/* ------------------------------------------------------------ 动效预算与页脚 */
+.budget { margin-top: 26px; padding: 18px 20px; background: var(--carmine); color: #FFFFFF; max-width: 43em; }
+.budget p { font-size: 16px; line-height: 1.75; margin-top: 8px; }
+.budget p:first-child { margin-top: 0; }
+.budget b, .budget code { color: var(--lime); }
+
+footer { padding: clamp(48px, 5vw, 72px) 0 80px; }
+/* 字段 3 的面积配比条：四格宽度按 36 / 34 / 22 / 8 排，不是等分 */
+.palette { list-style: none; margin: 0 0 40px; padding: 0; display: flex; gap: 8px; min-height: 132px; }
+.palette li {
+  display: flex; flex-direction: column; justify-content: space-between; min-width: 0;
+  padding: 12px 10px; font-size: 13px; line-height: 1.5;
+}
+.palette li:nth-child(1) { background: var(--plaster); color: var(--oxide); }
+.palette li:nth-child(2) { background: var(--carmine); color: #FFFFFF; }
+.palette li:nth-child(3) { background: var(--oxide);   color: var(--plaster); }
+.palette li:nth-child(4) { background: var(--mortar);  color: #FFFFFF; }
+.foot-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+.foot-grid h3 { font-size: 17px; margin-bottom: 10px; }
+.foot-grid p { font-size: 13px; line-height: 1.7; color: var(--mortar-ink); }
+.sig { font-size: 13px; line-height: 1.75; color: var(--mortar-ink); margin-top: 40px; max-width: 43em; }
+
+.sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+/* --------------------------------------------------- 1024–1439px：剥落减为 6 处 */
+@media (max-width: 1439px) {
+  .wall { grid-template-columns: repeat(36, minmax(0, 1fr)) 72px; }
+  #f7, #f8, #f9, .note--d { display: none; }
+  .rail__i--7, .rail__i--8, .rail__i--9 { display: none; }
+  .rail { grid-row: 1 / span 200; }
+  .note--c { grid-column: 24 / span 13; grid-row: 180 / span 8; }
+  /* 1024–1439px 的剥落更窄、更高：实测 f3 底 row 86、f5 底 row 151，说明块再让开 */
+  .note--b { grid-column: 20 / span 17; grid-row: 88 / span 10; }
+  .wall-note--a { grid-row: 153 / span 30; }
+  .plates { grid-template-columns: 1fr 1fr; }
+  .plate-i, .plate-i:nth-child(6) { grid-column: auto; }
+  .plate-i img { aspect-ratio: 4 / 3; }
+}
+
+/* ------------------------------- 768–1023px：6 栏重排，6 处剥落 + 72px 索引栏 */
+@media (max-width: 1023px) {
+  .masthead { grid-template-columns: 1fr; }
+  .wall { grid-template-columns: repeat(6, minmax(0, 1fr)) 72px; }
+  .rail { grid-row: 1 / span 288; }
+  .rail__l { white-space: nowrap; font-size: 12px; }
+  .rail__l code { font-size: 12px; }
+  .rail__y { font-size: 12px; }
+  .rail__y code { font-size: 12px; }
+  .rail__y i { display: none; }          /* 72px 竖栏放不下颜料名，窄档只留层位号与年代 */
+  #f1 { grid-column: 1 / span 6; grid-row: 1 / span 48;  --ph: 150px; }
+  #f2 { grid-column: 1 / span 3; grid-row: 60 / span 44; }
+  #f3 { grid-column: 4 / span 3; grid-row: 60 / span 50; --ph: 88px; }
+  #f4 { grid-column: 1 / span 3; grid-row: 127 / span 44; }
+  #f5 { grid-column: 4 / span 3; grid-row: 127 / span 52; --ph: 110px; }
+  #f6 { grid-column: 1 / span 3; grid-row: 194 / span 40; }
+  .note--a { grid-column: 1 / span 6; grid-row: 53 / span 8; }
+  .note--b { grid-column: 1 / span 6; grid-row: 120 / span 8; }
+  .note--c { grid-column: 1 / span 6; grid-row: 187 / span 8; }
+  .wall-note--a { grid-column: 1 / span 6; grid-row: 229 / span 16; }
+  .wall-note--b { grid-column: 1 / span 6; grid-row: 260 / span 16; }
+  .scan { display: none; }
+  .rail__i { top: calc(var(--r2, var(--r)) * 8px + 26px); }
+  .spec-list { grid-template-columns: 1fr; }
+  .states, .degrade-grid { grid-template-columns: 1fr; }
+  .strata li { padding: 8px 6px; }
+  .palette { flex-direction: column; gap: 4px; min-height: 0; }
+  .palette li { flex-direction: row; align-items: baseline; justify-content: flex-start; gap: 12px; padding: 8px 10px; }
+  .tool { flex: 1 1 45%; }
+}
+
+/* ------------------------------ <768px：单栏，9 段通栏，索引栏转横滑层位条 */
+@media (max-width: 767px) {
+  body { line-height: 1.8; }
+  .wall { display: flex; flex-direction: column; row-gap: 24px; gap: 24px; grid-auto-rows: auto; }
+  .flake { grid-column: auto; grid-row: auto; width: 100%; padding: 16px calc(var(--pw, 16px) + 16px) 44px 16px; }
+  #f1 { --ph: 180px; }
+  #f3 { --ph: 150px; }
+  #f5 { --ph: 140px; }
+  #f7, #f8, #f9, .note--d { display: block; }
+  #f9 { --pw: 0px; padding: 12px; }
+  .note, .wall-note { width: 100%; }
+  .scan { display: none; }
+  .strata { flex-direction: column; gap: 4px; min-height: 0; }
+  .strata li { flex-direction: row; align-items: baseline; justify-content: flex-start; gap: 10px; padding: 6px 8px; }
+  .plates { grid-template-columns: 1fr; gap: 28px; }
+  .plate-i img { aspect-ratio: 4 / 3; }
+  /* 层位索引 → 主张句下方的层位条：一次露出 5 个层位号，牌面仍是 40×24px */
+  .rail {
+    order: -1; position: static; width: 100%; display: flex; flex-wrap: nowrap;
+    gap: 34px; overflow-x: auto; padding-bottom: 4px;      /* 一次完整露出 5 个层位号 */
+  }
+  .rail__h { display: none; }
+  .rail__i, .rail__i--7, .rail__i--8, .rail__i--9 {
+    display: block; position: static; flex: 0 0 40px; width: 40px;
+  }
+  .rail__l { display: block; }
+  .rail__w, .rail__sw, .rail__y { display: none; }
+  .rail__i a { display: grid; place-items: center; width: 40px; height: 24px; background: var(--lime); color: var(--oxide); text-decoration: none; }
+  .rail__i.is-cur a { background: var(--carmine); color: #FFFFFF; }
+  .tool { flex: 1 1 100%; }
+  .foot-grid { grid-template-columns: 1fr; gap: 22px; }
+}
+
+/* ------------------------------------------------------------ 减少动态时 */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .flake.is-open::before { animation: none; }        /* 逐层露出停止推进… */
+  .scan { animation: none; opacity: 0.5; }
+  .js [data-rise]:not(.in), .js [data-rise].in { opacity: 1; transform: none; transition: none; }
+  .btn:hover, .btn:active { transform: none; }
+  /* …但层位关系完整保留：2–4 层颜料、1px 白石灰线、3–5 道铲痕与 40×24px 号牌
+     全部静态呈现；悬停加线照常出现（它是信息，不是装饰）。 */
+}
+
+/* 揭幕动效：只碰 transform 与 opacity，元素始终留在文档里；无 JS 时全部可见 */
+[data-rise] { transition: opacity 420ms cubic-bezier(0.2, 0.85, 0.3, 1), transform 420ms cubic-bezier(0.2, 0.85, 0.3, 1); }
+.js [data-rise] { opacity: 0; transform: translateY(14px); }
+.js [data-rise].in { opacity: 1; transform: none; }

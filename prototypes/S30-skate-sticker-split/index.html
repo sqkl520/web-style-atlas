@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>滑板贴纸对切 · 37 张贴纸与一条 −32° 撕痕｜丝网贴纸与街机 HUD</title>
+<meta name="description" content="滑板贴纸对切：一张贴纸被对角线撕成两半，两半错位 9px，撕痕内侧留 1.5px 背胶残迹带。离型纸冷白 #EDEDED，贴纸本体荧光绿 #007B3F，轮廓脏黑 #141414。">
+<link rel="stylesheet" href="../_fonts/css/anton__400.css">
+<link rel="stylesheet" href="../_fonts/css/zhuque-fangsong__400.css">
+<link rel="stylesheet" href="../_fonts/css/ibm-plex-mono__400-500.css">
+<link rel="stylesheet" href="style.css">
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+<a class="skip" href="#cut">跳到对角对切贴纸区</a>
+
+<!-- 顶部状态条：错误码写在这一条里，静态截图必见（契约 §9.12） -->
+<div class="bar" role="status">
+  <p class="bi"><span class="bk">贴纸</span><code>37</code><span class="bu">枚</span></p>
+  <p class="bi"><span class="bk">最高分</span><code>84,200</code></p>
+  <p class="bi"><span class="bk">对角</span><code>-32deg</code><span class="bk">色带</span><code>96px</code><span class="bk">错位</span><code>9px</code></p>
+  <p class="bi bi--fault"><span class="bk">状态</span><code>GRIP-30</code><span class="bfull">砂面抓地贴纸裁切错位</span></p>
+</div>
+
+<svg class="sprite" aria-hidden="true">
+  <defs>
+    <symbol id="g-grip" viewBox="0 0 28 28"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square"><path d="M3 8h4M11 8h4M19 8h4M7 14h4M15 14h4M23 14h2M3 20h4M11 20h4M19 20h4"/></g></symbol>
+    <symbol id="g-stud" viewBox="0 0 28 28"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square"><path d="M14 3v13"/><path d="M8 16h12v4H8z"/><path d="M10.1 8.5l7.8 4.6M17.9 8.5l-7.8 4.6"/><path d="M11 24h6"/></g></symbol>
+    <symbol id="g-score" viewBox="0 0 28 28"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square"><path d="M3 4h22v10H3z"/><path d="M7 9h4M16 9h5"/><path d="M3 18h22M6 22h16"/></g></symbol>
+    <symbol id="g-scraper" viewBox="0 0 28 28"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M4 9h20v8H4z"/><path d="M4 21h20"/><path d="M9 9V5h10v4"/></g></symbol>
+  </defs>
+</svg>
+
+<header class="masthead">
+  <div class="masthead__lead">
+    <h1>SKATE STICKER<br>SPLIT</h1>
+    <p class="cn">滑板贴纸对切</p>
+    <p class="claim">这块板底贴了 37 张贴纸，最早那张是 1994 年从店里顺来的。</p>
+    <p class="cue"><a class="btn" href="#replay">看第 12 关的回放</a></p>
+    <p class="meta">一张贴纸从左上到右下撕成两半，两半各自错位 <code>9px</code>，撕痕上留着背胶残迹与卷边。荧光绿只占画面四分之一，其余是离型纸冷白与<b>黑色轮廓线</b>；底色 <code>#EDEDED</code> 实测 R=G=B=237、饱和度 0%。</p>
+  </div>
+  <figure class="masthead__plate">
+    <img src="assets/reuse-s12-silkscreen-bench.jpg" width="1920" height="1406" alt="丝网印刷工作室里的手动丝印台：蓝色铝制抬臂网框、金属台面与右侧的白色晾架">
+    <figcaption>贴纸本体的来处：手动丝印台与晾架，抬臂轮廓就是 <code>1.6px</code> 方头线宽的实物参照。<span class="ref">Scrud123 · CC BY-SA 3.0 · <a href="https://commons.wikimedia.org/wiki/File%3AScreen_print_hand_bench_proffesional_print_bench_in_Squeegee_%26_Ink_studio.jpg">Wikimedia Commons</a></span></figcaption>
+  </figure>
+</header>
+
+<main>
+<!-- 错误状态：可见区块，不在 JS 分支里（契约 §9.12） -->
+<section class="fault" id="fault" aria-labelledby="fault-h">
+  <h2 id="fault-h">裁切错位</h2>
+  <p class="fault__line" role="alert" data-rise>砂面抓地贴纸裁切错位（错误码 <code>GRIP-30</code>）：撕痕位图与贴纸层的基线差了 <code>3px</code>，卷边的 <code>1px</code> 高光被切掉一半，背胶残迹带只剩 <code>55%</code> 那段还完整。</p>
+  <p class="fault__frame" data-rise>上一帧冻结在 <code>-32deg</code>、斜切带 <code>96px</code>、错位 <code>9px</code>；已落贴 <code>37 / 37</code> 张，唯一未确认的是 <code>ST-12</code>。编号、分数与撕痕位图照旧可读，只是对不上同一条对角线。</p>
+  <p class="cue"><button class="btn btn--ink" type="button" id="realign">把撕痕重新对到 3px 偏移线</button></p>
+  <p class="packet" id="packet">撕痕位图停在偏移 <code>3px</code> 的那一帧。重新对齐按构建期顺序：先出离型纸底 <code>120ms</code>，再逐张贴回贴纸（每张 <code>140ms</code>、间隔 <code>40ms</code>），最后重划撕痕。</p>
+</section>
+
+<!-- 对角对切主区：整页纹理只挂伪元素，body 保持纯色（契约 §9.2） -->
+<section class="cut" id="cut" aria-labelledby="cut-h">
+  <div class="cut__grounds" aria-hidden="true">
+    <span class="cut__lower"></span>
+    <span class="cut__band"></span>
+    <span class="cut__nail"></span>
+  </div>
+  <div class="cut__head">
+    <h2 id="cut-h">对角对切</h2>
+    <p class="lede">基础 12 栏、栏距 <code>16px</code>、外距 <code>32px</code>、基线 <code>6px</code>。版面被一条从左上到右下的对角线切开，角度按宽高比算出，1440×900 时为 <code>-32deg</code>。不对称：两半内容沿对角线各错位 <code>9px</code>，下半偏右下、上半不动；下半底色在 <code>#EDEDED</code> 上叠 3% 的 <code>#141414</code>，落成 <code>#E6E6E6</code>。留白：贴纸间 <code>20px</code>、正文块间 <code>48px</code>、边缘留 <code>32px</code>。</p>
+    <p class="lede">对角线上压着一条 <code>96px</code> 斜切色带，带里是装饰用的实色 <code>#00E676</code>：不承载文字与图标，若带上有文字，文字固定用 <code>#007B3F</code>。37 张里挑出 10 张可撕的，上半 5 张、下半 5 张，绿色只出现在贴纸本体内。</p>
+  </div>
+
+  <div class="cut__cols">
+    <div class="cut__col cut__col--a">
+      <article class="sticker st--green" data-rise style="--w:96%" tabindex="0" data-no="ST-37">
+        <p class="sticker__top"><svg class="ico"><use href="#g-grip"/></svg><code class="sticker__no">ST-37</code><code class="sticker__m">1994</code></p>
+        <h3 class="sticker__t">最早的那张</h3>
+        <p class="sticker__b">荧光绿压到可读档的 <code>#007B3F</code> 之后印在白纸上，色相仍是 150.8°、明度 24%。</p>
+      </article>
+      <article class="sticker" data-rise style="--w:74%" tabindex="0" data-no="ST-04">
+        <p class="sticker__top"><svg class="ico"><use href="#g-scraper"/></svg><code class="sticker__no">ST-04</code><code class="sticker__m">4 × 2px</code></p>
+        <h3 class="sticker__t">撕痕起点</h3>
+        <p class="sticker__b">起点内 <code>8px</code> 有一处 <code>4×2px</code> 指甲印，是撕这张贴纸的人留下的；程序生成的撕裂边缘不会带这个。</p>
+      </article>
+      <article class="sticker" data-rise style="--w:88%" tabindex="0" data-no="ST-06">
+        <p class="sticker__top"><svg class="ico"><use href="#g-grip"/></svg><code class="sticker__no">ST-06</code><code class="sticker__m">6–28px</code></p>
+        <h3 class="sticker__t">缺口</h3>
+        <p class="sticker__b">撕边单个缺口宽 <code>6–28px</code>、深 <code>2–9px</code>，形状来自扫描的撕痕位图，不用规则折线冒充。</p>
+      </article>
+      <article class="sticker st--green" data-rise style="--w:62%" tabindex="0" data-no="ST-09">
+        <p class="sticker__top"><svg class="ico"><use href="#g-stud"/></svg><code class="sticker__no">ST-09</code><code class="sticker__m">9px</code></p>
+        <h3 class="sticker__t">贴纸层错位</h3>
+        <p class="sticker__b">贴纸本体浮在离型纸之上 <code>9px</code>，厚度用 <code>1px</code> 深边加 <code>0.5px</code> 亮边表达，不使用投影。</p>
+      </article>
+      <article class="sticker" data-rise style="--w:94%" tabindex="0" data-no="ST-11">
+        <p class="sticker__top"><svg class="ico"><use href="#g-scraper"/></svg><code class="sticker__no">ST-11</code><code class="sticker__m">55%–70%</code></p>
+        <h3 class="sticker__t">背胶残迹</h3>
+        <p class="sticker__b">撕痕内侧一条 <code>1.5px</code> 白色背胶残迹带，不透明度 <code>55%–70%</code>，沿撕边疏密不均。</p>
+      </article>
+    </div>
+
+    <div class="cut__col cut__col--b">
+      <article class="sticker st--green" data-rise style="--w:68%" tabindex="0" data-no="ST-12">
+        <p class="sticker__top"><svg class="ico"><use href="#g-score"/></svg><code class="sticker__no">ST-12</code><code class="sticker__m">12</code></p>
+        <h3 class="sticker__t">第 12 关回放</h3>
+        <p class="sticker__b">分数是钉在角落的等宽数字块，闯关编号与分数都不参与对角错位，压在下半也钉死在角上。</p>
+      </article>
+      <article class="sticker" data-rise style="--w:100%" tabindex="0" data-no="ST-16">
+        <p class="sticker__top"><svg class="ico"><use href="#g-scraper"/></svg><code class="sticker__no">ST-16</code><code class="sticker__m">6–14px</code></p>
+        <h3 class="sticker__t">卷边</h3>
+        <p class="sticker__b">撕痕两端各有 <code>6–14px</code> 卷边，两段实色加 <code>1px</code> 高光表现纸的厚度，方向固定朝观看者左上。</p>
+      </article>
+      <article class="sticker st--green" data-rise style="--w:82%" tabindex="0" data-no="ST-21">
+        <p class="sticker__top"><svg class="ico"><use href="#g-stud"/></svg><code class="sticker__no">ST-21</code><code class="sticker__m">1.6px</code></p>
+        <h3 class="sticker__t">桥钉与螺母</h3>
+        <p class="sticker__b">带螺母的短柱，画在 <code>14</code> 单位网格上、线宽 <code>1.6px</code> 方头；线色继承文字色并降 25% 明度。</p>
+      </article>
+      <article class="sticker" data-rise style="--w:76%" tabindex="0" data-no="ST-27">
+        <p class="sticker__top"><svg class="ico"><use href="#g-grip"/></svg><code class="sticker__no">ST-27</code><code class="sticker__m">85 线</code></p>
+        <h3 class="sticker__t">砂纸点阵</h3>
+        <p class="sticker__b">砂面按 <code>85</code> 线硬边网点斜排点阵，不做柔化；密度 <code>0.72</code>、不透明度 <code>0.14</code>。</p>
+      </article>
+      <article class="sticker st--green" data-rise style="--w:60%" tabindex="0" data-no="ST-31">
+        <p class="sticker__top"><svg class="ico"><use href="#g-score"/></svg><code class="sticker__no">ST-31</code><code class="sticker__m">-32deg</code></p>
+        <h3 class="sticker__t">对角角度</h3>
+        <p class="sticker__b">≥1200px 全开 <code>-32deg</code>；820–1199px 收 <code>-26deg</code>、错位收 <code>6px</code>；<code>&lt;520px</code> 转向页高、角度收 <code>-58deg</code>。</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 撕痕与背胶残迹：位图 + 三个区间的实测值 -->
+<section class="tear" id="tear" aria-labelledby="tear-h">
+  <h2 id="tear-h">撕痕与背胶残迹</h2>
+  <p class="lede" data-rise>撕边不是折线，是位图：缺口宽 <code>6–28px</code>、深 <code>2–9px</code>；内侧背胶残迹带 <code>1.5px</code>，不透明度 <code>55%–70%</code> 沿撕边疏密不均。下面这条按原值摆出，没有缩放。</p>
+  <div class="tear__strip" data-rise>
+    <span class="tear__notch"></span>
+    <span class="tear__glue"></span>
+    <span class="tear__glue tear__glue--thin"></span>
+    <span class="tear__curl"></span>
+    <span class="tear__nail"></span>
+  </div>
+  <ul class="spec-list">
+    <li data-rise><b>撕痕位图</b>缺口 <code>6–28px</code>、深 <code>2–9px</code>，掩码从左上到右下扫过 <code>240ms</code> 划出。</li>
+    <li data-rise><b>背胶残迹</b><code>1.5px</code> 白带，不透明度 <code>55%</code> 到 <code>70%</code>；两层实色叠出疏密，不用模糊。</li>
+    <li data-rise><b>卷边</b>两端各 <code>6–14px</code>，两段实色加 <code>1px</code> 高光，方向固定朝观看者左上。</li>
+    <li data-rise><b>贴纸厚度</b><code>1px</code> 深边加 <code>0.5px</code> 亮边，全部直角；贴纸是刮上去的，不是浮起来的。</li>
+    <li data-rise><b>指甲印</b><code>4×2px</code>，固定在对角线起点内 <code>8px</code>，不随缩放与错位移动。</li>
+  </ul>
+  <ul class="swatches" aria-label="方案用色与实际面积">
+    <li class="sw"><span class="sw__chip sw__chip--paper"></span><p class="sw__tx"><code>#EDEDED</code> 离型纸冷白 46%，正文 <code>#141414</code> 压在上面 15.74:1。</p></li>
+    <li class="sw"><span class="sw__chip sw__chip--green"></span><p class="sw__tx"><code>#007B3F</code> 荧光绿 28%，只在贴纸本体内；作按钮底用白字，5.38:1。</p></li>
+    <li class="sw"><span class="sw__chip sw__chip--deco"></span><p class="sw__tx"><code>#00E676</code> 装饰性实色块：不承载文字与图标，其上文字固定 <code>#007B3F</code>。</p></li>
+    <li class="sw"><span class="sw__chip sw__chip--ink"></span><p class="sw__tx"><code>#141414</code> 脏黑 26%，贴纸轮廓与撕裂阴影，L 7.8%。</p></li>
+  </ul>
+</section>
+
+<!-- 图标逻辑：自绘，取自滑板硬件与街机 HUD -->
+<section class="icons" id="icons" aria-labelledby="icons-h">
+  <h2 id="icons-h">图标逻辑</h2>
+  <p class="lede" data-rise>图标自绘，取自滑板硬件与街机 HUD：<code>14</code> 单位网格、<code>1.6px</code> 方头线宽。砂纸是斜排点阵，桥钉是带螺母的短柱，分数是钉在角落的等宽数字块。</p>
+  <div class="glyphs">
+    <figure class="glyph" data-rise style="--gw:34%">
+      <svg class="glyph__svg"><use href="#g-grip"/></svg>
+      <figcaption><b>砂纸</b>斜排点阵，点距按 <code>85</code> 线。</figcaption>
+    </figure>
+    <figure class="glyph" data-rise style="--gw:26%">
+      <svg class="glyph__svg"><use href="#g-stud"/></svg>
+      <figcaption><b>桥钉</b>短柱加螺母，柱身 <code>13</code> 单位，底座 <code>4</code> 单位。</figcaption>
+    </figure>
+    <figure class="glyph" data-rise style="--gw:32%">
+      <svg class="glyph__svg"><use href="#g-score"/></svg>
+      <figcaption><b>分数</b>等宽数字块钉在角落，不随对角错位移动。</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 场地实拍图版：署名紧跟图片下方 -->
+<section class="plates" aria-labelledby="plates-h">
+  <h2 id="plates-h">场地实拍图版</h2>
+  <p class="lede" data-rise>六张实拍把丝印台、Risograph、街机柜与层压板的质感摊开，三色丝网分色：荧光绿 <code>#007B3F</code> 只在贴纸本体，<code>#141414</code> 只用于轮廓与阴影，其余留离型纸冷白。作者与许可逐张写在图下，全表在 <code>assets/CREDITS.md</code>。</p>
+  <div class="plates__grid">
+    <figure class="plate plate--wide" data-rise>
+      <img src="assets/reuse-s25-plate1.jpg" width="1400" height="933" alt="丝网印刷演示：按住网框的双手与一把刮板，网面上是红色图案与黑色油墨">
+      <figcaption><b>图版 01</b> 刮板在网框上走一次，油墨被压进网孔。<span class="ref">Ahmad Ali Karim · CC0 · Wikimedia Commons · File:Screen printing demonstration at TEDxUTM.jpg</span></figcaption>
+    </figure>
+    <figure class="plate plate--tall" data-rise>
+      <img src="assets/reuse-s12-arcade-cabinet.jpg" width="1920" height="2560" alt="1984 年 Atari 街机柜 Marble Madness：灯箱、绿色等距迷宫画面与分数 51、下方操作面板与轨迹球">
+      <figcaption><b>图版 02</b> 分数与关卡编号钉在屏幕角落，等宽数字这条规矩就是从这类 HUD 偷来的。<span class="ref">Halcyanide · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File%3AMarble_Madness_arcade_cabinet.jpg">Wikimedia Commons</a></span></figcaption>
+    </figure>
+    <figure class="plate" data-rise>
+      <img src="assets/reuse-s25-plate5.jpg" width="1400" height="933" alt="工作室内的一台理光式数码速印机：灰白机身、侧面蓝色长条标牌、出纸托盘与纸盒">
+      <figcaption><b>图版 03</b> 速印机的分件与出纸托盘，是错位与套印偏差在实物上的样子。<span class="ref">Kaethe17 · CC BY-SA 4.0 · Wikimedia Commons · File:Risograph-herr-und-frau-rio-muc-2020.jpg</span></figcaption>
+    </figure>
+    <figure class="plate plate--tall" data-rise>
+      <img src="assets/reuse-s12-memphis-collection.jpg" width="1536" height="2048" alt="1981 年 Sottsass 为 Memphis 设计的 Casablanca 书架：红黑斑纹层压板格架与白色木纹贴面门板">
+      <figcaption><b>图版 04</b> 层压板的斑纹：同一种贴面换向，落差就出来了。<span class="ref">Stefano Stabile · CC BY-SA 3.0 · <a href="https://commons.wikimedia.org/wiki/File%3AEttore_Sottsass_per_Memphis_-_Libreria_Casablanca_-_1981_-_laminato_plastico_-_Casablanca_bookcase_in_plastic_laminate.JPG">Wikimedia Commons</a></span></figcaption>
+    </figure>
+    <figure class="plate" data-rise>
+      <img src="assets/reuse-s12-carlton-bookcase.jpg" width="1920" height="1963" alt="1981 年 Memphis 的 Carlton 书架：彩色塑料层压板拼成的几何格子与黑白碎斑纹底座">
+      <figcaption><b>图版 05</b> 彩色层压板按块拼出的几何格子，直角与平板，没有一处柔和投影。<span class="ref">Sailko · CC BY 3.0 · <a href="https://commons.wikimedia.org/wiki/File%3AEttore_sottsass_per_memphis_srl.%2C_libreria_carlton%2C_milano_1981.jpg">Wikimedia Commons</a></span></figcaption>
+    </figure>
+    <figure class="plate plate--wide" data-rise>
+      <img src="assets/reuse-s12-silkscreen-bench.jpg" width="1920" height="1406" alt="丝印台特写：红白网框、蓝色臂架与旋钮，右侧晾架上排满印好的纸">
+      <figcaption><b>图版 06</b> 网框、晾架与台面：裁切错位这一版复刻的就是台面与纸之间的落差。<span class="ref">Scrud123 · CC BY-SA 3.0 · <a href="https://commons.wikimedia.org/wiki/File%3AScreen_print_hand_bench_proffesional_print_bench_in_Squeegee_%26_Ink_studio.jpg">Wikimedia Commons</a></span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 断点行为：细线留给真实表格 -->
+<section class="breaks" aria-labelledby="breaks-h">
+  <h2 id="breaks-h">断点行为</h2>
+  <p class="lede" data-rise>四个档位给四个不同答案。窄档不是把宽档缩小，是把色带转到另一条轴上。</p>
+  <table class="bt" data-rise>
+    <caption>对角对切在四个断点上的取值（1440 / 768 / 390 三档已实测）</caption>
+    <thead>
+      <tr><th scope="col">断点</th><th scope="col">对角线角度</th><th scope="col">斜切带</th><th scope="col">贴纸层错位</th><th scope="col">撕痕缺口 / 卷边</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>≥1200px</td><td><code>-32deg</code></td><td><code>96px</code></td><td><code>9px</code></td><td><code>6–28px</code> / <code>6–14px</code></td></tr>
+      <tr><td>820–1199px</td><td><code>-26deg</code></td><td><code>96px</code></td><td><code>6px</code></td><td><code>6–20px</code> / <code>6–10px</code></td></tr>
+      <tr><td>520–819px</td><td>保留角度，不切开内容</td><td><code>3px</code> 斜切分隔带</td><td>单列纵向，<code>0px</code></td><td><code>6–16px</code> / <code>6px</code></td></tr>
+      <tr><td>&lt;520px</td><td><code>-58deg</code></td><td>转到页高方向，带高 <code>96px</code></td><td><code>3px</code></td><td><code>6–14px</code> / <code>6px</code></td></tr>
+    </tbody>
+  </table>
+  <p class="table-note">窄档保留对角对切：斜切带由页宽方向转到页高方向，角度由 <code>-32deg</code> 收到 <code>-58deg</code>，带高仍 <code>96px</code>，错位保留 <code>3px</code>；缺口缩到 <code>6–14px</code>、深 <code>2–4px</code>，卷边保持 <code>6px</code>，背胶残迹仍在撕痕内侧。</p>
+</section>
+
+<!-- 动效与降级 -->
+<section class="motion" id="motion" aria-labelledby="motion-h">
+  <h2 id="motion-h">动效与降级</h2>
+  <p class="lede" data-rise>位移只跑 <code>transform</code> 与 <code>opacity</code>。滚动时两半沿对角线反向推挤：下半向下 <code>24px</code>、上半向上 <code>24px</code>，错位量在同一个来回里从 <code>9px</code> 变到 <code>0</code> 再回到 <code>9px</code>；方向切换用 <code>180ms</code> 阻尼过渡 <code>cubic-bezier(0.3,0.9,0.3,1)</code>。</p>
+  <ul class="spec-list">
+    <li data-rise><b>滚动</b>整页滚程映射成 <code>0→24px</code> 三角波，来回一次约 <code>2400px</code>；同一个波把错位量从 <code>9px</code> 收到 <code>0</code> 再放回。</li>
+    <li data-rise><b>悬停</b>贴纸不位移，只有卷边的 <code>1px</code> 高光沿卷起方向延伸 <code>1px</code>，<code>90ms</code> 阶跃。</li>
+    <li data-rise><b>加载</b>先出离型纸底 <code>120ms</code>，再逐张落贴纸（每张 <code>140ms</code>、间隔 <code>40ms</code>，硬停不回弹），最后撕痕掩码扫过 <code>240ms</code>。</li>
+    <li data-rise><b>转场</b>切换版面时两半沿对角线分离 <code>40px</code> 再合拢，合计 <code>360ms</code>。</li>
+    <li data-rise><b>光标</b>自绘 <code>26px</code> 刮板图形跟着指针走，刃口 <code>2px</code>，不遮挡文字。</li>
+    <li data-rise><b>微交互</b>点击贴纸时背胶残迹变浓 5%（<code>100ms</code>）并显出这张贴纸的编号。</li>
+  </ul>
+  <p class="degrade" data-rise><b>减少动态时的再发明</b>（<code>prefers-reduced-motion: reduce</code>）：签名机制完整静态保留——两半的 <code>9px</code> 对角错位、撕痕位图、背胶残迹 <code>55%–70%</code> 的疏密、<code>6–14px</code> 卷边、<code>4×2px</code> 指甲印全按原值呈现；推挤量归 <code>0px</code>，错位固定在 <code>9px</code> 不再起伏；刮板光标不消失，仍是 <code>26px</code>、刃口 <code>2px</code>，只随指针出现；过渡压到 <code>120ms</code> 的不透明度切换。</p>
+</section>
+
+<!-- 空状态：可直接上站的第三处文案 -->
+<section class="replay" id="replay" aria-labelledby="replay-h">
+  <h2 id="replay-h">第 12 关回放</h2>
+  <p class="empty" data-rise>这一关还没人过。上周最高分 84,200，是周三晚上出的。</p>
+  <p class="empty__meta" data-rise>榜上空着的位置按对角分层：上半排 <code>9px</code> 错位的 <code>ST-12</code>，下半排钉死不动的那块分数；唯一未落位的就是 <code>ST-12</code>，也就是 <code>GRIP-30</code> 的那一张。</p>
+</section>
+</main>
+
+<footer>
+  <div class="foot-grid">
+    <div data-rise>
+      <h3>对角与错位</h3>
+      <p>对角 <code>-32deg</code>、斜切带 <code>96px</code>、错位 <code>9px</code>、卷边 <code>6–14px</code>、撕痕缺口 <code>6–28px</code> 深 <code>2–9px</code>。基础 <code>6px</code> 基线、12 栏、栏距 <code>16px</code>、外距 <code>32px</code>。</p>
+    </div>
+    <div data-rise>
+      <h3>当前状态</h3>
+      <p>砂面抓地贴纸裁切错位（错误码 <code>GRIP-30</code>）：撕痕位图与贴纸层基线差 <code>3px</code>，<code>ST-12</code> 未落位，其余编号与分数仍可读。</p>
+    </div>
+    <div data-rise>
+      <h3>图版来源</h3>
+      <p>六张实拍取自 Wikimedia Commons（四张原本为方案 S12 抓取、两张为 S25 抓取，本方案按题材复用），作者与许可逐张写在图下，全表在 <code>assets/CREDITS.md</code>；三张纹理为构建期程序化生成。</p>
+    </div>
+  </div>
+  <p class="sig">方案 30 · 滑板贴纸对切（Skate Sticker Split）· 1990 年代加州滑板贴纸文化 · 本页为可运行原型，用于验证字段 3 色彩配比（<code>#EDEDED</code> 46% / <code>#007B3F</code> 28% / <code>#141414</code> 26%）、对角对切与 <code>9px</code> 贴纸层错位、撕痕位图与背胶残迹 <code>55%–70%</code>、四个断点行为与 <code>GRIP-30</code> 错误态的实现方式。</p>
+</footer>
+
+<!-- 自绘刮板光标：26px，刃口 2px，静态截图里停在撕痕起点 -->
+<svg class="scraper" id="scraper" viewBox="0 0 28 28" aria-hidden="true"><use href="#g-scraper"/></svg>
+
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var cut = $('cut');
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  var WAVE = 2400, PUSH = 24, MIS = 9, sy = 0, raf = 0;
+  /* 滚动：三角波把推挤量推到 24px，同时把错位量从 9px 收到 0 再放回 9px */
+  function tick() {
+    raf = 0;
+    if (reduce.matches) return;   /* 减少动态：推挤量与错位量都不再由滚动改写，按本档原值定格 */
+    var cy = window.scrollY;
+    sy += (cy - sy) * 0.2;
+    if (Math.abs(cy - sy) < 0.5) sy = cy;
+    var t = (Math.abs(sy) % (WAVE * 2)) / WAVE, w = t <= 1 ? t : 2 - t;
+    cut.style.setProperty('--push', (PUSH * w).toFixed(2) + 'px');
+    cut.style.setProperty('--mis', (MIS * Math.abs(1 - 2 * w)).toFixed(2) + 'px');
+    if (Math.abs(cy - sy) > 0.5) raf = requestAnimationFrame(tick);
+  }
+  function kick() { if (!raf) raf = requestAnimationFrame(tick); }
+  window.addEventListener('scroll', kick, { passive: true });
+
+  /* 微交互：点贴纸 -> 背胶残迹变浓 5%（100ms）并显出编号 */
+  document.addEventListener('click', function (e) {
+    var s = e.target.closest('.sticker');
+    if (!s) return;
+    var on = s.classList.contains('is-peeled');
+    document.querySelectorAll('.is-peeled').forEach(function (o) { o.classList.remove('is-peeled'); });
+    if (!on) s.classList.add('is-peeled');
+  });
+
+  /* 错误态的修正入口：按构建期顺序重排，编号与读数不动 */
+  var btn = $('realign'), packet = $('packet');
+  btn.addEventListener('click', function () {
+    btn.disabled = true;
+    btn.textContent = '撕痕已排进重排队列：离型纸底 120ms -> 逐张贴回 140ms / 间隔 40ms -> 重划撕痕 240ms';
+    packet.textContent = '撕痕位图还在偏移 3px 的那一帧（错误码 GRIP-30）。36 张贴纸已经贴回原位，ST-12 那张要等撕痕重划完才落位；在那之前分数 84,200 与全部编号照旧可读。';
+  });
+
+  /* 刮板光标：只在精细指针下跟手（直接操作，不做自动动画） */
+  var scraper = $('scraper');
+  if (matchMedia('(pointer: fine)').matches) {
+    window.addEventListener('pointermove', function (e) {
+      scraper.classList.add('is-on');
+      scraper.style.transform = 'translate(' + (e.clientX - 13) + 'px,' + (e.clientY - 22) + 'px)';
+    }, { passive: true });
+  }
+
+  /* 入场：只动 transform 与 opacity，元素始终留在文档里 */
+  var rise = document.querySelectorAll('[data-rise]');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (list) {
+      list.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        en.target.classList.add('in');
+        io.unobserve(en.target);
+      });
+    }, { rootMargin: '0px 0px -40px 0px' });
+    rise.forEach(function (el) { io.observe(el); });
+  } else {
+    rise.forEach(function (el) { el.classList.add('in'); });
+  }
+  kick();
+})();
+</script>
+</body>
+</html>

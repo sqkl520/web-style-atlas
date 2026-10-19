@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>糊窗对折册 · 一张上浆和纸的上下对折｜中缝折痕与镜像文字</title>
+<meta name="description" content="糊窗对折册：背景 #DDDAD4 占 58%、主色 #565B49 占 28%、强调 #2E2A24 占 14%。版心按一张对折的纸建模，两半各 6 栏、栏距 22px、外距 56px、中缝 88px、基线 7px；折痕由 2px 加深到 6px，窄屏幽灵层 14px。">
+<link rel="stylesheet" href="../_fonts/css/petrona__400-600-700.css">
+<link rel="stylesheet" href="../_fonts/css/ibm-plex-mono__400-500.css">
+<link rel="stylesheet" href="../_fonts/css/zhuque-fangsong__400.css">
+<link rel="stylesheet" href="style.css">
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+<a class="skip" href="#fold">跳到对折的两面</a>
+
+<svg class="sprite" aria-hidden="true" focusable="false"><defs fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round">
+<symbol id="g-archive" viewBox="0 0 20 20"><path d="M4 4l12 12M16 4L4 16"/></symbol>
+<symbol id="g-quote" viewBox="0 0 20 20"><path d="M16.5 3.5H3.5v13h7.5"/><path d="M3.5 10h13"/></symbol>
+<symbol id="g-kumiko" viewBox="0 0 20 20"><path d="M3.5 3.5h13v13h-13z"/><path d="M3.5 10h13M10 3.5v13"/></symbol>
+</defs></svg>
+
+<header class="masthead">
+<p class="status" role="status"><span class="status__key">中缝状态</span><code>CREASE-22</code> 中缝折痕未压实 · 折痕实测 <code>2px</code>，触发后加深到 <code>6px</code> · 上层纤维 <code>15%</code>、下层 <code>25%</code>、透光差 <code>18%</code> · 校正入口在「<a href="#fault">折痕未压实</a>」</p>
+
+<div class="masthead__grid">
+<div class="masthead__col">
+<h1>糊窗对折册</h1>
+<p class="latin">Paper-Screen Folded Sheet</p>
+<p class="claim">这一期我们只读了三本书，其中一本读了四遍。</p>
+<p class="meta" data-rise>三个色就是全部：未上浆和纸 <code>#DDDAD4</code> 占 <code>58%</code>（晨光透纸），染过楮皮的抹茶灰绿 <code>#565B49</code> 占 <code>28%</code>（旧榻榻米，S 11% 属脏色），暖黑墨 <code>#2E2A24</code> 占 <code>14%</code>（砚台，L 16.1% 属脏色）。正文对纸底实测 <code>10.22:1</code>，主色对纸底 <code>5.04:1</code>，主色作按钮底时用白字 <code>#FFFFFF</code>（字段 3 记 6.51:1，本页实测 7.03:1）。中缝不是分割线，是一道被压深的折痕。</p>
+<p class="cue"><button class="btn" type="button" id="store">把这篇折起来，存到下次看</button></p>
+</div>
+
+<figure class="hero" data-rise>
+<span class="frame"><img src="assets/reuse-s13-src-washi.jpg" width="1920" height="1440" alt="手抄和纸的纸面与帘纹走向，转成抹茶灰绿单色调"></span>
+<figcaption>和纸参照：帘纹纸的纤维方向偏 <code>12°</code>、亮度 ±2 级，全页图片统一转成 <code>#565B49</code> 单色调再叠 <code>12%</code> 纸纤维纹理，边缘不做羽化。<span class="ref">原件未标注作者 · 见来源页 · 原件页在 <a href="assets/CREDITS.md">CREDITS.md</a></span></figcaption>
+</figure>
+</div>
+
+<figure class="specimen" data-rise>
+<div class="specimen__paper">
+<p class="specimen__front">上表面 · 相位差 <code>0°</code>：这一期我们只读了三本书，其中一本读了四遍。</p>
+<span class="crease crease--spec" aria-hidden="true"><span class="crease__band"></span></span>
+<p class="specimen__front specimen__front--back" data-verse="纸的另一面 · 相位差 180°：同一句反向落到下半页，光从这里透过去，折痕两端留着纸纤维的毛边。">纸的另一面 · 相位差 <code>180°</code>：同一句反向落到下半页，光从这里透过去，折痕两端留着纸纤维的毛边。</p>
+</div>
+<figcaption>首屏加固（对应 09 号 5.2 第 2 条）：折痕带留白可见宽 <code>88px</code>，两端毛口 <code>1px</code> 在 100% 缩放下可数，镜像相位差 <code>180°</code> 放在可辨尺寸上。验收环境为 sRGB、屏幕亮度 ≥<code>120cd/m²</code>、色准 ΔE ≤<code>3</code>；低于该环境时透光差会退化，需回退到 <code>2px</code> 的实色折痕。</figcaption>
+</figure>
+</header>
+
+<main>
+<section class="measure-sec" id="grid" aria-labelledby="grid-h">
+<h2 id="grid-h">版心与 12 栏</h2>
+<div class="cols2">
+<p data-rise>版心按「一张对折的纸」建模：两半各 6 栏、合计 12 栏，栏距 <code>22px</code>、外距 <code>56px</code>，中缝留白 <code>88px</code> 大于外距。中缝不参与分栏，所以 1440 档单栏实际只有 <code>83.2px</code> 宽：(1440 − 56×2 − 88 − 22×11) ÷ 12。基线 <code>7px</code> 取仿宋字面高的整数倍，段落间 <code>28px</code> 是四倍基线，章节间 <code>96px</code> 且这块空白必须跨过中缝，不允许被折痕切断。</p>
+<p data-rise>留白必须由结构算出，所以三个数值直接写死：中缝 <code>88px</code>、章节间 <code>96px</code>、段落间 <code>28px</code>，谁都不许写「留白很多」这类判断。上半页 <code>17px</code>、下半页 <code>16.5px</code>，下半页整体右移 <code>8px</code>，因为对折后纸的中线会偏；折痕本身落在线外 <code>0.4%</code> 处，它是这一页里唯一拒绝对齐的东西。</p>
+<p data-rise>栏距 <code>22px</code> 是栏宽 <code>83.2px</code> 的 26%，而中缝 <code>88px</code> 比页边 <code>56px</code> 更宽，所以两栏文字之间那道空白比页面四周更宽。这个纪律偷自《暮しの手帖》的双栏对称版心：不是把页面切成左右相等的两块，而是让中缝成为版心里最贵的那 <code>88px</code>。</p>
+<p data-rise>九个冻结值全部可复算：栏距、外距、中缝、基线、段落间、章节间、上下半页字号、折痕错位，加上两半的栏数。多一个都不给——排字之外的东西一律用折痕与光来解决，不再加分隔线、浅灰底与圆角容器。</p>
+</div>
+
+<div class="ruler" aria-hidden="true" data-rise>
+<span class="ruler__half"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+<span class="ruler__fold"></span>
+<span class="ruler__half"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+</div>
+<p class="note">上面这条刻度尺就是版心本身：十二格是 12 栏，中间那道窄口是 <code>88px</code> 的中缝留白（<code>22 + 44 + 22</code>）。抹茶绿只出现在主色与折痕相乘层里，所以刻度尺用 <code>rgba(86,91,73,0.12)</code>，不再引入第五支颜色。</p>
+
+<table class="spec" data-rise>
+<caption>版心九个冻结值与其读法（1440×900 档）</caption>
+<thead><tr><th scope="col">项</th><th scope="col">值</th><th scope="col">读法</th></tr></thead>
+<tbody>
+<tr><td>版心</td><td><code>6 + 6 栏</code></td><td>两半各 6 栏，合计 12 栏，中缝不参与分栏，也不允许被裁掉</td></tr>
+<tr><td>栏距</td><td><code>22px</code></td><td>1440 档单栏 83.2px，栏距是栏宽的 26%，不随视口伸缩</td></tr>
+<tr><td>外距</td><td><code>56px</code></td><td>左右各 56px；中缝 88px 必须大于它，否则折痕就不算版心纪律</td></tr>
+<tr><td>中缝留白</td><td><code>88px</code></td><td>仿《暮しの手帖》的双栏对称版心：中缝留白大于页边</td></tr>
+<tr><td>基线</td><td><code>7px</code></td><td>取仿宋字面高的整数倍，行高落在基线上，段落间正好四倍</td></tr>
+<tr><td>段落间</td><td><code>28px</code></td><td>四倍基线；段落靠间距分开，不靠缩进，也不靠细线</td></tr>
+<tr><td>章节间</td><td><code>96px</code></td><td>空白必须跨过中缝，折痕不许把这一段空白切断</td></tr>
+<tr><td>上／下半页字号</td><td><code>17px / 16.5px</code></td><td>下半页整体右移 8px，因为对折后纸的中线会偏</td></tr>
+<tr><td>折痕错位</td><td><code>50.4%</code></td><td>折痕落在线外 0.4% 处：1440 档 5.76px、390 档 1.56px</td></tr>
+</tbody>
+</table>
+</section>
+
+<section class="fold-sec" id="fold" aria-labelledby="fold-h">
+<h2 id="fold-h">对折的两面</h2>
+<div class="cols2">
+<p class="lede">一整张上浆和纸被上下对折，中缝不是分割线，是一道被压深的折痕，折痕两侧是同一段文字的正反镜像，光从纸背透过来时下半页比上半页亮一档，折痕两端留着纸纤维的毛边。</p>
+<p class="lede">折痕不进 DOM 边框：它是一张 1024×8 的位图加一条 <code>2px</code> 单向暗带，暗来自左上。字段 5 把下半页写成 15.5px，本案提到 <code>16.5px</code>，因为整页正文不得低于 16px；行高仍按 1.9 走，1px 的字号差保留「下半页比上半页轻」的关系。</p>
+</div>
+
+<div class="sheet" id="sheet">
+<article class="face face--verso" data-rise>
+<p class="face__label">上半页 · 6 栏 · 字号 <code>17px</code></p>
+<p>上半页承担开卷：哪三本书、为什么其中一本读了四遍、读第四遍时换了哪一处读法。三本书按章节数排开，最多的一本 14 章，最少的一本 6 章，四遍读的是中间那本 9 章的，因为它的第九章把前八章的说法整个推翻了一次。</p>
+<p>版心纪律来自《暮しの手帖》：中缝留白 88px 大于页边 56px，所以两栏文字之间那道空白比页面四周更宽。这不是留白多，是留白由结构算出——三个数值写死，谁都不许写「留白很多」。</p>
+<p class="verse" data-verse="镜像层：同一句以相位 180° 叠在正文下方 3px 处，不透明度 22%（宽屏 12%）。">镜像层：同一句以相位 <code>180°</code> 叠在正文下方 <code>3px</code> 处，不透明度 <code>22%</code>（宽屏 <code>12%</code>），只作为「纸的另一面」的证据，不做 50% 那种对称复制。</p>
+<p>分区手段只有两样：透光与折痕。网点、杯渍、挖空三种手法一样都不用——那三样分别是 6 号与 12 号的记忆点，本条把 22 号同它们彻底分开。抹茶绿也只允许出现在主色与折痕相乘层里，透光差锁在 15%–25% 并写成可测值。</p>
+<p>阅读顺序由编号与页码给出，不靠颜色深浅：一枚墨点就是一次翻折的终点。页边不放任何导航，因为糊窗上没有可贴的位置，只有透进来的光。</p>
+<table class="pages">
+<caption>上半页页码与字数统计（等宽只用于数字槽）</caption>
+<thead><tr><th scope="col">页码</th><th scope="col">面</th><th scope="col">栏数</th><th scope="col">字数</th><th scope="col">镜像层</th></tr></thead>
+<tbody>
+<tr><td><code>01</code></td><td>上半页</td><td><code>6</code></td><td><code>412</code></td><td><code>22%</code></td></tr>
+<tr><td><code>02</code></td><td>上半页</td><td><code>6</code></td><td><code>386</code></td><td><code>22%</code></td></tr>
+<tr><td><code>03</code></td><td>下半页</td><td><code>6</code></td><td><code>374</code></td><td><code>12%</code></td></tr>
+</tbody>
+</table>
+</article>
+
+<span class="crease crease--main" aria-hidden="true"><span class="crease__band"></span></span>
+
+<article class="face face--recto" data-rise>
+<p class="face__label">下半页 · 6 栏 · 字号 <code>16.5px</code> · 右移 <code>8px</code></p>
+<div class="recto__full">
+<p>下半页是纸的另一面：同一段文字在这里反向出现一次，读法是从中缝往外读，而不是从上往下读。透光差 <code>18%</code> 由上层纸浆纤维的不透明度区间给出——上层 15%、下层 25%，落在字段 6 给的 15%–25% 里，不用任何模糊滤镜。</p>
+<p>下半页整体右移 8px。真正的纸不会正好折在中线上，这 0.4% 的错位让「折过」带上一次真实误差：折痕位置固定在页面高度的 50.4% 而不是正中的 50%，两端再各留一段 <code>4px</code> 纸纤维起毛。</p>
+<p>翻折由 <code>perspective: 1200px</code> 承担：点击「翻一折」时上半张纸以 <code>420ms</code> 绕中缝折起，露出下一屏。折起的是物理的纸，不是半透明卡片，所以页面里没有一片元素是浮起来的——全部直角，容器只用折痕的单向暗带与纸纤维边。</p>
+<p>纸的另一面必须继续可读：页码、字数统计与折痕读数在下半页原样出现一次，只是相位差 180°。加载时先出整张纸底 <code>200ms</code>，再按对折顺序先上后下，用 <code>240ms</code> 把镜像层从 <code>12%</code> 提到可见。</p>
+<p class="verse" data-verse="镜像层：反向文字以 14px 的幽灵层叠在正文下方 3px 处，不透明度 22%。">镜像层：反向文字以 <code>14px</code> 的幽灵层叠在正文下方 <code>3px</code> 处，不透明度 <code>22%</code>；窄屏这一条完整保留，只是不再多占一屏。</p>
+<p>光从纸背透过来时下半页比上半页亮一档，这一档不是渐变，是两个具体的不透明度：15% 与 25%，加上 18% 的透光差。三样都写成可测值，透光差锁在区间里。</p>
+</div>
+<div class="recto__brief">
+<p class="brief__head">窄屏把镜像内容收成 4 条摘要，页码保留：</p>
+<ul class="brief">
+<li>透光差 <code>18%</code> 由纤维区间给出：上层 15%、下层 25%。页码 <code>03</code></li>
+<li>下半页右移 <code>8px</code>，折痕落在线外 0.4% 处，位置取 <code>50.4%</code>。页码 <code>04</code></li>
+<li>翻折 <code>420ms</code>、透视 <code>1200px</code>，绕中缝折起而不是淡出。页码 <code>05</code></li>
+<li>幽灵层 <code>14px</code>、下沉 <code>3px</code>、不透明 <code>22%</code>，折痕 <code>2px</code>。页码 <code>06</code></li>
+</ul>
+</div>
+</article>
+</div>
+
+<p class="cue"><button class="btn btn--ghost" type="button" id="foldbtn">翻一折，露出背面</button></p>
+<p class="note" id="foldnote">折痕当前 <code>2px</code>。滚动到中缝进入视口 <code>50%</code> 时先停 <code>300ms</code>，再用 <code>300ms</code> 加深到 <code>6px</code>，缓动 <code>cubic-bezier(0.34,1.2,0.64,1)</code>，允许 3% 过冲；不劫持滚动条。</p>
+
+<div class="band band--index" data-rise>
+<p class="band__label">页码索引 · 六页都在折过的这一张纸上</p>
+<ul class="index">
+<li>页码 <code>01</code> 上半页 <code>412</code> 字 · 三本书的篇幅与章数</li>
+<li>页码 <code>02</code> 上半页 <code>386</code> 字 · 版心纪律的三个写死值</li>
+<li>页码 <code>03</code> 下半页 <code>374</code> 字 · 透光差与纤维区间</li>
+<li>页码 <code>04</code> 下半页 <code>361</code> 字 · 折痕错位与两端毛口</li>
+<li>页码 <code>05</code> 下半页 <code>348</code> 字 · 翻折的 420ms 与透视</li>
+<li>页码 <code>06</code> 下半页 <code>329</code> 字 · 幽灵层在窄屏的形态</li>
+</ul>
+</div>
+</section>
+
+<section class="light-sec" id="light" aria-labelledby="light-h">
+<h2 id="light-h">三档透光</h2>
+<p class="lede" data-rise>透光区亮度提高一档，三档都由纸浆纤维的不透明度写成可测值。全站单一纸底，底色的色值从头到尾没变过 <code>#DDDAD4</code>，变的是透进来的光。不用任何模糊滤镜，也不做毛玻璃吸顶条；下面三条的高度只把不透明度画成看得见的厚度，数值本身写在一旁。</p>
+<ul class="lamps">
+<li class="lamp lamp--lo" data-rise>
+<span class="lamp__field" aria-hidden="true"></span>
+<span class="lamp__val"><code>15%</code> 上层纤维</span>
+<p>上半页：纤维方向偏 12°、亮度 ±2 级。这一档是基准，正文 #2E2A24 对纸底 10.22:1 就是在这里量的；纸底不动，只让光加一层。</p>
+</li>
+<li class="lamp lamp--mid" data-rise>
+<span class="lamp__field" aria-hidden="true"></span>
+<span class="lamp__val"><code>20%</code> 中间档</span>
+<p>折痕两侧的过渡：光从纸背透过来时这一档已经能看出下半页比上半页亮。抹茶绿只出现在主色与折痕相乘层里，不加第二支颜色，也不做网点与杯渍。</p>
+</li>
+<li class="lamp lamp--hi" data-rise>
+<span class="lamp__field" aria-hidden="true"></span>
+<span class="lamp__val"><code>25%</code> 下半页</span>
+<p>下半页：与上层 15% 相差的这 10%，加上 18% 的透光差，就是「下半页比上半页亮一档」的全部来源。三档一起看，就是一张纸被折过之后的光。</p>
+</li>
+</ul>
+<figure class="lightfig" data-rise>
+<span class="frame"><img src="assets/reuse-s01-plate-07-newspaper-pile.jpg" width="1280" height="1019" alt="报馆分发间里成摞的报纸与取纸的手"></span>
+<figcaption>成摞的纸：一叠纸的侧边就是许多条中缝，暗部留给折痕，亮部留给透光。<span class="ref">Library of Congress · PPOC · 公有领域 · 原件页在 <a href="assets/CREDITS.md">CREDITS.md</a></span></figcaption>
+</figure>
+</section>
+
+<section class="fault-sec" id="fault" aria-labelledby="fault-h">
+<h2 id="fault-h">折痕未压实</h2>
+<p class="fault__line" role="alert" data-rise>中缝折痕未压实（错误码 <code>CREASE-22</code>）：这一折只压到 <code>2px</code>，纸没有真正折过，上下两面的镜像相位差停在 <code>0°</code>，反向文字层退回 <code>12%</code> 不透明度，透光差只剩 <code>6%</code>。手压中缝两端 4px 纸纤维起毛处，折痕加深到 <code>6px</code> 后自动解除。</p>
+<p class="fault__frame" data-rise>上一折冻结在折痕 2px、镜像层 12%、透光差 6%；已压实的页 <code>2 / 3</code>，停在页码 <code>03</code> 的下半页。压实进度写在中缝上，不写进任何浮起的面板——错误态自己就是一张没折好的纸，它占着版心里的那 <code>88px</code>。</p>
+<p class="empty" data-rise>这个抽屉里还没有折过的文章。读到一半按一下中缝就能存进来。</p>
+<p class="cue"><button class="btn" type="button" id="press">把这篇折起来，存到下次看</button></p>
+<p class="packet" id="packet">压实还没完成。中缝仍是 <code>2px</code>，错误码 <code>CREASE-22</code> 未解除；页码与字数统计在这之前一直可读。</p>
+</section>
+
+<section class="plates-sec" id="plates" aria-labelledby="plates-h">
+<h2 id="plates-h">图版与署名</h2>
+<p class="lede" data-rise>只收和纸静物、成摞的纸与装帧书页，不用图库式微笑合影。六张位图全部转成 <code>#565B49</code> 单色调并叠 <code>12%</code> 纸纤维纹理，边缘不做羽化；悬停时纤维从 12% 提到 16%，图版本身不位移。六张原本分别为方案 S01、S13、S25 抓取，本案按题材复用，作者、许可与原件页逐张记在 <a href="assets/CREDITS.md">CREDITS.md</a>。</p>
+<ul class="plates">
+<li class="plate plate--a" data-rise><figure><span class="frame"><img src="assets/reuse-s13-src-washi.jpg" width="1920" height="1440" alt="手抄和纸的纸面与帘纹走向"></span><figcaption>图版 01 · 帘纹纸，纤维走向偏 <code>12°</code>，是透光差 <code>18%</code> 的实物来源。<span class="ref">原件未标注作者 · 见来源页 · 原件页在 <a href="assets/CREDITS.md">CREDITS.md</a></span></figcaption></figure></li>
+<li class="plate plate--b" data-rise><figure><span class="frame"><img src="assets/reuse-s25-plate2.jpg" width="1400" height="868" alt="1914 年装帧教材插图页，装订工序的手与翻起的纸页"></span><figcaption>图版 02 · 装帧书页，1914 年教材里的一折一压，与本案 2px → 6px 的折痕是同一件事。<span class="ref">Vaughn, Samuel Jesse · No restrictions · 原件页在 <a href="assets/CREDITS.md">CREDITS.md</a></span></figcaption></figure></li>
+<li class="plate plate--c" data-rise><figure><span class="frame"><img src="assets/reuse-s25-plate4.jpg" width="980" height="1208" alt="五百七十五页名册的纸张侧面与堆叠的纸边"></span><figcaption>图版 03 · 成摞的纸，<code>575</code> 页的一叠，侧边一道一道就是折痕的密度参照。<span class="ref">Simon Blackler · CC BY 4.0 · 原件页在 <a href="assets/CREDITS.md">CREDITS.md</a></span></figcaption></figure></li>
+<li class="plate plate--d" data-rise><figure><span class="frame"><img src="assets/reuse-s01-plate-05-hearing.jpg" width="1280" height="1017" alt="1936 年听证会门口的人群与手举的纸质标牌"></span><figcaption>图版 04 · 纸上写着字，1936 年的档案扫描件，纸牌是当时唯一的分区手段。<span class="ref">Harris &amp; Ewing · 公有领域 · 原件页在 <a href="assets/CREDITS.md">CREDITS.md</a></span></figcaption></figure></li>
+<li class="plate plate--e" data-rise><figure><span class="frame"><img src="assets/reuse-s13-src-shelving.jpg" width="1920" height="1285" alt="档案库房里一列一列的纸册书架，册背朝外"></span><figcaption>图版 05 · 装帧书页上架，册背朝外，页码就是这一列的顺序。<span class="ref">原件未标注作者 · 见来源页 · 原件页在 <a href="assets/CREDITS.md">CREDITS.md</a></span></figcaption></figure></li>
+<li class="plate plate--f" data-rise><figure><span class="frame"><img src="assets/reuse-s01-plate-07-newspaper-pile.jpg" width="1280" height="1019" alt="报馆分发间里成摞的报纸与取纸的手"></span><figcaption>图版 06 · 成摞的纸与手，手部劳作特写，没有一张是摆拍的合影。<span class="ref">Library of Congress · PPOC · 公有领域 · 原件页在 <a href="assets/CREDITS.md">CREDITS.md</a></span></figcaption></figure></li>
+</ul>
+</section>
+
+<section class="motion-sec" id="motion" aria-labelledby="motion-h">
+<h2 id="motion-h">动效与降级</h2>
+<div class="cols2">
+<p data-rise>只跑 <code>transform</code> 与 <code>opacity</code> 两个属性，不跑颜色插值，也不做整块淡入——每个分区的部件各自入场。折痕加深由中缝进入视口 50% 触发；悬停只动纤维不透明度，图版一格都不位移。</p>
+<p data-rise>光标是 <code>24px</code> 的自绘折角标记：左上缺角的正方形，移到可点元素上时缺口转到右下。它的形状与折痕同源——一个缺角，一个折深；两者都不用 Emoji，也不用彩色字形。</p>
+</div>
+<div class="timeline" data-rise>
+<p class="band__label">动效时序 · 一次翻折从头到尾的六个数值</p>
+<ol class="tl">
+<li><code>0ms</code> 纸底入场 <code>200ms</code></li>
+<li><code>200ms</code> 上半页先起 <code>240ms</code></li>
+<li><code>240ms</code> 镜像层提到 <code>12%</code></li>
+<li><code>420ms</code> 绕中缝翻折一次</li>
+<li><code>160ms</code> 悬停纤维 <code>12%→16%</code></li>
+<li><code>300+300ms</code> 折痕 <code>2px→6px</code></li>
+</ol>
+</div>
+<ul class="spec-list">
+<li data-rise><b>滚动</b>折痕由 <code>2px</code> 加深到 <code>6px</code>：中缝进入视口 <code>50%</code> 触发，先停 <code>300ms</code>，再用 <code>300ms</code> 完成加深，缓动 <code>cubic-bezier(0.34,1.2,0.64,1)</code>，允许 3% 过冲。</li>
+<li data-rise><b>悬停</b>图版不位移，只把纸纤维纹理从 <code>12%</code> 提到 <code>16%</code> 不透明度，时长 <code>160ms</code>。</li>
+<li data-rise><b>加载</b>先出整张纸底 <code>200ms</code>，再按对折顺序先上后下，用 <code>240ms</code> 把镜像层从 <code>12%</code> 提到可见。</li>
+<li data-rise><b>转场</b>点击「翻一折」时上半张纸以 <code>420ms</code> 绕中缝折起（<code>perspective: 1200px</code>），露出下一屏。</li>
+<li data-rise><b>光标</b>整页光标为 <code>24px</code> 自绘折角标记（左上缺角的正方形），移到可点元素上时缺口转到右下。</li>
+<li data-rise><b>微交互</b>翻到章节末尾时中缝出现一枚 <code>6×6px</code> 手写墨点作为页码锚点；折痕两端各一段 <code>4px</code> 纸纤维起毛，落在页面高度的 <code>50.4%</code> 而不是正中的 <code>50%</code>。</li>
+</ul>
+<p class="degrade" data-rise><b>减少动态时的再发明</b>（<code>prefers-reduced-motion: reduce</code>）：翻折与折痕加深停止推进，但镜像机制完整静态保留——中缝两侧 <code>180°</code> 的相位差、<code>14%–22%</code> 的镜像层与 <code>2px</code> 折痕阴影全部按原值静态呈现，只把过渡压到 <code>120ms</code> 的不透明度切换。</p>
+<p class="degrade degrade--narrow" data-rise><b>窄屏（&lt;768px）的再发明</b>：镜像轴不从机制里退场，它换成纵向的形态继续成立——反向文字以 <code>14px</code> 的幽灵层叠在正文下方 <code>3px</code> 处、不透明度 <code>22%</code>，折痕保持 <code>2px</code> 阴影与 <code>1px</code> 毛口，透光差保持 <code>18%</code>。代价写在字段 10 里：幽灵层即使完整保留，仍会增加一次阅读成本。</p>
+</section>
+
+<section class="icon-sec" id="icons" aria-labelledby="icons-h">
+<h2 id="icons-h">图标与组子格</h2>
+<div class="cols2">
+<p class="lede" data-rise>图标一律自绘，<code>20</code> 单位网格、<code>1px</code> 线宽、圆头线帽（与仿宋收笔同向），符号取自障子组子格的木条交叉。线色继承文字色并降 <code>20%</code> 明度，不使用 Emoji，也不使用彩色字形。</p>
+<p class="lede" data-rise>三个图标都带动词标签，没有一个是只有图形的功能按钮；它们也不排成等量卡片阵列，横向按 <code>7 / 5</code> 两栏错开，图标与文字在同一行。折痕两端那段毛口也按同一套几何画：<code>1px</code> 宽、长度 <code>44px</code>、圆头收尾。</p>
+</div>
+<ul class="icons" data-rise>
+<li><svg class="gl" viewBox="0 0 20 20" aria-hidden="true"><use href="#g-archive"/></svg><b>归档</b>两根木条交叉：把这一折存回抽屉，交叉点就是页码锚点。</li>
+<li><svg class="gl" viewBox="0 0 20 20" aria-hidden="true"><use href="#g-quote"/></svg><b>引用</b>方格缺一角：缺的那一角朝中缝，读法是从中缝往外。</li>
+<li><svg class="gl" viewBox="0 0 20 20" aria-hidden="true"><use href="#g-kumiko"/></svg><b>组子格</b>横竖两根木条加框：分区靠格，不靠底色深浅交替。</li>
+</ul>
+</section>
+</main>
+
+<footer>
+<div class="band band--index" data-rise>
+<p class="band__label">折痕与页码 · 本页全部冻结值</p>
+<ul class="index">
+<li>折痕 <code>2px</code> → <code>6px</code> · 暗带来自左上</li>
+<li>镜像层宽屏 <code>12%</code>、窄屏 <code>22%</code> · 幽灵层 <code>14px</code> 下沉 <code>3px</code></li>
+<li>纤维 <code>15%–25%</code> · 透光差 <code>18%</code></li>
+<li>栏距 <code>22px</code> · 外距 <code>56px</code> · 中缝 <code>88px</code> · 基线 <code>7px</code></li>
+</ul>
+</div>
+<div class="foot-grid">
+<div data-rise>
+<h3>当前状态</h3>
+<p>中缝折痕未压实（错误码 <code>CREASE-22</code>，由 Lead 补入，取意为中缝折痕未压实）：折痕停在 <code>2px</code>，镜像相位差停在 <code>0°</code>，透光差只剩 <code>6%</code>；页码、字数统计与六张图版的署名在这之前一直可读，压实入口在「折痕未压实」区块。</p>
+</div>
+<div data-rise>
+<h3>图版来源</h3>
+<p>六张真实照片取自 Wikimedia Commons 的公有领域、CC BY 4.0 与未标注作者的档案扫描件，原本分别为方案 S01、S13、S25 抓取，本案按题材复用；作者、许可与原件页逐张记在 assets/CREDITS.md，页面里每个署名都指回该文件。位图纹理由本目录的生成脚本产出，不是照片。</p>
+</div>
+<div data-rise>
+<h3>字体与授权</h3>
+<p>标题 <code>Petrona</code>、中文 <code>Zhuque Fangsong</code>、数字槽 <code>IBM Plex Mono</code>，三族全部自托管在 <code>prototypes/_fonts/</code>，不取任何远程资源；中文按 GB2312 一级字库切分，页面只下用到的字片。</p>
+</div>
+</div>
+<p class="sig">方案 22 · 糊窗对折册（Paper-Screen Folded Sheet）· Japandi 侘寂合流 · 上浆和纸与障子糊窗 · 本页为可运行原型，用于验证字段 3 的色彩配比（#DDDAD4 58% / #565B49 28% / #2E2A24 14%）、12 栏版心、折痕 2px → 6px 的加深与窄屏 14px / 3px / 22% 幽灵层。</p>
+</footer>
+
+<script>
+(function () {
+  var sheet = document.getElementById('sheet'), note = document.getElementById('foldnote');
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  /* 折痕加深：中缝进入视口 50% 才触发（rootMargin 把判定压到中线一条线上） */
+  var crease = sheet.querySelector('.crease--main');
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (l) {
+      if (!l[0].isIntersecting) return;
+      sheet.classList.add('is-deep');
+      note.textContent = '折痕已到 6px：进入视口 50% 后先停 300ms，再用 300ms 加深，过冲 3%。';
+    }, { rootMargin: '-50% 0px -50% 0px' }).observe(crease);
+  } else { sheet.classList.add('is-deep'); }
+  /* 翻折：上半张纸绕中缝折起 420ms，透视 1200px；再点一次折回来 */
+  var foldbtn = document.getElementById('foldbtn');
+  foldbtn.addEventListener('click', function () {
+    var on = sheet.classList.toggle('is-folded');
+    foldbtn.textContent = on ? '折回来，看这一面' : '翻一折，露出背面';
+    note.textContent = on ? '上半张纸已绕中缝折起：420ms，perspective 1200px，折的是物理的纸。'
+      : '折回来了。折痕仍是 6px，镜像层与页码没有跟着动。';
+  });
+  /* 首屏主按钮与错误态按钮：都只回话，不谎报成功 */
+  var store = document.getElementById('store');
+  store.addEventListener('click', function () {
+    sheet.classList.add('is-folded');
+    note.textContent = '已折起来，页码 01–06 记下了。中缝仍是 2px，错误码 CREASE-22 未解除。';
+    store.textContent = '已折起来，页码 01–06';
+    store.disabled = true;
+  });
+  var press = document.getElementById('press'), packet = document.getElementById('packet');
+  press.addEventListener('click', function () {
+    press.disabled = true;
+    press.textContent = '等纸压实，先读页码 01–06';
+    packet.textContent = '压实还没完成：折痕停在 2px，错误码 CREASE-22 仍未解除，镜像层与透光差按静态原值显示；六张图版的署名与页码随时可读。';
+  });
+  /* 入场：只动 transform 与 opacity，元素始终留在文档里 */
+  var rise = document.querySelectorAll('[data-rise]');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (l) {
+      l.forEach(function (e) { if (!e.isIntersecting) return; e.target.classList.add('in'); io.unobserve(e.target); });
+    }, { rootMargin: '0px 0px -40px 0px' });
+    rise.forEach(function (el) { io.observe(el); });
+  } else { rise.forEach(function (el) { el.classList.add('in'); }); }
+  if (reduce.matches) note.textContent = '折痕与镜像机制按静态原值呈现：折痕 2px、镜像层 12%–22%、相位差 180°，过渡压到 120ms。';
+})();
+</script>
+</body>
+</html>

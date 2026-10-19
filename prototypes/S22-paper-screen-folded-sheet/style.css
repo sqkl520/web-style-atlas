@@ -1,0 +1,508 @@
+/* ===========================================================================
+   S22 糊窗对折册 / Paper-Screen Folded Sheet
+   字段 3 冻结值：#DDDAD4 未上浆和纸 58% ｜ #565B49 抹茶灰绿 28% ｜ #2E2A24 暖黑墨 14%
+                    （合计 100，恰好三个色；正文对底 10.22:1、主色对底 5.04:1、
+                      主色作按钮底时白字 #FFFFFF，字段 3 记 6.51:1，本页实测 7.03:1）
+   字段 4 冻结值：标题 Petrona（EB Garamond 已废）／中文 朱雀仿宋（承担全部中文标题与正文）
+                 ／辅助数字 IBM Plex Mono（只出现在 <code> 里：页码与字数统计）
+   字段 5 冻结值：一张对折的纸 = 两半各 6 栏（合计 12 栏）／栏距 22px／外距 56px／
+                 中缝留白 88px（= 22 + 44 + 22，大于外距 56px）／基线 7px／段落间 28px／章节间 96px
+                 ／上半页 17px、下半页 16.5px（字段 5 的 15.5px 提到 16.5px，正文不得低于 16px）
+                 ／下半页整体右移 8px ／折痕落在中线外 0.4%
+   字段 6 冻结值：折痕 3px 单向暗带（暗来自左上）+ 两端 4px 纸纤维起毛；折痕不进 DOM 边框
+                 ／纤维不透明度区间 15%–25%、透光差 18%／镜像层 12%
+   字段 7 冻结值：折痕 2px → 6px（中缝进入视口 50% 触发，先停 300ms 再 300ms 加深，
+                 cubic-bezier(0.34,1.2,0.64,1)，允许 3% 过冲）／悬停纤维 12% → 16%（160ms）／
+                 加载 200ms 纸底 + 240ms 镜像层／翻折 420ms、perspective: 1200px ／
+                 光标 24px 折角标记／墨点 6×6px
+   窄屏（<768px）再发明：虚影 14px、下沉 3px、不透明 22%、折痕 2px、毛口 1px、透光差 18%
+   契约 §9.2：整页纸浆纤维只挂各分区的伪元素，body 保持纯色 #DDDAD4，
+             避免对比度检查被祖先链上的 background-image 整条静默跳过。
+   =========================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+:root {
+  --paper: #DDDAD4;                 /* 未上浆和纸，也是唯一的地面色 */
+  --ink: #2E2A24;                   /* 暖黑墨，正文色 */
+  --matcha: #565B49;                /* 抹茶灰绿，主色；染过楮皮的和纸 */
+  --mul: rgba(86, 91, 73, 0.12);    /* 主色相乘层：抹茶绿只允许出现在这里与折痕里 */
+  --crease-dark: #6B6558;           /* 折痕单向暗带的实色，取自折痕位图的暗侧 */
+  --edge: 56px;                     /* 外距 */
+  --gutter: 22px;                   /* 栏距 */
+  --fold: 88px;                     /* 中缝留白（大于外距 56px） */
+  --fold-track: 44px;               /* 88px − 22px×2：折痕轨道占的净宽 */
+  --base: 7px;                      /* 基线 */
+  --fiber-lo: 15%;                  /* 上层纸浆纤维 */
+  --fiber-hi: 25%;                  /* 下层纸浆纤维 */
+  --light-gap: 18%;                 /* 透光差 */
+  --crease: 3px;                    /* 折痕带可见宽（字段 6） */
+  --band-h: calc(var(--crease) * 8 / 3);  /* 位图 8 行里只有 3 行是可见折痕 */
+  --crease-shadow: 2px;             /* 折痕单向暗带：静置 2px */
+  --crease-deep: 6px;               /* 折痕单向暗带：触发后 6px */
+  --crease-len: 200vh;              /* 竖置折痕的长度，超出部分由 overflow: clip 裁掉 */
+  --fray: 4px;                      /* 两端纸纤维起毛：桌面 4px */
+  --ghost: 14px;                    /* 幽灵层字号 */
+  --ghost-drop: 3px;                /* 幽灵层下沉 */
+  --mirror-op: .12;                 /* 镜像层不透明度：宽屏 12% */
+  --mirror-axis: scaleX(-1);        /* 折痕竖置时镜像轴是横的 */
+  --rise: 520ms;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--paper);         /* 纯色地面，不放任何 background-image（契约 §9.2） */
+  color: var(--ink);
+  font-family: "Zhuque Fangsong", "Petrona", Georgia, serif;
+  font-size: 17px;
+  line-height: 1.9;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; }
+
+/* 等宽只出现在 <code> 里：m.type.monoProseShare 必须是 0（契约 §9.8） */
+code {
+  font-family: "IBM Plex Mono", "Zhuque Fangsong", monospace;
+  font-size: 13px;
+  letter-spacing: 0.01em;           /* 不给 ≤14px 的等宽字符串加宽字距，避开 micro-label */
+  font-variant-numeric: tabular-nums;
+}
+
+a { color: inherit; text-decoration-color: rgba(46, 42, 36, 0.5); text-underline-offset: 3px; }
+a:hover { text-decoration-color: currentColor; }
+.status a { text-decoration-color: rgba(255, 255, 255, 0.7); }
+
+h1, h2, h3 { font-family: "Petrona", "Zhuque Fangsong", Georgia, serif; font-weight: 600; margin: 0; }
+h1 { font-size: clamp(46px, 5.6vw, 84px); line-height: 1.04; letter-spacing: 0.01em; text-wrap: balance; }
+h2 { font-size: clamp(26px, 2.4vw, 34px); line-height: 1.2; letter-spacing: 0.02em; text-wrap: balance; }
+h3 { font-size: 20px; line-height: 1.4; letter-spacing: 0.02em; }
+p { margin: 0; }
+
+.skip {
+  position: absolute; left: 12px; top: 12px; z-index: 9;
+  width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+}
+.skip:focus { width: auto; height: auto; clip-path: none; background: var(--ink); color: var(--paper); padding: 10px 14px; }
+.sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+/* ------------------------------------------------ 纸浆纤维：只挂各分区的伪元素 */
+.masthead::before, .measure-sec::before, .fold-sec::before, .light-sec::before,
+.fault-sec::before, .plates-sec::before, .motion-sec::before, .icon-sec::before, footer::before {
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url(assets/texture-washi-fiber.png);
+  background-size: 512px 512px;
+  opacity: 0.10;
+}
+.masthead, .measure-sec, .fold-sec, .light-sec, .fault-sec,
+.plates-sec, .motion-sec, .icon-sec, footer { position: relative; }
+.masthead > *, .measure-sec > *, .fold-sec > *, .light-sec > *, .fault-sec > *,
+.plates-sec > *, .motion-sec > *, .icon-sec > *, footer > * { position: relative; z-index: 1; }
+
+/* ------------------------------------------------------------------ 顶部状态条 */
+.masthead { max-width: 1440px; margin: 0 auto; padding: 48px var(--edge) 40px; }
+.status {
+  display: block;
+  margin: 0; padding: 12px 18px;
+  background: var(--matcha); color: #FFFFFF;   /* 主色作底时白字：字段 3 记 6.51:1，实测 7.03:1 */
+  font-size: 14px; line-height: 1.8;
+}
+.status code { color: #FFFFFF; }
+.status__key { font-family: "Petrona", "Zhuque Fangsong", Georgia, serif; letter-spacing: 0.04em; margin-right: 6px; }
+
+.masthead__grid {
+  margin-top: 64px;
+  display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter);
+  align-items: start;
+}
+.masthead__col { grid-column: 1 / span 7; }
+.latin { font-family: "Petrona", "Zhuque Fangsong", Georgia, serif; font-size: 15px; letter-spacing: 0.06em; margin-top: 6px; }
+.claim { font-size: 20px; line-height: 1.8; margin-top: 22px; }
+.meta { font-size: 17px; margin-top: 18px; max-width: 34em; }
+.cue { margin-top: 24px; }
+
+.btn {
+  display: inline-block; min-height: 48px; padding: 12px 20px;
+  background: var(--matcha); color: #FFFFFF;    /* 按钮字色冻结值 #FFFFFF */
+  font-family: "Zhuque Fangsong", "Petrona", Georgia, serif;
+  font-size: 17px; line-height: 1.4;
+  border: 0; border-radius: 0; cursor: pointer;
+  transition: background-color 160ms linear;
+}
+.btn--ghost { background: transparent; color: var(--ink); border: 3px solid var(--matcha); }
+.btn[disabled] { background: var(--ink); color: var(--paper); cursor: default; }
+
+.hero { grid-column: 8 / span 5; margin: 0; }
+.frame {
+  position: relative; display: block; overflow: hidden;
+  background: var(--matcha);                   /* 单色调的色相来源：照片只提供明度 */
+  isolation: isolate;
+}
+.frame img { display: block; width: 100%; height: auto; mix-blend-mode: luminosity; }
+/* 12% 纸纤维纹理与「会慢慢动的光」都挂 .frame 的伪元素：照片的祖先链上没有背景图 */
+.frame::before {
+  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background-image: url(assets/texture-washi-fiber.png); background-size: 256px 256px;
+  opacity: .12; transition: opacity 160ms linear;   /* 悬停 12% → 16%，卡片一格都不位移 */
+}
+.frame:hover::before { opacity: .16; }
+.frame::after {                                /* 一张会慢慢动的照片：光层只跑 transform */
+  content: ""; position: absolute; inset: -14% -32%; z-index: 1; pointer-events: none;
+  background-image: url(assets/texture-soft-ground.png); background-size: 256px 256px;
+  opacity: .10; animation: glide 26s linear infinite;
+}
+.hero img { height: 300px; object-fit: cover; }
+figcaption { font-size: 15px; line-height: 1.75; margin-top: 10px; }
+.ref { display: block; font-size: 14px; color: var(--matcha); margin-top: 4px; }
+
+/* -------------------------------------------------------------- 首屏折痕样板 */
+.specimen { margin: 40px 0 0; max-width: 1000px; }
+.specimen__paper { position: relative; }
+.specimen__front { font-size: 17px; }
+.specimen__front--back { position: relative; }
+.specimen__front--back::after {                /* 相位差 180° 的镜像层，压在正文下方 3px */
+  content: attr(data-verse);
+  position: absolute; left: 0; top: var(--ghost-drop); width: 100%;
+  font-size: var(--ghost); line-height: 1.9; color: var(--ink);
+  opacity: var(--mirror-op);
+  transform: scaleY(-1); transform-origin: top left;
+  pointer-events: none;
+}
+
+/* ------------------------------------------------------------------- 折痕本体 */
+.crease { position: relative; display: block; width: 100%; height: var(--fold); }
+.crease__band {                                /* 折痕不进 DOM 边框：band 是一张位图 */
+  position: absolute; left: 50%; top: 50%;
+  width: 100%; height: var(--band-h);
+  transform: translate(-50%, -50%);
+  background-image: url(assets/texture-crease.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+.crease__band::after {                         /* 单向暗带：暗来自左上，2px → 6px */
+  content: ""; position: absolute; left: 0; right: 0;
+  top: calc(var(--band-h) * 0.375);
+  height: var(--crease-shadow); background: var(--crease-dark);
+  transition: height 300ms cubic-bezier(0.34, 1.2, 0.64, 1) 300ms;
+}
+.sheet.is-deep .crease__band::after { height: var(--crease-deep); }
+.crease::before, .crease::after {              /* 两端纸纤维起毛：1px 在 100% 缩放下可数 */
+  content: ""; position: absolute; top: 50%; transform: translateY(-50%);
+  width: var(--fray); height: 44px; pointer-events: none;
+  background-image: url(assets/texture-washi-fiber.png);
+  background-size: 100% 100%;
+  opacity: .55;
+}
+.crease::before { left: 0; }
+.crease::after { right: 0; }
+
+/* ------------------------------------------------------------------ 分区与版心 */
+.measure-sec, .fold-sec, .light-sec, .fault-sec, .plates-sec, .motion-sec, .icon-sec {
+  max-width: 1440px; margin: 0 auto;
+  padding: 96px var(--edge);                   /* 章节间 96px，这块空白跨过中缝 */
+}
+h2 { margin-bottom: 18px; }
+.lede { font-size: 17px; max-width: 40em; }
+.note { font-size: 15px; line-height: 1.8; margin-top: 18px; max-width: 40em; color: var(--matcha); }
+.degrade code, .note code, .lede code, .spec-list code, .brief code, .lamps code, .icons code { font-size: 13px; }
+.hi { color: var(--matcha); }
+
+/* 两半版心式的双栏正文：每块占 6 栏，行宽落在朱雀仿宋的舒适区 */
+.cols2 { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); row-gap: 28px; margin-top: 24px; }
+.cols2 > * { grid-column: span 6; max-width: 40em; }
+
+/* 主色相乘层：页码索引带、动效时序带用 12%；透光三档压深到 20%，纸色窗口才读得出来 */
+.band, .timeline { background: var(--mul); }
+.lamp { background: rgba(86, 91, 73, 0.20); }
+
+.ruler { display: grid; grid-template-columns: 1fr var(--fold-track) 1fr; column-gap: var(--gutter); margin-top: 36px; }
+.ruler__half { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); column-gap: var(--gutter); }
+.ruler__half i { display: block; height: 96px; background: var(--mul); }
+.ruler__fold { display: block; height: 96px; background: rgba(86, 91, 73, 0.05); }
+
+.spec { width: 100%; border-collapse: collapse; margin-top: 36px; font-size: 15px; }
+.spec caption { text-align: left; font-size: 15px; padding-bottom: 12px; color: var(--matcha); }
+.spec th, .spec td {
+  border: 1px solid rgba(46, 42, 36, 0.26);
+  padding: 9px 12px; text-align: left; vertical-align: top;
+}
+.spec thead th { background: var(--mul); font-weight: 600; }
+.spec td code, .spec th code { font-size: 13px; }
+
+/* --------------------------------------------------------------- 对折的两面 */
+.sheet {
+  position: relative; margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr)) var(--fold-track) repeat(6, minmax(0, 1fr));
+  column-gap: var(--gutter);
+  align-items: start;
+  perspective: 1200px;                         /* 翻折：字段 7 的 1200px */
+}
+.face { position: relative; }
+.face--verso { grid-column: 1 / span 6; font-size: 17px; transform-origin: right center; transition: transform 420ms cubic-bezier(0.3, 0.7, 0.4, 1); }
+.face--recto { grid-column: 8 / span 6; font-size: 16.5px; margin-inline-start: 8px; }  /* 下半页整体右移 8px */
+.face p { margin-bottom: calc(var(--base) * 4); }            /* 段落间 28px = 四倍基线 */
+.face p:last-child { margin-bottom: 0; }
+.face__label { font-size: 14px; line-height: 1.7; color: var(--matcha); margin-bottom: 14px; }
+.face__label code { font-size: 13px; }
+.sheet.is-folded .face--verso { transform: rotateY(-96deg); }
+
+.verse { position: relative; }
+.verse::after {                                /* 镜像层：同一段文字以相位 180° 压在正文下方 */
+  content: attr(data-verse);
+  position: absolute; left: 0; top: var(--ghost-drop); width: 100%;
+  font-size: var(--ghost); line-height: 1.9; color: var(--ink);
+  opacity: var(--mirror-op);
+  transform: var(--mirror-axis); transform-origin: top left;
+  pointer-events: none;
+}
+
+.pages { width: 100%; border-collapse: collapse; margin-top: 6px; font-size: 15px; }
+.pages caption { text-align: left; font-size: 15px; padding-bottom: 10px; color: var(--matcha); }
+.pages th, .pages td { border-bottom: 1px solid rgba(46, 42, 36, 0.26); padding: 7px 10px; text-align: left; }
+.pages td code, .pages th code { font-size: 13px; }
+.brief__head { font-size: 17px; margin-bottom: 10px; }
+.brief { list-style: none; margin: 0; padding: 0; }
+.brief li { position: relative; padding: 9px 0 9px 18px; border-top: 3px solid rgba(86, 91, 73, 0.28); }
+.brief li::before { content: ""; position: absolute; left: 0; top: 1.05em; width: 8px; height: 8px; background: var(--matcha); }
+
+/* 页码索引带：全宽的主色相乘层，三列排页码 */
+.band { padding: 20px 24px; }
+.band__label { font-size: 15px; color: var(--matcha); }
+.band--index { margin-top: 40px; }
+.index { list-style: none; margin: 12px 0 0; padding: 0; columns: 3; column-gap: var(--gutter); }
+.index li { font-size: 15px; line-height: 1.8; padding: 2px 0; break-inside: avoid; }
+.index code { font-size: 13px; }
+
+/* ---------------------------------------------------------------- 三档透光 */
+.lamps { list-style: none; margin: 36px 0 0; padding: 0; display: grid; gap: 22px; }
+.lamp {
+  display: grid; grid-template-columns: 220px minmax(0, 1fr); column-gap: var(--gutter);
+  padding: 20px 24px;
+}
+.lamp__field {                                /* 透光条：高度就是不透明度的可见厚度 */
+  grid-column: 1; grid-row: 1 / span 2; position: relative; display: block;
+  height: 88px; overflow: hidden; background: var(--paper);
+  box-shadow: inset 0 0 0 1px rgba(86, 91, 73, 0.3);
+}
+.lamp--mid .lamp__field { height: 112px; }
+.lamp--hi .lamp__field { height: 136px; }
+.lamp__field::after {                          /* 纤维层：三条的厚度与不透明度一一对应 */
+  content: ""; position: absolute; inset: 0; display: block;
+  background-image: url(assets/texture-washi-fiber.png); background-size: 512px 512px;
+}
+.lamp--lo .lamp__field::after { opacity: var(--fiber-lo); }
+.lamp--mid .lamp__field::after { opacity: .20; }            /* 中间档：纤维区间 15%–25% 的中值 */
+.lamp--hi .lamp__field::after { opacity: var(--fiber-hi); }
+.lamp__val { grid-column: 2; grid-row: 1; display: block; font-size: 17px; }
+.lamp p:last-child { grid-column: 2; grid-row: 2; font-size: 15px; line-height: 1.8; margin-top: 6px; max-width: 40em; }
+.lightfig { margin: 56px 0 0; max-width: 1000px; }
+.lightfig img { height: 320px; object-fit: cover; }
+
+/* --------------------------------------------------------------- CREASE-22 */
+.fault__line {
+  font-size: 17px; margin-top: 20px; padding: 18px 20px; max-width: 40em;
+  background: var(--ink); color: var(--paper);  /* 暖黑墨底 + 纸色字：10.22:1 */
+  box-shadow: inset 0 -3px 0 0 var(--matcha);
+}
+.fault__line code { color: #FFFFFF; }
+.fault__frame { font-size: 17px; margin-top: 20px; max-width: 40em; color: var(--matcha); }
+.empty { font-size: 17px; margin-top: 28px; padding-left: 20px; max-width: 40em; box-shadow: inset 3px 0 0 0 var(--matcha); }
+.packet { font-size: 15px; line-height: 1.8; margin-top: 22px; max-width: 40em; color: var(--matcha); }
+
+/* --------------------------------------------------------------- 图版 */
+.plates { list-style: none; margin: 40px 0 0; padding: 0; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); row-gap: 48px; }
+.plate figure { margin: 0; }
+.plate--a { grid-column: 1 / span 7; }
+.plate--b { grid-column: 8 / span 5; }
+.plate--c { grid-column: 1 / span 5; }
+.plate--d { grid-column: 6 / span 7; }
+.plate--e { grid-column: 1 / span 8; }
+.plate--f { grid-column: 9 / span 4; }
+.plate--a img, .plate--b img { height: 420px; object-fit: cover; }
+.plate--c img, .plate--d img { height: 380px; object-fit: cover; }
+.plate--e img, .plate--f img { height: 360px; object-fit: cover; }
+
+/* ------------------------------------------------------------ 动效与降级 */
+.timeline { margin-top: 34px; padding: 20px 24px; }
+.tl { list-style: none; margin: 12px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--gutter); row-gap: 12px; }
+.tl li { font-size: 15px; line-height: 1.8; }
+.tl code { font-size: 13px; }
+
+.spec-list { list-style: none; margin: 34px 0 0; padding: 0; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); row-gap: 20px; }
+.spec-list li { grid-column: 1 / span 6; font-size: 17px; padding-left: 22px; position: relative; max-width: 40em; }
+.spec-list li:nth-child(2n) { grid-column: 7 / span 6; }
+.spec-list li::before { content: ""; position: absolute; left: 0; top: 0.72em; width: 10px; height: 3px; background: var(--matcha); }
+.spec-list b { font-family: "Petrona", "Zhuque Fangsong", Georgia, serif; letter-spacing: 0.03em; }
+.degrade { font-size: 17px; margin-top: 34px; max-width: 40em; padding-top: 20px; box-shadow: inset 0 3px 0 0 var(--matcha); }
+.degrade--narrow { margin-top: 26px; }
+
+/* ------------------------------------------------------------ 图标与组子格 */
+.icons { list-style: none; margin: 34px 0 0; padding: 0; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); row-gap: 18px; }
+.icons li { grid-column: 1 / span 7; font-size: 17px; }
+.icons li:nth-child(2) { grid-column: 8 / span 5; }
+.icons li:nth-child(3) { grid-column: 1 / span 9; }
+.gl { width: 20px; height: 20px; color: var(--ink); opacity: .8; vertical-align: -3px; margin-right: 8px; }
+.icons b { font-family: "Petrona", "Zhuque Fangsong", Georgia, serif; margin-right: 6px; }
+
+/* ------------------------------------------------------------------- 页脚 */
+footer { max-width: 1440px; margin: 0 auto; padding: 96px var(--edge); }
+footer .band--index { margin-top: 0; }
+.foot-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); row-gap: 28px; margin-top: 48px; }
+.foot-grid > div { grid-column: span 4; }
+.foot-grid h3 { margin-bottom: 10px; }
+.foot-grid p { font-size: 15px; line-height: 1.8; max-width: 40em; }
+.sig { font-size: 15px; line-height: 1.8; color: var(--matcha); margin-top: 48px; max-width: 40em; }
+
+/* ------------------------------------------------------------------- 动效层 */
+@keyframes glide {
+  from { transform: translate3d(-5%, -2%, 0); }
+  50%  { transform: translate3d(4%, 2%, 0); }
+  to   { transform: translate3d(-5%, -2%, 0); }
+}
+@keyframes riseIn {
+  from { opacity: 0; transform: translate3d(0, 14px, 0); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes paperUp {                           /* 加载：先出整张纸底 200ms */
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes mirrorUp {                          /* 加载：按对折顺序先上后下，240ms 提到可见 */
+  from { opacity: 0; }
+  to   { opacity: var(--mirror-op); }
+}
+.js .masthead .status { animation: paperUp 200ms linear both; }
+.js .masthead__grid { animation: paperUp 200ms linear 60ms both; }
+.js .face--verso { animation: paperUp 240ms linear 200ms both; }
+.js .face--recto { animation: paperUp 240ms linear 240ms both; }
+.js .verse::after, .js .specimen__front--back::after { animation: mirrorUp 240ms linear 240ms both; }
+.js [data-rise] { opacity: 0; }
+[data-rise].in { animation: riseIn var(--rise) cubic-bezier(0.24, 0.8, 0.32, 1) both; }
+
+/* 光标：24px 自绘折角标记（左上缺角的正方形，缺口在移到可点元素上时转到右下）
+   两张 24×24 PNG 以 base64 内联，页面不取任何远程资源 */
+body { cursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAXUlEQVR42mNgGOqAkZACPS2V/+QafunaHUYmWhkOAyzEGH7p2h1GUgxF1stEbcPRAROhMKQ0iJhoEe44LaBm0GBYQAvDsQYRNQ0nGMmjFoxaMGrBELGAha6l6ZAEAO1zHyTDmSZHAAAAAElFTkSuQmCC") 6 6, default; }
+a, button, .btn, [tabindex] { cursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAZElEQVR42mNgGOqAkYGBgSEs2vM/NQxbtXQ7I7oYEzVdi82hLIRcQInhVPcBNouoZgGy75EtoaoPsFlC9SBCj0cmWuaBsGjP/zSxANkXTLTOyaMWjFowagEdLKBqlTkgPqA5AACkwRwdIbt8gwAAAABJRU5ErkJggg==") 6 6, pointer; }
+
+/* ------------------------------- ≥1280px：对折的两面并列，折痕改竖置（字段 5 第一条） */
+@media (min-width: 1280px) {
+  .recto__brief { display: none; }
+  .crease--main {
+    grid-column: 7; align-self: stretch; overflow: clip;
+    margin-top: 0; margin-inline-start: 0.8%;   /* 轨道内移 0.8% = 折痕中心偏离中线 0.4% */
+  }
+  .crease--main .crease__band { width: var(--crease-len); transform: translate(-50%, -50%) rotate(90deg); }
+  .crease--main::before, .crease--main::after { top: auto; left: 50%; transform: translateX(-50%); width: 100%; height: var(--fray); }
+  .crease--main::before { top: 0; }
+  .crease--main::after { bottom: 0; }
+}
+
+/* ------------------------------------------- 900–1279px：保持上下对折，镜像内容收成 4 条 */
+@media (max-width: 1279px) {
+  .sheet { display: block; }
+  .crease--main { margin: 0.4% 0 0; }           /* 折痕落在线外 0.4%：1440 档 5.76px */
+  .recto__full { display: none; }
+  .face--verso { transform-origin: center bottom; }
+  .sheet.is-folded .face--verso { transform: rotateX(-96deg); }
+  :root { --mirror-axis: scaleY(-1); --mirror-op: .22; }
+  .lamp { grid-template-columns: 180px minmax(0, 1fr); }
+  .tl { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .index { columns: 2; }
+  .spec-list li, .spec-list li:nth-child(2n) { grid-column: 1 / span 10; }
+  .icons li, .icons li:nth-child(2), .icons li:nth-child(3) { grid-column: 1 / span 10; }
+  .specimen { max-width: 100%; }
+}
+
+/* ------------------------------------------------- 1024–1439px：外距与图高收紧 */
+@media (max-width: 1439px) and (min-width: 1024px) {
+  :root { --edge: 40px; }
+  .hero img { height: 268px; }
+  .plate--a img, .plate--b img { height: 360px; }
+  .plate--c img, .plate--d img { height: 330px; }
+}
+
+/* <900px：转单页纵向，镜像机制完整保留为沿中缝的上下镜像轴（字段 5 第二条） */
+@media (max-width: 899px) {
+  :root { --edge: 24px; --gutter: 18px; --fold: 72px; --fold-track: 36px; }
+  .masthead { padding: 40px var(--edge) 32px; }
+  .masthead__grid { grid-template-columns: repeat(6, minmax(0, 1fr)); margin-top: 44px; }
+  .masthead__col { grid-column: 1 / span 6; }
+  .hero { grid-column: 1 / span 6; margin-top: 28px; }
+  .hero img { height: 240px; }
+  .measure-sec, .fold-sec, .light-sec, .fault-sec, .plates-sec, .motion-sec, .icon-sec { padding: 72px var(--edge); }
+  footer { padding: 72px var(--edge); }
+  .cols2, .plates, .spec-list, .icons, .foot-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .cols2 > * { grid-column: 1 / span 6; }
+  .plate--a, .plate--b, .plate--c, .plate--d, .plate--e, .plate--f { grid-column: 1 / span 6; }
+  .plate--a img, .plate--b img, .plate--c img, .plate--d img, .plate--e img, .plate--f img { height: 260px; }
+  .spec-list li, .spec-list li:nth-child(2n) { grid-column: 1 / span 6; }
+  .icons li, .icons li:nth-child(2), .icons li:nth-child(3) { grid-column: 1 / span 6; }
+  .foot-grid > div { grid-column: 1 / span 6; }
+  .lightfig img { height: 240px; }
+  .lamp { grid-template-columns: 132px minmax(0, 1fr); padding: 18px 20px; }
+  .spec, .pages { font-size: 14px; }
+  .spec td, .spec th { padding: 7px 8px; }
+}
+
+/* <768px：镜像轴换成纵向形态继续成立，五个数值全部原样保留（字段 5 的窄屏再发明） */
+@media (max-width: 767px) {
+  :root {
+    --ghost: 14px;               /* 虚影 14px */
+    --ghost-drop: 3px;           /* 下沉 3px */
+    --mirror-op: .22;            /* 不透明 22% */
+    --crease: 2px;               /* 折痕 2px */
+    --crease-shadow: 2px;        /* 折痕阴影静置即 2px */
+    --crease-deep: 2px;          /* 窄屏不再推进加深，保持 2px 实色折痕 */
+    --fray: 1px;                 /* 毛口 1px，100% 缩放下可数 */
+    --light-gap: 18%;            /* 透光差 18% */
+    --mirror-axis: scaleY(-1);
+  }
+  h1 { font-size: clamp(42px, 11.4vw, 54px); }
+  h2 { font-size: 26px; }
+  h3 { font-size: 19px; }
+  .claim { font-size: 18px; }
+  .status { font-size: 13.5px; }
+  .frame::before { opacity: .18; }
+  .face--verso { font-size: 17px; }
+  .face--recto { font-size: 16.5px; }
+  .specimen__front, .lede, .note, .degrade, .fault__frame, .empty, .spec-list li, .icons li, .lamp__val, .cols2 > * { font-size: 16.5px; }
+  .hero img { height: 208px; }
+  .plate--a img, .plate--b img, .plate--c img, .plate--d img, .plate--e img, .plate--f img { height: 208px; }
+  .lightfig img { height: 208px; }
+  .lamp { grid-template-columns: 96px minmax(0, 1fr); }
+  .lamp__field, .lamp--mid .lamp__field, .lamp--hi .lamp__field { height: 72px; }
+  .ruler__half i, .ruler__fold { height: 64px; }
+  .spec th:nth-child(3), .spec td:nth-child(3) { display: none; }
+  .pages th:nth-child(3), .pages td:nth-child(3) { display: none; }
+}
+
+/* 减少动态：翻折与折痕加深停止推进，镜像机制按原值静态保留，过渡压到 120ms */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .frame::after, .js .masthead .status, .js .masthead__grid, .js .face--verso, .js .face--recto,
+  .js .verse::after, .js .specimen__front--back::after, [data-rise].in { animation: none; }
+  .js [data-rise] { opacity: 1; }
+  .frame::after { opacity: .10; transform: none; }
+  .verse::after, .specimen__front--back::after {
+    animation: none; opacity: .14;             /* 镜像层按 14%–22% 区间静态呈现 */
+    transition: opacity 120ms linear;
+    transform: var(--mirror-axis);
+  }
+  .face--verso { transition: opacity 120ms linear; }
+  .sheet.is-folded .face--verso { transform: none; opacity: .62; }
+  .crease__band::after { transition: height 120ms linear; }
+  .sheet.is-deep .crease__band::after { height: var(--crease-shadow); }  /* 加深不推进，折痕保持 2px */
+  .frame::before { transition: opacity 120ms linear; }
+  .btn { transition: none; }
+}
+
+@media (max-width: 420px) {
+  :root { --edge: 18px; --gutter: 14px; --fold: 64px; }
+  .spec th:nth-child(2), .spec td:nth-child(2) { display: none; }
+  .pages th:nth-child(5), .pages td:nth-child(5) { display: none; }
+  .face--recto { margin-inline-start: 4px; }
+  .index { columns: 1; }
+}

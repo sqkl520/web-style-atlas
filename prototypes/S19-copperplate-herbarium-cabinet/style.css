@@ -1,0 +1,452 @@
+/* ===========================================================================
+   S19 铜版标本柜 / Copperplate Herbarium Cabinet
+   结构 F（CARD-CATALOG）｜植物学标本馆（1880 年代英国邱园）｜三级检索号 K-07-112
+
+   字段 3 当前有效值（_CURRENT-VALUES.md 第 58 行）：
+     #E4DECD 标本卡纸（地面，唯一底色；旧值 #EDE6D4 已废，本页不出现）
+     #4A5C3A 蚀刻墨绿（主色，对纸底 5.42:1）
+     #2A241C 深木褐（抽屉与柜架，不参与正文）
+     #7C7460 标签褪色墨 5%
+   实测补充（本页据此分配承载文字的角色）：
+     #7C7460 对 #E4DECD 只有 3.45:1 → 只做洗色层、指甲压痕与大字，不承载小字
+     小字次级墨用 #5E5443（对纸底 5.53:1）；木底上的次级色用 #D8CFB6（9.89:1）
+     蚀刻墨绿对木底只有 2.11:1 → 墨绿一律不上木底
+     卡纸 #E9E3D2（l 0.869）与副卡 #D8CFB6（l 0.78）都落在黄奶油族之外
+     正文一律用全墨 #2A241C（对纸底 11.43:1），次级才用 #5E5443
+
+   字段 4（含一处替换声明）：中文主字体 = Noto Serif SC；拉丁标题 = Spectral；
+     检索号与采集数据 = IBM Plex Mono（只出现于 <code> 内，monoProseShare 必须为 0）。
+     字段 4 原定的《京华老宋体》在 prototypes/_fonts/ 没有任何自托管包，
+     契约 §9.15 明写「font-fallback 永远不可能 earned，死声明一律删掉」，
+     而 _CURRENT-VALUES 的 S23 条款允许「若授权复核不通过可换思源宋体，一处替换」——
+     本案按该条款落到 Noto Serif SC，所有 font-family 里不出现任何未随包发布的族。
+     京华老宋体授权义务（保留原始授权声明、不得二次转售字体文件）随交付说明报回。
+
+   字段 5：12 栏 / 8px 基线 / 抽屉面板高 24px / 抽屉内边距 8px / 卡面内边距 16px /
+     卡与卡空 1 个基线单位（8px）/ 行与行空 2 个基线单位（16px）/
+     20 个抽屉分 5 行每行 4 个，行宽取 4 / 3 / 3 / 2 栏且行与行顺序不重复。
+   断点：≥1440 保留 20 个抽屉与不等宽分配；1024–1439 抽屉行宽不变、卡面窗口收窄；
+     <1024 单列，抽屉改为可点击展开的索引卡列表，检索号提到行首用等宽字显示，
+     Tab 顺序按检索号升序。
+
+   抽拉机制（字段 5／7）：.dw__card 高 144px 是柜沿下的开口，overflow: clip；
+     .dw__in 高 168px 是卡面本体，靠 translateY 在开口里滑；抽出时 .dw 下移 24px、
+     .dw__in 上移 24px，正好露出原本压在柜沿下的那一行批注，页面高度全程不变。
+
+   契约 §9.2 / §9.16：整页纹理只挂伪元素（.cab::before / .xcab::before / .plates-sec::before），
+     body 保持纯色 —— 纹理挂 body 会让对比度与空屏两项检查整条静默跳过。
+   契约 §9.3：压痕、错位边与蚀刻线用伪元素与 SVG，不进 boxShadow、不进 hairline。
+   契约 §9.8：等宽字族只出现在 <code> 内；IBM Plex Mono 只链一个缓存 css。
+   =========================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+:root {
+  --paper: #E4DECD;      /* 标本卡纸（地面，唯一底色） */
+  --paper-deep: #D8CFB6; /* 副卡与木底上的次级字 */
+  --paper-lit: #E9E3D2;  /* 抽出的卡面（比地面亮一档） */
+  --wood: #2A241C;       /* 柜架 */
+  --wood-lit: #3A3227;   /* 抽屉面板（柜架上一档） */
+  --green: #4A5C3A;      /* 蚀刻墨绿 */
+  --faded: #7C7460;      /* 标签褪色墨 */
+  --ink: #2A241C;        /* 正文全墨 */
+  --ink2: #5E5443;       /* 次级墨（小字） */
+  --bar: 24px;           /* 抽屉面板高 24px = 3 个基线单位 */
+  --pull: 24px;          /* 抽出 24px */
+  --win: 144px;          /* 柜沿下的开口高 */
+  --card: 168px;         /* 卡面高 = 开口 + 24px（那 24px 就是抽出来才看到的一行） */
+  --idle: 0px;           /* 卡面位移：抽出时到 -24px */
+  --gut: 72px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: #E4DECD;                 /* 纯色地面，不放任何 background-image */
+  color: #2A241C;
+  font-family: "Noto Serif SC", Georgia, serif;
+  font-size: 16px;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; height: auto; }
+
+/* 等宽只出现在 <code> 里：monoProseShare 必须是 0（契约 §9.8）。
+   13px 且字距 0.01em：不给 ≤14px 的含大写字母串加宽字距，避开 micro-label。 */
+code {
+  font-family: "IBM Plex Mono", "Noto Serif SC", monospace;
+  font-size: 13px;
+  letter-spacing: 0.01em;
+  font-variant-numeric: tabular-nums;
+}
+
+a { color: inherit; text-decoration-color: rgba(42, 36, 28, 0.45); text-underline-offset: 3px; }
+a:hover { text-decoration-color: currentColor; }
+
+h1, h2, h3 {
+  font-family: "Noto Serif SC", Georgia, serif;
+  font-weight: 700;
+  margin: 0;
+  text-wrap: balance;                  /* 只用在标题（契约 §8.6） */
+}
+h1 { font-size: clamp(46px, 5vw, 72px); line-height: 1.04; letter-spacing: 0.05em; }
+h2 { font-size: clamp(28px, 2.6vw, 34px); line-height: 1.18; letter-spacing: 0.04em; }
+h3 { font-size: 22px; line-height: 1.28; letter-spacing: 0.04em; }
+p, li { margin: 0; }
+
+p { max-width: 620px; }                /* 约 77 个汉字/行：measure 报数除以 2 落在 45–75 */
+
+.skip {
+  position: absolute; left: 12px; top: 12px; z-index: 20;
+  width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+}
+.skip:focus { width: auto; height: auto; clip-path: none; background: #2A241C; color: #E4DECD; padding: 10px 14px; }
+
+/* --------------------------------------------------- 常驻状态条（错误码可见） */
+/* 契约 §9.12：错误态必须在静态截图里可达可见，所以错误码常驻在顶部状态条里。
+   这一层始终 fixed：既保证每一屏都能读到 CAT-404，也让它不被当成标题上方的眉标。 */
+.hud {
+  position: fixed; left: 0; right: 0; top: 0; z-index: 8;
+  min-height: 56px; padding: 8px var(--gut);
+  display: flex; flex-wrap: wrap; gap: 2px 34px; align-items: center;
+  background: #2A241C; color: #D8CFB6;
+  font-size: 13px; line-height: 1.6;
+}
+.hud::after {                            /* 柜沿：3px 硬边，不进 hairline */
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px;
+  background: #4A5C3A;
+}
+.hud__line { display: flex; gap: 8px; align-items: baseline; font-size: 13px; max-width: none; }
+.hud__k { color: #A79C82; font-size: 13px; }
+.hud code { color: #E4DECD; white-space: nowrap; }
+.hud__line--alert { color: #E4DECD; }
+.hud__line--alert code { color: #FFFFFF; }
+
+/* ------------------------------------------------------------------ 柜门标头 */
+.mast {
+  max-width: 1440px; margin: 0 auto;
+  padding: 118px var(--gut) 74px;
+  display: grid; grid-template-columns: 1.06fr 0.94fr; gap: 56px; align-items: start;
+}
+.mast__en {
+  font-family: "Spectral", "Noto Serif SC", Georgia, serif;
+  font-weight: 600; font-size: 16px; letter-spacing: 0.02em;
+  color: #4A5C3A; margin-top: 14px;
+}
+.claim { font-size: 17px; line-height: 1.65; margin-top: 16px; color: #2A241C; }
+.meta { font-size: 16px; margin-top: 14px; color: #2A241C; }
+.cue { margin-top: 26px; }
+
+.btn {
+  display: inline-block; min-height: 48px; padding: 12px 22px;
+  background: #4A5C3A; color: #E4DECD;   /* 墨绿底 + 卡纸字：5.42:1 */
+  font-family: "Noto Serif SC", Georgia, serif; font-weight: 700;
+  font-size: 17px; letter-spacing: 0.04em; line-height: 1.4;
+  border: 0; border-radius: 0; cursor: pointer; text-decoration: none;
+  transition: transform 160ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(1px); }
+.btn[disabled] { background: #D8CFB6; color: #5E5443; cursor: default; transform: none; }
+
+figure { margin: 0; }
+.mast__plate img { display: block; width: 100%; background: #2A241C; }
+.mast__plate figcaption { font-size: 13px; line-height: 1.7; margin-top: 10px; color: #5E5443; max-width: 540px; }
+.ref { display: block; color: #5E5443; margin-top: 4px; }
+
+/* ------------------------------------------------- 柜体：20 个不等宽抽屉 */
+.cab { position: relative; overflow: clip; padding: 76px 0 84px; }
+.cab::before {                           /* 卡纸纤维：320 道，平铺不拉伸 */
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url(assets/texture-card-stock.png);
+  background-size: 256px 256px; opacity: 0.85;
+}
+.cab > * { position: relative; z-index: 1; max-width: 1440px; margin-inline: auto; padding-inline: var(--gut); }
+.cab > h2 { margin-bottom: 16px; }
+.cab > .lede, .xcab > .lede, .plates-sec > .lede, .fault > .lede { margin-inline: 0 auto; }  /* 左对齐，不居中 */
+.lede { font-size: 17px; line-height: 1.7; color: #2A241C; max-width: 660px; }
+
+.rows { display: grid; gap: 16px; margin: 34px 0 0; padding: 0; list-style: none; }
+.rowwrap { max-width: 1440px; }
+.row__h { font-size: 13px; color: #5E5443; margin-bottom: 8px; }
+.row {
+  display: grid; grid-template-columns: repeat(12, 1fr); gap: 8px;
+  list-style: none; margin: 0; padding: 0; align-items: start;
+}
+.dw {
+  grid-column: span var(--s);
+  position: relative; z-index: 1;
+  background: #2A241C; padding: 0 8px 24px;   /* 抽屉内边距 8px；底部 24px 是抽出 24px 的落位 */
+  transition: transform 260ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.dw__bar {                              /* 面板高 24px；褪色墨洗色用 inset 大面积阴影，不动文字层 */
+  height: var(--bar); padding: 0 8px;
+  display: flex; align-items: center;
+  background: #3A3227; color: #E4DECD;
+  box-shadow: inset 0 0 0 100px rgba(124, 116, 96, 0.12);
+  font-size: 15px; line-height: 1.2;
+  transition: box-shadow 120ms linear;
+}
+.dw__code {                            /* 检索号悬挂在标签右侧 12px，比标签基线低 2px */
+  position: relative; top: 2px; margin-left: 12px; color: #D8CFB6;
+}
+.dw__card {                            /* 柜沿下的开口：卡面在这里被裁掉下面 24px */
+  position: relative; display: block; height: var(--win); overflow: clip;
+  background: #24201A;
+}
+.dw__card::before {                     /* 开口内侧向下的暗：抽出后才出现（inset 阴影） */
+  content: ""; position: absolute; inset: 0; z-index: 3; pointer-events: none; opacity: 0;
+  box-shadow: inset 0 1px 0 0 rgba(20, 15, 10, 0.9), inset 0 10px 12px -10px rgba(20, 15, 10, 0.75);
+  transition: opacity 260ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.dw__in {                              /* 卡面本体：比开口高 24px，靠位移在开口里滑 */
+  position: relative; z-index: 2; display: block;
+  height: var(--card); padding: 28px 16px 16px;
+  background: #E9E3D2; color: #2A241C;
+  transform: translateY(var(--idle));
+  transition: transform 260ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.dw--alt .dw__in { background: #D8CFB6; }   /* 复份卡：深一档卡纸 */
+.dw__card--void { height: auto; overflow: visible; }
+.dw__card--void .dw__in { height: auto; padding-top: 16px; }
+.dw__head { display: block; font-size: 17px; font-weight: 700; letter-spacing: 0.03em; padding-right: 92px; }
+.dw__line { display: block; font-size: 15px; line-height: 1.6; color: #5E5443; margin-top: 4px; }
+.dw__note {                            /* 手写批注层：12% 褪色墨洗色，压在柜沿下，抽出才看得到 */
+  position: absolute; left: 16px; right: 16px; bottom: 1px; margin: 0;
+  display: block; font-size: 15px; line-height: 1.4; color: #7C7460;
+  padding-left: 8px; background: rgba(124, 116, 96, 0.12);
+}
+.dw--void .dw__line { color: #2A241C; }
+.dw__idx { position: absolute; right: 16px; top: 34px; color: #4A5C3A; font-weight: 500; }  /* 检索号：卡面右上角 */
+.dw__in::after {                       /* 字段 12：右下 1px 指甲压痕，随卡号每 20 张右移下移 1px */
+  content: ""; position: absolute; z-index: 3;
+  right: calc(16px - var(--n, 0px)); bottom: calc(16px - var(--n, 0px));
+  width: 1px; height: 1px; background: #7C7460; box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.55);
+}
+.dw.is-out { transform: translateY(var(--pull)); z-index: 4; }
+.dw.is-out .dw__in { --idle: -24px; }
+.dw.is-out .dw__card--void .dw__in { --idle: 0px; }   /* 空抽屉没有卡面可滑 */
+.dw.is-out .dw__bar { box-shadow: inset 0 0 0 100px rgba(124, 116, 96, 0.24); }
+.dw.is-out .dw__card::before { opacity: 1; }
+.dw:hover .dw__bar { box-shadow: inset 0 0 0 100px rgba(124, 116, 96, 0.24); }
+.dw__bar:hover, .dw:focus-within {
+  cursor: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2726%27%20height%3D%2718%27%3E%3Cpath%20d%3D%27M1%201v16h24V1z%27%20fill%3D%27none%27%20stroke%3D%27%232A241C%27%20stroke-width%3D%271%27/%3E%3Cpath%20d%3D%27M13%201v4M13%2013v4M1%209h4M21%209h4%27%20stroke%3D%27%232A241C%27/%3E%3C/svg%3E") 13 9, cell;
+}
+.cab {
+  cursor: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2713%27%20height%3D%2713%27%3E%3Cpath%20d%3D%27M6.5%200v5M6.5%208v5M0%206.5h5M8%206.5h5%27%20stroke%3D%27%232A241C%27/%3E%3Crect%20x%3D%275.5%27%20y%3D%275.5%27%20width%3D%272%27%20height%3D%272%27%20fill%3D%27none%27%20stroke%3D%27%232A241C%27/%3E%3C/svg%3E") 6 6, crosshair;
+}
+
+/* 加载：按行从上到下依次抽出又推回一次，每行 160ms，总 800ms，阶跃缓动。
+   fill-mode 必须是 backwards：动画结束后不能继续占着 transform，否则 .is-out 抽不动。 */
+.dw { animation: seat 160ms steps(2, end) backwards; animation-delay: calc(var(--row, 0) * 160ms); }
+@keyframes seat {
+  0%   { transform: translateY(0); }
+  55%  { transform: translateY(var(--pull)); }
+  100% { transform: translateY(0); }
+}
+
+.cab__foot { padding-top: 26px; }
+.legend { font-size: 16px; color: #2A241C; margin-top: 22px; max-width: 74ch; }
+
+/* ------------------------------------------- 抽出的卡：三级检索号落到卡面上 */
+.xcab { position: relative; overflow: clip; background: #2A241C; color: #E4DECD; padding: 78px 0 84px; }
+.xcab::before {                          /* 木纹：140 道，平铺 */
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url(assets/texture-drawer-wood.png);
+  background-size: 512px 128px; opacity: 0.5;
+}
+.xcab > * { position: relative; z-index: 1; max-width: 1440px; margin-inline: auto; padding-inline: var(--gut); }
+.xcab h2 { color: #E4DECD; margin-bottom: 16px; }
+.xcab .lede { color: #D8CFB6; }
+.xg { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; margin-top: 34px; list-style: none; padding: 0; }
+.xc { grid-column: span var(--s); }
+.xc__in { position: relative; display: block; padding: 16px; background: #E9E3D2; color: #2A241C; }
+.xc--dup .xc__in { background: #D8CFB6; }
+.xc__body { position: relative; z-index: 2; display: block; }
+.xc__top { display: flex; align-items: center; gap: 10px; }
+.gl { width: 28px; height: 28px; flex: 0 0 28px; color: #4A5C3A; }
+.xc__code { position: relative; z-index: 2; color: #4A5C3A; font-weight: 500; }
+.xc__title { margin-top: 6px; }
+.xc__la { font-family: "Spectral", "Noto Serif SC", Georgia, serif; font-size: 17px; line-height: 1.6; color: #4A5C3A; margin-top: 2px; }
+.xc__note { font-size: 16px; line-height: 1.7; color: #2A241C; margin-top: 8px; max-width: 52ch; }
+.xc__fig { position: relative; z-index: 2; margin-top: 12px; display: block; }
+.xc__fig img { display: block; width: 100%; filter: grayscale(1) contrast(1.14); }
+.xc__tint {
+  position: absolute; inset: 0; pointer-events: none;
+  background: #4A5C3A; opacity: 0.2; mix-blend-mode: multiply;   /* 压到墨绿与卡纸两个色阶 */
+}
+.xc__fig figcaption { position: relative; z-index: 2; font-size: 13px; line-height: 1.7; color: #5E5443; margin-top: 8px; max-width: 552px; }
+.etch { position: absolute; inset: 0; z-index: 1; pointer-events: none; width: 100%; height: 100%; }
+.e4 { fill: none; stroke: #7C7460; stroke-width: 0.4; vector-effect: non-scaling-stroke; }
+.e8 { fill: none; stroke: #7C7460; stroke-width: 0.8; vector-effect: non-scaling-stroke; }
+
+/* --------------------------------------------------- 空抽屉与 CAT-404 错误态 */
+.fault { position: relative; overflow: clip; padding: 78px 0 54px; }
+.fault > * { max-width: 1440px; margin-inline: auto; padding-inline: var(--gut); }
+.fault__line {
+  font-size: 17px; line-height: 1.7; margin-top: 18px; padding: 16px 18px; max-width: 74ch;
+  background: #4A5C3A; color: #E4DECD;     /* 墨绿底 + 卡纸字 5.42:1 */
+  border-left: 3px solid #2A241C;
+}
+.fault__line code { color: #FFFFFF; }
+.fault__frame { font-size: 16px; margin-top: 16px; color: #2A241C; max-width: 74ch; }
+.fault__grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; margin-top: 30px; align-items: start; }
+.void { background: #2A241C; color: #E4DECD; padding: 8px 8px 0; position: relative; }
+.void__bar { height: var(--bar); display: flex; align-items: center; padding: 0 8px; background: #3A3227; font-size: 15px; }
+.void__bar code { color: #D8CFB6; margin-left: 12px; position: relative; top: 2px; }
+.void__well { padding: 16px; background: #24201A; }
+.void__note { font-size: 16px; line-height: 1.7; color: #D8CFB6; }
+.cue2 { margin-top: 20px; }
+.retry { font-size: 15px; color: #2A241C; margin-top: 14px; }
+
+/* ----------------------------------------------------------- 图版：六张照片 */
+.plates-sec { position: relative; overflow: clip; background: #2A241C; color: #E4DECD; padding: 78px 0 86px; }
+.plates-sec::before {                     /* 陈旧褐斑：9 处，平铺 */
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url(assets/texture-foxing.png);
+  background-size: 256px 256px; opacity: 0.6;
+}
+.plates-sec > * { position: relative; z-index: 1; max-width: 1440px; margin-inline: auto; padding-inline: var(--gut); }
+.plates-sec h2 { color: #E4DECD; margin-bottom: 16px; }
+.plates-sec .lede { color: #D8CFB6; }
+.plates { display: grid; grid-template-columns: repeat(3, 1fr); gap: 38px 24px; margin-top: 36px; padding: 0; list-style: none; }
+.plate { margin: 0; }
+.plate figure { margin: 0; display: block; }
+.plate__shot { position: relative; display: block; background: #24201A; }
+.plate__shot img { display: block; width: 100%; filter: grayscale(1) contrast(1.12) brightness(1.02); }
+.plate__tint { position: absolute; inset: 0; pointer-events: none; background: #4A5C3A; opacity: 0.22; mix-blend-mode: multiply; }
+.plate figcaption { font-size: 13px; line-height: 1.7; margin-top: 10px; color: #D8CFB6; }
+.plate figcaption b { color: #E4DECD; letter-spacing: 0.03em; }
+.plate .ref { color: #A79C82; }
+
+/* ------------------------------------------- 检索号贯通、可发现性与动效降级 */
+.cross, .paths-sec, .motion-sec { max-width: 1440px; margin: 0 auto; padding: 78px var(--gut) 44px; }
+.xr { width: 100%; border-collapse: collapse; margin-top: 30px; font-size: 15px; }
+.xr caption { text-align: left; font-size: 13px; padding-bottom: 10px; color: #5E5443; }
+.xr th, .xr td { border: 1px solid rgba(42, 36, 28, 0.3); padding: 8px 10px; text-align: left; vertical-align: top; }
+.xr thead th { background: #D8CFB6; font-weight: 700; }
+.xr tbody td { background: #DCD4BD; color: #2A241C; }
+.xr td code { color: #4A5C3A; }
+.xr td .st { color: #5E5443; }
+.xr__note { font-size: 13px; color: #5E5443; margin-top: 14px; max-width: 76ch; }
+
+.paths { list-style: none; margin: 30px 0 0; padding: 0; display: grid; gap: 24px; }
+.paths li { max-width: 74ch; }
+.paths p { font-size: 16px; color: #2A241C; }
+.paths code, .motion-sec code, .cross code { color: #4A5C3A; }
+
+.parts {                              /* 柜内标牌：检索号的三段读法 */
+  background: #2A241C; color: #D8CFB6; padding: 22px 26px; margin-top: 30px;
+}
+.parts__h { font-size: 15px; color: #E4DECD; max-width: 74ch; }
+.parts__list { list-style: none; margin: 14px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px 26px; }
+.parts__list li { display: flex; align-items: flex-start; gap: 12px; }
+.parts__list code { background: #3A3227; color: #E4DECD; padding: 2px 10px; flex: 0 0 auto; }
+.parts__list span { font-size: 16px; line-height: 1.6; color: #D8CFB6; }
+
+.spec-list { list-style: none; margin: 26px 0 0; padding: 0; display: grid; gap: 12px; max-width: 84ch; }
+.spec-list li { font-size: 16px; color: #2A241C; padding-left: 22px; position: relative; }
+.spec-list li::before { content: ""; position: absolute; left: 0; top: 0.66em; width: 11px; height: 3px; background: #4A5C3A; }
+.spec-list b { font-weight: 700; color: #2A241C; }
+.degrade {                            /* 降级条款写成柜内的一张标牌 */
+  background: #2A241C; color: #D8CFB6; padding: 22px 26px; margin-top: 28px;
+  max-width: none; border-top: 3px solid #4A5C3A;
+}
+.degrade__in { display: block; font-size: 16px; line-height: 1.75; max-width: 640px; }
+.degrade b { font-weight: 700; color: #E4DECD; }
+.degrade code { color: #FFFFFF; }
+
+/* ------------------------------------------------------------------- 页脚 */
+footer { max-width: 1440px; margin: 0 auto; padding: 56px var(--gut) 86px; }
+.rail {
+  background: #2A241C; color: #E4DECD; padding: 20px 22px;
+  display: grid; grid-template-columns: 1fr auto; gap: 8px 28px; align-items: baseline;
+  border-left: 3px solid #4A5C3A;
+}
+.rail__head { font-size: 15px; color: #D8CFB6; letter-spacing: 0.04em; grid-column: 1 / -1; }
+.rail__code { font-size: 13px; }
+.rail__code code { font-size: 26px; font-weight: 500; color: #E4DECD; letter-spacing: 0.02em; }
+.rail.is-lit .rail__code code { color: #FFFFFF; }
+.rail__note { font-size: 15px; color: #D8CFB6; max-width: 62ch; }
+.rail__jump { font-size: 15px; color: #D8CFB6; max-width: 62ch; }
+.rail__jump a { color: #E4DECD; }
+.foot-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 34px; margin-top: 44px; }
+.foot-grid h3 { font-size: 17px; letter-spacing: 0.04em; margin-bottom: 10px; }
+.foot-grid p { font-size: 15px; line-height: 1.75; color: #2A241C; max-width: 42ch; }
+.sig { font-size: 13px; line-height: 1.75; color: #2A241C; margin-top: 40px; max-width: 520px; }
+
+/* ------------------------------------------------ 1024–1439px：卡面窗口收窄 */
+@media (max-width: 1439px) and (min-width: 1024px) {
+  :root { --gut: 40px; --win: 128px; --card: 152px; }
+  .mast { padding-top: 104px; gap: 40px; }
+  .xg { gap: 20px; }
+}
+
+/* ------------------------- <1024px：单列，抽屉改为可点击展开的索引卡列表 */
+@media (max-width: 1023px) {
+  :root { --gut: 24px; }
+  .hud { padding-inline: 24px; }
+  .mast { grid-template-columns: 1fr; gap: 34px; padding: 100px 24px 56px; }
+  h1 { font-size: clamp(40px, 7.4vw, 60px); }
+  .cab, .xcab, .plates-sec, .fault { padding-block: 64px 62px; }
+  .row { grid-template-columns: 1fr; gap: 12px; }
+  .dw, .xc { grid-column: 1 / -1; }
+  .xg { grid-template-columns: 1fr; }
+  /* 开口与柜沿取消：卡面回到文档流，点一下才展开批注层 */
+  .dw { padding: 0; background: transparent; border-left: 3px solid #2A241C; }
+  .dw__card { height: auto; overflow: visible; }
+  .dw__card::before { display: none; }
+  .dw__in { height: auto; transform: none; padding: 14px 16px 16px; }
+  .dw__card--void .dw__in { padding-top: 14px; }
+  .dw__idx { position: static; display: block; margin-bottom: 2px; }
+  .dw__in::after { display: none; }
+  .dw__note { position: static; margin-top: 8px; display: none; }   /* 折叠时只留首行 */
+  .dw.is-out .dw__note { display: block; }
+  .dw.is-out { transform: none; }
+  .parts__list { grid-template-columns: 1fr; }
+  .fault__grid { grid-template-columns: 1fr; gap: 26px; }
+  .plates { grid-template-columns: repeat(2, 1fr); gap: 30px 20px; }
+  .foot-grid { grid-template-columns: 1fr; gap: 24px; }
+  .rail { grid-template-columns: 1fr; }
+  .cab > *, .xcab > *, .plates-sec > *, .fault > * { padding-inline: 24px; }
+  .cross, .paths-sec, .motion-sec, footer { padding: 64px 24px 36px; }
+}
+
+/* ------------------------------------------------------ <768px：检索号提到行首 */
+@media (max-width: 767px) {
+  h1 { font-size: clamp(38px, 11.4vw, 54px); }
+  .hud { padding: 6px 24px; }
+  .hud__opt { display: none; }
+  .mast { padding-top: 76px; }
+  .mast__en { font-size: 15px; }
+  .dw__bar { flex-wrap: wrap; height: auto; min-height: var(--bar); padding-block: 2px; }
+  .dw__code { order: -1; margin-left: 0; margin-right: 8px; top: 0; }   /* 检索号提到行首 */
+  .parts__list span { font-size: 15px; }
+  .plates { grid-template-columns: 1fr; }
+  .xr th:nth-child(4), .xr td:nth-child(4) { display: none; }
+  .xr th, .xr td { padding: 6px 7px; font-size: 13px; }
+  .rail__code code { font-size: 22px; }
+}
+
+/* ------------------------------------------------------- 减少动态时的再发明 */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .dw { animation: none; }
+  .dw, .dw__in, .dw__bar, .dw__card::before, .btn { transition: none; }
+  /* 抽拉机制不取消：点一下才抽出、无过渡，位移仍 24px，卡面仍上移 24px，
+     开口内侧那条 inset 下阴影仍然随抽出状态出现 */
+  .dw.is-out { transform: translateY(var(--pull)); }
+  .dw.is-out .dw__in { --idle: -24px; }
+  .dw:hover .dw__bar { box-shadow: inset 0 0 0 100px rgba(124, 116, 96, 0.12); }
+  .dw.is-out .dw__bar { box-shadow: inset 0 0 0 100px rgba(124, 116, 96, 0.24); }
+  .btn:hover, .btn:active { transform: none; }
+  .rail { transition: opacity 100ms linear; }   /* 复制高亮改为 100ms 不透明度变化 */
+}
+
+/* --------------------------------------------- 极窄兜底：状态与检索号不隐藏 */
+@media (max-width: 430px) {
+  .xr th:nth-child(3), .xr td:nth-child(3) { display: none; }
+  .rail__note, .rail__jump { font-size: 16px; }
+}

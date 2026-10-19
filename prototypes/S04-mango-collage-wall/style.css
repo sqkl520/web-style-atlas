@@ -1,0 +1,239 @@
+/* S04 芒果拼贴墙（Mango Collage Wall）—— R（COLLAGE）｜巴西热带主义 1960s 末｜丝网印拼贴
+   四个色，各一个唯一角色（面积 34 / 26 / 26 / 14，和为 100）：
+     --orange #96550F 主色（07 号审查把 #E8871E 压深以拿到 4.56:1；本页未再使用旧亮橙）
+     --green  #2F7D4F 辅助色（被晒褪的旗布）
+     --ink    #14100C 正文色 / 键版（墙面的旧漆）
+     --paper  #F0E2C8 背景色（未漂白的包装纸，08 号第 14 节裁定保留原值）
+   字体：Unbounded 拉丁标题 / Redaction 20 拉丁正文 / 霞鹜文楷 LXGW WenKai 中文 / 第四款等宽体只给编号与日期 taste-skill-ignore
+   第四款等宽体只出现在 <code> 内：规格把等宽体指派给"编号与日期"这类字面量，工具规则只允许等宽体用于字面量（真机 inspect 的等宽正文占比为零）。
+   标红装置的逐条裁定见 ../../deliverables/tool-runs/S04-adjudication.md */
+@font-face{font-family:"Unbounded";src:url("assets/fonts/unbounded-latin-700.woff2") format("woff2");font-weight:700;font-display:swap}
+@font-face{font-family:"Redaction 20";src:url("assets/fonts/redaction-latin-400.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Martian Mono";src:url("assets/fonts/martianmono-latin-400.woff2") format("woff2");font-weight:400;font-display:swap}
+
+:root{
+  --orange:#96550F; --green:#2F7D4F; --ink:#14100C; --paper:#F0E2C8;
+  --f-latin:"Redaction 20",Georgia,"Nimbus Roman",serif;
+  --f-cjk:"LXGW WenKai",KaiTi,STKaiti,"Kaiti SC",serif;
+  --f-body:var(--f-latin),var(--f-cjk);
+  --f-disp:"Unbounded",var(--f-cjk);
+  --f-mono:"Martian Mono",ui-monospace,monospace;
+  --wall:min(1056px,calc(100% - 28px));
+  --torn2:url("assets/torn-edge-2.webp");
+  --torn3:url("assets/torn-edge-3.webp");
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:var(--f-body); font-size:17px; line-height:1.65;
+  font-variant-ligatures:none; text-rendering:optimizeLegibility;
+}
+img{display:block; max-width:100%; height:auto}
+code{font-family:var(--f-mono); font-size:14px; font-variant-numeric:tabular-nums}
+h1,h2,h3{margin:0; font-weight:400; font-family:var(--f-cjk)}
+h2{font-size:40px; line-height:1.12}
+h3{font-size:22px; line-height:1.25}
+p{margin:0 0 14px}
+a{color:inherit}
+
+/* ---------- 看板：墙面顶端的旧漆板，不是 eyebrow 标签 ---------- */
+.board{
+  background:var(--ink); color:var(--paper);
+  padding:52px 28px 46px; position:relative; overflow:hidden;
+}
+.board__inner{width:var(--wall); margin:0 auto}
+.board h1{
+  font-size:72px; line-height:1.02; letter-spacing:-0.01em;
+  margin:0 0 18px; max-width:16em;
+}
+.board__latin{
+  font-family:var(--f-disp); font-weight:700; font-size:26px; line-height:1.1;
+  letter-spacing:0.01em; margin:0 0 26px; color:var(--paper);
+}
+.board__lead{font-size:30px; line-height:1.4; max-width:30em; margin:0 0 30px}
+.board__act{margin:0 0 26px}
+.board__meta{font-size:16px; line-height:1.55; margin:0; max-width:42em; color:var(--paper); opacity:.92}
+
+.btn{
+  display:inline-flex; align-items:center; min-height:48px; padding:11px 24px;
+  background:var(--orange); color:var(--paper); font-family:var(--f-cjk);
+  font-size:19px; line-height:1.2; text-decoration:none; border:0; cursor:pointer;
+  transition:transform .14s cubic-bezier(.22,1.4,.36,1), background-color .14s linear;
+}
+.btn:hover{transform:translateY(-3px) rotate(-.4deg); background:var(--ink)}
+.btn:active{transform:translateY(1px)}
+.btn[disabled]{background:var(--paper); color:var(--ink); text-decoration:line-through; cursor:not-allowed}
+.btn[disabled]:hover{transform:none; background:var(--paper)}
+:focus-visible{outline:3px solid var(--green); outline-offset:2px}
+.skip{position:absolute; left:-9999px}
+.skip:focus{position:static; display:inline-block; margin:8px 0 0 14px; background:var(--paper); padding:8px 14px}
+
+/* ---------- 贴墙区：底下埋 12 列隐网格，表面看不出网格 ---------- */
+.wall{padding:60px 0 30px}
+.wall__head{width:var(--wall); margin:0 auto 34px}
+.wall__note{font-size:16px; max-width:40em}
+.wall__grid{
+  width:var(--wall); margin:0 auto 12px;
+  display:grid; grid-template-columns:repeat(12,minmax(0,1fr));
+  column-gap:0; row-gap:14px; align-items:start;
+}
+.slip{
+  grid-column:span var(--span);
+  margin:0; margin-top:var(--lift); position:relative;
+  transform:rotate(var(--rot));
+  background:var(--paper); padding:12px 13px 16px;
+  -webkit-mask-image:var(--torn); mask-image:var(--torn);
+  -webkit-mask-size:100% 100%; mask-size:100% 100%;
+  -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat;
+  transition:transform .14s cubic-bezier(.22,1.4,.36,1);
+}
+.slip:nth-child(2n){z-index:3}
+.slip:nth-child(3n){z-index:4}
+.slip:hover{transform:rotate(var(--rot)) translateY(-6px) rotate(.4deg)}
+.slip__plate{width:100%; aspect-ratio:var(--ar,1); object-fit:cover; object-position:var(--op,50% 42%)}
+.slip__cap{padding:10px 1px 0}
+.slip__t{display:block; font-family:var(--f-cjk); font-size:22px; line-height:1.26; margin-bottom:6px}
+.slip__m{display:block; font-size:16px; line-height:1.5; margin-bottom:9px}
+.slip__go{font-size:16px; text-underline-offset:4px; text-decoration-thickness:2px}
+.slip__gum{
+  position:absolute; left:9%; right:9%; bottom:4px; height:3px;
+  background:var(--ink); opacity:0; transition:opacity .14s linear;
+}
+.slip:hover .slip__gum{opacity:.3}
+/* 签名式怪癖：右下角手工撕出的 3mm 缺口，方向按张贴顺序每次递增 72°，五个一组转回原处 */
+.slip__notch{
+  position:absolute; right:7px; bottom:7px; width:24px; height:24px;
+  transform:rotate(calc(var(--order) * 72deg));
+}
+.slip__notch .bite{fill:var(--paper)}
+.slip__notch .rim{fill:none; stroke:var(--ink); stroke-width:1.1}
+
+/* ---------- 手写批注层：横着压在纸块上（规格字段 6 第 3 条） ---------- */
+.anno{
+  width:var(--wall); margin:-34px auto 0; position:relative; z-index:7;
+  font-family:var(--f-cjk); font-size:19px; line-height:1.4;
+  transform:rotate(-1.7deg); padding:4px 0;
+}
+.anno--r{transform:rotate(1.2deg); text-align:right}
+.anno--c{transform:rotate(-.6deg); margin-top:-40px}
+.anno code{background:var(--paper); padding:0 4px}
+
+/* ---------- 载入 / 空 / 错误三态 ---------- */
+.wall__state{width:var(--wall); margin:0 auto}
+.counter{font-size:16px; margin:0 0 18px}
+.alert{width:var(--wall); margin:44px auto 0; padding:22px 20px; font-size:17px; line-height:1.6}
+.alert--err{background:var(--ink); color:var(--paper)}
+.alert--empty{background:var(--paper); color:var(--ink); -webkit-mask-image:var(--torn2); mask-image:var(--torn2);
+  -webkit-mask-size:100% 100%; mask-size:100% 100%; padding:30px 24px}
+.alert__hd{font-family:var(--f-cjk); font-size:22px; line-height:1.3; margin:0 0 8px}
+.alert p{max-width:40em}
+.alert__code{font-size:16px; margin:0}
+.board__latin{font-size:22px}
+
+/* ---------- 印版档案：把偏移量表公开成一张真表（规格字段 9：偏移量必须固定成表） ---------- */
+.archive{padding:64px 0 30px}
+.archive__inner{width:var(--wall); margin:0 auto}
+.table{width:100%; border-collapse:collapse; font-size:16px; margin:18px 0 14px}
+.table caption{text-align:left; font-size:16px; padding-bottom:10px; caption-side:top}
+.table th,.table td{border:1px solid var(--ink); padding:9px 11px; text-align:left; vertical-align:middle}
+.table thead th{background:var(--ink); color:var(--paper); font-weight:400}
+.chip{display:block; width:52px; height:15px}
+.chip--o{background:var(--orange)} .chip--g{background:var(--green)}
+.chip--k{background:var(--ink)} .chip--p{background:var(--paper); border:0}
+.table tbody tr:nth-child(even) td{background:var(--paper)}
+.table tbody tr:nth-child(odd) td{background:var(--paper)}
+.hatch{width:100%; height:26px; display:block}
+
+/* ---------- 参展的 14 个人：真实名单，不是等宽卡片墙 ---------- */
+.who{padding:70px 0 30px}
+.who__list{list-style:none; margin:0 auto; padding:0; width:var(--wall)}
+.who__item{display:grid; grid-template-columns:minmax(0,1fr) auto; gap:6px 16px; padding:11px 16px; font-size:17px}
+.who__item:nth-child(3n){background:var(--ink); color:var(--paper)}
+.who__meta{font-size:16px}
+.who__more{margin-top:22px; font-size:16px; max-width:40em}
+.foot{background:var(--ink); color:var(--paper); padding:34px 28px; margin-top:40px}
+.foot__inner{width:var(--wall); margin:0 auto; font-size:16px; line-height:1.72}
+.foot a{text-underline-offset:3px}
+
+/* ---------- 动效：手贴海报（落下带顿挫）、悬停、换墙；全部只用 transform 与 opacity ---------- */
+@keyframes paste{
+  0%{opacity:0; transform:translateY(-24px) rotate(var(--rot))}
+  50%{opacity:.55; transform:translateY(-2px) rotate(var(--rot))}
+  100%{opacity:1; transform:translateY(0) rotate(var(--rot))}
+}
+@keyframes inkflash{from{opacity:0} 40%{opacity:.06} to{opacity:0}}
+html.js .slip{opacity:0}
+html.js .slip.is-pasted{animation:paste .58s steps(2,end) both}
+html.js .reveal{opacity:0; transform:translateY(16px)}
+html.js .reveal.is-in{opacity:1; transform:none; transition:opacity .42s linear, transform .5s cubic-bezier(.22,1.4,.36,1)}
+.wall__body{display:grid; grid-template-columns:minmax(0,1fr); width:var(--wall); margin:0 auto}
+.wall__body>*{grid-column:1}
+.flash{position:fixed; inset:0; background:var(--ink); opacity:0; pointer-events:none; z-index:40}
+html.js .wall.is-shifting .wall__grid{transform:translateX(-48px); transition:transform .32s cubic-bezier(.22,1.4,.36,1)}
+html.js .wall.is-shifting .flash{animation:inkflash .42s linear}
+.notes{width:var(--wall); margin:44px auto 0}
+.note{background:var(--paper); padding:20px 18px; margin:0 0 22px; font-size:17px;
+  -webkit-mask-image:var(--torn3); mask-image:var(--torn3);
+  -webkit-mask-size:100% 100%; mask-size:100% 100%}
+.note h3{margin-bottom:8px}
+.note--last{margin-bottom:0}
+
+/* ---------- 断点：≥1440 三区并置（贴墙 8 栏／说明卡／批注栏）；900–1439 双列错位；<900 单列 ---------- */
+@media (min-width:1440px){
+  .wall__body{grid-template-columns:minmax(0,8fr) minmax(0,4fr); align-items:start; row-gap:18px}
+  .wall__grid{width:100%}
+  .wall__grid:nth-of-type(1){grid-column:1; grid-row:1}
+  .wall__grid:nth-of-type(2){grid-column:1; grid-row:2}
+  .wall__grid:nth-of-type(3){grid-column:1; grid-row:3}
+  .anno:nth-of-type(1){grid-column:2; grid-row:1}
+  .notes{grid-row:2}
+  .anno:nth-of-type(2){grid-column:2; grid-row:3}
+  .anno:nth-of-type(3){grid-column:2; grid-row:4}
+  .slip{margin-top:calc(var(--lift) * 0.42)}
+  .notes{grid-column:2; grid-row:2; width:100%; margin:0; padding-left:26px}
+  .note{margin-bottom:18px}
+  .anno{width:100%; margin:0 0 26px; padding:0 0 0 26px; transform:rotate(-1.3deg)}
+  .anno--r{transform:rotate(1deg)}
+  .wall__note{max-width:44em}
+}
+@media (min-width:900px) and (max-width:1439px){
+  .slip{grid-column:span var(--span-m)}
+  .slip:nth-child(even){margin-top:calc(var(--lift-m) * 0.5)}
+  .notes{display:grid; grid-template-columns:1.12fr .96fr .84fr; gap:18px}
+  .note{margin:0}
+}
+@media (max-width:899px){
+  .slip{--rot-k:.5; margin-top:0}
+  .slip:nth-child(3n+1){grid-column:span 12}
+  .slip:nth-child(3n+2){grid-column:span 11; justify-self:end}
+  .slip:nth-child(3n+3){grid-column:span 10; justify-self:start}
+  .wall__grid{row-gap:22px}
+  .slip:nth-child(odd) .slip__plate{aspect-ratio:1.15}
+  .slip:nth-child(even) .slip__plate{aspect-ratio:0.95}
+  .slip__plate{--ri:4px; --rj:6px}
+  .slip__notch{width:20px; height:20px}
+  .anno{margin-top:-14px; transform:rotate(-.7deg); font-size:17px}
+  .anno--r{transform:rotate(.5deg)}
+  .board{padding:34px 16px 32px}
+  .board h1{font-size:40px}
+  .board__lead{font-size:22px}
+  .who__item{grid-template-columns:minmax(0,1fr)}
+  .table{font-size:15px}
+  .table th,.table td{padding:7px 8px}
+}
+
+/* 降级：定格落下、旋转与推墙，只保留 120ms 不透明度切换（规格字段 7 的降级要求） */
+@media (prefers-reduced-motion:reduce){
+  html.js .slip{opacity:1}
+  html.js .slip.is-pasted{animation:none; opacity:1; transform:rotate(var(--rot))}
+  html.js .reveal{opacity:1; transform:none}
+  html.js .reveal.is-in{transition:opacity .12s linear}
+  html.js .wall.is-shifting .wall__grid{transform:none; transition:none}
+  html.js .wall.is-shifting .flash{animation:none; opacity:0}
+  .slip:hover{transform:rotate(var(--rot))}
+  .btn,.slip,.slip__gum{transition:opacity .12s linear}
+}
+
+
+

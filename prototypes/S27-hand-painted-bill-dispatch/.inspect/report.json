@@ -1,0 +1,1837 @@
+{
+ "url": "prototypes/S27-hand-painted-bill-dispatch/index.html",
+ "at": "2026-10-19T01:08:31.532Z",
+ "allow": [],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 12,
+   "filled": [
+    0.59,
+    0.52,
+    0.63,
+    0.77,
+    0.54,
+    0.7,
+    0.26,
+    0.8,
+    0.83,
+    0.47,
+    0.66,
+    0.35
+   ],
+   "motion": {
+    "elements": 23,
+    "css": 23,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 11197,
+     "screens": 12.4,
+     "words": 843,
+     "img": 7,
+     "video": 0,
+     "canvas": 0,
+     "svg": 18,
+     "sections": 5,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 7,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "reuse-s16-plate-01-figaro-manifesto.jpg",
+      "reuse-s16-plate-02-parole-liberta.jpg",
+      "reuse-s11-doc-05-typescript.jpg",
+      "reuse-s11-doc-02-carbon.jpg",
+      "reuse-s11-doc-07-copy.jpg",
+      "reuse-s01-plate-05-hearing.jpg",
+      "reuse-s16-plate-01-figaro-manifesto.jpg"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": []
+    },
+    "hero": {
+     "text": "手绘公文幕",
+     "words": 1,
+     "chars": 5,
+     "lines": 1,
+     "size": 86,
+     "vw": 6,
+     "font": "Chivo",
+     "weight": 700,
+     "tracking": 0.01,
+     "leading": 1.02,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 0.49,
+     "top": 151,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "手绘公文幕",
+     "words": 1,
+     "lines": 1,
+     "size": 86,
+     "font": "Chivo"
+    },
+    "headings": [
+     {
+      "text": "手绘公文幕",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 86,
+      "vw": 6,
+      "font": "Chivo",
+      "weight": 700,
+      "tracking": 0.01,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.49,
+      "top": 151,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "幕次条款",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 30,
+      "vw": 2.1,
+      "font": "Chivo",
+      "weight": 700,
+      "tracking": 0.01,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.93,
+      "top": 1464,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "木架上的刷子",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 30,
+      "vw": 2.1,
+      "font": "Chivo",
+      "weight": 700,
+      "tracking": 0.01,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.81,
+      "top": 1669,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "两块石版的错位",
+      "words": 1,
+      "chars": 7,
+      "lines": 1,
+      "size": 30,
+      "vw": 2.1,
+      "font": "Chivo",
+      "weight": 700,
+      "tracking": 0.01,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.81,
+      "top": 2195,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "幕布升降的时序",
+      "words": 1,
+      "chars": 7,
+      "lines": 1,
+      "size": 30,
+      "vw": 2.1,
+      "font": "Chivo",
+      "weight": 700,
+      "tracking": 0.01,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.81,
+      "top": 2725,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "抬头编号的归档",
+      "words": 1,
+      "chars": 7,
+      "lines": 1,
+      "size": 30,
+      "vw": 2.1,
+      "font": "Chivo",
+      "weight": 700,
+      "tracking": 0.01,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.81,
+      "top": 3251,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "签发栏与印章",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 30,
+      "vw": 2.1,
+      "font": "Chivo",
+      "weight": 700,
+      "tracking": 0.01,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.81,
+      "top": 3776,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "晒褪的墨绿",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 30,
+      "vw": 2.1,
+      "font": "Chivo",
+      "weight": 700,
+      "tracking": 0.01,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.81,
+      "top": 4302,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "场次表与排期",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 30,
+      "vw": 2.1,
+      "font": "Chivo",
+      "weight": 700,
+      "tracking": 0.01,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.81,
+      "top": 4833,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "签发栏",
+      "words": 1,
+      "chars": 3,
+      "lines": 1,
+      "size": 30,
+      "vw": 2.1,
+      "font": "Chivo",
+      "weight": 700,
+      "tracking": 0.01,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.93,
+      "top": 5496,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "石版错位，签发栏对不上",
+      "words": 1,
+      "chars": 11,
+      "lines": 1,
+      "size": 30,
+      "vw": 2.1,
+      "font": "Chivo",
+      "weight": 700,
+      "tracking": 0.01,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.93,
+      "top": 6564,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "原件翻拍图版",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 30,
+      "vw": 2.1,
+      "font": "Chivo",
+      "weight": 700,
+      "tracking": 0.01,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.93,
+      "top": 7214,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "动效与降级",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 30,
+      "vw": 2.1,
+      "font": "Chivo",
+      "weight": 700,
+      "tracking": 0.01,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.93,
+      "top": 10090,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 13,
+     "maxLines": 1,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": 1,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "LXGW WenKai",
+       "share": 0.75,
+       "mono": false
+      },
+      {
+       "family": "Martian Mono",
+       "share": 0.22,
+       "mono": true
+      },
+      {
+       "family": "Chivo",
+       "share": 0.03,
+       "mono": false
+      }
+     ],
+     "familyCount": 3,
+     "sizes": [
+      13,
+      15,
+      16,
+      17,
+      18,
+      22,
+      30,
+      86
+     ],
+     "sizeCount": 8,
+     "notLoaded": [],
+     "body": {
+      "font": "LXGW WenKai",
+      "size": 16,
+      "leading": 1.95,
+      "weight": 400,
+      "tracking": 0.02,
+      "contrast": 11.9
+     },
+     "measureChars": 84,
+     "max": {
+      "size": 86,
+      "vw": 6,
+      "font": "Chivo",
+      "text": "手绘公文幕"
+     },
+     "monoShare": 0.22,
+     "monoProseShare": 0,
+     "monoFamilies": [
+      "Martian Mono"
+     ],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.14,
+     "centerShare": 0,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#e8d7b5",
+     "bodyBgHsl": {
+      "h": 40,
+      "s": 0.53,
+      "l": 0.81
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#0e6258",
+       "top": 1380,
+       "hsl": {
+        "h": 173,
+        "s": 0.75,
+        "l": 0.22
+       }
+      },
+      {
+       "color": "#e8d7b5",
+       "top": 1641,
+       "hsl": {
+        "h": 40,
+        "s": 0.53,
+        "l": 0.81
+       }
+      },
+      {
+       "color": "#221c10",
+       "top": 6494,
+       "hsl": {
+        "h": 40,
+        "s": 0.36,
+        "l": 0.1
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#221c10",
+       "share": 0.56
+      },
+      {
+       "color": "#e8d7b5",
+       "share": 0.25
+      },
+      {
+       "color": "#0e6258",
+       "share": 0.07
+      },
+      {
+       "color": "#4a4232",
+       "share": 0.05
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.04
+      }
+     ],
+     "button": {
+      "bg": "#0e6258",
+      "hsl": {
+       "h": 173,
+       "s": 0.75,
+       "l": 0.22
+      },
+      "fg": "#ffffff"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 2,
+     "inHero": 1,
+     "radius": 0,
+     "height": 48,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "签收第三幕的场次表"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 7,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [
+     {
+      "type": "img",
+      "ratio": 0.24
+     }
+    ],
+    "nav": {
+     "links": 0,
+     "fixed": false,
+     "height": 1306,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "chivo",
+     "lxgw wenkai",
+     "martian mono"
+    ]
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 12,
+   "filled": [
+    0.66,
+    0.83,
+    0.8,
+    0.57,
+    0.74,
+    0.76,
+    0.57,
+    0.42,
+    0.52,
+    0.87,
+    0.82,
+    0.84
+   ],
+   "motion": {
+    "elements": 23,
+    "css": 23,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 17743,
+     "screens": 17.3,
+     "words": 836,
+     "img": 7,
+     "video": 0,
+     "canvas": 0,
+     "svg": 18,
+     "sections": 5,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 7,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "reuse-s16-plate-01-figaro-manifesto.jpg",
+      "reuse-s16-plate-02-parole-liberta.jpg",
+      "reuse-s11-doc-05-typescript.jpg",
+      "reuse-s11-doc-02-carbon.jpg",
+      "reuse-s11-doc-07-copy.jpg",
+      "reuse-s01-plate-05-hearing.jpg",
+      "reuse-s16-plate-01-figaro-manifesto.jpg"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": []
+    },
+    "hero": {
+     "text": "手绘公文幕",
+     "words": 1,
+     "chars": 5,
+     "lines": 1,
+     "size": 54,
+     "vw": 7,
+     "font": "Chivo",
+     "weight": 700,
+     "tracking": 0.01,
+     "leading": 1.02,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 0.9,
+     "top": 149,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "手绘公文幕",
+     "words": 1,
+     "lines": 1,
+     "size": 54,
+     "font": "Chivo"
+    },
+    "headings": [
+     {
+      "text": "手绘公文幕",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 54,
+      "vw": 7,
+      "font": "Chivo",
+      "weight": 700,
+      "tracking": 0.01,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 149,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "幕次条款",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 26,
+      "vw": 3.4,
+      "font": "Chivo",
+      "weight": 700,
+      "tracking": 0.01,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.95,
+      "top": 2023,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "木架上的刷子",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 26,
+      "vw": 3.4,
+      "font": "Chivo",
+      "weight": 700,
+      "tracking": 0.01,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.76,
+      "top": 2219,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "两块石版的错位",
+      "words": 1,
+      "chars": 7,
+      "lines": 1,
+      "size": 26,
+      "vw": 3.4,
+      "font": "Chivo",
+      "weight": 700,
+      "tracking": 0.01,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.76,
+      "top": 2980,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "幕布升降的时序",
+      "words": 1,
+      "chars": 7,
+      "lines": 1,
+      "size": 26,
+      "vw": 3.4,
+      "font": "Chivo",
+      "weight": 700,
+      "tracking": 0.01,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.76,
+      "top": 3773,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "抬头编号的归档",
+      "words": 1,
+      "chars": 7,
+      "lines": 1,
+      "size": 26,
+      "vw": 3.4,
+      "font": "Chivo",
+      "weight": 700,
+      "tracking": 0.01,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.76,
+      "top": 4534,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "签发栏与印章",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 26,
+      "vw": 3.4,
+      "font": "Chivo",
+      "weight": 700,
+      "tracking": 0.01,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.76,
+      "top": 5296,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "晒褪的墨绿",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 26,
+      "vw": 3.4,
+      "font": "Chivo",
+      "weight": 700,
+      "tracking": 0.01,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.76,
+      "top": 6057,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "场次表与排期",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 26,
+      "vw": 3.4,
+      "font": "Chivo",
+      "weight": 700,
+      "tracking": 0.01,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.76,
+      "top": 6850,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "签发栏",
+      "words": 1,
+      "chars": 3,
+      "lines": 1,
+      "size": 26,
+      "vw": 3.4,
+      "font": "Chivo",
+      "weight": 700,
+      "tracking": 0.01,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.95,
+      "top": 7722,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "石版错位，签发栏对不上",
+      "words": 1,
+      "chars": 11,
+      "lines": 1,
+      "size": 26,
+      "vw": 3.4,
+      "font": "Chivo",
+      "weight": 700,
+      "tracking": 0.01,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.95,
+      "top": 8947,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "原件翻拍图版",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 26,
+      "vw": 3.4,
+      "font": "Chivo",
+      "weight": 700,
+      "tracking": 0.01,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.95,
+      "top": 9905,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "动效与降级",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 26,
+      "vw": 3.4,
+      "font": "Chivo",
+      "weight": 700,
+      "tracking": 0.01,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.95,
+      "top": 16257,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 13,
+     "maxLines": 1,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": 1,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "LXGW WenKai",
+       "share": 0.75,
+       "mono": false
+      },
+      {
+       "family": "Martian Mono",
+       "share": 0.23,
+       "mono": true
+      },
+      {
+       "family": "Chivo",
+       "share": 0.03,
+       "mono": false
+      }
+     ],
+     "familyCount": 3,
+     "sizes": [
+      13,
+      15,
+      16,
+      17,
+      18,
+      22,
+      26,
+      54
+     ],
+     "sizeCount": 8,
+     "notLoaded": [],
+     "body": {
+      "font": "LXGW WenKai",
+      "size": 16,
+      "leading": 1.95,
+      "weight": 400,
+      "tracking": 0.02,
+      "contrast": 11.9
+     },
+     "measureChars": 84,
+     "max": {
+      "size": 54,
+      "vw": 7,
+      "font": "Chivo",
+      "text": "手绘公文幕"
+     },
+     "monoShare": 0.23,
+     "monoProseShare": 0,
+     "monoFamilies": [
+      "Martian Mono"
+     ],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.14,
+     "centerShare": 0,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#e8d7b5",
+     "bodyBgHsl": {
+      "h": 40,
+      "s": 0.53,
+      "l": 0.81
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#0e6258",
+       "top": 1967,
+       "hsl": {
+        "h": 173,
+        "s": 0.75,
+        "l": 0.22
+       }
+      },
+      {
+       "color": "#e8d7b5",
+       "top": 2196,
+       "hsl": {
+        "h": 40,
+        "s": 0.53,
+        "l": 0.81
+       }
+      },
+      {
+       "color": "#221c10",
+       "top": 8877,
+       "hsl": {
+        "h": 40,
+        "s": 0.36,
+        "l": 0.1
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#221c10",
+       "share": 0.56
+      },
+      {
+       "color": "#e8d7b5",
+       "share": 0.25
+      },
+      {
+       "color": "#0e6258",
+       "share": 0.07
+      },
+      {
+       "color": "#4a4232",
+       "share": 0.05
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.04
+      }
+     ],
+     "button": {
+      "bg": "#0e6258",
+      "hsl": {
+       "h": 173,
+       "s": 0.75,
+       "l": 0.22
+      },
+      "fg": "#ffffff"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 2,
+     "inHero": 1,
+     "radius": 0,
+     "height": 48,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "签收第三幕的场次表"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 7,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [
+     {
+      "type": "img",
+      "ratio": 0.28
+     }
+    ],
+    "nav": {
+     "links": 0,
+     "fixed": false,
+     "height": 1870,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "chivo",
+     "lxgw wenkai",
+     "martian mono"
+    ]
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 12,
+   "filled": [
+    0.64,
+    0.71,
+    0.8,
+    0.68,
+    0.56,
+    0.71,
+    0.66,
+    0.62,
+    0.74,
+    0.6,
+    0.67,
+    0.37
+   ],
+   "motion": {
+    "elements": 23,
+    "css": 23,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "page": {
+     "height": 18220,
+     "screens": 21.6,
+     "words": 836,
+     "img": 7,
+     "video": 0,
+     "canvas": 0,
+     "svg": 18,
+     "sections": 5,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 7,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "reuse-s16-plate-01-figaro-manifesto.jpg",
+      "reuse-s16-plate-02-parole-liberta.jpg",
+      "reuse-s11-doc-05-typescript.jpg",
+      "reuse-s11-doc-02-carbon.jpg",
+      "reuse-s11-doc-07-copy.jpg",
+      "reuse-s01-plate-05-hearing.jpg",
+      "reuse-s16-plate-01-figaro-manifesto.jpg"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": []
+    },
+    "hero": {
+     "text": "手绘公文幕",
+     "words": 1,
+     "chars": 5,
+     "lines": 1,
+     "size": 41.3,
+     "vw": 10.6,
+     "font": "Chivo",
+     "weight": 700,
+     "tracking": 0.01,
+     "leading": 1.02,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 0.79,
+     "top": 172,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "手绘公文幕",
+     "words": 1,
+     "lines": 1,
+     "size": 41.3,
+     "font": "Chivo"
+    },
+    "headings": [
+     {
+      "text": "手绘公文幕",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 41.3,
+      "vw": 10.6,
+      "font": "Chivo",
+      "weight": 700,
+      "tracking": 0.01,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.79,
+      "top": 172,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "幕次条款",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Chivo",
+      "weight": 700,
+      "tracking": 0.01,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 1825,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "木架上的刷子",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Chivo",
+      "weight": 700,
+      "tracking": 0.01,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.53,
+      "top": 2083,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "两块石版的错位",
+      "words": 1,
+      "chars": 7,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Chivo",
+      "weight": 700,
+      "tracking": 0.01,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.53,
+      "top": 3132,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "幕布升降的时序",
+      "words": 1,
+      "chars": 7,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Chivo",
+      "weight": 700,
+      "tracking": 0.01,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.53,
+      "top": 4159,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "抬头编号的归档",
+      "words": 1,
+      "chars": 7,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Chivo",
+      "weight": 700,
+      "tracking": 0.01,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.53,
+      "top": 5155,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "签发栏与印章",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Chivo",
+      "weight": 700,
+      "tracking": 0.01,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.53,
+      "top": 6183,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "晒褪的墨绿",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Chivo",
+      "weight": 700,
+      "tracking": 0.01,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.53,
+      "top": 7179,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "场次表与排期",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Chivo",
+      "weight": 700,
+      "tracking": 0.01,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.53,
+      "top": 8269,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "签发栏",
+      "words": 1,
+      "chars": 3,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Chivo",
+      "weight": 700,
+      "tracking": 0.01,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 9375,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "十一周的场次表",
+      "words": 1,
+      "chars": 7,
+      "lines": 1,
+      "size": 22,
+      "vw": 5.6,
+      "font": "Chivo",
+      "weight": 700,
+      "tracking": 0.01,
+      "leading": 1.25,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 9967,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "石版错位，签发栏对不上",
+      "words": 1,
+      "chars": 11,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Chivo",
+      "weight": 700,
+      "tracking": 0.01,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 11092,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "冻结值",
+      "words": 1,
+      "chars": 3,
+      "lines": 1,
+      "size": 22,
+      "vw": 5.6,
+      "font": "Chivo",
+      "weight": 700,
+      "tracking": 0.01,
+      "leading": 1.25,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 11772,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "原件翻拍图版",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Chivo",
+      "weight": 700,
+      "tracking": 0.01,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 12239,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "动效与降级",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Chivo",
+      "weight": 700,
+      "tracking": 0.01,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 16027,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "抬头与编号",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 22,
+      "vw": 5.6,
+      "font": "Chivo",
+      "weight": 700,
+      "tracking": 0.01,
+      "leading": 1.25,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 17502,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "当前状态",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 22,
+      "vw": 5.6,
+      "font": "Chivo",
+      "weight": 700,
+      "tracking": 0.01,
+      "leading": 1.25,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 17642,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "色值与图版",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 22,
+      "vw": 5.6,
+      "font": "Chivo",
+      "weight": 700,
+      "tracking": 0.01,
+      "leading": 1.25,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 17784,
+      "tag": "h3",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 18,
+     "maxLines": 1,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": 1,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "LXGW WenKai",
+       "share": 0.75,
+       "mono": false
+      },
+      {
+       "family": "Martian Mono",
+       "share": 0.23,
+       "mono": true
+      },
+      {
+       "family": "Chivo",
+       "share": 0.03,
+       "mono": false
+      }
+     ],
+     "familyCount": 3,
+     "sizes": [
+      13,
+      15,
+      16,
+      17,
+      18,
+      22,
+      26,
+      41
+     ],
+     "sizeCount": 8,
+     "notLoaded": [],
+     "body": {
+      "font": "LXGW WenKai",
+      "size": 16,
+      "leading": 1.95,
+      "weight": 400,
+      "tracking": 0.02,
+      "contrast": 11.9
+     },
+     "measureChars": 44,
+     "max": {
+      "size": 41.3,
+      "vw": 10.6,
+      "font": "Chivo",
+      "text": "手绘公文幕"
+     },
+     "monoShare": 0.23,
+     "monoProseShare": 0,
+     "monoFamilies": [
+      "Martian Mono"
+     ],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.14,
+     "centerShare": 0,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#e8d7b5",
+     "bodyBgHsl": {
+      "h": 40,
+      "s": 0.53,
+      "l": 0.81
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#0e6258",
+       "top": 1769,
+       "hsl": {
+        "h": 173,
+        "s": 0.75,
+        "l": 0.22
+       }
+      },
+      {
+       "color": "#e8d7b5",
+       "top": 2059,
+       "hsl": {
+        "h": 40,
+        "s": 0.53,
+        "l": 0.81
+       }
+      },
+      {
+       "color": "#221c10",
+       "top": 11022,
+       "hsl": {
+        "h": 40,
+        "s": 0.36,
+        "l": 0.1
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#221c10",
+       "share": 0.56
+      },
+      {
+       "color": "#e8d7b5",
+       "share": 0.25
+      },
+      {
+       "color": "#0e6258",
+       "share": 0.07
+      },
+      {
+       "color": "#4a4232",
+       "share": 0.05
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.04
+      }
+     ],
+     "button": {
+      "bg": "#0e6258",
+      "hsl": {
+       "h": 173,
+       "s": 0.75,
+       "l": 0.22
+      },
+      "fg": "#ffffff"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 2,
+     "inHero": 1,
+     "radius": 0,
+     "height": 48,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "签收第三幕的场次表"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 7,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 0,
+     "fixed": false,
+     "height": 1648,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "chivo",
+     "lxgw wenkai",
+     "martian mono"
+    ]
+   },
+   "consoleErrors": []
+  }
+ ],
+ "findings": [
+  {
+   "level": "WARN",
+   "id": "font-count",
+   "width": 1440,
+   "message": "3 typefaces in use (LXGW WenKai, Martian Mono, Chivo).",
+   "fix": "Two at most.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "no-footage",
+   "width": 1440,
+   "message": "No video anywhere on the page.",
+   "fix": "Look for one honest clip with scripts/assets.mjs --video (the place, the material, the process) and use it as a muted loop with a poster frame. Defend its absence only if no clip fits the subject."
+  }
+ ],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "D:\\Web\\style\\prototypes\\S27-hand-painted-bill-dispatch\\.inspect\\desktop-fold.jpg",
+   "pages": [
+    "D:\\Web\\style\\prototypes\\S27-hand-painted-bill-dispatch\\.inspect\\desktop-page-01.jpg",
+    "D:\\Web\\style\\prototypes\\S27-hand-painted-bill-dispatch\\.inspect\\desktop-page-02.jpg",
+    "D:\\Web\\style\\prototypes\\S27-hand-painted-bill-dispatch\\.inspect\\desktop-page-03.jpg"
+   ]
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "D:\\Web\\style\\prototypes\\S27-hand-painted-bill-dispatch\\.inspect\\tablet-fold.jpg",
+   "pages": [
+    "D:\\Web\\style\\prototypes\\S27-hand-painted-bill-dispatch\\.inspect\\tablet-page-01.jpg",
+    "D:\\Web\\style\\prototypes\\S27-hand-painted-bill-dispatch\\.inspect\\tablet-page-02.jpg"
+   ]
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "D:\\Web\\style\\prototypes\\S27-hand-painted-bill-dispatch\\.inspect\\mobile-fold.jpg",
+   "pages": [
+    "D:\\Web\\style\\prototypes\\S27-hand-painted-bill-dispatch\\.inspect\\mobile-page-01.jpg",
+    "D:\\Web\\style\\prototypes\\S27-hand-painted-bill-dispatch\\.inspect\\mobile-page-02.jpg"
+   ]
+  }
+ ]
+}

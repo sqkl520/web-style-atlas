@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>像素冷库台 · 冷库机组 K-3 控制面板｜1984 年铁皮机柜</title>
+<meta name="description" content="冷库机组 K-3 的八块铁皮控制面板：3 号库 −18.4℃、压缩机每 40 分钟除霜一轮，读数由 5×7 点阵字模拼出，面板按 5∶2∶1 分配面积。">
+<link rel="stylesheet" href="../_fonts/css/barlow__500-600.css">
+<link rel="stylesheet" href="../_fonts/css/glow-sans-sc__400-500.css">
+<link rel="stylesheet" href="../_fonts/css/departure-mono__400.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#console">跳到八块控制面板</a>
+
+<!-- 5×7 点阵字模：每格一个 1×1 方块，笔画只走整格、线宽恒为 1 格，没有曲线也没有描边。
+     读出处用 <use> 逐字拼装，见 build/make-lattice.py（本段 defs 由该脚本注入）。 -->
+<svg class="lattice-font" width="0" height="0" aria-hidden="true" focusable="false">
+<defs>
+<!--lattice:defs-->
+<g id="dg-0"><path d="M1 0h3v1h-3zM0 1h1v1h-1zM4 1h1v1h-1zM0 2h1v1h-1zM3 2h2v1h-2zM0 3h1v1h-1zM2 3h1v1h-1zM4 3h1v1h-1zM0 4h2v1h-2zM4 4h1v1h-1zM0 5h1v1h-1zM4 5h1v1h-1zM1 6h3v1h-3z"/></g>
+<g id="dg-1"><path d="M2 0h1v1h-1zM1 1h2v1h-2zM2 2h1v1h-1zM2 3h1v1h-1zM2 4h1v1h-1zM2 5h1v1h-1zM1 6h3v1h-3z"/></g>
+<g id="dg-2"><path d="M1 0h3v1h-3zM0 1h1v1h-1zM4 1h1v1h-1zM4 2h1v1h-1zM3 3h1v1h-1zM2 4h1v1h-1zM1 5h1v1h-1zM0 6h5v1h-5z"/></g>
+<g id="dg-3"><path d="M0 0h5v1h-5zM3 1h1v1h-1zM2 2h1v1h-1zM3 3h1v1h-1zM4 4h1v1h-1zM0 5h1v1h-1zM4 5h1v1h-1zM1 6h3v1h-3z"/></g>
+<g id="dg-4"><path d="M3 0h1v1h-1zM2 1h2v1h-2zM1 2h1v1h-1zM3 2h1v1h-1zM0 3h1v1h-1zM3 3h1v1h-1zM0 4h5v1h-5zM3 5h1v1h-1zM3 6h1v1h-1z"/></g>
+<g id="dg-5"><path d="M0 0h5v1h-5zM0 1h1v1h-1zM0 2h4v1h-4zM4 3h1v1h-1zM4 4h1v1h-1zM0 5h1v1h-1zM4 5h1v1h-1zM1 6h3v1h-3z"/></g>
+<g id="dg-6"><path d="M2 0h2v1h-2zM1 1h1v1h-1zM0 2h1v1h-1zM0 3h4v1h-4zM0 4h1v1h-1zM4 4h1v1h-1zM0 5h1v1h-1zM4 5h1v1h-1zM1 6h3v1h-3z"/></g>
+<g id="dg-7"><path d="M0 0h5v1h-5zM4 1h1v1h-1zM3 2h1v1h-1zM2 3h1v1h-1zM1 4h1v1h-1zM1 5h1v1h-1zM1 6h1v1h-1z"/></g>
+<g id="dg-8"><path d="M1 0h3v1h-3zM0 1h1v1h-1zM4 1h1v1h-1zM0 2h1v1h-1zM4 2h1v1h-1zM1 3h3v1h-3zM0 4h1v1h-1zM4 4h1v1h-1zM0 5h1v1h-1zM4 5h1v1h-1zM1 6h3v1h-3z"/></g>
+<g id="dg-9"><path d="M1 0h3v1h-3zM0 1h1v1h-1zM4 1h1v1h-1zM0 2h1v1h-1zM4 2h1v1h-1zM1 3h4v1h-4zM4 4h1v1h-1zM3 5h1v1h-1zM1 6h2v1h-2z"/></g>
+<g id="dg-dash"><path d="M0 3h5v1h-5z"/></g>
+<g id="dg-dot"><path d="M1 5h2v1h-2zM1 6h2v1h-2z"/></g>
+<g id="dg-pct"><path d="M0 0h2v1h-2zM4 0h1v1h-1zM0 1h2v1h-2zM3 1h1v1h-1zM3 2h1v1h-1zM2 3h1v1h-1zM1 4h1v1h-1zM1 5h1v1h-1zM3 5h2v1h-2zM0 6h1v1h-1zM3 6h2v1h-2z"/></g>
+<g id="dg-deg"><path d="M1 0h2v1h-2zM0 1h1v1h-1zM3 1h1v1h-1zM0 2h1v1h-1zM3 2h1v1h-1zM1 3h2v1h-2z"/></g>
+<g id="dg-C"><path d="M1 0h3v1h-3zM0 1h1v1h-1zM4 1h1v1h-1zM0 2h1v1h-1zM0 3h1v1h-1zM0 4h1v1h-1zM0 5h1v1h-1zM4 5h1v1h-1zM1 6h3v1h-3z"/></g>
+<g id="dg-F"><path d="M0 0h5v1h-5zM0 1h1v1h-1zM0 2h1v1h-1zM0 3h4v1h-4zM0 4h1v1h-1zM0 5h1v1h-1zM0 6h1v1h-1z"/></g>
+<g id="dg-K"><path d="M0 0h1v1h-1zM4 0h1v1h-1zM0 1h1v1h-1zM3 1h1v1h-1zM0 2h1v1h-1zM2 2h1v1h-1zM0 3h2v1h-2zM0 4h1v1h-1zM2 4h1v1h-1zM0 5h1v1h-1zM3 5h1v1h-1zM0 6h1v1h-1zM4 6h1v1h-1z"/></g>
+<g id="dg-M"><path d="M0 0h1v1h-1zM4 0h1v1h-1zM0 1h2v1h-2zM3 1h2v1h-2zM0 2h1v1h-1zM2 2h1v1h-1zM4 2h1v1h-1zM0 3h1v1h-1zM4 3h1v1h-1zM0 4h1v1h-1zM4 4h1v1h-1zM0 5h1v1h-1zM4 5h1v1h-1zM0 6h1v1h-1zM4 6h1v1h-1z"/></g>
+<g id="dg-H"><path d="M0 0h1v1h-1zM4 0h1v1h-1zM0 1h1v1h-1zM4 1h1v1h-1zM0 2h1v1h-1zM4 2h1v1h-1zM0 3h5v1h-5zM0 4h1v1h-1zM4 4h1v1h-1zM0 5h1v1h-1zM4 5h1v1h-1zM0 6h1v1h-1zM4 6h1v1h-1z"/></g>
+<g id="dg-E"><path d="M0 0h5v1h-5zM0 1h1v1h-1zM0 2h1v1h-1zM0 3h4v1h-4zM0 4h1v1h-1zM0 5h1v1h-1zM0 6h5v1h-5z"/></g>
+<g id="dg-A"><path d="M1 0h3v1h-3zM0 1h1v1h-1zM4 1h1v1h-1zM0 2h1v1h-1zM4 2h1v1h-1zM0 3h5v1h-5zM0 4h1v1h-1zM4 4h1v1h-1zM0 5h1v1h-1zM4 5h1v1h-1zM0 6h1v1h-1zM4 6h1v1h-1z"/></g>
+<g id="dg-L"><path d="M0 0h1v1h-1zM0 1h1v1h-1zM0 2h1v1h-1zM0 3h1v1h-1zM0 4h1v1h-1zM0 5h1v1h-1zM0 6h5v1h-5z"/></g>
+<g id="dg-Z"><path d="M0 0h5v1h-5zM4 1h1v1h-1zM3 2h1v1h-1zM2 3h1v1h-1zM1 4h1v1h-1zM0 5h1v1h-1zM0 6h5v1h-5z"/></g>
+<g id="dg-O"><path d="M1 0h3v1h-3zM0 1h1v1h-1zM4 1h1v1h-1zM0 2h1v1h-1zM4 2h1v1h-1zM0 3h1v1h-1zM4 3h1v1h-1zM0 4h1v1h-1zM4 4h1v1h-1zM0 5h1v1h-1zM4 5h1v1h-1zM1 6h3v1h-3z"/></g>
+<g id="dg-N"><path d="M0 0h1v1h-1zM4 0h1v1h-1zM0 1h2v1h-2zM4 1h1v1h-1zM0 2h1v1h-1zM2 2h1v1h-1zM4 2h1v1h-1zM0 3h1v1h-1zM3 3h2v1h-2zM0 4h1v1h-1zM4 4h1v1h-1zM0 5h1v1h-1zM4 5h1v1h-1zM0 6h1v1h-1zM4 6h1v1h-1z"/></g>
+<g id="dg-R"><path d="M0 0h4v1h-4zM0 1h1v1h-1zM4 1h1v1h-1zM0 2h1v1h-1zM4 2h1v1h-1zM0 3h4v1h-4zM0 4h1v1h-1zM2 4h1v1h-1zM0 5h1v1h-1zM3 5h1v1h-1zM0 6h1v1h-1zM4 6h1v1h-1z"/></g>
+<g id="dg-S"><path d="M1 0h4v1h-4zM0 1h1v1h-1zM0 2h1v1h-1zM1 3h3v1h-3zM4 4h1v1h-1zM4 5h1v1h-1zM0 6h4v1h-4z"/></g>
+<g id="dg-T"><path d="M0 0h5v1h-5zM2 1h1v1h-1zM2 2h1v1h-1zM2 3h1v1h-1zM2 4h1v1h-1zM2 5h1v1h-1zM2 6h1v1h-1z"/></g>
+<g id="dg-m"><path d="M0 2h2v1h-2zM3 2h1v1h-1zM0 3h1v1h-1zM2 3h1v1h-1zM4 3h1v1h-1zM0 4h1v1h-1zM2 4h1v1h-1zM4 4h1v1h-1zM0 5h1v1h-1zM2 5h1v1h-1zM4 5h1v1h-1zM0 6h1v1h-1zM2 6h1v1h-1zM4 6h1v1h-1z"/></g>
+<g id="dg-h"><path d="M0 0h1v1h-1zM0 1h1v1h-1zM0 2h4v1h-4zM0 3h1v1h-1zM4 3h1v1h-1zM0 4h1v1h-1zM4 4h1v1h-1zM0 5h1v1h-1zM4 5h1v1h-1zM0 6h1v1h-1zM4 6h1v1h-1z"/></g>
+</defs>
+</svg>
+
+<header class="nameplate">
+  <p class="nameplate-id">冷库机组 K-3 · 三号库区 · 出厂 1984</p>
+  <p class="nameplate-latin">Cold Storage Console · K-3</p>
+  <p class="nameplate-live"><span class="lamp lamp--on" aria-hidden="true"></span>压缩机运行中 · 除霜 40 分钟一轮</p>
+</header>
+
+<main id="console">
+
+  <section class="hero section" aria-labelledby="t-title">
+    <div class="hero-copy">
+      <h1 id="t-title">像素冷库台</h1>
+      <p class="hero-claim">3 号冷库现在是 −18.4℃，压缩机每 40 分钟除霜一次，昨天多花了 12 分钟。</p>
+      <p class="hero-note">八块面板按 5∶2∶1 分配面积：主库占 5 列，除霜占 2 列，告警只有 1 列却拉高两倍。每个读数都配着单位与采样时刻，绿字是漆在铁皮上的，不是浮在上面。</p>
+      <div class="hero-actions">
+        <button class="btn btn--primary" id="setpoint" type="button">把 2 号库调到 −20℃</button>
+        <p class="hero-hint" id="setpoint-hint" role="status">拨杆停在第 5 档：2 号库当前 −18℃，落位 120ms 后才改读数。</p>
+      </div>
+    </div>
+
+    <aside class="gauge" aria-label="3 号库库温主读数">
+      <p class="lbl">3 号库 · 库温</p>
+      <p class="gauge-value">
+        <svg class="lattice lattice--xl lattice--w41" preserveAspectRatio="none" viewBox="0 0 41 7" role="img" aria-label="3 号库库温 −18.4 摄氏度"><g class="lattice-cells"><use href="#dg-dash" x="0"/><use href="#dg-1" x="6"/><use href="#dg-8" x="12"/><use href="#dg-dot" x="18"/><use href="#dg-4" x="24"/><use href="#dg-deg" x="30"/><use href="#dg-C" x="36"/></g></svg>
+      </p>
+      <p class="gauge-meta">采样 <code>02:14</code> · 探头编号 <code>417028</code></p>
+      <ul class="gauge-rows">
+        <li><span>除霜周期</span><code>40min</code></li>
+        <li><span>上次除霜用时</span><code>6min40s</code></li>
+        <li><span>压缩机负载</span><code>62pct</code></li>
+        <li><span>门开合次数</span><code>6x</code></li>
+      </ul>
+    </aside>
+  </section>
+
+  <section class="console section" aria-labelledby="t-console">
+    <h2 id="t-console">八块控制面板</h2>
+    <p class="section-lead">分区之间是 6px 凹槽：1px 上高光 <code>#2A2E28</code>、1px 下暗边 <code>#050605</code>。凹槽是挖出来的，不是卡片浮起来的；面板的立体感全靠这一组单向硬光源，全站没有圆角容器，也没有一处柔和投影。维护记录栏在 1440px 以上留在右侧 180px，1024–1439px 折为六面板时并入底部。</p>
+
+    <div class="console-shell">
+      <div class="console-grid">
+
+        <article class="panel panel--main">
+          <p class="lbl">面板 1 · 主库</p>
+          <div class="panel-head">
+            <p class="readout">
+              <svg class="lattice lattice--md lattice--w41" preserveAspectRatio="none" viewBox="0 0 41 7" role="img" aria-label="主库库温 −18.4 摄氏度"><g class="lattice-cells"><use href="#dg-dash" x="0"/><use href="#dg-1" x="6"/><use href="#dg-8" x="12"/><use href="#dg-dot" x="18"/><use href="#dg-4" x="24"/><use href="#dg-deg" x="30"/><use href="#dg-C" x="36"/></g></svg>
+            </p>
+            <span class="lamp lamp--on lamp--lg" aria-hidden="true"></span>
+          </div>
+          <p class="panel-note">采样 <code>02:14</code> · 探头 <code>417028</code> · 三号库区 1 号门</p>
+          <ul class="rows">
+            <li><span>压缩机</span><code>40min</code></li>
+            <li><span>昨天多花</span><code>12min</code></li>
+            <li><span>门开合</span><code>6x</code></li>
+          </ul>
+
+          <!-- 拨杆：6px 厚侧壁面 + 落位凹槽。≥768px 立式，<768px 变横向滑块（见样式表断点段） -->
+          <div class="lever" id="lever-bay">
+            <span class="lever-well" aria-hidden="true"></span>
+            <span class="lever-arm" aria-hidden="true"><span class="lever-wall"></span><span class="lever-knob"></span></span>
+            <input class="lever-input" id="target" type="range" min="-22" max="-18" step="1" value="-18"
+                   aria-label="2 号库目标温度，范围 −22℃ 到 −18℃，每档 1℃">
+          </div>
+          <p class="lever-scale lbl">档位 1–5</p>
+          <p class="mark"><span>工号 5-07</span><span>出厂 1984</span></p>
+        </article>
+
+        <article class="panel panel--defrost panel--dark">
+          <p class="lbl">面板 2 · 除霜</p>
+          <div class="panel-head">
+            <p class="readout">
+              <svg class="lattice lattice--sm lattice--w17" preserveAspectRatio="none" viewBox="0 0 17 7" role="img" aria-label="除霜周期 40 分钟"><g class="lattice-cells"><use href="#dg-4" x="0"/><use href="#dg-0" x="6"/><use href="#dg-M" x="12"/></g></svg>
+            </p>
+            <span class="lamp lamp--flash" aria-hidden="true"></span>
+          </div>
+          <p class="panel-note">上一次除霜 <code>01:36</code> 结束，用时 <code>6min40s</code>。</p>
+          <p class="mark"><span>工号 5-04</span><span>校验 3</span></p>
+        </article>
+
+        <article class="panel panel--alarm panel--dark">
+          <p class="lbl">面板 3 · 告警</p>
+          <p class="readout">
+            <svg class="lattice lattice--sm lattice--w23" preserveAspectRatio="none" viewBox="0 0 23 7" role="img" aria-label="无读数，四个空缺位"><g class="lattice-cells"><use href="#dg-dash" x="0"/><use href="#dg-dash" x="6"/><use href="#dg-dash" x="12"/><use href="#dg-dash" x="18"/></g></svg>
+          </p>
+          <p class="alarm-strip" aria-hidden="true"></p>
+          <p class="panel-note">3 号库读不到数：探头 6 位编号没登记，或者那根 4 芯线在第 2 个接头处断了，错误码 <code>E-114</code>。先看 2 号库，别动压缩机。</p>
+          <p class="mark"><span>工号 5-01</span><span>校验 1</span></p>
+        </article>
+
+        <article class="panel panel--bay2">
+          <p class="lbl">面板 4 · 2 号库</p>
+          <div class="panel-head">
+            <p class="readout">
+              <svg class="lattice lattice--md lattice--w41" preserveAspectRatio="none" viewBox="0 0 41 7" role="img" aria-label="2 号库库温 −18.0 摄氏度"><g class="lattice-cells"><use href="#dg-dash" x="0"/><use href="#dg-1" x="6"/><use href="#dg-8" x="12"/><use href="#dg-dot" x="18"/><use href="#dg-0" x="24"/><use href="#dg-deg" x="30"/><use href="#dg-C" x="36"/></g></svg>
+            </p>
+            <span class="lamp lamp--on lamp--lg" aria-hidden="true"></span>
+          </div>
+          <p class="panel-note">采样 <code>02:14</code> · 探头 <code>417021</code> · 门封条上月换过</p>
+          <ul class="rows">
+            <li><span>压缩机</span><code>40min</code></li>
+            <li><span>目标</span><code>-18C</code></li>
+            <li><span>门开合</span><code>3x</code></li>
+          </ul>
+          <p class="mark"><span>工号 5-11</span><span>出厂 1984</span></p>
+        </article>
+
+        <article class="panel panel--compressor panel--dark">
+          <p class="lbl">面板 5 · 压缩机</p>
+          <div class="panel-head">
+            <p class="readout">
+              <svg class="lattice lattice--sm lattice--w17" preserveAspectRatio="none" viewBox="0 0 17 7" role="img" aria-label="压缩机负载 62%"><g class="lattice-cells"><use href="#dg-6" x="0"/><use href="#dg-2" x="6"/><use href="#dg-pct" x="12"/></g></svg>
+            </p>
+            <span class="lamp lamp--on" aria-hidden="true"></span>
+          </div>
+          <ul class="rows">
+            <li><span>排气压力</span><code>11.4bar</code></li>
+            <li><span>吸气压力</span><code>1.8bar</code></li>
+            <li><span>累计运转</span><code>41882h</code></li>
+          </ul>
+          <p class="mark"><span>工号 5-08</span><span>校验 2</span></p>
+        </article>
+
+        <article class="panel panel--probe">
+          <p class="lbl">面板 6 · 探头</p>
+          <p class="readout">
+            <svg class="lattice lattice--sm lattice--w23" preserveAspectRatio="none" viewBox="0 0 23 7" role="img" aria-label="未接探头，四个空缺位"><g class="lattice-cells"><use href="#dg-dash" x="0"/><use href="#dg-dash" x="6"/><use href="#dg-dash" x="12"/><use href="#dg-dash" x="18"/></g></svg>
+          </p>
+          <p class="panel-note">这台机组还没接温度探头。把探头上那串 6 位编号抄进左边的格子，读数会在 30 秒内上来。</p>
+          <p class="field-row">
+            <label class="lbl" for="probe-id">探头编号</label>
+            <input class="field-input" id="probe-id" type="text" inputmode="numeric" maxlength="6" autocomplete="off" placeholder="6 位数字">
+          </p>
+          <p class="mark"><span>工号 5-06</span><span>校验 5</span></p>
+        </article>
+
+        <article class="panel panel--marks">
+          <p class="lbl">面板 7 · 检修痕迹</p>
+          <ul class="traces">
+            <li><code>1984-11-02</code> 首次通电，<code>K-3</code> 铭牌铆接</li>
+            <li><code>1996-07-19</code> 换 2 号库门封条</li>
+            <li><code>2011-03-08</code> 四芯线第 2 接头返修</li>
+            <li><code>2024-12-30</code> 探头 <code>417026</code> 报废</li>
+          </ul>
+          <p class="panel-note">每块面板右下角刻着服务工号与出厂年份，工号末位是按面板编号算出的校验码——这台设备像真实的机器一样留着自己的检修痕迹，全站没有任何地方会校验它。</p>
+          <p class="mark"><span>工号 5-09</span><span>校验 4</span></p>
+        </article>
+
+        <article class="panel panel--switch panel--dark">
+          <p class="lbl">面板 8 · 库区切换</p>
+          <div class="zones" role="group" aria-label="库区切换">
+            <button class="zone" type="button" aria-pressed="true">1 号库</button>
+            <button class="zone" type="button" aria-pressed="false">2 号库</button>
+            <button class="zone" type="button" aria-pressed="false">3 号库</button>
+          </div>
+          <p class="panel-note">切换库房时整块面板先全灭 <code>120ms</code>，再按 <code>8ms</code> 一行逐行显影，缓动 <code>cubic-bezier(.4,0,.6,1)</code>——像继电器吸合。</p>
+          <p class="mark"><span>工号 5-12</span><span>出厂 1984</span></p>
+        </article>
+
+      </div>
+
+      <aside class="rail" aria-label="维护记录栏">
+        <p class="rail-title">维护记录 · 最近 5 条</p>
+        <table class="log">
+          <caption>三号库区采样与检修记录（每条含单位与采样时刻）</caption>
+          <thead>
+            <tr><th scope="col">时刻</th><th scope="col">读数</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>02:14</code></td><td><code>-18.4C</code></td></tr>
+            <tr><td><code>01:36</code></td><td><code>6m40s</code></td></tr>
+            <tr><td><code>00:52</code></td><td><code>62pct</code></td></tr>
+            <tr><td><code>23:40</code></td><td><code>-18.1C</code></td></tr>
+            <tr><td><code>22:05</code></td><td><code>3x</code></td></tr>
+          </tbody>
+        </table>
+        <p class="rail-power">面板电源 <code>24V</code> · 环温 <code>-4C</code></p>
+        <p class="rail-note">读数带单位与时刻</p>
+        <p class="mark"><span>工号 5-03</span><span>校验 6</span></p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="plates section" aria-labelledby="t-plates">
+    <h2 id="t-plates">现场图版 · 六个面</h2>
+    <p class="section-lead">冷库这个题材的六个面：门与控制器、库房与托盘、机组的排热端、压力表组的检修现场、1957 年机组值守的班次，以及 1911 年的生产线。六张照片在构建期做 Floyd–Steinberg 二值抖动，阈值取直方图 62% 分位，只保留漆面绿 <code>#4FA83D</code> 与铁皮底 <code>#0E100D</code> 两色，输出 PNG-8 四色调色板。</p>
+    <div class="plate-grid">
+      <figure class="plate">
+        <img src="assets/colddoor-dither.png" width="420" height="560" alt="冷库推拉门：Dooracold 品牌门体、ESAD PANEL 制板，门旁装着 Dixell XLR-170 数字控制器">
+        <figcaption><span class="plate-name">冷库推拉门 · 数字控制器</span><span class="plate-credit">Mesadbal／CC BY 4.0</span></figcaption>
+      </figure>
+      <figure class="plate">
+        <img src="assets/pallets-dither.png" width="560" height="373" alt="宾夕法尼亚中部食物银行的冷库库房：成排货架与托盘">
+        <figcaption><span class="plate-name">冷藏库房 · 货架与托盘</span><span class="plate-credit">USDAgov／公有领域</span></figcaption>
+      </figure>
+      <figure class="plate">
+        <img src="assets/coolingtower-dither.png" width="560" height="373" alt="工业冷水机组的开式蒸发冷却塔，正在向大气排热">
+        <figcaption><span class="plate-name">开式蒸发冷却塔</span><span class="plate-credit">Saud／CC BY-SA 4.0</span></figcaption>
+      </figure>
+      <figure class="plate">
+        <img src="assets/hvac-dither.png" width="560" height="374" alt="暖通制冷技师在调压力表组，检修一台空调机组">
+        <figcaption><span class="plate-name">压力表组检修</span><span class="plate-credit">美国空军 Mark Colmenares／公有领域</span></figcaption>
+      </figure>
+      <figure class="plate">
+        <img src="assets/engineers-dither.png" width="560" height="400" alt="1957 年 NACA 推进系统实验室的固定岗操作工程师在台架前值守">
+        <figcaption><span class="plate-name">机组值守 1957</span><span class="plate-credit">NACA／公有领域</span></figcaption>
+      </figure>
+      <figure class="plate">
+        <img src="assets/factory1911-dither.png" width="560" height="351" alt="1911 年前后的工厂生产线，明信片翻拍">
+        <figcaption><span class="plate-name">生产线 1911</span><span class="plate-credit">Steve Shook／CC BY 2.0</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+</main>
+
+<footer class="colophon">
+  <p class="colophon-title">像素冷库台 · 冷库机组 K-3</p>
+  <p>本页面是方案 5（结构类型 F／CONSOLE）的可渲染原型：8px 为一个像素单元，6px 凹槽，48px 外距；读数由 5×7 点阵字模拼出，笔画只走整格；拨杆画出 6px 厚侧壁面与落位凹槽，落位时下沉 1px、位移 1px；面板面积按 5∶2∶1 分配，告警只占 1 列但拉高两倍。</p>
+  <p>图片全部来自 Wikimedia Commons，六张的原作者、许可与原始页面见 <code>assets/CREDITS.md</code>；每张都已按上面的抖动工艺烘焙成本地 PNG-8。字体自托管于 <code>prototypes/_fonts/</code>：Barlow（OFL 1.1）、Glow Sans SC 未来荧黑（OFL 1.1）、Departure Mono（OFL 1.1）。</p>
+</footer>
+
+<script>
+(function () {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var bay = document.getElementById('lever-bay');
+  var input = document.getElementById('target');
+  var hint = document.getElementById('setpoint-hint');
+  var primary = document.getElementById('setpoint');
+  var probe = document.getElementById('probe-id');
+  var zones = Array.prototype.slice.call(document.querySelectorAll('.zone'));
+  var panels = Array.prototype.slice.call(document.querySelectorAll('.panel'));
+  var STEP_MS = 120;
+
+  // 档位 → 目标温度；读数按 steps(4) 跳变，不做补间
+  var STOPS = { '-22': '-22.0', '-21': '-21.0', '-20': '-20.0', '-19': '-19.0', '-18': '-18.0' };
+  function stopText() { return STOPS[input.value] || '-18.0'; }
+
+  // 5×7 点阵读数：整格重排，四步跳变
+  var GLYPH = { '-': 'dash', '.': 'dot', '0': '0', '1': '1', '2': '2', '3': '3', '4': '4', '5': '5', '6': '6', '7': '7', '8': '8', '9': '9' };
+  function glyphsFor(text) {
+    var out = [];
+    for (var i = 0; i < text.length; i++) {
+      var ch = text[i];
+      if (ch === '\u2103') { out.push('deg', 'C'); continue; }
+      var g = GLYPH[ch];
+      if (g) out.push(g);
+    }
+    return out;
+  }
+  function paint(svg, text, label) {
+    var keys = glyphsFor(text);
+    var g = svg.querySelector('.lattice-cells');
+    var html = '';
+    for (var i = 0; i < keys.length; i++) html += '<use href="#dg-' + keys[i] + '" x="' + (i * 6) + '"/>';
+    g.innerHTML = html;
+    svg.setAttribute('viewBox', '0 0 ' + (keys.length * 6 - 1) + ' 7');
+    svg.setAttribute('aria-label', label);
+  }
+  function jump(svg, text, label) {
+    if (reduce.matches) { paint(svg, text, label); return; }
+    [0, 1, 2, 3].forEach(function (k) {
+      window.setTimeout(function () { paint(svg, text, label); }, k * 40);
+    });
+  }
+
+  // 拨杆落位：2 帧共 120ms 后读数才跳变
+  function settle(fromUser) {
+    var target = stopText();
+    bay.style.setProperty('--pos', String((Number(input.value) + 22) / 4));
+    bay.setAttribute('data-pos', input.value);
+    bay.classList.remove('is-settling');
+    // 重排动画：先落位，再跳读数
+    void bay.offsetWidth;
+    bay.classList.add('is-settling');
+    var wait = reduce.matches ? 0 : STEP_MS;
+    window.setTimeout(function () {
+      panels.forEach(function (p) {
+        var svg = p.querySelector('.lattice--md');
+        if (!svg) return;
+        var label = svg.getAttribute('aria-label') || '';
+        if (label.indexOf('2 号库') === 0) jump(svg, target + '\u2103', '2 号库库温 ' + target + ' 摄氏度');
+      });
+      var rows = document.querySelectorAll('.panel--bay2 .rows code');
+      if (rows.length) rows[1].textContent = target.replace(/\.0$/, '') + 'C';
+      hint.textContent = '已落位第 ' + (Number(input.value) + 23) + ' 档：2 号库目标 ' + target + '\u2103' + (fromUser ? '，拨杆下沉 1px' : '') + '。';
+    }, wait);
+  }
+
+  input.addEventListener('input', function () { settle(true); });
+  // 初次进入时把拨杆画到档位对应的位置（与 HTML 里的 value 一致，不触发读数跳变）
+  bay.style.setProperty('--pos', String((Number(input.value) + 22) / 4));
+  primary.addEventListener('click', function () {
+    input.value = '-20';
+    primary.disabled = true;
+    primary.textContent = '2 号库已调至 −20℃';
+    settle(true);
+  });
+
+  // 库区切换：整块面板全灭 120ms，再逐行显影（扫描线栅格刷新）
+  zones.forEach(function (z) {
+    z.addEventListener('click', function () {
+      zones.forEach(function (o) { o.setAttribute('aria-pressed', o === z ? 'true' : 'false'); });
+      if (!reduce.matches) {
+        panels.forEach(function (p) { p.classList.add('is-blanked'); });
+        window.setTimeout(function () {
+          panels.forEach(function (p) { p.classList.remove('is-blanked'); p.classList.remove('is-scanned'); void p.offsetWidth; p.classList.add('is-scanned'); });
+        }, STEP_MS);
+      }
+    });
+  });
+
+  // 空状态入口：抄编号 → 30 秒内上来（这里按 30s 承诺写成可见状态，不假装已经读到数）
+  if (probe) {
+    probe.addEventListener('input', function () {
+      probe.value = probe.value.replace(/\D/g, '').slice(0, 6);
+      var ready = probe.value.length === 6;
+      probe.closest('.panel').classList.toggle('is-probe-logged', ready);
+    });
+  }
+
+  // 自检序列：八盏灯各亮三次后停在当前状态，总时长 1.4s（prefers-reduced-motion 时由 CSS 冻结）
+  if (!reduce.matches) {
+    document.body.classList.add('is-selfchecking');
+    window.setTimeout(function () { document.body.classList.remove('is-selfchecking'); }, 1400);
+  }
+
+  // 滚动逐行显影：每行 8ms、整块 480ms，用 steps() 造顿挫（八块面板 ＋ 六张图版 ＋ 维护栏同行机制）
+  var blocks = panels.concat(Array.prototype.slice.call(document.querySelectorAll('.plate, .rail')));
+  if ('IntersectionObserver' in window && !reduce.matches) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('is-scanned'); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -12% 0px' });
+    blocks.forEach(function (b) { io.observe(b); });
+  } else {
+    blocks.forEach(function (b) { b.classList.add('is-scanned'); });
+  }
+})();
+</script>
+</body>
+</html>

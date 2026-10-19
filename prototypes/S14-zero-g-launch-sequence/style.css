@@ -1,0 +1,410 @@
+/* ===========================================================================
+   S14 零重力发射序 / Zero-G Launch Sequence
+   字段 3 冻结值：#12181D 舱内暗蓝黑 62% ｜ #E4572E 铝箔标贴橙 18%
+                    #D8D2C4 未涂布铝面 15% ｜ #8A3320 热压背光侧 5%
+   字段 4 冻结值：标题 Oswald（Archivo Narrow 已废）／中文 Noto Serif SC
+                  遥测等宽 Space Mono（Martian Mono 已废，且只出现在 <code> 内）
+   字段 5 布局：质心极坐标。站位 = 质心 + (r·cosθ, r·sinθ)，r 四档 24/40/72/120，
+                θ 非均匀（最小 26°、最大 61°）。站位数字来自 build/polar-layout.json
+                （质心 677/850、参考椭圆 450×700），本页把质心挪到视口 44% 处，
+                即相对几何中心偏置 6%；dx/dy 就是站位相对质心的偏移。
+   契约 §9.2：整页纹理只挂伪元素（.deck::before / .deck::after / .tag__in::after），
+              body 保持纯色，避免对比度检查被整条静默跳过。
+   =========================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: #12181D;              /* 纯色地面，不放任何 background-image */
+  color: #D8D2C4;
+  font-family: "Noto Serif SC", "Oswald", Georgia, serif;
+  font-size: 16px;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; }
+
+/* 等宽只出现在 <code> 里：m.type.monoProseShare 必须是 0（契约 §9.8） */
+code {
+  font-family: "Space Mono", "Noto Serif SC", monospace;
+  font-size: 13px;
+  letter-spacing: 0.01em;           /* 不给 ≤14px 的大写文本加宽字距，避开 micro-label */
+  font-variant-numeric: tabular-nums;
+}
+
+a { color: inherit; text-decoration-color: rgba(216, 210, 196, 0.55); text-underline-offset: 3px; }
+a:hover { text-decoration-color: currentColor; }
+
+h1, h2, h3 { font-family: "Oswald", "Noto Serif SC", sans-serif; font-weight: 600; margin: 0; }
+h1 { font-size: clamp(44px, 5vw, 72px); line-height: 1.02; letter-spacing: 0.02em; }
+h2 { font-size: clamp(26px, 2.4vw, 34px); line-height: 1.15; letter-spacing: 0.03em; }
+p { margin: 0; }
+
+.skip {
+  position: absolute; left: 12px; top: 12px; z-index: 9;
+  width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+}
+.skip:focus { width: auto; height: auto; clip-path: none; background: #D8D2C4; color: #111111; padding: 10px 14px; }
+
+/* ---------------------------------------------------------------- 固定仪表层 */
+.hud { position: fixed; z-index: 6; font-size: 13px; line-height: 1.5; color: #C9C4B8; }
+.hud--coord {
+  left: 0; top: 0; right: 0; height: 62px;
+  padding: 10px 72px;
+  display: flex; flex-wrap: wrap; gap: 4px 28px; align-items: center;
+  background: #12181D;
+}
+.hud--coord::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: #E4572E; }
+.hud__line { display: flex; gap: 8px; align-items: baseline; font-size: 13px; }
+.hud__key { font-size: 12px; color: #9A968C; }
+.hud__line--fault { color: #E8B9A4; }
+.near { list-style: none; margin: 8px 0 0; padding: 0; }
+.near li { font-size: 13px; padding: 3px 0; border-top: 1px solid rgba(216, 210, 196, 0.16); }
+.hud--near {
+  right: 24px; bottom: 24px; width: 236px;
+  padding: 12px 14px;
+  background: #171E24;
+  border-left: 3px solid #E4572E;
+}
+.hud__head { font-size: 13px; color: #C9C4B8; }
+
+/* ------------------------------------------------------------------- 舱壁标头 */
+.masthead {
+  max-width: 1440px; margin: 0 auto;
+  padding: 96px 72px 88px;
+  display: grid; grid-template-columns: 1.02fr 0.98fr; gap: 56px; align-items: center;
+}
+.claim { font-size: 17px; line-height: 1.6; margin-top: 18px; color: #E4E0D6; }
+.meta { font-size: 16px; margin-top: 16px; max-width: 620px; color: #C9C4B8; }
+.meta code { font-size: 13px; }
+.cue { margin-top: 26px; }
+.masthead__plate { margin: 0; }
+.masthead__plate img { display: block; width: 100%; height: auto; }
+.masthead__plate figcaption { font-size: 13px; line-height: 1.6; margin-top: 10px; color: #C9C4B8; }
+.ref { display: block; color: #9A968C; margin-top: 4px; }
+
+.btn {
+  display: inline-block; min-height: 48px; padding: 13px 20px;
+  background: #D8D2C4; color: #111111;       /* 按钮字色冻结值 #111111（对铝面 12.5:1） */
+  font-family: "Oswald", "Noto Serif SC", sans-serif;
+  font-size: 17px; letter-spacing: 0.02em; line-height: 1.3;
+  border: 0; border-radius: 0; cursor: pointer;
+  transition: transform 180ms cubic-bezier(0.2, 0.85, 0.3, 1);
+}
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(1px); }
+.btn[disabled] { background: #C9C4B8; color: #3A3A34; cursor: default; transform: none; }
+
+/* ------------------------------------------------------- 舱壁板面与极坐标场 */
+.deck {
+  position: relative; overflow: clip;          /* 漂移被板面裁掉，不产生横向溢出 */
+  background: #171E24;                        /* 比地面低一档的板面，标贴才有可贴的金属面 */
+  padding: 110px 0 96px;
+}
+.deck::before {                                /* 低重力气泡：3–9px 硬边圆环，不发光、不填充 */
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url(assets/bubble-field.png);
+  background-size: 512px 512px; opacity: 0.5;
+}
+.deck::after {                                 /* 铝箔颗粒：8% 不透明度、128×128 平铺，不拉伸 */
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url(assets/foil-grain.png);
+  background-size: 128px 128px; opacity: 0.085;
+}
+.deck > h2, .deck > p, .view { position: relative; z-index: 1; }
+.deck > h2, .deck > p { max-width: 1440px; margin: 0 auto; padding-inline: 72px; }
+.deck > h2 { margin-bottom: 18px; }
+.lede { font-size: 17px; line-height: 1.7; color: #C9C4B8; max-width: 640px; }
+.lede code { font-size: 13px; }
+
+.view {
+  width: 100%; max-width: 1440px; margin: 0 auto;
+  transform: translate3d(0, var(--sy, 0px), 0) rotate(var(--turn, 0deg));
+  transition: transform 400ms cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+.field {
+  position: relative; height: 1700px; --k: 1; --dr: 48;
+  animation: drift 24s linear infinite;
+  will-change: transform;
+}
+/* 参考椭圆：过全部站位的 450×700 椭圆（挂伪元素，不参与任何盒模型测量） */
+.field::before {
+  content: ""; position: absolute; left: 44%; top: 50%;
+  width: calc(900px * var(--k)); height: calc(1400px * var(--k));
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(216, 210, 196, 0.22);
+  border-radius: 50%;
+}
+/* 12° 视角锥：质心处的观察方位，随 24s 周期扫一圈 */
+.field::after {
+  content: ""; position: absolute; left: 44%; top: 50%;
+  width: calc(760px * var(--k)); height: calc(760px * var(--k));
+  transform-origin: 0 50%;
+  clip-path: polygon(0 50%, 100% 39.5%, 100% 60.5%);
+  background: rgba(216, 210, 196, 0.07);
+  animation: cone 24s linear infinite;
+}
+.centroid {
+  position: absolute; left: 44%; top: 50%; width: 220px; height: 220px; margin: 0;
+  transform: translate(-50%, -50%);
+  border-radius: 50%; overflow: hidden;
+  background: #8A3320;
+}
+.centroid img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.centroid figcaption {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  padding: 3px 6px; background: #D8D2C4; color: #12181D;
+  font-size: 12px; line-height: 1.5; text-align: center;
+}
+.centroid figcaption code { font-size: 12px; }
+
+/* --------------------------------------------------------------- 铝箔标贴本体 */
+.tag {
+  position: absolute; left: 44%; top: 50%;
+  width: calc(var(--w) * 1px); min-height: calc(var(--mh) * 1px);
+  transform: translate(-50%, -50%)
+             translate(calc(var(--dx) * var(--k) * 1px), calc(var(--dy) * var(--k) * 1px))
+             translate(var(--px, 0px), var(--py, 0px));
+  transition: transform 260ms cubic-bezier(0.2, 0.85, 0.3, 1);
+  will-change: transform;
+  border-bottom: 3px solid #8A3320;        /* 3px 硬边＝热压背光侧；≥1.5px 不进 hairline */
+  background: #D8D2C4; color: #12181D;     /* 未涂布铝面（11.7:1） */
+  cursor: pointer;
+}
+.tag--orange { background: #E4572E; color: #111111; }   /* 标贴橙 + 深色墨（5.13:1） */
+.tag--press  { background: #8A3320; color: #D8D2C4; }   /* 压痕暗侧 + 铝面银白（5.41:1） */
+.tag::before {                             /* 0.15mm 边缘高光：伪元素画，不进 outlined-box */
+  content: ""; position: absolute; inset: -1px; pointer-events: none;
+  border: 1px solid rgba(228, 224, 214, 0.7);
+}
+.tag__in {
+  position: relative; overflow: hidden;
+  padding: 12px 14px 15px;
+  animation: land 450ms cubic-bezier(0.16, 0.84, 0.24, 1) var(--dl, 0s) both;
+}
+.tag__in::after {                          /* 12° 视角反光带：位图遮罩随 --view-angle 位移 */
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image: url(assets/foil-sheen.png);
+  background-repeat: no-repeat; background-size: 280px 100%;
+  opacity: 0;
+  animation: sheen 7.4s linear infinite;
+  animation-delay: calc(var(--i) * -0.67s);
+}
+.tag__top {
+  display: flex; align-items: center; gap: 9px;
+  padding-right: 56px; margin-bottom: 7px;
+  font-size: 15px;
+}
+.gl { width: 24px; height: 24px; flex: 0 0 24px; color: currentColor; }
+.tag__code { position: relative; font-size: 15px; font-weight: 700; }
+.tag__code::before {                       /* 热压编号凹进 0.3mm：错位 1px 的暗侧字 */
+  content: attr(data-code); position: absolute; left: 0; top: 1px; z-index: -1;
+  color: rgba(17, 17, 17, 0.32);
+}
+.tag--press .tag__code::before { color: rgba(0, 0, 0, 0.42); }
+.tag__r { font-size: 12px; color: #3A3630; }        /* 对铝面 7.9:1 */
+.tag--orange .tag__r { color: #111111; }            /* 对橙底 5.13:1 */
+.tag--press .tag__r { color: #C9C4B8; }             /* 对压痕暗侧 4.70:1 */
+.tag__title { font-size: 22px; letter-spacing: 0.06em; line-height: 1.12; margin-bottom: 6px; }
+.tag__body { font-size: 16px; line-height: 1.75; }
+.svc {                                     /* 手写缩写「地勤」：11 格精灵图，每格抖动不同 */
+  position: absolute; top: 9px; right: 12px; width: 48px; height: 20px;
+  background-image: url(assets/service-marks.png);
+  background-repeat: no-repeat;
+  background-position: calc(var(--cell) * -48px) 0;
+  opacity: 0.9;
+}
+.tag:focus-visible { outline: 2px solid #12181D; outline-offset: 2px; }
+.tag--press:focus-visible { outline-color: #D8D2C4; }
+.tag.is-cued { outline: 2px solid #12181D; outline-offset: 2px; }
+.tag.is-near { transition-duration: 180ms; transition-timing-function: cubic-bezier(0.2, 0.9, 0.25, 1.08); }
+.tag.is-tumbling .tag__in { animation: tumble 320ms cubic-bezier(0.3, 0.7, 0.4, 1) both; }
+
+/* 质心配平配重的读数走远端寄存器：悬停时把牵引量写进读数（JS 写 --px/--py） */
+.legend { font-size: 16px; color: #C9C4B8; margin-top: 34px; max-width: 78ch; }
+.legend code { font-size: 13px; }
+
+/* --------------------------------------------------------------- 质心同步超时 */
+.fault { max-width: 1440px; margin: 0 auto; padding: 96px 72px 40px; }
+.fault__line {
+  font-size: 16px; margin-top: 18px; padding: 16px 18px; max-width: 72ch;
+  background: #8A3320; color: #E4E0D6;      /* 压痕暗侧承载文字：5.41:1 以上 */
+  border-left: 3px solid #E4572E;
+}
+.fault__line code { font-size: 13px; color: #FFFFFF; }
+.fault__frame { font-size: 16px; margin-top: 16px; max-width: 72ch; color: #C9C4B8; }
+.packet { font-size: 16px; margin-top: 20px; padding-left: 18px; max-width: 72ch; border-left: 3px solid #6B6259; color: #C9C4B8; }
+
+/* --------------------------------------------------------------- 图版与站位表 */
+.plates-sec { max-width: 1440px; margin: 0 auto; padding: 96px 72px 40px; }
+.plates { list-style: none; margin: 40px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 44px 32px; }
+.plate { margin: 0; }
+.plate figure { margin: 0; }
+.plate img { display: block; width: 100%; height: auto; }
+.plate figcaption { font-size: 13px; line-height: 1.6; margin-top: 10px; color: #C9C4B8; }
+.plate figcaption b { font-family: "Oswald", "Noto Serif SC", sans-serif; letter-spacing: 0.04em; }
+
+.stations-sec { background: #D8D2C4; color: #12181D; margin-top: 56px; padding: 96px 72px; }
+.stations-sec > * { max-width: 1296px; margin-inline: auto; }
+.stations-sec .lede { color: #3A3630; }
+.stations { width: 100%; border-collapse: collapse; margin-top: 34px; font-size: 13px; }
+.stations caption { text-align: left; font-size: 13px; padding-bottom: 12px; color: #3A3630; }
+.stations th, .stations td { border: 1px solid rgba(18, 24, 29, 0.28); padding: 8px 10px; text-align: left; vertical-align: top; }
+.stations thead th { background: #C9C4B8; font-weight: 600; }
+.stations td code { font-size: 13px; }
+.table-note { font-size: 13px; margin-top: 16px; color: #3A3630; max-width: 76ch; }
+
+/* --------------------------------------------------------- 通路、动效与页脚 */
+.paths-sec, .motion-sec { max-width: 1440px; margin: 0 auto; padding: 96px 72px 40px; }
+.paths { list-style: none; margin: 36px 0 0; padding: 0; display: grid; gap: 26px; }
+.paths li { max-width: 74ch; }
+.paths h3 { font-size: 22px; letter-spacing: 0.05em; margin-bottom: 8px; }
+.paths p { font-size: 16px; color: #C9C4B8; }
+.paths code, .motion-sec code { font-size: 13px; }
+.spec-list { list-style: none; margin: 30px 0 0; padding: 0; display: grid; gap: 14px; max-width: 82ch; }
+.spec-list li { font-size: 16px; color: #C9C4B8; padding-left: 22px; position: relative; }
+.spec-list li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 10px; height: 3px; background: #E4572E; }
+.spec-list b, .degrade b { font-family: "Oswald", "Noto Serif SC", sans-serif; font-weight: 600; letter-spacing: 0.04em; color: #E4E0D6; }
+.degrade { font-size: 16px; margin-top: 32px; max-width: 82ch; padding-top: 20px; border-top: 3px solid #8A3320; color: #C9C4B8; }
+
+footer { max-width: 1440px; margin: 0 auto; padding: 56px 72px 96px; }
+.foot-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px; }
+.foot-grid h3 { font-size: 17px; letter-spacing: 0.05em; margin-bottom: 10px; color: #E4E0D6; }
+.foot-grid p { font-size: 13px; line-height: 1.7; color: #C9C4B8; }
+.sig { font-size: 13px; line-height: 1.7; color: #9A968C; margin-top: 44px; max-width: 96ch; }
+
+/* ------------------------------------------------------------------- 动效层 */
+@keyframes drift {
+  0%    { transform: translate(calc(var(--dr) * 1px), 0); }
+  12.5% { transform: translate(calc(var(--dr) * 0.7071 * 1px), calc(var(--dr) * 0.7071 * 1px)); }
+  25%   { transform: translate(0, calc(var(--dr) * 1px)); }
+  37.5% { transform: translate(calc(var(--dr) * -0.7071 * 1px), calc(var(--dr) * 0.7071 * 1px)); }
+  50%   { transform: translate(calc(var(--dr) * -1px), 0); }
+  62.5% { transform: translate(calc(var(--dr) * -0.7071 * 1px), calc(var(--dr) * -0.7071 * 1px)); }
+  75%   { transform: translate(0, calc(var(--dr) * -1px)); }
+  87.5% { transform: translate(calc(var(--dr) * 0.7071 * 1px), calc(var(--dr) * -0.7071 * 1px)); }
+  100%  { transform: translate(calc(var(--dr) * 1px), 0); }
+}
+@keyframes driftY {
+  0%, 100% { transform: translateY(calc(var(--dr2) * -1px)); }
+  50%      { transform: translateY(calc(var(--dr2) * 1px)); }
+}
+@keyframes cone {
+  from { transform: translate(0, -50%) rotate(-18deg); }
+  to   { transform: translate(0, -50%) rotate(342deg); }
+}
+@keyframes land {
+  from { transform: translate(calc(var(--ux) * var(--la) * 1px), calc(var(--uy) * var(--la) * 1px)); opacity: 0; }
+  60%  { opacity: 1; }
+  to   { transform: translate(0, 0); opacity: 1; }
+}
+@keyframes tumble {
+  0%   { rotate: 0deg; }
+  45%  { rotate: 2deg; }
+  100% { rotate: 0deg; }
+}
+@keyframes sheen {
+  0%   { opacity: 0; transform: translateX(-280px); }
+  6%   { opacity: 0.85; }
+  18%  { opacity: 0.85; }
+  26%  { opacity: 0; transform: translateX(100%); }
+  100% { opacity: 0; transform: translateX(-280px); }
+}
+/* 落位顺序：r 档从大到小，总 900ms（450ms + 最大延迟 450ms） */
+.t120 { --la: 28; --dl: 0s; }
+.t72  { --la: 20; --dl: 0.15s; }
+.t40  { --la: 14; --dl: 0.3s; }
+.t24  { --la: 8;  --dl: 0.45s; }
+
+/* ------------------------------------------------- 1024–1439px：r 压缩 20% */
+@media (max-width: 1439px) and (min-width: 1024px) {
+  .field { --k: 0.8; --dr: 24; height: 1360px; }
+  .tag, .centroid, .field::before, .field::after { left: 47%; }
+  .hud--coord { padding-inline: 40px; }
+  .masthead, .fault, .plates-sec, .paths-sec, .motion-sec, footer { padding-inline: 40px; }
+  .deck > h2, .deck > p { padding-inline: 40px; }
+  .stations-sec { padding-inline: 40px; }
+}
+
+/* ------------------------------------ <1024px：纵向极坐标，整组沿纵轴缓漂 */
+@media (max-width: 1023px) {
+  .field {
+    height: auto; display: flex; flex-direction: column; gap: 20px;
+    align-items: flex-start; padding: 26px 24px 48px;
+    --dr2: 12;
+    animation: driftY 32s ease-in-out infinite;
+  }
+  .field::before { display: none; }
+  .field::after {                          /* 纵向极坐标的轴线：3px 实条，不是细线 */
+    left: 24px; top: 26px; width: 3px; height: calc(100% - 74px);
+    transform: none; clip-path: none; border-radius: 0;
+    background: rgba(216, 210, 196, 0.16);
+    animation: none;
+  }
+  .tag {
+    position: relative; left: auto; top: auto; order: var(--ord);
+    width: min(100%, 520px); min-height: 0;
+    transform: translateX(calc(var(--ox) * 1px)) translate(var(--px, 0px), 0);
+  }
+  .tag__title { font-size: 20px; }
+  .centroid {
+    position: relative; left: auto; top: auto; margin: 0 0 6px;
+    transform: translateX(calc(var(--ox, 0) * 1px));
+    width: 168px; height: 168px;
+  }
+  .legend { margin-top: 28px; }
+  .hud--coord { padding-inline: 24px; height: auto; min-height: 62px; }
+  .masthead { grid-template-columns: 1fr; gap: 36px; padding: 84px 24px 56px; }
+  h1 { font-size: clamp(40px, 7vw, 60px); }
+  h2 { font-size: 26px; }
+  .deck { padding: 84px 0 64px; }
+  .deck > h2, .deck > p { padding-inline: 24px; }
+  .fault, .plates-sec, .paths-sec, .motion-sec, footer { padding: 72px 24px 32px; }
+  .stations-sec { padding: 72px 24px; }
+  .plates { grid-template-columns: repeat(2, 1fr); gap: 36px 24px; }
+  .foot-grid { grid-template-columns: 1fr; gap: 26px; }
+  .hud--near { right: 16px; bottom: 16px; width: 208px; padding: 10px 12px; }
+  .stations th:nth-child(5), .stations td:nth-child(5) { display: none; }
+}
+
+/* ------------------------------------------------------ <768px：质心上移四分之一 */
+@media (max-width: 767px) {
+  .field { --dr2: 8; gap: 16px; }
+  .tag { width: min(100%, 420px); }
+  .tag__title { font-size: 20px; }
+  .tag__body { font-size: 16px; }
+  h1 { font-size: clamp(38px, 11.3vw, 52px); }
+  .claim, .lede { font-size: 17px; }
+  .plates { grid-template-columns: 1fr; gap: 30px; }
+  .stations th:nth-child(2), .stations td:nth-child(2) { display: none; }
+  .stations th, .stations td { padding: 6px 6px; }
+  .hud--near { width: 196px; }
+  .hud--coord { position: static; height: auto; }
+  .hud--near { position: static; width: auto; margin: 16px 24px 0; }
+}
+
+/* ----------------------------------------------------------- 减少动态时再发明 */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .field { animation: none; --dr: 0; --dr2: 0; }         /* 漂移半径归 0 → 静态定格 */
+  .field::after { animation: none; transform: translate(0, -50%) rotate(0deg); }
+  .tag__in { animation: none; }
+  .tag { transition: none; }
+  .view { transition: none; }
+  .btn:hover, .btn:active { transform: none; }
+  .tag__in::after {                                       /* 反光带不取消，改为定格在各自视角偏移上 */
+    animation: none; opacity: 0.32;
+    transform: translateX(calc(var(--i) * 21%));
+  }
+  .tag--orange .tag__in::after { opacity: 0.46; }
+}
+
+/* 打印／极窄兜底：标贴与读数一律不隐藏（契约 §9.12：静态截图必须看得到状态） */
+@media (max-width: 420px) {
+  .stations th:nth-child(4), .stations td:nth-child(4) { display: none; }
+  .near li { border-top: 0; }
+}

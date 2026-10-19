@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>磷光检修台 · 今天挂出的 4 张牌｜连续纸走 60 行 · 错误码 TAG-409</title>
+<meta name="description" content="磷光检修台：一台挂在泵房墙上的检修终端，整页是一条从顶部连续下走的曳引打印纸，两侧 8px 喂纸边孔、孔距 12px、孔径 3px，纸面上只有一列磷光绿命令流，行尾锚着 8×14px 实心光标，每条回执右侧挂一枚写着三位回执号的牛皮纸牌。">
+<link rel="stylesheet" href="../_fonts/css/glow-sans-sc-s18__400-500.css">
+<link rel="stylesheet" href="../_fonts/css/vt323__400.css">
+<link rel="stylesheet" href="../_fonts/css/martian-mono-narrow__wdth75-400-600.css">
+<link rel="stylesheet" href="style.css">
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+<!-- 常驻走纸状态条：错误码 TAG-409 在静态截图里就可见（契约 §9.12）。
+     fixed 且高度 52px < 180px：这是工具给顶部贴条的豁免区，不让它压住任何标题。 -->
+<div class="feedbar" role="status">
+  <p class="fb"><span class="fb__k">机组</span> <code>pump-3</code></p>
+  <p class="fb"><span class="fb__k">今天挂出</span> <code>4</code> 张 · <span class="fb__k">未摘</span> <code>2</code> 张</p>
+  <p class="fb"><span class="fb__k">走纸</span> <code>60</code> 行 · <span class="fb__k">折页</span> <code>3</code> 处</p>
+  <p class="fb fb--quiet"><span class="fb__k">纸位移</span> <code>1:1</code> · <span class="fb__k">取整</span> <code>24px</code></p>
+  <p class="fb fb--fault"><span class="fb__k">状态</span> <code>TAG-409</code> 挂牌写入冲突 <span class="fb__to">（页尾第 5 段）</span></p>
+</div>
+
+<svg class="sprite" aria-hidden="true" focusable="false">
+<defs>
+<!-- 字段 6（四）自绘终端符号：16 单位网格、1.25px 方头线宽，只有磷光绿一色，没有一格 Emoji -->
+<symbol id="g-submit" viewBox="0 0 16 16"><g fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="square"><path d="M2.6 2.6h10.8v7.4H2.6z"/><path d="M2.6 12.8h10.8"/><path d="M4.4 6.3h7.2"/></g></symbol>
+<symbol id="g-feed" viewBox="0 0 16 16"><g fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="square"><path d="M2.4 3.2h11.2v2.2H2.4z"/><path d="M2.4 7.6h7.4v2.2H2.4z"/><path d="M2.4 12h7.4"/><path d="M11.6 9.4v3.4"/></g></symbol>
+<symbol id="g-tag" viewBox="0 0 16 16"><g fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="square"><path d="M3.4 4.4h9.2v9.2H3.4z"/><path d="M3.4 2.4h9.2v2H3.4z"/><path d="M6.2 1.2v1.2"/></g></symbol>
+<!-- 字段 12：回执牌编号的中间那位是手写笔迹。0.8px 硬线、带轻微抖动，首尾两位是印刷体。
+     描的是检修工在牛皮纸牌上用 0.8mm 笔写的数字，四张牌各用到一个。 -->
+<symbol id="h0" viewBox="0 0 16 22"><g fill="none" stroke="currentColor" stroke-width=".8" stroke-linejoin="miter"><path d="M5.9 8.6 7.1 5.2h2.4l1.5 2.1v9.4l-1.6 1.7H7.3l-1.3-1.9z"/><path d="M10.9 19.4h3.1"/></g></symbol>
+<symbol id="h1" viewBox="0 0 16 22"><g fill="none" stroke="currentColor" stroke-width=".8" stroke-linejoin="miter"><path d="M6.4 7.1 8.8 4.4v12.1"/><path d="M5.7 17.2h5.6"/></g></symbol>
+<symbol id="h3" viewBox="0 0 16 22"><g fill="none" stroke="currentColor" stroke-width=".8" stroke-linejoin="miter"><path d="M5.6 5.1 7.2 4.3h3.4l1.1 2.6-3.1 3.6"/><path d="M8.8 10.6 10.9 12l.5 4.1-1.9 1.4h-2.6"/><path d="M11.4 19.6h2.9"/></g></symbol>
+<symbol id="h4" viewBox="0 0 16 22"><g fill="none" stroke="currentColor" stroke-width=".8" stroke-linejoin="miter"><path d="M9.9 4.2 5.2 12.7h6.1"/><path d="M9.9 4.2v12.9"/><path d="M5.4 19.8h5.4"/></g></symbol>
+</defs>
+</svg>
+
+<div class="sheet">
+
+<span class="rail rail--l" aria-hidden="true"></span>
+<span class="rail rail--r" aria-hidden="true"></span>
+
+<header class="mast" id="top">
+  <div class="mast__grid">
+    <div class="mast__col">
+      <h1>磷光检修台</h1>
+      <p class="claim">这台机组今天挂了 3 张牌，其中 1 张还没摘。</p>
+      <p class="cue">
+        <a class="btn" href="#stream">回车提交：<code>/check pump-3</code></a>
+        <span class="hint">进站的第一个动作是敲回车，不是读标题。</span>
+      </p>
+      <p class="nameplate"><code>PHOSPHOR SERVICE DECK</code> <code>UNIT 18 / TRACTOR 24L</code></p>
+      <p class="meta">主张句取的是白班下班时的数：挂出 <code>3</code> 张、其中 <code>1</code> 张还没摘；到 <code>14:21</code> 又挂上第 <code>4</code> 张，未摘变成 <code>2</code> 张 —— 页尾的 <code>TAG-409</code> 说的就是这两张。</p>
+      <p class="meta">这台终端挂在 <code>3</code> 号泵房的墙上。行高 <code>24px</code>（3 个 8px 基线单位）、两侧喂纸边孔孔距 <code>12px</code>、孔径 <code>3px</code>、纸面每 <code>20</code> 行压一条 <code>1px</code> 折页压痕。磷光绿 <code>#2FA84F</code> 只出现在命令流与回执行，对机房暗底 <code>#0A0D0A</code> 是 <code>6.36:1</code>；正文用连续纸色 <code>#C8C4AE</code>，对底 <code>11.13:1</code>；牛皮纸牌色 <code>#6E6350</code> 占 <code>3%</code>。主色作填充时白字只有 <code>3.07:1</code>，不达标，一律改用深色文字 <code>#111111</code>。</p>
+      <p class="meta">命令流左端起于版心左侧 <code>12%</code> 处，右侧留 <code>34%</code> 空幅专门悬挂回执牌，整列因此明显偏左；命令与回执之间不空行，纸是不分页的一条长纸，阅读顺序由纸的走向决定。</p>
+      <figure class="plate plate--lead" data-grow>
+        <span class="frame"><img src="assets/nasa-ksc-2011-8368-7nzif.jpg" width="1280" height="853" alt="轨道飞行器处理车间里，一名技师站在航天飞机下方掀开的检修口前，机身四周挂着作业灯与线束"></span>
+        <figcaption class="plate__cap">值班照：处理车间里那名技师正掀开检修口。照片先转灰度再走点阵抖动，只留磷光绿与纸白两个色阶，颗粒按行方向拉长 <code>1.5</code> 倍以贴合扫描线方向；机身下面的地面网格是现场本来就有的，不是我们画的。<span class="ref">NASA · 公有领域（NASA 图像使用条款） · <a href="https://images-assets.nasa.gov/image/KSC-2011-8368/KSC-2011-8368~medium.jpg">原件页</a></span></figcaption>
+      </figure>
+    </div>
+
+    <aside class="mast__hang" aria-label="当前悬挂的回执牌">
+      <p class="hanghead">纸头下方挂着的第 <code>608</code> 张牌</p>
+      <div class="hang hang--live" data-grow>
+        <span class="hang__cord" aria-hidden="true"></span>
+        <span class="hang__link" aria-hidden="true"></span>
+        <span class="tag" role="img" aria-label="回执牌 608，14:21 挂在出口阀上，未摘">
+          <code class="tag__d">6</code><svg class="tag__h" viewBox="0 0 16 22" aria-hidden="true"><use href="#h0"/></svg><code class="tag__d">8</code>
+        </span>
+      </div>
+      <p class="hangnote">牌面只有三位回执号，编号的中间那位是手写笔迹；牌挂在哪里比它写在什么更重要。</p>
+      <figure class="plate plate--tall" data-grow>
+        <span class="frame"><img src="assets/ntm-cathode-ray-tubers-kr-birkeland-1890s-img-.jpg" width="1280" height="1575" alt="挪威技术博物馆展柜里的几支早期阴极射线管，玻璃管竖立在木座上，管壁上有磨砂与金属接线片"></span>
+        <figcaption class="plate__cap">挪威技术博物馆的三支阴极射线管，1890 年代，K. Birkeland 用的那批。磷光屏与检修制度是同一条技术线上的两件事。<span class="ref">Bjoertvedt · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File%3ANTM_cathode_ray_tubers_Kr_Birkeland_1890s_IMG_0892.JPG">Wikimedia Commons</a></span></figcaption>
+      </figure>
+    </aside>
+  </div>
+</header>
+
+<main>
+
+<!-- ══ 第 1 段：连续纸与命令流 ══ -->
+<section class="stream" id="stream">
+  <div class="stream__head">
+    <h2>一条纸不分页</h2>
+    <p class="lede">曳引打印纸没有分页，只有折页：每 <code>20</code> 行压一条 <code>1px</code> 折页压痕并空 <code>1</code> 行，形成 20 行一段的呼吸。命令与回执之间不空行，回执紧贴命令往下走。走纸位移与滚动 <code>1:1</code>，取整到 <code>24px</code> 的整数倍以免点阵字发虚；齿轮一格一格拽纸的阶跃感由 <code>steps(6)</code> 给，边孔的相位跟着一起走。</p>
+  </div>
+
+  <div class="stream__grid">
+    <div class="stream__col">
+
+      <div class="blk">
+        <pre class="lines" aria-label="检修日志第 1 段，行 1 至 20"><span class="ln">14:02:11 pump-3   夜班交接 上一班留牌 <b>2</b> 张 泵体停在 0 位 电流 4.1A</span>
+<span class="ln">14:03:40 check    pump-3 油位见窗 2/3 温度 41.2C 振动 1.8mm/s 密封无渗</span>
+<span class="ln">14:04:12 check    pump-3 出口压力 0.62MPa 与昨日同刻差 0.03MPa</span>
+<span class="ln">14:05:02 摘牌     <b>341</b> 出口阀 已复位 挂牌人 白班甲 牌位 空</span>
+<span class="ln ln--out">14:06:30 tag      pump-3 下阀 关闭 挂牌人 白班甲 牌号 <b>412</b><i class="cu" aria-hidden="true"></i></span>
+<span class="ln ln--out">14:06:31 回执     <b>412</b> 牌位 泵体下阀 挂绳 已系 未摘<i class="cu" aria-hidden="true"></i></span>
+<span class="ln">14:07:58 log      本段走纸 20 行 折页 1 处 纸位移 24px 的整数倍</span>
+<span class="ln">14:09:20 check    pump-3 联轴器护罩 螺栓 4 只 扭矩 42N·m 未复位</span>
+<span class="ln ln--out">14:10:44 摘牌     <b>412</b> 泵体下阀 已复位 挂牌人 白班甲 牌位 空<i class="cu" aria-hidden="true"></i></span>
+<span class="ln ln--out">14:11:03 tag      pump-3 出口阀 关闭 挂牌人 白班甲 牌号 <b>530</b><i class="cu" aria-hidden="true"></i></span>
+<span class="ln ln--out">14:11:04 回执     <b>530</b> 牌位 出口阀 挂绳 已系 未摘<i class="cu" aria-hidden="true"></i></span>
+<span class="ln">14:12:39 log      字体点阵英文与硬骨架中文并置 中文面高比英文高 1.5%</span>
+<span class="ln">14:14:02 check    pump-3 电流 4.0A 三相平衡 偏差 0.2A</span>
+<span class="ln">14:15:20 log      拆纸 上一段 20 行 归档到检修单第 2 段</span>
+<span class="ln">14:17:44 check    pump-3 底座渗油 面积 30mm×12mm 未扩大</span>
+<span class="ln">14:19:01 log      值守甲交班 值班乙接班 未摘牌 1 张</span>
+<span class="ln">14:20:02 log      行尾光标 8×14px 实心块 按 530ms 方波闪动</span>
+<span class="ln ln--out">14:21:03 tag      pump-3 出口阀 关闭 挂牌人 值班乙 牌号 <b>608</b><i class="cu" aria-hidden="true"></i></span>
+<span class="ln ln--out">14:21:04 回执     <b>608</b> 牌位 出口阀 挂绳 已系 未摘 今日未摘 <b>2</b> 张<i class="cu" aria-hidden="true"></i></span>
+<span class="ln">14:21:38 check    pump-3 出口压力 0.61MPa 与挂牌前同值</span></pre>
+        <span class="fold" aria-hidden="true"></span>
+      </div>
+
+      <div class="blk">
+        <pre class="lines" aria-label="检修日志第 2 段，行 21 至 40"><span class="ln">14:22:07 409      写入牌位被占用 牌号 530 与 608 同占出口阀</span>
+<span class="ln">14:22:07 回执     挂牌写入冲突 错误码 TAG-409 见页尾第 5 段</span>
+<span class="ln ln--out">14:22:40 check    pump-3 泵体温度 41.8C 比挂牌前高 0.6C<i class="cu" aria-hidden="true"></i></span>
+<span class="ln">14:23:12 log      走纸 60 行 其中回执 6 条 挂牌 3 条 摘牌 2 条</span>
+<span class="ln">14:24:01 check    pump-3 阀杆涂层 无剥落 手轮 顺时针到底</span>
+<span class="ln">14:25:33 log      边孔 8px 孔径 3px 孔距 12px 孔内 0.5px 单向下阴影</span>
+<span class="ln">14:26:18 摘牌     341 出口阀 已复位 挂牌人 白班甲 牌位 空</span>
+<span class="ln ln--out">14:27:02 tag      pump-3 出口阀 关闭 挂牌人 值班乙 牌号 <b>857</b> 待核<i class="cu" aria-hidden="true"></i></span>
+<span class="ln">14:27:03 回执     857 写入待核 出口阀 同牌位已有牌 未落绳</span>
+<span class="ln">14:28:44 check    pump-3 底座地脚 4 只 垫片 2 只 锈蚀面积 0</span>
+<span class="ln">14:29:05 摘牌     412 泵体下阀 已复位 挂牌人 白班甲 牌位 空</span>
+<span class="ln">14:30:10 log      纸位移取整 24px 之外的部分由边孔相位吸收</span>
+<span class="ln">14:31:52 check    pump-3 出口阀 手轮 逆时针 1/4 圈 有阻尼</span>
+<span class="ln">14:33:06 log      拆纸 本段 20 行 归档到检修单第 3 段</span>
+<span class="ln">14:34:19 check    pump-3 电流 4.0A 温度 42.1C 出口压力 0.61MPa</span>
+<span class="ln">14:35:40 log      未摘牌 2 张 挂在出口阀与泵体下阀</span>
+<span class="ln ln--out">14:36:12 check    pump-3 备用泵 pump-4 投运试验 电流 4.4A 正常<i class="cu" aria-hidden="true"></i></span>
+<span class="ln">14:37:58 log      提交命令时该行左侧出现 1px 竖线 整行右推 3px</span>
+<span class="ln">14:38:30 摘牌     530 出口阀 已复位 挂牌人 值班乙 牌位 空</span>
+<span class="ln">14:39:02 回执     608 牌位 出口阀 挂绳 已系 未摘 今日未摘 <b>1</b> 张</span></pre>
+        <span class="fold" aria-hidden="true"></span>
+      </div>
+
+      <div class="blk">
+        <pre class="lines" aria-label="检修日志第 3 段，行 41 至 60"><span class="ln">14:40:11 check    pump-3 联轴器 弹性块 4 只 无裂纹</span>
+<span class="ln">14:41:26 log      维护说明段落 未来荧黑 16px 行高 1.8 与命令流分排</span>
+<span class="ln">14:42:03 check    pump-3 出口阀 阀位指示 与牌号 608 一致</span>
+<span class="ln">14:43:15 摘牌     857 出口阀 未落绳 直接撤牌 牌位 空</span>
+<span class="ln ln--out">14:44:02 log      值班乙 交班清点 挂出 4 张 已摘 3 张 未摘 1 张<i class="cu" aria-hidden="true"></i></span>
+<span class="ln">14:45:20 check    pump-3 泵体下阀 关闭 挂牌 412 已撤 无残胶</span>
+<span class="ln">14:46:38 log      走纸 60 行结束 折页 3 处 下一段另起一条纸</span>
+<span class="ln">14:47:09 check    pump-3 现场清扫 完工 工具清点 12 件 清点完毕</span>
+<span class="ln">14:48:22 log      点阵字显式关闭次像素抗锯齿 避免字面糊掉</span>
+<span class="ln">14:49:40 check    pump-3 出口压力 0.60MPa 温度 41.4C</span>
+<span class="ln">14:50:02 log      纸头与纸尾各留 20 行空白 便于撕纸后归档</span>
+<span class="ln ln--out">14:51:18 check    pump-3 试运转 3 分钟 振动 1.7mm/s 无异常<i class="cu" aria-hidden="true"></i></span>
+<span class="ln">14:52:30 log      本班未摘牌 2 张 移交下一班 挂绳与牌面完好</span>
+<span class="ln">14:53:44 check    pump-3 挂牌人签名 值班乙 牌号 530 已摘</span>
+<span class="ln">14:54:50 log      检修单第 4 段 由白班甲填写 与走纸内容一致</span>
+<span class="ln">14:55:12 check    pump-3 底座 4 只地脚 扭矩 42N·m 复位</span>
+<span class="ln">14:56:30 log      换纸 抽出旧纸 200ms 折页线与边孔保留</span>
+<span class="ln">14:57:41 摘牌     608 出口阀 已复位 挂牌人 值班乙 牌位 空</span>
+<span class="ln ln--out">14:58:02 回执     608 已摘 出口阀 牌位 空 今日未摘 0 张<i class="cu" aria-hidden="true"></i></span>
+<span class="ln">14:59:00 log      纸尾 59 行处 摘完最后一张牌</span></pre>
+        <span class="fold" aria-hidden="true"></span>
+      </div>
+
+      <p class="stream__foot">三段共 <code>60</code> 行，其中回执行 <code>9</code> 条，每条行尾一枚 <code>8×14px</code> 实心光标；挂牌 <code>4</code> 条、摘牌 <code>5</code> 条。摘完最后一张牌之后，纸头会走一行空状态字，那一行抄在页尾第 5 段。</p>
+    </div>
+
+    <aside class="hangrail" aria-label="回执行右侧悬挂的回执牌">
+      <div class="hang" style="--at:5">
+        <span class="hang__cord" aria-hidden="true"></span>
+        <span class="hang__link" aria-hidden="true"></span>
+        <span class="tag tag--off" role="img" aria-label="回执牌 412，14:06 挂在泵体下阀，14:10 已摘">
+          <code class="tag__d">4</code><svg class="tag__h" viewBox="0 0 16 22" aria-hidden="true"><use href="#h1"/></svg><code class="tag__d">2</code>
+        </span>
+      </div>
+      <div class="hang" style="--at:10">
+        <span class="hang__cord" aria-hidden="true"></span>
+        <span class="hang__link" aria-hidden="true"></span>
+        <span class="tag tag--off" role="img" aria-label="回执牌 530，14:11 挂在出口阀，14:38 已摘">
+          <code class="tag__d">5</code><svg class="tag__h" viewBox="0 0 16 22" aria-hidden="true"><use href="#h3"/></svg><code class="tag__d">0</code>
+        </span>
+      </div>
+      <div class="hang" style="--at:18">
+        <span class="hang__cord" aria-hidden="true"></span>
+        <span class="hang__link" aria-hidden="true"></span>
+        <span class="tag" role="img" aria-label="回执牌 608，14:21 挂在出口阀，未摘">
+          <code class="tag__d">6</code><svg class="tag__h" viewBox="0 0 16 22" aria-hidden="true"><use href="#h0"/></svg><code class="tag__d">8</code>
+        </span>
+      </div>
+      <figure class="plate plate--wide" data-grow>
+        <span class="frame"><img src="assets/nasa-kennedy-space-center-fla-during-powe-q0jbd.jpg" width="1280" height="834" alt="航天飞机轨道飞行器通电检查现场，一名技师把手放在一排开关上，身后是密集的仪表与控制面板"></span>
+        <figcaption class="plate__cap">通电检查：一只手停在一排开关上。挂牌制度要的就是这一刻 —— 谁把哪只开关停在哪个位置，谁有权摘牌。<span class="ref">NASA · 公有领域（NASA 图像使用条款） · <a href="https://images-assets.nasa.gov/image/KSC-03pd2448/KSC-03pd2448~medium.jpg">原件页</a></span></figcaption>
+      </figure>
+      <div class="hang" style="--at:34">
+        <span class="hang__cord" aria-hidden="true"></span>
+        <span class="hang__link" aria-hidden="true"></span>
+        <span class="tag tag--off" role="img" aria-label="回执牌 857，14:27 写入待核，14:43 撤牌">
+          <code class="tag__d">8</code><svg class="tag__h" viewBox="0 0 16 22" aria-hidden="true"><use href="#h4"/></svg><code class="tag__d">7</code>
+        </span>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ══ 第 2 段：连续纸的四个尺度（纸白带） ══ -->
+<section class="band" id="paper">
+  <div class="band__in">
+    <h2>纸白上是耗材本色，不是灰</h2>
+    <p class="body">连续纸色 <code>#C8C4AE</code> 取的是耗材本色，饱和 <code>19.1%</code>，是脏色；它不是 <code>#F5F5F5</code> 那种灰。四件事决定这张纸看起来像不像被齿轮拽过的纸：边孔、孔内阴影、折页压痕、以及照片落纸后的两个色阶。四件都在这一张纸白上排开，因为它们只有在纸白上才看得清。</p>
+    <p class="body">边孔在纸的两侧各一排，宽 <code>8px</code>、孔距 <code>12px</code>、孔径 <code>3px</code>；孔内有一道 <code>0.5px</code> 单向下阴影，表现纸被齿轮拽过之后孔的边缘被往下碾了一点。折页压痕是 <code>1px</code> 的固定行线，每 <code>20</code> 行一道，压痕两侧的墨色比别处淡 <code>6%</code> —— 纸被压过的地方不吃墨。这两样都不是装饰线：孔是齿轮咬的那个孔，折页是纸垛上折出来的那道折，换个产品套上去它们立刻变成没有意义的点状装饰。</p>
+
+    <table class="folds">
+      <caption>走纸 60 行的折页索引：三段各 20 行，行号从纸头算起，时刻取每段第一行的回执时间。</caption>
+      <thead>
+        <tr><th scope="col">段</th><th scope="col">行号</th><th scope="col">首行时刻</th><th scope="col">本段挂牌</th><th scope="col">本段摘牌</th></tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">第 1 段</th><td>1 – 20</td><td><code>14:02:11</code></td><td>412 、530</td><td>341 、412</td></tr>
+        <tr><th scope="row">第 2 段</th><td>21 – 40</td><td><code>14:22:07</code></td><td>608 、857（待核）</td><td>341 、412 、530</td></tr>
+        <tr><th scope="row">第 3 段</th><td>41 – 60</td><td><code>14:40:11</code></td><td>无</td><td>857 、608</td></tr>
+      </tbody>
+    </table>
+
+    <div class="band__split">
+      <figure class="plate plate--print" data-grow>
+        <span class="frame"><img src="assets/tube-amplifier-vacuum-tube-kingdom-tokyo-radio.jpg" width="1280" height="960" alt="东京收音机百货地下层的真空管功放陈列，玻璃管成排插在金属底座上，管脚周围是成束的接线"></span>
+        <figcaption class="plate__cap">掏出来的油纸包：东京收音机百货地下层那排真空管功放。照片落纸后只留两个色阶，暗部收进磷光绿，亮部留在纸白，其余灰阶被抖动吃掉。<span class="ref">street viewer · CC BY 2.0 · <a href="https://commons.wikimedia.org/wiki/File%3ATube_amplifier_%40_Vacuum_Tube_Kingdom%2C_Tokyo_Radio_Department_Store_B1F_(2010-03-06_16.34.02).jpg">Wikimedia Commons</a></span></figcaption>
+      </figure>
+      <div class="band__notes">
+        <h3>点阵落纸的两个色阶</h3>
+        <p class="body">照片先转灰度，再走 <code>1-bit</code> 点阵抖动，只保留磷光绿与纸白两个色阶；颗粒按行方向拉长 <code>1.5</code> 倍，贴合扫描线方向。所以照片上不会出现第三种颜色，也不会出现半调灰 —— 一块砖的明暗是靠点子的疏密说的，不是靠灰阶说的。</p>
+        <p class="body">点阵字必须显式关掉次像素抗锯齿，否则字面会糊成一团。走纸位移只跑 <code>transform</code>，并且取整到 <code>24px</code> 的整数倍；不这么取整，点阵字的竖笔画会在半像素上发虚。</p>
+        <p class="body">字体分工：命令流与回执号用 <code>VT323</code>（DEC VT320 终端点阵字），挂牌编号、出口码与时间戳用 <code>Martian Mono</code> 极窄档，中文用未来荧黑。点阵英文与硬骨架中文并置，中文字面比英文高 <code>1.5%</code>，混排时保留了两套铅字各自的对齐习惯。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 第 3 段：挂牌制度（暗底 + 牛皮纸带） ══ -->
+<section class="tags" id="tags">
+  <div class="tags__in">
+    <h2>牌子挂在哪里比它写什么更重要</h2>
+    <p class="lede">挂牌是设备被停机检修的唯一凭证。牌挂在阀门与开关上，所以先看牌挂在哪里，再看牌面写的号。今天挂出的 <code>4</code> 张牌在这一段排开：<code>341</code> 与 <code>412</code> 已经摘走，<code>530</code> 挂在出口阀上、<code>608</code> 也挂在出口阀上 —— 同一个牌位挂了两张牌，页尾那条 <code>TAG-409</code> 就是从这儿来的。</p>
+
+    <div class="tagband">
+      <p class="tagband__say">未摘的两张还挂在泵体下阀与出口阀上</p>
+      <span class="chip chip--off" role="img" aria-label="挂牌 341，出口阀，已摘"><i class="chip__hole" aria-hidden="true"></i><code>341</code></span>
+      <span class="chip chip--off" role="img" aria-label="挂牌 412，泵体下阀，已摘"><i class="chip__hole" aria-hidden="true"></i><code>412</code></span>
+      <span class="chip" role="img" aria-label="挂牌 530，出口阀，未摘"><i class="chip__hole" aria-hidden="true"></i><code>530</code></span>
+      <span class="chip" role="img" aria-label="挂牌 608，出口阀，未摘"><i class="chip__hole" aria-hidden="true"></i><code>608</code></span>
+    </div>
+
+    <div class="tags__grid">
+      <div>
+        <p class="body">牌用牛皮纸色 <code>#6E6350</code>，饱和 <code>11%</code>，也是脏色，面积占全站 <code>3%</code>。每张牌左上角有一枚 <code>0.5px</code> 打孔、一根 <code>1px</code> 挂绳，牌与它对应的那一行回执之间用一根 <code>6px</code> 短线连上 —— 短线的另一端必须落在回执行上，落在别处就是把牌挂错了地方。</p>
+        <p class="body">摘牌的动作没有留痕，靠的是回执行：<code>14:05:02 摘牌 341 出口阀 已复位 挂牌人 白班甲 牌位 空</code>。写下这一行，牌位才算真的空出来；牌上那个号只是给人眼看的。</p>
+        <p class="body">挂牌编号的中间那位永远是手写笔迹：<code>0.8mm</code> 宽、带轻微抖动，首尾两位是印刷体。它不改变编号规则，也不影响检索，存在的理由是把「牌是人写好之后挂上去的」这件事留在界面上。</p>
+      </div>
+      <figure class="plate plate--tag" data-grow>
+        <span class="frame"><img src="assets/nasa-kennedy-space-center-fla-during-powe-gbbjm.jpg" width="1280" height="834" alt="同一处通电检查现场的另一个机位，技师伸手按下控制台上的开关，面板上密布着拨杆与指示灯"></span>
+        <figcaption class="plate__cap">同一处通电检查现场的另一机位：手按下去之后，谁挂的牌还留在阀上。这张照片占纸白 <code>9%</code> 那部分里的一格。<span class="ref">NASA · 公有领域（NASA 图像使用条款） · <a href="https://images-assets.nasa.gov/image/KSC-03pd2449/KSC-03pd2449~medium.jpg">原件页</a></span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 第 4 段：错误态 TAG-409 ══ -->
+<section class="fault" id="fault">
+  <div class="fault__in">
+    <h2>挂牌写入冲突</h2>
+    <p class="alert" role="alert">挂牌写入冲突（错误码 <code>TAG-409</code>）：<code>pump-3</code> 今天已有 2 张未摘牌，请先摘牌或改用 <code>/tag pump-3 --force</code></p>
+    <p class="body">这条 409 是 <code>14:22:07</code> 由 <code>/tag pump-3</code> 打出来的：出口阀那个牌位上已经有 <code>530</code>，写入请求带了同一牌位，牌位只认一张牌，所以整条写入被退回来。牌是停机检修的唯一凭证，两张牌挂在同一个阀上，等于没人能说清该由谁签字复位。</p>
+
+    <table class="fields">
+      <caption>被退回的这一次写入</caption>
+      <tbody>
+        <tr><th scope="row">请求</th><td><code>/tag pump-3 出口阀</code></td></tr>
+        <tr><th scope="row">牌位占用</th><td><code>530</code> 出口阀 · 挂于 <code>14:11</code> · 挂绳已系</td></tr>
+        <tr><th scope="row">未摘牌</th><td><code>530</code> 出口阀 、<code>608</code> 出口阀</td></tr>
+        <tr><th scope="row">可改用的写法</th><td><code>/tag pump-3 --force</code> 覆盖前需先摘掉 <code>530</code></td></tr>
+        <tr><th scope="row">摘牌</th><td><code>/untag pump-3 530</code></td></tr>
+        <tr><th scope="row">重试窗口</th><td>下一次能写牌位的时刻 <code>14:22:40</code></td></tr>
+      </tbody>
+    </table>
+
+    <p class="cue">
+      <button class="btn" type="button" data-retry>重取 <code>出口阀</code> 的牌位</button>
+      <span class="hint">重取只清牌位，不动已经挂上的两张牌。</span>
+    </p>
+    <p class="state" data-fault-state>牌位还是被占着。<code>TAG-409</code> 会一直挂在状态条上，直到 <code>530</code> 或 <code>608</code> 有一张摘掉。</p>
+
+    <p class="empty">摘完最后一张牌、当天记录清零之后，纸头走的是这一行：<b>这台机组今天没有检修记录。输入 <code>/tag pump-3</code> 挂上第一张牌</b></p>
+  </div>
+</section>
+
+<!-- ══ 第 5 段：动效与降级 ══ -->
+<section class="motion" id="motion">
+  <div class="motion__grid">
+    <div>
+      <h2>走纸是唯一的主动效</h2>
+      <ul class="spec">
+        <li><svg class="ic" aria-hidden="true" focusable="false"><use href="#g-feed"/></svg><b>滚动，走纸</b>：纸张位移与滚动 <code>1:1</code>，缓动性格为阶跃式 <code>steps(6)</code>，模拟曳引齿轮一格一格拽纸；位移取整到 <code>24px</code> 的整数倍，边孔的相位跟着一起走。</li>
+        <li><svg class="ic" aria-hidden="true" focusable="false"><use href="#g-tag"/></svg><b>悬停，回执牌</b>：牌绕挂绳摆 <code>6°</code> 并回位，<code>240ms</code>，阻尼无过冲；牌本身不放大，绳子不拉伸。</li>
+        <li><svg class="ic" aria-hidden="true" focusable="false"><use href="#g-submit"/></svg><b>加载，落纸</b>：先出两侧边孔，再从首行向下逐行落纸，每行 <code>40ms</code>，缓动为阶跃；<code>60</code> 行落完约 <code>2.4s</code>，允许点击跳过。</li>
+        <li><b>转场，换纸</b>：切换检修单时纸张向上抽出 <code>200ms</code>，折页线与边孔保留，新纸从纸头开始落。</li>
+        <li><b>光标</b>：<code>8×14px</code> 实心块常闪，周期 <code>530ms</code>，方波（半周期 530ms、全周期 1060ms），位置永远在当前命令流末尾，滚动时随纸走而不脱离文字。</li>
+        <li><b>微交互</b>：提交命令时该行左侧出现一条 <code>1px</code> 竖线并整行右推 <code>3px</code>，保持 <code>300ms</code> 后回位。</li>
+      </ul>
+      <p class="cue">
+        <button class="btn btn--line" type="button" data-pull>把这张纸抽出来换一张</button>
+        <span class="hint">抽出 <code>200ms</code>，纸头与折页线按原值回来。</span>
+      </p>
+    </div>
+    <div>
+      <p class="sample">
+        <span class="sample__blk" aria-hidden="true"></span>
+        光标图样：<code>8×14px</code> 实心块，行尾锚定，不随文字换行漂移。
+      </p>
+      <div class="degrade">
+        <p class="body"><b>减少动态时的再发明</b>（<code>prefers-reduced-motion: reduce</code>）：逐行落纸不再推进位移，但落纸顺序完整保留 —— 边孔、<code>20</code> 行一条的折页线、<code>8×14px</code> 行尾光标、<code>6px</code> 连接短线与 <code>1px</code> 挂绳全部按原值呈现，只把落纸压成 <code>120ms</code> 的一次不透明度切换。</p>
+        <p class="body">光标改为常亮不闪，但仍是 <code>8×14px</code> 的实心块、仍锚在行尾；挂牌不再摆动，静止帧里保留 <code>6°</code> 的挂绳偏角，于是「牌挂在绳上、绳挂在牌位上」这件事在不动的时候也读得出来。折页线每 <code>20</code> 行一条与边孔孔径 <code>3px</code>／孔距 <code>12px</code> 不变。</p>
+        <p class="body">窄屏那一套也照旧：<code>&lt;1024px</code> 边孔收窄到 <code>5px</code> 而孔距仍是 <code>12px</code>，悬挂区换成行内挂牌条（回执牌缩到 <code>24×12px</code>，挂在对应行尾下方 <code>4px</code>），命令流起点回到左侧 <code>4%</code>；<code>&lt;768px</code> 孔径减到 <code>4px</code> 而孔距仍为 <code>12px</code>，挂牌条移到行尾右侧并改竖排。</p>
+      </div>
+      <figure class="plate plate--tube" data-grow>
+        <span class="frame"><img src="assets/ichos-hifi-ta440-eight-channel-vacuum-tube-amp.jpg" width="1230" height="930" alt="八通道真空管功放机箱内部，一排玻璃电子管立在金属底盘上，管座之间走着手工捆扎的线束"></span>
+        <figcaption class="plate__cap">八通道真空管功放内部：管脚之间那些手工捆扎的线束，是「一格一格拽」这个动作的另一种写法。管子在通电后自己发光，我们不在页面上加晕光。<span class="ref">Ichos-hifi · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File%3AICHOS-HIFI_TA440_Eight_Channel_Vacuum_Tube_Amplifier_440_Watts.jpg">Wikimedia Commons</a></span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 第 6 段：断点行为 ══ -->
+<section class="breaks" id="breaks">
+  <div class="breaks__in">
+    <h2>四档宽度下边孔与挂牌怎么留</h2>
+    <table class="widths">
+      <caption>边孔、挂牌、光标锚定三件在四档宽度下的原值；收窄的只是尺寸，机制一件不减。</caption>
+      <thead>
+        <tr><th scope="col">宽度</th><th scope="col">边孔</th><th scope="col">挂牌</th><th scope="col">列与起点</th></tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">≥1440px</th><td>两侧各 <b>8px</b> 宽，孔径 <b>3px</b>，孔距 <b>12px</b></td><td>悬挂区留 <b>34%</b> 空幅，牌挂在回执行右侧</td><td>命令流左端起于版心左侧 <b>12%</b>，行尾光标 <b>8×14px</b> 按 <b>530ms</b> 方波闪</td></tr>
+        <tr><th scope="row">1024–1439px</th><td>8px ／ 3px ／ 12px 不变</td><td>悬挂区收到 <b>22%</b>，牌宽同步收窄</td><td>命令流起点回到左侧 <b>6%</b></td></tr>
+        <tr><th scope="row">768–1023px</th><td>收窄到 <b>5px</b> 宽，孔距仍为 <b>12px</b></td><td>悬挂区换成<b>行内挂牌条</b>：牌缩到 <b>24×12px</b>，挂在对应行尾下方 <b>4px</b></td><td>命令流起点回到左侧 <b>4%</b>，折页线仍每 20 行一条，触屏点击热区不小于 <b>44×44px</b></td></tr>
+        <tr><th scope="row">&lt;768px</th><td>孔径减到 <b>4px</b>，孔距仍为 <b>12px</b></td><td>挂牌条移到行尾右侧并改<b>竖排</b></td><td><b>530ms</b> 方波光标与折页线不变，命令流单列到底</td></tr>
+      </tbody>
+    </table>
+    <p class="body">四档之间没有一件东西是靠缩小字号让位的：行高 <code>24px</code>、基线 <code>8px</code>、折页 20 行一段、光标 <code>8×14px</code>、挂绳 <code>1px</code>、连接短线 <code>6px</code> 在四档里都是原值，变的只有边孔宽度、孔径与悬挂区那两列的比例。</p>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="foot__in">
+    <h3>素材出处：六张真图</h3>
+    <ul class="src">
+      <li><b>值班照</b> KSC-2011-8368 轨道飞行器处理车间 · NASA · 公有领域 · <a href="https://images-assets.nasa.gov/image/KSC-2011-8368/KSC-2011-8368~medium.jpg">原件页</a></li>
+      <li><b>阴极射线管</b> NTM cathode ray tubers Kr Birkeland 1890s IMG 0892 · Bjoertvedt · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File%3ANTM_cathode_ray_tubers_Kr_Birkeland_1890s_IMG_0892.JPG">原件页</a> · Wikimedia Commons（为本方案抓取）</li>
+      <li><b>通电检查</b> KENNEDY SPACE CENTER, FLA. 通电时技师移动开关（KSC-03pd2448） · NASA · 公有领域 · <a href="https://images-assets.nasa.gov/image/KSC-03pd2448/KSC-03pd2448~medium.jpg">原件页</a></li>
+      <li><b>通电检查乙</b> 同批另机位（KSC-03pd2449） · NASA · 公有领域 · <a href="https://images-assets.nasa.gov/image/KSC-03pd2449/KSC-03pd2449~medium.jpg">原件页</a></li>
+      <li><b>真空管陈列</b> Tube amplifier ＠ Vacuum Tube Kingdom, Tokyo Radio Department Store B1F · street viewer · CC BY 2.0 · <a href="https://commons.wikimedia.org/wiki/File%3ATube_amplifier_%40_Vacuum_Tube_Kingdom%2C_Tokyo_Radio_Department_Store_B1F_(2010-03-06_16.34.02).jpg">原件页</a> · Wikimedia Commons（为本方案抓取）</li>
+      <li><b>管功放内部</b> ICHOS-HIFI TA440 Eight Channel Vacuum Tube Amplifier · Ichos-hifi · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File%3AICHOS-HIFI_TA440_Eight_Channel_Vacuum_Tube_Amplifier_440_Watts.jpg">原件页</a> · Wikimedia Commons（为本方案抓取）</li>
+    </ul>
+    <p class="src__note">六张文件各自的标题、作者、许可与原件页逐条记在 <code>assets/CREDITS.md</code> 与 <code>assets/credits.json</code>；每张图下方也各带一条署名。三个程序化纹理（<code>scanline</code> 8×8、<code>phosphor-grain</code> 256×256、<code>schematic-grid</code> 128×128）是 <code>_build/make-textures.py</code> 按 <code>build/texture-job.json</code> 逐字节可复算的生成物，不是照片：扫描线只落在照片里，磷光颗粒挂在页面伪元素上，网格只当检修单的印刷格线。</p>
+
+    <h3>这一案故意反的四条</h3>
+    <ul class="notes">
+      <li>反 C-1.3 与 R-12「居中大标题加三张等宽卡片加底部 CTA」：本方案没有 hero，主体是一条连续命令流，版心偏左 12%，右侧专门留空挂纸牌，内容靠一条纸连续流出。</li>
+      <li>反 C-2.11 与 C-2.14「24px 圆角加柔和投影」与「3 / 6 / 9 图标网格」：全部元素直角，立体感只来自纸被齿轮拽出的边孔阴影与折页压痕，行数随检修记录变化而不是固定三六九。</li>
+      <li>反「深色终端壁纸」：禁止扫描线贴图铺满页、禁止发光外框、禁止暗角与晕光，深色底只允许 <code>#0A0D0A</code> 一个值，磷光绿只出现在字符与回执行。</li>
+      <li>反 C-1.6「白 / 灰交替分区」：全站只有一种暗底，分区靠折页线与边孔，不靠色阶交替。</li>
+    </ul>
+
+    <h3>签名式怪癖</h3>
+    <div class="quirk">
+      <span class="quirk__mark" aria-hidden="true"><svg viewBox="0 0 16 22" aria-hidden="true"><use href="#h1"/></svg></span>
+      <p>每张牌编号的中间那位是手写笔迹：<code>0.8mm</code> 宽、带轻微抖动，描的是检修工在牛皮纸牌上落笔的顺序；首尾两位是印刷体。它不改变编号规则，也不影响检索，存在的理由是把「牌是人写好之后挂上去的」这件事留在界面上 —— 读日志的人偶尔会意识到对面坐着一个人。</p>
+    </div>
+
+    <p class="sig">方案 18 · 磷光检修台（Phosphor Service Deck）· 结构类型 R（TERMINAL）｜认知门槛 高｜机能冷峻 / 工业 · 连续纸走纸 <code>24px</code> 行高 / <code>8px</code> 基线 / 边孔 <code>8px</code>–<code>5px</code> × 孔径 <code>3px</code>–<code>4px</code> / 孔距 <code>12px</code> / 折页 <code>20</code> 行一段 / 行尾光标 <code>8×14px</code> <code>530ms</code> 方波 · 错误码 <code>TAG-409</code>（Lead 补入）· 本页为可运行原型，用于验证字段 3 的色彩机制（<code>#0A0D0A</code> 机房暗底 / <code>#2FA84F</code> 磷光绿 6.36:1 / <code>#C8C4AE</code> 连续纸色 11.13:1 / <code>#6E6350</code> 牛皮纸牌 3%）、24px 行高的连续纸栅格、SVG 边孔与折页压痕的物理尺度，以及按钮填充用深色文字 <code>#111111</code>（6.15:1）的实测值。</p>
+  </div>
+</footer>
+
+</div>
+
+<!-- 提示符行：固定在当前视口下沿内 48px（字段 5），右端落在 34% 悬挂区里，
+     所以它压不到任何一行命令流，也压不到任何一个标题。 -->
+<div class="promptline" role="status">
+  <code><span class="ps">pump-3</span>:~$ /tag pump-3 出口阀</code>
+  <span class="promptline__stat"><code>TAG-409</code> 牌位占用 · 下一行落在纸的第 <code>22</code> 行</span>
+</div>
+
+<script>
+(function () {
+  var doc = document.documentElement;
+  var sheet = document.querySelector('.sheet');
+  var state = document.querySelector('[data-fault-state]');
+
+  /* 落纸：进入视口下方 60% 前不推进，只把 60 行按 40ms 一行铺开 */
+  var grow = document.querySelectorAll('[data-grow]');
+  grow.forEach(function (el, i) { el.style.setProperty('--i', i % 6); });
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (list) {
+      list.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      });
+    }, { rootMargin: '0px 0px -35% 0px', threshold: 0 });
+    grow.forEach(function (el) { io.observe(el); });
+  } else {
+    grow.forEach(function (el) { el.classList.add('in'); });
+  }
+
+  /* 走纸：滚动量与纸位移 1:1，齿轮的阶跃由取整到 6px 的相位给（steps(6)） */
+  var tick = false;
+  function walk() {
+    var snap = Math.round((window.scrollY % 24) / 6) * 6;
+    sheet.style.setProperty('--tug', snap + 'px');
+    tick = false;
+  }
+  addEventListener('scroll', function () {
+    if (tick) return;
+    tick = true;
+    requestAnimationFrame(walk);
+  }, { passive: true });
+  walk();
+
+  document.addEventListener('click', function (e) {
+    /* 提交一行命令：左侧 1px 竖线 + 整行右推 3px，300ms 后回位 */
+    var ln = e.target.closest('.ln');
+    if (ln) {
+      document.querySelectorAll('.ln.is-sent').forEach(function (n) { n.classList.remove('is-sent'); });
+      ln.classList.add('is-sent');
+      setTimeout(function () { ln.classList.remove('is-sent'); }, 300);
+      return;
+    }
+    /* 换纸：纸向上抽出 200ms，折页线与边孔保留 */
+    if (e.target.closest('[data-pull]')) {
+      var b = e.target.closest('[data-pull]');
+      sheet.classList.add('is-pulling');
+      setTimeout(function () { sheet.classList.remove('is-pulling'); }, 200);
+      b.textContent = '这张纸已经换过了';
+      b.disabled = true;
+      return;
+    }
+    /* 错误态：重取牌位 */
+    if (e.target.closest('[data-retry]')) {
+      var r = e.target.closest('[data-retry]');
+      r.disabled = true;
+      r.textContent = '牌位重取已排队';
+      state.innerHTML = '牌位重取排到 14:22:40 那一刻。TAG-409 仍然挂在状态条上，530 与 608 两张牌一张没动。';
+    }
+  });
+})();
+</script>
+</body>
+</html>

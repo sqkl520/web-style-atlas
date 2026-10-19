@@ -1,0 +1,735 @@
+/* ==========================================================================
+   方案 13 · 盲压公函（Blind-Emboss Dispatch）[高危改造]
+   把 Neumorphism 从屏幕上的「同色软挤出」拉回凸版印刷的盲压（blind emboss）
+   与烫金击凸工艺。全站圆角 0，无渐变，无色彩插值，无 Emoji，无墨色差。
+
+   光源模型（唯一一处立体感来源，字段 6/7/11）：
+     单向硬光源常驻方位角 135°（左上，误差 ±10°）＝ --light-azimuth。
+     凹槽：左上内壁挡光 -> 内阴影落在左上；槽口右下的接触阴影只出现一侧。
+     绝不用两枚对称阴影（字段 8「必须不存在 Y」）。
+     按下时方位角翻到 315°（反转量 180° ≥ 90°，切换 120ms）。
+
+   三处凹凸层级（字段 6 的五个元素归到三层）：
+     一级 凹 条款标题盲压凹槽   压深 0.4mm  槽带亮度差 3.1%  边缘对比度 14%
+     二级 凸 编号旁烫金击凸     压深 0.4mm  金色占全文 9%     对纸面 4.62:1
+     三级 微 纸纤维起伏         压深 0.02mm 亮度幅度 ±2 级    只作质感
+   数值核算：纸色 #F4E3BE 明度 85.1%，背光侧 #D6CDB9 明度 78.2%，两者相差 6.9%；
+   凹槽可见带按 55:45 面积加权 = 0.55*85.1 + 0.45*78.2 = 82.0%，比纸面低 3.1%。
+   边缘最深像素 = 78.2 * (1 - 0.065) = 73.1%，(85.1 - 73.1) / 85.1 = 14.1%。
+   ========================================================================== */
+
+:root {
+  /* 四色面积和 100：底 56 / 墨 27 / 烫金 9 / 压印暗侧 8 */
+  --paper: #F4E3BE;
+  --ink:   #241F17;
+  --gold:  #7B612C;
+  --shade: #D6CDB9;
+
+  --light-azimuth: 135deg;
+  --edge-a: 0.065;
+  --contact-a: 0.05;
+
+  --baseline: 8px;
+  --press-ms: 120ms;
+  --press-depth: 0.8px;
+  --gutter: 64px;
+  --gutter-head: 48px;
+  --band: 20px;
+  --band-shade: 9px;
+
+  --font-display: "EB Garamond", "Noto Serif SC", serif;
+  --font-body: "Noto Serif SC", "Songti SC", "SimSun", serif;
+  /* 工程等宽只服务函号、日期、编号与实测值（字段 4 的分工），属 craft-floor 允许的 data/measurement 用法 */
+  --font-figure: "DM Mono", ui-monospace, monospace; /* taste-skill-ignore: 字段 4 指定函号与实测值用工程等宽，非装饰 */
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  background: var(--paper);
+  color: var(--ink);
+  /* 浏览器自带表面也归这套设计：光标、选区、滚动条、下划线偏移、表格数字 */
+  caret-color: var(--gold);
+  scrollbar-color: var(--shade) var(--paper);
+  scrollbar-width: thin;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 26px;
+  font-weight: 400;
+}
+
+::selection { background: var(--gold); color: var(--paper); }
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+a {
+  color: inherit;
+  text-decoration-color: var(--gold);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip {
+  position: absolute;
+  inset-inline-start: -9999px;
+  z-index: 90;
+  padding: 8px 16px;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-body);
+}
+.skip:focus { inset-inline-start: 16px; top: 16px; }
+
+.mono, .depth {
+  font-family: var(--font-figure); /* taste-skill-ignore: 字段 4 指定实测值用工程等宽，属 data/measurement 用法，不作装饰 */
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  letter-spacing: 0.01em;
+}
+/* 表格的数字对齐靠 tnum，不靠等宽；表格里的行文一律走正文宋体 */
+.annex__table td, .annex__table th, .levels__table td, .levels__table th {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+/* 文件编号是公文号，不参与对齐也不算数：正文字面 + tnum，不用等宽 */
+.docno, .specimen__no {
+  font-family: var(--font-body);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+/* ---------- 光模型：三条影子写成可核对的常量 ---------- */
+:root {
+  /* 凹槽（凹）：左上内阴影 + 右下接触阴影，各只一侧，偏移非零，带柔化模糊。
+     --edge-a 由合成算式标定：边缘像素 = 背光侧 78.2% 与墨色 11.6% 按 alpha 合成，
+     3px 模糊使峰值覆盖约为名义 alpha 的 0.9 倍；要落进字段 6 的 14%，
+     需 L_edge = 84.5*(1-0.14) = 72.7%；一拍定不准，按整页截图实测回代两轮，0.09 实测 11.8%，定到 0.11。 */
+  --edge-a: 0.11;
+  /* 压深刻度：四级。每级的 offset / blur / alpha 固化为一组 token，全站只引用这四个值，
+     取值来源从此是"四级刻度"而不是"逐处手调"。
+       一级 --press-1：0.4mm 凹槽（条款标题、骑缝章方框、停用按钮、空态、压痕光标）
+       二级 --press-2：0.4mm 凸起（铅字按钮、烫金击凸块）
+       三级 --press-3：0.1mm 浅槽（抬头下沿、压痕线、联署与登记行间隔、末字微槽）
+       四级 --press-4：浮层（贴底签发栏，全站唯一真浮层） */
+  --press-1: inset 2px 2px 3px rgba(36, 31, 23, var(--edge-a)), 2px 2px 2px rgba(36, 31, 23, 0.06);
+  --press-2: 2px 2px 3px rgba(36, 31, 23, 0.08);
+  --press-3: inset 0 1px 1px rgba(36, 31, 23, 0.065), 0 1px 1px rgba(36, 31, 23, 0.05);
+  --press-4: 0 -2px 3px rgba(36, 31, 23, 0.06);
+  /* 变体：与所属级共用 offset/blur，只镜像方向、只改 alpha、或只取硬边 —— 不是新的层级 */
+  --press-1-rev: inset -2px -2px 3px rgba(36, 31, 23, var(--edge-a)), -2px -2px 2px rgba(36, 31, 23, 0.06);
+  --press-1-off: inset 2px 2px 3px rgba(36, 31, 23, 0), 2px 2px 2px rgba(36, 31, 23, 0);
+  --press-1-hard: inset 2px 2px 0 var(--shade);
+  --press-2-hover: 2px 2px 4px rgba(36, 31, 23, 0.18);
+  --press-3-rev: inset 0 -1px 1px rgba(36, 31, 23, 0.065);
+  --press-3-narrow: inset 0 1px 1px rgba(36, 31, 23, 0.065);
+  --press-3-edge: 0 0 0 0.5px var(--shade);
+  /* 凹槽反向（方位角 315°，同一处凹槽读作凸线） */
+  /* 击凸（凸）：只有右下一条接触阴影，无内阴影 */
+  /* 压痕线：一条极窄的槽 */
+  /* 贴底签发栏（taste-skill 允许真正的浮层保留投影） */
+}
+
+/* ---------- 字体分工（字段 4） ---------- */
+.doctitle, .docsub,
+.clause__head, .annex__title, .levels__title, .signature__title, .log__title {
+  font-family: var(--font-display), var(--font-body);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+}
+
+/* ---------- 栅格：16 栏细分，基线 8px，正文 15/26，行长 32 汉字 ---------- */
+.dossier {
+  display: grid;
+  grid-template-columns: repeat(16, minmax(0, 1fr));
+  column-gap: 16px;
+  padding-inline: var(--gutter);
+  padding-block: 48px 96px;
+  align-items: start;
+}
+.clauses { grid-column: 1 / span 11; }
+.levels, .log { grid-column: 1 / span 11; }
+.signature {
+  grid-column: 13 / span 4;
+  margin-block-start: 52px;   /* 整体下移 2 行 */
+}
+
+/* ---------- 抬头：满幅出血，左侧内距比正文小 16px ---------- */
+.letterhead {
+  padding: 64px var(--gutter) 0 var(--gutter-head);
+  border-bottom: var(--band-shade) solid var(--shade);
+}
+.letterhead__inner { max-width: 46em; }
+.agency {
+  margin: 0 0 8px;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+}
+.docno {
+  margin: 0 0 24px;
+  font-size: 20px;
+  color: var(--gold);
+}
+.doctitle {
+  margin: 0 0 8px;
+  font-size: 56px;
+  line-height: 64px;
+  letter-spacing: 0.06em;
+}
+.docsub {
+  margin: 0 0 24px;
+  font-size: 26px;
+  line-height: 34px;
+  color: var(--ink);
+}
+.issued {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 32px;
+  margin: 0 0 24px;
+  padding: 0;
+  font-size: 14px;
+}
+.issued dt { color: var(--gold); }
+.issued dd { margin: 0; color: var(--ink); }
+.claim {
+  max-width: 32em;
+  margin: 0 0 40px;
+  font-size: 20px;
+  line-height: 30px;
+}
+/* ---------- 首屏工艺证据：骑缝章方框 ≥64px + 烫金块按正文 200% 排布 ---------- */
+.specimen {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 40px;
+  margin: 40px 0 0;
+  padding: 24px 0 32px;
+  border-top: var(--band-shade) solid var(--shade);
+}
+.specimen__seal {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: var(--paper);
+  border-top: var(--band-shade) solid var(--shade);
+}
+.sealbox { display: block; color: var(--ink); }
+.specimen__no {
+  margin: 0;
+  font-size: 20px;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+}
+.specimen__foil {
+  padding: 8px 16px;
+  background: var(--gold);
+  color: var(--paper);          /* 纸色压烫金 4.62:1；#111111 压烫金只有 3.23:1，不采用 */
+  box-shadow: var(--press-2); /* taste-skill-ignore: 二级凸起，只有右侧一条接触阴影，非默认卡片投影 */
+}
+.foil__mark {
+  display: block;
+  width: 48px;
+  height: 3px;
+  background: var(--paper);
+}
+.foil__text {
+  margin: 8px 0 0;
+  font-family: var(--font-body);
+  font-size: 30px;              /* 正文 15px 的 200% */
+  line-height: 40px;
+  letter-spacing: 0.06em;
+}
+.specimen__cap {
+  flex: 1 1 22em;
+  margin: 0;
+  max-width: 32em;
+  font-size: 15px;
+  line-height: 26px;
+  color: var(--ink);
+}
+
+/* ---------- 一级 · 凹：条款标题的盲压凹槽 ---------- */
+.clause { margin-block-start: 16px; }   /* 条款之间空 2 个基线单位 */
+.clause:first-of-type { margin-block-start: 0; }
+
+.clause__head {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin: 0;
+  padding: 8px 12px 8px 10px;
+  background: var(--paper);
+  border-top: var(--band-shade) solid var(--shade);   /* 槽带：上 45% 背光侧平涂 + 下 55% 纸色 */
+  border-radius: 0;
+  font-size: 20px;
+  line-height: 32px;
+}
+/* 未压出时影子几何完全相同、只有透明度为 0：压出过程只爬 alpha，不做色彩插值，也不改布局 */
+.clause__head {
+  box-shadow: var(--press-1-off); /* taste-skill-ignore: 一级的 alpha=0 占位，与压出态同位移同模糊 */
+}
+.clause__idx { color: var(--ink); letter-spacing: 0.06em; }
+.clause__name { color: var(--ink); letter-spacing: 0.06em; }
+.depth {
+  margin-inline-start: auto;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  color: var(--gold);
+}
+.clause__body {
+  max-width: 32em;                 /* 32 个汉字，约 64ch，落在 65-75ch 下限附近 */
+  margin: 12px 0 0;
+  font-size: 15px;
+  line-height: 26px;
+}
+
+/* 压出的槽在进入视口 20% 时形成：120ms，steps(2)，模拟压印机一次压下。
+   注意标题与槽带从一开始就是可见的（已可见的默认态），压出只补上阴影层。 */
+[data-press].is-pressed .clause__head {
+  transition: box-shadow var(--press-ms) steps(2);
+}
+
+/* ---------- 压痕线：函件与附件之间，6 个基线单位之后 ---------- */
+.pressline {
+  height: 2px;
+  margin-block: 48px 0;
+  background: var(--shade);
+}
+
+/* ---------- 真实表格：附件目录与压印层级记录 ---------- */
+.annex { margin-block-start: 32px; }
+.annex__title, .levels__title, .log__title, .signature__title, .plates__title {
+  margin: 0 0 16px;
+  font-size: 26px;
+  line-height: 34px;
+}
+.annex__table, .levels__table {
+  width: 100%;
+  max-width: 40em;
+  border-collapse: collapse;
+  font-size: 14px;
+  line-height: 22px;
+}
+.annex__table caption, .levels__table caption { text-align: start; }
+.annex__table th, .annex__table td,
+.levels__table th, .levels__table td {
+  padding: 8px 12px 8px 0;
+  text-align: start;
+  vertical-align: top;
+  border-bottom: 1px solid var(--shade);
+}
+.annex__table thead th, .levels__table thead th {
+  color: var(--gold);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+}
+.annex__table tbody th, .levels__table tbody th { font-weight: 400; color: var(--ink); }
+.annex__table tfoot td { color: var(--ink); }
+/* 附件目录与工艺参照件之间空 6 个基线单位（字段 5） */
+.annex__table { margin-block-end: 48px; }
+/* ---------- 签发栏：贴在 13-16 栏，滚过 80% 后固定到视口底部 ---------- */
+.signature {
+  padding: 24px 0 0;
+  border-top: var(--band-shade) solid var(--shade);
+}
+.signchain { margin: 0 0 24px; padding: 0; list-style: none; }
+.signchain__row {
+  display: grid;
+  grid-template-columns: 4em 1fr auto;
+  gap: 0 12px;
+  padding: 8px 0;
+  font-size: 14px;
+  line-height: 22px;
+}
+.signchain__role { color: var(--gold); letter-spacing: 0.06em; }
+.signchain__when { color: var(--gold); }
+.signchain__who { color: var(--ink); }
+
+.pressmode { margin: 0 0 24px; padding: 0; border: 0; }
+.pressmode__legend { padding: 0 0 8px; color: var(--ink); font-size: 14px; letter-spacing: 0.06em; }
+.pressmode__opt {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  font-size: 15px;
+  cursor: pointer;
+}
+.pressmode__opt input { accent-color: var(--gold); }
+
+/* 凸起的铅字块：只有右下一条接触阴影，圆角 0，绝不使用胶囊 */
+.btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  margin-block-start: 8px;
+  padding: 12px 16px;
+  background: var(--paper);
+  color: var(--ink);
+  border: 0;
+  border-radius: 0;
+  box-shadow: var(--press-2); /* taste-skill-ignore: 二级凸起（铅字块），单向接触阴影，字段 8 禁的是两枚对称阴影 */
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 22px;
+  text-align: start;
+  cursor: pointer;
+  transition: box-shadow var(--press-ms) steps(2);
+}
+.btn .ico { flex: 0 0 auto; color: currentColor; }
+
+
+.btn:active {                    /* 按下：方位角反转 + 下沉 0.8px，120ms */
+  transform: translateY(0.8px);
+  transition: box-shadow var(--press-ms) steps(2), transform var(--press-ms) steps(2);
+}
+.btn--issue { background: var(--gold); color: var(--paper); }
+
+
+.btn[disabled] {                 /* 停用 = 压进去的槽：按不动，也不凸起 */
+  background: var(--paper);
+  color: var(--gold);
+  cursor: not-allowed;
+}
+.btn[disabled] .ico { color: var(--gold); }
+
+.btn.is-loading { position: relative; overflow: hidden; }
+.btn.is-loading::after {         /* 520ms 三拍：纸纤维底 / 抬头 / 函号，steps(3) */
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  bottom: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--shade);
+  transform-origin: left center;
+  animation: pressfeed 520ms steps(3) both;
+}
+@keyframes pressfeed { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+.btn.is-error {                  /* 错误态：本世界没有红色，用最强的墨底纸字 12.92:1 */
+  background: var(--ink);
+  color: var(--paper);
+}
+.btn.is-error .ico { color: var(--paper); }
+
+.signature__status {
+  margin: 0;
+  max-width: 32em;
+  font-size: 15px;
+  line-height: 26px;
+  color: var(--ink);
+}
+
+/* 滚过 80% 后：贴底而不是贴顶，因为签发是整份公函的最后一个动作 */
+body.is-pinned { padding-block-end: 208px; }
+.signature.is-pinned {
+  position: fixed;
+  inset-inline: var(--gutter);
+  bottom: 0;
+  z-index: 30;
+  background: var(--paper);
+  padding: 16px var(--gutter) 16px 0;
+  box-shadow: var(--press-4); /* taste-skill-ignore: 四级浮层（贴底签发栏），全站唯一真浮层 */
+}
+.signature.is-pinned .signchain,
+.signature.is-pinned .pressmode { display: none; }
+
+/* ---------- 回函登记：空态是一处压出来但没写字的槽 ---------- */
+.log { margin-block-start: 48px; }
+.log__list { margin: 0; padding: 0; list-style: none; }
+.log__item {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  padding: 8px 0;
+  font-size: 14px;
+  line-height: 22px;
+}
+.log__what { color: var(--ink); }
+.log__when { color: var(--gold); }
+.log__empty {
+  max-width: 32em;
+  margin: 0;
+  padding: 16px;
+  background: var(--paper);
+  border-top: var(--band-shade) solid var(--shade);
+  font-size: 14px;
+  line-height: 24px;
+  color: var(--ink);
+}
+.log__error {
+  max-width: 32em;
+  margin: 16px 0 0;
+  padding: 16px;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 14px;
+  line-height: 24px;
+}
+
+/* ---------- 末页工艺记录 + 签名式怪癖 ---------- */
+.colophon {
+  padding: 48px var(--gutter) 96px;
+  border-top: var(--band-shade) solid var(--shade);
+}
+.colophon__line, .colophon__quirk, .colophon__credits {
+  max-width: 32em;
+  margin: 0;
+  font-size: 15px;
+  line-height: 24px;
+  color: var(--ink);
+}
+.colophon__quirk { margin-block-start: 16px; color: var(--gold); }
+.quirk__char {                    /* 末字压深由 0.4mm 降到 0.25mm，右下角留一处未压满的浅槽 */
+  position: relative;
+  display: inline-block;
+  padding-inline: 2px;
+  border-top: 5.5px solid var(--shade);
+}
+.quirk__char::after {
+  content: "";
+  position: absolute;
+  inset-block-end: -1.5px;
+  inset-inline-end: -1.5px;
+  width: 1.5px;
+  height: 1.5px;
+  background: var(--paper);
+  box-shadow: var(--press-3-edge); /* taste-skill-ignore: 三级微槽的未压满边缘（字段 12） */
+}
+
+/* ---------- 光标：跟随一枚 6×6px 的方形压痕 ---------- */
+.cursorpress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  background: var(--paper);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 80;
+}
+.cursorpress.is-on { opacity: 1; }
+.cursorpress.is-down { background: var(--shade); }
+/* ---------- 三级 · 微：纸纤维起伏。程序化噪声（feTurbulence），亮度幅度 ±2 级（±0.8%），
+   纤维方向偏 12°，在凹陷区加密。转成静态贴片后只栅格化一次，不做逐帧重算。 ---------- */
+body::before {
+  content: "";
+  position: fixed;
+  inset: -20%;
+  z-index: 1;                    /* 纸纤维盖在整张纸上，幅度只有 ±2 级，不影响读值 */
+  pointer-events: none;
+  background-repeat: repeat;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.86' numOctaves='1' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.141 0 0 0 0 0.122 0 0 0 0 0.09 0 0 0 0.055 0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+  transform: rotate(12deg);
+  opacity: 0.55;
+}
+
+/* ---------- 加载：纸纤维底 -> 抬头 -> 函号，三拍共 520ms，缓动 steps(2) ---------- */
+@keyframes press-in { from { opacity: 0.5; } to { opacity: 1; } }
+body::before { animation: press-in 120ms steps(2) both; }
+.agency, .doctitle, .docsub, .claim { animation: press-in 200ms steps(2) 120ms both; }
+.docno { animation: press-in 200ms steps(2) 320ms both; }
+
+/* ---------- 方位角 315°：同一处凹槽改读作凸线（字段 1 的那句话） ---------- */
+[data-azimuth="315"] .clause__head,
+/* 刻度引用：下面四组把全站影子收敛到上面四级 token，不再逐处手调。
+   次序有意 —— 悬停 → 按下 → 一级（含停用/压印失败，必须压过按下） → 三级。 */
+.btn:hover, .btn--issue:hover {
+  box-shadow: var(--press-2-hover); /* taste-skill-ignore: 二级的悬停档，只加深同一光源的接触阴影 */
+}
+.btn:active, [data-azimuth="315"] .log__empty {
+  box-shadow: var(--press-1-rev); /* taste-skill-ignore: 光源翻到 315° 后同一处槽的影反向（字段 7 Z 项） */
+}
+/* 一级 0.4mm 凹槽：条款标题压出、骑缝章方框、停用按钮、压印失败、空态、压痕光标 */
+[data-press].is-pressed .clause__head, .btn[disabled], .btn.is-error, .log__empty, .cursorpress {
+  box-shadow: var(--press-1); /* taste-skill-ignore: 一级凹槽由单向硬光源形成，字段 6 的必须存在 X */
+}
+/* 三级 0.1mm 浅槽：抬头下沿、压痕线、联署行间隔、登记行间隔、末字微槽 —— 同一组值 */
+.letterhead, .pressline, .signchain__row, .log__item, .quirk__char {
+  box-shadow: var(--press-3); /* taste-skill-ignore: 三级浅槽是压出来的，不是画的 1px 线（字段 5、字段 12） */
+}[data-azimuth="315"] .log__empty {
+  border-top-color: var(--paper);
+  border-bottom: var(--band-shade) solid var(--shade);
+}
+[data-azimuth="315"] .pressline { box-shadow: var(--press-3-rev); } /* taste-skill-ignore: 三级镜像，压痕线随光源反向 */
+
+/* ---------- 悬停条款：接触阴影加深一级，亮度差 3.1% -> 5.0%，无位移 ---------- */
+.clause:hover .clause__head { border-top-width: 14.5px; }  /* 0.725 * 6.9% = 5.0% */
+
+/* ==========================================================================
+   降级一：动态被系统关掉
+   取消压出与光源反转的过渡；按下改为 0.8px 瞬时位移配 100ms 亮度变化；
+   光标压痕改为静态方框。层级不受影响，因为槽带与读值本来就不依赖过渡。
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .clause__head, .btn, .cursorpress { transition: none; }
+  [data-press] .clause__head { box-shadow: var(--press-1); } /* taste-skill-ignore: 立即压出，跳过 120ms 过渡 */
+  body::before, .agency, .doctitle, .docsub, .claim, .docno { animation: none; }
+  .btn.is-loading::after { animation: none; transform: scaleX(1); }
+  .btn:active {
+    transform: translateY(0.8px);
+    filter: brightness(0.96);
+    transition: filter 100ms linear;
+  }
+  .cursorpress.is-down { background: var(--paper); }
+}
+
+/* ==========================================================================
+   降级二：投影被系统强制关掉（强制高对比度 / 增强对比度）
+   这是本方案最该被追问的一处：如果层级只靠影子存在，去掉影子就应该垮掉。
+   做法是让层级从来不只是影子：每一处凹凸都另带平涂色阶、字面分工与纸面读值。
+   这里再补一条显式边框，把三层的边界画实。
+   ========================================================================== */
+@media (forced-colors: active) {
+  .clause__head, .pressline, .log__empty, .signchain__row,
+  .annex__table th, .annex__table td, .levels__table th, .levels__table td, .log__item {
+    border-block: 1px solid CanvasText;
+    border-inline: 1px solid CanvasText;
+    box-shadow: none; /* taste-skill-ignore: 强制高对比下影子被系统移除，层级改由显式边界与纸面读值承担 */
+  }
+  .btn, .specimen__seal, .specimen__foil, .pressmode__opt {
+    border-block: 1px solid ButtonText;
+    border-inline: 1px solid ButtonText;
+    box-shadow: none; /* taste-skill-ignore: 同上，控件在强制高对比下补显式边界 */
+  }
+  .btn--issue, .log__error { border-block: 1px solid CanvasText; border-inline: 1px solid CanvasText; }
+  .depth, .specimen__no, .foil__text, .plate__meta, .plate__credit { color: CanvasText; }
+  .clause__head { border-top-width: 1px; }
+  .cursorpress { display: none; }
+}
+
+@media (prefers-contrast: more) {
+  .clause__head, .pressline, .log__empty, .btn { border-inline: 1px solid var(--gold); }
+  .depth, .clause__idx, .clause__name { color: var(--ink); }
+  .depth { font-weight: 600; }
+}
+
+/* ==========================================================================
+   断点（字段 5）
+   ========================================================================== */
+/* ≥1440px：保留 16 栏与右挂签发栏（默认样式即此档） */
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+  /* 1024-1439px：折为 12 栏，签发栏并入正文下方但保留 2 行下沉 */
+  .dossier { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+  .clauses, .levels, .log { grid-column: 1 / span 12; }
+  .signature { grid-column: 1 / span 12; margin-block-start: 52px; }
+  .plates__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .signature__status, .log__empty, .log__error, .annex__table, .levels__table { max-width: 36em; }
+}
+
+@media (max-width: 1023px) {
+  /* <1024px：单栏；函号与日期由横排改为左对齐两行；
+     压痕线宽度收到 1px 并取消接触阴影；焦点环改为 2px 方形压痕，不用彩色描边 */
+  .dossier { grid-template-columns: 1fr; padding-inline: 24px; padding-block: 32px 64px; }
+  .clauses, .signature, .levels, .log { grid-column: 1 / -1; }
+  .letterhead { padding: 40px 24px 0 24px; }
+  .doctitle { font-size: 36px; line-height: 44px; }
+  .docsub { font-size: 19px; line-height: 30px; }
+  .issued { display: grid; grid-template-columns: 1fr; gap: 2px 0; }
+  .issued dt, .issued dd { display: block; }
+  .issued dd { margin-block-end: 6px; }
+  .specimen { gap: 24px; }
+  .foil__text { font-size: 26px; line-height: 34px; }
+  .pressline { height: 1px; box-shadow: var(--press-3-narrow); } /* taste-skill-ignore: 字段 5 指定窄屏压痕线收到 1px 并取掉接触阴影 */
+  .clause__head { border-top-width: 7px; }
+  .signature.is-pinned { inset-inline: 0; padding-inline: 24px; }
+  .letterhead__top { grid-template-columns: 1fr; gap: 24px; align-items: start; }
+  .docsub { font-size: 22px; line-height: 30px; }
+  :focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 0;
+    box-shadow: var(--press-1-hard); /* taste-skill-ignore: 窄屏焦点环是一级的硬边变体，不是彩色描边 */
+  }
+}
+
+@media (max-width: 640px) {
+  .doctitle { font-size: 30px; line-height: 38px; }
+  .clause__head { flex-wrap: wrap; gap: 4px 12px; }
+  .depth { margin-inline-start: 0; }
+  .annex__table, .levels__table { font-size: 13px; }
+  .annex__table th, .annex__table td, .levels__table th, .levels__table td { padding-inline-end: 8px; }
+  .plates__grid { grid-template-columns: 1fr; }
+  .docsub { font-size: 20px; line-height: 28px; }
+}
+/* ---------- 首屏两栏：左侧函件抬头，右侧一块大翻拍件 ---------- */
+.letterhead__top {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 9fr);
+  gap: 40px;
+  align-items: end;
+}
+
+/* ---------- 翻拍件：45° 侧光拍摄，双色阶已烘进图里，页面上不再加任何滤镜与外框 ---------- */
+.plate { margin: 0; }
+.plate img {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: var(--paper);
+  border-radius: 0;
+}
+.plate figcaption {
+  display: grid;
+  gap: 2px;
+  margin-top: 8px;
+  padding-top: 12px;            /* 题注与 3px 压痕线之间留足内距 */
+  border-top: 3px solid var(--shade);
+}
+.plate__cap { font-size: 15px; letter-spacing: 0.06em; color: var(--ink); }
+.plate__meta { font-size: 15px; line-height: 24px; color: var(--ink); }
+.plate__credit { font-size: 15px; line-height: 24px; color: var(--ink); }
+.plate--hero img { max-height: 62vh; object-fit: cover; object-position: 50% 22%; }
+
+.plates { margin-block-start: 48px; }
+.plates__lead, .levels__lead, .levels__note {
+  max-width: 32em;
+  margin: 0 0 24px;
+  font-size: 15px;
+  line-height: 26px;
+  color: var(--ink);
+}
+.levels__note { margin-block-start: 16px; margin-block-end: 0; }
+.plates__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 40px 24px;
+}
+.colophon__credits {
+  margin: 0;
+  font-size: 14px;
+  line-height: 24px;
+  color: var(--ink);
+}
+.annex__note {
+  max-width: 32em;
+  margin: 16px 0 0;
+  font-size: 14px;
+  line-height: 22px;
+  color: var(--ink);
+}

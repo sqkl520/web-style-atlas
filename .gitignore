@@ -1,0 +1,36 @@
+# ── 第三方工具：带自己的 LICENSE 与 .git，属于 vendor，不入本仓库 ──
+tools/
+
+# ── 各原型的构建中间物：原始下载、成品图版、质检联系表、字体源文件 ──
+# 页面运行只需要 index.html / style.css / assets/ / .inspect/，
+# 这三类之外的 build/ 属于过程产物（含 8.7MB 级的 OTF 字体源）。
+prototypes/*/build/
+
+# ── 未被页面引用的素材副本（已核：S09 的 8 张 raw 原图没有一个被引用） ──
+prototypes/S09-batik-price-board/assets/raw/
+
+# ── 审查阶段的备份与过程大图（文档 md 保留，图片排除） ──
+deliverables/_backup-*/
+deliverables/tool-runs/
+
+# ── 渲染产物里可再生成的缓存 ──
+.taste-skill/
+**/.taste-skill/
+
+# ── 临时文件 ──
+_tmp_*
+_compiler-*.ps1
+*.tmp
+*.bak-fonts
+prototypes/_build/_gate-*.txt
+prototypes/_build/_collect-diag.txt
+
+# ── 系统与编辑器 ──
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+node_modules/
+__pycache__/
+*.pyc

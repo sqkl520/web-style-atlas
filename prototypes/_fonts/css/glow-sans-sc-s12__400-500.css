@@ -1,0 +1,30 @@
+/* S12 青柠挖空墙 —— 自托管字体（手写，非 _build/fetch-fonts.mjs 生成）
+   族：Glow Sans SC ＝未来荧黑（OFL 1.1，重骨架几何黑体，规格局 C5）
+   字重：400 指向 Regular 子集，500／600 指向 Medium 子集。
+   为什么不与 S05 共用：S05 那份 glow-sans-sc__400-500.css 是按它自己页面的用字切的，
+   cmap 不覆盖本页（缺「凿、斜、纹、兜」等字），而覆盖别人的缓存文件会破坏 S05 的交付物，
+   因此本页另起 glow-sans-sc-s12__*，两份并存、页面只链这一份（契约 §9.8）。
+   上游：https://github.com/lvwzhen/glow-sans 的 npm 分发物 @fontpkg/glow-sans-sc（Normal 宽度档），
+   由 build/fetch-glow-otf.mjs 取回 8.7MB 全字库 OTF，再由 build/subset-glow-s12.py 用 fontTools
+   按本页实际用字子集化为 woff2。重跑：python build/subset-glow-s12.py */
+@font-face {
+  font-family: 'Glow Sans SC';
+  src: url('../files/glow-sans-sc-s12/glow-sans-sc-s12-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Glow Sans SC';
+  src: url('../files/glow-sans-sc-s12/glow-sans-sc-s12-medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Glow Sans SC';
+  src: url('../files/glow-sans-sc-s12/glow-sans-sc-s12-medium.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}

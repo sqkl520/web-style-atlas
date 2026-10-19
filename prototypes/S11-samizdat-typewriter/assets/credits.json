@@ -1,0 +1,258 @@
+{
+  "scheme": "S11-samizdat-typewriter",
+  "title": "铁窗打字本（Samizdat Typewriter）",
+  "generated": "2026-10-17",
+  "generator": "build/write-credits.py",
+  "note": "页面只发布灰度两阶抖动的图版；原图与重算脚本留在 build/，不进 assets/。所有图版均来自 Wikimedia Commons，许可为公有领域或 CC BY / CC BY-SA；程序化纹理不含任何第三方素材。",
+  "recompute": {
+    "plates": "python build/make-plates.py   # 需要 Pillow + numpy，输入 build/raw/doc-*.jpg",
+    "plates_registry": "build/plates.json",
+    "raw_metadata": "build/raw/credits.json   # Wikimedia Commons API 原始字段",
+    "credits": "python build/write-credits.py",
+    "fonts": "node ../_build/fetch-fonts.mjs   # 自托管到 ../_fonts/，页面不请求任何远端字体"
+  },
+  "images": [
+    {
+      "file": "assets/plate-01-typewriter.png",
+      "kind": "photo-binary-dithered",
+      "width": 1040,
+      "height": 693,
+      "usedIn": "#ch-06 第六节 字位与跳字",
+      "role": "打字机机身与字杆机构：字头落点决定第 1 联的字位，后六联全是它的副本。",
+      "rawSource": "build/raw/doc-01-typewriter.jpg",
+      "sha256_16": "6d166166d068f74b",
+      "source": {
+        "title": "File:Paris - A vintage Corona folding typewriter - 2642.jpg",
+        "artist": "Jorge Royan",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "page": "https://commons.wikimedia.org/wiki/File:Paris_-_A_vintage_Corona_folding_typewriter_-_2642.jpg",
+        "origin": "https://upload.wikimedia.org/wikipedia/commons/5/59/Paris_-_A_vintage_Corona_folding_typewriter_-_2642.jpg",
+        "originSize": "4368x2912",
+        "credit": "Own work",
+        "description": "A vintage Corona folding typewriter",
+        "retrievedThumbWidth": 1100
+      },
+      "transform": "flatten(大半径 38 估光照并除回) → autocontrast(cutoff=1) → UnsharpMask(radius 2, percent 120, threshold 3) → fit(1040px, 上限高 1500) → Bayer 4×4 有序抖动到两阶调色板 #221E19 / #DCDDD2，gamma 1.22"
+    },
+    {
+      "file": "assets/plate-02-carbon-form.png",
+      "kind": "photo-binary-dithered",
+      "width": 900,
+      "height": 1067,
+      "usedIn": "#ch-02 第二节 纸张与木素",
+      "role": "三联复写单实物：同一行字在三联上的深浅差，是本册衰减层级的出处。",
+      "rawSource": "build/raw/doc-02-carbon.jpg",
+      "sha256_16": "f3b0e035eb261466",
+      "source": {
+        "title": "File:Tape Retention Scratch Control triplicate form.jpg",
+        "artist": "Jonathan Schilling",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "page": "https://commons.wikimedia.org/wiki/File:Tape_Retention_Scratch_Control_triplicate_form.jpg",
+        "origin": "https://upload.wikimedia.org/wikipedia/commons/e/e9/Tape_Retention_Scratch_Control_triplicate_form.jpg",
+        "originSize": "1597x1893",
+        "credit": "Own work",
+        "description": "A carbon-based triplicate form entitled Tape Retention / Scratch Control, used in the early 1980s in an IBM mainframe EDP department to keep track of 9-track tapes used in production jobs.",
+        "retrievedThumbWidth": 1100
+      },
+      "transform": "flatten(大半径 38 估光照并除回) → autocontrast(cutoff=1) → UnsharpMask(radius 2, percent 120, threshold 3) → fit(900px, 上限高 1500) → Bayer 4×4 有序抖动到两阶调色板 #221E19 / #DCDDD2，gamma 1.05"
+    },
+    {
+      "file": "assets/plate-03-samizdat.png",
+      "kind": "photo-binary-dithered",
+      "width": 1080,
+      "height": 718,
+      "usedIn": "#ch-09 第九节 散失件（空状态）",
+      "role": "自印本散页照片：空状态里「只留下第 3 联的照片」指的就是这一张。",
+      "rawSource": "build/raw/doc-03-samizdat.jpg",
+      "sha256_16": "b09eae21bdf3c86f",
+      "source": {
+        "title": "File:Eesti samizdat 05.jpg",
+        "artist": "Ivo Kruusamägi",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "page": "https://commons.wikimedia.org/wiki/File:Eesti_samizdat_05.jpg",
+        "origin": "https://upload.wikimedia.org/wikipedia/commons/8/88/Eesti_samizdat_05.jpg",
+        "originSize": "6016x4000",
+        "credit": "Own work",
+        "description": "Jaan Roos. \"Tuled tuules\". Märkmeid ja mälestusi aastaist 1939-41. Katkendid",
+        "retrievedThumbWidth": 1100
+      },
+      "transform": "flatten(大半径 38 估光照并除回) → autocontrast(cutoff=1) → UnsharpMask(radius 2, percent 120, threshold 3) → fit(1080px, 上限高 1500) → Bayer 4×4 有序抖动到两阶调色板 #221E19 / #DCDDD2，gamma 1.12"
+    },
+    {
+      "file": "assets/plate-04-window-grate.png",
+      "kind": "photo-binary-dithered",
+      "width": 900,
+      "height": 1350,
+      "usedIn": "#ch-10 第十节 存档与调阅",
+      "role": "方钢窗格实物：截面均匀、投影只朝一个方向，版心外那层网格照此定。",
+      "rawSource": "build/raw/doc-04-grate.jpg",
+      "sha256_16": "20bf2fd106480459",
+      "source": {
+        "title": "File:Bucharest - Casa Paleologu window grate.jpg",
+        "artist": "Joe Mabel",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "page": "https://commons.wikimedia.org/wiki/File:Bucharest_-_Casa_Paleologu_window_grate.jpg",
+        "origin": "https://upload.wikimedia.org/wikipedia/commons/7/7c/Bucharest_-_Casa_Paleologu_window_grate.jpg",
+        "originSize": "4000x6000",
+        "credit": "photo by Joe Mabel",
+        "description": "Window and iron grate, Casa Paleologu, Strada Armenească, Bucharest Sector 2, Romania, near the corner of Strada Silvestru in the Armenian Quarter.",
+        "retrievedThumbWidth": 1100
+      },
+      "transform": "flatten(大半径 38 估光照并除回) → autocontrast(cutoff=1) → UnsharpMask(radius 2, percent 120, threshold 3) → fit(900px, 上限高 1500) → Bayer 4×4 有序抖动到两阶调色板 #221E19 / #DCDDD2，gamma 1.3"
+    },
+    {
+      "file": "assets/plate-05-typescript.png",
+      "kind": "photo-binary-dithered",
+      "width": 820,
+      "height": 1298,
+      "usedIn": "#ch-08 第八节 引用与编号规则",
+      "role": "1904 年打字稿首页：稿面两色批注与删改行，支撑「批注只写行外」这一条。",
+      "rawSource": "build/raw/doc-05-typescript.jpg",
+      "sha256_16": "899583cf59a6ab4f",
+      "source": {
+        "title": "File:Jan. 1904 George Sterling and Ambrose Bierce comments on A Wine of Wizardry typescript.jpg",
+        "artist": "George Sterling and Ambrose Bierce created this document in January 1904, 119 years ago. It is in the public domain. The poem was published in September 1907.",
+        "license": "Public domain",
+        "licenseUrl": "https://commons.wikimedia.org/wiki/Commons:Public_domain",
+        "page": "https://commons.wikimedia.org/wiki/File:Jan._1904_George_Sterling_and_Ambrose_Bierce_comments_on_A_Wine_of_Wizardry_typescript.jpg",
+        "origin": "https://upload.wikimedia.org/wikipedia/commons/9/96/Jan._1904_George_Sterling_and_Ambrose_Bierce_comments_on_A_Wine_of_Wizardry_typescript.jpg",
+        "originSize": "2034x3220",
+        "credit": "This January 1904 document's typescript poem and black ink comments were by George Sterling. The black pencil rules and red ink comments were by Ambrose Bierce.",
+        "description": "First page of January 1904 first typewritten draft of \"A Wine of Wizardry\" with comments in black ink by George Sterling and comments in red ink and rules in black pencil by Ambrose Bierce",
+        "retrievedThumbWidth": 1100
+      },
+      "transform": "flatten(大半径 38 估光照并除回) → autocontrast(cutoff=1) → UnsharpMask(radius 2, percent 120, threshold 3) → fit(820px, 上限高 1500) → Bayer 4×4 有序抖动到两阶调色板 #221E19 / #DCDDD2，gamma 1.26"
+    },
+    {
+      "file": "assets/plate-06-ribbon-spool.png",
+      "kind": "photo-binary-dithered",
+      "width": 960,
+      "height": 720,
+      "usedIn": "#ch-03 第三节 复写层构造",
+      "role": "色带盘与上行机构：4.2 节更换顺序按这台机的压紧螺母方向写。",
+      "rawSource": "build/raw/doc-06-ribbon.jpg",
+      "sha256_16": "4b1a3acba0a6d089",
+      "source": {
+        "title": "File:Bulgarian Cyrillic typewriter Hebros 1300 F - ribbon spool.jpg",
+        "artist": "Vassia Atanassova - Spiritia",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "page": "https://commons.wikimedia.org/wiki/File:Bulgarian_Cyrillic_typewriter_Hebros_1300_F_-_ribbon_spool.jpg",
+        "origin": "https://upload.wikimedia.org/wikipedia/commons/d/d3/Bulgarian_Cyrillic_typewriter_Hebros_1300_F_-_ribbon_spool.jpg",
+        "originSize": "2272x1704",
+        "credit": "Own work",
+        "description": "Bulgarian Cyrillic typewriter model \"Hebros 1300 F\" according to the Bulgarian State Standard",
+        "retrievedThumbWidth": 1100
+      },
+      "transform": "flatten(大半径 38 估光照并除回) → autocontrast(cutoff=1) → UnsharpMask(radius 2, percent 120, threshold 3) → fit(960px, 上限高 1500) → Bayer 4×4 有序抖动到两阶调色板 #221E19 / #DCDDD2，gamma 1.1"
+    },
+    {
+      "file": "assets/plate-07-typescript-copy.png",
+      "kind": "photo-binary-dithered",
+      "width": 820,
+      "height": 1052,
+      "usedIn": "#ch-11 第十一节 复审与留痕",
+      "role": "复写件第 2 页：行距固定、字迹比正联浅一档，是本册衰减数值的比对基准。",
+      "rawSource": "build/raw/doc-07-copy.jpg",
+      "sha256_16": "067c828cc8173a79",
+      "source": {
+        "title": "File:Typescript Copy of Letter, Ethel Rosenberg to President Dwight D. Eisenhower - DPLA - 90e67e28ee184517bba8b26d45456111 (page 2).jpg",
+        "artist": "President (1953-1961 : Eisenhower). 1953-1961",
+        "license": "Public domain",
+        "licenseUrl": "https://commons.wikimedia.org/wiki/Commons:Public_domain",
+        "page": "https://commons.wikimedia.org/wiki/File:Typescript_Copy_of_Letter,_Ethel_Rosenberg_to_President_Dwight_D._Eisenhower_-_DPLA_-_90e67e28ee184517bba8b26d45456111_(page_2).jpg",
+        "origin": "https://upload.wikimedia.org/wikipedia/commons/6/67/Typescript_Copy_of_Letter%2C_Ethel_Rosenberg_to_President_Dwight_D._Eisenhower_-_DPLA_-_90e67e28ee184517bba8b26d45456111_%28page_2%29.jpg",
+        "originSize": "1350x1732",
+        "credit": "File URL Catalog record",
+        "description": "",
+        "retrievedThumbWidth": 1100
+      },
+      "transform": "flatten(大半径 38 估光照并除回) → autocontrast(cutoff=1) → UnsharpMask(radius 2, percent 120, threshold 3) → fit(820px, 上限高 1500) → Bayer 4×4 有序抖动到两阶调色板 #221E19 / #DCDDD2，gamma 1.18"
+    },
+    {
+      "file": "assets/plate-08-broken-scan.png",
+      "kind": "photo-derived",
+      "width": 1000,
+      "height": 1283,
+      "usedIn": "#ch-04 第四节 色带更换（错误状态 CARBON-04）",
+      "role": "在公有领域扫描件上叠加程序化损坏：中段丢行、右侧拖影、斜向撕口，给 CARBON-04 一张真图。",
+      "rawSource": "build/raw/doc-07-copy.jpg",
+      "sha256_16": "93bf9cd3e4c3266a",
+      "source": {
+        "title": "File:Typescript Copy of Letter, Ethel Rosenberg to President Dwight D. Eisenhower - DPLA - 90e67e28ee184517bba8b26d45456111 (page 2).jpg",
+        "artist": "President (1953-1961 : Eisenhower). 1953-1961",
+        "license": "Public domain",
+        "licenseUrl": "https://commons.wikimedia.org/wiki/Commons:Public_domain",
+        "page": "https://commons.wikimedia.org/wiki/File:Typescript_Copy_of_Letter,_Ethel_Rosenberg_to_President_Dwight_D._Eisenhower_-_DPLA_-_90e67e28ee184517bba8b26d45456111_(page_2).jpg",
+        "origin": "https://upload.wikimedia.org/wikipedia/commons/6/67/Typescript_Copy_of_Letter%2C_Ethel_Rosenberg_to_President_Dwight_D._Eisenhower_-_DPLA_-_90e67e28ee184517bba8b26d45456111_%28page_2%29.jpg",
+        "originSize": "1350x1732",
+        "credit": "File URL Catalog record",
+        "description": "",
+        "retrievedThumbWidth": 1100
+      },
+      "transform": "flatten(38) → autocontrast(1) → UnsharpMask(2,120%,3) → fit(1000px) → 丢行：h×0.30–0.72 区间按 2–7 行块抬到纸色；拖影：w×0.55 右侧高斯模糊 3.2；撕口：h×0.52 两条斜向白带 → Bayer 4×4 两阶，random.Random(1104)"
+    }
+  ],
+  "textures": [
+    {
+      "file": "assets/paper-lignin.png",
+      "size": "320×320",
+      "seed": 11,
+      "role": "纸面木素斑点与横向纤维（全透明底，叠在 paper 伪元素上）",
+      "recipe": "46 条短横线纤维（#6E7A64，alpha 10–30，两端随机 ±1px）+ 90 个木素斑点（#221E19，半径 0–2px，alpha 14–46）+ 14 个脱墨点（白，alpha 10–22），最后 GaussianBlur(0.35)；random.Random(11)"
+    },
+    {
+      "file": "assets/grain-128.png",
+      "size": "128×128",
+      "seed": 23,
+      "role": "全页颗粒 tile（content 伪元素平铺，正文之上、控件之下）",
+      "recipe": "numpy default_rng(23) 取 0–15 的随机整数，82% 取正、18% 取负并夹到 0–15，作为 #221E19 的 alpha 上限 15/255 ≈ 6%"
+    },
+    {
+      "file": "assets/carbon-bleed.png",
+      "size": "480×320",
+      "seed": 37,
+      "role": "复写油墨不匀叠印层（首屏三层重影样张上，只加深、不留白）",
+      "recipe": "1/8 尺度画 70 个随机圆斑（灰 40–255）→ GaussianBlur(3) → BICUBIC 放大回 480×320 → 按离心距离衰减到 55%（中心 0.5/0.42 处最实）→ alpha 上限 92/255，颜色 #1B4A4A；random.Random(37)"
+    }
+  ],
+  "fonts": [
+    {
+      "family": "EB Garamond",
+      "weights": "400 / 600",
+      "stretch": null,
+      "subsets": 14,
+      "size_kb": 254.4,
+      "css": "../_fonts/css/eb-garamond__400-600.css",
+      "license": "SIL Open Font License 1.1",
+      "upstream": "https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;600",
+      "used_for": "标题（h1 106px 与全部 h2/h3）与拉丁文副题；本册用它替代规格指定的 Redaction"
+    },
+    {
+      "family": "LXGW WenKai TC",
+      "weights": "400",
+      "stretch": null,
+      "subsets": 115,
+      "size_kb": 4527.0,
+      "css": "../_fonts/css/lxgw-wenkai-tc__400.css",
+      "license": "SIL Open Font License 1.1",
+      "upstream": "https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400",
+      "used_for": "正文汉字（约占全部字形 91%）：书写纸上的楷体，近打字机网点而不漫画化"
+    },
+    {
+      "family": "Martian Mono",
+      "weights": "400 / 600",
+      "stretch": "wdth 75%",
+      "subsets": 8,
+      "size_kb": 51.2,
+      "css": "../_fonts/css/martian-mono-narrow__wdth75-400-600.css",
+      "license": "SIL Open Font License 1.1",
+      "upstream": "https://fonts.googleapis.com/css2?family=Martian+Mono:wdth,wght@75,400;75,600",
+      "used_for": "编号与错误码：章—节—条条号、CARBON-04、三位损坏件编号、份号 SN-0300"
+    }
+  ]
+}

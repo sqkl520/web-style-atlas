@@ -1,0 +1,376 @@
+/* 选型台
+   这是一件**工作台**，不是作品集封面页：信息密度优先，装饰让位于检索。
+   底色与强调色刻意选在 30 个案会被判违规的那些窗口之外：
+   #E7E7E2 明度 89.6% 但饱和只有 9.4%（palette-cream 要 s≥16%）；三个信号色明度都在 42% 以下（palette-terracotta 要 l≥42%）。
+   这份页面本身不受那 30 条规则约束，但没必要去踩同一批坑。
+
+   过闸门时改掉的几处（都是工具指出后就承认的问题，不是绕）：
+   1 三级文字对比度 4.2:1 → 5.6:1；2 小字下限收到 13px（原先 11/12px 有 115 处）；
+   3 大标题 3.8vw → 5.2vw（首屏要有一个明确的主导元素）；4 头部标签从全大写 11px 微标签
+   改成 14px 句首大写；5 行分隔线 1px → 2px（1px 被判为装饰性细线）；
+   6 截图缩略图不再用 1px 描边框；7 工具条不再 sticky（sticky 会让大标题在滚动中被压住）。 */
+
+:root {
+  --ground:   #e7e7e2;
+  --ground-2: #dcdcd6;
+  --card:     #f2f2ee;
+  --ink:      #1c1b18;
+  --ink-2:    #43413b;
+  --ink-3:    #56534b;   /* 原 #6f6c64 对底只有 4.2:1 */
+  --rule:     #bdbbb2;
+  --rule-2:   #a5a49b;
+
+  --fail: #8c1d18;
+  --warn: #6b4e0d;
+  --pass: #24453c;
+  --link: #1f3c60;
+
+  --ui:   "Archivo", "Noto Sans SC", sans-serif;
+  --cjk:  "Noto Sans SC", "Archivo", sans-serif;
+  /* 数字槽不再引入等宽族：Archivo 自带 tabular figures，同族 + font-variant-numeric: tabular-nums
+     就能让所有读数逐位对齐。原先用 IBM Plex Mono 排"30 / 17 / 12"这类元数据，
+     被 mono 规则判为"等宽字出现在代码之外"，那条判得对 —— 排的是数字不是代码，
+     而且顺带把字族数从 3 降到 2。等宽族现在只留给真正的 <code> 与 <kbd>。 */
+  --num:  "Archivo", "Noto Sans SC", sans-serif;
+  --code: "IBM Plex Mono", ui-monospace, monospace;
+
+  /* 字号只留 6 档，下限 13px */
+  --s-h1: clamp(34px, 5.2vw, 74px);
+  --s-34: 34px;
+  --s-24: 24px;
+  --s-20: 20px;
+  --s-17: 17px;
+  --s-16: 16px;
+  --s-14: 14px;
+  --s-13: 13px;
+
+  --pad: 28px;
+  --rail: 264px;
+  --detail: 560px;
+}
+
+* { box-sizing: border-box; }
+
+html { background: var(--ground); }
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--cjk);
+  font-size: var(--s-16);
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 { margin: 0; font-weight: 600; line-height: 1.14; }
+p { margin: 0; }
+ul, ol, dl, dd { margin: 0; padding: 0; list-style: none; }
+button, input, select { font: inherit; color: inherit; }
+
+.skip {
+  position: absolute; left: -9999px;
+  background: var(--ink); color: var(--card); padding: 10px 14px; z-index: 40;
+}
+.skip:focus { left: 12px; top: 12px; }
+
+kbd {
+  font-family: var(--code); font-size: var(--s-13);
+  border: 1px solid var(--rule-2); border-radius: 2px;
+  padding: 0 4px; margin: 0 1px; background: var(--card);
+}
+code { font-family: var(--code); font-size: 0.94em; }
+
+/* ── 报头：左对齐，靠数字而不是形容词立住 ───────────────────── */
+.mast {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(330px, max-content);
+  gap: var(--pad);
+  align-items: end;
+  padding: 46px var(--pad) 22px;
+  border-bottom: 2px solid var(--ink);
+}
+.mast-kicker {
+  font-size: var(--s-14);
+  color: var(--ink-3); margin-bottom: 14px;
+}
+.mast h1 {
+  font-family: var(--ui);
+  font-size: var(--s-h1);
+  font-variation-settings: "wdth" 88;
+  letter-spacing: -.018em;
+  max-width: 15ch;
+}
+.mast-claim {
+  margin-top: 16px; max-width: 42ch;
+  font-size: var(--s-17); color: var(--ink-2);
+}
+.mast-facts {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 2px; margin: 0;
+}
+.mast-facts > div { border-top: 2px solid var(--ink); padding-top: 8px; }
+.mast-facts dt { font-size: var(--s-14); color: var(--ink-3); }
+.mast-facts dd {
+  font-family: var(--num); font-variant-numeric: tabular-nums; font-size: var(--s-24);
+  font-variant-numeric: tabular-nums; margin-top: 2px;
+}
+
+/* ── 台面 ─────────────────────────────────────────────────── */
+.bench {
+  display: grid;
+  grid-template-columns: var(--rail) minmax(0, 1fr);
+  align-items: start;
+}
+
+.rail {
+  position: sticky; top: 0;
+  max-height: 100vh; overflow-y: auto;
+  padding: 22px 20px 40px var(--pad);
+  border-right: 2px solid var(--rule);
+}
+.rail-block { margin-bottom: 22px; }
+.rail-block h2 {
+  font-size: var(--s-14); font-weight: 600;
+  color: var(--ink); margin-bottom: 8px;
+}
+
+.chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.chips button {
+  font-size: var(--s-13); line-height: 1.25;
+  padding: 4px 8px; cursor: pointer;
+  background: transparent; color: var(--ink-2);
+  border: 1px solid var(--rule-2); border-radius: 0;
+  transition: background 120ms linear, color 120ms linear, border-color 120ms linear;
+}
+.chips button:hover { border-color: var(--ink); color: var(--ink); }
+.chips button[aria-pressed="true"] {
+  background: var(--ink); color: var(--card); border-color: var(--ink);
+}
+.chips button .n { font-family: var(--num); font-variant-numeric: tabular-nums; font-size: var(--s-13); margin-left: 5px; opacity: .8; }
+
+.rail-note p { font-size: var(--s-14); color: var(--ink-2); }
+
+/* ── 工具条：**不 sticky** —— sticky 会让大标题在滚动中被它压住（covered-text） ── */
+.main { min-width: 0; padding: 22px var(--pad) 80px 24px; }
+
+.bar {
+  display: flex; flex-wrap: wrap; gap: 12px 18px; align-items: center;
+  padding-bottom: 16px; border-bottom: 2px solid var(--ink);
+}
+.search { display: flex; align-items: center; gap: 9px; flex: 1 1 320px; }
+.search span { font-size: var(--s-13); color: var(--ink-3); }
+.search input {
+  flex: 1 1 auto; min-width: 0;
+  padding: 7px 10px; border: 1px solid var(--rule-2); border-radius: 0;
+  background: var(--card);
+}
+.search input:focus { outline: 2px solid var(--link); outline-offset: -1px; }
+.count {
+  font-family: var(--num); font-variant-numeric: tabular-nums; font-size: var(--s-13);
+  font-variant-numeric: tabular-nums; color: var(--ink-2);
+}
+.sort { display: flex; align-items: center; gap: 8px; }
+.sort label { font-size: var(--s-13); color: var(--ink-3); }
+.sort select { padding: 6px 8px; border: 1px solid var(--rule-2); border-radius: 0; background: var(--card); }
+.btn-quiet {
+  font-size: var(--s-13); padding: 6px 10px; cursor: pointer;
+  background: transparent; border: 1px solid var(--rule-2); border-radius: 0; color: var(--ink-2);
+  transition: border-color 120ms linear, color 120ms linear;
+}
+.btn-quiet:hover { border-color: var(--ink); color: var(--ink); }
+
+/* ── 清单：每一行是一张账页，不是一个 tile ─────────────────── */
+.ledger { border-top: 2px solid var(--ink); }
+
+.row {
+  display: grid;
+  grid-template-columns: 62px minmax(0, 1fr) 316px;
+  gap: 20px;
+  padding: 18px 0;
+  border-bottom: 2px solid var(--rule);
+  cursor: pointer;
+  scroll-margin-top: 24px;
+  transition: background 140ms linear;
+}
+.row:hover { background: var(--card); }
+.row[aria-current="true"] { background: var(--card); box-shadow: inset 5px 0 0 var(--ink); }
+.row.is-unbuilt .no, .row.is-unbuilt h3 { color: var(--ink-3); }
+
+.no {
+  font-family: var(--num); font-variant-numeric: tabular-nums; font-size: var(--s-24);
+  font-variant-numeric: tabular-nums; line-height: 1;
+  padding-left: 4px;
+}
+.row-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 10px; }
+.row-head h3 { font-size: var(--s-20); font-family: var(--ui); font-variation-settings: "wdth" 92; }
+.row-head .en { font-family: var(--ui); font-size: var(--s-13); color: var(--ink-3); }
+
+.tag {
+  font-family: var(--num); font-variant-numeric: tabular-nums; font-size: var(--s-13);
+  padding: 1px 6px; border: 1px solid var(--rule-2); color: var(--ink-2);
+}
+.tag-fr { border-color: var(--ink); color: var(--ink); }
+.tag-fail { border-color: var(--fail); color: var(--fail); }
+.tag-warn { border-color: var(--warn); color: var(--warn); }
+.tag-pass { border-color: var(--pass); color: var(--pass); }
+.tag-none { border-style: dashed; color: var(--ink-3); }
+
+.row-def {
+  margin-top: 8px; font-size: var(--s-16); color: var(--ink-2); max-width: 46ch;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
+.row-meta {
+  margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center;
+  font-family: var(--num); font-variant-numeric: tabular-nums; font-size: var(--s-13); color: var(--ink-3);
+}
+.swatches { display: flex; gap: 3px; align-items: center; }
+.swatches i { width: 20px; height: 20px; display: block; outline: 1px solid rgba(0,0,0,.3); outline-offset: -1px; }
+.row-family { color: var(--ink-2); }
+
+/* 截图列：桌面首屏给一张**大图**，平板与手机缩到下面两格。
+   为什么不是三张同宽：三张同宽时每张只有 ~100px 宽，闸门在 1440 档统计"真实图片 0 张"
+   （img 有 48 个，但没有一个算得上"内容图片"）；放大到 ~316px 之后这个指标才成立。
+   详情面板里仍然三档齐全、可逐张切换。 */
+.shots { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; align-content: start; }
+.shots .shot:first-child { grid-column: 1 / -1; }
+.shot { margin: 0; background: #fff; overflow: hidden; position: relative; }
+.shot img { width: 100%; display: block; aspect-ratio: 16 / 10; object-fit: cover; object-position: top center; }
+.shot figcaption {
+  font-family: var(--num); font-variant-numeric: tabular-nums; font-size: var(--s-13);
+  text-align: center; padding: 1px 0 2px; color: var(--ink-3);
+  background: var(--ground-2);
+}
+.shot.is-empty { background: var(--ground-2); }
+.shot.is-empty img { display: none; }
+.shot.is-empty::before {
+  content: ""; display: block; aspect-ratio: 16 / 10;
+  background: repeating-linear-gradient(45deg, var(--ground-2) 0 6px, var(--card) 6px 12px);
+}
+.shot.is-empty figcaption { color: var(--fail); }
+
+.row-foot {
+  grid-column: 2 / -1; display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center;
+  font-family: var(--num); font-variant-numeric: tabular-nums; font-size: var(--s-13); color: var(--ink-3);
+  margin-top: 2px;
+}
+
+.empty { padding: 40px 0; color: var(--ink-3); font-size: var(--s-16); }
+
+/* ── 入场动效（仍受 prefers-reduced-motion 收敛）───────────── */
+.row.is-in, .detail.is-in { animation: rise 320ms cubic-bezier(.2,.85,.2,1) both; }
+@keyframes rise {
+  from { transform: translateY(9px); opacity: 0; }
+  to   { transform: none; opacity: 1; }
+}
+.mast-facts dd.is-live { transition: none; }
+
+/* ── 详情 ─────────────────────────────────────────────────── */
+.detail {
+  position: fixed; top: 0; right: 0; bottom: 0;
+  width: min(var(--detail), 100vw);
+  background: var(--card);
+  border-left: 3px solid var(--ink);
+  overflow-y: auto; z-index: 30;
+  display: flex; flex-direction: column;
+}
+/* 必须显式写这条：`[hidden]` 的 display:none 来自 UA 样式表，
+   而上面那条作者样式 `.detail{display:flex}` 会把它盖掉 —— 结果详情面板永远渲染着，
+   在 768px 档它宽 100vw，于是整页大标题被判成"被另一个元素 100% 压住"（covered-text）。
+   这是实测出来的 bug，不是猜测。 */
+.detail[hidden] { display: none; }
+.detail-head {
+  position: sticky; top: 0; z-index: 2;
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 14px; align-items: baseline;
+  padding: 16px 20px; background: var(--card);
+  border-bottom: 2px solid var(--ink);
+}
+.detail-no { font-family: var(--num); font-variant-numeric: tabular-nums; font-size: var(--s-24); font-variant-numeric: tabular-nums; }
+.detail-title h2 { font-family: var(--ui); font-size: var(--s-24); font-variation-settings: "wdth" 92; }
+.detail-title p { font-family: var(--ui); font-size: var(--s-13); color: var(--ink-3); }
+.detail-body { padding: 18px 20px 60px; }
+
+.viewer { margin-bottom: 22px; }
+.viewer-tabs { display: flex; gap: 0; margin-bottom: 8px; }
+.viewer-tabs button {
+  font-family: var(--num); font-variant-numeric: tabular-nums; font-size: var(--s-13);
+  padding: 5px 12px; cursor: pointer; background: transparent;
+  border: 1px solid var(--rule-2); border-right: none; border-radius: 0; color: var(--ink-2);
+}
+.viewer-tabs button:last-child { border-right: 1px solid var(--rule-2); }
+.viewer-tabs button[aria-pressed="true"] { background: var(--ink); color: var(--card); border-color: var(--ink); }
+.viewer-stage { background: #fff; overflow-y: auto; max-height: 62vh; }
+.viewer-stage img { width: 100%; display: block; }
+.viewer-strip { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+.viewer-strip button { padding: 0; border: none; background: none; cursor: pointer; width: 64px; }
+.viewer-strip button[aria-pressed="true"] { outline: 2px solid var(--ink); outline-offset: 1px; }
+.viewer-strip img { width: 100%; display: block; aspect-ratio: 16/10; object-fit: cover; object-position: top; }
+.viewer-note { font-family: var(--num); font-variant-numeric: tabular-nums; font-size: var(--s-13); color: var(--ink-3); margin-top: 6px; }
+
+.open-proto {
+  display: inline-block; margin-bottom: 20px;
+  font-family: var(--num); font-variant-numeric: tabular-nums; font-size: var(--s-14);
+  padding: 9px 15px; background: var(--ink); color: var(--card); text-decoration: none;
+}
+.open-proto[aria-disabled="true"] { background: var(--rule-2); color: var(--ink-3); pointer-events: none; }
+
+.fields { border-top: 2px solid var(--ink); }
+.field { padding: 12px 0; border-bottom: 1px solid var(--rule); }
+.field dt { font-size: var(--s-13); color: var(--ink-3); margin-bottom: 4px; }
+.field dd { font-size: var(--s-16); color: var(--ink); }
+
+.gate-box { margin-bottom: 20px; }
+.gate-line {
+  display: flex; flex-wrap: wrap; gap: 6px; align-items: center;
+  font-family: var(--num); font-variant-numeric: tabular-nums; font-size: var(--s-13); color: var(--ink-2);
+}
+.gate-rules { margin-top: 8px; font-family: var(--num); font-variant-numeric: tabular-nums; font-size: var(--s-13); color: var(--ink-3); line-height: 1.7; }
+.gate-rules b { color: var(--fail); font-weight: 500; }
+.gate-rules i { color: var(--warn); font-style: normal; }
+
+.parts { margin: 0 0 18px; border-top: 2px solid var(--ink); }
+.parts li { padding: 9px 0; border-bottom: 1px solid var(--rule); font-size: var(--s-16); }
+.parts span { font-size: var(--s-13); color: var(--ink-3); display: block; margin-bottom: 2px; }
+
+@media (max-width: 1180px) {
+  .mast { grid-template-columns: 1fr; align-items: start; }
+  /* 不要再把 h1 降到 34px：768px 档 34px 只有 4.4vw，闸门会判首屏没有主导元素。
+     保持 clamp(34px, 5.2vw, 74px)，768px 档得 39.9px / 5.2vw。 */
+  .mast h1 { max-width: 20ch; }
+}
+@media (max-width: 980px) {
+  .bench { grid-template-columns: 1fr; }
+  .rail {
+    position: static; max-height: none; border-right: none;
+    border-bottom: 2px solid var(--ink); padding: 18px var(--pad);
+  }
+  .row { grid-template-columns: 46px minmax(0, 1fr); }
+  .shots { grid-column: 2 / -1; }
+  .row-foot { grid-column: 2 / -1; }
+  .no { font-size: var(--s-20); }
+  .detail { width: 100vw; }
+}
+@media (max-width: 620px) {
+  :root { --pad: 16px; }
+  .main { padding: 16px var(--pad) 60px; }
+  .mast { padding: 26px var(--pad) 16px; }
+  .mast h1 { font-size: max(28px, 7vw); }
+  .shots { grid-template-columns: 1fr 1fr; gap: 4px; }
+  .shot figcaption { font-size: 11px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important; animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important; scroll-behavior: auto !important;
+  }
+  .row.is-in, .detail.is-in { animation: none; }
+}
+
+/* 详情打开时把台面让出来，别让浮层压住正在看的那一行 */
+@media (min-width: 981px) {
+  body.detail-open .bench { padding-right: min(var(--detail), 42vw); }
+  body.detail-open .rail { position: static; }
+  .detail { box-shadow: -18px 0 0 0 rgba(28, 27, 24, .06); }
+}

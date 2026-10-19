@@ -1,0 +1,534 @@
+@charset "utf-8";
+
+/* ============================================================
+   S09 蜡染价目板（Batik Price Board）· 阿库阿修鞋铺
+   唯一权威值（_specs/_CURRENT-VALUES.md 已核）：
+     招牌黄 #F5C842＝底色 46%（刷了两遍的调和漆）
+     招牌蓝 #1F4E79＝主色与手写字 26%（蓝漆桶底的积垢）
+     炭黑   #151310＝正文与描边 22%（旧铁皮的阴影）
+     锈斑橙 #8A4B24＝四角锈迹 6%（铁皮起泡处）
+   已核对比度：主色对底 5.45:1、正文对底 11.68:1（都过 AA 正文线）；
+   主色填充上的白字 8.66:1（过 AAA）——按钮字色就是它，不自行默认黑白。
+   字体三族，全部自托管于 ../_fonts/，页面里没有一处外网 <link>：
+     LXGW Marker Gothic 霞鹜漫黑 ＝中文主字体、价目大字、分量标注手写层（OFL 1.1）
+     Syne                   ＝拉丁店名与英文副标（OFL 1.1）
+     JetBrains Mono         ＝价格列等宽数字，只出现在 <code> 里（OFL 1.1）
+   整页纹理一律挂伪元素（.board::before / .board::after / .shut::before），
+   body 与 .board 保持纯色——挂到元素自己的 background 上会让对比度检查整条静默跳过。
+   ============================================================ */
+
+:root {
+  --yellow: #F5C842;
+  --blue: #1F4E79;
+  --ink: #151310;
+  --rust: #8A4B24;
+
+  --f-cn: "LXGW Marker Gothic", serif;
+  --f-latin: "Syne", serif;
+  --f-mono: "JetBrains Mono", monospace;
+
+  --pad: 44px;                      /* 外距 44px（字段 5） */
+  --line: 8px;                      /* 基线 8px */
+  --tilt: 1.5deg;                   /* 整列价目自左上向右下倾斜 1.5° */
+  --note-w: 96px;                   /* 每行右侧留给分量标注的 96px */
+  --price-w: 124px;                 /* 双线描边盒固定宽，保证小数点垂直对齐 */
+
+  --fs-tag: 15px;                   /* 只有价目行右侧的 96px 分量标注用这一档 */
+  --fs-meta: 16px;                  /* 元数据层与正文同档：不做 13–14px 的小字层 */
+  --fs-body: 16px;
+  --fs-name: 17px;
+  --fs-h3: 20px;
+  --fs-h2: clamp(26px, 2.2vw, 34px);
+  --fs-claim: clamp(22px, 2.1vw, 32px);
+  --fs-price: clamp(23px, 1.9vw, 27px);
+  --fs-h1: clamp(46px, 6.7vw, 98px);
+
+  --land: cubic-bezier(.1, .8, .2, 1);   /* 刷出曲线：前段快、后段收 */
+  --brush: url("assets/cursor-brush.png") 5 25, pointer;
+}
+
+* { box-sizing: border-box; }
+
+html { background: var(--yellow); }
+
+body {
+  margin: 0;
+  background: var(--yellow);          /* 纯色，纹理全在伪元素上 */
+  color: var(--ink);
+  font-family: var(--f-cn);
+  font-size: var(--fs-body);
+  line-height: 1.8;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+}
+
+p { margin: 0 0 14px; }
+h1, h2, h3 { margin: 0; font-weight: 400; text-wrap: balance; }
+/* 这三档必须显式给字号：h2／h3 的浏览器默认值是 1.5em／1.17em，
+   漏掉就会让 h2 落回 24px，整套字号表当场错位。 */
+h2 { font-size: var(--fs-h2); line-height: 1.35; }
+h3 { font-size: var(--fs-h3); line-height: 1.4; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+img { display: block; max-width: 100%; height: auto; }
+figure { margin: 0; }
+
+code {
+  font-family: var(--f-mono);
+  font-weight: 500;
+  font-size: .92em;
+  letter-spacing: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.sr-only,
+.skip {
+  position: absolute; width: 1px; height: 1px; margin: -1px;
+  padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+}
+.skip { left: -9999px; width: auto; height: auto; }
+.skip:focus {
+  left: 8px; top: 8px; z-index: 99;
+  width: auto; height: auto; margin: 0; padding: 10px 16px;
+  clip-path: none; overflow: visible;
+  background: var(--ink); color: var(--yellow);
+  font-size: var(--fs-meta); text-decoration: none;
+}
+
+.defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+/* ============================================================
+   铁皮板本体
+   ============================================================ */
+.stage { position: relative; overflow-x: clip; }
+
+.board {
+  position: relative;
+  background: var(--yellow);          /* 纯色 */
+  padding-bottom: 150px;              /* 下缘留白：给左下与右下两块锈斑，二者不压任何文字 */
+}
+
+/* ① 墙面镀锌铁的竖向拉丝与水渍：加载时先出（0ms） */
+.board::before {
+  content: ""; position: absolute; inset: 0; z-index: 1;
+  background-image: url("assets/tile-wall-iron.png");
+  background-repeat: repeat;
+  pointer-events: none;
+  animation: grain-in 260ms linear both;
+}
+@keyframes grain-in { from { opacity: 0; } to { opacity: 1; } }
+
+/* ② 调和漆刷了两遍：200ms 后压上，不匀与拉丝透出色块边界 */
+.board::after {
+  content: ""; position: absolute; inset: 0; z-index: 1;
+  background-image: url("assets/tile-paint-mottle.png");
+  background-repeat: repeat;
+  background-size: 320px 320px;
+  pointer-events: none;
+  animation: paint-in 200ms linear 200ms backwards;
+}
+@keyframes paint-in { from { opacity: 0; } to { opacity: .92; } }
+
+/* ③ 锈斑：只长在四角，单角 120×120＝整板约 0.24%（上限是 2%）。
+      上方两角压在内容之下（内容 z-index 3），下方两角抬到内容之上，
+      但它们落在 .board 的 150px 下缘留白里，不压任何文字。 */
+.rust {
+  position: absolute; z-index: 2;
+  width: 120px; height: 120px;
+  pointer-events: none;
+  animation: rust-in 320ms var(--land) 380ms backwards;
+}
+.rust-tl { left: 0; top: 0; }
+.rust-tr { right: 0; top: 0; transform: rotate(90deg); }
+.rust-bl { left: 0; bottom: 0; z-index: 5; }
+.rust-br { right: 0; bottom: 0; z-index: 5; transform: rotate(90deg); }
+@keyframes rust-in { from { opacity: 0; scale: .9; } to { opacity: 1; scale: 1; } }
+
+/* ============================================================
+   灯箱条：≥1280px 64px，720–1279px 降到 48px
+   灯管中段亮度差 +18%（已烘进位图）；四角 6px 螺丝；表面 2% 灰尘
+   ============================================================ */
+.lampbox {
+  position: relative; z-index: 4;
+  height: 64px;
+  background: var(--ink);             /* 纯色：灯管暗下去时露出的就是这块底 */
+  overflow: hidden;
+}
+.lamp-img { width: 100%; height: 100%; object-fit: cover; animation: lamp-in 260ms linear 240ms backwards; }
+.lamp-tight { display: none; }
+@keyframes lamp-in { from { opacity: 0; } to { opacity: 1; } }
+
+/* 转场：切档时先暗到 40% 亮度（80ms）再回升（160ms）——只改 opacity */
+.lampbox.is-dip .lamp-img { animation: lamp-dip 240ms linear both; }
+@keyframes lamp-dip { 0% { opacity: 1; } 33% { opacity: .4; } 100% { opacity: 1; } }
+
+.lampbox::after {
+  content: ""; position: absolute; inset: 0; z-index: 2;
+  background-image: url("assets/tile-wall-iron.png");
+  background-repeat: repeat;
+  opacity: .02;                        /* 面板表面 2% 的灰尘不透明度 */
+  pointer-events: none;
+}
+.screw {
+  position: absolute; z-index: 3;
+  width: 6px; height: 6px;
+  background: var(--ink);
+  animation: screw-in 200ms steps(2) 480ms backwards;
+}
+.screw::after { content: ""; position: absolute; left: 1px; top: 1px; width: 2px; height: 2px; background: var(--yellow); }
+.screw-1 { left: 10px; top: 9px; }
+.screw-2 { right: 10px; top: 9px; }
+.screw-3 { left: 10px; bottom: 9px; }
+.screw-4 { right: 10px; bottom: 9px; }
+@keyframes screw-in { from { opacity: 0; } to { opacity: 1; } }
+
+/* ============================================================
+   板头（手绘招牌区）：上留 86px，正好让开上缘 120px 的锈斑
+   ============================================================ */
+.sign { position: relative; z-index: 3; padding: 86px var(--pad) 40px; }
+
+.sign h1 {
+  font-size: var(--fs-h1);
+  line-height: 1.02;
+  letter-spacing: -.012em;
+  color: var(--ink);
+  animation: h1-in 320ms var(--land) 80ms backwards;
+}
+@keyframes h1-in {
+  from { opacity: 0; transform: rotate(-2.2deg) translate(-8px, -6px); }
+  to   { opacity: 1; transform: rotate(-0.4deg); }
+}
+
+.sign-latin {
+  margin: 14px 0 0;
+  font-family: var(--f-latin);
+  font-weight: 700;
+  font-size: 16px;                    /* ≥15px：不做成 14px 的字距微标签 */
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--blue);
+  animation: rise-in 300ms var(--land) 160ms backwards;
+}
+
+.claim {
+  margin: 22px 0 0;
+  font-size: var(--fs-claim);
+  line-height: 1.5;
+  color: var(--ink);
+  animation: rise-in 300ms var(--land) 240ms backwards;
+}
+
+.sign-act { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 24px; margin-top: 26px; }
+.sign-note {
+  flex: 1 1 300px;
+  margin: 0;
+  font-size: var(--fs-meta);
+  line-height: 1.65;
+  color: var(--ink);
+  animation: rise-in 300ms var(--land) 320ms backwards;
+}
+@keyframes rise-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+.btn, .cat {
+  font-family: inherit;
+  border-radius: 0;
+  cursor: var(--brush);
+  transition: transform 90ms steps(3);
+}
+.btn {
+  min-height: 48px;
+  padding: 12px 22px;
+  border: 0;
+  background: var(--blue);
+  color: #FFFFFF;                     /* 主色填充上的白字：8.66:1，过 AAA */
+  font-size: var(--fs-body);
+  animation: rise-in 300ms var(--land) 320ms backwards;
+}
+.btn:hover { transform: translate(1px, -1px); }
+.btn:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+
+/* ============================================================
+   今天的价目
+   ============================================================ */
+.prices { position: relative; z-index: 3; padding: 44px var(--pad) 0; }
+.prices h2 { color: var(--ink); }
+
+.cat-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; margin-top: 18px; }
+.cat {
+  min-height: 40px; padding: 6px 14px;
+  border: 2px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  font-size: var(--fs-meta);
+}
+.cat.is-on { background: var(--ink); color: var(--yellow); }
+.cat:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+.cat-note { flex: 1 1 300px; margin: 0; font-size: var(--fs-meta); line-height: 1.65; color: var(--ink); }
+
+/* 斜排：整列价目 1.5°；窄屏收到 0.5°，不摆平（斜排是这一案的骨架） */
+.rows-tilt {
+  margin-top: 22px;
+  transform: rotate(var(--tilt));
+  transform-origin: 50% 0;
+  transition: transform 200ms var(--land);
+}
+.rows-tilt.is-push { transform: rotate(var(--tilt)) translateX(16px); }
+
+.rows { column-count: 3; column-gap: 40px; }
+
+.row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0 10px;
+  min-height: 56px;                   /* 价目行固定高 56px */
+  padding-left: var(--start, 4px);    /* 左端手绘起点按固定表错开 4–12px */
+  break-inside: avoid;
+}
+/* 行间分隔：1.5px 手绘抖线位图横向平铺，不是 border 直线。
+   盒高 4px（>1.5px），所以不会被当成 1px 细线；位图的墨核落在 y=2.5–3.6。 */
+.row::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 4px;
+  background-image: url("assets/rule-shake-ink.png");
+  background-repeat: repeat-x;
+  background-size: 512px 6px;
+  background-position: 0 -1px;
+  pointer-events: none;
+}
+
+.row-name { flex: 1 1 auto; min-width: 0; font-size: var(--fs-name); line-height: 1.35; color: var(--blue); }
+.row-note {
+  flex: 0 0 var(--note-w);
+  font-size: var(--fs-tag);
+  line-height: 1.4;
+  color: var(--blue);
+  transform: rotate(-1.2deg);         /* 手写层：与价目大字同一支笔，靠倾斜与蓝墨分层 */
+}
+
+.row-price { position: relative; flex: 0 0 var(--price-w); width: var(--price-w); height: 44px; }
+
+/* 双线不闭合描边：外线 3.5px、内线 2px，两线净间距 3.95px≈4px。
+   缺口画在路径几何里——外线 6.0% 落在左边、内线 7.7% 落在顶边，不在同一边。
+   所以重描只动 stroke-dashoffset，缺口位置在重描结束时保持原处。 */
+#stroke-outer { stroke: var(--ink); stroke-width: 3.5; }
+#stroke-inner { stroke: var(--blue); stroke-width: 2; }
+.trace { position: absolute; left: 0; top: 0; z-index: 0; }
+.row-price code {
+  position: relative; z-index: 1;
+  display: block;
+  padding: 0 22px 0 0;                /* 右端止于 x=446，留在内线墨边 449 以内 */
+  text-align: right;
+  font-size: var(--fs-price);
+  line-height: 44px;
+  color: var(--ink);
+}
+/* 悬停重描一次：500ms 分六段落下（steps(6)） */
+.row.is-retrace .trace { animation: retrace 500ms steps(6) both; }
+@keyframes retrace { from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; } }
+
+/* 滚动静默态：只有加了 .js 才隐藏，JS 挂了或降级时内容始终可见 */
+.js .row { opacity: 0; clip-path: inset(0 100% 0 0); }
+.js .row.is-brushed {
+  opacity: 1; clip-path: inset(0 0 0 0);
+  transition-property: opacity, clip-path, transform;
+  transition-duration: 420ms;         /* 整行 420ms */
+  transition-timing-function: var(--land);
+  transition-delay: var(--d, 0ms);
+}
+
+/* 错误态：常在页面上，不是藏在 JS 分支里 */
+.state {
+  position: relative; z-index: 3;
+  display: block;
+  margin: 26px 0 0;
+  padding: 16px 18px;
+  background: var(--blue);
+  color: var(--yellow);
+  font-size: var(--fs-body);
+  line-height: 1.7;
+}
+.state code { color: var(--yellow); }
+.state-tag {
+  display: inline-block;
+  margin-right: 8px;
+  padding: 1px 8px;
+  background: var(--yellow);
+  color: var(--blue);
+  font-size: var(--fs-meta);
+}
+
+/* 字段 12：左下角被涂掉的手写错字。三层黑漆，最新那层比旧层小 1 毫米（≈3.78px） */
+.repaint { position: relative; z-index: 3; margin: 30px 0 0 0; padding-left: 132px; min-height: 96px; }
+.blot { position: absolute; background: var(--ink); }
+.blot-3 { left: 8px; top: 6px; width: 92px; height: 46px; }
+.blot-2 { left: 10px; top: 9px; width: 88px; height: 42px; }
+.blot-1 { left: 12px; top: 12px; width: 84px; height: 38px; }
+.repaint-ghost {
+  position: absolute; left: 22px; top: 20px; z-index: 2;
+  font-size: var(--fs-h3);
+  line-height: 1;
+  color: rgba(245, 200, 66, .28);     /* 只透出一点旧笔画；透明度 <0.99，不参与对比度判罚 */
+  transform: rotate(-3deg);
+}
+.repaint-ghost code { font-size: 1em; color: inherit; }
+.repaint-note { margin: 0; font-size: var(--fs-meta); line-height: 1.7; color: var(--ink); }
+.repaint-note code { color: var(--blue); }
+
+/* ============================================================
+   分量标注
+   ============================================================ */
+.portions { position: relative; z-index: 3; padding: 56px var(--pad); }
+.portions h2 { color: var(--ink); }
+.portions-lead { margin: 14px 0 0; max-width: 62ch; }
+
+.notes { margin: 22px 0 0; max-width: 72ch; }
+.notes li { margin: 0 0 12px; padding-left: 18px; position: relative; }
+.notes li::before {                     /* 手绘点，不是项目符号字体 */
+  content: ""; position: absolute; left: 0; top: .78em;
+  width: 8px; height: 3px; background: var(--blue);
+}
+.notes b { font-weight: 400; color: var(--blue); }
+
+.portions h3 { margin: 34px 0 0; font-size: var(--fs-h3); color: var(--ink); }
+
+/* 字段 6 的图标逻辑：手绘描边符号，线宽 3.6px（区间 3.2–4.4），方头端点，
+   最外层用 0.5px 硬边 drop-shadow 把油墨向外扩 0.5px——模拟油漆堆积。
+   §9.3：drop-shadow 只查 boxShadow，这里本来也不是投影，是描边外扩。 */
+.tools {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 26px 24px; margin-top: 22px;
+}
+.tools li { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; align-items: start; }
+.ico { grid-row: 1 / span 2; width: 52px; height: 52px; filter: drop-shadow(.5px .5px 0 var(--ink)); }
+.ico path { fill: none; stroke: var(--ink); stroke-width: 3.6; stroke-linecap: square; stroke-linejoin: miter; vector-effect: non-scaling-stroke; }
+.tools b { font-weight: 400; font-size: var(--fs-name); line-height: 1.3; color: var(--blue); }
+.tools span { font-size: var(--fs-meta); line-height: 1.6; color: var(--ink); }
+
+/* ============================================================
+   空状态：今天没开门（蓝漆满幅）
+   ============================================================ */
+.shut {
+  position: relative; z-index: 3;
+  margin-top: 0;
+  padding: 56px var(--pad);
+  background: var(--blue);            /* 纯色 */
+  color: var(--yellow);
+}
+.shut::before {
+  content: ""; position: absolute; inset: 0;
+  background-image: url("assets/tile-paint-mottle.png");
+  background-repeat: repeat; background-size: 320px 320px;
+  opacity: .3; pointer-events: none;
+}
+/* §9.4：蓝底分区里，每个后代都在自己的作用域里重新声明颜色，不靠继承 */
+.shut > * { position: relative; }
+.shut h2, .shut h2 code { color: var(--yellow); }
+.shut-copy { max-width: 62ch; font-size: var(--fs-h3); line-height: 1.6; color: var(--yellow); }
+.shut-note { max-width: 68ch; margin: 0; font-size: var(--fs-meta); line-height: 1.7; color: var(--yellow); }
+.shut code { color: var(--yellow); }
+
+/* ============================================================
+   印版区：三色丝网压实拍照片（黄版＝板底色本身，故 PNG 带透明）
+   ============================================================ */
+.plates { position: relative; z-index: 3; padding: 56px var(--pad) 0; }
+.plates h2 { color: var(--ink); }
+.plates-intro { margin: 16px 0 0; max-width: 68ch; }
+.plate-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px 32px; margin-top: 30px; align-items: start; }
+.plate img { width: 100%; height: auto; background: transparent; }
+.plate figcaption { margin-top: 12px; }
+.plate-cap { display: block; font-size: var(--fs-meta); line-height: 1.7; color: var(--ink); }
+.plate-i { display: block; margin-top: 4px; font-size: var(--fs-meta); color: var(--blue); }
+.plate-i code { color: var(--blue); }
+.plates-src { margin: 34px 0 0; font-size: var(--fs-meta); line-height: 1.7; color: var(--ink); }
+.plates-src code { color: var(--blue); }
+
+/* ============================================================
+   页脚：一条 12px 墨条切过去，底面仍是板自己的黄
+   ============================================================ */
+.foot-rule { position: relative; z-index: 3; height: 12px; background: var(--ink); }
+.foot { position: relative; z-index: 3; padding: 48px var(--pad) 0; }
+.foot-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 40px; }
+.foot h3 { margin: 0 0 8px; font-size: var(--fs-h3); color: var(--ink); }
+.foot p { margin: 0; font-size: var(--fs-meta); line-height: 1.7; color: var(--ink); }
+.foot-line {
+  margin: 36px 0 0;
+  font-size: var(--fs-meta);
+  line-height: 1.7;
+  color: var(--ink);
+}
+.foot-line code { color: var(--blue); }
+
+/* 滚动进场：与价目行同一套，位移更小 */
+.js .plate, .js .tools li, .js .repaint, .js .shut, .js .foot {
+  opacity: 0; transform: translateY(10px);
+}
+.js .plate.is-brushed, .js .tools li.is-brushed, .js .repaint.is-brushed,
+.js .shut.is-brushed, .js .foot.is-brushed {
+  opacity: 1; transform: none;
+  transition-property: opacity, transform;
+  transition-duration: 320ms;
+  transition-timing-function: var(--land);
+  transition-delay: var(--d, 0ms);
+}
+
+/* ============================================================
+   断点一：720–1279px —— 价目折为两列，灯箱 64px → 48px，
+   分量标注并入价格右侧同一行
+   ============================================================ */
+@media (max-width: 1279px) {
+  .rows { column-count: 2; }
+  .lampbox { height: 48px; }
+  .lamp-wide { display: none; }
+  .lamp-tight { display: block; }
+  .row { flex-wrap: wrap; }
+  .row-name { flex: 1 1 100%; }        /* 名称独占一行，标注与价目并到下一行 */
+  .row-note { flex: 0 1 auto; }
+  .row-price { margin-left: auto; }
+  .tools { grid-template-columns: repeat(2, 1fr); }
+  .plate-grid { grid-template-columns: repeat(2, 1fr); gap: 34px 28px; }
+}
+
+/* ============================================================
+   断点二：<720px —— 单列纵向；倾斜角收到 0.5°（不摆平）；
+   价目行高 56px → 64px 以容纳两行标注
+   ============================================================ */
+@media (max-width: 719px) {
+  :root { --pad: 16px; --tilt: .5deg; }
+  .sign { padding-top: 70px; }
+  .rows { column-count: 1; }
+  .row { min-height: 64px; padding-top: 8px; padding-bottom: 8px; flex-wrap: wrap; }
+  .row-name { flex: 1 1 100%; }
+  .row-note { flex: 0 1 auto; }
+  .row-price { margin-left: auto; }
+  .tools { grid-template-columns: 1fr; }
+  .plate-grid { grid-template-columns: 1fr; gap: 32px; }
+  .foot-grid { grid-template-columns: 1fr; gap: 24px; }
+  .repaint { padding-left: 0; padding-top: 62px; }
+  .blot-3 { left: 8px; top: 6px; }
+  .repaint-ghost { left: 22px; top: 20px; }
+  .btn { width: 100%; }
+  .cat { flex: 1 1 auto; }
+}
+
+/* ============================================================
+   动效退让：不否掉签名机制，只把它换成不位移的版本并保留数值。
+     重描（500ms / steps(6)） → 描边一次性显示：外线 3.5px、内线 2px 与
+       6.0%／7.7% 两处缺口位置原封不动，重描改成 120ms 不透明度切换；
+     逐段刷出（420ms，每段 70ms） → 120ms 一次性到位，仍按 70ms 起错开；
+     灯箱 40% → 100% 的亮度回升保留（240ms：80ms 下、160ms 上）。
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+
+  .board::before, .board::after { opacity: 1; }
+  .rust, .lamp-img, .screw, .sign h1, .sign-latin, .claim, .sign-note, .btn { opacity: 1; }
+  .sign h1 { transform: rotate(-.4deg); }
+
+  .js .row, .js .plate, .js .tools li, .js .repaint, .js .shut, .js .foot {
+    opacity: 0; transform: none; clip-path: none;
+    animation: fade-120 120ms linear both !important;
+    animation-delay: var(--d, 0ms) !important;
+  }
+  .lampbox.is-dip .lamp-img { animation: lamp-dip 240ms linear both !important; }
+  .btn:hover, .cat:hover { transform: none; }
+}
+@keyframes fade-120 { from { opacity: 0; } to { opacity: 1; } }

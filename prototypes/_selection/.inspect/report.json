@@ -1,0 +1,977 @@
+{
+ "url": "prototypes/_selection/index.html",
+ "at": "2026-10-19T14:40:39.549Z",
+ "allow": [],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 12,
+   "filled": [
+    0.35,
+    0.3,
+    0.43,
+    0.36,
+    0.44,
+    0.34,
+    0.42,
+    0.38,
+    0.39,
+    0.4,
+    0.35,
+    0.39
+   ],
+   "motion": {
+    "elements": 24,
+    "css": 24,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 13571,
+     "screens": 15.1,
+     "words": 1333,
+     "img": 90,
+     "video": 0,
+     "canvas": 0,
+     "svg": 0,
+     "sections": 0,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 30,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "desktop-fold.jpg",
+      "desktop-fold.jpg",
+      "desktop-fold.jpg",
+      "desktop-fold.jpg",
+      "desktop-fold.jpg",
+      "desktop-fold.jpg",
+      "desktop-fold.jpg",
+      "desktop-fold.jpg"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": []
+    },
+    "hero": {
+     "text": "三十个案，一条渲染口径",
+     "words": 1,
+     "chars": 11,
+     "lines": 2,
+     "size": 74,
+     "vw": 5.1,
+     "font": "Archivo",
+     "weight": 600,
+     "tracking": -0.018,
+     "leading": 1.14,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "left",
+     "widthRatio": 0.4,
+     "top": 83,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "三十个案，一条渲染口径",
+     "words": 1,
+     "lines": 2,
+     "size": 74,
+     "font": "Archivo"
+    },
+    "headings": [
+     {
+      "text": "三十个案，一条渲染口径",
+      "words": 1,
+      "chars": 11,
+      "lines": 2,
+      "size": 74,
+      "vw": 5.1,
+      "font": "Archivo",
+      "weight": 600,
+      "tracking": -0.018,
+      "leading": 1.14,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.4,
+      "top": 83,
+      "tag": "h1",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 1,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": null,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Archivo",
+       "share": 0.62,
+       "mono": false
+      },
+      {
+       "family": "Noto Sans SC",
+       "share": 0.38,
+       "mono": false
+      },
+      {
+       "family": "IBM Plex Mono",
+       "share": 0,
+       "mono": true
+      }
+     ],
+     "familyCount": 3,
+     "sizes": [
+      13,
+      14,
+      16,
+      17,
+      20,
+      24,
+      74
+     ],
+     "sizeCount": 7,
+     "notLoaded": [],
+     "body": {
+      "font": "Noto Sans SC",
+      "size": 16,
+      "leading": 1.62,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 8.2
+     },
+     "measureChars": 136,
+     "max": {
+      "size": 74,
+      "vw": 5.1,
+      "font": "Archivo",
+      "text": "三十个案，一条渲染口径"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [
+      "IBM Plex Mono"
+     ],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.13,
+     "centerShare": 0.05,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#e7e7e2",
+     "bodyBgHsl": {
+      "h": 60,
+      "s": 0.09,
+      "l": 0.9
+     },
+     "dark": false,
+     "sectionBgs": [],
+     "textColors": [
+      {
+       "color": "#43413b",
+       "share": 0.5
+      },
+      {
+       "color": "#56534b",
+       "share": 0.38
+      },
+      {
+       "color": "#1c1b18",
+       "share": 0.08
+      },
+      {
+       "color": "#6b4e0d",
+       "share": 0.02
+      },
+      {
+       "color": "#24453c",
+       "share": 0.02
+      }
+     ],
+     "button": {
+      "bg": "#1c1b18",
+      "hsl": {
+       "h": 45,
+       "s": 0.08,
+       "l": 0.1
+      },
+      "fg": "#f2f2ee"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 2,
+     "inHero": 2,
+     "radius": 0,
+     "height": 46,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "跳到方案清单",
+      "清空筛选"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 30,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 0,
+     "fixed": false,
+     "height": 402,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "archivo",
+     "noto sans sc",
+     "ibm plex mono"
+    ]
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 12,
+   "filled": [
+    0.18,
+    0.55,
+    0.76,
+    0.63,
+    0.73,
+    0.74,
+    0.69,
+    0.75,
+    0.64,
+    0.68,
+    0.58,
+    0.64
+   ],
+   "motion": {
+    "elements": 12,
+    "css": 12,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 28872,
+     "screens": 28.2,
+     "words": 1333,
+     "img": 90,
+     "video": 0,
+     "canvas": 0,
+     "svg": 0,
+     "sections": 0,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 90,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "desktop-fold.jpg",
+      "tablet-fold.jpg",
+      "mobile-fold.jpg",
+      "desktop-fold.jpg",
+      "tablet-fold.jpg",
+      "mobile-fold.jpg",
+      "desktop-fold.jpg",
+      "tablet-fold.jpg"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": []
+    },
+    "hero": {
+     "text": "三十个案，一条渲染口径",
+     "words": 1,
+     "chars": 11,
+     "lines": 2,
+     "size": 39.9,
+     "vw": 5.2,
+     "font": "Archivo",
+     "weight": 600,
+     "tracking": -0.018,
+     "leading": 1.14,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "left",
+     "widthRatio": 0.54,
+     "top": 83,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "三十个案，一条渲染口径",
+     "words": 1,
+     "lines": 2,
+     "size": 39.9,
+     "font": "Archivo"
+    },
+    "headings": [
+     {
+      "text": "三十个案，一条渲染口径",
+      "words": 1,
+      "chars": 11,
+      "lines": 2,
+      "size": 39.9,
+      "vw": 5.2,
+      "font": "Archivo",
+      "weight": 600,
+      "tracking": -0.018,
+      "leading": 1.14,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.54,
+      "top": 83,
+      "tag": "h1",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 1,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": null,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Archivo",
+       "share": 0.62,
+       "mono": false
+      },
+      {
+       "family": "Noto Sans SC",
+       "share": 0.38,
+       "mono": false
+      },
+      {
+       "family": "IBM Plex Mono",
+       "share": 0,
+       "mono": true
+      }
+     ],
+     "familyCount": 3,
+     "sizes": [
+      13,
+      14,
+      16,
+      17,
+      20,
+      24,
+      40
+     ],
+     "sizeCount": 7,
+     "notLoaded": [],
+     "body": {
+      "font": "Noto Sans SC",
+      "size": 16,
+      "leading": 1.62,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 8.2
+     },
+     "measureChars": 100,
+     "max": {
+      "size": 39.9,
+      "vw": 5.2,
+      "font": "Archivo",
+      "text": "三十个案，一条渲染口径"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [
+      "IBM Plex Mono"
+     ],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.13,
+     "centerShare": 0.05,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#e7e7e2",
+     "bodyBgHsl": {
+      "h": 60,
+      "s": 0.09,
+      "l": 0.9
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#ffffff",
+       "top": 1267,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#43413b",
+       "share": 0.5
+      },
+      {
+       "color": "#56534b",
+       "share": 0.38
+      },
+      {
+       "color": "#1c1b18",
+       "share": 0.08
+      },
+      {
+       "color": "#6b4e0d",
+       "share": 0.02
+      },
+      {
+       "color": "#24453c",
+       "share": 0.02
+      }
+     ],
+     "button": {
+      "bg": "#1c1b18",
+      "hsl": {
+       "h": 45,
+       "s": 0.08,
+       "l": 0.1
+      },
+      "fg": "#f2f2ee"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 2,
+     "inHero": 1,
+     "radius": 0,
+     "height": 46,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "跳到方案清单"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 90,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 0,
+     "fixed": false,
+     "height": 425,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "archivo",
+     "noto sans sc",
+     "ibm plex mono"
+    ]
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 12,
+   "filled": [
+    0.47,
+    0.49,
+    0.5,
+    0.51,
+    0.65,
+    0.65,
+    0.6,
+    0.52,
+    0.56,
+    0.55,
+    0.64,
+    0.48
+   ],
+   "motion": {
+    "elements": 13,
+    "css": 13,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "page": {
+     "height": 22008,
+     "screens": 26.1,
+     "words": 1333,
+     "img": 90,
+     "video": 0,
+     "canvas": 0,
+     "svg": 0,
+     "sections": 0,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 30,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "desktop-fold.jpg",
+      "desktop-fold.jpg",
+      "desktop-fold.jpg",
+      "desktop-fold.jpg",
+      "desktop-fold.jpg",
+      "desktop-fold.jpg",
+      "desktop-fold.jpg",
+      "desktop-fold.jpg"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": []
+    },
+    "hero": {
+     "text": "三十个案，一条渲染口径",
+     "words": 1,
+     "chars": 11,
+     "lines": 2,
+     "size": 28,
+     "vw": 7.2,
+     "font": "Archivo",
+     "weight": 600,
+     "tracking": -0.018,
+     "leading": 1.14,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "left",
+     "widthRatio": 0.75,
+     "top": 63,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "三十个案，一条渲染口径",
+     "words": 1,
+     "lines": 2,
+     "size": 28,
+     "font": "Archivo"
+    },
+    "headings": [
+     {
+      "text": "三十个案，一条渲染口径",
+      "words": 1,
+      "chars": 11,
+      "lines": 2,
+      "size": 28,
+      "vw": 7.2,
+      "font": "Archivo",
+      "weight": 600,
+      "tracking": -0.018,
+      "leading": 1.14,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.75,
+      "top": 63,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "30",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 24,
+      "vw": 6.2,
+      "font": "Archivo",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.62,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.23,
+      "top": 331,
+      "tag": "dd",
+      "kind": "statement"
+     },
+     {
+      "text": "30 / 30",
+      "words": 3,
+      "chars": 7,
+      "lines": 1,
+      "size": 24,
+      "vw": 6.2,
+      "font": "Archivo",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.62,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.23,
+      "top": 331,
+      "tag": "dd",
+      "kind": "statement"
+     },
+     {
+      "text": "26",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 24,
+      "vw": 6.2,
+      "font": "Archivo",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.62,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.23,
+      "top": 331,
+      "tag": "dd",
+      "kind": "statement"
+     },
+     {
+      "text": "271",
+      "words": 1,
+      "chars": 3,
+      "lines": 1,
+      "size": 24,
+      "vw": 6.2,
+      "font": "Archivo",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.62,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.23,
+      "top": 331,
+      "tag": "dd",
+      "kind": "statement"
+     }
+    ],
+    "headingSummary": {
+     "count": 5,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 4,
+     "centered": 0,
+     "medianWords": 1,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Archivo",
+       "share": 0.62,
+       "mono": false
+      },
+      {
+       "family": "Noto Sans SC",
+       "share": 0.38,
+       "mono": false
+      },
+      {
+       "family": "IBM Plex Mono",
+       "share": 0,
+       "mono": true
+      }
+     ],
+     "familyCount": 3,
+     "sizes": [
+      11,
+      13,
+      14,
+      16,
+      17,
+      20,
+      24,
+      28
+     ],
+     "sizeCount": 8,
+     "notLoaded": [],
+     "body": {
+      "font": "Noto Sans SC",
+      "size": 16,
+      "leading": 1.62,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 8.2
+     },
+     "measureChars": 45,
+     "max": {
+      "size": 28,
+      "vw": 7.2,
+      "font": "Archivo",
+      "text": "三十个案，一条渲染口径"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [
+      "IBM Plex Mono"
+     ],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.13,
+     "centerShare": 0.05,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#e7e7e2",
+     "bodyBgHsl": {
+      "h": 60,
+      "s": 0.09,
+      "l": 0.9
+     },
+     "dark": false,
+     "sectionBgs": [],
+     "textColors": [
+      {
+       "color": "#43413b",
+       "share": 0.5
+      },
+      {
+       "color": "#56534b",
+       "share": 0.38
+      },
+      {
+       "color": "#1c1b18",
+       "share": 0.08
+      },
+      {
+       "color": "#6b4e0d",
+       "share": 0.02
+      },
+      {
+       "color": "#24453c",
+       "share": 0.02
+      }
+     ],
+     "button": {
+      "bg": "#1c1b18",
+      "hsl": {
+       "h": 45,
+       "s": 0.08,
+       "l": 0.1
+      },
+      "fg": "#f2f2ee"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 2,
+     "inHero": 1,
+     "radius": 0,
+     "height": 46,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "跳到方案清单"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 30,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 0,
+     "fixed": false,
+     "height": 388,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "archivo",
+     "noto sans sc",
+     "ibm plex mono"
+    ]
+   },
+   "consoleErrors": []
+  }
+ ],
+ "findings": [
+  {
+   "level": "WARN",
+   "id": "no-footage",
+   "width": 1440,
+   "message": "No video anywhere on the page.",
+   "fix": "Look for one honest clip with scripts/assets.mjs --video (the place, the material, the process) and use it as a muted loop with a poster frame. Defend its absence only if no clip fits the subject."
+  },
+  {
+   "level": "WARN",
+   "id": "measure",
+   "width": 1440,
+   "message": "Longest paragraph runs about 136 characters per line.",
+   "fix": "Cap paragraphs at 45–75 characters (max-width: 60ch).",
+   "alsoAt": [
+    768
+   ]
+  }
+ ],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "D:\\Web\\style\\prototypes\\_selection\\.inspect\\desktop-fold.jpg",
+   "pages": [
+    "D:\\Web\\style\\prototypes\\_selection\\.inspect\\desktop-page-01.jpg",
+    "D:\\Web\\style\\prototypes\\_selection\\.inspect\\desktop-page-02.jpg",
+    "D:\\Web\\style\\prototypes\\_selection\\.inspect\\desktop-page-03.jpg"
+   ]
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "D:\\Web\\style\\prototypes\\_selection\\.inspect\\tablet-fold.jpg",
+   "pages": [
+    "D:\\Web\\style\\prototypes\\_selection\\.inspect\\tablet-page-01.jpg",
+    "D:\\Web\\style\\prototypes\\_selection\\.inspect\\tablet-page-02.jpg"
+   ]
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "D:\\Web\\style\\prototypes\\_selection\\.inspect\\mobile-fold.jpg",
+   "pages": [
+    "D:\\Web\\style\\prototypes\\_selection\\.inspect\\mobile-page-01.jpg",
+    "D:\\Web\\style\\prototypes\\_selection\\.inspect\\mobile-page-02.jpg"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>青柠挖空墙 · 七个洞口｜Lime Knockout Wall</title>
+<meta name="description" content="青柠挖空墙是一面被 45° 与 135° 硬边冲切出七个洞口的层压塑料墙：跨四栏的最大洞口、只占一栏并故意留空的角、8px 斜纹相位，以及洞口 05 的 MASK-05 兜底状态。">
+<link rel="stylesheet" href="../_fonts/css/bricolage-vf__wdth-wght.css">
+<link rel="stylesheet" href="../_fonts/css/glow-sans-sc-s12__400-500.css">
+<link rel="stylesheet" href="../_fonts/css/jetbrains-mono__500.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#wall">跳过面板铭牌，直达七个洞口</a>
+<div class="sheet">
+
+<header class="plate-head">
+  <div class="plate-rail">
+    <p class="rail-spec">冲切样板 A 版 · 8 栏栅格 · 6px 基线 · 洞口间隙按 12 / 28 / 44px 三级跳变 · 斜纹只允许 45° 与 135°</p>
+    <p class="rail-count">已凿开 <code>03</code> / <code>07</code></p>
+    <p class="rail-slot">当前关卡 <code>03</code> 青柠管道</p>
+  </div>
+  <div class="head-grid">
+    <div class="head-left">
+      <h1>青柠挖空墙</h1>
+      <p class="strip-latin" aria-hidden="true">Lime Knockout Wall</p>
+    </div>
+    <div class="head-right">
+      <p class="claim">这面墙有七个洞，凿开三个就算通关</p>
+      <div class="controls">
+        <span class="btn-slot"><button class="btn" id="go-03" type="button">切到第 3 关：青柠管道</button></span>
+        <span class="btn-slot"><button class="btn btn-plain" id="reset-wall" type="button">把七个洞口复位到未凿状态</button></span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="wall-stage" id="wall" aria-labelledby="wall-h">
+  <h2 id="wall-h">七个洞口</h2>
+  <p class="sec-note">七个洞口按 3 / 2 / 1 / 1 的行数递减错位堆叠，最大的一格跨 4 栏，最小的一格只占 1 栏并故意留空；整面墙的重心压在版面左侧 38% 处。滚动到 60% 时第一层向右平移 40px，露出斜纹方向翻转的第二层。</p>
+
+  <div class="wall-stack" id="wall-stack">
+    <div class="layer-2" aria-hidden="true"></div>
+    <div class="layer-1">
+      <div class="wall">
+        <article class="opening op-01" id="op-01">
+          <div class="knock"><div class="face">
+            <code class="op-no">01</code>
+            <h3 class="op-name">直切练习场</h3>
+            <p class="op-note">上沿一条 45° 斜切，跨两栏，是这面墙的基准角。</p>
+            <p class="op-state">已凿开</p>
+          </div></div>
+        </article>
+        <article class="opening op-02 is-135" id="op-02">
+          <div class="knock"><div class="face">
+            <code class="op-no">02</code>
+            <h3 class="op-name">高台跳格</h3>
+            <p class="op-note">整格下移 82px，下沿 135° 收边，跳上去之前先看清落点。</p>
+            <p class="op-state">未开</p>
+          </div></div>
+        </article>
+        <article class="opening op-03" id="op-03">
+          <div class="knock"><div class="face">
+            <code class="op-no">03</code>
+            <h3 class="op-name">青柠管道</h3>
+            <p class="op-note">跨四栏的最大洞口，斜纹角度与邻格相反；管道从这一格穿到第二层。</p>
+            <p class="op-state">当前关卡</p>
+          </div></div>
+        </article>
+        <article class="opening op-04" id="op-04">
+          <div class="knock"><div class="face">
+            <code class="op-no">04</code>
+            <h3 class="op-name">斜纹回廊</h3>
+            <p class="op-note">斜纹相位每格错开 8px，走过一排接缝会跳一格。</p>
+            <p class="op-state">已凿开</p>
+          </div></div>
+        </article>
+        <article class="opening op-05 is-135" id="op-05">
+          <div class="knock"><div class="face">
+            <code class="op-no">05</code>
+            <h3 class="op-name">丝印暗房</h3>
+            <p class="op-note">斜纹贴图取片失败，已用 45° 单色斜纹兜底，热区仍可点击。</p>
+            <p class="op-state">兜底中 · <code>MASK-05</code></p>
+          </div></div>
+        </article>
+        <article class="opening op-06" id="op-06">
+          <div class="knock"><div class="face">
+            <code class="op-no">06</code>
+            <h3 class="op-name">翻面空腔</h3>
+            <p class="op-note">洞口翻过来是第二层的另一套顶点，斜纹方向跟着翻转。</p>
+            <p class="op-state">未开</p>
+          </div></div>
+        </article>
+        <article class="opening op-07" id="op-07">
+          <div class="knock"><div class="face">
+            <code class="op-no">07</code>
+            <h3 class="op-name">留空的角</h3>
+            <p class="op-note">这一格还没开。凑齐三条斜线就凿得动。</p>
+            <p class="op-state">未开</p>
+          </div></div>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <div class="wall-log">
+    <p class="log-line"><b>冲切</b>七个洞口按 <code>01–07</code> 顺序落下，每洞 90ms，缓动 steps(3)；落位前先出现 0.5px 米白翻边，再出现洞口里的画面。</p>
+    <p class="log-line"><b>平移</b>滚动到 60% 时第一层向右平移 40px，480ms，过冲后回弹 6px，露出斜纹翻转的第二层；平移只走 transform，不逐帧改顶点。</p>
+    <p class="log-line"><b>降级</b>系统设了减少动态效果时，平移瞬时完成、洞口直接落位，关卡切换的闪烁压到 100ms 不透明度变化；窄屏的再发明形式见状态区。</p>
+    <p class="log-line is-error"><strong>错误码 MASK-05</strong>洞口 05 的斜纹贴图加载失败（错误码 MASK-05），已用 45° 单色斜纹兜底，热区仍可点击。</p>
+    <p class="log-line" id="live-log" role="status">等待操作：当前关卡 03，已凿开 3 个洞口。</p>
+  </div>
+</section>
+
+<section class="levels" aria-labelledby="levels-h">
+  <h2 id="levels-h">洞口索引</h2>
+  <p class="sec-note">热区不小于 44×44px，Tab 顺序按洞口编号 01–07 硬性排列，不跟随版面错位。</p>
+  <table>
+    <caption>洞口 01–07 的斜边方向、斜纹角度与热区尺寸</caption>
+    <thead>
+      <tr>
+        <th scope="col">洞口</th>
+        <th scope="col">关卡</th>
+        <th scope="col">记号</th>
+        <th scope="col" class="col-hide">斜边</th>
+        <th scope="col" class="col-hide">斜纹角度</th>
+        <th scope="col">热区</th>
+        <th scope="col">状态</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><code>01</code></td><td>直切练习场</td><td><span class="glyph g-cut" aria-hidden="true"></span></td><td class="col-hide">上沿 45°</td><td class="col-hide">45°</td><td><code>210×214</code></td><td class="is-open-yes">已凿开</td></tr>
+      <tr><td><code>02</code></td><td>高台跳格</td><td><span class="glyph g-flip" aria-hidden="true"></span></td><td class="col-hide">下沿 135°</td><td class="col-hide">135°</td><td><code>210×164</code></td><td>未开</td></tr>
+      <tr data-current="true"><td><code>03</code></td><td>青柠管道</td><td><span class="glyph g-cut" aria-hidden="true"></span></td><td class="col-hide">上下对切</td><td class="col-hide">45° + 135°</td><td><code>428×322</code></td><td class="is-open-yes">当前关卡</td></tr>
+      <tr><td><code>04</code></td><td>斜纹回廊</td><td><span class="glyph g-flip" aria-hidden="true"></span></td><td class="col-hide">上沿 45°</td><td class="col-hide">45°</td><td><code>316×232</code></td><td class="is-open-yes">已凿开</td></tr>
+      <tr><td><code>05</code></td><td>丝印暗房</td><td><span class="glyph g-cut" aria-hidden="true"></span></td><td class="col-hide">下沿 135°</td><td class="col-hide">兜底 45° 单色</td><td><code>210×194</code></td><td><code>MASK-05</code></td></tr>
+      <tr><td><code>06</code></td><td>翻面空腔</td><td><span class="glyph g-flip" aria-hidden="true"></span></td><td class="col-hide">上下对切</td><td class="col-hide">135°</td><td><code>316×182</code></td><td>未开</td></tr>
+      <tr><td><code>07</code></td><td>留空的角</td><td><span class="glyph g-void" aria-hidden="true"></span></td><td class="col-hide">只留 1 栏</td><td class="col-hide">45°</td><td><code>106×136</code></td><td>未开</td></tr>
+    </tbody>
+  </table>
+  <div class="sig-rail">
+    <code class="sig-no">01</code><code class="sig-no">02</code><code class="sig-no">03</code><code class="sig-no">04</code><code class="sig-no">05</code><code class="sig-no">06</code><code class="sig-no">07</code>
+    <p class="sig-note">04 与 05 之间的间距比其它编号窄 3px：街机面板丝印常常为躲开螺丝孔而挤掉一点间距，热区不受影响。</p>
+  </div>
+</section>
+
+<section class="plates" aria-labelledby="plates-h">
+  <h2 id="plates-h">分色图版</h2>
+  <p class="sec-note">所有照片先做 <code>#1E2A2E</code> 与 <code>#B5D626</code> 双色分色：青柠版吃亮部、墨绿版吃暗部；再用同一套 45° 八边形遮罩冲切，边缘保留 1px 套色错位，禁止羽化。</p>
+  <ul class="plates">
+    <li class="plate"><figure>
+      <img src="assets/plate-01-carlton-laminate.png" alt="埃托雷·索特萨斯的 Carlton 书架，层压塑料贴面被冲切成错位方块" width="1100" height="1125">
+      <figcaption>埃托雷·索特萨斯 1981 年为 Memphis 设计的 Carlton 书架：图案是被压进塑料里的，所以每一块色板的边缘必然压出一条白线。
+        <span class="ref">Sailko · CC BY 3.0 · Wikimedia Commons</span></figcaption>
+    </figure></li>
+    <li class="plate"><figure>
+      <img src="assets/plate-02-casablanca-laminate.png" alt="Memphis 小组的 Casablanca 书架，层压塑料贴面板的拼缝给出斜边走向" width="1100" height="1467">
+      <figcaption>同一年的 Casablanca 书架，标题里就写着 laminato plastico（层压塑料）。斜边不是画上去的，是贴面板拼缝本身的走向。
+        <span class="ref">Stefano Stabile · CC BY-SA 3.0 · Wikimedia Commons</span></figcaption>
+    </figure></li>
+    <li class="plate"><figure>
+      <img src="assets/plate-03-arcade-panel.png" alt="1984 年 Marble Madness 街机框体，侧板图案用丝网印在贴塑钢板上" width="1100" height="1467">
+      <figcaption>1984 年的 Marble Madness 街机框体。1980 年代街机面板的丝印方向决定了斜纹走向，斜纹是印刷方向而不是装饰花纹。
+        <span class="ref">Halcyanide · CC BY-SA 4.0 · Wikimedia Commons</span></figcaption>
+    </figure></li>
+    <li class="plate"><figure>
+      <img src="assets/plate-04-laminate-counter.png" alt="装饰层压板贴面样张，斜纹与色块压在同一层塑料里" width="1100" height="825">
+      <figcaption>装饰层压板贴面样张。斜纹与色块在同一层塑料里，所以两者之间没有描边，只有一条被压出来的白线。
+        <span class="ref">Андрей Перцев 1967 · CC0 · Wikimedia Commons</span></figcaption>
+    </figure></li>
+    <li class="plate"><figure>
+      <img src="assets/plate-05-formica-counter.png" alt="层压板台面样张，贴面与芯纸压合，切口处露出米白芯纸" width="1100" height="825">
+      <figcaption>层压板台面样张。贴面与芯纸压合后，任何切口都会露出米白的芯纸，这就是全站 0.5px 翻边的来处。
+        <span class="ref">Stilfehler · CC BY-SA 4.0 · Wikimedia Commons</span></figcaption>
+    </figure></li>
+    <li class="plate"><figure>
+      <img src="assets/plate-06-silkscreen-bench.png" alt="丝网印刷工作台上的刮板与油墨，印版方向决定斜纹走向" width="1100" height="806">
+      <figcaption>丝网印刷工作台：刮板与油墨。同一块印版换个走刀方向，斜纹就从 45° 翻成 135°。
+        <span class="ref">Scrud123 · CC BY-SA 3.0 · Wikimedia Commons</span></figcaption>
+    </figure></li>
+  </ul>
+</section>
+
+<section class="states" aria-labelledby="states-h">
+  <h2 id="states-h">状态与兜底</h2>
+  <p class="sec-note">四类状态都在这一屏里可见，不需要点击才出现。</p>
+  <ul class="states">
+    <li class="state state-load">
+      <h3>斜纹取片</h3>
+      <p>七个洞口按 <code>01–07</code> 顺序做冲切落下，每洞 90ms，缓动 steps(3)；落位前先出现 0.5px 米白翻边，再出现洞口里的画面。</p>
+    </li>
+    <li class="state state-empty">
+      <h3>未开的那一格</h3>
+      <p>这一格还没开。凑齐三条斜线就凿得动</p>
+    </li>
+    <li class="state state-error">
+      <h3>错误码 <code>MASK-05</code></h3>
+      <p>洞口 05 的斜纹贴图加载失败（错误码 MASK-05），已用 45° 单色斜纹兜底，热区仍可点击。</p>
+      <div class="state-actions">
+        <span class="btn-slot"><button class="btn btn-small" id="refetch-05" type="button">重取 05 号洞口的斜纹贴图</button></span>
+        <span class="btn-slot"><button class="btn btn-small btn-plain" id="refail-05" type="button">把 05 号洞口退回兜底状态</button></span>
+      </div>
+    </li>
+    <li class="state state-degrade">
+      <h3>减少动态效果</h3>
+      <p>系统设了 <code>prefers-reduced-motion: reduce</code> 时：墙面的 40px 平移与 6px 回弹不再过渡、洞口直接落位、关卡切换的闪烁压到 100ms 不透明度变化。窄屏的再发明形式保留参数——900px 以下改双列错位咬合、互压 16px、斜纹边框收窄到 4px；768px 以下改上下咬合、互压 20px；角度仍只允许 45° 与 135°。</p>
+    </li>
+  </ul>
+</section>
+</main>
+
+<footer>
+  <div class="foot-grid">
+    <div>
+      <h3>使用与核验</h3>
+      <p>每个洞口的热区不小于 44×44px，Tab 顺序按 <code>01–07</code> 硬排，不跟随版面错位。斜纹角度只允许 45° 与 135°，禁止 30°、60° 这类中间值。</p>
+    </div>
+    <div>
+      <h3>颜色与栅格</h3>
+      <p>全站只有一种底色，分区靠挖空层级与斜纹方向完成，没有第二种地面色。主色作填充时字色固定 <code>#111111</code>（11.34:1）；白字压在主色上只有 1.67:1，本页不用。</p>
+    </div>
+    <div>
+      <h3>图版与来源</h3>
+      <p>六张照片取自 Wikimedia Commons，逐张署名与许可见 <code>assets/CREDITS.md</code>。照片内容与页面主题无关，只用于验证双色分色与斜切遮罩的实现方式。</p>
+    </div>
+  </div>
+  <p class="sig">方案 12 · 青柠挖空墙（Lime Knockout Wall）· 孟菲斯集团（Memphis, 1981–1987）· 层压塑料冲切墙面 · 本页为可运行原型，用于验证字段 3 的色彩配比、8 栏栅格与 12 / 28 / 44px 三级间隙、45° 与 135° 的挖空顶点、8px 斜纹、第二层平移与四类状态。</p>
+</footer>
+
+</div>
+<script>
+(function () {
+  var stack = document.getElementById('wall-stack');
+  var live = document.getElementById('live-log');
+  var slot = document.querySelector('.rail-slot');
+  var count = document.querySelector('.rail-count');
+  var op05 = document.getElementById('op-05');
+  var state05 = op05.querySelector('.op-state');
+  var refetch = document.getElementById('refetch-05');
+  var refail = document.getElementById('refail-05');
+  var switched = false, busy = false;
+
+  function say(text) { live.textContent = text; }
+
+  /* 滚动到 60% 时第一层平移 40px；回滚过 25% 再收回去。只加类，位移交给 CSS。 */
+  function shift() {
+    var r = stack.getBoundingClientRect();
+    var span = window.innerHeight + r.height;
+    var progress = span > 0 ? (window.innerHeight - r.top) / span : 0;
+    if (progress >= 0.6) stack.classList.add('is-shifted');
+    else if (progress < 0.25) stack.classList.remove('is-shifted');
+  }
+  var ticking = false;
+  addEventListener('scroll', function () {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () { shift(); ticking = false; });
+  }, { passive: true });
+  shift();
+
+  /* 分区入场：只动 transform 与 opacity，画面任何时刻都不空 */
+  var io = ('IntersectionObserver' in window) ? new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('enter');
+      io.unobserve(e.target);
+    });
+  }, { rootMargin: '0px 0px -8% 0px' }) : null;
+  Array.prototype.forEach.call(document.querySelectorAll('.plate, .state, tbody tr, .sig-rail, .foot-grid > div'), function (el) {
+    if (io) io.observe(el); else el.classList.add('enter');
+  });
+
+  /* 关卡切换：200ms 硬切配 1px 轮廓闪一次 */
+  function flash() {
+    stack.classList.remove('is-switching');
+    void stack.offsetWidth;
+    stack.classList.add('is-switching');
+    setTimeout(function () { stack.classList.remove('is-switching'); }, 220);
+  }
+
+  document.getElementById('go-03').addEventListener('click', function () {
+    if (busy) return;
+    switched = true;
+    flash();
+    slot.innerHTML = '当前关卡 <code>03</code> 青柠管道';
+    document.querySelectorAll('tbody tr').forEach(function (tr) {
+      tr.removeAttribute('data-current');
+      if (tr.querySelector('code').textContent === '03') tr.setAttribute('data-current', 'true');
+    });
+    say('已切到第 3 关：青柠管道。洞口的斜纹相位与邻格相反，管道从这一格穿到第二层。');
+  });
+
+  document.getElementById('reset-wall').addEventListener('click', function () {
+    if (busy) return;
+    switched = false;
+    flash();
+    document.querySelectorAll('.opening .op-state').forEach(function (p) {
+      var no = p.closest('.opening').querySelector('.op-no').textContent;
+      if (no === '05') return;               /* 05 的错误态默认可见，只有在重取之后才改它 */
+      p.textContent = no === '03' ? '未开' : (no === '01' || no === '04') ? '已凿开' : '未开';
+    });
+    document.querySelectorAll('.is-open-yes').forEach(function (td) { td.textContent = '未开'; td.classList.remove('is-open-yes'); });
+    count.innerHTML = '已凿开 <code>00</code> / <code>07</code>';
+    say('七个洞口已复位：01 / 03 / 04 的米白翻边回到 0.5px，留空的那一格仍然只有 1 栏宽。');
+  });
+
+  refetch.addEventListener('click', function () {
+    if (busy) return;
+    busy = true;
+    refetch.setAttribute('aria-busy', 'true');
+    say('正在重取洞口 05 的斜纹贴图：45° 与 135° 两向都要过一遍。');
+    setTimeout(function () {
+      busy = false;
+      refetch.setAttribute('aria-busy', 'false');
+      op05.classList.remove('is-135');
+      state05.textContent = '已重取 · 45°';
+      say('洞口 05 的斜纹贴图已重取成功（45° 与 135° 两向都验过），单色兜底已撤下，热区尺寸不变。');
+    }, 700);
+  });
+
+  refail.addEventListener('click', function () {
+    if (busy) return;
+    op05.classList.add('is-135');
+    state05.innerHTML = '兜底中 · <code>MASK-05</code>';
+    say('洞口 05 又回到兜底状态：洞口 05 的斜纹贴图加载失败（错误码 MASK-05），已用 45° 单色斜纹兜底，热区仍可点击。');
+  });
+})();
+</script>
+</body>
+</html>

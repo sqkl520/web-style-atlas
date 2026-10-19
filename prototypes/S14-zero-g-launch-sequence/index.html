@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>零重力发射序 · 十一枚铝箔标贴的极坐标站位｜发射前任务流</title>
+<meta name="description" content="零重力发射序：十一枚 0.15mm 铝箔标贴共享一个缓慢漂移的虚拟质心，站位由到质心的距离 r（24/40/72/120px）与方位角 θ 定义，左上角常驻质心读数，右下角常驻最近邻三枚标贴。">
+<link rel="stylesheet" href="../_fonts/css/oswald__400-600.css">
+<link rel="stylesheet" href="../_fonts/css/noto-serif-sc__400-700.css">
+<link rel="stylesheet" href="../_fonts/css/space-mono__400-700.css">
+<link rel="stylesheet" href="style.css">
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+<a class="skip" href="#stations">跳到极坐标站位表</a>
+
+<!-- 固定仪表层：左上质心读数、右下最近邻列表。两层都挂 fixed（契约 §9.12：错误态与读数在静态截图里可见） -->
+<div class="hud hud--coord" role="status" aria-live="off">
+  <p class="hud__line"><span class="hud__key">质心</span> <code id="centroid">X-634 / Y-850</code></p>
+  <p class="hud__line"><span class="hud__key">任务段</span> <code id="stage">3 / 7</code> <span class="hud__key">漂移相位</span> <code id="phase">17.4s / 24s</code></p>
+  <p class="hud__line hud__line--fault"><span class="hud__key">状态</span> <code>ZEROG-07</code> 质心同步超时</p>
+</div>
+
+<aside class="hud hud--near" aria-labelledby="near-h">
+  <p class="hud__head" id="near-h">距质心最近的三个标贴</p>
+  <ol class="near">
+    <li><code>A-1117</code> 主发动机预冷 <code>387px</code></li>
+    <li><code>A-1111</code> 载荷舱机械锁 <code>411px</code></li>
+    <li><code>A-1114</code> 电池组均衡充电 <code>413px</code></li>
+  </ol>
+</aside>
+
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="g-valve" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="square"><circle cx="12" cy="12" r="8"/><path d="M12 4.5v4M12 15.5v4M7.2 9.8 12 12.4l4.8-2.6"/><path d="M2.5 12h1.5M20 12h1.5"/></g></symbol>
+    <symbol id="g-pressure" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="square"><path d="M3.4 16.6a9 9 0 0 1 17.2 0"/><path d="M12 16.6 18.2 8.9"/><path d="M2 19.4h20"/><path d="M4.6 13.4h2M17.4 13.4h2"/></g></symbol>
+    <symbol id="g-circuit" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="square"><path d="M2.5 10.5h4.2M17.3 10.5h4.2M8.6 10.5l1.9-4.6h3l1.9 4.6"/><path d="M6.7 10.5v8.2h10.6v-8.2"/><path d="M9.4 21.5h1.4M13.2 21.5h1.4"/></g></symbol>
+    <symbol id="g-gyro" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="square"><circle cx="12" cy="12" r="8.2"/><path d="M12 3.8c1.9 2.4 2.9 5.2 2.9 8.2s-1 5.8-2.9 8.2c-1.9-2.4-2.9-5.2-2.9-8.2s1-5.8 2.9-8.2z"/><path d="M3.8 12h16.4M12 1.6v2.2M12 20.2v2.2"/></g></symbol>
+  </defs>
+</svg>
+
+<header class="masthead">
+  <div class="masthead__label">
+    <h1>零重力发射序</h1>
+    <p class="claim">十一枚标贴共享一个质心，读数就是位置。</p>
+    <p class="meta">贴在舱壁上的铝箔标贴组：0.15mm 厚，边缘 1px 未涂布铝面高光，热压编号凹进 0.3mm。地面是舱内暗蓝黑 <code>#12181D</code>，标贴橙 <code>#E4572E</code>，未涂布铝面 <code>#D8D2C4</code>，热压击凸的背光侧 <code>#8A3320</code> 只画压痕，不承载文字。</p>
+    <p class="cue"><a class="btn" id="jump" href="#a1107">跳到标贴 A-1107：推进剂加注</a></p>
+  </div>
+  <figure class="masthead__plate" data-rise>
+    <img src="assets/plate-10-switch-panel.jpg" width="1000" height="668" alt="老式电子设备控制面板的拨动开关与指示灯微距，双色调压印">
+    <figcaption>舱壁参照照片：老式设备控制面板的拨动开关与指示灯，双色调压印，铝箔反光处叠 8% 平铺颗粒。<span class="ref">Shixart1985 · CC BY 2.0 · <a href="https://commons.wikimedia.org/wiki/File:Vintage_electronic_device_control_panel_with_toggle_switches_and_indicator_light_in_close-up_detail.jpg">Wikimedia Commons</a></span></figcaption>
+  </figure>
+</header>
+
+<main>
+<!-- 舱壁板面：整页纹理只挂 .deck 的伪元素，body 保持纯色（契约 §9.2） -->
+<section class="deck" id="deck" aria-labelledby="deck-h">
+  <h2 id="deck-h">十一枚标贴与质心</h2>
+  <p class="lede">每枚标贴的位置由到质心的距离 r 与方位角 θ 决定，r 按内容质量分 24 / 40 / 72 / 120px 四档，θ 间隔非均匀：最小 26°、最大 61°。质心偏离视口几何中心 6%（1440px 档即左移 86px），并以 48px 半径、24s 周期持续漂移；十一枚标贴作为整体平移，谁都不绕自己的轴转。</p>
+
+  <div class="view" id="view">
+    <div class="field" id="field">
+      <figure class="centroid">
+        <img src="assets/plate-07-speedmaster-dial.jpg" width="1000" height="670" alt="飞行员腕表表盘的刻度、小表盘与计时指针微距，双色调压印">
+        <figcaption><code>质心 634 / 850</code> 基准板</figcaption>
+      </figure>
+
+      <article class="tag tag--foil t120" id="a1107" tabindex="0" data-code="A-1107" style="--i:0;--dx:46.8;--dy:696.2;--w:330;--mh:191;--ux:.067;--uy:.998;--ox:-11;--ord:4">
+        <span class="svc" aria-hidden="true" style="--cell:0"></span>
+        <div class="tag__in">
+          <p class="tag__top"><svg class="gl" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-valve"/></svg><code class="tag__code" data-code="A-1107">A-1107</code><code class="tag__r">r120</code></p>
+          <h3 class="tag__title">推进剂加注</h3>
+          <p class="tag__body">偏二甲肼与四氧化二氮两条管线同时接入，加注速率不超过每分钟 240 升，贮箱液位到位后自动切换补压。</p>
+        </div>
+      </article>
+
+      <article class="tag tag--foil t40" id="a1108" tabindex="0" data-code="A-1108" style="--i:1;--dx:209;--dy:482.5;--w:254;--mh:191;--ux:.397;--uy:.918;--ox:-9;--ord:3">
+        <span class="svc" aria-hidden="true" style="--cell:1"></span>
+        <div class="tag__in">
+          <p class="tag__top"><svg class="gl" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-pressure"/></svg><code class="tag__code" data-code="A-1108">A-1108</code><code class="tag__r">r40</code></p>
+          <h3 class="tag__title">贮箱增压</h3>
+          <p class="tag__body">用氦气把贮箱压力提到 0.32 MPa，保持 90 秒不掉压，才允许进入下一步。</p>
+        </div>
+      </article>
+
+      <article class="tag tag--foil t72" id="a1109" tabindex="0" data-code="A-1109" style="--i:2;--dx:-279.4;--dy:482.3;--w:310;--mh:191;--ux:-.501;--uy:.865;--ox:-4;--ord:5">
+        <span class="svc" aria-hidden="true" style="--cell:2"></span>
+        <div class="tag__in">
+          <p class="tag__top"><svg class="gl" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-gyro"/></svg><code class="tag__code" data-code="A-1109">A-1109</code><code class="tag__r">r72</code></p>
+          <h3 class="tag__title">陀螺平台通电</h3>
+          <p class="tag__body">平台加温到 42℃ 后通电，漂移率连续三分钟低于 0.02 度每小时。</p>
+        </div>
+      </article>
+
+      <article class="tag tag--orange t120" id="a1110" tabindex="0" data-code="A-1110" style="--i:3;--dx:224.8;--dy:-606.2;--w:330;--mh:191;--ux:.348;--uy:-.938;--ox:18;--ord:10">
+        <span class="svc" aria-hidden="true" style="--cell:3"></span>
+        <div class="tag__in">
+          <p class="tag__top"><svg class="gl" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-circuit"/></svg><code class="tag__code" data-code="A-1110">A-1110</code><code class="tag__r">r120</code></p>
+          <h3 class="tag__title">遥测下行链路</h3>
+          <p class="tag__body">S 波段与 C 波段各锁一次，误码率低于十的负六次方，帧同步保持 120 秒。</p>
+        </div>
+      </article>
+
+      <article class="tag tag--foil t40" id="a1111" tabindex="0" data-code="A-1111" style="--i:4;--dx:-401.3;--dy:-87.7;--w:268;--mh:191;--ux:-.977;--uy:-.214;--ox:3;--ord:7">
+        <span class="svc" aria-hidden="true" style="--cell:4"></span>
+        <div class="tag__in">
+          <p class="tag__top"><svg class="gl" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-valve"/></svg><code class="tag__code" data-code="A-1111">A-1111</code><code class="tag__r">r40</code></p>
+          <h3 class="tag__title">载荷舱机械锁</h3>
+          <p class="tag__body">四只锁钩逐一脱开，脱开后行程开关点亮，任一只未到位就退回锁定位。</p>
+        </div>
+      </article>
+
+      <article class="tag tag--foil t72" id="a1112" tabindex="0" data-code="A-1112" style="--i:5;--dx:-337.1;--dy:-409.4;--w:300;--mh:191;--ux:-.636;--uy:-.772;--ox:8;--ord:8">
+        <span class="svc" aria-hidden="true" style="--cell:5"></span>
+        <div class="tag__in">
+          <p class="tag__top"><svg class="gl" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-pressure"/></svg><code class="tag__code" data-code="A-1112">A-1112</code><code class="tag__r">r72</code></p>
+          <h3 class="tag__title">姿控推力器预热</h3>
+          <p class="tag__body">八台推力器各点三次，脉宽 40 毫秒，看推力室温度回升曲线是否重合。</p>
+        </div>
+      </article>
+
+      <article class="tag tag--foil t24" id="a1113" tabindex="0" data-code="A-1113" style="--i:6;--dx:347.6;--dy:-263.9;--w:226;--mh:220;--ux:.796;--uy:-.605;--ox:8;--ord:11">
+        <span class="svc" aria-hidden="true" style="--cell:6"></span>
+        <div class="tag__in">
+          <p class="tag__top"><svg class="gl" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-pressure"/></svg><code class="tag__code" data-code="A-1113">A-1113</code><code class="tag__r">r24</code></p>
+          <h3 class="tag__title">舱压在轨初检</h3>
+          <p class="tag__body">舱压从 101 kPa 降到 70 kPa，检漏 8 分钟，压降不超过 0.4 kPa。</p>
+        </div>
+      </article>
+
+      <article class="tag tag--foil t24" id="a1114" tabindex="0" data-code="A-1114" style="--i:7;--dx:-368.3;--dy:186;--w:212;--mh:191;--ux:-.893;--uy:.451;--ox:0;--ord:6">
+        <span class="svc" aria-hidden="true" style="--cell:7"></span>
+        <div class="tag__in">
+          <p class="tag__top"><svg class="gl" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-circuit"/></svg><code class="tag__code" data-code="A-1114">A-1114</code><code class="tag__r">r24</code></p>
+          <h3 class="tag__title">电池组均衡充电</h3>
+          <p class="tag__body">两组电池轮流恒流充到 28.5 V，单体压差压到 15 mV 以内。</p>
+        </div>
+      </article>
+
+      <article class="tag tag--foil t40" id="a1115" tabindex="0" data-code="A-1115" style="--i:8;--dx:333.8;--dy:253.4;--w:240;--mh:220;--ux:.796;--uy:.605;--ox:-11;--ord:2">
+        <span class="svc" aria-hidden="true" style="--cell:8"></span>
+        <div class="tag__in">
+          <p class="tag__top"><svg class="gl" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-gyro"/></svg><code class="tag__code" data-code="A-1115">A-1115</code><code class="tag__r">r40</code></p>
+          <h3 class="tag__title">质心配平配重</h3>
+          <p class="tag__body">配重块按 8 档滑轨移动，把质心横向偏心压到 6 毫米以内，读数走远端质心寄存器。</p>
+        </div>
+      </article>
+
+      <article class="tag tag--press t72" id="a1116" tabindex="0" data-code="A-1116" style="--i:9;--dx:-118;--dy:-639.2;--w:288;--mh:191;--ux:-.182;--uy:-.983;--ox:12;--ord:9">
+        <span class="svc" aria-hidden="true" style="--cell:9"></span>
+        <div class="tag__in">
+          <p class="tag__top"><svg class="gl" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-circuit"/></svg><code class="tag__code" data-code="A-1116">A-1116</code><code class="tag__r">r72</code></p>
+          <h3 class="tag__title">脐带分离时序</h3>
+          <p class="tag__body">分离信号提前 1.2 秒给出，气路先断、电路后断；顺序反了就是一次中止。</p>
+        </div>
+      </article>
+
+      <article class="tag tag--orange t24" id="a1117" tabindex="0" data-code="A-1117" style="--i:10;--dx:386.8;--dy:0;--w:212;--mh:191;--ux:1;--uy:0;--ox:-8;--ord:1">
+        <span class="svc" aria-hidden="true" style="--cell:10"></span>
+        <div class="tag__in">
+          <p class="tag__top"><svg class="gl" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-valve"/></svg><code class="tag__code" data-code="A-1117">A-1117</code><code class="tag__r">r24</code></p>
+          <h3 class="tag__title">主发动机预冷</h3>
+          <p class="tag__body">液氧流过冷却夹套 240 秒，出口温度低于 90 K 才允许点火。</p>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <p class="legend">读数口径：r 是内容质量档（标贴宽 212–330px，四档对应 24 / 40 / 72 / 120），θ 是该标贴相对质心的方位角，ρ 是换算到 450×700 参考椭圆后的实际距离。橙底 <code>#E4572E</code> 上只排深色墨 <code>#111111</code>（5.13:1），未涂布铝面 <code>#D8D2C4</code> 上排舱内暗蓝黑 <code>#12181D</code>（11.7:1），压痕暗侧 <code>#8A3320</code> 上排铝面银白（5.41:1）。</p>
+</section>
+
+<section class="fault" id="fault" aria-labelledby="fault-h">
+  <h2 id="fault-h">质心同步超时</h2>
+  <p class="fault__line" role="alert" data-rise>质心同步超时（错误码 <code>ZEROG-07</code>）：标贴停在上一帧位置，编号与最近邻列表仍可读，<code>02:14 UTC</code> 下行窗口后自动重同步。</p>
+  <p class="fault__frame">上一帧冻结在质心 <code>X-634 / Y-850</code>、漂移相位 <code>17.4s / 24s</code>；已落位 11 / 11 枚，任务段停在 3 / 7 段（链路段），等待第 4 个数据包。</p>
+  <p class="cue"><button class="btn" type="button" id="resync">把重同步排进 02:14 UTC 下行窗口</button></p>
+  <p class="packet" id="packet">遥测链路上还没有第 4 个数据包。下一次下行窗口是 02:14 UTC。</p>
+</section>
+
+<section class="plates-sec" aria-labelledby="plates-h">
+  <h2 id="plates-h">舱内与发射场图版</h2>
+  <p class="lede">八张图版取自公开档案扫描件，全部走双色调压印并叠 12° 高光带，铝箔反光处再叠 8% 平铺颗粒；不做柔光，不做镜头光晕。每张标出原始文件与权利状态，便于逐张比对舱内标贴与检查单的版式。</p>
+  <ul class="plates">
+    <li class="plate" data-rise>
+      <figure>
+        <img src="assets/plate-01-lm-flight-controls.jpg" width="1000" height="1000" alt="阿波罗 11 号登月舱内部的飞行控制台，双色调压印的拨动开关、断路器与编号标牌">
+        <figcaption><b>图版 01</b> 阿波罗 11 号登月舱内部飞行控制台（AS11-36-5392），舱内标贴与编号体系的原型。<span class="ref">NARA · 公有领域 · <a href="https://commons.wikimedia.org/wiki/File:AS11-36-5392_-_Apollo_11_-_Apollo_11_Mission_image_-_Fight_controls_inside_the_Lunar_Module_-_NARA_-_16683244.jpg">Wikimedia Commons</a></span></figcaption>
+      </figure>
+    </li>
+    <li class="plate" data-rise>
+      <figure>
+        <img src="assets/plate-02-skylab-interior.jpg" width="998" height="1440" alt="天空实验室舱内的储物架、束缚带与舱壁面板">
+        <figcaption><b>图版 02</b> 天空实验室舱内储物架与束缚带，微重力下物品靠绑带与网兜固定。<span class="ref">NASA 马歇尔航天飞行中心 · 公有领域 · <a href="https://commons.wikimedia.org/wiki/File:Skylab_(7034688).jpg">Wikimedia Commons</a></span></figcaption>
+      </figure>
+    </li>
+    <li class="plate" data-rise>
+      <figure>
+        <img src="assets/plate-03-mission-control.jpg" width="1000" height="667" alt="阿波罗 11 号任务结束后休斯敦任务控制中心控制台前的工作人员">
+        <figcaption><b>图版 03</b> 阿波罗 11 号任务结束时的休斯敦任务控制中心（s69-40022），遥测台与图例编号。<span class="ref">NASA 约翰逊航天中心 · 公有领域 · <a href="https://commons.wikimedia.org/wiki/File:View_of_Mission_Control_Center_celebrating_conclusion_of_Apollo_11_mission_(s69-40022).jpg">Wikimedia Commons</a></span></figcaption>
+      </figure>
+    </li>
+    <li class="plate" data-rise>
+      <figure>
+        <img src="assets/plate-05-chipmunk-cockpit.jpg" width="1000" height="1230" alt="德哈维兰 DHC-1 花栗鼠教练机的驾驶舱，仪表板与操纵杆">
+        <figcaption><b>图版 05</b> 德哈维兰 DHC-1 花栗鼠教练机驾驶舱，仪表按飞行姿态与动力分两区排布。<span class="ref">Art Scholl／De Havilland Canada · CC0 · <a href="https://commons.wikimedia.org/wiki/File:De_Havilland-Canada_DHC-1A_Chipmunk,_Pennzoil_Special_-_DPLA_-_b28ec0d3510427b54bb13c92085d63bb_(page_6).jpg">Wikimedia Commons</a></span></figcaption>
+      </figure>
+    </li>
+    <li class="plate" data-rise>
+      <figure>
+        <img src="assets/plate-09-telemetry-panel.jpg" width="1000" height="750" alt="NACA 火箭发动机试验台控制室内的仪表墙与操作台，1957 年">
+        <figcaption><b>图版 09</b> NACA 火箭发动机试验台控制室仪表墙（GRC-1957-C-45021），刻度与指针的排布方式。<span class="ref">NASA 格伦研究中心 · 公有领域 · <a href="https://commons.wikimedia.org/wiki/File:Control_Room_at_the_NACA%E2%80%99s_Rocket_Engine_Test_Facility_(GRC-1957-C-45021).jpg">Wikimedia Commons</a></span></figcaption>
+      </figure>
+    </li>
+    <li class="plate" data-rise>
+      <figure>
+        <img src="assets/plate-11-test-stand-night.jpg" width="1000" height="800" alt="A-1 试验台夜间点火，试车台钢架与火焰照明">
+        <figcaption><b>图版 11</b> A-1 试验台夜间点火（GPN-2000-000551），推力室温度回升曲线的来源试验。<span class="ref">NASA · 公有领域 · <a href="https://commons.wikimedia.org/wiki/File:A-1_Test_Stand_Night_Firing_-_GPN-2000-000551.jpg">Wikimedia Commons</a></span></figcaption>
+      </figure>
+    </li>
+    <li class="plate" data-rise>
+      <figure>
+        <img src="assets/plate-13-saturn-launch.jpg" width="990" height="1440" alt="阿波罗 11 号任务的土星五号火箭离塔升空">
+        <figcaption><b>图版 13</b> 阿波罗 11 号任务土星五号离塔升空，脐带分离时序在画面里只有 1.2 秒。<span class="ref">Cygni_18 · 公有领域 · <a href="https://commons.wikimedia.org/wiki/File:Launch_of_the_Saturn_V_with_Apollo_11_(48300001196).jpg">Wikimedia Commons</a></span></figcaption>
+      </figure>
+    </li>
+    <li class="plate" data-rise>
+      <figure>
+        <img src="assets/plate-14-umbilical-tower.jpg" width="1000" height="1245" alt="卡纳维拉尔角 17 号发射复合体的固定脐带塔与钢桁架">
+        <figcaption><b>图版 14</b> 卡纳维拉尔角 17 号发射复合体固定脐带塔，HAER 测绘照片。<span class="ref">美国国会图书馆 HAER · 公有领域 · <a href="https://commons.wikimedia.org/wiki/File:GENERAL_VIEW_EAST_AND_NORTH_SIDES_WITH_FIXED_UMBILICAL_TOWER_FAR_LEFT;_VIEW_TO_SOUTHWEST._-_Cape_Canaveral_Air_Station,_Launch_Complex_17,_Facility_28416,_East_end_of_Lighthouse_HAER_FLA,5-CACAN,1C-4.tif">Wikimedia Commons</a></span></figcaption>
+      </figure>
+    </li>
+  </ul>
+</section>
+
+<section class="stations-sec" id="stations" aria-labelledby="stations-h">
+  <h2 id="stations-h">极坐标站位表</h2>
+  <p class="lede">站位 = 质心 + (r·cosθ, r·sinθ)。下表按四位航电编号排序，编号顺序就是阅读与 Tab 顺序；θ 间隔非均匀，大间隔留给上下两端，因为椭圆在上下两端的切向是水平的，要躲开 300px 以上的标贴宽度。</p>
+  <table class="stations" data-rise>
+    <caption>十一枚标贴的站位、质量档与当前落位状态（质心 634 / 850，参考椭圆 450×700）</caption>
+    <thead>
+      <tr><th scope="col">编号</th><th scope="col">任务段</th><th scope="col">标贴标题</th><th scope="col">质量档 r</th><th scope="col">方位角 θ</th><th scope="col">距质心 ρ</th><th scope="col">落位</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><a href="#a1107"><code>A-1107</code></a></td><td>1 推进</td><td>推进剂加注</td><td><code>r120</code></td><td><code>84°</code></td><td><code>450.0px</code></td><td>已落位</td></tr>
+      <tr><td><a href="#a1108"><code>A-1108</code></a></td><td>1 推进</td><td>贮箱增压</td><td><code>r40</code></td><td><code>56°</code></td><td><code>374.0px</code></td><td>已落位</td></tr>
+      <tr><td><a href="#a1109"><code>A-1109</code></a></td><td>2 制导</td><td>陀螺平台通电</td><td><code>r72</code></td><td><code>132°</code></td><td><code>417.4px</code></td><td>已落位</td></tr>
+      <tr><td><a href="#a1110"><code>A-1110</code></a></td><td>3 链路</td><td>遥测下行链路</td><td><code>r120</code></td><td><code>300°</code></td><td><code>449.9px</code></td><td>已落位</td></tr>
+      <tr><td><a href="#a1111"><code>A-1111</code></a></td><td>4 结构</td><td>载荷舱机械锁</td><td><code>r40</code></td><td><code>188°</code></td><td><code>405.2px</code></td><td>已落位</td></tr>
+      <tr><td><a href="#a1112"><code>A-1112</code></a></td><td>5 姿控</td><td>姿控推力器预热</td><td><code>r72</code></td><td><code>218°</code></td><td><code>427.7px</code></td><td>已落位</td></tr>
+      <tr><td><a href="#a1113"><code>A-1113</code></a></td><td>6 环控与电源</td><td>舱压在轨初检</td><td><code>r24</code></td><td><code>334°</code></td><td><code>386.8px</code></td><td>已落位</td></tr>
+      <tr><td><a href="#a1114"><code>A-1114</code></a></td><td>6 环控与电源</td><td>电池组均衡充电</td><td><code>r24</code></td><td><code>162°</code></td><td><code>387.2px</code></td><td>已落位</td></tr>
+      <tr><td><a href="#a1115"><code>A-1115</code></a></td><td>7 配平与点火</td><td>质心配平配重</td><td><code>r40</code></td><td><code>26°</code></td><td><code>371.4px</code></td><td>已落位</td></tr>
+      <tr><td><a href="#a1116"><code>A-1116</code></a></td><td>4 结构</td><td>脐带分离时序</td><td><code>r72</code></td><td><code>254°</code></td><td><code>427.5px</code></td><td>已落位</td></tr>
+      <tr><td><a href="#a1117"><code>A-1117</code></a></td><td>7 配平与点火</td><td>主发动机预冷</td><td><code>r24</code></td><td><code>0°</code></td><td><code>386.8px</code></td><td>缺第 4 包</td></tr>
+    </tbody>
+  </table>
+  <p class="table-note">「缺第 4 包」是唯一未确认的一枚：它的站位数据来自质心同步的第 4 个数据包，链路超时后停留在上一帧坐标，编号与读数仍然可读。修正入口在质心同步超时区块。</p>
+</section>
+
+<section class="paths-sec" aria-labelledby="paths-h">
+  <h2 id="paths-h">可发现性通路</h2>
+  <p class="lede">放弃常规导航之后，四条通路必须同时成立：把动效全部拿掉，内容仍然找得到。</p>
+  <ol class="paths">
+    <li data-rise>
+      <h3>编号即顺序</h3>
+      <p>十一枚标贴各有唯一四位航电编号，从 A-1107 到 A-1117，编号顺序就是阅读顺序与 Tab 顺序。每一枚都可聚焦，焦点环是 2px 直角方框，向外留 2px 间隙，不随漂移移动。</p>
+    </li>
+    <li data-rise>
+      <h3>常驻最近邻列表</h3>
+      <p>视口右下角固定显示距质心最近的三个标贴：A-1117 主发动机预冷 <code>387px</code>、A-1111 载荷舱机械锁 <code>411px</code>、A-1114 电池组均衡充电 <code>413px</code>。列表本身不参与漂移，是找得到东西的兜底。</p>
+    </li>
+    <li data-rise>
+      <h3>质心读数</h3>
+      <p>视口左上角常驻坐标与进度：质心 <code>X-634 / Y-850</code>、任务段 <code>3 / 7</code>、漂移相位按 24s 周期报出。读数随漂移实时改写，用户随时知道自己处在任务流的哪一段。</p>
+    </li>
+    <li data-rise>
+      <h3>引力牵引反馈</h3>
+      <p>指针进入标贴 64px 范围内，该标贴向指针牵引 8px 并在 180ms 内显出四位编号，离开后 260ms 回弹。窄屏改为指针进入 48px 范围时横向牵引 6px，触屏点击热区不小于 44×44px，不需要猜测哪里可点。</p>
+    </li>
+  </ol>
+</section>
+
+<section class="motion-sec" aria-labelledby="motion-h">
+  <h2 id="motion-h">动效与降级</h2>
+  <p class="lede">位移只跑 transform 与 opacity 两个属性，并做 <code>will-change</code> 收敛。质心位移由滚动量线性映射：滚程每 1000px 映射质心 160px，位移本身走 2400ms 长尾阻尼 <code>cubic-bezier(0.25,0.1,0.25,1)</code>，停手后仍余 40px 缓漂。十一枚标贴作为整体平移，不做各自视差。</p>
+  <ul class="spec-list">
+    <li data-rise><b>悬停</b>指针进入 64px 范围，标贴向指针牵引 8px，180ms 轻过冲；抬起后 260ms 回位。</li>
+    <li data-rise><b>加载</b>各标贴按 r 档从大到小依次从失重状态落位：r120 先落，随后 r72、r40、r24，总 900ms，缓动为阻尼。</li>
+    <li data-rise><b>转场</b>切换任务段时视角沿质心轴转向 6°，400ms，随后回正。</li>
+    <li data-rise><b>点击</b>标贴自转 2° 再回正，320ms，模拟无阻尼翻滚；编号与最近邻列表不受影响。</li>
+    <li data-rise><b>反光带</b>900×140 的位图遮罩随 <code>--view-angle</code> 位移，只在 12° 视角区间内出现，出区间即消失，全程不做任何色彩插值。</li>
+  </ul>
+  <p class="degrade"><b>减少动态时的再发明</b>（<code>prefers-reduced-motion: reduce</code>）：漂移半径归 0，改为一帧静态极坐标定格；r 仍分 24 / 40 / 72 / 120px 四档，θ 仍按最小 26°、最大 61° 非均匀分布；四位编号、最近邻三枚列表与质心读数全部保留；窄屏纵向极坐标的 8 / 12 / 16 / 20px 横向偏移不变，触屏热区仍不小于 44×44px。</p>
+</section>
+</main>
+
+<footer>
+  <div class="foot-grid">
+    <div data-rise>
+      <h3>站位与读数</h3>
+      <p>质心基准 634 / 850，参考椭圆 450 × 700。四档 r 值 24 / 40 / 72 / 120，最小角间隔 26°、最大 61°。站位表里的 ρ 是换算到参考椭圆后的距离，不是像素直线距离。</p>
+    </div>
+    <div data-rise>
+      <h3>当前状态</h3>
+      <p>质心同步超时（错误码 ZEROG-07），标贴停在上一帧，11 枚编号与 3 条最近邻仍然可读；第 4 个数据包未到，下一次下行窗口 02:14 UTC，到窗自动重同步。</p>
+    </div>
+    <div data-rise>
+      <h3>图版来源</h3>
+      <p>十张位图取自 Wikimedia Commons 的公有领域与 CC 授权档案扫描件，许可与作者逐张记在 assets/CREDITS.md；标贴编号、读数与站位数据是可运行原型的示例数据。</p>
+    </div>
+  </div>
+  <p class="sig">方案 14 · 零重力发射序（Zero-G Launch Sequence）· 太空时代 1960s 舱内标贴 · 铝箔背胶与热压编号 · 本页为可运行原型，用于验证字段 3 色彩配比（<code>#12181D</code> 62% / <code>#E4572E</code> 18% / <code>#D8D2C4</code> 15% / <code>#8A3320</code> 5%）、质心极坐标、12° 视角反光带、四条可发现性通路与 ZEROG-07 错误态的实现方式。</p>
+</footer>
+
+<script>
+(function () {
+  var doc = document.documentElement;
+  var view = document.getElementById('view');
+  var field = document.getElementById('field');
+  var centroid = document.getElementById('centroid');
+  var phase = document.getElementById('phase');
+  var near = document.querySelectorAll('.tag');
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  var sy = 0, target = 0, turn = 0, raf = 0;
+
+  /* 牵引反馈：指针进入 64px 范围才牵引，方向就是指针方向（窄屏 48px / 6px，见 style.css） */
+  var RANGE = 64, PULL = 8;
+  doc.style.setProperty('--pull-range', RANGE + 'px');
+
+  function boxOf(el) { return el.getBoundingClientRect(); }
+
+  function onMove(e) {
+    if (reduce.matches) return;
+    var x = e.clientX, y = e.clientY;
+    for (var i = 0; i < near.length; i++) {
+      var el = near[i], r = boxOf(el);
+      var cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+      var dx = cx - x, dy = cy - y, d = Math.sqrt(dx * dx + dy * dy);
+      var reach = r.width > 560 ? 48 : RANGE;
+      var pull = r.width > 560 ? 0 : PULL;
+      if (d < reach + Math.max(r.width, r.height) / 2) {
+        var k = pull / Math.max(1, d);
+        el.style.setProperty('--px', (dx * k).toFixed(1) + 'px');
+        el.style.setProperty('--py', (dy * k).toFixed(1) + 'px');
+        el.classList.add('is-near');
+        var ang = Math.atan2(y - cy, x - cx) * 180 / Math.PI;
+        if (Math.abs(ang) <= 12) el.classList.add('is-lit');
+      } else {
+        el.style.removeProperty('--px');
+        el.style.removeProperty('--py');
+        el.classList.remove('is-near', 'is-lit');
+      }
+    }
+  }
+
+  /* 滚动：每 1000px 滚程把质心推 160px，位移本身滞后（2400ms 长尾），停手后仍余缓漂 */
+  function tick() {
+    raf = 0;
+    var want = Math.max(-60, Math.min(260, window.scrollY * 0.16));
+    sy += (want - sy) * 0.055;
+    view.style.setProperty('--sy', sy.toFixed(1) + 'px');
+    if (Math.abs(want - sy) < 0.4) sy = want;
+    if (!reduce.matches) {
+      var m = new DOMMatrixReadOnly(getComputedStyle(field).transform);
+      centroid.textContent = 'X-' + Math.round(634 + m.m41) + ' / Y-' + Math.round(850 + m.m42 + sy);
+      var t = ((performance.now() / 1000) % 24);
+      phase.textContent = t.toFixed(1) + 's / 24s';
+      raf = requestAnimationFrame(tick);
+    }
+  }
+  function kick() { if (!raf) raf = requestAnimationFrame(tick); }
+
+  window.addEventListener('scroll', kick, { passive: true });
+
+  /* 转场：切换任务段时视角沿质心轴转向 6°，400ms 后回正 */
+  function cue(el) {
+    if (!el) return;
+    document.querySelectorAll('.is-cued').forEach(function (o) { o.classList.remove('is-cued'); });
+    el.classList.add('is-cued');
+    if (reduce.matches) return;
+    view.classList.add('is-turning');
+    view.style.setProperty('--turn', '6deg');
+    setTimeout(function () { view.style.setProperty('--turn', '0deg'); }, 200);
+    setTimeout(function () { view.classList.remove('is-turning'); }, 420);
+  }
+
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a[href^="#a1"]');
+    if (a) { cue(document.querySelector(a.getAttribute('href'))); return; }
+    var tag = e.target.closest('.tag');
+    if (tag && !e.target.closest('a')) {
+      tag.classList.remove('is-tumbling');
+      void tag.offsetWidth;
+      tag.classList.add('is-tumbling');
+      cue(tag);
+    }
+  });
+
+  var resync = document.getElementById('resync');
+  var packet = document.getElementById('packet');
+  resync.addEventListener('click', function () {
+    resync.disabled = true;
+    resync.textContent = '已排进 02:14 UTC 下行窗口，等待第 4 个数据包';
+    packet.textContent = '第 4 个数据包还没到。质心同步仍为超时（错误码 ZEROG-07），标贴继续停在上一帧；02:14 UTC 下行窗口打开后自动重同步，编号与最近邻列表在这之前一直可读。';
+  });
+
+  if (window.matchMedia('(pointer: fine)').matches) {
+    document.getElementById('deck').addEventListener('pointermove', onMove, { passive: true });
+    document.getElementById('deck').addEventListener('pointerleave', function () {
+      document.querySelectorAll('.is-near').forEach(function (o) {
+        o.classList.remove('is-near', 'is-lit');
+        o.style.removeProperty('--px');
+        o.style.removeProperty('--py');
+      });
+    }, { passive: true });
+  }
+  /* 段落与图版的入场：只动 transform 与 opacity，元素始终留在文档里 */
+  var riseEls = document.querySelectorAll('[data-rise]');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (list) {
+      list.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      });
+    }, { rootMargin: '0px 0px -48px 0px' });
+    riseEls.forEach(function (el) { io.observe(el); });
+  } else {
+    riseEls.forEach(function (el) { el.classList.add('in'); });
+  }
+
+  kick();
+})();
+</script>
+</body>
+</html>
