@@ -1,0 +1,10 @@
+# 这个空文件的作用是让 GitHub Pages **跳过 Jekyll**。
+#
+# 原因：Pages 默认用 Jekyll 构建，而 Jekyll 会排除任何以下划线开头的目录与文件。
+# 本仓库的站点内容恰好全在下划线目录里 ——
+#   prototypes/_selection/  选型台
+#   prototypes/_fonts/      自托管字体（页面运行期必需）
+#   prototypes/_specs/      方案规格
+#   prototypes/_build/      工具脚本
+# 没有这个文件，Pages 会把它们全部丢掉，整站 404。
+# 有它之后 Pages 按原样发布静态文件，不需要任何构建步骤。
