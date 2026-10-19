@@ -27,7 +27,7 @@ window.SCHEMES = [
    "error": "这一期还没上版：排版机卡在 3 号铅条上，错误码 P-03。重试一次，或者先读上一期那篇没登完的听证会"
   },
   "bg": "#EFE7D7",
-  "primary": "#EFE7D7",
+  "primary": "#C1121F",
   "buttonText": null,
   "errorCode": "P-03",
   "errorCodeSource": "规格文案",
@@ -104,7 +104,7 @@ window.SCHEMES = [
    "#0B0B0F",
    "#EFE6D0",
    "#B8860B",
-   "#3A2E1A"
+   "#22D3EE"
   ],
   "built": true,
   "gate": {
@@ -171,7 +171,6 @@ window.SCHEMES = [
   "palette": [
    "#101A1C",
    "#13928E",
-   "#C9D6CF",
    "#B9A98C"
   ],
   "built": true,
@@ -307,8 +306,7 @@ window.SCHEMES = [
   "palette": [
    "#0E100D",
    "#BFB9A6",
-   "#4FA83D",
-   "#8C2F1F"
+   "#4FA83D"
   ],
   "built": true,
   "gate": {
@@ -514,9 +512,7 @@ window.SCHEMES = [
   "errorCodeSource": "规格文案",
   "palette": [
    "#120C08",
-   "#C46A1F",
-   "#E8DCC8",
-   "#6B4A22"
+   "#C46A1F"
   ],
   "built": true,
   "gate": {
@@ -726,7 +722,6 @@ window.SCHEMES = [
   "palette": [
    "#DCDDD2",
    "#1B4A4A",
-   "#221E19",
    "#6E7A64"
   ],
   "built": true,
@@ -797,7 +792,7 @@ window.SCHEMES = [
    "#1E2A2E",
    "#B5D626",
    "#E23E57",
-   "#F2E9D8"
+   "#0F172A"
   ],
   "built": true,
   "gate": {
@@ -943,8 +938,7 @@ window.SCHEMES = [
   "palette": [
    "#12181D",
    "#E4572E",
-   "#D8D2C4",
-   "#8A3320"
+   "#D8D2C4"
   ],
   "built": true,
   "gate": {
@@ -1016,7 +1010,6 @@ window.SCHEMES = [
   "palette": [
    "#E7EBE9",
    "#3A3F45",
-   "#22282B",
    "#7A7466"
   ],
   "built": true,
@@ -1159,7 +1152,7 @@ window.SCHEMES = [
    "#E1D6BD",
    "#5A2A50",
    "#7A2E2E",
-   "#C9BFA6"
+   "#111111"
   ],
   "built": true,
   "gate": {
@@ -1297,8 +1290,7 @@ window.SCHEMES = [
   "palette": [
    "#E4DECD",
    "#4A5C3A",
-   "#2A241C",
-   "#7C7460"
+   "#2A241C"
   ],
   "built": true,
   "gate": {
@@ -1510,8 +1502,7 @@ window.SCHEMES = [
   "palette": [
    "#DDDAD4",
    "#565B49",
-   "#2E2A24",
-   "#6366F1"
+   "#2E2A24"
   ],
   "built": true,
   "gate": {
@@ -1859,8 +1850,7 @@ window.SCHEMES = [
   "palette": [
    "#E8D7B5",
    "#0E6258",
-   "#221C10",
-   "#6366F1"
+   "#221C10"
   ],
   "built": true,
   "gate": {
@@ -1930,7 +1920,7 @@ window.SCHEMES = [
    "#0B0D12",
    "#AF74BE",
    "#D8D4C6",
-   "#6366F1"
+   "#EC4899"
   ],
   "built": true,
   "gate": {
@@ -2069,8 +2059,7 @@ window.SCHEMES = [
   "palette": [
    "#EDEDED",
    "#007B3F",
-   "#141414",
-   "#6366F1"
+   "#141414"
   ],
   "built": true,
   "gate": {

@@ -40,6 +40,24 @@ const cur = {};
 }
 console.log(`_CURRENT-VALUES.md 解析出 ${Object.keys(cur).length} 案`);
 
+// ---- 1c 解析 §2 的「旧值 → 新值」替换表，建"作废色"黑名单 ----
+// 为什么必须有它：字段 3 是**修正前**的原文，里面还写着旧主色（S22 的 #666D51、S27 的 #0E7264），
+// 而且旧值旁边**照样有"主色"这个角色标签**，所以靠角色+否定语境都挡不住。
+// `_CURRENT-VALUES.md` §2 那张表是权威的"哪些值已作废"，直接拿它当黑名单。
+const stale = {};
+{
+  const t = readFileSync(join(SPECS, '_CURRENT-VALUES.md'), 'utf8');
+  const sec = t.split(/^## 2 /m)[1] || '';
+  for (const line of sec.split(/\r?\n/)) {
+    const m = /^\|\s*(S\d{2})\s*\|([^|]*)\|([^|]*)\|([^|]*)\|/.exec(line);
+    if (!m) continue;
+    const oldCell = m[3];                                        // 第 3 格＝旧值
+    const hs = hexes(oldCell);
+    if (hs.length) stale[m[1]] = (stale[m[1]] || []).concat(hs);
+  }
+}
+console.log(`§2 旧值黑名单：${Object.keys(stale).length} 案，共 ${Object.values(stale).reduce((a,b)=>a+b.length,0)} 个作废色`);
+
 // ---- 1b 解析 §4 的 Lead 补入错误码表（S21–S30 的源文件里没有，见该节说明）----
 const leadCodes = {};
 {
@@ -181,14 +199,45 @@ for (let i = 1; i <= 30; i++) {
     palette: [],
     built: false, gate: null, shots: { desktop: [], tablet: [], mobile: [] },
   };
-  // 配色：当前值优先，其余从字段 3 取（字段 3 的顺序＝角色顺序）
+  // 配色：当前值优先，其余从字段 3 取（字段 3 的顺序＝角色顺序）。
+  //
+  // ⚠️ 字段 3 里混着**大量不是本方案配色**的 HEX，至少三类：
+  //   ① 它点名反对的颜色（"反的是 `#6366F1` 靛蓝主色配纯白底"）
+  //   ② 终局轮之前的**旧值**（S22 的 `#666D51`、S27 的 `#0E7264` —— 都已被替换掉）
+  //   ③ 拿来做对比的参照色（S28 的 `#3B82F6`、S30 的 `#22D3EE`）
+  // 上一版把字段 3 的所有 HEX 一锅端，结果这四案的 palette 末尾变成了这些"非本方案色"，
+  // 而选型向导的推荐卡会把 palette.slice(0,4) 画成色块 —— **用户在推荐卡上看到的是设计里不存在的颜色**。
+  // （20-style-axes 报出，我复核确认；第一版只挡了①，第②③类还在。）
+  //
+  // 根治办法：**只收"带角色标签"的 HEX** —— 它附近必须出现 主色/背景/底色/正文/强调/辅助/次要/结构线 之类的词，
+  // 并且不能落在否定语境里。拿不到角色标签的，一律不收。
   const p3 = spec && spec.fields['配色系统'] ? spec.fields['配色系统'] : '';
-  const fromSpec = hexes(p3);
+  const ROLE = /(主色|背景色?|底色|地面色?|正文色?|正文|强调色?|辅助色?|次要色?|结构线|批注|脏色|纸色)/;
+  const NEG = /(反的?是?|反对|不用|不使用|禁止|排除|避免|规避|不得|不要|拒绝|剔除|而不是|而非|旧|原|曾|改为|取代)/;
+  const keepHex = (h) => {
+    const re = new RegExp(h.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+    for (const m of p3.matchAll(re)) {
+      const before = p3.slice(Math.max(0, m.index - 20), m.index);
+      const after = p3.slice(m.index, m.index + 22);
+      if (NEG.test(before)) continue;                 // ① ② 否定 / 旧值
+      if (ROLE.test(after) || ROLE.test(before)) return true;   // 附近有角色标签 → 收
+    }
+    return false;
+  };
+  const fromSpec = hexes(p3).filter(keepHex).filter((h) => !(stale[id] || []).includes(h));
   const pal = [];
   if (rec.bg) pal.push(rec.bg);
   if (rec.primary && !pal.includes(rec.primary)) pal.push(rec.primary);
   for (const h of fromSpec) { if (pal.length >= 4) break; if (!pal.includes(h)) pal.push(h); }
   rec.palette = pal;
+  // primary 兜底：字段 3 的"主色"位置在部分案子里被写到了别处，于是 primary 会等于底色
+  // （S01 取到 #EFE7D7 就是底色）或取到文字色（S02 取到 #EFE6D0）。
+  // 这个字段目前没有任何界面在用，但留着错值会误导下一个读它的人。
+  // 兜底规则：primary 与 bg 相同、或 primary 不在 palette 里、或 palette 有 ≥2 项，
+  // 就取 palette[1]（第一个非底色项）。
+  if (pal.length >= 2 && (!rec.primary || rec.primary === rec.bg || !pal.includes(rec.primary))) {
+    rec.primary = pal[1];
+  }
 
   if (dir) {
     const rep = join(PROTO, dir, '.inspect', 'report.json');
