@@ -1,0 +1,413 @@
+/* ==========================================================================
+   M03 · 醒目作品集 Bold Creator
+   纯 HTML + CSS，无构建、无依赖、无外部字体、无图片文件。
+   占位图全部是内联 SVG。
+
+   ★★★ 改这几个变量就能换色、换宽 ★★★
+   （下面 :root 里一共 12 个变量，逐个说明见 TOKENS.md）
+
+   方案：近黑底 + 近白字（夜晚阅读舒服，也帮大字号和细线立住）。
+   ========================================================================== */
+
+:root{
+  /* —— 颜色 —— */
+  --bg:        #0e0e10;              /* 页面底色（近黑） */
+  --ink:       #f2f2ef;              /* 正文与标题色（近白），对比度 17.2:1 */
+  --muted:     #a3a39c;              /* 次要文字：说明、标签，对比度 7.6:1 */
+  --accent:    #ff5c1a;              /* 唯一强调色：链接 / 序号 / 按钮，对比度 6.3:1 */
+  --on-accent: #14100d;              /* 强调色底上的文字色 */
+  --surface:   #17171a;              /* 卡片 / 占位图的浅一层底色 */
+  --rule:      #33333a;              /* 细线（1px 分隔线），装饰用 */
+  --focus:     #ffd166;              /* 键盘焦点圈颜色，对比度 13.4:1 */
+
+  /* —— 尺寸 —— */
+  --maxw:      1280px;               /* 内容最大宽度 */
+  --space:     clamp(1rem, 2.5vw, 2rem);  /* 统一间距，全局用它 */
+  --radius:    2px;                  /* 圆角，几乎直角（编辑感） */
+
+  /* —— 字体 —— */
+  --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, "Noto Sans SC", "Microsoft YaHei",
+          "PingFang SC", "Hiragino Sans GB", sans-serif;
+}
+
+/* 等宽字体只在一处声明，全站有“手写感”的数字与标签都用它 */
+code, kbd, samp, .mono,
+.idx, .sec-num, .sec-label, .eyebrow, .work-tags, .contact-note, .foot-line, .ph-label, .nav-toggle{
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+               "Liberation Mono", "Courier New", monospace;
+}
+
+/* --------------------------------------------------------------------------
+   1. 基础
+   -------------------------------------------------------------------------- */
+*, *::before, *::after{ box-sizing: border-box; }
+
+html{ -webkit-text-size-adjust: 100%; }
+
+body{
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 1rem;            /* = 16px，正文保底 */
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, p, ul, figure{ margin: 0; }
+
+a{ color: var(--accent); text-decoration: none; text-underline-offset: .28em; }
+a:hover{ text-decoration: underline; text-decoration-thickness: 1px; }
+
+svg{ max-width: 100%; }
+img{ max-width: 100%; height: auto; }
+
+:focus-visible{ outline: 2px solid var(--focus); outline-offset: 3px; }
+
+::selection{ background: var(--accent); color: var(--on-accent); }
+
+/* 通用容器 */
+.wrap{
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: clamp(1.1rem, 4vw, 3rem);
+}
+
+.skip{
+  position: absolute; left: -9999px; top: 0; z-index: 20;
+  background: var(--accent); color: var(--on-accent);
+  padding: .8rem 1.1rem; font-size: 1rem;
+}
+.skip:focus{ left: .75rem; top: .75rem; }
+
+/* --------------------------------------------------------------------------
+   2. 顶部极简导航
+   -------------------------------------------------------------------------- */
+.site-head{
+  position: sticky; top: 0; z-index: 10;
+  background: var(--bg);
+  border-bottom: 1px solid var(--rule);
+}
+
+.head-inner{
+  display: flex; flex-wrap: wrap;
+  align-items: center; justify-content: space-between;
+  gap: .5rem;
+  min-height: 60px;
+}
+
+.brand{
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 1.0625rem;
+  letter-spacing: -.01em;
+  padding-block: .6rem;
+  min-height: 44px;
+  display: inline-flex; align-items: center;
+}
+.brand:hover{ text-decoration: none; color: var(--accent); }
+
+.nav-toggle{
+  display: inline-flex; align-items: center; gap: .5rem;
+  min-height: 44px; padding: .5rem .8rem;
+  background: transparent; color: var(--ink);
+  border: 1px solid var(--rule); border-radius: var(--radius);
+  font-size: 1rem; cursor: pointer;
+}
+.nav-toggle .bars{
+  width: 16px; height: 1px; background: currentColor;
+  box-shadow: 0 -5px 0 currentColor, 0 5px 0 currentColor;
+}
+
+.nav-menu{ display: none; }
+.nav-menu.is-open{
+  display: flex; flex-direction: column;
+  width: 100%; padding-bottom: .6rem;
+  border-top: 1px solid var(--rule);
+}
+.nav-menu a{
+  display: inline-flex; align-items: center;
+  min-height: 44px; padding: .35rem 0;
+  color: var(--ink); font-size: 1.0625rem;
+}
+.nav-menu a:hover{ color: var(--accent); }
+
+/* ≥768px：隐藏「菜单」按钮，链接直接横排（极简导航：名字 + 几个链接） */
+@media (min-width: 768px){
+  .nav-toggle{ display: none; }
+  .nav-menu{
+    display: flex; flex-direction: row; align-items: center;
+    gap: clamp(1.25rem, 2.5vw, 2.5rem);
+  }
+  .nav-menu.is-open{ flex-direction: row; width: auto; padding-bottom: 0; border-top: 0; }
+  .nav-menu a{ padding-block: .35rem; }
+}
+
+/* --------------------------------------------------------------------------
+   3. 首屏：字要真的很大
+   -------------------------------------------------------------------------- */
+.hero{ padding-block: clamp(3rem, 9vw, 7.5rem) clamp(2.5rem, 6vw, 5rem); }
+
+.eyebrow{
+  font-size: 1rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: clamp(1rem, 3vw, 2rem);
+}
+
+.hero-title{
+  font-size: clamp(3rem, 10.5vw, 8.5rem);
+  line-height: .96;
+  letter-spacing: -.03em;
+  font-weight: 800;
+  overflow-wrap: break-word;
+}
+
+.hero-sub{
+  margin-top: clamp(1.1rem, 3vw, 2rem);
+  font-size: clamp(1.35rem, 3.6vw, 2.6rem);
+  line-height: 1.25;
+  letter-spacing: -.01em;
+  color: var(--ink);
+  max-width: 22ch;
+  overflow-wrap: break-word;
+}
+
+.hero-meta{
+  margin-top: clamp(1.5rem, 4vw, 3rem);
+  color: var(--muted);
+  font-size: 1rem;
+  max-width: 46ch;
+}
+
+/* --------------------------------------------------------------------------
+   4. 分区与“贯穿全页的细线”
+      · 每段顶部一条 1px 横线
+      · 桌面端 .rail 在左侧拉一条竖线，各段首尾相接形成通栏细线
+   -------------------------------------------------------------------------- */
+.section{
+  border-top: 1px solid var(--rule);
+  padding-block: clamp(3rem, 8vw, 6.5rem);
+}
+
+.sec-label{
+  font-size: 1rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: flex; align-items: baseline; gap: .9ch; /* 等宽数字视觉对齐 */
+}
+
+.sec-num{
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  min-width: 2ch;             /* 01 / 02 / 03 宽度一致，左边缘对齐 */
+  display: inline-block;
+}
+
+.sec-title{
+  font-size: clamp(1.6rem, 3.4vw, 2.6rem);
+  line-height: 1.15;
+  letter-spacing: -.02em;
+  font-weight: 700;
+  margin-top: clamp(1.2rem, 3vw, 2rem);
+  max-width: 30ch;
+  overflow-wrap: break-word;
+}
+
+.sec-lead{
+  margin-top: 1rem;
+  color: var(--muted);
+  max-width: 56ch;
+}
+
+/* --------------------------------------------------------------------------
+   5. 作品列表：大小错落 + 左右交替 + 序号列表，不做等宽三卡网格
+   -------------------------------------------------------------------------- */
+.work-list{
+  list-style: none; padding: 0; margin: clamp(2rem, 5vw, 3.5rem) 0 0;
+  display: flex; flex-direction: column;
+}
+
+/* 每条作品一条 1px 横线，把长列表切成有节奏的段落 */
+.work{
+  display: grid; gap: var(--space);
+  border-top: 1px solid var(--rule);
+  padding-block: clamp(1.75rem, 4vw, 3rem);
+}
+.work-media, .work-body{ min-width: 0; }
+
+.work-body{
+  display: flex; flex-direction: column; gap: .7rem;
+}
+
+.idx{
+  font-size: 1rem;
+  letter-spacing: .1em;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.work-title{
+  font-size: clamp(1.75rem, 4.2vw, 3.25rem);
+  line-height: 1.05;
+  letter-spacing: -.025em;
+  font-weight: 750;
+  transition: transform .28s cubic-bezier(.2,.7,.2,1), color .28s ease;
+}
+
+.work-desc{ color: var(--muted); max-width: 44ch; }
+
+.work-tags{
+  font-size: 1rem;
+  letter-spacing: .08em;
+  color: var(--muted);
+}
+
+/* 悬停：标题位移 + 强调色，序号转为白色 */
+.work:hover .work-title,
+.work:focus-within .work-title{ transform: translateX(.45rem); }
+.work:hover .idx,
+.work:focus-within .idx{ color: var(--ink); }
+
+/* 移动端：竖图、方图不铺满，做出高低错落 */
+.work--tall .work-media{ max-width: 360px; }
+.work--narrow .work-media{ max-width: 420px; }
+.work--sm .work-media{ max-width: 300px; }
+
+/* 桌面端：媒体列宽按各图比例给，避免列里留大空洞 */
+@media (min-width: 900px){
+  .work{ grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: end; }
+
+  .work--lead{ grid-template-columns: minmax(0, 1fr); }          /* 第一件铺满 */
+  .work--lead .work-body{ max-width: 62ch; }
+
+  .work--flip{ grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+  .work--flip .work-media{ order: 2; }
+
+  .work--tall{ grid-template-columns: minmax(0, 4fr) minmax(0, 6fr); }
+  .work--tall .work-media{ max-width: none; }
+
+  .work--narrow{
+    width: 92%; margin-left: auto;
+    grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+    align-items: center;
+  }
+  .work--narrow .work-media{ max-width: none; }
+
+  .work--sm{ grid-template-columns: minmax(0, 5fr) minmax(0, 4fr); }
+  .work--sm .work-media{ order: 2; max-width: none; margin-left: auto; }
+
+  /* 标题左侧留出序号槽，序号右对齐 —— 一列数字对齐成一条视觉线 */
+  .work-body{ position: relative; padding-left: 3.5rem; }
+  .idx{ position: absolute; left: 0; top: .3em; width: 2.5rem; text-align: right; }
+}
+
+/* --------------------------------------------------------------------------
+   6. 关于我
+   -------------------------------------------------------------------------- */
+.about-grid{ display: grid; gap: var(--space); }
+.about-text p + p{ margin-top: 1rem; }
+.about-text{ color: var(--muted); max-width: 62ch; }
+
+@media (min-width: 768px){
+  .about-grid{ grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); align-items: start; }
+  .about-grid .sec-title{ margin-top: 0; }
+  .about-text{ font-size: 1.0625rem; }
+}
+
+/* --------------------------------------------------------------------------
+   7. 联系与页脚
+   -------------------------------------------------------------------------- */
+.contact-line{ margin-top: clamp(1.5rem, 4vw, 2.5rem); }
+
+.contact-mail{
+  font-size: clamp(1.4rem, 5vw, 3.4rem);
+  line-height: 1.15;
+  letter-spacing: -.02em;
+  font-weight: 700;
+  color: var(--accent);
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.contact-actions{
+  margin-top: clamp(1.25rem, 3vw, 2rem);
+  display: flex; flex-wrap: wrap; align-items: center;
+  gap: 1rem;
+}
+
+.btn{
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 44px; padding: .7rem 1.35rem;
+  background: var(--accent); color: var(--on-accent);
+  border: 1px solid var(--accent); border-radius: var(--radius);
+  font-size: 1rem; font-weight: 600; cursor: pointer;
+}
+.btn:hover{ background: var(--ink); border-color: var(--ink); color: var(--bg); }
+
+.contact-note{ color: var(--muted); }
+
+.site-foot{
+  border-top: 1px solid var(--rule);
+  padding-block: 1.5rem 2.5rem;
+}
+.foot-line{
+  display: flex; flex-wrap: wrap; justify-content: space-between;
+  gap: .35rem 1.5rem;
+  color: var(--muted);
+}
+
+/* --------------------------------------------------------------------------
+   8. 内联 SVG 占位框（灰阶 + 比例标注，看起来是有意为之）
+   -------------------------------------------------------------------------- */
+.ph{
+  display: block; width: 100%; height: auto;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.ph-bg{ fill: var(--surface); }
+.ph-grid line{ stroke: #24252a; stroke-width: 2; }
+.ph-diag line{ stroke: #202126; stroke-width: 2; }
+.ph-corner path{ fill: none; stroke: #3d3e45; stroke-width: 3; }
+.ph-mask{ fill: var(--surface); }
+.ph-label{
+  fill: #8b8c93;
+  font-size: 34px;
+  letter-spacing: .06em;
+}
+
+/* 把占位 SVG 换成自己的 <img> 时，图片自动沿用同一套宽度和边框，
+   你不需要改 CSS，只要把 <svg class="ph">…</svg> 整段换成 <img src="…" alt="…"> */
+.work-media img{
+  display: block; width: 100%; height: auto;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+/* --------------------------------------------------------------------------
+   9. 桌面端：左侧通栏细线（贯穿全页）
+   -------------------------------------------------------------------------- */
+@media (min-width: 1024px){
+  .rail{
+    border-left: 1px solid var(--rule);
+    padding-left: clamp(1.5rem, 3.5vw, 3rem);
+  }
+  .hero-title{ letter-spacing: -.04em; }
+  .work-body{ padding-left: 4rem; }
+  .idx{ width: 3rem; }
+}
+
+/* --------------------------------------------------------------------------
+   10. 无障碍 / 偏好设置
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce){
+  *{ transition: none !important; animation: none !important; }
+}

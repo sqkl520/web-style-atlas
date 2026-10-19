@@ -105,6 +105,13 @@ code { font-family: var(--code); font-size: 0.94em; }
   margin-top: 16px; max-width: 42ch;
   font-size: var(--s-17); color: var(--ink-2);
 }
+.mast-wizard { margin-top: 16px; }
+.mast-wizard a {
+  display: inline-block; padding: 11px 16px;
+  background: var(--ink); color: var(--card);
+  font-size: var(--s-15); text-decoration: none;
+}
+.mast-wizard a:hover { background: var(--link); }
 .mast-facts {
   display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 2px; margin: 0;

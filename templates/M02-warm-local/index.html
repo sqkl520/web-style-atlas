@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>【换成你的：店名】 — 【换成你的：一句话说明你是什么店】</title>
+<meta name="description" content="【换成你的：60 字以内的介绍，会出现在搜索结果里】">
+<!--
+  M02 暖调门店站（Warm Local）· 模板
+  ─────────────────────────────────────────────────────────────
+  只有两个文件：index.html + style.css。没有任何外部依赖（无图片文件、无字体文件、
+  无 JS 库、无 CDN）。改颜色/宽度 → 全在 style.css 顶部那 12 个 CSS 变量。
+  看到【换成你的：…】就是文字要换成你自己的；看到灰阶框图就是该换成照片的位置。
+  详细说明见同目录 README.md 与 TOKENS.md。
+-->
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ── 图形库：手绘风格强调线 + 图片位用的相机图形。定义一次，页面里用 <use> 复用 ── -->
+<svg class="svg-sprite" aria-hidden="true" focusable="false" width="0" height="0">
+  <symbol id="squiggle" viewBox="0 0 96 8">
+    <path d="M2 5.5C13 1.4 24 7.6 35 4.6c11-3 21-5.5 32-1.1 8 3.3 19 4.5 27 1.5"
+          fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="ph-glyph" viewBox="0 0 120 84">
+    <circle cx="86" cy="26" r="11" fill="none" stroke="currentColor" stroke-width="3"/>
+    <path d="M6 78 L38 34 L62 62 L78 46 L114 78 Z" fill="none" stroke="currentColor"
+          stroke-width="3" stroke-linejoin="round"/>
+  </symbol>
+</svg>
+
+<a class="skip-link" href="#main">跳到主要内容</a>
+
+<!-- ══════════════ 顶部：店名 + 导航 + 订位按钮 ══════════════ -->
+<header class="site-head">
+  <div class="wrap site-head-in">
+    <a class="brand" href="#top">
+      <span class="brand-name">【换成你的：店名】</span>
+      <span class="brand-sub">【换成你的：品类，例如 手作烘焙 · 咖啡馆】</span>
+      <svg class="hand-line" aria-hidden="true" focusable="false"><use href="#squiggle"/></svg>
+    </a>
+
+    <nav class="nav" aria-label="主导航">
+      <ul class="nav-list">
+        <li><a href="#menu">菜单与价目</a></li>
+        <li><a href="#visit">营业时间与位置</a></li>
+        <li><a href="#space">店内环境</a></li>
+        <li><a href="#reviews">顾客评价</a></li>
+      </ul>
+
+      <!-- 移动端导航：纯 CSS 可用的折叠菜单（窄屏才出现，宽屏自动隐藏） -->
+      <details class="nav-mobile">
+        <summary>菜单</summary>
+        <ul>
+          <li><a href="#menu">菜单与价目</a></li>
+          <li><a href="#visit">营业时间与位置</a></li>
+          <li><a href="#space">店内环境</a></li>
+          <li><a href="#reviews">顾客评价</a></li>
+          <li><a href="#book">订位与联系</a></li>
+        </ul>
+      </details>
+    </nav>
+
+    <p class="head-cta">
+      <a class="btn btn-brand" href="#book">订位 / 留座</a>
+      <span class="head-tel">【换成你的：订位电话】</span>
+    </p>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ══════════════ 主视觉：大图优先，文字叠在图上的信息带 ══════════════ -->
+  <section class="hero" id="top" aria-labelledby="hero-title">
+    <div class="wrap">
+      <figure class="ph ph-16x9">
+        <svg class="ph-art" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice"
+             role="img" aria-labelledby="pht1 phd1">
+          <title id="pht1">主视觉图片位，比例十六比九</title>
+          <desc id="phd1">灰阶占位框：这里放一张横版门店照片，建议 2000 × 1125 像素。把这段 svg 整块换成 img 标签即可。</desc>
+          <rect width="1600" height="900" fill="#E6E2DB"/>
+          <rect x="26" y="26" width="1548" height="848" fill="none" stroke="#7E766E"
+                stroke-width="3" stroke-dasharray="16 13" opacity="0.8"/>
+          <g stroke="#7E766E" stroke-width="7" stroke-linecap="round" fill="none">
+            <path d="M4 70V4h66"/><path d="M1530 4h66v66"/>
+            <path d="M4 830v66h66"/><path d="M1596 830v66h-66"/>
+          </g>
+          <g style="color:#7E766E" transform="translate(668,398) scale(2.2)">
+            <use href="#ph-glyph" width="120" height="84"/>
+          </g>
+        </svg>
+        <figcaption class="ph-tag">图片位 · 16:9 · 建议 2000 × 1125 px</figcaption>
+      </figure>
+
+      <div class="hero-band">
+        <p class="hero-kicker">【换成你的：街区或品类标签，例如 老城南 · 手作面包】</p>
+        <h1 id="hero-title">【换成你的：一句招牌主张】</h1>
+        <p class="hero-sub">【换成你的：一句话说清你卖什么、给谁、凭什么好】</p>
+        <ul class="hero-meta">
+          <li>今天 11:00 – 21:30</li>
+          <li>【换成你的：区 · 街道】</li>
+          <li>人均 ¥【换成你的：人均】</li>
+        </ul>
+        <p class="hero-act">
+          <a class="btn btn-brand" href="#book">订位 / 留座</a>
+          <a class="btn btn-ghost" href="#menu">先看菜单</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ 招牌与菜单价目 ══════════════ -->
+  <section class="section" id="menu" aria-labelledby="menu-title">
+    <div class="wrap">
+      <p class="eyebrow">菜单</p>
+      <h2 id="menu-title">招牌与价目</h2>
+      <svg class="hand-line" aria-hidden="true" focusable="false"><use href="#squiggle"/></svg>
+      <p class="lede">【换成你的：菜单说明，例如 全部现点现做，出餐约 15 分钟；价格含税，不收服务费】</p>
+      <p class="edit-hint">【换成你的：菜名与价格】下面每一行的名字、价格、标签都照你自己的改</p>
+
+      <div class="menu-grid">
+        <div class="menu-col">
+          <h3 class="menu-group">【换成你的：分类一 · 招牌主食】</h3>
+          <ul class="menu-list">
+            <li class="menu-row">
+              <span class="menu-name">【换成你的：招牌菜名 1】<span class="menu-tag">招牌</span></span>
+              <span class="leader" aria-hidden="true"></span>
+              <span class="menu-price">¥38</span>
+            </li>
+            <li class="menu-row">
+              <span class="menu-name">【换成你的：招牌菜名 2】</span>
+              <span class="leader" aria-hidden="true"></span>
+              <span class="menu-price">¥42</span>
+            </li>
+            <li class="menu-row">
+              <span class="menu-name">【换成你的：招牌菜名 3】<span class="menu-tag">素食</span></span>
+              <span class="leader" aria-hidden="true"></span>
+              <span class="menu-price">¥36</span>
+            </li>
+            <li class="menu-row">
+              <span class="menu-name">【换成你的：招牌菜名 4】<span class="menu-tag">限量</span></span>
+              <span class="leader" aria-hidden="true"></span>
+              <span class="menu-price">¥48</span>
+            </li>
+            <li class="menu-row">
+              <span class="menu-name">【换成你的：招牌菜名 5】</span>
+              <span class="leader" aria-hidden="true"></span>
+              <span class="menu-price">¥32</span>
+            </li>
+          </ul>
+
+          <h3 class="menu-group">【换成你的：分类二 · 小食与配菜】</h3>
+          <ul class="menu-list">
+            <li class="menu-row">
+              <span class="menu-name">【换成你的：小食名 1】</span>
+              <span class="leader" aria-hidden="true"></span>
+              <span class="menu-price">¥18</span>
+            </li>
+            <li class="menu-row">
+              <span class="menu-name">【换成你的：小食名 2】</span>
+              <span class="leader" aria-hidden="true"></span>
+              <span class="menu-price">¥22</span>
+            </li>
+            <li class="menu-row">
+              <span class="menu-name">【换成你的：小食名 3】<span class="menu-tag">素食</span></span>
+              <span class="leader" aria-hidden="true"></span>
+              <span class="menu-price">¥16</span>
+            </li>
+            <li class="menu-row">
+              <span class="menu-name">【换成你的：小食名 4】</span>
+              <span class="leader" aria-hidden="true"></span>
+              <span class="menu-price">¥12</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="menu-col">
+          <h3 class="menu-group">【换成你的：分类三 · 饮品】</h3>
+          <ul class="menu-list">
+            <li class="menu-row">
+              <span class="menu-name">【换成你的：饮品名 1】<span class="menu-tag">招牌</span></span>
+              <span class="leader" aria-hidden="true"></span>
+              <span class="menu-price">¥22</span>
+            </li>
+            <li class="menu-row">
+              <span class="menu-name">【换成你的：饮品名 2】</span>
+              <span class="leader" aria-hidden="true"></span>
+              <span class="menu-price">¥26</span>
+            </li>
+            <li class="menu-row">
+              <span class="menu-name">【换成你的：饮品名 3】</span>
+              <span class="leader" aria-hidden="true"></span>
+              <span class="menu-price">¥18</span>
+            </li>
+            <li class="menu-row">
+              <span class="menu-name">【换成你的：饮品名 4】<span class="menu-tag">无糖</span></span>
+              <span class="leader" aria-hidden="true"></span>
+              <span class="menu-price">¥28</span>
+            </li>
+          </ul>
+
+          <h3 class="menu-group">【换成你的：分类四 · 套餐与加料】</h3>
+          <ul class="menu-list">
+            <li class="menu-row">
+              <span class="menu-name">【换成你的：单人套餐】</span>
+              <span class="leader" aria-hidden="true"></span>
+              <span class="menu-price">¥58</span>
+            </li>
+            <li class="menu-row">
+              <span class="menu-name">【换成你的：双人套餐】<span class="menu-tag">招牌</span></span>
+              <span class="leader" aria-hidden="true"></span>
+              <span class="menu-price">¥108</span>
+            </li>
+            <li class="menu-row">
+              <span class="menu-name">【换成你的：加料 / 换配】</span>
+              <span class="leader" aria-hidden="true"></span>
+              <span class="menu-price">¥6</span>
+            </li>
+          </ul>
+
+          <p class="menu-note">【换成你的：点单补充说明，例如 早餐时段只出前两类；堂食可加一份免费小菜】</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ 营业时间与地址（含怎么来） ══════════════ -->
+  <section class="section section-alt" id="visit" aria-labelledby="visit-title">
+    <div class="wrap">
+      <p class="eyebrow">到店</p>
+      <h2 id="visit-title">营业时间与地址</h2>
+      <svg class="hand-line" aria-hidden="true" focusable="false"><use href="#squiggle"/></svg>
+      <p class="edit-hint">【换成你的：营业时间】</p>
+
+      <div class="visit-grid">
+        <div class="visit-col">
+          <h3 class="sub-title">每周营业时间</h3>
+          <dl class="hours">
+            <div class="hours-row">
+              <dt>周一 – 周四</dt>
+              <dd>11:00 – 21:30</dd>
+            </div>
+            <div class="hours-row">
+              <dt>周五</dt>
+              <dd>11:00 – 22:30</dd>
+            </div>
+            <div class="hours-row">
+              <dt>周六</dt>
+              <dd>10:00 – 22:30</dd>
+            </div>
+            <div class="hours-row">
+              <dt>周日</dt>
+              <dd>10:00 – 21:00</dd>
+            </div>
+            <div class="hours-row hours-row-note">
+              <dt>最后点单</dt>
+              <dd>21:00</dd>
+            </div>
+          </dl>
+          <p class="small">【换成你的：休店日与节假日说明，例如 每月第一个周一休店；春节照常营业】</p>
+        </div>
+
+        <div class="visit-col">
+          <h3 class="sub-title">地址与电话</h3>
+          <address class="addr">
+            <p class="addr-line">【换成你的：街道名称、门牌号、楼层与店门朝哪边】</p>
+            <p class="addr-line">电话 <a href="tel:+860000000000">【换成你的：订位电话】</a></p>
+            <p class="addr-line">微信 <span class="mono-num">【换成你的：微信号】</span></p>
+          </address>
+          <p class="addr-act">
+            <!-- 把 # 换成你的地图分享链接（高德/百度/苹果地图都行） -->
+            <a class="btn btn-line" href="#">在地图中打开</a>
+            <span class="edit-hint edit-hint-inline">【换成你的：地图分享链接 → 替换上面的 href="#"】</span>
+          </p>
+
+          <h3 class="sub-title">怎么来</h3>
+          <ul class="way-list">
+            <li class="way-row">
+              <span class="way-key">地铁</span>
+              <span class="leader" aria-hidden="true"></span>
+              <span class="way-val">【换成你的：× 号线 ×× 站 B 口，步行 6 分钟】</span>
+            </li>
+            <li class="way-row">
+              <span class="way-key">公交</span>
+              <span class="leader" aria-hidden="true"></span>
+              <span class="way-val">【换成你的：×× 路 / ××× 路，×× 站下车】</span>
+            </li>
+            <li class="way-row">
+              <span class="way-key">自驾</span>
+              <span class="leader" aria-hidden="true"></span>
+              <span class="way-val">【换成你的：附近停车场与每小时收费】</span>
+            </li>
+            <li class="way-row">
+              <span class="way-key">无障碍</span>
+              <span class="leader" aria-hidden="true"></span>
+              <span class="way-val">【换成你的：坡度、门口宽度、无障碍洗手间情况】</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ 店内环境：三张环境图 ══════════════ -->
+  <section class="section" id="space" aria-labelledby="space-title">
+    <div class="wrap">
+      <p class="eyebrow">店内</p>
+      <h2 id="space-title">坐下来的样子</h2>
+      <svg class="hand-line" aria-hidden="true" focusable="false"><use href="#squiggle"/></svg>
+      <p class="lede">【换成你的：一段四十字左右的店内描述，例如 两层共 26 个座位，靠窗那排下午有太阳】</p>
+
+      <div class="gallery">
+        <figure class="ph ph-3x2 ph-wide">
+          <svg class="ph-art" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice"
+               role="img" aria-labelledby="pht2 phd2">
+            <title id="pht2">环境图片位，比例三比二</title>
+            <desc id="phd2">灰阶占位框：大堂或卡座的照片，建议 1600 × 1067 像素。</desc>
+            <rect width="1200" height="800" fill="#E6E2DB"/>
+            <rect x="22" y="22" width="1156" height="756" fill="none" stroke="#7E766E"
+                  stroke-width="3" stroke-dasharray="16 13" opacity="0.8"/>
+            <g stroke="#7E766E" stroke-width="7" stroke-linecap="round" fill="none">
+              <path d="M4 62V4h58"/><path d="M1138 4h58v58"/>
+              <path d="M4 738v58h58"/><path d="M1196 738v58h-58"/>
+            </g>
+            <g style="color:#7E766E" transform="translate(462,300) scale(2.3)">
+              <use href="#ph-glyph" width="120" height="84"/>
+            </g>
+          </svg>
+          <figcaption class="ph-cap">
+            <span class="ph-ratio">3 : 2</span>
+            <span class="ph-note">【换成你的：大堂 / 卡座照片 · 建议 1600 × 1067 px】</span>
+          </figcaption>
+        </figure>
+
+        <figure class="ph ph-1x1">
+          <svg class="ph-art" viewBox="0 0 900 900" preserveAspectRatio="xMidYMid slice"
+               role="img" aria-labelledby="pht3 phd3">
+            <title id="pht3">环境图片位，正方形</title>
+            <desc id="phd3">灰阶占位框：一张细节照片，例如吧台、出炉的面包、花材，建议 1200 × 1200 像素。</desc>
+            <rect width="900" height="900" fill="#E6E2DB"/>
+            <rect x="20" y="20" width="860" height="860" fill="none" stroke="#7E766E"
+                  stroke-width="3" stroke-dasharray="16 13" opacity="0.8"/>
+            <g stroke="#7E766E" stroke-width="7" stroke-linecap="round" fill="none">
+              <path d="M4 58V4h54"/><path d="M842 4h54v54"/>
+              <path d="M4 842v54h54"/><path d="M896 842v54h-54"/>
+            </g>
+            <g style="color:#7E766E" transform="translate(336,350) scale(2.05)">
+              <use href="#ph-glyph" width="120" height="84"/>
+            </g>
+          </svg>
+          <figcaption class="ph-cap">
+            <span class="ph-ratio">1 : 1</span>
+            <span class="ph-note">【换成你的：细节照片 · 建议 1200 × 1200 px】</span>
+          </figcaption>
+        </figure>
+
+        <figure class="ph ph-1x1">
+          <svg class="ph-art" viewBox="0 0 900 900" preserveAspectRatio="xMidYMid slice"
+               role="img" aria-labelledby="pht4 phd4">
+            <title id="pht4">环境图片位，正方形</title>
+            <desc id="phd4">灰阶占位框：门头或夜景照片，建议 1200 × 1200 像素。</desc>
+            <rect width="900" height="900" fill="#E6E2DB"/>
+            <rect x="20" y="20" width="860" height="860" fill="none" stroke="#7E766E"
+                  stroke-width="3" stroke-dasharray="16 13" opacity="0.8"/>
+            <g stroke="#7E766E" stroke-width="7" stroke-linecap="round" fill="none">
+              <path d="M4 58V4h54"/><path d="M842 4h54v54"/>
+              <path d="M4 842v54h54"/><path d="M896 842v54h-54"/>
+            </g>
+            <g style="color:#7E766E" transform="translate(336,350) scale(2.05)">
+              <use href="#ph-glyph" width="120" height="84"/>
+            </g>
+          </svg>
+          <figcaption class="ph-cap">
+            <span class="ph-ratio">1 : 1</span>
+            <span class="ph-note">【换成你的：门头 / 夜景照片 · 建议 1200 × 1200 px】</span>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ 顾客评价 ══════════════ -->
+  <section class="section section-alt" id="reviews" aria-labelledby="reviews-title">
+    <div class="wrap">
+      <p class="eyebrow">评价</p>
+      <h2 id="reviews-title">老客人怎么说</h2>
+      <svg class="hand-line" aria-hidden="true" focusable="false"><use href="#squiggle"/></svg>
+
+      <div class="reviews">
+        <figure class="review">
+          <blockquote>
+            <p>【换成你的：顾客原话 1，二十到四十字，写具体的事——哪道菜、哪个座位、什么时候来的】</p>
+          </blockquote>
+          <figcaption>【换成你的：顾客称呼与身份，例如 陈女士 · 周末带小孩来】</figcaption>
+        </figure>
+        <figure class="review">
+          <blockquote>
+            <p>【换成你的：顾客原话 2，换一个角度，例如服务、上菜速度、打包体验】</p>
+          </blockquote>
+          <figcaption>【换成你的：顾客称呼与身份，例如 小林 · 常来办公】</figcaption>
+        </figure>
+        <figure class="review">
+          <blockquote>
+            <p>【换成你的：顾客原话 3，可以写一句小遗憾，比一味夸更可信】</p>
+          </blockquote>
+          <figcaption>【换成你的：顾客称呼与身份，例如 王先生 · 附近居民】</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ 订位与联系 ══════════════ -->
+  <section class="section" id="book" aria-labelledby="book-title">
+    <div class="wrap">
+      <p class="eyebrow">订位</p>
+      <h2 id="book-title">订位与联系</h2>
+      <svg class="hand-line" aria-hidden="true" focusable="false"><use href="#squiggle"/></svg>
+      <p class="lede">【换成你的：订位规则，例如 四人以上建议提前一天；周五周六只接电话订位】</p>
+
+      <div class="book-grid">
+        <div class="book-col">
+          <h3 class="sub-title">先看这里</h3>
+          <ul class="fact-list">
+            <li class="fact-row">
+              <span class="fact-key">电话</span>
+              <span class="leader" aria-hidden="true"></span>
+              <span class="fact-val"><a href="tel:+860000000000">【换成你的：订位电话】</a></span>
+            </li>
+            <li class="fact-row">
+              <span class="fact-key">微信</span>
+              <span class="leader" aria-hidden="true"></span>
+              <span class="fact-val">【换成你的：微信号 / 加群方式】</span>
+            </li>
+            <li class="fact-row">
+              <span class="fact-key">邮箱</span>
+              <span class="leader" aria-hidden="true"></span>
+              <span class="fact-val">【换成你的：合作与包场邮箱】</span>
+            </li>
+            <li class="fact-row">
+              <span class="fact-key">座位</span>
+              <span class="leader" aria-hidden="true"></span>
+              <span class="fact-val">【换成你的：总座位数与最大连台人数】</span>
+            </li>
+            <li class="fact-row">
+              <span class="fact-key">包场</span>
+              <span class="leader" aria-hidden="true"></span>
+              <span class="fact-val">【换成你的：包场人数门槛与最低消费】</span>
+            </li>
+            <li class="fact-row">
+              <span class="fact-key">带娃 / 宠物</span>
+              <span class="leader" aria-hidden="true"></span>
+              <span class="fact-val">【换成你的：儿童座椅、宠物可否入内】</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="book-col">
+          <h3 class="sub-title">留下订位信息</h3>
+          <form class="book-form" action="#" method="post">
+            <p class="field">
+              <label for="bk-name">称呼</label>
+              <input id="bk-name" name="name" type="text" autocomplete="name"
+                     placeholder="【换成你的：例如 张女士】">
+            </p>
+            <p class="field">
+              <label for="bk-tel">联系电话</label>
+              <input id="bk-tel" name="tel" type="tel" autocomplete="tel"
+                     placeholder="【换成你的：手机号】">
+            </p>
+            <p class="field">
+              <label for="bk-date">到店日期</label>
+              <input id="bk-date" name="date" type="date">
+            </p>
+            <p class="field">
+              <label for="bk-time">时段</label>
+              <select id="bk-time" name="time">
+                <option>午市 11:00 – 13:30</option>
+                <option>下午 13:30 – 17:00</option>
+                <option>晚市 17:00 – 19:30</option>
+                <option>夜宵 19:30 – 21:00</option>
+              </select>
+            </p>
+            <p class="field">
+              <label for="bk-num">人数</label>
+              <input id="bk-num" name="people" type="number" min="1" max="20" value="2" inputmode="numeric">
+            </p>
+            <p class="field field-wide">
+              <label for="bk-note">备注</label>
+              <textarea id="bk-note" name="note" rows="3"
+                        placeholder="【换成你的：忌口、儿童座椅、靠窗位等】"></textarea>
+            </p>
+            <p class="field-wide form-act">
+              <button class="btn btn-brand" type="submit">提交订位</button>
+              <span class="edit-hint edit-hint-inline">【换成你的：表单接收方式 → 见 README「表单怎么接」】</span>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ══════════════ 页脚 ══════════════ -->
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div class="foot-col">
+      <p class="foot-brand">【换成你的：店名】</p>
+      <address class="foot-addr">
+        【换成你的：街道、门牌号】<br>
+        【换成你的：邮编或商圈】<br>
+        电话 <a href="tel:+860000000000">【换成你的：订位电话】</a>
+      </address>
+    </div>
+
+    <nav class="foot-col" aria-label="页脚导航">
+      <p class="foot-title">页面</p>
+      <ul class="foot-list">
+        <li><a href="#menu">菜单与价目</a></li>
+        <li><a href="#visit">营业时间与位置</a></li>
+        <li><a href="#space">店内环境</a></li>
+        <li><a href="#reviews">顾客评价</a></li>
+        <li><a href="#book">订位与联系</a></li>
+      </ul>
+    </nav>
+
+    <div class="foot-col">
+      <p class="foot-title">关注与到店须知</p>
+      <ul class="foot-list">
+        <li><a href="#">【换成你的：社交账号 1 链接】</a></li>
+        <li><a href="#">【换成你的：社交账号 2 链接】</a></li>
+        <li>【换成你的：开票 / 支付方式说明】</li>
+        <li>【换成你的：停车与发票说明】</li>
+      </ul>
+    </div>
+
+    <div class="foot-col">
+      <p class="foot-title">营业</p>
+      <ul class="foot-list">
+        <li>周一 – 周四 11:00 – 21:30</li>
+        <li>周五 11:00 – 22:30</li>
+        <li>周六 10:00 – 22:30</li>
+        <li>周日 10:00 – 21:00</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="wrap foot-base">
+    <p>© <span class="mono-num">2026</span> 【换成你的：店名 / 公司全称】· 保留所有权利</p>
+    <p class="foot-tpl">模板 M02 暖调门店站（Warm Local）· 两个文件 · 无外部依赖</p>
+  </div>
+</footer>
+
+</body>
+</html>

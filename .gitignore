@@ -34,3 +34,15 @@ desktop.ini
 node_modules/
 __pycache__/
 *.pyc
+
+# ── 模板与审查的临时截图/测量目录（用完即删，不入库） ──
+_m0*-test/
+_m0*-verify*/
+_audit*/
+_tpl-view/
+_vw-out/
+_vw-probe.html
+.shot-test/
+
+# ── 各模板自带的测量脚本目录（可选保留；默认不入库） ──
+templates/*/build/

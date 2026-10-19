@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>选型向导 · 五个问题找到适合你的方案</title>
+<meta name="description" content="回答五个关于你自己处境的问题，从 30 个设计方案里得到 3 个推荐，以及 3 个明确排除——并说清为什么。">
+<link rel="stylesheet" href="../_fonts/css/archivo-vf__wdth-wght.css">
+<link rel="stylesheet" href="../_fonts/css/noto-sans-sc__100..900.css">
+<link rel="stylesheet" href="../_fonts/css/ibm-plex-mono__400-500.css">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="wizard.css">
+</head>
+<body class="wz">
+
+<a class="skip" href="#quiz">跳到问题</a>
+
+<header class="mast wz-mast">
+  <div class="mast-id">
+    <p class="mast-kicker">网站设计风格方案 · 选型向导</p>
+    <h1>五个问题，把 30 个方案收成 3 个</h1>
+    <p class="mast-claim">不问"你喜欢什么风格"——那个问题没人答得上来。问的是<b>你的处境</b>：这一页要装多少内容、图有多重要、能多吵、访客该怎么用、以及你更怕哪一种失手。全部结论只读已有的实测数据，没有一处是我替方案打分。</p>
+    <p class="wz-back"><a href="./">← 回到选型台（看全部 30 个）</a></p>
+  </div>
+</header>
+
+<main class="wz-main" id="quiz">
+
+  <div class="wz-q" data-q="load">
+    <p class="wz-n">问题 1 / 5</p>
+    <h2>你这一页大概要装多少内容？</h2>
+    <p class="wz-hint">参照：全站正文从 179 字到 1212 字，中位数 514 字。</p>
+    <div class="wz-opts">
+      <button type="button" data-v="0"><b>就一屏，把一件事说清</b><span>访客不需要往下翻很久</span></button>
+      <button type="button" data-v="1"><b>三五屏，常规介绍</b><span>首页、介绍、几个栏目、联系方式</span></button>
+      <button type="button" data-v="2"><b>很多栏目，愿意翻很久</b><span>条目多、要能慢慢读</span></button>
+    </div>
+  </div>
+
+  <div class="wz-q" data-q="img" hidden>
+    <p class="wz-n">问题 2 / 5</p>
+    <h2>图片在你这一页里有多重要？</h2>
+    <p class="wz-hint">参照：实际用到的真实图片从 0 张到 15 张，中位数 7 张。</p>
+    <div class="wz-opts">
+      <button type="button" data-v="0"><b>基本不用图</b><span>靠文字、数字和版面说话</span></button>
+      <button type="button" data-v="1"><b>有几张就够</b><span>每个栏目配一张，不铺满</span></button>
+      <button type="button" data-v="2"><b>图是主角</b><span>没有好图这页就不成立</span></button>
+    </div>
+  </div>
+
+  <div class="wz-q" data-q="loud" hidden>
+    <p class="wz-n">问题 3 / 5</p>
+    <h2>你希望它看起来多"安静"？</h2>
+    <p class="wz-hint">这一项是按每个方案调色板的实际彩度算的，不是谁的主观评语。</p>
+    <div class="wz-opts">
+      <button type="button" data-v="0"><b>很安静，别抢戏</b><span>让人只看内容，不记得页面</span></button>
+      <button type="button" data-v="1"><b>有个态度，但不吵</b><span>颜色有立场，整体还是克制</span></button>
+      <button type="button" data-v="2"><b>就要扎眼</b><span>一眼记住，宁可有人不喜欢</span></button>
+    </div>
+  </div>
+
+  <div class="wz-q" data-q="guide" hidden>
+    <p class="wz-n">问题 4 / 5</p>
+    <h2>访客第一次进来，你希望他怎么样？</h2>
+    <p class="wz-hint">参照：30 案里有 11 个的认知门槛是"低"，12 个"中"，7 个"高"。</p>
+    <div class="wz-opts">
+      <button type="button" data-v="0"><b>三秒内知道先看哪、点哪</b><span>路要铺好，别让他猜</span></button>
+      <button type="button" data-v="1"><b>愿意花点时间读进去</b><span>有点门槛没关系，读懂了更值</span></button>
+    </div>
+  </div>
+
+  <div class="wz-q" data-q="fear" hidden>
+    <p class="wz-n">问题 5 / 5</p>
+    <h2>你更怕哪一种失手？</h2>
+    <p class="wz-hint">这个问题决定我把"稳妥"和"有记忆点"哪一头加权。</p>
+    <div class="wz-opts">
+      <button type="button" data-v="0"><b>怕做错、怕被说不专业</b><span>先别出错，个性可以少一点</span></button>
+      <button type="button" data-v="1"><b>两头都不偏</b><span>稳当，但别寡淡</span></button>
+      <button type="button" data-v="2"><b>怕没记忆点、怕被划过去</b><span>宁可冒险也要被记住</span></button>
+    </div>
+  </div>
+
+  <div class="wz-actions">
+    <button id="wz-reset" type="button" class="btn-quiet">重来</button>
+    <button id="wz-share" type="button" class="btn-quiet" hidden>复制这一页的链接（带上你的答案）</button>
+  </div>
+
+  <section class="wz-out" id="wz-out" hidden>
+    <h2 class="wz-oh">推荐这 3 个</h2>
+    <p class="wz-note">排序依据：你的五个答案 → 每个方案在"内容量／图片量／彩度／认知门槛／调性"五项上的<b>实测值</b>距离。距离越小越靠前。点任一条可以跳到选型台看它的三档截图。</p>
+    <ol class="wz-list" id="wz-pick"></ol>
+
+    <h2 class="wz-oh">以及，明确排除这 3 个</h2>
+    <p class="wz-note">"排除"比"推荐"更需要说清理由——否则你还是得自己把 27 个都看一遍。</p>
+    <ul class="wz-list wz-avoid" id="wz-avoid"></ul>
+
+    <p class="wz-note wz-method" id="wz-method"></p>
+  </section>
+
+</main>
+
+<script src="data.js"></script>
+<script src="wizard.js"></script>
+</body>
+</html>

@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<!--
+  ============================================================================
+  M01 清爽企业站（Clean Corporate）— 单页企业站模板
+  ----------------------------------------------------------------------------
+  这个文件是全站内容。所有需要你改的地方都写成【换成你的：……】，用编辑器
+  搜索「换成你的」就能一条条找到（Ctrl+H 替换）。
+  颜色/宽度/圆角不用在这里改，打开 style.css 改最上面那 12 个变量就行。
+  详细说明见同目录 README.md，每个变量的逐条解释见 TOKENS.md。
+  ============================================================================
+-->
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#1B3A5C">
+<title>【换成你的：公司名】｜【换成你的：一句话业务定位】</title>
+<meta name="description" content="【换成你的：一句话业务定位，60 字以内，会出现在搜索结果里。】">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- 键盘用户的第一个可聚焦元素：跳到正文 -->
+<a class="skip-link" href="#main">跳到主要内容</a>
+
+<!-- ============================ 顶部导航 ============================ -->
+<header class="site-header">
+  <div class="wrap header-inner">
+
+    <a class="brand" href="#top">
+      <!-- logo 图形用 currentColor，改 style.css 里的 --brand 它会一起变色。
+           想换成真图片：把整个 <svg> 换成 <img src="logo.svg" alt="公司名" width="32" height="32"> -->
+      <svg class="brand-mark" viewBox="0 0 32 32" role="img" aria-label="公司标识占位图，换成你的 logo">
+        <title>公司标识占位图</title>
+        <rect width="32" height="32" rx="7" fill="currentColor"></rect>
+        <path d="M8.5 22.5V12.5l4.75 5 4.75-5v10" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="square"></path>
+      </svg>
+      <span class="brand-name">【换成你的：公司名】</span>
+    </a>
+
+    <!-- 手机端菜单开关：纯 CSS 的复选框开关，不需要 JavaScript。
+         这个 input 被视觉隐藏但仍然可以用 Tab 键聚焦，焦点会画在右边的三条横线上。 -->
+    <input class="nav-toggle" type="checkbox" id="nav-toggle" aria-label="展开或收起导航菜单">
+    <label class="nav-burger" for="nav-toggle" aria-hidden="true">
+      <span class="nav-burger-bar"></span>
+      <span class="nav-burger-bar"></span>
+      <span class="nav-burger-bar"></span>
+    </label>
+
+    <nav class="site-nav" aria-label="主导航">
+      <ul class="site-nav-list">
+        <li><a href="#services">服务</a></li>
+        <li><a href="#clients">客户与资质</a></li>
+        <li><a href="#results">成果数据</a></li>
+        <li><a href="#process">服务流程</a></li>
+        <li><a href="#faq">常见问题</a></li>
+      </ul>
+      <a class="btn btn-primary nav-cta" href="#contact">【换成你的：导航按钮，例如 免费咨询】</a>
+    </nav>
+
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============================ 主视觉 ============================ -->
+  <section class="hero" id="top">
+    <div class="wrap hero-grid">
+
+      <div class="hero-copy">
+        <p class="eyebrow">【换成你的：行业标签，例如 企业法律顾问 / 品牌设计 / 软件外包】</p>
+        <h1>【换成你的：主标题，一句话说清你为谁解决什么问题】</h1>
+        <p class="lead">【换成你的：两三句公司介绍。谁在用你的服务、你交付什么、客户为什么选你。保持 2–3 行的长度最好看，太长会把按钮挤到屏幕外面。】</p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#contact">【换成你的：主按钮，例如 预约一次 30 分钟沟通】</a>
+          <a class="btn btn-ghost" href="#services">【换成你的：次按钮，例如 先看看我们做什么】</a>
+        </div>
+
+        <ul class="hero-trust">
+          <li>【换成你的：一条短事实，例如 成立于 2014 年】</li>
+          <li>【换成你的：一条短事实，例如 团队 26 人】</li>
+          <li>【换成你的：一条短事实，例如 服务过 280 家企业】</li>
+        </ul>
+      </div>
+
+      <!-- 图片占位框：换图时把整个 <figure> 里的 <svg> 换成
+           <img src="hero.jpg" alt="描述这张图拍的是什么" width="1200" height="750">
+           比例保持 16:10，宽度别超过 1200px，否则手机上会糊。 -->
+      <figure class="shot">
+        <svg class="shot-svg" viewBox="0 0 1200 750" role="img" aria-label="主视觉图片占位框：比例 16:10，建议放 1200×750 像素的实拍照片或插画">
+          <title>主视觉图片占位框，16:10，建议尺寸 1200×750</title>
+          <defs>
+            <pattern id="phGridHero" width="25" height="25" patternUnits="userSpaceOnUse">
+              <path d="M25 0H0v25" fill="none" stroke="#D2DAE2" stroke-width="1"></path>
+            </pattern>
+          </defs>
+          <rect width="1200" height="750" fill="#EEF2F6"></rect>
+          <rect width="1200" height="750" fill="url(#phGridHero)"></rect>
+          <rect x="40" y="40" width="1120" height="670" fill="none" stroke="#C2CCD7" stroke-width="2"></rect>
+          <g stroke="#C2CCD7" stroke-width="2">
+            <line x1="40" y1="40" x2="1160" y2="710"></line>
+            <line x1="1160" y1="40" x2="40" y2="710"></line>
+          </g>
+          <g stroke="#9AA6B4" stroke-width="3">
+            <line x1="40" y1="40" x2="120" y2="40"></line><line x1="40" y1="40" x2="40" y2="120"></line>
+            <line x1="1160" y1="40" x2="1080" y2="40"></line><line x1="1160" y1="40" x2="1160" y2="120"></line>
+            <line x1="40" y1="710" x2="120" y2="710"></line><line x1="40" y1="710" x2="40" y2="630"></line>
+            <line x1="1160" y1="710" x2="1080" y2="710"></line><line x1="1160" y1="710" x2="1160" y2="630"></line>
+          </g>
+          <g class="ph-plate">
+            <rect x="330" y="300" width="540" height="150" rx="10" fill="#FFFFFF" stroke="#D5DDE5" stroke-width="2"></rect>
+            <text x="600" y="368" text-anchor="middle">主视觉图 · 16 : 10</text>
+            <text x="600" y="418" text-anchor="middle" class="ph-sub">建议 1200 × 750 像素 · 换成你的实拍照片</text>
+          </g>
+          <g class="ph-scale">
+            <rect x="30" y="622" width="232" height="38" rx="5" fill="#FFFFFF" stroke="#D5DDE5" stroke-width="1.5"></rect>
+            <line x1="40" y1="676" x2="280" y2="676" stroke="#9AA6B4" stroke-width="2"></line>
+            <line x1="40" y1="666" x2="40" y2="686" stroke="#9AA6B4" stroke-width="2"></line>
+            <line x1="160" y1="669" x2="160" y2="683" stroke="#9AA6B4" stroke-width="2"></line>
+            <line x1="280" y1="666" x2="280" y2="686" stroke="#9AA6B4" stroke-width="2"></line>
+            <text x="44" y="651" class="ph-tiny">0 — 1200 px</text>
+          </g>
+        </svg>
+        <figcaption>【换成你的：图片说明一行。换成真图后这句也可以删掉。】</figcaption>
+      </figure>
+
+    </div>
+  </section>
+
+  <!-- ============================ 三项服务 ============================ -->
+  <section class="section" id="services" aria-labelledby="services-h">
+    <div class="wrap">
+      <header class="section-head">
+        <p class="eyebrow">服务</p>
+        <h2 id="services-h">【换成你的：服务区小标题，例如 我们能接的三件事】</h2>
+        <p class="section-lead">【换成你的：一句话说明这些服务的共通点，例如 都按项目报价、都有人负责到底。】</p>
+      </header>
+
+      <div class="grid grid-3">
+        <article class="card">
+          <!-- 图标用 currentColor，跟着 --brand 变色。线条刻意画得比常见图标库粗一点，看起来更稳。 -->
+          <span class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 40 40" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square">
+              <path d="M10 6h13l7 7v21H10z"></path><path d="M23 6v7h7"></path><path d="M15 21h10M15 27h10"></path>
+            </svg>
+          </span>
+          <h3>【换成你的：服务名称一，例如 常年法律顾问】</h3>
+          <p>【换成你的：这项服务具体做什么。写上对象、动作和交付物，两到三行，别写形容词。】</p>
+          <a class="card-link" href="#contact">【换成你的：了解更多】<span aria-hidden="true">→</span></a>
+        </article>
+
+        <article class="card">
+          <span class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 40 40" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square">
+              <path d="M7 33V7"></path><path d="M7 33h26"></path><path d="M14 33V22h6v11"></path><path d="M25 33V14h6v19"></path>
+            </svg>
+          </span>
+          <h3>【换成你的：服务名称二，例如 品牌与视觉设计】</h3>
+          <p>【换成你的：这项服务具体做什么。可以写清周期，例如「4 周内交付 3 版方案」，客户一眼就知道要投入多少时间。】</p>
+          <a class="card-link" href="#contact">【换成你的：了解更多】<span aria-hidden="true">→</span></a>
+        </article>
+
+        <article class="card">
+          <span class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 40 40" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square">
+              <path d="M20 5l12 5v9c0 8-5 13.5-12 16-7-2.5-12-8-12-16v-9z"></path><path d="M14 20l4.5 4.5L27 15"></path>
+            </svg>
+          </span>
+          <h3>【换成你的：服务名称三，例如 系统运维与响应】</h3>
+          <p>【换成你的：这项服务具体做什么。用「几点到几点、多久响应、找谁」这类话写，比写「可靠」有用得多。】</p>
+          <a class="card-link" href="#contact">【换成你的：了解更多】<span aria-hidden="true">→</span></a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== 客户 / 资质 信任条 ======================== -->
+  <section class="section section-tint" id="clients" aria-labelledby="clients-h">
+    <div class="wrap">
+      <p class="trust-head" id="clients-h">【换成你的：信任条标题，例如 这些公司把事交给我们，或 我们持有的资质】</p>
+      <ul class="logo-row">
+        <li>
+          <svg class="logo-ph" viewBox="0 0 200 64" role="img" aria-label="客户 logo 占位 1：换成你的客户标识">
+            <title>客户 logo 占位 1</title>
+            <rect x="1.5" y="1.5" width="197" height="61" rx="8" fill="#FFFFFF" stroke="#C9D2DC" stroke-width="2" stroke-dasharray="7 6"></rect>
+            <text x="100" y="37" text-anchor="middle">【客户 logo 1】</text>
+          </svg>
+        </li>
+        <li>
+          <svg class="logo-ph" viewBox="0 0 200 64" role="img" aria-label="客户 logo 占位 2：换成你的客户标识">
+            <title>客户 logo 占位 2</title>
+            <rect x="1.5" y="1.5" width="197" height="61" rx="8" fill="#FFFFFF" stroke="#C9D2DC" stroke-width="2" stroke-dasharray="7 6"></rect>
+            <text x="100" y="37" text-anchor="middle">【客户 logo 2】</text>
+          </svg>
+        </li>
+        <li>
+          <svg class="logo-ph" viewBox="0 0 200 64" role="img" aria-label="客户 logo 占位 3：换成你的客户标识">
+            <title>客户 logo 占位 3</title>
+            <rect x="1.5" y="1.5" width="197" height="61" rx="8" fill="#FFFFFF" stroke="#C9D2DC" stroke-width="2" stroke-dasharray="7 6"></rect>
+            <text x="100" y="37" text-anchor="middle">【客户 logo 3】</text>
+          </svg>
+        </li>
+        <li>
+          <svg class="logo-ph" viewBox="0 0 200 64" role="img" aria-label="客户 logo 占位 4：换成你的客户标识">
+            <title>客户 logo 占位 4</title>
+            <rect x="1.5" y="1.5" width="197" height="61" rx="8" fill="#FFFFFF" stroke="#C9D2DC" stroke-width="2" stroke-dasharray="7 6"></rect>
+            <text x="100" y="37" text-anchor="middle">【客户 logo 4】</text>
+          </svg>
+        </li>
+        <li>
+          <svg class="logo-ph" viewBox="0 0 200 64" role="img" aria-label="客户 logo 占位 5：换成你的客户标识">
+            <title>客户 logo 占位 5</title>
+            <rect x="1.5" y="1.5" width="197" height="61" rx="8" fill="#FFFFFF" stroke="#C9D2DC" stroke-width="2" stroke-dasharray="7 6"></rect>
+            <text x="100" y="37" text-anchor="middle">【客户 logo 5】</text>
+          </svg>
+        </li>
+      </ul>
+      <p class="trust-note">【换成你的：这一条换成资质或口碑，例如 通过 ISO 9001 认证 · 连续 4 年零投诉】</p>
+    </div>
+  </section>
+
+  <!-- ============================ 成果数据 ============================ -->
+  <section class="section band" id="results" aria-labelledby="results-h">
+    <div class="wrap">
+      <header class="section-head">
+        <p class="eyebrow eyebrow-invert">成果</p>
+        <h2 id="results-h">【换成你的：数据区小标题，例如 用数字说明我们做了什么】</h2>
+        <p class="section-lead">【换成你的：一句话交代统计口径和时间范围，例如 以下数字统计到 2025 年 12 月，含全部在执行项目。】</p>
+      </header>
+
+      <!-- 四个数字现在是示例值，换成你自己的真实数据。指标名称写成【换成你的】。 -->
+      <ul class="stats">
+        <li class="stat">
+          <p class="stat-num">1,240<span class="stat-unit">+</span></p>
+          <p class="stat-label">【换成你的：指标名称一】</p>
+          <p class="stat-note">【换成你的：口径说明，例如 2014–2025 累计】</p>
+        </li>
+        <li class="stat">
+          <p class="stat-num">98<span class="stat-unit">%</span></p>
+          <p class="stat-label">【换成你的：指标名称二】</p>
+          <p class="stat-note">【换成你的：口径说明，例如 近 12 个月续约率】</p>
+        </li>
+        <li class="stat">
+          <p class="stat-num">11<span class="stat-unit">年</span></p>
+          <p class="stat-label">【换成你的：指标名称三】</p>
+          <p class="stat-note">【换成你的：口径说明，例如 核心团队从业年限】</p>
+        </li>
+        <li class="stat">
+          <p class="stat-num">4<span class="stat-unit">小时</span></p>
+          <p class="stat-label">【换成你的：指标名称四】</p>
+          <p class="stat-note">【换成你的：口径说明，例如 工作时间内的平均响应】</p>
+        </li>
+      </ul>
+
+      <!-- 柱状图同样是占位内容，数据是编的。不需要就直接把整个 <figure> 删掉。 -->
+      <figure class="chart">
+        <!-- 手机上这张图在它自己的框里可以左右滑（字号才不会被压到看不清）。
+             tabindex/role 是为了键盘用户也能滑到它。不需要整张图就直接删掉 <figure>。 -->
+        <div class="chart-scroll" tabindex="0" role="region" aria-label="柱状图区域，窄屏可横向滚动查看">
+        <svg viewBox="0 0 1200 300" role="img" aria-label="柱状图占位：2020 至 2025 年交付量逐年上升，数据为示例">
+          <title>柱状图占位，数据为示例</title>
+          <g stroke="rgba(255,255,255,.18)" stroke-width="1" stroke-dasharray="4 6">
+            <line x1="110" y1="210" x2="1170" y2="210"></line>
+            <line x1="110" y1="160" x2="1170" y2="160"></line>
+            <line x1="110" y1="110" x2="1170" y2="110"></line>
+            <line x1="110" y1="60" x2="1170" y2="60"></line>
+          </g>
+          <g class="chart-y">
+            <text x="96" y="216" text-anchor="end">0</text>
+            <text x="96" y="166" text-anchor="end">100</text>
+            <text x="96" y="116" text-anchor="end">200</text>
+            <text x="96" y="66" text-anchor="end">300</text>
+          </g>
+          <g fill="rgba(255,255,255,.92)">
+            <rect x="120" y="164.7" width="96" height="45.3"></rect>
+            <rect x="308" y="147.7" width="96" height="62.3"></rect>
+            <rect x="496" y="129.3" width="96" height="80.7"></rect>
+            <rect x="684" y="107.2" width="96" height="102.8"></rect>
+            <rect x="872" y="86.4" width="96" height="123.6"></rect>
+            <rect x="1060" y="60" width="96" height="150"></rect>
+          </g>
+          <g class="chart-value">
+            <text x="168" y="152" text-anchor="middle">96</text>
+            <text x="356" y="135" text-anchor="middle">132</text>
+            <text x="544" y="117" text-anchor="middle">171</text>
+            <text x="732" y="95" text-anchor="middle">218</text>
+            <text x="920" y="74" text-anchor="middle">262</text>
+            <text x="1108" y="48" text-anchor="middle">318</text>
+          </g>
+          <g class="chart-x">
+            <text x="168" y="244" text-anchor="middle">2020</text>
+            <text x="356" y="244" text-anchor="middle">2021</text>
+            <text x="544" y="244" text-anchor="middle">2022</text>
+            <text x="732" y="244" text-anchor="middle">2023</text>
+            <text x="920" y="244" text-anchor="middle">2024</text>
+            <text x="1108" y="244" text-anchor="middle">2025</text>
+          </g>
+          <line x1="110" y1="210" x2="1170" y2="210" stroke="rgba(255,255,255,.45)" stroke-width="2"></line>
+        </svg>
+        </div>
+        <figcaption>【换成你的：图表说明，例如 数据来源：内部工单系统；单位：件。这张图可以直接删掉，不影响版面。】</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============================ 服务流程 ============================ -->
+  <section class="section" id="process" aria-labelledby="process-h">
+    <div class="wrap">
+      <header class="section-head">
+        <p class="eyebrow">流程</p>
+        <h2 id="process-h">【换成你的：流程小标题，例如 从这里开始，四步】</h2>
+        <p class="section-lead">【换成你的：一句话说明流程的大原则，例如 每一步结束都有书面确认，不满意可以随时停。】</p>
+      </header>
+
+      <ol class="steps">
+        <li class="step">
+          <span class="step-num" aria-hidden="true">01</span>
+          <h3>【换成你的：第一步做什么】</h3>
+          <p>【换成你的：这一步客户要准备什么、你交付什么、大概几天。写具体数字，别写「尽快」。】</p>
+        </li>
+        <li class="step">
+          <span class="step-num" aria-hidden="true">02</span>
+          <h3>【换成你的：第二步做什么】</h3>
+          <p>【换成你的：这一步客户要准备什么、你交付什么、大概几天。】</p>
+        </li>
+        <li class="step">
+          <span class="step-num" aria-hidden="true">03</span>
+          <h3>【换成你的：第三步做什么】</h3>
+          <p>【换成你的：这一步客户要准备什么、你交付什么、大概几天。】</p>
+        </li>
+        <li class="step">
+          <span class="step-num" aria-hidden="true">04</span>
+          <h3>【换成你的：第四步做什么】</h3>
+          <p>【换成你的：这一步客户要准备什么、你交付什么、大概几天。】</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============================ 常见问题 ============================ -->
+  <section class="section section-tint" id="faq" aria-labelledby="faq-h">
+    <div class="wrap faq-grid">
+      <div class="faq-intro">
+        <p class="eyebrow">常见问题</p>
+        <h2 id="faq-h">【换成你的：问答区小标题，例如 你可能想先问的几件事】</h2>
+        <p class="section-lead">【换成你的：一句话引导，例如 没写到的，直接打下面那个电话问。】</p>
+        <p class="faq-contact">
+          <a class="link-strong" href="tel:4000000000">【换成你的：电话，例如 400-000-0000】</a><br>
+          <a class="link-strong" href="mailto:hello@example.com">【换成你的：邮箱，例如 hello@你的域名】</a>
+        </p>
+      </div>
+
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>【换成你的：常见问题一，例如 收费怎么算？】</summary>
+          <p>【换成你的：3–4 行回答。把最常见的顾虑直接摊开写，带上具体数字或范围，例如「按阶段收费，签合同前给一份分项报价，改动不加钱」。】</p>
+        </details>
+        <details class="faq-item">
+          <summary>【换成你的：常见问题二，例如 你们接多大的项目？】</summary>
+          <p>【换成你的：3–4 行回答。给出下限和上限，比写「大小都接」有用得多。】</p>
+        </details>
+        <details class="faq-item">
+          <summary>【换成你的：常见问题三，例如 多久能开始？】</summary>
+          <p>【换成你的：3–4 行回答。写清排期规则和你手上现在的档期。】</p>
+        </details>
+        <details class="faq-item">
+          <summary>【换成你的：常见问题四，例如 中途不满意怎么办？】</summary>
+          <p>【换成你的：3–4 行回答。这一条最影响成交，把退出机制写清楚。】</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ 底部行动区 ============================ -->
+  <section class="section cta" id="contact" aria-labelledby="cta-h">
+    <div class="wrap cta-inner">
+      <div class="cta-copy">
+        <h2 id="cta-h">【换成你的：结尾标题，例如 先聊 30 分钟，看看能不能帮上忙】</h2>
+        <p>【换成你的：一句话说明下一步。写清你怎么回应、多久回应，例如 工作日内 4 小时回邮件。】</p>
+      </div>
+      <div class="cta-actions">
+        <a class="btn btn-primary" href="mailto:hello@example.com">【换成你的：主按钮，例如 发邮件给我们】</a>
+        <a class="btn btn-quiet" href="tel:4000000000">【换成你的：电话按钮，例如 400-000-0000】</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============================ 页脚 ============================ -->
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+
+    <div class="footer-brand">
+      <a class="brand brand-invert" href="#top">
+        <svg class="brand-mark" viewBox="0 0 32 32" role="img" aria-label="公司标识占位图，换成你的 logo">
+          <title>公司标识占位图</title>
+          <rect width="32" height="32" rx="7" fill="#FFFFFF"></rect>
+          <path d="M8.5 22.5V12.5l4.75 5 4.75-5v10" fill="none" stroke="#12283F" stroke-width="2.4" stroke-linecap="square"></path>
+        </svg>
+        <span class="brand-name">【换成你的：公司名】</span>
+      </a>
+      <p class="footer-about">【换成你的：一句话公司介绍，和页面顶部那句可以不同，写清你在哪个城市、服务什么行业。】</p>
+      <address class="footer-address">
+        【换成你的：办公地址，例如 上海市黄浦区某路 100 号 A 座 12 层】<br>
+        <a href="tel:4000000000">【换成你的：400-000-0000】</a>
+      </address>
+    </div>
+
+    <nav class="footer-col" aria-label="服务导航">
+      <h2 class="footer-h">服务</h2>
+      <ul>
+        <li><a href="#services">【换成你的：服务名称一】</a></li>
+        <li><a href="#services">【换成你的：服务名称二】</a></li>
+        <li><a href="#services">【换成你的：服务名称三】</a></li>
+        <li><a href="#process">【换成你的：服务流程】</a></li>
+      </ul>
+    </nav>
+
+    <nav class="footer-col" aria-label="公司导航">
+      <h2 class="footer-h">公司</h2>
+      <ul>
+        <li><a href="#clients">【换成你的：客户与资质】</a></li>
+        <li><a href="#results">【换成你的：成果数据】</a></li>
+        <li><a href="#faq">【换成你的：常见问题】</a></li>
+        <li><a href="#contact">【换成你的：联系方式】</a></li>
+      </ul>
+    </nav>
+
+    <div class="footer-col">
+      <h2 class="footer-h">联系</h2>
+      <ul>
+        <li><a href="mailto:hello@example.com">【换成你的：业务邮箱】</a></li>
+        <li><a href="mailto:hr@example.com">【换成你的：招聘邮箱】</a></li>
+        <li><a href="tel:4000000000">【换成你的：电话】</a></li>
+        <li><span>【换成你的：工作时间，例如 周一至周五 9:00–18:00】</span></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="wrap footer-bottom">
+    <p>© <span>2026</span> 【换成你的：公司名】　【换成你的：备案号，例如 沪ICP备00000000号】</p>
+    <ul class="footer-legal">
+      <li><a href="#top">【换成你的：隐私政策】</a></li>
+      <li><a href="#top">【换成你的：服务条款】</a></li>
+    </ul>
+  </div>
+</footer>
+
+</body>
+</html>
