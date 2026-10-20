@@ -166,7 +166,14 @@ html.loading .toc li{opacity:0;animation:seeping 140ms steps(2,end) forwards;ani
   .display{font-size:clamp(30px,9vw,46px)}
   .statement{font-size:22px;line-height:calc(var(--base) * 4);max-width:22ch}
   .spread,.plates,.states,.foot{padding-left:20px;padding-right:20px}
-  .toc{column-count:1}
+  /* ⚠️ 这里必须把 .page-recto / .page-verso 一起写出来。
+     原本只写 `.toc{column-count:1}`，特异性是 (0,1,0)；
+     而 ≤1279 那条 `.page-recto .toc{column-count:3}` 是 (0,2,0) ——
+     **特异性高的赢，与媒体查询先后无关**，于是 390 档目录仍然是 3 列：
+     toc 350px 分 3 列 → 每个 li a 只有 105px → 标题列只剩 49.8px →
+     「谷仓火灾保险赔付公告」被排成 4~5 行、每行 2 字（实测标题列高 140px）。
+     补上两个高特异性选择器才对。 */
+  .toc,.page-recto .toc,.page-verso .toc{column-count:1}
   .d{height:auto;background-image:none;align-self:center;margin-bottom:0}
   .d::before{content:"";display:inline-block;width:14px;height:1.5px;background:var(--ink);vertical-align:middle}
   .d::after{display:none}

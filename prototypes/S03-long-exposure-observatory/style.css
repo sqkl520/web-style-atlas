@@ -211,7 +211,15 @@ body.developed .band::after { opacity: .7; }
 
 /* ── 断点：1440 以上三区并存（轴／影像／读数） ──────── */
 @media (min-width: 1440px) {
-  .chrono { grid-template-columns: var(--axis-w) minmax(0, 1fr) 340px; }
+  /* ⚠️ 第三列原本写死 340px，而读数表是 **5 列**（日期/曝光/强度/磁偏角/判读）。
+     340px 减掉 padding 只剩 300px 分给 5 列 → 判读列只有约 110px，
+     而 12–15 个汉字的读数在 14px 字号下需要约 180px —— **每行都在折**，
+     单元格高从 69px 涨到 142px，再加"逐条右缩 12px"的阶梯（最大 60px）
+     把最后几行的内容盒压到 38px（约 2.7 字）。
+     审计把它记为 S03-F1「判读列被挤到 28px、15 字排成 8 行含单字行」。
+     修法：按实测量出的需要把第三列放开到 540px（表格需要约 512px + 40px padding），
+     中间那列是影像带、可以用 minmax(0,1fr) 吸收，不写死。 */
+  .chrono { grid-template-columns: var(--axis-w) minmax(0, 1fr) minmax(0, 540px); }
   .axis { grid-column: 1; }
   .stream { grid-column: 2; }
   .readouts { grid-column: 3; margin-top: 0; }
@@ -271,6 +279,18 @@ body.developed .band::after { opacity: .7; }
 .readouts tbody tr:nth-child(5) > td:last-child { padding-right: 48px; }
 .readouts tbody tr:nth-child(6) > td:last-child { padding-right: 60px; }
 .readouts tbody tr:nth-child(n+7) > td:last-child { padding-right: 60px; }
+
+/* ⚠️ 阶梯内缩必须在窄屏关掉。
+   上面那组规则写在**任何媒体查询之外**，所以窄屏也照用；而 ≤767 时
+   `.readouts tbody td{display:inline}` 已把表格折成行内列表，
+   最后一格只剩约 110px，再被 padding-right 吃掉 12→60px 之后内容盒只剩 28px（约 1.75 字），
+   15 字的读数被排成 8 行、含单字行，单元格高从 69px 涨到 215px（审计实测）。
+   特异性说明：原规则最高是 (0,3,3)（`.readouts` + `:nth-child()` + `:last-child`），
+   所以这里必须用 `:nth-child(n)` 而不是 `tr > td`——后者只有 (0,2,3)，
+   **特异性低的爱会被原规则压住**，且本块在原规则之后，同分才靠后序取胜。 */
+@media (max-width: 767px) {
+  .readouts tbody tr:nth-child(n) > td:last-child { padding-right: 0; }
+}
 
 /* 年代轴的年份仅在窄屏以竖排出现 */
 .axis-years { display: none; list-style: none; margin: 0; padding: 0; gap: 6px; writing-mode: vertical-rl; font-family: "IBM Plex Mono", "Cascadia Mono", "Consolas", monospace; font-size: 12px; color: var(--paper); } /* taste-skill-ignore: pinned brief §4, tabular years */
