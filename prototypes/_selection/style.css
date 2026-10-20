@@ -158,6 +158,26 @@ code { font-family: var(--code); font-size: 0.94em; }
 
 .rail-note p { font-size: var(--s-14); color: var(--ink-2); }
 
+/* 筛选栏顶部的引导语：先说"照这四组问题挑，比按风格名挑管用" */
+.rail-lead {
+  font-size: var(--s-14); line-height: 1.7; color: var(--ink-2);
+  padding-bottom: 16px; margin-bottom: 18px;
+  border-bottom: 2px solid var(--ink);
+}
+/* 分组下面的旁注：用来把"可选项其实没那么多"这件事说破 */
+.rail-hint {
+  font-size: var(--s-13); line-height: 1.65; color: var(--ink-3);
+  margin-top: 7px;
+}
+.rail-hint b { color: var(--ink); font-weight: 600; }
+/* 两组之间的分隔说明 */
+.rail-sep {
+  font-family: var(--num); font-size: var(--s-13); color: var(--ink-3);
+  letter-spacing: .03em;
+  padding-top: 14px; margin: 26px 0 16px;
+  border-top: 2px solid var(--rule);
+}
+
 /* ── 工具条：**不 sticky** —— sticky 会让大标题在滚动中被它压住（covered-text） ── */
 .main { min-width: 0; padding: 22px var(--pad) 80px 24px; }
 

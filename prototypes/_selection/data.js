@@ -68,6 +68,18 @@ window.SCHEMES = [
     "../S01-red-wedge-broadsheet/.inspect/mobile-fold.jpg",
     "../S01-red-wedge-broadsheet/.inspect/mobile-page-01.jpg"
    ]
+  },
+  "axes": {
+   "ground": "亮底",
+   "groundL": 80,
+   "band": "暖浅色带",
+   "bandHue": 40,
+   "bandL": 89,
+   "bandSat": 43,
+   "load": "一屏说清",
+   "words": 198,
+   "loud": "就要扎眼",
+   "chroma": 83
   }
  },
  {
@@ -115,7 +127,7 @@ window.SCHEMES = [
     "font-count",
     "no-footage"
    ],
-   "at": "2026-10-16T23:20:09.317Z",
+   "at": "2026-10-20T12:21:18.491Z",
    "screens": 7,
    "realPictures": 7,
    "overflow": 0,
@@ -136,6 +148,18 @@ window.SCHEMES = [
     "../S02-gilded-symmetry-salon/.inspect/mobile-page-01.jpg",
     "../S02-gilded-symmetry-salon/.inspect/mobile-page-02.jpg"
    ]
+  },
+  "axes": {
+   "ground": "暗底",
+   "groundL": 0,
+   "band": "冷暗带",
+   "bandHue": 240,
+   "bandL": 5,
+   "bandSat": 15,
+   "load": "三五屏",
+   "words": 574,
+   "loud": "就要扎眼",
+   "chroma": 89
   }
  },
  {
@@ -182,7 +206,7 @@ window.SCHEMES = [
     "font-count",
     "no-footage"
    ],
-   "at": "2026-10-17T17:45:52.498Z",
+   "at": "2026-10-20T12:21:52.052Z",
    "screens": 6,
    "realPictures": 4,
    "overflow": 0,
@@ -202,6 +226,18 @@ window.SCHEMES = [
     "../S03-long-exposure-observatory/.inspect/mobile-fold.jpg",
     "../S03-long-exposure-observatory/.inspect/mobile-page-01.jpg"
    ]
+  },
+  "axes": {
+   "ground": "暗底",
+   "groundL": 1,
+   "band": "冷暗带",
+   "bandHue": 190,
+   "bandL": 9,
+   "bandSat": 27,
+   "load": "一屏说清",
+   "words": 342,
+   "loud": "就要扎眼",
+   "chroma": 77
   }
  },
  {
@@ -271,6 +307,18 @@ window.SCHEMES = [
     "../S04-mango-collage-wall/.inspect/mobile-page-01.jpg",
     "../S04-mango-collage-wall/.inspect/mobile-page-02.jpg"
    ]
+  },
+  "axes": {
+   "ground": "亮底",
+   "groundL": 77,
+   "band": "暖浅色带",
+   "bandHue": 39,
+   "bandL": 86,
+   "bandSat": 57,
+   "load": "一屏说清",
+   "words": 316,
+   "loud": "就要扎眼",
+   "chroma": 82
   }
  },
  {
@@ -336,6 +384,18 @@ window.SCHEMES = [
     "../S05-pixel-cold-storage-console/.inspect/mobile-fold.jpg",
     "../S05-pixel-cold-storage-console/.inspect/mobile-page-01.jpg"
    ]
+  },
+  "axes": {
+   "ground": "暗底",
+   "groundL": 0,
+   "band": "暖暗带",
+   "bandHue": 100,
+   "bandL": 6,
+   "bandSat": 10,
+   "load": "一屏说清",
+   "words": 329,
+   "loud": "有态度不吵",
+   "chroma": 47
   }
  },
  {
@@ -406,6 +466,18 @@ window.SCHEMES = [
     "../S06-showa-kissaten-ledger/.inspect/mobile-page-01.jpg",
     "../S06-showa-kissaten-ledger/.inspect/mobile-page-02.jpg"
    ]
+  },
+  "axes": {
+   "ground": "亮底",
+   "groundL": 74,
+   "band": "暖浅色带",
+   "bandHue": 38,
+   "bandL": 85,
+   "bandSat": 50,
+   "load": "三五屏",
+   "words": 524,
+   "loud": "有态度不吵",
+   "chroma": 52
   }
  },
  {
@@ -456,7 +528,7 @@ window.SCHEMES = [
     "font-count",
     "no-footage"
    ],
-   "at": "2026-10-17T17:46:54.557Z",
+   "at": "2026-10-20T12:22:19.912Z",
    "screens": 5,
    "realPictures": 6,
    "overflow": 0,
@@ -478,6 +550,18 @@ window.SCHEMES = [
     "../S07-slate-ink-contents/.inspect/mobile-page-01.jpg",
     "../S07-slate-ink-contents/.inspect/mobile-page-02.jpg"
    ]
+  },
+  "axes": {
+   "ground": "亮底",
+   "groundL": 80,
+   "band": "暖浅色带",
+   "bandHue": 60,
+   "bandL": 89,
+   "bandSat": 13,
+   "load": "三五屏",
+   "words": 514,
+   "loud": "有态度不吵",
+   "chroma": 29
   }
  },
  {
@@ -549,6 +633,18 @@ window.SCHEMES = [
     "../S08-amber-overprint-lightbox/.inspect/mobile-page-01.jpg",
     "../S08-amber-overprint-lightbox/.inspect/mobile-page-02.jpg"
    ]
+  },
+  "axes": {
+   "ground": "暗底",
+   "groundL": 0,
+   "band": "暖暗带",
+   "bandHue": 24,
+   "bandL": 5,
+   "bandSat": 38,
+   "load": "一屏说清",
+   "words": 248,
+   "loud": "就要扎眼",
+   "chroma": 73
   }
  },
  {
@@ -617,6 +713,18 @@ window.SCHEMES = [
     "../S09-batik-price-board/.inspect/mobile-page-01.jpg",
     "../S09-batik-price-board/.inspect/mobile-page-02.jpg"
    ]
+  },
+  "axes": {
+   "ground": "亮底",
+   "groundL": 61,
+   "band": "中间明度带",
+   "bandHue": 45,
+   "bandL": 61,
+   "bandSat": 90,
+   "load": "一屏说清",
+   "words": 179,
+   "loud": "就要扎眼",
+   "chroma": 90
   }
  },
  {
@@ -687,6 +795,18 @@ window.SCHEMES = [
     "../S10-grid-versus-sheet/.inspect/mobile-page-01.jpg",
     "../S10-grid-versus-sheet/.inspect/mobile-page-02.jpg"
    ]
+  },
+  "axes": {
+   "ground": "亮底",
+   "groundL": 86,
+   "band": "暖浅色带",
+   "bandHue": 42,
+   "bandL": 93,
+   "bandSat": 28,
+   "load": "三五屏",
+   "words": 499,
+   "loud": "就要扎眼",
+   "chroma": 74
   }
  },
  {
@@ -756,6 +876,18 @@ window.SCHEMES = [
     "../S11-samizdat-typewriter/.inspect/mobile-page-01.jpg",
     "../S11-samizdat-typewriter/.inspect/mobile-page-02.jpg"
    ]
+  },
+  "axes": {
+   "ground": "亮底",
+   "groundL": 72,
+   "band": "暖浅色带",
+   "bandHue": 65,
+   "bandL": 85,
+   "bandSat": 14,
+   "load": "三五屏",
+   "words": 478,
+   "loud": "有态度不吵",
+   "chroma": 47
   }
  },
  {
@@ -828,6 +960,18 @@ window.SCHEMES = [
     "../S12-lime-knockout-wall/.inspect/mobile-page-01.jpg",
     "../S12-lime-knockout-wall/.inspect/mobile-page-02.jpg"
    ]
+  },
+  "axes": {
+   "ground": "暗底",
+   "groundL": 2,
+   "band": "冷暗带",
+   "bandHue": 195,
+   "bandL": 15,
+   "bandSat": 21,
+   "load": "三五屏",
+   "words": 377,
+   "loud": "就要扎眼",
+   "chroma": 74
   }
  },
  {
@@ -903,6 +1047,18 @@ window.SCHEMES = [
     "../S13-blind-debossed-dispatch/.inspect/mobile-fold.jpg",
     "../S13-blind-debossed-dispatch/.inspect/mobile-page-01.jpg"
    ]
+  },
+  "axes": {
+   "ground": "亮底",
+   "groundL": 78,
+   "band": "暖浅色带",
+   "bandHue": 41,
+   "bandL": 85,
+   "bandSat": 71,
+   "load": "一屏说清",
+   "words": 335,
+   "loud": "就要扎眼",
+   "chroma": 71
   }
  },
  {
@@ -975,6 +1131,18 @@ window.SCHEMES = [
     "../S14-zero-g-launch-sequence/.inspect/mobile-page-01.jpg",
     "../S14-zero-g-launch-sequence/.inspect/mobile-page-02.jpg"
    ]
+  },
+  "axes": {
+   "ground": "暗底",
+   "groundL": 1,
+   "band": "冷暗带",
+   "bandHue": 207,
+   "bandL": 9,
+   "bandSat": 23,
+   "load": "三五屏",
+   "words": 618,
+   "loud": "就要扎眼",
+   "chroma": 77
   }
  },
  {
@@ -1045,6 +1213,18 @@ window.SCHEMES = [
     "../S15-fishery-floor-ledger/.inspect/mobile-page-01.jpg",
     "../S15-fishery-floor-ledger/.inspect/mobile-page-02.jpg"
    ]
+  },
+  "axes": {
+   "ground": "亮底",
+   "groundL": 82,
+   "band": "中性浅带",
+   "bandHue": 150,
+   "bandL": 91,
+   "bandSat": 9,
+   "load": "很多栏目",
+   "words": 850,
+   "loud": "很安静",
+   "chroma": 9
   }
  },
  {
@@ -1116,6 +1296,18 @@ window.SCHEMES = [
     "../S16-velocity-slant-manifesto/.inspect/mobile-page-01.jpg",
     "../S16-velocity-slant-manifesto/.inspect/mobile-page-02.jpg"
    ]
+  },
+  "axes": {
+   "ground": "亮底",
+   "groundL": 84,
+   "band": "暖浅色带",
+   "bandHue": 42,
+   "bandL": 89,
+   "bandSat": 71,
+   "load": "一屏说清",
+   "words": 304,
+   "loud": "就要扎眼",
+   "chroma": 86
   }
  },
  {
@@ -1185,6 +1377,18 @@ window.SCHEMES = [
     "../S17-revenue-stamp-stub/.inspect/mobile-page-01.jpg",
     "../S17-revenue-stamp-stub/.inspect/mobile-page-02.jpg"
    ]
+  },
+  "axes": {
+   "ground": "亮底",
+   "groundL": 68,
+   "band": "暖浅色带",
+   "bandHue": 42,
+   "bandL": 81,
+   "bandSat": 37,
+   "load": "一屏说清",
+   "words": 309,
+   "loud": "有态度不吵",
+   "chroma": 45
   }
  },
  {
@@ -1255,6 +1459,18 @@ window.SCHEMES = [
     "../S18-phosphor-service-deck/.inspect/mobile-page-01.jpg",
     "../S18-phosphor-service-deck/.inspect/mobile-page-02.jpg"
    ]
+  },
+  "axes": {
+   "ground": "暗底",
+   "groundL": 0,
+   "band": "暖暗带",
+   "bandHue": 120,
+   "bandL": 5,
+   "bandSat": 13,
+   "load": "很多栏目",
+   "words": 1212,
+   "loud": "有态度不吵",
+   "chroma": 56
   }
  },
  {
@@ -1324,6 +1540,18 @@ window.SCHEMES = [
     "../S19-copperplate-herbarium-cabinet/.inspect/mobile-page-01.jpg",
     "../S19-copperplate-herbarium-cabinet/.inspect/mobile-page-02.jpg"
    ]
+  },
+  "axes": {
+   "ground": "亮底",
+   "groundL": 73,
+   "band": "暖浅色带",
+   "bandHue": 44,
+   "bandL": 85,
+   "bandSat": 30,
+   "load": "很多栏目",
+   "words": 905,
+   "loud": "有态度不吵",
+   "chroma": 30
   }
  },
  {
@@ -1396,6 +1624,18 @@ window.SCHEMES = [
     "../S20-plotter-soundfield/.inspect/mobile-page-01.jpg",
     "../S20-plotter-soundfield/.inspect/mobile-page-02.jpg"
    ]
+  },
+  "axes": {
+   "ground": "亮底",
+   "groundL": 90,
+   "band": "暖浅色带",
+   "bandHue": 43,
+   "bandL": 93,
+   "bandSat": 71,
+   "load": "很多栏目",
+   "words": 855,
+   "loud": "就要扎眼",
+   "chroma": 71
   }
  },
  {
@@ -1467,6 +1707,18 @@ window.SCHEMES = [
     "../S21-interlocking-release-book/.inspect/mobile-page-01.jpg",
     "../S21-interlocking-release-book/.inspect/mobile-page-02.jpg"
    ]
+  },
+  "axes": {
+   "ground": "亮底",
+   "groundL": 72,
+   "band": "暖浅色带",
+   "bandHue": 42,
+   "bandL": 84,
+   "bandSat": 33,
+   "load": "一屏说清",
+   "words": 284,
+   "loud": "就要扎眼",
+   "chroma": 91
   }
  },
  {
@@ -1536,6 +1788,18 @@ window.SCHEMES = [
     "../S22-paper-screen-folded-sheet/.inspect/mobile-page-01.jpg",
     "../S22-paper-screen-folded-sheet/.inspect/mobile-page-02.jpg"
    ]
+  },
+  "axes": {
+   "ground": "亮底",
+   "groundL": 70,
+   "band": "暖浅色带",
+   "bandHue": 40,
+   "bandL": 85,
+   "bandSat": 12,
+   "load": "很多栏目",
+   "words": 746,
+   "loud": "很安静",
+   "chroma": 12
   }
  },
  {
@@ -1606,6 +1870,18 @@ window.SCHEMES = [
     "../S23-exposed-plaster-chronology-wall/.inspect/mobile-page-01.jpg",
     "../S23-exposed-plaster-chronology-wall/.inspect/mobile-page-02.jpg"
    ]
+  },
+  "axes": {
+   "ground": "亮底",
+   "groundL": 71,
+   "band": "暖浅色带",
+   "bandHue": 60,
+   "bandL": 82,
+   "bandSat": 22,
+   "load": "三五屏",
+   "words": 651,
+   "loud": "就要扎眼",
+   "chroma": 68
   }
  },
  {
@@ -1676,6 +1952,18 @@ window.SCHEMES = [
     "../S24-cyanotype-rainforest-path/.inspect/mobile-page-01.jpg",
     "../S24-cyanotype-rainforest-path/.inspect/mobile-page-02.jpg"
    ]
+  },
+  "axes": {
+   "ground": "亮底",
+   "groundL": 84,
+   "band": "冷浅色带",
+   "bandHue": 205,
+   "bandL": 93,
+   "bandSat": 32,
+   "load": "三五屏",
+   "words": 649,
+   "loud": "有态度不吵",
+   "chroma": 44
   }
  },
  {
@@ -1745,6 +2033,18 @@ window.SCHEMES = [
     "../S25-spotcolor-contents-zine/.inspect/mobile-page-01.jpg",
     "../S25-spotcolor-contents-zine/.inspect/mobile-page-02.jpg"
    ]
+  },
+  "axes": {
+   "ground": "亮底",
+   "groundL": 78,
+   "band": "暖浅色带",
+   "bandHue": 36,
+   "bandL": 89,
+   "bandSat": 18,
+   "load": "三五屏",
+   "words": 352,
+   "loud": "有态度不吵",
+   "chroma": 58
   }
  },
  {
@@ -1815,6 +2115,18 @@ window.SCHEMES = [
     "../S26-geometric-collision-columns/.inspect/mobile-page-01.jpg",
     "../S26-geometric-collision-columns/.inspect/mobile-page-02.jpg"
    ]
+  },
+  "axes": {
+   "ground": "亮底",
+   "groundL": 64,
+   "band": "暖浅色带",
+   "bandHue": 47,
+   "bandL": 81,
+   "bandSat": 9,
+   "load": "很多栏目",
+   "words": 868,
+   "loud": "就要扎眼",
+   "chroma": 73
   }
  },
  {
@@ -1884,6 +2196,18 @@ window.SCHEMES = [
     "../S27-hand-painted-bill-dispatch/.inspect/mobile-page-01.jpg",
     "../S27-hand-painted-bill-dispatch/.inspect/mobile-page-02.jpg"
    ]
+  },
+  "axes": {
+   "ground": "亮底",
+   "groundL": 69,
+   "band": "暖浅色带",
+   "bandHue": 40,
+   "bandL": 81,
+   "bandSat": 53,
+   "load": "很多栏目",
+   "words": 843,
+   "loud": "就要扎眼",
+   "chroma": 75
   }
  },
  {
@@ -1954,6 +2278,18 @@ window.SCHEMES = [
     "../S28-jazz-intaglio-wall/.inspect/mobile-page-01.jpg",
     "../S28-jazz-intaglio-wall/.inspect/mobile-page-02.jpg"
    ]
+  },
+  "axes": {
+   "ground": "暗底",
+   "groundL": 0,
+   "band": "冷暗带",
+   "bandHue": 223,
+   "bandL": 6,
+   "bandSat": 24,
+   "load": "很多栏目",
+   "words": 973,
+   "loud": "就要扎眼",
+   "chroma": 81
   }
  },
  {
@@ -2024,6 +2360,18 @@ window.SCHEMES = [
     "../S29-wire-bound-safety-manual/.inspect/mobile-page-01.jpg",
     "../S29-wire-bound-safety-manual/.inspect/mobile-page-02.jpg"
    ]
+  },
+  "axes": {
+   "ground": "亮底",
+   "groundL": 65,
+   "band": "暖浅色带",
+   "bandHue": 43,
+   "bandL": 81,
+   "bandSat": 22,
+   "load": "很多栏目",
+   "words": 1043,
+   "loud": "就要扎眼",
+   "chroma": 96
   }
  },
  {
@@ -2093,6 +2441,18 @@ window.SCHEMES = [
     "../S30-skate-sticker-split/.inspect/mobile-page-01.jpg",
     "../S30-skate-sticker-split/.inspect/mobile-page-02.jpg"
    ]
+  },
+  "axes": {
+   "ground": "亮底",
+   "groundL": 85,
+   "band": "中性浅带",
+   "bandHue": 0,
+   "bandL": 93,
+   "bandSat": 0,
+   "load": "三五屏",
+   "words": 504,
+   "loud": "就要扎眼",
+   "chroma": 100
   }
  }
 ];

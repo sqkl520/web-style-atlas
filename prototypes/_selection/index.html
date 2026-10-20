@@ -32,6 +32,32 @@
 <div class="bench">
 
   <aside class="rail" aria-label="筛选">
+
+    <!-- 先问用户能回答的问题。下面那组"设计口径与质检状态"是给做这份图集的人看的，
+         不是给挑风格的人看的 —— 原来它排在前面，是"五分钟选不出来"的第一大障碍。 -->
+    <p class="rail-lead">照下面四组问题挑，比按风格名挑管用。每一组都能用一句人话回答，而且全部由实测值算出（底色相对亮度、底色色相与明度、正文字数、调色板最高彩度）。</p>
+
+    <div class="rail-block">
+      <h2>要亮底还是暗底</h2>
+      <div class="chips" id="flt-ground" role="group" aria-label="按底色明暗筛选"></div>
+    </div>
+    <div class="rail-block">
+      <h2>底色属于哪条带</h2>
+      <div class="chips" id="flt-band" role="group" aria-label="按底色色带筛选"></div>
+      <p class="rail-hint">这一组会把一件事摆到台面上：<b>30 个里有 18 个落在"暖浅色带"</b>，而"中间明度带"一个都没有。如果你觉得可选项看起来都差不多，这就是原因。</p>
+    </div>
+    <div class="rail-block">
+      <h2>要装多少内容</h2>
+      <div class="chips" id="flt-load" role="group" aria-label="按内容量筛选"></div>
+    </div>
+    <div class="rail-block">
+      <h2>要安静还是要扎眼</h2>
+      <div class="chips" id="flt-loud" role="group" aria-label="按安静度筛选"></div>
+      <p class="rail-hint">按调色板里最高彩度算。<b>19 个都属于"就要扎眼"</b>——这一层可选的真没那么多。</p>
+    </div>
+
+    <p class="rail-sep">以下是设计口径与质检状态</p>
+
     <div class="rail-block">
       <h2>结构类型</h2>
       <div class="chips" id="flt-fr" role="group" aria-label="按结构类型筛选"></div>

@@ -266,6 +266,72 @@ for (let i = 1; i <= 30; i++) {
       } catch { /* 报告坏了就当没有 */ }
     }
   }
+  // ── 用户能回答的轴（全部机械算，来自实测值，不引入主观打分）──
+  // 为什么加这个：选型台左栏原本是 结构类型(F/R)／认知门槛／调性(7个四字词)／建成状态／闸门(FAIL 计数)
+  // ——前三组是**设计口径**，后两组是**项目自己的质检状态**（"FAIL 2"跟选风格毫无关系）。
+  // 用户能回答的问题一组都没有，这是"五分钟选不出来"的第一大障碍（20-style-axes 诊断，我采纳）。
+  // 这里只放能算出来的，算不出来的（年代感、贵不贵）不硬造。
+  {
+    const rgbOf = (hex) => {
+      const m = /^#?([0-9a-f]{6})$/i.exec(String(hex || '').trim());
+      if (!m) return null;
+      const n = parseInt(m[1], 16);
+      return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+    };
+    const relLum = (rgb) => {
+      if (!rgb) return null;
+      const s = rgb.map((v) => { const c = v / 255; return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4); });
+      return 0.2126 * s[0] + 0.7152 * s[1] + 0.0722 * s[2];
+    };
+    const hslOf = (rgb) => {
+      if (!rgb) return null;
+      const [r0, g0, b0] = rgb.map((v) => v / 255);
+      const mx = Math.max(r0, g0, b0), mn = Math.min(r0, g0, b0), l = (mx + mn) / 2;
+      let h = 0, s = 0;
+      if (mx !== mn) {
+        const d = mx - mn;
+        s = l > 0.5 ? d / (2 - mx - mn) : d / (mx + mn);
+        if (mx === r0) h = (g0 - b0) / d + (g0 < b0 ? 6 : 0);
+        else if (mx === g0) h = (b0 - r0) / d + 2;
+        else h = (r0 - g0) / d + 4;
+        h *= 60;
+      }
+      return { h: Math.round(h), s: Math.round(s * 100), l: Math.round(l * 100) };
+    };
+
+    const bgRgb = rgbOf(rec.bg);
+    const L = relLum(bgRgb);
+    const bh = hslOf(bgRgb);
+    const chroma = Math.max(0, ...(rec.palette || []).map((h) => (hslOf(rgbOf(h)) || { s: 0 }).s));
+    const words = rec.gate && typeof rec.gate.words === 'number' ? rec.gate.words : null;
+
+    // 底色带：把背景归到几条"看得出来是同一条带"的区间里。
+    // 这一步的意义不只是分类 —— 它把"19/26 个案子挤在同一条暖浅色带里"这件事**摆到台面上**，
+    // 让用户在筛选时就能看见"可选项其实没那么多"。实测见 deliverables/21-lead-verify-homogeneity.md。
+    let band = null;
+    if (bh) {
+      const warm = bh.h <= 70 || bh.h >= 330;
+      const cool = bh.h > 150 && bh.h < 290;
+      if (bh.l >= 78) band = warm ? '暖浅色带' : cool ? '冷浅色带' : '中性浅带';
+      else if (bh.l <= 22) band = cool ? '冷暗带' : '暖暗带';
+      else band = '中间明度带';
+      if (bh.s <= 8) band = bh.l >= 78 ? '中性浅带' : bh.l <= 22 ? '纯中性暗带' : '中性中带';
+    }
+
+    rec.axes = {
+      ground: L === null ? null : L >= 0.5 ? '亮底' : L >= 0.12 ? '中间调' : '暗底',
+      groundL: L === null ? null : Math.round(L * 100),
+      band,
+      bandHue: bh ? bh.h : null,
+      bandL: bh ? bh.l : null,
+      bandSat: bh ? bh.s : null,
+      load: words === null ? null : words <= 350 ? '一屏说清' : words <= 700 ? '三五屏' : '很多栏目',
+      words,
+      loud: chroma <= 25 ? '很安静' : chroma <= 60 ? '有态度不吵' : '就要扎眼',
+      chroma,
+    };
+  }
+
   out.push(rec);
 }
 

@@ -11,6 +11,12 @@
 
   var state = {
     q: '',
+    /* 用户能回答的轴（放在前面 —— 它们才是挑选时要问的问题） */
+    ground: new Set(),   // 亮底 / 暗底
+    band: new Set(),     // 底色带（把"多少人挤在同一条带里"摆到台面上）
+    load: new Set(),     // 一屏说清 / 三五屏 / 很多栏目
+    loud: new Set(),     // 很安静 / 有态度不吵 / 就要扎眼
+    /* 设计口径与项目质检状态（保留，但排在后面） */
     fr: new Set(),
     thr: new Set(),
     tone: new Set(),
@@ -86,6 +92,15 @@
     return 'FAIL ' + r.gate.fail;
   }
 
+  /* 先挂用户能回答的四组轴，再挂设计口径与质检状态 */
+  function axColor(c) {
+    return '<i class="sw" style="background:#' + String(c).replace(/^#/, '') + '"></i>';
+  }
+  chips('#flt-ground', function (r) { return (r.axes || {}).ground; }, state.ground);
+  chips('#flt-band', function (r) { return (r.axes || {}).band; }, state.band);
+  chips('#flt-load', function (r) { return (r.axes || {}).load; }, state.load);
+  chips('#flt-loud', function (r) { return (r.axes || {}).loud; }, state.loud);
+
   chips('#flt-fr', function (r) { return r.fr; }, state.fr, function (v) { return v + ' 型'; });
   chips('#flt-thr', function (r) { return r.threshold; }, state.thr);
   chips('#flt-tone', function (r) { return r.tone; }, state.tone);
@@ -94,6 +109,11 @@
 
   /* ── 过滤与排序 ───────────────────────────────────────── */
   function match(r) {
+    var ax = r.axes || {};
+    if (state.ground.size && !state.ground.has(ax.ground)) return false;
+    if (state.band.size && !state.band.has(ax.band)) return false;
+    if (state.load.size && !state.load.has(ax.load)) return false;
+    if (state.loud.size && !state.loud.has(ax.loud)) return false;
     if (state.fr.size && !state.fr.has(r.fr)) return false;
     if (state.thr.size && !state.thr.has(r.threshold)) return false;
     if (state.tone.size && !state.tone.has(r.tone)) return false;
