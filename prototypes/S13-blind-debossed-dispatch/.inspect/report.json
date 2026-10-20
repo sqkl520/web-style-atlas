@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S13-blind-debossed-dispatch/index.html",
- "at": "2026-10-17T19:55:18.553Z",
+ "at": "2026-10-20T20:27:02.556Z",
  "allow": [],
  "viewports": [
   {
@@ -13,8 +13,8 @@
     0.22,
     0.15,
     0.31,
-    0.15,
-    0.18
+    0.16,
+    0.19
    ],
    "motion": {
     "elements": 13,
@@ -30,7 +30,7 @@
      "h": 900
     },
     "page": {
-     "height": 4866,
+     "height": 4822,
      "screens": 5.4,
      "words": 335,
      "img": 5,
@@ -318,8 +318,8 @@
     0.29,
     0.16,
     0.34,
-    0.29,
-    0.31
+    0.4,
+    0.29
    ],
    "motion": {
     "elements": 13,
@@ -335,7 +335,7 @@
      "h": 1024
     },
     "page": {
-     "height": 5625,
+     "height": 5581,
      "screens": 5.5,
      "words": 335,
      "img": 5,
@@ -533,7 +533,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.94,
-      "top": 5056,
+      "top": 5012,
       "tag": "h2",
       "kind": "heading"
      }
@@ -723,16 +723,18 @@
    "width": 390,
    "height": 844,
    "load": "load",
-   "screens": 8,
+   "screens": 10,
    "filled": [
-    0.3,
-    0.48,
-    0.38,
-    0.2,
-    0.57,
-    0.32,
-    0.5,
-    0.43
+    0.31,
+    0.46,
+    0.34,
+    0.24,
+    0.77,
+    0.71,
+    0.68,
+    0.44,
+    0.41,
+    0.36
    ],
    "motion": {
     "elements": 13,
@@ -744,13 +746,13 @@
    },
    "metrics": {
     "viewport": {
-     "w": 396,
-     "h": 857
+     "w": 390,
+     "h": 844
     },
     "page": {
-     "height": 6626,
-     "screens": 7.7,
-     "words": 335,
+     "height": 8355,
+     "screens": 9.9,
+     "words": 330,
      "img": 5,
      "video": 0,
      "canvas": 0,
@@ -760,11 +762,15 @@
      "overflowCulprits": [],
      "uiFragments": 0,
      "uiAbuse": false,
-     "realPictures": 1,
+     "realPictures": 5,
      "videoCount": 0,
      "uiPictures": 0,
      "pictureSamples": [
-      "plate-letterpress-tan.jpg"
+      "plate-letterpress-tan.jpg",
+      "plate-laid-paper.jpg",
+      "plate-seal-carved.jpg",
+      "plate-seal-impression.jpg",
+      "plate-type-metal.jpg"
      ],
      "blendText": 0,
      "sideScrollers": 0,
@@ -777,7 +783,7 @@
      "chars": 4,
      "lines": 1,
      "size": 30,
-     "vw": 7.6,
+     "vw": 7.7,
      "font": "EB Garamond",
      "weight": 400,
      "tracking": 0.06,
@@ -787,7 +793,7 @@
      "mono": false,
      "align": "left",
      "position": "left",
-     "widthRatio": 0.33,
+     "widthRatio": 0.34,
      "top": 176,
      "tag": "h1",
      "kind": "heading"
@@ -806,7 +812,7 @@
       "chars": 4,
       "lines": 1,
       "size": 30,
-      "vw": 7.6,
+      "vw": 7.7,
       "font": "EB Garamond",
       "weight": 400,
       "tracking": 0.06,
@@ -816,7 +822,7 @@
       "mono": false,
       "align": "left",
       "position": "left",
-      "widthRatio": 0.33,
+      "widthRatio": 0.34,
       "top": 176,
       "tag": "h1",
       "kind": "heading"
@@ -827,7 +833,7 @@
       "chars": 15,
       "lines": 1,
       "size": 26,
-      "vw": 6.6,
+      "vw": 6.7,
       "font": "Noto Serif SC",
       "weight": 400,
       "tracking": 0.06,
@@ -837,7 +843,7 @@
       "mono": false,
       "align": "left",
       "position": "center",
-      "widthRatio": 0.77,
+      "widthRatio": 0.78,
       "top": 1375,
       "tag": "p",
       "kind": "statement"
@@ -848,7 +854,7 @@
       "chars": 4,
       "lines": 1,
       "size": 26,
-      "vw": 6.6,
+      "vw": 6.7,
       "font": "EB Garamond",
       "weight": 400,
       "tracking": 0.06,
@@ -858,7 +864,7 @@
       "mono": false,
       "align": "left",
       "position": "center",
-      "widthRatio": 0.86,
+      "widthRatio": 0.88,
       "top": 2798,
       "tag": "h2",
       "kind": "heading"
@@ -869,7 +875,7 @@
       "chars": 11,
       "lines": 1,
       "size": 26,
-      "vw": 6.6,
+      "vw": 6.7,
       "font": "Noto Serif SC",
       "weight": 700,
       "tracking": 0,
@@ -879,7 +885,7 @@
       "mono": false,
       "align": "left",
       "position": "center",
-      "widthRatio": 0.86,
+      "widthRatio": 0.88,
       "top": 3377,
       "tag": "h2",
       "kind": "heading"
@@ -890,7 +896,7 @@
       "chars": 3,
       "lines": 1,
       "size": 26,
-      "vw": 6.6,
+      "vw": 6.7,
       "font": "EB Garamond",
       "weight": 400,
       "tracking": 0.06,
@@ -900,8 +906,8 @@
       "mono": false,
       "align": "left",
       "position": "center",
-      "widthRatio": 0.86,
-      "top": 4220,
+      "widthRatio": 0.88,
+      "top": 5753,
       "tag": "h2",
       "kind": "heading"
      },
@@ -911,7 +917,7 @@
       "chars": 6,
       "lines": 1,
       "size": 26,
-      "vw": 6.6,
+      "vw": 6.7,
       "font": "EB Garamond",
       "weight": 400,
       "tracking": 0.06,
@@ -921,8 +927,8 @@
       "mono": false,
       "align": "left",
       "position": "center",
-      "widthRatio": 0.86,
-      "top": 4802,
+      "widthRatio": 0.88,
+      "top": 6335,
       "tag": "h2",
       "kind": "heading"
      },
@@ -932,7 +938,7 @@
       "chars": 4,
       "lines": 1,
       "size": 26,
-      "vw": 6.6,
+      "vw": 6.7,
       "font": "EB Garamond",
       "weight": 400,
       "tracking": 0.06,
@@ -942,8 +948,8 @@
       "mono": false,
       "align": "left",
       "position": "center",
-      "widthRatio": 0.86,
-      "top": 5913,
+      "widthRatio": 0.88,
+      "top": 7642,
       "tag": "h2",
       "kind": "heading"
      }
@@ -997,7 +1003,7 @@
      "measureChars": 46,
      "max": {
       "size": 30,
-      "vw": 7.6,
+      "vw": 7.7,
       "font": "EB Garamond",
       "text": "盲压公函"
      },
@@ -1031,11 +1037,21 @@
       "l": 0.85
      },
      "dark": false,
-     "sectionBgs": [],
+     "sectionBgs": [
+      {
+       "color": "#f4e3be",
+       "top": 3555,
+       "hsl": {
+        "h": 41,
+        "s": 0.71,
+        "l": 0.85
+       }
+      }
+     ],
      "textColors": [
       {
        "color": "#241f17",
-       "share": 0.91
+       "share": 0.92
       },
       {
        "color": "#7b612c",
@@ -1092,7 +1108,7 @@
      "blurred": 0,
      "roundedBoxes": 0,
      "boxRadius": 0,
-     "squareMedia": 1,
+     "squareMedia": 5,
      "roundedMedia": 0,
      "mediaRadius": 0,
      "textShadow": 0,
@@ -1101,7 +1117,7 @@
     "heroMedia": [
      {
       "type": "img",
-      "ratio": 0.13
+      "ratio": 0.12
      }
     ],
     "nav": {
@@ -1230,7 +1246,8 @@
    "width": 390,
    "fold": "D:\\Web\\style\\prototypes\\S13-blind-debossed-dispatch\\.inspect\\mobile-fold.jpg",
    "pages": [
-    "D:\\Web\\style\\prototypes\\S13-blind-debossed-dispatch\\.inspect\\mobile-page-01.jpg"
+    "D:\\Web\\style\\prototypes\\S13-blind-debossed-dispatch\\.inspect\\mobile-page-01.jpg",
+    "D:\\Web\\style\\prototypes\\S13-blind-debossed-dispatch\\.inspect\\mobile-page-02.jpg"
    ]
   }
  ]

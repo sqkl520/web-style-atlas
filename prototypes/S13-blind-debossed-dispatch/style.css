@@ -733,3 +733,57 @@ body::before { animation: press-in 120ms steps(2) both; }
   line-height: 22px;
   color: var(--ink);
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   窄屏修正（追加在文件末尾 —— 位置本身就是修法的一部分）
+
+   审计批次 2 报了一条**阻断**级缺陷：
+     S13-F1｜390 档「工艺参照件」图版网格仍是 4 列，题注被压到每行 4.5 字，
+             四张图版的题注互相串行
+     S13-F3｜390 档 .levels__table 不折叠，前两列塌到每行 1 个汉字
+     S13-F4｜1440 档「层级」列内容盒只有 27px（< 2 个汉字）
+
+   病根是声明顺序：基础规则
+       .plates__grid { grid-template-columns: repeat(4, minmax(0,1fr)); }   ← L718
+   写在**所有媒体查询之后**。而
+       @media (max-width: 640px)        { .plates__grid { 1fr } }            ← L677
+       @media (min-width:1024px) and (max-width:1439px) { .plates__grid{2} } ← L642
+   都在它之前。**媒体查询不增加特异性** —— 同是 (0,1,0) 时后出现的赢，
+   于是这两条意图全被基础规则压掉，390 档照旧 4 列。
+   （这与批次 1 抓到的 S07 是同一类：媒体查询被更高特异性/更后序的规则压住。）
+
+   修法：在**文件最末尾**用同样的特异性、同样的选择器重新断言一次。
+   不提高特异性、不改基础规则，只靠"更靠后"取胜 —— 改动面最小。
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* 图版网格：≤640 单列，1024–1439 两列（1440 以上保持基础的 4 列，那是设计意图） */
+@media (max-width: 640px) {
+  .plates__grid { grid-template-columns: minmax(0, 1fr); }
+}
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .plates__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* 层级表：≤640 折成键值式堆叠，避免三列各约 100px 把前两列压成每行 1 个汉字。
+   同一个思路在 S03 用过（表格折成行内列表），这里保持表格语义但改成竖向。 */
+@media (max-width: 640px) {
+  .levels__table thead { display: none; }
+  .levels__table tbody tr {
+    display: block;
+    padding-block: 10px;
+    border-block-end: 1px solid var(--rule, #d8d2c4);
+  }
+  .levels__table tbody th,
+  .levels__table tbody td {
+    display: block;
+    padding-inline-end: 0;
+    text-align: start;
+  }
+  .levels__table tbody th { margin-block-end: 4px; }
+}
+
+/* 「层级」列在 1440 档只有 27px 内容盒 —— 让最窄那一列至少放下 4 个汉字 */
+@media (min-width: 641px) {
+  .levels__table { table-layout: auto; }
+  .levels__table tbody th { min-width: 4.5em; }
+}
