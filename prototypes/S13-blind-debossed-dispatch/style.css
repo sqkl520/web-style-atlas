@@ -782,8 +782,48 @@ body::before { animation: press-in 120ms steps(2) both; }
   .levels__table tbody th { margin-block-end: 4px; }
 }
 
-/* 「层级」列在 1440 档只有 27px 内容盒 —— 让最窄那一列至少放下 4 个汉字 */
-@media (min-width: 641px) {
-  .levels__table { table-layout: auto; }
-  .levels__table tbody th { min-width: 4.5em; }
+/* 附件表是同一个病，上一版漏掉了 —— 审计复验时新暴露为 S13-F6：
+   390 档「件数」列内容盒只有 25px、「附件一~四」各剩 1 字一行。
+   两张表一起处理。 */
+@media (max-width: 640px) {
+  .annex__table thead { display: none; }
+  .annex__table tbody tr {
+    display: block;
+    padding-block: 10px;
+    border-block-end: 1px solid var(--rule, #d8d2c4);
+  }
+  .annex__table tbody th,
+  .annex__table tbody td {
+    display: block;
+    padding-inline-end: 0;
+    text-align: start;
+  }
+  .annex__table tbody th { margin-block-end: 4px; }
+}
+
+/* 最窄那一列要给够宽度。
+   上一版给 .levels__table 的首格 min-width:4.5em，复验结果：内容盒 27px → 52px，
+   但「一级 · 凹」需要约 70px 才落到 1 行，所以仍不够。这里给到 7em（≈98px）。
+
+   ⚠️ 顺带纠正一个我自己的度量错误：我先前把「单元格 getBoundingClientRect().height」
+   当成"格内文字行数"来算，可那个高度是**整行高度**（由该行最长的那个格子撑起来），
+   不是这一格自己折了几行。要判断折行必须量**这一格文字自身的行盒数**
+   （`Range` 或 `getClientRects()`），不能拿行高去除行高。
+
+   真正还挤的是第 2 列：「条款标题盲压凹槽」8 个字在 14px 下需要约 112px，
+   而该列只有 52px，必然折成 2~3 行。整表又被 `max-width:36em`（≈504px）卡住，
+   五列中文内容分不下来。 */
+@media (min-width: 1024px) {
+  .levels__table, .annex__table { max-width: none; }
+  .levels__table tbody th { min-width: 7em; }
+  .levels__table tbody td:nth-child(2),
+  .annex__table tbody td:nth-child(2) { min-width: 8.5em; }
+}
+@media (min-width: 641px) and (max-width: 1023px) {
+  .levels__table, .annex__table { table-layout: auto; max-width: none; }
+  .levels__table tbody th, .annex__table tbody th { min-width: 7em; }
+  /* 只给 th 设最小宽度是不够的 —— 768 档第 2 列仍只有 52px，「条款标题盲压凹槽」
+     被折成 4 行。同一组最小宽度必须也落在第 2 列上。 */
+  .levels__table tbody td:nth-child(2),
+  .annex__table tbody td:nth-child(2) { min-width: 8.5em; }
 }

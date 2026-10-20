@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S13-blind-debossed-dispatch/index.html",
- "at": "2026-10-20T20:27:02.556Z",
+ "at": "2026-10-20T21:34:04.351Z",
  "allow": [],
  "viewports": [
   {
@@ -11,10 +11,10 @@
    "filled": [
     0.55,
     0.22,
-    0.15,
+    0.14,
     0.31,
     0.16,
-    0.19
+    0.17
    ],
    "motion": {
     "elements": 13,
@@ -30,8 +30,8 @@
      "h": 900
     },
     "page": {
-     "height": 4822,
-     "screens": 5.4,
+     "height": 4756,
+     "screens": 5.3,
      "words": 335,
      "img": 5,
      "video": 0,
@@ -318,8 +318,8 @@
     0.29,
     0.16,
     0.34,
-    0.4,
-    0.29
+    0.32,
+    0.28
    ],
    "motion": {
     "elements": 13,
@@ -335,8 +335,8 @@
      "h": 1024
     },
     "page": {
-     "height": 5581,
-     "screens": 5.5,
+     "height": 5559,
+     "screens": 5.4,
      "words": 335,
      "img": 5,
      "video": 0,
@@ -533,7 +533,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.94,
-      "top": 5012,
+      "top": 4990,
       "tag": "h2",
       "kind": "heading"
      }
@@ -723,17 +723,18 @@
    "width": 390,
    "height": 844,
    "load": "load",
-   "screens": 10,
+   "screens": 11,
    "filled": [
     0.31,
     0.46,
     0.34,
-    0.24,
-    0.77,
-    0.71,
-    0.68,
-    0.44,
-    0.41,
+    0.14,
+    0.49,
+    0.74,
+    0.75,
+    0.37,
+    0.35,
+    0.34,
     0.36
    ],
    "motion": {
@@ -750,9 +751,9 @@
      "h": 844
     },
     "page": {
-     "height": 8355,
-     "screens": 9.9,
-     "words": 330,
+     "height": 8892,
+     "screens": 10.5,
+     "words": 325,
      "img": 5,
      "video": 0,
      "canvas": 0,
@@ -886,7 +887,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.88,
-      "top": 3377,
+      "top": 3914,
       "tag": "h2",
       "kind": "heading"
      },
@@ -907,7 +908,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.88,
-      "top": 5753,
+      "top": 6290,
       "tag": "h2",
       "kind": "heading"
      },
@@ -928,7 +929,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.88,
-      "top": 6335,
+      "top": 6872,
       "tag": "h2",
       "kind": "heading"
      },
@@ -949,7 +950,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.88,
-      "top": 7642,
+      "top": 8179,
       "tag": "h2",
       "kind": "heading"
      }
@@ -1040,7 +1041,7 @@
      "sectionBgs": [
       {
        "color": "#f4e3be",
-       "top": 3555,
+       "top": 4092,
        "hsl": {
         "h": 41,
         "s": 0.71,
@@ -1051,11 +1052,11 @@
      "textColors": [
       {
        "color": "#241f17",
-       "share": 0.92
+       "share": 0.93
       },
       {
        "color": "#7b612c",
-       "share": 0.07
+       "share": 0.06
       },
       {
        "color": "#f4e3be",
@@ -1221,6 +1222,13 @@
    "alsoAt": [
     390
    ]
+  },
+  {
+   "level": "FAIL",
+   "id": "covered-text",
+   "width": 390,
+   "message": "Large text lies under another element at some scroll position: \"回函登记\" (screen 9, 100% hidden)",
+   "fix": "Nothing may sit on top of a headline or statement. Move the picture, shorten the pinned run, or raise the text above it (z-index) and give it a ground."
   }
  ],
  "images": [

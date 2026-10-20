@@ -336,14 +336,20 @@ tbody td:first-child code { color: var(--lime); }
 .sig-note { margin-left: auto; font-size: 15px; color: var(--face); }
 
 /* ── 分色图版：双色分色 + 同一套斜切遮罩冲切 ────────────────────── */
-.plates { display: grid; grid-template-columns: repeat(auto-fit, minmax(248px, 1fr)); gap: 26px 22px; margin: 24px 0 0; padding: 0; list-style: none; }
+/* ⚠️ 必须限定到 ul.plates —— `<section class="plates">` 与 `<ul class="plates">` **同名类**。
+   原本写 `.plates{display:grid; grid-template-columns:repeat(auto-fit,minmax(248px,1fr))}`，
+   于是 section 也被变成三列栅格：h2 / p.sec-note / ul 各占一列（实测 428px×3），
+   三个子元素被拉伸到整行高（h2 的 rect 高实测 2577px），
+   **1440 档左起 2/3 视口连续 2526px 空屏**（审计批次 2 的 S12-F1，明显级）。
+   同案的 .states 是同一个病（section.states 与 ul.states 同名）。修法：限定到列表本身。 */
+ul.plates { display: grid; grid-template-columns: repeat(auto-fit, minmax(248px, 1fr)); gap: 26px 22px; margin: 24px 0 0; padding: 0; list-style: none; }
 .plate { margin: 0; background: var(--room-2); padding: 12px; }
 .plate img { display: block; width: 100%; height: 236px; object-fit: cover; }
 .plate figcaption { margin-top: 12px; font-size: 15px; line-height: 1.5; color: var(--face); }
 .plate .ref { display: block; margin-top: 6px; color: var(--lime); font-size: 14px; }
 
 /* ── 状态与兜底：加载中 / 空 / 错误 / 降级四条都可见 ────────────── */
-.states { display: grid; grid-template-columns: repeat(auto-fit, minmax(272px, 1fr)); gap: 0; margin: 24px 0 0; padding: 0; list-style: none; }
+ul.states { display: grid; grid-template-columns: repeat(auto-fit, minmax(272px, 1fr)); gap: 0; margin: 24px 0 0; padding: 0; list-style: none; }
 .state { padding: 20px 22px; }
 .state h3 { font-size: 20px; line-height: 1.2; margin-bottom: 8px; font-variation-settings: "wdth" 100, "wght" 700; }
 .state p { font-size: 17px; line-height: 1.55; }
