@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S13-blind-debossed-dispatch/index.html",
- "at": "2026-10-20T21:34:04.351Z",
+ "at": "2026-10-20T21:42:16.933Z",
  "allow": [],
  "viewports": [
   {
@@ -733,8 +733,8 @@
     0.74,
     0.75,
     0.37,
-    0.35,
-    0.34,
+    0.45,
+    0.3,
     0.36
    ],
    "motion": {
@@ -1222,13 +1222,6 @@
    "alsoAt": [
     390
    ]
-  },
-  {
-   "level": "FAIL",
-   "id": "covered-text",
-   "width": 390,
-   "message": "Large text lies under another element at some scroll position: \"回函登记\" (screen 9, 100% hidden)",
-   "fix": "Nothing may sit on top of a headline or statement. Move the picture, shorten the pinned run, or raise the text above it (z-index) and give it a ground."
   }
  ],
  "images": [

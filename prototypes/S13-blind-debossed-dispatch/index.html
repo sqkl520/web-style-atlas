@@ -298,7 +298,7 @@
     var ratio = max > 0 ? window.scrollY / max : 0;
     /* 滚过 80% 贴底；但「回函登记」一进入下半屏就收回，
        贴底栏只服务签发这一步，绝不压住后面的标题。 */
-    var nearLog = logEl ? logEl.getBoundingClientRect().top < window.innerHeight - 220 : false;
+    var nearLog = logEl ? logEl.getBoundingClientRect().top <= window.innerHeight : false; /* 守卫边界原本是 innerHeight - 220：可贴底栏占的是视口底部约 208px，「回函登记」落在 624~844 这段时 innerHeight-220 判定为"不near"，栏反而保持显示、把标题 100% 盖住（闸门 covered-text）。改成"标题一进入视口就收回"，它就不可能出现在覆盖区里。 */
     var pinned = ratio >= 0.8 && !nearLog;
     signature.classList.toggle('is-pinned', pinned);
     document.body.classList.toggle('is-pinned', pinned);

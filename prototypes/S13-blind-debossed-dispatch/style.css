@@ -814,13 +814,16 @@ body::before { animation: press-in 120ms steps(2) both; }
    而该列只有 52px，必然折成 2~3 行。整表又被 `max-width:36em`（≈504px）卡住，
    五列中文内容分不下来。 */
 @media (min-width: 1024px) {
-  .levels__table, .annex__table { max-width: none; }
+  /* 解除 36em 封顶时要给个上限：表宽涨到 897px 后超出了它在 12 栅格里的栏位，
+     盖住旁边文字，闸门的 covered-text 立刻从 4 条 FAIL 变 5 条（是我引入的）。
+     改成 100% —— 既不被 504px 卡死，也不会盖到邻栏。 */
+  .levels__table, .annex__table { max-width: 100%; }
   .levels__table tbody th { min-width: 7em; }
   .levels__table tbody td:nth-child(2),
   .annex__table tbody td:nth-child(2) { min-width: 8.5em; }
 }
 @media (min-width: 641px) and (max-width: 1023px) {
-  .levels__table, .annex__table { table-layout: auto; max-width: none; }
+  .levels__table, .annex__table { table-layout: auto; max-width: 100%; }
   .levels__table tbody th, .annex__table tbody th { min-width: 7em; }
   /* 只给 th 设最小宽度是不够的 —— 768 档第 2 列仍只有 52px，「条款标题盲压凹槽」
      被折成 4 行。同一组最小宽度必须也落在第 2 列上。 */
