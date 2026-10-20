@@ -103,6 +103,14 @@ code {
 .bar__i code { color: var(--ink); }
 .bar__i--fault { background: var(--ink); color: var(--paper); padding: 2px calc(var(--base) * 1.4); }
 .bar__i--fault code { color: var(--paper); }
+/* ⚠️ 漏了这一行，`span.k` 就是隐形字。
+   L102 的 `.bar__i .k{color:var(--ink)}`（墨黑 #0B0D12）优先级是 (0,2,0)，
+   而 L104 的 `.bar__i--fault` 只把**自身**的 color 改成 --paper，改不到子元素 .k。
+   L105 单独给 code 补了覆盖，却漏了 .k —— 于是 `.bar__i--fault` 里那个「状态」标签
+   变成 #0B0D12 写在 #0B0D12 上：**1.00:1，零个字形像素**（审计批次 3 的 S28-F1，
+   像素普查该矩形 98.65% 单色）。本案自己的约定是"深底上用 --paper"（见 L82/L98 的
+   紫墨底墨色字 5.61:1），fault 变体只是漏改了这一处。 */
+.bar__i--fault .k { color: var(--paper); }
 
 /* === 抬头 */
 .head__grid { display: grid; grid-template-columns: repeat(16, minmax(0, 1fr)); column-gap: 0; margin-top: calc(var(--base) * 5); align-items: start; }
@@ -491,6 +499,18 @@ footer .sig { color: var(--ink); }
   .press__grid, .status__grid { display: block; }
   .press__main, .press__side, .status__main, .status__side { grid-column: auto; }
   .press__side, .status__side { margin-top: calc(var(--base) * 6); }
+  /* 34px 横向滚动条的真凶不是 .press__side（那已经修好了），而是一个
+     不能折行的长 <code>：实测 x=272、宽 137px、右缘 409，超出 390 视口 19px
+     → scrollWidth 424（审计批次 3 的 S28-F2 记的是「table.tbl 被推到 x=260..409」，
+     位置对得上，但归因到 aside 上；真正越界的是它里面那个 code）。
+     等宽 token 在窄屏必须允许断开。 */
+  .press__side code, .status__side code, .tbl code { overflow-wrap: anywhere; word-break: break-word; }
+  /* 真凶在页脚：`<code>assets/CREDITS.md</code>` 落在 foot-grid 里一个 98px 宽的栏，
+     而 token 本身 137px → 右缘到 409，超出 390 视口 19px、scrollWidth 报 424。
+     实测 `window.scrollTo(500,0)` 后 scrollX 仍为 0 —— **页面并不能横向滚动**，
+     所以这不是"34px 横向滚动条"（审计批次 3 的 S28-F2 按 scrollWidth- clientWidth 判的），
+     是**页脚那行字被切掉约 3 个字符**。仍然是缺陷，只是性质不同。 */
+  .foot-grid code, footer code { overflow-wrap: anywhere; word-break: break-word; }
   .spec-list li:nth-child(n) { grid-column: span 16; }
   .foot-grid > div:nth-child(n) { grid-column: span 16; }
   /* 图版改两列：9/7 → 7/9 → 9/7，宽窄交替（同样给死栏位，不用 span-only） */
@@ -519,6 +539,26 @@ footer .sig { color: var(--ink); }
   .wall { padding: calc(var(--base) * 8) 0 calc(var(--base) * 12); }
   .row { display: block; }
   .row + .row { margin-top: 0; }
+  /* ⚠️ 这一行原本只在 768–1023 区间存在（见 L500），≤767 漏了。
+     后果：`.press__side{grid-column:11/17}`（L359）在窄屏仍指向第 11–17 列，
+     被推进隐式列一直排到右边 —— `table.tbl` 被推到 x=260..409，
+     **scrollWidth 424 > 390，出现 34px 横向滚动条**
+     （审计批次 3 的 S28-F2，阻断级；全批次唯一一条横向滚动条）。
+     窄屏这些分区都应回到自动列。 */
+  .press__main, .press__side, .status__main, .status__side { grid-column: auto; }
+  .press__side, .status__side { margin-top: calc(var(--base) * 6); }
+  /* 34px 横向滚动条的真凶不是 .press__side（那已经修好了），而是一个
+     不能折行的长 <code>：实测 x=272、宽 137px、右缘 409，超出 390 视口 19px
+     → scrollWidth 424（审计批次 3 的 S28-F2 记的是「table.tbl 被推到 x=260..409」，
+     位置对得上，但归因到 aside 上；真正越界的是它里面那个 code）。
+     等宽 token 在窄屏必须允许断开。 */
+  .press__side code, .status__side code, .tbl code { overflow-wrap: anywhere; word-break: break-word; }
+  /* 真凶在页脚：`<code>assets/CREDITS.md</code>` 落在 foot-grid 里一个 98px 宽的栏，
+     而 token 本身 137px → 右缘到 409，超出 390 视口 19px、scrollWidth 报 424。
+     实测 `window.scrollTo(500,0)` 后 scrollX 仍为 0 —— **页面并不能横向滚动**，
+     所以这不是"34px 横向滚动条"（审计批次 3 的 S28-F2 按 scrollWidth- clientWidth 判的），
+     是**页脚那行字被切掉约 3 个字符**。仍然是缺陷，只是性质不同。 */
+  .foot-grid code, footer code { overflow-wrap: anywhere; word-break: break-word; }
   .blk { display: block; min-height: 0; padding-top: var(--band); margin-top: calc(var(--base) * 6); }
   .blk--plum .slab--onplum { margin-top: calc(var(--mis) - var(--bleed)); }
   .blk__frame { margin-top: calc(var(--mis) - var(--bleed)); aspect-ratio: 16 / 10; min-height: 0; }

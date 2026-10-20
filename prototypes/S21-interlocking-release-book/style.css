@@ -749,6 +749,12 @@ p{margin:0}
   .ill-table{font-size:16px}
   .ill-table thead{display:none}
   .ill-table,
+  /* ⚠️ caption 必须在这个列表里。漏掉它，390 档 caption 仍是 display:table-caption，
+     在"表格已拆成块"的情况下会被压成 16px 宽 × 262px 高 —— 一字一行竖排字柱
+     （审计批次 3 的 S21-F1，阻断级；截图上一屏底部与这一屏顶部接起来能读出
+     「道/岔/联/锁/表/·/1/至/12/号」共 15 行 1 字）。
+     对照：1440 档同一个 caption 是 520px 宽 × 31.6px 高。 */
+  .ill-table caption,
   .ill-table tbody,
   .ill-table tr,
   .ill-table th,
@@ -773,6 +779,30 @@ p{margin:0}
   }
   .ill-table tbody td[data-label="前序锁"],
   .ill-table tbody td[data-label="互斥"]{font-size:16px}
+
+  /* ⚠️ .angle-table 原本**一条窄屏规则都没有**（基础规则见 L529-553）。
+     它是 5 列的换算表，390 档总宽只剩 278px，各列实测 65/38/39/61/74px：
+     表头行高被撑到 141.5px、数据行 192/192/243px（桌面同表是 39/39/39px），
+     每行 2~3 个字，表头只剩残字「角」「明」（审计批次 3 的 S21-F2，阻断级）。
+     与 .ill-table 用同一套处理：拆成块 + 用 data-label 把表头带到每格前面。 */
+  .angle-table{font-size:16px}
+  .angle-table thead{display:none}
+  .angle-table,
+  .angle-table caption,
+  .angle-table tbody,
+  .angle-table tr,
+  .angle-table th,
+  .angle-table td{display:block;width:100%}
+  .angle-table tr{margin-bottom:calc(var(--baseline)*2)}
+  .angle-table th,
+  .angle-table td{border:0;padding:calc(var(--baseline)*.5) 0;white-space:normal}
+  .angle-table tbody th{border-right:0;white-space:normal}
+  /* 这张表的 td 上**没有** data-label（不像 .ill-table），所以标签用 nth-child 注入。
+     列序：1 斜切角（th scope=row，自带名字）/ 2 互斥对数 / 3 本时段锁数 /
+     4 切口水平进深 / 5 适用说明（整句，不需要标签）。 */
+  .angle-table td:nth-child(2)::before{content:"互斥对数 ";color:var(--ink-2)}
+  .angle-table td:nth-child(3)::before{content:"本时段锁数 ";color:var(--ink-2)}
+  .angle-table td:nth-child(4)::before{content:"切口水平进深 ";color:var(--ink-2)}
 
   .slots{margin-top:calc(var(--baseline)*1)}
   .slot{display:flex;margin-right:0}

@@ -299,6 +299,11 @@ a:hover { text-decoration-thickness: 0.16em; text-underline-offset: 0.3em; }
   .swatch__ink { width: 72px; height: 72px; }
   .check { display: block; font-size: 16px; }
   .check thead { display: none; }
+  /* ⚠️ caption 必须一起改。与 S21 完全同源、各自独立漏了一行：
+     表格已拆成块而 caption 仍是 table-caption → 被压成十几像素宽、一字一行竖排
+     （审计批次 3 的 S25-F1，阻断级）。审计方对**其余 8 案 83 个 caption**
+     做过同阈值扫描（三档共 294 次）→ 0 命中，确认是两案各自漏写、不是普遍现象。 */
+  .check caption { display: block; width: 100%; text-align: start; }
   .check tbody, .check tr { display: block; }
   .check tbody tr { padding: 10px 12px; }
   .check th, .check td { display: inline-block; padding: 2px 14px 2px 0; background: none; }
