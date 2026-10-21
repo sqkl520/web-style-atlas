@@ -11,7 +11,7 @@ English | [简体中文](README.md)
 **Content**
 
 - **30 design schemes** — each is a complete **design argument**, not a colour skin. Twelve fields cover: a one-line visual definition, aesthetic family and references, a colour system (with area ratios and mood), a type strategy, layout and grid (with behaviour at three breakpoints), key visual elements, motion and interaction (with a reduced-motion fallback), anti-AI-cliché review points, risks and how they are avoided, suitable uses (plus what it is *not* for), implementation notes (with a performance budget), and one **signature quirk of the designer**
-- **30 runnable prototypes** — real typography, real copy, real assets, real error states, real `prefers-reduced-motion` fallbacks; **26 pass the gate with FAIL=0**, producing 271 rendered screenshots
+- **30 runnable prototypes** — real typography, real copy, real assets, real error states, real `prefers-reduced-motion` fallbacks; **26 pass the gate with FAIL=0**, producing 272 rendered screenshots
 - **15 F-type / 15 R-type** — F-type has a fixed skeleton (a visitor knows what to look at and click within three seconds); R-type is *mechanism-driven* (one physical mechanism organises the content). All 30 aesthetic families are **mutually distinct**
 - **3 mainstream templates** — see the next section. They are **a separate layer** with different rules, and each one documents the scope of its exemptions in its own README
 
@@ -180,7 +180,7 @@ Three parts, three different licences — please treat them separately:
 - **The `#888888` grey block is specific to the `inspect.mjs` pipeline**: a few desktop scrolled captures under `.inspect/` contain a large patch of exact neutral grey (`desktop-page-03` in S08 at 49.86%, `desktop-page-01` in S17 at 24.27%). **That is a defect in `inspect.mjs`'s own scroll stitching, not grey that exists in the page** — characterised in `deliverables/16-render-look-audit.md`. **Corroboration**: an independent audit scanned all 246 PNGs produced by the `shot.mjs` / bare CDP / Pillow pipeline and found **not one where that grey exceeded 2%** (the highest was 0.236%, an anti-aliased edge on a grey-toned page). So it does not occur with other capture methods.
 - **The `measure` rule is a false positive for Chinese**: it estimates character width at 0.5em, while CJK glyphs are about 1.0em, so **divide the reported number by two to get the real character count per line**
 - **Under `file://`, CSS `mask-image: url(...)` fails entirely** (rejected by CORS → fully transparent). The affected prototypes are `S04` and `S07`: **double-clicking `index.html` turns their paper blocks and book-edge deckle into a blank wall** — worse than any defect in the pages themselves, and it **looks like the page is broken**. A same-page, same-size http/file comparison measured that region at **5818 distinct colours vs 2**. **This is why the repository requires opening over HTTP** — it is a functional precondition, not a style suggestion.
-- A few prototypes have an `index.html` of 30–45 KB, above the internal specification's target band. Chinese body copy alone is large (about 14 KB for four thousand characters), and the only way down is to delete content
+- A few prototypes have an `index.html` of 30–48.4 KB (the largest is S29 at 49,512 B), above the internal specification's target band. Chinese body copy alone is large (about 14 KB for four thousand characters), and the only way down is to delete content
 
 ## Repository layout
 
@@ -193,7 +193,7 @@ Three parts, three different licences — please treat them separately:
 ├── templates/                  # ★ the 3 mainstream templates (M01 / M02 / M03)
 ├── prototypes/
 │   ├── _selection/             # ★ selection bench + selection wizard
-│   ├── _fonts/                 # self-hosted fonts (46 stylesheets + woff2 slices)
+│   ├── _fonts/                 # self-hosted fonts (48 stylesheets + woff2 slices)
 │   ├── _specs/                 # each scheme's twelve fields + _CURRENT-VALUES.md (authoritative current values)
 │   ├── _build/                 # all tool scripts + _CONTRACT.md (the construction specification)
 │   └── S01-… S30-…/            # the 30 prototypes (index.html + style.css + assets/ + .inspect/)

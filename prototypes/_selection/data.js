@@ -1050,7 +1050,7 @@ window.SCHEMES = [
     "still-page",
     "hairline"
    ],
-   "at": "2026-10-20T21:42:16.933Z",
+   "at": "2026-10-21T19:48:12.976Z",
    "screens": 6,
    "realPictures": 5,
    "overflow": 0,
@@ -1125,16 +1125,15 @@ window.SCHEMES = [
   "built": true,
   "gate": {
    "fail": 0,
-   "warn": 5,
+   "warn": 4,
    "failIds": [],
    "warnIds": [
-    "contrast",
     "font-count",
     "no-footage",
     "measure",
     "still-page"
    ],
-   "at": "2026-10-17T20:01:39.079Z",
+   "at": "2026-10-21T19:48:43.077Z",
    "screens": 9,
    "realPictures": 10,
    "overflow": 0,
@@ -2141,7 +2140,7 @@ window.SCHEMES = [
     "font-count",
     "no-footage"
    ],
-   "at": "2026-10-19T14:13:18.349Z",
+   "at": "2026-10-21T19:14:49.011Z",
    "screens": 12,
    "realPictures": 8,
    "overflow": 0,

@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S14-zero-g-launch-sequence/index.html",
- "at": "2026-10-17T20:01:39.079Z",
+ "at": "2026-10-21T19:48:43.077Z",
  "allow": [],
  "viewports": [
   {
@@ -353,7 +353,7 @@
       },
       {
        "color": "#3a3630",
-       "share": 0.05
+       "share": 0.06
       },
       {
        "color": "#111111",
@@ -369,16 +369,7 @@
       },
       "fg": "#111111"
      },
-     "lowContrast": [
-      {
-       "text": "r120",
-       "ratio": 4.3,
-       "need": 4.5,
-       "size": 12,
-       "fg": "#3a1a10",
-       "bg": "#e4572e"
-      }
-     ]
+     "lowContrast": []
     },
     "buttons": {
      "count": 2,
@@ -787,7 +778,7 @@
       },
       {
        "color": "#3a3630",
-       "share": 0.05
+       "share": 0.06
       },
       {
        "color": "#111111",
@@ -803,16 +794,7 @@
       },
       "fg": "#111111"
      },
-     "lowContrast": [
-      {
-       "text": "r120",
-       "ratio": 4.3,
-       "need": 4.5,
-       "size": 12,
-       "fg": "#3a1a10",
-       "bg": "#e4572e"
-      }
-     ]
+     "lowContrast": []
     },
     "buttons": {
      "count": 2,
@@ -1307,7 +1289,7 @@
       },
       {
        "color": "#3a3630",
-       "share": 0.05
+       "share": 0.06
       },
       {
        "color": "#111111",
@@ -1323,16 +1305,7 @@
       },
       "fg": "#111111"
      },
-     "lowContrast": [
-      {
-       "text": "r120",
-       "ratio": 4.3,
-       "need": 4.5,
-       "size": 12,
-       "fg": "#3a1a10",
-       "bg": "#e4572e"
-      }
-     ]
+     "lowContrast": []
     },
     "buttons": {
      "count": 2,
@@ -1391,17 +1364,6 @@
   }
  ],
  "findings": [
-  {
-   "level": "WARN",
-   "id": "contrast",
-   "width": 1440,
-   "message": "Low-contrast text: \"r120\" 4.3:1 needs 4.5:1",
-   "fix": "Darken or lighten the text colour.",
-   "alsoAt": [
-    768,
-    390
-   ]
-  },
   {
    "level": "WARN",
    "id": "font-count",
