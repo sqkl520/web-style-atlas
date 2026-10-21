@@ -157,7 +157,9 @@ node prototypes/_build/shot.mjs prototypes/S14-zero-g-launch-sequence/ --out .sh
 > `S04` / `S07` / `S08` / `S13` / `S17` 五案的 `CREDITS.md` **自认逐张的作者与许可没有保留下来**（当初抓素材时这些字段就没落盘），涉及约 **38 张第三方照片**；且全库有 **11 行**把许可写成"见来源页"而来源页为空——根因是 `_build/assign-assets.mjs` 在跨案复用素材时**只搬文件名、丢了 `page`/`artist`/`license` 三个字段**（源案里这些字段其实是有的）。**这五案的照片不得对外复用**，直到署名表补齐。
 > 另：`S14` / `S15` 的 `CREDITS.md` 里"页面里用在哪"那一列是**没刷新的占位文本**（S14 有 28 处），不要据此判断某张图用没用。
 
-**程序化纹理不是照片**：由 `_build/make-textures.py` 生成，参数落盘（`build/texture-job.json`）可逐字节复算，无第三方权利。
+**程序化纹理不是照片**：由 `_build/make-textures.py` 生成，参数落盘（各案 `build/texture-job.json`）可逐字节复算，无第三方权利。
+
+> ⚠️ **但那份参数文件没进仓库**：`.gitignore` 排除了 `prototypes/*/build/`，而磁盘上**只有 12/30 案**有 `build/texture-job.json`。所以"参数落盘可逐字节复算"这句**克隆者核不了**——它是 LICENSE 划"无第三方权利"的依据，因此目前**依据不可核**。要让它可核，需要把 14 个生成器的参数表挪到一个不受忽略的路径（例如 `prototypes/_build/textures/`）。
 
 > ⚠️ **但"派生件"的许可要单独说清。** `LICENSE` 第 3 条按**文件名**（`assets/texture-*.png`）划 MIT 范围、第 2 条按**目录**划第三方范围 —— 而介于两者之间的**派生件**（`halftone-*.png`、`*-dither.png`、`plate-*.jpg`、`photo-*.jpg` 等，被引用的 287 张位图里约 **183 张**属这类）**同时落在两条的补集里，仓库原先没有一句话说明它们的许可**（全库只有 `S02` 写了"衍生图沿用原图的许可"）。已在 `LICENSE` 补上 **`2bis`** 条款。
 
@@ -171,10 +173,10 @@ node prototypes/_build/shot.mjs prototypes/S14-zero-g-launch-sequence/ --out .sh
 
 ## 已知缺口
 
-- **四个旧原型仍有闸门 FAIL**：`S13`（`empty-screens`，内容偏薄）与 `S21`（只剩 `mono`）——`S21` 那两条 `few-pictures` / `empty-screens` **已修**（接上了它自己 `assets/_cand/` 里 28 张对题照片中的 6 张，真实图片 0 → 6）；`S07` 的等宽数字槽与 `S08` 的琥珀主色是**已知豁免**（那两条规则与中文站／该案材质本来就冲突，理由见 `prototypes/_CONTRACT.md` §9.15）
-- **底色同质是真的**：**18 / 30 = 60% 落在"暖浅色带"**（判据 `色相 28–72° 且 明度 ≥78`）。另有两条比百分比更说明问题的：**12 个案子（40%）的底色在 ΔE76≤5 内连成单一连通块**（链上最大单步 4.39），以及 **83% 的案子首屏没有导航链接、97% 圆角为 0**。见 [deliverables/29-critique-homogeneity.md](deliverables/29-critique-homogeneity.md)
+- **四个旧原型仍有闸门 FAIL，合计 8 条**：`S07` `mono`（1）；`S08` `palette-terracotta` + `font-count`（2）；`S13` `mono` + `shadow`（17 处）+ `button-fx` + `empty-screens`（4）；`S21` `mono`（1）。其中 `S21` 的 `few-pictures` 与 `empty-screens` **已修**（接上了它自己 `assets/_cand/` 里 28 张对题照片中的 6 张，真实图片 0 → 6）。**`S07`/`S08`/`S13`/`S21` 的 `mono`，以及 `S08` 的琥珀主色，是已知豁免**（理由见 `prototypes/_CONTRACT.md` §9.15）；**`S13` 的 `shadow`（17 处）与 `button-fx` 没有豁免记录**——30 案那层明令 `box-shadow: 0`，这两条是**真的未清**
+- **底色同质是真的**：**18 / 30 = 60% 落在"暖浅色带"**（判据 `色相 28–72° 且 明度 ≥78`）。另有两条比百分比更说明问题的：**12 个案子（40%）的底色在宽口径 ΔH≤3° 且 ΔL≤3° 下连成单一连通块**（链上最大单步 ΔE76 = 4.39）——⚠️ **注意判据**：换成 ΔE76≤5 口径，最大连通分量是 **19 案（63%）**，「12 案」只在上面那个口径下成立，以及 **83% 的案子首屏没有导航链接、97% 圆角为 0**。见 [deliverables/29-critique-homogeneity.md](deliverables/29-critique-homogeneity.md)
   > ⚠️ **报同质数字必须附判据。** 本项目在这件事上混用过 **17% / 60% / 73%** 三个数——它们分别测"最严纸族""暖浅底""含主色暖倾向"，**分母还差 4 案**；而"近同对 12 严 / 22 宽"来自**先把色相与明度取整再比**，连续值直接比只有 8 / 17。三个数的来历已由审查员逐条复原，见 [deliverables/29](deliverables/29-critique-homogeneity.md) §1。
-- **底色之外还有两条同质**：`tone` 七个词里**"很安静"只有 2 案**、"就要扎眼"19 案（63%）；色相 36 个 10° 桶只用了 11 个，**紫→品红连续 110° 全空**，明度 **20–60 整段 0 案**。也就是说：**用户能用的筛选维度（内容量、复杂度）恰好都是缩略图上看不见的维度。**
+- **底色之外还有两条同质**：**"安静度"这一轴（`axes.loud`，由调色板最高彩度算出）里"很安静"只有 2 案**、"就要扎眼"19 案（63%）——别把这组数当成 `tone`；`tone` 是另外七个词（「混乱活力／街头」等），最多的一词 5 案；色相 36 个 10° 桶只用了 11 个，**紫→品红连续 110° 全空**，明度 **20–60 整段 0 案**。也就是说：**用户能用的筛选维度（内容量、复杂度）恰好都是缩略图上看不见的维度。**
 - **题材缺口**：`S28「爵士凹版墙」`的可用语料里没有爵士唱片本身，只能用唱片机与印刷素材顶上；`S22`、`S23` 有类似妥协。都写进了对应原型的 `CREDITS.md`
 - **`#888888` 灰块专属于 `inspect.mjs` 链路**：少数 `.inspect/` 里的桌面滚动截图会出现大片精确中性灰（S08 的 `desktop-page-03` 占 49.86%、S17 的 `desktop-page-01` 占 24.27%）。**那是 `inspect.mjs` 自己滚动拼接的缺陷，不是页面真有灰**——已定性于 `deliverables/16-render-look-audit.md`。**旁证**：一次独立审查对 246 张用 `shot.mjs`／裸 CDP／Pillow 这条链路产出的 PNG 做了全量扫描，**无一张该灰占比超过 2%**（最高 0.236%，是页面抗锯齿边缘）。所以它不出现于其他截图方式。
 - **`measure` 这条规则对中文是假阳性**：它按 0.5em 估算字符宽，而汉字约 1.0em，**报数除以 2 才是真实汉字数**
@@ -194,7 +196,8 @@ node prototypes/_build/shot.mjs prototypes/S14-zero-g-launch-sequence/ --out .sh
 │   ├── _selection/             # ★ 选型台 + 选型向导
 │   ├── _fonts/                 # 自托管字体（48 个样式表 + woff2 分片）
 │   ├── _specs/                 # 每案 12 字段原文 + _CURRENT-VALUES.md（当前有效值权威来源）
-│   ├── _build/                 # 全部工具脚本 + _CONTRACT.md（施工规范）
+│   ├── _build/                 # 全部工具脚本（渲染 / 复核 / 抓字体 / 备素材 / 生成纹理 / 陈旧度检查）
+│   ├── _CONTRACT.md            # 施工规范（在 prototypes/ 根，不在 _build/ 下）
 │   └── S01-… S30-…/            # 30 个原型（index.html + style.css + assets/ + .inspect/）
 └── deliverables/                # 从约束简报、研究简报、规则法典到审查记录的完整文档链
 ```
