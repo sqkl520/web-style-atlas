@@ -249,3 +249,18 @@ node prototypes/_build/shot.mjs prototypes/S14-zero-g-launch-sequence/ \
 - Chrome 没出图：`report.json` 的 `failed[]` 与 tier 的 `error` 里带上 `exit code`、
   `killed`、以及 **Chrome 的 stdout/stderr 原文**（不吞）；进程整体 exit 1。
 - 静态服务器：任何请求异常都被捕获（不会因为一个坏请求把整轮截图带走），原文写 stderr。
+
+
+---
+
+## ⚠️ 【2026-10-22 实测更正】本文 L233 那句「比像素统计，别比字节数」不成立
+
+同一命令、间隔 2 分钟、S14 两轮：拓扑 100% 一致、主色 hex 34/34 全同，
+
+**但 148 个统计叶子字段不同**（dominant.share 最大漂 0.331 个百分点、uniqueSampled 漂约 1.4%），
+
+漂移只在切片 1–4（首屏动画区）——--virtual-time-budget 截到的帧不同。
+
+**后果：页面完全没改也会报约 14 个单元「变了」。** 正确判据见 deliverables/39-critique-toolchain-repro.md §7.3；
+
+根治办法是加 --reuse-raw <dir>，把统计量从「依赖 Chrome 时序」降级为「依赖输入文件」。

@@ -260,7 +260,7 @@
 
 | # | 位置 | 类型 | 会改结果？ | 证据 |
 | --- | --- | --- | --- | --- |
-| N11 | `shot.mjs:473` `--virtual-time-budget=${settle}`（默认 4000）+ 页面自身的 CSS 动画/字体栅格时序 | 渲染时序 | **会**：同一页两轮，34 个切片里 **21 个有统计量漂移**，最大 `top3[0].share` 漂 **0.331 个百分点** | 【实跑】R1/R2：48 个产物 **23 个 PNG 字节不同**（25 个逐字节相同）；去易变字段后 **148 个叶子字段仍不同** |
+| N11 | `shot.mjs:473` `--virtual-time-budget=${settle}`（默认 4000）+ 页面自身的 CSS 动画/字体栅格时序 | 渲染时序 | **会**：**按切片序号看，序号 1–4 有统计量漂移、序号 5 及以后（跨三档）全部为 0**；`fold` 与 `full` 的若干统计量也漂移。最大 `top3[0].share` 漂 **0.331 个百分点** | 【实跑】R1/R2：48 个产物 **23 个 PNG 字节不同**（25 个逐字节相同）；去易变字段后 **148 个叶子字段仍不同** |
 | N12 | 同上，但**几何/拓扑不发生漂移** | — | **不会** | 【实跑】页高 7569/7569、9250/9250、12161/12161；屏数 9/9、11/11、14/14；切片数一致；`mode` 与 `calibrated` 一致；**主色 hex 34/34 全同；`blank`/`uniform` 标记 0 变化；`nearWhiteShare`/`nearBlackShare` 0 变化** |
 
 **这就推翻了 `SHOT-README.md` L233-235 的两句话**：
@@ -526,7 +526,7 @@ node prototypes/_build/shot.mjs prototypes/S14-zero-g-launch-sequence/ \
 - `mode`（direct/iframe）、`calibrated`、`truncated`、`slicesMatch`；
 - `dominant.hex`、`top3[*].hex`；
 - `blank`、`uniform`、`nearWhiteShare`、`nearBlackShare`；
-- `http.byStatus` 的**键集合**（值允许 ±0？见下）、`probe.brokenImages`、`probe.fonts`【3.A 实测：R1/R2 `byStatus` 全同】
+- `http.byStatus` 的**键集合**（值允许小幅波动，实测 R1/R2 全同）、`probe.brokenImages`、`probe.fonts`【3.A 实测：R1/R2 `byStatus` 全同】
 
 **② 带容差（阈值取实测上限的约 3 倍余量）**：
 
@@ -621,7 +621,7 @@ node prototypes/_build/shot.mjs prototypes/S14-zero-g-launch-sequence/ \
 | **为什么它排第一** | **唯一一条同时解决两类读者、而且修完可以删掉一整节容差表**的改动。修完：统计量从"漂移 0.33 个百分点"变成"**逐字节相等**"（§7.4 已证 `shot-page.py` 是纯函数）。 |
 | **对"想复现的人"** | 高：`report.json` 的统计部分变成可复算，§7.3 那张容差表整段作废，验收从"带容差"降级为"逐字节"。 |
 | **对"想用它的人"** | 高：README 推荐的"比统计量、不比字节"这条工作流**目前是坏的**（改一行无关 CSS 与不改 CSS 报出同样的变化量）。修完 A/B 比对才成立。 |
-| **不做会怎样** | 每一个用 `shot.mjs` 做"改了没有"判断的人，都会拿到 21/34 个切片的假阳性。**本项目已经用这条链路下过视觉结论。** |
+| **不做会怎样** | 每一个用 `shot.mjs` 做"改了没有"判断的人，都会拿到假阳性 —— 按切片序号 1–4（跨三档，最多 12 个对比单元）加上 `fold`/`full`，**共约 14 个对比单元会在页面完全没改时报"变了"**。**本项目已经用这条链路下过视觉结论。** |
 | **风险** | 低。不改变任何现有产物的生成路径（新参数默认关闭），不动原型/模板。 |
 
 ### 第 2 条：把 12 处 `D:/Web/style` 换成 `check-stale.mjs:16` 那种推根（§2-B01/B04/B05/B07/B08/B10/B11/B17/B18 等多条同源）
