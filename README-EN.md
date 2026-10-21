@@ -51,7 +51,8 @@ templates/M01-clean-corporate/
 └── TOKENS.md      the 12 variables explained one by one (what it does / default / what changing it does)
 ```
 
-> **Why does this layer have different rules from the 30 schemes?** The 30 schemes follow a strict "anti-AI-cliché" specification that bans, among other things: a centred headline with three equal cards and a bottom CTA; alternating white / light-grey section backgrounds; pure white ground with pure black text and a single accent; floating cards with soft shadows; `Inter`/`system-ui` as the primary face; purple-blue gradients; and frosted-glass sticky navigation. **Those bans are precisely what makes a "mainstream template" work.** So this layer **explicitly exempts itself** from them — keeping the two standards apart: **the 30-scheme layer aims to be remembered; this layer aims not to put a foot wrong and to be usable the moment you pick it up.** Each README lists the exact scope of the exemption with a **use-level** justification (never "because it is mainstream"), and also lists what it still holds to (`box-shadow: 0`, `gradient: 0`, `backdrop-filter: 0`, zero emoji, no empty marketing words).
+> **Why does this layer have different rules from the 30 schemes?** The 30 schemes follow a strict "anti-AI-cliché" specification that bans, among other things: a centred headline with three equal cards and a bottom CTA; alternating white / light-grey section backgrounds; pure white ground with pure black text and a single accent; floating cards with soft shadows; `Inter`/`system-ui` as the primary face; purple-blue gradients; and frosted-glass sticky navigation. **Those bans are precisely what makes a "mainstream template" work.** So this layer **explicitly exempts itself** from them — keeping the two standards apart: **the 30-scheme layer aims to be remembered; this layer aims not to put a foot wrong and to be usable the moment you pick it up.** Each README lists the exact scope of the exemption with a **use-level** justification (never "because it is mainstream"), and also lists what it still holds to (`gradient: 0`, `backdrop-filter: 0`, zero emoji, no empty marketing words)
+> ⚠️ **`box-shadow: 0` is not actually held**: M01 has 3 and M03 has 1 (using `box-shadow` to draw the hamburger bars). **And M01's own `README.md` admits this is a deliberate exemption**, so the two documentation layers have given opposite conclusions about the same declaration..
 
 ## Quick start
 
@@ -129,6 +130,10 @@ Each `prototypes/<scheme>/` directory is **self-contained** (`index.html` + `sty
 
 ```bash
 # render one prototype: real screenshots at three viewports + gate result
+# ⚠️ This command only runs as-is on the original development machine: its ROOT is hardcoded to
+#    D:/Web/style, and it depends on tools/taste-skill/…/inspect.mjs — but tools/ is excluded by
+#    .gitignore and is NOT in the repository. A cloner must obtain that tool and edit ROOT in line 16,
+#    or use shot.mjs below, which has no such dependency.
 node prototypes/_build/render-scheme.mjs S14-zero-g-launch-sequence
 
 # mechanical check (no arguments checks everything)
@@ -197,7 +202,8 @@ Three parts, three different licences — please treat them separately:
 │   ├── _selection/             # ★ selection bench + selection wizard
 │   ├── _fonts/                 # self-hosted fonts (48 stylesheets + woff2 slices)
 │   ├── _specs/                 # each scheme's twelve fields + _CURRENT-VALUES.md (authoritative current values)
-│   ├── _build/                 # all tool scripts + _CONTRACT.md (the construction specification)
+│   ├── _build/                 # all tool scripts (render / verify / fetch fonts / assign assets / generate textures / staleness check)
+│   ├── _CONTRACT.md            # the construction specification (at the prototypes/ root, NOT under _build/)
 │   └── S01-… S30-…/            # the 30 prototypes (index.html + style.css + assets/ + .inspect/)
 └── deliverables/               # the full document chain, from the brief and research to review records
 ```
