@@ -20,9 +20,27 @@ prototypes/_specs/ 与 _CONTRACT.md，以及 deliverables/ 下的全部文档。
    复用前请按该表核对并遵守对应许可；CC BY 与 CC BY-SA 要求署名，
    部分还要求以相同方式共享。
 
-3. 程序化纹理（assets/texture-*.png）
+   ⚠️ **已知例外**：S04 / S07 / S08 / S13 / S17 五案的 CREDITS.md
+   自认"逐张的作者与许可没有保留下来"，涉及约 38 张第三方照片；
+   另有 11 行许可写作"见来源页"而来源页为空。**这些照片不得对外复用**，
+   直到署名表补齐。详见 README.md「授权与署名」一节。
+
+2bis. 派生件（第三方照片的改作与合成物）
+   本项目把部分第三方照片**加工成派生件**再放到页面上，例如
+   halftone-*.png（网点化）、*-dither.png（抖动）、plate-*.jpg 与
+   photo-*.jpg（裁切／调色／合版）。这类文件**不在上面的 MIT 范围内**，
+   也不因加工动作而变成自有资产：
+     · 派生件**沿用其源素材的许可**；
+     · 源素材若是 CC BY，派生件**必须保留署名**；
+     · 源素材若是 CC BY-SA，派生件**必须以相同方式共享**。
+   第 3 条按**文件名**划 MIT 范围，而大量生成物并不叫 texture-*；
+   一律以生成器记录（prototypes/_build/make-textures.py 与各案
+   build/texture-job.json）为准，不以文件名为准。
+
+3. 程序化纹理（由 make-textures.py 生成的纯生成物）
    由 prototypes/_build/make-textures.py 生成，生成参数记录在 build/texture-job.json，
    可逐字节复算，无第三方权利 —— 这部分适用上面的 MIT 许可。
+   （⚠️ 仅限**源素材为生成器自产**的那些；凡加工过第三方照片的，见第 2bis 条。）
 
 4. 第三方工具
    taste-skill（MIT，https://github.com/Leonxlnx/taste-skill）

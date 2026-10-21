@@ -127,9 +127,16 @@
          （选型台信息架构审查员实测抓出。）
          一并纳入的还有：骨架名、字段 2 美学家族、字段 12 签名式怪癖、轴线取值。 */
       var ax = r.axes || {};
+      /* ⚠️ 这里只能用 `scenesYes`，**不能用 `scenes`**。
+         字段 10 的字面是「适合…**不适合：**…」，整串进索引会让正负一起进：
+         实测搜"政务"命中 7 行，**7/7 全部只出现在"不适合"从句里**，
+         而行卡不印 scenes → 用户看到 7 行却没有一行印出"政务"，
+         只能得出"有 7 个方案适合政务"这个**与事实相反**的结论。
+         （这是我自己在一次"修复"里引入的反向信号。原来的 0 命中至少诚实。） */
       var hay = [r.id, r.cn, r.en, r.family, r.fonts, r.def, r.tone, r.structure,
                  r.errorCode, r.threshold, r.layout, r.visuals, r.quirk,
-                 r.scenes, ax.ground, ax.band, ax.load, ax.loud,
+                 r.scenesYes,
+                 ax.ground, ax.band, ax.load, ax.loud,
                  (r.palette || []).join(' ')].join(' ').toLowerCase();
       if (hay.indexOf(state.q) < 0) return false;
     }
@@ -420,6 +427,18 @@
   document.addEventListener('keydown', function (e) {
     var tag = (e.target.tagName || '').toLowerCase();
     if (tag === 'input' || tag === 'select' || tag === 'textarea') {
+      if (e.key === 'Escape') e.target.blur();
+      return;
+    }
+    /* ⚠️ `<button>` 也必须排除。
+       原判据只排除了 input/select/textarea，漏了 button。
+       后果：焦点落在任意一颗筛选芯片上（键盘 `Tab` 到那儿是常规操作）再按 `J`，
+       会**同时触发两件事**——芯片激活 + 打开第一个方案的详情。
+       实测（选型台可用性辩护员）：焦点在"亮底"芯片上按 J →
+       `active:"亮底22"` + `detailHidden:false` + `dNo:"S01"`。
+       button 上的 J/K/`/` 本来就该由浏览器正常处理（J 在按钮上无默认行为，
+       但用户此刻的意图显然是"操作这颗芯片"，不是"跳到下一个方案"）。 */
+    if (tag === 'button' || e.target.isContentEditable) {
       if (e.key === 'Escape') e.target.blur();
       return;
     }

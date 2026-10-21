@@ -154,7 +154,13 @@ Three parts, three different licences — please treat them separately:
 
 **The author, licence and source URL of every single photograph are listed per image in each prototype's `assets/CREDITS.md`.** Before reusing any of them, check that table and comply with its licence (CC BY and CC BY-SA require attribution; some also require share-alike).
 
+> ⚠️ **That sentence has two known exceptions — do not read it as a whole-repository fact.**
+> The `CREDITS.md` of `S04` / `S07` / `S08` / `S13` / `S17` **admits that the per-image author and licence were not preserved** (those fields were never written down when the assets were fetched), covering roughly **38 third-party photographs**; and across the repository **11 rows** record the licence as "see source page" while the source page is empty — the root cause being that `_build/assign-assets.mjs` copies only the filename when reusing an asset across schemes, dropping `page` / `artist` / `license` (the source scheme does have those fields). **Photographs in those five schemes must not be reused** until their attribution tables are complete.
+> Also: the "where it is used on the page" column in the `CREDITS.md` of `S14` / `S15` is **unrefreshed placeholder text** (28 occurrences in S14) — do not use it to judge whether an image is used.
+
 **The procedural textures are not photographs**: they are produced by `_build/make-textures.py`, their parameters are written to disk (`build/texture-job.json`), and they are byte-reproducible. They carry no third-party rights.
+
+> ⚠️ **The licence of "derivative works" needs saying separately.** Clause 3 of `LICENSE` delimits the MIT scope by **filename** (`assets/texture-*.png`) while clause 2 delimits third-party material by **directory** — and the **derivatives in between** (`halftone-*.png`, `*-dither.png`, `plate-*.jpg`, `photo-*.jpg`; roughly **183 of the 287 referenced bitmaps**) **fall into the complement of both clauses, and the repository previously said nothing about their licence** (only `S02` stated that "derivatives inherit the source licence"). A **`2bis`** clause has now been added to `LICENSE`.
 
 **The mainstream templates contain no third-party assets at all** — image slots are inline SVG placeholder frames, so there is nothing to clear.
 
