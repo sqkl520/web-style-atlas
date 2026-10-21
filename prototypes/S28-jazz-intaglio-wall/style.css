@@ -497,6 +497,22 @@ footer .sig { color: var(--ink); }
   .head__main { grid-column: 1 / 17; }
   .head__wall { grid-column: 1 / 17; margin-top: calc(var(--base) * 4); min-height: 460px; }
   .press__grid, .status__grid { display: block; }
+  /* ⚠️ 这一行是我上一轮漏抄的。
+     `@media (max-width:1023px) and (min-width:768px)` 那段（L499-501）有**三行**：
+         L499  .press__grid, .status__grid { display: block; }
+         L500  .press__main, .press__side, .status__main, .status__side { grid-column: auto; }
+         L501  .press__side, .status__side { margin-top: … }
+     我往 ≤767 分支搬的时候**只搬了 500 与 501，漏了 499**。
+     后果：≤767 档 .press__grid / .status__grid 仍是 `display:grid` +
+     `repeat(16, minmax(0,1fr))`，而子项被 `grid-column:auto` 自动排进单格 →
+     实测 **16 条轨道全部解析成 0px**，`.press__main` = **0px 宽 × 6448px 高**、
+     `.status__main` = **0px × 5686px**（区域截图是一列每行一个字的竖排单字条），
+     390 档页高被撑到 29189px。
+     —— 这是最坏情况缺陷猎人的 AH-02（阻断级），它明确指出这是"上一轮修横向滚动条引入的回归"。
+     ⚠️ 我在同一个地方第二次犯"搬规则只搬一半"的错：
+     上一次是 S13 只修了 `.plates__grid` 漏了 `.letterhead__top`。
+     **教训：搬一组断点规则时，必须先数清源分支里有几行、逐行核到目标分支。** */
+  .press__grid, .status__grid { display: block; }
   .press__main, .press__side, .status__main, .status__side { grid-column: auto; }
   .press__side, .status__side { margin-top: calc(var(--base) * 6); }
   /* 34px 横向滚动条的真凶不是 .press__side（那已经修好了），而是一个
@@ -545,6 +561,22 @@ footer .sig { color: var(--ink); }
      **scrollWidth 424 > 390，出现 34px 横向滚动条**
      （审计批次 3 的 S28-F2，阻断级；全批次唯一一条横向滚动条）。
      窄屏这些分区都应回到自动列。 */
+  /* ⚠️ 这一行是我上一轮漏抄的。
+     `@media (max-width:1023px) and (min-width:768px)` 那段（L499-501）有**三行**：
+         L499  .press__grid, .status__grid { display: block; }
+         L500  .press__main, .press__side, .status__main, .status__side { grid-column: auto; }
+         L501  .press__side, .status__side { margin-top: … }
+     我往 ≤767 分支搬的时候**只搬了 500 与 501，漏了 499**。
+     后果：≤767 档 .press__grid / .status__grid 仍是 `display:grid` +
+     `repeat(16, minmax(0,1fr))`，而子项被 `grid-column:auto` 自动排进单格 →
+     实测 **16 条轨道全部解析成 0px**，`.press__main` = **0px 宽 × 6448px 高**、
+     `.status__main` = **0px × 5686px**（区域截图是一列每行一个字的竖排单字条），
+     390 档页高被撑到 29189px。
+     —— 这是最坏情况缺陷猎人的 AH-02（阻断级），它明确指出这是"上一轮修横向滚动条引入的回归"。
+     ⚠️ 我在同一个地方第二次犯"搬规则只搬一半"的错：
+     上一次是 S13 只修了 `.plates__grid` 漏了 `.letterhead__top`。
+     **教训：搬一组断点规则时，必须先数清源分支里有几行、逐行核到目标分支。** */
+  .press__grid, .status__grid { display: block; }
   .press__main, .press__side, .status__main, .status__side { grid-column: auto; }
   .press__side, .status__side { margin-top: calc(var(--base) * 6); }
   /* 34px 横向滚动条的真凶不是 .press__side（那已经修好了），而是一个

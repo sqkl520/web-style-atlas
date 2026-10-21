@@ -938,8 +938,8 @@ window.SCHEMES = [
     "font-count",
     "no-footage"
    ],
-   "at": "2026-10-17T15:12:34.732Z",
-   "screens": 7,
+   "at": "2026-10-20T21:33:33.975Z",
+   "screens": 6,
    "realPictures": 6,
    "overflow": 0,
    "words": 377
@@ -952,8 +952,7 @@ window.SCHEMES = [
    ],
    "tablet": [
     "../S12-lime-knockout-wall/.inspect/tablet-fold.jpg",
-    "../S12-lime-knockout-wall/.inspect/tablet-page-01.jpg",
-    "../S12-lime-knockout-wall/.inspect/tablet-page-02.jpg"
+    "../S12-lime-knockout-wall/.inspect/tablet-page-01.jpg"
    ],
    "mobile": [
     "../S12-lime-knockout-wall/.inspect/mobile-fold.jpg",
@@ -1027,7 +1026,7 @@ window.SCHEMES = [
     "still-page",
     "hairline"
    ],
-   "at": "2026-10-17T19:55:18.553Z",
+   "at": "2026-10-20T21:42:16.933Z",
    "screens": 6,
    "realPictures": 5,
    "overflow": 0,
@@ -1045,7 +1044,8 @@ window.SCHEMES = [
    ],
    "mobile": [
     "../S13-blind-debossed-dispatch/.inspect/mobile-fold.jpg",
-    "../S13-blind-debossed-dispatch/.inspect/mobile-page-01.jpg"
+    "../S13-blind-debossed-dispatch/.inspect/mobile-page-01.jpg",
+    "../S13-blind-debossed-dispatch/.inspect/mobile-page-02.jpg"
    ]
   },
   "axes": {
@@ -1517,7 +1517,7 @@ window.SCHEMES = [
     "font-count",
     "no-footage"
    ],
-   "at": "2026-10-19T01:38:22.113Z",
+   "at": "2026-10-21T12:07:25.493Z",
    "screens": 12,
    "realPictures": 11,
    "overflow": 0,
@@ -1676,27 +1676,26 @@ window.SCHEMES = [
   ],
   "built": true,
   "gate": {
-   "fail": 3,
+   "fail": 1,
    "warn": 2,
    "failIds": [
-    "mono",
-    "few-pictures",
-    "empty-screens"
+    "mono"
    ],
    "warnIds": [
     "font-count",
     "no-footage"
    ],
-   "at": "2026-10-17T18:57:52.048Z",
-   "screens": 3,
-   "realPictures": 0,
+   "at": "2026-10-21T15:01:01.438Z",
+   "screens": 5,
+   "realPictures": 6,
    "overflow": 0,
-   "words": 284
+   "words": 403
   },
   "shots": {
    "desktop": [
     "../S21-interlocking-release-book/.inspect/desktop-fold.jpg",
-    "../S21-interlocking-release-book/.inspect/desktop-page-01.jpg"
+    "../S21-interlocking-release-book/.inspect/desktop-page-01.jpg",
+    "../S21-interlocking-release-book/.inspect/desktop-page-02.jpg"
    ],
    "tablet": [
     "../S21-interlocking-release-book/.inspect/tablet-fold.jpg",
@@ -1715,8 +1714,8 @@ window.SCHEMES = [
    "bandHue": 42,
    "bandL": 84,
    "bandSat": 33,
-   "load": "一屏说清",
-   "words": 284,
+   "load": "三五屏",
+   "words": 403,
    "loud": "就要扎眼",
    "chroma": 91
   }
@@ -2011,7 +2010,7 @@ window.SCHEMES = [
     "palette-cream",
     "no-footage"
    ],
-   "at": "2026-10-17T17:49:00.243Z",
+   "at": "2026-10-20T22:15:36.900Z",
    "screens": 8,
    "realPictures": 5,
    "overflow": 0,
@@ -2255,7 +2254,7 @@ window.SCHEMES = [
     "font-count",
     "no-footage"
    ],
-   "at": "2026-10-19T09:36:19.288Z",
+   "at": "2026-10-21T15:25:22.525Z",
    "screens": 12,
    "realPictures": 15,
    "overflow": 0,
