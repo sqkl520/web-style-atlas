@@ -9,6 +9,10 @@
      #7C7460 标签褪色墨 5%
    实测补充（本页据此分配承载文字的角色）：
      #7C7460 对 #E4DECD 只有 3.45:1 → 只做洗色层、指甲压痕与大字，不承载小字
+       （对浅卡 #E9E3D2 3.62:1、叠上自己的 12% 洗色带只有 3.19:1、复份卡上只剩 2.67:1）
+     批注小字（.dw__note 15px）改用 #534C3E —— 褪色墨与全墨的中点：
+       叠 12% 洗色带后浅卡 5.85:1、复份卡 4.89:1，两处都过 15px 常规字的 4.5:1
+       （不能靠"抬字号到大字档"避开：抽出只露 24px，24px 字号 × 1.4 行高 = 33.6px 放不进开口）
      小字次级墨用 #5E5443（对纸底 5.53:1）；木底上的次级色用 #D8CFB6（9.89:1）
      蚀刻墨绿对木底只有 2.11:1 → 墨绿一律不上木底
      卡纸 #E9E3D2（l 0.869）与副卡 #D8CFB6（l 0.78）都落在黄奶油族之外
@@ -32,6 +36,10 @@
    抽拉机制（字段 5／7）：.dw__card 高 144px 是柜沿下的开口，overflow: clip；
      .dw__in 高 168px 是卡面本体，靠 translateY 在开口里滑；抽出时 .dw 下移 24px、
      .dw__in 上移 24px，正好露出原本压在柜沿下的那一行批注，页面高度全程不变。
+     注意：.dw 内部那 24px 下内边距不是抽拉的落位 —— translateY 把整个盒子（含内边距）
+     一起推下去 24px，盒子因此伸出自己的布局盒 24px（getBoundingClientRect 量得到、
+     offsetTop + offsetHeight 量不到）。这 24px 空地由 .row 的 padding-bottom: var(--pull)
+     预留，抽屉才落得进两行之间，不压住下一行 p.row__h 的上沿。
 
    契约 §9.2 / §9.16：整页纹理只挂伪元素（.cab::before / .xcab::before / .plates-sec::before），
      body 保持纯色 —— 纹理挂 body 会让对比度与空屏两项检查整条静默跳过。
@@ -51,6 +59,7 @@
   --faded: #7C7460;      /* 标签褪色墨 */
   --ink: #2A241C;        /* 正文全墨 */
   --ink2: #5E5443;       /* 次级墨（小字） */
+  --note-ink: #534C3E;   /* 批注小字墨 = 褪色墨 #7C7460 与全墨 #2A241C 的中点 */
   --bar: 24px;           /* 抽屉面板高 24px = 3 个基线单位 */
   --pull: 24px;          /* 抽出 24px */
   --win: 144px;          /* 柜沿下的开口高 */
@@ -173,12 +182,15 @@ figure { margin: 0; }
 .row__h { font-size: 13px; color: #5E5443; margin-bottom: 8px; }
 .row {
   display: grid; grid-template-columns: repeat(12, 1fr); gap: 8px;
-  list-style: none; margin: 0; padding: 0; align-items: start;
+  list-style: none; margin: 0; padding: 0 0 var(--pull); align-items: start;
+  /* 下内边距 = 抽出量 24px。抽屉抽出时 translateY(24px) 会把整个盒子（含下内边距）
+     推下去 24px，那是 transform、不占布局空间；这 24px 空地必须在这里预留，
+     否则抽出的抽屉会伸出自己的布局盒 24px，压住下一行 p.row__h 的上沿 8px。 */
 }
 .dw {
   grid-column: span var(--s);
   position: relative; z-index: 1;
-  background: #2A241C; padding: 0 8px 24px;   /* 抽屉内边距 8px；底部 24px 是抽出 24px 的落位 */
+  background: #2A241C; padding: 0 8px 24px;   /* 抽屉内边距 8px；底部 24px 是柜沿下的暗边，不是抽拉的落位 */
   transition: transform 260ms cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 .dw__bar {                              /* 面板高 24px；褪色墨洗色用 inset 大面积阴影，不动文字层 */
@@ -213,10 +225,13 @@ figure { margin: 0; }
 .dw__card--void .dw__in { height: auto; padding-top: 16px; }
 .dw__head { display: block; font-size: 17px; font-weight: 700; letter-spacing: 0.03em; padding-right: 92px; }
 .dw__line { display: block; font-size: 15px; line-height: 1.6; color: #5E5443; margin-top: 4px; }
-.dw__note {                            /* 手写批注层：12% 褪色墨洗色，压在柜沿下，抽出才看得到 */
+.dw__note {                            /* 手写批注层：12% 褪色墨洗色带，压在柜沿下，抽出才看得到 */
   position: absolute; left: 16px; right: 16px; bottom: 1px; margin: 0;
-  display: block; font-size: 15px; line-height: 1.4; color: #7C7460;
+  display: block; font-size: 15px; line-height: 1.4; color: var(--note-ink);
   padding-left: 8px; background: rgba(124, 116, 96, 0.12);
+  /* 洗色层仍然是 #7C7460 的 12%（它的原角色），但字不再用它：
+     15px 常规字按 WCAG 2.2 SC 1.4.3 要 4.5:1，#7C7460 压这条洗色带只有 3.19:1、
+     复份卡 #D8CFB6 上只剩 2.67:1。#534C3E 是本条自己定的批注墨，实测 5.85:1 / 4.89:1。 */
 }
 .dw--void .dw__line { color: #2A241C; }
 .dw__idx { position: absolute; right: 16px; top: 34px; color: #4A5C3A; font-weight: 500; }  /* 检索号：卡面右上角 */
@@ -391,7 +406,7 @@ footer { max-width: 1440px; margin: 0 auto; padding: 56px var(--gut) 86px; }
   .mast { grid-template-columns: 1fr; gap: 34px; padding: 100px 24px 56px; }
   h1 { font-size: clamp(40px, 7.4vw, 60px); }
   .cab, .xcab, .plates-sec, .fault { padding-block: 64px 62px; }
-  .row { grid-template-columns: 1fr; gap: 12px; }
+  .row { grid-template-columns: 1fr; gap: 12px; padding-bottom: 0; }   /* 单列没有抽拉位移，不留落位 */
   .dw, .xc { grid-column: 1 / -1; }
   .xg { grid-template-columns: 1fr; }
   /* 开口与柜沿取消：卡面回到文档流，点一下才展开批注层 */

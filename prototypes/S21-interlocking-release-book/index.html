@@ -38,7 +38,18 @@
 </header>
 
 <main>
-  <p class="claim" id="claim">第 7 号道岔未释放之前，任何信号都扳不动。</p>
+  <div class="lede">
+    <p class="claim" id="claim">第 7 号道岔未释放之前，任何信号都扳不动。</p>
+
+    <figure class="fig fig--lede">
+        <img src="assets/pl-01.webp" srcset="assets/pl-01-p.webp 278w, assets/pl-01.webp 909w" sizes="(max-width:767px) 278px, (max-width:1023px) 656px, 909px" width="909" height="342" decoding="async" alt="机械联锁机的锁闭床：玻璃罩下成排的钢制滑杆与带缺口的锁闭块交叠排列，右缘是一列杆柄，每根杆柄旁贴一条黄色刻印的杆号牌">
+      <figcaption>
+        <span class="fig__head">机械联锁机的锁闭床</span>
+        本簿转录的就是这一床关系：玻璃罩下每一根滑杆都有自己的一组缺口，哪两根杆不能同时扳动，由缺口的相对位置决定，不靠连线表示。右缘那一列黄色刻印杆号牌，是页内锁别号的写法来源。
+        <span class="fig__src">图版 1 · Haraldmmueller · CC BY-SA 4.0 · Wikimedia Commons · 原件 EM55 Hadersdorf am Kamp</span>
+      </figcaption>
+    </figure>
+  </div>
 
   <section class="board" id="board" aria-labelledby="board-h">
     <h2 class="board__h" id="board-h">本时段联锁关系</h2>
@@ -237,6 +248,37 @@
       </ol>
     </div>
     </div>
+
+    <div class="figs figs--three">
+      <p class="figs__note">联锁表里的三件事都有实物可对：一枚杆号牌、一台保证物理间隔的闭塞器、一张要签字的值班台。三张图版都按同一道工序处理过——先转灰度，再走四乘四阈值抖动，只留主色与纸色两阶，所以它们读起来是刻印而不是照片。</p>
+
+      <figure class="fig">
+        <img src="assets/pl-02.webp" srcset="assets/pl-02-p.webp 278w, assets/pl-02.webp 431w" sizes="(max-width:767px) 278px, (max-width:1023px) 319px, 431px" width="431" height="323" decoding="async" alt="扳道杆列近观：一排钢杆，每根杆身上铆着一枚黑底白字的圆号牌（7、6、GsV、24、5、4、GsI），杆后是锁闭床的配重轮，右侧一面电气控制屏">
+          <figcaption>
+          <span class="fig__head">杆列与杆号牌</span>
+          杆号牌是铆在杆身上的圆牌，黑底白字——本页刻印数字牌的形制从这里来，深度也一样来自被刻掉的材料。杆后的配重轮与锁闭床，才是决定这七根杆能不能同时落位的东西。
+          <span class="fig__src">图版 2 · Stefan Flöper · CC BY-SA 4.0 · Wikimedia Commons · 原件 Stellwerk Reinheim</span>
+        </figcaption>
+      </figure>
+
+      <figure class="fig">
+        <img src="assets/pl-03.webp" srcset="assets/pl-03-p.webp 278w, assets/pl-03.webp 431w" sizes="(max-width:767px) 278px, (max-width:1023px) 319px, 431px" width="431" height="323" decoding="async" alt="闭塞器正面：灰蓝色铸铁外壳，上半一个白面指示盘，下方两块黄铜铭牌分别刻着 LINE CLOSED 与 TRAIN COMING FROM，中间一个带缺口挡板的黑色旋钮，左侧挂着一只电话听筒">
+          <figcaption>
+          <span class="fig__head">令牌闭塞器</span>
+          两个区间之间只允许有一列车，这件事在电气联锁之前靠这一台机器与一枚令牌保证。盘面上的 LINE CLOSED 与 TRAIN COMING FROM 是两个互斥状态，同一时刻只能给出一个——本页的互斥清单读的就是同一种关系。
+          <span class="fig__src">图版 3 · PJeganathan · CC BY-SA 4.0 · Wikimedia Commons · 原件班加罗尔站</span>
+        </figcaption>
+      </figure>
+
+      <figure class="fig">
+        <img src="assets/pl-04.webp" srcset="assets/pl-04-p.webp 278w, assets/pl-04.webp 431w" sizes="(max-width:767px) 278px, (max-width:1023px) 319px, 431px" width="431" height="323" decoding="async" alt="值班室内景：木板墙与两扇窗，一排带白色槽位标牌的信号杆立在铁座上，窗台下的架子上放着行车登记簿与纸张，右侧一把转椅">
+          <figcaption>
+          <span class="fig__head">值班室内景</span>
+          台账、号牌与杆列在同一张桌上，登记与扳动在同一个人手里完成。这也是本簿的形态来源：行车日志竖排、一列一件事件，签字栏在右。
+          <span class="fig__src">图版 4 · Lankyrider · CC BY-SA 4.0 · Wikimedia Commons · 原件 Leadhills 值班室</span>
+        </figcaption>
+      </figure>
+    </div>
   </section>
 
   <section class="sheet" aria-labelledby="angle-h">
@@ -277,6 +319,28 @@
         </tr>
       </tbody>
     </table>
+
+    <div class="figs figs--two">
+      <p class="figs__note">这一组的两张图都是「把关系压成一张二维东西」的旧做法：一张是 1908 年把岔群压成铺枕平面图，另一张是停用的扳道台上那条进路指示条——分区号并列成一行，锁闭到哪一格就刻到哪一格。</p>
+
+      <figure class="fig">
+        <img src="assets/pl-05.webp" srcset="assets/pl-05-p.webp 278w, assets/pl-05.webp 656w" sizes="(max-width:767px) 278px, (max-width:1023px) 319px, 656px" width="656" height="370" decoding="async" alt="1908 年《铁路轨道与轨道工程》的刻印图版：三幅岔群与交叉的铺枕平面图，图上密排尺寸串（67 英尺 6 英寸、18 英尺 0 英寸等）与逐根枕木的英寸标注，图题写作 Arrangement of Switch Timbers at Turnout and Crossover, Erie Ry.">
+          <figcaption>
+          <span class="fig__head">站场关系图（1908 年刻印）</span>
+          把三维的岔群压成一张二维关系表，1908 年的工程图版就是这么做的：横向是里程，纵向是枕木位置，尺寸直接刻在图上。本页的联锁表沿用同一个做法，只是把「枕木位置」换成「锁别号」。
+          <span class="fig__src">图版 5 · E. E. R. Tratman《Railway Track and Track Work》1908 · 无已知限制 · Wikimedia Commons</span>
+        </figcaption>
+      </figure>
+
+      <figure class="fig">
+        <img src="assets/pl-06.webp" srcset="assets/pl-06-p.webp 278w, assets/pl-06.webp 656w" sizes="(max-width:767px) 278px, (max-width:1023px) 319px, 656px" width="656" height="437" decoding="async" alt="停用扳道台内景：锈蚀的钢制杆列与配重轮排成一列，杆列上方一条横向进路指示牌上刻着 02 至 07 的分区号，墙面绿漆成片剥落">
+          <figcaption>
+          <span class="fig__head">进路指示条（停用的扳道台）</span>
+          杆列上方那条指示条是关键：分区号并列成一行，锁闭到哪一格就刻到哪一格。本页的释放路径用的是同一种排列——横向、编号、首尾相接，读一列等于走一遍「扳这根之前必须先松哪根」的推理。
+          <span class="fig__src">图版 6 · Trougnouf (Benoit Brummer) · CC BY 4.0 · Wikimedia Commons · 原件 Sourbrodt 车站值班室</span>
+        </figcaption>
+      </figure>
+    </div>
   </section>
 
   <section class="excl" aria-labelledby="excl-h">

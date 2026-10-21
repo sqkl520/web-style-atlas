@@ -228,14 +228,103 @@ p{margin:0}
   font-size:16px;
 }
 
-/* --------------------------------------------------------------- 主张 ---- */
+/* ------------------------------------------------- 主张 ＋ 原件图版 ---- */
+
+/* 主张句与它的原件并排：左边一句话，右边那一床真的锁闭关系。
+   1440 档按 383px ＋ 909px 分栏（正文宽 1328），768 与 390 档竖排。 */
+.lede{
+  display:grid;
+  grid-template-columns:minmax(0,383px) minmax(0,1fr);
+  gap:calc(var(--baseline)*3) calc(var(--gutter)*2);
+  align-items:start;
+  margin:calc(var(--baseline)*3) 0 calc(var(--baseline)*4);
+}
 
 .claim{
-  margin:calc(var(--baseline)*3) 0 calc(var(--baseline)*4);
+  margin:0;
   max-width:34ch;
   font-family:var(--face-head);
   font-size:27px;
   line-height:1.5;
+}
+
+/* ---------------------------------------------------------- 图版 ---- */
+
+/* 图版按规格字段 6 第 5 条在构建期处理：先转灰度，再走 Bayer 4×4 阈值抖动，
+   只留主色 #3E3A34 与纸色 #E4DCC9 两阶。运行时不加任何滤镜、不加边框——
+   两阶图的轮廓本身就是它的边，全站仍然只有一种底色。
+   类名用 .fig 而不是 .plate：.plate 已经属于 18×18 的刻印数字牌，两者混用会把
+   图版压成 18px 的墨方块（实测过一次，六张图全部塌成 0×0，闸门真图数照旧为 0）。 */
+.fig{margin:0}
+
+.fig img{
+  display:block;
+  width:100%;
+  height:auto;
+  background:var(--paper);
+}
+
+.fig figcaption{
+  margin-top:calc(var(--baseline)*1.5);
+  color:var(--ink-2);
+  font-size:16px;
+  line-height:1.75;
+  max-width:46em;
+}
+
+.fig__head{
+  display:block;
+  margin-bottom:calc(var(--baseline)*.5);
+  color:var(--ink);
+  font-family:var(--face-head);
+  font-size:17px;
+  letter-spacing:.02em;
+}
+
+.fig__src{
+  display:block;
+  margin-top:calc(var(--baseline)*1);
+  color:var(--ink-2);
+  font-size:16px;
+  line-height:1.6;
+}
+
+/* 图版组：三栏并排（(1328 − 2×18)/3 = 430.7px）与两栏并排（(1328 − 18)/2 = 655px），
+   与构建期烘焙的显示宽度一一对应，1:1 不重采样，抖动点不会被插值糊掉。 */
+.figs{
+  display:grid;
+  gap:calc(var(--baseline)*4) var(--gutter);
+  align-items:start;
+}
+
+.figs--three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.figs--two{grid-template-columns:repeat(2,minmax(0,1fr))}
+
+.figs__note{
+  grid-column:1 / -1;
+  max-width:70ch;
+  color:var(--ink-2);
+  font-size:16px;
+  line-height:1.75;
+}
+
+.board .figs{margin-top:calc(var(--baseline)*4)}
+.sheet .figs{margin-top:calc(var(--baseline)*4)}
+
+/* 值班台面：6px 方格与页面的 6px 基线同一格距。纹理挂伪元素，不挂 body ——
+   契约 §9.2／§9.16：挂在 body 上会让对比度检查与空屏判定整条静默失真。
+   负 z-index 让它落在所有内容之下、纸色之上；pointer-events:none 保证命中测试不被拦截。 */
+.board{position:relative}
+
+.board::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  background-image:url('assets/texture-release-grid.png');
+  background-size:128px 128px;
+  background-repeat:repeat;
+  pointer-events:none;
 }
 
 /* --------------------------------------------------------------- 联锁板 ---- */
@@ -401,6 +490,11 @@ p{margin:0}
 
 .path{
   grid-column:5 / span 2;
+  /* 第 5–6 栏是规格字段 5 指定给释放路径的那条中缝，它必须和两张表**同一行**：
+     规格说「表体整体比路径低 1.5 个基线单位（9px）」，只有同行才有上下可比。
+     不写这一行，自动排布会先摆完 DOM 里靠前的两张表，再把路径挤到第二行 ——
+     实测 1440 档因此多出一整条 1440×564 的空带（审计批次 3 的 S21-F3）。 */
+  grid-row:1;
   position:sticky;
   bottom:48px;
   align-self:start;
@@ -420,6 +514,7 @@ p{margin:0}
 /* 条与条之间用 1px 空隙露出纸色，就是「两根杆之间存在物理间隔」本身，
    不画分隔线：这是空出来的，不是描出来的 */
 .path__rail{
+  position:relative;
   display:flex;
   flex-direction:column;
   gap:1px;
@@ -429,6 +524,17 @@ p{margin:0}
   list-style:none;
   background:var(--paper);
   box-shadow:inset 0 0 0 1px rgba(62,58,52,.22); /* taste-skill-ignore */
+}
+
+/* 托槽的钢料磨痕。同样是伪元素，不挂 body。 */
+.path__rail::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background-image:url('assets/texture-steel-grain.png');
+  background-size:256px 256px;
+  background-repeat:repeat;
+  pointer-events:none;
 }
 
 .lockbar{
@@ -694,6 +800,7 @@ p{margin:0}
   .board__col--signal{grid-column:4 / span 3}
   .path{
     grid-column:1 / -1;
+    grid-row:auto;
     position:static;
     margin-top:calc(var(--baseline)*3);
   }
@@ -711,6 +818,9 @@ p{margin:0}
 @media (max-width:1023px){
   .masthead{grid-template-columns:minmax(0,1fr);gap:calc(var(--baseline)*2)}
   .masthead__meta{grid-template-columns:repeat(2,auto);justify-content:start}
+  /* 图版与主张句都在这一档竖排，两栏并排留给 1024 以上 */
+  .lede{grid-template-columns:minmax(0,1fr)}
+  .figs--three{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 
 @media (max-width:767px){
@@ -722,6 +832,11 @@ p{margin:0}
   .masthead__meta{grid-template-columns:repeat(2,auto)}
   .masthead__title{font-size:31px}
   .claim{font-size:22px}
+
+  /* 390 档三栏并排每栏只剩 80px 宽，抖动点会糊成一团：图版一律一列一行满宽 */
+  .figs--three,
+  .figs--two{grid-template-columns:minmax(0,1fr)}
+  .figs{gap:calc(var(--baseline)*4) 0}
 
   .board__grid{grid-template-columns:minmax(0,1fr)}
   .board__col--turnout,
@@ -746,7 +861,13 @@ p{margin:0}
   .path .cut-45{clip-path:polygon(0 0,75% 0,100% 100%,0 100%)}
   .path .cut-60{clip-path:polygon(0 0,85.57% 0,100% 100%,0 100%)}
 
-  .ill-table{font-size:16px}
+  /* 390 档这两张表是整页最稀的一段：规格字段 5 让 <768px 转成「前序锁、本杆、后序锁」三行式条目，
+     每行只有 4 行短文字（"锁别号 锁 1"这种），右半屏天然是空的，12 行被撑到 2035px。
+     这里按规格自己的间距语法收一档——字段 5 写的是「同一时刻的事件之间空 1 个基线单位（6px）」，
+     原来的 2 个基线（12px）本来就比规格宽。行高 1.6 → 1.5、行上下 padding 3px → 1px、
+     行间距 12px → 6px；不折叠、不改三行式条目本身，审计批次 3 的 F1（caption）与
+     F2（角度表）两处修复原样保留。 */
+  .ill-table{font-size:16px;line-height:1.5}
   .ill-table thead{display:none}
   .ill-table,
   /* ⚠️ caption 必须在这个列表里。漏掉它，390 档 caption 仍是 display:table-caption，
@@ -760,16 +881,26 @@ p{margin:0}
   .ill-table th,
   .ill-table td{display:block;width:100%}
   .ill-table tr{
-    margin-bottom:calc(var(--baseline)*2);
+    margin-bottom:calc(var(--baseline)*1);
   }
   .ill-table th,
-  .ill-table td{border:0;padding:calc(var(--baseline)*.5) 0}
+  .ill-table td{border:0;padding:1px 0}
   .ill-table tbody th,
   .ill-table tbody td[data-label="互斥"]{display:inline-block;width:auto}
   .ill-table tbody th{border-right:0;margin-right:calc(var(--baseline)*1)}
   .ill-table td[data-label]::before{
     content:attr(data-label) " ";
     color:var(--ink-2);
+  }
+  /* 390 档每条只有 4 行短文字，值全部贴在左边，右半屏天然是空的（审计批次 3 的 S21-F4）。
+     这里不加行、不折叠，只把每条里的标签留在左缘、值靠到右缘：行宽因此吃满 278px 的版心。
+     这是值班表读键值对的老办法，三行式条目的行数一行没变。 */
+  .ill-table tbody td[data-label="锁别号"],
+  .ill-table tbody td[data-label="前序锁"]{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    gap:var(--gutter);
   }
   .ill-table tr::after{
     content:"后序锁 " attr(data-next);

@@ -120,8 +120,17 @@
     if (state.st.size && !state.st.has(stateKey(r))) return false;
     if (state.gate.size && !state.gate.has(gateKey(r))) return false;
     if (state.q) {
+      /* ⚠️ `r.scenes`（字段 10 适用场景，含"不适合"）原本**不在搜索索引里**。
+         后果是用户第一个会问的问题搜不到答案：实测搜「餐饮 / 金融 / 政务 / 课程」
+         **四个词各 0 命中**，而 30/30 行上一个行业/场景字样都不显示
+         （scenes 只在详情第 9 字段，位置在滚动容器的 3.42 屏之下）。
+         （选型台信息架构审查员实测抓出。）
+         一并纳入的还有：骨架名、字段 2 美学家族、字段 12 签名式怪癖、轴线取值。 */
+      var ax = r.axes || {};
       var hay = [r.id, r.cn, r.en, r.family, r.fonts, r.def, r.tone, r.structure,
-                 r.errorCode, r.threshold, (r.palette || []).join(' ')].join(' ').toLowerCase();
+                 r.errorCode, r.threshold, r.layout, r.visuals, r.quirk,
+                 r.scenes, ax.ground, ax.band, ax.load, ax.loud,
+                 (r.palette || []).join(' ')].join(' ').toLowerCase();
       if (hay.indexOf(state.q) < 0) return false;
     }
     return true;
@@ -388,9 +397,23 @@
   $('#q').addEventListener('input', function (e) { state.q = e.target.value.trim().toLowerCase(); render(); });
   $('#sort').addEventListener('change', function (e) { state.sort = e.target.value; render(); });
   $('#reset').addEventListener('click', function () {
-    state.q = ''; state.fr.clear(); state.thr.clear(); state.tone.clear(); state.st.clear(); state.gate.clear();
+    /* ⚠️ 四个新轴必须一起清。
+       我加"要亮底还是暗底 / 底色属于哪条带 / 要装多少内容 / 要安静还是要扎眼"这四组筛选时，
+       只加了 state 集合与芯片，**漏了加进这个 reset**。后果是：筛到 0 命中之后点"清空筛选"，
+       命中数**仍然是 0**，而 32 颗芯片全部显示未选中 —— **界面主动说谎**。
+       更糟的是空状态给的恢复建议正好指向这个坏按钮。
+       （由选型台信息架构审查员实测抓出：0 命中下点清空 → 仍 0；aria-pressed=true 计数 0。） */
+    state.q = '';
+    state.ground.clear(); state.band.clear(); state.load.clear(); state.loud.clear();
+    state.fr.clear(); state.thr.clear(); state.tone.clear(); state.st.clear(); state.gate.clear();
     $('#q').value = ''; $('#sort').value = state.sort = 'n';
     $$('.chips button').forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+    /* 清完必须校验：如果清空后命中数不是全部，说明还有没被清掉的轴 —— 宁可当场暴露，
+       也不要再出现"芯片全灭但列表全空"这种自相矛盾的界面。 */
+    var n = ALL.filter(match).length;
+    if (n !== ALL.length && window.console) {
+      console.warn('[选型台] reset 之后命中 ' + n + '/' + ALL.length + '，还有轴没被清掉');
+    }
     render();
   });
 

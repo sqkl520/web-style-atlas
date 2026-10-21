@@ -46,3 +46,14 @@ _vw-probe.html
 
 # ── 各模板自带的测量脚本目录（可选保留；默认不入库） ──
 templates/*/build/
+
+# ── 锐评/审查 agent 的临时取证目录（截图与中间 JSON 极其庞大）──
+# 漏掉这一条我曾把 2833 个文件、75 万行差异误提交进去过。
+_crit*/
+_audit*/
+_s2*w/
+_s1*f/
+_m0*-test/
+_m0*-verify*/
+_tpl-view/
+_vw-out/

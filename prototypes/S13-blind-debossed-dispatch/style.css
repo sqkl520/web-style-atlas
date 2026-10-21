@@ -830,3 +830,27 @@ body::before { animation: press-in 120ms steps(2) both; }
   .levels__table tbody td:nth-child(2),
   .annex__table tbody td:nth-child(2) { min-width: 8.5em; }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   同型第二处：`.letterhead__top`（首屏抬头双栏）
+
+   上面那批修正只修了 `.plates__grid`，**同一个文件里还有一处一模一样的病，我漏了**。
+   由 CSS 级联与声明顺序分析师独立扫出（CA-01，阻断级，置信度 95%）：
+
+     @media (max-width:1023px) { .letterhead__top { grid-template-columns:1fr;
+                                                   gap:24px; align-items:start } }   ← L662
+     .letterhead__top { grid-template-columns: minmax(0,7fr) minmax(0,9fr);
+                        gap:40px; … }                                               ← L681（基础规则）
+
+   基础规则写在**所有媒体查询之后**，同特异性 (0,1,0) 下按源序取胜 →
+   窄屏单栏的意图被完全压掉，**390 与 768 档首屏仍是两栏**（390 档左栏只剩约 132px 宽）。
+
+   修法同上：在**文件最末尾**用同特异性重新断言一次，不提高特异性、不动基础规则。
+
+   ⚠️ 这份文件里已经是第三处同型缺陷了（`.plates__grid`、`.levels__table`、`.letterhead__top`）。
+   **审计方在同一份文件里连抓两次说明我是逐个补而不是系统排查**——
+   正确的做法本应是：修第一处时就把整份文件里"写在所有媒体查询之后的基础规则"全部列出来核一遍。
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 1023px) {
+  .letterhead__top { grid-template-columns: minmax(0, 1fr); gap: 24px; align-items: start; }
+}
