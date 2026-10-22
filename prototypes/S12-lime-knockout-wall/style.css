@@ -281,7 +281,13 @@ section h2 { font-size: 26px; line-height: 1.2; color: var(--lime); }
 .log-line { font-size: 17px; line-height: 1.55; color: var(--face); }
 .log-line b { color: var(--lime); font-weight: 600; }
 .log-line.is-error { color: var(--face); }
-.log-line.is-error strong { color: var(--magenta); font-weight: 600; }
+/* ⚠️ 这里原本直接用 --magenta（#E23E57）当 17px/600 的文字色，实测对底 3.91:1。
+   两层问题：① 对比度不达标；② **它违反本案自己 L16 的规则**——
+   「洋红：只做 2px 底层与硬边记号，**不承载正文**」。
+   修法（采纳修复收益评估员的方案）：**提亮而不是压深**，保留"洋红＝记号"的语义编码。
+   #FF9AAB 对底实测 **8.08:1**。（换本案米白 #F2E9D8 能到 13.45:1，
+   但那样错误码就与普通正文同色、丢掉记号的语义。） */
+.log-line.is-error strong { color: #FF9AAB; font-weight: 600; }
 .log-line code { color: var(--lime); }
 
 /* ── 洞口索引：真实表格（线条只属于表格），编号全部落在 <code> 里 ── */

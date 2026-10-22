@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S12-lime-knockout-wall/index.html",
- "at": "2026-10-20T21:33:33.975Z",
+ "at": "2026-10-22T11:32:12.307Z",
  "allow": [],
  "viewports": [
   {
@@ -242,7 +242,7 @@
        "share": 0.06
       },
       {
-       "color": "#e23e57",
+       "color": "#ff9aab",
        "share": 0
       },
       {
@@ -259,16 +259,7 @@
       },
       "fg": "#111111"
      },
-     "lowContrast": [
-      {
-       "text": "错误码 MASK-05",
-       "ratio": 3.9,
-       "need": 4.5,
-       "size": 17,
-       "fg": "#e23e57",
-       "bg": "#182226"
-      }
-     ]
+     "lowContrast": []
     },
     "buttons": {
      "count": 4,
@@ -677,7 +668,7 @@
        "share": 0.06
       },
       {
-       "color": "#e23e57",
+       "color": "#ff9aab",
        "share": 0
       },
       {
@@ -694,16 +685,7 @@
       },
       "fg": "#111111"
      },
-     "lowContrast": [
-      {
-       "text": "错误码 MASK-05",
-       "ratio": 3.9,
-       "need": 4.5,
-       "size": 17,
-       "fg": "#e23e57",
-       "bg": "#182226"
-      }
-     ]
+     "lowContrast": []
     },
     "buttons": {
      "count": 4,
@@ -1123,7 +1105,7 @@
        "share": 0.07
       },
       {
-       "color": "#e23e57",
+       "color": "#ff9aab",
        "share": 0
       },
       {
@@ -1140,16 +1122,7 @@
       },
       "fg": "#111111"
      },
-     "lowContrast": [
-      {
-       "text": "错误码 MASK-05",
-       "ratio": 3.9,
-       "need": 4.5,
-       "size": 17,
-       "fg": "#e23e57",
-       "bg": "#182226"
-      }
-     ]
+     "lowContrast": []
     },
     "buttons": {
      "count": 4,
@@ -1239,17 +1212,6 @@
    "width": 1440,
    "message": "Yellow-cream background (text #f2e9d8).",
    "fix": "Use the drawn palette. If you want warmth, take a low-chroma stone or bone, not a yellow cream.",
-   "alsoAt": [
-    768,
-    390
-   ]
-  },
-  {
-   "level": "WARN",
-   "id": "contrast",
-   "width": 1440,
-   "message": "Low-contrast text: \"错误码 MASK-05\" 3.9:1 needs 4.5:1",
-   "fix": "Darken or lighten the text colour.",
    "alsoAt": [
     768,
     390
