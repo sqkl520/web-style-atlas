@@ -250,6 +250,14 @@ code {
 .fold-panel h2, .fold-panel h3 { color: var(--paper); }
 /* 红底上的红边看不见，栏内换成纸色边，机制不变：0 -> 100% 宽，90ms，steps(3) */
 .col-head-red .col-rule { background: var(--paper); }
+/* ⚠️ 这一行原本漏了 —— 红底上「栏」与「·」以 2.87:1 隐形。
+   L224 的 `.col-meta{color:var(--ink)}` 是**显式声明**，而 `.col-head-red` 上的
+   `color:var(--paper)` 只是**继承** —— 显式永远赢过继承。
+   作者当时知道这件事（下面 L254 的注释自己写着"ink 落在红上只有 2.9:1"），
+   于是给 `code` 与 `.latin` 都补了红底变体，**唯独漏了容器本身**，
+   而那两个赤裸字符恰恰在容器上、不在子元素里。
+   （误报驳回与修复成本评估员实测 2.89:1，我复核 2.87:1，与注释里的 2.9 吻合。） */
+.col-head-red .col-meta { color: var(--paper); }
 .col-head-red .col-meta code { color: var(--paper); }
 /* 拉丁字与纸面同色：它在红底折角栏里，ink 落在红上只有 2.9:1 */
 .col-head-red .latin { font-size: var(--fs-meta); letter-spacing: .06em; color: var(--paper); }
