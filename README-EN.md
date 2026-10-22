@@ -17,7 +17,7 @@ English | [简体中文](README.md)
 
 **Browsing and choosing**
 
-- **Selection bench** (`prototypes/_selection/`) — all 30 schemes on one page: each row shows structure type / cognitive threshold / tone, the one-line definition, colour swatches, the error code, gate results, and **real renders at three viewports: desktop 1440, tablet 768, mobile 390**. Filter, search, sort; click a row to expand the full twelve fields and a paged full-page view; `#S07` deep-links to a single scheme
+- **Selection bench** (`prototypes/_selection/`) — all 30 schemes on one page: each row shows structure type / cognitive threshold / tone, the one-line definition, colour swatches, the error code, gate results, and **real renders at three viewports: desktop 1440, tablet 768, mobile 390**. Filter, search, sort; click a row to expand all of its fields (10 sections in most schemes; **S12/S15/S19 have only 9 — and the reason is not a missing spec field**: all three `_specs/*.md` **do have 「5. 布局与网格」 on line 25**; `_build/collect-schemes.mjs:186` fails to extract it for them. **This is a known, unfixed extraction defect in this repository, not a spec defect.**) and a paged full-page view; `#S07` deep-links to a single scheme
 - **Selection wizard** (`prototypes/_selection/wizard.html`) — five questions about **your situation**, not "what style do you like". It outputs **3 recommendations and 3 explicit exclusions**, and every "why" is read from **measured values** (body word count, real picture count, highest saturation in the palette, declared cognitive threshold, and a memorability proxy built from tone and chroma). It never assigns a subjective score to a scheme. Answers replay from the URL (`?load=2&img=2&loud=2&guide=0&fear=2`)
 - **Keyboard accessible** — on the bench, `J`/`K` moves between schemes, `1`/`2`/`3` switches viewport, `/` focuses search, `Esc` closes
 
@@ -160,7 +160,7 @@ Three parts, three different licences — please treat them separately:
 **The author, licence and source URL of every single photograph are listed per image in each prototype's `assets/CREDITS.md`.** Before reusing any of them, check that table and comply with its licence (CC BY and CC BY-SA require attribution; some also require share-alike).
 
 > ⚠️ **That sentence has two known exceptions — do not read it as a whole-repository fact.**
-> The `CREDITS.md` of `S04` / `S07` / `S08` / `S13` / `S17` **admits that the per-image author and licence were not preserved** (those fields were never written down when the assets were fetched), covering roughly **38 third-party photographs**; and across the repository **11 rows** record the licence as "see source page" while the source page is empty — the root cause being that `_build/assign-assets.mjs` copies only the filename when reusing an asset across schemes, dropping `page` / `artist` / `license` (the source scheme does have those fields). **Photographs in those five schemes must not be reused** until their attribution tables are complete.
+> The `CREDITS.md` of `S04` / `S07` / `S08` / `S13` / `S17` **admits that the per-image author and licence were not preserved** (those fields were never written down when the assets were fetched), covering **56 bitmap files / 43 unique images**; and across the repository **11 rows** record the licence as "see source page" while the source page is empty — the root cause being that `_build/assign-assets.mjs` copies only the filename when reusing an asset across schemes, dropping `page` / `artist` / `license` (the source scheme does have those fields). **Photographs in those five schemes must not be reused** until their attribution tables are complete.
 > Also: the "where it is used on the page" column in the `CREDITS.md` of `S14` / `S15` is **unrefreshed placeholder text** (28 occurrences in S14) — do not use it to judge whether an image is used.
 
 **The procedural textures are not photographs**: they are produced by `_build/make-textures.py`, their parameters are written to disk (each scheme's `build/texture-job.json`), and they are byte-reproducible. They carry no third-party rights.
@@ -201,7 +201,7 @@ Three parts, three different licences — please treat them separately:
 ├── prototypes/
 │   ├── _selection/             # ★ selection bench + selection wizard
 │   ├── _fonts/                 # self-hosted fonts (48 stylesheets + woff2 slices)
-│   ├── _specs/                 # each scheme's twelve fields + _CURRENT-VALUES.md (authoritative current values)
+│   ├── _specs/                 # each scheme's fields + _CURRENT-VALUES.md (authoritative current values)
 │   ├── _build/                 # all tool scripts (render / verify / fetch fonts / assign assets / generate textures / staleness check)
 │   ├── _CONTRACT.md            # the construction specification (at the prototypes/ root, NOT under _build/)
 │   └── S01-… S30-…/            # the 30 prototypes (index.html + style.css + assets/ + .inspect/)
