@@ -12,3 +12,20 @@
   那是一次专门的 atomic 改动，未完成；在它完成前，本目录只作"截至 2026-10-24 参数为何"的证据，不作生成入口。
 - 覆盖：S18 S19 S20 S21 S22 S23 S24 S26 S27 S28 S29 S30 共 12 案（盘上有 texture-job.json 的就是这 12 案）。
   其余 18 案盘上本就无 texture-job.json（不是快照漏搬），不在本目录。
+
+## 复算实测（2026-10-24，修复波 A 批）
+
+把 `S18.json` 的 `outDir` 临时改到 scratch 后用 `python prototypes/_build/make-textures.py <该文件>` 重烘
+（cwd = 仓库根；`outDir` 是仓库根相对路径，`make-textures.py:12` 明说相对路径按 cwd 解析）：
+产出的 `texture-scanline.png` / `texture-phosphor-grain.png` / `texture-schematic-grid.png`
+与 `prototypes/S18-phosphor-service-deck/assets/` 里**已交付的三份 SHA-256 逐字节相同**。
+⇒ 本目录的副本不是摆设："可逐字节复算"从克隆者视角今天起可验。
+
+## 覆盖率（如实说）：12 份只占纹理字节的 19.6%
+
+按 `assets/texture-*.png` 实测：本目录 12 案合计 **478,202 B**，全库 `texture-*.png` 合计
+**2,435,948 B**。缺口几乎全在 **S15 一家：9 份 1,920,779 B = 78.9%**——它的参数单是
+`prototypes/S15-*/build/textures.json`，**结构不同**（`{prototype, generator, palette, caps…}`，
+没有 `jobs[]`），生成器是它自己的 `build/make-plates.py`，**不经过 `make-textures.py`**。
+另有 S10 的 36,967 B（1.5%）属同类。**把 S15 的参数单与生成器一并搬进受跟踪路径才能覆盖到 ~98.5%**
+（40 号 §3-2 的算法），那一步超出本轮机械修复范围，未做。
