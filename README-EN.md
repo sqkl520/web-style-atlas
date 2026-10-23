@@ -1,38 +1,148 @@
-English | [简体中文](README.md)
+**English** · [简体中文](README.md)
 
-> ⚠️ **This is neither a ready-to-launch website nor a design system.** It is a **style specimen library**: 30 mutually distinct design schemes, each with a runnable prototype, plus **3 mainstream templates** (take one and use it) and **a selection bench + a selection wizard** (to help you pick from the 30). It is pure static — no build step, no backend.
+<div align="center">
 
 # Web Style Atlas
 
-30 website design schemes, each with a **real, runnable HTML/CSS prototype** you can open directly; plus 3 **mainstream templates** (self-contained — change a few variables and it becomes your site); all collected into **a filterable selection bench** and **a five-question selection wizard**.
+> *"30 runnable styles, not mockups."*
 
-## Features
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Schemes: 30](https://img.shields.io/badge/Schemes-30-blue)](#what-you-get-30-schemes-30-prototypes-3-templates)
+[![Build: none](https://img.shields.io/badge/Build-none-green)](#install-and-open-it-over-http)
+[![Static-only: no backend](https://img.shields.io/badge/Static--only-no%20backend-brightgreen)](#static-only-nothing-leaves-your-machine)
 
-**Content**
+<br>
 
-- **30 design schemes** — each is a complete **design argument**, not a colour skin. Twelve fields cover: a one-line visual definition, aesthetic family and references, a colour system (with area ratios and mood), a type strategy, layout and grid (with behaviour at three breakpoints), key visual elements, motion and interaction (with a reduced-motion fallback), anti-AI-cliché review points, risks and how they are avoided, suitable uses (plus what it is *not* for), implementation notes (with a performance budget), and one **signature quirk of the designer**
-- **30 runnable prototypes** — real typography, real copy, real assets, real error states, real `prefers-reduced-motion` fallbacks; **26 pass the gate with FAIL=0**, producing 272 rendered screenshots
-- **15 F-type / 15 R-type** — F-type has a fixed skeleton (a visitor knows what to look at and click within three seconds); R-type is *mechanism-driven* (one physical mechanism organises the content). All 30 aesthetic families are **mutually distinct**
-- **3 mainstream templates** — see the next section. They are **a separate layer** with different rules, and each one documents the scope of its exemptions in its own README
+**A style specimen library: 30 schemes, each with an HTML prototype you can open, plus 3 templates you can take and use.**
 
-**Browsing and choosing**
+<br>
 
-- **Selection bench** (`prototypes/_selection/`) — all 30 schemes on one page: each row shows structure type / cognitive threshold / tone, the one-line definition, colour swatches, the error code, gate results, and **real renders at three viewports: desktop 1440, tablet 768, mobile 390**. Filter, search, sort; click a row to expand all of its fields (10 sections in most schemes; **S12/S15/S19 have only 9 — and the reason is not a missing spec field**: all three `_specs/*.md` **do have 「5. 布局与网格」 on line 25**; `_build/collect-schemes.mjs:186` fails to extract it for them. **This is a known, unfixed extraction defect in this repository, not a spec defect.**) and a paged full-page view; `#S07` deep-links to a single scheme
-- **Selection wizard** (`prototypes/_selection/wizard.html`) — five questions about **your situation**, not "what style do you like". It outputs **3 recommendations and 3 explicit exclusions**, and every "why" is read from **measured values** (body word count, real picture count, highest saturation in the palette, declared cognitive threshold, and a memorability proxy built from tone and chroma). It never assigns a subjective score to a scheme. Answers replay from the URL (`?load=2&img=2&loud=2&guide=0&fear=2`)
-- **Keyboard accessible** — on the bench, `J`/`K` moves between schemes, `1`/`2`/`3` switches viewport, `/` focuses search, `Esc` closes
+<sub>Pure static —— no build step, no backend, deploys on any static host.</sub>
 
-**Toolchain (all in `prototypes/_build/`, plain Node + Python, no npm dependencies)**
+You have a site to ship, and the client wants "a premium look".
+You scroll your bookmarked design galleries and the longer you go the more it repeats — warm beige ground, terracotta accent, serif headline — the same page you saw last month.
+That is not a taste problem. Every sample you looked at is a render: it never tells you how the layout collapses between 1440 and 390, how long copy breaks the grid, or what the page looks like when the photography is missing.
+This specimen library exists for one reason: every scheme here opens, runs, and comes apart into fields.
 
-- **`render-scheme.mjs`** — render one prototype and print the gate result (real screenshots at three viewports)
-- **`verify-prototype.mjs`** — mechanical check: remote resources, banned font stacks, emoji, broken images, real-picture count, horizontal overflow, gate counts
-- **`shot.mjs` + `shot-page.py`** — a **zero-dependency screenshot tool** (no third-party design tooling, no CDP): full-page capture, slicing by viewport, and per-screen pixel statistics (dominant colours, mean luminance, blank-screen detection)
-- **`fetch-fonts.mjs` / `selfhost-fonts.mjs`** — fetch fonts for self-hosting and rewrite a page's external font links to local ones
-- **`assign-assets.mjs` / `make-textures.py`** — an asset fallback (cross-assign real photos from the existing corpus by subject) and **14 deterministic texture generators** (parameters are written to disk and are byte-reproducible)
-- **`collect-schemes.mjs` / `summarize-all.mjs`** — generate `data.js` for the bench, and summarise render reports across the repository
+```bash
+npx serve .                        # or: python -m http.server 8080
+```
 
-## The 3 mainstream templates (`templates/`)
+Works everywhere —— any browser, any static host, nothing to install.
 
-All three are **runnable from two files** (`index.html` + `style.css`) with **zero external dependencies**: no image files, no JS libraries, no CDN, no build step. Image slots are **inline SVG placeholder frames** (greyscale, with aspect ratio and suggested pixel size), and copy uses **placeholder markers** `【replace with: …】` so you can search for exactly what to fill in. Fonts use a **system font stack**, so they render correctly and instantly on any machine with no flash of missing text.
+[See the proof](#see-the-proof-272-real-screenshots-on-one-bench) · [Install](#install-and-open-it-over-http) · [Content](#what-you-get-30-schemes-30-prototypes-3-templates) · [Mechanism](#how-this-atlas-is-built-four-hard-rules) · [Limits](#limitations-what-this-atlas-cannot-do)
+
+<br>
+
+</div>
+
+---
+
+## See the proof: 272 real screenshots on one bench
+
+There is no GIF here, and nothing is borrowed from another project. What this repository can hand you is **a file you can open right now**.
+
+```bash
+git ls-files "prototypes/S*/.inspect/*.jpg" | wc -l    # 272 real renders at three viewports
+```
+
+Start the server (next section) and open `prototypes/_selection/`:
+
+```
+http://localhost:8080/prototypes/_selection/
+```
+
+All 30 schemes on one screen. Each row shows structure type / cognitive threshold / tone, the one-line definition, colour swatches, the error code, the gate result, and **real renders at desktop 1440, tablet 768 and mobile 390**.
+
+```
+S07  Slate-Ink Contents        F-type · low threshold · tone: academic archive / serious print
+     ┌────────────────┬──────────────┬────────────┐
+     │ 1440 desktop   │ 768 tablet   │ 390 mobile │
+     │  [real shot]   │  [real shot] │ [real shot]│
+     └────────────────┴──────────────┴────────────┘
+     gate FAIL 1 (mono) · error code MIR-47 · 5 screens / 6 real pictures · [expand 12 fields]
+```
+
+The ASCII is only the shape. The page holds pixels.
+
+Click a row to expand all of its fields (10 sections in most schemes).
+`#S07` deep-links to a single scheme.
+The keyboard covers everything: `J`/`K` moves between schemes, `1`/`2`/`3` switches viewport, `/` focuses search, `Esc` closes.
+
+Next to it stands the **selection wizard** (`prototypes/_selection/wizard.html`). Five questions about **your situation**, not "what style do you like": content load, picture load, how loud, whether you need guidance, whether you fear retro.
+It outputs **3 recommendations and 3 explicit exclusions**, and every "why" is read from **measured values** —— body word count, real picture count, highest saturation in the palette, declared cognitive threshold, and a memorability proxy built from tone and chroma. It never assigns a subjective score.
+Answers replay from the URL: `?load=2&img=2&loud=2&guide=0&fear=2`.
+
+---
+
+## Install and open it over HTTP
+
+The whole repository is **pure static**: no backend, no build, no dependency installation.
+
+```bash
+# pick one
+npx serve .                          # Node (no prior install; npx fetches it)
+python -m http.server 8080           # Python 3
+php -S localhost:8080                # PHP
+```
+
+Then open:
+
+```
+http://localhost:8080/prototypes/_selection/               # the selection bench (main entry)
+http://localhost:8080/prototypes/_selection/wizard.html    # the selection wizard
+http://localhost:8080/templates/M01-clean-corporate/       # one mainstream template
+http://localhost:8080/prototypes/S14-zero-g-launch-sequence/   # one prototype
+```
+
+**Open it over HTTP. Do not double-click the file.**
+Under `file://` the CSS `mask-image: url(...)` is rejected by CORS and the whole chain fails: double-clicking `S04` or `S07` turns their paper blocks and deckled book edges into a blank wall —— it looks like a broken page. A same-page, same-size http/file comparison measured that region at **5818 distinct colours vs 2**. That is a functional precondition, not a style suggestion.
+
+The repository is **about 180 MB** (photos, rendered screenshots, self-hosted fonts), so prefer a shallow clone:
+
+```bash
+git clone --depth 1 https://github.com/sqkl520/web-style-atlas.git
+```
+
+If you only want to look at screenshots without cloning, browse `prototypes/<scheme>/` on the GitHub web UI.
+
+Check your clone afterwards: `prototypes/_selection/index.html` opens, `prototypes/_selection/data.js` is non-empty, and `prototypes/S01-*/index.html` exists —— if any of the three is missing, the clone was interrupted.
+
+---
+
+## What you get: 30 schemes, 30 prototypes, 3 templates
+
+**30 design schemes** —— not a colour skin but a complete **design argument**, written across 12 fields:
+a one-line visual definition, aesthetic family and references, a colour system (with area ratios and mood), a type strategy, layout and grid (with behaviour at three breakpoints), key visual elements, motion and interaction (with a reduced-motion fallback), anti-AI-cliché review points, risks and how they are avoided, suitable uses (plus what it is *not* for), implementation notes (with a performance budget), and one **signature quirk of the designer**.
+
+**30 runnable prototypes** —— real typography, real copy, real assets, real error states, real `prefers-reduced-motion` fallbacks.
+**26 pass the gate with FAIL = 0.** The 8 remaining failures in the other four are listed one by one under [Limitations](#limitations-what-this-atlas-cannot-do).
+
+**15 F-type / 15 R-type** —— F-type has a fixed skeleton, so a visitor knows what to look at and click within three seconds; R-type organises its content around one physical mechanism. All 30 aesthetic families are **mutually distinct**.
+
+**3 mainstream templates** —— a separate layer with different rules, each documenting the scope of its exemptions in its own README. See [The template layer](#the-template-layer-change-12-variables-and-it-is-yours).
+
+**Browsing and choosing** —— the selection bench, the wizard and full keyboard control, covered in the section above.
+
+**Toolchain** (all in `prototypes/_build/`, plain Node + Python, no npm dependencies):
+
+| Script | What it owns |
+| --- | --- |
+| `render-scheme.mjs` | Render one prototype and print the gate result (real screenshots at three viewports). ⚠️ Depends on `tools/` outside the repository — see [Rendering and verification](#rendering-and-verification) |
+| `verify-prototype.mjs` | Mechanical check: remote resources, banned font stacks, emoji, broken images, real-picture count, horizontal overflow, gate counts |
+| `shot.mjs` + `shot-page.py` | A **zero-dependency screenshot tool** (no third-party design tooling, no CDP): full-page capture, slicing by viewport, per-screen pixel statistics (dominant colour share, mean luminance, blank-screen detection) |
+| `fetch-fonts.mjs` / `selfhost-fonts.mjs` | Fetch fonts for self-hosting and rewrite a page's external font links to local ones |
+| `assign-assets.mjs` / `make-textures.py` | An asset fallback (cross-assign real photos from the existing corpus by subject) plus **14 deterministic texture generators** (parameters written to disk, byte-reproducible) |
+| `collect-schemes.mjs` / `summarize-all.mjs` | Generate `data.js` for the bench, and summarise render reports across the repository |
+
+---
+
+## The template layer: change 12 variables and it is yours
+
+All three templates are **runnable from two files** (`index.html` + `style.css`) with **zero external dependencies**: no image files, no JS libraries, no CDN, no build step.
+Image slots are **inline SVG placeholder frames** (greyscale, with aspect ratio and suggested pixel size).
+Copy uses **placeholder markers** `【replace with: …】`, so a text search tells you exactly what to fill in.
+Fonts use a **system font stack** —— correct on any machine, instantly, with no flash of missing text.
 
 | Template | For | Look | Theming |
 | --- | --- | --- | --- |
@@ -51,37 +161,41 @@ templates/M01-clean-corporate/
 └── TOKENS.md      the 12 variables explained one by one (what it does / default / what changing it does)
 ```
 
-> **Why does this layer have different rules from the 30 schemes?** The 30 schemes follow a strict "anti-AI-cliché" specification that bans, among other things: a centred headline with three equal cards and a bottom CTA; alternating white / light-grey section backgrounds; pure white ground with pure black text and a single accent; floating cards with soft shadows; `Inter`/`system-ui` as the primary face; purple-blue gradients; and frosted-glass sticky navigation. **Those bans are precisely what makes a "mainstream template" work.** So this layer **explicitly exempts itself** from them — keeping the two standards apart: **the 30-scheme layer aims to be remembered; this layer aims not to put a foot wrong and to be usable the moment you pick it up.** Each README lists the exact scope of the exemption with a **use-level** justification (never "because it is mainstream"), and also lists what it still holds to (`gradient: 0`, `backdrop-filter: 0`, zero emoji, no empty marketing words)
-> ⚠️ **`box-shadow: 0` is not actually held**: M01 has 3 and M03 has 1 (using `box-shadow` to draw the hamburger bars). **And M01's own `README.md` admits this is a deliberate exemption**, so the two documentation layers have given opposite conclusions about the same declaration..
+**Why does this layer have different rules from the 30 schemes?**
+The 30 schemes follow a strict "anti-AI-cliché" specification that bans, among other things: a centred headline with three equal cards and a bottom CTA; alternating white / light-grey section backgrounds; pure white ground with pure black text and a single accent; floating cards with soft shadows; `Inter`/`system-ui` as the primary face; purple-blue gradients; frosted-glass sticky navigation.
+**Those bans are precisely what makes a "mainstream template" work.**
+So this layer **exempts itself explicitly**. Keep the two standards apart: **the 30-scheme layer aims to be remembered; this layer aims not to put a foot wrong and to be usable the moment you pick it up.**
+Each README lists the exact scope of the exemption with a **use-level** justification (never "because it is mainstream"), and lists what it still holds to (`gradient: 0`, `backdrop-filter: 0`, zero emoji, no empty marketing words).
 
-## Quick start
+> ⚠️ **`box-shadow: 0` is not actually held**: M01 has 3 occurrences and M03 has 1 (using `box-shadow` to draw the two bars of a hamburger).
+> **And M01's own `README.md` admits this is a deliberate exemption** —— the two documentation layers have given opposite conclusions about the same declaration.
 
-The whole repository is **pure static**: no backend, no build, no dependency installation. The only requirement is to open it **over HTTP** rather than double-clicking a file (the prototypes reference fonts and screenshots by relative path, and some browsers block that under `file://`).
+---
+
+## How this atlas is built: four hard rules
+
+This section answers "how does it produce that". Four hard rules, each with a place you can point at.
+
+**One: the specification comes before the pixels.** Every scheme is written out in a 12-field spec (`prototypes/_specs/Sxx.md`) before any HTML is touched.
+Colour, type, breakpoints and the degradation path are **declared values**, not a feel you dialled in.
+
+**Two: the gate only accepts what a machine can decide.** Remote resources, banned font stacks, emoji, broken images, real picture count, horizontal overflow, `box-shadow` counts —— all checked by script, all recomputable:
 
 ```bash
-# pick one
-npx serve .                          # Node (no prior install; npx fetches it)
-python -m http.server 8080           # Python 3
-php -S localhost:8080                # PHP
+node prototypes/_build/verify-prototype.mjs --all
 ```
 
-Then open:
+**Three: rendering is the last word, not decoration.** Every scheme is captured at 1440 / 768 / 390, and pixel statistics flag blank screens. The captures are the evidence: all **272** of them are in the repository and you can count them with `git ls-files`.
 
-```
-http://localhost:8080/prototypes/_selection/             # the selection bench (main entry)
-http://localhost:8080/prototypes/_selection/wizard.html  # the selection wizard
-http://localhost:8080/templates/M01-clean-corporate/     # one mainstream template
-http://localhost:8080/prototypes/S14-zero-g-launch-sequence/  # one prototype
-```
+**Four: origin and correction live in separate files.** `_specs/Sxx.md` holds the pre-correction text; the currently valid colours, fonts and error codes are governed by **`_specs/_CURRENT-VALUES.md`** —— across several review rounds, more than twenty background colours, brand colours and typefaces were replaced. If anyone asks "how did you get this number", those two files together are the chain.
 
-> **The repository is about 180 MB** (photos, rendered screenshots, self-hosted fonts), so prefer a shallow clone: `git clone --depth 1 <repo-url>`
-> If you only want to look at screenshots without cloning, browse `prototypes/<scheme>/` on the GitHub web UI.
+---
 
-## Deployment
+## Deployment: four stages, and one file you must keep
 
 **Any static host works with no configuration and no environment variables. The site root is the repository root.**
 
-### Step 1: push to your own repository
+### Stage 1: push to your own repository
 
 ```bash
 git clone --depth 1 https://github.com/sqkl520/web-style-atlas.git
@@ -90,9 +204,10 @@ git remote set-url origin https://github.com/<your-user>/<your-repo>.git
 git push -u origin main
 ```
 
-### Step 2: enable Pages
+### Stage 2: enable Pages
 
-Repository page → **Settings → Pages** → set **Source** to `Deploy from a branch` → **Branch** `main`, directory `/ (root)` → Save. A minute or two later, open `https://<user>.github.io/<repo>/`. The `index.html` in the repository root redirects to the selection bench.
+Repository page → **Settings → Pages** → set **Source** to `Deploy from a branch` → **Branch** `main`, directory `/ (root)` → Save.
+A minute or two later, open `https://<user>.github.io/<repo>/`. The `index.html` in the repository root redirects to the selection bench.
 
 Command-line equivalent:
 
@@ -100,9 +215,9 @@ Command-line equivalent:
 gh api -X POST repos/:owner/:repo/pages -f 'source[branch]=main' -f 'source[path]=/'
 ```
 
-> **You must keep the `.nojekyll` file in the repository root.** Pages builds with Jekyll by default, and **Jekyll drops every directory whose name starts with an underscore** — which is exactly where this site's content lives (`prototypes/_selection/`, `_fonts/`, `_specs/`, `_build/`). Delete it and the whole site returns 404.
+> **You must keep the `.nojekyll` file in the repository root.** Pages builds with Jekyll by default, and **Jekyll drops every directory whose name starts with an underscore** —— which is exactly where this site's content lives (`prototypes/_selection/`, `_fonts/`, `_specs/`, `_build/`). Delete it and the whole site returns 404.
 
-### Step 3: other hosts
+### Stage 3: other hosts
 
 | Platform | Build command | Output / Publish directory | Environment variables |
 | --- | --- | --- | --- |
@@ -120,20 +235,23 @@ location ~* \.(woff2|jpg|jpeg|png|webp)$ {
 }
 ```
 
-### Step 4: using a single prototype on its own
+### Stage 4: using a single prototype on its own
 
-Each `prototypes/<scheme>/` directory is **self-contained** (`index.html` + `style.css` + `assets/`). To run one standalone you must also bring **`prototypes/_fonts/`**, because it references `../_fonts/css/*.css`. Put both parts under the same parent directory.
+Each `prototypes/<scheme>/` directory is **self-contained** (`index.html` + `style.css` + `assets/`).
+To run one standalone you must also bring **`prototypes/_fonts/`**, because it references `../_fonts/css/*.css`. Put both parts under the same parent directory.
 
-**The mainstream templates (`templates/M0x/`) have no such constraint** — they use system font stacks, so you can copy a single directory and go.
+**The mainstream templates (`templates/M0x/`) have no such constraint** —— they use system font stacks, so you can copy a single directory and go.
+
+---
 
 ## Rendering and verification
 
 ```bash
 # render one prototype: real screenshots at three viewports + gate result
 # ⚠️ This command only runs as-is on the original development machine: its ROOT is hardcoded to
-#    D:/Web/style, and it depends on tools/taste-skill/…/inspect.mjs — but tools/ is excluded by
-#    .gitignore and is NOT in the repository. A cloner must obtain that tool and edit ROOT in line 16,
-#    or use shot.mjs below, which has no such dependency.
+#    that machine's working copy of this repository, and it depends on tools/taste-skill/…/inspect.mjs —
+#    tools/ is excluded by .gitignore and is NOT in the repository. A cloner must obtain that tool and
+#    edit ROOT in line 16, or use shot.mjs below, which has no such dependency.
 node prototypes/_build/render-scheme.mjs S14-zero-g-launch-sequence
 
 # mechanical check (no arguments checks everything)
@@ -143,53 +261,61 @@ node prototypes/_build/verify-prototype.mjs --all
 node prototypes/_build/shot.mjs prototypes/S14-zero-g-launch-sequence/ --out .shots --widths 1440,768,390 --name S14
 ```
 
-⚠️ **A trap that will fool you**: `chrome --headless=new --window-size=390,844` **does not give you a 390 viewport**. On Windows, Chrome enforces a **minimum window width of about 500 CSS px**; the layout is computed at 500 while the screenshot is written 390 wide — so what you get is a **left-hand crop of a 500px layout**, and you will see **phantom defects** such as "the text is truncated" or "the hamburger menu has disappeared". Likewise `--window-size=768,1024` actually yields an `innerWidth` of only 752.
+⚠️ **A trap that will fool you**: `chrome --headless=new --window-size=390,844` **does not give you a 390 viewport**.
+On Windows, Chrome enforces a **minimum window width of about 500 CSS px**; the layout is computed at 500 while the screenshot is written 390 wide —— so what you get is a **left-hand crop of a 500px layout**, and you will see **phantom defects** such as "the text is truncated" or "the hamburger menu has disappeared".
+`--window-size=768,1024` actually yields an `innerWidth` of only 752.
 
 **For narrow-viewport verification, use `shot.mjs` above** (its 390 tier builds a real viewport with an iframe) or any tool that goes through CDP `Emulation.setDeviceMetricsOverride`. `--window-size` is fine at 1440.
 
-## Licensing and attribution
+---
 
-Three parts, three different licences — please treat them separately:
+## Static only: nothing leaves your machine
 
-| Content | Licence |
-| --- | --- |
-| **Code and documentation in this repository** (`index.html` / `style.css` / `app.js` / `templates/` / `_build/` scripts / `deliverables/` / README) | **MIT**, see [LICENSE](LICENSE) |
-| **Fonts** (`prototypes/_fonts/`) | Their own licences, overwhelmingly **SIL OFL 1.1** (Noto / IBM Plex / Archivo / Oswald / Syne / Space Mono and others). Source and licence appear in the header comment of each `_fonts/css/*.css` |
-| **Photographs** (each prototype's `assets/`) | **Third-party material, not licensed by this repository.** Mostly Wikimedia Commons under **CC BY / CC BY-SA / CC0 / public domain**, plus some **NASA imagery** (public domain) |
+The pages are HTML/CSS/JS, the assets are in the repository, the fonts are self-hosted. Nothing goes out.
 
-**The author, licence and source URL of every single photograph are listed per image in each prototype's `assets/CREDITS.md`.** Before reusing any of them, check that table and comply with its licence (CC BY and CC BY-SA require attribution; some also require share-alike).
+- Browsing is **dependency-free** and makes **no network requests**: no CDN, no remote API, no analytics.
+- No accounts, no login, no backend, no `npm install`.
+- There is no install step, so there is no telemetry either.
 
-> ⚠️ **That sentence has two known exceptions — do not read it as a whole-repository fact.**
-> The `CREDITS.md` of `S04` / `S07` / `S08` / `S13` / `S17` **admits that the per-image author and licence were not preserved** (those fields were never written down when the assets were fetched), covering **56 bitmap files** (the "on disk but absent from the attribution table" lists add up: S04 26, S07 9, S08 6, S13 10, S17 5 — all 56 exist on disk). **"43 unique images" is a different measure and both must be reported**: 43 only holds if S04's 26 files are folded as 13 stems × {png, webp}; de-duplicated by sha256 these 56 files are 56 distinct byte objects. The earlier wording here and in `LICENSE` ("about 38") could not be reproduced and has been corrected to the measured figures.
-> And across the repository **11 rows** record the licence as "see source page" while the source page is empty (`S20/assets/credits.json:33,42`, `S21/assets/credits-unused.json:46`, `S22:24,33`, `S23:6,15,33,42,51`, `S24:42`). **The root cause is not "the fields were dropped while copying an asset across schemes"** — `assign-assets.mjs` never discards a matched `artist` / `license` / `page` (`:358` copies them verbatim). There are **six** mechanisms, and the most common one fails at the *lookup* stage rather than the copying stage: `:187` looks for `credits.json` in only **5 sub-paths** (`assets/`, `build/raw/`, `build/raw-s01/`, `build/`, `build/raw/credits-raw.json`), so S01's attribution (which lives in `build/raw/`) and the whole of S04/S07/S08/S17 (which have no `credits.json` at all) can never match downstream; `:196`'s `if (Array.isArray(arr)) out.push(...arr)` swallows S13's `{value:[…],Count:5}` PowerShell wrapper **as if it were one normal record** (every field empty), which is why S13 fails downstream; size gates keep originals out of the corpus (`:228` under 80 KB never enters it, `:300` under 40 KB is not eligible); default branches write `见来源页` (`:238-241`) while **recognising only `artist`/`license`/`page`/`original`** — never the museum schema's `creator`/`licenseUrl`/`image`, and never `source`; a hard-coded fallback writes `见来源页` and **does not write `page` at all** (`:359`); and reuse records carry only 7 fields (`:369-373` drops `width` / `height` / `bytes` / `query` and overwrites `original` with `page`, destroying the direct link to the original). **7 of those rows were never recorded rather than lost after recording**: S07 has no `assets/credits.json`, and 7 `file` names in S13's `credits.json` do not exist on disk, so their author and licence cannot be established from inside this repository.
-> **5 further rows carry a licence name but no URL anywhere in the record** (`S22:42,51`, `S28:33`, `S30:24,51`; the upstream `S25/assets/credits.json` does have a `source` link, but downstream field names only accept `page` / `original`, so the URL is lost). **Photographs in those five schemes must not be reused** until their attribution tables are complete.
-> Also: the "where it is used on the page" column in the `CREDITS.md` of `S14` / `S15` is **unrefreshed placeholder text** (28 occurrences in S14) — do not use it to judge whether an image is used.
+Recompute it yourself (the first command should print **nothing**):
 
-**The procedural textures are not photographs**: they are produced by `_build/make-textures.py`, their parameters are written to disk (each scheme's `build/texture-job.json`), and they are byte-reproducible. They carry no third-party rights.
+```bash
+# the page loads no remote resource: no <script src=http>, no external font link, no url(http), no fetch
+grep -rEn 'src="https?://|url\("https?://|<link[^>]+href="https?://|@import url|fetch\(|XMLHttpRequest' prototypes/S14-zero-g-launch-sequence/
 
-> ⚠️ **But those parameter files are not in the repository**: `.gitignore` excludes `prototypes/*/build/`, and only **12 of 30 schemes** have a `build/texture-job.json` on disk. So "byte-reproducible" **cannot be checked by anyone who clones this** — and it is the basis on which `LICENSE` declares "no third-party rights", so today **that basis is unverifiable**. Making it verifiable means moving the 14 generators' parameter tables to a path that is not ignored (e.g. `prototypes/_build/textures/`).
+# the only http(s) strings in the page are attribution links (9 in S14, all inside figcaption <a> tags)
+grep -rEo '<a href="https?://[^"]+"' prototypes/S14-zero-g-launch-sequence/index.html | wc -l
+```
 
-> ⚠️ **The licence of "derivative works" needs saying separately.** Clause 3 of `LICENSE` delimits the MIT scope by **filename** (`assets/texture-*.png`) while clause 2 delimits third-party material by **directory** — and the **derivatives in between** (`halftone-*.png`, `*-dither.png`, `plate-*.jpg`, `photo-*.jpg`; roughly **183 of the 287 referenced bitmaps**) **fall into the complement of both clauses, and the repository previously said nothing about their licence** (only `S02` stated that "derivatives inherit the source licence"). A **`2bis`** clause has now been added to `LICENSE`.
+Those are links for a human to click, not things the page fetches while running.
 
-**The mainstream templates contain no third-party assets at all** — image slots are inline SVG placeholder frames, so there is nothing to clear.
+---
 
-## Dependencies
+## Limitations: what this atlas cannot do
 
-- Browsing and deployment: **none** (pure static)
-- Rendering and verification tools: Node.js 18+, Python 3.8+ (Pillow), Google Chrome
-- **No third-party design review tooling is used**; `prototypes/_build/shot.mjs` is entirely dependency-free
+When not to use it, written out.
 
-## Known gaps
+- ❌ **Four older prototypes still have gate failures —— 8 in total**: `S07` `mono` (1); `S08` `palette-terracotta` + `font-count` (2); `S13` `mono` + `shadow` (17 occurrences) + `button-fx` + `empty-screens` (4); `S21` `mono` (1).
+  `S21`'s `few-pictures` and `empty-screens` **are now fixed** (six of the 28 on-subject photos in its own `assets/_cand/` are wired up; real pictures went 0 → 6).
+  The `mono` in `S07`/`S08`/`S13`/`S21` and `S08`'s amber brand colour are **known exemptions** (see `prototypes/_CONTRACT.md` §9.15).
+  **`S13`'s `shadow` (17 occurrences) and `button-fx` have no exemption record** —— the 30-scheme layer mandates `box-shadow: 0`, so those two are genuinely unresolved.
+- ❌ **Ground-colour homogeneity is real**: **18 / 30 = 60% sit in a warm pale band** (criterion: `hue 28–72° and lightness ≥78`). Two findings say more than the percentage does: **12 schemes (40%) form a single connected block under the wide criterion ΔH ≤ 3° and ΔL ≤ 3°** (largest single step on the chain: ΔE76 = 4.39); **83% of schemes have no navigation links on the first screen and 97% use zero border-radius**. See [deliverables/29-critique-homogeneity.md](deliverables/29-critique-homogeneity.md).
+  > ⚠️ **Any homogeneity figure must state its criterion.** Under ΔE76 ≤ 5 the largest connected component is **19 schemes (63%)**, so "12" only holds under the criterion above.
+  > This project has mixed three numbers —— **17% / 60% / 73%** —— which measure "strictest paper family", "warm pale ground" and "including a warm tint from the brand colour"; **their denominators differ by four cases**. "12 strict / 22 loose near-identical pairs" comes from **rounding hue and lightness before comparing**; comparing the continuous values directly gives 8 / 17. The provenance of all three is reconstructed in [deliverables/29](deliverables/29-critique-homogeneity.md) §1.
+- ❌ **Two further homogeneities beyond ground colour**: on the **quietness axis** (`axes.loud`, derived from the palette's highest chroma), **only 2 schemes are "very quiet"** while 19 (63%) are "loud" —— do not read this as `tone`; `tone` is a different set of seven phrases ("chaotic street energy" and so on), the largest of which covers 5 schemes.
+  Of 36 ten-degree hue buckets only 11 are used —— **the entire purple→magenta 110° stretch is empty**; the **whole lightness range 20–60 has zero schemes**.
+  In other words: **the dimensions a user can actually filter on (content volume, complexity) are precisely the ones invisible at thumbnail scale.**
+- ❌ **The bench under-extracts three schemes**: `S12`, `S15` and `S19` expand to only 9 sections —— **and the reason is not a missing spec field**: all three `_specs/*.md` **do have section 5, layout and grid, on line 25**; `_build/collect-schemes.mjs:186` fails to extract it for them. **This is a known, unfixed extraction defect in this repository, not a spec defect.**
+- ❌ **Subject gaps**: the available corpus contains no jazz records themselves, so `S28 "Jazz Intaglio Wall"` substitutes record players and printing material; `S22` and `S23` have similar compromises. All are documented in the relevant `CREDITS.md`.
+- ❌ **The `#888888` grey block is specific to the `inspect.mjs` pipeline**: a few desktop scrolled captures under `.inspect/` contain a large patch of exact neutral grey (`desktop-page-03` in S08 at 49.86%, `desktop-page-01` in S17 at 24.27%). **That is a defect in `inspect.mjs`'s own scroll stitching, not grey that exists in the page** —— characterised in `deliverables/16-render-look-audit.md`. **Corroboration**: an independent audit scanned all 246 PNGs produced by the `shot.mjs` / bare CDP / Pillow pipeline and found **not one where that grey exceeded 2%** (the highest was 0.236%, an anti-aliased edge). It does not occur with other capture methods.
+- ❌ **The `measure` rule is a false positive for Chinese**: it estimates character width at 0.5em while CJK glyphs are about 1.0em, so **divide the reported number by two** to get the real characters per line.
+- ❌ **Double-clicking gives you the wrong result**: under `file://`, CSS `mask-image: url(...)` fails entirely (rejected by CORS → fully transparent). Affected prototypes: `S04` and `S07` —— **their paper blocks and deckled edges become a blank wall**, worse than any defect in the pages themselves, and it **looks like the page is broken**. Same page, same size, http vs file: **5818 distinct colours vs 2**.
+- ❌ **A few prototypes have an `index.html` of 30–48.4 KB** (the largest is S29 at 49,512 B), above the internal specification's target band. Chinese body copy alone is large (about 14 KB for four thousand characters), and the only way down is to delete content.
+- ❌ **This is not a design system**: no component library, no token deliverable, no reusable CSS framework. Anyone who treats it as one will be disappointed by day three.
 
-- **Four older prototypes still have gate failures — 8 in total**: `S07` `mono` (1); `S08` `palette-terracotta` + `font-count` (2); `S13` `mono` + `shadow` (17 occurrences) + `button-fx` + `empty-screens` (4); `S21` `mono` (1). **`S21`'s `few-pictures` and `empty-screens` are now fixed** (six of the 28 on-subject photos in its own `assets/_cand/` are wired up; real pictures went 0 → 6). The `mono` in `S07`/`S08`/`S13`/`S21` and `S08`'s amber brand colour are **known exemptions** (see `prototypes/_CONTRACT.md` §9.15); **`S13`'s `shadow` (17 occurrences) and `button-fx` have no exemption record** — the 30-scheme layer mandates `box-shadow: 0`, so those two are genuinely unresolved
-- **Ground-colour homogeneity is real**: **18 / 30 = 60% sit in a warm pale band** (criterion: `hue 28–72° and lightness ≥78`). Two findings say more than the percentage does: **12 schemes (40%) form a single connected block under the wide criterion ΔH ≤ 3° and ΔL ≤ 3°** (largest single step on the chain: ΔE76 = 4.39) — **mind the criterion**: under ΔE76 ≤ 5 the largest connected component is **19 schemes (63%)**, so "12" only holds under the first criterion, and **83% of schemes have no navigation links on the first screen while 97% use zero border-radius**. See [deliverables/29-critique-homogeneity.md](deliverables/29-critique-homogeneity.md)
-  > ⚠️ **Any homogeneity figure must state its criterion.** This project has mixed three numbers — **17% / 60% / 73%** — which respectively measure "strictest paper family", "warm pale ground" and "including a warm tint from the brand colour"; **their denominators differ by four cases**. Likewise "12 strict / 22 loose near-identical pairs" comes from **rounding hue and lightness before comparing**; comparing the continuous values directly gives 8 / 17. The provenance of all three is reconstructed in [deliverables/29](deliverables/29-critique-homogeneity.md) §1.
-- **Two further homogeneities beyond ground colour**: on the **quietness axis** (`axes.loud`, derived from the palette's highest chroma), **only 2 schemes are "very quiet"** while 19 (63%) are "loud" — do not read this as `tone`; `tone` is a different set of seven phrases ("chaotic street energy" and so on), the largest of which covers 5 schemes; and of 36 ten-degree hue buckets only 11 are used — **the entire purple→magenta 110° stretch is empty**, as is **the whole lightness range 20–60**. In other words: **the dimensions a user can actually filter on (content volume, complexity) are precisely the ones invisible at thumbnail scale.**
-- **Subject gaps**: the available corpus contains no jazz records themselves, so `S28 "Jazz Intaglio Wall"` substitutes record players and printing material; `S22` and `S23` have similar compromises. All are documented in the relevant `CREDITS.md`
-- **The `#888888` grey block is specific to the `inspect.mjs` pipeline**: a few desktop scrolled captures under `.inspect/` contain a large patch of exact neutral grey (`desktop-page-03` in S08 at 49.86%, `desktop-page-01` in S17 at 24.27%). **That is a defect in `inspect.mjs`'s own scroll stitching, not grey that exists in the page** — characterised in `deliverables/16-render-look-audit.md`. **Corroboration**: an independent audit scanned all 246 PNGs produced by the `shot.mjs` / bare CDP / Pillow pipeline and found **not one where that grey exceeded 2%** (the highest was 0.236%, an anti-aliased edge on a grey-toned page). So it does not occur with other capture methods.
-- **The `measure` rule is a false positive for Chinese**: it estimates character width at 0.5em, while CJK glyphs are about 1.0em, so **divide the reported number by two to get the real character count per line**
-- **Under `file://`, CSS `mask-image: url(...)` fails entirely** (rejected by CORS → fully transparent). The affected prototypes are `S04` and `S07`: **double-clicking `index.html` turns their paper blocks and book-edge deckle into a blank wall** — worse than any defect in the pages themselves, and it **looks like the page is broken**. A same-page, same-size http/file comparison measured that region at **5818 distinct colours vs 2**. **This is why the repository requires opening over HTTP** — it is a functional precondition, not a style suggestion.
-- A few prototypes have an `index.html` of 30–48.4 KB (the largest is S29 at 49,512 B), above the internal specification's target band. Chinese body copy alone is large (about 14 KB for four thousand characters), and the only way down is to delete content
+A self-deprecating calibration: **this is an 80-point specimen library, not a 100-point product site.** (Those two scores are a positioning line, not a measured grade —— the measured conclusions are the 9 items above.) For someone who needs to see enough real approaches before deciding what their own site should look like, an 80-point specimen library beats a 100-point product site.
+
+---
 
 ## Repository layout
 
@@ -198,7 +324,7 @@ Three parts, three different licences — please treat them separately:
 ├── index.html                  # redirects to the selection bench (entry point for static hosting)
 ├── README.md / README-EN.md    # bilingual, translated section by section
 ├── LICENSE
-├── .nojekyll                   # must be kept (see Deployment, step 2)
+├── .nojekyll                   # must be kept (see Deployment, stage 2)
 ├── templates/                  # ★ the 3 mainstream templates (M01 / M02 / M03)
 ├── prototypes/
 │   ├── _selection/             # ★ selection bench + selection wizard
@@ -210,4 +336,99 @@ Three parts, three different licences — please treat them separately:
 └── deliverables/               # the full document chain, from the brief and research to review records
 ```
 
-**`_specs/Sxx.md` holds the pre-correction text**; the currently valid colours, fonts and error codes are governed by **`_specs/_CURRENT-VALUES.md`** — across several review rounds more than twenty background colours, brand colours and typefaces were replaced.
+---
+
+## Dependencies
+
+- Browsing and deployment: **none** (pure static)
+- Rendering and verification tools: Node.js 18+, Python 3.8+ (Pillow), Google Chrome
+- **No third-party design review tooling is used**; `prototypes/_build/shot.mjs` is entirely dependency-free
+
+---
+
+## How this atlas was made
+
+Three sources, stated plainly.
+
+**One: external rule sets, replayed against the work.** The anti-AI-cliché clauses were not improvised. `taste-skill` (MIT) and `impeccable` (Apache-2.0) were taken as real rule sets and replayed scheme by scheme; the verdicts live in `deliverables/12-*` through `16-*`.
+The two rule sets **do not cover each other**, so both have to run. Every hit is adjudicated into three classes: `earned` (the committed visual world paid for it), `habit` (a reflex), `indefensible` (no reason given).
+**Neither tool is inside this repository** —— see clause 4 of `LICENSE`; running and deploying this repository does not depend on them either.
+
+**Two: the review chain.** `deliverables/` runs from brief 00 to report 40: research briefs, the rule codex, red-team critiques, and a batch of defences of conclusions already on record. Every boundary figure above points back to a numbered document.
+
+**Three: how this README is written.** The structure, tone and evidence devices come from a public README methodology in the style of Huashu (the `write-attractive-readme` skill; every sample repository is MIT-licensed). The style is borrowed, the evidence is not —— every number in this file was measured inside this repository, and none of the sentence patterns are this project's claims about anyone else.
+
+In one line: **not one assertion here was estimated.** A number either comes from script output or it carries its criterion and its denominator in the limitations section.
+
+---
+
+## Feedback and contributions
+
+What counts as a bug: a script that will not run, an anchor that jumps nowhere, a gate count that disagrees with a number in this README, a path that does not match the tree.
+Run these three commands first and paste the raw output:
+
+```bash
+git ls-files "prototypes/S*/.inspect/*.jpg" | wc -l     # this README says 272
+node prototypes/_build/verify-prototype.mjs --all        # this README says 26 schemes at FAIL = 0
+ls prototypes/_selection/                                # the bench + wizard files
+```
+
+What counts as a proposal: a new aesthetic family has to name the closest of the existing 30 families and say how it differs. If it cannot, it is a skin, not a family.
+Attach a 12-field specification, not a mood board.
+
+No CLA is required. If you change `_specs/` or `_CONTRACT.md`, update `_CURRENT-VALUES.md` in the same commit.
+
+## License and attribution: MIT covers code, not fonts or photos
+
+Three parts, three different licences —— please treat them separately:
+
+| Content | Licence |
+| --- | --- |
+| **Code and documentation in this repository** (`index.html` / `style.css` / `app.js` / `templates/` / `_build/` scripts / `deliverables/` / README) | **MIT**, see [LICENSE](LICENSE) |
+| **Fonts** (`prototypes/_fonts/`) | Their own licences, overwhelmingly **SIL OFL 1.1** (Noto / IBM Plex / Archivo / Oswald / Syne / Space Mono and others). Source and licence appear in the header comment of each `_fonts/css/*.css` |
+| **Photographs** (each prototype's `assets/`) | **Third-party material, not licensed by this repository.** Mostly Wikimedia Commons under **CC BY / CC BY-SA / CC0 / public domain**, plus some **NASA imagery** (public domain) |
+
+**The author, licence and source URL of every single photograph are listed per image in each prototype's `assets/CREDITS.md`.** Before reusing any of them, check that table and comply with its licence (CC BY and CC BY-SA require attribution; some also require share-alike).
+
+> ⚠️ **That sentence has known exceptions —— do not read it as a whole-repository fact.**
+> The `CREDITS.md` of `S04` / `S07` / `S08` / `S13` / `S17` **admits that the per-image author and licence were not preserved** (those fields were never written down when the assets were fetched), covering **56 bitmap files** (the "on disk but absent from the attribution table" lists add up: S04 26, S07 9, S08 6, S13 10, S17 5 —— all 56 exist on disk).
+> **"43 unique images" is a different measure and both must be reported**: 43 only holds if S04's 26 files are folded as 13 stems × {png, webp}; de-duplicated by sha256 these 56 files are 56 distinct byte objects. The earlier wording here and in `LICENSE` ("about 38") could not be reproduced and has been corrected to the measured figures.
+> And across the repository **11 rows** record the licence as "see source page" while the source page is empty (`S20/assets/credits.json:33,42`, `S21/assets/credits-unused.json:46`, `S22:24,33`, `S23:6,15,33,42,51`, `S24:42`).
+> **The root cause is not "the fields were dropped while copying an asset across schemes"** —— `assign-assets.mjs` never discards a matched `artist`/`license`/`page`. Four mechanisms: size gates keep originals out of the corpus (`:228` under 80 KB never enters it, `:300` under 40 KB is not eligible); a hard-coded fallback writes "see source page" and **does not write `page` at all** (`:359`); the default branch (`:238-241`) **recognises only `artist`/`license`/`page`/`original`** —— never the museum schema's `creator`/`licenseUrl`/`image`, and never `source`; and reuse records carry only 8 fields (`:369-373` drops `width`/`height`/`bytes`/`query` and overwrites `original` with `page`).
+> Two further mechanisms fail at the lookup stage: `:187` looks for `credits.json` in only 5 sub-paths (the S01/S04/S07/S08/S17 cases are not among them), and `:196`'s `if (Array.isArray(arr)) out.push(...arr)` swallows S13's `{value:[…],Count:5}` wrapper **as if it were one normal record** (every field empty), which is why S13 fails downstream.
+> **7 of those rows were never recorded rather than lost after recording**: S07 has no `assets/credits.json`, and 7 `file` names in S13's `credits.json` do not exist on disk, so their author and licence cannot be established from inside this repository.
+> **5 further rows carry a licence name but no URL anywhere in the record** (`S22:42,51`, `S28:33`, `S30:24,51`; the upstream `S25/assets/credits.json` does have a `source` link, but downstream field names only accept `page`/`original`, so the URL is lost). **Photographs in those five schemes must not be reused** until their attribution tables are complete.
+> Also: the "where it is used on the page" column in the `CREDITS.md` of `S14` / `S15` is **unrefreshed placeholder text** (28 occurrences in S14) —— do not use it to judge whether an image is used.
+
+**The procedural textures are not photographs**: produced by `_build/make-textures.py`, parameters written to disk (each scheme's `build/texture-job.json`), byte-reproducible, carrying no third-party rights.
+
+> ⚠️ **But those parameter files are not in the repository**: `.gitignore` excludes `prototypes/*/build/`, and only **12 of 30 schemes** have a `build/texture-job.json` on disk.
+> So "byte-reproducible" **cannot be checked by anyone who clones this** —— and it is the basis on which `LICENSE` declares "no third-party rights", so today **that basis is unverifiable**.
+> Making it verifiable means moving the 14 generators' parameter tables to a path that is not ignored (e.g. `prototypes/_build/textures/`).
+
+> ⚠️ **The licence of "derivative works" needs saying separately.** Clause 3 of `LICENSE` delimits the MIT scope by **filename** (`assets/texture-*.png`) while clause 2 delimits third-party material by **directory** —— and the **derivatives in between** (`halftone-*.png`, `*-dither.png`, `plate-*.jpg`, `photo-*.jpg`; roughly **183 of the 287 referenced bitmaps**) **fall into the complement of both clauses, and the repository previously said nothing about their licence** (only `S02` stated that "derivatives inherit the source licence"). A **`2bis`** clause has now been added to `LICENSE`.
+
+**The mainstream templates contain no third-party assets at all** —— image slots are inline SVG placeholder frames, so there is nothing to clear.
+
+In plain words: **take the code and the docs, use them, change them, ship them; the fonts and the photographs answer to their own licences, so read `CREDITS.md` first.**
+
+---
+
+## 中文
+
+**网站设计风格图集** —— 30 个网站设计风格方案，每个都配一个可直接打开、可运行的 HTML/CSS 原型；另有 3 个大众化模板、一张可筛选的选型台和一个五问选型向导。
+
+纯静态：没有构建、没有后端、没有依赖安装。通过 HTTP 打开 `prototypes/_selection/`，30 个案子摊在一页，附 1440／768／390 三档真实渲染截图（**272 张**，`git ls-files "prototypes/S*/.inspect/*.jpg" | wc -l`）。
+
+26 个原型机械闸门 FAIL=0。做不到的部分 —— 剩余 8 条 FAIL、底色同质（18/30 = 60% 落在暖浅色带）、`file://` 下 `mask-image` 失效、署名表不完整 —— 全部列在[做不到与已知边界](README.md#做不到与已知边界)。
+
+完整中文版： **[README.md](README.md)**（与本文逐节对译）。
+
+---
+
+<div align="center">
+
+**Web Style Atlas** turns styles into specimens you can open, run, and take apart into fields.<br>
+*"30 runnable styles, not mockups."*
+
+</div>

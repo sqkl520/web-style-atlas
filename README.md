@@ -1,38 +1,148 @@
-[English](README-EN.md) | 简体中文
+<sub>🌐 <b>中文</b> · <a href="README-EN.md">English</a></sub>
 
-> ⚠️ **这不是一套可以直接上线的成品站，也不是一个设计系统。** 它是一个**风格标本库**：30 个互不相同、各有性格的设计方案各自配一个可运行原型，外加 **3 个大众化模板**（拿来就能用）与**一张选型台 + 一个选型向导**（帮你从 30 个里挑）。整个仓库纯静态，不需要构建，不需要后端。
+<div align="center">
 
 # 网站设计风格图集
 
-30 个网站设计风格方案，每个都配一个**可直接打开、可运行的真实 HTML/CSS 原型**；另有 3 个**大众化模板**（自包含、改几个变量就能变成你自己的站）；全部收进**一张可筛选的选型台**与**一个五问选型向导**。
+> *「30 个能跑的风格，不是 30 张配色图。」*
 
-## 功能特性
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Schemes: 30](https://img.shields.io/badge/Schemes-30-blue)](#仓库里有什么)
+[![Build: none](https://img.shields.io/badge/Build-none-green)](#装上就能用)
+[![Static-only: no backend](https://img.shields.io/badge/Static--only-no%20backend-brightgreen)](#只做静态这一件事)
 
-**内容**
+<br>
 
-- **30 个设计方案** —— 每个是一个完整的**设计主张**而不是配色皮肤：12 个字段涵盖一句话视觉定义、美学家族与参考、配色系统（带面积比与情绪）、字体策略、布局与网格（含三档断点行为）、关键视觉元素、动效与交互（含降级路径）、去 AI 味审查点、风险与规避、适用场景（附"不适合"）、可落地要点（含性能预算）、以及一处**设计师签名式怪癖**
-- **30 个可运行原型** —— 真排版、真文案、真素材、真错误状态、真 `prefers-reduced-motion` 降级；**26 个闸门 FAIL=0**，272 张渲染截图
-- **F 型 15 / R 型 15** —— F 型是有固定骨架的结构（访客 3 秒内知道先看哪、点哪），R 型是"机制驱动"的结构（靠一个物理机制组织内容）；30 个美学家族**互不重复**
-- **3 个大众化模板** —— 见下节。它们是**独立的一层**，规则与 30 案不同，且把豁免范围写进了各自的 README
+**这是一座风格标本库：30 个方案各配一个能直接打开的 HTML 原型，外加 3 个拿来就用的模板。**
 
-**浏览与挑选**
+<br>
 
-- **选型台**（`prototypes/_selection/`）—— 30 个案摊在一页：每行给出结构类型／认知门槛／调性、一句话定义、配色色块、错误码、闸门结果，以及**桌面 1440／平板 768／手机 390 三档真实渲染截图**。可筛选、可搜索、可排序，点行展开全部字段与整页可翻页大图（多数案 10 段；**S12/S15/S19 只有 9 段 —— 但原因不是规格里没有**：这三案的 `_specs/*.md` **L25 都有「5. 布局与网格」**，是 `_build/collect-schemes.mjs:186` 的抽取对它们失效。**这是本项目一个已知未修的抽取缺陷**，不是规格缺陷。），`#S07` 可深链分享
-- **选型向导**（`prototypes/_selection/wizard.html`）—— 五个问题问的是**你的处境**而不是"你喜欢什么风格"。输出 **3 个推荐 + 3 个明确排除**，每条的"为什么"都读**实测值**（正文字数、真实图片张数、调色板最高饱和度、声明门槛、调性合成的记忆点代理值），不替方案打主观分。支持带答案链接回放（`?load=2&img=2&loud=2&guide=0&fear=2`）
-- **键盘可用** —— 选型台上 `J`/`K` 换方案、`1`/`2`/`3` 切视口、`/` 定位搜索框、`Esc` 收起
+<sub>纯静态 —— 不需要构建，不需要后端，任何静态托管直接部署。</sub>
 
-**工具链（都在 `prototypes/_build/`，纯 Node + Python，无 npm 依赖）**
+你手上有一个要上线的站，对方张口就要"高级感"。
+你翻收藏的设计网站，越翻越眼熟——暖米色底、陶土橙、衬线大标题，和上个月那版没区别。
+不是你没审美，是你见过的样本全是渲染图：它不告诉你 1440 到 390 之间怎么塌，不告诉你长文压不进栅格，也不告诉你照片缺了得重排。
+这座标本库存在的全部理由：每个案子都能打开、能跑、能拆到字段。
 
-- **`render-scheme.mjs`** —— 渲染一个原型并打印闸门结果（三档视口真实截图）。⚠️ **依赖仓库外的 `tools/`，克隆后需先改脚本内硬编码的 `ROOT`**，详见"渲染与验收"一节
-- **`verify-prototype.mjs`** —— 机械复核：远程资源、禁用字体栈、Emoji、断链图、真实图片数、横向溢出、闸门计数
-- **`shot.mjs` + `shot-page.py`** —— **零依赖截图取证工具**（不依赖任何第三方设计工具、不使用 CDP）：整页长图 + 按视口切片 + 逐屏像素统计（主色占比、平均亮度、空白屏识别）
-- **`fetch-fonts.mjs` / `selfhost-fonts.mjs`** —— 把字体抓成自托管，并把页面里的外链字体换成自托管
-- **`assign-assets.mjs` / `make-textures.py`** —— 素材兜底（从已有语料按题材交叉分配真实照片）与 **14 个确定性纹理生成器**（参数落盘可逐字节复算）
-- **`collect-schemes.mjs` / `summarize-all.mjs`** —— 给选型台生成 `data.js`、汇总全库渲染报告
+```bash
+npx serve .                        # 或者：python -m http.server 8080
+```
 
-## 3 个大众化模板（`templates/`）
+跨平台通用——任何浏览器、任何静态托管都能跑，不需要装任何东西。
 
-三个模板都是**两文件即可运行**（`index.html` + `style.css`），**零外部依赖**：没有图片文件、没有 JS 库、没有 CDN、没有构建步骤。图片位置用**内联 SVG 占位框**（灰阶、带比例与建议像素），文案用**占位标记** `【换成你的：…】`——你一搜就知道该填哪里。字体走**系统字体栈**，任何机器立刻正确显示、不跳字。
+[看效果](#看效果打开选型台272-张真截图摊在一页) · [安装](#装上就能用) · [内容](#仓库里有什么) · [机制](#核心机制) · [边界](#做不到与已知边界)
+
+<br>
+
+</div>
+
+---
+
+## 看效果：打开选型台，272 张真截图摊在一页
+
+没有 GIF，也不借图。这里能给你的是**能当场点开的文件**。
+
+```bash
+git ls-files "prototypes/S*/.inspect/*.jpg" | wc -l    # 272 张三档真实渲染截图
+```
+
+起个服务器（命令在下一节），然后打开 `prototypes/_selection/`：
+
+```
+http://localhost:8080/prototypes/_selection/
+```
+
+一屏摊开 30 个案子。每行给出结构类型／认知门槛／调性、一句话定义、配色色块、错误码、闸门结果，以及**桌面 1440／平板 768／手机 390 三档真实渲染截图**。
+
+```
+S07  铅灰油墨目录            F 型 · 门槛低 · 调性：学术档案 / 严肃出版
+     ┌────────────────┬──────────────┬────────────┐
+     │ 1440 桌面      │ 768 平板     │ 390 手机   │
+     │  [真截图]      │  [真截图]    │  [真截图]  │
+     └────────────────┴──────────────┴────────────┘
+     闸门 FAIL 1（mono） · 错误码 MIR-47 · 5 屏 / 6 张真图 · [展开 12 字段]
+```
+
+ASCII 只是形状。页面上是像素。
+
+点一行展开全部字段（多数案子 10 段）。
+`#S07` 能深链分享。
+键盘全程可用：`J`/`K` 换方案，`1`/`2`/`3` 切视口，`/` 定位搜索框，`Esc` 收起。
+
+旁边站着**选型向导**（`prototypes/_selection/wizard.html`）。五个问题问的是**你的处境**，不是"你喜欢什么风格"：内容量、图片量、要不要扎眼、要不要导流、怕不怕复古。
+输出 **3 个推荐 + 3 个明确排除**。每条"为什么"都读**实测值**——正文字数、真实图片张数、调色板最高饱和度、声明门槛、调性合成的记忆点代理值——不替方案打主观分。
+答案能带链接回放：`?load=2&img=2&loud=2&guide=0&fear=2`。
+
+---
+
+## 装上就能用
+
+整个仓库**纯静态**：没有后端，没有构建，没有依赖安装。
+
+```bash
+# 任选一种
+npx serve .                          # Node（不用先装，npx 会临时拉）
+python -m http.server 8080           # Python 3
+php -S localhost:8080                # PHP
+```
+
+然后打开：
+
+```
+http://localhost:8080/prototypes/_selection/               # 选型台（总入口）
+http://localhost:8080/prototypes/_selection/wizard.html    # 选型向导
+http://localhost:8080/templates/M01-clean-corporate/       # 一个大众模板
+http://localhost:8080/prototypes/S14-zero-g-launch-sequence/   # 一个原型
+```
+
+**必须通过 HTTP 打开，不能双击文件。**
+`file://` 下 CSS `mask-image: url(...)` 会被 CORS 拒绝、整条链失效：`S04` 与 `S07` 双击打开会让纸块和书口毛边变成一整面空白——看起来像页面坏了。同一页面同一尺寸对照实测：**5818 种颜色 vs 2 种颜色**。这是功能前提，不是风格建议。
+
+仓库**约 180 MB**（照片、渲染截图、自托管字体），建议浅克隆：
+
+```bash
+git clone --depth 1 https://github.com/sqkl520/web-style-atlas.git
+```
+
+只想看截图不想克隆，直接在 GitHub 网页上浏览 `prototypes/<方案>/`。
+
+装完自检：`prototypes/_selection/index.html` 能打开、`prototypes/_selection/data.js` 非空、`prototypes/S01-*/index.html` 存在——少任何一个说明你克隆中断了。
+
+---
+
+## 仓库里有什么
+
+**30 个设计方案**——它不是配色皮肤，而是一份完整的设计主张，12 个字段：
+一句话视觉定义、美学家族与参考、配色系统（带面积比与情绪）、字体策略、布局与网格（含三档断点行为）、关键视觉元素、动效与交互（含降级路径）、去 AI 味审查点、风险与规避、适用场景（附"不适合"）、可落地要点（含性能预算），以及一处**设计师签名式怪癖**。
+
+**30 个可运行原型**——真排版、真文案、真素材、真错误状态、真 `prefers-reduced-motion` 降级。
+**26 个闸门 FAIL=0**。剩下 4 个的 8 条失败逐条列在[做不到与已知边界](#做不到与已知边界)。
+
+**F 型 15 / R 型 15**——F 型是有固定骨架的结构，访客 3 秒内知道先看哪、点哪；R 型靠一个物理机制组织内容。30 个美学家族**互不重复**。
+
+**3 个大众化模板**——独立的一层，规则和 30 案不同，豁免范围写进各自的 README。见[模板层](#模板层改-12-个变量就是一个站)。
+
+**浏览与挑选**——选型台 + 选型向导 + 键盘操作，见上一节的上一节。
+
+**工具链**（都在 `prototypes/_build/`，纯 Node + Python，无 npm 依赖）：
+
+| 脚本 | 它管什么 |
+| --- | --- |
+| `render-scheme.mjs` | 渲染一个原型并打印闸门结果（三档视口真实截图）。⚠️ 依赖仓库外的 `tools/`，见[渲染与验收](#渲染与验收) |
+| `verify-prototype.mjs` | 机械复核：远程资源、禁用字体栈、Emoji、断链图、真实图片数、横向溢出、闸门计数 |
+| `shot.mjs` + `shot-page.py` | **零依赖截图取证**（不依赖任何第三方设计工具、不使用 CDP）：整页长图 + 按视口切片 + 逐屏像素统计（主色占比、平均亮度、空白屏识别） |
+| `fetch-fonts.mjs` / `selfhost-fonts.mjs` | 把字体抓成自托管，并把页面里的外链字体换成自托管 |
+| `assign-assets.mjs` / `make-textures.py` | 素材兜底（从已有语料按题材交叉分配真实照片）+ **14 个确定性纹理生成器**（参数落盘可逐字节复算） |
+| `collect-schemes.mjs` / `summarize-all.mjs` | 给选型台生成 `data.js`、汇总全库渲染报告 |
+
+---
+
+## 模板层：改 12 个变量就是一个站
+
+三个模板都是**两文件即可运行**（`index.html` + `style.css`），**零外部依赖**：没有图片文件、没有 JS 库、没有 CDN、没有构建步骤。
+图片位置用**内联 SVG 占位框**（灰阶、带比例与建议像素）。
+文案用**占位标记** `【换成你的：…】`——你一搜就知道该填哪里。
+字体走**系统字体栈**，任何机器立刻正确显示、不跳字。
 
 | 模板 | 定位 | 观感 | 换肤 |
 | --- | --- | --- | --- |
@@ -50,33 +160,37 @@ templates/M01-clean-corporate/
 └── TOKENS.md      12 个变量逐个说明（作用／默认值／改成什么会怎样）
 ```
 
-> **为什么这一层的规则和 30 案不同？** 30 案受一份严格的"反 AI 味"规格约束，明令禁止居中大标题＋三张等宽卡片＋底部 CTA、白／浅灰 section 交替、纯白底＋纯黑字＋单一强调色、圆角浮起卡片、`Inter`/`system-ui` 作主字体、紫蓝渐变、毛玻璃吸顶导航。**而这些禁令恰好就是"大众模板"的构成要件。** 所以本层**明示豁免**它们——口径分清：**30 案那层的目标是被记住，这一层的目标是不犯错、拿起来就能用。** 每份 README 都逐条写了豁免范围与**用途级**理由（不是"因为大众"），并列出仍然守住的条款（`gradient` 0、`backdrop-filter` 0、Emoji 0、无空洞营销词）
-> ⚠️ **`box-shadow` 0 其实没守住**：M01 有 3 处、M03 有 1 处（用 `box-shadow` 画汉堡两条杠）。**而 M01 自己的 `README.md` 就承认这是有意豁免** —— 两层文档对同一处声明给过相反结论。本条已从上一句里删掉。
+**为什么这一层的规则和 30 案不同？**
+30 案受一份严格的"反 AI 味"规格约束，明令禁止居中大标题＋三张等宽卡片＋底部 CTA、白／浅灰 section 交替、纯白底＋纯黑字＋单一强调色、圆角浮起卡片、`Inter`/`system-ui` 作主字体、紫蓝渐变、毛玻璃吸顶导航。
+**而这些禁令恰好就是"大众模板"的构成要件。**
+所以本层**明示豁免**它们。口径分清：**30 案那层的目标是被记住，这一层的目标是不犯错、拿起来就能用。**
+每份 README 都逐条写了豁免范围与**用途级**理由（不是"因为大众"），并列出仍然守住的条款（`gradient` 0、`backdrop-filter` 0、Emoji 0、无空洞营销词）。
 
-## 快速开始
+> ⚠️ **`box-shadow` 0 其实没守住**：M01 有 3 处、M03 有 1 处（用 `box-shadow` 画汉堡两条杠）。
+> **而 M01 自己的 `README.md` 就承认这是有意豁免**——两层文档对同一处声明给过相反结论。
 
-整个仓库是**纯静态**的：没有后端、没有构建、没有依赖安装。唯一要求是**通过 HTTP 打开**而不是双击文件（原型的字体与截图用相对路径，`file://` 下部分浏览器会拦）。
+---
+
+## 核心机制
+
+这一节回答"为什么它做得出来"。四条硬规则，每条都有落点。
+
+**一、规格先于像素。** 每个方案先写满 12 字段规格（`prototypes/_specs/Sxx.md`），再动 HTML。
+色彩、字体、断点、降级路径都是**声明过的值**，不是调出来的感觉。
+
+**二、闸门只认能机械判定的东西。** 远程资源、禁用字体栈、Emoji、断链图、真实图片数、横向溢出、`box-shadow` 计数——全部由脚本复核，可复算：
 
 ```bash
-# 任选一种
-npx serve .                          # Node（不用先装，npx 会临时拉）
-python -m http.server 8080           # Python 3
-php -S localhost:8080                # PHP
+node prototypes/_build/verify-prototype.mjs --all
 ```
 
-然后打开：
+**三、渲染是最后一道，不是装饰。** 每个案子在 1440／768／390 三档真截图，像素统计判空白屏。截图即取证，`272 张`全部在库里，可 `git ls-files` 数出来。
 
-```
-http://localhost:8080/prototypes/_selection/          # 选型台（总入口）
-http://localhost:8080/prototypes/_selection/wizard.html  # 选型向导
-http://localhost:8080/templates/M01-clean-corporate/  # 一个大众模板
-http://localhost:8080/prototypes/S14-zero-g-launch-sequence/  # 一个原型
-```
+**四、来源与修正分文件写。** `_specs/Sxx.md` 是修正前的原文，当前有效的色值／字体／错误码以 **`_specs/_CURRENT-VALUES.md`** 为准——跨若干轮审查后有二十多处背景色、主色和字体被替换过。想追溯"这个数你怎么算的"，两份文件相加就是链条。
 
-> **仓库约 180 MB**（照片、渲染截图、自托管字体），建议浅克隆：`git clone --depth 1 <仓库地址>`
-> 只想看截图不想克隆，直接在 GitHub 网页上浏览 `prototypes/<方案>/` 即可。
+---
 
-## 部署指南
+## 部署四阶段：推到 Pages 只要留一个文件
 
 **任何静态托管都能直接用，不需要任何配置或环境变量。站点根目录就是仓库根目录。**
 
@@ -91,7 +205,8 @@ git push -u origin main
 
 ### 阶段 2：开 Pages
 
-仓库页面 **Settings → Pages** → **Source** 选 `Deploy from a branch` → **Branch** 选 `main`、目录选 `/ (root)` → 保存。一两分钟后访问 `https://<用户名>.github.io/<仓库名>/`。根目录的 `index.html` 会自动跳到选型台。
+仓库页面 **Settings → Pages** → **Source** 选 `Deploy from a branch` → **Branch** 选 `main`、目录选 `/ (root)` → 保存。
+一两分钟后访问 `https://<用户名>.github.io/<仓库名>/`。根目录的 `index.html` 会自动跳到选型台。
 
 命令行等价写法：
 
@@ -121,15 +236,18 @@ location ~* \.(woff2|jpg|jpeg|png|webp)$ {
 
 ### 阶段 4：只想取用某一个原型
 
-每个 `prototypes/<方案目录>/` 是**自包含**的（`index.html` + `style.css` + `assets/`）。要让它独立跑起来，需**一并带上 `prototypes/_fonts/`**，因为它引用 `../_fonts/css/*.css`。把这两部分放进同一个父目录即可。
+每个 `prototypes/<方案目录>/` 是**自包含**的（`index.html` + `style.css` + `assets/`）。
+要让它独立跑起来，需**一并带上 `prototypes/_fonts/`**，因为它引用 `../_fonts/css/*.css`。把这两部分放进同一个父目录即可。
 
 **大众模板（`templates/M0x/`）没有这个限制**——它们用系统字体栈，复制一个目录走就能用。
+
+---
 
 ## 渲染与验收
 
 ```bash
 # 渲染一个原型：三档视口真实截图 + 闸门结果
-# ⚠️ 本命令**只在本项目的开发机上可直接跑**：脚本内 ROOT 硬编码为 D:/Web/style，
+# ⚠️ 本命令**只在本项目的开发机上可直接跑**：脚本内 ROOT 硬编码指向开发机上的仓库根，
 #    且依赖 prototypes/_build/ 之外的 tools/taste-skill/…/inspect.mjs —— 而 tools/ 被 .gitignore 排除、不在仓库里。
 #    克隆者要用它须先自行取得该工具并改脚本 L16 的 ROOT；只想看截图就用下面的 shot.mjs（不依赖 tools/）。
 node prototypes/_build/render-scheme.mjs S14-zero-g-launch-sequence
@@ -141,55 +259,63 @@ node prototypes/_build/verify-prototype.mjs --all
 node prototypes/_build/shot.mjs prototypes/S14-zero-g-launch-sequence/ --out .shots --widths 1440,768,390 --name S14
 ```
 
-⚠️ **一条会骗到你的坑**：`chrome --headless=new --window-size=390,844` **不是 390 视口**。Windows 上 Chrome 有**最小窗口宽约 500 CSS px**，布局按 500 走、截图按 390 宽输出，你拿到的是 **500px 布局的左侧裁切**——于是会看到"文字被截断""汉堡菜单不见了"这种**假故障**。`--window-size=768,1024` 实际 `innerWidth` 也只有 752。
+⚠️ **一条会骗到你的坑**：`chrome --headless=new --window-size=390,844` **不是 390 视口**。
+Windows 上 Chrome 有**最小窗口宽约 500 CSS px**，布局按 500 走、截图按 390 宽输出，你拿到的是 **500px 布局的左侧裁切**——于是会看到"文字被截断""汉堡菜单不见了"这种**假故障**。
+`--window-size=768,1024` 实际 `innerWidth` 也只有 752。
 
 **窄档验收请用上面的 `shot.mjs`**（390 档它用 iframe 造视口）或任何走 CDP `Emulation.setDeviceMetricsOverride` 的工具；1440 档用 `--window-size` 没问题。
 
-## 授权与署名
+---
 
-三部分许可不同，请分别对待：
+## 只做静态这一件事
 
-| 内容 | 许可 |
-| --- | --- |
-| **本仓库的代码与文档**（`index.html` / `style.css` / `app.js` / `templates/` / `_build/` 脚本 / `deliverables/` / README） | **MIT**，见 [LICENSE](LICENSE) |
-| **字体**（`prototypes/_fonts/`） | 各字体原有许可，绝大多数为 **SIL OFL 1.1**（Noto / IBM Plex / Archivo / Oswald / Syne / Space Mono 等）。来源与许可见 `_fonts/css/*.css` 文件头注释 |
-| **照片**（各原型 `assets/`） | **第三方素材，不由本仓库授权**。多为 Wikimedia Commons 的 **CC BY / CC BY-SA / CC0 / 公有领域**，另有部分 **NASA 图像**（公有领域） |
+数据不出本机：页面是 HTML/CSS/JS，素材在仓库里，字体自托管。
 
-**每一张照片的作者、许可与原件链接都逐张列在各原型的 `assets/CREDITS.md` 里。** 复用前请按表核对并遵守其许可（CC BY / CC BY-SA 要求署名，部分还要求以相同方式共享）。
+- 浏览与部署**零依赖**、**零网络请求**（无 CDN、无远端接口、无埋点）。
+- 没有账号，没有登录，没有后端，没有 `npm install`。
+- 没有安装过程，也就没有遥测。
 
-> ⚠️ **上面这句有两个已知例外，别当成全库事实。**
-> `S04` / `S07` / `S08` / `S13` / `S17` 五案的 `CREDITS.md` **自认逐张的作者与许可没有保留下来**（当初抓素材时这些字段就没落盘），涉及 **56 个位图文件**（逐份 CREDITS.md 的"盘上存在但署名表里没有对应记录"相加：S04 26、S07 9、S08 6、S13 10、S17 5，56 个文件全部在盘上存在）。**「43 张唯一图」是另一个口径，两个都要报**：43 只在把 S04 那 26 个文件按 13 个同名 stem 的 png/webp 成对折半时才成立；按 sha256 逐字节去重，这 56 个文件是 56 个不同的字节对象。此前本文件与 `LICENSE` 写的"约 38 张"复现不出来，已按实测改掉。
-> 且全库有 **11 行**把许可写成"见来源页"而来源页为空（`S20/assets/credits.json:33,42`、`S21/assets/credits-unused.json:46`、`S22:24,33`、`S23:6,15,33,42,51`、`S24:42`）。**根因不是"跨案复用时把字段搬丢了"**——`assign-assets.mjs` 从不丢弃已命中的 `artist`/`license`/`page`。真实机制是四条：体积闸门把原图挡在语料外（`:228` 小于 80 KB 不入库、`:300` 小于 40 KB 不参评）、未命中时写死兜底 `见来源页` 且**根本不写 `page`**（`:359`）、默认值分支（`:238-241`，且它**只认 `artist`/`license`/`page`/`original` 这几个名字**，不认博物馆 schema 的 `creator`/`licenseUrl`/`image`，也不认 `source`）、以及复用记录只搬 8 个字段（`:369-373` 丢掉 `width`/`height`/`bytes`/`query`，并把 `original` 覆盖成 `page`）。第五、第六条是查找阶段就失败：`:187` 只按 5 个子路径找 `credits.json`（S01/S04/S07/S08/S17 那几案根本不在里面），`:196` 的 `if (Array.isArray(arr)) out.push(...arr)` 会把 S13 那种 `{value:[…],Count:5}` 包装**当成一条正常记录**塞进语料（字段全空），S13 因此在下游全灭。**另有 7 行属"从未记录"而非"记录后丢失"**：S07 没有 `assets/credits.json`，S13 的 `credits.json` 里 7 个 `file` 名在磁盘上不存在，其作者与许可在仓库内无法确认。
-> **还有 5 行有许可名但整条记录没有任何 URL**（`S22:42,51`、`S28:33`、`S30:24,51`；上游 `S25/assets/credits.json` 是有 `source` 直链的，但下游字段名只认 `page`/`original`，URL 就丢了）。**这五案的照片不得对外复用**，直到署名表补齐。
-> 另：`S14` / `S15` 的 `CREDITS.md` 里"页面里用在哪"那一列是**没刷新的占位文本**（S14 有 28 处），不要据此判断某张图用没用。
+复算（第一条应当**没有任何输出**）：
 
-**程序化纹理不是照片**：由 `_build/make-textures.py` 生成，参数落盘（各案 `build/texture-job.json`）可逐字节复算，无第三方权利。
+```bash
+# 页面不加载任何远程资源：无 <script src=http>、无外链字体、无 url(http)、无 fetch
+grep -rEn 'src="https?://|url\("https?://|<link[^>]+href="https?://|@import url|fetch\(|XMLHttpRequest' prototypes/S14-zero-g-launch-sequence/
 
-> ⚠️ **但那份参数文件没进仓库**：`.gitignore` 排除了 `prototypes/*/build/`，而磁盘上**只有 12/30 案**有 `build/texture-job.json`。所以"参数落盘可逐字节复算"这句**克隆者核不了**——它是 LICENSE 划"无第三方权利"的依据，因此目前**依据不可核**。要让它可核，需要把 14 个生成器的参数表挪到一个不受忽略的路径（例如 `prototypes/_build/textures/`）。
+# 页面里确实出现的 http(s) 字符串只有署名链接（S14 共 9 处，全在 figcaption 的 <a> 里）
+grep -rEo '<a href="https?://[^"]+"' prototypes/S14-zero-g-launch-sequence/index.html | wc -l
+```
 
-> ⚠️ **但"派生件"的许可要单独说清。** `LICENSE` 第 3 条按**文件名**（`assets/texture-*.png`）划 MIT 范围、第 2 条按**目录**划第三方范围 —— 而介于两者之间的**派生件**（`halftone-*.png`、`*-dither.png`、`plate-*.jpg`、`photo-*.jpg` 等，被引用的 287 张位图里约 **183 张**属这类）**同时落在两条的补集里，仓库原先没有一句话说明它们的许可**（全库只有 `S02` 写了"衍生图沿用原图的许可"）。已在 `LICENSE` 补上 **`2bis`** 条款。
+那些是给人点的出处，不是页面运行时要取的东西。
 
-**大众模板不含任何第三方素材**——图片位是内联 SVG 占位框，没有授权问题。
+---
 
-## 依赖
+## 做不到与已知边界
 
-- 浏览与部署：**无**（纯静态）
-- 渲染与复核工具：Node.js 18+、Python 3.8+（Pillow）、Google Chrome
-- **不使用**任何第三方设计审查工具；`prototypes/_build/shot.mjs` 完全零依赖
+写清楚什么时候别用。
 
-## 已知缺口
+- ❌ **`S07` `S08` `S13` `S21` 四个旧原型仍有闸门 FAIL，合计 8 条**：`S07` `mono`（1）；`S08` `palette-terracotta` + `font-count`（2）；`S13` `mono` + `shadow`（17 处）+ `button-fx` + `empty-screens`（4）；`S21` `mono`（1）。
+  其中 `S21` 的 `few-pictures` 与 `empty-screens` **已修**（接上了它自己 `assets/_cand/` 里 28 张对题照片中的 6 张，真实图片 0 → 6）。
+  `S07`/`S08`/`S13`/`S21` 的 `mono`，以及 `S08` 的琥珀主色，是**已知豁免**（理由见 `prototypes/_CONTRACT.md` §9.15）。
+  **`S13` 的 `shadow`（17 处）与 `button-fx` 没有豁免记录**——30 案那层明令 `box-shadow: 0`，这两条是**真的未清**。
+- ❌ **底色同质是真的**：**18 / 30 = 60% 落在"暖浅色带"**（判据 `色相 28–72° 且 明度 ≥78`）。另有两条比百分比更说明问题：**12 个案子（40%）的底色在宽口径 ΔH≤3° 且 ΔL≤3° 下连成单一连通块**（链上最大单步 ΔE76 = 4.39）；**83% 的案子首屏没有导航链接、97% 圆角为 0**。见 [deliverables/29-critique-homogeneity.md](deliverables/29-critique-homogeneity.md)。
+  > ⚠️ **报同质数字必须附判据。** 换成 ΔE76≤5 口径，最大连通分量是 **19 案（63%）**，「12 案」只在上面那个口径下成立。
+  > 本项目在这件事上混用过 **17% / 60% / 73%** 三个数——它们分别测"最严纸族""暖浅底""含主色暖倾向"，**分母还差 4 案**；"近同对 12 严 / 22 宽"来自**先把色相与明度取整再比**，连续值直接比只有 8 / 17。三个数的来历见 [deliverables/29](deliverables/29-critique-homogeneity.md) §1。
+- ❌ **底色之外还有两条同质**：**"安静度"这一轴（`axes.loud`，由调色板最高彩度算出）里"很安静"只有 2 案**、"就要扎眼"19 案（63%）——别把这组数当成 `tone`；`tone` 是另外七个词（「混乱活力／街头」等），最多的一词 5 案。
+  色相 36 个 10° 桶只用了 11 个，**紫→品红连续 110° 全空**；明度 **20–60 整段 0 案**。
+  也就是说：**用户能用的筛选维度（内容量、复杂度）恰好都是缩略图上看不见的维度。**
+- ❌ **选型台对三个案子抽少了段**：`S12`/`S15`/`S19` 只展开 9 段。**原因不是规格里没有**——这三案的 `_specs/*.md` **L25 都有「5. 布局与网格」**，是 `_build/collect-schemes.mjs:186` 的抽取对它们失效。**这是本项目一个已知未修的抽取缺陷**，不是规格缺陷。
+- ❌ **题材缺口**：`S28「爵士凹版墙」`的可用语料里没有爵士唱片本身，只能用唱片机与印刷素材顶上；`S22`、`S23` 有类似妥协。都写进了对应原型的 `CREDITS.md`。
+- ❌ **`#888888` 灰块专属于 `inspect.mjs` 链路**：少数 `.inspect/` 里的桌面滚动截图会出现大片精确中性灰（S08 的 `desktop-page-03` 占 49.86%、S17 的 `desktop-page-01` 占 24.27%）。**那是 `inspect.mjs` 自己滚动拼接的缺陷，不是页面真有灰**——已定性于 `deliverables/16-render-look-audit.md`。**旁证**：一次独立审查对 246 张用 `shot.mjs`／裸 CDP／Pillow 这条链路产出的 PNG 做了全量扫描，**无一张该灰占比超过 2%**（最高 0.236%，是页面抗锯齿边缘）。它不出现于其他截图方式。
+- ❌ **`measure` 这条规则对中文是假阳性**：它按 0.5em 估算字符宽，而汉字约 1.0em，**报数除以 2 才是真实汉字数**。
+- ❌ **双击打不开正确结果**：`file://` 下 CSS `mask-image: url(...)` 会整体失效（CORS 拒绝 → 全透明）。受影响的是 `S04` 与 `S07`：**纸块与书口毛边会变成一整面空白**——比页面本身的任何缺陷都严重，而且**看起来像页面坏了**。同一页面同一尺寸的 http/file 对照实测：**5818 种颜色 vs 2 种颜色**。
+- ❌ **少数原型的 `index.html` 在 30–48.4 KB**（最大的 S29 是 49,512 B），超过内部施工规范的目标区间。中文正文本身占字节就大（四千多汉字约 14 KB），压下去只能删内容。
+- ❌ **它不是一个设计系统**：没有组件库，没有 token 交付，没有可复用的 CSS 框架。要拿它当设计系统用的人会在第三天失望。
 
-- **四个旧原型仍有闸门 FAIL，合计 8 条**：`S07` `mono`（1）；`S08` `palette-terracotta` + `font-count`（2）；`S13` `mono` + `shadow`（17 处）+ `button-fx` + `empty-screens`（4）；`S21` `mono`（1）。其中 `S21` 的 `few-pictures` 与 `empty-screens` **已修**（接上了它自己 `assets/_cand/` 里 28 张对题照片中的 6 张，真实图片 0 → 6）。**`S07`/`S08`/`S13`/`S21` 的 `mono`，以及 `S08` 的琥珀主色，是已知豁免**（理由见 `prototypes/_CONTRACT.md` §9.15）；**`S13` 的 `shadow`（17 处）与 `button-fx` 没有豁免记录**——30 案那层明令 `box-shadow: 0`，这两条是**真的未清**
-- **底色同质是真的**：**18 / 30 = 60% 落在"暖浅色带"**（判据 `色相 28–72° 且 明度 ≥78`）。另有两条比百分比更说明问题的：**12 个案子（40%）的底色在宽口径 ΔH≤3° 且 ΔL≤3° 下连成单一连通块**（链上最大单步 ΔE76 = 4.39）——⚠️ **注意判据**：换成 ΔE76≤5 口径，最大连通分量是 **19 案（63%）**，「12 案」只在上面那个口径下成立，以及 **83% 的案子首屏没有导航链接、97% 圆角为 0**。见 [deliverables/29-critique-homogeneity.md](deliverables/29-critique-homogeneity.md)
-  > ⚠️ **报同质数字必须附判据。** 本项目在这件事上混用过 **17% / 60% / 73%** 三个数——它们分别测"最严纸族""暖浅底""含主色暖倾向"，**分母还差 4 案**；而"近同对 12 严 / 22 宽"来自**先把色相与明度取整再比**，连续值直接比只有 8 / 17。三个数的来历已由审查员逐条复原，见 [deliverables/29](deliverables/29-critique-homogeneity.md) §1。
-- **底色之外还有两条同质**：**"安静度"这一轴（`axes.loud`，由调色板最高彩度算出）里"很安静"只有 2 案**、"就要扎眼"19 案（63%）——别把这组数当成 `tone`；`tone` 是另外七个词（「混乱活力／街头」等），最多的一词 5 案；色相 36 个 10° 桶只用了 11 个，**紫→品红连续 110° 全空**，明度 **20–60 整段 0 案**。也就是说：**用户能用的筛选维度（内容量、复杂度）恰好都是缩略图上看不见的维度。**
-- **题材缺口**：`S28「爵士凹版墙」`的可用语料里没有爵士唱片本身，只能用唱片机与印刷素材顶上；`S22`、`S23` 有类似妥协。都写进了对应原型的 `CREDITS.md`
-- **`#888888` 灰块专属于 `inspect.mjs` 链路**：少数 `.inspect/` 里的桌面滚动截图会出现大片精确中性灰（S08 的 `desktop-page-03` 占 49.86%、S17 的 `desktop-page-01` 占 24.27%）。**那是 `inspect.mjs` 自己滚动拼接的缺陷，不是页面真有灰**——已定性于 `deliverables/16-render-look-audit.md`。**旁证**：一次独立审查对 246 张用 `shot.mjs`／裸 CDP／Pillow 这条链路产出的 PNG 做了全量扫描，**无一张该灰占比超过 2%**（最高 0.236%，是页面抗锯齿边缘）。所以它不出现于其他截图方式。
-- **`measure` 这条规则对中文是假阳性**：它按 0.5em 估算字符宽，而汉字约 1.0em，**报数除以 2 才是真实汉字数**
-- **`file://` 下 CSS `mask-image: url(...)` 会整体失效**（CORS 拒绝 → 全透明）。受影响的是 `S04` 与 `S07`：**双击 `index.html` 会让它们的纸块与书口毛边变成一整面空白**——比页面本身的任何缺陷都严重，而且**看起来像页面坏了**。同一页面同一尺寸的 http/file 对照实测：该区域 **5818 种颜色 vs 2 种颜色**。**这就是为什么本仓库要求通过 HTTP 打开**，不是风格建议而是功能前提。
-- 少数原型的 `index.html` 在 30–48.4 KB（最大的 S29 是 49,512 B），超过内部施工规范的目标区间。中文正文本身占字节就大（四千多汉字约 14 KB），压下去只能删内容
+一句自贬定位：**这是一个 80 分的标本库，不是 100 分的成品站。**（这两个分数是定位说法，不是实测评分——实测结论全在上面那 9 条里。）对"要看够多种真实做法才知道自己那个站该长什么样"的人，80 分的标本库比 100 分的成品站有用。
 
-## 目录结构
+---
+
+## 仓库结构
 
 ```
 .
@@ -205,7 +331,102 @@ node prototypes/_build/shot.mjs prototypes/S14-zero-g-launch-sequence/ --out .sh
 │   ├── _build/                 # 全部工具脚本（渲染 / 复核 / 抓字体 / 备素材 / 生成纹理 / 陈旧度检查）
 │   ├── _CONTRACT.md            # 施工规范（在 prototypes/ 根，不在 _build/ 下）
 │   └── S01-… S30-…/            # 30 个原型（index.html + style.css + assets/ + .inspect/）
-└── deliverables/                # 从约束简报、研究简报、规则法典到审查记录的完整文档链
+└── deliverables/               # 从约束简报、研究简报、规则法典到审查记录的完整文档链
 ```
 
-**`_specs/Sxx.md` 是修正前的原文**；当前有效的色值／字体／错误码以 **`_specs/_CURRENT-VALUES.md`** 为准——跨越若干轮审查后有二十多处背景色、主色和字体被替换过。
+---
+
+## 依赖
+
+- 浏览与部署：**无**（纯静态）
+- 渲染与复核工具：Node.js 18+、Python 3.8+（Pillow）、Google Chrome
+- **不使用**任何第三方设计审查工具；`prototypes/_build/shot.mjs` 完全零依赖
+
+---
+
+## 这个图集是怎么造出来的
+
+三条来源，都写明白。
+
+**一、外部规则集回灌。** 30 案的"反 AI 味"条款不是拍脑袋，是把 `taste-skill`（MIT）与 `impeccable`（Apache-2.0）两套真实规则集逐条回灌到方案上裁定的结果，记录在 `deliverables/12-*` 到 `16-*`。
+两个工具的规则集**不互相覆盖**，所以两条都得跑。裁定分三档：`earned`（被这个视觉世界挣来的）、`habit`（顺手件）、`indefensible`（说不出理由）。
+**这两个工具都不在本仓库里**——见 `LICENSE` 第 4 条；本仓库的运行与部署也不依赖它们。
+
+**二、审查链条。** `deliverables/` 里从 00 号约束简报排到 40 号，中间是研究简报、规则法典、红队锐评、以及一批为既有结论辩护的复审。上面每一条边界数字都能回指到某一号文件。
+
+**三、这份 README 的写法。** 结构、语气与证据装置来自公开的花叔风格 README 方法论（`write-attractive-readme` skill，样本仓 LICENSE 均为 MIT）；风格照搬，证据不照搬——文中每个数字都在本仓库里实测过，句式出处与本仓库无关。
+
+一句话：**这里没有一条断言是估的。** 数字要么来自脚本输出，要么在边界一节写清判据和口径。
+
+---
+
+## 反馈与贡献
+
+什么算 bug：脚本跑不通、锚点跳空、闸门计数与文中数字不符、文中路径与仓库实际结构不符。
+提之前请先跑这三条复算命令，把原始输出贴上来：
+
+```bash
+git ls-files "prototypes/S*/.inspect/*.jpg" | wc -l     # 文中写 272
+node prototypes/_build/verify-prototype.mjs --all        # 文中写 26 案 FAIL=0
+ls prototypes/_selection/                                 # 选型台 + 向导的文件
+```
+
+什么算提案：新的美学家族要能说清它和已有 30 族里最接近的一族差在哪；说不清就不是新族，是皮肤。
+提案请附一份 12 字段规格，别只附一张参考图。
+
+贡献代码不需要签 CLA；改动了 `_specs/` 或 `_CONTRACT.md` 请一并更新 `_CURRENT-VALUES.md`。
+
+## License 与署名：MIT，但三类素材不归它管
+
+三部分许可不同，请分别对待：
+
+| 内容 | 许可 |
+| --- | --- |
+| **本仓库的代码与文档**（`index.html` / `style.css` / `app.js` / `templates/` / `_build/` 脚本 / `deliverables/` / README） | **MIT**，见 [LICENSE](LICENSE) |
+| **字体**（`prototypes/_fonts/`） | 各字体原有许可，绝大多数为 **SIL OFL 1.1**（Noto / IBM Plex / Archivo / Oswald / Syne / Space Mono 等）。来源与许可见 `_fonts/css/*.css` 文件头注释 |
+| **照片**（各原型 `assets/`） | **第三方素材，不由本仓库授权**。多为 Wikimedia Commons 的 **CC BY / CC BY-SA / CC0 / 公有领域**，另有部分 **NASA 图像**（公有领域） |
+
+**每一张照片的作者、许可与原件链接都逐张列在各原型的 `assets/CREDITS.md` 里。** 复用前请按表核对并遵守其许可（CC BY / CC BY-SA 要求署名，部分还要求以相同方式共享）。
+
+> ⚠️ **上面这句有两个已知例外，别当成全库事实。**
+> `S04` / `S07` / `S08` / `S13` / `S17` 五案的 `CREDITS.md` **自认逐张的作者与许可没有保留下来**（当初抓素材时这些字段就没落盘），涉及 **56 个位图文件**（逐份 CREDITS.md 的"盘上存在但署名表里没有对应记录"相加：S04 26、S07 9、S08 6、S13 10、S17 5，56 个文件全部在盘上存在）。
+> **「43 张唯一图」是另一个口径，两个都要报**：43 只在把 S04 那 26 个文件按 13 个同名 stem 的 png/webp 成对折半时才成立；按 sha256 逐字节去重，这 56 个文件是 56 个不同的字节对象。此前本文件与 `LICENSE` 写的"约 38 张"复现不出来，已按实测改掉。
+> 且全库有 **11 行**把许可写成"见来源页"而来源页为空（`S20/assets/credits.json:33,42`、`S21/assets/credits-unused.json:46`、`S22:24,33`、`S23:6,15,33,42,51`、`S24:42`）。
+> **根因不是"跨案复用时把字段搬丢了"**——`assign-assets.mjs` 从不丢弃已命中的 `artist`/`license`/`page`。真实机制是四条：体积闸门把原图挡在语料外（`:228` 小于 80 KB 不入库、`:300` 小于 40 KB 不参评）、未命中时写死兜底 `见来源页` 且**根本不写 `page`**（`:359`）、默认值分支（`:238-241`，且它**只认 `artist`/`license`/`page`/`original` 这几个名字**，不认博物馆 schema 的 `creator`/`licenseUrl`/`image`，也不认 `source`）、以及复用记录只搬 8 个字段（`:369-373` 丢掉 `width`/`height`/`bytes`/`query`，并把 `original` 覆盖成 `page`）。
+> 第五、第六条是查找阶段就失败：`:187` 只按 5 个子路径找 `credits.json`（S01/S04/S07/S08/S17 那几案根本不在里面），`:196` 的 `if (Array.isArray(arr)) out.push(...arr)` 会把 S13 那种 `{value:[…],Count:5}` 包装**当成一条正常记录**塞进语料（字段全空），S13 因此在下游全灭。
+> **另有 7 行属"从未记录"而非"记录后丢失"**：S07 没有 `assets/credits.json`，S13 的 `credits.json` 里 7 个 `file` 名在磁盘上不存在，其作者与许可在仓库内无法确认。
+> **还有 5 行有许可名但整条记录没有任何 URL**（`S22:42,51`、`S28:33`、`S30:24,51`；上游 `S25/assets/credits.json` 是有 `source` 直链的，但下游字段名只认 `page`/`original`，URL 就丢了）。**这五案的照片不得对外复用**，直到署名表补齐。
+> 另：`S14` / `S15` 的 `CREDITS.md` 里"页面里用在哪"那一列是**没刷新的占位文本**（S14 有 28 处），不要据此判断某张图用没用。
+
+**程序化纹理不是照片**：由 `_build/make-textures.py` 生成，参数落盘（各案 `build/texture-job.json`）可逐字节复算，无第三方权利。
+
+> ⚠️ **但那份参数文件没进仓库**：`.gitignore` 排除了 `prototypes/*/build/`，而磁盘上**只有 12/30 案**有 `build/texture-job.json`。
+> 所以"参数落盘可逐字节复算"这句**克隆者核不了**——它是 LICENSE 划"无第三方权利"的依据，因此目前**依据不可核**。
+> 要让它可核，需要把 14 个生成器的参数表挪到一个不受忽略的路径（例如 `prototypes/_build/textures/`）。
+
+> ⚠️ **但"派生件"的许可要单独说清。** `LICENSE` 第 3 条按**文件名**（`assets/texture-*.png`）划 MIT 范围、第 2 条按**目录**划第三方范围——而介于两者之间的**派生件**（`halftone-*.png`、`*-dither.png`、`plate-*.jpg`、`photo-*.jpg` 等，被引用的 287 张位图里约 **183 张**属这类）**同时落在两条的补集里，仓库原先没有一句话说明它们的许可**（全库只有 `S02` 写了"衍生图沿用原图的许可"）。已在 `LICENSE` 补上 **`2bis`** 条款。
+
+**大众模板不含任何第三方素材**——图片位是内联 SVG 占位框，没有授权问题。
+
+一句人话：**代码与文档随便用、随便改；字体和照片各归各的许可，先查 `CREDITS.md`。**
+
+---
+
+## English
+
+**Web Style Atlas** — 30 website design schemes, each with a real, runnable HTML/CSS prototype, plus 3 mainstream templates, a filterable selection bench and a five-question wizard.
+
+Pure static: no build step, no backend, no dependency install. Open `prototypes/_selection/` over HTTP and all 30 schemes appear on one page with real renders at 1440 / 768 / 390 (**272 screenshots**, `git ls-files "prototypes/S*/.inspect/*.jpg" | wc -l`).
+
+26 prototypes pass the mechanical gate with FAIL = 0. What this repository cannot do — 8 remaining gate failures, measured ground-colour homogeneity (18 / 30 = 60% in a warm pale band), the `file://` `mask-image` breakage, the incomplete photo attribution tables — is listed under [做不到与已知边界](#做不到与已知边界).
+
+Full English README: **[README-EN.md](README-EN.md)**（与本文逐节对译）.
+
+---
+
+<div align="center">
+
+**网站设计风格图集** 把风格变成能打开、能跑、能拆到字段的标本。<br>
+*「30 个能跑的风格，不是 30 张配色图。」*
+
+</div>
