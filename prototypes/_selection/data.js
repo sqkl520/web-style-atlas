@@ -1216,7 +1216,7 @@ window.SCHEMES = [
     "no-footage",
     "measure"
    ],
-   "at": "2026-10-23T18:57:24.637Z",
+   "at": "2026-10-23T19:52:25.763Z",
    "screens": 10,
    "realPictures": 7,
    "overflow": 0,

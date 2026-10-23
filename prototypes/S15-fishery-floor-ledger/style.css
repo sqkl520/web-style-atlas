@@ -488,6 +488,12 @@ h2, .lede, .masthead__lede, .mount, .legend, .zones__table,
   .matrix thead { display: none; }        /* 列名改由下面 4 个 ::before 携带，信息不丢 */
   .matrix caption { padding-bottom: 12px; }
   .matrix tr { border-bottom: 2px solid #C3C9C7; padding: 8px 0 10px; }
+  /* 视觉复核（45-scratch/visual-check.md，像素级）判"合格"后的唯一修饰：
+     tr:last-child 收尾线多一道——表格底边已有 caption/tr 节奏，去掉更干净。
+     复核同时确认：列名标签墨宽 24.5–88.5 恒定、值间隙 9.5–11px、
+     标签与值均单行（行带 14–15px，无双行带），且刻意**不加**固定宽度标签列
+     （与 L479-481 "不照搬 S29" 的理由一致）。 */
+  .matrix tbody tr:last-child { border-bottom: 0; }
   .matrix th, .matrix td { border-bottom: 0; padding: 2px 0; text-align: left; }
   .matrix td:first-child { white-space: normal; font-weight: 600; }
   .matrix tbody td::before {
