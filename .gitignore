@@ -60,3 +60,30 @@ _vw-out/
 
 # ── 审查 agent 的草稿目录（放在 deliverables/ 下以免被临时目录 sweeper 扫掉；不进 git）──
 deliverables/*-scratch/
+
+# ── 实习课题双选平台：运行期数据不得入库（含首启生成的 data/secret.key、会话库、单实例锁）──
+# 出厂初始态在 internship-portal/data.example/，是入库的。
+# 写 `data/*` 而不是 `data/`：Git 对被整体排除的目录不再向下遍历，
+# 于是 `data/` + 任何 `!data/xxx` 重包含都失效（本层需要保留 data/.gitkeep 与
+# data/.gitignore 两个哨兵，好让 clone 出来的目录存在且自带屏蔽规则）。
+internship-portal/data/*
+!internship-portal/data/.gitkeep
+!internship-portal/data/.gitignore
+# ⚠️ 注意：上面第 2 行的 `tools/` 是未锚定模式，在任意深度都匹配——
+# 所以本项目的脚本目录叫 internship-portal/scripts/，不叫 tools/（详见方案 §3 F-16 的注解）。
+
+# ---- foreign project: protect against 'git add -A' sweeping it into this public repo ----
+# (its own data/secret.key must never be pushed here)
+internship-portal/
+new_api_internship_project_plan.md
+# ---- one-shot scratch left at repo root by review sessions (root-anchored) ----
+/.tmp-*
+/.tmp_*
+/_ud_*/
+/_dom_*
+/_probe_*
+/_scan_reports/
+/_audit_*
+/_license_probe*
+/_srv.*
+/_tpl-view/
