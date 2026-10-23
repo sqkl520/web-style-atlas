@@ -62,6 +62,7 @@
 ## 三、字体
 
 页面字体全部自托管在 `prototypes/_fonts/`，来自 Google Fonts 或字体官方 webfont 包，均为 OFL 1.1 或同类可商用许可。
+> ⚠️ 本案 71 片私有字体切片在案目录根 `fonts/wenjin-*.woff2`（文锦坊老宋体的 CJK 分块，style.css 71 处 @font-face 引用），不在 `prototypes/_fonts/`——搬走本案必须连 fonts/ 一起拿。
 中文主字体文津宋体的子集按 GB2312 一级字库裁切，71 片 woff2、合计 163.3 KB，授权全文随字面交付：
 `fonts/LICENSE-WenJinMincho.txt`。
 

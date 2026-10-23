@@ -237,10 +237,13 @@ location ~* \.(woff2|jpg|jpeg|png|webp)$ {
 
 ### Stage 4: using a single prototype on its own
 
-Each `prototypes/<scheme>/` directory is **self-contained** (`index.html` + `style.css` + `assets/`).
-To run one standalone you must also bring **`prototypes/_fonts/`**, because it references `../_fonts/css/*.css`. Put both parts under the same parent directory.
+No `prototypes/<scheme>/` directory references any remote URL (contract §4), so it **runs in place — but "take it away" is harder than "run it": these are specimens, not components**.
 
-**The mainstream templates (`templates/M0x/`) have no such constraint** —— they use system font stacks, so you can copy a single directory and go.
+- To run one standalone you must also bring **`prototypes/_fonts/`** (each scheme references `../_fonts/css/*.css`) and fix the relative paths.
+- **⚠️ Four schemes carry private fonts inside their own directory**: `S04`/`S07`/`S08` keep them in `<scheme>/assets/fonts/` (4 + 4 + 1 woff2), and `S21` keeps 71 woff2 slices of WenJin Fang OldSong (CJK chunks) in `<scheme>/fonts/` — all 71 of its `@font-face` rules point there. Bringing only `_fonts/` leaves these schemes with missing glyphs; move the in-directory fonts along too.
+- Measured take-away cost (portability audit 50, rates in `deliverables/50-critique-portability.md` §0): swapping copy as a static page ≈ 1–2 h; extracting into your own framework **8–16.5 h per scheme** (median 10.9 h — the bulk is that there are no component boundaries to lift).
+
+**The mainstream templates (`templates/M0x/`) have none of these constraints** —— system font stacks, zero third-party assets; copy one directory and go.
 
 ---
 

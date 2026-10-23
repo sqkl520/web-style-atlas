@@ -93,7 +93,7 @@ for (const name of targets) {
   L.push('');
   L.push('## 三、字体');
   L.push('');
-  L.push('页面字体全部自托管在 `prototypes/_fonts/`，来源为 Google Fonts 或字体官方 webfont 包，均为 OFL 1.1 或同类可商用许可。');
+  L.push('页面字体不用远程 URL（契约 §4）；实际自托管位置以本案 style.css 的 @font-face 引用为准——多数案在 `../_fonts/`，个别案（S04/S07/S08/S21）在案目录内另有私有字体切片，搬走时需一并带走（50 号实测，本句从旧版“全部在 _fonts”改正）。');
   L.push('');
 
   writeFileSync(join(assets, 'CREDITS.md'), L.join('\n'), 'utf8');

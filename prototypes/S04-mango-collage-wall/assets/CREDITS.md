@@ -45,3 +45,4 @@
 ## 三、字体
 
 页面字体全部自托管在 `prototypes/_fonts/`，来源为 Google Fonts 或字体官方 webfont 包，均为 OFL 1.1 或同类可商用许可。
+> ⚠️ 本案另有 4 片私有 woff2 在案目录内（style.css 直接引用），搬走时需一并带走。
