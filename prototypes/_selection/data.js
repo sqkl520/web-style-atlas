@@ -291,7 +291,7 @@ window.SCHEMES = [
     "font-count",
     "no-footage"
    ],
-   "at": "2026-10-23T19:02:36.740Z",
+   "at": "2026-10-23T20:55:31.210Z",
    "screens": 6,
    "realPictures": 9,
    "overflow": 0,
@@ -1132,7 +1132,7 @@ window.SCHEMES = [
     "measure",
     "still-page"
    ],
-   "at": "2026-10-21T19:48:43.077Z",
+   "at": "2026-10-23T20:36:32.422Z",
    "screens": 9,
    "realPictures": 10,
    "overflow": 0,
@@ -1216,7 +1216,7 @@ window.SCHEMES = [
     "no-footage",
     "measure"
    ],
-   "at": "2026-10-23T19:52:25.763Z",
+   "at": "2026-10-23T20:59:36.965Z",
    "screens": 10,
    "realPictures": 7,
    "overflow": 0,
@@ -1804,7 +1804,7 @@ window.SCHEMES = [
     "font-count",
     "no-footage"
    ],
-   "at": "2026-10-23T18:58:12.353Z",
+   "at": "2026-10-23T21:10:46.032Z",
    "screens": 12,
    "realPictures": 8,
    "overflow": 0,
@@ -1888,7 +1888,7 @@ window.SCHEMES = [
     "font-count",
     "no-footage"
    ],
-   "at": "2026-10-19T03:59:37.645Z",
+   "at": "2026-10-23T21:11:30.247Z",
    "screens": 11,
    "realPictures": 10,
    "overflow": 0,
@@ -1972,7 +1972,7 @@ window.SCHEMES = [
     "font-count",
     "no-footage"
    ],
-   "at": "2026-10-19T01:37:15.409Z",
+   "at": "2026-10-23T22:01:02.318Z",
    "screens": 12,
    "realPictures": 6,
    "overflow": 0,
@@ -2222,7 +2222,7 @@ window.SCHEMES = [
     "font-count",
     "no-footage"
    ],
-   "at": "2026-10-19T01:08:31.532Z",
+   "at": "2026-10-23T21:12:59.681Z",
    "screens": 12,
    "realPictures": 7,
    "overflow": 0,

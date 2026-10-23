@@ -363,3 +363,62 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ink);outline-offset
   .js [data-grow]{opacity:1;transform:none;transition:opacity 120ms linear}
   .node:hover .halo{transition:opacity 120ms linear}
 }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   故障区的苔绿语义色 `--moss`——原来一次都没有渲染过，这里重新断言
+
+   签名是什么：规格字段 3 给辅助色 `#6E8B7A` 苔绿**唯一的职责**就是
+   "苔绿手写标注"（字段 6 第 4 条把线色锁成 `#E6EDF2` 或 `#6E8B7A` 两选一）。
+   故障区 `.fault`（64 分钟最深曝光底 `#0A1116`）里两处标注作者都指定了苔绿：
+     L240  .fault__frame{color:var(--moss)}    帧读数：「上一帧停在 61 / 100…」
+     L244  .fault__state{color:var(--moss)}    状态读数：「缺段还没回填…」
+   同一作用域里 L275 `.foot__table th`、L283 `.foot .src-note`、L285 `.sig` 也用 `--moss`，
+   但那三处**没有**被更重的容器规则命中，实测一直是活的（见下"对照组"）。
+
+   为什么原规则失效：这两段在 HTML 里都是 `<p>`（`index.html:326`、`:328`），
+   于是被容器的段落规则命中并压掉——与 S26 的 `.err p` ← `.err__t` 完全同型：
+
+     L238  .fault p            {color:var(--paper)}   特异性 (0,1,1)
+     L240  .fault__frame       {color:var(--moss)}    特异性 (0,1,0)  → 被压掉
+     L244  .fault__state       {color:var(--moss)}    特异性 (0,1,0)  → 被压掉
+     L239  .fault code         {color:var(--paper)}   (0,1,1)：`<code>` 在里面，同样压住继承
+     （`--moss` 从没进过任何媒体查询，所以这条不是"媒体查询被压"，
+       而是"同权重更后的容器规则压单类"——**根因与档位无关，全档都死**。）
+
+   改前实测（CDP，四档 1440/1024/768/390）：`.fault__frame`、`.fault__state`
+   以及两者内部的 `<code>` **全部 computed color = rgb(230, 237, 242)** = `--paper`；
+   `:root` 实取 `--moss=#6E8B7A`、`--paper=#E6EDF2`、`--exp64=#0A1116`。
+   ⇒ 41 号 §1 第 5 条 / 31 号 §3.3 第 6 行复现成立：故障框的苔绿从未呈现。
+   对照组（同作用域活着的 moss，用来确认我没修错地方）：
+     `.foot__table th` / `.foot .src-note` / `.sig` 的 moss 一直是 `rgb(110, 139, 122)`。
+
+   修法：不动 L238（`.fault p` 保护的是**其余**故障区段落——`fault__alert` 与
+   其它正文必须留在 paper 上，那是 16.08:1 的 AAA 配对，改它会连带改对比度），
+   在文件末尾用「容器 + 元素 + 类名」= `.fault p.fault__frame` 特异性 **(0,2,1)**
+   压过 (0,1,1)。**两处一起断言**（`.fault__frame` 与 `.fault__state`）——
+   它们是同一个容器 `.fault p` 的两个孩子，只搬一处就是 S26 那次"漏一行"的重演。
+   断点：原规则是**基础规则、全档生效**，所以这里**不塞进任何媒体查询**
+   （塞了就会造成"某一档又没了"）。
+
+   ⚠️ 对比度（改完必须复核，别把一个缺陷换成另一个缺陷）：
+   `--moss` #6E8B7A 落在 `.fault` 的 `--exp64` #0A1116 实色底上，
+   CDP 复算 computed 前景/背景 = **5.10:1**（AA 正文 4.5:1 过，14px 也过），
+   与样式表 L17 注释自陈的"对最深曝光 5.11:1"同口径。
+   改前这里渲染的是 `--paper`（16.08:1）——数值上更高，但那是**错的语义色**；
+   同区的 `.fault__alert` 与被 L239 显式指定为 paper 的 `.fault code` **没有被本块碰到**
+   （实测仍是 rgb(230,237,242)），所以改完仍是一片 5.10/16.08 的合法配对。
+
+   ── 同一个容器规则下的**第三处**死声明（31 号 §3.3 第 6 行没列它，我自己扫出来的）──
+     L285  .sig{color:var(--moss)}  特异性 (0,1,0)
+     L272  .foot p{color:var(--paper)}  特异性 (0,1,1)  → 同样把它压掉
+   `index.html:404` 的方案署名行 `p.sig` 也在 `.foot` 里、也是 `<p>`，机制一字不差；
+   实测改前 computed = rgb(230,237,242) = paper。同族的 `.foot .src-note`(0,2,0)
+   与 `.foot__table th` 因为更重所以**一直是活的**（实测 rgb(110,139,122) = moss），
+   这既证明 moss 是本案真实意图，也说明只差这一条。
+   一并断言：只修 `.fault` 两处、漏掉 `.sig`，就是 S26 那次"只搬两行漏一行"的重演。
+   `--moss` 落在 `.foot` 的 `--exp32` #1B1136 上 = **4.78:1**（14px，过 AA 正文线）。
+   ═══════════════════════════════════════════════════════════════════════════ */
+.fault p.fault__frame{color:var(--moss)}
+.fault p.fault__state{color:var(--moss)}
+.foot p.sig{color:var(--moss)}

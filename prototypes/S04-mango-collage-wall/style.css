@@ -236,4 +236,55 @@ html.js .wall.is-shifting .flash{animation:inkflash .42s linear}
 }
 
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   手写批注的倾角（本案签名）——原来一次都没有渲染过，这里重新断言
+
+   签名是什么：批注层用霞鹜文楷写、"横着压在纸块之上"（规格字段 6 第 3 条），
+   倾角分档：基础档 -1.7deg / +1.2deg / -.6deg（L116、L118、L119），
+   ≥1440 收到 -1.3deg / +1deg（L196、L197），<900 收到 -.7deg / +.5deg（L216、L217）。
+
+   为什么原规则失效：`index.html:252` 把 `.reveal` 逐条加在每条批注身上，
+   于是入场动画的 transform 与静态倾角**抢同一个属性**，而动画的选择器更重：
+
+     L116  .anno                    {transform:rotate(-1.7deg)}   特异性 (0,1,0)
+     L168  html.js .reveal          {transform:translateY(16px)}  特异性 (0,2,1)  → 压掉 L116
+     L169  html.js .reveal.is-in    {transform:none}              特异性 (0,3,1)  → 压掉 L116/L118/L119
+     L196  ≥1440 .anno              {transform:rotate(-1.3deg)}   特异性 (0,1,0)  → 被 L169 压掉
+     L216  ≤899  .anno              {transform:rotate(-.7deg)}    特异性 (0,1,0)  → 被 L169 压掉
+     L230  reduce html.js .reveal   {transform:none}              特异性 (0,2,1)  → 连降级档也压掉
+
+   改前实测（CDP，站点根走 http，先步进滚动到 `.is-in` 全部落下再取渲染值）：
+     1440 / 1024 / 768 / 390 四档、5 个批注元素 **全部 computed transform = none**。
+     （即 41 号 §1 第 5 条与 31 号 §3.3 第 1 行所述：三档零旋转。）
+
+   修法：不动上面任何一条（它们在级联里已经死了），在文件末尾用
+   「`html.js` + 容器类 + 状态类」= (0,4,1) 压过 L169 的 (0,3,1)，按原断点分档重新断言。
+   倾角写成 `--tilt` 变量、分档只改这一个变量，避免"搬了 `--r` 漏了 `--c`"：
+   实测 L116/L118/L119 三条（`.anno`、`.anno--r`、`.anno--c`）都是死的，
+   所以这里三个都要断言——只补其中两条就是 31 号说的"显式永远赢过继承"重演。
+   降级档（prefers-reduced-motion）也断言：倾角是静态属性不是动效，
+   契约 §6 明令降级"不得用停用/取消/关闭否掉签名机制"。
+   ═══════════════════════════════════════════════════════════════════════════ */
+.anno{--tilt:-1.7deg}
+.anno--r{--tilt:1.2deg}
+.anno--c{--tilt:-.6deg}
+
+/* 入场前（还带着 translateY(16px) 的下落位移）与就位后都要有倾角 */
+html.js .anno.reveal{transform:translateY(16px) rotate(var(--tilt))}
+html.js .anno.reveal.is-in{transform:rotate(var(--tilt))}
+
+@media (min-width:1440px){
+  .anno{--tilt:-1.3deg}
+  .anno--r{--tilt:1deg}
+}
+@media (max-width:899px){
+  .anno{--tilt:-.7deg}
+  .anno--r{--tilt:.5deg}
+}
+@media (prefers-reduced-motion:reduce){
+  /* 定格：位移归零，倾角按当档原值保留（三档 ±值与上面完全一致） */
+  html.js .anno.reveal,html.js .anno.reveal.is-in{transform:rotate(var(--tilt))}
+}
+
+
 

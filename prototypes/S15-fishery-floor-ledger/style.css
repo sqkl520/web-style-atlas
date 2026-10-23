@@ -540,3 +540,52 @@ h2, .lede, .masthead__lede, .mount, .legend, .zones__table,
   .scale { position: static; }
   .trace { position: static; opacity: 1; mix-blend-mode: normal; }
 }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   图例的栏间距 column-gap（本案签名"两/三列图例"能不能读出来的关键）
+   —— 原来一次都没有渲染过，这里重新断言
+
+   签名是什么：规格字段 5 写"12 栏、基线 8px、栏间距 20px"，字段 12 断点写
+   "1024–1439px 折为 9 栏，图例移到平面图下方并横向排成 2 列"。
+   作者照此在媒体查询里声明了栏间距：
+     L416  @media (max-width:1439px) and (min-width:1024px){ .legend__lines{column-gap:24px} }
+     L417  同上 { .legend__symlist{grid-template-columns:1fr 1fr 1fr; column-gap:24px} }
+     L447  @media (max-width:1023px){ .legend__lines{column-gap:20px} }
+
+   为什么原规则失效：容器规则比它们**更重**，而且用的是 `gap` 简写：
+
+     L248  .legend ul          { display:grid; gap:6px }   特异性 (0,1,1)
+     L416  .legend__lines      { column-gap:24px }         特异性 (0,1,0)  → 被 L248 压掉
+     L417  .legend__symlist    { column-gap:24px }         特异性 (0,1,0)  → 被 L248 压掉
+     L447  .legend__lines      { column-gap:20px }         特异性 (0,1,0)  → 被 L248 压掉
+
+   `gap` 简写在 CSSOM 里展开成 `column-gap` + `row-gap` 两个长手属性，展开后
+   它仍然是"同一条 (0,1,1) 声明"，比 (0,1,0) 的媒体规则重 —— 与源序、与"在不在
+   媒体查询里"都无关。**媒体查询不加重特异性**，这是 31 号 §3.3 第 3 行的机制。
+
+   改前实测（CDP，四档，`.legend ul` 两条列表各一）：
+     1440：`.legend__lines` column-gap=6px（单列 374.656px，栏间距不参与布局）
+     1024：`.legend__lines` column-gap=6px，网格**真的是两列** 447px 447px
+           `.legend__symlist` column-gap=6px，网格**真的是三列** 296px 296px 296px
+      768：`.legend__lines` column-gap=6px，网格**真的是两列** 335px 335px
+           `.legend__symlist` column-gap=6px（单列 676px）
+      390：两条列表都单列 298px（column-gap 不参与布局）
+   ⇒ 意图 24px/20px 的三处声明在**每一个真正多列的档位上**都渲染成 6px，
+     两/三列只隔 6px，图例糊成一片（31 号原话）。
+
+   修法：不动 L248（它同时还在负责 `row-gap:6px` 的行距，那是活的、要留），
+   在文件末尾用「容器 + 元素 + 类名」= `.legend ul.legend__x` 特异性 (0,2,1)
+   压过 (0,1,1)，**只断言 column-gap**（row-gap 保持 6px 不变，页面行距不动）。
+   断点与原意图逐条对齐：24px 归 1024–1439，20px 归 ≤1023；
+   ≥1440 与 ≤480 档单列、栏间距不参与布局，**不塞**（避免"全档生效的塞进媒体查询"）。
+   `.legend__lines` 与 `.legend__symlist` 两条**都要断言**——它们是同一个容器
+   `.legend ul` 的两个孩子，只搬一条就是 31 号说的"修了子元素没修容器本身"重演。
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .legend ul.legend__lines,
+  .legend ul.legend__symlist { column-gap: 24px; }
+}
+@media (max-width: 1023px) {
+  .legend ul.legend__lines { column-gap: 20px; }
+}

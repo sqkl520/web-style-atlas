@@ -27,13 +27,33 @@ const extra = [];
 const ai = process.argv.indexOf('--allow');
 if (ai !== -1 && process.argv[ai + 1]) extra.push('--allow', process.argv[ai + 1]);
 
+// T0-8 第三处 + 39 §2-B01 修法：静默失败曾被实测证实——inspect.mjs 缺失时 spawnSync 不抛，
+// 而下方 L36 的 existsSync(rep) 被**上一轮的旧 report.json** 满足 ⇒ 脚本打印旧数据、退出码像成功。
+// （2026-10-24 亲历：tools/ 消失后 S24 两次"渲染成功"全是旧报告，mtime 与 at 一动不动。）
+if (!existsSync(INSPECT)) {
+  console.error('缺渲染引擎：' + INSPECT + '\n  tools/ 不在仓库里（.gitignore:2 排除）——本机需自备 taste-skill；' +
+    '只想截图取证请用 shot.mjs（零依赖，不碰 tools/）。');
+  process.exit(4);
+}
+// 记下渲染前的报告指纹：跑完必须变，防止"打印旧数据"再次发生
+const rep = join(dir, '.inspect', 'report.json');
+const before = existsSync(rep) ? readFileSync(rep, 'utf8') : null;
+
 const outRel = `prototypes/${name}/.inspect`;
 const r = spawnSync(process.execPath, [
   INSPECT, `prototypes/${name}/index.html`, '--out', outRel, '--widths', '1440,768,390', '--json', ...extra,
 ], { cwd: ROOT, stdio: 'inherit' });
+if (r.error || r.status !== 0 || r.signal) {
+  console.error('\ninspect.mjs 失败：' + (r.error ? r.error.message : `exit=${r.status} signal=${r.signal}`) +
+    '\n  没有写任何新报告——下面若出现旧数据，均来自更早一轮。');
+  process.exit(5);
+}
 
-const rep = join(dir, '.inspect', 'report.json');
 if (!existsSync(rep)) { console.error('\n没有生成 report.json —— 渲染失败。'); process.exit(3); }
+if (before !== null && readFileSync(rep, 'utf8') === before) {
+  console.error('\nreport.json 内容与渲染前逐字节相同 —— inspect 声称成功但没写报告，判为失败。');
+  process.exit(6);
+}
 const j = JSON.parse(readFileSync(rep, 'utf8'));
 
 const byLevel = {};
