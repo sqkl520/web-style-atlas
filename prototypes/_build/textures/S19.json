@@ -1,0 +1,42 @@
+{
+    "outDir":  "prototypes/S19-copperplate-herbarium-cabinet/assets",
+    "jobs":  [
+                 {
+                     "name":  "card-stock",
+                     "gen":  "fiber",
+                     "w":  256,
+                     "h":  256,
+                     "args":  {
+                                  "seed":  21,
+                                  "count":  320,
+                                  "alpha":  0.085
+                              }
+                 },
+                 {
+                     "name":  "drawer-wood",
+                     "gen":  "streak",
+                     "w":  512,
+                     "h":  128,
+                     "args":  {
+                                  "seed":  4,
+                                  "angle":  0,
+                                  "count":  140,
+                                  "alpha":  0.12
+                              }
+                 },
+                 {
+                     "name":  "foxing",
+                     "gen":  "blotch",
+                     "w":  256,
+                     "h":  256,
+                     "args":  {
+                                  "seed":  9,
+                                  "count":  9,
+                                  "rmin":  3,
+                                  "rmax":  14,
+                                  "alpha":  0.16,
+                                  "color":  "#8a6a3a"
+                              }
+                 }
+             ]
+}

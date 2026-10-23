@@ -1,0 +1,31 @@
+{
+    "outDir":  "prototypes/S24-cyanotype-rainforest-path/assets",
+    "jobs":  [
+                 {
+                     "name":  "cyanotype-grain",
+                     "gen":  "grain",
+                     "w":  256,
+                     "h":  256,
+                     "args":  {
+                                  "seed":  61,
+                                  "density":  0.38,
+                                  "alpha":  0.08,
+                                  "color":  "#123a5c"
+                              }
+                 },
+                 {
+                     "name":  "exposure-blotch",
+                     "gen":  "blotch",
+                     "w":  512,
+                     "h":  512,
+                     "args":  {
+                                  "seed":  65,
+                                  "count":  6,
+                                  "rmin":  30,
+                                  "rmax":  120,
+                                  "alpha":  0.1,
+                                  "color":  "#1d4e78"
+                              }
+                 }
+             ]
+}

@@ -1,0 +1,41 @@
+{
+    "outDir":  "prototypes/S30-skate-sticker-split/assets",
+    "jobs":  [
+                 {
+                     "name":  "split-band",
+                     "gen":  "band",
+                     "w":  1024,
+                     "h":  1024,
+                     "args":  {
+                                  "angle":  1.0123,
+                                  "width":  96,
+                                  "alpha":  1,
+                                  "color":  "#00e676"
+                              }
+                 },
+                 {
+                     "name":  "grip-grain",
+                     "gen":  "grain",
+                     "w":  128,
+                     "h":  128,
+                     "args":  {
+                                  "seed":  101,
+                                  "density":  0.72,
+                                  "alpha":  0.14
+                              }
+                 },
+                 {
+                     "name":  "peel-edge",
+                     "gen":  "misreg",
+                     "w":  512,
+                     "h":  512,
+                     "args":  {
+                                  "dx":  3,
+                                  "dy":  0,
+                                  "alpha":  0.8,
+                                  "color":  "#007b3f",
+                                  "lineWidth":  3
+                              }
+                 }
+             ]
+}

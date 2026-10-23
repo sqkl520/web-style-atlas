@@ -1,0 +1,40 @@
+{
+    "outDir":  "prototypes/S26-geometric-collision-columns/assets",
+    "jobs":  [
+                 {
+                     "name":  "rule-11deg",
+                     "gen":  "rule",
+                     "w":  512,
+                     "h":  512,
+                     "args":  {
+                                  "angle":  0.192,
+                                  "spacing":  24,
+                                  "alpha":  0.18
+                              }
+                 },
+                 {
+                     "name":  "misreg",
+                     "gen":  "misreg",
+                     "w":  512,
+                     "h":  512,
+                     "args":  {
+                                  "dx":  1.5,
+                                  "dy":  1.2,
+                                  "alpha":  0.85,
+                                  "color":  "#c8341f",
+                                  "lineWidth":  2
+                              }
+                 },
+                 {
+                     "name":  "ink-grain",
+                     "gen":  "grain",
+                     "w":  256,
+                     "h":  256,
+                     "args":  {
+                                  "seed":  71,
+                                  "density":  0.42,
+                                  "alpha":  0.06
+                              }
+                 }
+             ]
+}

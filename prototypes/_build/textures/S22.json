@@ -1,0 +1,40 @@
+{
+    "outDir":  "prototypes/S22-paper-screen-folded-sheet/assets",
+    "jobs":  [
+                 {
+                     "name":  "washi-fiber",
+                     "gen":  "fiber",
+                     "w":  512,
+                     "h":  512,
+                     "args":  {
+                                  "seed":  27,
+                                  "count":  1400,
+                                  "alpha":  0.1
+                              }
+                 },
+                 {
+                     "name":  "crease",
+                     "gen":  "crease",
+                     "w":  1024,
+                     "h":  8,
+                     "args":  {
+                                  "horizontal":  true,
+                                  "pos":  0.5,
+                                  "alpha":  0.42,
+                                  "dark":  "#6b6558",
+                                  "light":  "#ffffff"
+                              }
+                 },
+                 {
+                     "name":  "soft-ground",
+                     "gen":  "grain",
+                     "w":  256,
+                     "h":  256,
+                     "args":  {
+                                  "seed":  41,
+                                  "density":  0.5,
+                                  "alpha":  0.045
+                              }
+                 }
+             ]
+}

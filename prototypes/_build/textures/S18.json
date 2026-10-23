@@ -1,0 +1,36 @@
+{
+    "outDir":  "prototypes/S18-phosphor-service-deck/assets",
+    "jobs":  [
+                 {
+                     "name":  "scanline",
+                     "gen":  "scanlines",
+                     "w":  8,
+                     "h":  8,
+                     "args":  {
+                                  "period":  3,
+                                  "alpha":  0.16
+                              }
+                 },
+                 {
+                     "name":  "phosphor-grain",
+                     "gen":  "grain",
+                     "w":  256,
+                     "h":  256,
+                     "args":  {
+                                  "seed":  7,
+                                  "density":  0.42,
+                                  "alpha":  0.07
+                              }
+                 },
+                 {
+                     "name":  "schematic-grid",
+                     "gen":  "grid",
+                     "w":  128,
+                     "h":  128,
+                     "args":  {
+                                  "step":  8,
+                                  "alpha":  0.12
+                              }
+                 }
+             ]
+}

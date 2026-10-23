@@ -1,0 +1,38 @@
+{
+    "outDir":  "prototypes/S20-plotter-soundfield/assets",
+    "jobs":  [
+                 {
+                     "name":  "coord-paper",
+                     "gen":  "grid",
+                     "w":  128,
+                     "h":  128,
+                     "args":  {
+                                  "step":  12,
+                                  "alpha":  0.16
+                              }
+                 },
+                 {
+                     "name":  "plotter-line",
+                     "gen":  "streak",
+                     "w":  512,
+                     "h":  512,
+                     "args":  {
+                                  "seed":  15,
+                                  "angle":  1.5708,
+                                  "count":  220,
+                                  "alpha":  0.09
+                              }
+                 },
+                 {
+                     "name":  "paper-grain",
+                     "gen":  "grain",
+                     "w":  256,
+                     "h":  256,
+                     "args":  {
+                                  "seed":  33,
+                                  "density":  0.4,
+                                  "alpha":  0.05
+                              }
+                 }
+             ]
+}
