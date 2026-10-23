@@ -247,9 +247,9 @@ location ~* \.(woff2|jpg|jpeg|png|webp)$ {
 
 ```bash
 # 渲染一个原型：三档视口真实截图 + 闸门结果
-# ⚠️ 本命令**只在本项目的开发机上可直接跑**：脚本内 ROOT 硬编码指向开发机上的仓库根，
-#    且依赖 prototypes/_build/ 之外的 tools/taste-skill/…/inspect.mjs —— 而 tools/ 被 .gitignore 排除、不在仓库里。
-#    克隆者要用它须先自行取得该工具并改脚本 L16 的 ROOT；只想看截图就用下面的 shot.mjs（不依赖 tools/）。
+# ⚠️ 本命令还依赖 prototypes/_build/ 之外的 tools/taste-skill/…/inspect.mjs —— tools/ 被 .gitignore 排除、不在仓库里。
+#    克隆者须先自行取得该工具；脚本本身免改——仓库根由脚本位置自动推导（ROOT 硬编码已在工具链 T0 清除）。
+#    只想看截图就用下面的 shot.mjs（不依赖 tools/）。
 node prototypes/_build/render-scheme.mjs S14-zero-g-launch-sequence
 
 # 机械复核（不带参数则复核全部）

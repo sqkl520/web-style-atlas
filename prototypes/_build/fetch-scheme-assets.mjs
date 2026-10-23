@@ -18,8 +18,9 @@ const ROOT = decodeURIComponent(new URL('../..', import.meta.url).pathname).repl
 const PROTO = join(ROOT, 'prototypes');
 // Python 的解释器：**env 优先，本机 DSH 运行时路径只作最后兜底**（39 §2-B05/B10）。
 // 换机时导出 PROTO_PYTHON（或 SHOT_PYTHON）即可，不必改代码。
+// 兜底用 PATH 上的 python；不再内置作者机路径（47 号 E7：公共仓库不发布本机用户名）。
 const PY = process.env.PROTO_PYTHON || process.env.SHOT_PYTHON
-  || 'C:/Users/Administrator/.dsh/dsh-runtimes/dsh-primary-runtime/dependencies/python/python.exe';
+  || 'python';
 // UA 里不写绝对路径（原来那个写死的仓库根字面量既绑定机器，又会随每次请求发到外网）。
 const UA = 'prototype-builder/1.0 (web-style-atlas; contact: local)';
 

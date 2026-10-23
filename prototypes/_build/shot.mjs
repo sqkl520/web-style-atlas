@@ -39,7 +39,7 @@ const DEFAULTS = {
   // 可执行文件的默认值：env（SHOT_CHROME/SHOT_PYTHON）优先，命令行 --chrome/--python 再覆盖，
   // 这里的字面路径只是本机最后兜底（39 §2-B04/B05；PROTOPython 的同类兜底见 assign-assets/fetch-scheme-assets）。
   chrome: process.env.SHOT_CHROME || 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
-  python: process.env.SHOT_PYTHON || 'C:\\Users\\Administrator\\.dsh\\dsh-runtimes\\dsh-primary-runtime\\dependencies\\python\\python.exe',
+  python: process.env.SHOT_PYTHON || 'python',
   // Chrome 窗口与 CSS 视口的差值（Chrome 155.0.8059.84 实测：window 1456x995 -> viewport 1440x900）。
   // 每次运行都会用探针复核；不一致就按差值重试一次，仍不一致才写进 report 的 warning。
   frameW: 16,

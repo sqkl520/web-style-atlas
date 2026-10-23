@@ -85,7 +85,7 @@ prototypes/<Sxx>-<kebab-english-name>/
 - **位图纹理／印痕**（纸纹、网点、撕边、压痕、油墨不匀）：**用 Python + Pillow 程序化生成**，不要去找素材。范例：`prototypes/S04-mango-collage-wall/build/make-plates.py`、`prototypes/S08-amber-overprint-lightbox/build-assets.py`、`prototypes/S25-spotcolor-contents-zine/assets/fetch-and-bake.py`。Pillow 可用：
 
   ```
-  C:\Users\Administrator\.dsh\dsh-runtimes\dsh-primary-runtime\dependencies\python\python.exe
+  （本机 Python 解释器；开发机导出 PROTO_PYTHON/SHOT_PYTHON，脚本兜底走 PATH 上的 python）
   ```
 
   （numpy 2.3.5、Pillow 12.3.0、pandas 3.0.1 都在）

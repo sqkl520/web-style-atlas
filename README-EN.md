@@ -248,10 +248,11 @@ To run one standalone you must also bring **`prototypes/_fonts/`**, because it r
 
 ```bash
 # render one prototype: real screenshots at three viewports + gate result
-# ⚠️ This command only runs as-is on the original development machine: its ROOT is hardcoded to
-#    that machine's working copy of this repository, and it depends on tools/taste-skill/…/inspect.mjs —
-#    tools/ is excluded by .gitignore and is NOT in the repository. A cloner must obtain that tool and
-#    edit ROOT in line 16, or use shot.mjs below, which has no such dependency.
+# ⚠️ It still depends on tools/taste-skill/…/inspect.mjs outside prototypes/_build/ — tools/ is
+#    .gitignore-excluded, so it is not in the repository; a cloner must obtain that tool first.
+#    The scripts themselves need no editing — the repo root is derived from the script location
+#    (the hardcoded ROOT was removed in the toolchain T0 batch). For screenshots only, use shot.mjs
+#    below, which has no such dependency.
 node prototypes/_build/render-scheme.mjs S14-zero-g-launch-sequence
 
 # mechanical check (no arguments checks everything)

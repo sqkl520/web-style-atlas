@@ -25,8 +25,9 @@ import { spawnChecked, assertFilesExist } from './checked-spawn.mjs';
 const ROOT = decodeURIComponent(new URL('../..', import.meta.url).pathname).replace(/^\/([A-Za-z]:)/, '$1');
 const PROTO = join(ROOT, 'prototypes');
 // Python：**env 优先，本机 DSH 运行时路径只作最后兜底**（39 §2-B05/B10）。
+// 兜底用 PATH 上的 python；不再内置作者机路径（47 号 E7：公共仓库不发布本机用户名）。
 const PY = process.env.PROTO_PYTHON || process.env.SHOT_PYTHON
-  || 'C:/Users/Administrator/.dsh/dsh-runtimes/dsh-primary-runtime/dependencies/python/python.exe';
+  || 'python';
 const dry = process.argv.includes('--dry');
 // --redo：先把目标方案里由本脚本放进去的文件（reuse-* / nasa-*）清掉再重配。
 // 用途：关键词选错了题材时要能重来。实测第一轮 S22（和纸）被 'paper' 这个关键词
