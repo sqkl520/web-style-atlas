@@ -1,12 +1,15 @@
 // 施工用诊断脚本（不是交付物）：按 inspect.mjs 的同一套 24×15 采样，逐屏输出填充率与点位图。
 //   node prototypes/S13-blind-debossed-dispatch/_fillmap.mjs [1440]
-// 用法与 render-scheme.mjs 一致：cwd 必须是 D:\Web\style（否则 ../_fonts/ 403）。
+// cwd 无关：仓库根从**脚本自身位置**推（见下 ROOT），原先要求"cwd 必须是仓库根"。
 import { existsSync, statSync, createReadStream } from 'node:fs';
 import { resolve, join, relative, extname, sep } from 'node:path';
 import { createServer } from 'node:http';
 import { Browser, sleep } from '../../tools/taste-skill/skills/taste-skill/scripts/lib/cdp.mjs';
 
-const ROOT = resolve('D:/Web/style');
+// 模板 = check-stale.mjs:16（decodeURIComponent + Windows 盘符修正，见 39 §3-N10）。
+// 这里**多套一层 resolve()**：本脚本的 403 越界守卫用 `ROOT + sep` 比对，
+// 而 new URL().pathname 给的是正斜杠（如 `X:/y/z`），不规格化就永远 startsWith 不上。
+const ROOT = resolve(decodeURIComponent(new URL('../..', import.meta.url).pathname).replace(/^\/([A-Za-z]:)/, '$1'));
 const W = Number(process.argv[2] || 1440);
 const HEIGHT = { 1440: 900, 768: 1024, 390: 844 };
 const H = HEIGHT[W] || 900;

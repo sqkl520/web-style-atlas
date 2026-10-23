@@ -1,7 +1,10 @@
 // 用**工具自己的分类器**（rules.mjs 的 colourFamily）逐个判定本案实际渲染出来的颜色，
 // 证明它们全部落在禁区之外。这是"用数值证明自己不在禁区内"的可复现证据。
 // 判定函数直接 import 工具的源码，不是我重写的近似版本。
-import { colourFamily } from "file:///D:/Web/style/tools/taste-skill/skills/taste-skill/scripts/lib/rules.mjs";
+// 路径写成**相对**（本案目录 → 仓库根 → tools/），与同深度的
+// prototypes/S13-blind-debossed-dispatch/_fillmap.mjs:7 引 cdp.mjs 的写法一致；
+// 原先是 `file:///<作者机绝对路径>/tools/...` 的绝对 URI，换机器/换目录即 import 失败（T0-7 案侧漏改，58 号实测）。
+import { colourFamily } from "../../tools/taste-skill/skills/taste-skill/scripts/lib/rules.mjs";
 
 const round = (v) => Math.round(v * 1000) / 1000;
 // 与 probe.mjs:17-22 的 rgb2hsl 逐字一致

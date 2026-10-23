@@ -5,7 +5,11 @@ import { readFileSync, existsSync, statSync } from 'node:fs';
 import { join, extname, resolve } from 'node:path';
 import { Browser, sleep } from '../../tools/taste-skill/skills/taste-skill/scripts/lib/cdp.mjs';
 
-const ROOT = resolve('.');
+const ROOT = resolve('.');   // 静态服务器根＝**运行时 cwd**（须为本案目录，BASE 才能取到 /index.html）
+// 仓库根另取一个常量，**从脚本自身位置推**（模板 = check-stale.mjs:16；
+// 本脚本在 prototypes/S03-…/ 下，与 _build 同深度，故 '../..'）。
+// 原先 L293 的截图输出写死作者机绝对路径，换机器即写到不存在的路径（T0-7 案侧漏改，58 号实测）。
+const REPO_ROOT = decodeURIComponent(new URL('../..', import.meta.url).pathname).replace(/^\/([A-Za-z]:)/, '$1');
 const TYPES = {
   '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8',
   '.jpg': 'image/jpeg', '.png': 'image/png', '.json': 'application/json',
@@ -290,7 +294,7 @@ rec('mono-raw-share', monoRaw.monoProse > 0,
   `原始值（未四舍五入）：等宽正文 ${monoRaw.monoProse} 字 / 全站 ${monoRaw.totalChars} 字 = ${monoRaw.raw.toFixed(5)}（${(monoRaw.raw * 100).toFixed(3)}%）；样本 ${monoRaw.samples.join(' ')}`);
 
 /* 15. 全页 PNG 截图，供像素面积统计（规格面积预算 vs 实测，见 S03-area.txt） */
-await page.screenshot({ path: 'D:/Web/style/deliverables/tool-runs/S03-area-full.png', format: 'png', fullPage: true });
+await page.screenshot({ path: join(REPO_ROOT, 'deliverables/tool-runs/S03-area-full.png'), format: 'png', fullPage: true });
 rec('area-capture', true, '已存 deliverables/tool-runs/S03-area-full.png（全页 PNG，供面积实测）');
 
 await page.close();
