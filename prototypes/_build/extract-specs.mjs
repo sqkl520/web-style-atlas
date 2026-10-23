@@ -5,9 +5,10 @@
 //   node extract-specs.mjs
 //
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
-import { resolve, join } from 'node:path';
+import { join } from 'node:path';
 
-const ROOT = resolve('D:/Web/style');
+// 仓库根由脚本自身位置推得（模板 = check-stale.mjs:16；含 Windows 盘符修正与 39 §3-N10 的 decodeURIComponent）。
+const ROOT = decodeURIComponent(new URL('../..', import.meta.url).pathname).replace(/^\/([A-Za-z]:)/, '$1');
 const DELIV = join(ROOT, 'deliverables');
 const OUT = join(ROOT, 'prototypes', '_specs');
 const SOURCES = [

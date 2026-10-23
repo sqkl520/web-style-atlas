@@ -9,7 +9,8 @@
 import { readFileSync, existsSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 
-const ROOT = 'D:/Web/style';
+// 仓库根由脚本自身位置推得（模板 = check-stale.mjs:16；含 Windows 盘符修正与 39 §3-N10 的 decodeURIComponent）。
+const ROOT = decodeURIComponent(new URL('../..', import.meta.url).pathname).replace(/^\/([A-Za-z]:)/, '$1');
 const PROTO = join(ROOT, 'prototypes');
 
 const BANNED = ['Inter', 'Roboto', 'Arial', 'Helvetica', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI'];

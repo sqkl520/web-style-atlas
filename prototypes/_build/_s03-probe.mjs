@@ -5,7 +5,9 @@ import { existsSync, statSync } from 'node:fs';
 import { join, extname } from 'node:path';
 import { Browser } from '../../tools/taste-skill/skills/taste-skill/scripts/lib/cdp.mjs';
 
-const ROOT = 'D:/Web/style', PORT = 9179;
+// 仓库根由脚本自身位置推得（模板 = check-stale.mjs:16；含 Windows 盘符修正与 39 §3-N10 的 decodeURIComponent）。
+const ROOT = decodeURIComponent(new URL('../..', import.meta.url).pathname).replace(/^\/([A-Za-z]:)/, '$1');
+const PORT = 9179;
 const TARGET = 'prototypes/S03-long-exposure-observatory/index.html';
 const MIME = { '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript', '.png': 'image/png', '.jpg': 'image/jpeg', '.woff2': 'font/woff2', '.svg': 'image/svg+xml' };
 const server = createServer(async (req, res) => {

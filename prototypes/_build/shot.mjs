@@ -25,9 +25,9 @@
 import http from 'node:http';
 import { spawn } from 'node:child_process';
 import {
-  existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, statSync, writeFileSync,
+  copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync,
 } from 'node:fs';
-import { dirname, extname, isAbsolute, join, normalize, relative, resolve, sep } from 'node:path';
+import { basename, dirname, extname, isAbsolute, join, normalize, relative, resolve, sep } from 'node:path';
 import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
 
@@ -36,8 +36,10 @@ import { fileURLToPath } from 'node:url';
 const HERE = dirname(fileURLToPath(import.meta.url));         // .../prototypes/_build
 const REPO_ROOT = resolve(HERE, '..', '..');                   // .../style
 const DEFAULTS = {
-  chrome: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
-  python: 'C:\\Users\\Administrator\\.dsh\\dsh-runtimes\\dsh-primary-runtime\\dependencies\\python\\python.exe',
+  // 可执行文件的默认值：env（SHOT_CHROME/SHOT_PYTHON）优先，命令行 --chrome/--python 再覆盖，
+  // 这里的字面路径只是本机最后兜底（39 §2-B04/B05；PROTOPython 的同类兜底见 assign-assets/fetch-scheme-assets）。
+  chrome: process.env.SHOT_CHROME || 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
+  python: process.env.SHOT_PYTHON || 'C:\\Users\\Administrator\\.dsh\\dsh-runtimes\\dsh-primary-runtime\\dependencies\\python\\python.exe',
   // Chrome 窗口与 CSS 视口的差值（Chrome 155.0.8059.84 实测：window 1456x995 -> viewport 1440x900）。
   // 每次运行都会用探针复核；不一致就按差值重试一次，仍不一致才写进 report 的 warning。
   frameW: 16,
@@ -61,6 +63,8 @@ const USAGE = `用法: node shot.mjs <相对路径|目录|URL> [options]
   --bands              额外产出"逐屏带"精确截图（每屏一次渲染，最忠实，但更慢）
   --iframe / --direct  强制视口模式（默认：宽度 <500 自动 iframe）
   --keep-raw           保留未裁剪的原始截图
+  --reuse-raw DIR      不启动 Chrome：读 DIR/.raw/ 里上一轮 --keep-raw 存的原始 PNG，
+                       重跑同一套裁剪/切片/统计（像素结论逐字节可复现；几何量取自 DIR/report.json）
   --keep-profile       保留 Chrome 临时 profile
   --no-inject          不注入探针（页高退化为窗口尺寸，并写 warning）
   --trim-tail          无探针时用"尾部同色"估页高
@@ -69,6 +73,86 @@ const USAGE = `用法: node shot.mjs <相对路径|目录|URL> [options]
   --json               只把 report.json 打到 stdout，不打人看的摘要
   -h, --help
 `;
+
+/**
+ * --reuse-raw 模式：把上一轮 `--keep-raw` 的产出目录当输入，**不启动 Chrome**。
+ * 输入只有两样：
+ *   1) <srcDir>/.raw/<name>-<W>-{fold,full}.raw.png —— 像素的唯一来源（统计量由 shot-page.py 从它重算，
+ *      shot-page.py 是纯函数 ⇒ 同一批 raw 得到逐字节相同的切片与统计）；
+ *   2) <srcDir>/report.json 里那一档的**几何**（页高 / 模式 / 窗口 / 探针读数 / truncated）。
+ * 缺任何一档、缺任何一张 raw，一律**硬失败并点名文件**，绝不静默回去重截 ——
+ * 静默回退等于把"依赖输入文件"又变回"依赖 Chrome 时序"，这个参数就白加了。
+ */
+function loadReuseBaseline(srcDir, specs, name, wantBands) {
+  const abs = isAbsolute(srcDir) ? normalize(srcDir) : resolve(process.cwd(), srcDir);
+  if (!existsSync(abs)) die('找不到 --reuse-raw 目录: ' + abs);
+  if (!statSync(abs).isDirectory()) die('--reuse-raw 要给目录，收到的是文件: ' + abs);
+
+  const repPath = join(abs, 'report.json');
+  const rep = readJson(repPath);
+  if (!rep || !Array.isArray(rep.tiers)) {
+    die('--reuse-raw 读不到上一轮的 report.json: ' + repPath +
+      '\n  几何（页高/模式/探针读数）要从它取。请先跑一次带 --keep-raw 的真实截图：' +
+      '\n    node prototypes/_build/shot.mjs <目标> --out <dir> --widths 1440,768,390 --keep-raw');
+  }
+  const rawDir = join(abs, '.raw');
+  if (!existsSync(rawDir) || !statSync(rawDir).isDirectory()) {
+    let hint = '';
+    try { hint = readdirSync(abs).slice(0, 24).join(', '); } catch { /* ignore */ }
+    die('--reuse-raw 目录里没有 .raw/（上一轮没带 --keep-raw？）: ' + rawDir + '\n  该目录现有内容: ' + (hint || '(空)'));
+  }
+  const srcName = rep.name || 'shot';
+  if (name !== srcName) {
+    die('--reuse-raw 的 raw 文件名由上一轮的 --name 决定，本轮对不上：\n' +
+      '  上一轮 --name = ' + JSON.stringify(srcName) + '，本轮 --name = ' + JSON.stringify(name) +
+      '\n  请加 --name ' + srcName + '（raw 目录: ' + rawDir + '）');
+  }
+
+  const found = new Map();
+  for (const t of rep.tiers) {
+    if (t && t.viewport && t.viewport.width) found.set(tierLabel(t.viewport.width, t.viewport.height), t);
+  }
+  const missing = [];
+  const wanted = [];
+  for (const s of specs) {
+    const label = tierLabel(s.width, s.height);
+    const bt = found.get(label);
+    if (!bt) {
+      die('--reuse-raw 里没有 ' + label + ' 这一档，拒绝静默重截。\n' +
+        '  上一轮跑过（来自 ' + repPath + '）: ' + [...found.keys()].join(', ') + '\n' +
+        '  本轮要求: ' + specs.map((x) => tierLabel(x.width, x.height)).join(', '));
+    }
+    const prefix = `${name}-${s.width}`;
+    const foldFile = join(rawDir, `${prefix}-fold.raw.png`);
+    const fullFile = join(rawDir, `${prefix}-full.raw.png`);
+    for (const [kind, f] of [['fold（首屏）', foldFile], ['full（整页长图）', fullFile]]) {
+      if (!existsSync(f)) missing.push(`${label} 的 ${kind}: ${f}`);
+    }
+    const needBands = wantBands ? (() => {
+      const n = (bt.bands || []).length;
+      if (!n) {
+        die('--reuse-raw + --bands：上一轮的 ' + label + ' 档没有逐屏带（源报告 ' + repPath +
+          ' 的 tiers[].bands 是空的），所以 .raw/ 里不存在 band raw 图。\n' +
+          '  请先跑一次带 --bands --keep-raw 的真实截图，或本轮去掉 --bands。');
+      }
+      return n;
+    })() : 0;
+    const bandFiles = [];
+    for (let i = 0; i < needBands; i++) {
+      const bf = join(rawDir, `${prefix}-band-${String(i + 1).padStart(2, '0')}.raw.png`);
+      bandFiles.push(bf);
+      if (!existsSync(bf)) missing.push(`${label} 的 band-${i + 1}: ${bf}`);
+    }
+    wanted.push({ spec: s, label, baseTier: bt, prefix, foldFile, fullFile, bandFiles });
+  }
+  if (missing.length) {
+    die('--reuse-raw 缺 raw 图，拒绝回退去重截。缺失 ' + missing.length + ' 个文件：\n  ' + missing.join('\n  ') +
+      '\n  raw 目录: ' + rawDir + '\n  来源报告: ' + repPath);
+  }
+  // byTier: label -> { base, foldFile, fullFile, bandFiles, prefix }，captureTier 按 label 取。
+  const byTier = new Map(wanted.map((w) => [w.label, w]));
+  return { srcDir: abs, rawDir, repPath, report: rep, byTier, wanted };
+}
 
 // --------------------------------------------------------------------------- 小工具
 
@@ -102,6 +186,7 @@ function parseArgs(argv) {
     target: null, out: '.shot', name: null, widths: null, heights: null,
     width: null, height: 900, jobs: 2, gap: 700, settle: 4000, maxCapture: 24000,
     root: null, bands: false, mode: null, keepRaw: false, keepProfile: false,
+    reuseRaw: null,
     inject: true, trimTail: false, slice: true, jsonOnly: false,
     chrome: DEFAULTS.chrome, python: DEFAULTS.python, chromeTimeout: 120000, chromeFlags: [],
     frameW: DEFAULTS.frameW, frameH: DEFAULTS.frameH,
@@ -134,6 +219,7 @@ function parseArgs(argv) {
       case '--iframe': opt.mode = 'iframe'; break;
       case '--direct': opt.mode = 'direct'; break;
       case '--keep-raw': opt.keepRaw = true; break;
+      case '--reuse-raw': opt.reuseRaw = next(); break;
       case '--keep-profile': opt.keepProfile = true; break;
       case '--no-inject': opt.inject = false; break;
       case '--trim-tail': opt.trimTail = true; break;
@@ -558,6 +644,7 @@ async function captureTier(ctx, spec) {
     : ctx.origin + ctx.resolved.urlPath;
 
   const urlFor = (frameInnerH, band) => {
+    if (reuse) return null;          // --reuse-raw 不起服务器、不启动 Chrome：没有 URL 可给。
     const b = typeof band === 'number' && band > 0 ? band : null;
     if (tier.mode === 'iframe') {
       const u = new URL(ctx.origin + '/__shot__/frame');
@@ -574,12 +661,14 @@ async function captureTier(ctx, spec) {
 
   const outDir = ctx.outDir;
   const prefix = `${ctx.opt.name}-${W}`;
-  const rawDir = join(outDir, '.raw');
-  mkdirSync(rawDir, { recursive: true });
-  const rawFold = join(rawDir, `${prefix}-fold.raw.png`);
-  const rawFull = join(rawDir, `${prefix}-full.raw.png`);
+  // --reuse-raw 模式：raw 图来自上一轮的目录，本轮既不新建 .raw/、也不写它、更不删它。
+  const reuse = ctx.reuse ? ctx.reuse.byTier.get(label) : null;
+  const rawDir = reuse ? ctx.reuse.rawDir : join(outDir, '.raw');
+  if (!reuse) mkdirSync(rawDir, { recursive: true });
+  const rawFold = reuse ? reuse.foldFile : join(rawDir, `${prefix}-fold.raw.png`);
+  const rawFull = reuse ? reuse.fullFile : join(rawDir, `${prefix}-full.raw.png`);
 
-  const beaconsFor = () => ctx.srv.beacons.filter((b) => b.tier === label);
+  const beaconsFor = () => (ctx.srv ? ctx.srv.beacons : []).filter((b) => b.tier === label);
   const latestBeacon = (list) => {
     const ok = list.filter((b) => Number.isFinite(b.h) && b.h > 0);
     if (!ok.length) return null;
@@ -615,8 +704,50 @@ async function captureTier(ctx, spec) {
   let dx = spec.frameW ?? ctx.opt.frameW;
   let dy = spec.frameH ?? ctx.opt.frameH;
 
+  const bt = reuse ? reuse.baseTier : null;
+
   // --- 1) 首屏（同时充当"视口校准 + 页高测量"那一趟）
+  //     --reuse-raw：这一趟不跑。模式/窗口/frame 差值/页高/探针读数全部取自上一轮的 report.json，
+  //     像素取自上一轮的 .raw/。这样"改没改页面"只取决于输入文件，不取决于 Chrome 时序。
   let rawMeta = null;
+  if (reuse) {
+    if (bt.mode) tier.mode = bt.mode;
+    tier.window = bt.window || null;
+    tier.url = null;
+    tier.attempts = 0;
+    tier.calibrated = !!bt.calibrated;
+    tier.pageHeight = bt.pageHeight ?? null;
+    tier.pageHeightSource = bt.pageHeightSource || null;
+    tier.pageHeightRealViewport = bt.pageHeightRealViewport ?? null;
+    tier.pageWidthRealViewport = bt.pageWidthRealViewport ?? null;
+    tier.pageHeightRealViewportDoc = bt.pageHeightRealViewportDoc ?? null;
+    tier.viewportClampedAtFold = bt.viewportClampedAtFold ?? null;
+    tier.bottomEl = bt.bottomEl ?? null;
+    tier.truncated = !!bt.truncated;
+    tier.vhDistortion = !!bt.vhDistortion;
+    if (bt.tallOnlyContent != null) tier.tallOnlyContent = bt.tallOnlyContent;
+    tier.probe.beacons = (bt.probe && bt.probe.beacons) ? bt.probe.beacons : [];
+    tier.probe.fonts = bt.probe ? bt.probe.fonts : null;
+    tier.probe.brokenImages = bt.probe ? bt.probe.brokenImages : null;
+    tier.probe.imageCount = bt.probe ? bt.probe.imageCount : null;
+    tier.reusedRaw = { sourceReport: ctx.reuse.repPath, sourceTier: label, foldFile: rawFold, fullFile: rawFull };
+    if (tier.pageHeightRealViewport == null) {
+      tier.error = `--reuse-raw 的上一轮报告里没有 ${label} 的页高（pageHeightRealViewport=${String(tier.pageHeightRealViewport)}），无法确定裁剪范围: ${ctx.reuse.repPath}`;
+    }
+    rawMeta = pngSize(rawFold);
+    if (!rawMeta && !tier.error) tier.error = `--reuse-raw 的首屏 raw 不是可读 PNG: ${rawFold}`;
+    if (rawMeta && tier.window && (rawMeta.width !== tier.window.width || rawMeta.height !== tier.window.height)) {
+      tier.warnings.push(`raw 尺寸 ${rawMeta.width}x${rawMeta.height} 与上一轮记录的窗口 ${tier.window.width}x${tier.window.height} 不一致（raw 可能被换过）`);
+    }
+    // 整页 raw 必须至少和上一轮记录的页高一样高，否则这份 raw 与 report.json 不是同一轮产物。
+    const fullProbe = pngSize(rawFull);
+    if (!tier.error && !fullProbe) tier.error = `--reuse-raw 的整页 raw 不是可读 PNG: ${rawFull}`;
+    if (!tier.error && typeof bt.pageHeight === 'number' && fullProbe && bt.pageHeight > fullProbe.height) {
+      tier.error = `--reuse-raw 的整页 raw 高度(${fullProbe.height}) 不足以按上一轮页高(${bt.pageHeight}) 裁：${rawFull}\n` +
+        `  这份 raw 与 ${ctx.reuse.repPath} 不是同一轮产物（或 --heights/--max-capture 被改小了）。`;
+    }
+    if (!tier.error) tier.warnings.push(`reuse-raw 模式：未启动 Chrome，像素来自 ${ctx.reuse.rawDir}，几何来自 ${ctx.reuse.repPath}`);
+  } else {
   for (let attempt = 1; attempt <= 2; attempt++) {
     tier.attempts = attempt;
     const winW = tier.mode === 'iframe' ? Math.max(DEFAULTS.minWindowWidth, W) + dx : W + dx;
@@ -683,6 +814,7 @@ async function captureTier(ctx, spec) {
     tier.pageHeightRealViewport = Math.max(H, (tier.window ? tier.window.height - dy : H));
     tier.pageHeightSource = 'window';
   }
+  } // end else（真实截图路径：校准 + 页高）
 
   if (!tier.error && rawMeta) {
     // --- 2) 首屏裁剪（python 只裁剪，不切片）
@@ -702,19 +834,24 @@ async function captureTier(ctx, spec) {
     }
 
     // --- 3) 整页：窗高 = 真视口页高 + 下边距 + 余量（多出来的部分靠裁剪丢掉；余量用来兜"全部懒加载后变高"）
-    const wantPageH = Math.min(tier.pageHeightRealViewport, ctx.opt.maxCapture);
-    const tallSlack = Math.round(wantPageH * 0.10) + 200;
-    const tallWinH = Math.min(ctx.opt.maxCapture + dy + tallSlack, Math.round(wantPageH) + dy + tallSlack);
-    const tallW = tier.mode === 'iframe' ? Math.max(DEFAULTS.minWindowWidth, W) + dx : W + dx;
-    const tallInnerH = Math.max(H, tallWinH - dy);
-    const tallUrl = urlFor(tallInnerH, null);
     const before2 = beaconsFor().length;
-    await launch(tallUrl, tallW, tallWinH, rawFull, 'full');
+    if (!reuse) {
+      const wantPageH = Math.min(tier.pageHeightRealViewport, ctx.opt.maxCapture);
+      const tallSlack = Math.round(wantPageH * 0.10) + 200;
+      const tallWinH = Math.min(ctx.opt.maxCapture + dy + tallSlack, Math.round(wantPageH) + dy + tallSlack);
+      const tallW = tier.mode === 'iframe' ? Math.max(DEFAULTS.minWindowWidth, W) + dx : W + dx;
+      const tallInnerH = Math.max(H, tallWinH - dy);
+      const tallUrl = urlFor(tallInnerH, null);
+      await launch(tallUrl, tallW, tallWinH, rawFull, 'full');
+    }
     const rawFullMeta = pngSize(rawFull);
     if (!rawFullMeta) {
-      tier.error = tier.error || `整页截图缺失或不是 PNG: ${rawFull}\n  见上报的 Chrome stderr`;
+      tier.error = tier.error || (reuse
+        ? `--reuse-raw 的整页 raw 缺失或不是可读 PNG: ${rawFull}`
+        : `整页截图缺失或不是 PNG: ${rawFull}\n  见上报的 Chrome stderr`);
     } else {
-      const b2 = latestBeacon(beaconsFor().slice(before2)) || latestBeacon(beaconsFor());
+      const b2 = reuse ? null : (latestBeacon(beaconsFor().slice(before2)) || latestBeacon(beaconsFor()));
+      void before2;
       // 整页高以"真视口那趟"量为准（页高 = 用户真实需要滚动的距离）。
       // 长窗口只是用来把长图渲染出来；长窗口自己的页高读数常被视口夹紧或在长窗口里多出
       // 只属于该布局的元素（实测 S14：长窗口里 ol.near 伸出 footer 下方 921px），
@@ -722,7 +859,14 @@ async function captureTier(ctx, spec) {
       const base = tier.pageHeightRealViewport;
       let cut = Math.min(base, rawFullMeta.height, ctx.opt.maxCapture);
       if (!tier.pageHeightSource) tier.pageHeightSource = 'fold-viewport';
-      if (b2) {
+      if (reuse) {
+        // 几何一律沿用上一轮的结论：重算 cut 会依赖本轮读不到的长窗口探针，
+        // 而"reuse-raw 的意义就是同一批 raw 得到同一份 report.json"。
+        if (typeof bt.pageHeight === 'number' && bt.pageHeight > 0) cut = bt.pageHeight;
+        tier.pageHeightTallWindow = bt.pageHeightTallWindow ?? null;
+        tier.pageHeightTallContent = bt.pageHeightTallContent ?? null;
+        if (bt.probe && bt.probe.tallBeacon) tier.probe.tallBeacon = bt.probe.tallBeacon;
+      } else if (b2) {
         tier.pageHeightTallWindow = b2.h;
         tier.probe.tallBeacon = {
           tag: b2.tag, h: b2.h, docH: b2.docH, contentH: b2.contentH, elemMax: b2.elemMax,
@@ -788,16 +932,18 @@ async function captureTier(ctx, spec) {
         }
       }
       // --- 4) 逐屏带（可选）：每屏一次真实视口渲染，不靠切片
-      if (ctx.opt.bands && tier.pageHeightRealViewport) {
-        const n = Math.ceil(Math.min(tier.pageHeightRealViewport, ctx.opt.maxCapture) / H);
+      if (ctx.opt.bands && tier.pageHeightRealViewport && !tier.error) {
+        const n = reuse ? reuse.bandFiles.length : Math.ceil(Math.min(tier.pageHeightRealViewport, ctx.opt.maxCapture) / H);
         for (let i = 0; i < n; i++) {
           const band = i * H;
-          const bUrl = urlFor(H, band);
-          const rawBand = join(rawDir, `${prefix}-band-${String(i + 1).padStart(2, '0')}.raw.png`);
-          const winW = tier.mode === 'iframe' ? Math.max(DEFAULTS.minWindowWidth, W) + dx : W + dx;
-          await launch(bUrl, winW, H + dy, rawBand, 'band-' + (i + 1));
+          const rawBand = reuse ? reuse.bandFiles[i] : join(rawDir, `${prefix}-band-${String(i + 1).padStart(2, '0')}.raw.png`);
+          if (!reuse) {
+            const bUrl = urlFor(H, band);
+            const winW = tier.mode === 'iframe' ? Math.max(DEFAULTS.minWindowWidth, W) + dx : W + dx;
+            await launch(bUrl, winW, H + dy, rawBand, 'band-' + (i + 1));
+          }
           const bm = pngSize(rawBand);
-          if (!bm) { tier.warnings.push(`逐屏带第 ${i + 1} 屏没有图`); continue; }
+          if (!bm) { tier.warnings.push(reuse ? `逐屏带第 ${i + 1} 屏的 raw 不是可读 PNG: ${rawBand}` : `逐屏带第 ${i + 1} 屏没有图`); continue; }
           const name = `${prefix}-band-${String(i + 1).padStart(2, '0')}.png`;
           const pr3 = await runPython(ctx, [
             '--image', rawBand, '--out', outDir, '--prefix', prefix + '-band' + String(i + 1).padStart(2, '0'),
@@ -813,10 +959,22 @@ async function captureTier(ctx, spec) {
     }
   }
 
-  if (!ctx.opt.keepRaw) {
+  if (!ctx.opt.keepRaw && !reuse) {
     for (const f of [rawFold, rawFull]) { try { if (existsSync(f)) rmSync(f); } catch { /* ignore */ } }
   }
-  tier.timings = { elapsedMs: Date.now() - t0 };
+  if (reuse && ctx.opt.keepRaw) {
+    // 让 reuse 轮的产出目录**也能**直接喂给下一轮 --reuse-raw（目录结构与 --keep-raw 互逆）。
+    const dst = join(outDir, '.raw');
+    mkdirSync(dst, { recursive: true });
+    for (const f of [rawFold, rawFull].concat(reuse.bandFiles || [])) {
+      const to = join(dst, basename(f));
+      if (normalize(f) === normalize(to)) continue;   // --out 与源同目录时别把自己盖掉
+      try { copyFileSync(f, to); } catch (err) { tier.warnings.push(`复制 raw 到 ${dst} 失败: ${err.message}`); }
+    }
+  }
+  // reuse-raw 模式**不写墙钟**：这一档没花 Chrome 时间，写 Date.now() 会让"同一批 raw 跑两次"
+  // 得到两份不同的 report.json，逐字节相等这条判据就废了。
+  tier.timings = reuse ? { elapsedMs: null, chromeLaunches: 0 } : { elapsedMs: Date.now() - t0 };
   return tier;
 }
 
@@ -855,12 +1013,15 @@ async function main() {
 
   const pyScript = join(HERE, 'shot-page.py');
   if (!existsSync(pyScript)) die('找不到 ' + pyScript);
-  if (!existsSync(opt.chrome)) die('找不到 Chrome: ' + opt.chrome);
+  // --reuse-raw：不启动 Chrome，所以不检查 Chrome 是否存在（换机/无头环境也能复算统计）。
+  if (!opt.reuseRaw && !existsSync(opt.chrome)) die('找不到 Chrome: ' + opt.chrome);
   if (!existsSync(opt.python)) die('找不到 python: ' + opt.python);
+
+  const reuse = opt.reuseRaw ? loadReuseBaseline(opt.reuseRaw, specs, name, opt.bands) : null;
 
   const tmpRoot = mkdtempSync(join(tmpdir(), 'shot-mjs-'));
   const ctx = {
-    opt, resolved, outDir, pyScript,
+    opt, resolved, outDir, pyScript, reuse,
     srv: null, origin: null, gate: new LaunchGate(opt.jobs, opt.gap),
     tmpRoot,
     profileDir: (label) => {
@@ -870,15 +1031,21 @@ async function main() {
     },
   };
 
-  const srv = startServer({ root: resolved.root || dirname(resolved.assetAbs || process.cwd()), inject: opt.inject });
-  ctx.srv = srv;
-  const port = await srv.ready;
-  ctx.origin = `http://127.0.0.1:${port}`;
+  let srv = null;
+  let port = null;
+  if (!reuse) {
+    srv = startServer({ root: resolved.root || dirname(resolved.assetAbs || process.cwd()), inject: opt.inject });
+    ctx.srv = srv;
+    port = await srv.ready;
+    ctx.origin = `http://127.0.0.1:${port}`;
+  }
 
   const report = {
     tool: 'shot.mjs',
     version: '1.0.0',
-    generatedAt: new Date().toISOString(),
+    // reuse-raw 模式下 generatedAt 沿用**源那一轮**的时间：像素出自那次 Chrome 渲染，
+    // 且这样同一批 raw 反复跑才能得到逐字节相同的 report.json（本轮的墙钟时间只打到 stdout）。
+    generatedAt: reuse ? (reuse.report.generatedAt ?? null) : new Date().toISOString(),
     target: opt.target,
     page: resolved.external ? resolved.url : resolved.assetAbs,
     pageRel: resolved.pageRel,
@@ -887,18 +1054,32 @@ async function main() {
       out: opt.out, widths: specs.map((s) => s.width), height: opt.height,
       jobs: opt.jobs, gap: opt.gap, settle: opt.settle, maxCapture: opt.maxCapture,
       bands: opt.bands, inject: opt.inject, slice: opt.slice, keepRaw: opt.keepRaw,
+      reuseRaw: reuse ? reuse.srcDir : null,
       mode: opt.mode || 'auto', frame: { width: opt.frameW, height: opt.frameH },
       chrome: opt.chrome, python: opt.python,
     },
-    server: { origin: ctx.origin, port, root: resolved.root },
-    chromeVersion: null,
+    server: reuse ? null : { origin: ctx.origin, port, root: resolved.root },
+    reuse: reuse ? {
+      mode: 'reuse-raw',
+      sourceReport: reuse.repPath,
+      rawDir: reuse.rawDir,
+      sourceGeneratedAt: reuse.report.generatedAt ?? null,
+      sourceChromeVersion: reuse.report.chromeVersion ?? null,
+      note: '未启动 Chrome；像素来自 rawDir，几何来自 sourceReport；统计量由 shot-page.py 重算 ⇒ 只随输入文件变。',
+    } : null,
+    chromeVersion: reuse ? (reuse.report.chromeVersion ?? null) : null,
     tiers: [],
     failed: [],
     warnings: [],
   };
 
+  if (reuse && !opt.jsonOnly) {
+    process.stdout.write(`\nshot.mjs  [reuse-raw]  target=${resolved.external ? resolved.url : resolved.pageRel}\n`);
+    process.stdout.write(`         source=${reuse.repPath}\n         raw=${reuse.rawDir}\n\n`);
+  }
+
   // Chrome 版本（不是必须，但取证报告里该有）
-  try {
+  if (!reuse) try {
     const { execFileSync } = await import('node:child_process');
     const v = execFileSync('powershell.exe', ['-NoProfile', '-Command',
       `(Get-Item '${opt.chrome.replace(/'/g, "''")}').VersionInfo.ProductVersion`], { encoding: 'utf8' }).trim();
@@ -907,10 +1088,13 @@ async function main() {
     report.warnings.push('拿 Chrome 版本失败: ' + err.message);
   }
 
-  if (!opt.jsonOnly) {
+  if (!opt.jsonOnly && !reuse) {
     process.stdout.write(`\nshot.mjs  target=${resolved.external ? resolved.url : resolved.pageRel}\n`);
     process.stdout.write(`         server=${ctx.origin}  root=${resolved.root}\n`);
     process.stdout.write(`         out=${outDir}  tiers=${specs.map((s) => `${s.width}x${s.height}`).join(', ')}  jobs=${opt.jobs} gap=${opt.gap}ms\n\n`);
+  }
+  if (!opt.jsonOnly && reuse) {
+    process.stdout.write(`         out=${outDir}  tiers=${specs.map((s) => `${s.width}x${s.height}`).join(', ')}  （不起服务器、不启动 Chrome）\n\n`);
   }
 
   // 并发跑多档（并发 <= jobs，启动之间有 gap）
@@ -932,18 +1116,23 @@ async function main() {
   report.tiers.sort((a, b) => b.viewport.width - a.viewport.width);
 
   // http 日志（404 断链资源是重要的取证信号：字体/图片取不到会让截图骗人）
-  const httpLog = srv.requests.map((r) => `${r.ts} ${String(r.status).padEnd(3)} ${r.method} ${r.path}${r.query}${r.tier ? '  [' + r.tier + ']' : ''}`);
-  const missing = srv.requests.filter((r) => r.status === 404).map((r) => ({ path: r.path + r.query, tier: r.tier, at: r.ts }));
-  report.http = {
-    requests: srv.requests.length,
-    byStatus: srv.requests.reduce((a, r) => { a[r.status] = (a[r.status] || 0) + 1; return a; }, {}),
-    missing,
-    log: '.shot-http.log',
-  };
-  writeFileSync(join(outDir, '.shot-http.log'), httpLog.join('\n') + '\n', 'utf8');
-  if (missing.length) {
-    report.warnings.push(`有 ${missing.length} 个资源 404（截图里可能是缺字/缺图，不是"设计如此"）：` +
-      JSON.stringify(missing.slice(0, 8)));
+  if (reuse) {
+    // 这一轮没有 http 会话：沿用源那一轮的 http 取证（404 断链是像素结论可信度的一部分）。
+    report.http = reuse.report.http || null;
+  } else {
+    const httpLog = srv.requests.map((r) => `${r.ts} ${String(r.status).padEnd(3)} ${r.method} ${r.path}${r.query}${r.tier ? '  [' + r.tier + ']' : ''}`);
+    const missing = srv.requests.filter((r) => r.status === 404).map((r) => ({ path: r.path + r.query, tier: r.tier, at: r.ts }));
+    report.http = {
+      requests: srv.requests.length,
+      byStatus: srv.requests.reduce((a, r) => { a[r.status] = (a[r.status] || 0) + 1; return a; }, {}),
+      missing,
+      log: '.shot-http.log',
+    };
+    writeFileSync(join(outDir, '.shot-http.log'), httpLog.join('\n') + '\n', 'utf8');
+    if (missing.length) {
+      report.warnings.push(`有 ${missing.length} 个资源 404（截图里可能是缺字/缺图，不是"设计如此"）：` +
+        JSON.stringify(missing.slice(0, 8)));
+    }
   }
 
   for (const t of report.tiers) {
@@ -978,7 +1167,7 @@ async function main() {
   }
 
   if (!opt.keepProfile) { try { rmSync(tmpRoot, { recursive: true, force: true }); } catch { /* ignore */ } }
-  srv.server.close();
+  if (srv) srv.server.close();
   process.exit(report.failed.length ? 1 : 0);
 }
 

@@ -16,7 +16,7 @@ node prototypes/_build/shot.mjs prototypes/S14-zero-g-launch-sequence/ \
 | --- | --- | --- |
 | 起本地静态服务器（站点根 = 工作目录） | `shot.mjs`（Node `http`） | 页面通过 `http://127.0.0.1:<随机端口>/…` 打开，相对路径与 `../_fonts/` 都能取到 |
 | 测量页面（视口尺寸、页高、字体、断链图） | 注入探针 + `sendBeacon` 回连 | `report.json` 里的 `probe` |
-| 无头截图：首屏 + 整页长图 | Chrome `--headless=new --screenshot` | `.raw/*.raw.png`（默认用完即删） |
+| 无头截图：首屏 + 整页长图 | Chrome `--headless=new --screenshot` | `.raw/*.raw.png`（默认用完即删；`--keep-raw` 留下，`--reuse-raw` 读它，见 §9） |
 | 裁剪到真实视口、按视口高切片、算像素统计 | `shot-page.py`（Pillow） | `-fold.png` / `-full.png` / `-screen-NN.png` / `-stats.json` |
 | 汇总 | `shot.mjs` | `report.json`（无 BOM，`JSON.parse` 直接可读）+ `.shot-http.log` |
 
@@ -48,6 +48,8 @@ node prototypes/_build/shot.mjs prototypes/S14-zero-g-launch-sequence/ \
 --bands              额外产出"逐屏带"精确截图（每屏一次真实视口渲染，慢但最忠实）
 --iframe / --direct  强制视口模式（默认：宽度 < 500 自动 iframe，原因见 §5）
 --keep-raw           保留未裁剪的原始截图     --keep-profile  保留临时 Chrome profile
+--reuse-raw DIR      不启动 Chrome，从 DIR/.raw/ 读上一轮 --keep-raw 存的原始 PNG，
+                     重跑同一套裁剪/切片/统计（统计量逐字节可复现，见 §9）
 --no-inject          不注入探针               --trim-tail     无探针时用尾部同色估页高
 --no-slice           只出首屏 + 整页          --json          只把 report.json 打到 stdout
 --chrome / --python / --chrome-timeout / --chrome-flags "…"
@@ -233,6 +235,10 @@ node prototypes/_build/shot.mjs prototypes/S14-zero-g-launch-sequence/ \
 > 同一页两次运行，PNG 字节数会差几百 B 到几 KB（动画/字体栅格时序、`--settle` 内跑到哪一帧），
 > 但尺寸、屏数、亮度/主色统计稳定。要比对"改了 CSS 之后有没有变"时，比 `report.json` 的
 > 像素统计，别比字节数。
+>
+> ⚠️ **【2026-10-24 更正】这句只对 `--reuse-raw` 模式成立。** 真截两轮之间**统计量本身也会漂**
+> （实测见文末 §9：S14 两轮 155 个统计叶子字段不同）。逐字节比统计的前提是"两次读同一批 raw"，
+> 也就是两轮都走 `--reuse-raw`。
 
 主色统计与页面自称的配色对得上（S14 声明 `#12181D` 62% / `#E4572E` 18% / `#D8D2C4` 15% /
 `#8A3320` 5%）：
@@ -253,14 +259,78 @@ node prototypes/_build/shot.mjs prototypes/S14-zero-g-launch-sequence/ \
 
 ---
 
-## ⚠️ 【2026-10-22 实测更正】本文 L233 那句「比像素统计，别比字节数」不成立
+## 9. `--reuse-raw <dir>`：把统计量从"依赖 Chrome 时序"降级为"依赖输入文件"
+
+### 9.1 它解决的那个实测缺陷（2026-10-22 的更正，原样保留）
 
 同一命令、间隔 2 分钟、S14 两轮：拓扑 100% 一致、主色 hex 34/34 全同，
 
 **但 148 个统计叶子字段不同**（dominant.share 最大漂 0.331 个百分点、uniqueSampled 漂约 1.4%），
 
-漂移只在切片 1–4（首屏动画区）——--virtual-time-budget 截到的帧不同。
+漂移只在切片 1–4（首屏动画区）——`--virtual-time-budget` 截到的帧不同。
 
-**后果：页面完全没改也会报约 14 个单元「变了」。** 正确判据见 deliverables/39-critique-toolchain-repro.md §7.3；
+**后果：页面完全没改也会报约 14 个单元「变了」。** 正确判据见 deliverables/39-critique-toolchain-repro.md §7.3。
 
-根治办法是加 --reuse-raw <dir>，把统计量从「依赖 Chrome 时序」降级为「依赖输入文件」。
+**本节就是那条"根治办法"的实现（2026-10-24 已落地，不再是计划）。**
+
+### 9.2 用法（两步，`--keep-raw` 与 `--reuse-raw` 互逆）
+
+```bash
+# 第 1 步：真截一次，把未裁剪的原始图留在 <dir>/.raw/ 里（唯一一次依赖 Chrome 时序）
+node prototypes/_build/shot.mjs prototypes/S14-zero-g-launch-sequence/ \
+     --out .shots-r0 --widths 1440,768,390 --name S14 --keep-raw
+
+# 第 2 步：此后每次比对都从这批 raw 推，不启动 Chrome（6 秒而不是 33 秒）
+node prototypes/_build/shot.mjs prototypes/S14-zero-g-launch-sequence/ \
+     --out .shots-a --widths 1440,768,390 --name S14 --reuse-raw .shots-r0
+node prototypes/_build/shot.mjs prototypes/S14-zero-g-launch-sequence/ \
+     --out .shots-b --widths 1440,768,390 --name S14 --reuse-raw .shots-r0
+# → .shots-a/report.json 与 .shots-b/report.json 除输出目录字符串外逐字节相同
+```
+
+改完 CSS 之后重跑第 1 步（换一个新的 `--out`）拿到新 raw，再跑第 2 步比对。
+**同一批 raw 才能比字节**；跨 raw 轮次比统计仍要按 §7.3 的容差。
+
+### 9.3 实现要点
+
+- `--reuse-raw` 传入时**不启动 Chrome、不起静态服务器、不读 Chrome 版本**，连 Chrome 是否存在都不检查
+  （所以没有 Chrome 的机器也能复算统计）。
+- 像素的唯一来源是 `<dir>/.raw/<name>-<宽>-{fold,full}.raw.png`；统计由 `shot-page.py` **重算**，
+  不是从旧 `report.json` 抄 —— 抄过来就只能证明"能读回来"，不能证明"可复算"。
+- 几何（`mode`/`window`/`pageHeight`/`pageHeightRealViewport`/探针读数/`truncated`）取自
+  `<dir>/report.json` 对应那一档；裁剪高度沿用上一轮的 `pageHeight`，**不重算**
+  （重算要读本轮不存在的长窗口探针，且会让同一批 raw 两次跑出不同的 `cut`）。
+- `generatedAt`、`chromeVersion`、`http`（含 404 取证）沿用源那一轮 —— 像素确实出自那一轮，
+  且这样 `report.json` 才可能逐字节相同。本轮的运行时间只打到 stdout。
+- `report.reuse` 与 `tiers[].reusedRaw` 记录来源（源报告路径、raw 目录、源 `generatedAt`），
+  一眼能看出这份报告是推出来的还是截出来的。
+- reuse 轮加 `--keep-raw` 会把 raw 复制进本轮 `.raw/`，产出目录**又能**直接喂给下一轮 `--reuse-raw`。
+
+### 9.4 缺档一律硬失败（exit 2），绝不静默回退去重截
+
+| 情形 | 报错 |
+| --- | --- |
+| 目录不存在 | `找不到 --reuse-raw 目录: <abs>` |
+| 给的是文件 | `--reuse-raw 要给目录，收到的是文件: <abs>` |
+| 没有 `.raw/`（上一轮没带 `--keep-raw`） | `--reuse-raw 目录里没有 .raw/（上一轮没带 --keep-raw？）: …`＋该目录现有内容 |
+| 缺某一张 raw | `--reuse-raw 缺 raw 图，拒绝回退去重截。缺失 N 个文件：`＋**逐个点名**（档 + fold/full + 绝对路径） |
+| 本轮要的档上一轮没跑 | `--reuse-raw 里没有 1024x900 这一档，拒绝静默重截。`＋上一轮跑过哪些档 |
+| `--name` 与上一轮对不上 | `--reuse-raw 的 raw 文件名由上一轮的 --name 决定，本轮对不上：`＋`请加 --name S14` |
+| `--bands` 但上一轮没有 bands | `--reuse-raw + --bands：上一轮的 … 档没有逐屏带 …` |
+| raw 尺寸与上一轮页高矛盾 | 该档 `error`（不裁出一张比设计更高的图） |
+
+### 9.5 实测（2026-10-24 复跑，S14，三档 1440/768/390 × 900，Chrome 156.0.8078.47；比较器 `deliverables/42-scratch/units.mjs` + `compare.mjs`）
+
+每轮 report 有 **40 个对比单元**（每档 fold、full、+ 9/11/14 个切片）。
+
+| 比较 | 几何/主色 | 有漂移的单元 | 统计叶子差异 | 结论 |
+| --- | --- | --- | --- | --- |
+| reuse ×2（同一 `--out`） | 0 / 0 | **0** | **0** | `report.json` **sha256 逐字节相同** |
+| reuse ×2（不同 `--out`） | 0 / 0 | **0** | 0 | 差异只剩 7 个"输出目录绝对路径"字符串；**PNG 产物 40/40 逐字节相同** |
+| 真截轮 vs 它的 reuse 轮 | 0 / 0 | **0** | 0 | 6 个 `-stats.json` 路径归一后**内容全同**；PNG 40/40 相同 |
+| **两轮真 Chrome（对照）** | 0 / 0 | **15**（一轮间 13–17） | **124**（另一对 155） | `dominant/top3.share` max 漂 **0.894pp**（另一对 0.568pp）；漂移**只**在 slice1–4 + fold/full |
+
+**这就是这个参数的全部价值：跨轮次比对时"报变更"的单元从 15 → 0**（§9.1 那个 ~14 的假阳性被消掉）。
+时间成本：真截一轮 25 s（3 次 Chrome 启动 × 2），reuse 一轮 **5–6 s**（不起浏览器、不起服务器）。
+
+

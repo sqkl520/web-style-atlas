@@ -4,16 +4,18 @@
 //   node render-scheme.mjs S01-red-wedge-broadsheet
 //   node render-scheme.mjs S01-red-wedge-broadsheet --allow hairline,font-count
 //
-// 关键：cwd 必须是 D:\Web\style。
+// 关键：cwd 必须是仓库根（ROOT）。
 //   原因：inspect.mjs 起一个本地 http 服务，root 取 cwd（因为传入文件在 cwd 之下）；
 //   站点根设成整个工作区，原型的 ../_fonts/ 共享字体缓存才取得到。
 //   若 cwd 设成原型目录，root 就变成原型目录，../_fonts/ 会 403。
 //
 import { spawnSync } from 'node:child_process';
 import { existsSync, readFileSync } from 'node:fs';
-import { resolve, join } from 'node:path';
+import { join } from 'node:path';
 
-const ROOT = 'D:/Web/style';
+// 仓库根由脚本自身位置推得（模板 = check-stale.mjs:16；含 Windows 盘符修正与 39 §3-N10 的 decodeURIComponent）。
+// 39 §2-B01/B03：写死 ROOT 时，若本机另有一份同路径副本，脚本会渲染**那一份**而看起来完全正常。
+const ROOT = decodeURIComponent(new URL('../..', import.meta.url).pathname).replace(/^\/([A-Za-z]:)/, '$1');
 const INSPECT = join(ROOT, 'tools/taste-skill/skills/taste-skill/scripts/inspect.mjs');
 const name = process.argv[2];
 if (!name) { console.error('用法: node render-scheme.mjs <原型目录名> [--allow a,b]'); process.exit(2); }

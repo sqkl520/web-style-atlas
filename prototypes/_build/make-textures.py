@@ -9,9 +9,9 @@
 用法：
     python make-textures.py <job.json>
 
-job.json 形如：
+job.json 形如（outDir 由调用方给出，脚本自己不猜仓库位置；相对路径按当前工作目录解析）：
 {
-  "outDir": "D:/Web/style/prototypes/S18-phosphor-service-deck/assets",
+  "outDir": "prototypes/S18-phosphor-service-deck/assets",
   "jobs": [
     {"name": "scanline", "gen": "scanlines", "w": 8, "h": 8, "args": {"period": 3, "alpha": 0.16}},
     {"name": "grain",    "gen": "grain",     "w": 256, "h": 256, "args": {"density": 0.5, "alpha": 0.05, "seed": 7}}

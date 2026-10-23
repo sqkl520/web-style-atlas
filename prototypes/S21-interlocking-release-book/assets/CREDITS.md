@@ -4,9 +4,9 @@
 > 里与磁盘文件同名的条目，它在下次运行时会以本目录的 `credits.json` 为准重新生成一份；届时
 > 第四节「留存但未引用」的内容需要从 `assets/credits-unused.json` 手工带回，或者改写那个脚本）。
 >
-> **本目录的真图来源**：2026-10-18 04:15 之后，所有可检索的图源在本环境全部不可用——
-> Wikimedia（含 upload / commons / wikidata）连接被重置或 30 秒超时，Internet Archive、Openverse、
-> DuckDuckGo 超时，`www.loc.gov` / `tile.loc.gov` / `picryl` / `pexels.com` / `pixabay.com` 返回 403 拦截页。
+> **本目录的真图来源**（本块 2026-10-24 改写；逐主机连通性真值单一来源见 `prototypes/_CONTRACT.md` §10.1，本文不重复网络状态断言）：
+> 2026-10-18 04:15 之后本环境曾进入图源受限窗口（Wikimedia 连接被重置、loc.gov／picryl／pexels／pixabay 返回 403），**2026-10-22 复测已解除**（commons HTTP 200、检索命中、缩略图可下载）。
+> 受限发生在本案素材抓取之后，下述窗口叙述为历史事实。
 > 本方案页面实际引用的 6 张图版，是 **2026-10-18 04:16–04:42 图源尚可用的那个窗口里**由
 > `assets/fetch-assets.ps1` 按本案题材（机械联锁机 / 扳道杆列 / 闭塞器 / 值班室 / 站场图）检索并落盘到
 > `assets/_cand/` 的 28 个候选，再按 `build/pick-and-bake.py` 的挑片表烘焙成两阶图版的。

@@ -13,10 +13,15 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, statSy
 import { spawnSync } from 'node:child_process';
 import { join } from 'node:path';
 
-const ROOT = 'D:/Web/style';
+// 仓库根由脚本自身位置推得（模板 = check-stale.mjs:16；含 Windows 盘符修正与 39 §3-N10 的 decodeURIComponent）。
+const ROOT = decodeURIComponent(new URL('../..', import.meta.url).pathname).replace(/^\/([A-Za-z]:)/, '$1');
 const PROTO = join(ROOT, 'prototypes');
-const PY = 'C:/Users/Administrator/.dsh/dsh-runtimes/dsh-primary-runtime/dependencies/python/python.exe';
-const UA = 'prototype-builder/1.0 (D:/Web/style; contact: local)';
+// Python 的解释器：**env 优先，本机 DSH 运行时路径只作最后兜底**（39 §2-B05/B10）。
+// 换机时导出 PROTO_PYTHON（或 SHOT_PYTHON）即可，不必改代码。
+const PY = process.env.PROTO_PYTHON || process.env.SHOT_PYTHON
+  || 'C:/Users/Administrator/.dsh/dsh-runtimes/dsh-primary-runtime/dependencies/python/python.exe';
+// UA 里不写绝对路径（原来那个写死的仓库根字面量既绑定机器，又会随每次请求发到外网）。
+const UA = 'prototype-builder/1.0 (web-style-atlas; contact: local)';
 
 // ── 配置表：每个方案的检索词与纹理清单 ───────────────────────────────
 // queries 用英文（Commons 的检索对英文更友好）；textures 复用 make-textures.py 里的生成器。

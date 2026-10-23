@@ -19,10 +19,14 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, statSync, copyFileSync, unlinkSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import { join, basename } from 'node:path';
+import { spawnChecked, assertFilesExist } from './checked-spawn.mjs';
 
-const ROOT = 'D:/Web/style';
+// 仓库根由脚本自身位置推得（模板 = check-stale.mjs:16；含 Windows 盘符修正与 39 §3-N10 的 decodeURIComponent）。
+const ROOT = decodeURIComponent(new URL('../..', import.meta.url).pathname).replace(/^\/([A-Za-z]:)/, '$1');
 const PROTO = join(ROOT, 'prototypes');
-const PY = 'C:/Users/Administrator/.dsh/dsh-runtimes/dsh-primary-runtime/dependencies/python/python.exe';
+// Python：**env 优先，本机 DSH 运行时路径只作最后兜底**（39 §2-B05/B10）。
+const PY = process.env.PROTO_PYTHON || process.env.SHOT_PYTHON
+  || 'C:/Users/Administrator/.dsh/dsh-runtimes/dsh-primary-runtime/dependencies/python/python.exe';
 const dry = process.argv.includes('--dry');
 // --redo：先把目标方案里由本脚本放进去的文件（reuse-* / nasa-*）清掉再重配。
 // 用途：关键词选错了题材时要能重来。实测第一轮 S22（和纸）被 'paper' 这个关键词
@@ -165,7 +169,8 @@ const TARGETS = {
   },
 };
 
-const UA = 'prototype-builder/1.0 (D:/Web/style)';
+// UA 里不写绝对路径：原来那个写死的仓库根字面量既绑定机器，又会随每次请求发到外网。
+const UA = 'prototype-builder/1.0 (web-style-atlas)';
 
 // ── 1 建全局语料索引 ──────────────────────────────────────────────
 // 上一版按 credits.json 的 e.file 去找文件，只索引到 22 条 / 4 个方案 —— 因为多数方案的
@@ -181,6 +186,13 @@ const UA = 'prototype-builder/1.0 (D:/Web/style)';
 // 一刀切排掉会让整个方案的素材消失。同一个题材可能同时存在 raw 与加工件两份，
 // 那个问题用"按标题去重 + raw 优先"解决，而不是靠文件名排除。
 const DERIVED = /^(texture-|cursor-|grain-|noise-|paper-|crop-)/i;
+
+// 目录枚举**一律排序**（本仓既定口径：collect-schemes.mjs:169、summarize-all.mjs:20、
+// write-credits.mjs:36、verify-prototype.mjs:144、check-stale.mjs:44 都这么做）。
+// 不排序时 NTFS 与 ext4 的返回顺序不同 ⇒ credits.json / CREDITS.md 的行序会变，
+// 并列项还会退回插入序、选出不同的照片（39 §2-B11 / §3-N13）。
+const sortDirents = (list) => list.slice().sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0));
+const sortNames = (list) => list.slice().sort();
 
 function loadCredits(schemeDir) {
   const map = new Map();
@@ -209,13 +221,13 @@ function loadCredits(schemeDir) {
 }
 
 const corpus = [];
-for (const d of readdirSync(PROTO, { withFileTypes: true })) {
+for (const d of sortDirents(readdirSync(PROTO, { withFileTypes: true }))) {
   if (!d.isDirectory() || !/^S\d{2}-/.test(d.name)) continue;
   const scheme = d.name.slice(0, 3);
   const creds = loadCredits(d.name);
   const roots = ['build/raw', 'build/raw-s01', 'raw-s01', 'assets', 'build'].map((s) => join(PROTO, d.name, s)).filter(existsSync);
   for (const root of roots) {
-    for (const f of readdirSync(root, { withFileTypes: true })) {
+    for (const f of sortDirents(readdirSync(root, { withFileTypes: true }))) {
       if (!f.isFile()) continue;
       if (!/\.(jpe?g|png|webp)$/i.test(f.name)) continue;
       const inAssets = /assets[\\/]?$/.test(root + '/') || /assets/.test(root);
@@ -293,7 +305,7 @@ for (const [dir, cfg] of Object.entries(TARGETS)) {
 
   const own = [];   // 该案自带的真图
   if (existsSync(assets)) {
-    for (const f of readdirSync(assets)) {
+    for (const f of sortNames(readdirSync(assets))) {
       if (!/\.(jpe?g|png|webp)$/i.test(f)) continue;
       if (/^texture-/.test(f)) continue;
       if (redo && /^(reuse-|nasa-)/.test(f)) { try { unlinkSync(join(assets, f)); } catch { /* 忽略 */ } continue; }
@@ -378,21 +390,34 @@ for (const [dir, cfg] of Object.entries(TARGETS)) {
   if (cfg.textures && cfg.textures.length) {
     const jobFile = join(base, 'build', 'texture-job.json');
     writeFileSync(jobFile, JSON.stringify({ outDir: assets.replace(/\\/g, '/'), jobs: cfg.textures }, null, 1), 'utf8');
-    spawnSync(PY, [join(PROTO, '_build', 'make-textures.py'), jobFile], { stdio: 'inherit' });
+    // 这里原先是裸 spawnSync(PY, …)：不查返回值 ⇒ Python 挂了也**静默**继续写署名表，
+    // 于是 CREDITS.md 自称有 N 张纹理而 assets/ 里一张都没有（实测发生过，39 §T0-8 / §2-B10）。
+    // 现在：① checked-spawn 查 error/status/signal 并带 stderr 原文；
+    //       ② 查完退出码还要查**文件真在不在**——make-textures.py 对未知生成器是 print + continue，
+    //          实测会 return 0 而一张不写（42-scratch/t5-job.json 复现），单查 status 不够。
+    const { stdout } = spawnChecked(PY, [join(PROTO, '_build', 'make-textures.py'), jobFile], {
+      label: `make-textures.py → ${dir}`,
+    });
+    if (stdout.trim()) process.stdout.write(stdout.endsWith('\n') ? stdout : stdout + '\n');
+    assertFilesExist(assets, cfg.textures.map((t) => `texture-${t.name}.png`), {
+      label: `make-textures.py → ${dir}`, detail: `job: ${jobFile}\n${stdout}`,
+    });
   }
 
   const photos = creds.length;
   writeFileSync(join(assets, 'credits.json'), JSON.stringify(creds, null, 1), 'utf8');
-  const gen = readdirSync(assets).filter((f) => /^texture-/.test(f));
+  const gen = sortNames(readdirSync(assets)).filter((f) => /^texture-/.test(f));
   const L = [];
   L.push('# 素材来源与署名');
   L.push('');
-  L.push('> **本目录的真图来源**：2026-10-18 04:15 之后，所有可检索的图源在本环境全部不可用——');
-  L.push('> Wikimedia（含 upload / commons / wikidata）连接被重置或 30 秒超时，Internet Archive、Openverse、');
-  L.push('> DuckDuckGo 超时，`www.loc.gov` / `tile.loc.gov` / `picryl` / `pexels.com` / `pixabay.com` 返回 403 拦截页。');
-  L.push('> 仍然可用的只有 `images-api.nasa.gov`（可检索可下载）与几个只认直链的图片 CDN。');
-  L.push('> 因此本方案的真人实拍素材来自两处：**本会话早先网络正常时为其他方案抓取、按题材复用的 Wikimedia 照片**，');
-  L.push('> 以及 **NASA 图像库**。复用的每一张都在下表里注明原本属于哪个方案。');
+  // ⚠️ W-4（收敛 ⑰ §1#16）：这里曾写死「2026-10-18 之后所有可检索图源全部不可用/403 拦截页」，
+  //    已盖进 12 份交付 CREDITS.md——而契约 §10.1（b0ecb2d）实测更正：commons 200、wikidata 通。
+  //    教训：**更正只落在文档、没落在产出文档的那段代码 = 没更正**（生成器会把过期句重新盖回去）。
+  //    现在这段只做"历史窗口陈述 + 指路契约"，连通性真值单一来源 = _CONTRACT.md §10.1，本文不复制状态。
+  L.push('> **本目录的真图来源**（本块 2026-10-24 改写；逐主机连通性真值单一来源见 `prototypes/_CONTRACT.md` §10.1，本文不重复断言全网状态）：');
+  L.push('> 本方案的实拍素材来自两处：**本会话早先网络正常时为其他方案抓取、按题材复用的 Wikimedia 照片**，以及 **NASA 图像库**。复用的每一张都在下表里注明原本属于哪个方案。');
+  L.push('> 2026-10-18 04:15 之后本环境曾进入图源受限窗口（Wikimedia 连接被重置、loc.gov／picryl／pexels／pixabay 返回 403），**2026-10-22 复测已解除**（commons HTTP 200、检索命中、缩略图可下载）。');
+  L.push('> 因此下表若有题材与本案主张对不上的图，那是历史窗口的遗留、不是"现在拿不到"——补对题素材是产品决定，逐案缺口须写在下表备注里（契约 §10.1 硬要求）。');
   L.push('');
   L.push('## 一、真实照片');
   L.push('');
@@ -414,7 +439,7 @@ for (const [dir, cfg] of Object.entries(TARGETS)) {
   L.push('');
   writeFileSync(join(assets, 'CREDITS.md'), L.join('\n'), 'utf8');
 
-  const imgs = readdirSync(assets).filter((f) => /\.(jpe?g|png|webp)$/i.test(f) && !/^texture-/.test(f)).length;
+  const imgs = sortNames(readdirSync(assets)).filter((f) => /\.(jpe?g|png|webp)$/i.test(f) && !/^texture-/.test(f)).length;
   console.log(`  ${dir}: 真图 ${imgs} 张（署名 ${photos} 条），纹理 ${gen.length} 个`);
   report.push({ dir, photos, textures: gen.length, ok: imgs >= 4 });
 }

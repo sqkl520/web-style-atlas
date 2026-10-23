@@ -9,7 +9,8 @@ import { mkdirSync, existsSync, writeFileSync, statSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { createHash } from 'node:crypto';
 
-const ROOT = 'D:/Web/style';
+// 仓库根由脚本自身位置推得（模板 = check-stale.mjs:16；含 Windows 盘符修正与 39 §3-N10 的 decodeURIComponent）。
+const ROOT = decodeURIComponent(new URL('../..', import.meta.url).pathname).replace(/^\/([A-Za-z]:)/, '$1');
 const OUT = join(ROOT, 'prototypes', '_fonts');
 const FILES = join(OUT, 'files');
 const CSSDIR = join(OUT, 'css');
