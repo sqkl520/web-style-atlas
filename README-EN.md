@@ -69,7 +69,7 @@ Click a row to expand all of its fields (10 sections in most schemes).
 `#S07` deep-links to a single scheme.
 The keyboard covers everything: `J`/`K` moves between schemes, `1`/`2`/`3` switches viewport, `/` focuses search, `Esc` closes.
 
-Next to it stands the **selection wizard** (`prototypes/_selection/wizard.html`). Five questions about **your situation**, not "what style do you like": content load, picture load, how loud, whether you need guidance, whether you fear retro.
+Next to it stands the **selection wizard** (`prototypes/_selection/wizard.html`). Five questions about **your situation**, not "what style do you like": content load, picture load, how quiet you want it to look, whether a first-time visitor should know where to look in three seconds, and what you fear more — getting it wrong or being forgettable. (⚠️ This line used to read "whether you need guidance, whether you fear retro" — `git grep` confirms those two questions never existed in the wizard; caught by bilingual-drift audit 51 as **invented dimensions**, now corrected to the actual `load/img/loud/guide/fear` five.)
 It outputs **3 recommendations and 3 explicit exclusions**, and every "why" is read from **measured values** —— body word count, real picture count, highest saturation in the palette, declared cognitive threshold, and a memorability proxy built from tone and chroma. It never assigns a subjective score.
 Answers replay from the URL: `?load=2&img=2&loud=2&guide=0&fear=2`.
 
@@ -314,7 +314,7 @@ When not to use it, written out.
 - ❌ **The `#888888` grey block is specific to the `inspect.mjs` pipeline**: a few desktop scrolled captures under `.inspect/` contain a large patch of exact neutral grey (`desktop-page-03` in S08 at 49.86%, `desktop-page-01` in S17 at 24.27%). **That is a defect in `inspect.mjs`'s own scroll stitching, not grey that exists in the page** —— characterised in `deliverables/16-render-look-audit.md`. **Corroboration**: an independent audit scanned all 246 PNGs produced by the `shot.mjs` / bare CDP / Pillow pipeline and found **not one where that grey exceeded 2%** (the highest was 0.236%, an anti-aliased edge). It does not occur with other capture methods.
 - ❌ **The `measure` rule is a false positive for Chinese**: it estimates character width at 0.5em while CJK glyphs are about 1.0em, so **divide the reported number by two** to get the real characters per line.
 - ❌ **Double-clicking gives you the wrong result**: under `file://`, CSS `mask-image: url(...)` fails entirely (rejected by CORS → fully transparent). Affected prototypes: `S04` and `S07` —— **their paper blocks and deckled edges become a blank wall**, worse than any defect in the pages themselves, and it **looks like the page is broken**. Same page, same size, http vs file: **5818 distinct colours vs 2**.
-- ❌ **A few prototypes have an `index.html` of 30–48.4 KB** (the largest is S29 at 49,512 B), above the internal specification's target band. Chinese body copy alone is large (about 14 KB for four thousand characters), and the only way down is to delete content.
+- ❌ **13/30 prototypes have an `index.html` of 30–48.4 KB** (the largest is S29 at 49,512 B), above the contract §2 target band of 18–27 KB. ⚠️ This line used to say "a few prototypes" — measured it is 13/30 = 43%, not a few (caught by commitment audit 51). Chinese prose alone eats a lot of bytes (four thousand CJK characters ≈ 14 KB); shrinking it would mean cutting content.
 - ❌ **This is not a design system**: no component library, no token deliverable, no reusable CSS framework. Anyone who treats it as one will be disappointed by day three.
 
 A self-deprecating calibration: **this is an 80-point specimen library, not a 100-point product site.** (Those two scores are a positioning line, not a measured grade —— the measured conclusions are the 9 items above.) For someone who needs to see enough real approaches before deciding what their own site should look like, an 80-point specimen library beats a 100-point product site.
@@ -362,7 +362,7 @@ The two rule sets **do not cover each other**, so both have to run. Every hit is
 
 **Three: how this README is written.** The structure, tone and evidence devices come from a public README methodology in the style of Huashu (the `write-attractive-readme` skill; every sample repository is MIT-licensed). The style is borrowed, the evidence is not —— every number in this file was measured inside this repository, and none of the sentence patterns are this project's claims about anyone else.
 
-In one line: **not one assertion here was estimated.** A number either comes from script output or it carries its criterion and its denominator in the limitations section.
+In one line: **every number here carries its criterion and its denominator where it can; the few that cannot be recomputed statically — or whose line references drifted — are now named** (texture parameters in `build/texture-job.json` are unverifiable for a cloner; derived-asset provenance has to be read out of the generator, not the filename). This line used to read "**not one assertion here was estimated**" — an immunity pass for the document itself; the bilingual audit caught drifted line numbers and two invented claims, and the absolutist self-oath was itself the most auditable assertion, so it has been replaced with the honest version.
 
 ---
 
