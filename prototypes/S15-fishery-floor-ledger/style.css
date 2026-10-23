@@ -470,6 +470,35 @@ h2, .lede, .masthead__lede, .mount, .legend, .zones__table,
   .zones__table th:nth-child(6), .zones__table td:nth-child(6) { display: none; }
   .zones__table th, .zones__table td { padding: 8px 6px; }
   .empty { font-size: 17px; }
+
+  /* T0-4（U–G3）：table.matrix 在 390 档折表。
+     它是 display:table / table-cell、DOM 上没有 data-label，≤767 档原本一条折表规则都没有：
+     4 列被压到最窄 66.8px 一格（实测行高 202.3px、单格最多 6 个 Range 文本行，
+     整行按行高 ÷ 行距算是 8 行），页高 15398。
+     改法用"折成卡片"：表格块化 + 用 4 个 ::before 把表头列名打进每格前面，一格一行信息不丢。
+     刻意没照搬 S29 的配方——S29 是 td{display:grid;grid-template-columns:6.5em minmax(0,1fr)}：
+     6.5em（=104px）的固定标签列在 342px 版心里只剩 228px，可本案最窄列只有 66.8px，
+     标签列直接把值挤成更长的竖排（收益评估在 S24 上实测 7 行 → 9 行，反而更差）。 */
+  .matrix,
+  .matrix caption,
+  .matrix tbody,
+  .matrix tr,
+  .matrix th,
+  .matrix td { display: block; width: 100%; }
+  .matrix thead { display: none; }        /* 列名改由下面 4 个 ::before 携带，信息不丢 */
+  .matrix caption { padding-bottom: 12px; }
+  .matrix tr { border-bottom: 2px solid #C3C9C7; padding: 8px 0 10px; }
+  .matrix th, .matrix td { border-bottom: 0; padding: 2px 0; text-align: left; }
+  .matrix td:first-child { white-space: normal; font-weight: 600; }
+  .matrix tbody td::before {
+    font-family: "Reddit Mono", "Noto Serif SC", monospace;
+    font-size: 13px; letter-spacing: 0.01em;
+    color: #4C5257; margin-right: 8px;
+  }
+  .matrix tbody td:nth-child(1)::before { content: "机制"; }
+  .matrix tbody td:nth-child(2)::before { content: "桌面档"; }
+  .matrix tbody td:nth-child(3)::before { content: "减少动态时"; }
+  .matrix tbody td:nth-child(4)::before { content: "单栏窄屏"; }
 }
 
 @media (max-width: 480px) {

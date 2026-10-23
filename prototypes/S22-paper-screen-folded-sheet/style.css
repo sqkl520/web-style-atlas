@@ -270,7 +270,14 @@ h2 { margin-bottom: 18px; }
 
 /* 页码索引带：全宽的主色相乘层，三列排页码 */
 .band { padding: 20px 24px; }
-.band__label { font-size: 15px; color: var(--matcha); }
+/* T0-6（U–G2）：带标签原本的色是 --matcha #565B49。它在**纸底**上是 5.04:1（字段 3 的冻结读数，
+   仍然成立，本行没动那个 token），但它坐在 .band/.timeline 的 12% 主色相乘层上：
+   rgba(86,91,73,.12) 压在 #DDDAD4 合成出 #CDCBC3（L=0.59631），
+   #565B49（L=0.09942）对它只有 (0.59631+0.05)/(0.09942+0.05) = **4.33:1**，低于 AA 正文线。
+   改法是压深这一处的墨色（同色系、不动相乘层的 12%、不动字段 3 的三色配比）：
+   取 --matcha 的 0.64 倍 = **#373A2F**（L=0.04044）→ (0.59631+0.05)/(0.04044+0.05) = **7.15:1**，达 AAA。
+   只作用在 .band__label 这一处；.spec/.pages 的 caption 在纸底上读 5.04:1，保持原样。 */
+.band__label { font-size: 15px; color: #373A2F; }
 .band--index { margin-top: 40px; }
 .index { list-style: none; margin: 12px 0 0; padding: 0; columns: 3; column-gap: var(--gutter); }
 .index li { font-size: 15px; line-height: 1.8; padding: 2px 0; break-inside: avoid; }

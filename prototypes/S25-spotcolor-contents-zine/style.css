@@ -80,7 +80,14 @@ a:hover { text-decoration-thickness: 0.16em; text-underline-offset: 0.3em; }
 .btn:active { transform: translateY(1px); }
 .btn--quiet { background: var(--paper-deep); color: var(--ink); }
 .btn--quiet:hover { background: var(--spot-b); color: var(--paper-white); }
-.btn[disabled] { background: var(--paper-deep); color: #6B625A; cursor: not-allowed; }
+/* T0-6（U–G2）：禁用按钮的次要文字原本是 #6B625A，压在 --paper-deep #DFDAD2（L=0.70484）上：
+   #6B625A 的 L=0.12599 → (0.70484+0.05)/(0.12599+0.05) = **4.29:1**，差 AA 正文线 4.5 约 5%。
+   改法只压这一处的墨色，不动两个专色版（#914A27 / #2E6B5E）与四色配比：
+   取原值的 0.70 倍 = **#4B453F**（L=0.06111，同色系，仍是"禁用态比正文淡"的层次，
+   正文 #1E1A16 在纸底上是 13.65:1）→ (0.75484)/(0.11111) = **6.79:1**。
+   豁免项没动：--spot-a #914A27 对 #E8E4DE 仍是字段 3 的 5.16:1；
+   .btn--quiet:hover 的白字压 #2E6B5E 是 6.21:1；.leader 的 #6B625A 是 2px 装订导引线不是文字，保留。 */
+.btn[disabled] { background: var(--paper-deep); color: #4B453F; cursor: not-allowed; }
 
 /* 两个专色版：multiply 与纸相乘 */
 .ink { display: block; position: absolute; mix-blend-mode: multiply; }

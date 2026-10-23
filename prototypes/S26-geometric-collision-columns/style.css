@@ -247,7 +247,16 @@ b{font-weight:600}
 .err__t{font-family:var(--display);font-size:22px;font-weight:700;line-height:1.2}
 .empty{background:var(--tint);padding:26px 28px;margin-bottom:26px}
 .empty__t{font-family:var(--display);font-size:22px;font-weight:700;margin:0 0 12px}
-.empty__say{font-size:17px;line-height:1.8;margin:0 0 12px;max-width:34em;color:var(--blue)}
+/* T0-6（U–G2）：空状态说明句原本直接吃 --blue #485270。蓝墨在**纸底 #D3D1CA**（L=0.63714）上是
+   (0.68714)/(0.13582) = 5.06:1（字段 3 的读数，仍成立），但 .empty 整块坐在 --tint #C3C1B9
+   （L=0.53245）上，同一支蓝墨被下沉一档的合计色吃掉了对比：
+   #485270 的 L=0.08582 → (0.58245)/(0.13582) = **4.29:1**，差 AA 正文线 4.5 约 5%。
+   改法只压这一处的墨色，不动 --tint、不动四色配比、不新增色相：
+   取 --blue 的 0.64 倍 = **#2E3448**（L=0.03505）→ (0.58245)/(0.08505) = **6.85:1**。
+   豁免项没动：.note 的同一支蓝在纸底上仍是 5.06:1；白字压蓝 #485270 是 7.65:1、压红 #C8341F 是
+   5.29:1；--red #C8341F 只做小面积实色，其 34px 的 MISREG-26 属大字（3.46 ≥ 3.0），字段 3 已声明；
+   .jump__b 是 opacity:0 的悬停层，根本没被画出来，不构成对比度主张。 */
+.empty__say{font-size:17px;line-height:1.8;margin:0 0 12px;max-width:34em;color:#2E3448}
 .repair{margin:0 0 24px}
 .repair__t{font-size:15px;margin:0 0 10px;max-width:none}
 .repair__run{width:100%;max-width:640px;height:6px;background-repeat:no-repeat;background-size:640px 6px}
