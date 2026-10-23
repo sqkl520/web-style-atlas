@@ -10,17 +10,21 @@
 //   node --use-system-ca fetch-scheme-assets.mjs --all-missing
 //   node --use-system-ca fetch-scheme-assets.mjs --list
 import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, statSync } from 'node:fs';
+import os from 'node:os';
 import { spawnSync } from 'node:child_process';
 import { join } from 'node:path';
 
 // 仓库根由脚本自身位置推得（模板 = check-stale.mjs:16；含 Windows 盘符修正与 39 §3-N10 的 decodeURIComponent）。
 const ROOT = decodeURIComponent(new URL('../..', import.meta.url).pathname).replace(/^\/([A-Za-z]:)/, '$1');
 const PROTO = join(ROOT, 'prototypes');
-// Python 的解释器：**env 优先，本机 DSH 运行时路径只作最后兜底**（39 §2-B05/B10）。
-// 换机时导出 PROTO_PYTHON（或 SHOT_PYTHON）即可，不必改代码。
-// 兜底用 PATH 上的 python；不再内置作者机路径（47 号 E7：公共仓库不发布本机用户名）。
-const PY = process.env.PROTO_PYTHON || process.env.SHOT_PYTHON
-  || 'python';
+// Python 解释器：env（PROTO_PYTHON/SHOT_PYTHON）优先 → 由 os.homedir() 派生开发机的 DSH 运行时
+// （不写死用户名——公共仓库不泄漏作者机路径，47 号 E7；同时也让闸门在本机继续能跑——
+// 纯走 PATH 的 python 在 Windows 下会撞商店 stub，status 9009）→ 最后兜底 PATH。
+const DSH_PY = (() => {
+  const p = os.homedir().replace(/\\/g, "/") + "/.dsh/dsh-runtimes/dsh-primary-runtime/dependencies/python/python.exe";
+  return existsSync(p) ? p : "python";
+})();
+const PY = process.env.PROTO_PYTHON || process.env.SHOT_PYTHON || DSH_PY;
 // UA 里不写绝对路径（原来那个写死的仓库根字面量既绑定机器，又会随每次请求发到外网）。
 const UA = 'prototype-builder/1.0 (web-style-atlas; contact: local)';
 

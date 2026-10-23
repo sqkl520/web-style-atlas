@@ -28,18 +28,27 @@ import {
   copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync,
 } from 'node:fs';
 import { basename, dirname, extname, isAbsolute, join, normalize, relative, resolve, sep } from 'node:path';
-import { tmpdir } from 'node:os';
+import { tmpdir, homedir } from 'node:os';
 import { fileURLToPath } from 'node:url';
 
 // --------------------------------------------------------------------------- 常量 / 默认值
 
 const HERE = dirname(fileURLToPath(import.meta.url));         // .../prototypes/_build
 const REPO_ROOT = resolve(HERE, '..', '..');                   // .../style
+
+// Python 解释器兜底：env（SHOT_PYTHON）优先 → 由 homedir() 派生开发机的 DSH 运行时
+// （不写死用户名，公共仓库不泄漏作者机路径 —— 47 号 E7；也不裸走 PATH，Windows 下
+//   PATH 上的 python 常是商店 stub，spawnSync 直接 status 9009、闸门跑不了）→ 最后才 PATH。
+function dshPython() {
+  const p = homedir().replace(/\\/g, "/") + "/.dsh/dsh-runtimes/dsh-primary-runtime/dependencies/python/python.exe";
+  return existsSync(p) ? p : "python";
+}
+
 const DEFAULTS = {
   // 可执行文件的默认值：env（SHOT_CHROME/SHOT_PYTHON）优先，命令行 --chrome/--python 再覆盖，
-  // 这里的字面路径只是本机最后兜底（39 §2-B04/B05；PROTOPython 的同类兜底见 assign-assets/fetch-scheme-assets）。
+  // 这里的兜底只是本机最后手段（39 §2-B04/B05；PROTOPython 的同类兜底见 assign-assets/fetch-scheme-assets）。
   chrome: process.env.SHOT_CHROME || 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
-  python: process.env.SHOT_PYTHON || 'python',
+  python: process.env.SHOT_PYTHON || dshPython(),
   // Chrome 窗口与 CSS 视口的差值（Chrome 155.0.8059.84 实测：window 1456x995 -> viewport 1440x900）。
   // 每次运行都会用探针复核；不一致就按差值重试一次，仍不一致才写进 report 的 warning。
   frameW: 16,
