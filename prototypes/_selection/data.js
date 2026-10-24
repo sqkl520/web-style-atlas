@@ -48,7 +48,7 @@ window.SCHEMES = [
     "no-footage",
     "side-scroll"
    ],
-   "at": "2026-10-22T08:39:11.733Z",
+   "at": "2026-10-24T08:46:49.309Z",
    "screens": 6,
    "realPictures": 6,
    "overflow": 0,
@@ -873,7 +873,7 @@ window.SCHEMES = [
     "font-count",
     "no-footage"
    ],
-   "at": "2026-10-17T04:46:12.659Z",
+   "at": "2026-10-24T08:53:41.100Z",
    "screens": 11,
    "realPictures": 8,
    "overflow": 0,
@@ -1804,7 +1804,7 @@ window.SCHEMES = [
     "font-count",
     "no-footage"
    ],
-   "at": "2026-10-24T08:33:32.628Z",
+   "at": "2026-10-24T08:57:36.511Z",
    "screens": 11,
    "realPictures": 8,
    "overflow": 0,

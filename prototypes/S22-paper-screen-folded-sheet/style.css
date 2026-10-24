@@ -44,7 +44,7 @@
   --fray: 4px;                      /* 两端纸纤维起毛：桌面 4px */
   --ghost: 14px;                    /* 幽灵层字号 */
   --ghost-drop: 3px;                /* 幽灵层下沉 */
-  --mirror-op: .12;                 /* 镜像层不透明度：宽屏 12% */
+  --mirror-op: .07;                 /* 镜像层不透明度：宽屏 12% */
   --mirror-axis: scaleX(-1);        /* 折痕竖置时镜像轴是横的 */
   --rise: 520ms;
 }
@@ -161,10 +161,15 @@ figcaption { font-size: 15px; line-height: 1.75; margin-top: 10px; }
 .specimen { margin: 40px 0 0; max-width: 1000px; }
 .specimen__paper { position: relative; }
 .specimen__front { font-size: 17px; }
+/* ⚠️ Lead 看图后修的"重影压正文"缺陷（2026-10-24）：
+   镜像层 opacity 12%、下沉 3px、scaleY(-1) ⇒ 整段话的倒影**紧贴正文下方**叠着。
+   12% 虽淡，但它是一整句重复文字，截图上看就是正文底下糊着一层读不出的灰字，
+   干扰正常阅读。修法：下沉 3px→9px，让倒影落进折痕带、离开正文笔画密度区；
+   opacity 在下方追加的覆盖规则里同步降档。机制/相位差 180°/对折顺序动画全不动。 */
 .specimen__front--back { position: relative; }
-.specimen__front--back::after {                /* 相位差 180° 的镜像层，压在正文下方 3px */
+.specimen__front--back::after {                /* 相位差 180° 的镜像层，压在正文下方（见上注） */
   content: attr(data-verse);
-  position: absolute; left: 0; top: var(--ghost-drop); width: 100%;
+  position: absolute; left: 0; top: 9px; width: 100%;
   font-size: var(--ghost); line-height: 1.9; color: var(--ink);
   opacity: var(--mirror-op);
   transform: scaleY(-1); transform-origin: top left;
@@ -414,7 +419,7 @@ a, button, .btn, [tabindex] { cursor: url("data:image/png;base64,iVBORw0KGgoAAAA
   .recto__full { display: none; }
   .face--verso { transform-origin: center bottom; }
   .sheet.is-folded .face--verso { transform: rotateX(-96deg); }
-  :root { --mirror-axis: scaleY(-1); --mirror-op: .22; }
+  :root { --mirror-axis: scaleY(-1); --mirror-op: .12; }
   .lamp { grid-template-columns: 180px minmax(0, 1fr); }
   .tl { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .index { columns: 2; }
@@ -459,7 +464,7 @@ a, button, .btn, [tabindex] { cursor: url("data:image/png;base64,iVBORw0KGgoAAAA
   :root {
     --ghost: 14px;               /* 虚影 14px */
     --ghost-drop: 3px;           /* 下沉 3px */
-    --mirror-op: .22;            /* 不透明 22% */
+    --mirror-op: .12;            /* 不透明 22% */
     --crease: 2px;               /* 折痕 2px */
     --crease-shadow: 2px;        /* 折痕阴影静置即 2px */
     --crease-deep: 2px;          /* 窄屏不再推进加深，保持 2px 实色折痕 */

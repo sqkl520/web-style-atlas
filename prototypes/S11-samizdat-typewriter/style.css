@@ -122,7 +122,11 @@ h1 {
   font-size: 15px;
   line-height: 24px;
 }
-.doc-meta b { font-weight: 700; color: var(--copy); }
+/* ⚠️ Lead 看图后修的"标签粘连"缺陷（2026-10-24）：
+   `<b>装叠</b>七联复写` 中间没有空格，而这条规则只给了字重与颜色、没给右间距
+   ⇒ 截图上"装叠七联复写"糊成一串，肉眼读成"装量七联复写"（误读成错字）。
+   加 6px 右外边距把标签与释义分开；三条 doc-meta 同时受益。 */
+.doc-meta b { font-weight: 700; color: var(--copy); margin-right: 6px; }
 
 .controls { display: flex; flex-wrap: wrap; gap: var(--base) calc(var(--base) * 2); margin-top: calc(var(--base) * 3); }
 .btn {
@@ -176,6 +180,16 @@ h1 {
 .carbon-line.l3 { transform: translate(var(--ghost-1), 0); }
 .carbon-line.l5 { transform: translate(var(--ghost-2), var(--proof-gap)); opacity: 0.62; mix-blend-mode: multiply; }
 .carbon-line.l7 { transform: translate(var(--ghost-3), calc(var(--proof-gap) * 2)); opacity: var(--ghost-3-a); mix-blend-mode: multiply; }
+
+/* ⚠️ Lead 看图后修的叠字缺陷（2026-10-24）：
+   同一句话被写成三个 <p>（l3/l5/l7）绝对定位叠放，横向只错 0.5/1.5/3px、
+   纵向间距 12px，而行高 30px ⇒ 三层文字**几乎完全重合**，截图上糊成一团、读不成句
+   （"色带在同一个字位被击打三次"那句成了乱码状黑块）。
+   容器 .carbon-stack 本有 84px 高，说明原意是让三层**看得出是三层**。
+   修法：把 --proof-gap 从 12px 提到 22px（三层纵向分离 = 84px 容器刚好用满），
+   并把后两层的横向错位稍放大（1.5→3px、3→6px），让"复写纸错位"读得出来而不是糊。
+   三层的文案重复保留（那是"同一位被击打三次"的证据），只是现在能看清是三层。 */
+.carbon-stack { --proof-gap: 22px; --ghost-2: 3px; --ghost-3: 6px; }
 .carbon-bleed {
   position: absolute;
   inset: 0;
