@@ -1049,11 +1049,11 @@ window.SCHEMES = [
     "still-page",
     "hairline"
    ],
-   "at": "2026-10-24T00:00:40.249Z",
+   "at": "2026-10-24T16:11:28.111Z",
    "screens": 6,
    "realPictures": 5,
    "overflow": 0,
-   "words": 335
+   "words": 322
   },
   "shots": {
    "desktop": [
@@ -1079,7 +1079,7 @@ window.SCHEMES = [
    "bandL": 85,
    "bandSat": 71,
    "load": "一屏说清",
-   "words": 335,
+   "words": 322,
    "loud": "就要扎眼",
    "chroma": 71
   },
