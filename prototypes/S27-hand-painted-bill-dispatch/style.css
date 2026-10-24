@@ -611,3 +611,9 @@ footer code { color: var(--paper); }
    （改前 `--paper` 在同一底上是 11.94:1）⇒ 改完对比度**变高**，且 13px 小字也远超 AA。
    ═══════════════════════════════════════════════════════════════════════════ */
 .hb code.hb__now { color: var(--white); }
+
+/* 实现参数折叠块（Lead 看图后加）：把 #HEX / 对比度 / 占比从正文首段移到可展开区，
+   阅读顺序先看到"这页像什么"，需要核对数值时再展开。信息不删，只降噪。 */
+.spec { margin: 14px 0 0; line-height: inherit; }
+.spec > summary { cursor: pointer; opacity: .85; }
+.spec p { margin: 8px 0 0; }

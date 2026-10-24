@@ -545,3 +545,9 @@ a, button, .btn, [tabindex] { cursor: url("data:image/png;base64,iVBORw0KGgoAAAA
    本块只声明 `margin-bottom`，不碰任何 `color`。
    ═══════════════════════════════════════════════════════════════════════════ */
 .face p.face__label { margin-bottom: 14px; }
+
+/* 实现参数折叠块（Lead 看图后加）：把 #HEX / 对比度 / 占比从正文首段移到可展开区，
+   阅读顺序先看到"这页像什么"，需要核对数值时再展开。信息不删，只降噪。 */
+.spec { margin: 14px 0 0; line-height: inherit; }
+.spec > summary { cursor: pointer; opacity: .85; }
+.spec p { margin: 8px 0 0; }

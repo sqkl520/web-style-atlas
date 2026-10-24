@@ -416,3 +416,9 @@ footer { background: var(--ink); color: var(--paper); padding: 72px 72px 96px; m
   .hud { position: static; }
   .ring { animation: none; stroke-dasharray: none; }
 }
+
+/* 实现参数折叠块（Lead 看图后加）：把 #HEX / 对比度 / 占比从正文首段移到可展开区，
+   阅读顺序先看到"这页像什么"，需要核对数值时再展开。信息不删，只降噪。 */
+.spec { margin: 14px 0 0; line-height: inherit; }
+.spec > summary { cursor: pointer; opacity: .85; }
+.spec p { margin: 8px 0 0; }
