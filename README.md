@@ -25,7 +25,7 @@
 这座标本库存在的全部理由：每个案子都能打开、能跑、能拆到字段。
 
 ```bash
-npx serve .                        # 或者：python -m http.server 8080
+npx serve . -l 8080                # 或者：python -m http.server 8080
 ```
 
 跨平台通用——任何浏览器、任何静态托管都能跑，不需要装任何东西。
@@ -81,7 +81,7 @@ ASCII 只是形状。页面上是像素。
 
 ```bash
 # 任选一种
-npx serve .                          # Node（不用先装，npx 会临时拉）
+npx serve . -l 8080                  # Node（不用先装，npx 会临时拉；-l 8080 对齐下面的 URL）
 python -m http.server 8080           # Python 3
 php -S localhost:8080                # PHP
 ```
@@ -178,7 +178,7 @@ templates/M01-clean-corporate/
 **一、规格先于像素。** 每个方案先写满 12 字段规格（`prototypes/_specs/Sxx.md`），再动 HTML。
 色彩、字体、断点、降级路径都是**声明过的值**，不是调出来的感觉。
 
-**二、闸门只认能机械判定的东西。** 远程资源、禁用字体栈、Emoji、断链图、真实图片数、横向溢出、`box-shadow` 计数——全部由脚本复核，可复算：
+**二、闸门只认能机械判定的东西。** 远程资源、禁用字体栈、Emoji、断链图、真实图片数、横向溢出——由 `prototypes/_build/verify-prototype.mjs` 复核，可复算；⚠️ 但 `box-shadow`／`mono`／`button-fx` **不在那个脚本里**（脚本内 `shadow` 出现 0 次），它们由**仓库外**的 `tools/taste-skill/…/rules.mjs` 判定，克隆者须自备 `tools/` 才能复算这几项（见「渲染与验收」的 exit-4 提示）：
 
 ```bash
 node prototypes/_build/verify-prototype.mjs --all
@@ -403,9 +403,9 @@ ls prototypes/_selection/                                 # 选型台 + 向导�
 
 **程序化纹理不是照片**：由 `_build/make-textures.py` 生成，参数落盘（各案 `build/texture-job.json`）可逐字节复算，无第三方权利。
 
-> ⚠️ **但那份参数文件没进仓库**：`.gitignore` 排除了 `prototypes/*/build/`，而磁盘上**只有 12/30 案**有 `build/texture-job.json`。
-> 所以"参数落盘可逐字节复算"这句**克隆者核不了**——它是 LICENSE 划"无第三方权利"的依据，因此目前**依据不可核**。
-> 要让它可核，需要把 14 个生成器的参数表挪到一个不受忽略的路径（例如 `prototypes/_build/textures/`）。
+> ✅ **已补（`7585040`）**：那 12 案的参数单已搬进受跟踪路径 `prototypes/_build/textures/`（12 份 JSON，正是盘上有 job 的那 12 案），并重烘 S18 的三张纹理与已交付件 **SHA-256 逐字节相同**验证过。
+> 「参数落盘可逐字节复算」这句**从克隆者视角今天起可核**（它是 LICENSE 划「无第三方权利」的依据）。⚠️ 仍存两个真缺口：① 其余 18 案盘上本就无参数文件（不是漏搬）；② 生成器 `jobFile` 仍写被忽略的 `build/`，**重跑会与快照分叉**——彻底修好要同步改 4 处，见 `prototypes/_build/textures/README.md`。
+> （本句原写「要让它可核需把参数表挪到不受忽略的路径」——该路径现已建成，故降为历史说明；实测覆盖率仅 19.6%，S15 独占 78.9% 未被覆盖。）
 
 > ⚠️ **但"派生件"的许可要单独说清。** `LICENSE` 第 3 条按**文件名**（`assets/texture-*.png`）划 MIT 范围、第 2 条按**目录**划第三方范围——而介于两者之间的**派生件**（`halftone-*.png`、`*-dither.png`、`plate-*.jpg`、`photo-*.jpg` 等，被引用的 287 张位图里约 **183 张**属这类）**同时落在两条的补集里，仓库原先没有一句话说明它们的许可**（全库只有 `S02` 写了"衍生图沿用原图的许可"）。已在 `LICENSE` 补上 **`2bis`** 条款。
 

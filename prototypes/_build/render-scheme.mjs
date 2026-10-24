@@ -43,15 +43,20 @@ const outRel = `prototypes/${name}/.inspect`;
 const r = spawnSync(process.execPath, [
   INSPECT, `prototypes/${name}/index.html`, '--out', outRel, '--widths', '1440,768,390', '--json', ...extra,
 ], { cwd: ROOT, stdio: 'inherit' });
-if (r.error || r.status !== 0 || r.signal) {
-  console.error('\ninspect.mjs 失败：' + (r.error ? r.error.message : `exit=${r.status} signal=${r.signal}`) +
+// ⚠️ 第五闸修正（修复波 A 抓到、Lead 当场复现）：`inspect.mjs:171` 先写 report、`:173` 再因 findings 含 FAIL 而 exit 1，
+//   原判据把 `r.status !== 0` 一律当失败 ⇒ **S07/S08/S13/S21 四个已豁免案每次重渲染都被误杀 exit 5**，
+//   而报告其实已正常写出（实测 S07：exit 5 + report.json mtime 正常更新）。
+//   这是 §9.19「量错对象」在本工具自己身上复现：**exit 码 ≠ 渲染成败，报告有没有被刷新才是**。
+//   现在只拦"写报告之前就崩了"（spawn 失败 / 被强杀）；`status!==0` 交给第六闸按指纹判。
+if (r.error || r.signal) {
+  console.error('\ninspect.mjs 异常终止：' + (r.error ? r.error.message : `signal=${r.signal}`) +
     '\n  没有写任何新报告——下面若出现旧数据，均来自更早一轮。');
   process.exit(5);
 }
 
 if (!existsSync(rep)) { console.error('\n没有生成 report.json —— 渲染失败。'); process.exit(3); }
 if (before !== null && readFileSync(rep, 'utf8') === before) {
-  console.error('\nreport.json 内容与渲染前逐字节相同 —— inspect 声称成功但没写报告，判为失败。');
+  console.error('\nreport.json 与渲染前逐字节相同（inspect exit=' + r.status + '）—— 声称成功但没写报告，判为失败。');
   process.exit(6);
 }
 const j = JSON.parse(readFileSync(rep, 'utf8'));

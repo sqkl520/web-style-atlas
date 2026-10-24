@@ -25,7 +25,7 @@ That is not a taste problem. Every sample you looked at is a render: it never te
 This specimen library exists for one reason: every scheme here opens, runs, and comes apart into fields.
 
 ```bash
-npx serve .                        # or: python -m http.server 8080
+npx serve . -l 8080                # or: python -m http.server 8080
 ```
 
 Works everywhere —— any browser, any static host, nothing to install.
@@ -81,7 +81,7 @@ The whole repository is **pure static**: no backend, no build, no dependency ins
 
 ```bash
 # pick one
-npx serve .                          # Node (no prior install; npx fetches it)
+npx serve . -l 8080                  # Node (no prior install; npx fetches it; -l 8080 matches the URLs below)
 python -m http.server 8080           # Python 3
 php -S localhost:8080                # PHP
 ```
@@ -179,7 +179,7 @@ This section answers "how does it produce that". Four hard rules, each with a pl
 **One: the specification comes before the pixels.** Every scheme is written out in a 12-field spec (`prototypes/_specs/Sxx.md`) before any HTML is touched.
 Colour, type, breakpoints and the degradation path are **declared values**, not a feel you dialled in.
 
-**Two: the gate only accepts what a machine can decide.** Remote resources, banned font stacks, emoji, broken images, real picture count, horizontal overflow, `box-shadow` counts —— all checked by script, all recomputable:
+**Two: the gate only accepts what a machine can decide.** Remote resources, banned font stacks, emoji, broken images, real picture count and horizontal overflow are recomputed by `prototypes/_build/verify-prototype.mjs`; ⚠️ but `box-shadow`／`mono`／`button-fx` are **not in that script** (`shadow` appears 0 times in it) — they are decided by the **out-of-repo** `tools/taste-skill/…/rules.mjs`, so a cloner must supply `tools/` to recompute those items:
 
 ```bash
 node prototypes/_build/verify-prototype.mjs --all
@@ -406,9 +406,9 @@ Three parts, three different licences —— please treat them separately:
 
 **The procedural textures are not photographs**: produced by `_build/make-textures.py`, parameters written to disk (each scheme's `build/texture-job.json`), byte-reproducible, carrying no third-party rights.
 
-> ⚠️ **But those parameter files are not in the repository**: `.gitignore` excludes `prototypes/*/build/`, and only **12 of 30 schemes** have a `build/texture-job.json` on disk.
-> So "byte-reproducible" **cannot be checked by anyone who clones this** —— and it is the basis on which `LICENSE` declares "no third-party rights", so today **that basis is unverifiable**.
-> Making it verifiable means moving the 14 generators' parameter tables to a path that is not ignored (e.g. `prototypes/_build/textures/`).
+> ✅ **Fixed in `7585040`**: those 12 parameter sheets now live on a tracked path, `prototypes/_build/textures/` (12 JSON files — exactly the schemes that have a job on disk), verified by re-baking S18's three textures **byte-identical by SHA-256** to the shipped ones.
+> The "byte-reproducible" claim is now **verifiable from a cloner perspective** (it is the basis on which `LICENSE` declares "no third-party rights"). ⚠️ Two gaps remain: the other 18 schemes have no parameter file on disk at all, and the generators still write `jobFile` into the ignored `build/`, so **a rerun will fork from the snapshot** — a full fix needs 4 coordinated edits; see `prototypes/_build/textures/README.md`.
+> (This line used to say the tables must be moved to a non-ignored path — that path now exists, so it stands only as history; measured coverage is 19.6%, and S15 alone — 78.9% of the bytes — is not covered.)
 
 > ⚠️ **The licence of "derivative works" needs saying separately.** Clause 3 of `LICENSE` delimits the MIT scope by **filename** (`assets/texture-*.png`) while clause 2 delimits third-party material by **directory** —— and the **derivatives in between** (`halftone-*.png`, `*-dither.png`, `plate-*.jpg`, `photo-*.jpg`; roughly **183 of the 287 referenced bitmaps**) **fall into the complement of both clauses, and the repository previously said nothing about their licence** (only `S02` stated that "derivatives inherit the source licence"). A **`2bis`** clause has now been added to `LICENSE`.
 
