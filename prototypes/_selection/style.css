@@ -81,33 +81,44 @@ kbd {
 }
 code { font-family: var(--code); font-size: 0.94em; }
 
-/* ── 报头：左对齐，靠数字而不是形容词立住 ───────────────────── */
+/* ── 报头：左对齐，靠数字而不是形容词立住 ─────────────────────
+   ⚠️ 首屏瘦身（2026-10-25，有实测依据）：
+   改前实测页头 465px = 视口 900px 的 52%，第一张方案卡顶边在 549px、卡高 434px
+   ⇒ 卡底边 983px **超出首屏**，用户打开第一眼看不到任何一张完整卡（0/30 张）。
+   拆开看页头 465px 的构成：padding 46 + kicker 23 + h1 **169px**（74px 字号 ×2 行）
+   + claim **110px** + wizard 48。前两项吃掉 279px。
+   修法只动排版密度、一个字不删：
+   ① h1 从 74px 降到 56px（仍是最醒目的一行），并把 max-width 放宽让标题收成 1 行；
+   ② claim 从 17px/1.75 收到 15px/1.6，并允许 3 行；
+   ③ 上下 padding 收紧；
+   ④ 报头整体改成不与右栏底部对齐，避免被 74px 高的数字块撑高。 */
 .mast {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(330px, max-content);
+  grid-template-columns: minmax(0, 1fr) minmax(300px, max-content);
   gap: var(--pad);
   align-items: end;
-  padding: 46px var(--pad) 22px;
+  padding: 26px var(--pad) 16px;
   border-bottom: 2px solid var(--ink);
 }
 .mast-kicker {
   font-size: var(--s-14);
-  color: var(--ink-3); margin-bottom: 14px;
+  color: var(--ink-3); margin-bottom: 8px;
 }
 .mast h1 {
   font-family: var(--ui);
-  font-size: var(--s-h1);
+  font-size: clamp(30px, 4vw, 56px);
   font-variation-settings: "wdth" 88;
   letter-spacing: -.018em;
-  max-width: 15ch;
+  max-width: 22ch;
+  line-height: 1.06;
 }
 .mast-claim {
-  margin-top: 16px; max-width: 42ch;
-  font-size: var(--s-17); color: var(--ink-2);
+  margin-top: 10px; max-width: 60ch;
+  font-size: var(--s-15); line-height: 1.6; color: var(--ink-2);
 }
-.mast-wizard { margin-top: 16px; }
+.mast-wizard { margin-top: 10px; }
 .mast-wizard a {
-  display: inline-block; padding: 11px 16px;
+  display: inline-block; padding: 9px 14px;
   background: var(--ink); color: var(--card);
   font-size: var(--s-15); text-decoration: none;
 }

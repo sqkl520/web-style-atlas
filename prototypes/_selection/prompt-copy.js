@@ -312,8 +312,21 @@
     var host = document.getElementById("flt-scene");
     if (!host || !P.sceneIndex) return;
 
+    /* 首屏密度实测（2026-10-25）：
+     * 44 个芯片全展开时该区高 716px，把后面 10 组筛选全挤出首屏
+     * （实测"首屏完整可见的筛选组 0/11"）。
+     * 改法：默认**只显示有直连方案的 16 个**（用户最可能点的），
+     * 其余"只有近似"的收进一个展开按钮；29 个 unsupported 也一并收起。
+     * 这样既保住"如实告知"，又不占首屏。 */
     var terms = Object.keys(P.sceneIndex);
-    terms.forEach(function (term) {
+    var directTerms = terms.filter(function (t) { return (P.sceneIndex[t].direct || []).length; });
+    var nearTerms = terms.filter(function (t) { return !(P.sceneIndex[t].direct || []).length; });
+
+    var moreHost = document.createElement("div");
+    moreHost.className = "scene-more";
+    moreHost.style.cssText = "margin-top:8px;display:none";
+
+    function makeChip(term) {
       var v = P.sceneIndex[term];
       var direct = v.direct && v.direct.length;
       var btn = document.createElement("button");
@@ -321,20 +334,14 @@
       btn.textContent = term;
       btn.setAttribute("aria-pressed", "false");
       btn.setAttribute("data-scene", term);
-      // 有直连案子的用实心，只有近似的用虚边 —— 让用户一眼看出把握有多大
       btn.className = direct ? "scene-chip is-direct" : "scene-chip is-near";
       btn.title = direct
         ? "直接匹配：" + v.direct.join(" ") + (v.near && v.near.length ? "；近似：" + v.near.join(" ") : "")
         : "只有近似：" + (v.near || []).join(" ");
       btn.addEventListener("click", function () {
         var on = btn.getAttribute("aria-pressed") === "true";
-        // 单选语义：再点一次取消
-        var all = host.querySelectorAll("button");
+        var all = document.querySelectorAll("#flt-scene button, .scene-more button");
         for (var i = 0; i < all.length; i++) all[i].setAttribute("aria-pressed", "false");
-
-        /* 不用往 #q 搜索框里拼方案号 —— state.q 是整串子串匹配，
-           "S06 S19 S22 S09" 在 hay 里不存在，实测会筛出 0 个。
-           改用 app.js 暴露的 benchSetSceneIds 直接筛 id。 */
         if (on) {
           if (window.benchClearSceneIds) window.benchClearSceneIds();
         } else {
@@ -343,17 +350,35 @@
           if (window.benchSetSceneIds) window.benchSetSceneIds(ids);
         }
       });
-      host.appendChild(btn);
-    });
+      return btn;
+    }
 
-    // 如实列出没有对应风格的行业
+    directTerms.forEach(function (t) { host.appendChild(makeChip(t)); });
+    nearTerms.forEach(function (t) { moreHost.appendChild(makeChip(t)); });
+    host.parentNode.appendChild(moreHost);
+
+    // 展开/收起
+    var toggle = document.createElement("button");
+    toggle.type = "button";
+    toggle.className = "scene-toggle";
+    toggle.style.cssText = "margin-top:8px;font:inherit;font-size:13px;padding:4px 10px;cursor:pointer;border:1px solid currentColor;background:transparent;color:inherit";
+    var expanded = false;
+    toggle.textContent = "还有 " + nearTerms.length + " 个只有近似的 →";
+    toggle.addEventListener("click", function () {
+      expanded = !expanded;
+      moreHost.style.display = expanded ? "" : "none";
+      toggle.textContent = expanded ? "收起近似项 ←" : "还有 " + nearTerms.length + " 个只有近似的 →";
+    });
+    host.parentNode.appendChild(toggle);
+
+    // 如实列出没有对应风格的行业（默认收起，点开才看）
     if (P.unsupported && P.unsupported.length) {
       var note = document.createElement("p");
       note.className = "rail-hint scene-unsupported";
-      note.style.cssText = "margin-top:8px;font-size:12px;opacity:.72";
+      note.style.cssText = "margin-top:8px;font-size:12px;opacity:.72;display:none";
       note.textContent = "目前没有对应风格的行业（共 " + P.unsupported.length +
         " 个）：" + P.unsupported.join("、") + "。这些不是「还没做」，是这套图集的机制撑不起来。";
-      host.parentNode.appendChild(note);
+      moreHost.appendChild(note);
     }
   }
 
