@@ -652,7 +652,7 @@ window.STYLE_PROMPTS = {
     "shadow": "只用 inset（凹槽，无外投影）",
     "lineWidths": "1 / 2 / 3 px",
     "h1Size": "clamp(46px, 7.4vw, 106px)",
-    "mechanism": ""
+    "mechanism": "章号悬挂在版心外 56px、正文压到 34 字行长，标题叠三层重影，横向错位 0.5 / 1.5 / 3px、第三层 12% 不透明——层级由错位量承担，位置交给悬挂编号。"
    }
   },
   {
@@ -677,7 +677,7 @@ window.STYLE_PROMPTS = {
     "shadow": "无阴影",
     "lineWidths": "1 / 2 / 8 px",
     "h1Size": "clamp(54px, 6.6vw, 104px)",
-    "mechanism": ""
+    "mechanism": "七个挖空块按 3/2/1/1 递减错位落位，斜边只走 45° 与 135°、切角 30px，间隙取 12/28/44px 三级，内侧压 0.5px 翻边——分区靠硬边挖空，不靠投影。"
    }
   },
   {
@@ -702,7 +702,7 @@ window.STYLE_PROMPTS = {
     "shadow": "无阴影",
     "lineWidths": "1 / 2 / 3 / 5.5 px",
     "h1Size": "",
-    "mechanism": ""
+    "mechanism": "光源常驻 135° 一侧，凹槽压深 0.4mm、槽带亮度差 3%、边缘对比度 14%，按下时方位角翻到 315° 并下沉 0.8px——层级由同一光源下的深浅给出，不靠颜色。"
    }
   },
   {
@@ -727,7 +727,7 @@ window.STYLE_PROMPTS = {
     "shadow": "无阴影",
     "lineWidths": "1 / 2 / 3 px",
     "h1Size": "clamp(44px, 5vw, 72px)",
-    "mechanism": ""
+    "mechanism": "十一个版面块按距质心 24/40/72/120px 分四档、方位角间隔 26° 至 61° 不等，整组沿 48px 半径绕 44% 横位的质心平漂——顺序由半径档位与角度间隔读出。"
    }
   },
   {
@@ -752,7 +752,7 @@ window.STYLE_PROMPTS = {
     "shadow": "无阴影",
     "lineWidths": "2 / 3 px",
     "h1Size": "clamp(46px, 6.4vw, 92px)",
-    "mechanism": ""
+    "mechanism": "平面图占 1 至 8 栏并左出血 40px，图例挂 9 至 12 栏、高度只到图幅 62%；同一图叠三层，错位 0/3/7px，第三层 56% 不透明——版本差异靠错位与透明度读出。"
    }
   },
   {
@@ -777,7 +777,7 @@ window.STYLE_PROMPTS = {
     "shadow": "只用 drop-shadow（硬边厚度，无模糊投影）",
     "lineWidths": "2 / 3 / 6 / 13 px",
     "h1Size": "clamp(46px, 6.2vw, 88px)",
-    "mechanism": ""
+    "mechanism": "所有词块左端对齐同一条 12° 斜线，每块再沿斜线递增 24px，块宽只取 4/6/7/9 栏四档，行高压到 0.95 倍、字距 0.02em——斜线给顺序，块宽与行距给层级。"
    }
   },
   {
@@ -802,7 +802,7 @@ window.STYLE_PROMPTS = {
     "shadow": "无阴影",
     "lineWidths": "1 / 2 px",
     "h1Size": "clamp(46px, 6vw, 88px)",
-    "mechanism": ""
+    "mechanism": "两联按 3fr、16px、9fr 分栏，中缝是孔径 1.2px、孔距 6px 的孔列，行高 24px、金额列 96px 右对齐，印面偏中缝 2mm——撕口位置与小数点对齐即读出归属。"
    }
   },
   {
@@ -827,7 +827,7 @@ window.STYLE_PROMPTS = {
     "shadow": "无阴影",
     "lineWidths": "1 / 2 / 4 px",
     "h1Size": "clamp(36px,5.3vw,76px)",
-    "mechanism": ""
+    "mechanism": "单列左起 12%、右侧空 34%，24px 行高落在 8px 基线上，两侧 8px 边条按 12px 孔距打 3px 孔，行尾 8×14px 块 530ms 方波——读序由走向给出。"
    }
   },
   {
@@ -854,7 +854,7 @@ window.STYLE_PROMPTS = {
     "shadow": "只用 inset（凹槽，无外投影）",
     "lineWidths": "1 / 3 px",
     "h1Size": "clamp(46px, 5vw, 72px)",
-    "mechanism": ""
+    "mechanism": "20 块面板分 5 行，宽取 2/3/4 栏三档，面板高 24px、下移 24px，开口 144px 比内层矮 24px，线宽只 0.4 与 0.8px——层级由下移量与线宽差给出。"
    }
   },
   {
@@ -879,7 +879,7 @@ window.STYLE_PROMPTS = {
     "shadow": "无阴影",
     "lineWidths": "1 / 3 px",
     "h1Size": "clamp(40px, 5vw, 72px)",
-    "mechanism": ""
+    "mechanism": "画布 1:1、边长取视口高减 96px，留 24px 安全区，坐标格 0.2px 间距 8px，走线 0.35px 按 0.6/1.2/2.4px 三级分档——量级由线距读出。"
    }
   },
   {
@@ -904,7 +904,7 @@ window.STYLE_PROMPTS = {
     "shadow": "只用 inset（凹槽，无外投影）",
     "lineWidths": "1 / 2 px",
     "h1Size": "",
-    "mechanism": ""
+    "mechanism": "10 栏中 1–4 与 7–10 栏给两张表，5–6 栏留给 14 枚 24×96px 横条首尾相扣，条间留 1px 纸色缝，右端按 30/45/60° 斜切——先后由切口角度读出。"
    }
   },
   {
@@ -930,7 +930,7 @@ window.STYLE_PROMPTS = {
     "shadow": "只用 inset（凹槽，无外投影）",
     "lineWidths": "1 / 3 px",
     "h1Size": "clamp(46px, 5.6vw, 84px)",
-    "mechanism": ""
+    "mechanism": "两半各 6 栏、栏距 22px、外距 56px，中缝 88px 宽于外距，下半页右移 8px、字号 17 与 16.5px，折痕 3px、两端 4px 起毛——分区只靠透光与折痕。"
    }
   },
   {
@@ -955,7 +955,7 @@ window.STYLE_PROMPTS = {
     "shadow": "无阴影",
     "lineWidths": "1 / 6 px",
     "h1Size": "clamp(56px, 7.2vw, 96px)",
-    "mechanism": ""
+    "mechanism": "9 处开口按 3/2/2/1/1 递减，断口露 2 至 4 层、层间夹 1px 亮线，62° 斜痕宽 2px、距 6px，右缘 96px 索引条对齐首行——层序由层数与索引高度读出。"
    }
   },
   {
@@ -980,7 +980,7 @@ window.STYLE_PROMPTS = {
     "shadow": "无阴影",
     "lineWidths": "1 / 2 px",
     "h1Size": "clamp(36px,5.3vw,76px)",
-    "mechanism": ""
+    "mechanism": "8 栏加中轴，每层各伸 2 栏、最多 4 层，宽比 5:3 且窄侧下沉 24px，支线由 2.5px 递减到 1、0.6、0.4px 并留 2px 缺口——深度由层数与线宽读出。"
    }
   },
   {
@@ -1004,7 +1004,7 @@ window.STYLE_PROMPTS = {
     "shadow": "无阴影",
     "lineWidths": "3 px",
     "h1Size": "68px",
-    "mechanism": ""
+    "mechanism": "左 3 右 7 栏、中缝 56px，装订线落中缝右 12px，两版错开 0.8 至 1.6px、相压处相乘出深色，行首按 0/12/24px 缩进——层级由缩进量与版次差给出。"
    }
   },
   {
@@ -1029,7 +1029,7 @@ window.STYLE_PROMPTS = {
     "shadow": "只用 drop-shadow（硬边厚度，无模糊投影）",
     "lineWidths": "2 / 8 px",
     "h1Size": "clamp(44px,5.6vw,80px)",
-    "mechanism": ""
+    "mechanism": "12 栏栏线整体倾 11°，三块色版按 5:3:4 分宽、高 100%/64%/80%，最窄一块再沉 16px，压叠 1.5px 与 1.2px 同向右下——次序由斜角与压叠量给出。"
    }
   },
   {
@@ -1055,7 +1055,7 @@ window.STYLE_PROMPTS = {
     "shadow": "只用 drop-shadow（硬边厚度，无模糊投影）",
     "lineWidths": "未声明",
     "h1Size": "clamp(40px, 6vw, 86px)",
-    "mechanism": ""
+    "mechanism": "9 栏、栏距 20px、基线 7px，正文占 5 栏、签发栏 3 栏、末栏只留边距，两版固定错开 1.8px 向右上，描边共用这一位移——先后由栏宽比与错位方向给出。"
    }
   },
   {
@@ -1081,7 +1081,7 @@ window.STYLE_PROMPTS = {
     "shadow": "只用 drop-shadow（硬边厚度，无模糊投影）",
     "lineWidths": "2 / 8 px",
     "h1Size": "clamp(40px, 6.4vw, 92px)",
-    "mechanism": ""
+    "mechanism": "16 栏、栏距 0、外距 64px，12 块面积不等、最大 7 栏最小 2 栏，裁切边按 4 至 14px 写死值错开并外出血 24px，凸起只在左上——边界由错位与出血量区分。"
    }
   },
   {
@@ -1107,7 +1107,7 @@ window.STYLE_PROMPTS = {
     "shadow": "无阴影",
     "lineWidths": "1 / 2 / 3 / 6 px",
     "h1Size": "clamp(40px,5.2vw,75px)",
-    "mechanism": ""
+    "mechanism": "左缘 72px 内 3px 穿孔按 18px 间距排一列、1.2px 环线穿过，章节号挂栏外占 48px 宽，规格表下沉 18px 并右出血 96px——归属由编号位与出血方向给出。"
    }
   },
   {
@@ -1133,7 +1133,7 @@ window.STYLE_PROMPTS = {
     "shadow": "只用 drop-shadow（硬边厚度，无模糊投影）",
     "lineWidths": "1 / 3 / 6 / 8 px",
     "h1Size": "76px",
-    "mechanism": ""
+    "mechanism": "版面沿 −32° 对切成两半，斜切带高 96px、下半错开 9px，缺口宽 6 至 28px、深 2 至 9px，1.5px 白带 55% 至 70%——先后由错位量与深度给出。"
    }
   }
  ]
