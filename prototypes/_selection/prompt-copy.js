@@ -32,28 +32,43 @@
     var o = opts || {};
     var d = s.dna;
 
-    /* 字体分配：不能简单取 fonts[0]/fonts[1]。
-     * 实测踩过：S19 的 fonts 顺序是 ["Noto Serif SC","IBM Plex Mono","Spectral"]，
-     * 直接取前两个会得到「标题 Noto Serif SC、正文 IBM Plex Mono」—— 等宽字体当正文是错的。
-     * 正确做法：
-     *   等宽（Mono/Code/Typewriter）→ 编号字体；
-     *   中文衬线/黑体（CJK 族）→ 正文字体；
-     *   余下第一个西文衬线/展示体 → 标题字体。
+    /* 字体：**不再猜**。prompts.js 里的 dna.fonts 已经是 {display, body, mono} 三个结构化字段，
+     * 由生成器 deliverables/99-scratch/clean-dna.mjs 从各案 style.css 的 h1 规则
+     * 实际 font-family（先展开 var()）解析出来。
+     *
+     * 为什么改（2026-10-26 复算证实 7/30 错）：
+     * 旧实现按数组顺序「第一个非 mono 非 CJK 的族」当标题 —— 而 dna.fonts 的顺序是
+     * 抽取时 for 循环扫 :root 得到的声明顺序，跟"谁是标题"毫无关系。
+     * 实测踩过：S04 提示词写 Unbounded、h1 实际是 LXGW WenKai；S08 写 Source Serif 4、
+     * 实际 Gloock；S10 写 IBM Plex Sans、实际 Jost；S18 写 VT323、实际 Glow Sans SC；
+     * S19 写 Spectral、实际 Noto Serif SC；S23 写 Alfa Slab One、实际 Noto Serif SC；
+     * S06 写 Literata、实际 EB Garamond。7 案 AI 都照错的字体去排版，风格当场跑偏。
+     * 现在的取值依据是 CSS 层叠，不是数组下标。
+     *
+     * 兼容：老版 prompts.js 里 fonts 还是数组，读到数组就退回旧的猜法，不至于白屏。
      */
-    var MONO_RE = /(mono|code|typewriter|typewriter|VT323|Overprint|Fragment|Space Mono|Martian|JetBrains|DM Mono|Sometype)/i;
+    var MONO_RE = /(mono|code|typewriter|VT323|Overprint|Fragment|Space Mono|Martian|JetBrains|DM Mono|Sometype|Departure)/i;
     var CJK_RE = /(Noto (Serif|Sans) (SC|TC|JP)|LXGW|WenKai|WenJin|文津|Zhuque|Fangsong|思源|宋体|黑体|Songti|Glow Sans)/i;
 
-    var mono = "", cjk = "", display = "";
-    for (var i = 0; i < d.fonts.length; i++) {
-      var f = d.fonts[i];
-      if (!mono && MONO_RE.test(f)) { mono = f; continue; }
-      if (!cjk && CJK_RE.test(f)) { cjk = f; continue; }
-      if (!display) display = f;
+    var fTitle = "", fBody = "", mono = "";
+    if (d.fonts && !Array.isArray(d.fonts) && (d.fonts.display || d.fonts.body)) {
+      fTitle = d.fonts.display || d.fonts.body || "";
+      fBody = d.fonts.body || fTitle;
+      mono = d.fonts.mono || "";
+    } else if (d.fonts && d.fonts.length) {
+      var cjk = "", display = "";
+      for (var i = 0; i < d.fonts.length; i++) {
+        var f = d.fonts[i];
+        if (!mono && MONO_RE.test(f)) { mono = f; continue; }
+        if (!cjk && CJK_RE.test(f)) { cjk = f; continue; }
+        if (!display) display = f;
+      }
+      fTitle = display || cjk || mono;
+      fBody = cjk || fTitle;
     }
-    // 兜底：谁空补谁
-    if (!display) display = cjk || mono || "有刻印感的衬线";
-    var fTitle = display;
-    var fBody = cjk || display;
+    // 兜底：谁空补谁（正常数据不会走到这里，写出来是为了不让提示词出现「标题用 」）
+    if (!fTitle) fTitle = "有刻印感的衬线";
+    if (!fBody) fBody = fTitle;
 
     var fontLine = "2. 字体：标题用 " + fTitle + "，正文用 " + fBody + "。";
     if (mono) fontLine += "编号/价格等数字用等宽 " + mono + "、tabular-nums 右对齐。";
@@ -81,19 +96,48 @@
     var count = o.count || s.minItems;
     var unit = o.unit || "条目";
 
+    /* 气质行：默认值恒为「一个安静、有手艺感的地方」是错的。
+     * 实测：S09「小店摆摊那种热闹」、S12「很吵」、S16「速度感」、S30「潮流有劲」——
+     * 提示词同时说了「要热闹」和「要安静、有手艺感」，两句互相抵消。
+     * 派生来源：window.SCHEMES 的 tone（7 个气质值，30/30 无缺失），而不是 P.schemes.plain
+     * ——plain 已经在上一行「做成这个风格：{plain}」出现过，再拼一次是重复。
+     * 注意 tone 在 window.SCHEMES 上，不在 P.schemes 上（见 index.html 的加载顺序：data.js 在前）。
+     * 找不到 tone 时**整句省略**：宁可不说，也不要给一句与风格打架的默认气质。
+     */
+    var tone = "";
+    if (o.tone) {
+      tone = o.tone;
+    } else if (typeof window !== "undefined" && window.SCHEMES) {
+      for (var ti = 0; ti < window.SCHEMES.length; ti++) {
+        if (window.SCHEMES[ti].id === id && window.SCHEMES[ti].tone) { tone = window.SCHEMES[ti].tone; break; }
+      }
+    }
+
     var lines = [
       "我经营" + (o.biz || "一家小店") + "，" + (o.what || "有一些内容和图片要放上去") + "。",
       "页面需要" + (o.action || "让访客看懂我在做什么、并能联系我") + "。",
       "",
       "请把整页做成这个风格：" + s.plain + "。",
-      "气质上更像" + (o.mood || "一个安静、有手艺感的地方") + "，不要做成通用的商业落地页。",
+      tone
+        ? "这个案子的调性是「" + tone + "」。照这个调性写文案和标题，不要写成通用的商业落地页。"
+        : "",
       "",
       mech,
       "",
       "视觉硬约束（逐条执行，不得改色、不得换字体）：",
       "1. 配色只用这几个值：" + d.palette + "。不新增更多彩色。",
       fontLine,
-      "3. 圆角：" + (d.radius === "全直角 0" ? "全站一律 0，卡片、按钮、图片、标签全部方角。" : d.radius) + "。",
+      /* 圆角这一行：句号只能在**一处**出现。
+       * 旧写法是 ("3. 圆角：" + (d.radius==="全直角 0" ? "…全部方角。" : d.radius) + "。")
+       * —— 特判分支自带句号，外面又拼一个，于是 21 案输出「……全部方角。。」。
+       * 现在两个分支都不带句号，由行尾统一补一个。
+       * 另外 d.radius 已经是可执行的一句话（clean-dna 从 border-radius 语义判出来的），
+       * 不再出现「未声明」「0 / 50%」这类抽取记号，所以这里也不需要兜底文案。
+       * 旧版 prompts.js 里 radius 可能还是「全直角 0」这种值（没有 radiusBare 字段），
+       * 用 /^全直角 0$/ 判一下，保证老数据也能读。 */
+      "3. 圆角：" + (d.radiusBare || d.radius === "全直角 0"
+        ? "全站一律 0，卡片、按钮、图片、标签全部方角"
+        : d.radius) + "。",
       "4. 阴影：" + d.shadow + "。不许用柔和外投影制造'浮起卡片'。",
       "5. 线宽只用这几级：" + d.lineWidths + "，不要自创第三级。",
       "",
@@ -109,7 +153,17 @@
         ? "3. 这一版式的位置是按 " + count + " 个" + unit + "手工排定的（不是自动流）：数量一变就会留洞。" +
           "所以请**先把数量凑到 " + count + " 个再排版**；确实凑不够时，把空出来的位置删掉、整块重排，不要留空槽。"
         : "3. 这一版式是自动流排版，条目增减只会让页面变短，不会留空位。",
-      "4. 首屏不要轮播图。",
+      /* 图片数量：`minPics` 是逐案实测出来的（30 案分布在 4–10 张），
+       * 但在此之前它**从未进过提示词** —— prompt-copy.js 全文 "minPics" 命中 0 次。
+       * 后果不是抽象的：S19 那次唯一的端到端实测里，真实发生的事故就是
+       * "初版只给了抽屉宽度、没给高度，5 个抽屉挤成两条 24px 的细带"，
+       * 而测出这个缺陷靠的是落地实现 + 量像素，读提示词读不出来。
+       * 图片位同理：不告诉 AI 要几张、必须多大，它就会把版面压扁。
+       */
+      s.minPics
+        ? "4. 版式里要留 " + s.minPics + " 个图片位，每个都要有真实可见的尺寸（见末尾输出要求：路径用 images/ 占位，但不许用 1px 图或纯色块顶替）。"
+        : "",
+      "5. 首屏不要轮播图。",
       "",
       "防退化（出现任何一条就重做）：",
       "① 不要紫蓝渐变、#6366F1、蓝紫光斑。",
@@ -127,7 +181,14 @@
       "3. 扫一眼：有没有圆角、影子跑到纸外、发光字、表情图标、两个主按钮？有任何一个就重做。",
       "",
       "输出要求：只给一个完整单文件 HTML（以 <!DOCTYPE html> 开头，CSS 内联在 <style> 里），",
-      "不引 React/Vue/Tailwind/Bootstrap，不拆文件、不构建。图片用 images/ 下的占位路径。",
+      /* 这里必须与上面结构约束第 4 条对齐。原先只写"图片用 images/ 下的占位路径"，
+       * 而后加的 minPics 约束要求"放 N 张真实图片、不许用 1px 占位或色块顶替" ——
+       * 两句对同一件事给了相反指示（独立验证 Agent 抓出，30/30 案都中）。
+       * 正确的说法：**位要有真实尺寸与内容比例**，路径先用 images/ 占位，
+       * 因为用户手上没有这套素材，AI 也不该去抓网图。
+       */
+      "不引 React/Vue/Tailwind/Bootstrap，不拆文件、不构建。",
+      "图片位置写成 <img src=\"images/占位-N.jpg\"> 并给出该案实际可用的宽高属性；不许用 1px 图、纯色块或 CSS 画一个假图顶替。",
       "移动端单列，顺序不变。不要解释、不要设计说明，只给代码。",
     ].filter(function (x) { return x !== ""; });
 

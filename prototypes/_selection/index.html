@@ -9,6 +9,26 @@
 <link rel="stylesheet" href="../_fonts/css/noto-sans-sc__100..900.css">
 <link rel="stylesheet" href="../_fonts/css/ibm-plex-mono__400-500.css">
 <link rel="stylesheet" href="style.css">
+<style>
+  /* 模板出口（#tpl-exit）的局部样式。
+     它原来在 rail 第 11 组（「怎么用」块里的一行小字，实测 1440×900 下 top=2199 /
+     bottom=2313，首屏曝光 0）。现在紧跟页头的向导按钮，是同一层的"另一条路"。
+     视觉上要能和上面那条向导按钮区分开（那条是实心底色的主按钮），又不与 .mast-claim
+     混成一段正文：用一道 2px 上边线把它切成页头的第三块，文字比 claim 小一档。
+     只写在 index.html 里，没有并进 style.css —— style.css 不在本次改动范围内。 */
+  .mast-exit {
+    border-top: 2px solid var(--rule-2);
+    margin-top: 11px;
+    padding-top: 9px;
+    /* 深链 ./#tpl-exit（wizard.js:192 指向这里）会把这块滚到视口顶端：
+       实测 top=-0.28px —— 浏览器把目标元素的顶边对齐到 0，而它自己的 border-top
+       和亚像素取整会让第一行被切掉一条。留 16px 余量，落点稳定在 top≈16。 */
+    scroll-margin-top: 16px;
+  }
+  .mast-exit { font-size: var(--s-14); line-height: 1.55; color: var(--ink-2); }
+  .mast-exit strong { color: var(--ink); font-weight: 600; }
+  .mast-exit a { color: var(--link); }
+</style>
 </head>
 <body>
 
@@ -20,6 +40,16 @@
     <h1>三十个案，一条渲染口径</h1>
     <p class="mast-claim">每个方案都有一个可运行的原型，全部用同一条命令、同一套视口（桌面 1440×900、平板 768×1024、手机 390×844）渲染，闸门结果与截图都在这里摊开——选之前先看它实际长成什么样。</p>
     <p class="mast-wizard"><a href="wizard.html">筛不出来？走选型向导：五个问题给出 3 个推荐 + 3 个明确排除 →</a></p>
+    <!-- 模板出口：2026-10-25 从 rail 第 11 组（「怎么用」块里的一行小字）移到这里。
+         原因：实测 1440×900 下它原位置 top=2199 / bottom=2313，**首屏曝光为 0**
+         （首屏完整可见的筛选组只有 3/11，它在第 11 组之后），而它是"不想挑、只想拿走一个
+         能上线的站"这条路唯一的入口 —— 藏在 2.6 屏之下等于没有。
+         为什么放页头左栏、紧跟在向导按钮之后：这两条是同一层的"另一条路"（一条帮你筛、
+         一条直接给成品），放在一起才读得通。实测代价只有 1 行高度（页头 267→300px，
+         rail 首屏完整可见的筛选组仍是 3 组）；先试过放进 rail 里，rail 固定 264px 宽、
+         这句话折 4 行占 160px，把首屏筛选组从 3 组压到 1 组，所以没放那儿。
+         保留 id="tpl-exit"：wizard.js:192 有 ./#tpl-exit 的深链，改 id 会断。 -->
+    <p class="mast-exit" id="tpl-exit">只想要<strong>拿来就能用的</strong>？不用在这三十张卡里挑——直接去三个大众模板：<a href="../../templates/M01-clean-corporate/">企业站 M01</a> · <a href="../../templates/M02-warm-local/">餐饮本地 M02</a> · <a href="../../templates/M03-bold-creator/">作品集 M03</a>（自包含、系统字体、双击即对）。</p>
   </div>
   <dl class="mast-facts" id="facts">
     <div><dt>方案总数</dt><dd id="f-total">—</dd></div>
@@ -94,7 +124,6 @@
     <div class="rail-block rail-note">
       <h2>怎么用</h2>
       <p>点任意一行展开它的全部字段与整页截图（多数案 10 段、个别 9 段——缺失原因在 README「做不到与已知边界」里写明）。<kbd>1</kbd><kbd>2</kbd><kbd>3</kbd> 切视口，<kbd>J</kbd><kbd>K</kbd> 换方案，<kbd>/</kbd> 定位搜索框，<kbd>Esc</kbd> 收起。地址栏的 <code>#S07</code> 可以直接分享单个方案。</p>
-      <p id="tpl-exit">只想要<strong>拿来就能用的</strong>？不用在这三十张卡里挑——直接去三个大众模板：<a href="../../templates/M01-clean-corporate/">企业站 M01</a> · <a href="../../templates/M02-warm-local/">餐饮本地 M02</a> · <a href="../../templates/M03-bold-creator/">作品集 M03</a>（自包含、系统字体、双击即对）。</p>
     </div>
   </aside>
 
@@ -119,7 +148,17 @@
     </div>
 
     <ol class="ledger" id="ledger"></ol>
-    <p class="empty" id="empty" hidden>没有符合条件的方案。<strong>这几组条件是"并且"关系</strong>——先只留一组最在意的（比如底色）、或清空后改用右侧排序看，比继续加筛选更容易命中。也可以点侧栏「<a href="#tpl-exit">三个大众模板</a>」直接拿走一个能上线的站。</p>
+    <!-- 空状态：2026-10-25 重写。
+         原文案把搜空的原因全部归给用户（"这几组条件是并且关系——先只留一组…比继续加筛选更容易命中"）。
+         实测这是**在说谎**：搜「餐厅」时用户一组筛选都没加、搜索框里只有一个词，而这套图集
+         prompts.js 的 sceneIndex 里 44 个行业词只有 16 个有直连方案（餐厅只有近似项 S09/S19），
+         三个大众模板根本不在索引里 —— 缺的是图集的数据模型，不是用户的操作。
+         所以这里先把"不按行业建索引"这个事实说出来，再给两条真能走通的路。
+         数字与"你搜的那一个词"都不写死：#e-* 几个槽由 app.js 的 syncEmptyFacts() 从
+         window.STYLE_PROMPTS.sceneIndex 与 window.SCHEMES 现算填入；括号内的数字与 #e-why
+         的句子只是脚本没跑起来时的退路（实际不会露出：空状态 default hidden，
+         只有 render() 判定 0 命中时才取消 hidden，而它同一轮就会把槽填好）。 -->
+    <p class="empty" id="empty" hidden>没有符合条件的方案。<strong>这套图集不按行业建索引</strong>——<span id="e-total">30</span> 个案没有"行业"这一维；左侧「你是做什么的」<span id="e-terms">44</span> 个行业词里只有 <span id="e-direct">16</span> 个有直连方案，三个大众模板也不在索引里。<span id="e-why">行业词搜不到，是图集缺这条数据，不是你条件加多了。</span>两条路走得通：<a href="#tpl-exit">三个大众模板</a>拿去就能用；或点左侧行业芯片，只挑实心的那 <span id="e-direct2">16</span> 个（虚边的是"换文案能用"的近似款）。想继续在这三十个案里挑，组间才是「并且」关系——先只留一组最在意的（比如底色），或清空筛选后改用右侧排序看。</p>
   </main>
 </div>
 

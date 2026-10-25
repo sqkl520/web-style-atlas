@@ -1,6 +1,13 @@
-/* 自动生成，勿手改。生成器：deliverables/99-scratch/build-prompts.mjs
+/* 自动生成，勿手改。生成器：prototypes/_prompts/build-prompts.mjs
  * 数据来源：各案 style.css 实测抽取（色值/字体/圆角/阴影/线宽），见 dna-clean.json。
  * 人话版 plain 与场景 scenes 是人工裁定，集中维护在生成器里。
+ *
+ * 2026-10-26 数据形状变更（读端需知）：
+ *   dna.fonts 由数组改成 {display, body, mono} —— 标题字体不再按数组顺序猜，
+ *     由 clean-dna 从各案 h1 规则（展开 var()）解析，30/30 与实测一致；
+ *   dna.palette 由最多 5 色放宽到最多 7 色，主强调色排在最前（S19/S24 的主色曾被截掉）；
+ *   dna.radius 一律是可执行的一句话，不再出现「未声明」「0 / 50%」这类抽取记号；
+ *   dna.lineWidths 形如「1px、3px」，不再出现「未声明」。
  */
 
 window.STYLE_PROMPTS = {
@@ -396,14 +403,15 @@ window.STYLE_PROMPTS = {
    },
    "dna": {
     "palette": "#EFE7D7（paper）、#C1121F（red）、#1A1614（ink）、#6E6A5E（lead）",
-    "fonts": [
-     "Noto Sans SC",
-     "Martian Mono",
-     "Archivo"
-    ],
+    "fonts": {
+     "display": "Noto Sans SC",
+     "body": "Noto Sans SC",
+     "mono": "Martian Mono"
+    },
     "radius": "全直角 0",
+    "radiusBare": true,
     "shadow": "无阴影",
-    "lineWidths": "1 / 3 px",
+    "lineWidths": "1px、3px",
     "h1Size": "var(--fs-h1)",
     "mechanism": "一块实色多边形以 11° 切入 4 栏版心，24px 实体隔条撑开栏沟，红块越界压住 3 行正文——阅读顺序由角度与越界量决定，与它叫什么名字无关。",
     "degrades": false
@@ -427,15 +435,16 @@ window.STYLE_PROMPTS = {
     "minPics": 5
    },
    "dna": {
-    "palette": "#0B0B0F（card）、#B8860B（gold）、#EFE6D0（ivory）、#3A2E1A（dirty）、#111111（ink）",
-    "fonts": [
-     "Noto Serif SC",
-     "Bodoni Moda",
-     "IBM Plex Mono"
-    ],
+    "palette": "#B8860B（gold）、#0B0B0F（card）、#EFE6D0（ivory）、#3A2E1A（dirty）、#111111（ink）、#B9B09A（ivory-2）、#14100A（band）",
+    "fonts": {
+     "display": "Bodoni Moda",
+     "body": "Noto Serif SC",
+     "mono": "IBM Plex Mono"
+    },
     "radius": "全直角 0",
+    "radiusBare": true,
     "shadow": "只用 inset（凹槽，无外投影）",
-    "lineWidths": "1 / 2 px",
+    "lineWidths": "1px、2px",
     "h1Size": "clamp(60px, 7.4vw, 108px)",
     "mechanism": "同一张位图以一条 2px 中轴做 180° 相位取样，两侧各 7 级与 9 级、级差 56px，文字全部贴轴对齐——对称只存在于图样，文字始终不对称。",
     "degrades": true
@@ -459,15 +468,16 @@ window.STYLE_PROMPTS = {
     "minPics": 8
    },
    "dna": {
-    "palette": "#101A1C（void）、#13928E（aurora）、#C9D6CF（paper）、#B9A98C（tape）、#162226（panel）",
-    "fonts": [
-     "IBM Plex Sans",
-     "IBM Plex Mono",
-     "Space Grotesk"
-    ],
+    "palette": "#13928E（aurora）、#101A1C（void）、#C9D6CF（paper）、#B9A98C（tape）、#162226（panel）、#0C1417（panel-2）、#2A3639（rule）",
+    "fonts": {
+     "display": "IBM Plex Mono",
+     "body": "IBM Plex Sans",
+     "mono": "IBM Plex Mono"
+    },
     "radius": "全直角 0",
+    "radiusBare": true,
     "shadow": "无阴影",
-    "lineWidths": "1 / 2 px",
+    "lineWidths": "1px、2px",
     "h1Size": "",
     "mechanism": "一条 264px 宽的纵向刻度轴随滚动固定，右侧 9 栏的高度按 30 秒曝光折成 28px 一档，四角遮罩压掉 32%，游标随焦距比移动——层级由高度与固定位置承担，不由名字承担。",
     "degrades": false
@@ -491,15 +501,16 @@ window.STYLE_PROMPTS = {
     "minPics": 9
    },
    "dna": {
-    "palette": "#96550F（orange）、#2F7D4F（green）、#14100C（ink）、#F0E2C8（paper）",
-    "fonts": [
-     "Unbounded",
-     "Redaction 20",
-     "Martian Mono"
-    ],
-    "radius": "未声明",
+    "palette": "#2F7D4F（green）、#96550F（orange）、#14100C（ink）、#F0E2C8（paper）",
+    "fonts": {
+     "display": "LXGW WenKai",
+     "body": "Redaction 20",
+     "mono": "Martian Mono"
+    },
+    "radius": "全直角 0",
+    "radiusBare": true,
     "shadow": "无阴影",
-    "lineWidths": "1 / 3 px",
+    "lineWidths": "1px、3px",
     "h1Size": "72px",
     "mechanism": "12 列隐网格上，纸块跨 2 至 6 栏、色版偏移取 3 至 7px 五档、旋转限 ±1.2°，页面上没有一条对称边——阅读入口由层叠高低与错位量给出。",
     "degrades": true
@@ -523,15 +534,16 @@ window.STYLE_PROMPTS = {
     "minPics": 6
    },
    "dna": {
-    "palette": "#0E100D（plate）、#4FA83D（paint）、#BFB9A6（panel）、#8C2F1F（alarm）、#111111（on-paint）",
-    "fonts": [
-     "Glow Sans SC",
-     "Barlow",
-     "Departure Mono"
-    ],
-    "radius": "0 / 50%",
+    "palette": "#4FA83D（paint）、#0E100D（plate）、#BFB9A6（panel）、#8C2F1F（alarm）、#111111（on-paint）、#2A2E28（groove-hi）、#050605（groove-lo）",
+    "fonts": {
+     "display": "Barlow",
+     "body": "Glow Sans SC",
+     "mono": "Departure Mono"
+    },
+    "radius": "全站方角，仅圆形徽标/圆点为 50%",
+    "radiusBare": false,
     "shadow": "只用 inset（凹槽，无外投影）",
-    "lineWidths": "1 / 2 px",
+    "lineWidths": "1px、2px",
     "h1Size": "clamp(46px, 6vw, 88px)",
     "mechanism": "8px 为一个单元，8 块分区按 5:2:1 再加一个双高块分配面积，凹槽 6px 单向受光，读数按 5×7 网格排点——优先级由面积与单元数直接表达。",
     "degrades": true
@@ -556,15 +568,16 @@ window.STYLE_PROMPTS = {
     "minPics": 7
    },
    "dna": {
-    "palette": "#ECDEC6（paper）、#85572A（brown）、#241A12（ink）、#C9A87C（stain）、#E6D8BC（card）",
-    "fonts": [
-     "Literata",
-     "EB Garamond",
-     "Martian Mono"
-    ],
+    "palette": "#85572A（brown）、#ECDEC6（paper）、#241A12（ink）、#C9A87C（stain）、#E6D8BC（card）、#E0D0B0（card-2）、#E4D5B8（pale）",
+    "fonts": {
+     "display": "EB Garamond",
+     "body": "Literata",
+     "mono": "Martian Mono"
+    },
     "radius": "全直角 0",
+    "radiusBare": true,
     "shadow": "无阴影",
-    "lineWidths": "1 / 2 px",
+    "lineWidths": "1px、2px",
     "h1Size": "clamp(46px, 5.6vw, 84px)",
     "mechanism": "卡片沿 3° 斜轨排布，轨道间距 96px、相邻偏移按 0.62 递减，漂移速度为滚动量的 0.6 倍且各卡系数在 0.92 至 1.08 之间不等——顺序由速度差与斜角给出。",
     "degrades": false
@@ -588,15 +601,16 @@ window.STYLE_PROMPTS = {
     "minPics": 7
    },
    "dna": {
-    "palette": "#E7E7E0（paper）、#33505C（slate）、#1C1A16（ink）、#9A9384（deckle）",
-    "fonts": [
-     "Libre Franklin",
-     "Newsreader",
-     "IBM Plex Mono\" /* taste-skill-ignore: 字段4 辅助数字，只用于页码/辑号/归档号 */"
-    ],
-    "radius": "未声明",
+    "palette": "#33505C（slate）、#E7E7E0（paper）、#1C1A16（ink）、#9A9384（deckle）",
+    "fonts": {
+     "display": "Libre Franklin",
+     "body": "Newsreader",
+     "mono": "IBM Plex Mono"
+    },
+    "radius": "全直角 0",
+    "radiusBare": true,
     "shadow": "无阴影",
-    "lineWidths": "1 / 2 px",
+    "lineWidths": "1px、2px",
     "h1Size": "",
     "mechanism": "同一段文字在纸背以 8% 至 14% 不透明度做镜像并整体偏移 1px，正面 5 栏对背面 7 栏、栏线 0.5px，页码竖排 28px 行高——正反两面同时进入同一张版心。",
     "degrades": false
@@ -620,15 +634,16 @@ window.STYLE_PROMPTS = {
     "minPics": 4
    },
    "dna": {
-    "palette": "#120C08（room）、#C46A1F（amber）、#E8DCC8（ivory）、#6B4A22（wall）、#3A2712（wall-deep）",
-    "fonts": [
-     "Source Serif 4",
-     "Overprint Numerals",
-     "Gloock"
-    ],
-    "radius": "未声明",
+    "palette": "#120C08（room）、#C46A1F（amber）、#E8DCC8（ivory）、#6B4A22（wall）、#3A2712（wall-deep）、#111111（on-amber）",
+    "fonts": {
+     "display": "Gloock",
+     "body": "Source Serif 4",
+     "mono": "Overprint Numerals"
+    },
+    "radius": "全直角 0",
+    "radiusBare": true,
     "shadow": "无阴影",
-    "lineWidths": "2 / 3 / 4 px",
+    "lineWidths": "2px、3px、4px",
     "h1Size": "clamp(44px, 5.4vw, 78px)",
     "mechanism": "六块板按层号各偏移 (24px, 12px)，轮廓侧向拉出 6 至 10px、上缘 2px 高光、滚动 200px 走 6px——深度由层号位移与侧壁宽度两件事同时说明。",
     "degrades": true
@@ -653,15 +668,16 @@ window.STYLE_PROMPTS = {
     "minPics": 6
    },
    "dna": {
-    "palette": "#F5C842（yellow）、#1F4E79（blue）、#151310（ink）、#8A4B24（rust）",
-    "fonts": [
-     "LXGW Marker Gothic",
-     "JetBrains Mono",
-     "Syne"
-    ],
+    "palette": "#1F4E79（blue）、#F5C842（yellow）、#151310（ink）、#8A4B24（rust）",
+    "fonts": {
+     "display": "LXGW Marker Gothic",
+     "body": "LXGW Marker Gothic",
+     "mono": "JetBrains Mono"
+    },
     "radius": "全直角 0",
+    "radiusBare": true,
     "shadow": "只用 drop-shadow（硬边厚度，无模糊投影）",
-    "lineWidths": "2 / 3 px",
+    "lineWidths": "2px、3px、3.5px",
     "h1Size": "var(--fs-h1)",
     "mechanism": "价目行以 1.5° 整体倾斜，行高 56px、左端起点错开 4 至 12px，描边外线 3.5px 与内线 2px 且留 5% 至 10% 缺口——可读性交给等宽数字，手绘只做外圈。",
     "degrades": false
@@ -685,15 +701,16 @@ window.STYLE_PROMPTS = {
     "minPics": 6
    },
    "dna": {
-    "palette": "#F2EFE8（paper）、#17171A（ink）、#D32029（red）、#6E7076（grey）、#B6B4AE（grey-soft）",
-    "fonts": [
-     "IBM Plex Sans",
-     "Jost",
-     "IBM Plex Mono"
-    ],
+    "palette": "#D32029（red）、#F2EFE8（paper）、#17171A（ink）、#6E7076（grey）、#B6B4AE（grey-soft）",
+    "fonts": {
+     "display": "Jost",
+     "body": "IBM Plex Sans",
+     "mono": "IBM Plex Mono"
+    },
     "radius": "全直角 0",
+    "radiusBare": true,
     "shadow": "无阴影",
-    "lineWidths": "1.5 / 2 px",
+    "lineWidths": "1.25px、2px",
     "h1Size": "clamp(32px, 5.55vw, 80px)",
     "mechanism": "五栏按 6:7:9:8:5 分宽，红版相对黑版固定右下错 1px、进视口时先错 3px 再收到 1.5px，标题基线上移 6px——对比强度由栏宽比与错位像素共同给出。",
     "degrades": false
@@ -717,15 +734,16 @@ window.STYLE_PROMPTS = {
     "minPics": 8
    },
    "dna": {
-    "palette": "#DCDDD2（paper）、#221E19（ink）、#1B4A4A（copy）、#6E7A64（note）",
-    "fonts": [
-     "LXGW WenKai TC",
-     "EB Garamond",
-     "Martian Mono"
-    ],
+    "palette": "#1B4A4A（copy）、#DCDDD2（paper）、#221E19（ink）、#6E7A64（note）",
+    "fonts": {
+     "display": "EB Garamond",
+     "body": "LXGW WenKai TC",
+     "mono": "Martian Mono"
+    },
     "radius": "全直角 0",
+    "radiusBare": true,
     "shadow": "只用 inset（凹槽，无外投影）",
-    "lineWidths": "1 / 2 / 3 px",
+    "lineWidths": "1px、2px、3px",
     "h1Size": "clamp(46px, 7.4vw, 106px)",
     "mechanism": "章号悬挂在版心外 56px、正文压到 34 字行长，标题叠三层重影，横向错位 0.5 / 1.5 / 3px、第三层 12% 不透明——层级由错位量承担，位置交给悬挂编号。",
     "degrades": false
@@ -749,15 +767,16 @@ window.STYLE_PROMPTS = {
     "minPics": 6
    },
    "dna": {
-    "palette": "#1E2A2E（room）、#26353A（room-2）、#182226（room-3）、#B5D626（lime）、#E23E57（magenta）",
-    "fonts": [
-     "Glow Sans SC",
-     "Bricolage Grotesque",
-     "JetBrains Mono"
-    ],
+    "palette": "#B5D626（lime）、#1E2A2E（room）、#26353A（room-2）、#182226（room-3）、#E23E57（magenta）、#F2E9D8（face）、#111111（btn-ink）",
+    "fonts": {
+     "display": "Bricolage Grotesque",
+     "body": "Glow Sans SC",
+     "mono": "JetBrains Mono"
+    },
     "radius": "全直角 0",
+    "radiusBare": true,
     "shadow": "无阴影",
-    "lineWidths": "1 / 2 / 8 px",
+    "lineWidths": "1px、2px、8px",
     "h1Size": "clamp(54px, 6.6vw, 104px)",
     "mechanism": "七个挖空块按 3/2/1/1 递减错位落位，斜边只走 45° 与 135°、切角 30px，间隙取 12/28/44px 三级，内侧压 0.5px 翻边——分区靠硬边挖空，不靠投影。",
     "degrades": true
@@ -782,14 +801,15 @@ window.STYLE_PROMPTS = {
    },
    "dna": {
     "palette": "#F4E3BE（paper）、#241F17（ink）、#7B612C（gold）、#D6CDB9（shade）",
-    "fonts": [
-     "Noto Serif SC",
-     "DM Mono",
-     "EB Garamond"
-    ],
+    "fonts": {
+     "display": "EB Garamond",
+     "body": "Noto Serif SC",
+     "mono": "DM Mono"
+    },
     "radius": "全直角 0",
-    "shadow": "无阴影",
-    "lineWidths": "1 / 2 / 3 / 5.5 px",
+    "radiusBare": true,
+    "shadow": "inset 与外投影混用",
+    "lineWidths": "1px、2px、3px、5.5px、7px、9px、14.5px",
     "h1Size": "",
     "mechanism": "光源常驻 135° 一侧，凹槽压深 0.4mm、槽带亮度差 3%、边缘对比度 14%，按下时方位角翻到 315° 并下沉 0.8px——层级由同一光源下的深浅给出，不靠颜色。",
     "degrades": false
@@ -813,15 +833,16 @@ window.STYLE_PROMPTS = {
     "minPics": 10
    },
    "dna": {
-    "palette": "#C9C4B8、#D8D2C4、#12181D、#E4572E、#8A3320",
-    "fonts": [
-     "Noto Serif SC",
-     "Space Mono",
-     "Oswald"
-    ],
-    "radius": "0 / 50%",
+    "palette": "#C9C4B8、#D8D2C4、#12181D、#E4572E、#8A3320、#111111",
+    "fonts": {
+     "display": "Oswald",
+     "body": "Noto Serif SC",
+     "mono": "Space Mono"
+    },
+    "radius": "全站方角，仅圆形徽标/圆点为 50%",
+    "radiusBare": false,
     "shadow": "无阴影",
-    "lineWidths": "1 / 2 / 3 px",
+    "lineWidths": "1px、2px、3px",
     "h1Size": "clamp(44px, 5vw, 72px)",
     "mechanism": "十一个版面块按距质心 24/40/72/120px 分四档、方位角间隔 26° 至 61° 不等，整组沿 48px 半径绕 44% 横位的质心平漂——顺序由半径档位与角度间隔读出。",
     "degrades": true
@@ -845,15 +866,16 @@ window.STYLE_PROMPTS = {
     "minPics": 6
    },
    "dna": {
-    "palette": "#E7EBE9（paper）、#3A3F45（graphite）、#22282B（press）、#7A7466（pencil）",
-    "fonts": [
-     "Noto Serif SC",
-     "Newsreader",
-     "Reddit Mono"
-    ],
+    "palette": "#3A3F45（graphite）、#E7EBE9（paper）、#22282B（press）、#7A7466（pencil）",
+    "fonts": {
+     "display": "Newsreader",
+     "body": "Noto Serif SC",
+     "mono": "Reddit Mono"
+    },
     "radius": "全直角 0",
+    "radiusBare": true,
     "shadow": "无阴影",
-    "lineWidths": "2 / 3 px",
+    "lineWidths": "0.5px、0.8px、1px、1.7px、3px",
     "h1Size": "clamp(46px, 6.4vw, 92px)",
     "mechanism": "平面图占 1 至 8 栏并左出血 40px，图例挂 9 至 12 栏、高度只到图幅 62%；同一图叠三层，错位 0/3/7px，第三层 56% 不透明——版本差异靠错位与透明度读出。",
     "degrades": true
@@ -877,15 +899,16 @@ window.STYLE_PROMPTS = {
     "minPics": 6
    },
    "dna": {
-    "palette": "#F7EBCF（paper）、#C52C0F（red）、#1A1A1A（ink）、#8E2A18（pressed）、#5C5C55（ink-2）",
-    "fonts": [
-     "Noto Serif SC",
-     "Fragment Mono",
-     "LXGW Marker Gothic"
-    ],
-    "radius": "0 / 50%",
+    "palette": "#C52C0F（red）、#F7EBCF（paper）、#1A1A1A（ink）、#8E2A18（pressed）、#5C5C55（ink-2）",
+    "fonts": {
+     "display": "LXGW Marker Gothic",
+     "body": "Noto Serif SC",
+     "mono": "Fragment Mono"
+    },
+    "radius": "全站方角，仅圆形徽标/圆点为 50%",
+    "radiusBare": false,
     "shadow": "只用 drop-shadow（硬边厚度，无模糊投影）",
-    "lineWidths": "2 / 3 / 6 / 13 px",
+    "lineWidths": "2px、3px、6px、13px",
     "h1Size": "clamp(46px, 6.2vw, 88px)",
     "mechanism": "所有词块左端对齐同一条 12° 斜线，每块再沿斜线递增 24px，块宽只取 4/6/7/9 栏四档，行高压到 0.95 倍、字距 0.02em——斜线给顺序，块宽与行距给层级。",
     "degrades": false
@@ -909,15 +932,16 @@ window.STYLE_PROMPTS = {
     "minPics": 5
    },
    "dna": {
-    "palette": "#E1D6BD（paper）、#C9BFA6（stub）、#5A2A50（ink）、#3F1A38（ink-deep）、#7A2E2E（seal）",
-    "fonts": [
-     "文津宋体",
-     "Literata",
-     "Sometype Mono"
-    ],
-    "radius": "0 / 50%",
+    "palette": "#E1D6BD（paper）、#C9BFA6（stub）、#5A2A50（ink）、#3F1A38（ink-deep）、#7A2E2E（seal）、#B9A98C（rule）、#DFD6BF（tone-hover）",
+    "fonts": {
+     "display": "Literata",
+     "body": "文津宋体",
+     "mono": "Sometype Mono"
+    },
+    "radius": "全站方角，仅圆形徽标/圆点为 50%",
+    "radiusBare": false,
     "shadow": "无阴影",
-    "lineWidths": "1 / 2 px",
+    "lineWidths": "1px、2px",
     "h1Size": "clamp(46px, 6vw, 88px)",
     "mechanism": "两联按 3fr、16px、9fr 分栏，中缝是孔径 1.2px、孔距 6px 的孔列，行高 24px、金额列 96px 右对齐，印面偏中缝 2mm——撕口位置与小数点对齐即读出归属。",
     "degrades": false
@@ -941,15 +965,16 @@ window.STYLE_PROMPTS = {
     "minPics": 6
    },
    "dna": {
-    "palette": "#0A0D0A（bay）、#2FA84F（phos）、#278F43（phos-deep）、#C8C4AE（paper）、#6E6350（tag）",
-    "fonts": [
-     "Glow Sans SC",
-     "Martian Mono",
-     "VT323"
-    ],
+    "palette": "#0A0D0A（bay）、#2FA84F（phos）、#278F43（phos-deep）、#C8C4AE（paper）、#6E6350（tag）、#111111（ink）",
+    "fonts": {
+     "display": "Glow Sans SC",
+     "body": "Glow Sans SC",
+     "mono": "VT323"
+    },
     "radius": "全直角 0",
+    "radiusBare": true,
     "shadow": "无阴影",
-    "lineWidths": "1 / 2 / 4 px",
+    "lineWidths": "0.8px、1px、2px、4px",
     "h1Size": "clamp(36px,5.3vw,76px)",
     "mechanism": "单列左起 12%、右侧空 34%，24px 行高落在 8px 基线上，两侧 8px 边条按 12px 孔距打 3px 孔，行尾 8×14px 块 530ms 方波——读序由走向给出。",
     "degrades": false
@@ -975,15 +1000,16 @@ window.STYLE_PROMPTS = {
     "minPics": 6
    },
    "dna": {
-    "palette": "#E4DECD（paper）、#D8CFB6（paper-deep）、#E9E3D2（paper-lit）、#2A241C（wood）、#3A3227（wood-lit）",
-    "fonts": [
-     "Noto Serif SC",
-     "IBM Plex Mono",
-     "Spectral"
-    ],
+    "palette": "#4A5C3A（green）、#E4DECD（paper）、#D8CFB6（paper-deep）、#E9E3D2（paper-lit）、#2A241C（wood）、#3A3227（wood-lit）、#7C7460（faded）",
+    "fonts": {
+     "display": "Noto Serif SC",
+     "body": "Noto Serif SC",
+     "mono": "IBM Plex Mono"
+    },
     "radius": "全直角 0",
+    "radiusBare": true,
     "shadow": "只用 inset（凹槽，无外投影）",
-    "lineWidths": "1 / 3 px",
+    "lineWidths": "0.4px、0.8px、1px、3px",
     "h1Size": "clamp(46px, 5vw, 72px)",
     "mechanism": "20 块面板分 5 行，宽取 2/3/4 栏三档，面板高 24px、下移 24px，开口 144px 比内层矮 24px，线宽只 0.4 与 0.8px——层级由下移量与线宽差给出。",
     "degrades": true
@@ -1008,14 +1034,15 @@ window.STYLE_PROMPTS = {
    },
    "dna": {
     "palette": "#FAF3E1（paper）、#26485C（blue）、#0F1418（ink）、#55606B（pencil）",
-    "fonts": [
-     "Noto Sans SC",
-     "Martian Mono",
-     "Space Grotesk"
-    ],
+    "fonts": {
+     "display": "Space Grotesk",
+     "body": "Noto Sans SC",
+     "mono": "Martian Mono"
+    },
     "radius": "全直角 0",
+    "radiusBare": true,
     "shadow": "无阴影",
-    "lineWidths": "1 / 3 px",
+    "lineWidths": "0.35px、0.5px、1px、3px",
     "h1Size": "clamp(40px, 5vw, 72px)",
     "mechanism": "画布 1:1、边长取视口高减 96px，留 24px 安全区，坐标格 0.2px 间距 8px，走线 0.35px 按 0.6/1.2/2.4px 三级分档——量级由线距读出。",
     "degrades": true
@@ -1039,15 +1066,16 @@ window.STYLE_PROMPTS = {
     "minPics": 6
    },
    "dna": {
-    "palette": "#E4DCC9（paper）、#3E3A34（ink）、#924307（amber）、#6E6A5E（fibre）、#FFFFFF（white）",
-    "fonts": [
-     "WenJin Mincho",
-     "IBM Plex Mono",
-     "Antonio"
-    ],
-    "radius": "未声明",
+    "palette": "#3E3A34（ink）、#E4DCC9（paper）、#924307（amber）、#6E6A5E（fibre）、#FFFFFF（white）",
+    "fonts": {
+     "display": "Antonio",
+     "body": "WenJin Mincho",
+     "mono": "IBM Plex Mono"
+    },
+    "radius": "全直角 0",
+    "radiusBare": true,
     "shadow": "只用 inset（凹槽，无外投影）",
-    "lineWidths": "1 / 2 px",
+    "lineWidths": "1px、2px",
     "h1Size": "",
     "mechanism": "10 栏中 1–4 与 7–10 栏给两张表，5–6 栏留给 14 枚 24×96px 横条首尾相扣，条间留 1px 纸色缝，右端按 30/45/60° 斜切——先后由切口角度读出。",
     "degrades": false
@@ -1072,15 +1100,16 @@ window.STYLE_PROMPTS = {
     "minPics": 6
    },
    "dna": {
-    "palette": "#DDDAD4（paper）、#2E2A24（ink）、#565B49（matcha）、#6B6558（crease-dark）",
-    "fonts": [
-     "Zhuque Fangsong",
-     "IBM Plex Mono",
-     "Petrona"
-    ],
+    "palette": "#565B49（matcha）、#DDDAD4（paper）、#2E2A24（ink）、#6B6558（crease-dark）",
+    "fonts": {
+     "display": "Petrona",
+     "body": "Zhuque Fangsong",
+     "mono": "IBM Plex Mono"
+    },
     "radius": "全直角 0",
+    "radiusBare": true,
     "shadow": "只用 inset（凹槽，无外投影）",
-    "lineWidths": "1 / 3 px",
+    "lineWidths": "1px、3px",
     "h1Size": "clamp(46px, 5.6vw, 84px)",
     "mechanism": "两半各 6 栏、栏距 22px、外距 56px，中缝 88px 宽于外距，下半页右移 8px、字号 17 与 16.5px，折痕 3px、两端 4px 起毛——分区只靠透光与折痕。",
     "degrades": true
@@ -1104,15 +1133,16 @@ window.STYLE_PROMPTS = {
     "minPics": 10
    },
    "dna": {
-    "palette": "#DCDCC8（plaster）、#A8206B（carmine）、#241C16（oxide）、#7A6A55（mortar）、#E9E9D7（lime）",
-    "fonts": [
-     "Noto Serif SC",
-     "JetBrains Mono",
-     "Alfa Slab One"
-    ],
+    "palette": "#A8206B（carmine）、#241C16（oxide）、#DCDCC8（plaster）、#7A6A55（mortar）、#E9E9D7（lime）、#5F5240（mortar-ink）、#B7A78C（mortar-lit）",
+    "fonts": {
+     "display": "Noto Serif SC",
+     "body": "Noto Serif SC",
+     "mono": "JetBrains Mono"
+    },
     "radius": "全直角 0",
+    "radiusBare": true,
     "shadow": "无阴影",
-    "lineWidths": "1 / 6 px",
+    "lineWidths": "1px、6px",
     "h1Size": "clamp(56px, 7.2vw, 96px)",
     "mechanism": "9 处开口按 3/2/2/1/1 递减，断口露 2 至 4 层、层间夹 1px 亮线，62° 斜痕宽 2px、距 6px，右缘 96px 索引条对齐首行——层序由层数与索引高度读出。",
     "degrades": true
@@ -1136,15 +1166,16 @@ window.STYLE_PROMPTS = {
     "minPics": 6
    },
    "dna": {
-    "palette": "#E6EDF2（paper）、#F3F8FB（paper-2）、#DCE7EF（paper-3）、#C9D8E4（paper-4）、#0A1116（ink）",
-    "fonts": [
-     "LXGW WenKai",
-     "Spectral",
-     "IBM Plex Mono"
-    ],
+    "palette": "#5D43AD（grape）、#E6EDF2（paper）、#F3F8FB（paper-2）、#DCE7EF（paper-3）、#C9D8E4（paper-4）、#0A1116（ink）、#3A4652（ink-2）",
+    "fonts": {
+     "display": "Spectral",
+     "body": "LXGW WenKai",
+     "mono": "IBM Plex Mono"
+    },
     "radius": "全直角 0",
+    "radiusBare": true,
     "shadow": "无阴影",
-    "lineWidths": "1 / 2 px",
+    "lineWidths": "0.4px、0.6px、0.8px、1px、2px、2.5px",
     "h1Size": "clamp(36px,5.3vw,76px)",
     "mechanism": "8 栏加中轴，每层各伸 2 栏、最多 4 层，宽比 5:3 且窄侧下沉 24px，支线由 2.5px 递减到 1、0.6、0.4px 并留 2px 缺口——深度由层数与线宽读出。",
     "degrades": false
@@ -1168,14 +1199,16 @@ window.STYLE_PROMPTS = {
     "minPics": 5
    },
    "dna": {
-    "palette": "#E8E4DE（paper）、#DFDAD2（paper-deep）、#1E1A16（ink）、#914A27（spot-a）、#2E6B5E（spot-b）",
-    "fonts": [
-     "Noto Serif SC",
-     "Besley"
-    ],
-    "radius": "50%",
+    "palette": "#E8E4DE（paper）、#DFDAD2（paper-deep）、#1E1A16（ink）、#914A27（spot-a）、#2E6B5E（spot-b）、#FFFFFF（paper-white）",
+    "fonts": {
+     "display": "Besley",
+     "body": "Noto Serif SC",
+     "mono": ""
+    },
+    "radius": "全站方角 0；唯一直径 50% 的地方是 1–2px 的打孔圆点，不是圆角卡片",
+    "radiusBare": true,
     "shadow": "无阴影",
-    "lineWidths": "3 px",
+    "lineWidths": "3px",
     "h1Size": "68px",
     "mechanism": "左 3 右 7 栏、中缝 56px，装订线落中缝右 12px，两版错开 0.8 至 1.6px、相压处相乘出深色，行首按 0/12/24px 缩进——层级由缩进量与版次差给出。",
     "degrades": false
@@ -1199,15 +1232,16 @@ window.STYLE_PROMPTS = {
     "minPics": 6
    },
    "dna": {
-    "palette": "#D3D1CA（paper）、#485270（blue）、#121212（ink）、#C8341F（red）、#FFFFFF（white）",
-    "fonts": [
-     "Noto Sans SC",
-     "Syne",
-     "IBM Plex Mono"
-    ],
+    "palette": "#D3D1CA（paper）、#485270（blue）、#121212（ink）、#C8341F（red）、#FFFFFF（white）、#C3C1B9（tint）、#38110E（mul-br）",
+    "fonts": {
+     "display": "Syne",
+     "body": "Noto Sans SC",
+     "mono": "IBM Plex Mono"
+    },
     "radius": "全直角 0",
+    "radiusBare": true,
     "shadow": "只用 drop-shadow（硬边厚度，无模糊投影）",
-    "lineWidths": "2 / 8 px",
+    "lineWidths": "2px、8px",
     "h1Size": "clamp(44px,5.6vw,80px)",
     "mechanism": "12 栏栏线整体倾 11°，三块色版按 5:3:4 分宽、高 100%/64%/80%，最窄一块再沉 16px，压叠 1.5px 与 1.2px 同向右下——次序由斜角与压叠量给出。",
     "degrades": false
@@ -1232,15 +1266,16 @@ window.STYLE_PROMPTS = {
     "minPics": 6
    },
    "dna": {
-    "palette": "#E8D7B5（paper）、#0E6258（green）、#221C10（ink）、#1A150C（ink2）、#C9BFA6（paper2）",
-    "fonts": [
-     "LXGW WenKai",
-     "Chivo",
-     "Martian Mono"
-    ],
+    "palette": "#0E6258（green）、#221C10（ink）、#E8D7B5（paper）、#1A150C（ink2）、#C9BFA6（paper2）、#FFFFFF（white）",
+    "fonts": {
+     "display": "Chivo",
+     "body": "LXGW WenKai",
+     "mono": "Martian Mono"
+    },
     "radius": "全直角 0",
+    "radiusBare": true,
     "shadow": "只用 drop-shadow（硬边厚度，无模糊投影）",
-    "lineWidths": "未声明",
+    "lineWidths": "1.2px、2.4px、3px",
     "h1Size": "clamp(40px, 6vw, 86px)",
     "mechanism": "9 栏、栏距 20px、基线 7px，正文占 5 栏、签发栏 3 栏、末栏只留边距，两版固定错开 1.8px 向右上，描边共用这一位移——先后由栏宽比与错位方向给出。",
     "degrades": false
@@ -1265,15 +1300,16 @@ window.STYLE_PROMPTS = {
     "minPics": 6
    },
    "dna": {
-    "palette": "#0B0D12（ink）、#07080C（ink2）、#AF74BE（plum）、#D8D4C6（paper）",
-    "fonts": [
-     "Noto Serif SC",
-     "Instrument Serif",
-     "JetBrains Mono"
-    ],
+    "palette": "#AF74BE（plum）、#D8D4C6（paper）、#0B0D12（ink）、#07080C（ink2）",
+    "fonts": {
+     "display": "Instrument Serif",
+     "body": "Noto Serif SC",
+     "mono": "JetBrains Mono"
+    },
     "radius": "全直角 0",
+    "radiusBare": true,
     "shadow": "只用 drop-shadow（硬边厚度，无模糊投影）",
-    "lineWidths": "2 / 8 px",
+    "lineWidths": "2px、8px",
     "h1Size": "clamp(40px, 6.4vw, 92px)",
     "mechanism": "16 栏、栏距 0、外距 64px，12 块面积不等、最大 7 栏最小 2 栏，裁切边按 4 至 14px 写死值错开并外出血 24px，凸起只在左上——边界由错位与出血量区分。",
     "degrades": false
@@ -1298,15 +1334,16 @@ window.STYLE_PROMPTS = {
     "minPics": 6
    },
    "dna": {
-    "palette": "#D9D3C4（paper）、#1A1A17（ink）、#644F02（amber）、#5A6068（gray）、#E4B400（bright）",
-    "fonts": [
-     "Noto Sans SC",
-     "Saira Condensed",
-     "Martian Mono"
-    ],
+    "palette": "#644F02（amber）、#D9D3C4（paper）、#1A1A17（ink）、#5A6068（gray）、#E4B400（bright）、#E0DACB（row）",
+    "fonts": {
+     "display": "Saira Condensed",
+     "body": "Noto Sans SC",
+     "mono": "Martian Mono"
+    },
     "radius": "全直角 0",
+    "radiusBare": true,
     "shadow": "无阴影",
-    "lineWidths": "1 / 2 / 3 / 6 px",
+    "lineWidths": "0.4px、0.6px、1px、2px、3px、6px",
     "h1Size": "clamp(40px,5.2vw,75px)",
     "mechanism": "左缘 72px 内 3px 穿孔按 18px 间距排一列、1.2px 环线穿过，章节号挂栏外占 48px 宽，规格表下沉 18px 并右出血 96px——归属由编号位与出血方向给出。",
     "degrades": true
@@ -1331,15 +1368,16 @@ window.STYLE_PROMPTS = {
     "minPics": 6
    },
    "dna": {
-    "palette": "#EDEDED（paper）、#E6E6E6（paper-low）、#007B3F（green）、#00E676（deco）、#141414（ink）",
-    "fonts": [
-     "Zhuque Fangsong",
-     "IBM Plex Mono",
-     "Anton"
-    ],
+    "palette": "#007B3F（green）、#EDEDED（paper）、#E6E6E6（paper-low）、#00E676（deco）、#141414（ink）、#FFFFFF（white）",
+    "fonts": {
+     "display": "Anton",
+     "body": "Zhuque Fangsong",
+     "mono": "IBM Plex Mono"
+    },
     "radius": "全直角 0",
+    "radiusBare": true,
     "shadow": "只用 drop-shadow（硬边厚度，无模糊投影）",
-    "lineWidths": "1 / 3 / 6 / 8 px",
+    "lineWidths": "1px、3px、6px、8px",
     "h1Size": "76px",
     "mechanism": "版面沿 −32° 对切成两半，斜切带高 96px、下半错开 9px，缺口宽 6 至 28px、深 2 至 9px，1.5px 白带 55% 至 70%——先后由错位量与深度给出。",
     "degrades": true

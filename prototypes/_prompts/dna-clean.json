@@ -1,0 +1,1118 @@
+[
+  {
+    "id": "S01",
+    "dir": "S01-red-wedge-broadsheet",
+    "structType": "",
+    "threshold": "",
+    "tone": "",
+    "palette": [
+      "#EFE7D7 paper",
+      "#C1121F red",
+      "#1A1614 ink",
+      "#6E6A5E lead"
+    ],
+    "primary": [],
+    "fonts": {
+      "display": "Noto Sans SC",
+      "body": "Noto Sans SC",
+      "mono": "Martian Mono"
+    },
+    "radius": "全直角 0",
+    "radiusBare": true,
+    "radiusWhy": "border-radius 只出现过 0",
+    "shadow": "无阴影",
+    "shadowDetail": {
+      "kind": "none",
+      "inset": 0,
+      "outer": 0,
+      "drops": 0,
+      "samples": []
+    },
+    "lineWidths": "1px、3px",
+    "h1Size": "var(--fs-h1)",
+    "mechanism": "一块实色多边形以 11° 切入 4 栏版心，24px 实体隔条撑开栏沟，红块越界压住 3 行正文——阅读顺序由角度与越界量决定，与它叫什么名字无关。",
+    "charBudget": 217
+  },
+  {
+    "id": "S02",
+    "dir": "S02-gilded-symmetry-salon",
+    "structType": "",
+    "threshold": "",
+    "tone": "",
+    "palette": [
+      "#B8860B gold",
+      "#0B0B0F card",
+      "#EFE6D0 ivory",
+      "#3A2E1A dirty",
+      "#111111 ink",
+      "#B9B09A ivory-2",
+      "#14100A band"
+    ],
+    "primary": [
+      "#B8860B"
+    ],
+    "fonts": {
+      "display": "Bodoni Moda",
+      "body": "Noto Serif SC",
+      "mono": "IBM Plex Mono"
+    },
+    "radius": "全直角 0",
+    "radiusBare": true,
+    "radiusWhy": "border-radius 只出现过 0",
+    "shadow": "只用 inset（凹槽，无外投影）",
+    "shadowDetail": {
+      "kind": "inset-only",
+      "inset": 9,
+      "outer": 0,
+      "drops": 0,
+      "samples": []
+    },
+    "lineWidths": "1px、2px",
+    "h1Size": "clamp(60px, 7.4vw, 108px)",
+    "mechanism": "同一张位图以一条 2px 中轴做 180° 相位取样，两侧各 7 级与 9 级、级差 56px，文字全部贴轴对齐——对称只存在于图样，文字始终不对称。",
+    "charBudget": 260
+  },
+  {
+    "id": "S03",
+    "dir": "S03-long-exposure-observatory",
+    "structType": "",
+    "threshold": "",
+    "tone": "",
+    "palette": [
+      "#13928E aurora",
+      "#101A1C void",
+      "#C9D6CF paper",
+      "#B9A98C tape",
+      "#162226 panel",
+      "#0C1417 panel-2",
+      "#2A3639 rule"
+    ],
+    "primary": [
+      "#13928E"
+    ],
+    "fonts": {
+      "display": "IBM Plex Mono",
+      "body": "IBM Plex Sans",
+      "mono": "IBM Plex Mono"
+    },
+    "radius": "全直角 0",
+    "radiusBare": true,
+    "radiusWhy": "border-radius 只出现过 0",
+    "shadow": "无阴影",
+    "shadowDetail": {
+      "kind": "none",
+      "inset": 0,
+      "outer": 0,
+      "drops": 0,
+      "samples": []
+    },
+    "lineWidths": "1px、2px",
+    "h1Size": "",
+    "mechanism": "一条 264px 宽的纵向刻度轴随滚动固定，右侧 9 栏的高度按 30 秒曝光折成 28px 一档，四角遮罩压掉 32%，游标随焦距比移动——层级由高度与固定位置承担，不由名字承担。",
+    "charBudget": 281
+  },
+  {
+    "id": "S04",
+    "dir": "S04-mango-collage-wall",
+    "structType": "",
+    "threshold": "",
+    "tone": "",
+    "palette": [
+      "#2F7D4F green",
+      "#96550F orange",
+      "#14100C ink",
+      "#F0E2C8 paper"
+    ],
+    "primary": [
+      "#2F7D4F",
+      "#96550F"
+    ],
+    "fonts": {
+      "display": "LXGW WenKai",
+      "body": "Redaction 20",
+      "mono": "Martian Mono"
+    },
+    "radius": "全直角 0",
+    "radiusBare": true,
+    "radiusWhy": "该案 CSS 里 0 处 border-radius，所有元素一律直角",
+    "shadow": "无阴影",
+    "shadowDetail": {
+      "kind": "none",
+      "inset": 0,
+      "outer": 0,
+      "drops": 0,
+      "samples": []
+    },
+    "lineWidths": "1px、3px",
+    "h1Size": "72px",
+    "mechanism": "12 列隐网格上，纸块跨 2 至 6 栏、色版偏移取 3 至 7px 五档、旋转限 ±1.2°，页面上没有一条对称边——阅读入口由层叠高低与错位量给出。",
+    "charBudget": 222
+  },
+  {
+    "id": "S05",
+    "dir": "S05-pixel-cold-storage-console",
+    "structType": "",
+    "threshold": "",
+    "tone": "",
+    "palette": [
+      "#4FA83D paint",
+      "#0E100D plate",
+      "#BFB9A6 panel",
+      "#8C2F1F alarm",
+      "#111111 on-paint",
+      "#2A2E28 groove-hi",
+      "#050605 groove-lo"
+    ],
+    "primary": [
+      "#4FA83D"
+    ],
+    "fonts": {
+      "display": "Barlow",
+      "body": "Glow Sans SC",
+      "mono": "Departure Mono"
+    },
+    "radius": "全站方角，仅圆形徽标/圆点为 50%",
+    "radiusBare": false,
+    "radiusWhy": "border-radius 为 0 与 50% 并存",
+    "shadow": "只用 inset（凹槽，无外投影）",
+    "shadowDetail": {
+      "kind": "inset-only",
+      "inset": 19,
+      "outer": 0,
+      "drops": 0,
+      "samples": []
+    },
+    "lineWidths": "1px、2px",
+    "h1Size": "clamp(46px, 6vw, 88px)",
+    "mechanism": "8px 为一个单元，8 块分区按 5:2:1 再加一个双高块分配面积，凹槽 6px 单向受光，读数按 5×7 网格排点——优先级由面积与单元数直接表达。",
+    "charBudget": 270
+  },
+  {
+    "id": "S06",
+    "dir": "S06-showa-kissaten-ledger",
+    "structType": "",
+    "threshold": "",
+    "tone": "",
+    "palette": [
+      "#85572A brown",
+      "#ECDEC6 paper",
+      "#241A12 ink",
+      "#C9A87C stain",
+      "#E6D8BC card",
+      "#E0D0B0 card-2",
+      "#E4D5B8 pale"
+    ],
+    "primary": [
+      "#85572A"
+    ],
+    "fonts": {
+      "display": "EB Garamond",
+      "body": "Literata",
+      "mono": "Martian Mono"
+    },
+    "radius": "全直角 0",
+    "radiusBare": true,
+    "radiusWhy": "border-radius 只出现过 0",
+    "shadow": "无阴影",
+    "shadowDetail": {
+      "kind": "none",
+      "inset": 0,
+      "outer": 0,
+      "drops": 0,
+      "samples": []
+    },
+    "lineWidths": "1px、2px",
+    "h1Size": "clamp(46px, 5.6vw, 84px)",
+    "mechanism": "卡片沿 3° 斜轨排布，轨道间距 96px、相邻偏移按 0.62 递减，漂移速度为滚动量的 0.6 倍且各卡系数在 0.92 至 1.08 之间不等——顺序由速度差与斜角给出。",
+    "charBudget": 267
+  },
+  {
+    "id": "S07",
+    "dir": "S07-slate-ink-contents",
+    "structType": "",
+    "threshold": "",
+    "tone": "",
+    "palette": [
+      "#33505C slate",
+      "#E7E7E0 paper",
+      "#1C1A16 ink",
+      "#9A9384 deckle"
+    ],
+    "primary": [
+      "#33505C"
+    ],
+    "fonts": {
+      "display": "Libre Franklin",
+      "body": "Newsreader",
+      "mono": "IBM Plex Mono"
+    },
+    "radius": "全直角 0",
+    "radiusBare": true,
+    "radiusWhy": "该案 CSS 里 0 处 border-radius，所有元素一律直角",
+    "shadow": "无阴影",
+    "shadowDetail": {
+      "kind": "none",
+      "inset": 0,
+      "outer": 0,
+      "drops": 0,
+      "samples": []
+    },
+    "lineWidths": "1px、2px",
+    "h1Size": "",
+    "mechanism": "同一段文字在纸背以 8% 至 14% 不透明度做镜像并整体偏移 1px，正面 5 栏对背面 7 栏、栏线 0.5px，页码竖排 28px 行高——正反两面同时进入同一张版心。",
+    "charBudget": 235
+  },
+  {
+    "id": "S08",
+    "dir": "S08-amber-overprint-lightbox",
+    "structType": "",
+    "threshold": "",
+    "tone": "",
+    "palette": [
+      "#120C08 room",
+      "#C46A1F amber",
+      "#E8DCC8 ivory",
+      "#6B4A22 wall",
+      "#3A2712 wall-deep",
+      "#111111 on-amber"
+    ],
+    "primary": [],
+    "fonts": {
+      "display": "Gloock",
+      "body": "Source Serif 4",
+      "mono": "Overprint Numerals"
+    },
+    "radius": "全直角 0",
+    "radiusBare": true,
+    "radiusWhy": "该案 CSS 里 0 处 border-radius，所有元素一律直角",
+    "shadow": "无阴影",
+    "shadowDetail": {
+      "kind": "none",
+      "inset": 0,
+      "outer": 0,
+      "drops": 0,
+      "samples": []
+    },
+    "lineWidths": "2px、3px、4px",
+    "h1Size": "clamp(44px, 5.4vw, 78px)",
+    "mechanism": "六块板按层号各偏移 (24px, 12px)，轮廓侧向拉出 6 至 10px、上缘 2px 高光、滚动 200px 走 6px——深度由层号位移与侧壁宽度两件事同时说明。",
+    "charBudget": 266
+  },
+  {
+    "id": "S09",
+    "dir": "S09-batik-price-board",
+    "structType": "",
+    "threshold": "",
+    "tone": "",
+    "palette": [
+      "#1F4E79 blue",
+      "#F5C842 yellow",
+      "#151310 ink",
+      "#8A4B24 rust"
+    ],
+    "primary": [
+      "#1F4E79"
+    ],
+    "fonts": {
+      "display": "LXGW Marker Gothic",
+      "body": "LXGW Marker Gothic",
+      "mono": "JetBrains Mono"
+    },
+    "radius": "全直角 0",
+    "radiusBare": true,
+    "radiusWhy": "border-radius 只出现过 0",
+    "shadow": "只用 drop-shadow（硬边厚度，无模糊投影）",
+    "shadowDetail": {
+      "kind": "drop-only",
+      "inset": 0,
+      "outer": 0,
+      "drops": 1,
+      "samples": []
+    },
+    "lineWidths": "2px、3px、3.5px",
+    "h1Size": "var(--fs-h1)",
+    "mechanism": "价目行以 1.5° 整体倾斜，行高 56px、左端起点错开 4 至 12px，描边外线 3.5px 与内线 2px 且留 5% 至 10% 缺口——可读性交给等宽数字，手绘只做外圈。",
+    "charBudget": 250
+  },
+  {
+    "id": "S10",
+    "dir": "S10-grid-versus-sheet",
+    "structType": "",
+    "threshold": "",
+    "tone": "",
+    "palette": [
+      "#D32029 red",
+      "#F2EFE8 paper",
+      "#17171A ink",
+      "#6E7076 grey",
+      "#B6B4AE grey-soft"
+    ],
+    "primary": [
+      "#D32029"
+    ],
+    "fonts": {
+      "display": "Jost",
+      "body": "IBM Plex Sans",
+      "mono": "IBM Plex Mono"
+    },
+    "radius": "全直角 0",
+    "radiusBare": true,
+    "radiusWhy": "border-radius 只出现过 0",
+    "shadow": "无阴影",
+    "shadowDetail": {
+      "kind": "none",
+      "inset": 0,
+      "outer": 0,
+      "drops": 0,
+      "samples": []
+    },
+    "lineWidths": "1.25px、2px",
+    "h1Size": "clamp(32px, 5.55vw, 80px)",
+    "mechanism": "五栏按 6:7:9:8:5 分宽，红版相对黑版固定右下错 1px、进视口时先错 3px 再收到 1.5px，标题基线上移 6px——对比强度由栏宽比与错位像素共同给出。",
+    "charBudget": 238
+  },
+  {
+    "id": "S11",
+    "dir": "S11-samizdat-typewriter",
+    "structType": "",
+    "threshold": "",
+    "tone": "",
+    "palette": [
+      "#1B4A4A copy",
+      "#DCDDD2 paper",
+      "#221E19 ink",
+      "#6E7A64 note"
+    ],
+    "primary": [
+      "#1B4A4A"
+    ],
+    "fonts": {
+      "display": "EB Garamond",
+      "body": "LXGW WenKai TC",
+      "mono": "Martian Mono"
+    },
+    "radius": "全直角 0",
+    "radiusBare": true,
+    "radiusWhy": "border-radius 只出现过 0",
+    "shadow": "只用 inset（凹槽，无外投影）",
+    "shadowDetail": {
+      "kind": "inset-only",
+      "inset": 2,
+      "outer": 0,
+      "drops": 3,
+      "samples": []
+    },
+    "lineWidths": "1px、2px、3px",
+    "h1Size": "clamp(46px, 7.4vw, 106px)",
+    "mechanism": "",
+    "charBudget": 145
+  },
+  {
+    "id": "S12",
+    "dir": "S12-lime-knockout-wall",
+    "structType": "",
+    "threshold": "",
+    "tone": "",
+    "palette": [
+      "#B5D626 lime",
+      "#1E2A2E room",
+      "#26353A room-2",
+      "#182226 room-3",
+      "#E23E57 magenta",
+      "#F2E9D8 face",
+      "#111111 btn-ink"
+    ],
+    "primary": [
+      "#B5D626"
+    ],
+    "fonts": {
+      "display": "Bricolage Grotesque",
+      "body": "Glow Sans SC",
+      "mono": "JetBrains Mono"
+    },
+    "radius": "全直角 0",
+    "radiusBare": true,
+    "radiusWhy": "border-radius 只出现过 0",
+    "shadow": "无阴影",
+    "shadowDetail": {
+      "kind": "none",
+      "inset": 0,
+      "outer": 0,
+      "drops": 0,
+      "samples": []
+    },
+    "lineWidths": "1px、2px、8px",
+    "h1Size": "clamp(54px, 6.6vw, 104px)",
+    "mechanism": "",
+    "charBudget": 199
+  },
+  {
+    "id": "S13",
+    "dir": "S13-blind-debossed-dispatch",
+    "structType": "",
+    "threshold": "",
+    "tone": "",
+    "palette": [
+      "#F4E3BE paper",
+      "#241F17 ink",
+      "#7B612C gold",
+      "#D6CDB9 shade"
+    ],
+    "primary": [],
+    "fonts": {
+      "display": "EB Garamond",
+      "body": "Noto Serif SC",
+      "mono": "DM Mono"
+    },
+    "radius": "全直角 0",
+    "radiusBare": true,
+    "radiusWhy": "border-radius 只出现过 0",
+    "shadow": "inset 与外投影混用",
+    "shadowDetail": {
+      "kind": "mixed",
+      "inset": 8,
+      "outer": 9,
+      "drops": 0,
+      "samples": [
+        "2px 2px 3px rgba(36, 31, 23, 0.08)",
+        "2px 2px 2px rgba(36, 31, 23, 0)"
+      ]
+    },
+    "lineWidths": "1px、2px、3px、5.5px、7px、9px、14.5px",
+    "h1Size": "",
+    "mechanism": "",
+    "charBudget": 140
+  },
+  {
+    "id": "S14",
+    "dir": "S14-zero-g-launch-sequence",
+    "structType": "",
+    "threshold": "",
+    "tone": "",
+    "palette": [
+      "#C9C4B8 ×16",
+      "#D8D2C4 ×8",
+      "#12181D ×7",
+      "#E4572E ×5",
+      "#8A3320 ×5",
+      "#111111 ×4"
+    ],
+    "primary": [],
+    "fonts": {
+      "display": "Oswald",
+      "body": "Noto Serif SC",
+      "mono": "Space Mono"
+    },
+    "radius": "全站方角，仅圆形徽标/圆点为 50%",
+    "radiusBare": false,
+    "radiusWhy": "border-radius 为 0 与 50% 并存",
+    "shadow": "无阴影",
+    "shadowDetail": {
+      "kind": "none",
+      "inset": 0,
+      "outer": 0,
+      "drops": 0,
+      "samples": []
+    },
+    "lineWidths": "1px、2px、3px",
+    "h1Size": "clamp(44px, 5vw, 72px)",
+    "mechanism": "",
+    "charBudget": 150
+  },
+  {
+    "id": "S15",
+    "dir": "S15-fishery-floor-ledger",
+    "structType": "",
+    "threshold": "",
+    "tone": "",
+    "palette": [
+      "#3A3F45 graphite",
+      "#E7EBE9 paper",
+      "#22282B press",
+      "#7A7466 pencil"
+    ],
+    "primary": [
+      "#3A3F45"
+    ],
+    "fonts": {
+      "display": "Newsreader",
+      "body": "Noto Serif SC",
+      "mono": "Reddit Mono"
+    },
+    "radius": "全直角 0",
+    "radiusBare": true,
+    "radiusWhy": "border-radius 只出现过 0",
+    "shadow": "无阴影",
+    "shadowDetail": {
+      "kind": "none",
+      "inset": 0,
+      "outer": 0,
+      "drops": 0,
+      "samples": []
+    },
+    "lineWidths": "0.5px、0.8px、1px、1.7px、3px",
+    "h1Size": "clamp(46px, 6.4vw, 92px)",
+    "mechanism": "",
+    "charBudget": 150
+  },
+  {
+    "id": "S16",
+    "dir": "S16-velocity-slant-manifesto",
+    "structType": "",
+    "threshold": "",
+    "tone": "",
+    "palette": [
+      "#C52C0F red",
+      "#F7EBCF paper",
+      "#1A1A1A ink",
+      "#8E2A18 pressed",
+      "#5C5C55 ink-2"
+    ],
+    "primary": [
+      "#C52C0F"
+    ],
+    "fonts": {
+      "display": "LXGW Marker Gothic",
+      "body": "Noto Serif SC",
+      "mono": "Fragment Mono"
+    },
+    "radius": "全站方角，仅圆形徽标/圆点为 50%",
+    "radiusBare": false,
+    "radiusWhy": "border-radius 为 0 与 50% 并存",
+    "shadow": "只用 drop-shadow（硬边厚度，无模糊投影）",
+    "shadowDetail": {
+      "kind": "drop-only",
+      "inset": 0,
+      "outer": 0,
+      "drops": 2,
+      "samples": []
+    },
+    "lineWidths": "2px、3px、6px、13px",
+    "h1Size": "clamp(46px, 6.2vw, 88px)",
+    "mechanism": "",
+    "charBudget": 167
+  },
+  {
+    "id": "S17",
+    "dir": "S17-revenue-stamp-stub",
+    "structType": "",
+    "threshold": "",
+    "tone": "",
+    "palette": [
+      "#E1D6BD paper",
+      "#C9BFA6 stub",
+      "#5A2A50 ink",
+      "#3F1A38 ink-deep",
+      "#7A2E2E seal",
+      "#B9A98C rule",
+      "#DFD6BF tone-hover"
+    ],
+    "primary": [],
+    "fonts": {
+      "display": "Literata",
+      "body": "文津宋体",
+      "mono": "Sometype Mono"
+    },
+    "radius": "全站方角，仅圆形徽标/圆点为 50%",
+    "radiusBare": false,
+    "radiusWhy": "border-radius 为 0 与 50% 并存",
+    "shadow": "无阴影",
+    "shadowDetail": {
+      "kind": "none",
+      "inset": 0,
+      "outer": 0,
+      "drops": 0,
+      "samples": []
+    },
+    "lineWidths": "1px、2px",
+    "h1Size": "clamp(46px, 6vw, 88px)",
+    "mechanism": "",
+    "charBudget": 179
+  },
+  {
+    "id": "S18",
+    "dir": "S18-phosphor-service-deck",
+    "structType": "",
+    "threshold": "",
+    "tone": "",
+    "palette": [
+      "#0A0D0A bay",
+      "#2FA84F phos",
+      "#278F43 phos-deep",
+      "#C8C4AE paper",
+      "#6E6350 tag",
+      "#111111 ink"
+    ],
+    "primary": [],
+    "fonts": {
+      "display": "Glow Sans SC",
+      "body": "Glow Sans SC",
+      "mono": "VT323"
+    },
+    "radius": "全直角 0",
+    "radiusBare": true,
+    "radiusWhy": "border-radius 只出现过 0",
+    "shadow": "无阴影",
+    "shadowDetail": {
+      "kind": "none",
+      "inset": 0,
+      "outer": 0,
+      "drops": 0,
+      "samples": []
+    },
+    "lineWidths": "0.8px、1px、2px、4px",
+    "h1Size": "clamp(36px,5.3vw,76px)",
+    "mechanism": "",
+    "charBudget": 164
+  },
+  {
+    "id": "S19",
+    "dir": "S19-copperplate-herbarium-cabinet",
+    "structType": "",
+    "threshold": "",
+    "tone": "",
+    "palette": [
+      "#4A5C3A green",
+      "#E4DECD paper",
+      "#D8CFB6 paper-deep",
+      "#E9E3D2 paper-lit",
+      "#2A241C wood",
+      "#3A3227 wood-lit",
+      "#7C7460 faded"
+    ],
+    "primary": [
+      "#4A5C3A"
+    ],
+    "fonts": {
+      "display": "Noto Serif SC",
+      "body": "Noto Serif SC",
+      "mono": "IBM Plex Mono"
+    },
+    "radius": "全直角 0",
+    "radiusBare": true,
+    "radiusWhy": "border-radius 只出现过 0",
+    "shadow": "只用 inset（凹槽，无外投影）",
+    "shadowDetail": {
+      "kind": "inset-only",
+      "inset": 7,
+      "outer": 0,
+      "drops": 0,
+      "samples": []
+    },
+    "lineWidths": "0.4px、0.8px、1px、3px",
+    "h1Size": "clamp(46px, 5vw, 72px)",
+    "mechanism": "",
+    "charBudget": 201
+  },
+  {
+    "id": "S20",
+    "dir": "S20-plotter-soundfield",
+    "structType": "",
+    "threshold": "",
+    "tone": "",
+    "palette": [
+      "#FAF3E1 paper",
+      "#26485C blue",
+      "#0F1418 ink",
+      "#55606B pencil"
+    ],
+    "primary": [],
+    "fonts": {
+      "display": "Space Grotesk",
+      "body": "Noto Sans SC",
+      "mono": "Martian Mono"
+    },
+    "radius": "全直角 0",
+    "radiusBare": true,
+    "radiusWhy": "border-radius 只出现过 0",
+    "shadow": "无阴影",
+    "shadowDetail": {
+      "kind": "none",
+      "inset": 0,
+      "outer": 0,
+      "drops": 0,
+      "samples": []
+    },
+    "lineWidths": "0.35px、0.5px、1px、3px",
+    "h1Size": "clamp(40px, 5vw, 72px)",
+    "mechanism": "",
+    "charBudget": 147
+  },
+  {
+    "id": "S21",
+    "dir": "S21-interlocking-release-book",
+    "structType": "",
+    "threshold": "",
+    "tone": "",
+    "palette": [
+      "#3E3A34 ink",
+      "#E4DCC9 paper",
+      "#924307 amber",
+      "#6E6A5E fibre",
+      "#FFFFFF white"
+    ],
+    "primary": [
+      "#3E3A34"
+    ],
+    "fonts": {
+      "display": "Antonio",
+      "body": "WenJin Mincho",
+      "mono": "IBM Plex Mono"
+    },
+    "radius": "全直角 0",
+    "radiusBare": true,
+    "radiusWhy": "该案 CSS 里 0 处 border-radius，所有元素一律直角",
+    "shadow": "只用 inset（凹槽，无外投影）",
+    "shadowDetail": {
+      "kind": "inset-only",
+      "inset": 9,
+      "outer": 0,
+      "drops": 0,
+      "samples": []
+    },
+    "lineWidths": "1px、2px",
+    "h1Size": "",
+    "mechanism": "",
+    "charBudget": 156
+  },
+  {
+    "id": "S22",
+    "dir": "S22-paper-screen-folded-sheet",
+    "structType": "",
+    "threshold": "",
+    "tone": "",
+    "palette": [
+      "#565B49 matcha",
+      "#DDDAD4 paper",
+      "#2E2A24 ink",
+      "#6B6558 crease-dark"
+    ],
+    "primary": [
+      "#565B49"
+    ],
+    "fonts": {
+      "display": "Petrona",
+      "body": "Zhuque Fangsong",
+      "mono": "IBM Plex Mono"
+    },
+    "radius": "全直角 0",
+    "radiusBare": true,
+    "radiusWhy": "border-radius 只出现过 0",
+    "shadow": "只用 inset（凹槽，无外投影）",
+    "shadowDetail": {
+      "kind": "inset-only",
+      "inset": 4,
+      "outer": 0,
+      "drops": 0,
+      "samples": []
+    },
+    "lineWidths": "1px、3px",
+    "h1Size": "clamp(46px, 5.6vw, 84px)",
+    "mechanism": "",
+    "charBudget": 152
+  },
+  {
+    "id": "S23",
+    "dir": "S23-exposed-plaster-chronology-wall",
+    "structType": "",
+    "threshold": "",
+    "tone": "",
+    "palette": [
+      "#A8206B carmine",
+      "#241C16 oxide",
+      "#DCDCC8 plaster",
+      "#7A6A55 mortar",
+      "#E9E9D7 lime",
+      "#5F5240 mortar-ink",
+      "#B7A78C mortar-lit"
+    ],
+    "primary": [
+      "#A8206B",
+      "#241C16"
+    ],
+    "fonts": {
+      "display": "Noto Serif SC",
+      "body": "Noto Serif SC",
+      "mono": "JetBrains Mono"
+    },
+    "radius": "全直角 0",
+    "radiusBare": true,
+    "radiusWhy": "border-radius 只出现过 0",
+    "shadow": "无阴影",
+    "shadowDetail": {
+      "kind": "none",
+      "inset": 0,
+      "outer": 0,
+      "drops": 0,
+      "samples": []
+    },
+    "lineWidths": "1px、6px",
+    "h1Size": "clamp(56px, 7.2vw, 96px)",
+    "mechanism": "",
+    "charBudget": 205
+  },
+  {
+    "id": "S24",
+    "dir": "S24-cyanotype-rainforest-path",
+    "structType": "",
+    "threshold": "",
+    "tone": "",
+    "palette": [
+      "#5D43AD grape",
+      "#E6EDF2 paper",
+      "#F3F8FB paper-2",
+      "#DCE7EF paper-3",
+      "#C9D8E4 paper-4",
+      "#0A1116 ink",
+      "#3A4652 ink-2"
+    ],
+    "primary": [
+      "#5D43AD"
+    ],
+    "fonts": {
+      "display": "Spectral",
+      "body": "LXGW WenKai",
+      "mono": "IBM Plex Mono"
+    },
+    "radius": "全直角 0",
+    "radiusBare": true,
+    "radiusWhy": "border-radius 只出现过 0",
+    "shadow": "无阴影",
+    "shadowDetail": {
+      "kind": "none",
+      "inset": 0,
+      "outer": 0,
+      "drops": 0,
+      "samples": []
+    },
+    "lineWidths": "0.4px、0.6px、0.8px、1px、2px、2.5px",
+    "h1Size": "clamp(36px,5.3vw,76px)",
+    "mechanism": "",
+    "charBudget": 187
+  },
+  {
+    "id": "S25",
+    "dir": "S25-spotcolor-contents-zine",
+    "structType": "",
+    "threshold": "",
+    "tone": "",
+    "palette": [
+      "#E8E4DE paper",
+      "#DFDAD2 paper-deep",
+      "#1E1A16 ink",
+      "#914A27 spot-a",
+      "#2E6B5E spot-b",
+      "#FFFFFF paper-white"
+    ],
+    "primary": [],
+    "fonts": {
+      "display": "Besley",
+      "body": "Noto Serif SC",
+      "mono": ""
+    },
+    "radius": "全站方角 0；唯一直径 50% 的地方是 1–2px 的打孔圆点，不是圆角卡片",
+    "radiusBare": true,
+    "radiusWhy": "border-radius 只出现过 50%，且宿主是 1.6px 的圆点",
+    "shadow": "无阴影",
+    "shadowDetail": {
+      "kind": "none",
+      "inset": 0,
+      "outer": 0,
+      "drops": 0,
+      "samples": []
+    },
+    "lineWidths": "3px",
+    "h1Size": "68px",
+    "mechanism": "",
+    "charBudget": 168
+  },
+  {
+    "id": "S26",
+    "dir": "S26-geometric-collision-columns",
+    "structType": "",
+    "threshold": "",
+    "tone": "",
+    "palette": [
+      "#D3D1CA paper",
+      "#485270 blue",
+      "#121212 ink",
+      "#C8341F red",
+      "#FFFFFF white",
+      "#C3C1B9 tint",
+      "#38110E mul-br"
+    ],
+    "primary": [],
+    "fonts": {
+      "display": "Syne",
+      "body": "Noto Sans SC",
+      "mono": "IBM Plex Mono"
+    },
+    "radius": "全直角 0",
+    "radiusBare": true,
+    "radiusWhy": "border-radius 只出现过 0",
+    "shadow": "只用 drop-shadow（硬边厚度，无模糊投影）",
+    "shadowDetail": {
+      "kind": "drop-only",
+      "inset": 0,
+      "outer": 0,
+      "drops": 3,
+      "samples": []
+    },
+    "lineWidths": "2px、8px",
+    "h1Size": "clamp(44px,5.6vw,80px)",
+    "mechanism": "",
+    "charBudget": 175
+  },
+  {
+    "id": "S27",
+    "dir": "S27-hand-painted-bill-dispatch",
+    "structType": "",
+    "threshold": "",
+    "tone": "",
+    "palette": [
+      "#0E6258 green",
+      "#221C10 ink",
+      "#E8D7B5 paper",
+      "#1A150C ink2",
+      "#C9BFA6 paper2",
+      "#FFFFFF white"
+    ],
+    "primary": [
+      "#0E6258",
+      "#221C10"
+    ],
+    "fonts": {
+      "display": "Chivo",
+      "body": "LXGW WenKai",
+      "mono": "Martian Mono"
+    },
+    "radius": "全直角 0",
+    "radiusBare": true,
+    "radiusWhy": "border-radius 只出现过 0",
+    "shadow": "只用 drop-shadow（硬边厚度，无模糊投影）",
+    "shadowDetail": {
+      "kind": "drop-only",
+      "inset": 0,
+      "outer": 0,
+      "drops": 1,
+      "samples": []
+    },
+    "lineWidths": "1.2px、2.4px、3px",
+    "h1Size": "clamp(40px, 6vw, 86px)",
+    "mechanism": "",
+    "charBudget": 164
+  },
+  {
+    "id": "S28",
+    "dir": "S28-jazz-intaglio-wall",
+    "structType": "",
+    "threshold": "",
+    "tone": "",
+    "palette": [
+      "#AF74BE plum",
+      "#D8D4C6 paper",
+      "#0B0D12 ink",
+      "#07080C ink2"
+    ],
+    "primary": [
+      "#AF74BE",
+      "#D8D4C6"
+    ],
+    "fonts": {
+      "display": "Instrument Serif",
+      "body": "Noto Serif SC",
+      "mono": "JetBrains Mono"
+    },
+    "radius": "全直角 0",
+    "radiusBare": true,
+    "radiusWhy": "border-radius 只出现过 0",
+    "shadow": "只用 drop-shadow（硬边厚度，无模糊投影）",
+    "shadowDetail": {
+      "kind": "drop-only",
+      "inset": 0,
+      "outer": 0,
+      "drops": 3,
+      "samples": []
+    },
+    "lineWidths": "2px、8px",
+    "h1Size": "clamp(40px, 6.4vw, 92px)",
+    "mechanism": "",
+    "charBudget": 151
+  },
+  {
+    "id": "S29",
+    "dir": "S29-wire-bound-safety-manual",
+    "structType": "",
+    "threshold": "",
+    "tone": "",
+    "palette": [
+      "#644F02 amber",
+      "#D9D3C4 paper",
+      "#1A1A17 ink",
+      "#5A6068 gray",
+      "#E4B400 bright",
+      "#E0DACB row"
+    ],
+    "primary": [
+      "#644F02"
+    ],
+    "fonts": {
+      "display": "Saira Condensed",
+      "body": "Noto Sans SC",
+      "mono": "Martian Mono"
+    },
+    "radius": "全直角 0",
+    "radiusBare": true,
+    "radiusWhy": "border-radius 只出现过 0",
+    "shadow": "无阴影",
+    "shadowDetail": {
+      "kind": "none",
+      "inset": 0,
+      "outer": 0,
+      "drops": 0,
+      "samples": []
+    },
+    "lineWidths": "0.4px、0.6px、1px、2px、3px、6px",
+    "h1Size": "clamp(40px,5.2vw,75px)",
+    "mechanism": "",
+    "charBudget": 173
+  },
+  {
+    "id": "S30",
+    "dir": "S30-skate-sticker-split",
+    "structType": "",
+    "threshold": "",
+    "tone": "",
+    "palette": [
+      "#007B3F green",
+      "#EDEDED paper",
+      "#E6E6E6 paper-low",
+      "#00E676 deco",
+      "#141414 ink",
+      "#FFFFFF white"
+    ],
+    "primary": [
+      "#007B3F"
+    ],
+    "fonts": {
+      "display": "Anton",
+      "body": "Zhuque Fangsong",
+      "mono": "IBM Plex Mono"
+    },
+    "radius": "全直角 0",
+    "radiusBare": true,
+    "radiusWhy": "border-radius 只出现过 0",
+    "shadow": "只用 drop-shadow（硬边厚度，无模糊投影）",
+    "shadowDetail": {
+      "kind": "drop-only",
+      "inset": 0,
+      "outer": 0,
+      "drops": 4,
+      "samples": []
+    },
+    "lineWidths": "1px、3px、6px、8px",
+    "h1Size": "76px",
+    "mechanism": "",
+    "charBudget": 172
+  }
+]

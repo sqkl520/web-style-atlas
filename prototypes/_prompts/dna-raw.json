@@ -1,0 +1,1640 @@
+{
+  "stats": {
+    "total": 30,
+    "withMechanism": 10,
+    "zeroRadius": 21,
+    "insetOnly": 5,
+    "hasOuter": 2,
+    "dropOnly": 6,
+    "shadowNone": 17,
+    "noRoot": [
+      "S14"
+    ],
+    "fontCoverage": 30
+  },
+  "rows": [
+    {
+      "id": "S01",
+      "dir": "S01-red-wedge-broadsheet",
+      "structType": "",
+      "threshold": "",
+      "tone": "",
+      "colors": [
+        {
+          "name": "--paper",
+          "hex": "#EFE7D7"
+        },
+        {
+          "name": "--red",
+          "hex": "#C1121F"
+        },
+        {
+          "name": "--ink",
+          "hex": "#1A1614"
+        },
+        {
+          "name": "--lead",
+          "hex": "#6E6A5E"
+        }
+      ],
+      "families": [
+        "var(--f-text)",
+        "var(--f-mono)",
+        "var(--f-latin)"
+      ],
+      "fontFaces": [],
+      "radii": [
+        "0"
+      ],
+      "shadowKind": "none",
+      "shadowSample": [],
+      "dropSample": [],
+      "lineWidths": [
+        "1",
+        "3"
+      ],
+      "h1Size": "var(--fs-h1)",
+      "mechanism": "一块实色多边形以 11° 切入 4 栏版心，24px 实体隔条撑开栏沟，红块越界压住 3 行正文——阅读顺序由角度与越界量决定，与它叫什么名字无关。",
+      "mechanismChars": 74
+    },
+    {
+      "id": "S02",
+      "dir": "S02-gilded-symmetry-salon",
+      "structType": "",
+      "threshold": "",
+      "tone": "",
+      "colors": [
+        {
+          "name": "--card",
+          "hex": "#0B0B0F"
+        },
+        {
+          "name": "--gold",
+          "hex": "#B8860B"
+        },
+        {
+          "name": "--ivory",
+          "hex": "#EFE6D0"
+        },
+        {
+          "name": "--dirty",
+          "hex": "#3A2E1A"
+        },
+        {
+          "name": "--ink",
+          "hex": "#111111"
+        },
+        {
+          "name": "--ivory-2",
+          "hex": "#B9B09A"
+        },
+        {
+          "name": "--band",
+          "hex": "#14100A"
+        }
+      ],
+      "families": [
+        "Noto Serif SC",
+        "Bodoni Moda",
+        "IBM Plex Mono"
+      ],
+      "fontFaces": [],
+      "radii": [
+        "0"
+      ],
+      "shadowKind": "inset-only",
+      "shadowSample": [
+        "inset 0 1px 0 0 var(--ivory),\n    inset 0 -1.5px 0 0 var(--dirty),\n    inset 1px 0 0 0 var(--ivory),\n    inset -1.5px 0 0 0 var(--dirty)",
+        "inset 0 1.5px 0 0 var(--ivory),\n    inset 0 -2px 0 0 var(--dirty),\n    inset 1px 0 0 0 var(--ivory),\n    inset -1.5px 0 0 0 var(--dirty)"
+      ],
+      "dropSample": [],
+      "lineWidths": [
+        "1",
+        "2"
+      ],
+      "h1Size": "clamp(60px, 7.4vw, 108px)",
+      "mechanism": "同一张位图以一条 2px 中轴做 180° 相位取样，两侧各 7 级与 9 级、级差 56px，文字全部贴轴对齐——对称只存在于图样，文字始终不对称。",
+      "mechanismChars": 75
+    },
+    {
+      "id": "S03",
+      "dir": "S03-long-exposure-observatory",
+      "structType": "",
+      "threshold": "",
+      "tone": "",
+      "colors": [
+        {
+          "name": "--void",
+          "hex": "#101A1C"
+        },
+        {
+          "name": "--aurora",
+          "hex": "#13928E"
+        },
+        {
+          "name": "--paper",
+          "hex": "#C9D6CF"
+        },
+        {
+          "name": "--tape",
+          "hex": "#B9A98C"
+        },
+        {
+          "name": "--panel",
+          "hex": "#162226"
+        },
+        {
+          "name": "--panel-2",
+          "hex": "#0C1417"
+        },
+        {
+          "name": "--rule",
+          "hex": "#2A3639"
+        }
+      ],
+      "families": [
+        "IBM Plex Sans",
+        "IBM Plex Mono",
+        "Space Grotesk"
+      ],
+      "fontFaces": [],
+      "radii": [
+        "0"
+      ],
+      "shadowKind": "none",
+      "shadowSample": [],
+      "dropSample": [],
+      "lineWidths": [
+        "1",
+        "2"
+      ],
+      "h1Size": "",
+      "mechanism": "一条 264px 宽的纵向刻度轴随滚动固定，右侧 9 栏的高度按 30 秒曝光折成 28px 一档，四角遮罩压掉 32%，游标随焦距比移动——层级由高度与固定位置承担，不由名字承担。",
+      "mechanismChars": 91
+    },
+    {
+      "id": "S04",
+      "dir": "S04-mango-collage-wall",
+      "structType": "",
+      "threshold": "",
+      "tone": "",
+      "colors": [
+        {
+          "name": "--orange",
+          "hex": "#96550F"
+        },
+        {
+          "name": "--green",
+          "hex": "#2F7D4F"
+        },
+        {
+          "name": "--ink",
+          "hex": "#14100C"
+        },
+        {
+          "name": "--paper",
+          "hex": "#F0E2C8"
+        }
+      ],
+      "families": [
+        "Unbounded",
+        "Redaction 20",
+        "Martian Mono",
+        "var(--f-body)",
+        "var(--f-mono)",
+        "var(--f-cjk)",
+        "var(--f-disp)"
+      ],
+      "fontFaces": [
+        "Unbounded",
+        "Redaction 20",
+        "Martian Mono"
+      ],
+      "radii": [],
+      "shadowKind": "none",
+      "shadowSample": [],
+      "dropSample": [],
+      "lineWidths": [
+        "1",
+        "3"
+      ],
+      "h1Size": "72px",
+      "mechanism": "12 列隐网格上，纸块跨 2 至 6 栏、色版偏移取 3 至 7px 五档、旋转限 ±1.2°，页面上没有一条对称边——阅读入口由层叠高低与错位量给出。",
+      "mechanismChars": 76
+    },
+    {
+      "id": "S05",
+      "dir": "S05-pixel-cold-storage-console",
+      "structType": "",
+      "threshold": "",
+      "tone": "",
+      "colors": [
+        {
+          "name": "--plate",
+          "hex": "#0E100D"
+        },
+        {
+          "name": "--paint",
+          "hex": "#4FA83D"
+        },
+        {
+          "name": "--panel",
+          "hex": "#BFB9A6"
+        },
+        {
+          "name": "--alarm",
+          "hex": "#8C2F1F"
+        },
+        {
+          "name": "--on-paint",
+          "hex": "#111111"
+        },
+        {
+          "name": "--groove-hi",
+          "hex": "#2A2E28"
+        },
+        {
+          "name": "--groove-lo",
+          "hex": "#050605"
+        }
+      ],
+      "families": [
+        "Glow Sans SC",
+        "Barlow",
+        "Departure Mono"
+      ],
+      "fontFaces": [],
+      "radii": [
+        "0",
+        "50%"
+      ],
+      "shadowKind": "inset-only",
+      "shadowSample": [
+        "inset 1px 1px 0 var(--groove-hi), inset -1px -1px 0 var(--groove-lo),\n              inset 0 6px 0 rgba(5, 6, 5, .42)",
+        "inset 1px 1px 0 var(--groove-hi), inset -1px -1px 0 var(--groove-lo),\n              inset 0 6px 0 rgba(5, 6, 5, .42)"
+      ],
+      "dropSample": [],
+      "lineWidths": [
+        "1",
+        "2"
+      ],
+      "h1Size": "clamp(46px, 6vw, 88px)",
+      "mechanism": "8px 为一个单元，8 块分区按 5:2:1 再加一个双高块分配面积，凹槽 6px 单向受光，读数按 5×7 网格排点——优先级由面积与单元数直接表达。",
+      "mechanismChars": 76
+    },
+    {
+      "id": "S06",
+      "dir": "S06-showa-kissaten-ledger",
+      "structType": "",
+      "threshold": "",
+      "tone": "",
+      "colors": [
+        {
+          "name": "--paper",
+          "hex": "#ECDEC6"
+        },
+        {
+          "name": "--brown",
+          "hex": "#85572A"
+        },
+        {
+          "name": "--ink",
+          "hex": "#241A12"
+        },
+        {
+          "name": "--stain",
+          "hex": "#C9A87C"
+        },
+        {
+          "name": "--card",
+          "hex": "#E6D8BC"
+        },
+        {
+          "name": "--card-2",
+          "hex": "#E0D0B0"
+        },
+        {
+          "name": "--pale",
+          "hex": "#E4D5B8"
+        },
+        {
+          "name": "--brown-deep",
+          "hex": "#5A3A1C"
+        },
+        {
+          "name": "--rule",
+          "hex": "#B9A87F"
+        },
+        {
+          "name": "--tone-hover",
+          "hex": "#DECDA9"
+        }
+      ],
+      "families": [
+        "var(--f-text)",
+        "var(--f-display)",
+        "var(--f-mono)"
+      ],
+      "fontFaces": [],
+      "radii": [
+        "0"
+      ],
+      "shadowKind": "none",
+      "shadowSample": [],
+      "dropSample": [],
+      "lineWidths": [
+        "1",
+        "2"
+      ],
+      "h1Size": "clamp(46px, 5.6vw, 84px)",
+      "mechanism": "卡片沿 3° 斜轨排布，轨道间距 96px、相邻偏移按 0.62 递减，漂移速度为滚动量的 0.6 倍且各卡系数在 0.92 至 1.08 之间不等——顺序由速度差与斜角给出。",
+      "mechanismChars": 88
+    },
+    {
+      "id": "S07",
+      "dir": "S07-slate-ink-contents",
+      "structType": "",
+      "threshold": "",
+      "tone": "",
+      "colors": [
+        {
+          "name": "--paper",
+          "hex": "#E7E7E0"
+        },
+        {
+          "name": "--slate",
+          "hex": "#33505C"
+        },
+        {
+          "name": "--ink",
+          "hex": "#1C1A16"
+        },
+        {
+          "name": "--deckle",
+          "hex": "#9A9384"
+        }
+      ],
+      "families": [
+        "Libre Franklin",
+        "Newsreader",
+        "IBM Plex Mono\" /* taste-skill-ignore: 字段4 辅助数字，只用于页码/辑号/归档号 */",
+        "var(--text)",
+        "var(--display)",
+        "var(--num)"
+      ],
+      "fontFaces": [
+        "Libre Franklin",
+        "Newsreader",
+        "IBM Plex Mono"
+      ],
+      "radii": [],
+      "shadowKind": "none",
+      "shadowSample": [],
+      "dropSample": [],
+      "lineWidths": [
+        "1",
+        "2"
+      ],
+      "h1Size": "",
+      "mechanism": "同一段文字在纸背以 8% 至 14% 不透明度做镜像并整体偏移 1px，正面 5 栏对背面 7 栏、栏线 0.5px，页码竖排 28px 行高——正反两面同时进入同一张版心。",
+      "mechanismChars": 87
+    },
+    {
+      "id": "S08",
+      "dir": "S08-amber-overprint-lightbox",
+      "structType": "",
+      "threshold": "",
+      "tone": "",
+      "colors": [
+        {
+          "name": "--room",
+          "hex": "#120C08"
+        },
+        {
+          "name": "--amber",
+          "hex": "#C46A1F"
+        },
+        {
+          "name": "--ivory",
+          "hex": "#E8DCC8"
+        },
+        {
+          "name": "--wall",
+          "hex": "#6B4A22"
+        },
+        {
+          "name": "--wall-deep",
+          "hex": "#3A2712"
+        },
+        {
+          "name": "--on-amber",
+          "hex": "#111111"
+        }
+      ],
+      "families": [
+        "var(--body-face)",
+        "Overprint Numerals",
+        "var(--display-face)",
+        "var(--serif-cn)"
+      ],
+      "fontFaces": [
+        "Overprint Numerals"
+      ],
+      "radii": [],
+      "shadowKind": "none",
+      "shadowSample": [],
+      "dropSample": [],
+      "lineWidths": [
+        "2",
+        "3",
+        "4"
+      ],
+      "h1Size": "clamp(44px, 5.4vw, 78px)",
+      "mechanism": "六块板按层号各偏移 (24px, 12px)，轮廓侧向拉出 6 至 10px、上缘 2px 高光、滚动 200px 走 6px——深度由层号位移与侧壁宽度两件事同时说明。",
+      "mechanismChars": 85
+    },
+    {
+      "id": "S09",
+      "dir": "S09-batik-price-board",
+      "structType": "",
+      "threshold": "",
+      "tone": "",
+      "colors": [
+        {
+          "name": "--yellow",
+          "hex": "#F5C842"
+        },
+        {
+          "name": "--blue",
+          "hex": "#1F4E79"
+        },
+        {
+          "name": "--ink",
+          "hex": "#151310"
+        },
+        {
+          "name": "--rust",
+          "hex": "#8A4B24"
+        }
+      ],
+      "families": [
+        "var(--f-cn)",
+        "var(--f-mono)",
+        "var(--f-latin)"
+      ],
+      "fontFaces": [],
+      "radii": [
+        "0"
+      ],
+      "shadowKind": "drop-shadow-only",
+      "shadowSample": [],
+      "dropSample": [
+        ".5px .5px 0 var(--ink"
+      ],
+      "lineWidths": [
+        "2",
+        "3"
+      ],
+      "h1Size": "var(--fs-h1)",
+      "mechanism": "价目行以 1.5° 整体倾斜，行高 56px、左端起点错开 4 至 12px，描边外线 3.5px 与内线 2px 且留 5% 至 10% 缺口——可读性交给等宽数字，手绘只做外圈。",
+      "mechanismChars": 91
+    },
+    {
+      "id": "S10",
+      "dir": "S10-grid-versus-sheet",
+      "structType": "",
+      "threshold": "",
+      "tone": "",
+      "colors": [
+        {
+          "name": "--paper",
+          "hex": "#F2EFE8"
+        },
+        {
+          "name": "--ink",
+          "hex": "#17171A"
+        },
+        {
+          "name": "--red",
+          "hex": "#D32029"
+        },
+        {
+          "name": "--grey",
+          "hex": "#6E7076"
+        },
+        {
+          "name": "--grey-soft",
+          "hex": "#B6B4AE"
+        }
+      ],
+      "families": [
+        "var(--face-text)",
+        "var(--face-display)",
+        "var(--face-mono)"
+      ],
+      "fontFaces": [],
+      "radii": [
+        "0"
+      ],
+      "shadowKind": "none",
+      "shadowSample": [],
+      "dropSample": [],
+      "lineWidths": [
+        "1.5",
+        "2"
+      ],
+      "h1Size": "clamp(32px, 5.55vw, 80px)",
+      "mechanism": "五栏按 6:7:9:8:5 分宽，红版相对黑版固定右下错 1px、进视口时先错 3px 再收到 1.5px，标题基线上移 6px——对比强度由栏宽比与错位像素共同给出。",
+      "mechanismChars": 84
+    },
+    {
+      "id": "S11",
+      "dir": "S11-samizdat-typewriter",
+      "structType": "",
+      "threshold": "",
+      "tone": "",
+      "colors": [
+        {
+          "name": "--paper",
+          "hex": "#DCDDD2"
+        },
+        {
+          "name": "--ink",
+          "hex": "#221E19"
+        },
+        {
+          "name": "--copy",
+          "hex": "#1B4A4A"
+        },
+        {
+          "name": "--note",
+          "hex": "#6E7A64"
+        }
+      ],
+      "families": [
+        "LXGW WenKai TC",
+        "EB Garamond",
+        "Martian Mono"
+      ],
+      "fontFaces": [],
+      "radii": [
+        "0"
+      ],
+      "shadowKind": "inset-only",
+      "shadowSample": [
+        "inset 0 0 0 3px var(--copy)",
+        "inset 0 1px 0 rgba(220, 221, 210, 0.85)"
+      ],
+      "dropSample": [
+        "var(--ghost-1",
+        "var(--ghost-2"
+      ],
+      "lineWidths": [
+        "1",
+        "2",
+        "3"
+      ],
+      "h1Size": "clamp(46px, 7.4vw, 106px)",
+      "mechanism": "",
+      "mechanismChars": 0
+    },
+    {
+      "id": "S12",
+      "dir": "S12-lime-knockout-wall",
+      "structType": "",
+      "threshold": "",
+      "tone": "",
+      "colors": [
+        {
+          "name": "--room",
+          "hex": "#1E2A2E"
+        },
+        {
+          "name": "--room-2",
+          "hex": "#26353A"
+        },
+        {
+          "name": "--room-3",
+          "hex": "#182226"
+        },
+        {
+          "name": "--lime",
+          "hex": "#B5D626"
+        },
+        {
+          "name": "--magenta",
+          "hex": "#E23E57"
+        },
+        {
+          "name": "--face",
+          "hex": "#F2E9D8"
+        },
+        {
+          "name": "--btn-ink",
+          "hex": "#111111"
+        }
+      ],
+      "families": [
+        "Glow Sans SC",
+        "Bricolage Grotesque",
+        "JetBrains Mono"
+      ],
+      "fontFaces": [],
+      "radii": [
+        "0"
+      ],
+      "shadowKind": "none",
+      "shadowSample": [],
+      "dropSample": [],
+      "lineWidths": [
+        "1",
+        "2",
+        "8"
+      ],
+      "h1Size": "clamp(54px, 6.6vw, 104px)",
+      "mechanism": "",
+      "mechanismChars": 0
+    },
+    {
+      "id": "S13",
+      "dir": "S13-blind-debossed-dispatch",
+      "structType": "",
+      "threshold": "",
+      "tone": "",
+      "colors": [
+        {
+          "name": "--paper",
+          "hex": "#F4E3BE"
+        },
+        {
+          "name": "--ink",
+          "hex": "#241F17"
+        },
+        {
+          "name": "--gold",
+          "hex": "#7B612C"
+        },
+        {
+          "name": "--shade",
+          "hex": "#D6CDB9"
+        }
+      ],
+      "families": [
+        "var(--font-body)",
+        "var(--font-figure)",
+        "var(--font-display)"
+      ],
+      "fontFaces": [],
+      "radii": [
+        "0"
+      ],
+      "shadowKind": "has-outer",
+      "shadowSample": [
+        "var(--press-2)",
+        "var(--press-1-off)"
+      ],
+      "dropSample": [],
+      "lineWidths": [
+        "1",
+        "2",
+        "3",
+        "5.5"
+      ],
+      "h1Size": "",
+      "mechanism": "",
+      "mechanismChars": 0
+    },
+    {
+      "id": "S14",
+      "dir": "S14-zero-g-launch-sequence",
+      "structType": "",
+      "threshold": "",
+      "tone": "",
+      "colors": [],
+      "families": [
+        "Noto Serif SC",
+        "Space Mono",
+        "Oswald"
+      ],
+      "fontFaces": [],
+      "radii": [
+        "0",
+        "50%"
+      ],
+      "shadowKind": "none",
+      "shadowSample": [],
+      "dropSample": [],
+      "lineWidths": [
+        "1",
+        "2",
+        "3"
+      ],
+      "h1Size": "clamp(44px, 5vw, 72px)",
+      "mechanism": "",
+      "mechanismChars": 0
+    },
+    {
+      "id": "S15",
+      "dir": "S15-fishery-floor-ledger",
+      "structType": "",
+      "threshold": "",
+      "tone": "",
+      "colors": [
+        {
+          "name": "--paper",
+          "hex": "#E7EBE9"
+        },
+        {
+          "name": "--graphite",
+          "hex": "#3A3F45"
+        },
+        {
+          "name": "--press",
+          "hex": "#22282B"
+        },
+        {
+          "name": "--pencil",
+          "hex": "#7A7466"
+        }
+      ],
+      "families": [
+        "Noto Serif SC",
+        "Newsreader",
+        "Reddit Mono"
+      ],
+      "fontFaces": [],
+      "radii": [
+        "0"
+      ],
+      "shadowKind": "none",
+      "shadowSample": [],
+      "dropSample": [],
+      "lineWidths": [
+        "2",
+        "3"
+      ],
+      "h1Size": "clamp(46px, 6.4vw, 92px)",
+      "mechanism": "",
+      "mechanismChars": 0
+    },
+    {
+      "id": "S16",
+      "dir": "S16-velocity-slant-manifesto",
+      "structType": "",
+      "threshold": "",
+      "tone": "",
+      "colors": [
+        {
+          "name": "--paper",
+          "hex": "#F7EBCF"
+        },
+        {
+          "name": "--red",
+          "hex": "#C52C0F"
+        },
+        {
+          "name": "--ink",
+          "hex": "#1A1A1A"
+        },
+        {
+          "name": "--pressed",
+          "hex": "#8E2A18"
+        },
+        {
+          "name": "--ink-2",
+          "hex": "#5C5C55"
+        }
+      ],
+      "families": [
+        "Noto Serif SC",
+        "Fragment Mono",
+        "LXGW Marker Gothic",
+        "Archivo Black"
+      ],
+      "fontFaces": [],
+      "radii": [
+        "0",
+        "50%"
+      ],
+      "shadowKind": "drop-shadow-only",
+      "shadowSample": [],
+      "dropSample": [
+        "0 1px 0 #8E2A18",
+        "0 1px 0 var(--pressed"
+      ],
+      "lineWidths": [
+        "2",
+        "3",
+        "6",
+        "13"
+      ],
+      "h1Size": "clamp(46px, 6.2vw, 88px)",
+      "mechanism": "",
+      "mechanismChars": 0
+    },
+    {
+      "id": "S17",
+      "dir": "S17-revenue-stamp-stub",
+      "structType": "",
+      "threshold": "",
+      "tone": "",
+      "colors": [
+        {
+          "name": "--paper",
+          "hex": "#E1D6BD"
+        },
+        {
+          "name": "--stub",
+          "hex": "#C9BFA6"
+        },
+        {
+          "name": "--ink",
+          "hex": "#5A2A50"
+        },
+        {
+          "name": "--ink-deep",
+          "hex": "#3F1A38"
+        },
+        {
+          "name": "--seal",
+          "hex": "#7A2E2E"
+        },
+        {
+          "name": "--rule",
+          "hex": "#B9A98C"
+        },
+        {
+          "name": "--tone-hover",
+          "hex": "#DFD6BF"
+        },
+        {
+          "name": "--tone-hold",
+          "hex": "#D6C9AC"
+        }
+      ],
+      "families": [
+        "文津宋体",
+        "Literata",
+        "Sometype Mono"
+      ],
+      "fontFaces": [
+        "文津宋体"
+      ],
+      "radii": [
+        "0",
+        "50%"
+      ],
+      "shadowKind": "none",
+      "shadowSample": [],
+      "dropSample": [],
+      "lineWidths": [
+        "1",
+        "2"
+      ],
+      "h1Size": "clamp(46px, 6vw, 88px)",
+      "mechanism": "",
+      "mechanismChars": 0
+    },
+    {
+      "id": "S18",
+      "dir": "S18-phosphor-service-deck",
+      "structType": "",
+      "threshold": "",
+      "tone": "",
+      "colors": [
+        {
+          "name": "--bay",
+          "hex": "#0A0D0A"
+        },
+        {
+          "name": "--phos",
+          "hex": "#2FA84F"
+        },
+        {
+          "name": "--phos-deep",
+          "hex": "#278F43"
+        },
+        {
+          "name": "--paper",
+          "hex": "#C8C4AE"
+        },
+        {
+          "name": "--tag",
+          "hex": "#6E6350"
+        },
+        {
+          "name": "--ink",
+          "hex": "#111111"
+        }
+      ],
+      "families": [
+        "var(--wire)",
+        "var(--mono)",
+        "var(--term)"
+      ],
+      "fontFaces": [],
+      "radii": [
+        "0"
+      ],
+      "shadowKind": "none",
+      "shadowSample": [],
+      "dropSample": [],
+      "lineWidths": [
+        "1",
+        "2",
+        "4"
+      ],
+      "h1Size": "clamp(36px,5.3vw,76px)",
+      "mechanism": "",
+      "mechanismChars": 0
+    },
+    {
+      "id": "S19",
+      "dir": "S19-copperplate-herbarium-cabinet",
+      "structType": "",
+      "threshold": "",
+      "tone": "",
+      "colors": [
+        {
+          "name": "--paper",
+          "hex": "#E4DECD"
+        },
+        {
+          "name": "--paper-deep",
+          "hex": "#D8CFB6"
+        },
+        {
+          "name": "--paper-lit",
+          "hex": "#E9E3D2"
+        },
+        {
+          "name": "--wood",
+          "hex": "#2A241C"
+        },
+        {
+          "name": "--wood-lit",
+          "hex": "#3A3227"
+        },
+        {
+          "name": "--green",
+          "hex": "#4A5C3A"
+        },
+        {
+          "name": "--faded",
+          "hex": "#7C7460"
+        },
+        {
+          "name": "--ink",
+          "hex": "#2A241C"
+        },
+        {
+          "name": "--ink2",
+          "hex": "#5E5443"
+        },
+        {
+          "name": "--note-ink",
+          "hex": "#534C3E"
+        }
+      ],
+      "families": [
+        "Noto Serif SC",
+        "IBM Plex Mono",
+        "Spectral"
+      ],
+      "fontFaces": [],
+      "radii": [
+        "0"
+      ],
+      "shadowKind": "has-outer",
+      "shadowSample": [
+        "inset 0 0 0 100px rgba(124, 116, 96, 0.12)",
+        "inset 0 1px 0 0 rgba(20, 15, 10, 0.9), inset 0 10px 12px -10px rgba(20, 15, 10, 0.75)"
+      ],
+      "dropSample": [],
+      "lineWidths": [
+        "1",
+        "3"
+      ],
+      "h1Size": "clamp(46px, 5vw, 72px)",
+      "mechanism": "",
+      "mechanismChars": 0
+    },
+    {
+      "id": "S20",
+      "dir": "S20-plotter-soundfield",
+      "structType": "",
+      "threshold": "",
+      "tone": "",
+      "colors": [
+        {
+          "name": "--paper",
+          "hex": "#FAF3E1"
+        },
+        {
+          "name": "--blue",
+          "hex": "#26485C"
+        },
+        {
+          "name": "--ink",
+          "hex": "#0F1418"
+        },
+        {
+          "name": "--pencil",
+          "hex": "#55606B"
+        }
+      ],
+      "families": [
+        "Noto Sans SC",
+        "Martian Mono",
+        "Space Grotesk"
+      ],
+      "fontFaces": [],
+      "radii": [
+        "0"
+      ],
+      "shadowKind": "none",
+      "shadowSample": [],
+      "dropSample": [],
+      "lineWidths": [
+        "1",
+        "3"
+      ],
+      "h1Size": "clamp(40px, 5vw, 72px)",
+      "mechanism": "",
+      "mechanismChars": 0
+    },
+    {
+      "id": "S21",
+      "dir": "S21-interlocking-release-book",
+      "structType": "",
+      "threshold": "",
+      "tone": "",
+      "colors": [
+        {
+          "name": "--paper",
+          "hex": "#E4DCC9"
+        },
+        {
+          "name": "--ink",
+          "hex": "#3E3A34"
+        },
+        {
+          "name": "--amber",
+          "hex": "#924307"
+        },
+        {
+          "name": "--fibre",
+          "hex": "#6E6A5E"
+        },
+        {
+          "name": "--white",
+          "hex": "#FFFFFF"
+        }
+      ],
+      "families": [
+        "WenJin Mincho",
+        "var(--face-cjk)",
+        "IBM Plex Mono",
+        "var(--face-head)"
+      ],
+      "fontFaces": [
+        "WenJin Mincho"
+      ],
+      "radii": [],
+      "shadowKind": "inset-only",
+      "shadowSample": [
+        "inset 1px 1px 0 var(--groove-hi),inset -1px -1px 0 var(--edge)",
+        "none"
+      ],
+      "dropSample": [],
+      "lineWidths": [
+        "1",
+        "2"
+      ],
+      "h1Size": "",
+      "mechanism": "",
+      "mechanismChars": 0
+    },
+    {
+      "id": "S22",
+      "dir": "S22-paper-screen-folded-sheet",
+      "structType": "",
+      "threshold": "",
+      "tone": "",
+      "colors": [
+        {
+          "name": "--paper",
+          "hex": "#DDDAD4"
+        },
+        {
+          "name": "--ink",
+          "hex": "#2E2A24"
+        },
+        {
+          "name": "--matcha",
+          "hex": "#565B49"
+        },
+        {
+          "name": "--crease-dark",
+          "hex": "#6B6558"
+        }
+      ],
+      "families": [
+        "Zhuque Fangsong",
+        "IBM Plex Mono",
+        "Petrona"
+      ],
+      "fontFaces": [],
+      "radii": [
+        "0"
+      ],
+      "shadowKind": "inset-only",
+      "shadowSample": [
+        "inset 0 0 0 1px rgba(86, 91, 73, 0.3)",
+        "inset 0 -3px 0 0 var(--matcha)"
+      ],
+      "dropSample": [],
+      "lineWidths": [
+        "1",
+        "3"
+      ],
+      "h1Size": "clamp(46px, 5.6vw, 84px)",
+      "mechanism": "",
+      "mechanismChars": 0
+    },
+    {
+      "id": "S23",
+      "dir": "S23-exposed-plaster-chronology-wall",
+      "structType": "",
+      "threshold": "",
+      "tone": "",
+      "colors": [
+        {
+          "name": "--plaster",
+          "hex": "#DCDCC8"
+        },
+        {
+          "name": "--carmine",
+          "hex": "#A8206B"
+        },
+        {
+          "name": "--oxide",
+          "hex": "#241C16"
+        },
+        {
+          "name": "--mortar",
+          "hex": "#7A6A55"
+        },
+        {
+          "name": "--lime",
+          "hex": "#E9E9D7"
+        },
+        {
+          "name": "--mortar-ink",
+          "hex": "#5F5240"
+        },
+        {
+          "name": "--mortar-lit",
+          "hex": "#B7A78C"
+        },
+        {
+          "name": "--carmine-lit",
+          "hex": "#E9A9C6"
+        }
+      ],
+      "families": [
+        "var(--cjk)",
+        "var(--mono)",
+        "var(--slab)"
+      ],
+      "fontFaces": [],
+      "radii": [
+        "0"
+      ],
+      "shadowKind": "none",
+      "shadowSample": [],
+      "dropSample": [],
+      "lineWidths": [
+        "1",
+        "6"
+      ],
+      "h1Size": "clamp(56px, 7.2vw, 96px)",
+      "mechanism": "",
+      "mechanismChars": 0
+    },
+    {
+      "id": "S24",
+      "dir": "S24-cyanotype-rainforest-path",
+      "structType": "",
+      "threshold": "",
+      "tone": "",
+      "colors": [
+        {
+          "name": "--paper",
+          "hex": "#E6EDF2"
+        },
+        {
+          "name": "--paper-2",
+          "hex": "#F3F8FB"
+        },
+        {
+          "name": "--paper-3",
+          "hex": "#DCE7EF"
+        },
+        {
+          "name": "--paper-4",
+          "hex": "#C9D8E4"
+        },
+        {
+          "name": "--ink",
+          "hex": "#0A1116"
+        },
+        {
+          "name": "--ink-2",
+          "hex": "#3A4652"
+        },
+        {
+          "name": "--grape",
+          "hex": "#5D43AD"
+        },
+        {
+          "name": "--moss",
+          "hex": "#6E8B7A"
+        },
+        {
+          "name": "--moss-2",
+          "hex": "#3C5F48"
+        },
+        {
+          "name": "--exp2",
+          "hex": "#5D43AD"
+        },
+        {
+          "name": "--exp4",
+          "hex": "#4A3390"
+        },
+        {
+          "name": "--exp8",
+          "hex": "#3A276E"
+        },
+        {
+          "name": "--exp16",
+          "hex": "#2A1B50"
+        },
+        {
+          "name": "--exp32",
+          "hex": "#1B1136"
+        },
+        {
+          "name": "--exp64",
+          "hex": "#0A1116"
+        }
+      ],
+      "families": [
+        "var(--text)",
+        "var(--display)",
+        "var(--mono)"
+      ],
+      "fontFaces": [],
+      "radii": [
+        "0"
+      ],
+      "shadowKind": "none",
+      "shadowSample": [],
+      "dropSample": [],
+      "lineWidths": [
+        "1",
+        "2"
+      ],
+      "h1Size": "clamp(36px,5.3vw,76px)",
+      "mechanism": "",
+      "mechanismChars": 0
+    },
+    {
+      "id": "S25",
+      "dir": "S25-spotcolor-contents-zine",
+      "structType": "",
+      "threshold": "",
+      "tone": "",
+      "colors": [
+        {
+          "name": "--paper",
+          "hex": "#E8E4DE"
+        },
+        {
+          "name": "--paper-deep",
+          "hex": "#DFDAD2"
+        },
+        {
+          "name": "--ink",
+          "hex": "#1E1A16"
+        },
+        {
+          "name": "--spot-a",
+          "hex": "#914A27"
+        },
+        {
+          "name": "--spot-b",
+          "hex": "#2E6B5E"
+        },
+        {
+          "name": "--paper-white",
+          "hex": "#FFFFFF"
+        }
+      ],
+      "families": [
+        "var(--serif)",
+        "var(--display)"
+      ],
+      "fontFaces": [],
+      "radii": [
+        "50%"
+      ],
+      "shadowKind": "none",
+      "shadowSample": [],
+      "dropSample": [],
+      "lineWidths": [
+        "3"
+      ],
+      "h1Size": "68px",
+      "mechanism": "",
+      "mechanismChars": 0
+    },
+    {
+      "id": "S26",
+      "dir": "S26-geometric-collision-columns",
+      "structType": "",
+      "threshold": "",
+      "tone": "",
+      "colors": [
+        {
+          "name": "--paper",
+          "hex": "#D3D1CA"
+        },
+        {
+          "name": "--blue",
+          "hex": "#485270"
+        },
+        {
+          "name": "--ink",
+          "hex": "#121212"
+        },
+        {
+          "name": "--red",
+          "hex": "#C8341F"
+        },
+        {
+          "name": "--white",
+          "hex": "#FFFFFF"
+        },
+        {
+          "name": "--tint",
+          "hex": "#C3C1B9"
+        },
+        {
+          "name": "--mul-br",
+          "hex": "#38110E"
+        },
+        {
+          "name": "--mul-rk",
+          "hex": "#0E0402"
+        },
+        {
+          "name": "--mul-bk",
+          "hex": "#050608"
+        }
+      ],
+      "families": [
+        "var(--text)",
+        "var(--display)",
+        "var(--mono)"
+      ],
+      "fontFaces": [],
+      "radii": [
+        "0"
+      ],
+      "shadowKind": "drop-shadow-only",
+      "shadowSample": [],
+      "dropSample": [
+        "",
+        "1.5px 1.5px 0 var(--mul-br"
+      ],
+      "lineWidths": [
+        "2",
+        "8"
+      ],
+      "h1Size": "clamp(44px,5.6vw,80px)",
+      "mechanism": "",
+      "mechanismChars": 0
+    },
+    {
+      "id": "S27",
+      "dir": "S27-hand-painted-bill-dispatch",
+      "structType": "",
+      "threshold": "",
+      "tone": "",
+      "colors": [
+        {
+          "name": "--paper",
+          "hex": "#E8D7B5"
+        },
+        {
+          "name": "--green",
+          "hex": "#0E6258"
+        },
+        {
+          "name": "--ink",
+          "hex": "#221C10"
+        },
+        {
+          "name": "--ink2",
+          "hex": "#1A150C"
+        },
+        {
+          "name": "--paper2",
+          "hex": "#C9BFA6"
+        },
+        {
+          "name": "--white",
+          "hex": "#FFFFFF"
+        }
+      ],
+      "families": [
+        "LXGW WenKai",
+        "Chivo",
+        "Martian Mono"
+      ],
+      "fontFaces": [],
+      "radii": [
+        "0"
+      ],
+      "shadowKind": "drop-shadow-only",
+      "shadowSample": [],
+      "dropSample": [
+        "0 2px 0 var(--ink2"
+      ],
+      "lineWidths": [],
+      "h1Size": "clamp(40px, 6vw, 86px)",
+      "mechanism": "",
+      "mechanismChars": 0
+    },
+    {
+      "id": "S28",
+      "dir": "S28-jazz-intaglio-wall",
+      "structType": "",
+      "threshold": "",
+      "tone": "",
+      "colors": [
+        {
+          "name": "--ink",
+          "hex": "#0B0D12"
+        },
+        {
+          "name": "--ink2",
+          "hex": "#07080C"
+        },
+        {
+          "name": "--plum",
+          "hex": "#AF74BE"
+        },
+        {
+          "name": "--paper",
+          "hex": "#D8D4C6"
+        }
+      ],
+      "families": [
+        "Noto Serif SC",
+        "Instrument Serif",
+        "JetBrains Mono"
+      ],
+      "fontFaces": [],
+      "radii": [
+        "0"
+      ],
+      "shadowKind": "drop-shadow-only",
+      "shadowSample": [],
+      "dropSample": [
+        "calc(var(--edge",
+        "calc(var(--edge"
+      ],
+      "lineWidths": [
+        "2",
+        "8"
+      ],
+      "h1Size": "clamp(40px, 6.4vw, 92px)",
+      "mechanism": "",
+      "mechanismChars": 0
+    },
+    {
+      "id": "S29",
+      "dir": "S29-wire-bound-safety-manual",
+      "structType": "",
+      "threshold": "",
+      "tone": "",
+      "colors": [
+        {
+          "name": "--paper",
+          "hex": "#D9D3C4"
+        },
+        {
+          "name": "--ink",
+          "hex": "#1A1A17"
+        },
+        {
+          "name": "--amber",
+          "hex": "#644F02"
+        },
+        {
+          "name": "--gray",
+          "hex": "#5A6068"
+        },
+        {
+          "name": "--bright",
+          "hex": "#E4B400"
+        },
+        {
+          "name": "--row",
+          "hex": "#E0DACB"
+        }
+      ],
+      "families": [
+        "var(--text)",
+        "var(--display)",
+        "var(--mono)"
+      ],
+      "fontFaces": [],
+      "radii": [
+        "0"
+      ],
+      "shadowKind": "none",
+      "shadowSample": [],
+      "dropSample": [],
+      "lineWidths": [
+        "1",
+        "2",
+        "3",
+        "6"
+      ],
+      "h1Size": "clamp(40px,5.2vw,75px)",
+      "mechanism": "",
+      "mechanismChars": 0
+    },
+    {
+      "id": "S30",
+      "dir": "S30-skate-sticker-split",
+      "structType": "",
+      "threshold": "",
+      "tone": "",
+      "colors": [
+        {
+          "name": "--paper",
+          "hex": "#EDEDED"
+        },
+        {
+          "name": "--paper-low",
+          "hex": "#E6E6E6"
+        },
+        {
+          "name": "--green",
+          "hex": "#007B3F"
+        },
+        {
+          "name": "--deco",
+          "hex": "#00E676"
+        },
+        {
+          "name": "--ink",
+          "hex": "#141414"
+        },
+        {
+          "name": "--white",
+          "hex": "#FFFFFF"
+        }
+      ],
+      "families": [
+        "Zhuque Fangsong",
+        "IBM Plex Mono",
+        "Anton"
+      ],
+      "fontFaces": [],
+      "radii": [
+        "0"
+      ],
+      "shadowKind": "drop-shadow-only",
+      "shadowSample": [],
+      "dropSample": [
+        "",
+        "1px 0 0 var(--ink"
+      ],
+      "lineWidths": [
+        "1",
+        "3",
+        "6",
+        "8"
+      ],
+      "h1Size": "76px",
+      "mechanism": "",
+      "mechanismChars": 0
+    }
+  ]
+}

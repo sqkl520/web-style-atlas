@@ -295,12 +295,48 @@
     $$('.row', ledger).forEach(function (el) { io.observe(el); });
   }
 
+  /* ── 空状态里的三个数字与"你搜的那个词" ────────────────────
+     空状态不能写死 "44 个行业词里 16 个有直连" —— 那是 prompts.js 今天的状态，
+     明天有人补了 3 个行业就变成新的谎。所以每次渲染都从 window.STYLE_PROMPTS.sceneIndex
+     现算。三个数各有用处：
+       · 行业词总数 → 让用户知道这一维其实很宽；
+       · 有直连的词数 → 让用户知道"宽"里有多少是真能点的；
+       · 差值就是供给缺口，这正是空状态要承认的那件事。
+     搜索词只回填用户实际敲的那一个，且只在它确实是索引里的行业词时才填 ——
+     否则敲错字也会被暗示成"这个词存在于索引里、只是没方案"，那是另一种说谎。 */
+  function syncEmptyFacts() {
+    var P = window.STYLE_PROMPTS;
+    var idx = (P && P.sceneIndex) || {};
+    var terms = Object.keys(idx);
+    var direct = terms.filter(function (t) { return (idx[t].direct || []).length; }).length;
+    var set = function (id, v) {
+      var el = document.getElementById(id);
+      if (el && v != null) el.textContent = String(v);
+    };
+    set('e-total', ALL.length);
+    set('e-terms', terms.length);
+    set('e-direct', direct);
+    set('e-direct2', direct);
+    /* 最后那句"为什么搜不到"按实际情况分两种：
+       · 搜索词确实是索引里的行业词 → 点名它，并说清是缺数据；
+       · 否则（敲错字、搜的是别的东西）→ 不能把"这个词存在于索引里、只是没方案"这种话
+         塞给用户，那是另一种说谎。此时只说结构：这一维上行业词本来就命中不了。
+       state.q 已 toLowerCase（中文不受影响，英文行业词也不在索引里）。 */
+    var why = document.getElementById('e-why');
+    if (why) {
+      why.textContent = (state.q && idx[state.q])
+        ? '「' + state.q + '」正属于没有直连方案的那一类——这是图集的供给缺口，不是你条件加多了。'
+        : '行业词搜不到，是图集缺这条数据，不是你条件加多了。';
+    }
+  }
+
   function render() {
     var rows = sorted(ALL.filter(match));
     ledger.innerHTML = rows.map(rowHTML).join('');
     $$('.row', ledger).forEach(function (el, i) { el.setAttribute('data-i', String(i)); });
     $('#empty').hidden = rows.length > 0;
     $('#count').textContent = '列出 ' + rows.length + ' / ' + ALL.length + ' 个方案';
+    if (!rows.length) syncEmptyFacts();
     $$('.row', ledger).forEach(function (el) {
       var id = el.getAttribute('data-id');
       el.addEventListener('click', function () { open(id); });
@@ -462,12 +498,34 @@
        只加了 state 集合与芯片，**漏了加进这个 reset**。后果是：筛到 0 命中之后点"清空筛选"，
        命中数**仍然是 0**，而 32 颗芯片全部显示未选中 —— **界面主动说谎**。
        更糟的是空状态给的恢复建议正好指向这个坏按钮。
-       （由选型台信息架构审查员实测抓出：0 命中下点清空 → 仍 0；aria-pressed=true 计数 0。） */
+       （由选型台信息架构审查员实测抓出：0 命中下点清空 → 仍 0；aria-pressed=true 计数 0。）
+
+       ⚠️⚠️ 第二次（2026-10-25，实测抓出）：上面这段注释写完的同一个函数里，我又漏了
+       **state.sceneIds**。根因是它不在 state 的「筛选集合」那一段里，而是单独定义在
+       L28 附近（给 prompt-copy.js 的「你是做什么的」芯片用），我照着"九组 Set"数一遍
+       就以为齐了。实测（CDP，1440×900）：
+         initial       列出 30 / 30
+         点「咖啡店」   列出 4 / 30
+         点「清空筛选」 列出 4 / 30   ← BUG，芯片全灭但场景轴还活着
+       而 `.chips button` 只覆盖 #flt-* 那 9 组，场景芯片是 `.scene-chip`（由 prompt-copy.js
+       用 className 挂上去的），原来的通配选择器**根本选不到它们**。
+       所以这里分两步：清 state.sceneIds，再把 .scene-chip 的 aria-pressed 逐颗压成 false。 */
     state.q = '';
     state.ground.clear(); state.band.clear(); state.load.clear(); state.loud.clear();
     state.fr.clear(); state.thr.clear(); state.tone.clear(); state.st.clear(); state.gate.clear();
+    /* 场景轴：必须赋新 Set 而不是 .clear()。
+       对外接口 benchSetSceneIds 是**替换**整个 Set（state.sceneIds = new Set(ids)），
+       这里若只 clear 旧对象，语义上没问题但和 benchClearSceneIds 走两条不同的路径；
+       统一成"替换"，让 reset 与"再点一次芯片取消"产生完全一致的状态。 */
+    state.sceneIds = new Set();
     $('#q').value = ''; $('#sort').value = state.sort = 'n';
-    $$('.chips button').forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+    /* .chips button 覆盖 rail 里 9 组筛选芯片；.scene-chip 必须单独列 ——
+       它们虽然也在 .chips 容器里（#flt-scene），但 reset 时不能只靠 .chips 这个前缀选择器
+       去碰它们，因为"界面回到未筛"这个断言是按 .scene-chip[aria-pressed="true"] 计数的，
+       两处都写一遍才不会再次出现"列表回去了、芯片还亮着"。
+       另外 .chips button 也顺带覆盖了 .scene-chip（它们同在 #flt-scene 的 .chips 里），
+       这里显式再选一次是为了在 .scene-chip 被挪出 .chips 时仍然成立。 */
+    $$('.chips button, .scene-chip').forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
     /* 清完必须校验：如果清空后命中数不是全部，说明还有没被清掉的轴 —— 宁可当场暴露，
        也不要再出现"芯片全灭但列表全空"这种自相矛盾的界面。 */
     var n = ALL.filter(match).length;
@@ -475,6 +533,10 @@
       console.warn('[选型台] reset 之后命中 ' + n + '/' + ALL.length + '，还有轴没被清掉');
     }
     render();
+    /* render() 之后把场景芯片的 aria-pressed 再压一遍：场景芯片由 prompt-copy.js 在
+       DOMContentLoaded 之后挂载，若它晚于本函数首次绑定（理论上不会，但事件顺序不该靠猜），
+       列表与芯片就会错位。这一次在 render 完成后执行，且只碰 aria-pressed，不动筛选状态。 */
+    $$('.scene-chip').forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
   });
 
   document.addEventListener('keydown', function (e) {
