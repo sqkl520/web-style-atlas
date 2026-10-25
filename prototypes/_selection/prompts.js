@@ -389,6 +389,12 @@ window.STYLE_PROMPTS = {
    "minItems": 3,
    "minPics": 4,
    "hard": false,
+   "capacity": {
+    "id": "S01",
+    "minItems": 6,
+    "degrades": "no",
+    "minPics": 6
+   },
    "dna": {
     "palette": "#EFE7D7（paper）、#C1121F（red）、#1A1614（ink）、#6E6A5E（lead）",
     "fonts": [
@@ -414,6 +420,12 @@ window.STYLE_PROMPTS = {
    "minItems": 3,
    "minPics": 5,
    "hard": false,
+   "capacity": {
+    "id": "S02",
+    "minItems": 16,
+    "degrades": "yes",
+    "minPics": 5
+   },
    "dna": {
     "palette": "#0B0B0F（card）、#B8860B（gold）、#EFE6D0（ivory）、#3A2E1A（dirty）、#111111（ink）",
     "fonts": [
@@ -439,6 +451,12 @@ window.STYLE_PROMPTS = {
    "minItems": 8,
    "minPics": 3,
    "hard": true,
+   "capacity": {
+    "id": "S03",
+    "minItems": 8,
+    "degrades": "no",
+    "minPics": 8
+   },
    "dna": {
     "palette": "#101A1C（void）、#13928E（aurora）、#C9D6CF（paper）、#B9A98C（tape）、#162226（panel）",
     "fonts": [
@@ -464,6 +482,12 @@ window.STYLE_PROMPTS = {
    "minItems": 6,
    "minPics": 9,
    "hard": false,
+   "capacity": {
+    "id": "S04",
+    "minItems": 9,
+    "degrades": "yes",
+    "minPics": 9
+   },
    "dna": {
     "palette": "#96550F（orange）、#2F7D4F（green）、#14100C（ink）、#F0E2C8（paper）",
     "fonts": [
@@ -489,6 +513,12 @@ window.STYLE_PROMPTS = {
    "minItems": 8,
    "minPics": 3,
    "hard": true,
+   "capacity": {
+    "id": "S05",
+    "minItems": 8,
+    "degrades": "yes",
+    "minPics": 6
+   },
    "dna": {
     "palette": "#0E100D（plate）、#4FA83D（paint）、#BFB9A6（panel）、#8C2F1F（alarm）、#111111（on-paint）",
     "fonts": [
@@ -515,6 +545,12 @@ window.STYLE_PROMPTS = {
    "minItems": 4,
    "minPics": 5,
    "hard": false,
+   "capacity": {
+    "id": "S06",
+    "minItems": 13,
+    "degrades": "no",
+    "minPics": 7
+   },
    "dna": {
     "palette": "#ECDEC6（paper）、#85572A（brown）、#241A12（ink）、#C9A87C（stain）、#E6D8BC（card）",
     "fonts": [
@@ -540,6 +576,12 @@ window.STYLE_PROMPTS = {
    "minItems": 5,
    "minPics": 4,
    "hard": false,
+   "capacity": {
+    "id": "S07",
+    "minItems": 46,
+    "degrades": "no",
+    "minPics": 7
+   },
    "dna": {
     "palette": "#E7E7E0（paper）、#33505C（slate）、#1C1A16（ink）、#9A9384（deckle）",
     "fonts": [
@@ -565,6 +607,12 @@ window.STYLE_PROMPTS = {
    "minItems": 3,
    "minPics": 6,
    "hard": false,
+   "capacity": {
+    "id": "S08",
+    "minItems": 6,
+    "degrades": "yes",
+    "minPics": 4
+   },
    "dna": {
     "palette": "#120C08（room）、#C46A1F（amber）、#E8DCC8（ivory）、#6B4A22（wall）、#3A2712（wall-deep）",
     "fonts": [
@@ -591,6 +639,12 @@ window.STYLE_PROMPTS = {
    "minItems": 5,
    "minPics": 4,
    "hard": false,
+   "capacity": {
+    "id": "S09",
+    "minItems": 10,
+    "degrades": "no",
+    "minPics": 6
+   },
    "dna": {
     "palette": "#F5C842（yellow）、#1F4E79（blue）、#151310（ink）、#8A4B24（rust）",
     "fonts": [
@@ -616,6 +670,12 @@ window.STYLE_PROMPTS = {
    "minItems": 5,
    "minPics": 3,
    "hard": true,
+   "capacity": {
+    "id": "S10",
+    "minItems": 12,
+    "degrades": "no",
+    "minPics": 6
+   },
    "dna": {
     "palette": "#F2EFE8（paper）、#17171A（ink）、#D32029（red）、#6E7076（grey）、#B6B4AE（grey-soft）",
     "fonts": [
@@ -641,6 +701,12 @@ window.STYLE_PROMPTS = {
    "minItems": 8,
    "minPics": 3,
    "hard": false,
+   "capacity": {
+    "id": "S11",
+    "minItems": 12,
+    "degrades": "no",
+    "minPics": 8
+   },
    "dna": {
     "palette": "#DCDDD2（paper）、#221E19（ink）、#1B4A4A（copy）、#6E7A64（note）",
     "fonts": [
@@ -666,6 +732,12 @@ window.STYLE_PROMPTS = {
    "minItems": 3,
    "minPics": 6,
    "hard": false,
+   "capacity": {
+    "id": "S12",
+    "minItems": 7,
+    "degrades": "yes",
+    "minPics": 6
+   },
    "dna": {
     "palette": "#1E2A2E（room）、#26353A（room-2）、#182226（room-3）、#B5D626（lime）、#E23E57（magenta）",
     "fonts": [
@@ -691,6 +763,12 @@ window.STYLE_PROMPTS = {
    "minItems": 6,
    "minPics": 3,
    "hard": false,
+   "capacity": {
+    "id": "S13",
+    "minItems": 7,
+    "degrades": "no",
+    "minPics": 4
+   },
    "dna": {
     "palette": "#F4E3BE（paper）、#241F17（ink）、#7B612C（gold）、#D6CDB9（shade）",
     "fonts": [
@@ -716,6 +794,12 @@ window.STYLE_PROMPTS = {
    "minItems": 8,
    "minPics": 3,
    "hard": true,
+   "capacity": {
+    "id": "S14",
+    "minItems": 11,
+    "degrades": "yes",
+    "minPics": 10
+   },
    "dna": {
     "palette": "（该案未在 :root 声明色变量，需读 CSS 正文）",
     "fonts": [
@@ -741,6 +825,12 @@ window.STYLE_PROMPTS = {
    "minItems": 9,
    "minPics": 3,
    "hard": true,
+   "capacity": {
+    "id": "S15",
+    "minItems": 14,
+    "degrades": "yes",
+    "minPics": 6
+   },
    "dna": {
     "palette": "#E7EBE9（paper）、#3A3F45（graphite）、#22282B（press）、#7A7466（pencil）",
     "fonts": [
@@ -766,6 +856,12 @@ window.STYLE_PROMPTS = {
    "minItems": 5,
    "minPics": 3,
    "hard": false,
+   "capacity": {
+    "id": "S16",
+    "minItems": 9,
+    "degrades": "no",
+    "minPics": 6
+   },
    "dna": {
     "palette": "#F7EBCF（paper）、#C52C0F（red）、#1A1A1A（ink）、#8E2A18（pressed）、#5C5C55（ink-2）",
     "fonts": [
@@ -791,6 +887,12 @@ window.STYLE_PROMPTS = {
    "minItems": 6,
    "minPics": 3,
    "hard": false,
+   "capacity": {
+    "id": "S17",
+    "minItems": 27,
+    "degrades": "no",
+    "minPics": 5
+   },
    "dna": {
     "palette": "#E1D6BD（paper）、#C9BFA6（stub）、#5A2A50（ink）、#3F1A38（ink-deep）、#7A2E2E（seal）",
     "fonts": [
@@ -816,6 +918,12 @@ window.STYLE_PROMPTS = {
    "minItems": 10,
    "minPics": 2,
    "hard": true,
+   "capacity": {
+    "id": "S18",
+    "minItems": 20,
+    "degrades": "no",
+    "minPics": 6
+   },
    "dna": {
     "palette": "#0A0D0A（bay）、#2FA84F（phos）、#278F43（phos-deep）、#C8C4AE（paper）、#6E6350（tag）",
     "fonts": [
@@ -843,6 +951,12 @@ window.STYLE_PROMPTS = {
    "minItems": 4,
    "minPics": 6,
    "hard": false,
+   "capacity": {
+    "id": "S19",
+    "minItems": 20,
+    "degrades": "yes",
+    "minPics": 6
+   },
    "dna": {
     "palette": "#E4DECD（paper）、#D8CFB6（paper-deep）、#E9E3D2（paper-lit）、#2A241C（wood）、#3A3227（wood-lit）",
     "fonts": [
@@ -868,6 +982,12 @@ window.STYLE_PROMPTS = {
    "minItems": 6,
    "minPics": 3,
    "hard": true,
+   "capacity": {
+    "id": "S20",
+    "minItems": 6,
+    "degrades": "yes",
+    "minPics": 6
+   },
    "dna": {
     "palette": "#FAF3E1（paper）、#26485C（blue）、#0F1418（ink）、#55606B（pencil）",
     "fonts": [
@@ -893,6 +1013,12 @@ window.STYLE_PROMPTS = {
    "minItems": 9,
    "minPics": 2,
    "hard": true,
+   "capacity": {
+    "id": "S21",
+    "minItems": 14,
+    "degrades": "no",
+    "minPics": 6
+   },
    "dna": {
     "palette": "#E4DCC9（paper）、#3E3A34（ink）、#924307（amber）、#6E6A5E（fibre）、#FFFFFF（white）",
     "fonts": [
@@ -919,6 +1045,12 @@ window.STYLE_PROMPTS = {
    "minItems": 2,
    "minPics": 4,
    "hard": false,
+   "capacity": {
+    "id": "S22",
+    "minItems": 6,
+    "degrades": "yes",
+    "minPics": 6
+   },
    "dna": {
     "palette": "#DDDAD4（paper）、#2E2A24（ink）、#565B49（matcha）、#6B6558（crease-dark）",
     "fonts": [
@@ -944,6 +1076,12 @@ window.STYLE_PROMPTS = {
    "minItems": 6,
    "minPics": 8,
    "hard": false,
+   "capacity": {
+    "id": "S23",
+    "minItems": 9,
+    "degrades": "yes",
+    "minPics": 10
+   },
    "dna": {
     "palette": "#DCDCC8（plaster）、#A8206B（carmine）、#241C16（oxide）、#7A6A55（mortar）、#E9E9D7（lime）",
     "fonts": [
@@ -969,6 +1107,12 @@ window.STYLE_PROMPTS = {
    "minItems": 6,
    "minPics": 5,
    "hard": false,
+   "capacity": {
+    "id": "S24",
+    "minItems": 6,
+    "degrades": "no",
+    "minPics": 6
+   },
    "dna": {
     "palette": "#E6EDF2（paper）、#F3F8FB（paper-2）、#DCE7EF（paper-3）、#C9D8E4（paper-4）、#0A1116（ink）",
     "fonts": [
@@ -994,6 +1138,12 @@ window.STYLE_PROMPTS = {
    "minItems": 5,
    "minPics": 5,
    "hard": false,
+   "capacity": {
+    "id": "S25",
+    "minItems": 8,
+    "degrades": "no",
+    "minPics": 5
+   },
    "dna": {
     "palette": "#E8E4DE（paper）、#DFDAD2（paper-deep）、#1E1A16（ink）、#914A27（spot-a）、#2E6B5E（spot-b）",
     "fonts": [
@@ -1018,6 +1168,12 @@ window.STYLE_PROMPTS = {
    "minItems": 5,
    "minPics": 3,
    "hard": false,
+   "capacity": {
+    "id": "S26",
+    "minItems": 8,
+    "degrades": "no",
+    "minPics": 6
+   },
    "dna": {
     "palette": "#D3D1CA（paper）、#485270（blue）、#121212（ink）、#C8341F（red）、#FFFFFF（white）",
     "fonts": [
@@ -1044,6 +1200,12 @@ window.STYLE_PROMPTS = {
    "minItems": 5,
    "minPics": 6,
    "hard": false,
+   "capacity": {
+    "id": "S27",
+    "minItems": 7,
+    "degrades": "no",
+    "minPics": 6
+   },
    "dna": {
     "palette": "#E8D7B5（paper）、#0E6258（green）、#221C10（ink）、#1A150C（ink2）、#C9BFA6（paper2）",
     "fonts": [
@@ -1070,6 +1232,12 @@ window.STYLE_PROMPTS = {
    "minItems": 8,
    "minPics": 10,
    "hard": false,
+   "capacity": {
+    "id": "S28",
+    "minItems": 12,
+    "degrades": "no",
+    "minPics": 6
+   },
    "dna": {
     "palette": "#0B0D12（ink）、#07080C（ink2）、#AF74BE（plum）、#D8D4C6（paper）",
     "fonts": [
@@ -1096,6 +1264,12 @@ window.STYLE_PROMPTS = {
    "minItems": 12,
    "minPics": 3,
    "hard": true,
+   "capacity": {
+    "id": "S29",
+    "minItems": 23,
+    "degrades": "yes",
+    "minPics": 6
+   },
    "dna": {
     "palette": "#D9D3C4（paper）、#1A1A17（ink）、#644F02（amber）、#5A6068（gray）、#E4B400（bright）",
     "fonts": [
@@ -1122,6 +1296,12 @@ window.STYLE_PROMPTS = {
    "minItems": 4,
    "minPics": 6,
    "hard": false,
+   "capacity": {
+    "id": "S30",
+    "minItems": 10,
+    "degrades": "yes",
+    "minPics": 6
+   },
    "dna": {
     "palette": "#EDEDED（paper）、#E6E6E6（paper-low）、#007B3F（green）、#00E676（deco）、#141414（ink）",
     "fonts": [

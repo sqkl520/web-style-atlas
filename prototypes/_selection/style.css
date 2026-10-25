@@ -431,3 +431,9 @@ code { font-family: var(--code); font-size: 0.94em; }
   body.detail-open .rail { position: static; }
   .detail { box-shadow: -18px 0 0 0 rgba(28, 27, 24, .06); }
 }
+/* 内容量容限标记（实测数据驱动）：
+   黄色 = degrades=yes，即单元位置写死，内容少于设计规模会留洞；
+   中性 = 自动流排布，条目可自由增减。 */
+.cap { font-size: 12px; padding: 1px 6px; border: 1px solid var(--rule-2); }
+.cap-warn { border-color: #b8860b; color: #7a5a00; background: #fdf6e3; }
+.cap-ok { color: var(--ink-3); }

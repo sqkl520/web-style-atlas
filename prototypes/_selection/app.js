@@ -204,6 +204,29 @@
     return r.def || '';
   }
 
+  /* 内容量容限：用户最关心"我只有 3 个产品，用这案会不会空得很难看"。
+   * 数据来自 30 案实测（deliverables/60-minitems-degrade-audit.md）。
+   * 关键区分（实测得出的，不能说错）：
+   *  · capacity.minItems 是**设计规模**，不是"至少要这么多"——S07 的 46 条是它设计时的量，
+   *    但它是 column-count 自动流，删到 3 条只是变短；
+   *  · 真正要警告的是 degrades==="yes"：单元位置是写死的，内容少了会留洞。
+   * 所以卡片上只在 degrades=yes 时给黄色警告，否则给中性提示。 */
+  function capacityHTML(r) {
+    var P = window.STYLE_PROMPTS;
+    if (!P || !P.schemes) return '';
+    var cap = null;
+    for (var i = 0; i < P.schemes.length; i++) {
+      if (P.schemes[i].id === r.id) { cap = P.schemes[i].capacity; break; }
+    }
+    if (!cap) return '';
+    if (cap.degrades === 'yes') {
+      return '<span class="cap cap-warn" title="这个版式的单元位置是写死的（绝对定位/固定网格坐标/手绘坐标），内容少于设计规模会留下空洞">' +
+        '⚠ 内容少于 ' + cap.minItems + ' 条会留空位</span>';
+    }
+    return '<span class="cap cap-ok" title="单元靠自动流排布，删条目只是变短，不会留洞">' +
+      '条目可增减（设计时 ' + cap.minItems + ' 条）</span>';
+  }
+
   function rowHTML(r) {
     var sw = (r.palette || []).slice(0, 4).map(function (h) {
       return '<i style="background:' + esc(h) + '" title="' + esc(h) + '"></i>';
@@ -212,6 +235,7 @@
     meta.push('<span class="row-family">' + esc((r.family || '').split('。')[0].split('：').pop().slice(0, 34)) + '</span>');
     meta.push('<span class="swatches">' + sw + '</span>');
     if (r.errorCode) meta.push('<span>' + esc(r.errorCode) + '</span>');
+    meta.push(capacityHTML(r));
 
     var foot = [];
     if (r.gate) {
