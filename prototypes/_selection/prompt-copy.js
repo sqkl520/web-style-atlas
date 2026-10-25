@@ -74,6 +74,13 @@
       mech = "这个风格的签名动作：" + s.plain + "。具体到实现：" + facts.join("；") + "。";
     }
 
+    /* 内容量：数量取「实测 minItems」而不是旧的人工估计。
+     * s.minItems 现在由生成器优先填 CAPACITY（60-minitems-degrade-audit.md 逐案实测），
+     * 旧的人工估计 26/30 与实测不符（S07 人工 5 / 实测 46，差 9 倍）。
+     */
+    var count = o.count || s.minItems;
+    var unit = o.unit || "条目";
+
     var lines = [
       "我经营" + (o.biz || "一家小店") + "，" + (o.what || "有一些内容和图片要放上去") + "。",
       "页面需要" + (o.action || "让访客看懂我在做什么、并能联系我") + "。",
@@ -91,10 +98,18 @@
       "5. 线宽只用这几级：" + d.lineWidths + "，不要自创第三级。",
       "",
       "结构约束：",
-      "1. 我实际有 " + (o.count || s.minItems) + " 个" + (o.unit || "条目") + "，就排 " + (o.count || s.minItems) + " 个：",
+      "1. 我实际有 " + count + " 个" + unit + "，就排 " + count + " 个：",
       "   不凑整、不留空位、不留占位符、编号连续不跳号。",
       "2. 数量不够时按实际数量收敛，**不要拉高或重复填满**。",
-      "3. 首屏不要轮播图。",
+      /* 内容量容限：degrades=yes 的案，单元位置是作者按固定条数手写死的
+       * （绝对定位 / 写死 grid-row / 手绘 SVG 坐标 / 写死编号的行标题）。
+       * 不告诉 AI 这一点，它会照常删条目，然后在版面上留下空洞。
+       */
+      d.degrades
+        ? "3. 这一版式的位置是按 " + count + " 个" + unit + "手工排定的（不是自动流）：数量一变就会留洞。" +
+          "所以请**先把数量凑到 " + count + " 个再排版**；确实凑不够时，把空出来的位置删掉、整块重排，不要留空槽。"
+        : "3. 这一版式是自动流排版，条目增减只会让页面变短，不会留空位。",
+      "4. 首屏不要轮播图。",
       "",
       "防退化（出现任何一条就重做）：",
       "① 不要紫蓝渐变、#6366F1、蓝紫光斑。",
@@ -292,7 +307,14 @@
 
     wrap.appendChild(b);
     wrap.appendChild(hint);
-    host.appendChild(wrap);
+    /* 必须放在详情面板**最顶部**，不能 appendChild 到末尾。
+     * 实测（2026-10-25，1440×900，CDP）：详情面板 scrollHeight 2991px / clientHeight 900px，
+     * appendChild 的落点是第 2881px——用户要滚 3.3 屏、跨过 10 个字段 2589 字才看得见这个按钮，
+     * 而它距离视口底部还差 2027px。整条「选中 → 带走」的闭环就断在最后一环。
+     * 插到第一个子节点之后，点开方案立刻可见（顶部在 sticky 头部下方）。
+     */
+    if (host.firstChild) host.insertBefore(wrap, host.firstChild);
+    else host.appendChild(wrap);
   };
 
   // 给外部调试用

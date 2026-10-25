@@ -33,12 +33,10 @@
 
   <aside class="rail" aria-label="筛选">
 
-    <!-- 移动端折叠开关。实测：390px 下 rail 高 1563px，用户要滚 2.6 屏才看到第一个方案。
-         用原生 <details> 而不是 JS，保证无 JS 也能展开；桌面端这个开关被 CSS 隐藏。 -->
-    <details class="rail-fold" id="rail-fold">
-      <summary>筛选与场景反查（11 组）</summary>
-      <div class="rail-fold-body"></div>
-    </details>
+    <!-- 2026-10-25 删除：这里原本有个 <details class="rail-fold" id="rail-fold">，summary 写着
+         「筛选与场景反查（11 组）」，但 .rail-fold-body 的**子元素数实测为 0**（CDP: railFoldBodyChildren: 0）。
+         原因：rail 限高最终改用 CSS `max-height + overflow-y`，这个 <details> 从未接上内容，
+         桌面与移动端都只渲染出一条 26px 的空折叠条 —— 一个点开什么都没有的假控件，故删除。 -->
 
     <!-- 先问用户能回答的问题。下面那组"设计口径与质检状态"是给做这份图集的人看的，
          不是给挑风格的人看的 —— 原来它排在前面，是"五分钟选不出来"的第一大障碍。 -->

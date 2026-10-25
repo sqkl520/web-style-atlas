@@ -52,22 +52,55 @@ Start the server (next section) and open `prototypes/_selection/`:
 http://localhost:8080/prototypes/_selection/
 ```
 
-All 30 schemes on one screen. Each row shows structure type / cognitive threshold / tone, the one-line definition, colour swatches, the error code, the gate result, and **real renders at desktop 1440, tablet 768 and mobile 390**.
+All 30 schemes on one screen. Each row shows structure type / cognitive threshold / tone, the one-line definition (in plain words, not the spec jargon), colour swatches, the error code, the content-capacity badge, the gate result, and a **real desktop 1440 render**.
 
 ```
-S07  Slate-Ink Contents        F-type · low threshold · tone: academic archive / serious print
-     ┌────────────────┬──────────────┬────────────┐
-     │ 1440 desktop   │ 768 tablet   │ 390 mobile │
-     │  [real shot]   │  [real shot] │ [real shot]│
-     └────────────────┴──────────────┴────────────┘
+S07  Slate-Ink Contents        F-type · medium threshold · tone: academic archive / serious print
+     ┌────────────────────────────────┐
+     │  [real desktop 1440 render]    │
+     └────────────────────────────────┘
+     items are add/removable (46 at design time)
      gate FAIL 1 (mono) · error code MIR-47 · 5 screens / 6 real pictures · [expand 12 fields]
 ```
 
+> **Why only one picture on the row**: it used to show three viewports side by side (1440 / 768 / 390), but at a 1440 row width each one rendered at 155×97px — too small to read anything, a "there is a picture" placeholder that stretched the row to 434px and made it **impossible to fit even one complete scheme card above the fold**. The three-viewport comparison moved into the detail panel as a clickable viewport switcher; the row keeps one desktop render you can actually see. Row height 434px → 277px, complete cards above the fold 0 → 1.
+
 The ASCII is only the shape. The page holds pixels.
 
-Click a row to expand all of its fields (10 sections in most schemes).
+Click a row to expand it: the **copy-AI-prompt button** sits at the top, followed by the viewport switcher (step through `desktop-fold` / `page-01`…) and all the fields (10 sections in most schemes).
 `#S07` deep-links to a single scheme.
 The keyboard covers everything: `J`/`K` moves between schemes, `1`/`2`/`3` switches viewport, `/` focuses search, `Esc` closes.
+
+### How you take it away: copy the AI prompt
+
+The first group in the left rail is **"What do you do?"** — 44 trade terms that reverse-look-up matching schemes (16 have direct matches, 28 approximate only, 29 are honestly labelled "none" and tucked behind a "28 more approximate →" toggle rather than hidden).
+
+Pick a scheme and the detail panel opens with a **"Copy AI prompt"** button at the very top. Press it and you get roughly 1,100 Chinese characters to paste straight into ChatGPT / Claude / v0, which will build the whole site in that style. It is not boilerplate — every value is **extracted from the actual `style.css`**:
+
+| What goes into the prompt | Where it comes from |
+| --- | --- |
+| Palette (4–5 values) | the variables actually declared in `:root`, with `var()` references resolved |
+| Fonts (display / body / numeric) | real `font-family` values, resolved back through `:root` (never emits `var(--f-text)`, which no AI can read) |
+| Radius, shadow philosophy, stroke widths | counted across the whole file: 18 schemes use no shadow, 6 inset only, 6 drop-shadow only, **0 use an outer glow** |
+| Signature mechanism (one sentence) | one structural move per scheme, with concrete numbers |
+| Content capacity | the same `minItems` / `degrades` data as the badge on the row |
+
+Same skeleton, only the DNA swaps:
+
+```
+I run a small pour-over coffee shop with five single-origin beans; orders come through WeChat, no online payment.
+Please build the page in this style: an old bookshop's specimen cabinet, drawers receding into the wall.
+Hard visual constraints (follow each one; do not change colours or fonts):
+1. Use only these colours: #E4DECD #D8CFB6 #4A5C3A #2A241C #7C7460. No sixth colour.
+2. Fonts: headings Spectral, body Noto Serif SC. Do not use Playfair Display, Inter, Roboto…
+…
+```
+
+**Why not one long hand-written prompt per scheme**: the longer a prompt gets, the more it describes *that specific page* instead of *that style*. A shared skeleton plus measured DNA transfers better. **Why not four separate prompts for four AIs**: divergence is the hardest lesson in this repo (M01's `box-shadow` once had the Chinese and English docs claiming opposite things — see [the template layer](#the-template-layer-change-12-variables-and-it-is-yours)). One trunk, one sentence of adaptation.
+
+Copying also works when you double-click the files over `file://` (both `writeText` and `execCommand` verified); if both paths fail you get a select-all textarea instead — never a "copied!" message with an empty clipboard.
+
+**Its limit**: this transfers a *style*, it does not take over your business. Nine schemes have mechanisms bolted to their own data structures (S03 S05 S10 S14 S15 S18 S20 S21 S29) and degrade on ordinary content — the button says so right next to itself rather than letting you find out afterwards.
 
 Next to it stands the **selection wizard** (`prototypes/_selection/wizard.html`). Five questions about **your situation**, not "what style do you like": content load, picture load, how quiet you want it to look, whether a first-time visitor should know where to look in three seconds, and what you fear more — getting it wrong or being forgettable. (⚠️ This line used to read "whether you need guidance, whether you fear retro" — `git grep` confirms those two questions never existed in the wizard; caught by bilingual-drift audit 51 as **invented dimensions**, now corrected to the actual `load/img/loud/guide/fear` five.)
 It outputs **3 recommendations and 3 explicit exclusions**, and every "why" is read from **measured values** —— body word count, real picture count, highest saturation in the palette, declared cognitive threshold, and a memorability proxy built from tone and chroma. It never assigns a subjective score.
