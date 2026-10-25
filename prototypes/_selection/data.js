@@ -2222,11 +2222,11 @@ window.SCHEMES = [
     "font-count",
     "no-footage"
    ],
-   "at": "2026-10-24T08:35:15.124Z",
+   "at": "2026-10-25T01:05:57.439Z",
    "screens": 12,
    "realPictures": 7,
    "overflow": 0,
-   "words": 827
+   "words": 854
   },
   "shots": {
    "desktop": [
@@ -2254,7 +2254,7 @@ window.SCHEMES = [
    "bandL": 81,
    "bandSat": 53,
    "load": "很多栏目",
-   "words": 827,
+   "words": 854,
    "loud": "就要扎眼",
    "chroma": 75
   },
@@ -2307,11 +2307,11 @@ window.SCHEMES = [
     "no-footage",
     "measure"
    ],
-   "at": "2026-10-24T08:36:15.562Z",
+   "at": "2026-10-25T02:58:06.677Z",
    "screens": 12,
    "realPictures": 15,
    "overflow": 0,
-   "words": 958
+   "words": 957
   },
   "shots": {
    "desktop": [
@@ -2339,7 +2339,7 @@ window.SCHEMES = [
    "bandL": 6,
    "bandSat": 24,
    "load": "很多栏目",
-   "words": 958,
+   "words": 957,
    "loud": "就要扎眼",
    "chroma": 81
   },
@@ -2474,11 +2474,11 @@ window.SCHEMES = [
     "no-footage",
     "measure"
    ],
-   "at": "2026-10-19T01:19:53.835Z",
+   "at": "2026-10-25T00:45:56.624Z",
    "screens": 11,
    "realPictures": 8,
    "overflow": 0,
-   "words": 504
+   "words": 512
   },
   "shots": {
    "desktop": [
@@ -2506,7 +2506,7 @@ window.SCHEMES = [
    "bandL": 93,
    "bandSat": 0,
    "load": "三五屏",
-   "words": 504,
+   "words": 512,
    "loud": "就要扎眼",
    "chroma": 100
   },

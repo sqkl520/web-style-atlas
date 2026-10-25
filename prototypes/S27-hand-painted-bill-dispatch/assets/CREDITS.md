@@ -1,20 +1,25 @@
 # 素材来源与署名
 
-> **本目录的真图来源**（本块 2026-10-24 改写；逐主机连通性真值单一来源见 `prototypes/_CONTRACT.md` §10.1，本文不重复网络状态断言）：
-> 本方案的实拍素材来自两处：**本会话早先网络正常时为其他方案抓取、按题材复用的 Wikimedia 照片**，以及 **NASA 图像库**。复用的每一张都在下表里注明原本属于哪个方案。
-> 2026-10-18 04:15 之后本环境曾进入图源受限窗口（Wikimedia 连接被重置、loc.gov／picryl／pexels／pixabay 返回 403），**2026-10-22 复测已解除**（commons HTTP 200、检索命中、缩略图可下载）。
-> 因此下表若有题材与本案主张不对的图，那是历史窗口的遗留、不是“现在拿不到”——补对题素材是产品决定，逐案缺口须写在下表备注里（契约 §10.1 硬要求）。
+> 本文件由 `prototypes/_build/write-credits.mjs` 从本目录及 `build/` 下已有的 `credits.json` 汇总生成，**不是手抄**。
+> 下表是唯一权威，与 `assets/credits.json`（扁平数组）同源。逐主机连通性真值单一来源见 `prototypes/_CONTRACT.md` §10.1，本文不重复网络状态断言。
+>
+> **2026-10-25 换图说明（四张）**：`plate-jogan-1950` / `plate-anokhi-ada-1948` / `plate-prithvi-vallabh-1943` / `plate-aanchal-1960` 是本会话按 Commons `imageinfo` 现抓原图、再用 `deliverables/59-scratch/s27-duotone.mjs` 压成 `#E8D7B5`（纸）/ `#221C10`（墨）双色调的成品，**未裁边**（四张要看的证据都在纸沿）。原图尺寸依次为 4994×6732、1000×1454、1019×1500、1944×3000，原图留在 `deliverables/59-scratch/s27-originals/`。
+> 同时**退役并删除**了本案目录下三个文件（它们在其原属方案 S19／S22 的目录里仍然存在，未被改动）：`reuse-s11-doc-02-carbon.jpg`（实为 1980 年美国磁带库空白表单，与旧图注「复写三联单」不符）、`reuse-s11-doc-07-copy.jpg`（实为 Ethel Rosenberg 打字信第 2 页，无旧图注所称的档号与装订孔）、`reuse-s01-plate-05-hearing.jpg`（实为会场全景新闻照，不是手写公告牌）。
+> 现在图版区 7 个槽位对 7 个不同文件——原先 Figaro 那一张同时占了 head 与 `plate--f` 两槽。
 
 ## 一、真实照片
 
-| 文件 | 标题 | 作者 | 许可 | 来源 |
+| 文件 | 标题 | 作者 | 许可 | 来源页 |
 | --- | --- | --- | --- | --- |
-| `reuse-s01-plate-05-hearing.jpg` | File:S.R.O. sign out as Monopoly Committee opens hearings. Washington, D.C., Dec. 1. Standing room only was the order today as the Temporary Economic Committee, Joint Legislative-Executive Body LCCN2016874466.jpg | Harris &amp; Ewing, photographer | Public domain | [原件页](https://commons.wikimedia.org/wiki/S.R.O._sign_out_as_Monopoly_Committee_opens_hearings._Washington,_D.C.,_Dec._1._Standing_room_only_was_the_order_today_as_the_Temporary_Economic_Committee,_Joint_Legislative-Executive_Body_LCCN2016874466.jpg) · Wikimedia Commons（为本方案抓取） |
-| `reuse-s11-doc-02-carbon.jpg` | File:Tape Retention Scratch Control triplicate form.jpg | Jonathan Schilling | CC BY-SA 4.0 | [原件页](https://commons.wikimedia.org/wiki/File:Tape_Retention_Scratch_Control_triplicate_form.jpg) · Wikimedia Commons（为本方案抓取） |
-| `reuse-s11-doc-05-typescript.jpg` | File:Jan. 1904 George Sterling and Ambrose Bierce comments on A Wine of Wizardry typescript.jpg | George Sterling and Ambrose Bierce created this document in January 1904, 119 years ago. It is in the public domain. The poem was published in September 1907. | Public domain | [原件页](https://commons.wikimedia.org/wiki/File:Jan._1904_George_Sterling_and_Ambrose_Bierce_comments_on_A_Wine_of_Wizardry_typescript.jpg) · Wikimedia Commons（为本方案抓取） |
-| `reuse-s11-doc-07-copy.jpg` | File:Typescript Copy of Letter, Ethel Rosenberg to President Dwight D. Eisenhower - DPLA - 90e67e28ee184517bba8b26d45456111 (page 2).jpg | President (1953-1961 : Eisenhower). 1953-1961 | Public domain | [原件页](https://commons.wikimedia.org/wiki/File:Typescript_Copy_of_Letter,_Ethel_Rosenberg_to_President_Dwight_D._Eisenhower_-_DPLA_-_90e67e28ee184517bba8b26d45456111_(page_2).jpg) · Wikimedia Commons（为本方案抓取） |
-| `reuse-s16-plate-01-figaro-manifesto.jpg` | File:Manifesto futurismo Le Figaro.jpg | Le Figaro | Public domain | [原件页](https://commons.wikimedia.org/wiki/File%3AManifesto%20futurismo%20Le%20Figaro.jpg) · Wikimedia Commons（为本方案抓取） |
-| `reuse-s16-plate-02-parole-liberta.jpg` | File:Filippo Tommaso Marinetti - Parole in Liberta 1932 C.jpg | Filippo Tommaso Marinetti | Public domain | [原件页](https://commons.wikimedia.org/wiki/File%3AFilippo%20Tommaso%20Marinetti%20-%20Parole%20in%20Liberta%201932%20C.jpg) · Wikimedia Commons（为本方案抓取） |
+| `reuse-s16-plate-01-figaro-manifesto.jpg` | Manifesto futurismo Le Figaro.jpg | Le Figaro | Public domain | [原件页](https://commons.wikimedia.org/wiki/File%3AManifesto%20futurismo%20Le%20Figaro.jpg) |
+| `reuse-s16-plate-02-parole-liberta.jpg` | Filippo Tommaso Marinetti - Parole in Liberta 1932 C.jpg | Filippo Tommaso Marinetti | Public domain | [原件页](https://commons.wikimedia.org/wiki/File%3AFilippo%20Tommaso%20Marinetti%20-%20Parole%20in%20Liberta%201932%20C.jpg) |
+| `reuse-s11-doc-05-typescript.jpg` | Jan. 1904 George Sterling and Ambrose Bierce comments on A Wine of Wizardry typescript.jpg | George Sterling and Ambrose Bierce created this document in January 1904, 119 years ago. It is in the public domain. The poem was published in September 1907. | Public domain | [原件页](https://commons.wikimedia.org/wiki/File:Jan._1904_George_Sterling_and_Ambrose_Bierce_comments_on_A_Wine_of_Wizardry_typescript.jpg) |
+| `plate-anokhi-ada-1948.jpg` | Anokhi Ada (1948 film).jpg | Mehboob Productions | Public domain | [原件页](https://commons.wikimedia.org/wiki/File:Anokhi_Ada_(1948_film).jpg) |
+| `plate-prithvi-vallabh-1943.jpg` | Prithvi Vallabh 1943 poster.jpg | Minerva Movietone Production | Public domain | [原件页](https://commons.wikimedia.org/wiki/File:Prithvi_Vallabh_1943_poster.jpg) |
+| `plate-aanchal-1960.jpg` | Aanchal (1960 film).jpg | Panchdeep Chitra | Public domain | [原件页](https://commons.wikimedia.org/wiki/File:Aanchal_(1960_film).jpg) |
+| `plate-jogan-1950.jpg` | Jogan film poster.jpg | National Film Archive of India | Public domain | [原件页](https://commons.wikimedia.org/wiki/File:Jogan_film_poster.jpg) |
+
+四张 `plate-*` 的许可均为 Commons 上的 **Public domain**（extmetadata `LicenseShortName`，2026-10-25 现取），不是 NC / ND，符合本案「只用印件与打字稿的原件翻拍」的取用纪律。
 
 ## 二、程序化纹理（生成物，非照片）
 
@@ -28,4 +33,4 @@
 
 ## 三、字体
 
-页面字体全部自托管在 `prototypes/_fonts/`，来自 Google Fonts 或字体官方 webfont 包，均为 OFL 1.1 或同类可商用许可。
+页面字体不用远程 URL（契约 §4）；实际自托管位置以本案 style.css 的 @font-face 引用为准——多数案在 `../_fonts/`，个别案（S04/S07/S08/S21）在案目录内另有私有字体切片，搬走时需一并带走（50 号实测，本句从旧版“全部在 _fonts”改正）。

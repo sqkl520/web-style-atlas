@@ -10,7 +10,7 @@
 | 文件 | 标题 | 作者 | 许可 | 来源 |
 | --- | --- | --- | --- | --- |
 | `reuse-s01-plate-02-type-case.jpg` | File:Lead type case (25598835882).jpg | Thomas Quine | CC BY 2.0 | [原件页](https://commons.wikimedia.org/wiki/Lead_type_case_(25598835882).jpg) · Wikimedia Commons（为本方案抓取） |
-| `reuse-s12-arcade-cabinet.jpg` | File:Marble Madness arcade cabinet.jpg | Halcyanide | CC BY-SA 4.0 / Creative Commons Attribution-Share Alike 4.0 | [原件页](https://commons.wikimedia.org/wiki/File%3AMarble_Madness_arcade_cabinet.jpg) · Wikimedia Commons（为本方案抓取） |
+| `plate-intaglio-press.jpg` | File:The-intaglio-press.JPG | Halvard (from Norway) | Public domain | [原件页](https://commons.wikimedia.org/wiki/File:The-intaglio-press.JPG) · Wikimedia Commons（原件 1280×960 / 437829 B，API sha1 复核为原图；本案按题材抓取后烘双色调） |
 | `reuse-s12-silkscreen-bench.jpg` | File:Screen print hand bench proffesional print bench in Squeegee & Ink studio.jpg | Scrud123 | CC BY-SA 3.0 / Creative Commons Attribution-Share Alike 3.0 | [原件页](https://commons.wikimedia.org/wiki/File%3AScreen_print_hand_bench_proffesional_print_bench_in_Squeegee_%26_Ink_studio.jpg) · Wikimedia Commons（为本方案抓取） |
 | `reuse-s16-plate-03-type-case.jpg` | File:Type case with movable types for letterpress printing in the Gutenberg Museum, Mainz, Germany (48988492232).jpg | dronepicr | CC BY 2.0 | [原件页](https://commons.wikimedia.org/wiki/File%3AType%20case%20with%20movable%20types%20for%20letterpress%20printing%20in%20the%20Gutenberg%20Museum%2C%20Mainz%2C%20Germany%20(48988492232).jpg) · Wikimedia Commons（为本方案抓取） |
 | `reuse-s16-plate-04-metal-type.jpg` | File:Metal movable type.jpg | Willi Heidelbach | CC BY 2.5 | [原件页](https://commons.wikimedia.org/wiki/File%3AMetal%20movable%20type.jpg) · Wikimedia Commons（为本方案抓取） |

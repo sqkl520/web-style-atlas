@@ -212,11 +212,23 @@ code {
   filter: drop-shadow(calc(var(--edge) * -1) calc(var(--edge) * -1) 0 var(--paper));
   transition: filter 12ms linear;
 }
-/* 油墨黑版在框内向左上错开一份：框内左上一道墨色，框外左上露出页面底的 #0B0D12 */
+/* 油墨黑版在框内向左上错开一份：框内左上一道墨色，框外左上露出页面底的 #0B0D12。
+   ⚠️ Lead 看图后修的「照片被压成全黑」缺陷（2026-10-25）：
+   原来这里是 `inset: 0` —— 近黑的 ink2 (#07080C) **铺满整个框**，而照片以 multiply
+   压在上层（L232-233），multiply 撞近黑 ⇒ 整幅照片被压到灰阶 7。
+   实测（合成后像素，非源图）：5 张图 p50 全为 7–8，可读像素仅 5%–12%（新换入的
+   凹版压印机只有 6.2%），读者根本看不出拍的是什么；L231 注释说的「白场落到紫墨
+   #AF74BE」也不成立——白场实际落到 #07080C。
+   修法：只让**错位露出的那一圈 L 形边**上色，框内其余透明，照片的 multiply 直接
+   压在 .blk__frame 的紫墨底 (--plum) 上，这才是原注释描述的效果。 */
 .blk__frame::before {
   content: ""; position: absolute; inset: 0; pointer-events: none;
   transform: translate(calc(var(--mis, 6px) * -1), calc(var(--mis, 6px) * -1));
   background: var(--ink2);
+  clip-path: polygon(
+    0 0, 100% 0, 100% var(--mis, 6px),
+    var(--mis, 6px) var(--mis, 6px), var(--mis, 6px) 100%, 0 100%
+  );
 }
 .blk__frame::after {
   content: ""; position: absolute; left: 0; top: 0; width: 1px; height: 0;
