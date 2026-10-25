@@ -22,6 +22,10 @@
     tone: new Set(),
     st: new Set(),
     gate: new Set(),
+    /* 场景反查白名单：由 prompt-copy.js 的「你是做什么的」芯片写入。
+       为空 = 不按场景筛。单独开一个状态是因为 state.q 是整串子串匹配，
+       拼"S06 S19"这种串会筛出 0 个（实测踩过）。 */
+    sceneIds: new Set(),
     sort: 'n',
     open: null,          // 当前展开的方案 id
     vp: 'desktop',       // 详情里的视口
@@ -110,6 +114,12 @@
   /* ── 过滤与排序 ───────────────────────────────────────── */
   function match(r) {
     var ax = r.axes || {};
+    /* 场景反查（由 prompt-copy.js 的「你是做什么的」芯片驱动）：
+       芯片不能靠往搜索框里拼方案号来筛 —— state.q 是**整串子串匹配**（见下方 L141
+       hay.indexOf(state.q)），"S06 S19 S22 S09" 这种串在 hay 里根本不存在，
+       实测点了芯片会筛出 0 个。所以单独开一个 id 白名单状态。
+       sceneIds 为空表示不按场景筛。 */
+    if (state.sceneIds && state.sceneIds.size && !state.sceneIds.has(r.id)) return false;
     if (state.ground.size && !state.ground.has(ax.ground)) return false;
     if (state.band.size && !state.band.has(ax.band)) return false;
     if (state.load.size && !state.load.has(ax.load)) return false;
@@ -359,6 +369,12 @@
       '</div>' +
       proto + gateBox + parts + fields;
 
+    /* 复制提示词按钮：必须放在 innerHTML 赋值**之后**，且只调一次。
+       踩过的坑（子 Agent 端到端实测抓到）：原来插在 L351 那个 .map() 回调里，
+       既会每案跑 3 次，又是在 innerHTML 右侧求值过程中 append 到旧 DOM，
+       紧接着被整树覆盖 ⇒ 页面上按钮 0 个。 */
+    if (window.mountPromptButton) window.mountPromptButton($('#d-body'), r.id);
+
     $$('.viewer-tabs button', detail).forEach(function (b) {
       b.addEventListener('click', function () {
         state.vp = b.getAttribute('data-vp');
@@ -482,4 +498,15 @@
 
   var h = (location.hash || '').replace('#', '');
   if (/^S\d{2}$/.test(h)) open(h);
+
+  /* 对外接口：给 prompt-copy.js 的场景芯片用。
+     只暴露「按 id 集合筛选」这一个动作，不让外部直接碰 state 内部结构。 */
+  window.benchSetSceneIds = function (ids) {
+    state.sceneIds = new Set(ids || []);
+    render();
+  };
+  window.benchClearSceneIds = function () {
+    state.sceneIds = new Set();
+    render();
+  };
 })();
