@@ -33,6 +33,13 @@
 
   <aside class="rail" aria-label="筛选">
 
+    <!-- 移动端折叠开关。实测：390px 下 rail 高 1563px，用户要滚 2.6 屏才看到第一个方案。
+         用原生 <details> 而不是 JS，保证无 JS 也能展开；桌面端这个开关被 CSS 隐藏。 -->
+    <details class="rail-fold" id="rail-fold">
+      <summary>筛选与场景反查（11 组）</summary>
+      <div class="rail-fold-body"></div>
+    </details>
+
     <!-- 先问用户能回答的问题。下面那组"设计口径与质检状态"是给做这份图集的人看的，
          不是给挑风格的人看的 —— 原来它排在前面，是"五分钟选不出来"的第一大障碍。 -->
     <p class="rail-lead">先按你是做什么的挑；后五组是设计口径与质检状态，可以跳过。<strong>组间是「并且」，组内多选是「或者」</strong>——筛到没结果就退回只留一组。</p>

@@ -190,11 +190,24 @@
     return out.join('');
   }
 
+  /* 卡片上显示"人话版"而不是 95 字的专业定义。
+   * 为什么：审计实测 r.def 中位 95 字、20/30 含 px 值、8/30 含角度，
+   * 是写给施工者的；而用户第一眼要判断的是"这风格适不适合我"。
+   * 人话版在 prompts.js 里（plain，≤20 字），没有则回退到原定义，不会空着。 */
+  function plainOf(r) {
+    var P = window.STYLE_PROMPTS;
+    if (P && P.schemes) {
+      for (var i = 0; i < P.schemes.length; i++) {
+        if (P.schemes[i].id === r.id && P.schemes[i].plain) return P.schemes[i].plain;
+      }
+    }
+    return r.def || '';
+  }
+
   function rowHTML(r) {
     var sw = (r.palette || []).slice(0, 4).map(function (h) {
       return '<i style="background:' + esc(h) + '" title="' + esc(h) + '"></i>';
-    }).join('');
-    var g = r.gate || {};
+    }).join('');    var g = r.gate || {};
     var meta = [];
     meta.push('<span class="row-family">' + esc((r.family || '').split('。')[0].split('：').pop().slice(0, 34)) + '</span>');
     meta.push('<span class="swatches">' + sw + '</span>');
@@ -226,7 +239,7 @@
             (r.threshold ? '<span class="tag">门槛' + esc(r.threshold) + '</span>' : '') +
             (r.tone ? '<span class="tag">' + esc(r.tone) + '</span>' : '') +
           '</div>' +
-          '<p class="row-def">' + esc(r.def) + '</p>' +
+          '<p class="row-def">' + esc(plainOf(r)) + '</p>' +
           '<div class="row-meta">' + meta.join('') + '</div>' +
         '</div>' +
         '<div class="shots">' + shotFig(r, 'desktop') + shotFig(r, 'tablet') + shotFig(r, 'mobile') + '</div>' +

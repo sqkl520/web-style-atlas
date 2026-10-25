@@ -97,7 +97,7 @@ code { font-family: var(--code); font-size: 0.94em; }
   grid-template-columns: minmax(0, 1fr) minmax(300px, max-content);
   gap: var(--pad);
   align-items: end;
-  padding: 26px var(--pad) 16px;
+  padding: 20px var(--pad) 14px;
   border-bottom: 2px solid var(--ink);
 }
 .mast-kicker {
@@ -225,7 +225,7 @@ code { font-family: var(--code); font-size: 0.94em; }
   display: grid;
   grid-template-columns: 62px minmax(0, 1fr) 316px;
   gap: 20px;
-  padding: 18px 0;
+  padding: 13px 0;
   border-bottom: 2px solid var(--rule);
   cursor: pointer;
   scroll-margin-top: 24px;
@@ -255,7 +255,7 @@ code { font-family: var(--code); font-size: 0.94em; }
 .tag-none { border-style: dashed; color: var(--ink-3); }
 
 .row-def {
-  margin-top: 8px; font-size: var(--s-16); color: var(--ink-2); max-width: 46ch;
+  margin-top: 6px; font-size: var(--s-16); color: var(--ink-2); max-width: 46ch;
   display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
 }
 .row-meta {
@@ -266,14 +266,22 @@ code { font-family: var(--code); font-size: 0.94em; }
 .swatches i { width: 20px; height: 20px; display: block; outline: 1px solid rgba(0,0,0,.3); outline-offset: -1px; }
 .row-family { color: var(--ink-2); }
 
-/* 截图列：桌面首屏给一张**大图**，平板与手机缩到下面两格。
-   为什么不是三张同宽：三张同宽时每张只有 ~100px 宽，闸门在 1440 档统计"真实图片 0 张"
-   （img 有 48 个，但没有一个算得上"内容图片"）；放大到 ~316px 之后这个指标才成立。
-   详情面板里仍然三档齐全、可逐张切换。 */
-.shots { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; align-content: start; }
-.shots .shot:first-child { grid-column: 1 / -1; }
+/* 截图列：只放**一张**桌面首屏大图。
+   ⚠️ 卡片瘦身（2026-10-25，有实测依据）：
+   原来放三张（1 大 + 768/390 两小），实测卡片高 434px，其中 .shots 占 348px
+   （大图 198 + 图注 24 + 两小图各 121），反过来把整张卡撑高。
+   而两小图在卡上实际只有 155×97px —— 那个尺寸看不出任何内容，只是"有图"的占位；
+   真正的三档对照在详情面板里（那里有 1440/768/390 切换与逐张缩略图）。
+   所以卡上只留大图，行高 434 → 约 290px，一屏能看到两张卡。
+   注意：这不影响闸门。verify-prototype.mjs:144 只扫 /^S\d{2}-/ 目录，
+   _selection 从不在闸门范围内 —— 原注释里说的"真实图片 0 张"讲的是
+   原型页面自己（每案 assets 里的图），与这里的卡片缩略图无关。 */
+.shots { display: grid; grid-template-columns: 1fr; gap: 0; align-content: start; }
+.shots .shot:first-child { grid-column: auto; }
+/* 第 2、3 张（768 / 390）不再在卡片上占位：详情面板里三档齐全 */
+.shots .shot:not(:first-child) { display: none; }
 .shot { margin: 0; background: #fff; overflow: hidden; position: relative; }
-.shot img { width: 100%; display: block; aspect-ratio: 16 / 10; object-fit: cover; object-position: top center; }
+.shot img { width: 100%; display: block; aspect-ratio: 16 / 9; object-fit: cover; object-position: top center; }
 .shot figcaption {
   font-family: var(--num); font-variant-numeric: tabular-nums; font-size: var(--s-13);
   text-align: center; padding: 1px 0 2px; color: var(--ink-3);
@@ -379,12 +387,19 @@ code { font-family: var(--code); font-size: 0.94em; }
 }
 @media (max-width: 980px) {
   .bench { grid-template-columns: 1fr; }
+  /* 移动端 rail 原来会把 11 组筛选全部堆在列表前面：实测 390px 下 rail 高 1563px，
+     用户要滚 **2.6 屏**才看到第一个方案。改成限高内滚，让方案立刻出现。 */
   .rail {
-    position: static; max-height: none; border-right: none;
-    border-bottom: 2px solid var(--ink); padding: 18px var(--pad);
+    position: static; max-height: 46vh; overflow-y: auto;
+    border-right: none;
+    border-bottom: 2px solid var(--ink); padding: 14px var(--pad);
   }
   .row { grid-template-columns: 46px minmax(0, 1fr); }
   .shots { grid-column: 2 / -1; }
+  /* 窄屏截图占满整行后，16:9 会把卡片拉到 600px 高（实测 tablet 卡高 602px）。
+     既然卡上只放一张桌面图，这里就不该让它撑满宽度：限一个最大宽与最大高。 */
+  .shots .shot:first-child { max-width: 380px; }
+  .shots .shot img { max-height: 214px; }
   .row-foot { grid-column: 2 / -1; }
   .no { font-size: var(--s-20); }
   .detail { width: 100vw; }
@@ -392,9 +407,13 @@ code { font-family: var(--code); font-size: 0.94em; }
 @media (max-width: 620px) {
   :root { --pad: 16px; }
   .main { padding: 16px var(--pad) 60px; }
-  .mast { padding: 26px var(--pad) 16px; }
-  .mast h1 { font-size: max(28px, 7vw); }
-  .shots { grid-template-columns: 1fr 1fr; gap: 4px; }
+  .mast { padding: 20px var(--pad) 14px; }
+  .mast h1 { font-size: max(26px, 6.6vw); max-width: none; }
+  .rail { max-height: 40vh; padding: 12px var(--pad); }
+  .rail-lead { display: none; }
+  .shots { grid-template-columns: 1fr; gap: 4px; }
+  .shots .shot:first-child { max-width: none; }
+  .shots .shot img { max-height: 190px; }
   .shot figcaption { font-size: 11px; }
 }
 
