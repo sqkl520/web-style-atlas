@@ -188,6 +188,14 @@ for (let i = 1; i <= 30; i++) {
     visuals: spec && spec.fields['关键视觉元素'] ? spec.fields['关键视觉元素'] : '',
     motion: spec && spec.fields['动效与交互'] ? spec.fields['动效与交互'] : '',
     risk: spec && spec.fields['反 AI 味风险与规避'] ? spec.fields['反 AI 味风险与规避'] : '',
+    /* 2026-10-27 补：「可落地要点」在 FIELDS（L75）里解析了，却**从来没有被赋值**——
+     * 30 案的字体子集预算、LCP 预算、可执行 CSS 思路（clip-path / 栏沟用 gap 不用 border …）
+     * 因此全部蒸发，选型台与提示词里一个字都没有。派生的 copy / copyParts / errorFromCopy 都带出去了，
+     * 唯独这一项漏在赋值表外。这就是「解析了 ≠ 用上了」：数组里列了名字，赋值处少一行。
+     * 证据：deliverables/63-plan/SYNTHESIS-hard-revalidation.md §6 第 3 条
+     * （原文：FIELDS:75 有，L184-195 无 —「只差一行赋值」）。
+     * 放在 scenes / quirk 之间，与规格里字段 11 的位置一致。 */
+    landing: spec && spec.fields['可落地要点'] ? spec.fields['可落地要点'] : '',
     scenes: spec && spec.fields['适用场景'] ? spec.fields['适用场景'] : '',
     quirk: spec && spec.fields['设计师签名式怪癖'] ? spec.fields['设计师签名式怪癖'] : '',
     copy: spec ? spec.copy : '',

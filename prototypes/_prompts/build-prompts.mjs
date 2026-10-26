@@ -77,27 +77,45 @@ for (const d of dna) {
 
 // ── 人话版 / 场景 / 内容量：人工裁定，逐条在此集中维护（不散落在模板里）────────────────
 // 判据：plain ≤20 字，不含 px/HEX/角度；能让人三秒判断"适不适合我"。
+/* `hard` 标注（2026-10-27 重新实测后从 9 个缩到 4 个）
+ * 判据：机制的实现是否**读取**数据的具体值/形态，而不只是数量。
+ * 背景：这个标注从首次写下起从未复验过，于是 8 个 Agent 分头重审，四份独立名单
+ * 并集 8、交集只有 3 —— 差别全部集中在「需要真跑一次页面才能确认」的地方
+ * （它们把源数据当成了渲染结果）。最终裁决以 CDP 渲染实测为准，见
+ * deliverables/63-plan/SYNTHESIS-hard-revalidation.md。
+ * 留 S15：14 个 SVG 矩形面积与声明 m² 残差 0.00%，三层年代内容各异
+ * 留 S18：机制绑 --at 行号定位，改一行下游全要手改（但有 off-by-2 bug，已修）
+ * 留 S21：14 条锁互斥图 pairs==excl 14/14，angle==15×pairs 14/14
+ * 留 S29：23≡23≡23 有序全等、0 重复，getElementById('part-'+no) 是真读取
+ * 撤 S03：年代轴是 5 个字面量 [1957..1977]，与 8 条带零耦合，且轴停在 1977 而数据到 1978
+ * 撤 S05：8 块面板写死网格坐标，属 degrades；点阵算法换任何数字都能画
+ * 撤 S10：要的是「同一集合两套排序」，换内容仍成立
+ * 撤 S14：estimate_h 在 9/11 条撞 max(3,·) 下限，字数不参与；正文涨 1.7× 仍零重叠
+ * 撤 S20：图由参数生成，不读条目，连音频都不解析（index.html:392）
+ * 四个 Agent 给出四份不同名单（并集 8、交集 3），这次裁决以「渲染实测」为准，
+ * 因为出错全部集中在需要跑一次页面才能确认的地方。
+ */
 const HUMAN = {
   S01: { plain: "没裁齐的报纸感，红斜块压住版面", scenes: ["内容媒体", "文化机构"], minItems: 3, minPics: 4 },
   S02: { plain: "金色中缝对切，左右镜像，很贵", scenes: ["高定品牌", "拍卖行"], minItems: 3, minPics: 5 },
-  S03: { plain: "纵向年代轴，像观测记录仪", scenes: ["科研机构", "气象看板"], minItems: 8, minPics: 3, hard: true },
+  S03: { plain: "纵向年代轴，像观测记录仪", scenes: ["科研机构", "气象看板"], minItems: 8, minPics: 3 },
   S04: { plain: "手贴满的展览墙，色块互相压边", scenes: ["展览导览", "艺术家主页"], minItems: 6, minPics: 9 },
-  S05: { plain: "冷库铁皮控制面板，八块分区", scenes: ["工业监控", "硬件产品"], minItems: 8, minPics: 3, hard: true },
+  S05: { plain: "冷库铁皮控制面板，八块分区", scenes: ["工业监控", "硬件产品"], minItems: 8, minPics: 3 },
   S06: { plain: "咖啡泡过的纸，卡片沿斜轨漂", scenes: ["咖啡馆", "播客", "手作品牌"], minItems: 4, minPics: 5 },
   S07: { plain: "老报纸目录跨页，左窄右宽", scenes: ["期刊目录", "档案机构"], minItems: 5, minPics: 4 },
   S08: { plain: "琥珀亚克力板叠起来，有厚度", scenes: ["设计工作室", "香氛烈酒"], minItems: 3, minPics: 6 },
   S09: { plain: "亮黄手写价目板，小店摆摊那种热闹", scenes: ["修鞋理发", "小吃店", "市集"], minItems: 5, minPics: 4 },
-  S10: { plain: "五栏不等宽对撞，红版压过黑栏", scenes: ["B端采购", "工程规格"], minItems: 5, minPics: 3, hard: true },
+  S10: { plain: "五栏不等宽对撞，红版压过黑栏", scenes: ["B端采购", "工程规格"], minItems: 5, minPics: 3 },
   S11: { plain: "七层复写纸打的检修手册", scenes: ["档案项目", "文档工具"], minItems: 8, minPics: 3 },
   S12: { plain: "青柠塑料墙挖七个洞，很吵", scenes: ["游戏官网", "潮牌快闪"], minItems: 3, minPics: 6 },
   S13: { plain: "棉纸公函，条款标题压出凹痕", scenes: ["合同审批", "公文发布"], minItems: 6, minPics: 3 },
-  S14: { plain: "舱壁铝箔标贴，十一枚绕一个心", scenes: ["开发者工具", "基础设施"], minItems: 8, minPics: 3, hard: true },
+  S14: { plain: "舱壁铝箔标贴，十一枚绕一个心", scenes: ["开发者工具", "基础设施"], minItems: 8, minPics: 3 },
   S15: { plain: "三层硫酸纸叠在同一张平面图上", scenes: ["地图GIS", "专题数据库"], minItems: 9, minPics: 3, hard: true },
   S16: { plain: "九个词块沿斜线堆叠，速度感", scenes: ["创意机构", "字体厂商"], minItems: 5, minPics: 3 },
   S17: { plain: "印花税票对账联，小数点对齐", scenes: ["财务对账", "票据系统"], minItems: 6, minPics: 3 },
   S18: { plain: "机房墙上挂一条打印纸，磷光绿", scenes: ["运维日志", "工单系统"], minItems: 10, minPics: 2, hard: true },
   S19: { plain: "暖米纸感+抽屉网格，像老书店选品柜", scenes: ["咖啡馆", "书店", "选品店", "标本馆"], minItems: 4, minPics: 6 },
-  S20: { plain: "白图纸上针笔单线走位", scenes: ["音频设备", "测量仪器"], minItems: 6, minPics: 3, hard: true },
+  S20: { plain: "白图纸上针笔单线走位", scenes: ["音频设备", "测量仪器"], minItems: 6, minPics: 3 },
   S21: { plain: "值班台上的联锁释放簿，左右两栏", scenes: ["工序依赖", "调度排班"], minItems: 9, minPics: 2, hard: true },
   S22: { plain: "日式纸张对折，安静，适合长文", scenes: ["长篇博客", "手作品牌", "书店"], minItems: 2, minPics: 4 },
   S23: { plain: "同一面墙铲开九处，露出不同年份", scenes: ["城市更新", "口述史"], minItems: 6, minPics: 8 },
@@ -110,7 +128,8 @@ const HUMAN = {
   S30: { plain: "荧光绿贴纸撕成两半，潮流有劲", scenes: ["游戏周边", "潮牌", "快闪活动"], minItems: 4, minPics: 6 },
 };
 
-// 不能大众化的 9 案（机制绑死行业数据结构）——如实标注，不硬接
+// 不能大众化的 4 案（机制真的读取数据的具体值/形态，换普通内容会退化）——如实标注，不硬接
+// 9 → 4 的撤销理由逐条写在上面 HUMAN 前的注释里；这里不再重复。
 const HARD_IDS = Object.keys(HUMAN).filter((k) => HUMAN[k].hard);
 
 // 场景索引：把 45 个常见行业词映射到案号。测出零命中的如实列 unsupported。

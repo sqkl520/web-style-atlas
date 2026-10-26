@@ -373,13 +373,8 @@ window.STYLE_PROMPTS = {
   "物流"
  ],
  "hardIds": [
-  "S03",
-  "S05",
-  "S10",
-  "S14",
   "S15",
   "S18",
-  "S20",
   "S21",
   "S29"
  ],
@@ -478,7 +473,7 @@ window.STYLE_PROMPTS = {
    ],
    "minItems": 8,
    "minPics": 8,
-   "hard": true,
+   "hard": false,
    "capacity": {
     "id": "S03",
     "minItems": 8,
@@ -569,7 +564,7 @@ window.STYLE_PROMPTS = {
    ],
    "minItems": 8,
    "minPics": 6,
-   "hard": true,
+   "hard": false,
    "capacity": {
     "id": "S05",
     "minItems": 8,
@@ -789,7 +784,7 @@ window.STYLE_PROMPTS = {
    ],
    "minItems": 12,
    "minPics": 6,
-   "hard": true,
+   "hard": false,
    "capacity": {
     "id": "S10",
     "minItems": 12,
@@ -963,7 +958,7 @@ window.STYLE_PROMPTS = {
    ],
    "minItems": 11,
    "minPics": 10,
-   "hard": true,
+   "hard": false,
    "capacity": {
     "id": "S14",
     "minItems": 11,
@@ -1228,7 +1223,7 @@ window.STYLE_PROMPTS = {
    ],
    "minItems": 6,
    "minPics": 6,
-   "hard": true,
+   "hard": false,
    "capacity": {
     "id": "S20",
     "minItems": 6,
