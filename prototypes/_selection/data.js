@@ -120,7 +120,7 @@ window.SCHEMES = [
    "#0B0B0F",
    "#EFE6D0",
    "#B8860B",
-   "#22D3EE"
+   "#3A2E1A"
   ],
   "built": true,
   "gate": {
@@ -202,6 +202,7 @@ window.SCHEMES = [
   "palette": [
    "#101A1C",
    "#13928E",
+   "#C9D6CF",
    "#B9A98C"
   ],
   "built": true,
@@ -367,7 +368,8 @@ window.SCHEMES = [
   "palette": [
    "#0E100D",
    "#BFB9A6",
-   "#4FA83D"
+   "#4FA83D",
+   "#8C2F1F"
   ],
   "built": true,
   "gate": {
@@ -407,8 +409,8 @@ window.SCHEMES = [
    "bandSat": 10,
    "load": "一屏说清",
    "words": 329,
-   "loud": "有态度不吵",
-   "chroma": 47
+   "loud": "就要扎眼",
+   "chroma": 64
   },
   "scenesYes": "冷链、机房、能源类工业监控产品的控制台、开发者工具的运行状态面板、复古硬件或合成器品牌的设备介绍页。",
   "scenesNo": "面向大众消费者的轻量记账应用、需要柔和亲和的母婴与教育类页面。"
@@ -618,7 +620,9 @@ window.SCHEMES = [
   "errorCodeSource": "规格文案",
   "palette": [
    "#120C08",
-   "#C46A1F"
+   "#C46A1F",
+   "#E8DCC8",
+   "#6B4A22"
   ],
   "built": true,
   "gate": {
@@ -873,6 +877,7 @@ window.SCHEMES = [
   "palette": [
    "#DCDDD2",
    "#1B4A4A",
+   "#221E19",
    "#6E7A64"
   ],
   "built": true,
@@ -958,7 +963,7 @@ window.SCHEMES = [
    "#1E2A2E",
    "#B5D626",
    "#E23E57",
-   "#0F172A"
+   "#F2E9D8"
   ],
   "built": true,
   "gate": {
@@ -1133,7 +1138,8 @@ window.SCHEMES = [
   "palette": [
    "#12181D",
    "#E4572E",
-   "#D8D2C4"
+   "#D8D2C4",
+   "#8A3320"
   ],
   "built": true,
   "gate": {
@@ -1219,6 +1225,7 @@ window.SCHEMES = [
   "palette": [
    "#E7EBE9",
    "#3A3F45",
+   "#22282B",
    "#7A7466"
   ],
   "built": true,
@@ -1265,7 +1272,7 @@ window.SCHEMES = [
    "load": "很多栏目",
    "words": 834,
    "loud": "很安静",
-   "chroma": 9
+   "chroma": 12
   },
   "scenesYes": "适合两类项目：一是地图、GIS、空间数据类产品的官网与产品页，平面热区天然对应真实功能区域；二是档案馆、博物馆、研究机构的专题数据库，尤其是需要对照不同年份版本的项目。",
   "scenesNo": "需要快速转化的电商与消费品牌页，本方案的认知门槛偏高且缺少单一动作入口；也不适合以短视频或大图为主的品牌页，页面的视觉主角是图纸而不是照片"
@@ -1390,8 +1397,7 @@ window.SCHEMES = [
   "palette": [
    "#E1D6BD",
    "#5A2A50",
-   "#7A2E2E",
-   "#111111"
+   "#7A2E2E"
   ],
   "built": true,
   "gate": {
@@ -1486,7 +1492,7 @@ window.SCHEMES = [
     "font-count",
     "no-footage"
    ],
-   "at": "2026-10-26T16:25:29.458Z",
+   "at": "2026-10-26T16:47:17.147Z",
    "screens": 12,
    "realPictures": 6,
    "overflow": 0,
@@ -1559,7 +1565,8 @@ window.SCHEMES = [
   "palette": [
    "#E4DECD",
    "#4A5C3A",
-   "#2A241C"
+   "#2A241C",
+   "#7C7460"
   ],
   "built": true,
   "gate": {
@@ -2322,8 +2329,7 @@ window.SCHEMES = [
   "palette": [
    "#0B0D12",
    "#AF74BE",
-   "#D8D4C6",
-   "#EC4899"
+   "#D8D4C6"
   ],
   "built": true,
   "gate": {
@@ -2368,8 +2374,8 @@ window.SCHEMES = [
    "bandSat": 24,
    "load": "很多栏目",
    "words": 957,
-   "loud": "就要扎眼",
-   "chroma": 81
+   "loud": "有态度不吵",
+   "chroma": 36
   },
   "scenesYes": "适合（一）音频设备与音乐产品品牌站，例如黑胶唱机、监听耳机、录音软件；（二）高端文化消费品的形象页与收藏品售卖页，例如限量黑胶、艺术印刷品。",
   "scenesNo": "需要明亮积极调性的消费品牌；信息密度高的后台系统；不能使用人物档案照片授权的项目"

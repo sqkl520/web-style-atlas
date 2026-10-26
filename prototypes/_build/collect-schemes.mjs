@@ -22,6 +22,45 @@ const check = process.argv.includes('--check');
 const dec = (s) => s.replace(/\*\*/g, '').replace(/`/g, '').replace(/\s+/g, ' ').trim();
 const hexes = (s) => [...new Set([...String(s).matchAll(/#[0-9A-Fa-f]{6}\b/g)].map((m) => m[0].toUpperCase()))];
 
+/* ── 样式面：一个 hex 到底有没有被真的用上 ────────────────────────────────
+ * 这是任务 A 的第二道判据（比否定词表更硬）：**规格说有、但样式面里一次都没出现的颜色，不进调色板**。
+ * 为什么不能只看 style.css：契约允许个别方案的色来自 index.html 的内联 <style> / style="…" /
+ * 内联 SVG 的 fill・stroke，以及 assets/*.svg（程序化生成的纹理与图形）。
+ * 为什么不能直接扫 index.html 全文：S28 的 `#EC4899` 确实在 index.html 里出现 1 次 ——
+ * 但那是在 <p> 正文里（"离开 #EC4899 42°"），是**讲反例的散文**，不是渲染面。
+ * 全文件扫会把它当"落地了"保下来，等于白改。所以只认样式面：
+ *   style.css 全文 ∪ index.html 的 <style> 块 ∪ style="…" 属性 ∪ SVG 表现属性 ∪ assets/*.svg。
+ * 实测依据（deliverables/99-scratch/audit-palette-where.mjs）：
+ *   30 案 118 个 palette 项里，只有 S02 #22D3EE / S12 #0F172A / S17 #111111 / S28 #EC4899
+ *   在样式面里 0 次，其余全部 ≥1 次（其中 4 项靠 index.html 的 style 属性/SVG 属性命中，
+ *   若只扫 style.css 会误杀）。 */
+const styleCache = new Map();
+function styleSurface(dir) {
+  if (!dir) return '';
+  if (styleCache.has(dir)) return styleCache.get(dir);
+  const parts = [];
+  const css = join(PROTO, dir, 'style.css');
+  if (existsSync(css)) parts.push(readFileSync(css, 'utf8'));
+  const html = join(PROTO, dir, 'index.html');
+  if (existsSync(html)) {
+    const t = readFileSync(html, 'utf8');
+    for (const m of t.matchAll(/<style\b[^>]*>([\s\S]*?)<\/style>/gi)) parts.push(m[1]);
+    for (const m of t.matchAll(/\bstyle\s*=\s*"([^"]*)"/gi)) parts.push(m[1]);
+    for (const m of t.matchAll(/\bstyle\s*=\s*'([^']*)'/gi)) parts.push(m[1]);
+    for (const m of t.matchAll(/\b(?:fill|stroke|stop-color|flood-color|color|lighting-color)\s*=\s*["']([^"']*)["']/gi)) parts.push(m[1]);
+  }
+  const ad = join(PROTO, dir, 'assets');
+  if (existsSync(ad)) {
+    for (const f of readdirSync(ad)) if (/\.svg$/i.test(f)) parts.push(readFileSync(join(ad, f), 'utf8'));
+  }
+  const s = parts.join('\n');
+  styleCache.set(dir, s);
+  return s;
+}
+const inStyle = (dir, h) => new RegExp(h + '(?![0-9A-Fa-f])', 'i').test(styleSurface(dir));
+// 剔除日志：脚本跑完要能逐条说出「哪个色、因为什么被剔除」，这是本轮的验收证据。
+const PAL_DROPPED = [];
+
 // ---- 1 解析 _CURRENT-VALUES.md 的逐案表 ----
 const cur = {};
 {
@@ -222,18 +261,96 @@ for (let i = 1; i <= 30; i++) {
   // 并且不能落在否定语境里。拿不到角色标签的，一律不收。
   const p3 = spec && spec.fields['配色系统'] ? spec.fields['配色系统'] : '';
   const ROLE = /(主色|背景色?|底色|地面色?|正文色?|正文|强调色?|辅助色?|次要色?|结构线|批注|脏色|纸色)/;
-  const NEG = /(反的?是?|反对|不用|不使用|禁止|排除|避免|规避|不得|不要|拒绝|剔除|而不是|而非|旧|原|曾|改为|取代)/;
+  /* 否定语境词表（2026-10-27 加）。
+   *
+   * 为什么必须加：旧版只有 ROLE 标签判据，它挡得住「没带角色标签的杂色」，挡不住
+   * **规格点名要反的颜色**——因为反例在句子里的写法同样带有角色词。实测 4 案用户可见错误：
+   *   S02 `#22D3EE`  「反的是"深色底 + 霓虹紫青强调"（#8B5CF6／#22D3EE）」
+   *   S12 `#0F172A`  「既不是纯黑也不是 #0F172A 那种蓝黑」
+   *   S17 `#111111`  「#111111 压在紫墨上只有 1.69:1，不采用」
+   *   S28 `#EC4899`  「离开 #EC4899 42°」
+   * 这 4 个色在各自 style.css 里出现 0 次，却排在 palette[3]——正好是列表行与向导卡显示的第 4 个色块，
+   * 于是用户在选型台上看到「这个方案用到 #22D3EE」，而该方案的设计规格写着「反的是 #22D3EE」。
+   *
+   * ⚠️ 词表**故意不做同义扩张**，因为字段 3 里这些字长得像否定词、其实是在描述正色：
+   *   「金箔反**光**」「漫反**射**」→ 不能收裸的「反」
+   *   「原纸色」「原先」→ 不能收裸的「原」
+   *   「旧木」「旧漆」→ 不能收裸的「旧」（S19 的 #2A241C 角色说明就是「旧木」，是真色）
+   * 第一版把「反的?是?」写成裸「反」，实测误杀 S02 的 #B8860B（「金箔反光」在它前面 20 字内），
+   * 又用 40 字窗口误杀 S04 #F0E2C8（前面是「旧的漆」）。所以词表只留**明确带宾语的否定句式**。
+   * 词表口径就是裁决文档 §4-A 列的七个：反的 / 不是 / 不采用 / 离开 / 禁止 / 不要 / 避免（外加既不、也不等同族）。
+   */
+  const NEG = /(反的是|反对|反这|反「|反"|反`|反\s*#|不是|而非|既不|也不|不采用|不选|不取|不用|不使用|不要|不得|禁止|排除|避免|规避|拒绝|剔除|禁用|离开|远离)/;
+  /* 窗口为什么要按标点切：否定只作用于**同一个分句**。
+   *  · 向前：从上一个句读（。；，、！？换行）算起，最多 40 字。S28「…71°、离开 `#EC4899` 42°」里
+   *    「离开」紧贴色值，而「反的是」在 S02 里隔着一个 #8B5CF6，都在同分句内。
+   *  · 向后：到下一个句号/分号为止，最多 34 字。S17 的「不采用」在色值**之后**约 28 字
+   *    （`#111111` 压在紫墨上只有 1.69:1，不采用）——只看前面永远抓不到它。
+   * 按标点切还顺带避免了「前一句说反、后一句说正」的跨句误杀。
+   */
+  const clauseBefore = (i) => {
+    const w = p3.slice(Math.max(0, i - 40), i);
+    const cut = Math.max(w.lastIndexOf('。'), w.lastIndexOf('；'), w.lastIndexOf('，'), w.lastIndexOf('、'),
+      w.lastIndexOf('！'), w.lastIndexOf('？'), w.lastIndexOf('\n'));
+    return cut >= 0 ? w.slice(cut + 1) : w;
+  };
+  const clauseAfter = (j) => {
+    const w = p3.slice(j, j + 34);
+    const cut = w.search(/[。；！？\n]/);
+    return cut >= 0 ? w.slice(0, cut) : w;
+  };
+  /* 结构型角色标记（词表之外的第二条通路，见 keepHex 里的 a/b/c）。
+   * ROLE_NAME_AFTER：`#C9A87C 渍痕淡褐＝…` —— 色值后 1–12 字的名字 + 全角/半角等号。
+   * ROLE_NAME_BEFORE：`压印暗侧 #D6CDB9（…）` —— 色值前紧贴的 2–8 个汉字。
+   * 两者都只描述"排版形状"，不描述语义，所以对反例（「离开 #EC4899 42°」「反的是 #22D3EE」）
+   * 不会命中：前者名字后面没有「＝」，后者名字前是「离开/反的是」这类动词短语而非颜色名。 */
+  const ROLE_NAME_AFTER = /^\s*[\u4e00-\u9fa5A-Za-z0-9]{1,12}\s*[＝=]/;
+  const ROLE_NAME_BEFORE = /[\u4e00-\u9fa5]{2,8}\s*$/;
+  /* ⚠️ 2026-10-27 补：ROLE_NAME_BEFORE 会把「用途」误当成「颜色名」。
+   * 实例（3 案，用户可见）：S22 规格写「主色作按钮底时用白字 = 6.51:1，
+   * **故按钮文字指定为** `#FFFFFF`」——那 8 个汉字命中了 `[\u4e00-\u9fa5]{2,8}$`，
+   * 于是 #FFFFFF 被当成「带角色名的调色板色」收进来，成了第 4 个色块。
+   * 但这 3 案的规格同一段前面明写「**恰好三个色**」，而且 S22 的原话是
+   * 「反的是纯白底」——修复反而把被反对的颜色塞回了调色板。
+   * 判据：颜色名是一个名词短语（渍痕淡褐、压印暗侧），而「按钮文字指定为」
+   * 描述的是**这个色用在哪儿**，不是它的名字。凡是短语里含这些用途动词/名词的一律不收。
+   */
+  const USAGE_WORDS = /(按钮|文字|字色|字体|描边|填充|背景|底色|前景|边框|阴影|高光|暗部|文字色|白字|黑字|叠印|套印)/;
+  const ROLE_NAME_BEFORE_OK = (s) => ROLE_NAME_BEFORE.test(s) && !USAGE_WORDS.test(s);
   const keepHex = (h) => {
     const re = new RegExp(h.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
     for (const m of p3.matchAll(re)) {
-      const before = p3.slice(Math.max(0, m.index - 20), m.index);
-      const after = p3.slice(m.index, m.index + 22);
-      if (NEG.test(before)) continue;                 // ① ② 否定 / 旧值
-      if (ROLE.test(after) || ROLE.test(before)) return true;   // 附近有角色标签 → 收
+      const before = clauseBefore(m.index);
+      const after = clauseAfter(m.index + h.length);
+      if (NEG.test(before)) continue;                 // ① 否定 / 旧值（"反的是…"、"既不是…"）
+      if (NEG.test(after)) continue;                  // ① 否定写在色值之后（"…1.69:1，不采用"）
+      /* 角色标签有三条通路，缺一条就会误杀真色（第一版只认词表，实测丢了 3 个真色）：
+       *   a) 词表：`#B8860B 暗金＝主色与纹样` 这类带"主色/底色/正文"字样的；
+       *   b) 色值**之后**紧跟「名字＝/＝用途」：S06 `#C9A87C 渍痕淡褐＝杯渍环与分隔`、
+       *      S07 `#9A9384 毛口灰＝页边毛口与分隔` —— 名字是自定义词（渍痕淡褐、毛口灰），
+       *      词表里不可能有，但「名字＋＝＋用途」这个结构就是"这是一个配色项"的标记；
+       *   c) 色值**之前**紧跟一个 2–8 字的名字：S13 `压印暗侧 #D6CDB9（凹槽受光弱的一侧…）`。
+       * b/c 两条是结构判据而非语义判据，所以它们不会把反例放进来 ——
+       * 反例的上下文是「反的是…（#8B5CF6／#22D3EE）」「离开 #EC4899 42°」，
+       * 既没有「＝」也没有紧贴的中文名字，且通常已被 a 之外的否定判据先拦下。 */
+      if (ROLE.test(after) || ROLE.test(before)) return true;
+      if (ROLE_NAME_AFTER.test(after)) return true;
+      /* 用 ROLE_NAME_BEFORE_OK 而不是 ROLE_NAME_BEFORE：后者会把「故按钮文字指定为」
+       * 这类**用途描述**当成颜色名（3 案 #FFFFFF 误收，见上面的注释）。 */
+      if (ROLE_NAME_BEFORE_OK(before)) return true;
     }
     return false;
   };
-  const fromSpec = hexes(p3).filter(keepHex).filter((h) => !(stale[id] || []).includes(h));
+  /* 第二道判据（更硬）：**样式面里必须出现 ≥1 次**。
+   * 理由与实现见文件头 styleSurface() 的注释。与否定词表的关系是互补而非重复：
+   *   词表治「规格里写了但语义是否定」，样式面治「规格里写了但实现里根本没用到」——
+   *   后者不管句子怎么写都能抓住，是真正兜底的那一条。任一条判死即剔除。 */
+  const fromSpec = hexes(p3).filter((h) => {
+    if ((stale[id] || []).includes(h)) { PAL_DROPPED.push({ id, hex: h, why: '§2 作废旧值' }); return false; }
+    if (!keepHex(h)) { PAL_DROPPED.push({ id, hex: h, why: '否定语境或无角色标签' }); return false; }
+    if (dir && !inStyle(dir, h)) { PAL_DROPPED.push({ id, hex: h, why: '样式面 0 次（规格有、CSS/SVG 没用）' }); return false; }
+    return true;
+  });
   const pal = [];
   if (rec.bg) pal.push(rec.bg);
   if (rec.primary && !pal.includes(rec.primary)) pal.push(rec.primary);
@@ -394,6 +511,24 @@ const noDef = out.filter((r) => !r.def).map((r) => r.id);
 const noPal = out.filter((r) => r.palette.length < 2).map((r) => r.id);
 if (noDef.length) console.log('⚠ 没解析出一句话定义的：' + noDef.join(' '));
 if (noPal.length) console.log('⚠ 配色不足 2 个的：' + noPal.join(' '));
+
+/* 调色板剔除日志（2026-10-27 加）。
+ * 为什么必须打印：这道过滤是**有损**的——它会把字段 3 里 96 个候选 hex 干掉 70 多个。
+ * 如果只在内存里悄悄做完，下一个读 data.js 的人无从判断"某个色不见了"是修好了还是抽坏了。
+ * 所以每条都留痕：案号 / 色值 / 剔除原因（否定语境、§2 作废、样式面 0 次）。
+ * 尤其要能一眼看出「样式面 0 次」这一类 —— 那是本轮真正的兜底判据。 */
+{
+  const byWhy = {};
+  for (const d of PAL_DROPPED) byWhy[d.why] = (byWhy[d.why] || 0) + 1;
+  console.log(`\n调色板剔除 ${PAL_DROPPED.length} 个候选 hex：` +
+    Object.entries(byWhy).map(([k, v]) => `${k} ${v}`).join('｜'));
+  const noStyle = PAL_DROPPED.filter((d) => d.why.startsWith('样式面'));
+  if (noStyle.length) console.log('  样式面 0 次（规格有、实现没用到）：' + noStyle.map((d) => `${d.id}${d.hex}`).join(' '));
+  for (const d of out) {
+    const drop = PAL_DROPPED.filter((x) => x.id === d.id);
+    if (drop.length) console.log(`  ${d.id} 剔除 ${drop.map((x) => x.hex + '(' + x.why + ')').join(' ')}`);
+  }
+}
 
 if (!check) {
   mkdirSync(OUTDIR, { recursive: true });

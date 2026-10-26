@@ -49,6 +49,42 @@ const RISK = (() => {
   return out;
 })();
 
+/* 逐案「最难被复用到别的品牌的地方是哪里」——从 data.js 的 landing 字段里**只取那一句**。
+ *
+ * 为什么需要它：landing（30/30 有值、共 13,962 字）是作者逐案写的「可落地要点」，
+ * 末尾那句正是「这个机制换了内容还成不成立」的权威答案，而它此前**零 UI 消费者**。
+ * 典型（S15）：**最难被复用到别的品牌的地方，是三层错位量与图例线型表：任何没有
+ *   「多版本信息」的项目套上去，三层就变成无意义的装饰。**
+ * 这句比任何我们新写的警告都准：它是作者的判断，不是我们的转述。
+ *
+ * 为什么只取一句、不整段进提示词：landing 全文 400–500 字，含字体子集预算、LCP 预算、
+ * 图片格式等一大堆**实现细节**，全塞进提示词会挤占注意力预算（risk 字段已按 220 字截断，
+ * 同一个理由）。这里只留"最难被复用"那半句（实测 49–73 字），它是**约束**；
+ * 其余是"怎么做"，AI 不需要。
+ *
+ * 为什么从 data.js 读、而不是让 clean-dna.mjs 产出：
+ *   clean-dna 的契约是「一切从各案 style.css 实测抽出，不 from 回忆」（见文件头第 1 条），
+ *   而 landing 是**规格 markdown 里的作者判断**，CSS 里根本没有这个信息。
+ *   硬塞进 clean-dna 等于让它伪造一个"实测"来源，正好违反它自己写在开头的那条契约。
+ *   所以走 RISK 同一条路：data.js（权威来源）→ 生成器剥出所需部分 → prompts.js。
+ *   顺带还省掉一次 clean-dna 重跑（那会连带重写 dna-clean.json，扩大本轮改动面）。
+ *
+ * 只匹配**一句话**：从「最难被复用」到第一个句号。30 案里 21 案有这句，其余 9 案
+ * （S02–S10）作者的 landing 只写到性能预算为止 —— 那 9 案就**整句省略**，不编。
+ */
+const REUSE = (() => {
+  const src = readFileSync(join(ROOT, "prototypes/_selection/data.js"), "utf8");
+  const out = {};
+  const re = /"id":\s*"(S\d{2})"[\s\S]*?"landing":\s*"((?:[^"\\]|\\.)*)"/g;
+  let m;
+  while ((m = re.exec(src))) {
+    const text = m[2].replace(/\\"/g, '"').replace(/\\n/g, " ");
+    const s = /最难被复用[^。]*。/.exec(text);
+    if (s) out[m[1]] = s[0].trim();
+  }
+  return out;
+})();
+
 /* 内容量容限（minItems / degrades / minPics）：来自 deliverables/60-minitems-degrade-audit.md
  * 的 30 案实测表。判据见该报告：
  *  · minItems = 同构重复单元的**设计规模**（不是"至少要这么多"）；
@@ -209,7 +245,18 @@ for (const d of dna) {
    * 2026-10-26 复算证实：:root 实际声明数远超 5，而底色通常排在前面，
    * S19 的主色 #4A5C3A（第 6 位）、S24 的主色 #5D43AD（第 7 位）都被切掉了，
    * 提示词却写着「配色只用这几个值」—— 主色不在列，AI 永远不会用它。
-   * 现在上限由 clean-dna 控制在 7 个、且主色已排到最前，这里只负责格式化。
+   * 现在上限由 clean-dna 控制在 7 个，这里只负责格式化。
+   *
+   * ⚠️ 2026-10-27 更正上一句：原注释写的是「且主色已排到最前」，**这句不成立**，实测两种口径都不到：
+   *   · 口径 A（clean-dna 自己检出的 primary[0] === palette[0]）：21/30 成立；
+   *   · 口径 B（_CURRENT-VALUES.md 的「主色」那一格 === palette[0]）：只有 15/30 成立。
+   * 两种口径下都是**同样那 9 案完全没检出主色**：S01 S08 S13 S14 S17 S18 S20 S25 S26。
+   * 这 9 案的 palette[0] 是纸色/底色（S01 #EFE7D7、S13 #F4E3BE、S20 #FAF3E1、
+   * S25 #E8E4DE、S26 #D3D1CA），或抽取值本身（S14 #C9C4B8 ×16 走的是全文件字面量兜底），
+   * 不是强调色。根因是 clean-dna 的 pickPalette 只用「主色/强调/primary/accent + 变量名白名单」
+   * 认主色，而白名单是按 S19/S24 的变量命名写的。
+   * 本轮**只改注释、不改数据**：把断言改成如实描述，免得下一个读 prompts.js 的人
+   * 以为主色一定在第一格。复算脚本：deliverables/99-scratch/audit-primary-first.mjs。
    */
   const pal = d.palette.length
     ? d.palette.map((p) => {
@@ -265,6 +312,9 @@ for (const d of dna) {
        * 它比通用的"防退化 8 条"精确一个数量级：那 8 条说"不要紫蓝渐变"，
        * 而这里说"纸纹只铺在满幅底色层，正文栏内部保持干净，禁止统一套做旧滤镜"。 */
       risk: RISK[d.id] || "",
+      /* 「最难被复用」那一句（作者原话）。只在 data.js 的 landing 里能取到，
+       * 取不到就是空串 —— 提示词那一行会整句省略，不会出现"本案无数据"这类内部缺陷。 */
+      reuse: REUSE[d.id] || "",
     },
   });
 }
@@ -277,7 +327,13 @@ const banner = [
   " * 2026-10-26 数据形状变更（读端需知）：",
   " *   dna.fonts 由数组改成 {display, body, mono} —— 标题字体不再按数组顺序猜，",
   " *     由 clean-dna 从各案 h1 规则（展开 var()）解析，30/30 与实测一致；",
-  " *   dna.palette 由最多 5 色放宽到最多 7 色，主强调色排在最前（S19/S24 的主色曾被截掉）；",
+  /* 这一行原文是「dna.palette 由最多 5 色放宽到最多 7 色，主强调色排在最前（S19/S24 的主色曾被截掉）」。
+   * 「主强调色排在最前」实测不成立，2026-10-27 更正为如实描述（任务 C：只改注释，不改数据）。
+   * 复算：deliverables/99-scratch/audit-primary-first.mjs。 */
+  " *   dna.palette 由最多 5 色放宽到最多 7 色：优先放主色（21/30 案能检出主色），其余按 :root 声明顺序补。",
+  " *     注意：9 案（S01 S08 S13 S14 S17 S18 S20 S25 S26）没有可靠的「主色」标记，",
+  " *     它们的 palette[0] 是纸色/底色的，不是强调色；提示词里的「配色只用这几个值」照列全，",
+  " *     不要把第一格当强调色用。",
   " *   dna.radius 一律是可执行的一句话，不再出现「未声明」「0 / 50%」这类抽取记号；",
   " *   dna.lineWidths 形如「1px、3px」，不再出现「未声明」。",
   " */",
@@ -317,8 +373,9 @@ for (const x of out) {
   const f = x.dna.fonts;
   console.log("  " + x.id + "  标题 " + (f.display || "—") + " ｜ 正文 " + (f.body || "—") + " ｜ 等宽 " + (f.mono || "（无）"));
 }
+/* 下面这两行输出原来也带着「主色在最前」的断言，同样不成立，一并改掉（与上面 banner 保持一致）。 */
 console.log("");
-console.log("=== 调色板色数（P0-4：上限 7，主色在最前）===");
+console.log("=== 调色板色数（P0-4：上限 7；主色只保证在列表内，不保证在第一格）===");
 const dist = {};
 for (const x of out) {
   const n = x.dna.palette.split("、").length;
@@ -326,4 +383,16 @@ for (const x of out) {
 }
 for (const k in dist) console.log("  " + k + " 色：" + dist[k] + " 案");
 const withPrimary = dna.filter((d) => d.primary && d.primary.length);
-console.log("  识别出主色的案：" + withPrimary.length + "/30（其余按 :root 声明顺序取前 7，主色本来就在前 7 位内）");
+/* 原文是「其余按 :root 声明顺序取前 7，主色本来就在前 7 位内」——后半句对那 9 案不成立：
+ * 它们不是"主色被挤出前 7"，而是**一个主色都没认出**（primary 为空数组），palette[0] 是底色。
+ * 改成只说能证的那一半。 */
+console.log("  识别出主色的案：" + withPrimary.length + "/30（其余 9 案没有可靠主色标记，按 :root 声明顺序取，见 banner）；"
+  + "没认出主色的：" + dna.filter((d) => !(d.primary && d.primary.length)).map((d) => d.id).join(" "));
+console.log("");
+console.log("=== 可落地要点里的「最难被复用」那一句（任务 B：接进提示词）===");
+const withReuse = out.filter((x) => x.dna.reuse);
+console.log("  取到该句的案：" + withReuse.length + "/30；缺的：" +
+  (out.filter((x) => !x.dna.reuse).map((x) => x.id).join(" ") || "无") + "（缺的案提示词里整句省略，不编）");
+console.log("  长度区间：" + Math.min(...withReuse.map((x) => x.dna.reuse.length)) + "–" +
+  Math.max(...withReuse.map((x) => x.dna.reuse.length)) + " 字");
+console.log("  抽样 S15：" + (REUSE.S15 || "（缺）"));
