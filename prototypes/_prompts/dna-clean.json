@@ -15,7 +15,15 @@
     "fonts": {
       "display": "Noto Sans SC",
       "body": "Noto Sans SC",
-      "mono": "Martian Mono"
+      "mono": "Martian Mono",
+      "displayStack": [
+        "Noto Sans SC",
+        "Source Han Sans SC"
+      ],
+      "bodyStack": [
+        "Noto Sans SC",
+        "Source Han Sans SC"
+      ]
     },
     "radius": "全直角 0",
     "radiusBare": true,
@@ -54,7 +62,15 @@
     "fonts": {
       "display": "Bodoni Moda",
       "body": "Noto Serif SC",
-      "mono": "IBM Plex Mono"
+      "mono": "IBM Plex Mono",
+      "displayStack": [
+        "Bodoni Moda",
+        "Noto Serif SC"
+      ],
+      "bodyStack": [
+        "Noto Serif SC",
+        "Songti SC"
+      ]
     },
     "radius": "全直角 0",
     "radiusBare": true,
@@ -93,7 +109,18 @@
     "fonts": {
       "display": "IBM Plex Mono",
       "body": "IBM Plex Sans",
-      "mono": "IBM Plex Mono"
+      "mono": "IBM Plex Mono",
+      "displayStack": [
+        "IBM Plex Mono",
+        "Cascadia Mono",
+        "Consolas"
+      ],
+      "bodyStack": [
+        "IBM Plex Sans",
+        "Noto Sans SC",
+        "Source Han Sans SC",
+        "Microsoft YaHei"
+      ]
     },
     "radius": "全直角 0",
     "radiusBare": true,
@@ -130,7 +157,19 @@
     "fonts": {
       "display": "LXGW WenKai",
       "body": "Redaction 20",
-      "mono": "Martian Mono"
+      "mono": "Martian Mono",
+      "displayStack": [
+        "LXGW WenKai",
+        "KaiTi",
+        "STKaiti",
+        "Kaiti SC"
+      ],
+      "bodyStack": [
+        "Redaction 20",
+        "Georgia",
+        "Nimbus Roman",
+        "LXGW WenKai"
+      ]
     },
     "radius": "全直角 0",
     "radiusBare": true,
@@ -169,7 +208,14 @@
     "fonts": {
       "display": "Barlow",
       "body": "Glow Sans SC",
-      "mono": "Departure Mono"
+      "mono": "Departure Mono",
+      "displayStack": [
+        "Barlow",
+        "Glow Sans SC"
+      ],
+      "bodyStack": [
+        "Glow Sans SC"
+      ]
     },
     "radius": "全站方角，仅圆形徽标/圆点为 50%",
     "radiusBare": false,
@@ -208,7 +254,19 @@
     "fonts": {
       "display": "EB Garamond",
       "body": "Literata",
-      "mono": "Martian Mono"
+      "mono": "Martian Mono",
+      "displayStack": [
+        "EB Garamond",
+        "Noto Serif SC",
+        "Songti SC",
+        "Georgia"
+      ],
+      "bodyStack": [
+        "Literata",
+        "Noto Serif SC",
+        "Songti SC",
+        "Georgia"
+      ]
     },
     "radius": "全直角 0",
     "radiusBare": true,
@@ -244,7 +302,19 @@
     "fonts": {
       "display": "Libre Franklin",
       "body": "Newsreader",
-      "mono": "IBM Plex Mono"
+      "mono": "IBM Plex Mono",
+      "displayStack": [
+        "Libre Franklin",
+        "WenJin Mincho",
+        "文津宋体",
+        "Source Han Serif SC"
+      ],
+      "bodyStack": [
+        "Newsreader",
+        "WenJin Mincho",
+        "文津宋体",
+        "Source Han Serif SC"
+      ]
     },
     "radius": "全直角 0",
     "radiusBare": true,
@@ -280,7 +350,17 @@
     "fonts": {
       "display": "Gloock",
       "body": "Source Serif 4",
-      "mono": "Overprint Numerals"
+      "mono": "Overprint Numerals",
+      "displayStack": [
+        "Gloock",
+        "Source Serif 4",
+        "Noto Serif SC"
+      ],
+      "bodyStack": [
+        "Source Serif 4",
+        "Noto Serif SC",
+        "Songti SC"
+      ]
     },
     "radius": "全直角 0",
     "radiusBare": true,
@@ -316,7 +396,14 @@
     "fonts": {
       "display": "LXGW Marker Gothic",
       "body": "LXGW Marker Gothic",
-      "mono": "JetBrains Mono"
+      "mono": "JetBrains Mono",
+      "displayStack": [
+        "LXGW Marker Gothic",
+        "Syne"
+      ],
+      "bodyStack": [
+        "LXGW Marker Gothic"
+      ]
     },
     "radius": "全直角 0",
     "radiusBare": true,
@@ -353,7 +440,15 @@
     "fonts": {
       "display": "Jost",
       "body": "IBM Plex Sans",
-      "mono": "IBM Plex Mono"
+      "mono": "IBM Plex Mono",
+      "displayStack": [
+        "Jost",
+        "Noto Sans SC"
+      ],
+      "bodyStack": [
+        "IBM Plex Sans",
+        "Noto Sans SC"
+      ]
     },
     "radius": "全直角 0",
     "radiusBare": true,
@@ -389,7 +484,18 @@
     "fonts": {
       "display": "EB Garamond",
       "body": "LXGW WenKai TC",
-      "mono": "Martian Mono"
+      "mono": "Martian Mono",
+      "displayStack": [
+        "EB Garamond",
+        "LXGW WenKai TC",
+        "Noto Serif SC"
+      ],
+      "bodyStack": [
+        "LXGW WenKai TC",
+        "Kaiti SC",
+        "KaiTi",
+        "Noto Serif SC"
+      ]
     },
     "radius": "全直角 0",
     "radiusBare": true,
@@ -428,7 +534,17 @@
     "fonts": {
       "display": "Bricolage Grotesque",
       "body": "Glow Sans SC",
-      "mono": "JetBrains Mono"
+      "mono": "JetBrains Mono",
+      "displayStack": [
+        "Bricolage Grotesque",
+        "Glow Sans SC"
+      ],
+      "bodyStack": [
+        "Glow Sans SC",
+        "Noto Sans SC",
+        "Source Han Sans SC",
+        "PingFang SC"
+      ]
     },
     "radius": "全直角 0",
     "radiusBare": true,
@@ -462,7 +578,16 @@
     "fonts": {
       "display": "EB Garamond",
       "body": "Noto Serif SC",
-      "mono": "DM Mono"
+      "mono": "DM Mono",
+      "displayStack": [
+        "EB Garamond",
+        "Noto Serif SC"
+      ],
+      "bodyStack": [
+        "Noto Serif SC",
+        "Songti SC",
+        "SimSun"
+      ]
     },
     "radius": "全直角 0",
     "radiusBare": true,
@@ -501,7 +626,16 @@
     "fonts": {
       "display": "Oswald",
       "body": "Noto Serif SC",
-      "mono": "Space Mono"
+      "mono": "Space Mono",
+      "displayStack": [
+        "Oswald",
+        "Noto Serif SC"
+      ],
+      "bodyStack": [
+        "Noto Serif SC",
+        "Oswald",
+        "Georgia"
+      ]
     },
     "radius": "全站方角，仅圆形徽标/圆点为 50%",
     "radiusBare": false,
@@ -537,7 +671,17 @@
     "fonts": {
       "display": "Newsreader",
       "body": "Noto Serif SC",
-      "mono": "Reddit Mono"
+      "mono": "Reddit Mono",
+      "displayStack": [
+        "Newsreader",
+        "Noto Serif SC",
+        "Georgia"
+      ],
+      "bodyStack": [
+        "Noto Serif SC",
+        "Newsreader",
+        "Georgia"
+      ]
     },
     "radius": "全直角 0",
     "radiusBare": true,
@@ -574,7 +718,16 @@
     "fonts": {
       "display": "LXGW Marker Gothic",
       "body": "Noto Serif SC",
-      "mono": "Fragment Mono"
+      "mono": "Fragment Mono",
+      "displayStack": [
+        "LXGW Marker Gothic",
+        "Noto Serif SC"
+      ],
+      "bodyStack": [
+        "Noto Serif SC",
+        "Georgia",
+        "Songti SC"
+      ]
     },
     "radius": "全站方角，仅圆形徽标/圆点为 50%",
     "radiusBare": false,
@@ -611,7 +764,18 @@
     "fonts": {
       "display": "Literata",
       "body": "文津宋体",
-      "mono": "Sometype Mono"
+      "mono": "Sometype Mono",
+      "displayStack": [
+        "Literata",
+        "文津宋体",
+        "Noto Serif SC"
+      ],
+      "bodyStack": [
+        "文津宋体",
+        "WenJin Mincho SC",
+        "Noto Serif SC",
+        "Source Han Serif SC"
+      ]
     },
     "radius": "全站方角，仅圆形徽标/圆点为 50%",
     "radiusBare": false,
@@ -647,7 +811,19 @@
     "fonts": {
       "display": "Glow Sans SC",
       "body": "Glow Sans SC",
-      "mono": "VT323"
+      "mono": "VT323",
+      "displayStack": [
+        "Glow Sans SC",
+        "Songti SC",
+        "Georgia",
+        "Times New Roman"
+      ],
+      "bodyStack": [
+        "Glow Sans SC",
+        "Songti SC",
+        "Georgia",
+        "Times New Roman"
+      ]
     },
     "radius": "全直角 0",
     "radiusBare": true,
@@ -686,7 +862,15 @@
     "fonts": {
       "display": "Noto Serif SC",
       "body": "Noto Serif SC",
-      "mono": "IBM Plex Mono"
+      "mono": "IBM Plex Mono",
+      "displayStack": [
+        "Noto Serif SC",
+        "Georgia"
+      ],
+      "bodyStack": [
+        "Noto Serif SC",
+        "Georgia"
+      ]
     },
     "radius": "全直角 0",
     "radiusBare": true,
@@ -720,7 +904,15 @@
     "fonts": {
       "display": "Space Grotesk",
       "body": "Noto Sans SC",
-      "mono": "Martian Mono"
+      "mono": "Martian Mono",
+      "displayStack": [
+        "Space Grotesk",
+        "Noto Sans SC"
+      ],
+      "bodyStack": [
+        "Noto Sans SC",
+        "Space Grotesk"
+      ]
     },
     "radius": "全直角 0",
     "radiusBare": true,
@@ -757,7 +949,19 @@
     "fonts": {
       "display": "Antonio",
       "body": "WenJin Mincho",
-      "mono": "IBM Plex Mono"
+      "mono": "IBM Plex Mono",
+      "displayStack": [
+        "Antonio",
+        "WenJin Mincho",
+        "Georgia",
+        "Songti SC"
+      ],
+      "bodyStack": [
+        "WenJin Mincho",
+        "Georgia",
+        "Songti SC",
+        "STSong"
+      ]
     },
     "radius": "全直角 0",
     "radiusBare": true,
@@ -793,7 +997,17 @@
     "fonts": {
       "display": "Petrona",
       "body": "Zhuque Fangsong",
-      "mono": "IBM Plex Mono"
+      "mono": "IBM Plex Mono",
+      "displayStack": [
+        "Petrona",
+        "Zhuque Fangsong",
+        "Georgia"
+      ],
+      "bodyStack": [
+        "Zhuque Fangsong",
+        "Petrona",
+        "Georgia"
+      ]
     },
     "radius": "全直角 0",
     "radiusBare": true,
@@ -833,7 +1047,15 @@
     "fonts": {
       "display": "Noto Serif SC",
       "body": "Noto Serif SC",
-      "mono": "JetBrains Mono"
+      "mono": "JetBrains Mono",
+      "displayStack": [
+        "Noto Serif SC",
+        "Alfa Slab One"
+      ],
+      "bodyStack": [
+        "Noto Serif SC",
+        "Alfa Slab One"
+      ]
     },
     "radius": "全直角 0",
     "radiusBare": true,
@@ -872,7 +1094,19 @@
     "fonts": {
       "display": "Spectral",
       "body": "LXGW WenKai",
-      "mono": "IBM Plex Mono"
+      "mono": "IBM Plex Mono",
+      "displayStack": [
+        "Spectral",
+        "LXGW WenKai",
+        "Georgia",
+        "Times New Roman"
+      ],
+      "bodyStack": [
+        "LXGW WenKai",
+        "Songti SC",
+        "Georgia",
+        "Times New Roman"
+      ]
     },
     "radius": "全直角 0",
     "radiusBare": true,
@@ -908,7 +1142,17 @@
     "fonts": {
       "display": "Besley",
       "body": "Noto Serif SC",
-      "mono": ""
+      "mono": "",
+      "displayStack": [
+        "Besley",
+        "Noto Serif SC",
+        "Georgia"
+      ],
+      "bodyStack": [
+        "Noto Serif SC",
+        "Songti SC",
+        "Georgia"
+      ]
     },
     "radius": "全站方角 0；唯一直径 50% 的地方是 1–2px 的打孔圆点，不是圆角卡片",
     "radiusBare": true,
@@ -945,7 +1189,14 @@
     "fonts": {
       "display": "Syne",
       "body": "Noto Sans SC",
-      "mono": "IBM Plex Mono"
+      "mono": "IBM Plex Mono",
+      "displayStack": [
+        "Syne",
+        "Noto Sans SC"
+      ],
+      "bodyStack": [
+        "Noto Sans SC"
+      ]
     },
     "radius": "全直角 0",
     "radiusBare": true,
@@ -984,7 +1235,16 @@
     "fonts": {
       "display": "Chivo",
       "body": "LXGW WenKai",
-      "mono": "Martian Mono"
+      "mono": "Martian Mono",
+      "displayStack": [
+        "Chivo",
+        "LXGW WenKai"
+      ],
+      "bodyStack": [
+        "LXGW WenKai",
+        "Chivo",
+        "Georgia"
+      ]
     },
     "radius": "全直角 0",
     "radiusBare": true,
@@ -1021,7 +1281,17 @@
     "fonts": {
       "display": "Instrument Serif",
       "body": "Noto Serif SC",
-      "mono": "JetBrains Mono"
+      "mono": "JetBrains Mono",
+      "displayStack": [
+        "Instrument Serif",
+        "Noto Serif SC",
+        "Georgia"
+      ],
+      "bodyStack": [
+        "Noto Serif SC",
+        "Instrument Serif",
+        "Georgia"
+      ]
     },
     "radius": "全直角 0",
     "radiusBare": true,
@@ -1059,7 +1329,14 @@
     "fonts": {
       "display": "Saira Condensed",
       "body": "Noto Sans SC",
-      "mono": "Martian Mono"
+      "mono": "Martian Mono",
+      "displayStack": [
+        "Saira Condensed",
+        "Noto Sans SC"
+      ],
+      "bodyStack": [
+        "Noto Sans SC"
+      ]
     },
     "radius": "全直角 0",
     "radiusBare": true,
@@ -1097,7 +1374,16 @@
     "fonts": {
       "display": "Anton",
       "body": "Zhuque Fangsong",
-      "mono": "IBM Plex Mono"
+      "mono": "IBM Plex Mono",
+      "displayStack": [
+        "Anton",
+        "Zhuque Fangsong",
+        "Georgia"
+      ],
+      "bodyStack": [
+        "Zhuque Fangsong",
+        "Georgia"
+      ]
     },
     "radius": "全直角 0",
     "radiusBare": true,

@@ -169,6 +169,18 @@ code { font-family: var(--code); font-size: 0.94em; }
 
 .rail-note p { font-size: var(--s-14); color: var(--ink-2); }
 
+/* 场景芯片上的模板角标（M01/M02/M03）。
+   为什么会存在：模板不在 sceneIndex 里，芯片点下去只筛 S\d{2}，
+   光看芯片用户永远不会知道"咖啡店这条路还有一个现成模板"。
+   角标**只提示、不参与筛选**：点芯片筛出来的仍然只有方案，模板在清单上方单独给出。
+   视觉上必须比芯片文字弱一档，否则它会被读成"这颗芯片筛的是 M02"。 */
+.scene-tpl {
+  font-family: var(--num); font-variant-numeric: tabular-nums;
+  font-size: 11px; margin-left: 5px; padding: 0 3px;
+  border: 1px dashed currentColor; opacity: .72;
+}
+.chips button[aria-pressed="true"] .scene-tpl { opacity: .9; }
+
 /* 筛选栏顶部的引导语：先说"照这四组问题挑，比按风格名挑管用" */
 .rail-lead {
   font-size: var(--s-14); line-height: 1.7; color: var(--ink-2);
@@ -302,6 +314,79 @@ code { font-family: var(--code); font-size: 0.94em; }
 }
 
 .empty { padding: 40px 0; color: var(--ink-3); font-size: var(--s-16); }
+
+/* ── 模板层（三个大众模板）───────────────────────────────────
+   模板不是方案，所以视觉上必须**看得出来不是同一类东西**：
+     · 方案行是 .ledger 里的账目行（左侧大编号 + 三档截图 + 闸门脚注）；
+     · 模板卡是右侧带「模板 · 不计入方案数」标签的窄卡，没有截图、没有闸门。
+   两处容器（#tpl-strip 有行时 / #empty-tpl 无行时）共用 .tpl-card 的样式，
+   以免出现"同一种东西两种长相"。
+   颜色不用 --fail/--pass：模板没有通过/不通过这回事，用中性的 --rule-2 就够了。 */
+.tpl-strip {
+  margin: 18px 0 22px;
+  padding: 14px 16px 6px;
+  border: 1px solid var(--rule-2);
+  border-left: 5px solid var(--ink);
+  background: var(--card);
+}
+.tpl-strip-lead {
+  font-size: var(--s-14); line-height: 1.65; color: var(--ink-2);
+  max-width: 74ch; margin-bottom: 12px;
+}
+.tpl-cards { display: grid; gap: 10px; }
+.tpl-card {
+  padding: 12px 0 14px;
+  border-top: 1px solid var(--rule);
+}
+.tpl-card:first-child { border-top: none; padding-top: 2px; }
+.tpl-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 10px; }
+.tpl-head b { font-family: var(--ui); font-size: var(--s-17); font-variation-settings: "wdth" 92; }
+.tpl-en { font-family: var(--ui); font-size: var(--s-13); color: var(--ink-3); }
+/* 「不计入方案数」不是装饰标签：用户刚看到「列出 2 / 30」，必须立刻知道模板不是第 3 个。 */
+.tpl-note {
+  font-family: var(--num); font-variant-numeric: tabular-nums; font-size: var(--s-13);
+  padding: 1px 6px; border: 1px dashed var(--rule-2); color: var(--ink-3);
+}
+.tpl-desc { margin-top: 6px; font-size: var(--s-16); color: var(--ink); max-width: 62ch; }
+.tpl-scenes {
+  margin-top: 5px; font-size: var(--s-13); line-height: 1.6; color: var(--ink-3);
+  max-width: 70ch;
+}
+/* 相邻候选的理由句：故意用虚线左边框，读起来像"脚注/免责"，不像正文承诺。 */
+.tpl-why {
+  margin-top: 7px; padding-left: 9px;
+  border-left: 2px dashed var(--rule-2);
+  font-size: var(--s-13); line-height: 1.7; color: var(--ink-2); max-width: 68ch;
+}
+.tpl-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-top: 9px; }
+.tpl-open {
+  font-family: var(--num); font-variant-numeric: tabular-nums; font-size: var(--s-13);
+  padding: 6px 12px; background: var(--ink); color: var(--card); text-decoration: none;
+}
+.tpl-open:hover { background: var(--link); }
+
+/* 空状态里的模板块：紧跟在 .empty 后面，中间不留大缝，读起来是同一段回答的下一句。 */
+.tpl-empty { margin: 0 0 34px; padding-top: 4px; }
+.tpl-empty-head {
+  font-size: var(--s-16); line-height: 1.7; color: var(--ink);
+  max-width: 72ch; margin-bottom: 12px;
+}
+.tpl-empty-head strong { font-weight: 600; }
+.tpl-empty .tpl-cards {
+  padding: 12px 16px 6px; border: 1px solid var(--rule-2); border-left: 5px solid var(--ink);
+  background: var(--card);
+}
+.tpl-empty-all {
+  margin-top: 16px; font-size: var(--s-13); color: var(--ink-3);
+}
+/* 模板层全部行业口径：一行一个模板，行业词用 tabular 的数字宽度对齐。 */
+.tpl-all { margin-top: 6px; display: grid; gap: 4px; }
+.tpl-all li {
+  display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline;
+  font-size: var(--s-13); line-height: 1.6;
+}
+.tpl-all a { color: var(--link); font-family: var(--num); font-variant-numeric: tabular-nums; }
+.tpl-all span { color: var(--ink-3); }
 
 /* ── 入场动效（仍受 prefers-reduced-motion 收敛）───────────── */
 .row.is-in, .detail.is-in { animation: rise 320ms cubic-bezier(.2,.85,.2,1) both; }

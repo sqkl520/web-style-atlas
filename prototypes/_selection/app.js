@@ -321,12 +321,17 @@
        · 搜索词确实是索引里的行业词 → 点名它，并说清是缺数据；
        · 否则（敲错字、搜的是别的东西）→ 不能把"这个词存在于索引里、只是没方案"这种话
          塞给用户，那是另一种说谎。此时只说结构：这一维上行业词本来就命中不了。
-       state.q 已 toLowerCase（中文不受影响，英文行业词也不在索引里）。 */
+       state.q 已 toLowerCase（中文不受影响，英文行业词也不在索引里）。
+
+       2026-10-26 补一句范围限定：模板层接进来之后，空状态下面会多出一块「模板层有没有」。
+       这里这两句话说的仍然只是**30 个案这一层**的供给缺口（模板不在 SCHEMES 里，也确实
+       不在这套图集的行业索引里），所以必须把"图集"收窄成"这三十个案"，否则会和紧跟着的
+       「但 M02 就是为餐厅做的」直接打架 —— 同一屏里两句互相否定，用户只会信更坏的那句。 */
     var why = document.getElementById('e-why');
     if (why) {
       why.textContent = (state.q && idx[state.q])
-        ? '「' + state.q + '」正属于没有直连方案的那一类——这是图集的供给缺口，不是你条件加多了。'
-        : '行业词搜不到，是图集缺这条数据，不是你条件加多了。';
+        ? '「' + state.q + '」正属于没有直连方案的那一类——这是这 ' + ALL.length + ' 个案这一层的供给缺口，不是你条件加多了。'
+        : '行业词搜不到，是这 ' + ALL.length + ' 个案缺这条数据，不是你条件加多了。';
     }
   }
 
@@ -337,6 +342,20 @@
     $('#empty').hidden = rows.length > 0;
     $('#count').textContent = '列出 ' + rows.length + ' / ' + ALL.length + ' 个方案';
     if (!rows.length) syncEmptyFacts();
+    /* 模板层（三个大众模板）由 prompt-copy.js 渲染，这里只递事实、不判断。
+     * 为什么不在本文件里直接画模板卡：
+     *  1) 本文件开头的契约是「不做任何判断，也不写死任何方案信息」。哪个模板适合哪个行业
+     *     是判断，模板的色板/链接也是"方案信息" —— 写进来就是自己违反契约。
+     *  2) 模板**不能**进 ALL / state.sceneIds。这是实测死过的坑，不是设计洁癖：
+     *     benchSetSceneIds() 是白名单过滤，只有 window.SCHEMES 里存在的 id 才会被渲染。
+     *     实测 sceneIds={M02} → 0/30 行；{M02,S06,S19} → **2/30 行**（M02 被静默吞掉）。
+     *     所以模板必须走独立通道：独立的 DOM 容器 + 独立的渲染函数 + 不进 #count。
+     *  3) 模板数据在 prompt-copy.js（手写、且已承载「你是做什么的」这层行业 UI），
+     *     与芯片同源，才不会出现"芯片说没有、模板说能套"的两套说法。
+     * 传过去的三个事实都是本文件自己的状态：搜索词、筛出的行数、方案总数。 */
+    if (window.onBenchRender) {
+      window.onBenchRender({ q: state.q, rows: rows.length, total: ALL.length });
+    }
     $$('.row', ledger).forEach(function (el) {
       var id = el.getAttribute('data-id');
       el.addEventListener('click', function () { open(id); });

@@ -70,9 +70,83 @@
     if (!fTitle) fTitle = "有刻印感的衬线";
     if (!fBody) fBody = fTitle;
 
-    var fontLine = "2. 字体：标题用 " + fTitle + "，正文用 " + fBody + "。";
+    /* 字体行：必须写出**完整兜底链**，不能只给第一个族名。
+     *
+     * 2026-10-26 补。独立验证 Agent 干了件很硬的事：它只拿提示词、不看原型，
+     * 照做了 S07/S30/S23 三份实现，然后用 CDP 的 CSS.getPlatformFontsForNode
+     * 看「到底是谁在画字」。结果 S07 的 h1 是 SimSun 画的、S30 是 Noto Sans SC 画的 ——
+     * 而提示词写着「标题用 Libre Franklin」「标题用 Anton」。
+     * 不是 AI 不听话：Libre Franklin 与 Anton 都没有中文字形，而我们只把
+     * 第一个族名给了它，中文兜底链（WenJin Mincho / 文津宋体 / Source Han Serif SC）全丢了。
+     * S30 更讽刺——提示词末尾还写着「不要回退成系统默认无衬线」，可它自己指定的
+     * Anton 无中文、只能回退，等于禁令被自己的字体选择强制违反。
+     *
+     * 所以：有 stack 就写整条链（去重、去通用族，最多 3 个，再长是噪声），
+     * 并且明确告诉 AI「前一个缺字就用下一个」，这才是可执行的指令。
+     */
+    /* 字体链截断：不能机械 slice(0,3)。
+     * 独立验证 Agent 抓到：S04 的 bodyStack = ["Redaction 20","Georgia","Nimbus Roman","LXGW WenKai"]，
+     * 唯一的中文字族在第 4 位，被 slice(0,3) 切掉 —— 而上一轮加 displayStack/bodyStack
+     * 这个字段的**唯一目的**就是补回中文兜底，结果渲染层又把它丢了回去。
+     * 规则：最多给 4 个；但如果前 3 个里没有 CJK 族、后面有，必须把第一个 CJK 族带上。
+     */
+    function trimStack(stack, limit) {
+      var lim = limit || 4;
+      if (stack.length <= lim) return stack;
+      var head = stack.slice(0, lim - 1);
+      if (CJK_RE.test(head.join(" "))) return stack.slice(0, lim);
+      for (var i = lim - 1; i < stack.length; i++) {
+        if (CJK_RE.test(stack[i])) return head.concat([stack[i]]);
+      }
+      return stack.slice(0, lim);
+    }
+    var fStack = trimStack((d.fonts && d.fonts.displayStack) || [], 4);
+    var bStack = trimStack((d.fonts && d.fonts.bodyStack) || [], 4);
+    var fontLine = "2. 字体：";
+    /* 全站只用一款字体：判据必须**看全站所有字体声明**，不能只看标题/正文两条链。
+     * 验证 Agent 抓到上一版只看 displayStack 与 bodyStack，于是 S09 出现
+     * 「全站只用一款字体…刻意不引入第二款」紧跟着又给 `JetBrains Mono`（等宽数字）——
+     * 同一句里自我否定。有 mono 就不能说"只用一款"。 */
+    var sameFace = !mono && fStack.length === 1 && bStack.length === 1 && fStack[0] === bStack[0];
+    if (sameFace) {
+      fontLine += "全站只用一款字体：" + fStack[0] + "（标题、正文、标签都用它；这一案刻意不引入第二款）。";
+    } else {
+      if (fStack.length > 1) {
+        fontLine += "标题按这个顺序取第一个可用的：" + fStack.join(" → ") + "（前一个缺字就换下一个，不要自己另选）。";
+      } else {
+        fontLine += "标题用 " + fTitle + "。";
+      }
+      if (bStack.length > 1) {
+        fontLine += "正文同理，按序取：" + bStack.join(" → ") + "。";
+      } else {
+        fontLine += "正文用 " + fBody + "。";
+      }
+    }
     if (mono) fontLine += "编号/价格等数字用等宽 " + mono + "、tabular-nums 右对齐。";
-    fontLine += "\n   不要用 Playfair Display、Inter、Roboto，也不要回退成系统默认无衬线。";
+    /* 字体行末尾的「不准回退」禁令：**必须分标题链、正文链各判一次**。
+     *
+     * 2026-10-26 第二次修（独立验证 Agent 抓出）。第一版把两条链拼起来判
+     * `CJK_RE.test(fStack + bStack + ...)`，于是：
+     *  · S03 标题链 = IBM Plex Mono → Cascadia Mono → Consolas（三个纯拉丁等宽体，
+     *    无一有中文字形），但正文链里有 Noto Sans SC，拼接后 hasCJK=true，
+     *    于是走了严格分支：「不要跳过上面这条链直接回退」。AI 画中文标题时**必须**违规。
+     *  · S04 是镜像：正文链 Redaction 20 → Georgia → Nimbus Roman 全无中文，
+     *    标题链有 LXGW WenKai，又判成 true。
+     * 判据粒度错了 —— 禁令约束的是"这一条链能不能画中文"，就该按链判。
+     */
+    var hasCJKTitle = CJK_RE.test(fStack.join(" ") + " " + fTitle);
+    var hasCJKBody = CJK_RE.test(bStack.join(" ") + " " + fBody);
+    var bans = "\n   不要用 Playfair Display、Inter、Roboto。";
+    if (hasCJKTitle && hasCJKBody) {
+      fontLine += bans + "也不要跳过上面这两条链直接回退成系统默认无衬线。";
+    } else if (!hasCJKTitle && !hasCJKBody) {
+      fontLine += bans + "中文没有指定字族，回退到一款中文衬线（宋体类）即可，但不要用系统默认无衬线。";
+    } else {
+      var missSide = !hasCJKTitle ? "标题" : "正文";
+      var okSide = hasCJKTitle ? "标题" : "正文";
+      fontLine += bans + missSide + "这条链里没有中文字族，画中文时按顺序回退到一款中文" +
+        "（宋体或楷体类）即可；" + okSide + "那条链**必须**按序取，不许跳过。";
+    }
 
     /* 机制句：有则直接用。缺的时候**不要**把"本案缺机制句"这种内部缺陷暴露给用户
      * ——那是仓库的问题，不该让用户读到。改用 DNA 里真实存在的事实拼一句可执行的约束。
@@ -144,15 +218,23 @@
       "结构约束：",
       "1. 我实际有 " + count + " 个" + unit + "，就排 " + count + " 个：",
       "   不凑整、不留空位、不留占位符、编号连续不跳号。",
-      "2. 数量不够时按实际数量收敛，**不要拉高或重复填满**。",
-      /* 内容量容限：degrades=yes 的案，单元位置是作者按固定条数手写死的
-       * （绝对定位 / 写死 grid-row / 手绘 SVG 坐标 / 写死编号的行标题）。
-       * 不告诉 AI 这一点，它会照常删条目，然后在版面上留下空洞。
+      /* ⚠️ 第 2 条必须按 degrades 分化，不能对所有人都说同一句。
+       *
+       * 曾经是「2. 数量不够时按实际数量收敛，不要拉高或重复填满」+「3. 请先把数量凑到 N 个再排版」，
+       * 两句方向相反，实测 13/30 条提示词同时命中（恰好是 degrades=yes 的全部案子）。
+       * 红队指出这条时用的判断很准：一句「不要拉高」+一句「先凑够」，AI 只能二选一，
+       * 而它选了哪一边都错 —— 照第 2 条 → 版面留洞；照第 3 条 → 编造内容。
+       *
+       * 正确说法取决于**这个版式的单元位置是不是写死的**：
+       *  · 手工定位（degrades=yes）：告诉它「这类版式撑不住少内容，请先用你真实的条目数，
+       *    如果确实不够 N 个，改成整块重排，不要留空槽，也不要编造条目去填」——一个方向，可执行。
+       *  · 自动流（degrades=no）：告诉它「条目增减只让页面变短，按你真实的数量排即可」。
        */
       d.degrades
-        ? "3. 这一版式的位置是按 " + count + " 个" + unit + "手工排定的（不是自动流）：数量一变就会留洞。" +
-          "所以请**先把数量凑到 " + count + " 个再排版**；确实凑不够时，把空出来的位置删掉、整块重排，不要留空槽。"
-        : "3. 这一版式是自动流排版，条目增减只会让页面变短，不会留空位。",
+        ? "2. 这个版式的单元位置是手工排定的（不是自动流），撑不住太少的内容。" +
+          "请先用你真实的 " + unit + "数去排；如果确实不足 " + count + " 个，把空出来的位置删掉、整块重排，" +
+          "不要留空槽，也不要为了凑数编造内容。"
+        : "2. 这个版式是自动流排版，条目增减只会让页面变短、不会留空位。按你真实的数量排即可，不要为了凑数编造内容。",
       /* 图片数量：`minPics` 是逐案实测出来的（30 案分布在 4–10 张），
        * 但在此之前它**从未进过提示词** —— prompt-copy.js 全文 "minPics" 命中 0 次。
        * 后果不是抽象的：S19 那次唯一的端到端实测里，真实发生的事故就是
@@ -161,9 +243,11 @@
        * 图片位同理：不告诉 AI 要几张、必须多大，它就会把版面压扁。
        */
       s.minPics
-        ? "4. 版式里要留 " + s.minPics + " 个图片位，每个都要有真实可见的尺寸（见末尾输出要求：路径用 images/ 占位，但不许用 1px 图或纯色块顶替）。"
+        ? "3. 版式里至少要 " + s.minPics + " 个**不同的**图片位置（不是" + s.minPics + " 个 img 标签就够——" +
+          "同一张图重复用不算）。每个位都要有真实可见的尺寸，路径用 images/ 占位（见末尾输出要求），" +
+          "但不许用 1px 图或纯色块顶替。"
         : "",
-      "5. 首屏不要轮播图。",
+      "4. 首屏不要轮播图。",
       "",
       "防退化（出现任何一条就重做）：",
       "① 不要紫蓝渐变、#6366F1、蓝紫光斑。",
@@ -175,6 +259,16 @@
       "⑦ 不要暗底发光字、霓虹色、扫描线。",
       "⑧ 不要自动轮播、滚动视差、卡片翻转。",
       "",
+      /* 本案例专属的「最容易做成什么样」。两个独立验证 Agent 各自发现：
+       * data.js 的 risk 字段 30/30 齐全、共 5761 字，是**唯一一份写给"会犯错的执行者"的具体禁令**，
+       * 却从未进过提示词。它比上面 8 条通用禁令精确一个数量级 ——
+       * 通用禁令说"不要紫蓝渐变"，这里说"纸纹只铺满幅底色层、正文栏内部保持干净、禁止统一套做旧滤镜"。
+       * 截到 220 字：完整风险段平均 190 字，个别 331 字，全给会挤占注意力预算。
+       */
+      (d.risk && d.risk.length > 20)
+        ? ("这一案最容易做成的错误样子（作者原话，务必避开）：" +
+           (d.risk.length > 220 ? d.risk.slice(0, 220) + "…" : d.risk) + "\n")
+        : "",
       "验收三问（做完自己检查）：",
       "1. 拿远半米看：整页像「" + s.plain + "」，还是像一张通用落地页？像落地页就重做。",
       "2. 随便挑一条内容：首屏、卡片、页脚上的编号是不是同一串？有一处对不上就重做。",
@@ -362,9 +456,28 @@
 
     var hint = document.createElement("span");
     hint.style.cssText = "font-size:12px;opacity:.7";
-    hint.textContent = s.hard
-      ? "⚠ 这案机制绑死在行业数据上，换普通内容会退化——建议先看详情里的「不适合」"
-      : "粘给 ChatGPT / Claude / v0 都行，约 " + buildPrompt(id).length + " 字";
+    /* ⚠️ 原句「建议先看详情里的「不适合」」指向一个**不存在的字段**。
+     * 实测 `data.js` 的 30 条记录共 31 个键，没有任何一个叫「不适合」；
+     * 真相是"不适合…"这句话被拼在 `scenes` 字段 value 的尾部，
+     * 详情面板里落在「适用场景」段末，距面板顶 2962px。让用户去找不存在的东西最伤信任。
+     *
+     * ⚠️ 第二处错：这里原来只看 `s.hard`（9 案），而卡片上另有一个警告看的是
+     * `capacity.degrades`（13 案），两套口径只重叠 5 个。后果是**同一个案子上，
+     * 详情顶部写「粘给谁都行」，卡片上却写「⚠ 内容少于 N 条会留空位」**——
+     * 两句互相否定，而且指向同一份 capacity 数据。审计 Agent 实测抓出 8 案在这种
+     * 自相矛盾状态下（S02 S04 S08 S12 S19 S22 S23 S30）。
+     * 判定统一：**任一口径说它撑不住，就不说"都行"**。
+     * 两个轴（题材绑死 / 数量绑死）仍分开描述，因为它们确实正交（2×2 四格都有实例）。 */
+    var riskyTopic = !!s.hard;
+    var riskyCount = !!(s.capacity && s.capacity.degrades === "yes");
+    if (riskyTopic || riskyCount) {
+      var why = [];
+      if (riskyTopic) why.push("机制绑在特定题材上，换普通内容会退化");
+      if (riskyCount) why.push("单元位置是手工排定的，内容少于 " + (s.minItems || "设计规模") + " 条会留洞");
+      hint.textContent = "⚠ " + why.join("；") + "。具体不适合什么，写在详情「适用场景」段末。";
+    } else {
+      hint.textContent = "粘给 ChatGPT / Claude / v0 都行，约 " + buildPrompt(id).length + " 字";
+    }
 
     wrap.appendChild(b);
     wrap.appendChild(hint);
@@ -414,13 +527,27 @@
       var direct = v.direct && v.direct.length;
       var btn = document.createElement("button");
       btn.type = "button";
-      btn.textContent = term;
       btn.setAttribute("aria-pressed", "false");
       btn.setAttribute("data-scene", term);
       btn.className = direct ? "scene-chip is-direct" : "scene-chip is-near";
+      /* 模板角标：这个词在模板层有对应时，芯片上多一个小「M02」。
+       * 为什么要有它：模板不在 sceneIndex 里，芯片点下去只筛 S\d{2}，
+       * 用户如果只看芯片，永远不会知道"搜咖啡店还有 M02 这条现成的路"。
+       * 角标**只影响可发现性，不影响筛选**：点它筛出来的仍然只有 S\d{2}，
+       * #count 仍然只数 SCHEMES —— 模板照样走 #tpl-strip 那条独立通道。
+       * 这一点是刻意的：把模板塞进 sceneIds 会直接撞上白名单（实测 {M02} → 0/30 行）。 */
+      var tplHit = resolveTemplateHits(term);
+      var tplIds = tplHit.exact.map(function (t) { return t.id; });
+      btn.innerHTML = tplEsc(term) + (tplIds.length
+        ? '<span class="scene-tpl" title="模板层有对应：' + tplEsc(tplIds.join(" ")) +
+          '（点它只筛方案，模板另在清单上方给出）">' + tplEsc(tplIds.join(" ")) + '</span>'
+        : "");
       btn.title = direct
         ? "直接匹配：" + v.direct.join(" ") + (v.near && v.near.length ? "；近似：" + v.near.join(" ") : "")
         : "只有近似：" + (v.near || []).join(" ");
+      if (tplIds.length) {
+        btn.title += "；模板层：" + tplIds.join(" ") + "（模板不计入方案数）";
+      }
       btn.addEventListener("click", function () {
         var on = btn.getAttribute("aria-pressed") === "true";
         var all = document.querySelectorAll("#flt-scene button, .scene-more button");
@@ -430,6 +557,7 @@
         } else {
           btn.setAttribute("aria-pressed", "true");
           var ids = (v.direct || []).concat(v.near || []);
+          /* ids 只可能是 S\d{2}：模板**不**拼进来（见上面角标注释）。 */
           if (window.benchSetSceneIds) window.benchSetSceneIds(ids);
         }
       });
@@ -464,6 +592,349 @@
       moreHost.appendChild(note);
     }
   }
+
+  /* ── 模板层：三个大众模板接进行业反查 ──────────────────────────────────
+   *
+   * 为什么这份数据写在这里，而不是 prompts.js / app.js / data.js（三个都实测过，都不行）：
+   *  · prompts.js 第 1 行是「自动生成，勿手改。生成器 prototypes/_prompts/build-prompts.mjs」，
+   *    而生成器是**整文件覆写**（build-prompts.mjs 末尾 writeFileSync 一次性写整份 body）。
+   *    把字段加进去，下一次有人跑生成器就静默消失 —— 这个仓库已经为"改了被覆盖"付过代价。
+   *    本轮又只允许改 _selection/，改不了生成器，所以这条路是死的。
+   *  · app.js 开头的契约写着「这一层不做任何判断，也不写死任何方案信息 —— 页面上出现的
+   *    每个数字都来自磁盘」。行业口径是判断，写进去就是自己违反契约，以后谁信那条注释谁被骗。
+   *  · data.js 是 collect-schemes.mjs 生成的，且与闸门相关 —— 任务明令不动。
+   *  · 本文件是手写的，且**已经**承载「你是做什么的」这层行业 UI（mountSceneChips 就在下面）。
+   *    模板口径与芯片同源，才不会出现"芯片说没有、模板说能套"的两套说法。
+   *
+   * 数据全部从 templates/M0x/README.md 逐词抄，不做同义扩张、不改写它的承诺范围：
+   *   M01 README 第 3 行：「适合律所、咨询、软件服务、设计工作室、代理商这类"专业服务型公司"」
+   *   M02 README 第 3 行：「给本地实体店用的一页式官网模板：餐厅、咖啡馆、烘焙、民宿、
+   *                        理发店、花店都能套」
+   *   M03 README 第 6 行：「适合：个人作品集 / 自由职业者 / 小型创意工作室 / 摄影师 / 设计师 / 写作者」
+   * 颜色是各 style.css :root 里的实测值（不是估的），每项 4 个：底色 / 主色 / 强调色 / 深底。
+   *
+   * ⚠️ 不要往这张表里加 README 没写的行业（例如「电商」「网店」）：
+   *    三个模板都是单页展示站，没有购物车、没有下单、没有支付。给电商指模板就是编能力。
+   */
+  var TEMPLATES = [
+    {
+      id: "M01",
+      title: "M01 清爽企业站",
+      en: "Clean Corporate",
+      href: "../../templates/M01-clean-corporate/",
+      /* README 原词，逐词抄 */
+      scenes: ["律所", "咨询", "软件服务", "设计工作室", "代理商"],
+      colors: ["#FFFFFF", "#1B3A5C", "#EAF1F8", "#12283F"],
+      desc: "单页企业站：专业服务型公司用。白底、深石板靛蓝主色、信息密度克制。",
+    },
+    {
+      id: "M02",
+      title: "M02 暖调门店站",
+      en: "Warm Local",
+      href: "../../templates/M02-warm-local/",
+      scenes: ["餐厅", "咖啡馆", "烘焙", "民宿", "理发店", "花店"],
+      colors: ["#FDF7EE", "#7A3B12", "#9C4A16", "#2B1A0F"],
+      desc: "一页式门店官网：本地实体店用。暖米白底、烤色深褐主色、标题衬线。",
+    },
+    {
+      id: "M03",
+      title: "M03 醒目作品集",
+      en: "Bold Creator",
+      href: "../../templates/M03-bold-creator/",
+      scenes: ["个人作品集", "自由职业者", "小型创意工作室", "摄影师", "设计师", "写作者"],
+      colors: ["#0e0e10", "#f2f2ef", "#ff5c1a", "#17171a"],
+      desc: "个人作品集：近黑底、近白字、一个橙色强调色，大留白大字。",
+    },
+  ];
+
+  /* 索引词 → README 词：只收**同一个东西的两种写法**。
+   * 每一条都得能说出理由，说不出就是编。
+   *   咖啡店 / 咖啡馆 —— 同一样店的两个说法（索引 44 词里叫「咖啡店」）。
+   *   律师 / 律所    —— 索引词是职业，M01 的 README 写的是机构「律所」；律师开的所就是律所。 */
+  var TPL_ALIAS = {
+    "咖啡店": "咖啡馆",
+    "律师": "律所",
+  };
+
+  /* 「README 没有写这个词，但结构上是同一类页面」—— 单独一档，UI 上必须显示免责句。
+   * 这一档存在的理由：用户搜「甜品」时，诚实答案是"没有甜品模板"，但如果连最接近的
+   * 一档都不给，用户就只能在 0 行面前关掉页面。所以给候选 + 说清它为什么只是候选。
+   *
+   * ⚠️ 每条的 why 都必须包含"README 写的是什么、没写什么"。只写"也能用"就是编能力。
+   */
+  var TPL_ADJACENT = {
+    "甜品": [{
+      id: "M02",
+      why: "M02 的适用清单里没有「甜品」，它写的是餐厅、咖啡馆、烘焙、民宿、理发店、花店。但它的总述是「给本地实体店用的一页式官网模板」，而甜品店是本地实体店 —— 这是为什么把它列为相邻候选。它页面上的 7 段是（README 原文）：顶部（店名＋导航＋订位按钮）→ 主视觉大图 → 招牌与菜单价目 → 营业时间与地址 → 店内环境图 → 顾客评价 → 订位与联系 → 页脚。甜品店套上去要自己判断这几段够不够用；它不是为甜品这个品类写的。",
+    }],
+    "修鞋理发": [{
+      id: "M02",
+      why: "索引词「修鞋理发」把两门生意并成了一个词，M02 的清单里只写了「理发店」。理发那半能套；修鞋那半它没承诺，页面里没有修鞋价目或取件凭条这类位置。",
+    }],
+    "美甲": [{
+      id: "M02",
+      why: "M02 的清单里没有「美甲」，写的是餐厅、咖啡馆、烘焙、民宿、理发店、花店。列进来只是因为它的总述是「给本地实体店用」，而美甲店是本地实体店；它的 7 段里没有预约时段表、没有甲型价目这种美甲店特有的位置，所以它不在承诺清单里，只能当起点改。",
+    }],
+    "作品集": [{
+      id: "M03",
+      why: "M03 写的是「个人作品集」，不是公司案例集。如果你要放的是自己的作品，它就是对的那一个；如果你要放的是团队/公司的项目案例，它没有客户 logo 墙与合作流程这些位置。",
+    }],
+    "摄影": [{
+      id: "M03",
+      why: "M03 的清单里写「摄影师」，指的是摄影师自己的作品集。拍商业摄影的工作室要的是业务介绍页（服务项、报价、客户），那不是 M03 的形态。",
+    }],
+    "设计工作室": [{
+      id: "M03",
+      why: "M03 的清单写「小型创意工作室」，与「设计工作室」重叠但不完全等同：M03 是作品集形态（大图、大字、少解释），不是公司介绍页。你要的是「给人看作品」就用它，要的是「介绍我们是谁、能做什么」就用 M01。",
+    }],
+  };
+
+  function tplEsc(s) {
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function tplById(id) {
+    for (var i = 0; i < TEMPLATES.length; i++) if (TEMPLATES[i].id === id) return TEMPLATES[i];
+    return null;
+  }
+
+  /* 反查：给一个词，返回 { exact, adjacent, key, readmeWord }
+   * exact    = 这个词（或它的别名）逐字出现在某个 README 的适用清单里
+   * adjacent = README 没写，但结构同类（每条带 why）
+   * 不做子串匹配：「摄影」不能被「摄影师」直接吞掉，「设计工作室」也不能被
+   * 「小型创意工作室」吞掉 —— 那两个正是上面相邻档里说清楚了的差异。 */
+  function resolveTemplateHits(term) {
+    var t = String(term == null ? "" : term).trim();
+    if (!t) return { exact: [], adjacent: [], term: "" };
+    var key = TPL_ALIAS[t] || t;
+    var exact = TEMPLATES.filter(function (x) { return x.scenes.indexOf(key) >= 0; });
+    var adjacent = (TPL_ADJACENT[t] || []).map(function (a) {
+      var tpl = tplById(a.id);
+      return tpl ? { tpl: tpl, why: a.why } : null;
+    }).filter(Boolean);
+    return { exact: exact, adjacent: adjacent, term: t, key: key };
+  }
+
+  /* 调试/验收用的对外接口：不发散、纯函数，CDP 里可以直接断言。 */
+  window.benchTemplateHits = function (term) {
+    var r = resolveTemplateHits(term);
+    return {
+      exact: r.exact.map(function (x) { return x.id; }),
+      adjacent: r.adjacent.map(function (x) { return x.tpl.id; }),
+      scenes: TEMPLATES.map(function (x) { return { id: x.id, scenes: x.scenes.slice() }; }),
+    };
+  };
+
+  function tplCardHTML(tpl, why) {
+    var sw = tpl.colors.map(function (h) {
+      return '<i style="background:' + tplEsc(h) + '" title="' + tplEsc(h) + '"></i>';
+    }).join("");
+    return '<li class="tpl-card" data-tpl="' + tplEsc(tpl.id) + '">' +
+      '<div class="tpl-head"><b>' + tplEsc(tpl.title) + '</b>' +
+      '<span class="tpl-en">' + tplEsc(tpl.en) + '</span>' +
+      '<span class="tpl-note">模板 · 不计入方案数</span></div>' +
+      '<p class="tpl-desc">' + tplEsc(tpl.desc) + '</p>' +
+      '<p class="tpl-scenes">适用行业（README 原文）：' + tplEsc(tpl.scenes.join(" / ")) + '</p>' +
+      (why ? '<p class="tpl-why">' + tplEsc(why) + '</p>' : '') +
+      '<div class="tpl-foot"><span class="swatches">' + sw + '</span>' +
+      '<a class="tpl-open" href="' + tplEsc(tpl.href) + '" target="_blank" rel="noopener">' +
+      '打开 ' + tplEsc(tpl.id) + ' ↗</a></div>' +
+      '</li>';
+  }
+
+  /* 当前该按哪个词反查模板：
+   *  · 搜索框里有词 → 用那个词（这是用户自己打的，优先级最高）；
+   *  · 否则看左侧场景芯片有没有被按下 → 用它的 data-scene。
+   *    芯片走的是 state.sceneIds（S\d{2} 白名单），不写 #q，所以这里必须回头读一次 DOM。
+   *    读 DOM 而不是让 app.js 透传，是因为模板与芯片同属这一层，app.js 不该知道"词"是什么。 */
+  function currentTerm(ctx) {
+    var q = (ctx && ctx.q) ? String(ctx.q).trim() : "";
+    if (q) return q;
+    var pressed = document.querySelector(
+      '#flt-scene button[aria-pressed="true"], .scene-more button[aria-pressed="true"]'
+    );
+    return pressed ? (pressed.getAttribute("data-scene") || "") : "";
+  }
+
+  /* 模板带（有方案行时，落在 #ledger 上方）与空状态模板块（0 行时）是两个独立容器：
+   *  · 都不进 #ledger —— 那里的每一行都有 .inspect/report.json 与三档截图，模板没有；
+   *  · 都不进 state.sceneIds —— 那是 S\d{2} 白名单（实测：喂 ["M02"] → 0/30 行，
+   *    喂 ["M02","S06","S19"] → 2/30 行，M02 被 benchSetSceneIds 静默吞掉）；
+   *  · 都不进 #count —— 「列出 N / 30 个方案」的 30 是 SCHEMES 的长度，模板不是方案。 */
+  function renderTemplateLayer(ctx) {
+    var strip = document.getElementById("tpl-strip");
+    var cards = document.getElementById("tpl-cards");
+    var lead = document.getElementById("tpl-strip-lead");
+    var emptyBox = document.getElementById("empty-tpl");
+    if (!strip || !cards || !lead || !emptyBox) return;
+
+    var term = currentTerm(ctx);
+    var hit = resolveTemplateHits(term);
+    var has = hit.exact.length > 0 || hit.adjacent.length > 0;
+    var rows = ctx && typeof ctx.rows === "number" ? ctx.rows : 0;
+    var total = ctx && typeof ctx.total === "number" ? ctx.total : 0;
+    /* 没搜词、也没点芯片时**不挂模板带**：30 行全在的时候插一条模板建议只会抢视线，
+     * 而且首屏高度每加一行都要付代价（页头 267→300px 那次实测已经吃过一次）。
+     * 模板层的常驻入口在页头 #tpl-exit，不动它。
+     *
+     * 空状态那一路**不要求 has**：用户搜一个三个模板都没写的词（实测「酒吧」「电商」），
+     * 也必须得到一句诚实的"模板层也没有"，而不是什么都不出现、只剩上面那段通用解释。
+     * 有命中 → 卡片；没命中 → 只有那句"没有" + 模板层全部行业口径。 */
+    var showStrip = !!term && has && rows > 0;
+    var showEmpty = !!term && rows === 0;
+
+    strip.hidden = !showStrip;
+    emptyBox.hidden = !showEmpty;
+
+    /* ⚠️ 三个容器必须**都**清空，不能只清"当前不显示的那个"。
+     * 实测踩过（consistency.mjs 扫 44 个索引词时抓到）：只清了一半，于是隐藏容器里留着
+     * 上一个词的卡片。肉眼看不见（hidden），但
+     *  · 无头浏览器/读屏器仍然能读到它；
+     *  · 任何按 `.tpl-card` 数数量的断言都会被污染 —— 我自己的扫描就数出
+     *    「书店 tpl=[M02]」「健身/诊所/律师 tpl=[M03]」，全是上一个词的残留。
+     * 隐藏容器里的旧 DOM 就是一颗定时炸弹：今天的 hidden 明天可能被改成 opacity。
+     *
+     * 2026-10-26 补：`lead`（引导句）当时漏了。Lead 独立复验时用「结构」这个词搜出 6 行、
+     * strip 显示 false，但 lead 里仍残留着上一个词「设计工作室」的整句
+     * 「上面 3 / 30 个方案里，S08 是这个图集的直连方案；模板层另有一个为「设计工作室」写的…」。
+     * 比卡片残留更糟：卡片是逐个可数的，一句引导语读起来像正常结论，读屏器和
+     * 复制正文的脚本会把它当成当前搜索结果的一部分。同一个坑第三次，改成无条件全清。 */
+    lead.innerHTML = "";
+    if (!showStrip) cards.innerHTML = "";
+    if (!showEmpty) emptyBox.innerHTML = "";
+
+    if (!showStrip && !showEmpty) {
+      return;
+    }
+
+    var html = hit.exact.map(function (t) { return tplCardHTML(t, ""); }).join("") +
+      hit.adjacent.map(function (a) { return tplCardHTML(a.tpl, a.why); }).join("");
+
+    if (showStrip) {
+      /* 句子里的数字必须来自这一轮渲染的 ctx，不能写死 —— 写死就会在筛选变化后说谎。
+       * 「不计入」四个字是这句话的重点：用户刚看到「列出 2 / 30」，不能以为模板是第 3 个方案。
+       *
+       * ⚠️ 不能一律说「上面 N 个方案里没有专为「X」做的」。
+       *    实测反例：点「咖啡店」芯片后 sceneIndex["咖啡店"].direct = ["S06"]，
+       *    S06 就是为咖啡店做的，而 M02 的 README 写的是「咖啡馆」（同一门生意的另一写法）。
+       *    这时候如果还写"没有专为咖啡店做的"，就是把已有的直连方案说成不存在 ——
+       *    和原 bug（把模板整个藏起来）是同一类错误，只是方向相反。
+       *
+       * ⚠️⚠️ 查表必须**先按原词查**，别名只做兜底。
+       *    第一版写成 P.sceneIndex[hit.key]，而 hit.key 是 README 的写法（咖啡馆）：
+       *    sceneIndex 里根本没有「咖啡馆」这个键（它叫「咖啡店」）→ idx=null → directIds 为空 →
+       *    界面就对着 S06 说"全部只是换文案能用的近似款"。实测抓出（CDP 1440×900，
+       *    点「咖啡店」芯片后 stripLead 原文就是这么写的，而 S06 明明在那 4 行里）。
+       *    正确顺序：原词 → README 词 → 都查不到才当"无直连"。 */
+      var idx = (P.sceneIndex || {})[term] || (P.sceneIndex || {})[hit.key] || null;
+      var directIds = (idx && idx.direct) || [];
+      var nExact = hit.exact.length;
+      var nAdj = hit.adjacent.length;
+      /* 数量词必须跟着实际张数走，且**不能带前导空格** —— nWord 直接接在「另有」后面。
+       * 实测反例：点「设计工作室」芯片 → 出 M01（exact）+ M03（adjacent）两张卡，
+       * 而第一版只给 exact 数了数（nExact=1），于是写"另有一个"，屏幕上却有两张卡 ——
+       * 用户会以为其中一张是重复的、或者以为界面数错了。所以两张都要进句子：
+       * exact 是"清单里写着它"，adjacent 是"清单里没写、只是相邻候选"。 */
+      var nWord = nExact === 1 ? "一个" : nExact + " 个";
+      /* 相邻候选单独成句，**不要**再套一层括号：
+       * 第一版写成「（另有 1 个相邻候选）（模板不计入这 3 个方案）」—— 括号叠括号，
+       * 在 1440 档折成两行、读起来像脚注里的脚注。句子分开就不会。 */
+      var adjTail = nAdj
+        ? "；另有 " + nAdj + " 个相邻候选，它不在 README 的承诺清单里，理由写在卡里"
+        : "";
+      var leadText;
+      if (nExact && directIds.length) {
+        leadText = "上面 " + rows + " / " + total + " 个方案里，" + directIds.join(" ") +
+          " 是这个图集的直连方案；模板层另有" + nWord + "为「" + (TPL_ALIAS[term] || term) +
+          "」写的现成模板" + adjTail + "。模板不计入这 " + rows + " 个方案：";
+      } else if (nExact) {
+        leadText = "上面 " + rows + " / " + total + " 个方案里没有专为「" + term + "」做的，" +
+          "全部只是换文案能用的近似款；模板层有" + nWord + "就是为「" + (TPL_ALIAS[term] || term) +
+          "」写的现成模板" + adjTail + "。模板不计入这 " + rows + " 个方案：";
+      } else {
+        /* adjacent 这一路**不能说"模板层没有为它写的模板"**。
+         * 实测反例：搜「作品集」→ 上面 5 行、M03 作相邻候选出现，
+         * 而 M03 的 README 写的是「个人作品集」—— 说"模板层没有作品集模板"就是硬伤，
+         * 它明明就是作品集模板，只是清单里的写法多了"个人"两个字。
+         * 所以这里只陈述"逐字没有"，并说明最接近的是哪个、它自己怎么写的。 */
+        leadText = "上面 " + rows + " / " + total + " 个方案与「" + term + "」相关；" +
+          "模板层的适用清单里没有逐字写着「" + term + "」的，最接近的是下面的相邻候选 —— " +
+          "它自己写的是「" + hit.adjacent[0].tpl.scenes.join(" / ") + "」，差在哪写在卡里：";
+      }
+      lead.textContent = leadText;
+      cards.innerHTML = html;
+    } else {
+      /* 空状态：按 exact / adjacent / 都没有 分岔。
+       * 这一段的价值全在"不装"：没有就写没有，并顺手把模板层的全部行业口径摊开，
+       * 让用户自己判断该不该去别处找。
+       *
+       * ⚠️⚠️ 但"没有专案"这四个字不能说在所有 0 行的情况下。
+       *    实测反例（consistency.mjs 扫 44 个索引词抓到）：搜「咖啡店」→ 列表 0 行，
+       *    而 sceneIndex["咖啡店"].direct = ["S06"] —— S06 就是它的直连方案。
+       *    0 行的原因是搜索框做的是**整串子串匹配**，它匹配行里的 hay，而 hay 里
+       *    S06 写的是「咖啡」不是「咖啡店」；行业词本身不进 hay（那是另一套映射）。
+       *    所以这时候写"没有咖啡店专案"是硬伤：索引明写着有，只是搜索框找不到。
+       *    正确说法是"搜索框找不到，但芯片能筛出来"，并把 S06 点名。
+       *    同一个坑还命中：潮牌 / 修鞋理发 / 小吃店（direct 有值但搜索 0 行）。 */
+      var idxE = (P.sceneIndex || {})[term] || null;
+      var directE = (idxE && idxE.direct) || [];
+      var head;
+      if (directE.length) {
+        head = "「" + term + "」按文字搜不到（搜索框匹配整串，这 30 个案里没有哪一行写着「" +
+          term + "」），但索引里 " + directE.join(" ") + " 就是它的直连方案 —— " +
+          "点左侧「" + term + "」芯片能筛出来。";
+        if (hit.exact.length) {
+          head += "另外模板层有 " + hit.exact[0].id + "，它的 README 适用行业里写着「" +
+            (TPL_ALIAS[term] || term) + "」：";
+        }
+      } else if (hit.exact.length) {
+        var t0 = hit.exact[0];
+        head = "这 " + total + " 个案里没有「" + term + "」专案。但模板层有：" +
+          t0.id + " " + t0.title.replace(/^M\d+\s*/, "") + " 的 README 适用行业里就写着「" +
+          (TPL_ALIAS[term] || term) + "」，它才是为这行做的：";
+      } else if (hit.adjacent.length) {
+        head = "「" + term + "」在 " + total + " 个案里 0 个命中；三个模板的 README 适用清单里也没有这个词。" +
+          "下面只是相邻候选 —— 它自己写的行业是「" + hit.adjacent[0].tpl.scenes.join(" / ") + "」：";
+      } else {
+        head = "「" + term + "」在 " + total + " 个案里 0 个命中，三个大众模板的 README 适用清单里也没有。" +
+          "这一类，这套图集和模板层都给不了你 —— 不是你条件加多了。";
+      }
+
+      /* 直连方案在前一种分岔里已经被点名，卡片就不要再重复贴一遍模板
+       * （否则屏幕上会出现"上面说能筛出 S06，下面又贴一张 M02 卡"的错位感）。
+       * 这里只在"确实有模板可给"时挂卡片；没有就只留那句"没有"。 */
+      var cardHTML = directE.length && hit.exact.length
+        ? hit.exact.map(function (t) { return tplCardHTML(t, ""); }).join("")
+        : html;
+
+      var all = TEMPLATES.map(function (t) {
+        return '<li><a href="' + tplEsc(t.href) + '" target="_blank" rel="noopener">' +
+          tplEsc(t.id) + " " + tplEsc(t.title.replace(/^M\d+\s*/, "")) + "</a>" +
+          '<span>' + tplEsc(t.scenes.join(" / ")) + "</span></li>";
+      }).join("");
+
+      emptyBox.innerHTML =
+        '<p class="tpl-empty-head">' + tplEsc(head) + '</p>' +
+        (cardHTML ? '<ul class="tpl-cards">' + cardHTML + '</ul>' : "") +
+        '<p class="tpl-empty-all">模板层承诺的全部行业（逐字来自三个 README）：</p>' +
+        '<ul class="tpl-all">' + all + '</ul>';
+    }
+  }
+
+  /* app.js 每轮 render() 结束时回调这里。
+   * 为什么用回调而不是让 app.js 直接调模板渲染：
+   *   app.js 不该知道"模板"这个概念（它的契约是只渲染 SCHEMES），模板数据在本文件。
+   *   传过去的只有事实：当前搜索词、筛出来的行数、方案总数。 */
+  window.onBenchRender = function (ctx) {
+    try {
+      renderTemplateLayer(ctx || {});
+    } catch (e) {
+      /* 模板层坏掉不能连累 30 个案的主清单：吞掉异常并在 console 留痕。 */
+      if (window.console) console.warn("[模板层] 渲染失败：" + (e && e.message));
+    }
+  };
 
   // 等 DOM 就绪再挂（脚本在 app.js 之前加载，此时 rail 已解析但 app.js 可能还没跑完）
   if (document.readyState === "loading") {

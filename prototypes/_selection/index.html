@@ -147,7 +147,26 @@
       <button id="reset" type="button" class="btn-quiet">清空筛选</button>
     </div>
 
+    <!-- 模板带（有方案行时才出现）：模板层与 30 个案是两条并行的通道，不能混。
+         它**不在** #ledger 里 —— 那里的每一行都有 .inspect/report.json 与三档截图，模板没有；
+         它**不进** state.sceneIds —— 那是 S\d{2} 白名单，实测喂 M02 会被静默吞掉
+         （sceneIds={M02} → 0/30 行，{M02,S06,S19} → 2/30 行）；
+         它**不进** #count —— 「列出 N / 30 个方案」里的 30 是 SCHEMES 的长度，模板不是方案。
+         默认 hidden，由 prompt-copy.js 的 renderTemplateLayer() 决定显隐与内容。
+
+         ⚠️ 位置必须在 #ledger **之前**，不能之后。第一版放在清单下面，实测（CDP 1440×900）：
+           点「咖啡店」芯片 → 4 行 → 模板带 top=1520 / bottom=1744，**整条在 900px 视口之外**。
+           也就是说模板层在"芯片"这条主路径上等于不存在，和它要修的那个 bug 是同一个病：
+           内容做出来了，但用户在首屏看不到。方案行越多它越往下沉，最坏时沉到 4 屏以下。
+         放前面之后，点芯片立刻能看到"这 4 行里 S06 是直连、另外 M02 是现成模板"，
+         再往下读那 4 行 —— 顺序才对。 -->
+    <section class="tpl-strip" id="tpl-strip" hidden aria-label="模板层建议">
+      <p class="tpl-strip-lead" id="tpl-strip-lead">—</p>
+      <ul class="tpl-cards" id="tpl-cards"></ul>
+    </section>
+
     <ol class="ledger" id="ledger"></ol>
+
     <!-- 空状态：2026-10-25 重写。
          原文案把搜空的原因全部归给用户（"这几组条件是并且关系——先只留一组…比继续加筛选更容易命中"）。
          实测这是**在说谎**：搜「餐厅」时用户一组筛选都没加、搜索框里只有一个词，而这套图集
@@ -157,8 +176,20 @@
          数字与"你搜的那一个词"都不写死：#e-* 几个槽由 app.js 的 syncEmptyFacts() 从
          window.STYLE_PROMPTS.sceneIndex 与 window.SCHEMES 现算填入；括号内的数字与 #e-why
          的句子只是脚本没跑起来时的退路（实际不会露出：空状态 default hidden，
-         只有 render() 判定 0 命中时才取消 hidden，而它同一轮就会把槽填好）。 -->
-    <p class="empty" id="empty" hidden>没有符合条件的方案。<strong>这套图集不按行业建索引</strong>——<span id="e-total">30</span> 个案没有"行业"这一维；左侧「你是做什么的」<span id="e-terms">44</span> 个行业词里只有 <span id="e-direct">16</span> 个有直连方案，三个大众模板也不在索引里。<span id="e-why">行业词搜不到，是图集缺这条数据，不是你条件加多了。</span>两条路走得通：<a href="#tpl-exit">三个大众模板</a>拿去就能用；或点左侧行业芯片，只挑实心的那 <span id="e-direct2">16</span> 个（虚边的是"换文案能用"的近似款）。想继续在这三十个案里挑，组间才是「并且」关系——先只留一组最在意的（比如底色），或清空筛选后改用右侧排序看。</p>
+         只有 render() 判定 0 命中时才取消 hidden，而它同一轮就会把槽填好）。
+
+         2026-10-26 模板层接入后的分工（这一段必须读清楚，否则两句会互相否定）：
+           · 上面这段讲的是 **30 个案这一层**的供给缺口，它没变：模板确实不在 sceneIndex 里。
+           · 紧接着的 #empty-tpl 是**模板层**的答案，由 prompt-copy.js 从 templates/*/README.md
+             的适用行业反查后现填：有就点名给链接，只有相邻候选就说清"不在承诺清单里"，
+             都没有就把模板层承诺的三个行业摊开，让用户自己判断。
+           · 也就是说：先承认缺口（不是用户的问题），再给模板层的真实答案 —— 顺序不能反。 -->
+    <p class="empty" id="empty" hidden>没有符合条件的方案。<strong>这三十个案不按行业建索引</strong>——<span id="e-total">30</span> 个案没有"行业"这一维；左侧「你是做什么的」<span id="e-terms">44</span> 个行业词里只有 <span id="e-direct">16</span> 个有直连方案。<span id="e-why">行业词搜不到，是这 30 个案缺这条数据，不是你条件加多了。</span>想继续在这三十个案里挑：点左侧行业芯片，只挑实心的那 <span id="e-direct2">16</span> 个（虚边的是"换文案能用"的近似款）；组间才是「并且」关系——先只留一组最在意的（比如底色），或清空筛选后改用右侧排序看。</p>
+
+    <!-- 模板层答案（0 命中时才出现）：容器单独一块，由 prompt-copy.js 填。
+         它不参与 #count，也不进 #ledger —— 与 #tpl-strip 同一套渲染逻辑，
+         只是这里没有方案行可放，所以模板卡直接落在空状态里。 -->
+    <section class="tpl-empty" id="empty-tpl" hidden aria-label="模板层建议"></section>
   </main>
 </div>
 

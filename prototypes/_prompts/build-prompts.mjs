@@ -27,6 +27,28 @@ import { dirname, resolve } from "node:path";
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 const dna = JSON.parse(readFileSync(join(ROOT, "prototypes/_prompts/dna-clean.json"), "utf8"));
 
+/* 逐案「反 AI 味风险与规避」——30/30 齐全、共 5761 字，是**唯一一份写给"会犯错的执行者"的
+ * 具体禁令**，却从未进过提示词（两个独立验证 Agent 各自发现这一点）。
+ * 典型内容（S01）：
+ *   「最容易滑向"复古报纸风海报"——一张大图加做旧滤镜。规避动作：①纸纹只铺在满幅底色层，
+ *     正文栏内部保持干净，禁止统一套做旧滤镜；②朱红只允许出现在楔形与栏目标题，
+ *     不得铺满任何一个分区……」
+ * 这比"防退化 8 条"（通用）精确得多：它讲的是**这一案最容易做成什么样**。
+ * 从 data.js 读取（那里是权威来源），剥掉"规避动作"的编号前缀，压成一句进提示词。
+ */
+const RISK = (() => {
+  const src = readFileSync(join(ROOT, "prototypes/_selection/data.js"), "utf8");
+  const out = {};
+  /* data.js 的形状是 `window.SCHEMES = [ { "id": "S01", ..., "risk": "..." }, ... ]`
+   * ——键名带引号（是 JSON 字面量，不是手写对象）。正则必须按带引号的键匹配。 */
+  const re = /"id":\s*"(S\d{2})"[\s\S]*?"risk":\s*"((?:[^"\\]|\\.)*)"/g;
+  let m;
+  while ((m = re.exec(src))) {
+    out[m[1]] = m[2].replace(/\\"/g, '"').replace(/\\n/g, " ").trim();
+  }
+  return out;
+})();
+
 /* 内容量容限（minItems / degrades / minPics）：来自 deliverables/60-minitems-degrade-audit.md
  * 的 30 案实测表。判据见该报告：
  *  · minItems = 同构重复单元的**设计规模**（不是"至少要这么多"）；
@@ -220,6 +242,10 @@ for (const d of dna) {
       h1Size: d.h1Size,
       mechanism: d.mechanism,
       degrades: degrades,
+      /* 逐案「最容易做成什么样 + 怎么避开」——5761 字里最该给 AI 看的部分。
+       * 它比通用的"防退化 8 条"精确一个数量级：那 8 条说"不要紫蓝渐变"，
+       * 而这里说"纸纹只铺在满幅底色层，正文栏内部保持干净，禁止统一套做旧滤镜"。 */
+      risk: RISK[d.id] || "",
     },
   });
 }

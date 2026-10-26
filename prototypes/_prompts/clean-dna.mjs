@@ -161,6 +161,118 @@ function firstFamily(value, vars) {
   return stack.length ? stack[0] : "";
 }
 
+/* 字体栈 → **完整兜底链**，只去掉通用族。
+ *
+ * 2026-10-26 补：只输出 firstFamily 会丢掉中文兜底，这是独立验证 Agent 实测抓到的。
+ * S07 的真实声明是：
+ *   --display:"Libre Franklin","WenJin Mincho","文津宋体","Source Han Serif SC",
+ *             "Noto Serif CJK SC","Songti SC",SimSun,serif;
+ * 而提示词只写「标题用 Libre Franklin」——Libre Franklin 没有任何中文字形，
+ * 验证 Agent 照提示词实现后，CDP 的 CSS.getPlatformFontsForNode 显示
+ * h1 由 SimSun 画字（21 个字形），即"指定的字体一个中文字都没画"。
+ * 这不是 AI 不听话，是**提示词只给了半个字体栈**。
+ * 修法：保留整条链（去掉 serif/monospace 这类通用族，它们对 AI 无信息量）。
+ * 上限 4 个：再长就是噪声，且前三个几乎总能覆盖拉丁+CJK+兜底。
+ */
+function fullStack(value, vars, max) {
+  const stack = splitStack(resolveVars(value || "", vars, 0)).filter(function (n) {
+    return !GENERIC.test(n);
+  });
+  const lim = max || 4;
+  return stack.slice(0, lim);
+}
+
+/* 从 :root 的语义变量里取完整字体栈。
+ *
+ * 为什么优先变量而不是 h1 规则：作者在 `--display` 里写的是**完整兜底链**
+ * （S07 的 `--display` 带 WenJin Mincho / 文津宋体 / Source Han Serif SC 三级中文兜底），
+ * 而 h1 规则里通常只写 `var(--display)`，展开后虽也能拿到同样的链，
+ * 但只要作者在 h1 上覆盖成单个族名（S19 就是 `font-family:"Spectral",...`），
+ * 规则路径就会漏掉中文兜底。变量名按语义优先级排序匹配：先 display/disp，再 serif。
+ *
+ * 2026-10-26 补两条实测坑：
+ *  1) S04 的 h1 是 `font-family:var(--f-cjk)` —— 变量名叫 f-cjk，既不是 display 也不是 text，
+ *     原正则匹配不到，于是去 dominantStack 拿了出现最多的那条，结果是 `Unbounded`（它的拉丁标题体），
+ *     而 h1 实际画字的是 `var(--f-cjk)`（中文族）。⇒ 变量名匹配必须包含 cjk/cn/zh 这一族。
+ *  2) S01 的 h1 没有任何 font-family 规则，走 body 继承，而 body 用的是 `--f-text`。
+ *     ⇒ 当 display 侧找不到时，**回落到 body 栈**，而不是去全文件找出现最多的那条
+ *     （全局最多的那条往往是等宽体，那是编号用的，不是标题用的）。
+ */
+function stackFromVars(decls, vars, keys, max) {
+  for (const key of keys) {
+    /* 每个 key 必须只匹配**它自己那一族**的变量名。
+     * 上一版对非 display 的 key 一律用同一个宽正则（text|body|serif|sans|cn|cjk|zh|latin|face），
+     * 于是 ["latin"] 也会匹配到 `--f-cn`（因为正则里也含 cn），返回 LXGW 而不是 Syne ——
+     * S09 的 Syne 就是这样消失的。改成按 key 构造窄正则。 */
+    const re = new RegExp("--[\\w-]*(?:" + key + ")", "i");
+    const hit = decls.find(function (d) { return re.test(d.name.toLowerCase()); });
+    if (hit && hit.value) {
+      const st = fullStack(hit.value, vars, max);
+      if (st.length) return st;
+    }
+  }
+  return [];
+}
+
+/* 没有语义变量时的兜底：直接从 h1（或 body）规则的 font-family 原文取整条链。
+ * S30 就是这种案子——它一个字体变量都没有，h1 里写的是
+ *   `font-family: "Anton", "Zhuque Fangsong", Georgia, serif;`
+ * 只输出 "Anton" 的话，提示词就漏掉了 Zhuque Fangsong 这个**唯一能画中文的族**，
+ * 而 Anton 没有任何中文字形（验证 Agent 实测它回退到了 Noto Sans SC）。
+ */
+function stackFromRules(rules, vars, isDisplay, max, h1ClassList) {
+  var pick = [];
+  if (isDisplay) {
+    pick = rules.filter(function (r) { return groupsBareH1(r.selector); });
+    /* S03 的 h1 是 `<h1 class="d1">`，字族写在 `.d1` 规则里，没有裸 h1 规则。
+     * 原实现只找裸 h1，抓不到就掉进 dominantStack（拿到等宽体）。
+     * 这里补一条：按 h1 的 class 去匹配 `.cls` 开头的规则。 */
+    if (!pick.length && h1ClassList && h1ClassList.length) {
+      for (const cls of h1ClassList) {
+        const hit = rules.filter(function (r) { return groupsBareClass(r.selector, cls); });
+        if (hit.length) { pick = hit; break; }
+      }
+    }
+  } else {
+    pick = rules.filter(function (r) {
+      return selectorGroups(r.selector).some(function (g) { return /^body$/i.test(g); });
+    });
+  }
+  if (!pick.length) return [];
+  const raw = pick[pick.length - 1].value;
+  /* 关键：h1 规则若写的是 `font-family: var(--f-cjk)`，要先展开这个变量再拆栈。
+   * S04 就是这种写法——原实现走 dominantStack 拿到全局出现最多的 `Unbounded`（它的拉丁标题体），
+   * 而 h1 真正画的是 `--f-cjk`（中文族）。先解析 var 就能拿对。 */
+  const vm = raw.match(/var\(\s*(--[\w-]+)\s*\)/);
+  if (vm && vars[vm[1]]) {
+    const resolved = fullStack(vars[vm[1]], vars, max);
+    if (resolved.length) return resolved;
+  }
+  return fullStack(raw, vars, max);
+}
+
+/* 上面两条路都空时的最后兜底：拿整份 CSS 里**出现次数最多的 font-family 栈**。
+ * S03 就是这种案子：它的 h1 是 `<h1 class="d1">`，而 .d1 规则只在 @media 里给了字号、
+ * 没给字族；字族来自别处（body 或某个包装类），`groupsBareH1` 与 `body` 两条都抓不到，
+ * 于是 displayStack 是空数组，提示词里就只有第一个族名 "IBM Plex Mono"
+ * ——恰好是它最不该当标题的那个（等宽体）。宁可给一条真实存在的栈，也不要空。
+ */
+function dominantStack(rawCss, vars, max) {
+  const counts = new Map();
+  const re = /font-family\s*:\s*([^;}]+)/g;
+  let m;
+  while ((m = re.exec(rawCss))) {
+    const st = fullStack(m[1], vars, max);
+    if (st.length) {
+      const key = st.join("|");
+      counts.set(key, (counts.get(key) || 0) + 1);
+    }
+  }
+  if (!counts.size) return [];
+  const best = [...counts.entries()].sort(function (a, b) { return b[1] - a[1]; })[0][0];
+  return best.split("|");
+}
+
 /* 逐条规则走一遍，拿到「选择器 → 声明块」。
  * 为什么不用 /([^{}]+)\{([^}]*)\}/ 这种一把梭：@media 会把花括号嵌套进来，
  * 一把梭的结果是把 @media 的头部当选择器、把里面第一条规则当声明块，
@@ -482,6 +594,72 @@ for (const r of raw.rows) {
     display: cleanName(display),
     body: cleanName(fBody || display),
     mono: cleanName(fMono),
+    /* 完整兜底链（去通用族，最多 4 个）。
+     * 上面的 display/body/mono 只留了**第一个**族名，这会让提示词丢掉中文兜底 ——
+     * 独立验证 Agent 照提示词实现 S07 后实测：指定的 Libre Franklin 一个中文字形都没有，
+     * h1 实际由 SimSun 画。而原型自己的 `--display` 栈里明明有
+     * "WenJin Mincho","文津宋体","Source Han Serif SC" 三级中文兜底。
+     * 提示词只说第一个名字，等于把「字体正确」这件事交给了 AI 的运气。
+     *
+     * 取值路径：优先 :root 里语义命名的变量（--display / --f-display / --text …），
+     * 它们是作者写的完整栈；没有变量才回落到 h1 规则里的原始声明。
+     * 这一步由 stackFromVars() 做。 */
+    /* display 侧优先级，经过三次实测修正后定序：
+     *
+     *  ① **h1 规则原文最优先**。这是唯一"作者明确写了标题用什么"的证据。
+     *     S04 的 h1 是 `font-family:var(--f-cjk)`，而 :root 里还有个 `--f-disp:"Unbounded",var(--f-cjk)`。
+     *     先看变量名会拿到 Unbounded（因为名字里有 disp），但 h1 真正画字的是 --f-cjk
+     *     （LXGW WenKai）。**h1 规则说什么就是什么，别用变量名去猜作者的意图。**
+     *  ② h1 规则没有 → 语义变量（--display / --f-display / --f-disp…）
+     *  ③ 再没有 → body 栈（S01 的 h1 一条规则都没有，纯继承 body 的 --f-text = Noto Sans SC，
+     *     而 :root 里的 --f-latin 是 Archivo —— 按变量名取 latin 就取错了）
+     *  ④ 万不得已 dominantStack
+     */
+    displayStack: (function () {
+      var byRule = stackFromRules(rules, vars, true, 4, h1Classes);
+      var a = stackFromVars(decls, vars, ["display", "disp", "title", "head"], 4);
+      var latin = stackFromVars(decls, vars, ["latin"], 4);
+      /* S09 的问题：它的标题其实是两款——中文走 --f-cn（LXGW Marker Gothic）、
+       * 拉丁走 --f-latin（Syne）。原实现按 CJK 优先匹配到 --f-cn 就返回，
+       * 于是 Syne 从提示词里彻底消失，而原型上英文标题确实在用 Syne。
+       * 修法：当同时存在 cn 与 latin 两条变量时，标题链 = cn 链 + latin 链（去重）。
+       * 这不只是 S09：任何"中英分设双栈"的案子都该这么合并。 */
+      var cn = stackFromVars(decls, vars, ["cn", "cjk"], 4);
+      /* 中英分设双栈时**必须先合并**（S09 的 --f-cn=LXGW Marker Gothic 与
+       * --f-latin=Syne 是并列的两款标题字体，不是优先级关系）。
+       * 上一版把合并放在回退链之后，结果 cn 先返回就 break，latin 永远轮不到 ——
+       * Syne 从提示词里消失，而原型上英文标题确实用它。 */
+      if (cn.length && latin.length) {
+        var combo = [];
+        var seen2 = {};
+        for (const f of cn.concat(latin)) { if (!seen2[f]) { seen2[f] = 1; combo.push(f); } }
+        return combo.slice(0, 4);
+      }
+      var merged = [];
+      var seen = {};
+      /* S01 的坑：它的 h1 一条 font-family 规则都没有，纯继承 body（--f-text = Noto Sans SC），
+       * 而 :root 里还有个 --f-latin = Archivo。若按 display→cn→latin 顺序找变量，
+       * 会拿到 Archivo，但页面上标题根本不是 Archivo。
+       * ⇒ display 侧找不到时，**body 规则优先于 latin 变量**，因为继承是真实发生的事。
+       */
+      for (const part of [byRule, a, stackFromRules(rules, vars, false, 4), cn, latin]) {
+        for (const f of part) {
+          if (!seen[f]) { seen[f] = 1; merged.push(f); }
+        }
+        if (merged.length) break;
+      }
+      if (merged.length) return merged.slice(0, 4);
+      var c2 = stackFromRules(rules, vars, false, 4);
+      if (c2.length) return c2;
+      return dominantStack(rawCss, vars, 4);
+    })(),
+    bodyStack: (function () {
+      var byRule = stackFromRules(rules, vars, false, 4);
+      if (byRule.length) return byRule;
+      var a = stackFromVars(decls, vars, ["text", "body", "serif", "sans", "cn", "cjk"], 4);
+      if (a.length) return a;
+      return dominantStack(rawCss, vars, 4);
+    })(),
   };
 
   const pal = pickPalette(decls, r.colors, rawCss);

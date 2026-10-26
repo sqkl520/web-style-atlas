@@ -73,6 +73,13 @@
   font-family: var(--num); font-variant-numeric: tabular-nums;
   font-size: var(--s-13); color: var(--ink-3);
 }
+/* 闸门不达标标注：与选型台上的红字 FAIL 是同一件事，不能两个入口说不同的话。
+ * 用琥珀色而不是红：它不改变推荐排名，只是把被跳过的那一关如实说出来。 */
+.wz-card .wz-gate {
+  margin-top: 6px; padding: 5px 8px;
+  border-left: 3px solid #b8860b; background: #fdf6e3; color: #7a5a00;
+  font-size: var(--s-13);
+}
 .wz-card a {
   display: inline-block; margin-top: 9px;
   font-family: var(--num); font-size: var(--s-14);

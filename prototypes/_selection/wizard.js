@@ -131,15 +131,54 @@
     fear: function () { return ['怕做错', '两头都不偏', '怕没记忆点'][ans.fear]; },
   };
 
-  var TIGHT = 0.75;                 // 认为"对上了"的阈值
+  /* ⚠️ 「对上你要的」这句曾经大面积是假的。红队遍历 162 个答案组合实测出来的。
+   *
+   * 原判据：`x.d <= TIGHT`（TIGHT=0.75），而 x.d 是**连续归一化值之差**。
+   * 连续值的问题：`img` 这一问是 stretch(真实图片数, 4..15)，于是"6 张图"= 0.18、
+   * "7 张图"= 0.27，与用户答"基本不用图"(0) 的差只有 0.18–0.27 —— 远小于 0.75，
+   * 于是卡片写出「6 张真实图片（对上你要的「基本不用图」）」。可 6 张图在 30 案里
+   * 高于中位数，用户明确说了"基本不用图"。
+   * 全量遍历：203 条「对上你要的」断言里 128 条事实错误（63.1%）。
+   *
+   * 根因是**用连续距离去回答一个档位问题**。用户的五个答案本来就是离散档位
+   * （3/3/3/2/3 档），所以"对上"必须是**档位相等**，不是"浮点距离够近"。
+   * 修法：每个方案的连续值先**映射回它自己所在的档位**（与用户答案同一把尺），
+   * 再判档位是否相同。这样"6 张图"会落到中间档，与"基本不用图"档不同 → 不说对上。
+   */
+  var NQ = { load: 3, img: 3, loud: 3, guide: 2, fear: 3 };   // 各问档位数
+  /* 连续值 → 档位。档位数 n 时，[0,1] 被切成 n 档，取最近的一档。 */
+  function toSlot(v, n) {
+    var idx = Math.round(v * (n - 1));
+    return Math.max(0, Math.min(n - 1, idx));
+  }
   function diffs(v) {
-    return ORDER.map(function (k) { return { k: k, d: Math.abs(v[k] - ans[k]) }; })
-                .sort(function (a, b) { return a.d - b.d; });
+    return ORDER.map(function (k) {
+      var slot = toSlot(v[k], NQ[k]);
+      var want = ans[k];
+      return { k: k, slot: slot, want: want, d: Math.abs(slot - want), raw: slot - want };
+    }).sort(function (a, b) { return a.d - b.d; });
+  }
+  /* 真的"对上"吗：**档位相同**才算。差一档就是差一档，不拿"接近"粉饰。 */
+  function isMatch(x) {
+    return x.d === 0;
   }
   function reasonsFor(v, wantMatch) {
-    var list = diffs(v).filter(function (x) { return wantMatch ? x.d <= TIGHT : x.d > TIGHT; });
+    var list = diffs(v).filter(function (x) { return wantMatch ? isMatch(x) : !isMatch(x); });
     if (!list.length) {
-      return wantMatch ? '五项全部落在你要的档位里' : '五项都接近你要的档位——它被排到最后是因为别人更近';
+      /* ⚠️ 这里原来是 `return wantMatch ? '五项都落在你要的档位里' : ...` ——
+       * 语义反了。`list` 是**匹配上的轴**（wantMatch 时）或**没匹配上的轴**（!wantMatch 时）。
+       * 对推荐卡（wantMatch=true）走这个分支，意味着**一条都没匹配上**，
+       * 却返回"五项都落在你要的档位里"——把 0/5 说成 5/5。
+       * 独立验证 Agent 真机跑完 162 个组合，抓到 5 处这样的假称：
+       * 组合(0,0,0,0,1)→S05，五个轴全不匹配（329 字 vs 一屏说清、6 张图 vs 基本不用图、
+       * 彩度 47% vs 很安静、门槛中 vs 三秒知道点哪、机能冷峻 vs 两头都不偏），
+       * 卡片却写"五项都落在你要的档位里"。
+       * 正确做法：推荐卡若一条都没对上，就**如实说一条都没对上**；
+       * 排除卡若一条都没排除，如实说它其实都接近。
+       */
+      return wantMatch
+        ? '五项没有一项落在你要的档位里——它能被排进推荐只是因为相对最接近，逐项看都是落差'
+        : '五项都和你要的档位接近——它被排到排除区，只是因为别人更近';
     }
     return list.slice(0, 3).map(function (x) {
       return wantMatch
@@ -154,6 +193,17 @@
       return '<i style="background:' + h + '" title="' + h + '"></i>';
     }).join('');
     var why = reasonsFor(v, !isAvoid);
+    /* ⚠️ 向导从不显示闸门结果，而选型台用红字标了。
+     * 红队实测：162 个答案组合里有 28.4%（46/162）把 FAIL>0 的方案当"推荐"给出，
+     * 而 `wizard.js` 全文不含 FAIL / failIds 两个词 —— 用户在这里得到的推荐，
+     * 比在选型台看到的结论更乐观，因为最难的那一关（机械闸门）被静默跳过了。
+     * 这里补一行如实标注：FAIL>0 就写出来，别让两个入口对同一件事给出不同答案。 */
+    var g = r.gate || {};
+    var fails = (g.failIds || []);
+    var gateNote = fails.length
+      ? '<p class="wz-gate">⚠ 机械闸门有 ' + fails.length + ' 项不达标：' + fails.join('、') +
+        '（选型台上用红字标着同一件事；向导不会因此改排名）</p>'
+      : '';
     return '<li class="wz-card">' +
       '<p class="no">' + r.id + '</p>' +
       '<div>' +
@@ -161,6 +211,7 @@
         '<p class="wz-en">' + (r.en || '') + (r.fr ? '　·　' + r.fr + ' 型／' + r.structure : '') + '</p>' +
         '<p>' + (r.def || '').slice(0, 96) + '…</p>' +
         '<p class="wz-why">' + (isAvoid ? '为什么排除：' : '为什么是它：') + why + '</p>' +
+        gateNote +
         /* ⚠️ 这里原本是 './#index-' + r.id —— **死链**。
            app.js 的 hashchange 处理只认 `#S23` 这种形态（`location.hash.replace('#','')` 后要与 `r.id` 相等），
            而 index.html 里**根本没有任何 `id="index-*"` 的锚点**（出现 0 次）。
