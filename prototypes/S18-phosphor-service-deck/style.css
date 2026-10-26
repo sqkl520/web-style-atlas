@@ -337,7 +337,7 @@ caption{text-align:left;font-size:14px;line-height:1.7;color:inherit;opacity:.86
   .stream__grid{grid-template-columns:1fr;padding:0 44px 0 4%}
   .stream__col{grid-column:1}
   .hangrail{grid-column:1;position:absolute;inset:0 44px 0 4%;padding:0;pointer-events:none}
-  .hang{display:block;width:32px;left:auto;right:0;top:calc(var(--at,0) * var(--line) + var(--line) + 4px)}
+  .hang{display:block;width:32px;left:auto;right:0}
   .hang__cord{display:none}
   .hang__link{display:block;width:4px;height:1px;margin:0 0 0 20px}
   /* 回执牌缩到 24×12px 的牛皮下标，挂在对应行尾下方 4px */
@@ -372,7 +372,7 @@ caption{text-align:left;font-size:14px;line-height:1.7;color:inherit;opacity:.86
   .stream__grid{grid-template-columns:1fr;padding:0 52px 0 4%}
   .stream__col{grid-column:1}
   .hangrail{grid-column:1;position:absolute;inset:0 52px 0 4%;padding:0;pointer-events:none}
-  .hang{display:block;width:20px;left:auto;right:0;top:calc(var(--at,0) * var(--line) + var(--line) + 4px)}
+  .hang{display:block;width:20px;left:auto;right:0}
   .hang__cord{display:none}
   .hang__link{display:block;width:4px;height:1px;margin:0 0 0 8px}
   /* 竖排的下标：12 宽 × 24 高 */
