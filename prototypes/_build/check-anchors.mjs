@@ -33,7 +33,13 @@ for (const d of readdirSync(P, { withFileTypes: true })) {
   for (const h of hrefs) {
     if (ids.has(h)) continue;
     // JS 拼接的（含引号、加号、方括号）不算死锚点，单独列
-    if (/['"+\[\]]/.test(h)) dynamic.push({ dir: d.name, href: h });
+    //
+    // 两个数组的形状必须一致：`three` 是打印用的短 id，`dead` 有而 `dynamic` 没有的话，
+    // 下面打印动态项的那条循环就会照着死锚点的模板去读它，打出
+    // `undefined  href="#dg-' + keys[i] + '"`。
+    // 实测（2026-10-27）：修前输出 `undefined  href="#dg-' + keys[i] + '"`，S05 那条被标成了
+    // 一个不存在的案子。这类"检查器自己说谎"的噪声比漏报更伤——读者会开始不信整份输出。
+    if (/['"+\[\]]/.test(h)) dynamic.push({ dir: d.name, three: d.name.slice(0, 3), href: h });
     else dead.push({ dir: d.name, three: d.name.slice(0, 3), href: h });
   }
 }

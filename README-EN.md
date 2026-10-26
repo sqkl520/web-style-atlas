@@ -67,15 +67,17 @@ S07  Slate-Ink Contents        F-type · medium threshold · tone: academic arch
 
 The ASCII is only the shape. The page holds pixels.
 
-Click a row to expand it: the **copy-AI-prompt button** sits at the top, followed by the viewport switcher (step through `desktop-fold` / `page-01`…) and all the fields (10 sections in most schemes).
+Click a row to expand it: the **copy-AI-prompt button** sits at the top, followed by the viewport switcher (step through `desktop-fold` / `page-01`…) and all 12 fields.
 `#S07` deep-links to a single scheme.
 The keyboard covers everything: `J`/`K` moves between schemes, `1`/`2`/`3` switches viewport, `/` focuses search, `Esc` closes.
+
+**The 12th field, "anti-AI-cliché review points", is collapsed**: `data.js` carries it for **30 of 30 schemes** (shortest 276 characters, longest 444, 10,065 in total, median 324), and until now it existed only in the data — not a character of it was on the page. It is closed by default; the summary reads "anti-AI-cliché review points (N)" where N is counted live from the numbered markers in the text (`①②③` / `第一，第二，` / `（1）（2）` — the largest of the three conventions wins; never hard-coded), and nothing is truncated once you open it. It sits **before "anti-AI-cliché risks and how they are avoided"**: the review points say *which AI clichés this scheme deliberately defies* (each tied to a `C-x.y` clause number), the risks say *so what you are most likely to get wrong when you copy it* — the former is the premise of the latter. Read in the other order, the "don't turn X into Y" lines in the risks have nothing to point back at.
 
 ### How you take it away: copy the AI prompt
 
 The first group in the left rail is **"What do you do?"** — 44 trade terms that reverse-look-up matching schemes (16 have direct matches, 28 approximate only, 29 are honestly labelled "none" and tucked behind a "28 more approximate →" toggle rather than hidden).
 
-Pick a scheme and the detail panel opens with a **"Copy AI prompt"** button at the very top. Press it and you get roughly 1,100 Chinese characters to paste straight into ChatGPT / Claude / v0, which will build the whole site in that style. It is not boilerplate — every value is **extracted from the actual `style.css`**:
+Pick a scheme and the detail panel opens with a **"Copy AI prompt"** button at the very top. Press it and you get **1,632–1,920 characters** of Chinese prose (30 schemes measured; median 1,822) to paste straight into ChatGPT / Claude / v0, which will build the whole site in that style. It is not boilerplate — every value is **extracted from the actual `style.css`**:
 
 | What goes into the prompt | Where it comes from |
 | --- | --- |
@@ -100,7 +102,12 @@ Hard visual constraints (follow each one; do not change colours or fonts):
 
 Copying also works when you double-click the files over `file://` (both `writeText` and `execCommand` verified); if both paths fail you get a select-all textarea instead — never a "copied!" message with an empty clipboard.
 
-**Its limit**: this transfers a *style*, it does not take over your business. Nine schemes have mechanisms bolted to their own data structures (S03 S05 S10 S14 S15 S18 S20 S21 S29) and degrade on ordinary content — the button says so right next to itself rather than letting you find out afterwards.
+**Its limit**: this transfers a *style*, it does not take over your business. **14 of the 30 schemes** carry a `⚠` right next to the button, because they degrade on ordinary content — better to know before you paste than after. The two criteria are kept apart (`riskyTopic || riskyCount` in `prompt-copy.js`):
+
+- **4 schemes have a mechanism bolted to a specific subject** (`S15` `S18` `S21` `S29`, the `hardIds` in `prompts.js`): "the mechanism is tied to a specific subject; it degrades on ordinary content".
+- **13 schemes lay their units out by hand** (`S02` `S04` `S05` `S08` `S12` `S14` `S15` `S18` `S19` `S20` `S22` `S23` `S29`, i.e. `capacity.degrades === "yes"`): "unit positions are hand-set; fewer than N items leaves holes", where N is that scheme's `minItems`.
+
+The axes are orthogonal and overlap on only 3 schemes (`S15` `S18` `S29`); `S21` sits on the subject axis alone, 10 more sit on the count axis alone, and the **union is 14**. When a scheme hits both, the warning joins the two sentences with a semicolon.
 
 Next to it stands the **selection wizard** (`prototypes/_selection/wizard.html`). Five questions about **your situation**, not "what style do you like": content load, picture load, how quiet you want it to look, whether a first-time visitor should know where to look in three seconds, and what you fear more — getting it wrong or being forgettable. (⚠️ This line used to read "whether you need guidance, whether you fear retro" — `git grep` confirms those two questions never existed in the wizard; caught by bilingual-drift audit 51 as **invented dimensions**, now corrected to the actual `load/img/loud/guide/fear` five.)
 It outputs **3 recommendations and 3 explicit exclusions**, and every "why" is read from **measured values** —— body word count, real picture count, highest saturation in the palette, declared cognitive threshold, and a memorability proxy built from tone and chroma. It never assigns a subjective score.
@@ -147,6 +154,7 @@ Check your clone afterwards: `prototypes/_selection/index.html` opens, `prototyp
 
 **30 design schemes** —— not a colour skin but a complete **design argument**, written across 12 fields:
 a one-line visual definition, aesthetic family and references, a colour system (with area ratios and mood), a type strategy, layout and grid (with behaviour at three breakpoints), key visual elements, motion and interaction (with a reduced-motion fallback), anti-AI-cliché review points, risks and how they are avoided, suitable uses (plus what it is *not* for), implementation notes (with a performance budget), and one **signature quirk of the designer**.
+All 12 are **rendered in the selection bench** (30 of 30, not a sample); the "anti-AI-cliché review points" one is collapsed, because it is the longest and the most "written for a reviewer" —— how to open it is under [See the proof](#see-the-proof-272-real-screenshots-on-one-bench).
 
 **30 runnable prototypes** —— real typography, real copy, real assets, real error states, real `prefers-reduced-motion` fallbacks.
 **26 pass the gate with FAIL = 0.** The 8 remaining failures in the other four are listed one by one under [Limitations](#limitations-what-this-atlas-cannot-do).
@@ -163,6 +171,7 @@ a one-line visual definition, aesthetic family and references, a colour system (
 | --- | --- |
 | `render-scheme.mjs` | Render one prototype and print the gate result (real screenshots at three viewports). ⚠️ Depends on `tools/` outside the repository — see [Rendering and verification](#rendering-and-verification) |
 | `verify-prototype.mjs` | Mechanical check: remote resources, banned font stacks, emoji, broken images, real-picture count, horizontal overflow, gate counts |
+| `check-docs.mjs` / `check-stale.mjs` / `check-anchors.mjs` | Three checks for defects **a page cannot show you**: the **docs drifting from the code** (IDs / numbers / paths vs `data.js`), **stale artefacts** (edited but never re-rendered), and **in-page anchors that scroll nowhere**. All three exit 1 on FAIL |
 | `shot.mjs` + `shot-page.py` | A **zero-dependency screenshot tool** (no third-party design tooling, no CDP): full-page capture, slicing by viewport, per-screen pixel statistics (dominant colour share, mean luminance, blank-screen detection) |
 | `fetch-fonts.mjs` / `selfhost-fonts.mjs` | Fetch fonts for self-hosting and rewrite a page's external font links to local ones |
 | `assign-assets.mjs` / `make-textures.py` | An asset fallback (cross-assign real photos from the existing corpus by subject) plus **14 deterministic texture generators** (parameters written to disk, byte-reproducible) |
@@ -294,6 +303,12 @@ node prototypes/_build/render-scheme.mjs S14-zero-g-launch-sequence
 # mechanical check (no arguments checks everything)
 node prototypes/_build/verify-prototype.mjs --all
 
+# document consistency: do the IDs, numbers and paths in this README still equal the values
+# measured out of data.js and prompts.js? (the two checks above only look at pages, never at docs —
+# so a README that has drifted from the code passes both of them silently)
+node prototypes/_build/check-docs.mjs
+node prototypes/_build/check-docs.mjs --selftest   # prove it works: revert three known decayed lines and watch it fail
+
 # zero-dependency screenshot capture: full page + per-screen slices + pixel statistics
 node prototypes/_build/shot.mjs prototypes/S14-zero-g-launch-sequence/ --out .shots --widths 1440,768,390 --name S14
 ```
@@ -342,7 +357,10 @@ When not to use it, written out.
 - ❌ **Two further homogeneities beyond ground colour**: on the **quietness axis** (`axes.loud`, derived from the palette's highest chroma), **only 2 schemes are "very quiet"** while 19 (63%) are "loud" —— do not read this as `tone`; `tone` is a different set of seven phrases ("chaotic street energy" and so on), the largest of which covers 5 schemes.
   Of 36 ten-degree hue buckets only 11 are used —— **the entire purple→magenta 110° stretch is empty**; the **whole lightness range 20–60 has zero schemes**.
   In other words: **the dimensions a user can actually filter on (content volume, complexity) are precisely the ones invisible at thumbnail scale.**
-- ❌ **The bench under-extracts three schemes**: `S12`, `S15` and `S19` expand to only 9 sections —— **and the reason is not a missing spec field**: all three `_specs/*.md` **do have section 5, layout and grid, on line 25**; `_build/collect-schemes.mjs:187` fails to extract it for them. **This is a known, unfixed extraction defect in this repository, not a spec defect.**
+- ❌ **The bench used to under-extract three schemes —— fixed, and the root cause stays documented here**: `S12`, `S15` and `S19` once expanded to 9 sections instead of 10. **The reason was not a missing spec field**: all three `_specs/*.md` do have section 5, layout and grid, on line 25, reading "8 columns, 6px baseline…", "12 columns, 8px baseline…" —— not a word missing.
+  The defect was in the convention-A field regex in `_build/collect-schemes.mjs`: the separator `[.．]` was written as **optional**, so the **first sentence** of those three schemes' layout body happened to **start with a digit** —— `8 栏，基线 6px（对齐街机像素栅格），栏间距 0。不对称方式：` —— and the whole line was read as a field heading named "8". Section 5 was truncated to length 0 on the spot, and its body was attached to a field name nothing ever reads. Across all 30 schemes only these 3 lines start with a digit and carry no separator, which is exactly why it was these three.
+  The fix makes the separator **mandatory**: `[.．]?` → `(-附|[.．])` (`-附` and a full stop are two parallel legal separators and neither can be dropped —— demanding "must have a dot" would reject the `1-附（…）：` route and swallow 10 schemes' mechanism sentences back into field 1). Measured after the fix, `layout` is **549 / 640 / 420 characters** for the three, and **all 30 schemes now carry a value** (`layout` length min 242 / median 413 / max 865) —— all three expand as fully as the other 27.
+  **Kept rather than deleted**, because this repository's style is to leave its mistakes where they happened: a defect where "the spec plainly has it and the extractor ate it" can never be caught by reading the spec.
 - ❌ **Subject gaps**: the available corpus contains no jazz records themselves; what stands in for `S28 "Jazz Intaglio Wall"` is **print-shop material (type cases ×2, metal type, a silkscreen bench, a Riso duplicator) plus a Marble Madness arcade cabinet (appearing twice, the largest block) — zero jazz, zero records, not even a turntable**; `S22`/`S23` replacements are on-subject (paper and binding; a 1902 newspaper plus archives). Gaps are documented in the relevant `CREDITS.md`. Wikimedia is reachable again (contract §10.1); swapping in on-subject public-domain covers (Reid Miles / Blue Note) is a product decision.
 - ❌ **The `#888888` grey block is specific to the `inspect.mjs` pipeline**: a few desktop scrolled captures under `.inspect/` contain a large patch of exact neutral grey (`desktop-page-03` in S08 at 49.86%, `desktop-page-01` in S17 at 24.27%). **That is a defect in `inspect.mjs`'s own scroll stitching, not grey that exists in the page** —— characterised in `deliverables/16-render-look-audit.md`. **Corroboration**: an independent audit scanned all 246 PNGs produced by the `shot.mjs` / bare CDP / Pillow pipeline and found **not one where that grey exceeded 2%** (the highest was 0.236%, an anti-aliased edge). It does not occur with other capture methods.
 - ❌ **The `measure` rule is a false positive for Chinese**: it estimates character width at 0.5em while CJK glyphs are about 1.0em, so **divide the reported number by two** to get the real characters per line.

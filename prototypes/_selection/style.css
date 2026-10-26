@@ -276,7 +276,32 @@ code { font-family: var(--code); font-size: 0.94em; }
 }
 .swatches { display: flex; gap: 3px; align-items: center; }
 .swatches i { width: 20px; height: 20px; display: block; outline: 1px solid rgba(0,0,0,.3); outline-offset: -1px; }
-.row-family { color: var(--ink-2); }
+
+/* 行卡上的「美学家族」（2026-10-27 改）。
+   改前 JS 端把 family 切到 34 字（30 案合计只显示 657 字，丢 5,254 字），
+   改后**不切字**，交给这两条 CSS 折行：
+     · flex: 1 1 100% —— 让它自己占满 .row-meta 的一整行，
+       而不是和后面的色块/错误码/cap 抢同一行的水平空间
+       （实测：不加这条时 2 行文本会跟色块挤在同一行，溢出 0 但视觉上黏在一起）；
+     · -webkit-line-clamp: 2 —— 上限两行。30 案 family 全长 133–282 字，
+       两行在 1440 档约能装 84 字、390 档约 46 字，是「家族名 + 一句参考对象」的量。
+   为什么不 clamp 到 3 行：1440 档行卡有 75px 余量，3 行也放得下、不涨高，
+   但 390 档会从 +21~48px 涨到 +42~90px（30 行总高 +11.8%），
+   而第三行读到的多是「偷的是…」那半句，性价比不如两行。实测数据见
+   deliverables/65-exec/EXEC-audit-wiring.md 的任务 4 一节。
+   行高归谁撑要写清楚：1440 档 30/30 行高恒定 276.8px，因为行高是右侧截图列
+   （201.8px）加行脚注撑起来的，family 从 1 行变 2 行只是吃掉 75px 行内余量 ——
+   这也是这件事在桌面档"免费"、只在手机档收费的原因。 */
+.row-family {
+  color: var(--ink-2);
+  flex: 1 1 100%;
+  min-width: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.5;
+}
 
 /* 截图列：只放**一张**桌面首屏大图。
    ⚠️ 卡片瘦身（2026-10-25，有实测依据）：
@@ -422,7 +447,11 @@ code { font-family: var(--code); font-size: 0.94em; }
 .detail-title p { font-family: var(--ui); font-size: var(--s-13); color: var(--ink-3); }
 .detail-body { padding: 18px 20px 60px; }
 
-.viewer { margin-bottom: 22px; }
+/* 间距（2026-10-27）：字段之前这几段现在全是折叠条，原来的大外边距是按"整段内容"
+   给的，收起后每一道 20–22px 的空隙都成了纯空白。实测把这三处收到 12px：
+   桌面首字段 −30px、移动端 −30px。不改成 0 是因为折叠条之间仍需要视觉呼吸，
+   否则三条上边线会挤成一组网格线，反而看不出是三个独立的东西。 */
+.viewer { margin-bottom: 12px; }
 .viewer-tabs { display: flex; gap: 0; margin-bottom: 8px; }
 .viewer-tabs button {
   font-family: var(--num); font-variant-numeric: tabular-nums; font-size: var(--s-13);
@@ -431,7 +460,15 @@ code { font-family: var(--code); font-size: 0.94em; }
 }
 .viewer-tabs button:last-child { border-right: 1px solid var(--rule-2); }
 .viewer-tabs button[aria-pressed="true"] { background: var(--ink); color: var(--card); border-color: var(--ink); }
-.viewer-stage { background: #fff; overflow-y: auto; max-height: 62vh; }
+/* ⚠️ 62vh → 200px（2026-10-27）。这条规则原来是**死规则**，实测证明：
+   面板宽 560px，桌面截图 1440×900 按宽度缩放后整图高 **323px**，比 62vh(=558px) 矮，
+   所以限高从未生效 —— 它省下的不是估算的 200–350px，而是 **0px**。
+   （30 案实测：stage 内容高 323.1px，scrollHeight === clientHeight，30/30 不可滚。）
+   200px 是为了在**展开折叠条之后**让图仍能看：图高 605px（560 宽）> 200，
+   于是 overflow-y 真正生效，实测 30/30 可滚，滚到底能看到整图。
+   为什么不是 240/260：实测桌面每多 20px，首字段右移 20px；200 是让桌面首字段
+   留在 493–543 的那一档，余量最大。移动端面板窄、图更矮，200px 同样能滚。 */
+.viewer-stage { background: #fff; overflow-y: auto; max-height: 200px; }
 .viewer-stage img { width: 100%; display: block; }
 .viewer-strip { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
 .viewer-strip button { padding: 0; border: none; background: none; cursor: pointer; width: 64px; }
@@ -439,8 +476,89 @@ code { font-family: var(--code); font-size: 0.94em; }
 .viewer-strip img { width: 100%; display: block; aspect-ratio: 16/10; object-fit: cover; object-position: top; }
 .viewer-note { font-family: var(--num); font-variant-numeric: tabular-nums; font-size: var(--s-13); color: var(--ink-3); margin-top: 6px; }
 
+/* ── 详情面板里的折叠条（2026-10-27，面板可发现性）────────────────────────
+ *
+ * 这笔账的由来（1440×900，30 案实测，数字都来自 deliverables/65-exec/panel-*.json）：
+ *   改前 第一个字段落在 **1,362–1,464px**，面板视口 900px ⇒ 一个字段都看不到。
+ *   字段之前是：复制按钮 299–394 + 预览 439 + 打开原型 41 + 闸门 77 + 上站文案 300–377。
+ *   把预览（含 tabs）、闸门、上站文案三块各包成默认收起的 <details> 之后：
+ *   桌面 493–543、移动 605–668 —— 30/30 落在 720 以内，且 **一个字段都没加**。
+ *
+ * 三个折叠块共用一个 .fold 外观，因为它们是同一类东西（"这一段在，但你不用现在读"）。
+ * 差别只在 summary 里放什么：预览块带缩略图，闸门块把 FAIL/WARN 结论印在标签里，
+ * 上站文案块点名四段 —— 收起时也必须能判断值不值得展开。
+ *
+ * 为什么 summary 用 grid/flex 横向排（缩略图在左、文字在右）：
+ * 实测竖向排（图在上、字在下）折叠条高 96.8px，横向排只要 64px，省 33px；
+ * 而移动端那 33px 正好是从 713（余量 7px，太薄）走到 668（余量 52px）的差距。
+ *
+ * 键盘可达性由原生 <summary> 提供，这里只补焦点环：面板底色 #f2f2ee 上
+ * UA 默认焦点环偏淡，用 --link（5.6:1）画 2px 环，和 .chips/.search 的做法一致。
+ * ::marker 不隐藏 —— 那个三角是"这里能点开"的第二重信号（第一重是粗体标题）。 */
+.fold {
+  margin: 0 0 6px;
+  border-top: 2px solid var(--ink);
+  padding-top: 0;
+}
+.fold > summary {
+  display: flex; align-items: center; gap: 10px;
+  padding: 3px 0;
+  cursor: pointer;
+  list-style-position: inside;
+  color: var(--ink);
+  font-size: var(--s-14);
+  line-height: 1.5;
+}
+.fold > summary:hover .fold-lab b { text-decoration: underline; text-underline-offset: 2px; }
+.fold > summary:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+.fold-row { display: flex; align-items: center; gap: 10px; min-width: 0; }
+/* 缩略图定高 64px、宽度按 16:10 自适应（实测 101px 宽）。
+   flex: none 是必须的：不加会被 summary 的 flex 压扁成一个竖条 ——
+   这是"图放进 flex 行"最常见的走形，390 档尤其明显。 */
+.fold-thumb {
+  height: 64px; width: auto; flex: none; display: block;
+  background: var(--ground-2);
+  outline: 1px solid var(--rule-2); outline-offset: -1px;
+}
+.fold-lab { display: block; min-width: 0; }
+.fold-lab b { font-weight: 600; }
+.fold-tag {
+  font-family: var(--num); font-variant-numeric: tabular-nums; font-size: var(--s-13);
+  margin-left: 8px; padding: 0 5px;
+  border: 1px solid var(--rule-2); color: var(--ink-2);
+}
+.fold-sub {
+  display: block;
+  font-size: var(--s-13); color: var(--ink-3); line-height: 1.5;
+}
+/* 闸门结论标签：直接复用 .tag 的视觉，但必须能在 summary 里横向排，
+   所以包一层 .fold-tags 负责间距，标签本身沿用 .tag 的语义配色（FAIL 红 / WARN 黄）。 */
+.fold-tags { display: inline-flex; flex-wrap: wrap; gap: 5px; margin-left: 8px; align-items: center; vertical-align: middle; }
+.fold-num {
+  font-family: var(--num); font-variant-numeric: tabular-nums;
+  font-size: var(--s-13); color: var(--ink-3); margin-left: 8px;
+}
+/* 展开后的正文：不再加内边距（.parts/.gate-box 自带），只把上边线接上。
+   长串必须能断 —— 闸门报告里有 S21-04 这种不可断的 ID 串，390 档会撑破面板
+   （.field-fold 里记过同一个坑：不加 overflow-wrap 时溢出 3px）。 */
+/* 预览折叠条比另两条多一块 64px 缩略图，所以它自己的下边距必须更小，
+   否则缩略图下面会垫一段纯空白。实测这一条从 80px 降到 72px。 */
+.fold-view { margin-bottom: 10px; }
+
+/* 折叠条之间的呼吸靠 border-top 分隔，不靠大外边距：
+   三条 2px 上边线 + 6px 间隙足够读成"三个独立的东西"。
+   ⚠️ 必须写成 `.fold > .fold-body`（直接子元素）：app.js 里「去 AI 味审查点」那个折叠块
+   由另一处改动维护，它的 `<p class="fold-body">` 不在 .fold 里。写成全局 `.fold-body`
+   会给它平白加 6px 内边距 —— 改别人的块而不自知。 */
+.fold > .fold-body { padding: 2px 0 4px; overflow-wrap: anywhere; }
+/* 展开后块与块之间不再叠两道线：折叠条自己有 border-top，body 里的 .parts
+   原本也有 border-top，两条会贴在一起变成 4px。收起态看不出来，展开态很脏。 */
+.fold > .fold-body > .parts, .fold > .fold-body > .gate-box { border-top: none; margin-top: 0; margin-bottom: 8px; }
+
+/* 「打开原型」这颗按钮，收起态下它上下都是折叠条，原来的 margin-bottom:20px
+   比折叠条自己的间隙大一倍多，看起来像分节符。收到 8px（2026-10-27）。 */
 .open-proto {
-  display: inline-block; margin-bottom: 20px;
+  display: inline-block; margin-bottom: 8px;
   font-family: var(--num); font-variant-numeric: tabular-nums; font-size: var(--s-14);
   padding: 9px 15px; background: var(--ink); color: var(--card); text-decoration: none;
 }
@@ -450,6 +568,48 @@ code { font-family: var(--code); font-size: 0.94em; }
 .field { padding: 12px 0; border-bottom: 1px solid var(--rule); }
 .field dt { font-size: var(--s-13); color: var(--ink-3); margin-bottom: 4px; }
 .field dd { font-size: var(--s-16); color: var(--ink); }
+
+/* ── 「去 AI 味审查点」折叠块（2026-10-27 加）───────────────────────────
+   为什么折叠：这个字段 30/30 有值、共 10,539 字（276–780 字/案）。平铺进面板实测
+   会涨 +257~594px；折叠态只占一条 summary（实测 +46px，30 案恒定）。
+   用户不主动展开就不为它付费，展开后一个字不截。
+
+   为什么用原生 <details>/<summary> 而不是自己写按钮 + aria-expanded：
+   本仓库的详情面板此前 details/summary 数 = 0（实测），没有历史包袱；
+   原生元素自带键盘操作（Enter/Space 切换）、自带 open 属性可被断言、
+   不需要 JS 记忆状态，也不会在 390 档和别的手写折叠逻辑打架。
+   已知取舍：<summary> 的三角标在不同浏览器略有差异，下面显式写了
+   ::marker 的处理 —— 不隐藏，而是靠 padding 让它和文字基线对齐。
+
+   排版为什么这样定：
+     · summary 用 13px（--s-13）而不是和 dt 一样的灰小字：它是**可点的控件**，
+       必须比周围只读的 dt 更像一个动作，所以给了 --ink 而不是 --ink-3；
+     · 展开后的正文用 16px/1.7（和 .field dd 同级、行距略松）：这段是长段落阅读，
+       行距紧了会串行；实测最长一段 307 字，1.7 在 560px 面板里是 6–9 行；
+     · summary 上加 cursor: pointer + hover 下划线，让「这里能点开」不靠猜。 */
+.field-fold { padding: 12px 0; border-bottom: 1px solid var(--rule); }
+.field-fold details > summary {
+  font-size: var(--s-13);
+  color: var(--ink);
+  cursor: pointer;
+  line-height: 1.6;
+  list-style-position: inside;
+  /* summary 默认 display: list-item，三角标记在 13px 下会和文字基线错开半像素；
+     padding-left 给三角留出固定槽位，两档视口下都不会顶到左边的分隔线。 */
+  padding-left: 2px;
+}
+.field-fold details > summary:hover { text-decoration: underline; text-underline-offset: 2px; }
+.field-fold details > summary:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+.field-fold .fold-body {
+  margin-top: 7px;
+  font-size: var(--s-16);
+  line-height: 1.7;
+  color: var(--ink);
+  /* 长句必须能断：这段里含大量全角括号与 #HEX / 0.4mm 这类不可断的串，
+     默认断行在 390 档会把整行撑出面板（实测：不加 overflow-wrap 时
+     390 档最长一行溢出 3px）。 */
+  overflow-wrap: anywhere;
+}
 
 .gate-box { margin-bottom: 20px; }
 .gate-line {
@@ -500,6 +660,23 @@ code { font-family: var(--code); font-size: 0.94em; }
   .shots .shot:first-child { max-width: none; }
   .shots .shot img { max-height: 190px; }
   .shot figcaption { font-size: 11px; }
+  /* 详情面板在窄屏是全屏层：头部 97.5px + 20px 内边距 + 64px 缩略图都是纯 chrome。
+     实测（390×844）这里省下的正是首字段从 720.6 回到 681.6 的那一段。
+     只收内边距与头部间距，**不动字号**：.detail-title h2 保持 24px ——
+     它是这一屏唯一的主导元素，压小会让"这是哪个方案"反而更难读。 */
+  .detail-body { padding: 12px 16px 60px; }
+  .detail-head { padding: 10px 14px; gap: 10px; }
+  .fold-thumb { height: 40px; }
+  /* 闸门折叠条的副标题在 390 档藏掉（实测 51.5 → 32px）。
+     为什么这条可以藏、而 parts 那条必须留：
+       · 闸门的**结论**（FAIL 0 / WARN 3 这些标签）仍然印在标题行上，副标题只写着
+         「展开看屏数、真实图、报告时间」—— 那是"展开后会得到什么"的预告，
+         而 summary 本身已经是个可点的三角，这个动作不需要再用一行字解释；
+       · 「上站文案 4 段」的副标题不一样，它是「主张句 / 按钮 / 空状态 / 错误状态」，
+         那是**内容清单**，用户要靠它判断这 4 段是不是他想看的。标题只说"4 段"，
+         说不出是哪 4 段。所以它留着。
+     这是本文件里唯一一处「按视口藏文字」，藏的是预告而不是内容；两档展开后都能读到全部。 */
+  .fold-gate .fold-sub { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -522,3 +699,76 @@ code { font-family: var(--code); font-size: 0.94em; }
 .cap { font-size: 12px; padding: 1px 6px; border: 1px solid var(--rule-2); }
 .cap-warn { border-color: #b8860b; color: #7a5a00; background: #fdf6e3; }
 .cap-ok { color: var(--ink-3); }
+
+/* ── 复制提示词：按钮 + 「开头由你填」两个输入框 ──────────────────────
+ *
+ * 2026-10-27 加。为什么这一块要有真样式而不是继续 inline cssText：
+ *  本轮给复制按钮加了**两个输入框**（你经营什么 / 访客要做的动作），
+ *  它们要同时满足三个互相拉扯的条件，inline 写不下，也没法在媒体查询里分别调：
+ *   1) 详情面板宽 min(--detail=560px, 100vw)，1440 档就是 560px；
+ *   2) 390×844 档面板宽 = 100vw，输入框不能把面板撑出横向滚动条；
+ *   3) <input type=text> 的自动最小尺寸是 auto —— 放进 flex/grid 行里会按内容
+ *      撑开，把兄弟元素顶出容器。这是"输入框撑破布局"最常见的成因，
+ *      所以下面每个 flex/grid 子项都写了 min-width: 0。
+ *
+ * ⚠️ 面板高度是这一块唯一的真实代价，已实测并因此改过一版设计：
+ *  第一版把「填了会怎样」逐条写在每个输入框下面（每个再吃 20px），
+ *  实测（measure-panel-cost.mjs，1440×900）：
+ *    提示词块 45.9px → 298.6px，面板内容高 3325 → 3578（+253px），
+ *    第一个字段的 top 从 1135 被推到 1388。
+ *  65-audit 那边正在追「900px 视口里第一眼能到哪」，我不能看点开详情先被两个输入框挡一屏。
+ *  改法：两句说明合并成一句放在底部（.prompt-fill-note），两个输入框排成一行。
+ *  现在量得 +178px（见交付物里那张表），并且按钮本身仍稳在视口 top=120，没被推走。
+ *
+ * 布局：输入框**一行**（不是每行一个）。
+ *  用 auto-fit + minmax(200px,1fr) 而不是写死 repeat(2,1fr)：
+ *  写死两列时 390 档每个框只剩约 150px，placeholder 被截成「例：一家只做手…」；
+ *  auto-fit 在 390 档自动落成单列（347px 满宽），两档都不需要另写断点。
+ *  200px 这个下限是按"placeholder 至少露出 9 个汉字"定的。
+ */
+.prompt-cta { margin: 14px 0 4px; }
+.prompt-cta-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.prompt-copy {
+  font: inherit; padding: 9px 16px; cursor: pointer;
+  border: 1px solid currentColor; background: transparent; color: inherit;
+  outline-offset: 2px;
+}
+/* 键盘用户必须看得见焦点：面板底色是 --card(#f2f2ee)，UA 默认焦点环在浅底上偏淡。 */
+.prompt-copy:focus-visible { outline: 2px solid var(--ink); }
+.prompt-copy.is-copied { background: var(--ink); color: var(--card); }
+.prompt-hint { font-size: var(--s-13); color: var(--ink-3); min-width: 0; }
+
+.prompt-fill {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 8px 12px; margin-top: 10px; padding-top: 10px;
+  /* 用一道 1px 上边线把它和按钮分开，而不是加背景色：
+     面板里已经有 .viewer-stage 的白底和 .parts 的表格线，
+     再加一块色块会让"按钮区"看起来像一张独立卡片，抢掉下面字段的注意力。 */
+  border-top: 1px solid var(--rule);
+}
+.prompt-f { display: grid; gap: 3px; min-width: 0; }
+.prompt-f-cap { font-size: var(--s-13); color: var(--ink-2); font-weight: 600; }
+.prompt-f-input {
+  width: 100%; min-width: 0; max-width: 100%;
+  font: inherit; font-size: var(--s-14); line-height: 1.5;
+  padding: 7px 9px; border: 1px solid var(--rule-2); border-radius: 0;
+  background: #fff; color: var(--ink);
+  /* iOS Safari 对 16px 以下的输入框会在聚焦时自动放大页面。
+     这里刻意用 14px（与页面其他小字同级），所以补 text-size-adjust 说明意图：
+     放大只应发生在真正需要的时候，不是输入框一个接一个地弹。 */
+  -webkit-text-size-adjust: 100%;
+}
+.prompt-f-input::placeholder { color: var(--ink-3); opacity: .85; }
+.prompt-f-input:focus-visible { outline: 2px solid var(--ink); outline-offset: 1px; border-color: var(--ink); }
+.prompt-fill-note {
+  margin-top: 8px; font-size: var(--s-13); color: var(--ink-2); line-height: 1.6;
+  /* 1440 档不设上限会拉成一条 100 多字的长行，读完容易串行；390 档放开限制。 */
+  max-width: 56ch;
+}
+/* placeholder 在 390 档会截断一部分（输入框满宽 347px，示例句 26 字）。
+   这是可接受的：它只是示例格式。真正必须让用户读到的是下面那句
+   「填了直接进提示词开头；不填也能复制…」，那是正常文本，不截断、不隐藏。 */
+@media (max-width: 620px) {
+  .prompt-fill-note { max-width: none; }
+}
+

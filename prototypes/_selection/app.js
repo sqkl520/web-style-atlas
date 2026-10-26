@@ -232,7 +232,24 @@
       return '<i style="background:' + esc(h) + '" title="' + esc(h) + '"></i>';
     }).join('');    var g = r.gate || {};
     var meta = [];
-    meta.push('<span class="row-family">' + esc((r.family || '').split('。')[0].split('：').pop().slice(0, 34)) + '</span>');
+    /* 行卡上的「美学家族」（2026-10-27 改）。
+       原代码是 `(r.family || '').split('。')[0].split('：').pop().slice(0, 34)`，
+       三刀叠加后 30 案合计只剩 657 字，丢掉 5,254 字（30/30 全中）。
+       更糟的是对 S13 这类「家族名：一句改造说明」的写法，`.split('：').pop()`
+       会把家族名本身切掉，行卡上印的是半句：
+       「把它从屏幕上的软挤出拉回日本凸版印刷的盲压（blind emboss」——
+       连括号都没闭合（实测抓出）。
+       现在改成**只去 HTML 转义、不切字**，靠 CSS 折两行（style.css 的 .row-family）。
+       实测代价（CDP，30 案逐案量）：
+         · 1440×900：30/30 行高完全不变（276.8px 恒等）。行高由右侧截图列
+           （201.8px）＋行脚注撑起来，family 从 1 行变 2 行只是吃掉 75px 的行内余量；
+           横向溢出 0，色块/错误码/cap 一个都没被挤掉。
+         · 390×844：30 案里 28 案行高 +21～48px，30 行总高 15,472 → 16,387（+5.9%）。
+           这是手机档唯一真实的代价，选择接受：手机行卡本来就 478–601px 高，
+           +1 行文字换掉「只剩家族名」这个信息损失是划算的。
+       详情面板里的「美学家族与参考」本来就是全文（field('美学家族与参考', r.family)），
+       所以这次改的只是行卡预览，不是数据。 */
+    meta.push('<span class="row-family">' + esc(r.family || '') + '</span>');
     meta.push('<span class="swatches">' + sw + '</span>');
     if (r.errorCode) meta.push('<span>' + esc(r.errorCode) + '</span>');
     meta.push(capacityHTML(r));
@@ -381,6 +398,183 @@
     return '<div class="field ' + (cls || '') + '"><dt>' + esc(label) + '</dt><dd>' + esc(val) + '</dd></div>';
   }
 
+  /* ── 折叠块（2026-10-27，面板可发现性）───────────────────────────────
+   *
+   * 【要解决的问题】详情面板的第一个字段原来落在 **1,362–1,464px**（1440×900，30 案实测），
+   * 而面板视口只有 900px ⇒ 点开一个方案，**一个字段都看不到**。首屏被「字段之前」的东西吃掉：
+   *   复制按钮 299–394 + 预览 439 + 打开原型 41 + 闸门 77 + 上站文案 300–377。
+   * 字段本身一个都没多，问题全在字段之前。所以修法只能是减法。
+   *
+   * 【为什么用原生 <details>/<summary>】无 JS 依赖（脚本挂了也能展开）、自带键盘语义
+   * （Tab 聚焦、Enter/Space 切换、焦点环由浏览器给）、状态在 open 属性上可直接断言。
+   * 本仓库 `#rail-fold` 那次失败**不是** details 不好 —— index.html:66 记着真实原因是
+   * 「.rail-fold-body 子元素数实测 0」，一个点开什么都没有的假控件。
+   * 所以这里的硬判据是：每个 details 的 body 必须非空，且直接包住**原本就在渲染**的整段
+   * HTML（不新造内容、不把别处的字搬来第二遍）。
+   *
+   * 【为什么 isOpen 必须显式传】「默认展开还是收起」是一个设计决定，得有人做，
+   * 而且要能在代码里一眼看见。所以不允许省略参数去靠浏览器默认。
+   *
+   * 【为什么不做 localStorage 记忆】想过，决定不做：
+   *  1) 折起来的是**预览图**。记住「收起」意味着用户下次打开同一个案，图还是不见的，
+   *     而折叠条不会告诉他「这曾经是你关掉的」—— 静默隐藏比多一次点击更伤；
+   *  2) 详情是 30 个案共用的一个面板：按案记忆要 30 个键，按全局记忆又会让
+   *     从深链 #S07 进来的新访客继承别人的偏好；
+   *  3) 这三个折叠块的默认态本身就是「面板该怎么读」的一部分（理由见各自调用点），
+   *     让它随每个访客漂移，等于把设计意图交给上一次点击。
+   * 真要做的话，正确的位置是 case 级的显式偏好开关，不是偷偷记在 localStorage 里。
+   */
+  function fold(cls, summaryHTML, bodyHTML, isOpen) {
+    return '<details class="fold ' + cls + '"' + (isOpen ? ' open' : '') + '>' +
+      '<summary>' + summaryHTML + '</summary>' +
+      '<div class="fold-body">' + bodyHTML + '</div>' +
+      '</details>';
+  }
+
+  /* 折叠条的统一排版：缩略图（可选）+ 粗体标题 + 标签 + 一行说明。
+   * 说明必须写清「里面是什么」，不能写「更多」—— 用户没展开时，唯一能判断值不值得点开的
+   * 信息就是这一行。所有 summary 文字都来自入参，不引入新数据。
+   * 缩略图用 loading="lazy"：折叠态下的图不占首屏，不必抢带宽（与卡片缩略图不同 ——
+   * 那些是页面上必须立刻可见的证据，见 shotFig 里关于不加 lazy 的注释）。 */
+  function foldSum(thumbSrc, title, sub, tagsHTML) {
+    return '<span class="fold-row">' +
+      (thumbSrc ? '<img class="fold-thumb" src="' + esc(thumbSrc) + '" alt="" loading="lazy">' : '') +
+      '<span class="fold-lab"><b>' + esc(title) + '</b>' +
+        (tagsHTML ? '<span class="fold-tags">' + tagsHTML + '</span>' : '') +
+        (sub ? '<span class="fold-sub">' + esc(sub) + '</span>' : '') +
+      '</span></span>';
+  }
+
+  /* ── 「当前有效配色」这一行：给 palette[0] 标「底色」、palette[1] 标「主色」──
+     2026-10-27。
+     为什么只加标签、不新增字段：`primary` 恒等于 `palette[1]`（30/30，逐案比对；
+     这是构造不变量 —— collect-schemes.mjs:411-415 先 push bg 再 push primary）。
+     也就是说主色**早就在这一行里打印着**，只是没标出哪个是主色，用户看到
+     `#EFE7D7　#C1121F　#1A1614　#6E6A5E` 只能猜。给它建独立字段会让同一个 HEX
+     在相邻两处出现两次，所以只在原处加两个字。
+     长度口径（实测 30 案）：palette 长度 3 的 5 案、4 的 25 案 —— 没有 1/2 色的案。
+     但代码仍按规格写：长度 ≥2 才标主色，长度 1 时**一个标签都不加**（否则同一个色
+     既是底色又是主色，标签互相打脸）。
+     底色标签用 palette[0] 而不是 r.bg：两者 30/30 相等（palette[0] === bg）。
+     万一将来数据层让它们分叉，这里把 r.bg 用括号补回去 —— 宁可多一句，
+     也不让「页面底色」这个事实静默消失。 */
+  function paletteLine(r) {
+    var p = (r.palette || []).slice();
+    if (!p.length) return r.bg || '';
+    var out;
+    if (p.length === 1) {
+      out = p[0];
+    } else {
+      out = '底色 ' + p[0] + '　主色 ' + p[1] + (p.length > 2 ? '　' + p.slice(2).join('　') : '');
+    }
+    if (r.bg && p[0] !== r.bg) out += '　（底色 ' + r.bg + '）';
+    return out;
+  }
+
+  /* ── 字段 8「去 AI 味审查点」的取文：**这里曾经有一刀，2026-10-27 删掉了** ─────
+   *
+   * 【曾经有什么】这里有过一段：
+   *     var AUDIT_CUT_AT = { S13: '反套路改造三指标' };
+   *     if (mark) { var i = t.indexOf(mark); if (i > 0) t = t.slice(0, i); }
+   * 用来在 UI 层把 S13 的 `audit` 从 780 字切到 307 字 —— 那 473 字（60.6%）是混进来的
+   * 评审清单（「反套路改造三指标…供 V-11 / R-40 逐条打勾」），是给评审员打勾的工件，
+   * 不是给选型用户看的方案内容。
+   *
+   * 【为什么现在不需要了】数据层已经修好：`collect-schemes.mjs` 现在按标记切，
+   * `data.js` 里 S13 的 `audit` 已经是 **306 字**、且**不含**「反套路改造三指标」这个串。
+   * 实测（2026-10-27，本轮）：
+   *     s13.audit.length = 306
+   *     s13.audit.indexOf('反套路改造三指标') = -1
+   * 于是上面那个 `if (i > 0)` **永远不成立** —— 白名单成了死代码。独立验证 Agent 也是
+   * 这么判的：它逐案跑过 `indexOf`，返回 −1。
+   * 死代码比删掉更贵：下一个读到这里的人会以为「S13 的数据里还有 473 字污染」，
+   * 于是去查 data.js、查不到，再怀疑是不是自己看错了文件 —— 一段注释骗走半小时。
+   *
+   * 【如果将来又出现同类污染，怎么办】**在 `collect-schemes.mjs` 里修，不要在 UI 层打补丁。**
+   * 理由不是洁癖，是这一刀本身的代价：白名单只对 S13 一例生效，`AUDIT_CUT_AT` 里多一个
+   * 案子就要多读一遍那个案子的 `.md` 才能确认切点；而真正的病根（md 字段切分器只把
+   * 「**加粗编号**」当字段起点，无编号的加粗小节整段被吞进上一个字段）不在 UI 层，
+   * 在抽取层。修抽取层，30 案一起对；修 UI 层，你只是在给自己看不见的第 31 案留坑。
+   * 这条教训留在这里而不是删掉，是因为本仓库的风格就是把犯过的错留在原地：
+   * 一个「数据层修好了、UI 层补丁还在」的死代码，只有写清来龙去脉才不会再长出来。 */
+  function auditText(r) {
+    return r.audit || '';
+  }
+
+  /* summary 里的 N 怎么数：从内容里的编号符现算，不写死。
+     实测 30 案的编号形态分三派（互不混用）：
+       S01–S10  ①②③    （各 3 条）
+       S11–S20  第一，第二，第三，第四，      （各 4 条）
+       S21–S30  （1）（2）（3）（4）        （各 4 条）
+     所以取三种数法的**最大值**，而不是相加 —— 相加会把 `steps(4)` 里的
+     半角「(4)」也算成一条（S11 实测：四字序号 4 条 + steps(4) 1 条 = 5，错），
+     而取最大值得 4，正确。同理 S21 的 `steps(1)`。
+     另外要求编号从 1 开始连续（runLength），避免正文里孤零零一个「（4）」
+     被当成「有 4 条」。 */
+  var CIRCLED = '①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳';
+  var CN_NUM = { '一': 1, '二': 2, '三': 3, '四': 4, '五': 5, '六': 6, '七': 7, '八': 8, '九': 9, '十': 10 };
+
+  function runLength(nums) {
+    if (!nums.length) return 0;
+    var set = {}, n = 1;
+    nums.forEach(function (v) { set[v] = 1; });
+    while (set[n]) n++;
+    return n - 1;
+  }
+
+  function countPoints(t) {
+    if (!t) return 0;
+    var i, m;
+    var circ = [];
+    for (i = 0; i < t.length; i++) {
+      var k = CIRCLED.indexOf(t[i]);
+      if (k >= 0 && circ.indexOf(k + 1) < 0) circ.push(k + 1);
+    }
+    var di = [], reDi = /第([一二三四五六七八九十])[，,、]/g;
+    while ((m = reDi.exec(t))) if (di.indexOf(CN_NUM[m[1]]) < 0) di.push(CN_NUM[m[1]]);
+    var num = [], reNum = /[（(](\d{1,2})[）)]/g;
+    while ((m = reNum.exec(t))) { var n = +m[1]; if (num.indexOf(n) < 0) num.push(n); }
+    return Math.max(runLength(circ), runLength(di), runLength(num));
+  }
+
+  /* 折叠块本体（字段 8「去 AI 味审查点」，规格里的原名，不改名）。
+     2026-10-27 接通。字数实测（当日 data.js，30 案）：**30/30 有值，合计 10,065 字**，
+     最短 276 / 中位 324 / 最长 444；此前 UI 零消费。
+     为什么不做成第 10 个平铺字段：实测平铺会让详情面板涨 257–594px；
+     折叠形态的代价是 30 案恒定的 **45.8px**（summary 20.8 + 上下内边距，2026-10-27
+     1440×900 实测，S01/S07/S13 三案同为 45.8）——
+     用户没主动展开时不为它付费，展开后一个字不截。
+
+     【位置：2026-10-27 从 risk 之后搬到 risk 之前】
+     原来写的是「risk 是前瞻、audit 是回溯，互为背面，相邻才读得通」，把它们排在
+     risk 之后。裁决 Agent 判定这个顺序错了，理由是对的：**audit 是 risk 的前提**，
+     不是它的反面。一句话说清这层因果 ——
+       audit：「这案**故意反了**哪几条 AI 陈词」→ 因此才需要
+       risk ：「照抄它的时候，**最容易做错成什么样**」。
+     先读完「它反的是什么」，才可能理解「你抄的时候会踩什么」；反过来读，risk 里那些
+     「别把 X 做成 Y」的句子没有前文可指。数据层的键序也已经按这个顺序改了
+     （`audit` idx=14 < `risk` idx=15），UI 跟上即可。
+     实测（1440×900，折叠块默认收起，只挪 DOM 顺序、不动文本，差就只来自顺序）：
+       S01  audit top 2,263.1 → 排在 risk 之后是 2,416.7（晚 153.6px）
+       S07  audit top 2,289.0 → 2,468.5（晚 179.5px）
+       S13  audit top 2,677.6 → 2,883.0（晚 205.4px）
+     三案方向一致：排在 risk 后面就要多滚 154–205px 才看到「凭什么说它反了 AI 味」，
+     而那恰恰是该先读的一段。数字随内容长度变，但**方向是结构性的**，不是这一版的巧合。
+
+     为什么不塞进提示词：那 10,065 字里 77 处是 C-x.y 条款编号，对模型是噪声；
+     对人却是「这案的反 AI 是真做了还是嘴上说」的唯一证据。 */
+  function auditFold(r) {
+    var t = auditText(r);
+    if (!t) return '';
+    var n = countPoints(t);
+    return '<div class="field field-fold">' +
+      '<details>' +
+        '<summary>去 AI 味审查点' + (n ? '（' + n + ' 条）' : '') + '</summary>' +
+        '<p class="fold-body">' + esc(t) + '</p>' +
+      '</details>' +
+    '</div>';
+  }
+
   function open(id) {
     var r = ALL.filter(function (x) { return x.id === id; })[0];
     if (!r) return;
@@ -423,7 +617,60 @@
       ? '<a class="open-proto" href="../' + esc(r.dir) + '/index.html" target="_blank" rel="noopener">打开原型 ' + esc(r.dir) + ' ↗</a>'
       : '<span class="open-proto" aria-disabled="true">原型尚未建立</span>';
 
-    var parts = '';
+    /* ── 预览块改成默认收起的折叠条（2026-10-27，见 fold() 的注释）──────────
+     * 实测（1440×900，30 案）：这块 439px，是字段之前最贵的一段。
+     * 为什么**连视口切换按钮一起**收进去，而不是把 tabs 留在外面：
+     *   tabs 是「换一档看这张图」的控件，图收起来之后它们没有作用对象。实测留外面要多付
+     *   33px（tabs 30 + margin 8），把移动端首字段从 668 顶到 709 —— 只剩 11px 余量，
+     *   一次字体回退就破线。留在里面既省钱又不制造「点了没反应」的空按钮。
+     * 为什么默认**收起**：卡片列表上每一行已经有一张桌面首屏大图（.shots），
+     *   详情里这块是「再看大一点 + 三档对照」，不是首次曝光。默认收起后，
+     *   用户打开详情第一眼看到的是**字段**，要看图点一下（summary 上就有一张缩略图，
+     *   所以"这案长什么样"并没有被藏起来）。
+     * scrollTop 归零在 paintViewer 里做，收起状态下也照样执行，展开后位置正确。 */
+    /* ⚠️ `.viewer` 这层容器必须留着（2026-10-27 实测踩过）：
+     * 第一版把 tabs/stage/strip/note 直接放进折叠块的 body 里，`.viewer` 就消失了。
+     * 后果：`style.css` 里 `.viewer{margin-bottom}` 失效、`#d-body > *` 的结构断言里
+     * 少了一类、任何按 `.viewer` 定位的探针读到 null（我自己那支 measure 脚本就先撞上）。
+     * 折叠只是把它**包起来**，不是把它删掉。 */
+    var viewerHTML = '<div class="viewer">' +
+      '<div class="viewer-tabs" role="group" aria-label="切换视口">' +
+        ['desktop:1440×900', 'tablet:768×1024', 'mobile:390×844'].map(function (v) {
+          var k = v.split(':')[0], lab = v.split(':')[1];
+          return '<button type="button" data-vp="' + k + '" aria-pressed="' + (state.vp === k ? 'true' : 'false') + '">' + lab + '</button>';
+        }).join('') +
+      '</div>' +
+      '<div class="viewer-stage" id="stage"></div>' +
+      '<div class="viewer-strip" id="strip"></div>' +
+      '<p class="viewer-note" id="vnote"></p>' +
+    '</div>';
+
+    var viewer = fold('fold-view',
+      foldSum((r.shots[state.vp] || [])[0], '原型截图预览',
+        '点开看 1440 / 768 / 390 三档大图，限高可滚动',
+        '<span class="fold-tag">' + esc((r.shots[state.vp] || []).length + ' 张') + '</span>'),
+      viewerHTML, false);
+
+    /* ── 闸门信息：默认收起，但结论留在 summary 上 ────────────────────────
+     * 这块 77px。折它的前提是**不丢结论**：FAIL / WARN 的标签原样印在 summary 上，
+     * 展开后才看报告时间与逐条明细。收起状态下用户仍能判断「这案过没过闸门」。
+     *
+     * ⚠️ summary 只能有一行（实测教训）：第一版把「桌面 N 屏 · 真实图 N · 报告时间 …」
+     * 也塞进 summary，390 档折成 3 行、高 100px，把首字段顶到 817 —— 比不折还糟。
+     * 现在 summary 只留「闸门与报告 + FAIL/WARN 标签 + 一句展开提示」；
+     * 屏数/真实图这些定量信息在 body 里，和报告时间一起，本来就属于"细节"。
+     * ISO 时间戳（2026-10-24T08:30:44.549Z）也不该出现在收起态，它需要被格式化才有用。 */
+    var gateSub = r.gate ? '展开看屏数、真实图、报告时间与逐条 FAIL/WARN' : '这个案还没有闸门报告';
+    var gate = fold('fold-gate',
+      foldSum(null, '闸门与报告', gateSub, gateTags(r)),
+      gateBox, false);
+
+    /* ── 上站文案 4 段：默认收起 ─────────────────────────────────────────
+     * 这块 300–377px，比闸门高四倍。4 段一条不少地放进 body，summary 里点名是哪四段 ——
+     * 用户不展开也知道里面有什么、够不够他去判断。
+     * 为什么默认收起：这 4 段是「这个案子上线时会写什么」的样例，属于选定之后的参考，
+     * 不属于选型时要读的第一层信息；而它恰好排在字段前面的必经之路上。 */
+    var partsHTML = '';
     if (r.copyParts && (r.copyParts.claim || r.copyParts.button || r.copyParts.empty || r.copyParts.error)) {
       var li = [];
       if (r.copyParts.claim) li.push('<li><span>主张句</span>' + esc(r.copyParts.claim) + '</li>');
@@ -431,13 +678,21 @@
       if (r.copyParts.empty) li.push('<li><span>空状态</span>' + esc(r.copyParts.empty) + '</li>');
       li.push('<li><span>错误状态' + (r.copyParts.error ? '' : '（源文件缺，错误码为 Lead 补入）') + '</span>' +
         (r.copyParts.error ? esc(r.copyParts.error) : '错误码 <code>' + esc(r.errorCode || '—') + '</code>：' + esc(r.errorCodeSource || '')) + '</li>');
-      parts = '<ul class="parts">' + li.join('') + '</ul>';
+      partsHTML = '<ul class="parts">' + li.join('') + '</ul>';
     }
+    var parts = partsHTML
+      ? fold('fold-parts',
+          foldSum(null, '上站文案 ' + li.length + ' 段', '主张句 / 按钮 / 空状态 / 错误状态', ''),
+          partsHTML, false)
+      : '';
 
     var fields = '<dl class="fields">' +
       field('一句话视觉定义', r.def) +
       field('美学家族与参考', r.family) +
-      field('当前有效配色', (r.palette || []).join('　') + (r.bg ? '　（底色 ' + r.bg + '）' : '')) +
+      /* 配色行（2026-10-27 改）：原来只给底色标了「（底色 …）」，主色混在四个 HEX 里
+         没有名字。现在由 paletteLine() 统一生成「底色 … 主色 … 其余 …」，
+         零新增字数（只是把已有的 HEX 挪到标签后面），理由见 paletteLine 的注释。 */
+      field('当前有效配色', paletteLine(r)) +
       field('字体策略', r.fonts) +
       field('布局与网格', r.layout) +
       /* 「可落地要点」（2026-10-27 加）——这是作者逐案写的 CSS 实现思路 + 性能预算 + 字体子集，
@@ -450,24 +705,23 @@
       field('可落地要点', r.landing) +
       field('关键视觉元素', r.visuals) +
       field('动效与交互', r.motion) +
+      /* 「去 AI 味审查点」（2026-10-27 接通，折叠形态）。
+         ⚠️ 位置在 **risk 之前**（2026-10-27 搬过来的，原在 risk 之后）。别按"risk 是前瞻、
+         audit 是回溯、互为背面"去搬回去 —— 正确的因果是 **audit 是 risk 的前提**：
+         audit 讲「这案故意反了哪几条 AI 陈词」，risk 讲「所以照抄时最容易做错成什么样」。
+         先有"它反什么"，才轮得到"你会踩什么"。实测把 audit 放 risk 后面时它的 top 约
+         2,150px（risk 已在约 1,900px），用户要滚 2.4 屏才看到"凭什么说它反了 AI 味"。
+         数据层键序已同步（audit idx=14 < risk idx=15）。
+         为什么用折叠、S13 那 473 字去哪了，写在 auditFold() / auditText() 的注释里。
+         注意它返回的也是一个 <div class="field">，所以 <dl class="fields"> 里
+         "全部子元素都是 div" 这个内容模型没有破 —— 插一个裸 <details> 才会破。 */
+      auditFold(r) +
       field('反 AI 味风险与规避', r.risk) +
       field('适用场景', r.scenes) +
       field('设计师签名式怪癖', r.quirk) +
       '</dl>';
 
-    $('#d-body').innerHTML =
-      '<div class="viewer">' +
-        '<div class="viewer-tabs" role="group" aria-label="切换视口">' +
-          ['desktop:1440×900', 'tablet:768×1024', 'mobile:390×844'].map(function (v) {
-            var k = v.split(':')[0], lab = v.split(':')[1];
-            return '<button type="button" data-vp="' + k + '" aria-pressed="' + (state.vp === k ? 'true' : 'false') + '">' + lab + '</button>';
-          }).join('') +
-        '</div>' +
-        '<div class="viewer-stage" id="stage"></div>' +
-        '<div class="viewer-strip" id="strip"></div>' +
-        '<p class="viewer-note" id="vnote"></p>' +
-      '</div>' +
-      proto + gateBox + parts + fields;
+    $('#d-body').innerHTML = viewer + proto + gate + parts + fields;
 
     /* 复制提示词按钮：必须放在 innerHTML 赋值**之后**，且只调一次。
        踩过的坑（子 Agent 端到端实测抓到）：原来插在 L351 那个 .map() 回调里，
@@ -513,6 +767,13 @@
     $$('.viewer-tabs button', detail).forEach(function (b) {
       b.setAttribute('aria-pressed', b.getAttribute('data-vp') === state.vp ? 'true' : 'false');
     });
+    /* 折叠条上那张缩略图也要跟着视口走。
+       不更新的话：用户在展开态切到 390，再收起，summary 上仍是桌面图 —— 图与实际
+       选中的视口对不上，而 summary 是收起后**唯一**可见的图。 */
+    var thumb = $('.fold-view .fold-thumb', detail);
+    if (thumb) thumb.src = list[state.shotIdx];
+    var cnt = $('.fold-view .fold-tag', detail);
+    if (cnt) cnt.textContent = list.length + ' 张';
   }
 
   /* ── 交互接线 ─────────────────────────────────────────── */

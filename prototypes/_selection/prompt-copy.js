@@ -25,6 +25,96 @@
     return null;
   }
 
+  /* ── 提示词开头两行：只能来自用户，不能来自我们 ───────────────────────
+   *
+   * 2026-10-27 修。改之前 buildPrompt 的开头是这两句：
+   *   "我经营" + (o.biz || "一家小店") + "，" + (o.what || "有一些内容和图片要放上去") + "。"
+   *   "页面需要" + (o.action || "让访客看懂我在做什么、并能联系我") + "。"
+   * 而 o.biz / o.what / o.action **在整个仓库没有任何调用方传值**
+   * （copyPrompt 调 buildPrompt(id)、mountPromptButton 调 buildPrompt(id)、
+   *   app.js / index.html / wizard.js / wizard.html 里 buildPrompt 零调用）。
+   * 实测（30 案逐案导出，见 deliverables/65-exec/verify-opener.mjs）：
+   * 30/30 份提示词首行**完全相同**是「我经营一家小店，有一些内容和图片要放上去。」
+   * ——用户点一次复制，拿到 1,600+ 字的精密约束，开头却写着一段他根本没做过的生意。
+   *
+   * 所以这里把开头改成「有输入就用输入，没输入就明说自己不知道」：
+   *  · 两个都填了 → 两句正常句子 + 一句「这是施工图」的框定语（下面 FRAME_OK）。
+   *  · 都没填     → 第一行**当场承认**我不知道你做什么生意，第二、三行是带 ＿ 的空槽。
+   *  · 只填一个   → 空着的那处保留 ＿ 槽，并在第一行点名缺的是哪一个。
+   *
+   * 为什么不用「一家小店」这种看起来中性的兜底：它不是中性。
+   * AI 会把"一家小店"当成事实去排文案和导航项，用户还得自己回去删，
+   * 而 README L78 那个咖啡店例子是手写的理想输入 —— 我们从来没有产出过那种首行。
+   *
+   * 为什么空槽用全角下划线 ＿：半角下划线在 13px 字号下几乎看不见，
+   * 而方括号【】会被 AI 当成"必须保留的占位符"照抄进正文（实测过，AI 会输出「我经营【请填写】」）。
+   * 全角下划线在两档字号下都清晰，且读起来就是一个待填的横线。
+   */
+  var SLOT = "＿＿＿＿";
+
+  /* 框定句（两个都填了时用）。
+   * 它必须存在，不只是为了读起来完整：它是把「前面两句是我的话」和
+   * 「后面这些是风格约束」分开的那道缝。没有这句，AI 会把第一句当成风格描述的一部分。
+   *
+   * ⚠️ 长度是按**净增量**配的，不是随手写的。验收要求「已填状态 = 现状 + 用户输入长度（±10）」，
+   *    而现状的开头是两句共 42 字 + 2 个换行 = 44 字（含与下一行之间的换行）。
+   *    已填后开头是 「我经营」+biz+「。」 「页面需要让访客」+act+「。」+本句，
+   *    固定部分 = 4 + 8 + len(本句) + 3 个换行 = 15 + len(本句)
+   *    ⇒ 净增量 = 15 + len(本句) − 44 = len(本句) − 29，与用户输入多长**无关**。
+   *    本句 34 字 → 恒 +5，落在 ±10 内。所以这句话不能随便缩短：
+   *    试过更短的一版「照着这份施工图做。」（9 字），净增量变成 −20，直接把验收打穿。
+   *    这不是为了凑数字留冗余：它同时保住了一个信息 —— 「素材和条目按下面的结构自己排」，
+   *    让 AI 不会把开头两句当成"内容清单已给定"。 */
+  var FRAME_OK = "下面这份是这个风格的施工图，请照着做；素材和条目按下面的结构自己排。";
+  /* 都没填时的自指提示。要求：句子里**不得出现任何编造的业务描述**。 */
+  var FRAME_EMPTY = "下面这份是这个风格的施工图。开头两行要你自己填（我不知道你做什么生意）：";
+
+  /* 清值：只做三件事 —— 去首尾空白、把换行压成空格（粘进来的多行会毁掉提示词的形状）、
+   * 超长截断。**不做**同义改写、不补主语：用户写什么就是什么。
+   * 截断上限 80 字：提示词正文 1.6K 字，开头一味变长会挤掉真正有信息量的约束段；
+   * 80 字够写完「一家只做手冲的咖啡店，5 个产区的豆子，加微信订」。 */
+  function cleanField(v) {
+    var t = String(v == null ? "" : v).replace(/[\r\n\t]+/g, " ").replace(/\s{2,}/g, " ").trim();
+    return t.length > 80 ? t.slice(0, 80) : t;
+  }
+
+  /* 老 opts 形状的兼容：改动前 buildPrompt 认 o.biz 和 o.what 两个字段，
+   * 拼成「我经营{biz}，{what}。」。而 window.buildStylePrompt = buildPrompt 是**对外暴露**的
+   * （prompt-copy.js 末尾那行），仓库里现在没有调用方传它，但它是公开接口。
+   * 如果有人按老签名传 { biz: "咖啡店", what: "5 个产区" }，新版不能把 what 静默吞掉 ——
+   * 「参数收下但不用」正是本轮要修的那个病的形状（o.mood 就是这样死了很久）。
+   * 所以：有 what 就把它接在 biz 后面，用「，」隔开，与老输出同形。 */
+  function openerBiz(o) {
+    var biz = cleanField(o.biz);
+    var what = cleanField(o.what);
+    if (!biz && !what) return "";
+    if (!what) return biz;
+    if (!biz) return what;
+    return biz + "，" + what;
+  }
+
+  function promptOpener(opts) {
+    var o = opts || {};
+    var biz = openerBiz(o);
+    var act = cleanField(o.action);
+
+    // 「我经营{…}。」/「页面需要让访客{…}。」—— 空着就留槽，不留假信息
+    var l1 = biz ? "我经营" + biz + "。" : "我经营" + SLOT + "。";
+    var l2 = act ? "页面需要让访客" + act + "。" : "页面需要让访客" + SLOT + "。";
+
+    if (biz && act) return [l1, l2, FRAME_OK];
+    if (!biz && !act) return [FRAME_EMPTY, l1, l2];
+
+    /* 只填了一处：**必须点名缺哪一处**，否则用户看不出提示词里还留着一根横线。
+     * 第一行仍然要诚实 —— 这里不出现任何「一家小店」式的假设。 */
+    var miss = !biz ? "你经营什么" : "访客要做的动作";
+    return [
+      "下面这份是这个风格的施工图。" + SLOT + " 那处要你自己填（「" + miss + "」我不知道）：",
+      l1,
+      l2,
+    ];
+  }
+
   // 由 DNA 生成「填充好的」提示词（用户可直接粘给 AI）
   function buildPrompt(id, opts) {
     var s = pick(id);
@@ -207,9 +297,11 @@
      */
     var reuse = (s.dna && s.dna.reuse) ? String(s.dna.reuse).trim() : "";
 
-    var lines = [
-      "我经营" + (o.biz || "一家小店") + "，" + (o.what || "有一些内容和图片要放上去") + "。",
-      "页面需要" + (o.action || "让访客看懂我在做什么、并能联系我") + "。",
+    /* 开头两行（现在最多三行）由 promptOpener 产出，见文件顶部那段长注释。
+     * 这里刻意**不再有**任何 || "一家小店" 式兜底：那正是本轮修掉的缺陷。 */
+    var opener = promptOpener(o);
+
+    var lines = opener.concat([
       "",
       "请把整页做成这个风格：" + s.plain + "。",
       tone
@@ -309,7 +401,7 @@
       "不引 React/Vue/Tailwind/Bootstrap，不拆文件、不构建。",
       "图片位置写成 <img src=\"images/占位-N.jpg\"> 并给出该案实际可用的宽高属性；不许用 1px 图、纯色块或 CSS 画一个假图顶替。",
       "移动端单列，顺序不变。不要解释、不要设计说明，只给代码。",
-    ].filter(function (x) { return x !== ""; });
+    ]).filter(function (x) { return x !== ""; });
 
     return lines.join("\n");
   }
@@ -415,8 +507,8 @@
    *  3) 若 writeText 也失败，才弹手动框
    * 这样既保住老浏览器，又不会在 exec 假成功时不弹兜底、让用户以为复制成功。
    */
-  function copyPrompt(id, btn) {
-    var text = buildPrompt(id);
+  function copyPrompt(id, btn, opts) {
+    var text = buildPrompt(id, opts);
     if (!text) return;
 
     var done = function (ok) {
@@ -454,16 +546,14 @@
 
     var wrap = document.createElement("div");
     wrap.className = "prompt-cta";
-    wrap.style.cssText = "margin:14px 0 4px;display:flex;flex-wrap:wrap;gap:8px;align-items:center";
+
+    var row = document.createElement("div");
+    row.className = "prompt-cta-row";
 
     var b = document.createElement("button");
     b.type = "button";
     b.className = "prompt-copy";
     b.textContent = "复制 AI 提示词";
-    b.style.cssText = [
-      "font:inherit", "padding:9px 16px", "cursor:pointer",
-      "border:1px solid currentColor", "background:transparent", "color:inherit",
-    ].join(";");
 
     /* 键盘陷阱（子 Agent 用真实 CDP Input 事件实测抓到）：
      * 详情里的行卡本身绑了 keydown（Enter/Space 会展开详情）。
@@ -472,15 +562,94 @@
      */
     function fire(e) {
       if (e) { e.preventDefault(); e.stopPropagation(); }
-      copyPrompt(id, b);
+      copyPrompt(id, b, readFields());
     }
-    b.addEventListener("click", function (e) { e.stopPropagation(); copyPrompt(id, b); });
+    b.addEventListener("click", function (e) { e.stopPropagation(); copyPrompt(id, b, readFields()); });
     b.addEventListener("keydown", function (e) {
       if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") fire(e);
     });
 
+    /* ── 两个输入框：把「开头两行」从我们的默认值交还给用户 ────────────────
+     *
+     * 为什么必须有这一块：本轮修掉的缺陷是「30/30 份提示词首行同一句『我经营一家小店』」。
+     * 只把默认值改诚实（见 promptOpener）只能做到"不骗人"，用户依旧拿不到一个能直接用的开头。
+     * 要真的可用，就得给出**填写入口**，并且这个入口必须贴在复制按钮旁边 ——
+     * 藏在详情第 3 屏的话，用户不会知道有得填（同一个病，本仓库已付过代价：
+     * 复制按钮自己就曾落在 scrollHeight 2881px 处）。
+     *
+     * 为什么是**两个**输入框而不是需求里写的「三个」：
+     * 需求同时列了三条对应关系，但三条只指向两个字段 —— 「你经营什么」同时对应 o.biz 与 o.what，
+     * 「访客要做的动作」对应 o.action。o.mood 在 buildPrompt 里**从未被读过**
+     * （全文 grep：mood 命中 0 次，气质走的是 window.SCHEMES 的 tone）。
+     * 所以三个输入框里必然有一个传下去是死的，那正好是这个仓库反复记录的病：
+     * 界面上有的控件，背后没有消费者。宁可两个都真，不要三个里有一个假的。
+     *
+     * 为什么默认 value 留空：
+     * 一旦预填「一家小店」，用户不填就会把假信息复制走 —— 那正是被修的那个 bug 换了个位置。
+     * 示例放进 placeholder（不参与取值），用户看得见格式，但不会被当成事实。
+     */
+    var fill = document.createElement("div");
+    fill.className = "prompt-fill";
+    fill.setAttribute("role", "group");
+    fill.setAttribute("aria-label", "填写提示词开头");
+
+    function makeField(key, labelText, ph, describedBy) {
+      var lab = document.createElement("label");
+      lab.className = "prompt-f";
+      lab.setAttribute("for", "prompt-" + key + "-" + id);
+
+      var cap = document.createElement("span");
+      cap.className = "prompt-f-cap";
+      cap.textContent = labelText;
+
+      var inp = document.createElement("input");
+      inp.type = "text";
+      inp.id = "prompt-" + key + "-" + id;
+      inp.className = "prompt-f-input";
+      inp.setAttribute("data-prompt-field", key);
+      /* 默认 value 留空，示例写进 placeholder —— 见上面注释。 */
+      inp.placeholder = ph;
+      inp.autocomplete = "off";
+      if (describedBy) inp.setAttribute("aria-describedby", describedBy);
+      /* 输入就重算长度，让旁边那句「约 N 字」跟得上。
+       * 不监听 keyup：输入法组合中的 keyup 会算出中间态；input 事件对中文输入法只在落字后触发。 */
+      inp.addEventListener("input", refresh);
+      inp.addEventListener("keydown", function (e) {
+        /* 输入框里的 Esc 只做 blur，不冒泡给详情面板（app.js 的 Esc 是"收起详情"，
+         * 用户在填表时按 Esc 想清掉焦点，结果详情整块关掉、填的内容全丢）。
+         * 这一条是照着 app.js 自己那段 input/select/textarea 早退逻辑补的：
+         * 那段在 document 上，拦得住全局快捷键，但拦不住本元素这里的冒泡到 detail。 */
+        if (e.key === "Escape") { e.stopPropagation(); inp.blur(); }
+        /* Enter = 直接复制，省一次 Tab。
+         * preventDefault 是必要的：详情里的行卡对 Enter 有 handler，不拦的话
+         * 合成 click 会被它吃掉（同按钮上那条注释记录的老坑）。 */
+        if (e.key === "Enter") { e.preventDefault(); e.stopPropagation(); copyPrompt(id, b, readFields()); }
+      });
+
+      lab.appendChild(cap);
+      lab.appendChild(inp);
+      return lab;
+    }
+
+    /* placeholder 长度是按**最窄的并排档**配的：1440 档面板可用宽 517px，
+     * 两个输入框各 253px，14px 字号下约放得下 17 个汉字。
+     * 第一版写成 26 字（「例：一家只做手冲的咖啡店，5 个产区的豆子，加微信订」），
+     * 实测截图里第二个被截成「例：看完就想问价，或者直接加微信下…」——
+     * 截断本身不致命，但「加微信下」这种半句会让人以为示例就到此为止。
+     * 现在压到 16/15 字，两档都完整可见（390 档单列更宽，只会更宽松）。 */
+    fill.appendChild(makeField("biz", "你经营什么",
+      "例：只做手冲的咖啡店", "prompt-note-" + id));
+    fill.appendChild(makeField("action", "访客要做的动作",
+      "例：看完想直接加微信下单", "prompt-note-" + id));
+
+    function readFields() {
+      var biz = fill.querySelector('[data-prompt-field="biz"]');
+      var act = fill.querySelector('[data-prompt-field="action"]');
+      return { biz: biz ? biz.value : "", action: act ? act.value : "" };
+    }
+
     var hint = document.createElement("span");
-    hint.style.cssText = "font-size:12px;opacity:.7";
+    hint.className = "prompt-hint";
     /* ⚠️ 原句「建议先看详情里的「不适合」」指向一个**不存在的字段**。
      * 实测 `data.js` 的 30 条记录共 31 个键，没有任何一个叫「不适合」；
      * 真相是"不适合…"这句话被拼在 `scenes` 字段 value 的尾部，
@@ -495,17 +664,41 @@
      * 两个轴（题材绑死 / 数量绑死）仍分开描述，因为它们确实正交（2×2 四格都有实例）。 */
     var riskyTopic = !!s.hard;
     var riskyCount = !!(s.capacity && s.capacity.degrades === "yes");
+    var riskNote = "";
     if (riskyTopic || riskyCount) {
       var why = [];
       if (riskyTopic) why.push("机制绑在特定题材上，换普通内容会退化");
       if (riskyCount) why.push("单元位置是手工排定的，内容少于 " + (s.minItems || "设计规模") + " 条会留洞");
-      hint.textContent = "⚠ " + why.join("；") + "。具体不适合什么，写在详情「适用场景」段末。";
-    } else {
-      hint.textContent = "粘给 ChatGPT / Claude / v0 都行，约 " + buildPrompt(id).length + " 字";
+      riskNote = "⚠ " + why.join("；") + "。具体不适合什么，写在详情「适用场景」段末。";
     }
 
-    wrap.appendChild(b);
-    wrap.appendChild(hint);
+    /* 长度实时跟着输入变：这个数字是用户判断"复制到手有多长"的唯一凭据，
+     * 填了词还显示旧长度就是新的假信息。 */
+    function refresh() {
+      var v = readFields();
+      var n = buildPrompt(id, v).length;
+      hint.textContent = riskNote
+        ? riskNote + " 当前 " + n + " 字"
+        : "粘给 ChatGPT / Claude / v0 都行，约 " + n + " 字";
+    }
+    refresh();
+
+    var note = document.createElement("p");
+    note.className = "prompt-fill-note";
+    note.id = "prompt-note-" + id;
+    /* 这一句是给人看的真话，不是免责声明：它把"我没替你编"这件事说在前面，
+     * 用户填不填都清楚自己拿到的是什么。
+     * 它还兼着两个输入框的 aria-describedby —— 把「填了会怎样 / 不填会怎样」
+     * 写成每个输入框旁边各一句，在 560px 面板里要多吃 60px 高度，
+     * 而这三件事本来就是一句话说得完的。 */
+    note.textContent = "填了直接进提示词开头；不填也能复制，开头会写「开头两行要你自己填（我不知道你做什么生意）」并留下 ＿＿ 待填横线，不会替你编一门生意。";
+
+    row.appendChild(b);
+    row.appendChild(hint);
+    wrap.appendChild(row);
+    wrap.appendChild(fill);
+    wrap.appendChild(note);
+
     /* 必须放在详情面板**最顶部**，不能 appendChild 到末尾。
      * 实测（2026-10-25，1440×900，CDP）：详情面板 scrollHeight 2991px / clientHeight 900px，
      * appendChild 的落点是第 2881px——用户要滚 3.3 屏、跨过 10 个字段 2589 字才看得见这个按钮，
