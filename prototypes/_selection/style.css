@@ -34,13 +34,33 @@
   --num:  "Archivo", "Noto Sans SC", sans-serif;
   --code: "IBM Plex Mono", ui-monospace, monospace;
 
-  /* 字号只留 6 档，下限 13px */
+  /* 字号档位，下限 13px。
+     注：这句原写作「只留 6 档」，但数一遍从来就不是 6 —— 补 --s-15 之前是 7 个
+     （34/24/20/17/16/14/13），补完是 8 个（多一个 15）。数字已按实测改正，
+     不是在原有档位上再加一档：15px 本来就被 .mast-claim 与 .mast-wizard a 用着，
+     只是定义漏了、浏览器一直按 16px 兜底（见下面 --s-15 的注释）。 */
   --s-h1: clamp(34px, 5.2vw, 74px);
   --s-34: 34px;
   --s-24: 24px;
   --s-20: 20px;
   --s-17: 17px;
   --s-16: 16px;
+  /* --s-15 是 15px（2026-10-27 补定义，此前**从未存在**）。
+     为什么补 15 而不是把它改回 --s-14 / --s-16：这不是打字错误，是作者本来的意图。
+     证据在提交 eed3587 的 diff 与说明里 —— 那一条同时改了 .mast-claim 的
+     `var(--s-17)` → `var(--s-15)`，并把正文说明写成「claim 从 17px/1.75 收到 15px 与 1.6 行高」。
+     也就是说：15px 这个值是有意选的，只是 `:root` 里漏了这一步定义。
+     （`.mast-wizard a` 的 `var(--s-15)` 在那次提交之前就写着，同样一直悬空。）
+     本文件所有字体变量的名字就等于它的像素值（--s-13 是 13px、--s-16 是 16px），
+     所以 --s-15 只能是 15px，不存在第二种读法。
+     不补的实测后果（1440×900 / 390×844 各测一次）：var() 解析失败 ⇒ font-size 整条声明
+     在计算值阶段被丢弃 ⇒ 回退到继承的 body 16px。即 .mast-claim 与 .mast-wizard a
+     实际按 16px 渲染了整整两个提交周期，而作者写的那句「收到 15px」在浏览器里从没成立过。
+     补上之后的实测差（页头 .mast 高度）：1440 档 310.4 → **304.0**（−6.4），
+     390 档 488.6 → **453.4**（−35.2）。390 档差得多是因为 claim 从 5 行收到 4 行
+     （128px → 96px），一行的钱就是 32px。首卡 top 相应 394.3 → 387.9、989.2 → 954.0。
+     影响面不止选型台：wizard.css 的 .wz-card p 也用这个变量，一并从 16px 回到 15px。 */
+  --s-15: 15px;
   --s-14: 14px;
   --s-13: 13px;
 
@@ -123,6 +143,34 @@ code { font-family: var(--code); font-size: 0.94em; }
   font-size: var(--s-15); text-decoration: none;
 }
 .mast-wizard a:hover { background: var(--link); }
+
+/* ── 页头三个模板链接的触控目标（WCAG 2.2 AA 2.5.8）──────────────────────
+ * 2026-10-27 修。审计实测（deliverables/66-audit/mobile-390.md §6.2）：
+ *   390×844 下「企业站 M01」(72×20)、「餐饮本地 M02」(86×20)、「作品集 M03」(42×20)
+ *   三个链接**高度都只有 20px**，低于 AA 要求的 24px。
+ * 2.5.8 有一条间距豁免（以目标为中心的 24px 直径圆不与其它目标相交即合规），
+ * 而这处**不满足**：第三个链接在 390 档折成两段（末行只剩「作品集 M03」，
+ * 和上一行同一水平起点），其 24px 圆与 M02 的同排矩形相交 ⇒ 真失败，不是豁免。
+ * 这是本次审计在整个界面上找到的唯一一处硬性 WCAG 2.2 违规。
+ *
+ * 【为什么是 padding 2px 0，不是 display:inline-block + padding】
+ * 三条候选都在真浏览器里量过（1440×900 与 390×844 各一遍）：
+ *   · 纯内联 padding:2px 0      → 链接高 20 → **24**，.mast-exit 76.1 → 76.1（0），
+ *                                 首卡 top 989.2 → 989.2（0）。零排版代价。
+ *   · inline-block padding:2px 0 → 高 25.7（够），但链接变成不可折行的原子盒，
+ *                                 390 档第三个链接从 2 段并成 1 段、段落 76.1 → 84.1px，
+ *                                 首卡下移 8px（989.2 → 997.2）。**用首屏换 1.7px 余量，不值。**
+ *   · 上面那条加 margin:-2px 0  → 高度与折行同 inline-block，段落高度回到 76.1，
+ *                                 但负外边距会让相邻两行的可点区域在垂直方向**互相盖住** ——
+ *                                 这是拿新缺陷换旧缺陷。
+ * 选第一条。内联元素的 padding 垂直方向不参与行盒高度计算，所以视觉上完全不动，
+ * 而命中区（getClientRects / 点击热区）确实长到 24px —— 这正是 2.5.8 要的那个量。
+ *
+ * 【字号一个没动】仍是 14px（.mast-exit 在 index.html 的局部样式里定为 var(--s-14)），
+ * 只补垂直内距。多行折行的那个链接两段各 +4px，合计 45.7px，同样达标。
+ * 【作用域】.mast-exit 只出现在页头这一段（index.html:52），不会外溢到正文链接。 */
+.mast-exit a { padding: 2px 0; }
+
 .mast-facts {
   display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 2px; margin: 0;
@@ -229,6 +277,32 @@ code { font-family: var(--code); font-size: 0.94em; }
   transition: border-color 120ms linear, color 120ms linear;
 }
 .btn-quiet:hover { border-color: var(--ink); color: var(--ink); }
+
+/* ── 暂存条 #q-parked 的显隐：第二道锁，不是主开关 ─────────────────────────
+ * 2026-10-27 修（审计 deliverables/66-audit/mobile-390.md §7.4 点名的"假控件"）。
+ *
+ * 【当时的 bug】#q-parked 由 app.js 的 syncParked() 建出来，display 写在**内联样式**
+ * cssText 里（inline-flex），显隐却只用 el.hidden 切换。内联声明压过 [hidden] 的 UA
+ * 规则 display:none，于是 hidden=true 时它照样渲染成一条"两个光秃秃按钮"的空壳：
+ *   三档视口都白占 35.5px（390 档 .bar 159.4 → 145，首卡 top 1003.6 → 989.2）
+ *   空状态下它里面「放回搜索 / 丢弃」两颗按钮仍在 Tab 序列里（实测 tabbableButtons = 2，
+ *   从搜索框 Tab 一次就停在「放回搜索」上 —— 一颗点了什么都不会发生的按钮）。
+ *
+ * 【主开关在哪】app.js syncParked() 末尾已经改成"内联 display 与 hidden 同源"
+ * （el.hidden = !state.qParked; el.style.display = state.qParked ? 'inline-flex' : 'none'）。
+ * 也就是说正常路径上这条 CSS 规则永远不会命中。
+ *
+ * 【那为什么还要它】因为"只有一个来源"这件事靠的是**两行必须一起改**，而这类约定迟早
+ * 会被下一个人改坏一半（这个 bug 本身就是"只改了一半"的产物）。作者样式表里的 !important
+ * 在层叠顺序上高于内联（非 !important）声明，所以这条规则把"hidden 为真 ⇒ 不可见"
+ * 变成一条不依赖 JS 的不变量：哪怕以后有人只改 hidden、又把内联 display 写回去，
+ * 也长不出假控件。
+ *
+ * 【为什么不用 class 切换（任务书给的另一个选项）】syncParked() 本来就在动内联样式 ——
+ * 窄屏（≤980px）要把这条改成 position:fixed 的底栏、宽屏再还原，那些都是内联的。
+ * 再引一套 class 管显隐，等于让"显示状态"同时有两个来源，而那正是这个 bug 的成因。
+ * 把内联 display 留在原地、只补一条 CSS 兜底，改动面小且不新增第二种机制。 */
+#q-parked[hidden] { display: none !important; }
 
 /* ── 清单：每一行是一张账页，不是一个 tile ─────────────────── */
 .ledger { border-top: 2px solid var(--ink); }
@@ -445,6 +519,16 @@ code { font-family: var(--code); font-size: 0.94em; }
 .detail-no { font-family: var(--num); font-variant-numeric: tabular-nums; font-size: var(--s-24); font-variant-numeric: tabular-nums; }
 .detail-title h2 { font-family: var(--ui); font-size: var(--s-24); font-variation-settings: "wdth" 92; }
 .detail-title p { font-family: var(--ui); font-size: var(--s-13); color: var(--ink-3); }
+/* .detail-head 是"打开面板后焦点去哪"的落点（app.js 的 focusIntoDetail 给它加了
+   tabindex="-1" 再 focus）。这里补焦点环，理由与 .fold > summary / .chips 一致：
+   面板底色 #f2f2ee 上，UA 那条 1px 的 auto 环几乎看不见。
+   实测（1440×900，真 Input.dispatchKeyEvent）：焦点在 .detail-head 上时
+   matches(':focus-visible') = true、UA 只画 outline 1px auto rgb(16,16,16)；
+   换成 2px var(--link)（对 #f2f2ee 是 5.6:1）与其它控件同一套。
+   为什么用 :focus-visible 而不是 :focus：鼠标点开面板时**不该**在面板头上留一道框
+   （实测鼠标路径 matches(':focus-visible') = false）—— 那是噪声，不是信息。
+   outline-offset 用负值：头部是贴边的 sticky 条，正 offset 会把环画到面板外被裁掉。 */
+.detail-head:focus-visible { outline: 2px solid var(--link); outline-offset: -2px; }
 .detail-body { padding: 18px 20px 60px; }
 
 /* 间距（2026-10-27）：字段之前这几段现在全是折叠条，原来的大外边距是按"整段内容"

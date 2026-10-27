@@ -26,6 +26,12 @@
        为空 = 不按场景筛。单独开一个状态是因为 state.q 是整串子串匹配，
        拼"S06 S19"这种串会筛出 0 个（实测踩过）。 */
     sceneIds: new Set(),
+    /* 被行业芯片「接管」时寄存的搜索词（2026-10-27）。
+       为什么需要它：见下面 parkQuery() 的长注释。简言之 —— 点芯片时若搜索框里有词，
+       两条筛选取交集；而 18/44 个行业词在方案正文里根本没有，交集恒为空。
+       所以点芯片时把 q 从输入框里**移出**，原值存在这里，好让用户一键放回去。
+       null = 没有挂起的词。 */
+    qParked: null,
     sort: 'n',
     open: null,          // 当前展开的方案 id
     vp: 'desktop',       // 详情里的视口
@@ -151,6 +157,175 @@
       if (hay.indexOf(state.q) < 0) return false;
     }
     return true;
+  }
+
+  /* ── 芯片 × 搜索框：同一根轴只允许一个主人（2026-10-27）────────────────────
+   *
+   * 【要修的死路，实测数字】44 个 sceneIndex 词逐个跑「先搜该词 → 再点同名芯片」
+   * （CDP，1440×900，deliverables/66-exec/_chip-before.json）：
+   *   · 只搜词 0 行：17 / 44
+   *   · 只点芯片 0 行：**0 / 44**（芯片这条路一直是通的）
+   *   · 先搜后点 0 行：**18 / 44**（比"只搜 0 行"多一个：摄影 —— 搜出 8 行，
+   *     点了芯片反而变 0 行，是纯粹的功能倒退）
+   *   · 先点后搜（点芯片后搜「白色」）0 行：34 / 44
+   * 而 0 行时界面上那段话仍在教用户「点左侧行业芯片」——**用户照做了，还是 0**。
+   * 根因不是文案错，是两条筛选取交集：match() 里 sceneIds 与 q 是 AND，
+   * 而芯片只写 sceneIds、不碰 q（prompt-copy.js 的 click handler）。
+   *
+   * 【为什么不是「点芯片时把搜索框清空」】用户刚打的字被静默吃掉，而且他很可能
+   * 就是想「在咖啡店这 4 个里再挑」——那一半意图被抹掉了，还无法恢复。
+   * 【为什么不是「改成 OR」】那会破坏底色/亮度/内容量/闸门这些组之间的 AND 一致性；
+   * 搜「咖啡店」再点「暗底」，用户期待的是交集，不是并集。
+   * 【为什么不是「智能识别搜索词是不是行业词」】歧义真实存在（「白色」不是行业词，
+   * 但「摄影」既是行业词也是正文里会出现的词），猜错就是新的静默改动。
+   *
+   * 【选的是：挂起（park）】点芯片时，把搜索框里的词**移出**输入框、存进 state.qParked，
+   * 并在搜索框右边留一条可点的「已暂存「X」· 放回搜索 / 丢弃」。
+   *   · 芯片立刻按自己的白名单筛（死路没了）；
+   *   · 用户打的字一个不丢，一键能放回去（放回时同时取消芯片 —— 同一根轴上不能两个主人）；
+   *   · 其他九组筛选器的 AND 语义**一点没动**；
+   *   · 反过来（先点芯片再搜）仍然走 AND：那是真·精筛，交集为 0 时由空状态
+   *     给出带行数的按钮，点一下就能退回去（见 syncEmptyFacts）。
+   */
+  function parkQuery() {
+    var inp = $('#q');
+    var raw = inp ? inp.value : '';
+    if (!raw.trim()) return false;      // 空的不算「有词」，不覆盖已挂起的那个
+    state.qParked = raw.trim();
+    state.q = '';
+    if (inp) inp.value = '';
+    syncParked();
+    return true;
+  }
+
+  /* 放回：把暂存的词写回搜索框，并让出场景轴（否则又回到「交集恒为空」）。
+     注意这里**不调用 render()** —— 两个对外接口要在同一次渲染里完成状态切换。 */
+  function restoreQuery() {
+    if (!state.qParked) return false;
+    var inp = $('#q');
+    if (inp) inp.value = state.qParked;
+    state.q = state.qParked.trim().toLowerCase();
+    state.qParked = null;
+    state.sceneIds = new Set();
+    $$('.scene-chip').forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+    syncParked();
+    return true;
+  }
+
+  function dropParked() {
+    if (!state.qParked) return;
+    state.qParked = null;
+    syncParked();
+  }
+
+  /* 清空搜索轴的一切痕迹：q、输入框、以及被暂存的词。
+     三个"离开搜索轴"的动作（只看芯片 / 只看搜索词 / 按词点芯片）都必须走它 ——
+     只清其中两样会留下第三种状态：暂存条还在、搜索框空着、芯片已经换了。
+     实测后果（_empty-probe.mjs「丢弃后应保持 2 行，实际 0」）：点「丢弃」时
+     restoreQuery 走的是"暂存词仍在"的分支，把输入框填回去却没重渲染，列表停在旧结果。 */
+  function clearQueryAxis() {
+    state.q = '';
+    var inp = $('#q');
+    if (inp) inp.value = '';
+    state.qParked = null;
+    syncParked();
+  }
+
+  /* 挂起条：建一次、后续只改内容。为什么不用 index.html 的静态节点：
+     本轮的写作用域只有 app.js 与 prompt-copy.js 的芯片段，index.html 不在里面；
+     而且这条只在「有暂存词」时存在，静态节点会多一个永远 hidden 的空壳。
+     
+     ⚠️ 390 档必须**移到主区顶部**，不能留在 .bar 里（2026-10-27 实测抓出）：
+     窄屏的 DOM 顺序是 rail（筛选）在前、主区在后，而芯片就在 rail 里。用户在 rail 点完
+     芯片，如果条子挂在 .bar 里，它会在 rail 底下 —— 实测 top=896，视口只有 844，
+     **首屏看不见**；连「列出 4 / 30」那个数都在 973，一样看不见。
+     一条用户看不到的"你的字还在"凭据等于没有，这正是我要修的那类缺陷。
+     所以窄屏（≤980px，与 style.css 里 .detail 变全屏层的断点一致）把它挂到
+     .main 的最前面：它跟着芯片出现在同一条视线里，而不是躲在另一栏。 */
+  var NARROW = 980;
+  function isNarrow() { return window.innerWidth <= NARROW; }
+
+  function syncParked() {
+    var bar = $('.bar');
+    var main = $('.main');
+    if (!bar || !main) return;
+    var el = document.getElementById('q-parked');
+    if (!el) {
+      el = document.createElement('span');
+      el.id = 'q-parked';
+      el.className = 'q-parked';
+      el.setAttribute('aria-live', 'polite');
+      el.style.cssText = 'display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:13px;line-height:1.5;color:var(--ink-2);' +
+        'border:1px dashed var(--rule-2);padding:4px 8px;max-width:100%';
+      var lab = document.createElement('span');
+      lab.className = 'q-parked-lab';
+      lab.style.cssText = 'overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:32ch';
+      var back = document.createElement('button');
+      back.type = 'button';
+      back.className = 'btn-quiet';
+      back.setAttribute('data-act', 'back');
+      back.style.cssText = 'font-size:13px;padding:2px 8px;cursor:pointer;background:transparent;border:1px solid var(--rule-2);color:var(--ink-2)';
+      back.textContent = '放回搜索';
+      back.addEventListener('click', function () { restoreQuery(); render(); });
+      var drop = document.createElement('button');
+      drop.type = 'button';
+      drop.className = 'btn-quiet';
+      drop.setAttribute('data-act', 'drop');
+      drop.style.cssText = back.style.cssText;
+      drop.textContent = '丢弃';
+      drop.addEventListener('click', function () { dropParked(); render(); });
+      el.appendChild(lab); el.appendChild(back); el.appendChild(drop);
+    }
+    /* 位置每轮按视口重新决定（用户可能中途转向/改窗口大小）。
+       窄屏用**固定底栏**，不挂进任何栏目 —— 这是量出来的结论，不是偏好：
+       390×844 实测，条子若跟在 .bar 后面 top=842（视口 844，只剩 2px）、
+       若塞进 rail 就在 rail 自己的滚动区里（rail max-height 40vh + overflow-y），
+       两种都等于看不见。而页头 489px + rail 338px 就已经把主区推到了 989px 以下
+       （这是既有的 F4，不在本轮改动范围内）—— 也就是说窄屏上"首屏可见"这件事
+       只能靠脱离文档流来保证。底栏 48px、只在有暂存词时出现、一放回就消失。 */
+    var wantParent = isNarrow() ? main : bar;
+    if (isNarrow()) {
+      el.style.position = 'fixed';
+      el.style.left = '8px'; el.style.right = '8px'; el.style.bottom = '8px';
+      el.style.zIndex = '60';
+      el.style.background = 'var(--card)';
+      el.style.boxShadow = '0 2px 14px rgba(0,0,0,.18)';
+      el.style.marginBottom = '';
+    } else {
+      el.style.position = ''; el.style.left = ''; el.style.right = ''; el.style.bottom = '';
+      el.style.zIndex = ''; el.style.background = ''; el.style.boxShadow = '';
+    }
+    if (el.parentNode !== wantParent) {
+      if (wantParent === main) {
+        main.insertBefore(el, main.firstChild);
+        el.style.marginBottom = '10px';
+      } else {
+        var search = $('.search');
+        if (search && search.parentNode === bar) search.insertAdjacentElement('afterend', el);
+        else bar.insertBefore(el, bar.firstChild);
+        el.style.marginBottom = '';
+      }
+    }
+    /* ⚠️ 隐藏不能只靠 el.hidden（2026-10-27 实测抓出）：本元素的 display 写在**内联样式**里
+       （inline-flex），而 [hidden] 的 display:none 来自 UA 样式表 —— 内联优先级更高，
+       结果 hidden=true 时那条空壳仍然显示成"两个光秃秃的按钮"。
+       截图 shots-chip/after-1440-s1-search-only.jpg 就是它（搜索框里只有咖啡店、
+       没有暂存词，右边却挂着「放回搜索 / 丢弃」）。
+       所以显示状态也写进内联样式，让两者只有一个来源。 */
+    el.hidden = !state.qParked;
+    el.style.display = state.qParked ? 'inline-flex' : 'none';
+    var lab2 = el.querySelector('.q-parked-lab');
+    if (lab2) {
+      /* 窄屏用短句：390 档一行只放得下约 22 个汉字 + 两个按钮。
+         长句会被折成两行、底栏从 48px 长到 67px，压住的内容比它解释的还多
+         （实测 after-390 截图里「丢弃」被折到第二行）。
+         短句不是简化信息，是把"字还在 + 能拿回来"这两件事留着，其余（为什么）由按钮本身说。 */
+      lab2.textContent = state.qParked
+        ? (isNarrow()
+            ? '已暂存「' + state.qParked + '」'
+            : '已暂存搜索词「' + state.qParked + '」——芯片正在按行业筛')
+        : '';
+    }
   }
 
   function sorted(rows) {
@@ -346,10 +521,226 @@
        「但 M02 就是为餐厅做的」直接打架 —— 同一屏里两句互相否定，用户只会信更坏的那句。 */
     var why = document.getElementById('e-why');
     if (why) {
-      why.textContent = (state.q && idx[state.q])
-        ? '「' + state.q + '」正属于没有直连方案的那一类——这是这 ' + ALL.length + ' 个案这一层的供给缺口，不是你条件加多了。'
-        : '行业词搜不到，是这 ' + ALL.length + ' 个案缺这条数据，不是你条件加多了。';
+      /* ⚠️ 2026-10-27：原来的判据只有 idx[state.q] 一条，于是「咖啡店」会走进
+         「「咖啡店」正属于没有直连方案的那一类」—— 而 sceneIndex["咖啡店"].direct 就是
+         ["S06"]，S06 明明就是它的直连方案；紧接着的 #e-next 又说"芯片能筛出 4 行"。
+         同一屏里三句话互相否定（截图 shots-chip/after-1440-s1-search-only.jpg 改前版）。
+         改成三分：
+           · 有直连 → 说清"搜索框匹配整串、索引里是有的"，并把编号点出来；
+           · 只有近似 → 说清"没有直连，只有换文案能用的近似款"；
+           · 不在索引里（敲错字/搜别的东西）→ 只说结构，不暗示这个词在索引里。
+         三种话术都不能替用户下"是你条件加多了"的结论 —— 供给缺口不怪他。 */
+      var rec = state.q ? idx[state.q] : null;
+      var dIds = (rec && rec.direct) || [];
+      var nIds = (rec && rec.near) || [];
+      if (dIds.length) {
+        why.textContent = '「' + state.q + '」按文字搜不到（搜索框匹配整串，这 ' + ALL.length +
+          ' 个案里没有哪一行逐字写着它），但索引里 ' + dIds.join(' ') +
+          ' 就是它的直连方案 —— 左边那颗「' + state.q + '」芯片是实的。';
+      } else if (nIds.length) {
+        why.textContent = '「' + state.q + '」正属于没有直连方案的那一类（只有 ' + nIds.join(' ') +
+          ' 这几个换文案能用的近似款）——这是这 ' + ALL.length + ' 个案这一层的供给缺口，不是你条件加多了。';
+      } else {
+        why.textContent = '行业词搜不到，是这 ' + ALL.length + ' 个案缺这条数据，不是你条件加多了。';
+      }
     }
+    syncEmptyNext(idx);
+  }
+
+  /* ── 空状态里「接下来该怎么办」：每个指示都必须当场可执行（2026-10-27）─────────
+   *
+   * 【为什么要把 index.html 里那句话换掉】原文案是静态的，尾句写着
+   * 「想继续在这三十个案里挑：点左侧行业芯片…或清空筛选后改用右侧排序看」。
+   * 它有两个毛病，都是同一类：**指示的动作在当前状态下拿不到它承诺的结果**。
+   *  1) 用户刚搜了词、又照它点了芯片 → 两者取交集 → 仍 0 行（实测 18/44 个词，
+   *     见 _chip-before.json）。指示把人送进了墙，而且墙上还写着请往前走。
+   *  2) 用户已经点过芯片（或已经清空过筛选）时，它还在教他点芯片/清空筛选 ——
+   *     让他重做一遍已经做过的事，等于把"你操作错了"这个错误结论塞给他。
+   *
+   * 【现在的做法】不写死任何一句指示，每次 0 行时**先算**每条退路各能得到几行，
+   * 再按当前状态只说那几条真的能走通的，并且每条后面挂一个当场可点的按钮。
+   * 数字与按钮是同一份计算的产物 —— 这比"改文案"强的地方在于：文案不可能再和行为
+   * 分叉，因为按钮就是行为本身。计算全部走同一个 match()，不另写一套判据。
+   *
+   * 【四种状态，四条不同的真话】
+   *  a) 芯片 + 搜索词同时生效 → 说清是「并且」把它们乘成 0，给两个"只留一边"的按钮；
+   *  b) 只有芯片（0 行是后面几组筛没的）→ 说芯片本身有几行，指出该松哪一组；
+   *  c) 只有搜索词 → 行业词走芯片能出几行（点名芯片），非行业词直说这三十个案没有；
+   *  d) 都没有 → 只有"你条件加多了"这一种解释，给显式的清空按钮。
+   */
+  function syncEmptyNext(idx) {
+    var host = document.getElementById('empty');
+    if (!host) return;
+    /* 尾句原来是 #empty 的最后一个文本节点（"想继续在这三十个案里挑：…"）。
+       第一次渲染时把它摘掉，换成受控的 #e-next —— 留着它会和下面这段同时教用户做事。
+       ⚠️ 判据用「#e-why 之后的文本节点」而不是匹配那句话的字面：
+       那句话在 index.html 里是被改过一次的（2026-10-25 重写空状态），按字面匹配的清理代码
+       会在下一次改文案时**静默失效**，于是又回到"两句指示互相打架"。
+       结构判据在这里是稳定的：这个 <p> 里除了 #e-why 与 #e-next，剩下的只能是旧文案。
+       ⚠️⚠️ 但旧文案里**嵌着一个元素** #e-direct2（那句「只挑实心的那 16 个」里的 16）。
+       只删文本节点会把它留下 —— 实测截图 after-1440-s1 就在「按「咖啡店」芯片筛（4 行）」
+       后面多出一个孤零零的「16」。所以元素也要一起摘，判据是"在 #e-why 之后、
+       且不是 #e-next / #e-why 本身"。 */
+    var whyEl = document.getElementById('e-why');
+    if (whyEl) {
+      var after = false;
+      for (var i = 0; i < host.childNodes.length; i++) {
+        var nd = host.childNodes[i];
+        if (nd === whyEl) { after = true; continue; }
+        if (!after) continue;
+        if (nd.id === 'e-next') continue;
+        if (nd.nodeType === 3) {
+          if (nd.textContent.trim()) { host.removeChild(nd); i--; }
+        } else if (nd.nodeType === 1 && (nd.id === 'e-direct2' || nd.tagName === 'SPAN')) {
+          /* 旧句子里唯一的 span 就是 #e-direct2；将来若加了别的受控节点，
+             在这里显式列出来，而不是放宽成"删掉所有 span"。 */
+          if (nd.id === 'e-direct2') { host.removeChild(nd); i--; }
+        }
+      }
+    }
+    var box = document.getElementById('e-next');
+    if (!box) {
+      box = document.createElement('span');
+      box.id = 'e-next';
+      host.appendChild(box);
+    }
+
+    /* 三条退路的行数：都从同一个 match() 算，避免"文案说 N 行、点下去 M 行"。
+       ⚠️ 2026-10-27 修过一次差点漏掉的错：nChipOnly 必须**只**关掉 q，
+       若把后面九组也一起清，数字就会比「其余条件不变、只去掉芯片」大 ——
+       而按钮承诺的正是后者。这是探针 _empty-probe.mjs 抓出来的第一个谎
+       （[b] 说"芯片本身能筛出 0 行"，实际那 4 行是被「暗底」筛没的，不是芯片筛没的）。 */
+    /* 四条退路的行数：全部从同一个 match() 算，避免"文案说 N 行、点下去 M 行"。
+       2026-10-27 探针 _empty-probe.mjs 抓出两个谎，都在这几行里：
+        ① "只看搜索词（30 行）"点了只出 3 行 —— 因为算的时候只去了芯片，没把 q 算回来；
+           当时 q 是空的（词被挂起），"只看搜索词"指的其实是**挂起的那个词**。
+        ② "只留芯片，松开后面几组（30 行）"点了只出 4 行 —— nChipAlone 算对了，
+           但按钮文案里引用的变量写错成了 nChipOnly 的语义。
+       现在每个数字都对应一条**确定的**状态转换，且转换函数本身（下面的 click handler）
+       用的是同一组操作，所以数字与行为不可能再分叉。 */
+    var saveQ = state.q, saveIds = state.sceneIds;
+    var parked = state.qParked;
+    var nChipOnly, nSearchOnly, nChipAlone;
+    state.q = ''; nChipOnly = ALL.filter(match).length;                   // 只去 q，其余不动
+    /* "只看搜索词"= 保留芯片之外的九组 + 搜索词本身（现打的 q 或挂起的 parked） */
+    state.sceneIds = new Set();
+    state.q = (saveQ || parked || '').toLowerCase();
+    nSearchOnly = ALL.filter(match).length;
+
+    /* 「只留芯片」：松开九组、不动芯片、不动 q。做法是先备份再清空再还原，
+       借用同一个 match() —— 多写一份判据就多一个会说谎的地方。
+       备份必须在清空之前完成（第一次写漏了，等于把用户的选择永久清掉）。
+       ⚠️ 还必须先把 sceneIds **恢复**成 saveIds：上一行为算 nSearchOnly 把它清空了，
+       不恢复的话这里算出来的是"什么都没留"，会报出 30 行（探针抓到的第二个谎）。 */
+    state.sceneIds = saveIds;
+    var AX = [state.ground, state.band, state.load, state.loud,
+              state.fr, state.thr, state.tone, state.st, state.gate];
+    var keep = AX.map(function (s) { return Array.from(s); });
+    AX.forEach(function (s) { s.clear(); });
+    state.q = ''; nChipAlone = ALL.filter(match).length;
+    AX.forEach(function (s, i) { s.clear(); keep[i].forEach(function (v) { s.add(v); }); });
+    state.q = saveQ; state.sceneIds = saveIds;
+
+    var hasChip = !!(state.sceneIds && state.sceneIds.size);
+    var hasQ = !!state.q;
+    var chipTerm = '';
+    if (hasChip) {
+      var pressed = $('#flt-scene button[aria-pressed="true"], .scene-more button[aria-pressed="true"]');
+      chipTerm = pressed ? (pressed.getAttribute('data-scene') || '') : '';
+    }
+    var parts = [];
+    var btn = function (act, label) {
+      return '<button type="button" class="e-act" data-act="' + act + '" style="font:inherit;font-size:13px;padding:2px 8px;margin:0 2px;cursor:pointer;background:transparent;border:1px solid var(--rule-2);color:var(--link)">' + esc(label) + '</button>';
+    };
+
+    if (hasChip && hasQ) {
+      /* a) 两条轴同时在筛，0 行是交集。这不是用户的错，界面该替他把选择摆清楚。 */
+      parts.push('现在「' + esc(chipTerm || '行业芯片') + '」和搜索词「' + esc(state.q) +
+        '」同时在筛，组间是「并且」——两边都要满足才留下，所以是 0 行。' +
+        '只按芯片筛有 <b>' + nChipOnly + '</b> 行，只按搜索词有 <b>' + nSearchOnly + '</b> 行：');
+      if (nChipOnly) parts.push(btn('drop-q', '只看芯片（' + nChipOnly + ' 行）'));
+      if (nSearchOnly) parts.push(btn('drop-chip', '只看搜索词（' + nSearchOnly + ' 行）'));
+    } else if (hasChip) {
+      /* b) 芯片本身是通的（实测 44/44 个词都 ≥1 行），0 行一定是后面几组筛没的。
+         句子把"芯片单独能出几行"与"只留芯片能出几行"分开说 —— 用户手动松过几组时
+         两者不等，混成一句就会报出一个不是芯片造成的数字。 */
+      parts.push('「' + esc(chipTerm || '行业芯片') + '」这条芯片本身能筛出 <b>' + nChipOnly +
+        '</b> 行；只留它、把后面几组松开是 <b>' + nChipAlone + '</b> 行。' +
+        '现在是后面几组（底色／内容量／调性…）把它筛没了：');
+      if (nChipAlone) parts.push(btn('drop-axes', '只留芯片，松开后面几组（' + nChipAlone + ' 行）'));
+      parts.push(btn('reset', '全部清空（' + ALL.length + ' 行）'));
+    } else if (hasQ) {
+      /* c) 只有搜索词。行业词 → 点名芯片；不是行业词 → 直说这一层给不了。 */
+      var d = (idx[state.q] && idx[state.q].direct) || [];
+      var near = (idx[state.q] && idx[state.q].near) || [];
+      if (d.length || near.length) {
+        var chipRows = 0;
+        var tmpIds = new Set(d.concat(near));
+        var s2 = state.q; state.sceneIds = tmpIds; state.q = '';
+        chipRows = ALL.filter(match).length;
+        state.q = s2; state.sceneIds = saveIds;
+        /* 这里不再重复 #e-why 已经说过的"为什么搜不到"（改前两句几乎逐字重复，
+           读起来像界面结巴）。#e-why 讲原因，这里只给动作和行数。 */
+        parts.push('按行业筛这一层能给出 <b>' + chipRows + '</b> 行：');
+        if (chipRows) parts.push(btn('use-chip', '按「' + state.q + '」芯片筛（' + chipRows + ' 行）'));
+      } else {
+        parts.push('「' + esc(state.q) + '」不在这 ' + Object.keys(idx).length + ' 个行业词里，这 ' +
+          ALL.length + ' 个案也没有哪一行写着它 —— 换一个词，或直接按行业挑：');
+        parts.push(btn('reset', '清空筛选（' + ALL.length + ' 行）'));
+      }
+    } else {
+      /* d) 没有任何词/芯片，纯筛选组合过窄。 */
+      parts.push('没有搜索词也没有点芯片，是右侧几组筛选取「并且」取窄了。' +
+        '先只留一组最在意的（比如底色），或直接清空：');
+      parts.push(btn('reset', '清空筛选（' + ALL.length + ' 行）'));
+    }
+    box.innerHTML = parts.join(' ');
+
+    /* 按钮全部走真实交互路径：reset 就是那个 #reset；drop-q / drop-chip / drop-axes
+       只改一个轴；use-chip 与点芯片同一条路（benchSetSceneIdsParkingQuery）。
+       ⚠️ 任何一个"离开搜索轴"的动作都必须同时清掉 state.qParked ——
+       第一次写 use-chip 时漏了：被暂存的「餐厅」留在条子上，芯片已换成「咖啡店」，
+       于是点「丢弃」后走的是"暂存词还在、搜索框空"的状态，筛出 0 行。
+       探针 _empty-probe.mjs 的「丢弃后应保持 2 行，实际 0」就是这一条。 */
+    $$('#e-next .e-act').forEach(function (b2) {
+      b2.addEventListener('click', function () {
+        var act = b2.getAttribute('data-act');
+        if (act === 'reset') { $('#reset').click(); return; }
+        if (act === 'drop-q') {
+          clearQueryAxis(); render(); return;
+        }
+        if (act === 'drop-chip') {
+          /* 只看搜索词：芯片让位，**q 必须留着**。
+             第一次写这里时手滑调了 clearQueryAxis()，那会把用户正搜的词也清掉 ——
+             按钮写着"只看搜索词"，做出来却是"两边都不看"，比原来的死路更糟。 */
+          state.sceneIds = new Set();
+          $$('.scene-chip').forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+          render(); return;
+        }
+        if (act === 'drop-axes') {
+          state.ground.clear(); state.band.clear(); state.load.clear(); state.loud.clear();
+          state.fr.clear(); state.thr.clear(); state.tone.clear(); state.st.clear(); state.gate.clear();
+          /* 芯片这几组也得跟着灭，否则界面说"只留芯片"却亮着别的组 */
+          $$('.chips button').forEach(function (x) {
+            if (!x.classList.contains('scene-chip')) x.setAttribute('aria-pressed', 'false');
+          });
+          render(); return;
+        }
+        if (act === 'use-chip') {
+          var t = state.q;
+          var v = idx[t] || {};
+          var ids = (v.direct || []).concat(v.near || []);
+          /* 必须同时点亮芯片，否则界面上会出现"列表按芯片筛了、芯片却亮着别的" */
+          $$('.scene-chip').forEach(function (x) {
+            x.setAttribute('aria-pressed', x.getAttribute('data-scene') === t ? 'true' : 'false');
+          });
+          state.q = ''; $('#q').value = ''; dropParked();
+          if (window.benchSetSceneIds) window.benchSetSceneIds(ids);
+          else { state.sceneIds = new Set(ids); render(); }
+          return;
+        }
+      });
+    });
   }
 
   function render() {
@@ -359,6 +750,9 @@
     $('#empty').hidden = rows.length > 0;
     $('#count').textContent = '列出 ' + rows.length + ' / ' + ALL.length + ' 个方案';
     if (!rows.length) syncEmptyFacts();
+    /* 挂起条每轮都同步：有暂存词时必须一直看得见 —— 它是"我打的字还在"的唯一凭据，
+       也是唯一的一键放回入口。没有暂存词时它只是 hidden。 */
+    syncParked();
     /* 模板层（三个大众模板）由 prompt-copy.js 渲染，这里只递事实、不判断。
      * 为什么不在本文件里直接画模板卡：
      *  1) 本文件开头的契约是「不做任何判断，也不写死任何方案信息」。哪个模板适合哪个行业
@@ -575,9 +969,75 @@
     '</div>';
   }
 
-  function open(id) {
+  /* ── 打开 / 关闭详情：焦点跟着内容走（2026-10-27 修）────────────────────
+   *
+   * 【修的是什么】审计 deliverables/66-audit/mobile-390.md §6.5 实测：
+   *   打开详情后 document.activeElement **仍是 body**（body.detail-open 已挂上，面板
+   *   900px 高、display:flex 都在，只有焦点没跟过来）。后果是键盘用户展开一个案之后，
+   *   还得再从头 Tab 一遍才够得着面板里的任何控件。
+   *
+   * 【87 / 86 / 30 这三个数各是什么，别混用】都实测过，口径不同，都写在这里免得下一个人
+   *   照着一个错数字去改：
+   *     · **87** = 纯 DOM 顺序下标：95 个可聚焦元素里，#detail 内第一个排在 87。
+   *       这是审计 m7-tabindex.mjs 的算法，我用同一套选择器复现，得到的也是 87（含 1 起算）。
+   *     · **86** = 从页首第一个可聚焦元素真按 Tab，数到踏进 #detail 的次数。与 87 的 1 之差
+   *       就是"下标从 1 起算"这件事，两个数其实在说同一件事。
+   *     · **30** = 打开 S01 之后，焦点停在 S01 行卡上，从**那里**继续按 Tab 进面板的次数。
+   *       这才是"用户刚点开一个案"的真实代价 —— 比 86 小，但仍然是 30 次。
+   *   修好之后同一路径是 **1 次**（焦点已在 .detail-head，再按一次 Tab 就是「收起」）。
+   *   所以"87 次"不必改口，只是要标明它是全页口径；用户实际遭遇的是 30 次。
+   *   反向的一半同样缺：关闭后焦点落回 body，用户被踢回页面顶部，得重新找刚才那一行。
+   *
+   * 【为什么焦点落在 .detail-head 而不是第一个可聚焦控件（#d-close）】
+   *   1) 面板是"换了一个阅读上下文"，不是弹出一个确认框。焦点进入的落点应该先说出
+   *      「你现在看的是哪个案」，而 .detail-head 的文本正是 `S01` + 中文名 + 英文名/结构型；
+   *      屏读器聚焦容器时会把这段读出来。#d-close 读出来只有「收起」两个字，等于什么都没说。
+   *   2) Tab 顺序天然正确：head 之后紧跟的就是 #d-close（DOM 里就是它的下一个兄弟），
+   *      所以"进面板按一次 Tab 就能收起"这条路径没有任何成本。
+   *   3) tabindex="-1" 只让它可以被**程序**聚焦，不进入 Tab 序列 —— 不会多出一个 Tab 站。
+   *
+   * 【为什么焦点移动要能被关掉（opts.focus === false）】
+   *   带 #S07 直接进来的首次加载不能抢焦点：页面正在载入，用户（和屏读器）应该从页首开始读，
+   *   一进来就把焦点扔进右下角的面板是"我还没让你跳"。所以只有**用户动作**（点行卡、
+   *   行卡上按 Enter/Space、J/K、改 hash）才移焦点；boot 那条路显式传 focus:false。
+   *
+   * 【关闭时为什么能"还回触发它的行卡"】
+   *   不记"是谁点的"，而是用 state.open 反查：`ledger.querySelector('.row[data-id=…]')`。
+   *   这比记 activeElement 可靠 —— J/K 换案时 activeElement 是 body 或面板内部，
+   *   但"我读到的是哪个案、该还回哪一行"始终由 state.open 唯一决定。
+   *   还回时用 preventScroll 再显式 scrollIntoView({block:'nearest'})：
+   *   前者避免整页跳一下，后者保证那一行真的在视口里（J/K 跨很远时它可能在屏幕外）。
+   *
+   * 【不给键盘用户抢焦点的情况】面板本来就没开时调 close()（比如什么都没展开就按 Esc，
+   *   全局 keydown 会无条件调 close）必须什么都不做。判据是"关之前面板是否真的开着"
+   *   加上"焦点此刻是否在面板里或 body 上"。两条都成立才抢 —— 否则会把焦点从用户
+   *   正在操作的地方（比如 rail 里某颗芯片）拽走，那是拿新缺陷换旧缺陷。
+   */
+  var FOCUS_TARGET = '.detail-head';
+
+  function focusIntoDetail() {
+    var head = $(FOCUS_TARGET, detail);
+    if (!head) return;
+    /* tabindex 写在 JS 里而不是 index.html：本轮的改动面被限定在 app.js / style.css，
+       而 tabindex="-1" 是纯行为语义（"可被程序聚焦，不进 Tab 序列"），放在行为层更合适。 */
+    if (!head.hasAttribute('tabindex')) head.setAttribute('tabindex', '-1');
+    head.focus({ preventScroll: true });
+  }
+
+  function focusBackToRow(id) {
+    var row = id ? ledger.querySelector('.row[data-id="' + id + '"]') : null;
+    /* 行卡可能已经不在清单里（面板开着时改了搜索词/筛选，而 render() 重铺了 ledger）。
+       这时退回搜索框 —— 它是主工作区的起点，总比把焦点丢给 body 强。 */
+    var target = row || $('#q');
+    if (!target) return;
+    target.focus({ preventScroll: true });
+    if (row && row.scrollIntoView) row.scrollIntoView({ block: 'nearest' });
+  }
+
+  function open(id, opts) {
     var r = ALL.filter(function (x) { return x.id === id; })[0];
     if (!r) return;
+    opts = opts || {};
     state.open = id;
     state.vp = 'desktop';
     state.shotIdx = 0;
@@ -586,14 +1046,22 @@
     document.body.classList.add('detail-open');
     if (location.hash !== '#' + id) history.replaceState(null, '', '#' + id);
     syncCurrent();
+    /* 焦点必须在 detail.hidden = false 之后移：display:none 的元素聚不上焦。 */
+    if (opts.focus !== false) focusIntoDetail();
   }
 
-  function close() {
+  function close(opts) {
+    opts = opts || {};
+    var wasOpen = !detail.hidden;
+    var id = state.open;
+    var a = document.activeElement;
+    var focusWasOurs = !!a && (a === document.body || detail.contains(a));
     state.open = null;
     detail.hidden = true;
     document.body.classList.remove('detail-open');
     if (location.hash) history.replaceState(null, '', location.pathname + location.search);
     syncCurrent();
+    if (wasOpen && opts.restoreFocus !== false && focusWasOurs) focusBackToRow(id);
   }
 
   function renderDetail(r) {
@@ -777,8 +1245,61 @@
   }
 
   /* ── 交互接线 ─────────────────────────────────────────── */
-  $('#d-close').addEventListener('click', close);
-  $('#q').addEventListener('input', function (e) { state.q = e.target.value.trim().toLowerCase(); render(); });
+  /* 包一层而不是直接传 close：addEventListener 会把 MouseEvent 当第一个参数递进去，
+     而 close 现在收 opts（{restoreFocus}）。直接用会让"事件对象"被当成配置读 ——
+     今天恰好每个字段都是 undefined 所以不出错，但那是运气，不是约定。 */
+  $('#d-close').addEventListener('click', function () { close(); });
+
+  /* ── Esc 在折叠条（<summary>）上不该关掉整个面板（2026-10-27 修）────────────
+   *
+   * 【修的是什么】审计 §6.5 实测：焦点停在详情里的任意 <summary> 上按 Esc，
+   *   document 上的全局 keydown 无条件调 close() ⇒ 整个面板 hidden、hash 清空、
+   *   焦点掉回 body。用户的意图是"收起这个折叠块"，代价却是丢掉整个阅读上下文
+   *   与滚动位置 —— 而面板要重新打开才能回来，且回来时停在顶部。
+   *
+   * 【为什么在 detail 上监听、而不是给每个 summary 单独绑】
+   *   面板内容是每次 open() 用 innerHTML 重铺的（renderDetail），逐个绑会在下一次
+   *   渲染后全部失效，而且 30 个案 × 每案 4 个折叠条 = 120 次绑定。挂在 detail 上
+   *   用事件委托，一次就够，且对新出现的 summary 自动生效。
+   *
+   * 【为什么放在 detail 的冒泡阶段就够】事件路径是 summary → details → … → #detail
+   *   → body → document。detail 的监听器先于 document 的跑，这里 stopPropagation
+   *   之后全局那一条根本收不到，不需要去改那个"总开关"的判断条件 ——
+   *   那个条件还必须保持"任何地方按 Esc 都能收起面板"，否则键盘用户会没有退路。
+   *
+   * 【为什么落点是面板头，而不是 blur()】
+   *   审计的建议是"只 blur 不关闭"。blur() 会把焦点丢给 body —— 那正是缺陷 2 刚修掉的
+   *   症状（焦点在 body ⇒ 想回到刚才的折叠条要重新 Tab 整个页面）。所以这里改成
+   *   "退到面板头"：Esc 变成一条有方向的阶梯 ——
+   *     折叠条上按 Esc → 焦点退到面板头（面板还开着，当前是哪个案仍读得出来）
+   *     再按一次 Esc  → 面板关闭，焦点还回触发的行卡（见 close()）
+   *   两级都能反悔，且任何一级都不会把焦点扔回 body。
+   *   与 prompt-copy.js:881 那处输入框 Esc 的处理同一个思路（stopPropagation 后再收焦点），
+   *   区别是那里 blur 是合理的（输入框 blur 后焦点还在用户刚点过的按钮上），
+   *   这里 blur 没有合理落点，所以要显式指定。 */
+  detail.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape') return;
+    var s = e.target && e.target.closest ? e.target.closest('summary') : null;
+    if (!s || !detail.contains(s)) return;
+    e.preventDefault();
+    e.stopPropagation();
+    focusIntoDetail();
+  });
+
+  $('#q').addEventListener('input', function (e) {
+    state.q = e.target.value.trim().toLowerCase();
+    /* 打字**不**动芯片（2026-10-27 决定，且必须先说清为什么不）。
+       一开始我让"打字"顺手取消芯片，理由是"更近的一次意图应该赢"。实测后否掉了：
+       那会让「点了咖啡店芯片，再在框里打『白色』」变成"把芯片悄悄关掉、只按白色筛"，
+       芯片的 aria-pressed 自己灭掉 —— 用户没有点它，它却变了，这是新的静默改动。
+       而且「组间是并且」这句是这张台子的基本语义（rail-lead 上就写着），q 也只是
+       其中一组筛选：先点芯片再打词，本来就该是**在这几个里继续缩小**，这是真·精筛。
+       筛成 0 行时由空状态给出带行数的两个按钮（只看芯片 / 只看搜索词），一键可退 ——
+       所以"先点后搜"不是死路，只是"缩得太狠"，而缩得太狠本来就要允许。
+       真正的死路只有一条：点芯片把用户已经打好的词**替换**掉却不告诉他。那条在
+       parkQuery() 里修了（词被挂起、可见、可放回）。 */
+    render();
+  });
   $('#sort').addEventListener('change', function (e) { state.sort = e.target.value; render(); });
   $('#reset').addEventListener('click', function () {
     /* ⚠️ 四个新轴必须一起清。
@@ -806,6 +1327,10 @@
        这里若只 clear 旧对象，语义上没问题但和 benchClearSceneIds 走两条不同的路径；
        统一成"替换"，让 reset 与"再点一次芯片取消"产生完全一致的状态。 */
     state.sceneIds = new Set();
+    /* 暂存词也要一起清（2026-10-27）：「清空筛选」的语义是"回到初始界面"，
+       留着一条「已暂存「咖啡店」」的条子会让用户以为还有筛选在生效 —— 而按钮
+       一键就能把那颗子弹再打回来。reset 之后 30/30，条子必须消失。 */
+    state.qParked = null;
     $('#q').value = ''; $('#sort').value = state.sort = 'n';
     /* .chips button 覆盖 rail 里 9 组筛选芯片；.scene-chip 必须单独列 ——
        它们虽然也在 .chips 容器里（#flt-scene），但 reset 时不能只靠 .chips 这个前缀选择器
@@ -877,6 +1402,8 @@
 
   window.addEventListener('hashchange', function () {
     var id = (location.hash || '').replace('#', '');
+    /* 改 hash 是用户动作（点行卡会写 hash，浏览器前进/后退也会）⇒ 这里可以抢焦点。
+       close() 不传 restoreFocus:false 也一样：hash 被用户清掉等于"退出详情"，还回行卡是对的。 */
     if (!id) { close(); return; }
     if (/^S\d{2}$/.test(id)) open(id);
   });
@@ -884,7 +1411,9 @@
   render();
 
   var h = (location.hash || '').replace('#', '');
-  if (/^S\d{2}$/.test(h)) open(h);
+  /* 首次加载**不抢焦点**（focus:false）：带 #S07 进来时，用户（和屏读器）应该从页首开始读。
+     一载入就把焦点扔进右下角面板，等于替他做了一次他没做的跳转。 */
+  if (/^S\d{2}$/.test(h)) open(h, { focus: false });
 
   /* 对外接口：给 prompt-copy.js 的场景芯片用。
      只暴露「按 id 集合筛选」这一个动作，不让外部直接碰 state 内部结构。 */
@@ -896,4 +1425,25 @@
     state.sceneIds = new Set();
     render();
   };
+  /* 2026-10-27 新增两个原子动作，给芯片的 click handler 用。
+     为什么不复用上面两个再各配一次"清输入框"：那需要两处 DOM 操作（改 #q.value 与调
+     benchSetSceneIds），两次都各自 render()，中间会闪过一帧"词还在、芯片已生效"的 0 行状态。
+     这两个函数把「挂起搜索词 + 换掉场景白名单」合成**一次**渲染，界面不会说出半句话。
+     —— 死路修法的实现在 app.js（parkQuery 的长注释），prompt-copy.js 只负责调用。 */
+  window.benchParkQuery = function () {
+    return parkQuery();          // 只改状态与输入框，不 render（由下面两个接口统一渲染）
+  };
+  /* 点芯片时调用：先挂起搜索词，再换白名单，一次渲染。
+     ids 为空 = 取消芯片（此时不动搜索框里用户自己打的字）。 */
+  window.benchSetSceneIdsParkingQuery = function (ids) {
+    var parked = parkQuery();
+    state.sceneIds = new Set(ids || []);
+    render();
+    return { parked: parked, parkedText: state.qParked };
+  };
+  window.benchClearSceneIdsKeepQuery = function () {
+    state.sceneIds = new Set();
+    render();
+  };
+  window.benchParked = function () { return state.qParked; };
 })();

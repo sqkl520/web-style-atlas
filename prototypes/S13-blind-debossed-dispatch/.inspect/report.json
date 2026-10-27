@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S13-blind-debossed-dispatch/index.html",
- "at": "2026-10-24T16:11:28.111Z",
+ "at": "2026-10-27T11:37:30.782Z",
  "allow": [],
  "viewports": [
   {
@@ -253,7 +253,7 @@
      "inHero": 1,
      "radius": 0,
      "height": 46,
-     "withShadow": 4,
+     "withShadow": 0,
      "withGradient": 0,
      "mono": 0,
      "upper": 0,
@@ -262,14 +262,9 @@
      ]
     },
     "surfaces": {
-     "shadowStatic": 17,
+     "shadowStatic": 0,
      "shadowOverlay": 0,
-     "shadowSamples": [
-      "header#top.letterhead → rgba(36, 31, 23, 0.067) 0px 1px 1px 0px inset, rgba(36, 31, 23, 0.05) 0px 1px 1p",
-      "div.specimen__foil → rgba(36, 31, 23, 0.08) 2px 2px 3px 0px",
-      "h3.clause__head → rgba(36, 31, 23, 0.11) 2px 2px 3px 0px inset, rgba(36, 31, 23, 0.06) 2px 2px 2px",
-      "h3.clause__head → rgba(36, 31, 23, 0.11) 2px 2px 3px 0px inset, rgba(36, 31, 23, 0.06) 2px 2px 2px"
-     ],
+     "shadowSamples": [],
      "gradients": 0,
      "scrims": 0,
      "gradientSamples": [],
@@ -662,7 +657,7 @@
      "inHero": 1,
      "radius": 0,
      "height": 46,
-     "withShadow": 4,
+     "withShadow": 0,
      "withGradient": 0,
      "mono": 0,
      "upper": 0,
@@ -671,14 +666,9 @@
      ]
     },
     "surfaces": {
-     "shadowStatic": 17,
+     "shadowStatic": 0,
      "shadowOverlay": 0,
-     "shadowSamples": [
-      "header#top.letterhead → rgba(36, 31, 23, 0.067) 0px 1px 1px 0px inset, rgba(36, 31, 23, 0.05) 0px 1px 1p",
-      "div.specimen__foil → rgba(36, 31, 23, 0.08) 2px 2px 3px 0px",
-      "h3.clause__head → rgba(36, 31, 23, 0.11) 2px 2px 3px 0px inset, rgba(36, 31, 23, 0.06) 2px 2px 2px",
-      "h3.clause__head → rgba(36, 31, 23, 0.11) 2px 2px 3px 0px inset, rgba(36, 31, 23, 0.06) 2px 2px 2px"
-     ],
+     "shadowSamples": [],
      "gradients": 0,
      "scrims": 0,
      "gradientSamples": [],
@@ -1078,7 +1068,7 @@
      "inHero": 1,
      "radius": 0,
      "height": 46,
-     "withShadow": 4,
+     "withShadow": 0,
      "withGradient": 0,
      "mono": 0,
      "upper": 0,
@@ -1087,14 +1077,9 @@
      ]
     },
     "surfaces": {
-     "shadowStatic": 17,
+     "shadowStatic": 0,
      "shadowOverlay": 0,
-     "shadowSamples": [
-      "header#top.letterhead → rgba(36, 31, 23, 0.067) 0px 1px 1px 0px inset, rgba(36, 31, 23, 0.05) 0px 1px 1p",
-      "div.specimen__foil → rgba(36, 31, 23, 0.08) 2px 2px 3px 0px",
-      "h3.clause__head → rgba(36, 31, 23, 0.11) 2px 2px 3px 0px inset, rgba(36, 31, 23, 0.06) 2px 2px 2px",
-      "h3.clause__head → rgba(36, 31, 23, 0.11) 2px 2px 3px 0px inset, rgba(36, 31, 23, 0.06) 2px 2px 2px"
-     ],
+     "shadowSamples": [],
      "gradients": 0,
      "scrims": 0,
      "gradientSamples": [],
@@ -1143,28 +1128,6 @@
    "width": 1440,
    "message": "Monospace type outside code: DM Mono — e.g. \"0.4mm\", \"0.4mm\", \"0.4mm\", \"0.4mm\"",
    "fix": "Set it in the text face. Monospace is for literal code inside <pre>/<code> only.",
-   "alsoAt": [
-    768,
-    390
-   ]
-  },
-  {
-   "level": "FAIL",
-   "id": "shadow",
-   "width": 1440,
-   "message": "17 box-shadow(s) on elements at rest: header#top.letterhead → rgba(36, 31, 23, 0.067) 0px 1px 1px 0px inset, rgba(36, 31, 23, 0.05) 0px 1px 1p | div.specimen__foil → rgba(36, 31, 23, 0.08) 2px 2px 3px 0px | h3.clause__head → rgba(36, 31, 23, 0.11) 2px 2px 3px 0px inset, rgba(36, 31, 23, 0.06) 2px 2px 2px",
-   "fix": "Remove. Separate surfaces with a tone step or space. Shadows are for things that really float (menus, dialogs, sticky bars).",
-   "alsoAt": [
-    768,
-    390
-   ]
-  },
-  {
-   "level": "FAIL",
-   "id": "button-fx",
-   "width": 1440,
-   "message": "Buttons with shadow/glow.",
-   "fix": "Flat fill, one colour.",
    "alsoAt": [
     768,
     390

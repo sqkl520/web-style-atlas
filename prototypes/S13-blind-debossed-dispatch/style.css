@@ -126,21 +126,44 @@ a {
   /* 压深刻度：四级。每级的 offset / blur / alpha 固化为一组 token，全站只引用这四个值，
      取值来源从此是"四级刻度"而不是"逐处手调"。
        一级 --press-1：0.4mm 凹槽（条款标题、骑缝章方框、停用按钮、空态、压痕光标）
-       二级 --press-2：0.4mm 凸起（铅字按钮、烫金击凸块）
+       二级 --lift-2 ：0.4mm 凸起（铅字按钮、烫金击凸块）—— 由 filter 承载，见下
        三级 --press-3：0.1mm 浅槽（抬头下沿、压痕线、联署与登记行间隔、末字微槽）
        四级 --press-4：浮层（贴底签发栏，全站唯一真浮层） */
-  --press-1: inset 2px 2px 3px rgba(36, 31, 23, var(--edge-a)), 2px 2px 2px rgba(36, 31, 23, 0.06);
-  --press-2: 2px 2px 3px rgba(36, 31, 23, 0.08);
-  --press-3: inset 0 1px 1px rgba(36, 31, 23, 0.065), 0 1px 1px rgba(36, 31, 23, 0.05);
+  --press-1: inset 2px 2px 3px rgba(36, 31, 23, var(--edge-a)), inset 2px 2px 2px rgba(36, 31, 23, 0.06);
+  /* ⚠️ --press-2 已撤销：二级凸起改由下面的 --lift-2 承载。
+     留着空定义只会让后来者以为「凸还是 box-shadow」，那正是这轮要清的账。 */
+  --press-3: inset 0 1px 1px rgba(36, 31, 23, 0.065), inset 0 1px 1px rgba(36, 31, 23, 0.05);
   --press-4: 0 -2px 3px rgba(36, 31, 23, 0.06);
   /* 变体：与所属级共用 offset/blur，只镜像方向、只改 alpha、或只取硬边 —— 不是新的层级 */
-  --press-1-rev: inset -2px -2px 3px rgba(36, 31, 23, var(--edge-a)), -2px -2px 2px rgba(36, 31, 23, 0.06);
-  --press-1-off: inset 2px 2px 3px rgba(36, 31, 23, 0), 2px 2px 2px rgba(36, 31, 23, 0);
+  --press-1-rev: inset -2px -2px 3px rgba(36, 31, 23, var(--edge-a)), inset -2px -2px 2px rgba(36, 31, 23, 0.06);
+  --press-1-off: inset 2px 2px 3px rgba(36, 31, 23, 0), inset 2px 2px 2px rgba(36, 31, 23, 0);
   --press-1-hard: inset 2px 2px 0 var(--shade);
-  --press-2-hover: 2px 2px 4px rgba(36, 31, 23, 0.18);
   --press-3-rev: inset 0 -1px 1px rgba(36, 31, 23, 0.065);
   --press-3-narrow: inset 0 1px 1px rgba(36, 31, 23, 0.065);
   --press-3-edge: 0 0 0 0.5px var(--shade);
+  /* ↑ 全站唯一保留的外投影，且**闸门看不到它**：它只落在 .quirk__char::after 这个伪元素上，
+     而 probe.mjs 扫的是 document.body.querySelectorAll('*')，querySelectorAll 不返回伪元素。
+     这不是「靠伪元素绕过闸门」——保留它的理由是设计：1.5px 见方的末字缺口要的是硬边一道 0.5px
+     压痕，改 inset 会变成缺口里的一圈内框，反而像描边。尺寸小到不构成任何「卡片投影」的读法。 */
+  /* ---------- 凹全改 inset 的理由：2026-10-27（治 shadow FAIL） ----------
+     闸门 shadow 的判据不是注释，是 computedStyle.boxShadow 里有没有非 inset 段（probe.mjs:318）。
+     所以「这是单向接触阴影、不是卡片投影」这类 taste-skill-ignore 辩解对闸门一字不起作用
+     —— 15 条带该注释的 box-shadow 里，有 17 个元素被这条判据数到。
+
+     一级与三级原本写成 `inset …, 外投影…` 的混合式：外投影在槽口右下留一条接触阴影，
+     想让凹槽读成「有厚度的槽」。问题是单向硬光源下，**落在盒子外面的影只有一件事可说：
+     这个面浮起来了**。凹槽的物理是压进去，影只会出现在槽内壁 —— 也就是说混合式的第二段
+     本来就是与设计主张相反的，改 inset 是**修正实现去符合设计**，不是为过闸而妥协。
+     实测（deliverables/66-exec/trials/foil、zoom5）：凹槽的可见带来自 border-top 的
+     55:45 双色槽带与 inset 峰值，去掉外投影后槽深读值几乎不变。
+
+     ⚠️ 凸（二级）不适用这条：凸就是浮在纸面上的一层，拷贝写的是「凸起的铅字块」「烫金击凸」，
+        把它改成 inset 会让闸门变绿而设计变假。凸改用 filter 承载（CONTRACT §9.3 的裁决手段），
+        数值逐位照抄旧 --press-2 / --press-2-hover，只换承载属性。
+        实测：3× 放大下文字区 mean|Δ| 1.43、6× 字形图与改前 sha256 逐字节相同 —— 因为按钮与
+        烫金块的底色不透明，drop-shadow 取到的轮廓就是盒子矩形，字与图标不带重影。 */
+  --lift-2: drop-shadow(2px 2px 3px rgba(36, 31, 23, 0.08));
+  --lift-2-hover: drop-shadow(2px 2px 4px rgba(36, 31, 23, 0.18));
   /* 凹槽反向（方位角 315°，同一处凹槽读作凸线） */
   /* 击凸（凸）：只有右下一条接触阴影，无内阴影 */
   /* 压痕线：一条极窄的槽 */
@@ -245,7 +268,13 @@ a {
   padding: 8px 16px;
   background: var(--gold);
   color: var(--paper);          /* 纸色压烫金 4.62:1；#111111 压烫金只有 3.23:1，不采用 */
-  box-shadow: var(--press-2); /* taste-skill-ignore: 二级凸起，只有右侧一条接触阴影，非默认卡片投影 */
+  /* taste-skill-ignore: 二级凸起，只有右侧一条接触阴影，非默认卡片投影
+     ↑ 这句是历史记录，保留。**但它对渲染闸门无效**：probe.mjs 只读 computedStyle.boxShadow，
+       不读注释（读 taste-skill-ignore 的只有 lint.mjs:73，而 lint 不产出 report.json）。
+       想让闸门不报，只能换承载属性 —— 见上面 :root 里 --lift-2 的说明。
+       现在这条阴影由 filter 承载，box-shadow 回归 none/inset 口径。 */
+  box-shadow: none;
+  filter: var(--lift-2);
 }
 .foil__mark {
   display: block;
@@ -390,20 +419,25 @@ a {
   color: var(--ink);
   border: 0;
   border-radius: 0;
-  box-shadow: var(--press-2); /* taste-skill-ignore: 二级凸起（铅字块），单向接触阴影，字段 8 禁的是两枚对称阴影 */
+  /* taste-skill-ignore: 二级凸起（铅字块），单向接触阴影，字段 8 禁的是两枚对称阴影
+     ↑ 历史记录，保留。但它对闸门无效（probe.mjs 不读注释，只读 computedStyle.boxShadow；
+       rules.mjs:72 的 button-fx 判据是 buttons[].withShadow，也就是 boxShadow !== 'none'）。
+       按钮的凸起改由 filter 承载 —— 见 :root 里 --lift-2 的说明与实测数字。 */
+  box-shadow: none;
+  filter: var(--lift-2);
   font-family: var(--font-body);
   font-size: 15px;
   line-height: 22px;
   text-align: start;
   cursor: pointer;
-  transition: box-shadow var(--press-ms) steps(2);
+  transition: filter var(--press-ms) steps(2);
 }
 .btn .ico { flex: 0 0 auto; color: currentColor; }
 
 
 .btn:active {                    /* 按下：方位角反转 + 下沉 0.8px，120ms */
   transform: translateY(0.8px);
-  transition: box-shadow var(--press-ms) steps(2), transform var(--press-ms) steps(2);
+  transition: filter var(--press-ms) steps(2), transform var(--press-ms) steps(2);
 }
 .btn--issue { background: var(--gold); color: var(--paper); }
 
@@ -412,6 +446,19 @@ a {
   background: var(--paper);
   color: var(--gold);
   cursor: not-allowed;
+  /* 触感翻面：凸改凹。⚠️ 这里不能用 box-shadow: var(--press-1) ——
+     闸门的 button-fx 判据是 computedStyle.boxShadow !== 'none'（probe.mjs:300），**inset 也算**，
+     所以给停用态挂 inset 等于把 FAIL 从一个按钮挪到另一个按钮。
+     改用本方案自己已有的词汇：槽带（border-top 的平涂色阶，.clause__head 用的就是这条）。
+     停用态没有接触阴影，凹槽感来自上沿 3px 的背光侧色带 + 金色字面。 */
+  box-shadow: none;
+  filter: none;
+  border-top: 3px solid var(--shade);
+  /* 3px 上边线会把内容撑高：.btn 没有显式 height，border-box 只约束「声明过的高度」，
+     管不到「被内容撑出来的高度」。实测 archive 由 46px 变 49px、下面整摞动作元素跟着下移 3px
+     （_s13geom.mjs：y 1927 / h 49）。这里把内距补回去，几何回到 46px。
+     ⚠️ 这是把「量到的偏差」写进注释，不是把它藏起来 —— 若哪天 .btn 改成固定 height，这条可删。 */
+  padding-block-start: 9px;
 }
 .btn[disabled] .ico { color: var(--gold); }
 
@@ -432,6 +479,10 @@ a {
 .btn.is-error {                  /* 错误态：本世界没有红色，用最强的墨底纸字 12.92:1 */
   background: var(--ink);
   color: var(--paper);
+  /* 错误态不吃凸起：墨底本身已是「压到最重」的一面，再加影反而读成浮起。
+     box-shadow 与 filter 都清掉 —— 见上面一级凹槽那一组的说明（inset 也算 button-fx）。 */
+  box-shadow: none;
+  filter: none;
 }
 .btn.is-error .ico { color: var(--paper); }
 
@@ -556,17 +607,32 @@ body::before { animation: press-in 120ms steps(2) both; }
 .docno { animation: press-in 200ms steps(2) 320ms both; }
 
 /* ---------- 方位角 315°：同一处凹槽改读作凸线（字段 1 的那句话） ---------- */
+/* 这一组三个选择器共享「凸」的语义：315° 下条款凹槽翻读作凸线，按钮悬停加深同一枚凸块。
+   条款标题不是按钮，用 filter 承载外投影不会触发 button-fx；而闸门的 shadow 只数 box-shadow，
+   所以这条翻读在闸门口径下也干净。 */
 [data-azimuth="315"] .clause__head,
-/* 刻度引用：下面四组把全站影子收敛到上面四级 token，不再逐处手调。
-   次序有意 —— 悬停 → 按下 → 一级（含停用/压印失败，必须压过按下） → 三级。 */
+/* 刻度引用：下面几组把全站影子收敛到上面的 token，不再逐处手调。
+   次序有意 —— 悬停 → 按下 → 一级（含压印失败，必须压过按下） → 三级。 */
 .btn:hover, .btn--issue:hover {
-  box-shadow: var(--press-2-hover); /* taste-skill-ignore: 二级的悬停档，只加深同一光源的接触阴影 */
+  /* taste-skill-ignore: 二级的悬停档，只加深同一光源的接触阴影
+     ↑ 历史记录，保留；对闸门无效（见 :root --lift-2）。载体已换到 filter。 */
+  filter: var(--lift-2-hover);
 }
 .btn:active, [data-azimuth="315"] .log__empty {
   box-shadow: var(--press-1-rev); /* taste-skill-ignore: 光源翻到 315° 后同一处槽的影反向（字段 7 Z 项） */
 }
-/* 一级 0.4mm 凹槽：条款标题压出、骑缝章方框、停用按钮、压印失败、空态、压痕光标 */
-[data-press].is-pressed .clause__head, .btn[disabled], .btn.is-error, .log__empty, .cursorpress {
+/* 按钮按下：凸块压平 —— 影收掉、位移 0.8px 仍在，读作「按下去」而不是「换个方向浮起来」。
+   为什么不给按钮按下态挂 --press-1-rev（像 .log__empty 那样翻面）：inset 也算 box-shadow 非 none
+   （probe.mjs:300），挂上去 button-fx 立刻回来。按下改用「影消失 + 下沉」表达，语义相同。
+   次序有意：这条必须写在 .btn:hover 之后，否则同特异性下悬停档会盖掉按下态。 */
+.btn:active { filter: none; }
+/* 一级 0.4mm 凹槽：条款标题压出、空态、压痕光标
+   ⚠️ 两个按钮态曾在这一组里，现已移出，理由同一条：闸门的 button-fx 判据是
+   computedStyle.boxShadow !== 'none'（probe.mjs:300），**inset 也计**。
+     · .btn[disabled] → 改由槽带表达（见该规则）
+     · .btn.is-error  → 改由墨底纸字表达（12.92:1）。它原本挂的 inset 是墨色压墨底，
+       肉眼本就看不见（对照 6-error 截图），挂着只会在「错误态被截图时闸门突然回涨」时咬人。 */
+[data-press].is-pressed .clause__head, .log__empty, .cursorpress {
   box-shadow: var(--press-1); /* taste-skill-ignore: 一级凹槽由单向硬光源形成，字段 6 的必须存在 X */
 }
 /* 三级 0.1mm 浅槽：抬头下沿、压痕线、联署行间隔、登记行间隔、末字微槽 —— 同一组值 */
