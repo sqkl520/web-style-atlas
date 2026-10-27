@@ -1,7 +1,17 @@
 # 移动端 / 键盘可达性 5 条缺陷的修复（选型台）
 
-改动面：`prototypes/_selection/app.js`、`prototypes/_selection/style.css`，两个文件，未 commit。
+改动面：`prototypes/_selection/app.js`、`prototypes/_selection/style.css`，两个文件，**我没有 commit**。
 未碰 `prompt-copy.js` / `data.js` / `prompts.js` / `README*` / `check-docs.mjs` / `prototypes/S*/` / `templates/`。
+
+> **提交状态说明（写报告时才发现，如实记）**：我全程没有执行 `git commit`。
+> 但我收尾复核时发现 Lead 在 20:16 做了一次提交（`1753f94`），把我这两处改动
+> **一并带进去了**（`git show HEAD:prototypes/_selection/style.css` 里能看到
+> `--s-15: 15px` / `.mast-exit a { padding: 2px 0 }` / `#q-parked[hidden]`，
+> `app.js` 里能看到 `focusIntoDetail` / `focusBackToRow` / `opts.focus !== false` /
+> `restoreFocus !== false` / `closest('summary')` / `open(h, { focus: false })`）。
+> 之后我改的只是注释措辞（`_a11y-regress.mjs` 的探针修复与报告本身），
+> 且 `git diff HEAD -- <这两个文件>` 现在是**空的** —— 即工作树与已提交状态一致，
+> 下面所有验收数字都是在最终代码上跑出来的。
 
 先给结论，再逐条给证据：
 
@@ -436,14 +446,26 @@ esc2（head）   : detailOpen=false, active=li.row dataId=S04, hash=""
   与 `prompt-copy.js:881` 那处输入框 Esc 同一思路（`stopPropagation` 后再收焦点），
   区别是那里 `blur()` 有合理落点（用户刚点过的按钮），这里没有，所以要显式指定。
 
-**summary 的默认开合没被挡**（`_a11y-keycheck.mjs`，三种按法对照）：
+**summary 的默认开合没被挡**（`_a11y-keycheck.mjs` 做三变体对照，`_a11y-regress.mjs` 做序列回归）：
 
 ```
-enter-plain : afterFirst open=false   ← CDP 少了 text 字段，浏览器不合成激活，探针的坑
-enter-text  : afterFirst open=true, afterSecond open=false
-space       : afterFirst open=true, afterSecond open=false
-escThenSpace: 按过 Esc 之后 Space 仍能正常开合（stopPropagation 没有"粘住"后续按键）
+_a11y-keycheck 三变体：
+  enter-plain : afterFirst open=false   ← CDP 少了 text 字段，浏览器不合成激活，探针的坑
+  enter-text  : afterFirst open=true, afterSecond open=false
+  space       : afterFirst open=true, afterSecond open=false
+  escThenSpace: 按过 Esc 之后 Space 仍能正常开合（stopPropagation 没有"粘住"后续按键）
+
+_a11y-regress 序列（打开面板 → 聚焦 summary → Enter → Enter）：
+  summarySetup  : { detailOpen:true, focusedIsSummary:true, open:false }
+  summaryToggle : { open:true,  detailOpen:true, stillSummary:true }   ← 展开
+  summaryToggleBack: { open:false, detailOpen:true }                    ← 收回
 ```
+
+⚠️ 这里连着踩了两个**探针**的坑，都写进脚本注释了，因为它们的表现都像"页面坏了"：
+① CDP 的 Enter 不带 `text:'\r'` 不触发 `<summary>` 的原生激活；
+② 上一步 `esc2` 已把面板关掉，`#detail` 是 `display:none`，里面 `summary.focus()`
+**静默失败**（焦点留在行卡上），于是 Enter 按在行卡上又把面板打开了 —— 量到的
+`open=false` 全是探针的错。两处都已修，现在脚本会先断言 `focusedIsSummary:true` 再按键。
 
 ### `git diff` 片段
 
@@ -947,6 +969,7 @@ prototypes/_selection/prompt-copy.js| bytes=99579 | BOM=false | CRLF=0 | LF=1499
 | `_a11y-zoom.mjs` | 焦点环的像素级裁剪 |
 | `_a11y-wizard.mjs` | `--s-15` 对向导页的副作用 |
 | `_a11y-parked-ab.mjs` | 暂存条"放回搜索"路径的改前/改后 A/B |
-| `_cssdiag.mjs` | 定位 `**/` 提前闭合注释的那次诊断 |
+| `_cssdiag.mjs` | 定位"注释被 `*/` 提前闭合"那次事故的诊断脚本 |
+| `_mdcheck.mjs` | 本报告自检：代码围栏是否成对、表格列数是否一致 |
 | `_acc/*.txt` | 验收命令的原始输出 |
 | `_before-clone/` | 改前副本（`_selection/` 整份 + 回退 5 处），2.5MB，可删 |
