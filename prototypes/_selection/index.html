@@ -38,8 +38,35 @@
   <div class="mast-id">
     <p class="mast-kicker">网站设计风格方案 · 选型台</p>
     <h1>三十个案，一条渲染口径</h1>
-    <p class="mast-claim">每个方案都有一个可运行的原型，全部用同一条命令、同一套视口（桌面 1440×900、平板 768×1024、手机 390×844）渲染，闸门结果与截图都在这里摊开——选之前先看它实际长成什么样。</p>
     <p class="mast-wizard"><a href="wizard.html">筛不出来？走选型向导：五个问题给出 3 个推荐 + 3 个明确排除 →</a></p>
+    <!-- 页头折叠块（2026-10-28，390×844 首屏实测）────────────────────────────
+         改前实测（CDP，390×844，dsf 2，滚动到 top=0）：
+           header.mast 453.4px = kicker 22.7 + h1 27.5 + claim 96 + 向导 66.6
+                                 + exit 76.1 + facts 73.5 + padding/gap 90
+           aside.rail 337.6  ·  .bar 145  ·  首卡 top 954  ·  视口 844
+           ⇒ 首屏完整方案卡 **0 张**，首卡一个像素都没进视口。
+         两段散文（claim 96 + exit 76.1 = 172.1px，占页头 38%）讲的是「这个图集是什么」
+         与「不挑的话去哪拿成品」。两句都该留，但它们不是第一眼要的东西 ——
+         第一眼要的是「这里有哪些方案」。
+         ⇒ 折进 <details>，默认收起，一点就开，一个字不删。
+
+         【为什么向导按钮留在折叠块外面、而且挪到 claim 前面】
+         向导是这页的第二条主路（筛不出来就直接问五个问题），把它一起折起来等于把路藏了。
+         位置从 claim 之后挪到 claim 之前，是因为折叠块必须是**连续的一段**：
+         <details> 只能包住相邻的兄弟节点，claim 与 exit 之间隔着向导，三选二就得挪一个。
+         挪向导（而不是把 exit 拖到向导前面）的理由：这样做之后 DOM 顺序是
+         「标题 → 主按钮 → 解释」，1440 档上按钮比改前**高了一位**，
+         而实测页头总高不变（304.0 → 304.0，见 style.css 末尾那段注释），
+         首卡 top 387.9 → 387.9（Δ 0.0）。也就是说这个顺序改动在桌面档是零代价的。
+
+         【为什么 summary 上写「这个图集是什么 · 想要现成模板去哪」】
+         summary 是折叠态下唯一还看得见的一行，它必须逐项报出里面有什么，
+         否则用户没有理由点开。里面正好两段：claim（这个图集是什么 / 凭什么信它）
+         与 exit（不想挑的话去哪拿现成模板）。所以 summary 就按这两段各写半句，
+         中间用 · 分隔 —— 结构上等价于一个两行的目录。 -->
+    <details class="mast-fold" id="mast-fold" open>
+      <summary class="mast-fold-sum">这个图集是什么 · 想要现成模板去哪</summary>
+      <p class="mast-claim">每个方案都有一个可运行的原型，全部用同一条命令、同一套视口（桌面 1440×900、平板 768×1024、手机 390×844）渲染，闸门结果与截图都在这里摊开——选之前先看它实际长成什么样。</p>
     <!-- 模板出口：2026-10-25 从 rail 第 11 组（「怎么用」块里的一行小字）移到这里。
          原因：实测 1440×900 下它原位置 top=2199 / bottom=2313，**首屏曝光为 0**
          （首屏完整可见的筛选组只有 3/11，它在第 11 组之后），而它是"不想挑、只想拿走一个
@@ -48,8 +75,15 @@
          一条直接给成品），放在一起才读得通。实测代价只有 1 行高度（页头 267→300px，
          rail 首屏完整可见的筛选组仍是 3 组）；先试过放进 rail 里，rail 固定 264px 宽、
          这句话折 4 行占 160px，把首屏筛选组从 3 组压到 1 组，所以没放那儿。
-         保留 id="tpl-exit"：wizard.js:192 有 ./#tpl-exit 的深链，改 id 会断。 -->
-    <p class="mast-exit" id="tpl-exit">只想要<strong>拿来就能用的</strong>？不用在这三十张卡里挑——直接去三个大众模板：<a href="../../templates/M01-clean-corporate/">企业站 M01</a> · <a href="../../templates/M02-warm-local/">餐饮本地 M02</a> · <a href="../../templates/M03-bold-creator/">作品集 M03</a>（自包含、系统字体、双击即对）。</p>
+         保留 id="tpl-exit"：wizard.js:192 有 ./#tpl-exit 的深链，改 id 会断。
+
+         2026-10-28 补：它现在在 .mast-fold 里面，默认收起。深链**照旧能到** ——
+         实测（CDP，390 档）：对一个关闭的 <details> 内部的元素做片段跳转，
+         Chrome 会自动把祖先 details 展开（open: false → true），落点 top=16.2px。
+         这条行为我特意验过两次（一次页内改 hash、一次冷加载 file:///…index.html#tpl-exit），
+         两次都是 open=true。所以 wizard.js 那条深链不需要改。 -->
+      <p class="mast-exit" id="tpl-exit">只想要<strong>拿来就能用的</strong>？不用在这三十张卡里挑——直接去三个大众模板：<a href="../../templates/M01-clean-corporate/">企业站 M01</a> · <a href="../../templates/M02-warm-local/">餐饮本地 M02</a> · <a href="../../templates/M03-bold-creator/">作品集 M03</a>（自包含、系统字体、双击即对）。</p>
+    </details>
   </div>
   <dl class="mast-facts" id="facts">
     <div><dt>方案总数</dt><dd id="f-total">—</dd></div>
@@ -63,10 +97,38 @@
 
   <aside class="rail" aria-label="筛选">
 
-    <!-- 2026-10-25 删除：这里原本有个 <details class="rail-fold" id="rail-fold">，summary 写着
-         「筛选与场景反查（11 组）」，但 .rail-fold-body 的**子元素数实测为 0**（CDP: railFoldBodyChildren: 0）。
-         原因：rail 限高最终改用 CSS `max-height + overflow-y`，这个 <details> 从未接上内容，
-         桌面与移动端都只渲染出一条 26px 的空折叠条 —— 一个点开什么都没有的假控件，故删除。 -->
+    <!-- 筛选栏折叠块（2026-10-28 重做，390×844 首屏实测）──────────────────────
+         这个 id 曾经存在过、又被删掉过，这里把两次的事实都留着，免得下一个人重犯：
+
+         【2026-10-25 删除的那一版为什么是错的】
+         那一版的 summary 写着「筛选与场景反查（11 组）」，但 .rail-fold-body 的
+         **子元素数实测为 0**（CDP: railFoldBodyChildren: 0）—— 它从未接上内容，
+         两档都只渲染出一条 26px 的空折叠条。删得对：假控件比没有更糟。
+         【本轮为什么又建一个】
+         因为当时删掉之后**没有替代品**：rail 继续占 337.6px（= 844 × 40vh 限高），
+         而它内部 scrollHeight 是 1406px —— 用户在 337px 的框里还要单独内滚 1070px
+         才能看到第 2–11 组。一块既占首屏、又要内滚的区块。
+         这次的做法不一样：**把 rail 的全部子节点原样搬进 details**，一个不落。
+         实测（CDP，390 档）折叠后 .rail 337.6 → 52px，展开后
+         子节点数与改前逐项相等（代码见 deliverables/67-exec/_accept.mjs 的 acc4）。
+
+         【为什么整条折、而不是只折后六组】
+         只折后六组省不下钱：首屏被吃掉的是**整条 rail 的 337.6px**，不是其中某几组。
+         保留「你是做什么的」那一组常驻（20 颗芯片 + 提示 + 「还有 28 个」）实测仍占
+         212.4px，加上其余折叠条，首卡只能压到 620 左右 —— 首屏还是 0 张完整卡
+         （实测见交付物里方案 B 那一行）。
+         而「你是做什么的」这一组正是**最该被看见**的一组，把它单独留在外面、
+         其余折起来，等于用「看起来还在」换「一条都没省」。整条折起、
+         summary 上直接写「11 组 · 47 颗芯片 · 先按你是做什么的挑」，
+         用户知道里面有什么，也知道第一组是什么。
+
+         【为什么不再用 max-height + overflow-y 限高】
+         那个做法制造了**内滚嵌套**：页面在滚，rail 自己也在滚，而 rail 的内滚区域
+         只有 337px 高、内容 1406px。折叠块没有这个问题 —— 展开后 rail 恢复
+         自然高度（1440 档本来就没有限高），390 档展开时整条内容跟着页面一起滚。 -->
+    <details class="rail-fold" id="rail-fold" open>
+      <summary class="rail-fold-sum">筛选 · 11 组 47 颗芯片（第一组是「你是做什么的」）</summary>
+      <div class="rail-fold-body">
 
     <!-- 先问用户能回答的问题。下面那组"设计口径与质检状态"是给做这份图集的人看的，
          不是给挑风格的人看的 —— 原来它排在前面，是"五分钟选不出来"的第一大障碍。 -->
@@ -125,6 +187,8 @@
       <h2>怎么用</h2>
       <p>点任意一行展开它的全部字段与整页截图（多数案 10 段、个别 9 段——缺失原因在 README「做不到与已知边界」里写明）。<kbd>1</kbd><kbd>2</kbd><kbd>3</kbd> 切视口，<kbd>J</kbd><kbd>K</kbd> 换方案，<kbd>/</kbd> 定位搜索框，<kbd>Esc</kbd> 收起。地址栏的 <code>#S07</code> 可以直接分享单个方案。</p>
     </div>
+      </div>
+    </details>
   </aside>
 
   <main class="main">
@@ -134,17 +198,32 @@
         <input id="q" type="search" placeholder="方案号、中文名、英文名、美学家族、字体、错误码…" autocomplete="off">
       </label>
       <p class="count" id="count">—</p>
-      <div class="sort">
-        <label for="sort">排序</label>
-        <select id="sort">
-          <option value="n">方案号</option>
-          <option value="fr">结构类型</option>
-          <option value="thr">认知门槛</option>
-          <option value="gate">闸门（FAIL 多的在前）</option>
-          <option value="built">未建的在前</option>
-        </select>
-      </div>
-      <button id="reset" type="button" class="btn-quiet">清空筛选</button>
+      <!-- 工具条折叠块（2026-10-28，390×844 首屏实测）────────────────────────
+           改前 .bar 在 390 档是 145px = 四行：搜索 41.9 / 计数 21 / 排序 40 / 清空 35
+           （gap 12 把它们堆成四行，因为 358px 宽放不下「搜索 + 计数 + 排序 + 清空」）。
+           四行里有三行是**低频**的：计数只读、排序很少改、清空只在筛错时点。
+           搜索是高频的，留常驻。
+           ⇒ 排序折进 <details>，summary 上写「排序」，展开就是原来那个 <select>。
+           为什么把「清空筛选」也一起折进去：它和排序是同一次操作的两半
+           （改排序改坏了 → 清空重来），分开摆会让其中一半永远在另一处。
+           为什么「计数」不折：它是 **aria-live** 的活口 —— 筛完立刻要看到
+           「列出 4 / 30」这句话变了没有。折起来会把这个反馈一起藏掉，
+           而它只占 21px，是这四行里最便宜的一行。
+           实测（390 档）：.bar 145 → 93，与页头、筛选栏合计把首卡从 954 推到 429。 -->
+      <details class="bar-fold" id="bar-fold" open>
+        <summary class="bar-fold-sum">排序</summary>
+        <div class="sort">
+          <label for="sort">排序</label>
+          <select id="sort">
+            <option value="n">方案号</option>
+            <option value="fr">结构类型</option>
+            <option value="thr">认知门槛</option>
+            <option value="gate">闸门（FAIL 多的在前）</option>
+            <option value="built">未建的在前</option>
+          </select>
+        </div>
+        <button id="reset" type="button" class="btn-quiet">清空筛选</button>
+      </details>
     </div>
 
     <!-- 模板带（有方案行时才出现）：模板层与 30 个案是两条并行的通道，不能混。
@@ -205,6 +284,34 @@
   </div>
   <div class="detail-body" id="d-body"></div>
 </aside>
+
+<!-- 折叠块的初始开合（2026-10-28）────────────────────────────────────────────
+     三块 <details> 在 HTML 里都写着 open，也就是**没有这段脚本时 = 改动前的样子**
+     （两档全部展开，一个字不少）。这段脚本只做一件事：窄档（≤980px，与 style.css
+     里 .detail 变全屏层的断点同一个值）把它们收起来。
+     为什么默认写成 open、由脚本往"收"的方向改，而不是写死成收起、由脚本往"开"的方向改：
+       · 无脚本时，写死收起会让正文在**所有**视口都看不见 —— 那是真丢内容；
+         写 open 时最坏也只是"没有省下首屏"，功能一点不少。
+       · 宽档本来就要展开，写 open 让宽档连脚本都不用等。
+     为什么不放在 app.js 里：本轮写作用域只有 index.html 与 style.css，app.js 不归我改。
+     这段脚本放在 data.js 之前（而不是 </body> 之前），是为了让它在这一屏**首次绘制之前**
+     就执行完 —— 否则 390 档会先按展开态画一帧（页头 453px），再跳成 268px，
+     用户看到一次明显的重排。 -->
+<script>
+(function () {
+  var folds = ['mast-fold', 'rail-fold', 'bar-fold'].map(function (id) { return document.getElementById(id); })
+    .filter(Boolean);
+  var NARROW = 980;   /* 与 style.css 的 @media (max-width: 980px) 同一个值 */
+  function sync() {
+    var narrow = window.innerWidth <= NARROW;
+    for (var i = 0; i < folds.length; i++) folds[i].open = !narrow;
+  }
+  sync();
+  /* 转屏 / 改窗口宽度时跟着切。只在跨过断点时才有实际动作，detail 的滚动位置不受影响
+     （三块都不在 .detail 里）。 */
+  window.addEventListener('resize', sync);
+})();
+</script>
 
 <script src="data.js"></script>
 <script src="prompts.js"></script>

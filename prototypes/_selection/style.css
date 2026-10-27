@@ -126,7 +126,33 @@ code { font-family: var(--code); font-size: 0.94em; }
 }
 .mast h1 {
   font-family: var(--ui);
-  font-size: clamp(30px, 4vw, 56px);
+  /* 这里原来是 `clamp(30px, 4vw, 56px)` 的字面值，于是 `--s-h1`（clamp(34px, 5.2vw, 74px)）
+     在 2026-10-28 之前**零引用**：:root 里定义了、文件开头 L7-11 的承诺「3.8vw → 5.2vw」也写了、
+     下面 `@media (max-width:1180px)` 里的禁令还专门写了
+     「保持 clamp(34px, 5.2vw, 74px)，768px 档得 39.9px / 5.2vw」，
+     但真正生效的一直是 4vw 那一套。作者以为在用 5.2vw，浏览器渲染的是 3.9–4vw。
+     （与上一轮 --s-15 是同一类 bug 的两个方向：那次是变量没定义、浏览器按 16px 兜底；
+      这次是变量定义了却没人读、字面值顶替了它。共同点：**注释与计算值从不对账**。）
+     改成就地读变量，而不是追加一条 `.mast h1{font-size:var(--s-h1)}` ——
+     追加会排到 `@media (max-width:1180px)` 与 `@media (max-width:620px)` 之后，
+     与断点顺序错位，层叠结果和"改这一行"不同（规划 Agent 第一版就是这么错的，
+     实测 h1 停在 56px）。同理，下面 620 档的 `max(26px, 6.6vw)` 之所以能继续压住这条，
+     靠的就是"更靠后 + 同特异度"—— 任何追加都会破坏这个前提。
+     实测（2026-10-28，dsf1，CDP，document.fonts.ready 之后，视口 top=0）：
+       档位      h1 改前 → 改后          行数  页头高           首屏完整卡
+       1440×900   56   → 74   （5.14vw） 1→1  304.0 → 323.1（+19.1）  1 → 1
+       1180×900   47.2 → 61.4 （5.20vw） 2→2  446.3 → 476.3（+30.0）  1 → 1
+       980×900    39.2 → 51.0 （5.20vw） 2→2  285.4 → 310.3（+24.9）  0 → 0
+       768×1024   30.7 → 39.9 （5.20vw） 2→2  267.4 → 287.0（+19.6）  1 → 1
+       390×844    26   → 26   （6.67vw） 1→1  262.5 → 262.5（  Δ0  ）  1 → 1
+     页头增量不是"一行"那么大：≤1180 档 `.mast` 是单列（`grid-template-columns: 1fr`），
+     h1 折 2 行，每行涨 9.8–15.0px，所以 1180 是 +30.0 而不是 +15.0。
+     结论没变：1440 首卡 387.9 → 407.0、卡底 683.8（视口 900，余量 216），
+     1180 卡底 837.0（视口 900，余量 **63**），完整卡数一档都没减，五档横向溢出都是 0。
+     390 档页头 262.5 → 258.5 与本条无关：那是并发 Agent 同轮把 620 档 padding 又收了 2px。
+     注：本段注释刻意不写行号，改用选择器指路 —— 这个文件在多人并发编辑下长了几百行，
+     写死行号必然过期，而"注释指错地方"正是这一轮要修的病。 */
+  font-size: var(--s-h1);
   font-variation-settings: "wdth" 88;
   letter-spacing: -.018em;
   max-width: 22ch;
@@ -224,7 +250,13 @@ code { font-family: var(--code); font-size: 0.94em; }
    视觉上必须比芯片文字弱一档，否则它会被读成"这颗芯片筛的是 M02"。 */
 .scene-tpl {
   font-family: var(--num); font-variant-numeric: tabular-nums;
-  font-size: 11px; margin-left: 5px; padding: 0 3px;
+  /* 这里原来是 11px（2026-10-26 加，87a0235），踩本文件 L8 的「13px 下限」。
+     收到 13px 也**没有**"比芯片文字弱一档"的损失：弱是靠 `opacity:.72` +
+     虚线框 + `--num` 数字族给的，不是靠字号 —— 芯片主体是 13px 正文，
+     角标与它同号但更淡，读起来仍是附注而不是第二个标签。
+     实测（2026-10-28，CDP）：1440 档 railScrollH 1996 → 1997（+1），
+     390 档 46 → 46（Δ0），两档首屏完整卡不变、横向溢出 0。 */
+  font-size: var(--s-13); margin-left: 5px; padding: 0 3px;
   border: 1px dashed currentColor; opacity: .72;
 }
 .chips button[aria-pressed="true"] .scene-tpl { opacity: .9; }
@@ -682,6 +714,33 @@ code { font-family: var(--code); font-size: 0.94em; }
      padding-left 给三角留出固定槽位，两档视口下都不会顶到左边的分隔线。 */
   padding-left: 2px;
 }
+
+/* ── 折叠条的命中高度：20.8 → 25.8px（2026-10-28 补）───────────────────────
+ *
+ * 【为什么必须补】WCAG 2.2 AA 的 2.5.8 要求目标 ≥24×24。这条 summary 原来只有
+ * **20.8px**（13px × 1.6 行高 = 20.8，上下无内距），审计
+ * （deliverables/66-audit/mobile-390.md §6.2）判它"靠间距豁免合规"——
+ * 因为以它为中心的 24px 圆上下都不与其它目标相交。
+ *
+ * 那是**豁免**，不是达标：它只在"周围正好没人"时成立，而这个前提随时会被下一次排版改动打破
+ * （比如以后有人在字段之间塞一个链接）。本轮又要新增 4 条同类折叠条，
+ * 与其添 4 个靠豁免的控件，不如把这一类控件**一次修到达标**：上下各 2px。
+ *
+ * 实测（390×844 与 1440×900，dsf1，2026-10-28）：20.8 → **25.8px**，比 24 高 1.8px，
+ * 不靠豁免。代价：390 档 scrollHeight +5.0px/案（5 条 summary × 5px），
+ * 在 30/30 已经 ≤3000 的余量里可以忽略；1440 档同样 +5.0px，不改变任何一档的屏数。
+ *
+ * 为什么是 2px 而不是 4px（凑 28.8）：13px × 1.6 已经给了 20.8，再加 2px 就过线，
+ * 再加就是纯负担 —— 这 4 条 summary 在 390 档一共要吃掉 20px，而"过线 1.8px"已经满足判据。
+ * 为什么不动 line-height：1.6 是这一行 13px 字的行距，压它会立刻回到 20.8 附近，
+ * 等于用"字更难读"换"控件更小"，方向反了。
+ *
+ * 【为什么写在 .field-fold 而不是新写的 .field-long 上】
+ * 「去 AI 味审查点」那条（auditFold，2026-10-27 接通）是同一个病、同一类药物，
+ * 它现在也一起从 20.8 长到 25.8。只修新写的那 4 条、把老的 1 条留在豁免里，
+ * 等于明知有 5 个同类控件却只修 4 个。 */
+.field-fold details > summary { padding-top: 2px; padding-bottom: 2px; }
+
 .field-fold details > summary:hover { text-decoration: underline; text-underline-offset: 2px; }
 .field-fold details > summary:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
 .field-fold .fold-body {
@@ -694,6 +753,48 @@ code { font-family: var(--code); font-size: 0.94em; }
      390 档最长一行溢出 3px）。 */
   overflow-wrap: anywhere;
 }
+
+/* ── 长字段折叠条（2026-10-28，390 档压深）──────────────────────────────────
+ *
+ * 【谁用这条规则】「布局与网格」「可落地要点」「关键视觉元素」「动效与交互」4 段，
+ * 由 app.js 的 field() 在收到第 4 个参数 foldHint 时渲染成：
+ *   <div class="field field-fold field-long"><details>
+ *     <summary><span.fl-lab>字段名</span><span.fl-num>N 字</span><span.fl-hint>里面是什么</span></summary>
+ *     <p class="fold-body">原文</p>
+ *   </details></div>
+ * 它继承上面 .field-fold 的全部规则（内距、分隔线、summary 字号/行高/焦点环/命中高度），
+ * 这里**只加 summary 里三段字的横向排布**，不覆盖任何可读性相关的值。
+ *
+ * 【为什么 summary 用 inline 而不是 flex（2026-10-28 第一版踩过）】
+ * 第一版给 summary 写了 `display:flex` 来横排三段字，实测截图里**三角标记消失**了 ——
+ * flex 会让 summary 的 display 从 list-item 变成 flex，`::marker` 就不再生效。
+ * 那个三角是"这里能点开"的第二重信号（第一重是粗体字段名），本文件上面
+ * `.fold` 那段注释已经把它定为不可省的 affordance；为了让三段字横排而弄丢它，
+ * 是拿可达性换排版。所以改成**纯 inline**：三个 span 本来就是行内元素，
+ * 共享同一条基线（不需要 flex 的 baseline 对齐），`margin-left` 给 8px 间距，
+ * 换行由浏览器按字符断 —— 这也正是 390 档想要的行为（文字折行而不是三块硬挤）。
+ * 代价：`flex:none` 那种"不许压缩"的保证没有了，但 inline 元素本来就不会被压扁。
+ *
+ * 【实测（2026-10-28，30 案全量，390×844 dsf1）】
+ *   现状            3538–4668（avg 4208）屏数 4.19–5.53
+ *   本方案（收起）   2280–2840（avg 2562）屏数 2.70–3.36，**30/30 ≤3000**
+ *   本方案（4 条全展开）S01/S13/S26/S29 = 3569/4372/4657/4699，比现状只高 31px
+ *                      （31 = 4 条 summary 自身高度，内容一字不少）
+ *   字号 16px 未动、行高 1.62 未动、字段内距 12px 未动、正文宽 355px 未动。
+ */
+.field-long .fl-lab { font-weight: 600; color: var(--ink); }
+.field-long .fl-num {
+  font-family: var(--num); font-variant-numeric: tabular-nums;
+  margin-left: 8px; color: var(--ink-3);
+}
+/* 说明文字在 390 档也不藏：它是「里面是什么」的唯一线索，
+   藏了 summary 就只剩字段名 + 字数，用户没法判断值不值得点开。
+   这一条与 .fold-gate「390 档藏副标题」不同 —— 那里藏的是"展开后会得到什么"的预告
+   （结论已印在标题旁），这里藏掉的会是内容清单本身。 */
+.field-long .fl-hint { margin-left: 8px; color: var(--ink-3); }
+/* 正文：与 .field dd 同级（16px），行高沿用 .field-fold 的 1.7 ——
+   展开后是长段落阅读，1.7 比面板正文的 1.62 略松是有意的（同 .field-fold 的注释）。 */
+.field-long .fold-body { font-size: var(--s-16); line-height: 1.7; overflow-wrap: anywhere; }
 
 .gate-box { margin-bottom: 20px; }
 .gate-line {
@@ -743,7 +844,24 @@ code { font-family: var(--code); font-size: 0.94em; }
   .shots { grid-template-columns: 1fr; gap: 4px; }
   .shots .shot:first-child { max-width: none; }
   .shots .shot img { max-height: 190px; }
-  .shot figcaption { font-size: 11px; }
+  /* ── 这里**故意没有** font-size 覆盖（2026-10-28 删掉原有的 `font-size: 11px`）──
+   * 原先这里写着 `.shot figcaption { font-size: 11px; }`，违反文件开头 L8 的承诺
+   * 「小字下限收到 13px」。查过 blame：那行来自首个提交（caefdd9，2026-10-20），
+   * **不是**本轮「390 首屏压深」加的 —— 本轮给 .shot 加的是 `position:absolute` +
+   * 半透明底（见文件末尾同一段 620 档规则），排版压缩一分钱没从字号里抠。
+   * 所以"为了首屏才降到 11px"不成立，它只是一直没人回头收掉的旧账。
+   *
+   * 为什么删掉而不是改成 13px：基础规则 `.shot figcaption` 本来就是
+   * `font-size: var(--s-13)`，这里再写一条同值声明就是死代码。更要紧的是它是个**陷阱**：
+   * 下一个人调 390 档会在 620 段里找字号，看见一行 font-size 就会去改它（11px 就是这么来的）。
+   * 删掉之后，要缩就必须**新加**一条声明，那是一次有意识的决定。
+   * （本段刻意不写行号：同一份 620 档规则在本文件里存在两处，且并发编辑让行号持续漂移。）
+   *
+   * 实测（2026-10-28，CDP，390×844 dsf1，只回退 figcaption 一条时的对照）：
+   *   11px → 13px 之后 figcaption 盒高 17.81 → 21.05px，但它是 `position:absolute`，
+   *   **不进布局流**：行卡 410.48 → 410.48（Δ0.0）、首卡 top 412.41 → 412.41（Δ0.0）、
+   *   首屏完整卡 1 → 1、docH 12242 → 12242。也就是说这条 13px 下限是**免费**的。
+   * 唯一代价：那块半透明底从压住缩略图的 18% 变成 21%，仍在右下角、不遮标题。 */
   /* 详情面板在窄屏是全屏层：头部 97.5px + 20px 内边距 + 64px 缩略图都是纯 chrome。
      实测（390×844）这里省下的正是首字段从 720.6 回到 681.6 的那一段。
      只收内边距与头部间距，**不动字号**：.detail-title h2 保持 24px ——
@@ -779,8 +897,20 @@ code { font-family: var(--code); font-size: 0.94em; }
 }
 /* 内容量容限标记（实测数据驱动）：
    黄色 = degrades=yes，即单元位置写死，内容少于设计规模会留洞；
-   中性 = 自动流排布，条目可自由增减。 */
-.cap { font-size: 12px; padding: 1px 6px; border: 1px solid var(--rule-2); }
+   中性 = 自动流排布，条目可自由增减。
+   12px → 13px（2026-10-28）：这一行是**全页唯一**还在 13px 以下的字号，
+   而且它是 small-text 那条 FAIL 的全部来源 —— probe.mjs 的判据是
+   「size<13 且 chars≥12 且不在 data-ui / pre / code 里」，30 个方案卡各带一个 .cap，
+   于是判了「30 text blocks under 13px」（>3 即 FAIL）。收到 13px 后这一条归零，
+   不需要靠 `--allow` 放行。
+   实测代价（2026-10-28，CDP，390×844）：.cap 盒高 23.44 → 25.05（+1.61），
+   首卡 388.9 → 390.5、首卡底 791.3 → 792.9，视口 844 ⇒ **仍余 51.1px**，
+   首屏完整卡 1 → 1。30 案里最坏余量仍是 S01 的 +51.1（收窄前是 +52.7）。
+   768/1440 两档行高完全不变（1440 恒 276.84，卡高由截图列撑起）。
+   为什么不做"窄档再把 padding 1px 6px 收到 1px 5px"的补偿：实测那样 docH 只差
+   11483 与 11598，51px 的余量已经远超字体替换/边框取整的量级，为 1px 加一条
+   只在窄档生效的覆盖规则不值得（本仓库的教训是"两处必须同时改"的约定会失守）。 */
+.cap { font-size: var(--s-13); padding: 1px 6px; border: 1px solid var(--rule-2); }
 .cap-warn { border-color: #b8860b; color: #7a5a00; background: #fdf6e3; }
 .cap-ok { color: var(--ink-3); }
 
@@ -854,5 +984,226 @@ code { font-family: var(--code); font-size: 0.94em; }
    「填了直接进提示词开头；不填也能复制…」，那是正常文本，不截断、不隐藏。 */
 @media (max-width: 620px) {
   .prompt-fill-note { max-width: none; }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   列表页首屏：390×844 从「0 张完整卡」到「1 张完整卡」
+   （2026-10-28 加。本段只动列表页 —— .mast / .rail / .bar / li.row 与它们的窄档规则，
+     不碰详情面板。实测原始数值见 deliverables/67-exec/EXEC-list-firstscreen.md）
+
+   【改前（CDP 实测，390×844，dsf 2，滚动到 top=0）】
+     header.mast   453.4px  = padding 34 + kicker 22.7 + h1 27.5 + claim 96
+                            + 向导 66.6 + exit 76.1 + facts 73.5 + 各段 margin 57
+     aside.rail    337.6px  = 844 × 40vh（max-height 限高，内部 scrollHeight 1406）
+     .bar          145px    四行：搜索 41.9 / 计数 21 / 排序 40 / 清空 35
+     li.row[0]     top 954，高 577.8  ⇒ bottom 1531.8，视口只有 844
+     ⇒ **首屏完整方案卡 0 张，部分可见也 0 张**：首卡一个像素都没进视口。
+
+   【为什么必须「折 + 瘦」两件一起做，只做一件都不够】
+     只折三块 chrome、不动行卡：首卡 top 433.3，但卡高仍是 577.8，bottom 1011.1
+     ⇒ 首屏还是 0 张。chrome 能省的钱到此为止，剩下的缺口只能向卡要。
+     只瘦行卡不折 chrome：卡高 400 出头，但首卡 top 954 ⇒ 一样 0 张。
+     两笔账是分开的：chrome 省下 520.7px，行卡省下约 178px。
+     所以下面任何一个数字都别随手放大 —— 这是几十像素级的容差。
+
+   【1440 档为什么一行都不变】
+     三块 <details> 在 HTML 里都写着 open，宽档（≥981px）只把 summary 藏掉：
+     <details open> 的子元素本来就在渲染树里，不需要任何"掀开"技巧。
+     实测（1440×900，改前 / 改后各一次）：页头 304.0 → 304.0，筛选栏 900 → 900，
+     工具条 59.9 → 59.9，首卡 top 387.9 → 387.9（**Δ 0.0**），
+     首屏完整卡 1 → 1，横向溢出 0 → 0。桌面档连亚像素都没动。
+     （先试过另一条路：HTML 里写收起、宽档用 `::details-content{content-visibility:visible}`
+      掀开。同样能量到 Δ0.0，但那条只在 Chromium 131+ 成立 —— Firefox/Safari
+      会把两段散文吞掉，属于真丢内容，所以放弃。） */
+
+/* ── 宽档：三条折叠 summary 只在窄档存在 ─────────────────────────────────
+   包在 min-width: 981px 里而不是写成默认值，是为了让窄档不必再用一条规则改回来 ——
+   "两处必须同时改"的约定这个仓库已经栽过一次（见 #q-parked 那段注释）。 */
+@media (min-width: 981px) {
+  .mast-fold-sum,
+  .rail-fold-sum,
+  .bar-fold-sum { display: none; }
+  /* ⚠️ 这两条是修回归的，别删。
+     第一版只有 `.bar-fold{display:none 的 summary}`，实测 1440 档 .bar 59.9 → **93**、
+     首卡 top 387.9 → 421.1（+33.2）。
+     原因不是 padding，是 **flex 项换了人**：.bar 是 display:flex，
+     改前它的直接子项是 .search / .count / .sort / #reset；把 .sort 与 #reset
+     包进 <details> 之后，直接子项变成 .bar-fold 这个块级盒，工具条从 1 行变 2 行。
+
+     只给 .bar-fold 写 display:contents **不够**（实测仍是 93px）：
+     <details> 的内容其实还裹在一层 UA 生成的 `::details-content` 伪元素里，
+     那层盒子仍然占着 flex 项的位置。两层都要 contents，.sort / #reset 才真正
+     回到 .bar 的 flex 子项序列里。
+     实测 B2（两条都写）：.bar 93 → **59.9**，首卡 421.1 → **387.9**（Δ 0.0，与改前逐像素相同）。
+     单独测过的其它写法都不行：只给 contents（93）、把 details 改成 display:flex（93）、
+     调 gap / .search 的 flex-basis（93）—— 都不是"宽度不够"的问题，是盒层级的问题。
+     只给 .bar-fold 用，不给 .mast-fold / .rail-fold：那两块在宽档是普通块级流，
+     已经量到 Δ0.0（页头 304.0、筛选栏 900），不需要动。 */
+  .bar-fold { display: contents; }
+  .bar-fold::details-content { display: contents; }
+}
+
+/* ── 窄档（≤980px）：页头 / 筛选栏 / 工具条三块折叠 ──────────────────────
+   断点为什么是 980 而不是 620：768×1024 档改前也是 **0 张完整卡**
+   （首卡 top 1035，视口 1024）—— 同一个病。实测在 768 档折完三块、
+   行卡完全不动，首卡 509.9 / 卡高 497.3 ⇒ 首屏 1 张完整卡。
+   一处修法两档都治，就不该只修最窄那一档。
+   620 那层只留给「行卡瘦身」：768 档不瘦卡就能达标，没理由为手机牺牲平板的缩略图。 */
+@media (max-width: 980px) {
+  /* 三条折叠条共用一套排版。
+     三角用 CSS 边框画而不是 ▸ 字符：字体族里有没有那个字形不由我们决定。 */
+  .mast-fold-sum,
+  .rail-fold-sum,
+  .bar-fold-sum {
+    display: flex; align-items: center;
+    min-height: 44px;                 /* WCAG 2.2 AA 2.5.8 只要 24px；44 是手指的实际舒适值 */
+    padding: 2px 0;
+    cursor: pointer;
+    font-size: var(--s-13); line-height: 1.35; font-weight: 600;
+    color: var(--ink-2);
+    list-style: none;                 /* 关掉原生 marker，改用下面的边框三角 */
+  }
+  .mast-fold-sum::-webkit-details-marker,
+  .rail-fold-sum::-webkit-details-marker,
+  .bar-fold-sum::-webkit-details-marker { display: none; }
+  .mast-fold-sum::before,
+  .rail-fold-sum::before,
+  .bar-fold-sum::before {
+    content: ""; flex: 0 0 auto;
+    width: 0; height: 0;
+    border-left: 5px solid currentColor;
+    border-top: 4px solid transparent; border-bottom: 4px solid transparent;
+    margin-right: 9px;
+    transition: transform 120ms linear;
+  }
+  .mast-fold[open] > .mast-fold-sum::before,
+  .rail-fold[open] > .rail-fold-sum::before,
+  .bar-fold[open] > .bar-fold-sum::before { transform: rotate(90deg); }
+  /* 键盘用户必须看得见焦点：这三条 summary 是窄档里唯一的新交互面。 */
+  .mast-fold-sum:focus-visible,
+  .rail-fold-sum:focus-visible,
+  .bar-fold-sum:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  .mast-fold[open] > .mast-fold-sum,
+  .rail-fold[open] > .rail-fold-sum,
+  .bar-fold[open] > .bar-fold-sum { color: var(--ink); }
+
+  /* ── 页头 ──────────────────────────────────────────────────────────────
+     只收「上下 padding、按钮内距与段间距」，一个字不删、正文字号一个不降。
+     页头在这一轮从 276.6 → 262.5（−14.1），三处来源：
+       · .mast padding 12/8 → 8/6（−6）
+       · 向导按钮 line-height 1.45 → 1.35（58.6 → 50.5，−8.1）——
+         它是 inline-block 的两行大字块，行高就是它的高度；
+       · facts 的 gap 14 → 10（只影响横向，纵向靠 flex-wrap 落两行不变） */
+  .mast { padding: 8px var(--pad) 6px; }
+  .mast-fold { border-top: 1px solid var(--rule); margin-top: 8px; }
+  .mast-fold .mast-claim { margin-top: 4px; }
+  .mast-fold .mast-exit { margin-top: 10px; }
+  .mast-wizard { margin-top: 8px; }
+  .mast-wizard a { padding: 5px 10px; line-height: 1.35; }
+  /* facts 四个读数：从「4 列 ×（表头 22.7 + 数字 38.9）」的 73.5px 十字块，
+     压成一行「标签 数字」—— 4 项在 358px 宽里排成 2 行，共 52.8px。
+     字号**不动**：dt 13px / dd 16px，与仓库「小字下限 13px」一致。
+     省下来的是**表头与数字之间那道 8px 缝**和 4 列各自的上下留白。
+     （试过把 dt 降到 12px 让 4 项挤进一行、省 24px —— 那会破 13px 下限，放弃。）
+     ⚠️ 只改窄档；1440 档那 4 个 73.5px 的十字块原样保留。 */
+  .mast-facts {
+    display: flex; flex-wrap: wrap; gap: 2px 10px;
+    margin-top: 8px; padding-top: 5px;
+    border-top: 1px solid var(--ink);
+  }
+  .mast-facts > div {
+    display: flex; align-items: baseline; gap: 5px;
+    border-top: 0; padding-top: 0;
+  }
+  .mast-facts dt { font-size: var(--s-13); line-height: 1.4; }
+  .mast-facts dd { font-size: var(--s-16); line-height: 1.4; margin-top: 0; }
+
+  /* ── 筛选栏 ────────────────────────────────────────────────────────────
+     这一条同时**取消**了 980 档原来那套 `max-height:46vh + overflow-y:auto`。
+     不是"限高不好"，是那套限高制造了内滚嵌套：视口 844 时框只有 337.6px，
+     里面装着 1406px 的内容 —— 用户在 337px 的框里还要单独内滚 1070px 才看得到第 2–11 组。
+     折起后这块只剩一条 44px 的 summary；展开时恢复自然高度、跟页面一起滚，
+     不再有第二个滚动条。
+     padding 收到 0 / 2px：折叠态下这块的全部可见内容就是那条 summary，
+     原来的 14px 上下内距是给"看不见的内容"留的空。 */
+  .rail {
+    max-height: none; overflow: visible;
+    padding: 0 var(--pad) 2px;
+  }
+  .rail-fold-body { padding-bottom: 2px; }
+  .rail-block { margin-bottom: 16px; }
+
+  /* ── 工具条 ────────────────────────────────────────────────────────────
+     145 → 83.9：搜索满宽一行（37.9，内距 7→5），计数与「排序」折叠条并排一行（32），
+     行间 6px + 底线留白 6px。
+     计数**不折**：它是 aria-live 的反馈口，筛完要立刻看到「列出 4 / 30」变了没有。 */
+  .bar { gap: 6px 10px; padding-bottom: 6px; }
+  .search { flex: 1 1 100%; }
+  .search input { padding: 5px 10px; }
+  .bar > .count { flex: 0 0 auto; }
+  .bar-fold { flex: 0 0 auto; }
+  .bar-fold-sum {
+    min-height: 32px; padding: 5px 10px;
+    border: 1px solid var(--rule-2);
+  }
+  .bar-fold[open] { flex: 1 1 100%; }
+  .bar-fold[open] > .bar-fold-sum { margin-bottom: 4px; }
+  .bar-fold .sort { margin: 4px 0; }
+}
+
+/* ── 390 档（≤620px）：行卡瘦身 + 最后一道留白 ────────────────────────────
+   一张行卡 577.8px 在 390 档的构成（实测，S01）：
+     标题行 91.1 + 定义 25.9 + 元数据行 95.5（家族 39 / 色块 20）
+     + 截图列 185.1（图 164.3 + 图注 20.8）+ 行脚注 94.2 + 内距 26 + 网格缝 20
+
+   ⚠️ 缩略图这里改的是**宽度**，不是高度。这一点很关键：
+     `.shot:first-child{max-width:160px}` 让缩略图缩成一张 160×90 的**完整 16:9**，
+     裁切口径（object-fit:cover + object-position:top center）一点没变，只是整体变小。
+     反过来继续压 `max-height`，同一张图会被裁成**更扁的横条** ——
+     同样省 100px，前者还看得出首屏长什么样，后者只剩一条横幅。
+
+   【160 这个宽度是按 30 案的最坏案定的，不是按首卡定的】
+     最初取 176（S01 余量 21.1px，看起来够）。但逐案矩阵（_percase.mjs）推翻了这个结论：
+       默认排序（方案号）首卡是 S01 410.5 —— 21.1px 余量；
+       把排序切到「闸门（FAIL 多的在前）」首卡变成 **S13 = 454px** —— **差 22.4px，首屏又变成 0 张卡**。
+     30 案里超过 431.6px（首卡位置能容纳的上限）的有两个：S13 454、S20 434.5。
+     S13 高的原因是**真实内容**：WARN 5 条（S01 是 4 条）→ 行脚注 5 行而不是 4 行；
+     家族 213 字（S01 是 147）→ 元数据行 89.5 而不是 65.4。**这部分钱不该由 CSS 硬削**。
+     所以改法从「削 S13」改成「先把所有留白收干，再让图宽补足」：
+       · 纯留白（本段下半 + 上面 980 档的 .main/.mast 内距）合计省 19.3px/案，
+         首卡 top 412.4 → **402.4**，30 案里最高的 S13 从 454 → 439.8；
+       · 图宽 176 → 160 再让每张卡矮 5.3px，**最坏余量 10.8px**。
+     实测（gate 排序 = 最坏首卡 S13）：完整卡 **1**，最坏余量 **+10.8px**，30/30 案全部能完整进首屏。
+     图宽梯度（其余不变，看最坏余量）：176 → +1.8（只有 1.8px，等于没达标）；
+     168 → +6.3；**160 → +10.8** ← 取这个；152 → +15.3（多 4.5px，不值再缩 8px 的图）。
+     仍然不接受只赢几个像素：10.8px 才扛得住字体替换与边框取整。 */
+@media (max-width: 620px) {
+  /* 主区内距上方 16 → 10：`.main` 的 `padding:16px var(--pad) 60px` 来自 620 档。
+     折叠态下这 16px 夹在「筛选折叠条」与「搜索框」之间，是连续两道留白叠加。
+     只收上方；底部 60px 是滚到底的呼吸位，不动。 */
+  .main { padding-top: 10px; }
+  /* 页头再收 2px（8/6 → 6/4）。到这里页头是 258.5：kicker 22.7 + h1 27.5
+     + 向导 50.5 + 折叠条 44 + facts 52.8 + 内距 10 + 各段 margin。 */
+  .mast { padding: 6px var(--pad) 4px; }
+  .shots .shot:first-child { max-width: 160px; }
+  /* 图注叠到图上：省 20.8px。图注是「1440」这个视口标签，不是内容 ——
+     叠在缩略图右下角反而更容易和那张图对上。 */
+  .shot { position: relative; }
+  .shot figcaption {
+    position: absolute; right: 0; bottom: 0;
+    padding: 0 5px;
+    background: rgba(242, 242, 238, .92);   /* --card 加 8% 透，压在图上仍可读 */
+  }
+  /* 内距 13→6、网格缝 20→8：合计 −34px，纯留白，不动任何内容。 */
+  .row { gap: 8px; padding: 6px 0; }
+  .row-head { gap: 5px 9px; }
+  /* 元数据行 / 行脚注的 gap 3→2：两处各 4~8 行，每行省 1px。 */
+  .row-meta { gap: 2px 8px; margin-top: 6px; }
+  /* 行脚注行高 1.62 → 1.45、gap 3→2：S01 从 4 行 85px 收到 4 行 82.4px，
+     S13 的 5 行长脚注省得更多。字一个没删、序号一个没少，只收行距。 */
+  .row-foot { gap: 2px 8px; margin-top: 0; line-height: 1.45; }
+  /* 家族 clamp 仍是 2 行（.row-family 的原值），不降到 1 行：
+     降 1 行能再省 19.5px，但「家族名 + 一句参考对象」是这一行里信息密度最高的部分。
+     现在 30/30 案都能完整进首屏，没有理由再从这里抠。 */
 }
 
