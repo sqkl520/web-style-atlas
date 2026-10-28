@@ -140,6 +140,22 @@ function check(name) {
 
 let names = process.argv.slice(2).filter((a) => !a.startsWith('--'));
 if (process.argv.includes('--all')) {
+  /* 2026-10-28 决定：`--all` **保持只扫原型**（S01..S30），不并入产品入口。
+   *
+   * 为什么不并入 —— 试过，代价不对等：
+   * 并入后 `_selection` 会以「缺 assets/CREDITS.md」计入不达标，汇总行从
+   *   `达标 26 / 不达标 4 / 共 30`  变成  `达标 26 / 不达标 5 / 共 31`
+   * 而 README（中英两版）里「26 个达标」是硬编码的可复算断言，`check-docs` 的
+   * `nums/gate` 会立刻 FAIL。也就是说：并入会让一个原本全绿的检查器变红，
+   * 而它红的原因不是产品退步，是我改了统计口径。
+   *
+   * 但「选型台的报告会陈旧」这个真问题必须有人管 —— 那交给 `check-stale.mjs`
+   * （它已按 `_entries.mjs` 覆盖产品入口）。职责分开：
+   *   · `--all`          = 「30 个展品达标了没有」——口径固定为 30，README 的 26/30 对得上
+   *   · `check-stale`    = 「谁的报告过期了」——覆盖原型 + 产品入口
+   *   · `check-anchors`  = 「谁的锚点死了」——覆盖原型 + 产品入口
+   * 产品入口的「视觉达标」另有其道：`render-scheme.mjs _selection` 直接跑真闸门，
+   * 结果落在 `_selection/.inspect/report.json`，页面上由 `#self-gate` 那一行自述。 */
   names = readdirSync(PROTO, { withFileTypes: true })
     .filter((d) => d.isDirectory() && /^S\d{2}-/.test(d.name)).map((d) => d.name).sort();
 }

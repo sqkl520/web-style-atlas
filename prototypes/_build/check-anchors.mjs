@@ -12,8 +12,12 @@
 // 用法：node prototypes/_build/check-anchors.mjs [--quiet]
 //   退出码 0 = 无死锚点；1 = 有
 
-import { readFileSync, readdirSync, existsSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
+// 目录清单来自 _entries.mjs：2026-10-28 之前这里是硬编码的 /^S\d{2}-/，
+// 于是 `prototypes/_selection/`（用户主入口）的锚点从来没被查过。
+// 而 check-stale 与 verify-prototype 各写了一遍同样的正则，三处一起漏。
+import { allDirs } from './_entries.mjs';
 
 const P = new URL('..', import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1');
 const quiet = process.argv.includes('--quiet');
@@ -22,9 +26,8 @@ const dead = [];
 const dynamic = [];
 let scanned = 0;
 
-for (const d of readdirSync(P, { withFileTypes: true })) {
-  if (!d.isDirectory() || !/^S\d{2}-/.test(d.name)) continue;
-  const p = join(P, d.name, 'index.html');
+for (const name of allDirs(P)) {
+  const p = join(P, name, 'index.html');
   if (!existsSync(p)) continue;
   scanned++;
   const t = readFileSync(p, 'utf8');
@@ -39,12 +42,12 @@ for (const d of readdirSync(P, { withFileTypes: true })) {
     // `undefined  href="#dg-' + keys[i] + '"`。
     // 实测（2026-10-27）：修前输出 `undefined  href="#dg-' + keys[i] + '"`，S05 那条被标成了
     // 一个不存在的案子。这类"检查器自己说谎"的噪声比漏报更伤——读者会开始不信整份输出。
-    if (/['"+\[\]]/.test(h)) dynamic.push({ dir: d.name, three: d.name.slice(0, 3), href: h });
-    else dead.push({ dir: d.name, three: d.name.slice(0, 3), href: h });
+    if (/['"+\[\]]/.test(h)) dynamic.push({ dir: name, three: name.slice(0, 3), href: h });
+    else dead.push({ dir: name, three: name.slice(0, 3), href: h });
   }
 }
 
-if (!quiet) console.log(`锚点完整性：扫了 ${scanned} 案`);
+if (!quiet) console.log(`锚点完整性：扫了 ${scanned} 个入口`);
 if (dynamic.length && !quiet) {
   console.log(`  动态拼接的（需人工确认，不算死锚点）：${dynamic.length} 处`);
   for (const x of dynamic) console.log(`     ${x.three}  href="#${x.href.slice(0, 40)}"`);

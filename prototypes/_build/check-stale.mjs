@@ -1,8 +1,17 @@
-// 闸门陈旧度检查：任一案的 index.html / style.css 比它的 report.json.at 新，就是陈旧
+// 闸门陈旧度检查：任一案的 / 产品的源文件比它的 report.json.at 新，就是陈旧
 //
 // 为什么需要它：这是 **AH-11 与 AH-14、N1 三次缺陷的共同根因** ——
 // 改了原型之后忘了重渲染，于是选型台展示的是**旧修订的闸门结果与截图**。
 // 它不会被任何闸门规则发现（闸门只查当前 report.json 的内容，不查它有多旧）。
+//
+// 2026-10-28 扩到产品自身。为什么要扩：
+//   `_selection/` 早在 1f30e7d（2026-10-22）就有一份入库的 report.json，
+//   但那之后它的 6 个源文件被改了 **+6214 / −783 行**（app.js +1118、prompt-copy.js +1590、
+//   style.css +842、index.html +228、data.js +216、prompts.js +2152）。
+//   本脚本报「✓ 全部新鲜」，因为它和 `verify-prototype --all`、`check-anchors` 三处
+//   复制了同一个 `/^S\d{2}-/` 选择器 —— 病根不是没人写检查，是检查的目录列表漏了一层。
+//   后果实测（2026-10-28 用 inspect.mjs 重跑 53.6 秒）：产品从报告声称的 `FAIL 0`
+//   变成 `FAIL 2`（body-size / hairline）。也就是说，**用户看到的闸门结论是 6 天前的**。
 //
 // 由误报驳回与修复成本评估员提出，我采纳并落成脚本。
 // 实测它会立刻命中 S13（落后 993 分钟）与 S14（落后 11 分钟）。
@@ -16,12 +25,21 @@ import { join } from 'node:path';
 const P = new URL('..', import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1');
 const quiet = process.argv.includes('--quiet');
 
+/* 原型之外的「也有闸门报告」的入口 —— 定义在 `_entries.mjs`，不在这里。
+ *
+ * 为什么搬走：这个列表原来在本文件里硬编码，而 `check-anchors.mjs` 与
+ * `verify-prototype.mjs` 各自又写了一遍 `/^S\d{2}-/`。三处同时漏掉 `_selection`，
+ * 于是"选型台的报告陈旧了 5.94 天"这件事，三份检查没有一份报出来。
+ * 现在唯一来源是 `_entries.mjs`：新增产品入口只改那一处，三份脚本一起生效。 */
+import { CASE_DIR_RE, CASE_SOURCES, productEntries, caseDirs } from './_entries.mjs';
+
 /** 返回 [{id, which, gapMin, at, mtime}] */
 export function findStale() {
   const out = [];
-  for (const d of readdirSync(P, { withFileTypes: true })) {
-    if (!d.isDirectory() || !/^S\d{2}-/.test(d.name)) continue;
-    const rep = join(P, d.name, '.inspect', 'report.json');
+
+  // ① 原型（S01..S30）
+  for (const name of caseDirs(P)) {
+    const rep = join(P, name, '.inspect', 'report.json');
     if (!existsSync(rep)) continue;
     let at;
     try {
@@ -30,8 +48,8 @@ export function findStale() {
     if (!Number.isFinite(at)) continue;
     let newest = 0;
     let which = '';
-    for (const f of ['index.html', 'style.css']) {
-      const p = join(P, d.name, f);
+    for (const f of CASE_SOURCES) {
+      const p = join(P, name, f);
       if (existsSync(p)) {
         const m = statSync(p).mtimeMs;
         if (m > newest) { newest = m; which = f; }
@@ -39,19 +57,47 @@ export function findStale() {
     }
     const gapMin = (newest - at) / 60000;
     // 1 分钟容差：同一次渲染里 html/css 与 report 的写入顺序会有秒级差
-    if (gapMin > 1) out.push({ id: d.name.slice(0, 3), dir: d.name, which, gapMin: Math.round(gapMin) });
+    if (gapMin > 1) out.push({ id: name.slice(0, 3), dir: name, which, gapMin: Math.round(gapMin) });
   }
+
+  // ② 原型之外的入口（2026-10-28 新增，清单来自 _entries.mjs）
+  for (const e of productEntries(P)) {
+    const rep = join(P, e.dir, '.inspect', 'report.json');
+    // 没有报告就不归这里管：那是「从未渲染过」，不是「陈旧」，该由别的检查报。
+    if (!existsSync(rep)) continue;
+    let at;
+    try {
+      at = new Date(JSON.parse(readFileSync(rep, 'utf8').replace(/^\uFEFF/, '')).at).getTime();
+    } catch { continue; }
+    if (!Number.isFinite(at)) continue;
+    let newest = 0;
+    let which = '';
+    for (const f of e.sources) {
+      const p = join(P, e.dir, f);
+      if (!existsSync(p)) continue;
+      const m = statSync(p).mtimeMs;
+      if (m > newest) { newest = m; which = f; }
+    }
+    if (!which) continue;
+    const gapMin = (newest - at) / 60000;
+    if (gapMin > 1) out.push({ id: e.dir, dir: e.dir, which, gapMin: Math.round(gapMin), label: e.label, render: e.render });
+  }
+
   return out.sort((a, b) => b.gapMin - a.gapMin);
 }
 
 const stale = findStale();
 if (!quiet) {
-  console.log(`闸门陈旧度：检查 ${readdirSync(P, { withFileTypes: true }).filter((d) => d.isDirectory() && /^S\d{2}-/.test(d.name)).length} 案`);
+  const nCase = caseDirs(P).length;
+  const nExtra = productEntries(P).filter((e) => existsSync(join(P, e.dir, '.inspect', 'report.json'))).length;
+  console.log(`闸门陈旧度：检查 ${nCase} 案${nExtra ? ` + ${nExtra} 个产品入口` : ''}`);
 }
 if (stale.length) {
-  console.log(`  ⚠️ ${stale.length} 案陈旧（源文件比 report.json 新，说明改了没重渲染）：`);
+  console.log(`  ⚠️ ${stale.length} 项陈旧（源文件比 report.json 新，说明改了没重渲染）：`);
   for (const s of stale) {
-    console.log(`     ${s.id}  ${s.which} 落后 ${s.gapMin} 分钟  →  node prototypes/_build/render-scheme.mjs ${s.dir}`);
+    const name = s.label ? `${s.label}(${s.dir})` : s.id;
+    const cmd = s.render || `node prototypes/_build/render-scheme.mjs ${s.dir}`;
+    console.log(`     ${name}  ${s.which} 落后 ${s.gapMin} 分钟  →  ${cmd}`);
   }
   console.log('  陈旧的后果：选型台与 data.js 展示的是**旧修订**的闸门结果与截图。');
   process.exit(1);

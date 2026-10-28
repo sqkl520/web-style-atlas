@@ -321,6 +321,79 @@ On Windows, Chrome enforces a **minimum window width of about 500 CSS px**; the 
 
 ---
 
+## The selection bench's own gate account (every line recomputable)
+
+The bench is not one of the 30 schemes, but it is the only way in, so it faces the same gate. What follows is **its own account** — including a debt it carried for six days.
+
+### Account 1: its gate report was six days old
+
+`prototypes/_selection/.inspect/report.json` was committed on 2026-10-21. Its source files were then edited by thousands of lines, and **no checker ever looked at it**: `verify-prototype.mjs`, `check-anchors.mjs` and `check-stale.mjs` each carried their own copy of the same `S\d{2}-` directory selector, and the product is not in that pattern.
+The consequence was not "a slightly stale report" but **a report that said the opposite of the page**: the committed copy claimed `FAIL 0`; re-running `inspect.mjs` on 2026-10-28 measured `FAIL 2` (`body-size` / `hairline`).
+`check-stale.mjs` now covers the product entry (all 9 sources of `_selection` are listed), so that debt cannot silently return.
+
+### Account 2: four of the seven self-claims did not match repository history
+
+`style.css` used to open with seven prose lines ("what was changed when it went through the gate"). Checked commit by commit with `git log --reverse -- prototypes/_selection/style.css`, four of the seven described changes that never happened:
+
+| Claim as written | What the repository shows | Verdict |
+| --- | --- | --- |
+| Tertiary text contrast 4.2:1 → 5.6:1 | Old `#6f6c64` was 4.23:1 on the ground and 5.58:1 on the new ground; the current `#56534b` is **6.19:1** | Right direction, wrong end value |
+| Small type floor raised to 13px (11/12px appeared 115 times) | The first commit's `style.css` had **one** `font-size: 11px` and zero 12px; no commit in the repository's history ever had 115 | **Never happened** |
+| Headline 3.8vw → 5.2vw | `3.8vw` appears only inside that claim, never as a computed value; the real pre-change value was the literal `clamp(30px, 4vw, 56px)` | **Never happened** (but `d49ed74` on 2026-10-28 did connect `var(--s-h1)`: at 1440 the h1 measures 74px / 5.14vw) |
+| Header label from an all-caps 11px micro-label → 14px sentence case | `.mast-kicker` was `var(--s-14)` from the first commit; `text-transform: uppercase` appears **zero** times in the file | **Never happened**; the style was always right, the class name was the rot |
+| Row dividers 1px → 2px | Only partly true: decorative rules are 2px, but five single-side 1px rules remain on real list and field rows | Claim was imprecise |
+| Screenshot thumbnails no longer use a 1px outline | `.shot` indeed has none; but `.fold-thumb` keeps `outline: 1px`, which is an image boundary, not a decorative rule | Literally true |
+| Toolbar no longer sticky | `.bar` was never sticky in any commit; what is sticky is `.rail` and `.detail-head`, and **both are correct** (a sticky `.bar` would cover the headline; the filter rail and the panel head are sticky for navigation) | Literally true |
+
+The lesson is not "the author lied"; it is that **a prose checklist has no reconciliation mechanism**. One of the four fixes it recorded (`--s-h1` was referenced nowhere) was real, while the three numbers it printed itself (115 occurrences, 3.8vw, an all-caps 11px label) never existed. So the checklist moved here — this README is watched by `check-docs.mjs`; a CSS comment is watched by nothing.
+
+### Account 3: the 1px rules that remain are real list rows and real control edges
+
+`lint.mjs`'s `hairline` message reads "lines belong to real tables and form fields", and the rule explicitly exempts selectors containing `input` / `select` / `textarea` / `table` / `tr` / `td` / `th` / `fieldset`. The runtime probe `probe.mjs` does the same (its `formish()` passes `input` / `select` / `table` / `hr` and `data-ui` fragments).
+So the right fix is not "turn every 1px into 2px" but **deciding, one by one, whether it is a real list row**. Five stay, each traceable to meaning:
+
+| Where | Why it stays |
+| --- | --- |
+| `.tpl-card` top edge | Template-card list-row separator. The proof is the very next rule: `.tpl-card:first-child { border-top: none }` — only a list row needs "no rule on the first item" |
+| `.viewer-tabs button` right edge | Control edge of a tab button (the button itself is a full 1px box) |
+| `.field` bottom edge | One field per row in the detail panel (a `dt`/`dd` definition list) |
+| `.field-fold` bottom edge | Same, for a collapsed field row |
+| `.parts li` bottom edge | The portable-parts list (`li`) row separator |
+
+Decorative section rules are 2px without exception. This round pulled the three stragglers into line: `.mast-fold` and `.mast-facts` (≤980px — together they were the bench's only two runtime `hairline` FAILs, since the rule is `hairlines >= 2` → FAIL) and `.prompt-fill`.
+
+### Account 4: `mast-kicker` was class-name rot, not a real violation
+
+`.mast-kicker` never had kicker styling (14px, no `uppercase`, no `letter-spacing`), but `lint.mjs`'s `eyebrow` rule matches **the class name only**, so its static scan failed forever.
+It is now `.mast-label` (not `.mast-eyebrow`, which would match the same rule head-on): one occurrence each in `index.html` and `wizard.html`, none in `wizard.css`.
+Note: `lint.mjs` lives under `tools/`, and `.gitignore` line 2 excludes `tools/` — so a `taste-skill-ignore` exemption comment **does not exist for anyone who clones this repo** (`git check-ignore -v` hits `.gitignore:2`). Renaming the class is the only fix that helps downstream.
+
+### Recomputing these accounts
+
+`lint.mjs` and `inspect.mjs` live in `tools/` outside the repository, so a cloner must obtain them first (see the previous section). Once you have them:
+
+```bash
+# 1. exactly which 1px rules remain (should be 5, all on real list/field rows)
+node tools/taste-skill/skills/taste-skill/scripts/lint.mjs prototypes/_selection/ \
+  | grep -A6 '\[hairline\]'
+
+# 2. the class-name rot is gone (eyebrow should be 0, down from 2)
+node tools/taste-skill/skills/taste-skill/scripts/lint.mjs prototypes/_selection/ \
+  | grep -c '\[eyebrow\]'    # prints 0
+
+# 3. runtime gate: hairline should be 0 at all three widths
+#    (before this change 768 and 390 had 2 each — and the rule is >=2 means FAIL, so it was failing)
+node tools/taste-skill/skills/taste-skill/scripts/inspect.mjs prototypes/_selection/index.html \
+  --out /tmp/sel --widths 1440,768,390 --json | grep -o '"hairlines": [0-9]*'
+
+# 4. the product entry's gate report is no longer stale
+node prototypes/_build/check-stale.mjs
+```
+
+One finding is still open on purpose: `body-size` reports "body text is 13px". That is **a choice, not an oversight** — the running text of this page is mostly scheme-card metadata (30 cards × a dozen 13px field labels and readouts), and lifting all of it to 16px would drop the list's first screen from one complete card to zero (exactly what the `67-exec` round spent tens of pixels recovering). Leaving it as a FAIL in `inspect.mjs` is the honest outcome; it is not silenced with `--allow`.
+
+---
+
 ## Static only: nothing leaves your machine
 
 The pages are HTML/CSS/JS, the assets are in the repository, the fonts are self-hosted. Nothing goes out.

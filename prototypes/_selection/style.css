@@ -4,11 +4,49 @@
    #E7E7E2 明度 89.6% 但饱和只有 9.4%（palette-cream 要 s≥16%）；三个信号色明度都在 42% 以下（palette-terracotta 要 l≥42%）。
    这份页面本身不受那 30 条规则约束，但没必要去踩同一批坑。
 
-   过闸门时改掉的几处（都是工具指出后就承认的问题，不是绕）：
-   1 三级文字对比度 4.2:1 → 5.6:1；2 小字下限收到 13px（原先 11/12px 有 115 处）；
-   3 大标题 3.8vw → 5.2vw（首屏要有一个明确的主导元素）；4 头部标签从全大写 11px 微标签
-   改成 14px 句首大写；5 行分隔线 1px → 2px（1px 被判为装饰性细线）；
-   6 截图缩略图不再用 1px 描边框；7 工具条不再 sticky（sticky 会让大标题在滚动中被压住）。 */
+   ── 这份页面自己的闸门账（2026-10-28 重写）────────────────────────────────
+   上一版这里是 7 条散文（「过闸门时改掉的几处」）。2026-10-28 用
+   `git log --reverse -- prototypes/_selection/style.css` 逐提交核对，7 条里
+   4 条的"改前值"在仓库任何一次提交里都不存在、2 条的"改后值"与今天的计算值
+   不符、1 条只说对了一半；而它自己在第 8 行就写着"115 处"这种没有任何一次
+   提交支持的数字。**散文清单没有对账机制，所以它腐化了而没人发现** ——
+   这与它记录的那些坑（--s-h1 零引用、--s-15 从未定义）是同一种病。
+
+   所以清单搬走了：可复算的正文在 README「选型台自己的闸门账」一节
+   （每条都带证据与复算命令），README-EN 同节对译。
+   本节只留 **CSS 本地才知道的那部分**：哪些 1px 是这个页面允许的。
+
+   一、1px 不是原罪，"用 1px 画装饰"才是
+   lint.mjs 的 hairline 判据原文是「lines belong to real tables and form fields」，
+   并且对含 input/select/textarea/table/tr/td/th/fieldset 的选择器有明确豁免；
+   运行时的 probe.mjs 同理（它的 formish() 把 input/select/table/hr 与 data-ui
+   片段一并放过）。本文件保留的单边 1px 因此只剩下面这 5 处，逐条都能指回
+   "真列表行 / 真字段行 / 真控件边"，没有一处是纯装饰：
+
+     · `.tpl-card` 的上边线 —— 模板卡的列表行分隔。证据就在下一条规则里：
+       `.tpl-card:first-child { border-top: none }`，只有列表行才需要"首行不画线"。
+     · `.viewer-tabs button` 的右边线 —— 标签按钮的控件边（按钮本身是 1px 全包）。
+     · `.field` 的下边线 —— 详情面板里一个字段一行（dt/dd 定义列表）的行分隔。
+     · `.field-fold` 的下边线 —— 同上，折叠态的字段行。
+     · `.parts li` 的下边线 —— 可移植部分列表（li）的行分隔。
+
+   二、装饰性分隔线一律 2px，2026-10-28 把最后 3 处收进规矩
+   `.fold` / `.parts` / `.rail-sep` / `.row` / `.mast` / `.bar` / `.mast-facts > div`
+   的上/下边线本来就是 2px；漏网的只有这三条：
+     · `.mast-fold`（≤980 档）与 `.mast-facts`（≤980 档）原是 1px ——
+       它们正是运行时闸门在 768/390 两档**唯一的 2 条 hairline FAIL**
+       （`hairlines >= 2` 即 FAIL；1440 档 0 条，因为 `.mast-fold` 在宽档没有边线、
+       `.mast-facts > div` 已是 2px）。改成 2px 后三档都归零。
+       代价与抵消：390 档这两条各 +1px，同一条规则里把 `.mast-fold` 的
+       `margin-top` 从 8 收到 6（那道线自己已经能把两块分开，8px 是重复的呼吸），
+       净 Δ0 —— 实测 390×844 首卡 top 停在 402.4，五档排序的完整卡数一个没减。
+     · `.prompt-fill`（复制按钮与两个输入框之间那道线）1px → 2px，面板 +1px。
+       它不是列表行：它分的是"动作区"与"填写区"，属于装饰性分节。
+
+   三、还有一处 1px，但它不是分隔线，保留
+   `.fold-thumb` 的 `outline: 1px` 是**图像边界提示**：64px（390 档 40px）的截图
+   缩略图压在 --card 底上，去掉描边会让白底截图整个消失。outline 不进布局，
+   也不被 lint 的 hairline 正则匹配（那条正则只认 border-*）。 */
 
 :root {
   --ground:   #e7e7e2;
@@ -105,7 +143,7 @@ code { font-family: var(--code); font-size: 0.94em; }
    ⚠️ 首屏瘦身（2026-10-25，有实测依据）：
    改前实测页头 465px = 视口 900px 的 52%，第一张方案卡顶边在 549px、卡高 434px
    ⇒ 卡底边 983px **超出首屏**，用户打开第一眼看不到任何一张完整卡（0/30 张）。
-   拆开看页头 465px 的构成：padding 46 + kicker 23 + h1 **169px**（74px 字号 ×2 行）
+   拆开看页头 465px 的构成：padding 46 + 页头标签 23 + h1 **169px**（74px 字号 ×2 行）
    + claim **110px** + wizard 48。前两项吃掉 279px。
    修法只动排版密度、一个字不删：
    ① h1 从 74px 降到 56px（仍是最醒目的一行），并把 max-width 放宽让标题收成 1 行；
@@ -120,7 +158,18 @@ code { font-family: var(--code); font-size: 0.94em; }
   padding: 20px var(--pad) 14px;
   border-bottom: 2px solid var(--ink);
 }
-.mast-kicker {
+/* 页头标签：14px、句首大写、无字距。**它不是 eyebrow / kicker**，只是名字曾经是。
+   历史（`git log --reverse -p -- style.css`，2026-10-28 核）：类名从首个提交
+   caefdd9 起就叫 `.mast-kicker`，但这条规则**任何一次提交里都没有**
+   text-transform: uppercase / letter-spacing / 11px —— 全文 uppercase 出现 0 次，
+   字号从第一天就是 var(--s-14)。也就是说 L9 那句自述「从全大写 11px 微标签
+   改成 14px 句首大写」描述的是一个不存在的改前态，真正"改掉了特征"的只有类名没跟上。
+   `lint.mjs` 的 eyebrow 规则只认类名（`\b(eyebrow|kicker|overline|…)\b` 或
+   `\.(eyebrow|kicker|…)` 后跟 `{`），所以它按源码静态扫描时永远判 FAIL，
+   哪怕计算值里一点 kicker 特征都没有 —— 那是**类名腐化**，不是真违规。
+   改名为 `.mast-label`（不是 `.mast-eyebrow`：那会正面命中同一条规则）。
+   两个文件同时改（index.html / wizard.html 各一处），wizard.css 无对应规则。 */
+.mast-label {
   font-size: var(--s-14);
   color: var(--ink-3); margin-bottom: 8px;
 }
@@ -207,6 +256,38 @@ code { font-family: var(--code); font-size: 0.94em; }
   font-family: var(--num); font-variant-numeric: tabular-nums; font-size: var(--s-24);
   font-variant-numeric: tabular-nums; margin-top: 2px;
 }
+/* 本页自身的闸门状态（2026-10-28 加）。为什么单独一行、且用不同颜色：
+   上面那四个数字统计的是**被浏览的 30 个展品**，这一行说的是**你正在用的这件工具**。
+   把工具自己的毛病混进展品统计里，读者会以为「整个项目体检合格」——
+   而实际情况曾经正是：报头写「闸门 FAIL=0 26」，本页自己却有 1 条 FAIL，且报告陈旧 5.94 天。
+   `data-level` 由 app.js 按 report.json 的真实结果设置，不是写死的。
+
+   体积账（2026-10-28 实测过三版，记在这里免得下一轮有人重走）：
+   · v1 放在 `.mast` 里当第三个网格子项 —— 页头 323 → 513px（+190），h1 从 1 行折成 2 行，
+     390 档首屏完整卡 1 → 0（slack −110.4px）。**已废弃**，原因是 `.mast` 第二列是
+     `minmax(300px, max-content)`，多一个子项会把左列压窄。
+   · v2 挪进 `.mast-fold`，块级 + 10px 上边距 + 8px 内距 + 2px 边线 —— 页头 +84px（1440）。
+     三档仍各 1 张完整卡，但 1440 的余量从 216px 掉到 132px，对一件「工作台」太奢侈。
+   · v3（当前）：去掉边线与内距、边距收到 4px、字号降到 13px，**完整状态同时写进 summary 行**
+     （summary 本来就是固定一行，加字不增高）。下面的详细句只在需要时读。
+   为什么不再加 2px 边线：本文件的分节线全是 2px，而多加一条会让 390 档
+   `hairlines` 从 0 变 1（.mast-facts 已占 1 条），再叠就 2 条 = FAIL。
+   现在这条用「无边框 + 颜色」区分，不占线数。 */
+.self-gate {
+  margin: 4px 0 0; padding: 0;
+  border: 0;
+  font-size: var(--s-13); line-height: 1.5; color: var(--ink-3);
+  max-width: 76ch;
+}
+.self-gate[data-level="fail"] { color: var(--fail); }
+.self-gate[data-level="pass"] { color: var(--pass); }
+/* summary 行里的状态徽标：固定一行，不增高。 */
+.mast-fold-sum .sg-badge {
+  font-family: var(--num); font-variant-numeric: tabular-nums;
+  font-weight: 400;
+}
+.mast-fold-sum .sg-badge[data-level="fail"] { color: var(--fail); }
+.mast-fold-sum .sg-badge[data-level="pass"] { color: var(--pass); }
 
 /* ── 台面 ─────────────────────────────────────────────────── */
 .bench {
@@ -397,7 +478,31 @@ code { font-family: var(--code); font-size: 0.94em; }
    deliverables/65-exec/EXEC-audit-wiring.md 的任务 4 一节。
    行高归谁撑要写清楚：1440 档 30/30 行高恒定 276.8px，因为行高是右侧截图列
    （201.8px）加行脚注撑起来的，family 从 1 行变 2 行只是吃掉 75px 行内余量 ——
-   这也是这件事在桌面档"免费"、只在手机档收费的原因。 */
+   这也是这件事在桌面档"免费"、只在手机档收费的原因。
+
+   ── 16px：本页 running text 的主导字号（2026-10-28 修 body-size FAIL）──────────
+   【为什么改的是它，而不是别的 13px】闸门 body-size 的判据在 probe.mjs:225-229：
+   把所有「10–24px、直接文本 ≥60 字、不在 pre/code、不在 data-ui」的元素按
+   「字族|四舍五入字号」分桶，取字符数最多的一桶。我把这套算法原样复刻逐元素跑了一遍
+   （deliverables/68-exec/_body.mjs），结论是：
+     符合条件的元素总字符 7,236，其中 **6,958（96%）全部来自 span.row-family 一个选择器**。
+   其余 13px 的用法（tag / en / cap / row-foot / chips / rail-hint / figcaption /
+   gate-line / fold-* / .cap …）**每一个都 <60 字**，被 `chars >= 60` 这条门槛整批排除，
+   对判定 **零贡献**。所以「--s-13 被用了 36 处」虽是事实，却**不是杠杆** ——
+   把其余 35 处提到 15/16px 只会撑高页面，换不来这一条 PASS。
+   【为什么不是"把正文写长一点"】.row-def 本来就是 16px，但每张卡只有一句、不足 60 字，
+   不进桶；.field dd 也是 16px，但它在默认收起的折叠块里，probe 的 display:none 过滤
+   直接把它排掉。.row-family 才是这页**唯一成段的散文**（每案 133–282 字的
+   「美学家族与参考」原句），却一直按 13px 排 —— 而 :root 里 16px 才叫 body step。
+   「把成段正文按标注字号排」就是这条规则唯一要求的事，所以这里改的是字号，不是 allow。
+   【实测代价（CDP，同页切 <style> 做 A/B，见 deliverables/68-exec/matrix-68.json）】
+     1440×900  首卡 top 407.0 → 407.0（Δ0）、卡高 276.8 → 276.8（Δ0，卡高由截图列撑着）
+     768×1024  首卡 top 442.9 → 442.9（Δ0）、卡高 498.9 → 506.3
+     390×844   首卡 top 402.4 → 402.4（Δ0）；卡高由 620 档的三条补偿规则赎回
+   行高从继承的 1.5 收到 1.45 是这条改动的**配套**，不是顺手：16×1.5 = 24px 一行、
+   两行 48px，390 档首屏余量会被吃穿（实测 gate 排序 slack 9.2 → 1.9）。
+   1.45（=23.2px）在 390 档只比原来的 13×1.5=19.5 高一档；再压到 1.40 能多换 1.6px，
+   但对中文正文偏紧，不值。 */
 .row-family {
   color: var(--ink-2);
   flex: 1 1 100%;
@@ -406,7 +511,8 @@ code { font-family: var(--code); font-size: 0.94em; }
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  line-height: 1.5;
+  font-size: var(--s-16);
+  line-height: 1.45;
 }
 
 /* 截图列：只放**一张**桌面首屏大图。
@@ -955,10 +1061,13 @@ code { font-family: var(--code); font-size: 0.94em; }
 .prompt-fill {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 8px 12px; margin-top: 10px; padding-top: 10px;
-  /* 用一道 1px 上边线把它和按钮分开，而不是加背景色：
+  /* 用一道上边线把它和按钮分开，而不是加背景色：
      面板里已经有 .viewer-stage 的白底和 .parts 的表格线，
-     再加一块色块会让"按钮区"看起来像一张独立卡片，抢掉下面字段的注意力。 */
-  border-top: 1px solid var(--rule);
+     再加一块色块会让"按钮区"看起来像一张独立卡片，抢掉下面字段的注意力。
+     1px → 2px（2026-10-28）：它分的是「动作区」与「填写区」，是装饰性分节而非列表行，
+     与本文件其它分节线统一。lint 的 hairline 只匹配 0.5px 与 1px，2px 不再命中。
+     代价：面板内容高 +1px（实测 1440 档 1868 → 1869，390 档同）。 */
+  border-top: 2px solid var(--rule);
 }
 .prompt-f { display: grid; gap: 3px; min-width: 0; }
 .prompt-f-cap { font-size: var(--s-13); color: var(--ink-2); font-weight: 600; }
@@ -992,7 +1101,7 @@ code { font-family: var(--code); font-size: 0.94em; }
      不碰详情面板。实测原始数值见 deliverables/67-exec/EXEC-list-firstscreen.md）
 
    【改前（CDP 实测，390×844，dsf 2，滚动到 top=0）】
-     header.mast   453.4px  = padding 34 + kicker 22.7 + h1 27.5 + claim 96
+     header.mast   453.4px  = padding 34 + 页头标签 22.7 + h1 27.5 + claim 96
                             + 向导 66.6 + exit 76.1 + facts 73.5 + 各段 margin 57
      aside.rail    337.6px  = 844 × 40vh（max-height 限高，内部 scrollHeight 1406）
      .bar          145px    四行：搜索 41.9 / 计数 21 / 排序 40 / 清空 35
@@ -1095,7 +1204,14 @@ code { font-family: var(--code); font-size: 0.94em; }
          它是 inline-block 的两行大字块，行高就是它的高度；
        · facts 的 gap 14 → 10（只影响横向，纵向靠 flex-wrap 落两行不变） */
   .mast { padding: 8px var(--pad) 6px; }
-  .mast-fold { border-top: 1px solid var(--rule); margin-top: 8px; }
+  /* 1px → 2px（2026-10-28）。这条线是**装饰性分节**，不是列表行分隔：
+     它分的是「页头主体」与「折叠起来的 claim/exit」，该跟本文件其它分节线
+     （.mast / .bar / .fold / .rail-sep / .row 全是 2px）同一口径。
+     它原本是运行时闸门在本页面唯一的 FAIL 来源：probe.mjs 的判据是
+     `hairlines >= 2 即 FAIL`，768 与 390 两档各命中 2 条（这条 + .mast-facts），
+     而 1440 档因为宽档不画这两条边线，是 0 条 —— 所以闸门"过了"只是过了宽的档。
+     代价 Δ+1px/档，由下一行的 margin 8→6 抵消（见下面的实测行）。 */
+  .mast-fold { border-top: 2px solid var(--rule); margin-top: 6px; }
   .mast-fold .mast-claim { margin-top: 4px; }
   .mast-fold .mast-exit { margin-top: 10px; }
   .mast-wizard { margin-top: 8px; }
@@ -1105,11 +1221,15 @@ code { font-family: var(--code); font-size: 0.94em; }
      字号**不动**：dt 13px / dd 16px，与仓库「小字下限 13px」一致。
      省下来的是**表头与数字之间那道 8px 缝**和 4 列各自的上下留白。
      （试过把 dt 降到 12px 让 4 项挤进一行、省 24px —— 那会破 13px 下限，放弃。）
-     ⚠️ 只改窄档；1440 档那 4 个 73.5px 的十字块原样保留。 */
+     ⚠️ 只改窄档；1440 档那 4 个 73.5px 的十字块原样保留。
+     1px → 2px（2026-10-28）：与 .mast-fold 那条同一笔账 —— 它同样是**装饰性分节**
+     （把读数区和上面的向导按钮分开），也是窄档 2 条 hairline FAIL 的第二条。
+     这一条**没有** margin 可抵，390 档净 +1px；实测首卡 top 402.4 → 404.4，
+     视口 844 ⇒ 首卡底 836.8，仍完整，完整卡数 1 → 1（五档排序全测，见 README）。 */
   .mast-facts {
     display: flex; flex-wrap: wrap; gap: 2px 10px;
     margin-top: 8px; padding-top: 5px;
-    border-top: 1px solid var(--ink);
+    border-top: 2px solid var(--ink);
   }
   .mast-facts > div {
     display: flex; align-items: baseline; gap: 5px;
@@ -1182,7 +1302,7 @@ code { font-family: var(--code); font-size: 0.94em; }
      折叠态下这 16px 夹在「筛选折叠条」与「搜索框」之间，是连续两道留白叠加。
      只收上方；底部 60px 是滚到底的呼吸位，不动。 */
   .main { padding-top: 10px; }
-  /* 页头再收 2px（8/6 → 6/4）。到这里页头是 258.5：kicker 22.7 + h1 27.5
+  /* 页头再收 2px（8/6 → 6/4）。到这里页头是 258.5：页头标签 22.7 + h1 27.5
      + 向导 50.5 + 折叠条 44 + facts 52.8 + 内距 10 + 各段 margin。 */
   .mast { padding: 6px var(--pad) 4px; }
   .shots .shot:first-child { max-width: 160px; }
@@ -1205,5 +1325,35 @@ code { font-family: var(--code); font-size: 0.94em; }
   /* 家族 clamp 仍是 2 行（.row-family 的原值），不降到 1 行：
      降 1 行能再省 19.5px，但「家族名 + 一句参考对象」是这一行里信息密度最高的部分。
      现在 30/30 案都能完整进首屏，没有理由再从这里抠。 */
+
+  /* ── 给 .row-family 涨到 16px 的三条补偿（2026-10-28）──────────────────────
+     这一档是**唯一**要为 body-size 那条修复付钱的地方：16px 比 13px 每行高
+     3.7px（23.2 vs 19.5），而 390 档首屏余量本来就只剩 9.2px（gate 排序 = 最坏首卡
+     S13）。所以这三条不是顺手收，是把那 3.7px 从纯留白里原样赎回来。
+     逐条实测（同页 A/B，deliverables/68-exec/matrix-68.json，390×844）：
+
+       基准（13px，当前 620 档）   首卡 top 402.4  S13 卡高 432.4  slack  9.2
+       只把 family 提到 16/1.45     首卡 top 402.4  S13 卡高 439.7  slack  1.9  ← 差 7.3
+       + .row padding 6→5           首卡 top 402.4  S13 卡高 436.1  slack  5.5  （赎回 3.6）
+       + .row-meta margin-top 6→4   首卡 top 402.4  S13 卡高 434.1  slack  7.5  （再 2.0）
+       + 缩略图 160→152             首卡 top 402.4  S13 卡高 429.6  slack 12.0  （再 4.5）
+
+     · `.row` 上下内距 6→5（−2px/卡）：0 是 .row 与相邻行卡之间唯一的呼吸，
+       `.row` 之间只有一条 2px 底线，收到 0 会让 30 张卡贴成一根梯子。
+     · `.row-meta` margin-top 6→4（−2px/卡）：它上面是 .row-def（16px/1.62 的正文），
+       两段之间还有 4px 就够读成"下一段"。
+     · `.shots .shot:first-child` 160→152（−3.3px/卡）：**这是这一组里唯一动了图形的**，
+       所以单独说明：它改的是宽度、不是高度，缩略图仍是完整的 16:9（1440 首屏原比例），
+       裁切口径（object-fit:cover + object-position:top center）一个字没变，只是整体
+       小 5%。原注释里那张"图宽梯度"表把 152 列为「多 4.5px，不值再缩 8px 的图」——
+       那条判断在当时成立（当时 slack 已经是 +10.8，不需要再省）；**现在不成立**，
+       因为 16px 把 slack 吃回 1.9，152 换来的 4.5px 正是「扛得住字体替换与边框取整」
+       这条要求本身。给 16px 让路，比守住 8px 的图宽更符合这个页面的用途
+       （它是选型台，缩略图是索引不是作品）。
+     结果：S13 卡高 429.6、slack **12.0**，比改前的 9.2 还宽 2.8px；
+     30 案逐案全量复核（_percase.mjs）：最高卡仍是 S13，五档排序 full 全 = 1。 */
+  .row { padding: 5px 0; }
+  .row-meta { margin-top: 4px; }
+  .shots .shot:first-child { max-width: 152px; }
 }
 

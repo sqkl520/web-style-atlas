@@ -317,6 +317,79 @@ Windows 上 Chrome 有**最小窗口宽约 500 CSS px**，布局按 500 走、�
 
 ---
 
+## 选型台自己的闸门账（每一条都能复算）
+
+选型台不是 30 个案之一，但它是用户唯一的入口，所以它自己也过同一道闸门。这一节记的是**它自己的账**——包括一笔它欠了六天的账。
+
+### 账目一：它的闸门报告曾经是六天前的
+
+`prototypes/_selection/.inspect/report.json` 是 2026-10-21 入库的，此后它的源文件被持续改了几千行，而**没有一个检查器看它一眼**：`verify-prototype.mjs`、`check-anchors.mjs`、`check-stale.mjs` 三处各自复制了同一个 `S\d{2}-` 目录选择器，产品不在那个模式里。
+后果不是"报告有点旧"，是**报告说的话与页面相反**：入库那份写 `FAIL 0`，2026-10-28 用 `inspect.mjs` 重跑实测 `FAIL 2`（`body-size` / `hairline`）。
+`check-stale.mjs` 现已扩到产品入口（`_selection` 的 9 个源文件全列上），这条账不会再欠。
+
+### 账目二：自述清单原先有 4 条与仓库历史不符
+
+`style.css` 开头曾有一段 7 条散文（「过闸门时改掉的几处」）。用 `git log --reverse -- prototypes/_selection/style.css` 逐提交核对，7 条里：
+
+| 自述原文 | 实测 | 判定 |
+| --- | --- | --- |
+| 三级文字对比度 4.2:1 → 5.6:1 | 旧 `#6f6c64` 对底 4.23:1、对新底 5.58:1；现行 `#56534b` 对底 **6.19:1** | 方向对，终点值写错 |
+| 小字下限收到 13px（原先 11/12px 有 115 处） | 首个提交 `style.css` 只有 **1 处** `font-size: 11px`、0 处 12px；全仓库任何一次提交都没有 115 处 | **不存在** |
+| 大标题 3.8vw → 5.2vw | `3.8vw` 只出现在这段自述里，从未作为生效值；改前是字面值 `clamp(30px, 4vw, 56px)` | **不存在**（但 2026-10-28 的 `d49ed74` 真的接上了 `var(--s-h1)`：1440 档 h1 实测 74px / 5.14vw） |
+| 头部标签从全大写 11px 微标签 → 14px 句首大写 | `.mast-kicker` 从首个提交起就是 `var(--s-14)`，全文 `text-transform: uppercase` 出现 **0 次** | **不存在**；样式本来就是对的，腐化的是类名 |
+| 行分隔线 1px → 2px | 只是部分成立：装饰线是 2px，但仍有 5 处单边 1px 在真列表/真字段行上 | 自述不够精确 |
+| 截图缩略图不再用 1px 描边框 | `.shot` 确无边框；但 `.fold-thumb` 的 `outline: 1px` 还在（那是图像边界，不是装饰线） | 字面成立 |
+| 工具条不再 sticky | `.bar` 在任何一次提交里都不是 sticky；一直 sticky 的是 `.rail` 与 `.detail-head`，两者**都是对的**（`.bar` sticky 会压住大标题，右侧筛选栏与面板头 sticky 是导航需要） | 字面成立 |
+
+结论不是"作者撒谎"，是**散文清单没有对账机制**：它记录的四次修复里有一次（`--s-h1` 零引用）是真的，而它自己写下的三个数字（115 处、3.8vw、全大写 11px）从来没有过。所以清单搬到了这里——README 有 `check-docs.mjs` 看着，CSS 注释没有。
+
+### 账目三：1px 现在只剩真列表行与真控件边
+
+`lint.mjs` 的 `hairline` 判据原文是「lines belong to real tables and form fields」，且对含 `input`／`select`／`textarea`／`table`／`tr`／`td`／`th`／`fieldset` 的选择器有明确豁免；运行时探针 `probe.mjs` 同理（`formish()` 把 `input`／`select`／`table`／`hr` 与 `data-ui` 片段一并放过）。
+所以处置不是"把 1px 全改 2px"，而是**逐条判断它是不是真列表行**。留下 5 处，逐条能指回语义：
+
+| 位置 | 为什么留 |
+| --- | --- |
+| `.tpl-card` 上边线 | 模板卡的列表行分隔。证据在下一条规则：`.tpl-card:first-child { border-top: none }` —— 只有列表行才需要"首行不画线" |
+| `.viewer-tabs button` 右边线 | 标签按钮的控件边（按钮本身是 1px 全包） |
+| `.field` 下边线 | 详情面板一个字段一行（`dt`/`dd` 定义列表）的行分隔 |
+| `.field-fold` 下边线 | 同上，折叠态字段行 |
+| `.parts li` 下边线 | 可移植部分列表（`li`）的行分隔 |
+
+装饰性分节线一律 2px。本轮把漏网的 3 处收进规矩：`.mast-fold` 与 `.mast-facts`（≤980 档，二者正是运行时闸门唯一的 2 条 `hairline` FAIL 的来源——判据是 `hairlines >= 2 即 FAIL`）和 `.prompt-fill`。
+
+### 账目四：`mast-kicker` 是类名腐化，不是真违规
+
+`.mast-kicker` 的样式从首个提交起就没有 kicker 特征（14px、无 `uppercase`、无 `letter-spacing`），但 `lint.mjs` 的 `eyebrow` 规则**只认类名**，所以它的静态扫描永远判 FAIL。
+已改名为 `.mast-label`（不是 `.mast-eyebrow`：那会正面命中同一条规则），`index.html` 与 `wizard.html` 各一处，`wizard.css` 无对应规则。
+注：`lint.mjs` 在 `tools/` 下，而 `.gitignore` 第 2 行排除了 `tools/` —— 所以 `taste-skill-ignore` 豁免注释对克隆者**不存在**（`git check-ignore -v` 实测命中 `.gitignore:2`）。改类名是唯一对下游有效的做法。
+
+### 复算这几笔账
+
+`lint.mjs` 与 `inspect.mjs` 在仓库外的 `tools/` 里，克隆者要先自备（见上一节）。拿到之后：
+
+```bash
+# ① 1px 只剩哪几处（应为 5 处，全在真列表/真字段行上）
+node tools/taste-skill/skills/taste-skill/scripts/lint.mjs prototypes/_selection/ \
+  | grep -A6 '\[hairline\]'
+
+# ② 类名腐化已清（eyebrow 应为 0 条，不再是 2 条）
+node tools/taste-skill/skills/taste-skill/scripts/lint.mjs prototypes/_selection/ \
+  | grep -c '\[eyebrow\]'    # 输出 0
+
+# ③ 运行时闸门：1440 / 768 / 390 三档的 hairline 都应为 0 条
+#    （改前 768 与 390 各 2 条 —— 判据是 >=2 即 FAIL，所以改前它其实是 FAIL）
+node tools/taste-skill/skills/taste-skill/scripts/inspect.mjs prototypes/_selection/index.html \
+  --out /tmp/sel --widths 1440,768,390 --json | grep -o '"hairlines": [0-9]*'
+
+# ④ 产品入口的闸门报告不再陈旧
+node prototypes/_build/check-stale.mjs
+```
+
+已知仍未清零的一条：`body-size` 判「正文 13px」。这是**选的**，不是漏的——本页正文主体是方案卡的元数据（30 案 × 十几个 13px 字段名与读数），把整页正文抬到 16px 会让列表页首屏从 1 张完整卡掉到 0 张（这正是 `67-exec` 那一轮花几十像素救回来的东西）。这一条在 `inspect.mjs` 里保持 FAIL 是诚实的，不靠 `--allow` 放行。
+
+---
+
 ## 只做静态这一件事
 
 数据不出本机：页面是 HTML/CSS/JS，素材在仓库里，字体自托管。

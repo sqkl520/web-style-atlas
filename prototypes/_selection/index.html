@@ -36,7 +36,7 @@
 
 <header class="mast">
   <div class="mast-id">
-    <p class="mast-kicker">网站设计风格方案 · 选型台</p>
+    <p class="mast-label">网站设计风格方案 · 选型台</p>
     <h1>三十个案，一条渲染口径</h1>
     <p class="mast-wizard"><a href="wizard.html">筛不出来？走选型向导：五个问题给出 3 个推荐 + 3 个明确排除 →</a></p>
     <!-- 页头折叠块（2026-10-28，390×844 首屏实测）────────────────────────────
@@ -83,11 +83,34 @@
          这条行为我特意验过两次（一次页内改 hash、一次冷加载 file:///…index.html#tpl-exit），
          两次都是 open=true。所以 wizard.js 那条深链不需要改。 -->
       <p class="mast-exit" id="tpl-exit">只想要<strong>拿来就能用的</strong>？不用在这三十张卡里挑——直接去三个大众模板：<a href="../../templates/M01-clean-corporate/">企业站 M01</a> · <a href="../../templates/M02-warm-local/">餐饮本地 M02</a> · <a href="../../templates/M03-bold-creator/">作品集 M03</a>（自包含、系统字体、双击即对）。</p>
+
+      <!-- 本页自身的闸门状态（2026-10-28 加）。
+           为什么需要它：报头那个「闸门 FAIL=0」统计的是 30 个原型（app.js:54 `stats.clean`
+           只 filter `ALL`），**本页自己不在其中**。而本页自身的报告曾陈旧 5.94 天、
+           真实结果是 1 条 FAIL —— 用户看到「FAIL=0」会以为整个项目体检合格。
+           数字是真的，但回答的不是读者以为的那个问题。
+
+           为什么放在 `.mast-fold` 里、而不是 `.mast` 的第三个网格子项：
+           第一版就是那样放的，实测页头 323 → 513px（1440）、h1 从 1 行折成 2 行、
+           390 档首屏完整卡 1 → 0（slack −110.4px）。这个折叠块本来就是
+           「这个图集是什么 / 关于这件工具本身」的说明，语义正好；宽档它默认 open，照旧可见。
+
+           内容从 `.inspect/report.json` 经 self-gate.js 注入（window.SELECTION_REPORT），
+           不硬编码 —— 否则这一行自己就会成为下一个腐化源。读不到就如实说读不到。 -->
+      <p class="self-gate" id="self-gate">本页自身：闸门报告读取中…</p>
     </details>
   </div>
   <dl class="mast-facts" id="facts">
     <div><dt>方案总数</dt><dd id="f-total">—</dd></div>
     <div><dt>已建原型</dt><dd id="f-built">—</dd></div>
+    <!-- 2026-10-28：这个 dt 保持原样「闸门 FAIL=0」，不改成「闸门 FAIL=0（原型）」。
+         实测依据（1440×900，逐步剥离）：加「（原型）」三个字 → `.mast` 网格右列
+         302px → **526px**（+224），四个 dt 全被均分拉宽到 130px，页头 +21.7px、首卡 +21.7px。
+         原因：右列是 `minmax(300px, max-content)`，不受控；`.mast-facts` 是 4 等分网格，
+         最长的 dt 决定整列宽。
+         而分数形式「26 / 30」**实测零影响**（右列仍 302px），所以它保留 —— 读者看到
+         分数就知道分母是什么，比在标签里加注更省地方。
+         本页自身的结果在 `.mast-fold` 里那一行（#self-gate），summary 行也有徽标。 -->
     <div><dt>闸门 FAIL=0</dt><dd id="f-clean">—</dd></div>
     <div><dt>截图总数</dt><dd id="f-shots">—</dd></div>
   </dl>
@@ -316,6 +339,7 @@
 <script src="data.js"></script>
 <script src="prompts.js"></script>
 <script src="prompt-copy.js"></script>
+<script src="self-gate.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

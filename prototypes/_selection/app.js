@@ -70,7 +70,88 @@
   /* ── 报头数字 ─────────────────────────────────────────── */
   $('#f-total').textContent = stats.total;
   $('#f-built').textContent = stats.built + ' / ' + stats.total;
+  /* 2026-10-28 改：原来只写 `stats.clean`（= 26），即「30 个原型里有 26 个的闸门 FAIL=0」。
+     但报头的标签是「闸门 FAIL=0」，读起来像「整个项目体检合格」——
+     而**这个页面自己**当时有 FAIL、且报告曾陈旧 5.94 天，完全不在这个 26 里。
+     标签与统计口径不符，是「界面在说半真话」的又一例：数字是真的，但回答的不是用户以为的那个问题。
+
+     处置：这一格**保持纯数字 26**（不改成分数、不给标签加注），口径改由
+     summary 行与 #self-gate 那一行说清。三版实测记录：
+       · 「闸门 FAIL=0（原型）」标签 → `.mast` 右列 302 → 526px（+224），四个 dt 被均分
+         拉宽到 130px，页头 +21.7px、首卡 +21.7px。**否决**（右列是 `minmax(300px,max-content)`，
+         不受控；`.mast-facts` 是 4 等分网格，最长 dt 决定整列宽）。
+       · 数字改成 `26 / 30` → 网格宽度零变化，但 1440 档四格各 74px，「闸门 FAIL=0」
+         标签正好占满整格，分数把 dd 撑到贴住右边框，截图里「闸门 FAIL=0截图总数」读起来像连成一句。
+         **否决**（视觉粘连，且分母信息与 self-gate 那一行重复）。
+       · 当前：纯数字。分母改在 `.mast-fold` 里说清（那里本来默认展开）。 */
   $('#f-clean').textContent = stats.clean;
+
+  /* ── 选型台自身的闸门状态（2026-10-28 加）────────────────
+   *
+   * 为什么必须在页面上写出来：本页的 `.inspect/report.json` 是 2026-10-22 的，
+   * 直到 2026-10-28 才有机制发现它已陈旧（`check-stale.mjs` 当时只查 `/^S\d{2}-/`，
+   * 和 `verify-prototype --all` 复制了同一个选择器 —— 病根不是没人写检查，是检查的目录漏了一层）。
+   * 陈旧期实测 8562 分钟（5.94 天），其间 `_selection/` 被改了 25 个 commit、+6214/−783 行。
+   * 重渲染后真实结果是 2 条 FAIL（body-size: 正文 13px 占字符量 90.5%；hairline: 页头两条 1px 线）。
+   *
+   * 这段文字从 `report.json` 现场读，不硬编码 —— 否则它自己就会成为下一个腐化源。
+   * 读不到就如实说读不到，不装作没问题。 */
+  var SELFGATE = (function () {
+    var rep = window.SELECTION_REPORT;
+    if (!rep || !Array.isArray(rep.findings)) return null;
+    var f = rep.findings.filter(function (x) { return x.level === 'FAIL'; });
+    var w = rep.findings.filter(function (x) { return x.level === 'WARN'; });
+    return { fail: f.length, warn: w.length, ids: f.map(function (x) { return x.id; }), at: rep.at };
+  })();
+  (function () {
+    var host = document.getElementById('self-gate');
+    /* summary 行里的徽标：那是**固定一行**的高度，加字不增高。
+       为什么要把结论同时放进 summary：`.mast-fold` 在宽档默认 open、窄档默认收起，
+       如果只在折叠体里写，「本页自己有 FAIL」这件事在 390 档就要用户先点开才知道。
+       徽标把结论提到那一行上，详句留在下面。 */
+    var sum = document.querySelector('#mast-fold .mast-fold-sum');
+    var badge = null;
+    if (sum) {
+      badge = document.createElement('span');
+      badge.className = 'sg-badge';
+      sum.appendChild(badge);
+    }
+
+    if (!SELFGATE) {
+      var msg = '本页自身：没有闸门报告（没渲染过）—— 这一行不能替你担保什么。'
+        + '跑 node prototypes/_build/render-scheme.mjs _selection 生成。';
+      if (host) host.textContent = msg;
+      if (badge) badge.textContent = '　·　本页自身：未渲染';
+      return;
+    }
+    var when = String(SELFGATE.at || '').slice(0, 10);
+    if (SELFGATE.fail) {
+      if (badge) {
+        badge.textContent = '　·　本页自身 FAIL ' + SELFGATE.fail
+          + (SELFGATE.ids.length ? '（' + SELFGATE.ids.join(' / ') + '）' : '')
+          + ' · WARN ' + SELFGATE.warn;
+        badge.setAttribute('data-level', 'fail');
+      }
+      if (host) {
+        host.textContent = '本页自身：闸门 ' + SELFGATE.fail + ' 条 FAIL（'
+          + SELFGATE.ids.join(' / ') + '）、' + SELFGATE.warn + ' 条 WARN —— 报告时间 '
+          + when + '。报头那个「闸门 FAIL=0 ' + stats.clean + '」只数 30 个原型，不含本页。';
+        host.setAttribute('data-level', 'fail');
+      }
+    } else {
+      if (badge) {
+        badge.textContent = '　·　本页自身 FAIL 0 · WARN ' + SELFGATE.warn;
+        badge.setAttribute('data-level', 'pass');
+      }
+      if (host) {
+        host.textContent = '本页自身：闸门 0 条 FAIL、' + SELFGATE.warn
+          + ' 条 WARN —— 报告时间 ' + when
+          + '。报头那个「闸门 FAIL=0 ' + stats.clean + '」只数 30 个原型（' + stats.clean
+          + ' / ' + stats.total + '），不含本页。';
+        host.setAttribute('data-level', 'pass');
+      }
+    }
+  })();
   $('#f-shots').textContent = stats.shots;
 
   /* ── 筛选芯片 ─────────────────────────────────────────── */

@@ -10,7 +10,7 @@
 //   若 cwd 设成原型目录，root 就变成原型目录，../_fonts/ 会 403。
 //
 import { spawnSync } from 'node:child_process';
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 // 仓库根由脚本自身位置推得（模板 = check-stale.mjs:16；含 Windows 盘符修正与 39 §3-N10 的 decodeURIComponent）。
@@ -95,4 +95,37 @@ if (j.findings.length) {
   console.log('\n发现：无');
 }
 console.log(`\n合计 FAIL=${byLevel.FAIL || 0}  WARN=${byLevel.WARN || 0}`);
+
+/* ── 产品入口：把自身闸门结果写成一个页面能读的小文件 ────────────────────────
+ *
+ * 为什么需要这一步：选型台报头的「闸门 FAIL=0」统计的是**30 个原型**（`app.js:54`
+ * `stats.clean` 只 filter `ALL`），选型台自身不在其中。于是页面会说出
+ * 「闸门 FAIL=0 26」这种半真话——数字是真的，但回答的不是读者以为的那个问题。
+ *
+ * 不放进 data.js 的原因：data.js 由 collect-schemes.mjs 从 `_specs/*.md` 生成，
+ * 是「30 个方案」的数据底座；本页自身的体检结果与那 30 个方案的规格无关，
+ * 混进去会让 collect-schemes 在下一次重新生成时把它覆盖掉（它不认识这个字段）。
+ * 单独一个文件、由本脚本（唯一会渲染产品入口的地方）负责写，职责才对得上。
+ *
+ * 为什么内联成 `window.X = {...}` 而不是 JSON：页面要能在 `file://` 下打开
+ * （用户常直接双击 index.html），那时 fetch() 会被 CORS 挡掉。
+ * 这与 prompts.js 把 30 案 DNA 内联是同一个理由。
+ *
+ * 只写这三样：时间、findings 的 level+id、以及 30 个原型的达标数。
+ * 不写 message —— 那是英文长句，页面不需要，也不该让一个 JS 文件变成报告副本。 */
+if (name === '_selection') {
+  const selfJs = join(dir, 'self-gate.js');
+  const payload = {
+    at: j.at,
+    findings: (j.findings || []).map((f) => ({ level: f.level, id: f.id })),
+  };
+  writeFileSync(selfJs,
+    '// 由 render-scheme.mjs 生成，勿手改。选型台自身的闸门结果。\n' +
+    '// 生成时机：node prototypes/_build/render-scheme.mjs _selection\n' +
+    'window.SELECTION_REPORT = ' + JSON.stringify(payload, null, 1) + ';\n',
+    'utf8');
+  console.log('  已写 prototypes/_selection/self-gate.js（本页自身 ' +
+    (byLevel.FAIL || 0) + ' 条 FAIL / ' + (byLevel.WARN || 0) + ' 条 WARN）');
+}
+
 process.exit((byLevel.FAIL || 0) > 0 ? 1 : 0);
