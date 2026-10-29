@@ -83,6 +83,72 @@ export function findStale() {
     if (gapMin > 1) out.push({ id: e.dir, dir: e.dir, which, gapMin: Math.round(gapMin), label: e.label, render: e.render });
   }
 
+  /* ③ 提示词数据链（2026-10-30 新增）
+   *
+   * 为什么需要它：这是**连续第二轮**出现「生成物无陈旧守卫」的同类缺陷。
+   *   第 69 轮：`_selection/.inspect/report.json` 冻结 6 天，无检查器覆盖
+   *            → 闸门谎报 FAIL 0（实际 2 条 FAIL）
+   *   第 70 轮：`_prompts/dna-raw.json` 落后 S13 的 style.css **5065 分钟**（3.5 天）
+   *            → 生成链 2/3 产物不可复现，且差点把脏字体名写进产品
+   *
+   * 两者的共同点：都是生成物、都被 git 跟踪（所以看起来"有版本"）、
+   * 都依赖会变的源文件、都不在任何检查器的视野里。
+   *
+   * 链条：Sxx/style.css + index.html
+   *         → dna-raw.json → dna-clean.json → prompts.js
+   * 每一环都必须比它的输入新，否则就是陈旧。
+   */
+  const CHAIN = [
+    {
+      /* ⚠️ 路径全部相对于 `P`（= `prototypes/`），**不要**再带 `prototypes/` 前缀。
+       * 2026-10-30 第一版写了 'prototypes/_prompts/dna-raw.json'，join(P, ...) 之后
+       * 变成 prototypes/prototypes/_prompts/... → existsSync 恒 false → 守卫静默失效。
+       * 而它失效的样子是"全部新鲜"，看起来像通过 —— 这是最危险的一类 bug。 */
+      product: '_prompts/dna-raw.json',
+      inputs: () => caseDirs(P).flatMap((n) => [join(P, n, 'style.css'), join(P, n, 'index.html')]),
+      hint: 'node prototypes/_prompts/extract-dna.mjs',
+      label: '提示词链·dna-raw',
+    },
+    {
+      product: '_prompts/dna-clean.json',
+      inputs: () => [join(P, '_prompts/dna-raw.json'), join(P, '_prompts/clean-dna.mjs')],
+      hint: 'node prototypes/_prompts/clean-dna.mjs',
+      label: '提示词链·dna-clean',
+    },
+    {
+      product: '_selection/prompts.js',
+      inputs: () => [join(P, '_prompts/dna-clean.json'), join(P, '_prompts/build-prompts.mjs')],
+      hint: 'node prototypes/_prompts/build-prompts.mjs',
+      label: '提示词链·prompts.js',
+    },
+  ];
+  for (const link of CHAIN) {
+    const prod = join(P, link.product);
+    if (!existsSync(prod)) continue;                 // 产物不存在 = 另一类问题，不归这里
+    const prodM = statSync(prod).mtimeMs;
+    let newest = 0, which = '';
+    for (const f of link.inputs()) {
+      if (!existsSync(f)) continue;
+      const m = statSync(f).mtimeMs;
+      if (m > newest) { newest = m; which = f.replace(/\\/g, '/').split('/prototypes/')[1] || f; }
+    }
+    if (!which) continue;
+    const gapMin = (newest - prodM) / 60000;
+    if (process.env.DEBUG_STALE_CHAIN) {
+      console.error('[chain] ' + link.label + ' prodM=' + prodM + ' newest=' + newest + ' gapMin=' + gapMin.toFixed(2) + ' which=' + which);
+    }
+    if (gapMin > 1) {
+      out.push({
+        id: link.label,
+        dir: link.product,
+        which,
+        gapMin: Math.round(gapMin),
+        label: link.label,
+        render: link.hint,
+      });
+    }
+  }
+
   return out.sort((a, b) => b.gapMin - a.gapMin);
 }
 

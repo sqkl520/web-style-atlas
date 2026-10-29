@@ -273,40 +273,79 @@ function dominantStack(rawCss, vars, max) {
   return best.split("|");
 }
 
-/* 逐条规则走一遍，拿到「选择器 → 声明块」。
+/* 逐条规则走一遍，拿到「选择器 → 声明块 → 所处的条件组」。
  * 为什么不用 /([^{}]+)\{([^}]*)\}/ 这种一把梭：@media 会把花括号嵌套进来，
  * 一把梭的结果是把 @media 的头部当选择器、把里面第一条规则当声明块，
- * 于是媒体查询里的 h1 字体覆盖就永远读不到。这里按花括号配对切，遇到 @ 开头的块再递归。 */
+ * 于是媒体查询里的 h1 字体覆盖就永远读不到。
+ *
+ * ⚠️ 2026-10-29 修：原实现把「条件组里的规则」报了**两遍** ——
+ * 平扫这一层按 `media` 形参（顶层是 null）报一次，`}` 处再递归进去带着条件报一次。
+ * 对 familyRules 无害（重复项被后者覆盖），但对任何按条件过滤的消费端是致命的：
+ * 一个只在 `@media (max-width:1023px)` 成立的 `border-top-width: 7px`，
+ * 会以 media=null 的身份混进"桌面真值"。实测 S13 的 7px 就是这么进来的。
+ * 改成单遍：条件组不递归、也不上报；规则所属的条件从**当前栈**里取最内层 @ 块，
+ * 层层叠加（嵌套媒体 = 合取，conditionApplies 会把所有 min/max 一起判）。
+ */
 function eachRule(css, cb) {
   let i = 0;
   const n = css.length;
-  let depth = 0;
   let selStart = 0;
   const stack = [];
+  /* 栈顶向内收集条件组，由内到外拼成一句 —— 顺序无关，因为判据是「所有约束都成立」。 */
+  const condOf = function () {
+    const parts = [];
+    for (const s of stack) if (/^@/.test(s.sel)) parts.push(s.sel);
+    return parts.length ? parts.join(" and ") : null;
+  };
   while (i < n) {
     const ch = css[i];
     if (ch === "{") {
-      const sel = css.slice(selStart, i).trim();
-      stack.push({ sel: sel, bodyStart: i + 1 });
-      depth++;
+      stack.push({ sel: css.slice(selStart, i).trim(), bodyStart: i + 1 });
       selStart = i + 1;
     } else if (ch === "}") {
       const top = stack.pop();
       if (top) {
         const body = css.slice(top.bodyStart, i);
-        if (/^@(media|supports|layer|container)\b/i.test(top.sel)) {
-          eachRule(body, cb); // 条件组里的规则也要读，否则窄屏覆盖的字体读不到
-        } else {
-          cb(top.sel, body);
-        }
+        /* 条件组自己不上报，只当容器；它的规则在平扫这一层各自上报一次。 */
+        if (!/^@/.test(top.sel)) cb(top.sel, body, condOf() || null);
       }
-      depth--;
       selStart = i + 1;
-    } else if (ch === ";" && depth === 0) {
+    } else if (ch === ";" && !stack.length) {
       selStart = i + 1;
     }
     i++;
   }
+}
+
+/* 把一条条件组（@media / @supports …）按「审查视口 1440px」判真伪。
+ *
+ * 为什么要有它：30 案的断点几乎全是 `max-width: 1439 / 1023 / 899 / 767`，
+ * 在 1440 视口下**一个都不成立**，所以 `max-width` 里的线宽不是桌面真值。
+ * 但 S02/S10/S17 还写了 `min-width: 1440px`，那条在 1440 下**是成立的** ——
+ * 不能一刀切把"带媒体条件"全判成窄屏，否则会把真值删掉。
+ * 判不了的（prefers-reduced-motion / print / forced-colors / 未知特性）一律判 false：
+ * 它们不是桌面首屏的常态，宁可少算也不要把降级态/打印态的线宽写进提示词。
+ *
+ * 实测边界（30 案逐个核对过，见 probes-a/a05）：
+ *   · `@media (min-width: 1440px)`          → true（S02/S10/S17 各有一条）
+ *   · `@media (min-width:1024px) and (max-width:1439px)` → false（1439 上限不含 1440）
+ *   · `@media (max-width: 1439px)`          → false
+ *   · `@media (prefers-reduced-motion)`     → false
+ *   · `@supports (animation-timeline: …)`   → true（渐进增强，不是断点）
+ */
+function conditionApplies(cond, viewport) {
+  const w = viewport || 1440;
+  if (!cond) return true;
+  /* @supports / @layer / @container：不是视口条件，30 案里也不含线宽/字号声明，
+   * 按"成立"处理（@supports 是渐进增强，作者写它就是希望生效）。 */
+  if (/^@(supports|layer|container)/i.test(cond)) return true;
+  if (/prefers-reduced-motion|prefers-color-scheme|prefers-contrast|\bprint\b|forced-colors|hover\s*:|pointer\s*:|any-hover|any-pointer/i.test(cond)) return false;
+  const min = cond.match(/min-width\s*:\s*[0-9.]+px/gi) || [];
+  const max = cond.match(/max-width\s*:\s*[0-9.]+px/gi) || [];
+  if (!min.length && !max.length) return false;
+  for (const m of min) if (w < parseFloat(m.replace(/[^0-9.]/g, ""))) return false;
+  for (const m of max) if (w > parseFloat(m.replace(/[^0-9.]/g, ""))) return false;
+  return true;
 }
 
 function familyRules(cleanCss) {
@@ -448,57 +487,510 @@ function radiusVerdict(cleanCss) {
  *   照第 5 条做则风格签名失效，照机制句做则"自创第三级"。
  *   这个缺陷对原验收脚本完全隐形：verify-p0.mjs 只查 indexOf("未声明")。
  *   由独立验证 Agent 抓出（报告 §2 漏项 1）。
+ *
+ * ⚠️ 2026-10-29 第六次修（本文件）：抽取值仍然系统性偏少，四个独立缺陷叠在一起。
+ *   1) **只读 style.css，不读 index.html**。19/30 案的描边写在 HTML 的 SVG 属性里：
+ *      S25 的装订线 `stroke-width="1.2"`（index.html:35,106）、8 条 leader="2"、
+ *      2 个图标="1"；S27 的 9 个 .8 与 3 个 1.6；S30 的 1.6/2。一个都抽不到，
+ *      于是 S25 的提示词只剩「3px」，而它的签名机制（骑马钉装订线）是 1.2 —— 风格签名整段丢失。
+ *   2) **属性覆盖面太窄**：漏 `column-rule`（S07 的 `.toc{column-rule:.5px}`，
+ *      即"目录栏间的那条竖线"，是真实的版式线宽）、漏 `border-block`/`border-inline`
+ *      这类逻辑属性简写。
+ *   3) **不区分 @media**：`@media (max-width:899px){.thread path{stroke-width:3}}` 里的
+ *      3 被当成桌面值（S25）；S27 的 `--mis` 在 `@media (max-width:819px)` 的 `:root` 里
+ *      被改成 1.2，于是桌面 `border-left: var(--mis)` 被算成 1.2、`calc(--mis*2)` 算成 2.4 ——
+ *      提示词里那两个"窄屏值"就是这么来的。
+ *   4) **0.5px"去重"把真实档位吃掉**：S25 的 1 与 1.2 差 0.2 被合并 → 只剩 1px；
+ *      S09 的 3.5 与 3.6 同理 → 只剩 3.5px。而"1 与 1.2 是两级"恰恰是这两案的签名
+ *      （装订线多少、蚀刻描边多细）。一个出于好意的小优化制造了 7/30 案的缺陷。
+ *
+ * 现在的口径（写进注释是为了下一轮不要又"优化"回去）：
+ *   · **桌面视口 = 1440px**（与仓库审查视口一致）。`@media (max-width: 1439/1023/…737/899)`
+ *     在 1440 下不成立，里面的线宽不算桌面真值；`@media (min-width: 1440px)` 成立，算。
+ *     `prefers-reduced-motion` / `print` / `forced-colors` 一律不算 —— 那是降级态与打印态。
+ *   · 变量只取「桌面作用域」的 `:root`（见 topVars）。修 bug 3) 必须如此，否则 S27 又漂回 1.2。
+ *   · 去重只去**完全相等**的值（round2 后），不再按 0.5px 合并。
+ *   · 0 / none / hidden 不算；注释里的不算（入口已 stripComments 剥过）。
  */
-function lineWidthVerdict(cleanCss, vars) {
-  const widths = new Set();
-  const re = /(?:border(?:-(?:top|right|bottom|left))?(?:-width)?|outline(?:-width)?|stroke-width)\s*:\s*([^;}]+)/g;
-  let m;
-  while ((m = re.exec(cleanCss))) {
-    let v = resolveVars(m[1], vars, 0);
-    v = v.replace(/calc\(\s*([0-9.]+)px\s*\*\s*([0-9.]+)\s*\)/g, function (all, a, b) {
-      return round2(parseFloat(a) * parseFloat(b)) + "px";
-    });
-    v = v.replace(/calc\(\s*([0-9.]+)\s*\*\s*([0-9.]+)px\s*\)/g, function (all, a, b) {
-      return round2(parseFloat(a) * parseFloat(b)) + "px";
-    });
-    const pxRe = /([0-9.]+)px/g;
-    let q;
-    while ((q = pxRe.exec(v))) {
-      const n = parseFloat(q[1]);
-      if (n > 0) widths.add(round2(n));
+const WIDTH_DECL_RE = /^(?:border|border-width|border-(?:top|right|bottom|left|block|inline)(?:-(?:width|start|end))?|outline|outline-width|column-rule|column-rule-width|stroke-width)$/i;
+
+/* 把声明块切成 prop/value。不用 `([^;}]+)` 一把梭：值里可能带 data-URI（S12 的
+ * `--stripe45: url("data:image/svg+xml,…stroke-width='5.66'…")`），用属性名白名单
+ * 把 `--stripe45` 这类自定义属性挡在外面，才不会把纹理描边当成版式线宽。 */
+function declsOf(body) {
+  const out = [];
+  for (const raw of String(body || "").split(";")) {
+    const k = raw.indexOf(":");
+    if (k < 0) continue;
+    out.push({ prop: raw.slice(0, k).trim(), value: raw.slice(k + 1).trim() });
+  }
+  return out;
+}
+
+/* 一条线宽声明 → 若干 px 数值。
+ * 单位只有两种合法写法：CSS 的 `Npx`，以及 SVG 的**裸数字**（`stroke-width:.4`
+ * 是用户单位，不是 CSS 的"必须带单位"）。裸数字只对 stroke-width 放开，
+ * 否则 `border: 1px solid` 里的颜色三元组会被误读成线宽。 */
+function widthNumbers(value, isStroke) {
+  let v = value;
+  v = v.replace(/calc\(\s*([0-9.]+)px\s*\*\s*([0-9.]+)\s*\)/g, function (all, a, b) {
+    return round2(parseFloat(a) * parseFloat(b)) + "px";
+  });
+  v = v.replace(/calc\(\s*([0-9.]+)\s*\*\s*([0-9.]+)px\s*\)/g, function (all, a, b) {
+    return round2(parseFloat(a) * parseFloat(b)) + "px";
+  });
+  const out = [];
+  for (const q of v.matchAll(/([0-9.]+)px/g)) {
+    const n = parseFloat(q[1]);
+    if (n > 0) out.push(round2(n));
+  }
+  if (isStroke) {
+    const bare = v.match(/^\s*([0-9.]+)\s*$/);
+    if (bare) {
+      const n = parseFloat(bare[1]);
+      if (n > 0) out.push(round2(n));
     }
-    /* SVG 的 stroke-width 允许**无单位裸数字**（`stroke-width: 0.4` 等价 0.4px，
-     * 这是 SVG 规范的用户单位，不是 CSS 的"必须有单位"）。
-     * S19 的 .e4/.e8 正是这么写的，只靠上面的 px 正则抽不到 ——
-     * 于是"线宽只用 1px、3px"与机制句"线宽只 0.4 与 0.8px"继续打架。
-     * 只对 stroke-width 这个属性放开裸数字，避免把 `border: 1px solid` 里的颜色值误当线宽。 */
-    if (/stroke-width/i.test(m[0])) {
-      const bare = v.match(/^\s*([0-9.]+)\s*$/);
-      if (bare) {
-        const n = parseFloat(bare[1]);
-        if (n > 0) widths.add(round2(n));
+  }
+  return out;
+}
+
+/* 桌面作用域的 :root 变量表。
+ * 与 rootDecls() 的区别只有一个：**跳过在桌面不成立的 @media 里的 :root**。
+ * 为什么需要两份而不是改 rootDecls：rootDecls 还带着每条声明的注释，
+ * palette/fonts/shadow 三项都靠它，动它会连带改掉那三项的输出（风险面不可控）。
+ * 这里只给"线宽 + 标题字号"用，是刻意收窄影响面。
+ * 注释先替换成等长空格再量区间，保证 :root 的 index 与原文对得上。 */
+function topVars(rawCss) {
+  const stripped = rawCss.replace(CSS_COMMENT_RE, function (m) { return " ".repeat(m.length); });
+  const ranges = [];
+  for (const m of stripped.matchAll(/@(media|supports|container|layer)([^{]*)\{/g)) {
+    let d = 1, i = m.index + m[0].length;
+    while (i < stripped.length && d > 0) {
+      if (stripped[i] === "{") d++;
+      else if (stripped[i] === "}") d--;
+      i++;
+    }
+    ranges.push({ cond: ("@" + m[1] + m[2]).trim(), from: m.index, to: i });
+  }
+  const vars = {};
+  for (const m of stripped.matchAll(/:root\s*\{([\s\S]*?)\}/g)) {
+    const ctx = ranges.find(function (r) { return m.index > r.from && m.index < r.to; });
+    /* @supports 里的 :root 算"成立"（渐进增强，且 30 案无一是线宽/字号相关）；
+     * @media 按 1440 视口判。判不了的一律不取 —— 宁可少算，也不要让窄屏值冒充桌面值。 */
+    if (ctx && !conditionApplies(ctx.cond)) continue;
+    for (const d of m[1].matchAll(/(--[\w-]+)\s*:\s*([^;]+);/g)) vars[d[1]] = d[2].trim();
+  }
+  return vars;
+}
+
+/* ── 交互态选择器 ──────────────────────────────────────────────────────
+ * 为什么必须把它从"线宽分级"里摘出去（这是本轮实测的核心结论）：
+ *
+ * 提示词第 5 条是「线宽只用这几级：…」，读它的 AI 会把这个列表当成**静态版式的
+ * 描边层级**去照着画线。而 `:focus-visible{outline:3px}` 是焦点环 —— 用户不按 Tab
+ * 就永远看不见它，它不是"版式线宽的一级"。
+ *
+ * 实测（deliverables/70-exec/probes-b/ghost-attribution.json，30 案逐值归因）：
+ *   「声称了但静态页面上量不到」共 16 个值，其中 **9 个**正是交互态来的：
+ *     S03 2 / S04 3 / S09 3 / S13 2 与 14.5 / S14 2 / S18 2 / S25 3 / S29 2
+ *   全部是 `:focus-visible` 的 outline，或 `.clause:hover` 的 border-top-width。
+ *
+ * Lead 报的"最严重"的 S25（声称只用 3px、页面一次 3px 都没用）也是这一类：
+ * 那 3px 就是 `:focus-visible{outline:3px solid var(--spot-b)}`（style.css:58），
+ * 页面真实的线是 HTML 的 stroke-width="1.2" 与 .leader 的 2px。
+ *
+ * 只认「用户不交互就不成立」的五个伪类。刻意**不含** :link/:visited（正常链接恒成立）、
+ * 也不含 :checked/:disabled（可以是首屏静态态），避免误删真正的静态规则。
+ */
+const INTERACTIVE_SEL_RE = /:(?:hover|focus|focus-visible|focus-within|active|target)\b/i;
+
+/* 选择器组里**每一个**分支都带交互伪类，才算交互态规则。
+ * 反例必须保留：`.card, .card:hover { border-top: 2px }` 对静态页面有贡献，
+ * 只要有一个分支是静态的，这条规则就照收。 */
+function selectorIsInteractiveOnly(sel) {
+  const parts = String(sel || "").split(",").map(function (s) { return s.trim(); }).filter(Boolean);
+  if (!parts.length) return false;
+  return parts.every(function (p) { return INTERACTIVE_SEL_RE.test(p); });
+}
+
+/* ── 由状态类（不是伪类）表达的交互态 ─────────────────────────────────
+ * 有些案的交互态不用 `:hover`，而是 JS 加一个类名。实测 S14：
+ *   CSS  `.tag.is-cued { outline: 2px solid #12181D }`
+ *   JS   `function cue(el){ … el.classList.add('is-cued') }`，只在点击目录项时调用。
+ * 静态首屏没有 .is-cued，所以那 2px 在页面上量不到（probes-b/acceptance-after.json 的 S14）。
+ *
+ * 判据刻意保守，要求**同时**成立：
+ *   ① CSS 里这个类的选择器里没有 :hover/:focus 等（否则 INTERACTIVE_SEL_RE 已覆盖）；
+ *   ② HTML 里**没有一个元素**带这个类作为初始 class 属性；
+ *   ③ JS 里出现过 `classList.add('该类')`。
+ * 三条齐了才认定"这个类只能由脚本在运行时加"。少一条都不动，避免误删静态修饰类。
+ */
+function classIsRuntimeOnly(clsName, htmlRaw) {
+  if (!clsName) return false;
+  if (!/classList\.(?:add|toggle)\(\s*["']/.test(htmlRaw)) return false;
+  const addRe = new RegExp("classList\\.(?:add|toggle)\\(\\s*[\"']" + clsName.replace(/[-_]/g, "\\$&") + "[\"']");
+  if (!addRe.test(htmlRaw)) return false;
+  /* ② 初始 class 属性里不能出现它。注意 `classList.add('x')` 的字面量不在 class="" 里，
+   * 所以只扫 class 属性本身，不扫整份 HTML。 */
+  for (const m of htmlRaw.matchAll(/\bclass\s*=\s*["']([^"']*)["']/g)) {
+    if (m[1].split(/\s+/).indexOf(clsName) >= 0) return false;
+  }
+  return true;
+}
+
+/* 从选择器里抽出所有类名（不含伪类后缀） */
+function selectorClasses(sel) {
+  const out = [];
+  for (const m of String(sel || "").matchAll(/\.([A-Za-z_][\w-]*)/g)) out.push(m[1]);
+  return out;
+}
+
+function lineWidthVerdict(cleanCss, vars, htmlRaw, provenance) {
+  const widths = new Set();
+  /* 被排除的交互态取值单独留档：dna-clean.json 会存成 lineWidthsWhy，
+   * 让下一个人能看到"为什么这级没了"，而不是以为抽取又漏了。
+   * 仓库的教训是「结论不带依据，下一轮就会有人按自己的理解改回去」。 */
+  const interactive = [];
+  const note = function (n, src, sel, media) {
+    widths.add(n);
+    if (provenance) provenance.push({ n: n, decl: src, selector: sel, media: media || null });
+  };
+
+  /* ① CSS 规则：只认桌面成立的、且不属于交互态的。 */
+  eachRule(cleanCss, function (sel, body, media) {
+    if (media && !conditionApplies(media)) return;
+    /* 交互态两种形态：伪类（:hover/:focus…）与运行时类（.is-cued，见 classIsRuntimeOnly） */
+    const runtimeClass = htmlRaw
+      ? selectorClasses(sel).find(function (c) { return classIsRuntimeOnly(c, htmlRaw); })
+      : null;
+    const interactiveOnly = selectorIsInteractiveOnly(sel) || !!runtimeClass;
+    for (const d of declsOf(body)) {
+      if (!WIDTH_DECL_RE.test(d.prop)) continue;
+      /* `border: none` / `border-width: 0` / `outline: 0` —— 是"没有线"，不是第 0 级线宽。
+       * 不排掉的话 S25 的 `border: 0`、S13 的 `border: 0` 会各贡献一个 0（已被 n>0 挡掉），
+       * 但更麻烦的是 `border: 0 solid red` 这种带颜色的 0 —— 语义同样是"无线"。
+       * 放在数值提取之前判，不依赖 n>0。 */
+      if (/^(?:none|hidden|0)(?:\s|;|$)/i.test(d.value.trim())) continue;
+      const resolved = resolveVars(d.value, vars, 0);
+      /* 变量没解开就不要硬取：`var(--x)` 里一个 px 都没有，但 `var(--x) 3px` 会
+       * 只取到 3px 而丢掉真正的那一级 —— 那是最难发现的一类漏讲，直接跳过整条更安全。 */
+      if (/var\(/.test(resolved)) continue;
+      for (const n of widthNumbers(resolved, /stroke-width$/i.test(d.prop))) {
+        /* 交互态线宽（:hover/:focus-visible/:active 等）—— 2026-10-30 Lead 裁决：**保留**。
+         *
+         * 上一版（EXEC-B 的实现）把它们从分级里排除，理由是「非静态首屏线宽」。
+         * 那个理由本身成立，但结论错了，三条实测依据：
+         *
+         *   1. **30/30 案的 `:focus-visible` 都定义了 outline**，而且用的是各案自己的
+         *      主色 —— S01 `3px solid var(--red)`、S09 `3px solid var(--ink)`、
+         *      S25 `3px solid var(--spot-b)`、S13 `2px solid var(--gold)`。
+         *      这是有意的设计决策，不是偶然。排除它等于把这个设计决策从数据里删掉。
+         *   2. 提示词要求 AI 做**键盘可用**的页面。把 focus 环的线宽从分级里抹掉，
+         *      等于告诉 AI「这个案子只用 1px 和 2px 的线」，而用户按 Tab 时真的会
+         *      看到一个 3px 的轮廓 —— 提示词与实现不一致，正是本闸门要抓的东西。
+         *   3. S25 是最直接的反例：排除后它的 `lineWidths` 变成 "1px、1.2px、2px"，
+         *      而规格里写明的核心线宽是 3px（只出现在 focus 环上）。提示词与规格打架。
+         *
+         * 正确做法是**保留数值，另标出处**：`lineWidths` 里照常出现，`lineWidthsWhy`
+         * 里注明「其中 N 级来自交互态」。AI 拿到了完整分级，评审员能看到哪几级是
+         * 交互态专有的。两边的信息都不丢。
+         */
+        if (interactiveOnly) {
+          interactive.push({ n: n, decl: d.prop + ": " + d.value, selector: sel });
+        }
+        note(n, d.prop + ": " + d.value + (interactiveOnly ? "（交互态）" : ""), sel, media);
+      }
+    }
+  });
+
+  /* ② HTML 的 SVG 属性：`stroke-width="1.2"`。19/30 案的真实线宽在这里，一条都不在 CSS 里。
+   * 注释里的（教学示例）与 <script> 里的（JS 模板串）不算；data-URI 里的是纹理，也不算。
+   *
+   * ⚠️ 还要排掉 <pattern>/<clipPath>/<mask>/<marker>/<filter> 里的 stroke-width：
+   *   它们是**填充图案/遮罩**，不是版式线条。实测（probes-b/html-stroke-reachability.json）
+   *   30 案里只有 S20 的 `pattern#grid8 > path stroke-width="0.2"` 属于这类 ——
+   *   0.2px 是 8px 点阵网格的线，把它写进「线宽只用这几级」会让 AI 去画 0.2 的版式线。
+   *   注意不能一刀切"在 <defs> 里就不算"：S19 的 0.4/0.8 就在 <defs><symbol> 里，
+   *   但被 26 个 <use> 引用，是真实的蚀刻线。所以只排这五种容器。 */
+  if (htmlRaw) {
+    const blank = function (m) { return " ".repeat(m.length); };
+    const html = htmlRaw
+      .replace(/<!--[\s\S]*?-->/g, blank)
+      .replace(/<script\b[\s\S]*?<\/script>/gi, blank);
+    /* 把五种纹理容器的**整段**抹成等长空白。手写配对扫描而不是正则：
+     * `<(pattern)[^>]*>[\s\S]*?</\1>` 在容器嵌套（<pattern> 里再包 <mask>）时会截错。
+     * 只记录区间，最后统一替换 —— 区间映射回原文，match.index 才对得上。 */
+    const TEXTURE_TAG = /^(pattern|clippath|mask|marker|filter)$/i;
+    const intervals = [];
+    {
+      let tag = null, d = 0, start = 0;
+      for (const m of html.matchAll(/<(\/?)([a-zA-Z][\w:-]*)((?:"[^"]*"|'[^']*'|[^>"'])*?)(\/?)>/g)) {
+        const t = m[2].toLowerCase();
+        if (!tag) {
+          if (!m[1] && TEXTURE_TAG.test(t) && !m[4]) { tag = t; d = 1; start = m.index; }
+        } else if (t === tag) {
+          if (m[1]) d--; else if (!m[4]) d++;
+          if (!d) { intervals.push([start, m.index + m[0].length]); tag = null; }
+        }
+      }
+    }
+    const textureDropped = [];
+    for (const m of html.matchAll(/stroke-width\s*=\s*["']?([%0-9.]+)(?:px)?["']?/gi)) {
+      const around = html.slice(Math.max(0, m.index - 240), m.index);
+      if (/data:image\/(?:svg\+xml|png|jpeg)/i.test(around)) continue;
+      let raw = m[1];
+      try { raw = decodeURIComponent(raw); } catch (e) { /* %27 之类的坏串就丢掉 */ }
+      const n = parseFloat(raw);
+      if (!(n > 0)) continue;
+      /* 落在纹理容器区间里的 → 不进分级，但留档 */
+      if (intervals.some(([a, b]) => m.index >= a && m.index < b)) {
+        textureDropped.push({ n: round2(n), decl: 'html stroke-width="' + m[1] + '"' });
+        continue;
+      }
+      note(round2(n), 'html stroke-width="' + m[1] + '"', "(index.html)", null);
+    }
+    if (textureDropped.length) {
+      for (const x of textureDropped) {
+        interactive.push({ n: x.n, decl: x.decl + "（<pattern>/<mask> 等纹理容器内）", selector: "纹理，不是版式线" });
       }
     }
   }
-  const list = [...widths].sort(function (a, b) { return a - b; });
-  if (!list.length) return "无边框线条（全站不画描边，只用色块与留白分隔）";
-  /* 档位收窄：加了 SVG stroke-width 之后，有些案会抽出 9 档（S15 的硫酸纸描边
-   * 0.5/0.8/1/1.2/1.36/1.4/1.7/2/3px）。照原样写进「线宽只用这几级……不要自创第三级」
-   * 是自相矛盾的——它自己就给了九级，"只用这几级"失去意义，AI 反而会挑花眼。
+
+  /* ③ 脚本在运行时设的 stroke-width。这是上一步漏掉的最后一类来源。
    *
-   * 但阈值不能按"人眼能分辨 0.5px"来定：S19 的蚀刻线是 0.4 与 0.8，
-   * 两者差 0.4 < 0.5，会被合成一档，反而丢掉这个案最核心的"两级描边分层"签名。
-   * 实测各案真实分级：S19 = {0.4,0.8,1,3}、S13 = {1,2,3,5.5,7,9,14.5}（它们本来就是
-   * 不同量级的分级，不是随手取的）。**所以不做聚类**，改为按"档位间距是否够大"截断：
-   * 保留所有 < 1px 的细描边（它们承担风格签名），再对 ≥ 1px 的按 0.5px 粒度去重。
+   * 实测证据（probes-b/acceptance-after.json）：
+   *   S03 的读数栅格整块是 JS 画的 —— `line(major ? 176 : 208, y, 264, y, major ? 1.5 : 1)`，
+   *   主刻度 1.5px / 次刻度 1px。CSS 里没有 1.5，HTML 属性里也没有，
+   *   于是提示词声称 [1, 1.2] 而页面主要线宽是 1.5（出现 17 次，≥10 次的门槛）。
+   *   这正是"主要线宽漏讲"里唯一剩下的那一案。
+   *
+   * 做法刻意保守：只认**同一行/近邻行**里同时出现
+   *   `setAttribute("stroke-width", X)` 与数值，或 `... stroke-width: X` 的模板串。
+   * 不做通用 JS 求值 —— 那是另一个量级的工程，且会把噪声带进设计分级。
+   * 宁可漏一个值（记为已知限制），也不要编造一个。
    */
-  const fine = list.filter(function (w) { return w < 1; });
-  const coarse = [];
-  for (const w of list.filter(function (w) { return w >= 1; })) {
-    if (!coarse.some(function (c) { return Math.abs(c - w) < 0.5; })) coarse.push(w);
+  if (htmlRaw) {
+    const scriptBodies = [];
+    for (const m of htmlRaw.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/gi)) scriptBodies.push(m[1]);
+    const jsSeen = [];
+    for (const js of scriptBodies) {
+      /* (a) 直接写字面量：setAttribute("stroke-width", 1.5) */
+      for (const m of js.matchAll(/setAttribute\(\s*["']stroke-width["']\s*,\s*([0-9.]+)\s*\)/g)) {
+        const n = parseFloat(m[1]);
+        if (n > 0) jsSeen.push({ n: round2(n), how: 'setAttribute("stroke-width", ' + m[1] + ")" });
+      }
+      /* (b) 变量形态：某行赋值 + 三元/字面量。只取"赋值行的右侧常量"与
+       *     "调用了带 stroke-width 的函数时传入的常量"，都要求同一行可读。 */
+      for (const line of js.split("\n")) {
+        if (!/stroke-width/i.test(line)) continue;
+        const vars = [...line.matchAll(/([0-9.]+)/g)].map((x) => parseFloat(x[1]));
+        /* 排除明显不是线宽的：颜色 #hex（CSS 里不会有，但 JS 里可能有）、坐标 */
+        if (/setAttribute\(\s*["']stroke-width["']\s*,\s*[0-9.]+\s*\)/.test(line)) continue; // 已由 (a) 收
+        if (vars.length === 1) {
+          const n = vars[0];
+          if (n > 0 && n <= 24) jsSeen.push({ n: round2(n), how: "JS: " + line.trim().slice(0, 70) });
+        }
+      }
+    }
+    /* (c) 调用点回溯：`line(x1,y1,x2,y2,major ? 1.5 : 1)` —— 参数名 w 在函数体里
+     *     被 setAttribute("stroke-width", w) 用了。找出这类函数名，再把调用点的
+     *     **最后一个实参**收进来（约定：线宽是最后一个参数，与 S03 的 `line(...,w)` 一致）。
+     *
+     * 为什么必须限定"最后一个实参"：S03 的调用是
+     *   line(major ? 176 : 208, y, 264, y, major ? 1.5 : 1)
+     * 如果收全部数字，会把坐标 176/208/264/640/8/40 全当成线宽 —— 第一版就这么干了，
+     * 结果 S03 凭空多出 2px，反而制造了一个新的假声称。这是实测抓到的回归。
+     */
+    for (const js of scriptBodies) {
+      const fnNames = [];
+      for (const m of js.matchAll(/function\s+([A-Za-z_$][\w$]*)\s*\(([^)]*)\)\s*\{([\s\S]*?)\n\s*\}/g)) {
+        if (/setAttribute\(\s*["']stroke-width["']/.test(m[3])) fnNames.push(m[1]);
+      }
+      for (const name of fnNames) {
+        const callRe = new RegExp("\\b" + name.replace(/[$]/g, "\\$") + "\\s*\\(([^)]*)\\)", "g");
+        for (const c of js.matchAll(callRe)) {
+          if (/function/.test(c[0])) continue;
+          /* 按顶层逗号切实参（括号/三元里的逗号不切） */
+          const args = [];
+          let depth = 0, buf = "";
+          for (const ch of c[1]) {
+            if (ch === "(" || ch === "[" || ch === "{") depth++;
+            else if (ch === ")" || ch === "]" || ch === "}") depth--;
+            if (ch === "," && depth === 0) { args.push(buf); buf = ""; } else buf += ch;
+          }
+          if (buf.trim()) args.push(buf);
+          const last = (args[args.length - 1] || "").trim();
+          /* 最后一个实参里的每个数字都算候选（三元两支都要），但要求 <= 24px */
+          for (const num of last.matchAll(/([0-9.]+)/g)) {
+            const n = parseFloat(num[1]);
+            if (n > 0 && n <= 24) jsSeen.push({ n: round2(n), how: "JS 调用 " + name + "(…) 的末位实参: " + last.slice(0, 40) });
+          }
+        }
+      }
+    }
+    for (const x of jsSeen) {
+      /* JS 设的是 stroke-width，不是 border —— 没有量化问题，直接收。
+       * 但坐标误收的风险真实存在，所以只收 <= 24px 且带出处，让人能复核。 */
+      note(x.n, x.how, "(index.html <script>)", null);
+    }
   }
-  const finalList = fine.concat(coarse).sort(function (a, b) { return a - b; });
-  return finalList.map(function (n) { return n + "px"; }).join("、");
+
+  const list = [...widths].sort(function (a, b) { return a - b; });
+  /* 交互态出处清单：**这些值已经进 list 了**（2026-10-30 裁决改为保留），
+   * 这里只是把「哪几级是交互态专有的」单独留档，供 dna-clean.json 归档与审阅。
+   *
+   * 字段名从 `droppedInteractive` 改成 `interactiveSourced`：原来的名字会让下一个人
+   * 以为这些值被排除了，然后按"恢复"的思路去改代码 —— 正是仓库反复踩的坑
+   * （结论不带依据，下一轮就有人按自己的理解改回去）。 */
+  const interactiveSourced = [];
+  for (const x of interactive) {
+    if (!interactiveSourced.some(function (y) { return y.n === x.n; })) interactiveSourced.push(x);
+  }
+  const why = { interactiveSourced: interactiveSourced };
+  if (!list.length) {
+    if (provenance) provenance.push({ n: 0, decl: "(无任何线宽声明)", selector: "—", media: null });
+    return { text: "无边框线条（全站不画描边，只用色块与留白分隔）", why: why };
+  }
+  /* 这里**不再**做 0.5px 合并。
+   * 旧代码把相差 < 0.5px 的值合成一档，理由写在注释里是"人眼分辨不出 0.5px"，
+   * 实测代价是 7/30 案的签名被抹掉：S25 的 1/1.2（装订线 vs 引线）、
+   * S09 的 3.5/3.6（外描边 vs 图标）、S24 的 0.4/0.6/0.8（三级蚀刻）。
+   * 这些值本来就是作者按"级"取的，合并等于替作者改设计。
+   * 只保留完全相等的去重（round2 之后 Set 已经做到），顺序即从小到大。 */
+  return { text: list.map(function (n) { return n + "px"; }).join("、"), why: why };
+}
+
+/* 首屏主标题字号。
+ *
+ * 为什么不在 extract-dna.mjs 里修：那里的 `/h1\s*\{[^}]*font-size/` 是**文本匹配**，
+ * 它既看不见 CSS 层叠，也解不了 var()：
+ *   · S01 命中的是 `.masthead h1`（"h1 {" 出现在后代选择器里），值写的是 `var(--fs-h1)`；
+ *   · S09 同理（`.sign h1`），也是 var；
+ *   · S03/S07/S13/S21 反过来——h1 带 class，字号写在 `.d1`/`.display`/`.doctitle`/
+ *     `.masthead__title` 上，裸 h1 规则里没有 font-size，于是抽成空串。
+ * 所以正确的位置是这里：已经有 eachRule 的规则遍历、有 vars 字典，可以真正按
+ * 「裸 h1 → 后代 h1 → h1 的 class」的层叠优先级取最后一条**桌面**规则，再解 var。
+ *
+ * 桌面口径与线宽一致（1440 视口）。为什么取桌面：提示词是给"整站设计"用的，
+ * 首屏主标题在桌面断点是它的设计值；窄屏那一档是同一个 clamp 收窄后的结果，
+ * 写进提示词只会让 AI 把标题做小。S01 就是活证据：顶层是 clamp(48,6.67vw,96)，
+ * `@media(max-width:1439px)` 覆盖成 clamp(52,6.1vw,86) —— 后者只在 1439 以下成立。
+ */
+function h1SizeVerdict(cleanCss, vars, h1Classes, fallback) {
+  const cands = [];
+  eachRule(cleanCss, function (sel, body, media) {
+    if (media && !conditionApplies(media)) return;
+    const fm = body.match(/(?:^|;)\s*font-size\s*:\s*([^;}]+)/);
+    if (!fm) return;
+    const groups = selectorGroups(sel);
+    const bare = groups.some(function (g) { return /^h1(?![\w-])/i.test(g); });
+    const desc = groups.some(function (g) { return /(^|[\s>+~])h1(?![\w-])/i.test(g); });
+    const cls = (h1Classes || []).some(function (c) {
+      const re = new RegExp("\\." + c.replace(/[-_]/g, "\\$&") + "(?![\\w-])");
+      return groups.some(function (g) { return re.test(g); });
+    });
+    if (!bare && !desc && !cls) return;
+    cands.push({ value: fm[1].trim(), rank: bare ? 0 : desc ? 1 : 2, sel: sel });
+  });
+  const KIND = ["裸 h1 规则", "h1 后代规则", "h1 的 class 规则"];
+  for (const rank of [0, 1, 2]) {
+    const hit = cands.filter(function (c) { return c.rank === rank; });
+    if (!hit.length) continue;
+    const last = hit[hit.length - 1];
+    const v = resolveVars(last.value, vars, 0).trim();
+    /* 还残留 var( 说明变量不在桌面作用域里 —— 宁可回落到 raw 值，也不要把
+     * `var(--fs-h1)` 这种"变量名"当字号写进提示词（AI 不认识它）。 */
+    if (v && !/var\(/.test(v)) {
+      return {
+        text: v,
+        why: KIND[rank] + " `" + last.sel + "` 声明 " + last.value +
+          (last.value !== v ? " → 展开为 " + v : "") + "（桌面 1440px 口径）",
+      };
+    }
+  }
+  const f = resolveVars(String(fallback || ""), vars, 0).trim();
+  return { text: /var\(/.test(f) ? "" : f, why: f ? "回落到 raw.json 的 h1Size：" + f : "该案没有任何 h1 相关 font-size 规则" };
+}
+
+/* 把 `clamp(min, Nvw, max)` 在 1440 视口下求成实际像素。
+ *
+ * 为什么必须单独算：28/30 案的 h1Size 是 clamp 形式，**第一个数是下限**。
+ * 1440 视口下 `clamp(46px, 6vw, 88px)` → 6vw = 86.4px → 夹到 88 上限 → 实际 86.4px。
+ * 直接抓第一个数会得到 46px，比实际低 48%。
+ *
+ * 2026-10-30 第一版提示词就是这么错的：EXEC-A 实测 25/30 案数字偏低 36–60%，
+ * 且方向与修复目标相反（本意让 AI 把标题做大，实际给了下限）。
+ *
+ * 其他形态：
+ *   `72px`            → 72
+ *   `var(--x)` 已展开 → 直接取 px
+ *   其它（含 rem/em） → 返 0，让调用方不写这一条（宁可不写，也不编）
+ */
+function at1440(text) {
+  const s = String(text || "").trim();
+  const m = s.match(/clamp\(\s*([\d.]+)px\s*,\s*([\d.]+)vw\s*,\s*([\d.]+)px\s*\)/);
+  if (m) {
+    const lo = parseFloat(m[1]), vw = parseFloat(m[2]), hi = parseFloat(m[3]);
+    const px = (vw * 1440) / 100;
+    return Math.round(Math.min(Math.max(px, lo), hi) * 10) / 10;
+  }
+  // clamp 的其它写法（含 vh / %）不支持，返回 0
+  if (/clamp\(|calc\(/.test(s)) return 0;
+  const p = s.match(/^([\d.]+)px$/);
+  if (p) return parseFloat(p[1]);
+  const any = s.match(/([\d.]+)px/);
+  return any ? parseFloat(any[1]) : 0;
+}
+
+/* ── 正文字号 ────────────────────────────────────────────────────────────
+ * 2026-10-30 新增。为什么需要它：
+ *
+ * 提示词里要写「最大标题压到正文的 N 倍」，需要分母。而 dna-clean.json 之前
+ * **没有任何正文字号字段** —— 提示词里那句 `h1Size` 只能孤立地给出一个像素值，
+ * 对 AI 没有指导意义（它不知道该把这个值放在什么尺度上）。
+ *
+ * 判据：`body` / `p` / 裸 `body` 的 font-size；若没有，退回 `:root` 里
+ * `--fs-base` / `--text` / `--body` 这类变量；再退回 16px 并标注「推定」。
+ *
+ * 为什么不从渲染实测取：那需要浏览器，而这条链是纯静态的（仓库铁律：
+ * `dna-clean.json` 必须能由 `node clean-dna.mjs` 复算）。字号默认值的
+ * 正确性由 check-prompts.mjs 的独立对账兜住。
+ */
+function bodySizeVerdict(cleanCss, vars) {
+  const cands = [];
+  eachRule(cleanCss, function (sel, body, media) {
+    if (media && !conditionApplies(media)) return;
+    const fm = body.match(/(?:^|;)\s*font-size\s*:\s*([^;}]+)/);
+    if (!fm) return;
+    const groups = selectorGroups(sel);
+    // 裸 body 最可信；其次是 p；再其次是 .body / .text 这类类名
+    const bare = groups.some(function (g) { return /^body(?![\w-])/i.test(g.trim()); });
+    const para = groups.some(function (g) { return /^p(?![\w-])/i.test(g.trim()); });
+    const cls = groups.some(function (g) { return /^\.(?:body|text|prose|copy|content)(?![\w-])/i.test(g.trim()); });
+    if (!bare && !para && !cls) return;
+    cands.push({ value: fm[1].trim(), rank: bare ? 0 : para ? 1 : 2, sel: sel });
+  });
+  const KIND = ["裸 body 规则", "裸 p 规则", "正文类名规则"];
+  for (const rank of [0, 1, 2]) {
+    const hit = cands.filter(function (c) { return c.rank === rank; });
+    if (!hit.length) continue;
+    const last = hit[hit.length - 1];
+    const v = resolveVars(last.value, vars, 0).trim();
+    if (v && !/var\(/.test(v) && /\d/.test(v)) {
+      return { text: v, why: KIND[rank] + " `" + last.sel + "` 声明 " + last.value +
+        (last.value !== v ? " → 展开为 " + v : "") + "（桌面 1440px 口径）" };
+    }
+  }
+  // 退回 :root 的基础字号变量
+  for (const name of ["--fs-base", "--text", "--body-size", "--base-size", "--fs-body"]) {
+    const raw = vars.get(name);
+    if (!raw) continue;
+    const v = resolveVars(raw, vars, 0).trim();
+    if (v && !/var\(/.test(v) && /\d/.test(v)) {
+      return { text: v, why: ":root 变量 " + name + " = " + v + "（没有裸 body/p 规则，取基础字号）" };
+    }
+  }
+  return { text: "", why: "该案没有显式的正文字号规则（浏览器默认 16px，不写进提示词以免编造）" };
 }
 
 /* ── 调色板 ────────────────────────────────────────────────────────────
@@ -568,9 +1060,11 @@ for (const r of raw.rows) {
   for (const d of decls) vars[d.name] = stripComments(d.value).trim();
 
   const rules = familyRules(css);
+  /* index.html 现在读一次、三处用：h1 的 class 列表、线宽的 SVG 内联属性、判据留档。
+   * 原实现只在这里读一次却只用来取 class —— 线宽那条链因此完全看不见 HTML。 */
+  const rawHtml = readFileSync(join(P, r.dir, "index.html"), "utf8");
   const h1Classes = (() => {
-    const html = readFileSync(join(P, r.dir, "index.html"), "utf8");
-    const tag = html.match(/<h1\b[^>]*>/i);
+    const tag = rawHtml.match(/<h1\b[^>]*>/i);
     if (!tag) return [];
     const cm = tag[0].match(/\bclass\s*=\s*["']([^"']+)["']/i);
     return cm ? cm[1].trim().split(/\s+/).filter(Boolean) : [];
@@ -685,8 +1179,24 @@ for (const r of raw.rows) {
       .map(function (e) { return e[0] + " ×" + e[1]; });
   }
 
-  const rad = radiusVerdict(css);  const lines = lineWidthVerdict(css, vars);
-
+  /* 线宽与标题字号都用 **桌面作用域**的变量表（topVars），而不是全量 vars。
+   * 理由见 topVars 的注释：全量 vars 里 @media 的 :root 会覆盖顶层，
+   * S27 的 --mis 因此从 1.8 漂成 1.2，`calc(--mis*2)` 漂成 2.4 ——
+   * 提示词里那两个只在窄屏成立的值就是这么来的。
+   *
+   * 刻意**不动** palette/radius/fonts/shadow 用的 vars：那三项的输出与本次两个 bug 无关，
+   * 换它们的变量作用域会连带改掉 30 案的配色/圆角/阴影文案（风险面不可控，且不在本任务范围）。
+   * 影响面实测见 probes-a/a04 的 ③ 段：被媒体改写的变量里只有 S27 的 --mis 用于线宽，
+   * 其余全部用于 padding/gutter/角度这类与这四个字段无关的地方。 */
+  const dvars = topVars(rawCss);
+  const rad = radiusVerdict(css);
+  /* 来源留档：每条线宽是哪条声明、哪个选择器、哪个断点给的。
+   * 30 案的提示词都写着「线宽只用这几级」，这句话的唯一依据就是这个数组 ——
+   * 上一轮 S25 只剩一个 3px 却没人发现，就是因为推导过程没有落盘。 */
+  const prov = [];
+  const lines = lineWidthVerdict(css, dvars, rawHtml, prov);
+  const h1 = h1SizeVerdict(css, dvars, h1Classes, r.h1Size);
+  const body = bodySizeVerdict(css, dvars);
   out.push({
     id: r.id,
     dir: r.dir,
@@ -704,8 +1214,33 @@ for (const r of raw.rows) {
     radiusWhy: rad.evidence,
     shadow: shadowText(r, css, vars),
     shadowDetail: shadowDetail(r, css, vars),
-    lineWidths: lines,
-    h1Size: r.h1Size,
+    lineWidths: lines.text,
+    /* 判据留档（同 radiusWhy 的理由）：每个值的出处，含选择器与断点。
+     * 不进提示词，只供人复核「这个值凭什么在这里」。 */
+    lineWidthsWhy: prov.map(function (p) {
+      return p.n + " ← " + p.decl + (p.selector && p.selector !== "—" ? "  ⓐ" + p.selector : "") +
+        (p.media ? "  @" + p.media : "");
+    }),
+    /* 被摘掉的交互态取值也留档。没有这一段，下一个人会以为抽取漏了
+     * （"S25 怎么只剩 1/1.2/2，3px 呢？"），然后把它加回去。
+     * 实测依据：probes-b/ghost-attribution.json 里 16 个假声称值有 9 个来自交互态。 */
+    /* 字段名 `lineWidthsDropped` → `lineWidthsInteractive`：这些值**没有**被排除，
+     * 它们是「来自交互态的线宽」。保留旧名会让读者以为是排除清单。 */
+    lineWidthsInteractive: (lines.why.interactiveSourced || []).map(function (p) {
+      return p.n + " ← " + p.decl + "  ⓐ" + p.selector + "（这一级来自交互态：静态首屏看不到，但键盘聚焦/悬停时用户会看到）";
+    }),
+    /* 字号的判据也留档：从哪条规则、哪个断点、展开哪个变量得到的。
+     * 上一轮 `var(--fs-h1)` 能一路走到提示词里，就是因为这里没有留下任何可复核的痕迹。 */
+    h1Size: h1.text,
+    h1SizeWhy: h1.why,
+    /* 正文字号：给「最大标题是正文的 N 倍」这句提供分母（2026-10-30 新增）。
+     * 端到端实测依据：复刻实现的 H1 只有原型的 26%/30%/48%，但档数 6–8 档与原型
+     * 6–9 档相当 —— 缺的是「最大标题敢用多大」这个相对关系，不是绝对像素值。 */
+    bodySize: body.text,
+    bodySizeWhy: body.why,
+    /* clamp 在 1440 视口下的实际落值。提示词用它算倍率，不要自己解析 clamp
+     * ——2026-10-30 有过一次教训：用 clamp 的下限当实际值，25/30 案偏低 36–60%。 */
+    h1SizeAt1440: at1440(h1.text),
     mechanism: r.mechanism,
     charBudget: (r.mechanism.length || 0) + palette.join("").length +
       (fonts.display + fonts.body + fonts.mono).length + 60,

@@ -377,7 +377,7 @@
       "families": [
         "Libre Franklin",
         "Newsreader",
-        "IBM Plex Mono\" /* taste-skill-ignore: 字段4 辅助数字，只用于页码/辑号/归档号 */",
+        "IBM Plex Mono",
         "var(--text)",
         "var(--display)",
         "var(--num)"
@@ -690,10 +690,13 @@
       ],
       "shadowKind": "has-outer",
       "shadowSample": [
-        "var(--press-2)",
+        "none",
         "var(--press-1-off)"
       ],
-      "dropSample": [],
+      "dropSample": [
+        "2px 2px 3px rgba(36, 31, 23, 0.08",
+        "2px 2px 4px rgba(36, 31, 23, 0.18"
+      ],
       "lineWidths": [
         "1",
         "2",
@@ -819,7 +822,7 @@
       "shadowKind": "drop-shadow-only",
       "shadowSample": [],
       "dropSample": [
-        "0 1px 0 #8E2A18",
+        "0 1px 0 var(--pressed",
         "0 1px 0 var(--pressed"
       ],
       "lineWidths": [
@@ -1416,8 +1419,8 @@
       "shadowKind": "drop-shadow-only",
       "shadowSample": [],
       "dropSample": [
-        "",
-        "1.5px 1.5px 0 var(--mul-br"
+        "1.5px 1.5px 0 var(--mul-br",
+        "1.2px 1.2px 0 var(--mul-rk"
       ],
       "lineWidths": [
         "2",
@@ -1623,8 +1626,8 @@
       "shadowKind": "drop-shadow-only",
       "shadowSample": [],
       "dropSample": [
-        "",
-        "1px 0 0 var(--ink"
+        "1px 0 0 var(--ink",
+        "-0.5px -0.5px 0 rgba(255, 255, 255, 0.9"
       ],
       "lineWidths": [
         "1",

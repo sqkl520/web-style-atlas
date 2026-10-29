@@ -77,7 +77,7 @@ The keyboard covers everything: `J`/`K` moves between schemes, `1`/`2`/`3` switc
 
 The first group in the left rail is **"What do you do?"** — 44 trade terms that reverse-look-up matching schemes (16 have direct matches, 28 approximate only, tucked behind a "28 more approximate →" toggle). Beyond those 44 there are 29 more terms with no chip at all: the same toggle lists them, and all 29 are honestly labelled "none" — not "not built yet", but that this collection's mechanisms cannot carry them. Not hidden.
 
-Pick a scheme and the detail panel opens with a **"Copy AI prompt"** button at the very top. Press it and you get **1,639–1,998 characters** of Chinese prose (30 schemes measured; median 1,829) to paste straight into ChatGPT / Claude / v0, which will build the whole site in that style. It is not boilerplate — every value is **extracted from the actual `style.css`**:
+Pick a scheme and the detail panel opens with a **"Copy AI prompt"** button at the very top. Press it and you get **1,799–2,123 characters** of Chinese prose (30 schemes measured; median 1,973) to paste straight into ChatGPT / Claude / v0, which will build the whole site in that style. It is not boilerplate — every value is **extracted from the actual `style.css`**:
 
 | What goes into the prompt | Where it comes from |
 | --- | --- |

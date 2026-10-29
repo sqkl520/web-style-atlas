@@ -40,7 +40,21 @@ function analyze(scheme) {
   const dir = join(P, scheme);
   const cssPath = join(dir, "style.css");
   const htmlPath = join(dir, "index.html");
-  const css = existsSync(cssPath) ? readFileSync(cssPath, "utf8") : "";
+  const cssRaw = existsSync(cssPath) ? readFileSync(cssPath, "utf8") : "";
+
+  /* ⚠️ 必须先剥 CSS 注释再抽，否则注释会被当数据。
+   *
+   * 2026-10-30 实测的后果：上一轮为了修 mono 问题往 S07/S13/S21 的 style.css 里
+   * 写了一段带 font-family:inherit 字样的说明注释，`font-family` 正则把它整个
+   * 吞进了家族名 —— dna-raw.json 里出现了「monospace（Chrome 实测，见
+   * deliverables/69-exec/EXEC-mono-empty.md §2.3）…换标记，不换排版」这一整段。
+   *
+   * 下游 clean-dna.mjs 才剥注释（第 43 行），但它读的是已经脏了的 dna-raw.json。
+   * 结果：生成链 2/3 产物不可复现（重跑与 HEAD 不一致），而且差点把脏字体名写进产品。
+   *
+   * 修在这一层而不是下游：谁能直接从源文件抽，谁就必须自己先洗干净。
+   */
+  const css = cssRaw.replace(/\/\*[\s\S]*?\*\//g, "");
 
   // ---- 颜色：:root 里的 hex ----
   const vars = parseRoot(css);

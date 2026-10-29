@@ -37,7 +37,21 @@
       "samples": []
     },
     "lineWidths": "1px、3px",
-    "h1Size": "var(--fs-h1)",
+    "lineWidthsWhy": [
+      "3 ← outline: 3px solid var(--red)（交互态）  ⓐ.btn:focus-visible",
+      "3 ← outline: 3px solid var(--paper)（交互态）  ⓐ.fold-corner:focus-visible",
+      "1 ← border-top: 1px solid var(--lead)  ⓐ.makeup-table th, .makeup-table td",
+      "3 ← border-top: 3px solid var(--ink)  ⓐ.makeup-table thead th",
+      "3 ← border-top: 3px solid var(--paper)  ⓐ.foot-line"
+    ],
+    "lineWidthsInteractive": [
+      "3 ← outline: 3px solid var(--red)  ⓐ.btn:focus-visible（这一级来自交互态：静态首屏看不到，但键盘聚焦/悬停时用户会看到）"
+    ],
+    "h1Size": "clamp(48px, 6.67vw, 96px)",
+    "h1SizeWhy": "h1 后代规则 `.masthead h1` 声明 var(--fs-h1) → 展开为 clamp(48px, 6.67vw, 96px)（桌面 1440px 口径）",
+    "bodySize": "16px",
+    "bodySizeWhy": "裸 body 规则 `body` 声明 var(--fs-body) → 展开为 16px（桌面 1440px 口径）",
+    "h1SizeAt1440": 96,
     "mechanism": "一块实色多边形以 11° 切入 4 栏版心，24px 实体隔条撑开栏沟，红块越界压住 3 行正文——阅读顺序由角度与越界量决定，与它叫什么名字无关。",
     "charBudget": 217
   },
@@ -84,7 +98,27 @@
       "samples": []
     },
     "lineWidths": "1px、2px",
+    "lineWidthsWhy": [
+      "2 ← outline: 2px solid var(--gold)（交互态）  ⓐ:focus-visible",
+      "2 ← border-bottom: 2px solid var(--dirty)  ⓐ.masthead",
+      "2 ← border: 2px solid var(--gold)  ⓐ.btn-outline",
+      "1 ← border-bottom: 1px solid var(--dirty)  ⓐ.ledger th, .ledger td",
+      "2 ← border-bottom: 2px solid var(--gold)  ⓐ.ledger thead th",
+      "2 ← border-top: 2px solid var(--gold)  ⓐ.ledger tfoot td",
+      "2 ← border: 2px solid var(--dirty)  ⓐ.slot-pos",
+      "2 ← border: 2px solid var(--dirty)  ⓐselect, input[type=\"tel\"]",
+      "2 ← border: 2px solid var(--dirty)  ⓐ.slot",
+      "2 ← border-left: 2px solid var(--gold)  ⓐ.state-empty",
+      "2 ← border-top: 2px solid var(--dirty)  ⓐfooter"
+    ],
+    "lineWidthsInteractive": [
+      "2 ← outline: 2px solid var(--gold)  ⓐ:focus-visible（这一级来自交互态：静态首屏看不到，但键盘聚焦/悬停时用户会看到）"
+    ],
     "h1Size": "clamp(60px, 7.4vw, 108px)",
+    "h1SizeWhy": "裸 h1 规则 `h1` 声明 clamp(60px, 7.4vw, 108px)（桌面 1440px 口径）",
+    "bodySize": "16px",
+    "bodySizeWhy": "裸 body 规则 `body` 声明 16px（桌面 1440px 口径）",
+    "h1SizeAt1440": 106.6,
     "mechanism": "同一张位图以一条 2px 中轴做 180° 相位取样，两侧各 7 级与 9 级、级差 56px，文字全部贴轴对齐——对称只存在于图样，文字始终不对称。",
     "charBudget": 260
   },
@@ -133,8 +167,23 @@
       "drops": 0,
       "samples": []
     },
-    "lineWidths": "1px、2px",
-    "h1Size": "",
+    "lineWidths": "1px、1.2px、1.5px、2px",
+    "lineWidthsWhy": [
+      "2 ← outline: 2px solid var(--tape)（交互态）  ⓐ:focus-visible",
+      "1 ← border-bottom: 1px solid var(--rule)  ⓐ.readouts th, .readouts td",
+      "1.2 ← html stroke-width=\"1.2\"  ⓐ(index.html)",
+      "1 ← setAttribute(\"stroke-width\", 1)  ⓐ(index.html <script>)",
+      "1.5 ← JS 调用 line(…) 的末位实参: major ? 1.5 : 1  ⓐ(index.html <script>)",
+      "1 ← JS 调用 line(…) 的末位实参: major ? 1.5 : 1  ⓐ(index.html <script>)"
+    ],
+    "lineWidthsInteractive": [
+      "2 ← outline: 2px solid var(--tape)  ⓐ:focus-visible（这一级来自交互态：静态首屏看不到，但键盘聚焦/悬停时用户会看到）"
+    ],
+    "h1Size": "68px",
+    "h1SizeWhy": "h1 的 class 规则 `.d1` 声明 68px（桌面 1440px 口径）",
+    "bodySize": "16px",
+    "bodySizeWhy": "裸 body 规则 `body` 声明 16px（桌面 1440px 口径）",
+    "h1SizeAt1440": 68,
     "mechanism": "一条 264px 宽的纵向刻度轴随滚动固定，右侧 9 栏的高度按 30 秒曝光折成 28px 一档，四角遮罩压掉 32%，游标随焦距比移动——层级由高度与固定位置承担，不由名字承担。",
     "charBudget": 281
   },
@@ -182,8 +231,20 @@
       "drops": 0,
       "samples": []
     },
-    "lineWidths": "1px、3px",
+    "lineWidths": "1px、1.1px、3px",
+    "lineWidthsWhy": [
+      "3 ← outline: 3px solid var(--green)（交互态）  ⓐ:focus-visible",
+      "1.1 ← stroke-width: 1.1  ⓐ.slip__notch .rim",
+      "1 ← border: 1px solid var(--ink)  ⓐ.table th,.table td"
+    ],
+    "lineWidthsInteractive": [
+      "3 ← outline: 3px solid var(--green)  ⓐ:focus-visible（这一级来自交互态：静态首屏看不到，但键盘聚焦/悬停时用户会看到）"
+    ],
     "h1Size": "72px",
+    "h1SizeWhy": "h1 后代规则 `.board h1` 声明 72px（桌面 1440px 口径）",
+    "bodySize": "17px",
+    "bodySizeWhy": "裸 body 规则 `body` 声明 17px（桌面 1440px 口径）",
+    "h1SizeAt1440": 72,
     "mechanism": "12 列隐网格上，纸块跨 2 至 6 栏、色版偏移取 3 至 7px 五档、旋转限 ±1.2°，页面上没有一条对称边——阅读入口由层叠高低与错位量给出。",
     "charBudget": 222
   },
@@ -229,7 +290,24 @@
       "samples": []
     },
     "lineWidths": "1px、2px",
+    "lineWidthsWhy": [
+      "2 ← outline: 2px solid var(--paint)（交互态）  ⓐ:focus-visible",
+      "2 ← border-bottom: 2px solid var(--plate)  ⓐ.nameplate",
+      "2 ← border: 2px solid var(--paint)  ⓐ.btn",
+      "2 ← outline: 2px solid var(--paint)（交互态）  ⓐ.lever:focus-within",
+      "2 ← border: 2px solid var(--plate)  ⓐ.field-input",
+      "2 ← border: 2px solid var(--panel)  ⓐ.zone",
+      "1 ← border-bottom: 1px solid var(--groove-hi)  ⓐ.log th, .log td",
+      "2 ← border-top: 2px solid var(--groove-hi)  ⓐ.colophon"
+    ],
+    "lineWidthsInteractive": [
+      "2 ← outline: 2px solid var(--paint)  ⓐ:focus-visible（这一级来自交互态：静态首屏看不到，但键盘聚焦/悬停时用户会看到）"
+    ],
     "h1Size": "clamp(46px, 6vw, 88px)",
+    "h1SizeWhy": "裸 h1 规则 `h1` 声明 clamp(46px, 6vw, 88px)（桌面 1440px 口径）",
+    "bodySize": "16px",
+    "bodySizeWhy": "裸 body 规则 `body` 声明 16px（桌面 1440px 口径）",
+    "h1SizeAt1440": 86.4,
     "mechanism": "8px 为一个单元，8 块分区按 5:2:1 再加一个双高块分配面积，凹槽 6px 单向受光，读数按 5×7 网格排点——优先级由面积与单元数直接表达。",
     "charBudget": 270
   },
@@ -279,8 +357,39 @@
       "drops": 0,
       "samples": []
     },
-    "lineWidths": "1px、2px",
+    "lineWidths": "0.8px、1px、2px",
+    "lineWidthsWhy": [
+      "2 ← outline: 2px solid var(--brown)（交互态）  ⓐ:focus-visible",
+      "1 ← border: 1px solid var(--rule)  ⓐselect",
+      "1 ← border-bottom: 1px solid var(--rule)  ⓐ.brew th, .brew td",
+      "2 ← border-bottom: 2px solid var(--brown)  ⓐ.brew thead th",
+      "2 ← border-top: 2px solid var(--brown)  ⓐ.brew tfoot td",
+      "0.8 ← html stroke-width=\"0.8\"  ⓐ(index.html)",
+      "0.8 ← html stroke-width=\"0.8\"  ⓐ(index.html)",
+      "0.8 ← html stroke-width=\"0.8\"  ⓐ(index.html)",
+      "0.8 ← html stroke-width=\"0.8\"  ⓐ(index.html)",
+      "0.8 ← html stroke-width=\"0.8\"  ⓐ(index.html)",
+      "0.8 ← html stroke-width=\"0.8\"  ⓐ(index.html)",
+      "0.8 ← html stroke-width=\"0.8\"  ⓐ(index.html)",
+      "0.8 ← html stroke-width=\"0.8\"  ⓐ(index.html)",
+      "0.8 ← html stroke-width=\"0.8\"  ⓐ(index.html)",
+      "0.8 ← html stroke-width=\"0.8\"  ⓐ(index.html)",
+      "0.8 ← html stroke-width=\"0.8\"  ⓐ(index.html)",
+      "0.8 ← html stroke-width=\"0.8\"  ⓐ(index.html)",
+      "0.8 ← html stroke-width=\"0.8\"  ⓐ(index.html)",
+      "0.8 ← html stroke-width=\"0.8\"  ⓐ(index.html)",
+      "0.8 ← html stroke-width=\"0.8\"  ⓐ(index.html)",
+      "0.8 ← html stroke-width=\"0.8\"  ⓐ(index.html)",
+      "0.8 ← html stroke-width=\"0.8\"  ⓐ(index.html)"
+    ],
+    "lineWidthsInteractive": [
+      "2 ← outline: 2px solid var(--brown)  ⓐ:focus-visible（这一级来自交互态：静态首屏看不到，但键盘聚焦/悬停时用户会看到）"
+    ],
     "h1Size": "clamp(46px, 5.6vw, 84px)",
+    "h1SizeWhy": "裸 h1 规则 `h1` 声明 clamp(46px, 5.6vw, 84px)（桌面 1440px 口径）",
+    "bodySize": "15px",
+    "bodySizeWhy": "裸 body 规则 `body` 声明 15px（桌面 1440px 口径）",
+    "h1SizeAt1440": 80.6,
     "mechanism": "卡片沿 3° 斜轨排布，轨道间距 96px、相邻偏移按 0.62 递减，漂移速度为滚动量的 0.6 倍且各卡系数在 0.92 至 1.08 之间不等——顺序由速度差与斜角给出。",
     "charBudget": 267
   },
@@ -327,8 +436,24 @@
       "drops": 0,
       "samples": []
     },
-    "lineWidths": "1px、2px",
-    "h1Size": "",
+    "lineWidths": "0.5px、1px、2px",
+    "lineWidthsWhy": [
+      "2 ← outline: 2px solid var(--slate)（交互态）  ⓐ:focus-visible",
+      "2 ← outline: 2px solid var(--slate)（交互态）  ⓐ.skip:focus",
+      "0.5 ← column-rule: .5px solid var(--slate)  ⓐ.toc",
+      "1 ← border-bottom: 1px solid var(--slate)（交互态）  ⓐ.toc li a:hover .t",
+      "1 ← border-bottom: 1px solid var(--slate)（交互态）  ⓐ.toc li a:focus-visible .t",
+      "1 ← html stroke-width=\"1\"  ⓐ(index.html)"
+    ],
+    "lineWidthsInteractive": [
+      "2 ← outline: 2px solid var(--slate)  ⓐ:focus-visible（这一级来自交互态：静态首屏看不到，但键盘聚焦/悬停时用户会看到）",
+      "1 ← border-bottom: 1px solid var(--slate)  ⓐ.toc li a:hover .t（这一级来自交互态：静态首屏看不到，但键盘聚焦/悬停时用户会看到）"
+    ],
+    "h1Size": "clamp(38px,5.4vw,84px)",
+    "h1SizeWhy": "h1 的 class 规则 `.display` 声明 clamp(38px,5.4vw,84px)（桌面 1440px 口径）",
+    "bodySize": "16px",
+    "bodySizeWhy": "裸 body 规则 `body` 声明 16px（桌面 1440px 口径）",
+    "h1SizeAt1440": 77.8,
     "mechanism": "同一段文字在纸背以 8% 至 14% 不透明度做镜像并整体偏移 1px，正面 5 栏对背面 7 栏、栏线 0.5px，页码竖排 28px 行高——正反两面同时进入同一张版心。",
     "charBudget": 235
   },
@@ -373,8 +498,39 @@
       "drops": 0,
       "samples": []
     },
-    "lineWidths": "2px、3px、4px",
+    "lineWidths": "1.25px、2px、3px、4px",
+    "lineWidthsWhy": [
+      "2 ← border: 2px solid var(--wall-deep)  ⓐ.control",
+      "3 ← outline: 3px solid var(--glint)（交互态）  ⓐ:focus-visible",
+      "4 ← border-bottom: 4px solid var(--wall-deep)  ⓐ.ladder b",
+      "2 ← border: 2px solid var(--wall)  ⓐ.params",
+      "2 ← border-bottom: 2px solid var(--wall)  ⓐ.params div",
+      "2 ← border: 2px solid var(--wall)  ⓐ.specimen",
+      "2 ← border-top: 2px solid var(--wall)  ⓐ.specimen figcaption",
+      "2 ← border-top: 2px solid var(--wall)  ⓐ.material-row > div",
+      "2 ← border: 2px solid var(--wall)  ⓐ.panel",
+      "2 ← border-bottom: 2px solid var(--wall)  ⓐ.pp th, .pp td",
+      "2 ← border: 2px solid var(--wall)  ⓐ.state",
+      "3 ← border-top: 3px solid var(--wall)  ⓐfooter",
+      "1.25 ← html stroke-width=\"1.25\"  ⓐ(index.html)",
+      "1.25 ← html stroke-width=\"1.25\"  ⓐ(index.html)",
+      "1.25 ← html stroke-width=\"1.25\"  ⓐ(index.html)",
+      "1.25 ← html stroke-width=\"1.25\"  ⓐ(index.html)",
+      "1.25 ← html stroke-width=\"1.25\"  ⓐ(index.html)",
+      "1.25 ← html stroke-width=\"1.25\"  ⓐ(index.html)",
+      "1.25 ← html stroke-width=\"1.25\"  ⓐ(index.html)",
+      "1.25 ← html stroke-width=\"1.25\"  ⓐ(index.html)",
+      "1.25 ← html stroke-width=\"1.25\"  ⓐ(index.html)",
+      "1.25 ← html stroke-width=\"1.25\"  ⓐ(index.html)"
+    ],
+    "lineWidthsInteractive": [
+      "3 ← outline: 3px solid var(--glint)  ⓐ:focus-visible（这一级来自交互态：静态首屏看不到，但键盘聚焦/悬停时用户会看到）"
+    ],
     "h1Size": "clamp(44px, 5.4vw, 78px)",
+    "h1SizeWhy": "裸 h1 规则 `h1` 声明 clamp(44px, 5.4vw, 78px)（桌面 1440px 口径）",
+    "bodySize": "16px",
+    "bodySizeWhy": "裸 body 规则 `body` 声明 16px（桌面 1440px 口径）",
+    "h1SizeAt1440": 77.8,
     "mechanism": "六块板按层号各偏移 (24px, 12px)，轮廓侧向拉出 6 至 10px、上缘 2px 高光、滚动 200px 走 6px——深度由层号位移与侧壁宽度两件事同时说明。",
     "charBudget": 266
   },
@@ -416,8 +572,23 @@
       "drops": 1,
       "samples": []
     },
-    "lineWidths": "2px、3px、3.5px",
-    "h1Size": "var(--fs-h1)",
+    "lineWidths": "2px、3px、3.5px、3.6px",
+    "lineWidthsWhy": [
+      "3 ← outline: 3px solid var(--ink)（交互态）  ⓐ.btn:focus-visible",
+      "2 ← border: 2px solid var(--ink)  ⓐ.cat",
+      "3 ← outline: 3px solid var(--blue)（交互态）  ⓐ.cat:focus-visible",
+      "3.5 ← stroke-width: 3.5  ⓐ#stroke-outer",
+      "2 ← stroke-width: 2  ⓐ#stroke-inner",
+      "3.6 ← stroke-width: 3.6  ⓐ.ico path"
+    ],
+    "lineWidthsInteractive": [
+      "3 ← outline: 3px solid var(--ink)  ⓐ.btn:focus-visible（这一级来自交互态：静态首屏看不到，但键盘聚焦/悬停时用户会看到）"
+    ],
+    "h1Size": "clamp(46px, 6.7vw, 98px)",
+    "h1SizeWhy": "h1 后代规则 `.sign h1` 声明 var(--fs-h1) → 展开为 clamp(46px, 6.7vw, 98px)（桌面 1440px 口径）",
+    "bodySize": "16px",
+    "bodySizeWhy": "裸 body 规则 `body` 声明 var(--fs-body) → 展开为 16px（桌面 1440px 口径）",
+    "h1SizeAt1440": 96.5,
     "mechanism": "价目行以 1.5° 整体倾斜，行高 56px、左端起点错开 4 至 12px，描边外线 3.5px 与内线 2px 且留 5% 至 10% 缺口——可读性交给等宽数字，手绘只做外圈。",
     "charBudget": 250
   },
@@ -461,8 +632,39 @@
       "drops": 0,
       "samples": []
     },
-    "lineWidths": "1.25px、2px",
+    "lineWidths": "1.25px、1.5px、2px",
+    "lineWidthsWhy": [
+      "2 ← outline: 2px solid var(--red)（交互态）  ⓐ:focus-visible",
+      "1.25 ← stroke-width: var(--reg-w)  ⓐ.reg",
+      "2 ← border-bottom: 2px solid var(--ink)  ⓐ.masthead",
+      "2 ← border-top: 2px solid var(--ink)  ⓐ.section-head",
+      "1.25 ← stroke-width: var(--column-rule)  ⓐ.plate-rules line",
+      "2 ← border-bottom: 2px solid var(--ink)  ⓐ.grid-table th",
+      "1.25 ← border-bottom: var(--column-rule) solid var(--grey-soft)  ⓐ.grid-table tbody td",
+      "1.25 ← border-left: var(--column-rule) solid var(--grey)  ⓐ.grid-table th + th, .grid-table td + td",
+      "1.25 ← border-right: var(--column-rule) solid var(--grey)  ⓐ.grid-table th:nth-child(4), .grid-table td:nth-child(4)",
+      "1.5 ← border-left: 1.5px solid var(--paper)  ⓐ.grid-table th:nth-child(5), .grid-table td:nth-child(5)",
+      "2 ← border-top: 2px solid var(--ink)  ⓐ.grid-table tfoot td",
+      "1.25 ← border-right: var(--reg-w) solid var(--ink)  ⓐ.cell-no::after",
+      "1.25 ← border-bottom: var(--reg-w) solid var(--ink)  ⓐ.cell-no::after",
+      "2 ← border-top: 2px solid var(--ink)  ⓐ.plate figcaption",
+      "2 ← border-left: 2px solid var(--red)  ⓐ.quote",
+      "2 ← border-top: 2px solid var(--ink)  ⓐ.regscale figcaption",
+      "2 ← border-top: 2px solid var(--ink)  ⓐfooter",
+      "1.25 ← html stroke-width=\"1.25\"  ⓐ(index.html)",
+      "1.25 ← html stroke-width=\"1.25\"  ⓐ(index.html)",
+      "1.25 ← html stroke-width=\"1.25\"  ⓐ(index.html)",
+      "1.25 ← html stroke-width=\"1.25\"  ⓐ(index.html)",
+      "2 ← html stroke-width=\"2\"  ⓐ(index.html)"
+    ],
+    "lineWidthsInteractive": [
+      "2 ← outline: 2px solid var(--red)  ⓐ:focus-visible（这一级来自交互态：静态首屏看不到，但键盘聚焦/悬停时用户会看到）"
+    ],
     "h1Size": "clamp(32px, 5.55vw, 80px)",
+    "h1SizeWhy": "裸 h1 规则 `h1` 声明 clamp(32px, 5.55vw, 80px)（桌面 1440px 口径）",
+    "bodySize": "15px",
+    "bodySizeWhy": "裸 body 规则 `body` 声明 var(--body) → 展开为 15px（桌面 1440px 口径）",
+    "h1SizeAt1440": 79.9,
     "mechanism": "五栏按 6:7:9:8:5 分宽，红版相对黑版固定右下错 1px、进视口时先错 3px 再收到 1.5px，标题基线上移 6px——对比强度由栏宽比与错位像素共同给出。",
     "charBudget": 238
   },
@@ -508,8 +710,26 @@
       "drops": 3,
       "samples": []
     },
-    "lineWidths": "1px、2px、3px",
+    "lineWidths": "1px、1.25px、2px、3px",
+    "lineWidthsWhy": [
+      "2 ← border: 2px solid var(--copy)  ⓐ.btn-plain",
+      "3 ← border-top: 3px solid var(--copy)  ⓐ.chapter-strip",
+      "3 ← border-bottom: 3px solid var(--copy)  ⓐ.chapter-strip",
+      "3 ← border-left: 3px solid var(--note)  ⓐ.note",
+      "1 ← border-bottom: 1px solid var(--copy)  ⓐ.spec th, .spec td",
+      "3 ← border-top: 3px solid var(--copy)  ⓐ.spec tfoot td",
+      "1.25 ← stroke-width: 1.25  ⓐ.icon",
+      "3 ← border-top: 3px solid var(--copy)  ⓐ.foot-grid",
+      "3 ← outline: 3px solid var(--copy)（交互态）  ⓐ:focus-visible"
+    ],
+    "lineWidthsInteractive": [
+      "3 ← outline: 3px solid var(--copy)  ⓐ:focus-visible（这一级来自交互态：静态首屏看不到，但键盘聚焦/悬停时用户会看到）"
+    ],
     "h1Size": "clamp(46px, 7.4vw, 106px)",
+    "h1SizeWhy": "裸 h1 规则 `h1` 声明 clamp(46px, 7.4vw, 106px)（桌面 1440px 口径）",
+    "bodySize": "16px",
+    "bodySizeWhy": "裸 body 规则 `body` 声明 16px（桌面 1440px 口径）",
+    "h1SizeAt1440": 106,
     "mechanism": "",
     "charBudget": 145
   },
@@ -558,7 +778,24 @@
       "samples": []
     },
     "lineWidths": "1px、2px、8px",
-    "h1Size": "clamp(54px, 6.6vw, 104px)",
+    "lineWidthsWhy": [
+      "1 ← outline: 1px solid var(--lime)（交互态）  ⓐ:focus-visible",
+      "1 ← outline: 1px solid var(--room)（交互态）  ⓐ.skip:focus",
+      "2 ← border-bottom: 2px solid var(--lime)  ⓐ.plate-rail",
+      "2 ← outline: 2px solid var(--lime)  ⓐ.btn-plain",
+      "1 ← border-bottom: 1px solid #4A5C60  ⓐth, td",
+      "2 ← border: 2px solid currentColor  ⓐ.g-void",
+      "8 ← border-left: 8px solid var(--lime)  ⓐ.state-empty",
+      "2 ← border-top: 2px solid var(--lime)  ⓐfooter"
+    ],
+    "lineWidthsInteractive": [
+      "1 ← outline: 1px solid var(--lime)  ⓐ:focus-visible（这一级来自交互态：静态首屏看不到，但键盘聚焦/悬停时用户会看到）"
+    ],
+    "h1Size": "clamp(88px, 6.6vw, 112px)",
+    "h1SizeWhy": "裸 h1 规则 `h1` 声明 clamp(88px, 6.6vw, 112px)（桌面 1440px 口径）",
+    "bodySize": "17px",
+    "bodySizeWhy": "裸 body 规则 `body` 声明 17px（桌面 1440px 口径）",
+    "h1SizeAt1440": 95,
     "mechanism": "",
     "charBudget": 199
   },
@@ -595,16 +832,49 @@
     "shadow": "inset 与外投影混用",
     "shadowDetail": {
       "kind": "mixed",
-      "inset": 8,
-      "outer": 9,
-      "drops": 0,
+      "inset": 13,
+      "outer": 1,
+      "drops": 2,
       "samples": [
-        "2px 2px 3px rgba(36, 31, 23, 0.08)",
-        "2px 2px 2px rgba(36, 31, 23, 0)"
+        "0 -2px 3px rgba(36, 31, 23, 0.06)"
       ]
     },
-    "lineWidths": "1px、2px、3px、5.5px、7px、9px、14.5px",
-    "h1Size": "",
+    "lineWidths": "1px、1.5px、2px、3px、5.5px、9px、14.5px",
+    "lineWidthsWhy": [
+      "2 ← outline: 2px solid var(--gold)（交互态）  ⓐ:focus-visible",
+      "9 ← border-bottom: var(--band-shade) solid var(--shade)  ⓐ.letterhead",
+      "9 ← border-top: var(--band-shade) solid var(--shade)  ⓐ.specimen",
+      "9 ← border-top: var(--band-shade) solid var(--shade)  ⓐ.specimen__seal",
+      "9 ← border-top: var(--band-shade) solid var(--shade)  ⓐ.clause__head",
+      "1 ← border-bottom: 1px solid var(--shade)  ⓐ.annex__table th, .annex__table td,\n.levels__table th, .levels__table td",
+      "9 ← border-top: var(--band-shade) solid var(--shade)  ⓐ.signature",
+      "3 ← border-top: 3px solid var(--shade)  ⓐ.btn[disabled]",
+      "9 ← border-top: var(--band-shade) solid var(--shade)  ⓐ.log__empty",
+      "9 ← border-top: var(--band-shade) solid var(--shade)  ⓐ.colophon",
+      "5.5 ← border-top: 5.5px solid var(--shade)  ⓐ.quirk__char",
+      "9 ← border-bottom: var(--band-shade) solid var(--shade)  ⓐ[data-azimuth=\"315\"] .log__empty",
+      "14.5 ← border-top-width: 14.5px（交互态）  ⓐ.clause:hover .clause__head",
+      "3 ← border-top: 3px solid var(--shade)  ⓐ.plate figcaption",
+      "1.5 ← html stroke-width=\"1.5\"  ⓐ(index.html)",
+      "1.5 ← html stroke-width=\"1.5\"  ⓐ(index.html)",
+      "1.5 ← html stroke-width=\"1.5\"  ⓐ(index.html)",
+      "1.5 ← html stroke-width=\"1.5\"  ⓐ(index.html)",
+      "1.5 ← html stroke-width=\"1.5\"  ⓐ(index.html)",
+      "1.5 ← html stroke-width=\"1.5\"  ⓐ(index.html)",
+      "1.5 ← html stroke-width=\"1.5\"  ⓐ(index.html)",
+      "1.5 ← html stroke-width=\"1.5\"  ⓐ(index.html)",
+      "1.5 ← html stroke-width=\"1.5\"  ⓐ(index.html)",
+      "1.5 ← html stroke-width=\"1.5\"  ⓐ(index.html)"
+    ],
+    "lineWidthsInteractive": [
+      "2 ← outline: 2px solid var(--gold)  ⓐ:focus-visible（这一级来自交互态：静态首屏看不到，但键盘聚焦/悬停时用户会看到）",
+      "14.5 ← border-top-width: 14.5px  ⓐ.clause:hover .clause__head（这一级来自交互态：静态首屏看不到，但键盘聚焦/悬停时用户会看到）"
+    ],
+    "h1Size": "56px",
+    "h1SizeWhy": "h1 的 class 规则 `.doctitle` 声明 56px（桌面 1440px 口径）",
+    "bodySize": "15px",
+    "bodySizeWhy": "裸 body 规则 `body` 声明 15px（桌面 1440px 口径）",
+    "h1SizeAt1440": 56,
     "mechanism": "",
     "charBudget": 140
   },
@@ -648,8 +918,32 @@
       "drops": 0,
       "samples": []
     },
-    "lineWidths": "1px、2px、3px",
+    "lineWidths": "1px、1.25px、2px、3px",
+    "lineWidthsWhy": [
+      "1 ← border-top: 1px solid rgba(216, 210, 196, 0.16)  ⓐ.near li",
+      "3 ← border-left: 3px solid #E4572E  ⓐ.hud--near",
+      "1 ← border: 1px solid rgba(216, 210, 196, 0.22)  ⓐ.field::before",
+      "3 ← border-bottom: 3px solid #8A3320  ⓐ.tag",
+      "1 ← border: 1px solid rgba(228, 224, 214, 0.7)  ⓐ.tag::before",
+      "2 ← outline: 2px solid #12181D（交互态）  ⓐ.tag:focus-visible",
+      "2 ← outline: 2px solid #12181D（交互态）  ⓐ.tag.is-cued",
+      "3 ← border-left: 3px solid #E4572E  ⓐ.fault__line",
+      "3 ← border-left: 3px solid #6B6259  ⓐ.packet",
+      "1 ← border: 1px solid rgba(18, 24, 29, 0.28)  ⓐ.stations th, .stations td",
+      "3 ← border-top: 3px solid #8A3320  ⓐ.degrade",
+      "1.25 ← html stroke-width=\"1.25\"  ⓐ(index.html)",
+      "1.25 ← html stroke-width=\"1.25\"  ⓐ(index.html)",
+      "1.25 ← html stroke-width=\"1.25\"  ⓐ(index.html)",
+      "1.25 ← html stroke-width=\"1.25\"  ⓐ(index.html)"
+    ],
+    "lineWidthsInteractive": [
+      "2 ← outline: 2px solid #12181D  ⓐ.tag:focus-visible（这一级来自交互态：静态首屏看不到，但键盘聚焦/悬停时用户会看到）"
+    ],
     "h1Size": "clamp(44px, 5vw, 72px)",
+    "h1SizeWhy": "裸 h1 规则 `h1` 声明 clamp(44px, 5vw, 72px)（桌面 1440px 口径）",
+    "bodySize": "16px",
+    "bodySizeWhy": "裸 body 规则 `body` 声明 16px（桌面 1440px 口径）",
+    "h1SizeAt1440": 72,
     "mechanism": "",
     "charBudget": 150
   },
@@ -694,8 +988,52 @@
       "drops": 0,
       "samples": []
     },
-    "lineWidths": "0.5px、0.8px、1px、1.7px、3px",
+    "lineWidths": "0.5px、0.8px、1px、1.2px、2px、3px",
+    "lineWidthsWhy": [
+      "3 ← border-bottom: 3px solid var(--pencil)  ⓐ.strip",
+      "2 ← outline: 2px solid var(--paper)（交互态）  ⓐ.strip__item--fault.is-lit",
+      "2 ← border: 2px solid var(--graphite)  ⓐ.btn--ghost",
+      "1.2 ← stroke-width: var(--ink12)  ⓐ.ink--frame",
+      "0.8 ← stroke-width: 0.8  ⓐ.ink--base",
+      "0.8 ← stroke-width: 0.8  ⓐ.ink--pencil",
+      "0.8 ← stroke-width: 0.8  ⓐ.ink--rev",
+      "0.8 ← stroke-width: 0.8  ⓐ.ink--c1",
+      "1 ← stroke-width: 1  ⓐ.ink--c2",
+      "1.2 ← stroke-width: 1.2  ⓐ.ink--c3",
+      "0.8 ← stroke-width: 0.8  ⓐ.hot .edge",
+      "0.5 ← stroke-width: 0.5  ⓐ.hot .ring",
+      "1.2 ← stroke-width: 1.2（交互态）  ⓐ.hot:hover .edge, .hot:focus-visible .edge, .stack.is-cued .hot .edge",
+      "2 ← outline: 2px solid var(--press)（交互态）  ⓐ.hot:focus-visible",
+      "0.8 ← stroke-width: 0.8  ⓐ.sw__p",
+      "1.2 ← stroke-width: 1.2（交互态）  ⓐ.legend__lines li.is-cued .sw__p",
+      "3 ← border-left: 3px solid var(--pencil)  ⓐ.plan-notes li",
+      "3 ← border-left: 3px solid var(--pencil)  ⓐ.layers li",
+      "2 ← border: 2px solid var(--graphite)  ⓐ.yb",
+      "3 ← border-left: 3px solid var(--pencil)  ⓐ.folds details",
+      "3 ← border-left: 3px solid var(--pencil)  ⓐ.alert",
+      "2 ← outline: 2px solid var(--pencil)（交互态）  ⓐ.trace-error.is-lit .alert",
+      "3 ← border-left: 3px solid var(--pencil)  ⓐ.packet",
+      "2 ← border-bottom: 2px solid #C3C9C7  ⓐ.zones__table th, .zones__table td",
+      "2 ← border-bottom: 2px solid #C3C9C7  ⓐ.matrix th, .matrix td",
+      "2 ← border-bottom: 2px solid #C3C9C7  ⓐ.weights th, .weights td",
+      "3 ← border-left: 3px solid var(--pencil)  ⓐ.empty",
+      "3 ← border-left: 3px solid var(--pencil)  ⓐ.spec__cell",
+      "3 ← border-top: 3px solid var(--pencil)  ⓐ.degrade",
+      "1.2 ← html stroke-width=\"1.2\"  ⓐ(index.html)",
+      "1.2 ← html stroke-width=\"1.2\"  ⓐ(index.html)",
+      "1 ← html stroke-width=\"1\"  ⓐ(index.html)",
+      "0.8 ← html stroke-width=\".8\"  ⓐ(index.html)",
+      "1.2 ← html stroke-width=\"1.2\"  ⓐ(index.html)"
+    ],
+    "lineWidthsInteractive": [
+      "2 ← outline: 2px solid var(--paper)  ⓐ.strip__item--fault.is-lit（这一级来自交互态：静态首屏看不到，但键盘聚焦/悬停时用户会看到）",
+      "1.2 ← stroke-width: 1.2  ⓐ.hot:hover .edge, .hot:focus-visible .edge, .stack.is-cued .hot .edge（这一级来自交互态：静态首屏看不到，但键盘聚焦/悬停时用户会看到）"
+    ],
     "h1Size": "clamp(46px, 6.4vw, 92px)",
+    "h1SizeWhy": "裸 h1 规则 `h1` 声明 clamp(46px, 6.4vw, 92px)（桌面 1440px 口径）",
+    "bodySize": "16px",
+    "bodySizeWhy": "裸 body 规则 `body` 声明 16px（桌面 1440px 口径）",
+    "h1SizeAt1440": 92,
     "mechanism": "",
     "charBudget": 150
   },
@@ -741,7 +1079,27 @@
       "samples": []
     },
     "lineWidths": "2px、3px、6px、13px",
+    "lineWidthsWhy": [
+      "3 ← border: 3px solid var(--red)  ⓐ.btn-primary",
+      "13 ← border-left: 13px solid currentColor  ⓐ.btn-primary::after",
+      "6 ← border-top: 6px solid transparent  ⓐ.btn-primary::after",
+      "6 ← border-bottom: 6px solid transparent  ⓐ.btn-primary::after",
+      "3 ← border: 3px solid var(--ink)  ⓐ.btn-ghost",
+      "3 ← border: 3px solid var(--paper)  ⓐ.btn-paper",
+      "3 ← outline: 3px solid var(--red)（交互态）  ⓐ.btn:focus-visible, .slab-no:focus-visible",
+      "2 ← border: 2px solid var(--pressed)  ⓐ.slab-no::before",
+      "3 ← border-left: 3px solid var(--pressed)  ⓐ.state",
+      "3 ← border-left: 3px solid transparent  ⓐ#error-note",
+      "3 ← border-top: 3px solid var(--ink)  ⓐ.foot-line"
+    ],
+    "lineWidthsInteractive": [
+      "3 ← outline: 3px solid var(--red)  ⓐ.btn:focus-visible, .slab-no:focus-visible（这一级来自交互态：静态首屏看不到，但键盘聚焦/悬停时用户会看到）"
+    ],
     "h1Size": "clamp(46px, 6.2vw, 88px)",
+    "h1SizeWhy": "裸 h1 规则 `h1` 声明 clamp(46px, 6.2vw, 88px)（桌面 1440px 口径）",
+    "bodySize": "20px",
+    "bodySizeWhy": "裸 body 规则 `body` 声明 var(--fs-body) → 展开为 20px（桌面 1440px 口径）",
+    "h1SizeAt1440": 88,
     "mechanism": "",
     "charBudget": 167
   },
@@ -788,8 +1146,35 @@
       "drops": 0,
       "samples": []
     },
-    "lineWidths": "1px、2px",
+    "lineWidths": "0.5px、0.8px、1px、2px、2.4px、5px、6px",
+    "lineWidthsWhy": [
+      "2 ← outline: 2px solid var(--seal)（交互态）  ⓐ:focus-visible",
+      "2 ← border-bottom: 2px solid var(--ink)  ⓐ.sheet-head",
+      "2 ← border: 2px solid var(--ink)  ⓐ.btn-secondary",
+      "1 ← border-bottom: 1px solid var(--rule)  ⓐth, td",
+      "2 ← border-bottom: 2px solid var(--ink)  ⓐthead th",
+      "2 ← border-top: 2px solid var(--ink)  ⓐtfoot td",
+      "2 ← border: 2px solid var(--paper)  ⓐ.spinner",
+      "2 ← border-top: 2px solid var(--ink)  ⓐfooter",
+      "1 ← border: 1px solid var(--rule)  ⓐselect",
+      "2 ← outline: 2px solid var(--seal)（交互态）  ⓐ.skip:focus",
+      "0.5 ← html stroke-width=\"0.5\"  ⓐ(index.html)",
+      "6 ← html stroke-width=\"6\"  ⓐ(index.html)",
+      "5 ← html stroke-width=\"5\"  ⓐ(index.html)",
+      "2.4 ← html stroke-width=\"2.4\"  ⓐ(index.html)",
+      "0.8 ← html stroke-width=\"0.8\"  ⓐ(index.html)",
+      "0.8 ← html stroke-width=\"0.8\"  ⓐ(index.html)",
+      "0.8 ← html stroke-width=\"0.8\"  ⓐ(index.html)",
+      "0.8 ← html stroke-width=\"0.8\"  ⓐ(index.html)"
+    ],
+    "lineWidthsInteractive": [
+      "2 ← outline: 2px solid var(--seal)  ⓐ:focus-visible（这一级来自交互态：静态首屏看不到，但键盘聚焦/悬停时用户会看到）"
+    ],
     "h1Size": "clamp(46px, 6vw, 88px)",
+    "h1SizeWhy": "裸 h1 规则 `h1` 声明 clamp(46px, 6vw, 88px)（桌面 1440px 口径）",
+    "bodySize": "17px",
+    "bodySizeWhy": "裸 body 规则 `body` 声明 var(--cell-size) → 展开为 17px（桌面 1440px 口径）",
+    "h1SizeAt1440": 86.4,
     "mechanism": "",
     "charBudget": 179
   },
@@ -836,8 +1221,31 @@
       "drops": 0,
       "samples": []
     },
-    "lineWidths": "0.8px、1px、2px、4px",
+    "lineWidths": "0.8px、1px、1.25px、2px、4px",
+    "lineWidthsWhy": [
+      "2 ← outline: 2px solid var(--phos)（交互态）  ⓐa:focus-visible,button:focus-visible",
+      "1 ← border-bottom: 1px solid rgba(10,13,10,.24)  ⓐ.folds th,.folds td",
+      "1 ← border-bottom: 1px solid rgba(10,13,10,.24)  ⓐ.fields th,.fields td",
+      "4 ← border-top: 4px solid var(--bay)  ⓐ.empty",
+      "1.25 ← stroke-width: 1.25  ⓐ.ic",
+      "1 ← border-bottom: 1px solid rgba(10,13,10,.24)  ⓐ.widths th,.widths td",
+      "0.8 ← stroke-width: .8  ⓐ.quirk__mark svg",
+      "1.25 ← html stroke-width=\"1.25\"  ⓐ(index.html)",
+      "1.25 ← html stroke-width=\"1.25\"  ⓐ(index.html)",
+      "1.25 ← html stroke-width=\"1.25\"  ⓐ(index.html)",
+      "0.8 ← html stroke-width=\".8\"  ⓐ(index.html)",
+      "0.8 ← html stroke-width=\".8\"  ⓐ(index.html)",
+      "0.8 ← html stroke-width=\".8\"  ⓐ(index.html)",
+      "0.8 ← html stroke-width=\".8\"  ⓐ(index.html)"
+    ],
+    "lineWidthsInteractive": [
+      "2 ← outline: 2px solid var(--phos)  ⓐa:focus-visible,button:focus-visible（这一级来自交互态：静态首屏看不到，但键盘聚焦/悬停时用户会看到）"
+    ],
     "h1Size": "clamp(36px,5.3vw,76px)",
+    "h1SizeWhy": "裸 h1 规则 `h1` 声明 clamp(36px,5.3vw,76px)（桌面 1440px 口径）",
+    "bodySize": "16px",
+    "bodySizeWhy": "裸 body 规则 `body` 声明 16px（桌面 1440px 口径）",
+    "h1SizeAt1440": 76,
     "mechanism": "",
     "charBudget": 164
   },
@@ -884,7 +1292,20 @@
       "samples": []
     },
     "lineWidths": "0.4px、0.8px、1px、3px",
+    "lineWidthsWhy": [
+      "0.4 ← stroke-width: 0.4  ⓐ.e4",
+      "0.8 ← stroke-width: 0.8  ⓐ.e8",
+      "3 ← border-left: 3px solid #2A241C  ⓐ.fault__line",
+      "1 ← border: 1px solid rgba(42, 36, 28, 0.3)  ⓐ.xr th, .xr td",
+      "3 ← border-top: 3px solid #4A5C3A  ⓐ.degrade",
+      "3 ← border-left: 3px solid #4A5C3A  ⓐ.rail"
+    ],
+    "lineWidthsInteractive": [],
     "h1Size": "clamp(46px, 5vw, 72px)",
+    "h1SizeWhy": "裸 h1 规则 `h1` 声明 clamp(46px, 5vw, 72px)（桌面 1440px 口径）",
+    "bodySize": "16px",
+    "bodySizeWhy": "裸 body 规则 `body` 声明 16px（桌面 1440px 口径）",
+    "h1SizeAt1440": 72,
     "mechanism": "",
     "charBudget": 201
   },
@@ -926,7 +1347,31 @@
       "samples": []
     },
     "lineWidths": "0.35px、0.5px、1px、3px",
+    "lineWidthsWhy": [
+      "3 ← border-bottom: 3px solid var(--blue)  ⓐ.hud",
+      "3 ← border-left: 3px solid var(--blue)  ⓐ.hud--probe",
+      "3 ← border: 3px solid var(--ink)  ⓐ.btn--ghost",
+      "3 ← border-top: 3px solid var(--blue)  ⓐ.sheet-sec",
+      "3 ← border: 3px dashed rgba(38, 72, 92, 0.75)  ⓐ.drop",
+      "0.35 ← stroke-width: 0.35  ⓐ.ring",
+      "0.5 ← stroke-width: 0.5（交互态）  ⓐ.ring.is-probed",
+      "1 ← border: 1px solid rgba(15, 20, 24, 0.3)  ⓐth, td",
+      "3 ← border-top: 3px solid var(--blue)  ⓐ.fault",
+      "3 ← border-top: 3px solid var(--paper)  ⓐ.sliders",
+      "3 ← border-top: 3px solid var(--blue)  ⓐ.degrade",
+      "0.5 ← html stroke-width=\"0.5\"  ⓐ(index.html)",
+      "0.5 ← html stroke-width=\"0.5\"  ⓐ(index.html)",
+      "0.5 ← html stroke-width=\"0.5\"  ⓐ(index.html)"
+    ],
+    "lineWidthsInteractive": [
+      "0.5 ← stroke-width: 0.5  ⓐ.ring.is-probed（这一级来自交互态：静态首屏看不到，但键盘聚焦/悬停时用户会看到）",
+      "0.2 ← html stroke-width=\"0.2\"（<pattern>/<mask> 等纹理容器内）  ⓐ纹理，不是版式线（这一级来自交互态：静态首屏看不到，但键盘聚焦/悬停时用户会看到）"
+    ],
     "h1Size": "clamp(40px, 5vw, 72px)",
+    "h1SizeWhy": "裸 h1 规则 `h1` 声明 clamp(40px, 5vw, 72px)（桌面 1440px 口径）",
+    "bodySize": "16px",
+    "bodySizeWhy": "裸 body 规则 `body` 声明 16px（桌面 1440px 口径）",
+    "h1SizeAt1440": 72,
     "mechanism": "",
     "charBudget": 147
   },
@@ -974,8 +1419,29 @@
       "drops": 0,
       "samples": []
     },
-    "lineWidths": "1px、2px",
-    "h1Size": "",
+    "lineWidths": "1px、1.25px、2px",
+    "lineWidthsWhy": [
+      "2 ← outline: 2px solid var(--amber)（交互态）  ⓐ:focus-visible",
+      "2 ← border-bottom: 2px solid var(--ink)  ⓐ.masthead",
+      "1 ← border: 1px solid var(--groove)  ⓐ.ill-table th,.ill-table td",
+      "2 ← border-bottom: 2px solid var(--ink)  ⓐ.ill-table thead th",
+      "1 ← border-right: 1px solid var(--ink)  ⓐ.ill-table tbody th",
+      "1 ← border: 1px solid var(--groove)  ⓐ.angle-table th,.angle-table td",
+      "2 ← border-bottom: 2px solid var(--ink)  ⓐ.angle-table thead th",
+      "1 ← border-right: 1px solid var(--ink)  ⓐ.angle-table tbody th",
+      "2 ← border-top: 2px solid var(--ink)  ⓐ.ledger-foot",
+      "1.25 ← html stroke-width=\"1.25\"  ⓐ(index.html)",
+      "1.25 ← html stroke-width=\"1.25\"  ⓐ(index.html)",
+      "1.25 ← html stroke-width=\"1.25\"  ⓐ(index.html)"
+    ],
+    "lineWidthsInteractive": [
+      "2 ← outline: 2px solid var(--amber)  ⓐ:focus-visible（这一级来自交互态：静态首屏看不到，但键盘聚焦/悬停时用户会看到）"
+    ],
+    "h1Size": "clamp(42px,6vw,88px)",
+    "h1SizeWhy": "h1 的 class 规则 `.masthead__title` 声明 clamp(42px,6vw,88px)（桌面 1440px 口径）",
+    "bodySize": "16px",
+    "bodySizeWhy": "裸 body 规则 `body` 声明 16px（桌面 1440px 口径）",
+    "h1SizeAt1440": 86.4,
     "mechanism": "",
     "charBudget": 156
   },
@@ -1021,7 +1487,19 @@
       "samples": []
     },
     "lineWidths": "1px、3px",
+    "lineWidthsWhy": [
+      "3 ← border: 3px solid var(--matcha)  ⓐ.btn--ghost",
+      "1 ← border: 1px solid rgba(46, 42, 36, 0.26)  ⓐ.spec th, .spec td",
+      "1 ← border-bottom: 1px solid rgba(46, 42, 36, 0.26)  ⓐ.pages th, .pages td",
+      "3 ← border-top: 3px solid rgba(86, 91, 73, 0.28)  ⓐ.brief li",
+      "1 ← html stroke-width=\"1\"  ⓐ(index.html)"
+    ],
+    "lineWidthsInteractive": [],
     "h1Size": "clamp(46px, 5.6vw, 84px)",
+    "h1SizeWhy": "裸 h1 规则 `h1` 声明 clamp(46px, 5.6vw, 84px)（桌面 1440px 口径）",
+    "bodySize": "17px",
+    "bodySizeWhy": "裸 body 规则 `body` 声明 17px（桌面 1440px 口径）",
+    "h1SizeAt1440": 80.6,
     "mechanism": "",
     "charBudget": 152
   },
@@ -1068,8 +1546,25 @@
       "drops": 0,
       "samples": []
     },
-    "lineWidths": "1px、6px",
+    "lineWidths": "1px、1.5px、6px",
+    "lineWidthsWhy": [
+      "1 ← outline: 1px solid var(--lime)（交互态）  ⓐ.flake.is-aligned::before,\n.flake:has(.plate:hover)::before",
+      "1 ← border-bottom: 1px solid var(--oxide)（交互态）  ⓐ.flake.is-cut::after",
+      "1 ← border: 1px solid rgba(36, 28, 22, 0.3)  ⓐ.chrono th, .chrono td",
+      "6 ← border-top: 6px solid var(--carmine)  ⓐ.degrade-grid",
+      "1.5 ← html stroke-width=\"1.5\"  ⓐ(index.html)",
+      "1.5 ← html stroke-width=\"1.5\"  ⓐ(index.html)",
+      "1.5 ← html stroke-width=\"1.5\"  ⓐ(index.html)",
+      "1.5 ← html stroke-width=\"1.5\"  ⓐ(index.html)"
+    ],
+    "lineWidthsInteractive": [
+      "1 ← outline: 1px solid var(--lime)  ⓐ.flake.is-aligned::before,\n.flake:has(.plate:hover)::before（这一级来自交互态：静态首屏看不到，但键盘聚焦/悬停时用户会看到）"
+    ],
     "h1Size": "clamp(56px, 7.2vw, 96px)",
+    "h1SizeWhy": "裸 h1 规则 `h1` 声明 clamp(56px, 7.2vw, 96px)（桌面 1440px 口径）",
+    "bodySize": "16px",
+    "bodySizeWhy": "裸 body 规则 `body` 声明 16px（桌面 1440px 口径）",
+    "h1SizeAt1440": 96,
     "mechanism": "",
     "charBudget": 205
   },
@@ -1119,8 +1614,47 @@
       "drops": 0,
       "samples": []
     },
-    "lineWidths": "0.4px、0.6px、0.8px、1px、2px、2.5px",
+    "lineWidths": "0.4px、0.6px、0.8px、1px、1.2px、2px、2.5px、3.2px",
+    "lineWidthsWhy": [
+      "2 ← outline: 2px solid var(--ink)（交互态）  ⓐa:focus-visible,button:focus-visible",
+      "1 ← stroke-width: 1  ⓐ.start .sx",
+      "2.5 ← stroke-width: 2.5  ⓐ.start .sm",
+      "1 ← stroke-width: 1  ⓐ.start .sb",
+      "1 ← stroke-width: 1  ⓐ.start .snode",
+      "1 ← stroke-width: 1  ⓐ.fork__axis path",
+      "2.5 ← stroke-width: 2.5  ⓐ.vein .vm",
+      "1 ← stroke-width: 1  ⓐ.vein .vb",
+      "0.6 ← stroke-width: 0.6  ⓐ.vein .vc",
+      "0.4 ← stroke-width: 0.4  ⓐ.vein .vd",
+      "2.5 ← stroke-width: 2.5  ⓐ.stub path",
+      "1 ← stroke-width: 1  ⓐ.stub path.twig",
+      "1 ← stroke-width: 1  ⓐ.node .spore",
+      "0.8 ← stroke-width: 0.8  ⓐ.node .fibre",
+      "1.2 ← stroke-width: 1.2  ⓐ.node .halo",
+      "2.5 ← stroke-width: 2.5  ⓐ.leaf .vm",
+      "1 ← stroke-width: 1  ⓐ.leaf .vb",
+      "0.6 ← stroke-width: 0.6  ⓐ.leaf .vc",
+      "1 ← border: 1px solid var(--paper)  ⓐ.leaf__pick",
+      "1 ← stroke-width: 1  ⓐ.icon",
+      "1 ← border-bottom: 1px solid var(--paper-4)  ⓐ.breaks__table th,.breaks__table td",
+      "1 ← border-bottom: 1px solid var(--exp8)  ⓐ.foot__table th,.foot__table td",
+      "1 ← stroke-width: 1  ⓐ.veinmap path",
+      "2.5 ← stroke-width: 2.5  ⓐ.veinmap .on",
+      "1 ← html stroke-width=\"1\"  ⓐ(index.html)",
+      "1 ← html stroke-width=\"1\"  ⓐ(index.html)",
+      "1 ← html stroke-width=\"1\"  ⓐ(index.html)",
+      "3.2 ← html stroke-width=\"3.2\"  ⓐ(index.html)",
+      "1.2 ← html stroke-width=\"1.2\"  ⓐ(index.html)",
+      "2 ← html stroke-width=\"2\"  ⓐ(index.html)"
+    ],
+    "lineWidthsInteractive": [
+      "2 ← outline: 2px solid var(--ink)  ⓐa:focus-visible,button:focus-visible（这一级来自交互态：静态首屏看不到，但键盘聚焦/悬停时用户会看到）"
+    ],
     "h1Size": "clamp(36px,5.3vw,76px)",
+    "h1SizeWhy": "裸 h1 规则 `h1` 声明 clamp(36px,5.3vw,76px)（桌面 1440px 口径）",
+    "bodySize": "16px",
+    "bodySizeWhy": "裸 body 规则 `body` 声明 16px（桌面 1440px 口径）",
+    "h1SizeAt1440": 76,
     "mechanism": "",
     "charBudget": 187
   },
@@ -1165,8 +1699,30 @@
       "drops": 0,
       "samples": []
     },
-    "lineWidths": "3px",
+    "lineWidths": "1px、1.2px、2px、3px",
+    "lineWidthsWhy": [
+      "3 ← outline: 3px solid var(--spot-b)（交互态）  ⓐ:focus-visible",
+      "1.2 ← html stroke-width=\"1.2\"  ⓐ(index.html)",
+      "1.2 ← html stroke-width=\"1.2\"  ⓐ(index.html)",
+      "2 ← html stroke-width=\"2\"  ⓐ(index.html)",
+      "2 ← html stroke-width=\"2\"  ⓐ(index.html)",
+      "2 ← html stroke-width=\"2\"  ⓐ(index.html)",
+      "2 ← html stroke-width=\"2\"  ⓐ(index.html)",
+      "2 ← html stroke-width=\"2\"  ⓐ(index.html)",
+      "2 ← html stroke-width=\"2\"  ⓐ(index.html)",
+      "2 ← html stroke-width=\"2\"  ⓐ(index.html)",
+      "2 ← html stroke-width=\"2\"  ⓐ(index.html)",
+      "1 ← html stroke-width=\"1\"  ⓐ(index.html)",
+      "1 ← html stroke-width=\"1\"  ⓐ(index.html)"
+    ],
+    "lineWidthsInteractive": [
+      "3 ← outline: 3px solid var(--spot-b)  ⓐ:focus-visible（这一级来自交互态：静态首屏看不到，但键盘聚焦/悬停时用户会看到）"
+    ],
     "h1Size": "68px",
+    "h1SizeWhy": "裸 h1 规则 `h1` 声明 68px（桌面 1440px 口径）",
+    "bodySize": "16px",
+    "bodySizeWhy": "裸 body 规则 `body` 声明 16px（桌面 1440px 口径）",
+    "h1SizeAt1440": 68,
     "mechanism": "",
     "charBudget": 168
   },
@@ -1210,7 +1766,20 @@
       "samples": []
     },
     "lineWidths": "2px、8px",
+    "lineWidthsWhy": [
+      "2 ← outline: 2px solid var(--blue)（交互态）  ⓐa:focus-visible,button:focus-visible",
+      "2 ← border-bottom: 2px solid rgba(18,18,18,.26)  ⓐ.tbl th,.tbl td",
+      "2 ← border-bottom: 2px solid var(--ink)  ⓐ.tbl__sum th,.tbl__sum td",
+      "8 ← border-top: 8px solid var(--ink)  ⓐ.foot__grid"
+    ],
+    "lineWidthsInteractive": [
+      "2 ← outline: 2px solid var(--blue)  ⓐa:focus-visible,button:focus-visible（这一级来自交互态：静态首屏看不到，但键盘聚焦/悬停时用户会看到）"
+    ],
     "h1Size": "clamp(44px,5.6vw,80px)",
+    "h1SizeWhy": "裸 h1 规则 `h1` 声明 clamp(44px,5.6vw,80px)（桌面 1440px 口径）",
+    "bodySize": "17px",
+    "bodySizeWhy": "裸 body 规则 `body` 声明 17px（桌面 1440px 口径）",
+    "h1SizeAt1440": 80,
     "mechanism": "",
     "charBudget": 175
   },
@@ -1257,8 +1826,37 @@
       "drops": 1,
       "samples": []
     },
-    "lineWidths": "1.2px、2.4px、3px",
+    "lineWidths": "0.8px、1.6px、1.8px、3px、3.6px",
+    "lineWidthsWhy": [
+      "1.8 ← border-left: var(--mis) solid var(--green)  ⓐ.hb--fault",
+      "1.8 ← border-bottom: var(--mis) solid var(--green)  ⓐ.claim b",
+      "1.8 ← border: var(--mis) solid var(--green)  ⓐ.act__sign::before",
+      "3 ← stroke-width: 3  ⓐ.seal .ring",
+      "1.6 ← stroke-width: 1.6  ⓐ.seal .core",
+      "1.8 ← border: var(--mis) solid rgba(34, 28, 16, 0.34)  ⓐ.schedule th, .schedule td",
+      "3.6 ← border-left: calc(var(--mis) * 2) solid var(--white)  ⓐ.fault__line",
+      "3.6 ← border-left: calc(var(--mis) * 2) solid var(--green)  ⓐ.packet",
+      "1.8 ← border: var(--mis) solid var(--green)  ⓐ.plate__frame::before",
+      "1.6 ← html stroke-width=\"1.6\"  ⓐ(index.html)",
+      "1.6 ← html stroke-width=\"1.6\"  ⓐ(index.html)",
+      "1.6 ← html stroke-width=\"1.6\"  ⓐ(index.html)",
+      "0.8 ← html stroke-width=\".8\"  ⓐ(index.html)",
+      "0.8 ← html stroke-width=\".8\"  ⓐ(index.html)",
+      "0.8 ← html stroke-width=\".8\"  ⓐ(index.html)",
+      "0.8 ← html stroke-width=\".8\"  ⓐ(index.html)",
+      "0.8 ← html stroke-width=\".8\"  ⓐ(index.html)",
+      "0.8 ← html stroke-width=\".8\"  ⓐ(index.html)",
+      "0.8 ← html stroke-width=\".8\"  ⓐ(index.html)",
+      "0.8 ← html stroke-width=\".8\"  ⓐ(index.html)",
+      "0.8 ← html stroke-width=\".8\"  ⓐ(index.html)",
+      "0.8 ← html stroke-width=\".8\"  ⓐ(index.html)"
+    ],
+    "lineWidthsInteractive": [],
     "h1Size": "clamp(40px, 6vw, 86px)",
+    "h1SizeWhy": "裸 h1 规则 `h1` 声明 clamp(40px, 6vw, 86px)（桌面 1440px 口径）",
+    "bodySize": "16px",
+    "bodySizeWhy": "裸 body 规则 `body` 声明 16px（桌面 1440px 口径）",
+    "h1SizeAt1440": 86,
     "mechanism": "",
     "charBudget": 164
   },
@@ -1304,8 +1902,25 @@
       "drops": 3,
       "samples": []
     },
-    "lineWidths": "2px、8px",
+    "lineWidths": "1.2px、2px、8px",
+    "lineWidthsWhy": [
+      "2 ← border: 2px solid var(--paper)  ⓐ.btn--ghost",
+      "2 ← border-bottom: 2px solid var(--plum)  ⓐ.claim b",
+      "2 ← border: 2px solid rgba(11, 13, 18, 0.4)  ⓐ.tbl th, .tbl td",
+      "8 ← border-left: 8px solid var(--paper)  ⓐ.fault",
+      "2 ← border: 2px solid var(--plum)  ⓐ.inp",
+      "8 ← border-left: 8px solid var(--plum)  ⓐ.packet",
+      "1.2 ← html stroke-width=\"1.2\"  ⓐ(index.html)",
+      "1.2 ← html stroke-width=\"1.2\"  ⓐ(index.html)",
+      "1.2 ← html stroke-width=\"1.2\"  ⓐ(index.html)",
+      "1.2 ← html stroke-width=\"1.2\"  ⓐ(index.html)"
+    ],
+    "lineWidthsInteractive": [],
     "h1Size": "clamp(40px, 6.4vw, 92px)",
+    "h1SizeWhy": "裸 h1 规则 `h1` 声明 clamp(40px, 6.4vw, 92px)（桌面 1440px 口径）",
+    "bodySize": "16px",
+    "bodySizeWhy": "裸 body 规则 `body` 声明 16px（桌面 1440px 口径）",
+    "h1SizeAt1440": 92,
     "mechanism": "",
     "charBudget": 151
   },
@@ -1349,8 +1964,31 @@
       "drops": 0,
       "samples": []
     },
-    "lineWidths": "0.4px、0.6px、1px、2px、3px、6px",
+    "lineWidths": "0.4px、0.6px、1px、1.2px、2px、3px、6px",
+    "lineWidthsWhy": [
+      "2 ← outline: 2px solid var(--amber)（交互态）  ⓐa:focus-visible,button:focus-visible,input:focus-visible",
+      "6 ← border-top: 6px solid var(--amber)  ⓐ.panel__t",
+      "1 ← border-top: 1px solid var(--ink)  ⓐ.spec thead th",
+      "1 ← border-bottom: 1px solid var(--ink)  ⓐ.spec thead th",
+      "1 ← border-top: 1px dashed var(--gray)  ⓐ.spec tbody tr",
+      "0.4 ← stroke-width: 0.4  ⓐ.diag .axle path",
+      "0.6 ← stroke-width: 0.6  ⓐ.diag .pc,.diag .pl",
+      "1.2 ← stroke-width: 1.2（交互态）  ⓐ.pt:hover .pc,.pt:hover .pl,.pt.hot .pc,.pt.hot .pl",
+      "3 ← border-bottom: 3px solid var(--gray)  ⓐ.records__form input",
+      "3 ← border-left: 3px solid var(--amber)  ⓐ.records__empty",
+      "3 ← border-left: 3px solid var(--gray)  ⓐ.spec-list li",
+      "3 ← border-left: 3px solid var(--paper)  ⓐ.quirk",
+      "3 ← border-left: 3px solid var(--paper)  ⓐ.foot__notes li"
+    ],
+    "lineWidthsInteractive": [
+      "2 ← outline: 2px solid var(--amber)  ⓐa:focus-visible,button:focus-visible,input:focus-visible（这一级来自交互态：静态首屏看不到，但键盘聚焦/悬停时用户会看到）",
+      "1.2 ← stroke-width: 1.2  ⓐ.pt:hover .pc,.pt:hover .pl,.pt.hot .pc,.pt.hot .pl（这一级来自交互态：静态首屏看不到，但键盘聚焦/悬停时用户会看到）"
+    ],
     "h1Size": "clamp(40px,5.2vw,75px)",
+    "h1SizeWhy": "裸 h1 规则 `h1` 声明 clamp(40px,5.2vw,75px)（桌面 1440px 口径）",
+    "bodySize": "16px",
+    "bodySizeWhy": "裸 body 规则 `body` 声明 16px（桌面 1440px 口径）",
+    "h1SizeAt1440": 74.9,
     "mechanism": "",
     "charBudget": 173
   },
@@ -1396,8 +2034,35 @@
       "drops": 4,
       "samples": []
     },
-    "lineWidths": "1px、3px、6px、8px",
+    "lineWidths": "1px、1.6px、2px、3px、6px、8px",
+    "lineWidthsWhy": [
+      "6 ← border-left: 6px solid var(--ink)  ⓐ.fault__line",
+      "6 ← border-left: 6px solid var(--ink)  ⓐ.fault .btn",
+      "6 ← border-left: 6px solid var(--green)  ⓐ.packet",
+      "3 ← border-bottom: 3px solid var(--ink)  ⓐ.sticker",
+      "3 ← outline: 3px solid var(--green)（交互态）  ⓐ.sticker:focus-visible",
+      "3 ← border-bottom: 3px solid var(--ink)  ⓐ.tear__strip",
+      "1 ← border-left: 1px solid var(--ink)  ⓐ.tear__curl",
+      "1 ← border-top: 1px solid var(--ink)  ⓐ.tear__curl",
+      "3 ← border-bottom: 3px solid var(--ink)  ⓐ.sw__chip--paper",
+      "1 ← border: 1px solid rgba(20, 20, 20, 0.3)  ⓐ.bt th, .bt td",
+      "6 ← border-top: 6px solid var(--green)  ⓐ.degrade",
+      "8 ← border-bottom: 8px solid var(--green)  ⓐ.motion::after, .replay::after",
+      "6 ← border-left: 6px solid var(--deco)  ⓐ.empty",
+      "6 ← border-left: 6px solid var(--green)  ⓐ.empty__meta",
+      "1.6 ← html stroke-width=\"1.6\"  ⓐ(index.html)",
+      "1.6 ← html stroke-width=\"1.6\"  ⓐ(index.html)",
+      "1.6 ← html stroke-width=\"1.6\"  ⓐ(index.html)",
+      "2 ← html stroke-width=\"2\"  ⓐ(index.html)"
+    ],
+    "lineWidthsInteractive": [
+      "3 ← outline: 3px solid var(--green)  ⓐ.sticker:focus-visible（这一级来自交互态：静态首屏看不到，但键盘聚焦/悬停时用户会看到）"
+    ],
     "h1Size": "76px",
+    "h1SizeWhy": "裸 h1 规则 `h1` 声明 76px（桌面 1440px 口径）",
+    "bodySize": "16px",
+    "bodySizeWhy": "裸 body 规则 `body` 声明 16px（桌面 1440px 口径）",
+    "h1SizeAt1440": 76,
     "mechanism": "",
     "charBudget": 172
   }

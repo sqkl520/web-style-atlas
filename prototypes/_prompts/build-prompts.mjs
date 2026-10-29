@@ -306,6 +306,18 @@ for (const d of dna) {
       shadow: d.shadow,
       lineWidths: d.lineWidths,
       h1Size: d.h1Size,
+      /* 正文字号 + clamp 在 1440 视口的实际落值（2026-10-30 新增）。
+       *
+       * 为什么不能只给 h1Size：28/30 案的 h1Size 是 `clamp(46px, 6vw, 88px)` 形式，
+       * 而 **clamp 的第一个数是下限、不是桌面实际值**。1440 视口下 6vw = 86.4px，
+       * 撞到上限 88px。直接抓第一个数会得到 46px —— 比实际低 48%。
+       *
+       * 2026-10-30 第一版就是这么错的：EXEC-A 用探针实测 25/30 案的提示词数字
+       * 偏低 36–60%，而且方向与修复目标相反（本意是让 AI 把标题做大，结果给了下限）。
+       * 现在 clean-dna 直接算好 1440 下的落值，prompt-copy 不再自己解析 clamp。
+       */
+      bodySize: d.bodySize,
+      h1SizeAt1440: d.h1SizeAt1440,
       mechanism: d.mechanism,
       degrades: degrades,
       /* 逐案「最容易做成什么样 + 怎么避开」——5761 字里最该给 AI 看的部分。
