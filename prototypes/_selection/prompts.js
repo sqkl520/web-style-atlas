@@ -400,7 +400,7 @@ window.STYLE_PROMPTS = {
     "minPics": 6
    },
    "dna": {
-    "palette": "#EFE7D7（paper）、#C1121F（red）、#1A1614（ink）、#6E6A5E（lead）",
+    "palette": "#C1121F（red）、#EFE7D7（paper）、#1A1614（ink）、#6E6A5E（lead）",
     "fonts": {
      "display": "Noto Sans SC",
      "body": "Noto Sans SC",
@@ -915,7 +915,7 @@ window.STYLE_PROMPTS = {
     "minPics": 6
    },
    "dna": {
-    "palette": "#B5D626（lime）、#1E2A2E（room）、#26353A（room-2）、#182226（room-3）、#E23E57（magenta）、#F2E9D8（face）、#111111（btn-ink）",
+    "palette": "#B5D626（lime）、#1E2A2E（room）、#E23E57（magenta）、#F2E9D8（face）、#26353A（room-2）、#182226（room-3）、#111111（btn-ink）",
     "fonts": {
      "display": "Bricolage Grotesque",
      "body": "Glow Sans SC",
@@ -1147,7 +1147,7 @@ window.STYLE_PROMPTS = {
     "minPics": 5
    },
    "dna": {
-    "palette": "#E1D6BD（paper）、#C9BFA6（stub）、#5A2A50（ink）、#3F1A38（ink-deep）、#7A2E2E（seal）、#B9A98C（rule）、#DFD6BF（tone-hover）",
+    "palette": "#E1D6BD（paper）、#5A2A50（ink）、#7A2E2E（seal）、#C9BFA6（stub）、#3F1A38（ink-deep）、#B9A98C（rule）、#DFD6BF（tone-hover）",
     "fonts": {
      "display": "Literata",
      "body": "文津宋体",
@@ -1195,7 +1195,7 @@ window.STYLE_PROMPTS = {
     "minPics": 6
    },
    "dna": {
-    "palette": "#0A0D0A（bay）、#2FA84F（phos）、#278F43（phos-deep）、#C8C4AE（paper）、#6E6350（tag）、#111111（ink）",
+    "palette": "#0A0D0A（bay）、#2FA84F（phos）、#C8C4AE（paper）、#6E6350（tag）、#278F43（phos-deep）、#111111（ink）",
     "fonts": {
      "display": "Glow Sans SC",
      "body": "Glow Sans SC",
@@ -1246,7 +1246,7 @@ window.STYLE_PROMPTS = {
     "minPics": 6
    },
    "dna": {
-    "palette": "#4A5C3A（green）、#E4DECD（paper）、#D8CFB6（paper-deep）、#E9E3D2（paper-lit）、#2A241C（wood）、#3A3227（wood-lit）、#7C7460（faded）",
+    "palette": "#4A5C3A（green）、#E4DECD（paper）、#2A241C（wood）、#7C7460（faded）、#D8CFB6（paper-deep）、#E9E3D2（paper-lit）、#3A3227（wood-lit）",
     "fonts": {
      "display": "Noto Serif SC",
      "body": "Noto Serif SC",
@@ -1478,7 +1478,7 @@ window.STYLE_PROMPTS = {
     "minPics": 6
    },
    "dna": {
-    "palette": "#5D43AD（grape）、#E6EDF2（paper）、#F3F8FB（paper-2）、#DCE7EF（paper-3）、#C9D8E4（paper-4）、#0A1116（ink）、#3A4652（ink-2）",
+    "palette": "#5D43AD（grape）、#E6EDF2（paper）、#0A1116（ink）、#6E8B7A（moss）、#F3F8FB（paper-2）、#DCE7EF（paper-3）、#C9D8E4（paper-4）",
     "fonts": {
      "display": "Spectral",
      "body": "LXGW WenKai",
@@ -1527,7 +1527,7 @@ window.STYLE_PROMPTS = {
     "minPics": 5
    },
    "dna": {
-    "palette": "#E8E4DE（paper）、#DFDAD2（paper-deep）、#1E1A16（ink）、#914A27（spot-a）、#2E6B5E（spot-b）、#FFFFFF（paper-white）",
+    "palette": "#E8E4DE（paper）、#914A27（spot-a）、#1E1A16（ink）、#2E6B5E（spot-b）、#DFDAD2（paper-deep）、#FFFFFF（paper-white）",
     "fonts": {
      "display": "Besley",
      "body": "Noto Serif SC",
@@ -1759,7 +1759,7 @@ window.STYLE_PROMPTS = {
     "minPics": 6
    },
    "dna": {
-    "palette": "#007B3F（green）、#EDEDED（paper）、#E6E6E6（paper-low）、#00E676（deco）、#141414（ink）、#FFFFFF（white）",
+    "palette": "#007B3F（green）、#EDEDED（paper）、#141414（ink）、#E6E6E6（paper-low）、#00E676（deco）、#FFFFFF（white）",
     "fonts": {
      "display": "Anton",
      "body": "Zhuque Fangsong",

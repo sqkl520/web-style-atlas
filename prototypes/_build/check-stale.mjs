@@ -100,6 +100,25 @@ export function findStale() {
    */
   const CHAIN = [
     {
+      /* 规格文件：链条最上游，也是**唯一完全没有守卫**的生成物（2026-10-30 补）。
+       *
+       * `extract-specs.mjs` 从 `deliverables/05-schemes-*.md` 切出 30 份规格，
+       * 而所有下游（data.js 的 palette / prompts.js 的色板与字号）都以规格为权威。
+       * 规格陈旧 = 用户看到和拿到的全部基于过时数据，且没有一处会报警。
+       *
+       * 输入用 05 号源文件；如果它不存在（比如 clone 后没跑过），本条自动跳过。 */
+      product: '_specs/S01.md',
+      inputs: () => {
+        /* `P` = `prototypes/`，所以仓库根是它的上一级。这里不能假设有个 ROOT 变量。 */
+        const repoRoot = join(P, '..');
+        return ['04-schemes-01-10.md', '05-schemes-11-20.md', '05-schemes-21-30.md']
+          .map((f) => join(repoRoot, 'deliverables', f))
+          .filter((f) => existsSync(f));
+      },
+      hint: 'node prototypes/_build/extract-specs.mjs',
+      label: '规格链·_specs',
+    },
+    {
       /* ⚠️ 路径全部相对于 `P`（= `prototypes/`），**不要**再带 `prototypes/` 前缀。
        * 2026-10-30 第一版写了 'prototypes/_prompts/dna-raw.json'，join(P, ...) 之后
        * 变成 prototypes/prototypes/_prompts/... → existsSync 恒 false → 守卫静默失效。
@@ -130,7 +149,16 @@ export function findStale() {
     for (const f of link.inputs()) {
       if (!existsSync(f)) continue;
       const m = statSync(f).mtimeMs;
-      if (m > newest) { newest = m; which = f.replace(/\\/g, '/').split('/prototypes/')[1] || f; }
+      if (m > newest) {
+        newest = m;
+        /* 显示用路径：优先截成 `prototypes/` 之后的部分（原型链的输入都在那下面）；
+         * 规格链的输入在仓库根的 `deliverables/` 下，那条 `split` 命中不了，
+         * 原来会回退成完整绝对路径（`D:\Web\style\deliverables\...`），读起来很吵。 */
+        const norm = f.replace(/\\/g, '/');
+        const afterProto = norm.split('/prototypes/')[1];
+        which = afterProto || norm.split('/deliverables/').pop() || norm;
+        if (!afterProto && norm.includes('/deliverables/')) which = 'deliverables/' + which;
+      }
     }
     if (!which) continue;
     const gapMin = (newest - prodM) / 60000;

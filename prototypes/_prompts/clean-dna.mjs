@@ -26,7 +26,7 @@
  *      → pickPalette() 先认主色（注释含主色/强调、变量名含 primary/accent/green/grape），
  *        再按声明顺序补足，上限放宽到 7。宁可多给两个色，不能让主色丢。
  */
-import { readFileSync, writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
 
 /* 仓库根：从脚本自身位置推导，不再硬编码。
@@ -999,7 +999,7 @@ function bodySizeVerdict(cleanCss, vars) {
  * 新算法：主色先入列（注释/变量名两个判据），再按声明顺序补足，上限 7 个。
  * 7 而不是 5 是权衡结果：7 个色还在 AI 能守住的范围里，而丢主色的代价是整页风格失效。
  */
-function pickPalette(decls, rowColors, rawCss) {
+function pickPalette(decls, rowColors, rawCss, specCtx) {
   const MAX = 7;
   const rootHexes = rowColors.map(function (c) { return c.hex.toUpperCase(); });
   const primary = [];
@@ -1043,6 +1043,62 @@ function pickPalette(decls, rowColors, rawCss) {
     const c = rowColors.find(function (x) { return x.hex.toUpperCase() === hex; });
     if (c) push(c);
   }
+
+  /* 规格字段 3 声明的色优先补进来（2026-10-30 新增）。
+   *
+   * 为什么需要：原实现纯按 `:root` 声明顺序取前 MAX 个，**完全不知道规格写了什么**。
+   * S24 是最直接的受害者：它的 `:root` 有 15 个色，`#6E8B7A`（--moss，苔绿）排在第 8 位，
+   * `#3C5F48`（--moss-2）第 9 位 —— 两个都被 MAX=7 截掉。
+   * 而规格 `_specs/S24.md` 字段 3 明写「辅助色 `#6E8B7A` 苔绿 6%」，页面用它画了
+   * 80 个元素的描边（`svg-stroke`）。
+   *
+   * 这是唯一一个「规格有、data.js 有、prompts.js 没有」的色，
+   * 也是 `data.js ⊆ prompts.js` 这条关系在 30 案里唯一不成立的案（29/30）。
+   *
+   * 判据：把规格字段 3 里**带面积百分比的角色声明色**抽出来，只要它在 `:root` 里
+   * 真实存在（`rowColors` 有它），就优先于「按声明顺序补位」。
+   * 不新增色、不猜色 —— 只是让「规格明确写了的」排在「:root 里恰好在前面」之前。
+   */
+  const specDeclared = (function () {
+    if (!specCtx || !specCtx.dir || !specCtx.id) return [];
+    const p = join(P, specCtx.dir, "..", "_specs", specCtx.id + ".md");
+    if (!existsSync(p)) return [];
+    const md = readFileSync(p, "utf8");
+    const lines = md.split(/\r?\n/);
+    const i = lines.findIndex(function (l) { return /配色系统/.test(l); });
+    if (i < 0) return [];
+    const buf = [lines[i]];
+    for (let j = i + 1; j < lines.length; j++) {
+      if (/^\*{0,2}4[\.．]?\s/.test(lines[j].trim())) break;
+      buf.push(lines[j]);
+    }
+    const text = buf.join("\n");
+    const out = [];
+    /* 只收「带 NN% 的段、且 hex 在段首 40 字符内」的声明 —— 与 data.js 侧
+     * `collect-schemes.mjs` 抽 fromSpec 的口径一致，避免把「反的是 #6366F1」
+     * 这类否定示例算进来。 */
+    for (const seg of text.split(/[；。]/)) {
+      if (!/\d(?:\.\d)?\s*%/.test(seg)) continue;
+      const m = seg.match(/#([0-9A-Fa-f]{6})(?![0-9A-Fa-f])/);
+      if (!m) continue;
+      if (seg.indexOf(m[0]) > 40) continue;
+      out.push(m[0].toUpperCase());
+    }
+    return [...new Set(out)];
+  })();
+  for (const hex of specDeclared) {
+    if (chosen.length >= MAX) break;
+    const c = rowColors.find(function (x) { return x.hex.toUpperCase() === hex; });
+    if (c) push(c);
+  }
+
+  /* 规格色补完之后，如果还有余位，才按 `:root` 声明顺序补"规格没写但实现用了"的派生色。
+   *
+   * ⚠️ 顺序不能反。2026-10-30 第一版把这段放在主色循环之后、规格循环之前，
+   * 结果 S24 的 `:root` 前 7 位（`#E6EDF2` `#F3F8FB` `#DCE7EF` `#C9D8E4` `#0A1116` `#3A4652`）
+   * 把位占满，规格明写的 `#6E8B7A` 依然进不来 —— 改了个寂寞。
+   * 正确语义是：**规格声明的色有优先占位权**，派生色只在有余位时补。
+   */
   for (const c of rowColors) {
     if (chosen.length >= MAX) break;
     push(c);
@@ -1156,7 +1212,7 @@ for (const r of raw.rows) {
     })(),
   };
 
-  const pal = pickPalette(decls, r.colors, rawCss);
+  const pal = pickPalette(decls, r.colors, rawCss, { dir: r.dir, id: r.id });
   let palette = pal.list.map(function (c) { return c.hex + " " + c.name; });
 
   /* 兜底（S14 专用）：S14 一个 :root 都没有（实测 `Select-String ':root'` 零命中），
