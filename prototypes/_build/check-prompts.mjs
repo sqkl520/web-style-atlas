@@ -140,6 +140,21 @@ function cssColors(css) {
  *   ③ `stroke-width` 的 CSS 写法 → S27 的 3px / 1.6px
  *   ④ HTML 属性与 JS 计算值 → S03 的 1.2px / 1.5px
  * 漏掉一个就会指着正确的数据说它错。这个教训值得写在这里。
+ *
+ * ⚠️ 另有一条更根本的口径事实（EXEC-B 指出，我实测确认）：
+ * **不要用「渲染实测」来验收 border 线宽，物理上对不上。**
+ * Chrome 在 dpr=1 下把 `border-width` 量化成 `max(1, floor(w))`，不是四舍五入：
+ *
+ *   声明 0.35/0.4/0.5/0.6/0.8/1.1/1.2/1.25/1.4/1.5/1.6/1.7 → computed 全是 1px
+ *   声明 2.4/2.5 → 2px    3.2/3.5/3.6 → 3px    5.5 → 5px    14.5 → 14px
+ *   `stroke-width` 则**完全不量化**（28/28 原样）
+ *
+ * 实测（`deliverables/70-plan/LEAD-test-quantization.mjs`，28 档）：
+ *   border: floor 吻合 28/28，round 吻合 20/28
+ * 所以「提示词声称的值必须能在渲染里 ±0.05 找到」这个判据对 border 是错的。
+ * **本闸门因此只做「源码对账」——读 `style.css` / `index.html` 的字面声明，
+ * 不读 `getComputedStyle`。** 源码里写的是设计意图，那才是提示词该复述的东西；
+ * 浏览器渲染成 1px 是实现细节。
  */
 function cssLineWidths(css) {
   const clean = stripCssComments(css);
@@ -261,16 +276,46 @@ for (const d of DIRS) {
     }
   }
 
-  /* ── 3. 色值数量：提示词全文的 hex 数 vs 配色段声明的数量 ──────────────
-   * 这条抓的是「提示词的否定句里出现禁色」——批判 Agent 实测：
-   * 30/30 提示词全文 hex 数 = palette + 1（多出的是「反的是 #6366F1」那句）。
-   * 禁色被点名，按 Semantic Gravity Wells（n=40,000）会提高 87.5% 的违规率。
+  /* ── 3. 配色段之外的 hex：只对**否定语境**报警 ────────────────────────
+   *
+   * 这条抓的是「提示词的否定句里点名禁色」。批判 Agent + 检索 Agent 都指出：
+   * Semantic Gravity Wells（arXiv 2601.08070, n=40,000）实测 87.5% 的违规发生在
+   * 「明确点名被禁词」时——「不要用 #6366F1」会**提高** AI 使用它的概率。
+   *
+   * 2026-10-30 首版对**所有**段外 hex 报警，30/30 全中；EXEC-B 把 8 条禁令改写成
+   * 正向处方后降到 1 条（S25）。而 S25 那条是技术说明不是否定句：
+   *
+   *   「第三色由运行时的 mix-blend-mode: multiply 在两版相压处真算（构建期不固色），
+   *     实测 #181C0D」
+   *
+   * 这是在描述**一个必须存在的派生色**，删掉它 AI 就不知道要用 multiply 真算而不是
+   * 用 opacity 假装叠印。误报。
+   *
+   * 所以判据收紧为：只对「出现在否定词附近的 hex」报警。否定词取实际用到的那些，
+   * 不含「实测 / 真算 / 由…算」这类技术说明语境。
    */
   const allHex = hexes(text);
   const palHexOnly = palLine ? hexes(palLine[1]) : [];
   const extra = allHex.filter((h) => !palHexOnly.includes(h));
-  if (extra.length) {
-    add('WARN', id, 'hex-outside-palette-line', `配色段之外还出现 ${extra.length} 个 hex: ${extra.join(' ')}（若是「反的是 X」这类否定句，按实证研究应改写为正向约束）`);
+  const NEG_RE = /(不要|禁止|避免|不得|反的是|不允许|别用|勿用|拒绝|规避)/;
+  const suspicious = extra.filter((h) => {
+    // 取该 hex 在全文里的每一处上下文，只要有任意一处落在否定语境附近就报
+    let idx = -1;
+    while ((idx = text.indexOf(h, idx + 1)) >= 0) {
+      const win = text.slice(Math.max(0, idx - 40), idx + h.length + 40);
+      if (NEG_RE.test(win)) return true;
+    }
+    return false;
+  });
+  if (suspicious.length) {
+    add('WARN', id, 'hex-in-negative-context',
+      `配色段之外有 ${suspicious.length} 个 hex 出现在否定语境里: ${suspicious.join(' ')}（按 arXiv 2601.08070 实测，点名禁词会提高 87.5% 的违规率 → 改写成正向处方）`);
+  }
+  // 段外但属技术说明的，单独记一条低优先提示，不计入 WARN 数
+  const benign = extra.filter((h) => !suspicious.includes(h));
+  if (benign.length) {
+    add('INFO', id, 'hex-outside-palette-line',
+      `配色段之外还有 ${benign.length} 个 hex，均为技术说明（派生色/混合结果），不是否定句: ${benign.join(' ')}`);
   }
 
   /* ── 4. 字号：提示词是否给了任何排版尺度信息 ──────────────────────────
@@ -380,7 +425,9 @@ if (JSON_OUT) {
     for (const [k, list] of [...byRule.entries()].sort()) {
       const [level, rule] = k.split('|');
       if (QUIET && level !== 'FAIL') continue;
-      console.log(`${level === 'FAIL' ? '✗' : '~'} [${rule}] ${list.length} 条`);
+      // INFO 是「记一笔但不要求动作」，只在非 quiet 模式显示，用 · 标记
+      const mark = level === 'FAIL' ? '✗' : level === 'WARN' ? '~' : '·';
+      console.log(`${mark} [${rule}] ${list.length} 条${level === 'INFO' ? '（信息，不需动作）' : ''}`);
       for (const f of list.slice(0, QUIET ? 3 : 40)) {
         console.log(`    ${f.id}  ${f.msg}`);
       }
