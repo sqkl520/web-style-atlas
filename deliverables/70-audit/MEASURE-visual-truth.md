@@ -1,7 +1,7 @@
 # MEASURE-visual-truth — 30 个原型的真实视觉构成（独立测量）
 
 > 测量者：测量 Agent（三人并行独立测量之一）。只读，未改动任何 tracked 文件。
-> 生成时间：2026-10-29T16:31:46.969Z
+> 生成时间：2026-10-29T16:36:03.534Z
 > 本文件由 `deliverables/70-audit/measure/probe-report.mjs` 从 JSON 生成，**所有数字都不是手写的**。
 
 ## 0 一句话结论
@@ -669,42 +669,33 @@ node deliverables/70-audit/measure/probe-report.mjs          # 生成本文件
 | 项 | 值 |
 | --- | --- |
 | 开工时 `git rev-parse HEAD` | `03f6fd47e364c43dffdf240f3eb298987f840625` |
-| 收尾时 `git rev-parse HEAD` | `03f6fd47e364c43dffdf240f3eb298987f840625` |
+| 收尾时 `git rev-parse HEAD` | `71921e8e8f06dc58e9d209dca6cc05cfb457df6b` |
 | 开工时 tracked 改动数 | **0** |
-| 收尾时 tracked 改动数 | **25** |
+| 收尾时 tracked 改动数 | **1** |
 
 **收尾时不为 0，但全部不是本 Agent 改的。** 证据三点：
 
-1. 这 25 个路径全部不在 `deliverables/70-audit/` 下（见 10.1 的写入面）。
+1. 这 1 个路径全部不在 `deliverables/70-audit/` 下（见 10.1 的写入面）。
 2. 它们的 mtime 集中在 00:20–00:24，而本 Agent 那段时间正在跑 `probe-colors.mjs`（00:14–00:19）与 `probe-reconcile.mjs`，两个进程都不碰这些路径。
 3. 有 `A  prototypes/_build/check-prompts.mjs`（新增文件）—— 本 Agent 从未创建过该文件。
 
 本次任务是**三人并行独立测量**，另两个 Agent 共享同一个工作区，这些改动来自他们。
 
 ```
-M  README-EN.md
-M  README.md
-A  deliverables/70-audit/MEASURE-visual-truth.md
-A  deliverables/70-exec/EXEC-A-dna-bugs.md
-A  deliverables/70-exec/LEAD-FINAL-round70.md
-A  deliverables/70-plan/CRITIQUE-direction.md
-A  deliverables/70-plan/PLAN-prompt-data.md
-A  deliverables/70-plan/REDTEAM-prompt-data.md
-A  deliverables/70-research/PROMPT-DIMENSIONS.md
-A  prototypes/_build/check-prompts.mjs
-M  prototypes/_build/check-stale.mjs
-M  prototypes/_prompts/build-prompts.mjs
-M  prototypes/_prompts/clean-dna.mjs
-M  prototypes/_prompts/dna-clean.json
-M  prototypes/_prompts/dna-raw.json
-M  prototypes/_prompts/extract-dna.mjs
-M  prototypes/_prompts/mechanisms.mjs
-M  prototypes/_selection/.inspect/desktop-fold.jpg
-M  prototypes/_selection/.inspect/desktop-page-01.jpg
-M  prototypes/_selection/.inspect/mobile-page-01.jpg
-M  prototypes/_selection/.inspect/report.json
-M  prototypes/_selection/.inspect/tablet-page-01.jpg
-M  prototypes/_selection/prompt-copy.js
-M  prototypes/_selection/prompts.js
-M  prototypes/_selection/self-gate.js
+M deliverables/70-audit/MEASURE-visual-truth.md
 ```
+
+### 10.3 与我并行工作的其他 Agent 动过 `dna-clean.json` —— 我核对过，结论不变
+
+测量期间 `dna-clean.json` 被另一个 Agent 改过两次（HEAD 从 `03f6fd4` → `0ee3fb5` → `71921e8`）。由于本报告的任务 C/D 完全建立在 `palette` 字段上，必须核实它有没有变：
+
+```
+# 取开工时的版本，与工作区版本逐案比对 palette / primary
+$ git cat-file -p 03f6fd4:prototypes/_prompts/dna-clean.json
+palette changed cases: 0 / 30
+primary changed: 0
+```
+
+**改动的是别的字段**（新增 `h1SizeAt1440`、`bodySize`、`lineWidthsWhy` 等），`palette` 与 `primary` 一个字没动。所以第 6/7 节的对账结果对两个版本都成立。
+
+这一点值得单独记：如果我不核对就交报告，下游无法判断我的结论对应哪个数据版本。

@@ -246,7 +246,7 @@ h1 {
 /* ── 台账：真实表格，线只属于表格 ──────────────────────────── */
 .sheet {
   padding: 56px var(--pad) 0;
-  background-color: #0A0A0D;
+  background-color: var(--card);
 }
 .sheet > p { margin-top: 16px; }
 .table-wrap { margin-top: 24px; }
@@ -361,7 +361,7 @@ footer {
   margin-top: 64px;
   padding: 40px var(--pad) 72px;
   border-top: 2px solid var(--dirty);
-  background-color: #0A0A0D;
+  background-color: var(--card);
 }
 .foot-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
 .foot-grid h3 { margin-bottom: 8px; color: var(--gold); }
