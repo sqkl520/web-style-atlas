@@ -93,6 +93,38 @@ const asHexList = (v) => (Array.isArray(v) ? v : String(v || '').split(/[、,，
 const dM = new Map(SCHEMES.map((s) => [s.id, s]));
 const pM = new Map(PSP.map((s) => [s.id, s]));
 
+/* 从规格字段 3 解析「主色」——这是 R6 的权威来源。
+ *
+ * 为什么要切分句而不是取第一个 hex：字段 3 的写法是
+ *   「主色 `#4FA83D` 漆面绿＝主色与读数，18%；背景色 `#0E100D` 铁皮底，58%；…」
+ * 主色不一定排第一句。而且后面还有「反的是 `#6366F1` 靛蓝主色」这种**否定语境**，
+ * 直接找含「主色」的句子会抓到禁色。
+ *
+ * 批判 Agent 实测过：单纯调换正则顺序（A/B）会把正确率从 25/30 打到 16/30，
+ * 因为 B 会命中否定语境。分句法才是 30/30。
+ */
+const NEG_CTX = /(反的是|反\s|不采用|修正前|不是|禁止|不新增|旧值|避免|不用)/;
+function specPrimaryOf(id) {
+  const p = join(P, '_specs', id + '.md');
+  if (!existsSync(p)) return null;
+  const md = readFileSync(p, 'utf8');
+  const lines = md.split(/\r?\n/);
+  const i = lines.findIndex((l) => /配色系统/.test(l));
+  if (i < 0) return null;
+  const buf = [lines[i]];
+  for (let j = i + 1; j < lines.length; j++) {
+    if (/^\*{0,2}4[\.．]?\s/.test(lines[j].trim())) break;
+    buf.push(lines[j]);
+  }
+  for (const seg of buf.join('\n').split(/[；。\n]/)) {
+    if (!/主色/.test(seg)) continue;
+    if (NEG_CTX.test(seg)) continue;
+    const m = seg.match(/#([0-9a-fA-F]{6})(?![0-9a-fA-F])/);
+    if (m) return m[0].toUpperCase();
+  }
+  return null;
+}
+
 /* ── 检查 ──────────────────────────────────────────────────────────────── */
 const findings = [];
 const add = (level, id, rule, msg) => findings.push({ level, id, rule, msg });
@@ -100,9 +132,7 @@ const add = (level, id, rule, msg) => findings.push({ level, id, rule, msg });
 const stats = {
   cases: SCHEMES.length,
   subsetOk: 0,
-  p0Ok: 0,
-  p1Ok: 0,
-  mainOk: 0,
+  r6Ok: 0,
   extraWithRole: 0,
   extraWithoutRole: 0,
   fail: 0,
@@ -128,26 +158,60 @@ for (const id of [...dM.keys()].sort()) {
       `（提示词漏了这些色，AI 就不知道页面要用它们）`);
   } else stats.subsetOk++;
 
-  /* R2: palette[0] === bg */
-  const bg = String(sc.bg || '').toUpperCase();
-  if (dPal[0] && bg && dPal[0] !== bg) {
-    add('FAIL', id, 'R2-p0-not-bg', `palette[0]=${dPal[0]} 但 bg=${bg}（app.js:953 的「底色」标签会标错）`);
-  } else if (dPal[0] && bg) stats.p0Ok++;
+  /* ── R2/R3/R4 已删除（2026-10-30）────────────────────────────────────
+   *
+   * 它们原来是：
+   *   R2  palette[0] === bg          → 30/30 绿
+   *   R3  palette[1] === primary     → 30/30 绿
+   *   R4  底色与主色都在 palette 里   → 30/30 绿
+   *
+   * 为什么删：**它们是构造恒真式，测不出任何东西。**
+   * 看 `collect-schemes.mjs:483-486`：
+   *
+   *     const pal = [];
+   *     if (rec.bg) pal.push(rec.bg);                    ← palette[0] 就是 bg
+   *     if (rec.primary && ...) pal.push(rec.primary);    ← palette[1] 就是 primary
+   *     for (const h of fromSpec) { if (pal.length >= 4) break; ... }
+   *     rec.palette = pal;
+   *
+   * 先 push(bg) 再 push(primary)，所以 R2/R3 永远成立。R4 同理。
+   * 批判 Agent 做了变异测试：注入一个「一致的错」（palette[1] 与 primary
+   * 同时改成 #123456）→ R2/R3/R4 **全绿**。三个断言一起漏掉同一个错误。
+   *
+   * 真正该查的不是「数组位置对不对」，而是「**这个位置上的色，角色对不对**」。
+   * 见下面的 R6。
+   */
 
-  /* R3: palette[1] === primary */
-  const pri = String(sc.primary || '').toUpperCase();
-  if (dPal[1] && pri && dPal[1] !== pri) {
-    add('FAIL', id, 'R3-p1-not-primary', `palette[1]=${dPal[1]} 但 primary=${pri}（app.js:945 的「主色」标签会标错）`);
-  } else if (dPal[1] && pri) stats.p1Ok++;
+  /* R6（硬，替换 R2/R3/R4）：UI 印出来的「主色」必须是规格声明的主色
+   *
+   * 为什么需要：`app.js:963` 用 `palette[1]` 印「主色」标签给用户看。
+   * 而 `collect-schemes.mjs:293-298` 抽 `primary` 时是三个正则并联，
+   * 谁的先命中就赢 —— 实测有 5 案抽到了非主色的色：
+   *
+   *   S05  UI 印 #BFB9A6 面板灰米，规格写「#4FA83D 漆面绿＝主色与读数」
+   *   S10  UI 印 #6E7076，而那是全案面积最小的色（5%）
+   *   S02 / S07 / S09 同类
+   *
+   * 用户看到「主色：#BFB9A6」会以为这个设计的主色是灰米色，而实际是亮漆绿。
+   * **集合相同、角色标错，用户看到的是两个设计。**
+   *
+   * 判据：从规格字段 3 里切分句，取含「主色」且不在否定语境的分句的第一个 hex。
+   * 这是「解析角色词」，不是「按位置猜」。
+   */
+  const specPri = specPrimaryOf(id);
+  if (specPri) {
+    const uiPri = String(sc.primary || '').toUpperCase();
+    if (uiPri && uiPri !== specPri) {
+      add('FAIL', id, 'R6-primary-mismatch',
+        `UI 印「主色 ${uiPri}」，但规格字段 3 写的主色是 ${specPri}` +
+        `（app.js:963 会把 ${uiPri} 标成「主色」给用户看）`);
+    } else if (uiPri) stats.r6Ok++;
+  }
 
-  /* R4: 底色与主色都在 palette 里 */
-  const missingMain = [];
-  if (bg && !dPal.includes(bg)) missingMain.push(`底色 ${bg}`);
-  if (pri && !dPal.includes(pri)) missingMain.push(`主色 ${pri}`);
-  if (missingMain.length) add('FAIL', id, 'R4-main-missing', `palette 里没有${missingMain.join(' 和 ')}`);
-  else stats.mainOk++;
-
-  /* R5（软）: prompts.js 补出来的色有没有 CSS 角色注释 */
+  /* R5（软，降级为 INFO）：prompts.js 补出来的色有没有 CSS 角色注释
+   *
+   * 批判 Agent 指出这条与"色该不该进提示词"没有因果关系：
+   * 19 个报警里含占屏 20% 的必需色（无注释 ≠ 不该进）。降为 INFO，不参与退出码。 */
   const extra = pPal.filter((h) => !dPal.includes(h));
   if (extra.length) {
     const dir = SCHEMES.find((s) => s.id === id)?.dir || '';
@@ -181,8 +245,11 @@ for (const id of [...dM.keys()].sort()) {
 
 if (extraNoRole.length) {
   const total = extraNoRole.reduce((a, x) => a + x.list.length, 0);
-  add('WARN', '*', 'R5-extra-no-role',
-    `prompts.js 补了 ${total} 个没有 CSS 角色注释的色（无注释 = 可能是设计扩张而非必需派生）: ` +
+  /* 降为 INFO（2026-10-30）。批判 Agent 指出这条判据与"色该不该进提示词"没有因果：
+   * 19 个报警里含占屏 20% 的必需色 —— 没写注释 ≠ 不该进色板。
+   * 它是有用的排查线索，但不该影响退出码。 */
+  add('INFO', '*', 'R5-extra-no-role',
+    `prompts.js 补了 ${total} 个没有 CSS 角色注释的色（排查线索，非缺陷；无注释 ≠ 不该进）: ` +
     extraNoRole.slice(0, 6).map((x) => `${x.id}[${x.list.join(' ')}]`).join(' ') +
     (extraNoRole.length > 6 ? ` … 其余 ${extraNoRole.length - 6} 案` : ''));
 }
@@ -203,11 +270,9 @@ if (JSON_OUT) {
   console.log(`两链关系闸门：data.js(${SCHEMES.length} 案) ↔ prompts.js(${PSP.length} 案)`);
   console.log('  查的是「关系成立」，不是「两边相等」——它们描述设计意图 vs 施工细节两个层次');
   console.log('');
-  console.log(`  R1 data.js ⊆ prompts.js      ${stats.subsetOk}/${SCHEMES.length}`);
-  console.log(`  R2 palette[0] === bg         ${stats.p0Ok}/${SCHEMES.length}`);
-  console.log(`  R3 palette[1] === primary    ${stats.p1Ok}/${SCHEMES.length}`);
-  console.log(`  R4 底色与主色都在 palette    ${stats.mainOk}/${SCHEMES.length}`);
-  console.log(`  R5 补色有 CSS 角色注释       ${stats.extraWithRole}/${stats.extraWithRole + stats.extraWithoutRole}`);
+  console.log(`  R1 data.js ⊆ prompts.js           ${stats.subsetOk}/${SCHEMES.length}`);
+  console.log(`  R6 UI 的「主色」= 规格声明的主色   ${stats.r6Ok}/${SCHEMES.length}   ← 替换已删除的 R2/R3/R4（恒真式）`);
+  console.log(`  R5 补色有 CSS 角色注释（INFO）     ${stats.extraWithRole}/${stats.extraWithRole + stats.extraWithoutRole}`);
   console.log('');
 
   if (!QUIET || FAILS.length) {

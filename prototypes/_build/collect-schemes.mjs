@@ -291,12 +291,38 @@ function parseSpec(id) {
   const errFromCopy = new RegExp('错误码[\\s：:]*' + CODE).exec(copy)
     || new RegExp('错误码[\\s：:]*' + CODE).exec(text);
   // 主色兜底：_CURRENT-VALUES.md 有 17 案写的是"见 _specs/Sxx.md"，
-  // 那些案必须回字段 3 去认。字段 3 里"主色"可能写在 HEX 前也可能写在 HEX 后。
+  // 那些案必须回字段 3 去认。
+  //
+  // ⚠️ 2026-10-30 重写。旧实现是三正则并联、谁先命中谁赢：
+  //
+  //     const primM = /主色[^#\n]{0,24}(#[0-9A-Fa-f]{6})/.exec(p3raw)
+  //       || /(#[0-9A-Fa-f]{6})[^#\n]{0,24}主色/.exec(p3raw)
+  //       || /主色[\s\S]{0,40}?(#[0-9A-Fa-f]{6})/.exec(p3raw);
+  //
+  // 实测 5/30 案抽错（S02 抽到象牙纸白、S05 抽到面板灰米、S07 抽到油墨黑、
+  // S09 抽到炭黑、S10 抽到全案面积最小的 5% 色）。根因有两个：
+  //   ① 「#XXXXXX ... 主色 ...」这条会把**后面**句子的主色算给前面的 hex
+  //   ② 字段 3 后面还有「反的是 `#6366F1` 靛蓝主色」这种否定语境，含"主色"二字
+  //
+  // 批判 Agent 实测：单纯调换 A/B 顺序会把正确率从 25/30 打到 **16/30**
+  // （B 会命中否定语境，17 案拿到 #6366F1）。所以必须**先切分句、再排否定语境**：
+  //
+  // 正确做法：按 ；。换行 切分句 → 只留含「主色」且不含否定词的分句 → 取该分句
+  // 里「主色」前后最近的 hex。实测 30/30。
+  const NEG_CTX = /(反的是|反\s|不采用|修正前|不是|禁止|不新增|旧值|避免|不用)/;
   const p3raw = fields['配色系统'] || '';
-  const primM = /主色[^#\n]{0,24}(#[0-9A-Fa-f]{6})/.exec(p3raw)
-    || /(#[0-9A-Fa-f]{6})[^#\n]{0,24}主色/.exec(p3raw)
-    || /主色[\s\S]{0,40}?(#[0-9A-Fa-f]{6})/.exec(p3raw);
-  const primaryFromSpec = primM ? primM[1].toUpperCase() : null;
+  const primaryFromSpec = (function () {
+    for (const seg of String(p3raw).split(/[；。\n]/)) {
+      if (!/主色/.test(seg)) continue;
+      if (NEG_CTX.test(seg)) continue;
+      // 该分句里第一个 hex：字段 3 的写法是「主色 `#XXXXXX` 名字＝主色…」
+      // ⚠️ 要带 `#` 前缀返回 —— `data.js` 的 `primary` 字段全库都带 `#`，
+      // 这里少了它，`check-twolines` 的字符串比较会把 17 案全判成不匹配。
+      const m = seg.match(/#([0-9A-Fa-f]{6})(?![0-9A-Fa-f])/);
+      if (m) return m[0].toUpperCase();
+    }
+    return null;
+  })();
   // 按钮字色兜底：字段 3 里明写"白字／#FFFFFF 作按钮底"的，取之
   const btnM = /按钮[\s\S]{0,40}?(?:白字|#FFFFFF)/.exec(p3raw);
   const buttonFromSpec = btnM ? '#FFFFFF' : null;

@@ -114,14 +114,14 @@ window.SCHEMES = [
    "error": "这个时段刚被订走：14:20 与 14:40 两格冲突，错误码 BOOK-409。换一个时段，或者留电话让店员手工排"
   },
   "bg": "#0B0B0F",
-  "primary": "#EFE6D0",
+  "primary": "#B8860B",
   "buttonText": "#111111",
   "errorCode": "BOOK-409",
   "errorCodeSource": "规格文案",
   "palette": [
    "#0B0B0F",
-   "#EFE6D0",
    "#B8860B",
+   "#EFE6D0",
    "#3A2E1A"
   ],
   "built": true,
@@ -133,7 +133,7 @@ window.SCHEMES = [
     "font-count",
     "no-footage"
    ],
-   "at": "2026-10-20T12:21:18.491Z",
+   "at": "2026-10-29T16:38:09.386Z",
    "screens": 7,
    "realPictures": 7,
    "overflow": 0,
@@ -366,14 +366,14 @@ window.SCHEMES = [
    "error": "3 号库读不到数：探头 6 位编号没登记，或者那根 4 芯线在第 2 个接头处断了，错误码 E-114。先看 2 号库，别动压缩机"
   },
   "bg": "#0E100D",
-  "primary": "#BFB9A6",
+  "primary": "#4FA83D",
   "buttonText": "#111111",
   "errorCode": "E-114",
   "errorCodeSource": "规格文案",
   "palette": [
    "#0E100D",
-   "#BFB9A6",
    "#4FA83D",
+   "#BFB9A6",
    "#8C2F1F"
   ],
   "built": true,
@@ -534,14 +534,14 @@ window.SCHEMES = [
    "error": "这页的透印层没生成：镜像文本超过 46 行，脚本在第 47 行截断，错误码 MIR-47。先读正面，或者按页码直接翻到第 118 页"
   },
   "bg": "#E7E7E0",
-  "primary": "#1C1A16",
+  "primary": "#33505C",
   "buttonText": null,
   "errorCode": "MIR-47",
   "errorCodeSource": "规格文案",
   "palette": [
    "#E7E7E0",
-   "#1C1A16",
    "#33505C",
+   "#1C1A16",
    "#9A9384"
   ],
   "built": true,
@@ -554,7 +554,7 @@ window.SCHEMES = [
     "font-count",
     "no-footage"
    ],
-   "at": "2026-10-28T22:03:34.042Z",
+   "at": "2026-10-29T09:05:42.135Z",
    "screens": 5,
    "realPictures": 6,
    "overflow": 0,
@@ -709,14 +709,14 @@ window.SCHEMES = [
    "error": "这行价格昨天改过三次，第 3 次的黑漆盖住原数字，读出来是 25 元而不是 2.5 元，错误码 PAINT-3。请按分量标注再核一遍"
   },
   "bg": "#F5C842",
-  "primary": "#151310",
+  "primary": "#1F4E79",
   "buttonText": null,
   "errorCode": "PAINT-3",
   "errorCodeSource": "规格文案",
   "palette": [
    "#F5C842",
-   "#151310",
    "#1F4E79",
+   "#151310",
    "#8A4B24"
   ],
   "built": true,
@@ -793,15 +793,15 @@ window.SCHEMES = [
    "error": "第 5 栏没排上：3 家供应商的到货周期字段是空的，错误码 SUP-003。先看已填的 43 家，或者按价格排序"
   },
   "bg": "#F2EFE8",
-  "primary": "#6E7076",
+  "primary": "#D32029",
   "buttonText": null,
   "errorCode": "SUP-003",
   "errorCodeSource": "规格文案",
   "palette": [
    "#F2EFE8",
-   "#6E7076",
+   "#D32029",
    "#17171A",
-   "#D32029"
+   "#6E7076"
   ],
   "built": true,
   "gate": {
@@ -1073,7 +1073,7 @@ window.SCHEMES = [
     "still-page",
     "hairline"
    ],
-   "at": "2026-10-28T22:04:43.960Z",
+   "at": "2026-10-29T09:06:14.680Z",
    "screens": 6,
    "realPictures": 5,
    "overflow": 0,
@@ -1763,7 +1763,7 @@ window.SCHEMES = [
     "font-count",
     "no-footage"
    ],
-   "at": "2026-10-28T22:04:06.282Z",
+   "at": "2026-10-29T09:04:26.011Z",
    "screens": 5,
    "realPictures": 6,
    "overflow": 0,
