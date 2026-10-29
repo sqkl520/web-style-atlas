@@ -277,7 +277,17 @@ code { font-family: var(--code); font-size: 0.94em; }
   margin: 4px 0 0; padding: 0;
   border: 0;
   font-size: var(--s-13); line-height: 1.5; color: var(--ink-3);
-  max-width: 76ch;
+  /* 2026-10-29：**强制一行**。为什么不用 max-width：
+     第一版是 `max-width: 76ch`，而这一行的容器宽 548.3px、文本 90+ 字，
+     于是折成 2 行 → `.mast-fold` +19.5px → 1440 首卡 430.5→450.0。
+     三个独立 Agent 都测到了。窄档不受影响（`.mast-fold` 默认收起），所以这个回归
+     只在宽档显形，最容易被「390 零变化」掩盖。
+     现在：不折行 + 溢出省略号 + 完整解释在 `title` 里。行高固定 19.5px。 */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  min-height: 0;
 }
 .self-gate[data-level="fail"] { color: var(--fail); }
 .self-gate[data-level="pass"] { color: var(--pass); }
@@ -566,6 +576,54 @@ code { font-family: var(--code); font-size: 0.94em; }
   border-left: 5px solid var(--ink);
   background: var(--card);
 }
+/* ── 模板带折成一条（2026-10-29，E 项）────────────────────────────────────
+   改前 #tpl-strip 是常驻展开的 <section>，390 档实测 **326.3px**（margin 18+22 另计），
+   而它落在首卡之前 ⇒ 点完「咖啡店」、筛选栏已自动收起的前提下，首卡仍被顶到 768.7，
+   视口 844 装不下一整张卡。折起来之后整块只剩下面这条 summary。
+   summary 的高度按 32px 配（不是 44）：44 是 rail/mast/bar 那三条**首屏交互面**的标准，
+   而这一条的定位不同 —— 它是"结果下面还有东西"的提示，不该跟主筛选条抢同样的分量。
+   32 仍高于 WCAG 2.2 AA 2.5.8 的 24px 下限，且整行都是点击区（summary 满宽）。 */
+.tpl-strip-sum {
+  display: flex; align-items: center;
+  min-height: 32px; padding: 2px 0;
+  cursor: pointer;
+  font-family: var(--ui); font-size: var(--s-13); line-height: 1.35; font-weight: 600;
+  color: var(--ink-2);
+  list-style: none;                    /* 关掉原生 marker，改用边框三角（与另外三条同款） */
+}
+.tpl-strip-sum::-webkit-details-marker { display: none; }
+.tpl-strip-sum::before {
+  content: ""; flex: 0 0 auto;
+  width: 0; height: 0;
+  border-left: 5px solid currentColor;
+  border-top: 4px solid transparent; border-bottom: 4px solid transparent;
+  margin-right: 9px;
+  transition: transform 120ms linear;
+}
+.tpl-strip[open] > .tpl-strip-sum::before { transform: rotate(90deg); }
+.tpl-strip-sum:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+.tpl-strip[open] > .tpl-strip-sum { color: var(--ink); margin-bottom: 8px; }
+/* 收起态：连**壳**一起收。
+   上面那条 summary 只省下了内容，壳还留着 —— 实测（390×844，本轮）收起后
+   #tpl-strip 仍是 54px 高（padding 14+6 + border 2 + summary 32）+ margin 40 = 94px。
+   94px 在 390 档就是"首屏完整卡 1 张 vs 0 张"的差别（首卡 top 496.4、卡高 363.5、
+   视口 844 ⇒ 差 15.9px 才装得下）。所以收起时把 padding / border / background
+   一并归零，只留一条 2px 的分节线 + 一行字。
+   为什么留 2px 而不是 1px：本文件所有分节线都是 2px（lint 的 hairline 只匹配
+   0.5px 与 1px，1px 在这里既不合群又会命中那条规则）。 */
+.tpl-strip:not([open]) {
+  padding: 0;
+  border: 0;
+  border-top: 2px solid var(--rule-2);
+  background: transparent;
+  margin: 10px 0 14px;
+}
+/* 宽档：summary 不存在过（与另外三条同一个约定）。details 由 index.html 的
+   sync() 保持 open，所以藏掉 summary 之后这里与改前的 <section> 逐像素相同。 */
+@media (min-width: 981px) {
+  .tpl-strip-sum { display: none; }
+  .tpl-strip[open] > .tpl-strip-sum { margin-bottom: 0; }
+}
 .tpl-strip-lead {
   font-size: var(--s-14); line-height: 1.65; color: var(--ink-2);
   max-width: 74ch; margin-bottom: 12px;
@@ -624,6 +682,22 @@ code { font-family: var(--code); font-size: 0.94em; }
 }
 .tpl-all a { color: var(--link); font-family: var(--num); font-variant-numeric: tabular-nums; }
 .tpl-all span { color: var(--ink-3); }
+
+/* 空状态那句话里的模板名（2026-10-29，B 项方案 4）。
+   这条规则必须**只改颜色与下划线，不改字号/行高/字距/字重**。
+   它的整个论证是"给已有文本加一层行内元素，ΔH = 0"（实测见
+   deliverables/69-exec/EXEC-bce.md 的表格）。一旦在这里动 font-size 或
+   line-height，那句 81.6px 的话就会换行，零代价的前提当场失效。
+   下划线用 text-decoration 而不是 border-bottom：后者会加 1px 盒高，
+   在行内元素上还会撑开行距 —— 正是这里最付不起的那 1px。
+   --link 对 --ground(#f2f2ee) 是 5.6:1，与全站其它链接同一档（WCAG AA 正文）。 */
+.tpl-inline {
+  color: var(--link);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
+}
+.tpl-inline:hover { text-decoration-thickness: 2px; }
 
 /* ── 入场动效（仍受 prefers-reduced-motion 收敛）───────────── */
 .row.is-in, .detail.is-in { animation: rise 320ms cubic-bezier(.2,.85,.2,1) both; }

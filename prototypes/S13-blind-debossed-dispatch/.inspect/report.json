@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S13-blind-debossed-dispatch/index.html",
- "at": "2026-10-27T11:37:30.782Z",
+ "at": "2026-10-29T09:06:14.680Z",
  "allow": [],
  "viewports": [
   {
@@ -10,11 +10,11 @@
    "screens": 6,
    "filled": [
     0.55,
-    0.22,
-    0.14,
-    0.3,
-    0.14,
-    0.17
+    0.25,
+    0.16,
+    0.31,
+    0.28,
+    0.24
    ],
    "motion": {
     "elements": 13,
@@ -30,8 +30,8 @@
      "h": 900
     },
     "page": {
-     "height": 4701,
-     "screens": 5.2,
+     "height": 4622,
+     "screens": 5.1,
      "words": 322,
      "img": 5,
      "video": 0,
@@ -175,7 +175,7 @@
       "tracking": 0,
       "contrast": 12.9
      },
-     "measureChars": 64,
+     "measureChars": 85,
      "max": {
       "size": 56,
       "vw": 3.9,
@@ -183,18 +183,11 @@
       "text": "盲压公函"
      },
      "monoShare": 0.06,
-     "monoProseShare": 0.06,
+     "monoProseShare": 0,
      "monoFamilies": [
       "DM Mono"
      ],
-     "monoSamples": [
-      "0.4mm",
-      "0.4mm",
-      "0.4mm",
-      "0.4mm",
-      "0.4mm",
-      "0.4mm"
-     ],
+     "monoSamples": [],
      "microLabels": 0,
      "microLabelShare": 0,
      "microSamples": [],
@@ -587,18 +580,11 @@
       "text": "盲压公函"
      },
      "monoShare": 0.06,
-     "monoProseShare": 0.06,
+     "monoProseShare": 0,
      "monoFamilies": [
       "DM Mono"
      ],
-     "monoSamples": [
-      "0.4mm",
-      "0.4mm",
-      "0.4mm",
-      "0.4mm",
-      "0.4mm",
-      "0.4mm"
-     ],
+     "monoSamples": [],
      "microLabels": 0,
      "microLabelShare": 0,
      "microSamples": [],
@@ -998,18 +984,11 @@
       "text": "盲压公函"
      },
      "monoShare": 0.06,
-     "monoProseShare": 0.06,
+     "monoProseShare": 0,
      "monoFamilies": [
       "DM Mono"
      ],
-     "monoSamples": [
-      "0.4mm",
-      "0.4mm",
-      "0.4mm",
-      "0.4mm",
-      "0.4mm",
-      "0.4mm"
-     ],
+     "monoSamples": [],
      "microLabels": 0,
      "microLabelShare": 0,
      "microSamples": [],
@@ -1123,17 +1102,6 @@
  ],
  "findings": [
   {
-   "level": "FAIL",
-   "id": "mono",
-   "width": 1440,
-   "message": "Monospace type outside code: DM Mono — e.g. \"0.4mm\", \"0.4mm\", \"0.4mm\", \"0.4mm\"",
-   "fix": "Set it in the text face. Monospace is for literal code inside <pre>/<code> only.",
-   "alsoAt": [
-    768,
-    390
-   ]
-  },
-  {
    "level": "WARN",
    "id": "font-count",
    "width": 1440,
@@ -1167,13 +1135,6 @@
    "width": 1440,
    "message": "Little motion: 13 element(s) moved while the page loaded and scrolled.",
    "fix": "Give every section an entrance for its parts (not one fade of the whole block) and add one moving picture: a looping clip or a slow move on a photograph."
-  },
-  {
-   "level": "FAIL",
-   "id": "empty-screens",
-   "width": 1440,
-   "message": "3 of 6 desktop screens are almost empty ground (under 20% of the screen holds text, a picture or a colour field): screens 3, 5, 6.",
-   "fix": "An empty screen is a rest only once per page. Elsewhere it means the section is underbuilt: set its content larger, give it the full information, put it on a colour field, or cut it."
   },
   {
    "level": "WARN",

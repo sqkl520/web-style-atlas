@@ -262,10 +262,30 @@
            内容做出来了，但用户在首屏看不到。方案行越多它越往下沉，最坏时沉到 4 屏以下。
          放前面之后，点芯片立刻能看到"这 4 行里 S06 是直连、另外 M02 是现成模板"，
          再往下读那 4 行 —— 顺序才对。 -->
-    <section class="tpl-strip" id="tpl-strip" hidden aria-label="模板层建议">
+    <!-- 模板带折成一条（2026-10-29，E 项）──────────────────────────────────
+         改前它是一个常驻展开的 <section>：390 档实测高 **326.3px**（lead 69.3 +
+         一张卡 223 + 内距 34），而它落在首卡**之前**（第 259 行那段注释解释了
+         为什么必须在 #ledger 前面）。
+         两条账要分开算，别混：
+          · 它**不该**再挪回清单下面 —— 上面那段 2026-10-25 的实测（top 1520 /
+            整条在 900px 视口外）说的是"挪下去等于不存在"，那结论没变。
+          · 它**也不该**无条件铺开 —— 用户点了「咖啡店」之后第一件要看的是那 4 行
+            结果，不是一张 223px 的模板卡。326.3px 的常驻块把首卡从 434 顶到 768
+            （实测，rail 已收起的前提下），首屏完整卡就从 1 张变成 0 张。
+          ⇒ 折成一条：窄档默认收起、summary 上写明有几张、点一下就展开；
+            宽档（≥981px）summary 被 display:none 且默认 open，与改前逐像素相同。
+          用 <details open> 包住而不是"在 JS 里默认收起"：无脚本时最坏是
+            "没省下首屏"，而不是"模板卡在窄档看不见"（与本文件另外三块同一个约定，
+            理由写在 311 行那段脚本的注释里）。
+         为什么把 #tpl-strip 本身改成 <details>，而不是在外面再包一层：
+            外面包一层的话，prompt-copy.js 里的 `strip.hidden = !showStrip` 只藏内容、
+            不藏壳 —— 没命中模板时屏幕上会留一条空的「现成模板 0 张」。
+            改成同一个元素之后，hidden 与 open 各管一件事，互不打架。 -->
+    <details class="tpl-strip" id="tpl-strip" hidden open>
+      <summary class="tpl-strip-sum" id="tpl-strip-sum">现成模板</summary>
       <p class="tpl-strip-lead" id="tpl-strip-lead">—</p>
       <ul class="tpl-cards" id="tpl-cards"></ul>
-    </section>
+    </details>
 
     <ol class="ledger" id="ledger"></ol>
 
@@ -308,8 +328,8 @@
   <div class="detail-body" id="d-body"></div>
 </aside>
 
-<!-- 折叠块的初始开合（2026-10-28）────────────────────────────────────────────
-     三块 <details> 在 HTML 里都写着 open，也就是**没有这段脚本时 = 改动前的样子**
+<!-- 折叠块的初始开合（2026-10-28；2026-10-29 加入第四块 #tpl-strip）──────────
+     四块 <details> 在 HTML 里都写着 open，也就是**没有这段脚本时 = 改动前的样子**
      （两档全部展开，一个字不少）。这段脚本只做一件事：窄档（≤980px，与 style.css
      里 .detail 变全屏层的断点同一个值）把它们收起来。
      为什么默认写成 open、由脚本往"收"的方向改，而不是写死成收起、由脚本往"开"的方向改：
@@ -322,7 +342,7 @@
      用户看到一次明显的重排。 -->
 <script>
 (function () {
-  var folds = ['mast-fold', 'rail-fold', 'bar-fold'].map(function (id) { return document.getElementById(id); })
+  var folds = ['mast-fold', 'rail-fold', 'bar-fold', 'tpl-strip'].map(function (id) { return document.getElementById(id); })
     .filter(Boolean);
   var NARROW = 980;   /* 与 style.css 的 @media (max-width: 980px) 同一个值 */
   function sync() {
@@ -331,7 +351,10 @@
   }
   sync();
   /* 转屏 / 改窗口宽度时跟着切。只在跨过断点时才有实际动作，detail 的滚动位置不受影响
-     （三块都不在 .detail 里）。 */
+     （四块都不在 .detail 里）。
+     #tpl-strip 也在这里被同步，但它的 open 只在"跨断点"时被改写：resize 到窄档
+     会把用户手动展开的模板带重新收起。这与另外三块同一行为，也与"窄档默认收起"
+     这个设计决定一致 —— 换宽度等于换一套版式，不该继承上一套的展开状态。 */
   window.addEventListener('resize', sync);
 })();
 </script>

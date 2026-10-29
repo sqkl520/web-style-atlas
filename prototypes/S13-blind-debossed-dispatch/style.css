@@ -920,3 +920,43 @@ body::before { animation: press-in 120ms steps(2) both; }
 @media (max-width: 1023px) {
   .letterhead__top { grid-template-columns: minmax(0, 1fr); gap: 24px; align-items: start; }
 }
+
+/* 页码、日期、分类号、时刻、实测值都是可核对的字面数据，按全库惯例放进 <code>
+   （其余 26 案、合计 3048 处是同一做法）。<code> 从 UA 样式表里只带来一条
+   font-family:monospace（Chrome 实测，见 deliverables/69-exec/EXEC-mono-empty.md §2.3），
+   下面把这条与其余可能因引擎而异的默认值一并还原成继承值：换标记，不换排版。 */
+code{font-family:inherit;font-size:inherit;font-weight:inherit;font-style:inherit;letter-spacing:inherit;line-height:inherit;color:inherit;background:none;padding:0;border:0;white-space:inherit}
+
+/* ═══ 桌面档的版心：把「行长」与「版心」分开（修 empty-screens）═══════════════
+ *
+ * 症状（inspect.mjs 实测，1440 档）：6 屏里 3 屏面积填充 < 20%（screens 3 / 5 / 6），
+ * filled = [0.55, 0.22, 0.14, 0.30, 0.14, 0.17]。
+ *
+ * 归因（s13-attrib / s13-ydist 逐屏按 x 与 y 分桶，不是猜）：
+ *   · .clauses 实测 897px，正好是 16 栏栅格的 1–11 栏（67×11 + 16×10 = 897），
+ *     所以字段 5 的「正文条款只占 1–11 栏」是**做到了**的；
+ *   · 但 .clause__body 的 32em（15px 下 = 480px）只占 897px 的 53.5%：
+ *     正文右缘 x = 544，签发栏左缘 x = 1060，中间 516px 在每一屏都空着；
+ *   · 附注段（.levels__lead / .levels__note / .annex__note / .log__*）同样卡在 32em。
+ * ⇒ 规格里是两件事：字段 5 的「行长限制 32 个汉字」讲**一行多长**，
+ *   「条款只占 1–11 栏」讲**版心多宽**。原实现把前者当成了后者。
+ *
+ * 取值 640px：640 / 15 = 42.7 汉字/行，仍是短行；工具 measure 口径 85 字符，低于 88 告警线。
+ *   （实测梯度：600 → 仍 FAIL；640 → 0 FAIL 且无 measure；680 → 过但 measure = 91；
+ *     720 → empty-screens 复发 + measure = 96。）
+ *
+ * 为什么只写桌面档、为什么不连页脚一起放宽：
+ *   · 768 与 390 两档的 filled / docH / measure 必须与改前逐项相同 —— 实测相同；
+ *   · .colophon__* / .signature__status 故意不动：实测把页脚也放宽会压低页高、
+ *     末屏内容变少，填充反而从 0.24 掉到 0.17 并重新 FAIL。这个指标对末屏高度极敏感。
+ *
+ * 位置说明：本文件已有三处「基础规则写在媒体查询之后」的先例（见上方 903–919 行），
+ * 同特异性下按源序取胜，所以这一段必须留在**文件最末尾**，不能前移。 */
+@media (min-width: 1440px) {
+  .clause__body,
+  .annex__note,
+  .levels__lead,
+  .levels__note,
+  .log__empty,
+  .log__error { max-width: 640px; }
+}

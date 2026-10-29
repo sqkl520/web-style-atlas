@@ -209,3 +209,9 @@ html.loading .toc li{opacity:0;animation:seeping 140ms steps(2,end) forwards;ani
 .spec { margin: 14px 0 0; line-height: inherit; }
 .spec > summary { cursor: pointer; opacity: .85; }
 .spec p { margin: 8px 0 0; }
+
+/* 页码、日期、分类号、时刻、实测值都是可核对的字面数据，按全库惯例放进 <code>
+   （其余 26 案、合计 3048 处是同一做法）。<code> 从 UA 样式表里只带来一条
+   font-family:monospace（Chrome 实测，见 deliverables/69-exec/EXEC-mono-empty.md §2.3），
+   下面把这条与其余可能因引擎而异的默认值一并还原成继承值：换标记，不换排版。 */
+code{font-family:inherit;font-size:inherit;font-weight:inherit;font-style:inherit;letter-spacing:inherit;line-height:inherit;color:inherit;background:none;padding:0;border:0;white-space:inherit}

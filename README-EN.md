@@ -157,7 +157,7 @@ a one-line visual definition, aesthetic family and references, a colour system (
 All 12 are **rendered in the selection bench** (30 of 30, not a sample); the "anti-AI-cliché review points" one is collapsed, because it is the longest and the most "written for a reviewer" —— how to open it is under [See the proof](#see-the-proof-272-real-screenshots-on-one-bench).
 
 **30 runnable prototypes** —— real typography, real copy, real assets, real error states, real `prefers-reduced-motion` fallbacks.
-**26 pass the gate with FAIL = 0.** The 8 remaining failures in the other four are listed one by one under [Limitations](#limitations-what-this-atlas-cannot-do).
+**29 pass the gate with FAIL = 0.** The 2 remaining failures in the one remaining scheme are listed one by one under [Limitations](#limitations-what-this-atlas-cannot-do).
 
 **15 F-type / 15 R-type** —— F-type has a fixed skeleton, so a visitor knows what to look at and click within three seconds; R-type organises its content around one physical mechanism. All 30 aesthetic families are **mutually distinct**.
 
@@ -551,7 +551,7 @@ In plain words: **take the code and the docs, use them, change them, ship them; 
 
 纯静态：没有构建、没有后端、没有依赖安装。通过 HTTP 打开 `prototypes/_selection/`，30 个案子摊在一页，附 1440／768／390 三档真实渲染截图（**272 张**，`git ls-files "prototypes/S*/.inspect/*.jpg" | wc -l`）。
 
-26 个原型机械闸门 FAIL=0。做不到的部分 —— 剩余 8 条 FAIL、底色同质（18/30 = 60% 落在暖浅色带）、`file://` 下 `mask-image` 失效、署名表不完整 —— 全部列在[做不到与已知边界](README.md#做不到与已知边界)。
+29 个原型机械闸门 FAIL=0。做不到的部分 —— 剩余 2 条 FAIL、底色同质（18/30 = 60% 落在暖浅色带）、`file://` 下 `mask-image` 失效、署名表不完整 —— 全部列在[做不到与已知边界](README.md#做不到与已知边界)。
 
 完整中文版： **[README.md](README.md)**（与本文逐节对译）。
 

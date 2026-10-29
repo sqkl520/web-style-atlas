@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S07-slate-ink-contents/index.html",
- "at": "2026-10-24T08:29:21.935Z",
+ "at": "2026-10-29T09:05:42.135Z",
  "allow": [],
  "viewports": [
   {
@@ -225,18 +225,11 @@
       "text": "分类广告版索引"
      },
      "monoShare": 0.14,
-     "monoProseShare": 0.14,
+     "monoProseShare": 0,
      "monoFamilies": [
       "IBM Plex Mono"
      ],
-     "monoSamples": [
-      "46",
-      "2026-02",
-      "118",
-      "G-4",
-      "44",
-      "B-1"
-     ],
+     "monoSamples": [],
      "microLabels": 0,
      "microLabelShare": 0,
      "microSamples": [],
@@ -521,18 +514,11 @@
       "text": "分类广告版索引"
      },
      "monoShare": 0.14,
-     "monoProseShare": 0.14,
+     "monoProseShare": 0,
      "monoFamilies": [
       "IBM Plex Mono"
      ],
-     "monoSamples": [
-      "46",
-      "2026-02",
-      "118",
-      "G-4",
-      "44",
-      "B-1"
-     ],
+     "monoSamples": [],
      "microLabels": 0,
      "microLabelShare": 0,
      "microSamples": [],
@@ -878,18 +864,11 @@
       "text": "分类广告版索引"
      },
      "monoShare": 0.14,
-     "monoProseShare": 0.14,
+     "monoProseShare": 0,
      "monoFamilies": [
       "IBM Plex Mono"
      ],
-     "monoSamples": [
-      "46",
-      "2026-02",
-      "118",
-      "G-4",
-      "44",
-      "B-1"
-     ],
+     "monoSamples": [],
      "microLabels": 0,
      "microLabelShare": 0,
      "microSamples": [],
@@ -990,17 +969,6 @@
   }
  ],
  "findings": [
-  {
-   "level": "FAIL",
-   "id": "mono",
-   "width": 1440,
-   "message": "Monospace type outside code: IBM Plex Mono — e.g. \"46\", \"2026-02\", \"118\", \"G-4\"",
-   "fix": "Set it in the text face. Monospace is for literal code inside <pre>/<code> only.",
-   "alsoAt": [
-    768,
-    390
-   ]
-  },
   {
    "level": "WARN",
    "id": "hairline",

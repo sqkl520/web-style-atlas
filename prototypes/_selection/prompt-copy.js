@@ -949,7 +949,37 @@
       var why = [];
       if (riskyTopic) why.push("机制绑在特定题材上，换普通内容会退化");
       if (riskyCount) why.push("单元位置是手工排定的，内容少于 " + (s.minItems || "设计规模") + " 条会留洞");
-      riskNote = "⚠ " + why.join("；") + "。具体不适合什么，写在详情「适用场景」段末。";
+      /* ── 尾句：把「这条路不存在」明说出来（2026-10-29，C 项）───────────────
+       *
+       * 【为什么"分流到模板"这个方向被否掉了，而这一句反而要做】
+       * 审计实测：四个 hard 案（S15/S18/S21/S29）的 scenesYes 与三个模板 README 承诺
+       * 行业的交集 **4/4 全空** —— S15 是地图/GIS/专题数据库，S18 是运维日志/工单，
+       * S21 是工序依赖/排班，S29 是工业设备/售后支持。把「零重力发射序列」推去
+       * 「干净企业风 M01」，不是分流，是告诉用户"你那个需求不重要"。
+       * 所以 C 项真正缺的**不是**出口，是**"这里没有出口"的明确告知**。
+       *
+       * 【原来那句为什么不够】它把用户指向「适用场景」段末，实测该段在
+       * #detail（position:fixed; overflow-y:auto）里距面板顶 **1807.3px（1440 档）
+       * / 2118.4px（390 档）**，面板高只有 900/844 —— 那是 2.0–2.5 个面板高以下的
+       * 位置。用户在面板顶部读到"具体不适合什么写在下面"，滚不到，也不知道
+       * 该不该去别处找。整句话的净效果是"把你留在原地"。
+       *
+       * 【新加的这半句必须只陈述事实，不暗示匹配】写法上刻意避开三个坑：
+       *  · 不说"没有模板适合你"—— 那对 30 案里的 5 个（S06/S08/S09/S22/S25）
+       *    是假的。但这一句只在 14 个带警告的案子上出现，其中恰好有 S08、S19
+       *    与模板有交集（S08↔M01 靠「设计工作室」，S19↔M02 靠「咖啡馆」），
+       *    所以措辞只能是"三个大众模板**不是为这类内容做的**" + "它们的适用行业
+       *    在各自 README 里列着" —— 让读者自己去核，而不是替他断言不可能。
+       *  · 不说"去用模板"：这句话里没有一个动词指向模板，它只交代一件事的边界。
+       *  · 不点名具体模板编号（不写"去看看 M02"）：对这四个 hard 案，
+       *    任何具体编号都是一条走不通的路。
+       * 长度按 +1 行配：hint 是 13px / 行高继承面板正文，390 档原来 63.1px 折 3 行，
+       * 加这 47 字后实测 63.1 → 84.1（+21.0，正好一行），1440 档 42.1 → 63.1（+21.0）。
+       * .prompt-hint 在面板**顶部**，而 #detail 是 fixed 层 —— 它的高度不进文档流，
+       * 列表首屏一像素都不受影响（这个结论我复算过，不引用审计的 +19.5）。 */
+      riskNote = "⚠ " + why.join("；") +
+        "。具体不适合什么，写在详情「适用场景」段末" +
+        "（三个大众模板 M01/M02/M03 也不是为这类内容做的，它们的适用行业在各自 README 里列着）。";
     }
 
     /* 长度实时跟着输入变：这个数字是用户判断"复制到手有多长"的唯一凭据，
@@ -1002,6 +1032,49 @@
    *    这样和用户手打搜索完全同一条路径，不会产生"两种筛选互相打架"的分歧。
    *  - 芯片分两档样式：direct（实心）与 near（描边），并单列 unsupported。
    */
+  /* ── 点完芯片：窄档把筛选栏收起来（2026-10-29，E 项）────────────────────
+   *
+   * 【要修的是什么】用户点「咖啡店」——一颗**实心**芯片，而页面自己承诺
+   * 「实心＝有直连方案」（index.html:165 的 rail-hint 原话）。点完之后发生的是：
+   * #rail-fold 仍然展开（1369.3px），4 行结果被推到 top 2094，而视口只有 844
+   * ⇒ 首屏完整卡 **0 张**，用户看到的仍然是他刚点过的那块面板本身。
+   * 这不是"页面太长"，是"点了没反应"。
+   *
+   * 【实测（CDP，390×844，本轮自己复算，见 deliverables/69-exec/EXEC-bce.md）】
+   *   收起前：首卡 top 2094（2.48 屏）／首屏完整卡 0／整页 4.319 屏
+   *   收起后：首卡 top …（见报告表格）／首屏完整卡 1
+   * 收起的动作只改一个 DOM 属性（details.open），不碰 state、不碰搜索框、
+   * 不经过 benchSetSceneIds 那条路 —— 下面 1062–1077 那段 q × sceneIds 的
+   * 雷区注释说的是"别在换轴时偷偷改 q"，这里一个字节都没碰。
+   *
+   * 【为什么只在"按下"时收，取消时不收】再点一次同一颗芯片表示"我还在挑"，
+   * 这时候把面板收走等于把用户正在看的控件藏掉。收起只对"我已经选好了"做。
+   *
+   * 【为什么必须带窄档守卫】宽档（≥981px）的 #rail-fold 是普通块级流、summary
+   * 被 display:none（style.css:1141–1144 那条 @media）。在 1440 档把它 open=false
+   * 等于让整条筛选栏消失 —— 那是丢功能，不是省空间。
+   * NARROW 取 980，与 index.html:327 的 NARROW、style.css 的 @media (max-width:980px)
+   * 同一个值；这个仓库因为"两处必须同时改"已经栽过（见 style.css:1140 的注释）。
+   *
+   * 【为什么手动搬焦点】<details> 一关，里面拿到焦点的按钮就进了
+   * display:none，浏览器把焦点丢回 <body> ⇒ 键盘用户下一次 Tab 从页首重新开始
+   * （WCAG 2.4.3 焦点顺序）。把焦点交给 summary：它就是刚才那颗芯片所在块的容器头，
+   * Enter 能原样打开，读出来是「筛选 · 11 组 47 颗芯片」，与"刚做了一次筛选"相符。
+   * 鼠标路径不会因此多出焦点环：刚发生过鼠标交互，:focus-visible 不匹配。
+   */
+  var NARROW_RAIL = 980;
+  function collapseRailAfterPick(btn) {
+    if (window.innerWidth > NARROW_RAIL) return;
+    var fold = document.getElementById("rail-fold");
+    if (!fold || !fold.open) return;
+    var hadFocus = !!btn && document.activeElement === btn;
+    fold.open = false;
+    if (hadFocus) {
+      var sum = fold.querySelector("summary");
+      if (sum && sum.focus) sum.focus();
+    }
+  }
+
   function mountSceneChips() {
     var host = document.getElementById("flt-scene");
     if (!host || !P.sceneIndex) return;
@@ -1075,6 +1148,10 @@
              而「摄影」这种既是行业词、又真的出现在正文里的词会变成新的静默行为。 */
           if (window.benchSetSceneIdsParkingQuery) window.benchSetSceneIdsParkingQuery(ids);
           else if (window.benchSetSceneIds) window.benchSetSceneIds(ids);
+          /* 选好了 → 窄档收起筛选栏，让结果进入首屏（见 collapseRailAfterPick 的长注释）。
+             放在两个 bench* 调用**之后**：先让列表换成新结果，再收容器，
+             否则收起那一下的重排会落在旧列表上，多一帧"空了"的观感。 */
+          collapseRailAfterPick(btn);
         }
       });
       return btn;
@@ -1243,6 +1320,23 @@
     }],
   };
 
+  /* 折叠条上的字（2026-10-29）。收起态下这是用户唯一读得到的关于模板层的字，
+   * 所以它必须回答三个问题：有几张、是哪几个、它算不算方案。
+   *  - 张数：exact + adjacent，与真正挂出的卡片数同源（见上面调用点的注释）。
+   *  - 编号只写 M0x，不写全名：390 档 summary 只有约 330px 可用，
+   *    「M01 清爽企业站 / M03 醒目作品集」会在 13px 下折成两行，
+   *    而这条折叠条的存在意义就是"只占一行"。全名放进 title，鼠标悬停可读。
+   *  - 「不计入方案数」照抄卡片上的说法（.tpl-note），不另造一种措辞。 */
+  function drawStripSummary(sumEl, hit) {
+    if (!sumEl) return;
+    var all = hit.exact.concat(hit.adjacent.map(function (a) { return a.tpl; }));
+    var ids = all.map(function (t) { return t.id; });
+    var titles = all.map(function (t) { return t.title; });
+    sumEl.textContent = "现成模板 " + all.length + " 张 · " + ids.join(" / ") +
+      "（不计入方案数）";
+    sumEl.title = titles.join("　") + "　点开看在什么行业能用、以及为什么是它";
+  }
+
   function tplEsc(s) {
     return String(s == null ? "" : s)
       .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
@@ -1367,6 +1461,14 @@
       hit.adjacent.map(function (a) { return tplCardHTML(a.tpl, a.why); }).join("");
 
     if (showStrip) {
+      /* summary 上的张数必须与本轮实际挂出的卡片数一致（2026-10-29，模板带折成 <details>）。
+       * 为什么这个数不能写死：`html` 是 exact + adjacent 拼的，两个数都会随搜索词变 ——
+       * 写死「1 张」会在「设计工作室」那种 exact+adjacent 双命中时少报一张，
+       * 而 summary 恰恰是用户在**收起态**唯一能读到的字；它报错数，折叠就等于说谎。
+       * 用 children.length 而不是再数一遍 hit：数 DOM 是"实际画出来几张"的口径，
+       * 与下面 cards.innerHTML 的赋值天然同步，不依赖对 hit 的重复推理。 */
+      var sumEl = document.getElementById("tpl-strip-sum");
+      drawStripSummary(sumEl, hit);
       /* 句子里的数字必须来自这一轮渲染的 ctx，不能写死 —— 写死就会在筛选变化后说谎。
        * 「不计入」四个字是这句话的重点：用户刚看到「列出 2 / 30」，不能以为模板是第 3 个方案。
        *
@@ -1434,27 +1536,59 @@
        *    同一个坑还命中：潮牌 / 修鞋理发 / 小吃店（direct 有值但搜索 0 行）。 */
       var idxE = (P.sceneIndex || {})[term] || null;
       var directE = (idxE && idxE.direct) || [];
+      /* ── 模板名就地做成链接（2026-10-29，B 项方案 4）────────────────────────
+       *
+       * 【要修的是什么】搜「餐厅」，M02 那张卡**确实出现了**，但 390 档实测：
+       *   卡顶 775.5 / 卡高 223 ⇒ 只露出 68.5px（30.7%），卡里那个「打开 M02 ↗」
+       *   在 **951.4px = 1.13 屏**，首屏可见 **0px**。
+       * 内容有、出口有，出口在首屏外。而这句话里「M02 暖调门店站」这七个字
+       * **本来就在首屏内**（390 档：head 顶 668.9，整句 81.6px 高，100% 可见）——
+       * 它是纯文本，所以看得见、点不了。
+       *
+       * 【做法】一个字都不改，只给这句里已有的模板名包一层 <a>。
+       * 这是唯一一个"语义 100% 成立"的改法：它没有新声称任何匹配关系，
+       * 只是把已经写在那里的名字变成可点的。相比之下"零命中就把模板当主结果"
+       * 只对 8/45 个词成立（餐厅/咖啡店/花店/民宿/律师/甜品/美甲/修鞋理发），
+       * 对另外 37 个词是编能力 —— 所以那一条（方案 3）本轮没做，理由见报告。
+       *
+       * 【为什么用 headPre + a + headPost 三段，而不是把 head 整句 innerHTML 化】
+       * head 里含用户输入（term）。现在它走 tplEsc() 是安全的；一旦改成
+       * innerHTML = head，搜一个带尖括号的词就能注入标签。所以**只有**从 TEMPLATES
+       * 取出来的 id/title/href 这三级常量进 HTML，用户输入那一段照旧 tplEsc()。
+       * href 也过一遍 tplEsc —— 它现在是手写的相对路径，但"常量所以不用转义"
+       * 正是下一处漏洞的写法。
+       *
+       * 【实测代价】ΔH = 0px（390/1440 两档，见报告）：<a> 是行内元素，
+       * 字号/行高/字距全部继承 .tpl-empty-head，原来那句本来就在折行，
+       * 加一层行内包裹不改变任何一行的高度。这一条我复算过，不是照抄审计。 */
+      var headPre, headPost = "", headLink = null;
+      function tplAnchor(t) {
+        return '<a class="tpl-inline" href="' + tplEsc(t.href) + '" target="_blank" rel="noopener">' +
+          tplEsc(t.id + " " + t.title.replace(/^M\d+\s*/, "")) + "</a>";
+      }
       var head;
       if (directE.length) {
-        head = "「" + term + "」按文字搜不到（搜索框匹配整串，这 30 个案里没有哪一行写着「" +
+        headPre = "「" + term + "」按文字搜不到（搜索框匹配整串，这 30 个案里没有哪一行写着「" +
           term + "」），但索引里 " + directE.join(" ") + " 就是它的直连方案 —— " +
           "点左侧「" + term + "」芯片能筛出来。";
         if (hit.exact.length) {
-          head += "另外模板层有 " + hit.exact[0].id + "，它的 README 适用行业里写着「" +
-            (TPL_ALIAS[term] || term) + "」：";
+          headPre += "另外模板层有 ";
+          headLink = tplAnchor(hit.exact[0]);
+          headPost = "，它的 README 适用行业里写着「" + (TPL_ALIAS[term] || term) + "」：";
         }
       } else if (hit.exact.length) {
         var t0 = hit.exact[0];
-        head = "这 " + total + " 个案里没有「" + term + "」专案。但模板层有：" +
-          t0.id + " " + t0.title.replace(/^M\d+\s*/, "") + " 的 README 适用行业里就写着「" +
-          (TPL_ALIAS[term] || term) + "」，它才是为这行做的：";
+        headPre = "这 " + total + " 个案里没有「" + term + "」专案。但模板层有：";
+        headLink = tplAnchor(t0);
+        headPost = " 的 README 适用行业里就写着「" + (TPL_ALIAS[term] || term) + "」，它才是为这行做的：";
       } else if (hit.adjacent.length) {
-        head = "「" + term + "」在 " + total + " 个案里 0 个命中；三个模板的 README 适用清单里也没有这个词。" +
+        headPre = "「" + term + "」在 " + total + " 个案里 0 个命中；三个模板的 README 适用清单里也没有这个词。" +
           "下面只是相邻候选 —— 它自己写的行业是「" + hit.adjacent[0].tpl.scenes.join(" / ") + "」：";
       } else {
-        head = "「" + term + "」在 " + total + " 个案里 0 个命中，三个大众模板的 README 适用清单里也没有。" +
+        headPre = "「" + term + "」在 " + total + " 个案里 0 个命中，三个大众模板的 README 适用清单里也没有。" +
           "这一类，这套图集和模板层都给不了你 —— 不是你条件加多了。";
       }
+      head = headPre + (headLink || "") + headPost;
 
       /* 直连方案在前一种分岔里已经被点名，卡片就不要再重复贴一遍模板
        * （否则屏幕上会出现"上面说能筛出 S06，下面又贴一张 M02 卡"的错位感）。
@@ -1470,7 +1604,7 @@
       }).join("");
 
       emptyBox.innerHTML =
-        '<p class="tpl-empty-head">' + tplEsc(head) + '</p>' +
+        '<p class="tpl-empty-head">' + tplEsc(headPre) + (headLink || "") + tplEsc(headPost) + '</p>' +
         (cardHTML ? '<ul class="tpl-cards">' + cardHTML + '</ul>' : "") +
         '<p class="tpl-empty-all">模板层承诺的全部行业（逐字来自三个 README）：</p>' +
         '<ul class="tpl-all">' + all + '</ul>';

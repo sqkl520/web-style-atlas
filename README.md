@@ -157,7 +157,7 @@ git clone --depth 1 https://github.com/sqkl520/web-style-atlas.git
 这 12 段在选型台上**全部渲染出来**（30/30，不是抽样）；其中「去 AI 味审查点」是折叠的一段，因为它最长且最"给评审员看"——展开方式见[看效果](#看效果打开选型台272-张真截图摊在一页)。
 
 **30 个可运行原型**——真排版、真文案、真素材、真错误状态、真 `prefers-reduced-motion` 降级。
-**26 个闸门 FAIL=0**。剩下 4 个的 8 条失败逐条列在[做不到与已知边界](#做不到与已知边界)。
+**29 个闸门 FAIL=0**。剩下 1 个的 2 条失败逐条列在[做不到与已知边界](#做不到与已知边界)。
 
 **F 型 15 / R 型 15**——F 型是有固定骨架的结构，访客 3 秒内知道先看哪、点哪；R 型靠一个物理机制组织内容。30 个美学家族**互不重复**。
 
@@ -416,10 +416,12 @@ grep -rEo '<a href="https?://[^"]+"' prototypes/S14-zero-g-launch-sequence/index
 
 写清楚什么时候别用。
 
-- ❌ **`S07` `S08` `S13` `S21` 四个旧原型仍有闸门 FAIL，合计 8 条**：`S07` `mono`（1）；`S08` `palette-terracotta` + `font-count`（2）；`S13` `mono` + `shadow`（17 处）+ `button-fx` + `empty-screens`（4）；`S21` `mono`（1）。
-  其中 `S21` 的 `few-pictures` 与 `empty-screens` **已修**（接上了它自己 `assets/_cand/` 里 28 张对题照片中的 6 张，真实图片 0 → 6）。
-  `S07`/`S08`/`S13`/`S21` 的 `mono`，以及 `S08` 的琥珀主色，是**已知豁免**（理由见 `prototypes/_CONTRACT.md` §9.15）。
-  **`S13` 的 `shadow`（17 处）与 `button-fx` 没有豁免记录**——30 案那层明令 `box-shadow: 0`，这两条是**真的未清**。
+- ❌ **`S08` 一案仍有闸门 FAIL，合计 2 条**：`palette-terracotta` + `font-count`。
+  两条都是**已知豁免**（理由见 `prototypes/_CONTRACT.md` §9.15：琥珀主色是该案的设计主张；字体数超限是因为它同时需要「标题黑体 + 正文宋体 + 数字等宽」三档）。
+  > **2026-10-29 更新：`S07`/`S13`/`S21` 的 FAIL 已全部清零，闸门从 26/30 升到 29/30。**
+  > - 三条 `mono` 的修法**不是放弃等宽字体**，而是把等宽数据包进 `<code>`：`rules.mjs` 的 `mono` 规则禁的是「等宽落在 `<code>/<pre>` 之外」，不是禁等宽。三案 215 处包完后，几何差异 0、遮罩像素逐字节相同。
+  > - `S13` 的 `shadow` 与 `button-fx` 其实早在 `1753f94`（2026-10-27）就清了（凹槽改纯 inset、凸起改 `filter: drop-shadow`）。**上一版 README 写的「shadow（17 处）真的未清」是错的**——那 17 处是静态 `lint.mjs` 的正则回溯 bug（`/box-shadow\s*:\s*(?!none)/` 在 `box-shadow: none` 上回溯成只吃冒号），运行期从来没有过。
+  > - `S13` 的 `empty-screens` 是真缺陷但性质特殊：正文 `max-width: 480px` 只占栏宽 53.5%，右侧 516px 永久空着。改 640px 后清零，**代价是行长从 32 汉字变成 42.7 汉字**（与 `_specs/S13.md` 字段 5 有实质偏离，已记入该报告）。另需留意：该指标在最差屏是 0.24、阈值 0.20，**余量很薄**，无关扰动可能把它打回 FAIL，属脆弱项。
 - ❌ **底色同质是真的**：**18 / 30 = 60% 落在"暖浅色带"**（判据 `色相 28–72° 且 明度 ≥78`）。另有两条比百分比更说明问题：**12 个案子（40%）的底色在宽口径 ΔH≤3° 且 ΔL≤3° 下连成单一连通块**（链上最大单步 ΔE76 = 4.39；换 ΔE76≤5 口径则是 19 案）；**83% 的案子首屏没有导航链接、97% 圆角为 0**（口径已补：前者的分母是各案 `.inspect/report.json` 的 `metrics.nav.links=0`，实测 **25/30 = 83.3%**，⚠️ 该指标只数 `<nav>`/`header` 内的 `<a>`、**量不到"页内锚点目录系统"**——56 席实测 S07/S15/S27 等案的页内锚点有 52/40/38 条，所以"缺的是可感知的进度反馈"比"缺导航链接"更准；后者分母是 `roundedBoxes>0`，全批仅 S14 一案有圆角 ⇒ 29/30 = 96.7%。两个数都属 `report.json` 机械口径，换 grep `<nav>` 口径会得到 76.7%，这不是漂移、是不同判据）。见 [deliverables/29-critique-homogeneity.md](deliverables/29-critique-homogeneity.md)。
   > ⚠️ **报同质数字必须附判据。** 换成 ΔE76≤5 口径，最大连通分量是 **19 案（63%）**，「12 案」只在上面那个口径下成立。
   > 本项目在这件事上混用过 **17% / 60% / 73%** 三个数——它们分别测"最严纸族""暖浅底""含主色暖倾向"，**分母还差 4 案**；"近同对 12 严 / 22 宽"来自**先把色相与明度取整再比**，连续值直接比只有 8 / 17。三个数的来历见 [deliverables/29](deliverables/29-critique-homogeneity.md) §1。
@@ -493,7 +495,7 @@ grep -rEo '<a href="https?://[^"]+"' prototypes/S14-zero-g-launch-sequence/index
 
 ```bash
 git ls-files "prototypes/S*/.inspect/*.jpg" | wc -l     # 文中写 272
-node prototypes/_build/verify-prototype.mjs --all        # 文中写 26 案 FAIL=0
+node prototypes/_build/verify-prototype.mjs --all        # 文中写 29 案 FAIL=0
 ls prototypes/_selection/                                 # 选型台 + 向导的文件
 ```
 

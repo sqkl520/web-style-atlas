@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S21-interlocking-release-book/index.html",
- "at": "2026-10-23T19:04:53.003Z",
+ "at": "2026-10-29T09:04:26.011Z",
  "allow": [],
  "viewports": [
   {
@@ -163,18 +163,11 @@
       "text": "联锁释放簿"
      },
      "monoShare": 0.09,
-     "monoProseShare": 0.09,
+     "monoProseShare": 0,
      "monoFamilies": [
       "IBM Plex Mono"
      ],
-     "monoSamples": [
-      "22:04",
-      "22:00",
-      "23:00",
-      "23:00",
-      "00:00",
-      "05:00"
-     ],
+     "monoSamples": [],
      "microLabels": 0,
      "microLabelShare": 0,
      "microSamples": [],
@@ -458,18 +451,11 @@
       "text": "联锁释放簿"
      },
      "monoShare": 0.09,
-     "monoProseShare": 0.09,
+     "monoProseShare": 0,
      "monoFamilies": [
       "IBM Plex Mono"
      ],
-     "monoSamples": [
-      "22:04",
-      "22:00",
-      "23:00",
-      "23:00",
-      "00:00",
-      "05:00"
-     ],
+     "monoSamples": [],
      "microLabels": 0,
      "microLabelShare": 0,
      "microSamples": [],
@@ -843,18 +829,11 @@
       "text": "联锁释放簿"
      },
      "monoShare": 0.09,
-     "monoProseShare": 0.09,
+     "monoProseShare": 0,
      "monoFamilies": [
       "IBM Plex Mono"
      ],
-     "monoSamples": [
-      "22:04",
-      "22:00",
-      "23:00",
-      "23:00",
-      "00:00",
-      "05:00"
-     ],
+     "monoSamples": [],
      "microLabels": 0,
      "microLabelShare": 0,
      "microSamples": [],
@@ -959,17 +938,6 @@
   }
  ],
  "findings": [
-  {
-   "level": "FAIL",
-   "id": "mono",
-   "width": 1440,
-   "message": "Monospace type outside code: IBM Plex Mono — e.g. \"22:04\", \"22:00\", \"23:00\", \"23:00\"",
-   "fix": "Set it in the text face. Monospace is for literal code inside <pre>/<code> only.",
-   "alsoAt": [
-    768,
-    390
-   ]
-  },
   {
    "level": "WARN",
    "id": "font-count",

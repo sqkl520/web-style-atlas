@@ -125,31 +125,33 @@
       return;
     }
     var when = String(SELFGATE.at || '').slice(0, 10);
-    if (SELFGATE.fail) {
-      if (badge) {
-        badge.textContent = '　·　本页自身 FAIL ' + SELFGATE.fail
-          + (SELFGATE.ids.length ? '（' + SELFGATE.ids.join(' / ') + '）' : '')
-          + ' · WARN ' + SELFGATE.warn;
-        badge.setAttribute('data-level', 'fail');
-      }
-      if (host) {
-        host.textContent = '本页自身：闸门 ' + SELFGATE.fail + ' 条 FAIL（'
-          + SELFGATE.ids.join(' / ') + '）、' + SELFGATE.warn + ' 条 WARN —— 报告时间 '
-          + when + '。报头那个「闸门 FAIL=0 ' + stats.clean + '」只数 30 个原型，不含本页。';
-        host.setAttribute('data-level', 'fail');
-      }
-    } else {
-      if (badge) {
-        badge.textContent = '　·　本页自身 FAIL 0 · WARN ' + SELFGATE.warn;
-        badge.setAttribute('data-level', 'pass');
-      }
-      if (host) {
-        host.textContent = '本页自身：闸门 0 条 FAIL、' + SELFGATE.warn
-          + ' 条 WARN —— 报告时间 ' + when
-          + '。报头那个「闸门 FAIL=0 ' + stats.clean + '」只数 30 个原型（' + stats.clean
-          + ' / ' + stats.total + '），不含本页。';
-        host.setAttribute('data-level', 'pass');
-      }
+    /* 2026-10-29 改：文案必须压到**一行**。三个独立 Agent 各自测出同一个回归 ——
+     * 第一版 pass 分支 90+ 字，在 `.self-gate`（宽 548.3px、max-width 76ch）下折成 2 行，
+     * 于是 `.mast-fold` 高 +19.5px、1440 首卡 top 从 430.5 → **450.0**。
+     * 而 1440 档 `.mast-fold` 默认 open、窄档默认收起 —— 所以这个回归**只在宽档显形**，
+     * 很容易被「390 档零变化」掩盖过去。
+     *
+     * 现在：正文只留一行放得下的结论句；完整解释写进 `title`（悬停可读、不占高度）。 */
+    var short = '本页自身：FAIL ' + (SELFGATE.fail || 0) + ' · WARN ' + SELFGATE.warn
+      + ' · 报告 ' + when
+      + (SELFGATE.fail ? '（' + SELFGATE.ids.join(' / ') + '）' : '')
+      + '　·　本页不在报头统计里';
+    var detail = '报头那个「闸门 FAIL=0 ' + stats.clean + '」只数 30 个原型（'
+      + stats.clean + ' / ' + stats.total + '），不含本页。\n'
+      + '本页自身的闸门结果来自 prototypes/_selection/.inspect/report.json，'
+      + '由 `node prototypes/_build/render-scheme.mjs _selection` 生成；'
+      + '`check-stale.mjs` 会检查它是否过期。\n'
+      + 'FAIL：' + (SELFGATE.ids.length ? SELFGATE.ids.join(' / ') : '无')
+      + '；WARN ' + SELFGATE.warn + ' 条。';
+
+    if (host) {
+      host.textContent = short;
+      host.setAttribute('title', detail);
+      host.setAttribute('data-level', SELFGATE.fail ? 'fail' : 'pass');
+    }
+    if (badge) {
+      badge.textContent = '　·　本页自身 FAIL ' + (SELFGATE.fail || 0) + ' · WARN ' + SELFGATE.warn;
+      badge.setAttribute('data-level', SELFGATE.fail ? 'fail' : 'pass');
     }
   })();
   $('#f-shots').textContent = stats.shots;

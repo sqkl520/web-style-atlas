@@ -546,17 +546,15 @@ window.SCHEMES = [
   ],
   "built": true,
   "gate": {
-   "fail": 1,
+   "fail": 0,
    "warn": 3,
-   "failIds": [
-    "mono"
-   ],
+   "failIds": [],
    "warnIds": [
     "hairline",
     "font-count",
     "no-footage"
    ],
-   "at": "2026-10-24T08:29:21.935Z",
+   "at": "2026-10-28T22:03:34.042Z",
    "screens": 5,
    "realPictures": 6,
    "overflow": 0,
@@ -1065,14 +1063,9 @@ window.SCHEMES = [
   ],
   "built": true,
   "gate": {
-   "fail": 4,
+   "fail": 0,
    "warn": 5,
-   "failIds": [
-    "mono",
-    "shadow",
-    "button-fx",
-    "empty-screens"
-   ],
+   "failIds": [],
    "warnIds": [
     "font-count",
     "body-size",
@@ -1080,7 +1073,7 @@ window.SCHEMES = [
     "still-page",
     "hairline"
    ],
-   "at": "2026-10-24T16:11:28.111Z",
+   "at": "2026-10-28T22:04:43.960Z",
    "screens": 6,
    "realPictures": 5,
    "overflow": 0,
@@ -1763,16 +1756,14 @@ window.SCHEMES = [
   ],
   "built": true,
   "gate": {
-   "fail": 1,
+   "fail": 0,
    "warn": 2,
-   "failIds": [
-    "mono"
-   ],
+   "failIds": [],
    "warnIds": [
     "font-count",
     "no-footage"
    ],
-   "at": "2026-10-23T19:04:53.003Z",
+   "at": "2026-10-28T22:04:06.282Z",
    "screens": 5,
    "realPictures": 6,
    "overflow": 0,

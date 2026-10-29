@@ -46,7 +46,20 @@ export const PRODUCTS = [
     label: '选型台',
     sources: [
       'index.html', 'style.css', 'app.js',
-      'prompt-copy.js', 'data.js', 'prompts.js',
+      'prompt-copy.js', 'prompts.js',
+      /* `data.js` 不列 —— 它是 `collect-schemes.mjs` 的**产物**（从 `_specs/*.md` 生成），
+         不是源。列进来会造成一个死循环式的误报：
+           跑 collect-schemes → data.js mtime 变新 → check-stale 报「data.js 落后 N 分钟」
+           → 跑 render-scheme _selection → report.at 更新 → 转绿
+         但真正的问题（`_specs/*.md` 改了、data.js 没重生成）反而查不到，
+         因为 data.js 比 report 旧还是新，与「规格变了没重生成」无关。
+         2026-10-29 实测：刷新 data.js 后立刻报「落后 724 分钟」，而那份 data.js 是刚写的。
+
+         正确的分工：
+           · `check-stale` 管「源改了 → 报告过期」（源 = 人手改的文件）
+           · `collect-schemes` 的产物是否过期，应由 `check-docs` 的 `nums/gate` 之类
+             数值一致性检查管（它已经在做：实测抓到过「达标 29 vs 文档 26」）
+      */
       'wizard.html', 'wizard.css', 'wizard.js',
       /* `self-gate.js` 不列：它和 report.json 由同一次 render-scheme 生成，
          mtime 必然比 at 晚几毫秒，列进来会让每次重渲染后立刻又报"陈旧"，
