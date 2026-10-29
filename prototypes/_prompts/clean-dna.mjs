@@ -1002,10 +1002,26 @@ function bodySizeVerdict(cleanCss, vars) {
 function pickPalette(decls, rowColors, rawCss, specCtx) {
   const MAX = 7;
   const rootHexes = rowColors.map(function (c) { return c.hex.toUpperCase(); });
+  /* 全文件里出现过的 hex（不限 `:root`）。
+   *
+   * 为什么需要：判据 4（规格明写的主色）不能只认 `:root` 里的色。
+   * **S14 整个文件没有 `:root`** —— 它把颜色直接写在规则里
+   * （`body { background: #12181D }`，见 `style.css:19-22`）。
+   * 于是 `rootHexes` 为空数组，`addPrimary` 的守卫恒 false，
+   * 规格明写的「主色 `#E4572E`」永远进不来 —— 这是 9 案 primary 为空里
+   * 最后一个、也是最结构性的一案。
+   *
+   * 放宽为「页面任何位置出现过」：规格写的主色若页面真的用了，就该认。 */
+  const cssHexes = (function () {
+    const out = new Set(rootHexes);
+    const clean = stripComments(rawCss);
+    for (const m of clean.matchAll(/#([0-9A-Fa-f]{6})(?![0-9A-Fa-f])/g)) out.add(m[0].toUpperCase());
+    return out;
+  })();
   const primary = [];
   const addPrimary = function (hex) {
     const h = (hex || "").toUpperCase();
-    if (h && primary.indexOf(h) < 0 && rootHexes.indexOf(h) >= 0) primary.push(h);
+    if (h && primary.indexOf(h) < 0 && cssHexes.has(h)) primary.push(h);
   };
 
   // 判据 1：:root 声明行上的注释写着「主色 / 强调 / primary / accent」
@@ -1029,6 +1045,45 @@ function pickPalette(decls, rowColors, rawCss, specCtx) {
   }
   // 判据 3：文件头注释里「主色 #XXXXXX」/「#XXXXXX 主色」
   for (const hex of prosePrimaries(rawCss)) addPrimary(hex);
+
+  /* 判据 4：规格字段 3 明写的「主色」（2026-10-30 新增）
+   *
+   * 为什么必须加：前三条判据全靠 **CSS 里的命名与注释**猜主色。
+   * 实测有 9 案 `primary` 为空 —— 它们的变量名恰好不含主色语义：
+   *   S17 主色是 `#5A2A50`，但变量叫 `--ink`
+   *   S18 主色是 `#2FA84F`，但变量叫 `--phos`
+   *   S14 的 `:root` 结构特殊，`rowColors` 一个都没取到
+   *
+   * 而规格字段 3 是**明写**的：「主色 `#5A2A50` 凹版紫墨…」。
+   * 这是权威来源，且解析方式已在 `collect-schemes.mjs` 里验证过（分句 + 排否定语境，
+   * 实测 30/30）。这里复用同一套判据，让两条链对「主色」有同一个答案。
+   *
+   * ⚠️ 不能只取「含主色的分句的第一个 hex」就完事 —— 字段 3 后面还有
+   * 「反的是 `#6366F1` 靛蓝主色」这种否定语境。必须先排否定再取。
+   */
+  const NEG_CTX = /(反的是|反\s|不采用|修正前|不是|禁止|不新增|旧值|避免|不用)/;
+  const specPrimary = (function () {
+    if (!specCtx || !specCtx.dir || !specCtx.id) return null;
+    const p = join(P, specCtx.dir, "..", "_specs", specCtx.id + ".md");
+    if (!existsSync(p)) return null;
+    const md = readFileSync(p, "utf8");
+    const lines = md.split(/\r?\n/);
+    const i = lines.findIndex(function (l) { return /配色系统/.test(l); });
+    if (i < 0) return null;
+    const buf = [lines[i]];
+    for (let j = i + 1; j < lines.length; j++) {
+      if (/^\*{0,2}4[\.．]?\s/.test(lines[j].trim())) break;
+      buf.push(lines[j]);
+    }
+    for (const seg of buf.join("\n").split(/[；。\n]/)) {
+      if (!/主色/.test(seg)) continue;
+      if (NEG_CTX.test(seg)) continue;
+      const m = seg.match(/#([0-9A-Fa-f]{6})(?![0-9A-Fa-f])/);
+      if (m) return m[0].toUpperCase();
+    }
+    return null;
+  })();
+  if (specPrimary) addPrimary(specPrimary);
 
   const chosen = [];
   const seen = new Set();

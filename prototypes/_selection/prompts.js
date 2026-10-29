@@ -730,7 +730,7 @@ window.STYLE_PROMPTS = {
     "minPics": 4
    },
    "dna": {
-    "palette": "#120C08（room）、#C46A1F（amber）、#E8DCC8（ivory）、#6B4A22（wall）、#3A2712（wall-deep）、#111111（on-amber）",
+    "palette": "#C46A1F（amber）、#120C08（room）、#E8DCC8（ivory）、#6B4A22（wall）、#3A2712（wall-deep）、#111111（on-amber）",
     "fonts": {
      "display": "Gloock",
      "body": "Source Serif 4",
@@ -962,7 +962,7 @@ window.STYLE_PROMPTS = {
     "minPics": 4
    },
    "dna": {
-    "palette": "#F4E3BE（paper）、#241F17（ink）、#7B612C（gold）、#D6CDB9（shade）",
+    "palette": "#7B612C（gold）、#F4E3BE（paper）、#241F17（ink）、#D6CDB9（shade）",
     "fonts": {
      "display": "EB Garamond",
      "body": "Noto Serif SC",
@@ -1147,7 +1147,7 @@ window.STYLE_PROMPTS = {
     "minPics": 5
    },
    "dna": {
-    "palette": "#E1D6BD（paper）、#5A2A50（ink）、#7A2E2E（seal）、#C9BFA6（stub）、#3F1A38（ink-deep）、#B9A98C（rule）、#DFD6BF（tone-hover）",
+    "palette": "#5A2A50（ink）、#E1D6BD（paper）、#7A2E2E（seal）、#C9BFA6（stub）、#3F1A38（ink-deep）、#B9A98C（rule）、#DFD6BF（tone-hover）",
     "fonts": {
      "display": "Literata",
      "body": "文津宋体",
@@ -1195,7 +1195,7 @@ window.STYLE_PROMPTS = {
     "minPics": 6
    },
    "dna": {
-    "palette": "#0A0D0A（bay）、#2FA84F（phos）、#C8C4AE（paper）、#6E6350（tag）、#278F43（phos-deep）、#111111（ink）",
+    "palette": "#2FA84F（phos）、#0A0D0A（bay）、#C8C4AE（paper）、#6E6350（tag）、#278F43（phos-deep）、#111111（ink）",
     "fonts": {
      "display": "Glow Sans SC",
      "body": "Glow Sans SC",
@@ -1291,7 +1291,7 @@ window.STYLE_PROMPTS = {
     "minPics": 6
    },
    "dna": {
-    "palette": "#FAF3E1（paper）、#26485C（blue）、#0F1418（ink）、#55606B（pencil）",
+    "palette": "#26485C（blue）、#FAF3E1（paper）、#0F1418（ink）、#55606B（pencil）",
     "fonts": {
      "display": "Space Grotesk",
      "body": "Noto Sans SC",
@@ -1527,7 +1527,7 @@ window.STYLE_PROMPTS = {
     "minPics": 5
    },
    "dna": {
-    "palette": "#E8E4DE（paper）、#914A27（spot-a）、#1E1A16（ink）、#2E6B5E（spot-b）、#DFDAD2（paper-deep）、#FFFFFF（paper-white）",
+    "palette": "#914A27（spot-a）、#E8E4DE（paper）、#1E1A16（ink）、#2E6B5E（spot-b）、#DFDAD2（paper-deep）、#FFFFFF（paper-white）",
     "fonts": {
      "display": "Besley",
      "body": "Noto Serif SC",
@@ -1574,7 +1574,7 @@ window.STYLE_PROMPTS = {
     "minPics": 6
    },
    "dna": {
-    "palette": "#D3D1CA（paper）、#485270（blue）、#121212（ink）、#C8341F（red）、#FFFFFF（white）、#C3C1B9（tint）、#38110E（mul-br）",
+    "palette": "#485270（blue）、#D3D1CA（paper）、#121212（ink）、#C8341F（red）、#FFFFFF（white）、#C3C1B9（tint）、#38110E（mul-br）",
     "fonts": {
      "display": "Syne",
      "body": "Noto Sans SC",
