@@ -1085,17 +1085,95 @@ function pickPalette(decls, rowColors, rawCss, specCtx) {
   })();
   if (specPrimary) addPrimary(specPrimary);
 
+  /* 规格字段 3 给每个声明色写的角色名（背景色 / 主色 / 辅助色 / 压痕暗侧 …）。
+   *
+   * 为什么需要：调色板的条目形如 `#C1121F（red）`，那个「red」是 `:root` 的变量名。
+   * 变量名是给 CSS 看的，规格里的角色名是给**读提示词的 AI** 看的 —— 后者才是
+   * 「哪个色当底、哪个当主」的直接答案。
+   *
+   * 只在变量名缺失时兜底（见下面的 push），不改已有的名字：
+   * 实测 29/30 案的条目都靠 `:root` 变量名拿到了角色语义，换掉它们等于凭空重写
+   * 60 多条提示词措辞，风险面远大于收益。真正缺名的是 S14（它没有 `:root`）。
+   */
+  const specRoleOf = (function () {
+    const out = new Map();
+    if (!specCtx || !specCtx.dir || !specCtx.id) return out;
+    const p = join(P, specCtx.dir, "..", "_specs", specCtx.id + ".md");
+    if (!existsSync(p)) return out;
+    const lines = readFileSync(p, "utf8").split(/\r?\n/);
+    const i = lines.findIndex(function (l) { return /配色系统/.test(l); });
+    if (i < 0) return out;
+    const buf = [lines[i]];
+    for (let j = i + 1; j < lines.length; j++) {
+      if (/^\*{0,2}4[\.．]?\s/.test(lines[j].trim())) break;
+      buf.push(lines[j]);
+    }
+    for (const seg of buf.join("\n").split(/[；。\n]/)) {
+      if (NEG_CTX.test(seg)) continue;
+      const m = seg.match(/#([0-9A-Fa-f]{6})(?![0-9A-Fa-f])/);
+      if (!m) continue;
+      /* 角色名 = hex 之前那段文字，去掉 markdown 记号与空白。
+       * 形如「背景色 `#12181D` …」→「背景色」；「压痕暗侧 `#8A3320`」→「压痕暗侧」。
+       * 超过 8 字的说明是描述而不是角色名，宁可不给也不塞进括号里。 */
+      const before = seg.slice(0, seg.indexOf(m[0])).replace(/[`*_\s]/g, "");
+      const role = before.replace(/^[0-9]+\s*[\.．、]/, "");
+      if (role && role.length <= 8) {
+        const H = m[0].toUpperCase();
+        if (!out.has(H)) out.set(H, role);
+      }
+    }
+    return out;
+  })();
+
+  /* 没有 `:root` 的案（实测只有 S14）没有 rowColors，退化为「全文件出现过的 hex」。
+   * 否则 pickPalette 直接返回空表，调用方只能按纯频次排 —— 那正是
+   * 「主色排第 4、第 1 位是 HUD 文字色」的成因。 */
+  const colorSource = rowColors.length ? rowColors : (function () {
+    const counts = new Map();
+    for (const m of stripComments(rawCss).matchAll(/#([0-9A-Fa-f]{6})(?![0-9A-Fa-f])/g)) {
+      const h = m[0].toUpperCase();
+      counts.set(h, (counts.get(h) || 0) + 1);
+    }
+    return [...counts.entries()]
+      .sort(function (a, b) { return b[1] - a[1]; })
+      .map(function (e) { return { hex: e[0], name: "", note: "", count: e[1] }; });
+  })();
+
+  /* 无变量名、规格也没给角色名时的最后兜底：从**真实用法**读出角色。
+   *
+   * 为什么不能就留空：提示词写「#C9C4B8、#111111」而不说它们干什么用，
+   * AI 只能猜，而猜错的代价正是这轮在修的那类问题（把强调色当底色铺满）。
+   *
+   * 判据只认两种能证伪的事实，不做语义推测：
+   *   · `color:` / `fill:` 声明 → 文字/图形色
+   *   · `background:` / `background-color:` 声明 → 底色
+   * 命中数并列或都没命中就返回空，宁可不给也不给错。 */
+  const usageRoleOf = function (hex) {
+    const body = stripComments(rawCss);
+    let asText = 0;
+    let asBg = 0;
+    for (const line of body.split('\n')) {
+      if (!line.toUpperCase().includes(hex)) continue;
+      if (/(?:^|[\s;{])(?:color|fill)\s*:/.test(line)) asText++;
+      if (/(?:^|[\s;{])(?:background|background-color)\s*:/.test(line)) asBg++;
+    }
+    if (asText > asBg) return '文字色';
+    if (asBg > asText) return '底色';
+    return '';
+  };
+
   const chosen = [];
   const seen = new Set();
   const push = function (c) {
     const hex = c.hex.toUpperCase();
     if (seen.has(hex)) return;
     seen.add(hex);
-    chosen.push({ hex: hex, name: String(c.name || "").replace(/^--/, "") });
+    const varName = String(c.name || "").replace(/^--/, "");
+    chosen.push({ hex: hex, name: varName || specRoleOf.get(hex) || usageRoleOf(hex) || "" });
   };
   // 主色在前：提示词第一条就点名主色，AI 就不会把主色当"可选装饰"。
   for (const hex of primary) {
-    const c = rowColors.find(function (x) { return x.hex.toUpperCase() === hex; });
+    const c = colorSource.find(function (x) { return x.hex.toUpperCase() === hex; });
     if (c) push(c);
   }
 
@@ -1143,7 +1221,7 @@ function pickPalette(decls, rowColors, rawCss, specCtx) {
   })();
   for (const hex of specDeclared) {
     if (chosen.length >= MAX) break;
-    const c = rowColors.find(function (x) { return x.hex.toUpperCase() === hex; });
+    const c = colorSource.find(function (x) { return x.hex.toUpperCase() === hex; });
     if (c) push(c);
   }
 
@@ -1154,7 +1232,7 @@ function pickPalette(decls, rowColors, rawCss, specCtx) {
    * 把位占满，规格明写的 `#6E8B7A` 依然进不来 —— 改了个寂寞。
    * 正确语义是：**规格声明的色有优先占位权**，派生色只在有余位时补。
    */
-  for (const c of rowColors) {
+  for (const c of colorSource) {
     if (chosen.length >= MAX) break;
     push(c);
   }

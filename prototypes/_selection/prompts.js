@@ -1008,7 +1008,7 @@ window.STYLE_PROMPTS = {
     "minPics": 10
    },
    "dna": {
-    "palette": "#C9C4B8、#D8D2C4、#12181D、#E4572E、#8A3320、#111111",
+    "palette": "#E4572E（主色）、#12181D（背景色）、#D8D2C4（辅助色）、#8A3320（压痕暗侧）、#C9C4B8（文字色）、#111111（文字色）、#E4E0D6（文字色）",
     "fonts": {
      "display": "Oswald",
      "body": "Noto Serif SC",

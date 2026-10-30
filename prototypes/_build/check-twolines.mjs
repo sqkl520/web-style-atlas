@@ -133,6 +133,7 @@ const stats = {
   cases: SCHEMES.length,
   subsetOk: 0,
   r6Ok: 0,
+  r7Ok: 0,
   extraWithRole: 0,
   extraWithoutRole: 0,
   fail: 0,
@@ -141,6 +142,7 @@ const stats = {
 };
 
 const extraNoRole = [];
+const unnamedPal = [];
 
 for (const id of [...dM.keys()].sort()) {
   const sc = dM.get(id);
@@ -208,6 +210,32 @@ for (const id of [...dM.keys()].sort()) {
     } else if (uiPri) stats.r6Ok++;
   }
 
+  /* R7（硬）：提示词的调色板条目是否带角色名
+   *
+   * 为什么必须管：调色板条目形如 `#C1121F（red）`，括号里那个词是 AI 判断
+   * 「哪个色当底、哪个当主」的**唯一依据**。色值本身不带语义 —— 同一组 5 个色，
+   * 标成「主色在前」和完全不标，AI 会做出两个不同的站。
+   *
+   * 实测（2026-10-30）：S14 的 6 个条目**全部没有角色名**，且它的主色排在
+   * 第 4 位、首位是规格里根本没有的 HUD 文字色。根因是 `pickPalette` 靠
+   * `:root` 变量名提供角色语义，而 S14 整个文件没有 `:root`。
+   *
+   * 判据：每个条目必须是「#RRGGBB + 至少一个字母/汉字」。纯 hex 一律算失败。
+   * 这是**关系断言**（色值 ↔ 角色），不是「两边相等」——所以它不会变成恒真式：
+   * 角色名来自另一套数据（规格字段 3 的原文 / CSS 的 color: 用法计数）。
+   */
+  const palItems = String(ps.dna?.palette || '').split(/[、,，]/).map((x) => x.trim()).filter(Boolean);
+  const bare = palItems.filter((it) => {
+    const withoutHex = it.replace(/#[0-9A-Fa-f]{6}/g, '').replace(/[（）()\s、,，]/g, '');
+    return !/[A-Za-z\u4e00-\u9fa5]/.test(withoutHex);
+  });
+  if (bare.length) {
+    unnamedPal.push({ id, list: bare });
+    add('FAIL', id, 'R7-palette-no-role',
+      `调色板有 ${bare.length}/${palItems.length} 个条目没有角色名: ${bare.join(' ')}` +
+      `（AI 无法判断这些色的用途，只能猜）`);
+  } else stats.r7Ok++;
+
   /* R5（软，降级为 INFO）：prompts.js 补出来的色有没有 CSS 角色注释
    *
    * 批判 Agent 指出这条与"色该不该进提示词"没有因果关系：
@@ -272,6 +300,7 @@ if (JSON_OUT) {
   console.log('');
   console.log(`  R1 data.js ⊆ prompts.js           ${stats.subsetOk}/${SCHEMES.length}`);
   console.log(`  R6 UI 的「主色」= 规格声明的主色   ${stats.r6Ok}/${SCHEMES.length}   ← 替换已删除的 R2/R3/R4（恒真式）`);
+  console.log(`  R7 调色板条目都带角色名            ${stats.r7Ok}/${SCHEMES.length}   ← 色值不带语义，角色名是 AI 的唯一依据`);
   console.log(`  R5 补色有 CSS 角色注释（INFO）     ${stats.extraWithRole}/${stats.extraWithRole + stats.extraWithoutRole}`);
   console.log('');
 
