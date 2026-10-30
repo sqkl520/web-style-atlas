@@ -28,11 +28,39 @@
 
 html { background: var(--card); }
 
+/* 炭黑卡纸的纤维：程序化生成的 128px 平铺位图，不是渐变。
+ *
+ * 按 `_CONTRACT.md` §9.2 的要求挂在伪元素上（body 保持纯色）：
+ * 纹理挂 body 会让 `bgBehind()` 短路，contrast 与 empty-screens 双双静默通过。
+ *
+ * 层级：`z-index: -1` + `position: fixed` 让它铺在页面内容之下、
+ * 又不参与滚动（与原 body 背景的视觉行为一致）。
+ * `pointer-events: none` 保证它不吃鼠标事件。 */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image: url("assets/card-grain.png");
+  background-repeat: repeat;
+  pointer-events: none;
+}
+
 body {
   margin: 0;
   background-color: var(--card);
-  /* 炭黑卡纸的纤维：程序化生成的 128px 平铺位图，不是渐变 */
-  background-image: url("assets/card-grain.png");
+  /* 炭黑卡纸的纤维纹理**不在这里** —— 见下方 body::before。
+   *
+   * 2026-10-31 修（`check-texture.mjs` 抓到的唯一真实违规）：
+   * 原本 `background-image: url("assets/card-grain.png")` 直接挂在 body 上，
+   * 违反 `_CONTRACT.md` §9.2/§9.16。后果不是"风格问题"而是**闸门失明**：
+   * `probe.mjs:257` 的 `bgBehind()` 在祖先链上遇到 `backgroundImage !== 'none'`
+   * 就 `return null`，调用处 `:282` 随即 `continue` —— 该案**所有文字的对比度
+   * 检查被整条跳过**，`lowContrast` 恒为 0。
+   *
+   * 实测该案文字对比度本来是合格的（ivory 15.81、ivory-2 9.11、gold 6.04、
+   * gold-on-band 5.82），所以这次是"侥幸正确"而不是"检查正确"。
+   * 挪到伪元素后闸门恢复视力，结论才可信。 */
   background-repeat: repeat;
   color: var(--ivory);
   font-family: "Noto Serif SC", "Songti SC", serif;

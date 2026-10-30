@@ -45,7 +45,18 @@ export function findStale() {
     try {
       at = new Date(JSON.parse(readFileSync(rep, 'utf8').replace(/^\uFEFF/, '')).at).getTime();
     } catch { continue; }
-    if (!Number.isFinite(at)) continue;
+    /* ⚠️ 2026-10-31：`at` 缺失/非法从前是 `continue` 静默跳过 ——
+     * 那等于「这一案的陈旧度无法判定」被当成「不陈旧」（同一类"空集是子集"缺陷，
+     * 与 check-contract.mjs 的 C0 同款）。改为报出来，让 reader 知道有一案没查。
+     * 注意这里不能用 out.push 的普通形状：渲染命令对它是无意义的。 */
+    if (!Number.isFinite(at)) {
+      out.push({
+        id: name.slice(0, 3), dir: name, which: '.inspect/report.json 的 at 字段',
+        gapMin: 0, label: 'at 缺失或非法',
+        render: 'node prototypes/_build/render-scheme.mjs ' + name,
+      });
+      continue;
+    }
     let newest = 0;
     let which = '';
     for (const f of CASE_SOURCES) {
@@ -56,8 +67,48 @@ export function findStale() {
       }
     }
     const gapMin = (newest - at) / 60000;
-    // 1 分钟容差：同一次渲染里 html/css 与 report 的写入顺序会有秒级差
-    if (gapMin > 1) out.push({ id: name.slice(0, 3), dir: name, which, gapMin: Math.round(gapMin) });
+    /* 阈值 1 → 3 分钟（2026-10-31 实测后调整）。
+     *
+     * `inspect.mjs` 在**渲染开始**写 `at`（L61）、**最后**写 report（L171），
+     * 所以 `report.mtime − at` = 单轮渲染耗时。30 案实测：min 0.37 / 中位 0.74 分钟，
+     * 但 S02 是 1.6 分钟。若容差只有 1 分钟，那么在 S02 那种较慢的渲染期间
+     * 别人碰一下 style.css，渲染成功完成后仍会被判「源比产物新」——假阳性。
+     * 3 分钟覆盖实测的最大正常耗时（且远小于真正"改了没重渲染"的量级：
+     * 真正陈旧的案是 10000+ 分钟）。 */
+    if (gapMin > 3) out.push({ id: name.slice(0, 3), dir: name, which, gapMin: Math.round(gapMin) });
+
+    /* jpg 截图与 report 同步性（2026-10-31 新增）。
+     *
+     * 为什么查它：`report.json` 里的数字旧了还能看出来，`.inspect/*.jpg`
+     * 是一张**看起来正常**的旧截图 —— 人翻截图会以为页面现在长这样。
+     *
+     * ⚠️ 判据**不能**是 `jpg.mtime > at`。`inspect.mjs` 的写入顺序是
+     *   at(L61) → jpg(L87-128) → report.json(L171)
+     * 所以成功渲染必然让 jpg 比 at 新。实测该判据下 30/30 全红，纯假阳性。
+     * 正确判据是 `jpg.mtime > report.json.mtime` —— 实测 1/30，
+     * 且那 1 例是真的（重渲染时截图写入失败会留下这种状态）。 */
+    const insp = join(P, name, '.inspect');
+    let jpgs = [];
+    try { jpgs = readdirSync(insp).filter((f) => f.endsWith('.jpg')); } catch { /* 没有 .inspect 就算了 */ }
+    if (jpgs.length) {
+      const repM = statSync(rep).mtimeMs;
+      let newestJpg = 0;
+      let jpgName = '';
+      for (const f of jpgs) {
+        const m = statSync(join(insp, f)).mtimeMs;
+        if (m > newestJpg) { newestJpg = m; jpgName = f; }
+      }
+      /* 容差 5 秒：实测 S14 的 tablet-page-02.jpg 只比 report.json 新 **1 秒** ——
+       * 那是同一次渲染末尾的写入顺序差（inspect.mjs 先写大部分截图再写 report，
+       * 个别图最后补写），不是"截图与报告不同步"。没有容差会把这种正常抖动报成缺陷。 */
+      if (newestJpg > repM + 5000) {
+        out.push({
+          id: name.slice(0, 3), dir: name, which: jpgName + '（截图比 report.json 新）',
+          gapMin: Math.round((newestJpg - repM) / 60000), label: '截图与报告不同步',
+          render: 'node prototypes/_build/render-scheme.mjs ' + name,
+        });
+      }
+    }
   }
 
   // ② 原型之外的入口（2026-10-28 新增，清单来自 _entries.mjs）
@@ -80,7 +131,14 @@ export function findStale() {
     }
     if (!which) continue;
     const gapMin = (newest - at) / 60000;
-    if (gapMin > 1) out.push({ id: e.dir, dir: e.dir, which, gapMin: Math.round(gapMin), label: e.label, render: e.render });
+    /* 阈值 1 → 3 分钟，与第①节（30 案）保持一致。
+     *
+     * `at` 是渲染**开始**时刻、report 是渲染**结束**才写，所以 `report.mtime − at`
+     * = 单轮渲染耗时。实测选型台是 0.84 分钟 —— 1 分钟容差只剩 0.16 分钟余量，
+     * 机器慢一点或并行跑别的渲染就会假阳性。
+     *
+     * 终验 Agent 指出「阈值只改了 1/3」（第① 节改了、第②③ 节没改），这条是第②节。 */
+    if (gapMin > 3) out.push({ id: e.dir, dir: e.dir, which, gapMin: Math.round(gapMin), label: e.label, render: e.render });
   }
 
   /* ③ 提示词数据链（2026-10-30 新增）
@@ -165,7 +223,13 @@ export function findStale() {
     if (process.env.DEBUG_STALE_CHAIN) {
       console.error('[chain] ' + link.label + ' prodM=' + prodM + ' newest=' + newest + ' gapMin=' + gapMin.toFixed(2) + ' which=' + which);
     }
-    if (gapMin > 1) {
+    /* 阈值统一为 3 分钟（2026-10-31 终验指出"只改了 1/3"）。
+     *
+     * 注意这一节与①②不同：它比的是**产物 mtime vs 输入 mtime**，不是 `at`，
+     * 所以没有"渲染耗时"这个混淆因素。但生成链是 `extract-dna → clean-dna →
+     * build-prompts` 三段串行跑，中间产物写完再读会有秒级抖动；
+     * 3 分钟给足余量，且真陈旧的量级是 1000+ 分钟，不会漏。 */
+    if (gapMin > 3) {
       out.push({
         id: link.label,
         dir: link.product,

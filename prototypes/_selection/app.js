@@ -232,7 +232,17 @@
          而行卡不印 scenes → 用户看到 7 行却没有一行印出"政务"，
          只能得出"有 7 个方案适合政务"这个**与事实相反**的结论。
          （这是我自己在一次"修复"里引入的反向信号。原来的 0 命中至少诚实。） */
-      var hay = [r.id, r.cn, r.en, r.family, r.fonts, r.def, r.tone, r.structure,
+      /* 2026-10-31：`r.fonts` → `r.fontsSpec`。data.js 里这个字段是**规格原文**
+       * （30 案实测 min 228 / 中位 360.5 / max 514 / 均值 373 字的字符串），
+       * 与 prompts.js 里的 `dna.fonts` 对象同名不同形状。改名后两者不会再被误认。
+       *
+       * ⚠️ 曾写成 `r.fontsSpec || r.fonts` 兜底，已删（2026-10-31 锐评验收后）。
+       * 理由：钝评实测「把 data.js 的 30 处 fontsSpec 全退回 fonts」时，
+       * 六个检查器**全绿** —— 说明这个字段当时零测试保护。
+       * 兜底的唯一实际效果是让「改名没做完」永远无法被观测到。
+       * 现在改为：直接读 fontsSpec（读不到就是空，搜索少索引一个字段，
+       * 但 `check-twolines.mjs` 的 R8 会红，问题在闸门里看得见，不在搜索里静默）。 */
+      var hay = [r.id, r.cn, r.en, r.family, r.fontsSpec, r.def, r.tone, r.structure,
                  r.errorCode, r.threshold, r.layout, r.visuals, r.quirk,
                  r.scenesYes,
                  ax.ground, ax.band, ax.load, ax.loud,
@@ -1350,7 +1360,7 @@
          没有名字。现在由 paletteLine() 统一生成「底色 … 主色 … 其余 …」，
          零新增字数（只是把已有的 HEX 挪到标签后面），理由见 paletteLine 的注释。 */
       field('当前有效配色', paletteLine(r)) +
-      field('字体策略', r.fonts) +
+      field('字体策略', r.fontsSpec) +
       /* ↓ 以下 4 段带第 4 个参数（2026-10-28）：默认收起，展开后一字不截。
        * 为什么这 4 个而不是别的、为什么不连「字体策略」一起折、summary 上印什么，
        * 完整理由与实测数字都写在 field() 上面那段长注释里（含 VA/VE/VH/VF 四个方案的对比）。

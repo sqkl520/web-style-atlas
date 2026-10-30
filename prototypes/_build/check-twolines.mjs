@@ -134,6 +134,7 @@ const stats = {
   subsetOk: 0,
   r6Ok: 0,
   r7Ok: 0,
+  r8Ok: 0,
   extraWithRole: 0,
   extraWithoutRole: 0,
   fail: 0,
@@ -159,6 +160,27 @@ for (const id of [...dM.keys()].sort()) {
       `data.js 有 ${dataOnly.length} 个色不在 prompts.js 里: ${dataOnly.join(' ')}` +
       `（提示词漏了这些色，AI 就不知道页面要用它们）`);
   } else stats.subsetOk++;
+
+  /* R8（硬，2026-10-31 新增）：data.js 必须有非空的 fontsSpec
+   *
+   * 为什么需要 —— 锐评 Agent 的实测：把 data.js 的 30 处 `fontsSpec` 全退回
+   * `fonts`（模拟"改名没做完"），**六个检查器全绿、exit 全 0**。
+   * 那个改名当时零测试保护：`prompt-copy.js` 的 `for-key-in` 泛化扫描会把它
+   * 当普通字符串带走，`check-prompts` 只看提示词正文，没有任何一条断言读这个键名。
+   *
+   * 更糟的是 `field()` 的 `if (!val) return ''` 让 undefined 与空串**输出相同**，
+   * 所以「那一段静默消失」在页面上表现为"少一段"，不报错、不变红。
+   *
+   * 判据用「键存在且非空」而不是「键名等于 fontsSpec」：
+   * 前者能抓「改名没做完」（键变回 fonts，fontsSpec 为 undefined），
+   * 后者只是把常量再写一遍，改错了也不知道。 */
+  const fs = sc.fontsSpec;
+  if (typeof fs !== 'string' || !fs.trim()) {
+    add('FAIL', id, 'R8-fontsSpec-missing',
+      `data.js 的 \`fontsSpec\` ${typeof fs === 'string' ? '是空串' : '缺失（undefined）'}` +
+      `—— 生成器改名没做完，或 collect-schemes.mjs 的赋值行被删。` +
+      `后果：app.js 的搜索少索引一个字段、详情面板「字体策略」整段消失，且两者都不报错。`);
+  } else stats.r8Ok++;
 
   /* ── R2/R3/R4 已删除（2026-10-30）────────────────────────────────────
    *
@@ -301,6 +323,7 @@ if (JSON_OUT) {
   console.log(`  R1 data.js ⊆ prompts.js           ${stats.subsetOk}/${SCHEMES.length}`);
   console.log(`  R6 UI 的「主色」= 规格声明的主色   ${stats.r6Ok}/${SCHEMES.length}   ← 替换已删除的 R2/R3/R4（恒真式）`);
   console.log(`  R7 调色板条目都带角色名            ${stats.r7Ok}/${SCHEMES.length}   ← 色值不带语义，角色名是 AI 的唯一依据`);
+  console.log(`  R8 data.js 的 fontsSpec 非空       ${stats.r8Ok}/${SCHEMES.length}   ← 抓「改名没做完/赋值行被删」，否则搜索与详情面板静默缺一段`);
   console.log(`  R5 补色有 CSS 角色注释（INFO）     ${stats.extraWithRole}/${stats.extraWithRole + stats.extraWithoutRole}`);
   console.log('');
 

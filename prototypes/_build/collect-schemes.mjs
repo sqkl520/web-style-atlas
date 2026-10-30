@@ -348,7 +348,21 @@ for (let i = 1; i <= 30; i++) {
     threshold: spec ? spec.threshold : '', tone: spec ? spec.tone : '',
     def: spec && spec.fields['一句话视觉定义'] ? spec.fields['一句话视觉定义'] : '',
     family: spec && spec.fields['美学家族与参考'] ? spec.fields['美学家族与参考'] : '',
-    fonts: spec && spec.fields['字体策略'] ? spec.fields['字体策略'] : '',
+    /* 2026-10-31 改名 `fonts` → `fontsSpec`。
+     *
+     * 为什么改：这个仓库有两条链，各自有一个叫 `fonts` 的字段，**形状完全不同**：
+     *   · 这里（data.js）    `fontsSpec` = 规格字段 4 的**原文**，一个字符串
+     *                        （30 案实测 min 228 / 中位 360.5 / max 514 / 均值 373 字）
+     *   · prompts.js         `dna.fonts` = {display, body, mono, displayStack, bodyStack} 对象
+     * 同名不同形状，读代码的人会以为是同一个东西，进而写出 `d.fonst.display` 这类
+     * 在 data.js 侧永远 undefined 的代码（实测 `prompt-copy.js:180` 就留着一段
+     * 「万一 fonts 是数组」的兼容分支，而两条链都不再产生数组）。
+     *
+     * 改名的代价很小：消费方只有 2 处（app.js 的搜索索引与字段展示），
+     * 而且两处都是**原样使用字符串**，不依赖字段名以外的语义。
+     * 保留旧名 `fonts` 一并输出是错的——那等于让两个名字继续并存，
+     * 问题原封不动。所以是**替换**，不是新增。 */
+    fontsSpec: spec && spec.fields['字体策略'] ? spec.fields['字体策略'] : '',
     layout: spec && spec.fields['布局与网格'] ? spec.fields['布局与网格'] : '',
     visuals: spec && spec.fields['关键视觉元素'] ? spec.fields['关键视觉元素'] : '',
     motion: spec && spec.fields['动效与交互'] ? spec.fields['动效与交互'] : '',
@@ -716,7 +730,7 @@ if (!check) {
   const miss = (f) => out.filter((r) => !f(r)).map((r) => r.id);
   console.log('\n缺 一句话视觉定义：' + (miss((r) => r.def).join(' ') || '无'));
   console.log('缺 美学家族：      ' + (miss((r) => r.family).join(' ') || '无'));
-  console.log('缺 字体策略：      ' + (miss((r) => r.fonts).join(' ') || '无'));
+  console.log('缺 字体策略：      ' + (miss((r) => r.fontsSpec).join(' ') || '无'));
   console.log('缺 布局与网格：    ' + (miss((r) => r.layout).join(' ') || '无'));
   /* 2026-10-27 补：landing 与 audit 这两个字段各自丢过一整轮，**而上面这张自检表查不出来**——
    * 它只查 def / family / fonts / layout / copy 五项，赋值表里少一行时脚本照样打印「无」，

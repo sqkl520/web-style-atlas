@@ -173,7 +173,9 @@ git clone --depth 1 https://github.com/sqkl520/web-style-atlas.git
 | `verify-prototype.mjs` | 机械复核：远程资源、禁用字体栈、Emoji、断链图、真实图片数、横向溢出、闸门计数 |
 | `check-docs.mjs` / `check-stale.mjs` / `check-anchors.mjs` | 三件"页面本身看不出问题"的检查：**文档与代码背离**（编号/数字/路径 vs `data.js`）、**产物比源文件旧**（改了没重渲染）、**站内锚点点了个寂寞**。三者都在有 FAIL 时 exit 1 |
 | `check-prompts.mjs` | **提示词内容**的独立对账：30 条提示词里说的配色/线宽/字号，必须与 `style.css` 的真实声明对上。为什么需要它：把 S19 主色篡改成 `#FF00FF` 后，`check-docs` 的 13 条断言**逐字不变、仍 exit 0**，而用户复制到的提示词已经变了 |
-| `check-twolines.mjs` | **两条数据链的关系**：`data.js`（选型台展示用，= 规格字段 3 的 4 主色）必须是 `prompts.js`（提示词用，含 CSS 派生色）的**子集**，且 `palette[0]===bg`、`palette[1]===primary`。它**不查两链相等**——实测确认两者语义不同且都合理，一个说设计意图，一个说施工细节 |
+| `check-twolines.mjs` | **两条数据链的关系**：`data.js`（选型台展示用，= 规格字段 3 的 4 主色）必须是 `prompts.js`（提示词用，含 CSS 派生色）的**子集**，且 `palette[0]===bg`、`palette[1]===primary`。它**不查两链相等**——实测确认两者语义不同且都合理，一个说设计意图，一个说施工细节。另有 R7（调色板条目必须带角色名）、R8（`fontsSpec` 必须非空） |
+| `check-contract.mjs` | **契约与实测的一致性**：`_CONTRACT.md` §7.2 写「FAIL 集合 ⊆ §9.15 允许表」，这句话从前只靠人读。六条断言：C0 报告缺失/损坏即失败（"无法判定"≠"成立"）、C1 实测 FAIL 是否都在允许表内、C2 允许表里的规则引擎里是否真存在（引擎源码读不到也算失败）、C3 登记但无案触发（INFO）、**C4 反向断言：文档声称的 FAIL 是否等于实测**、C5 登记的规则是否**可能**产生 FAIL（实测 2/5 条只有 WARN 分支，那些豁免在逻辑上空转）、C6 防表格格式变化导致判据静默缩小。C4 上线当天就抓到两处「文档替一个已经不存在的缺陷要豁免」 |
+| `check-texture.mjs` | **纹理载体**：`_CONTRACT.md` §9.2/§9.16 规定 `body` 必须纯色、纹理只能挂伪元素。**这条是唯一一条"一破全假"的规则**——纹理挂 `body` 会让探测器的 `bgBehind()` 在祖先链上找到背景图就整条跳过对比度检查，于是 `contrast` 与 `empty-screens` 双双静默通过，本仓库其余所有闸门的绿都变成假的。实测 31 个 style.css（30 案 + 选型台）全部合规 |
 | `shot.mjs` + `shot-page.py` | **零依赖截图取证**（不依赖任何第三方设计工具、不使用 CDP）：整页长图 + 按视口切片 + 逐屏像素统计（主色占比、平均亮度、空白屏识别） |
 | `fetch-fonts.mjs` / `selfhost-fonts.mjs` | 把字体抓成自托管，并把页面里的外链字体换成自托管 |
 | `assign-assets.mjs` / `make-textures.py` | 素材兜底（从已有语料按题材交叉分配真实照片）+ **14 个确定性纹理生成器**（参数落盘可逐字节复算） |
