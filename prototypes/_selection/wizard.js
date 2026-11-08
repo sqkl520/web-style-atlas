@@ -272,10 +272,24 @@
   /* 支持带答案的链接回放（?load=1&img=2…） */
   (function replay() {
     var p = new URLSearchParams(location.search);
-    var ok = ORDER.every(function (k) { return p.has(k) && p.get(k) !== ''; });
-    if (!ok) return;
-    ORDER.forEach(function (k) {
-      ans[k] = +p.get(k);
+    /* 2026-11-04 修：原来只判 `p.has(k) && p.get(k) !== ''`，于是
+     *   · `?load=abc` → `+'abc'` = NaN → score() 每一项都是 NaN →
+     *     比较函数永远返回 false → 排序退化成原数组序 → **不管答案是什么都推荐 S01/S02/S03**；
+     *   · `?guide=9` / `?img=-1` → 越界值算进距离，推荐结果无声地错掉；
+     *   · 页面上还把这串非法值原样印成「你的答案是 undefined」。
+     * 现在逐个校验：必须是 0–2 的整数，否则整条重放作废（当作没带参数，让用户从第一题开始）。 */
+    function pick(k) {
+      if (!p.has(k)) return null;
+      var raw = p.get(k);
+      if (raw === null || raw === '') return null;
+      if (!/^[0-2]$/.test(raw)) return null;   // 只接受单字符 0/1/2：挡掉 NaN、负数、小数、越界
+      return +raw;
+    }
+    var vals = ORDER.map(pick);
+    if (vals.some(function (v) { return v === null; })) return;   // 有一项不合法就整体不重放
+
+    ORDER.forEach(function (k, i) {
+      ans[k] = vals[i];
       var el = document.querySelector('.wz-q[data-q="' + k + '"] .wz-opts button[data-v="' + ans[k] + '"]');
       if (el) el.setAttribute('aria-pressed', 'true');
     });

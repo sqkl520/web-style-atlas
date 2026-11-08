@@ -142,7 +142,7 @@
          （实测见交付物里方案 B 那一行）。
          而「你是做什么的」这一组正是**最该被看见**的一组，把它单独留在外面、
          其余折起来，等于用「看起来还在」换「一条都没省」。整条折起、
-         summary 上直接写「11 组 · 47 颗芯片 · 先按你是做什么的挑」，
+         summary 上直接写「11 组 · N 颗芯片 · 先按你是做什么的挑」，
          用户知道里面有什么，也知道第一组是什么。
 
          【为什么不再用 max-height + overflow-y 限高】
@@ -150,7 +150,7 @@
          只有 337px 高、内容 1406px。折叠块没有这个问题 —— 展开后 rail 恢复
          自然高度（1440 档本来就没有限高），390 档展开时整条内容跟着页面一起滚。 -->
     <details class="rail-fold" id="rail-fold" open>
-      <summary class="rail-fold-sum">筛选 · 11 组 47 颗芯片（第一组是「你是做什么的」）</summary>
+      <summary class="rail-fold-sum">筛选 · <span data-derived="chip-groups">11</span> 组 <span data-derived="chip-count">45</span> 颗芯片（第一组是「你是做什么的」）</summary>
       <div class="rail-fold-body">
 
     <!-- 先问用户能回答的问题。下面那组"设计口径与质检状态"是给做这份图集的人看的，
@@ -208,7 +208,7 @@
     </div>
     <div class="rail-block rail-note">
       <h2>怎么用</h2>
-      <p>点任意一行展开它的全部字段与整页截图（多数案 10 段、个别 9 段——缺失原因在 README「做不到与已知边界」里写明）。<kbd>1</kbd><kbd>2</kbd><kbd>3</kbd> 切视口，<kbd>J</kbd><kbd>K</kbd> 换方案，<kbd>/</kbd> 定位搜索框，<kbd>Esc</kbd> 收起。地址栏的 <code>#S07</code> 可以直接分享单个方案。</p>
+      <p>点任意一行展开它的全部字段与整页截图（<strong data-derived="field-count">12</strong> 段——其中 5 段默认折叠）。<kbd>1</kbd><kbd>2</kbd><kbd>3</kbd> 切视口，<kbd>J</kbd><kbd>K</kbd> 换方案，<kbd>/</kbd> 定位搜索框，<kbd>Esc</kbd> 收起。地址栏的 <code>#S07</code> 可以直接分享单个方案。</p>
     </div>
       </div>
     </details>
@@ -220,7 +220,11 @@
         <span>搜索</span>
         <input id="q" type="search" placeholder="方案号、中文名、英文名、美学家族、字体、错误码…" autocomplete="off">
       </label>
-      <p class="count" id="count">—</p>
+      <!-- 2026-11-04：补上 aria-live。这个属性从 2026-10-28 起就被本文件的注释
+           （下方 .bar-fold 那段）描述成「它是 aria-live 的活口」，而实际上
+           全文档唯一的 aria-live 是 #q-parked（还是个 display:none 的节点）。
+           结果是筛选结果数变了、复制成功提示出现了，屏读器一个字都收不到。 -->
+      <p class="count" id="count" role="status" aria-live="polite" aria-atomic="true">—</p>
       <!-- 工具条折叠块（2026-10-28，390×844 首屏实测）────────────────────────
            改前 .bar 在 390 档是 145px = 四行：搜索 41.9 / 计数 21 / 排序 40 / 清空 35
            （gap 12 把它们堆成四行，因为 358px 宽放不下「搜索 + 计数 + 排序 + 清空」）。

@@ -16,7 +16,14 @@ import { join } from 'node:path';
 // 仓库根由脚本自身位置推得（模板 = check-stale.mjs:16；含 Windows 盘符修正与 39 §3-N10 的 decodeURIComponent）。
 // 39 §2-B01/B03：写死 ROOT 时，若本机另有一份同路径副本，脚本会渲染**那一份**而看起来完全正常。
 const ROOT = decodeURIComponent(new URL('../..', import.meta.url).pathname).replace(/^\/([A-Za-z]:)/, '$1');
-const INSPECT = join(ROOT, 'tools/taste-skill/skills/taste-skill/scripts/inspect.mjs');
+/* 渲染引擎的来源（2026-11-04 起仓库自包含）。
+ * 原来只指向 gitignore 掉的 tools/（.gitignore:2），于是干净 clone 里本脚本 exit 4，
+ * 季度增删案这件事就变成「只有原作者那台机器能做」。
+ * 现在优先用入库的 _build/vendor/；tools/ 退为可选（本地开发想改引擎时用）。
+ * vendor 的三件来自 tools/taste-skill（MIT）：inspect.mjs / cdp.mjs / probe.mjs / rules.mjs。 */
+const INSPECT_LOCAL = join(ROOT, 'prototypes/_build/vendor/inspect.mjs');
+const INSPECT_TOOLS = join(ROOT, 'tools/taste-skill/skills/taste-skill/scripts/inspect.mjs');
+const INSPECT = existsSync(INSPECT_LOCAL) ? INSPECT_LOCAL : INSPECT_TOOLS;
 const name = process.argv[2];
 if (!name) { console.error('用法: node render-scheme.mjs <原型目录名> [--allow a,b]'); process.exit(2); }
 const dir = join(ROOT, 'prototypes', name);
@@ -31,8 +38,11 @@ if (ai !== -1 && process.argv[ai + 1]) extra.push('--allow', process.argv[ai + 1
 // 而下方 L36 的 existsSync(rep) 被**上一轮的旧 report.json** 满足 ⇒ 脚本打印旧数据、退出码像成功。
 // （2026-10-24 亲历：tools/ 消失后 S24 两次"渲染成功"全是旧报告，mtime 与 at 一动不动。）
 if (!existsSync(INSPECT)) {
-  console.error('缺渲染引擎：' + INSPECT + '\n  tools/ 不在仓库里（.gitignore:2 排除）——本机需自备 taste-skill；' +
-    '只想截图取证请用 shot.mjs（零依赖，不碰 tools/）。');
+  console.error('缺渲染引擎：' + INSPECT +
+    '\n  prototypes/_build/vendor/ 里应该有入库的 inspect.mjs（2026-11-04 起仓库自包含）。' +
+    '\n  若 vendor/ 被删了，从 git 恢复：git checkout -- prototypes/_build/vendor/' +
+    '\n  本地开发想改用 tools/ 里的版本时，把 tools/taste-skill/... 放回去即可（优先级低于 vendor/）。' +
+    '\n  只想截图取证请用 shot.mjs（零依赖）。');
   process.exit(4);
 }
 // 记下渲染前的报告指纹：跑完必须变，防止"打印旧数据"再次发生

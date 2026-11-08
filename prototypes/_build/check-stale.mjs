@@ -90,6 +90,25 @@ export function findStale() {
     const insp = join(P, name, '.inspect');
     let jpgs = [];
     try { jpgs = readdirSync(insp).filter((f) => f.endsWith('.jpg')); } catch { /* 没有 .inspect 就算了 */ }
+    /* 2026-11-04 加：report.json 声明了截图、但盘上一张都没有 —— 这是
+       inspect.mjs 在 Chrome 起不来时删掉截图后留下的状态。原来的
+       `if (jpgs.length)` 把它整段跳过，于是「证据没了」被报成「全部新鲜」。
+       必须先于下面的 mtime 比较判断。 */
+    if (!jpgs.length) {
+      let declared = 0;
+      try {
+        const j = JSON.parse(readFileSync(rep, 'utf8'));
+        for (const im of (j.images || [])) declared += (im.fold ? 1 : 0) + (im.pages || []).length;
+      } catch { /* 报告读不了就不在这里报 */ }
+      if (declared > 0) {
+        out.push({
+          id: name.slice(0, 3), dir: name, which: `report.json 声明 ${declared} 张截图，盘上 0 张`,
+          gapMin: null, label: '截图集体缺失',
+          render: 'node prototypes/_build/render-scheme.mjs ' + name,
+        });
+      }
+      continue;
+    }
     if (jpgs.length) {
       const repM = statSync(rep).mtimeMs;
       let newestJpg = 0;
@@ -160,16 +179,20 @@ export function findStale() {
     {
       /* 规格文件：链条最上游，也是**唯一完全没有守卫**的生成物（2026-10-30 补）。
        *
-       * `extract-specs.mjs` 从 `deliverables/05-schemes-*.md` 切出 30 份规格，
+       * `extract-specs.mjs` 从 `deliverables/0{4,5,6}-schemes-*.md` 切出 30 份规格，
        * 而所有下游（data.js 的 palette / prompts.js 的色板与字号）都以规格为权威。
        * 规格陈旧 = 用户看到和拿到的全部基于过时数据，且没有一处会报警。
        *
-       * 输入用 05 号源文件；如果它不存在（比如 clone 后没跑过），本条自动跳过。 */
+       * 输入用这三个源文件；不存在（比如 clone 后没跑过）的自动跳过。
+       *
+       * 2026-11-04 修：这里原来写 `05-schemes-21-30.md`，而盘上是 `06-schemes-21-30.md`。
+       * `existsSync` 过滤把它静默丢掉 ⇒ **S21–S30 这十案的规格陈旧从来没有被检查过**，
+       * 而闸门一路报绿。文件名拼错 + `filter(existsSync)` = 一个永久静默的盲区。 */
       product: '_specs/S01.md',
       inputs: () => {
         /* `P` = `prototypes/`，所以仓库根是它的上一级。这里不能假设有个 ROOT 变量。 */
         const repoRoot = join(P, '..');
-        return ['04-schemes-01-10.md', '05-schemes-11-20.md', '05-schemes-21-30.md']
+        return ['04-schemes-01-10.md', '05-schemes-11-20.md', '06-schemes-21-30.md']
           .map((f) => join(repoRoot, 'deliverables', f))
           .filter((f) => existsSync(f));
       },

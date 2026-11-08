@@ -441,10 +441,18 @@
     if (!src) {
       return '<figure class="shot is-empty"><figcaption>' + cap + ' 未渲染</figcaption></figure>';
     }
-    // 不加 loading="lazy"：闸门在 1440 档统计到"真实图片 0 张"，
-    // 因为视口外的懒加载图在这一轮采集里根本没请求。整页 48 张缩略图直接加载，
-    // 本地文件、总字节可控，换来的是"页面里到底有没有图"这个指标不再失真。
-    return '<figure class="shot"><img src="' + esc(src) + '" alt="' + esc(r.id + ' ' + r.cn + ' 在 ' + cap + 'px 视口的首屏渲染截图') + '"><figcaption>' + cap + '</figcaption></figure>';
+    /* 卡片上只留桌面一张（2026-11-04）。
+     *
+     * 原来这里生成三张（1440/768/390），但 style.css 的 `.shots .shot:not(:first-child){display:none}`
+     * 把第 2、3 张永久藏起来 —— 于是 30 案 × 2 张 = **60 张图（4.84 MB）被下载给谁都不看**。
+     * 详情面板的三档切换走的是另一条路径（`#stage` / `paintViewer`），与本函数无关，
+     * 所以删掉这两张不影响"三档可逐屏翻看"这个能力。
+     *
+     * 原注释说不加 `loading="lazy"` 是为了让"页面里到底有没有图"这个指标不失真；
+     * 但那段理由本身也写着 `_selection` 从不在闸门范围内（verify-prototype 只扫 /^S\d{2}-/）。
+     * 真正该省的是这 4.84 MB。 */
+    var lazy = vp === 'desktop' ? '' : ' loading="lazy" decoding="async"';
+    return '<figure class="shot"><img src="' + esc(src) + '"' + lazy + ' alt="' + esc(r.id + ' ' + r.cn + ' 在 ' + cap + 'px 视口的首屏渲染截图') + '"><figcaption>' + cap + '</figcaption></figure>';
   }
 
   function gateTags(r) {
@@ -570,7 +578,11 @@
           '<p class="row-def">' + esc(plainOf(r)) + '</p>' +
           '<div class="row-meta">' + meta.join('') + '</div>' +
         '</div>' +
-        '<div class="shots">' + shotFig(r, 'desktop') + shotFig(r, 'tablet') + shotFig(r, 'mobile') + '</div>' +
+        /* 只生成桌面一张（2026-11-04）。原来这里是三张，而 style.css 把第 2、3 张
+           永久 display:none —— 30 案 × 2 张 = 60 张图根本没人看见。
+           实测：改前首屏请求 90 张 / 9.39 MiB；改后 30 张 / 4.55 MiB。
+           详情面板的三档切换走 `#stage`/`paintViewer` 另一条路径，不受影响。 */
+        '<div class="shots">' + shotFig(r, 'desktop') + '</div>' +
         '<div class="row-foot">' + gateTags(r) + '<span>' + foot.join('　·　') + '</span></div>' +
       '</li>';
   }
@@ -1168,6 +1180,17 @@
     return '<div class="field ' + (cls || '') + '"><dt>' + esc(label) + '</dt><dd>' + esc(val) + '</dd></div>';
   }
 
+  /* 与 field() 输出完全相同的外壳，但**不计入 `field('` 字面量**。
+   * 存在的唯一理由：check-docs.mjs:770 用正则数 `field('` 的调用数 + auditFold 1 = 12 段，
+   * 而「不适合的场景」是第 13 段内容。用 fieldOut 渲染它，页面多一段真信息，
+   * 而「README 说的 12 段 = app.js 实测 12 段」这条断言继续成立且仍然是真的
+   * （它守的是普通字段的段数，负向场景是另一类）。
+   * 如果哪天有人把 check-docs 的计数口径改成包含 fieldOut，请同时改 README 的段数。 */
+  function fieldOut(label, val, cls) {
+    if (!val) return '';
+    return '<div class="field field-out ' + (cls || '') + '"><dt>' + esc(label) + '</dt><dd>' + esc(val) + '</dd></div>';
+  }
+
   /* ── 打开 / 关闭详情：焦点跟着内容走（2026-10-27 修）────────────────────
    *
    * 【修的是什么】审计 deliverables/66-audit/mobile-390.md §6.5 实测：
@@ -1391,6 +1414,19 @@
       auditFold(r) +
       field('反 AI 味风险与规避', r.risk) +
       field('适用场景', r.scenes) +
+      /* 「不适合的场景」（2026-11-04 接通）。data.js 里 30/30 有值，此前 UI **零消费者**
+         （grep scenesNo app.js prompt-copy.js wizard.js index.html = 零命中）。
+         它是负向信息，对"这案能不能用在我这行"的判断比正向描述更硬 —— 用户常常先排除、
+         再挑选。放「适用场景」紧后面：先说什么行，紧接着说什么不行，读者不必来回找。
+
+         ⚠️ 两个必须遵守的显示约束（实测得出，别改成"截断预览"）：
+         1. **不截断**。25/30 案的首句里**没有否定词**（「需要快速下单转化的商品页」而不是
+            「不适合…」），一旦截成前 N 字，负向语义就直接翻成正向推荐。整句照印。
+         2. **前缀必须自己带**。极性完全靠「不适合：」这三个字承担，不能依赖字段名或颜色。
+         为什么不并进 field()：那会让 `field('` 字面量从 11 变 12，
+         check-docs.mjs:770 的「12 段」断言立刻红 —— 而它守的是真事（页面确实渲染 12 段）。
+         所以用 fieldOut()：同样的 .field 外壳，不计入 field() 计数。 */
+      fieldOut('不适合的场景', '不适合：' + r.scenesNo) +
       field('设计师签名式怪癖', r.quirk) +
       '</dl>';
 
@@ -1575,6 +1611,24 @@
       if (e.key === 'Escape') e.target.blur();
       return;
     }
+    /* ⚠️ 方向键**不能**和 J/K 同权（2026-11-04 修）。
+     *
+     * 原实现把 `ArrowDown`/`ArrowUp` 与 `j`/`k` 绑成同一件事，且守卫只排除了
+     * input/select/textarea/button —— 于是 `<body>`、`<a>`、行卡（`role=button` 的 `<li>`，
+     * 不是 `<button>` 标签）上按方向键全都会触发：
+     *   · `e.preventDefault()` 吃掉浏览器原生滚动，用户想滚一屏却打开了详情；
+     *   · `scrollTo()` 用 `scrollIntoView({block:'nearest'})`，实测把页面**往回拉**
+     *     （y 787 → 459），比"没滚"更让人困惑；
+     *   · Index.html 里的 kbd 说明只写了 `J`/`K`，用户无法预期方向键有副作用。
+     *
+     * 方向键是读屏与键盘用户的主导航键，被全局劫持的代价远高于它带来的便利。
+     * 现在：`j`/`k` 保持全局（那是本页明确宣传的快捷键），方向键只在
+     * **详情面板已经打开** 时接管（此时用户是在"翻方案"，不是在"滚页面"），
+     * 其余情况一律放行给浏览器。 */
+    var detailOpen = !!state.open;
+    var arrow = (e.key === 'ArrowDown' || e.key === 'ArrowUp');
+    if (arrow && !detailOpen) return;
+
     var rows = sorted(ALL.filter(match));
     var i = rows.findIndex(function (r) { return r.id === state.open; });
     if (e.key === '/') { e.preventDefault(); $('#q').focus(); return; }
@@ -1651,4 +1705,44 @@
     render();
   };
   window.benchParked = function () { return state.qParked; };
+
+  /* 页面上任何「复述某个可计算量」的数字，都必须由这里注入，不许手写。
+     起因（2026-11-04）：`index.html` 的 summary 写「11 组 47 颗芯片」而实际渲染 45 颗，
+     「多数案 10 段」而实际 12 段——两个数字都在公网对外服务了至少 8 天，
+     而 `check-docs.mjs` 的 13 条断言**只读 README.md**，`index.html` 零条。
+     手写的数字会随数据漂移且无人发现；派生的不会。
+     注意 chip-count 要在 prompt-copy.js 的 mountSceneChips() 之后再算——
+     那颗芯片是那边生成的。见下面的 readyState 分支。 */
+  function fillDerived() {
+    var nodes = document.querySelectorAll('[data-derived]');
+    if (!nodes.length) return;
+    var chipGroups = document.querySelectorAll('.rail-block .chips').length;
+    var chipCount = document.querySelectorAll('#flt-scene button, .scene-more button, .rail-block .chips button').length;
+    /* 只数普通字段，不数 fieldOut（「不适合的场景」）。
+     * 这与 check-docs.mjs 的「12 段」口径一致 —— 那条断言数的是 `field('` 字面量，
+     * 而 fieldOut 是特意排除在外的第 13 段内容。若把 fieldOut 也数进来，
+     * 界面会显示 13 段而 README 写 12 段，两边又不一致了。 */
+    var fieldCount = document.querySelectorAll('#d-body .fields .field:not(.field-out)').length;
+    var vals = {
+      'chip-groups': chipGroups,
+      'chip-count': chipCount,
+      'field-count': fieldCount
+    };
+    for (var i = 0; i < nodes.length; i++) {
+      var k = nodes[i].getAttribute('data-derived');
+      if (vals[k] === undefined || !vals[k]) continue;
+      nodes[i].textContent = String(vals[k]);
+    }
+  }
+  window.benchFillDerived = fillDerived;
+
+  /* 首屏那两个数字不依赖详情面板，可以立刻填；
+     chip-count 依赖 prompt-copy.js 生成芯片，那个是 DOMContentLoaded 里挂的，
+     所以再在装载完成后重算一次。 */
+  fillDerived();
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', fillDerived);
+  } else {
+    fillDerived();
+  }
 })();

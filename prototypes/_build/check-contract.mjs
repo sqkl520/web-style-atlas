@@ -44,7 +44,12 @@ import { join } from 'node:path';
 const ROOT = new URL('../..', import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1');
 const P = join(ROOT, 'prototypes');
 const CONTRACT = join(P, '_CONTRACT.md');
-const RULES = join(ROOT, 'tools/taste-skill/skills/taste-skill/scripts/lib/rules.mjs');
+/* 规则引擎的来源（2026-11-04 起仓库自包含）。
+ * 原来写死 tools/ 下的 rules.mjs，而 tools/ 被 .gitignore 排除 ⇒ 干净 clone 里本脚本 exit 1
+ * （「读不到规则引擎的 RULE_IDS」）。现在优先用入库的 _build/vendor/rules.mjs。 */
+const RULES_LOCAL = join(ROOT, 'prototypes/_build/vendor/rules.mjs');
+const RULES_TOOLS = join(ROOT, 'tools/taste-skill/skills/taste-skill/scripts/lib/rules.mjs');
+const RULES = existsSync(RULES_LOCAL) ? RULES_LOCAL : RULES_TOOLS;
 
 const QUIET = process.argv.includes('--quiet');
 const JSON_OUT = process.argv.includes('--json');

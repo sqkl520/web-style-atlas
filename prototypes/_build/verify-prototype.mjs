@@ -7,7 +7,7 @@
 //
 // 退出码：0 全部达标；1 有不达标项。
 import { readFileSync, existsSync, readdirSync, statSync } from 'node:fs';
-import { join } from 'node:path';
+import { join, basename } from 'node:path';
 
 // 仓库根由脚本自身位置推得（模板 = check-stale.mjs:16；含 Windows 盘符修正与 39 §3-N10 的 decodeURIComponent）。
 const ROOT = decodeURIComponent(new URL('../..', import.meta.url).pathname).replace(/^\/([A-Za-z]:)/, '$1');
@@ -24,6 +24,31 @@ function stripNonRendered(s) {
     .replace(/(^|[^:])\/\/[^\n]*/g, '$1 ');
 }
 const EMOJI = /[\u2600-\u27BF\u2B00-\u2BFF\u{1F300}-\u{1FAFF}]/u;
+
+/* \u82B1\u62EC\u53F7\u914D\u5BF9\uFF0C\u8FD4\u56DE\u6240\u6709\u300C\u9009\u62E9\u5668 { \u58F0\u660E }\u300D\u5757\uFF0C**\u542B @media \u5185\u5D4C\u5957\u7684**\u3002
+ * \u4E0E check-texture.mjs:67-92 \u540C\u4E00\u5957\u5224\u636E\uFF08\u90A3\u8FB9\u5148\u4FEE\u597D\u4E86\uFF0C\u8FD9\u8FB9\u7167\u7740\u5199\uFF09\u3002
+ * \u4E3A\u4EC0\u4E48\u4E0D\u7528\u6B63\u5219\uFF1A`}` \u88AB\u5339\u914D\u6D88\u8017\u4F1A\u8BA9\u76F8\u90BB\u89C4\u5219\u6F0F\u6389\u4E00\u534A\uFF0C\u5B9E\u6D4B S02 \u7684 body \u5757\u5C31\u662F\u8FD9\u4E48\u88AB\u8DF3\u8FC7\u7684\u3002 */
+function cssBlocks(css) {
+  const out = [];
+  const pairs = new Map();
+  const stack = [];
+  for (let i = 0; i < css.length; i++) {
+    if (css[i] === '{') stack.push(i);
+    else if (css[i] === '}') { const o = stack.pop(); if (o !== undefined) pairs.set(o, i); }
+  }
+  for (let i = 0; i < css.length; i++) {
+    if (css[i] !== '{') continue;
+    const close = pairs.get(i);
+    if (close === undefined) continue;
+    let s = i - 1;
+    while (s >= 0 && css[s] !== '}' && css[s] !== ';' && css[s] !== '{') s--;
+    out.push({ sel: css.slice(s + 1, i), decls: css.slice(i + 1, close) });
+  }
+  return out;
+}
+const stripCssComments = (s) => s.replace(/\/\*[\s\S]*?\*\//g, '');
+/* \u53EA\u8BA4**\u88F8** body / html\uFF1Abody::before\u3001body.x\u3001.body\u3001#body \u90FD\u4E0D\u7B97\uFF08\u5951\u7EA6 \u00A79.2 \u7BA1\u7684\u662F\u8F7D\u4F53\u672C\u8EAB\uFF09\u3002 */
+const isBareBodyOrHtml = (sel) => String(sel).split(/[{},]/).map((t) => t.trim()).some((t) => t === 'body' || t === 'html');
 
 function check(name) {
   const dir = join(PROTO, name);
@@ -73,8 +98,22 @@ function check(name) {
   if (em.length) out.problems.push('Emoji：' + em.join(' ; '));
 
   // 4 body 不得挂背景图（契约 §9.2：会让对比度检查整条静默跳过）
-  for (const m of C.matchAll(/(?:^|\})\s*(body|html)\s*\{([^}]*)\}/g)) {
-    if (/background-image|background\s*:[^;]*url\(/.test(m[2])) out.problems.push(`${m[1]} 规则挂了背景图 → 对比度检查会静默跳过`);
+  /* 2026-11-04 重写。原来是一行正则 `/(?:^|\})\s*(body|html)\s*\{([^}]*)\}/g`，两头都错：
+   *
+   *   · 漏报真违规：`}` 被前一次匹配消耗后，下一个模式要求 `^` 或 `}`，
+   *     于是**相邻规则只看到隔一条**。实测 30 案里 25 案是 `html { … }` 紧接 `body { … }`，
+   *     body 正好落在被跳过的一半。拿 S02 的原始提交 `caefdd9` 回测——那时背景图真的挂在
+   *     body 上——这条规则命中 **0 次**。它从未抓到过它要抓的东西。
+   *   · 误报：`[^}]*` 能跨注释文字，于是 S02 修复后那句解释「原本 background-image 挂在
+   *     body 上，已挪走」的注释被判成违规，`--all` 因此长期报 28/30。
+   *
+   * 同一个坑本仓已踩过一次：check-texture.mjs 的第一版正则也是这个写法，
+   * 被改成花括号配对状态机后才修好（见那边的注释）。这里直接复用同一套判据。 */
+  for (const r of cssBlocks(stripCssComments(C))) {
+    if (!isBareBodyOrHtml(r.sel)) continue;
+    if (/background-image|background\s*:[^;]*url\(/.test(r.decls)) {
+      out.problems.push(`${r.sel.trim()} 规则挂了背景图 → 对比度检查会静默跳过`);
+    }
   }
 
   // 5 素材与署名
@@ -130,10 +169,25 @@ function check(name) {
     if ((p.brokenImages || []).length) out.problems.push(`断链图 ${p.brokenImages.length}`);
     if ((d.consoleErrors || []).length) out.problems.push(`控制台报错 ${d.consoleErrors.length}`);
   }
-  // 8 每档都要有 fold 图
+  // 8 每档都要有 fold 图（**且文件真的在盘上**）
+  const inspDir = join(dir, '.inspect');
   for (const w of [1440, 768, 390]) {
     const im = (j.images || []).find((i) => i.width === w);
-    if (!im || !im.fold) out.problems.push(`缺 ${w}px 的 fold 截图`);
+    if (!im || !im.fold) out.problems.push(`缺 ${w}px 的 fold 截图（report.json 里没有这一条）`);
+    else if (!existsSync(join(inspDir, basename(im.fold)))) {
+      /* 2026-11-04 加：原来只查 report.json 的字段存不存在，不 stat 文件。
+         于是 inspect.mjs 在 Chrome 起不来时删掉截图、report.json 保持旧值之后，
+         这里依然判「达标」。一次渲染失败 = 证据没了 + 检查说没事。 */
+      out.problems.push(`report.json 声称有 ${w}px 的 ${basename(im.fold)}，但文件不在盘上`);
+    }
+  }
+  // 8b report.json 声明的全部截图都必须真的存在
+  for (const im of (j.images || [])) {
+    for (const f of [im.fold, ...(im.pages || [])]) {
+      if (f && !existsSync(join(inspDir, basename(f)))) {
+        out.problems.push(`截图缺失：.inspect/${basename(f)}（report.json 声明了它）`);
+      }
+    }
   }
   return out;
 }

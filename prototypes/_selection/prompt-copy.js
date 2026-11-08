@@ -907,6 +907,20 @@
     box.addEventListener("click", function (e) { if (e.target === box) closeBox(); });
   }
 
+  /* 屏读器播报（2026-11-04）。按钮文字变化与 `#count` 的数字变化都不会被自动朗读：
+   * 前者的焦点不在它身上，后者原本连 aria-live 都没有。
+   * 这里用一个每次新建、2 秒后移除的 role=status 节点，让每次复制都有一句话被听见。
+   * 复用一个节点时，连续两次相同文案不会再触发播报（ARIA 的行为），所以每次新建。 */
+  function announce(msg) {
+    var n = document.createElement("span");
+    n.setAttribute("role", "status");
+    n.setAttribute("aria-live", "polite");
+    n.style.cssText = "position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0";
+    n.textContent = msg;
+    document.body.appendChild(n);
+    setTimeout(function () { if (n.parentNode) n.parentNode.removeChild(n); }, 2000);
+  }
+
   /* 同步 execCommand 路径。
    * 子 Agent 用系统剪贴板逐字节比对实测（Chrome 156 / Edge 155）：
    *   file:// 与 http:// 下 execCommand('copy') 都能真正写入系统剪贴板；
@@ -921,6 +935,12 @@
    *    （writeText 返回的 Promise 是可靠的），exec 只当"尽力而为"的提前写。
    */
   function execCopySync(text) {
+    /* 焦点要在临时 textarea 出现前记下、在它被移除后还回去（2026-11-04 修）。
+     * 原来只 focus 不还原：`removeChild` 会把焦点丢给 `<body>`，
+     * 于是每次复制后键盘用户都被踢出详情面板，下一次 Tab 从跳过链接重新开始。
+     * 实测（CDP 真按键）：out:BUTTON.prompt-copy → in:TEXTAREA → out:TEXTAREA → activeElement=BODY。
+     * `collapseRailAfterPick` 早就用了「记下 hadFocus 再还原」这个写法，这里是漏掉的一处。 */
+    var prevFocus = document.activeElement;
     var ta = document.createElement("textarea");
     ta.value = text;
     ta.setAttribute("readonly", "");
@@ -936,6 +956,11 @@
       ok = false;
     }
     document.body.removeChild(ta);
+    /* 只在焦点确实被那个 textarea 抢走时才还原，别覆盖用户在这期间自己移过的焦点。 */
+    var lost = !document.activeElement || document.activeElement === document.body;
+    if (lost && prevFocus && prevFocus.focus && document.contains(prevFocus)) {
+      try { prevFocus.focus({ preventScroll: true }); } catch (e) { prevFocus.focus(); }
+    }
     return ok;
   }
 
@@ -957,6 +982,10 @@
         btn.textContent = ok ? "已复制 ✓" : "请手动复制";
         btn.classList.toggle("is-copied", ok);
         setTimeout(function () { btn.textContent = old; btn.classList.remove("is-copied"); }, 1800);
+        /* 按钮文字的变化不会触发播报 —— 焦点不在它身上，它也不是 live region。
+           2026-11-04：给每次复制挂一个短命的 role=status 节点，
+           让屏读器听到「已复制」，而不是只看到按钮字变了。 */
+        announce(ok ? "提示词已复制到剪贴板" : "自动复制失败，已打开手动复制框");
       }
       if (!ok) showManual(text);
     };
@@ -1242,7 +1271,7 @@
    * 【为什么手动搬焦点】<details> 一关，里面拿到焦点的按钮就进了
    * display:none，浏览器把焦点丢回 <body> ⇒ 键盘用户下一次 Tab 从页首重新开始
    * （WCAG 2.4.3 焦点顺序）。把焦点交给 summary：它就是刚才那颗芯片所在块的容器头，
-   * Enter 能原样打开，读出来是「筛选 · 11 组 47 颗芯片」，与"刚做了一次筛选"相符。
+   * Enter 能原样打开，读出来是「筛选 · 11 组 N 颗芯片」，与"刚做了一次筛选"相符。
    * 鼠标路径不会因此多出焦点环：刚发生过鼠标交互，:focus-visible 不匹配。
    */
   var NARROW_RAIL = 980;
