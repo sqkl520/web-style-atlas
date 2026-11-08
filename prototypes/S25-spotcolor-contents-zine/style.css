@@ -168,7 +168,7 @@ a:hover { text-decoration-thickness: 0.16em; text-underline-offset: 0.3em; }
 .check tbody tr:nth-child(odd) th { padding-left: 12px; }
 .press__note { font-size: 16px; color: #4A423A; }
 
-/* 右重左轻跨页：左半 3 栏，右半 7 栏，中缝 56px，装订线在中缝右侧 12px */
+/* 右重左轻跨页：左半 3 栏，右半 7 栏，中缝 72px（column-gap），装订线在中缝右侧 12px */
 .contents {
   display: grid;
   grid-template-columns: 3fr 7fr;

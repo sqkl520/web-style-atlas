@@ -81,7 +81,7 @@ a{color:inherit}
 .slip{
   grid-column:span var(--span);
   margin:0; margin-top:var(--lift); position:relative;
-  transform:rotate(var(--rot));
+  transform:rotate(var(--r, 0deg));
   background:var(--paper); padding:12px 13px 16px;
   -webkit-mask-image:var(--torn); mask-image:var(--torn);
   -webkit-mask-size:100% 100%; mask-size:100% 100%;
@@ -90,7 +90,7 @@ a{color:inherit}
 }
 .slip:nth-child(2n){z-index:3}
 .slip:nth-child(3n){z-index:4}
-.slip:hover{transform:rotate(var(--rot)) translateY(-6px) rotate(.4deg)}
+.slip:hover{transform:rotate(var(--r, 0deg)) translateY(-6px) rotate(.4deg)}
 .slip__plate{width:100%; aspect-ratio:var(--ar,1); object-fit:cover; object-position:var(--op,50% 42%)}
 .slip__cap{padding:10px 1px 0}
 .slip__t{display:block; font-family:var(--f-cjk); font-size:22px; line-height:1.26; margin-bottom:6px}
@@ -158,9 +158,9 @@ a{color:inherit}
 
 /* ---------- 动效：手贴海报（落下带顿挫）、悬停、换墙；全部只用 transform 与 opacity ---------- */
 @keyframes paste{
-  0%{opacity:0; transform:translateY(-24px) rotate(var(--rot))}
-  50%{opacity:.55; transform:translateY(-2px) rotate(var(--rot))}
-  100%{opacity:1; transform:translateY(0) rotate(var(--rot))}
+  0%{opacity:0; transform:translateY(-24px) rotate(var(--r, 0deg))}
+  50%{opacity:.55; transform:translateY(-2px) rotate(var(--r, 0deg))}
+  100%{opacity:1; transform:translateY(0) rotate(var(--r, 0deg))}
 }
 @keyframes inkflash{from{opacity:0} 40%{opacity:.06} to{opacity:0}}
 html.js .slip{opacity:0}
@@ -226,12 +226,12 @@ html.js .wall.is-shifting .flash{animation:inkflash .42s linear}
 /* 降级：定格落下、旋转与推墙，只保留 120ms 不透明度切换（规格字段 7 的降级要求） */
 @media (prefers-reduced-motion:reduce){
   html.js .slip{opacity:1}
-  html.js .slip.is-pasted{animation:none; opacity:1; transform:rotate(var(--rot))}
+  html.js .slip.is-pasted{animation:none; opacity:1; transform:rotate(var(--r, 0deg))}
   html.js .reveal{opacity:1; transform:none}
   html.js .reveal.is-in{transition:opacity .12s linear}
   html.js .wall.is-shifting .wall__grid{transform:none; transition:none}
   html.js .wall.is-shifting .flash{animation:none; opacity:0}
-  .slip:hover{transform:rotate(var(--rot))}
+  .slip:hover{transform:rotate(var(--r, 0deg))}
   .btn,.slip,.slip__gum{transition:opacity .12s linear}
 }
 

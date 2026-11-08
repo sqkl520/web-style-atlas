@@ -125,10 +125,94 @@ function evalCalc(v) {
   });
 }
 
+/* ── 机制句的数值与语义词断言（2026-11-04 加）──────────────────────────
+ *
+ * 为什么需要：`dna.mechanism` 是提示词里**唯一**一句结构描述，也是唯一携带
+ * 本案独有数字的地方（30 条提示词共 403 个带单位 token，机制句占 141 = 35%）。
+ * 而在本轮之前，**8 个 check 脚本对 `.mechanism` 的引用是 0** —— 也就是说
+ * 提示词里唯一一句"这个风格长什么样"的话，从来没有被任何闸门看过一眼。
+ * 后果是实测出来的：抽查 9 条机制句，5 条与实现不符（S01/S04/S07/S09/S10/S17/S25/S26）。
+ *
+ * 判据的边界（重要，别扩）：
+ *   · **只查 `px` / `mm` / `%`**。刻意**不**查「栏/列/行/层/枚/档/倍/fr/角度」——
+ *     那些在 CSS 里不是值而是**区间**（`grid-column: 1/9` 是 8 栏）或 **DOM 节点计数**
+ *     （S19 的「5 行」是数出来的）。实测把它们纳入会产生 32 条 FAIL，绝大多数是误报。
+ *   · **S03「9 栏」、S07「5 栏对 7 栏」这类量纲错配，这条断言抓不到**（数字确实存在，
+ *     只是在 `5fr` 里）。那类只能人工改文案，已在 74-w4/00-EXECUTION-PLAN.md 逐条改过。
+ *   · **三档**：声明侧命中 = PASS；只在注释里 = WARN（注释是推导依据，不是声明）；
+ *     两处都没有 = FAIL。
+ */
+
+/* 词边界：`1px` 不能命中 `11.375px`，`5px` 不能命中 `25px`。
+ * 这是 S10 的 `1px` 真错能被抓到、而 S07 的 `0.5px`（源码写 `.5px`）不误报的唯一防线。 */
+const MECH_TOKEN_RE = /(?<![\d.])(\d+(?:\.\d+)?)\s*(px|mm|%)(?![\w])/g;
+
+/* 从源码抽长度集合。四类都收：
+ *   · `Npx` / `Nmm`
+ *   · SVG 无单位 `stroke-width: N`（S09 的 3.5）
+ *   · SVG 无单位 `r="N"` / `rx` / `ry`（S17 的 1.2）
+ *   · `opacity: .NN` 归一成 `NN%`（S07 的 `.14` ↔ 14%）
+ * ⚠️ 无单位容差**不能扩到坐标属性**（`x`/`y`/`x1`/`width`/`height`）：
+ *    实测那样做会让 S10 的 `1px` 被 `x1="1"` 吸收、S17 的 `96px` 被 `y="96"` 吸收，
+ *    两条真错当场消失。 */
+function mechSourceNumbers(src, vars) {
+  const len = new Set();
+  const pct = new Set();
+  const push = (v) => { const n = Number(v); if (Number.isFinite(n)) len.add(n.toFixed(2)); };
+
+  for (const m of src.matchAll(/(?<![\w-])(\d*\.?\d+)\s*(px|mm)(?![\w])/g)) push(m[1]);
+  for (const m of src.matchAll(/stroke-width\s*[:=]\s*["']?(\d*\.?\d+)/g)) push(m[1]);
+  for (const m of src.matchAll(/\b(?:r|rx|ry)\s*[:=]\s*["'](\d*\.?\d+)["']/g)) push(m[1]);
+  for (const m of src.matchAll(/(\d*\.?\d+)\s*%/g)) {
+    const n = Number(m[1]); if (Number.isFinite(n)) pct.add(n.toFixed(2));
+  }
+  /* opacity 归一：`opacity: .14` / `opacity:min(.14, ...)` 两种写法都要认。
+   * 后者的 `.14` 在一个函数调用里，简单的 `opacity\s*:\s*(\.\d+)` 抓不到 ——
+   * S07 的「8% 至 14%」正是这种（`style.css:107` 的 `min(.14, calc(...))`）。 */
+  for (const m of src.matchAll(/opacity\s*:\s*[^;{}]*?(\d*\.\d+)/g)) {
+    const n = Number(m[1]);
+    if (Number.isFinite(n) && n > 0 && n <= 1) pct.add((n * 100).toFixed(2));
+  }
+  /* HTML/JS 里内联声明的 `opacity:.NN` 同样归一 */
+  for (const m of src.matchAll(/opacity\s*=\s*["']?(\d*\.\d+)/g)) {
+    const n = Number(m[1]);
+    if (Number.isFinite(n) && n > 0 && n <= 1) pct.add((n * 100).toFixed(2));
+  }
+  /* :root 变量展开：`--x: 3.5px` 已由上面的通用 px 扫描收进；这里补 var() 引用处的间接值 */
+  if (vars) {
+    for (const [k, v] of Object.entries(vars)) {
+      if (!k) continue;
+      const m = String(v).match(/^(\d*\.?\d+)\s*(px|mm)?$/);
+      if (m) push(m[1]);
+    }
+  }
+  return { len, pct };
+}
+
+/* JS 体里的裸数字（含小数），单独成一个集合 —— 上面的 mechSourceNumbers 不收 script 体，
+ * 因为它要区分「声明」和「注释」。这里专供「机制句的数字是否在实现里出现过」这条用。 */
+function jsBareNumbers(html) {
+  const out = new Set();
+  const scripts = html.match(/<script[\s\S]*?<\/script>/gi) || [];
+  for (const s of scripts) {
+    for (const m of s.matchAll(/(?<![\w.])(\d*\.?\d+)(?![\w.])/g)) {
+      const n = Number(m[1]);
+      if (Number.isFinite(n)) out.add(n.toFixed(2));
+    }
+  }
+  return out;
+}
+
+/* 语义名词：机制句里出现这些词，源码里必须真的用到了对应能力。
+ * 只放**已经实测踩过坑**的词，不做禁词表 —— 禁词表是下一个 §9.15。 */
+const MECH_VOCAB = ['焦距', '相位', '透印', '凹印'];
+function mechVocabHits(mech) {
+  return MECH_VOCAB.filter((w) => mech.includes(w));
+}
+
 /* 从 style.css 抽「真实声明过的」颜色（:root 变量 + 裸 hex），剥注释后 */
 function cssColors(css) {
-  const clean = stripCssComments(css);
-  return new Set(hexes(clean));
+  const clean = stripCssComments(css);  return new Set(hexes(clean));
 }
 
 /* 抽 CSS 里真实声明的线宽。
@@ -324,6 +408,87 @@ for (const d of DIRS) {
    */
   if (!/字号|字阶|最大标题|主标题取|font-size/.test(text)) {
     add('WARN', id, 'no-typescale', '提示词没有任何字号/字阶信息');
+  }
+
+  /* ── 5. 机制句的数值 vs style.css / index.html（2026-11-04 加）────────
+   * 见 mechSourceNumbers 上方的长注释。三档判定：声明侧 PASS / 仅注释 WARN / 都没有 FAIL。
+   *
+   * ⚠️ 机制句要从 `STYLE_PROMPTS.schemes[i].dna.mechanism` 取 —— `d` 是**目录名字符串**，
+   * 不是案件对象。第一版这里写成 `d.mechanism` 得到 undefined，整块断言静默跳过，
+   * 闸门照样打印「FAIL 0」。那是本仓库反复在治的病（闸门看起来绿、其实没跑），
+   * 所以下面加了一条 `mech-empty` 断言：30 案里任何一案取不到机制句都要报，不许静默。
+   */
+  const mechEntry = ((STYLE_PROMPTS && STYLE_PROMPTS.schemes) || []).find((x) => x.id === id);
+  const mech = ((mechEntry && mechEntry.dna && mechEntry.dna.mechanism) || '').trim();
+  if (!mech) {
+    add('FAIL', id, 'mech-empty', '取不到 dna.mechanism（STYLE_PROMPTS.schemes 里没有该案，或 dna.mechanism 为空）');
+  }
+  if (mech) {
+    const vars = parseRootVars(css);
+    /* 声明侧：剥掉 CSS 注释 + HTML 注释 + <script> 体 */
+    const declSrc = stripCssComments(css) + '\n' +
+      stripCssComments(html.replace(/<script[\s\S]*?<\/script>/gi, ' '));
+    /* 注释侧：只取注释体 */
+    const commSrc = (css.match(/\/\*[\s\S]*?\*\//g) || []).join('\n') + '\n' +
+      (html.match(/<!--[\s\S]*?-->/g) || []).join('\n');
+    const decl = mechSourceNumbers(declSrc, vars);
+    const comm = mechSourceNumbers(commSrc, vars);
+    /* JS 里算出来的量（S03 的 1.5 / 0.5 这类）。见 jsBareNumbers 的注释：
+     * 这条放宽是为了不让「机制句正确但值在 JS 里」被误判。 */
+    const jsNums = jsBareNumbers(html);
+
+    for (const m of mech.matchAll(MECH_TOKEN_RE)) {
+      const raw = m[0].trim();
+      const val = Number(m[1]).toFixed(2);
+      const isPct = m[2] === '%';
+      const inDecl = isPct ? decl.pct.has(val) : decl.len.has(val);
+      if (inDecl) continue;
+      const inComm = isPct ? comm.pct.has(val) : comm.len.has(val);
+      if (inComm) {
+        /* 仅在注释里：说明这个值是从代码/滤镜参数反推的推导值，实现里没有对应声明。
+           这是 WARN 不是 FAIL —— 它没错，但也没有声明在守护它。文案必须说清这一点，
+           否则下一个人会去改正确的数字。 */
+        add('WARN', id, 'mech-value-comment-only',
+          `机制句的「${raw}」只在该案注释里找到（不是声明）。它是推导值，没有声明佐证 —— 不是错，但也没被守护`);
+      } else if (jsNums.has(val)) {
+        /* 值在 <script> 体里出现过（S03 的 `major ? 1.5 : 1`、`rel * 0.5`）。
+           它确实在实现里，只是不是一条 CSS 声明。同样降 WARN，理由同上。 */
+        add('WARN', id, 'mech-value-in-script-only',
+          `机制句的「${raw}」只在该案 <script> 体里出现（JS 算出来的量，不是 CSS 声明）`);
+      } else {
+        add('FAIL', id, 'mech-value-not-in-source',
+          `机制句的「${raw}」在该案 style.css / index.html（声明侧与注释侧）都找不到`);
+      }
+    }
+
+    /* 语义词：机制句提到某工艺，源码里必须有对应实现（S03「焦距」是唯一的现存违规） */
+    for (const w of mechVocabHits(mech)) {
+      const all = declSrc + '\n' + commSrc + '\n' + (d.appjs || '');
+      let has = all.includes(w);
+      if (!has) {
+        /* app.js 可能单独成文件（S07），补读一次 */
+        try { has = readFileSync(join(PROTOS, d, 'app.js'), 'utf8').includes(w); } catch { /* 没有就算了 */ }
+      }
+      if (!has) {
+        add('FAIL', id, 'mech-vocab-unimplemented',
+          `机制句用了「${w}」，但该案 style.css / index.html / app.js 里没有这个概念的实现`);
+      }
+    }
+  }
+
+  /* 机制句里每个「N 栏 / N 列」都打印成 INFO —— **不判定对错**，只让人看见。
+   * 为什么不断言：S03「9 栏」、S07「5 栏对 7 栏」这类是**量纲错配**，数字真实存在于
+   * `5fr 1px 7fr` 里，任何存在性检查都抓不到；而硬去数 `column-count`/`repeat(N)` 会产生
+   * 大量误报（`栏` 在 CSS 里是区间 `grid-column:1/9` 或 DOM 节点计数，不是值）。
+   * 实测把「栏/行/层」纳入断言 → 32 条 FAIL，绝大多数是误报。
+   * 所以这里只做一件事：**让这类数字在每次跑闸门时出现在人眼前**，
+   * 而不是假装它被守住了。人工改文案的清单在 `deliverables/74-w4/00-EXECUTION-PLAN.md`。 */
+  if (mech) {
+    const colClaims = [...mech.matchAll(/(\d+)\s*[栏列]/g)].map((m) => m[0]);
+    if (colClaims.length) {
+      add('INFO', id, 'mech-column-claim-unchecked',
+        `机制句里的栏/列声明未自动核对（量纲错配无法用存在性检查捕获）：${colClaims.join(' ')}`);
+    }
   }
 
   stats.pass++;

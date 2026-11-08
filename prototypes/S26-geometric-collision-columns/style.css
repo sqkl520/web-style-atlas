@@ -19,7 +19,8 @@
   --mul-rk:#0E0402;  /* 红×黑 相乘色 */
   --mul-bk:#050608;  /* 蓝×黑 相乘色 */
 
-  /* 栅格：12 栏、栏距 18px、外距 40px、基线 8px（--base 的整数倍即基线） */
+  /* 栅格：三栏 5:3:4、栏距 18px、外距 40px、基线 8px（--base 的整数倍即基线）
+     规格原写 12 栏，实现采用 5fr 3fr 4fr 三栏；--gutter 定义但未被消费，栏距由 .plates gap 决定 */
   --base:8px;
   --gutter:18px;
   --edge:40px;
@@ -120,7 +121,8 @@ b{font-weight:600}
 }
 .band--mast{--band-h:820px}
 /* 斜栏线层：整层 skewY(--skew)，栏线本身倾斜 11°，向右抬升，文字层不斜。
-   十二栏的栏距 18px 与外距 40px 由 .plates 的 5:3:4 落地，这里画的是随栏线一起倾的横向规线。 */
+   栏距 18px 与外距 40px 由 .plates 的 5:3:4 三栏落地（规格原写 12 栏，未实现）；
+   这里画的是 13 条随斜角一起倾的水平规线，不是竖栏线。 */
 .rules{position:absolute;top:0;left:0;right:0;height:var(--band-h);z-index:4;transform:skewY(var(--skew));pointer-events:none}
 .rules i{position:absolute;left:-4%;right:-4%;height:3px;background:rgba(18,18,18,.13)}
 .rules::before,.rules::after{content:'';position:absolute;left:-4%;right:-4%;height:3px}

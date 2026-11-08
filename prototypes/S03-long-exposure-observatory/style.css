@@ -117,7 +117,7 @@ a:hover { color: var(--aurora); }
 .plate dt { font-size: 13px; color: var(--tape); }
 .plate dd { margin: 0; }
 
-/* ── 观测记录：12 栏，左 3 栏年代轴，右 9 栏影像带 ──────── */
+/* ── 观测记录：左年代轴 + 右内容区两栏（规格原写 12 栅格，实现未采用）── */
 .records { padding: 64px 0; background: var(--panel-2); }
 .records > .wrap > p { margin-bottom: calc(var(--u) * 4); }
 .chrono {
