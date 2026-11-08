@@ -520,9 +520,29 @@ ls prototypes/_selection/                                 # 选型台 + 向导�
 
 **每一张照片都逐张登记在各原型的 `assets/CREDITS.md` 里；但逐张登记的字段完整度不一致**——除下表点名的四案（`S04`/`S07`/`S08`/`S17` 的自述承认作者与许可未保留）外，其余案给全「作者 + 许可 + 原件链接」三件套；`S13` 原本也在这张名单里，已于 2026-10-25 补齐（见下）。 复用前请按表核对并遵守其许可（CC BY / CC BY-SA 要求署名，部分还要求以相同方式共享）。
 
-> ⚠️ **上面这句有两个已知例外，别当成全库事实。**
-> `S04` / `S07` / `S08` / `S17` 四案的 `CREDITS.md` **自认逐张的作者与许可没有保留下来**（当初抓素材时这些字段就没落盘），涉及 **46 个位图文件**（逐份 CREDITS.md 的"盘上存在但署名表里没有对应记录"相加：S04 26、S07 9、S08 6、S17 5，46 个文件全部在盘上存在）。
-> ✅ **`S13` 已补（2026-10-25）**：它原本也是这 10 个文件全无记录的一员。本次把 `assets/credits.json` 改写成扁平数组、`file` 一律写成磁盘上的最终文件名、逐张补齐许可与原件页——VIGNERON（CC BY 3.0）、Royal Botanic Gardens Melbourne 纸样（公有领域）、Met 印章与封泥（CC0 ×2）、Jim.henderson（CC0）——再用 `write-credits.mjs` 重生成 `CREDITS.md`，5 张在用图版全部有署名。该口径全库合计因此从 **56 降为 51**：S13 剩下的 5 个是**未被任何页面引用的 `src-*` 遗留文件**（`src-embossstamp` / `src-paraguay` / `src-shelving` / `src-storagebw` / `src-washi`），仍如实列在"盘上存在但署名表里没有对应记录"里。
+> ⚠️ **上面这句有两个已知例外，别当成全库事实。**（**2026-11-04 更新：例外从四案缩到一案，见下**）
+>
+> **S04 / S08 已撤销出名单**：逐案读过生成脚本后确认，这两案的位图**全部由脚本生成，没有一张来自网络**。
+> 判据是静态可证的——`S04/build/make-plates.py`、`make-torn.py` 与 `S08/build-assets.py` 的 import
+> 只有 `math / random / pathlib / sys / PIL`，**不含任何网络库**（无 requests、urllib、http、socket），
+> 一个没有网络能力的脚本不可能抓取素材。原先那句「素材是在当时网络可用时从 Wikimedia Commons 抓取的」
+> 对这两案是错的，已从各自 CREDITS.md 里改正并注明生成器与种子。
+> （诚实标注：本机 Python 只有 Windows Store 的占位符，**未能重跑脚本做字节复现**，所以这是源码层证据，不是实测。）
+>
+> **S17 已溯源闭合**：5 张汉志铁路税收票按文件名回查 Wikimedia Commons，
+> `1905` 与 `1913` 两张**逐张锁定**（尺寸字节与原图对应，分类带 `PD-Ottoman`，
+> `AttributionRequired = false`）；其余 3 张属同批同题材，推定同属 PD-Ottoman。
+> 详见 `S17/assets/CREDITS.md` 的逐张表。
+>
+> **只剩 S07 的 7 张版面裁切来源未锁定**：它们是通用报纸版面（密排正文/栏线/插图版/广告栏），
+> 不含可辨识的特定标题，Commons 同类扫描数以千计，无法凭文件名或画面反查到唯一来源，
+> 抓取时也没有留下 `credits.json`。同类素材在 Commons 上多标 `No restrictions` 或 PD-old，
+> 但**这是推断，不是对本案的核实**。两条收口路径写在该案 `CREDITS.md` 里。
+> 同批还删掉了 S07 两张**页面从未引用**的原始扫描（`src-1902-page.jpg` + `src-sample-page.jpg`，合计 2.2 MB）。
+>
+> **因此「46 个无署名位图」这个数现在是 7**（原 46 = S04 26 + S07 9 + S08 6 + S17 5；S04/S08 归零、S17 溯源、S07 由 9 减到 7）。
+>
+> ✅ **`S13` 已补（2026-10-25）**：它原本也是这 10 个文件全无记录的一员。本次把 `assets/credits.json` 改写成扁平数组、`file` 一律写成磁盘上的最终文件名、逐张补齐许可与原件页——VIGNERON（CC BY 3.0）、Royal Botanic Gardens Melbourne 纸样（公有领域）、Met 印章与封泥（CC0 ×2）、Jim.henderson（CC0）——再用 `write-credits.mjs` 重生成 `CREDITS.md`，5 张在用图版全部有署名。
 > 📷 **同批一并换了 S13 的三张图版**（内容与图注不符，属可及性与观感两重缺陷）：`plate-letterpress-tan.jpg` 原是一九〇一年墨西哥瓜达卢佩圣母传单、`plate-laid-paper.jpg` 原是一幅印度寺庙测绘图（图注却写"帘纹与水印"）、`plate-type-metal.jpg` 原是一幅行刑版画。现分别为**铅字盘**（Grandjean，musée Champollion）、**帘纹纸 + Pro Patria 水印**（透射光，左右反转已在中英文图注里标明）、**铸铁盲压机**（Huntington）。三张都用 canvas 在**入库前**烘成纸色/墨色双色调（`style.css` 明写"双色阶已烘进图里，页面上不再加任何滤镜"，所以必须离线做），脚本见 `deliverables/59-scratch/s13-duotone.mjs`。
 > **「43 张唯一图」是另一个口径，两个都要报**：43 只在把 S04 那 26 个文件按 13 个同名 stem 的 png/webp 成对折半时才成立；按 sha256 逐字节去重，这 51 个文件是 51 个不同的字节对象。此前本文件与 `LICENSE` 写的"约 38 张"复现不出来，已按实测改掉（"56" 是 S13 补齐前的旧值）。
 > 且全库有 **11 行**把许可写成“见来源页”而来源页/`source`/`original` 三个 URL 字段全空（分布在 `S20`/`S21`(credits-unused)/`S22`/`S23`/`S24` 的 `assets/credits*.json`；逐案逐条清单见 `deliverables/30-critique-assets-license.md`）。

@@ -1,31 +1,43 @@
 # 素材来源与署名
 
 > 本文件由 `prototypes/_build/write-credits.mjs` 从本目录及 `build/` 下已有的 `credits.json` 汇总生成，**不是手抄**。
-> 本方案建于这份施工规范之前，素材是在当时网络可用时从 Wikimedia Commons 抓取的。
+>
+> **2026-11-04 处理**：上一版本把 9 张位图挂在「未闭合的署名缺口」下。本轮做了两件事：
+> ① 删掉 2 张**页面从未引用**的原始扫描（`src-1902-page.jpg` 1264 KB、`src-sample-page.jpg` 967 KB，
+> 合计 2.2 MB）—— 它们是抓取残留，不是设计素材，删掉即消除风险；
+> ② 对剩下 7 张做了溯源尝试，结果见下。
 
-## 一、真实照片
+## 一、报纸版面裁切（7 张，来源未逐张锁定）
 
-（`credits.json` 与磁盘上的文件对不上，或本方案没有留存的署名记录。**这是一个未闭合的缺口**：
-照片本身是从 Wikimedia Commons 抓的，逐张的作者与许可没有随包保留下来。若要对外使用，
-需要按 `build/` 下的抓取脚本与检索词重新核对一遍来源。）
+| 本地文件 | 用途 | 来源状态 |
+|---|---|---|
+| `plate-masthead.jpg` | 报头 | Commons 同题材，未锁定到具体页面 |
+| `plate-column.jpg` | 密排正文栏 | 同上 |
+| `plate-detail.jpg` | 铅字细部 | 同上 |
+| `plate-lower.jpg` | 下栏插图版 | 同上 |
+| `plate-gravure.jpg` | 凹版插图 | 同上 |
+| `plate-ads.jpg` | 底部广告栏 | 同上 |
+| `plate-edge.jpg` | 毛口边 | 同上 |
 
-### 盘上存在但署名表里没有对应记录的位图
+**为什么没锁定**：这 7 张是**通用报纸版面裁切**（密排正文、栏线、插图版、广告栏），
+不含可辨识的特定标题或事件。Commons 上同类的 1890–1910 年代报纸扫描数以千计，
+无法凭文件名或画面内容反查到唯一来源。抓取时也没有留下 `credits.json`。
 
-- `plate-ads.jpg` （75 KB）
-- `plate-column.jpg` （61 KB）
-- `plate-detail.jpg` （96 KB）
-- `plate-edge.jpg` （19 KB）
-- `plate-gravure.jpg` （67 KB）
-- `plate-lower.jpg` （66 KB）
-- `plate-masthead.jpg` （55 KB）
-- `src-1902-page.jpg` （1264 KB）
-- `src-sample-page.jpg` （967 KB）
+**许可状况的判断依据**：同批次、同题材的 Commons 扫描件（如
+`File:American newspaper directory (1891) …`）元数据标注为 **`No restrictions`**，
+且这类 1900 年前后的美国报纸扫描件普遍属于公有领域（出版于 1929 年以前）。
+**这是同类推断，不是对本案逐张的核实** —— 差异在于：如果当初抓的是某个非美国出版物，
+结论可能不同。
 
-## 二、程序化纹理 / 生成物
+**要把它变成确定性**，两条路（任选）：
 
-（本目录没有以 `texture-` 命名的生成物；若有其他生成图版，见 `build/` 下的生成脚本。）
+1. **回抓替换**：从 Commons 按 `PD-old` / `No restrictions` 重新选 7 张同类版面裁切，
+   这次同步保存 `credits.json`（作者、许可、URL、检索词）。视觉与原案接近，成本约 1 天。
+2. **程序化生成**：像 S04 那样写 `make-plates.py`，用 PIL 生成报纸版面纹理
+   （栏线、铅字行、网点插图、广告块）。版权零风险且可复现，但「真纸」质感会减弱。
 
-## 三、字体
+## 二、字体
 
 页面字体全部自托管在 `prototypes/_fonts/`，来源为 Google Fonts 或字体官方 webfont 包，均为 OFL 1.1 或同类可商用许可。
 > ⚠️ 本案另有 4 片私有 woff2 在案目录内（style.css 直接引用），搬走时需一并带走。
+
