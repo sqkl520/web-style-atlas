@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>手冲豆目 · 第七辑 · 分类 G-4 · 118</title>
+<style>
+/* ============================================================
+   手冲豆目 · 第七辑 · 分类 G-4 · 118
+   调性：学术档案 / 严肃出版。版式：老报纸目录跨页，左窄右宽。
+   版心：正页 2 栏 / 背页 3 栏，两页宽度比 5:7（见 .spread 的 5fr 7fr）。
+   字阶：正文 16px，最大标题 78.4px = 16 × 4.9。
+   线宽：只用 0.5px / 1px / 2px（--hair / --line / --bold）。
+   圆角 0；阴影 0；全站仅四色 #33505C #E7E7E0 #1C1A16 #9A9384。
+   ============================================================ */
+
+:root{
+  --slate:#33505C;
+  --paper:#E7E7E0;
+  --ink:#1C1A16;
+  --deckle:#9A9384;
+
+  --hair:0.5px;
+  --line:1px;
+  --bold:2px;
+
+  --fs-body:16px;
+  --fs-display:78.4px;   /* 16 × 4.9 */
+  --fs-h2:40px;
+  --fs-h3:23px;
+  --fs-lead:19px;
+  --fs-meta:11.5px;
+  --fs-small:13px;
+  --fs-num:44px;
+
+  --pad-t:20px;
+  --pad-r:18px;
+  --pad-l:40px;
+}
+
+*,*::before,*::after{box-sizing:border-box;border-radius:0}
+
+html{
+  font-size:16px;
+  -webkit-text-size-adjust:100%;
+  color:var(--ink);
+  background:var(--paper);
+  font-family:"Newsreader","WenJin Mincho","文津宋体","Source Han Serif SC",serif;
+}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Newsreader","WenJin Mincho","文津宋体","Source Han Serif SC",serif;
+  font-size:var(--fs-body);
+  line-height:1.7;
+  font-weight:400;
+}
+h1,h2,h3,h4,p,figure,figcaption,dl,dd,ol,ul{margin:0;padding:0}
+h1,h2,h3,h4,.display,.rubric{
+  font-family:"Libre Franklin","WenJin Mincho","文津宋体","Source Han Serif SC",serif;
+  font-weight:500;
+  letter-spacing:0.01em;
+}
+ol,ul{list-style:none}
+img{display:block;border-radius:0}
+table{border-collapse:collapse;width:100%}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:var(--bold) solid var(--slate);outline-offset:2px}
+
+.mono,.num{
+  font-family:"IBM Plex Mono",monospace;
+  font-variant-numeric:tabular-nums;
+  font-feature-settings:"tnum" 1;
+}
+.num{text-align:right}
+
+/* ---------- 纸 ---------- */
+.sheet{
+  max-width:1320px;
+  margin:0 auto;
+  background:var(--paper);
+  border-left:var(--hair) solid var(--deckle);
+  border-right:var(--hair) solid var(--deckle);
+}
+
+/* ---------- 报头 ---------- */
+.masthead{
+  padding:14px 34px 0;
+  border-top:var(--bold) solid var(--slate);
+}
+.strip{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:4px 10px;
+  padding:6px 0 7px;
+  border-bottom:var(--hair) solid var(--ink);
+  font-size:var(--fs-meta);
+  letter-spacing:0.1em;
+  line-height:1.4;
+}
+.strip__gap{flex:1}
+.dot{
+  width:4px;height:4px;
+  background:var(--slate);
+  flex:none;
+}
+
+.masthead__body{
+  display:grid;
+  grid-template-columns:8fr 4fr;
+  column-gap:30px;
+  align-items:start;
+  padding:16px 0 24px;
+  border-bottom:var(--bold) solid var(--ink);
+}
+.masthead__text{min-width:0}
+.kicker{
+  font-size:var(--fs-meta);
+  letter-spacing:0.22em;
+  padding-bottom:6px;
+}
+.display{
+  font-size:var(--fs-display);
+  line-height:1.02;
+  letter-spacing:-0.005em;
+  font-weight:500;
+  margin:0 0 16px;
+}
+.lead{
+  font-size:var(--fs-lead);
+  line-height:1.62;
+  max-width:66ch;
+}
+.cta{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:6px 14px;
+  margin-top:16px;
+}
+.cta__btn{
+  display:inline-block;
+  border:var(--line) solid var(--ink);
+  border-bottom:var(--bold) solid var(--slate);
+  background:var(--paper);
+  padding:10px 20px;
+  font-size:17px;
+  letter-spacing:0.04em;
+}
+.cta__meta{font-size:var(--fs-small)}
+.plate--hero{margin-top:2px}
+
+/* ---------- 图版 ---------- */
+.plate{margin:0}
+.plate img{
+  width:100%;
+  height:auto;
+  object-fit:cover;
+  border:var(--hair) solid var(--deckle);
+  background:var(--paper);
+}
+.cap{
+  margin-top:7px;
+  padding-top:5px;
+  border-top:var(--hair) solid var(--deckle);
+  font-size:var(--fs-meta);
+  line-height:1.55;
+}
+
+/* ---------- 跨页：正页 2 栏 / 背页 3 栏，宽度比 5:7 ---------- */
+.spread{
+  display:grid;
+  grid-template-columns:5fr 7fr;
+  border-bottom:var(--bold) solid var(--ink);
+  align-items:stretch;
+}
+.leaf{
+  position:relative;
+  isolation:isolate;
+  padding-bottom:26px;
+}
+.leaf--front{border-right:var(--bold) solid var(--slate)}
+.leaf__pad{
+  position:relative;
+  z-index:1;
+  padding:var(--pad-t) var(--pad-r) 0 var(--pad-l);
+}
+.cols{
+  display:grid;
+  grid-auto-flow:row dense;
+  align-content:start;
+  column-gap:0;
+  row-gap:0;
+}
+.leaf--front .cols{grid-template-columns:1fr 1.2fr}
+.leaf--back  .cols{grid-template-columns:1fr 1.2fr 0.92fr}
+.cell{
+  border-left:var(--hair) solid var(--ink);
+  padding:13px;
+  min-width:0;
+}
+.c2{grid-column:span 2}
+.c3{grid-column:span 3}
+
+/* 页码竖排 · 行高 28px */
+.folio{
+  position:absolute;
+  left:0;top:20px;bottom:20px;
+  width:40px;
+  writing-mode:vertical-rl;
+  text-orientation:mixed;
+  line-height:28px;
+  font-size:12px;
+  letter-spacing:0.1em;
+  border-right:var(--hair) solid var(--ink);
+  padding-right:8px;
+  z-index:2;
+}
+
+/* ---------- 纸背透印 ----------
+   同一段文字、同一版心、同一字号，整体 scaleX(-1) 镜像并偏移 1px；
+   不模糊、不做旧、不透明叠色。这里用同一套 .cols/.cell 复排，
+   因此每一行都与正面文本逐行重合，是几何对齐的真实镜像层。 */
+.bleed{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  padding:var(--pad-t) var(--pad-r) 0 var(--pad-l);
+  overflow:hidden;
+  color:var(--ink);
+  opacity:0.10;                       /* 落在 8%–14% 区间 */
+  pointer-events:none;
+  user-select:none;
+  transform:translate(1px,1px) scaleX(-1);
+  transform-origin:center center;
+  animation:paper-thickness 340ms ease-out 1 both;
+  filter:none;
+}
+.bleed__img{
+  display:block;
+  width:100%;
+  background:var(--deckle);
+}
+@keyframes paper-thickness{
+  from{transform:translate(2px,2px) scaleX(-1)}
+  to{transform:translate(1px,1px) scaleX(-1)}
+}
+@media (prefers-reduced-motion:reduce){
+  .bleed{animation:none}
+}
+
+/* ---------- 栏内构件 ---------- */
+.rubric-cell{
+  border-top:var(--bold) solid var(--slate);
+  border-left:var(--hair) solid var(--ink);
+  padding-top:11px;
+}
+.rubric{
+  font-size:var(--fs-h2);
+  line-height:1.14;
+  letter-spacing:0.02em;
+  display:flex;
+  align-items:baseline;
+  gap:12px;
+}
+.rubric__no{
+  font-size:var(--fs-small);
+  letter-spacing:0.14em;
+  color:var(--slate);
+}
+.rubric__sub{
+  font-size:var(--fs-meta);
+  letter-spacing:0.16em;
+  margin-top:6px;
+  padding-top:5px;
+  border-top:var(--hair) solid var(--deckle);
+}
+.h3{
+  font-size:var(--fs-h3);
+  line-height:1.3;
+  padding-bottom:5px;
+  border-bottom:var(--line) solid var(--ink);
+  margin-bottom:9px;
+}
+.tiny{font-size:var(--fs-small);line-height:1.6;margin-top:9px}
+.tiny:first-of-type{margin-top:0}
+
+/* 凡例 */
+.rules li{
+  display:flex;
+  gap:8px;
+  border-top:var(--hair) solid var(--deckle);
+  padding:6px 0;
+  font-size:15px;
+  line-height:1.62;
+}
+.rules li:first-child{border-top:0;padding-top:0}
+.bullet{
+  width:5px;height:5px;
+  background:var(--slate);
+  margin-top:9px;
+  flex:none;
+}
+
+/* 目录项 01 / 02 */
+.item__top{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:8px;
+  padding-bottom:4px;
+  border-bottom:var(--hair) solid var(--ink);
+}
+.item__no{
+  font-size:var(--fs-num);
+  line-height:1;
+  letter-spacing:0.02em;
+}
+.item__lot{font-size:var(--fs-small)}
+.item__name{
+  font-size:var(--fs-h3);
+  line-height:1.32;
+  margin:8px 0 4px;
+}
+.item__origin{
+  font-size:var(--fs-small);
+  line-height:1.55;
+}
+.item__notes{
+  font-size:15px;
+  line-height:1.6;
+  margin-top:6px;
+  padding-top:5px;
+  border-top:var(--hair) solid var(--deckle);
+}
+.spec{margin-top:9px}
+.spec__row{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  gap:10px;
+  border-top:var(--hair) solid var(--deckle);
+  padding:3px 0;
+}
+.spec__k{font-size:var(--fs-small)}
+.spec__v{
+  font-size:var(--fs-small);
+  text-align:right;
+  flex:none;
+}
+.item__price{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  gap:10px;
+  margin-top:9px;
+  padding-top:6px;
+  border-top:var(--line) solid var(--ink);
+}
+.item__price b{font-size:20px;font-weight:400}
+.item__note{
+  font-size:var(--fs-small);
+  line-height:1.6;
+  margin-top:8px;
+}
+.item__folio{
+  font-size:var(--fs-meta);
+  letter-spacing:0.06em;
+  margin-top:9px;
+  padding-top:5px;
+  border-top:var(--hair) solid var(--deckle);
+}
+
+/* 目录项 02：另一种内部结构 */
+.item--b .item__top{
+  flex-direction:row-reverse;
+  justify-content:flex-start;
+  border-bottom:0;
+  align-items:flex-start;
+}
+.item--b .item__no{
+  margin-left:auto;
+  font-size:36px;
+}
+.item--b .spec{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:0 12px;
+}
+.item--b .spec__row{
+  display:block;
+  border-top:0;
+  padding:2px 0;
+}
+.item--b .spec__k{display:block;font-size:var(--fs-meta);letter-spacing:0.06em}
+.item--b .spec__v{display:block;text-align:left;font-size:15px}
+.item--b .item__price{border-top:var(--hair) solid var(--ink)}
+
+/* 目录项 03：横向，图左文右 */
+.item--c{
+  display:grid;
+  grid-template-columns:0.92fr 1.08fr;
+  gap:0 16px;
+  align-items:start;
+}
+.item--c .item__no{font-size:var(--fs-num)}
+.item--c .plate{margin-bottom:8px}
+.item--c .item__name{margin-top:6px}
+.spec--row{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:0 12px;
+  margin-top:8px;
+}
+
+/* 目录项 04：表格式，序号独立一栏 */
+.item--d .item__grid{border-top:var(--line) solid var(--ink)}
+.item--d .item__grid th{
+  vertical-align:top;
+  text-align:left;
+  padding:9px 12px 0 0;
+  width:1%;
+  white-space:nowrap;
+}
+.item--d .item__grid td{padding:9px 0 0 0;vertical-align:top}
+.item--d .item__no{font-size:var(--fs-num);line-height:0.9;display:block}
+.item--d .item__price{
+  border-top:0;
+  margin-top:6px;
+  padding-top:0;
+  justify-content:flex-start;
+  gap:10px;
+}
+
+/* 目录项 05：窄栏，无图，slate 顶线 */
+.item--e{border-top:var(--bold) solid var(--slate);padding-top:9px}
+.item--e .item__no{font-size:36px}
+.item--e .item__name{font-size:21px}
+.item--e .item__note{
+  border-left:var(--line) solid var(--slate);
+  padding-left:10px;
+}
+
+/* 表 */
+.kv th{
+  text-align:left;
+  font-weight:400;
+  font-size:var(--fs-small);
+  padding:3px 0;
+  border-top:var(--hair) solid var(--deckle);
+  width:38%;
+}
+.kv td{
+  padding:3px 0;
+  border-top:var(--hair) solid var(--deckle);
+  font-size:var(--fs-small);
+  text-align:right;
+}
+.ledger caption{
+  text-align:left;
+  font-size:var(--fs-meta);
+  letter-spacing:0.08em;
+  padding-bottom:6px;
+}
+.ledger th{
+  font-weight:400;
+  font-size:var(--fs-meta);
+  letter-spacing:0.08em;
+  text-align:right;
+  padding:5px 0 5px 8px;
+  border-top:var(--line) solid var(--ink);
+  border-bottom:var(--line) solid var(--ink);
+}
+.ledger th:first-child{text-align:left;padding-left:0}
+.ledger td{
+  padding:5px 0 5px 8px;
+  border-bottom:var(--hair) solid var(--deckle);
+  font-size:var(--fs-small);
+  text-align:right;
+}
+.ledger td:first-child{text-align:left;padding-left:0}
+
+/* 订货 */
+.order-cell__id{
+  margin-top:11px;
+  padding-top:7px;
+  border-top:var(--line) solid var(--ink);
+  font-size:var(--fs-h3);
+  letter-spacing:0.02em;
+}
+.order-cell__folio{
+  font-size:var(--fs-meta);
+  letter-spacing:0.06em;
+  margin-top:6px;
+}
+.order-cell p+p{margin-top:6px}
+
+/* ---------- 报尾 ---------- */
+.colophon{padding:14px 34px 20px}
+.colophon__row{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  flex-wrap:wrap;
+  gap:6px 18px;
+  font-size:var(--fs-small);
+  padding-top:7px;
+  border-top:var(--line) solid var(--ink);
+}
+.colophon__row--sub{
+  border-top:var(--hair) solid var(--deckle);
+  font-size:var(--fs-meta);
+  letter-spacing:0.04em;
+}
+
+/* ---------- 移动端：单列，顺序不变 ---------- */
+@media (max-width:860px){
+  :root{--pad-l:34px;--pad-r:12px}
+  .masthead{padding:12px 18px 0}
+  .masthead__body{
+    grid-template-columns:1fr;
+    column-gap:0;
+  }
+  .kicker,.display,.lead,.cta{grid-column:auto}
+  .plate--hero{margin-top:14px;grid-column:auto}
+  .display{font-size:var(--fs-display)}
+  .spread{grid-template-columns:1fr}
+  .leaf--front{
+    border-right:0;
+    border-bottom:var(--bold) solid var(--slate);
+  }
+  .leaf--front .cols,
+  .leaf--back .cols{grid-template-columns:1fr}
+  .c2,.c3{grid-column:1 / -1}
+  .folio{width:34px;font-size:11px}
+  .item--c{grid-template-columns:1fr}
+  .colophon{padding:14px 18px 20px}
+}
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <header class="masthead">
+    <div class="strip">
+      <span class="mono">分类 G-4</span>
+      <span class="dot" aria-hidden="true"></span>
+      <span class="mono">第七辑</span>
+      <span class="dot" aria-hidden="true"></span>
+      <span class="mono">第 118 页</span>
+      <span class="strip__gap" aria-hidden="true"></span>
+      <span class="mono">2026-03-18</span>
+      <span class="dot" aria-hidden="true"></span>
+      <span>手冲专门 · 不做意式</span>
+    </div>
+
+    <div class="masthead__body">
+      <div class="masthead__text">
+        <p class="kicker">店内档案 · 豆目第七辑 · 本页正面</p>
+        <h1 class="display">五个产区，一种冲法。</h1>
+        <p class="lead">本店只做手冲。不做意式，不做冷萃，也不做拼配——五支豆子，五个产区，各自一个批号。每批到店当日编目：海拔、处理法、杯测分、克价、余量，逐项记，不四舍五入。这一页只标整袋价；要半袋、要试样、要问余量，加微信报批号。</p>
+        <div class="cta">
+          <a class="cta__btn" href="#order">加微信 · 报批号问价</a>
+          <span class="cta__meta mono">doumu118</span>
+          <span class="cta__meta">只走微信，不做在线支付</span>
+        </div>
+      </div>
+      <figure class="plate plate--hero">
+        <img src="images/占位-1.jpg" width="1200" height="675" alt="吧台与三只滤杯，其中一只杯口朝上，表示当日使用" style="aspect-ratio:1200/675">
+        <figcaption class="cap"><span class="mono">图版 一</span>　吧台与三只滤杯；杯口朝上者当日使用。摄于 2026-03-02。</figcaption>
+      </figure>
+    </div>
+  </header>
+
+  <section class="spread" aria-label="豆目跨页：正面二栏，背面三栏">
+
+    <!-- ================= 正页 ================= -->
+    <article class="leaf leaf--front">
+      <div class="folio mono">第 118 页　正面 · G-4 · 118</div>
+
+      <div class="bleed" aria-hidden="true">
+        <div class="cols">
+          <div class="cell c2 rubric-cell">
+            <h2 class="rubric">凡例 <span class="rubric__no mono">CAP. I</span></h2>
+            <p class="rubric__sub">正面 · 读法、两支豆、冲法与店务</p>
+          </div>
+          <div class="cell">
+            <h3 class="h3">怎么读这一页</h3>
+            <ol class="rules">
+              <li><span class="bullet"></span><span>单一产区、单一处理法，一袋一批，不做拼配。</span></li>
+              <li><span class="bullet"></span><span>每批到店当日编目；批号、海拔、杯测分、克价随批记录，不四舍五入。</span></li>
+              <li><span class="bullet"></span><span>冲法固定：锥形滤杯，粉水比 1 : 15，水温 92 °C，三段注水，总时长 2 分 30 秒。</span></li>
+              <li><span class="bullet"></span><span>只走微信订货，货到转账或当面付，不做在线支付。</span></li>
+            </ol>
+          </div>
+          <div class="cell">
+            <span class="bleed__img" style="aspect-ratio:520/650"></span>
+            <p class="cap"><span class="mono">图版 二</span>　五格样品盘，每格一张手写批号签。2026-03-16 摄。</p>
+          </div>
+          <div class="cell">
+            <div class="item item--a">
+              <div class="item__top"><span class="item__no mono">01</span><span class="item__lot mono">批号 E-01</span></div>
+              <h3 class="item__name">耶加雪菲 · 孔加 G1</h3>
+              <p class="item__origin">埃塞俄比亚 / 盖德奥 / 水洗 / G1</p>
+              <p class="item__notes">茉莉 · 白桃 · 柠檬皮</p>
+              <div class="spec">
+                <div class="spec__row"><span class="spec__k">海拔</span><span class="spec__v num">2 010 m</span></div>
+                <div class="spec__row"><span class="spec__k">杯测</span><span class="spec__v num">88.5</span></div>
+                <div class="spec__row"><span class="spec__k">净重</span><span class="spec__v num">200 g</span></div>
+                <div class="spec__row"><span class="spec__k">烘焙</span><span class="spec__v num">2026-03-04</span></div>
+                <div class="spec__row"><span class="spec__k">余量</span><span class="spec__v num">14 袋</span></div>
+              </div>
+              <p class="item__price"><span>整袋</span><b class="mono">¥ 248.00</b></p>
+              <p class="item__note">一爆末下豆，浅烘；养豆七日再开袋，花香才出得来。</p>
+              <p class="item__folio mono">G-4 · 118 / 第七辑 / 第 118 页</p>
+            </div>
+          </div>
+          <div class="cell">
+            <div class="item item--b">
+              <div class="item__top"><span class="item__lot mono">批号 K-02</span><span class="item__no mono">02</span></div>
+              <h3 class="item__name">涅里 · 卡斯泰尔 AA</h3>
+              <p class="item__origin">肯尼亚 / 涅里 / 水洗 / AA</p>
+              <p class="item__notes">黑加仑 · 番茄 · 红糖</p>
+              <div class="spec">
+                <div class="spec__row"><span class="spec__k">海拔</span><span class="spec__v num">1 780 m</span></div>
+                <div class="spec__row"><span class="spec__k">杯测</span><span class="spec__v num">89.0</span></div>
+                <div class="spec__row"><span class="spec__k">净重</span><span class="spec__v num">200 g</span></div>
+                <div class="spec__row"><span class="spec__k">烘焙</span><span class="spec__v num">2026-03-05</span></div>
+                <div class="spec__row"><span class="spec__k">余量</span><span class="spec__v num">9 袋</span></div>
+              </div>
+              <p class="item__price"><span>整袋</span><b class="mono">¥ 268.00</b></p>
+              <p class="item__note">酸质最硬的一支，水温可以上到 94 °C；别用软水。</p>
+              <p class="item__folio mono">G-4 · 118 / 第七辑 / 第 118 页</p>
+            </div>
+          </div>
+          <div class="cell">
+            <h3 class="h3">冲法 · 固定</h3>
+            <table class="kv">
+              <tr><th>滤杯</th><td class="num">V60 02</td></tr>
+              <tr><th>粉量</th><td class="num">15 g</td></tr>
+              <tr><th>水量</th><td class="num">225 g</td></tr>
+              <tr><th>粉水比</th><td class="num">1 : 15</td></tr>
+              <tr><th>水温</th><td class="num">92 °C</td></tr>
+              <tr><th>研磨</th><td class="num">880 μm</td></tr>
+              <tr><th>总时长</th><td class="num">2:30</td></tr>
+            </table>
+            <p class="tiny">五支豆共用一套参数。水用纯净水加 30 ppm 矿化，不另调。</p>
+          </div>
+          <div class="cell">
+            <h3 class="h3">店务</h3>
+            <p class="tiny">三月每周三烘豆，当日不营业；四月起改周四。</p>
+            <p class="tiny">试样 30 g，随整袋附赠，不单卖，不拆零。</p>
+            <p class="tiny">存量每日 22:00 更新；本页数字截至 2026-03-18。</p>
+            <p class="tiny">豆单按季度重编，售完的批号留在档里，不删。</p>
+          </div>
+          <div class="cell">
+            <span class="bleed__img" style="aspect-ratio:960/540"></span>
+            <p class="cap"><span class="mono">图版 三</span>　午后空店；秤、糖罐与一只凉了的分享壶。2026-03-09 摄。</p>
+          </div>
+          <div class="cell">
+            <h3 class="h3">附记</h3>
+            <p class="tiny">本页条目按产区顺序编次，不按价格排。</p>
+            <p class="tiny">背面接第 118 页的存量账，批号一致，可对读。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="leaf__pad">
+        <div class="cols">
+
+          <div class="cell c2 rubric-cell">
+            <h2 class="rubric">凡例 <span class="rubric__no mono">CAP. I</span></h2>
+            <p class="rubric__sub">正面 · 读法、两支豆、冲法与店务</p>
+          </div>
+
+          <div class="cell">
+            <h3 class="h3">怎么读这一页</h3>
+            <ol class="rules">
+              <li><span class="bullet" aria-hidden="true"></span><span>单一产区、单一处理法，一袋一批，不做拼配。</span></li>
+              <li><span class="bullet" aria-hidden="true"></span><span>每批到店当日编目；批号、海拔、杯测分、克价随批记录，不四舍五入。</span></li>
+              <li><span class="bullet" aria-hidden="true"></span><span>冲法固定：锥形滤杯，粉水比 1 : 15，水温 92 °C，三段注水，总时长 2 分 30 秒。</span></li>
+              <li><span class="bullet" aria-hidden="true"></span><span>只走微信订货，货到转账或当面付，不做在线支付。</span></li>
+            </ol>
+          </div>
+
+          <div class="cell">
+            <figure class="plate">
+              <img src="images/占位-5.jpg" width="520" height="650" alt="五格生豆样品盘，每格插一张手写批号签" style="aspect-ratio:520/650">
+              <figcaption class="cap"><span class="mono">图版 二</span>　五格样品盘，每格一张手写批号签。2026-03-16 摄。</figcaption>
+            </figure>
+          </div>
+
+          <div class="cell">
+            <div class="item item--a">
+              <div class="item__top">
+                <span class="item__no mono">01</span>
+                <span class="item__lot mono">批号 E-01</span>
+              </div>
+              <h3 class="item__name">耶加雪菲 · 孔加 G1</h3>
+              <p class="item__origin">埃塞俄比亚 / 盖德奥 / 水洗 / G1</p>
+              <p class="item__notes">茉莉 · 白桃 · 柠檬皮</p>
+              <div class="spec">
+                <div class="spec__row"><span class="spec__k">海拔</span><span class="spec__v num">2 010 m</span></div>
+                <div class="spec__row"><span class="spec__k">杯测</span><span class="spec__v num">88.5</span></div>
+                <div class="spec__row"><span class="spec__k">净重</span><span class="spec__v num">200 g</span></div>
+                <div class="spec__row"><span class="spec__k">烘焙</span><span class="spec__v num">2026-03-04</span></div>
+                <div class="spec__row"><span class="spec__k">余量</span><span class="spec__v num">14 袋</span></div>
+              </div>
+              <p class="item__price"><span>整袋</span><b class="mono">¥ 248.00</b></p>
+              <p class="item__note">一爆末下豆，浅烘；养豆七日再开袋，花香才出得来。</p>
+              <p class="item__folio mono">G-4 · 118 / 第七辑 / 第 118 页</p>
+            </div>
+          </div>
+
+          <div class="cell">
+            <div class="item item--b">
+              <div class="item__top">
+                <span class="item__lot mono">批号 K-02</span>
+                <span class="item__no mono">02</span>
+              </div>
+              <h3 class="item__name">涅里 · 卡斯泰尔 AA</h3>
+              <p class="item__origin">肯尼亚 / 涅里 / 水洗 / AA</p>
+              <p class="item__notes">黑加仑 · 番茄 · 红糖</p>
+              <div class="spec">
+                <div class="spec__row"><span class="spec__k">海拔</span><span class="spec__v num">1 780 m</span></div>
+                <div class="spec__row"><span class="spec__k">杯测</span><span class="spec__v num">89.0</span></div>
+                <div class="spec__row"><span class="spec__k">净重</span><span class="spec__v num">200 g</span></div>
+                <div class="spec__row"><span class="spec__k">烘焙</span><span class="spec__v num">2026-03-05</span></div>
+                <div class="spec__row"><span class="spec__k">余量</span><span class="spec__v num">9 袋</span></div>
+              </div>
+              <p class="item__price"><span>整袋</span><b class="mono">¥ 268.00</b></p>
+              <p class="item__note">酸质最硬的一支，水温可以上到 94 °C；别用软水。</p>
+              <p class="item__folio mono">G-4 · 118 / 第七辑 / 第 118 页</p>
+            </div>
+          </div>
+
+          <div class="cell">
+            <h3 class="h3">冲法 · 固定</h3>
+            <table class="kv">
+              <tr><th>滤杯</th><td class="num">V60 02</td></tr>
+              <tr><th>粉量</th><td class="num">15 g</td></tr>
+              <tr><th>水量</th><td class="num">225 g</td></tr>
+              <tr><th>粉水比</th><td class="num">1 : 15</td></tr>
+              <tr><th>水温</th><td class="num">92 °C</td></tr>
+              <tr><th>研磨</th><td class="num">880 μm</td></tr>
+              <tr><th>总时长</th><td class="num">2:30</td></tr>
+            </table>
+            <p class="tiny">五支豆共用一套参数。水用纯净水加 30 ppm 矿化，不另调。</p>
+          </div>
+
+          <div class="cell">
+            <h3 class="h3">店务</h3>
+            <p class="tiny">三月每周三烘豆，当日不营业；四月起改周四。</p>
+            <p class="tiny">试样 30 g，随整袋附赠，不单卖，不拆零。</p>
+            <p class="tiny">存量每日 22:00 更新；本页数字截至 2026-03-18。</p>
+            <p class="tiny">豆单按季度重编，售完的批号留在档里，不删。</p>
+          </div>
+
+          <div class="cell">
+            <figure class="plate">
+              <img src="images/占位-2.jpg" width="960" height="540" alt="午后空店，吧台上摆着糖罐、秤和一只凉了的分享壶" style="aspect-ratio:960/540">
+              <figcaption class="cap"><span class="mono">图版 三</span>　午后空店；秤、糖罐与一只凉了的分享壶。2026-03-09 摄。</figcaption>
+            </figure>
+          </div>
+
+          <div class="cell">
+            <h3 class="h3">附记</h3>
+            <p class="tiny">本页条目按产区顺序编次，不按价格排。</p>
+            <p class="tiny">背面接第 118 页的存量账，批号一致，可对读。</p>
+          </div>
+
+        </div>
+      </div>
+    </article>
+
+    <!-- ================= 背页 ================= -->
+    <article class="leaf leaf--back">
+      <div class="folio mono">第 118 页　背面 · G-4 · 118</div>
+
+      <div class="bleed" aria-hidden="true">
+        <div class="cols">
+          <div class="cell c3 rubric-cell">
+            <h2 class="rubric">豆目 <span class="rubric__no mono">CAT. 03–05</span></h2>
+            <p class="rubric__sub">背面 · 三支豆、存量账、订货</p>
+          </div>
+          <div class="cell c3">
+            <div class="item item--c">
+              <div>
+                <span class="bleed__img" style="aspect-ratio:800/500"></span>
+                <p class="cap"><span class="mono">图版 四</span>　八碗杯测，编号贴在碗沿。2026-03-16 摄。</p>
+              </div>
+              <div>
+                <div class="item__top"><span class="item__no mono">03</span><span class="item__lot mono">批号 C-03</span></div>
+                <h3 class="item__name">惠兰 · 圣阿古斯丁</h3>
+                <p class="item__origin">哥伦比亚 / 惠兰 / 厌氧日晒</p>
+                <p class="item__notes">紫葡萄 · 可可 · 酒石</p>
+                <div class="spec spec--row">
+                  <div class="spec__row"><span class="spec__k">海拔</span><span class="spec__v num">1 920 m</span></div>
+                  <div class="spec__row"><span class="spec__k">杯测</span><span class="spec__v num">88.0</span></div>
+                  <div class="spec__row"><span class="spec__k">净重</span><span class="spec__v num">200 g</span></div>
+                  <div class="spec__row"><span class="spec__k">烘焙</span><span class="spec__v num">2026-03-11</span></div>
+                  <div class="spec__row"><span class="spec__k">余量</span><span class="spec__v num">21 袋</span></div>
+                  <div class="spec__row"><span class="spec__k">克价</span><span class="spec__v num">1.18</span></div>
+                </div>
+                <p class="item__price"><span>整袋</span><b class="mono">¥ 236.00</b></p>
+                <p class="item__note">厌氧 72 小时，果肉留到日晒第三天才洗；末段少搅，搅多就苦。</p>
+                <p class="item__folio mono">G-4 · 118 / 第七辑 / 第 118 页</p>
+              </div>
+            </div>
+          </div>
+          <div class="cell c2">
+            <div class="item item--d">
+              <table class="item__grid">
+                <tr>
+                  <th><span class="item__no mono">04</span></th>
+                  <td>
+                    <h3 class="item__name">波奎特 · 绿顶</h3>
+                    <p class="item__origin">巴拿马 / 奇里基 / 日晒 / 瑰夏系</p>
+                    <p class="item__notes">荔枝 · 玫瑰 · 蜂蜜</p>
+                    <div class="spec">
+                      <div class="spec__row"><span class="spec__k">海拔</span><span class="spec__v num">1 640 m</span></div>
+                      <div class="spec__row"><span class="spec__k">杯测</span><span class="spec__v num">90.5</span></div>
+                      <div class="spec__row"><span class="spec__k">净重</span><span class="spec__v num">200 g</span></div>
+                      <div class="spec__row"><span class="spec__k">烘焙</span><span class="spec__v num">2026-03-12</span></div>
+                      <div class="spec__row"><span class="spec__k">余量</span><span class="spec__v num">6 袋</span></div>
+                    </div>
+                    <p class="item__price"><span>整袋</span><b class="mono">¥ 420.00</b></p>
+                    <p class="item__note">本季最贵的一支，量也最少；每人限两袋，不预留。</p>
+                    <p class="item__folio mono">G-4 · 118 / 第七辑 / 第 118 页</p>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div class="cell">
+            <div class="item item--e">
+              <div class="item__top"><span class="item__no mono">05</span><span class="item__lot mono">批号 G-05</span></div>
+              <h3 class="item__name">安提瓜 · 花神</h3>
+              <p class="item__origin">危地马拉 / 安提瓜 / 水洗</p>
+              <p class="item__notes">橙皮 · 杏仁 · 焦糖</p>
+              <div class="spec">
+                <div class="spec__row"><span class="spec__k">海拔</span><span class="spec__v num">1 550 m</span></div>
+                <div class="spec__row"><span class="spec__k">杯测</span><span class="spec__v num">87.5</span></div>
+                <div class="spec__row"><span class="spec__k">净重</span><span class="spec__v num">200 g</span></div>
+                <div class="spec__row"><span class="spec__k">烘焙</span><span class="spec__v num">2026-03-18</span></div>
+                <div class="spec__row"><span class="spec__k">余量</span><span class="spec__v num">18 袋</span></div>
+              </div>
+              <p class="item__price"><span>整袋</span><b class="mono">¥ 218.00</b></p>
+              <p class="item__note">最稳的一支，适合每天第一杯；凉下来也不塌。</p>
+              <p class="item__folio mono">G-4 · 118 / 第七辑 / 第 118 页</p>
+            </div>
+          </div>
+          <div class="cell c2">
+            <table class="ledger">
+              <caption class="mono">存量与价目 · 截至 2026-03-18 22:00</caption>
+              <thead>
+                <tr>
+                  <th scope="col">批号</th>
+                  <th scope="col">克价</th>
+                  <th scope="col">余量</th>
+                  <th scope="col">整袋</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td class="mono">E-01</td><td class="num mono">1.24</td><td class="num mono">14 袋</td><td class="num mono">248.00</td></tr>
+                <tr><td class="mono">K-02</td><td class="num mono">1.34</td><td class="num mono">9 袋</td><td class="num mono">268.00</td></tr>
+                <tr><td class="mono">C-03</td><td class="num mono">1.18</td><td class="num mono">21 袋</td><td class="num mono">236.00</td></tr>
+                <tr><td class="mono">P-04</td><td class="num mono">2.10</td><td class="num mono">6 袋</td><td class="num mono">420.00</td></tr>
+                <tr><td class="mono">G-05</td><td class="num mono">1.09</td><td class="num mono">18 袋</td><td class="num mono">218.00</td></tr>
+              </tbody>
+            </table>
+            <p class="tiny">克价 = 整袋价 ÷ 200 g，算到分；不议价，不抹零。</p>
+          </div>
+          <div class="cell">
+            <span class="bleed__img" style="aspect-ratio:560/560"></span>
+            <p class="cap"><span class="mono">图版 五</span>　第一段注水，30 g，闷蒸 30 秒。2026-03-05 摄。</p>
+          </div>
+          <div class="cell">
+            <span class="bleed__img" style="aspect-ratio:660/440"></span>
+            <p class="cap"><span class="mono">图版 六</span>　3 月 11 日那锅的曲线打印纸，回温点画了道红笔。</p>
+          </div>
+          <div class="cell c2">
+            <div class="order-cell">
+              <h3 class="h3">订货 · 只走微信</h3>
+              <p>报批号，我报当日克价与余量；同一批号，早报早留。</p>
+              <p>不做在线支付：不加购物车，不走平台，不支持信用卡。货到转账，或当面付。</p>
+              <p>同城当日送，外地顺丰到付；试样 30 g 随袋附，不单卖。</p>
+              <p class="order-cell__id mono">微信 doumu118</p>
+              <p class="order-cell__folio mono">G-4 · 118 / 第七辑 / 第 118 页</p>
+            </div>
+          </div>
+          <div class="cell">
+            <span class="bleed__img" style="aspect-ratio:480/640"></span>
+            <p class="cap"><span class="mono">图版 七</span>　豆袋标签手写，批号与烘焙日各一行。</p>
+          </div>
+          <div class="cell c2">
+            <span class="bleed__img" style="aspect-ratio:600/450"></span>
+            <p class="cap"><span class="mono">图版 八</span>　店门与招牌；玻璃上那张营业时间是手写的，没有换过。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="leaf__pad">
+        <div class="cols">
+
+          <div class="cell c3 rubric-cell">
+            <h2 class="rubric">豆目 <span class="rubric__no mono">CAT. 03–05</span></h2>
+            <p class="rubric__sub">背面 · 三支豆、存量账、订货</p>
+          </div>
+
+          <div class="cell c3">
+            <div class="item item--c">
+              <div>
+                <figure class="plate">
+                  <img src="images/占位-7.jpg" width="800" height="500" alt="八只白瓷杯测碗排成一列，碗沿贴着编号纸胶带" style="aspect-ratio:800/500">
+                  <figcaption class="cap"><span class="mono">图版 四</span>　八碗杯测，编号贴在碗沿。2026-03-16 摄。</figcaption>
+                </figure>
+              </div>
+              <div>
+                <div class="item__top">
+                  <span class="item__no mono">03</span>
+                  <span class="item__lot mono">批号 C-03</span>
+                </div>
+                <h3 class="item__name">惠兰 · 圣阿古斯丁</h3>
+                <p class="item__origin">哥伦比亚 / 惠兰 / 厌氧日晒</p>
+                <p class="item__notes">紫葡萄 · 可可 · 酒石</p>
+                <div class="spec spec--row">
+                  <div class="spec__row"><span class="spec__k">海拔</span><span class="spec__v num">1 920 m</span></div>
+                  <div class="spec__row"><span class="spec__k">杯测</span><span class="spec__v num">88.0</span></div>
+                  <div class="spec__row"><span class="spec__k">净重</span><span class="spec__v num">200 g</span></div>
+                  <div class="spec__row"><span class="spec__k">烘焙</span><span class="spec__v num">2026-03-11</span></div>
+                  <div class="spec__row"><span class="spec__k">余量</span><span class="spec__v num">21 袋</span></div>
+                  <div class="spec__row"><span class="spec__k">克价</span><span class="spec__v num">1.18</span></div>
+                </div>
+                <p class="item__price"><span>整袋</span><b class="mono">¥ 236.00</b></p>
+                <p class="item__note">厌氧 72 小时，果肉留到日晒第三天才洗；末段少搅，搅多就苦。</p>
+                <p class="item__folio mono">G-4 · 118 / 第七辑 / 第 118 页</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="cell c2">
+            <div class="item item--d">
+              <table class="item__grid">
+                <tr>
+                  <th><span class="item__no mono">04</span></th>
+                  <td>
+                    <h3 class="item__name">波奎特 · 绿顶</h3>
+                    <p class="item__origin">巴拿马 / 奇里基 / 日晒 / 瑰夏系</p>
+                    <p class="item__notes">荔枝 · 玫瑰 · 蜂蜜</p>
+                    <div class="spec">
+                      <div class="spec__row"><span class="spec__k">海拔</span><span class="spec__v num">1 640 m</span></div>
+                      <div class="spec__row"><span class="spec__k">杯测</span><span class="spec__v num">90.5</span></div>
+                      <div class="spec__row"><span class="spec__k">净重</span><span class="spec__v num">200 g</span></div>
+                      <div class="spec__row"><span class="spec__k">烘焙</span><span class="spec__v num">2026-03-12</span></div>
+                      <div class="spec__row"><span class="spec__k">余量</span><span class="spec__v num">6 袋</span></div>
+                    </div>
+                    <p class="item__price"><span>整袋</span><b class="mono">¥ 420.00</b></p>
+                    <p class="item__note">本季最贵的一支，量也最少；每人限两袋，不预留。</p>
+                    <p class="item__folio mono">G-4 · 118 / 第七辑 / 第 118 页</p>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+          <div class="cell">
+            <div class="item item--e">
+              <div class="item__top">
+                <span class="item__no mono">05</span>
+                <span class="item__lot mono">批号 G-05</span>
+              </div>
+              <h3 class="item__name">安提瓜 · 花神</h3>
+              <p class="item__origin">危地马拉 / 安提瓜 / 水洗</p>
+              <p class="item__notes">橙皮 · 杏仁 · 焦糖</p>
+              <div class="spec">
+                <div class="spec__row"><span class="spec__k">海拔</span><span class="spec__v num">1 550 m</span></div>
+                <div class="spec__row"><span class="spec__k">杯测</span><span class="spec__v num">87.5</span></div>
+                <div class="spec__row"><span class="spec__k">净重</span><span class="spec__v num">200 g</span></div>
+                <div class="spec__row"><span class="spec__k">烘焙</span><span class="spec__v num">2026-03-18</span></div>
+                <div class="spec__row"><span class="spec__k">余量</span><span class="spec__v num">18 袋</span></div>
+              </div>
+              <p class="item__price"><span>整袋</span><b class="mono">¥ 218.00</b></p>
+              <p class="item__note">最稳的一支，适合每天第一杯；凉下来也不塌。</p>
+              <p class="item__folio mono">G-4 · 118 / 第七辑 / 第 118 页</p>
+            </div>
+          </div>
+
+          <div class="cell c2">
+            <table class="ledger">
+              <caption class="mono">存量与价目 · 截至 2026-03-18 22:00</caption>
+              <thead>
+                <tr>
+                  <th scope="col">批号</th>
+                  <th scope="col">克价</th>
+                  <th scope="col">余量</th>
+                  <th scope="col">整袋</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td class="mono">E-01</td><td class="num mono">1.24</td><td class="num mono">14 袋</td><td class="num mono">248.00</td></tr>
+                <tr><td class="mono">K-02</td><td class="num mono">1.34</td><td class="num mono">9 袋</td><td class="num mono">268.00</td></tr>
+                <tr><td class="mono">C-03</td><td class="num mono">1.18</td><td class="num mono">21 袋</td><td class="num mono">236.00</td></tr>
+                <tr><td class="mono">P-04</td><td class="num mono">2.10</td><td class="num mono">6 袋</td><td class="num mono">420.00</td></tr>
+                <tr><td class="mono">G-05</td><td class="num mono">1.09</td><td class="num mono">18 袋</td><td class="num mono">218.00</td></tr>
+              </tbody>
+            </table>
+            <p class="tiny">克价 = 整袋价 ÷ 200 g，算到分；不议价，不抹零。</p>
+          </div>
+
+          <div class="cell">
+            <figure class="plate">
+              <img src="images/占位-4.jpg" width="560" height="560" alt="俯拍注水，水柱落在滤杯中心，粉层正在鼓起" style="aspect-ratio:560/560">
+              <figcaption class="cap"><span class="mono">图版 五</span>　第一段注水，30 g，闷蒸 30 秒。2026-03-05 摄。</figcaption>
+            </figure>
+          </div>
+
+          <div class="cell">
+            <figure class="plate">
+              <img src="images/占位-6.jpg" width="660" height="440" alt="烘焙曲线打印纸，红笔在回温点画了一道" style="aspect-ratio:660/440">
+              <figcaption class="cap"><span class="mono">图版 六</span>　3 月 11 日那锅的曲线打印纸，回温点画了道红笔。</figcaption>
+            </figure>
+          </div>
+
+          <div class="cell c2" id="order">
+            <div class="order-cell">
+              <h3 class="h3">订货 · 只走微信</h3>
+              <p>报批号，我报当日克价与余量；同一批号，早报早留。</p>
+              <p>不做在线支付：不加购物车，不走平台，不支持信用卡。货到转账，或当面付。</p>
+              <p>同城当日送，外地顺丰到付；试样 30 g 随袋附，不单卖。</p>
+              <p class="order-cell__id mono">微信 doumu118</p>
+              <p class="order-cell__folio mono">G-4 · 118 / 第七辑 / 第 118 页</p>
+            </div>
+          </div>
+
+          <div class="cell">
+            <figure class="plate">
+              <img src="images/占位-3.jpg" width="480" height="640" alt="牛皮纸豆袋，正面贴手写批号与烘焙日的标签" style="aspect-ratio:480/640">
+              <figcaption class="cap"><span class="mono">图版 七</span>　豆袋标签手写，批号与烘焙日各一行。</figcaption>
+            </figure>
+          </div>
+
+          <div class="cell c2">
+            <figure class="plate">
+              <img src="images/占位-8.jpg" width="600" height="450" alt="店门与手写招牌，玻璃上贴着营业时间" style="aspect-ratio:600/450">
+              <figcaption class="cap"><span class="mono">图版 八</span>　店门与招牌；玻璃上那张营业时间是手写的，没有换过。</figcaption>
+            </figure>
+          </div>
+
+        </div>
+      </div>
+    </article>
+
+  </section>
+
+  <footer class="colophon">
+    <div class="colophon__row">
+      <span class="mono">G-4 · 118</span>
+      <span>手冲豆目 · 第七辑 · 第 118 页 · 2026-03-18</span>
+      <span class="mono">doumu118</span>
+    </div>
+    <div class="colophon__row colophon__row--sub">
+      <span>编目：店主本人　｜　排印：本店　｜　营业：周三至周日 10:00–18:00</span>
+      <span>本页数字截至 2026-03-18 22:00，不四舍五入。</span>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -111,9 +111,13 @@ function judge(id, want, got, prompt) {
 
 const results = [];
 for (const p of PAIRS) {
-  const outFile = join(Q7, `out-${p.id}.html`);
+  /* 支持 `node compare.mjs -v2` 这类后缀，用来对比不同轮次的产物。
+   * 为什么需要：9 色那一轮要同时看「旧版」和「新版」的结果差异，
+   * 而写死 out-${id}.html 就只能看一版。 */
+  const SUFFIX = process.argv.find((a) => /^-[a-z0-9]+$/i.test(a)) || '';
+  const outFile = join(Q7, `out-${p.id}${SUFFIX}.html`);
   const promptFile = join(Q7, `prompt-${p.id}.txt`);
-  if (!existsSync(outFile)) { console.log(`${p.id}: 还没有生成物（out-${p.id}.html），跳过`); continue; }
+  if (!existsSync(outFile)) { console.log(`${p.id}: 还没有生成物（out-${p.id}${SUFFIX}.html），跳过`); continue; }
   const prompt = readFileSync(promptFile, 'utf8');
   console.log(`\n=== ${p.id} ===`);
   const [want, got] = [await measure(p.proto), await measure(outFile)];
