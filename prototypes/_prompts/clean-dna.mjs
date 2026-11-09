@@ -1000,7 +1000,7 @@ function bodySizeVerdict(cleanCss, vars) {
  * 7 而不是 5 是权衡结果：7 个色还在 AI 能守住的范围里，而丢主色的代价是整页风格失效。
  */
 function pickPalette(decls, rowColors, rawCss, specCtx) {
-  const MAX = 7;
+  const MAX = 9;
   const rootHexes = rowColors.map(function (c) { return c.hex.toUpperCase(); });
   /* 全文件里出现过的 hex（不限 `:root`）。
    *

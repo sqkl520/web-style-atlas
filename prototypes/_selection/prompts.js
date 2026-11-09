@@ -632,7 +632,7 @@ window.STYLE_PROMPTS = {
     "minPics": 7
    },
    "dna": {
-    "palette": "#85572A（brown）、#ECDEC6（paper）、#241A12（ink）、#C9A87C（stain）、#E6D8BC（card）、#E0D0B0（card-2）、#E4D5B8（pale）",
+    "palette": "#85572A（brown）、#ECDEC6（paper）、#241A12（ink）、#C9A87C（stain）、#E6D8BC（card）、#E0D0B0（card-2）、#E4D5B8（pale）、#5A3A1C（brown-deep）、#B9A87F（rule）",
     "fonts": {
      "display": "EB Garamond",
      "body": "Literata",
@@ -1008,7 +1008,7 @@ window.STYLE_PROMPTS = {
     "minPics": 10
    },
    "dna": {
-    "palette": "#E4572E（主色）、#12181D（背景色）、#D8D2C4（辅助色）、#8A3320（压痕暗侧）、#C9C4B8（文字色）、#111111（文字色）、#E4E0D6（文字色）",
+    "palette": "#E4572E（主色）、#12181D（背景色）、#D8D2C4（辅助色）、#8A3320（压痕暗侧）、#C9C4B8（文字色）、#111111（文字色）、#E4E0D6（文字色）、#3A3630（文字色）、#9A968C（文字色）",
     "fonts": {
      "display": "Oswald",
      "body": "Noto Serif SC",
@@ -1147,7 +1147,7 @@ window.STYLE_PROMPTS = {
     "minPics": 5
    },
    "dna": {
-    "palette": "#5A2A50（ink）、#E1D6BD（paper）、#7A2E2E（seal）、#C9BFA6（stub）、#3F1A38（ink-deep）、#B9A98C（rule）、#DFD6BF（tone-hover）",
+    "palette": "#5A2A50（ink）、#E1D6BD（paper）、#7A2E2E（seal）、#C9BFA6（stub）、#3F1A38（ink-deep）、#B9A98C（rule）、#DFD6BF（tone-hover）、#D6C9AC（tone-hold）",
     "fonts": {
      "display": "Literata",
      "body": "文津宋体",
@@ -1246,7 +1246,7 @@ window.STYLE_PROMPTS = {
     "minPics": 6
    },
    "dna": {
-    "palette": "#4A5C3A（green）、#E4DECD（paper）、#2A241C（wood）、#7C7460（faded）、#D8CFB6（paper-deep）、#E9E3D2（paper-lit）、#3A3227（wood-lit）",
+    "palette": "#4A5C3A（green）、#E4DECD（paper）、#2A241C（wood）、#7C7460（faded）、#D8CFB6（paper-deep）、#E9E3D2（paper-lit）、#3A3227（wood-lit）、#5E5443（ink2）、#534C3E（note-ink）",
     "fonts": {
      "display": "Noto Serif SC",
      "body": "Noto Serif SC",
@@ -1433,7 +1433,7 @@ window.STYLE_PROMPTS = {
     "minPics": 10
    },
    "dna": {
-    "palette": "#A8206B（carmine）、#241C16（oxide）、#DCDCC8（plaster）、#7A6A55（mortar）、#E9E9D7（lime）、#5F5240（mortar-ink）、#B7A78C（mortar-lit）",
+    "palette": "#A8206B（carmine）、#241C16（oxide）、#DCDCC8（plaster）、#7A6A55（mortar）、#E9E9D7（lime）、#5F5240（mortar-ink）、#B7A78C（mortar-lit）、#E9A9C6（carmine-lit）",
     "fonts": {
      "display": "Noto Serif SC",
      "body": "Noto Serif SC",
@@ -1478,7 +1478,7 @@ window.STYLE_PROMPTS = {
     "minPics": 6
    },
    "dna": {
-    "palette": "#5D43AD（grape）、#E6EDF2（paper）、#0A1116（ink）、#6E8B7A（moss）、#F3F8FB（paper-2）、#DCE7EF（paper-3）、#C9D8E4（paper-4）",
+    "palette": "#5D43AD（grape）、#E6EDF2（paper）、#0A1116（ink）、#6E8B7A（moss）、#F3F8FB（paper-2）、#DCE7EF（paper-3）、#C9D8E4（paper-4）、#3A4652（ink-2）、#3C5F48（moss-2）",
     "fonts": {
      "display": "Spectral",
      "body": "LXGW WenKai",
@@ -1574,7 +1574,7 @@ window.STYLE_PROMPTS = {
     "minPics": 6
    },
    "dna": {
-    "palette": "#485270（blue）、#D3D1CA（paper）、#121212（ink）、#C8341F（red）、#FFFFFF（white）、#C3C1B9（tint）、#38110E（mul-br）",
+    "palette": "#485270（blue）、#D3D1CA（paper）、#121212（ink）、#C8341F（red）、#FFFFFF（white）、#C3C1B9（tint）、#38110E（mul-br）、#0E0402（mul-rk）、#050608（mul-bk）",
     "fonts": {
      "display": "Syne",
      "body": "Noto Sans SC",
