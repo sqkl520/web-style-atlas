@@ -11,16 +11,31 @@
 import { readFileSync, existsSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import vm from 'node:vm';
 import { measure } from './measure.mjs';
 
 const ROOT = resolve(fileURLToPath(import.meta.url), '../../..');
 const Q7 = join(ROOT, 'deliverables/74-q7');
 
-const PAIRS = [
-  { id: 'S03', proto: 'prototypes/S03-long-exposure-observatory/index.html' },
-  { id: 'S07', proto: 'prototypes/S07-slate-ink-contents/index.html' },
-  { id: 'S17', proto: 'prototypes/S17-revenue-stamp-stub/index.html' },
-];
+/* 原型路径从 data.js 的 dir 字段读，不手写 —— 手写会随目录改名而腐化，
+ * 而这里要支持任意案号（`node compare.mjs -v2 S06,S14,...`）。 */
+function dirOf(id, vm) {
+  const src = readFileSync(join(ROOT, 'prototypes/_selection/data.js'), 'utf8');
+  const c = { window: {} };
+  vm.createContext(c);
+  vm.runInContext(src, c);
+  const s = c.window.SCHEMES.find((x) => x.id === id);
+  return s ? s.dir : null;
+}
+
+/* 默认三案（第一轮验证过的那三案）；命令行可传 `-v2 S06,S14` 之类。 */
+const DEFAULT_IDS = ['S03', 'S07', 'S17'];
+const idArg = process.argv.slice(2).find((a) => /^S\d{2}(,S\d{2})*$/.test(a));
+const IDS = idArg ? idArg.split(',') : DEFAULT_IDS;
+const PAIRS = IDS.map((id) => {
+  const d = dirOf(id, vm);
+  return { id, proto: d ? `prototypes/${d}/index.html` : null };
+}).filter((p) => p.proto && existsSync(join(ROOT, p.proto)));
 
 const fmt = (v) => Array.isArray(v) ? '[' + v.join(', ') + ']' : String(v);
 
@@ -41,24 +56,25 @@ function judge(id, want, got, prompt) {
   out.push({ name: '主体栏数(参考)', ok: true, want: `${want.gridTracks}/${want.maxColCount}`,
              got: `${got.gridTracks}/${got.maxColCount}`, note: colNote });
 
-  /* ② 主轴比例：比对最宽 grid 的轨道比。
+  /* ② 主轴比例：**只报不判**。
    *
-   * ⚠️ 不能直接按索引比 —— 原型 S07 的轨道是 `5fr 1px 7fr`，那 1px 中缝
-   * 归一化后是 0.001，会占掉一个索引位；生成物如果不用 1px 轨道而用 gap，
-   * 就变成 `[0.417, 0.583]`。两者**语义相同**，直接按位比会判成失败。
-   * 所以先滤掉占比 < 0.01 的轨道（那些是分隔线，不是内容栏），再比。 */
+   * 为什么降级 —— 这是本工具里最不可靠的一条判据，原因有两个：
+   *   1. 「哪个 grid 是主版式」无法从 DOM 结构可靠判断。S23 的版心是
+   *      `grid-template-columns: 5fr 7fr`（:110），但按面积最大选到的是
+   *      `HEADER.masthead`（页头），于是拿页头的比例去判版心。
+   *   2. 机制句的语义范围不同。S06/S14/S19/S23 的机制句描述的是**内容排布**
+   *      （卡片沿斜轨、面板分栏、开口递减），不是**版式骨架**。拿骨架比例
+   *      判它们的对错，等于用一把语义上不成立的尺子。
+   * 它在 S03/S07/S17 上能过，是因为那三案的页头恰好不是面积最大的元素 —— 巧合，不是判据有效。
+   *
+   * 保留输出是因为它仍有诊断价值：两组数字差得远时，人一眼能看出模型把版面分成了别的结构。 */
   let ratioOk = null, ratioNote = '轨道不足 2，跳过';
   const significant = (arr) => arr.filter((v) => v >= 0.01);
   const wR = significant(want.mainRatio), gR = significant(got.mainRatio);
   if (wR.length >= 2 && gR.length >= 2) {
-    const n = Math.min(wR.length, gR.length);
-    ratioOk = wR.length === gR.length;   /* 栏数不同就不是同一个版式 */
-    for (let i = 0; i < n && ratioOk; i++) {
-      if (Math.abs(wR[i] - gR[i]) > 0.08) ratioOk = false;
-    }
-    ratioNote = `比归一化轨道比（滤掉 <1% 的分隔线：${want.mainRatio.length}→${wR.length} / ${got.mainRatio.length}→${gR.length}）`;
+    ratioNote = `原型 ${want.gridSel} vs 产物 ${got.gridSel}（只报不判）`;
   }
-  add('主轴比例', ratioOk === null ? true : ratioOk, wR, gR, ratioNote);
+  add('主轴比例(参考)', true, wR, gR, ratioNote);
 
   /* ③ 标题/正文字号比：容差 ±20% */
   const hr = (want.headBodyRatio && got.headBodyRatio)
@@ -93,13 +109,18 @@ function judge(id, want, got, prompt) {
       `原型用 SVG 画细线（stroke 不取整）；生成物 ${got.svgStrokeWidths.length ? '也用了' : '改用 CSS 实现，视觉可能等价'}，缺 ${missSW.join(',') || '无'}`);
   }
 
-  /* ⑤ 主色：原型 palette 里的 hex 应该出现在生成物的 CSS 里 */
-  const wantHex = new Set(want.hexes);
+  /* ⑤ 主色：判据是**提示词里给的色是否都出现在产物里**，不是「产物是否复刻了原型的全部色」。
+   *
+   * 为什么必须这样定：原型 S14 的 CSS 里有 13 个 hex，而提示词只给了 9 个
+   * （pickPalette 的上限），剩下 4 个是派生色。拿原型的全量色去要求产物，
+   * 等于要求模型复刻它从未被告知的颜色 —— 那是拿一把错的尺子判分。
+   * 提示词的色列表才是模型收到的约束；产物只要把它全部用上，配色这一关就成立。 */
+  const promptHexes = new Set((prompt.match(/#[0-9A-Fa-f]{6}/g) || []).map((h) => h.toUpperCase()));
   const gotHex = new Set(got.hexes);
-  const missHex = [...wantHex].filter((h) => !gotHex.has(h));
-  add('主色覆盖', missHex.length === 0,
-    `${wantHex.size} 个`, `${gotHex.size} 个（缺 ${missHex.length}）`,
-    /配色|#[0-9A-Fa-f]{6}/.test(prompt) ? `缺: ${missHex.slice(0, 4).join(' ') || '无'}` : '提示词未给色值');
+  const missHex = [...promptHexes].filter((h) => !gotHex.has(h));
+  add('配色（提示词给的色）', missHex.length === 0,
+    `${promptHexes.size} 个`, `${gotHex.size} 个（缺 ${missHex.length}）`,
+    promptHexes.size ? `缺: ${missHex.slice(0, 4).join(' ') || '无'}` : '提示词未给色值');
 
   /* ⑥ 图片位：数量至少到提示词的 minPics，且可见面积 > 0 */
   const picOk = got.imgVisible > 0 || want.imgVisible === 0;

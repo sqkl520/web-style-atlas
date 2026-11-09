@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>墙皮 · 手冲｜同一面墙铲开九处，五个产区</title>
+<style>
+/* ============================================================
+   墙皮 · 手冲   S23
+   配色：只用 8 个值，不新增
+   线宽：1px / 1.5px / 6px（62° 铲痕按机制句：2px 痕、6px 距）
+   字号：16 → 24 → 32 → 48 → 64 → 96（16 的 1 / 1.5 / 2 / 3 / 4 / 6 倍）
+   圆角 0，阴影 0，透明度 0，动效 0
+   ============================================================ */
+:root{
+  --carmine:#A8206B;
+  --oxide:#241C16;
+  --plaster:#DCDCC8;
+  --mortar:#7A6A55;
+  --lime:#E9E9D7;
+  --mortar-ink:#5F5240;
+  --mortar-lit:#B7A78C;
+  --carmine-lit:#E9A9C6;
+
+  --t1:16px;   /* 正文 / 参数 / 编号条 */
+  --t2:24px;   /* 价格 / 品牌 */
+  --t3:32px;   /* 口子标题 */
+  --t4:48px;   /* 区块标题 */
+  --t5:64px;   /* 墙标题 */
+  --t6:96px;   /* 首屏主标题 = 正文 6 倍 */
+
+  --w1:1px;
+  --w15:1.5px;
+  --w6:6px;
+
+  --serif:"Noto Serif SC","Alfa Slab One",serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+
+  /* 62° 斜痕：痕宽 2px，痕距 6px */
+  --gouge:repeating-linear-gradient(62deg,var(--carmine) 0 2px,var(--plaster) 2px 6px);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{background:var(--plaster);color:var(--oxide)}
+body{
+  margin:0;background:var(--plaster);color:var(--oxide);
+  font-family:var(--serif);font-size:var(--t1);line-height:1.7;font-weight:400;
+}
+h1,h2,h3,h4,p,dl,dd,dt,ol,ul,table,figure,blockquote{margin:0;padding:0}
+ol,ul{list-style:none}
+img{display:block;width:100%;height:auto;flex:0 0 auto;background:var(--mortar-lit);border:var(--w1) solid var(--oxide)}
+a{color:inherit;text-decoration:none}
+table{border-collapse:collapse}
+
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right}
+
+/* ---------- 顶条 ---------- */
+.topbar{
+  display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:baseline;
+  padding:10px 24px 10px 24px;border-bottom:var(--w6) solid var(--oxide);
+}
+.brand{font-size:var(--t2);font-weight:700;letter-spacing:.02em;line-height:1.2}
+.brand em{font-style:normal;font-family:var(--mono);font-variant-numeric:tabular-nums;
+  font-size:var(--t1);font-weight:400;color:var(--mortar-ink);margin-left:14px;letter-spacing:0}
+.topmeta{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:var(--t1);
+  color:var(--mortar-ink);text-align:right;line-height:1.4}
+
+/* ---------- 外壳：内容 + 右缘 96px 索引条 ---------- */
+.shell{display:grid;grid-template-columns:minmax(0,1fr) 96px;align-items:stretch}
+.main{min-width:0}
+
+.rail{width:96px;background:var(--lime);border-left:var(--w15) solid var(--oxide);padding:20px 8px 24px}
+.rail-list{display:flex;flex-direction:column;gap:12px}
+.rail-i{display:flex;flex-direction:column;gap:3px}
+.rail-i .num{font-size:var(--t1);line-height:1;text-align:left;color:var(--oxide)}
+.rail-bar{display:grid;grid-auto-rows:16px;border:var(--w1) solid var(--oxide)}
+.rail-bar i{display:block;height:auto}
+.rail-bar i + i{border-top:var(--w1) solid var(--lime)}
+.rail-bar.is-void{height:18px;border-color:var(--mortar);border-style:solid;background:var(--lime)}
+.rail-bar.is-void i{display:none}
+.rail-tick{display:block;width:100%;height:var(--w6);background:var(--carmine-lit)}
+.rail-foot{margin-top:18px;font-family:var(--mono);font-size:var(--t1);line-height:1.3;
+  color:var(--mortar-ink);border-top:var(--w1) solid var(--mortar);padding-top:6px}
+
+/* 四种层位色 —— 全站唯一来源 */
+.l0{background:var(--plaster)}
+.l1{background:var(--mortar-lit)}
+.l2{background:var(--mortar)}
+.l3{background:var(--oxide)}
+
+/* ---------- 首屏 ---------- */
+.hero{
+  display:grid;grid-template-columns:minmax(0,1.16fr) minmax(0,0.84fr);
+  border-bottom:var(--w6) solid var(--oxide);
+}
+.hero-copy{padding:20px 28px 22px 24px;border-right:var(--w1) solid var(--oxide)}
+.kicker{
+  font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:var(--t1);
+  color:var(--mortar-ink);line-height:1;letter-spacing:.02em;
+}
+.hero h1{
+  font-size:var(--t6);line-height:.9;letter-spacing:-.03em;font-weight:700;
+  margin:14px 0 0 0;
+}
+.h1-rule{display:block;width:96px;height:var(--w6);background:var(--carmine);margin:18px 0 16px}
+.hero-lede{font-size:var(--t1);line-height:1.75;max-width:36em;color:var(--oxide)}
+.hero-lede b{font-weight:700}
+.cta{
+  display:flex;align-items:baseline;justify-content:space-between;gap:16px;
+  margin-top:18px;max-width:470px;padding:12px 16px;
+  background:var(--carmine);color:var(--lime);
+  border:var(--w6) solid var(--oxide);
+  font-size:var(--t2);font-weight:700;line-height:1.2;
+}
+.cta .cta-id{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:var(--t1);font-weight:400}
+.hero-note{margin-top:10px;font-family:var(--mono);font-size:var(--t1);color:var(--mortar-ink);line-height:1.4}
+
+.hero-visual{padding:20px 20px 22px 20px;display:flex;flex-direction:column;gap:10px}
+.hero-shot{position:relative;border:var(--w15) solid var(--oxide)}
+.hero-shot .gouge{
+  position:absolute;left:0;top:0;width:14px;height:100%;
+  background-image:var(--gouge);border-right:var(--w1) solid var(--oxide);
+}
+.hero-shot img{aspect-ratio:1200/800;object-fit:cover;border:0}
+.gouge-96{width:96px;height:96px;background-image:var(--gouge);border:var(--w1) solid var(--oxide)}
+.hero-cap{font-family:var(--mono);font-size:var(--t1);color:var(--mortar-ink);line-height:1.4}
+
+.hero-strata{
+  grid-column:1/-1;display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);
+  align-items:center;gap:24px;padding:12px 24px;border-top:var(--w1) solid var(--oxide);
+}
+.core{display:grid;grid-template-columns:repeat(4,1fr);height:14px;border:var(--w1) solid var(--oxide)}
+.core i{display:block;height:100%}
+.core i + i{border-left:var(--w1) solid var(--lime)}
+.strata-line{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:var(--t1);color:var(--mortar-ink)}
+
+/* ---------- 层位 / 颜色 / 年代 三列对照表 ---------- */
+.sec{padding:26px 24px 30px;border-bottom:var(--w6) solid var(--oxide)}
+.sec-head{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:24px;
+  align-items:end;margin-bottom:20px}
+.sec-head h2{font-size:var(--t4);line-height:1.05;letter-spacing:-.02em;font-weight:700}
+.sec-head h2 span{display:block;font-family:var(--mono);font-size:var(--t1);font-weight:400;
+  letter-spacing:0;color:var(--mortar-ink);margin-bottom:8px}
+.sec-head p{font-size:var(--t1);line-height:1.7;color:var(--mortar-ink)}
+
+.strata-grid{display:grid;grid-template-columns:minmax(0,1.42fr) minmax(0,1fr);gap:6px;align-items:start}
+.strata-left{display:flex;flex-direction:column;gap:6px;min-width:0}
+.strata-foot{display:flex;flex-direction:column;border-top:var(--w1) solid var(--mortar)}
+.sf-row{display:grid;grid-template-columns:52px minmax(0,1fr);gap:10px;padding:6px 0;
+  border-bottom:var(--w1) solid var(--mortar);font-size:var(--t1);line-height:1.5}
+.sf-k{font-family:var(--mono);color:var(--mortar);line-height:1.5}
+.sf-v{color:var(--mortar-ink)}
+.strata-table{width:100%;background:var(--oxide);color:var(--plaster);font-size:var(--t1);
+  border-collapse:separate;border-spacing:0}
+.strata-table th{
+  text-align:left;padding:8px 12px;font-weight:400;font-size:var(--t1);
+  font-family:var(--mono);letter-spacing:.04em;
+  border-bottom:var(--w15) solid var(--lime);color:var(--mortar-lit);
+}
+.strata-table th:last-child,.strata-table td:last-child{text-align:right}
+.strata-table td{padding:10px 12px;border-bottom:var(--w1) solid var(--lime);vertical-align:top}
+.strata-table tr:last-child td{border-bottom:0}
+.slot{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:var(--t1);color:var(--lime)}
+.slot-note{display:block;font-family:var(--serif);font-size:var(--t1);color:var(--mortar-lit);line-height:1.5}
+.sw{display:inline-block;width:26px;height:16px;border:var(--w1) solid var(--lime);
+  vertical-align:-3px;margin-right:8px}
+.sw.l3{border-color:var(--mortar)}
+.hexline{display:block;font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:var(--t1);color:var(--plaster)}
+.yearcell b{display:block;font-family:var(--mono);font-variant-numeric:tabular-nums;
+  font-size:var(--t2);font-weight:400;line-height:1.2;color:var(--lime)}
+.yearcell span{font-size:var(--t1);color:var(--mortar-lit)}
+
+.strata-fig{border:var(--w1) solid var(--oxide);display:flex;flex-direction:column}
+.strata-fig img{aspect-ratio:600/600;object-fit:cover;border:0;border-bottom:var(--w1) solid var(--oxide)}
+.strata-fig figcaption{padding:8px 12px;font-family:var(--mono);font-size:var(--t1);
+  line-height:1.4;color:var(--mortar-ink)}
+
+/* ---------- 九处开口 ---------- */
+.wall-head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:end;
+  margin-bottom:14px}
+.wall-head h2{font-size:var(--t5);line-height:1;letter-spacing:-.02em;font-weight:700}
+.wall-head .ladder{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:var(--t2);
+  color:var(--carmine);text-align:right;line-height:1.2}
+.wall-note{font-size:var(--t1);line-height:1.7;color:var(--mortar-ink);max-width:44em;margin-bottom:18px}
+
+.band{display:grid;gap:6px;margin-bottom:6px}
+.band-a{grid-template-columns:1fr 1.34fr 0.84fr}
+.band-b{grid-template-columns:1.62fr 1fr}
+.band-c{grid-template-columns:1fr 1.78fr}
+.band-d{grid-template-columns:0.66fr}
+.band-e{grid-template-columns:1fr}
+
+.band-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;
+  padding:6px 0 2px;border-top:var(--w1) solid var(--mortar);
+  font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:var(--t1);
+  color:var(--mortar-ink)}
+.band-head b{font-weight:400;color:var(--oxide)}
+
+.op{
+  border:var(--w15) solid var(--oxide);background:var(--plaster);
+  display:flex;flex-direction:column;min-width:0;
+}
+.op-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;
+  padding:8px 12px 6px;border-bottom:var(--w1) solid var(--mortar)}
+.op-num{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:var(--t3);
+  line-height:1;color:var(--carmine);font-weight:700}
+.op-depth{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:var(--t1);
+  color:var(--mortar-ink);text-align:right;line-height:1.3}
+.scrape{height:10px;background-image:var(--gouge);border-bottom:var(--w1) solid var(--oxide)}
+
+.op-body{display:flex;flex-direction:column;gap:12px;padding:12px;min-width:0}
+.op-title{font-size:var(--t3);line-height:1.12;font-weight:700;letter-spacing:-.01em}
+.op-place{font-family:var(--mono);font-size:var(--t1);color:var(--mortar-ink);line-height:1.4;margin-top:-6px}
+.op-copy{font-size:var(--t1);line-height:1.75}
+
+.params{display:grid;grid-template-columns:auto minmax(0,1fr);gap:2px 14px;font-size:var(--t1)}
+.params dt{color:var(--mortar-ink)}
+.params dd{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right;color:var(--oxide);white-space:nowrap}
+.params dd b{font-weight:400}
+
+.price{display:flex;justify-content:space-between;align-items:baseline;gap:12px;
+  border-top:var(--w1) solid var(--mortar);padding-top:8px}
+.price .plabel{font-size:var(--t1);color:var(--mortar-ink)}
+.price .pnum{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:var(--t2);
+  text-align:right;line-height:1.2;color:var(--carmine);font-weight:700}
+.price .pnum i{font-style:normal;color:var(--mortar-ink);font-size:var(--t1);font-weight:400}
+
+/* 断口：层带 + 层位/年份标签，1px 亮线夹在层间 */
+.layers{display:grid;grid-template-columns:42px minmax(0,1fr);gap:0 10px;
+  border-top:var(--w1) solid var(--mortar);padding-top:10px}
+.layers-bar{display:grid;grid-auto-rows:20px;border:var(--w1) solid var(--oxide)}
+.layers-bar i{display:block;height:auto}
+.layers-bar i + i{border-top:var(--w1) solid var(--lime)}
+.layers-lab{display:grid;grid-auto-rows:21px}
+.layers-lab span{line-height:21px;font-family:var(--mono);
+  font-variant-numeric:tabular-nums;font-size:var(--t1);color:var(--mortar-ink)}
+.layers-lab span b{font-weight:400;color:var(--oxide)}
+.depth-tag{font-family:var(--mono);font-size:var(--t1);color:var(--mortar-ink);margin-top:4px}
+
+/* 01：图在上，文字在下 */
+.op-a .op-body{gap:12px}
+.op-a img{aspect-ratio:800/600;object-fit:cover}
+
+/* 02：图左文右 */
+.op-b .op-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;align-items:start}
+.op-b img{aspect-ratio:900/600;object-fit:cover}
+.op-b .col{display:flex;flex-direction:column;gap:12px;min-width:0}
+
+/* 03：图在下半格右侧 */
+.op-c .op-body{display:block;padding-bottom:0}
+.op-c .op-lead{display:flex;flex-direction:column;gap:6px}
+.op-c .op-c-lower{display:grid;grid-template-columns:minmax(0,1fr) 164px;gap:12px;align-items:start;margin-top:10px}
+.op-c .op-c-lower .stk{display:flex;flex-direction:column;gap:10px;min-width:0}
+.op-c img{aspect-ratio:700/700;object-fit:cover}
+.op-c .params{grid-template-columns:auto minmax(0,1fr);gap:2px 8px}
+.op-c .price{justify-content:flex-start;gap:10px}
+.op-c .layers{margin:10px 0 12px}
+
+/* 05：竖图 */
+.op-e img{aspect-ratio:800/1000;object-fit:cover}
+
+/* 06：参数两列铺开 */
+.op-f img{aspect-ratio:900/600;object-fit:cover}
+
+/* 07：空抽屉，横图；右栏内容顶到上下两端，中间留白即"空" */
+.op-g .op-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;align-items:stretch}
+.op-g img{aspect-ratio:1000/750;object-fit:cover}
+.op-g .col{display:flex;flex-direction:column;gap:12px;min-width:0;justify-content:flex-start}
+.op-g .price{margin-top:auto}
+.op-g .void-tail{border-top-color:var(--mortar)}
+
+/* 09：吧台，满宽 */
+.op-h .op-body{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:16px;align-items:start}
+.op-h img{aspect-ratio:1200/675;object-fit:cover}
+.op-h .col{display:flex;flex-direction:column;gap:12px;min-width:0}
+
+/* 空：缺号 / 空白卡 */
+.op.is-void{border-color:var(--mortar);border-style:solid}
+.op.is-void .op-top{border-bottom-color:var(--mortar)}
+.op.is-void .op-num{color:var(--mortar)}
+/* 04：缺号，整格只有一条亮线和几行字 */
+.op-void-body{padding:16px 12px 14px;display:flex;flex-direction:column;gap:10px;flex:1 1 auto}
+.op-04-fill{display:flex;flex-direction:column;gap:8px;flex:1 1 auto}
+.void-big{
+  flex:1 1 auto;min-height:200px;display:flex;align-items:center;justify-content:center;
+  writing-mode:vertical-rl;font-family:var(--serif);font-size:96px;line-height:1;
+  letter-spacing:.06em;color:var(--mortar);border:var(--w1) solid var(--mortar);
+  margin:4px 0 2px;padding:10px 0;
+}
+/* 空到底：把"这一格是空的"钉在卡片底边，中间那片空白就是证据 */
+.void-tail{
+  margin-top:auto;border-top:var(--w1) solid var(--mortar);padding-top:8px;
+  font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:var(--t1);
+  line-height:1.5;color:var(--mortar-ink);
+}
+.void-tail b{font-weight:400;color:var(--oxide)}
+.void-tail:last-child{margin-top:auto}
+.void-line{height:var(--w6);width:100%;background:var(--carmine-lit)}
+.void-layers{margin-top:2px}
+.void-mark{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:var(--t1);
+  color:var(--mortar);line-height:1.4}
+.blank-card{background:var(--lime);border:var(--w1) solid var(--mortar);min-height:188px;
+  display:flex;flex-direction:column;justify-content:space-between;padding:12px}
+.blank-card .blank-lead{font-family:var(--serif);font-size:var(--t2);color:var(--mortar);line-height:1.3}
+.blank-card .blank-foot{font-family:var(--mono);font-size:var(--t1);color:var(--mortar-ink);line-height:1.4}
+
+/* ---------- 怎么买 ---------- */
+.buy{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,0.95fr);gap:0;
+  border-bottom:var(--w1) solid var(--oxide)}
+.buy-left{padding:0 24px 26px;border-right:var(--w1) solid var(--oxide)}
+.buy-right{padding:0 20px 26px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;align-content:start}
+.shot{border:var(--w1) solid var(--oxide)}
+.shot img{aspect-ratio:900/600;object-fit:cover;border:0;border-bottom:var(--w1) solid var(--oxide)}
+.shot figcaption{padding:6px 10px;font-family:var(--mono);font-size:var(--t1);line-height:1.4;color:var(--mortar-ink)}
+.shot.tall{grid-row:span 2}
+.shot.tall img{aspect-ratio:900/1200}
+.shot.wide{grid-column:1/-1}
+.shot.wide img{aspect-ratio:1200/600}
+.steps{display:flex;flex-direction:column;border-top:var(--w15) solid var(--oxide);margin-top:14px}
+.step{display:grid;grid-template-columns:42px minmax(0,1fr);gap:12px;padding:9px 0;
+  border-bottom:var(--w1) solid var(--mortar)}
+.step .sn{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:var(--t1);color:var(--carmine)}
+.step p{font-size:var(--t1);line-height:1.6}
+.brew{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:14px}
+.brew div{border:var(--w1) solid var(--oxide);padding:8px 10px}
+.brew b{display:block;font-family:var(--mono);font-variant-numeric:tabular-nums;
+  font-size:var(--t2);font-weight:400;line-height:1.2;text-align:right}
+.brew span{display:block;font-size:var(--t1);color:var(--mortar-ink);line-height:1.3;text-align:right}
+
+/* 五个产区 = 五个号，缺号与空抽屉照旧各占一格 */
+.legend{display:grid;grid-template-columns:1.16fr 1fr 1.34fr .84fr 1fr;gap:6px;margin-top:14px}
+.leg{border-top:var(--w6) solid var(--mortar);padding-top:6px;min-width:0}
+.leg.on{border-top-color:var(--carmine)}
+.leg b{display:block;font-size:var(--t1);font-weight:700;line-height:1.4}
+.leg span{display:block;font-family:var(--mono);font-variant-numeric:tabular-nums;
+  font-size:var(--t1);color:var(--mortar-ink);line-height:1.4}
+.leg.is-void{border-top-color:var(--mortar-lit)}
+.leg.is-void b{color:var(--mortar)}
+
+/* ---------- 页脚 ---------- */
+.foot{background:var(--oxide);color:var(--plaster);padding:20px 24px 26px}
+.foot-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr) minmax(0,1.2fr);gap:24px}
+.foot h3{font-size:var(--t2);font-weight:700;line-height:1.3;margin-bottom:6px}
+.foot p{font-size:var(--t1);line-height:1.7;color:var(--mortar-lit)}
+.foot .fmono{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:var(--t1);
+  color:var(--lime);line-height:1.6}
+.foot .rule{height:var(--w6);background:var(--carmine);margin:14px 0 12px}
+.foot .chain{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:var(--t1);
+  color:var(--mortar-lit);line-height:1.8;word-spacing:.28em}
+.foot .chain b{color:var(--lime);font-weight:400}
+
+/* ---------- 移动端：单列，顺序不变 ---------- */
+@media (max-width:900px){
+  .shell{grid-template-columns:minmax(0,1fr)}
+  .hero{grid-template-columns:minmax(0,1fr)}
+  .hero-copy{border-right:0;border-bottom:var(--w1) solid var(--oxide);padding:16px 16px 18px}
+  .hero h1{font-size:56px}
+  .hero-strata{grid-template-columns:minmax(0,1fr);gap:10px}
+  .hero-visual{padding:16px}
+  .topbar{grid-template-columns:minmax(0,1fr);gap:6px}
+  .topmeta{text-align:left}
+  .sec{padding:20px 16px 24px}
+  .sec-head{grid-template-columns:minmax(0,1fr);gap:10px}
+  .strata-grid{grid-template-columns:minmax(0,1fr)}
+  .band,.band-a,.band-b,.band-c,.band-d,.band-e{grid-template-columns:minmax(0,1fr)}
+  .op-b .op-body,.op-c .op-body,.op-g .op-body,.op-h .op-body{grid-template-columns:minmax(0,1fr)}
+  .buy{grid-template-columns:minmax(0,1fr)}
+  .buy-left{border-right:0;border-bottom:var(--w1) solid var(--oxide);padding:0 16px 20px}
+  .buy-right{padding:0 16px 22px}
+  .foot-grid{grid-template-columns:minmax(0,1fr);gap:16px}
+  .wall-head{grid-template-columns:minmax(0,1fr);gap:8px}
+  .wall-head .ladder{text-align:left}
+  .rail{width:auto;border-left:0;border-top:var(--w15) solid var(--oxide);padding:12px 12px 18px}
+  .rail-list{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:6px}
+  .rail-foot{margin-top:10px}
+  .brew{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">墙皮 · 手冲<em>只做手冲，不卖别的</em></div>
+  <div class="topmeta">
+    定西路 117 号 · 09:00–19:00<br>
+    微信 chanqiang_1958 · 一天回一次
+  </div>
+</header>
+
+<div class="shell">
+  <main class="main">
+
+    <!-- ================= 首屏 ================= -->
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="kicker">1958 年的墙 ／ 2026 年还在往下铲</p>
+        <h1>铲开九处<br>露出年份</h1>
+        <span class="h1-rule" aria-hidden="true"></span>
+        <p class="hero-lede">
+          墙是 1958 年的，四层墙皮，我们没舍得补。一铲一铲往下刮，刮到哪一年，就把哪一年的豆挂上去。
+          九处口子不是装修，是账本：越深越老，露几层就写几层。五个产区的豆，一天只烘一锅——
+          <b>卖完那个号就空着，我不补号</b>。空着的号，你问我才知道下一把什么时候到。
+        </p>
+        <a class="cta" href="#wechat">
+          <span>加微信问价</span>
+          <span class="cta-id">chanqiang_1958</span>
+        </a>
+        <p class="hero-note">不加群，不发广告，不做在线支付。报编号，我告诉你剩多少、什么时候烘。</p>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-shot">
+          <span class="gouge" aria-hidden="true"></span>
+          <img src="images/占位-1.jpg" width="1200" height="800" alt="定西路 117 号临街的老墙，四层墙皮，铲痕斜着走">
+        </div>
+        <div class="gouge-96" aria-hidden="true"></div>
+        <p class="hero-cap">62° 铲痕 ／ 痕宽 2px ／ 痕距 6px ／ 层间 1px 亮线</p>
+      </div>
+
+      <div class="hero-strata">
+        <div class="core" aria-hidden="true">
+          <i class="l0"></i><i class="l1"></i><i class="l2"></i><i class="l3"></i>
+        </div>
+        <p class="strata-line">L0 2026 · L1 1998 · L2 1971 · L3 1958　／　从表层到底泥，一共四层，九处口子只露出其中 2 至 4 层</p>
+      </div>
+    </section>
+
+    <!-- ================= 层位 / 颜色 / 年代 ================= -->
+    <section class="sec">
+      <div class="sec-head">
+        <h2><span>三列对照表</span>往下刮，刮出来的是这些</h2>
+        <p>层位越深，年份越老。九处口子按露出的层数标深浅：露 4 层的铲到了 1958 年，露 2 层的只到 1998 年。
+           右缘那根 96px 的索引条，高度就是层数——不用读字，数高度就知道哪一处最深。</p>
+      </div>
+
+      <div class="strata-grid">
+        <div class="strata-left">
+        <table class="strata-table">
+          <thead>
+            <tr>
+              <th scope="col">层位</th>
+              <th scope="col">颜色</th>
+              <th scope="col">年代</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <span class="slot">L0</span> 表层抹灰
+                <span class="slot-note">今年四月补的，最假的一层，铲起来最省力</span>
+              </td>
+              <td>
+                <span class="sw l0"></span>plaster
+                <span class="hexline">#DCDCC8</span>
+              </td>
+              <td class="yearcell"><b>2026</b><span>四月</span></td>
+            </tr>
+            <tr>
+              <td>
+                <span class="slot">L1</span> 石灰浆
+                <span class="slot-note">上一家店刷的，刷得不匀，一铲一片白灰</span>
+              </td>
+              <td>
+                <span class="sw l1"></span>mortar-lit
+                <span class="hexline">#B7A78C</span>
+              </td>
+              <td class="yearcell"><b>1998</b><span>上一家店接手那年</span></td>
+            </tr>
+            <tr>
+              <td>
+                <span class="slot">L2</span> 砂浆
+                <span class="slot-note">掺了河沙，颗粒粗，铲痕会卡在这里</span>
+              </td>
+              <td>
+                <span class="sw l2"></span>mortar
+                <span class="hexline">#7A6A55</span>
+              </td>
+              <td class="yearcell"><b>1971</b><span>这条街改过一次门面</span></td>
+            </tr>
+            <tr>
+              <td>
+                <span class="slot">L3</span> 底泥
+                <span class="slot-note">房子落成那年的底，刮到这儿刮不动，里头是钢筋</span>
+              </td>
+              <td>
+                <span class="sw l3"></span>oxide
+                <span class="hexline">#241C16</span>
+              </td>
+              <td class="yearcell"><b>1958</b><span>落成</span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="strata-foot">
+          <div class="sf-row">
+            <span class="sf-k">铲痕</span>
+            <span class="sf-v">62° ／ 宽 2px ／ 距 6px ／ 只朝一个方向铲，不来回刮</span>
+          </div>
+          <div class="sf-row">
+            <span class="sf-k">层间</span>
+            <span class="sf-v">1px 亮线，夹在两层之间，不是画上去的</span>
+          </div>
+          <div class="sf-row">
+            <span class="sf-k">层序</span>
+            <span class="sf-v">从最表层 L0 往下数，数到铲不动为止（最深到 L3）</span>
+          </div>
+          <div class="sf-row">
+            <span class="sf-k">读法</span>
+            <span class="sf-v">右缘 96px 索引条，一段 16px；几段就是几层，越往下越老</span>
+          </div>
+        </div>
+        </div>
+
+        <figure class="strata-fig">
+          <img src="images/占位-12.jpg" width="600" height="600" alt="断口特写：四层墙皮，层与层之间夹一条 1px 的亮线">
+          <figcaption>断口特写 ／ 层间那条 1px 亮线不是我画的，是两层墙皮自己裂出来的缝</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ================= 九处开口 ================= -->
+    <section class="sec">
+      <div class="wall-head">
+        <h2>九处开口</h2>
+        <p class="ladder">3 / 2 / 2 / 1 / 1</p>
+      </div>
+      <p class="wall-note">
+        五排口子，按 3、2、2、1、1 递减着摆：口子越少，那一排的开口越宽。从 01 数到 09，编号只增不减，
+        中间空着的那几个号也是内容——缺的号、空的抽屉、空白的卡，都留在原位，我不挪。
+      </p>
+
+      <!-- 第一排：3 -->
+      <div class="band-head"><span>第一排 · <b>3 处</b></span><span>露 4 · 3 · 2 层</span></div>
+      <div class="band band-a">
+
+        <!-- 01 -->
+        <article class="op op-a" id="op-01">
+          <div class="scrape" aria-hidden="true"></div>
+          <div class="op-top">
+            <span class="op-num">01</span>
+            <span class="op-depth">铲至 L3 · 1958</span>
+          </div>
+          <div class="op-body">
+            <h3 class="op-title">耶加雪菲<br>Aricha</h3>
+            <p class="op-place">埃塞俄比亚 · 盖德奥 · 原生种</p>
+            <img src="images/占位-2.jpg" width="800" height="600" alt="01 号口子里的耶加雪菲熟豆，浅烘，豆表还带着银皮">
+            <p class="op-copy">
+              昨天早上七点烘的，一锅十二公斤，我先自己喝了两壶才敢挂出来。洋甘菊、白桃，凉下来尾巴上有一点柑橘皮。
+              第一次喝手冲就从这支开始，我不坑第一次来的人。
+            </p>
+            <dl class="params">
+              <dt>海拔</dt><dd>1950–2100 m</dd>
+              <dt>处理</dt><dd>水洗</dd>
+              <dt>烘焙</dt><dd>浅烘 ／ 每日 07:00</dd>
+              <dt>杯测</dt><dd>88.5</dd>
+              <dt>每袋</dt><dd>100 g</dd>
+              <dt>剩余</dt><dd>2.4 kg</dd>
+            </dl>
+            <div class="layers">
+              <div class="layers-bar" aria-hidden="true">
+                <i class="l0"></i><i class="l1"></i><i class="l2"></i><i class="l3"></i>
+              </div>
+              <div class="layers-lab">
+                <span><b>L0</b> 2026</span>
+                <span><b>L1</b> 1998</span>
+                <span><b>L2</b> 1971</span>
+                <span><b>L3</b> 1958</span>
+              </div>
+            </div>
+            <div class="price">
+              <span class="plabel">每 100 g</span>
+              <span class="pnum">¥ 78</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 02 -->
+        <article class="op op-b" id="op-02">
+          <div class="scrape" aria-hidden="true"></div>
+          <div class="op-top">
+            <span class="op-num">02</span>
+            <span class="op-depth">铲至 L2 · 1971</span>
+          </div>
+          <div class="op-body">
+            <img src="images/占位-3.jpg" width="900" height="600" alt="02 号口子里的肯尼亚 Gatina AA，豆形长，色泽偏深">
+            <div class="col">
+              <h3 class="op-title">涅里 Gatina AA</h3>
+              <p class="op-place">肯尼亚 · 涅里 · SL28 / SL34</p>
+              <p class="op-copy">
+                黑加仑、番茄叶，酸得像有人在你背后打了一下手电筒。别兑奶——这豆兑奶是拿钱烧。
+                剩不到一公斤，我留了两份给老客，你要，就现在说。
+              </p>
+              <dl class="params">
+                <dt>海拔</dt><dd>1750–1850 m</dd>
+                <dt>处理</dt><dd>水洗 K72</dd>
+                <dt>杯测</dt><dd>89.0</dd>
+                <dt>剩余</dt><dd>0.9 kg</dd>
+              </dl>
+              <div class="layers">
+                <div class="layers-bar" aria-hidden="true">
+                  <i class="l0"></i><i class="l1"></i><i class="l2"></i>
+                </div>
+                <div class="layers-lab">
+                  <span><b>L0</b> 2026</span>
+                  <span><b>L1</b> 1998</span>
+                  <span><b>L2</b> 1971</span>
+                </div>
+              </div>
+              <div class="price">
+                <span class="plabel">每 100 g</span>
+                <span class="pnum">¥ 88</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 03 -->
+        <article class="op op-c" id="op-03">
+          <div class="scrape" aria-hidden="true"></div>
+          <div class="op-top">
+            <span class="op-num">03</span>
+            <span class="op-depth">铲至 L1 · 1998 · 露 2 层</span>
+          </div>
+          <div class="op-body">
+            <div class="op-lead">
+              <h3 class="op-title">慧兰<br>La Esperanza</h3>
+              <p class="op-place">哥伦比亚 · 慧兰</p>
+            </div>
+            <div class="op-c-lower">
+              <div class="stk">
+                <p class="op-copy">
+                  发酵味重，一进门就有人问是不是在喝酒。是酒，红酒那种。新手我一般不推，你要试我也不拦；
+                  冲坏了别怪我，怪水温。
+                </p>
+                <dl class="params">
+                  <dt>海拔</dt><dd>1650–1750 m</dd>
+                  <dt>处理</dt><dd>厌氧日晒</dd>
+                  <dt>杯测</dt><dd>87.5</dd>
+                  <dt>剩余</dt><dd>3.1 kg</dd>
+                </dl>
+                <div class="price">
+                  <span class="plabel">每 100 g</span>
+                  <span class="pnum">¥ 72</span>
+                </div>
+              </div>
+              <img src="images/占位-4.jpg" width="700" height="700" alt="03 号口子里的哥伦比亚慧兰，方幅，豆面有一点油光">
+            </div>
+            <div class="layers">
+              <div class="layers-bar" aria-hidden="true"><i class="l0"></i><i class="l1"></i></div>
+              <div class="layers-lab">
+                <span><b>L0</b> 2026</span>
+                <span><b>L1</b> 1998</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- 第二排：2 -->
+      <div class="band-head"><span>第二排 · <b>2 处</b></span><span>有一处是空号</span></div>
+      <div class="band band-b">
+
+        <!-- 04 缺号 -->
+        <article class="op is-void" id="op-04">
+          <div class="op-top">
+            <span class="op-num">04</span>
+            <span class="op-depth">空号 · 未铲</span>
+          </div>
+          <div class="op-void-body">
+            <div class="void-line" aria-hidden="true"></div>
+            <div class="op-04-fill">
+              <p class="op-title">这个号是空的</p>
+              <p class="void-mark">04 · 空号 · 未入库 · 层数 0</p>
+              <p class="void-big" aria-hidden="true">空</p>
+              <p class="op-copy">
+                去年十一月那批没烘成，烘过了头，一锅全倒了。号我留着不补：补了，别的东西就顶不上来。
+                你翻豆单翻到 03 直接跳到 05，不是我漏写，是那一格就是这么空着。
+              </p>
+              <div class="layers void-layers">
+                <div class="layers-bar is-void" aria-hidden="true"></div>
+                <div class="layers-lab"><span><b>——</b> 缺失</span></div>
+              </div>
+              <p class="void-tail"><b>04</b> ／ 未铲 · 露 0 层 · 底下是什么没人知道 · 这一格永远不补号</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- 05 -->
+        <article class="op op-e" id="op-05">
+          <div class="scrape" aria-hidden="true"></div>
+          <div class="op-top">
+            <span class="op-num">05</span>
+            <span class="op-depth">铲至 L3 · 1958</span>
+          </div>
+          <div class="op-body">
+            <img src="images/占位-5.jpg" width="800" height="1000" alt="05 号口子里的巴拿马波奎特日晒豆，竖幅，浅色豆表">
+            <h3 class="op-title">波奎特<br>Hacienda</h3>
+            <p class="op-place">巴拿马 · 波奎特 · 日晒</p>
+            <p class="op-copy">
+              贵。真贵。一百克一百六十八，我自己一个月只舍得喝两次。荔枝、玫瑰、蜂蜜，杯子放凉了还有味。
+              这豆只走整袋，先问价，我再拆袋。
+            </p>
+            <dl class="params">
+              <dt>海拔</dt><dd>1500–1700 m</dd>
+              <dt>处理</dt><dd>日晒</dd>
+              <dt>杯测</dt><dd>90.5</dd>
+              <dt>剩余</dt><dd>0.6 kg</dd>
+            </dl>
+            <div class="layers">
+              <div class="layers-bar" aria-hidden="true">
+                <i class="l0"></i><i class="l1"></i><i class="l2"></i><i class="l3"></i>
+              </div>
+              <div class="layers-lab">
+                <span><b>L0</b> 2026</span>
+                <span><b>L1</b> 1998</span>
+                <span><b>L2</b> 1971</span>
+                <span><b>L3</b> 1958</span>
+              </div>
+            </div>
+            <div class="price">
+              <span class="plabel">每 100 g</span>
+              <span class="pnum">¥ 168</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- 第三排：2 -->
+      <div class="band-head"><span>第三排 · <b>2 处</b></span><span>有一处抽屉是空的</span></div>
+      <div class="band band-c">
+
+        <!-- 06 -->
+        <article class="op op-f" id="op-06">
+          <div class="scrape" aria-hidden="true"></div>
+          <div class="op-top">
+            <span class="op-num">06</span>
+            <span class="op-depth">铲至 L2 · 1971</span>
+          </div>
+          <div class="op-body">
+            <h3 class="op-title">保山 潞江坝</h3>
+            <p class="op-place">云南 · 潞江坝 · 蜜处理</p>
+            <img src="images/占位-6.jpg" width="900" height="600" alt="06 号口子里的云南保山蜜处理豆，豆表带一点黏亮的糖膜">
+            <p class="op-copy">
+              我们自己人天天喝的。红糖、烤红薯，酸不高，不挑水温。你说第一次在家冲，我就给你装这个——
+              冲坏两次，第三次就对了。
+            </p>
+            <dl class="params">
+              <dt>海拔</dt><dd>1100–1300 m</dd>
+              <dt>杯测</dt><dd>86.0</dd>
+              <dt>处理</dt><dd>蜜处理</dd>
+              <dt>剩余</dt><dd>4.2 kg</dd>
+            </dl>
+            <div class="layers">
+              <div class="layers-bar" aria-hidden="true"><i class="l0"></i><i class="l1"></i><i class="l2"></i></div>
+              <div class="layers-lab">
+                <span><b>L0</b> 2026</span>
+                <span><b>L1</b> 1998</span>
+                <span><b>L2</b> 1971</span>
+              </div>
+            </div>
+            <div class="price">
+              <span class="plabel">每 100 g</span>
+              <span class="pnum">¥ 56</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 07 空抽屉 -->
+        <article class="op op-g" id="op-07">
+          <div class="scrape" aria-hidden="true"></div>
+          <div class="op-top">
+            <span class="op-num">07</span>
+            <span class="op-depth">空抽屉 · 铲至 L1 · 1998</span>
+          </div>
+          <div class="op-body">
+            <img src="images/占位-7.jpg" width="1000" height="750" alt="07 号位：拉开的抽屉，里面空着，只剩几粒碎豆和一撮灰">
+            <div class="col">
+              <h3 class="op-title">这个抽屉是空的</h3>
+              <p class="op-copy">
+                原来装印尼曼特宁，一天两壶，上个月卖完了。抽屉我拉出来给你看，是空的——不是忘了进货，
+                是今年到港价涨了三成，我不买。落回原价，我再把它塞回去。
+              </p>
+              <dl class="params">
+                <dt>曾装</dt><dd>曼特宁</dd>
+                <dt>空置</dt><dd>41 天</dd>
+                <dt>剩余</dt><dd>0.0 kg</dd>
+              </dl>
+              <div class="layers">
+                <div class="layers-bar" aria-hidden="true"><i class="l0"></i><i class="l1"></i></div>
+                <div class="layers-lab">
+                  <span><b>L0</b> 2026</span>
+                  <span><b>L1</b> 1998</span>
+                </div>
+              </div>
+              <p class="void-tail">07 ／ 抽屉空着 · 露 2 层 · 空置 41 天 · 抽屉不拆，也不挪位</p>
+              <div class="price">
+                <span class="plabel">每 100 g</span>
+                <span class="pnum"><i>等它回来</i></span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- 第四排：1 -->
+      <div class="band-head"><span>第四排 · <b>1 处</b></span><span>这一格是一张空白卡</span></div>
+      <div class="band band-d">
+
+        <!-- 08 空白卡 -->
+        <article class="op is-void" id="op-08">
+          <div class="op-top">
+            <span class="op-num">08</span>
+            <span class="op-depth">空白卡 · 层数 0</span>
+          </div>
+          <div class="blank-card">
+            <span class="blank-lead">这一格还没有字。</span>
+            <span class="blank-foot">08 · 空白卡 · 卡上不提前写 —— 写上了，就成承诺了</span>
+          </div>
+          <div class="op-body">
+            <p class="op-copy">
+              这张卡是空的，因为下一支豆还在海上。红樱桃批次，一个月后到港。卡我先挂在这儿，什么也不填：
+              等我亲手摸到袋子、烘出第一锅、喝完第二壶，我才往上写。
+            </p>
+            <p class="depth-tag">铲至 L0 · 2026　／　露 0 层，只铲开了今年这一层的最上面</p>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- 第五排：1 -->
+      <div class="band-head"><span>第五排 · <b>1 处</b></span><span>最深的一处，摆的是吧台</span></div>
+      <div class="band band-e">
+
+        <!-- 09 -->
+        <article class="op op-h" id="op-09">
+          <div class="scrape" aria-hidden="true"></div>
+          <div class="op-top">
+            <span class="op-num">09</span>
+            <span class="op-depth">铲至 L3 · 1958 · 最深</span>
+          </div>
+          <div class="op-body">
+            <img src="images/占位-8.jpg" width="1200" height="675" alt="09 号口子前的冲煮台：两个滤杯，一把细口壶，台面就在断口底下">
+            <div class="col">
+              <h3 class="op-title">九号口子，摆的是冲煮台</h3>
+              <p class="op-copy">
+                九号是最深的一处，铲到 1958 年的底泥就铲不动了，钢筋在里头。我们干脆把冲煮台塞在这儿：
+                两个滤杯，一把壶，水温 92，粉水比 1:15。站这儿等十分钟，比问我十个问题有用。
+              </p>
+              <dl class="params">
+                <dt>水温</dt><dd>92 °C</dd>
+                <dt>粉水比</dt><dd>1 : 15</dd>
+                <dt>粉量</dt><dd>15 g</dd>
+                <dt>时间</dt><dd>2 : 20</dd>
+              </dl>              <div class="layers">
+                <div class="layers-bar" aria-hidden="true"><i class="l0"></i><i class="l1"></i><i class="l2"></i><i class="l3"></i></div>
+                <div class="layers-lab">
+                  <span><b>L0</b> 2026</span>
+                  <span><b>L1</b> 1998</span>
+                  <span><b>L2</b> 1971</span>
+                  <span><b>L3</b> 1958</span>
+                </div>
+              </div>
+              <div class="price">
+                <span class="plabel">杯售 ／ 堂饮</span>
+                <span class="pnum">¥ 38</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ================= 怎么买 ================= -->
+    <section class="buy" id="wechat">
+      <div class="buy-left">
+        <div class="sec-head" style="margin-bottom:14px">
+          <h2><span>怎么买</span>不卖奶咖，不做在线支付</h2>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <span class="sn">A</span>
+            <p>加微信 <b>chanqiang_1958</b>，只此一个号，别加错。不加群，不发广告。</p>
+          </div>
+          <div class="step">
+            <span class="sn">B</span>
+            <p>报编号：01 到 09，空着的号也可以问——问了我才知道你想它回来。</p>
+          </div>
+          <div class="step">
+            <span class="sn">C</span>
+            <p>我回你三条：还剩多少、哪天烘的、多少钱。打烊后统一回，一天一次。</p>
+          </div>
+          <div class="step">
+            <span class="sn">D</span>
+            <p>同城自取，或者我顺路带给你。不到店也行，杯售只做堂饮。</p>
+          </div>
+        </div>
+        <div class="brew">
+          <div><b>92</b><span>水温 °C</span></div>
+          <div><b>1:15</b><span>粉水比</span></div>
+          <div><b>15</b><span>粉量 g</span></div>
+          <div><b>2:20</b><span>总时长</span></div>
+        </div>
+        <p class="wall-note" style="margin:18px 0 6px">五个产区，五个号。剩下四个号没有豆：04 是空号，07 的抽屉是空的，08 是空白卡——空着的那几格也一起摆在这儿，你数得出来哪一格是空的。</p>
+        <div class="legend">
+          <div class="leg on"><b>01 埃塞 耶加</b><span>水洗 ／ ¥78</span></div>
+          <div class="leg on"><b>02 肯尼亚</b><span>水洗 ／ ¥88</span></div>
+          <div class="leg on"><b>03 哥伦比亚</b><span>厌氧 ／ ¥72</span></div>
+          <div class="leg on"><b>05 巴拿马</b><span>日晒 ／ ¥168</span></div>
+          <div class="leg on"><b>06 云南</b><span>蜜处理 ／ ¥56</span></div>
+        </div>
+      </div>
+      <div class="buy-right">
+        <figure class="shot">
+          <img src="images/占位-9.jpg" width="900" height="600" alt="定西路 117 号的门头，卷帘门半开，招牌只有两个字：墙皮">
+          <figcaption>门头 ／ 卷帘门只开一半，因为另一半卡住了</figcaption>
+        </figure>
+        <figure class="shot tall">
+          <img src="images/占位-10.jpg" width="900" height="1200" alt="吧台侧墙：一只 V60 滤杯、一叠滤纸、一把铜壶挂在钉子上">
+          <figcaption>器具 ／ 滤杯只用这一种，别的不进</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="images/占位-11.jpg" width="900" height="600" alt="吧台角落：一袋没拆的豆子靠在墙根，袋口夹着编号牌">
+          <figcaption>墙根 ／ 没拆的袋子不摆上架</figcaption>
+        </figure>
+        <figure class="shot wide">
+          <img src="images/占位-13.jpg" width="1200" height="600" alt="墙面前的长凳：两块旧木板，坐上去正好看得见九号口子">
+          <figcaption>长凳 ／ 板子是拆隔壁铺面时留下的，没刷漆</figcaption>
+        </figure>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= 右缘 96px 索引条 ================= -->
+  <aside class="rail" aria-label="九处开口索引：高度即层数">
+    <ol class="rail-list">
+      <li class="rail-i"><span class="num">01</span>
+        <span class="rail-bar" aria-hidden="true"><i class="l0"></i><i class="l1"></i><i class="l2"></i><i class="l3"></i></span>
+      </li>
+      <li class="rail-i"><span class="num">02</span>
+        <span class="rail-bar" aria-hidden="true"><i class="l0"></i><i class="l1"></i><i class="l2"></i></span>
+      </li>
+      <li class="rail-i"><span class="num">03</span>
+        <span class="rail-bar" aria-hidden="true"><i class="l0"></i><i class="l1"></i></span>
+      </li>
+      <li class="rail-i"><span class="num">04</span>
+        <span class="rail-bar is-void" aria-hidden="true"></span>
+      </li>
+      <li class="rail-i"><span class="num">05</span>
+        <span class="rail-bar" aria-hidden="true"><i class="l0"></i><i class="l1"></i><i class="l2"></i><i class="l3"></i></span>
+      </li>
+      <li class="rail-i"><span class="num">06</span>
+        <span class="rail-bar" aria-hidden="true"><i class="l0"></i><i class="l1"></i><i class="l2"></i></span>
+      </li>
+      <li class="rail-i"><span class="num">07</span>
+        <span class="rail-bar" aria-hidden="true"><i class="l0"></i><i class="l1"></i></span>
+      </li>
+      <li class="rail-i"><span class="num">08</span>
+        <span class="rail-bar is-void" aria-hidden="true"></span>
+      </li>
+      <li class="rail-i"><span class="num">09</span>
+        <span class="rail-bar" aria-hidden="true"><i class="l0"></i><i class="l1"></i></span>
+      </li>
+    </ol>
+    <p class="rail-foot">04 · 08<br>空</p>
+  </aside>
+</div>
+
+<footer class="foot">
+  <div class="foot-grid">
+    <div>
+      <h3>墙皮 · 手冲</h3>
+      <p>上海 定西路 117 号，近延安西路。<br>09:00–19:00，周一烘豆，不营业。</p>
+      <div class="rule" aria-hidden="true"></div>
+      <p class="fmono">五个产区 · 一天一锅 · 卖完不补</p>
+    </div>
+    <div>
+      <h3>买豆只走微信</h3>
+      <p class="fmono">chanqiang_1958</p>
+      <p>不做在线支付，不上外卖平台，不卖奶咖。<br>报编号，我回你剩多少、哪天烘、多少钱。</p>
+    </div>
+    <div>
+      <h3>九处口子 · 层数</h3>
+      <p class="chain">
+        <b>01</b> 02 03 04 05 06 07 08 09<br>
+        4 · 3 · 2 · 0 · 4 · 3 · 2 · 0 · 2
+      </p>
+      <p>层数 0 的两处就是缺号 04 和空白卡 08，留在原位，谁来了也不补号。</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

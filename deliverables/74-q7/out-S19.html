@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>三校咖啡 · 手冲编目 第六辑</title>
+<style>
+/* ============================================================
+   三校咖啡 · 手冲编目 · 第六辑
+   版式：暖米纸感 + 抽屉网格，五柜二十格
+   ------------------------------------------------------------
+   配色（仅以下九个值，无其它彩色）
+     #4A5C3A green      #E4DECD paper     #2A241C wood
+     #7C7460 faded      #D8CFB6 paper-deep #E9E3D2 paper-lit
+     #3A3227 wood-lit   #5E5443 ink2      #534C3E note-ink
+   字号：正文 16px × 1.35 六档 —— 16 / 21.6 / 29.2 / 39.4 / 53.2 / 72
+         72 ÷ 16 = 4.5（最大标题恰为正文的 4.5 倍）
+         向下同比例一档：16 ÷ 1.35 = 11.9
+   线宽：只有 0.4 / 0.8 / 1 / 3 px
+   圆角：全站 0      阴影：只有 inset
+   ============================================================ */
+
+:root{
+  --green:#4A5C3A;
+  --paper:#E4DECD;
+  --wood:#2A241C;
+  --faded:#7C7460;
+  --paper-deep:#D8CFB6;
+  --paper-lit:#E9E3D2;
+  --wood-lit:#3A3227;
+  --ink2:#5E5443;
+  --note-ink:#534C3E;
+
+  --t-xs:11.9px;    /* 16 ÷ 1.35 */
+  --t-body:16px;
+  --t-h5:21.6px;    /* 16 × 1.35 */
+  --t-h4:29.2px;    /* 21.6 × 1.35 */
+  --t-h3:39.4px;    /* 29.2 × 1.35 */
+  --t-h2:53.2px;    /* 39.4 × 1.35 */
+  --t-h1:72px;      /* 53.2 × 1.35 = 71.8 ≈ 72；72 ÷ 16 = 4.5 */
+
+  --l-4:0.4px;
+  --l-8:0.8px;
+  --l-1:1px;
+  --l-3:3px;
+
+  --serif:"Noto Serif SC",Georgia,serif;
+  --mono:"IBM Plex Mono","Noto Serif SC",Georgia,monospace;
+}
+
+*,*::before,*::after{box-sizing:border-box;border-radius:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background-color:var(--paper);
+  /* 米纸竹纹：仅 paper 与 paper-lit 两级之间的相邻过渡，全不透明 */
+  background-image:repeating-linear-gradient(90deg,var(--paper) 0 5px,var(--paper-lit) 5px 6px);
+  color:var(--wood);
+  font-family:var(--serif);
+  font-size:var(--t-body);
+  line-height:1.5;
+  font-variant-numeric:tabular-nums;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,p,dl,dd,figure,figcaption{margin:0}
+img{display:block}
+a{color:inherit}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+
+/* ---------- 报头 ---------- */
+.masthead{border-top:var(--l-3) solid var(--green);background-color:var(--paper)}
+.mast-top{
+  display:grid;grid-template-columns:1fr auto;gap:32px;align-items:end;
+  padding:16px 0 12px;border-bottom:var(--l-8) solid var(--wood);
+}
+.brand-name{font-size:var(--t-h5);letter-spacing:.16em;color:var(--wood)}
+.brand-sub{font-family:var(--mono);font-size:var(--t-xs);color:var(--faded);letter-spacing:.14em;margin-top:6px}
+.mast-meta{display:grid;gap:3px;justify-items:end}
+.mast-meta p{display:grid;grid-template-columns:auto 108px;gap:14px;font-size:var(--t-xs);line-height:1.6}
+.mast-meta .k{color:var(--faded);letter-spacing:.1em}
+.mast-meta .v{text-align:right;color:var(--ink2)}
+
+/* ---------- 首屏 ---------- */
+.hero{background-color:var(--paper);border-bottom:var(--l-8) solid var(--wood)}
+.hero-grid{display:grid;grid-template-columns:7fr 5fr;gap:56px;padding:58px 0 52px;align-items:start}
+.eyebrow{font-family:var(--mono);font-size:var(--t-xs);color:var(--green);letter-spacing:.14em;margin-bottom:26px}
+h1{
+  font-size:var(--t-h1);
+  line-height:1.06;
+  font-weight:600;
+  letter-spacing:.02em;
+  color:var(--wood);
+  margin-bottom:30px;
+}
+.lede{
+  font-size:var(--t-body);line-height:1.85;color:var(--ink2);
+  max-width:30em;border-top:var(--l-4) solid var(--paper-deep);padding-top:22px;margin-bottom:34px;
+}
+.act{
+  display:inline-block;padding:15px 34px;
+  background-color:var(--green);color:var(--paper-lit);
+  font-size:var(--t-h5);letter-spacing:.14em;text-decoration:none;
+  box-shadow:inset 0 var(--l-8) 0 var(--wood),inset 0 -3px 0 var(--wood);
+}
+.act:hover{background-color:var(--wood);color:var(--paper-lit)}
+.act:focus-visible{outline:var(--l-3) solid var(--green);outline-offset:var(--l-3)}
+.hero-note{font-size:var(--t-xs);color:var(--note-ink);margin-top:20px;letter-spacing:.06em}
+.hero-note .mono{color:var(--green)}
+
+.tally{border-top:var(--l-3) solid var(--wood);padding-top:14px}
+.tally-row{
+  display:grid;grid-template-columns:1fr auto;gap:16px;
+  padding:9px 0;border-bottom:var(--l-4) solid var(--paper-deep);
+}
+.tally-row dt{font-size:var(--t-xs);color:var(--faded);letter-spacing:.12em}
+.tally-row dd{font-family:var(--mono);font-size:var(--t-xs);color:var(--wood);text-align:right}
+.tally-row dd em{font-style:normal;color:var(--note-ink)}
+.tally-cap{font-size:var(--t-xs);color:var(--note-ink);line-height:1.8;margin-top:16px;padding-left:14px;border-left:var(--l-4) solid var(--faded)}
+
+/* ---------- 通用分节 ---------- */
+.sec{padding:52px 0 56px;border-bottom:var(--l-8) solid var(--wood);background-color:var(--paper)}
+.sec-head{
+  display:grid;grid-template-columns:auto 1fr auto;gap:20px;align-items:baseline;
+  padding-bottom:10px;border-bottom:var(--l-4) solid var(--faded);margin-bottom:26px;
+}
+.sec-no{font-family:var(--mono);font-size:var(--t-xs);color:var(--green);letter-spacing:.12em}
+.sec-head h2{font-size:var(--t-h3);font-weight:600;color:var(--wood-lit);letter-spacing:.04em;line-height:1.2}
+.sec-meta{font-family:var(--mono);font-size:var(--t-xs);color:var(--faded);text-align:right;letter-spacing:.08em}
+
+/* ---------- 凡例 ---------- */
+.ledger{display:grid;grid-template-columns:1fr 1fr;column-gap:56px;row-gap:0}
+.ledger-row{display:grid;grid-template-columns:66px 1fr;gap:16px;padding:11px 0;border-bottom:var(--l-4) solid var(--paper-deep)}
+.ledger-row dt{font-family:var(--mono);font-size:var(--t-xs);color:var(--faded);letter-spacing:.12em;padding-top:3px}
+.ledger-row dd{font-size:var(--t-body);line-height:1.75;color:var(--ink2)}
+.ledger-row dd b{font-weight:600;color:var(--wood)}
+.ledger-row dd .mono{font-size:var(--t-xs);color:var(--green)}
+.width-map{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:8px;font-family:var(--mono);font-size:var(--t-xs);color:var(--note-ink)}
+.width-map span{display:inline-flex;align-items:center;gap:7px}
+.width-map i{display:inline-block;height:11.9px;background-color:var(--paper-deep);box-shadow:inset 0 0 0 var(--l-4) var(--faded)}
+.i2{width:19px}.i3{width:29px}.i4{width:39px}.i4+.i4{width:39px}
+
+/* ---------- 柜架 / 抽屉 ---------- */
+.ruler{display:grid;grid-template-columns:repeat(12,1fr);height:11.9px;border-bottom:var(--l-4) solid var(--faded);margin-bottom:2px}
+.ruler span{border-left:var(--l-4) solid var(--faded)}
+.ruler span:last-child{border-right:var(--l-4) solid var(--faded)}
+
+.cabinet{
+  display:grid;grid-template-columns:repeat(12,1fr);
+  column-gap:0;row-gap:24px;padding-bottom:24px;margin-top:24px;
+}
+.drawer{position:relative;height:144px}
+.w2{grid-column:span 2}
+.w3{grid-column:span 3}
+.w4{grid-column:span 4}
+
+/* 开口 144px；内层 168px，下移 24px —— 开口比内层矮 24px */
+.opening{
+  position:absolute;left:0;right:0;top:0;height:144px;overflow:hidden;z-index:1;
+  background-color:var(--paper-lit);
+  box-shadow:
+    inset 0 0.8px 0 var(--wood),
+    inset 0.8px 0 0 var(--faded),
+    inset -0.8px 0 0 var(--faded),
+    inset 0 -0.4px 0 var(--paper-deep);
+}
+.inner{
+  position:relative;z-index:2;height:168px;padding:0 14px;
+  transform:translateY(24px);
+  transition:transform .2s linear;      /* 全站唯一的动效：抽拉 */
+}
+.d-body{height:120px;overflow:hidden}
+.d-ledger{
+  height:24px;display:flex;align-items:center;justify-content:space-between;gap:10px;
+  border-top:var(--l-4) solid var(--faded);
+  font-family:var(--mono);font-size:var(--t-xs);color:var(--note-ink);letter-spacing:.04em;
+}
+.d-ledger .r{text-align:right}
+
+/* 面板：高 24px，下移 24px 压在下一格开口的上沿 */
+.panel{
+  position:absolute;left:0;right:0;top:144px;height:24px;z-index:3;
+  display:flex;align-items:center;justify-content:space-between;gap:8px;padding:0 12px;
+  transform:translateY(24px);
+  background-color:var(--paper-deep);
+  box-shadow:
+    inset 0 0.8px 0 var(--wood),
+    inset 0 -0.4px 0 var(--faded),
+    inset 0.4px 0 0 var(--faded),
+    inset -0.4px 0 0 var(--faded);
+  font-family:var(--mono);font-size:var(--t-xs);color:var(--wood);letter-spacing:.04em;
+}
+.panel .p-l{color:var(--ink2);overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.panel .p-r{color:var(--wood);margin-left:auto}
+.drawer.mute .panel{transform:translateY(0)}
+.drawer.live:hover .inner,
+.drawer.live:focus-within .inner{transform:translateY(0)}
+.drawer:focus-visible{outline:var(--l-3) solid var(--green);outline-offset:-3px}
+
+/* 柜卡（四栏）内部结构 */
+.cab-top{display:flex;align-items:baseline;gap:10px;padding-top:8px;border-bottom:var(--l-8) solid var(--wood);padding-bottom:6px}
+.cab-tag{font-family:var(--mono);font-size:var(--t-xs);color:var(--green);letter-spacing:.1em}
+.cab-region{font-size:var(--t-h5);line-height:1.2;color:var(--wood)}
+.cab-table{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0 14px;margin-top:7px}
+.cab-table div{border-top:var(--l-4) solid var(--paper-deep);padding-top:4px}
+.cab-table .k{display:block;font-family:var(--mono);font-size:var(--t-xs);line-height:1.4;color:var(--faded);letter-spacing:.1em;margin-bottom:1px}
+.cab-table .v{display:block;font-family:var(--mono);font-size:var(--t-xs);line-height:1.4;color:var(--ink2);text-align:left}
+.cab-note{margin-top:7px;font-size:var(--t-xs);line-height:1.55;color:var(--note-ink);padding-left:9px;border-left:var(--l-4) solid var(--faded)}
+
+/* 批卡（三栏） */
+.lot-name{font-size:var(--t-h5);line-height:1.25;color:var(--wood);padding-top:9px}
+.lot-meta{
+  display:flex;justify-content:space-between;gap:8px;
+  font-family:var(--mono);font-size:var(--t-xs);line-height:1.45;color:var(--faded);
+  border-bottom:var(--l-4) solid var(--paper-deep);padding-bottom:5px;margin:4px 0 6px;letter-spacing:.02em;
+}
+.lot-meta .d{color:var(--note-ink)}
+.lot-flavor{font-size:var(--t-body);line-height:1.45;color:var(--ink2)}
+.lot-flavor i{font-style:normal;color:var(--faded);padding:0 2px}
+.lot-state{font-family:var(--mono);font-size:var(--t-xs);line-height:1.45;color:var(--green);margin-top:4px;letter-spacing:.04em}
+
+/* 锅卡（二栏） */
+.pot-no{font-family:var(--mono);font-size:var(--t-h5);line-height:1.25;color:var(--wood);padding-top:9px;letter-spacing:.02em}
+.pot-sub{font-size:var(--t-xs);line-height:1.45;color:var(--faded);margin-top:2px;padding-bottom:4px;border-bottom:var(--l-4) solid var(--paper-deep)}
+.pot-rows{display:grid;grid-template-columns:auto 1fr;gap:0 10px;margin-top:4px;font-family:var(--mono);font-size:var(--t-xs);line-height:1.3;padding-bottom:2px}
+.pot-rows .k{color:var(--faded);letter-spacing:.08em}
+.pot-rows .v{text-align:right;color:var(--ink2)}
+.pot-bar{height:3px;width:34px;background-color:var(--green);margin-top:3px}
+
+/* 三种刻意留空 */
+.blank-no{font-family:var(--mono);font-size:var(--t-h5);line-height:1.25;color:var(--faded);padding-top:9px;letter-spacing:.06em}
+.blank-rule{height:0;border-top:var(--l-4) dashed var(--faded);margin:7px 0 6px}
+.blank-note{font-size:var(--t-xs);line-height:1.55;color:var(--note-ink);max-width:22em}
+.empty-case{
+  height:106px;margin-top:9px;
+  box-shadow:inset 0 0 0 var(--l-4) var(--faded);
+  display:flex;align-items:flex-end;justify-content:flex-end;
+  padding:6px 10px;
+}
+.empty-case span{font-family:var(--mono);font-size:var(--t-xs);color:var(--faded);letter-spacing:.2em}
+.blank-card{
+  height:98px;margin-top:9px;
+  border:var(--l-4) solid var(--faded);
+  box-shadow:inset 0 0 0 var(--l-4) var(--paper-deep),inset 0 0 0 var(--l-1) var(--paper-lit);
+  display:flex;align-items:flex-end;justify-content:space-between;padding:6px 10px;
+  background-color:var(--paper-lit);
+}
+.blank-card span{font-family:var(--mono);font-size:var(--t-xs);color:var(--faded);letter-spacing:.18em}
+.cab-note-line{font-size:var(--t-xs);color:var(--note-ink);line-height:1.7;margin-top:16px;padding-top:10px;border-top:var(--l-4) solid var(--paper-deep)}
+.cab-note-line b{color:var(--wood);font-weight:600}
+
+/* ---------- 图版 ---------- */
+.plates{display:grid;grid-template-columns:repeat(12,1fr);gap:34px 24px;align-items:start}
+.plate{grid-column:span 4}
+.p5{grid-column:span 5}
+.p4{grid-column:span 4}
+.p3{grid-column:span 3}
+.plate img{
+  width:100%;height:auto;
+  background-color:var(--paper-deep);
+  box-shadow:inset 0 0 0 var(--l-4) var(--faded);
+  outline:var(--l-4) solid var(--faded);
+  outline-offset:0;
+}
+.plate figcaption{
+  display:flex;justify-content:space-between;gap:10px;align-items:baseline;
+  border-top:var(--l-4) solid var(--wood);margin-top:8px;padding-top:6px;
+  font-size:var(--t-xs);color:var(--note-ink);
+}
+.plate .pl-no{font-family:var(--mono);color:var(--green);letter-spacing:.1em}
+.plate .pl-cap{text-align:right;color:var(--faded)}
+
+/* ---------- 冲煮规程 ---------- */
+.protocol{display:grid;grid-template-columns:1fr 260px;gap:56px;align-items:start}
+.proto-list{display:grid;grid-template-columns:1fr 1fr;column-gap:44px}
+.proto-row{display:grid;grid-template-columns:78px 1fr;gap:14px;padding:10px 0;border-bottom:var(--l-4) solid var(--paper-deep)}
+.proto-row dt{font-family:var(--mono);font-size:var(--t-xs);color:var(--faded);letter-spacing:.1em;padding-top:3px}
+.proto-row dd{font-size:var(--t-body);line-height:1.6;color:var(--ink2)}
+.proto-row dd .mono{font-family:var(--mono);color:var(--wood)}
+.cone-box{border-top:var(--l-3) solid var(--wood);padding-top:14px}
+.cone{width:100%;height:auto}
+.cone-cap{font-size:var(--t-xs);line-height:1.75;color:var(--note-ink);margin-top:10px;padding-left:10px;border-left:var(--l-4) solid var(--faded)}
+
+/* ---------- 询价 ---------- */
+.order{display:grid;grid-template-columns:5fr 7fr;gap:56px;align-items:start}
+.order-lead{font-size:var(--t-h5);line-height:1.6;color:var(--wood);padding-top:4px}
+.order-lead small{display:block;font-size:var(--t-xs);line-height:1.8;color:var(--note-ink);margin-top:14px;font-family:var(--mono);letter-spacing:.02em}
+.order-table{display:grid}
+.order-row{display:grid;grid-template-columns:88px 1fr auto;gap:18px;align-items:baseline;padding:11px 0;border-bottom:var(--l-4) solid var(--paper-deep)}
+.order-row:first-child{border-top:var(--l-8) solid var(--wood)}
+.order-row .k{font-family:var(--mono);font-size:var(--t-xs);color:var(--faded);letter-spacing:.12em}
+.order-row .v{font-size:var(--t-body);color:var(--ink2)}
+.order-row .v strong{font-weight:600;color:var(--wood)}
+.order-row .n{font-family:var(--mono);font-size:var(--t-xs);color:var(--green);text-align:right;letter-spacing:.06em}
+.wx{font-family:var(--mono);font-size:var(--t-h5);color:var(--wood);letter-spacing:.06em;display:inline-block;padding:2px 0;box-shadow:inset 0 -3px 0 var(--green)}
+
+/* ---------- 页脚 ---------- */
+.foot{background-color:var(--paper);padding:34px 0 44px}
+.foot-top{display:grid;grid-template-columns:1fr auto;gap:32px;align-items:end;border-top:var(--l-8) solid var(--wood);padding-top:16px}
+.foot-name{font-size:var(--t-h5);letter-spacing:.14em;color:var(--wood)}
+.foot-no{font-family:var(--mono);font-size:var(--t-xs);color:var(--note-ink);letter-spacing:.06em;margin-top:8px}
+.foot-no b{color:var(--green);font-weight:400}
+.foot-cols{display:grid;grid-template-columns:repeat(3,auto);gap:36px;font-size:var(--t-xs);line-height:1.9;color:var(--faded);text-align:left}
+.foot-cols b{display:block;font-weight:400;font-family:var(--mono);letter-spacing:.12em;color:var(--note-ink);margin-bottom:4px}
+.foot-end{margin-top:26px;padding-top:10px;border-top:var(--l-4) solid var(--paper-deep);font-family:var(--mono);font-size:var(--t-xs);color:var(--faded);letter-spacing:.06em;display:flex;justify-content:space-between;gap:20px}
+
+/* ---------- 移动端：单列，顺序不变 ---------- */
+@media (max-width:900px){
+  .wrap{padding:0 18px}
+  .hero-grid{grid-template-columns:1fr;gap:34px;padding:36px 0 34px}
+  h1{font-size:44px;line-height:1.1}
+  .mast-top{grid-template-columns:1fr;gap:12px}
+  .mast-meta{justify-items:start}
+  .mast-meta p{grid-template-columns:auto 96px}
+  .mast-meta .v{text-align:left}
+  .ledger{grid-template-columns:1fr;column-gap:0}
+  .protocol{grid-template-columns:1fr;gap:30px}
+  .proto-list{grid-template-columns:1fr}
+  .order{grid-template-columns:1fr;gap:28px}
+  .foot-top{grid-template-columns:1fr;gap:20px}
+  .foot-cols{grid-template-columns:1fr;gap:10px}
+  .cabinet{grid-template-columns:1fr;row-gap:24px}
+  .drawer{grid-column:1 / -1}
+  /* 单列时抽屉加高 20px，但开口 164 = 内层 188 − 24、下移 24px 的对应关系不变 */
+  .drawer{height:164px}
+  .drawer .opening{height:164px}
+  .drawer .d-body{height:140px}
+  .drawer .inner{height:188px}
+  .drawer .panel{top:164px}
+  .plates{grid-template-columns:1fr;gap:24px}
+  .plate,.p5,.p4,.p3{grid-column:1 / -1}
+  .sec-head{grid-template-columns:auto 1fr;gap:12px}
+  .sec-meta{grid-column:2;text-align:left}
+  .ruler{display:none}
+}
+@media (max-width:420px){
+  h1{font-size:38px}
+  .order-row{grid-template-columns:66px 1fr}
+  .order-row .n{grid-column:2;text-align:left}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= 报头 ================= -->
+<header class="masthead">
+  <div class="wrap">
+    <div class="mast-top">
+      <div class="brand">
+        <p class="brand-name">三校咖啡</p>
+        <p class="brand-sub">SANJIAO COFFEE · 手冲编目室 · 只做手冲</p>
+      </div>
+      <div class="mast-meta">
+        <p><span class="k">辑　次</span><span class="v">第六辑 · 2026 冬</span></p>
+        <p><span class="k">在　册</span><span class="v">5 柜 · 20 格 · 12 款</span></p>
+        <p><span class="k">现行号</span><span class="v">II·01·04</span></p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ================= 首屏 ================= -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-main">
+      <p class="eyebrow">柜 I–V　／　批 01–04　／　锅 01–11</p>
+      <h1>五柜豆单<br>逐批编目</h1>
+      <p class="lede">本店只做手冲，不做拼配，不做在线支付。五个产区的豆子按柜、批、锅三级编号，一柜一行，一格一号；看中哪一格，把编号发到微信，我们按当日余量报价。</p>
+      <a class="act" href="#xun-jia">微信询价</a>
+      <p class="hero-note">末次编目 2026-11-02　·　现行号 <span class="mono">II·01·04</span>　·　共二十格，三格留空</p>
+    </div>
+    <aside class="hero-side">
+      <dl class="tally">
+        <div class="tally-row"><dt>在册款数</dt><dd>12</dd></div>
+        <div class="tally-row"><dt>柜（产区）</dt><dd>5</dd></div>
+        <div class="tally-row"><dt>批（到港）</dt><dd>7</dd></div>
+        <div class="tally-row"><dt>锅（烘焙）</dt><dd>5</dd></div>
+        <div class="tally-row"><dt>刻意留空</dt><dd>3 <em>缺号 / 空抽屉 / 空白卡</em></dd></div>
+        <div class="tally-row"><dt>现行编号</dt><dd>II·01·04</dd></div>
+        <div class="tally-row"><dt>编目日期</dt><dd>2026-11-02</dd></div>
+      </dl>
+      <p class="tally-cap">柜格不按销量排序，按入库先后编。留空的三格不补，位置照原样留着。</p>
+    </aside>
+  </div>
+</section>
+
+<!-- ================= 凡例 ================= -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-no">01</span>
+      <h2>凡例</h2>
+      <span class="sec-meta">编目规则五条 · 与柜架同印</span>
+    </div>
+    <dl class="ledger">
+      <div class="ledger-row">
+        <dt>检索号</dt>
+        <dd><b>三级</b>：柜号（产区 I–V）· 批号（到港批 01–04）· 锅号（累计烘焙序号，不复用）。例：<span class="mono">II·01·04</span> 读作「二柜、一批、第四锅」。</dd>
+      </div>
+      <div class="ledger-row">
+        <dt>宽度四档</dt>
+        <dd><b>宽度与号级一一对应</b>：四栏收柜号，三栏收批号，二栏收锅号；抽开为第四档，内层上移 24px，露出当次烘焙台账。</dd>
+      </div>
+      <div class="ledger-row">
+        <dt>线宽</dt>
+        <dd>只用 <span class="mono">0.4 / 0.8 / 1 / 3</span> 四级。层级由下移量与线宽差给出，全站不设外投影、不设圆角。</dd>
+      </div>
+      <div class="ledger-row">
+        <dt>留空</dt>
+        <dd><b>三格不补</b>：<span class="mono">II·02</span> 缺号、<span class="mono">III·02</span> 空抽屉、<span class="mono">IV·02</span> 空白卡。位置照原样留在柜上。</dd>
+      </div>
+      <div class="ledger-row">
+        <dt>计价</dt>
+        <dd>按锅计，一锅约 120 g。不接受在线支付，不设购物车；价格随生豆到港价走，以微信当日回复为准。</dd>
+      </div>
+      <div class="ledger-row">
+        <dt>格数</dt>
+        <dd>柜架计数为 <b>20 格</b>：五柜 × 四批的固定位。柜格坐标写死，不随销量增减；空出来的格子按规矩留空，不挪位。</dd>
+      </div>
+    </dl>
+    <div class="width-map" aria-hidden="true">
+      <span><i class="i4"></i>四栏 · 柜号</span>
+      <span><i class="i3"></i>三栏 · 批号</span>
+      <span><i class="i2"></i>二栏 · 锅号</span>
+      <span>抽开 · 第四档</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 柜架 ================= -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-no">02</span>
+      <h2>柜架</h2>
+      <span class="sec-meta">5 行 · 20 格 · 面板高 24px</span>
+    </div>
+
+    <div class="ruler" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <div class="cabinet">
+
+      <!-- 第一行：柜 I -->
+      <article class="drawer w4 live" tabindex="0" aria-label="柜 I 埃塞俄比亚 古吉">
+        <div class="opening"><div class="inner">
+          <div class="d-body">
+            <div class="cab-top">
+              <span class="cab-tag">柜 I</span>
+              <span class="cab-region">埃塞俄比亚 · 古吉</span>
+            </div>
+            <div class="cab-table">
+              <div><span class="k">在册</span><span class="v">2 批 / 1 锅</span></div>
+              <div><span class="k">海拔</span><span class="v">2050–2200 m</span></div>
+              <div><span class="k">处理</span><span class="v">日晒 / 水洗</span></div>
+            </div>
+            <p class="cab-note">两批同船到港，日晒在前。此处只作索引，参数以批卡为准。</p>
+          </div>
+          <div class="d-ledger"><span>Guji · Ethiopia</span><span class="r">入册 2026-09-18</span></div>
+        </div></div>
+        <div class="panel"><span class="p-l">柜 · 古吉</span><span class="p-r">I</span></div>
+      </article>
+
+      <article class="drawer w3 live" tabindex="0" aria-label="批 I·01 罕贝拉 日晒">
+        <div class="opening"><div class="inner">
+          <div class="d-body">
+            <p class="lot-name">罕贝拉 日晒 G1</p>
+            <p class="lot-meta"><span>日晒 · 2050 m</span><span class="d">2026-09-18</span></p>
+            <p class="lot-flavor">蓝莓<i>·</i>茉莉<i>·</i>黄桃</p>
+            <p class="lot-state">整豆 / 代磨 · 一锅 120 g</p>
+          </div>
+          <div class="d-ledger"><span>批号 01</span><span class="r">见锅 I·01·03</span></div>
+        </div></div>
+        <div class="panel"><span class="p-l">批 · 罕贝拉</span><span class="p-r">I·01</span></div>
+      </article>
+
+      <article class="drawer w3 live" tabindex="0" aria-label="批 I·02 罕贝拉 水洗">
+        <div class="opening"><div class="inner">
+          <div class="d-body">
+            <p class="lot-name">罕贝拉 水洗 G1</p>
+            <p class="lot-meta"><span>水洗 · 2180 m</span><span class="d">2026-09-18</span></p>
+            <p class="lot-flavor">柠檬皮<i>·</i>白花<i>·</i>红茶</p>
+            <p class="lot-state">整豆 / 代磨 · 尚未开锅</p>
+          </div>
+          <div class="d-ledger"><span>批号 02 · I·02</span><span class="r">未开锅</span></div>
+        </div></div>
+        <div class="panel"><span class="p-l">批 · 罕贝拉</span><span class="p-r">I·02</span></div>
+      </article>
+
+      <article class="drawer w2 live" tabindex="0" aria-label="锅 I·01·03">
+        <div class="opening"><div class="inner">
+          <div class="d-body">
+            <p class="pot-no">I·01·03</p>
+            <p class="pot-sub">取批 I·01 日晒</p>
+            <div class="pot-rows">
+              <span class="k">焙日</span><span class="v">10-26</span>
+              <span class="k">焙度</span><span class="v">浅</span>
+              <span class="k">余量</span><span class="v">2.4 kg</span>
+            </div>
+            <div class="pot-bar"></div>
+          </div>
+          <div class="d-ledger"><span>锅 03</span><span class="r">在柜</span></div>
+        </div></div>
+        <div class="panel"><span class="p-l">锅</span><span class="p-r">I·01·03</span></div>
+      </article>
+
+      <!-- 第二行：柜 II（含缺号） -->
+      <article class="drawer w3 live" tabindex="0" aria-label="批 II·01 加图博亚 水洗">
+        <div class="opening"><div class="inner">
+          <div class="d-body">
+            <p class="lot-name">加图博亚 AB</p>
+            <p class="lot-meta"><span>水洗 · 1780 m</span><span class="d">2026-10-02</span></p>
+            <p class="lot-flavor">黑加仑<i>·</i>番茄<i>·</i>红糖</p>
+            <p class="lot-state">本季主推 · 已在第四锅</p>
+          </div>
+          <div class="d-ledger"><span>批号 01</span><span class="r">见锅 II·01·04</span></div>
+        </div></div>
+        <div class="panel"><span class="p-l">批 · 加图博亚</span><span class="p-r">II·01</span></div>
+      </article>
+
+      <article class="drawer w4 live" tabindex="0" aria-label="柜 II 肯尼亚 涅里">
+        <div class="opening"><div class="inner">
+          <div class="d-body">
+            <div class="cab-top">
+              <span class="cab-tag">柜 II</span>
+              <span class="cab-region">肯尼亚 · 涅里</span>
+            </div>
+            <div class="cab-table">
+              <div><span class="k">在册</span><span class="v">1 批 / 1 锅</span></div>
+              <div><span class="k">海拔</span><span class="v">1700–1850 m</span></div>
+              <div><span class="k">处理</span><span class="v">水洗</span></div>
+            </div>
+            <p class="cab-note">第二格批号未启用，按规矩留作缺号，格子不挪。</p>
+          </div>
+          <div class="d-ledger"><span>Nyeri · Kenya</span><span class="r">入册 2026-10-02</span></div>
+        </div></div>
+        <div class="panel"><span class="p-l">柜 · 涅里</span><span class="p-r">II</span></div>
+      </article>
+
+      <article class="drawer w3 mute" aria-label="缺号 II·02">
+        <div class="opening"><div class="inner">
+          <div class="d-body">
+            <p class="blank-no">II·02</p>
+            <div class="blank-rule"></div>
+            <p class="blank-note">缺号。此号已预留，2027 春到港后启用；本季不占柜，不填占位文字。</p>
+          </div>
+          <div class="d-ledger"><span>缺号</span><span class="r">未启用</span></div>
+        </div></div>
+        <div class="panel"><span class="p-l">缺号</span><span class="p-r">II·02</span></div>
+      </article>
+
+      <article class="drawer w2 live" tabindex="0" aria-label="锅 II·01·04">
+        <div class="opening"><div class="inner">
+          <div class="d-body">
+            <p class="pot-no">II·01·04</p>
+            <p class="pot-sub">取批 II·01 水洗</p>
+            <div class="pot-rows">
+              <span class="k">焙日</span><span class="v">11-02</span>
+              <span class="k">焙度</span><span class="v">浅中</span>
+              <span class="k">余量</span><span class="v">1.8 kg</span>
+            </div>
+            <div class="pot-bar"></div>
+          </div>
+          <div class="d-ledger"><span>本辑末号</span><span class="r">在柜</span></div>
+        </div></div>
+        <div class="panel"><span class="p-l">锅</span><span class="p-r">II·01·04</span></div>
+      </article>
+
+      <!-- 第三行：柜 III（含空抽屉） -->
+      <article class="drawer w2 live" tabindex="0" aria-label="锅 III·01·06">
+        <div class="opening"><div class="inner">
+          <div class="d-body">
+            <p class="pot-no">III·01·06</p>
+            <p class="pot-sub">取批 III·01 厌氧日晒</p>
+            <div class="pot-rows">
+              <span class="k">焙日</span><span class="v">10-19</span>
+              <span class="k">焙度</span><span class="v">浅</span>
+              <span class="k">余量</span><span class="v">1.2 kg</span>
+            </div>
+            <div class="pot-bar"></div>
+          </div>
+          <div class="d-ledger"><span>锅 06</span><span class="r">在柜</span></div>
+        </div></div>
+        <div class="panel"><span class="p-l">锅</span><span class="p-r">III·01·06</span></div>
+      </article>
+
+      <article class="drawer w3 live" tabindex="0" aria-label="批 III·01 圣安东尼奥 厌氧日晒">
+        <div class="opening"><div class="inner">
+          <div class="d-body">
+            <p class="lot-name">圣安东尼奥</p>
+            <p class="lot-meta"><span>厌氧日晒 · 1680 m</span><span class="d">2026-08-27</span></p>
+            <p class="lot-flavor">红布林<i>·</i>可可<i>·</i>柑橘</p>
+            <p class="lot-state">整豆 / 代磨 · 见锅 III·01·06</p>
+          </div>
+          <div class="d-ledger"><span>批号 01</span><span class="r">已开锅</span></div>
+        </div></div>
+        <div class="panel"><span class="p-l">批 · 圣安东尼奥</span><span class="p-r">III·01</span></div>
+      </article>
+
+      <article class="drawer w4 live" tabindex="0" aria-label="柜 III 哥伦比亚 慧兰">
+        <div class="opening"><div class="inner">
+          <div class="d-body">
+            <div class="cab-top">
+              <span class="cab-tag">柜 III</span>
+              <span class="cab-region">哥伦比亚 · 慧兰</span>
+            </div>
+            <div class="cab-table">
+              <div><span class="k">在册</span><span class="v">1 批 / 1 锅</span></div>
+              <div><span class="k">海拔</span><span class="v">1650–1750 m</span></div>
+              <div><span class="k">处理</span><span class="v">厌氧日晒</span></div>
+            </div>
+            <p class="cab-note">第二格批号售罄后抽空，抽屉里不再放替代品。</p>
+          </div>
+          <div class="d-ledger"><span>Huila · Colombia</span><span class="r">入册 2026-08-27</span></div>
+        </div></div>
+        <div class="panel"><span class="p-l">柜 · 慧兰</span><span class="p-r">III</span></div>
+      </article>
+
+      <article class="drawer w3 mute" aria-label="空抽屉 III·02">
+        <div class="opening"><div class="inner">
+          <div class="d-body">
+            <div class="empty-case"><span>抽空</span></div>
+          </div>
+          <div class="d-ledger"><span>III·02 空抽屉</span><span class="r">2026-10-30 售罄</span></div>
+        </div></div>
+        <div class="panel"><span class="p-l">空抽屉</span><span class="p-r">III·02</span></div>
+      </article>
+
+      <!-- 第四行：柜 IV（含空白卡） -->
+      <article class="drawer w4 live" tabindex="0" aria-label="柜 IV 巴拿马 波奎特">
+        <div class="opening"><div class="inner">
+          <div class="d-body">
+            <div class="cab-top">
+              <span class="cab-tag">柜 IV</span>
+              <span class="cab-region">巴拿马 · 波奎特</span>
+            </div>
+            <div class="cab-table">
+              <div><span class="k">在册</span><span class="v">1 批 / 1 锅</span></div>
+              <div><span class="k">海拔</span><span class="v">1600–1800 m</span></div>
+              <div><span class="k">处理</span><span class="v">水洗</span></div>
+            </div>
+            <p class="cab-note">第二格是空白卡，卡已裁好，号未落，等 2027 春批。</p>
+          </div>
+          <div class="d-ledger"><span>Boquete · Panama</span><span class="r">入册 2026-07-15</span></div>
+        </div></div>
+        <div class="panel"><span class="p-l">柜 · 波奎特</span><span class="p-r">IV</span></div>
+      </article>
+
+      <article class="drawer w2 live" tabindex="0" aria-label="锅 IV·01·08">
+        <div class="opening"><div class="inner">
+          <div class="d-body">
+            <p class="pot-no">IV·01·08</p>
+            <p class="pot-sub">取批 IV·01 瑰夏</p>
+            <div class="pot-rows">
+              <span class="k">焙日</span><span class="v">10-12</span>
+              <span class="k">焙度</span><span class="v">极浅</span>
+              <span class="k">余量</span><span class="v">0.9 kg</span>
+            </div>
+            <div class="pot-bar"></div>
+          </div>
+          <div class="d-ledger"><span>锅 08</span><span class="r">将尽</span></div>
+        </div></div>
+        <div class="panel"><span class="p-l">锅</span><span class="p-r">IV·01·08</span></div>
+      </article>
+
+      <article class="drawer w3 mute" aria-label="空白卡 IV·02">
+        <div class="opening"><div class="inner">
+          <div class="d-body">
+            <div class="blank-card"><span>空白卡</span><span>IV·02</span></div>
+          </div>
+          <div class="d-ledger"><span>空白卡</span><span class="r">卡已裁，号未落</span></div>
+        </div></div>
+        <div class="panel"><span class="p-l">空白卡</span><span class="p-r">IV·02</span></div>
+      </article>
+
+      <article class="drawer w3 live" tabindex="0" aria-label="批 IV·01 翡翠庄园 水洗瑰夏">
+        <div class="opening"><div class="inner">
+          <div class="d-body">
+            <p class="lot-name">翡翠庄园 瑰夏</p>
+            <p class="lot-meta"><span>水洗 · 1650 m</span><span class="d">2026-07-15</span></p>
+            <p class="lot-flavor">佛手柑<i>·</i>蜂蜜<i>·</i>白花</p>
+            <p class="lot-state">整豆 / 代磨 · 余量按锅走</p>
+          </div>
+          <div class="d-ledger"><span>批号 01</span><span class="r">见锅 IV·01·08</span></div>
+        </div></div>
+        <div class="panel"><span class="p-l">批 · 翡翠庄园</span><span class="p-r">IV·01</span></div>
+      </article>
+
+      <!-- 第五行：柜 V -->
+      <article class="drawer w3 live" tabindex="0" aria-label="批 V·01 潞江坝 水洗">
+        <div class="opening"><div class="inner">
+          <div class="d-body">
+            <p class="lot-name">潞江坝 水洗</p>
+            <p class="lot-meta"><span>水洗 · 1320 m</span><span class="d">2026-03-20</span></p>
+            <p class="lot-flavor">核桃<i>·</i>黑糖<i>·</i>乌梅</p>
+            <p class="lot-state">整豆 / 代磨 · 见锅 V·01·11</p>
+          </div>
+          <div class="d-ledger"><span>批号 01</span><span class="r">在柜</span></div>
+        </div></div>
+        <div class="panel"><span class="p-l">批 · 潞江坝</span><span class="p-r">V·01</span></div>
+      </article>
+
+      <article class="drawer w2 live" tabindex="0" aria-label="锅 V·01·11">
+        <div class="opening"><div class="inner">
+          <div class="d-body">
+            <p class="pot-no">V·01·11</p>
+            <p class="pot-sub">取批 V·01 水洗</p>
+            <div class="pot-rows">
+              <span class="k">焙日</span><span class="v">10-05</span>
+              <span class="k">焙度</span><span class="v">中浅</span>
+              <span class="k">余量</span><span class="v">3.1 kg</span>
+            </div>
+            <div class="pot-bar"></div>
+          </div>
+          <div class="d-ledger"><span>锅 11</span><span class="r">在柜</span></div>
+        </div></div>
+        <div class="panel"><span class="p-l">锅</span><span class="p-r">V·01·11</span></div>
+      </article>
+
+      <article class="drawer w3 live" tabindex="0" aria-label="批 V·02 潞江坝 日晒">
+        <div class="opening"><div class="inner">
+          <div class="d-body">
+            <p class="lot-name">潞江坝 日晒</p>
+            <p class="lot-meta"><span>日晒 · 1280 m</span><span class="d">2026-04-11</span></p>
+            <p class="lot-flavor">桂圆干<i>·</i>可可<i>·</i>橘皮</p>
+            <p class="lot-state">整豆 / 代磨 · 尚未开锅</p>
+          </div>
+          <div class="d-ledger"><span>批号 02 · V·02</span><span class="r">未开锅</span></div>
+        </div></div>
+        <div class="panel"><span class="p-l">批 · 潞江坝</span><span class="p-r">V·02</span></div>
+      </article>
+
+      <article class="drawer w4 live" tabindex="0" aria-label="柜 V 云南 保山">
+        <div class="opening"><div class="inner">
+          <div class="d-body">
+            <div class="cab-top">
+              <span class="cab-tag">柜 V</span>
+              <span class="cab-region">云南 · 保山</span>
+            </div>
+            <div class="cab-table">
+              <div><span class="k">在册</span><span class="v">2 批 / 1 锅</span></div>
+              <div><span class="k">海拔</span><span class="v">1280–1320 m</span></div>
+              <div><span class="k">处理</span><span class="v">水洗 / 日晒</span></div>
+            </div>
+            <p class="cab-note">本柜两批同园不同法，水洗在前，日晒在后。</p>
+          </div>
+          <div class="d-ledger"><span>Baoshan · Yunnan</span><span class="r">入册 2026-03-20</span></div>
+        </div></div>
+        <div class="panel"><span class="p-l">柜 · 保山</span><span class="p-r">V</span></div>
+      </article>
+
+    </div>
+
+    <p class="cab-note-line">柜架计数：面板 <b>20</b> 块，五行，宽度只取 <b>2 / 3 / 4</b> 栏三档；面板高 24px，下移 24px；开口 144px，内层 168px。在册抽屉可抽开，留空的三个位置不抽开 —— <b>下移量本身就是层级</b>。</p>
+  </div>
+</section>
+
+<!-- ================= 图版 ================= -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-no">03</span>
+      <h2>图版</h2>
+      <span class="sec-meta">六幅 · 产地五 · 器具一</span>
+    </div>
+    <div class="plates">
+      <figure class="plate p5">
+        <img src="images/占位-1.jpg" width="624" height="780" alt="古吉 日晒晒床，2026 年 9 月">
+        <figcaption><span class="pl-no">图版 01</span><span class="pl-cap">古吉 · 日晒晒床 · 624×780</span></figcaption>
+      </figure>
+      <figure class="plate">
+        <img src="images/占位-2.jpg" width="480" height="400" alt="涅里 水洗池分级，2026 年 10 月">
+        <figcaption><span class="pl-no">图版 02</span><span class="pl-cap">涅里 · 水洗池分级 · 480×400</span></figcaption>
+      </figure>
+      <figure class="plate p3">
+        <img src="images/占位-3.jpg" width="360" height="540" alt="慧兰 处理厂发酵槽">
+        <figcaption><span class="pl-no">图版 03</span><span class="pl-cap">慧兰 · 发酵槽 · 360×540</span></figcaption>
+      </figure>
+      <figure class="plate p3">
+        <img src="images/占位-4.jpg" width="360" height="450" alt="波奎特 瑰夏地块">
+        <figcaption><span class="pl-no">图版 04</span><span class="pl-cap">波奎特 · 瑰夏地块 · 360×450</span></figcaption>
+      </figure>
+      <figure class="plate p5">
+        <img src="images/占位-5.jpg" width="600" height="300" alt="保山 潞江坝 坡地全景">
+        <figcaption><span class="pl-no">图版 05</span><span class="pl-cap">保山 · 潞江坝坡地 · 600×300</span></figcaption>
+      </figure>
+      <figure class="plate p4">
+        <img src="images/占位-6.jpg" width="480" height="640" alt="柜前 手冲器具与秤">
+        <figcaption><span class="pl-no">图版 06</span><span class="pl-cap">柜前 · 滤杯与秤 · 480×640</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 冲煮规程 ================= -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-no">04</span>
+      <h2>冲煮规程</h2>
+      <span class="sec-meta">每袋随附一张 · 单杯 240 g</span>
+    </div>
+    <div class="protocol">
+      <dl class="proto-list">
+        <div class="proto-row"><dt>粉水比</dt><dd><span class="mono">1 : 16</span>，粉 15 g，水 240 g</dd></div>
+        <div class="proto-row"><dt>水温</dt><dd><span class="mono">92 ℃</span>（浅焙）／ <span class="mono">88 ℃</span>（中焙）</dd></div>
+        <div class="proto-row"><dt>研磨</dt><dd>中细，手感近白砂糖，筛过细粉</dd></div>
+        <div class="proto-row"><dt>闷蒸</dt><dd><span class="mono">0:00</span> 注 30 g，停 <span class="mono">30 s</span></dd></div>
+        <div class="proto-row"><dt>第二段</dt><dd><span class="mono">0:35</span> 注至 160 g，细流绕圈</dd></div>
+        <div class="proto-row"><dt>第三段</dt><dd><span class="mono">1:10</span> 注至 240 g，收水</dd></div>
+        <div class="proto-row"><dt>落杯</dt><dd><span class="mono">2:05–2:20</span>，滤杯离壶再摇匀</dd></div>
+        <div class="proto-row"><dt>忌</dt><dd>不焖壶、不搅拌、不加奶；豆子开袋后两周内用完</dd></div>
+      </dl>
+      <div class="cone-box">
+        <svg class="cone" viewBox="0 0 160 190" role="img" aria-label="滤杯线稿">
+          <path d="M28 24 L80 172 L132 24 Z" fill="none" stroke="#2A241C" stroke-width="0.8"/>
+          <path d="M28 24 L132 24" fill="none" stroke="#2A241C" stroke-width="0.8"/>
+          <path d="M42 62 L118 62" fill="none" stroke="#7C7460" stroke-width="0.4"/>
+          <path d="M52 96 L108 96" fill="none" stroke="#7C7460" stroke-width="0.4"/>
+          <path d="M62 130 L98 130" fill="none" stroke="#7C7460" stroke-width="0.4"/>
+          <path d="M28 24 L20 76 L140 76 L132 24" fill="none" stroke="#7C7460" stroke-width="0.4"/>
+          <path d="M80 8 L80 24" fill="none" stroke="#4A5C3A" stroke-width="3"/>
+          <circle cx="80" cy="6" r="4" fill="none" stroke="#7C7460" stroke-width="0.4"/>
+          <path d="M80 172 L80 186" fill="none" stroke="#7C7460" stroke-width="0.4"/>
+          <path d="M14 190 L146 190" fill="none" stroke="#2A241C" stroke-width="0.8"/>
+        </svg>
+        <p class="cone-cap">锥形滤杯，0.8px 外廓、0.4px 内线。图为比例示意，不代器具型号。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 询价 ================= -->
+<section class="sec" id="xun-jia">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-no">05</span>
+      <h2>询价</h2>
+      <span class="sec-meta">加微信 · 报编号 · 不做在线支付</span>
+    </div>
+    <div class="order">
+      <div class="order-lead">
+        加微信，报编号。
+        <small>例：柜 II·01·04。说豆名也行，编号更快 —— 我们按编号直接查到那一锅的焙日和余量。</small>
+      </div>
+      <div class="order-table">
+        <div class="order-row">
+          <span class="k">微信号</span>
+          <span class="v"><span class="wx">sanjiao-drip</span></span>
+          <span class="n">加好友请注明「豆单」</span>
+        </div>
+        <div class="order-row">
+          <span class="k">报号格式</span>
+          <span class="v"><strong>柜 II·01·04</strong>（柜号 · 批号 · 锅号）</span>
+          <span class="n">三级全报</span>
+        </div>
+        <div class="order-row">
+          <span class="k">回复时</span>
+          <span class="v">10:00–19:00，逢周三烘焙日顺延至 21:00</span>
+          <span class="n">当日答复</span>
+        </div>
+        <div class="order-row">
+          <span class="k">计价</span>
+          <span class="v">按锅计，一锅约 120 g；整豆或代磨，代磨不加价</span>
+          <span class="n">以当日回复为准</span>
+        </div>
+        <div class="order-row">
+          <span class="k">付款</span>
+          <span class="v">微信转账，<strong>不做在线支付</strong>，不设购物车</span>
+          <span class="n">下单后 24 小时内</span>
+        </div>
+        <div class="order-row">
+          <span class="k">取货</span>
+          <span class="v">到店自取（东城 · 北新桥），或顺丰到付</span>
+          <span class="n">烘焙后 3 日内发出</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ================= 页脚 ================= -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <p class="foot-name">三校咖啡 · 手冲编目</p>
+        <p class="foot-no">第六辑 ／ 柜 I–V ／ 批 01–04 ／ 锅 01–11 ／ 末次编目 <b>II·01·04</b> ／ 2026-11-02</p>
+      </div>
+      <div class="foot-cols">
+        <div><b>柜架</b>20 格 · 5 行<br>在册 12 款<br>留空 3 格</div>
+        <div><b>检索号</b>柜 I–V<br>批 01–04<br>锅 01–11</div>
+        <div><b>联系</b>微信 sanjiao-drip<br>10:00–19:00<br>东城 · 北新桥</div>
+      </div>
+    </div>
+    <p class="foot-end"><span>© 2026 三校咖啡 · 只做手冲，不做拼配</span><span>编号不复用 · 留空不补位</span></p>
+  </div>
+</footer>
+
+</body>
+</html>

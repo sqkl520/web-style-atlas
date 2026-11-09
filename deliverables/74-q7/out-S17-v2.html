@@ -54,9 +54,10 @@
   --pad:32px;
 }
 
-*,*::before,*::after{box-sizing:border-box;}
+*,*::before,*::after{box-sizing:border-box;outline:none;}
+a:focus-visible{outline:var(--w-2) solid var(--seal);outline-offset:2px;}
 
-html{-webkit-text-size-adjust:100%;}
+html{-webkit-text-size-adjust:100%;color:var(--ink);}
 
 body{
   margin:0;
@@ -68,9 +69,17 @@ body{
   font-kerning:normal;
 }
 
-h1,h2,h3,p,ul,ol,li,dl,dt,dd,figure{margin:0;padding:0;}
+h1,h2,h3,p,ul,ol,li,dl,dt,dd,figure,blockquote{margin:0;padding:0;}
 ul,ol{list-style:none;}
-img{display:block;width:100%;height:auto;}
+img{
+  display:block;
+  width:100%;
+  height:auto;
+  color:var(--ink-deep);
+  font-family:var(--font-body);
+  font-size:var(--fs-cap);
+  line-height:1.5;
+}
 a{color:inherit;text-decoration:none;}
 
 .mono{
@@ -92,13 +101,13 @@ a{color:inherit;text-decoration:none;}
 .c-a{grid-column:1;padding:22px 20px 26px var(--pad);}
 .c-b{grid-column:3;padding:22px var(--pad) 26px 24px;}
 
-/* 中缝孔列 */
+/* 中缝孔列：孔径 1.2px，孔距 6px */
 .seam{
   grid-column:2;
   background-color:var(--paper);
   background-image:radial-gradient(circle at 50% 50%,
     var(--ink) calc(var(--hole) / 2),
-    transparent calc(var(--hole) / 2));
+    var(--paper) calc(var(--hole) / 2));
   background-size:var(--seam) var(--pitch);
   background-repeat:repeat-y;
   background-position:0 0;
@@ -110,8 +119,7 @@ a{color:inherit;text-decoration:none;}
   color:var(--paper);
   border-bottom:var(--w-24) solid var(--ink-deep);
 }
-.masthead .c-a{padding-top:20px;padding-bottom:20px;}
-.masthead .c-b{padding-top:20px;padding-bottom:20px;}
+.masthead .c-a,.masthead .c-b{padding-top:20px;padding-bottom:20px;}
 
 .brand{
   font-family:var(--font-display);
@@ -128,7 +136,6 @@ a{color:inherit;text-decoration:none;}
 }
 .masthead .cap{color:var(--paper);}
 .en{letter-spacing:0.1em;}
-
 .mh-b .cap{margin-top:8px;}
 
 /* ---------- 首屏 ---------- */
@@ -144,7 +151,6 @@ a{color:inherit;text-decoration:none;}
   font-size:var(--fs-cap);
   line-height:20px;
   letter-spacing:0.14em;
-  color:var(--paper);
 }
 
 .index{margin-top:14px;}
@@ -157,7 +163,6 @@ a{color:inherit;text-decoration:none;}
   font-size:var(--fs-cap);
   line-height:20px;
 }
-.index li .mono{letter-spacing:0.02em;}
 .index-foot{
   margin-top:14px;
   font-size:var(--fs-cap);
@@ -206,7 +211,6 @@ a{color:inherit;text-decoration:none;}
 .hero-meta{
   display:flex;
   flex-wrap:wrap;
-  gap:0;
   margin-top:30px;
   border-top:var(--w-2) solid var(--rule);
 }
@@ -216,15 +220,17 @@ a{color:inherit;text-decoration:none;}
   font-size:var(--fs-cap);
   line-height:20px;
   letter-spacing:0.04em;
-  border-right:var(--w-08) solid var(--rule);
 }
-.hero-meta span:last-child{border-right:0;margin-right:0;padding-right:0;}
+.hero-meta span:not(:last-child){border-right:var(--w-08) solid var(--rule);}
+.hero-meta span:last-child{margin-right:0;padding-right:0;}
 
 /* ---------- 台账表头 ---------- */
 .ledgehead{background:var(--tone-hover);}
 .ledgehead .c-a{
   border-top:var(--w-1) solid var(--ink);
   border-bottom:var(--w-08) solid var(--ink);
+  padding-top:14px;
+  padding-bottom:14px;
 }
 .ledgehead .c-b{
   border-top:var(--w-1) solid var(--ink);
@@ -232,7 +238,6 @@ a{color:inherit;text-decoration:none;}
   padding-top:14px;
   padding-bottom:14px;
 }
-.ledgehead .c-a{padding-top:14px;padding-bottom:14px;}
 .ledgehead .tag{color:var(--ink);}
 .ledgehead .cap{margin-top:4px;}
 
@@ -332,10 +337,7 @@ a{color:inherit;text-decoration:none;}
   line-height:var(--lh);
   white-space:nowrap;
 }
-.amt .cur{
-  font-size:var(--fs-cap);
-  margin-right:1px;
-}
+.amt .cur{font-size:var(--fs-cap);margin-right:1px;}
 .amtnote{
   font-size:var(--fs-cap);
   line-height:20px;
@@ -344,25 +346,20 @@ a{color:inherit;text-decoration:none;}
 }
 
 /* 每条内部结构各不相同 */
-.spec dt,.spec dd{margin:0;}
 .spec > div{
   display:grid;
   grid-template-columns:64px minmax(0,1fr);
   gap:12px;
   padding:6px 0;
-  border-top:var(--w-05) solid var(--rule);
 }
-.spec > div:first-child{border-top:0;padding-top:0;}
+.spec > div + div{border-top:var(--w-05) solid var(--rule);}
 .spec dt{
   font-size:var(--fs-cap);
   line-height:21px;
   letter-spacing:0.1em;
   color:var(--ink-deep);
 }
-.spec dd{
-  font-size:var(--fs-body);
-  line-height:21px;
-}
+.spec dd{font-size:var(--fs-body);line-height:21px;}
 
 .tags{
   display:flex;
@@ -385,10 +382,7 @@ a{color:inherit;text-decoration:none;}
   line-height:var(--lh);
   max-width:30em;
 }
-.mini{
-  margin-top:10px;
-  border-top:var(--w-08) solid var(--ink);
-}
+.mini{margin-top:10px;border-top:var(--w-08) solid var(--ink);}
 .mini > div{
   display:flex;
   justify-content:space-between;
@@ -398,7 +392,6 @@ a{color:inherit;text-decoration:none;}
   font-size:var(--fs-cap);
   line-height:20px;
 }
-.mini .mono{letter-spacing:0.02em;}
 
 .quote{
   font-family:var(--font-display);
@@ -422,14 +415,10 @@ a{color:inherit;text-decoration:none;}
 .params{
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:0;
   border-top:var(--w-08) solid var(--rule);
 }
-.params > div{
-  padding:8px 12px 0 0;
-  border-right:var(--w-05) solid var(--rule);
-}
-.params > div:last-child{border-right:0;}
+.params > div{padding:8px 12px 0 0;}
+.params > div:not(:last-child){border-right:var(--w-05) solid var(--rule);}
 .params span{
   display:block;
   font-size:var(--fs-cap);
@@ -448,7 +437,7 @@ a{color:inherit;text-decoration:none;}
 /* 合计 */
 .total{
   background:var(--tone-hold);
-  border-top:var(--w-2) solid var(--ink);
+  border-top:var(--w-5) solid var(--ink);
 }
 .total .c-a,.total .c-b{
   padding-top:16px;
@@ -458,16 +447,15 @@ a{color:inherit;text-decoration:none;}
 .total .tag{color:var(--ink);}
 .total .amt{font-size:var(--fs-h3);}
 
-/* ---------- 规程 ---------- */
-.protocol{background:var(--paper);}
-.protocol .c-a,
-.protocol .c-b{
-  border-top:var(--w-24) solid var(--ink);
-  padding-top:26px;
-  padding-bottom:30px;
+/* ---------- 墨色分区带 ---------- */
+.band{
+  background:var(--ink);
+  color:var(--paper);
+  border-bottom:var(--w-24) solid var(--ink-deep);
 }
-.protocol .tag,.order .tag{color:var(--ink);}
-.protocol .cap,.order .cap{color:var(--ink-deep);margin-top:6px;}
+.band .c-a,.band .c-b{padding-top:20px;padding-bottom:20px;}
+.band .tag{color:var(--paper);}
+.band .cap{color:var(--paper);margin-top:6px;}
 
 .h2{
   font-family:var(--font-display);
@@ -477,15 +465,41 @@ a{color:inherit;text-decoration:none;}
   letter-spacing:0.06em;
 }
 
+/* ---------- 规程 ---------- */
+.protocol,.order{background:var(--paper);}
+.protocol .c-a,.protocol .c-b{
+  padding-top:26px;
+  padding-bottom:30px;
+  border-bottom:var(--w-08) solid var(--rule);
+}
+.protocol .band{border-top:var(--w-24) solid var(--rule);}
+.order .band{border-top:var(--w-24) solid var(--rule);}
+.order .c-a,.order .c-b{
+  padding-top:26px;
+  padding-bottom:34px;
+  border-bottom:var(--w-2) solid var(--ink);
+}
+
+.colnote{border-top:var(--w-2) solid var(--ink);margin-top:14px;}
+.colnote > div{
+  display:flex;
+  justify-content:space-between;
+  gap:14px;
+  padding:7px 0;
+  border-bottom:var(--w-05) solid var(--rule);
+  font-size:var(--fs-cap);
+  line-height:20px;
+}
+.colnote .mono{letter-spacing:0.02em;}
+
 .proto{
   display:grid;
-  grid-template-columns:640px minmax(0,1fr);
+  grid-template-columns:600px minmax(0,1fr);
   gap:28px;
-  margin-top:18px;
   align-items:start;
 }
 .plate-6{
-  width:640px;
+  width:600px;
   max-width:100%;
   border:var(--w-08) solid var(--ink);
   padding:3px;
@@ -496,29 +510,18 @@ a{color:inherit;text-decoration:none;}
   grid-template-columns:56px minmax(0,1fr);
   gap:12px;
   padding:12px 0;
-  border-top:var(--w-08) solid var(--rule);
 }
-.steps li:first-child{border-top:0;padding-top:0;}
+.steps li + li{border-top:var(--w-08) solid var(--rule);}
 .steps .i{
   font-size:var(--fs-cap);
   line-height:var(--lh);
   letter-spacing:0.1em;
   color:var(--seal);
 }
-.steps p{
-  font-size:var(--fs-body);
-  line-height:var(--lh);
-}
+.steps p{font-size:var(--fs-body);line-height:var(--lh);}
 
 /* ---------- 订购 ---------- */
-.order{background:var(--paper);}
-.order .c-a,
-.order .c-b{
-  border-top:var(--w-24) solid var(--ink);
-  padding-top:26px;
-  padding-bottom:34px;
-}
-.rules{margin-top:18px;}
+.rules{margin-top:4px;}
 .rules li{
   position:relative;
   padding:10px 0 10px 22px;
@@ -543,13 +546,69 @@ a{color:inherit;text-decoration:none;}
   letter-spacing:0.02em;
 }
 
+.contact{
+  margin-top:12px;
+  border-top:var(--w-2) solid var(--ink);
+  padding-top:10px;
+}
+.contact .id{
+  font-family:var(--font-mono);
+  font-variant-numeric:tabular-nums;
+  font-size:var(--fs-h3);
+  line-height:28px;
+  letter-spacing:0.01em;
+}
+.contact .cap{margin-top:4px;color:var(--ink-deep);}
+
+
+/* ---------- 对账月结（墨底：对账联的归档页） ---------- */
+.recon{
+  background:var(--ink);
+  color:var(--paper);
+  border-bottom:var(--w-24) solid var(--ink-deep);
+}
+.recon .c-a,.recon .c-b{padding-top:26px;padding-bottom:44px;}
+.recon .tag{color:var(--paper);}
+.recon .cap{color:var(--paper);margin-top:6px;}
+.recon .h2{color:var(--paper);}
+.recon .rhead{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) calc(var(--amt) * 2);
+  gap:22px;
+  margin-top:16px;
+  padding-bottom:6px;
+  border-bottom:var(--w-2) solid var(--rule);
+}
+.recon .rhead span{font-size:var(--fs-cap);line-height:20px;letter-spacing:0.1em;}
+.recon .rhead .amounts span{text-align:right;}
+.recon .rline{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) calc(var(--amt) * 2);
+  gap:22px;
+  padding:9px 0;
+  border-bottom:var(--w-05) solid var(--rule);
+  align-items:baseline;
+}
+.recon .rline > span:first-child{font-size:var(--fs-body);line-height:var(--lh);}
+.recon .rline .mono{font-size:var(--fs-body);line-height:var(--lh);text-align:right;}
+.recon .sum{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) calc(var(--amt) * 2);
+  gap:22px;
+  padding:12px 0 0;
+  align-items:baseline;
+}
+.recon .sum > span:first-child{font-size:var(--fs-h3);line-height:28px;letter-spacing:0.08em;}
+.recon .sum .mono{font-size:var(--fs-h3);line-height:28px;text-align:right;}
+
 /* ---------- 页脚 ---------- */
 .slab5{height:var(--w-5);background:var(--ink);}
 .foot{
   background:var(--ink-deep);
   color:var(--paper);
 }
-.foot .c-a,.foot .c-b{padding-top:24px;padding-bottom:40px;}
+.foot .c-a{padding-top:30px;padding-bottom:56px;}
+.foot .c-b{padding-top:30px;padding-bottom:56px;}
 .foot .tag{color:var(--paper);}
 .foot p{
   font-size:var(--fs-cap);
@@ -568,12 +627,6 @@ a{color:inherit;text-decoration:none;}
   padding-top:10px;
   border-top:var(--w-08) solid var(--rule);
   letter-spacing:0.06em;
-}
-.foot .amt{color:var(--paper);}
-.foot .num{
-  font-family:var(--font-mono);
-  font-variant-numeric:tabular-nums;
-  letter-spacing:0.02em;
 }
 
 /* ---------- 全站唯一的那个动作：沿中缝撕开 2mm ---------- */
@@ -614,14 +667,15 @@ a{color:inherit;text-decoration:none;}
   .c-b{grid-column:1;grid-row:3;padding:18px var(--pad) 24px;}
 
   .stub{padding-bottom:74px;}
-  .display{font-size:56px;line-height:1.02;}
+  .display{letter-spacing:-0.03em;}
+  .display .p{display:none;}
   .brand{font-size:26px;line-height:34px;}
   .h2{font-size:28px;line-height:36px;}
-  .hero-meta span{border-right:0;margin-right:0;padding-right:14px;}
-  .hero-meta{flex-direction:column;gap:4px;}
+  .hero-meta{flex-direction:column;}
+  .hero-meta span{border-right:0;margin-right:0;padding-right:0;padding-top:6px;}
   .quote{font-size:var(--fs-body);line-height:26px;}
   .params{grid-template-columns:1fr 1fr;}
-  .params > div:nth-child(2){border-right:0;}
+  .params > div:nth-child(2){border-right:none;}
   .spec > div{grid-template-columns:56px minmax(0,1fr);}
 }
 </style>
@@ -669,7 +723,7 @@ a{color:inherit;text-decoration:none;}
 
         <div class="c-b">
           <div class="hero-top">
-            <h1 class="display">五条豆目，<br>一本对账。</h1>
+            <h1 class="display">五条豆目<span class="p">，</span><br>一本对账<span class="p">。</span></h1>
             <div class="hero-side">
               <p class="lede">我只做手冲。五个产区，五条豆目，一批一批烘，一联一联记。左联你撕下带走，凭编号来取豆；右联我留下，月底对账。杯价按当日批次报，微信里问我就行。</p>
               <a class="cta" href="#order">加微信问价 ↓</a>
@@ -877,7 +931,7 @@ a{color:inherit;text-decoration:none;}
 
     <!-- ===================== 冲煮规程 ===================== -->
     <section class="protocol">
-      <div class="coupon">
+      <div class="coupon band">
         <div class="c-a">
           <p class="tag">冲煮规程</p>
           <p class="cap">写死在这里，谁来冲都一样</p>
@@ -885,12 +939,30 @@ a{color:inherit;text-decoration:none;}
         <div class="seam" aria-hidden="true"></div>
         <div class="c-b">
           <h2 class="h2">冲煮规程</h2>
+        </div>
+      </div>
+
+      <div class="coupon">
+        <div class="c-a">
+          <p class="tag">口径</p>
+          <p class="cap">店内固定器具，不外借</p>
+          <div class="colnote">
+            <div><span>滤杯</span><span class="mono">V60 · 01</span></div>
+            <div><span>磨豆机</span><span class="mono">C40 · 24 格</span></div>
+            <div><span>秤</span><span class="mono">0.1 g</span></div>
+            <div><span>手冲壶</span><span class="mono">600 ml</span></div>
+            <div><span>闷蒸</span><span class="mono">30 s</span></div>
+            <div><span>总时长</span><span class="mono">2:20</span></div>
+          </div>
+        </div>
+        <div class="seam" aria-hidden="true"></div>
+        <div class="c-b">
           <div class="proto">
             <figure class="plate-6">
               <img src="images/占位-6.jpg" width="640" height="240" alt="吧台上的手冲壶与滤杯，三段注水的第二段">
             </figure>
             <ol class="steps">
-              <li><span class="i">其一</span><p>水温 92℃。浅烘的豆子提到 94℃，深烘压到 90℃，一口壶烧不出两种温度，所以一次只冲一条。</p></li>
+              <li><span class="i">其一</span><p>水温 92℃。浅烘的豆子提到 94℃，深烘压到 90℃；一口壶烧不出两种温度，所以一次只冲一条。</p></li>
               <li><span class="i">其二</span><p>粉量 15 g，粉水比 1:15，总注水 225 g。秤是台面上的，不用眼睛估。</p></li>
               <li><span class="i">其三</span><p>三段注水：先焖蒸 30 g、等 30 秒；第二段注到 150 g；第三段注到 225 g。全程 2 分 20 秒。</p></li>
               <li><span class="i">其四</span><p>只做手冲。不做意式，不加奶，不出冰饮；豆子按 100 g 起售，磨不磨由你定。</p></li>
@@ -902,7 +974,7 @@ a{color:inherit;text-decoration:none;}
 
     <!-- ===================== 订购与取货 ===================== -->
     <section class="order" id="order">
-      <div class="coupon">
+      <div class="coupon band">
         <div class="c-a">
           <p class="tag">订购与取货</p>
           <p class="cap">不做在线支付</p>
@@ -910,12 +982,58 @@ a{color:inherit;text-decoration:none;}
         <div class="seam" aria-hidden="true"></div>
         <div class="c-b">
           <h2 class="h2">订购与取货</h2>
+        </div>
+      </div>
+
+      <div class="coupon">
+        <div class="c-a">
+          <p class="tag">联络</p>
+          <p class="cap">只走微信，不接电话</p>
+          <div class="contact">
+            <p class="id">yanji_pourover</p>
+            <p class="cap">加好友时写一句「豆」</p>
+            <p class="cap">营业 10:00–19:00</p>
+            <p class="cap">取货 当日烘当日取</p>
+          </div>
+        </div>
+        <div class="seam" aria-hidden="true"></div>
+        <div class="c-b">
           <ul class="rules">
             <li>加微信 <b>yanji_pourover</b>，报编号（№ 01–№ 05 里挑一条）与杯数，其余不用多说。</li>
-            <li>我按当日烘焙排产回你两家事：杯价，和取货时段。当天烘的当天卖完，不留到第二天。</li>
+            <li>我按当日烘焙排产回你两件事：杯价，和取货时段。当天烘的当天卖完，不留到第二天。</li>
             <li>不做在线支付。到店扫码或付现金，取豆时当面结；账记在右联上，月底我自己对。</li>
             <li>外地要豆的，同城次日达；出了省我只寄熟豆，不寄粉，路上会坏。</li>
           </ul>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ===================== 对账月结 ===================== -->
+    <section class="recon" aria-label="对账月结">
+      <div class="coupon">
+        <div class="c-a">
+          <p class="tag">对账月结</p>
+          <p class="cap">存根联回收后与右联逐条核</p>
+          <p class="cap mono">结账期 2026-01-01 至 2026-01-31</p>
+          <p class="cap">未取的在右联记「待取」，不销号</p>
+          <p class="cap">撕口与小数点齐平者，视为同一条</p>
+        </div>
+        <div class="seam" aria-hidden="true"></div>
+        <div class="c-b">
+          <h2 class="h2">对账月结</h2>
+          <div class="rhead">
+            <span>项目</span>
+            <div class="amounts">
+              <span>笔数</span>
+              <span>金额</span>
+            </div>
+          </div>
+          <div class="rline"><span>期内开联</span><div class="amounts"><span class="mono">5</span><span class="mono">762.00</span></div></div>
+          <div class="rline"><span>已取货销号</span><div class="amounts"><span class="mono">4</span><span class="mono">616.00</span></div></div>
+          <div class="rline"><span>待取（存根未回）</span><div class="amounts"><span class="mono">1</span><span class="mono">146.00</span></div></div>
+          <div class="rline"><span>作废（烘坏重烘）</span><div class="amounts"><span class="mono">0</span><span class="mono">0.00</span></div></div>
+          <div class="sum"><span>期末应收合计</span><div class="amounts"><span class="mono">4</span><span class="mono">616.00</span></div></div>
         </div>
       </div>
     </section>

@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>小满手冲 · 第 041 批豆单</title>
+<meta name="description" content="只做手冲的小店，五个产区的豆子，每周二烘一锅。加微信问价，不做在线支付。">
+<style>
+/* ============================================================
+   小满手冲 · 第 041 批
+   配色只用 9 个值，不新增任何颜色（无 rgba，无第 10 个色号）
+   #85572A brown / #ECDEC6 paper / #241A12 ink / #C9A87C stain
+   #E6D8BC card / #E0D0B0 card-2 / #E4D5B8 pale / #5A3A1C brown-deep
+   #B9A87F rule
+   ============================================================ */
+:root{
+  --brown:#85572A;
+  --paper:#ECDEC6;
+  --ink:#241A12;
+  --stain:#C9A87C;
+  --card:#E6D8BC;
+  --card2:#E0D0B0;
+  --pale:#E4D5B8;
+  --deep:#5A3A1C;
+  --rule:#B9A87F;
+
+  /* 线宽：全站只有这三级 */
+  --w1:.8px;
+  --w2:1px;
+  --w3:2px;
+
+  /* 字号：正文 15px，最大 81px = 15 × 5.4；小两级为辅助信息 */
+  --fs-cap:11px;
+  --fs-xs:13px;
+  --fs-s:15px;
+  --fs-m:21px;
+  --fs-l:29px;
+  --fs-xl:41px;
+  --fs-2xl:57px;
+  --fs-max:81px;
+
+  --f-head:'EB Garamond','Noto Serif SC','Songti SC',Georgia,serif;
+  --f-body:'Literata','Noto Serif SC','Songti SC',Georgia,serif;
+  --f-mono:'Martian Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+
+  /* 斜轨：3° / 轨道间距 96px / 相邻偏移 ×0.62 / 漂移 0.6× */
+  --slant:3deg;
+  --track:96px;
+  --decay:.62;
+  --rail-k:.0524;   /* tan 3° */
+}
+
+*,*::before,*::after{box-sizing:border-box}
+
+html{background:var(--paper);color:var(--ink);font-family:var(--f-body)}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--f-body);
+  font-size:var(--fs-s);
+  line-height:1.75;
+  overflow-x:hidden;
+}
+
+h1,h2,h3{font-family:var(--f-head);font-weight:400;margin:0;letter-spacing:.01em}
+p{margin:0}
+ul,ol,dl,dd,figure{margin:0;padding:0}
+li{list-style:none}
+a{color:var(--brown);text-decoration:none;border-bottom:var(--w1) solid var(--rule)}
+img{
+  display:block;width:100%;height:auto;
+  object-fit:cover;
+  background:var(--card2);
+  border:var(--w2) solid var(--rule);
+  border-radius:0;
+}
+button{font:inherit;color:inherit;background:none;border:0;border-radius:0;box-shadow:none;padding:0;cursor:pointer}
+:focus-visible{outline:var(--w3) solid var(--deep);outline-offset:2px}
+::selection{background:var(--stain);color:var(--ink)}
+
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;letter-spacing:.02em}
+.num{text-align:right}
+
+.wrap{width:100%;max-width:1264px;margin:0 auto;padding:0 32px}
+
+.eyebrow{
+  font-size:var(--fs-cap);letter-spacing:.18em;color:var(--deep);
+  display:flex;gap:.6em;align-items:baseline;
+}
+.eyebrow .mono{color:var(--brown)}
+
+.r45{aspect-ratio:4/5}
+.r32{aspect-ratio:3/2}
+.r11{aspect-ratio:1/1}
+.r1610{aspect-ratio:16/10}
+.r219{aspect-ratio:21/9}
+.r23{aspect-ratio:2/3}
+.r54{aspect-ratio:5/4}
+
+/* ---------- 杯渍：可核查参数，不做全屏滤镜 ----------
+   层数 4 ／ 直径 146 · 104 · 64 · 34 px ／ 线宽 0.8px ／ 沉积线 2px
+   描边不透明度 .34 / .22 / .14 / .10 ／ 沉积线 .5
+   全页 3 处，单处最大直径 146px，不承担底色 */
+.stain{position:absolute;pointer-events:none;z-index:2}
+
+/* ================= 顶栏 ================= */
+.topbar{border-bottom:var(--w1) solid var(--rule)}
+.topbar-in{
+  display:grid;grid-template-columns:auto 1fr auto auto;
+  gap:28px;align-items:baseline;
+  padding-top:13px;padding-bottom:13px;
+}
+.brand{font-family:var(--f-head);font-size:var(--fs-m);letter-spacing:.16em}
+.topbar-note{font-size:var(--fs-cap);color:var(--deep);letter-spacing:.08em}
+.topbar-batch{font-size:var(--fs-cap);color:var(--brown)}
+.topbar-link{font-size:var(--fs-cap);border-bottom:0;color:var(--deep)}
+
+/* ================= 首屏 ================= */
+.hero{position:relative}
+.hero-grid{
+  display:grid;
+  grid-template-columns:8fr 4fr;
+  gap:56px;
+  align-items:start;
+  padding-top:38px;
+  padding-bottom:34px;
+}
+.hero h1{
+  font-size:var(--fs-max);
+  line-height:1.04;
+  letter-spacing:.005em;
+  margin:18px 0 0;
+}
+.lede{
+  margin-top:26px;
+  max-width:35em;
+  font-size:var(--fs-s);
+  line-height:1.9;
+}
+.hero-act{display:flex;align-items:center;gap:18px;margin-top:30px;flex-wrap:wrap}
+.btn{
+  background:var(--brown);color:var(--paper);
+  font-size:var(--fs-s);letter-spacing:.06em;
+  padding:13px 22px;
+  border:var(--w2) solid var(--brown);
+  border-radius:0;box-shadow:none;
+}
+.btn:hover{background:var(--deep);border-color:var(--deep)}
+.btn:focus-visible{outline:var(--w3) solid var(--deep);outline-offset:2px}
+.hero-note{font-size:var(--fs-cap);color:var(--deep);letter-spacing:.06em}
+.hero-fig{position:relative;padding-top:6px}
+.hero-fig img{aspect-ratio:4/5;border-color:var(--stain)}
+.hero-fig figcaption{
+  margin-top:10px;font-size:var(--fs-cap);color:var(--deep);
+  display:flex;gap:10px;justify-content:space-between;
+  border-top:var(--w1) solid var(--rule);padding-top:8px;
+}
+.hero-fig figcaption .mono{color:var(--brown)}
+
+.hero-facts{
+  display:grid;grid-template-columns:1.25fr 1fr .95fr;
+  border-top:var(--w2) solid var(--ink);
+  border-bottom:var(--w1) solid var(--rule);
+}
+.hero-facts > div{
+  padding:14px 22px 14px 0;
+  font-size:var(--fs-cap);line-height:1.85;color:var(--deep);
+  border-right:var(--w1) solid var(--rule);
+}
+.hero-facts > div + div{padding-left:22px}
+.hero-facts > div:last-child{border-right:0}
+.hero-facts .mono{color:var(--brown);display:block;margin-bottom:2px}
+
+/* ================= 斜轨豆单 ================= */
+.rail{padding-top:54px;padding-bottom:14px}
+.rail-head{
+  display:grid;grid-template-columns:1fr auto;align-items:end;gap:32px;
+  padding-bottom:6px;
+}
+.rail-head h2{font-size:var(--fs-xl);line-height:1.2;margin-top:12px}
+.rail-spec{font-size:var(--fs-cap);color:var(--deep);letter-spacing:.08em}
+
+.rail-band{
+  /* 两条轨道，轨道间距 96px；每条轨道自己是一段 3° 斜线 */
+  display:grid;
+  gap:var(--track);
+}
+.track{
+  position:relative;
+  container-type:inline-size;
+  display:grid;
+  align-items:start;
+  /* 上留 96px：等于漂移位移上限，卡片再怎么漂也不会撞到上一节 */
+  padding-top:var(--track);
+}
+/* 卡距按 0.62 递减：96 → 59.52 → 36.90 → 22.88 */
+.track-a{grid-template-columns:1.28fr 96px 1.02fr 59.52px 1.10fr}
+.track-b{grid-template-columns:1.10fr 36.90px 1.28fr 22.88px .62fr}
+/* 斜轨本体：2px 线，绕左端旋转 3°，正好压过本轨每张卡的顶边 */
+.rail-line{
+  position:absolute;left:-4%;top:var(--track);
+  width:108%;height:0;
+  border-top:var(--w2) solid var(--rule);
+  transform:rotate(var(--slant));
+  transform-origin:0 0;
+  z-index:0;
+}
+.s1{grid-column:1}
+.s2{grid-column:3}
+.s3{grid-column:5}
+.s4{grid-column:1}
+.s5{grid-column:3}
+.s6{grid-column:5}
+
+/* 卡位沿 3° 斜轨的下落：横坐标 × tan3°（容器单位，缩窗不脱轨） */
+.s2{margin-top:calc(40.75cqw * var(--rail-k))}
+.s3{margin-top:calc(71.79cqw * var(--rail-k))}
+.s5{margin-top:calc(37.90cqw * var(--rail-k))}
+.s6{margin-top:calc(80.40cqw * var(--rail-k))}
+
+.slot{
+  position:relative;z-index:1;
+  background:var(--card);
+  border:var(--w2) solid var(--rule);
+  padding:12px;
+  border-radius:0;
+  will-change:transform;
+}
+.s2,.s4{background:var(--card2)}
+.slot-top{
+  display:flex;justify-content:space-between;align-items:baseline;gap:8px;
+  padding-bottom:7px;margin-bottom:10px;
+  border-bottom:var(--w1) solid var(--rule);
+}
+.slot-no,.slot-when{font-size:var(--fs-cap);color:var(--deep)}
+.slot-no{color:var(--brown)}
+.slot-name{font-size:var(--fs-m);line-height:1.35;margin-bottom:5px}
+.slot-sub{font-size:var(--fs-xs);line-height:1.7;color:var(--deep);margin-bottom:10px}
+.slot-note{font-size:var(--fs-xs);line-height:1.8;margin-bottom:10px}
+.slot-ask{
+  font-size:var(--fs-cap);color:var(--brown);
+  border-top:var(--w3) solid var(--brown);
+  padding-top:8px;
+}
+.slot-img{width:100%;margin-bottom:10px;border-color:var(--rule)}
+
+/* 01：图在上、参数四行横表 */
+.s1 .slot-params{border-top:var(--w1) solid var(--rule);margin-bottom:10px}
+.s1 .slot-params > div{
+  display:flex;justify-content:space-between;gap:6px;
+  padding:4px 0;border-bottom:var(--w1) solid var(--rule);
+}
+.s1 .slot-params dt{font-size:var(--fs-cap);color:var(--deep)}
+.s1 .slot-params dd{font-size:var(--fs-cap)}
+
+/* 02：图满幅出血，参数写成一句话 */
+.s2{padding:0}
+.s2 .slot-top{margin:0;padding:11px 12px 7px}
+.s2 .slot-img{margin:0;border:0;border-top:var(--w1) solid var(--rule);border-bottom:var(--w1) solid var(--rule)}
+.s2 .s2-pad{padding:11px 12px 12px}
+.s2 .slot-sentence{font-size:var(--fs-xs);line-height:1.85;margin-bottom:10px}
+
+/* 03：不配图，通体文字，2px 褐边 */
+.s3{border-left:var(--w3) solid var(--brown)}
+.s3-big{font-size:var(--fs-xl);color:var(--deep);line-height:1;margin:6px 0 10px}
+.s3-prose{font-size:var(--fs-xs);line-height:1.9;margin-bottom:12px}
+.s3-params{
+  display:grid;grid-template-columns:1fr 1fr;gap:0;
+  border-top:var(--w1) solid var(--rule);
+  margin-bottom:10px;
+}
+.s3-params span{
+  font-size:var(--fs-cap);padding:5px 0;
+  border-bottom:var(--w1) solid var(--rule);
+}
+.s3-params span:nth-child(odd){border-right:var(--w1) solid var(--rule);padding-right:6px}
+
+/* 04：参数竖排右对齐，图压在最底下 */
+.s4{padding:12px 12px 0}
+.s4 .slot-params{margin-bottom:10px}
+.s4 .slot-params > div{
+  display:flex;justify-content:space-between;align-items:baseline;gap:6px;
+  padding:4px 0;border-bottom:var(--w1) solid var(--rule);
+}
+.s4 .slot-params dt{font-size:var(--fs-cap);color:var(--deep)}
+.s4 .slot-params dd{font-size:var(--fs-cap)}
+.s4 .slot-img{margin:0 -12px;width:calc(100% + 24px);border-left:0;border-right:0;border-bottom:0}
+
+/* 05：三个数字块 */
+.s5-blocks{display:grid;grid-template-columns:1fr 1fr 1fr;border-top:var(--w1) solid var(--rule);margin-bottom:10px}
+.s5-blocks > div{padding:6px 0;border-bottom:var(--w1) solid var(--rule);border-right:var(--w1) solid var(--rule);padding-left:6px}
+.s5-blocks > div:first-child{padding-left:0}
+.s5-blocks > div:last-child{border-right:0}
+.s5-blocks b{display:block;font-family:var(--f-mono);font-weight:400;font-size:var(--fs-s);font-variant-numeric:tabular-nums;text-align:right}
+.s5-blocks i{display:block;font-style:normal;font-size:var(--fs-cap);color:var(--deep);letter-spacing:.06em}
+
+/* 06：缺号——空位留在原位，号不填 */
+.s6{background:var(--pale);padding:11px 8px;min-height:210px}
+.empty-frame{display:block;width:26px;height:26px;border:var(--w2) solid var(--rule);margin-bottom:14px}
+.empty-copy{font-size:var(--fs-cap);line-height:1.75;color:var(--deep)}
+.empty-copy b{display:block;font-family:var(--f-head);font-weight:400;font-size:var(--fs-s);color:var(--ink);margin-bottom:4px}
+
+.rail-foot{
+  display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:baseline;
+  margin-top:56px;padding-top:12px;
+  border-top:var(--w1) solid var(--rule);
+  font-size:var(--fs-cap);color:var(--deep);line-height:1.9;
+}
+.rail-foot .mono{color:var(--brown)}
+
+/* ================= 留白：空抽屉 + 空白卡 ================= */
+.gaps{padding-top:46px;padding-bottom:10px}
+.gaps-head{display:grid;grid-template-columns:1fr auto;align-items:end;gap:32px;padding-bottom:22px}
+.gaps-head h2{font-size:var(--fs-xl);line-height:1.2;margin-top:12px}
+.gaps-head p{font-size:var(--fs-cap);color:var(--deep);max-width:24em;line-height:1.9}
+
+.gaps-grid{display:grid;grid-template-columns:1.42fr .86fr .98fr;gap:0;border-top:var(--w2) solid var(--ink)}
+.gaps-grid > *{padding:18px;border-right:var(--w1) solid var(--rule)}
+.gaps-grid > *:last-child{border-right:0}
+
+.drawer{
+  position:relative;background:var(--pale);
+  border:var(--w2) solid var(--rule);
+  min-height:266px;
+  display:flex;flex-direction:column;justify-content:space-between;
+}
+.drawer::before{ /* 抽屉把手，2px 线 */
+  content:"";position:absolute;left:50%;margin-left:-24px;top:132px;
+  width:48px;height:0;border-top:var(--w3) solid var(--rule);
+}
+.drawer::after{ /* 抽屉内壁 */
+  content:"";position:absolute;left:18px;right:18px;top:60px;height:0;
+  border-top:var(--w1) solid var(--rule);
+}
+.drawer-label{font-size:var(--fs-cap);color:var(--brown)}
+.drawer-copy{font-size:var(--fs-xs);line-height:1.85;color:var(--deep);max-width:30em}
+
+.blank{
+  background:var(--card);border:var(--w2) solid var(--rule);
+  min-height:266px;display:flex;flex-direction:column;justify-content:space-between;
+}
+.blank-no{
+  display:flex;align-items:baseline;gap:8px;
+  font-size:var(--fs-cap);color:var(--brown);
+  border-bottom:var(--w1) solid var(--rule);padding-bottom:9px;
+}
+.blank-no i{display:inline-block;width:46px;height:0;border-top:var(--w1) solid var(--rule)}
+.blank-copy{font-size:var(--fs-xs);line-height:1.85;color:var(--deep)}
+
+.missing-note{
+  background:var(--card2);border:var(--w2) solid var(--rule);
+  min-height:266px;display:flex;flex-direction:column;justify-content:space-between;
+}
+.missing-note h3{font-size:var(--fs-m);line-height:1.4;margin-bottom:8px}
+.missing-note p{font-size:var(--fs-xs);line-height:1.85;color:var(--deep)}
+.missing-tag{
+  font-size:var(--fs-l);font-family:var(--f-mono);color:var(--deep);
+  font-variant-numeric:tabular-nums;line-height:1;
+}
+
+/* ================= 杯测桌横图 ================= */
+.cupping{padding-top:64px}
+.cupping img{aspect-ratio:21/9;border-color:var(--rule)}
+.cupping figcaption{
+  display:flex;justify-content:space-between;gap:24px;
+  font-size:var(--fs-cap);color:var(--deep);
+  border-top:var(--w1) solid var(--rule);margin-top:10px;padding-top:9px;
+}
+.cupping figcaption .mono{color:var(--brown)}
+
+/* ================= 这周的杯子 ================= */
+.rec{padding-top:58px}
+.rec-head{display:grid;grid-template-columns:1fr auto;align-items:end;gap:32px;padding-bottom:24px}
+.rec-head h2{font-size:var(--fs-xl);line-height:1.2;margin-top:12px}
+.rec-head-note{font-size:var(--fs-cap);color:var(--deep);max-width:18em;line-height:1.9;text-align:right}
+.rec-list{display:grid;grid-template-columns:1.55fr 1fr .78fr;gap:0;border-top:var(--w2) solid var(--ink)}
+.rec-list > article{padding:18px 22px 18px 0;border-right:var(--w1) solid var(--rule)}
+.rec-list > article + article{padding-left:22px}
+.rec-list > article:last-child{border-right:0}
+.rec-meta{font-size:var(--fs-cap);color:var(--brown);margin-bottom:12px}
+.rec-prose{font-size:var(--fs-s);line-height:1.95}
+.rec-tag{font-size:var(--fs-cap);color:var(--deep);margin-top:14px;border-top:var(--w1) solid var(--rule);padding-top:9px}
+.rec-b-title{font-family:var(--f-head);font-size:var(--fs-m);line-height:1.4;margin-bottom:12px}
+.rec-table{border-top:var(--w1) solid var(--rule)}
+.rec-table > div{display:flex;justify-content:space-between;gap:8px;padding:5px 0;border-bottom:var(--w1) solid var(--rule)}
+.rec-table dt{font-size:var(--fs-cap);color:var(--deep)}
+.rec-table dd{font-size:var(--fs-cap)}
+.rec-b-note{font-size:var(--fs-xs);line-height:1.8;color:var(--deep);margin-top:12px}
+.rec-c-big{font-size:var(--fs-2xl);line-height:1;color:var(--deep);margin:6px 0 12px}
+.rec-c-note{font-size:var(--fs-xs);line-height:1.85;color:var(--deep)}
+
+/* ================= 店 ================= */
+.shop{padding-top:62px;padding-bottom:8px}
+.shop-grid{display:grid;grid-template-columns:1fr 1.16fr .78fr;gap:0;border-top:var(--w2) solid var(--ink)}
+.shop-grid > *{padding:20px}
+.shop-grid > *:first-child{padding-left:0}
+.shop-grid > *:last-child{padding-right:0}
+.shop-fig-a img{aspect-ratio:2/3;border-color:var(--stain)}
+.shop-fig-b{align-self:end}
+.shop-fig-b img{aspect-ratio:5/4;border-color:var(--stain)}
+.shop-copy h2{font-size:var(--fs-xl);line-height:1.22;margin:12px 0 16px}
+.shop-copy p.body{font-size:var(--fs-s);line-height:1.95;margin-bottom:14px}
+.shop-copy p.body + p.body{margin-bottom:0}
+.shop-list{margin-top:18px;border-top:var(--w1) solid var(--rule)}
+.shop-list li{display:flex;justify-content:space-between;gap:14px;padding:6px 0;border-bottom:var(--w1) solid var(--rule);font-size:var(--fs-cap);color:var(--deep)}
+.shop-list li .mono{color:var(--ink)}
+.shop-figcap{font-size:var(--fs-cap);color:var(--deep);margin-top:9px;border-top:var(--w1) solid var(--rule);padding-top:8px}
+
+/* ================= 怎么订 ================= */
+.how{padding-top:58px;padding-bottom:8px;position:relative}
+.how-head{display:grid;grid-template-columns:1fr auto;align-items:end;gap:32px;padding-bottom:24px}
+.how-head h2{font-size:var(--fs-xl);line-height:1.2;margin-top:12px}
+.how-head p{font-size:var(--fs-cap);color:var(--deep);max-width:20em;text-align:right;line-height:1.9}
+.how-list{
+  display:grid;grid-template-columns:1.22fr .92fr 1.14fr .82fr;
+  border-top:var(--w2) solid var(--ink);
+}
+.how-list li{padding:16px 20px 20px 0;border-right:var(--w1) solid var(--rule)}
+.how-list li + li{padding-left:20px}
+.how-list li:last-child{border-right:0}
+.how-no{display:block;font-size:var(--fs-cap);color:var(--brown);margin-bottom:10px;padding-bottom:8px;border-bottom:var(--w3) solid var(--brown)}
+.how-list h3{font-size:var(--fs-m);line-height:1.4;margin-bottom:8px}
+.how-list p{font-size:var(--fs-xs);line-height:1.85;color:var(--deep)}
+.how-mini{font-size:var(--fs-cap);color:var(--brown);margin-top:12px;border-top:var(--w1) solid var(--rule);padding-top:8px}
+.how-mini-table{display:flex;gap:10px;margin-top:12px;border-top:var(--w1) solid var(--rule);padding-top:8px;font-size:var(--fs-cap)}
+.how-mini-table span{flex:1;text-align:right;border-right:var(--w1) solid var(--rule);padding-right:8px;color:var(--brown)}
+.how-mini-table span:last-child{border-right:0;padding-right:0}
+
+/* ================= 页脚 ================= */
+.foot{margin-top:64px;border-top:var(--w3) solid var(--ink);position:relative}
+.foot-grid{display:grid;grid-template-columns:1.4fr .9fr;gap:0;padding-top:26px;padding-bottom:26px}
+.foot-big{font-family:var(--f-head);font-size:var(--fs-2xl);line-height:1.22;margin-top:16px;letter-spacing:.01em}
+.foot-col{border-left:var(--w1) solid var(--rule);padding-left:28px}
+.foot-col p{font-size:var(--fs-xs);line-height:1.85;color:var(--deep);margin-bottom:12px}
+.foot-col p:last-child{margin-bottom:0}
+.foot-line{font-size:var(--fs-cap);color:var(--brown);border-top:var(--w1) solid var(--rule);padding-top:10px}
+.foot-base{
+  display:flex;justify-content:space-between;gap:24px;align-items:baseline;
+  border-top:var(--w1) solid var(--rule);
+  padding-top:12px;padding-bottom:22px;
+  font-size:var(--fs-cap);color:var(--deep);
+}
+.foot-base .mono{color:var(--brown)}
+
+/* ================= 移动端：单列，顺序不变 ================= */
+@media (max-width:1080px){
+  .wrap{padding:0 20px}
+  .topbar-in{grid-template-columns:1fr auto;gap:10px 16px}
+  .topbar-note,.topbar-batch{grid-column:1 / -1}
+  .hero-grid{grid-template-columns:1fr;gap:34px;padding-top:28px}
+  .hero h1{font-size:var(--fs-max);line-height:1.12}
+  .hero-facts{grid-template-columns:1fr}
+  .hero-facts > div{border-right:0;border-bottom:var(--w1) solid var(--rule);padding:12px 0}
+  .hero-facts > div + div{padding-left:0}
+  .hero-facts > div:last-child{border-bottom:0}
+
+  .rail-head,.rec-head,.gaps-head,.how-head{grid-template-columns:1fr}
+  .rec-head-note,.how-head p{text-align:left}
+
+  .rail-band{display:block}
+  .track{display:block;padding-top:26px}
+  .rail-line{
+    top:0;left:0;bottom:0;width:0;height:auto;
+    border-top:0;border-left:var(--w2) solid var(--rule);
+    transform:rotate(var(--slant));
+    transform-origin:0 0;
+  }
+  .slot{margin-top:0;margin-left:0}
+  /* 单列时卡距仍按 96 → 59.52 → 36.90 → 22.88 递减 */
+  .s1{margin-bottom:var(--track);margin-left:18px}
+  .s2{margin-bottom:calc(var(--track) * .62);margin-left:18px}
+  .s3{margin-bottom:0;margin-left:18px}
+  .s4{margin-bottom:calc(var(--track) * .62 * .62 * .62);margin-left:18px}
+  .s5{margin-bottom:calc(var(--track) * .62 * .62);margin-left:18px}
+  .s6{margin-bottom:0;margin-left:18px}
+  .track-b{margin-top:96px}
+  .gaps-grid,.rec-list,.how-list,.shop-grid,.foot-grid{grid-template-columns:1fr}
+  .gaps-grid > *,.rec-list > article,.how-list li,.shop-grid > *{
+    border-right:0;border-bottom:var(--w1) solid var(--rule);
+    padding:18px 0;
+  }
+  .shop-grid > *:first-child,.shop-grid > *:last-child{padding:18px 0}
+  .foot-col{border-left:0;border-top:var(--w1) solid var(--rule);padding-left:0;padding-top:16px;margin-top:4px}
+  .foot-base{flex-direction:column;gap:6px}
+  .foot-big{font-size:var(--fs-xl)}
+  .cupping img{aspect-ratio:16/10}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap topbar-in">
+    <span class="brand">小满手冲</span>
+    <span class="topbar-note">只做手冲 · 五个产区 · 不加奶不加糖</span>
+    <span class="topbar-batch mono num">第 041 批 ／ 2026.11.03 烘</span>
+    <a class="topbar-link mono num" href="#order">微信 xiaoman_pour</a>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============ 首屏 ============ -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="mono">041</span><span>本批豆单 · 现烘第 3 天</span></p>
+        <h1>先问口味<br>再磨豆子</h1>
+        <p class="lede">五个产区的豆子，每周二烘一锅，一锅十二公斤。不加奶，不做在线支付，也不上外卖平台。你在微信上说一句想要什么味道——酸的、甜的、像红茶还是像黑巧——我按你的口味挑一支，把今天的克价报给你。</p>
+        <div class="hero-act">
+          <button class="btn" id="copyWechat" type="button">加微信问价 · xiaoman_pour</button>
+          <span class="hero-note mono">点一下复制微信号，不用扫码</span>
+        </div>
+      </div>
+
+      <figure class="hero-fig">
+        <img src="images/占位-1.jpg" width="960" height="1200" alt="吧台上刚冲完的一杯，滤杯还温着">
+        <figcaption><span>周二第一杯，水刚烧开</span><span class="mono">041-00</span></figcaption>
+        <svg class="stain" style="left:-14px;bottom:-18px" width="146" height="146" viewBox="0 0 146 146" aria-hidden="true" focusable="false">
+          <circle cx="73" cy="73" r="73" fill="none" stroke="#C9A87C" stroke-width="0.8" opacity=".34"/>
+          <circle cx="73" cy="73" r="52" fill="none" stroke="#C9A87C" stroke-width="0.8" opacity=".22"/>
+          <circle cx="73" cy="73" r="32" fill="none" stroke="#B9A87F" stroke-width="0.8" opacity=".14"/>
+          <circle cx="73" cy="73" r="17" fill="none" stroke="#C9A87C" stroke-width="0.8" opacity=".10"/>
+          <circle cx="73" cy="73" r="73" fill="none" stroke="#85572A" stroke-width="2" stroke-dasharray="36 220" opacity=".5"/>
+        </svg>
+      </figure>
+    </div>
+
+    <div class="wrap hero-facts">
+      <div><span class="mono">周二</span>烘豆，养三天才出。烘完当天不卖。</div>
+      <div><span class="mono">十二公斤</span>一锅。卖完就等下周二，我不补烘。</div>
+      <div><span class="mono">到店取</span>或同城跑腿。微信转账，页面上不卖。</div>
+    </div>
+  </section>
+
+  <!-- ============ 斜轨豆单 ============ -->
+  <section class="rail" id="beans">
+    <div class="wrap rail-head">
+      <div>
+        <p class="eyebrow"><span class="mono">041</span><span>豆单 · 五支现货</span></p>
+        <h2>这一批的五个产区</h2>
+      </div>
+      <p class="rail-spec mono num">3° 斜轨 ／ 间距 96px ／ 相邻 ×0.62</p>
+    </div>
+
+    <div class="wrap rail-band">
+      <div class="track track-a">
+        <div class="rail-line" aria-hidden="true"></div>
+        <svg class="stain" style="left:34%;top:6px" width="64" height="64" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+          <circle cx="32" cy="32" r="32" fill="none" stroke="#C9A87C" stroke-width="0.8" opacity=".34"/>
+          <circle cx="32" cy="32" r="22" fill="none" stroke="#B9A87F" stroke-width="0.8" opacity=".2"/>
+          <circle cx="32" cy="32" r="13" fill="none" stroke="#C9A87C" stroke-width="0.8" opacity=".13"/>
+          <circle cx="32" cy="32" r="6" fill="none" stroke="#C9A87C" stroke-width="0.8" opacity=".1"/>
+          <circle cx="32" cy="32" r="32" fill="none" stroke="#85572A" stroke-width="2" stroke-dasharray="14 66" opacity=".5"/>
+        </svg>
+
+        <!-- 01 -->
+        <article class="slot s1" data-drift data-coef="0.92">
+          <div class="slot-top">
+            <span class="slot-no mono">041-01</span>
+            <span class="slot-when mono num">10.28 烘</span>
+          </div>
+          <img class="slot-img r32" src="images/占位-2.jpg" width="600" height="400" alt="孔加的生豆，装在半透明袋里">
+          <h3 class="slot-name">耶加雪菲 · 孔加</h3>
+          <p class="slot-sub">埃塞俄比亚 ／ 水洗 74110 ／ 1950m</p>
+          <dl class="slot-params">
+            <div><dt>水温</dt><dd class="mono num">92℃</dd></div>
+            <div><dt>粉量</dt><dd class="mono num">15g</dd></div>
+            <div><dt>水量</dt><dd class="mono num">240g</dd></div>
+            <div><dt>时间</dt><dd class="mono num">2′10″</dd></div>
+          </dl>
+          <p class="slot-note">白桃和佛手柑，凉下来就是一杯蜂蜜水。怕酸的人也能喝。</p>
+          <p class="slot-ask">剩 3.2kg ／ 克价微信问</p>
+        </article>
+
+        <!-- 02 -->
+        <article class="slot s2" data-drift data-coef="0.96">
+          <div class="slot-top">
+            <span class="slot-no mono">041-02</span>
+            <span class="slot-when mono num">10.28 烘</span>
+          </div>
+          <img class="slot-img r11" src="images/占位-3.jpg" width="520" height="520" alt="涅里的豆子摊在白瓷盘上">
+          <div class="s2-pad">
+            <h3 class="slot-name">涅里 · 加图尤 AB</h3>
+            <p class="slot-sub">肯尼亚 ／ 水洗 SL28 ／ 1780m</p>
+            <p class="slot-sentence">93 度水，16 克粉，先焖 40 秒，两分半出完。酸是直的那种，尾巴上有点红糖。</p>
+            <p class="slot-note">黑加仑和熟番茄。凉了以后更像一杯红茶。</p>
+            <p class="slot-ask">剩 2.1kg ／ 克价微信问</p>
+          </div>
+        </article>
+
+        <!-- 03 -->
+        <article class="slot s3" data-drift data-coef="1.00">
+          <div class="slot-top">
+            <span class="slot-no mono">041-03</span>
+            <span class="slot-when mono num">10.29 烘</span>
+          </div>
+          <p class="s3-big mono num">03</p>
+          <h3 class="slot-name">惠兰 · 圣安东尼奥</h3>
+          <p class="slot-sub">哥伦比亚 ／ 厌氧日晒 卡杜拉 ／ 1780m</p>
+          <p class="s3-prose">这支是五支里最不像咖啡的。开袋先是酒渍樱桃，冲出来肉桂压在后半段，凉透了有点像可可粉。太闹，我不敢多进，只拿了八公斤。</p>
+          <div class="s3-params mono num">
+            <span>90℃</span><span>15g</span>
+            <span>225g</span><span>2′40″</span>
+          </div>
+          <p class="slot-ask">剩 2.6kg ／ 克价微信问</p>
+        </article>
+      </div>
+
+      <div class="track track-b">
+        <div class="rail-line" aria-hidden="true"></div>
+
+        <!-- 04 -->
+        <article class="slot s4" data-drift data-coef="1.04">
+          <div class="slot-top">
+            <span class="slot-no mono">041-04</span>
+            <span class="slot-when mono num">10.30 烘</span>
+          </div>
+          <h3 class="slot-name">林东 · 曼特宁</h3>
+          <p class="slot-sub">印尼 ／ 湿刨 ／ 1300m</p>
+          <dl class="slot-params">
+            <div><dt>水温</dt><dd class="mono num">88℃</dd></div>
+            <div><dt>粉量</dt><dd class="mono num">18g</dd></div>
+            <div><dt>水量</dt><dd class="mono num">270g</dd></div>
+            <div><dt>时间</dt><dd class="mono num">2′05″</dd></div>
+          </dl>
+          <p class="slot-note">雪松、黑巧、一点当归。最厚的一支，喝完嘴里发干，很干净的那种干。</p>
+          <p class="slot-ask">剩 1.4kg ／ 克价微信问</p>
+          <img class="slot-img r45" src="images/占位-4.jpg" width="480" height="600" alt="曼特宁豆子倒在秤盘上">
+        </article>
+
+        <!-- 05 -->
+        <article class="slot s5" data-drift data-coef="1.08">
+          <div class="slot-top">
+            <span class="slot-no mono">041-05</span>
+            <span class="slot-when mono num">10.30 烘</span>
+          </div>
+          <img class="slot-img r1610" src="images/占位-5.jpg" width="640" height="400" alt="喜拉朵的豆子装进纸袋">
+          <h3 class="slot-name">喜拉朵 · 圣若昂</h3>
+          <p class="slot-sub">巴西 ／ 半日晒 黄波旁 ／ 1100m</p>
+          <div class="s5-blocks">
+            <div><b>91℃</b><i>水温</i></div>
+            <div><b>17g</b><i>粉量</i></div>
+            <div><b>2′30″</b><i>时间</i></div>
+          </div>
+          <p class="slot-note">炒花生、黄糖、牛奶巧克力。五支里最不挑人的一支，第一次喝手冲就从它开始。</p>
+          <p class="slot-ask">剩 4.7kg ／ 克价微信问</p>
+        </article>
+
+        <!-- 06：缺号，原位留空 -->
+        <div class="slot s6" data-drift data-coef="0.94">
+          <span class="empty-frame" aria-hidden="true"></span>
+          <p class="empty-copy"><b>空号</b>这一批<br>没有第<br>六支</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <p class="rail-foot">
+        <span class="mono">06</span>
+        <span>06 号原本留给一支也门摩卡，船期赶不上，今年的量也谈不下来。号我不填，位置也不挪——它就该空在那儿。</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ 留白：空抽屉 / 空白卡 / 缺号说明 ============ -->
+  <section class="gaps">
+    <div class="wrap gaps-head">
+      <div>
+        <p class="eyebrow"><span class="mono">041</span><span>留白</span></p>
+        <h2>有几处我故意没填</h2>
+      </div>
+      <p>店小，货少，位置也不多。空着的地方我都留着，不拿别的东西去凑。</p>
+    </div>
+
+    <div class="wrap">
+      <div class="gaps-grid">
+        <div class="drawer">
+          <p class="drawer-label mono">抽屉 · 空着</p>
+          <p class="drawer-copy">这一格去年放的是日晒孔加，十一月卖完就空下来了。里面什么都没塞——明年同一支回来，还放这儿。</p>
+        </div>
+        <div class="blank">
+          <p class="blank-no mono">041-<i></i></p>
+          <p class="blank-copy">这张卡空着。等一支还没到的豆子，号码也先不写。等我摸过豆子、冲过三遍，再誊上来。</p>
+        </div>
+        <div class="missing-note">
+          <div>
+            <h3>缺号也是记录</h3>
+            <p>去年这批是十二个号，今年只有五支。我不把号重排成连号——中间空掉的那几个，是没烘好的、没到港的、被我退回去的。</p>
+          </div>
+          <p class="missing-tag num">01 · 02 · 03 · 04 · 05 · ——</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 杯测桌 ============ -->
+  <div class="wrap cupping">
+    <figure>
+      <img src="images/占位-6.jpg" width="1260" height="540" alt="杯测桌上并排摆开的六只碗">
+      <figcaption>
+        <span>11 月 1 日上午的杯测。六只碗，挑出五支留下，一支退了。</span>
+        <span class="mono num">041 ／ 杯测桌</span>
+      </figcaption>
+    </figure>
+  </div>
+
+  <!-- ============ 这周的杯子 ============ -->
+  <section class="rec">
+    <div class="wrap rec-head">
+      <div>
+        <p class="eyebrow"><span class="mono">041</span><span>这周的杯子</span></p>
+        <h2>每天收摊前，我自己冲一杯</h2>
+      </div>
+      <p class="rec-head-note">冲坏了也记。记下来才知道下一把该怎么改。</p>
+    </div>
+
+    <div class="wrap">
+      <div class="rec-list">
+        <article class="rec-a">
+          <p class="rec-meta mono num">11.03 ／ 周一 ／ 雨</p>
+          <p class="rec-prose">用了 04 号，18 克粉，88 度。今天下雨，壶里的水掉得快，第二段注水我多等了 15 秒。出来比上周厚，雪松压在底下，黑巧跑到前面来了。下一把粉该再粗半格。</p>
+          <p class="rec-tag mono num">04 号 · 2′05″</p>
+        </article>
+
+        <article class="rec-b">
+          <p class="rec-b-title">11.04 ／ 试了 03 号的低温</p>
+          <dl class="rec-table mono num">
+            <div><dt>水温</dt><dd>86℃</dd></div>
+            <div><dt>粉量</dt><dd>15g</dd></div>
+            <div><dt>时间</dt><dd>3′10″</dd></div>
+          </dl>
+          <p class="rec-b-note">酸软下来了，莓味也跟着淡了。下次回到 88 度，时间不加。</p>
+        </article>
+
+        <article class="rec-c">
+          <p class="rec-meta mono num">11.05</p>
+          <p class="rec-c-big mono num">06:40</p>
+          <p class="rec-c-note">开门前那杯，永远用 01 号。92 度，15 克，别的什么都不改。喝惯了，才知道它哪一天不对劲。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 店 ============ -->
+  <section class="shop">
+    <div class="wrap">
+      <div class="shop-grid">
+        <figure class="shop-fig-a">
+          <img src="images/占位-7.jpg" width="600" height="900" alt="吧台上没擦干的水印和两把滤杯">
+          <figcaption class="shop-figcap">吧台 · 六年了，木头上的水印懒得磨掉</figcaption>
+        </figure>
+
+        <div class="shop-copy">
+          <p class="eyebrow"><span class="mono">041</span><span>店</span></p>
+          <h2>一间只放得下六个人的店</h2>
+          <p class="body">我在这个巷子里冲了六年手冲。不做意式，没有拿铁，菜单上永远只有豆子和水。你坐下来，我先问一句你平时喝什么，再决定给你冲哪支。</p>
+          <p class="body">豆子是我自己去挑的。五支就够，多了一支我顾不过来。每支我都冲过三十遍以上才敢写在卡上——卡上的水温、粉量，是我自己认的数，你照着冲，味道不会差太远。</p>
+          <ul class="shop-list">
+            <li><span>周二到周日</span><span class="mono num">9:00—18:00</span></li>
+            <li><span>周一（在烘豆房，不在店里）</span><span class="mono num">休</span></li>
+            <li><span>文昌巷 12 号，邮电局斜对面</span><span class="mono num">门口有石榴树</span></li>
+          </ul>
+        </div>
+
+        <figure class="shop-fig-b">
+          <img src="images/占位-8.jpg" width="600" height="480" alt="贴着日期标签的生豆袋，靠在墙角">
+          <figcaption class="shop-figcap">每袋都写日期。写错了不擦，划一道。</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 怎么订 ============ -->
+  <section class="how" id="order">
+    <div class="wrap how-head">
+      <div>
+        <p class="eyebrow"><span class="mono">041</span><span>怎么订</span></p>
+        <h2>没有购物车，只有微信</h2>
+      </div>
+      <p>四步，最快的一次是五分钟之内回你。</p>
+    </div>
+
+    <div class="wrap">
+      <ol class="how-list">
+        <li>
+          <span class="how-no mono num">01</span>
+          <h3>先说口味</h3>
+          <p>酸的、甜的、像红茶还是像黑巧，随便说。说不清就说你平时喝什么，我听得懂。</p>
+        </li>
+        <li>
+          <span class="how-no mono num">02</span>
+          <h3>我报豆子和克价</h3>
+          <p>当天能出的就那几支，剩多少我也直说。价格按克报，不打包卖，不催你多买。</p>
+          <p class="how-mini mono num">回得快的话 5 分钟内</p>
+        </li>
+        <li>
+          <span class="how-no mono num">03</span>
+          <h3>你定克数</h3>
+          <p>最少 100 克。我称好、写好手冲单——水温、粉量、几段水，都写在纸卡上一起给你。</p>
+          <div class="how-mini-table mono num"><span>100g</span><span>200g</span><span>500g</span></div>
+        </li>
+        <li>
+          <span class="how-no mono num">04</span>
+          <h3>来拿，或叫跑腿</h3>
+          <p>到店取，或者同城跑腿。微信转账，不做在线支付，这个页面上也不卖东西。</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ 页脚 ============ -->
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div>
+      <p class="eyebrow"><span class="mono">041</span><span>小满手冲</span></p>
+      <p class="foot-big">豆单每周二换一次，<br>你什么时候来都行。</p>
+    </div>
+    <div class="foot-col">
+      <p>文昌巷 12 号，邮电局斜对面，门口一棵石榴树。六个人坐满就满了，不用预约，等一会儿就有位置。</p>
+      <p>周一我在烘豆房，不在店里。想看你那支豆子怎么烘的，周二上午过来。</p>
+      <p class="foot-line mono num">微信 xiaoman_pour</p>
+      <p class="foot-line mono num">041 ／ 2026.11.03 烘 ／ 现货 5 支</p>
+    </div>
+  </div>
+  <div class="wrap foot-base">
+    <span class="mono num">041</span>
+    <span>只做手冲 · 五个产区 · 不加奶不加糖 · 不做在线支付</span>
+    <span class="mono num">2026</span>
+  </div>
+  <svg class="stain" style="right:8%;top:26px" width="102" height="102" viewBox="0 0 102 102" aria-hidden="true" focusable="false">    <circle cx="51" cy="51" r="51" fill="none" stroke="#C9A87C" stroke-width="0.8" opacity=".3"/>
+    <circle cx="51" cy="51" r="36" fill="none" stroke="#B9A87F" stroke-width="0.8" opacity=".2"/>
+    <circle cx="51" cy="51" r="22" fill="none" stroke="#C9A87C" stroke-width="0.8" opacity=".13"/>
+    <circle cx="51" cy="51" r="11" fill="none" stroke="#C9A87C" stroke-width="0.8" opacity=".1"/>
+    <circle cx="51" cy="51" r="51" fill="none" stroke="#85572A" stroke-width="2" stroke-dasharray="22 148" opacity=".45"/>
+  </svg>
+</footer>
+
+<script>
+(function () {
+  /* 唯一的动效：卡片沿 3° 斜轨漂移。
+     速度 = 滚动量的 0.6 倍；每张卡的系数在 0.92–1.08 之间不等。
+     位移上限 96px（一个轨道间距），不让卡跑出轨道。 */
+  var cards = [].slice.call(document.querySelectorAll('[data-drift]'));
+  if (!cards.length) return;
+
+  var SPEED = 0.6;      /* 0.6 倍滚动量 */
+  var LIMIT = 96;       /* 一个轨道间距 */
+  var still = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var base = [];
+  var ticking = false;
+
+  function measure() {
+    for (var i = 0; i < cards.length; i++) {
+      cards[i].style.transform = 'none';
+    }
+    for (var j = 0; j < cards.length; j++) {
+      var r = cards[j].getBoundingClientRect();
+      base[j] = r.top + window.pageYOffset + r.height / 2;
+    }
+    paint();
+  }
+
+  function paint() {
+    ticking = false;
+    if (still.matches) {
+      for (var i = 0; i < cards.length; i++) cards[i].style.transform = 'none';
+      return;
+    }
+    var centre = window.pageYOffset + window.innerHeight / 2;
+    for (var j = 0; j < cards.length; j++) {
+      var coef = parseFloat(cards[j].getAttribute('data-coef')) || 1;
+      var d = (centre - base[j]) * SPEED * coef;
+      if (d > LIMIT) d = LIMIT;
+      if (d < -LIMIT) d = -LIMIT;
+      cards[j].style.transform = 'translate3d(0,' + d.toFixed(2) + 'px,0)';
+    }
+  }
+
+  function onScroll() {
+    if (!ticking) {
+      ticking = true;
+      window.requestAnimationFrame(paint);
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', measure);
+  if (still.addEventListener) still.addEventListener('change', paint);
+  window.addEventListener('load', measure);
+
+  measure();
+
+  /* 主行动：复制微信号（没有第二个行动，也不做弹窗跳转） */
+  var btn = document.getElementById('copyWechat');
+  if (btn) {
+    btn.addEventListener('click', function () {
+      var id = 'xiaoman_pour';
+      var done = function () {
+        btn.textContent = '已复制 xiaoman_pour · 加我';
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(id).then(done, done);
+      } else {
+        done();
+      }
+    });
+  }
+})();
+</script>
+</body>
+</html>

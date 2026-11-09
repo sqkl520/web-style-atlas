@@ -52,7 +52,11 @@ if (!build) { console.error('取不到 buildStylePrompt'); process.exit(1); }
 const BIZ = '一家只做手冲的咖啡店，5 个产区的豆子，加微信订、不做在线支付';
 const ACTION = '看完豆单就想问价';
 
-for (const id of ['S03', 'S07', 'S17']) {
+/* 案号可由命令行指定，默认仍是三案。
+ * 为什么要这个：第二轮要验 8–9 色的 6 个案（S06/S14/S19/S23/S24/S26），
+ * 写死三案就得改代码，而改代码的脚本不该为了一次性验证去改。 */
+const IDS = process.argv[2] ? process.argv[2].split(',') : ['S03', 'S07', 'S17'];
+for (const id of IDS) {
   const text = build(id, { biz: BIZ, action: ACTION });
   const out = join(ROOT, 'deliverables/74-q7', `prompt-${id}.txt`);
   writeFileSync(out, text, 'utf8');

@@ -63,7 +63,11 @@ h1,h2,h3,h4,.display,.rubric{
   letter-spacing:0.01em;
 }
 ol,ul{list-style:none}
-img{display:block;border-radius:0}
+img{
+  display:block;
+  border-radius:0;
+  color:transparent;   /* 占位图缺失时只留框，不留 alt 文字 */
+}
 table{border-collapse:collapse;width:100%}
 a{color:inherit;text-decoration:none}
 :focus-visible{outline:var(--bold) solid var(--slate);outline-offset:2px}
@@ -523,9 +527,11 @@ a{color:inherit;text-decoration:none}
     grid-template-columns:1fr;
     column-gap:0;
   }
+  /* 桌面版 78.4px 在 390px 宽上会把标题撕成四行；收窄到能整句成行。
+     字阶比 4.9 由桌面版承担，这里只是同一比例的窄屏排法。 */
+  .display{font-size:clamp(38px,11.5vw,56px);line-height:1.06}
   .kicker,.display,.lead,.cta{grid-column:auto}
   .plate--hero{margin-top:14px;grid-column:auto}
-  .display{font-size:var(--fs-display)}
   .spread{grid-template-columns:1fr}
   .leaf--front{
     border-right:0;
@@ -582,26 +588,33 @@ a{color:inherit;text-decoration:none}
 
       <div class="bleed" aria-hidden="true">
         <div class="cols">
+
           <div class="cell c2 rubric-cell">
             <h2 class="rubric">凡例 <span class="rubric__no mono">CAP. I</span></h2>
             <p class="rubric__sub">正面 · 读法、两支豆、冲法与店务</p>
           </div>
+
           <div class="cell">
             <h3 class="h3">怎么读这一页</h3>
             <ol class="rules">
-              <li><span class="bullet"></span><span>单一产区、单一处理法，一袋一批，不做拼配。</span></li>
-              <li><span class="bullet"></span><span>每批到店当日编目；批号、海拔、杯测分、克价随批记录，不四舍五入。</span></li>
-              <li><span class="bullet"></span><span>冲法固定：锥形滤杯，粉水比 1 : 15，水温 92 °C，三段注水，总时长 2 分 30 秒。</span></li>
-              <li><span class="bullet"></span><span>只走微信订货，货到转账或当面付，不做在线支付。</span></li>
+              <li><span class="bullet" aria-hidden="true"></span><span>单一产区、单一处理法，一袋一批，不做拼配。</span></li>
+              <li><span class="bullet" aria-hidden="true"></span><span>每批到店当日编目；批号、海拔、杯测分、克价随批记录，不四舍五入。</span></li>
+              <li><span class="bullet" aria-hidden="true"></span><span>冲法固定：锥形滤杯，粉水比 1 : 15，水温 92 °C，三段注水，总时长 2 分 30 秒。</span></li>
+              <li><span class="bullet" aria-hidden="true"></span><span>只走微信订货，货到转账或当面付，不做在线支付。</span></li>
             </ol>
           </div>
+
           <div class="cell">
             <span class="bleed__img" style="aspect-ratio:520/650"></span>
-            <p class="cap"><span class="mono">图版 二</span>　五格样品盘，每格一张手写批号签。2026-03-16 摄。</p>
+              <p class="cap"><span class="mono">图版 二</span>　五格样品盘，每格一张手写批号签。2026-03-16 摄。</p>
           </div>
+
           <div class="cell">
             <div class="item item--a">
-              <div class="item__top"><span class="item__no mono">01</span><span class="item__lot mono">批号 E-01</span></div>
+              <div class="item__top">
+                <span class="item__no mono">01</span>
+                <span class="item__lot mono">批号 E-01</span>
+              </div>
               <h3 class="item__name">耶加雪菲 · 孔加 G1</h3>
               <p class="item__origin">埃塞俄比亚 / 盖德奥 / 水洗 / G1</p>
               <p class="item__notes">茉莉 · 白桃 · 柠檬皮</p>
@@ -617,9 +630,13 @@ a{color:inherit;text-decoration:none}
               <p class="item__folio mono">G-4 · 118 / 第七辑 / 第 118 页</p>
             </div>
           </div>
+
           <div class="cell">
             <div class="item item--b">
-              <div class="item__top"><span class="item__lot mono">批号 K-02</span><span class="item__no mono">02</span></div>
+              <div class="item__top">
+                <span class="item__lot mono">批号 K-02</span>
+                <span class="item__no mono">02</span>
+              </div>
               <h3 class="item__name">涅里 · 卡斯泰尔 AA</h3>
               <p class="item__origin">肯尼亚 / 涅里 / 水洗 / AA</p>
               <p class="item__notes">黑加仑 · 番茄 · 红糖</p>
@@ -635,6 +652,7 @@ a{color:inherit;text-decoration:none}
               <p class="item__folio mono">G-4 · 118 / 第七辑 / 第 118 页</p>
             </div>
           </div>
+
           <div class="cell">
             <h3 class="h3">冲法 · 固定</h3>
             <table class="kv">
@@ -648,6 +666,7 @@ a{color:inherit;text-decoration:none}
             </table>
             <p class="tiny">五支豆共用一套参数。水用纯净水加 30 ppm 矿化，不另调。</p>
           </div>
+
           <div class="cell">
             <h3 class="h3">店务</h3>
             <p class="tiny">三月每周三烘豆，当日不营业；四月起改周四。</p>
@@ -655,15 +674,52 @@ a{color:inherit;text-decoration:none}
             <p class="tiny">存量每日 22:00 更新；本页数字截至 2026-03-18。</p>
             <p class="tiny">豆单按季度重编，售完的批号留在档里，不删。</p>
           </div>
+
           <div class="cell">
             <span class="bleed__img" style="aspect-ratio:960/540"></span>
-            <p class="cap"><span class="mono">图版 三</span>　午后空店；秤、糖罐与一只凉了的分享壶。2026-03-09 摄。</p>
+              <p class="cap"><span class="mono">图版 三</span>　午后空店；秤、糖罐与一只凉了的分享壶。2026-03-09 摄。</p>
           </div>
+
           <div class="cell">
             <h3 class="h3">附记</h3>
             <p class="tiny">本页条目按产区顺序编次，不按价格排。</p>
             <p class="tiny">背面接第 118 页的存量账，批号一致，可对读。</p>
           </div>
+
+          <div class="cell c2">
+            <h3 class="h3">本周冲煮记录</h3>
+            <table class="ledger">
+              <thead>
+                <tr>
+                  <th scope="col">日期</th>
+                  <th scope="col">批号</th>
+                  <th scope="col">水温</th>
+                  <th scope="col">时长</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td class="mono">03-16</td><td class="mono">E-01</td><td class="num mono">92 °C</td><td class="num mono">2:28</td></tr>
+                <tr><td class="mono">03-17</td><td class="mono">K-02</td><td class="num mono">94 °C</td><td class="num mono">2:41</td></tr>
+                <tr><td class="mono">03-18</td><td class="mono">C-03</td><td class="num mono">90 °C</td><td class="num mono">2:22</td></tr>
+                <tr><td class="mono">03-18</td><td class="mono">P-04</td><td class="num mono">91 °C</td><td class="num mono">2:35</td></tr>
+                <tr><td class="mono">03-18</td><td class="mono">G-05</td><td class="num mono">92 °C</td><td class="num mono">2:30</td></tr>
+              </tbody>
+            </table>
+            <p class="tiny">偏离固定参数的，都在备注里写明原因，不退回去改数字。</p>
+          </div>
+
+          <div class="cell">
+            <h3 class="h3">客问</h3>
+            <p class="tiny">问：能不能拼一袋？　答：不拼。批号分开记，风味才对得上档。</p>
+            <p class="tiny">问：为什么不标半袋价？　答：半袋按克价算，每天随余量变；报批号我现算。</p>
+            <p class="tiny">问：能磨好再寄吗？　答：能，但香气掉得快；建议整豆，我附一张研磨刻度。</p>
+          </div>
+
+          <div class="cell c2">
+            <h3 class="h3">批次注记</h3>
+            <p class="tiny">E-01 是今年第一批孔加，比去年那批薄一点，花香还在。K-02 的番茄味在第二段注水后才清楚，别在第一段就下结论。</p>
+          </div>
+
         </div>
       </div>
 
@@ -771,6 +827,40 @@ a{color:inherit;text-decoration:none}
             <p class="tiny">背面接第 118 页的存量账，批号一致，可对读。</p>
           </div>
 
+          <div class="cell c2">
+            <h3 class="h3">本周冲煮记录</h3>
+            <table class="ledger">
+              <thead>
+                <tr>
+                  <th scope="col">日期</th>
+                  <th scope="col">批号</th>
+                  <th scope="col">水温</th>
+                  <th scope="col">时长</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td class="mono">03-16</td><td class="mono">E-01</td><td class="num mono">92 °C</td><td class="num mono">2:28</td></tr>
+                <tr><td class="mono">03-17</td><td class="mono">K-02</td><td class="num mono">94 °C</td><td class="num mono">2:41</td></tr>
+                <tr><td class="mono">03-18</td><td class="mono">C-03</td><td class="num mono">90 °C</td><td class="num mono">2:22</td></tr>
+                <tr><td class="mono">03-18</td><td class="mono">P-04</td><td class="num mono">91 °C</td><td class="num mono">2:35</td></tr>
+                <tr><td class="mono">03-18</td><td class="mono">G-05</td><td class="num mono">92 °C</td><td class="num mono">2:30</td></tr>
+              </tbody>
+            </table>
+            <p class="tiny">偏离固定参数的，都在备注里写明原因，不退回去改数字。</p>
+          </div>
+
+          <div class="cell">
+            <h3 class="h3">客问</h3>
+            <p class="tiny">问：能不能拼一袋？　答：不拼。批号分开记，风味才对得上档。</p>
+            <p class="tiny">问：为什么不标半袋价？　答：半袋按克价算，每天随余量变；报批号我现算。</p>
+            <p class="tiny">问：能磨好再寄吗？　答：能，但香气掉得快；建议整豆，我附一张研磨刻度。</p>
+          </div>
+
+          <div class="cell c2">
+            <h3 class="h3">批次注记</h3>
+            <p class="tiny">E-01 是今年第一批孔加，比去年那批薄一点，花香还在。K-02 的番茄味在第二段注水后才清楚，别在第一段就下结论。</p>
+          </div>
+
         </div>
       </div>
     </article>
@@ -781,18 +871,23 @@ a{color:inherit;text-decoration:none}
 
       <div class="bleed" aria-hidden="true">
         <div class="cols">
+
           <div class="cell c3 rubric-cell">
             <h2 class="rubric">豆目 <span class="rubric__no mono">CAT. 03–05</span></h2>
             <p class="rubric__sub">背面 · 三支豆、存量账、订货</p>
           </div>
+
           <div class="cell c3">
             <div class="item item--c">
               <div>
                 <span class="bleed__img" style="aspect-ratio:800/500"></span>
-                <p class="cap"><span class="mono">图版 四</span>　八碗杯测，编号贴在碗沿。2026-03-16 摄。</p>
+              <p class="cap"><span class="mono">图版 四</span>　八碗杯测，编号贴在碗沿。2026-03-16 摄。</p>
               </div>
               <div>
-                <div class="item__top"><span class="item__no mono">03</span><span class="item__lot mono">批号 C-03</span></div>
+                <div class="item__top">
+                  <span class="item__no mono">03</span>
+                  <span class="item__lot mono">批号 C-03</span>
+                </div>
                 <h3 class="item__name">惠兰 · 圣阿古斯丁</h3>
                 <p class="item__origin">哥伦比亚 / 惠兰 / 厌氧日晒</p>
                 <p class="item__notes">紫葡萄 · 可可 · 酒石</p>
@@ -810,6 +905,7 @@ a{color:inherit;text-decoration:none}
               </div>
             </div>
           </div>
+
           <div class="cell c2">
             <div class="item item--d">
               <table class="item__grid">
@@ -834,9 +930,13 @@ a{color:inherit;text-decoration:none}
               </table>
             </div>
           </div>
+
           <div class="cell">
             <div class="item item--e">
-              <div class="item__top"><span class="item__no mono">05</span><span class="item__lot mono">批号 G-05</span></div>
+              <div class="item__top">
+                <span class="item__no mono">05</span>
+                <span class="item__lot mono">批号 G-05</span>
+              </div>
               <h3 class="item__name">安提瓜 · 花神</h3>
               <p class="item__origin">危地马拉 / 安提瓜 / 水洗</p>
               <p class="item__notes">橙皮 · 杏仁 · 焦糖</p>
@@ -852,6 +952,7 @@ a{color:inherit;text-decoration:none}
               <p class="item__folio mono">G-4 · 118 / 第七辑 / 第 118 页</p>
             </div>
           </div>
+
           <div class="cell c2">
             <table class="ledger">
               <caption class="mono">存量与价目 · 截至 2026-03-18 22:00</caption>
@@ -873,15 +974,18 @@ a{color:inherit;text-decoration:none}
             </table>
             <p class="tiny">克价 = 整袋价 ÷ 200 g，算到分；不议价，不抹零。</p>
           </div>
+
           <div class="cell">
             <span class="bleed__img" style="aspect-ratio:560/560"></span>
-            <p class="cap"><span class="mono">图版 五</span>　第一段注水，30 g，闷蒸 30 秒。2026-03-05 摄。</p>
+              <p class="cap"><span class="mono">图版 五</span>　第一段注水，30 g，闷蒸 30 秒。2026-03-05 摄。</p>
           </div>
+
           <div class="cell">
             <span class="bleed__img" style="aspect-ratio:660/440"></span>
-            <p class="cap"><span class="mono">图版 六</span>　3 月 11 日那锅的曲线打印纸，回温点画了道红笔。</p>
+              <p class="cap"><span class="mono">图版 六</span>　3 月 11 日那锅的曲线打印纸，回温点画了道红笔。</p>
           </div>
-          <div class="cell c2">
+
+          <div class="cell c2" id="order">
             <div class="order-cell">
               <h3 class="h3">订货 · 只走微信</h3>
               <p>报批号，我报当日克价与余量；同一批号，早报早留。</p>
@@ -891,14 +995,24 @@ a{color:inherit;text-decoration:none}
               <p class="order-cell__folio mono">G-4 · 118 / 第七辑 / 第 118 页</p>
             </div>
           </div>
+
           <div class="cell">
             <span class="bleed__img" style="aspect-ratio:480/640"></span>
-            <p class="cap"><span class="mono">图版 七</span>　豆袋标签手写，批号与烘焙日各一行。</p>
+              <p class="cap"><span class="mono">图版 七</span>　豆袋标签手写，批号与烘焙日各一行。</p>
           </div>
+
           <div class="cell c2">
             <span class="bleed__img" style="aspect-ratio:600/450"></span>
-            <p class="cap"><span class="mono">图版 八</span>　店门与招牌；玻璃上那张营业时间是手写的，没有换过。</p>
+              <p class="cap"><span class="mono">图版 八</span>　店门与招牌；玻璃上那张营业时间是手写的，没有换过。</p>
           </div>
+
+          <div class="cell c3">
+            <h3 class="h3">下一辑预告 · 编目中</h3>
+            <p class="tiny">第八辑收到样品四支：埃塞俄比亚两批、卢旺达一批、秘鲁一批。杯测排在 3 月 24 日下午两点，测完当日初编，只标杯测分，不标价。</p>
+            <p class="tiny">编目口径照第七辑：单一产区、单一处理法，一袋一批，不四舍五入。</p>
+            <p class="item__folio mono">G-4 · 118 / 第七辑 / 第 118 页</p>
+          </div>
+
         </div>
       </div>
 
@@ -1047,6 +1161,13 @@ a{color:inherit;text-decoration:none}
               <img src="images/占位-8.jpg" width="600" height="450" alt="店门与手写招牌，玻璃上贴着营业时间" style="aspect-ratio:600/450">
               <figcaption class="cap"><span class="mono">图版 八</span>　店门与招牌；玻璃上那张营业时间是手写的，没有换过。</figcaption>
             </figure>
+          </div>
+
+          <div class="cell c3">
+            <h3 class="h3">下一辑预告 · 编目中</h3>
+            <p class="tiny">第八辑收到样品四支：埃塞俄比亚两批、卢旺达一批、秘鲁一批。杯测排在 3 月 24 日下午两点，测完当日初编，只标杯测分，不标价。</p>
+            <p class="tiny">编目口径照第七辑：单一产区、单一处理法，一袋一批，不四舍五入。</p>
+            <p class="item__folio mono">G-4 · 118 / 第七辑 / 第 118 页</p>
           </div>
 
         </div>

@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>十一度手冲 · 五个产区，一条线</title>
+<style>
+/* ============================================================
+   26 号施工图 · 三块硬边色版在斜线上对撞
+   签名动作：三栏 5:3:4；13 条水平规线；高 100% / 64% / 80%；
+   最窄一块再沉 16px；压叠 1.5px 与 1.2px 同向右下。
+   斜角三档 11° / 7° / 4° 写死，且同时是「栏线本身的倾角」：
+   同一个 --tilt 同时驱动色版斜边（skewX）与栏内规线（rotate）。
+   ============================================================ */
+
+:root{
+  /* 配色：只用这九个值，不新增彩色 */
+  --blue:#485270;
+  --paper:#D3D1CA;
+  --ink:#121212;
+  --red:#C8341F;
+  --white:#FFFFFF;
+  --tint:#C3C1B9;
+  --mul-br:#38110E;
+  --mul-rk:#0E0402;
+  --mul-bk:#050608;
+
+  /* 字号阶梯：正文 17px，最大标题 80px，80 / 17 = 4.71 */
+  --t1:17px;
+  --t2:22px;
+  --t3:29px;
+  --t4:38px;
+  --t5:50px;
+  --t6:80px;
+
+  /* 线宽只此两级 */
+  --lw:2px;
+  --lw-x:8px;
+
+  /* 套色错位：两个数值，同向右下 */
+  --off-1:1.5px;
+  --off-2:1.2px;
+
+  /* 最窄一块的额外下沉 */
+  --sink:16px;
+}
+
+*,*::before,*::after{box-sizing:border-box;border-radius:0;}
+
+html{background:#D3D1CA;color:#121212;}
+
+body{
+  margin:0;
+  background:#D3D1CA;
+  color:#121212;
+  font-family:"Noto Sans SC",sans-serif;
+  font-size:var(--t1);
+  line-height:1.66;
+  letter-spacing:0.005em;
+}
+
+h1,h2,h3,h4,.display{
+  font-family:"Syne","Noto Sans SC",sans-serif;
+  font-weight:800;
+  margin:0;
+}
+
+h1{
+  font-size:var(--t6);      /* 80px，正文的 4.71 倍 */
+  line-height:0.94;
+  letter-spacing:-0.035em;
+  text-transform:none;
+}
+h2{font-size:var(--t4);line-height:1.14;letter-spacing:-0.015em;}
+h3{font-size:var(--t3);line-height:1.22;letter-spacing:-0.01em;}
+h4{font-size:var(--t2);line-height:1.28;}
+
+p{margin:0;}
+
+.mono{
+  font-family:"IBM Plex Mono",monospace;
+  font-variant-numeric:tabular-nums;
+  font-feature-settings:"tnum" 1;
+  letter-spacing:0.01em;
+}
+.num{
+  font-family:"IBM Plex Mono",monospace;
+  font-variant-numeric:tabular-nums;
+  font-feature-settings:"tnum" 1;
+  text-align:right;
+}
+
+a{color:inherit;text-decoration:none;}
+::selection{background:#C8341F;color:#FFFFFF;}
+:focus-visible{outline:2px solid #C8341F;outline-offset:2px;}
+
+.wrap{
+  max-width:1440px;
+  margin:0 auto;
+  padding:0 56px;
+}
+
+.kick{
+  font-size:var(--t1);
+  letter-spacing:0.08em;
+  line-height:1.4;
+  margin-bottom:20px;
+}
+
+.note{
+  font-size:var(--t1);
+  line-height:1.66;
+  max-width:56ch;
+}
+
+/* ---------------- 首屏：三块色版对撞 ---------------- */
+
+.hero{
+  position:relative;
+  background:#D3D1CA;
+  border-bottom:var(--lw-x) solid #121212;
+  overflow:hidden;
+}
+
+.hero-grid{
+  position:relative;
+  display:grid;
+  grid-template-columns:5fr 3fr 4fr;   /* 签名比例 5:3:4 */
+  height:812px;
+}
+
+.plate{
+  position:relative;
+  display:block;
+}
+
+/* 色版本体：斜边由 skewX 给出，倾角即本栏 --tilt */
+.skin{
+  position:absolute;
+  inset:0;
+  background:#485270;
+  transform:skewX(calc(-1 * var(--tilt)));
+  transform-origin:50% 0;
+  filter:drop-shadow(1.5px 1.5px 0 #38110E) drop-shadow(1.2px 1.2px 0 #0E0402);
+}
+
+.p1{--tilt:11deg;height:100%;}
+.p2{--tilt:7deg;height:64%;top:16px;}   /* 最窄一块再沉 16px */
+.p3{--tilt:4deg;height:80%;}
+.p1 .skin{background:#485270;}
+.p2 .skin{background:#38110E;}
+.p3 .skin{background:#121212;}
+
+/* 13 条水平规线：倾角 = 本栏栏线的倾角；裁在本栏矩形内，不跨栏、不叠加装饰斜线 */
+.rules-clip{
+  position:absolute;
+  inset:0;
+  z-index:2;
+  overflow:hidden;
+  pointer-events:none;
+}
+.rules{
+  position:absolute;
+  left:-22%;
+  right:-22%;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  transform:rotate(var(--tilt));
+  transform-origin:50% 50%;
+}
+.rules i{
+  display:block;
+  height:var(--lw);
+  background:#D3D1CA;
+}
+.p1 .rules{top:56%;bottom:-12%;}   /* 6 条 @11° */
+.p2 .rules{top:60%;bottom:-14%;}   /* 3 条 @7°  */
+.p3 .rules{top:56%;bottom:-12%;}   /* 4 条 @4°  */
+
+.body{
+  position:relative;
+  z-index:5;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  padding:56px 52px 48px 56px;
+}
+.p2 .body{padding:40px 44px 40px 40px;}
+.p3 .body{padding:48px 48px 44px 48px;}
+
+.p1 .kick{color:#FFFFFF;}
+.p1 h1{color:#FFFFFF;}
+.p1 .lede{
+  color:#FFFFFF;
+  margin-top:28px;
+  max-width:32ch;
+  line-height:1.7;
+}
+
+.cta{
+  display:inline-block;
+  align-self:flex-start;
+  margin-top:auto;
+  padding:18px 26px;
+  background:#C8341F;
+  color:#FFFFFF;
+  border:var(--lw-x) solid #121212;
+  font-size:var(--t1);
+  font-weight:700;
+  letter-spacing:0.04em;
+  filter:drop-shadow(8px 8px 0 #050608);
+}
+.cta:hover{background:#121212;color:#FFFFFF;}
+
+.lbl{
+  font-size:var(--t1);
+  color:#D3D1CA;
+  letter-spacing:0.08em;
+  margin-bottom:22px;
+}
+
+.stat{display:block;margin:0;}
+.stat > div{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  gap:12px;
+  border-bottom:var(--lw) solid #C3C1B9;
+  padding:12px 0;
+}
+.stat dt{font-size:var(--t1);color:#D3D1CA;}
+.stat dd{
+  margin:0;
+  font-size:var(--t2);
+  color:#FFFFFF;
+}
+.mini{
+  margin-top:20px;
+  font-size:var(--t1);
+  line-height:1.6;
+  color:#C3C1B9;
+}
+.p3 .lbl{color:#C3C1B9;}
+.p3 h2{color:#FFFFFF;font-size:var(--t3);line-height:1.3;}
+
+.pairs{list-style:none;margin:26px 0 0;padding:0;}
+.pairs li{
+  display:grid;
+  grid-template-columns:34px 1fr auto;
+  gap:10px;
+  align-items:baseline;
+  border-bottom:var(--lw) solid #485270;
+  padding:12px 0;
+  color:#D3D1CA;
+}
+.pairs li span:first-child{color:#C3C1B9;}
+.pairs li .num{color:#FFFFFF;font-size:var(--t2);}
+
+.dot{
+  position:absolute;
+  right:48px;
+  bottom:44px;
+  width:24px;
+  height:24px;
+  background:#C8341F;
+  display:block;
+}
+
+/* ---------------- 通用版块骨架 ---------------- */
+
+.sec{
+  padding:84px 0;
+  border-top:var(--lw-x) solid #121212;
+}
+.sec-head{margin-bottom:44px;}
+.sec-head h2{margin-bottom:18px;}
+.sec-head .kick{margin-bottom:14px;}
+
+/* ---------------- 两组对照 ---------------- */
+
+.ledger-grid{
+  display:grid;
+  grid-template-columns:1.32fr 1fr;   /* 不等栏宽 */
+  border-top:var(--lw-x) solid #121212;
+}
+.set{padding:28px 32px 8px 0;}
+.set + .set{
+  padding:28px 0 8px 32px;
+  border-left:var(--lw-x) solid #121212;
+}
+.set-cap{
+  font-size:var(--t1);
+  letter-spacing:0.06em;
+  margin-bottom:18px;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:var(--t1);
+}
+th,td{
+  padding:12px 8px;
+  border-bottom:var(--lw) solid #121212;
+  text-align:left;
+  vertical-align:baseline;
+  font-weight:400;
+}
+th{
+  font-family:"Syne","Noto Sans SC",sans-serif;
+  font-weight:700;
+  font-size:var(--t1);
+  letter-spacing:0.04em;
+  border-bottom:var(--lw-x) solid #121212;
+}
+td.n,th.n{
+  font-family:"IBM Plex Mono",monospace;
+  font-variant-numeric:tabular-nums;
+  text-align:right;
+}
+.same{color:#C8341F;}
+
+/* ---------------- 豆单 ---------------- */
+
+.bean{
+  display:grid;
+  align-items:start;
+  gap:36px;
+  padding:40px 0;
+  border-top:var(--lw) solid #121212;
+}
+.bean:last-child{border-bottom:var(--lw) solid #121212;}
+
+.b1{grid-template-columns:1fr 1.62fr;}
+.b2{grid-template-columns:1.72fr 1fr;}
+.b3{grid-template-columns:1fr;gap:0;}
+.b4{grid-template-columns:0.52fr 0.86fr 1.5fr;}
+.b5{grid-template-columns:1.22fr 1fr 0.5fr;}
+
+figure{margin:0;}
+
+.slot{
+  display:block;
+  width:100%;
+  height:auto;
+  background:#C3C1B9;
+  border:var(--lw) solid #121212;
+  object-fit:cover;
+}
+.s1{aspect-ratio:1000 / 1250;}
+.s2{aspect-ratio:1200 / 800;}
+.s3{aspect-ratio:1600 / 900;}
+.s4{aspect-ratio:900 / 1350;}
+.s5{aspect-ratio:1250 / 1000;}
+.s6{aspect-ratio:1400 / 800;}
+.s7{aspect-ratio:1000 / 600;}
+
+.no{
+  font-size:var(--t2);
+  letter-spacing:0.06em;
+  margin-bottom:10px;
+}
+.bean h3{margin-bottom:12px;}
+.meta{
+  font-size:var(--t1);
+  letter-spacing:0.04em;
+  margin-bottom:16px;
+}
+.flav{font-size:var(--t1);max-width:38ch;}
+.stock{
+  display:flex;
+  justify-content:space-between;
+  gap:16px;
+  margin-top:20px;
+  padding-top:12px;
+  border-top:var(--lw) solid #121212;
+}
+.stock .num{font-size:var(--t2);}
+
+.b3 figure{margin-bottom:24px;}
+.b3-strip{
+  display:grid;
+  grid-template-columns:1fr 2fr 1fr;
+  gap:24px;
+  align-items:baseline;
+  border-top:var(--lw) solid #121212;
+  padding-top:16px;
+}
+.b3-strip .no{margin:0;}
+.b3-strip .num{font-size:var(--t2);}
+.b3 .flav{margin-top:16px;max-width:62ch;}
+
+.b4 .rail{
+  border-left:var(--lw-x) solid #C8341F;
+  padding-left:14px;
+}
+.b4 .rail .no{font-size:var(--t3);}
+
+.b5 .price{
+  text-align:right;
+  border-top:var(--lw) solid #121212;
+  padding-top:12px;
+}
+.b5 .price .num{font-size:var(--t3);display:block;}
+.b5 .price .unit{font-size:var(--t1);}
+
+/* ---------------- 冲煮 ---------------- */
+
+.brew-grid{
+  display:grid;
+  grid-template-columns:1.15fr 1fr;
+  gap:48px;
+  align-items:start;
+}
+.brew-t{margin-top:28px;}
+
+/* ---------------- 订豆 ---------------- */
+
+.steps{
+  display:grid;
+  grid-template-columns:1.1fr 0.8fr 1.4fr;   /* 三栏不等宽 */
+  gap:0;
+  border-top:var(--lw-x) solid #121212;
+}
+.step{padding:28px 28px 32px 0;}
+.step + .step{padding-left:28px;border-left:var(--lw) solid #121212;}
+.st1 .no{font-size:var(--t5);line-height:1;margin-bottom:18px;}
+.st2{border-top:var(--lw-x) solid #121212;margin-top:28px;}
+.st2 .no{font-size:var(--t2);margin-bottom:10px;}
+.st3{border-left:var(--lw-x) solid #C8341F;}
+.st3 h3{margin-bottom:8px;}
+.step p:last-child{max-width:34ch;}
+
+.order-fig{margin-top:44px;}
+
+/* ---------------- 页脚 ---------------- */
+
+.foot{
+  background:#121212;
+  color:#D3D1CA;
+  border-top:var(--lw-x) solid #C8341F;
+  padding:64px 0 40px;
+}
+.foot-grid{
+  display:grid;
+  grid-template-columns:1.4fr 1fr;
+  gap:40px;
+  align-items:start;
+}
+.foot .kick{color:#C3C1B9;margin-bottom:16px;}
+.foot-big{
+  font-family:"Syne","Noto Sans SC",sans-serif;
+  font-weight:800;
+  font-size:var(--t5);
+  line-height:1.06;
+  letter-spacing:-0.02em;
+  color:#FFFFFF;
+  max-width:12ch;
+}
+.foot-grid p.mono{font-size:var(--t1);line-height:1.9;color:#D3D1CA;}
+.foot-note{margin-top:40px;padding-top:16px;border-top:var(--lw) solid #485270;}
+.foot-note p{font-size:var(--t1);color:#C3C1B9;}
+
+/* ---------------- 移动端：单列，顺序不变 ---------------- */
+
+@media (max-width:900px){
+  .wrap{padding:0 24px;}
+  .hero-grid{grid-template-columns:1fr;height:auto;}
+  .plate{height:auto !important;top:0 !important;}
+  .skin{transform:none;}
+  .p1 .body{padding:44px 24px 40px;}
+  .p2 .body,.p3 .body{padding:36px 24px 36px;}
+  .p1 .rules,.p2 .rules,.p3 .rules{top:auto;left:-22%;right:-22%;bottom:-5%;height:132px;}
+  .p1 .body,.p2 .body,.p3 .body{padding-bottom:168px;}
+  .ledger-grid,.brew-grid,.steps,.foot-grid,.b1,.b2,.b3,.b4,.b5,.b3-strip{grid-template-columns:1fr;}
+  .set{padding:24px 0 8px;}
+  .set + .set{border-left:0;border-top:var(--lw-x) solid #121212;padding-left:0;padding-top:24px;}
+  .step{padding:24px 0;}
+  .step + .step{border-left:0;border-top:var(--lw) solid #121212;padding-left:0;}
+  .st2{margin-top:0;}
+  .st2,.st3{border-top:var(--lw) solid #121212;}
+  .b3-strip{gap:10px;}
+  .dot{right:24px;bottom:28px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= 首屏 ================= -->
+<header class="hero">
+  <div class="hero-grid">
+
+    <!-- 第一块：5fr，高 100%，倾 11° -->
+    <section class="plate p1">
+      <div class="skin" aria-hidden="true"></div>
+      <div class="rules-clip" aria-hidden="true"><div class="rules"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+      <div class="body">
+        <p class="kick mono">BATCH 26-11　·　S-01—S-05　·　只做手冲</p>
+        <h1>五个产区<br>一条线</h1>
+        <p class="lede">五支豆子共用一条冲煮线：同一套水温梯度、同一段注水节奏，只换研磨度。每周二、周五各烘一次，当批余量与报价写在编号后面。不做在线支付。</p>
+        <a class="cta" href="#wechat">加微信问价　coffee_11d</a>
+      </div>
+    </section>
+
+    <!-- 第二块：3fr（最窄），高 64%，再沉 16px，倾 7° -->
+    <section class="plate p2">
+      <div class="skin" aria-hidden="true"></div>
+      <div class="rules-clip" aria-hidden="true"><div class="rules"><i></i><i></i><i></i></div></div>
+      <div class="body">
+        <p class="lbl mono">本批 / 26-11</p>
+        <dl class="stat">
+          <div><dt>产区</dt><dd class="num">5</dd></div>
+          <div><dt>烘焙</dt><dd class="num">2 次 / 周</dd></div>
+          <div><dt>余量</dt><dd class="num">3.35 kg</dd></div>
+          <div><dt>编号</dt><dd class="num">S-01—S-05</dd></div>
+        </dl>
+        <p class="mini mono">数字每日 08:00 复核一次</p>
+      </div>
+    </section>
+
+    <!-- 第三块：4fr，高 80%，倾 4° -->
+    <section class="plate p3">
+      <div class="skin" aria-hidden="true"></div>
+      <div class="rules-clip" aria-hidden="true"><div class="rules"><i></i><i></i><i></i><i></i></div></div>
+      <div class="body">
+        <p class="lbl mono">两组对照 / 三区</p>
+        <h2>A 组排豆单<br>B 组排冲煮</h2>
+        <ul class="pairs">
+          <li><span class="mono">A</span><span>产区对照</span><span class="num">5 对</span></li>
+          <li><span class="mono">B</span><span>冲煮对照</span><span class="num">3 对</span></li>
+        </ul>
+        <p class="mini">三区的高低、斜角与套色错位由这两组数一起给出；换一批豆，三块同时重排。</p>
+        <span class="dot" aria-hidden="true"></span>
+      </div>
+    </section>
+
+  </div>
+</header>
+
+<!-- ================= 两组对照 ================= -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="kick mono">对照 / DATA</p>
+      <h2>先看两组数</h2>
+      <p class="note">A 组是同一支豆在两个批次上的对照，B 组是同一支粉在两套参数上的对照。豆单照 A 组排，冲煮照 B 组排；数变了，三块版一起重排。</p>
+    </div>
+
+    <div class="ledger-grid">
+      <div class="set">
+        <p class="set-cap mono">A 组 · 产区对照（甜感 0—5）</p>
+        <table>
+          <thead>
+            <tr><th>编号</th><th>产区</th><th class="n">本周批</th><th class="n">上周批</th><th class="n">差</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="n">S-01</td><td>耶加雪菲</td><td class="n">4.6</td><td class="n">4.2</td><td class="n">+0.4</td></tr>
+            <tr><td class="n">S-02</td><td>涅里</td><td class="n">4.1</td><td class="n">4.1</td><td class="n">±0</td></tr>
+            <tr><td class="n">S-03</td><td>惠兰</td><td class="n">4.4</td><td class="n">3.9</td><td class="n">+0.5</td></tr>
+            <tr><td class="n">S-04</td><td>塔拉珠</td><td class="n">4.8</td><td class="n">4.6</td><td class="n">+0.2</td></tr>
+            <tr><td class="n">S-05</td><td>波奎特</td><td class="n">4.9</td><td class="n">4.3</td><td class="n">+0.6</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="set">
+        <p class="set-cap mono">B 组 · 冲煮对照</p>
+        <table>
+          <thead>
+            <tr><th>参数</th><th class="n">常规</th><th class="n">本店</th><th class="n">差</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>水温</td><td class="n">92 ℃</td><td class="n">94 ℃</td><td class="n">+2 ℃</td></tr>
+            <tr><td>粉水比</td><td class="n">1 : 12</td><td class="n">1 : 15</td><td class="n">+3</td></tr>
+            <tr><td>闷蒸</td><td class="n">30 s</td><td class="n">45 s</td><td class="n">+15 s</td></tr>
+            <tr><td>总时长</td><td class="n">2:20</td><td class="n">3:10</td><td class="n">+50 s</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 豆单 ================= -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="kick mono">豆单 / S-01—S-05</p>
+      <h2>五个产区，五个批次</h2>
+      <p class="note">余量写到克，卖完不补。下面是 15g 的参考价，当批报价以微信回你的为准。编号与首屏同一串。</p>
+    </div>
+
+    <article class="bean b1">
+      <figure>
+        <img class="slot s1" src="images/占位-1.jpg" width="1000" height="1250" alt="耶加雪菲科契尔水洗豆近景">
+      </figure>
+      <div>
+        <p class="no mono">S-01</p>
+        <h3>埃塞俄比亚 · 耶加雪菲 · 科契尔</h3>
+        <p class="meta mono">水洗 / 2,050 m / 11-03 烘</p>
+        <p class="flav">柠檬皮、白花、蜂蜜收口。冷下来酸质变清楚，是这五支里最干净的一支。</p>
+        <p class="stock mono"><span>余量 820 g</span><span class="num">¥58 / 15g</span></p>
+      </div>
+    </article>
+
+    <article class="bean b2">
+      <div>
+        <p class="no mono">S-02</p>
+        <h3>肯尼亚 · 涅里 · 加图博亚 AA</h3>
+        <p class="meta mono">水洗 / 1,750 m / 11-01 烘</p>
+        <p class="flav">黑加仑、番茄皮、尾段偏咸鲜。水温压到 92 ℃ 会更稳，别冲太细。</p>
+        <p class="stock mono"><span>余量 640 g</span><span class="num">¥62 / 15g</span></p>
+      </div>
+      <figure>
+        <img class="slot s2" src="images/占位-2.jpg" width="1200" height="800" alt="涅里加图博亚 AA 水洗豆摊在筛网上">
+      </figure>
+    </article>
+
+    <article class="bean b3">
+      <figure>
+        <img class="slot s3" src="images/占位-3.jpg" width="1600" height="900" alt="惠兰圣阿古斯丁厌氧日晒的晾晒棚">
+      </figure>
+      <div class="b3-strip">
+        <p class="no mono">S-03</p>
+        <h3>哥伦比亚 · 惠兰 · 圣阿古斯丁</h3>
+        <p class="num mono">¥54 / 15g</p>
+      </div>
+      <p class="flav mono">厌氧日晒 / 1,900 m / 11-02 烘 / 余量 1,180 g　——　红李、可可、尾段一点酒渍樱桃，甜度高，适合当口粮。</p>
+    </article>
+
+    <article class="bean b4">
+      <div class="rail"><p class="no mono">S-04</p></div>
+      <figure>
+        <img class="slot s4" src="images/占位-4.jpg" width="900" height="1350" alt="塔拉珠圣何塞黑蜜处理豆的特写">
+      </figure>
+      <div>
+        <h3>哥斯达黎加 · 塔拉珠 · 圣何塞</h3>
+        <p class="meta mono">黑蜜 / 1,850 m / 11-03 烘</p>
+        <p class="flav">红糖、杏、冷却后有焦糖的黏度。这支只剩两个批次，480 g。</p>
+        <p class="stock mono"><span>余量 480 g</span><span class="num">¥66 / 15g</span></p>
+      </div>
+    </article>
+
+    <article class="bean b5">
+      <figure>
+        <img class="slot s5" src="images/占位-5.jpg" width="1250" height="1000" alt="波奎特埃斯梅拉达日晒豆的称重台">
+      </figure>
+      <div>
+        <p class="no mono">S-05</p>
+        <h3>巴拿马 · 波奎特 · 埃斯梅拉达</h3>
+        <p class="meta mono">日晒 / 1,600 m / 11-04 烘</p>
+        <p class="flav">茉莉、佛手柑、尾段很长的花香。这一批只到 210 g，按编号回价，先问先得。</p>
+      </div>
+      <div class="price">
+        <span class="num">¥128</span>
+        <span class="unit mono">/ 15g<br>余 210 g</span>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ================= 冲煮 ================= -->
+<section class="sec">
+  <div class="wrap">
+    <div class="brew-grid">
+      <div>
+        <p class="kick mono">冲煮 / B 组</p>
+        <h2>一条冲煮线</h2>
+        <p class="note">同一支粉只换研磨。水温 94 ℃ 起，按产区下调 2 ℃；粉水比固定 1:15；三段注水，总时长 3:10。表里是本店的数，左边一列是常规做法。</p>
+        <table class="brew-t">
+          <thead>
+            <tr><th>段</th><th class="n">水量</th><th class="n">时间</th><th class="n">累计</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>闷蒸</td><td class="n">45 g</td><td class="n">0:45</td><td class="n">45 g</td></tr>
+            <tr><td>一段</td><td class="n">105 g</td><td class="n">1:20</td><td class="n">150 g</td></tr>
+            <tr><td>二段</td><td class="n">75 g</td><td class="n">2:30</td><td class="n">225 g</td></tr>
+            <tr><td>收尾</td><td class="n">15 g</td><td class="n">3:10</td><td class="n">240 g</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <figure>
+        <img class="slot s6" src="images/占位-6.jpg" width="1400" height="800" alt="手冲台上并排的三支滤杯与温度计">
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 订豆 ================= -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="kick mono">订豆 / 三步</p>
+      <h2>三步，一条微信</h2>
+      <p class="note">不做在线支付，也不开小程序。从问到喝，中间只隔一条微信。</p>
+    </div>
+
+    <div class="steps">
+      <div class="step st1">
+        <p class="no mono">01</p>
+        <h3>加微信</h3>
+        <p>加 coffee_11d，报编号 S-01 到 S-05。只说编号就行，不用描述风味。</p>
+      </div>
+      <div class="step st2">
+        <p class="no mono">02</p>
+        <h3>回参数</h3>
+        <p>我们回你这批的烘焙日、余量、报价，以及建议的水温。</p>
+      </div>
+      <div class="step st3">
+        <p class="no mono">03</p>
+        <h3>到店取</h3>
+        <p>到店取或同城送，现场付款。豆子按你报的编号现称，袋上写烘焙日。</p>
+      </div>
+    </div>
+
+    <figure class="order-fig">
+      <img class="slot s7" src="images/占位-7.jpg" width="1000" height="600" alt="吧台上的纸袋与手写编号标签">
+    </figure>
+  </div>
+</section>
+
+<!-- ================= 页脚 ================= -->
+<footer class="foot" id="wechat">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <p class="kick mono">十一度手冲 / 11° POUR-OVER</p>
+        <p class="foot-big">五个产区，一条线。</p>
+      </div>
+      <div>
+        <p class="mono">编号 S-01—S-05 · 批次 26-11</p>
+        <p class="mono">微信 coffee_11d</p>
+        <p class="mono">静安 · 昌平路 26 号 一层</p>
+        <p class="mono">08:00—18:00 · 周一休</p>
+      </div>
+    </div>
+    <div class="foot-note">
+      <p class="mono">不做在线支付。本页编号与首屏同一串：S-01—S-05；当批数据每日 08:00 复核。</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

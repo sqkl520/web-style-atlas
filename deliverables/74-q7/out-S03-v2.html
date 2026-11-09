@@ -325,7 +325,7 @@ button{border-radius:0}
   align-items:center;
   justify-content:center;
   text-align:center;
-  padding:56px 90px;
+  padding:56px 70px;
   border:0;
 }
 .band .ph + .ph{margin-top:8px;border-top:1.2px solid var(--rule)}
@@ -403,7 +403,7 @@ button{border-radius:0}
 
 /* 01：图左文右，300 + 224 */
 .e1 .split{display:grid;grid-template-columns:224px 300px;gap:0}
-.e1 .split .ph{width:224px;height:112px;margin-top:24px;max-width:100%}
+.e1 .split .ph{width:224px;height:140px;margin-top:24px;max-width:100%}
 .e1 .split .col2{padding:22px 24px 0 0}
 
 /* 02：通栏图 + 三列读数 */
@@ -421,12 +421,12 @@ button{border-radius:0}
 
 /* 03：文 320 + 图 204 */
 .e3 .duo{display:grid;grid-template-columns:300px 204px;gap:0;margin-top:20px}
-.e3 .duo .ph{width:204px;height:102px;margin-top:34px}
+.e3 .duo .ph{width:204px;height:136px;margin-top:30px}
 .e3 .duo .t{padding-right:20px}
 
 /* 04：通栏图 + 错移说明块 */
 .e4 .stack{position:relative;margin-top:20px;padding-bottom:56px}
-.e4 .ph.full{width:524px;height:262px}
+.e4 .ph.full{width:524px;height:294px}
 .e4 .slab{
   position:absolute;
   left:0;bottom:0;
@@ -440,7 +440,7 @@ button{border-radius:0}
 
 /* 05：文在上，图右移 */
 .e5 .e-body{padding-bottom:0}
-.e5 .ph.off{width:360px;height:180px;margin:18px 0 30px 164px}
+.e5 .ph.off{width:360px;height:240px;margin:18px 0 30px 164px}
 
 /* ---------- 读数卡（540 轨） ---------- */
 .spec{
@@ -599,7 +599,7 @@ button{border-radius:0}
 .closing .wx span{font-size:var(--fs-1);letter-spacing:.2em;color:var(--tape)}
 
 .cimg{padding-top:34px;margin:0 -28px 0 -26px}
-.cimg .ph{width:540px;height:270px}
+.cimg .ph{width:540px;height:304px}
 .cimg .cap{
   display:flex;justify-content:space-between;gap:12px;
   font-family:var(--mono);font-size:var(--fs-1);letter-spacing:.12em;color:var(--tape);
@@ -638,19 +638,18 @@ button{border-radius:0}
 .foot-in .f3{padding-left:26px}
 .foot-in b{color:var(--paper);font-weight:400}
 
-/* ---------- 四角遮罩：压在影像带四角，各压掉 32%（32% × 32%），纯不透明，无渐变 ---------- */
+/* ---------- 四角遮罩：四角各压掉 32%（臂长 = 影像带宽高的 32%），1.2px 实色，无阴影无渐变 ---------- */
 .cmask{
   position:absolute;
   width:32%;height:32%;
-  background:var(--panel-2);
   z-index:3;
   pointer-events:none;
-  border:0 solid var(--rule);
+  border:0 solid var(--paper);
 }
-.cmask.tl{top:0;left:0;border-right-width:1.2px;border-bottom-width:1.2px}
-.cmask.tr{top:0;right:0;border-left-width:1.2px;border-bottom-width:1.2px}
-.cmask.bl{bottom:0;left:0;border-right-width:1.2px;border-top-width:1.2px}
-.cmask.br{bottom:0;right:0;border-left-width:1.2px;border-top-width:1.2px}
+.cmask.tl{top:0;left:0;border-left-width:1.2px;border-top-width:1.2px}
+.cmask.tr{top:0;right:0;border-right-width:1.2px;border-top-width:1.2px}
+.cmask.bl{bottom:0;left:0;border-left-width:1.2px;border-bottom-width:1.2px}
+.cmask.br{bottom:0;right:0;border-right-width:1.2px;border-bottom-width:1.2px}
 
 /* ---------- 移动端：单列，顺序不变 ---------- */
 @media (max-width:1399px){
@@ -690,11 +689,20 @@ button{border-radius:0}
   .e-body{padding:20px 0 26px}
   .e-h2{font-size:26px}
   .e1 .split,.e3 .duo{grid-template-columns:1fr}
-  .e1 .split .ph,.e3 .duo .ph{width:100%;height:auto;aspect-ratio:2/1;margin-top:16px}
+  .e1 .split .ph,.e3 .duo .ph{width:100%;height:auto;margin-top:16px}
+  .e1 .split .ph{aspect-ratio:224/140}
+  .e3 .duo .ph{aspect-ratio:204/136}
   .e1 .split .col2{padding:18px 0 0}
   .e3 .duo .t{padding-right:0}
-  .e2 .ph.full,.e4 .ph.full,.e5 .ph.off,.cimg .ph{width:100%;height:auto;aspect-ratio:2/1}
-  .e5 .ph.off{margin-left:0}
+  .e2 .ph.full,.e4 .ph.full,.e5 .ph.off,.cimg .ph{width:100%;height:auto}
+  .e2 .ph.full{aspect-ratio:524/262}
+  .e4 .ph.full{aspect-ratio:524/294}
+  .e5 .ph.off{aspect-ratio:360/240}
+  .cimg .ph{aspect-ratio:540/304}
+  .e5 .ph.off{margin-left:0;margin-bottom:0}
+  .cimg{margin:0}
+  .cimg .cap{padding:8px 0 0}
+  .cfoot{margin:0}
   .e4 .slab{position:static;width:auto;margin-top:14px}
   .e4 .stack{padding-bottom:0}
   .e2 .trio{grid-template-columns:1fr 1fr}
@@ -707,7 +715,7 @@ button{border-radius:0}
   .s4 .strip{grid-template-columns:1fr 1fr}
   .s4 .strip div:nth-child(3){border-left:0;border-top:1px solid var(--rule)}
   .s4 .strip div:nth-child(4){border-top:1px solid var(--rule)}
-  .foot-in{grid-template-columns:1fr;gap:6px}
+  .foot-in{width:auto;max-width:none;grid-template-columns:1fr;gap:6px}
   .foot-in .f1,.foot-in .f2,.foot-in .f3{padding-left:0}
   .corners .c{width:26vw;height:26vh}
 }
@@ -814,7 +822,7 @@ button{border-radius:0}
     <div class="mid">
       <div class="e-no"><span>产区 01 / 哥伦比亚</span><b>K-05-264 · 01</b></div>
       <div class="split">
-        <img class="ph" src="images/占位-3.jpg" width="224" height="112" alt="惠兰产区水洗豆，2024 年 10 月采收">
+        <img class="ph" src="images/占位-3.jpg" width="224" height="140" alt="惠兰产区水洗豆，2024 年 10 月采收">
         <div class="col2">
           <h2 class="e-h2">惠兰 · 圣安东尼奥</h2>
           <div class="e-sub">COLOMBIA HUILA / SAN ANTONIO</div>
@@ -888,7 +896,7 @@ button{border-radius:0}
           <div class="e-sub">ETHIOPIA YIRGACHEFFE / KOCHERE</div>
           <p class="e-p">十二月到港，原生种混采，筛网 15 目以上。这支最轻：92 °C，焖蒸 40 秒，之后两段注水。放凉到 45 °C 花香才清楚——<em>所以我建议你凉一点再喝，别急着趁热。</em></p>
         </div>
-        <img class="ph" src="images/占位-5.jpg" width="204" height="102" alt="科契尔筛网分选，15 目以上">
+        <img class="ph" src="images/占位-5.jpg" width="204" height="136" alt="科契尔筛网分选，15 目以上">
       </div>
     </div>
     <div class="card">
@@ -914,7 +922,7 @@ button{border-radius:0}
     <div class="mid">
       <div class="e-no"><span>产区 04 / 危地马拉</span><b>K-05-264 · 04</b></div>
       <div class="stack">
-        <img class="ph full" src="images/占位-6.jpg" width="524" height="262" alt="安提瓜火山土晒场，2025 年 1 月">
+        <img class="ph full" src="images/占位-6.jpg" width="524" height="294" alt="安提瓜火山土晒场，2025 年 1 月">
         <div class="slab">
           <span class="lbl">含水率 / MOISTURE</span>
           <p>今年的含水率比去年低 0.4 个百分点，烘焙拉到 4 级让甜感先出来，酸放到后面。91 °C，180 秒，到点断水。</p>
@@ -955,7 +963,7 @@ button{border-radius:0}
         <div class="e-sub">COSTA RICA TARRAZÚ / LOS SANTOS · HONEY</div>
         <p class="e-p">黑蜜处理，果胶留 60%，晒床上翻 18 天。这支最甜也最容易过萃：195 秒是上限，到点就断水，晚十秒就闷。90 °C，别再加温。</p>
       </div>
-      <img class="ph off" src="images/占位-7.jpg" width="360" height="180" alt="塔拉珠黑蜜晒床，果胶保留 60%">
+      <img class="ph off" src="images/占位-7.jpg" width="360" height="240" alt="塔拉珠黑蜜晒床，果胶保留 60%">
     </div>
     <div class="card">
       <div class="spec s5">
@@ -995,7 +1003,7 @@ button{border-radius:0}
     </div>
     <div class="card">
       <div class="cimg">
-        <img class="ph" src="images/占位-8.jpg" width="540" height="270" alt="吧台：五支豆罐与手冲壶，记录编号 K-05-264">
+        <img class="ph" src="images/占位-8.jpg" width="540" height="304" alt="吧台：五支豆罐与手冲壶，记录编号 K-05-264">
         <div class="cap"><span>吧台 / COUNTER</span><b>拍摄 2025-02-18</b></div>
       </div>
       <div class="cfoot">

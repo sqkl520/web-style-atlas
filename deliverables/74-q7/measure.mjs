@@ -143,16 +143,53 @@ export async function measure(file, { viewport = { width: 1440, height: 900 } } 
         if (v > 0 && cs.stroke !== 'rgba(0, 0, 0, 0)') strokes.add(v.toFixed(2));
       });
 
-      /* ⑤ 主色：全页 CSS 里出现的 hex 去重（不是"用了几个"，是"用了哪些"） */
+      /* ⑤ 主色：全页 CSS 里出现的 hex 去重（不是"用了几个"，是"用了哪些"）
+       *
+       * 扫描全站 CSS。**必须递归进 @media / @supports 等嵌套规则** ——
+       * 第一版只遍历顶层 rules，结果 S14（它的颜色大多写在媒体查询里）
+       * 读出来是空数组，而它其实是 9 色的案子。这种「读不到就当没有」的假阴性
+       * 会让「主色覆盖」判据对整案失效。 */
       const hexes = new Set();
-      for (const sheet of Array.from(document.styleSheets)) {
-        let rules; try { rules = sheet.cssRules; } catch { continue; }
-        if (!rules) continue;
-        for (const r of Array.from(rules)) {
+      const walkRules = (rules) => {
+        for (const r of Array.from(rules || [])) {
           const txt = r.cssText || '';
           for (const h of txt.matchAll(/#([0-9a-fA-F]{6})\\b/g)) hexes.add('#' + h[1].toUpperCase());
+          /* CSSStyleRule 的 cssText 已含其声明；只有分组规则（@media 等）才有子 rules */
+          if (r.style === undefined && r.cssRules) walkRules(r.cssRules);
         }
+      };
+      for (const sheet of Array.from(document.styleSheets)) {
+        let rules; try { rules = sheet.cssRules; } catch { continue; }
+        walkRules(rules);
       }
+      /* 补一路：从**计算样式**收集实际渲染出的颜色，转成 hex。
+       * 为什么需要：Chrome 在 cssText 里会把 background:#12181D 规范化成
+       * rgb(18, 24, 29)，正则抓不到 hex。S14 整个案子因此读出 0 个色 ——
+       * 而它其实是 9 色的案子，只是颜色全被规范化了。
+       * 这一路保证「页面上真的显示出来的颜色」一定被算进去。 */
+      /* 把 rgb()/rgba() 转成 hex。
+       * ⚠️ 刻意**不用正则**：这段代码整体在模板字符串里，正则里的 \d \s 必须双写，
+       * 而本文件已经因为这个坑坏过三次（split(/\s+/)、split(/\s+/)、rgbToHex）。
+       * 用字符串切割彻底绕开转义层数问题 —— 代价是可读性略差，收益是它不会再坏。 */
+      const rgbToHex = (s) => {
+        const str = String(s);
+        if (str.indexOf('rgb') !== 0) return null;
+        const open = str.indexOf('(');
+        const close = str.indexOf(')');
+        if (open < 0 || close < 0) return null;
+        const nums = str.slice(open + 1, close).split(',').map((x) => parseInt(x.trim(), 10));
+        if (nums.length < 3 || nums.slice(0, 3).some((n) => !Number.isFinite(n))) return null;
+        return '#' + nums.slice(0, 3).map((n) => Math.max(0, Math.min(255, n)).toString(16).padStart(2, '0')).join('').toUpperCase();
+      };
+      document.querySelectorAll('body, body *').forEach((el) => {
+        const cs = getComputedStyle(el);
+        for (const prop of ['color', 'backgroundColor', 'borderTopColor', 'borderBottomColor', 'outlineColor', 'fill', 'stroke']) {
+          const h = rgbToHex(cs[prop]);
+          if (h && h !== '#000000' || (h === '#000000' && cs[prop] === 'rgb(0, 0, 0)')) {
+            if (h) hexes.add(h);
+          }
+        }
+      });
 
       /* ⑥ 图片位：数量与"可见面积 > 0"的张数 */
       const imgs = Array.from(document.querySelectorAll('img'));
