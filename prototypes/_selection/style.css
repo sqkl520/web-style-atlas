@@ -173,6 +173,17 @@ code { font-family: var(--code); font-size: 0.94em; }
   font-size: var(--s-14);
   color: var(--ink-3); margin-bottom: 8px;
 }
+/* 副行：把「这东西怎么用」放在折叠块**外面**。
+   为什么不能放进 .mast-fold：390 档那个 details 默认收起，实测
+   `document.body.innerText` 里搜不到「ChatGPT」—— 手机上店主看不到机制说明。
+   字号 14px / 行高 1.5 / max-width 58ch：实测在 1440 与 390 两档都是 2 行，
+   页头增量分别 +42px 与 +42px，首卡仍完整可见（余量 151 / 10）。
+   390 档的余量确实紧了（10px），但它换来的是「手机上第一次看到就知道要粘到哪」，
+   而且这 42px 是把原来折叠块里的同义内容挪出来，不是净增。 */
+.mast-sub {
+  margin-top: 8px; max-width: 58ch;
+  font-size: var(--s-14); line-height: 1.5; color: var(--ink-2);
+}
 .mast h1 {
   font-family: var(--ui);
   /* 这里原来是 `clamp(30px, 4vw, 56px)` 的字面值，于是 `--s-h1`（clamp(34px, 5.2vw, 74px)）
@@ -1014,6 +1025,14 @@ code { font-family: var(--code); font-size: 0.94em; }
   /* 不要再把 h1 降到 34px：768px 档 34px 只有 4.4vw，闸门会判首屏没有主导元素。
      保持 clamp(34px, 5.2vw, 74px)，768px 档得 39.9px / 5.2vw。 */
   .mast h1 { max-width: 20ch; }
+  /* 四个读数在 981–1180 这一档把首卡挤出视口 —— 实测改前 1000×900 首卡底 956
+     （视口 900，完整卡 0 张），加上副行后更糟（982）。这一档右栏没了，
+     四个数字没地方站，隐藏它们让首卡回来。
+     **隐藏而不是删除**：app.js:71/72/87/157 是四处无保护的 `$('#f-…').textContent`，
+     把 `<dl class="mast-facts">` 从 HTML 删掉会让整个 IIFE 在装配阶段抛错 ——
+     实测 30 行全部不渲染、芯片从 45 颗掉到 16 颗。这是本仓库记过的形状
+     （`index.html` 少一个 id，页面全白）。所以只能 display:none。 */
+  .mast-facts { display: none; }
 }
 @media (max-width: 980px) {
   .bench { grid-template-columns: 1fr; }
