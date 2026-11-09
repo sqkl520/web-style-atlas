@@ -1,0 +1,120 @@
+# 闸门流水线（2026-11-04 新增，W5）
+#
+# 设计原则：**只有「红了就说明产品坏了」的闸门才阻塞合并。**
+# 这个仓库有过「闸门红着但没人该管」的先例（verify-prototype 因 S08 的两条
+# 已豁免 FAIL 而永久 exit 1），把那种闸门设成阻塞项，等于训练所有人无视红灯。
+#
+# 三个 job：
+#   static  —— 8 个不碰浏览器的闸门，全硬失败
+#   browser —— 运行时探针（probe-ui.mjs），硬失败
+#   advisory—— verify-prototype（设计上永久 exit 1）与陈旧度，只报不拦
+name: gates
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  static:
+    name: 静态闸门
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # check-stale-git 要读每个文件的最后 commit 时间
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'   # vendor/cdp.mjs 用内置 WebSocket，需 Node 22+
+
+      - name: check-stale-git（陈旧度，commit 判据）
+        run: node prototypes/_build/check-stale-git.mjs
+
+      - name: check-docs（README ↔ 数据）
+        run: node prototypes/_build/check-docs.mjs
+
+      - name: check-anchors（死锚点）
+        run: node prototypes/_build/check-anchors.mjs
+
+      - name: check-texture（纹理载体）
+        run: node prototypes/_build/check-texture.mjs
+
+      - name: check-prompts（提示词 ↔ CSS，含机制句数值）
+        run: node prototypes/_build/check-prompts.mjs
+
+      - name: check-twolines（两条数据链）
+        run: node prototypes/_build/check-twolines.mjs
+
+      - name: check-contract（FAIL ⊆ §9.15 允许表）
+        run: node prototypes/_build/check-contract.mjs
+
+      - name: check-ui-copy（选型台界面文案）
+        run: node prototypes/_build/check-ui-copy.mjs
+
+      - name: collect-schemes --check（数据完整性，不写盘）
+        run: node prototypes/_build/collect-schemes.mjs --check
+
+      - name: 闸门自检（selftest，证明闸门不是恒真）
+        run: node prototypes/_build/check-docs.mjs --selftest
+
+  browser:
+    name: 运行时探针
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # ubuntu-latest 自带 Chrome，但版本可能过旧；显式装一个稳定的。
+      - name: 确认 Chrome
+        run: |
+          set -e
+          if command -v google-chrome >/dev/null 2>&1; then
+            google-chrome --version
+          else
+            sudo apt-get update
+            sudo apt-get install -y google-chrome-stable
+          fi
+          # findChrome() 会依次找这些路径，确认至少有一个在
+          for p in /usr/bin/google-chrome /usr/bin/google-chrome-stable /usr/bin/chromium /usr/bin/chromium-browser; do
+            [ -x "$p" ] && echo "found: $p" && exit 0
+          done
+          echo "no chrome found in any known path" >&2
+          exit 1
+
+      - name: probe-ui（8 条断言，真点击 / 真按键）
+        run: node prototypes/_build/probe-ui.mjs
+
+      - name: probe-ui 自检（把 7 个缺陷装回去，确认断言会红）
+        run: node prototypes/_build/probe-ui.mjs --selftest
+
+  advisory:
+    name: 参考项（不阻塞）
+    runs-on: ubuntu-latest
+    # 这些闸门红了不代表产品坏了：
+    #   · verify-prototype 因 S08 两条已豁免的 FAIL 永久 exit 1
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # check-stale-git 需要完整历史来读每个文件的最后 commit 时间
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: check-stale-git（commit 判据，CI 上唯一有意义的那种）
+        run: node prototypes/_build/check-stale-git.mjs
+
+      - name: verify-prototype（29/30 是设计上的正常值）
+        run: node prototypes/_build/verify-prototype.mjs --all || true
+
+      - name: 汇总说明
+        if: always()
+        run: |
+          echo "::notice::verify-prototype 报 29/30 且 exit 1 是已知状态（S08 的两条 FAIL 在 _CONTRACT.md §9.15 允许表内）。"
+          echo "::notice::陈旧度用 check-stale-git.mjs（比 commit 时间）。开发机的 check-stale.mjs 比 mtime，在 CI 上必然全假。"

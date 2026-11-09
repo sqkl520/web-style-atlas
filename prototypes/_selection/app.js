@@ -1732,6 +1732,13 @@
       var k = nodes[i].getAttribute('data-derived');
       if (vals[k] === undefined || !vals[k]) continue;
       nodes[i].textContent = String(vals[k]);
+      /* ⚠️ 这个标记不是为了样式，是为了让闸门能区分「算出来的」和「HTML 里的兜底值」。
+       * 起因：一个变异审计实测出一个假绿 —— 把 fillDerived() 插一个 throw（数字退回兜底），
+       * 再把兜底值「顺手更新成正确值」（11→10、45→73），probe-ui 的 chip-count 断言
+       * 报 8 PASS / 0 FAIL，而页面上的数字根本不是算出来的。
+       * 有了 data-filled，闸门可以先问「跑过没有」再问「对不对」——
+       * 顺序不能反：兜底值恰好正确时，只比数字必然给出假绿。 */
+      nodes[i].setAttribute('data-filled', '1');
     }
   }
   window.benchFillDerived = fillDerived;
