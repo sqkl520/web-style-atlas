@@ -320,7 +320,7 @@ h1 .l2{
   font-family: var(--mono);
   font-variant-numeric: tabular-nums;
   font-size: var(--fs-xs);
-  line-height: 24px;
+  line-height: var(--lh);
   text-align: right;
   color: var(--ink-deep);
 }
@@ -399,7 +399,7 @@ h1 .l2{
   display: flex;
   justify-content: space-between;
   gap: 12px;
-  line-height: 24px;                /* 行高 24px */
+  line-height: var(--lh);                /* 行高 24px */
   border-bottom: 0.5px solid var(--rule);
   font-size: var(--fs-xs);
 }
@@ -409,7 +409,7 @@ h1 .l2{
 .stub-amount{
   margin-top: 10px;
   font-size: var(--fs-xs);
-  line-height: 24px;
+  line-height: var(--lh);
   display: flex;
   justify-content: space-between;
   gap: 12px;
@@ -572,7 +572,7 @@ h1 .l2{
   gap: 16px;
   border-bottom: 0.5px solid var(--rule);
   font-size: var(--fs-xs);
-  line-height: 24px;
+  line-height: var(--lh);
 }
 .pay-pairs dt{ color: var(--ink); }
 .pay-pairs dd{ color: var(--ink-deep); text-align: right; }
@@ -590,7 +590,7 @@ h1 .l2{
 .close-left{
   padding: 0 22px;
   font-size: var(--fs-xs);
-  line-height: 24px;
+  line-height: var(--lh);
   color: var(--ink);
   letter-spacing: .03em;
 }
@@ -608,7 +608,7 @@ h1 .l2{
   align-items: baseline;
   gap: 16px;
   padding: 8px 26px 8px 0;
-  line-height: 24px;                /* 行高 24px */
+  line-height: var(--lh);                /* 行高 24px */
 }
 .close-label{
   font-size: var(--fs-xs);
@@ -621,7 +621,7 @@ h1 .l2{
   text-align: right;           /* 右对齐 + 固定两位小数 → 小数点同一条竖线 */
   white-space: nowrap;
   font-size: var(--fs-body);
-  line-height: 24px;
+  line-height: var(--lh);
   color: var(--ink-deep);
 }
 .cur{
@@ -648,7 +648,7 @@ h1 .l2{
 }
 .ledger-stub p{
   font-size: var(--fs-sm);
-  line-height: 24px;
+  line-height: var(--lh);
   margin-top: 8px;
   color: var(--ink);
 }
@@ -674,7 +674,7 @@ h1 .l2{
 }
 .sums dt{
   font-size: var(--fs-sm);
-  line-height: 24px;
+  line-height: var(--lh);
   color: var(--ink);
 }
 .sums dd{
@@ -770,7 +770,7 @@ h1 .l2{
   gap: 16px;
   border-bottom: 0.5px solid var(--rule);
   font-size: var(--fs-xs);
-  line-height: 24px;
+  line-height: var(--lh);
 }
 .plate-note dt{ color: var(--ink); }
 .plate-note dd{ color: var(--ink-deep); text-align: right; }
@@ -797,7 +797,7 @@ h1 .l2{
 }
 .terms-stub p{
   font-size: var(--fs-sm);
-  line-height: 24px;
+  line-height: var(--lh);
   margin-top: 10px;
 }
 .terms-perf{ align-self: stretch; }
@@ -814,13 +814,13 @@ h1 .l2{
 .term-list .tk{
   font-family: var(--mono);
   font-size: var(--fs-xs);
-  line-height: 24px;
+  line-height: var(--lh);
   color: var(--seal);
   letter-spacing: .06em;
 }
 .term-list p{
   font-size: var(--fs-sm);
-  line-height: 24px;
+  line-height: var(--lh);
 }
 .term-list b{ font-weight: 700; color: var(--ink-deep); }
 
@@ -850,7 +850,7 @@ h1 .l2{
   display: block;
   font-family: var(--serif-title);
   font-size: var(--fs-sm);
-  line-height: 24px;
+  line-height: var(--lh);
   color: var(--ink-deep);
 }
 
@@ -895,7 +895,7 @@ h1 .l2{
 }
 .foot-sub{
   font-size: var(--fs-sm);
-  line-height: 24px;
+  line-height: var(--lh);
   margin-top: 2px;
   color: var(--ink);
 }
@@ -1015,7 +1015,7 @@ h1 .l2{
   .steps > li:nth-child(2){ border-right: 0; }
 
   .sums > div{ grid-template-columns: minmax(0, 1fr) 88px; gap: 12px; }
-  .sums dd{ font-size: var(--fs-sm); line-height: 24px; letter-spacing: 0; }
+  .sums dd{ font-size: var(--fs-sm); line-height: var(--lh); letter-spacing: 0; }
   .sums .total dt{ font-size: var(--fs-xs); line-height: 22px; }
   .sums .total dd{ font-size: var(--fs-4); }
   .ledger-foot{ grid-template-columns: 1fr; }
