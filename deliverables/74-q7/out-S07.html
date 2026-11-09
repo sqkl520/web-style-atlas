@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>澄流 · 手冲咖啡｜产地档案 第 47 期</title>
+<meta name="description" content="澄流只做手冲，五个产区的豆子。第 47 期产地档案：采收年份、处理法、杯测记录、每批余量。加微信 chengliu_drip 订货，不做在线支付。">
+<style>
+:root{
+  --slate:#33505C;
+  --paper:#E7E7E0;
+  --ink:#1C1A16;
+  --deckle:#9A9384;
+  --display:'Libre Franklin','WenJin Mincho','文津宋体','Source Han Serif SC','Songti SC','SimSun','Noto Serif CJK SC',serif;
+  --text:'Newsreader','WenJin Mincho','文津宋体','Source Han Serif SC','Songti SC','SimSun','Noto Serif CJK SC',serif;
+  --mono:'IBM Plex Mono','Courier New','Nimbus Mono PS',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;border-radius:0;box-shadow:none}
+html{background:var(--paper);color:var(--ink);font-family:var(--text);font-size:16px}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--text);
+  font-size:16px;
+  line-height:1.72;
+  font-variant-numeric:tabular-nums;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+h1,h2,h3,p,figure,blockquote,dl,dd,ol,ul{margin:0}
+ul,ol{padding:0;list-style:none}
+table{border-collapse:collapse;width:100%}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+
+/* ---------- 版心：正反两面同一张纸 ---------- */
+.sheet{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  max-width:1280px;
+  margin:0 auto;
+  background:var(--paper);
+  border:0.5px solid var(--deckle);
+}
+.verso{
+  position:absolute;
+  inset:0;
+  z-index:1;
+  transform:scaleX(-1) translateX(-1px);
+  transform-origin:50% 50%;
+  opacity:.08;
+  pointer-events:none;
+  user-select:none;
+}
+.verso img{visibility:hidden}
+.front{position:relative;z-index:2}
+
+/* ---------- 报头 ---------- */
+.masthead{
+  display:grid;
+  grid-template-columns:1fr auto;
+  align-items:end;
+  gap:0 40px;
+  padding:30px 34px 20px;
+}
+.kicker{
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:.22em;
+  line-height:1.6;
+}
+.nameplate{
+  font-family:var(--display);
+  font-size:78px;
+  line-height:.94;
+  font-weight:600;
+  letter-spacing:.06em;
+  margin-top:6px;
+}
+.latin{
+  font-family:var(--mono);
+  font-size:10.5px;
+  letter-spacing:.28em;
+  line-height:1.7;
+  margin-top:12px;
+}
+.mast-note{
+  font-size:13px;
+  line-height:1.7;
+  letter-spacing:.02em;
+  margin-top:6px;
+}
+.mast-side{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  width:280px;
+  max-width:100%;
+}
+.edition{padding-top:2px}
+.ed-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  gap:10px;
+  padding:4px 0;
+  border-top:0.5px solid var(--deckle);
+  font-family:var(--mono);
+  font-size:10.5px;
+  letter-spacing:.08em;
+}
+.ed-row dt{font-weight:400}
+.ed-row dd{text-align:right;font-variant-numeric:tabular-nums}
+.action{
+  display:block;
+  background:var(--slate);
+  color:var(--paper);
+  font-family:var(--display);
+  font-size:16px;
+  font-weight:600;
+  letter-spacing:.16em;
+  text-align:center;
+  padding:13px 10px;
+}
+.action-id{
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:.12em;
+  text-align:center;
+}
+.rule{height:0;border-top:1px solid var(--ink)}
+.rule--2{border-top-width:2px}
+
+/* ---------- 跨页：左窄右宽 5:7 ---------- */
+.spread{display:grid;grid-template-columns:5fr 7fr;align-items:stretch}
+.page{position:relative;min-width:0}
+.page--l{padding:26px 26px 30px 48px;border-right:2px solid var(--deckle)}
+.page--r{padding:26px 48px 30px 26px}
+.folio{
+  position:absolute;
+  top:26px;
+  left:12px;
+  writing-mode:vertical-rl;
+  line-height:28px;
+  white-space:nowrap;
+  font-family:var(--mono);
+  font-size:13px;
+  letter-spacing:.1em;
+}
+.folio--r{left:auto;right:12px}
+
+.part-h{
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:.2em;
+  line-height:1.6;
+  padding-bottom:8px;
+  border-bottom:1px solid var(--ink);
+  margin-bottom:18px;
+}
+.sec-title{
+  font-family:var(--display);
+  font-size:46px;
+  line-height:1.06;
+  font-weight:600;
+  letter-spacing:.04em;
+  margin-top:8px;
+}
+.sec-meta{
+  font-family:var(--mono);
+  font-size:10.5px;
+  letter-spacing:.1em;
+  line-height:1.7;
+  margin-top:12px;
+  padding-bottom:14px;
+  border-bottom:2px solid var(--ink);
+  margin-bottom:20px;
+}
+
+/* ---------- 栏 ---------- */
+.cols{display:grid}
+.page--l .cols{grid-template-columns:1.06fr .94fr}
+.page--r .cols{grid-template-columns:1.12fr .94fr .96fr}
+.col{
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+  padding-right:18px;
+}
+.col:last-child{padding-right:0}
+.col + .col{border-left:0.5px solid var(--deckle);padding-left:18px}
+
+/* ---------- 图版 ---------- */
+.plate{border:0.5px solid var(--deckle)}
+.plate img{width:100%;height:auto;object-fit:cover;background:var(--paper)}
+.plate--4x5 img{aspect-ratio:4/5}
+.plate--3x2 img{aspect-ratio:3/2}
+.plate--3x4 img{aspect-ratio:3/4}
+.plate--5x3 img{aspect-ratio:5/3}
+.plate--4x3 img{aspect-ratio:4/3}
+.plate--1x1 img{aspect-ratio:1/1}
+.plate figcaption{
+  font-family:var(--mono);
+  font-size:10px;
+  line-height:1.65;
+  letter-spacing:.04em;
+  padding:6px 8px;
+  border-top:0.5px solid var(--deckle);
+}
+
+/* ---------- 数据表 ---------- */
+.data th,.data td{
+  padding:5px 0;
+  border-top:0.5px solid var(--deckle);
+  vertical-align:baseline;
+}
+.data th{
+  text-align:left;
+  font-weight:400;
+  font-family:var(--mono);
+  font-size:10.5px;
+  letter-spacing:.06em;
+  width:34%;
+}
+.data td{
+  text-align:right;
+  font-family:var(--mono);
+  font-size:12.5px;
+  letter-spacing:.02em;
+  font-variant-numeric:tabular-nums;
+}
+
+/* ---------- 条目 ---------- */
+.entry{border-top:1px solid var(--ink);padding-top:14px}
+.entry--lead{border-top:2px solid var(--ink)}
+.ident{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:baseline;
+  gap:2px 0;
+  font-family:var(--mono);
+  font-size:10.5px;
+  letter-spacing:.06em;
+  line-height:1.7;
+}
+.ident > span{padding-right:6px}
+.ident > span + span{border-left:0.5px solid var(--deckle);padding-left:6px}
+.ident > span:last-child{padding-right:0}
+.no{
+  background:var(--slate);
+  color:var(--paper);
+  font-family:var(--mono);
+  font-size:10px;
+  letter-spacing:.1em;
+  padding:2px 5px;
+}
+.e-title{
+  font-family:var(--display);
+  font-size:29px;
+  line-height:1.16;
+  font-weight:600;
+  letter-spacing:.02em;
+  margin-top:8px;
+  word-break:keep-all;
+  line-break:strict;
+  text-wrap:balance;
+}
+.e-title--sm{font-size:24px}
+.nowrap{white-space:nowrap}
+.e-latin{
+  font-family:var(--mono);
+  font-size:9.5px;
+  letter-spacing:.16em;
+  line-height:1.7;
+  margin-top:6px;
+}
+.cup{font-size:15px;line-height:1.78}
+.voice{
+  font-size:14.5px;
+  line-height:1.82;
+  border-left:2px solid var(--deckle);
+  padding-left:12px;
+}
+.voice--lead{border-left:0}
+
+.facts li{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  padding:5px 0;
+  border-top:0.5px solid var(--deckle);
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:.03em;
+  line-height:1.6;
+}
+.facts li b{font-weight:400;text-align:right}
+
+.notes li{
+  display:grid;
+  grid-template-columns:20px 1fr;
+  gap:8px;
+  padding:8px 0;
+  border-top:0.5px solid var(--deckle);
+  font-size:13.5px;
+  line-height:1.72;
+}
+.notes li span{
+  font-family:var(--mono);
+  font-size:10px;
+  padding-top:4px;
+}
+
+.price th,.price td{
+  padding:4px 0;
+  border-top:0.5px solid var(--deckle);
+  vertical-align:baseline;
+}
+.price th{
+  text-align:left;
+  font-weight:400;
+  font-family:var(--mono);
+  font-size:10.5px;
+  letter-spacing:.06em;
+  width:46%;
+}
+.price td{
+  text-align:right;
+  font-family:var(--mono);
+  font-size:20px;
+  letter-spacing:.02em;
+  font-variant-numeric:tabular-nums;
+}
+.price td i{font-style:normal;font-size:10px;letter-spacing:.06em;margin-left:5px}
+
+.price-line{
+  display:grid;
+  grid-template-columns:1fr auto;
+  align-items:baseline;
+  gap:0;
+  padding:6px 0 2px;
+  border-top:2px solid var(--ink);
+  border-bottom:0.5px solid var(--deckle);
+}
+.price-line dt,.price-line dd{
+  padding:3px 0;
+  font-family:var(--mono);
+  font-size:10.5px;
+  letter-spacing:.05em;
+  line-height:1.6;
+}
+.price-line dd{
+  text-align:right;
+  font-size:23px;
+  letter-spacing:.01em;
+  font-variant-numeric:tabular-nums;
+}
+
+.stock{
+  font-family:var(--mono);
+  font-size:10.5px;
+  line-height:1.7;
+  letter-spacing:.05em;
+  padding-top:6px;
+  border-top:1px solid var(--ink);
+}
+.stock b{font-weight:400}
+
+.calc{border:0.5px solid var(--ink);padding:10px 12px}
+.calc-h{
+  font-family:var(--mono);
+  font-size:10px;
+  letter-spacing:.2em;
+  line-height:1.6;
+}
+.calc-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  gap:8px;
+  margin-top:5px;
+  padding-top:5px;
+  border-top:0.5px solid var(--deckle);
+  font-size:12.5px;
+}
+.calc-row b{
+  font-family:var(--mono);
+  font-size:17px;
+  font-weight:400;
+  font-variant-numeric:tabular-nums;
+}
+
+.sub-h{
+  font-family:var(--mono);
+  font-size:10.5px;
+  letter-spacing:.2em;
+  line-height:1.6;
+  padding-bottom:6px;
+  border-bottom:1px solid var(--ink);
+}
+.lead{font-size:16px;line-height:1.8}
+.rules li{
+  display:grid;
+  grid-template-columns:22px 1fr;
+  gap:6px;
+  padding:6px 0;
+  border-top:0.5px solid var(--deckle);
+  font-size:13.5px;
+  line-height:1.72;
+}
+.rules li b{
+  font-family:var(--mono);
+  font-size:10px;
+  font-weight:400;
+  padding-top:4px;
+}
+.note-sm{
+  font-size:12px;
+  line-height:1.72;
+  border-top:0.5px solid var(--deckle);
+  padding-top:8px;
+}
+.next{border-top:0.5px solid var(--deckle);padding-top:10px}
+.next-k{
+  font-family:var(--mono);
+  font-size:10px;
+  letter-spacing:.2em;
+  line-height:1.7;
+  margin-bottom:4px;
+}
+.next p{font-size:13px;line-height:1.75}
+
+/* ---------- 版权页 ---------- */
+.colophon{
+  border-top:2px solid var(--ink);
+  padding:24px 34px 30px;
+  display:grid;
+  gap:16px;
+}
+.col-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  gap:20px;
+  flex-wrap:wrap;
+}
+.col-h{
+  font-family:var(--display);
+  font-size:22px;
+  font-weight:600;
+  letter-spacing:.04em;
+}
+.col-note{
+  font-family:var(--mono);
+  font-size:10.5px;
+  letter-spacing:.08em;
+}
+.col-grid{
+  display:grid;
+  grid-template-columns:1fr 290px 150px;
+  gap:0 32px;
+  align-items:start;
+}
+.index{font-family:var(--mono);font-size:11px;letter-spacing:.02em}
+.index th{
+  text-align:left;
+  font-weight:400;
+  font-size:9.5px;
+  letter-spacing:.12em;
+  padding:6px 10px 6px 0;
+  border-top:1px solid var(--ink);
+  border-bottom:0.5px solid var(--deckle);
+  white-space:nowrap;
+}
+.index td{
+  padding:7px 10px 7px 0;
+  border-bottom:0.5px solid var(--deckle);
+  vertical-align:baseline;
+}
+.index .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.index th.num{text-align:right}
+.imprint{font-size:12.5px;line-height:1.75}
+.imprint-h{
+  font-family:var(--mono);
+  font-size:10px;
+  letter-spacing:.2em;
+  padding-bottom:6px;
+  border-bottom:1px solid var(--ink);
+}
+.imprint-id{
+  font-family:var(--mono);
+  font-size:16px;
+  letter-spacing:.06em;
+  line-height:1.6;
+  margin:6px 0 8px;
+}
+.imprint-meta{
+  font-family:var(--mono);
+  font-size:10px;
+  line-height:1.8;
+  letter-spacing:.05em;
+  margin-top:10px;
+  padding-top:8px;
+  border-top:0.5px solid var(--deckle);
+}
+
+/* 中等宽度：栏变窄，条目标题与标签同步收一档，避免溢出栏外 */
+@media (min-width:961px) and (max-width:1180px){
+  .e-title{font-size:23px}
+  .e-title--sm{font-size:20px}
+  .sec-title{font-size:38px}
+  .col{padding-right:12px}
+  .col + .col{padding-left:12px}
+  .ident{font-size:9.5px;letter-spacing:.03em}
+  .ident > span{padding-right:5px}
+  .ident > span + span{padding-left:5px}
+  .cup,.voice{font-size:14px}
+  .price td{font-size:18px}
+  .calc-row b{font-size:16px}
+}
+
+/* ---------- 移动端：单列，顺序不变 ---------- */
+@media (max-width:960px){
+  .masthead{grid-template-columns:1fr;gap:20px;padding:26px 18px 18px}
+  .mast-side{width:100%}
+  .nameplate{font-size:78px}
+  .spread{grid-template-columns:1fr}
+  .page--l{border-right:0;border-bottom:2px solid var(--deckle);padding:52px 18px 26px}
+  .page--r{padding:52px 18px 26px}
+  .page--l .cols,.page--r .cols{grid-template-columns:1fr}
+  .col{padding-right:0}
+  .col + .col{border-left:0;padding-left:0;border-top:0.5px solid var(--deckle);padding-top:18px}
+  .folio{writing-mode:horizontal-tb;top:18px;left:auto;right:18px;font-size:11px;line-height:1.6;letter-spacing:.14em;white-space:normal}
+  .folio--r{right:14px}
+  .sec-title{font-size:36px}
+  .e-title{font-size:27px}
+  .e-title--sm{font-size:24px}
+  .colophon{padding:20px 18px 26px}
+  .col-grid{grid-template-columns:1fr;gap:20px}
+  .col-grid .plate--seal{max-width:150px}
+  .index .opt{display:none}
+}
+</style>
+</head>
+<body>
+<div class="sheet">
+<div class="verso" aria-hidden="true">
+
+<!--F-->
+<header class="masthead">
+  <div class="mast-main">
+    <p class="kicker">手冲咖啡 · 产地档案 · 每季一期</p>
+    <h1 class="nameplate">澄流</h1>
+    <p class="latin">CHENGLIU — A POUR-OVER ARCHIVE</p>
+    <p class="mast-note">只做手冲 · 五个产区 · 微信订货 · 不做在线支付</p>
+  </div>
+  <div class="mast-side">
+    <dl class="edition">
+      <div class="ed-row"><dt>卷期</dt><dd>第 47 期</dd></div>
+      <div class="ed-row"><dt>编目</dt><dd>2026-03-15</dd></div>
+      <div class="ed-row"><dt>页码</dt><dd>124–125</dd></div>
+      <div class="ed-row"><dt>分类</dt><dd>G · 产地档案</dd></div>
+      <div class="ed-row"><dt>印次</dt><dd>第三版</dd></div>
+    </dl>
+    <a class="action" href="#contact">加微信 · 订豆</a>
+    <p class="action-id">chengliu_drip</p>
+  </div>
+</header>
+
+<div class="rule rule--2"></div>
+
+<div class="spread">
+
+  <section class="page page--l" aria-label="凡例与冲煮">
+    <p class="folio">第 124 页</p>
+    <h2 class="part-h">第一部分 · 凡例与冲煮</h2>
+    <div class="cols">
+
+      <div class="col">
+        <figure class="plate plate--4x5">
+          <img src="images/占位-1.jpg" width="880" height="1100" alt="澄流吧台上的三只滤杯，其中一只正在使用">
+          <figcaption>图版 I · 吧台。三只滤杯，一只在用。</figcaption>
+        </figure>
+        <p class="lead">本店只做手冲，豆子只有五只。这一册是它们的档案：产地、处理法、采收年份、杯测记录、每批余量，都按第 46 期原样转录。</p>
+        <h3 class="sub-h">凡例</h3>
+        <ol class="rules">
+          <li><b>一</b>每只豆子一个编号，编号随豆子走，换批次不改。</li>
+          <li><b>二</b>卷期、页码、年份、分类四项取自第 46 期原册，转录时一个字不动。</li>
+          <li><b>三</b>余量以当日盘点为准，售完转下一批，不回填旧数。</li>
+          <li><b>四</b>价格只列两档：店内手冲每杯，熟豆每 200 克。</li>
+        </ol>
+      </div>
+
+      <div class="col">
+        <h3 class="sub-h">冲煮记录</h3>
+        <table class="data">
+          <tbody>
+            <tr><th>粉量</th><td>15 g</td></tr>
+            <tr><th>水量</th><td>240 ml</td></tr>
+            <tr><th>水温</th><td>92 ℃</td></tr>
+            <tr><th>研磨</th><td>中细 · EK43 8.5</td></tr>
+            <tr><th>滤杯</th><td>V60 02</td></tr>
+            <tr><th>闷蒸</th><td>30 s</td></tr>
+            <tr><th>总时长</th><td>2′30″</td></tr>
+            <tr><th>水质</th><td>TDS 85</td></tr>
+          </tbody>
+        </table>
+        <figure class="plate plate--3x2">
+          <img src="images/占位-2.jpg" width="1200" height="800" alt="本季注水与时间的记录纸">
+          <figcaption>图版 II · 本季注水记录，每 30 秒一格。</figcaption>
+        </figure>
+        <h3 class="sub-h">取货与结算</h3>
+        <ul class="facts">
+          <li><span>营业</span><b>09:00–18:00</b></li>
+          <li><span>休息</span><b>周二</b></li>
+          <li><span>取货</span><b>下单后第二日</b></li>
+          <li><span>分装</span><b>100 g / 200 g</b></li>
+        </ul>
+        <p class="note-sm">不加好友不下单。本店不做在线支付，这一页里也没有购物车。</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="page page--r" aria-label="豆单">
+    <p class="folio folio--r">第 125 页</p>
+    <header class="sec-head">
+      <p class="kicker">第二部分</p>
+      <h2 class="sec-title">豆单 · 五个产区</h2>
+      <p class="sec-meta">按第 46 期页码排序 · 共 5 条 · 盘点日期 2026-03-15</p>
+    </header>
+    <div class="cols cols--3">
+
+      <div class="col">
+        <article class="entry entry--lead">
+          <p class="ident"><span class="no">S-01</span><span>期 46</span><span>第 118 页</span><span>2025</span><span>分类 G-4</span></p>
+          <h3 class="e-title"><span class="nowrap">耶加雪菲</span> <span class="nowrap">· 孔加</span></h3>
+          <p class="e-latin">YIRGACHEFFE KONGA · WASHED · ETHIOPIA</p>
+          <figure class="plate plate--3x2">
+            <img src="images/占位-3.jpg" width="1200" height="800" alt="孔加合作社的发酵槽与晾晒床">
+            <figcaption>图版 III · 孔加合作社的发酵槽，2025 年 1 月。</figcaption>
+          </figure>
+          <table class="data">
+            <tbody>
+              <tr><th>产区</th><td>埃塞俄比亚 · 盖迪奥</td></tr>
+              <tr><th>海拔</th><td>1,950–2,150 m</td></tr>
+              <tr><th>品种</th><td>当地原生种</td></tr>
+              <tr><th>处理</th><td>水洗 · 发酵 48 小时</td></tr>
+              <tr><th>采收</th><td>2025 年 1 月</td></tr>
+            </tbody>
+          </table>
+          <p class="cup">杯测记录：白花、柑橘皮、蜂蜜；中温转红茶。酸质细长，收口干净。</p>
+          <blockquote class="voice">「这只豆子我卖了六年，每年一月等它。今年发酵比去年短六小时，花香更靠前。」</blockquote>
+          <table class="price">
+            <tbody>
+              <tr><th>店内手冲</th><td>32<i>元 / 杯</i></td></tr>
+              <tr><th>熟豆 200 g</th><td>138<i>元</i></td></tr>
+            </tbody>
+          </table>
+          <p class="stock">本批余量 <b>4.2</b> kg · 售完转下一批</p>
+        </article>
+
+        <article class="entry">
+          <p class="ident"><span class="no">S-02</span><span>期 46</span><span>第 119 页</span><span>2025</span><span>分类 G-5</span></p>
+          <h3 class="e-title e-title--sm"><span class="nowrap">涅里</span> <span class="nowrap">· 加图博亚 AA</span></h3>
+          <p class="e-latin">NYERI GATOMBOYA AA · WASHED · KENYA</p>
+          <figure class="plate plate--3x4">
+            <img src="images/占位-4.jpg" width="900" height="1200" alt="加图博亚处理厂的双重发酵罐">
+            <figcaption>图版 IV · 加图博亚的双重发酵罐，2025 年 2 月。</figcaption>
+          </figure>
+          <p class="cup">杯测记录：黑加仑、番茄、红糖。体质厚，酸尖。</p>
+          <ul class="facts">
+            <li><span>海拔</span><b>1,750–1,900 m</b></li>
+            <li><span>品种</span><b>SL28 / SL34</b></li>
+            <li><span>处理</span><b>水洗 · 双重发酵</b></li>
+            <li><span>采收</span><b>2025 年 2 月</b></li>
+          </ul>
+          <blockquote class="voice">「肯尼亚我不做浅烘，浅了只剩酸。中深一点，黑加仑才出得来。」</blockquote>
+          <dl class="price-line"><dt>手冲 / 杯</dt><dd>32</dd><dt>熟豆 / 200 g</dt><dd>148</dd></dl>
+          <p class="stock">本批余量 <b>2.8</b> kg</p>
+        </article>
+      </div>
+
+      <div class="col">
+        <article class="entry">
+          <p class="ident"><span class="no">S-03</span><span>期 46</span><span>第 120 页</span><span>2025</span><span>分类 G-2</span></p>
+          <h3 class="e-title e-title--sm"><span class="nowrap">圣安东尼奥</span> <span class="nowrap">· 厌氧日晒</span></h3>
+          <p class="e-latin">HUILA SAN ANTONIO · ANAEROBIC NATURAL · COLOMBIA</p>
+          <figure class="plate plate--5x3">
+            <img src="images/占位-5.jpg" width="1500" height="900" alt="惠兰的厌氧桶封口">
+            <figcaption>图版 V · 厌氧桶封口，惠兰，2025 年 3 月。</figcaption>
+          </figure>
+          <ol class="notes">
+            <li><span>01</span>玫瑰与荔枝在前，黑巧在后；温度降到 45℃ 时发酵感最重。</li>
+            <li><span>02</span>一次只烘 500 克。烘后第七天到第十二天最好喝。</li>
+            <li><span>03</span>不建议做冰的，冰镇会把玫瑰压掉。</li>
+          </ol>
+          <div class="calc">
+            <p class="calc-h">计价</p>
+            <p class="calc-row"><span>店内手冲</span><b>36</b></p>
+            <p class="calc-row"><span>熟豆 200 g</span><b>158</b></p>
+          </div>
+          <p class="stock">本批余量 <b>1.5</b> kg</p>
+        </article>
+
+        <article class="entry">
+          <p class="ident"><span class="no">S-04</span><span>期 46</span><span>第 121 页</span><span>2025</span><span>分类 G-6</span></p>
+          <h3 class="e-title e-title--sm"><span class="nowrap">波奎特</span> <span class="nowrap">· 翡翠 绿标</span></h3>
+          <p class="e-latin">BOQUETE LA ESMERALDA GREEN LABEL · WASHED · PANAMA</p>
+          <blockquote class="voice voice--lead">「绿标一年到不了几公斤。我不做活动价，也不拆卖。」</blockquote>
+          <figure class="plate plate--1x1">
+            <img src="images/占位-6.jpg" width="1000" height="1000" alt="绿标的分级样豆">
+            <figcaption>图版 VI · 绿标的分级样豆，2025 年 2 月。</figcaption>
+          </figure>
+          <p class="cup">杯测记录：茉莉、佛手柑、白蜜；凉下来有桃。</p>
+          <table class="data">
+            <tbody>
+              <tr><th>海拔</th><td>1,600–1,800 m</td></tr>
+              <tr><th>品种</th><td>Geisha</td></tr>
+              <tr><th>处理</th><td>水洗</td></tr>
+              <tr><th>采收</th><td>2025 年 2 月</td></tr>
+            </tbody>
+          </table>
+          <dl class="price-line"><dt>手冲 / 杯</dt><dd>68</dd><dt>熟豆 / 200 g</dt><dd>420</dd></dl>
+          <p class="stock">本批余量 <b>0.9</b> kg · 每人限 100 g</p>
+        </article>
+      </div>
+
+      <div class="col">
+        <article class="entry">
+          <p class="ident"><span class="no">S-05</span><span>期 46</span><span>第 122 页</span><span>2025</span><span>分类 G-3</span></p>
+          <h3 class="e-title e-title--sm"><span class="nowrap">潞江坝</span> <span class="nowrap">· 小粒 日晒</span></h3>
+          <p class="e-latin">YUNNAN BAOSHAN LUJIANGBACUN · NATURAL · CHINA</p>
+          <figure class="plate plate--4x3">
+            <img src="images/占位-7.jpg" width="1200" height="900" alt="潞江坝的日晒床">
+            <figcaption>图版 VII · 潞江坝的晒场，2025 年 1 月。</figcaption>
+          </figure>
+          <p class="cup">杯测记录：红枣、桂圆、烤杏仁。甜高酸低，适合下午。</p>
+          <blockquote class="voice">「云南我挑了三年，这是第一只我肯放进豆单的。」</blockquote>
+          <ul class="facts">
+            <li><span>海拔</span><b>1,200–1,500 m</b></li>
+            <li><span>品种</span><b>Catimor</b></li>
+            <li><span>处理</span><b>日晒</b></li>
+            <li><span>采收</span><b>2025 年 1 月</b></li>
+          </ul>
+          <table class="price">
+            <tbody>
+              <tr><th>店内手冲</th><td>28<i>元 / 杯</i></td></tr>
+              <tr><th>熟豆 200 g</th><td>98<i>元</i></td></tr>
+            </tbody>
+          </table>
+          <p class="stock">本批余量 <b>6.0</b> kg · 常备</p>
+        </article>
+
+        <section class="scores">
+          <h3 class="sub-h">杯测汇总</h3>
+          <table class="data">
+            <thead>
+              <tr><th>编号</th><th>酸质</th><th>体质</th><th>余韵</th></tr>
+            </thead>
+            <tbody>
+              <tr><th>S-01</th><td>8.5</td><td>7.0</td><td>8.0</td></tr>
+              <tr><th>S-02</th><td>8.0</td><td>8.5</td><td>8.5</td></tr>
+              <tr><th>S-03</th><td>7.0</td><td>8.5</td><td>9.0</td></tr>
+              <tr><th>S-04</th><td>9.0</td><td>7.5</td><td>9.0</td></tr>
+              <tr><th>S-05</th><td>6.0</td><td>8.0</td><td>7.5</td></tr>
+            </tbody>
+          </table>
+          <p class="note-sm">十分制，本店三人同杯取均值；分数只用来排序，不用来定价。</p>
+        </section>
+
+        <section class="inventory">
+          <h3 class="sub-h">本季盘点</h3>
+          <table class="data">
+            <tbody>
+              <tr><th>在册豆子</th><td>5 只</td></tr>
+              <tr><th>合计余量</th><td>15.4 kg</td></tr>
+              <tr><th>本月出杯</th><td>1,180</td></tr>
+              <tr><th>本月退换</th><td>0</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <aside class="next">
+          <p class="next-k">下一期</p>
+          <p>第 48 期，五月底。等新产季的孔加，也等一只还没定下来的卢旺达。</p>
+        </aside>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+
+<footer class="colophon">
+  <div class="col-top">
+    <h2 class="col-h">本页索引 · 第 47 期</h2>
+    <p class="col-note">页码沿用第 46 期原册，转录不改号。</p>
+  </div>
+  <div class="col-grid">
+    <table class="index">
+      <thead>
+        <tr>
+          <th>编号</th>
+          <th>产区 · 庄园</th>
+          <th class="opt">处理</th>
+          <th class="num">期</th>
+          <th class="num">页</th>
+          <th class="num">年</th>
+          <th class="num opt">分类</th>
+          <th class="num">余量 kg</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>S-01</td><td>埃塞俄比亚 耶加雪菲 孔加</td><td class="opt">水洗</td><td class="num">46</td><td class="num">118</td><td class="num">2025</td><td class="num opt">G-4</td><td class="num">4.2</td></tr>
+        <tr><td>S-02</td><td>肯尼亚 涅里 加图博亚 AA</td><td class="opt">水洗</td><td class="num">46</td><td class="num">119</td><td class="num">2025</td><td class="num opt">G-5</td><td class="num">2.8</td></tr>
+        <tr><td>S-03</td><td>哥伦比亚 惠兰 圣安东尼奥</td><td class="opt">厌氧日晒</td><td class="num">46</td><td class="num">120</td><td class="num">2025</td><td class="num opt">G-2</td><td class="num">1.5</td></tr>
+        <tr><td>S-04</td><td>巴拿马 波奎特 翡翠 绿标</td><td class="opt">水洗</td><td class="num">46</td><td class="num">121</td><td class="num">2025</td><td class="num opt">G-6</td><td class="num">0.9</td></tr>
+        <tr><td>S-05</td><td>云南 保山 潞江坝 小粒</td><td class="opt">日晒</td><td class="num">46</td><td class="num">122</td><td class="num">2025</td><td class="num opt">G-3</td><td class="num">6.0</td></tr>
+      </tbody>
+    </table>
+    <div class="imprint">
+      <p class="imprint-h">通信</p>
+      <p class="imprint-id">微信 chengliu_drip</p>
+      <p>只此一个号。加好友时请说一句要哪只豆子、要多少克，我回你本批的余量、烘焙日和取货日。</p>
+      <p class="imprint-meta">澄流 手冲咖啡 · 第 47 期 · 编目 2026-03-15 · 每季一期 · 改版不改号 · 结算只走微信，不做在线支付</p>
+    </div>
+    <figure class="plate plate--1x1 plate--seal">
+      <img src="images/占位-8.jpg" width="600" height="600" alt="澄流的门牌与印章">
+      <figcaption>图版 VIII · 门牌与印章。</figcaption>
+    </figure>
+  </div>
+</footer>
+
+</div>
+<div class="front">
+<!--F-->
+<header class="masthead">
+  <div class="mast-main">
+    <p class="kicker">手冲咖啡 · 产地档案 · 每季一期</p>
+    <h1 class="nameplate">澄流</h1>
+    <p class="latin">CHENGLIU — A POUR-OVER ARCHIVE</p>
+    <p class="mast-note">只做手冲 · 五个产区 · 微信订货 · 不做在线支付</p>
+  </div>
+  <div class="mast-side">
+    <dl class="edition">
+      <div class="ed-row"><dt>卷期</dt><dd>第 47 期</dd></div>
+      <div class="ed-row"><dt>编目</dt><dd>2026-03-15</dd></div>
+      <div class="ed-row"><dt>页码</dt><dd>124–125</dd></div>
+      <div class="ed-row"><dt>分类</dt><dd>G · 产地档案</dd></div>
+      <div class="ed-row"><dt>印次</dt><dd>第三版</dd></div>
+    </dl>
+    <a class="action" href="#contact">加微信 · 订豆</a>
+    <p class="action-id">chengliu_drip</p>
+  </div>
+</header>
+
+<div class="rule rule--2"></div>
+
+<div class="spread">
+
+  <section class="page page--l" aria-label="凡例与冲煮">
+    <p class="folio">第 124 页</p>
+    <h2 class="part-h">第一部分 · 凡例与冲煮</h2>
+    <div class="cols">
+
+      <div class="col">
+        <figure class="plate plate--4x5">
+          <img src="images/占位-1.jpg" width="880" height="1100" alt="澄流吧台上的三只滤杯，其中一只正在使用">
+          <figcaption>图版 I · 吧台。三只滤杯，一只在用。</figcaption>
+        </figure>
+        <p class="lead">本店只做手冲，豆子只有五只。这一册是它们的档案：产地、处理法、采收年份、杯测记录、每批余量，都按第 46 期原样转录。</p>
+        <h3 class="sub-h">凡例</h3>
+        <ol class="rules">
+          <li><b>一</b>每只豆子一个编号，编号随豆子走，换批次不改。</li>
+          <li><b>二</b>卷期、页码、年份、分类四项取自第 46 期原册，转录时一个字不动。</li>
+          <li><b>三</b>余量以当日盘点为准，售完转下一批，不回填旧数。</li>
+          <li><b>四</b>价格只列两档：店内手冲每杯，熟豆每 200 克。</li>
+        </ol>
+      </div>
+
+      <div class="col">
+        <h3 class="sub-h">冲煮记录</h3>
+        <table class="data">
+          <tbody>
+            <tr><th>粉量</th><td>15 g</td></tr>
+            <tr><th>水量</th><td>240 ml</td></tr>
+            <tr><th>水温</th><td>92 ℃</td></tr>
+            <tr><th>研磨</th><td>中细 · EK43 8.5</td></tr>
+            <tr><th>滤杯</th><td>V60 02</td></tr>
+            <tr><th>闷蒸</th><td>30 s</td></tr>
+            <tr><th>总时长</th><td>2′30″</td></tr>
+            <tr><th>水质</th><td>TDS 85</td></tr>
+          </tbody>
+        </table>
+        <figure class="plate plate--3x2">
+          <img src="images/占位-2.jpg" width="1200" height="800" alt="本季注水与时间的记录纸">
+          <figcaption>图版 II · 本季注水记录，每 30 秒一格。</figcaption>
+        </figure>
+        <h3 class="sub-h">取货与结算</h3>
+        <ul class="facts">
+          <li><span>营业</span><b>09:00–18:00</b></li>
+          <li><span>休息</span><b>周二</b></li>
+          <li><span>取货</span><b>下单后第二日</b></li>
+          <li><span>分装</span><b>100 g / 200 g</b></li>
+        </ul>
+        <p class="note-sm">不加好友不下单。本店不做在线支付，这一页里也没有购物车。</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="page page--r" aria-label="豆单">
+    <p class="folio folio--r">第 125 页</p>
+    <header class="sec-head">
+      <p class="kicker">第二部分</p>
+      <h2 class="sec-title">豆单 · 五个产区</h2>
+      <p class="sec-meta">按第 46 期页码排序 · 共 5 条 · 盘点日期 2026-03-15</p>
+    </header>
+    <div class="cols cols--3">
+
+      <div class="col">
+        <article class="entry entry--lead">
+          <p class="ident"><span class="no">S-01</span><span>期 46</span><span>第 118 页</span><span>2025</span><span>分类 G-4</span></p>
+          <h3 class="e-title"><span class="nowrap">耶加雪菲</span> <span class="nowrap">· 孔加</span></h3>
+          <p class="e-latin">YIRGACHEFFE KONGA · WASHED · ETHIOPIA</p>
+          <figure class="plate plate--3x2">
+            <img src="images/占位-3.jpg" width="1200" height="800" alt="孔加合作社的发酵槽与晾晒床">
+            <figcaption>图版 III · 孔加合作社的发酵槽，2025 年 1 月。</figcaption>
+          </figure>
+          <table class="data">
+            <tbody>
+              <tr><th>产区</th><td>埃塞俄比亚 · 盖迪奥</td></tr>
+              <tr><th>海拔</th><td>1,950–2,150 m</td></tr>
+              <tr><th>品种</th><td>当地原生种</td></tr>
+              <tr><th>处理</th><td>水洗 · 发酵 48 小时</td></tr>
+              <tr><th>采收</th><td>2025 年 1 月</td></tr>
+            </tbody>
+          </table>
+          <p class="cup">杯测记录：白花、柑橘皮、蜂蜜；中温转红茶。酸质细长，收口干净。</p>
+          <blockquote class="voice">「这只豆子我卖了六年，每年一月等它。今年发酵比去年短六小时，花香更靠前。」</blockquote>
+          <table class="price">
+            <tbody>
+              <tr><th>店内手冲</th><td>32<i>元 / 杯</i></td></tr>
+              <tr><th>熟豆 200 g</th><td>138<i>元</i></td></tr>
+            </tbody>
+          </table>
+          <p class="stock">本批余量 <b>4.2</b> kg · 售完转下一批</p>
+        </article>
+
+        <article class="entry">
+          <p class="ident"><span class="no">S-02</span><span>期 46</span><span>第 119 页</span><span>2025</span><span>分类 G-5</span></p>
+          <h3 class="e-title e-title--sm"><span class="nowrap">涅里</span> <span class="nowrap">· 加图博亚 AA</span></h3>
+          <p class="e-latin">NYERI GATOMBOYA AA · WASHED · KENYA</p>
+          <figure class="plate plate--3x4">
+            <img src="images/占位-4.jpg" width="900" height="1200" alt="加图博亚处理厂的双重发酵罐">
+            <figcaption>图版 IV · 加图博亚的双重发酵罐，2025 年 2 月。</figcaption>
+          </figure>
+          <p class="cup">杯测记录：黑加仑、番茄、红糖。体质厚，酸尖。</p>
+          <ul class="facts">
+            <li><span>海拔</span><b>1,750–1,900 m</b></li>
+            <li><span>品种</span><b>SL28 / SL34</b></li>
+            <li><span>处理</span><b>水洗 · 双重发酵</b></li>
+            <li><span>采收</span><b>2025 年 2 月</b></li>
+          </ul>
+          <blockquote class="voice">「肯尼亚我不做浅烘，浅了只剩酸。中深一点，黑加仑才出得来。」</blockquote>
+          <dl class="price-line"><dt>手冲 / 杯</dt><dd>32</dd><dt>熟豆 / 200 g</dt><dd>148</dd></dl>
+          <p class="stock">本批余量 <b>2.8</b> kg</p>
+        </article>
+      </div>
+
+      <div class="col">
+        <article class="entry">
+          <p class="ident"><span class="no">S-03</span><span>期 46</span><span>第 120 页</span><span>2025</span><span>分类 G-2</span></p>
+          <h3 class="e-title e-title--sm"><span class="nowrap">圣安东尼奥</span> <span class="nowrap">· 厌氧日晒</span></h3>
+          <p class="e-latin">HUILA SAN ANTONIO · ANAEROBIC NATURAL · COLOMBIA</p>
+          <figure class="plate plate--5x3">
+            <img src="images/占位-5.jpg" width="1500" height="900" alt="惠兰的厌氧桶封口">
+            <figcaption>图版 V · 厌氧桶封口，惠兰，2025 年 3 月。</figcaption>
+          </figure>
+          <ol class="notes">
+            <li><span>01</span>玫瑰与荔枝在前，黑巧在后；温度降到 45℃ 时发酵感最重。</li>
+            <li><span>02</span>一次只烘 500 克。烘后第七天到第十二天最好喝。</li>
+            <li><span>03</span>不建议做冰的，冰镇会把玫瑰压掉。</li>
+          </ol>
+          <div class="calc">
+            <p class="calc-h">计价</p>
+            <p class="calc-row"><span>店内手冲</span><b>36</b></p>
+            <p class="calc-row"><span>熟豆 200 g</span><b>158</b></p>
+          </div>
+          <p class="stock">本批余量 <b>1.5</b> kg</p>
+        </article>
+
+        <article class="entry">
+          <p class="ident"><span class="no">S-04</span><span>期 46</span><span>第 121 页</span><span>2025</span><span>分类 G-6</span></p>
+          <h3 class="e-title e-title--sm"><span class="nowrap">波奎特</span> <span class="nowrap">· 翡翠 绿标</span></h3>
+          <p class="e-latin">BOQUETE LA ESMERALDA GREEN LABEL · WASHED · PANAMA</p>
+          <blockquote class="voice voice--lead">「绿标一年到不了几公斤。我不做活动价，也不拆卖。」</blockquote>
+          <figure class="plate plate--1x1">
+            <img src="images/占位-6.jpg" width="1000" height="1000" alt="绿标的分级样豆">
+            <figcaption>图版 VI · 绿标的分级样豆，2025 年 2 月。</figcaption>
+          </figure>
+          <p class="cup">杯测记录：茉莉、佛手柑、白蜜；凉下来有桃。</p>
+          <table class="data">
+            <tbody>
+              <tr><th>海拔</th><td>1,600–1,800 m</td></tr>
+              <tr><th>品种</th><td>Geisha</td></tr>
+              <tr><th>处理</th><td>水洗</td></tr>
+              <tr><th>采收</th><td>2025 年 2 月</td></tr>
+            </tbody>
+          </table>
+          <dl class="price-line"><dt>手冲 / 杯</dt><dd>68</dd><dt>熟豆 / 200 g</dt><dd>420</dd></dl>
+          <p class="stock">本批余量 <b>0.9</b> kg · 每人限 100 g</p>
+        </article>
+      </div>
+
+      <div class="col">
+        <article class="entry">
+          <p class="ident"><span class="no">S-05</span><span>期 46</span><span>第 122 页</span><span>2025</span><span>分类 G-3</span></p>
+          <h3 class="e-title e-title--sm"><span class="nowrap">潞江坝</span> <span class="nowrap">· 小粒 日晒</span></h3>
+          <p class="e-latin">YUNNAN BAOSHAN LUJIANGBACUN · NATURAL · CHINA</p>
+          <figure class="plate plate--4x3">
+            <img src="images/占位-7.jpg" width="1200" height="900" alt="潞江坝的日晒床">
+            <figcaption>图版 VII · 潞江坝的晒场，2025 年 1 月。</figcaption>
+          </figure>
+          <p class="cup">杯测记录：红枣、桂圆、烤杏仁。甜高酸低，适合下午。</p>
+          <blockquote class="voice">「云南我挑了三年，这是第一只我肯放进豆单的。」</blockquote>
+          <ul class="facts">
+            <li><span>海拔</span><b>1,200–1,500 m</b></li>
+            <li><span>品种</span><b>Catimor</b></li>
+            <li><span>处理</span><b>日晒</b></li>
+            <li><span>采收</span><b>2025 年 1 月</b></li>
+          </ul>
+          <table class="price">
+            <tbody>
+              <tr><th>店内手冲</th><td>28<i>元 / 杯</i></td></tr>
+              <tr><th>熟豆 200 g</th><td>98<i>元</i></td></tr>
+            </tbody>
+          </table>
+          <p class="stock">本批余量 <b>6.0</b> kg · 常备</p>
+        </article>
+
+        <section class="scores">
+          <h3 class="sub-h">杯测汇总</h3>
+          <table class="data">
+            <thead>
+              <tr><th>编号</th><th>酸质</th><th>体质</th><th>余韵</th></tr>
+            </thead>
+            <tbody>
+              <tr><th>S-01</th><td>8.5</td><td>7.0</td><td>8.0</td></tr>
+              <tr><th>S-02</th><td>8.0</td><td>8.5</td><td>8.5</td></tr>
+              <tr><th>S-03</th><td>7.0</td><td>8.5</td><td>9.0</td></tr>
+              <tr><th>S-04</th><td>9.0</td><td>7.5</td><td>9.0</td></tr>
+              <tr><th>S-05</th><td>6.0</td><td>8.0</td><td>7.5</td></tr>
+            </tbody>
+          </table>
+          <p class="note-sm">十分制，本店三人同杯取均值；分数只用来排序，不用来定价。</p>
+        </section>
+
+        <section class="inventory">
+          <h3 class="sub-h">本季盘点</h3>
+          <table class="data">
+            <tbody>
+              <tr><th>在册豆子</th><td>5 只</td></tr>
+              <tr><th>合计余量</th><td>15.4 kg</td></tr>
+              <tr><th>本月出杯</th><td>1,180</td></tr>
+              <tr><th>本月退换</th><td>0</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <aside class="next">
+          <p class="next-k">下一期</p>
+          <p>第 48 期，五月底。等新产季的孔加，也等一只还没定下来的卢旺达。</p>
+        </aside>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+
+<footer class="colophon" id="contact">
+  <div class="col-top">
+    <h2 class="col-h">本页索引 · 第 47 期</h2>
+    <p class="col-note">页码沿用第 46 期原册，转录不改号。</p>
+  </div>
+  <div class="col-grid">
+    <table class="index">
+      <thead>
+        <tr>
+          <th>编号</th>
+          <th>产区 · 庄园</th>
+          <th class="opt">处理</th>
+          <th class="num">期</th>
+          <th class="num">页</th>
+          <th class="num">年</th>
+          <th class="num opt">分类</th>
+          <th class="num">余量 kg</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>S-01</td><td>埃塞俄比亚 耶加雪菲 孔加</td><td class="opt">水洗</td><td class="num">46</td><td class="num">118</td><td class="num">2025</td><td class="num opt">G-4</td><td class="num">4.2</td></tr>
+        <tr><td>S-02</td><td>肯尼亚 涅里 加图博亚 AA</td><td class="opt">水洗</td><td class="num">46</td><td class="num">119</td><td class="num">2025</td><td class="num opt">G-5</td><td class="num">2.8</td></tr>
+        <tr><td>S-03</td><td>哥伦比亚 惠兰 圣安东尼奥</td><td class="opt">厌氧日晒</td><td class="num">46</td><td class="num">120</td><td class="num">2025</td><td class="num opt">G-2</td><td class="num">1.5</td></tr>
+        <tr><td>S-04</td><td>巴拿马 波奎特 翡翠 绿标</td><td class="opt">水洗</td><td class="num">46</td><td class="num">121</td><td class="num">2025</td><td class="num opt">G-6</td><td class="num">0.9</td></tr>
+        <tr><td>S-05</td><td>云南 保山 潞江坝 小粒</td><td class="opt">日晒</td><td class="num">46</td><td class="num">122</td><td class="num">2025</td><td class="num opt">G-3</td><td class="num">6.0</td></tr>
+      </tbody>
+    </table>
+    <div class="imprint">
+      <p class="imprint-h">通信</p>
+      <p class="imprint-id">微信 chengliu_drip</p>
+      <p>只此一个号。加好友时请说一句要哪只豆子、要多少克，我回你本批的余量、烘焙日和取货日。</p>
+      <p class="imprint-meta">澄流 手冲咖啡 · 第 47 期 · 编目 2026-03-15 · 每季一期 · 改版不改号 · 结算只走微信，不做在线支付</p>
+    </div>
+    <figure class="plate plate--1x1 plate--seal">
+      <img src="images/占位-8.jpg" width="600" height="600" alt="澄流的门牌与印章">
+      <figcaption>图版 VIII · 门牌与印章。</figcaption>
+    </figure>
+  </div>
+</footer>
+<!--/F-->
+</div>
+</div>
+</body>
+</html>

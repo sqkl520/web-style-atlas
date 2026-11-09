@@ -1,0 +1,1506 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>手冲豆单 · 对账结算联 ZY-2026Q3-PA-001</title>
+<style>
+/* ============================================================
+   印花税票对账联 / 小数点对齐
+   两联：3fr（存根联）· 16px（中缝孔列）· 9fr（对账联）
+   孔列：孔径 1.2px、孔距 6px；联单行高 24px；金额列右对齐 88px
+   印面偏中缝 2mm；撕口止于价目线，小数点落在这条线上。
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+:root{
+  /* 配色：只用这八个值 */
+  --ink:        #5A2A50;   /* 含铁紫墨，色相 312.5° */
+  --paper:      #E1D6BD;   /* 纸色，唯一值 */
+  --seal:       #7A2E2E;   /* 印泥 */
+  --stub:       #C9BFA6;   /* 存根联底色 */
+  --ink-deep:   #3F1A38;   /* 压深墨 */
+  --rule:       #B9A98C;   /* 结构线 */
+  --tone-hover: #DFD6BF;   /* 悬停档 */
+  --tone-hold:  #D6C9AC;   /* 按下档 */
+
+  /* 派生色：不使用列表之外的色相 */
+
+  /* 字号：正文 17px；最大标题 86px = 17 × 5.06 */
+  --fs-1: 86px;
+  --fs-2: 46px;
+  --fs-3: 29px;
+  --fs-4: 22px;
+  --fs-body: 17px;
+  --fs-sm: 14px;
+  --fs-xs: 12.5px;
+
+  /* 联单行高：本案签名之一 */
+  --lh: 24px;
+
+  /* 字体：两条链，不跳过、不回退无衬线 */
+  --serif: "文津宋体", "WenJin Mincho SC", "Noto Serif SC", "Source Han Serif SC", serif;
+  --serif-title: "Literata", "文津宋体", "Noto Serif SC", serif;
+  --mono: "Sometype Mono", monospace;
+}
+
+html{ -webkit-text-size-adjust: 100%; }
+
+body{
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: var(--fs-body);
+  line-height: 1.72;
+  font-kerning: normal;
+}
+
+h1, h2, h3, h4{
+  font-family: var(--serif-title);
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: .01em;
+}
+p{ margin: 0; }
+ul, ol, dl, dd{ margin: 0; padding: 0; }
+li{ list-style: none; }
+
+.num{
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+  letter-spacing: .01em;
+}
+
+.wrap{
+  width: min(1240px, 100%);
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* 中缝孔列：孔径 1.2px（半径 0.6）、孔距 6px、列宽 16px
+   —— 全站所有中缝都走这一条规则，不另写第二套 */
+.perf,
+.ctl-perf,
+.slip-perf{
+  width: 16px;
+  background-color: var(--paper);
+  background-image: radial-gradient(circle at 8px 3px, var(--ink) 0 0.6px, transparent 0.65px);
+  background-size: 16px 6px;
+  background-repeat: repeat-y;
+  background-position: 0 0;
+}
+/* 联单中缝以存根联底色起头，与左侧存根连成一片 */
+.slip-perf{ background-color: var(--stub); }
+.slip[data-checked="false"] .slip-perf{ background-color: var(--tone-hold); }
+
+/* ------------------------------------------------------------
+   首屏：票面
+   ------------------------------------------------------------ */
+.mast{
+  border-bottom: 6px solid var(--ink-deep);
+  padding: 40px 0 34px;
+}
+.mast-grid{
+  display: grid;
+  grid-template-columns: 3fr 16px 9fr;
+  align-items: start;
+}
+
+.mast-book{
+  padding-right: 22px;
+  position: relative;
+}
+.seal-big{
+  display: block;
+  color: var(--seal);
+  width: 132px;
+  height: 132px;
+  border-radius: 50%;          /* 全站唯一的 50%：圆形印面 */
+  margin-left: auto;
+  /* 印面偏中缝 2mm：右缘越过中缝横过去 */
+  margin-right: calc(2mm * -1);
+  mix-blend-mode: multiply;
+}
+.seal-big svg{ display: block; width: 100%; height: 100%; }
+
+.book-cap{
+  font-size: var(--fs-xs);
+  line-height: 20px;
+  color: var(--ink-deep);
+  text-align: right;
+  padding-top: 14px;
+  border-top: 0.5px solid var(--rule);
+  margin-top: 16px;
+}
+.book-cap b{ font-weight: 400; display: block; letter-spacing: .04em; }
+
+.mast-perf{ align-self: stretch; }
+
+.mast-main{ padding-left: 26px; }
+
+.kicker{
+  font-size: var(--fs-xs);
+  line-height: 20px;
+  letter-spacing: .14em;
+  color: var(--ink);
+  text-transform: none;
+  border-top: 2.4px solid var(--ink);
+  padding-top: 8px;
+  display: inline-block;
+}
+
+h1{
+  font-size: var(--fs-1);
+  line-height: .98;
+  letter-spacing: .015em;
+  margin: 14px 0 0 -4px;
+  color: var(--ink-deep);
+}
+h1 span{ display: block; }
+h1 .l2{
+  color: var(--seal);
+  padding-left: 0;
+}
+
+.lead{
+  max-width: 46em;
+  margin-top: 20px;
+  font-size: var(--fs-body);
+  line-height: 1.72;
+}
+.lead em{
+  font-style: normal;
+  border-bottom: 0.8px solid var(--seal);
+  padding-bottom: 1px;
+}
+
+.mast-band{
+  display: grid;
+  grid-template-columns: 1.3fr 1.05fr 0.75fr;   /* 并列不等宽 */
+  margin-top: 24px;
+  border-top: 0.5px solid var(--rule);
+  border-bottom: 0.5px solid var(--rule);
+}
+.mast-band > div{
+  padding: 12px 16px 12px 0;
+  font-size: var(--fs-xs);
+  line-height: 20px;
+  color: var(--ink-deep);
+}
+.mast-band > div + div{
+  padding-left: 16px;
+  border-left: 0.5px solid var(--rule);
+}
+.mast-band b{
+  display: block;
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--fs-sm);
+  font-weight: 400;
+  color: var(--ink);
+  letter-spacing: .02em;
+}
+/* 三条并列的内部结构各不相同 */
+.band-a{ display: grid; grid-template-columns: auto 1fr; column-gap: 12px; align-items: baseline; }
+.band-a b{ font-size: var(--fs-3); line-height: 34px; color: var(--ink-deep); }
+.band-a span{ border-left: 0.8px solid var(--rule); padding-left: 12px; }
+.band-b b{ font-size: var(--fs-4); line-height: 28px; border-bottom: 0.5px solid var(--rule); display: inline-block; }
+.band-b span{ display: block; margin-top: 2px; }
+.band-c{ border-left: 2px solid var(--seal); }
+.band-c b{ font-size: var(--fs-4); line-height: 28px; }
+
+/* 全屏唯一主行动 */
+.cta{
+  margin-top: 22px;
+  padding: 16px 20px 18px;
+  border: 2.4px solid var(--ink-deep);
+  border-top-width: 5px;
+  background: var(--paper);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 20px;
+  row-gap: 4px;
+  align-items: baseline;
+}
+.cta-tag{
+  grid-column: 1 / -1;
+  font-size: var(--fs-xs);
+  letter-spacing: .18em;
+  line-height: 20px;
+  color: var(--seal);
+}
+.cta-word{
+  font-family: var(--serif-title);
+  font-size: var(--fs-3);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--ink-deep);
+  white-space: nowrap;
+}
+.cta-id{
+  font-size: var(--fs-4);
+  line-height: 1.2;
+  letter-spacing: .04em;
+  color: var(--ink-deep);
+  border-bottom: 2px solid var(--seal);
+  justify-self: start;
+  padding-bottom: 2px;
+}
+.cta-note{
+  grid-column: 1 / -1;
+  font-size: var(--fs-sm);
+  line-height: 22px;
+  color: var(--ink);
+  margin-top: 4px;
+}
+
+/* ------------------------------------------------------------
+   骑缝核对条：一排联号，静态登记，不做交互
+   ------------------------------------------------------------ */
+.ctl{
+  border-bottom: 2.4px solid var(--ink-deep);
+  display: grid;
+  grid-template-columns: 3fr 16px 9fr;
+  align-items: stretch;
+}
+.ctl-stub{
+  background: var(--stub);
+  color: var(--ink-deep);
+  padding: 16px 22px;
+}
+.ctl-stub h2{
+  font-size: var(--fs-4);
+  line-height: 26px;
+}
+.ctl-stub p{
+  font-size: var(--fs-xs);
+  line-height: 20px;
+  margin-top: 4px;
+}
+.ctl-perf{ align-self: stretch; }
+.ctl-main{
+  padding: 14px 0 16px 26px;
+}
+.chips{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: stretch;
+  border-bottom: 0.5px solid var(--rule);
+  padding-bottom: 10px;
+}
+.chip{
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--fs-xs);
+  letter-spacing: .02em;
+  line-height: 20px;
+  color: var(--ink);
+  background: var(--paper);
+  border: 0.8px solid var(--ink);
+  border-radius: 0;
+  padding: 4px 9px;
+}
+.chip.was-off{
+  color: var(--ink-deep);
+  border-style: dashed;
+  border-width: 0.8px;
+  background: var(--tone-hold);
+}
+.chip b{
+  font-weight: 400;
+  color: var(--seal);
+  margin-left: 6px;
+}
+.readout{
+  margin-top: 8px;
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--fs-xs);
+  line-height: 24px;
+  text-align: right;
+  color: var(--ink-deep);
+}
+
+/* ------------------------------------------------------------
+   联单：五张，两联 3fr / 16px / 9fr
+   ------------------------------------------------------------ */
+.sec-head{
+  display: grid;
+  grid-template-columns: 3fr 16px 9fr;
+  padding: 40px 0 14px;
+  align-items: end;
+}
+.sec-no{
+  font-size: var(--fs-xs);
+  letter-spacing: .16em;
+  color: var(--seal);
+  line-height: 22px;
+  align-self: end;
+}
+.sec-head .perf{ height: 100%; min-height: 44px; background-color: transparent; }
+.sec-title{ padding-left: 26px; }
+.sec-title h2{
+  font-size: var(--fs-2);
+  line-height: 1.14;
+  color: var(--ink-deep);
+}
+.sec-title p{
+  font-size: var(--fs-sm);
+  line-height: 22px;
+  margin-top: 8px;
+  max-width: 54em;
+}
+
+.slips{
+  border-top: 2.4px solid var(--ink-deep);
+}
+
+.slip{
+  display: grid;
+  grid-template-columns: 3fr 16px 9fr;
+  border-bottom: 0.5px solid var(--rule);
+}
+.slip[data-checked="false"]{ border-bottom-style: dashed; }
+
+/* 存根联 */
+.slip-stub{
+  background: var(--stub);
+  color: var(--ink-deep);
+  padding: 18px 34px 18px 22px;
+}
+.slip[data-checked="false"] .slip-stub{ background: var(--tone-hold); }
+
+.stub-tag{
+  font-size: var(--fs-xs);
+  line-height: 20px;
+  letter-spacing: .12em;
+}
+.stub-no{
+  font-size: var(--fs-4);
+  line-height: 30px;
+  letter-spacing: .04em;
+  margin-top: 2px;
+}
+.stub-name{
+  font-size: var(--fs-4);
+  line-height: 28px;
+  font-weight: 700;
+  margin-top: 6px;
+}
+.stub-facts{
+  margin-top: 8px;
+  border-top: 0.5px solid var(--rule);
+}
+.stub-facts > div{
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  line-height: 24px;                /* 行高 24px */
+  border-bottom: 0.5px solid var(--rule);
+  font-size: var(--fs-xs);
+}
+.stub-facts dt{ color: var(--ink); }
+.stub-facts dd{ color: var(--ink-deep); text-align: right; }
+
+.stub-amount{
+  margin-top: 10px;
+  font-size: var(--fs-xs);
+  line-height: 24px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  border-top: 2px solid var(--ink);
+  padding-top: 2px;
+}
+.stub-amount .num{ font-size: var(--fs-sm); }
+
+/* 中缝 + 印面 */
+.slip-perf{
+  position: relative;
+  align-self: stretch;
+}
+.slip-seal{
+  position: absolute;
+  left: 50%;
+  bottom: 8px;
+  width: 56px;
+  height: 56px;
+  color: var(--seal);
+  /* 印面偏中缝 2mm */
+  transform: translate(calc(-50% - 2mm), 0);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+.slip-seal svg{ display: block; width: 100%; height: 100%; }
+/* 未订的一联：只换底色与线型，印面照旧——作废的联单也有存根与印 */
+
+/* 盖章：本案唯一的动作，位移量即 2mm 这个可测值
+   （静态页面上不触发，只作为机制的可执行表述） */
+.slip-seal.is-pressing{
+  animation: stamp 240ms cubic-bezier(.2,.7,.2,1) 1;
+}
+@keyframes stamp{
+  from{ transform: translate(calc(-50% + 2mm), -6px); }
+  to  { transform: translate(calc(-50% - 2mm), 0); }
+}
+
+/* 对账联 */
+.slip-pay{
+  padding: 16px 26px 16px 26px;
+}
+.pay-kind{
+  font-size: var(--fs-xs);
+  line-height: 20px;
+  letter-spacing: .06em;
+  color: var(--seal);
+}
+.slip-pay h4{
+  font-size: var(--fs-3);
+  line-height: 32px;
+  color: var(--ink-deep);
+  margin-top: 2px;
+}
+.pay-note{
+  font-size: var(--fs-body);
+  line-height: 26px;
+  margin-top: 10px;
+  max-width: 40em;
+  color: var(--ink);
+}
+
+/* 每张联单的内部结构都不同 —— 差异不靠栏宽，靠排法 */
+.pay-cells{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 14px;
+  border-top: 1px solid var(--ink);
+  border-left: 1px solid var(--rule);
+}
+.pay-cells > div{
+  border-right: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding: 6px 10px;
+  line-height: 20px;
+  font-size: var(--fs-xs);
+}
+.pay-cells b{
+  display: block;
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--fs-sm);
+  font-weight: 400;
+  color: var(--ink-deep);
+  letter-spacing: .02em;
+}
+
+.pay-line{
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 14px;
+  border-top: 1px solid var(--ink);
+  border-bottom: 0.5px solid var(--rule);
+}
+.pay-line > span{
+  padding: 4px 14px 4px 0;
+  margin-right: 14px;
+  line-height: 20px;
+  font-size: var(--fs-xs);
+  border-right: 0.5px solid var(--rule);
+}
+.pay-line > span:last-child{ border-right: 0; margin-right: 0; }
+.pay-line .num{ font-size: var(--fs-sm); color: var(--ink-deep); }
+
+.pay-meter{
+  margin-top: 14px;
+  border-top: 1px solid var(--ink);
+  padding-top: 8px;
+}
+.pay-meter .meter-top{
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--fs-xs);
+  line-height: 20px;
+}
+.meter-track{
+  position: relative;
+  height: 12px;
+  margin-top: 4px;
+  border-bottom: 0.8px solid var(--rule);
+  background-image: linear-gradient(to right, var(--rule) 0 0.5px, transparent 0.5px);
+  background-size: 10% 100%;
+}
+.meter-fill{
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 75%;
+  border-bottom: 2.4px solid var(--ink-deep);
+}
+
+.pay-quote{
+  margin-top: 14px;
+  border-top: 1px solid var(--ink);
+  border-left: 2px solid var(--seal);
+  padding: 6px 0 6px 14px;
+}
+.pay-quote p{
+  font-size: var(--fs-body);
+  line-height: 26px;
+  color: var(--ink-deep);
+}
+.pay-quote cite{
+  display: block;
+  font-style: normal;
+  font-family: var(--mono);
+  font-size: var(--fs-xs);
+  line-height: 22px;
+  margin-top: 2px;
+  color: var(--ink);
+}
+
+.pay-pairs{
+  margin-top: 14px;
+  border-top: 1px solid var(--ink);
+}
+.pay-pairs > div{
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  border-bottom: 0.5px solid var(--rule);
+  font-size: var(--fs-xs);
+  line-height: 24px;
+}
+.pay-pairs dt{ color: var(--ink); }
+.pay-pairs dd{ color: var(--ink-deep); text-align: right; }
+.pay-pairs dd.num{ font-size: var(--fs-sm); }
+
+/* 价目行：撕口止于此，小数点落在这条线上 */
+.slip-close{
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 3fr 16px 9fr;
+  align-items: center;
+  border-top: 0.5px solid var(--rule);
+  background: var(--paper);
+}
+.close-left{
+  padding: 0 22px;
+  font-size: var(--fs-xs);
+  line-height: 24px;
+  color: var(--ink);
+  letter-spacing: .03em;
+}
+.close-perf{
+  width: 16px;
+  height: 100%;
+  background-color: var(--paper);
+  background-image: radial-gradient(circle at 8px 3px, var(--ink) 0 0.6px, transparent 0.65px);
+  background-size: 16px 6px;
+  background-repeat: repeat-y;
+}
+.close-right{
+  display: flex;
+  justify-content: flex-end;
+  align-items: baseline;
+  gap: 16px;
+  padding: 8px 26px 8px 0;
+  line-height: 24px;                /* 行高 24px */
+}
+.close-label{
+  font-size: var(--fs-xs);
+  color: var(--ink);
+  letter-spacing: .06em;
+}
+.amount{
+  width: 88px;                 /* 窄档 88px */
+  flex: 0 0 88px;
+  text-align: right;           /* 右对齐 + 固定两位小数 → 小数点同一条竖线 */
+  white-space: nowrap;
+  font-size: var(--fs-body);
+  line-height: 24px;
+  color: var(--ink-deep);
+}
+.cur{
+  font-family: var(--mono);
+  font-size: var(--fs-sm);
+  color: var(--ink);
+}
+
+/* ------------------------------------------------------------
+   跨年对照：小数点对齐
+   ------------------------------------------------------------ */
+.ledger{
+  display: grid;
+  grid-template-columns: 3fr 16px 9fr;
+  padding-top: 34px;
+}
+.ledger-stub{
+  padding: 0 30px 0 0;
+}
+.ledger-stub h2{
+  font-size: var(--fs-4);
+  line-height: 28px;
+  color: var(--ink-deep);
+}
+.ledger-stub p{
+  font-size: var(--fs-sm);
+  line-height: 24px;
+  margin-top: 8px;
+  color: var(--ink);
+}
+.ledger-stub .note{
+  margin-top: 14px;
+  padding-top: 8px;
+  border-top: 0.5px solid var(--rule);
+  font-size: var(--fs-xs);
+  line-height: 20px;
+}
+.ledger-perf{ align-self: stretch; }
+.ledger-main{ padding-left: 26px; }
+
+.sums{
+  border-top: 2.4px solid var(--ink-deep);
+}
+.sums > div{
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 88px;
+  gap: 20px;
+  align-items: baseline;
+  border-bottom: 0.5px solid var(--rule);
+}
+.sums dt{
+  font-size: var(--fs-sm);
+  line-height: 24px;
+  color: var(--ink);
+}
+.sums dd{
+  font-size: var(--fs-4);
+  line-height: 30px;
+  color: var(--ink-deep);
+}
+.sums .lead-row dt{ font-size: var(--fs-xs); color: var(--ink); }
+.sums .total{ border-bottom: 2.4px solid var(--ink-deep); }
+.sums .total dt,
+.sums .total dd{ font-size: var(--fs-3); color: var(--ink-deep); }
+
+.ledger-foot{
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 0.5px solid var(--rule);
+}
+.ledger-foot > div{
+  font-size: var(--fs-xs);
+  line-height: 20px;
+  padding: 10px 14px 0 0;
+}
+.ledger-foot > div + div{
+  padding-left: 14px;
+  border-left: 0.5px solid var(--rule);
+}
+.ledger-foot b{
+  display: block;
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--fs-sm);
+  font-weight: 400;
+  color: var(--ink-deep);
+}
+
+/* ------------------------------------------------------------
+   图版：五个不同比例的位置
+   ------------------------------------------------------------ */
+.plates{ padding-top: 44px; }
+
+.plate-grid{
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 26px 26px;
+  align-items: start;
+}
+.plate{ margin: 0; }
+.plate img{
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 0.5px solid var(--rule);
+  background: var(--tone-hover);   /* 图版占位面：全站唯一比纸色亮一级的面 */
+}
+.plate figcaption{
+  font-size: var(--fs-xs);
+  line-height: 20px;
+  margin-top: 6px;
+  padding-top: 5px;
+  border-top: 0.5px solid var(--rule);
+  color: var(--ink);
+}
+.plate figcaption .num{
+  color: var(--seal);
+  letter-spacing: .08em;
+  margin-right: 6px;
+}
+.p1{ grid-column: span 7; }
+.p2{ grid-column: span 5; }
+.p3{ grid-column: span 4; }
+.p4{ grid-column: span 8; }
+.p5{ grid-column: 8 / span 5; grid-row: 3; }
+.plate-note{
+  grid-column: 1 / span 6;
+  grid-row: 3;
+  align-self: start;
+  border-top: 2.4px solid var(--ink-deep);
+  padding-top: 10px;
+}
+.plate-note h3{
+  font-size: var(--fs-4);
+  line-height: 28px;
+  color: var(--ink-deep);
+}
+.plate-note dl{
+  margin-top: 8px;
+  border-top: 0.5px solid var(--rule);
+}
+.plate-note dl > div{
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  border-bottom: 0.5px solid var(--rule);
+  font-size: var(--fs-xs);
+  line-height: 24px;
+}
+.plate-note dt{ color: var(--ink); }
+.plate-note dd{ color: var(--ink-deep); text-align: right; }
+.plate-note p{
+  margin-top: 10px;
+  font-size: var(--fs-xs);
+  line-height: 20px;
+  color: var(--ink);
+}
+
+/* ------------------------------------------------------------
+   结算口径 + 四步
+   ------------------------------------------------------------ */
+.terms{
+  display: grid;
+  grid-template-columns: 3fr 16px 9fr;
+  padding-top: 44px;
+}
+.terms-stub{ padding-right: 30px; }
+.terms-stub h2{
+  font-size: var(--fs-3);
+  line-height: 1.16;
+  color: var(--ink-deep);
+}
+.terms-stub p{
+  font-size: var(--fs-sm);
+  line-height: 24px;
+  margin-top: 10px;
+}
+.terms-perf{ align-self: stretch; }
+.terms-main{ padding-left: 26px; }
+
+.term-list{ border-top: 2.4px solid var(--ink-deep); }
+.term-list > li{
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr);
+  gap: 18px;
+  border-bottom: 0.5px solid var(--rule);
+  padding: 8px 0;
+}
+.term-list .tk{
+  font-family: var(--mono);
+  font-size: var(--fs-xs);
+  line-height: 24px;
+  color: var(--seal);
+  letter-spacing: .06em;
+}
+.term-list p{
+  font-size: var(--fs-sm);
+  line-height: 24px;
+}
+.term-list b{ font-weight: 700; color: var(--ink-deep); }
+
+.steps{
+  margin-top: 20px;
+  border-top: 1px solid var(--ink);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+.steps > li{
+  padding: 10px 16px 10px 0;
+  border-right: 0.5px solid var(--rule);
+  font-size: var(--fs-xs);
+  line-height: 20px;
+}
+.steps > li + li{ padding-left: 16px; }
+.steps > li:last-child{ border-right: 0; }
+.steps .n{
+  display: block;
+  font-family: var(--mono);
+  font-size: var(--fs-4);
+  line-height: 30px;
+  color: var(--seal);
+  letter-spacing: .04em;
+}
+.steps b{
+  display: block;
+  font-family: var(--serif-title);
+  font-size: var(--fs-sm);
+  line-height: 24px;
+  color: var(--ink-deep);
+}
+
+/* ------------------------------------------------------------
+   页脚：编号复述
+   ------------------------------------------------------------ */
+.foot{
+  margin-top: 46px;
+  border-top: 6px solid var(--ink-deep);
+  background: var(--paper);
+}
+.foot-grid{
+  display: grid;
+  grid-template-columns: 3fr 16px 9fr;
+  padding: 26px 0 34px;
+}
+.foot-stub{ padding-right: 26px; }
+.foot-seal{
+  display: block;
+  width: 84px;
+  height: 84px;
+  color: var(--seal);
+  mix-blend-mode: multiply;
+}
+.foot-seal svg{ display: block; width: 100%; height: 100%; }
+.foot-stub p{
+  margin-top: 12px;
+  font-size: var(--fs-xs);
+  line-height: 20px;
+  color: var(--ink-deep);
+}
+.foot-perf{ align-self: stretch; }
+.foot-main{ padding-left: 26px; }
+
+.foot-no{
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--fs-4);
+  line-height: 30px;
+  letter-spacing: .06em;
+  color: var(--ink-deep);
+}
+.foot-sub{
+  font-size: var(--fs-sm);
+  line-height: 24px;
+  margin-top: 2px;
+  color: var(--ink);
+}
+.foot-cols{
+  display: grid;
+  grid-template-columns: 1.1fr 1fr 1.4fr;
+  margin-top: 16px;
+  border-top: 0.5px solid var(--rule);
+}
+.foot-cols > div{
+  padding: 10px 16px 0 0;
+  font-size: var(--fs-xs);
+  line-height: 20px;
+}
+.foot-cols > div + div{
+  padding-left: 16px;
+  border-left: 0.5px solid var(--rule);
+}
+.foot-cols h3{
+  font-size: var(--fs-xs);
+  line-height: 20px;
+  letter-spacing: .12em;
+  color: var(--seal);
+  margin-bottom: 4px;
+}
+.foot-cols .num{ font-size: var(--fs-sm); color: var(--ink-deep); }
+.foot-legal{
+  margin-top: 18px;
+  padding-top: 8px;
+  border-top: 0.5px solid var(--rule);
+  font-size: var(--fs-xs);
+  line-height: 20px;
+  color: var(--ink);
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.defs{
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+/* ------------------------------------------------------------
+   移动端：单列，顺序不变
+   ------------------------------------------------------------ */
+@media (max-width: 900px){
+  .wrap{ padding: 0 20px; }
+
+  h1{ font-size: 52px; line-height: 1.02; margin-left: 0; }
+  .lead{ font-size: 16px; }
+
+  .mast-grid,
+  .ctl,
+  .sec-head,
+  .slip,
+  .slip-close,
+  .ledger,
+  .terms,
+  .foot-grid{
+    grid-template-columns: 1fr;
+  }
+
+  .mast-book{ padding-right: 0; }
+  .seal-big{ width: 96px; height: 96px; margin: 0 0 10px; }
+  .book-cap{ text-align: left; margin-top: 8px; }
+
+  /* 中缝转为横向孔列：孔径 1.2、孔距 6 */
+  .perf,
+  .slip-perf,
+  .close-perf,
+  .ledger-perf,
+  .terms-perf,
+  .foot-perf,
+  .ctl-perf{
+    width: auto;
+    height: 16px;
+    background-color: transparent;
+    background-image: radial-gradient(circle at 3px 8px, var(--ink) 0 0.6px, transparent 0.65px);
+    background-size: 6px 16px;
+    background-repeat: repeat-x;
+    background-position: 0 0;
+  }
+  .sec-head .perf{ display: none; }
+  .close-perf{ height: 16px; }
+
+  .mast-main{ padding-left: 0; }
+  .slip-pay,
+  .ctl-main,
+  .ledger-main,
+  .terms-main,
+  .foot-main{ padding-left: 0; padding-right: 0; }
+  .mast-band{ grid-template-columns: 1fr; }
+  .mast-band > div + div{ border-left: 0; padding-left: 0; }
+  .mast-band > div{ border-top: 0.5px solid var(--rule); }
+  .band-a{ grid-template-columns: 1fr; }
+  .band-a span{ border-left: 0; padding-left: 0; }
+  .band-c{ border-left: 0; border-top: 2px solid var(--seal); }
+
+  .slip-seal{
+    left: 50%;
+    bottom: auto;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .close-right{ justify-content: space-between; padding-right: 0; gap: 10px; }
+  .amount{ width: 88px; flex: 0 0 88px; font-size: 16px; letter-spacing: 0; }
+  .close-label{ font-size: 11px; }
+
+  .plate-grid{ grid-template-columns: 1fr; }
+  .p1, .p2, .p3, .p4, .p5{ grid-column: auto; }
+
+  .steps{ grid-template-columns: 1fr 1fr; }
+  .steps > li:nth-child(2){ border-right: 0; }
+
+  .sums > div{ grid-template-columns: minmax(0, 1fr) 88px; gap: 12px; }
+  .sums dd{ font-size: var(--fs-sm); line-height: 24px; letter-spacing: 0; }
+  .sums .total dt{ font-size: var(--fs-xs); line-height: 22px; }
+  .sums .total dd{ font-size: var(--fs-4); }
+  .ledger-foot{ grid-template-columns: 1fr; }
+  .ledger-foot > div + div{ border-left: 0; padding-left: 0; }
+  .ledger-foot > div{ border-top: 0.5px solid var(--rule); padding-top: 8px; }
+
+  .sec-title{ padding-left: 0; }
+  .sec-title h2{ font-size: 26px; line-height: 1.24; }
+  .terms-stub h2{ font-size: 26px; }
+  .terms-stub{ padding-right: 0; }
+  .foot-stub{ padding-right: 0; }
+  .foot-cols{ grid-template-columns: 1fr; }
+  .foot-cols > div + div{ border-left: 0; padding-left: 0; }
+  .readout{ text-align: left; }
+  .stub-amount{ flex-direction: row; }
+}
+</style>
+</head>
+<body>
+
+<!-- 印面：线条只用 2.4 / 0.8 / 0.5 三级 -->
+<svg class="defs" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="seal-face" viewBox="0 0 104 104">
+      <circle cx="52" cy="52" r="50" fill="none" stroke="currentColor" stroke-width="2.4"/>
+      <circle cx="52" cy="52" r="42.5" fill="none" stroke="currentColor" stroke-width="0.8"/>
+      <text x="52" y="31" text-anchor="middle" font-family="'Literata','文津宋体','Noto Serif SC',serif" font-size="9" letter-spacing="1.6" fill="currentColor">折印手冲</text>
+      <text x="52" y="60" text-anchor="middle" font-family="'Literata','文津宋体','Noto Serif SC',serif" font-size="19" letter-spacing="1" fill="currentColor">对账</text>
+      <text x="52" y="76" text-anchor="middle" font-family="'Sometype Mono',monospace" font-size="7.5" letter-spacing="1.4" fill="currentColor">PA-001</text>
+      <line x1="27" y1="84" x2="77" y2="84" stroke="currentColor" stroke-width="0.5"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="wrap">
+
+  <!-- ======================== 首屏：票面 ======================== -->
+  <header class="mast" id="first">
+    <div class="mast-grid">
+      <div class="mast-book">
+        <span class="seal-big"><svg aria-hidden="true"><use href="#seal-face"></use></svg></span>
+        <p class="book-cap num">
+          <b>馆档 ZY-2026Q3-PA-001</b>
+          修订 03 · 印次 03 · 2026-11-04 落账<br>
+          本页不出售，不收定金，不开在线支付
+        </p>
+      </div>
+      <div class="mast-perf perf" aria-hidden="true"></div>
+      <div class="mast-main">
+        <p class="kicker num">产区订豆对账单 · 第 1 联（订豆人存查） · 五联骑缝相符</p>
+        <h1>
+          <span class="l1">手冲豆单</span>
+          <span class="l2">对账结算联</span>
+        </h1>
+        <p class="lead">
+          本册登记 2026 年第三季的手冲豆单：五个产区、五支豆子、五张联单。价钱一律按每 100 克标示，
+          合计栏与小数点在同一根竖线上，看一眼就知道哪一笔属于哪一联。本馆不做在线支付——
+          记下联单编号与份数，<em>加微信</em>，我们核过库存再回一句准数。
+        </p>
+
+        <div class="mast-band">
+          <div class="band-a"><b>05 / 05</b><span>产区与联单，一一对应，不并档、不凑整。</span></div>
+          <div class="band-b"><b>11 份 · 15,700.00</b><span>本季落账：11 公斤，人民币，两位小数。</span></div>
+          <div class="band-c"><b>0.00</b>在线收款。全部走微信人工核价。</div>
+        </div>
+
+        <div class="cta">
+          <p class="cta-tag num">唯一入口 / ONLY ONE DOOR</p>
+          <p class="cta-word">加微信订豆</p>
+          <p class="cta-id num">shouchong-zhe-yin</p>
+          <p class="cta-note">
+            报联号（例如 001-02）和份数即可；1 份 = 1 公斤。当天 09:30–19:00 回复库存与准价，
+            报价当日有效，不催单、不预售。
+          </p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ======================== 骑缝核对条 ======================== -->
+  <section class="ctl" aria-label="骑缝核对">
+    <div class="ctl-stub">
+      <h2>骑缝核对</h2>
+      <p>右列五个联号与本页五张联单一一对应。虚线框那一个是本季未订（001-04），金额栏即 0.00，不补位、不占位。</p>
+    </div>
+    <div class="ctl-perf" aria-hidden="true"></div>
+    <div class="ctl-main">
+      <div class="chips">
+        <span class="chip">001-01<b>4,440.00</b></span>
+        <span class="chip">001-02<b>4,680.00</b></span>
+        <span class="chip">001-03<b>4,720.00</b></span>
+        <span class="chip was-off">001-04<b>0.00</b></span>
+        <span class="chip">001-05<b>1,860.00</b></span>
+      </div>
+      <p class="readout">已纳入 4 / 5 联 · 未纳入 1 联（001-04）· 撕口与小数点对齐 5 处</p>
+    </div>
+  </section>
+
+  <!-- ======================== 联单 ======================== -->
+  <div class="sec-head">
+    <p class="sec-no num">二 / SLIPS</p>
+    <div class="perf" aria-hidden="true"></div>
+    <div class="sec-title">
+      <h2>联单：五张，各自编号</h2>
+      <p>两联一撕：左为存根，右为对账。中缝的孔列是撕口，孔止于价目线；谁家的价钱，看小数点落在哪一档。</p>
+    </div>
+  </div>
+
+  <div class="slips">
+
+    <!-- 001-01 -->
+    <article class="slip" id="slip-001-01" data-no="001-01" data-checked="true">
+      <div class="slip-stub">
+        <p class="stub-tag num">第 1 联 · 存根 · 001-01</p>
+        <p class="stub-no num">001-01</p>
+        <h3 class="stub-name">科契尔</h3>
+        <dl class="stub-facts">
+          <div><dt>产区</dt><dd>埃塞俄比亚 · 盖德奥</dd></div>
+          <div><dt>海拔</dt><dd class="num">1,980–2,100 m</dd></div>
+          <div><dt>处理</dt><dd>水洗 G1</dd></div>
+          <div><dt>批次</dt><dd class="num">24 × 30 kg</dd></div>
+        </dl>
+        <p class="stub-amount"><span>金额</span><span class="num">4,440.00</span></p>
+      </div>
+      <div class="slip-perf" aria-hidden="true">
+        <span class="slip-seal"><svg><use href="#seal-face"></use></svg></span>
+      </div>
+      <div class="slip-pay">
+        <p class="pay-kind num">水洗 · 浅烘 · 杯测 88.5</p>
+        <h4>耶加雪菲 科契尔 G1</h4>
+        <p class="pay-note">
+          二月收豆，全红果率 96%。晒床第七天遇一场短雨，我们把那一层单独摊薄，晚收了两天。
+          杯里是柠檬皮、白花和红茶尾；酸像没加糖的柠檬水，干净到不必解释。
+        </p>
+        <div class="pay-cells">
+          <div><b>88.5</b>杯测（SCA，2026-02-18）</div>
+          <div><b>148.00</b>单价 / 100 g</div>
+          <div><b>7 天</b>养豆期，出豆后计</div>
+          <div><b>3 份</b>本季订数（3 kg）</div>
+        </div>
+      </div>
+      <div class="slip-close">
+        <p class="close-left">001-01 · 与存根联相符 · 撕口落于价目线</p>
+        <div class="close-perf" aria-hidden="true"></div>
+        <div class="close-right">
+          <span class="close-label">参考金额</span>
+          <span class="cur num">¥</span>
+          <span class="amount num">4,440.00</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- 001-02 -->
+    <article class="slip" id="slip-001-02" data-no="001-02" data-checked="true">
+      <div class="slip-stub">
+        <p class="stub-tag num">第 1 联 · 存根 · 001-02</p>
+        <p class="stub-no num">001-02</p>
+        <h3 class="stub-name">班沙</h3>
+        <dl class="stub-facts">
+          <div><dt>产区</dt><dd>埃塞俄比亚 · 西达摩</dd></div>
+          <div><dt>海拔</dt><dd class="num">1,900–2,050 m</dd></div>
+          <div><dt>处理</dt><dd>日晒 G1</dd></div>
+          <div><dt>批次</dt><dd class="num">18 × 30 kg</dd></div>
+        </dl>
+        <p class="stub-amount"><span>金额</span><span class="num">4,680.00</span></p>
+      </div>
+      <div class="slip-perf" aria-hidden="true">
+        <span class="slip-seal"><svg><use href="#seal-face"></use></svg></span>
+      </div>
+      <div class="slip-pay">
+        <p class="pay-kind num">日晒 · 中浅烘 · 杯测 88.2</p>
+        <h4>西达摩 班沙 日晒 G1</h4>
+        <p class="pay-note">
+          日晒发酵比水洗慢，前段是草莓酱和朗姆葡萄干；我们把烘焙停在二爆前 15 秒，
+          让甜味撑到杯温 55℃ 之后还在。这支豆子不适合磨太细，细了会苦得没有道理。
+        </p>
+        <div class="pay-line">
+          <span>产区 <span class="num">西达摩 · 班沙</span></span>
+          <span>处理 <span class="num">日晒 G1</span></span>
+          <span>杯测 <span class="num">88.2</span></span>
+          <span>单价 <span class="num">156.00 / 100 g</span></span>
+          <span>现货 <span class="num">12 袋</span></span>
+        </div>
+      </div>
+      <div class="slip-close">
+        <p class="close-left">001-02 · 与存根联相符 · 撕口落于价目线</p>
+        <div class="close-perf" aria-hidden="true"></div>
+        <div class="close-right">
+          <span class="close-label">参考金额</span>
+          <span class="cur num">¥</span>
+          <span class="amount num">4,680.00</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- 001-03 -->
+    <article class="slip" id="slip-001-03" data-no="001-03" data-checked="true">
+      <div class="slip-stub">
+        <p class="stub-tag num">第 1 联 · 存根 · 001-03</p>
+        <p class="stub-no num">001-03</p>
+        <h3 class="stub-name">圣安东尼奥</h3>
+        <dl class="stub-facts">
+          <div><dt>产区</dt><dd>哥伦比亚 · 乌伊拉</dd></div>
+          <div><dt>海拔</dt><dd class="num">1,750–1,900 m</dd></div>
+          <div><dt>处理</dt><dd>水洗</dd></div>
+          <div><dt>批次</dt><dd class="num">30 × 30 kg</dd></div>
+        </dl>
+        <p class="stub-amount"><span>金额</span><span class="num">4,720.00</span></p>
+      </div>
+      <div class="slip-perf" aria-hidden="true">
+        <span class="slip-seal"><svg><use href="#seal-face"></use></svg></span>
+      </div>
+      <div class="slip-pay">
+        <p class="pay-kind num">水洗 · 中烘 · 杯测 86.5</p>
+        <h4>惠兰 圣安东尼奥</h4>
+        <p class="pay-note">
+          坚果、焦糖、杏干，是店里最容易被第一次喝手冲的人认出来的一支。它不争，
+          可每一杯都落在同一根线上——这正是我们把它编在 003 的原因：基准豆。
+        </p>
+        <div class="pay-meter">
+          <div class="meter-top">
+            <span>库存 30 袋 / 仓位 40 袋</span>
+            <span class="num">75%</span>
+          </div>
+          <div class="meter-track"><span class="meter-fill"></span></div>
+        </div>
+      </div>
+      <div class="slip-close">
+        <p class="close-left">001-03 · 与存根联相符 · 撕口落于价目线</p>
+        <div class="close-perf" aria-hidden="true"></div>
+        <div class="close-right">
+          <span class="close-label">参考金额</span>
+          <span class="cur num">¥</span>
+          <span class="amount num">4,720.00</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- 001-04 -->
+    <article class="slip" id="slip-001-04" data-no="001-04" data-checked="false">
+      <div class="slip-stub">
+        <p class="stub-tag num">第 1 联 · 存根 · 001-04</p>
+        <p class="stub-no num">001-04</p>
+        <h3 class="stub-name">林东</h3>
+        <dl class="stub-facts">
+          <div><dt>产区</dt><dd>印度尼西亚 · 苏门答腊</dd></div>
+          <div><dt>海拔</dt><dd class="num">1,300–1,500 m</dd></div>
+          <div><dt>处理</dt><dd>湿刨</dd></div>
+          <div><dt>批次</dt><dd class="num">16 × 30 kg</dd></div>
+        </dl>
+        <p class="stub-amount"><span>金额</span><span class="num">0.00</span></p>
+      </div>
+      <div class="slip-perf" aria-hidden="true">
+        <span class="slip-seal"><svg><use href="#seal-face"></use></svg></span>
+      </div>
+      <div class="slip-pay">
+        <p class="pay-kind num">湿刨 · 中深烘 · 杯测 85.0 · 本季未订</p>
+        <h4>曼特宁 林东</h4>
+        <p class="pay-note">
+          木质、黑巧，凉下来会转出一点樟脑。订豆的人里有三分之一是回头客专要这一支，
+          所以库存一直守在 16 袋，不追加、不推销；本季没有人订，金额栏就留 0.00。
+        </p>
+        <div class="pay-quote">
+          <p>「别问它香不香，问它像不像下雨天的旧书。」</p>
+          <cite>—— 场记第 14 页，2019 年 11 月 6 日，第一杯</cite>
+        </div>
+      </div>
+      <div class="slip-close">
+        <p class="close-left">001-04 · 与存根联相符 · 本季未订，金额为零</p>
+        <div class="close-perf" aria-hidden="true"></div>
+        <div class="close-right">
+          <span class="close-label">参考金额</span>
+          <span class="cur num">¥</span>
+          <span class="amount num">0.00</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- 001-05 -->
+    <article class="slip" id="slip-001-05" data-no="001-05" data-checked="true">
+      <div class="slip-stub">
+        <p class="stub-tag num">第 1 联 · 存根 · 001-05</p>
+        <p class="stub-no num">001-05</p>
+        <h3 class="stub-name">圣伊莎贝尔</h3>
+        <dl class="stub-facts">
+          <div><dt>产区</dt><dd>危地马拉 · 韦韦特南戈</dd></div>
+          <div><dt>海拔</dt><dd class="num">1,600–1,850 m</dd></div>
+          <div><dt>处理</dt><dd>蜜处理</dd></div>
+          <div><dt>批次</dt><dd class="num">8 × 30 kg</dd></div>
+        </dl>
+        <p class="stub-amount"><span>金额</span><span class="num">1,860.00</span></p>
+      </div>
+      <div class="slip-perf" aria-hidden="true">
+        <span class="slip-seal"><svg><use href="#seal-face"></use></svg></span>
+      </div>
+      <div class="slip-pay">
+        <p class="pay-kind num">蜜处理 · 浅烘 · 杯测 89.0 · 每人限 1 份</p>
+        <h4>帕卡马拉 圣伊莎贝尔</h4>
+        <p class="pay-note">
+          蜜处理让它比同海拔的豆子黏一点：杏脯、红糖，尾段有可可。这是本季最贵的一支，
+          也是唯一限购的一支——只有 8 袋，卖给喝得完的人。
+        </p>
+        <dl class="pay-pairs">
+          <div><dt>品种</dt><dd>帕卡马拉（Pacamara）</dd></div>
+          <div><dt>处理 / 海拔</dt><dd class="num">蜜处理 · 1,600–1,850 m</dd></div>
+          <div><dt>单价</dt><dd class="num">186.00 / 100 g</dd></div>
+          <div><dt>本季订数</dt><dd class="num">1 份（1 kg）</dd></div>
+          <div><dt>限购</dt><dd>每人 1 份，不接预留</dd></div>
+        </dl>
+      </div>
+      <div class="slip-close">
+        <p class="close-left">001-05 · 与存根联相符 · 撕口落于价目线</p>
+        <div class="close-perf" aria-hidden="true"></div>
+        <div class="close-right">
+          <span class="close-label">参考金额</span>
+          <span class="cur num">¥</span>
+          <span class="amount num">1,860.00</span>
+        </div>
+      </div>
+    </article>
+
+  </div>
+
+  <!-- ======================== 跨年对照 ======================== -->
+  <section class="ledger">
+    <div class="ledger-stub">
+      <h2>三、跨年对照</h2>
+      <p>
+        这一节只做一件事：把小数点摆在同一根竖线上。上一年度与本季度的金额并排，
+        一眼能看出两季的规模差，以及产区口径的变化。
+      </p>
+      <p class="note">
+        下表的数字是 2026-11-04 的落账存根，与本页联单同源；001-04 本季未订，计入联数但不计入金额。
+      </p>
+    </div>
+    <div class="ledger-perf perf" aria-hidden="true"></div>
+    <div class="ledger-main">
+      <dl class="sums">
+        <div class="lead-row">
+          <dt>上一年度落账 · PA-2025 · 两档合并口径</dt>
+          <dd class="num">18,600.00</dd>
+        </div>
+        <div class="lead-row">
+          <dt>其中 埃塞俄比亚 / 肯尼亚 两产区 · 60.4%</dt>
+          <dd class="num">11,234.40</dd>
+        </div>
+        <div class="lead-row">
+          <dt>其中 中南美 三产区 · 39.6%</dt>
+          <dd class="num">7,365.60</dd>
+        </div>
+        <div class="total">
+          <dt>本季落账 · PA-2026 Q3 · 11 份 / 11 kg</dt>
+          <dd class="num">15,700.00</dd>
+        </div>
+        <div>
+          <dt>未收款：全数待微信人工确认，本页不收</dt>
+          <dd class="num">15,700.00</dd>
+        </div>
+      </dl>
+      <div class="ledger-foot">
+        <div><b>5 联 / 5 产区</b>001-01 至 001-05，无缺号。</div>
+        <div><b>2 位小数</b>金额一律保留两位，不四舍五入。</div>
+        <div><b>312.5°</b>主墨色相：含铁紫，不与纸色同族。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== 图版 ======================== -->
+  <section class="plates">
+    <div class="sec-head">
+      <p class="sec-no num">四 / PLATES</p>
+      <div class="perf" aria-hidden="true"></div>
+      <div class="sec-title">
+        <h2>图版：五个位置，五种比例</h2>
+        <p>图注即索引。每张都能在上面的联单里找到编号；看清看不清，都欢迎来店里翻底片盒，不修图。</p>
+      </div>
+    </div>
+
+    <div class="plate-grid">
+      <figure class="plate p1">
+        <img src="images/占位-1.jpg" width="1200" height="800" alt="科契尔晒床上的薄摊层与红果分选" style="aspect-ratio:1200 / 800">
+        <figcaption><span class="num">图 01</span>晒床第七天的薄摊层，全红果率 96%。对应联单 001-01。</figcaption>
+      </figure>
+      <figure class="plate p2">
+        <img src="images/占位-2.jpg" width="800" height="800" alt="杯测台上从左数第三只碗" style="aspect-ratio:800 / 800">
+        <figcaption><span class="num">图 02</span>杯测台，左起第三只碗是 001-02；88.2 分打在这一只。</figcaption>
+      </figure>
+      <figure class="plate p3">
+        <img src="images/占位-3.jpg" width="800" height="800" alt="烘焙间按编号排列的样豆罐" style="aspect-ratio:800 / 800">
+        <figcaption><span class="num">图 03</span>样豆罐按联号排列，空的那格是 001-04（本季未订）。</figcaption>
+      </figure>
+      <figure class="plate p4">
+        <img src="images/占位-4.jpg" width="1200" height="600" alt="联单中缝的孔列与价目线" style="aspect-ratio:1200 / 600">
+        <figcaption><span class="num">图 04</span>中缝孔列与价目线的相对位置：孔径 1.2 px、孔距 6 px，撕口止于线上。</figcaption>
+      </figure>
+      <figure class="plate p5">
+        <img src="images/占位-5.jpg" width="900" height="600" alt="店门口的价目板" style="aspect-ratio:900 / 600">
+        <figcaption><span class="num">图 05</span>门口的价目板，每周一改；改价时旧板留底，编号照旧。</figcaption>
+      </figure>
+      <div class="plate-note">
+        <h3>图版登记</h3>
+        <dl>
+          <div><dt>图版数</dt><dd class="num">5 / 5</dd></div>
+          <div><dt>比例档</dt><dd class="num">3:2 · 1:1 · 4:3 · 2:1 · 3:2</dd></div>
+          <div><dt>底片盒</dt><dd>店内可查，按联号排列</dd></div>
+          <div><dt>修图</dt><dd>不修；色偏由灯光，不由滤镜</dd></div>
+        </dl>
+        <p>图注里的联号与上方联单同源，改一张图要先改联单；对不上的，以联单为准。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== 结算口径 ======================== -->
+  <section class="terms">
+    <div class="terms-stub">
+      <h2>五、结算口径</h2>
+      <p>
+        不做在线支付不是姿态，是算术：一笔订豆要经过称重、核库存、定交付三处人工，
+        付款通道会把这三处压成一个「已支付」，出错时谁都不认账。
+      </p>
+      <p class="note" style="font-size:12.5px; line-height:20px; margin-top:12px; padding-top:8px; border-top:0.5px solid var(--rule)">
+        本页只登记与对账，不构成销售要约；价格以微信当日回复为准。
+      </p>
+    </div>
+    <div class="terms-perf perf" aria-hidden="true"></div>
+    <div class="terms-main">
+      <ul class="term-list">
+        <li><span class="tk">份 / 重量</span><p><b>1 份 = 1 公斤</b>（10 × 100 克）。金额 = 100 克单价 × 10 × 份数，本页已按此算好。</p></li>
+        <li><span class="tk">报价窗口</span><p>每天 <b>09:30–19:00</b>，微信内报价，当日有效；周二烘豆，只回消息不接单。</p></li>
+        <li><span class="tk">收款</span><p><b>不收款</b>：未开在线支付，未收定金。到店自取时付，或交付时付。</p></li>
+        <li><span class="tk">交付</span><p>到店自取；三公里内闪送费 <b>12.00</b> 元，不计入上表；不自取的不代发。</p></li>
+        <li><span class="tk">退换</span><p>烘焙日起 <b>7 天</b>内，未开封、风味不符描述，原价退回，不问理由。</p></li>
+      </ul>
+
+      <ol class="steps">
+        <li><span class="n num">01</span><b>记联号</b>抄下 001-0X 与份数，写在纸上或截图。</li>
+        <li><span class="n num">02</span><b>加微信</b>shouchong-zhe-yin，验证写「订豆」。</li>
+        <li><span class="n num">03</span><b>核库存</b>我们回现货袋数与准价，缺货就说缺货。</li>
+        <li><span class="n num">04</span><b>定交付</b>自取或闪送，时间由你定，我们不催。</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ======================== 页脚 ======================== -->
+  <footer class="foot">
+    <div class="foot-grid">
+      <div class="foot-stub">
+        <span class="foot-seal"><svg aria-hidden="true"><use href="#seal-face"></use></svg></span>
+        <p>折印手冲 · 只做手冲<br>五个产区，五支豆子，五张联单</p>
+      </div>
+      <div class="foot-perf perf" aria-hidden="true"></div>
+      <div class="foot-main">
+        <p class="foot-no">ZY-2026Q3-PA-001</p>
+        <p class="foot-sub">第 1 联（订豆人存查）· 修订 03 · 印次 03 · 2026-11-04 落账 · 各联编号 001-01 至 001-05，共 5 联</p>
+
+        <div class="foot-cols">
+          <div>
+            <h3>馆址与时间</h3>
+            城西区 榆树巷 7 号一层<br>
+            09:30–19:00（周二烘豆，不营业）<br>
+            <span class="num">2 座 / 12 位 / 无插座</span>
+          </div>
+          <div>
+            <h3>订豆</h3>
+            微信 <span class="num">shouchong-zhe-yin</span><br>
+            报联号 + 份数，当日回复<br>
+            1 份 = 1 公斤，不拆零
+          </div>
+          <div>
+            <h3>对账</h3>
+            联号 001-01 至 001-05，逐一对应产区<br>
+            金额两位小数，小数点同一条竖线<br>
+            缺联、错号、小数点不齐，请拒收并告知
+          </div>
+        </div>
+
+        <p class="foot-legal">
+          <span>本页不出售、不收定金、不开在线支付；价格以微信当日回复为准。</span>
+          <span class="num">PA-001 · REV 03</span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+</body>
+</html>

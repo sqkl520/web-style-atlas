@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>凯旋路十七号 · 手冲豆目 第 17 期 · KB-17</title>
+<meta name="description" content="凯旋路十七号手冲专营：五个产区十二支豆子，按克下单，加微信订，不做在线支付。">
+<style>
+/* ============================================================
+   凯旋路十七号 — 手冲豆目 · 第 17 期
+   版式：印花税票对账联。
+   每一联 = 3fr / 16px 中缝 / 9fr；中缝为孔径 1.2px、孔距 6px 的孔列；
+   行高 24px；金额列右对齐、窄档 88px；印面偏中缝 2mm。
+   ============================================================ */
+:root{
+  --ink:#5A2A50;
+  --paper:#E1D6BD;
+  --seal:#7A2E2E;
+  --stub:#C9BFA6;
+  --ink-deep:#3F1A38;
+  --rule:#B9A98C;
+  --tone-hover:#DFD6BF;
+
+  --seam:16px;      /* 中缝宽 */
+  --off:2mm;        /* 印面偏中缝 2mm = 7.559px @96dpi */
+  --lh:24px;        /* 行高 24px */
+  --w88:88px;       /* 金额列窄档 88px */
+
+  --t:"Literata","文津宋体","Noto Serif SC",serif;
+  --b:"文津宋体","WenJin Mincho SC","Noto Serif SC","Source Han Serif SC",serif;
+  --m:"Sometype Mono",monospace;
+}
+*,*::before,*::after{box-sizing:border-box;border-radius:0}
+html{background:var(--paper);-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--b);font-size:17px;line-height:var(--lh);
+  font-variant-numeric:tabular-nums lining-nums;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,p,ul,ol,dl,dd,dt,figure,table{margin:0}
+ul,ol{padding:0;list-style:none}
+a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule)}
+a:hover{background:var(--tone-hover)}
+/* 图位边框用 outline 画：outline 不占布局，图片盒子的宽高就等于 width/height 属性 */
+img{display:block;width:100%;max-width:100%;height:auto;outline:1px solid var(--rule);outline-offset:-1px;background:var(--stub);object-fit:cover}
+table{border-collapse:collapse;width:100%}
+caption{text-align:left}
+:focus-visible{outline:2px solid var(--ink-deep);outline-offset:2px}
+
+.mono{font-family:var(--m);font-variant-numeric:tabular-nums}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+.wrap{width:1028px;max-width:calc(100% - 32px);margin:0 auto}
+
+/* ---------------- 版头 ---------------- */
+.mh{padding-top:18px}
+.mh .wrap{border-bottom:6px solid var(--ink-deep);padding-bottom:8px}
+.mh-row{display:flex;align-items:baseline;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.brand{font-family:var(--t);font-size:25px;line-height:32px;letter-spacing:.02em}
+.brand span{font-family:var(--b);font-size:11px;line-height:16px;letter-spacing:.2em;color:var(--seal);display:block}
+.nav{display:flex;gap:18px;flex-wrap:wrap}
+.nav a{font-size:12px;line-height:24px;border-bottom:0;padding:0 2px;letter-spacing:.06em}
+.mh-meta{font-size:11px;line-height:18px;letter-spacing:.05em;margin-top:6px;color:var(--ink-deep)}
+.mh-meta b{font-weight:400;color:var(--seal)}
+
+/* ---------------- 一联 = 3fr | 16px | 9fr ---------------- */
+.tk{display:grid;grid-template-columns:3fr var(--seam) 9fr;align-items:stretch}
+.tk + .tk{border-top:0.8px solid var(--rule)}
+.seam{
+  position:relative;
+  background-color:var(--paper);
+  background-image:radial-gradient(circle at 50% 50%, var(--ink-deep) 0.6px, var(--paper) 0.6px);
+  background-size:100% 6px;
+  background-position:50% 3px;
+  background-repeat:repeat-y;
+}
+.rail{background:var(--stub);padding:26px 18px 22px 0;display:flex;flex-direction:column;gap:12px}
+.rail-no{font-size:11px;line-height:16px;letter-spacing:.1em;color:var(--ink-deep)}
+.rail-t{font-family:var(--t);font-size:25px;line-height:32px;font-weight:400}
+.rail-n{font-size:12px;line-height:18px;color:var(--ink-deep)}
+.rail-p{font-size:11px;line-height:16px;letter-spacing:.08em;color:var(--ink-deep);margin-top:auto;padding-top:14px}
+.stubdl{font-size:11px;line-height:24px;border-top:1px solid var(--ink)}
+.stubdl dt{float:left;color:var(--ink-deep);letter-spacing:.06em}
+.stubdl dd{text-align:right;font-family:var(--m);border-bottom:0.5px solid var(--rule);white-space:nowrap;overflow:hidden}
+.stubdl div{overflow:hidden}
+.badge{
+  width:62px;height:62px;border:2.4px solid var(--seal);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--t);font-size:15px;line-height:18px;color:var(--seal);letter-spacing:.08em;
+  position:relative;
+}
+.badge::after{content:"";position:absolute;inset:4px;border:0.5px solid var(--seal);border-radius:50%}
+.body{padding:26px 0 40px 20px;min-width:0;position:relative;z-index:2}
+
+/* ---------------- 字阶 ---------------- */
+.kick{font-family:var(--m);font-size:12px;line-height:18px;letter-spacing:.14em;color:var(--seal)}
+.disp{font-family:var(--t);font-size:42px;line-height:52px;font-weight:400;letter-spacing:.01em;margin:12px 0 16px}
+.lead{font-size:17px;line-height:24px;max-width:40em}
+.note{font-size:12px;line-height:18px;color:var(--ink-deep)}
+.rule5{border-top:5px solid var(--seal);height:0}
+.lbl{font-size:11px;line-height:18px;letter-spacing:.1em;color:var(--ink-deep);font-family:var(--m)}
+/* 压线：从版心左缘起算，越过中缝中心线 2mm —— 这是「印面偏中缝 2mm」的那一笔 */
+.bleed{
+  position:relative;border-top:2.4px solid var(--ink-deep);height:0;
+  margin-left:calc(-20px - var(--seam) / 2 - var(--off));
+  width:calc(100% + 20px + var(--seam) / 2 + var(--off));
+}
+.bleed::after{
+  content:"";position:absolute;left:0;top:0;width:0;
+  height:calc(var(--off) + 2px);border-left:0.8px solid var(--seal);
+}
+
+/* ---------------- 首屏 ---------------- */
+.mast{font-family:var(--t);font-size:86px;line-height:86px;font-weight:400;letter-spacing:0;margin:8px 0 0}
+.mastnote{font-family:var(--m);font-size:10px;line-height:14px;letter-spacing:.06em;color:var(--seal);margin-top:5px;padding-left:0}
+.mastnote b{font-weight:400;color:var(--ink-deep)}
+.cover-body{display:grid;grid-template-columns:1fr 320px;gap:0 16px;align-items:start;margin-top:16px}
+.cover-l,.cover-r{min-width:0}
+.figcap{font-size:12px;line-height:18px;color:var(--ink-deep);margin-top:8px;border-top:0.5px solid var(--rule);padding-top:6px}
+.figcap em{font-style:normal;font-family:var(--m);letter-spacing:.06em}
+.cover-rail{display:flex;border-top:2px solid var(--ink-deep);border-bottom:2px solid var(--ink-deep);margin:18px 0 16px}
+.cover-rail li{flex:1 1 auto;padding:8px 10px 8px 0;border-right:0.5px solid var(--rule);font-size:11px;line-height:18px;color:var(--ink-deep)}
+.cover-rail li:last-child{border-right:0;padding-right:0}
+.cover-rail b{display:block;font-family:var(--t);font-size:26px;line-height:30px;font-weight:400;color:var(--ink)}
+.cta{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--b);font-size:17px;line-height:24px;color:var(--ink);
+  background:var(--paper);border:1px solid var(--ink-deep);border-left:5px solid var(--seal);
+  padding:9px 16px;cursor:pointer;
+}
+.btn:hover{background:var(--tone-hover)}
+.btn:active{background:var(--stub)}
+.btn .mono{font-size:13px;letter-spacing:.02em}
+.cta-say{font-size:12px;line-height:18px;color:var(--ink-deep);max-width:26em}
+
+/* ---------------- 卡片：不等栏宽 + 不同内部结构 ---------------- */
+.cards{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px;margin-top:20px}
+.card{border:1px solid var(--ink-deep);padding:16px 16px 14px;min-width:0}
+.w2{grid-column:span 2}
+.w3{grid-column:span 3}
+.w4{grid-column:span 4}
+.card-h{font-family:var(--t);font-size:21px;line-height:28px;font-weight:400;margin-bottom:8px}
+.card-h .mono{font-size:11px;letter-spacing:.1em;color:var(--seal);display:block;margin-bottom:2px;line-height:18px}
+.card p{font-size:15px;line-height:24px}
+.card p + p{margin-top:8px}
+.stat{margin-top:14px;border-top:2px solid var(--ink-deep);padding-top:6px;font-size:30px;line-height:34px}
+.stat span{display:block;font-family:var(--b);font-size:11px;line-height:18px;color:var(--ink-deep)}
+.mini{margin-top:4px;font-size:12px;line-height:24px}
+.mini th{text-align:left;font-weight:400;color:var(--ink-deep);width:56px;border-bottom:0.5px solid var(--rule);vertical-align:top;font-size:11px}
+.mini td{border-bottom:0.5px solid var(--rule);text-align:right;font-family:var(--m);white-space:nowrap}
+
+/* ---------------- 账表 ---------------- */
+.tw{overflow-x:auto;margin-top:4px}
+.led{font-size:13px;line-height:24px;table-layout:fixed}
+.led caption{font-family:var(--m);font-size:11px;line-height:18px;letter-spacing:.05em;color:var(--ink-deep);padding-bottom:6px}
+.led th{font-weight:400;font-size:11px;line-height:18px;letter-spacing:.05em;color:var(--ink-deep);
+  border-top:1px solid var(--ink-deep);border-bottom:1px solid var(--ink-deep);
+  padding:4px 6px;text-align:left;vertical-align:bottom}
+.led td{padding:0 6px;border-bottom:0.5px solid var(--rule);vertical-align:baseline;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.led tbody tr:hover{background:var(--tone-hover)}
+.led tfoot td{border-bottom:0;border-top:2px solid var(--ink-deep);font-family:var(--m);font-size:12px;color:var(--ink-deep);padding-top:6px}
+.n{font-family:var(--m);text-align:right;letter-spacing:0}
+.th-n{text-align:right}
+.w-30{width:30px}.w-34{width:34px}.w-64{width:64px}.w-72{width:72px}.w-88{width:var(--w88)}.w-92{width:92px}.w-120{width:120px}
+.totals{display:flex;margin-top:12px;border-top:2.4px solid var(--ink-deep);border-bottom:2.4px solid var(--ink-deep)}
+.totals div{flex:1 1 0;padding:7px 10px 7px 0;border-right:0.5px solid var(--rule);min-width:0}
+.totals div:last-child{border-right:0;padding-right:0}
+.totals b{display:block;font-family:var(--m);font-size:19px;line-height:26px;font-weight:400;text-align:right;white-space:nowrap}
+.totals span{display:block;font-size:11px;line-height:16px;letter-spacing:.06em;color:var(--ink-deep);text-align:right}
+
+/* ---------------- 营业时间表：不设最小宽，随栏宽收缩 ---------------- */
+.hours{font-size:14px;line-height:26px;table-layout:fixed}
+.hours caption{font-family:var(--m);font-size:11px;line-height:18px;letter-spacing:.05em;color:var(--ink-deep);padding-bottom:6px}
+.hours td{border-bottom:0.5px solid var(--rule);vertical-align:baseline;padding:0 8px 0 0}
+.hours tr:hover{background:var(--tone-hover)}
+.hours td:first-child{width:34%;color:var(--ink-deep);font-size:13px}
+.hours td:nth-child(2){width:29%;text-align:right;font-family:var(--m);font-size:13px;white-space:nowrap}
+.hours td:last-child{padding-right:0;padding-left:10px;font-size:13px}
+
+/* ---------------- 段落块 ---------------- */
+.row{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:0 16px}
+.blk{border-top:1px solid var(--ink-deep);padding-top:8px;min-width:0}
+.blk h3{font-family:var(--t);font-size:19px;line-height:26px;font-weight:400;margin-bottom:6px}
+.blk p{font-size:15px;line-height:24px}
+.blk p + p{margin-top:8px}
+.blk .lbl{display:block;margin-bottom:4px}
+.ol3 li{border-bottom:0.5px solid var(--rule);padding:6px 0;font-size:15px;line-height:24px}
+.ol3 li:last-child{border-bottom:0}
+.ol3 b{font-family:var(--m);font-weight:400;color:var(--seal);margin-right:10px}
+
+/* ---------------- 订阅联：两联 + 小数点压在齿孔上 ---------------- */
+.coupon{
+  display:grid;grid-template-columns:3fr var(--seam) 9fr;
+  grid-template-rows:auto auto;
+  border:2px solid var(--ink-deep);margin-top:16px;background:var(--paper);
+}
+.cp{padding:14px 16px 10px;min-width:0}
+.cp-l{grid-column:1;grid-row:1}
+.cp-r{grid-column:3;grid-row:1}
+.coupon > .seam{grid-column:2;grid-row:1 / span 2;cursor:ew-resize}
+.cp-no{font-size:11px;line-height:16px;letter-spacing:.06em;color:var(--seal)}
+.cp-t{font-family:var(--t);font-size:25px;line-height:32px;margin:2px 0 6px}
+.rowset{border-top:1px solid var(--ink)}
+.fld{display:grid;grid-template-columns:var(--w88) 1fr;height:32px;align-items:end;border-bottom:0.5px solid var(--rule);font-size:13px}
+.fld-k{color:var(--ink-deep);font-size:11px;letter-spacing:.06em;line-height:24px}
+.fld-v{font-family:var(--m);text-align:right;line-height:24px;letter-spacing:.04em;white-space:nowrap;overflow:hidden}
+.cp-note{font-size:11px;line-height:18px;color:var(--ink-deep);margin-top:10px;border-top:0.5px solid var(--rule);padding-top:6px}
+.tearnote{font-size:11px;line-height:18px;color:var(--ink-deep);margin-left:calc(var(--off) * -1);margin-top:10px;padding-left:2px}
+
+/* 金额横贯两联：整数在存根，小数点正压在齿孔中央，小数在回联 */
+.amountband{
+  grid-column:1 / -1;grid-row:2;
+  display:grid;grid-template-columns:3fr var(--seam) 9fr;
+  border-top:1px solid var(--ink);border-bottom:0;
+  background:var(--paper);
+}
+.amountband > *{display:flex;align-items:center;padding:12px 0;min-width:0;height:60px}
+.ab-l{grid-column:1;justify-content:space-between;padding-left:16px;gap:12px}
+.ab-d{grid-column:2;justify-content:center;padding:0}
+.ab-r{grid-column:3;justify-content:flex-start;gap:10px;padding-right:16px}
+.ab-k{font-size:11px;letter-spacing:.06em;color:var(--ink-deep);line-height:24px;white-space:nowrap}
+.ab-n{font-family:var(--m);font-size:22px;line-height:24px;letter-spacing:.08em;color:var(--ink);white-space:nowrap}
+.ab-d span{font-family:var(--m);font-size:30px;line-height:24px;color:var(--seal);width:var(--seam);text-align:center;display:block;transform:translateY(-4px)}
+.ab-u{font-size:11px;letter-spacing:.06em;color:var(--ink-deep);line-height:24px;margin-left:auto;padding-right:16px}
+.ab-l,.ab-r,.ab-d,.cp-l,.cp-r{transition:transform 160ms linear}
+.coupon:hover .ab-l,.coupon:hover .cp-l{transform:translateX(calc(var(--off) * -1))}
+.coupon:hover .ab-r,.coupon:hover .cp-r{transform:translateX(var(--off))}
+
+/* ---------------- 制版说明 ---------------- */
+.sw{display:grid;grid-template-columns:repeat(7,1fr);border:1px solid var(--rule);margin-top:6px}
+.sw div{border-right:0.5px solid var(--rule)}
+.sw div:last-child{border-right:0}
+.sw i{display:block;height:42px}
+.sw b{display:block;font-family:var(--m);font-size:10px;line-height:14px;font-weight:400;padding:4px 4px 2px}
+.sw span{display:block;font-size:10px;line-height:14px;padding:0 4px 4px;color:var(--ink-deep)}
+.lw{width:100%;margin-top:6px}
+.lw tr{border-bottom:0.5px solid var(--rule)}
+.lw td{font-family:var(--m);font-size:11px;line-height:22px;color:var(--ink-deep);padding:0}
+.lw td:first-child{width:48px;text-align:right;padding-right:10px}
+.lw td:last-child{width:86px;text-align:right}
+.spec{display:grid;grid-template-columns:var(--seam) 1fr;border:1px solid var(--rule);margin-top:6px}
+.spec .seam{border-left:0.5px solid var(--rule)}
+.spec ul{display:flex;flex-wrap:wrap;font-size:11px;line-height:16px;letter-spacing:.03em;color:var(--ink-deep)}
+.spec li{flex:1 1 auto;padding:6px 8px;border-right:0.5px solid var(--rule)}
+.spec li:last-child{border-right:0}
+.spec b{font-weight:400;color:var(--ink)}
+.fchain{font-family:var(--m);font-size:11px;line-height:20px;border-bottom:0.5px solid var(--rule);padding-bottom:3px;margin-bottom:6px;word-break:break-word}
+
+/* ---------------- 页脚 ---------------- */
+.ft{border-top:6px solid var(--ink-deep)}
+.ft .wrap{padding:16px 0 36px;display:grid;grid-template-columns:repeat(4,1fr);gap:0 16px}
+.ft p{font-size:11px;line-height:18px;letter-spacing:.04em;color:var(--ink-deep)}
+.ft b{font-weight:400;color:var(--ink);font-family:var(--m)}
+.ft .big{font-family:var(--t);font-size:19px;line-height:24px;color:var(--ink);letter-spacing:.02em;margin-bottom:4px}
+.ft .big em{font-style:normal;display:block;font-family:var(--m);font-size:10px;letter-spacing:.14em;color:var(--seal)}
+
+/* ---------------- 移动端：单列，顺序不变 ---------------- */
+@media (max-width:880px){
+  .wrap{width:100%;max-width:none;padding:0 16px}
+  .tk{grid-template-columns:1fr}
+  .rail{padding:16px 0 12px}
+  .body{padding:16px 0 30px}
+  .seam{height:var(--seam);background-size:6px 100%;background-position:3px 50%;background-repeat:repeat-x}
+  .mast{font-size:86px;line-height:86px}
+  .bleed,.mastnote,.tearnote{margin-left:0;width:100%}
+  .cover-body{grid-template-columns:1fr}
+  .cover-body > * + *{margin-top:18px}
+  .disp{font-size:30px;line-height:38px}
+  .cards{grid-template-columns:1fr}
+  .w2,.w3,.w4{grid-column:span 1}
+  .row{grid-template-columns:1fr;gap:18px 0}
+  .coupon{grid-template-columns:1fr;grid-template-rows:auto auto auto auto}
+  .cp-l,.cp-r,.coupon > .seam,.amountband{grid-column:1}
+  .cp-l{grid-row:1}
+  .cp-r{grid-row:3}
+  .coupon > .seam{grid-row:2;height:var(--seam)}
+  .amountband{grid-row:4;grid-template-columns:1fr}
+  .amountband > *{grid-column:1}
+  .ab-l,.ab-r{display:none}
+  .ab-d{
+    justify-content:center;gap:0;padding:0;
+    border-top:0;
+  }
+  .ab-d::before{content:"金额 ¥　＿＿＿＿ . ＿＿　元";font-family:var(--m);font-size:15px;letter-spacing:.06em;color:var(--ink)}
+  .ab-d span{display:none}
+  .amountband{min-height:0}
+  .amountband > .ab-d{height:56px}
+  .coupon:hover .cp-l,.coupon:hover .cp-r,.coupon:hover .ab-l,.coupon:hover .ab-r{transform:none}
+  .led{min-width:660px}
+  .ft .wrap{grid-template-columns:1fr 1fr}
+  .sw{grid-template-columns:repeat(4,1fr)}
+  .sw div:nth-child(4){border-right:0}
+  .sw div:nth-child(n+5){border-top:0.5px solid var(--rule)}
+}
+@media (prefers-reduced-motion:reduce){
+  .cp{transition:none}
+  .coupon:hover .cp-l,.coupon:hover .cp-r{transform:none}
+}
+</style>
+</head>
+<body>
+
+<header class="mh">
+  <div class="wrap">
+    <div class="mh-row">
+      <p class="brand">凯旋路十七号<span>手冲专营 · 自 2019 年</span></p>
+      <nav class="nav" aria-label="联次">
+        <a href="#lots">豆目</a>
+        <a href="#brews">冲煮</a>
+        <a href="#statement">对账</a>
+        <a href="#visit">到店</a>
+        <a href="#order">订阅</a>
+      </nav>
+    </div>
+    <p class="mh-meta mono">第 17 期　·　2026-11-09 制　·　联号 <b>KB-17-01 … KB-17-08</b>　·　微信 kx17_coffee　·　不做在线支付</p>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ========== 01 封面联 ========== -->
+  <section class="tk" id="cover" aria-labelledby="t-cover">
+    <div class="rail">
+      <p class="rail-no mono">KB-17-01</p>
+      <div class="badge" aria-hidden="true">存根</div>
+      <div class="stubdl">
+        <div><dt>期号</dt><dd>17</dd></div>
+        <div><dt>联数</dt><dd>08</dd></div>
+        <div><dt>产区</dt><dd>05</dd></div>
+        <div><dt>在售</dt><dd>12</dd></div>
+        <div><dt>起订</dt><dd>100 g</dd></div>
+      </div>
+      <p class="rail-n">存根留店，骑缝对讫。<br>撕口对小数点。</p>
+      <p class="rail-p mono">P.01 / 08</p>
+    </div>
+    <div class="seam" aria-hidden="true"></div>
+    <div class="body">
+      <p class="kick">豆目 · 本期在售</p>
+      <h1 class="mast" id="t-cover">凯旋路十七号</h1>
+      <div class="bleed" aria-hidden="true"></div>
+      <p class="mastnote">▼　这道压线越过齿孔中心 2.00 mm（7.56 px） <b>／</b> 撕口与 07 联金额的小数点同一直线</p>
+
+      <div class="cover-body">
+        <div class="cover-l">
+          <p class="lead">十二支豆子，五个产区；卖完划掉，不补货。这家店只做手冲：豆子按产区排，每支只留一行——产区、海拔、处理法、烘焙度、每 500 克的价。标价不是随口报的，是生豆价加上烘焙损耗与本月的量算出来的，算法写在 05 联里。看中哪支，加微信报豆号和克数，我按单烘，第三天到店取。</p>
+          <ul class="cover-rail">
+            <li><b>5</b>产区</li>
+            <li><b>12</b>支在售</li>
+            <li><b>100</b>g 起订</li>
+            <li><b>周二</b>杯测</li>
+            <li><b>3</b>天养豆</li>
+          </ul>
+          <div class="cta">
+            <button class="btn" type="button" data-copy="kx17_coffee">复制微信号 <span class="mono">kx17_coffee</span></button>
+            <p class="cta-say">报豆号与克数，例：<span class="mono">11，200 g，周六取</span>。店里的单都这么下，没有购物车。</p>
+          </div>
+        </div>
+        <div class="cover-r">
+          <img src="images/占位-1.jpg" width="320" height="214" alt="店内吧台：一只陶瓷滤杯、手冲壶与电子秤，背景是贴满豆单的墙">
+          <p class="figcap"><em>图 1</em>　吧台。秤、壶、滤杯，三样东西，一天要擦六遍。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 02 办法联 ========== -->
+  <section class="tk" id="method" aria-labelledby="t-method">
+    <div class="rail">
+      <p class="rail-no mono">KB-17-02</p>
+      <h2 class="rail-t" id="t-method">办法</h2>
+      <div class="stubdl">
+        <div><dt>截单</dt><dd>18 h</dd></div>
+        <div><dt>静置</dt><dd>3 d</dd></div>
+        <div><dt>起订</dt><dd>100 g</dd></div>
+        <div><dt>改期</dt><dd>1 次</dd></div>
+        <div><dt>退单</dt><dd>21 d 内</dd></div>
+      </div>
+      <p class="rail-n">存根联 · 三条规矩<br>留店一份，随货同行</p>
+      <p class="rail-p mono">P.02 / 08</p>
+    </div>
+    <div class="seam" aria-hidden="true"></div>
+    <div class="body">
+      <p class="kick">办法 · 写在墙上，也写在这里</p>
+      <p class="disp">三条规矩，先说清楚再下单。</p>
+
+      <div class="cards">
+        <div class="card w2">
+          <div class="rule5" aria-hidden="true"></div>
+          <h3 class="card-h" style="margin-top:10px">一　按单烘焙</h3>
+          <p>每周一、四各一炉。接单到开炉前 18 小时截止，过了这句就排下一炉。</p>
+          <p>不做成品库存：豆目上看到的每一支，都是这周烘的。</p>
+        </div>
+
+        <div class="card w4">
+          <h3 class="card-h"><span class="mono">二 / 养豆与取货</span>烘完先放三天，再交到你手上。</h3>
+          <p>静置 3 天再取。当天取的我也给，但风味还没打开，我会先说明白。取货日可改一次，改到 21 天内；超过 21 天未取，按原价退，豆子留作店内杯测，不转卖。</p>
+          <p>下单只要三样——豆号、克数、取货日。豆号是豆目联第一列的两位数：名字会重，号不会。</p>
+          <p class="stat mono">18 h<span>截单到开炉。这一格不接受口头改。</span></p>
+        </div>
+
+        <div class="card w3">
+          <h3 class="card-h"><span class="mono">三</span>价与量，按克算</h3>
+          <table class="mini">
+            <caption class="sr">计价规则</caption>
+            <tbody>
+              <tr><th scope="row">标价</th><td>每 500 g</td></tr>
+              <tr><th scope="row">起订</th><td>100 g</td></tr>
+              <tr><th scope="row">计价</th><td>标价 ÷ 500</td></tr>
+              <tr><th scope="row">舍入</th><td>到 0.001</td></tr>
+              <tr><th scope="row">闪送</th><td>3 km 内 ＋8.00</td></tr>
+            </tbody>
+          </table>
+          <p class="note" style="margin-top:10px">到店取不收包装费。闪送费不算进豆款，另开一行，好对账。</p>
+        </div>
+
+        <figure class="w3" style="margin:0">
+          <img src="images/占位-2.jpg" width="362" height="242" alt="烘焙机出豆盘上的豆子，旁边放着记录烘焙曲线的纸卡">
+          <p class="figcap"><em>图 2</em>　每炉的曲线都留纸卡，编号与联号对得上才归档。</p>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 03 豆目联 ========== -->
+  <section class="tk" id="lots" aria-labelledby="t-lots">
+    <div class="rail">
+      <p class="rail-no mono">KB-17-03</p>
+      <h2 class="rail-t" id="t-lots">豆目</h2>
+      <div class="stubdl">
+        <div><dt>在售</dt><dd>12</dd></div>
+        <div><dt>合计</dt><dd>2,206.00</dd></div>
+        <div><dt>均值</dt><dd>183.83</dd></div>
+        <div><dt>极差</dt><dd>96.00</dd></div>
+        <div><dt>克价</dt><dd>0.368</dd></div>
+      </div>
+      <p class="rail-n">按产区与处理法排<br>十二种，五个产区</p>
+      <p class="rail-p mono">P.03 / 08</p>
+    </div>
+    <div class="seam" aria-hidden="true"></div>
+    <div class="body">
+      <p class="kick">豆目 · 十二种</p>
+      <p class="disp">同产区排在一起，同产区内按处理法。</p>
+      <p class="lead" style="margin-bottom:16px">焙度一列：<span class="mono">A</span> 中深（出豆 12:30）、<span class="mono">B</span> 中浅（11:30）、<span class="mono">C</span> 浅烘（10:30）。海拔取庄园报数的区间，不是我估的——两端都写出来，中间值别替我算。</p>
+
+      <div class="tw">
+        <table class="led">
+          <caption>表 1　豆目十二种。单价为每 500 g；金额列 88 px，右对齐到小数点。</caption>
+          <colgroup>
+            <col class="w-34"><col><col class="w-72"><col class="w-92"><col class="w-64"><col class="w-30"><col class="w-88">
+          </colgroup>
+          <thead>
+            <tr>
+              <th scope="col">编号</th>
+              <th scope="col">豆子</th>
+              <th scope="col">产区</th>
+              <th scope="col" class="th-n">海拔 m</th>
+              <th scope="col">处理法</th>
+              <th scope="col">焙</th>
+              <th scope="col" class="th-n">单价 ¥</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="n">01</td><td>曼特宁 日晒</td><td>苏门答腊</td><td class="n">1,250–1,480</td><td>日晒 G1</td><td class="n">A</td><td class="n">168.00</td></tr>
+            <tr><td class="n">02</td><td>曼特宁 水洗</td><td>苏门答腊</td><td class="n">1,300–1,500</td><td>水洗 G1</td><td class="n">A</td><td class="n">152.00</td></tr>
+            <tr><td class="n">03</td><td>亚齐 蜜处理</td><td>苏门答腊</td><td class="n">1,200–1,400</td><td>蜜处理</td><td class="n">A</td><td class="n">186.00</td></tr>
+            <tr><td class="n">04</td><td>林东 湿刨</td><td>苏门答腊</td><td class="n">1,100–1,400</td><td>湿刨</td><td class="n">A</td><td class="n">176.00</td></tr>
+            <tr><td class="n">05</td><td>西爪哇 铁皮卡</td><td>爪哇</td><td class="n">1,400–1,600</td><td>水洗</td><td class="n">B</td><td class="n">178.00</td></tr>
+            <tr><td class="n">06</td><td>伊真 水洗</td><td>爪哇</td><td class="n">900–1,300</td><td>水洗</td><td class="n">C</td><td class="n">204.00</td></tr>
+            <tr><td class="n">07</td><td>普雷安格 日晒</td><td>爪哇</td><td class="n">1,300–1,500</td><td>日晒</td><td class="n">B</td><td class="n">190.00</td></tr>
+            <tr><td class="n">08</td><td>金塔马尼 日晒</td><td>巴厘</td><td class="n">1,200–1,400</td><td>日晒</td><td class="n">B</td><td class="n">196.00</td></tr>
+            <tr><td class="n">09</td><td>金塔马尼 水洗</td><td>巴厘</td><td class="n">1,200–1,400</td><td>水洗</td><td class="n">A</td><td class="n">164.00</td></tr>
+            <tr><td class="n">10</td><td>托拉贾 水洗</td><td>苏拉威西</td><td class="n">1,400–1,700</td><td>水洗</td><td class="n">B</td><td class="n">212.00</td></tr>
+            <tr><td class="n">11</td><td>托拉贾 蜜处理</td><td>苏拉威西</td><td class="n">1,300–1,600</td><td>蜜处理</td><td class="n">C</td><td class="n">238.00</td></tr>
+            <tr><td class="n">12</td><td>巴拿马 瑰夏</td><td>奇里基</td><td class="n">1,600–1,800</td><td>水洗</td><td class="n">C</td><td class="n">142.00</td></tr>
+          </tbody>
+          <tfoot>
+            <tr><td colspan="6">合计 12 支 · 均值 183.83 · 极差 96.00 · 极差占均值 52.22%</td><td class="n">2,206.00</td></tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <div class="totals" style="margin-top:14px">
+        <div><b>2,206.00</b><span>十二支合计 ¥</span></div>
+        <div><b>183.83</b><span>每 500 g 均值 ¥</span></div>
+        <div><b>0.368</b><span>克价均值 ¥/g</span></div>
+        <div><b>96.00</b><span>最高减最低 ¥</span></div>
+      </div>
+      <p class="note" style="margin-top:8px">均值 = 2,206.00 ÷ 12 = 183.83（取两位）；克价 = 2,206.00 ÷（12 × 500 g）= 0.3677 → 0.368。差额合计见 05 联。</p>
+
+      <figure style="margin:20px 0 0">
+        <img src="images/占位-3.jpg" width="739" height="279" alt="长桌上并排十二只白色小碗，碗里是十二支豆子的熟豆样品，每只碗前压一张编号纸卡">
+        <p class="figcap"><em>图 3</em>　本周样盘：十二只碗，编号 01–12。碗前压的纸卡和豆目联第一列是同一串号。</p>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ========== 04 冲煮联 ========== -->
+  <section class="tk" id="brews" aria-labelledby="t-brews">
+    <div class="rail">
+      <p class="rail-no mono">KB-17-04</p>
+      <h2 class="rail-t" id="t-brews">冲煮</h2>
+      <div class="stubdl">
+        <div><dt>组数</dt><dd>08</dd></div>
+        <div><dt>粉</dt><dd>10–30 g</dd></div>
+        <div><dt>水温</dt><dd>86–96 ℃</dd></div>
+        <div><dt>比</dt><dd>1:12.5–16.7</dd></div>
+        <div><dt>研磨</dt><dd>#22 / #26</dd></div>
+      </div>
+      <p class="rail-n">八组参数<br>参数是起点，不是教条</p>
+      <p class="rail-p mono">P.04 / 08</p>
+    </div>
+    <div class="seam" aria-hidden="true"></div>
+    <div class="body">
+      <p class="kick">冲煮 · 八组</p>
+      <p class="disp">换了器具就换参数，别照搬。</p>
+      <p class="lead" style="margin-bottom:16px">水一律用过滤水，TDS 约 80。磨豆机 C40：中浅 #22，中深 #26。粉水比写在第四列，别自己心算。</p>
+
+      <div class="tw">
+        <table class="led">
+          <caption>表 2　八组参考参数。粉、水、比、温、时长全部右对齐。</caption>
+          <colgroup>
+            <col><col class="w-64"><col class="w-64"><col class="w-72"><col class="w-64"><col class="w-64"><col class="w-30">
+          </colgroup>
+          <thead>
+            <tr>
+              <th scope="col">器具</th>
+              <th scope="col" class="th-n">粉 g</th>
+              <th scope="col" class="th-n">水 g</th>
+              <th scope="col" class="th-n">粉水比</th>
+              <th scope="col" class="th-n">水温 ℃</th>
+              <th scope="col" class="th-n">总时长</th>
+              <th scope="col" class="th-n">段</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>V60 02</td><td class="n">15</td><td class="n">250</td><td class="n">1 : 16.7</td><td class="n">92</td><td class="n">2:40</td><td class="n">4</td></tr>
+            <tr><td>V60 02</td><td class="n">20</td><td class="n">300</td><td class="n">1 : 15.0</td><td class="n">90</td><td class="n">3:00</td><td class="n">3</td></tr>
+            <tr><td>蛋糕杯 155</td><td class="n">12</td><td class="n">200</td><td class="n">1 : 16.7</td><td class="n">94</td><td class="n">2:10</td><td class="n">2</td></tr>
+            <tr><td>法压 350</td><td class="n">24</td><td class="n">360</td><td class="n">1 : 15.0</td><td class="n">88</td><td class="n">4:00</td><td class="n">1</td></tr>
+            <tr><td>爱乐压</td><td class="n">12</td><td class="n">150</td><td class="n">1 : 12.5</td><td class="n">86</td><td class="n">1:30</td><td class="n">1</td></tr>
+            <tr><td>聪明杯</td><td class="n">10</td><td class="n">160</td><td class="n">1 : 16.0</td><td class="n">96</td><td class="n">1:20</td><td class="n">1</td></tr>
+            <tr><td>Chemex 6 杯</td><td class="n">30</td><td class="n">450</td><td class="n">1 : 15.0</td><td class="n">91</td><td class="n">3:50</td><td class="n">3</td></tr>
+            <tr><td>V60 01</td><td class="n">16</td><td class="n">256</td><td class="n">1 : 16.0</td><td class="n">93</td><td class="n">2:20</td><td class="n">2</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="row" style="margin-top:20px">
+        <div class="blk w4">
+          <span class="lbl">注水段</span>
+          <h3>四段 = 闷蒸 30 秒（两倍粉重）＋ 三等分</h3>
+          <p>三段 = 闷蒸 30 秒 ＋ 两段等量。一段 = 一次注完，靠浸泡，法压和聪明杯都这么走。</p>
+          <p>闷蒸那 30 秒不是等它鼓包好看，是把二氧化碳放掉；鼓得高不等于新鲜，焙得浅的反而鼓得小。</p>
+        </div>
+        <div class="blk w2">
+          <img src="images/占位-4.jpg" width="236" height="236" alt="电子秤上的陶瓷滤杯，粉层已经塌陷，旁边是磨豆机筛下来的细粉">
+          <p class="figcap"><em>图 4</em>　闷蒸后的粉层。塌下去的那圈，是气放完了。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 05 对账联 ========== -->
+  <section class="tk" id="statement" aria-labelledby="t-statement">
+    <div class="rail">
+      <p class="rail-no mono">KB-17-05</p>
+      <h2 class="rail-t" id="t-statement">对账</h2>
+      <div class="stubdl">
+        <div><dt>笔数</dt><dd>05</dd></div>
+        <div><dt>克数</dt><dd>1,200</dd></div>
+        <div><dt>泡数</dt><dd>60</dd></div>
+        <div><dt>金额</dt><dd>452.40</dd></div>
+        <div><dt>差额</dt><dd>0.00</dd></div>
+      </div>
+      <p class="rail-n">本周五笔<br>金额 = 单价 × 克数</p>
+      <p class="rail-p mono">P.05 / 08</p>
+    </div>
+    <div class="seam" aria-hidden="true"></div>
+    <div class="body">
+      <p class="kick">对账 · 第 17 期第 3 周</p>
+      <p class="disp">五笔，合计 452.40。</p>
+      <p class="lead" style="margin-bottom:16px">金额 = 单价 × 克数；单价 = 标价 ÷ 500，四舍五入到 0.001。差额 = 金额 − 本期均值，五笔相加应为 0.00——对不上就是算错了，重算一遍再发给你。</p>
+
+      <div class="tw">
+        <table class="led">
+          <caption>表 3　本周已出的五笔。金额与差额两列同为 88 px 窄档，小数点上下对齐。</caption>
+          <colgroup>
+            <col class="w-64"><col><col class="w-72"><col class="w-64"><col class="w-64"><col class="w-88"><col class="w-88">
+          </colgroup>
+          <thead>
+            <tr>
+              <th scope="col">单号</th>
+              <th scope="col">豆子（豆号）</th>
+              <th scope="col" class="th-n">单价 ¥/g</th>
+              <th scope="col" class="th-n">克数 g</th>
+              <th scope="col" class="th-n">泡数</th>
+              <th scope="col" class="th-n">金额 ¥</th>
+              <th scope="col" class="th-n">差额 ¥</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="n">P-01</td><td>曼特宁 日晒（01）</td><td class="n">0.336</td><td class="n">200</td><td class="n">10</td><td class="n">67.20</td><td class="n">−23.28</td></tr>
+            <tr><td class="n">P-02</td><td>亚齐 蜜处理（03）</td><td class="n">0.372</td><td class="n">200</td><td class="n">10</td><td class="n">74.40</td><td class="n">−16.08</td></tr>
+            <tr><td class="n">P-03</td><td>巴拿马 瑰夏（12）</td><td class="n">0.284</td><td class="n">100</td><td class="n">5</td><td class="n">28.40</td><td class="n">−62.08</td></tr>
+            <tr><td class="n">P-04</td><td>伊真 水洗（06）</td><td class="n">0.408</td><td class="n">500</td><td class="n">25</td><td class="n">204.00</td><td class="n">+113.52</td></tr>
+            <tr><td class="n">P-05</td><td>金塔马尼 日晒（08）</td><td class="n">0.392</td><td class="n">200</td><td class="n">10</td><td class="n">78.40</td><td class="n">−12.08</td></tr>
+          </tbody>
+          <tfoot>
+            <tr><td colspan="3">合计 · 本期均值 90.48</td><td class="n">1,200</td><td class="n">60</td><td class="n">452.40</td><td class="n">0.00</td></tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <div class="totals" style="margin-top:14px">
+        <div><b>1,200</b><span>合计克数 g</span></div>
+        <div><b>60</b><span>合计泡数（20 g/泡）</span></div>
+        <div><b>452.40</b><span>合计金额 ¥</span></div>
+        <div><b>0.00</b><span>差额合计 ¥</span></div>
+      </div>
+      <p class="note" style="margin-top:8px">泡数按每泡 20 g、注水 300 g 算：1,200 ÷ 20 = 60。差额合计 0.00，说明五个数与五倍均值抵平——这一列是这张表自己的校验位。</p>
+    </div>
+  </section>
+
+  <!-- ========== 06 到店联 ========== -->
+  <section class="tk" id="visit" aria-labelledby="t-visit">
+    <div class="rail">
+      <p class="rail-no mono">KB-17-06</p>
+      <h2 class="rail-t" id="t-visit">到店</h2>
+      <div class="stubdl">
+        <div><dt>座位</dt><dd>08</dd></div>
+        <div><dt>堂饮</dt><dd>28.00</dd></div>
+        <div><dt>每杯</dt><dd>15 g</dd></div>
+        <div><dt>周一</dt><dd>烘豆</dd></div>
+        <div><dt>杯测</dt><dd>每月一</dd></div>
+      </div>
+      <p class="rail-n">八个座位<br>没有插座位</p>
+      <p class="rail-p mono">P.06 / 08</p>
+    </div>
+    <div class="seam" aria-hidden="true"></div>
+    <div class="body">
+      <p class="kick">到店</p>
+      <p class="disp">凯旋路 17 号，临街第二间。</p>
+      <p class="lead" style="margin-bottom:18px">门口听得见磨豆机的声音，那就是。店里只有八个座位，不设插座位——来的人多数不带电脑，带的是自己的杯子。</p>
+
+      <div class="row">
+        <div class="w4">
+          <table class="hours">
+            <caption>表 4　营业时间。周一烘豆，不营业。</caption>
+            <tbody>
+              <tr><td>周二 — 周五</td><td>08:00 — 18:00</td><td>手冲出杯，豆目全在</td></tr>
+              <tr><td>周六 — 周日</td><td>09:00 — 19:00</td><td>出杯慢，排队常见</td></tr>
+              <tr><td>周一</td><td>不营业</td><td>烘豆，接单不接客</td></tr>
+              <tr><td>每月第一个周二</td><td>19:00 起</td><td>杯测日，自带杯子，免费</td></tr>
+            </tbody>
+          </table>
+          <div class="blk" style="margin-top:18px">
+            <span class="lbl">堂饮与取货</span>
+            <p>堂饮按 15 g 一杯，28.00，可抵等额豆款：喝完觉得好，把这一杯的钱算进豆子里。</p>
+            <p>取货报豆号就行，不用报名字。称在你面前称，袋上写豆号、克数、烘焙日期，三样。</p>
+          </div>
+        </div>
+        <figure class="w2" style="margin:0">
+          <img src="images/占位-5.jpg" width="236" height="353" alt="傍晚的店门：一块窄长的木招牌，门内一盏暖灯，门口台阶上放着一只帆布袋">
+          <p class="figcap"><em>图 5</em>　傍晚六点，招牌灯先亮，吧台的灯后亮。</p>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 07 订阅联 ========== -->
+  <section class="tk" id="order" aria-labelledby="t-order">
+    <div class="rail">
+      <p class="rail-no mono">KB-17-07</p>
+      <h2 class="rail-t" id="t-order">订阅</h2>
+      <div class="stubdl">
+        <div><dt>微信</dt><dd>kx17</dd></div>
+        <div><dt>支付</dt><dd>仅微信</dd></div>
+        <div><dt>购物车</dt><dd>无</dd></div>
+        <div><dt>发票</dt><dd>月结</dd></div>
+        <div><dt>回联</dt><dd>1 张</dd></div>
+      </div>
+      <p class="rail-n">对账联 · 两联<br>撕下右边寄回</p>
+      <p class="rail-p mono">P.07 / 08</p>
+    </div>
+    <div class="seam" aria-hidden="true"></div>
+    <div class="body">
+      <p class="kick">订阅 · 怎么下单</p>
+      <p class="disp">撕下右边这一联，拍照发给我。</p>
+      <p class="lead" style="margin-bottom:4px">不做在线支付。单子在微信里下，钱在微信里转，到店取时给一张收据——收据上的联号和这里的联号是同一串。两联的金额行一律停在同一条小数点上：撕开以后，哪个数归哪边，看小数点在哪一边。</p>
+
+      <div class="coupon">
+        <div class="cp cp-l">
+          <p class="cp-no">KB-17-07 · 存根</p>
+          <p class="cp-t">存根联</p>
+          <div class="rowset">
+            <div class="fld"><span class="fld-k">品目</span><span class="fld-v">手冲豆</span></div>
+            <div class="fld"><span class="fld-k">豆号</span><span class="fld-v">＿＿</span></div>
+            <div class="fld"><span class="fld-k">克数</span><span class="fld-v">＿＿＿ g</span></div>
+            <div class="fld"><span class="fld-k">取货</span><span class="fld-v">＿＿ / ＿＿</span></div>
+            <div class="fld"><span class="fld-k">经手</span><span class="fld-v">店 ／ 客</span></div>
+          </div>
+          <p class="cp-note">此联留店，随货同行；骑缝处对得上才认。</p>
+        </div>
+        <div class="seam" aria-hidden="true"></div>
+        <div class="cp cp-r">
+          <p class="cp-no">KB-17-07 · 回联</p>
+          <p class="cp-t">回联</p>
+          <div class="rowset">
+            <div class="fld"><span class="fld-k">微信</span><span class="fld-v">kx17_coffee</span></div>
+            <div class="fld"><span class="fld-k">豆号 01–12</span><span class="fld-v">＿＿</span></div>
+            <div class="fld"><span class="fld-k">克数 100 起</span><span class="fld-v">＿＿＿ g</span></div>
+            <div class="fld"><span class="fld-k">取货</span><span class="fld-v">＿＿ / ＿＿</span></div>
+            <div class="fld"><span class="fld-k">合计</span><span class="fld-v">与存根同额</span></div>
+          </div>
+          <p class="cp-note">回联寄回，或拍照发微信；不寄也行，我照存根认。</p>
+        </div>
+
+        <div class="amountband">
+          <div class="ab-l">
+            <span class="ab-k">金额（整数位）¥</span>
+            <span class="ab-n">＿＿＿＿</span>
+          </div>
+          <div class="ab-d" aria-hidden="true"><span>.</span></div>
+          <div class="ab-r">
+            <span class="ab-n">＿＿</span>
+            <span class="ab-k">（小数位）</span>
+            <span class="ab-u">元</span>
+          </div>
+        </div>
+      </div>
+      <p class="tearnote">齿孔正压在金额的小数点上：左边的整数归存根，右边的小数归回联。指针移过去，两联沿孔列各退开 2 mm——错开一格，就退回来重填。</p>
+
+      <div class="cta" style="margin-top:16px">
+        <button class="btn" type="button" data-copy="kx17_coffee">复制微信号 <span class="mono">kx17_coffee</span></button>
+        <p class="cta-say">加好友时写「豆号 + 克数」，我当天回你取货日。晚上十点后的消息，第二天早上回。</p>
+      </div>
+
+      <div class="row" style="margin-top:20px">
+        <figure class="w3" style="margin:0">
+          <img src="images/占位-6.jpg" width="362" height="242" alt="取货台：袋口封好的豆袋排成一列，每只袋子上手写豆号与烘焙日期">
+          <p class="figcap"><em>图 6</em>　取货台。袋上三样：豆号、克数、烘焙日期。</p>
+        </figure>
+        <div class="blk w3">
+          <span class="lbl">关于支付</span>
+          <h3>只收微信转账，不做在线支付。</h3>
+          <p>原因很实际：这个页面没有支付通道，也不打算有。豆子按单烘，改期、退单都靠一句人话解决，支付通道反而要我先垫一整套手续费。</p>
+          <p>要发票的提前说，月结，抬头写你给的那串。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 08 附则联 ========== -->
+  <section class="tk" id="colophon" aria-labelledby="t-colophon">
+    <div class="rail">
+      <p class="rail-no mono">KB-17-08</p>
+      <h2 class="rail-t" id="t-colophon">附则</h2>
+      <div class="stubdl">
+        <div><dt>联</dt><dd>08</dd></div>
+        <div><dt>色</dt><dd>07</dd></div>
+        <div><dt>线</dt><dd>07</dd></div>
+        <div><dt>孔</dt><dd>1.2 / 6</dd></div>
+        <div><dt>偏移</dt><dd>2.00 mm</dd></div>
+      </div>
+      <p class="rail-n">制版说明<br>数字的来路</p>
+      <p class="rail-p mono">P.08 / 08</p>
+    </div>
+    <div class="seam" aria-hidden="true"></div>
+    <div class="body">
+      <p class="kick">附则 · 制版说明</p>
+      <p class="disp">数字取到两位数，单价取三位。</p>
+
+      <div class="row" style="margin-bottom:20px">
+        <div class="blk w4">
+          <span class="lbl">三条附则</span>
+          <ol class="ol3">
+            <li><b>一</b>豆单每周二更新。改价只在新一期生效；已经下的单按旧价走，不补差价，也不退差价。</li>
+            <li><b>二</b>页面上的数字都是称出来、量出来的：海拔取庄园报数区间，净重按克，金额按单价乘克数，四舍五入到 0.01。</li>
+            <li><b>三</b>照片是店内实拍，出镜的客人都点过头。没有署名的图不放；别人拍的只标来源，不标自己。</li>
+          </ol>
+        </div>
+        <div class="blk w2">
+          <span class="lbl">联号核对</span>
+          <p>本期共八联，KB-17-01 至 KB-17-08。首屏存根是 01，页脚页签是 08，中间六联按阅读顺序排。页面里出现的豆号（01–12）与单号（P-01–P-05）另成一串，不与联号混用。</p>
+          <p class="mono" style="font-size:11px;line-height:18px;margin-top:8px;color:var(--ink-deep)">KB-17-01 · 02 · 03 · 04<br>05 · 06 · 07 · 08　→　共 08 联</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="blk w3">
+          <span class="lbl">色 · 只用这七个值</span>
+          <div class="sw">
+            <div><i style="background:#5A2A50"></i><b>#5A2A50</b><span>ink</span></div>
+            <div><i style="background:#E1D6BD"></i><b>#E1D6BD</b><span>paper</span></div>
+            <div><i style="background:#7A2E2E"></i><b>#7A2E2E</b><span>seal</span></div>
+            <div><i style="background:#C9BFA6"></i><b>#C9BFA6</b><span>stub</span></div>
+            <div><i style="background:#3F1A38"></i><b>#3F1A38</b><span>ink-deep</span></div>
+            <div><i style="background:#B9A98C"></i><b>#B9A98C</b><span>rule</span></div>
+            <div><i style="background:#DFD6BF"></i><b>#DFD6BF</b><span>tone-hov</span></div>
+          </div>
+          <p class="note" style="margin-top:8px">纸色只用 #E1D6BD 一个值，台面偏中性、不往褐黄走；主墨是含铁紫墨（色相 312.5°），跟褐黄不在同一个色相里。没有纸纹贴图，没有暗角。</p>
+        </div>
+
+        <div class="blk w3">
+          <span class="lbl">线宽 · 只有这七级</span>
+          <table class="lw">
+            <caption class="sr">线宽样例</caption>
+            <tbody>
+              <tr><td>0.5 px</td><td><div style="border-top:0.5px solid var(--ink)"></div></td><td>表内细线</td></tr>
+              <tr><td>0.8 px</td><td><div style="border-top:0.8px solid var(--ink)"></div></td><td>联与联之间</td></tr>
+              <tr><td>1.00 px</td><td><div style="border-top:1px solid var(--ink)"></div></td><td>卡片与表头</td></tr>
+              <tr><td>2.00 px</td><td><div style="border-top:2px solid var(--ink)"></div></td><td>合计线上</td></tr>
+              <tr><td>2.4 px</td><td><div style="border-top:2.4px solid var(--ink)"></div></td><td>压缝线与合计带</td></tr>
+              <tr><td>5.00 px</td><td><div style="border-top:5px solid var(--seal)"></div></td><td>主行动左侧</td></tr>
+              <tr><td>6.00 px</td><td><div style="border-top:6px solid var(--ink-deep)"></div></td><td>版头与页脚</td></tr>
+            </tbody>
+          </table>
+          <p class="note" style="margin-top:8px">全站没有第八级线宽。做旧的深浅只由线宽与压线承担，不靠纹理。</p>
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:20px">
+        <div class="blk w3">
+          <span class="lbl">齿孔与压缝 · 三个可量值</span>
+          <div class="spec">
+            <div class="seam" aria-hidden="true"></div>
+            <ul>
+              <li>中缝 <b class="mono">16 px</b></li>
+              <li>孔径 <b class="mono">1.2 px</b></li>
+              <li>孔距 <b class="mono">6 px</b></li>
+              <li>两联 <b class="mono">3fr : 9fr</b></li>
+              <li>偏移 <b class="mono">2.00 mm</b></li>
+            </ul>
+          </div>
+          <p class="note" style="margin-top:8px">印面偏中缝 2.00 mm（96 dpi 下 7.56 px）：面额栏与压线越过齿孔，撕开后两联仍读得出归属。撕口位置和小数点对齐，是这张纸唯一的规矩。</p>
+        </div>
+
+        <div class="blk w3">
+          <span class="lbl">字 · 两条链，不跳出去</span>
+          <span class="mono" style="font-size:10px;color:var(--ink-deep)">标题</span>
+          <p class="fchain">Literata → 文津宋体 → Noto Serif SC</p>
+          <span class="mono" style="font-size:10px;color:var(--ink-deep)">正文</span>
+          <p class="fchain">文津宋体 → WenJin Mincho SC → Noto Serif SC → Source Han Serif SC</p>
+          <span class="mono" style="font-size:10px;color:var(--ink-deep)">数字</span>
+          <p class="fchain" style="border-bottom:0">Sometype Mono，tabular-nums，右对齐</p>
+          <p class="note" style="margin-top:8px">正文 17 px，行高 24 px。最大字 86 px，是正文的 5.1 倍；再小撑不住这个版式。两条链之外不放字体，也不回退成系统无衬线。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="ft">
+  <div class="wrap">
+    <p class="big">凯旋路十七号<em>KC-17 · POUR-OVER</em></p>
+    <p>本联 <b>KB-17-08</b> · 共 08 联<br>第 17 期 · 2026-11-09 制<br>联号与首屏存根同一串</p>
+    <p>微信 <b>kx17_coffee</b><br>不做在线支付<br>不收集访客数据，无 Cookie</p>
+    <p>© 2026 凯旋路十七号<br>豆单每周二更新<br>价格以当期豆目联为准</p>
+  </div>
+</footer>
+
+<p class="sr" role="status" aria-live="polite" id="say"></p>
+
+<script>
+(function () {
+  var say = document.getElementById('say');
+  function announce(msg) { say.textContent = msg; }
+
+  Array.prototype.forEach.call(document.querySelectorAll('[data-copy]'), function (btn) {
+    var original = btn.innerHTML;
+    btn.addEventListener('click', function () {
+      var text = btn.getAttribute('data-copy');
+
+      function done() {
+        btn.innerHTML = '已复制 · 去微信粘贴 <span class="mono">' + text + '</span>';
+        announce('微信号 ' + text + ' 已复制到剪贴板');
+        window.setTimeout(function () { btn.innerHTML = original; }, 2400);
+      }
+
+      function fallback() {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed';
+        ta.style.top = '-1000px';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); done(); }
+        catch (e) { announce('复制失败，请手动输入 ' + text); }
+        document.body.removeChild(ta);
+      }
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, fallback);
+      } else {
+        fallback();
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>

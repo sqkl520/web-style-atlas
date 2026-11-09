@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>只做手冲 · 五个产区 · 记录 NR–05</title>
+<style>
+:root{
+  --aurora:#13928E;
+  --void:#101A1C;
+  --paper:#C9D6CF;
+  --tape:#B9A98C;
+  --panel:#162226;
+  --panel2:#0C1417;
+  --rule:#2A3639;
+  --mono:"IBM Plex Mono","Cascadia Mono",Consolas,"Songti SC","SimSun","STSong",serif;
+  --sans:"IBM Plex Sans","Noto Sans SC","Source Han Sans SC","Microsoft YaHei",sans-serif;
+  --axis:264px;
+  --rail:24px;
+}
+
+*,*::before,*::after{box-sizing:border-box;border-radius:0;box-shadow:none}
+
+html{background:var(--void);color:var(--paper);-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--void);
+  color:var(--paper);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.62;
+  letter-spacing:.01em;
+  font-weight:400;
+}
+h1,h2,h3,h4{font-family:var(--mono);font-weight:500;margin:0;letter-spacing:.01em}
+p{margin:0}
+img{display:block;width:100%;height:auto}
+ul,ol,dl{margin:0;padding:0;list-style:none}
+a{color:inherit;text-decoration:none}
+
+.m{font-family:var(--mono);font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;font-weight:400}
+.ta{text-align:right}
+
+/* ── fixed instrument: 264px era axis + 8/40px tick rail ───────────── */
+.axis{
+  position:fixed;left:0;top:0;width:var(--axis);height:100vh;
+  background:var(--panel2);
+  border-right:1px solid var(--rule);
+  z-index:40;
+  display:flex;flex-direction:column;
+  padding:24px;
+  overflow:hidden;
+}
+.band{position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--aurora)}
+
+.axis-head{position:relative;z-index:2}
+.axis-kicker{font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:var(--tape)}
+.axis-id{font-family:var(--mono);font-size:34px;line-height:1.1;color:var(--paper);margin-top:8px;letter-spacing:.02em}
+.axis-sub{font-size:13px;color:var(--paper);margin-top:8px;line-height:1.5}
+.axis-sub em{font-style:normal;color:var(--tape)}
+
+.scale{
+  position:relative;flex:1 1 auto;
+  margin:24px -24px 0;
+  border-top:1px solid var(--rule);
+  border-bottom:1px solid var(--rule);
+}
+.scale::before{
+  content:"";position:absolute;left:24px;top:0;bottom:0;width:10px;
+  background:repeating-linear-gradient(to bottom,var(--rule) 0 1px,transparent 1px 8px);
+}
+.scale::after{
+  content:"";position:absolute;left:24px;top:0;bottom:0;width:22px;
+  background:repeating-linear-gradient(to bottom,var(--rule) 0 1.5px,transparent 1.5px 40px);
+}
+.cursor{position:absolute;left:24px;top:31%;width:60px;height:2px;background:var(--aurora)}
+.cursor i{position:absolute;right:0;top:-3px;width:8px;height:8px;background:var(--aurora);display:block}
+
+.years{position:absolute;left:64px;right:20px;top:0;bottom:0;display:flex;flex-direction:column;justify-content:space-between;padding:20px 0}
+.years li{padding-top:8px;border-top:1.5px solid var(--rule);display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.years .y{font-family:var(--mono);font-size:13px;color:var(--paper);letter-spacing:.06em}
+.years .t{font-size:11px;color:var(--tape);letter-spacing:.06em}
+
+.vlabel{
+  position:absolute;right:0;top:50%;transform:translateY(-50%);
+  width:14px;text-align:center;
+  writing-mode:vertical-rl;font-family:var(--mono);font-size:9px;
+  letter-spacing:.22em;color:var(--rule);opacity:1;
+}
+
+.axis-foot{position:relative;z-index:2;padding-top:16px;font-size:11px;color:var(--tape);line-height:1.7;letter-spacing:.04em}
+.axis-foot b{display:block;font-family:var(--mono);font-size:12px;color:var(--paper);letter-spacing:.1em;font-weight:400}
+
+.rail{
+  position:fixed;left:var(--axis);top:0;width:var(--rail);height:100vh;
+  background:var(--void);border-right:1px solid var(--rule);z-index:39;
+}
+.rail::before{
+  content:"";position:absolute;left:0;top:0;bottom:0;width:7px;
+  background:repeating-linear-gradient(to bottom,var(--rule) 0 1px,transparent 1px 8px);
+}
+.rail::after{
+  content:"";position:absolute;left:0;top:0;bottom:0;width:18px;
+  background:repeating-linear-gradient(to bottom,var(--rule) 0 1.5px,transparent 1.5px 40px);
+}
+
+/* ── page ──────────────────────────────────────────────────────────── */
+.page{padding-left:calc(var(--axis) + var(--rail));max-width:1568px}
+.sec{padding:72px 48px;border-bottom:1px solid var(--rule)}
+.last{border-bottom:0}
+
+/* ── hero ──────────────────────────────────────────────────────────── */
+.hero{
+  min-height:100vh;
+  padding:48px;
+  display:flex;flex-direction:column;justify-content:center;
+  border-bottom:1px solid var(--rule);
+}
+.kicker{
+  display:flex;flex-wrap:wrap;gap:0 24px;align-items:center;
+  font-size:12px;color:var(--tape);letter-spacing:.08em;padding-bottom:16px;
+}
+.kicker .k{display:inline-flex;align-items:center;gap:8px}
+.kicker .k + .k::before{content:"";display:inline-block;width:1px;height:12px;background:var(--rule);margin-right:16px}
+
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) 336px;gap:48px;align-items:start;margin-top:24px}
+h1{
+  font-size:68.8px;
+  line-height:1.04;
+  letter-spacing:.01em;
+  color:var(--paper);
+  padding-top:16px;
+  border-top:2px solid var(--rule);
+}
+.lede{margin-top:24px;max-width:46ch;color:var(--paper);font-size:16px;line-height:1.75}
+.lede b{font-family:var(--mono);font-weight:400;color:var(--paper)}
+
+.hero-meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:32px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.hero-meta > div{padding:16px 16px 16px 0;border-right:1px solid var(--rule)}
+.hero-meta > div:last-child{border-right:0}
+.hero-meta dt{font-size:11px;color:var(--tape);letter-spacing:.12em}
+.hero-meta dd{margin:4px 0 0;font-size:20px;color:var(--paper);letter-spacing:.02em}
+
+.cta{display:flex;align-items:center;gap:24px;margin-top:32px;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;gap:12px;height:52px;padding:0 28px;
+  background:var(--aurora);color:var(--panel2);
+  border:1.5px solid var(--aurora);
+  font-family:var(--mono);font-size:16px;letter-spacing:.04em;
+}
+.btn i{width:8px;height:8px;background:var(--panel2);display:block}
+.btn:hover{background:var(--panel2);color:var(--paper);border-color:var(--aurora)}
+.cta-note{font-size:13px;color:var(--tape);letter-spacing:.04em}
+.cta-note b{color:var(--paper)}
+
+.hero-fig{margin:0;padding-top:16px;border-top:2px solid var(--rule)}
+.hero-fig figcaption{margin-top:12px;font-size:11px;font-family:var(--mono);color:var(--tape);letter-spacing:.04em}
+
+/* ── image frames + 32% corner masks ───────────────────────────────── */
+.shot{position:relative;border:1px solid var(--rule);background:var(--panel2);overflow:hidden;
+  --mask:var(--panel);
+  background-image:repeating-linear-gradient(135deg,var(--rule) 0 1px,var(--panel2) 1px 18px);
+  background-color:var(--panel2)}
+.shot.on-void{--mask:var(--void)}
+.shot.on-panel2{--mask:var(--panel2)}
+.shot img{width:100%;height:100%;object-fit:cover;color:transparent;font-size:0;position:relative;z-index:1}
+.ar-45{aspect-ratio:4/5}
+.ar-54{aspect-ratio:5/4}
+.ar-85{aspect-ratio:8/5}
+.ar-11{aspect-ratio:1/1}
+.ar-219{aspect-ratio:21/9}
+.ar-169{aspect-ratio:16/9}
+.ar-32{aspect-ratio:3/2}
+.shot::after{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:2;
+  background-image:
+    linear-gradient(135deg,var(--mask) 50%,transparent 50%),
+    linear-gradient(225deg,var(--mask) 50%,transparent 50%),
+    linear-gradient(45deg,var(--mask) 50%,transparent 50%),
+    linear-gradient(315deg,var(--mask) 50%,transparent 50%);
+  background-size:32% 32%,32% 32%,32% 32%,32% 32%;
+  background-position:0 0,100% 0,0 100%,100% 100%;
+  background-repeat:no-repeat;
+}
+
+/* ── section headers ───────────────────────────────────────────────── */
+.sec-head{display:grid;grid-template-columns:96px minmax(0,1fr) auto;gap:24px;align-items:start;border-bottom:2px solid var(--rule);padding-bottom:24px;margin-bottom:32px}
+.sec-no{font-family:var(--mono);font-size:52px;line-height:1;color:var(--tape);letter-spacing:.02em;border-bottom:1.5px solid var(--aurora);padding-bottom:8px;align-self:start}
+h2{font-size:34px;line-height:1.2;color:var(--paper);padding-top:4px}
+.sec-note{margin-top:12px;max-width:62ch;font-size:14px;color:var(--tape);line-height:1.7}
+.sec-count{font-size:12px;color:var(--tape);letter-spacing:.08em;white-space:nowrap;padding-top:6px;text-align:right}
+.sec-count .m{font-size:20px;color:var(--paper);display:block;letter-spacing:.02em}
+
+/* ── cards ─────────────────────────────────────────────────────────── */
+.cards{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:stretch}
+.card{background:var(--panel);border:1px solid var(--rule);padding:24px;display:flex;flex-direction:column;gap:16px}
+.c1{grid-column:span 7}
+.c2{grid-column:span 5}
+.c3{grid-column:span 5}
+.c4{grid-column:span 7}
+.c5{grid-column:span 12}
+
+.card-top{display:flex;justify-content:space-between;align-items:baseline;gap:16px;border-bottom:1px solid var(--rule);padding-bottom:8px}
+.cid{font-size:13px;color:var(--paper);letter-spacing:.08em}
+.orig{font-size:11px;color:var(--tape);letter-spacing:.16em}
+h3{font-size:26px;line-height:1.25;color:var(--paper);letter-spacing:.01em}
+.flavor{font-size:14px;color:var(--paper);line-height:1.7;max-width:44ch}
+
+.spec>div{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:baseline;padding:8px 0;border-top:1px solid var(--rule)}
+.spec>div:last-child{border-bottom:1px solid var(--rule)}
+.spec dt{font-size:13px;color:var(--tape);letter-spacing:.04em}
+.spec dd{margin:0;font-size:14px;color:var(--paper)}
+.ask{color:var(--aurora);letter-spacing:.12em}
+
+.reads{border-top:1px solid var(--rule)}
+.reads li{display:flex;align-items:baseline;gap:8px;padding:12px 0;border-bottom:1px solid var(--rule)}
+.reads .big{font-size:34px;line-height:1;color:var(--paper)}
+.reads .u{font-size:13px;color:var(--tape)}
+.reads .lab{margin-left:auto;font-size:11px;color:var(--tape);letter-spacing:.12em}
+.mini{display:flex;flex-wrap:wrap;gap:8px}
+.mini span{font-family:var(--mono);font-size:11px;color:var(--tape);border:1px solid var(--rule);padding:4px 8px;letter-spacing:.04em}
+.ask-line{margin-top:auto;display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--rule);padding-top:12px;font-size:13px;color:var(--tape);letter-spacing:.04em}
+
+.c3-top{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px solid var(--rule);padding-bottom:8px}
+.idx{font-size:52px;line-height:.9;color:var(--tape)}
+.chips{display:flex;flex-wrap:wrap;gap:0}
+.chips li{font-family:var(--mono);font-size:12px;color:var(--paper);border:1px solid var(--rule);padding:6px 10px;margin:-1px 0 0 -1px;letter-spacing:.04em}
+
+.c4-cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:24px;align-items:start}
+.c4-cols > p{border-left:2px solid var(--aurora);padding-left:16px;font-size:14px;line-height:1.75;color:var(--paper)}
+
+.c5{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,0.95fr);gap:32px;align-items:start}
+.c5-txt{display:flex;flex-direction:column;gap:16px}
+.c5-fig{display:flex;flex-direction:column;gap:12px}
+.cap{font-family:var(--mono);font-size:11px;color:var(--tape);letter-spacing:.06em}
+
+/* ── tape ──────────────────────────────────────────────────────────── */
+.tape-body{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:24px;align-items:start}
+.tape-window{position:relative;aspect-ratio:3/2;overflow:hidden;border:1px solid var(--rule);background:var(--panel2);background-image:repeating-linear-gradient(135deg,var(--rule) 0 1px,var(--panel2) 1px 18px)}
+.tape-window::after{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:3;
+  background-image:
+    linear-gradient(135deg,var(--void) 50%,transparent 50%),
+    linear-gradient(225deg,var(--void) 50%,transparent 50%),
+    linear-gradient(45deg,var(--void) 50%,transparent 50%),
+    linear-gradient(315deg,var(--void) 50%,transparent 50%);
+  background-size:32% 32%,32% 32%,32% 32%,32% 32%;
+  background-position:0 0,100% 0,0 100%,100% 100%;
+  background-repeat:no-repeat;
+}
+.tape-strip{position:relative}
+.tape-strip .shot{border:0}
+.tape-strip .shot::after{display:none}
+.tape-cap{margin-top:12px;font-family:var(--mono);font-size:11px;color:var(--tape);letter-spacing:.06em}
+
+.tape-side{border:1px solid var(--rule);background:var(--panel);padding:24px;display:flex;flex-direction:column;gap:24px}
+.gauge li{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:10px 0;border-top:1px solid var(--rule)}
+.gauge li:last-child{border-bottom:1px solid var(--rule)}
+.gauge span{font-size:12px;color:var(--tape);letter-spacing:.08em}
+.gauge b{font-size:16px;color:var(--paper)}
+.tape-side p{font-size:13px;color:var(--tape);line-height:1.7}
+
+/* ── order ─────────────────────────────────────────────────────────── */
+.order-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,0.85fr);gap:48px;align-items:start}
+.steps li{display:grid;grid-template-columns:64px minmax(0,1fr);gap:24px;padding:24px 0;border-top:1px solid var(--rule)}
+.steps li:last-child{border-bottom:1px solid var(--rule)}
+.sn{font-family:var(--mono);font-size:28px;line-height:1;color:var(--tape)}
+.steps h4{font-size:20px;color:var(--paper);margin-bottom:8px}
+.steps p{font-size:14px;color:var(--paper);line-height:1.7;max-width:40ch}
+.steps p b{font-family:var(--mono);color:var(--paper);border-bottom:1px solid var(--aurora)}
+
+.order-fig{margin:0}
+.order-fig figcaption{margin-top:12px;font-family:var(--mono);font-size:11px;color:var(--tape);letter-spacing:.04em}
+
+.shop{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;margin-top:48px;border-top:2px solid var(--rule);padding-top:24px}
+.shop dt{font-size:11px;color:var(--tape);letter-spacing:.12em}
+.shop dd{margin:6px 0 0;font-size:14px;color:var(--paper);line-height:1.6}
+
+/* ── footer ────────────────────────────────────────────────────────── */
+.foot{display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:center;padding:32px 48px;background:var(--panel2);border-top:1.5px solid var(--rule);font-size:12px;color:var(--tape);letter-spacing:.06em}
+.foot .fid{font-family:var(--mono);font-size:15px;color:var(--paper);letter-spacing:.1em;display:flex;gap:16px;align-items:baseline}
+.foot .fid em{font-style:normal;font-size:11px;color:var(--tape);letter-spacing:.1em}
+.foot .mid{text-align:center}
+.foot .mid b{font-family:var(--mono);color:var(--paper);font-weight:400}
+
+/* ── responsive ────────────────────────────────────────────────────── */
+@media (max-width:1240px){
+  .hero-grid{grid-template-columns:minmax(0,1fr) 280px;gap:32px}
+}
+@media (max-width:1080px){
+  .hero-grid{grid-template-columns:minmax(0,1fr)}
+  .hero-fig{max-width:420px}
+}
+@media (max-width:1000px){
+  .axis{position:relative;width:auto;height:auto;padding:16px 16px 0;display:block;border-right:0;border-bottom:1px solid var(--rule)}
+  .band{display:none}
+  .vlabel{display:none}
+  .axis-id{font-size:28px;margin-top:4px}
+  .axis-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 16px}
+  .axis-sub{margin-top:0}
+  .scale{height:auto;flex:none;margin:16px 0 0}
+  .scale::before{left:0;right:0;top:0;bottom:auto;width:auto;height:8px;background:repeating-linear-gradient(to right,var(--rule) 0 1px,transparent 1px 8px)}
+  .scale::after{left:0;right:0;top:0;bottom:auto;width:auto;height:14px;background:repeating-linear-gradient(to right,var(--rule) 0 1.5px,transparent 1.5px 40px)}
+  .cursor{left:auto;right:0;top:-2px;width:48px}
+  .years{position:static;flex-direction:row;padding:14px 0 0;gap:8px}
+  .years li{flex:1;border-top:0;padding-top:0}
+  .years .y{font-size:11px}
+  .years .t{display:none}
+  .axis-foot{padding:12px 0 16px}
+  .rail{display:none}
+  .page{padding-left:0;max-width:none}
+  .hero,.sec{padding:40px 20px}
+  .foot{padding:24px 20px;grid-template-columns:1fr;gap:8px;text-align:left}
+  .foot .mid{text-align:left}
+  .sec-head{grid-template-columns:1fr;gap:16px}
+  .sec-head .sec-count{text-align:left}
+  .sec-no{font-size:40px;border-bottom:0;padding-bottom:0;width:64px}
+  .hero-meta{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hero-meta > div:nth-child(2){border-right:0}
+  .hero-meta > div:nth-child(1),.hero-meta > div:nth-child(2){border-bottom:1px solid var(--rule)}
+  .cards{grid-template-columns:repeat(6,minmax(0,1fr))}
+  .c1,.c2,.c3,.c4,.c5{grid-column:span 6}
+  .c4-cols{grid-template-columns:1fr}
+  .c5{grid-template-columns:1fr}
+  .tape-body{grid-template-columns:1fr}
+  .order-grid{grid-template-columns:1fr;gap:32px}
+  .shop{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:600px){
+  h1{font-size:60px}
+  h2{font-size:26px}
+  h3{font-size:22px}
+  .steps li{grid-template-columns:48px minmax(0,1fr);gap:16px}
+  .shop{grid-template-columns:1fr}
+  .cta{gap:12px}
+}
+</style>
+</head>
+<body>
+
+<!-- 观测轴：264px 宽，随滚动固定 -->
+<aside class="axis" aria-label="年代轴">
+  <div class="band" aria-hidden="true"></div>
+  <div class="axis-head">
+    <div class="axis-kicker">观测记录 · LOG</div>
+    <div class="axis-id">NR–05</div>
+    <div class="axis-sub">手冲专门 · <em>五个产区</em><br>2022 年起，只做这一种</div>
+  </div>
+
+  <div class="scale" aria-hidden="true">
+    <div class="cursor"><i></i></div>
+    <ul class="years">
+      <li><span class="y">2022</span><span class="t">开店</span></li>
+      <li><span class="y">2023</span><span class="t">加第一支瑰夏</span></li>
+      <li><span class="y">2024</span><span class="t">撤掉意式机</span></li>
+      <li><span class="y">2025</span><span class="t">改为一周两烘</span></li>
+      <li><span class="y">2026</span><span class="t">记录 05 条</span></li>
+    </ul>
+  </div>
+
+  <div class="axis-foot">
+    <b>8 px / 40 px</b>
+    刻度 8 像素一档，五档加粗
+    <br>更新 2026-11-04
+  </div>
+</aside>
+
+<!-- 内容区刻度轨 -->
+<div class="rail" aria-hidden="true"></div>
+
+<main class="page">
+
+  <!-- 01 首屏 -->
+  <header class="hero" id="top">
+    <div class="kicker">
+      <span class="k">记录号 <b class="m">NR–05</b></span>
+      <span class="k">手冲专门</span>
+      <span class="k">2022 年起</span>
+      <span class="k">2026 产季</span>
+    </div>
+
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <h1>只做手冲。<br>五个产区。</h1>
+        <p class="lede">没有意式机，没有自动冲煮，也没有第二份菜单。五支豆子按产季换，换下来就下架，不留空位。每支都过过杯测和复测，参数写在下面的记录里——水温、粉水比、研磨、秒数，一样不含糊。</p>
+
+        <dl class="hero-meta">
+          <div><dt>产区</dt><dd class="m">05</dd></div>
+          <div><dt>在架</dt><dd class="m">05 支</dd></div>
+          <div><dt>复测</dt><dd class="m">每周三</dd></div>
+          <div><dt>更新</dt><dd class="m">2026-11-04</dd></div>
+        </dl>
+
+        <div class="cta">
+          <a class="btn" href="#order"><i aria-hidden="true"></i>加微信问价</a>
+          <span class="cta-note">微信 <b class="m">drip-05</b> · 不做在线支付</span>
+        </div>
+      </div>
+
+      <figure class="hero-fig">
+        <div class="shot ar-45 on-void">
+          <img src="images/占位-1.jpg" width="1200" height="1500" alt="吧台上的手冲壶与 V60 滤杯，侧光，第一注水前的闷蒸">
+        </div>
+        <figcaption>FIG.01 · 01 号滤杯 · 92 ℃ · 第 142 秒</figcaption>
+      </figure>
+    </div>
+  </header>
+
+  <!-- 02 豆单 -->
+  <section class="sec" id="beans">
+    <div class="sec-head">
+      <div class="sec-no">02</div>
+      <div>
+        <h2>豆单 · 五条记录</h2>
+        <p class="sec-note">不标价。同一支豆子每批到货价不一样，报价按当天批次给。看完想喝哪支，把编号发我即可——说得出编号，就不用猜。</p>
+      </div>
+      <div class="sec-count"><span class="m">05 条</span>入库 2026-01 — 2026-04</div>
+    </div>
+
+    <div class="cards">
+
+      <!-- 01 埃塞俄比亚 -->
+      <article class="card c1">
+        <div class="card-top"><span class="cid m">NR–05–01</span><span class="orig">埃塞俄比亚</span></div>
+        <div class="shot ar-85">
+          <img src="images/占位-2.jpg" width="1600" height="1000" alt="耶加雪菲沃卡水洗豆，生豆盘与熟豆样品并排">
+        </div>
+        <h3>耶加雪菲 · 沃卡</h3>
+        <p class="flavor">柑橘、白花，凉下来转红茶。干净，收尾短，失败率最低的一支。</p>
+        <dl class="spec">
+          <div><dt>海拔</dt><dd class="m ta">1,940 m</dd></div>
+          <div><dt>品种 / 处理</dt><dd class="m ta">74110 · 水洗</dd></div>
+          <div><dt>烘焙</dt><dd class="m ta">浅烘 · Agtron 82</dd></div>
+          <div><dt>水温 / 粉水比</dt><dd class="m ta">92 ℃ · 1:16</dd></div>
+          <div><dt>研磨 / 萃取</dt><dd class="m ta">620 μm · 142 秒</dd></div>
+          <div><dt>杯测</dt><dd class="m ta">酸 4 级 · 甜 3 级 · 苦 1 级</dd></div>
+          <div><dt>价格</dt><dd class="m ta"><span class="ask">询价</span></dd></div>
+        </dl>
+      </article>
+
+      <!-- 02 肯尼亚 -->
+      <article class="card c2">
+        <div class="card-top"><span class="cid m">NR–05–02</span><span class="orig">肯尼亚</span></div>
+        <div class="shot ar-54">
+          <img src="images/占位-3.jpg" width="900" height="720" alt="肯尼亚 AA 级豆，手选台前的瑕疵豆挑拣">
+        </div>
+        <h3>涅里 · 卡林杜杜 AA</h3>
+        <p class="flavor">黑加仑、番茄梗。酸度高，但收得紧，不会散。</p>
+        <ul class="reads">
+          <li><span class="big m">94</span><span class="u m">℃</span><span class="lab">水温</span></li>
+          <li><span class="big m">1:15</span><span class="lab">粉水比</span></li>
+          <li><span class="big m">156</span><span class="u m">秒</span><span class="lab">萃取</span></li>
+        </ul>
+        <div class="mini">
+          <span>1,780 m</span><span>SL28 / SL34</span><span>双重水洗</span><span>Agtron 76</span><span>余韵 22 秒</span>
+        </div>
+        <div class="ask-line">价格 <span class="ask m">询价</span></div>
+      </article>
+
+      <!-- 03 哥伦比亚 -->
+      <article class="card c3">
+        <div class="c3-top">
+          <span class="cid m">NR–05–03</span>
+          <span class="idx m" aria-hidden="true">03</span>
+        </div>
+        <div class="shot ar-11">
+          <img src="images/占位-4.jpg" width="1000" height="1000" alt="厌氧发酵罐取样，哥伦比亚慧兰产区的熟豆特写">
+        </div>
+        <h3>慧兰 · 圣安东尼奥</h3>
+        <p class="flavor">熟果、可可。厌氧带来的发酵甜压在前段，后段是清楚的苦底。</p>
+        <ul class="chips">
+          <li>1,650 m</li><li>Castillo</li><li>厌氧 72 小时</li><li>Agtron 71</li>
+          <li>91 ℃</li><li>1:16</li><li>640 μm</li><li>168 秒</li><li>余韵 26 秒</li>
+        </ul>
+      </article>
+
+      <!-- 04 巴拿马 -->
+      <article class="card c4">
+        <div class="card-top"><span class="cid m">NR–05–04</span><span class="orig">巴拿马</span></div>
+        <div class="shot ar-219">
+          <img src="images/占位-5.jpg" width="2100" height="900" alt="巴拿马波奎特山坡上的瑰夏地块，遮阴树与晾晒棚">
+        </div>
+        <h3>波奎特 · 卡门 · 瑰夏</h3>
+        <div class="c4-cols">
+          <p>茉莉、白桃，浓度刻意做轻。前段薄是正常的，不用加粉；甜在第二段才出来，所以别提前下水。</p>
+          <dl class="spec">
+            <div><dt>海拔 / 处理</dt><dd class="m ta">1,620 m · 日晒 15 天</dd></div>
+            <div><dt>水温 / 粉水比</dt><dd class="m ta">93 ℃ · 1:15</dd></div>
+            <div><dt>研磨 / 萃取</dt><dd class="m ta">580 μm · 138 秒</dd></div>
+            <div><dt>余韵</dt><dd class="m ta">30 秒</dd></div>
+            <div><dt>价格</dt><dd class="m ta"><span class="ask">询价</span></dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <!-- 05 云南 -->
+      <article class="card c5">
+        <div class="c5-txt">
+          <div class="card-top"><span class="cid m">NR–05–05</span><span class="orig">云南 · 保山</span></div>
+          <h3>潞江坝 · 水洗</h3>
+          <p class="flavor">红糖、坚果。苦味清楚，但不久留——五支里唯一适合早上第一杯的，也是唯一我建议做成大杯的。</p>
+          <dl class="spec">
+            <div><dt>海拔</dt><dd class="m ta">1,350 m</dd></div>
+            <div><dt>品种 / 处理</dt><dd class="m ta">Catimor · 水洗</dd></div>
+            <div><dt>烘焙</dt><dd class="m ta">中烘 · Agtron 64</dd></div>
+            <div><dt>水温 / 粉水比</dt><dd class="m ta">90 ℃ · 1:15</dd></div>
+            <div><dt>研磨 / 萃取</dt><dd class="m ta">700 μm · 152 秒</dd></div>
+            <div><dt>价格</dt><dd class="m ta"><span class="ask">询价</span></dd></div>
+          </dl>
+        </div>
+        <div class="c5-fig">
+          <div class="shot ar-169">
+            <img src="images/占位-6.jpg" width="1600" height="900" alt="云南潞江坝晾晒架上的水洗豆，红果与麻袋">
+          </div>
+          <p class="cap">入库 2026-02 · 余 6 kg · 一周烘两次</p>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- 03 影像带 -->
+  <section class="sec tape-sec" id="tape">
+    <div class="sec-head">
+      <div class="sec-no">03</div>
+      <div>
+        <h2>影像带 · 两帧</h2>
+        <p class="sec-note">带子以 1:0.5 的比率随滚动上移：页面走两格，带子走一格。窗口固定 3:2，一次一帧。整页只有这一处在动，其余保持静止。</p>
+      </div>
+      <div class="sec-count"><span class="m">1 : 0.5</span>移动比</div>
+    </div>
+
+    <div class="tape-body">
+      <div>
+        <div class="tape-window">
+          <div class="tape-strip" id="tapeStrip">
+            <div class="shot ar-32"><img src="images/占位-7.jpg" width="1500" height="1000" alt="电子秤上的 15.0 克咖啡粉，滤杯已经温过"></div>
+            <div class="shot ar-32"><img src="images/占位-8.jpg" width="1500" height="1000" alt="第 40 秒的注水，水流从壶嘴落到粉层中心"></div>
+          </div>
+        </div>
+        <p class="tape-cap">TAPE 01 · 15.0 g / 240 ml ｜ TAPE 02 · 第 40 秒，累计 96 g</p>
+      </div>
+
+      <aside class="tape-side">
+        <ul class="gauge">
+          <li><span>移动比</span><b class="m">1 : 0.5</b></li>
+          <li><span>窗口</span><b class="m">3 : 2</b></li>
+          <li><span>帧数</span><b class="m">02</b></li>
+          <li><span>刻度</span><b class="m">8 / 40 px</b></li>
+          <li><span>取样</span><b class="m">2026-11-04</b></li>
+        </ul>
+        <p>带子只证明这张页面还会动。动的地方只有一个，看的时候不用找第二个。</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- 04 怎么订 -->
+  <section class="sec last" id="order">
+    <div class="sec-head">
+      <div class="sec-no">04</div>
+      <div>
+        <h2>怎么订</h2>
+        <p class="sec-note">只走微信。报产区编号、克数、取货时间，我回一句「可以」，就算订上了。没有购物车，没有付款码。</p>
+      </div>
+      <div class="sec-count"><span class="m">03 步</span>平均回话 20 分钟内</div>
+    </div>
+
+    <div class="order-grid">
+      <ol class="steps">
+        <li>
+          <span class="sn">01</span>
+          <div>
+            <h4>加微信</h4>
+            <p>微信号 <b>drip-05</b>。只此一个入口，不做在线支付，页面里也没有付款按钮。</p>
+          </div>
+        </li>
+        <li>
+          <span class="sn">02</span>
+          <div>
+            <h4>报编号</h4>
+            <p>说 NR–05–03，我就知道你要哪支。说「随便」，我按当天的萃取记录推一支，并告诉你它为什么合适。</p>
+          </div>
+        </li>
+        <li>
+          <span class="sn">03</span>
+          <div>
+            <h4>到店取</h4>
+            <p>豆子按需烘，取货前一晚烘。熟豆 100 g 起，也可以到店先喝一杯再决定——喝的和带走的是同一批。</p>
+          </div>
+        </li>
+      </ol>
+
+      <figure class="order-fig">
+        <div class="shot ar-32 on-void">
+          <img src="images/占位-9.jpg" width="1200" height="800" alt="店内吧台，五个滤杯位与一排手冲壶，砖墙上挂着萃取记录板">
+        </div>
+        <figcaption>FIG.03 · 吧台五个滤杯位 · 09:00–18:00 · 周一休</figcaption>
+      </figure>
+    </div>
+
+    <dl class="shop">
+      <div><dt>地址</dt><dd>杭州市拱墅区<br>台州路 128 号 一层东</dd></div>
+      <div><dt>营业</dt><dd>09:00 — 18:00<br>周一休，周三杯测</dd></div>
+      <div><dt>微信</dt><dd class="m">drip-05</dd></div>
+      <div><dt>支付</dt><dd>到店付、转账<br>不做在线支付</dd></div>
+    </dl>
+  </section>
+
+  <footer class="foot">
+    <div class="fid">NR–05 <em>记录 05 条 · 01—05</em></div>
+    <div class="mid">微信 <b>drip-05</b> · 五个产区 · 只做手冲</div>
+    <div class="m">更新 2026-11-04</div>
+  </footer>
+
+</main>
+
+<script>
+(function () {
+  var strip = document.getElementById('tapeStrip');
+  if (!strip || !strip.firstElementChild) return;
+  var win = strip.closest('.tape-window');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var queued = false;
+
+  function paint() {
+    queued = false;
+    var frameH = strip.firstElementChild.getBoundingClientRect().height;
+    if (!frameH) return;
+    // 窗口进入视口时位移为 0；窗口升到顶对齐时走满一帧。
+    // 位移 = 0.5 × 滚动距离 —— 页面走两格，带子走一格。
+    var travelled = window.innerHeight - win.getBoundingClientRect().top;
+    var up = Math.min(Math.max(travelled * 0.5, 0), frameH);
+    strip.style.transform = 'translate3d(0,' + (-up).toFixed(2) + 'px,0)';
+  }
+
+  function onScroll() {
+    if (queued) return;
+    queued = true;
+    window.requestAnimationFrame(paint);
+  }
+
+  if (reduce.matches) {
+    strip.style.transform = 'translate3d(0,0,0)';
+    return;
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  if (document.readyState === 'complete') paint();
+  else window.addEventListener('load', paint);
+  paint();
+})();
+</script>
+</body>
+</html>

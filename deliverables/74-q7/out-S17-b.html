@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>沈注 · 手冲豆目与对账联 · 案卷 S17-0001</title>
+<style>
+:root{
+  /* 七个色值，不新增色相 */
+  --ink:#5A2A50;
+  --paper:#E1D6BD;
+  --seal:#7A2E2E;
+  --stub:#C9BFA6;
+  --ink-deep:#3F1A38;
+  --rule:#B9A98C;
+  --tone-hover:#DFD6BF;
+
+  /* 线宽级：只有这七级 */
+  --w05:.5px;
+  --w08:.8px;
+  --w1:1px;
+  --w2:2px;
+  --w24:2.4px;
+  --w5:5px;
+  --w6:6px;
+
+  /* 字体链 */
+  --serif:"Literata","文津宋体","Noto Serif SC",serif;
+  --text:"文津宋体","WenJin Mincho SC","Noto Serif SC","Source Han Serif SC",serif;
+  --mono:"Sometype Mono","文津宋体","WenJin Mincho SC","Noto Serif SC","Source Han Serif SC",serif;
+
+  /* 机制值 */
+  --hole:1.2px;   /* 孔径 */
+  --pitch:6px;    /* 孔距 */
+  --lh:24px;      /* 行高 */
+  --amt:88px;     /* 金额窄档 */
+}
+
+*{box-sizing:border-box;border-radius:0}
+html,body{background-color:var(--paper)}
+body{
+  margin:0;
+  color:var(--ink);
+  font-family:var(--text);
+  font-size:17px;
+  line-height:24px;
+  font-kerning:normal;
+  -webkit-text-size-adjust:100%;
+}
+h1,h2,h3,p,dl,dd,dt,ul,ol,figure,figcaption{margin:0;padding:0}
+ul,ol{list-style:none}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%;min-width:0;height:auto}
+figure{min-width:0}
+figure img{width:100%;height:auto;border:var(--w1) solid var(--ink);background-color:var(--stub)}
+.band figure img{border-left:0;border-right:0}
+.order figure img{border-color:var(--paper);background-color:var(--ink-deep)}
+.two > *,.grid > *,.demo > *,.lot > *,.rh > *,.bodycell > *,.stubcell > *{min-width:0}
+
+/* 图位按 width/height 属性锁住比例：即使 images/ 下还没放文件，也占出同等面积 */
+.r1{aspect-ratio:1200 / 800}
+.r2{aspect-ratio:800 / 1000}
+.r3{aspect-ratio:640 / 640}
+.r4{aspect-ratio:1600 / 600}
+.r5{aspect-ratio:1000 / 700}
+.r6{aspect-ratio:900 / 1200}
+.plate img,.band img,.room img,.order img,.method img{object-fit:cover}
+
+/* 页面骨架：纸色铺满，方角描边，无阴影 */
+.sheet{
+  max-width:1200px;
+  margin:0 auto;
+  padding:0 40px;
+  background-color:var(--paper);
+  border-left:var(--w1) solid var(--rule);
+  border-right:var(--w1) solid var(--rule);
+}
+.bleed{margin-left:-40px;margin-right:-40px;padding-left:40px;padding-right:40px}
+
+/* 报头 */
+.masthead{
+  /* 2.4px 结构线：border 会被取整到 2px，改用背景绘 */
+  background-image:linear-gradient(var(--ink), var(--ink));
+  background-size:100% var(--w24);
+  background-repeat:no-repeat;
+  background-position:left bottom;
+  padding-bottom:0;
+}
+.masthead .bar{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:18px;
+  padding:16px 0;
+  font-family:var(--mono);
+  font-size:12px;
+  line-height:24px;
+  letter-spacing:.12em;
+  font-variant-numeric:tabular-nums;
+}
+.brand{
+  font-family:var(--serif);
+  font-size:15px;
+  letter-spacing:.34em;
+  line-height:24px;
+}
+.masthead .mid{letter-spacing:.24em}
+
+/* 齿孔列：孔径 1.2 / 孔距 6 */
+.perf{
+  background-repeat:repeat-y;
+  background-position:center top;
+  background-size:var(--pitch) var(--pitch);
+}
+.perf--ink{
+  background-color:var(--ink);
+  background-image:radial-gradient(circle at 50% 50%, var(--paper) 0 .6px, transparent .78px);
+}
+.perf--paper{
+  background-color:var(--paper);
+  background-image:radial-gradient(circle at 50% 50%, var(--ink-deep) 0 .6px, transparent .78px);
+}
+
+/* 首屏：3fr / 16px / 9fr */
+.hero{
+  background-color:var(--ink);
+  color:var(--paper);
+  border-bottom:var(--w6) solid var(--ink-deep);
+}
+.hero .two{display:grid;grid-template-columns:3fr 16px 9fr;align-items:stretch}
+.hero .stubcell{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  gap:32px;
+  padding:40px 24px 40px 0;
+}
+.hero .maincell{padding:40px 0 40px 32px}
+
+.eyebrow{
+  font-family:var(--mono);
+  font-size:12px;
+  line-height:24px;
+  letter-spacing:.26em;
+  color:var(--paper);
+}
+.hero h1{
+  margin:18px 0 0;
+  font-family:var(--serif);
+  font-size:86px;
+  font-weight:600;
+  line-height:.98;
+  letter-spacing:-.015em;
+}
+.deck{max-width:44ch;margin:22px 0 0;font-size:17px;line-height:24px;color:var(--paper)}
+.act{
+  display:inline-flex;
+  flex-wrap:wrap;
+  align-items:baseline;
+  gap:14px;
+  margin-top:30px;
+  padding:13px 22px;
+  border:var(--w2) solid var(--paper);
+  color:var(--paper);
+  font-family:var(--mono);
+  font-size:15px;
+  line-height:24px;
+  letter-spacing:.08em;
+  font-variant-numeric:tabular-nums;
+}
+.act em{font-style:normal;letter-spacing:.04em}
+.act:hover{background-color:var(--tone-hover);border-color:var(--tone-hover);color:var(--ink-deep)}
+
+.strip{
+  display:flex;
+  flex-wrap:wrap;
+  margin-top:36px;
+  border-top:var(--w05) solid var(--rule);
+}
+.strip li{
+  padding:10px 22px 0 0;
+  margin-right:22px;
+  border-right:var(--w05) solid var(--rule);
+  font-family:var(--mono);
+  font-size:12px;
+  line-height:24px;
+  letter-spacing:.08em;
+}
+.strip li:last-child{border-right:0;margin-right:0;padding-right:0}
+
+.kv{display:flex;flex-direction:column;gap:0;border-top:var(--w05) solid var(--rule)}
+.kv .row{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:var(--w05) solid var(--rule)}
+.kv .k{font-size:13px;line-height:24px;letter-spacing:.14em}
+.kv .v{font-family:var(--mono);font-size:16px;line-height:24px;font-variant-numeric:tabular-nums}
+.fileno{font-family:var(--mono);font-size:30px;line-height:24px;letter-spacing:.04em}
+.fileno small{display:block;font-size:11px;letter-spacing:.2em;margin-top:8px}
+
+/* 首屏存根上的对账样本：88px 金额档，小数点对齐 */
+.mini{margin-top:22px;border-top:var(--w05) solid var(--rule)}
+.mini-cap{font-family:var(--mono);font-size:11px;line-height:24px;letter-spacing:.16em;padding-top:8px}
+.mini-row{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:12px;
+  padding:4px 0;
+  border-bottom:var(--w05) solid var(--rule);
+}
+.mini-row .no{font-size:13px;letter-spacing:.1em}
+.mini-row .amt{flex:0 0 88px}
+
+.seal{
+  position:absolute;
+  right:2mm;
+  bottom:40px;
+  width:104px;
+  height:104px;
+  border-radius:50%;
+  border:var(--w2) solid var(--paper);
+  background-color:var(--seal);
+  color:var(--paper);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  font-family:var(--serif);
+  font-size:16px;
+  line-height:22px;
+  letter-spacing:.14em;
+  transform:rotate(-7deg);
+}
+.offmark{
+  position:absolute;
+  right:0;
+  top:8px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-family:var(--mono);
+  font-size:11px;
+  line-height:16px;
+  letter-spacing:.12em;
+}
+.offmark i{display:block;width:var(--w24);height:20px;background-color:var(--seal);margin-right:2mm}
+
+/* 图版 */
+.plate{padding:48px 0;border-bottom:var(--w1) solid var(--ink)}
+.plate figure{margin:0}
+.plate figcaption{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:space-between;
+  gap:16px;
+  padding-top:10px;
+  border-top:var(--w05) solid var(--rule);
+  margin-top:12px;
+  font-family:var(--mono);
+  font-size:11px;
+  line-height:24px;
+  letter-spacing:.12em;
+  color:var(--ink-deep);
+}
+
+/* 产区与豆目 */
+.region{
+  padding:56px 0 8px;
+  background-image:linear-gradient(var(--ink), var(--ink));
+  background-size:100% var(--w24);
+  background-repeat:no-repeat;
+  background-position:left top;
+}
+.region.first{background-image:none}
+.rh{display:grid;align-items:end;gap:24px;padding-bottom:18px;border-bottom:var(--w1) solid var(--ink)}
+.rh1{grid-template-columns:96px 1fr 220px}
+.rh2{grid-template-columns:1fr 96px}
+.rh3{grid-template-columns:1fr 320px}
+.rh4{grid-template-columns:1fr}
+.rh5{grid-template-columns:150px 1fr 200px}
+.rh-no{font-family:var(--mono);font-size:34px;line-height:48px;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+.rh-right{text-align:right}
+.region h2{font-family:var(--serif);font-size:36px;line-height:48px;font-weight:600;letter-spacing:.01em}
+.meta{font-family:var(--mono);font-size:12px;line-height:24px;letter-spacing:.1em;color:var(--ink-deep);font-variant-numeric:tabular-nums;margin-top:4px}
+.rh-note{max-width:58ch;margin:18px 0 12px;padding-left:16px;border-left:var(--w05) solid var(--rule);font-size:15px;line-height:24px}
+.rh-note.right{max-width:none;margin-left:auto;text-align:right;padding-left:0;padding-right:16px;border-left:0;border-right:var(--w05) solid var(--rule)}
+.rh-inline{
+  font-family:var(--mono);
+  font-size:24px;
+  line-height:24px;
+  letter-spacing:0;
+  vertical-align:middle;
+  margin-right:20px;
+  color:var(--ink-deep);
+}
+
+/* 条目：两联 3fr / 16px / 9fr */
+.lots{margin-top:6px;border-top:var(--w05) solid var(--rule)}
+.lot{
+  display:grid;
+  grid-template-columns:3fr 16px 9fr;
+  min-height:72px;
+  /* 0.8px 细线：用背景绘，避开浏览器把 border-width 取整到 1px */
+  background-image:linear-gradient(var(--rule), var(--rule));
+  background-size:100% var(--w08);
+  background-repeat:no-repeat;
+  background-position:left bottom;
+}
+.lot .stubcell{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:12px;
+  padding:24px 24px 24px 0;
+  transition:transform .26s cubic-bezier(.2,.7,.3,1);
+}
+.lot:hover .stubcell{transform:translateX(-2mm)}
+.lot .bodycell{
+  display:grid;
+  grid-template-columns:1fr var(--amt);
+  column-gap:16px;
+  align-items:start;
+  padding:24px 0 24px 24px;
+}
+.no{font-family:var(--mono);font-size:24px;line-height:24px;letter-spacing:.04em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.cn{font-family:var(--mono);font-size:11px;line-height:24px;letter-spacing:.12em;color:var(--ink-deep);font-variant-numeric:tabular-nums;white-space:nowrap}
+.proc{font-size:13px;line-height:24px;letter-spacing:.2em;white-space:nowrap}
+.alt{font-family:var(--mono);font-size:12px;line-height:24px;letter-spacing:.08em;color:var(--ink-deep);font-variant-numeric:tabular-nums}
+.name{font-family:var(--serif);font-size:20px;line-height:24px;font-weight:600;letter-spacing:.02em}
+.notes{font-size:15px;line-height:24px;letter-spacing:.02em}
+
+/* 金额列：88px，小数点对齐 */
+.amt{
+  width:var(--amt);
+  display:grid;
+  grid-template-columns:1fr auto 32px;
+  align-items:baseline;
+  font-family:var(--mono);
+  font-size:16px;
+  line-height:24px;
+  font-variant-numeric:tabular-nums;
+}
+.amt .cur{font-size:11px;text-align:right;padding-right:3px;color:var(--ink-deep)}
+.amt .int{text-align:right}
+.amt .dec{
+  text-align:left;
+  padding-left:5px;
+  /* 小数点分隔线也用 0.8px 绘，border 会被取整到 1px */
+  background-image:linear-gradient(var(--rule), var(--rule));
+  background-size:var(--w08) 100%;
+  background-repeat:no-repeat;
+  background-position:left center;
+}
+
+/* 条目变体：不等栏宽、不同内部结构 */
+.lot--b .bodycell{grid-template-columns:1.05fr .95fr var(--amt);column-gap:20px}
+.lot--b .name{font-size:20px}
+.lot--c .bodycell{grid-template-columns:1fr var(--amt);row-gap:0;align-items:start}
+.lot--c .stubcell{flex-direction:column;align-items:flex-start;gap:0}
+.lot--d .bodycell{grid-template-columns:1fr var(--amt);align-items:start}
+.lot--d .name{font-size:34px;line-height:48px;letter-spacing:0}
+.lot--d .notes{max-width:none}
+.lot--d .stubcell{padding-top:24px}
+.lot--e .bodycell{grid-template-columns:112px 1fr var(--amt);column-gap:20px}
+.lot--e .flag{font-family:var(--mono);font-size:11px;line-height:24px;letter-spacing:.12em;color:var(--seal)}
+.lot--e .stubcell{border-left:var(--w5) solid var(--seal);padding-left:14px}
+
+/* 冲煮参数 */
+.method{padding:56px 0;border-top:var(--w6) solid var(--ink)}
+.method .two{display:grid;grid-template-columns:7fr 5fr;gap:48px;align-items:start}
+h2.sec{font-family:var(--serif);font-size:52px;line-height:56px;font-weight:600;letter-spacing:-.005em}
+.lede{max-width:48ch;margin-top:18px;font-size:17px;line-height:24px}
+.spec{margin-top:26px;border-top:var(--w1) solid var(--ink)}
+.spec .row{
+  display:grid;
+  grid-template-columns:1fr var(--amt);
+  gap:16px;
+  padding:8px 0;
+  background-image:linear-gradient(var(--rule), var(--rule));
+  background-size:100% var(--w08);
+  background-repeat:no-repeat;
+  background-position:left bottom;
+}
+.spec dt{font-size:15px;line-height:24px;letter-spacing:.04em}
+.spec dd{text-align:right;font-family:var(--mono);font-size:16px;line-height:24px;font-variant-numeric:tabular-nums}
+
+/* 对账联说明 */
+.reco{padding:56px 0;background-image:linear-gradient(var(--ink), var(--ink));background-size:100% var(--w24);background-repeat:no-repeat;background-position:left top}
+.reco .two{display:grid;grid-template-columns:8fr 4fr;gap:48px;align-items:start}
+.steps{margin-top:24px;border-top:var(--w1) solid var(--ink)}
+.steps li{
+  display:grid;
+  grid-template-columns:64px 1fr;
+  gap:16px;
+  padding:14px 0;
+  background-image:linear-gradient(var(--rule), var(--rule));
+  background-size:100% var(--w08);
+  background-repeat:no-repeat;
+  background-position:left bottom;
+}
+.steps .n{font-family:var(--mono);font-size:24px;line-height:24px;font-variant-numeric:tabular-nums}
+.steps p{font-size:15px;line-height:24px}
+
+.demo{
+  display:grid;
+  grid-template-columns:3fr 16px 9fr;
+  margin-top:32px;
+  border:var(--w1) solid var(--ink);
+  background-color:var(--paper);
+}
+.demo .l{padding:20px;display:flex;flex-direction:column;justify-content:space-between;gap:12px;background-color:var(--stub)}
+.demo .r{padding:20px;display:grid;grid-template-columns:1fr var(--amt);gap:16px;align-items:start}
+.demo .tag{font-family:var(--mono);font-size:11px;line-height:24px;letter-spacing:.14em;color:var(--ink-deep)}
+.demo .who{font-family:var(--serif);font-size:24px;line-height:24px;font-weight:600}
+.specs{
+  display:flex;
+  flex-wrap:wrap;
+  gap:0;
+  margin-top:16px;
+  border-top:var(--w05) solid var(--rule);
+}
+.specs span{
+  padding:8px 16px 0 0;
+  margin-right:16px;
+  border-right:var(--w05) solid var(--rule);
+  font-family:var(--mono);
+  font-size:11px;
+  line-height:24px;
+  letter-spacing:.1em;
+  color:var(--ink-deep);
+  font-variant-numeric:tabular-nums;
+}
+.specs span:last-child{border-right:0}
+
+/* 通栏图 */
+.band img{width:100%;height:auto;border-top:var(--w1) solid var(--ink);border-bottom:var(--w1) solid var(--ink)}
+.band figcaption{
+  display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;
+  padding:8px 0 0;
+  font-family:var(--mono);font-size:11px;line-height:24px;letter-spacing:.12em;color:var(--ink-deep);
+}
+
+/* 店内 */
+.room{padding:56px 0;background-image:linear-gradient(var(--ink), var(--ink));background-size:100% var(--w24);background-repeat:no-repeat;background-position:left top}
+.room .two{display:grid;grid-template-columns:5fr 7fr;gap:48px;align-items:start}
+.room .note{margin-top:18px;font-size:15px;line-height:24px;max-width:40ch}
+
+/* 订购：墨底块 */
+.order{
+  background-color:var(--ink);
+  color:var(--paper);
+  padding:56px 40px;
+  border-top:var(--w6) solid var(--ink-deep);
+  border-bottom:var(--w6) solid var(--ink-deep);
+}
+.order .two{display:grid;grid-template-columns:8fr 4fr;gap:48px;align-items:stretch}
+.order h2{font-family:var(--serif);font-size:52px;line-height:56px;font-weight:600}
+.order .lede{color:var(--paper);max-width:46ch}
+.wx{
+  display:inline-block;
+  margin-top:24px;
+  padding:12px 18px;
+  border:var(--w2) solid var(--paper);
+  font-family:var(--mono);
+  font-size:20px;
+  line-height:24px;
+  letter-spacing:.06em;
+}
+.order .cap{margin-top:10px;font-family:var(--mono);font-size:11px;line-height:24px;letter-spacing:.12em}
+.order .fine{margin-top:22px;font-size:15px;line-height:24px;max-width:48ch;border-top:var(--w05) solid var(--rule);padding-top:14px}
+
+/* 墨底上的对账样本：两联比例与齿孔照旧 */
+.wxpair{
+  display:grid;
+  grid-template-columns:3fr 16px 9fr;
+  margin-top:26px;
+  border:var(--w1) solid var(--paper);
+  max-width:520px;
+}
+.wxpair-l{display:flex;flex-direction:column;justify-content:space-between;gap:10px;padding:16px}
+.wxpair-r{display:grid;grid-template-columns:1fr var(--amt);gap:16px;align-items:start;padding:16px}
+.wxpair .who{font-family:var(--serif);font-size:20px;line-height:24px;font-weight:600}
+.wxpair .notes{font-size:13px;line-height:24px}
+.wxpair .tag{font-family:var(--mono);font-size:11px;line-height:24px;letter-spacing:.14em;color:var(--rule)}
+.wxpair .no{color:var(--paper)}
+.wxpair .cn{color:var(--rule)}
+.wxpair .amt .cur{color:var(--rule)}
+
+/* 页脚 */
+.foot{background-color:var(--ink-deep);color:var(--paper);padding:44px 40px 56px}
+.foot .grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:40px}
+.foot .k{font-family:var(--mono);font-size:11px;line-height:24px;letter-spacing:.16em;color:var(--rule)}
+.foot .v{font-size:15px;line-height:24px;margin-top:4px}
+.foot .fileno{font-size:24px;letter-spacing:.08em;color:var(--paper)}
+.foot .rule{height:var(--w05);background-color:var(--ink);margin:32px 0 16px}
+.foot .bottom{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;font-family:var(--mono);font-size:11px;line-height:24px;letter-spacing:.12em;color:var(--rule)}
+
+@media (prefers-reduced-motion:reduce){
+  .lot .stubcell{transition:none}
+  .lot:hover .stubcell{transform:none}
+}
+
+/* 移动端：单列，顺序不变 */
+@media (max-width:900px){
+  .sheet{padding:0 22px;border-left:0;border-right:0}
+  .bleed{margin-left:-22px;margin-right:-22px;padding-left:22px;padding-right:22px}
+  .hero .two{grid-template-columns:1fr}
+  .hero .stubcell{padding:32px 0 0;flex-direction:column;flex-wrap:nowrap;align-items:stretch;gap:22px;justify-content:flex-start}
+  .hero .maincell{padding:24px 0 36px}
+  .hero .perf{width:100%;height:16px;background-repeat:repeat-x;background-position:left center}
+  .seal{position:static;transform:rotate(-7deg);width:88px;height:88px;font-size:14px}
+  .offmark{display:none}
+  .strip li{padding-right:14px;margin-right:14px}
+  .hero h1{font-size:clamp(44px,12vw,86px)}
+  .rh1,.rh2,.rh3,.rh5{grid-template-columns:1fr}
+  .rh-right{text-align:left}
+  .rh-note.right{text-align:left;padding-right:0;border-right:0;padding-left:16px;border-left:var(--w05) solid var(--rule)}
+  .rh-inline{font-size:20px;margin-right:14px}
+  .lot{grid-template-columns:1fr}
+  .lot .stubcell{padding:18px 0 0;flex-direction:row;align-items:baseline;gap:14px}
+  .lot .stubcell .proc{margin-left:auto}
+  .lot--e .stubcell{border-left:0;padding-left:0}
+  .lot .perf{width:100%;height:16px;background-repeat:repeat-x;background-position:left center}
+  .lot .bodycell{padding:10px 0 20px}
+  .lot--b .bodycell,.lot--e .bodycell{grid-template-columns:1fr var(--amt)}
+  .lot--b .bodycell .name,.lot--e .bodycell .flag{grid-column:1 / -1}
+  .lot--d .name{font-size:24px;line-height:28px}
+  .method .two,.reco .two,.room .two,.order .two{grid-template-columns:1fr;gap:32px}
+  .demo{grid-template-columns:1fr}
+  .demo .perf{width:100%;height:16px;background-repeat:repeat-x;background-position:left center}
+  .wxpair{grid-template-columns:1fr;max-width:none}
+  .wxpair .perf{width:100%;height:16px;background-repeat:repeat-x;background-position:left center}
+  h2.sec,.order h2{font-size:34px;line-height:40px}
+  .order,.foot{padding-left:22px;padding-right:22px}
+  .foot .grid{grid-template-columns:1fr;gap:24px}
+}
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <header class="masthead">
+    <div class="bar">
+      <span class="brand">沈注 · 手冲咖啡</span>
+      <span class="mid">豆目 ／ 对账联 ／ 第肆季</span>
+      <span>案卷 S17-0001</span>
+    </div>
+  </header>
+
+  <section class="hero bleed">
+    <div class="two">
+      <div class="stubcell">
+        <div>
+          <div class="fileno">S17-0001<small>存根 ／ 第肆季</small></div>
+          <div class="kv" style="margin-top:20px">
+            <div class="row"><span class="k">产地</span><span class="v">5</span></div>
+            <div class="row"><span class="k">在册</span><span class="v">9 批</span></div>
+            <div class="row"><span class="k">计价</span><span class="v">0.01 元</span></div>
+          </div>
+          <div class="mini">
+            <p class="mini-cap">对账样本 ／ 100 g</p>
+            <div class="mini-row">
+              <span class="no">L-01</span>
+              <span class="amt"><span class="cur">¥</span><span class="int">168</span><span class="dec">.00</span></span>
+            </div>
+            <div class="mini-row">
+              <span class="no">L-07</span>
+              <span class="amt"><span class="cur">¥</span><span class="int">468</span><span class="dec">.00</span></span>
+            </div>
+          </div>
+        </div>
+        <div class="offmark"><span>印面偏中缝</span><i></i><span>2 mm</span></div>
+        <div class="seal">沈注<br>对账</div>
+      </div>
+      <div class="perf perf--ink" aria-hidden="true"></div>
+      <div class="maincell">
+        <p class="eyebrow">豆目 · 第四季 · 2026</p>
+        <h1>五处产地<br>一联对账</h1>
+        <p class="deck">本店只做手冲，不做意式，不做拼配。豆子按产地分五处登记，一批一号；价格记到分，克数记到克。买豆在微信里谈：你把编号发我，我回你克数、总价与烘焙日。</p>
+        <a class="act" href="#order">加微信问价 <em>shenzhu-pour</em></a>
+        <ul class="strip">
+          <li>营业 10:00–19:00</li>
+          <li>每周三烘豆，周四起可取</li>
+          <li>只发本城，自取优先</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="plate">
+    <figure>
+      <img src="images/占位-1.jpg" width="1200" height="800" class="r1" alt="五处产地的生豆分格陈列，每格贴一张批次登记卡">
+      <figcaption>
+        <span>图版一 · 五格与九批</span>
+        <span>2026-10 摄于店内靠墙架</span>
+      </figcaption>
+    </figure>
+  </section>
+
+  <section class="region first">
+    <div class="rh rh1">
+      <div class="rh-no">01</div>
+      <div>
+        <h2>埃塞俄比亚 · 耶加雪菲</h2>
+        <p class="meta">ET ／ 海拔 1,980–2,050 m ／ 在册 2 批</p>
+      </div>
+      <p class="meta rh-right">登记日 2026-10-08<br>烘豆 周三 · 单一锅</p>
+    </div>
+    <p class="rh-note">同一个合作社的两个处理站，水洗与日晒各一。日晒那批每年只到十一月至次年二月；卖完即注销，编号不再复用。</p>
+
+    <div class="lots">
+      <article class="lot">
+        <div class="stubcell">
+          <span class="no">L-01</span>
+          <span class="cn">S17-0001</span>
+          <span class="proc">水洗</span>
+        </div>
+        <div class="perf perf--paper" aria-hidden="true"></div>
+        <div class="bodycell">
+          <div>
+            <p class="name">科契尔 · 沃卡</p>
+            <p class="notes">柠檬皮 ／ 白花 ／ 红茶　·　1,980 m　·　100 g 起</p>
+          </div>
+          <span class="amt"><span class="cur">¥</span><span class="int">168</span><span class="dec">.00</span></span>
+        </div>
+      </article>
+
+      <article class="lot">
+        <div class="stubcell">
+          <span class="no">L-02</span>
+          <span class="cn">S17-0001</span>
+          <span class="proc">日晒</span>
+        </div>
+        <div class="perf perf--paper" aria-hidden="true"></div>
+        <div class="bodycell">
+          <div>
+            <p class="name">孔加 · 圣塔维</p>
+            <p class="notes">蓝莓 ／ 玫瑰 ／ 蜂蜜　·　2,050 m　·　100 g 起</p>
+          </div>
+          <span class="amt"><span class="cur">¥</span><span class="int">186</span><span class="dec">.00</span></span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="region">
+    <div class="rh rh2">
+      <div>
+        <h2>肯尼亚 · 涅里</h2>
+        <p class="meta">KE ／ 海拔 1,680–1,750 m ／ 在册 2 批 ／ 登记日 2026-09-30</p>
+      </div>
+      <div class="rh-no rh-right">02</div>
+    </div>
+    <p class="rh-note">这两批都是水洗，酸度比耶加雪菲更硬。涅里的豆子我烘得比同批浅一档（一爆结束前 40 秒下豆），为的是留住番茄那一路的咸鲜。</p>
+
+    <div class="lots">
+      <article class="lot lot--b">
+        <div class="stubcell">
+          <span class="no">L-03</span>
+          <span class="cn">S17-0001</span>
+          <span class="proc">水洗 AA</span>
+        </div>
+        <div class="perf perf--paper" aria-hidden="true"></div>
+        <div class="bodycell">
+          <p class="name">加图姆比</p>
+          <div>
+            <p class="notes">黑加仑 ／ 番茄 ／ 红糖</p>
+            <p class="alt">1,750 m ／ 100 g 起</p>
+          </div>
+          <span class="amt"><span class="cur">¥</span><span class="int">178</span><span class="dec">.00</span></span>
+        </div>
+      </article>
+
+      <article class="lot lot--b">
+        <div class="stubcell">
+          <span class="no">L-04</span>
+          <span class="cn">S17-0001</span>
+          <span class="proc">水洗 AB</span>
+        </div>
+        <div class="perf perf--paper" aria-hidden="true"></div>
+        <div class="bodycell">
+          <p class="name">卡拉蒂娜</p>
+          <div>
+            <p class="notes">西柚 ／ 罗望子 ／ 麦芽</p>
+            <p class="alt">1,680 m ／ 100 g 起</p>
+          </div>
+          <span class="amt"><span class="cur">¥</span><span class="int">142</span><span class="dec">.50</span></span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="region">
+    <div class="rh rh3">
+      <div>
+        <h2><span class="rh-inline">03</span>哥伦比亚 · 惠兰</h2>
+        <p class="meta">CO ／ 海拔 1,650–1,720 m ／ 在册 2 批 ／ 登记日 2026-09-12 ／ 小农批次，每批不超过 24 公斤</p>
+      </div>
+      <p class="meta rh-right">在册 2 批<br>含水率 10.8% ／ 11.2%</p>
+    </div>
+    <p class="rh-note">惠兰两批都来自不足三公顷的小农，收到时含水率 10.8% 与 11.2%，我分开存、分开烘。批次号写在麻袋口的登记卡上，撕下来就贴在存根背面。</p>
+
+    <div class="lots">
+      <article class="lot lot--c">
+        <div class="stubcell">
+          <span class="no">L-05</span>
+          <span class="cn">S17-0001</span>
+          <span class="proc">水洗 粉红波旁</span>
+        </div>
+        <div class="perf perf--paper" aria-hidden="true"></div>
+        <div class="bodycell">
+          <div>
+            <p class="name">圣阿道夫</p>
+            <p class="notes">石榴 ／ 荔枝 ／ 焦糖</p>
+            <p class="alt">1,650 m ／ 含水率 10.8% ／ 100 g 起</p>
+          </div>
+          <span class="amt"><span class="cur">¥</span><span class="int">196</span><span class="dec">.00</span></span>
+        </div>
+      </article>
+
+      <article class="lot lot--c">
+        <div class="stubcell">
+          <span class="no">L-06</span>
+          <span class="cn">S17-0001</span>
+          <span class="proc">水洗 卡杜拉</span>
+        </div>
+        <div class="perf perf--paper" aria-hidden="true"></div>
+        <div class="bodycell">
+          <div>
+            <p class="name">拉埃斯佩兰萨</p>
+            <p class="notes">青苹果 ／ 甘蔗 ／ 杏仁</p>
+            <p class="alt">1,720 m ／ 含水率 11.2% ／ 100 g 起</p>
+          </div>
+          <span class="amt"><span class="cur">¥</span><span class="int">154</span><span class="dec">.00</span></span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="region">
+    <div class="rh rh4">
+      <div>
+        <h2><span class="rh-inline">04</span>巴拿马 · 波奎特</h2>
+        <p class="meta">PA ／ 海拔 1,600 m ／ 在册 1 批 ／ 登记日 2026-09-02 ／ 剩余 3.4 kg</p>
+      </div>
+    </div>
+    <p class="rh-note">一批只到 12 公斤，按 100 克起售。这一批不做预留，也不拆成小样；先到先得，售罄即注销。存根背面另有到货单号，可与产地发货单对。</p>
+
+    <div class="lots">
+      <article class="lot lot--d">
+        <div class="stubcell">
+          <span class="no">L-07</span>
+          <span class="cn">S17-0001</span>
+          <span class="proc">水洗 绿标</span>
+        </div>
+        <div class="perf perf--paper" aria-hidden="true"></div>
+        <div class="bodycell">
+          <div>
+            <p class="name">翡翠庄园</p>
+            <p class="notes">茉莉 ／ 佛手柑 ／ 蜂蜜　·　1,600 m</p>
+            <p class="alt">100 g 起 ／ 每人限 300 g</p>
+          </div>
+          <span class="amt"><span class="cur">¥</span><span class="int">468</span><span class="dec">.00</span></span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="region">
+    <div class="rh rh5">
+      <div class="rh-no">05</div>
+      <div>
+        <h2>危地马拉 · 安提瓜</h2>
+        <p class="meta">GT ／ 海拔 1,500–1,580 m ／ 在册 2 批 ／ 登记日 2026-08-21</p>
+      </div>
+      <p class="meta rh-right">常备 · 不断货<br>替换批次另行注销</p>
+    </div>
+    <p class="rh-note right">这两批是店里唯一常备款。蜜处理那批发酵比水洗重一档；如果你平时只喝浅烘水洗，先买 100 克试，别整袋带走。</p>
+
+    <div class="lots">
+      <article class="lot lot--e">
+        <div class="stubcell">
+          <span class="no">L-08</span>
+          <span class="proc">水洗 波旁</span>
+        </div>
+        <div class="perf perf--paper" aria-hidden="true"></div>
+        <div class="bodycell">
+          <p class="flag">常备</p>
+          <div>
+            <p class="name">圣塞巴斯蒂安</p>
+            <p class="notes">可可 ／ 橙皮 ／ 杏仁　·　1,500 m</p>
+            <p class="alt">S17-0001 ／ 烘焙日 2026-10-16</p>
+          </div>
+          <span class="amt"><span class="cur">¥</span><span class="int">138</span><span class="dec">.00</span></span>
+        </div>
+      </article>
+
+      <article class="lot lot--e">
+        <div class="stubcell">
+          <span class="no">L-09</span>
+          <span class="proc">蜜处理 卡杜拉</span>
+        </div>
+        <div class="perf perf--paper" aria-hidden="true"></div>
+        <div class="bodycell">
+          <p class="flag">发酵重</p>
+          <div>
+            <p class="name">拉福图纳</p>
+            <p class="notes">黑糖 ／ 李子 ／ 核桃　·　1,580 m</p>
+            <p class="alt">S17-0001 ／ 烘焙日 2026-10-16</p>
+          </div>
+          <span class="amt"><span class="cur">¥</span><span class="int">128</span><span class="dec">.00</span></span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="method">
+    <div class="two">
+      <div>
+        <h2 class="sec">冲煮参数，一套到底</h2>
+        <p class="lede">参数不随豆子改。深一点的豆子我只把水温降到 90.0 ℃，其余不动；这件事记在杯测本上，不写在菜单上。你在家里按同一套做，差的是水和手，不是方子。</p>
+        <dl class="spec">
+          <div class="row"><dt>粉量</dt><dd>15.0 g</dd></div>
+          <div class="row"><dt>水温</dt><dd>92.0 ℃</dd></div>
+          <div class="row"><dt>粉水比</dt><dd>1 : 15.0</dd></div>
+          <div class="row"><dt>研磨</dt><dd>8.5 格</dd></div>
+          <div class="row"><dt>注水总时</dt><dd>2:30</dd></div>
+          <div class="row"><dt>出杯</dt><dd>225.0 ml</dd></div>
+          <div class="row"><dt>滤杯</dt><dd>V60 01</dd></div>
+        </dl>
+      </div>
+      <figure>
+        <img src="images/占位-2.jpg" width="800" height="1000" class="r2" alt="店内冲煮位：手冲壶、V60 滤杯与电子秤">
+        <figcaption style="padding-top:10px;border-top:var(--w05) solid var(--rule);margin-top:12px;font-family:var(--mono);font-size:11px;line-height:24px;letter-spacing:.12em;color:var(--ink-deep)">图版二 · 冲煮位，一壶一杯一秤</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="reco">
+    <div class="two">
+      <div>
+        <h2 class="sec">一联给你，一联留店</h2>
+        <p class="lede">一份豆目两联。左联是存根，留在店里；右联随豆走，是你的。两联按 3fr、16px、9fr 分开，中缝是一条齿孔；撕口对在小数点上——谁承担哪一笔，一眼读得出。</p>
+        <ol class="steps">
+          <li>
+            <span class="n">01</span>
+            <p>你把编号发我，例：L-04，两百克。</p>
+          </li>
+          <li>
+            <span class="n">02</span>
+            <p>我回你当批烘焙日、剩余克数与总价；价格记到分，不四舍五入。</p>
+          </li>
+          <li>
+            <span class="n">03</span>
+            <p>微信转账，我在存根上压章、撕下，右联放进豆袋。取豆时两张一对，齿孔对得上才算完。</p>
+          </li>
+        </ol>
+
+        <div class="demo">
+          <div class="l">
+            <span class="tag">存根 ／ 留店</span>
+            <span class="no">L-07</span>
+            <span class="cn">S17-0001</span>
+          </div>
+          <div class="perf perf--paper" aria-hidden="true"></div>
+          <div class="r">
+            <div>
+              <p class="who">翡翠庄园 · 绿标</p>
+              <p class="notes">水洗 ／ 1,600 m ／ 100 g 起</p>
+            </div>
+            <span class="amt"><span class="cur">¥</span><span class="int">468</span><span class="dec">.00</span></span>
+          </div>
+        </div>
+
+        <div class="specs">
+          <span>孔径 1.2</span>
+          <span>孔距 6</span>
+          <span>行高 24</span>
+          <span>金额列 88</span>
+          <span>印面偏中缝 2 mm</span>
+        </div>
+      </div>
+      <figure>
+        <img src="images/占位-3.jpg" width="640" height="640" class="r3" alt="撕下的存根与随豆的右联合在一处，齿孔对齐">
+        <figcaption style="padding-top:10px;border-top:var(--w05) solid var(--rule);margin-top:12px;font-family:var(--mono);font-size:11px;line-height:24px;letter-spacing:.12em;color:var(--ink-deep)">图版三 · 两联与齿孔</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="band">
+    <figure>
+      <img src="images/占位-4.jpg" width="1600" height="600" class="r4" alt="长桌上的三支滤杯与当日烘好的豆袋">
+      <figcaption>
+        <span>图版四 · 周三烘豆，一锅 1.2 公斤</span>
+        <span>五处产地分开烘，不混锅</span>
+      </figcaption>
+    </figure>
+  </section>
+
+  <section class="room">
+    <div class="two">
+      <div>
+        <h2 class="sec">店里只有八个座位</h2>
+        <p class="note">店在槐荫路 42 号，一层，八个座位，一张长桌。豆子放在靠墙的架子上，按产地分五格；每格贴一张登记卡，写批次号与到货日。没有咖啡机，只有三支 V60、一台磨、一台秤和一只温度计。</p>
+        <p class="note">周三不营业，那天烘豆。周四起可取，也可以坐下喝完再走。</p>
+      </div>
+      <figure>
+        <img src="images/占位-5.jpg" width="1000" height="700" class="r5" alt="店内长桌与靠墙的五格豆架">
+        <figcaption style="padding-top:10px;border-top:var(--w05) solid var(--rule);margin-top:12px;font-family:var(--mono);font-size:11px;line-height:24px;letter-spacing:.12em;color:var(--ink-deep)">图版五 · 长桌与五格豆架</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="order bleed" id="order">
+    <div class="two">
+      <div>
+        <h2>只走微信，不做在线支付</h2>
+        <p class="lede">你把编号发我，我把当批的烘焙日、剩余克数与总价发回；确认后微信转账，当天或次日在店里取。没有购物车，没有收款码，也不接代下单。</p>
+        <div class="wx">shenzhu-pour</div>
+        <p class="fine">加好友请注明「豆目 ＋ 编号」。我不接陌生电话；当天没回，多半是在烘豆，晚些会回。</p>
+
+        <div class="wxpair">
+          <div class="wxpair-l">
+            <span class="tag">存根 ／ 留店</span>
+            <span class="no">L-04</span>
+            <span class="cn">S17-0001</span>
+          </div>
+          <div class="perf perf--ink" aria-hidden="true"></div>
+          <div class="wxpair-r">
+            <div>
+              <p class="who">卡拉蒂娜</p>
+              <p class="notes">水洗 AB ／ 1,680 m ／ 100 g</p>
+            </div>
+            <span class="amt"><span class="cur">¥</span><span class="int">142</span><span class="dec">.50</span></span>
+          </div>
+        </div>
+      </div>
+      <figure>
+        <img src="images/占位-6.jpg" width="900" height="1200" class="r6" alt="封好的豆袋与手写批次标签，标签上写编号与烘焙日">
+        <p class="cap">图版六 · 标签：编号、烘焙日、克数</p>
+      </figure>
+    </div>
+  </section>
+
+  <footer class="foot bleed">
+    <div class="grid">
+      <div>
+        <p class="k">案卷</p>
+        <p class="v fileno">S17-0001</p>
+        <p class="v">第肆季 · 2026 · 全 1 页</p>
+      </div>
+      <div>
+        <p class="k">店址与时间</p>
+        <p class="v">城西区 槐荫路 42 号</p>
+        <p class="v">营业 10:00–19:00 ／ 周三休息</p>
+      </div>
+      <div>
+        <p class="k">版式记录</p>
+        <p class="v">两联 3fr ／ 16px ／ 9fr；孔径 1.2／孔距 6／行高 24；金额列 88；印面偏中缝 2 mm</p>
+      </div>
+    </div>
+    <div class="rule"></div>
+    <div class="bottom">
+      <span>本页为静态豆目，价格与余量以微信回复为准</span>
+      <span>编号 S17-0001</span>
+      <span>沈注 · 手冲咖啡</span>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
