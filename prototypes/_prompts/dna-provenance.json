@@ -1,0 +1,5578 @@
+[
+ {
+  "id": "S01",
+  "file": "S01-red-wedge-broadsheet/style.css",
+  "mechanism": "一块实色多边形以 11° 切入 4 栏版心，24px 实体隔条撑开栏沟，红楔压到栏间留白与栏首空白、不压字（正文列在楔形之上）——阅读顺序由角度与越界量决定，与它叫什么名字无关。",
+  "claims": [
+   {
+    "raw": "24",
+    "n": 24,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S01-red-wedge-broadsheet",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 26,
+    "hintText": "--bar: 24px;",
+    "hits": [
+     {
+      "line": 26,
+      "text": "--bar: 24px;",
+      "byComment": false
+     },
+     {
+      "line": 33,
+      "text": "--fs-h2: clamp(24px, 1.95vw, 28px);",
+      "byComment": false
+     },
+     {
+      "line": 126,
+      "text": "font-size: 22px; line-height: 24px; color: var(--ink);",
+      "byComment": false
+     },
+     {
+      "line": 177,
+      "text": "line-height: 24px;",
+      "byComment": false
+     },
+     {
+      "line": 191,
+      "text": ".front { position: relative; padding: 24px var(--pad-r) 0 var(--pad-l); }",
+      "byComment": false
+     },
+     {
+      "line": 354,
+      "text": "gap: 34px 24px; align-items: start;",
+      "byComment": false
+     }
+    ]
+   },
+   {
+    "raw": "11",
+    "n": 11,
+    "unit": "°",
+    "kind": "deg",
+    "_dir": "S01-red-wedge-broadsheet",
+    "status": "derived",
+    "displayOnly": false,
+    "why": "在注释里说明，生效值由别处推得",
+    "hintFile": null,
+    "hintLine": 131,
+    "hintText": "/* 红楔：单层实色，11° 斜边。左边缘从顶端 (42%,0) 下到 (45.6%,89.3%)，",
+    "hits": [
+     {
+      "line": 131,
+      "text": "/* 红楔：单层实色，11° 斜边。左边缘从顶端 (42%,0) 下到 (45.6%,89.3%)，",
+      "byComment": true
+     },
+     {
+      "line": 450,
+      "text": "/* 390px 宽上抬 75.6px ≈ 11°，最深只吃到铅条方点那一行，不碰第一栏的标题 */",
+      "byComment": true
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "S02",
+  "file": "S02-gilded-symmetry-salon/style.css",
+  "mechanism": "同一张位图以一条 2px 中轴做 180° 相位取样，两侧各 7 级与 9 级、级差 56px，文字全部贴轴对齐——对称只存在于图样，文字始终不对称。",
+  "claims": [
+   {
+    "raw": "2",
+    "n": 2,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S02-gilded-symmetry-salon",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 80,
+    "hintText": "h2 { font-size: 28px; line-height: 1.3; letter-spacing: -0.005em; }",
+    "hits": [
+     {
+      "line": 80,
+      "text": "h2 { font-size: 28px; line-height: 1.3; letter-spacing: -0.005em; }",
+      "byComment": false
+     },
+     {
+      "line": 94,
+      "text": ":focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }",
+      "byComment": false
+     },
+     {
+      "line": 111,
+      "text": "border-bottom: 2px solid var(--dirty);",
+      "byComment": false
+     },
+     {
+      "line": 114,
+      "text": ".open-line { font-size: 15px; line-height: 1.5; color: var(--ivory-2); max-width: none; }",
+      "byComment": false
+     },
+     {
+      "line": 1,
+      "text": "/* 方案 2｜鎏金对称厅（Gilded Symmetry Salon）— 真实原型样式表",
+      "byComment": true
+     },
+     {
+      "line": 61,
+      "text": "* 实测该案文字对比度本来是合格的（ivory 15.81、ivory-2 9.11、gold 6.04、",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "56",
+    "n": 56,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S02-gilded-symmetry-salon",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 21,
+    "hintText": "--step-h: 56px;",
+    "hits": [
+     {
+      "line": 21,
+      "text": "--step-h: 56px;",
+      "byComment": false
+     },
+     {
+      "line": 276,
+      "text": "padding: 56px var(--pad) 0;",
+      "byComment": false
+     },
+     {
+      "line": 430,
+      "text": ":root { --step-h: 56px; }",
+      "byComment": false
+     },
+     {
+      "line": 148,
+      "text": "/* 180° 相位＝半个 tier 周期：56px 的一半是 28px，滚动再叠 100:3 的位移比 */",
+      "byComment": true
+     },
+     {
+      "line": 428,
+      "text": "/* ── 断点一：≥1440px 双栏满幅、9 级、级差 56px ──────────────── */",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "180",
+    "n": 180,
+    "unit": "°",
+    "kind": "deg",
+    "_dir": "S02-gilded-symmetry-salon",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 129,
+    "hintText": "两层都取位图的**左半（原版）**，.foil-b 再经 scaleX(-1) 得到绕中缝 180° 的取样。",
+    "hits": [
+     {
+      "line": 129,
+      "text": "两层都取位图的**左半（原版）**，.foil-b 再经 scaleX(-1) 得到绕中缝 180° 的取样。",
+      "byComment": false
+     },
+     {
+      "line": 481,
+      "text": "压实与推入以 150ms 不透明度过渡呈现同一块 180° 相位取样；阶梯保持 5 级、级差 40px。 ── */",
+      "byComment": false
+     },
+     {
+      "line": 145,
+      "text": "/* 取原版（左半）再整体水平镜像 = 绕中缝 180° 的旋转取样 */",
+      "byComment": true
+     },
+     {
+      "line": 148,
+      "text": "/* 180° 相位＝半个 tier 周期：56px 的一半是 28px，滚动再叠 100:3 的位移比 */",
+      "byComment": true
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "S03",
+  "file": "S03-long-exposure-observatory/style.css",
+  "mechanism": "一条 264px 宽的纵向刻度轴随滚动固定，与右侧内容区、读数卡按 264:524:540 三轨分宽，内容区按 8px 一档铺刻度、每 40px 加粗，四角遮罩压掉 32%，影像带以 1:0.5 的比率随滚动上移——层级由高度与固定位置承担，不由名字承担。",
+  "claims": [
+   {
+    "raw": "264",
+    "n": 264,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S03-long-exposure-observatory",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 17,
+    "hintText": "--axis-w: 264px;",
+    "hits": [
+     {
+      "line": 17,
+      "text": "--axis-w: 264px;",
+      "byComment": false
+     }
+    ]
+   },
+   {
+    "raw": "8",
+    "n": 8,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S03-long-exposure-observatory",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 20,
+    "hintText": "--u: 8px;",
+    "hits": [
+     {
+      "line": 20,
+      "text": "--u: 8px;",
+      "byComment": false
+     },
+     {
+      "line": 219,
+      "text": "审计把它记为 S03-F1「判读列被挤到 28px、15 字排成 8 行含单字行」。",
+      "byComment": false
+     },
+     {
+      "line": 287,
+      "text": "15 字的读数被排成 8 行、含单字行，单元格高从 69px 涨到 215px（审计实测）。",
+      "byComment": false
+     }
+    ]
+   },
+   {
+    "raw": "40",
+    "n": 40,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S03-long-exposure-observatory",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 189,
+    "hintText": ".legend { margin: 40px 0 0; padding: 22px 20px; background: var(--panel); }",
+    "hits": [
+     {
+      "line": 189,
+      "text": ".legend { margin: 40px 0 0; padding: 22px 20px; background: var(--panel); }",
+      "byComment": false
+     },
+     {
+      "line": 220,
+      "text": "修法：按实测量出的需要把第三列放开到 540px（表格需要约 512px + 40px padding），",
+      "byComment": false
+     },
+     {
+      "line": 255,
+      "text": ".d1 { font-size: 40px; }",
+      "byComment": false
+     }
+    ]
+   },
+   {
+    "raw": "32",
+    "n": 32,
+    "unit": "%",
+    "kind": "pct",
+    "_dir": "S03-long-exposure-observatory",
+    "status": "media",
+    "displayOnly": false,
+    "why": "注释明说载体是位图/资源",
+    "hintFile": null,
+    "hintLine": 150,
+    "hintText": "/* 四角减光：预生成位图叠层（cos⁴，中心 0、四角 32%），不是 CSS 蒙版 */",
+    "hits": [
+     {
+      "line": 115,
+      "text": ".plate { display: flex; flex-wrap: wrap; gap: 24px; margin: 32px 0 0; padding: 18px 20px; backgr",
+      "byComment": false
+     },
+     {
+      "line": 150,
+      "text": "/* 四角减光：预生成位图叠层（cos⁴，中心 0、四角 32%），不是 CSS 蒙版 */",
+      "byComment": true
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "S04",
+  "file": "S04-mango-collage-wall/style.css",
+  "mechanism": "12 列隐网格上，纸块跨 3 至 5 栏、色版偏移取 3 至 7px 五档，页面上没有一条对称边——阅读入口由层叠高低与错位量给出。",
+  "claims": [
+   {
+    "raw": "7",
+    "n": 7,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S04-mango-collage-wall",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 106,
+    "hintText": "position:absolute; right:7px; bottom:7px; width:24px; height:24px;",
+    "hits": [
+     {
+      "line": 106,
+      "text": "position:absolute; right:7px; bottom:7px; width:24px; height:24px;",
+      "byComment": false
+     },
+     {
+      "line": 114,
+      "text": "width:var(--wall); margin:-34px auto 0; position:relative; z-index:7;",
+      "byComment": false
+     },
+     {
+      "line": 223,
+      "text": ".table th,.table td{padding:7px 8px}",
+      "byComment": false
+     },
+     {
+      "line": 226,
+      "text": "/* 降级：定格落下、旋转与推墙，只保留 120ms 不透明度切换（规格字段 7 的降级要求） */",
+      "byComment": true
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "S05",
+  "file": "S05-pixel-cold-storage-console/style.css",
+  "mechanism": "8px 为一个单元，8 块分区按 5:2:1 再加一个双高块分配面积，凹槽 6px 单向受光，读数按 5×7 网格排点——优先级由面积与单元数直接表达。",
+  "claims": [
+   {
+    "raw": "8",
+    "n": 8,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S05-pixel-cold-storage-console",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 13,
+    "hintText": "单位（字段 5／11）：8px 为一个像素单元，12 列 × 8px 栅格，凹槽 6px，外距 48px，",
+    "hits": [
+     {
+      "line": 13,
+      "text": "单位（字段 5／11）：8px 为一个像素单元，12 列 × 8px 栅格，凹槽 6px，外距 48px，",
+      "byComment": false
+     },
+     {
+      "line": 14,
+      "text": "基线 8px，标签 12px／行高 1.6，读数 20px／行高 1。全表没有任何 border-radius 用于容器，",
+      "byComment": false
+     },
+     {
+      "line": 25,
+      "text": "--unit: 8px;",
+      "byComment": false
+     },
+     {
+      "line": 121,
+      "text": ".nameplate-live { display: flex; align-items: center; gap: 8px; }",
+      "byComment": false
+     },
+     {
+      "line": 58,
+      "text": "/* 26px 以上才会被审查当成标题；这里 28px＝3.5 个 8px 单元，标题落在基线上 */",
+      "byComment": true
+     },
+     {
+      "line": 87,
+      "text": "/* ── 48px 蚀刻铭牌条（字段 8：导航不做固定，顶部只有一块铭牌条） ───────── */",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "6",
+    "n": 6,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S05-pixel-cold-storage-console",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 13,
+    "hintText": "单位（字段 5／11）：8px 为一个像素单元，12 列 × 8px 栅格，凹槽 6px，外距 48px，",
+    "hits": [
+     {
+      "line": 13,
+      "text": "单位（字段 5／11）：8px 为一个像素单元，12 列 × 8px 栅格，凹槽 6px，外距 48px，",
+      "byComment": false
+     },
+     {
+      "line": 15,
+      "text": "也没有一处柔和投影：立体感只来自 6px 凹槽、1px 上高光与 1px 下暗边这组单向硬光源。 */",
+      "byComment": false
+     },
+     {
+      "line": 26,
+      "text": "--groove: 6px;",
+      "byComment": false
+     },
+     {
+      "line": 57,
+      "text": "h1 { font-size: clamp(46px, 6vw, 88px); line-height: 1.02; }",
+      "byComment": false
+     },
+     {
+      "line": 94,
+      "text": "gap: 6px 28px;",
+      "byComment": false
+     },
+     {
+      "line": 166,
+      "text": "inset 0 6px 0 rgba(5, 6, 5, .42);",
+      "byComment": false
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "S06",
+  "file": "S06-showa-kissaten-ledger/style.css",
+  "mechanism": "卡片沿 3° 斜轨排布，轨道间距 96px、相邻偏移按 0.62 递减，漂移速度为滚动量的 0.6 倍且各卡系数在 0.92 至 1.08 之间不等——顺序由速度差与斜角给出。",
+  "claims": [
+   {
+    "raw": "96",
+    "n": 96,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S06-showa-kissaten-ledger",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 29,
+    "hintText": "--rail-gap: 96px;",
+    "hits": [
+     {
+      "line": 29,
+      "text": "--rail-gap: 96px;",
+      "byComment": false
+     },
+     {
+      "line": 215,
+      "text": ".card-blank-note { margin-top: 96px; font-size: 15px; color: var(--brown-deep); max-width: 12em;",
+      "byComment": false
+     },
+     {
+      "line": 398,
+      "text": ".vessels svg { width: 96px; height: 96px; }",
+      "byComment": false
+     },
+     {
+      "line": 410,
+      "text": "系数照旧 0.92–1.08，写在卡片的 --off 里），渍痕带停在 96px（一个轨道间距）处，",
+      "byComment": false
+     },
+     {
+      "line": 419,
+      "text": ".river-wrap::before { background-position: 0 96px; }",
+      "byComment": false
+     },
+     {
+      "line": 143,
+      "text": "/* 沿轨道漂移的网点贴片：位移 = 滚动量 x 0.6，取一个轨道间距（96px）的模，让它无限流下去 */",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "3",
+    "n": 3,
+    "unit": "°",
+    "kind": "deg",
+    "_dir": "S06-showa-kissaten-ledger",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 30,
+    "hintText": "--rail-tilt: -3deg;",
+    "hits": [
+     {
+      "line": 30,
+      "text": "--rail-tilt: -3deg;",
+      "byComment": false
+     },
+     {
+      "line": 135,
+      "text": "/* ── 河道：单容器 rotate(-3deg)，卡片反向 rotate(±2°) 抵消一半倾斜 ── */",
+      "byComment": true
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "S07",
+  "file": "S07-slate-ink-contents/style.css",
+  "mechanism": "同一段文字在纸背以 8% 至 14% 不透明度做镜像并整体偏移 1px，正页 2 栏、背页 3 栏（两页宽度比 5:7）、栏线 0.5px，页码竖排 28px 行高——正反两面同时进入同一张版心。",
+  "claims": [
+   {
+    "raw": "1",
+    "n": 1,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S07-slate-ink-contents",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 46,
+    "hintText": ".bar-nav a:hover{color:var(--slate);text-decoration:underline;text-decoration-thickness:1px;text",
+    "hits": [
+     {
+      "line": 46,
+      "text": ".bar-nav a:hover{color:var(--slate);text-decoration:underline;text-decoration-thickness:1px;text",
+      "byComment": false
+     },
+     {
+      "line": 50,
+      "text": ".display{font-size:clamp(38px,5.4vw,84px);line-height:1.02;text-wrap:balance}",
+      "byComment": false
+     },
+     {
+      "line": 74,
+      "text": ".pages{position:relative;display:grid;grid-template-columns:5fr 1px 7fr}",
+      "byComment": false
+     },
+     {
+      "line": 88,
+      "text": ".t{padding-left:1.4em;text-indent:-1.4em;font-size:18px;line-height:var(--lead)}",
+      "byComment": false
+     },
+     {
+      "line": 70,
+      "text": "/* 跨页版心：5fr 1px 7fr，1px 是字段 11 要求的跨页实线 */",
+      "byComment": true
+     },
+     {
+      "line": 89,
+      "text": "/* 引导点：4px 间距的真实油墨方点，点径 1.5px；行末半点宽 50%，距右边界 2px */",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "0.5",
+    "n": 0.5,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S07-slate-ink-contents",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 80,
+    "hintText": ".toc{column-rule:.5px solid var(--slate);column-gap:var(--gutter)}",
+    "hits": [
+     {
+      "line": 80,
+      "text": ".toc{column-rule:.5px solid var(--slate);column-gap:var(--gutter)}",
+      "byComment": false
+     }
+    ]
+   },
+   {
+    "raw": "28",
+    "n": 28,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S07-slate-ink-contents",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 14,
+    "hintText": "--lead:28px;",
+    "hits": [
+     {
+      "line": 14,
+      "text": "--lead:28px;",
+      "byComment": false
+     },
+     {
+      "line": 49,
+      "text": ".lede{padding:35px 40px 28px;max-width:calc(var(--module) * 14 + var(--gutter) * 13)}",
+      "byComment": false
+     },
+     {
+      "line": 71,
+      "text": ".spread{padding:35px 40px 28px;position:relative}",
+      "byComment": false
+     },
+     {
+      "line": 73,
+      "text": ".ornament{flex:0 0 auto;width:28px;height:14px}",
+      "byComment": false
+     },
+     {
+      "line": 101,
+      "text": "/* 页码系统：贴右侧竖排，行高 28px */",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "8",
+    "n": 8,
+    "unit": "%",
+    "kind": "pct",
+    "_dir": "S07-slate-ink-contents",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 35,
+    "hintText": ".skip:focus{left:8px;top:8px;background:var(--paper);padding:8px 12px;outline:2px solid var(--sl",
+    "hits": [
+     {
+      "line": 35,
+      "text": ".skip:focus{left:8px;top:8px;background:var(--paper);padding:8px 12px;outline:2px solid var(--sl",
+      "byComment": false
+     },
+     {
+      "line": 102,
+      "text": ".folio{position:absolute;right:6px;top:calc(var(--base) * 8);writing-mode:vertical-rl;display:fl",
+      "byComment": false
+     },
+     {
+      "line": 117,
+      "text": ".toc{cursor:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height=",
+      "byComment": false
+     },
+     {
+      "line": 120,
+      "text": ".plates{padding:calc(var(--base) * 8) 40px calc(var(--base) * 6)}",
+      "byComment": false
+     },
+     {
+      "line": 133,
+      "text": ".states{padding:calc(var(--base) * 6) 40px calc(var(--base) * 8)}",
+      "byComment": false
+     },
+     {
+      "line": 184,
+      "text": ".page-recto::before,.page-verso::after{width:8px}",
+      "byComment": false
+     }
+    ]
+   },
+   {
+    "raw": "14",
+    "n": 14,
+    "unit": "%",
+    "kind": "pct",
+    "_dir": "S07-slate-ink-contents",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 49,
+    "hintText": ".lede{padding:35px 40px 28px;max-width:calc(var(--module) * 14 + var(--gutter) * 13)}",
+    "hits": [
+     {
+      "line": 49,
+      "text": ".lede{padding:35px 40px 28px;max-width:calc(var(--module) * 14 + var(--gutter) * 13)}",
+      "byComment": false
+     },
+     {
+      "line": 51,
+      "text": ".statement{margin-top:14px;font-size:34px;line-height:calc(var(--base) * 6);max-width:24ch;color",
+      "byComment": false
+     },
+     {
+      "line": 72,
+      "text": ".list-head{display:flex;align-items:center;gap:10px;font-size:16px;line-height:var(--lead);color",
+      "byComment": false
+     },
+     {
+      "line": 73,
+      "text": ".ornament{flex:0 0 auto;width:28px;height:14px}",
+      "byComment": false
+     },
+     {
+      "line": 113,
+      "text": ".page-recto::before,.page-verso::after{content:\"\";position:absolute;top:0;bottom:0;width:14px;ba",
+      "byComment": false
+     },
+     {
+      "line": 136,
+      "text": ".panel{background:rgba(154,147,132,.16);padding:14px 16px}",
+      "byComment": false
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "S08",
+  "file": "S08-amber-overprint-lightbox/style.css",
+  "mechanism": "六块板按层号各偏移 (24px, 12px)，轮廓侧向拉出 6 至 10px、上缘 2px 高光、滚动 200px 走 6px——深度由层号位移与侧壁宽度两件事同时说明。",
+  "claims": [
+   {
+    "raw": "24",
+    "n": 24,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S08-amber-overprint-lightbox",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 3,
+    "hintText": "深度由三件事说明：层号位移（24px,12px）、侧壁厚度（6px 到 10px）、透光率 0.72 的 n 次幂。 */",
+    "hits": [
+     {
+      "line": 3,
+      "text": "深度由三件事说明：层号位移（24px,12px）、侧壁厚度（6px 到 10px）、透光率 0.72 的 n 次幂。 */",
+      "byComment": false
+     },
+     {
+      "line": 18,
+      "text": "--step-x: 24px;",
+      "byComment": false
+     },
+     {
+      "line": 21,
+      "text": "--gutter: 24px;",
+      "byComment": false
+     },
+     {
+      "line": 258,
+      "text": ".iso-plane[data-retract=\"on\"] .plate { transform: translate3d(calc(var(--l) * var(--step-x)), ca",
+      "byComment": false
+     },
+     {
+      "line": 290,
+      "text": ".stage-wrap { padding-bottom: 24px; }",
+      "byComment": false
+     },
+     {
+      "line": 116,
+      "text": "/* 每块板的屏幕位移 = 层号 × (24px 横, 12px 纵)，再进 2:1 等距轴 */",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "12",
+    "n": 12,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S08-amber-overprint-lightbox",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 3,
+    "hintText": "深度由三件事说明：层号位移（24px,12px）、侧壁厚度（6px 到 10px）、透光率 0.72 的 n 次幂。 */",
+    "hits": [
+     {
+      "line": 3,
+      "text": "深度由三件事说明：层号位移（24px,12px）、侧壁厚度（6px 到 10px）、透光率 0.72 的 n 次幂。 */",
+      "byComment": false
+     },
+     {
+      "line": 19,
+      "text": "--step-y: 12px;",
+      "byComment": false
+     },
+     {
+      "line": 109,
+      "text": ".stage-wrap { position: relative; padding: 12px 0 48px; overflow: clip; }",
+      "byComment": false
+     },
+     {
+      "line": 122,
+      "text": "translate3d(calc(var(--l) * var(--step-x)), calc(var(--l) * var(--step-y) * -1), calc(var(--l) *",
+      "byComment": false
+     },
+     {
+      "line": 138,
+      "text": ".plate-bar i { display: block; width: 12px; height: 12px; }",
+      "byComment": false
+     },
+     {
+      "line": 116,
+      "text": "/* 每块板的屏幕位移 = 层号 × (24px 横, 12px 纵)，再进 2:1 等距轴 */",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "10",
+    "n": 10,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S08-amber-overprint-lightbox",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 3,
+    "hintText": "深度由三件事说明：层号位移（24px,12px）、侧壁厚度（6px 到 10px）、透光率 0.72 的 n 次幂。 */",
+    "hits": [
+     {
+      "line": 3,
+      "text": "深度由三件事说明：层号位移（24px,12px）、侧壁厚度（6px 到 10px）、透光率 0.72 的 n 次幂。 */",
+      "byComment": false
+     },
+     {
+      "line": 177,
+      "text": ".plate { --thick: min(10px, calc(6px + var(--l) * 1px)); }",
+      "byComment": false
+     },
+     {
+      "line": 180,
+      "text": "--thick: 10px;",
+      "byComment": false
+     },
+     {
+      "line": 22,
+      "text": "/* 【2026-10-18 修正】原先把 \"KingHwa_OldSong\" / \"京华老宋体\" 写在三个字族栈的最前面，",
+      "byComment": true
+     },
+     {
+      "line": 152,
+      "text": "/* 侧壁面：板厚 6px 到 10px，用两个实体面画出厚度，明度差 12% */",
+      "byComment": true
+     },
+     {
+      "line": 176,
+      "text": "/* 每块板的侧壁厚度按层号从 6px 递增到 10px；被指时加厚到 10px 并沿等距轴上浮 8px */",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "2",
+    "n": 2,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S08-amber-overprint-lightbox",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 71,
+    "hintText": "h2 { font-size: clamp(28px, 2.6vw, 40px); line-height: 1.2; }",
+    "hits": [
+     {
+      "line": 71,
+      "text": "h2 { font-size: clamp(28px, 2.6vw, 40px); line-height: 1.2; }",
+      "byComment": false
+     },
+     {
+      "line": 95,
+      "text": "border: 2px solid var(--wall-deep);",
+      "byComment": false
+     },
+     {
+      "line": 100,
+      "text": ".control:hover { transform: translateY(-2px); }",
+      "byComment": false
+     },
+     {
+      "line": 147,
+      "text": "2px 0, calc(100% - 2px) 0, 100% 2px, 100% calc(100% - 2px),",
+      "byComment": false
+     },
+     {
+      "line": 116,
+      "text": "/* 每块板的屏幕位移 = 层号 × (24px 横, 12px 纵)，再进 2:1 等距轴 */",
+      "byComment": true
+     },
+     {
+      "line": 144,
+      "text": "/* 倒角 2mm / 45°：四角切掉 2px 斜角，避免圆角与浮起感 */",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "200",
+    "n": 200,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S08-amber-overprint-lightbox",
+    "status": "missing",
+    "displayOnly": true,
+    "why": "页面展示了这个数，但没在实现里定位到",
+    "hintFile": "index.html",
+    "hintLine": 182,
+    "hintText": "<div><dt>滚动视差</dt><dd><code>200px / 6px</code></dd></div>",
+    "hits": []
+   },
+   {
+    "raw": "6",
+    "n": 6,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S08-amber-overprint-lightbox",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 3,
+    "hintText": "深度由三件事说明：层号位移（24px,12px）、侧壁厚度（6px 到 10px）、透光率 0.72 的 n 次幂。 */",
+    "hits": [
+     {
+      "line": 3,
+      "text": "深度由三件事说明：层号位移（24px,12px）、侧壁厚度（6px 到 10px）、透光率 0.72 的 n 次幂。 */",
+      "byComment": false
+     },
+     {
+      "line": 167,
+      "text": ".ladder { display: flex; gap: 6px; align-items: flex-end; height: 112px; margin: 6px 0 4px; }",
+      "byComment": false
+     },
+     {
+      "line": 174,
+      "text": ".ladder b:nth-child(6) { height: 15px; background: #1B0F04; }",
+      "byComment": false
+     },
+     {
+      "line": 177,
+      "text": ".plate { --thick: min(10px, calc(6px + var(--l) * 1px)); }",
+      "byComment": false
+     },
+     {
+      "line": 152,
+      "text": "/* 侧壁面：板厚 6px 到 10px，用两个实体面画出厚度，明度差 12% */",
+      "byComment": true
+     },
+     {
+      "line": 176,
+      "text": "/* 每块板的侧壁厚度按层号从 6px 递增到 10px；被指时加厚到 10px 并沿等距轴上浮 8px */",
+      "byComment": true
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "S09",
+  "file": "S09-batik-price-board/style.css",
+  "mechanism": "价目行以 1.5° 整体倾斜，行高 56px、左端起点错开 4 至 12px，描边外线 3.5 与内线 2px 且缺口开在两处不同边（外线 6.0% 在左、内线 7.7% 在顶）——可读性交给等宽数字，手绘只做外圈。",
+  "claims": [
+   {
+    "raw": "56",
+    "n": 56,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S09-batik-price-board",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 283,
+    "hintText": "min-height: 56px;",
+    "hits": [
+     {
+      "line": 283,
+      "text": "min-height: 56px;",
+      "byComment": false
+     },
+     {
+      "line": 379,
+      "text": ".portions { position: relative; z-index: 3; padding: 56px var(--pad); }",
+      "byComment": false
+     },
+     {
+      "line": 412,
+      "text": "padding: 56px var(--pad);",
+      "byComment": false
+     },
+     {
+      "line": 432,
+      "text": ".plates { position: relative; z-index: 3; padding: 56px var(--pad) 0; }",
+      "byComment": false
+     },
+     {
+      "line": 492,
+      "text": "价目行高 56px → 64px 以容纳两行标注",
+      "byComment": false
+     }
+    ]
+   },
+   {
+    "raw": "12",
+    "n": 12,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S09-batik-price-board",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 239,
+    "hintText": "padding: 12px 22px;",
+    "hits": [
+     {
+      "line": 239,
+      "text": "padding: 12px 22px;",
+      "byComment": false
+     },
+     {
+      "line": 255,
+      "text": ".cat-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; margin-top: 18px",
+      "byComment": false
+     },
+     {
+      "line": 364,
+      "text": ".blot-1 { left: 12px; top: 12px; width: 84px; height: 38px; }",
+      "byComment": false
+     },
+     {
+      "line": 384,
+      "text": ".notes li { margin: 0 0 12px; padding-left: 18px; position: relative; }",
+      "byComment": false
+     },
+     {
+      "line": 400,
+      "text": ".tools li { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; align-items: start; }",
+      "byComment": false
+     },
+     {
+      "line": 359,
+      "text": "/* 字段 12：左下角被涂掉的手写错字。三层黑漆，最新那层比旧层小 1 毫米（≈3.78px） */",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "2",
+    "n": 2,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S09-batik-price-board",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 41,
+    "hintText": "--fs-h2: clamp(26px, 2.2vw, 34px);",
+    "hits": [
+     {
+      "line": 41,
+      "text": "--fs-h2: clamp(26px, 2.2vw, 34px);",
+      "byComment": false
+     },
+     {
+      "line": 42,
+      "text": "--fs-claim: clamp(22px, 2.1vw, 32px);",
+      "byComment": false
+     },
+     {
+      "line": 68,
+      "text": "漏掉就会让 h2 落回 24px，整套字号表当场错位。 */",
+      "byComment": false
+     },
+     {
+      "line": 148,
+      "text": "灯管中段亮度差 +18%（已烘进位图）；四角 6px 螺丝；表面 2% 灰尘",
+      "byComment": false
+     },
+     {
+      "line": 67,
+      "text": "/* 这三档必须显式给字号：h2／h3 的浏览器默认值是 1.5em／1.17em，",
+      "byComment": true
+     },
+     {
+      "line": 131,
+      "text": "/* ③ 锈斑：只长在四角，单角 120×120＝整板约 0.24%（上限是 2%）。",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "6.0",
+    "n": 6,
+    "unit": "%",
+    "kind": "pct",
+    "_dir": "S09-batik-price-board",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 9,
+    "hintText": "锈斑橙 #8A4B24＝四角锈迹 6%（铁皮起泡处）",
+    "hits": [
+     {
+      "line": 9,
+      "text": "锈斑橙 #8A4B24＝四角锈迹 6%（铁皮起泡处）",
+      "byComment": false
+     },
+     {
+      "line": 44,
+      "text": "--fs-h1: clamp(46px, 6.7vw, 98px);",
+      "byComment": false
+     },
+     {
+      "line": 148,
+      "text": "灯管中段亮度差 +18%（已烘进位图）；四角 6px 螺丝；表面 2% 灰尘",
+      "byComment": false
+     },
+     {
+      "line": 173,
+      "text": "width: 6px; height: 6px;",
+      "byComment": false
+     },
+     {
+      "line": 197,
+      "text": "from { opacity: 0; transform: rotate(-2.2deg) translate(-8px, -6px); }",
+      "byComment": false
+     },
+     {
+      "line": 257,
+      "text": "min-height: 40px; padding: 6px 14px;",
+      "byComment": false
+     }
+    ]
+   },
+   {
+    "raw": "7.7",
+    "n": 7.7,
+    "unit": "%",
+    "kind": "pct",
+    "_dir": "S09-batik-price-board",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 310,
+    "hintText": "缺口画在路径几何里——外线 6.0% 落在左边、内线 7.7% 落在顶边，不在同一边。",
+    "hits": [
+     {
+      "line": 310,
+      "text": "缺口画在路径几何里——外线 6.0% 落在左边、内线 7.7% 落在顶边，不在同一边。",
+      "byComment": false
+     },
+     {
+      "line": 515,
+      "text": "6.0%／7.7% 两处缺口位置原封不动，重描改成 120ms 不透明度切换；",
+      "byComment": false
+     }
+    ]
+   },
+   {
+    "raw": "1.5",
+    "n": 1.5,
+    "unit": "°",
+    "kind": "deg",
+    "_dir": "S09-batik-price-board",
+    "status": "media",
+    "displayOnly": false,
+    "why": "注释明说载体是位图/资源",
+    "hintFile": null,
+    "hintLine": 287,
+    "hintText": "/* 行间分隔：1.5px 手绘抖线位图横向平铺，不是 border 直线。",
+    "hits": [
+     {
+      "line": 32,
+      "text": "--tilt: 1.5deg;",
+      "byComment": false
+     },
+     {
+      "line": 67,
+      "text": "/* 这三档必须显式给字号：h2／h3 的浏览器默认值是 1.5em／1.17em，",
+      "byComment": true
+     },
+     {
+      "line": 267,
+      "text": "/* 斜排：整列价目 1.5°；窄屏收到 0.5°，不摆平（斜排是这一案的骨架） */",
+      "byComment": true
+     },
+     {
+      "line": 287,
+      "text": "/* 行间分隔：1.5px 手绘抖线位图横向平铺，不是 border 直线。",
+      "byComment": true
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "S10",
+  "file": "S10-grid-versus-sheet/style.css",
+  "mechanism": "五栏按 6:7:9:8:5 分宽，红版相对黑版固定右下错 1.5px、进视口时先错 3px 再收到 1.5px，标题基线上移 6px——对比强度由栏宽比与错位像素共同给出。",
+  "claims": [
+   {
+    "raw": "1.5",
+    "n": 1.5,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S10-grid-versus-sheet",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 32,
+    "hintText": "--misreg: 1.5px;",
+    "hits": [
+     {
+      "line": 32,
+      "text": "--misreg: 1.5px;",
+      "byComment": false
+     },
+     {
+      "line": 251,
+      "text": "border-left: 1.5px solid var(--paper);",
+      "byComment": false
+     },
+     {
+      "line": 362,
+      "text": "padding: 4px 0 4px 1.5em;",
+      "byComment": false
+     },
+     {
+      "line": 243,
+      "text": "/* 黑版栏线由第 4 栏自己的右边界承担，第 5 栏左边界换成纸色，红版才有 1.5px 露纸的错位 */",
+      "byComment": true
+     },
+     {
+      "line": 247,
+      "text": "/* 第 5 栏整栏走红版：纸色字压在红底上（4.56:1），左侧 1.5px 纸色＝红版右下错位露出的纸 */",
+      "byComment": true
+     },
+     {
+      "line": 255,
+      "text": "/* 黑版表头 2px 规则线下面留一条红版影线（右偏下错 1.5px） */",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "3",
+    "n": 3,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S10-grid-versus-sheet",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 33,
+    "hintText": "--misreg-start: 3px;",
+    "hits": [
+     {
+      "line": 33,
+      "text": "--misreg-start: 3px;",
+      "byComment": false
+     },
+     {
+      "line": 73,
+      "text": "h3 { font-size: 20px; line-height: 32px; }",
+      "byComment": false
+     },
+     {
+      "line": 85,
+      "text": "a { color: inherit; text-underline-offset: 3px; }",
+      "byComment": false
+     },
+     {
+      "line": 259,
+      "text": "position: absolute; left: 0; right: 0; bottom: -3.5px; height: 2px;",
+      "byComment": false
+     },
+     {
+      "line": 310,
+      "text": ".note h3 { margin-bottom: 10px; }",
+      "byComment": false
+     },
+     {
+      "line": 372,
+      "text": "/* 套准标尺：按 10 倍放大画出 1.5px 与 3px 两档错位 */",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "6",
+    "n": 6,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S10-grid-versus-sheet",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 14,
+    "hintText": "栅格：五栏 6 : 7 : 9 : 8 : 5，栏沟 24px，外距 56px，基线 8px，正文 15px / 行高 24px",
+    "hits": [
+     {
+      "line": 14,
+      "text": "栅格：五栏 6 : 7 : 9 : 8 : 5，栏沟 24px，外距 56px，基线 8px，正文 15px / 行高 24px",
+      "byComment": false
+     },
+     {
+      "line": 15,
+      "text": "不对称机制：①标题整体上移 6px（标题块 -> 首行净空 22px＝24－2）②标点悬挂 0.5em",
+      "byComment": false
+     },
+     {
+      "line": 35,
+      "text": "--title-lift: 6px;",
+      "byComment": false
+     },
+     {
+      "line": 140,
+      "text": ".colourbar-col { display: grid; gap: 6px; }",
+      "byComment": false
+     },
+     {
+      "line": 194,
+      "text": "min-height: 34px; padding: 6px 14px;",
+      "byComment": false
+     },
+     {
+      "line": 268,
+      "text": "width: 100%; height: 10px; margin-top: 6px;",
+      "byComment": false
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "S11",
+  "file": "S11-samizdat-typewriter/style.css",
+  "mechanism": "章号悬挂在版心外 56px、正文压到 34 字行长，标题叠三层重影，横向错位 0.5 / 1.5 / 3px、第三层 12% 不透明——层级由错位量承担，位置交给悬挂编号。",
+  "claims": [
+   {
+    "raw": "56",
+    "n": 56,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S11-samizdat-typewriter",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 18,
+    "hintText": "--hang: 56px;",
+    "hits": [
+     {
+      "line": 18,
+      "text": "--hang: 56px;",
+      "byComment": false
+     },
+     {
+      "line": 264,
+      "text": "/* ── 章节：章号悬挂在栏外 56px，正文 1–7 栏，规格表与警示 8–12 栏 ── */",
+      "byComment": true
+     },
+     {
+      "line": 556,
+      "text": "/* 悬挂栏由 56px 收到 32px：编号仍在栏外、仍随滚动移出画面，只缩进不吸顶 */",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "3",
+    "n": 3,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S11-samizdat-typewriter",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 25,
+    "hintText": "--ghost-3: 3px;",
+    "hits": [
+     {
+      "line": 25,
+      "text": "--ghost-3: 3px;",
+      "byComment": false
+     },
+     {
+      "line": 166,
+      "text": "box-shadow: inset 0 0 0 3px var(--copy);",
+      "byComment": false
+     },
+     {
+      "line": 185,
+      "text": "同一句话被写成三个 <p>（l3/l5/l7）绝对定位叠放，横向只错 0.5/1.5/3px、",
+      "byComment": false
+     },
+     {
+      "line": 190,
+      "text": "并把后两层的横向错位稍放大（1.5→3px、3→6px），让\"复写纸错位\"读得出来而不是糊。",
+      "byComment": false
+     },
+     {
+      "line": 192,
+      "text": ".carbon-stack { --proof-gap: 22px; --ghost-2: 3px; --ghost-3: 6px; }",
+      "byComment": false
+     },
+     {
+      "line": 158,
+      "text": "/* ── 首屏工艺证据：同一句的第 3／5／7 次复写三层并置 ───────────── */",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "12",
+    "n": 12,
+    "unit": "%",
+    "kind": "pct",
+    "_dir": "S11-samizdat-typewriter",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 26,
+    "hintText": "--ghost-3-a: 0.12;",
+    "hits": [
+     {
+      "line": 26,
+      "text": "--ghost-3-a: 0.12;",
+      "byComment": false
+     },
+     {
+      "line": 27,
+      "text": "--proof-gap: 12px;",
+      "byComment": false
+     },
+     {
+      "line": 164,
+      "text": "grid-template-columns: minmax(0, 1fr) 12em;",
+      "byComment": false
+     },
+     {
+      "line": 186,
+      "text": "纵向间距 12px，而行高 30px ⇒ 三层文字**几乎完全重合**，截图上糊成一团、读不成句",
+      "byComment": false
+     },
+     {
+      "line": 189,
+      "text": "修法：把 --proof-gap 从 12px 提到 22px（三层纵向分离 = 84px 容器刚好用满），",
+      "byComment": false
+     },
+     {
+      "line": 236,
+      "text": "@keyframes caret-blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0.12; } }",
+      "byComment": false
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "S12",
+  "file": "S12-lime-knockout-wall/style.css",
+  "mechanism": "七个挖空块按 3/2/1/1 递减错位落位，斜边只走 45° 与 135°、切角 30px，间隙取 12/28/44px 三级，内侧压 0.5px 翻边——分区靠硬边挖空，不靠投影。",
+  "claims": [
+   {
+    "raw": "30",
+    "n": 30,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S12-lime-knockout-wall",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 19,
+    "hintText": "--cut: 30px;",
+    "hits": [
+     {
+      "line": 19,
+      "text": "--cut: 30px;",
+      "byComment": false
+     },
+     {
+      "line": 126,
+      "text": "font-size: clamp(21px, 4.4vw, 30px);",
+      "byComment": false
+     },
+     {
+      "line": 204,
+      "text": "--cut: 30px;",
+      "byComment": false
+     },
+     {
+      "line": 399,
+      "text": ".op-03 { grid-column: 1 / 4; height: 284px; --cut: 30px; }",
+      "byComment": false
+     }
+    ]
+   },
+   {
+    "raw": "44",
+    "n": 44,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S12-lime-knockout-wall",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 25,
+    "hintText": "--g3: 44px;",
+    "hits": [
+     {
+      "line": 25,
+      "text": "--g3: 44px;",
+      "byComment": false
+     },
+     {
+      "line": 159,
+      "text": ".btn-small { min-height: 44px; font-size: 15px; padding: 8px 16px; font-weight: 500; }",
+      "byComment": false
+     },
+     {
+      "line": 170,
+      "text": ".wall-stage { padding-top: 44px; }",
+      "byComment": false
+     },
+     {
+      "line": 194,
+      "text": "/* ── 七个洞口：3 / 2 / 1 / 1 行递减，最大跨 4 栏，间隙按 12/28/44 跳 ── */",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "0.5",
+    "n": 0.5,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S12-lime-knockout-wall",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 225,
+    "hintText": "padding: 0.5px;",
+    "hits": [
+     {
+      "line": 225,
+      "text": "padding: 0.5px;",
+      "byComment": false
+     },
+     {
+      "line": 223,
+      "text": "/* 0.5px 米白翻边：同顶点的内缩副本垫底，模拟冲切后的白线 */",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "45",
+    "n": 45,
+    "unit": "°",
+    "kind": "deg",
+    "_dir": "S12-lime-knockout-wall",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 477,
+    "hintText": "角度仍只允许 45° 与 135°；＜768px 上下咬合互压 20px。 */",
+    "hits": [
+     {
+      "line": 477,
+      "text": "角度仍只允许 45° 与 135°；＜768px 上下咬合互压 20px。 */",
+      "byComment": false
+     },
+     {
+      "line": 315,
+      "text": "/* 记号：16 单位网格、2px 方头线、只用直线与 45° 折线（字段 6③） */",
+      "byComment": true
+     },
+     {
+      "line": 326,
+      "text": "/* 洞口编号丝印条：01–07 压在 45° 斜纹上，04 与 05 的间距比别人窄 3px */",
+      "byComment": true
+     },
+     {
+      "line": 426,
+      "text": "/* 左列（01 / 03 / 05 / 07）：上沿 45° 斜切 */",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "135",
+    "n": 135,
+    "unit": "°",
+    "kind": "deg",
+    "_dir": "S12-lime-knockout-wall",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 477,
+    "hintText": "角度仍只允许 45° 与 135°；＜768px 上下咬合互压 20px。 */",
+    "hits": [
+     {
+      "line": 477,
+      "text": "角度仍只允许 45° 与 135°；＜768px 上下咬合互压 20px。 */",
+      "byComment": false
+     },
+     {
+      "line": 133,
+      "text": "/* ── 按钮：平填青柠，字色 #111111；下沉沿 135° 露出 2px 洋红底层 ── */",
+      "byComment": true
+     },
+     {
+      "line": 432,
+      "text": "/* 右列（02 / 04 / 06）：下沿 135° 斜切，向左压叠 16px */",
+      "byComment": true
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "S13",
+  "file": "S13-blind-debossed-dispatch/style.css",
+  "mechanism": "光源常驻 135° 一侧，凹槽压深 0.4mm、槽带亮度差 3%、边缘对比度 14%，按下时方位角翻到 315° 并下沉 0.8px——层级由同一光源下的深浅给出，不靠颜色。",
+  "claims": [
+   {
+    "raw": "0.4",
+    "n": 0.4,
+    "unit": "mm",
+    "kind": "len",
+    "_dir": "S13-blind-debossed-dispatch",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 13,
+    "hintText": "一级 凹 条款标题盲压凹槽   压深 0.4mm  槽带亮度差 3.1%  边缘对比度 14%",
+    "hits": [
+     {
+      "line": 13,
+      "text": "一级 凹 条款标题盲压凹槽   压深 0.4mm  槽带亮度差 3.1%  边缘对比度 14%",
+      "byComment": false
+     },
+     {
+      "line": 14,
+      "text": "二级 凸 编号旁烫金击凸     压深 0.4mm  金色占全文 9%     对纸面 4.62:1",
+      "byComment": false
+     },
+     {
+      "line": 128,
+      "text": "一级 --press-1：0.4mm 凹槽（条款标题、骑缝章方框、停用按钮、空态、压痕光标）",
+      "byComment": false
+     },
+     {
+      "line": 129,
+      "text": "二级 --lift-2 ：0.4mm 凸起（铅字按钮、烫金击凸块）—— 由 filter 承载，见下",
+      "byComment": false
+     },
+     {
+      "line": 629,
+      "text": "/* 一级 0.4mm 凹槽：条款标题压出、空态、压痕光标",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "0.8",
+    "n": 0.8,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S13-blind-debossed-dispatch",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 34,
+    "hintText": "--press-depth: 0.8px;",
+    "hits": [
+     {
+      "line": 34,
+      "text": "--press-depth: 0.8px;",
+      "byComment": false
+     },
+     {
+      "line": 439,
+      "text": "transform: translateY(0.8px);",
+      "byComment": false
+     },
+     {
+      "line": 652,
+      "text": "取消压出与光源反转的过渡；按下改为 0.8px 瞬时位移配 100ms 亮度变化；",
+      "byComment": false
+     },
+     {
+      "line": 661,
+      "text": "transform: translateY(0.8px);",
+      "byComment": false
+     },
+     {
+      "line": 589,
+      "text": "/* ---------- 三级 · 微：纸纤维起伏。程序化噪声（feTurbulence），亮度幅度 ±2 级（±0.8%），",
+      "byComment": true
+     },
+     {
+      "line": 624,
+      "text": "/* 按钮按下：凸块压平 —— 影收掉、位移 0.8px 仍在，读作「按下去」而不是「换个方向浮起来」。",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "3",
+    "n": 3,
+    "unit": "%",
+    "kind": "pct",
+    "_dir": "S13-blind-debossed-dispatch",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 13,
+    "hintText": "一级 凹 条款标题盲压凹槽   压深 0.4mm  槽带亮度差 3.1%  边缘对比度 14%",
+    "hits": [
+     {
+      "line": 13,
+      "text": "一级 凹 条款标题盲压凹槽   压深 0.4mm  槽带亮度差 3.1%  边缘对比度 14%",
+      "byComment": false
+     },
+     {
+      "line": 16,
+      "text": "数值核算：纸色 #F4E3BE 明度 85.1%，背光侧 #D6CDB9 明度 78.2%，两者相差 6.9%；",
+      "byComment": false
+     },
+     {
+      "line": 17,
+      "text": "凹槽可见带按 55:45 面积加权 = 0.55*85.1 + 0.45*78.2 = 82.0%，比纸面低 3.1%。",
+      "byComment": false
+     },
+     {
+      "line": 23,
+      "text": "--paper: #F4E3BE;",
+      "byComment": false
+     },
+     {
+      "line": 72,
+      "text": "outline-offset: 3px;",
+      "byComment": false
+     },
+     {
+      "line": 123,
+      "text": "3px 模糊使峰值覆盖约为名义 alpha 的 0.9 倍；要落进字段 6 的 14%，",
+      "byComment": false
+     }
+    ]
+   },
+   {
+    "raw": "14",
+    "n": 14,
+    "unit": "%",
+    "kind": "pct",
+    "_dir": "S13-blind-debossed-dispatch",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 13,
+    "hintText": "一级 凹 条款标题盲压凹槽   压深 0.4mm  槽带亮度差 3.1%  边缘对比度 14%",
+    "hits": [
+     {
+      "line": 13,
+      "text": "一级 凹 条款标题盲压凹槽   压深 0.4mm  槽带亮度差 3.1%  边缘对比度 14%",
+      "byComment": false
+     },
+     {
+      "line": 18,
+      "text": "边缘最深像素 = 78.2 * (1 - 0.065) = 73.1%，(85.1 - 73.1) / 85.1 = 14.1%。",
+      "byComment": false
+     },
+     {
+      "line": 123,
+      "text": "3px 模糊使峰值覆盖约为名义 alpha 的 0.9 倍；要落进字段 6 的 14%，",
+      "byComment": false
+     },
+     {
+      "line": 124,
+      "text": "需 L_edge = 84.5*(1-0.14) = 72.7%；一拍定不准，按整页截图实测回代两轮，0.09 实测 11.8%，定到 0.11。 */",
+      "byComment": false
+     },
+     {
+      "line": 205,
+      "text": "font-size: 14px;",
+      "byComment": false
+     },
+     {
+      "line": 232,
+      "text": "font-size: 14px;",
+      "byComment": false
+     }
+    ]
+   },
+   {
+    "raw": "135",
+    "n": 135,
+    "unit": "°",
+    "kind": "deg",
+    "_dir": "S13-blind-debossed-dispatch",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 7,
+    "hintText": "单向硬光源常驻方位角 135°（左上，误差 ±10°）＝ --light-azimuth。",
+    "hits": [
+     {
+      "line": 7,
+      "text": "单向硬光源常驻方位角 135°（左上，误差 ±10°）＝ --light-azimuth。",
+      "byComment": false
+     },
+     {
+      "line": 28,
+      "text": "--light-azimuth: 135deg;",
+      "byComment": false
+     }
+    ]
+   },
+   {
+    "raw": "315",
+    "n": 315,
+    "unit": "°",
+    "kind": "deg",
+    "_dir": "S13-blind-debossed-dispatch",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 10,
+    "hintText": "按下时方位角翻到 315°（反转量 180° ≥ 90°，切换 120ms）。",
+    "hits": [
+     {
+      "line": 10,
+      "text": "按下时方位角翻到 315°（反转量 180° ≥ 90°，切换 120ms）。",
+      "byComment": false
+     },
+     {
+      "line": 167,
+      "text": "/* 凹槽反向（方位角 315°，同一处凹槽读作凸线） */",
+      "byComment": true
+     },
+     {
+      "line": 609,
+      "text": "/* ---------- 方位角 315°：同一处凹槽改读作凸线（字段 1 的那句话） ---------- */",
+      "byComment": true
+     },
+     {
+      "line": 610,
+      "text": "/* 这一组三个选择器共享「凸」的语义：315° 下条款凹槽翻读作凸线，按钮悬停加深同一枚凸块。",
+      "byComment": true
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "S14",
+  "file": "S14-zero-g-launch-sequence/style.css",
+  "mechanism": "十一个版面块按距质心 24/40/72/120px 分四档、方位角间隔 26° 至 61° 不等，整组沿 48px 半径绕 44% 横位的质心平漂——顺序由半径档位与角度间隔读出。",
+  "claims": [
+   {
+    "raw": "120",
+    "n": 120,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S14-zero-g-launch-sequence",
+    "status": "missing",
+    "displayOnly": true,
+    "why": "页面展示了这个数，但没在实现里定位到",
+    "hintFile": "index.html",
+    "hintLine": 171,
+    "hintText": "<p class=\"legend\">读数口径：r 是内容质量档（标贴宽 212–330px，四档对应 24 / 40 / 72 / 120），θ 是该标贴相对质心的方位角，ρ 是换算到 450",
+    "hits": []
+   },
+   {
+    "raw": "48",
+    "n": 48,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S14-zero-g-launch-sequence",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 91,
+    "hintText": "display: inline-block; min-height: 48px; padding: 13px 20px;",
+    "hits": [
+     {
+      "line": 91,
+      "text": "display: inline-block; min-height: 48px; padding: 13px 20px;",
+      "byComment": false
+     },
+     {
+      "line": 130,
+      "text": "position: relative; height: 1700px; --k: 1; --dr: 48;",
+      "byComment": false
+     },
+     {
+      "line": 215,
+      "text": "position: absolute; top: 9px; right: 12px; width: 48px; height: 20px;",
+      "byComment": false
+     },
+     {
+      "line": 218,
+      "text": "background-position: calc(var(--cell) * -48px) 0;",
+      "byComment": false
+     },
+     {
+      "line": 337,
+      "text": "align-items: flex-start; padding: 26px 24px 48px;",
+      "byComment": false
+     }
+    ]
+   },
+   {
+    "raw": "44",
+    "n": 44,
+    "unit": "%",
+    "kind": "pct",
+    "_dir": "S14-zero-g-launch-sequence",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 9,
+    "hintText": "（质心 677/850、参考椭圆 450×700），本页把质心挪到视口 44% 处，",
+    "hits": [
+     {
+      "line": 9,
+      "text": "（质心 677/850、参考椭圆 450×700），本页把质心挪到视口 44% 处，",
+      "byComment": false
+     },
+     {
+      "line": 43,
+      "text": "h1 { font-size: clamp(44px, 5vw, 72px); line-height: 1.02; letter-spacing: 0.02em; }",
+      "byComment": false
+     },
+     {
+      "line": 136,
+      "text": "content: \"\"; position: absolute; left: 44%; top: 50%;",
+      "byComment": false
+     },
+     {
+      "line": 144,
+      "text": "content: \"\"; position: absolute; left: 44%; top: 50%;",
+      "byComment": false
+     },
+     {
+      "line": 152,
+      "text": "position: absolute; left: 44%; top: 50%; width: 220px; height: 220px; margin: 0;",
+      "byComment": false
+     },
+     {
+      "line": 167,
+      "text": "position: absolute; left: 44%; top: 50%;",
+      "byComment": false
+     }
+    ]
+   },
+   {
+    "raw": "26",
+    "n": 26,
+    "unit": "°",
+    "kind": "deg",
+    "_dir": "S14-zero-g-launch-sequence",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 8,
+    "hintText": "θ 非均匀（最小 26°、最大 61°）。站位数字来自 build/polar-layout.json",
+    "hits": [
+     {
+      "line": 8,
+      "text": "θ 非均匀（最小 26°、最大 61°）。站位数字来自 build/polar-layout.json",
+      "byComment": false
+     }
+    ]
+   },
+   {
+    "raw": "61",
+    "n": 61,
+    "unit": "°",
+    "kind": "deg",
+    "_dir": "S14-zero-g-launch-sequence",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 8,
+    "hintText": "θ 非均匀（最小 26°、最大 61°）。站位数字来自 build/polar-layout.json",
+    "hits": [
+     {
+      "line": 8,
+      "text": "θ 非均匀（最小 26°、最大 61°）。站位数字来自 build/polar-layout.json",
+      "byComment": false
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "S15",
+  "file": "S15-fishery-floor-ledger/style.css",
+  "mechanism": "平面图占 1 至 8 栏并左出血 40px，图例挂 9 至 12 栏、高度只到图幅 62%；同一图叠三层，错位 0/3/7px，第三层 56% 不透明——版本差异靠错位与透明度读出。",
+  "claims": [
+   {
+    "raw": "40",
+    "n": 40,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S15-fishery-floor-ledger",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 9,
+    "hintText": "并向左出血 40px，图例悬在 9 至 12 栏（高度 ≤ 平面图的 62%，顶部对齐",
+    "hits": [
+     {
+      "line": 9,
+      "text": "并向左出血 40px，图例悬在 9 至 12 栏（高度 ≤ 平面图的 62%，顶部对齐",
+      "byComment": false
+     },
+     {
+      "line": 146,
+      "text": ".mount figcaption { position: relative; margin-top: 16px; font-size: 16px; line-height: 1.8; max",
+      "byComment": false
+     },
+     {
+      "line": 160,
+      "text": "margin-left: -40px;",
+      "byComment": false
+     },
+     {
+      "line": 258,
+      "text": ".plan-notes { list-style: none; margin: 40px 0 0; padding: 0; display: grid; grid-template-colum",
+      "byComment": false
+     },
+     {
+      "line": 268,
+      "text": ".yearbar { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 40px; }",
+      "byComment": false
+     },
+     {
+      "line": 282,
+      "text": ".yearbar__note { font-size: 16px; line-height: 1.8; margin-top: 18px; max-width: 40em; }",
+      "byComment": false
+     }
+    ]
+   },
+   {
+    "raw": "7",
+    "n": 7,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S15-fishery-floor-ledger",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 173,
+    "hintText": ".trace--1938 { --op: 0.56; --off: 7px; }",
+    "hits": [
+     {
+      "line": 173,
+      "text": ".trace--1938 { --op: 0.56; --off: 7px; }",
+      "byComment": false
+     },
+     {
+      "line": 321,
+      "text": ".zones__table th, .zones__table td { border-bottom: 2px solid #C3C9C7; padding: 9px 10px; text-a",
+      "byComment": false
+     },
+     {
+      "line": 327,
+      "text": ".matrix th, .matrix td { border-bottom: 2px solid #C3C9C7; padding: 9px 10px; text-align: left; ",
+      "byComment": false
+     },
+     {
+      "line": 334,
+      "text": ".weights th, .weights td { border-bottom: 2px solid #C3C9C7; padding: 9px 10px; text-align: left",
+      "byComment": false
+     },
+     {
+      "line": 168,
+      "text": "/* 三层硫酸纸的层间错位 0 / 3 / 7px（字段 5 与字段 6① 的签名机制） */",
+      "byComment": true
+     },
+     {
+      "line": 279,
+      "text": "/* 按下态仍走重压墨 #22282B：铅笔灰 #7A7466 在本案只画线、不承载文字",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "62",
+    "n": 62,
+    "unit": "%",
+    "kind": "pct",
+    "_dir": "S15-fishery-floor-ledger",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 9,
+    "hintText": "并向左出血 40px，图例悬在 9 至 12 栏（高度 ≤ 平面图的 62%，顶部对齐",
+    "hits": [
+     {
+      "line": 9,
+      "text": "并向左出血 40px，图例悬在 9 至 12 栏（高度 ≤ 平面图的 62%，顶部对齐",
+      "byComment": false
+     },
+     {
+      "line": 430,
+      "text": "h1 { font-size: clamp(40px, 11vw, 62px); }",
+      "byComment": false
+     }
+    ]
+   },
+   {
+    "raw": "56",
+    "n": 56,
+    "unit": "%",
+    "kind": "pct",
+    "_dir": "S15-fishery-floor-ledger",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 116,
+    "hintText": "display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 56px; align-items: start;",
+    "hits": [
+     {
+      "line": 116,
+      "text": "display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 56px; align-items: start;",
+      "byComment": false
+     },
+     {
+      "line": 173,
+      "text": ".trace--1938 { --op: 0.56; --off: 7px; }",
+      "byComment": false
+     },
+     {
+      "line": 429,
+      "text": ".masthead { grid-template-columns: 1fr; gap: 40px; padding: 56px 24px 72px; }",
+      "byComment": false
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "S16",
+  "file": "S16-velocity-slant-manifesto/style.css",
+  "mechanism": "所有词块左端对齐同一条 12° 斜线，每块再沿斜线递增 24px，块宽只取 4/6/7/9 栏四档，行高压到 0.95 倍、字距 0.02em——斜线给顺序，块宽与行距给层级。",
+  "claims": [
+   {
+    "raw": "24",
+    "n": 24,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S16-velocity-slant-manifesto",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 23,
+    "hintText": "左端沿斜线递增偏移 24px = 3 个 8px 基线单位（= 文案里「斜向间隙固定 3 个基线单位」）",
+    "hits": [
+     {
+      "line": 23,
+      "text": "左端沿斜线递增偏移 24px = 3 个 8px 基线单位（= 文案里「斜向间隙固定 3 个基线单位」）",
+      "byComment": false
+     },
+     {
+      "line": 32,
+      "text": "③ 速度线拖影：.quirk 及两个伪元素 = 三条 1px 竖线，56/40/24px 三级，只在滚动/悬停中出现",
+      "byComment": false
+     },
+     {
+      "line": 56,
+      "text": "--step: 24px;",
+      "byComment": false
+     },
+     {
+      "line": 64,
+      "text": "--fs-mid: 24px;",
+      "byComment": false
+     },
+     {
+      "line": 161,
+      "text": ".controls { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 14px 18px; align-items: stret",
+      "byComment": false
+     },
+     {
+      "line": 60,
+      "text": "/* 字号只留六级：14 等宽 / 18 小字 / 20 正文 / 24 中标题 / 32 词块 / h1 另算 */",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "12",
+    "n": 12,
+    "unit": "°",
+    "kind": "deg",
+    "_dir": "S16-velocity-slant-manifesto",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 21,
+    "hintText": "三、字段 5 布局：12° 斜向基线系统，8px 基线，12 栏投影",
+    "hits": [
+     {
+      "line": 21,
+      "text": "三、字段 5 布局：12° 斜向基线系统，8px 基线，12 栏投影",
+      "byComment": false
+     },
+     {
+      "line": 24,
+      "text": "竖向呼吸 --gap 60px 不属于该值（供 12° 斜标在块外继续可见）",
+      "byComment": false
+     },
+     {
+      "line": 25,
+      "text": "≥1440 12° ｜ 1024–1439 8°、步距 16px、进度尺内收 16px",
+      "byComment": false
+     },
+     {
+      "line": 29,
+      "text": "① 斜排词块：.slab::before 在每块左端压一枚 3px×64px 的 12° 斜标，九枚沿楼梯连成斜线",
+      "byComment": false
+     },
+     {
+      "line": 34,
+      "text": "三角箭头、图注前的 12° 斜标，全部几何绘制，全页 0 个 Emoji",
+      "byComment": false
+     },
+     {
+      "line": 35,
+      "text": "⑤ 图像处理：六张图版已是 1-bit 阈值化 + 12° 斜撕边的真实位图（见 assets/ 与 build/bake-plates.py）",
+      "byComment": false
+     }
+    ]
+   },
+   {
+    "raw": "0.02",
+    "n": 0.02,
+    "unit": "em",
+    "kind": "em",
+    "_dir": "S16-velocity-slant-manifesto",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 241,
+    "hintText": "letter-spacing: 0.02em; margin: 0;",
+    "hits": [
+     {
+      "line": 241,
+      "text": "letter-spacing: 0.02em; margin: 0;",
+      "byComment": false
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "S17",
+  "file": "S17-revenue-stamp-stub/style.css",
+  "mechanism": "两联按 3fr、16px、9fr 分栏，中缝是孔径 1.2、孔距 6px 的孔列，行高 24px、金额列右对齐（窄档 88px），印面偏中缝 2mm——撕口位置与小数点对齐即读出归属。",
+  "claims": [
+   {
+    "raw": "16",
+    "n": 16,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S17-revenue-stamp-stub",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 104,
+    "hintText": "font-size: 16px;",
+    "hits": [
+     {
+      "line": 104,
+      "text": "font-size: 16px;",
+      "byComment": false
+     },
+     {
+      "line": 134,
+      "text": "grid-template-columns: minmax(210px, 3fr) 16px 9fr;",
+      "byComment": false
+     },
+     {
+      "line": 140,
+      "text": "padding: 18px 16px 26px;",
+      "byComment": false
+     },
+     {
+      "line": 143,
+      "text": ".stub-label { font-size: 16px; font-weight: 600; }",
+      "byComment": false
+     },
+     {
+      "line": 164,
+      "text": "font-size: 16px;",
+      "byComment": false
+     },
+     {
+      "line": 209,
+      "text": ".state p { font-size: 16px; margin-top: 6px; }",
+      "byComment": false
+     }
+    ]
+   },
+   {
+    "raw": "6",
+    "n": 6,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S17-revenue-stamp-stub",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 53,
+    "hintText": "h1 { font-size: clamp(46px, 6vw, 88px); line-height: 1.04; }",
+    "hits": [
+     {
+      "line": 53,
+      "text": "h1 { font-size: clamp(46px, 6vw, 88px); line-height: 1.04; }",
+      "byComment": false
+     },
+     {
+      "line": 92,
+      "text": "gap: 6px 34px;",
+      "byComment": false
+     },
+     {
+      "line": 209,
+      "text": ".state p { font-size: 16px; margin-top: 6px; }",
+      "byComment": false
+     },
+     {
+      "line": 296,
+      "text": ".is-torn .stub-cell { transform: translateX(6px); }",
+      "byComment": false
+     },
+     {
+      "line": 341,
+      "text": ".ledger td.grand-total, .ledger tfoot td { padding: 6px 12px; }",
+      "byComment": false
+     },
+     {
+      "line": 146,
+      "text": "/* 齿孔撕线：1.2px 孔径、6px 孔距的圆孔，不是虚线边框 */",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "24",
+    "n": 24,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S17-revenue-stamp-stub",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 18,
+    "hintText": "--row: 24px;",
+    "hits": [
+     {
+      "line": 18,
+      "text": "--row: 24px;",
+      "byComment": false
+     },
+     {
+      "line": 78,
+      "text": "padding: 40px var(--gutter) 24px;",
+      "byComment": false
+     },
+     {
+      "line": 184,
+      "text": "tfoot td.grand-total { font-size: 24px; }",
+      "byComment": false
+     }
+    ]
+   },
+   {
+    "raw": "88",
+    "n": 88,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S17-revenue-stamp-stub",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 53,
+    "hintText": "h1 { font-size: clamp(46px, 6vw, 88px); line-height: 1.04; }",
+    "hits": [
+     {
+      "line": 53,
+      "text": "h1 { font-size: clamp(46px, 6vw, 88px); line-height: 1.04; }",
+      "byComment": false
+     },
+     {
+      "line": 320,
+      "text": "td.num { width: 88px; }",
+      "byComment": false
+     }
+    ]
+   },
+   {
+    "raw": "2",
+    "n": 2,
+    "unit": "mm",
+    "kind": "len",
+    "_dir": "S17-revenue-stamp-stub",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 20,
+    "hintText": "--stamp-shift: 2mm;",
+    "hits": [
+     {
+      "line": 20,
+      "text": "--stamp-shift: 2mm;",
+      "byComment": false
+     },
+     {
+      "line": 54,
+      "text": "h2 { font-size: 28px; line-height: 1.25; }",
+      "byComment": false
+     },
+     {
+      "line": 70,
+      "text": "outline: 2px solid var(--seal);",
+      "byComment": false
+     },
+     {
+      "line": 71,
+      "text": "outline-offset: 2px;",
+      "byComment": false
+     },
+     {
+      "line": 79,
+      "text": "border-bottom: 2px solid var(--ink);",
+      "byComment": false
+     },
+     {
+      "line": 117,
+      "text": "border: 2px solid var(--ink);",
+      "byComment": false
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "S18",
+  "file": "S18-phosphor-service-deck/style.css",
+  "mechanism": "单列左起 12%、右侧空 34%，24px 行高落在 8px 基线上，两侧 8px 边条按 12px 孔距打 3px 孔，行尾 8×14px 块 530ms 方波——读序由走向给出。",
+  "claims": [
+   {
+    "raw": "24",
+    "n": 24,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S18-phosphor-service-deck",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 4,
+    "hintText": "牛皮纸牌色 #6E6350 3%（作填充时文字只用 #C8C4AE 且 ≥24px，3.36:1）",
+    "hits": [
+     {
+      "line": 4,
+      "text": "牛皮纸牌色 #6E6350 3%（作填充时文字只用 #C8C4AE 且 ≥24px，3.36:1）",
+      "byComment": false
+     },
+     {
+      "line": 17,
+      "text": "--line:24px;",
+      "byComment": false
+     },
+     {
+      "line": 142,
+      "text": ".tag__h{width:17px;height:24px;flex:0 0 auto;stroke:var(--paper);fill:none}",
+      "byComment": false
+     },
+     {
+      "line": 119,
+      "text": "/* ── 回执牌：牛皮纸 24×12 的牌面逻辑，桌面档放到 76×40 ── */",
+      "byComment": true
+     },
+     {
+      "line": 123,
+      "text": "* 第 n 行顶部 = (n−1) × 24px，所以 `at×24+24+2` 解出行号 n = at + 2 —— **四张牌全部偏 +2 行**",
+      "byComment": true
+     },
+     {
+      "line": 127,
+      "text": "* 现在的 `at×24 + 2px`：+2px 是牌面相对行顶的既定下移量，不是行高。",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "8",
+    "n": 8,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S18-phosphor-service-deck",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 4,
+    "hintText": "牛皮纸牌色 #6E6350 3%（作填充时文字只用 #C8C4AE 且 ≥24px，3.36:1）",
+    "hits": [
+     {
+      "line": 4,
+      "text": "牛皮纸牌色 #6E6350 3%（作填充时文字只用 #C8C4AE 且 ≥24px，3.36:1）",
+      "byComment": false
+     },
+     {
+      "line": 16,
+      "text": "--base:8px;",
+      "byComment": false
+     },
+     {
+      "line": 19,
+      "text": "--rail:8px;",
+      "byComment": false
+     },
+     {
+      "line": 112,
+      "text": "background-size:8px 8px;background-repeat:repeat;",
+      "byComment": false
+     },
+     {
+      "line": 24,
+      "text": "/* 边孔：孔径 3px ＋ 孔内 0.5px 单向下阴影（纸被齿轮拽过的痕迹）。桌面档 8px 带宽 */",
+      "byComment": true
+     },
+     {
+      "line": 191,
+      "text": "/* 行尾光标：8×14px 实心块，530ms 方波（半周期 530ms、全周期 1060ms） */",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "12",
+    "n": 12,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S18-phosphor-service-deck",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 18,
+    "hintText": "--pitch:12px;",
+    "hits": [
+     {
+      "line": 18,
+      "text": "--pitch:12px;",
+      "byComment": false
+     },
+     {
+      "line": 83,
+      "text": "padding:10px 32px 12px;background:var(--bay);",
+      "byComment": false
+     },
+     {
+      "line": 115,
+      "text": ".plate__cap{margin:12px 0 0;font-size:14px;line-height:1.75;max-width:40em;color:inherit}",
+      "byComment": false
+     },
+     {
+      "line": 66,
+      "text": "/* ── 喂纸边孔：整条纸的两个边缘，孔距 12px、孔径 3px、孔内 0.5px 单向下阴影 ── */",
+      "byComment": true
+     },
+     {
+      "line": 119,
+      "text": "/* ── 回执牌：牛皮纸 24×12 的牌面逻辑，桌面档放到 76×40 ── */",
+      "byComment": true
+     },
+     {
+      "line": 124,
+      "text": "* （CDP 实测：--at:5/10/18/34 落在第 7.08/12.08/20.08/36.08 行，一张都没命中）。",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "3",
+    "n": 3,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S18-phosphor-service-deck",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 4,
+    "hintText": "牛皮纸牌色 #6E6350 3%（作填充时文字只用 #C8C4AE 且 ≥24px，3.36:1）",
+    "hits": [
+     {
+      "line": 4,
+      "text": "牛皮纸牌色 #6E6350 3%（作填充时文字只用 #C8C4AE 且 ≥24px，3.36:1）",
+      "byComment": false
+     },
+     {
+      "line": 43,
+      "text": "h3{font-size:22px;letter-spacing:0}",
+      "byComment": false
+     },
+     {
+      "line": 50,
+      "text": "a{color:inherit;text-decoration:underline;text-decoration-color:var(--phos);text-underline-offse",
+      "byComment": false
+     },
+     {
+      "line": 86,
+      "text": ".feedbar::after{content:'';position:absolute;left:0;right:0;bottom:0;height:3px;background:var(-",
+      "byComment": false
+     },
+     {
+      "line": 24,
+      "text": "/* 边孔：孔径 3px ＋ 孔内 0.5px 单向下阴影（纸被齿轮拽过的痕迹）。桌面档 8px 带宽 */",
+      "byComment": true
+     },
+     {
+      "line": 66,
+      "text": "/* ── 喂纸边孔：整条纸的两个边缘，孔距 12px、孔径 3px、孔内 0.5px 单向下阴影 ── */",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "14",
+    "n": 14,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S18-phosphor-service-deck",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 49,
+    "hintText": "code{font-family:var(--mono);font-stretch:75%;font-size:14px;letter-spacing:0;font-variant-numer",
+    "hits": [
+     {
+      "line": 49,
+      "text": "code{font-family:var(--mono);font-stretch:75%;font-size:14px;letter-spacing:0;font-variant-numer",
+      "byComment": false
+     },
+     {
+      "line": 55,
+      "text": "caption{text-align:left;font-size:14px;line-height:1.7;color:inherit;opacity:.86;padding-bottom:",
+      "byComment": false
+     },
+     {
+      "line": 84,
+      "text": "font-size:14px;line-height:1.5;",
+      "byComment": false
+     },
+     {
+      "line": 115,
+      "text": ".plate__cap{margin:12px 0 0;font-size:14px;line-height:1.75;max-width:40em;color:inherit}",
+      "byComment": false
+     },
+     {
+      "line": 151,
+      "text": ".hanghead{margin:0 0 18px;font-size:14px;line-height:1.7;max-width:30em;color:inherit}",
+      "byComment": false
+     },
+     {
+      "line": 152,
+      "text": ".hangnote{margin:22px 0 0;font-size:14px;line-height:1.7;max-width:30em;color:inherit;opacity:.8",
+      "byComment": false
+     }
+    ]
+   },
+   {
+    "raw": "12",
+    "n": 12,
+    "unit": "%",
+    "kind": "pct",
+    "_dir": "S18-phosphor-service-deck",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 18,
+    "hintText": "--pitch:12px;",
+    "hits": [
+     {
+      "line": 18,
+      "text": "--pitch:12px;",
+      "byComment": false
+     },
+     {
+      "line": 83,
+      "text": "padding:10px 32px 12px;background:var(--bay);",
+      "byComment": false
+     },
+     {
+      "line": 115,
+      "text": ".plate__cap{margin:12px 0 0;font-size:14px;line-height:1.75;max-width:40em;color:inherit}",
+      "byComment": false
+     },
+     {
+      "line": 66,
+      "text": "/* ── 喂纸边孔：整条纸的两个边缘，孔距 12px、孔径 3px、孔内 0.5px 单向下阴影 ── */",
+      "byComment": true
+     },
+     {
+      "line": 119,
+      "text": "/* ── 回执牌：牛皮纸 24×12 的牌面逻辑，桌面档放到 76×40 ── */",
+      "byComment": true
+     },
+     {
+      "line": 124,
+      "text": "* （CDP 实测：--at:5/10/18/34 落在第 7.08/12.08/20.08/36.08 行，一张都没命中）。",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "34",
+    "n": 34,
+    "unit": "%",
+    "kind": "pct",
+    "_dir": "S18-phosphor-service-deck",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 156,
+    "hintText": ".mast__grid{display:grid;grid-template-columns:56% 34%;gap:0 6%;max-width:1400px;margin:0 auto;a",
+    "hits": [
+     {
+      "line": 156,
+      "text": ".mast__grid{display:grid;grid-template-columns:56% 34%;gap:0 6%;max-width:1400px;margin:0 auto;a",
+      "byComment": false
+     },
+     {
+      "line": 164,
+      "text": ".meta{margin:22px 0 0;max-width:34em}",
+      "byComment": false
+     },
+     {
+      "line": 172,
+      "text": ".lede{font-size:16px;line-height:1.85;max-width:34em;margin:0;color:inherit}",
+      "byComment": false
+     },
+     {
+      "line": 173,
+      "text": ".stream__grid{position:relative;display:grid;grid-template-columns:12% 54% 34%;max-width:1440px;",
+      "byComment": false
+     },
+     {
+      "line": 186,
+      "text": ".stream__foot{margin:40px 0 0;padding-top:24px;font-size:14px;line-height:1.7;max-width:34em;col",
+      "byComment": false
+     },
+     {
+      "line": 124,
+      "text": "* （CDP 实测：--at:5/10/18/34 落在第 7.08/12.08/20.08/36.08 行，一张都没命中）。",
+      "byComment": true
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "S19",
+  "file": "S19-copperplate-herbarium-cabinet/style.css",
+  "mechanism": "20 块面板分 5 行，宽取 2/3/4 栏三档，面板高 24px、下移 24px，开口 144px 比内层矮 24px，线宽只 0.4 与 0.8px——层级由下移量与线宽差给出。",
+  "claims": [
+   {
+    "raw": "24",
+    "n": 24,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S19-copperplate-herbarium-cabinet",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 15,
+    "hintText": "（不能靠\"抬字号到大字档\"避开：抽出只露 24px，24px 字号 × 1.4 行高 = 33.6px 放不进开口）",
+    "hits": [
+     {
+      "line": 15,
+      "text": "（不能靠\"抬字号到大字档\"避开：抽出只露 24px，24px 字号 × 1.4 行高 = 33.6px 放不进开口）",
+      "byComment": false
+     },
+     {
+      "line": 29,
+      "text": "字段 5：12 栏 / 8px 基线 / 抽屉面板高 24px / 抽屉内边距 8px / 卡面内边距 16px /",
+      "byComment": false
+     },
+     {
+      "line": 37,
+      "text": ".dw__in 高 168px 是卡面本体，靠 translateY 在开口里滑；抽出时 .dw 下移 24px、",
+      "byComment": false
+     },
+     {
+      "line": 38,
+      "text": ".dw__in 上移 24px，正好露出原本压在柜沿下的那一行批注，页面高度全程不变。",
+      "byComment": false
+     },
+     {
+      "line": 39,
+      "text": "注意：.dw 内部那 24px 下内边距不是抽拉的落位 —— translateY 把整个盒子（含内边距）",
+      "byComment": false
+     },
+     {
+      "line": 40,
+      "text": "一起推下去 24px，盒子因此伸出自己的布局盒 24px（getBoundingClientRect 量得到、",
+      "byComment": false
+     }
+    ]
+   },
+   {
+    "raw": "144",
+    "n": 144,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S19-copperplate-herbarium-cabinet",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 36,
+    "hintText": "抽拉机制（字段 5／7）：.dw__card 高 144px 是柜沿下的开口，overflow: clip；",
+    "hits": [
+     {
+      "line": 36,
+      "text": "抽拉机制（字段 5／7）：.dw__card 高 144px 是柜沿下的开口，overflow: clip；",
+      "byComment": false
+     },
+     {
+      "line": 65,
+      "text": "--win: 144px;",
+      "byComment": false
+     }
+    ]
+   },
+   {
+    "raw": "0.8",
+    "n": 0.8,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S19-copperplate-herbarium-cabinet",
+    "status": "derived",
+    "displayOnly": false,
+    "why": "index.html 注释里说明",
+    "hintFile": "index.html",
+    "hintLine": 26,
+    "hintText": "<!-- 蚀刻：0.4px 画外框、0.8px 画卡内横线；每条线是同一条 <path> 的子路径，",
+    "hits": []
+   }
+  ]
+ },
+ {
+  "id": "S20",
+  "file": "S20-plotter-soundfield/style.css",
+  "mechanism": "画布 1:1、边长取视口高减 96px，留 24px 安全区，坐标格 0.2px 间距 8px；走线一律 0.35px 单线，量级靠走线间距 0.6/1.2/2.4px 三档表达——分清粗细与疏密：粗细只有一个值，变化的是线与线的距离。",
+  "claims": [
+   {
+    "raw": "96",
+    "n": 96,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S20-plotter-soundfield",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 10,
+    "hintText": "字段 5 布局：12 栏 / 8px 基线；画布 1:1（视口高减 96px），画布贴左、右侧留出",
+    "hits": [
+     {
+      "line": 10,
+      "text": "字段 5 布局：12 栏 / 8px 基线；画布 1:1（视口高减 96px），画布贴左、右侧留出",
+      "byComment": false
+     },
+     {
+      "line": 143,
+      "text": "padding: 96px 72px 40px;",
+      "byComment": false
+     },
+     {
+      "line": 165,
+      "text": ".plot__stage { padding-right: 64px; --side: min(calc(100vh - 96px), 100%); }",
+      "byComment": false
+     },
+     {
+      "line": 250,
+      "text": "padding: 88px 72px 96px; margin-top: 56px;",
+      "byComment": false
+     },
+     {
+      "line": 263,
+      "text": ".plates-sec { padding: 96px 72px 40px; }",
+      "byComment": false
+     },
+     {
+      "line": 284,
+      "text": ".maps-sec { padding: 96px 72px 40px; }",
+      "byComment": false
+     }
+    ]
+   },
+   {
+    "raw": "24",
+    "n": 24,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S20-plotter-soundfield",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 12,
+    "hintText": "画布四周 24px 走纸安全区，图形质心再偏 7% / 4.5%。",
+    "hits": [
+     {
+      "line": 12,
+      "text": "画布四周 24px 走纸安全区，图形质心再偏 7% / 4.5%。",
+      "byComment": false
+     },
+     {
+      "line": 54,
+      "text": "a { color: inherit; text-decoration-color: rgba(15, 20, 24, 0.5); text-underline-offset: 3px; }",
+      "byComment": false
+     },
+     {
+      "line": 96,
+      "text": "left: auto; right: 24px; bottom: 24px; top: auto;",
+      "byComment": false
+     },
+     {
+      "line": 112,
+      "text": ".cue { margin-top: 24px; }",
+      "byComment": false
+     },
+     {
+      "line": 168,
+      "text": "/* 24px 是本栏顶部那把 x 坐标尺的高度：56px = 24px 尺 + 32px 错位，",
+      "byComment": true
+     },
+     {
+      "line": 187,
+      "text": "/* 走纸轮定位格：只用 border-image 画在 24px 走纸安全区那一条环带上，",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "0.2",
+    "n": 0.2,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S20-plotter-soundfield",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "index.html 的实现里写着（SVG 属性/JS）",
+    "hintFile": "index.html",
+    "hintLine": 70,
+    "hintText": "<defs><pattern id=\"grid8\" width=\"8\" height=\"8\" patternUnits=\"userSpaceOnUse\"><path d=\"M8 0V8M0 8",
+    "hits": []
+   },
+   {
+    "raw": "8",
+    "n": 8,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S20-plotter-soundfield",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 10,
+    "hintText": "字段 5 布局：12 栏 / 8px 基线；画布 1:1（视口高减 96px），画布贴左、右侧留出",
+    "hits": [
+     {
+      "line": 10,
+      "text": "字段 5 布局：12 栏 / 8px 基线；画布 1:1（视口高减 96px），画布贴左、右侧留出",
+      "byComment": false
+     },
+     {
+      "line": 11,
+      "text": "画布边长 8%（64px）再接参数面板，面板上边缘比画布低 32px；",
+      "byComment": false
+     },
+     {
+      "line": 28,
+      "text": "--base: 8px;",
+      "byComment": false
+     },
+     {
+      "line": 157,
+      "text": ".drop__sub { font-size: 13px; line-height: 1.65; margin-top: 8px; color: var(--pencil); }",
+      "byComment": false
+     },
+     {
+      "line": 242,
+      "text": "th, td { border: 1px solid rgba(15, 20, 24, 0.3); padding: 8px 10px; text-align: left; vertical-",
+      "byComment": false
+     },
+     {
+      "line": 220,
+      "text": "/* 声场图例：三小段真实走线，上半 1:1、下半 8 倍 */",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "0.35",
+    "n": 0.35,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S20-plotter-soundfield",
+    "status": "derived",
+    "displayOnly": false,
+    "why": "在注释里说明，生效值由别处推得",
+    "hintFile": null,
+    "hintLine": 204,
+    "hintText": "/* 针笔走线：0.35px 单线、方头、不许填充；缩放时线宽恒定 */",
+    "hits": [
+     {
+      "line": 204,
+      "text": "/* 针笔走线：0.35px 单线、方头、不许填充；缩放时线宽恒定 */",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "2.4",
+    "n": 2.4,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S20-plotter-soundfield",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 63,
+    "hintText": "h2 { font-size: clamp(26px, 2.4vw, 34px); line-height: 1.16; letter-spacing: -0.01em; }",
+    "hits": [
+     {
+      "line": 63,
+      "text": "h2 { font-size: clamp(26px, 2.4vw, 34px); line-height: 1.16; letter-spacing: -0.01em; }",
+      "byComment": false
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "S21",
+  "file": "S21-interlocking-release-book/style.css",
+  "mechanism": "10 栏中 1–4 与 7–10 栏给两张表，5–6 栏留给 14 枚 24×96px 横条首尾相扣，条间留 1px 纸色缝，右端按 30/45/60° 斜切——先后由切口角度读出。",
+  "claims": [
+   {
+    "raw": "96",
+    "n": 96,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S21-interlocking-release-book",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 521,
+    "hintText": "width:96px;",
+    "hits": [
+     {
+      "line": 521,
+      "text": "width:96px;",
+      "byComment": false
+     },
+     {
+      "line": 543,
+      "text": "width:96px;",
+      "byComment": false
+     }
+    ]
+   },
+   {
+    "raw": "1",
+    "n": 1,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S21-interlocking-release-book",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 237,
+    "hintText": "grid-template-columns:minmax(0,383px) minmax(0,1fr);",
+    "hits": [
+     {
+      "line": 237,
+      "text": "grid-template-columns:minmax(0,383px) minmax(0,1fr);",
+      "byComment": false
+     },
+     {
+      "line": 412,
+      "text": "border:1px solid var(--groove);",
+      "byComment": false
+     },
+     {
+      "line": 423,
+      "text": "border-right:1px solid var(--ink);",
+      "byComment": false
+     },
+     {
+      "line": 378,
+      "text": "/* 10 栏：道岔占 1 至 4 栏，释放路径占 5 至 6 栏，信号占 7 至 10 栏 */",
+      "byComment": true
+     },
+     {
+      "line": 390,
+      "text": "/* 表体比释放路径低 9px，即 1.5 个基线 */",
+      "byComment": true
+     },
+     {
+      "line": 407,
+      "text": "/* 真实表格保留自己的 1px 实线框，taste-skill 对 table/td/th 选择器自有豁免 */",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "60",
+    "n": 60,
+    "unit": "°",
+    "kind": "deg",
+    "_dir": "S21-interlocking-release-book",
+    "status": "derived",
+    "displayOnly": false,
+    "why": "在注释里说明，生效值由别处推得",
+    "hintFile": null,
+    "hintLine": 557,
+    "hintText": "/* 右端斜切角：单层 clip-path，按互斥对数取 30 / 45 / 60 三档",
+    "hits": [
+     {
+      "line": 557,
+      "text": "/* 右端斜切角：单层 clip-path，按互斥对数取 30 / 45 / 60 三档",
+      "byComment": true
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "S22",
+  "file": "S22-paper-screen-folded-sheet/style.css",
+  "mechanism": "两半各 6 栏、栏距 22px、外距 56px，中缝 88px 宽于外距，下半页右移 8px、字号 17 与 16.5px，折痕 3px、两端 4px 起毛——分区只靠透光与折痕。",
+  "claims": [
+   {
+    "raw": "22",
+    "n": 22,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S22-paper-screen-folded-sheet",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 8,
+    "hintText": "字段 5 冻结值：一张对折的纸 = 两半各 6 栏（合计 12 栏）／栏距 22px／外距 56px／",
+    "hits": [
+     {
+      "line": 8,
+      "text": "字段 5 冻结值：一张对折的纸 = 两半各 6 栏（合计 12 栏）／栏距 22px／外距 56px／",
+      "byComment": false
+     },
+     {
+      "line": 9,
+      "text": "中缝留白 88px（= 22 + 44 + 22，大于外距 56px）／基线 7px／段落间 28px／章节间 96px",
+      "byComment": false
+     },
+     {
+      "line": 18,
+      "text": "窄屏（<768px）再发明：虚影 14px、下沉 3px、不透明 22%、折痕 2px、毛口 1px、透光差 18%",
+      "byComment": false
+     },
+     {
+      "line": 32,
+      "text": "--gutter: 22px;",
+      "byComment": false
+     },
+     {
+      "line": 122,
+      "text": ".claim { font-size: 20px; line-height: 1.8; margin-top: 22px; }",
+      "byComment": false
+     },
+     {
+      "line": 292,
+      "text": ".lamps { list-style: none; margin: 36px 0 0; padding: 0; display: grid; gap: 22px; }",
+      "byComment": false
+     }
+    ]
+   },
+   {
+    "raw": "56",
+    "n": 56,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S22-paper-screen-folded-sheet",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 8,
+    "hintText": "字段 5 冻结值：一张对折的纸 = 两半各 6 栏（合计 12 栏）／栏距 22px／外距 56px／",
+    "hits": [
+     {
+      "line": 8,
+      "text": "字段 5 冻结值：一张对折的纸 = 两半各 6 栏（合计 12 栏）／栏距 22px／外距 56px／",
+      "byComment": false
+     },
+     {
+      "line": 9,
+      "text": "中缝留白 88px（= 22 + 44 + 22，大于外距 56px）／基线 7px／段落间 28px／章节间 96px",
+      "byComment": false
+     },
+     {
+      "line": 31,
+      "text": "--edge: 56px;",
+      "byComment": false
+     },
+     {
+      "line": 313,
+      "text": ".lightfig { margin: 56px 0 0; max-width: 1000px; }",
+      "byComment": false
+     }
+    ]
+   },
+   {
+    "raw": "88",
+    "n": 88,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S22-paper-screen-folded-sheet",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 9,
+    "hintText": "中缝留白 88px（= 22 + 44 + 22，大于外距 56px）／基线 7px／段落间 28px／章节间 96px",
+    "hits": [
+     {
+      "line": 9,
+      "text": "中缝留白 88px（= 22 + 44 + 22，大于外距 56px）／基线 7px／段落间 28px／章节间 96px",
+      "byComment": false
+     },
+     {
+      "line": 33,
+      "text": "--fold: 88px;",
+      "byComment": false
+     },
+     {
+      "line": 299,
+      "text": "height: 88px; overflow: hidden; background: var(--paper);",
+      "byComment": false
+     }
+    ]
+   },
+   {
+    "raw": "8",
+    "n": 8,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S22-paper-screen-folded-sheet",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 11,
+    "hintText": "／下半页整体右移 8px ／折痕落在中线外 0.4%",
+    "hits": [
+     {
+      "line": 11,
+      "text": "／下半页整体右移 8px ／折痕落在中线外 0.4%",
+      "byComment": false
+     },
+     {
+      "line": 250,
+      "text": ".face--recto { grid-column: 8 / span 6; font-size: 16.5px; margin-inline-start: 8px; }",
+      "byComment": false
+     },
+     {
+      "line": 274,
+      "text": ".brief li::before { content: \"\"; position: absolute; left: 0; top: 1.05em; width: 8px; height: 8",
+      "byComment": false
+     },
+     {
+      "line": 359,
+      "text": ".gl { width: 20px; height: 20px; color: var(--ink); opacity: .8; vertical-align: -3px; margin-ri",
+      "byComment": false
+     },
+     {
+      "line": 459,
+      "text": ".spec td, .spec th { padding: 7px 8px; }",
+      "byComment": false
+     },
+     {
+      "line": 528,
+      "text": "/\"下半页 · 6 栏 · 字号 16.5px · 右移 8px\"）。它是**标签**不是段落，所以要与正文段落",
+      "byComment": false
+     }
+    ]
+   },
+   {
+    "raw": "16.5",
+    "n": 16.5,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S22-paper-screen-folded-sheet",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 10,
+    "hintText": "／上半页 17px、下半页 16.5px（字段 5 的 15.5px 提到 16.5px，正文不得低于 16px）",
+    "hits": [
+     {
+      "line": 10,
+      "text": "／上半页 17px、下半页 16.5px（字段 5 的 15.5px 提到 16.5px，正文不得低于 16px）",
+      "byComment": false
+     },
+     {
+      "line": 250,
+      "text": ".face--recto { grid-column: 8 / span 6; font-size: 16.5px; margin-inline-start: 8px; }",
+      "byComment": false
+     },
+     {
+      "line": 482,
+      "text": ".face--recto { font-size: 16.5px; }",
+      "byComment": false
+     },
+     {
+      "line": 483,
+      "text": ".specimen__front, .lede, .note, .degrade, .fault__frame, .empty, .spec-list li, .icons li, .lamp",
+      "byComment": false
+     },
+     {
+      "line": 528,
+      "text": "/\"下半页 · 6 栏 · 字号 16.5px · 右移 8px\"）。它是**标签**不是段落，所以要与正文段落",
+      "byComment": false
+     }
+    ]
+   },
+   {
+    "raw": "3",
+    "n": 3,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S22-paper-screen-folded-sheet",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 12,
+    "hintText": "字段 6 冻结值：折痕 3px 单向暗带（暗来自左上）+ 两端 4px 纸纤维起毛；折痕不进 DOM 边框",
+    "hits": [
+     {
+      "line": 12,
+      "text": "字段 6 冻结值：折痕 3px 单向暗带（暗来自左上）+ 两端 4px 纸纤维起毛；折痕不进 DOM 边框",
+      "byComment": false
+     },
+     {
+      "line": 18,
+      "text": "窄屏（<768px）再发明：虚影 14px、下沉 3px、不透明 22%、折痕 2px、毛口 1px、透光差 18%",
+      "byComment": false
+     },
+     {
+      "line": 39,
+      "text": "--crease: 3px;",
+      "byComment": false
+     },
+     {
+      "line": 46,
+      "text": "--ghost-drop: 3px;",
+      "byComment": false
+     },
+     {
+      "line": 74,
+      "text": "a { color: inherit; text-decoration-color: rgba(46, 42, 36, 0.5); text-underline-offset: 3px; }",
+      "byComment": false
+     },
+     {
+      "line": 81,
+      "text": "h3 { font-size: 20px; line-height: 1.4; letter-spacing: 0.02em; }",
+      "byComment": false
+     }
+    ]
+   },
+   {
+    "raw": "4",
+    "n": 4,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S22-paper-screen-folded-sheet",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 12,
+    "hintText": "字段 6 冻结值：折痕 3px 单向暗带（暗来自左上）+ 两端 4px 纸纤维起毛；折痕不进 DOM 边框",
+    "hits": [
+     {
+      "line": 12,
+      "text": "字段 6 冻结值：折痕 3px 单向暗带（暗来自左上）+ 两端 4px 纸纤维起毛；折痕不进 DOM 边框",
+      "byComment": false
+     },
+     {
+      "line": 44,
+      "text": "--fray: 4px;",
+      "byComment": false
+     },
+     {
+      "line": 158,
+      "text": ".ref { display: block; font-size: 14px; color: var(--matcha); margin-top: 4px; }",
+      "byComment": false
+     },
+     {
+      "line": 251,
+      "text": ".face p { margin-bottom: calc(var(--base) * 4); }",
+      "byComment": false
+     },
+     {
+      "line": 518,
+      "text": ".face--recto { margin-inline-start: 4px; }",
+      "byComment": false
+     },
+     {
+      "line": 415,
+      "text": "/* ------------------------------------------- 900–1279px：保持上下对折，镜像内容收成 4 条 */",
+      "byComment": true
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "S23",
+  "file": "S23-exposed-plaster-chronology-wall/style.css",
+  "mechanism": "9 处开口按 3/2/2/1/1 递减，断口露 2 至 4 层、层间夹 1px 亮线，62° 斜痕宽 2px、距 6px，右缘 96px 索引条对齐首行——层序由层数与索引高度读出。",
+  "claims": [
+   {
+    "raw": "1",
+    "n": 1,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S23-exposed-plaster-chronology-wall",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 9,
+    "hintText": "派生：--lime #E9E9D7 = #DCDCC8 提亮 6%（1px 白石灰线的实色）；",
+    "hits": [
+     {
+      "line": 9,
+      "text": "派生：--lime #E9E9D7 = #DCDCC8 提亮 6%（1px 白石灰线的实色）；",
+      "byComment": false
+     },
+     {
+      "line": 10,
+      "text": "--mortar-ink #5F5240（5.50:1，承载 ≤14px 小字）；",
+      "byComment": false
+     },
+     {
+      "line": 15,
+      "text": "字段 5 布局：36 栏细栅格、8px 基线、8px 栏距；9 处剥落按 3/2/2/1/1 面积递减；",
+      "byComment": false
+     },
+     {
+      "line": 17,
+      "text": "字段 6 视觉：锐利断面（--pw 22→10px 竖带，2–4 层 + 1px 石灰线）、",
+      "byComment": false
+     },
+     {
+      "line": 18,
+      "text": "62° 铲痕（2px 痕宽 6px 间距、末端 1px 翘起高光）、40×24px 层位号牌（1px 凹槽 + 1px 高光）",
+      "byComment": false
+     },
+     {
+      "line": 51,
+      "text": "line-height: 1.85;",
+      "byComment": false
+     }
+    ]
+   },
+   {
+    "raw": "2",
+    "n": 2,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S23-exposed-plaster-chronology-wall",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 15,
+    "hintText": "字段 5 布局：36 栏细栅格、8px 基线、8px 栏距；9 处剥落按 3/2/2/1/1 面积递减；",
+    "hits": [
+     {
+      "line": 15,
+      "text": "字段 5 布局：36 栏细栅格、8px 基线、8px 栏距；9 处剥落按 3/2/2/1/1 面积递减；",
+      "byComment": false
+     },
+     {
+      "line": 17,
+      "text": "字段 6 视觉：锐利断面（--pw 22→10px 竖带，2–4 层 + 1px 石灰线）、",
+      "byComment": false
+     },
+     {
+      "line": 18,
+      "text": "62° 铲痕（2px 痕宽 6px 间距、末端 1px 翘起高光）、40×24px 层位号牌（1px 凹槽 + 1px 高光）",
+      "byComment": false
+     },
+     {
+      "line": 40,
+      "text": "--pad: clamp(16px, 2.2vw, 32px);",
+      "byComment": false
+     },
+     {
+      "line": 71,
+      "text": "h2 { font-size: clamp(26px, 2.4vw, 34px); line-height: 1.18; letter-spacing: 0.02em; margin-bott",
+      "byComment": false
+     },
+     {
+      "line": 89,
+      "text": ".btn:hover { transform: translateY(-2px); }",
+      "byComment": false
+     }
+    ]
+   },
+   {
+    "raw": "6",
+    "n": 6,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S23-exposed-plaster-chronology-wall",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 9,
+    "hintText": "派生：--lime #E9E9D7 = #DCDCC8 提亮 6%（1px 白石灰线的实色）；",
+    "hits": [
+     {
+      "line": 9,
+      "text": "派生：--lime #E9E9D7 = #DCDCC8 提亮 6%（1px 白石灰线的实色）；",
+      "byComment": false
+     },
+     {
+      "line": 17,
+      "text": "字段 6 视觉：锐利断面（--pw 22→10px 竖带，2–4 层 + 1px 石灰线）、",
+      "byComment": false
+     },
+     {
+      "line": 18,
+      "text": "62° 铲痕（2px 痕宽 6px 间距、末端 1px 翘起高光）、40×24px 层位号牌（1px 凹槽 + 1px 高光）",
+      "byComment": false
+     },
+     {
+      "line": 99,
+      "text": ".status__grid { display: flex; flex-wrap: wrap; gap: 4px 30px; margin-top: 6px; }",
+      "byComment": false
+     },
+     {
+      "line": 103,
+      "text": ".status__hint { font-size: 13px; color: var(--mortar-lit); margin-top: 6px; }",
+      "byComment": false
+     },
+     {
+      "line": 132,
+      "text": ".wall-sec { position: relative; padding: clamp(56px, 6vw, 88px) 0 clamp(48px, 5vw, 72px); }",
+      "byComment": false
+     }
+    ]
+   },
+   {
+    "raw": "96",
+    "n": 96,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S23-exposed-plaster-chronology-wall",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 16,
+    "hintText": "右侧 96px 层位索引竖栏，条目纵向位置与各剥落高度对齐（--r 即该剥落起始行）",
+    "hits": [
+     {
+      "line": 16,
+      "text": "右侧 96px 层位索引竖栏，条目纵向位置与各剥落高度对齐（--r 即该剥落起始行）",
+      "byComment": false
+     },
+     {
+      "line": 70,
+      "text": "h1 { font-size: clamp(56px, 7.2vw, 96px); line-height: 1.04; letter-spacing: 0.01em; }",
+      "byComment": false
+     },
+     {
+      "line": 151,
+      "text": "grid-template-columns: repeat(36, minmax(0, 1fr)) 96px;",
+      "byComment": false
+     },
+     {
+      "line": 290,
+      "text": "/* 层位索引竖栏：96px，条目纵向位置 = 该剥落的起始行（--r），随滚动高亮 */",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "62",
+    "n": 62,
+    "unit": "°",
+    "kind": "deg",
+    "_dir": "S23-exposed-plaster-chronology-wall",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 18,
+    "hintText": "62° 铲痕（2px 痕宽 6px 间距、末端 1px 翘起高光）、40×24px 层位号牌（1px 凹槽 + 1px 高光）",
+    "hits": [
+     {
+      "line": 18,
+      "text": "62° 铲痕（2px 痕宽 6px 间距、末端 1px 翘起高光）、40×24px 层位号牌（1px 凹槽 + 1px 高光）",
+      "byComment": false
+     },
+     {
+      "line": 20,
+      "text": "不使用任何多色插值；铲痕 62° 用 repeating-linear-gradient 画出",
+      "byComment": false
+     },
+     {
+      "line": 215,
+      "text": "repeating-linear-gradient(62deg, transparent 0 7px, var(--lime) 7px 8px),",
+      "byComment": false
+     },
+     {
+      "line": 216,
+      "text": "repeating-linear-gradient(62deg, transparent 0 6px, var(--scr, var(--oxide)) 6px 8px);",
+      "byComment": false
+     },
+     {
+      "line": 209,
+      "text": "/* 铲痕：3–5 道、痕宽 2px、间距 6px、自左上向右下 62°，末端 1px 翘起高光 */",
+      "byComment": true
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "S24",
+  "file": "S24-cyanotype-rainforest-path/style.css",
+  "mechanism": "8 栏加中轴，每层各伸 2 栏、最多 4 层，宽比 5:3 且窄侧下沉 24px，支线由 2.5px 递减到 1、0.6、0.4px 并留 2px 缺口——深度由层数与线宽读出。",
+  "claims": [
+   {
+    "raw": "24",
+    "n": 24,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S24-cyanotype-rainforest-path",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 130,
+    "hintText": ".fork__grid{position:relative;display:grid;grid-template-columns:repeat(8,1fr);gap:0 24px;max-wi",
+    "hits": [
+     {
+      "line": 130,
+      "text": ".fork__grid{position:relative;display:grid;grid-template-columns:repeat(8,1fr);gap:0 24px;max-wi",
+      "byComment": false
+     },
+     {
+      "line": 133,
+      "text": ".lv{grid-column:1 / -1;display:grid;grid-template-columns:5fr 3fr;gap:64px 24px;padding-top:32px",
+      "byComment": false
+     },
+     {
+      "line": 137,
+      "text": ".leaves{display:flex;flex-wrap:wrap;align-items:flex-end;gap:24px}",
+      "byComment": false
+     },
+     {
+      "line": 142,
+      "text": ".br--n{grid-column:2;margin-top:24px}",
+      "byComment": false
+     },
+     {
+      "line": 144,
+      "text": ".lv--mirror .br--n{grid-column:1;margin-top:24px}",
+      "byComment": false
+     },
+     {
+      "line": 2,
+      "text": "/* S24 蓝晒雨林径 Cyanotype Rainforest Path",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "2.5",
+    "n": 2.5,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S24-cyanotype-rainforest-path",
+    "status": "derived",
+    "displayOnly": false,
+    "why": "在注释里说明，生效值由别处推得",
+    "hintFile": null,
+    "hintLine": 152,
+    "hintText": "/* 叶脉：SVG stroke-dasharray 生长；主脉 2.5px、支脉 1 / 0.6 / 0.4px，节点处留 2px 缺口 */",
+    "hits": [
+     {
+      "line": 152,
+      "text": "/* 叶脉：SVG stroke-dasharray 生长；主脉 2.5px、支脉 1 / 0.6 / 0.4px，节点处留 2px 缺口 */",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "0.4",
+    "n": 0.4,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S24-cyanotype-rainforest-path",
+    "status": "derived",
+    "displayOnly": false,
+    "why": "在注释里说明，生效值由别处推得",
+    "hintFile": null,
+    "hintLine": 152,
+    "hintText": "/* 叶脉：SVG stroke-dasharray 生长；主脉 2.5px、支脉 1 / 0.6 / 0.4px，节点处留 2px 缺口 */",
+    "hits": [
+     {
+      "line": 152,
+      "text": "/* 叶脉：SVG stroke-dasharray 生长；主脉 2.5px、支脉 1 / 0.6 / 0.4px，节点处留 2px 缺口 */",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "2",
+    "n": 2,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S24-cyanotype-rainforest-path",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 50,
+    "hintText": "h2{font-size:clamp(26px,2.8vw,40px)}",
+    "hits": [
+     {
+      "line": 50,
+      "text": "h2{font-size:clamp(26px,2.8vw,40px)}",
+      "byComment": false
+     },
+     {
+      "line": 51,
+      "text": "h3{font-size:clamp(20px,2vw,28px)}",
+      "byComment": false
+     },
+     {
+      "line": 58,
+      "text": "a:focus-visible,button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}",
+      "byComment": false
+     },
+     {
+      "line": 94,
+      "text": ".masthead__sig{margin:20px 0 0;font-size:14px;color:var(--moss-2);max-width:44em}",
+      "byComment": false
+     },
+     {
+      "line": 19,
+      "text": "/* 曝光色阶：2 / 4 / 8 / 16 / 32 / 64 分钟；相邻档明度差 8.8 / 9.0 / 8.2 / 7.1 / 7.6 */",
+      "byComment": true
+     },
+     {
+      "line": 35,
+      "text": "/* 自绘 20px 镊子光标，尖端 2px，热点落在尖上 */",
+      "byComment": true
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "S25",
+  "file": "S25-spotcolor-contents-zine/style.css",
+  "mechanism": "左 3 右 7 栏、中缝 72px，装订线落中缝右 12px，两版错开 0.8 至 1.6px、相压处相乘出深色，行首按 0/12/24px 缩进——层级由缩进量与版次差给出。",
+  "claims": [
+   {
+    "raw": "72",
+    "n": 72,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S25-spotcolor-contents-zine",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 106,
+    "hintText": "gap: 72px;",
+    "hits": [
+     {
+      "line": 106,
+      "text": "gap: 72px;",
+      "byComment": false
+     },
+     {
+      "line": 175,
+      "text": "column-gap: 72px;",
+      "byComment": false
+     },
+     {
+      "line": 306,
+      "text": ".swatch__ink { width: 72px; height: 72px; }",
+      "byComment": false
+     },
+     {
+      "line": 171,
+      "text": "/* 右重左轻跨页：左半 3 栏，右半 7 栏，中缝 72px（column-gap），装订线在中缝右侧 12px */",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "12",
+    "n": 12,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S25-spotcolor-contents-zine",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 62,
+    "hintText": "background: var(--ink); color: var(--paper); padding: 12px 18px; z-index: 30;",
+    "hits": [
+     {
+      "line": 62,
+      "text": "background: var(--ink); color: var(--paper); padding: 12px 18px; z-index: 30;",
+      "byComment": false
+     },
+     {
+      "line": 164,
+      "text": ".check th, .check td { padding: 12px 18px 12px 0; text-align: left; }",
+      "byComment": false
+     },
+     {
+      "line": 165,
+      "text": ".check thead th { background: var(--spot-a); color: var(--paper-white); padding-left: 12px; }",
+      "byComment": false
+     },
+     {
+      "line": 168,
+      "text": ".check tbody tr:nth-child(odd) th { padding-left: 12px; }",
+      "byComment": false
+     },
+     {
+      "line": 200,
+      "text": ".entry--l2 { --indent: 12px; }",
+      "byComment": false
+     },
+     {
+      "line": 171,
+      "text": "/* 右重左轻跨页：左半 3 栏，右半 7 栏，中缝 72px（column-gap），装订线在中缝右侧 12px */",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "1.6",
+    "n": 1.6,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S25-spotcolor-contents-zine",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 150,
+    "hintText": "[data-offset=\"1.6\"] .ink--a, .ink--a[data-offset=\"1.6\"] { margin-left: 1.6px; }",
+    "hits": [
+     {
+      "line": 150,
+      "text": "[data-offset=\"1.6\"] .ink--a, .ink--a[data-offset=\"1.6\"] { margin-left: 1.6px; }",
+      "byComment": false
+     },
+     {
+      "line": 151,
+      "text": "[data-offset=\"1.6\"] .ink--b, .ink--b[data-offset=\"1.6\"] { margin-right: 1.6px; }",
+      "byComment": false
+     },
+     {
+      "line": 191,
+      "text": "content: \"\"; position: absolute; width: 1.6px; height: 1.6px; border-radius: 50%;",
+      "byComment": false
+     },
+     {
+      "line": 282,
+      "text": "/* 断点三：小于 900px　单栏，装订线贴左 3px，穿孔照旧 1.6px / 24px */",
+      "byComment": true
+     },
+     {
+      "line": 338,
+      "text": "/* 减少动态：跟随与穿线停下，穿孔、线、0.8–1.6px 错位与叠印色保持静止呈现 */",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "24",
+    "n": 24,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S25-spotcolor-contents-zine",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 52,
+    "hintText": ".h3 { font-size: 24px; }",
+    "hits": [
+     {
+      "line": 52,
+      "text": ".h3 { font-size: 24px; }",
+      "byComment": false
+     },
+     {
+      "line": 188,
+      "text": ".holes li { position: relative; height: 24px; width: 20px; }",
+      "byComment": false
+     },
+     {
+      "line": 201,
+      "text": ".entry--l3 { --indent: 24px; }",
+      "byComment": false
+     },
+     {
+      "line": 217,
+      "text": ".specimen { margin-top: 30px; background: var(--paper-deep); padding: 24px; max-width: 48em; }",
+      "byComment": false
+     },
+     {
+      "line": 227,
+      "text": ".press-band__line { color: var(--paper-white); font-size: 17px; margin: 0 0 24px; max-width: 44e",
+      "byComment": false
+     },
+     {
+      "line": 245,
+      "text": ".order__empty { background: var(--paper-deep); padding: 24px; font-size: 17px; max-width: 42em; ",
+      "byComment": false
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "S26",
+  "file": "S26-geometric-collision-columns/style.css",
+  "mechanism": "三栏按 5:3:4 分宽，13 条水平规线整体倾 11°、高 100%/64%/80%，最窄一块再沉 16px，压叠 1.5px 与 1.2px 同向右下——次序由斜角与压叠量给出。",
+  "claims": [
+   {
+    "raw": "16",
+    "n": 16,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S26-geometric-collision-columns",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 61,
+    "hintText": "p{margin:0 0 16px;max-width:43em}",
+    "hits": [
+     {
+      "line": 61,
+      "text": "p{margin:0 0 16px;max-width:43em}",
+      "byComment": false
+     },
+     {
+      "line": 91,
+      "text": ".idx__list{display:flex;flex-wrap:wrap;gap:0 16px;font-size:15px}",
+      "byComment": false
+     },
+     {
+      "line": 153,
+      "text": ".plate--red{--rate:.88;background:var(--red);color:var(--white);height:64%;margin-top:16px}",
+      "byComment": false
+     },
+     {
+      "line": 292,
+      "text": ".plate--red{grid-column:1;min-height:300px;margin-top:16px}",
+      "byComment": false
+     },
+     {
+      "line": 293,
+      "text": ".plate--black{grid-column:2;min-height:340px;margin-top:16px}",
+      "byComment": false
+     },
+     {
+      "line": 305,
+      "text": ".plate__t{font-size:16px}",
+      "byComment": false
+     }
+    ]
+   },
+   {
+    "raw": "1.5",
+    "n": 1.5,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S26-geometric-collision-columns",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 83,
+    "hintText": ".hud{display:flex;flex-wrap:wrap;gap:2px 28px;align-items:baseline;padding:10px 0 8px;font-size:",
+    "hits": [
+     {
+      "line": 83,
+      "text": ".hud{display:flex;flex-wrap:wrap;gap:2px 28px;align-items:baseline;padding:10px 0 8px;font-size:",
+      "byComment": false
+     },
+     {
+      "line": 170,
+      "text": ".plates:hover .plate--blue::after,.plates:hover .plate--red::after{width:2.5px;right:-1.5px}",
+      "byComment": false
+     },
+     {
+      "line": 179,
+      "text": ".plate--blue .plate__v{filter:drop-shadow(1.5px 1.5px 0 var(--mul-br))}",
+      "byComment": false
+     },
+     {
+      "line": 39,
+      "text": "/* 自绘 24px 圆规光标：两脚尖 1.5px，铰点在圆心上 */",
+      "byComment": true
+     },
+     {
+      "line": 178,
+      "text": "/* 套色错位：凸版蓝版压过红版 1.5px、红版压过黑版 1.2px，方向一致向右下 */",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "1.2",
+    "n": 1.2,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S26-geometric-collision-columns",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 98,
+    "hintText": ".mast__latin{font-family:var(--display);font-size:24px;font-weight:700;letter-spacing:.02em;line",
+    "hits": [
+     {
+      "line": 98,
+      "text": ".mast__latin{font-family:var(--display);font-size:24px;font-weight:700;letter-spacing:.02em;line",
+      "byComment": false
+     },
+     {
+      "line": 103,
+      "text": "background:var(--blue);color:var(--white);font-size:17px;font-weight:600;line-height:1.2;",
+      "byComment": false
+     },
+     {
+      "line": 180,
+      "text": ".plate--red .plate__v{filter:drop-shadow(1.2px 1.2px 0 var(--mul-rk))}",
+      "byComment": false
+     },
+     {
+      "line": 181,
+      "text": ".plate--black .plate__v{filter:drop-shadow(1.2px 1.2px 0 #000000)}",
+      "byComment": false
+     },
+     {
+      "line": 197,
+      "text": "70%{translate:6px 1.2px}",
+      "byComment": false
+     },
+     {
+      "line": 178,
+      "text": "/* 套色错位：凸版蓝版压过红版 1.5px、红版压过黑版 1.2px，方向一致向右下 */",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "100",
+    "n": 100,
+    "unit": "%",
+    "kind": "pct",
+    "_dir": "S26-geometric-collision-columns",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 3,
+    "hintText": "纸底 #D3D1CA（44%）｜ 凸版蓝 #485270（30%）｜ 脏黑 #121212（14%）｜ 印刷红 #C8341F（12%）",
+    "hits": [
+     {
+      "line": 3,
+      "text": "纸底 #D3D1CA（44%）｜ 凸版蓝 #485270（30%）｜ 脏黑 #121212（14%）｜ 印刷红 #C8341F（12%）",
+      "byComment": false
+     },
+     {
+      "line": 4,
+      "text": "对比度：正文 #121212 对纸底 12.26:1（AAA）；白字对蓝 7.65:1；白字对红 5.29:1；",
+      "byComment": false
+     },
+     {
+      "line": 5,
+      "text": "纸白 #D3D1CA 对黑 12.39:1。红 #C8341F 对纸底只有 3.50:1，",
+      "byComment": false
+     },
+     {
+      "line": 12,
+      "text": "--paper:#D3D1CA;",
+      "byComment": false
+     },
+     {
+      "line": 17,
+      "text": "--tint:#C3C1B9;",
+      "byComment": false
+     },
+     {
+      "line": 34,
+      "text": "--step:100ms;",
+      "byComment": false
+     }
+    ]
+   },
+   {
+    "raw": "64",
+    "n": 64,
+    "unit": "%",
+    "kind": "pct",
+    "_dir": "S26-geometric-collision-columns",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 40,
+    "hintText": "--cursor:url(\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdp",
+    "hits": [
+     {
+      "line": 40,
+      "text": "--cursor:url(\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdp",
+      "byComment": false
+     },
+     {
+      "line": 42,
+      "text": "--notch-a:url(\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHd",
+      "byComment": false
+     },
+     {
+      "line": 43,
+      "text": "--notch-b:url(\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHd",
+      "byComment": false
+     },
+     {
+      "line": 153,
+      "text": ".plate--red{--rate:.88;background:var(--red);color:var(--white);height:64%;margin-top:16px}",
+      "byComment": false
+     },
+     {
+      "line": 257,
+      "text": "取 --blue 的 0.64 倍 = **#2E3448**（L=0.03505）→ (0.58245)/(0.08505) = **6.85:1**。",
+      "byComment": false
+     }
+    ]
+   },
+   {
+    "raw": "80",
+    "n": 80,
+    "unit": "%",
+    "kind": "pct",
+    "_dir": "S26-geometric-collision-columns",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 35,
+    "hintText": "--jump:80ms;",
+    "hits": [
+     {
+      "line": 35,
+      "text": "--jump:80ms;",
+      "byComment": false
+     },
+     {
+      "line": 58,
+      "text": "h1{font-size:clamp(44px,5.6vw,80px)}",
+      "byComment": false
+     },
+     {
+      "line": 154,
+      "text": ".plate--black{--rate:.94;background:var(--ink);color:var(--paper);height:80%}",
+      "byComment": false
+     },
+     {
+      "line": 202,
+      "text": ".plates .plate:nth-child(2){animation-delay:80ms}",
+      "byComment": false
+     },
+     {
+      "line": 182,
+      "text": "/* 微交互：指针进入撞口区域，读数以 80ms 阶跃跳到下一档 */",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "11",
+    "n": 11,
+    "unit": "°",
+    "kind": "deg",
+    "_dir": "S26-geometric-collision-columns",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 27,
+    "hintText": "--skew:-11deg;",
+    "hits": [
+     {
+      "line": 27,
+      "text": "--skew:-11deg;",
+      "byComment": false
+     },
+     {
+      "line": 45,
+      "text": "--edge-rule:url(\"assets/texture-rule-11deg.png\");",
+      "byComment": false
+     },
+     {
+      "line": 44,
+      "text": "/* 窄屏分区边界上的斜栏线（<768px：11° 完整保留，可视高度 18px） */",
+      "byComment": true
+     },
+     {
+      "line": 116,
+      "text": "/* ── 对撞带：三块硬边色版 + 11° 斜栏线 ── */",
+      "byComment": true
+     },
+     {
+      "line": 123,
+      "text": "/* 斜栏线层：整层 skewY(--skew)，栏线本身倾斜 11°，向右抬升，文字层不斜。",
+      "byComment": true
+     },
+     {
+      "line": 155,
+      "text": "/* 色版立在 11° 斜向基线上：每块版的下缘压一条同角度的规线，文字层不斜 */",
+      "byComment": true
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "S27",
+  "file": "S27-hand-painted-bill-dispatch/style.css",
+  "mechanism": "9 栏、栏距 20px、基线 7px，正文占 5 栏、签发栏 3 栏、末栏只留边距，两版固定错开 1.8px 向右上，描边共用这一位移——先后由栏宽比与错位方向给出。",
+  "claims": [
+   {
+    "raw": "20",
+    "n": 20,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S27-hand-painted-bill-dispatch",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 10,
+    "hintText": "字段 5 布局：9 栏、栏距 20px、外距 48px、基线 7px；抬头满 9 栏；",
+    "hits": [
+     {
+      "line": 10,
+      "text": "字段 5 布局：9 栏、栏距 20px、外距 48px、基线 7px；抬头满 9 栏；",
+      "byComment": false
+     },
+     {
+      "line": 36,
+      "text": "--gutter: 20px;",
+      "byComment": false
+     },
+     {
+      "line": 84,
+      "text": "position: absolute; left: 12px; top: 12px; z-index: 20;",
+      "byComment": false
+     },
+     {
+      "line": 168,
+      "text": "display: inline-block; min-height: 48px; padding: 13px 20px;",
+      "byComment": false
+     },
+     {
+      "line": 521,
+      "text": ":root { --outer: 20px; --gutter: 14px; --mis: 1.2px; }",
+      "byComment": false
+     }
+    ]
+   },
+   {
+    "raw": "7",
+    "n": 7,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S27-hand-painted-bill-dispatch",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 10,
+    "hintText": "字段 5 布局：9 栏、栏距 20px、外距 48px、基线 7px；抬头满 9 栏；",
+    "hits": [
+     {
+      "line": 10,
+      "text": "字段 5 布局：9 栏、栏距 20px、外距 48px、基线 7px；抬头满 9 栏；",
+      "byComment": false
+     },
+     {
+      "line": 35,
+      "text": "--base: 7px;",
+      "byComment": false
+     },
+     {
+      "line": 507,
+      "text": ".act__sign { grid-column: 1 / 7; margin-top: calc(var(--base) * 7); }",
+      "byComment": false
+     },
+     {
+      "line": 558,
+      "text": "压印分区、1.8px 错位描边、7px 基线全部按原值呈现，只把过渡压到 120ms 的不透明度切换。 */",
+      "byComment": false
+     },
+     {
+      "line": 283,
+      "text": "/* 字段 7 悬停：条款行右端浮出 1.8px 的错位副本，像手绘时多描了一笔 */",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "1.8",
+    "n": 1.8,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S27-hand-painted-bill-dispatch",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 13,
+    "hintText": "字段 6 可见元素：（一）石版分色错位 1.8px 固定右上，两层实色叠加、错位处露黄纸",
+    "hits": [
+     {
+      "line": 13,
+      "text": "字段 6 可见元素：（一）石版分色错位 1.8px 固定右上，两层实色叠加、错位处露黄纸",
+      "byComment": false
+     },
+     {
+      "line": 22,
+      "text": "说明：所有石版描边（含 1.8px 的分隔条）都画在伪元素上——1.8px 的 border 在",
+      "byComment": false
+     },
+     {
+      "line": 24,
+      "text": "不在设计）；伪元素画出来的是实打实的 1.8px 实色条，取值不动。",
+      "byComment": false
+     },
+     {
+      "line": 34,
+      "text": "--mis: 1.8px;",
+      "byComment": false
+     },
+     {
+      "line": 96,
+      "text": "/* 石版实色条：1.8px 高，画在伪元素上（border 会被取整，见文件头说明） */",
+      "byComment": true
+     },
+     {
+      "line": 126,
+      "text": "/* 帷幕压条：抬头条下缘的墨绿版，比炭黑版右移 1.8px */",
+      "byComment": true
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "S28",
+  "file": "S28-jazz-intaglio-wall/style.css",
+  "mechanism": "16 栏、栏距 0、外距 64px，12 块面积不等、最大 7 栏最小 2 栏，裁切边按 4 至 14px 写死值错开并外出血 24px，凸起只在左上——边界由错位与出血量区分。",
+  "claims": [
+   {
+    "raw": "64",
+    "n": 64,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S28-jazz-intaglio-wall",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 6,
+    "hintText": "字段 5：16 栏、栏距 0、外距 64px、基线 8px；12 块 7:5:4:3；错位 4–14px 逐块写死（.blk--cN，收窄档",
+    "hits": [
+     {
+      "line": 6,
+      "text": "字段 5：16 栏、栏距 0、外距 64px、基线 8px；12 块 7:5:4:3；错位 4–14px 逐块写死（.blk--cN，收窄档",
+      "byComment": false
+     },
+     {
+      "line": 24,
+      "text": "--outer: 64px;",
+      "byComment": false
+     },
+     {
+      "line": 612,
+      "text": ".row--2 .blk:nth-child(2) { --band: 64px; } .row--2 .blk:nth-child(3) { --band: 40px; }",
+      "byComment": false
+     }
+    ]
+   },
+   {
+    "raw": "14",
+    "n": 14,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S28-jazz-intaglio-wall",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 6,
+    "hintText": "字段 5：16 栏、栏距 0、外距 64px、基线 8px；12 块 7:5:4:3；错位 4–14px 逐块写死（.blk--cN，收窄档",
+    "hits": [
+     {
+      "line": 6,
+      "text": "字段 5：16 栏、栏距 0、外距 64px、基线 8px；12 块 7:5:4:3；错位 4–14px 逐块写死（.blk--cN，收窄档",
+      "byComment": false
+     },
+     {
+      "line": 72,
+      "text": ".skip:focus { width: auto; height: auto; clip-path: none; background: var(--plum); color: var(--",
+      "byComment": false
+     },
+     {
+      "line": 150,
+      "text": ".mini--b { --mis: 14px; }",
+      "byComment": false
+     },
+     {
+      "line": 191,
+      "text": ".blk--c13 { --mis: 13px; } .blk--c14 { --mis: 14px; }",
+      "byComment": false
+     },
+     {
+      "line": 333,
+      "text": ".wall.is-gear2 .blk--c13, .wall.is-gear2 .blk--c14 { --mis: 5px; }",
+      "byComment": false
+     },
+     {
+      "line": 148,
+      "text": "/* 前三块错位拼贴的错位量各自写死（与 12 块同一套值：4 / 14 / 6） */",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "24",
+    "n": 24,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S28-jazz-intaglio-wall",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 7,
+    "hintText": ".blk--nN）；出血 24px。字段 6：0.5–1px 凹版重压（左上单向）／裁切错位（露 #0B0D12）／出血 24px／",
+    "hits": [
+     {
+      "line": 7,
+      "text": ".blk--nN）；出血 24px。字段 6：0.5–1px 凹版重压（左上单向）／裁切错位（露 #0B0D12）／出血 24px／",
+      "byComment": false
+     },
+     {
+      "line": 11,
+      "text": "纵向叠放、出血转到上方 24px、顶部横带 40–90px、标题 40px。契约 §9.2／§9.16 纹理只挂伪元素；",
+      "byComment": false
+     },
+     {
+      "line": 20,
+      "text": "--bleed: 24px;",
+      "byComment": false
+     },
+     {
+      "line": 201,
+      "text": ".row--3 .blk:nth-child(2) .speck { right: 24px; bottom: 39px; }",
+      "byComment": false
+     },
+     {
+      "line": 553,
+      "text": "/* === <768px：12 块纵向叠放，裁切错位完整保留，出血方向转到上方并保留 24px， 每块顶部留 40–90px 横带余量（逐块写死），标题降到 40px */",
+      "byComment": true
+     },
+     {
+      "line": 630,
+      "text": "/* 速率错动与分段推出停止推进，但裁切拼贴机制完整静态保留： 12 块的 4–14px 错位、24px 出血、左上单向 0.5–1px 边缘高光全部按原值呈现。 */",
+      "byComment": true
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "S29",
+  "file": "S29-wire-bound-safety-manual/style.css",
+  "mechanism": "左缘 72px 内 3px 穿孔按 18px 间距排一列、1.2px 环线穿过，章节号挂栏外占 48px 宽，规格表下沉 18px 并右出血 96px——归属由编号位与出血方向给出。",
+  "claims": [
+   {
+    "raw": "72",
+    "n": 72,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S29-wire-bound-safety-manual",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 75,
+    "hintText": "position:fixed;left:0;top:0;bottom:0;width:72px;z-index:6;pointer-events:none;",
+    "hits": [
+     {
+      "line": 75,
+      "text": "position:fixed;left:0;top:0;bottom:0;width:72px;z-index:6;pointer-events:none;",
+      "byComment": false
+     },
+     {
+      "line": 76,
+      "text": "background-image:var(--wire);background-size:72px 18px;background-repeat:repeat-y;",
+      "byComment": false
+     },
+     {
+      "line": 322,
+      "text": ".foot{padding:56px 0 72px}",
+      "byComment": false
+     },
+     {
+      "line": 334,
+      "text": ".haz{height:72px}",
+      "byComment": false
+     },
+     {
+      "line": 16,
+      "text": "/* 栅格：基础 6px、10 栏、栏距 18px、外距 56px、装订边距 72px、规格表出血 96px */",
+      "byComment": true
+     },
+     {
+      "line": 103,
+      "text": "/* ── 版心：外距 56px + 装订边距 72px；右侧留 96px 出血位 ── */",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "3",
+    "n": 3,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S29-wire-bound-safety-manual",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 47,
+    "hintText": "h3{font-size:clamp(21px,1.6vw,27px)}",
+    "hits": [
+     {
+      "line": 47,
+      "text": "h3{font-size:clamp(21px,1.6vw,27px)}",
+      "byComment": false
+     },
+     {
+      "line": 55,
+      "text": "a{color:inherit;text-decoration:underline;text-decoration-color:var(--amber);text-underline-offs",
+      "byComment": false
+     },
+     {
+      "line": 82,
+      "text": ".topbar::after{content:'';position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--",
+      "byComment": false
+     },
+     {
+      "line": 89,
+      "text": ".hud__fault code{text-decoration:underline;text-decoration-color:var(--amber);text-underline-off",
+      "byComment": false
+     },
+     {
+      "line": 27,
+      "text": "/* 钢丝圈：3px 穿孔（间距 18px）+ 1.2px 钢丝 + 0.5px 单向高光 + 6px 纸张切边 */",
+      "byComment": true
+     },
+     {
+      "line": 29,
+      "text": "/* 640–899px：钢丝圈改成顶部穿孔条，仍保留 3px 圈位与 18px 间距 */",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "18",
+    "n": 18,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S29-wire-bound-safety-manual",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 18,
+    "hintText": "--gutter:18px;",
+    "hits": [
+     {
+      "line": 18,
+      "text": "--gutter:18px;",
+      "byComment": false
+     },
+     {
+      "line": 76,
+      "text": "background-image:var(--wire);background-size:72px 18px;background-repeat:repeat-y;",
+      "byComment": false
+     },
+     {
+      "line": 78,
+      "text": ".strip{display:none;height:28px;background-image:var(--strip);background-size:18px 28px;backgrou",
+      "byComment": false
+     },
+     {
+      "line": 16,
+      "text": "/* 栅格：基础 6px、10 栏、栏距 18px、外距 56px、装订边距 72px、规格表出血 96px */",
+      "byComment": true
+     },
+     {
+      "line": 27,
+      "text": "/* 钢丝圈：3px 穿孔（间距 18px）+ 1.2px 钢丝 + 0.5px 单向高光 + 6px 纸张切边 */",
+      "byComment": true
+     },
+     {
+      "line": 29,
+      "text": "/* 640–899px：钢丝圈改成顶部穿孔条，仍保留 3px 圈位与 18px 间距 */",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "1.2",
+    "n": 1.2,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S29-wire-bound-safety-manual",
+    "status": "derived",
+    "displayOnly": false,
+    "why": "在注释里说明，生效值由别处推得",
+    "hintFile": null,
+    "hintLine": 27,
+    "hintText": "/* 钢丝圈：3px 穿孔（间距 18px）+ 1.2px 钢丝 + 0.5px 单向高光 + 6px 纸张切边 */",
+    "hits": [
+     {
+      "line": 27,
+      "text": "/* 钢丝圈：3px 穿孔（间距 18px）+ 1.2px 钢丝 + 0.5px 单向高光 + 6px 纸张切边 */",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "48",
+    "n": 48,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S29-wire-bound-safety-manual",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 123,
+    "hintText": "display:inline-block;min-height:48px;padding:0 22px;border:0;border-radius:0;",
+    "hits": [
+     {
+      "line": 123,
+      "text": "display:inline-block;min-height:48px;padding:0 22px;border:0;border-radius:0;",
+      "byComment": false
+     },
+     {
+      "line": 125,
+      "text": "font-family:var(--text);font-size:16px;line-height:48px;letter-spacing:.01em;",
+      "byComment": false
+     },
+     {
+      "line": 164,
+      "text": "position:absolute;left:-56px;top:22px;width:48px;margin:0;text-align:right;",
+      "byComment": false
+     },
+     {
+      "line": 234,
+      "text": "height:48px;padding:0 14px;border:0;border-bottom:3px solid var(--gray);border-radius:0;",
+      "byComment": false
+     },
+     {
+      "line": 301,
+      "text": ".sheet{--pl:112px;--pr:64px;--bl:48px}",
+      "byComment": false
+     },
+     {
+      "line": 299,
+      "text": "/* ── 900–1279px：规格表折进正文下方，出血收到 48px ── */",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "96",
+    "n": 96,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S29-wire-bound-safety-manual",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 59,
+    "hintText": ".sheet{position:relative;--pl:128px;--pr:120px;--bl:96px}",
+    "hits": [
+     {
+      "line": 59,
+      "text": ".sheet{position:relative;--pl:128px;--pr:120px;--bl:96px}",
+      "byComment": false
+     },
+     {
+      "line": 142,
+      "text": ".haz{height:96px;background-image:var(--hz);background-size:22.63px 22.63px;background-repeat:re",
+      "byComment": false
+     },
+     {
+      "line": 16,
+      "text": "/* 栅格：基础 6px、10 栏、栏距 18px、外距 56px、装订边距 72px、规格表出血 96px */",
+      "byComment": true
+     },
+     {
+      "line": 103,
+      "text": "/* ── 版心：外距 56px + 装订边距 72px；右侧留 96px 出血位 ── */",
+      "byComment": true
+     },
+     {
+      "line": 153,
+      "text": "/* ── 章节：正文 5 栏 + 规格表 5 栏，规格表下沉 18px 并向右出血 96px ── */",
+      "byComment": true
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "S30",
+  "file": "S30-skate-sticker-split/style.css",
+  "mechanism": "版面沿 −32° 对切成两半，斜切带高 96px、下半错开 9px，缺口宽 6 至 28px、深 2 至 9px，1.5px 白带 55% 至 70%——先后由错位量与深度给出。",
+  "claims": [
+   {
+    "raw": "96",
+    "n": 96,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S30-skate-sticker-split",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 8,
+    "hintText": "字段 5 布局：对角对切。−32deg（1440×900）、96px 斜切色带、两半错位 9px、",
+    "hits": [
+     {
+      "line": 8,
+      "text": "字段 5 布局：对角对切。−32deg（1440×900）、96px 斜切色带、两半错位 9px、",
+      "byComment": false
+     },
+     {
+      "line": 27,
+      "text": "--band-h: 96px;",
+      "byComment": false
+     },
+     {
+      "line": 111,
+      "text": "padding: 84px 32px 96px;",
+      "byComment": false
+     },
+     {
+      "line": 146,
+      "text": "padding: 104px 0 96px;",
+      "byComment": false
+     },
+     {
+      "line": 243,
+      "text": "content: \"\"; position: absolute; left: 8px; top: 8px; width: 320px; height: 96px;",
+      "byComment": false
+     },
+     {
+      "line": 245,
+      "text": "background-size: 320px 96px; background-repeat: no-repeat;",
+      "byComment": false
+     }
+    ]
+   },
+   {
+    "raw": "9",
+    "n": 9,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S30-skate-sticker-split",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 8,
+    "hintText": "字段 5 布局：对角对切。−32deg（1440×900）、96px 斜切色带、两半错位 9px、",
+    "hits": [
+     {
+      "line": 8,
+      "text": "字段 5 布局：对角对切。−32deg（1440×900）、96px 斜切色带、两半错位 9px、",
+      "byComment": false
+     },
+     {
+      "line": 28,
+      "text": "--mis: 9px;",
+      "byComment": false
+     },
+     {
+      "line": 49,
+      "text": "字距 0.01em：不给 ≤14px 的大写文本加宽字距，避开 micro-label（契约 §9.9） */",
+      "byComment": false
+     },
+     {
+      "line": 67,
+      "text": "position: absolute; left: 12px; top: 12px; z-index: 9;",
+      "byComment": false
+     },
+     {
+      "line": 89,
+      "text": ".bk { font-size: 13px; color: #B9B9B9; }",
+      "byComment": false
+     },
+     {
+      "line": 48,
+      "text": "/* 等宽只出现在 <code> 里：monoProseShare 必须是 0（契约 §9.8）",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "28",
+    "n": 28,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S30-skate-sticker-split",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 117,
+    "hintText": ".cue { margin-top: 28px; }",
+    "hits": [
+     {
+      "line": 117,
+      "text": ".cue { margin-top: 28px; }",
+      "byComment": false
+     },
+     {
+      "line": 272,
+      "text": "list-style: none; margin: 34px 0 0; padding: 26px 28px 28px; display: grid; gap: 14px; max-width",
+      "byComment": false
+     },
+     {
+      "line": 290,
+      "text": ".glyphs { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 32px; background: var(--paper-l",
+      "byComment": false
+     },
+     {
+      "line": 404,
+      "text": ".cut__col--a { margin-bottom: 28px; }",
+      "byComment": false
+     },
+     {
+      "line": 437,
+      "text": ".cut__col--b { margin-top: 28px; transform: translate(var(--mis), calc(var(--mis) + var(--push))",
+      "byComment": false
+     },
+     {
+      "line": 447,
+      "text": ".masthead { grid-template-columns: 1fr; gap: 28px; padding: 48px 20px 44px; }",
+      "byComment": false
+     }
+    ]
+   },
+   {
+    "raw": "1.5",
+    "n": 1.5,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S30-skate-sticker-split",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 218,
+    "hintText": ".sticker__b::after { content: \"\"; display: block; margin-top: 12px; width: 82%; height: 1.5px; b",
+    "hits": [
+     {
+      "line": 218,
+      "text": ".sticker__b::after { content: \"\"; display: block; margin-top: 12px; width: 82%; height: 1.5px; b",
+      "byComment": false
+     },
+     {
+      "line": 253,
+      "text": "带身画在伪元素上：本体保持 24px 高，避免 1.5px 的实体元素被当成 hairline */",
+      "byComment": false
+     },
+     {
+      "line": 256,
+      "text": "content: \"\"; position: absolute; left: 0; top: 12px; width: 62%; height: 1.5px;",
+      "byComment": false
+     },
+     {
+      "line": 444,
+      "text": ".sticker__b::after { height: 1.5px; width: 68%; }",
+      "byComment": false
+     },
+     {
+      "line": 217,
+      "text": "/* 背胶残迹：1.5px 白带，点击时变浓 5%（100ms） */",
+      "byComment": true
+     },
+     {
+      "line": 252,
+      "text": "/* 背胶残迹带：1.5px，不透明度 55%–70%，赛两段叠出疏密（不用模糊）",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "55",
+    "n": 55,
+    "unit": "%",
+    "kind": "pct",
+    "_dir": "S30-skate-sticker-split",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 260,
+    "hintText": ".tear__glue--thin::before { width: 38%; opacity: 0.55; }",
+    "hits": [
+     {
+      "line": 260,
+      "text": ".tear__glue--thin::before { width: 38%; opacity: 0.55; }",
+      "byComment": false
+     },
+     {
+      "line": 481,
+      "text": ".st--green .sticker__b::after { opacity: 0.55; }",
+      "byComment": false
+     },
+     {
+      "line": 252,
+      "text": "/* 背胶残迹带：1.5px，不透明度 55%–70%，赛两段叠出疏密（不用模糊）",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "70",
+    "n": 70,
+    "unit": "%",
+    "kind": "pct",
+    "_dir": "S30-skate-sticker-split",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 257,
+    "hintText": "background: var(--white); opacity: 0.7;",
+    "hits": [
+     {
+      "line": 257,
+      "text": "background: var(--white); opacity: 0.7;",
+      "byComment": false
+     },
+     {
+      "line": 442,
+      "text": ".sticker:nth-of-type(4) { --sw: 70%; }",
+      "byComment": false
+     },
+     {
+      "line": 464,
+      "text": ".tear__glue::before { width: 70%; }",
+      "byComment": false
+     },
+     {
+      "line": 480,
+      "text": ".sticker__b::after { opacity: 0.7; }",
+      "byComment": false
+     },
+     {
+      "line": 252,
+      "text": "/* 背胶残迹带：1.5px，不透明度 55%–70%，赛两段叠出疏密（不用模糊）",
+      "byComment": true
+     },
+     {
+      "line": 460,
+      "text": "/* 四栏在 390px 会把每格挤到 70px：缺口一列的数字下面那条注里还在，这里让位给角度与错位 */",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "32",
+    "n": 32,
+    "unit": "°",
+    "kind": "deg",
+    "_dir": "S30-skate-sticker-split",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 8,
+    "hintText": "字段 5 布局：对角对切。−32deg（1440×900）、96px 斜切色带、两半错位 9px、",
+    "hits": [
+     {
+      "line": 8,
+      "text": "字段 5 布局：对角对切。−32deg（1440×900）、96px 斜切色带、两半错位 9px、",
+      "byComment": false
+     },
+     {
+      "line": 26,
+      "text": "--cut: -32deg;",
+      "byComment": false
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "S31",
+  "file": "S31-quiet-mid-grey-rulesheet/style.css",
+  "mechanism": "一条横向尺规把版面切成上中下三段：主刻度每 60px、长 34px、3px 宽，次刻度每 12px、长 12px、2px 宽，上下各一排共用两条贯穿基线——刻度既做读数骨架也顶掉图片的位置。",
+  "claims": [
+   {
+    "raw": "60",
+    "n": 60,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S31-quiet-mid-grey-rulesheet",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 113,
+    "hintText": "repeating-linear-gradient(to right, var(--ink) 0 1.5px, transparent 1.5px 60px);",
+    "hits": [
+     {
+      "line": 113,
+      "text": "repeating-linear-gradient(to right, var(--ink) 0 1.5px, transparent 1.5px 60px);",
+      "byComment": false
+     },
+     {
+      "line": 573,
+      "text": "只是不再随滚动变化。数值保留：60px 主刻度、12px 次刻度。 */",
+      "byComment": false
+     },
+     {
+      "line": 582,
+      "text": "repeating-linear-gradient(to right, var(--ink) 0 2px, transparent 2px 60px);",
+      "byComment": false
+     }
+    ]
+   },
+   {
+    "raw": "34",
+    "n": 34,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S31-quiet-mid-grey-rulesheet",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 108,
+    "hintText": "height: 34px;",
+    "hits": [
+     {
+      "line": 108,
+      "text": "height: 34px;",
+      "byComment": false
+     },
+     {
+      "line": 551,
+      "text": "h1 { font-size: clamp(34px, 9vw, 56px); }",
+      "byComment": false
+     },
+     {
+      "line": 567,
+      "text": ".quote-list li { padding-left: 34px; }",
+      "byComment": false
+     }
+    ]
+   },
+   {
+    "raw": "3",
+    "n": 3,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S31-quiet-mid-grey-rulesheet",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 261,
+    "hintText": "padding: 3px 8px;",
+    "hits": [
+     {
+      "line": 261,
+      "text": "padding: 3px 8px;",
+      "byComment": false
+     },
+     {
+      "line": 13,
+      "text": "* 但 depth-check 报 `contrast FAIL 1:1` 与 `grey-body WARN 3:1`。",
+      "byComment": true
+     },
+     {
+      "line": 15,
+      "text": "*   #7A756C + #1C1B19 = 3.76:1；#6E6A63 + #1C1B19 = 3.20:1；",
+      "byComment": true
+     },
+     {
+      "line": 19,
+      "text": "* 实测扫了一遍：#5F5B55（HSL 36/6/35，Lab 38.8，仍是中间明度）配 #DEDAD3 = 4.84:1，",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "12",
+    "n": 12,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S31-quiet-mid-grey-rulesheet",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 65,
+    "hintText": "position: fixed; left: 12px; top: 12px; width: auto; height: auto;",
+    "hits": [
+     {
+      "line": 65,
+      "text": "position: fixed; left: 12px; top: 12px; width: auto; height: auto;",
+      "byComment": false
+     },
+     {
+      "line": 112,
+      "text": "repeating-linear-gradient(to right, var(--rule) 0 1px, transparent 1px 12px),",
+      "byComment": false
+     },
+     {
+      "line": 161,
+      "text": "margin: 0 0 12px;",
+      "byComment": false
+     },
+     {
+      "line": 209,
+      "text": "padding: 12px 14px;",
+      "byComment": false
+     },
+     {
+      "line": 225,
+      "text": ".actions { display: flex; gap: 12px; flex-wrap: wrap; margin: 0 0 56px; }",
+      "byComment": false
+     },
+     {
+      "line": 294,
+      "text": "padding: 12px 14px;",
+      "byComment": false
+     }
+    ]
+   },
+   {
+    "raw": "2",
+    "n": 2,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S31-quiet-mid-grey-rulesheet",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 27,
+    "hintText": "所以分隔线一律用 2px 或用 --ink-soft 的 1px（4.84:1）*/",
+    "hits": [
+     {
+      "line": 27,
+      "text": "所以分隔线一律用 2px 或用 --ink-soft 的 1px（4.84:1）*/",
+      "byComment": false
+     },
+     {
+      "line": 565,
+      "text": ".case-list dt { padding-bottom: 2px; border-top: 1px solid var(--rule-strong); }",
+      "byComment": false
+     },
+     {
+      "line": 571,
+      "text": "机制的再发明形式：动效阶段刻度随滚动逐段加粗（1px → 2px）；",
+      "byComment": false
+     },
+     {
+      "line": 572,
+      "text": "reduce 时整条尺规一次性到 2px 满格，保留\"这里有一把尺\"这一事实，",
+      "byComment": false
+     },
+     {
+      "line": 581,
+      "text": "repeating-linear-gradient(to right, var(--ink) 0 2px, transparent 2px 12px),",
+      "byComment": false
+     },
+     {
+      "line": 20,
+      "text": "* 配 #F2F0EC = 5.92:1。所以底色降到这一档，文字改浅。",
+      "byComment": true
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "S32",
+  "file": "S32-violet-card-cabinet/style.css",
+  "mechanism": "三条通道先选一条再展开：通道头宽度按编号位数分 74/96/118px 三档，选中后该通道的卡片区才出现，未选中的两条只留一行标题——选通道在选内容之前，与「一个大网格摊开所有选项」相反。",
+  "claims": [
+   {
+    "raw": "118",
+    "n": 118,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S32-violet-card-cabinet",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 167,
+    "hintText": ".drawer-tab.t3 { min-width: 118px; }",
+    "hits": [
+     {
+      "line": 167,
+      "text": ".drawer-tab.t3 { min-width: 118px; }",
+      "byComment": false
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "S33",
+  "file": "S33-teal-mirror-ledger/style.css",
+  "mechanism": "左右镜像对账：左栏是用户原话、右栏是落进合同的数，中间一条 1px 竖线对穿；左栏宽度分三档 0.8fr/1fr/1.3fr 按原话长短走，右栏永远等宽——说话的每次不一样，记账的格式不变。窄档镜像改成上下对照，竖线转成横线。",
+  "claims": [
+   {
+    "raw": "1",
+    "n": 1,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S33-teal-mirror-ledger",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 44,
+    "hintText": ".skip { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: in",
+    "hits": [
+     {
+      "line": 44,
+      "text": ".skip { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: in",
+      "byComment": false
+     },
+     {
+      "line": 107,
+      "text": "border-top: 1px solid var(--rule);",
+      "byComment": false
+     },
+     {
+      "line": 112,
+      "text": "grid-template-columns: 1fr 1px 1fr;",
+      "byComment": false
+     },
+     {
+      "line": 8,
+      "text": "* 对比度实测：正文 #F2F6F5 对底 5.65:1，次级 #D8E4E2 4.72:1，",
+      "byComment": true
+     },
+     {
+      "line": 9,
+      "text": "* 结构线 #A8C0BD 3.21:1（非文本满足 3:1）。深色块 #2F4744 对底 1.62 但",
+      "byComment": true
+     },
+     {
+      "line": 10,
+      "text": "* 对浅字 9.15:1 —— 它是文字载体不是分隔线，所以不受 3:1 约束。",
+      "byComment": true
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "S34",
+  "file": "S34-graphite-zero-photo-index/style.css",
+  "mechanism": "七块文字各不共享基线：左缩进分 0/3/5.5/2/7/4/1% 七档，按每块的文字重量分配——字少的浮得远、字多的沉得近；窄档缩进归零，改由块间距 98/58/72px 三档承担同一层悬浮感。全页零位图。",
+  "claims": [
+   {
+    "raw": "72",
+    "n": 72,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S34-graphite-zero-photo-index",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 222,
+    "hintText": ".drift-block { margin-bottom: 72px; }",
+    "hits": [
+     {
+      "line": 222,
+      "text": ".drift-block { margin-bottom: 72px; }",
+      "byComment": false
+     }
+    ]
+   },
+   {
+    "raw": "1",
+    "n": 1,
+    "unit": "%",
+    "kind": "pct",
+    "_dir": "S34-graphite-zero-photo-index",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 21,
+    "hintText": "--lh-body: 1.78;",
+    "hits": [
+     {
+      "line": 21,
+      "text": "--lh-body: 1.78;",
+      "byComment": false
+     },
+     {
+      "line": 41,
+      "text": ".skip { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: in",
+      "byComment": false
+     },
+     {
+      "line": 57,
+      "text": "h1 {",
+      "byComment": false
+     },
+     {
+      "line": 61,
+      "text": "line-height: 1.02;",
+      "byComment": false
+     },
+     {
+      "line": 69,
+      "text": "line-height: 1.72;",
+      "byComment": false
+     },
+     {
+      "line": 8,
+      "text": "* 对比度：正文 #EBEEF0 对底 11.41:1；次级 #A8AFB5 4.9:1；线 #6E767C 3.1:1。",
+      "byComment": true
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "S35",
+  "file": "S35-ash-newsprint-flip/style.css",
+  "mechanism": "整页是一台机器的输出窗口：七条命令各占一块，命令行前面有 $ 提示符、输出行缩进 22px 跟在后面，命令与输出之间没有分隔线——靠缩进与提示符区分；警告行用 3px 左边框而不是横线。",
+  "claims": [
+   {
+    "raw": "22",
+    "n": 22,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S35-ash-newsprint-flip",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 70,
+    "hintText": "margin: 0 0 22px;",
+    "hits": [
+     {
+      "line": 70,
+      "text": "margin: 0 0 22px;",
+      "byComment": false
+     },
+     {
+      "line": 78,
+      "text": "margin: 0 0 22px;",
+      "byComment": false
+     },
+     {
+      "line": 128,
+      "text": "margin: 0 0 0 22px;",
+      "byComment": false
+     },
+     {
+      "line": 160,
+      "text": ".notes-lead { font-size: 16px; color: var(--ink-mid); max-width: 48ch; margin: 0 0 22px; }",
+      "byComment": false
+     },
+     {
+      "line": 182,
+      "text": "padding: 20px 22px;",
+      "byComment": false
+     },
+     {
+      "line": 7,
+      "text": "* 对比度：正文 #1A1E22 对底 12.63:1；次级 #454C53 8.1:1；",
+      "byComment": true
+     }
+    ]
+   },
+   {
+    "raw": "3",
+    "n": 3,
+    "unit": "px",
+    "kind": "len",
+    "_dir": "S35-ash-newsprint-flip",
+    "status": "direct",
+    "displayOnly": false,
+    "why": "CSS 里直接写着",
+    "hintFile": null,
+    "hintLine": 147,
+    "hintText": "border-left: 3px solid var(--ink);",
+    "hits": [
+     {
+      "line": 147,
+      "text": "border-left: 3px solid var(--ink);",
+      "byComment": false
+     },
+     {
+      "line": 154,
+      "text": ".plate img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; ",
+      "byComment": false
+     },
+     {
+      "line": 186,
+      "text": ".error-code { font-family: var(--font-num); font-size: 13px; letter-spacing: .1em; white-space: ",
+      "byComment": false
+     },
+     {
+      "line": 194,
+      "text": ".foot-col { display: flex; flex-direction: column; gap: 3px; }",
+      "byComment": false
+     },
+     {
+      "line": 195,
+      "text": ".foot-k { font-family: var(--font-head); font-size: 14px; color: var(--ink-mid); margin-bottom: ",
+      "byComment": false
+     },
+     {
+      "line": 9,
+      "text": "* 细线一律用 #8A939C = 3.2:1 满足非文本）。",
+      "byComment": true
+     }
+    ]
+   }
+  ]
+ }
+]

@@ -72,6 +72,19 @@ jobs:
       - name: check-scenes 自检（7 条内存变异）
         run: node prototypes/_build/check-scenes.mjs --selftest
 
+      # 出处完整性（Q3 新增）：机制句里 141 个带单位的数值，逐个定位到实现行号。
+      # 它抓到的是此前没有任何闸门能抓的一类缺陷：**页面展示了实现里不存在的参数**。
+      # 首轮实测 129 direct / 7 derived / 2 media / 3 missing（97.9% 可回溯），
+      # 那 3 条 missing 是真缺陷，会在这里红 —— 修好之前这道闸门红着，这是对的。
+      - name: 生成出处（build-provenance）
+        run: node prototypes/_prompts/build-provenance.mjs
+
+      - name: check-provenance（出处完整性）
+        run: node prototypes/_build/check-provenance.mjs
+
+      - name: check-provenance 自检（7 条内存变异）
+        run: node prototypes/_build/check-provenance.mjs --selftest
+
       - name: collect-schemes --check（数据完整性，不写盘）
         run: node prototypes/_build/collect-schemes.mjs --check
 
