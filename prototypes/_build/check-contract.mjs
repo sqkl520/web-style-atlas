@@ -117,15 +117,32 @@ function caseFails() {
     .filter((d) => d.isDirectory() && /^S\d{2}-/.test(d.name))
     .map((d) => d.name)
     .sort();
+  /* \u6BCF\u6848\u7684 minPics\uFF08\u8BBE\u8BA1\u610F\u56FE\uFF09\u2014\u2014 \u7528\u6765\u5224\u300C\u6761\u4EF6\u8C41\u514D\u300D\u662F\u5426\u6210\u7ACB\u3002
+   *
+   * \u4E3A\u4EC0\u4E48 C1 \u9700\u8981\u5B83\uFF1A2026-11-10 \u5728 \u00A79.15 \u52A0\u4E86\u4E24\u6761**\u6709\u6761\u4EF6**\u7684\u8C41\u514D
+   * \uFF08`few-pictures` / `hairline`\uFF0C\u6761\u4EF6\u90FD\u662F `capacity.minPics \u2264 2`\uFF09\u3002
+   * \u5982\u679C C1 \u53EA\u6309\u89C4\u5219\u540D\u67E5\u8868\uFF0C\u90A3\u8FD9\u4E24\u6761\u5C31\u53D8\u6210\u4E86**\u5BF9\u5168\u5E93\u5F00\u653E**\u7684\u53E3\u5B50 \u2014\u2014
+   * \u4EFB\u4F55\u4E00\u4E2A"\u56FE\u592A\u5C11"\u6216"\u7EBF\u592A\u591A"\u7684\u6848\u5B50\u90FD\u80FD\u8EB2\u8FDB\u53BB\uFF0C\u5305\u62EC\u672C\u4E0D\u8BE5\u88AB\u8C41\u514D\u7684\u3002
+   * \u6240\u4EE5\u8C41\u514D\u5FC5\u987B\u4E0E\u6761\u4EF6\u4E00\u8D77\u5B9E\u73B0\uFF0C\u5426\u5219"\u52A0\u4E86\u8C41\u514D"\u548C"\u5173\u6389\u4E86\u68C0\u67E5"\u662F\u540C\u4E00\u4EF6\u4E8B\u3002
+   *
+   * \u6570\u636E\u6765\u6E90\u4E0E `build-prompts.mjs` \u540C\u6E90\uFF08`minitems-parsed.json`\uFF09\uFF0C
+   * \u7F3A\u8BE5\u6848\u65F6\u89C6\u4E3A**\u4E0D\u6EE1\u8DB3\u6761\u4EF6**\uFF08\u5B81\u53EF\u62A5\u7EA2\uFF0C\u4E0D\u8981\u9ED8\u8BA4\u653E\u884C\uFF09\u3002 */
+  let minPicsById = {};
+  try {
+    const mj = JSON.parse(readFileSync(join(ROOT, 'prototypes/_prompts/minitems-parsed.json'), 'utf8').replace(/^\uFEFF/, ''));
+    minPicsById = Object.fromEntries(mj.map((x) => [x.id, x.minPics]));
+  } catch { /* \u8BFB\u4E0D\u5230\u5C31\u4E0D\u8C41\u514D\uFF0CC1 \u4F1A\u7167\u5E38\u62A5\u7EA2 */ }
+
   const out = [];
   for (const dir of dirs) {
+    const id = dir.slice(0, 3);
     const rp = join(P, dir, '.inspect', 'report.json');
-    if (!existsSync(rp)) { out.push({ id: dir.slice(0, 3), dir, missing: true, fails: [] }); continue; }
+    if (!existsSync(rp)) { out.push({ id, dir, missing: true, fails: [] }); continue; }
     let j;
     try { j = JSON.parse(readFileSync(rp, 'utf8').replace(/^\uFEFF/, '')); }
-    catch { out.push({ id: dir.slice(0, 3), dir, unreadable: true, fails: [] }); continue; }
+    catch { out.push({ id, dir, unreadable: true, fails: [] }); continue; }
     const fails = (j.findings || []).filter((f) => f.level === 'FAIL');
-    out.push({ id: dir.slice(0, 3), dir, at: j.at, fails });
+    out.push({ id, dir, at: j.at, fails, minPics: minPicsById[id] ?? null });
   }
   return out;
 }
@@ -196,8 +213,28 @@ for (const c of cases) {
   for (const f of c.fails) {
     stats.failTotal++;
     triggered.add(f.id);
-    if (allow.has(f.id)) stats.failAllowed++;
-    else {
+    /* 条件豁免（2026-11-10，Q2）：§9.15 里 `few-pictures` / `hairline` 两条登记时
+     * 带了条件「仅当该案 capacity.minPics ≤ 2」。这里必须把条件真的执行，
+     * 否则"加了豁免"等于"关掉了这两条规则"。
+     *
+     * 判据故意写得窄：
+     *   · 只在 allow 表**含该规则**时才有条件可谈；
+     *   · 条件用 `minPics === null` 判「拿不到数据」⇒ 不豁免（宁可报红）；
+     *   · 只对这两条生效，不写成通用机制 —— 将来加第三条有条件豁免时，
+     *     必须回来在这里加一行，让"新增豁免"这件事在代码里留下痕迹，
+     *     而不是仅仅改文档就静默生效。 */
+    const CONDITIONAL = { 'few-pictures': (mp) => mp !== null && mp <= 2, 'hairline': (mp) => mp !== null && mp <= 2 };
+    const cond = CONDITIONAL[f.id];
+    const condOk = cond ? cond(c.minPics) : null;
+    if (allow.has(f.id) && (condOk === null || condOk === true)) { stats.failAllowed++; if (condOk === true) stats.failAllowedConditional = (stats.failAllowedConditional || 0) + 1; }
+    else if (allow.has(f.id) && condOk === false) {
+      stats.failOutside++;
+      outside.push(c.id);
+      add('FAIL', c.id, 'C1-conditional-exemption-not-met',
+        `FAIL \`${f.id}\` 在 §9.15 表内，但它的豁免条件是「该案 minPics ≤ 2」，` +
+        `而本案 minPics = ${c.minPics} —— 条件不成立，按未豁免处理。` +
+        `原话：${String(f.message || '').slice(0, 70)}`);
+    } else {
       stats.failOutside++;
       outside.push(c.id);
       add('FAIL', c.id, 'C1-fail-not-in-allowlist',
@@ -230,9 +267,25 @@ const engineSrc = existsSync(RULES) ? readFileSync(RULES, 'utf8') : '';
 const canProduceFail = new Map();
 if (engineSrc) {
   for (const rule of allow.keys()) {
-    /* 匹配 add('FAIL', '<rule>' —— 引号可能是单或双 */
-    const re = new RegExp(`add\\(\\s*['"]FAIL['"]\\s*,\\s*['"]${rule.replace(/[-]/g, '\\-')}['"]`);
-    canProduceFail.set(rule, re.test(engineSrc));
+    /* 匹配 `add('FAIL', '<rule>'` —— 引号可能是单或双。
+     *
+     * ⚠️ 2026-11-10（Q2）修一处**假阳性**：原正则要求 FAIL 与规则名**字面相邻**，
+     * 而 `rules.mjs:73` 的写法是三元表达式：
+     *   add(s.hairlines >= 2 ? 'FAIL' : 'WARN', 'hairline', …)
+     * 于是 `hairline` 被 C5 判成「只有 WARN 分支、永远不可能红」——
+     * 而它实际产生了 38 条 FAIL（S31）。
+     * 这条假阳性的方向很坏：它会让读者以为某个豁免是空转的，
+     * 从而**去删掉一条其实正在生效的豁免**。
+     *
+     * 修法：两条判据任一成立就算「可能红」——
+     *   ① FAIL 与规则名字面相邻（原判据，覆盖普通写法）；
+     *   ② 规则名出现的那次 add() 调用里同时出现 'FAIL'（覆盖三元/变量写法）。
+     * 判据 ② 用「该规则名前后 200 字符内是否有 add( 与 'FAIL'」，够窄也够用：
+     * rules.mjs 每条规则的 add() 调用都在一行内完成。 */
+    const esc = rule.replace(/[-]/g, '\\-');
+    const direct = new RegExp(`add\\(\\s*['"]FAIL['"]\\s*,\\s*['"]${esc}['"]`).test(engineSrc);
+    const ternary = new RegExp(`add\\([^;]{0,200}?['"]FAIL['"][^;]{0,200}?['"]${esc}['"]`, 's').test(engineSrc);
+    canProduceFail.set(rule, direct || ternary);
   }
   const impossible = [...canProduceFail.entries()].filter(([, v]) => !v).map(([k]) => k);
   stats.allowImpossible = impossible.length;
