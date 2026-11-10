@@ -989,10 +989,70 @@
    *  3) 若 writeText 也失败，才弹手动框
    * 这样既保住老浏览器，又不会在 exec 假成功时不弹兜底、让用户以为复制成功。
    */
+  /* ── 出处附录（2026-11-11，Q3 第三项）────────────────────────────────
+   *
+   * Q3 的验收是「任取一份提示词，用户能点开看到每个数字的 CSS 出处」。
+   * 数据在 `provenance.js`（由 build-provenance.mjs 从 style.css/index.html 实测扫描生成）。
+   *
+   * 【为什么默认不附，要做成可勾选】
+   * 提示词是给 AI 读的施工说明。把 40 行「第 N 行写着 24px」贴在末尾，
+   * AI 会开始解释这些行号，而不是照着做 —— 输出质量反而下降。
+   * 出处是**给人核对的**，不是给 AI 看的。所以：
+   *   · 默认不附 → 用户复制到的是干净的施工说明；
+   *   · 勾了才附 → 用户想自己核「这数是真的吗」时有一份可对账的清单。
+   *
+   * 【为什么单独一个按钮而不是塞进同一个复制】
+   * 复制的动作要快（点一下就走），核对的动作用户愿意多点一步。
+   * 合成一个按钮的话，"附不附出处"就变成了复制前的犹豫，而那一步不该有。
+   *
+   * 【状态标注】
+   * 每个数值后面标它的状态，因为"找到"有三种不同的含义：
+   *   （直接）   CSS 里写着这个数
+   *   （换算）   由几何声明换算，不是直接写的
+   *   （资源）   载体是位图/字体，不在 CSS
+   *   （未定位） 我没找到 —— 这不一定是缺陷，但值得你自己看一眼
+   * 不区分这四种，用户会以为"没标"= "没问题"，而恰恰相反。
+   */
+  function buildProvenanceAppendix(id) {
+    var all = window.PROVENANCE || [];
+    var rec = null;
+    for (var i = 0; i < all.length; i++) if (all[i].id === id) { rec = all[i]; break; }
+    if (!rec || !rec.claims || !rec.claims.length) return "";
+
+    var LABEL = { direct: "直接", derived: "换算", media: "资源", missing: "未定位" };
+    var lines = rec.claims.map(function (c) {
+      var where = c.l ? (c.f || rec.file) + " 第 " + c.l + " 行" : "本次未定位到";
+      var st = LABEL[c.s] || c.s;
+      return "  " + c.v.padEnd(8) + "  " + st.padEnd(6) + "  " + where;
+    });
+
+    /* 只写"可核对的位置"，不解释、不总结 —— 与提示词正文同一个原则：
+     * 给事实，不给判断。 */
+    return [
+      "",
+      "—".repeat(20),
+      "下面这段是给出处的，不是给 AI 看的。核对完可以删掉再粘：",
+      "",
+      "本案 " + rec.file + " 里的实测位置（" + rec.claims.length + " 个数值）：",
+    ].concat(lines).join("\n");
+  }
+
+  /* 把出处附加到提示词末尾。单独一个入口，由按钮调用。 */
+  function copyPromptWithProvenance(id, btn, opts) {
+    var base = buildPrompt(id, opts);
+    if (!base) return;
+    var text = base + "\n" + buildProvenanceAppendix(id);
+    copyText(text, btn, "提示词与出处已一起复制");
+  }
+
   function copyPrompt(id, btn, opts) {
     var text = buildPrompt(id, opts);
     if (!text) return;
+    copyText(text, btn, "提示词已复制到剪贴板");
+  }
 
+  /* 复制一段文本并给反馈。两个入口（纯提示词 / 提示词+出处）共用。 */
+  function copyText(text, btn, okMsg) {
     var done = function (ok) {
       if (btn) {
         var old = btn.textContent;
@@ -1002,7 +1062,7 @@
         /* 按钮文字的变化不会触发播报 —— 焦点不在它身上，它也不是 live region。
            2026-11-04：给每次复制挂一个短命的 role=status 节点，
            让屏读器听到「已复制」，而不是只看到按钮字变了。 */
-        announce(ok ? "提示词已复制到剪贴板" : "自动复制失败，已打开手动复制框");
+        announce(ok ? okMsg : "自动复制失败，已打开手动复制框");
       }
       if (!ok) showManual(text);
     };
@@ -1233,6 +1293,37 @@
     note.textContent = "填了直接进提示词开头；不填也能复制，开头会写「开头两行要你自己填（我不知道你做什么生意）」并留下 ＿＿ 待填横线，不会替你编一门生意。";
 
     row.appendChild(b);
+
+    /* ── 「附出处」按钮（2026-11-11，Q3 第三项）──────────────────────────
+     *
+     * 为什么是第二个按钮而不是一个复选框：复选框在 560px 面板里要额外一行，
+     * 而且"勾了才生效"的控件在快速的复制动作里容易被忽略 ——
+     * 用户点了主按钮就走了，永远不知道还有出处可看。做成同级按钮，
+     * 两个动作一眼都在。
+     *
+     * 为什么放在主按钮右边而不是左边：主路径在左（复制），核验在右。
+     * 按钮顺序本身就是优先级声明。
+     *
+     * 无障碍：与主按钮同一套键盘拦截（详情里的行卡会吃掉 Enter），
+     * 且 aria-describedby 指向同一段说明，屏读器听到的上下文一致。 */
+    var pb = document.createElement("button");
+    pb.type = "button";
+    pb.className = "prompt-copy prompt-copy-prov";
+    pb.textContent = "复制并附出处";
+    pb.title = "把每个数值在 CSS 里的位置一起复制，方便你自己核对。粘给 AI 时建议删掉那一段。";
+    pb.setAttribute("aria-describedby", hint.id);
+    pb.addEventListener("click", function (e) {
+      e.stopPropagation();
+      copyPromptWithProvenance(id, pb, readFields());
+    });
+    pb.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") {
+        e.preventDefault(); e.stopPropagation();
+        copyPromptWithProvenance(id, pb, readFields());
+      }
+    });
+    row.appendChild(pb);
+
     row.appendChild(hint);
     wrap.appendChild(row);
     wrap.appendChild(fill);

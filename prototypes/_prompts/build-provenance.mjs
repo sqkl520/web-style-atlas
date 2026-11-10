@@ -72,7 +72,14 @@ function locate(css, claim) {
    * 所以 `\bpx\b` 对 `24px` 是 false、对 `24 px` 才是 true。
    * 第一版就是这么写的，结果 28/34 的数值被判「找不到出处」——
    * 而实测 S01 的 24px 明明在第 26 行的 `--bar: 24px;`。
-   * 正确判据是「单位后面不能再跟字母数字」：`px(?![\w])`。 */
+   * 正确判据是「单位后面不能再跟字母数字」：`px(?![\w])`。
+   *
+   * ⚠️ 但这还不够。2026-11-11 实测第二个错误：S17 的机制句有「6px」，
+   * 而第 53 行是 `clamp(46px, 6vw, 88px)` —— `6vw` 里的 `6` 被当成 `6px` 命中了。
+   * 原因是判据只问「这一行里有 px 吗」，没问「这个数字旁边的单位是 px 吗」。
+   * 修法：单位必须**紧邻**在数值后面（允许中间有空格），
+   * 即 `数值\s*单位` 而不是「数值 与 单位 各自出现在同一行」。
+   * 这条判据同时决定了 search-unit 的形态：它现在要求数值与单位相邻。 */
   const UNIT_PATTERNS = {
     len: [/px(?![\w])/, /mm(?![\w])/],
     pct: [/%/],
@@ -111,7 +118,14 @@ function locate(css, claim) {
     const isComment = /^\s*(\/\*|\*|\/\/)/.test(line);
     // 注释行只在没有生效声明时才算候选 —— 注释是"说明"，不是"实现"
     if (!isComment) {
-      const hasUnit = units.length === 0 || units.some((u) => u.test(line)) || claim.kind === 'pct';
+      /* 「数值 + 紧邻单位」——不是「数值与单位都在这一行」。
+       * 实测反例：S17 第 53 行 `clamp(46px, 6vw, 88px)`，找 `6px` 时
+       * `6` 在 `6vw` 里、`px` 在 `46px`/`88px` 里，分开看都命中，合起来是假阳性。 */
+      const unitJoined = altNums.some((v) => {
+        const vs = String(v).replace('.', '\\.');
+        return units.some((u) => new RegExp(`(?<![\\d.])${vs}\\s*${u.source.replace(/^\\/, '')}`).test(line));
+      });
+      const hasUnit = units.length === 0 || unitJoined || claim.kind === 'pct';
       if (!hasUnit) continue;
       const code = line.split('/*')[0];
       if (!res.some((r) => r.test(code))) continue;
@@ -423,4 +437,38 @@ if (byStatus.media.length) {
   console.log('');
   console.log('media（载体是位图/资源）：');
   for (const { id, c } of byStatus.media) console.log(`  ${id}  ${c.raw}${c.unit}  → L${c.hintLine}`);
+}
+
+/* ── 生成浏览器可读的 provenance.js（2026-11-11，Q3 第三项）───────────────
+ *
+ * 为什么要这一步：dna-provenance.json 是 116 KB —— 它给每个数值存了最多 6 条
+ * **候选**行，那是给人排查用的。而浏览器只需要「一句话 + 一个行号」。
+ *
+ * 裁剪规则：
+ *   · 每个数值只留最终选中的那一行（hintLine / hintFile），不存候选列表；
+ *   · `text` 截到 60 字（提示词里放不下更多，也不该放）；
+ *   · key 缩成单字母（v/s/l/f/t）—— 141 条 × 5 个 key，省一半体积；
+ *   · missing 且没有定位的不带 text（没有可显示的行）。
+ *
+ * 结果 16.6 KB，与 prompts.js（62 KB）比很小，可以直接同步加载。
+ */
+if (!CHECK) {
+  const slim = results.map((r) => ({
+    id: r.id,
+    file: (r.file || '').replace('/style.css', ''),
+    claims: (r.claims || []).map((c) => {
+      const o = { v: c.raw + c.unit, s: c.status };
+      if (c.hintLine) o.l = c.hintLine;
+      if (c.hintFile) o.f = c.hintFile;
+      if (c.status !== 'missing' && c.hintText) o.t = c.hintText.slice(0, 60);
+      return o;
+    }),
+  }));
+  const js = '/* 由 prototypes/_prompts/build-provenance.mjs 生成，勿手改。\n' +
+    '   每个机制句数值在实现里的位置。s 是四态：direct / derived / media / missing。\n' +
+    '   数据源是 style.css 与 index.html 的实测扫描，不是人工抄写。 */\n' +
+    'window.PROVENANCE = ' + JSON.stringify(slim) + ';\n';
+  const outJs = join(P, '_selection/provenance.js');
+  writeFileSync(outJs, js, 'utf8');
+  console.log(`已写 ${outJs}（${(Buffer.byteLength(js) / 1024).toFixed(1)} KB）`);
 }

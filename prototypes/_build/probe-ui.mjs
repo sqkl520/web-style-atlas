@@ -406,6 +406,63 @@ async function runAll(pg) {
     }
     return { ok: true, detail: r.terms + ' 个直连词全部可搜到' };
   });
+
+  /* ── 11. 出处附录：复制出去的内容里必须真的有出处在（Q3）────────────────
+   *
+   * 为什么必须真跑：`buildProvenanceAppendix()` 读的是 `window.PROVENANCE`，
+   * 而那个文件由 `build-provenance.mjs` 生成。任何一环断了 ——
+   * script 标签没加、生成物没进仓库、字段名改了 —— 界面上按钮照样在、照样能点，
+   * 只是复制出来的提示词里没有出处。**静态看代码看不出来。**
+   *
+   * 判据用截获剪贴板：把 writeText 打桩，拿到真实要写的内容再断言。
+   * 这比"点一下按钮看它变没变色"可靠得多 —— 后者只能证明 click 生效了。
+   */
+  await check('provenance-appendix-copied', async () => {
+    await goto('#S17');
+    const r = await pg.eval(`(function(){
+      var out = {};
+      out.hasProv = typeof window.PROVENANCE !== 'undefined' && Array.isArray(window.PROVENANCE);
+      if (!out.hasProv) return { ok:false, want:'window.PROVENANCE 数组', got:'missing', detail:'provenance.js 没加载或格式不对' };
+
+      var s17 = null;
+      for (var i=0;i<window.PROVENANCE.length;i++) if (window.PROVENANCE[i].id==='S17') s17=window.PROVENANCE[i];
+      if (!s17) return { ok:false, want:'S17 的出处记录', got:'missing', detail:'35 案里没有 S17' };
+      out.claims = s17.claims.length;
+      if (!out.claims) return { ok:false, want:'S17 至少 1 条', got:0, detail:'S17 的 claims 是空的' };
+
+      var captured = null;
+      try {
+        Object.defineProperty(navigator, 'clipboard', {
+          value: { writeText: function(t){ captured = t; return Promise.resolve(); } }, configurable: true,
+        });
+      } catch (e) {
+        return { ok:false, want:'可打桩的 clipboard', got:String(e), detail:'' };
+      }
+
+      var pb = document.querySelector('.prompt-copy-prov');
+      if (!pb) return { ok:false, want:'.prompt-copy-prov 按钮', got:'missing', detail:'「复制并附出处」按钮没渲染出来' };
+      pb.click();
+
+      return new Promise(function(res){ setTimeout(function(){
+        if (!captured) return res({ ok:false, want:'剪贴板里有内容', got:'空', detail:'点了按钮但没写入' });
+        res({
+          ok: true,
+          len: captured.length,
+          hasAppendix: /下面这段是给出处的/.test(captured),
+          lineRefs: (captured.match(/第 \\d+ 行/g) || []).length,
+          hasNoTrailing: !/\\s$/.test(captured),
+        });
+      }, 400); });
+    })()`);
+    if (!r.ok) return r;
+    if (!r.hasAppendix) {
+      return { ok: false, want: '含出处附录', got: '无', detail: '复制出去了，但附录没拼进去（PROVENANCE 读到了却没被用上）' };
+    }
+    if (r.lineRefs < 1) {
+      return { ok: false, want: '至少 1 处「第 N 行」', got: r.lineRefs, detail: '附录在，但没有任何行号 —— 定位数据没用上' };
+    }
+    return { ok: true, detail: `附录在，${r.lineRefs} 处行号，共 ${r.len} 字` };
+  });
 }
 
 /* ── 主流程 ─────────────────────────────────────────────────────────── */
@@ -534,6 +591,23 @@ async function runSelftest(pg) {
       from: 'if (_v && _v.direct && _v.direct.indexOf(r.id) >= 0 && hay.indexOf(String(_t).toLowerCase()) < 0) {\n            hay += \' \' + String(_t).toLowerCase();\n          }',
       to: 'if (false && _v && _v.direct && _v.direct.indexOf(r.id) >= 0) {\n            hay += \' \' + String(_t).toLowerCase();\n          }',
       note: '关掉同义词展开（潮牌能点不能搜）',
+    },
+    /* ── Q3：出处附录的变异 ────────────────────────────────────────────
+     * 这条守的是「按钮在、能点、但复制出去的东西里没有出处」这个失败模式。
+     * 它比"按钮没渲染"更隐蔽 —— 界面上看不出任何异常。 */
+    {
+      name: 'provenance-appendix-copied',
+      file: 'prototypes/_selection/prompt-copy.js',
+      from: 'var text = base + "\\n" + buildProvenanceAppendix(id);',
+      to: 'var text = base;   /* 变异：把附录丢掉 */',
+      note: '把出处附录从复制内容里丢掉（按钮照样在、照样可点）',
+    },
+    {
+      name: 'provenance-appendix-copied',
+      file: 'prototypes/_selection/index.html',
+      from: '<script src="provenance.js"></script>',
+      to: '<!-- 变异：不加载 provenance.js -->',
+      note: '不加载 provenance.js（window.PROVENANCE 未定义）',
     },
   ];
 

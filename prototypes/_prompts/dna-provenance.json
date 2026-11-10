@@ -91,14 +91,9 @@
     "displayOnly": false,
     "why": "CSS 里直接写着",
     "hintFile": null,
-    "hintLine": 80,
-    "hintText": "h2 { font-size: 28px; line-height: 1.3; letter-spacing: -0.005em; }",
+    "hintLine": 94,
+    "hintText": ":focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }",
     "hits": [
-     {
-      "line": 80,
-      "text": "h2 { font-size: 28px; line-height: 1.3; letter-spacing: -0.005em; }",
-      "byComment": false
-     },
      {
       "line": 94,
       "text": ":focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }",
@@ -110,8 +105,8 @@
       "byComment": false
      },
      {
-      "line": 114,
-      "text": ".open-line { font-size: 15px; line-height: 1.5; color: var(--ivory-2); max-width: none; }",
+      "line": 120,
+      "text": ".salon-grid { display: grid; grid-template-columns: 1fr 2px 1fr; }",
       "byComment": false
      },
      {
@@ -122,6 +117,11 @@
      {
       "line": 61,
       "text": "* 实测该案文字对比度本来是合格的（ivory 15.81、ivory-2 9.11、gold 6.04、",
+      "byComment": true
+     },
+     {
+      "line": 118,
+      "text": "/* ── 对称厅：中缝 2px 金线把画面切成两半，两半共用一张烫金版 ──── */",
       "byComment": true
      }
     ]
@@ -245,16 +245,6 @@
       "line": 20,
       "text": "--u: 8px;",
       "byComment": false
-     },
-     {
-      "line": 219,
-      "text": "审计把它记为 S03-F1「判读列被挤到 28px、15 字排成 8 行含单字行」。",
-      "byComment": false
-     },
-     {
-      "line": 287,
-      "text": "15 字的读数被排成 8 行、含单字行，单元格高从 69px 涨到 215px（审计实测）。",
-      "byComment": false
      }
     ]
    },
@@ -336,11 +326,6 @@
      {
       "line": 106,
       "text": "position:absolute; right:7px; bottom:7px; width:24px; height:24px;",
-      "byComment": false
-     },
-     {
-      "line": 114,
-      "text": "width:var(--wall); margin:-34px auto 0; position:relative; z-index:7;",
       "byComment": false
      },
      {
@@ -436,11 +421,6 @@
       "byComment": false
      },
      {
-      "line": 57,
-      "text": "h1 { font-size: clamp(46px, 6vw, 88px); line-height: 1.02; }",
-      "byComment": false
-     },
-     {
       "line": 94,
       "text": "gap: 6px 28px;",
       "byComment": false
@@ -449,6 +429,11 @@
       "line": 166,
       "text": "inset 0 6px 0 rgba(5, 6, 5, .42);",
       "byComment": false
+     },
+     {
+      "line": 207,
+      "text": "/* 凹槽：两层 inset ＋ 6px 落深。全是 inset，静止状态下没有任何外投影 */",
+      "byComment": true
      }
     ]
    }
@@ -555,18 +540,18 @@
       "byComment": false
      },
      {
-      "line": 50,
-      "text": ".display{font-size:clamp(38px,5.4vw,84px);line-height:1.02;text-wrap:balance}",
-      "byComment": false
-     },
-     {
       "line": 74,
       "text": ".pages{position:relative;display:grid;grid-template-columns:5fr 1px 7fr}",
       "byComment": false
      },
      {
-      "line": 88,
-      "text": ".t{padding-left:1.4em;text-indent:-1.4em;font-size:18px;line-height:var(--lead)}",
+      "line": 96,
+      "text": ".toc li a:hover .t{border-bottom:1px solid var(--slate)}",
+      "byComment": false
+     },
+     {
+      "line": 99,
+      "text": ".toc li a:focus-visible .t{border-bottom:1px solid var(--slate)}",
       "byComment": false
      },
      {
@@ -883,14 +868,9 @@
     "displayOnly": false,
     "why": "CSS 里直接写着",
     "hintFile": null,
-    "hintLine": 71,
-    "hintText": "h2 { font-size: clamp(28px, 2.6vw, 40px); line-height: 1.2; }",
+    "hintLine": 95,
+    "hintText": "border: 2px solid var(--wall-deep);",
     "hits": [
-     {
-      "line": 71,
-      "text": "h2 { font-size: clamp(28px, 2.6vw, 40px); line-height: 1.2; }",
-      "byComment": false
-     },
      {
       "line": 95,
       "text": "border: 2px solid var(--wall-deep);",
@@ -904,6 +884,11 @@
      {
       "line": 147,
       "text": "2px 0, calc(100% - 2px) 0, 100% 2px, 100% calc(100% - 2px),",
+      "byComment": false
+     },
+     {
+      "line": 148,
+      "text": "calc(100% - 2px) 100%, 2px 100%, 0 calc(100% - 2px), 0 2px",
       "byComment": false
      },
      {
@@ -956,13 +941,13 @@
       "byComment": false
      },
      {
-      "line": 174,
-      "text": ".ladder b:nth-child(6) { height: 15px; background: #1B0F04; }",
+      "line": 177,
+      "text": ".plate { --thick: min(10px, calc(6px + var(--l) * 1px)); }",
       "byComment": false
      },
      {
-      "line": 177,
-      "text": ".plate { --thick: min(10px, calc(6px + var(--l) * 1px)); }",
+      "line": 229,
+      "text": ".material-row h3 { font-family: var(--serif-cn); margin-bottom: 6px; }",
       "byComment": false
      },
      {
@@ -1079,27 +1064,22 @@
     "displayOnly": false,
     "why": "CSS 里直接写着",
     "hintFile": null,
-    "hintLine": 41,
-    "hintText": "--fs-h2: clamp(26px, 2.2vw, 34px);",
+    "hintLine": 177,
+    "hintText": ".screw::after { content: \"\"; position: absolute; left: 1px; top: 1px; width: 2px; height: 2px; b",
     "hits": [
      {
-      "line": 41,
-      "text": "--fs-h2: clamp(26px, 2.2vw, 34px);",
+      "line": 177,
+      "text": ".screw::after { content: \"\"; position: absolute; left: 1px; top: 1px; width: 2px; height: 2px; b",
       "byComment": false
      },
      {
-      "line": 42,
-      "text": "--fs-claim: clamp(22px, 2.1vw, 32px);",
+      "line": 258,
+      "text": "border: 2px solid var(--ink);",
       "byComment": false
      },
      {
-      "line": 68,
-      "text": "漏掉就会让 h2 落回 24px，整套字号表当场错位。 */",
-      "byComment": false
-     },
-     {
-      "line": 148,
-      "text": "灯管中段亮度差 +18%（已烘进位图）；四角 6px 螺丝；表面 2% 灰尘",
+      "line": 514,
+      "text": "重描（500ms / steps(6)） → 描边一次性显示：外线 3.5px、内线 2px 与",
       "byComment": false
      },
      {
@@ -1110,6 +1090,11 @@
      {
       "line": 131,
       "text": "/* ③ 锈斑：只长在四角，单角 120×120＝整板约 0.24%（上限是 2%）。",
+      "byComment": true
+     },
+     {
+      "line": 309,
+      "text": "/* 双线不闭合描边：外线 3.5px、内线 2px，两线净间距 3.95px≈4px。",
       "byComment": true
      }
     ]
@@ -1250,11 +1235,6 @@
       "byComment": false
      },
      {
-      "line": 362,
-      "text": "padding: 4px 0 4px 1.5em;",
-      "byComment": false
-     },
-     {
       "line": 243,
       "text": "/* 黑版栏线由第 4 栏自己的右边界承担，第 5 栏左边界换成纸色，红版才有 1.5px 露纸的错位 */",
       "byComment": true
@@ -1267,6 +1247,11 @@
      {
       "line": 255,
       "text": "/* 黑版表头 2px 规则线下面留一条红版影线（右偏下错 1.5px） */",
+      "byComment": true
+     },
+     {
+      "line": 372,
+      "text": "/* 套准标尺：按 10 倍放大画出 1.5px 与 3px 两档错位 */",
       "byComment": true
      }
     ]
@@ -1290,28 +1275,18 @@
       "byComment": false
      },
      {
-      "line": 73,
-      "text": "h3 { font-size: 20px; line-height: 32px; }",
-      "byComment": false
-     },
-     {
       "line": 85,
       "text": "a { color: inherit; text-underline-offset: 3px; }",
       "byComment": false
      },
      {
-      "line": 259,
-      "text": "position: absolute; left: 0; right: 0; bottom: -3.5px; height: 2px;",
-      "byComment": false
-     },
-     {
-      "line": 310,
-      "text": ".note h3 { margin-bottom: 10px; }",
-      "byComment": false
-     },
-     {
       "line": 372,
       "text": "/* 套准标尺：按 10 倍放大画出 1.5px 与 3px 两档错位 */",
+      "byComment": true
+     },
+     {
+      "line": 567,
+      "text": "/* 套准回位改为常驻：两版恒定停在 1.5px 错位，进视口的 3px 起始量不再出现 */",
       "byComment": true
      }
     ]
@@ -1326,14 +1301,9 @@
     "displayOnly": false,
     "why": "CSS 里直接写着",
     "hintFile": null,
-    "hintLine": 14,
-    "hintText": "栅格：五栏 6 : 7 : 9 : 8 : 5，栏沟 24px，外距 56px，基线 8px，正文 15px / 行高 24px",
+    "hintLine": 15,
+    "hintText": "不对称机制：①标题整体上移 6px（标题块 -> 首行净空 22px＝24－2）②标点悬挂 0.5em",
     "hits": [
-     {
-      "line": 14,
-      "text": "栅格：五栏 6 : 7 : 9 : 8 : 5，栏沟 24px，外距 56px，基线 8px，正文 15px / 行高 24px",
-      "byComment": false
-     },
      {
       "line": 15,
       "text": "不对称机制：①标题整体上移 6px（标题块 -> 首行净空 22px＝24－2）②标点悬挂 0.5em",
@@ -1357,6 +1327,11 @@
      {
       "line": 268,
       "text": "width: 100%; height: 10px; margin-top: 6px;",
+      "byComment": false
+     },
+     {
+      "line": 286,
+      "text": "margin-top: -6px;",
       "byComment": false
      }
     ]
@@ -1937,11 +1912,6 @@
       "byComment": false
      },
      {
-      "line": 130,
-      "text": "position: relative; height: 1700px; --k: 1; --dr: 48;",
-      "byComment": false
-     },
-     {
       "line": 215,
       "text": "position: absolute; top: 9px; right: 12px; width: 48px; height: 20px;",
       "byComment": false
@@ -2069,11 +2039,6 @@
       "byComment": false
      },
      {
-      "line": 146,
-      "text": ".mount figcaption { position: relative; margin-top: 16px; font-size: 16px; line-height: 1.8; max",
-      "byComment": false
-     },
-     {
       "line": 160,
       "text": "margin-left: -40px;",
       "byComment": false
@@ -2089,8 +2054,13 @@
       "byComment": false
      },
      {
-      "line": 282,
-      "text": ".yearbar__note { font-size: 16px; line-height: 1.8; margin-top: 18px; max-width: 40em; }",
+      "line": 349,
+      "text": ".plates__grid { list-style: none; margin: 40px 0 0; padding: 0; display: grid; grid-template-col",
+      "byComment": false
+     },
+     {
+      "line": 362,
+      "text": ".spec__list { list-style: none; margin: 28px 0 0; padding: 0; display: grid; grid-template-colum",
       "byComment": false
      }
     ]
@@ -2111,21 +2081,6 @@
      {
       "line": 173,
       "text": ".trace--1938 { --op: 0.56; --off: 7px; }",
-      "byComment": false
-     },
-     {
-      "line": 321,
-      "text": ".zones__table th, .zones__table td { border-bottom: 2px solid #C3C9C7; padding: 9px 10px; text-a",
-      "byComment": false
-     },
-     {
-      "line": 327,
-      "text": ".matrix th, .matrix td { border-bottom: 2px solid #C3C9C7; padding: 9px 10px; text-align: left; ",
-      "byComment": false
-     },
-     {
-      "line": 334,
-      "text": ".weights th, .weights td { border-bottom: 2px solid #C3C9C7; padding: 9px 10px; text-align: left",
       "byComment": false
      },
      {
@@ -2374,14 +2329,9 @@
     "displayOnly": false,
     "why": "CSS 里直接写着",
     "hintFile": null,
-    "hintLine": 53,
-    "hintText": "h1 { font-size: clamp(46px, 6vw, 88px); line-height: 1.04; }",
+    "hintLine": 92,
+    "hintText": "gap: 6px 34px;",
     "hits": [
-     {
-      "line": 53,
-      "text": "h1 { font-size: clamp(46px, 6vw, 88px); line-height: 1.04; }",
-      "byComment": false
-     },
      {
       "line": 92,
       "text": "gap: 6px 34px;",
@@ -2483,11 +2433,6 @@
       "byComment": false
      },
      {
-      "line": 54,
-      "text": "h2 { font-size: 28px; line-height: 1.25; }",
-      "byComment": false
-     },
-     {
       "line": 70,
       "text": "outline: 2px solid var(--seal);",
       "byComment": false
@@ -2505,6 +2450,11 @@
      {
       "line": 117,
       "text": "border: 2px solid var(--ink);",
+      "byComment": false
+     },
+     {
+      "line": 172,
+      "text": "border-bottom: 2px solid var(--ink);",
       "byComment": false
      }
     ]
@@ -2571,14 +2521,9 @@
     "displayOnly": false,
     "why": "CSS 里直接写着",
     "hintFile": null,
-    "hintLine": 4,
-    "hintText": "牛皮纸牌色 #6E6350 3%（作填充时文字只用 #C8C4AE 且 ≥24px，3.36:1）",
+    "hintLine": 16,
+    "hintText": "--base:8px;",
     "hits": [
-     {
-      "line": 4,
-      "text": "牛皮纸牌色 #6E6350 3%（作填充时文字只用 #C8C4AE 且 ≥24px，3.36:1）",
-      "byComment": false
-     },
      {
       "line": 16,
       "text": "--base:8px;",
@@ -2592,6 +2537,11 @@
      {
       "line": 112,
       "text": "background-size:8px 8px;background-repeat:repeat;",
+      "byComment": false
+     },
+     {
+      "line": 192,
+      "text": ".cu{display:inline-block;width:8px;height:14px;margin-left:8px;background:var(--phos);vertical-a",
       "byComment": false
      },
      {
@@ -2661,19 +2611,9 @@
     "displayOnly": false,
     "why": "CSS 里直接写着",
     "hintFile": null,
-    "hintLine": 4,
-    "hintText": "牛皮纸牌色 #6E6350 3%（作填充时文字只用 #C8C4AE 且 ≥24px，3.36:1）",
+    "hintLine": 50,
+    "hintText": "a{color:inherit;text-decoration:underline;text-decoration-color:var(--phos);text-underline-offse",
     "hits": [
-     {
-      "line": 4,
-      "text": "牛皮纸牌色 #6E6350 3%（作填充时文字只用 #C8C4AE 且 ≥24px，3.36:1）",
-      "byComment": false
-     },
-     {
-      "line": 43,
-      "text": "h3{font-size:22px;letter-spacing:0}",
-      "byComment": false
-     },
      {
       "line": 50,
       "text": "a{color:inherit;text-decoration:underline;text-decoration-color:var(--phos);text-underline-offse",
@@ -2682,6 +2622,16 @@
      {
       "line": 86,
       "text": ".feedbar::after{content:'';position:absolute;left:0;right:0;bottom:0;height:3px;background:var(-",
+      "byComment": false
+     },
+     {
+      "line": 107,
+      "text": ".frame{position:relative;display:block;background:var(--bay);padding:3px}",
+      "byComment": false
+     },
+     {
+      "line": 110,
+      "text": "content:'';position:absolute;inset:3px;pointer-events:none;",
       "byComment": false
      },
      {
@@ -2993,11 +2943,6 @@
       "byComment": false
      },
      {
-      "line": 54,
-      "text": "a { color: inherit; text-decoration-color: rgba(15, 20, 24, 0.5); text-underline-offset: 3px; }",
-      "byComment": false
-     },
-     {
       "line": 96,
       "text": "left: auto; right: 24px; bottom: 24px; top: auto;",
       "byComment": false
@@ -3005,6 +2950,11 @@
      {
       "line": 112,
       "text": ".cue { margin-top: 24px; }",
+      "byComment": false
+     },
+     {
+      "line": 194,
+      "text": "24px 24px, 24px calc(100% - 24px), calc(100% - 24px) calc(100% - 24px), calc(100% - 24px) 24px, ",
       "byComment": false
      },
      {
@@ -3052,11 +3002,6 @@
       "byComment": false
      },
      {
-      "line": 11,
-      "text": "画布边长 8%（64px）再接参数面板，面板上边缘比画布低 32px；",
-      "byComment": false
-     },
-     {
       "line": 28,
       "text": "--base: 8px;",
       "byComment": false
@@ -3069,6 +3014,11 @@
      {
       "line": 242,
       "text": "th, td { border: 1px solid rgba(15, 20, 24, 0.3); padding: 8px 10px; text-align: left; vertical-",
+      "byComment": false
+     },
+     {
+      "line": 280,
+      "text": "letter-spacing: 0; margin-right: 8px;",
       "byComment": false
      },
      {
@@ -3106,17 +3056,11 @@
     "_dir": "S20-plotter-soundfield",
     "status": "direct",
     "displayOnly": false,
-    "why": "CSS 里直接写着",
-    "hintFile": null,
-    "hintLine": 63,
-    "hintText": "h2 { font-size: clamp(26px, 2.4vw, 34px); line-height: 1.16; letter-spacing: -0.01em; }",
-    "hits": [
-     {
-      "line": 63,
-      "text": "h2 { font-size: clamp(26px, 2.4vw, 34px); line-height: 1.16; letter-spacing: -0.01em; }",
-      "byComment": false
-     }
-    ]
+    "why": "index.html 的实现里写着（SVG 属性/JS）",
+    "hintFile": "index.html",
+    "hintLine": 101,
+    "hintText": "<svg class=\"legend__svg\" viewBox=\"0 0 112 200\" role=\"img\" aria-label=\"声场图例：真实走线小段，间距 0.6、1.2、2.4",
+    "hits": []
    }
   ]
  },
@@ -3160,14 +3104,9 @@
     "displayOnly": false,
     "why": "CSS 里直接写着",
     "hintFile": null,
-    "hintLine": 237,
-    "hintText": "grid-template-columns:minmax(0,383px) minmax(0,1fr);",
+    "hintLine": 412,
+    "hintText": "border:1px solid var(--groove);",
     "hits": [
-     {
-      "line": 237,
-      "text": "grid-template-columns:minmax(0,383px) minmax(0,1fr);",
-      "byComment": false
-     },
      {
       "line": 412,
       "text": "border:1px solid var(--groove);",
@@ -3191,6 +3130,11 @@
      {
       "line": 407,
       "text": "/* 真实表格保留自己的 1px 实线框，taste-skill 对 table/td/th 选择器自有豁免 */",
+      "byComment": true
+     },
+     {
+      "line": 430,
+      "text": "/* 表体光标：1px 竖条，闪动周期 1200ms，用 steps(1) 硬闪，不淡入 */",
       "byComment": true
      }
     ]
@@ -3241,16 +3185,6 @@
       "byComment": false
      },
      {
-      "line": 9,
-      "text": "中缝留白 88px（= 22 + 44 + 22，大于外距 56px）／基线 7px／段落间 28px／章节间 96px",
-      "byComment": false
-     },
-     {
-      "line": 18,
-      "text": "窄屏（<768px）再发明：虚影 14px、下沉 3px、不透明 22%、折痕 2px、毛口 1px、透光差 18%",
-      "byComment": false
-     },
-     {
       "line": 32,
       "text": "--gutter: 22px;",
       "byComment": false
@@ -3264,6 +3198,16 @@
       "line": 292,
       "text": ".lamps { list-style: none; margin: 36px 0 0; padding: 0; display: grid; gap: 22px; }",
       "byComment": false
+     },
+     {
+      "line": 325,
+      "text": ".packet { font-size: 15px; line-height: 1.8; margin-top: 22px; max-width: 40em; color: var(--mat",
+      "byComment": false
+     },
+     {
+      "line": 316,
+      "text": "/* --------------------------------------------------------------- CREASE-22 */",
+      "byComment": true
      }
     ]
    },
@@ -3456,8 +3400,8 @@
       "byComment": false
      },
      {
-      "line": 81,
-      "text": "h3 { font-size: 20px; line-height: 1.4; letter-spacing: 0.02em; }",
+      "line": 134,
+      "text": ".btn--ghost { background: transparent; color: var(--ink); border: 3px solid var(--matcha); }",
       "byComment": false
      }
     ]
@@ -3488,11 +3432,6 @@
      {
       "line": 158,
       "text": ".ref { display: block; font-size: 14px; color: var(--matcha); margin-top: 4px; }",
-      "byComment": false
-     },
-     {
-      "line": 251,
-      "text": ".face p { margin-bottom: calc(var(--base) * 4); }",
       "byComment": false
      },
      {
@@ -3533,16 +3472,6 @@
       "byComment": false
      },
      {
-      "line": 10,
-      "text": "--mortar-ink #5F5240（5.50:1，承载 ≤14px 小字）；",
-      "byComment": false
-     },
-     {
-      "line": 15,
-      "text": "字段 5 布局：36 栏细栅格、8px 基线、8px 栏距；9 处剥落按 3/2/2/1/1 面积递减；",
-      "byComment": false
-     },
-     {
       "line": 17,
       "text": "字段 6 视觉：锐利断面（--pw 22→10px 竖带，2–4 层 + 1px 石灰线）、",
       "byComment": false
@@ -3553,9 +3482,19 @@
       "byComment": false
      },
      {
-      "line": 51,
-      "text": "line-height: 1.85;",
+      "line": 76,
+      "text": "width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap;",
       "byComment": false
+     },
+     {
+      "line": 90,
+      "text": ".btn:active { transform: translateY(1px); }",
+      "byComment": false
+     },
+     {
+      "line": 168,
+      "text": "/* 层位号牌 40×24px：刀刻层位号（1px 凹槽 + 1px 白高光），牌不压在断口上 */",
+      "byComment": true
      }
     ]
    },
@@ -3569,38 +3508,38 @@
     "displayOnly": false,
     "why": "CSS 里直接写着",
     "hintFile": null,
-    "hintLine": 15,
-    "hintText": "字段 5 布局：36 栏细栅格、8px 基线、8px 栏距；9 处剥落按 3/2/2/1/1 面积递减；",
+    "hintLine": 18,
+    "hintText": "62° 铲痕（2px 痕宽 6px 间距、末端 1px 翘起高光）、40×24px 层位号牌（1px 凹槽 + 1px 高光）",
     "hits": [
-     {
-      "line": 15,
-      "text": "字段 5 布局：36 栏细栅格、8px 基线、8px 栏距；9 处剥落按 3/2/2/1/1 面积递减；",
-      "byComment": false
-     },
-     {
-      "line": 17,
-      "text": "字段 6 视觉：锐利断面（--pw 22→10px 竖带，2–4 层 + 1px 石灰线）、",
-      "byComment": false
-     },
      {
       "line": 18,
       "text": "62° 铲痕（2px 痕宽 6px 间距、末端 1px 翘起高光）、40×24px 层位号牌（1px 凹槽 + 1px 高光）",
       "byComment": false
      },
      {
-      "line": 40,
-      "text": "--pad: clamp(16px, 2.2vw, 32px);",
-      "byComment": false
-     },
-     {
-      "line": 71,
-      "text": "h2 { font-size: clamp(26px, 2.4vw, 34px); line-height: 1.18; letter-spacing: 0.02em; margin-bott",
-      "byComment": false
-     },
-     {
       "line": 89,
       "text": ".btn:hover { transform: translateY(-2px); }",
       "byComment": false
+     },
+     {
+      "line": 156,
+      "text": "/* 剥落本体：直角、锐利断面、任何元素都不许浮在墙上（字段 8 反 C-2 第 11 条） */",
+      "byComment": true
+     },
+     {
+      "line": 189,
+      "text": "/* 断面：右侧 2–4 层颜料 + 层与层之间的 1px 白石灰线（硬停取色，无过渡区） */",
+      "byComment": true
+     },
+     {
+      "line": 209,
+      "text": "/* 铲痕：3–5 道、痕宽 2px、间距 6px、自左上向右下 62°，末端 1px 翘起高光 */",
+      "byComment": true
+     },
+     {
+      "line": 249,
+      "text": "/* 九处剥落的位置、面积（3/2/2/1/1 递减）与断面层位 */",
+      "byComment": true
      }
     ]
    },
@@ -3614,19 +3553,9 @@
     "displayOnly": false,
     "why": "CSS 里直接写着",
     "hintFile": null,
-    "hintLine": 9,
-    "hintText": "派生：--lime #E9E9D7 = #DCDCC8 提亮 6%（1px 白石灰线的实色）；",
+    "hintLine": 18,
+    "hintText": "62° 铲痕（2px 痕宽 6px 间距、末端 1px 翘起高光）、40×24px 层位号牌（1px 凹槽 + 1px 高光）",
     "hits": [
-     {
-      "line": 9,
-      "text": "派生：--lime #E9E9D7 = #DCDCC8 提亮 6%（1px 白石灰线的实色）；",
-      "byComment": false
-     },
-     {
-      "line": 17,
-      "text": "字段 6 视觉：锐利断面（--pw 22→10px 竖带，2–4 层 + 1px 石灰线）、",
-      "byComment": false
-     },
      {
       "line": 18,
       "text": "62° 铲痕（2px 痕宽 6px 间距、末端 1px 翘起高光）、40×24px 层位号牌（1px 凹槽 + 1px 高光）",
@@ -3643,9 +3572,19 @@
       "byComment": false
      },
      {
-      "line": 132,
-      "text": ".wall-sec { position: relative; padding: clamp(56px, 6vw, 88px) 0 clamp(48px, 5vw, 72px); }",
+      "line": 176,
+      "text": "content: \"\"; position: absolute; left: 9px; right: 9px; bottom: 6px; height: 1px;",
       "byComment": false
+     },
+     {
+      "line": 213,
+      "text": "width: calc(var(--sc, 4) * 8px + 6px); height: 22px;",
+      "byComment": false
+     },
+     {
+      "line": 209,
+      "text": "/* 铲痕：3–5 道、痕宽 2px、间距 6px、自左上向右下 62°，末端 1px 翘起高光 */",
+      "byComment": true
      }
     ]
    },
@@ -3826,27 +3765,22 @@
     "displayOnly": false,
     "why": "CSS 里直接写着",
     "hintFile": null,
-    "hintLine": 50,
-    "hintText": "h2{font-size:clamp(26px,2.8vw,40px)}",
+    "hintLine": 58,
+    "hintText": "a:focus-visible,button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}",
     "hits": [
-     {
-      "line": 50,
-      "text": "h2{font-size:clamp(26px,2.8vw,40px)}",
-      "byComment": false
-     },
-     {
-      "line": 51,
-      "text": "h3{font-size:clamp(20px,2vw,28px)}",
-      "byComment": false
-     },
      {
       "line": 58,
       "text": "a:focus-visible,button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}",
       "byComment": false
      },
      {
-      "line": 94,
-      "text": ".masthead__sig{margin:20px 0 0;font-size:14px;color:var(--moss-2);max-width:44em}",
+      "line": 224,
+      "text": ".swatch{display:inline-block;width:14px;height:14px;vertical-align:-2px;margin-right:8px;backgro",
+      "byComment": false
+     },
+     {
+      "line": 337,
+      "text": ".hud{padding:10px 18px 14px;gap:2px 16px}",
       "byComment": false
      },
      {
@@ -3857,6 +3791,11 @@
      {
       "line": 35,
       "text": "/* 自绘 20px 镊子光标，尖端 2px，热点落在尖上 */",
+      "byComment": true
+     },
+     {
+      "line": 152,
+      "text": "/* 叶脉：SVG stroke-dasharray 生长；主脉 2.5px、支脉 1 / 0.6 / 0.4px，节点处留 2px 缺口 */",
       "byComment": true
      }
     ]
@@ -4095,14 +4034,9 @@
     "displayOnly": false,
     "why": "CSS 里直接写着",
     "hintFile": null,
-    "hintLine": 83,
-    "hintText": ".hud{display:flex;flex-wrap:wrap;gap:2px 28px;align-items:baseline;padding:10px 0 8px;font-size:",
+    "hintLine": 170,
+    "hintText": ".plates:hover .plate--blue::after,.plates:hover .plate--red::after{width:2.5px;right:-1.5px}",
     "hits": [
-     {
-      "line": 83,
-      "text": ".hud{display:flex;flex-wrap:wrap;gap:2px 28px;align-items:baseline;padding:10px 0 8px;font-size:",
-      "byComment": false
-     },
      {
       "line": 170,
       "text": ".plates:hover .plate--blue::after,.plates:hover .plate--red::after{width:2.5px;right:-1.5px}",
@@ -4135,19 +4069,9 @@
     "displayOnly": false,
     "why": "CSS 里直接写着",
     "hintFile": null,
-    "hintLine": 98,
-    "hintText": ".mast__latin{font-family:var(--display);font-size:24px;font-weight:700;letter-spacing:.02em;line",
+    "hintLine": 180,
+    "hintText": ".plate--red .plate__v{filter:drop-shadow(1.2px 1.2px 0 var(--mul-rk))}",
     "hits": [
-     {
-      "line": 98,
-      "text": ".mast__latin{font-family:var(--display);font-size:24px;font-weight:700;letter-spacing:.02em;line",
-      "byComment": false
-     },
-     {
-      "line": 103,
-      "text": "background:var(--blue);color:var(--white);font-size:17px;font-weight:600;line-height:1.2;",
-      "byComment": false
-     },
      {
       "line": 180,
       "text": ".plate--red .plate__v{filter:drop-shadow(1.2px 1.2px 0 var(--mul-rk))}",
@@ -4371,11 +4295,6 @@
       "byComment": false
      },
      {
-      "line": 84,
-      "text": "position: absolute; left: 12px; top: 12px; z-index: 20;",
-      "byComment": false
-     },
-     {
       "line": 168,
       "text": "display: inline-block; min-height: 48px; padding: 13px 20px;",
       "byComment": false
@@ -4408,11 +4327,6 @@
      {
       "line": 35,
       "text": "--base: 7px;",
-      "byComment": false
-     },
-     {
-      "line": 507,
-      "text": ".act__sign { grid-column: 1 / 7; margin-top: calc(var(--base) * 7); }",
       "byComment": false
      },
      {
@@ -4543,13 +4457,13 @@
       "byComment": false
      },
      {
-      "line": 333,
-      "text": ".wall.is-gear2 .blk--c13, .wall.is-gear2 .blk--c14 { --mis: 5px; }",
-      "byComment": false
-     },
-     {
       "line": 148,
       "text": "/* 前三块错位拼贴的错位量各自写死（与 12 块同一套值：4 / 14 / 6） */",
+      "byComment": true
+     },
+     {
+      "line": 630,
+      "text": "/* 速率错动与分段推出停止推进，但裁切拼贴机制完整静态保留： 12 块的 4–14px 错位、24px 出血、左上单向 0.5–1px 边缘高光全部按原值呈现。 */",
       "byComment": true
      }
     ]
@@ -4661,14 +4575,9 @@
     "displayOnly": false,
     "why": "CSS 里直接写着",
     "hintFile": null,
-    "hintLine": 47,
-    "hintText": "h3{font-size:clamp(21px,1.6vw,27px)}",
+    "hintLine": 55,
+    "hintText": "a{color:inherit;text-decoration:underline;text-decoration-color:var(--amber);text-underline-offs",
     "hits": [
-     {
-      "line": 47,
-      "text": "h3{font-size:clamp(21px,1.6vw,27px)}",
-      "byComment": false
-     },
      {
       "line": 55,
       "text": "a{color:inherit;text-decoration:underline;text-decoration-color:var(--amber);text-underline-offs",
@@ -4682,6 +4591,11 @@
      {
       "line": 89,
       "text": ".hud__fault code{text-decoration:underline;text-decoration-color:var(--amber);text-underline-off",
+      "byComment": false
+     },
+     {
+      "line": 133,
+      "text": ".fig{margin:0;background:var(--paper);padding:3px}",
       "byComment": false
      },
      {
@@ -4922,23 +4836,18 @@
       "byComment": false
      },
      {
-      "line": 49,
-      "text": "字距 0.01em：不给 ≤14px 的大写文本加宽字距，避开 micro-label（契约 §9.9） */",
-      "byComment": false
-     },
-     {
-      "line": 67,
-      "text": "position: absolute; left: 12px; top: 12px; z-index: 9;",
-      "byComment": false
-     },
-     {
-      "line": 89,
-      "text": ".bk { font-size: 13px; color: #B9B9B9; }",
+      "line": 249,
+      "text": "position: absolute; left: 96px; top: 0; width: 22px; height: 9px; background: var(--paper);",
       "byComment": false
      },
      {
       "line": 48,
       "text": "/* 等宽只出现在 <code> 里：monoProseShare 必须是 0（契约 §9.8）",
+      "byComment": true
+     },
+     {
+      "line": 190,
+      "text": "/* 下半沿对角线向右下偏 9px；滚动时下半向下推 24px，上半向上推 24px */",
       "byComment": true
      }
     ]
@@ -5544,11 +5453,6 @@
      {
       "line": 147,
       "text": "border-left: 3px solid var(--ink);",
-      "byComment": false
-     },
-     {
-      "line": 154,
-      "text": ".plate img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; ",
       "byComment": false
      },
      {

@@ -1169,6 +1169,15 @@ code { font-family: var(--code); font-size: 0.94em; }
 /* 键盘用户必须看得见焦点：面板底色是 --card(#f2f2ee)，UA 默认焦点环在浅底上偏淡。 */
 .prompt-copy:focus-visible { outline: 2px solid var(--ink); }
 .prompt-copy.is-copied { background: var(--ink); color: var(--card); }
+
+/* 「复制并附出处」（2026-11-11，Q3）。视觉上必须是**次级**：
+   主按钮是实心/描边一致的那个，它是同一形状但弱一档。
+   判据：不换颜色轴（那会变成两个同等重要的动作），只加一道虚线边框 ——
+   虚线的语义是"这是同一族但可选的那个"。
+   为什么不缩字号：两个按钮并排时字号不一会让基线错位，
+   而 `.prompt-cta-row` 是 flex + align-items:center，错位会很难看。 */
+.prompt-copy-prov { border-style: dashed; }
+.prompt-copy-prov.is-copied { background: var(--ink); color: var(--card); border-style: solid; }
 .prompt-hint { font-size: var(--s-13); color: var(--ink-3); min-width: 0; }
 
 .prompt-fill {
