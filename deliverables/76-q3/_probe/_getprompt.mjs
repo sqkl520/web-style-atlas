@@ -1,0 +1,15 @@
+import { Browser } from '../../../prototypes/_build/vendor/cdp.mjs';
+import { createServer } from 'node:http';
+import { readFile } from 'node:fs/promises';
+import { join, extname } from 'node:path';
+const ROOT='D:/Web/style';
+const MIME={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.jpg':'image/jpeg','.png':'image/png','.svg':'image/svg+xml','.woff2':'font/woff2'};
+const server=createServer(async(req,res)=>{try{let rel=decodeURIComponent(req.url.split('?')[0]);if(rel.endsWith('/'))rel+='index.html';
+ const p=join(ROOT,rel);const b=await readFile(p);res.writeHead(200,{'Content-Type':MIME[extname(p)]||'application/octet-stream'});res.end(b);}catch{res.writeHead(404);res.end();}});
+await new Promise(r=>server.listen(0,'127.0.0.1',r));
+const browser=await Browser.launch();const pg=await browser.newPage();
+await pg.goto(`http://127.0.0.1:${server.address().port}/prototypes/_selection/`,{settleMs:2500});
+const p=await pg.eval(`window.buildStylePrompt('S17',{})||''`);
+console.log(p.slice(0,900));
+console.log('\n...总长',p.length);
+await browser.close();server.close();

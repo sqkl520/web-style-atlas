@@ -1180,6 +1180,28 @@ code { font-family: var(--code); font-size: 0.94em; }
 .prompt-copy-prov.is-copied { background: var(--ink); color: var(--card); border-style: solid; }
 .prompt-hint { font-size: var(--s-13); color: var(--ink-3); min-width: 0; }
 
+/* 「下载 .md」与「复制并附出处」同族，但下载更弱一档：
+   它已经不在主路径上（用户先复制、复制不成才下载），所以用点线边框。
+   三层视觉层级：实线（主）/ 虚线（核验）/ 点线（存档）。 */
+.prompt-copy-dl { border-style: dotted; }
+
+/* 工具选择器。单行、不抢按钮那一行的高度 —— 按钮区已经因为 2026-10-25 的
+   事故被限制在最小高度里（详情面板顶部要立刻看见主按钮）。 */
+.prompt-tool {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px;
+  margin-top: 10px; font-size: var(--s-13); color: var(--ink-3);
+}
+.prompt-tool > label { display: inline-flex; align-items: center; gap: 8px; }
+.prompt-tool-select {
+  font: inherit; font-size: var(--s-13); padding: 5px 8px;
+  border: 1px solid currentColor; background: transparent; color: inherit;
+  outline-offset: 2px;
+}
+.prompt-tool-select:focus-visible { outline: 2px solid var(--ink); }
+/* 说明只在选中非「不限」时出现。hidden 时完全不占位（display:none 由 [hidden] 默认给） */
+.prompt-tool-note { color: var(--ink-3); }
+.prompt-tool-note[hidden] { display: none; }
+
 .prompt-fill {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 8px 12px; margin-top: 10px; padding-top: 10px;

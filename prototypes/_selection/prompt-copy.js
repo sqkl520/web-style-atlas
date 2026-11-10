@@ -25,6 +25,26 @@
     return null;
   }
 
+  /* ── 从 data.js 取展示信息（中文名 / 英文名 / 结构类型）───────────────
+   *
+   * ⚠️ 2026-11-11 修：`pick(id)` 返回的是 **prompts.js** 的记录，它只有
+   * `id / dir / plain / scenes / minItems / minPics / hard / capacity / dna` ——
+   * **没有中文名**。第一版拿它去填 .md 的文件头，结果表格里三行全是「—」、
+   * 文件名退化成 `S17-prompt-提示词.md`。
+   *
+   * 中文名 / 英文名 / 结构类型都在 **data.js 的 window.SCHEMES** 里。
+   * 两条数据链本来就分工不同（这一条 README 里写着、check-twolines 也在守），
+   * 这里只是各取所需，不合并。
+   *
+   * 取不到就返回 {}，调用方用 `|| "—"` 兜底 —— 不留一个空字符串混进文件名。 */
+  function meta(id) {
+    var all = window.SCHEMES || [];
+    for (var i = 0; i < all.length; i++) {
+      if (all[i].id === id) return all[i];
+    }
+    return {};
+  }
+
   /* ── 提示词开头两行：只能来自用户，不能来自我们 ───────────────────────
    *
    * 2026-10-27 修。改之前 buildPrompt 的开头是这两句：
@@ -114,6 +134,110 @@
       l2,
     ];
   }
+
+  /* ── 按工具改首部（2026-11-11，Q3 第四项）──────────────────────────────
+   *
+   * 【要解决的问题 —— 不是"换个称呼"，是换约束】
+   * `deliverables/74-plan/PROMPT-SYSTEM.md:78` 实测记录：
+   *   ChatGPT / Claude 输出单文件 HTML 没问题；
+   *   **v0 是 React 组件工作流**，`<script>` 常常被忽略或改写，且它有自己的状态模型；
+   *   Cursor 是编辑器，它要的是**文件路径与增量**，不是一段对话。
+   * 所以同一段提示词粘进四个工具，坏掉的方式完全不同：
+   *   · v0：script 被剥掉 → 机制静默消失，而用户看不出哪里坏了
+   *   · Cursor：一段两千字的对话式提示词，它不知道该写到哪个文件
+   *   · ChatGPT/Claude：现成的就行
+   *
+   * 【只改首部，不改正文】
+   * 正文（视觉硬约束、结构约束、输出要求）是风格本体，四个工具都需要它一字不差。
+   * 改的只是最前面那两三行 —— 告诉 AI「你现在在什么环境里、要注意什么」。
+   *
+   * 【为什么不给 v0 单独写一份提示词】
+   * 那会立刻产生两份正文、两个真相来源，而本仓库反复吃过这个亏
+   * （五份行业答案互相矛盾，见 01-Q2-FACTS.md §四）。
+   * 首部是"环境说明"，正文是"风格规格"，两者正交，所以可以叠加而不分裂。
+   */
+  var TOOL_PROFILES = {
+    /* 默认：不加任何首部。用户没说是哪个工具时，现成的提示词已经够用。 */
+    generic: {
+      label: "ChatGPT / Claude",
+      head: function () { return []; },
+    },
+    v0: {
+      label: "v0 (Vercel)",
+      /* v0 的关键差异：它是 React 组件工作流，script 会被剥。
+       * 所以首部必须做两件事：
+       *   ① 明确要求它不要用 React，只要单文件 HTML（把它的默认路径掰过来）；
+       *   ② 如果本案的机制依赖 JS，**如实告诉用户"这个在 v0 里会坏"**，
+       *      而不是让他粘完才发现。 */
+      head: function (id) {
+        var s = pick(id) || {};
+        var lines = [
+          "【这条提示词是给 v0 用的，先说清楚一件事】",
+          "v0 默认产出 React 组件，而这个版式要的是**一个单文件 HTML**（CSS 内联在 <style> 里，不用 React/Vue/Next）。请按单文件 HTML 给，不要拆成组件。",
+        ];
+        if (s.hard) {
+          lines.push(
+            "⚠️ 这一案的签名机制需要 JavaScript（用它量几何 / 读实时状态）。" +
+            "**v0 会把 <script> 剥掉或改写**，所以你在 v0 里拿到的版本机制会消失，而且看起来不容易发现哪里坏了。" +
+            "如果你只能用 v0，建议换一个不依赖脚本的案子；或者接受一个「少了签名动作」的静态版本。"
+          );
+        }
+        return lines.concat([""]);
+      },
+    },
+    cursor: {
+      label: "Cursor",
+      /* Cursor 是编辑器：它要知道**写到哪**，而不是"请生成一个页面"。
+       * 首部改成文件级指令，正文照旧。 */
+      head: function () {
+        return [
+          "【这条提示词是给 Cursor 用的】",
+          "请在当前项目里新建 `index.html`，把下面的全部内容写进这一个文件（CSS 内联在 <style> 里）。不要新建其他文件、不要引入构建步骤、不要装依赖。",
+          "图片位保留 `src=\"images/占位-N.jpg\"` 的写法，不要去找网图。",
+          "",
+        ];
+      },
+    },
+    chatgpt: {
+      label: "ChatGPT",
+      head: function () {
+        return [
+          "【这条提示词是给 ChatGPT 用的】",
+          "请直接输出**一个完整的单文件 HTML**，用代码块包起来，不要先解释、不要分步骤、不要问我要不要继续。",
+          "",
+        ];
+      },
+    },
+    claude: {
+      label: "Claude",
+      head: function () {
+        return [
+          "【这条提示词是给 Claude 用的】",
+          "请直接输出一个完整的单文件 HTML（CSS 内联在 <style> 里），不要先复述我的要求、不要分段确认。",
+          "",
+        ];
+      },
+    },
+  };
+
+  /** 取工具首部（给 buildPrompt 与两个复制入口共用）。 */
+  function toolHead(tool, id) {
+    var p = TOOL_PROFILES[tool] || TOOL_PROFILES.generic;
+    return p.head(id);
+  }
+
+  /** 把当前工具合并进 opts。三个入口共用，避免各写一遍漏掉。 */
+  function withTool(o) {
+    var m = {};
+    for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) m[k] = o[k];
+    m.tool = getTool();
+    return m;
+  }
+
+  /** 当前选中的工具。默认 generic —— 不替用户假设他用哪个。 */
+  var currentTool = "generic";
+  function getTool() { return currentTool; }
+  function setTool(t) { currentTool = TOOL_PROFILES[t] ? t : "generic"; }
 
   /* 由 DNA 生成「填充好的」提示词（用户可直接粘给 AI）
    *
@@ -457,10 +581,16 @@
     }
 
     /* 开头两行（现在最多三行）由 promptOpener 产出，见文件顶部那段长注释。
-     * 这里刻意**不再有**任何 || "一家小店" 式兜底：那正是本轮修掉的缺陷。 */
+     * 这里刻意**不再有**任何 || "一家小店" 式兜底：那正是本轮修掉的缺陷。
+     *
+     * 工具首部（2026-11-11，Q3 第四项）在 opener **之前**：
+     * 先交代环境（"你在 v0 里，它不是 HTML 工作流"），再说内容。
+     * 顺序不能反 —— 先说内容的话，AI 已经按默认路径开始生成，环境说明成了事后补充。
+     * 而 `o.tool` 不传时 toolHead 返回空数组，对 generic 用户输出与改前一模一样。 */
+    var head = toolHead(o.tool || currentTool, s.id);
     var opener = promptOpener(o);
 
-    var lines = opener.concat([
+    var lines = head.concat(opener).concat([
       "",
       "请把整页做成这个风格：" + s.plain + "。",
       tone
@@ -1045,6 +1175,83 @@
     copyText(text, btn, "提示词与出处已一起复制");
   }
 
+  /* ── 下载成 .md 文件（2026-11-11，Q3 第四项）─────────────────────────
+   *
+   * 文件内容 = 元信息头 + 提示词正文 + 出处附录。
+   * 与剪贴板内容的区别就在那个头：剪贴板要短（直接粘），文件要可追溯（存档）。
+   *
+   * 文件名规则：`<案号>-<中文名>-提示词.md`。
+   * 为什么带中文名：用户下载十几个文件后，光看 S17 认不出是哪个案子。
+   * 为什么不用日期做文件名前缀：日期排序对"我上次那个"的回忆没有帮助，
+   * 案号才是用户脑子里的索引。
+   */
+  function downloadPromptMarkdown(id, btn, opts) {
+    var base = buildPrompt(id, opts);
+    if (!base) return;
+    var rec = meta(id);
+    var appendix = buildProvenanceAppendix(id);
+
+    var today = new Date();
+    var stamp = today.getFullYear() + "-" +
+      String(today.getMonth() + 1).padStart(2, "0") + "-" +
+      String(today.getDate()).padStart(2, "0");
+
+    var header = [
+      "# " + (rec.cn || id) + " · AI 施工提示词",
+      "",
+      "| 项 | 值 |",
+      "| --- | --- |",
+      "| 案号 | " + id + " |",
+      "| 中文名 | " + (rec.cn || "—") + " |",
+      "| 英文名 | " + (rec.en || "—") + " |",
+      "| 结构类型 | " + (rec.structure || "—") + " |",
+      "| 生成日期 | " + stamp + " |",
+      "| 正文字数 | " + base.length + " |",
+      "",
+      "> 下面 `---` 之后是提示词正文，直接全选粘进 ChatGPT / Claude / v0 / Cursor 即可。",
+      "> 这一行上方的表格是给人的，粘之前可以不删——多数 AI 会忽略它，但删掉更干净。",
+      "",
+      "---",
+      "",
+    ].join("\n");
+
+    var text = header + base + (appendix ? "\n" + appendix : "") + "\n";
+
+    var filename = id + "-" + String(rec.cn || "prompt").replace(/[\\/:*?"<>|\s]/g, "") + "-提示词.md";
+
+    var ok = false;
+    try {
+      var blob = new Blob([text], { type: "text/markdown;charset=utf-8" });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      /* 必须挂进 DOM 才能触发下载（Firefox 的已知要求）。 */
+      a.style.cssText = "position:absolute;width:1px;height:1px;opacity:0;pointer-events:none";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      /* 撤销必须延后：立刻 revoke 会让部分浏览器在下载真正开始前就失效。 */
+      setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
+      ok = true;
+    } catch (e) {
+      ok = false;
+    }
+
+    if (btn) {
+      var old = btn.textContent;
+      btn.textContent = ok ? "已下载 ✓" : "下载失败";
+      btn.classList.toggle("is-copied", ok);
+      setTimeout(function () { btn.textContent = old; btn.classList.remove("is-copied"); }, 1800);
+    }
+    announce(ok
+      ? "已下载 " + filename
+      : "下载失败，请改用「复制并附出处」再自己存成文件");
+    /* 下载失败时不弹手动框：用户点的是"下载"，给他一个复制框是答非所问。
+     * 播报里已经给了替代方案。 */
+    return ok;
+  }
+
   function copyPrompt(id, btn, opts) {
     var text = buildPrompt(id, opts);
     if (!text) return;
@@ -1108,9 +1315,9 @@
      */
     function fire(e) {
       if (e) { e.preventDefault(); e.stopPropagation(); }
-      copyPrompt(id, b, readFields());
+      copyPrompt(id, b, withTool(readFields()));
     }
-    b.addEventListener("click", function (e) { e.stopPropagation(); copyPrompt(id, b, readFields()); });
+    b.addEventListener("click", function (e) { e.stopPropagation(); copyPrompt(id, b, withTool(readFields())); });
     b.addEventListener("keydown", function (e) {
       if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") fire(e);
     });
@@ -1171,7 +1378,7 @@
         /* Enter = 直接复制，省一次 Tab。
          * preventDefault 是必要的：详情里的行卡对 Enter 有 handler，不拦的话
          * 合成 click 会被它吃掉（同按钮上那条注释记录的老坑）。 */
-        if (e.key === "Enter") { e.preventDefault(); e.stopPropagation(); copyPrompt(id, b, readFields()); }
+        if (e.key === "Enter") { e.preventDefault(); e.stopPropagation(); copyPrompt(id, b, withTool(readFields())); }
       });
 
       lab.appendChild(cap);
@@ -1314,18 +1521,125 @@
     pb.setAttribute("aria-describedby", hint.id);
     pb.addEventListener("click", function (e) {
       e.stopPropagation();
-      copyPromptWithProvenance(id, pb, readFields());
+      copyPromptWithProvenance(id, pb, withTool(readFields()));
     });
     pb.addEventListener("keydown", function (e) {
       if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") {
         e.preventDefault(); e.stopPropagation();
-        copyPromptWithProvenance(id, pb, readFields());
+        copyPromptWithProvenance(id, pb, withTool(readFields()));
       }
     });
     row.appendChild(pb);
 
+    /* ── 「下载 .md」（2026-11-11，Q3 第四项）──────────────────────────
+     *
+     * 【为什么需要它 —— 这不是"多一个功能"，是一条物理出路】
+     * 复制走的是剪贴板，而剪贴板在三种情况下会失效：
+     *   · 浏览器策略（无用户手势、文档失焦）
+     *   · 目标应用不接受富文本粘贴（有些编辑器会把长文本截断）
+     *   · 用户想把这份提示词存起来，下次接着改（剪贴板做不到）
+     * 前两种已有 `showManual()` 兜底（弹 textarea 让用户手选），
+     * 但那个兜底仍然是**内存里的字符串**——关掉页面就没了。
+     * 下载给的是一个文件，它在磁盘上，能存、能传、能版本化。
+     *
+     * 【为什么下载的内容与复制的内容不完全一样】
+     * 剪贴板内容是要**直接粘进 AI** 的，所以必须是干净的施工说明（只有一个前导说明）。
+     * 而 .md 文件是**给人存档**的，多一层元信息有用：这是哪个案、什么时候生成、
+     * 字数多少、出处在哪。这些放在文件头，用户想粘的时候自己删掉。
+     * 判据：**剪贴板求最短路径，文件求可追溯。**
+     *
+     * 【为什么用 Blob + a[download] 而不是让用户右键另存】
+     * 内容在 JS 里生成，没有 URL 可右键。`URL.createObjectURL(blob)` 是唯一路径。
+     * 必须 `revokeObjectURL` —— 不撤销的话每下载一次泄漏一份 blob（实测 Safari 尤甚）。
+     */
+    var dl = document.createElement("button");
+    dl.type = "button";
+    dl.className = "prompt-copy prompt-copy-dl";
+    dl.textContent = "下载 .md";
+    dl.title = "把提示词存成一个 Markdown 文件（带案号与字数），方便存档或稍后接着用。";
+    dl.setAttribute("aria-describedby", hint.id);
+    dl.addEventListener("click", function (e) {
+      e.stopPropagation();
+      downloadPromptMarkdown(id, dl, withTool(readFields()));
+    });
+    dl.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") {
+        e.preventDefault(); e.stopPropagation();
+        downloadPromptMarkdown(id, dl, withTool(readFields()));
+      }
+    });
+    row.appendChild(dl);
+
     row.appendChild(hint);
     wrap.appendChild(row);
+
+    /* ── 工具选择器（2026-11-11，Q3 第四项）──────────────────────────────
+     *
+     * 【为什么是个 select，不是一排单选按钮】
+     * 560px 面板里三个按钮已经占满一行；再加四个单选按钮会换行，
+     * 把「填写区」推下去 —— 而那正是 2026-10-25 修过的病（按钮落到 2881px）。
+     * 原生 select 只占一行、自带键盘语义、屏读器认得，不需要自己造。
+     *
+     * 【为什么默认是「不限」，而不是猜一个】
+     * 猜错比不猜更糟：用户拿到的是一份带错误环境说明的提示词，
+     * 而他不会知道那几句是为别的工具写的。默认不加首部 = 与改前完全一致。
+     *
+     * 【为什么换工具时立刻提示"已改变"】
+     * 提示词内容变了但界面没有可见的变化（按钮还是那个按钮），
+     * 用户会以为没生效。所以换工具时播报一句，并在旁边显示当前字数。 */
+    var toolRow = document.createElement("div");
+    toolRow.className = "prompt-tool";
+
+    var toolLabel = document.createElement("label");
+    toolLabel.textContent = "粘到哪个工具？";
+    toolLabel.setAttribute("for", "prompt-tool-select");
+
+    var toolSel = document.createElement("select");
+    toolSel.id = "prompt-tool-select";
+    toolSel.className = "prompt-tool-select";
+    [["generic", "不限（ChatGPT / Claude 通用）"], ["chatgpt", "ChatGPT"], ["claude", "Claude"], ["v0", "v0 (Vercel)"], ["cursor", "Cursor"]]
+      .forEach(function (pair) {
+        var op = document.createElement("option");
+        op.value = pair[0];
+        op.textContent = pair[1];
+        if (pair[0] === currentTool) op.selected = true;
+        toolSel.appendChild(op);
+      });
+
+    var toolNote = document.createElement("span");
+    toolNote.className = "prompt-tool-note";
+
+    function refreshToolNote() {
+      var t = getTool();
+      if (t === "generic") {
+        toolNote.textContent = "";
+        toolNote.hidden = true;
+        return;
+      }
+      toolNote.hidden = false;
+      /* v0 那一条要额外说清代价 —— 它是四个工具里唯一会让机制静默消失的。 */
+      toolNote.textContent = t === "v0" && (pick(id) || {}).hard
+        ? "已加上 v0 的环境说明。⚠️ 这一案依赖 JS，v0 会剥掉 <script>，机制会消失。"
+        : "已加上 " + TOOL_PROFILES[t].label + " 的环境说明（正文不变）。";
+    }
+    refreshToolNote();
+
+    toolSel.addEventListener("change", function (e) {
+      e.stopPropagation();
+      setTool(toolSel.value);
+      refreshToolNote();
+      announce(TOOL_PROFILES[getTool()].label === "ChatGPT / Claude"
+        ? "已切回通用提示词"
+        : "提示词首部已按 " + TOOL_PROFILES[getTool()].label + " 调整");
+    });
+    /* select 的 change 在键盘上也是原生触发的，但仍要阻止冒泡 ——
+     * 详情里的行卡会在 Enter/Space 时展开，而下拉框里方向键切换不该被行卡截走。 */
+    toolSel.addEventListener("keydown", function (e) { e.stopPropagation(); });
+
+    toolLabel.appendChild(toolSel);
+    toolRow.appendChild(toolLabel);
+    toolRow.appendChild(toolNote);
+    wrap.appendChild(toolRow);
     wrap.appendChild(fill);
     wrap.appendChild(note);
 

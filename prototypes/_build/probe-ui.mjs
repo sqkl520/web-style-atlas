@@ -463,6 +463,113 @@ async function runAll(pg) {
     }
     return { ok: true, detail: `附录在，${r.lineRefs} 处行号，共 ${r.len} 字` };
   });
+
+  /* ── 12. 交接体验：三个按钮 + 工具首部 + .md 下载（Q3 第四项）──────────
+   *
+   * 三项一起验，因为它们共用同一个入口区域，且任何一项坏了都意味着
+   * 「选中 → 带走」这条闭环断了一环：
+   *   · 三个按钮都在（复制 / 附出处 / 下载）
+   *   · 工具选择器在，且选项是五个
+   *   · 换工具时提示词首部真的变（不是只改了 select 的值）
+   *   · 下载产出的 Blob 是 markdown 且有元信息头
+   *
+   * 「换工具首部真的变」这条最重要 —— 把它做成一个只改 UI 不生效的功能，
+   * 界面上完全看不出来（select 会正常切换、提示语也会变）。
+   */
+  await check('handoff-three-buttons', async () => {
+    await goto('#S17');
+    const r = await pg.eval(`(() => {
+      const btns = [...document.querySelectorAll('.prompt-copy')].map((b) => b.textContent.trim());
+      const sel = document.querySelector('#prompt-tool-select');
+      const opts = sel ? [...sel.querySelectorAll('option')].map((o) => o.value) : [];
+      return { ok: true, btns, hasSelect: !!sel, opts, def: sel ? sel.value : null };
+    })()`);
+    if (!r.ok) return r;
+    const want = ['复制', '出处', '下载'];
+    const missing = want.filter((w) => !r.btns.some((b) => b.includes(w)));
+    if (missing.length) {
+      return { ok: false, want: '三个按钮（复制 / 附出处 / 下载）', got: r.btns.join(' / '),
+        detail: '缺：' + missing.join('、') };
+    }
+    if (!r.hasSelect) return { ok: false, want: '#prompt-tool-select', got: 'missing', detail: '工具选择器没渲染' };
+    if (r.opts.length < 5) return { ok: false, want: '≥5 个工具选项', got: r.opts.join(','), detail: '' };
+    if (r.def !== 'generic') return { ok: false, want: "默认 'generic'", got: r.def, detail: '默认值不该猜用户用哪个工具' };
+    return { ok: true, detail: `${r.btns.length} 个按钮 + ${r.opts.length} 个工具选项，默认 generic` };
+  });
+
+  /* ── 13. 换工具首部必须真的生效 ────────────────────────────────────── */
+  await check('tool-head-applied', async () => {
+    await goto('#S17');
+    const r = await pg.eval(`(() => {
+      const gen = window.buildStylePrompt('S17', { tool: 'generic' }) || '';
+      const v0  = window.buildStylePrompt('S17', { tool: 'v0' }) || '';
+      const cur = window.buildStylePrompt('S17', { tool: 'cursor' }) || '';
+      return { ok: true, genLen: gen.length, v0Len: v0.length, curLen: cur.length,
+        v0Head: v0.slice(0, 40), curHead: cur.slice(0, 40),
+        genHead: gen.slice(0, 40),
+        v0HasReact: v0.includes('React'), curHasFile: cur.includes('index.html') };
+    })()`);
+    if (!r.ok) return r;
+    if (r.v0Len <= r.genLen) {
+      return { ok: false, want: 'v0 版比通用版长（多了首部）', got: `${r.v0Len} vs ${r.genLen}`,
+        detail: '换工具没有真的改提示词（只改了界面）' };
+    }
+    if (!r.v0HasReact) {
+      return { ok: false, want: 'v0 首部提到 React', got: r.v0Head, detail: 'v0 的环境说明没写进提示词' };
+    }
+    if (!r.curHasFile) {
+      return { ok: false, want: 'Cursor 首部提到 index.html', got: r.curHead, detail: 'Cursor 的文件级指令没写进去' };
+    }
+    return { ok: true, detail: `generic ${r.genLen} / v0 ${r.v0Len} / cursor ${r.curLen} 字` };
+  });
+
+  /* ── 14. 下载产出必须是带元信息头的 markdown ───────────────────────── */
+  await check('download-md-blob', async () => {
+    await goto('#S17');
+    const r = await pg.eval(`(() => {
+      let cap = null;
+      const OrigBlob = window.Blob;
+      window.Blob = function (parts, opts) { cap = { text: parts.join(''), type: opts && opts.type }; return new OrigBlob(parts, opts); };
+      const origCreate = document.createElement.bind(document);
+      let clicked = null;
+      document.createElement = function (tag) {
+        const el = origCreate(tag);
+        if (tag === 'a') el.click = function () { clicked = el.download; };
+        return el;
+      };
+      const btn = [...document.querySelectorAll('.prompt-copy')].find((b) => b.textContent.includes('下载'));
+      if (!btn) return { ok: false, want: '下载按钮', got: 'missing', detail: '' };
+      btn.click();
+      document.createElement = origCreate;
+      window.Blob = OrigBlob;
+      return { ok: true, hasBlob: !!cap, bytes: cap ? cap.text.length : 0,
+        type: cap ? cap.type : '', filename: clicked || '',
+        hasHeader: cap ? cap.text.includes('| 案号 |') : false,
+        hasBody: cap ? cap.text.length > 1500 : false,
+        filenameHasCn: clicked ? /[一-鿿]/.test(clicked) : false };
+    })()`);
+    if (!r.ok) return r;
+    if (!r.hasBlob) return { ok: false, want: '生成 Blob', got: 'null', detail: '点了下载但没有 Blob' };
+    if (!/markdown/.test(r.type)) return { ok: false, want: 'text/markdown', got: r.type, detail: '' };
+    if (!r.hasHeader) return { ok: false, want: '含「| 案号 |」元信息头', got: '无', detail: '文件头没写进去' };
+    /* ⚠️ 文件名判据第一版只查「以 .md 结尾」，抓不住它本该抓的东西。
+     * 变异测试发现：把 `meta(id)` 换成 `{}`（取不到中文名）时，
+     * 文件名退化成 `S17-prompt-提示词.md` —— 它**仍然以 .md 结尾**，断言照样绿。
+     * 而那个文件名恰好是用户看不出这是哪个案子的那种。
+     *
+     * 正确判据：文件名里必须有中文名，不能是 `prompt` 这个兜底词。
+     * 这条同时守两件事：① 数据链取对了；② 用户下载十几个文件后还能认出来。 */
+    if (!/\.md$/.test(r.filename)) return { ok: false, want: '文件名以 .md 结尾', got: r.filename, detail: '' };
+    if (/-prompt-/.test(r.filename)) {
+      return { ok: false, want: '文件名含中文名', got: r.filename,
+        detail: '退化成兜底名了（meta() 取不到中文名）——用户下载十几个文件后认不出哪个是哪个' };
+    }
+    if (!r.filenameHasCn) {
+      return { ok: false, want: '文件名含中文（如 S17-税票存根联-提示词.md）', got: r.filename, detail: '' };
+    }
+    if (!r.hasBody) return { ok: false, want: '>1500 字正文', got: r.bytes, detail: '' };
+    return { ok: true, detail: `${r.filename}，${r.bytes} 字节` };
+  });
 }
 
 /* ── 主流程 ─────────────────────────────────────────────────────────── */
@@ -608,6 +715,28 @@ async function runSelftest(pg) {
       from: '<script src="provenance.js"></script>',
       to: '<!-- 变异：不加载 provenance.js -->',
       note: '不加载 provenance.js（window.PROVENANCE 未定义）',
+    },
+    /* Q3 第四项：交接体验的三条。守的都是「界面在、但功能没接上」的失败模式。 */
+    {
+      name: 'tool-head-applied',
+      file: 'prototypes/_selection/prompt-copy.js',
+      from: 'var head = toolHead(o.tool || currentTool, s.id);',
+      to: 'var head = [];   /* 变异：工具首部不生效 */',
+      note: '关掉工具首部（select 照常切换、提示语照常变，但提示词没变）',
+    },
+    {
+      name: 'download-md-blob',
+      file: 'prototypes/_selection/prompt-copy.js',
+      from: 'var rec = meta(id);',
+      to: 'var rec = {};   /* 变异：取不到中文名 */',
+      note: '让下载取不到中文名（文件名退化成 S17-prompt-提示词.md）',
+    },
+    {
+      name: 'handoff-three-buttons',
+      file: 'prototypes/_selection/prompt-copy.js',
+      from: '    row.appendChild(dl);',
+      to: '    /* 变异：不挂下载按钮 */',
+      note: '摘掉下载按钮（两个按钮照常工作，闭环却缺一环）',
     },
   ];
 
