@@ -51,15 +51,28 @@ for (const r of found.values()) {
   r.endLine = r.startLine + r.body.length;
 }
 
+/* ⚠️ 2026-11-10（Q2）：下面两处 `n <= 30` 原本是写死的上界。
+ *
+ * 后果：新增 S31–S35 之后
+ *   · `missing` 检查只覆盖 1..30 —— S31 的规格缺失不会被报（静默）；
+ *   · 切分循环只跑 1..30 —— S31 的 `_specs/S31.md` **永远不会生成**（静默）。
+ * 而 `collect-schemes.mjs` 读到没有规格的案时，`def` 会是空串，
+ * 站点上那一案显示为一句话都没有的空壳 —— 且没有任何闸门会说"你没生成规格"。
+ *
+ * 改成从 **SOURCES 里实际切到的方案号**推上界，不再维护一个数字。
+ * 想加新案：把 `07-schemes-31-35.md` 加进 SOURCES 即可，无需记得改两处循环。 */
+const numbers = [...found.keys()].sort((a, b) => a - b);
+const maxN = numbers.length ? numbers[numbers.length - 1] : 0;
+
 const missing = [];
-for (let n = 1; n <= 30; n++) if (!found.has(n)) missing.push(n);
+for (let n = 1; n <= maxN; n++) if (!found.has(n)) missing.push(n);
 if (missing.length) {
   console.error('未切到方案: ' + missing.join(', '));
   process.exit(3);
 }
 
 const rows = [];
-for (let n = 1; n <= 30; n++) {
+for (const n of numbers) {
   const r = found.get(n);
   const id = 'S' + String(n).padStart(2, '0');
   const body = r.body.join('\n');

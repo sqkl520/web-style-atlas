@@ -335,9 +335,21 @@ const dirs = readdirSync(PROTO, { withFileTypes: true })
 const byId = new Map(dirs.map((d) => [d.slice(0, 3), d]));
 
 const out = [];
-for (let i = 1; i <= 30; i++) {
-  const id = 'S' + String(i).padStart(2, '0');
-  const dir = byId.get(id) || null;
+/* ⚠️ 2026-11-10（Q2）：这里原本是 `for (let i = 1; i <= 30; i++)`。
+ *
+ * 那是「新增方案」的头号静默阻塞：`dirs`（上一行）是**按目录扫描**出来的，
+ * 但循环上界写死 30 ⇒ 放一个 `S31-…/` 进 prototypes/ 会被**整段丢弃**，
+ * 而 `collect-schemes --check` 照样打印「30 案：有页面 30…」，
+ * 4 道闸门（check-docs / check-twolines / check-ui-copy / check-contract）全绿。
+ * 也就是说新案落地后，站点会若无其事地继续显示 30 个方案。
+ *
+ * 改成遍历 `dirs` 之后，「有哪些案」只有**一个来源**：磁盘上的目录。
+ * 想再加一个案子，只需建目录，不需要记得改这里。
+ *
+ * 排序与原来一致（dirs 已 sort），id 从目录名推得，所以输出与旧版逐字节相同 ——
+ * 这一点由 `collect-schemes --check` 的 30 案输出与现有 data.js 对照验证。 */
+for (const dir of dirs) {
+  const id = dir.slice(0, 3);
   const spec = parseSpec(id);
   const c = cur[id] || {};
   const rec = {

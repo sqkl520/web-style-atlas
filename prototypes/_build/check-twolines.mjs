@@ -37,6 +37,7 @@
 import { readFileSync, existsSync } from 'node:fs';
 import { join, resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { caseDirs } from './_entries.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const P = join(ROOT, 'prototypes');
@@ -304,9 +305,26 @@ if (extraNoRole.length) {
     (extraNoRole.length > 6 ? ` … 其余 ${extraNoRole.length - 6} 案` : ''));
 }
 
-/* 覆盖检查 */
-if (SCHEMES.length !== 30) add('FAIL', '*', 'coverage', `data.js 只有 ${SCHEMES.length} 案，应为 30`);
-if (PSP.length !== 30) add('FAIL', '*', 'coverage', `prompts.js 只有 ${PSP.length} 案，应为 30`);
+/* 覆盖检查
+ *
+ * ⚠️ 2026-11-10（Q2）：原来两条都写 `!== 30`，且 FAIL 文案写「应为 30」。
+ * 后果有两层：
+ *   ① 新增第 31 案后，这两条会红 —— 这是对的（它会提醒"你的数据链没同步"）；
+ *   ② 但**修法指引是错的**：它让人去凑 30，而正确答案是让两边一致。
+ * 更隐蔽的一层：两条各自与字面量 30 比，所以「data.js 有 31、prompts.js 有 31」
+ * 这个**完全自洽**的状态也会被报成 2 条 FAIL。
+ * 改成两条关系式：
+ *   · data.js 的案数必须等于磁盘上的原型目录数（这是真正的期望值）；
+ *   · prompts.js 的案数必须等于 data.js 的案数（两条链必须等长）。
+ * 这样新增案时它们照旧会红（因为生成链还没跑），但红的是"该跑生成链"，
+ * 不是"该把数字改回 30"。 */
+const DISK_CASES = caseDirs(join(ROOT, 'prototypes')).length;
+if (SCHEMES.length !== DISK_CASES) {
+  add('FAIL', '*', 'coverage', `data.js 有 ${SCHEMES.length} 案，但磁盘上有 ${DISK_CASES} 个原型目录 —— 跑 collect-schemes.mjs`);
+}
+if (PSP.length !== SCHEMES.length) {
+  add('FAIL', '*', 'coverage', `prompts.js 有 ${PSP.length} 案，data.js 有 ${SCHEMES.length} 案 —— 两条数据链长度不等，跑 build-prompts.mjs`);
+}
 
 /* ── 输出 ──────────────────────────────────────────────────────────────── */
 const FAILS = findings.filter((f) => f.level === 'FAIL');

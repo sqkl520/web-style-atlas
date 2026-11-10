@@ -67,7 +67,11 @@ const mode = process.argv.includes('--json') ? 'json' : process.argv.includes('-
 
 if (mode === 'json') { console.log(JSON.stringify(rows, null, 1)); process.exit(0); }
 
-const total = 30;
+/* ⚠️ 2026-11-10（Q2）：原本是 `const total = 30;`。
+ * 它让「缺案检查」只覆盖 S01..S30 —— 将来新增 S31 之后，
+ * 这个函数仍只问「1..30 都在吗」，**多出来的目录与缺失的目录都看不见**。
+ * 改成从实际数据取总数：`rows` 已经是扫目录得到的，它才是唯一来源。 */
+const total = rows.length;
 const rendered = rows.filter((r) => r.rendered);
 const clean = rendered.filter((r) => r.fail === 0);
 const missing = [];
