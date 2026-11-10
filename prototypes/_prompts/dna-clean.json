@@ -2148,10 +2148,22 @@
       "1 ← border-bottom: 1px solid var(--rule-strong)  ⓐ.block",
       "1 ← border: 1px solid var(--rule-strong)  ⓐ.plate",
       "1 ← border-top: 1px solid var(--rule-strong)  ⓐ.plate figcaption",
-      "1 ← border-bottom: 1px solid var(--rule-strong)  ⓐ.spec th, .spec td",
+      "1 ← border-bottom: 1px solid var(--ink-soft)  ⓐ.spec thead th",
       "1 ← border: 1px solid var(--ink)  ⓐ.btn",
       "1 ← border: 1px solid var(--ink)  ⓐ.error",
       "1 ← border: 1px solid var(--ink)  ⓐ.error-code",
+      "1 ← border-bottom: 1px solid var(--rule-strong)  ⓐ.quote-list li",
+      "1 ← border-top: 1px solid var(--rule-strong)  ⓐ.case-list dt",
+      "1 ← border-top: 1px solid var(--rule-strong)  ⓐ.case-list dd",
+      "1 ← border-top: 1px solid var(--rule-strong)  ⓐ.terms-grid",
+      "1 ← border-left: 1px solid var(--rule-strong)  ⓐ.terms-grid",
+      "1 ← border-right: 1px solid var(--rule-strong)  ⓐ.term",
+      "1 ← border-bottom: 1px solid var(--rule-strong)  ⓐ.term",
+      "1 ← border-top: 1px solid var(--rule-strong)  ⓐ.pricing-list li",
+      "1 ← border-top: 1px solid var(--rule-strong)  ⓐ.visit-grid",
+      "1 ← border-left: 1px solid var(--rule-strong)  ⓐ.visit-grid",
+      "1 ← border-right: 1px solid var(--rule-strong)  ⓐ.visit-item",
+      "1 ← border-bottom: 1px solid var(--rule-strong)  ⓐ.visit-item",
       "1 ← border-top: 1px solid var(--rule-strong)  ⓐfooter"
     ],
     "lineWidthsInteractive": [],
@@ -2162,5 +2174,250 @@
     "h1SizeAt1440": 104,
     "mechanism": "",
     "charBudget": 147
+  },
+  {
+    "id": "S32",
+    "dir": "S32-violet-card-cabinet",
+    "structType": "",
+    "threshold": "",
+    "tone": "",
+    "palette": [
+      "#AE8ECD paper",
+      "#241A2E ink",
+      "#3A2C4C ink-soft",
+      "#452F5A tab",
+      "#513868 rule",
+      "#9B78BE paper-deep",
+      "#2C2038 ink-mid"
+    ],
+    "primary": [],
+    "fonts": {
+      "display": "Jost",
+      "body": "Noto Serif SC",
+      "mono": "",
+      "displayStack": [
+        "Jost",
+        "Noto Sans SC"
+      ],
+      "bodyStack": [
+        "Noto Serif SC",
+        "Literata",
+        "Georgia"
+      ]
+    },
+    "radius": "全直角 0",
+    "radiusBare": true,
+    "radiusWhy": "该案 CSS 里 0 处 border-radius，所有元素一律直角",
+    "shadow": "无阴影",
+    "shadowDetail": {
+      "kind": "none",
+      "inset": 0,
+      "outer": 0,
+      "drops": 0,
+      "samples": []
+    },
+    "lineWidths": "1px、2px",
+    "lineWidthsWhy": [
+      "2 ← border-bottom: 2px solid var(--rule)  ⓐ.head",
+      "2 ← border-top: 2px solid var(--rule)  ⓐ.drawers",
+      "1 ← border-bottom: 1px solid var(--rule)  ⓐ.drawer",
+      "1 ← border-top: 1px solid var(--rule)  ⓐ.card-list",
+      "1 ← border-bottom: 1px solid var(--rule)  ⓐ.card",
+      "1 ← border: 1px solid var(--rule)  ⓐ.plate img",
+      "1 ← border: 1px solid var(--ink)  ⓐ.btn",
+      "1 ← border: 1px solid var(--ink)  ⓐ.error",
+      "1 ← border: 1px solid var(--ink)  ⓐ.error-code",
+      "2 ← border-top: 2px solid var(--rule)  ⓐfooter"
+    ],
+    "lineWidthsInteractive": [],
+    "h1Size": "clamp(36px, 8.6vw, 100px)",
+    "h1SizeWhy": "裸 h1 规则 `h1` 声明 clamp(36px, 8.6vw, 100px)（桌面 1440px 口径）",
+    "bodySize": "16px",
+    "bodySizeWhy": "裸 body 规则 `body` 声明 var(--fs-body) → 展开为 16px（桌面 1440px 口径）",
+    "h1SizeAt1440": 100,
+    "mechanism": "",
+    "charBudget": 173
+  },
+  {
+    "id": "S33",
+    "dir": "S33-teal-mirror-ledger",
+    "structType": "",
+    "threshold": "",
+    "tone": "",
+    "palette": [
+      "#4A6763 paper",
+      "#F2F6F5 ink",
+      "#D8E4E2 ink-mid",
+      "#A8C0BD rule",
+      "#2F4744 block",
+      "#3F5855 paper-deep",
+      "#BCCFCC ink-soft"
+    ],
+    "primary": [],
+    "fonts": {
+      "display": "Jost",
+      "body": "Noto Serif SC",
+      "mono": "",
+      "displayStack": [
+        "Jost",
+        "Noto Sans SC"
+      ],
+      "bodyStack": [
+        "Noto Serif SC",
+        "Literata",
+        "Georgia"
+      ]
+    },
+    "radius": "全直角 0",
+    "radiusBare": true,
+    "radiusWhy": "该案 CSS 里 0 处 border-radius，所有元素一律直角",
+    "shadow": "无阴影",
+    "shadowDetail": {
+      "kind": "none",
+      "inset": 0,
+      "outer": 0,
+      "drops": 0,
+      "samples": []
+    },
+    "lineWidths": "1px、2px",
+    "lineWidthsWhy": [
+      "2 ← border-bottom: 2px solid var(--rule)  ⓐ.head",
+      "1 ← border-top: 1px solid var(--rule)  ⓐ.rows",
+      "1 ← border-bottom: 1px solid var(--rule)  ⓐ.row",
+      "1 ← border: 1px solid var(--rule)  ⓐ.plate img",
+      "1 ← border-top: 1px solid var(--rule)  ⓐ.note-list",
+      "1 ← border-bottom: 1px solid var(--rule)  ⓐ.note",
+      "1 ← border: 1px solid var(--ink)  ⓐ.btn",
+      "1 ← border: 1px solid var(--ink)  ⓐ.error",
+      "1 ← border: 1px solid var(--ink)  ⓐ.error-code",
+      "2 ← border-top: 2px solid var(--rule)  ⓐfooter"
+    ],
+    "lineWidthsInteractive": [],
+    "h1Size": "clamp(36px, 8.6vw, 100px)",
+    "h1SizeWhy": "裸 h1 规则 `h1` 声明 clamp(36px, 8.6vw, 100px)（桌面 1440px 口径）",
+    "bodySize": "16px",
+    "bodySizeWhy": "裸 body 规则 `body` 声明 var(--fs-body) → 展开为 16px（桌面 1440px 口径）",
+    "h1SizeAt1440": 100,
+    "mechanism": "",
+    "charBudget": 175
+  },
+  {
+    "id": "S34",
+    "dir": "S34-graphite-zero-photo-index",
+    "structType": "",
+    "threshold": "",
+    "tone": "",
+    "palette": [
+      "#2C3034 paper",
+      "#EBEEF0 ink",
+      "#C2C8CD ink-mid",
+      "#A8AFB5 ink-soft",
+      "#6E767C rule",
+      "#33383D paper-lift"
+    ],
+    "primary": [],
+    "fonts": {
+      "display": "Jost",
+      "body": "Noto Serif SC",
+      "mono": "",
+      "displayStack": [
+        "Jost",
+        "Noto Sans SC"
+      ],
+      "bodyStack": [
+        "Noto Serif SC",
+        "Literata",
+        "Georgia"
+      ]
+    },
+    "radius": "全直角 0",
+    "radiusBare": true,
+    "radiusWhy": "该案 CSS 里 0 处 border-radius，所有元素一律直角",
+    "shadow": "无阴影",
+    "shadowDetail": {
+      "kind": "none",
+      "inset": 0,
+      "outer": 0,
+      "drops": 0,
+      "samples": []
+    },
+    "lineWidths": "1px",
+    "lineWidthsWhy": [
+      "1 ← border-top: 1px solid var(--rule)  ⓐ.declare",
+      "1 ← border-bottom: 1px solid var(--rule)  ⓐ.week-list li",
+      "1 ← border: 1px solid var(--ink)  ⓐ.btn",
+      "1 ← border: 1px solid var(--ink)  ⓐ.error",
+      "1 ← border: 1px solid var(--ink)  ⓐ.error-code",
+      "1 ← border-top: 1px solid var(--rule)  ⓐfooter"
+    ],
+    "lineWidthsInteractive": [],
+    "h1Size": "clamp(38px, 8.8vw, 108px)",
+    "h1SizeWhy": "裸 h1 规则 `h1` 声明 clamp(38px, 8.8vw, 108px)（桌面 1440px 口径）",
+    "bodySize": "17px",
+    "bodySizeWhy": "裸 body 规则 `body` 声明 var(--fs-body) → 展开为 17px（桌面 1440px 口径）",
+    "h1SizeAt1440": 108,
+    "mechanism": "",
+    "charBudget": 162
+  },
+  {
+    "id": "S35",
+    "dir": "S35-ash-newsprint-flip",
+    "structType": "",
+    "threshold": "",
+    "tone": "",
+    "palette": [
+      "#DCE0E4 paper",
+      "#CDD3D8 paper-deep",
+      "#1A1E22 ink",
+      "#454C53 ink-mid",
+      "#6B7480 ink-soft",
+      "#8A939C rule"
+    ],
+    "primary": [],
+    "fonts": {
+      "display": "Jost",
+      "body": "Noto Serif SC",
+      "mono": "",
+      "displayStack": [
+        "Jost",
+        "Noto Sans SC"
+      ],
+      "bodyStack": [
+        "Noto Serif SC",
+        "Literata",
+        "Georgia"
+      ]
+    },
+    "radius": "全直角 0",
+    "radiusBare": true,
+    "radiusWhy": "该案 CSS 里 0 处 border-radius，所有元素一律直角",
+    "shadow": "无阴影",
+    "shadowDetail": {
+      "kind": "none",
+      "inset": 0,
+      "outer": 0,
+      "drops": 0,
+      "samples": []
+    },
+    "lineWidths": "1px、2px、3px",
+    "lineWidthsWhy": [
+      "2 ← border-bottom: 2px solid var(--rule)  ⓐ.head",
+      "3 ← border-left: 3px solid var(--ink)  ⓐ.warn-line",
+      "2 ← border: 2px solid var(--rule)  ⓐ.plate img",
+      "1 ← border-top: 1px solid var(--rule)  ⓐ.note",
+      "1 ← border-bottom: 1px solid var(--rule)  ⓐ.note:last-child",
+      "2 ← border: 2px solid var(--ink)  ⓐ.btn",
+      "2 ← border: 2px solid var(--ink)  ⓐ.error",
+      "2 ← border: 2px solid var(--ink)  ⓐ.error-code",
+      "2 ← border-top: 2px solid var(--rule)  ⓐfooter"
+    ],
+    "lineWidthsInteractive": [],
+    "h1Size": "clamp(36px, 8.4vw, 96px)",
+    "h1SizeWhy": "裸 h1 规则 `h1` 声明 clamp(36px, 8.4vw, 96px)（桌面 1440px 口径）",
+    "bodySize": "16px",
+    "bodySizeWhy": "裸 body 规则 `body` 声明 var(--fs-body) → 展开为 16px（桌面 1440px 口径）",
+    "h1SizeAt1440": 96,
+    "mechanism": "",
+    "charBudget": 162
   }
 ]

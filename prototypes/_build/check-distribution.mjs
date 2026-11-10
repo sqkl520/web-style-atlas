@@ -348,11 +348,22 @@ export function runCheck(rows, expectedN) {
     }
   }
 
-  /* ── 3. 结构标签撞车对：不许新增 ─────────────────────────────────
-     基线从数据现算，不是豁免表。逻辑是：撞车对数 > 8 就红。
-     为什么不写成「撞车对集合 ⊆ 某白名单」：白名单会变成下一个 §9.15 豁免表，
-     而 §9.15 自己的 C5 断言已经在抱怨「2/5 条登记规则永远不会红」。
-     用**对数**做上界，新增任何第 9 对都会红，且不需要维护任何名字清单。 */
+  /* ── 3. 结构标签：每个最多 3 次（契约 §F 的原文口径）─────────────
+   *
+   * ⚠️ 2026-11-10（Q2）改判据。第一版写的是「撞车对数不得从 8 涨到 9」，
+   * 而 `00-BRIEF-AND-CONSTRAINTS.md` §F 的原文是「**同一骨架最多出现 3 次**」——
+   * 也就是说 2 次、3 次都是**允许**的，"撞车"本身不是违规。
+   * 第一版把「2 次」也当违规，与契约不一致，且会造成一个荒谬结果：
+   * 加一个合法的新案到某个只有 1 案的标签上，闸门反而红（对数 8 → 9）。
+   *
+   * 这不只是判据松紧的问题 —— 第一版会**逼着人去给新案编一个新标签**，
+   * 而标签池只有 22 个、每个上限 3 次，编标签等于绕开契约而不是遵守它。
+   *
+   * 现在的判据与契约逐字对齐：
+   *   · 每个标签的出现次数必须 ≤ 3（超了才 FAIL）；
+   *   · 「撞车对数」只作为统计打印，不参与判定。
+   * 基线（8 对）保留在 stats 里给人看，但它不再是判据。
+   */
   const byStruct = {};
   for (const r of rows) {
     if (!r.structure) { add('FAIL', 'dist-value-missing', `${r.id} 没有 structure 字段`); continue; }
@@ -366,12 +377,6 @@ export function runCheck(rows, expectedN) {
     pairList: pairs.map(([k, v]) => `${k}=${v.join('+')}`),
     over3: over3.map(([k, v]) => `${k}×${v.length}`),
   };
-  const BASE_PAIRS = 8;  // 2026-11-10 实测基线
-  if (pairs.length > BASE_PAIRS) {
-    add('FAIL', 'dist-structure-collision',
-      `结构撞车从 ${BASE_PAIRS} 对涨到 ${pairs.length} 对 —— 契约 §F.3 不许「同骨架换色」。` +
-      `当前：${pairs.map(([k, v]) => k + '=' + v.join('+')).join(' ')}`);
-  }
   if (over3.length) {
     add('FAIL', 'dist-structure-over3',
       `有结构标签出现 >3 次（契约 §F「同一骨架最多 3 次」）：${over3.map(([k, v]) => k + '×' + v.length).join(' ')}`);
@@ -557,25 +562,24 @@ if (process.argv.includes('--selftest')) {
     note: '这条证明「只加不删」不会让同质化悄悄变糟',
   });
 
-  // B7. 结构撞车新增一对 → 必须红
+  // B7. 结构标签到 2 次/3 次**不该**红（契约允许），到 4 次才红 → 见 B8
   //
-  // ⚠️ 夹具本身踩过一次坑（第一版）：把它写成「把 S02 的 structure 改成 NEWS-FRONT」，
-  // 以为这样就和 S01 组成新的一对。实测**总数没变**（还是 8 对）——
-  // 因为 S02 原来属于 SPLIT 那对（S02+S30），改掉它的同时把那一对**拆散了**：
-  // 少一对、多一对，净变化 0。断言因此正确地没有报红，而看起来像断言失效。
-  // 这是"变异夹具设计错了"而不是"断言坏了"的典型：**改一个成员会同时影响两对**。
-  // 正确造法是把一个**本来没有撞车**的标签成员改成另一个已有成员的标签，
-  // 且那个标签原有的成员数 ≥2（拆不散）。
-  // 实测：S06 是 RIVER（独一份），把它改成 MAG-TOC ⇒ MAG-TOC 从 2 变 3、RIVER 消失，
-  // 撞车对 8 → 8 仍是净 0。所以改成：**新增一案**复制一个已有标签，才是真正 +1 对。
-  const b7rows = [...real, { ...real[0], id: 'NEW1', structure: real[0].structure }];
+  // ⚠️ 2026-11-10（Q2）第二次改这条夹具。判据从「撞车对数」改成「每个标签 ≤3」之后，
+  // 原来那条「多撞一对必须红」的用法例**本身就成了错的期望** ——
+  // 契约 §F 原文是「同一骨架最多出现 3 次」，2 次与 3 次都是合法的。
+  // 所以这条改成**反向用例**：把一个独一份的标签加到 2 个成员，必须**不红**。
+  // 有反向用例，才能证明 B8（→4 次）的红是真的由阈值触发的，而不是恒红。
+  const loneLabel = Object.entries(
+    real.reduce((m, r) => ((m[r.structure] = (m[r.structure] || 0) + 1), m), {})
+  ).find(([, n]) => n === 1);
+  const b7rows = [...real, { ...real.find((r) => r.structure === (loneLabel ? loneLabel[0] : real[0].structure)), id: 'NEW1' }];
   const b7 = runCheck(b7rows, b7rows.length);
   cases.push({
-    label: 'B7. 结构标签多撞一对',
-    want: '红 dist-structure-collision',
-    got: b7.findings.filter((f) => f.rule === 'dist-structure-collision').map((f) => f.msg.slice(0, 60)).join(''),
-    ok: b7.findings.some((f) => f.rule === 'dist-structure-collision'),
-    note: '',
+    label: 'B7. 某结构标签从 1 次加到 2 次（契约允许）',
+    want: '不红（契约 §F 上限是 3）',
+    got: b7.findings.filter((f) => f.rule === 'dist-structure-collision' || f.rule === 'dist-structure-over3').map((f) => f.msg.slice(0, 60)).join('') || '不红',
+    ok: !b7.findings.some((f) => f.rule === 'dist-structure-collision' || f.rule === 'dist-structure-over3'),
+    note: '反向用例：证明下面的 B8（→4 次）不是恒红',
   });
 
   // B8. 某结构标签 ×4 → 必须红

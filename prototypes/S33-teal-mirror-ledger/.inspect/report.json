@@ -1,0 +1,1192 @@
+{
+ "url": "prototypes/S33-teal-mirror-ledger/index.html",
+ "at": "2026-11-10T14:36:50.169Z",
+ "allow": [],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 5,
+   "filled": [
+    0.25,
+    0.16,
+    0.71,
+    0.53,
+    0.44
+   ],
+   "motion": {
+    "elements": 38,
+    "css": 0,
+    "transitions": 38,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 3618,
+     "screens": 4,
+     "words": 119,
+     "img": 1,
+     "video": 0,
+     "canvas": 0,
+     "svg": 0,
+     "sections": 3,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 1,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "ledger-rule.png"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": []
+    },
+    "hero": {
+     "text": "你说的话，和我们记的数",
+     "words": 1,
+     "chars": 11,
+     "lines": 2,
+     "size": 100,
+     "vw": 6.9,
+     "font": "Jost",
+     "weight": 500,
+     "tracking": -0.015,
+     "leading": 1.04,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "left",
+     "widthRatio": 0.69,
+     "top": 94,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "你说的话，和我们记的数",
+     "words": 1,
+     "lines": 2,
+     "size": 100,
+     "font": "Jost"
+    },
+    "headings": [
+     {
+      "text": "你说的话，和我们记的数",
+      "words": 1,
+      "chars": 11,
+      "lines": 2,
+      "size": 100,
+      "vw": 6.9,
+      "font": "Jost",
+      "weight": 500,
+      "tracking": -0.015,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.69,
+      "top": 94,
+      "tag": "h1",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 1,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": null,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Noto Serif SC",
+       "share": 0.77,
+       "mono": false
+      },
+      {
+       "family": "Sometype Mono",
+       "share": 0.19,
+       "mono": true
+      },
+      {
+       "family": "Jost",
+       "share": 0.03,
+       "mono": false
+      }
+     ],
+     "familyCount": 3,
+     "sizes": [
+      13,
+      14,
+      15,
+      16,
+      18,
+      26,
+      100
+     ],
+     "sizeCount": 7,
+     "notLoaded": [],
+     "body": {
+      "font": "Noto Serif SC",
+      "size": 15,
+      "leading": 1.72,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 4.7
+     },
+     "measureChars": 49,
+     "max": {
+      "size": 100,
+      "vw": 6.9,
+      "font": "Jost",
+      "text": "你说的话，和我们记的数"
+     },
+     "monoShare": 0.19,
+     "monoProseShare": 0.19,
+     "monoFamilies": [
+      "Sometype Mono"
+     ],
+     "monoSamples": [
+      "青灰对账簿 / Teal Mirror Ledger",
+      "只接熟人介绍",
+      "接活方式",
+      "4 个师傅，2 个水电",
+      "在队",
+      "下个月还有 1 户"
+     ],
+     "microLabels": 1,
+     "microLabelShare": 0.005,
+     "microSamples": [
+      "PLUMB-33"
+     ],
+     "upperShare": 0,
+     "centerShare": 0.01,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#4a6763",
+     "bodyBgHsl": {
+      "h": 172,
+      "s": 0.16,
+      "l": 0.35
+     },
+     "dark": true,
+     "sectionBgs": [],
+     "textColors": [
+      {
+       "color": "#d8e4e2",
+       "share": 0.72
+      },
+      {
+       "color": "#f2f6f5",
+       "share": 0.27
+      },
+      {
+       "color": "#4a6763",
+       "share": 0.01
+      },
+      {
+       "color": "#bccfcc",
+       "share": 0.01
+      }
+     ],
+     "button": {
+      "bg": "#f2f6f5",
+      "hsl": {
+       "h": 165,
+       "s": 0.18,
+       "l": 0.96
+      },
+      "fg": "#4a6763"
+     },
+     "lowContrast": [
+      {
+       "text": "青灰对账簿",
+       "ratio": 3.8,
+       "need": 4.5,
+       "size": 14,
+       "fg": "#bccfcc",
+       "bg": "#4a6763"
+      }
+     ]
+    },
+    "buttons": {
+     "count": 2,
+     "inHero": 0,
+     "radius": 0,
+     "height": 48,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": []
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 18,
+     "hairlineSamples": [
+      "ul.rows 1360px",
+      "li.row.w2 1360px",
+      "li.row.w3 1360px",
+      "li.row.w1 1360px",
+      "li.row.w3 1360px"
+     ],
+     "outlinedBoxes": 2,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 1,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "structure": {
+     "columns": 3,
+     "columnSamples": [
+      {
+       "value": 2,
+       "selector": "li.row.w2",
+       "text": 63
+      },
+      {
+       "value": 2,
+       "selector": "li.row.w3",
+       "text": 80
+      },
+      {
+       "value": 2,
+       "selector": "li.row.w1",
+       "text": 41
+      },
+      {
+       "value": 2,
+       "selector": "li.row.w3",
+       "text": 71
+      },
+      {
+       "value": 2,
+       "selector": "li.row.w2",
+       "text": 81
+      },
+      {
+       "value": 2,
+       "selector": "li.row.w1",
+       "text": 56
+      }
+     ],
+     "axisWidth": 1360,
+     "axisChars": 127,
+     "lineWidths": [
+      1,
+      2
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 45,
+     "columnsFrom": "footer",
+     "columnsAll": [
+      2,
+      3
+     ],
+     "columnDistribution": {
+      "2": 15,
+      "3": 1
+     },
+     "axisSelector": "footer",
+     "axisFromColumns": true
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 0,
+     "fixed": false,
+     "height": 552,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "noto serif sc",
+     "jost",
+     "sometype mono"
+    ]
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 4,
+   "filled": [
+    0.33,
+    0.25,
+    0.63,
+    0.44
+   ],
+   "motion": {
+    "elements": 38,
+    "css": 0,
+    "transitions": 6,
+    "scripted": 32,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 3721,
+     "screens": 3.6,
+     "words": 119,
+     "img": 1,
+     "video": 0,
+     "canvas": 0,
+     "svg": 0,
+     "sections": 3,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 1,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "ledger-rule.png"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": []
+    },
+    "hero": {
+     "text": "你说的话，和我们记的数",
+     "words": 1,
+     "chars": 11,
+     "lines": 2,
+     "size": 66,
+     "vw": 8.6,
+     "font": "Jost",
+     "weight": 500,
+     "tracking": -0.015,
+     "leading": 1.04,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 0.86,
+     "top": 94,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "你说的话，和我们记的数",
+     "words": 1,
+     "lines": 2,
+     "size": 66,
+     "font": "Jost"
+    },
+    "headings": [
+     {
+      "text": "你说的话，和我们记的数",
+      "words": 1,
+      "chars": 11,
+      "lines": 2,
+      "size": 66,
+      "vw": 8.6,
+      "font": "Jost",
+      "weight": 500,
+      "tracking": -0.015,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.86,
+      "top": 94,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "这张表怎么用",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 26,
+      "vw": 3.4,
+      "font": "Jost",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.3,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.93,
+      "top": 1548,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "哪些话我们会追着你问第二遍",
+      "words": 1,
+      "chars": 13,
+      "lines": 1,
+      "size": 26,
+      "vw": 3.4,
+      "font": "Jost",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.3,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.93,
+      "top": 1977,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 3,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": 1,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Noto Serif SC",
+       "share": 0.77,
+       "mono": false
+      },
+      {
+       "family": "Sometype Mono",
+       "share": 0.19,
+       "mono": true
+      },
+      {
+       "family": "Jost",
+       "share": 0.03,
+       "mono": false
+      }
+     ],
+     "familyCount": 3,
+     "sizes": [
+      13,
+      14,
+      15,
+      16,
+      18,
+      26,
+      66
+     ],
+     "sizeCount": 7,
+     "notLoaded": [],
+     "body": {
+      "font": "Noto Serif SC",
+      "size": 15,
+      "leading": 1.72,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 4.7
+     },
+     "measureChars": 49,
+     "max": {
+      "size": 66,
+      "vw": 8.6,
+      "font": "Jost",
+      "text": "你说的话，和我们记的数"
+     },
+     "monoShare": 0.19,
+     "monoProseShare": 0.19,
+     "monoFamilies": [
+      "Sometype Mono"
+     ],
+     "monoSamples": [
+      "青灰对账簿 / Teal Mirror Ledger",
+      "只接熟人介绍",
+      "接活方式",
+      "4 个师傅，2 个水电",
+      "在队",
+      "下个月还有 1 户"
+     ],
+     "microLabels": 1,
+     "microLabelShare": 0.005,
+     "microSamples": [
+      "PLUMB-33"
+     ],
+     "upperShare": 0,
+     "centerShare": 0.01,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#4a6763",
+     "bodyBgHsl": {
+      "h": 172,
+      "s": 0.16,
+      "l": 0.35
+     },
+     "dark": true,
+     "sectionBgs": [],
+     "textColors": [
+      {
+       "color": "#d8e4e2",
+       "share": 0.72
+      },
+      {
+       "color": "#f2f6f5",
+       "share": 0.27
+      },
+      {
+       "color": "#4a6763",
+       "share": 0.01
+      },
+      {
+       "color": "#bccfcc",
+       "share": 0.01
+      }
+     ],
+     "button": {
+      "bg": "#f2f6f5",
+      "hsl": {
+       "h": 165,
+       "s": 0.18,
+       "l": 0.96
+      },
+      "fg": "#4a6763"
+     },
+     "lowContrast": [
+      {
+       "text": "青灰对账簿",
+       "ratio": 3.8,
+       "need": 4.5,
+       "size": 14,
+       "fg": "#bccfcc",
+       "bg": "#4a6763"
+      }
+     ]
+    },
+    "buttons": {
+     "count": 2,
+     "inHero": 0,
+     "radius": 0,
+     "height": 48,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": []
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 18,
+     "hairlineSamples": [
+      "ul.rows 716px",
+      "li.row.w2 716px",
+      "li.row.w3 716px",
+      "li.row.w1 716px",
+      "li.row.w3 716px"
+     ],
+     "outlinedBoxes": 2,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 1,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "structure": {
+     "columns": 2,
+     "columnSamples": [
+      {
+       "value": 2,
+       "selector": "li.row.w2",
+       "text": 63
+      },
+      {
+       "value": 2,
+       "selector": "li.row.w3",
+       "text": 80
+      },
+      {
+       "value": 2,
+       "selector": "li.row.w1",
+       "text": 41
+      },
+      {
+       "value": 2,
+       "selector": "li.row.w3",
+       "text": 71
+      },
+      {
+       "value": 2,
+       "selector": "li.row.w2",
+       "text": 81
+      },
+      {
+       "value": 2,
+       "selector": "li.row.w1",
+       "text": 56
+      }
+     ],
+     "axisWidth": 716,
+     "axisChars": 127,
+     "lineWidths": [
+      1,
+      2
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 45,
+     "columnsFrom": "footer",
+     "columnsAll": [
+      2
+     ],
+     "columnDistribution": {
+      "2": 16
+     },
+     "axisSelector": "footer",
+     "axisFromColumns": true
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 0,
+     "fixed": false,
+     "height": 481,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "noto serif sc",
+     "jost",
+     "sometype mono"
+    ]
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 6,
+   "filled": [
+    0.49,
+    0.44,
+    0.53,
+    0.6,
+    0.43,
+    0.28
+   ],
+   "motion": {
+    "elements": 38,
+    "css": 0,
+    "transitions": 5,
+    "scripted": 33,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "page": {
+     "height": 4470,
+     "screens": 5.3,
+     "words": 119,
+     "img": 1,
+     "video": 0,
+     "canvas": 0,
+     "svg": 0,
+     "sections": 3,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 1,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "ledger-rule.png"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": []
+    },
+    "hero": {
+     "text": "你说的话，和我们记的数",
+     "words": 1,
+     "chars": 11,
+     "lines": 2,
+     "size": 32.8,
+     "vw": 8.4,
+     "font": "Jost",
+     "weight": 500,
+     "tracking": -0.015,
+     "leading": 1.04,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 0.84,
+     "top": 74,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "你说的话，和我们记的数",
+     "words": 1,
+     "lines": 2,
+     "size": 32.8,
+     "font": "Jost"
+    },
+    "headings": [
+     {
+      "text": "你说的话，和我们记的数",
+      "words": 1,
+      "chars": 11,
+      "lines": 2,
+      "size": 32.8,
+      "vw": 8.4,
+      "font": "Jost",
+      "weight": 500,
+      "tracking": -0.015,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.84,
+      "top": 74,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "这张表怎么用",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Jost",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.3,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.91,
+      "top": 1835,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "哪些话我们会追着你问第二遍",
+      "words": 1,
+      "chars": 13,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Jost",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.3,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.91,
+      "top": 2423,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 3,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": 1,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Noto Serif SC",
+       "share": 0.77,
+       "mono": false
+      },
+      {
+       "family": "Sometype Mono",
+       "share": 0.19,
+       "mono": true
+      },
+      {
+       "family": "Jost",
+       "share": 0.03,
+       "mono": false
+      }
+     ],
+     "familyCount": 3,
+     "sizes": [
+      13,
+      14,
+      15,
+      16,
+      18,
+      26,
+      33
+     ],
+     "sizeCount": 7,
+     "notLoaded": [],
+     "body": {
+      "font": "Noto Serif SC",
+      "size": 15,
+      "leading": 1.72,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 4.7
+     },
+     "measureChars": 39,
+     "max": {
+      "size": 32.8,
+      "vw": 8.4,
+      "font": "Jost",
+      "text": "你说的话，和我们记的数"
+     },
+     "monoShare": 0.19,
+     "monoProseShare": 0.19,
+     "monoFamilies": [
+      "Sometype Mono"
+     ],
+     "monoSamples": [
+      "青灰对账簿 / Teal Mirror Ledger",
+      "只接熟人介绍",
+      "接活方式",
+      "4 个师傅，2 个水电",
+      "在队",
+      "下个月还有 1 户"
+     ],
+     "microLabels": 1,
+     "microLabelShare": 0.005,
+     "microSamples": [
+      "PLUMB-33"
+     ],
+     "upperShare": 0,
+     "centerShare": 0.01,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#4a6763",
+     "bodyBgHsl": {
+      "h": 172,
+      "s": 0.16,
+      "l": 0.35
+     },
+     "dark": true,
+     "sectionBgs": [],
+     "textColors": [
+      {
+       "color": "#d8e4e2",
+       "share": 0.72
+      },
+      {
+       "color": "#f2f6f5",
+       "share": 0.27
+      },
+      {
+       "color": "#4a6763",
+       "share": 0.01
+      },
+      {
+       "color": "#bccfcc",
+       "share": 0.01
+      }
+     ],
+     "button": {
+      "bg": "#f2f6f5",
+      "hsl": {
+       "h": 165,
+       "s": 0.18,
+       "l": 0.96
+      },
+      "fg": "#4a6763"
+     },
+     "lowContrast": [
+      {
+       "text": "青灰对账簿",
+       "ratio": 3.8,
+       "need": 4.5,
+       "size": 14,
+       "fg": "#bccfcc",
+       "bg": "#4a6763"
+      }
+     ]
+    },
+    "buttons": {
+     "count": 2,
+     "inHero": 0,
+     "radius": 0,
+     "height": 48,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": []
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 26,
+     "hairlineSamples": [
+      "ul.rows 354px",
+      "li.row.w2 354px",
+      "li.row.w3 354px",
+      "li.row.w1 354px",
+      "li.row.w3 354px"
+     ],
+     "outlinedBoxes": 2,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 1,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "structure": {
+     "columns": 1,
+     "columnSamples": [],
+     "axisWidth": 308,
+     "axisChars": 119,
+     "lineWidths": [
+      1,
+      2
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 45,
+     "columnDistribution": {
+      "1": 45
+     },
+     "axisSelector": "div.error",
+     "axisFromColumns": false
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 0,
+     "fixed": false,
+     "height": 452,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "noto serif sc",
+     "jost",
+     "sometype mono"
+    ]
+   },
+   "consoleErrors": []
+  }
+ ],
+ "findings": [
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "width": 1440,
+   "message": "Monospace type outside code: Sometype Mono — e.g. \"青灰对账簿 / Teal Mirror Ledger\", \"只接熟人介绍\", \"接活方式\", \"4 个师傅，2 个水电\"",
+   "fix": "Set it in the text face. Monospace is for literal code inside <pre>/<code> only.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "micro-label",
+   "width": 1440,
+   "message": "1 tiny uppercase letter-spaced label(s): \"PLUMB-33\"",
+   "fix": "Prefer sentence case at body size.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "width": 1440,
+   "message": "18 thin rule(s)/divider line(s): ul.rows 1360px | li.row.w2 1360px | li.row.w3 1360px | li.row.w1 1360px",
+   "fix": "Delete. Separate with space, a tone change, or scale. Lines are only for real tables and form fields.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "width": 1440,
+   "message": "2 box(es) drawn with a 1px outline.",
+   "fix": "Prefer a filled surface or no box.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "contrast",
+   "width": 1440,
+   "message": "Low-contrast text: \"青灰对账簿\" 3.8:1 needs 4.5:1",
+   "fix": "Darken or lighten the text colour.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "font-count",
+   "width": 1440,
+   "message": "3 typefaces in use (Noto Serif SC, Sometype Mono, Jost).",
+   "fix": "Two at most.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "body-size",
+   "width": 1440,
+   "message": "Body text is 15px.",
+   "fix": "Body copy 16–20px.",
+   "alsoAt": [
+    768
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "grey-body",
+   "width": 1440,
+   "message": "The running text is a soft grey on its ground (4.7:1).",
+   "fix": "Set body copy in the full ink (7:1 or more). Keep the muted ink for secondary notes; pages read thin and unfinished when everything is grey.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "first-action",
+   "width": 1440,
+   "message": "No visible button in the first screen.",
+   "fix": "Give the one primary action a real button in the first screen (a filled or solid-bordered control, 44px or taller), not only a link in the navigation.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "few-pictures",
+   "width": 1440,
+   "message": "Only 1 picture(s) on the page (1 photographs, footage or raster images, 0 interface fragments). Drawings in SVG do not count.",
+   "fix": "Find real pictures of the subject's world with scripts/assets.mjs (photographs, archival images, maps, engravings, footage), download them to assets/ and give them room: a hero picture, one per section that has a subject, a full-width band. At least four, usually six to twelve."
+  },
+  {
+   "level": "WARN",
+   "id": "no-footage",
+   "width": 1440,
+   "message": "No video anywhere on the page.",
+   "fix": "Look for one honest clip with scripts/assets.mjs --video (the place, the material, the process) and use it as a muted loop with a poster frame. Defend its absence only if no clip fits the subject."
+  }
+ ],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "D:\\Web\\style\\prototypes\\S33-teal-mirror-ledger\\.inspect\\desktop-fold.jpg",
+   "pages": [
+    "D:\\Web\\style\\prototypes\\S33-teal-mirror-ledger\\.inspect\\desktop-page-01.jpg",
+    "D:\\Web\\style\\prototypes\\S33-teal-mirror-ledger\\.inspect\\desktop-page-02.jpg"
+   ]
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "D:\\Web\\style\\prototypes\\S33-teal-mirror-ledger\\.inspect\\tablet-fold.jpg",
+   "pages": [
+    "D:\\Web\\style\\prototypes\\S33-teal-mirror-ledger\\.inspect\\tablet-page-01.jpg"
+   ]
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "D:\\Web\\style\\prototypes\\S33-teal-mirror-ledger\\.inspect\\mobile-fold.jpg",
+   "pages": [
+    "D:\\Web\\style\\prototypes\\S33-teal-mirror-ledger\\.inspect\\mobile-page-01.jpg"
+   ]
+  }
+ ]
+}

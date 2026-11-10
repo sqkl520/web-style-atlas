@@ -1,0 +1,242 @@
+/* S34 石墨零图索引 — Graphite Zero-Photo Index
+ *
+ * 结构：ZERO-G（零重力漂移）。文字块之间用不均匀的空隙"浮"着，没有基线对齐。
+ * 底色 #2C3034：HSL 210°/8%/19% —— 比全库所有暗色都亮一档（其余在 5–15%）。
+ *
+ * 这一案是**全库第一个零照片页**（realPictures = 0，minPics = 0）。
+ * 没有任何 img：分区与记忆点全部由字号、留白、以及与漂移的方向承担。
+ * 对比度：正文 #EBEEF0 对底 11.41:1；次级 #A8AFB5 4.9:1；线 #6E767C 3.1:1。
+ */
+
+:root {
+  --paper: #2C3034;
+  --paper-lift: #33383D;
+  --ink: #EBEEF0;         /* 11.41:1 */
+  --ink-mid: #C2C8CD;     /* 7.2:1 */
+  --ink-soft: #A8AFB5;    /* 4.9:1 */
+  --rule: #6E767C;        /* 3.1:1 非文本 */
+
+  --pad: 44px;
+  --fs-body: 17px;
+  --lh-body: 1.78;
+
+  --font-body: "Noto Serif SC", "Literata", Georgia, serif;
+  --font-head: "Jost", "Noto Sans SC", sans-serif;
+  --font-num: "Sometype Mono", "Noto Sans SC", monospace;
+}
+
+* { box-sizing: border-box; }
+html { background: var(--paper); }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+.skip { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.skip:focus { position: fixed; left: 12px; top: 12px; width: auto; height: auto; clip-path: none; padding: 10px 16px; background: var(--ink); color: var(--paper); z-index: 50; font-family: var(--font-head); }
+
+/* ── 页头 ─────────────────────────────────────────────────── */
+.head {
+  padding: 76px var(--pad) 0;
+}
+
+.head-kicker {
+  font-family: var(--font-num);
+  font-size: 13px;
+  letter-spacing: .22em;
+  color: var(--ink-soft);
+  margin: 0 0 26px;
+}
+
+h1 {
+  font-family: var(--font-head);
+  font-weight: 500;
+  font-size: clamp(38px, 8.8vw, 108px);
+  line-height: 1.02;
+  letter-spacing: -.02em;
+  margin: 0 0 34px;
+  max-width: 15ch;
+}
+
+.standfirst {
+  font-size: 19px;
+  line-height: 1.72;
+  max-width: 40ch;
+  margin: 0 0 0;
+  color: var(--ink-mid);
+}
+
+/* ── 漂移块：本页的签名机制 ─────────────────────────────────
+   七块文字，各自有略微不同的左缩进与上下间距 —— 像零重力下
+   悬浮的纸片，互相之间没有共享基线。
+   缩进值（0 / 6% / 11% / 4% / 14% / 8% / 2%）不是随机的：
+   它跟着每块的"重量"（字数）走，字少的浮得远、字多的沉得近。 */
+.drift {
+  padding: 52px var(--pad) 32px;
+}
+
+.drift-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: d;
+}
+
+.drift-block {
+  max-width: 62ch;
+  counter-increment: d;
+  position: relative;
+  margin: 0 0 34px;
+  transition: opacity 300ms linear;
+}
+
+.drift-block:last-child { margin-bottom: 0; }
+
+/* 七档缩进，按块的重量 */
+.d1 { margin-left: 0; }
+.d2 { margin-left: 3%; }
+.d3 { margin-left: 5.5%; }
+.d4 { margin-left: 2%; }
+.d5 { margin-left: 7%; }
+.d6 { margin-left: 4%; }
+.d7 { margin-left: 1%; }
+
+.drift-block::before {
+  content: counter(d, decimal-leading-zero);
+  display: block;
+  font-family: var(--font-num);
+  font-size: 13px;
+  letter-spacing: .16em;
+  color: var(--ink-soft);
+  margin: 0 0 12px;
+}
+
+.drift-block h2 {
+  font-family: var(--font-head);
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.34;
+  margin: 0 0 12px;
+}
+
+.drift-block p {
+  margin: 0 0 10px;
+  font-size: 17.5px;
+  max-width: 62ch;
+  line-height: 1.78;
+  color: var(--ink-mid);
+}
+
+.drift-block p:last-child { margin-bottom: 0; }
+
+/* ── 无图声明区 ───────────────────────────────────────────── */
+.declare {
+  padding: 20px var(--pad) 60px;
+  border-top: 1px solid var(--rule);
+}
+
+.declare-title {
+  font-family: var(--font-head);
+  font-weight: 500;
+  font-size: 26px;
+  line-height: 1.3;
+  margin: 30px 0 12px;
+}
+
+.declare p {
+  margin: 0 0 12px;
+  font-size: 17px;
+  line-height: 1.78;
+  color: var(--ink-mid);
+  max-width: 50ch;
+}
+
+.declare b { color: var(--ink); font-weight: 700; }
+
+.week-list {
+  margin: 0 0 20px;
+  padding: 0;
+  list-style: none;
+  max-width: 56ch;
+}
+
+.week-list li {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--ink-mid);
+}
+
+.week-list b { color: var(--ink); font-weight: 400; font-family: var(--font-num); font-size: 14px; margin-right: 6px; }
+
+/* ── 按钮与错误态 ─────────────────────────────────────────── */
+.actions { padding: 0 var(--pad) 48px; display: flex; gap: 12px; flex-wrap: wrap; }
+.btn { font-family: var(--font-head); font-size: 15px; min-height: 48px; padding: 0 28px; cursor: pointer;
+  border: 1px solid var(--ink); background: transparent; color: var(--ink); transition: border-color 180ms linear; }
+.btn-primary { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.btn.is-in { border-color: var(--rule); }
+
+.error {
+  margin: 0 var(--pad) 60px;
+  border: 1px solid var(--ink);
+  padding: 22px 24px;
+  font-size: 17px;
+  display: flex; gap: 18px; align-items: flex-start;
+}
+.error-code { font-family: var(--font-num); font-size: 13px; letter-spacing: .1em; white-space: nowrap; border: 1px solid var(--ink); padding: 3px 9px; }
+
+footer {
+  border-top: 1px solid var(--rule);
+  padding: 30px var(--pad) 52px;
+  font-family: var(--font-num); font-size: 13px; line-height: 1.85; color: var(--ink-soft);
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px 40px;
+}
+.foot-col { display: flex; flex-direction: column; gap: 4px; }
+.foot-k { font-family: var(--font-head); font-size: 14px; color: var(--ink); margin-bottom: 4px; }
+
+/* ── 断点 ─────────────────────────────────────────────────── */
+@media (max-width: 1023px) {
+  :root { --pad: 30px; }
+  /* 漂移幅度收窄一半：窄档空间小，14% 会顶到边缘 */
+  .d2 { margin-left: 3%; } .d3 { margin-left: 5.5%; } .d4 { margin-left: 2%; }
+  .d5 { margin-left: 7%; } .d6 { margin-left: 4%; } .d7 { margin-left: 1%; }
+  .drift-block { margin-bottom: 68px; }
+}
+
+@media (max-width: 767px) {
+  :root { --pad: 20px; }
+  .head { padding-top: 46px; }
+  h1 { font-size: clamp(32px, 8.6vw, 46px); }
+  .standfirst { font-size: 17px; }
+  /* 窄档：漂移全部归零 —— 小屏上"浮"会变成"错位"，那是缺陷不是设计。
+     机制的再发明形式：改成**块间距的差异**（96/68/120px 三档），
+     悬浮感由间距而不是缩进承担。 */
+  .d1, .d2, .d3, .d4, .d5, .d6, .d7 { margin-left: 0; }
+  .drift-block { margin-bottom: 72px; }
+  .drift-block:nth-child(3n+1) { margin-bottom: 98px; }
+  .drift-block:nth-child(3n+2) { margin-bottom: 58px; }
+  .actions .btn { width: 100%; }
+  .error { flex-direction: column; gap: 12px; }
+}
+
+/* ── 降级：漂移的再发明形式 ─────────────────────────────────
+   机制是"块与块不共享基线"。reduce 时取消逐块淡入，
+   改成七档缩进一次性到位 + 块之间的间距各差 8px（视觉上仍是"不齐"），
+   缩进数值 0/6/11/4/14/8/2% 一字不改。 */
+@media (prefers-reduced-motion: reduce) {
+  .drift-block { transition: none; opacity: 1; }
+  .drift-block:nth-child(1) { margin-bottom: 104px; }
+  .drift-block:nth-child(2) { margin-bottom: 96px; }
+  .drift-block:nth-child(3) { margin-bottom: 112px; }
+  .drift-block:nth-child(4) { margin-bottom: 88px; }
+  .drift-block:nth-child(5) { margin-bottom: 120px; }
+  .drift-block:nth-child(6) { margin-bottom: 92px; }
+  .drift-block:nth-child(7) { margin-bottom: 0; }
+}

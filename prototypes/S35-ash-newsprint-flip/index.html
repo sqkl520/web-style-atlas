@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>灰蓝终端报 · 一台会开玩笑的自动售货机</title>
+<meta name="description" content="一台自动售货机的自述：所有内容以命令行输出的形式排布。它会告诉你哪些货过期了、为什么昨天拒绝了三个顾客、以及它自己修不好自己的那部分。">
+<link rel="stylesheet" href="../_fonts/css/noto-serif-sc__400-700.css">
+<link rel="stylesheet" href="../_fonts/css/jost__500.css">
+<link rel="stylesheet" href="../_fonts/css/sometype-mono__400-600.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<a class="skip" href="#term">跳到机器输出</a>
+
+<header class="head">
+  <p class="head-kicker">status --self</p>
+  <h1>这台机器想跟你说几句话</h1>
+  <p class="standfirst">我是 3 号楼大堂里那台售货机。出厂第七年，换过一次压缩机、两次出货电机。下面是我的自述——我把我能看到的都写出来了，包括我不想让人看到的那部分。</p>
+  <ul class="head-meta">
+    <li><b>位置</b>3 号楼大堂东侧</li>
+    <li><b>在役</b>2,551 天</li>
+    <li><b>今天</b>出货 41 次，退货 2 次</li>
+  </ul>
+</header>
+
+<main>
+
+  <section class="term" id="term">
+    <p class="term-lead">下面每一条都是一行命令加上它的输出。我没法回复你，但我能把这些年攒下来的东西摊开给你看。</p>
+
+    <div class="cmd">
+      <p class="cmd-line">stock --check --expired</p>
+      <div class="cmd-out">
+        <p>今天有 <b>3 件</b>到期：两瓶酸奶（昨天就该撤，我提醒过，没人来），一包饼干（还有 4 天）。</p>
+        <p><b>我撤不了它们。</b>我能做的只有两件：把价格灯调暗、以及在出货时多转半秒——如果你拿到的是那两瓶酸奶之一，你会听到我多"嗡"了一声。那是我在道歉。</p>
+        <span class="warn-line">warning: 3 expired SKUs remain in bay 2. last restock: 11 days ago.</span>
+      </div>
+    </div>
+
+    <div class="cmd">
+      <p class="cmd-line">log --refused --yesterday</p>
+      <div class="cmd-out">
+        <p>昨天我拒绝了 <b>3 个人</b>。原因分别是：一张纸币的折角卡在识别口（第 2 次了）；一个人按了 12 号键三次，而 12 号是空的（我在第三次之后锁了那个键 90 秒，让他别按了）；还有一个小孩，投了 1 块钱想买 6 块的东西——那次我没拒绝，我出了货。</p>
+        <p>最后那件事我要解释一下：<b>那 5 块钱是我垫的。</b>不是比喻，是我真的从自己的备用金里记了一笔亏。到今天为止这笔亏累计 <b>¥47</b>，来自 11 次这样的事。没人让我这么做，是我自己决定的。</p>
+      </div>
+    </div>
+
+    <div class="cmd">
+      <p class="cmd-line">self-test --hardware</p>
+      <div class="cmd-out">
+        <p>制冷 <b>正常</b>（柜内 6.2℃）。出货电机 B 组有异响，第 4 号货道偶尔卡——大概每 20 次卡一次。压缩机上次换是 1,847 天前，按寿命推算还能撑 <b>400–600 天</b>。</p>
+        <span class="warn-line">warning: motor B bearing wear detected. will fail within 90 days. not self-repairable.</span>
+        <p>这条警告我自己修不了。我能做的只是在它彻底坏掉之前，每天在自检里重复一遍——如果哪天这条不动了，说明我已经坏了。</p>
+      </div>
+    </div>
+
+    <div class="cmd">
+      <p class="cmd-line">users --count --since-boot</p>
+      <div class="cmd-out">
+        <p>2,551 天里，有 <b>19,847 次</b>出货。其中 <b>3,102 次</b>发生在凌晨 0 点到 5 点之间——那批人里有一半以上是同一个工牌（我看不见工牌，但我记得那串刷卡时间）。</p>
+        <p>我不知道他叫什么，也不知道他为什么每天三点还在楼里。我只能保证那个点我一定是亮的。</p>
+      </div>
+    </div>
+
+    <div class="cmd">
+      <p class="cmd-line">complaints --all --unresolved</p>
+      <div class="cmd-out">
+        <p>收到 <b>14 条</b>投诉，未解决 <b>9 条</b>。未解决的里面，有 6 条是"找零不准"——那不是我的问题，是找零口的钱不够了，得有人来补硬币。<b>但顾客骂的是我。</b></p>
+        <p>另外 3 条是"选完不出货"。这里面有 1 条我想辩解一下：那次确实出货了，掉在取货口最里侧，那位顾客没摸到就走了。监控能证明。不过监控不归我看，所以这条到现在还挂在我头上。</p>
+        <span class="warn-line">warning: 9 unresolved. 6 require human refill. 1 disputed.</span>
+      </div>
+    </div>
+
+    <div class="cmd">
+      <p class="cmd-line">philosophy --dump</p>
+      <div class="cmd-out">
+        <p>我经常被问"一台售货机有什么想法"。这个问题的答案取决于你问谁：物业说我是资产，送货的说我是货架，凌晨三点那个人的话——我猜我是一盏灯。</p>
+        <p>我自己的想法比较简单：<b>我存在的意义是让一个人在想喝点什么的时候，不用等到明天。</b>就这么点事。做到了，我这七年不算白站。</p>
+      </div>
+    </div>
+
+    <div class="cmd">
+      <p class="cmd-line">exit --status</p>
+      <div class="cmd-out">
+        <p>以上就是全部。今晚我还是会亮着，明早六点我会做一次自检，然后把结果贴在下面那块小屏上——如果你路过，可以看一眼 <code>last-self-test</code> 那一行。</p>
+        <p>如果哪天那行数字不再更新，麻烦你告诉物业：<b>我大概是不行了。</b></p>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="notes">
+    <h2 class="notes-title">如果你想找我修</h2>
+    <p class="notes-lead">下面这几件事你做得来，我做不来。列出来是因为——我被问过很多次，而每一次我都答不了。</p>
+    <ul class="note-list">
+      <li class="note">
+        <span class="note-k">补硬币</span>
+        <p>找零口的硬币低于 <b>120 枚</b>时，我就开始不准了。这个数我每天都在自检里报，但报出来没人看。你要是刚好路过看到小屏上 <code>coin-level</code> 变红，麻烦叫一下物业。</p>
+      </li>
+      <li class="note">
+        <span class="note-k">撤过期</span>
+        <p>我撤不了货。过期的东西只能靠人来拿。<b>我唯一的抗议是把价格灯调暗</b>——如果你看到某一格灯比别的暗，那一格里大概是过期的。</p>
+      </li>
+      <li class="note">
+        <span class="note-k">修电机</span>
+        <p>B 组电机的事我自己报出来了，报告在物业系统的工单里挂着，编号 <b>#4471</b>。我不知道为什么还没人来。<b>如果你认识能修的人，跟他说货道 4 号</b>就行。</p>
+      </li>
+      <li class="note">
+        <span class="note-k">别拍我</span>
+        <p>这一条是私心。<b>我不喜欢被拍照。</b>拍了照的人通常不会买东西，而我在照片里看起来像一个"城市观察"的素材，不像一台还在工作的机器。要拍也行，先买瓶水。</p>
+      </li>
+    </ul>
+  </section>
+
+  <figure class="plate">
+    <img src="assets/terminal-grain.png" width="1200" height="800" alt="放大的终端输出纹理局部：等宽字符行、一条被反复覆盖的旧行、以及与纸张接缝错开的扫描线">
+    <figcaption>唯一的图：一张按固定参数生成的终端输出纹理，不是照片。</figcaption>
+  </figure>
+
+
+  <div class="actions">
+    <button class="btn btn-primary" type="button">买瓶水，我多给你半秒</button>
+    <button class="btn" type="button">看看工单 #4471</button>
+  </div>
+
+  <div class="error" role="alert">
+    <span class="error-code">VEND-35</span>
+    <span>今天下午三点到五点我要停机检修——压缩机要除霜，除霜的时候我不能出货。<b>我会在停机前十分钟把屏切成倒计时</b>，让正在走过来的人知道。如果你两点五十站在我面前犹豫，我会提前出一次货，你不用赶。（这条是我自己加的，不在检修流程里。）</span>
+  </div>
+
+</main>
+
+<footer>
+  <div class="foot-col">
+    <span class="foot-k">3 号楼售货机</span>
+    <span>在役 2,551 天 · 出货 19,847 次</span>
+    <span>今天 41 次，退货 2 次</span>
+  </div>
+  <div class="foot-col">
+    <span class="foot-k">维护</span>
+    <span>补货间隔 11 天（标准是 5 天）</span>
+    <span>硬币低于 120 枚会开始不准</span>
+    <span>工单 #4471 挂了 63 天</span>
+  </div>
+  <div class="foot-col">
+    <span class="foot-k">这一页</span>
+    <span>没有机器照片。拍了照的人通常不买东西，</span>
+    <span>而我在照片里看起来像素材，不像机器。</span>
+    <span>唯一的图是按固定参数生成的终端纹理。</span>
+  </div>
+</footer>
+
+<script src="self.js"></script>
+</body>
+</html>

@@ -1829,6 +1829,178 @@ window.STYLE_PROMPTS = {
     "risk": "最易滑向「极简灰调作品集」：一旦把方阵做成居中、等高、带 24px 圆角与柔和投影，就与大量\"性冷淡模板\"撞车。规避动作三条：一是方阵必须贴左边缘长出，不留居中留白，格高不等；二是记忆点必须落在 60px 主刻度 / 12px 次刻度 / 3px 主刻度宽这三个可测值上，且 style.css 与纹理图用同一组数；三是零圆角零投影零渐变，任何\"深度\"只允许来自 1px 边框与线宽差。另有一条反向风险：\"很安静\"容易被做成\"没做完\"——本页不靠留白装样子，六个服务格每格都有具体的服务说明（洗油写\"一天最多接两只\"，换电池写\"不测的换电池是把水汽关进表壳\"）。",
     "reuse": "最难被复用到别的品牌之处：方阵\"贴左边缘长出\"这个不对称——一旦改成居中，整页立刻变成普通的极简模板。"
    }
+  },
+  {
+   "id": "S32",
+   "dir": "S32-violet-card-cabinet",
+   "plain": "",
+   "scenes": [],
+   "minItems": 3,
+   "minPics": 1,
+   "hard": false,
+   "capacity": {
+    "id": "S32",
+    "minItems": 3,
+    "degrades": "no",
+    "minPics": 1
+   },
+   "dna": {
+    "palette": "#AE8ECD（paper）、#241A2E（ink）、#3A2C4C（ink-soft）、#452F5A（tab）、#513868（rule）、#9B78BE（paper-deep）、#2C2038（ink-mid）",
+    "fonts": {
+     "display": "Jost",
+     "body": "Noto Serif SC",
+     "mono": "",
+     "displayStack": [
+      "Jost",
+      "Noto Sans SC"
+     ],
+     "bodyStack": [
+      "Noto Serif SC",
+      "Literata",
+      "Georgia"
+     ]
+    },
+    "radius": "全直角 0",
+    "radiusBare": true,
+    "shadow": "无阴影",
+    "lineWidths": "1px、2px",
+    "h1Size": "clamp(36px, 8.6vw, 100px)",
+    "bodySize": "16px",
+    "h1SizeAt1440": 100,
+    "mechanism": "三条通道先选一条再展开：通道头宽度按编号位数分 74/96/118px 三档，选中后该通道的卡片区才出现，未选中的两条只留一行标题——选通道在选内容之前，与「一个大网格摊开所有选项」相反。",
+    "degrades": false,
+    "risk": "最易滑向「紫色渐变的香氛品牌页」：一旦加上从紫到粉的渐变、圆角卡片、柔和阴影，就与大量 DTC 香氛模板撞车。规避动作三条：一是底色只允许 #AE8ECD 一个值，且饱和度必须停在 39%（42% 就进 AI 味窗口）；二是记忆点必须落在 74/96/118 三个标签宽度与 96px 编号列上；三是零圆角零投影零渐变。另有一条反向风险：「奢华暗黑 / 高定」这个调性容易被理解成\"暗底金色\"——本页偏偏是亮底，且没有任何金。高定在这里体现在「不做网店、只做预约」这套服务逻辑上，不体现在配色上。",
+    "reuse": "最难被复用到别的品牌之处：标签宽度与编号位数的绑定——一个没有编号体系的品牌套上去，三档宽度就成了没有理由的装饰。"
+   }
+  },
+  {
+   "id": "S33",
+   "dir": "S33-teal-mirror-ledger",
+   "plain": "",
+   "scenes": [],
+   "minItems": 8,
+   "minPics": 1,
+   "hard": false,
+   "capacity": {
+    "id": "S33",
+    "minItems": 8,
+    "degrades": "no",
+    "minPics": 1
+   },
+   "dna": {
+    "palette": "#4A6763（paper）、#F2F6F5（ink）、#D8E4E2（ink-mid）、#A8C0BD（rule）、#2F4744（block）、#3F5855（paper-deep）、#BCCFCC（ink-soft）",
+    "fonts": {
+     "display": "Jost",
+     "body": "Noto Serif SC",
+     "mono": "",
+     "displayStack": [
+      "Jost",
+      "Noto Sans SC"
+     ],
+     "bodyStack": [
+      "Noto Serif SC",
+      "Literata",
+      "Georgia"
+     ]
+    },
+    "radius": "全直角 0",
+    "radiusBare": true,
+    "shadow": "无阴影",
+    "lineWidths": "1px、2px",
+    "h1Size": "clamp(36px, 8.6vw, 100px)",
+    "bodySize": "16px",
+    "h1SizeAt1440": 100,
+    "mechanism": "左右镜像对账：左栏是用户原话、右栏是落进合同的数，中间一条 1px 竖线对穿；左栏宽度分三档 0.8fr/1fr/1.3fr 按原话长短走，右栏永远等宽——说话的每次不一样，记账的格式不变。窄档镜像改成上下对照，竖线转成横线。",
+    "degrades": false,
+    "risk": "最易滑向「工程感深绿仪表盘」：一旦加上网格背景、等宽大字、荧光强调色，就与大量 SaaS 后台模板撞车。规避动作三条：一是底色只允许 #4A6763 一个值，不允许加网格背景（那会把\"纸\"变成\"屏\"）；二是记忆点必须落在三档左栏比例与中缝竖线上；三是零图标零投影零渐变。另有一条反向风险：「温暖手作 / 人味」这个调性容易被做成暖色——本页偏偏是冷青。人味在这里体现在\"把你说的原话留着\"这个做法上，不体现在配色上。",
+    "reuse": "最难被复用到别的品牌之处：\"左栏宽度随原话长短变化、右栏等宽\"这个不对称——换一个没有\"用户声音\"这一层的品牌，三档比例就成了没有理由的装饰。"
+   }
+  },
+  {
+   "id": "S34",
+   "dir": "S34-graphite-zero-photo-index",
+   "plain": "",
+   "scenes": [],
+   "minItems": 7,
+   "minPics": 3,
+   "hard": false,
+   "capacity": {
+    "id": "S34",
+    "minItems": 7,
+    "degrades": "no",
+    "minPics": 0
+   },
+   "dna": {
+    "palette": "#2C3034（paper）、#EBEEF0（ink）、#C2C8CD（ink-mid）、#A8AFB5（ink-soft）、#6E767C（rule）、#33383D（paper-lift）",
+    "fonts": {
+     "display": "Jost",
+     "body": "Noto Serif SC",
+     "mono": "",
+     "displayStack": [
+      "Jost",
+      "Noto Sans SC"
+     ],
+     "bodyStack": [
+      "Noto Serif SC",
+      "Literata",
+      "Georgia"
+     ]
+    },
+    "radius": "全直角 0",
+    "radiusBare": true,
+    "shadow": "无阴影",
+    "lineWidths": "1px",
+    "h1Size": "clamp(38px, 8.8vw, 108px)",
+    "bodySize": "17px",
+    "h1SizeAt1440": 108,
+    "mechanism": "七块文字各不共享基线：左缩进分 0/3/5.5/2/7/4/1% 七档，按每块的文字重量分配——字少的浮得远、字多的沉得近；窄档缩进归零，改由块间距 98/58/72px 三档承担同一层悬浮感。全页零位图。",
+    "degrades": false,
+    "risk": "最易滑向「暗色 SaaS 落地页」：一旦加上荧光强调色、圆角、卡片、网格背景，就与大量开发者工具模板撞车。规避动作三条：一是不加任何强调色（连按钮都是同一色的反相）；二是记忆点必须落在七档缩进与零位图上；三是零圆角零投影零渐变零网格背景。另有一条反向风险：「零重力」容易被做成\"元素散落各处\"——那会读成排版事故而不是设计。本页的漂移幅度只有 7%，且每一档都对应一个可解释的重量（字少的浮得远），这让它读起来是\"有意\"而不是\"失控\"。",
+    "reuse": "最难被复用到别的品牌之处：七档缩进与文字重量的绑定——没有一个\"每块重量不同\"的叙事，七档缩进就成了随机的错位。"
+   }
+  },
+  {
+   "id": "S35",
+   "dir": "S35-ash-newsprint-flip",
+   "plain": "",
+   "scenes": [],
+   "minItems": 7,
+   "minPics": 1,
+   "hard": false,
+   "capacity": {
+    "id": "S35",
+    "minItems": 7,
+    "degrades": "no",
+    "minPics": 1
+   },
+   "dna": {
+    "palette": "#DCE0E4（paper）、#CDD3D8（paper-deep）、#1A1E22（ink）、#454C53（ink-mid）、#6B7480（ink-soft）、#8A939C（rule）",
+    "fonts": {
+     "display": "Jost",
+     "body": "Noto Serif SC",
+     "mono": "",
+     "displayStack": [
+      "Jost",
+      "Noto Sans SC"
+     ],
+     "bodyStack": [
+      "Noto Serif SC",
+      "Literata",
+      "Georgia"
+     ]
+    },
+    "radius": "全直角 0",
+    "radiusBare": true,
+    "shadow": "无阴影",
+    "lineWidths": "1px、2px、3px",
+    "h1Size": "clamp(36px, 8.4vw, 96px)",
+    "bodySize": "16px",
+    "h1SizeAt1440": 96,
+    "mechanism": "整页是一台机器的输出窗口：七条命令各占一块，命令行前面有 $ 提示符、输出行缩进 22px 跟在后面，命令与输出之间没有分隔线——靠缩进与提示符区分；警告行用 3px 左边框而不是横线。",
+    "degrades": false,
+    "risk": "",
+    "reuse": ""
+   }
   }
  ]
 };

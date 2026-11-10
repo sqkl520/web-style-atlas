@@ -17,6 +17,22 @@
  * 本条含 style.css 行号引用，可直接复核。
  */
 export const MECHANISMS = {
+  S35: {
+    text: "整页是一台机器的输出窗口：七条命令各占一块，命令行前面有 $ 提示符、输出行缩进 22px 跟在后面，命令与输出之间没有分隔线——靠缩进与提示符区分；警告行用 3px 左边框而不是横线。",
+    source: "style.css 的 .cmd-line::before content 一个美元符号加空格 / .cmd-out margin-left 22px / .warn-line border-left 3px / 404 行里 img 1 个（纹理，非照片）",
+  },
+  S34: {
+    text: "七块文字各不共享基线：左缩进分 0/3/5.5/2/7/4/1% 七档，按每块的文字重量分配——字少的浮得远、字多的沉得近；窄档缩进归零，改由块间距 98/58/72px 三档承担同一层悬浮感。全页零位图。",
+    source: "style.css 的 .d1–.d7 margin-left 0/3/5.5/2/7/4/1% / 窄档 .drift-block:nth-child(3n+1/2) margin-bottom 98/58px / 404 行里 img 标签 0 个",
+  },
+  S33: {
+    text: "左右镜像对账：左栏是用户原话、右栏是落进合同的数，中间一条 1px 竖线对穿；左栏宽度分三档 0.8fr/1fr/1.3fr 按原话长短走，右栏永远等宽——说话的每次不一样，记账的格式不变。窄档镜像改成上下对照，竖线转成横线。",
+    source: "style.css 的 .row.w1/w2/w3 grid-template-columns 0.8fr 1px 1.2fr / 1fr 1px 1fr / 1.3fr 1px 0.7fr / .row-said 与 .row-wrote 的 padding 22px / 窄档 grid-template-columns: 1fr + .row-tick height:1px",
+  },
+  S32: {
+    text: "三条通道先选一条再展开：通道头宽度按编号位数分 74/96/118px 三档，选中后该通道的卡片区才出现，未选中的两条只留一行标题——选通道在选内容之前，与「一个大网格摊开所有选项」相反。",
+    source: "style.css 的 .drawer-tab.t1/t2/t3 min-width 74/96/118px / .drawer.is-active 只展开当前通道 / .card 的 grid-template-columns 96px 1fr",
+  },
   S31: {
     text: "一条横向尺规把版面切成上中下三段：主刻度每 60px、长 34px、3px 宽，次刻度每 12px、长 12px、2px 宽，上下各一排共用两条贯穿基线——刻度既做读数骨架也顶掉图片的位置。",
     source: "style.css:118 .ruler 的 repeating-linear-gradient（12px/60px 两层）/ 注释里的主刻度 34px 3px 与次刻度 12px 2px / assets/ruler-field.png 用同一组数生成",

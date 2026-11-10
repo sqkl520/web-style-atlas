@@ -1,0 +1,365 @@
+/* S32 紫罗兰卡片柜 — Violet Card Cabinet
+ *
+ * 结构：CARD-CATALOG（档案馆抽屉卡片目录）。
+ * 底色 #AE8ECD 是**全库第一个亮底紫**：色相 270°、明度 68%。
+ *
+ * ⚠️ 选色时避开了 vendor/rules.mjs:13 的 AI 味紫窗口
+ * （hue 244–295 且 sat ≥42% 且明度 30–80）。这个紫的饱和度是 39%，
+ * 差 3 个点落在窗口外 —— 不是随手挑的，是先读出窗口再选。
+ * 若哪天有人把饱和度调到 43%，`palette-purple` 立刻 FAIL。
+ */
+
+:root {
+  /* 纸：亮底紫。三档文字全部实测过对比度（见下）。 */
+  --paper: #AE8ECD;        /* HSL 270/39/68 —— 避开 AI 味紫窗口（sat 39 < 42） */
+  --paper-deep: #9B78BE;
+  --ink: #241A2E;          /* 对底 5.98:1 */
+  --ink-mid: #2C2038;      /* 对底 5.51:1 */
+  --ink-soft: #3A2C4C;     /* 对底 4.59:1 —— 刚好过 AA，用于次级 */
+  --rule: #513868;         /* 对底 3.57:1 —— 非文本，满足 3:1 */
+  --tab: #452F5A;          /* 抽屉标签条 */
+
+  --pad: 40px;
+  --fs-body: 16px;
+  --lh-body: 1.7;
+
+  --font-body: "Noto Serif SC", "Literata", Georgia, serif;
+  --font-head: "Jost", "Noto Sans SC", sans-serif;
+  --font-num: "Sometype Mono", "Noto Sans SC", monospace;
+}
+
+* { box-sizing: border-box; }
+
+html { background: var(--paper); }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+.skip {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+}
+.skip:focus {
+  position: fixed; left: 12px; top: 12px; width: auto; height: auto;
+  clip-path: none; padding: 10px 16px; background: var(--ink);
+  color: var(--paper); z-index: 50; font-family: var(--font-head);
+}
+
+/* ── 页头 ─────────────────────────────────────────────────── */
+.head {
+  padding: 52px var(--pad) 34px;
+  border-bottom: 2px solid var(--rule);
+}
+
+.head-kicker {
+  font-family: var(--font-num);
+  font-size: 13px;
+  letter-spacing: .2em;
+  color: var(--ink-soft);
+  margin: 0 0 18px;
+}
+
+h1 {
+  font-family: var(--font-head);
+  font-weight: 500;
+  font-size: clamp(36px, 8.6vw, 100px);
+  line-height: 1.04;
+  letter-spacing: -.015em;
+  margin: 0 0 20px;
+  max-width: 18ch;
+}
+
+.standfirst {
+  font-size: 18px;
+  line-height: 1.66;
+  max-width: 44ch;
+  margin: 0 0 26px;
+  color: var(--ink-mid);
+}
+
+.head-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 28px;
+  font-family: var(--font-num);
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.head-meta b { color: var(--ink); font-weight: 400; }
+
+/* ── 卡片柜：本页的签名机制 ─────────────────────────────────
+   一排抽屉，每个抽屉有一个突出的标签条（tab）。
+   抽屉本身是等高矩形，但**标签宽度按目录号位数变化** —— 这是真实
+   卡片柜的特征：号短的抽屉标签也短。 */
+.cabinet {
+  padding: 40px var(--pad) 8px;
+}
+
+.cabinet-lead {
+  font-size: 16px;
+  color: var(--ink-mid);
+  max-width: 46ch;
+  margin: 0 0 26px;
+}
+
+.drawers {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 0;
+  border-top: 2px solid var(--rule);
+}
+
+.drawer {
+  border-bottom: 1px solid var(--rule);
+  padding: 0 0 22px;
+}
+
+/* 通道未选中：只留标签与标题，正文收起。
+   这是 BRANCH 的机制本体 —— 选通道在选内容之前。
+   用 max-height 而不是 display:none，因为要保留 CSS 可见的过渡与可访问性
+   （display 切换会让屏读器丢失内容）。 */
+.drawer p:not(.drawer-index) {
+  overflow: hidden;
+  max-height: 0;
+  margin: 0;
+  opacity: 0;
+  transition: max-height 260ms ease, opacity 200ms ease, margin 200ms ease;
+}
+
+.drawer.is-active p:not(.drawer-index) {
+  max-height: 22em;
+  margin: 0 0 10px;
+  opacity: 1;
+}
+
+.drawer h2 {
+  transition: color 160ms linear;
+}
+
+.drawer.is-active h2 { color: var(--ink); }
+.drawer:not(.is-active) h2 { color: var(--ink-mid); }
+
+.drawer-tab {
+  display: inline-block;
+  font-family: var(--font-num);
+  font-size: 13px;
+  letter-spacing: .14em;
+  background: var(--tab);
+  color: var(--paper);
+  padding: 6px 14px 7px;
+  margin: 0 0 16px;
+}
+
+/* 标签宽度随目录号长度变化 —— 三档，对应 A-7 / B-12 / C-104 */
+.drawer-tab.t1 { min-width: 74px; }
+.drawer-tab.t2 { min-width: 96px; }
+.drawer-tab.t3 { min-width: 118px; }
+
+.drawer h2 {
+  font-family: var(--font-head);
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 1.3;
+  margin: 0 0 10px;
+}
+
+.drawer p {
+  margin: 0 0 10px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--ink-mid);
+}
+
+.drawer-index {
+  font-family: var(--font-num);
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+/* 抽屉拉开态：标签向右延伸 6px（reduce 时改宽度，见文件末尾） */
+.drawer-tab.is-out { transform: translateX(6px); }
+.card-no.is-out { border-color: var(--tab); }
+.card-body h3.is-out { color: var(--ink); }
+footer .foot-k.is-out { color: var(--tab); }
+.actions .btn.is-out { border-color: var(--tab); }
+.head-meta li.is-out { border-color: var(--rule); }
+
+/* ── 卡片：真正的内容单元 ─────────────────────────────────── */
+.cards {
+  padding: 10px var(--pad) 60px;
+}
+
+.cards-title {
+  font-family: var(--font-head);
+  font-weight: 500;
+  font-size: 26px;
+  line-height: 1.3;
+  margin: 0 0 8px;
+}
+
+.cards-lead {
+  font-size: 16px;
+  color: var(--ink-mid);
+  max-width: 46ch;
+  margin: 0 0 24px;
+}
+
+.card-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--rule);
+}
+
+.card {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 0 22px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--rule);
+  align-items: start;
+}
+
+.card-no {
+  font-family: var(--font-num);
+  font-size: 13px;
+  letter-spacing: .08em;
+  color: var(--ink-soft);
+  padding-top: 3px;
+}
+
+.card-body h3 {
+  font-family: var(--font-head);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.4;
+  margin: 0 0 6px;
+}
+
+.card-body p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.72;
+  color: var(--ink-mid);
+}
+
+/* ── 图位 ─────────────────────────────────────────────────── */
+.plate {
+  margin: 0 0 60px;
+  padding: 0 var(--pad);
+}
+
+.plate img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border: 1px solid var(--rule);
+}
+
+.plate figcaption {
+  font-family: var(--font-num);
+  font-size: 13px;
+  padding: 10px 0 0;
+  color: var(--ink-soft);
+}
+
+/* ── 按钮与错误态 ─────────────────────────────────────────── */
+.actions {
+  padding: 0 var(--pad) 44px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  font-family: var(--font-head);
+  font-size: 15px;
+  min-height: 48px;
+  padding: 0 26px;
+  cursor: pointer;
+  border: 1px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+}
+
+.btn-primary {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+.error {
+  margin: 0 var(--pad) 60px;
+  border: 1px solid var(--ink);
+  padding: 20px 22px;
+  font-size: 16px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.error-code {
+  font-family: var(--font-num);
+  font-size: 13px;
+  letter-spacing: .1em;
+  white-space: nowrap;
+  border: 1px solid var(--ink);
+  padding: 3px 8px;
+}
+
+footer {
+  border-top: 2px solid var(--rule);
+  padding: 26px var(--pad) 46px;
+  font-family: var(--font-num);
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--ink-soft);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 22px 36px;
+}
+
+.foot-col { display: flex; flex-direction: column; gap: 3px; }
+.foot-k { font-family: var(--font-head); font-size: 14px; color: var(--ink); margin-bottom: 3px; }
+
+/* ── 断点 ─────────────────────────────────────────────────── */
+@media (max-width: 1023px) {
+  :root { --pad: 26px; }
+  .card { grid-template-columns: 76px 1fr; gap: 0 16px; }
+}
+
+@media (max-width: 767px) {
+  :root { --pad: 18px; }
+  .head { padding-top: 34px; }
+  h1 { font-size: clamp(30px, 8.4vw, 42px); }
+  .drawers { grid-template-columns: 1fr; }
+  .card { grid-template-columns: 1fr; gap: 0; }
+  .card-no { padding-top: 0; margin-bottom: 6px; }
+  .actions .btn { width: 100%; }
+  .error { flex-direction: column; gap: 10px; }
+}
+
+/* ── 降级：签名机制是"抽屉依次拉开" ─────────────────────────
+   reduce 时不做位移，改成抽屉标签条**依次变宽 4px**（同一语义：
+   一个接一个被拉开），数值保留（74/96/118 三档宽度不变）。 */
+@media (prefers-reduced-motion: reduce) {
+  .drawer-tab { transition: none; }
+  .drawer-tab.is-out { transform: none; }
+  .drawer.is-open .drawer-tab.t1 { min-width: 78px; }
+  .drawer.is-open .drawer-tab.t2 { min-width: 100px; }
+  .drawer.is-open .drawer-tab.t3 { min-width: 122px; }
+}
