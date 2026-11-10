@@ -1,7 +1,7 @@
 # Q2 工作分解结构（WBS）
 
 > 角色：Q2 规划 Agent。**只做拆解与可行性判定，未执行任何工作包。**
-> 基线：`D:/Web/style` HEAD `1718b52`，工作区**不干净**（见 §0.2）。
+> 基线：`D:/Web/style` **HEAD `54be4bd`**。本轮写作期间基线从 `1718b52` 前进了 4 个 commit（Q2 已被另一个写入者开工），详见 §0.2 与 §0.2c。
 > 侦察口径：本文件所有数字都是本轮 `node` 现算或 `file:line` 原文；「未验证」四处已明确标注。
 > 依据：`deliverables/74-plan/{00-MASTER-PLAN,OFFERING,CRITIQUE-OFFERING,DELIVERY,CRITIQUE-DELIVERY,DECISIONS}.md`、
 > `deliverables/74-recon/{00-SYNTHESIS,schemes,ux}.md`、`prototypes/_CONTRACT.md`、`prototypes/_specs/_CURRENT-VALUES.md`、
@@ -66,6 +66,27 @@ node prototypes/_build/check-distribution.mjs --selftest
 **我的判定：它的方案优于我的建议。** 理由：(a) 不引入任何新的字数预算（少一条会腐烂的阈值）；(b) 不动 `field('` 计数（本轮复核仍是 11，`check-docs` 的 `panel/fields` 仍 `✓ 12 段字段`、`README.md 0 FAIL / 13 PASS`）；(c) 不需要 `README.md:74,157` 的双语改写。
 
 ⇒ **N03 的剩余范围因此大幅缩小**：只剩「施工层默认折叠要不要扩」与「`index.html:224` 的『其中 5 段默认折叠』是否仍成立」两件。§2 的 N03 已按此改写。
+
+### 0.2c 写作末段：那 4 个改动已 commit，基线前进到 `54be4bd`
+
+本轮收尾时 `git log 1718b52..HEAD` 显示 4 个新 commit，**Q2 的四件里已有三件落地**：
+
+| commit | 内容 | 对本 WBS 的影响 |
+|---|---|---|
+| `9631426` | 「Q2 开工：修好 README 一处对外说错的数字，建分布闸门，补齐复刻验货缺的 3 个可度量」 | **N02 的闸门本体已完成**；README 的 `26 → 29`（`README.md:576`、`README-EN.md:505`）已改 —— 见 §6-2 中 `check-docs` 的 `gate-claim-unparsed` 修复 |
+| `fae9ee0` | 「修好『芯片能点、搜索搜不到』，并把这个事故做成两条回归断言」 | **新增 `check-scenes.mjs`（310 行）** —— 这是计划没列的一道闸门；N04（向导与芯片合并）的输入清单要加它 |
+| `11614cc` | 「拔掉三处『新案会被静默丢弃』的硬上限」 | **§1.2 的 #8/#9/#10/#11 已全部完成** ⇒ N00 的类 A 阻塞**清零** |
+| `54be4bd` | 「详情面板判决层 —— 实际做法是把答案排到首屏，不是压到 180 字」 | **N03 主体已完成**，且其提交信息逐字确认了 §4-7 的分歧（「不是压到 180 字」） |
+
+**仍然没做、且是我判定最危险的三处**（本轮末尾重新核实）：
+
+| # | 位置 | 现状 | 为什么危险 |
+|---|---|---|---|
+| **A** | `prototypes/_prompts/build-prompts.mjs:243` | `const h = HUMAN[d.id] \|\| { plain: "", scenes: [], minItems: 3, minPics: 3 };` | **新案漏填 `HUMAN` 表时静默降级**：`plain` 空串（卡片主句为空）、`minPics: 3`（污染「少货少图」画像）。**没有任何断言检查 `plain` 非空** |
+| **B** | `prototypes/_prompts/build-prompts.mjs:380` | `console.log("  有机制句的案：30/" + (30 - noMech) + " → 实际 " + (30 - noMech) + "/30")` | 31 案时日志会写「30/31 → 实际 30/30」，**读日志的人会以为满覆盖** |
+| **C** | `prototypes/_build/check-distribution.mjs` | `dist-chroma-zero` / `dist-capacity-missing` **两条前置断言仍不存在**（本轮末尾重跑 `--selftest` 仍 11/11，仍是原来那 11 条） | §4.3 漏洞 1 与漏洞 2 未堵 ⇒ 空 palette 的假案能把「很安静」地板从 2 抬到 5 且全绿 |
+
+⇒ **N00 的范围从「9 处」缩到「2 处（A、B）」，N02 的范围从「建闸门」缩到「补 2 条前置断言 + 改 `dist-tone-coverage`」，N03 从 3 天缩到 1 天。** 本 WBS §2 的各包已按此标注。**总量因此从 34–48 降到约 30–42 人天，其中 20–30 仍是 N31–N35。**
 
 ### 0.3 本轮复核的五个事实（先摆出来，后面全部引用）
 
@@ -306,6 +327,8 @@ node prototypes/_build/check-distribution.mjs --selftest
 
 **所以「少货少图」不是一个「缺一格」的分布问题，是一个「产品对一整类店主说谎」的问题。** 判为**真实且最高价值**的缺口。
 
+**补一条独立的现实证据（本轮写作中发现的并发产物 `deliverables/75-q2/_det/_new-case-feasibility.md`）**：那个写入者从素材侧算了一遍，结论与我这个从数据侧的判断合流 —— `_CONTRACT.md §10` 说可检索图源在本环境全部不可用，`assign-assets.mjs` 只能复用工作区已有 209 条语料，`make-textures.py` 只能做纸纹/网纹那一层。⇒ **新案里如果有「多图 / 图片是主角」的，它建不出来；而「少图」正好是这条链唯一能新建的类型。** 于是「最缺的缺口」与「唯一可行的技术路径」重合。**这不是巧合 —— 它说明「30 案全都要 ≥4 图」的一部分原因就是素材供给被卡住了。**
+
 #### 3.5 关于「画一个 0 图版式」的现实性（未验证）
 
 `minPics=0` 的版式在现有闸门下**不可能过**：`rules.mjs:113` 的 `pics = realPictures + uiPictures`，`uiPictures` 只数 `[data-ui]` 元素（`vendor/probe.mjs:418`，全库仅 S03/S08 用了 `data-ui`）。⇒ 除非新案标 `data-ui`，否则 `realPictures` 必须 ≥4。**N31/N33/N34 若真做 0–2 图，必须走 `data-ui` 这条旁路，或者改闸门。** 这是一个**产品决定**，见 §6-6。
@@ -459,6 +482,8 @@ add('INFO', 'dist-ruler-divergence', `HSL 口径 ${…} / Lab 口径 ${JSON.stri
 
 **结论：这个数是拍的，但拍得基本合理 —— 只是在当前数据下，它装不下计划自己要求的内容。给出替代数与拆法。**
 
+> **更新（本轮写作中发现）**：`app.js` 已被并发写入者按「只调顺序、不压字数」改过一版，并独立算出与我相同的 167/279/334。**它的处置优于我下面的三层预算建议**（见 §0.2b 与 §4-7）。本节保留完整测量与备选方案，供「顺序调整还不够」时使用 —— 按它的实测，调序后首屏已可见 3 段且其中 2 段直答「我的店」，所以**三层预算今天不需要做**。
+
 #### 5.1 溯源
 
 `≤180 字` 只出现在两处：`00-MASTER-PLAN.md:121`（「判决层（≤180 字）」）与 `DELIVERY.md:125,144`（「≤1 屏 / ≤180 字」「它就是用户判断『是我的店吗』的全部输入，≤180 字」）。**两份文档都没有给这个数的推导。**
@@ -522,17 +547,19 @@ add('INFO', 'dist-ruler-divergence', `HSL 口径 ${…} / Lab 口径 ${JSON.stri
 
 > 人天按「一个人、熟悉本仓、可被打断」估。**「可机器判定」一律给可执行命令或 `file:line` 断言，不写「检查是否合理」。**
 
-### N00 · 「30」的第二真源清理（**前置，必须最先**）
+### N00 · 「30」的第二真源清理（**前置**；范围已从 9 处缩到 2 处）
 
 | 项 | 内容 |
 |---|---|
 | 目标 | 让「有几案」只有**一个来源**（磁盘目录），消灭手工数字的静默失效 |
-| 输入 | §1.2 的 16 条清单 |
-| 产出 | `prototypes/_build/{collect-schemes,extract-specs,summarize-all,check-twolines}.mjs`（**4 个已由并发写入者改好，本包只需复核 + 补测试**）；`prototypes/_prompts/build-prompts.mjs`（`:380` 的日志口径）；`prototypes/_build/{check-stale,check-contract}.mjs`（补「新案无报告」口径对齐） |
-| 验收 | ① `node prototypes/_build/collect-schemes.mjs --check` 退出 0，且输出行数 = `ls -d prototypes/S\d\d-*/ \| wc -l`<br>② **临时**建一个 `prototypes/S99-probe/{index.html,style.css,assets/}`（不改任何数据文件），跑 `collect-schemes --check`，**输出行数必须自动变 31**，删目录后回 30 —— 这是「参数化真的生效」的**唯一可证伪判据**<br>③ `node prototypes/_build/check-twolines.mjs` 在 S99 存在时报 `coverage` FAIL（而不是静默） |
-| 人天 | **2**（4 个文件已改，本包主要是复核 + 写 ①②③ 三条断言；③ 要新增一个 `check-*.mjs --selftest` 用例） |
-| 依赖 | 无。**但必须与 §0.2 那个并发写入者合并，不能并行改同一文件** |
-| 风险 | **高**：`_CONTRACT.md` §9.1「一个方案目录只能有一个写入者」的同类问题在这里以「一个构建脚本只能有一个写入者」的形式出现。本轮已实测到同一文件被另一个写入者改动的现象 |
+| 输入 | §1.2 的 16 条清单、§0.2c 的 A/B 两处 |
+| **已完成（commit `11614cc`）** | §1.2 的 #8 `collect-schemes`（改 `for (const dir of dirs)`）、#9 `extract-specs`（改从 `found.keys()` 推 `maxN`）、#10 `summarize-all`（改 `rows.length`）、#11 `check-twolines`（改 `SCHEMES.length !== DISK_CASES` + `PSP.length !== SCHEMES.length`）。**本轮复核：四条都已在盘上且带完整「为什么」的注释。** |
+| **剩余（2 处，都在 `build-prompts.mjs`）** | **A**（`:243`）`HUMAN[d.id] \|\| { plain:"", … , minPics:3 }` 的静默兜底 → 必须改成「缺 `HUMAN` 条目就 `exit 1` 并点名」，照 `check-prompts.mjs:423-425` 的 `mech-empty` 形状<br>**B**（`:380`）`"30/" + (30 - noMech)` 的日志口径 → 改成 `${out.length - noMech}/${out.length}` |
+| 产出 | `prototypes/_prompts/build-prompts.mjs`（2 处）+ 一条新断言（见验收③） |
+| 验收 | ① `node prototypes/_build/collect-schemes.mjs --check` 退出 0，输出行数 = `ls -d prototypes/S\d\d-*/ \| wc -l`<br>② **可证伪判据**：临时建 `prototypes/S99-probe/{index.html,style.css,assets/}`（不改任何数据文件），跑 `collect-schemes --check`，**输出行数必须自动变 31**；删目录后回 30。再跑 `check-twolines`，**必须报 `coverage` FAIL**（不是静默）<br>③ **新增一条 `check-prompts.mjs` 断言** `plain-empty`：任何一案 `plain` 为空即 FAIL（照 `mech-empty` 的写法）。**今天 0 案触发，是新案的安全网**<br>④ `node prototypes/_prompts/build-prompts.mjs` 在临时删掉 `HUMAN.S01` 后**必须 exit 非 0 并点名 S01**（证明兜底已死） |
+| 人天 | **1**（4 个文件已完成，本包只剩 A/B 两处 + ① ② ③ ④ 四条断言） |
+| 依赖 | 无。**commit `11614cc` 已落地，可立即开工** |
+| 风险 | **中**：③ 是唯一一条能守住「新案漏填 `HUMAN`」的断言，写错就白写。判据必须与 `mech-empty` 完全同构（**取不到就 FAIL，不许 `if (x) { … }` 跳过**）—— `check-prompts.mjs:415-419` 的注释把这个病的病史写得很清楚 |
 
 ### N01 · 渲染链复验 + 新案脚手架
 
@@ -546,29 +573,35 @@ add('INFO', 'dist-ruler-divergence', `HSL 口径 ${…} / Lab 口径 ${JSON.stri
 | 依赖 | N00（否则新目录被静默丢弃） |
 | 风险 | 中：`new-scheme.mjs` 若写成「缺什么就报警但继续」，就变成下一个 §9.15 |
 
-### N02 · 分布闸门补漏
+### N02 · 分布闸门补漏（**闸门本体已完成，只剩补断言**）
 
 | 项 | 内容 |
 |---|---|
 | 目标 | 把 §4.3 的四处漏洞补上，并把 `dist-tone-coverage` 改成不禁止新调性 |
+| **已完成（commit `9631426`）** | `prototypes/_build/check-distribution.mjs`（635 行）已入库并接进 CI（`.github/workflows/gates.yml`）。**本轮复核：`--selftest` 11/11 全绿；默认运行 `FAIL 0 / WARN 4`（4 个缺口各一条 WARN），暖浅占比 60.0% 压线通过，结构撞车 8 对。** |
 | 输入 | `check-distribution.mjs`（已存在）、§4.1–4.4 |
-| 产出 | `prototypes/_build/check-distribution.mjs`（改）+ 自测用例从 11 条扩到 **15 条**（新增 `dist-chroma-zero` / `dist-capacity-missing` / `dist-multi-feeder` / `dist-ruler-divergence` 各一条变异） |
-| 验收 | ① `node prototypes/_build/check-distribution.mjs --selftest` 输出 **15/15**，且**必须包含一条「4 个新断言在对应故障下会红」**<br>② **反证恒假**：`--selftest` 里有一例「把 3 个 `chroma:0` 的假案塞进去 ⇒ `dist-chroma-zero` 必须红」；再一例「正常 30 案 ⇒ 它必须绿」（照 A2 那条的写法）<br>③ `node prototypes/_build/check-distribution.mjs` 在**当前真实数据**上仍是 `FAIL 0 / WARN 4`（补漏不得造成新假红）<br>④ 新增一例「用第 8 种调性词的新案 ⇒ 只报 `dist-tone-overflow` 的 INFO/上限，不报 `dist-tone-coverage` FAIL」 |
-| 人天 | **2**（改 4 处 + 4 条变异） |
-| 依赖 | N00（`dist-parsed` 靠 `SCHEMES.length` 与行数比，新案落地后才有意义） |
-| 风险 | 中：`dist-tone-coverage` 一改，`00-BRIEF §F.4`「7 种每种 ≥3」这条**契约原文**就与闸门不一致了 ⇒ **必须同步改 `00-BRIEF-AND-CONSTRAINTS.md`，或在闸门注释里写明「以 OFFERING §3.2 E 为准」**。这是一处真实的文档冲突，见 §6-9 |
+| 产出 | `prototypes/_build/check-distribution.mjs`（改）+ 自测用例从 **11 条扩到 15 条** |
+| **必须补的 2 条前置断言**（§0.2c 的 C） | **`dist-chroma-zero`**：任何一案 `chroma === 0` 即 FAIL 并点名 —— 全库最小是 12，出现 0 = palette 空或色值全被剔除，`very-quiet` 的 pick（`chroma<=25`）会白送<br>**`dist-capacity-missing`**：任何一案缺 numeric `minPics`/`minItems` 即 FAIL —— `low-photo` 的 pick 用 `typeof === 'number'`，缺了恒不命中，与「真的没有这个能力」不可分 |
+| **建议补的 2 条 INFO** | `dist-multi-feeder`（一案同时喂多个地板 —— Q2 验收时不许当多个缺口算；本轮实测 `#C9A8DD` 能同时命中 `mid-lightness` 与 `bright-purple`）<br>`dist-ruler-divergence`（HSL 带 vs Lab 带的计数差：HSL 中间调 1 案 / Lab 中间调 0 案）。**注意：文件头 `:173` 已承诺过一条 INFO，但 `add('INFO', …)` 的调用数今天是 0** —— 承诺未实现 |
+| **必须改的 1 条** | `dist-tone-coverage`（`:166-178`）：`expectValues` 写死 7 词 + `min:3` ⇒ **新增任何用第 8 个调性词的案子都会被判 FAIL**（本轮实测 `+'干净克制 / 医疗'` → FAIL）。改成「地板只对 7 个原始词生效；新词只查 ≤3 案」 |
+| 验收 | ① `node prototypes/_build/check-distribution.mjs --selftest` 输出 **15/15**<br>② **反证恒假**（照 A2 那条的写法）：一例「3 个 `chroma:0` 的假案 ⇒ `dist-chroma-zero` 必须红」，一例「正常 30 案 ⇒ 它必须绿」<br>③ `node prototypes/_build/check-distribution.mjs` 在**当前真实数据**上仍是 `FAIL 0 / WARN 4`（补漏不得造成新假红）<br>④ 新增一例「用第 8 种调性词的新案 ⇒ 不报 `dist-tone-coverage` FAIL」 |
+| 人天 | **1.5**（闸门已存在，只剩 2 条前置 + 2 条 INFO + 1 条改 + 4 条变异） |
+| 依赖 | 无（可立即开工）。`dist-parsed` 已按 `SCHEMES.length` 比，新案落地后自动生效 |
+| 风险 | 中：`dist-tone-coverage` 一改，`00-BRIEF-AND-CONSTRAINTS.md §F.4` 的「7 种每种 ≥3」这条**契约原文**就与闸门不一致了 ⇒ **必须在闸门注释里写明「以 `OFFERING.md` §3.2 E『扩到 ≥12 个词』为准」，或同步改契约**。这是一处真实的文档冲突，见 §4-6 |
 
-### N03 · 详情面板分层
+### N03 · 详情面板分层（**已被开工，剩余范围已缩小**）
 
 | 项 | 内容 |
 |---|---|
-| 目标 | 12 段压成「判决层 A + 判决层 B + 施工层」；判决层能回答「这是不是我的店」；折叠不丢内容 |
-| 输入 | `app.js:1161 field()`、`:1189 fieldOut()`、`:1289 renderDetail`、`:1380-1430` 的 13 个调用点、`:490 capacityHTML`、`:506 plainOf`；`check-docs.mjs:437-448` 的 `panel/fields` |
-| 产出 | `prototypes/_selection/app.js`、`style.css`、`index.html:224`、`README.md:74,157`、`README-EN.md` 同段；`prototypes/_build/check-docs.mjs`（若改计数口径） |
-| 验收 | ① `grep -o "\bfield('" prototypes/_selection/app.js \| wc -l` **必须仍是 11**（判决层用 `fieldOut`，不许 +1）<br>② `node prototypes/_build/check-docs.mjs` 的 `panel/fields` 仍 `✓ 12 段字段`<br>③ `node prototypes/_build/probe-ui.mjs` 的 `scenes-no-rendered` 断言仍绿（`.field-out` 仍在）<br>④ **判决层字数**：新加一条 `check-ui-copy.mjs` 断言 —— 从 `data.js`/`prompts.js` 现算「`plain` + `scenesYes` 首句 + `scenesNo` 首句」的 30 案 max，**必须 ≤180**（本轮实测 max = 113，加 `capacityHTML` 的 15 字 = 128）<br>⑤ `index.html:224` 的「其中 5 段默认折叠」改成 `data-derived="fold-count"`，且 `fillDerived` 的 `vals` 里加这个 key（否则 `check-ui-copy` 的 `derived-key-unknown` 会红） |
-| 人天 | **3**（`CRITIQUE-DELIVERY.md:250` 估 1.5–3；本轮复核受影响面 8 处，取上限） |
-| 依赖 | N02（判决层的字数口径要进闸门）、N00（`README` 双语句同步） |
-| 风险 | 中高：**`README.md:74,157` 的「其中一段折叠」会变成假话，而 `check-docs` 不解析这两句** ⇒ 必须人工改，且写进 N04 的验收 |
+| 目标 | 12 段压成「判决层 + 施工层」；判决层能回答「这是不是我的店」；折叠不丢内容 |
+| **已完成（并发写入者，未暂存）** | `app.js` 的 `fields` 拼接段：把「一句话视觉定义 → 适用场景 → 不适合的场景 → 当前有效配色」四段提到最前，其余九段顺序不动。**本轮复核：`field('` 仍 11、`totalFields` 仍 12、`check-docs` 的 `panel/fields` 仍 `✓`、`README.md 0 FAIL / 13 PASS`。** 详见 §0.2b |
+| **剩余范围** | ① `index.html:224` 的「其中 **5** 段默认折叠」是手写数字（本轮复核：`foldHint` 4 处 + `auditFold` 1 = **5，今天仍是真的**），与同句的 `data-derived="field-count"` 并列却不同源<br>② 施工层要不要扩折（`字体策略` 仍平铺，`CRITIQUE-DELIVERY.md:235` 建议折）<br>③ **390 档实测**：`#detail` 的 `scrollHeight / clientHeight` 从 2.85 屏降到 ≤1.5 屏（`DELIVERY.md:148` 的判据，**今天没有任何闸门量它**） |
+| 输入 | `app.js:1413-1500`（改后的 `fields`）、`style.css:742-750`（`.detail`）、`:894-897`（`.field`）、`ux.md:93-107` |
+| 产出 | `prototypes/_selection/app.js`（若做 ②）、`index.html:224`（若做 ①）、`prototypes/_build/probe-ui.mjs`（若做 ③） |
+| 验收 | ① `node prototypes/_build/check-docs.mjs` 的 `panel/fields` 仍 `✓ 12 段字段` —— **回归判据：任何一次重排都不许改这个数**<br>② `node prototypes/_build/probe-ui.mjs` 的 `scenes-no-rendered` 仍绿（`.field-out` 仍在、前缀「不适合：」仍在）<br>③ **新增一条 `probe-ui` 断言**（若做 ③）：打开 `#S17` 后 `document.querySelector('#detail').scrollHeight / clientHeight <= 1.5`<br>④ `index.html:224` 的「5 段」若改成现算，必须在 `app.js` 的 `fillDerived` `vals` 里加 `fold-count`，否则 `check-ui-copy` 的 `derived-key-unknown` 会红<br>⑤ **新增一条静态断言**（顺序无闸门，见风险）：`fields` 拼接的前 4 个 `field(` 调用必须是 判决四段 |
+| 人天 | **1**（原估 3，减去已完成的顺序调整；剩下只有 ③ 那条新断言与 ① 的二选一） |
+| 依赖 | N02（若要在闸门里量面板高度） |
+| 风险 | 低。**唯一风险是把已完成的重排又改回去** —— `check-docs` 抓不到段顺序（它只核 `auditFold(r) +` 在 `field('反 AI 味风险…'` 之前），`probe-ui` 也不核 ⇒ **顺序是一次没有闸门的改动**。这也是 ⑤ 的理由 |
 
 ### N31–N35 · 五个新案（每案 8 道工序，见 §3.3）
 
@@ -580,16 +613,17 @@ add('INFO', 'dist-ruler-divergence', `HSL 口径 ${…} / Lab 口径 ${JSON.stri
 | 验收（每案，逐条可机器判定） | ① `node prototypes/_build/render-scheme.mjs S3x-…` → `FAIL=0` 或 FAIL ⊆ §9.15 允许表（`check-contract.mjs` C1）<br>② `node prototypes/_build/verify-prototype.mjs S3x-…` 退出 0<br>③ `node prototypes/_build/check-prompts.mjs` 的机制句断言对该案 PASS（**`mech-value-*` 不出现该案 id**）<br>④ `assets/CREDITS.md` 逐张有 artist + license + 许可允许再分发（`schemes.md` §5.3 的五类：CC0/PD/CC BY/CC BY-SA/无已知限制）<br>⑤ `minitems-parsed.json` 有该案条目且 `degrades` 有值<br>⑥ `node prototypes/_build/check-distribution.mjs --brief` 里该案**出现在预期地板**上<br>⑦ **人判**（写进 `adjudication.md`）：第 7 条「解决哪个现存方案解决不了的处境」+ 第 8 条「与最接近那一案的结构差异」<br>⑧ `git status --porcelain prototypes/S3x-…/.inspect/` **无 `D`** |
 | 人天 | **每案 4–6 人天**（`schemes.md` §6.3 实测：机器时间 1 分 24 秒；**真正成本在写作与素材**）。5 案 = **20–30 人天** |
 | 依赖 | N00、N01、N02。**N31/N33/N34 还依赖 §4.5 的 `few-pictures` 决定** |
-| 风险 | **最高**。三条：(a) `few-pictures` 冲突未定 ⇒ N31/N33/N34 可能根本过不了闸门；(b) `minPics≤2` 在 `prompt-copy.js:699` 的输出是「至少要 2 个不同的图片位」，**0 图时第 4 条仍会要求 2 张** ⇒ **提示词必须新增一条「0 图降级规则」，今天没有**（`grep 0 图 prototypes/_selection/prompt-copy.js` = 0 命中）；(c) `_CURRENT-VALUES.md` 缺行会让 `axes.loud` 白送「很安静」（§4.3 漏洞 1） |
+| 风险 | **最高**。四条：(a) `few-pictures` 冲突未定 ⇒ N31/N33/N34 可能根本过不了闸门；(b) `minPics≤2` 在 `prompt-copy.js:699` 的输出是「至少要 2 个不同的图片位」，**0 图时第 4 条仍会要求 2 张** ⇒ **提示词必须新增一条「0 图降级规则」，今天没有**（`grep 0 图 prototypes/_selection/prompt-copy.js` = 0 命中）；(c) `_CURRENT-VALUES.md` 缺行会让 `axes.loud` 白送「很安静」（§4.3 漏洞 1）；(d) **素材供给是硬约束** —— 见下 |
+| **风险 (d) 展开：新案只能「少图 / 无照片」** | `_CONTRACT.md §10`（2026-10-18 实测）：可检索图源在本环境**全部不可用**（Wikimedia/archive.org/openverse/DuckDuckGo 全 ECONNRESET/TIMEDOUT；loc.gov/picryl/pexels/pixabay 是 403）。仍可用的只有 `images-api.nasa.gov`（题材偏航天/地面设施）与 unsplash/pexels 直链（无 key 无法发现地址）。替代路径是 `assign-assets.mjs` 从**工作区已有 209 条语料**交叉分配 + `make-textures.py` 的 14 个确定性纹理生成器。⇒ **五案里若有任何一案是「多图 / 图片是主角」，它建不出来。** 幸运的是这与缺口方向重合：`minPics≤2` 的缺口正好只能靠「少图」补，而「少图」是这条链唯一能新建的类型。**§3.3 的五个选题已按此筛过（N31/N33/N34 都是少图，N32/N35 靠纹理+纯排版）。** 数据侧另有一笔债：全库 364 张位图的逐张署名覆盖率是 85.7%，5 案有缺口（S02 2 / S04 25 / S15 6 / S16 1 / S21 18）—— 新案不得再欠（`_CONTRACT.md:189` 的硬门槛③） |
 
 ### N04 · 向导与芯片合并答案
 
 | 项 | 内容 |
 |---|---|
 | 目标 | 行业芯片 / 「你经营什么」输入框 / 向导五问 —— 三处各存一份答案，收成一份 |
-| 输入 | `prompt-copy.js:1128-1133`（两个输入框）、`:1307-1390 mountSceneChips`、`:96-116 promptOpener`；`wizard.js:52-80`（五问）、`:275-284`（回放）；`app.js:604-660 syncEmptyFacts` |
+| 输入 | `prompt-copy.js:1128-1133`（两个输入框）、`:1307-1390 mountSceneChips`、`:96-116 promptOpener`；`wizard.js:52-80`（五问）、`:275-284`（回放）；`app.js:604-660 syncEmptyFacts`；**`prototypes/_build/check-scenes.mjs`（310 行，commit `fae9ee0` 新增 —— 它已把「芯片能点、搜索搜不到」这个事故做成回归断言，合并答案时必须让它继续绿）** |
 | 产出 | 一份共享的用户自述（localStorage 或 URL 单一真源）+ 三处读它；`prompt-copy.js`、`wizard.js`、`app.js` |
-| 验收 | ① `node prototypes/_build/probe-ui.mjs` 新增断言：**在芯片上点「咖啡店」后，`buildPrompt()` 输出的首行包含「咖啡店」** —— 今天不可能（芯片只筛卡片、输入框才进提示词）<br>② 向导答完后，`buildPrompt()` 的首行包含向导里的答案（今天 `grep buildStylePrompt wizard.js` = 0 命中）<br>③ 三处不得各自写 localStorage：`grep -c "localStorage" app.js prompt-copy.js wizard.js` 必须只在一处出现 |
+| 验收 | ① `node prototypes/_build/probe-ui.mjs` 新增断言：**在芯片上点「咖啡店」后，`buildPrompt()` 输出的首行包含「咖啡店」** —— 今天不可能（芯片只筛卡片、输入框才进提示词）<br>② 向导答完后，`buildPrompt()` 的首行包含向导里的答案（今天 `grep buildStylePrompt wizard.js` = 0 命中）<br>③ 三处不得各自写 localStorage：`grep -c "localStorage" app.js prompt-copy.js wizard.js` 必须只在一处出现<br>④ **`node prototypes/_build/check-scenes.mjs` 仍 0 FAIL**（它是这条路径现有的唯一回归防线） |
 | 人天 | **3** |
 | 依赖 | 无（可并行）。**但改 `prompt-copy.js` 与 N03 冲突（同一文件）** ⇒ 与 N03 串行 |
 | 风险 | 中：`prompt-copy.js` 125 KB，`check-prompts.mjs` 依赖它跑 `buildStylePrompt`；任何签名变更要同步 `check-prompts.mjs:53-70` 的 stub |
@@ -610,27 +644,31 @@ add('INFO', 'dist-ruler-divergence', `HSL 口径 ${…} / Lab 口径 ${JSON.stri
 
 ## 3. 建议执行顺序（拓扑序）
 
+> **起点已不是零**：commit `9631426` / `fae9ee0` / `11614cc` / `54be4bd` 已做完 N00 的类 A（4 处参数化）、N02 的闸门本体、N03 的主体。下面是**剩余**的拓扑序。
+
 ```
-阶段 0（串行，1 天）   合并 §0.2 的并发改动 → N00 复核（2 天）
+阶段 0（串行，1 天）   N00 剩余 2 处（build-prompts 的 HUMAN 兜底 + 日志口径）+ 3 条断言
                        ↓
-阶段 1（并行，2 天）   N01 渲染复验 ──┐
-                       N02 分布补漏 ──┤  （两者都只改 _build/，可并行）
-                       N05 的第一步：决定 few-pictures 口径（§4.5 三选一）── 这是 N31/N33/N34 的前置
+阶段 1（并行，1.5 天） N01 渲染复验 ──┐
+                       N02 补 2 条前置断言 + 2 条 INFO + 改 tone-coverage ──┤
+                       **产品决定：few-pictures 口径（§4.5 三选一）** ── 这是 N31/N33/N34 的硬前置
                        ↓
-阶段 2（串行，3 天）   N03 详情面板分层（改 app.js / style.css / prompt-copy.js 的调用点）
+阶段 2（串行，1 天）   N03 收尾（390 档探针 + fold-count 现算 + 段顺序的静态断言）
                        ↓
-阶段 3（并行，20–30 天）N31 / N32 / N33 / N34 / N35  ── 每个案子独立，可 5 人并行
-                       但 **必须与 N04 串行**（同一批文件的写入者）
+阶段 3（并行，20–30 天）N31 / N32 / N33 / N34 / N35  ── 每案独立，可 5 人并行
+                       但 **必须与 N04 串行**（同改 prompt-copy.js）
                        ↓
-阶段 4（串行，3 天）   N04 向导与芯片合并
+阶段 4（串行，3 天）   N04 向导与芯片合并（输入清单要加 `check-scenes.mjs`，commit fae9ee0 新增）
                        ↓
 阶段 5（串行，2.5 天） N05 文案与文档迁移 + check-distribution --strict 打开
 ```
 
-**总计：34–48 人天**（不含缓冲）。与 `DELIVERY.md` 的季度 38 人天同量级，但**Q2 只是它的一个季度** —— 建议按 40 人天上限排，超出就砍 N04（它没有用户可见的即时收益）。
+**总计：约 30–42 人天**（不含缓冲）。与 `DELIVERY.md` 的季度 38 人天同量级，但**Q2 只是它的一个季度** —— 建议按 40 人天上限排，超出就砍 N04（它是四件事里唯一没有即时用户收益的）。
 
-**可以并行的**：N01 ∥ N02 ∥（N05 的 few-pictures 决定）；五个新案彼此完全独立。
-**不能并行的**：N00 与任何其他（改同一个文件）；N03 与 N04（同改 `prompt-copy.js`）；N05 与 N31–N35（数字要等最后定）。
+**可以并行的**：N01 ∥ N02 ∥（few-pictures 的产品决定）；五个新案彼此完全独立。
+**不能并行的**：N00 与任何其他（同改 `_prompts/`）；N03 与 N04（同改 `prompt-copy.js`）；N05 与 N31–N35（数字要等最后定）。
+
+**最关键的一条顺序约束**：`few-pictures` 的产品决定（§4.5）**必须排在 N31/N33/N34 之前**。它不是工程任务，是一个「要不要给 `minPics≤2` 的案开闸门豁免」的决定；不开就做不了这三案，做了它们也过不了 `check-contract`。
 
 ---
 
@@ -650,15 +688,15 @@ add('INFO', 'dist-ruler-divergence', `HSL 口径 ${…} / Lab 口径 ${JSON.stri
 - `check-docs.mjs` 的 `nums/schemes`（计划 §5.3 第 3 行）**不用改**：`check-docs.mjs:579-591` 比的是 `F.schemes = SCHEMES.length`，本来就是动态的。要改的是 `:256,260,265,270,277,282` 那 **7 条 selftest 夹具的 `from`/`to` 字面量**（它们写死「30 个方案」）。
 - `_build/_entries.mjs`（第 4 行）**不用改**：枚举用 `CASE_DIR_RE = /^S\d{2}-/`（`:24`），动态。计划引的是 `:24,73` 的**注释**。
 
-**漏的 9 处**（全部是「静默失效」，比列出来的那两处更危险）：见 §1.2 的 #8–#16。其中最危险的三条：
+**漏的 9 处**（全部是「静默失效」，比列出来的那两处更危险）：见 §1.2 的 #8–#16。其中**最危险的三条**：
 
-| 漏项 | 后果 |
-|---|---|
-| `collect-schemes.mjs` 的 `for (let i = 1; i <= 30; i++)` | 放 `S31-…/` 会被**整段丢弃**，闸门全绿 |
-| `extract-specs.mjs` 的 `for (let n = 1; n <= 30; n++)` | `_specs/S31.md` **永远不生成** ⇒ 该案是空壳 |
-| `build-prompts.mjs:242` 的 `HUMAN[d.id] \|\| {plain:"", minItems:3, minPics:3}` | 漏填表时**静默兜底**，且 `minPics=3` 会污染「少货少图」画像；`plain=""` 会让卡片主句为空 |
+| 漏项 | 后果 | 现状（`54be4bd`） |
+|---|---|---|
+| `collect-schemes.mjs` 的 `for (let i = 1; i <= 30; i++)` | 放 `S31-…/` 会被**整段丢弃**，四道闸门全绿 | **已修**（`11614cc`） |
+| `extract-specs.mjs` 的 `for (let n = 1; n <= 30; n++)` | `_specs/S31.md` **永远不生成** ⇒ 该案是空壳 | **已修**（`11614cc`） |
+| `build-prompts.mjs:243` 的 `HUMAN[d.id] \|\| {plain:"", minItems:3, minPics:3}` | 漏填表时**静默兜底**：`plain=""` 让卡片主句为空，`minPics=3` 污染「少货少图」 | **仍未修 —— 这是三处里唯一剩下的，也是最难发现的**（不触发任何 FAIL） |
 
-> 注：前两条**已由本轮并发写入者改好**（`collect-schemes.mjs:352`、`extract-specs.mjs:65-66`）。**分歧仍然成立**，因为计划清单里没有它们。
+> 注：前两条已由 commit `11614cc` 修好（`collect-schemes.mjs` 改成 `for (const dir of dirs)`、`extract-specs.mjs` 改成从 `found.keys()` 推 `maxN`）。**分歧仍然成立**，因为计划清单里从来没有过它们 —— 而它们恰好是「失效的样子是绿」的那一类。
 
 ### 4-3. 「暖浅色带 19/30」这个数我重现不出来
 
@@ -676,7 +714,9 @@ add('INFO', 'dist-ruler-divergence', `HSL 口径 ${…} / Lab 口径 ${JSON.stri
 
 ### 4-5. 「`check-distribution.mjs` 是 Q2 要做的事」已过期
 
-计划 §三 Q2 第二条写「**新增** 分布闸门」。**它已经存在、已接 CI、11 条自测全绿。** 计划需要改成「**补齐** 分布闸门的 4 处漏洞 + 改 `dist-tone-coverage`」。（这不影响计划的意图，只影响工作量估算：从「新建一个闸门」变成「改一个 635 行的闸门」，后者更小。）
+计划 §三 Q2 第二条写「**新增** 分布闸门」。**它已经在 commit `9631426` 落地：635 行、已接 CI、11 条自测全绿。** 同理，Q2 的第一件（N31–N35）、第三件（详情面板）也已在后续 3 个 commit 里开工 —— **计划把 Q2 写成「从零开始」，而实际上它是「已开工三件」**。
+
+计划需要改成「**补齐** 分布闸门的 2 条前置断言 + 改 `dist-tone-coverage`」。工作量估算因此从「新建一个闸门」变成「改一个 635 行的闸门」，**后者更小但也更危险**（改一个已有 11 条自测的闸门，任何一条改错都会让那 11 条的保护失效）。
 
 ### 4-6. `dist-tone-coverage` 与 `OFFERING.md` §3.2 E 直接冲突（**计划内部矛盾**）
 
@@ -690,6 +730,8 @@ add('INFO', 'dist-ruler-divergence', `HSL 口径 ${…} / Lab 口径 ${JSON.stri
 ### 4-7. 「`≤180 字`」这个数没有出处
 
 `00-MASTER-PLAN.md:121` 与 `DELIVERY.md:125,144` 都用了这个数，**没有任何推导**。本轮补了实测（§5.2）：`plain+适合+不适合` 的 30 案 max 是 **181**（S21），中位 137。⇒ **180 这个数在「不加 `def`」的口径上刚好卡住 29/30**。建议改成三条预算（§5.3），把「≤180」还给「能不能用在我这行」那一层，而不是让它同时管「像不像我的店」。
+
+**独立交叉验证**：本轮写作过程中，另一个写入者已在 `app.js` 的 `fields` 注释里写下同一个结论（逐字：「MASTER-PLAN 写『判决层 ≤180 字』，实测这个数不成立：能回答该问题的三段（def+scenes+scenesNo）在 30 案里是 **167–334 字、中位 279**，**只有 1/30 装得进 180 字**」）—— 与我在 §5.2 独立算出的 167/279/334 **完全一致**。**两次独立测量同一结论，这个分歧可以定案。** 而且它的处置（只调顺序、不压字数）比我的三层预算更便宜（§0.2b）。
 
 ### 4-8. `CRITIQUE-DELIVERY.md:345` 的「27/30 首句不含否定词」，实测是 28/30
 
@@ -738,9 +780,12 @@ add('INFO', 'dist-ruler-divergence', `HSL 口径 ${…} / Lab 口径 ${JSON.stri
 
 ## 7. 一句话结论
 
-**Q2 的四件事里，两件比计划想的容易、两件比计划想的难。**
+**Q2 的四件事里，两件比计划想的容易、两件比计划想的难。而且本轮进行中，它们已经被另一个写入者开工了三件 —— 这不是坏事，但它改变了这份 WBS 的性质：它现在是一份「剩余工作清单 + 已知陷阱」而不是「从零开始的计划」。**
 
 - **容易的**：渲染链（`vendor/` 已入库、删图缺陷已修、超时已改 60s、今天跑出过 FAIL=0）、分布闸门（已存在、已接 CI、11 条自测全绿）。
-- **难的**：`minPics≤2` 与 `few-pictures` 的正面冲突（要改允许表或改靶子，是产品决定，不是工程活儿）；12 段分层要动 8 处文件且会打红 `check-docs` 的段数断言。
+- **难的**：`minPics≤2` 与 `few-pictures` 的正面冲突（要改允许表或改靶子，是产品决定，不是工程活儿）；**素材供给**（图源全挂，新案只能少图 —— 这既是限制又是缺口解）。
+- **已被开工的**：N00 的四条参数化（`collect-schemes`/`extract-specs`/`summarize-all`/`check-twolines`）、N02 的闸门本体、N03 的段顺序。**N03 的处置（只调顺序不压字数）优于我原本的建议，且它独立算出了与我完全相同的 167/279/334。**
 
-**而「把 30 参数化」确实是前置阻塞 —— 但不是计划说的那 7 处，是计划漏掉的 9 处里最危险的三处**（`collect-schemes` 的 `i<=30`、`extract-specs` 的 `n<=30`、`build-prompts` 的 `HUMAN` 兜底）。前两处本轮已被另一个写入者改好，第三处还在。**这三处的共同形状是「失效的样子是绿」—— 正是这个仓库 74 轮里反复记录的那一个病。**
+**而「把 30 参数化」确实是前置阻塞 —— 但不是计划说的那 7 处，是计划漏掉的 9 处里最危险的三处**（`collect-schemes` 的 `i<=30`、`extract-specs` 的 `n<=30`、`build-prompts` 的 `HUMAN` 兜底）。前两处本轮已被另一个写入者改好，**第三处还在，而它是三者里最难发现的**（`plain: ""` 会让卡片主句为空、`minPics: 3` 会污染「少货少图」画像，两者都不触发任何 FAIL）。**这三处的共同形状是「失效的样子是绿」—— 正是这个仓库 74 轮里反复记录的那一个病。**
+
+**如果只能做一件事**：做 N02 的 `dist-chroma-zero` + `dist-capacity-missing` 两条前置断言。它们各自 10 行，却是「新案落地后闸门会不会白送缺口」的唯一防线 —— 而 §4.3 已实测：**没有它们，3 个空 palette 的假案就能把「很安静」地板从 2 抬到 5 并全绿**。

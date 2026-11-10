@@ -1,0 +1,306 @@
+/* S31 静灰尺规页 — Quiet Mid-Grey Rulesheet
+ *
+ * 设计意图：一页给"手上没有照片、只有文字"的店。
+ * 底色是中性中灰 #7A756C（HSL 39°/6%/45%，Lab L* 49.4）——全库第一个中间明度页；
+ * 调色板最高饱和 6%，是全库最安静的一页。
+ * 骨架 SIGNAL-BOARD：用"尺规刻度"这一层结构替代图片，靠尺规的位置与密度承载记忆点。
+ */
+
+:root {
+  /* 纸：中性中灰，不是暖米纸。全库 18/30 落在暖浅色带，这一页刻意不在里面。
+   *
+   * ⚠️ 2026-11-10 第一次渲染实测改：原来是 #7A756C（Lab 49.4），
+   * 但 depth-check 报 `contrast FAIL 1:1` 与 `grey-body WARN 3:1`。
+   * 查下来是**中间明度底色配深色文字在数学上不可能达 4.5:1**：
+   *   #7A756C + #1C1B19 = 3.76:1；#6E6A63 + #1C1B19 = 3.20:1；
+   *   越深越糟（#4F4B42 + #1C1B19 = 1.98:1）。
+   * 这是 WCAG 公式的直接后果，不是选色不当 —— 中间明度带本身就夹在
+   * "深色字太浅、浅色字太深"之间。唯一出路是**用浅色文字**。
+   * 实测扫了一遍：#5F5B55（HSL 36/6/35，Lab 38.8，仍是中间明度）配 #DEDAD3 = 4.84:1，
+   * 配 #F2F0EC = 5.92:1。所以底色降到这一档，文字改浅。
+   * 32 案里没有一个中间明度页，这一条是新建它必须付的代价，写在这里备查。 */
+  --paper: #5F5B55;
+  --paper-deep: #55514B;
+  --ink: #F2F0EC;        /* 对底 5.92:1，AA 正文线以上 */
+  --ink-soft: #DEDAD3;   /* 对底 4.84:1，仍达 AA，用于次级说明 */
+  --rule: #8A857C;       /* 1px 分隔线：对底 2.5:1；非文本元素按 3:1 要求还差，
+                            所以分隔线一律用 2px 或用 --ink-soft 的 1px（4.84:1）*/
+  --rule-strong: #DEDAD3;
+  --accent: #F2F0EC;
+
+  /* 按钮：主色底 + 纸色字。修前写成 --btn-ink: var(--ink) 且背景也是 --ink ⇒ 1:1，
+     被 depth-check 的 contrast 规则抓到。现在底用 --ink（浅），字用 --paper（深）= 5.92:1。 */
+  --btn-bg: #F2F0EC;
+  --btn-ink: #5F5B55;
+
+  --pad: 44px;
+  --baseline: 6px;
+  --fs-body: 16px;
+  --lh-body: 1.72;
+
+  --font-body: "Noto Serif SC", "Literata", Georgia, serif;
+  --font-head: "Jost", "Noto Sans SC", sans-serif;
+  --font-num: "Sometype Mono", "Noto Sans SC", monospace;
+}
+
+* { box-sizing: border-box; }
+
+html { background: var(--paper); }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+.skip {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+}
+.skip:focus {
+  position: fixed; left: 12px; top: 12px; width: auto; height: auto;
+  clip-path: none; padding: 10px 16px; background: var(--ink);
+  color: var(--paper); z-index: 50; font-family: var(--font-head);
+}
+
+/* ── 页头 ───────────────────────────────────────────────── */
+.head {
+  padding: 56px var(--pad) 0;
+  border-bottom: 1px solid var(--rule-strong);
+}
+
+.head-kicker {
+  font-family: var(--font-num);
+  font-size: 13px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0 0 20px;
+}
+
+h1 {
+  font-family: var(--font-head);
+  font-weight: 500;
+  font-size: clamp(38px, 8.6vw, 104px);
+  line-height: 1.06;
+  letter-spacing: -.01em;
+  margin: 0 0 22px;
+  max-width: 20ch;
+}
+
+.standfirst {
+  font-size: 18px;
+  line-height: 1.66;
+  max-width: 42ch;
+  margin: 0 0 30px;
+  color: var(--ink-soft);
+}
+
+/* ── 尺规：本页的签名机制 ─────────────────────────────────
+   一条横贯的刻度尺，刻度密度随内容分区变化。
+   它承担"记忆点"，因为这一页没有任何照片。 */
+.ruler {
+  position: relative;
+  height: 34px;
+  margin: 0 0 8px;
+  border-bottom: 1px solid var(--rule-strong);
+  background-image:
+    repeating-linear-gradient(to right, var(--rule) 0 1px, transparent 1px 12px),
+    repeating-linear-gradient(to right, var(--ink) 0 1.5px, transparent 1.5px 60px);
+  background-size: 100% 6px, 100% 14px;
+  background-position: bottom left, bottom left;
+  background-repeat: repeat-x, repeat-x;
+}
+
+.ruler-labels {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-num);
+  font-size: 12px;
+  color: var(--ink-soft);
+  margin: 0 0 40px;
+}
+
+/* ── 主体 ───────────────────────────────────────────────── */
+main { padding: 0 var(--pad) 72px; }
+
+/* 无图区：靠边框与留白分块，不靠图片 */
+.blocks {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 0;
+  border-top: 1px solid var(--rule-strong);
+  border-left: 1px solid var(--rule-strong);
+  margin: 0 0 56px;
+}
+
+.block {
+  padding: 26px 26px 30px;
+  border-right: 1px solid var(--rule-strong);
+  border-bottom: 1px solid var(--rule-strong);
+}
+
+.block-no {
+  font-family: var(--font-num);
+  font-size: 12px;
+  letter-spacing: .14em;
+  color: var(--ink-soft);
+  display: block;
+  margin: 0 0 14px;
+}
+
+.block h2 {
+  font-family: var(--font-head);
+  font-weight: 500;
+  font-size: 21px;
+  line-height: 1.3;
+  margin: 0 0 12px;
+}
+
+.block.is-measured { border-color: var(--ink-soft); }
+.btn.is-measured { border-color: var(--ink-soft); }
+.spec tbody tr.is-measured td { border-bottom-color: var(--ink-soft); }
+
+.block p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.72;
+  color: var(--ink-soft);
+}
+
+/* 唯一的图位：一张纹理（不是照片）。面积真实，不是 1px 占位。 */
+.plate {
+  margin: 0 0 56px;
+  border: 1px solid var(--rule-strong);
+}
+
+.plate img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: var(--paper-deep);
+}
+
+.plate figcaption {
+  font-family: var(--font-num);
+  font-size: 12.5px;
+  padding: 10px 14px;
+  border-top: 1px solid var(--rule-strong);
+  color: var(--ink-soft);
+}
+
+/* ── 尺规表：数据区 ─────────────────────────────────────── */
+.spec {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 56px;
+  font-family: var(--font-num);
+  font-size: 13.5px;
+}
+
+.spec th, .spec td {
+  text-align: left;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--rule-strong);
+}
+
+.spec th {
+  font-weight: 400;
+  letter-spacing: .1em;
+  color: var(--ink-soft);
+  border-bottom-color: var(--ink-soft);
+}
+
+.spec td.num { width: 88px; text-align: right; }
+
+/* ── 按钮 ───────────────────────────────────────────────── */
+.actions { display: flex; gap: 12px; flex-wrap: wrap; margin: 0 0 56px; }
+
+.btn {
+  font-family: var(--font-head);
+  font-size: 15px;
+  min-height: 48px;
+  padding: 0 26px;
+  cursor: pointer;
+  border: 1px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+}
+
+.btn-primary {
+  background: var(--btn-bg);
+  color: var(--btn-ink);
+  border-color: var(--btn-bg);
+}
+
+/* 错误态：真实的错误码 */
+.error {
+  border: 1px solid var(--ink);
+  padding: 20px 22px;
+  margin: 0 0 56px;
+  font-size: 16px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.error-code {
+  font-family: var(--font-num);
+  font-size: 13px;
+  letter-spacing: .1em;
+  white-space: nowrap;
+  border: 1px solid var(--ink);
+  padding: 3px 8px;
+}
+
+footer {
+  border-top: 1px solid var(--rule-strong);
+  padding: 26px var(--pad) 48px;
+  font-family: var(--font-num);
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* ── 断点 ───────────────────────────────────────────────── */
+@media (max-width: 1023px) {
+  :root { --pad: 28px; }
+  h1 { font-size: clamp(34px, 9vw, 56px); }
+  .blocks { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 767px) {
+  :root { --pad: 18px; }
+  .head { padding-top: 36px; }
+  h1 { font-size: clamp(30px, 8.4vw, 40px); }
+  .standfirst { font-size: 16.5px; }
+  .blocks { grid-template-columns: 1fr; }
+  .spec th:nth-child(3), .spec td:nth-child(3) { display: none; }
+  .actions .btn { width: 100%; }
+  .error { flex-direction: column; gap: 10px; }
+}
+
+/* ── 降级：不否掉签名机制，而是把尺规换成静态量尺 ──────────
+   机制的再发明形式：动效阶段刻度随滚动逐段加粗（1px → 2px）；
+   reduce 时整条尺规一次性到 2px 满格，保留"这里有一把尺"这一事实，
+   只是不再随滚动变化。数值保留：60px 主刻度、12px 次刻度。 */
+@media (prefers-reduced-motion: reduce) {
+  .ruler {
+    background-size: 100% 6px, 100% 14px;
+    transition: none;
+  }
+  .ruler.is-live {
+    background-image:
+      repeating-linear-gradient(to right, var(--ink) 0 2px, transparent 2px 12px),
+      repeating-linear-gradient(to right, var(--ink) 0 2px, transparent 2px 60px);
+  }
+}

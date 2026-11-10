@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>净灰尺规页 · 街角修表铺的服务价目</title>
+<meta name="description" content="一张没有照片的价目页：用尺规刻度分块，六个服务项、三档工期、一条误差声明。适合手上只有文字与价格、没有可用照片的小店。">
+<link rel="stylesheet" href="../_fonts/css/noto-serif-sc__400-700.css">
+<link rel="stylesheet" href="../_fonts/css/jost__500.css">
+<link rel="stylesheet" href="../_fonts/css/sometype-mono__400-600.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<a class="skip" href="#blocks">跳到服务清单</a>
+
+<header class="head">
+  <p class="head-kicker">净灰尺规页 / Rulesheet</p>
+  <h1>修一块表，先量三次</h1>
+  <p class="standfirst">林记修表在城南巷口开了三十一年。这一页没有门面照片——我们没有拍得像样的照片，也不打算拿别处的图凑。你看到的是一条尺规、六个服务项、三档工期，以及一条关于误差的话。</p>
+
+  <div class="ruler" id="ruler" aria-hidden="true"></div>
+  <p class="ruler-labels" aria-hidden="true"><span>0</span><span>60</span><span>120</span><span>180</span></p>
+</header>
+
+<main>
+
+  <div class="blocks" id="blocks">
+    <div class="block">
+      <span class="block-no">01 · 洗油</span>
+      <h2>拆到游丝，一件一件摆</h2>
+      <p>机械表每四到五年洗一次油。拆到游丝那一层，一百多个零件按顺序摆在工作台上，洗完再照原位装回去。快的不敢收，一天最多接两只。</p>
+    </div>
+    <div class="block">
+      <span class="block-no">02 · 换游丝</span>
+      <h2>游丝变形了，只能换</h2>
+      <p>表走得忽快忽慢，多半是游丝被撞过。游丝是整块表里最软的一件，弯过一次就回不去。换新的要按机芯型号对，对不上就订。</p>
+    </div>
+    <div class="block">
+      <span class="block-no">03 · 配表带</span>
+      <h2>表耳宽度量到 0.1 毫米</h2>
+      <p>表耳宽度差 0.5 毫米就装不进去。你带表来，我用卡尺量给你看，量完再报型号。皮带、钢带、编织带都能配，长度按你的手腕改。</p>
+    </div>
+    <div class="block">
+      <span class="block-no">04 · 换电池</span>
+      <h2>石英表当场换，五分钟</h2>
+      <p>换完要做一次防水测试，压进水里看有没有气泡。不测的换电池是把水汽关进表壳，半年后机芯就锈了。这项不收钱，含在电池里。</p>
+    </div>
+    <div class="block">
+      <span class="block-no">05 · 校时</span>
+      <h2>对标准时间，写进单子</h2>
+      <p>校完把日差写在你那张单子上，正负多少秒都说。三天后你再拿来对一次，看是不是按单子上的数在走。</p>
+    </div>
+    <div class="block">
+      <span class="block-no">06 · 老表翻新</span>
+      <h2>壳子能抛，字面不碰</h2>
+      <p>表壳可以抛光，划痕能淡一些。字面一律不碰——翻新过的字面在行家眼里就掉价了，我们不接这个活。玻璃裂了可以换，原装的留着给你。</p>
+    </div>
+  </div>
+
+  <figure class="plate">
+    <img src="assets/ruler-field.png" width="1280" height="720" alt="放大的刻度尺局部：12 像素次刻度与 60 像素主刻度交错，纸面有轻微纤维纹理">
+    <figcaption>本页唯一的图：一张按 12 像素次刻度／60 像素主刻度生成的尺规纹理，不是照片。</figcaption>
+  </figure>
+
+  <table class="spec">
+    <thead>
+      <tr><th scope="col">服务项</th><th scope="col">工期</th><th scope="col">说明</th><th scope="col">起价</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>洗油</td><td>4–6 天</td><td>含拆装、清洗、上油、校时</td><td class="num">¥380</td></tr>
+      <tr><td>换游丝</td><td>3–5 天</td><td>按机芯型号订件</td><td class="num">¥260</td></tr>
+      <tr><td>配表带</td><td>当场</td><td>量耳宽后选带</td><td class="num">¥90</td></tr>
+      <tr><td>换电池</td><td>5 分钟</td><td>含防水测试</td><td class="num">¥40</td></tr>
+      <tr><td>校时</td><td>当场</td><td>日差写入单子</td><td class="num">¥30</td></tr>
+      <tr><td>老表抛光</td><td>7 天</td><td>字面不碰，玻璃另计</td><td class="num">¥220</td></tr>
+    </tbody>
+  </table>
+
+  <div class="actions">
+    <button class="btn btn-primary" type="button">把这块表的单子开出来</button>
+    <button class="btn" type="button">先看看别人修过什么</button>
+  </div>
+
+  <div class="error" role="alert">
+    <span class="error-code">MOVT-31</span>
+    <span>这台测表仪今天读不到数：摆幅针一直停在 0，多半是拾音头那根线松了。<b>先别把表留在这里</b>——留了也只能等。明天上午十点后打电话来问一句，修好了我在这儿。</span>
+  </div>
+
+</main>
+
+<footer>
+  <span>林记修表 · 城南巷口 17 号 · 上午十点到晚上七点</span>
+  <span>本页无照片。刻度由 CSS 生成，纹理由固定参数生成。</span>
+</footer>
+
+<script src="self.js"></script>
+</body>
+</html>

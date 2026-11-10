@@ -323,10 +323,36 @@ function parseSpec(id) {
     }
     return null;
   })();
+  /* 背景色兜底（2026-11-10，Q2 新增）。
+   *
+   * ⚠️ 这是新增案的**第四个静默阻塞**，与 collect-schemes 的 30 上界同类。
+   * `bg` 原来只有一条来源：`_CURRENT-VALUES.md` 的逐案表（`:120-134` 的 `cur`）。
+   * 那张表只覆盖 S01–S30。于是新建的 S31：
+   *   · `bg: null` → `axes` 全部为 null（`band`、`ground`、`bandHue` 全靠它算）；
+   *   · 选型台上那一行的色块是空的；
+   *   · `check-distribution` 报 `dist-color-unparsed`，而**任何闸门都不会说
+   *     "你的新案没有底色"** —— 它只会说"底色解析不出来"。
+   *
+   * 而 `primary` / `buttonText` / `errorCode` 三个字段**都有 spec 兜底**，只有 `bg` 没有。
+   * 补齐它，判据与 `primaryFromSpec` 同构：在字段 3 里找带「背景」语境的分句，
+   * 取该分句的第一个 hex，且跳过否定语境（"反的是 #FFFFFF" 这类不能当背景色）。
+   *
+   * 为什么**不能**只取字段 3 的第一个 hex：本仓库 30 案里大量方案的第一个 hex
+   * 是「我们拒绝的色」（`#6366F1` 之类），拿它当背景会得到一个从没出现在页面上的颜色。
+   * 所以必须要求该分句里出现「背景」二字。 */
+  const bgFromSpec = (function () {
+    for (const seg of String(p3raw).split(/[；。\n]/)) {
+      if (!/背景/.test(seg)) continue;
+      if (NEG_CTX.test(seg)) continue;
+      const m = seg.match(/#([0-9A-Fa-f]{6})(?![0-9A-Fa-f])/);
+      if (m) return m[0].toUpperCase();
+    }
+    return null;
+  })();
   // 按钮字色兜底：字段 3 里明写"白字／#FFFFFF 作按钮底"的，取之
   const btnM = /按钮[\s\S]{0,40}?(?:白字|#FFFFFF)/.exec(p3raw);
   const buttonFromSpec = btnM ? '#FFFFFF' : null;
-  return { cn, en, fr, structure, threshold, tone, fields, copy, copyParts, errorFromCopy: errFromCopy ? errFromCopy[1] : null, primaryFromSpec, buttonFromSpec };
+  return { cn, en, fr, structure, threshold, tone, fields, copy, copyParts, errorFromCopy: errFromCopy ? errFromCopy[1] : null, primaryFromSpec, buttonFromSpec, bgFromSpec };
 }
 
 // ---- 3 扫原型目录 ----
@@ -420,7 +446,7 @@ for (const dir of dirs) {
     quirk: spec && spec.fields['设计师签名式怪癖'] ? spec.fields['设计师签名式怪癖'] : '',
     copy: spec ? spec.copy : '',
     copyParts: spec ? spec.copyParts : { claim: '', button: '', empty: '', error: '' },
-    bg: c.bg || null,
+    bg: c.bg || (spec ? spec.bgFromSpec : null) || null,
     primary: c.primary || (spec ? spec.primaryFromSpec : null) || null,
     buttonText: c.buttonText || (spec ? spec.buttonFromSpec : null) || null,
     errorCode: c.errorCode || (spec ? spec.errorFromCopy : null) || leadCodes[id] || null,
