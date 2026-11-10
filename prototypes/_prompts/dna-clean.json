@@ -2096,5 +2096,71 @@
     "h1SizeAt1440": 76,
     "mechanism": "",
     "charBudget": 172
+  },
+  {
+    "id": "S31",
+    "dir": "S31-quiet-mid-grey-rulesheet",
+    "structType": "",
+    "threshold": "",
+    "tone": "",
+    "palette": [
+      "#F2F0EC ink",
+      "#5F5B55 paper",
+      "#DEDAD3 ink-soft",
+      "#55514B paper-deep",
+      "#8A857C rule"
+    ],
+    "primary": [
+      "#F2F0EC"
+    ],
+    "fonts": {
+      "display": "Jost",
+      "body": "Noto Serif SC",
+      "mono": "",
+      "displayStack": [
+        "Jost",
+        "Noto Sans SC"
+      ],
+      "bodyStack": [
+        "Noto Serif SC",
+        "Literata",
+        "Georgia"
+      ]
+    },
+    "radius": "全直角 0",
+    "radiusBare": true,
+    "radiusWhy": "该案 CSS 里 0 处 border-radius，所有元素一律直角",
+    "shadow": "无阴影",
+    "shadowDetail": {
+      "kind": "none",
+      "inset": 0,
+      "outer": 0,
+      "drops": 0,
+      "samples": []
+    },
+    "lineWidths": "1px",
+    "lineWidthsWhy": [
+      "1 ← border-bottom: 1px solid var(--rule-strong)  ⓐ.head",
+      "1 ← border-bottom: 1px solid var(--rule-strong)  ⓐ.ruler",
+      "1 ← border-top: 1px solid var(--rule-strong)  ⓐ.blocks",
+      "1 ← border-left: 1px solid var(--rule-strong)  ⓐ.blocks",
+      "1 ← border-right: 1px solid var(--rule-strong)  ⓐ.block",
+      "1 ← border-bottom: 1px solid var(--rule-strong)  ⓐ.block",
+      "1 ← border: 1px solid var(--rule-strong)  ⓐ.plate",
+      "1 ← border-top: 1px solid var(--rule-strong)  ⓐ.plate figcaption",
+      "1 ← border-bottom: 1px solid var(--rule-strong)  ⓐ.spec th, .spec td",
+      "1 ← border: 1px solid var(--ink)  ⓐ.btn",
+      "1 ← border: 1px solid var(--ink)  ⓐ.error",
+      "1 ← border: 1px solid var(--ink)  ⓐ.error-code",
+      "1 ← border-top: 1px solid var(--rule-strong)  ⓐfooter"
+    ],
+    "lineWidthsInteractive": [],
+    "h1Size": "clamp(38px, 8.6vw, 104px)",
+    "h1SizeWhy": "裸 h1 规则 `h1` 声明 clamp(38px, 8.6vw, 104px)（桌面 1440px 口径）",
+    "bodySize": "16px",
+    "bodySizeWhy": "裸 body 规则 `body` 声明 var(--fs-body) → 展开为 16px（桌面 1440px 口径）",
+    "h1SizeAt1440": 104,
+    "mechanism": "",
+    "charBudget": 147
   }
 ]

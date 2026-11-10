@@ -1,16 +1,16 @@
 {
   "stats": {
-    "total": 30,
+    "total": 31,
     "withMechanism": 10,
     "zeroRadius": 21,
     "insetOnly": 5,
     "hasOuter": 2,
     "dropOnly": 6,
-    "shadowNone": 17,
+    "shadowNone": 18,
     "noRoot": [
       "S14"
     ],
-    "fontCoverage": 30
+    "fontCoverage": 31
   },
   "rows": [
     {
@@ -1636,6 +1636,67 @@
         "8"
       ],
       "h1Size": "76px",
+      "mechanism": "",
+      "mechanismChars": 0
+    },
+    {
+      "id": "S31",
+      "dir": "S31-quiet-mid-grey-rulesheet",
+      "structType": "",
+      "threshold": "",
+      "tone": "",
+      "colors": [
+        {
+          "name": "--paper",
+          "hex": "#5F5B55"
+        },
+        {
+          "name": "--paper-deep",
+          "hex": "#55514B"
+        },
+        {
+          "name": "--ink",
+          "hex": "#F2F0EC"
+        },
+        {
+          "name": "--ink-soft",
+          "hex": "#DEDAD3"
+        },
+        {
+          "name": "--rule",
+          "hex": "#8A857C"
+        },
+        {
+          "name": "--rule-strong",
+          "hex": "#DEDAD3"
+        },
+        {
+          "name": "--accent",
+          "hex": "#F2F0EC"
+        },
+        {
+          "name": "--btn-bg",
+          "hex": "#F2F0EC"
+        },
+        {
+          "name": "--btn-ink",
+          "hex": "#5F5B55"
+        }
+      ],
+      "families": [
+        "var(--font-body)",
+        "var(--font-head)",
+        "var(--font-num)"
+      ],
+      "fontFaces": [],
+      "radii": [],
+      "shadowKind": "none",
+      "shadowSample": [],
+      "dropSample": [],
+      "lineWidths": [
+        "1"
+      ],
+      "h1Size": "clamp(38px, 8.6vw, 104px)",
       "mechanism": "",
       "mechanismChars": 0
     }

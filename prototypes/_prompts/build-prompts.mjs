@@ -93,6 +93,9 @@ const REUSE = (() => {
  *  · minPics = 必须放真图的槽位数。
  * 前两版我自己算的都不对：几何法把"删内容后页面变短"误当"散架"（与静态法 16/30 冲突），
  * 静态法的 class 规则又把图注/卡面当成条目（S22 判成 0 条、S19 取到 dw__card）。 */
+/* 缺实测内容量的案号累加器（2026-11-10）：由下方用，末尾统一报错。 */
+const CAPACITY_MISSING = [];
+
 const CAPACITY = Object.fromEntries(
   JSON.parse(readFileSync(join(ROOT, "prototypes/_prompts/minitems-parsed.json"), "utf8").replace(/^\uFEFF/, ""))
     .map((x) => [x.id, x])
@@ -278,8 +281,22 @@ for (const d of dna) {
    *   3) 3
    * 之前只用 HUMAN，导致 S07 的提示词写「我实际有 5 个条目」——而那案设计规模是 46 条，
    * AI 照 5 条去排，等于把「46 份分类广告的目录跨页」压成一个小列表，风格当场失效。
-   */
+   *
+   * ⚠️ 2026-11-10（Q2）：这是新增案的**第五个静默阻塞**，与 collect-schemes 的
+   * `for (i=1;i<=30;i++)`、`bg` 只从 _CURRENT-VALUES 取 是同一类。
+   * `CAPACITY` 来自 `minitems-parsed.json`（30 条），`HUMAN` 也是手写 30 条。
+   * 新增案进到这条链上时，两级兜底**都落空**，最后静默地用硬编码的 `3`：
+   * 提示词会告诉 AI「我实际有 3 个条目」，而那案的 `_specs` 里明明写着 6 或 10。
+   * 整条链**不会报任何错** —— 它只是安静地生成一份错提示词。
+   *
+   * 修法不在这里补表（补表意味着每加一案要改两处，且下一个人还是会忘）。
+   * 改成：**缺失时显式记下来，由最后统一报错**。
+   * 这样 `build-prompts.mjs` 会在文件末尾打印「N 个案没有实测内容量」并退出非零，
+   * 而不是把 3 写进提示词再让人从渲染结果里反推。
+   * 判据用「`CAPACITY` 里有没有该案」而不是「值是否等于 3」——
+   * 因为真有一个案的设计规模就是 3（S02/S08 的 HUMAN 写的正是 3），值相等不能当判据。 */
   const cap = CAPACITY[d.id] || null;
+  if (!cap) CAPACITY_MISSING.push(d.id);
   const count = (cap && cap.minItems) || h.minItems || 3;
   const degrades = cap && cap.degrades === "yes";
 
@@ -371,13 +388,13 @@ writeFileSync(join(ROOT, "prototypes/_selection/prompts.js"), body, "utf8");
 
 const kb = Buffer.byteLength(body, "utf8") / 1024;
 console.log("=== prompts.js 已生成 ===");
-console.log("  体积：" + kb.toFixed(1) + " KB（30 案 DNA + 场景索引）");
+console.log("  体积：" + kb.toFixed(1) + " KB（" + out.length + " 案 DNA + 场景索引）");
 console.log("  场景索引：" + Object.keys(SCENE_INDEX).length + " 个行业词，其中 unsupported 单列 " + UNSUPPORTED.length + " 个");
 console.log("  不能大众化的案：" + HARD_IDS.join(", "));
 const noPlain = out.filter((x) => !x.plain).map((x) => x.id);
 console.log("  缺人话版的案：" + (noPlain.join(",") || "无"));
 const noMech = out.filter((x) => !x.dna.mechanism).length;
-console.log("  有机制句的案：30/" + (30 - noMech) + " → 实际 " + (30 - noMech) + "/30");
+console.log("  有机制句的案：" + (out.length - noMech) + "/" + out.length);
 console.log("  平均每案 DNA 字数：" + Math.round(out.reduce((s, x) => s + JSON.stringify(x.dna).length, 0) / out.length));
 console.log("");
 console.log("=== 字体（P0-2：标题字＝h1 规则解析结果，不再按数组顺序猜）===");
@@ -408,3 +425,29 @@ console.log("  取到该句的案：" + withReuse.length + "/30；缺的：" +
 console.log("  长度区间：" + Math.min(...withReuse.map((x) => x.dna.reuse.length)) + "–" +
   Math.max(...withReuse.map((x) => x.dna.reuse.length)) + " 字");
 console.log("  抽样 S15：" + (REUSE.S15 || "（缺）"));
+
+/* ── 缺失内容量必须报错，不许静默回退（2026-11-10，Q2）────────────────────────
+ *
+ * 这条检查守的是 `CAPACITY_MISSING`：新增案的实测内容量（minItems / minPics）
+ * 来自 `minitems-parsed.json`，那份文件是 S01–S30 的实测产物。
+ * 新增案不在里面时，上面会回退到 `HUMAN`（也是手写 30 条），再落空就静默用 3 ——
+ * 于是提示词会对着一个 10 个条目的版式说「我实际有 3 个条目」，AI 照着排，
+ * 风格当场失效。而整条链**不报任何错**。
+ *
+ * 为什么本文件自己报错、而不是交给 check-prompts：
+ * check-prompts 查的是「提示词里写的数能不能在 CSS 找到」（`mech-value-not-in-source`），
+ * 它**不会**发现「这个数根本是兜底值」。缺数据的错误要在**产生数据的地方**报，
+ * 否则下一个消费者还得重新推断一遍。
+ *
+ * 退出码 1：让 CI 的 build 步骤红掉，而不是生成一份带兜底值的 prompts.js 再往下走。 */
+if (CAPACITY_MISSING.length) {
+  console.error("");
+  console.error("✗ 以下案没有实测内容量（minitems-parsed.json 里没有），" +
+    "提示词会退化成硬编码的 3 个条目：");
+  console.error("    " + CAPACITY_MISSING.join(" "));
+  console.error("  修法：把新案补进 prototypes/_prompts/minitems-parsed.json（逐案读 style.css 定位重复单元），");
+  console.error("        或先在该案 _specs 字段 5 里写明设计规模，再重跑本脚本。");
+  process.exitCode = 1;
+} else {
+  console.log("  内容量：全部 " + out.length + " 案都有实测值（无兜底）");
+}

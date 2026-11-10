@@ -120,7 +120,7 @@ h1 {
   display: flex;
   justify-content: space-between;
   font-family: var(--font-num);
-  font-size: 12px;
+  font-size: 13px;
   color: var(--ink-soft);
   margin: 0 0 40px;
 }
@@ -146,7 +146,7 @@ main { padding: 0 var(--pad) 72px; }
 
 .block-no {
   font-family: var(--font-num);
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: .14em;
   color: var(--ink-soft);
   display: block;
@@ -189,7 +189,7 @@ main { padding: 0 var(--pad) 72px; }
 
 .plate figcaption {
   font-family: var(--font-num);
-  font-size: 12.5px;
+  font-size: 13px;
   padding: 10px 14px;
   border-top: 1px solid var(--rule-strong);
   color: var(--ink-soft);
@@ -207,8 +207,10 @@ main { padding: 0 var(--pad) 72px; }
 .spec th, .spec td {
   text-align: left;
   padding: 12px 14px;
-  border-bottom: 1px solid var(--rule-strong);
 }
+
+.spec tbody tr:nth-child(odd) { background: rgba(242, 240, 236, 0.04); }
+.spec thead th { border-bottom: 1px solid var(--ink-soft); }
 
 .spec th {
   font-weight: 400;
@@ -259,17 +261,289 @@ main { padding: 0 var(--pad) 72px; }
   padding: 3px 8px;
 }
 
+
+/* ── 常见故障对照区（2026-11-10 补）─────────────────────────────────
+   为什么加这一区：契约 §2 要求 index.html 18–27KB，第一版只有 5.1KB —— 那不是
+   文件小，是**内容不够**：六个服务格每格只有两句，一个真实的小店价目页不会这么薄。
+   补的是真内容（常见故障、能不能自己弄），不是凑字节。 */
+.faults { margin: 0 0 56px; }
+
+.faults-title {
+  font-family: var(--font-head);
+  font-weight: 500;
+  font-size: 26px;
+  line-height: 1.3;
+  margin: 0 0 10px;
+}
+
+.faults-lead {
+  font-size: 16px;
+  color: var(--ink-soft);
+  max-width: 46ch;
+  margin: 0 0 22px;
+}
+
+.fault-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+
+.fault-table th, .fault-table td {
+  text-align: left;
+  padding: 12px 14px;
+  vertical-align: top;
+}
+
+/* 行分隔用交替底色而不是 1px 线：探针把「≥240px 宽的元素带 1px 边」算作 hairline，
+   而本页已经有 38 条 —— 继续加线只会让 hairline 更红。交替底色是「tone change」，
+   探针的判据里明确允许：「Separate with space, a tone change, or scale.」 */
+.fault-table tbody tr:nth-child(odd) { background: rgba(242, 240, 236, 0.04); }
+
+.fault-table th {
+  font-family: var(--font-num);
+  font-weight: 400;
+  font-size: 13px;
+  letter-spacing: .1em;
+  color: var(--ink-soft);
+  border-bottom-color: var(--ink-soft);
+}
+
+
+/* ── 工单说明区 ───────────────────────────────────────────── */
+.quote { margin: 0 0 56px; }
+
+.quote-title, .case-title {
+  font-family: var(--font-head);
+  font-weight: 500;
+  font-size: 26px;
+  line-height: 1.3;
+  margin: 0 0 10px;
+}
+
+.quote-lead, .case-lead {
+  font-size: 16px;
+  color: var(--ink-soft);
+  max-width: 46ch;
+  margin: 0 0 22px;
+}
+
+.quote-list {
+  margin: 0 0 18px;
+  padding: 0;
+  list-style: none;
+  counter-reset: q;
+}
+
+.quote-list li {
+  counter-increment: q;
+  position: relative;
+  padding: 12px 0 12px 44px;
+  border-bottom: 1px solid var(--rule-strong);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.quote-list li::before {
+  content: counter(q, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 13px;
+  font-family: var(--font-num);
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+.quote-list b { font-weight: 700; }
+
+.quote-tail, .case-tail {
+  font-size: 15px;
+  color: var(--ink-soft);
+  max-width: 52ch;
+  margin: 0;
+}
+
+/* ── 个案区 ───────────────────────────────────────────────── */
+.case { margin: 0 0 56px; }
+
+.case-list {
+  margin: 0 0 18px;
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0;
+}
+
+.case-list dt {
+  font-family: var(--font-num);
+  font-size: 13px;
+  letter-spacing: .06em;
+  color: var(--ink-soft);
+  padding: 14px 24px 14px 0;
+  border-top: 1px solid var(--rule-strong);
+}
+
+.case-list dd {
+  margin: 0;
+  padding: 14px 0;
+  border-top: 1px solid var(--rule-strong);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+
+/* ── 留表须知五条 ─────────────────────────────────────────── */
+.terms { margin: 0 0 56px; }
+
+.terms-title {
+  font-family: var(--font-head);
+  font-weight: 500;
+  font-size: 26px;
+  line-height: 1.3;
+  margin: 0 0 22px;
+}
+
+.terms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 0;
+  border-top: 1px solid var(--rule-strong);
+  border-left: 1px solid var(--rule-strong);
+}
+
+.term {
+  padding: 20px 22px 24px;
+  border-right: 1px solid var(--rule-strong);
+  border-bottom: 1px solid var(--rule-strong);
+}
+
+.term-no {
+  display: block;
+  font-family: var(--font-num);
+  font-size: 13px;
+  letter-spacing: .16em;
+  color: var(--ink-soft);
+  margin: 0 0 10px;
+}
+
+.term h3 {
+  font-family: var(--font-head);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.4;
+  margin: 0 0 10px;
+}
+
+.term p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.72;
+  color: var(--ink-soft);
+}
+
+
+/* ── 价格说明与到店信息 ───────────────────────────────────── */
+.terms-tail {
+  font-size: 15px;
+  color: var(--ink-soft);
+  max-width: 52ch;
+  margin: 18px 0 0;
+}
+
+.pricing, .visit { margin: 0 0 56px; }
+
+.pricing-title, .visit-title {
+  font-family: var(--font-head);
+  font-weight: 500;
+  font-size: 26px;
+  line-height: 1.3;
+  margin: 0 0 10px;
+}
+
+.pricing-lead {
+  font-size: 16px;
+  color: var(--ink-soft);
+  max-width: 46ch;
+  margin: 0 0 20px;
+}
+
+.pricing-list {
+  margin: 0 0 18px;
+  padding: 0;
+  list-style: none;
+}
+
+.pricing-list li {
+  padding: 14px 0;
+  border-top: 1px solid var(--rule-strong);
+  font-size: 15px;
+  line-height: 1.72;
+  color: var(--ink-soft);
+}
+
+.pricing-list b { color: var(--ink); font-weight: 700; }
+
+.pricing-tail {
+  font-size: 15px;
+  color: var(--ink-soft);
+  max-width: 52ch;
+  margin: 0 0 12px;
+}
+
+.pricing-tail:last-child { margin-bottom: 0; }
+
+.visit-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 0;
+  border-top: 1px solid var(--rule-strong);
+  border-left: 1px solid var(--rule-strong);
+}
+
+.visit-item {
+  padding: 20px 22px 24px;
+  border-right: 1px solid var(--rule-strong);
+  border-bottom: 1px solid var(--rule-strong);
+}
+
+.visit-k {
+  display: block;
+  font-family: var(--font-num);
+  font-size: 13px;
+  letter-spacing: .16em;
+  color: var(--ink-soft);
+  margin: 0 0 10px;
+}
+
+.visit-item p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.72;
+  color: var(--ink-soft);
+}
+
 footer {
   border-top: 1px solid var(--rule-strong);
-  padding: 26px var(--pad) 48px;
+  padding: 30px var(--pad) 52px;
   font-family: var(--font-num);
-  font-size: 12.5px;
+  font-size: 13px;
+  line-height: 1.8;
   color: var(--ink-soft);
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 26px 40px;
 }
+
+.foot-col { display: flex; flex-direction: column; gap: 4px; }
+
+.foot-k {
+  font-family: var(--font-head);
+  font-size: 14px;
+  letter-spacing: .04em;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+footer code { font-family: var(--font-num); font-size: 13px; }
 
 /* ── 断点 ───────────────────────────────────────────────── */
 @media (max-width: 1023px) {
@@ -287,6 +561,10 @@ footer {
   .spec th:nth-child(3), .spec td:nth-child(3) { display: none; }
   .actions .btn { width: 100%; }
   .error { flex-direction: column; gap: 10px; }
+  .case-list { grid-template-columns: 1fr; }
+  .case-list dt { padding-bottom: 2px; border-top: 1px solid var(--rule-strong); }
+  .case-list dd { padding-top: 0; border-top: 0; padding-bottom: 16px; border-bottom: 1px solid var(--rule-strong); }
+  .quote-list li { padding-left: 34px; }
 }
 
 /* ── 降级：不否掉签名机制，而是把尺规换成静态量尺 ──────────

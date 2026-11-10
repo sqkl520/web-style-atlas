@@ -17,6 +17,10 @@
  * 本条含 style.css 行号引用，可直接复核。
  */
 export const MECHANISMS = {
+  S31: {
+    text: "一条横向尺规把版面切成上中下三段：主刻度每 60px、长 34px、3px 宽，次刻度每 12px、长 12px、2px 宽，上下各一排共用两条贯穿基线——刻度既做读数骨架也顶掉图片的位置。",
+    source: "style.css:118 .ruler 的 repeating-linear-gradient（12px/60px 两层）/ 注释里的主刻度 34px 3px 与次刻度 12px 2px / assets/ruler-field.png 用同一组数生成",
+  },
   S11: {
     text: "章号悬挂在版心外 56px、正文压到 34 字行长，标题叠三层重影，横向错位 0.5 / 1.5 / 3px、第三层 12% 不透明——层级由错位量承担，位置交给悬挂编号。",
     source: "style.css:18 --hang:56px / :21 --measure:34em / :24-26 --ghost-1/2/3 + --ghost-3-a:0.12 / h2 三层 drop-shadow",

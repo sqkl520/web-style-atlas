@@ -2622,30 +2622,33 @@ window.SCHEMES = [
     "outlined-box",
     "palette-cream",
     "font-count",
+    "body-size",
     "grey-body",
     "first-action",
     "no-footage",
-    "small-text",
     "still-page"
    ],
-   "at": "2026-11-10T12:51:51.978Z",
-   "screens": 3,
+   "at": "2026-11-10T13:35:37.860Z",
+   "screens": 8,
    "realPictures": 1,
    "overflow": 0,
-   "words": 95
+   "words": 296
   },
   "shots": {
    "desktop": [
     "../S31-quiet-mid-grey-rulesheet/.inspect/desktop-fold.jpg",
-    "../S31-quiet-mid-grey-rulesheet/.inspect/desktop-page-01.jpg"
+    "../S31-quiet-mid-grey-rulesheet/.inspect/desktop-page-01.jpg",
+    "../S31-quiet-mid-grey-rulesheet/.inspect/desktop-page-02.jpg"
    ],
    "tablet": [
     "../S31-quiet-mid-grey-rulesheet/.inspect/tablet-fold.jpg",
-    "../S31-quiet-mid-grey-rulesheet/.inspect/tablet-page-01.jpg"
+    "../S31-quiet-mid-grey-rulesheet/.inspect/tablet-page-01.jpg",
+    "../S31-quiet-mid-grey-rulesheet/.inspect/tablet-page-02.jpg"
    ],
    "mobile": [
     "../S31-quiet-mid-grey-rulesheet/.inspect/mobile-fold.jpg",
-    "../S31-quiet-mid-grey-rulesheet/.inspect/mobile-page-01.jpg"
+    "../S31-quiet-mid-grey-rulesheet/.inspect/mobile-page-01.jpg",
+    "../S31-quiet-mid-grey-rulesheet/.inspect/mobile-page-02.jpg"
    ]
   },
   "axes": {
@@ -2656,7 +2659,7 @@ window.SCHEMES = [
    "bandL": 35,
    "bandSat": 6,
    "load": "一屏说清",
-   "words": 95,
+   "words": 296,
    "loud": "很安静",
    "chroma": 19
   },

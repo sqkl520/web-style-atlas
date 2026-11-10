@@ -7,13 +7,13 @@
 > *「30 个能跑的风格，不是 30 张配色图。」*
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Schemes: 30](https://img.shields.io/badge/Schemes-30-blue)](#仓库里有什么)
+[![Schemes: 31](https://img.shields.io/badge/Schemes-31-blue)](#仓库里有什么)
 [![Build: none](https://img.shields.io/badge/Build-none-green)](#装上就能用)
 [![Static-only: no backend](https://img.shields.io/badge/Static--only-no%20backend-brightgreen)](#只做静态这一件事)
 
 <br>
 
-**这是一座风格标本库：30 个方案各配一个能直接打开的 HTML 原型，外加 3 个拿来就用的模板。**
+**这是一座风格标本库：31 个方案各配一个能直接打开的 HTML 原型，外加 3 个拿来就用的模板。**
 
 <br>
 
@@ -52,7 +52,7 @@ git ls-files "prototypes/S*/.inspect/*.jpg" | wc -l    # 272 张三档真实渲�
 http://localhost:8080/prototypes/_selection/
 ```
 
-一屏摊开 30 个案子。每行给出结构类型／认知门槛／调性、一句话定义（人话版，不是规格里的术语）、配色色块、错误码、内容量容限、闸门结果，以及**桌面 1440 真实渲染截图**。
+一屏摊开 31 个案子。每行给出结构类型／认知门槛／调性、一句话定义（人话版，不是规格里的术语）、配色色块、错误码、内容量容限、闸门结果，以及**桌面 1440 真实渲染截图**。
 
 ```
 S07  铅灰油墨目录            F 型 · 门槛中 · 调性：学术档案 / 严肃出版
@@ -71,13 +71,13 @@ ASCII 只是形状。页面上是像素。
 `#S07` 能深链分享。
 键盘全程可用：`J`/`K` 换方案，`1`/`2`/`3` 切视口，`/` 定位搜索框，`Esc` 收起。
 
-**第 12 段字段「去 AI 味审查点」是折叠的**：`data.js` 里 **30/30 有值**（最短 276 字、最长 444 字、全库合计 10,065 字，中位数 324），此前它只存在数据里、页面上一个字都看不到。默认收起，summary 上写「去 AI 味审查点（N 条）」——N 从正文里的编号符现算（`①②③` / `第一，第二，` / `（1）（2）` 三派写法取最大，不写死），展开后一个字不截。它排在**「反 AI 味风险与规避」之前**：审查点讲「这案故意反了哪几条 AI 陈词」（逐条带 `C-x.y` 条款编号），风险讲「所以照抄它时最容易做错成什么样」——前者是后者的前提，反过来读，风险里那些「别把 X 做成 Y」就没有前文可指。
+**第 12 段字段「去 AI 味审查点」是折叠的**：`data.js` 里 **31/31 有值**（最短 276 字、最长 444 字、全库合计 10,419 字，中位数 324），此前它只存在数据里、页面上一个字都看不到。默认收起，summary 上写「去 AI 味审查点（N 条）」——N 从正文里的编号符现算（`①②③` / `第一，第二，` / `（1）（2）` 三派写法取最大，不写死），展开后一个字不截。它排在**「反 AI 味风险与规避」之前**：审查点讲「这案故意反了哪几条 AI 陈词」（逐条带 `C-x.y` 条款编号），风险讲「所以照抄它时最容易做错成什么样」——前者是后者的前提，反过来读，风险里那些「别把 X 做成 Y」就没有前文可指。
 
 ### 选中之后怎么带走：复制 AI 提示词
 
 选型台左侧第一组是**「你是做什么的」**——44 个行业词，点一下就能反查出对口方案（16 个有直连方案，28 个只有近似，收在「还有 28 个只有近似的 →」里）。这 44 个之外另有 29 个词，连芯片都没有：展开同一个按钮时一并列出，29 个如实标为"没有"——不是「还没做」，是这套图集的机制撑不起来，不藏起来。
 
-选中一个方案，详情面板**顶部**就有「复制 AI 提示词」按钮。按下去得到一份 1827–2159 字的一段话（30 案实测：中位 1993 字），直接粘给 ChatGPT / Claude / v0，让它按这个风格给你生成整站。它不是套话，是从各案 `style.css` **实测抽取**出来的：
+选中一个方案，详情面板**顶部**就有「复制 AI 提示词」按钮。按下去得到一份 1827–2159 字的一段话（31 案实测：中位 1988 字），直接粘给 ChatGPT / Claude / v0，让它按这个风格给你生成整站。它不是套话，是从各案 `style.css` **实测抽取**出来的：
 
 | 写进提示词的东西 | 怎么来的 |
 | --- | --- |
@@ -152,12 +152,12 @@ git clone --depth 1 https://github.com/sqkl520/web-style-atlas.git
 
 ## 仓库里有什么
 
-**30 个设计方案**——它不是配色皮肤，而是一份完整的设计主张，12 个字段：
+**31 个设计方案**——它不是配色皮肤，而是一份完整的设计主张，12 个字段：
 一句话视觉定义、美学家族与参考、配色系统（带面积比与情绪）、字体策略、布局与网格（含三档断点行为）、关键视觉元素、动效与交互（含降级路径）、去 AI 味审查点、风险与规避、适用场景（附"不适合"）、可落地要点（含性能预算），以及一处**设计师签名式怪癖**。
 这 12 段在选型台上**全部渲染出来**（30/30，不是抽样）；其中「去 AI 味审查点」是折叠的一段，因为它最长且最"给评审员看"——展开方式见[看效果](#看效果打开选型台272-张真截图摊在一页)。
 
-**30 个可运行原型**——真排版、真文案、真素材、真错误状态、真 `prefers-reduced-motion` 降级。
-**29 个闸门 FAIL=0**。剩下 1 个的 2 条失败逐条列在[做不到与已知边界](#做不到与已知边界)。
+**31 个可运行原型**——真排版、真文案、真素材、真错误状态、真 `prefers-reduced-motion` 降级。
+**29 个闸门 FAIL=0**。剩下 2 个的 5 条失败逐条列在[做不到与已知边界](#做不到与已知边界)。
 
 **F 型 15 / R 型 15**——F 型是有固定骨架的结构，访客 3 秒内知道先看哪、点哪；R 型靠一个物理机制组织内容。30 个美学家族**互不重复**。
 
@@ -323,7 +323,7 @@ Windows 上 Chrome 有**最小窗口宽约 500 CSS px**，布局按 500 走、�
 
 ## 选型台自己的闸门账（每一条都能复算）
 
-选型台不是 30 个案之一，但它是用户唯一的入口，所以它自己也过同一道闸门。这一节记的是**它自己的账**——包括一笔它欠了六天的账。
+选型台不是 31 个案之一，但它是用户唯一的入口，所以它自己也过同一道闸门。这一节记的是**它自己的账**——包括一笔它欠了六天的账。
 
 ### 账目一：它的闸门报告曾经是六天前的
 
@@ -462,7 +462,7 @@ grep -rEo '<a href="https?://[^"]+"' prototypes/S14-zero-g-launch-sequence/index
 │   ├── _specs/                 # 每案 12 字段原文 + _CURRENT-VALUES.md（当前有效值权威来源）
 │   ├── _build/                 # 全部工具脚本（渲染 / 复核 / 抓字体 / 备素材 / 生成纹理 / 陈旧度检查）
 │   ├── _CONTRACT.md            # 施工规范（在 prototypes/ 根，不在 _build/ 下）
-│   └── S01-… S30-…/            # 30 个原型（index.html + style.css + assets/ + .inspect/）
+│   └── S01-… S31-…/            # 31 个原型（index.html + style.css + assets/ + .inspect/）
 └── deliverables/               # 从约束简报、研究简报、规则法典到审查记录的完整文档链
 ```
 
@@ -571,9 +571,9 @@ ls prototypes/_selection/                                 # 选型台 + 向导�
 
 **Web Style Atlas** — 30 website design schemes, each with a real, runnable HTML/CSS prototype, plus 3 mainstream templates, a filterable selection bench and a five-question wizard.
 
-Pure static: no build step, no backend, no dependency install. Open `prototypes/_selection/` over HTTP and all 30 schemes appear on one page with real renders at 1440 / 768 / 390 (**272 screenshots**, `git ls-files "prototypes/S*/.inspect/*.jpg" | wc -l`).
+Pure static: no build step, no backend, no dependency install. Open `prototypes/_selection/` over HTTP and all 31 schemes appear on one page with real renders at 1440 / 768 / 390 (**272 screenshots**, `git ls-files "prototypes/S*/.inspect/*.jpg" | wc -l`).
 
-29 prototypes pass the mechanical gate with FAIL = 0. What this repository cannot do — 2 remaining gate failures, measured ground-colour homogeneity (18 / 30 = 60% in a warm pale band), the `file://` `mask-image` breakage, the incomplete photo attribution tables — is listed under [做不到与已知边界](#做不到与已知边界).
+29 prototypes pass the mechanical gate with FAIL = 0. What this repository cannot do — 5 remaining gate failures, measured ground-colour homogeneity (18 / 31 = 58% in a warm pale band), the `file://` `mask-image` breakage, the incomplete photo attribution tables — is listed under [做不到与已知边界](#做不到与已知边界).
 
 Full English README: **[README-EN.md](README-EN.md)**（与本文逐节对译）.
 
