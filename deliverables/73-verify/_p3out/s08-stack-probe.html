@@ -1,0 +1,17 @@
+﻿<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="file:///D:/Web/style/prototypes/S08-amber-overprint-lightbox/style.css"></head>
+<body><div class="iso-stage"><div class="iso-plane">
+<div class="plate" data-layer="0"><div class="plate-face"></div></div>
+<div class="plate" data-layer="1"><div class="plate-face"></div></div>
+</div></div>
+<pre id="out"></pre>
+<script>
+var p=document.querySelector('.plate');
+var cs=getComputedStyle(p);
+var r=p.getBoundingClientRect();
+document.getElementById('out').textContent=JSON.stringify({
+  innerWidth:innerWidth,
+  position:cs.position, transform:cs.transform, width:cs.width, height:cs.height,
+  top:Math.round(r.top), left:Math.round(r.left),
+  stacked:(cs.position==='static'||cs.transform==='none')
+});
+</script></body></html>

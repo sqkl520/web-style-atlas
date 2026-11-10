@@ -1,0 +1,124 @@
+{
+ "S07": {
+  "dir": "S07-slate-ink-contents",
+  "fails": [
+   "mono"
+  ],
+  "fontDecls": 15,
+  "monoSelectors": [
+   {
+    "sel": "@font-face",
+    "decl": "\"IBM Plex Mono\" /* taste-skill-ignore: 字段4 辅助数字，只用于页码/辑号/归档号 */"
+   }
+  ],
+  "bodyMono": [],
+  "distinctFamilies": [
+   "Libre Franklin",
+   "Newsreader",
+   "IBM Plex Mono\" /* taste-skill-ignore: 字段4 辅助数字，只用于页码/辑号/归档号 */",
+   "var(--text)",
+   "var(--display)",
+   "var(--num)"
+  ],
+  "familyCount": 6,
+  "hexCount": 5,
+  "hexes": [
+   "#E7E7E0",
+   "#33505C",
+   "#1C1A16",
+   "#9A9384",
+   "#0F0E0B"
+  ]
+ },
+ "S08": {
+  "dir": "S08-amber-overprint-lightbox",
+  "fails": [
+   "palette-terracotta",
+   "font-count"
+  ],
+  "fontDecls": 17,
+  "monoSelectors": [
+   {
+    "sel": "code",
+    "decl": "\"Overprint Numerals\", ui-monospace, monospace"
+   }
+  ],
+  "bodyMono": [],
+  "distinctFamilies": [
+   "var(--body-face)",
+   "Overprint Numerals",
+   "var(--display-face)",
+   "var(--serif-cn)"
+  ],
+  "familyCount": 4,
+  "hexCount": 11,
+  "hexes": [
+   "#120C08",
+   "#C46A1F",
+   "#E8DCC8",
+   "#6B4A22",
+   "#3A2712",
+   "#111111",
+   "#8D4C16",
+   "#663710",
+   "#49270B",
+   "#351D09",
+   "#1B0F04"
+  ]
+ },
+ "S13": {
+  "dir": "S13-blind-debossed-dispatch",
+  "fails": [
+   "mono",
+   "empty-screens"
+  ],
+  "fontDecls": 7,
+  "monoSelectors": [],
+  "bodyMono": [],
+  "distinctFamilies": [
+   "var(--font-body)",
+   "var(--font-figure)",
+   "var(--font-display)"
+  ],
+  "familyCount": 3,
+  "hexCount": 6,
+  "hexes": [
+   "#F4E3BE",
+   "#D6CDB9",
+   "#241F17",
+   "#7B612C",
+   "#111111",
+   "#D8D2C4"
+  ]
+ },
+ "S21": {
+  "dir": "S21-interlocking-release-book",
+  "fails": [
+   "mono"
+  ],
+  "fontDecls": 78,
+  "monoSelectors": [
+   {
+    "sel": "t；tells.md 禁的是 mono 微标签与图注。 这里只出现在道岔号、锁别号、时刻、角度表与互斥对数上，绝不出现在标题或正文。 */ .face-data",
+    "decl": "\"IBM Plex Mono\",\"DejaVu Sans Mono\",monospace"
+   }
+  ],
+  "bodyMono": [],
+  "distinctFamilies": [
+   "WenJin Mincho",
+   "var(--face-cjk)",
+   "IBM Plex Mono",
+   "DejaVu Sans Mono",
+   "var(--face-head)"
+  ],
+  "familyCount": 5,
+  "hexCount": 5,
+  "hexes": [
+   "#E4DCC9",
+   "#3E3A34",
+   "#924307",
+   "#6E6A5E",
+   "#FFFFFF"
+  ]
+ }
+}

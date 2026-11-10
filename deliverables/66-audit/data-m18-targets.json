@@ -1,0 +1,596 @@
+{
+ "390": {
+  "list": {
+   "chipCount": 47,
+   "chipH": {
+    "min": 26.3,
+    "max": 27.3
+   },
+   "sceneChipCount": 16,
+   "sceneChipH": {
+    "min": 26.3,
+    "max": 26.8
+   },
+   "chipsGap": "5px",
+   "rowH": {
+    "min": 523.7,
+    "max": 598.8
+   },
+   "search": [
+    {
+     "name": "input",
+     "text": "方案号、中文名、英文名、美学家族、字体、",
+     "w": 323,
+     "h": 41.9
+    }
+   ],
+   "sort": [
+    {
+     "name": "select",
+     "text": "方案号 结构类型 认知门槛 闸门（FAI",
+     "w": 201,
+     "h": 40
+    }
+   ],
+   "reset": [
+    {
+     "name": "button",
+     "text": "清空筛选",
+     "w": 74,
+     "h": 35
+    }
+   ],
+   "toggle": [
+    {
+     "name": "button",
+     "text": "还有 28 个只有近似的 →",
+     "w": 162.2,
+     "h": 31
+    }
+   ]
+  },
+  "detail": {
+   "items": [
+    {
+     "tag": "button",
+     "cls": "btn-quiet",
+     "text": "收起",
+     "w": 48,
+     "h": 35,
+     "top": 14
+    },
+    {
+     "tag": "button",
+     "cls": "prompt-copy",
+     "text": "复制 AI 提示词",
+     "w": 135.6,
+     "h": 45.9,
+     "top": 123.5
+    },
+    {
+     "tag": "input",
+     "cls": "prompt-f-input",
+     "text": "例：只做手冲的咖啡店",
+     "w": 355,
+     "h": 37,
+     "top": 243.5
+    },
+    {
+     "tag": "input",
+     "cls": "prompt-f-input",
+     "text": "例：看完想直接加微信下单",
+     "w": 355,
+     "h": 37,
+     "top": 312.5
+    },
+    {
+     "tag": "summary",
+     "cls": "",
+     "text": "原型截图预览3 张点开看 1440 / 76",
+     "w": 355,
+     "h": 48.5,
+     "top": 425.9
+    },
+    {
+     "tag": "button",
+     "cls": "",
+     "text": "1440×900",
+     "w": 84.8,
+     "h": 33,
+     "top": 476.3
+    },
+    {
+     "tag": "button",
+     "cls": "",
+     "text": "768×1024",
+     "w": 84.8,
+     "h": 33,
+     "top": 476.3
+    },
+    {
+     "tag": "button",
+     "cls": "",
+     "text": "390×844",
+     "w": 78.4,
+     "h": 33,
+     "top": 476.3
+    },
+    {
+     "tag": "button",
+     "cls": "",
+     "text": "",
+     "w": 64,
+     "h": 40,
+     "top": 725.4
+    },
+    {
+     "tag": "button",
+     "cls": "",
+     "text": "",
+     "w": 64,
+     "h": 40,
+     "top": 725.4
+    },
+    {
+     "tag": "button",
+     "cls": "",
+     "text": "",
+     "w": 64,
+     "h": 40,
+     "top": 725.4
+    },
+    {
+     "tag": "a",
+     "cls": "open-proto",
+     "text": "打开原型 S01-red-wedge-bro",
+     "w": 276.9,
+     "h": 40.7,
+     "top": 484.3
+    },
+    {
+     "tag": "summary",
+     "cls": "",
+     "text": "闸门与报告FAIL 0WARN 4展开看屏数",
+     "w": 355,
+     "h": 30,
+     "top": 535
+    },
+    {
+     "tag": "summary",
+     "cls": "",
+     "text": "上站文案 4 段主张句 / 按钮 / 空状态",
+     "w": 355,
+     "h": 46.5,
+     "top": 573
+    },
+    {
+     "tag": "summary",
+     "cls": "",
+     "text": "去 AI 味审查点（3 条）",
+     "w": 355,
+     "h": 20.8,
+     "top": 2931
+    }
+   ],
+   "spacingCheck": [
+    {
+     "text": "收起",
+     "tag": "button",
+     "h": 35,
+     "w": 48,
+     "spaced24": true,
+     "near": null
+    },
+    {
+     "text": "复制 AI 提示词",
+     "tag": "button",
+     "h": 45.9,
+     "w": 135.6,
+     "spaced24": true,
+     "near": null
+    },
+    {
+     "text": "例：只做手冲的咖啡店",
+     "tag": "input",
+     "h": 37,
+     "w": 355,
+     "spaced24": true,
+     "near": null
+    },
+    {
+     "text": "例：看完想直接加微信下单",
+     "tag": "input",
+     "h": 37,
+     "w": 355,
+     "spaced24": true,
+     "near": null
+    },
+    {
+     "text": "原型截图预览3 张点开看 1440 / 76",
+     "tag": "summary",
+     "h": 48.5,
+     "w": 355,
+     "spaced24": true,
+     "near": null
+    },
+    {
+     "text": "1440×900",
+     "tag": "button",
+     "h": 33,
+     "w": 84.8,
+     "spaced24": false,
+     "near": "打开原型 S01-red-wedge"
+    },
+    {
+     "text": "768×1024",
+     "tag": "button",
+     "h": 33,
+     "w": 84.8,
+     "spaced24": false,
+     "near": "打开原型 S01-red-wedge"
+    },
+    {
+     "text": "390×844",
+     "tag": "button",
+     "h": 33,
+     "w": 78.4,
+     "spaced24": false,
+     "near": "打开原型 S01-red-wedge"
+    },
+    {
+     "text": "",
+     "tag": "button",
+     "h": 40,
+     "w": 64,
+     "spaced24": true,
+     "near": null
+    },
+    {
+     "text": "",
+     "tag": "button",
+     "h": 40,
+     "w": 64,
+     "spaced24": true,
+     "near": null
+    },
+    {
+     "text": "",
+     "tag": "button",
+     "h": 40,
+     "w": 64,
+     "spaced24": true,
+     "near": null
+    },
+    {
+     "text": "打开原型 S01-red-wedge-bro",
+     "tag": "a",
+     "h": 40.7,
+     "w": 276.9,
+     "spaced24": false,
+     "near": "768×1024"
+    },
+    {
+     "text": "闸门与报告FAIL 0WARN 4展开看屏数",
+     "tag": "summary",
+     "h": 30,
+     "w": 355,
+     "spaced24": true,
+     "near": null
+    },
+    {
+     "text": "上站文案 4 段主张句 / 按钮 / 空状态",
+     "tag": "summary",
+     "h": 46.5,
+     "w": 355,
+     "spaced24": true,
+     "near": null
+    },
+    {
+     "text": "去 AI 味审查点（3 条）",
+     "tag": "summary",
+     "h": 20.8,
+     "w": 355,
+     "spaced24": true,
+     "near": null
+    }
+   ]
+  }
+ },
+ "1440": {
+  "list": {
+   "chipCount": 47,
+   "chipH": {
+    "min": 26.3,
+    "max": 27.3
+   },
+   "sceneChipCount": 16,
+   "sceneChipH": {
+    "min": 26.3,
+    "max": 26.8
+   },
+   "chipsGap": "5px",
+   "rowH": {
+    "min": 276.8,
+    "max": 276.8
+   },
+   "search": [
+    {
+     "name": "input",
+     "text": "方案号、中文名、英文名、美学家族、字体、",
+     "w": 616.8,
+     "h": 41.9
+    }
+   ],
+   "sort": [
+    {
+     "name": "select",
+     "text": "方案号 结构类型 认知门槛 闸门（FAI",
+     "w": 201,
+     "h": 40
+    }
+   ],
+   "reset": [
+    {
+     "name": "button",
+     "text": "清空筛选",
+     "w": 74,
+     "h": 35
+    }
+   ],
+   "toggle": [
+    {
+     "name": "button",
+     "text": "还有 28 个只有近似的 →",
+     "w": 162.2,
+     "h": 31
+    }
+   ]
+  },
+  "detail": {
+   "items": [
+    {
+     "tag": "button",
+     "cls": "btn-quiet",
+     "text": "收起",
+     "w": 48,
+     "h": 35,
+     "top": 20
+    },
+    {
+     "tag": "button",
+     "cls": "prompt-copy",
+     "text": "复制 AI 提示词",
+     "w": 135.6,
+     "h": 45.9,
+     "top": 120.4
+    },
+    {
+     "tag": "input",
+     "cls": "prompt-f-input",
+     "text": "例：只做手冲的咖啡店",
+     "w": 252.5,
+     "h": 37,
+     "top": 211.4
+    },
+    {
+     "tag": "input",
+     "cls": "prompt-f-input",
+     "text": "例：看完想直接加微信下单",
+     "w": 252.5,
+     "h": 37,
+     "top": 211.4
+    },
+    {
+     "tag": "summary",
+     "cls": "",
+     "text": "原型截图预览3 张点开看 1440 / 76",
+     "w": 517,
+     "h": 70,
+     "top": 324.8
+    },
+    {
+     "tag": "button",
+     "cls": "",
+     "text": "1440×900",
+     "w": 84.8,
+     "h": 33,
+     "top": 396.8
+    },
+    {
+     "tag": "button",
+     "cls": "",
+     "text": "768×1024",
+     "w": 84.8,
+     "h": 33,
+     "top": 396.8
+    },
+    {
+     "tag": "button",
+     "cls": "",
+     "text": "390×844",
+     "w": 78.4,
+     "h": 33,
+     "top": 396.8
+    },
+    {
+     "tag": "button",
+     "cls": "",
+     "text": "",
+     "w": 64,
+     "h": 40,
+     "top": 645.8
+    },
+    {
+     "tag": "button",
+     "cls": "",
+     "text": "",
+     "w": 64,
+     "h": 40,
+     "top": 645.8
+    },
+    {
+     "tag": "button",
+     "cls": "",
+     "text": "",
+     "w": 64,
+     "h": 40,
+     "top": 645.8
+    },
+    {
+     "tag": "a",
+     "cls": "open-proto",
+     "text": "打开原型 S01-red-wedge-bro",
+     "w": 276.9,
+     "h": 40.7,
+     "top": 404.8
+    },
+    {
+     "tag": "summary",
+     "cls": "",
+     "text": "闸门与报告FAIL 0WARN 4展开看屏数",
+     "w": 517,
+     "h": 49.5,
+     "top": 455.4
+    },
+    {
+     "tag": "summary",
+     "cls": "",
+     "text": "上站文案 4 段主张句 / 按钮 / 空状态",
+     "w": 517,
+     "h": 46.5,
+     "top": 512.9
+    },
+    {
+     "tag": "summary",
+     "cls": "",
+     "text": "去 AI 味审查点（3 条）",
+     "w": 517,
+     "h": 20.8,
+     "top": 2275.1
+    }
+   ],
+   "spacingCheck": [
+    {
+     "text": "收起",
+     "tag": "button",
+     "h": 35,
+     "w": 48,
+     "spaced24": true,
+     "near": null
+    },
+    {
+     "text": "复制 AI 提示词",
+     "tag": "button",
+     "h": 45.9,
+     "w": 135.6,
+     "spaced24": true,
+     "near": null
+    },
+    {
+     "text": "例：只做手冲的咖啡店",
+     "tag": "input",
+     "h": 37,
+     "w": 252.5,
+     "spaced24": true,
+     "near": null
+    },
+    {
+     "text": "例：看完想直接加微信下单",
+     "tag": "input",
+     "h": 37,
+     "w": 252.5,
+     "spaced24": true,
+     "near": null
+    },
+    {
+     "text": "原型截图预览3 张点开看 1440 / 76",
+     "tag": "summary",
+     "h": 70,
+     "w": 517,
+     "spaced24": true,
+     "near": null
+    },
+    {
+     "text": "1440×900",
+     "tag": "button",
+     "h": 33,
+     "w": 84.8,
+     "spaced24": false,
+     "near": "打开原型 S01-red-wedge"
+    },
+    {
+     "text": "768×1024",
+     "tag": "button",
+     "h": 33,
+     "w": 84.8,
+     "spaced24": false,
+     "near": "打开原型 S01-red-wedge"
+    },
+    {
+     "text": "390×844",
+     "tag": "button",
+     "h": 33,
+     "w": 78.4,
+     "spaced24": false,
+     "near": "打开原型 S01-red-wedge"
+    },
+    {
+     "text": "",
+     "tag": "button",
+     "h": 40,
+     "w": 64,
+     "spaced24": true,
+     "near": null
+    },
+    {
+     "text": "",
+     "tag": "button",
+     "h": 40,
+     "w": 64,
+     "spaced24": true,
+     "near": null
+    },
+    {
+     "text": "",
+     "tag": "button",
+     "h": 40,
+     "w": 64,
+     "spaced24": true,
+     "near": null
+    },
+    {
+     "text": "打开原型 S01-red-wedge-bro",
+     "tag": "a",
+     "h": 40.7,
+     "w": 276.9,
+     "spaced24": false,
+     "near": "768×1024"
+    },
+    {
+     "text": "闸门与报告FAIL 0WARN 4展开看屏数",
+     "tag": "summary",
+     "h": 49.5,
+     "w": 517,
+     "spaced24": true,
+     "near": null
+    },
+    {
+     "text": "上站文案 4 段主张句 / 按钮 / 空状态",
+     "tag": "summary",
+     "h": 46.5,
+     "w": 517,
+     "spaced24": true,
+     "near": null
+    },
+    {
+     "text": "去 AI 味审查点（3 条）",
+     "tag": "summary",
+     "h": 20.8,
+     "w": 517,
+     "spaced24": true,
+     "near": null
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,321 @@
+﻿<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>选型台 · 30 个网站设计风格方案</title>
+<meta name="description" content="30 个网站设计风格方案的选型台：每个方案配一个按同一口径渲染的可运行原型，含三档视口的真实截图、闸门结果、配色与字体当前有效值。">
+<link rel="stylesheet" href="../_fonts/css/archivo-vf__wdth-wght.css">
+<link rel="stylesheet" href="../_fonts/css/noto-sans-sc__100..900.css">
+<link rel="stylesheet" href="../_fonts/css/ibm-plex-mono__400-500.css">
+<link rel="stylesheet" href="style.css">
+<style>
+  /* 模板出口（#tpl-exit）的局部样式。
+     它原来在 rail 第 11 组（「怎么用」块里的一行小字，实测 1440×900 下 top=2199 /
+     bottom=2313，首屏曝光 0）。现在紧跟页头的向导按钮，是同一层的"另一条路"。
+     视觉上要能和上面那条向导按钮区分开（那条是实心底色的主按钮），又不与 .mast-claim
+     混成一段正文：用一道 2px 上边线把它切成页头的第三块，文字比 claim 小一档。
+     只写在 index.html 里，没有并进 style.css —— style.css 不在本次改动范围内。 */
+  .mast-exit {
+    border-top: 2px solid var(--rule-2);
+    margin-top: 11px;
+    padding-top: 9px;
+    /* 深链 ./#tpl-exit（wizard.js:192 指向这里）会把这块滚到视口顶端：
+       实测 top=-0.28px —— 浏览器把目标元素的顶边对齐到 0，而它自己的 border-top
+       和亚像素取整会让第一行被切掉一条。留 16px 余量，落点稳定在 top≈16。 */
+    scroll-margin-top: 16px;
+  }
+  .mast-exit { font-size: var(--s-14); line-height: 1.55; color: var(--ink-2); }
+  .mast-exit strong { color: var(--ink); font-weight: 600; }
+  .mast-exit a { color: var(--link); }
+</style>
+</head>
+<body>
+
+<a class="skip" href="#ledger">跳到方案清单</a>
+
+<header class="mast">
+  <div class="mast-id">
+    <p class="mast-kicker">网站设计风格方案 · 选型台</p>
+    <h1>三十个案，一条渲染口径</h1>
+    <p class="mast-wizard"><a href="wizard.html">筛不出来？走选型向导：五个问题给出 3 个推荐 + 3 个明确排除 →</a></p>
+    <!-- 页头折叠块（2026-10-28，390×844 首屏实测）────────────────────────────
+         改前实测（CDP，390×844，dsf 2，滚动到 top=0）：
+           header.mast 453.4px = kicker 22.7 + h1 27.5 + claim 96 + 向导 66.6
+                                 + exit 76.1 + facts 73.5 + padding/gap 90
+           aside.rail 337.6  ·  .bar 145  ·  首卡 top 954  ·  视口 844
+           ⇒ 首屏完整方案卡 **0 张**，首卡一个像素都没进视口。
+         两段散文（claim 96 + exit 76.1 = 172.1px，占页头 38%）讲的是「这个图集是什么」
+         与「不挑的话去哪拿成品」。两句都该留，但它们不是第一眼要的东西 ——
+         第一眼要的是「这里有哪些方案」。
+         ⇒ 折进 <details>，默认收起，一点就开，一个字不删。
+
+         【为什么向导按钮留在折叠块外面、而且挪到 claim 前面】
+         向导是这页的第二条主路（筛不出来就直接问五个问题），把它一起折起来等于把路藏了。
+         位置从 claim 之后挪到 claim 之前，是因为折叠块必须是**连续的一段**：
+         <details> 只能包住相邻的兄弟节点，claim 与 exit 之间隔着向导，三选二就得挪一个。
+         挪向导（而不是把 exit 拖到向导前面）的理由：这样做之后 DOM 顺序是
+         「标题 → 主按钮 → 解释」，1440 档上按钮比改前**高了一位**，
+         而实测页头总高不变（304.0 → 304.0，见 style.css 末尾那段注释），
+         首卡 top 387.9 → 387.9（Δ 0.0）。也就是说这个顺序改动在桌面档是零代价的。
+
+         【为什么 summary 上写「这个图集是什么 · 想要现成模板去哪」】
+         summary 是折叠态下唯一还看得见的一行，它必须逐项报出里面有什么，
+         否则用户没有理由点开。里面正好两段：claim（这个图集是什么 / 凭什么信它）
+         与 exit（不想挑的话去哪拿现成模板）。所以 summary 就按这两段各写半句，
+         中间用 · 分隔 —— 结构上等价于一个两行的目录。 -->
+    <details class="mast-fold" id="mast-fold" open>
+      <summary class="mast-fold-sum">这个图集是什么 · 想要现成模板去哪</summary>
+      <p class="mast-claim">每个方案都有一个可运行的原型，全部用同一条命令、同一套视口（桌面 1440×900、平板 768×1024、手机 390×844）渲染，闸门结果与截图都在这里摊开——选之前先看它实际长成什么样。</p>
+    <!-- 模板出口：2026-10-25 从 rail 第 11 组（「怎么用」块里的一行小字）移到这里。
+         原因：实测 1440×900 下它原位置 top=2199 / bottom=2313，**首屏曝光为 0**
+         （首屏完整可见的筛选组只有 3/11，它在第 11 组之后），而它是"不想挑、只想拿走一个
+         能上线的站"这条路唯一的入口 —— 藏在 2.6 屏之下等于没有。
+         为什么放页头左栏、紧跟在向导按钮之后：这两条是同一层的"另一条路"（一条帮你筛、
+         一条直接给成品），放在一起才读得通。实测代价只有 1 行高度（页头 267→300px，
+         rail 首屏完整可见的筛选组仍是 3 组）；先试过放进 rail 里，rail 固定 264px 宽、
+         这句话折 4 行占 160px，把首屏筛选组从 3 组压到 1 组，所以没放那儿。
+         保留 id="tpl-exit"：wizard.js:192 有 ./#tpl-exit 的深链，改 id 会断。
+
+         2026-10-28 补：它现在在 .mast-fold 里面，默认收起。深链**照旧能到** ——
+         实测（CDP，390 档）：对一个关闭的 <details> 内部的元素做片段跳转，
+         Chrome 会自动把祖先 details 展开（open: false → true），落点 top=16.2px。
+         这条行为我特意验过两次（一次页内改 hash、一次冷加载 file:///…index.html#tpl-exit），
+         两次都是 open=true。所以 wizard.js 那条深链不需要改。 -->
+      <p class="mast-exit" id="tpl-exit">只想要<strong>拿来就能用的</strong>？不用在这三十张卡里挑——直接去三个大众模板：<a href="../../templates/M01-clean-corporate/">企业站 M01</a> · <a href="../../templates/M02-warm-local/">餐饮本地 M02</a> · <a href="../../templates/M03-bold-creator/">作品集 M03</a>（自包含、系统字体、双击即对）。</p>
+    </details>
+  </div>
+  <dl class="mast-facts" id="facts">
+    <div><dt>方案总数</dt><dd id="f-total">—</dd></div>
+    <div><dt>已建原型</dt><dd id="f-built">—</dd></div>
+    <div><dt>闸门 FAIL=0</dt><dd id="f-clean">—</dd></div>
+    <div><dt>截图总数</dt><dd id="f-shots">—</dd></div>
+  </dl>
+</header>
+
+<div class="bench">
+
+  <aside class="rail" aria-label="筛选">
+
+    <!-- 筛选栏折叠块（2026-10-28 重做，390×844 首屏实测）──────────────────────
+         这个 id 曾经存在过、又被删掉过，这里把两次的事实都留着，免得下一个人重犯：
+
+         【2026-10-25 删除的那一版为什么是错的】
+         那一版的 summary 写着「筛选与场景反查（11 组）」，但 .rail-fold-body 的
+         **子元素数实测为 0**（CDP: railFoldBodyChildren: 0）—— 它从未接上内容，
+         两档都只渲染出一条 26px 的空折叠条。删得对：假控件比没有更糟。
+         【本轮为什么又建一个】
+         因为当时删掉之后**没有替代品**：rail 继续占 337.6px（= 844 × 40vh 限高），
+         而它内部 scrollHeight 是 1406px —— 用户在 337px 的框里还要单独内滚 1070px
+         才能看到第 2–11 组。一块既占首屏、又要内滚的区块。
+         这次的做法不一样：**把 rail 的全部子节点原样搬进 details**，一个不落。
+         实测（CDP，390 档）折叠后 .rail 337.6 → 52px，展开后
+         子节点数与改前逐项相等（代码见 deliverables/67-exec/_accept.mjs 的 acc4）。
+
+         【为什么整条折、而不是只折后六组】
+         只折后六组省不下钱：首屏被吃掉的是**整条 rail 的 337.6px**，不是其中某几组。
+         保留「你是做什么的」那一组常驻（20 颗芯片 + 提示 + 「还有 28 个」）实测仍占
+         212.4px，加上其余折叠条，首卡只能压到 620 左右 —— 首屏还是 0 张完整卡
+         （实测见交付物里方案 B 那一行）。
+         而「你是做什么的」这一组正是**最该被看见**的一组，把它单独留在外面、
+         其余折起来，等于用「看起来还在」换「一条都没省」。整条折起、
+         summary 上直接写「11 组 · 47 颗芯片 · 先按你是做什么的挑」，
+         用户知道里面有什么，也知道第一组是什么。
+
+         【为什么不再用 max-height + overflow-y 限高】
+         那个做法制造了**内滚嵌套**：页面在滚，rail 自己也在滚，而 rail 的内滚区域
+         只有 337px 高、内容 1406px。折叠块没有这个问题 —— 展开后 rail 恢复
+         自然高度（1440 档本来就没有限高），390 档展开时整条内容跟着页面一起滚。 -->
+    <details class="rail-fold" id="rail-fold" open>
+      <summary class="rail-fold-sum">筛选 · 11 组 47 颗芯片（第一组是「你是做什么的」）</summary>
+      <div class="rail-fold-body">
+
+    <!-- 先问用户能回答的问题。下面那组"设计口径与质检状态"是给做这份图集的人看的，
+         不是给挑风格的人看的 —— 原来它排在前面，是"五分钟选不出来"的第一大障碍。 -->
+    <p class="rail-lead">先按你是做什么的挑；后五组是设计口径与质检状态，可以跳过。<strong>组间是「并且」，组内多选是「或者」</strong>——筛到没结果就退回只留一组。</p>
+
+    <!-- 场景反查：用户最先问的其实是"我是做什么的"，不是"我要亮底还是暗底"。
+         数据来自 prompts.js 的 sceneIndex（44 个行业词，直连/近似两档，29 个如实标为"没有"）。 -->
+    <div class="rail-block">
+      <h2>你是做什么的</h2>
+      <div class="chips" id="flt-scene" role="group" aria-label="按你的行业或场景反查方案"></div>
+      <p class="rail-hint">实心＝有直连方案，虚边＝换文案能用但不是为这行做的。</p>
+    </div>
+
+    <div class="rail-block">
+      <h2>要亮底还是暗底</h2>
+      <div class="chips" id="flt-ground" role="group" aria-label="按底色明暗筛选"></div>
+    </div>
+    <div class="rail-block">
+      <h2>底色属于哪条带</h2>
+      <div class="chips" id="flt-band" role="group" aria-label="按底色色带筛选"></div>
+      <p class="rail-hint">这一组会把一件事摆到台面上：<b>30 个里有 18 个落在"暖浅色带"</b>，而别的带只剩零头（冷暗带 5、暖暗带 3、中性浅带 2、中间明度带 1、冷浅色带 1）。如果你觉得可选项看起来都差不多，这就是原因。</p>
+    </div>
+    <div class="rail-block">
+      <h2>要装多少内容</h2>
+      <div class="chips" id="flt-load" role="group" aria-label="按内容量筛选"></div>
+    </div>
+    <div class="rail-block">
+      <h2>要安静还是要扎眼</h2>
+      <div class="chips" id="flt-loud" role="group" aria-label="按安静度筛选"></div>
+      <p class="rail-hint">按调色板里最高彩度算。<b>19 个都属于"就要扎眼"</b>——这一层可选的真没那么多。</p>
+    </div>
+
+    <p class="rail-sep">以下是设计口径与质检状态</p>
+
+    <div class="rail-block">
+      <h2>结构类型</h2>
+      <div class="chips" id="flt-fr" role="group" aria-label="按结构类型筛选"></div>
+    </div>
+    <div class="rail-block">
+      <h2>认知门槛</h2>
+      <div class="chips" id="flt-thr" role="group" aria-label="按认知门槛筛选"></div>
+    </div>
+    <div class="rail-block">
+      <h2>调性</h2>
+      <div class="chips" id="flt-tone" role="group" aria-label="按调性筛选"></div>
+    </div>
+    <div class="rail-block">
+      <h2>建成状态</h2>
+      <div class="chips" id="flt-state" role="group" aria-label="按建成状态筛选"></div>
+    </div>
+    <div class="rail-block">
+      <h2>闸门</h2>
+      <div class="chips" id="flt-gate" role="group" aria-label="按闸门结果筛选"></div>
+    </div>
+    <div class="rail-block rail-note">
+      <h2>怎么用</h2>
+      <p>点任意一行展开它的全部字段与整页截图（多数案 10 段、个别 9 段——缺失原因在 README「做不到与已知边界」里写明）。<kbd>1</kbd><kbd>2</kbd><kbd>3</kbd> 切视口，<kbd>J</kbd><kbd>K</kbd> 换方案，<kbd>/</kbd> 定位搜索框，<kbd>Esc</kbd> 收起。地址栏的 <code>#S07</code> 可以直接分享单个方案。</p>
+    </div>
+      </div>
+    </details>
+  </aside>
+
+  <main class="main">
+    <div class="bar">
+      <label class="search">
+        <span>搜索</span>
+        <input id="q" type="search" placeholder="方案号、中文名、英文名、美学家族、字体、错误码…" autocomplete="off">
+      </label>
+      <p class="count" id="count">—</p>
+      <!-- 工具条折叠块（2026-10-28，390×844 首屏实测）────────────────────────
+           改前 .bar 在 390 档是 145px = 四行：搜索 41.9 / 计数 21 / 排序 40 / 清空 35
+           （gap 12 把它们堆成四行，因为 358px 宽放不下「搜索 + 计数 + 排序 + 清空」）。
+           四行里有三行是**低频**的：计数只读、排序很少改、清空只在筛错时点。
+           搜索是高频的，留常驻。
+           ⇒ 排序折进 <details>，summary 上写「排序」，展开就是原来那个 <select>。
+           为什么把「清空筛选」也一起折进去：它和排序是同一次操作的两半
+           （改排序改坏了 → 清空重来），分开摆会让其中一半永远在另一处。
+           为什么「计数」不折：它是 **aria-live** 的活口 —— 筛完立刻要看到
+           「列出 4 / 30」这句话变了没有。折起来会把这个反馈一起藏掉，
+           而它只占 21px，是这四行里最便宜的一行。
+           实测（390 档）：.bar 145 → 93，与页头、筛选栏合计把首卡从 954 推到 429。 -->
+      <details class="bar-fold" id="bar-fold" open>
+        <summary class="bar-fold-sum">排序</summary>
+        <div class="sort">
+          <label for="sort">排序</label>
+          <select id="sort">
+            <option value="n">方案号</option>
+            <option value="fr">结构类型</option>
+            <option value="thr">认知门槛</option>
+            <option value="gate">闸门（FAIL 多的在前）</option>
+            <option value="built">未建的在前</option>
+          </select>
+        </div>
+        <button id="reset" type="button" class="btn-quiet">清空筛选</button>
+      </details>
+    </div>
+
+    <!-- 模板带（有方案行时才出现）：模板层与 30 个案是两条并行的通道，不能混。
+         它**不在** #ledger 里 —— 那里的每一行都有 .inspect/report.json 与三档截图，模板没有；
+         它**不进** state.sceneIds —— 那是 S\d{2} 白名单，实测喂 M02 会被静默吞掉
+         （sceneIds={M02} → 0/30 行，{M02,S06,S19} → 2/30 行）；
+         它**不进** #count —— 「列出 N / 30 个方案」里的 30 是 SCHEMES 的长度，模板不是方案。
+         默认 hidden，由 prompt-copy.js 的 renderTemplateLayer() 决定显隐与内容。
+
+         ⚠️ 位置必须在 #ledger **之前**，不能之后。第一版放在清单下面，实测（CDP 1440×900）：
+           点「咖啡店」芯片 → 4 行 → 模板带 top=1520 / bottom=1744，**整条在 900px 视口之外**。
+           也就是说模板层在"芯片"这条主路径上等于不存在，和它要修的那个 bug 是同一个病：
+           内容做出来了，但用户在首屏看不到。方案行越多它越往下沉，最坏时沉到 4 屏以下。
+         放前面之后，点芯片立刻能看到"这 4 行里 S06 是直连、另外 M02 是现成模板"，
+         再往下读那 4 行 —— 顺序才对。 -->
+    <section class="tpl-strip" id="tpl-strip" hidden aria-label="模板层建议">
+      <p class="tpl-strip-lead" id="tpl-strip-lead">—</p>
+      <ul class="tpl-cards" id="tpl-cards"></ul>
+    </section>
+
+    <ol class="ledger" id="ledger"></ol>
+
+    <!-- 空状态：2026-10-25 重写。
+         原文案把搜空的原因全部归给用户（"这几组条件是并且关系——先只留一组…比继续加筛选更容易命中"）。
+         实测这是**在说谎**：搜「餐厅」时用户一组筛选都没加、搜索框里只有一个词，而这套图集
+         prompts.js 的 sceneIndex 里 44 个行业词只有 16 个有直连方案（餐厅只有近似项 S09/S19），
+         三个大众模板根本不在索引里 —— 缺的是图集的数据模型，不是用户的操作。
+         所以这里先把"不按行业建索引"这个事实说出来，再给两条真能走通的路。
+         数字与"你搜的那一个词"都不写死：#e-* 几个槽由 app.js 的 syncEmptyFacts() 从
+         window.STYLE_PROMPTS.sceneIndex 与 window.SCHEMES 现算填入；括号内的数字与 #e-why
+         的句子只是脚本没跑起来时的退路（实际不会露出：空状态 default hidden，
+         只有 render() 判定 0 命中时才取消 hidden，而它同一轮就会把槽填好）。
+
+         2026-10-26 模板层接入后的分工（这一段必须读清楚，否则两句会互相否定）：
+           · 上面这段讲的是 **30 个案这一层**的供给缺口，它没变：模板确实不在 sceneIndex 里。
+           · 紧接着的 #empty-tpl 是**模板层**的答案，由 prompt-copy.js 从 templates/*/README.md
+             的适用行业反查后现填：有就点名给链接，只有相邻候选就说清"不在承诺清单里"，
+             都没有就把模板层承诺的三个行业摊开，让用户自己判断。
+           · 也就是说：先承认缺口（不是用户的问题），再给模板层的真实答案 —— 顺序不能反。 -->
+    <p class="empty" id="empty" hidden>没有符合条件的方案。<strong>这三十个案不按行业建索引</strong>——<span id="e-total">30</span> 个案没有"行业"这一维；左侧「你是做什么的」<span id="e-terms">44</span> 个行业词里只有 <span id="e-direct">16</span> 个有直连方案。<span id="e-why">行业词搜不到，是这 30 个案缺这条数据，不是你条件加多了。</span>想继续在这三十个案里挑：点左侧行业芯片，只挑实心的那 <span id="e-direct2">16</span> 个（虚边的是"换文案能用"的近似款）；组间才是「并且」关系——先只留一组最在意的（比如底色），或清空筛选后改用右侧排序看。</p>
+
+    <!-- 模板层答案（0 命中时才出现）：容器单独一块，由 prompt-copy.js 填。
+         它不参与 #count，也不进 #ledger —— 与 #tpl-strip 同一套渲染逻辑，
+         只是这里没有方案行可放，所以模板卡直接落在空状态里。 -->
+    <section class="tpl-empty" id="empty-tpl" hidden aria-label="模板层建议"></section>
+  </main>
+</div>
+
+<!-- 详情：桌面端是右侧栏，窄屏是全屏层 -->
+<aside class="detail" id="detail" hidden aria-label="方案详情">
+  <div class="detail-head">
+    <p class="detail-no" id="d-no">—</p>
+    <div class="detail-title">
+      <h2 id="d-cn">—</h2>
+      <p id="d-en">—</p>
+    </div>
+    <button id="d-close" type="button" class="btn-quiet">收起</button>
+  </div>
+  <div class="detail-body" id="d-body"></div>
+</aside>
+
+<!-- 折叠块的初始开合（2026-10-28）────────────────────────────────────────────
+     三块 <details> 在 HTML 里都写着 open，也就是**没有这段脚本时 = 改动前的样子**
+     （两档全部展开，一个字不少）。这段脚本只做一件事：窄档（≤980px，与 style.css
+     里 .detail 变全屏层的断点同一个值）把它们收起来。
+     为什么默认写成 open、由脚本往"收"的方向改，而不是写死成收起、由脚本往"开"的方向改：
+       · 无脚本时，写死收起会让正文在**所有**视口都看不见 —— 那是真丢内容；
+         写 open 时最坏也只是"没有省下首屏"，功能一点不少。
+       · 宽档本来就要展开，写 open 让宽档连脚本都不用等。
+     为什么不放在 app.js 里：本轮写作用域只有 index.html 与 style.css，app.js 不归我改。
+     这段脚本放在 data.js 之前（而不是 </body> 之前），是为了让它在这一屏**首次绘制之前**
+     就执行完 —— 否则 390 档会先按展开态画一帧（页头 453px），再跳成 268px，
+     用户看到一次明显的重排。 -->
+<script>
+(function () {
+  var folds = ['mast-fold', 'rail-fold', 'bar-fold'].map(function (id) { return document.getElementById(id); })
+    .filter(Boolean);
+  var NARROW = 980;   /* 与 style.css 的 @media (max-width: 980px) 同一个值 */
+  function sync() {
+    var narrow = window.innerWidth <= NARROW;
+    for (var i = 0; i < folds.length; i++) folds[i].open = !narrow;
+  }
+  sync();
+  /* 转屏 / 改窗口宽度时跟着切。只在跨过断点时才有实际动作，detail 的滚动位置不受影响
+     （三块都不在 .detail 里）。 */
+  window.addEventListener('resize', sync);
+})();
+</script>
+
+<script src="data.js"></script>
+<script src="prompts.js"></script>
+<script src="prompt-copy.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

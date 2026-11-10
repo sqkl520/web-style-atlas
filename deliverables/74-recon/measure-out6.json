@@ -1,0 +1,369 @@
+{
+ "rowButton": {
+  "name": "展开 S01 红黑斜排报",
+  "childCount": 4,
+  "children": [
+   "paragraph:",
+   "none:",
+   "none:",
+   "none:"
+  ]
+ },
+ "familyTextNodes": [
+  {
+   "role": "StaticText",
+   "parentIsRowButton": false
+  },
+  {
+   "role": "InlineTextBox",
+   "parentIsRowButton": false
+  }
+ ],
+ "listRoles": [
+  "list"
+ ],
+ "wizardFocusAfterClick": {
+  "tag": "BUTTON",
+  "cls": "",
+  "text": "就一屏，把一件事说清访客不需要往下翻很久",
+  "inViewport": true,
+  "scrollY": 485,
+  "qVisible": 2
+ },
+ "wizardTabOrder": [
+  "BUTTON.|三五屏，常规介绍首页、介绍、几个栏目",
+  "BUTTON.|很多栏目，愿意翻很久条目多、要能慢慢",
+  "BUTTON.|基本不用图靠文字、数字和版面说话",
+  "BUTTON.|有几张就够每个栏目配一张，不铺满",
+  "BUTTON.|图是主角没有好图这页就不成立",
+  "BUTTON.btn-quiet|重来",
+  "BODY.wz|跳到问题\n\n\n  \n    网站设计",
+  "A.skip|跳到问题"
+ ],
+ "benchTabOrder": [
+  {
+   "t": "A.skip",
+   "txt": "跳到方案清单",
+   "outline": "1px auto rgb(16, 16, 16)",
+   "shadow": "none"
+  },
+  {
+   "t": "A.",
+   "txt": "筛不出来？走选型向导：五个问题给出 ",
+   "outline": "1px auto rgb(16, 16, 16)",
+   "shadow": "none"
+  },
+  {
+   "t": "A.",
+   "txt": "企业站 M01",
+   "outline": "1px auto rgb(16, 16, 16)",
+   "shadow": "none"
+  },
+  {
+   "t": "A.",
+   "txt": "餐饮本地 M02",
+   "outline": "1px auto rgb(16, 16, 16)",
+   "shadow": "none"
+  },
+  {
+   "t": "A.",
+   "txt": "作品集 M03",
+   "outline": "1px auto rgb(16, 16, 16)",
+   "shadow": "none"
+  },
+  {
+   "t": "BUTTON.scene-chip is-direct",
+   "txt": "咖啡店M02",
+   "outline": "1px auto rgb(16, 16, 16)",
+   "shadow": "none"
+  },
+  {
+   "t": "BUTTON.scene-chip is-direct",
+   "txt": "烘焙M02",
+   "outline": "1px auto rgb(16, 16, 16)",
+   "shadow": "none"
+  },
+  {
+   "t": "BUTTON.scene-chip is-direct",
+   "txt": "手作品牌",
+   "outline": "1px auto rgb(16, 16, 16)",
+   "shadow": "none"
+  },
+  {
+   "t": "BUTTON.scene-chip is-direct",
+   "txt": "设计工作室M01",
+   "outline": "1px auto rgb(16, 16, 16)",
+   "shadow": "none"
+  },
+  {
+   "t": "BUTTON.scene-chip is-direct",
+   "txt": "作品集",
+   "outline": "1px auto rgb(16, 16, 16)",
+   "shadow": "none"
+  },
+  {
+   "t": "BUTTON.scene-chip is-direct",
+   "txt": "内容媒体",
+   "outline": "1px auto rgb(16, 16, 16)",
+   "shadow": "none"
+  },
+  {
+   "t": "BUTTON.scene-chip is-direct",
+   "txt": "独立杂志",
+   "outline": "1px auto rgb(16, 16, 16)",
+   "shadow": "none"
+  },
+  {
+   "t": "BUTTON.scene-chip is-direct",
+   "txt": "出版",
+   "outline": "1px auto rgb(16, 16, 16)",
+   "shadow": "none"
+  },
+  {
+   "t": "BUTTON.scene-chip is-direct",
+   "txt": "展览",
+   "outline": "1px auto rgb(16, 16, 16)",
+   "shadow": "none"
+  },
+  {
+   "t": "BUTTON.scene-chip is-direct",
+   "txt": "游戏",
+   "outline": "1px auto rgb(16, 16, 16)",
+   "shadow": "none"
+  },
+  {
+   "t": "BUTTON.scene-chip is-direct",
+   "txt": "潮牌",
+   "outline": "1px auto rgb(16, 16, 16)",
+   "shadow": "none"
+  },
+  {
+   "t": "BUTTON.scene-chip is-direct",
+   "txt": "音乐产品",
+   "outline": "1px auto rgb(16, 16, 16)",
+   "shadow": "none"
+  },
+  {
+   "t": "BUTTON.scene-chip is-direct",
+   "txt": "音频设备",
+   "outline": "1px auto rgb(16, 16, 16)",
+   "shadow": "none"
+  },
+  {
+   "t": "BUTTON.scene-chip is-direct",
+   "txt": "修鞋理发",
+   "outline": "1px auto rgb(16, 16, 16)",
+   "shadow": "none"
+  },
+  {
+   "t": "BUTTON.scene-chip is-direct",
+   "txt": "小吃店",
+   "outline": "1px auto rgb(16, 16, 16)",
+   "shadow": "none"
+  },
+  {
+   "t": "BUTTON.scene-chip is-direct",
+   "txt": "市集",
+   "outline": "1px auto rgb(16, 16, 16)",
+   "shadow": "none"
+  },
+  {
+   "t": "BUTTON.scene-toggle",
+   "txt": "还有 28 个只有近似的 →",
+   "outline": "1px auto rgb(16, 16, 16)",
+   "shadow": "none"
+  }
+ ],
+ "tap390": {
+  "total": 87,
+  "below24": 0,
+  "below44": 51,
+  "atLeast44": 36,
+  "byClass": {
+   "a.skip": {
+    "n": 1,
+    "minH": 46,
+    "minW": 124,
+    "sample": "跳到方案清单"
+   },
+   "a.": {
+    "n": 4,
+    "minH": 24,
+    "minW": 72,
+    "sample": "筛不出来？走选型向导：五个问"
+   },
+   "summary.mast-fold-sum": {
+    "n": 1,
+    "minH": 44,
+    "minW": 358,
+    "sample": "这个图集是什么 · 想要现成"
+   },
+   "summary.rail-fold-sum": {
+    "n": 1,
+    "minH": 44,
+    "minW": 358,
+    "sample": "筛选 · 11 组 47 颗"
+   },
+   "button.scene-chip": {
+    "n": 16,
+    "minH": 26,
+    "minW": 44,
+    "sample": "咖啡店M02"
+   },
+   "button.scene-toggle": {
+    "n": 1,
+    "minH": 31,
+    "minW": 162,
+    "sample": "还有 28 个只有近似的 →"
+   },
+   "button.": {
+    "n": 29,
+    "minH": 27,
+    "minW": 43,
+    "sample": "亮底22"
+   },
+   "input.": {
+    "n": 1,
+    "minH": 38,
+    "minW": 323,
+    "sample": ""
+   },
+   "summary.bar-fold-sum": {
+    "n": 1,
+    "minH": 32,
+    "minW": 62,
+    "sample": "排序"
+   },
+   "select.": {
+    "n": 1,
+    "minH": 40,
+    "minW": 201,
+    "sample": "方案号\n          "
+   },
+   "button.btn-quiet": {
+    "n": 1,
+    "minH": 56,
+    "minW": 62,
+    "sample": "清空筛选"
+   },
+   "li.row": {
+    "n": 30,
+    "minH": 340,
+    "minW": 358,
+    "sample": "S01红黑斜排报Red We"
+   }
+  },
+  "docScrollH": 12871,
+  "screens": 15.25,
+  "hOverflow": 0
+ },
+ "firstScreen390": {
+  "firstCardTop": 1728,
+  "viewportH": 844,
+  "railH": 1373,
+  "mastH": 259,
+  "barH": 84,
+  "docScrollH": 12871
+ },
+ "contrast": {
+  ".rail-hint": {
+   "size": "13px",
+   "weight": "400",
+   "color": "rgb(86, 83, 75)",
+   "bg": "rgb(231, 231, 226)",
+   "ratio": 6.19,
+   "text": "实心＝有直连方案，虚边＝换文案能"
+  },
+  ".row-def": {
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(67, 65, 59)",
+   "bg": "rgb(231, 231, 226)",
+   "ratio": 8.22,
+   "text": "没裁齐的报纸感，红斜块压住版面"
+  },
+  ".row-foot": {
+   "size": "13px",
+   "weight": "400",
+   "color": "rgb(86, 83, 75)",
+   "bg": "rgb(231, 231, 226)",
+   "ratio": 6.19,
+   "text": "FAIL 0WARN 4桌面 6"
+  },
+  ".rail-lead": {
+   "size": "14px",
+   "weight": "400",
+   "color": "rgb(67, 65, 59)",
+   "bg": "rgb(231, 231, 226)",
+   "ratio": 8.22,
+   "text": "先按你是做什么的挑；后五组是设计"
+  },
+  ".mast-claim": {
+   "size": "15px",
+   "weight": "400",
+   "color": "rgb(67, 65, 59)",
+   "bg": "rgb(231, 231, 226)",
+   "ratio": 8.22,
+   "text": "每个方案都有一个可运行的原型，全"
+  },
+  ".no": {
+   "size": "24px",
+   "weight": "400",
+   "color": "rgb(28, 27, 24)",
+   "bg": "rgb(231, 231, 226)",
+   "ratio": 13.88,
+   "text": "S01"
+  },
+  ".tag": {
+   "size": "13px",
+   "weight": "400",
+   "color": "rgb(28, 27, 24)",
+   "bg": "rgb(231, 231, 226)",
+   "ratio": 13.88,
+   "text": "F 型 · NEWS-FRONT"
+  },
+  ".row-family": {
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(67, 65, 59)",
+   "bg": "rgb(231, 231, 226)",
+   "ratio": 8.22,
+   "text": "苏联构成主义印刷。参考对象：El"
+  },
+  ".cap-ok": {
+   "size": "13px",
+   "weight": "400",
+   "color": "rgb(86, 83, 75)",
+   "bg": "rgb(231, 231, 226)",
+   "ratio": 6.19,
+   "text": "条目可增减（设计时 6 条）"
+  },
+  ".cap-warn": {
+   "size": "13px",
+   "weight": "400",
+   "color": "rgb(122, 90, 0)",
+   "bg": "rgb(253, 246, 227)",
+   "ratio": 5.92,
+   "text": "内容少于 16 条会留空位"
+  },
+  ".lane": "no-el",
+  ".fold-sub": "no-el",
+  ".fold-tags": "no-el",
+  ".detail-no": {
+   "size": "24px",
+   "weight": "400",
+   "color": "rgb(28, 27, 24)",
+   "bg": "rgb(242, 242, 238)",
+   "ratio": 15.35,
+   "text": "—"
+  },
+  ".empty": {
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(86, 83, 75)",
+   "bg": "rgb(231, 231, 226)",
+   "ratio": 6.19,
+   "text": "没有符合条件的方案。这三十个案不"
+  }
+ }
+}

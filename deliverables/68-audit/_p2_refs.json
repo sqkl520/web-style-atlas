@@ -1,0 +1,5354 @@
+{
+  "generatedAt": "2026-10-28T15:01:53.468Z",
+  "head": "ce4ea78c0c603a1f1357f1282fc8537349a431ac",
+  "scope": {
+    "trackedMd": 219,
+    "trackedDelivMd": 147,
+    "allTrackedDeliv": 170,
+    "trackedDelivNonMd": [
+      "deliverables/62-exec/tpl-integration/consistency.mjs",
+      "deliverables/62-exec/tpl-integration/final-1440-bar.jpg",
+      "deliverables/62-exec/tpl-integration/final-1440-chip-coffee.jpg",
+      "deliverables/62-exec/tpl-integration/final-1440-chip-design.jpg",
+      "deliverables/62-exec/tpl-integration/final-1440-dessert.jpg",
+      "deliverables/62-exec/tpl-integration/final-1440-reset.jpg",
+      "deliverables/62-exec/tpl-integration/final-1440-restaurant.jpg",
+      "deliverables/62-exec/tpl-integration/final-390-dessert.jpg",
+      "deliverables/62-exec/tpl-integration/final-390-restaurant-tpl.jpg",
+      "deliverables/62-exec/tpl-integration/final-390-restaurant.jpg",
+      "deliverables/62-exec/tpl-integration/final-768-dessert-tpl.jpg",
+      "deliverables/62-exec/tpl-integration/final-768-dessert.jpg",
+      "deliverables/62-exec/tpl-integration/final-768-restaurant.jpg",
+      "deliverables/62-exec/tpl-integration/geo.mjs",
+      "deliverables/62-exec/tpl-integration/probe-diag.mjs",
+      "deliverables/62-exec/tpl-integration/serve.mjs",
+      "deliverables/62-exec/tpl-integration/shot-narrow.mjs",
+      "deliverables/62-exec/tpl-integration/shots-final.mjs",
+      "deliverables/62-exec/tpl-integration/text-audit.mjs",
+      "deliverables/62-exec/tpl-integration/verify-final.json",
+      "deliverables/62-exec/tpl-integration/verify-final.mjs",
+      "deliverables/62-exec/tpl-integration/verify.mjs",
+      "deliverables/62-exec/tpl-integration/verify2.mjs"
+    ],
+    "untrackedMjs": 726,
+    "trackedMjs": 36,
+    "distinctUntrackedProbeBasenames": 721
+  },
+  "headline": {
+    "citedProbes_files": 457,
+    "uncitedProbes_files": 269,
+    "citedProbe_basenames": 454,
+    "uncitedProbe_basenames": 267,
+    "deadMjsLinks": 405,
+    "deadMjsReports": 84,
+    "deadOtherLinks": 40,
+    "deadOtherReports": 24
+  },
+  "citedUntracked": [
+    {
+      "path": "deliverables/62-verify/cdp-restaurant.mjs",
+      "citedBy": [
+        "deliverables/62-verify/VERIFY-round2-retry.md"
+      ]
+    },
+    {
+      "path": "deliverables/62-verify/cdp-retry.mjs",
+      "citedBy": [
+        "deliverables/62-verify/VERIFY-round2-retry.md"
+      ]
+    },
+    {
+      "path": "deliverables/62-verify/cdp-wizard-lies.mjs",
+      "citedBy": [
+        "deliverables/62-verify/VERIFY-round2-retry.md"
+      ]
+    },
+    {
+      "path": "deliverables/62-verify/check-c.mjs",
+      "citedBy": [
+        "deliverables/62-verify/VERIFY-round2-retry.md"
+      ]
+    },
+    {
+      "path": "deliverables/62-verify/check-claim5.mjs",
+      "citedBy": [
+        "deliverables/62-verify/VERIFY-round2-retry.md"
+      ]
+    },
+    {
+      "path": "deliverables/62-verify/check-claims.mjs",
+      "citedBy": [
+        "deliverables/62-verify/VERIFY-round2-retry.md"
+      ]
+    },
+    {
+      "path": "deliverables/62-verify/check-counts.mjs",
+      "citedBy": [
+        "deliverables/62-verify/VERIFY-round2-retry.md"
+      ]
+    },
+    {
+      "path": "deliverables/62-verify/check-truncation.mjs",
+      "citedBy": [
+        "deliverables/62-verify/VERIFY-round2-retry.md"
+      ]
+    },
+    {
+      "path": "deliverables/62-verify/evidence-wizard.mjs",
+      "citedBy": [
+        "deliverables/62-verify/VERIFY-round2-retry.md"
+      ]
+    },
+    {
+      "path": "deliverables/62-verify/r2/a4.mjs",
+      "citedBy": [
+        "deliverables/62-verify/VERIFY-independent-round2.md"
+      ]
+    },
+    {
+      "path": "deliverables/62-verify/r2/b1.mjs",
+      "citedBy": [
+        "deliverables/62-verify/VERIFY-independent-round2.md"
+      ]
+    },
+    {
+      "path": "deliverables/62-verify/r2/b2.mjs",
+      "citedBy": [
+        "deliverables/62-verify/VERIFY-independent-round2.md"
+      ]
+    },
+    {
+      "path": "deliverables/62-verify/r2/b3.mjs",
+      "citedBy": [
+        "deliverables/62-verify/VERIFY-independent-round2.md"
+      ]
+    },
+    {
+      "path": "deliverables/62-verify/r2/b4.mjs",
+      "citedBy": [
+        "deliverables/62-verify/VERIFY-independent-round2.md"
+      ]
+    },
+    {
+      "path": "deliverables/62-verify/r2/b5.mjs",
+      "citedBy": [
+        "deliverables/62-verify/VERIFY-independent-round2.md"
+      ]
+    },
+    {
+      "path": "deliverables/62-verify/r2/b6.mjs",
+      "citedBy": [
+        "deliverables/62-verify/VERIFY-independent-round2.md"
+      ]
+    },
+    {
+      "path": "deliverables/62-verify/r2/b7.mjs",
+      "citedBy": [
+        "deliverables/62-verify/VERIFY-independent-round2.md"
+      ]
+    },
+    {
+      "path": "deliverables/62-verify/r2/b9.mjs",
+      "citedBy": [
+        "deliverables/62-verify/VERIFY-independent-round2.md"
+      ]
+    },
+    {
+      "path": "deliverables/62-verify/r2/c1.mjs",
+      "citedBy": [
+        "deliverables/62-verify/VERIFY-independent-round2.md"
+      ]
+    },
+    {
+      "path": "deliverables/62-verify/r2/c3.mjs",
+      "citedBy": [
+        "deliverables/62-verify/VERIFY-independent-round2.md"
+      ]
+    },
+    {
+      "path": "deliverables/62-verify/r2/c4b.mjs",
+      "citedBy": [
+        "deliverables/62-verify/VERIFY-independent-round2.md"
+      ]
+    },
+    {
+      "path": "deliverables/62-verify/r2/dump.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-data-cut.md"
+      ]
+    },
+    {
+      "path": "deliverables/62-verify/r2/dump2.mjs",
+      "citedBy": [
+        "deliverables/62-verify/VERIFY-independent-round2.md"
+      ]
+    },
+    {
+      "path": "deliverables/62-verify/r2/routeA3.mjs",
+      "citedBy": [
+        "deliverables/62-verify/VERIFY-independent-round2.md"
+      ]
+    },
+    {
+      "path": "deliverables/62-verify/r2/serve.mjs",
+      "citedBy": [
+        "deliverables/62-verify/VERIFY-independent-round2.md"
+      ]
+    },
+    {
+      "path": "deliverables/62-verify/scan-frozen.mjs",
+      "citedBy": [
+        "deliverables/62-verify/VERIFY-round2-retry.md"
+      ]
+    },
+    {
+      "path": "deliverables/62-verify/scan-routeA.mjs",
+      "citedBy": [
+        "deliverables/62-verify/VERIFY-round2-retry.md"
+      ]
+    },
+    {
+      "path": "deliverables/62-verify/wz-enum.mjs",
+      "citedBy": [
+        "deliverables/62-verify/VERIFY-round2-retry.md"
+      ]
+    },
+    {
+      "path": "deliverables/63-test/replica/S05-pixel-cold-storage-console/build/fetch-fonts-extra.mjs",
+      "citedBy": [
+        "prototypes/S05-pixel-cold-storage-console/assets/CREDITS.md"
+      ]
+    },
+    {
+      "path": "deliverables/63-test/scripts/00-inventory.mjs",
+      "citedBy": [
+        "deliverables/63-test/REPLACE-EXPERIMENT.md"
+      ]
+    },
+    {
+      "path": "deliverables/63-test/scripts/01-swap.mjs",
+      "citedBy": [
+        "deliverables/63-test/REPLACE-EXPERIMENT.md"
+      ]
+    },
+    {
+      "path": "deliverables/63-test/scripts/02-structure.mjs",
+      "citedBy": [
+        "deliverables/63-test/REPLACE-EXPERIMENT.md"
+      ]
+    },
+    {
+      "path": "deliverables/63-test/scripts/03-render.mjs",
+      "citedBy": [
+        "deliverables/63-test/REPLACE-EXPERIMENT.md"
+      ]
+    },
+    {
+      "path": "deliverables/63-test/scripts/04-compare.mjs",
+      "citedBy": [
+        "deliverables/63-test/REPLACE-EXPERIMENT.md"
+      ]
+    },
+    {
+      "path": "deliverables/63-test/scripts/05-element-diff.mjs",
+      "citedBy": [
+        "deliverables/63-test/REPLACE-EXPERIMENT.md"
+      ]
+    },
+    {
+      "path": "deliverables/63-test/scripts/06-font-check.mjs",
+      "citedBy": [
+        "deliverables/63-test/REPLACE-EXPERIMENT.md"
+      ]
+    },
+    {
+      "path": "deliverables/63-test/scripts/07-verdict.mjs",
+      "citedBy": [
+        "deliverables/63-test/REPLACE-EXPERIMENT.md"
+      ]
+    },
+    {
+      "path": "deliverables/63-test/scripts/08-data-location.mjs",
+      "citedBy": [
+        "deliverables/63-test/REPLACE-EXPERIMENT.md"
+      ]
+    },
+    {
+      "path": "deliverables/63-test/scripts/09-determinism.mjs",
+      "citedBy": [
+        "deliverables/63-test/REPLACE-EXPERIMENT.md"
+      ]
+    },
+    {
+      "path": "deliverables/63-test/scripts/10-s21-font-timing.mjs",
+      "citedBy": [
+        "deliverables/63-test/REPLACE-EXPERIMENT.md"
+      ]
+    },
+    {
+      "path": "deliverables/63-test/scripts/11-s21-noise.mjs",
+      "citedBy": [
+        "deliverables/63-test/REPLACE-EXPERIMENT.md"
+      ]
+    },
+    {
+      "path": "deliverables/63-test/scripts/lib/html.mjs",
+      "citedBy": [
+        "deliverables/64-plan/REDTEAM-warning-rewrite.md"
+      ]
+    },
+    {
+      "path": "deliverables/64-verify/a-comment-only.mjs",
+      "citedBy": [
+        "deliverables/64-verify/VERIFY-three-fixes.md"
+      ]
+    },
+    {
+      "path": "deliverables/64-verify/a-palette.mjs",
+      "citedBy": [
+        "deliverables/64-verify/VERIFY-three-fixes.md"
+      ]
+    },
+    {
+      "path": "deliverables/64-verify/a-regress.mjs",
+      "citedBy": [
+        "deliverables/64-verify/VERIFY-three-fixes.md"
+      ]
+    },
+    {
+      "path": "deliverables/64-verify/a-structural-fp.mjs",
+      "citedBy": [
+        "deliverables/64-verify/VERIFY-three-fixes.md"
+      ]
+    },
+    {
+      "path": "deliverables/64-verify/a-surface.mjs",
+      "citedBy": [
+        "deliverables/64-verify/VERIFY-three-fixes.md"
+      ]
+    },
+    {
+      "path": "deliverables/64-verify/a-white-fp.mjs",
+      "citedBy": [
+        "deliverables/64-verify/VERIFY-three-fixes.md"
+      ]
+    },
+    {
+      "path": "deliverables/64-verify/a-white-ui.mjs",
+      "citedBy": [
+        "deliverables/64-verify/VERIFY-three-fixes.md"
+      ]
+    },
+    {
+      "path": "deliverables/64-verify/b-len-delta.mjs",
+      "citedBy": [
+        "deliverables/64-verify/VERIFY-three-fixes.md"
+      ]
+    },
+    {
+      "path": "deliverables/64-verify/b-prompts.mjs",
+      "citedBy": [
+        "deliverables/64-verify/VERIFY-three-fixes.md"
+      ]
+    },
+    {
+      "path": "deliverables/64-verify/b-ui.mjs",
+      "citedBy": [
+        "deliverables/64-verify/VERIFY-three-fixes.md"
+      ]
+    },
+    {
+      "path": "deliverables/64-verify/c-data-diff.mjs",
+      "citedBy": [
+        "deliverables/64-verify/VERIFY-three-fixes.md"
+      ]
+    },
+    {
+      "path": "deliverables/64-verify/final-check.mjs",
+      "citedBy": [
+        "deliverables/64-verify/VERIFY-three-fixes.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/_abs.mjs",
+      "citedBy": [
+        "deliverables/65-audit/content-value.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/_auditkey.mjs",
+      "citedBy": [
+        "deliverables/65-audit/content-value.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/_citecheck.mjs",
+      "citedBy": [
+        "deliverables/65-audit/content-value.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/_cls.mjs",
+      "citedBy": [
+        "deliverables/65-audit/content-value.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/_dead.mjs",
+      "citedBy": [
+        "deliverables/65-audit/content-value.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/_excl2.mjs",
+      "citedBy": [
+        "deliverables/65-audit/content-value.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/_extract.mjs",
+      "citedBy": [
+        "deliverables/65-audit/content-value.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/_gloss.mjs",
+      "citedBy": [
+        "deliverables/65-audit/content-value.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/_hand.mjs",
+      "citedBy": [
+        "deliverables/65-audit/content-value.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/_itemoverlap.mjs",
+      "citedBy": [
+        "deliverables/65-audit/content-value.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/_layers2.mjs",
+      "citedBy": [
+        "deliverables/65-audit/content-value.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/_measure6.mjs",
+      "citedBy": [
+        "deliverables/65-audit/content-value.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/_measure7.mjs",
+      "citedBy": [
+        "deliverables/65-audit/content-value.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/_measure8.mjs",
+      "citedBy": [
+        "deliverables/65-audit/content-value.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/_measure9.mjs",
+      "citedBy": [
+        "deliverables/65-audit/content-value.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/_new2.mjs",
+      "citedBy": [
+        "deliverables/65-audit/content-value.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/_overlap.mjs",
+      "citedBy": [
+        "deliverables/65-audit/content-value.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/_recon.mjs",
+      "citedBy": [
+        "deliverables/65-audit/content-value.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/_refs.mjs",
+      "citedBy": [
+        "deliverables/65-audit/content-value.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/_scenes.mjs",
+      "citedBy": [
+        "deliverables/65-audit/content-value.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/_sizes.mjs",
+      "citedBy": [
+        "deliverables/65-audit/content-value.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/_v11b.mjs",
+      "citedBy": [
+        "deliverables/65-audit/content-value.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/_verify.mjs",
+      "citedBy": [
+        "deliverables/65-audit/content-value.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/lab/emit-tables.mjs",
+      "citedBy": [
+        "deliverables/65-audit/ia-discoverability.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/lab/measure-baseline.mjs",
+      "citedBy": [
+        "deliverables/65-audit/ia-discoverability.md",
+        "deliverables/65-exec/EXEC-panel-discoverability.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/lab/measure-preamble.mjs",
+      "citedBy": [
+        "deliverables/65-audit/ia-discoverability.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/lab/measure-reachability.mjs",
+      "citedBy": [
+        "deliverables/65-audit/ia-discoverability.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/lab/measure-recommended.mjs",
+      "citedBy": [
+        "deliverables/65-audit/ia-discoverability.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/lab/measure-variants.mjs",
+      "citedBy": [
+        "deliverables/65-audit/ia-discoverability.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/lab/probe-panel.mjs",
+      "citedBy": [
+        "deliverables/65-audit/ia-discoverability.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/lab/serve-lab.mjs",
+      "citedBy": [
+        "deliverables/65-audit/ia-discoverability.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/lab/shoot-final.mjs",
+      "citedBy": [
+        "deliverables/65-audit/ia-discoverability.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/lab/verify-acceptance.mjs",
+      "citedBy": [
+        "deliverables/65-audit/ia-discoverability.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/p1-fields.mjs",
+      "citedBy": [
+        "deliverables/65-audit/field-matrix.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/p12-baseline.mjs",
+      "citedBy": [
+        "deliverables/65-audit/field-matrix.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/p13-promptlen.mjs",
+      "citedBy": [
+        "deliverables/65-audit/field-matrix.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/p14-inprompt.mjs",
+      "citedBy": [
+        "deliverables/65-audit/field-matrix.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/p15-recheck.mjs",
+      "citedBy": [
+        "deliverables/65-audit/field-matrix.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/p16-mech.mjs",
+      "citedBy": [
+        "deliverables/65-audit/field-matrix.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/p19-refs2.mjs",
+      "citedBy": [
+        "deliverables/65-audit/field-matrix.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/p20-field8style.mjs",
+      "citedBy": [
+        "deliverables/65-audit/field-matrix.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/p21-halfdead.mjs",
+      "citedBy": [
+        "deliverables/65-audit/field-matrix.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/p23-deadbranch.mjs",
+      "citedBy": [
+        "deliverables/65-audit/field-matrix.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/p25-auditlen.mjs",
+      "citedBy": [
+        "deliverables/65-audit/field-matrix.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/p26-26096.mjs",
+      "citedBy": [
+        "deliverables/65-audit/field-matrix.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/p27-trunc2.mjs",
+      "citedBy": [
+        "deliverables/65-audit/field-matrix.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/p28-slices.mjs",
+      "citedBy": [
+        "deliverables/65-audit/field-matrix.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/p29-stale.mjs",
+      "citedBy": [
+        "deliverables/65-audit/field-matrix.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/p3-starts.mjs",
+      "citedBy": [
+        "deliverables/65-audit/field-matrix.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/p30-cover.mjs",
+      "citedBy": [
+        "deliverables/65-audit/field-matrix.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/p31-falsepos.mjs",
+      "citedBy": [
+        "deliverables/65-audit/field-matrix.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/p33-colon.mjs",
+      "citedBy": [
+        "deliverables/65-audit/field-matrix.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/p34-final.mjs",
+      "citedBy": [
+        "deliverables/65-audit/field-matrix.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/p4-fieldreads.mjs",
+      "citedBy": [
+        "deliverables/65-audit/field-matrix.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/p5-specs.mjs",
+      "citedBy": [
+        "deliverables/65-audit/field-matrix.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/p6-field8.mjs",
+      "citedBy": [
+        "deliverables/65-audit/field-matrix.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/p7-matrix.mjs",
+      "citedBy": [
+        "deliverables/65-audit/field-matrix.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-audit/p8-nested.mjs",
+      "citedBy": [
+        "deliverables/65-audit/field-matrix.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/_allkeys.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-data-layer.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/_baseline.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-prompt-opener.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/_bleed.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-data-layer.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/_bleed2.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-data-layer.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/_btn-derive.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-data-layer.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/_btn.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-data-layer.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/_bytes-proof3.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-data-layer.md",
+        "deliverables/65-plan/VERDICT-audit-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/_cmp-mech.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-data-layer.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/_cut/_stats.mjs",
+      "citedBy": [
+        "deliverables/66-audit/minitems-and-constraints.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/_cut/accept.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-data-cut.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/_cut/collect-schemes.before.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-data-cut.md",
+        "deliverables/65-exec/EXEC-data-layer.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/_cut/compare.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-data-cut.md",
+        "prototypes/_build/SHOT-README.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/_cut/dump.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-data-cut.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/_cut/for-doc.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-data-cut.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/_cut/regex-fragility.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-data-cut.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/_cut/regex-probe.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-data-cut.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/_cut/scan-marker.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-data-cut.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/_cut/show.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-data-cut.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/_cut/ws-probe.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-data-cut.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/_harness.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-prompt-opener.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/_layout-raw.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-data-layer.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/_mech-identity.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-data-layer.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/_mech-route.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-data-layer.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/_pal-fork2.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-data-layer.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/_raw-primary-probe.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-data-layer.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/_scenes-rebuild.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-data-layer.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/_scenesno.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-data-layer.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/_sep-scan.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-data-layer.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/_starts-delta.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-data-layer.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/accept-audit.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-audit-wiring.md",
+        "deliverables/65-exec/EXEC-data-cut.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/audit-capture.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-audit-wiring.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/audit-count.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-audit-wiring.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/audit-cut-probe.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-audit-wiring.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/audit-data-probe.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-audit-wiring.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/audit-enter-check.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-audit-wiring.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/audit-expanded.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-audit-wiring.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/audit-family-shots.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-audit-wiring.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/audit-family-visible.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-audit-wiring.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/audit-isolate.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-audit-wiring.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/audit-kb-check.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-audit-wiring.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/audit-tables.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-audit-wiring.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/audit-ws-probe.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-audit-wiring.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/collect-schemes.before.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-data-layer.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/measure-panel-cost.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-prompt-opener.md",
+        "deliverables/66-exec/EXEC-minitems-semantics.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/panel-accept.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-panel-discoverability.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/panel-accept2.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-panel-discoverability.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/panel-accept3.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-panel-discoverability.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/panel-final.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-panel-discoverability.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/panel-measure.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-panel-discoverability.md",
+        "deliverables/65-exec/EXEC-prompt-opener.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/panel-variants.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-panel-discoverability.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/panel-variants12.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-panel-discoverability.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/prove-blindspot.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-docs-blindspot.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/shot-opener.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-prompt-opener.md",
+        "deliverables/66-exec/EXEC-minitems-semantics.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/verify-audit-position.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-docs-blindspot.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/verify-final.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-data-layer.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-exec/verify-opener.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-prompt-opener.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-plan/_rt_p1_mechanism.mjs",
+      "citedBy": [
+        "deliverables/65-plan/REDTEAM-field-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-plan/_rt_p10_count.mjs",
+      "citedBy": [
+        "deliverables/65-plan/REDTEAM-field-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-plan/_rt_p11_panel.mjs",
+      "citedBy": [
+        "deliverables/65-plan/REDTEAM-field-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-plan/_rt_p12_chain.mjs",
+      "citedBy": [
+        "deliverables/65-plan/REDTEAM-field-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-plan/_rt_p13_provenance.mjs",
+      "citedBy": [
+        "deliverables/65-plan/REDTEAM-field-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-plan/_rt_p15_inject.mjs",
+      "citedBy": [
+        "deliverables/65-plan/REDTEAM-field-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-plan/_rt_p16_orphans.mjs",
+      "citedBy": [
+        "deliverables/65-plan/REDTEAM-field-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-plan/_rt_p17_contribution.mjs",
+      "citedBy": [
+        "deliverables/65-plan/REDTEAM-field-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-plan/_rt_p18_harddrift.mjs",
+      "citedBy": [
+        "deliverables/65-plan/REDTEAM-field-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-plan/_rt_p19_primary.mjs",
+      "citedBy": [
+        "deliverables/65-plan/REDTEAM-field-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-plan/_rt_p2_fields.mjs",
+      "citedBy": [
+        "deliverables/65-plan/REDTEAM-field-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-plan/_rt_p21_asymmetry.mjs",
+      "citedBy": [
+        "deliverables/65-plan/REDTEAM-field-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-plan/_rt_p22_readme_claims.mjs",
+      "citedBy": [
+        "deliverables/65-plan/REDTEAM-field-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-plan/_rt_p24_11220.mjs",
+      "citedBy": [
+        "deliverables/65-plan/REDTEAM-field-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-plan/_rt_p25_final.mjs",
+      "citedBy": [
+        "deliverables/65-plan/REDTEAM-field-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-plan/_rt_p26_btntruth.mjs",
+      "citedBy": [
+        "deliverables/65-plan/REDTEAM-field-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-plan/_rt_p27_scenesno.mjs",
+      "citedBy": [
+        "deliverables/65-plan/REDTEAM-field-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-plan/_rt_p28_cite.mjs",
+      "citedBy": [
+        "deliverables/65-plan/REDTEAM-field-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-plan/_rt_p3_26096.mjs",
+      "citedBy": [
+        "deliverables/65-plan/PLAN-field-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-plan/_rt_p4_redundancy.mjs",
+      "citedBy": [
+        "deliverables/65-plan/REDTEAM-field-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-plan/_rt_p5_calibration.mjs",
+      "citedBy": [
+        "deliverables/65-plan/REDTEAM-field-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-plan/_rt_p6_splitter.mjs",
+      "citedBy": [
+        "deliverables/65-plan/REDTEAM-field-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-plan/_rt_p7_prompts.mjs",
+      "citedBy": [
+        "deliverables/65-plan/REDTEAM-field-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-plan/_rt_p8_gate.mjs",
+      "citedBy": [
+        "deliverables/65-plan/REDTEAM-field-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-plan/_rt_p9_mono.mjs",
+      "citedBy": [
+        "deliverables/65-plan/REDTEAM-field-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-plan/_v1_family.mjs",
+      "citedBy": [
+        "deliverables/65-plan/VERDICT-audit-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-plan/_v10_tiao.mjs",
+      "citedBy": [
+        "deliverables/65-plan/VERDICT-audit-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-plan/_v13_clamp.mjs",
+      "citedBy": [
+        "deliverables/65-plan/VERDICT-audit-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-plan/_v14_mechvis.mjs",
+      "citedBy": [
+        "deliverables/65-plan/VERDICT-audit-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-plan/_v16_final.mjs",
+      "citedBy": [
+        "deliverables/65-plan/VERDICT-audit-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-plan/_v18_zerofields.mjs",
+      "citedBy": [
+        "deliverables/65-plan/VERDICT-audit-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-plan/_v19_palette.mjs",
+      "citedBy": [
+        "deliverables/65-plan/VERDICT-audit-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-plan/_v2_measure.mjs",
+      "citedBy": [
+        "deliverables/65-plan/VERDICT-audit-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-plan/_v21_pairs.mjs",
+      "citedBy": [
+        "deliverables/65-plan/VERDICT-audit-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-plan/_v22_jaccard.mjs",
+      "citedBy": [
+        "deliverables/65-plan/VERDICT-audit-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-plan/_v24_params.mjs",
+      "citedBy": [
+        "deliverables/65-plan/VERDICT-audit-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-plan/_v25_cliche.mjs",
+      "citedBy": [
+        "deliverables/65-plan/VERDICT-audit-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-plan/_v28_sweep.mjs",
+      "citedBy": [
+        "deliverables/65-plan/VERDICT-audit-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-plan/_v29_state.mjs",
+      "citedBy": [
+        "deliverables/65-plan/VERDICT-audit-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-plan/_v3_prompt.mjs",
+      "citedBy": [
+        "deliverables/65-plan/VERDICT-audit-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-plan/_v30_remaining.mjs",
+      "citedBy": [
+        "deliverables/65-plan/VERDICT-audit-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-plan/_v31_implcheck.mjs",
+      "citedBy": [
+        "deliverables/65-plan/VERDICT-audit-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-plan/_v32_now.mjs",
+      "citedBy": [
+        "deliverables/65-plan/VERDICT-audit-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-plan/_v4_extract.mjs",
+      "citedBy": [
+        "deliverables/65-plan/VERDICT-audit-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-plan/_v5_overlap.mjs",
+      "citedBy": [
+        "deliverables/65-plan/VERDICT-audit-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-plan/_v8_s13cut.mjs",
+      "citedBy": [
+        "deliverables/65-plan/VERDICT-audit-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-plan/_v9_bleed.mjs",
+      "citedBy": [
+        "deliverables/65-plan/VERDICT-audit-plumbing.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-verify/corrupt-test.mjs",
+      "citedBy": [
+        "deliverables/65-verify/VERIFY-round5.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-verify/corrupt-test2.mjs",
+      "citedBy": [
+        "deliverables/65-verify/VERIFY-round5.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-verify/execb-firstfield.mjs",
+      "citedBy": [
+        "deliverables/65-verify/VERIFY-round5.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-verify/probe-c1.mjs",
+      "citedBy": [
+        "deliverables/65-verify/VERIFY-round5.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-verify/shots.mjs",
+      "citedBy": [
+        "deliverables/65-verify/VERIFY-round5.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-verify/v1-baseline.mjs",
+      "citedBy": [
+        "deliverables/65-verify/VERIFY-round5.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-verify/v1-prompt2.mjs",
+      "citedBy": [
+        "deliverables/65-verify/VERIFY-round5.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-verify/v2-audit.mjs",
+      "citedBy": [
+        "deliverables/65-exec/EXEC-data-cut.md",
+        "deliverables/65-verify/VERIFY-round5.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-verify/v2b-count.mjs",
+      "citedBy": [
+        "deliverables/65-verify/VERIFY-round5.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-verify/v3-palette.mjs",
+      "citedBy": [
+        "deliverables/65-verify/VERIFY-round5.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-verify/v4b-visible.mjs",
+      "citedBy": [
+        "deliverables/65-verify/VERIFY-round5.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-verify/v4c-family.mjs",
+      "citedBy": [
+        "deliverables/65-verify/VERIFY-round5.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-verify/v4e-visible.mjs",
+      "citedBy": [
+        "deliverables/65-verify/VERIFY-round5.md"
+      ]
+    },
+    {
+      "path": "deliverables/65-verify/v7-concurrency.mjs",
+      "citedBy": [
+        "deliverables/65-verify/VERIFY-round5.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-audit/_chk-deg-rel.mjs",
+      "citedBy": [
+        "deliverables/66-audit/minitems-and-constraints.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-audit/_chk-degrades.mjs",
+      "citedBy": [
+        "deliverables/66-audit/minitems-and-constraints.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-audit/_chk-linewidth.mjs",
+      "citedBy": [
+        "deliverables/66-audit/minitems-and-constraints.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-audit/_chk-live.mjs",
+      "citedBy": [
+        "deliverables/66-audit/minitems-and-constraints.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-audit/_chk-nums.mjs",
+      "citedBy": [
+        "deliverables/66-audit/minitems-and-constraints.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-audit/_chk-s18b.mjs",
+      "citedBy": [
+        "deliverables/66-audit/minitems-and-constraints.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-audit/_chk-s26risk.mjs",
+      "citedBy": [
+        "deliverables/66-audit/minitems-and-constraints.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-audit/_chk-third.mjs",
+      "citedBy": [
+        "deliverables/66-audit/minitems-and-constraints.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-audit/_chk-trunc.mjs",
+      "citedBy": [
+        "deliverables/66-audit/minitems-and-constraints.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-audit/_lens.mjs",
+      "citedBy": [
+        "deliverables/66-audit/minitems-and-constraints.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-audit/_stats.mjs",
+      "citedBy": [
+        "deliverables/66-audit/minitems-and-constraints.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-audit/check-blank-units.mjs",
+      "citedBy": [
+        "deliverables/66-audit/minitems-and-constraints.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-audit/check-forbidden-vs-doing.mjs",
+      "citedBy": [
+        "deliverables/66-audit/minitems-and-constraints.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-audit/check-minpics.mjs",
+      "citedBy": [
+        "deliverables/66-audit/minitems-and-constraints.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-audit/check-mutex.mjs",
+      "citedBy": [
+        "deliverables/66-audit/minitems-and-constraints.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-audit/check-numeric-conflict.mjs",
+      "citedBy": [
+        "deliverables/66-audit/minitems-and-constraints.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-audit/count-constraints.mjs",
+      "citedBy": [
+        "deliverables/66-audit/minitems-and-constraints.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-audit/count-units.mjs",
+      "citedBy": [
+        "deliverables/66-audit/minitems-and-constraints.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-audit/dump-prompts-live.mjs",
+      "citedBy": [
+        "deliverables/66-audit/minitems-and-constraints.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-audit/dump-prompts.mjs",
+      "citedBy": [
+        "deliverables/61-plan/VERIFY-p0-independent.md",
+        "deliverables/66-audit/minitems-and-constraints.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-audit/m32-definitive.mjs",
+      "citedBy": [
+        "deliverables/67-plan/REDTEAM-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-audit/m7-tabindex.mjs",
+      "citedBy": [
+        "deliverables/66-exec/EXEC-a11y-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-audit/m9-typography.mjs",
+      "citedBy": [
+        "deliverables/67-audit/typography-baseline.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-audit/tpl-audit/branches.mjs",
+      "citedBy": [
+        "deliverables/66-audit/template-layer.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-audit/tpl-audit/crosscheck-datajs.mjs",
+      "citedBy": [
+        "deliverables/66-audit/template-layer.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-audit/tpl-audit/gen-table.mjs",
+      "citedBy": [
+        "deliverables/66-audit/template-layer.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-audit/tpl-audit/index-grounding.mjs",
+      "citedBy": [
+        "deliverables/66-audit/template-layer.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-audit/tpl-audit/make-matrix.mjs",
+      "citedBy": [
+        "deliverables/66-audit/template-layer.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-audit/tpl-audit/probe-73.mjs",
+      "citedBy": [
+        "deliverables/66-audit/template-layer.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-audit/tpl-audit/probe-assert.mjs",
+      "citedBy": [
+        "deliverables/66-audit/template-layer.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-audit/tpl-audit/probe-contradiction.mjs",
+      "citedBy": [
+        "deliverables/66-audit/template-layer.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-audit/tpl-audit/probe-deadend.mjs",
+      "citedBy": [
+        "deliverables/66-audit/template-layer.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-audit/tpl-audit/probe-displacement.mjs",
+      "citedBy": [
+        "deliverables/66-audit/template-layer.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-audit/tpl-audit/probe-final.mjs",
+      "citedBy": [
+        "deliverables/66-audit/template-layer.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-audit/tpl-audit/probe-instruction17.mjs",
+      "citedBy": [
+        "deliverables/66-audit/template-layer.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-audit/tpl-audit/probe-pushdown.mjs",
+      "citedBy": [
+        "deliverables/66-audit/template-layer.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-audit/tpl-audit/probe-shots.mjs",
+      "citedBy": [
+        "deliverables/66-audit/template-layer.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-audit/tpl-audit/probe-wizard-layout.mjs",
+      "citedBy": [
+        "deliverables/66-audit/template-layer.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-audit/tpl-audit/static-map.mjs",
+      "citedBy": [
+        "deliverables/66-audit/template-layer.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-audit/tpl-audit/verify-templates.mjs",
+      "citedBy": [
+        "deliverables/66-audit/template-layer.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-audit/verify-main-units.mjs",
+      "citedBy": [
+        "deliverables/66-audit/minitems-and-constraints.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-exec/_a11y-focusring.mjs",
+      "citedBy": [
+        "deliverables/66-exec/EXEC-a11y-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-exec/_a11y-keycheck.mjs",
+      "citedBy": [
+        "deliverables/66-exec/EXEC-a11y-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-exec/_a11y-parked-ab.mjs",
+      "citedBy": [
+        "deliverables/66-exec/EXEC-a11y-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-exec/_a11y-probe.mjs",
+      "citedBy": [
+        "deliverables/66-exec/EXEC-a11y-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-exec/_a11y-regress.mjs",
+      "citedBy": [
+        "deliverables/66-exec/EXEC-a11y-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-exec/_a11y-shots-before.mjs",
+      "citedBy": [
+        "deliverables/66-exec/EXEC-a11y-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-exec/_a11y-shots.mjs",
+      "citedBy": [
+        "deliverables/66-exec/EXEC-a11y-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-exec/_a11y-tabcalib.mjs",
+      "citedBy": [
+        "deliverables/66-exec/EXEC-a11y-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-exec/_a11y-tabcount2.mjs",
+      "citedBy": [
+        "deliverables/66-exec/EXEC-a11y-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-exec/_a11y-wizard.mjs",
+      "citedBy": [
+        "deliverables/66-exec/EXEC-a11y-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-exec/_a11y-zoom.mjs",
+      "citedBy": [
+        "deliverables/66-exec/EXEC-a11y-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-exec/_chip-probe.mjs",
+      "citedBy": [
+        "deliverables/66-exec/EXEC-chip-deadend.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-exec/_count-units.mjs",
+      "citedBy": [
+        "deliverables/66-exec/EXEC-minitems-semantics.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-exec/_cssdiag.mjs",
+      "citedBy": [
+        "deliverables/66-exec/EXEC-a11y-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-exec/_empty-probe.mjs",
+      "citedBy": [
+        "deliverables/66-exec/EXEC-chip-deadend.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-exec/_filters-probe.mjs",
+      "citedBy": [
+        "deliverables/66-exec/EXEC-chip-deadend.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-exec/_matrix44.mjs",
+      "citedBy": [
+        "deliverables/66-exec/EXEC-chip-deadend.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-exec/_mdcheck.mjs",
+      "citedBy": [
+        "deliverables/66-exec/EXEC-a11y-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-exec/_note-contrast.mjs",
+      "citedBy": [
+        "deliverables/66-exec/EXEC-unsupported-hidden.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-exec/_out/a3.mjs",
+      "citedBy": [
+        "deliverables/66-exec/EXEC-void-mechanism.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-exec/_out/cmp.mjs",
+      "citedBy": [
+        "deliverables/66-exec/EXEC-void-mechanism.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-exec/_out/void-detect.mjs",
+      "citedBy": [
+        "deliverables/66-exec/EXEC-void-mechanism.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-exec/_parked-pos.mjs",
+      "citedBy": [
+        "deliverables/66-exec/EXEC-chip-deadend.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-exec/_prompt-identity.mjs",
+      "citedBy": [
+        "deliverables/66-exec/EXEC-unsupported-hidden.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-exec/_s13btnT.mjs",
+      "citedBy": [
+        "deliverables/66-exec/EXEC-s13-gate.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-exec/_s13foil.mjs",
+      "citedBy": [
+        "deliverables/66-exec/EXEC-s13-gate.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-exec/_s13geom.mjs",
+      "citedBy": [
+        "deliverables/66-exec/EXEC-s13-gate.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-exec/_s13overlay.mjs",
+      "citedBy": [
+        "deliverables/66-exec/EXEC-s13-gate.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-exec/_s13rm.mjs",
+      "citedBy": [
+        "deliverables/66-exec/EXEC-s13-gate.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-exec/_s13scan.mjs",
+      "citedBy": [
+        "deliverables/66-exec/EXEC-s13-gate.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-exec/_s13states.mjs",
+      "citedBy": [
+        "deliverables/66-exec/EXEC-s13-gate.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-exec/_s13trial.mjs",
+      "citedBy": [
+        "deliverables/66-exec/EXEC-s13-gate.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-exec/_shots-chip.mjs",
+      "citedBy": [
+        "deliverables/66-exec/EXEC-chip-deadend.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-exec/_toggle.mjs",
+      "citedBy": [
+        "deliverables/66-exec/EXEC-chip-deadend.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-exec/cdp-verify.mjs",
+      "citedBy": [
+        "deliverables/66-exec/EXEC-minitems-semantics.md",
+        "deliverables/66-exec/EXEC-void-mechanism.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-exec/export-30.mjs",
+      "citedBy": [
+        "deliverables/66-exec/EXEC-minitems-semantics.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-exec/unsupported-probe.mjs",
+      "citedBy": [
+        "deliverables/66-exec/EXEC-unsupported-hidden.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-exec/unsupported-regress.mjs",
+      "citedBy": [
+        "deliverables/66-exec/EXEC-unsupported-hidden.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p1_prompts.mjs",
+      "citedBy": [
+        "deliverables/66-plan/REDTEAM-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p1_scene.mjs",
+      "citedBy": [
+        "deliverables/66-plan/PLAN-round6.md",
+        "deliverables/66-plan/REDTEAM-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p10_judge.mjs",
+      "citedBy": [
+        "deliverables/66-plan/REDTEAM-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p10_template.mjs",
+      "citedBy": [
+        "deliverables/66-plan/PLAN-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p11_compose.mjs",
+      "citedBy": [
+        "deliverables/66-plan/REDTEAM-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p11_hard.mjs",
+      "citedBy": [
+        "deliverables/66-plan/PLAN-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p12_lenrisk.mjs",
+      "citedBy": [
+        "deliverables/66-plan/PLAN-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p13_alias.mjs",
+      "citedBy": [
+        "deliverables/66-plan/PLAN-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p13_survival.mjs",
+      "citedBy": [
+        "deliverables/66-plan/REDTEAM-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p14_fold.mjs",
+      "citedBy": [
+        "deliverables/66-plan/REDTEAM-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p15_kouji.mjs",
+      "citedBy": [
+        "deliverables/66-plan/PLAN-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p15_s13.mjs",
+      "citedBy": [
+        "deliverables/66-plan/REDTEAM-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p16_final.mjs",
+      "citedBy": [
+        "deliverables/66-plan/REDTEAM-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p16_head.mjs",
+      "citedBy": [
+        "deliverables/66-plan/PLAN-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p17_overhead.mjs",
+      "citedBy": [
+        "deliverables/66-plan/PLAN-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p18_emptytpl.mjs",
+      "citedBy": [
+        "deliverables/66-plan/PLAN-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p18_headvsnow.mjs",
+      "citedBy": [
+        "deliverables/66-plan/REDTEAM-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p19_layout.mjs",
+      "citedBy": [
+        "deliverables/66-plan/PLAN-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p19_mood.mjs",
+      "citedBy": [
+        "deliverables/66-plan/REDTEAM-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p1b_dist.mjs",
+      "citedBy": [
+        "deliverables/66-plan/REDTEAM-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p1c_conflict.mjs",
+      "citedBy": [
+        "deliverables/66-plan/REDTEAM-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p2_bench.mjs",
+      "citedBy": [
+        "deliverables/66-plan/REDTEAM-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p2_minitems.mjs",
+      "citedBy": [
+        "deliverables/66-plan/REDTEAM-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p20_fold.mjs",
+      "citedBy": [
+        "deliverables/66-plan/PLAN-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p21_exact.mjs",
+      "citedBy": [
+        "deliverables/66-plan/PLAN-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p21_readme74.mjs",
+      "citedBy": [
+        "deliverables/66-plan/REDTEAM-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p22_s13shadow.mjs",
+      "citedBy": [
+        "deliverables/66-plan/PLAN-round6.md",
+        "deliverables/66-plan/REDTEAM-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p22_unsup.mjs",
+      "citedBy": [
+        "deliverables/66-plan/REDTEAM-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p23_fix.mjs",
+      "citedBy": [
+        "deliverables/66-plan/REDTEAM-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p23_variance.mjs",
+      "citedBy": [
+        "deliverables/66-plan/PLAN-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p24_realclamp.mjs",
+      "citedBy": [
+        "deliverables/66-plan/PLAN-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p25_s13fix.mjs",
+      "citedBy": [
+        "deliverables/66-plan/PLAN-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p26_s13btn.mjs",
+      "citedBy": [
+        "deliverables/66-plan/PLAN-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p28_headtext.mjs",
+      "citedBy": [
+        "deliverables/66-plan/PLAN-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p29_hist.mjs",
+      "citedBy": [
+        "deliverables/66-plan/PLAN-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p3_params.mjs",
+      "citedBy": [
+        "deliverables/66-plan/REDTEAM-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p3_pshape.mjs",
+      "citedBy": [
+        "deliverables/66-plan/PLAN-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p30_textdefect.mjs",
+      "citedBy": [
+        "deliverables/66-plan/PLAN-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p31_mobileflag.mjs",
+      "citedBy": [
+        "deliverables/66-plan/PLAN-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p33_shot3.mjs",
+      "citedBy": [
+        "deliverables/66-plan/PLAN-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p34_prevround.mjs",
+      "citedBy": [
+        "deliverables/66-plan/PLAN-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p35_probe17.mjs",
+      "citedBy": [
+        "deliverables/66-plan/PLAN-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p36_what17.mjs",
+      "citedBy": [
+        "deliverables/66-plan/PLAN-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p37_dump17.mjs",
+      "citedBy": [
+        "deliverables/66-plan/PLAN-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p4_conflict.mjs",
+      "citedBy": [
+        "deliverables/66-plan/PLAN-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p4_panel.mjs",
+      "citedBy": [
+        "deliverables/66-plan/REDTEAM-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p5_clamp.mjs",
+      "citedBy": [
+        "deliverables/66-plan/REDTEAM-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p5_panel.mjs",
+      "citedBy": [
+        "deliverables/66-plan/PLAN-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p6_terms.mjs",
+      "citedBy": [
+        "deliverables/66-plan/REDTEAM-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p6_waste.mjs",
+      "citedBy": [
+        "deliverables/66-plan/PLAN-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p6b_decomp.mjs",
+      "citedBy": [
+        "deliverables/66-plan/PLAN-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p7_gate.mjs",
+      "citedBy": [
+        "deliverables/66-plan/PLAN-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p7_s13.mjs",
+      "citedBy": [
+        "deliverables/66-plan/REDTEAM-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p8_conflict2.mjs",
+      "citedBy": [
+        "deliverables/66-plan/PLAN-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p8_impl.mjs",
+      "citedBy": [
+        "deliverables/66-plan/REDTEAM-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p9_clamp.mjs",
+      "citedBy": [
+        "deliverables/66-plan/PLAN-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/66-plan/_p9c_shot.mjs",
+      "citedBy": [
+        "deliverables/66-plan/REDTEAM-round6.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-audit/lib-measure.mjs",
+      "citedBy": [
+        "deliverables/67-audit/mobile-budget.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-audit/mk-freeze-now.mjs",
+      "citedBy": [
+        "deliverables/67-audit/mobile-budget.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-audit/mk-frozen.mjs",
+      "citedBy": [
+        "deliverables/67-audit/mobile-budget.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-audit/p-1440.mjs",
+      "citedBy": [
+        "deliverables/67-audit/typography-baseline.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-audit/p-chars.mjs",
+      "citedBy": [
+        "deliverables/67-audit/typography-baseline.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-audit/p-curbudget.mjs",
+      "citedBy": [
+        "deliverables/67-audit/typography-baseline.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-audit/p-current.mjs",
+      "citedBy": [
+        "deliverables/67-audit/typography-baseline.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-audit/p-decompose.mjs",
+      "citedBy": [
+        "deliverables/67-audit/typography-baseline.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-audit/p-final.mjs",
+      "citedBy": [
+        "deliverables/67-audit/typography-baseline.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-audit/p-ink.mjs",
+      "citedBy": [
+        "deliverables/67-audit/typography-baseline.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-audit/p-lock.mjs",
+      "citedBy": [
+        "deliverables/67-audit/typography-baseline.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-audit/p-nofold.mjs",
+      "citedBy": [
+        "deliverables/67-audit/typography-baseline.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-audit/p-typography.mjs",
+      "citedBy": [
+        "deliverables/67-audit/typography-baseline.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-audit/p-why21.mjs",
+      "citedBy": [
+        "deliverables/67-audit/typography-baseline.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-audit/p1-list-anatomy.mjs",
+      "citedBy": [
+        "deliverables/67-audit/mobile-budget.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-audit/p10-detail-matrix.mjs",
+      "citedBy": [
+        "deliverables/67-audit/mobile-budget.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-audit/p11-list-matrix.mjs",
+      "citedBy": [
+        "deliverables/67-audit/mobile-budget.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-audit/p12-shots.mjs",
+      "citedBy": [
+        "deliverables/67-audit/mobile-budget.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-audit/p13-close-account.mjs",
+      "citedBy": [
+        "deliverables/67-audit/mobile-budget.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-audit/p14-close-account2.mjs",
+      "citedBy": [
+        "deliverables/67-audit/mobile-budget.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-audit/p15-detail-account.mjs",
+      "citedBy": [
+        "deliverables/67-audit/mobile-budget.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-audit/p16-facts-check.mjs",
+      "citedBy": [
+        "deliverables/67-audit/mobile-budget.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-audit/p17-rail-exact.mjs",
+      "citedBy": [
+        "deliverables/67-audit/mobile-budget.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-audit/p18-compare.mjs",
+      "citedBy": [
+        "deliverables/67-audit/mobile-budget.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-audit/p19-verify-report.mjs",
+      "citedBy": [
+        "deliverables/67-audit/mobile-budget.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-audit/p2-substructure.mjs",
+      "citedBy": [
+        "deliverables/67-audit/mobile-budget.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-audit/p20-lever-on-head.mjs",
+      "citedBy": [
+        "deliverables/67-audit/mobile-budget.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-audit/p21-shots2.mjs",
+      "citedBy": [
+        "deliverables/67-audit/mobile-budget.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-audit/p3-detail-anatomy.mjs",
+      "citedBy": [
+        "deliverables/67-audit/mobile-budget.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-audit/p4-mq-1440.mjs",
+      "citedBy": [
+        "deliverables/67-audit/mobile-budget.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-audit/p9-anatomy-live.mjs",
+      "citedBy": [
+        "deliverables/67-audit/mobile-budget.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-exec/_accept.mjs",
+      "citedBy": [
+        "deliverables/67-exec/EXEC-list-firstscreen.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-exec/_combo390.mjs",
+      "citedBy": [
+        "deliverables/67-exec/EXEC-list-firstscreen.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-exec/_deeplink.mjs",
+      "citedBy": [
+        "deliverables/67-exec/EXEC-list-firstscreen.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-exec/_diagS13.mjs",
+      "citedBy": [
+        "deliverables/67-exec/EXEC-list-firstscreen.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-exec/_fixbar.mjs",
+      "citedBy": [
+        "deliverables/67-exec/EXEC-list-firstscreen.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-exec/_func.mjs",
+      "citedBy": [
+        "deliverables/67-exec/EXEC-list-firstscreen.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-exec/_isolate2.mjs",
+      "citedBy": [
+        "deliverables/67-exec/EXEC-list-firstscreen.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-exec/_lab/lib.mjs",
+      "citedBy": [
+        "deliverables/33-critique-rebuttal.md",
+        "deliverables/67-exec/EXEC-detail-depth.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-exec/_lab/p1-baseline.mjs",
+      "citedBy": [
+        "deliverables/67-exec/EXEC-detail-depth.md",
+        "deliverables/67-plan/REDTEAM-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-exec/_lab/p2-variants.mjs",
+      "citedBy": [
+        "deliverables/67-exec/EXEC-detail-depth.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-exec/_lab/p3-foldshape.mjs",
+      "citedBy": [
+        "deliverables/67-exec/EXEC-detail-depth.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-exec/_lab/p4-accept.mjs",
+      "citedBy": [
+        "deliverables/67-exec/EXEC-detail-depth.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-exec/_lab/p5-shots.mjs",
+      "citedBy": [
+        "deliverables/67-exec/EXEC-detail-depth.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-exec/_lab/p6-dsf.mjs",
+      "citedBy": [
+        "deliverables/67-exec/EXEC-detail-depth.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-exec/_lab/p7-foldshots.mjs",
+      "citedBy": [
+        "deliverables/67-exec/EXEC-detail-depth.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-exec/_lab/p8-classify.mjs",
+      "citedBy": [
+        "deliverables/67-exec/EXEC-detail-depth.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-exec/_lab/p9-concurrent.mjs",
+      "citedBy": [
+        "deliverables/67-exec/EXEC-detail-depth.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-exec/_lab/r1-emoji-scan.mjs",
+      "citedBy": [
+        "deliverables/67-exec/EXEC-rules-compliance.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-exec/_lab/r13-fontinventory.mjs",
+      "citedBy": [
+        "deliverables/67-exec/EXEC-rules-compliance.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-exec/_lab/r15-verify-edits.mjs",
+      "citedBy": [
+        "deliverables/67-exec/EXEC-rules-compliance.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-exec/_lab4.mjs",
+      "citedBy": [
+        "deliverables/67-exec/EXEC-list-firstscreen.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-exec/_measure.mjs",
+      "citedBy": [
+        "deliverables/67-exec/EXEC-list-firstscreen.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-exec/_percase.mjs",
+      "citedBy": [
+        "deliverables/67-exec/EXEC-list-firstscreen.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-exec/_s13fix.mjs",
+      "citedBy": [
+        "deliverables/67-exec/EXEC-list-firstscreen.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-exec/_shots3.mjs",
+      "citedBy": [
+        "deliverables/67-exec/EXEC-list-firstscreen.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-exec/_variants.mjs",
+      "citedBy": [
+        "deliverables/67-exec/EXEC-list-firstscreen.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-plan/_p1_list.mjs",
+      "citedBy": [
+        "deliverables/67-plan/PLAN-mobile.md",
+        "deliverables/67-plan/REDTEAM-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-plan/_p10_gate.mjs",
+      "citedBy": [
+        "deliverables/67-plan/PLAN-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-plan/_p11_tail.mjs",
+      "citedBy": [
+        "deliverables/67-plan/PLAN-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-plan/_p13_frozen.mjs",
+      "citedBy": [
+        "deliverables/67-plan/PLAN-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-plan/_p15_tab.mjs",
+      "citedBy": [
+        "deliverables/67-plan/PLAN-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-plan/_p16_twofold.mjs",
+      "citedBy": [
+        "deliverables/67-plan/PLAN-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-plan/_p17_matrix.mjs",
+      "citedBy": [
+        "deliverables/67-plan/PLAN-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-plan/_p18_fixed.mjs",
+      "citedBy": [
+        "deliverables/67-plan/PLAN-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-plan/_p19_offsets.mjs",
+      "citedBy": [
+        "deliverables/67-plan/PLAN-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-plan/_p2_detail.mjs",
+      "citedBy": [
+        "deliverables/67-plan/PLAN-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-plan/_p20_recommend.mjs",
+      "citedBy": [
+        "deliverables/67-plan/PLAN-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-plan/_p21_inplace.mjs",
+      "citedBy": [
+        "deliverables/67-plan/PLAN-mobile.md",
+        "deliverables/67-plan/REDTEAM-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-plan/_p3_claims.mjs",
+      "citedBy": [
+        "deliverables/67-plan/PLAN-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-plan/_p4_sensitivity.mjs",
+      "citedBy": [
+        "deliverables/67-plan/PLAN-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-plan/_p5_scrollcost.mjs",
+      "citedBy": [
+        "deliverables/67-plan/PLAN-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-plan/_p7_honest.mjs",
+      "citedBy": [
+        "deliverables/67-plan/PLAN-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-plan/_p8_desktop.mjs",
+      "citedBy": [
+        "deliverables/67-plan/PLAN-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-plan/_p9_smalltext.mjs",
+      "citedBy": [
+        "deliverables/67-plan/PLAN-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-plan/_r1_list.mjs",
+      "citedBy": [
+        "deliverables/67-plan/REDTEAM-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-plan/_r10_final.mjs",
+      "citedBy": [
+        "deliverables/67-plan/REDTEAM-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-plan/_r11_smalltext.mjs",
+      "citedBy": [
+        "deliverables/67-plan/REDTEAM-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-plan/_r12_tpl.mjs",
+      "citedBy": [
+        "deliverables/67-plan/REDTEAM-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-plan/_r13_killer.mjs",
+      "citedBy": [
+        "deliverables/67-plan/REDTEAM-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-plan/_r15_wf2.mjs",
+      "citedBy": [
+        "deliverables/67-plan/REDTEAM-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-plan/_r16_trunc.mjs",
+      "citedBy": [
+        "deliverables/67-plan/REDTEAM-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-plan/_r17_check.mjs",
+      "citedBy": [
+        "deliverables/67-plan/REDTEAM-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-plan/_r18_head.mjs",
+      "citedBy": [
+        "deliverables/67-plan/REDTEAM-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-plan/_r19_desktop.mjs",
+      "citedBy": [
+        "deliverables/67-plan/REDTEAM-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-plan/_r2_a5.mjs",
+      "citedBy": [
+        "deliverables/67-plan/REDTEAM-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-plan/_r3b_detail.mjs",
+      "citedBy": [
+        "deliverables/67-plan/REDTEAM-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-plan/_r4_tradeoff.mjs",
+      "citedBy": [
+        "deliverables/67-plan/REDTEAM-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-plan/_r5_vis.mjs",
+      "citedBy": [
+        "deliverables/67-plan/REDTEAM-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-plan/_r6_bench.mjs",
+      "citedBy": [
+        "deliverables/67-plan/REDTEAM-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-plan/_r8_determinism.mjs",
+      "citedBy": [
+        "deliverables/67-plan/REDTEAM-mobile.md"
+      ]
+    },
+    {
+      "path": "deliverables/67-plan/_r9_now.mjs",
+      "citedBy": [
+        "deliverables/67-plan/REDTEAM-mobile.md"
+      ]
+    }
+  ],
+  "uncitedBasenames": [
+    "12-final-rows.mjs",
+    "LEAD-rules-diff.mjs",
+    "_3fu.mjs",
+    "_audit-len.mjs",
+    "_audit-order.mjs",
+    "_audit-show.mjs",
+    "_axes.mjs",
+    "_boldlines.mjs",
+    "_btn13.mjs",
+    "_btn13b.mjs",
+    "_bytes-proof.mjs",
+    "_bytes-proof2.mjs",
+    "_candidates.mjs",
+    "_chk-b.mjs",
+    "_chk-blank.mjs",
+    "_chk-blank2.mjs",
+    "_chk-class.mjs",
+    "_chk-cons.mjs",
+    "_chk-meta.mjs",
+    "_chk-no5.mjs",
+    "_chk-pics.mjs",
+    "_chk-pics2.mjs",
+    "_chk-s02.mjs",
+    "_chk-s18.mjs",
+    "_chk-s23.mjs",
+    "_conv.mjs",
+    "_dbg-A.mjs",
+    "_dbg-empty.mjs",
+    "_dbg-idx.mjs",
+    "_dbg-layout.mjs",
+    "_dbg-starts.mjs",
+    "_diag-before.mjs",
+    "_diag-cta.mjs",
+    "_diag-mobile.mjs",
+    "_diag-now.mjs",
+    "_diag1440bar.mjs",
+    "_diag390.mjs",
+    "_diff-full.mjs",
+    "_diffcases.mjs",
+    "_facts1.mjs",
+    "_facts390.mjs",
+    "_fallback-count.mjs",
+    "_fallback2.mjs",
+    "_final-stats.mjs",
+    "_final.mjs",
+    "_final2.mjs",
+    "_final390.mjs",
+    "_head390.mjs",
+    "_isolate.mjs",
+    "_keys.mjs",
+    "_keysprobe.mjs",
+    "_lab.mjs",
+    "_lab2.mjs",
+    "_lab3.mjs",
+    "_layout-len.mjs",
+    "_lib.mjs",
+    "_mk-probe.mjs",
+    "_mk-scan.mjs",
+    "_p12_churn.mjs",
+    "_p12_final.mjs",
+    "_p14_focus.mjs",
+    "_p14_lendiff.mjs",
+    "_p17_count.mjs",
+    "_p17b.mjs",
+    "_p17b_lines.mjs",
+    "_p1_inventory.mjs",
+    "_p24_selfcheck.mjs",
+    "_p27_ellipsis.mjs",
+    "_p2_refs.mjs",
+    "_p2b_shape.mjs",
+    "_p32_shot2.mjs",
+    "_p6_decisive.mjs",
+    "_p9_ellipsis.mjs",
+    "_p9b_shot.mjs",
+    "_pal-fork.mjs",
+    "_pal-struct.mjs",
+    "_primary.mjs",
+    "_probe-directions.mjs",
+    "_probe-reveal.mjs",
+    "_probe0.mjs",
+    "_r14_wf0.mjs",
+    "_r3_detail.mjs",
+    "_r7_wayfind.mjs",
+    "_raw-check.mjs",
+    "_raw-vs-pal1.mjs",
+    "_regen.mjs",
+    "_rt_lib.mjs",
+    "_rt_p14_snapshots.mjs",
+    "_rt_p20_btnnull.mjs",
+    "_rt_p23_leadmath.mjs",
+    "_s13-lines.mjs",
+    "_s13.mjs",
+    "_s13btnS.mjs",
+    "_s13btnzoom.mjs",
+    "_s13btnzoom2.mjs",
+    "_s13btnzoom3.mjs",
+    "_s15audit.mjs",
+    "_segdbg.mjs",
+    "_shot1440rail.mjs",
+    "_shots.mjs",
+    "_shots2.mjs",
+    "_show.mjs",
+    "_side390.mjs",
+    "_sno-show.mjs",
+    "_tune390.mjs",
+    "_tune390b.mjs",
+    "_v11_shots.mjs",
+    "_v12_slack.mjs",
+    "_v15_shares.mjs",
+    "_v17_all30.mjs",
+    "_v1_family2.mjs",
+    "_v20_tiaovsmech.mjs",
+    "_v23_nums.mjs",
+    "_v26_refix.mjs",
+    "_v27_final30.mjs",
+    "_v6_panelfix.mjs",
+    "_v7_s13.mjs",
+    "_v_srv.mjs",
+    "_white.mjs",
+    "_white2.mjs",
+    "_white3.mjs",
+    "analyze1.mjs",
+    "analyze2.mjs",
+    "analyze3.mjs",
+    "analyze4.mjs",
+    "audit-family-probe.mjs",
+    "audit-family-probe2.mjs",
+    "audit-family-probe3.mjs",
+    "audit-family-probe4.mjs",
+    "audit-proofread.mjs",
+    "b8.mjs",
+    "build-doc.mjs",
+    "c1-consistency.mjs",
+    "c4.mjs",
+    "check-palette.mjs",
+    "collect-schemes.HEAD.mjs",
+    "collect-schemes.working.mjs",
+    "copy2.mjs",
+    "ctx.mjs",
+    "data-shape.mjs",
+    "dbg-keys.mjs",
+    "deg.mjs",
+    "detect1.mjs",
+    "detect2.mjs",
+    "detect3.mjs",
+    "dump-fields.mjs",
+    "dump-mech.mjs",
+    "dump-s15.mjs",
+    "extra-check.mjs",
+    "focus.mjs",
+    "fonts.mjs",
+    "gen2.mjs",
+    "interact.mjs",
+    "interact2.mjs",
+    "interaction-check.mjs",
+    "keys.mjs",
+    "layout.mjs",
+    "len.mjs",
+    "len2.mjs",
+    "len3.mjs",
+    "len4.mjs",
+    "len5.mjs",
+    "len6.mjs",
+    "len7.mjs",
+    "len8.mjs",
+    "len9.mjs",
+    "lib-load.mjs",
+    "m1-list.mjs",
+    "m10-firstscreen.mjs",
+    "m11-firstscreen2.mjs",
+    "m12-shots.mjs",
+    "m14-rail.mjs",
+    "m15-final-variants.mjs",
+    "m16-folded-readcost.mjs",
+    "m17-keyboard.mjs",
+    "m18-targets-detail.mjs",
+    "m19-links.mjs",
+    "m2-detail.mjs",
+    "m20-determinism.mjs",
+    "m21-firstscreen-detail.mjs",
+    "m22-rec-detail.mjs",
+    "m23-no-fold.mjs",
+    "m24-16px.mjs",
+    "m25-final.mjs",
+    "m26-rowfinal.mjs",
+    "m27-shots-final.mjs",
+    "m28-qparked.mjs",
+    "m29-qparked-impact.mjs",
+    "m30-qparked-jitter.mjs",
+    "m31-bar-now.mjs",
+    "m33-shots-foldopen.mjs",
+    "m34-shot-a3.mjs",
+    "m4-row.mjs",
+    "m5b-detail-variants.mjs",
+    "m6-touch.mjs",
+    "m6b-touch2.mjs",
+    "m6c-hittest.mjs",
+    "m7b-tabindex-toggle.mjs",
+    "m8-fields-decomp.mjs",
+    "make-masks.mjs",
+    "measure-findinpage.mjs",
+    "measure-live-drift.mjs",
+    "measure-risks2.mjs",
+    "p-analyze.mjs",
+    "p-r3current.mjs",
+    "p17-rulerefs.mjs",
+    "p22-final-check.mjs",
+    "p22-indexonly.mjs",
+    "p23-second-card.mjs",
+    "p24-copy.mjs",
+    "p5-list-variants.mjs",
+    "p6-detail-variants.mjs",
+    "p7-field-level.mjs",
+    "p8-recheck-frozen.mjs",
+    "p9-verify.mjs",
+    "panel-variants10.mjs",
+    "panel-variants11.mjs",
+    "panel-variants2.mjs",
+    "panel-variants3.mjs",
+    "panel-variants4.mjs",
+    "panel-variants5.mjs",
+    "panel-variants6.mjs",
+    "panel-variants7.mjs",
+    "panel-variants8.mjs",
+    "panel-variants9.mjs",
+    "probe-instruction.mjs",
+    "probe-lint-classify.mjs",
+    "probe-p0.mjs",
+    "probe-tok.mjs",
+    "r10-scoped.mjs",
+    "r11-meta.mjs",
+    "r12-final.mjs",
+    "r14-ab-shots.mjs",
+    "r16-lines.mjs",
+    "r17-body.mjs",
+    "r18-lint.mjs",
+    "r19-lint-ab.mjs",
+    "r2-measure.mjs",
+    "r20-emoji-provenance.mjs",
+    "r3-shots.mjs",
+    "r4-findings.mjs",
+    "r5-smalltext.mjs",
+    "r6-variants.mjs",
+    "r7-capfit.mjs",
+    "r8-cap-emoji.mjs",
+    "r9-cap-final.mjs",
+    "readall.mjs",
+    "reduced.mjs",
+    "routeA.mjs",
+    "routeA2.mjs",
+    "run.mjs",
+    "runlint.mjs",
+    "s10.mjs",
+    "s23.mjs",
+    "scope.mjs",
+    "sents.mjs",
+    "summarize.mjs",
+    "tok.mjs",
+    "tok2.mjs",
+    "tok3.mjs",
+    "v1-prompt.mjs",
+    "v1b-ui.mjs",
+    "v4-rows.mjs",
+    "v4d-brackets.mjs",
+    "verify-report.mjs",
+    "verify.mjs",
+    "wz-probe.mjs"
+  ],
+  "dupBasenames": [
+    {
+      "basename": "a4.mjs",
+      "count": 2,
+      "paths": [
+        "deliverables/62-verify/r2/a4.mjs",
+        "deliverables/66-exec/_out/a4.mjs"
+      ]
+    },
+    {
+      "basename": "dump.mjs",
+      "count": 2,
+      "paths": [
+        "deliverables/62-verify/r2/dump.mjs",
+        "deliverables/65-exec/_cut/dump.mjs"
+      ]
+    },
+    {
+      "basename": "serve.mjs",
+      "count": 2,
+      "paths": [
+        "deliverables/62-verify/r2/serve.mjs",
+        "deliverables/65-audit/lab/serve.mjs"
+      ]
+    },
+    {
+      "basename": "_stats.mjs",
+      "count": 2,
+      "paths": [
+        "deliverables/65-exec/_cut/_stats.mjs",
+        "deliverables/66-audit/_stats.mjs"
+      ]
+    },
+    {
+      "basename": "collect-schemes.before.mjs",
+      "count": 2,
+      "paths": [
+        "deliverables/65-exec/_cut/collect-schemes.before.mjs",
+        "deliverables/65-exec/collect-schemes.before.mjs"
+      ]
+    }
+  ],
+  "deadLinks": [
+    {
+      "md": "README-EN.md",
+      "token": "/rules.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "README-EN.md",
+      "token": "/inspect.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "README-EN.md",
+      "token": "inspect.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "README-EN.md",
+      "token": "deliverables/59-scratch/s13-duotone.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "README.md",
+      "token": "/rules.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "README.md",
+      "token": "/inspect.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "README.md",
+      "token": "inspect.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "README.md",
+      "token": "deliverables/59-scratch/s13-duotone.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/12-tool-rule-audit-30-FULL.md",
+      "token": "scripts/lib/rules.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/12-tool-rule-audit-30-FULL.md",
+      "token": "rules.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/12-tool-rule-audit-30-FULL.md",
+      "token": "tools/taste-skill/skills/taste-skill/scripts/lib/rules.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/12-tool-rule-audit-30-retry5.md",
+      "token": "rules.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/12-tool-rule-audit-30-v2-authoritative.md",
+      "token": "tools/taste-skill/skills/taste-skill/scripts/lib/rules.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/12-tool-rule-audit-30-v2-authoritative.md",
+      "token": "rules.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/12-tool-rule-audit-30-v2-authoritative.md",
+      "token": "inspect.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/12-tool-rule-audit-30-v2-authoritative.md",
+      "token": "lint.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/12-tool-rule-audit-30-v2-authoritative.md",
+      "token": "probe.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/12-tool-rule-audit-30-v2-authoritative.md",
+      "token": "tools/taste-skill/skills/taste-skill/scripts/lib/probe.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/12-tool-rule-audit-30-v2-authoritative.md",
+      "token": "tools/taste-skill/skills/taste-skill/scripts/inspect.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/12-tool-rule-audit-30-v4.md",
+      "token": "tool-runs/v4/validate-rule-ids.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/12-tool-rule-audit-30-v4.md",
+      "token": "tool-runs/v4/verify-palette-rows.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/12-tool-rule-audit-30-v4.md",
+      "token": "validate-rule-ids.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/12-tool-rule-audit-30-v4.md",
+      "token": "rules.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/12-tool-rule-audit-30-v4.md",
+      "token": "probe.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/12-tool-rule-audit-30-v4.md",
+      "token": "v4/validate-rule-ids.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/12-tool-rule-audit-30-v4.md",
+      "token": "v4/verify-palette-rows.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/12-tool-rule-audit-30-v4.md",
+      "token": "inspect.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/12-tool-rule-audit-30-v4.md",
+      "token": "lint.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/12-tool-rule-audit-30-v4.md",
+      "token": "verify-palette-rows.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/12-tool-rule-audit-30-v4.md",
+      "token": "S17-geometry-probe.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/12-tool-rule-audit-30.md",
+      "token": "scripts/lib/rules.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/12-tool-rule-audit-30.md",
+      "token": "scripts/lib/probe.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/14-tool-runs-report.md",
+      "token": "tools/taste-skill/skills/taste-skill/scripts/lint.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/14-tool-runs-report.md",
+      "token": "tools/taste-skill/skills/taste-skill/scripts/inspect.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/14-tool-runs-report.md",
+      "token": "tools/taste-skill/skills/taste-skill/scripts/draw.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/14-tool-runs-report.md",
+      "token": "tools/taste-skill/skills/taste-skill/scripts/assets.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/14-tool-runs-report.md",
+      "token": "lint.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/14-tool-runs-report.md",
+      "token": "inspect.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/14-tool-runs-report.md",
+      "token": ".../lint.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/14-tool-runs-report.md",
+      "token": "scripts/assets.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/14-tool-runs-report.md",
+      "token": "tools/taste-skill/skills/taste-skill/scripts/lib/probe.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/14-tool-runs-report.md",
+      "token": "probe.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/15-lead-rulings-matrix-issue.md",
+      "token": "probe.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/16-render-look-audit.md",
+      "token": "inspect.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/16-render-look-audit.md",
+      "token": "tool-runs/v4/batch-read-renders.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/16-render-look-audit.md",
+      "token": "tool-runs/v4/summarize-render-measure.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/16-render-look-audit.md",
+      "token": "S17-geometry-probe.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/21-visual-audit-batch1.md",
+      "token": "tools/taste-skill/.../lib/cdp.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/21-visual-audit-batch1.md",
+      "token": "collect2.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/21-visual-audit-batch1.md",
+      "token": "sweep2.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/21-visual-audit-batch1.md",
+      "token": "inspect.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/21-visual-audit-batch1.md",
+      "token": "cdp.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/22-lead-verify-chrome-viewport.md",
+      "token": "tools/taste-skill/skills/taste-skill/scripts/lib/cdp.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/22-lead-verify-chrome-viewport.md",
+      "token": "_m01-test/probe-m01.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/22-lead-verify-chrome-viewport.md",
+      "token": "_m02-test/probe.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/22-lead-verify-chrome-viewport.md",
+      "token": "inspect.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/22-visual-audit-batch2.md",
+      "token": "/lib/cdp.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/22-visual-audit-batch2.md",
+      "token": "probe.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/22-visual-audit-batch2.md",
+      "token": "occ2.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/22-visual-audit-batch2.md",
+      "token": "occ3.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/22-visual-audit-batch2.md",
+      "token": "inspect.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/22-visual-audit-batch2.md",
+      "token": "state.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/22-visual-audit-batch2.md",
+      "token": "ovf.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/23-visual-audit-batch3.md",
+      "token": "tools/taste-skill/skills/taste-skill/scripts/lib/cdp.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/23-visual-audit-batch3.md",
+      "token": "measure.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/23-visual-audit-batch3.md",
+      "token": "probe.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/23-visual-audit-batch3.md",
+      "token": "caps.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/23-visual-audit-batch3.md",
+      "token": "tables.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/23-visual-audit-batch3.md",
+      "token": "t.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/23-visual-audit-batch3.md",
+      "token": "e.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/23-visual-audit-batch3.md",
+      "token": "s21.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/23-visual-audit-batch3.md",
+      "token": "s21b.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/23-visual-audit-batch3.md",
+      "token": "inspect.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/23-visual-audit-batch3.md",
+      "token": "cdp.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/24-critique-attack-hunter.md",
+      "token": "_crit1/css-order.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/24-critique-attack-hunter.md",
+      "token": "_crit1/gates.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/24-critique-attack-hunter.md",
+      "token": "_crit1/final.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/24-critique-attack-hunter.md",
+      "token": "_crit1/probe.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/24-critique-attack-hunter.md",
+      "token": "_crit1/clip.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/24-critique-attack-hunter.md",
+      "token": "_crit1/ask.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/26-critique-geometry-measurer.md",
+      "token": "inspect.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/26-critique-geometry-measurer.md",
+      "token": "_crit3/measure.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/26-critique-geometry-measurer.md",
+      "token": "_crit3/serve.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/26-critique-geometry-measurer.md",
+      "token": "cdp.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/26-critique-geometry-measurer.md",
+      "token": "_crit3/probe.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/26-critique-geometry-measurer.md",
+      "token": "_crit3/bleedcheck.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/27-critique-spec-drift.md",
+      "token": "tools/taste-skill/skills/taste-skill/scripts/lib/rules.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/27-critique-spec-drift.md",
+      "token": "tools/taste-skill/skills/taste-skill/scripts/lint.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/27-critique-spec-drift.md",
+      "token": "tools/taste-skill/skills/taste-skill/scripts/inspect.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/27-critique-spec-drift.md",
+      "token": "_crit4b/extract.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/27-critique-spec-drift.md",
+      "token": "_crit4b/pairs.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/27-critique-spec-drift.md",
+      "token": "tools/.../inspect.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/27-critique-spec-drift.md",
+      "token": "inspect.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/27-critique-spec-drift.md",
+      "token": "rules.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/27-critique-spec-drift.md",
+      "token": "/inspect.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/27-critique-spec-drift.md",
+      "token": "lib/rules.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/27-critique-spec-drift.md",
+      "token": "lint.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/27-critique-spec-drift.md",
+      "token": "probe.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/27-critique-spec-drift.md",
+      "token": "draw.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/27-critique-spec-drift.md",
+      "token": "lib/cdp.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/28-critique-bench-ia.md",
+      "token": "_crit5/serve.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/28-critique-bench-ia.md",
+      "token": "tools/taste-skill/skills/taste-skill/scripts/lib/cdp.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/28-critique-bench-ia.md",
+      "token": "_crit5/probe.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/28-critique-bench-ia.md",
+      "token": "probe2.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/28-critique-bench-ia.md",
+      "token": "probe9.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/29-critique-homogeneity.md",
+      "token": "inspect.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/30-critique-assets-license.md",
+      "token": "_crit7b/xref3.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/30-critique-assets-license.md",
+      "token": "_crit7b/dupe.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/30-critique-assets-license.md",
+      "token": "_crit7b/licsum.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/30-critique-assets-license.md",
+      "token": "_crit7b/cand.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/30-critique-assets-license.md",
+      "token": "_crit7b/pageurl.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/30-critique-assets-license.md",
+      "token": "lic2.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/30-critique-assets-license.md",
+      "token": "_crit7b/lic2.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/30-critique-assets-license.md",
+      "token": "_crit7b/rows.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/30-critique-assets-license.md",
+      "token": "_crit7b/misc.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/30-critique-assets-license.md",
+      "token": "_crit7b/tmpl.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/30-critique-assets-license.md",
+      "token": "_crit7b/hrefcheck.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/31-critique-reconciliation.md",
+      "token": "_crit8b/measure.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/31-critique-reconciliation.md",
+      "token": "_crit8b/serve.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/31-critique-reconciliation.md",
+      "token": "tools/.../lib/cdp.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/31-critique-reconciliation.md",
+      "token": "measure.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/31-critique-reconciliation.md",
+      "token": "newfind.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/31-critique-reconciliation.md",
+      "token": "tiny.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/31-critique-reconciliation.md",
+      "token": "iso.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/31-critique-reconciliation.md",
+      "token": "s13prefix.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/31-critique-reconciliation.md",
+      "token": "sweep.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/31-critique-reconciliation.md",
+      "token": "bvb.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/31-critique-reconciliation.md",
+      "token": "_crit8b/summary.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/31-critique-reconciliation.md",
+      "token": "_crit8b/s13prefix.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/31-critique-reconciliation.md",
+      "token": "_crit8b/sweep.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/31-critique-reconciliation.md",
+      "token": "_crit8b/blindspot2.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/31-critique-reconciliation.md",
+      "token": "_crit8b/newfind.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/31-critique-reconciliation.md",
+      "token": "_crit8b/bvb.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/31-critique-reconciliation.md",
+      "token": "summary.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/32-critique-spec-consistency.md",
+      "token": "_crit4c/wc.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/32-critique-spec-consistency.md",
+      "token": "_crit4c/findhex.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/32-critique-spec-consistency.md",
+      "token": "lib/rules.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/32-critique-spec-consistency.md",
+      "token": "probe.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/32-critique-spec-consistency.md",
+      "token": "inspect.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/32-critique-spec-consistency.md",
+      "token": "lint.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/32-critique-spec-consistency.md",
+      "token": "draw.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/33-critique-rebuttal.md",
+      "token": "l.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/33-critique-rebuttal.md",
+      "token": "crop.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/33-critique-rebuttal.md",
+      "token": "f.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/33-critique-rebuttal.md",
+      "token": "g.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/33-critique-rebuttal.md",
+      "token": "_crit9/crop.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/33-critique-rebuttal.md",
+      "token": "inspect.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/33-critique-rebuttal.md",
+      "token": "_crit9/f.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/33-critique-rebuttal.md",
+      "token": "_crit9/g.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/34-critique-doc-accuracy.md",
+      "token": "tools/taste-skill/skills/taste-skill/scripts/inspect.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/34-critique-doc-accuracy.md",
+      "token": "/inspect.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/34-critique-doc-accuracy.md",
+      "token": "/shot.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/34-critique-doc-accuracy.md",
+      "token": "/scripts/inspect.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/34-critique-doc-accuracy.md",
+      "token": "inspect.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/34-critique-doc-accuracy.md",
+      "token": "_crit10b/cnendiff.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/34-critique-doc-accuracy.md",
+      "token": "/lib/probe.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/34-critique-doc-accuracy.md",
+      "token": "probe.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/34-critique-doc-accuracy.md",
+      "token": "rules.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/34-critique-doc-accuracy.md",
+      "token": "_crit10b/verify.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/34-critique-doc-accuracy.md",
+      "token": "_crit10b/extra.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/36-critique-bench-defense.md",
+      "token": "_crit12/serve.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/36-critique-bench-defense.md",
+      "token": "tools/taste-skill/skills/taste-skill/scripts/lib/cdp.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/36-critique-bench-defense.md",
+      "token": "_crit12/recompute.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/36-critique-bench-defense.md",
+      "token": "_crit12/enum162.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/36-critique-bench-defense.md",
+      "token": "_crit12/recompute-old.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/36-critique-bench-defense.md",
+      "token": "_crit12/variants.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/36-critique-bench-defense.md",
+      "token": "_crit12/koujing.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/36-critique-bench-defense.md",
+      "token": "_crit12/xcheck.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/36-critique-bench-defense.md",
+      "token": "sens.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/36-critique-bench-defense.md",
+      "token": "groups6.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/36-critique-bench-defense.md",
+      "token": "_crit12/probe1.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/36-critique-bench-defense.md",
+      "token": "_crit12/probe2.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/36-critique-bench-defense.md",
+      "token": "_crit12/probe3.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/36-critique-bench-defense.md",
+      "token": "probe4.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/36-critique-bench-defense.md",
+      "token": "probe5.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/36-critique-bench-defense.md",
+      "token": "_crit12/datafacts.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/36-critique-bench-defense.md",
+      "token": "polarity.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/36-critique-bench-defense.md",
+      "token": "xcheck.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/36-critique-bench-defense.md",
+      "token": "datafacts.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/36-critique-bench-defense.md",
+      "token": "variants.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/36-critique-bench-defense.md",
+      "token": "koujing.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/36-critique-bench-defense.md",
+      "token": "enum162.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/37-critique-completeness-defense.md",
+      "token": "lic.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/37-critique-completeness-defense.md",
+      "token": "deliverables/37-scratch/backfill.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/37-critique-completeness-defense.md",
+      "token": "chain.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/37-critique-completeness-defense.md",
+      "token": "backfill.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/38-critique-doc-intent-defense.md",
+      "token": "tools/taste-skill/skills/taste-skill/scripts/inspect.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/38-critique-doc-intent-defense.md",
+      "token": "inspect.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/38-critique-doc-intent-defense.md",
+      "token": "tools/taste-skill/skills/taste-skill/scripts/lib/probe.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/38-critique-doc-intent-defense.md",
+      "token": "/inspect.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/38-critique-doc-intent-defense.md",
+      "token": "deliverables/38-scratch/check6.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/38-critique-doc-intent-defense.md",
+      "token": "deliverables/38-scratch/check7.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/38-critique-doc-intent-defense.md",
+      "token": "deliverables/38-scratch/check8.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/38-critique-doc-intent-defense.md",
+      "token": "deliverables/38-scratch/check1.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/38-critique-doc-intent-defense.md",
+      "token": "deliverables/38-scratch/check11.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/38-critique-doc-intent-defense.md",
+      "token": "deliverables/38-scratch/check9.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/39-critique-toolchain-repro.md",
+      "token": "/inspect.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/39-critique-toolchain-repro.md",
+      "token": "/lib/cdp.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/39-critique-toolchain-repro.md",
+      "token": "S13/_fillmap.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/39-critique-toolchain-repro.md",
+      "token": "tools/taste-skill/skills/taste-skill/scripts/inspect.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/39-critique-toolchain-repro.md",
+      "token": "cdp.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/39-critique-toolchain-repro.md",
+      "token": "../../tools/taste-skill/skills/taste-skill/scripts/lib/cdp.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/39-critique-toolchain-repro.md",
+      "token": "/Web/style/tools/taste-skill/skills/taste-skill/scripts/lib/rules.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/39-critique-toolchain-repro.md",
+      "token": "../../tools/taste-skill/skills/taste-skill/scripts/lib/rules.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/39-critique-toolchain-repro.md",
+      "token": "S03/check-palette.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/39-critique-toolchain-repro.md",
+      "token": "inspect.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/39-critique-toolchain-repro.md",
+      "token": "S03/verify.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/39-critique-toolchain-repro.md",
+      "token": "S03/make-masks.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/40-critique-fixbenefit.md",
+      "token": "cdp.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/40-critique-fixbenefit.md",
+      "token": "S13/_fillmap.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/40-critique-fixbenefit.md",
+      "token": "S03/check-palette.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/40-critique-fixbenefit.md",
+      "token": "S03/verify.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/40-critique-fixbenefit.md",
+      "token": "verify40.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/40-critique-fixbenefit.md",
+      "token": "ah04.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/40-critique-fixbenefit.md",
+      "token": "cheapfix.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/40-critique-fixbenefit.md",
+      "token": "verify31.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/40-critique-fixbenefit.md",
+      "token": "lib/rules.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/40-critique-fixbenefit.md",
+      "token": "inspect.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/40-critique-fixbenefit.md",
+      "token": "backfill.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/40-critique-fixbenefit.md",
+      "token": "harness.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/40-critique-fixbenefit.md",
+      "token": "commons-jazz.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/41-critique-convergence.md",
+      "token": "S03/check-palette.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/41-critique-convergence.md",
+      "token": "S03/verify.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/41-critique-convergence.md",
+      "token": "S13/_fillmap.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/41-critique-convergence.md",
+      "token": "/inspect.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/41-critique-convergence.md",
+      "token": "lib/rules.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/41-critique-convergence.md",
+      "token": "rules.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/41-critique-convergence.md",
+      "token": "_build/backfill.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/41-critique-convergence.md",
+      "token": "inspect.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/41-critique-convergence.md",
+      "token": "cdp.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/41-critique-convergence.md",
+      "token": "ah04.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/41-critique-convergence.md",
+      "token": "verify40.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/45-s15-foldcard-visual-check.md",
+      "token": "vc2.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/45-s15-foldcard-visual-check.md",
+      "token": "vc3.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/45-s15-foldcard-visual-check.md",
+      "token": "vc4.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/45-s15-foldcard-visual-check.md",
+      "token": "vc5.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/45-s15-foldcard-visual-check.md",
+      "token": "tools/.../lib/cdp.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/45-s15-foldcard-visual-check.md",
+      "token": "deliverables/43-scratch/matrix-shot.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/45-s15-foldcard-visual-check.md",
+      "token": "/Users/Administrator/AppData/Local/Temp/vc5.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/45-s15-foldcard-visual-check.md",
+      "token": "matrix-shot.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/46-bgroup-cascade-fixes.md",
+      "token": "cssom-equal.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/47-critique-positioning.md",
+      "token": "//sqkl520.github.io/web-style-atlas/prototypes/_build/verify-prototype.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/48-critique-outsider-walkthrough.md",
+      "token": "/_build/collect-schemes.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/50-critique-portability.md",
+      "token": "deliverables/50-scratch/analyze.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/50-critique-portability.md",
+      "token": "pass2.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/50-critique-portability.md",
+      "token": "pass4-cost.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/51-critique-promises.md",
+      "token": "inspect.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/51-critique-promises.md",
+      "token": "/probe.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/51-critique-promises.md",
+      "token": "/rules.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/51-critique-promises.md",
+      "token": "rules.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/51-critique-promises.md",
+      "token": "tools/taste-skill/rules.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/54-critique-repo-hygiene.md",
+      "token": "/_probe.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/55-critique-bilingual-drift.md",
+      "token": "/assign-assets.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/55-critique-bilingual-drift.md",
+      "token": "deliverables/38-scratch/cnendiff.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/58-critique-cost-stopline.md",
+      "token": "ah04.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/58-critique-cost-stopline.md",
+      "token": "S03/check-palette.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/58-critique-cost-stopline.md",
+      "token": "S03/verify.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/58-critique-cost-stopline.md",
+      "token": "S13/_fillmap.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/58-critique-cost-stopline.md",
+      "token": "backfill.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/60-minitems-degrade-audit.md",
+      "token": "parse.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/60-minitems-degrade-audit.md",
+      "token": "fams.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/60-minitems-degrade-audit.md",
+      "token": "cands.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/60-minitems-degrade-audit.md",
+      "token": "evidence.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/60-minitems-degrade-audit.md",
+      "token": "units.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/60-minitems-degrade-audit.md",
+      "token": "imgs.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/60-minitems-degrade-audit.md",
+      "token": "hardcoded.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/61-plan/CRITIQUE-p0-review.md",
+      "token": "tools/taste-skill/skills/taste-skill/scripts/lib/cdp.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/61-plan/CRITIQUE-p0-review.md",
+      "token": "audit-prompts.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/61-plan/CRITIQUE-p0-review.md",
+      "token": "deliverables/99-scratch/build-prompts.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/61-plan/CRITIQUE-p0-review.md",
+      "token": "deliverables/99-scratch/clean-dna.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/61-plan/PLAN-gap-closure.md",
+      "token": "deliverables/99-scratch/build-prompts.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/61-plan/PLAN-gap-closure.md",
+      "token": "deliverables/99-scratch/mechanisms.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/61-plan/PLAN-gap-closure.md",
+      "token": "prototypes/_build/build-prompts.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/61-plan/PLAN-gap-closure.md",
+      "token": "prototypes/_build/check-prompts.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/61-plan/REDTEAM-gap-premises.md",
+      "token": "deliverables/99-scratch/audit-prompts.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/61-plan/REDTEAM-gap-premises.md",
+      "token": "lint.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/61-plan/REDTEAM-gap-premises.md",
+      "token": "tools/taste-skill/skills/taste-skill/scripts/lint.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/61-plan/REDTEAM-gap-premises.md",
+      "token": "inspect.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/61-plan/REDTEAM-gap-premises.md",
+      "token": "rules.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/61-plan/REDTEAM-gap-premises.md",
+      "token": "/reset3.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/61-plan/REDTEAM-gap-premises.md",
+      "token": "tools/taste-skill/skills/taste-skill/scripts/lib/rules.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/61-plan/SYNTHESIS-and-plan.md",
+      "token": "deliverables/99-scratch/verify-redteam.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/61-plan/VERIFY-p0-independent.md",
+      "token": "verify-p0.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/61-plan/VERIFY-p0-independent.md",
+      "token": "crosscheck-p0.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/61-plan/VERIFY-p0-independent.md",
+      "token": "deliverables/99-scratch/iv/dump-prompts.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/61-plan/VERIFY-p0-independent.md",
+      "token": "routeA-facts.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/61-plan/VERIFY-p0-independent.md",
+      "token": "routeA-a1.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/61-plan/VERIFY-p0-independent.md",
+      "token": "linewidths-gap.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/61-plan/VERIFY-p0-independent.md",
+      "token": "placeholder.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/61-plan/VERIFY-p0-independent.md",
+      "token": "deliverables/99-scratch/iv/routeB.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/61-plan/VERIFY-p0-independent.md",
+      "token": "tools/taste-skill/.../lib/cdp.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/61-plan/VERIFY-p0-independent.md",
+      "token": "c1-matrix.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/61-plan/VERIFY-p0-independent.md",
+      "token": "c1-rollback.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/61-plan/VERIFY-p0-independent.md",
+      "token": "c3-c4.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/61-plan/VERIFY-p0-independent.md",
+      "token": "c5-c7.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/61-plan/VERIFY-p0-independent.md",
+      "token": "claim1-4-8.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/61-plan/VERIFY-p0-independent.md",
+      "token": "claim3-5.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/61-plan/VERIFY-p0-independent.md",
+      "token": "final-checks.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/61-plan/VERIFY-p0-independent.md",
+      "token": "routeB.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/61-research/ai-signature.md",
+      "token": "tools/taste-skill/skills/taste-skill/scripts/lib/rules.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/61-research/ai-signature.md",
+      "token": "probe.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/61-research/ai-signature.md",
+      "token": "scripts/detect.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/61-research/ai-signature.md",
+      "token": "rules.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/61-research/ai-signature.md",
+      "token": "tools/taste-skill/skills/taste-skill/scripts/lib/probe.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/62-plan/PLAN-three-tasks.md",
+      "token": "_build/check-hard-claims.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/62-plan/PLAN-three-tasks.md",
+      "token": "prototypes/_build/check-prompts.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/62-plan/PLAN-three-tasks.md",
+      "token": "prototypes/_build/check-selection.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/62-plan/PLAN-three-tasks.md",
+      "token": "prototypes/_build/check-hard-claims.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/62-plan/REDTEAM-three-tasks.md",
+      "token": "tools/taste-skill/skills/taste-skill/scripts/lib/cdp.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/62-verify/REPORT-prompt-fidelity.md",
+      "token": "tools/taste-skill/skills/taste-skill/scripts/lib/cdp.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/62-verify/VERIFY-independent-round2.md",
+      "token": "tools/taste-skill/.../lib/cdp.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/62-verify/VERIFY-round2-retry.md",
+      "token": "verify-p0.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/63-audit/hard-S21-S30.md",
+      "token": "_probe.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/63-plan/PLAN-hard-revalidation.md",
+      "token": "tools/taste-skill/skills/taste-skill/scripts/lib/cdp.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/63-plan/PLAN-hard-revalidation.md",
+      "token": "inv.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/63-plan/PLAN-hard-revalidation.md",
+      "token": "deliverables/63-test/inv.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/63-plan/PLAN-hard-revalidation.md",
+      "token": "shape.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/63-plan/PLAN-hard-revalidation.md",
+      "token": "subst.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/63-plan/PLAN-hard-revalidation.md",
+      "token": "triage.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/63-plan/REDTEAM-hard-revalidation.md",
+      "token": "tools/taste-skill/skills/taste-skill/scripts/lib/cdp.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/63-test/REPLACE-EXPERIMENT.md",
+      "token": "tools/taste-skill/skills/taste-skill/scripts/lib/cdp.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/63-verify/VERIFY-hard-adjudication.md",
+      "token": "tools/taste-skill/skills/taste-skill/scripts/lib/cdp.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/63-verify/VERIFY-hard-adjudication.md",
+      "token": "_tmp_cdp14d.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/63-verify/VERIFY-hard-adjudication.md",
+      "token": "_tmp_cdp18d.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/63-verify/VERIFY-hard-adjudication.md",
+      "token": "_tmp_cdpui.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/64-audit/code-hygiene.md",
+      "token": "deliverables/99-scratch/clean-dna.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/64-audit/code-hygiene.md",
+      "token": "deliverables/99-scratch/verify-landing.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/64-audit/verify-s03-degrades.md",
+      "token": "tools/taste-skill/skills/taste-skill/scripts/lib/cdp.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/64-audit/verify-s03-degrades.md",
+      "token": "/s03probe/probe.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/64-audit/verify-s03-degrades.md",
+      "token": "probe2.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/64-audit/verify-s03-degrades.md",
+      "token": "probe3.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/64-audit/verify-s03-degrades.md",
+      "token": "probe4.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/64-plan/PLAN-warning-rewrite.md",
+      "token": "tools/taste-skill/.../inspect.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/64-plan/REDTEAM-warning-rewrite.md",
+      "token": "tools/taste-skill/skills/taste-skill/scripts/lib/cdp.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/64-plan/REDTEAM-warning-rewrite.md",
+      "token": "T/length-control.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/64-plan/REDTEAM-warning-rewrite.md",
+      "token": "T/uneven2.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/64-plan/REDTEAM-warning-rewrite.md",
+      "token": "T/cdp-hint.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/64-plan/REDTEAM-warning-rewrite.md",
+      "token": "T/fontprobe.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/64-plan/REDTEAM-warning-rewrite.md",
+      "token": "T/card-vs-hint.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/64-plan/REDTEAM-warning-rewrite.md",
+      "token": "T/fields.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/64-plan/REDTEAM-warning-rewrite.md",
+      "token": "T/audit2.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/64-plan/REDTEAM-warning-rewrite.md",
+      "token": "T/hole-test.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/64-plan/SYNTHESIS-warning-rewrite.md",
+      "token": "verify-landing.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/65-exec/EXEC-docs-decay.md",
+      "token": "_readme-skill-fetch/write-attractive-readme-main/scripts/check-readme.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/65-exec/EXEC-prompt-opener.md",
+      "token": "99-scratch/verify-headed-clipboard.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/65-plan/PLAN-field-plumbing.md",
+      "token": "/_rt_lib.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/65-plan/PLAN-field-plumbing.md",
+      "token": "/_rt_p2_fields.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/65-plan/PLAN-field-plumbing.md",
+      "token": "_scan44.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/65-plan/REDTEAM-field-plumbing.md",
+      "token": "_measure-baseline.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/65-verify/VERIFY-round5.md",
+      "token": "check-readme.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/65-verify/VERIFY-round5.md",
+      "token": "_readme-skill-fetch/write-attractive-readme-main/scripts/check-readme.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/66-audit/mobile-390.md",
+      "token": "tools/taste-skill/skills/taste-skill/scripts/lib/cdp.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/66-exec/EXEC-minitems-semantics.md",
+      "token": "deliverables/99-scratch/minitems/verify.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/66-exec/EXEC-s13-gate.md",
+      "token": "probe.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/66-plan/PLAN-round6.md",
+      "token": "tools/.../lint.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/66-plan/PLAN-round6.md",
+      "token": "lint.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/66-plan/PLAN-round6.md",
+      "token": "tools/.../probe.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/66-plan/PLAN-round6.md",
+      "token": "probe.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/66-plan/PLAN-round6.md",
+      "token": "_readme-skill-fetch/.../check-readme.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/66-plan/PLAN-round6.md",
+      "token": "check-readme.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/66-plan/PLAN-round6.md",
+      "token": "_readme-skill-fetch/write-attractive-readme-main/scripts/check-readme.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/66-plan/PLAN-round6.md",
+      "token": "tools/taste-skill/skills/taste-skill/scripts/lint.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/66-plan/PLAN-round6.md",
+      "token": "tools/.../cdp.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/66-plan/REDTEAM-round6.md",
+      "token": "...rules.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/66-plan/REDTEAM-round6.md",
+      "token": "probe.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/66-plan/REDTEAM-round6.md",
+      "token": "lint.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/66-plan/REDTEAM-round6.md",
+      "token": "inspect.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/66-plan/REDTEAM-round6.md",
+      "token": "rules.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/67-audit/mobile-budget.md",
+      "token": "tools/taste-skill/skills/taste-skill/scripts/lib/cdp.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/67-audit/typography-baseline.md",
+      "token": "cdp.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/67-audit/typography-baseline.md",
+      "token": "p-recommend.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/67-exec/EXEC-rules-compliance.md",
+      "token": "tools/taste-skill/.../lib/cdp.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/67-exec/EXEC-rules-compliance.md",
+      "token": "inspect.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/67-exec/EXEC-rules-compliance.md",
+      "token": "probe.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/67-exec/EXEC-rules-compliance.md",
+      "token": "lint.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/67-exec/EXEC-rules-compliance.md",
+      "token": "tools/taste-skill/skills/taste-skill/scripts/inspect.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/67-exec/EXEC-rules-compliance.md",
+      "token": "lib/probe.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/67-exec/EXEC-rules-compliance.md",
+      "token": "lib/rules.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/67-plan/PLAN-mobile.md",
+      "token": "tools/taste-skill/skills/taste-skill/scripts/lib/cdp.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/67-plan/PLAN-mobile.md",
+      "token": "probe.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/67-plan/PLAN-mobile.md",
+      "token": "rules.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/67-plan/PLAN-mobile.md",
+      "token": "deliverables/67-exec/verify-mobile-scope.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/67-plan/REDTEAM-mobile.md",
+      "token": "cdp.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/67-plan/REDTEAM-mobile.md",
+      "token": "tools/.../lib/rules.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/67-plan/REDTEAM-mobile.md",
+      "token": "tools/.../rules.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/67-plan/VERDICT-lead.md",
+      "token": "probe.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/67-plan/VERDICT-lead.md",
+      "token": "rules.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/67-verify/LEAD-h1-regression.md",
+      "token": "verify-all-breakpoints.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/README-REWRITE-NOTES.md",
+      "token": "_readme-skill-fetch/write-attractive-readme-main/scripts/check-readme.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/README-REWRITE-NOTES.md",
+      "token": "headings.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/README-REWRITE-NOTES.md",
+      "token": "coverage.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/README-REWRITE-NOTES.md",
+      "token": "parity.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/README-REWRITE-NOTES.md",
+      "token": "isolate-en.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "prototypes/S11-samizdat-typewriter/assets/CREDITS.md",
+      "token": "prototypes/S11-samizdat-typewriter/build/fetch-martian-narrow.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "prototypes/S27-hand-painted-bill-dispatch/assets/CREDITS.md",
+      "token": "deliverables/59-scratch/s27-duotone.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "prototypes/_CONTRACT.md",
+      "token": "/Web/style/prototypes/_build/render-scheme.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "prototypes/_CONTRACT.md",
+      "token": "tools/taste-skill/skills/taste-skill/scripts/inspect.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "prototypes/_CONTRACT.md",
+      "token": "inspect.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "prototypes/_CONTRACT.md",
+      "token": "/Web/style/prototypes/_build/fetch-fonts.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "prototypes/_CONTRACT.md",
+      "token": "rules.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "prototypes/_CONTRACT.md",
+      "token": "probe.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "prototypes/_CONTRACT.md",
+      "token": "/inspect.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "prototypes/_build/SHOT-README.md",
+      "token": "tools/taste-skill/inspect.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "prototypes/_build/SHOT-README.md",
+      "token": "deliverables/42-scratch/units.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "templates/M02-warm-local/README.md",
+      "token": "tools/taste-skill/skills/taste-skill/scripts/inspect.mjs",
+      "ext": "mjs"
+    }
+  ],
+  "deadOther": [
+    {
+      "md": "README-EN.md",
+      "token": "deliverables/59-scratch/s13-duotone.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "README.md",
+      "token": "deliverables/59-scratch/s13-duotone.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/37-critique-completeness-defense.md",
+      "token": "deliverables/37-scratch/backfill.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/38-critique-doc-intent-defense.md",
+      "token": "deliverables/38-scratch/check1.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/39-critique-toolchain-repro.md",
+      "token": "deliverables/tool-runs/S03-area-full.png",
+      "ext": "png"
+    },
+    {
+      "md": "deliverables/39-critique-toolchain-repro.md",
+      "token": "deliverables/tool-runs/x.txt",
+      "ext": "txt"
+    },
+    {
+      "md": "deliverables/39-critique-toolchain-repro.md",
+      "token": "deliverables/tool-runs/S04-inspect-shots/full-1440.png",
+      "ext": "png"
+    },
+    {
+      "md": "deliverables/40-critique-fixbenefit.md",
+      "token": "deliverables/40-scratch/out/state33.json",
+      "ext": "json"
+    },
+    {
+      "md": "deliverables/45-s15-foldcard-visual-check.md",
+      "token": "deliverables/43-scratch/ascii-before.txt",
+      "ext": "txt"
+    },
+    {
+      "md": "deliverables/45-s15-foldcard-visual-check.md",
+      "token": "deliverables/43-scratch/matrix-verify-after.json",
+      "ext": "json"
+    },
+    {
+      "md": "deliverables/45-s15-foldcard-visual-check.md",
+      "token": "deliverables/43-scratch/matrix-shot.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/45-s15-foldcard-visual-check.md",
+      "token": "deliverables/43-scratch/matrix-shots/matrix-after-a.png",
+      "ext": "png"
+    },
+    {
+      "md": "deliverables/47-critique-positioning.md",
+      "token": "deliverables/_crit6/W0-all30-155.png",
+      "ext": "png"
+    },
+    {
+      "md": "deliverables/48-critique-outsider-walkthrough.md",
+      "token": "deliverables/48-scratch/shots/01-selection-1440.png",
+      "ext": "png"
+    },
+    {
+      "md": "deliverables/50-critique-portability.md",
+      "token": "deliverables/50-scratch/analyze.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/54-critique-repo-hygiene.md",
+      "token": "deliverables/99-scratch2/big.png",
+      "ext": "png"
+    },
+    {
+      "md": "deliverables/54-critique-repo-hygiene.md",
+      "token": "deliverables/99-work/_dom_audit/out.json",
+      "ext": "json"
+    },
+    {
+      "md": "deliverables/54-critique-repo-hygiene.md",
+      "token": "deliverables/scratch_99/big.png",
+      "ext": "png"
+    },
+    {
+      "md": "deliverables/55-critique-bilingual-drift.md",
+      "token": "deliverables/38-scratch/cnendiff.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/61-plan/CRITIQUE-p0-review.md",
+      "token": "deliverables/99-scratch/build-prompts.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/61-plan/CRITIQUE-p0-review.md",
+      "token": "deliverables/99-scratch/clean-dna.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/61-plan/CRITIQUE-p0-review.md",
+      "token": "deliverables/99-scratch/dna-clean.json",
+      "ext": "json"
+    },
+    {
+      "md": "deliverables/61-plan/CRITIQUE-p0-review.md",
+      "token": "deliverables/99-scratch/dna-raw.json",
+      "ext": "json"
+    },
+    {
+      "md": "deliverables/61-plan/PLAN-gap-closure.md",
+      "token": "deliverables/99-scratch/build-prompts.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/61-plan/PLAN-gap-closure.md",
+      "token": "deliverables/99-scratch/dna-clean.json",
+      "ext": "json"
+    },
+    {
+      "md": "deliverables/61-plan/PLAN-gap-closure.md",
+      "token": "deliverables/99-scratch/minitems-parsed.json",
+      "ext": "json"
+    },
+    {
+      "md": "deliverables/61-plan/PLAN-gap-closure.md",
+      "token": "deliverables/99-scratch/mechanisms.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/61-plan/REDTEAM-gap-premises.md",
+      "token": "deliverables/99-scratch/audit-prompts.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/61-plan/REDTEAM-gap-premises.md",
+      "token": "deliverables/99-scratch/fold-audit.json",
+      "ext": "json"
+    },
+    {
+      "md": "deliverables/61-plan/SYNTHESIS-and-plan.md",
+      "token": "deliverables/99-scratch/verify-redteam.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/61-plan/VERIFY-p0-independent.md",
+      "token": "deliverables/99-scratch/iv/dump-prompts.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/61-plan/VERIFY-p0-independent.md",
+      "token": "deliverables/99-scratch/iv/routeB.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/63-plan/PLAN-hard-revalidation.md",
+      "token": "deliverables/63-test/inv.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/64-audit/code-hygiene.md",
+      "token": "deliverables/99-scratch/clean-dna.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/64-audit/code-hygiene.md",
+      "token": "deliverables/99-scratch/verify-landing.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/65-plan/REDTEAM-field-plumbing.md",
+      "token": "deliverables/65-plan/_rt_out/prompt-S01..S30.txt",
+      "ext": "txt"
+    },
+    {
+      "md": "deliverables/66-exec/EXEC-minitems-semantics.md",
+      "token": "deliverables/99-scratch/minitems/verify.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "deliverables/67-plan/PLAN-mobile.md",
+      "token": "deliverables/67-exec/verify-mobile-scope.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "prototypes/S27-hand-painted-bill-dispatch/assets/CREDITS.md",
+      "token": "deliverables/59-scratch/s27-duotone.mjs",
+      "ext": "mjs"
+    },
+    {
+      "md": "prototypes/_build/SHOT-README.md",
+      "token": "deliverables/42-scratch/units.mjs",
+      "ext": "mjs"
+    }
+  ],
+  "deadOtherByExt": {
+    "mjs": 22,
+    "png": 7,
+    "txt": 3,
+    "json": 8
+  }
+}

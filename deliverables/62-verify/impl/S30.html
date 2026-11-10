@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>撕裂贴纸社 · 十件在售</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#007B3F;
+    --paper:#EDEDED;
+    --paper-low:#E6E6E6;
+    --deco:#00E676;
+    --ink:#141414;
+    --white:#FFFFFF;
+    --cut:-32deg;
+  }
+  *,*::before,*::after{box-sizing:border-box;border-radius:0}
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink)}
+  body{font-family:"Zhuque Fangsong","ZhuqueFangsong","朱雀仿宋",FangSong,"STFangsong",serif;font-size:15px;line-height:1.55}
+
+  .wrap{max-width:1280px;margin:0 auto;padding:0 28px}
+
+  /* ---------- 斜切上片 ---------- */
+  .top{position:relative;background:var(--green);color:var(--white);overflow:hidden;padding:26px 0 0}
+  .top::after{ /* 1.5px 白带，沿 -32° 走向 */
+    content:"";position:absolute;left:-6%;right:-6%;bottom:0;height:1.5px;
+    background:var(--white);opacity:.62;transform:rotate(-32deg);transform-origin:left bottom;
+  }
+  .top .bar{display:flex;justify-content:space-between;align-items:baseline;gap:16px;border-bottom:1px solid var(--white);padding-bottom:7px}
+  .top .tag{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase}
+  .top .tag b{font-weight:600}
+
+  h1{font-family:"Anton",Impact,"Arial Narrow",sans-serif;font-weight:400;font-size:clamp(46px,8.4vw,104px);line-height:.86;letter-spacing:-.015em;margin:20px 0 0;text-transform:uppercase}
+  h1 .cut{display:inline-block;transform:skewX(-8deg)}
+  .sub{font-family:"Zhuque Fangsong",FangSong,serif;font-size:19px;line-height:1.5;max-width:30ch;margin:14px 0 0;color:var(--white)}
+  .meta{display:flex;flex-wrap:wrap;gap:0;margin:22px 0 0;border-top:1px solid var(--white)}
+  .meta div{padding:9px 18px 9px 0;margin-right:18px;border-right:1px solid var(--white)}
+  .meta div:last-child{border-right:0}
+  .meta span{display:block;font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--paper)}
+  .meta strong{font-family:"IBM Plex Mono",monospace;font-size:15px;font-weight:600;font-variant-numeric:tabular-nums}
+
+  /* 斜切带：高 96px，切掉上片右下 */
+  .band{height:96px;background:var(--green);clip-path:polygon(0 0,100% 0,100% 100%,0 0);position:relative;z-index:2;margin-bottom:-1px}
+  .band .notch{position:absolute;right:34px;bottom:6px;width:22px;height:7px;background:var(--paper)}
+  .band .notch.b{right:64px;bottom:14px;width:9px;height:3px}
+  .band .notch.c{right:96px;bottom:4px;width:27px;height:9px}
+
+  /* ---------- 下半：错开 9px ---------- */
+  .lower{position:relative;z-index:1;transform:translateY(-9px);background:var(--paper);padding:26px 0 0}
+
+  .strip{display:grid;grid-template-columns:1.15fr .85fr;gap:0;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink)}
+  .strip .lead{padding:16px 22px 16px 0;border-right:3px solid var(--ink)}
+  .strip h2{font-family:"Anton",Impact,sans-serif;font-weight:400;font-size:clamp(24px,3.4vw,40px);line-height:.94;letter-spacing:-.01em;margin:0 0 10px;text-transform:uppercase}
+  .strip p{margin:0 0 9px;max-width:34ch}
+  .strip .aside{padding:16px 0 16px 22px;font-family:"IBM Plex Mono",monospace;font-size:11.5px;line-height:1.85;font-variant-numeric:tabular-nums}
+  .strip .aside b{display:block;font-family:"Zhuque Fangsong",FangSong,serif;font-size:15px;letter-spacing:.04em;margin-bottom:4px}
+
+  /* ---------- 图墙 ---------- */
+  .wall{display:grid;grid-template-columns:repeat(12,1fr);gap:0;margin:0 0 26px;border-bottom:3px solid var(--ink)}
+  .wall figure{margin:0;position:relative;overflow:hidden;border-right:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+  .wall figure:nth-child(3n){border-right:0}
+  .wall img{display:block;width:100%;height:100%;object-fit:cover}
+  .wall figcaption{position:absolute;left:0;bottom:0;background:var(--green);color:var(--white);font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.1em;padding:3px 7px;font-variant-numeric:tabular-nums}
+  .wall .w6{grid-column:span 6}
+  .wall .w5{grid-column:span 5}
+  .wall .w7{grid-column:span 7}
+
+  /* ---------- 十条 ---------- */
+  .listhead{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;border-bottom:8px solid var(--ink);padding-bottom:8px;margin-bottom:0}
+  .listhead h2{font-family:"Anton",Impact,sans-serif;font-weight:400;font-size:clamp(26px,3.6vw,44px);line-height:.9;margin:0;text-transform:uppercase}
+  .listhead .cnt{font-family:"IBM Plex Mono",monospace;font-size:12px;font-variant-numeric:tabular-nums;letter-spacing:.1em}
+
+  .item{display:grid;grid-template-columns:74px 1fr 210px;gap:0;border-bottom:1px solid var(--ink);align-items:stretch;position:relative}
+  .item .n{font-family:"IBM Plex Mono",monospace;font-size:26px;font-weight:600;line-height:1;font-variant-numeric:tabular-nums;padding:16px 8px 16px 0;border-right:1px solid var(--ink);letter-spacing:-.02em;text-align:right}
+  .item .body{padding:15px 20px}
+  .item h3{font-family:"Anton",Impact,sans-serif;font-weight:400;font-size:21px;line-height:1.02;margin:0 0 5px;text-transform:uppercase;letter-spacing:.005em}
+  .item p{margin:0;font-size:14px;line-height:1.5;max-width:52ch}
+  .item .side{border-left:1px solid var(--ink);padding:15px 14px;font-family:"IBM Plex Mono",monospace;font-size:11.5px;font-variant-numeric:tabular-nums;display:flex;flex-direction:column;justify-content:space-between;gap:6px}
+  .item .side .price{font-size:16px;font-weight:600;text-align:right}
+  .item .side .st{text-align:right;letter-spacing:.08em;text-transform:uppercase;font-size:10px}
+  .item .side .st b{background:var(--deco);color:var(--ink);padding:2px 5px}
+  .item.alt .n{background:var(--green);color:var(--white);padding-left:8px}
+  .item.alt .side .price{color:var(--green)}
+
+  /* ---------- 联系 ---------- */
+  .call{background:var(--ink);color:var(--white);margin-top:34px;padding:30px 0 34px;position:relative;overflow:hidden}
+  .call::before{content:"";position:absolute;left:-4%;right:-4%;top:0;height:6px;background:var(--deco);transform:rotate(-1.6deg);transform-origin:left top}
+  .call .in{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:start;padding-top:12px}
+  .call h2{font-family:"Anton",Impact,sans-serif;font-weight:400;font-size:clamp(28px,4.4vw,54px);line-height:.92;margin:0 0 10px;text-transform:uppercase;color:var(--white)}
+  .call p{margin:0 0 8px;max-width:36ch;color:var(--white)}
+  .call .rows{font-family:"IBM Plex Mono",monospace;font-size:12.5px;line-height:2;font-variant-numeric:tabular-nums}
+  .call .rows span{display:block;border-bottom:1px solid var(--paper);padding-bottom:3px}
+  .call .rows em{font-style:normal;color:var(--deco);letter-spacing:.1em;font-size:10px;text-transform:uppercase;margin-right:9px}
+  .btn{display:inline-block;margin-top:12px;background:var(--deco);color:var(--ink);border:3px solid var(--deco);padding:11px 20px;font-family:"Anton",Impact,sans-serif;font-size:19px;letter-spacing:.03em;text-decoration:none;text-transform:uppercase;filter:drop-shadow(4px 4px 0 var(--white))}
+  .btn:hover{background:var(--white);border-color:var(--white);filter:drop-shadow(4px 4px 0 var(--deco))}
+
+  footer{background:var(--paper-low);padding:16px 0 20px}
+  footer .in{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;font-family:"IBM Plex Mono",monospace;font-size:11px;line-height:1.9;font-variant-numeric:tabular-nums;border-top:6px solid var(--green);padding-top:10px}
+  footer .in span{max-width:44ch}
+
+  @media (max-width:860px){
+    .wrap{padding:0 16px}
+    .band{height:64px}
+    .strip{grid-template-columns:1fr}
+    .strip .lead{border-right:0;border-bottom:1px solid var(--ink);padding:14px 0}
+    .strip .aside{border-bottom:1px solid var(--ink);padding:14px 0}
+    .wall .w6,.wall .w5,.wall .w7{grid-column:span 12}
+    .wall figure{border-right:0}
+    .item{grid-template-columns:52px 1fr}
+    .item .n{font-size:19px}
+    .item .side{grid-column:1 / -1;border-left:0;border-top:1px solid var(--ink);flex-direction:row;justify-content:space-between;padding:8px 0}
+    .item .side .price,.item .side .st{text-align:left}
+    .call .in{grid-template-columns:1fr}
+    h1{font-size:clamp(38px,12vw,64px)}
+    .meta div{padding:7px 12px 7px 0;margin-right:12px;border-right:0}
+    .meta{row-gap:0}
+    .top .bar{flex-wrap:wrap;gap:4px}
+    .meta div{flex:0 0 auto}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="bar">
+      <div class="tag"><b>撕裂贴纸社</b> / RIPS &amp; STICKERS</div>
+      <div class="tag">在售 10 件 · NO.01—10</div>
+    </div>
+    <h1>撕开<span class="cut">两半</span></h1>
+    <p class="sub">把整版荧光绿的贴纸，沿一道斜口撕开。上半留着，下半错位九像素——缺口在，才看得出它被撕过。</p>
+    <div class="meta">
+      <div><span>在售</span><strong>10</strong></div>
+      <div><span>图版</span><strong>06</strong></div>
+      <div><span>撕口</span><strong>−32°</strong></div>
+      <div><span>营业</span><strong>13:00—21:00</strong></div>
+      <div><span>档期</span><strong>W.42</strong></div>
+    </div>
+  </div>
+</header>
+
+<div class="band" aria-hidden="true"><i class="notch"></i><i class="notch b"></i><i class="notch c"></i></div>
+
+<main class="lower">
+  <div class="wrap">
+
+    <section class="strip">
+      <div class="lead">
+        <h2>我们不卖整齐<br>只卖撕口</h2>
+        <p>一间做街头贴纸与丝印的小铺。版子自己刻，油墨自己调，荧光绿只有一种，撕口每次都不一样。</p>
+        <p>每款限量手印，纸背留编号。撕坏了不补，撕偏了算你的。</p>
+      </div>
+      <div class="aside">
+        <b>取货与寄送</b>
+        到店：城南区打铁巷 3 号卷闸门<br>
+        时段：周三至周日 13:00—21:00<br>
+        电话：021-6482 7315<br>
+        邮件：rip@stickers.club<br>
+        邮寄：满 120 元包邮，撕口不保
+      </div>
+    </section>
+
+    <section class="wall" aria-label="贴纸图版">
+      <figure class="w7"><img src="images/占位-1.jpg" width="1100" height="640" alt="荧光绿贴纸整版未撕"><figcaption>图 01 · 整版</figcaption></figure>
+      <figure class="w5"><img src="images/占位-2.jpg" width="900" height="640" alt="沿斜口撕开后的两半"><figcaption>图 02 · 撕口</figcaption></figure>
+      <figure class="w5"><img src="images/占位-3.jpg" width="900" height="620" alt="刻版台上的刀痕"><figcaption>图 03 · 刀</figcaption></figure>
+      <figure class="w7"><img src="images/占位-4.jpg" width="1100" height="620" alt="油墨刮印过程"><figcaption>图 04 · 刮印</figcaption></figure>
+      <figure class="w6"><img src="images/占位-5.jpg" width="960" height="620" alt="成品叠放与错位"><figcaption>图 05 · 叠放</figcaption></figure>
+      <figure class="w6"><img src="images/占位-6.jpg" width="960" height="620" alt="撕口边缘的毛边特写"><figcaption>图 06 · 毛边</figcaption></figure>
+    </section>
+
+    <section>
+      <div class="listhead">
+        <h2>十条现货</h2>
+        <div class="cnt">编号 01 — 10 / 连续</div>
+      </div>
+
+      <article class="item">
+        <div class="n">01</div>
+        <div class="body"><h3>斜口整版 · 荧光绿</h3><p>整版二十枚，沿 −32° 预切一刀，撕下即用。纸背带编号。</p></div>
+        <div class="side"><div class="price">¥ 68</div><div class="st">现货 <b>IN</b></div></div>
+      </article>
+
+      <article class="item alt">
+        <div class="n">02</div>
+        <div class="body"><h3>错位九毫米</h3><p>上下两片刻意错开 9px 的印刷件，装在透明袋里，装裱直接可用。</p></div>
+        <div class="side"><div class="price">¥ 96</div><div class="st">现货 <b>IN</b></div></div>
+      </article>
+
+      <article class="item">
+        <div class="n">03</div>
+        <div class="body"><h3>缺口样张册</h3><p>十二张不同缺口宽度（6—28mm）的样张，钉成一本，用来挑撕法。</p></div>
+        <div class="side"><div class="price">¥ 120</div><div class="st">少量 <b>低</b></div></div>
+      </article>
+
+      <article class="item alt">
+        <div class="n">04</div>
+        <div class="body"><h3>白带测试条</h3><p>1.5px 白带偏移实验的剩余条，十五条一束，颜色略深，按处理品出。</p></div>
+        <div class="side"><div class="price">¥ 32</div><div class="st">现货 <b>IN</b></div></div>
+      </article>
+
+      <article class="item">
+        <div class="n">05</div>
+        <div class="body"><h3>街角招贴 · A2</h3><p>两面印，正面荧光绿，反面留白。适合贴在卷闸门与电箱上。</p></div>
+        <div class="side"><div class="price">¥ 88</div><div class="st">现货 <b>IN</b></div></div>
+      </article>
+
+      <article class="item alt">
+        <div class="n">06</div>
+        <div class="body"><h3>撕口拼贴包</h3><p>一包四十片撕剩的边角，大小不一，做拼贴与手账用，不挑色。</p></div>
+        <div class="side"><div class="price">¥ 45</div><div class="st">现货 <b>IN</b></div></div>
+      </article>
+
+      <article class="item">
+        <div class="n">07</div>
+        <div class="body"><h3>黑底反白版</h3><p>墨黑底、反白字，撕口处压一条 3px 白线，夜里贴最扎眼。</p></div>
+        <div class="side"><div class="price">¥ 78</div><div class="st">少量 <b>低</b></div></div>
+      </article>
+
+      <article class="item alt">
+        <div class="n">08</div>
+        <div class="body"><h3>手工刻版（可订制）</h3><p>按你的字刻一块橡胶版，交期七天，版归你，撕法可选。</p></div>
+        <div class="side"><div class="price">¥ 260</div><div class="st">订制 <b>7D</b></div></div>
+      </article>
+
+      <article class="item">
+        <div class="n">09</div>
+        <div class="body"><h3>丝印油墨 · 荧光绿 676</h3><p>500g 罐装，对应本店的唯一绿色，干燥偏慢，适合纸与PVC。</p></div>
+        <div class="side"><div class="price">¥ 150</div><div class="st">现货 <b>IN</b></div></div>
+      </article>
+
+      <article class="item alt">
+        <div class="n">10</div>
+        <div class="body"><h3>撕口工作坊（两小时）</h3><p>十人以内，教刻版、调墨、撕口，成品带走。周末两场。</p></div>
+        <div class="side"><div class="price">¥ 180</div><div class="st">报名 <b>OPEN</b></div></div>
+      </article>
+    </section>
+  </div>
+
+  <section class="call">
+    <div class="wrap in">
+      <div>
+        <h2>要哪一张<br>撕给你看</h2>
+        <p>店在打铁巷的卷闸门后面。来之前打个电话，我们把整版铺开，你挑，我们撕。</p>
+        <a class="btn" href="tel:+862164827315">电话 021-6482 7315</a>
+      </div>
+      <div class="rows">
+        <span><em>到店</em>城南区打铁巷 3 号卷闸门</span>
+        <span><em>时段</em>周三至周日 13:00—21:00</span>
+        <span><em>电话</em>021-6482 7315</span>
+        <span><em>邮件</em>rip@stickers.club</span>
+        <span><em>现货</em>10 条 · 图版 06</span>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap in">
+      <span>撕裂贴纸社 · 打铁巷 3 号 · 021-6482 7315 · rip@stickers.club</span>
+      <span>在售 10 条，图版 6 幅；编号 01—10 连续，不凑整、不留空槽。撕口 −32°，错位 9px。</span>
+    </div>
+  </footer>
+</div>
+
+</body>
+</html>

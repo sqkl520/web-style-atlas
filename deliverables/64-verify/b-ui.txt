@@ -1,0 +1,79 @@
+﻿{
+ "S15": {
+  "id": "S15",
+  "hidden": false,
+  "labels": [
+   "一句话视觉定义",
+   "美学家族与参考",
+   "当前有效配色",
+   "字体策略",
+   "可落地要点",
+   "关键视觉元素",
+   "动效与交互",
+   "反 AI 味风险与规避",
+   "适用场景",
+   "设计师签名式怪癖"
+  ],
+  "hasLandingLabel": true,
+  "landingSnippet": "可落地要点\nCSS 思路：三层透叠用三个绝对定位图层配 mix-blend-mode: multiply，交叠亮度差靠混合模式自然产生，不需要额外的手工调色；铅笔线一律用 SVG stroke-width: 0.8 与 ",
+  "hasPromptBtn": true,
+  "promptBtnText": "复制 AI 提示词",
+  "promptBtnOffsetFromBodyTop": 32,
+  "promptBtnInViewport": true,
+  "bodyTextLen": 2900,
+  "detailScrollH": 3478,
+  "winH": 1000
+ },
+ "S01": {
+  "id": "S01",
+  "hidden": false,
+  "labels": [
+   "一句话视觉定义",
+   "美学家族与参考",
+   "当前有效配色",
+   "字体策略",
+   "布局与网格",
+   "可落地要点",
+   "关键视觉元素",
+   "动效与交互",
+   "反 AI 味风险与规避",
+   "适用场景",
+   "设计师签名式怪癖"
+  ],
+  "hasLandingLabel": true,
+  "landingSnippet": "可落地要点\nCSS 思路——楔形用单层 clip-path: polygon() 实色，栏沟用 grid-column-gap: 24px 而非 border，折角用两层三角加 inset 阴影模拟压痕。栅格单位 6px",
+  "hasPromptBtn": true,
+  "promptBtnText": "复制 AI 提示词",
+  "promptBtnOffsetFromBodyTop": 32,
+  "promptBtnInViewport": true,
+  "bodyTextLen": 2690,
+  "detailScrollH": 3274,
+  "winH": 1000
+ },
+ "S29": {
+  "id": "S29",
+  "hidden": false,
+  "labels": [
+   "一句话视觉定义",
+   "美学家族与参考",
+   "当前有效配色",
+   "字体策略",
+   "布局与网格",
+   "可落地要点",
+   "关键视觉元素",
+   "动效与交互",
+   "反 AI 味风险与规避",
+   "适用场景",
+   "设计师签名式怪癖"
+  ],
+  "hasLandingLabel": true,
+  "landingSnippet": "可落地要点\nCSS 思路，警示框的 45° 斜纹用重复线性色标实现且只用在警示框内部（纹宽 8px、间隙 8px 固定），其余分区一律用 1px 实线与虚线；钢丝圈用 SVG 路径加 0.5px 实色高光；爆炸图用内联 ",
+  "hasPromptBtn": true,
+  "promptBtnText": "复制 AI 提示词",
+  "promptBtnOffsetFromBodyTop": 32,
+  "promptBtnInViewport": true,
+  "bodyTextLen": 3826,
+  "detailScrollH": 4073,
+  "winH": 1000
+ }
+}

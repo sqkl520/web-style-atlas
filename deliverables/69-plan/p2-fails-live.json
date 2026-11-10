@@ -1,0 +1,100 @@
+{
+ "S07": {
+  "exit": 1,
+  "at": "2026-10-28T18:37:00.229Z",
+  "allow": [],
+  "fails": [
+   {
+    "id": "mono",
+    "width": 1440,
+    "msg": "Monospace type outside code: IBM Plex Mono — e.g. \"46\", \"2026-02\", \"118\", \"G-4\"",
+    "alsoAt": [
+     768,
+     390
+    ]
+   }
+  ],
+  "warnIds": [
+   "hairline",
+   "font-count",
+   "no-footage"
+  ]
+ },
+ "S08": {
+  "exit": 1,
+  "at": "2026-10-28T18:37:33.846Z",
+  "allow": [],
+  "fails": [
+   {
+    "id": "palette-terracotta",
+    "width": 1440,
+    "msg": "Terracotta / rust-orange accent (button #c46a1f).",
+    "alsoAt": [
+     768,
+     390
+    ]
+   },
+   {
+    "id": "font-count",
+    "width": 1440,
+    "msg": "4 typefaces in use (Source Serif 4, Noto Serif SC, Overprint Numerals, Gloock).",
+    "alsoAt": [
+     768,
+     390
+    ]
+   }
+  ],
+  "warnIds": [
+   "no-footage",
+   "card-rows"
+  ]
+ },
+ "S13": {
+  "exit": 1,
+  "at": "2026-10-28T18:38:09.637Z",
+  "allow": [],
+  "fails": [
+   {
+    "id": "mono",
+    "width": 1440,
+    "msg": "Monospace type outside code: DM Mono — e.g. \"0.4mm\", \"0.4mm\", \"0.4mm\", \"0.4mm\"",
+    "alsoAt": [
+     768,
+     390
+    ]
+   },
+   {
+    "id": "empty-screens",
+    "width": 1440,
+    "msg": "3 of 6 desktop screens are almost empty ground (under 20% of the screen holds text, a picture or a colour field): screens 3, 5, 6."
+   }
+  ],
+  "warnIds": [
+   "font-count",
+   "body-size",
+   "no-footage",
+   "still-page",
+   "hairline"
+  ]
+ },
+ "S21": {
+  "exit": 1,
+  "at": "2026-10-28T18:38:43.453Z",
+  "allow": [],
+  "fails": [
+   {
+    "id": "mono",
+    "width": 1440,
+    "msg": "Monospace type outside code: IBM Plex Mono — e.g. \"22:04\", \"22:00\", \"23:00\", \"23:00\"",
+    "alsoAt": [
+     768,
+     390
+    ]
+   }
+  ],
+  "warnIds": [
+   "font-count",
+   "no-footage"
+  ]
+ }
+}

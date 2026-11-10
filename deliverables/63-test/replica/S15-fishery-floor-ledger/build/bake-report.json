@@ -1,0 +1,177 @@
+{
+ "prototype": "S15-fishery-floor-ledger",
+ "generator": "build/bake-plates.py",
+ "mechanism": "grayscale -> autocontrast(0.4%) -> unsharp(2/58/3) -> 3-stop graphite/paper duotone LUT",
+ "min_width": 900,
+ "max_width": 1280,
+ "plates": [
+  {
+   "plate": "photo-01-boat.jpg",
+   "source": "source/fishery-01-boat.jpg",
+   "source_width": 1280,
+   "source_height": 1707,
+   "stored_width": 1280,
+   "stored_height": 1707,
+   "bytes": 545496,
+   "gray_before_min": 0,
+   "gray_before_max": 255,
+   "gray_before_mean": 104.78,
+   "rgb_mean": [
+    82.77,
+    87.9,
+    91.42
+   ],
+   "warm_shift_r_minus_g": -5.128,
+   "warm_shift_b_minus_g": 3.52,
+   "warm_cast": false,
+   "ramp": {
+    "dark": "#22282B",
+    "mid": "#3A3F45",
+    "light": "#E7EBE9"
+   },
+   "sharpen": "UnsharpMask(radius=2, percent=58, threshold=3)",
+   "autocontrast_cutoff_pct": 0.4,
+   "jpeg_quality": 87
+  },
+  {
+   "plate": "photo-02-nets.jpg",
+   "source": "source/fishery-02-nets.jpg",
+   "source_width": 1280,
+   "source_height": 960,
+   "stored_width": 1280,
+   "stored_height": 960,
+   "bytes": 453548,
+   "gray_before_min": 0,
+   "gray_before_max": 255,
+   "gray_before_mean": 159.75,
+   "rgb_mean": [
+    127.28,
+    132.03,
+    134.29
+   ],
+   "warm_shift_r_minus_g": -4.745,
+   "warm_shift_b_minus_g": 2.266,
+   "warm_cast": false,
+   "ramp": {
+    "dark": "#22282B",
+    "mid": "#3A3F45",
+    "light": "#E7EBE9"
+   },
+   "sharpen": "UnsharpMask(radius=2, percent=58, threshold=3)",
+   "autocontrast_cutoff_pct": 0.4,
+   "jpeg_quality": 87
+  },
+  {
+   "plate": "photo-03-harbour.jpg",
+   "source": "source/fishery-03-harbour.jpg",
+   "source_width": 1280,
+   "source_height": 720,
+   "stored_width": 1280,
+   "stored_height": 720,
+   "bytes": 292352,
+   "gray_before_min": 0,
+   "gray_before_max": 255,
+   "gray_before_mean": 123.42,
+   "rgb_mean": [
+    93.01,
+    97.99,
+    101.45
+   ],
+   "warm_shift_r_minus_g": -4.984,
+   "warm_shift_b_minus_g": 3.456,
+   "warm_cast": false,
+   "ramp": {
+    "dark": "#22282B",
+    "mid": "#3A3F45",
+    "light": "#E7EBE9"
+   },
+   "sharpen": "UnsharpMask(radius=2, percent=58, threshold=3)",
+   "autocontrast_cutoff_pct": 0.4,
+   "jpeg_quality": 87
+  },
+  {
+   "plate": "photo-04-plan.jpg",
+   "source": "source/fishery-04-plan.jpg",
+   "source_width": 1280,
+   "source_height": 983,
+   "stored_width": 1280,
+   "stored_height": 983,
+   "bytes": 195291,
+   "gray_before_min": 0,
+   "gray_before_max": 255,
+   "gray_before_mean": 240.14,
+   "rgb_mean": [
+    215.54,
+    219.65,
+    218.26
+   ],
+   "warm_shift_r_minus_g": -4.113,
+   "warm_shift_b_minus_g": -1.396,
+   "warm_cast": false,
+   "ramp": {
+    "dark": "#22282B",
+    "mid": "#3A3F45",
+    "light": "#E7EBE9"
+   },
+   "sharpen": "UnsharpMask(radius=2, percent=58, threshold=3)",
+   "autocontrast_cutoff_pct": 0.4,
+   "jpeg_quality": 87
+  },
+  {
+   "plate": "photo-05-stockfish.jpg",
+   "source": "source/fishery-05-stockfish.jpg",
+   "source_width": 1280,
+   "source_height": 914,
+   "stored_width": 1280,
+   "stored_height": 914,
+   "bytes": 284615,
+   "gray_before_min": 0,
+   "gray_before_max": 255,
+   "gray_before_mean": 130.98,
+   "rgb_mean": [
+    105.19,
+    110.13,
+    112.96
+   ],
+   "warm_shift_r_minus_g": -4.943,
+   "warm_shift_b_minus_g": 2.829,
+   "warm_cast": false,
+   "ramp": {
+    "dark": "#22282B",
+    "mid": "#3A3F45",
+    "light": "#E7EBE9"
+   },
+   "sharpen": "UnsharpMask(radius=2, percent=58, threshold=3)",
+   "autocontrast_cutoff_pct": 0.4,
+   "jpeg_quality": 87
+  },
+  {
+   "plate": "photo-06-chart.jpg",
+   "source": "source/fishery-06-chart.jpg",
+   "source_width": 1280,
+   "source_height": 2177,
+   "stored_width": 1280,
+   "stored_height": 2177,
+   "bytes": 944846,
+   "gray_before_min": 0,
+   "gray_before_max": 255,
+   "gray_before_mean": 221.88,
+   "rgb_mean": [
+    193.82,
+    198.1,
+    197.64
+   ],
+   "warm_shift_r_minus_g": -4.282,
+   "warm_shift_b_minus_g": -0.458,
+   "warm_cast": false,
+   "ramp": {
+    "dark": "#22282B",
+    "mid": "#3A3F45",
+    "light": "#E7EBE9"
+   },
+   "sharpen": "UnsharpMask(radius=2, percent=58, threshold=3)",
+   "autocontrast_cutoff_pct": 0.4,
+   "jpeg_quality": 87
+  }
+ ]
+}

@@ -1,0 +1,747 @@
+{
+ "keys": [
+  ".masthead",
+  ".compare",
+  ".plates",
+  ".motion",
+  "footer"
+ ],
+ "views": {
+  "orig@1440": {
+   "vp": {
+    "w": 1440,
+    "h": 900
+   },
+   "docH": 5132,
+   "docW": 1440,
+   "vw": 1440,
+   "vh": 900,
+   "bodyH": 5132,
+   "hOverflow": 0,
+   "keys": {
+    ".masthead": {
+     "top": 56,
+     "left": 56,
+     "w": 1328,
+     "h": 692
+    },
+    ".compare": {
+     "top": 748,
+     "left": 56,
+     "w": 1328,
+     "h": 1561
+    },
+    ".plates": {
+     "top": 2309,
+     "left": 56,
+     "w": 1328,
+     "h": 1444.9
+    },
+    ".motion": {
+     "top": 3753.9,
+     "left": 56,
+     "w": 1328,
+     "h": 886.1
+    },
+    "footer": {
+     "top": 4736,
+     "left": 0,
+     "w": 1440,
+     "h": 396
+    }
+   },
+   "keyMissing": [],
+   "textOverflow": {
+    "n": 0,
+    "worst": []
+   },
+   "ellipsisClips": {
+    "n": 1,
+    "worst": [
+     {
+      "el": "body > a.skip",
+      "over": 105,
+      "txt": "跳到五栏对撞表"
+     }
+    ]
+   },
+   "overlaps": {
+    "n": 5,
+    "worst": [
+     {
+      "a": "section.compare > div.type-area.is-registering > table.grid-table > colgroup",
+      "b": "section.compare > div.type-area.is-registering > table.grid-table > tbody",
+      "area": 1071696,
+      "frac": 1,
+      "y": 1020
+     },
+     {
+      "a": "section.compare > div.type-area.is-registering > table.grid-table > colgroup",
+      "b": "section.compare > div.type-area.is-registering > table.grid-table > thead",
+      "area": 47808,
+      "frac": 1,
+      "y": 984
+     },
+     {
+      "a": "section.compare > div.type-area.is-registering > table.grid-table > colgroup",
+      "b": "section.compare > div.type-area.is-registering > table.grid-table > tfoot",
+      "area": 47808,
+      "frac": 1,
+      "y": 1827
+     },
+     {
+      "a": "section.motion > figure.regscale > svg > g",
+      "b": "section.motion > figure.regscale > svg > path",
+      "area": 3859,
+      "frac": 0.54,
+      "y": 4251
+     },
+     {
+      "a": "section.motion > figure.regscale > svg > g",
+      "b": "section.motion > figure.regscale > svg > path",
+      "area": 1754,
+      "frac": 0.54,
+      "y": 4251
+     }
+    ]
+   },
+   "holes": {
+    "n": 1,
+    "total": 748,
+    "list": [
+     {
+      "from": 0,
+      "to": 748,
+      "h": 748
+     }
+    ],
+    "mainH": 3892
+   },
+   "brokenImgs": [],
+   "sheets": 5,
+   "badSheets": [],
+   "fonts": "loaded",
+   "rules": 349,
+   "textChars": 2543,
+   "shot": {
+    "w": 1440,
+    "h": 5132,
+    "scale": 0.5066250974279034
+   }
+  },
+  "orig@768": {
+   "vp": {
+    "w": 768,
+    "h": 1024
+   },
+   "docH": 5562,
+   "docW": 768,
+   "vw": 768,
+   "vh": 1024,
+   "bodyH": 5562,
+   "hOverflow": 0,
+   "keys": {
+    ".masthead": {
+     "top": 32,
+     "left": 32,
+     "w": 704,
+     "h": 738
+    },
+    ".compare": {
+     "top": 770,
+     "left": 32,
+     "w": 704,
+     "h": 1933
+    },
+    ".plates": {
+     "top": 2703,
+     "left": 32,
+     "w": 704,
+     "h": 1271.2
+    },
+    ".motion": {
+     "top": 3974.2,
+     "left": 32,
+     "w": 704,
+     "h": 886.1
+    },
+    "footer": {
+     "top": 4956.3,
+     "left": 0,
+     "w": 768,
+     "h": 606
+    }
+   },
+   "keyMissing": [],
+   "textOverflow": {
+    "n": 0,
+    "worst": []
+   },
+   "ellipsisClips": {
+    "n": 1,
+    "worst": [
+     {
+      "el": "body > a.skip",
+      "over": 105,
+      "txt": "跳到五栏对撞表"
+     }
+    ]
+   },
+   "overlaps": {
+    "n": 5,
+    "worst": [
+     {
+      "a": "section.compare > div.type-area.is-registering > table.grid-table > colgroup",
+      "b": "section.compare > div.type-area.is-registering > table.grid-table > tbody",
+      "area": 585024,
+      "frac": 1,
+      "y": 1060
+     },
+     {
+      "a": "section.compare > div.type-area.is-registering > table.grid-table > colgroup",
+      "b": "section.compare > div.type-area.is-registering > table.grid-table > thead",
+      "area": 42240,
+      "frac": 1,
+      "y": 1000
+     },
+     {
+      "a": "section.compare > div.type-area.is-registering > table.grid-table > colgroup",
+      "b": "section.compare > div.type-area.is-registering > table.grid-table > tfoot",
+      "area": 42240,
+      "frac": 1,
+      "y": 1891
+     },
+     {
+      "a": "section.motion > figure.regscale > svg > g",
+      "b": "section.motion > figure.regscale > svg > path",
+      "area": 3859,
+      "frac": 0.54,
+      "y": 4471
+     },
+     {
+      "a": "section.motion > figure.regscale > svg > g",
+      "b": "section.motion > figure.regscale > svg > path",
+      "area": 1754,
+      "frac": 0.54,
+      "y": 4471
+     }
+    ]
+   },
+   "holes": {
+    "n": 1,
+    "total": 770,
+    "list": [
+     {
+      "from": 0,
+      "to": 770,
+      "h": 770
+     }
+    ],
+    "mainH": 4090
+   },
+   "brokenImgs": [],
+   "sheets": 5,
+   "badSheets": [],
+   "fonts": "loaded",
+   "rules": 349,
+   "textChars": 2543,
+   "shot": {
+    "w": 768,
+    "h": 5562,
+    "scale": 0.46745774901114706
+   }
+  },
+  "orig@390": {
+   "vp": {
+    "w": 390,
+    "h": 844
+   },
+   "docH": 10322,
+   "docW": 390,
+   "vw": 390,
+   "vh": 844,
+   "bodyH": 10322,
+   "hOverflow": 0,
+   "keys": {
+    ".masthead": {
+     "top": 20,
+     "left": 20,
+     "w": 350,
+     "h": 1004
+    },
+    ".compare": {
+     "top": 1024,
+     "left": 20,
+     "w": 350,
+     "h": 5041
+    },
+    ".plates": {
+     "top": 6065,
+     "left": 20,
+     "w": 350,
+     "h": 2336.5
+    },
+    ".motion": {
+     "top": 8401.5,
+     "left": 20,
+     "w": 350,
+     "h": 954.1
+    },
+    "footer": {
+     "top": 9451.6,
+     "left": 0,
+     "w": 390,
+     "h": 870
+    }
+   },
+   "keyMissing": [],
+   "textOverflow": {
+    "n": 0,
+    "worst": []
+   },
+   "ellipsisClips": {
+    "n": 1,
+    "worst": [
+     {
+      "el": "body > a.skip",
+      "over": 105,
+      "txt": "跳到五栏对撞表"
+     }
+    ]
+   },
+   "overlaps": {
+    "n": 3,
+    "worst": [
+     {
+      "a": "section.compare > div.type-area.is-registering > table.grid-table > colgroup",
+      "b": "section.compare > div.type-area.is-registering > table.grid-table > tbody",
+      "area": 1305150,
+      "frac": 1,
+      "y": 1326
+     },
+     {
+      "a": "section.compare > div.type-area.is-registering > table.grid-table > colgroup",
+      "b": "section.compare > div.type-area.is-registering > table.grid-table > tfoot",
+      "area": 55300,
+      "frac": 1,
+      "y": 5055
+     },
+     {
+      "a": "section.motion > figure.regscale > svg > g",
+      "b": "section.motion > figure.regscale > svg > path",
+      "area": 1748,
+      "frac": 0.54,
+      "y": 8978
+     }
+    ]
+   },
+   "holes": {
+    "n": 1,
+    "total": 1024,
+    "list": [
+     {
+      "from": 0,
+      "to": 1024,
+      "h": 1024
+     }
+    ],
+    "mainH": 8332
+   },
+   "brokenImgs": [],
+   "sheets": 5,
+   "badSheets": [],
+   "fonts": "loaded",
+   "rules": 349,
+   "textChars": 2543,
+   "shot": {
+    "w": 390,
+    "h": 10322,
+    "scale": 0.2518891687657431
+   }
+  },
+  "swap-inset@1440": {
+   "vp": {
+    "w": 1440,
+    "h": 900
+   },
+   "docH": 5132,
+   "docW": 1440,
+   "vw": 1440,
+   "vh": 900,
+   "bodyH": 5132,
+   "hOverflow": 0,
+   "keys": {
+    ".masthead": {
+     "top": 56,
+     "left": 56,
+     "w": 1328,
+     "h": 692
+    },
+    ".compare": {
+     "top": 748,
+     "left": 56,
+     "w": 1328,
+     "h": 1561
+    },
+    ".plates": {
+     "top": 2309,
+     "left": 56,
+     "w": 1328,
+     "h": 1444.9
+    },
+    ".motion": {
+     "top": 3753.9,
+     "left": 56,
+     "w": 1328,
+     "h": 886.1
+    },
+    "footer": {
+     "top": 4736,
+     "left": 0,
+     "w": 1440,
+     "h": 396
+    }
+   },
+   "keyMissing": [],
+   "textOverflow": {
+    "n": 0,
+    "worst": []
+   },
+   "ellipsisClips": {
+    "n": 1,
+    "worst": [
+     {
+      "el": "body > a.skip",
+      "over": 105,
+      "txt": "岸含显阻滚则挤"
+     }
+    ]
+   },
+   "overlaps": {
+    "n": 5,
+    "worst": [
+     {
+      "a": "section.compare > div.type-area.is-registering > table.grid-table > colgroup",
+      "b": "section.compare > div.type-area.is-registering > table.grid-table > tbody",
+      "area": 1071696,
+      "frac": 1,
+      "y": 1020
+     },
+     {
+      "a": "section.compare > div.type-area.is-registering > table.grid-table > colgroup",
+      "b": "section.compare > div.type-area.is-registering > table.grid-table > thead",
+      "area": 47808,
+      "frac": 1,
+      "y": 984
+     },
+     {
+      "a": "section.compare > div.type-area.is-registering > table.grid-table > colgroup",
+      "b": "section.compare > div.type-area.is-registering > table.grid-table > tfoot",
+      "area": 47808,
+      "frac": 1,
+      "y": 1827
+     },
+     {
+      "a": "section.motion > figure.regscale > svg > g",
+      "b": "section.motion > figure.regscale > svg > path",
+      "area": 3859,
+      "frac": 0.54,
+      "y": 4251
+     },
+     {
+      "a": "section.motion > figure.regscale > svg > g",
+      "b": "section.motion > figure.regscale > svg > path",
+      "area": 1754,
+      "frac": 0.54,
+      "y": 4251
+     }
+    ]
+   },
+   "holes": {
+    "n": 1,
+    "total": 748,
+    "list": [
+     {
+      "from": 0,
+      "to": 748,
+      "h": 748
+     }
+    ],
+    "mainH": 3892
+   },
+   "brokenImgs": [],
+   "sheets": 5,
+   "badSheets": [],
+   "fonts": "loaded",
+   "rules": 349,
+   "textChars": 2543,
+   "shot": {
+    "w": 1440,
+    "h": 5132,
+    "scale": 0.5066250974279034
+   }
+  },
+  "swap-inset@768": {
+   "vp": {
+    "w": 768,
+    "h": 1024
+   },
+   "docH": 5562,
+   "docW": 768,
+   "vw": 768,
+   "vh": 1024,
+   "bodyH": 5562,
+   "hOverflow": 0,
+   "keys": {
+    ".masthead": {
+     "top": 32,
+     "left": 32,
+     "w": 704,
+     "h": 738
+    },
+    ".compare": {
+     "top": 770,
+     "left": 32,
+     "w": 704,
+     "h": 1933
+    },
+    ".plates": {
+     "top": 2703,
+     "left": 32,
+     "w": 704,
+     "h": 1271.2
+    },
+    ".motion": {
+     "top": 3974.2,
+     "left": 32,
+     "w": 704,
+     "h": 886.1
+    },
+    "footer": {
+     "top": 4956.3,
+     "left": 0,
+     "w": 768,
+     "h": 606
+    }
+   },
+   "keyMissing": [],
+   "textOverflow": {
+    "n": 0,
+    "worst": []
+   },
+   "ellipsisClips": {
+    "n": 1,
+    "worst": [
+     {
+      "el": "body > a.skip",
+      "over": 105,
+      "txt": "岸含显阻滚则挤"
+     }
+    ]
+   },
+   "overlaps": {
+    "n": 5,
+    "worst": [
+     {
+      "a": "section.compare > div.type-area.is-registering > table.grid-table > colgroup",
+      "b": "section.compare > div.type-area.is-registering > table.grid-table > tbody",
+      "area": 585024,
+      "frac": 1,
+      "y": 1060
+     },
+     {
+      "a": "section.compare > div.type-area.is-registering > table.grid-table > colgroup",
+      "b": "section.compare > div.type-area.is-registering > table.grid-table > thead",
+      "area": 42240,
+      "frac": 1,
+      "y": 1000
+     },
+     {
+      "a": "section.compare > div.type-area.is-registering > table.grid-table > colgroup",
+      "b": "section.compare > div.type-area.is-registering > table.grid-table > tfoot",
+      "area": 42240,
+      "frac": 1,
+      "y": 1891
+     },
+     {
+      "a": "section.motion > figure.regscale > svg > g",
+      "b": "section.motion > figure.regscale > svg > path",
+      "area": 3859,
+      "frac": 0.54,
+      "y": 4471
+     },
+     {
+      "a": "section.motion > figure.regscale > svg > g",
+      "b": "section.motion > figure.regscale > svg > path",
+      "area": 1754,
+      "frac": 0.54,
+      "y": 4471
+     }
+    ]
+   },
+   "holes": {
+    "n": 1,
+    "total": 770,
+    "list": [
+     {
+      "from": 0,
+      "to": 770,
+      "h": 770
+     }
+    ],
+    "mainH": 4090
+   },
+   "brokenImgs": [],
+   "sheets": 5,
+   "badSheets": [],
+   "fonts": "loaded",
+   "rules": 349,
+   "textChars": 2543,
+   "shot": {
+    "w": 768,
+    "h": 5562,
+    "scale": 0.46745774901114706
+   }
+  },
+  "swap-inset@390": {
+   "vp": {
+    "w": 390,
+    "h": 844
+   },
+   "docH": 10346,
+   "docW": 390,
+   "vw": 390,
+   "vh": 844,
+   "bodyH": 10346,
+   "hOverflow": 0,
+   "keys": {
+    ".masthead": {
+     "top": 20,
+     "left": 20,
+     "w": 350,
+     "h": 1004
+    },
+    ".compare": {
+     "top": 1024,
+     "left": 20,
+     "w": 350,
+     "h": 5065
+    },
+    ".plates": {
+     "top": 6089,
+     "left": 20,
+     "w": 350,
+     "h": 2336.5
+    },
+    ".motion": {
+     "top": 8425.5,
+     "left": 20,
+     "w": 350,
+     "h": 954.1
+    },
+    "footer": {
+     "top": 9475.6,
+     "left": 0,
+     "w": 390,
+     "h": 870
+    }
+   },
+   "keyMissing": [],
+   "textOverflow": {
+    "n": 0,
+    "worst": []
+   },
+   "ellipsisClips": {
+    "n": 1,
+    "worst": [
+     {
+      "el": "body > a.skip",
+      "over": 105,
+      "txt": "岸含显阻滚则挤"
+     }
+    ]
+   },
+   "overlaps": {
+    "n": 3,
+    "worst": [
+     {
+      "a": "section.compare > div.type-area.is-registering > table.grid-table > colgroup",
+      "b": "section.compare > div.type-area.is-registering > table.grid-table > tbody",
+      "area": 1305150,
+      "frac": 1,
+      "y": 1326
+     },
+     {
+      "a": "section.compare > div.type-area.is-registering > table.grid-table > colgroup",
+      "b": "section.compare > div.type-area.is-registering > table.grid-table > tfoot",
+      "area": 55300,
+      "frac": 1,
+      "y": 5055
+     },
+     {
+      "a": "section.motion > figure.regscale > svg > g",
+      "b": "section.motion > figure.regscale > svg > path",
+      "area": 1748,
+      "frac": 0.54,
+      "y": 9002
+     }
+    ]
+   },
+   "holes": {
+    "n": 1,
+    "total": 1024,
+    "list": [
+     {
+      "from": 0,
+      "to": 1024,
+      "h": 1024
+     }
+    ],
+    "mainH": 8356
+   },
+   "brokenImgs": [],
+   "sheets": 5,
+   "badSheets": [],
+   "fonts": "loaded",
+   "rules": 349,
+   "textChars": 2543,
+   "shot": {
+    "w": 390,
+    "h": 10346,
+    "scale": 0.2513048521167601
+   }
+  }
+ },
+ "meta": {
+  "orig": {
+   "loaded": "load",
+   "title": "刻度对撞页 · 46 家供应商按到货周期对撞栏｜平印打样稿",
+   "sheets": [
+    "http://127.0.0.1:9612/prototypes/_fonts/css/jost__500.css",
+    "http://127.0.0.1:9612/prototypes/_fonts/css/ibm-plex-sans__400-600.css",
+    "http://127.0.0.1:9612/prototypes/_fonts/css/ibm-plex-mono__400-500.css",
+    "http://127.0.0.1:9612/prototypes/_fonts/css/noto-sans-sc__100..900.css",
+    "http://127.0.0.1:9612/prototypes/S10-grid-versus-sheet/style.css"
+   ],
+   "imgs": 6,
+   "broken": 0,
+   "chars": 2543,
+   "consoleErrors": []
+  },
+  "swap-inset": {
+   "loaded": "load",
+   "title": "混须条岛示 · 17 材报组题新网成之管浏只敞｜紧平商段进",
+   "sheets": [
+    "http://127.0.0.1:9612/deliverables/63-test/replica/_fonts/css/jost__500.css",
+    "http://127.0.0.1:9612/deliverables/63-test/replica/_fonts/css/ibm-plex-sans__400-600.css",
+    "http://127.0.0.1:9612/deliverables/63-test/replica/_fonts/css/ibm-plex-mono__400-500.css",
+    "http://127.0.0.1:9612/deliverables/63-test/replica/_fonts/css/noto-sans-sc__100..900.css",
+    "http://127.0.0.1:9612/deliverables/63-test/replica/S10-grid-versus-sheet/style.css"
+   ],
+   "imgs": 6,
+   "broken": 0,
+   "chars": 2543,
+   "consoleErrors": []
+  }
+ }
+}

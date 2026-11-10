@@ -1,0 +1,42 @@
+口径：(真)=文案里没有编造的 px；(全)=桌面真值没被漏讲；(自洽)=级数话术与列表不打架
+
+案号   now    (a)    (b)    (c)    (d)    (e)     │ now 失败原因
+--------------------------------------------------------------------------------------------------------------
+S01  pass   pass   pass   pass   pass   pass   │ 
+S02  pass   pass   pass   pass   pass   pass   │ 
+S03  漏讲     漏讲     漏讲     pass   pass   pass   │ 漏讲=1.2
+S04  漏讲     漏讲     漏讲     pass   pass   pass   │ 漏讲=1.1
+S05  pass   pass   pass   pass   pass   pass   │ 
+S06  漏讲     话术     pass   pass   pass   pass   │ 漏讲=0.8
+S07  pass   pass   pass   pass   pass   pass   │ 
+S08  漏讲     话术     pass   pass   pass   pass   │ 漏讲=1.25 话术(列表≠2却说第三级)
+S09  漏讲     漏讲     漏讲     漏讲     漏讲     pass   │ 漏讲=3.6 话术(列表≠2却说第三级)
+S10  漏讲     漏讲     漏讲     漏讲     漏讲     pass   │ 漏讲=1.5
+S11  漏讲     漏讲     漏讲     pass   pass   pass   │ 漏讲=1.25 话术(列表≠2却说第三级)
+S12  漏讲     话术     pass   pass   pass   pass   │ 漏讲=5.66 话术(列表≠2却说第三级)
+S13  漏讲     话术     pass   pass   pass   pass   │ 漏讲=1.5 话术(列表≠2却说第三级)
+S14  漏讲     漏讲     漏讲     pass   pass   pass   │ 漏讲=1.25 话术(列表≠2却说第三级)
+S15  漏讲     漏讲     漏讲     漏讲     漏讲     pass   │ 漏讲=1.2,1.4,2 话术(列表≠2却说第三级)
+S16  话术     话术     pass   pass   pass   pass   │ 话术(列表≠2却说第三级)
+S17  漏讲     漏讲     漏讲     pass   pass   pass   │ 漏讲=0.5,0.8,2.4,5,6
+S18  漏讲     漏讲     漏讲     pass   pass   pass   │ 漏讲=1.25 话术(列表≠2却说第三级)
+S19  话术     话术     pass   pass   pass   pass   │ 话术(列表≠2却说第三级)
+S20  漏讲     话术     pass   pass   pass   pass   │ 漏讲=0.2 话术(列表≠2却说第三级)
+S21  漏讲     漏讲     漏讲     pass   pass   pass   │ 漏讲=1.25
+S22  pass   pass   pass   pass   pass   pass   │ 
+S23  漏讲     话术     pass   pass   pass   pass   │ 漏讲=1.5
+S24  漏讲     漏讲     漏讲     漏讲     漏讲     pass   │ 漏讲=1.2,3.2 话术(列表≠2却说第三级)
+S25  漏讲     漏讲     漏讲     漏讲     漏讲     pass   │ 漏讲=1,1.2,2 话术(列表≠2却说第三级)
+S26  pass   pass   pass   pass   pass   pass   │ 
+S27  漏讲     漏讲     漏讲     pass   pass   pass   │ 漏讲=0.8,1.8 话术(列表≠2却说第三级)
+S28  漏讲     漏讲     漏讲     漏讲     漏讲     pass   │ 漏讲=1,1.2
+S29  漏讲     漏讲     漏讲     pass   pass   pass   │ 漏讲=1.2 话术(列表≠2却说第三级)
+S30  漏讲     漏讲     漏讲     漏讲     漏讲     pass   │ 漏讲=1.6,2 话术(列表≠2却说第三级)
+
+通过数（真+全+自洽全满足）：
+  (now) 6/30   其中 无编造=30 话术自洽=14 无漏讲=8
+  (a) 6/30   其中 无编造=30 话术自洽=10 无漏讲=14
+  (b) 14/30   其中 无编造=30 话术自洽=30 无漏讲=14
+  (c) 23/30   其中 无编造=30 话术自洽=30 无漏讲=23
+  (d) 23/30   其中 无编造=30 话术自洽=30 无漏讲=23
+  (e) 30/30   其中 无编造=30 话术自洽=30 无漏讲=30

@@ -1,0 +1,106 @@
+{
+  "script": "shot-page.py",
+  "label": "1440x900-fold",
+  "input": {
+    "file": "D:\\Web\\style\\deliverables\\66-exec\\shots-s13\\before\\.raw\\S13-before-1440-fold.raw.png",
+    "width": 1456,
+    "height": 995,
+    "bytes": 1847438,
+    "mode": "RGB"
+  },
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "crop": {
+    "x": 0,
+    "y": 0,
+    "width": 1440,
+    "height": 900
+  },
+  "pageHeight": 995,
+  "pageHeightSource": "image",
+  "measure": null,
+  "outputs": {
+    "fold": {
+      "file": "S13-before-1440-fold.png",
+      "path": "D:\\Web\\style\\deliverables\\66-exec\\shots-s13\\before\\S13-before-1440-fold.png",
+      "width": 1440,
+      "height": 900,
+      "bytes": 1593165
+    }
+  },
+  "slices": [],
+  "screens": 0,
+  "extras": [],
+  "warnings": [],
+  "total": {
+    "width": 1440,
+    "height": 900,
+    "meanRgb": [
+      187.23,
+      173.79,
+      144.63
+    ],
+    "rgbStdev": [
+      70.92,
+      67.15,
+      57.66
+    ],
+    "luminanceMean": 174.632,
+    "luminanceStdev": 67.296,
+    "nearWhiteShare": 0.0,
+    "nearBlackShare": 0.0,
+    "top3": [
+      {
+        "rgb": [
+          240,
+          224,
+          187
+        ],
+        "hex": "#f0e0bb",
+        "count": 20246,
+        "share": 0.140597
+      },
+      {
+        "rgb": [
+          240,
+          224,
+          188
+        ],
+        "hex": "#f0e0bc",
+        "count": 12469,
+        "share": 0.08659
+      },
+      {
+        "rgb": [
+          239,
+          223,
+          187
+        ],
+        "hex": "#efdfbb",
+        "count": 10669,
+        "share": 0.07409
+      }
+    ],
+    "dominant": {
+      "rgb": [
+        240,
+        224,
+        187
+      ],
+      "hex": "#f0e0bb",
+      "count": 20246,
+      "share": 0.140597
+    },
+    "sampling": {
+      "sampleStep": 3,
+      "sampledPixels": 144000,
+      "uniqueSampled": 17585
+    },
+    "blank": false,
+    "uniform": false,
+    "file": "S13-before-1440-fold.png",
+    "bytes": 1593165
+  }
+}

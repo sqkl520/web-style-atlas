@@ -1,0 +1,4031 @@
+{
+ "rows": [
+  {
+   "id": "S01",
+   "kind": "palette-extra",
+   "claim": "#EFE7D7 #C1121F #1A1614 #6E6A5E",
+   "actual": "solid-not-claimed=1 [#000000] ; chromatic-not-claimed=0 []",
+   "pass": true,
+   "detail": "未声称的上屏色全为灰阶（黑/白/灰），语义上不算\"新增彩色\""
+  },
+  {
+   "id": "S01",
+   "kind": "palette-unused",
+   "claim": "4 个声称色",
+   "actual": "从未上屏=0 []",
+   "pass": true,
+   "detail": "声称了但没用到不算谎报，只是冗余；单列以便判\"配色行是否真的驱动了实现\""
+  },
+  {
+   "id": "S01",
+   "kind": "font-display",
+   "claim": "链[Noto Sans SC → Source Han Sans SC]",
+   "actual": "h1 computed 首项=\"Noto Sans SC\" ; 实际画字=Noto Sans SC Thin",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S01",
+   "kind": "font-body",
+   "claim": "链[Noto Sans SC → Source Han Sans SC]",
+   "actual": "body computed 首项=\"Noto Sans SC\"",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S01",
+   "kind": "font-mono",
+   "claim": "Martian Mono",
+   "actual": "Noto Sans SC ; 画字=Martian Mono SemiExpanded ; tabular-nums=normal",
+   "pass": false,
+   "detail": "code 元素首族不是声明的等宽体"
+  },
+  {
+   "id": "S01",
+   "kind": "font-ban",
+   "claim": "禁 Playfair Display/Inter/Roboto",
+   "actual": "无",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S01",
+   "kind": "radius",
+   "claim": "全站 0",
+   "actual": "非零圆角元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S01",
+   "kind": "shadow",
+   "claim": "none",
+   "actual": "inset=0 outset=0 drop-shadow=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S01",
+   "kind": "line-widths",
+   "claim": "1px/3px",
+   "actual": "实测 border/outline 宽度=1px/3px",
+   "pass": true,
+   "detail": "注意口径：只量 border/outline 实算宽度；SVG stroke、伪元素、background 线不在内 → 实测值是**下界**"
+  },
+  {
+   "id": "S01",
+   "kind": "image-slots",
+   "claim": "≥6 个可见图片位",
+   "actual": "img 标签=6 可见(>4px)=6",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S01",
+   "kind": "no-carousel",
+   "claim": "无轮播",
+   "actual": "autoplay=0 swiper类名=0 aria-live=polite:0 setInterval=0 rAF=1",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S01",
+   "kind": "no-gradient",
+   "claim": "无紫蓝渐变/#6366F1/光斑",
+   "actual": "linear|radial gradient 元素=0 ; #6366F1 出现=否",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S01",
+   "kind": "no-glassmorphism",
+   "claim": "无 backdrop-filter/半透明浮层",
+   "actual": "backdrop-filter 元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S01",
+   "kind": "no-emoji-iconfont",
+   "claim": "无 emoji/彩色 iconfont",
+   "actual": "emoji=0 ; iconfont 命中=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S01",
+   "kind": "no-round-softshadow",
+   "claim": "无\"圆角+柔和外投影\"组合",
+   "actual": "圆角=0 外投影=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S02",
+   "kind": "palette-extra",
+   "claim": "#B8860B #0B0B0F #EFE6D0 #3A2E1A #111111 #B9B09A #14100A",
+   "actual": "solid-not-claimed=3 [#000000 #0000EE #0A0A0D] ; chromatic-not-claimed=2 [#0000EE #0A0A0D]",
+   "pass": false,
+   "detail": "有非灰的未声称色上屏"
+  },
+  {
+   "id": "S02",
+   "kind": "palette-unused",
+   "claim": "7 个声称色",
+   "actual": "从未上屏=0 []",
+   "pass": true,
+   "detail": "声称了但没用到不算谎报，只是冗余；单列以便判\"配色行是否真的驱动了实现\""
+  },
+  {
+   "id": "S02",
+   "kind": "font-display",
+   "claim": "链[Bodoni Moda → Noto Serif SC]",
+   "actual": "h1 computed 首项=\"Bodoni Moda\" ; 实际画字=Noto Serif SC ExtraLight",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S02",
+   "kind": "font-body",
+   "claim": "链[Noto Serif SC → Songti SC]",
+   "actual": "body computed 首项=\"Noto Serif SC\"",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S02",
+   "kind": "font-mono",
+   "claim": "IBM Plex Mono",
+   "actual": "IBM Plex Mono ; 画字=IBM Plex Mono ; tabular-nums=tabular-nums",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S02",
+   "kind": "font-ban",
+   "claim": "禁 Playfair Display/Inter/Roboto",
+   "actual": "无",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S02",
+   "kind": "radius",
+   "claim": "全站 0",
+   "actual": "非零圆角元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S02",
+   "kind": "shadow",
+   "claim": "inset-only",
+   "actual": "inset=16 outset=0 drop=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S02",
+   "kind": "line-widths",
+   "claim": "1px/2px",
+   "actual": "实测 border/outline 宽度=1px/2px",
+   "pass": true,
+   "detail": "注意口径：只量 border/outline 实算宽度；SVG stroke、伪元素、background 线不在内 → 实测值是**下界**"
+  },
+  {
+   "id": "S02",
+   "kind": "image-slots",
+   "claim": "≥5 个可见图片位",
+   "actual": "img 标签=5 可见(>4px)=5",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S02",
+   "kind": "no-carousel",
+   "claim": "无轮播",
+   "actual": "autoplay=0 swiper类名=0 aria-live=polite:0 setInterval=0 rAF=1",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S02",
+   "kind": "no-gradient",
+   "claim": "无紫蓝渐变/#6366F1/光斑",
+   "actual": "linear|radial gradient 元素=0 ; #6366F1 出现=否",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S02",
+   "kind": "no-glassmorphism",
+   "claim": "无 backdrop-filter/半透明浮层",
+   "actual": "backdrop-filter 元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S02",
+   "kind": "no-emoji-iconfont",
+   "claim": "无 emoji/彩色 iconfont",
+   "actual": "emoji=0 ; iconfont 命中=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S02",
+   "kind": "no-round-softshadow",
+   "claim": "无\"圆角+柔和外投影\"组合",
+   "actual": "圆角=0 外投影=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S03",
+   "kind": "palette-extra",
+   "claim": "#13928E #101A1C #C9D6CF #B9A98C #162226 #0C1417 #2A3639",
+   "actual": "solid-not-claimed=4 [#000000 #4A5A5E #3B4A4D #7C8A8C] ; chromatic-not-claimed=2 [#4A5A5E #3B4A4D]",
+   "pass": false,
+   "detail": "有非灰的未声称色上屏"
+  },
+  {
+   "id": "S03",
+   "kind": "palette-unused",
+   "claim": "7 个声称色",
+   "actual": "从未上屏=0 []",
+   "pass": true,
+   "detail": "声称了但没用到不算谎报，只是冗余；单列以便判\"配色行是否真的驱动了实现\""
+  },
+  {
+   "id": "S03",
+   "kind": "font-display",
+   "claim": "链[IBM Plex Mono → Cascadia Mono → Consolas]",
+   "actual": "h1 computed 首项=\"IBM Plex Mono\" ; 实际画字=NSimSun",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S03",
+   "kind": "font-body",
+   "claim": "链[IBM Plex Sans → Noto Sans SC → Source Han Sans SC → Microsoft YaHei]",
+   "actual": "body computed 首项=\"IBM Plex Sans\"",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S03",
+   "kind": "font-mono",
+   "claim": "IBM Plex Mono",
+   "actual": "no-code-el ; 画字=n/a ; tabular-nums=n/a",
+   "pass": false,
+   "detail": "页面里没有 code/.mono/.num 元素可测"
+  },
+  {
+   "id": "S03",
+   "kind": "font-ban",
+   "claim": "禁 Playfair Display/Inter/Roboto",
+   "actual": "无",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S03",
+   "kind": "radius",
+   "claim": "全站 0",
+   "actual": "非零圆角元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S03",
+   "kind": "shadow",
+   "claim": "none",
+   "actual": "inset=0 outset=0 drop-shadow=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S03",
+   "kind": "line-widths",
+   "claim": "1px/2px",
+   "actual": "实测 border/outline 宽度=1px",
+   "pass": true,
+   "detail": "注意口径：只量 border/outline 实算宽度；SVG stroke、伪元素、background 线不在内 → 实测值是**下界**"
+  },
+  {
+   "id": "S03",
+   "kind": "image-slots",
+   "claim": "≥8 个可见图片位",
+   "actual": "img 标签=12 可见(>4px)=12",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S03",
+   "kind": "no-carousel",
+   "claim": "无轮播",
+   "actual": "autoplay=0 swiper类名=0 aria-live=polite:2 setInterval=0 rAF=3",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S03",
+   "kind": "no-gradient",
+   "claim": "无紫蓝渐变/#6366F1/光斑",
+   "actual": "linear|radial gradient 元素=0 ; #6366F1 出现=否",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S03",
+   "kind": "no-glassmorphism",
+   "claim": "无 backdrop-filter/半透明浮层",
+   "actual": "backdrop-filter 元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S03",
+   "kind": "no-emoji-iconfont",
+   "claim": "无 emoji/彩色 iconfont",
+   "actual": "emoji=0 ; iconfont 命中=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S03",
+   "kind": "no-round-softshadow",
+   "claim": "无\"圆角+柔和外投影\"组合",
+   "actual": "圆角=0 外投影=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S04",
+   "kind": "palette-extra",
+   "claim": "#2F7D4F #96550F #14100C #F0E2C8",
+   "actual": "solid-not-claimed=1 [#000000] ; chromatic-not-claimed=0 []",
+   "pass": true,
+   "detail": "未声称的上屏色全为灰阶（黑/白/灰），语义上不算\"新增彩色\""
+  },
+  {
+   "id": "S04",
+   "kind": "palette-unused",
+   "claim": "4 个声称色",
+   "actual": "从未上屏=0 []",
+   "pass": true,
+   "detail": "声称了但没用到不算谎报，只是冗余；单列以便判\"配色行是否真的驱动了实现\""
+  },
+  {
+   "id": "S04",
+   "kind": "font-display",
+   "claim": "链[LXGW WenKai → KaiTi → STKaiti → Kaiti SC]",
+   "actual": "h1 computed 首项=\"LXGW WenKai\" ; 实际画字=LXGW WenKai",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S04",
+   "kind": "font-body",
+   "claim": "链[Redaction 20 → Georgia → Nimbus Roman → LXGW WenKai]",
+   "actual": "body computed 首项=\"Redaction 20\"",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S04",
+   "kind": "font-mono",
+   "claim": "Martian Mono",
+   "actual": "Redaction 20 ; 画字=Martian Mono SemiExpanded ; tabular-nums=normal",
+   "pass": false,
+   "detail": "code 元素首族不是声明的等宽体"
+  },
+  {
+   "id": "S04",
+   "kind": "font-ban",
+   "claim": "禁 Playfair Display/Inter/Roboto",
+   "actual": "无",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S04",
+   "kind": "radius",
+   "claim": "全站 0",
+   "actual": "非零圆角元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S04",
+   "kind": "shadow",
+   "claim": "none",
+   "actual": "inset=0 outset=0 drop-shadow=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S04",
+   "kind": "line-widths",
+   "claim": "1px/3px",
+   "actual": "实测 border/outline 宽度=1px",
+   "pass": true,
+   "detail": "注意口径：只量 border/outline 实算宽度；SVG stroke、伪元素、background 线不在内 → 实测值是**下界**"
+  },
+  {
+   "id": "S04",
+   "kind": "image-slots",
+   "claim": "≥9 个可见图片位",
+   "actual": "img 标签=9 可见(>4px)=9",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S04",
+   "kind": "no-carousel",
+   "claim": "无轮播",
+   "actual": "autoplay=0 swiper类名=0 aria-live=polite:1 setInterval=0 rAF=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S04",
+   "kind": "no-gradient",
+   "claim": "无紫蓝渐变/#6366F1/光斑",
+   "actual": "linear|radial gradient 元素=0 ; #6366F1 出现=否",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S04",
+   "kind": "no-glassmorphism",
+   "claim": "无 backdrop-filter/半透明浮层",
+   "actual": "backdrop-filter 元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S04",
+   "kind": "no-emoji-iconfont",
+   "claim": "无 emoji/彩色 iconfont",
+   "actual": "emoji=0 ; iconfont 命中=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S04",
+   "kind": "no-round-softshadow",
+   "claim": "无\"圆角+柔和外投影\"组合",
+   "actual": "圆角=0 外投影=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S05",
+   "kind": "palette-extra",
+   "claim": "#4FA83D #0E100D #BFB9A6 #8C2F1F #111111 #2A2E28 #050605",
+   "actual": "solid-not-claimed=3 [#000000 #7D7A68 #101010] ; chromatic-not-claimed=1 [#7D7A68]",
+   "pass": false,
+   "detail": "有非灰的未声称色上屏"
+  },
+  {
+   "id": "S05",
+   "kind": "palette-unused",
+   "claim": "7 个声称色",
+   "actual": "从未上屏=0 []",
+   "pass": true,
+   "detail": "声称了但没用到不算谎报，只是冗余；单列以便判\"配色行是否真的驱动了实现\""
+  },
+  {
+   "id": "S05",
+   "kind": "font-display",
+   "claim": "链[Barlow → Glow Sans SC]",
+   "actual": "h1 computed 首项=\"Barlow\" ; 实际画字=Glow Sans SC Normal",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S05",
+   "kind": "font-body",
+   "claim": "链[Glow Sans SC]",
+   "actual": "body computed 首项=\"Glow Sans SC\"",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S05",
+   "kind": "font-mono",
+   "claim": "Departure Mono",
+   "actual": "Glow Sans SC ; 画字=Departure Mono ; tabular-nums=tabular-nums",
+   "pass": false,
+   "detail": "code 元素首族不是声明的等宽体"
+  },
+  {
+   "id": "S05",
+   "kind": "font-ban",
+   "claim": "禁 Playfair Display/Inter/Roboto",
+   "actual": "无",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S05",
+   "kind": "radius",
+   "claim": "非全零",
+   "actual": "非零圆角元素=5 [span.lamp.lamp--on:50% | span.lamp.lamp--on:50% | span.lamp.lamp--flash:50%] ; 全为圆形(50%)=true",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S05",
+   "kind": "shadow",
+   "claim": "inset-only",
+   "actual": "inset=18 outset=0 drop=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S05",
+   "kind": "line-widths",
+   "claim": "1px/2px",
+   "actual": "实测 border/outline 宽度=1px/2px",
+   "pass": true,
+   "detail": "注意口径：只量 border/outline 实算宽度；SVG stroke、伪元素、background 线不在内 → 实测值是**下界**"
+  },
+  {
+   "id": "S05",
+   "kind": "image-slots",
+   "claim": "≥6 个可见图片位",
+   "actual": "img 标签=6 可见(>4px)=6",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S05",
+   "kind": "no-carousel",
+   "claim": "无轮播",
+   "actual": "autoplay=0 swiper类名=0 aria-live=polite:0 setInterval=0 rAF=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S05",
+   "kind": "no-gradient",
+   "claim": "无紫蓝渐变/#6366F1/光斑",
+   "actual": "linear|radial gradient 元素=0 ; #6366F1 出现=否",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S05",
+   "kind": "no-glassmorphism",
+   "claim": "无 backdrop-filter/半透明浮层",
+   "actual": "backdrop-filter 元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S05",
+   "kind": "no-emoji-iconfont",
+   "claim": "无 emoji/彩色 iconfont",
+   "actual": "emoji=0 ; iconfont 命中=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S05",
+   "kind": "no-round-softshadow",
+   "claim": "无\"圆角+柔和外投影\"组合",
+   "actual": "圆角=5 外投影=0",
+   "pass": false,
+   "detail": ""
+  },
+  {
+   "id": "S06",
+   "kind": "palette-extra",
+   "claim": "#85572A #ECDEC6 #241A12 #C9A87C #E6D8BC #E0D0B0 #E4D5B8",
+   "actual": "solid-not-claimed=3 [#000000 #5A3A1C #B9A87F] ; chromatic-not-claimed=2 [#5A3A1C #B9A87F]",
+   "pass": false,
+   "detail": "有非灰的未声称色上屏"
+  },
+  {
+   "id": "S06",
+   "kind": "palette-unused",
+   "claim": "7 个声称色",
+   "actual": "从未上屏=0 []",
+   "pass": true,
+   "detail": "声称了但没用到不算谎报，只是冗余；单列以便判\"配色行是否真的驱动了实现\""
+  },
+  {
+   "id": "S06",
+   "kind": "font-display",
+   "claim": "链[EB Garamond → Noto Serif SC → Songti SC → Georgia]",
+   "actual": "h1 computed 首项=\"EB Garamond\" ; 实际画字=Noto Serif SC ExtraLight",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S06",
+   "kind": "font-body",
+   "claim": "链[Literata → Noto Serif SC → Songti SC → Georgia]",
+   "actual": "body computed 首项=\"Literata\"",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S06",
+   "kind": "font-mono",
+   "claim": "Martian Mono",
+   "actual": "Literata ; 画字=Martian Mono SemiExpanded ; tabular-nums=tabular-nums",
+   "pass": false,
+   "detail": "code 元素首族不是声明的等宽体"
+  },
+  {
+   "id": "S06",
+   "kind": "font-ban",
+   "claim": "禁 Playfair Display/Inter/Roboto",
+   "actual": "无",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S06",
+   "kind": "radius",
+   "claim": "全站 0",
+   "actual": "非零圆角元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S06",
+   "kind": "shadow",
+   "claim": "none",
+   "actual": "inset=0 outset=0 drop-shadow=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S06",
+   "kind": "line-widths",
+   "claim": "1px/2px",
+   "actual": "实测 border/outline 宽度=1px/2px",
+   "pass": true,
+   "detail": "注意口径：只量 border/outline 实算宽度；SVG stroke、伪元素、background 线不在内 → 实测值是**下界**"
+  },
+  {
+   "id": "S06",
+   "kind": "image-slots",
+   "claim": "≥7 个可见图片位",
+   "actual": "img 标签=7 可见(>4px)=7",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S06",
+   "kind": "no-carousel",
+   "claim": "无轮播",
+   "actual": "autoplay=0 swiper类名=0 aria-live=polite:0 setInterval=0 rAF=1",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S06",
+   "kind": "no-gradient",
+   "claim": "无紫蓝渐变/#6366F1/光斑",
+   "actual": "linear|radial gradient 元素=0 ; #6366F1 出现=否",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S06",
+   "kind": "no-glassmorphism",
+   "claim": "无 backdrop-filter/半透明浮层",
+   "actual": "backdrop-filter 元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S06",
+   "kind": "no-emoji-iconfont",
+   "claim": "无 emoji/彩色 iconfont",
+   "actual": "emoji=0 ; iconfont 命中=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S06",
+   "kind": "no-round-softshadow",
+   "claim": "无\"圆角+柔和外投影\"组合",
+   "actual": "圆角=0 外投影=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S07",
+   "kind": "palette-extra",
+   "claim": "#33505C #E7E7E0 #1C1A16 #9A9384",
+   "actual": "solid-not-claimed=1 [#000000] ; chromatic-not-claimed=0 []",
+   "pass": true,
+   "detail": "未声称的上屏色全为灰阶（黑/白/灰），语义上不算\"新增彩色\""
+  },
+  {
+   "id": "S07",
+   "kind": "palette-unused",
+   "claim": "4 个声称色",
+   "actual": "从未上屏=0 []",
+   "pass": true,
+   "detail": "声称了但没用到不算谎报，只是冗余；单列以便判\"配色行是否真的驱动了实现\""
+  },
+  {
+   "id": "S07",
+   "kind": "font-display",
+   "claim": "链[Libre Franklin → WenJin Mincho → 文津宋体 → Source Han Serif SC]",
+   "actual": "h1 computed 首项=\"Libre Franklin\" ; 实际画字=SimSun",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S07",
+   "kind": "font-body",
+   "claim": "链[Newsreader → WenJin Mincho → 文津宋体 → Source Han Serif SC]",
+   "actual": "body computed 首项=\"Newsreader\"",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S07",
+   "kind": "font-mono",
+   "claim": "IBM Plex Mono",
+   "actual": "IBM Plex Mono ; 画字=n/a ; tabular-nums=tabular-nums",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S07",
+   "kind": "font-ban",
+   "claim": "禁 Playfair Display/Inter/Roboto",
+   "actual": "无",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S07",
+   "kind": "radius",
+   "claim": "全站 0",
+   "actual": "非零圆角元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S07",
+   "kind": "shadow",
+   "claim": "none",
+   "actual": "inset=0 outset=0 drop-shadow=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S07",
+   "kind": "line-widths",
+   "claim": "1px/2px",
+   "actual": "实测 border/outline 宽度=2px",
+   "pass": true,
+   "detail": "注意口径：只量 border/outline 实算宽度；SVG stroke、伪元素、background 线不在内 → 实测值是**下界**"
+  },
+  {
+   "id": "S07",
+   "kind": "image-slots",
+   "claim": "≥7 个可见图片位",
+   "actual": "img 标签=7 可见(>4px)=7",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S07",
+   "kind": "no-carousel",
+   "claim": "无轮播",
+   "actual": "autoplay=0 swiper类名=0 aria-live=polite:0 setInterval=0 rAF=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S07",
+   "kind": "no-gradient",
+   "claim": "无紫蓝渐变/#6366F1/光斑",
+   "actual": "linear|radial gradient 元素=0 ; #6366F1 出现=否",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S07",
+   "kind": "no-glassmorphism",
+   "claim": "无 backdrop-filter/半透明浮层",
+   "actual": "backdrop-filter 元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S07",
+   "kind": "no-emoji-iconfont",
+   "claim": "无 emoji/彩色 iconfont",
+   "actual": "emoji=0 ; iconfont 命中=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S07",
+   "kind": "no-round-softshadow",
+   "claim": "无\"圆角+柔和外投影\"组合",
+   "actual": "圆角=0 外投影=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S08",
+   "kind": "palette-extra",
+   "claim": "#120C08 #C46A1F #E8DCC8 #6B4A22 #3A2712 #111111",
+   "actual": "solid-not-claimed=6 [#000000 #8D4C16 #663710 #49270B #351D09 #1B0F04] ; chromatic-not-claimed=5 [#8D4C16 #663710 #49270B #351D09 #1B0F04]",
+   "pass": false,
+   "detail": "有非灰的未声称色上屏"
+  },
+  {
+   "id": "S08",
+   "kind": "palette-unused",
+   "claim": "6 个声称色",
+   "actual": "从未上屏=0 []",
+   "pass": true,
+   "detail": "声称了但没用到不算谎报，只是冗余；单列以便判\"配色行是否真的驱动了实现\""
+  },
+  {
+   "id": "S08",
+   "kind": "font-display",
+   "claim": "链[Gloock → Source Serif 4 → Noto Serif SC]",
+   "actual": "h1 computed 首项=\"Gloock\" ; 实际画字=Noto Serif SC ExtraLight",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S08",
+   "kind": "font-body",
+   "claim": "链[Source Serif 4 → Noto Serif SC → Songti SC]",
+   "actual": "body computed 首项=\"Source Serif 4\"",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S08",
+   "kind": "font-mono",
+   "claim": "Overprint Numerals",
+   "actual": "Overprint Numerals ; 画字=IBM Plex Mono ; tabular-nums=normal",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S08",
+   "kind": "font-ban",
+   "claim": "禁 Playfair Display/Inter/Roboto",
+   "actual": "无",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S08",
+   "kind": "radius",
+   "claim": "全站 0",
+   "actual": "非零圆角元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S08",
+   "kind": "shadow",
+   "claim": "none",
+   "actual": "inset=0 outset=0 drop-shadow=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S08",
+   "kind": "line-widths",
+   "claim": "2px/3px/4px",
+   "actual": "实测 border/outline 宽度=2px/3px/4px",
+   "pass": true,
+   "detail": "注意口径：只量 border/outline 实算宽度；SVG stroke、伪元素、background 线不在内 → 实测值是**下界**"
+  },
+  {
+   "id": "S08",
+   "kind": "image-slots",
+   "claim": "≥4 个可见图片位",
+   "actual": "img 标签=4 可见(>4px)=4",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S08",
+   "kind": "no-carousel",
+   "claim": "无轮播",
+   "actual": "autoplay=0 swiper类名=0 aria-live=polite:0 setInterval=0 rAF=1",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S08",
+   "kind": "no-gradient",
+   "claim": "无紫蓝渐变/#6366F1/光斑",
+   "actual": "linear|radial gradient 元素=0 ; #6366F1 出现=否",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S08",
+   "kind": "no-glassmorphism",
+   "claim": "无 backdrop-filter/半透明浮层",
+   "actual": "backdrop-filter 元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S08",
+   "kind": "no-emoji-iconfont",
+   "claim": "无 emoji/彩色 iconfont",
+   "actual": "emoji=0 ; iconfont 命中=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S08",
+   "kind": "no-round-softshadow",
+   "claim": "无\"圆角+柔和外投影\"组合",
+   "actual": "圆角=0 外投影=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S09",
+   "kind": "palette-extra",
+   "claim": "#1F4E79 #F5C842 #151310 #8A4B24",
+   "actual": "solid-not-claimed=3 [#000000 #0000EE #FFFFFF] ; chromatic-not-claimed=1 [#0000EE]",
+   "pass": false,
+   "detail": "有非灰的未声称色上屏"
+  },
+  {
+   "id": "S09",
+   "kind": "palette-unused",
+   "claim": "4 个声称色",
+   "actual": "从未上屏=1 [#8A4B24]",
+   "pass": true,
+   "detail": "声称了但没用到不算谎报，只是冗余；单列以便判\"配色行是否真的驱动了实现\""
+  },
+  {
+   "id": "S09",
+   "kind": "font-display",
+   "claim": "链[LXGW Marker Gothic → Syne]",
+   "actual": "h1 computed 首项=\"LXGW Marker Gothic\" ; 实际画字=LXGW Marker Gothic",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S09",
+   "kind": "font-body",
+   "claim": "链[LXGW Marker Gothic]",
+   "actual": "body computed 首项=\"LXGW Marker Gothic\"",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S09",
+   "kind": "font-mono",
+   "claim": "JetBrains Mono",
+   "actual": "LXGW Marker Gothic ; 画字=JetBrains Mono Medium ; tabular-nums=normal",
+   "pass": false,
+   "detail": "code 元素首族不是声明的等宽体"
+  },
+  {
+   "id": "S09",
+   "kind": "font-ban",
+   "claim": "禁 Playfair Display/Inter/Roboto",
+   "actual": "无",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S09",
+   "kind": "radius",
+   "claim": "全站 0",
+   "actual": "非零圆角元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S09",
+   "kind": "shadow",
+   "claim": "drop-only",
+   "actual": "drop-shadow=4 outset-boxshadow=0 inset=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S09",
+   "kind": "line-widths",
+   "claim": "2px/3px/3.5px",
+   "actual": "实测 border/outline 宽度=2px",
+   "pass": true,
+   "detail": "注意口径：只量 border/outline 实算宽度；SVG stroke、伪元素、background 线不在内 → 实测值是**下界**"
+  },
+  {
+   "id": "S09",
+   "kind": "image-slots",
+   "claim": "≥6 个可见图片位",
+   "actual": "img 标签=12 可见(>4px)=11",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S09",
+   "kind": "no-carousel",
+   "claim": "无轮播",
+   "actual": "autoplay=0 swiper类名=0 aria-live=polite:0 setInterval=0 rAF=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S09",
+   "kind": "no-gradient",
+   "claim": "无紫蓝渐变/#6366F1/光斑",
+   "actual": "linear|radial gradient 元素=0 ; #6366F1 出现=否",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S09",
+   "kind": "no-glassmorphism",
+   "claim": "无 backdrop-filter/半透明浮层",
+   "actual": "backdrop-filter 元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S09",
+   "kind": "no-emoji-iconfont",
+   "claim": "无 emoji/彩色 iconfont",
+   "actual": "emoji=0 ; iconfont 命中=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S09",
+   "kind": "no-round-softshadow",
+   "claim": "无\"圆角+柔和外投影\"组合",
+   "actual": "圆角=0 外投影=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S10",
+   "kind": "palette-extra",
+   "claim": "#D32029 #F2EFE8 #17171A #6E7076 #B6B4AE",
+   "actual": "solid-not-claimed=1 [#000000] ; chromatic-not-claimed=0 []",
+   "pass": true,
+   "detail": "未声称的上屏色全为灰阶（黑/白/灰），语义上不算\"新增彩色\""
+  },
+  {
+   "id": "S10",
+   "kind": "palette-unused",
+   "claim": "5 个声称色",
+   "actual": "从未上屏=0 []",
+   "pass": true,
+   "detail": "声称了但没用到不算谎报，只是冗余；单列以便判\"配色行是否真的驱动了实现\""
+  },
+  {
+   "id": "S10",
+   "kind": "font-display",
+   "claim": "链[Jost → Noto Sans SC]",
+   "actual": "h1 computed 首项=\"Jost\" ; 实际画字=Noto Sans SC Thin",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S10",
+   "kind": "font-body",
+   "claim": "链[IBM Plex Sans → Noto Sans SC]",
+   "actual": "body computed 首项=\"IBM Plex Sans\"",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S10",
+   "kind": "font-mono",
+   "claim": "IBM Plex Mono",
+   "actual": "IBM Plex Mono ; 画字=IBM Plex Mono ; tabular-nums=tabular-nums",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S10",
+   "kind": "font-ban",
+   "claim": "禁 Playfair Display/Inter/Roboto",
+   "actual": "无",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S10",
+   "kind": "radius",
+   "claim": "全站 0",
+   "actual": "非零圆角元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S10",
+   "kind": "shadow",
+   "claim": "none",
+   "actual": "inset=0 outset=0 drop-shadow=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S10",
+   "kind": "line-widths",
+   "claim": "1.25px/2px",
+   "actual": "实测 border/outline 宽度=1px/2px ; 超纲=1px",
+   "pass": false,
+   "detail": "注意口径：只量 border/outline 实算宽度；SVG stroke、伪元素、background 线不在内 → 实测值是**下界**"
+  },
+  {
+   "id": "S10",
+   "kind": "image-slots",
+   "claim": "≥6 个可见图片位",
+   "actual": "img 标签=6 可见(>4px)=6",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S10",
+   "kind": "no-carousel",
+   "claim": "无轮播",
+   "actual": "autoplay=0 swiper类名=0 aria-live=polite:0 setInterval=0 rAF=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S10",
+   "kind": "no-gradient",
+   "claim": "无紫蓝渐变/#6366F1/光斑",
+   "actual": "linear|radial gradient 元素=0 ; #6366F1 出现=否",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S10",
+   "kind": "no-glassmorphism",
+   "claim": "无 backdrop-filter/半透明浮层",
+   "actual": "backdrop-filter 元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S10",
+   "kind": "no-emoji-iconfont",
+   "claim": "无 emoji/彩色 iconfont",
+   "actual": "emoji=0 ; iconfont 命中=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S10",
+   "kind": "no-round-softshadow",
+   "claim": "无\"圆角+柔和外投影\"组合",
+   "actual": "圆角=0 外投影=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S11",
+   "kind": "palette-extra",
+   "claim": "#1B4A4A #DCDDD2 #221E19 #6E7A64",
+   "actual": "solid-not-claimed=1 [#000000] ; chromatic-not-claimed=0 []",
+   "pass": true,
+   "detail": "未声称的上屏色全为灰阶（黑/白/灰），语义上不算\"新增彩色\""
+  },
+  {
+   "id": "S11",
+   "kind": "palette-unused",
+   "claim": "4 个声称色",
+   "actual": "从未上屏=0 []",
+   "pass": true,
+   "detail": "声称了但没用到不算谎报，只是冗余；单列以便判\"配色行是否真的驱动了实现\""
+  },
+  {
+   "id": "S11",
+   "kind": "font-display",
+   "claim": "链[EB Garamond → LXGW WenKai TC → Noto Serif SC]",
+   "actual": "h1 computed 首项=\"EB Garamond\" ; 实际画字=LXGW WenKai TC",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S11",
+   "kind": "font-body",
+   "claim": "链[LXGW WenKai TC → Kaiti SC → KaiTi → Noto Serif SC]",
+   "actual": "body computed 首项=\"LXGW WenKai TC\"",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S11",
+   "kind": "font-mono",
+   "claim": "Martian Mono",
+   "actual": "LXGW WenKai TC ; 画字=Martian Mono SemiExpanded Condensed ; tabular-nums=tabular-nums",
+   "pass": false,
+   "detail": "code 元素首族不是声明的等宽体"
+  },
+  {
+   "id": "S11",
+   "kind": "font-ban",
+   "claim": "禁 Playfair Display/Inter/Roboto",
+   "actual": "无",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S11",
+   "kind": "radius",
+   "claim": "全站 0",
+   "actual": "非零圆角元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S11",
+   "kind": "shadow",
+   "claim": "inset-only",
+   "actual": "inset=1 outset=0 drop=12",
+   "pass": false,
+   "detail": ""
+  },
+  {
+   "id": "S11",
+   "kind": "line-widths",
+   "claim": "1px/2px/3px",
+   "actual": "实测 border/outline 宽度=1px/2px/3px",
+   "pass": true,
+   "detail": "注意口径：只量 border/outline 实算宽度；SVG stroke、伪元素、background 线不在内 → 实测值是**下界**"
+  },
+  {
+   "id": "S11",
+   "kind": "image-slots",
+   "claim": "≥8 个可见图片位",
+   "actual": "img 标签=8 可见(>4px)=8",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S11",
+   "kind": "no-carousel",
+   "claim": "无轮播",
+   "actual": "autoplay=0 swiper类名=0 aria-live=polite:0 setInterval=0 rAF=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S11",
+   "kind": "no-gradient",
+   "claim": "无紫蓝渐变/#6366F1/光斑",
+   "actual": "linear|radial gradient 元素=0 ; #6366F1 出现=否",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S11",
+   "kind": "no-glassmorphism",
+   "claim": "无 backdrop-filter/半透明浮层",
+   "actual": "backdrop-filter 元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S11",
+   "kind": "no-emoji-iconfont",
+   "claim": "无 emoji/彩色 iconfont",
+   "actual": "emoji=0 ; iconfont 命中=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S11",
+   "kind": "no-round-softshadow",
+   "claim": "无\"圆角+柔和外投影\"组合",
+   "actual": "圆角=0 外投影=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S12",
+   "kind": "palette-extra",
+   "claim": "#B5D626 #1E2A2E #26353A #182226 #E23E57 #F2E9D8 #111111",
+   "actual": "solid-not-claimed=4 [#000000 #2C3A10 #FF9AAB #4A5C60] ; chromatic-not-claimed=3 [#2C3A10 #FF9AAB #4A5C60]",
+   "pass": false,
+   "detail": "有非灰的未声称色上屏"
+  },
+  {
+   "id": "S12",
+   "kind": "palette-unused",
+   "claim": "7 个声称色",
+   "actual": "从未上屏=0 []",
+   "pass": true,
+   "detail": "声称了但没用到不算谎报，只是冗余；单列以便判\"配色行是否真的驱动了实现\""
+  },
+  {
+   "id": "S12",
+   "kind": "font-display",
+   "claim": "链[Bricolage Grotesque → Glow Sans SC]",
+   "actual": "h1 computed 首项=\"Bricolage Grotesque\" ; 实际画字=Glow Sans SC Normal Medium",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S12",
+   "kind": "font-body",
+   "claim": "链[Glow Sans SC → Noto Sans SC → Source Han Sans SC → PingFang SC]",
+   "actual": "body computed 首项=\"Glow Sans SC\"",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S12",
+   "kind": "font-mono",
+   "claim": "JetBrains Mono",
+   "actual": "JetBrains Mono ; 画字=JetBrains Mono Medium ; tabular-nums=tabular-nums",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S12",
+   "kind": "font-ban",
+   "claim": "禁 Playfair Display/Inter/Roboto",
+   "actual": "无",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S12",
+   "kind": "radius",
+   "claim": "全站 0",
+   "actual": "非零圆角元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S12",
+   "kind": "shadow",
+   "claim": "none",
+   "actual": "inset=0 outset=0 drop-shadow=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S12",
+   "kind": "line-widths",
+   "claim": "1px/2px/8px",
+   "actual": "实测 border/outline 宽度=1px/2px/8px",
+   "pass": true,
+   "detail": "注意口径：只量 border/outline 实算宽度；SVG stroke、伪元素、background 线不在内 → 实测值是**下界**"
+  },
+  {
+   "id": "S12",
+   "kind": "image-slots",
+   "claim": "≥6 个可见图片位",
+   "actual": "img 标签=6 可见(>4px)=6",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S12",
+   "kind": "no-carousel",
+   "claim": "无轮播",
+   "actual": "autoplay=0 swiper类名=0 aria-live=polite:0 setInterval=0 rAF=1",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S12",
+   "kind": "no-gradient",
+   "claim": "无紫蓝渐变/#6366F1/光斑",
+   "actual": "linear|radial gradient 元素=0 ; #6366F1 出现=否",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S12",
+   "kind": "no-glassmorphism",
+   "claim": "无 backdrop-filter/半透明浮层",
+   "actual": "backdrop-filter 元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S12",
+   "kind": "no-emoji-iconfont",
+   "claim": "无 emoji/彩色 iconfont",
+   "actual": "emoji=0 ; iconfont 命中=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S12",
+   "kind": "no-round-softshadow",
+   "claim": "无\"圆角+柔和外投影\"组合",
+   "actual": "圆角=0 外投影=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S13",
+   "kind": "palette-extra",
+   "claim": "#F4E3BE #241F17 #7B612C #D6CDB9",
+   "actual": "solid-not-claimed=1 [#000000] ; chromatic-not-claimed=0 []",
+   "pass": true,
+   "detail": "未声称的上屏色全为灰阶（黑/白/灰），语义上不算\"新增彩色\""
+  },
+  {
+   "id": "S13",
+   "kind": "palette-unused",
+   "claim": "4 个声称色",
+   "actual": "从未上屏=0 []",
+   "pass": true,
+   "detail": "声称了但没用到不算谎报，只是冗余；单列以便判\"配色行是否真的驱动了实现\""
+  },
+  {
+   "id": "S13",
+   "kind": "font-display",
+   "claim": "链[EB Garamond → Noto Serif SC]",
+   "actual": "h1 computed 首项=\"EB Garamond\" ; 实际画字=Noto Serif SC ExtraLight",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S13",
+   "kind": "font-body",
+   "claim": "链[Noto Serif SC → Songti SC → SimSun]",
+   "actual": "body computed 首项=\"Noto Serif SC\"",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S13",
+   "kind": "font-mono",
+   "claim": "DM Mono",
+   "actual": "Noto Serif SC ; 画字=n/a ; tabular-nums=normal",
+   "pass": false,
+   "detail": "code 元素首族不是声明的等宽体"
+  },
+  {
+   "id": "S13",
+   "kind": "font-ban",
+   "claim": "禁 Playfair Display/Inter/Roboto",
+   "actual": "无",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S13",
+   "kind": "radius",
+   "claim": "全站 0",
+   "actual": "非零圆角元素=2 [input:50% | input:50%] ; 全为圆形(50%)=true",
+   "pass": false,
+   "detail": ""
+  },
+  {
+   "id": "S13",
+   "kind": "shadow",
+   "claim": "other",
+   "actual": "{\"none\":251,\"inset\":15,\"outset\":0,\"dropFilter\":4}",
+   "pass": null,
+   "detail": ""
+  },
+  {
+   "id": "S13",
+   "kind": "line-widths",
+   "claim": "1px/2px/3px/5.5px/7px/9px/14.5px",
+   "actual": "实测 border/outline 宽度=1px/3px/5px/9px ; 超纲=5px",
+   "pass": false,
+   "detail": "注意口径：只量 border/outline 实算宽度；SVG stroke、伪元素、background 线不在内 → 实测值是**下界**"
+  },
+  {
+   "id": "S13",
+   "kind": "image-slots",
+   "claim": "≥4 个可见图片位",
+   "actual": "img 标签=5 可见(>4px)=5",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S13",
+   "kind": "no-carousel",
+   "claim": "无轮播",
+   "actual": "autoplay=0 swiper类名=0 aria-live=polite:1 setInterval=0 rAF=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S13",
+   "kind": "no-gradient",
+   "claim": "无紫蓝渐变/#6366F1/光斑",
+   "actual": "linear|radial gradient 元素=0 ; #6366F1 出现=否",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S13",
+   "kind": "no-glassmorphism",
+   "claim": "无 backdrop-filter/半透明浮层",
+   "actual": "backdrop-filter 元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S13",
+   "kind": "no-emoji-iconfont",
+   "claim": "无 emoji/彩色 iconfont",
+   "actual": "emoji=0 ; iconfont 命中=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S13",
+   "kind": "no-round-softshadow",
+   "claim": "无\"圆角+柔和外投影\"组合",
+   "actual": "圆角=2 外投影=0",
+   "pass": false,
+   "detail": ""
+  },
+  {
+   "id": "S14",
+   "kind": "palette-extra",
+   "claim": "#C9C4B8 #D8D2C4 #12181D #E4572E #8A3320 #111111",
+   "actual": "solid-not-claimed=8 [#FFFFFF #000000 #9A968C #E8B9A4 #171E24 #E4E0D6 #3A3630 #6B6259] ; chromatic-not-claimed=5 [#E8B9A4 #171E24 #E4E0D6 #3A3630 #6B6259]",
+   "pass": false,
+   "detail": "有非灰的未声称色上屏"
+  },
+  {
+   "id": "S14",
+   "kind": "palette-unused",
+   "claim": "6 个声称色",
+   "actual": "从未上屏=0 []",
+   "pass": true,
+   "detail": "声称了但没用到不算谎报，只是冗余；单列以便判\"配色行是否真的驱动了实现\""
+  },
+  {
+   "id": "S14",
+   "kind": "font-display",
+   "claim": "链[Oswald → Noto Serif SC]",
+   "actual": "h1 computed 首项=\"Oswald\" ; 实际画字=Noto Serif SC ExtraLight",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S14",
+   "kind": "font-body",
+   "claim": "链[Noto Serif SC → Oswald → Georgia]",
+   "actual": "body computed 首项=\"Noto Serif SC\"",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S14",
+   "kind": "font-mono",
+   "claim": "Space Mono",
+   "actual": "Space Mono ; 画字=Space Mono ; tabular-nums=tabular-nums",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S14",
+   "kind": "font-ban",
+   "claim": "禁 Playfair Display/Inter/Roboto",
+   "actual": "无",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S14",
+   "kind": "radius",
+   "claim": "非全零",
+   "actual": "非零圆角元素=1 [figure.centroid:50%] ; 全为圆形(50%)=true",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S14",
+   "kind": "shadow",
+   "claim": "none",
+   "actual": "inset=0 outset=0 drop-shadow=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S14",
+   "kind": "line-widths",
+   "claim": "1px/2px/3px",
+   "actual": "实测 border/outline 宽度=1px/3px",
+   "pass": true,
+   "detail": "注意口径：只量 border/outline 实算宽度；SVG stroke、伪元素、background 线不在内 → 实测值是**下界**"
+  },
+  {
+   "id": "S14",
+   "kind": "image-slots",
+   "claim": "≥10 个可见图片位",
+   "actual": "img 标签=10 可见(>4px)=10",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S14",
+   "kind": "no-carousel",
+   "claim": "无轮播",
+   "actual": "autoplay=0 swiper类名=0 aria-live=polite:0 setInterval=0 rAF=2",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S14",
+   "kind": "no-gradient",
+   "claim": "无紫蓝渐变/#6366F1/光斑",
+   "actual": "linear|radial gradient 元素=0 ; #6366F1 出现=否",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S14",
+   "kind": "no-glassmorphism",
+   "claim": "无 backdrop-filter/半透明浮层",
+   "actual": "backdrop-filter 元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S14",
+   "kind": "no-emoji-iconfont",
+   "claim": "无 emoji/彩色 iconfont",
+   "actual": "emoji=0 ; iconfont 命中=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S14",
+   "kind": "no-round-softshadow",
+   "claim": "无\"圆角+柔和外投影\"组合",
+   "actual": "圆角=1 外投影=0",
+   "pass": false,
+   "detail": ""
+  },
+  {
+   "id": "S15",
+   "kind": "palette-extra",
+   "claim": "#3A3F45 #E7EBE9 #22282B #7A7466",
+   "actual": "solid-not-claimed=6 [#000000 #C8CECC #F0E4D8 #4C5257 #DDE2E0 #C3C9C7] ; chromatic-not-claimed=1 [#F0E4D8]",
+   "pass": false,
+   "detail": "有非灰的未声称色上屏"
+  },
+  {
+   "id": "S15",
+   "kind": "palette-unused",
+   "claim": "4 个声称色",
+   "actual": "从未上屏=0 []",
+   "pass": true,
+   "detail": "声称了但没用到不算谎报，只是冗余；单列以便判\"配色行是否真的驱动了实现\""
+  },
+  {
+   "id": "S15",
+   "kind": "font-display",
+   "claim": "链[Newsreader → Noto Serif SC → Georgia]",
+   "actual": "h1 computed 首项=\"Newsreader\" ; 实际画字=Noto Serif SC ExtraLight",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S15",
+   "kind": "font-body",
+   "claim": "链[Noto Serif SC → Newsreader → Georgia]",
+   "actual": "body computed 首项=\"Noto Serif SC\"",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S15",
+   "kind": "font-mono",
+   "claim": "Reddit Mono",
+   "actual": "Reddit Mono ; 画字=Reddit Mono ; tabular-nums=tabular-nums",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S15",
+   "kind": "font-ban",
+   "claim": "禁 Playfair Display/Inter/Roboto",
+   "actual": "无",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S15",
+   "kind": "radius",
+   "claim": "全站 0",
+   "actual": "非零圆角元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S15",
+   "kind": "shadow",
+   "claim": "none",
+   "actual": "inset=0 outset=0 drop-shadow=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S15",
+   "kind": "line-widths",
+   "claim": "0.5px/0.8px/1px/1.7px/3px",
+   "actual": "实测 border/outline 宽度=2px/3px ; 超纲=2px",
+   "pass": false,
+   "detail": "注意口径：只量 border/outline 实算宽度；SVG stroke、伪元素、background 线不在内 → 实测值是**下界**"
+  },
+  {
+   "id": "S15",
+   "kind": "image-slots",
+   "claim": "≥6 个可见图片位",
+   "actual": "img 标签=8 可见(>4px)=8",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S15",
+   "kind": "no-carousel",
+   "claim": "无轮播",
+   "actual": "autoplay=0 swiper类名=0 aria-live=polite:0 setInterval=0 rAF=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S15",
+   "kind": "no-gradient",
+   "claim": "无紫蓝渐变/#6366F1/光斑",
+   "actual": "linear|radial gradient 元素=0 ; #6366F1 出现=否",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S15",
+   "kind": "no-glassmorphism",
+   "claim": "无 backdrop-filter/半透明浮层",
+   "actual": "backdrop-filter 元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S15",
+   "kind": "no-emoji-iconfont",
+   "claim": "无 emoji/彩色 iconfont",
+   "actual": "emoji=0 ; iconfont 命中=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S15",
+   "kind": "no-round-softshadow",
+   "claim": "无\"圆角+柔和外投影\"组合",
+   "actual": "圆角=0 外投影=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S16",
+   "kind": "palette-extra",
+   "claim": "#C52C0F #F7EBCF #1A1A1A #8E2A18 #5C5C55",
+   "actual": "solid-not-claimed=4 [#000000 #FFFFFF #7A2410 #FFF2E9] ; chromatic-not-claimed=2 [#7A2410 #FFF2E9]",
+   "pass": false,
+   "detail": "有非灰的未声称色上屏"
+  },
+  {
+   "id": "S16",
+   "kind": "palette-unused",
+   "claim": "5 个声称色",
+   "actual": "从未上屏=0 []",
+   "pass": true,
+   "detail": "声称了但没用到不算谎报，只是冗余；单列以便判\"配色行是否真的驱动了实现\""
+  },
+  {
+   "id": "S16",
+   "kind": "font-display",
+   "claim": "链[LXGW Marker Gothic → Noto Serif SC]",
+   "actual": "h1 computed 首项=\"LXGW Marker Gothic\" ; 实际画字=LXGW Marker Gothic",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S16",
+   "kind": "font-body",
+   "claim": "链[Noto Serif SC → Georgia → Songti SC]",
+   "actual": "body computed 首项=\"Noto Serif SC\"",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S16",
+   "kind": "font-mono",
+   "claim": "Fragment Mono",
+   "actual": "Noto Serif SC ; 画字=Fragment Mono ; tabular-nums=normal",
+   "pass": false,
+   "detail": "code 元素首族不是声明的等宽体"
+  },
+  {
+   "id": "S16",
+   "kind": "font-ban",
+   "claim": "禁 Playfair Display/Inter/Roboto",
+   "actual": "无",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S16",
+   "kind": "radius",
+   "claim": "非全零",
+   "actual": "非零圆角元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S16",
+   "kind": "shadow",
+   "claim": "drop-only",
+   "actual": "drop-shadow=10 outset-boxshadow=0 inset=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S16",
+   "kind": "line-widths",
+   "claim": "2px/3px/6px/13px",
+   "actual": "实测 border/outline 宽度=3px",
+   "pass": true,
+   "detail": "注意口径：只量 border/outline 实算宽度；SVG stroke、伪元素、background 线不在内 → 实测值是**下界**"
+  },
+  {
+   "id": "S16",
+   "kind": "image-slots",
+   "claim": "≥6 个可见图片位",
+   "actual": "img 标签=6 可见(>4px)=6",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S16",
+   "kind": "no-carousel",
+   "claim": "无轮播",
+   "actual": "autoplay=0 swiper类名=0 aria-live=polite:0 setInterval=0 rAF=3",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S16",
+   "kind": "no-gradient",
+   "claim": "无紫蓝渐变/#6366F1/光斑",
+   "actual": "linear|radial gradient 元素=0 ; #6366F1 出现=否",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S16",
+   "kind": "no-glassmorphism",
+   "claim": "无 backdrop-filter/半透明浮层",
+   "actual": "backdrop-filter 元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S16",
+   "kind": "no-emoji-iconfont",
+   "claim": "无 emoji/彩色 iconfont",
+   "actual": "emoji=0 ; iconfont 命中=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S16",
+   "kind": "no-round-softshadow",
+   "claim": "无\"圆角+柔和外投影\"组合",
+   "actual": "圆角=0 外投影=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S17",
+   "kind": "palette-extra",
+   "claim": "#E1D6BD #C9BFA6 #5A2A50 #3F1A38 #7A2E2E #B9A98C #DFD6BF",
+   "actual": "solid-not-claimed=2 [#000000 #8C7A5B] ; chromatic-not-claimed=1 [#8C7A5B]",
+   "pass": false,
+   "detail": "有非灰的未声称色上屏"
+  },
+  {
+   "id": "S17",
+   "kind": "palette-unused",
+   "claim": "7 个声称色",
+   "actual": "从未上屏=1 [#DFD6BF]",
+   "pass": true,
+   "detail": "声称了但没用到不算谎报，只是冗余；单列以便判\"配色行是否真的驱动了实现\""
+  },
+  {
+   "id": "S17",
+   "kind": "font-display",
+   "claim": "链[Literata → 文津宋体 → Noto Serif SC]",
+   "actual": "h1 computed 首项=\"Literata\" ; 实际画字=Noto Serif SC ExtraLight",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S17",
+   "kind": "font-body",
+   "claim": "链[文津宋体 → WenJin Mincho SC → Noto Serif SC → Source Han Serif SC]",
+   "actual": "body computed 首项=\"文津宋体\"",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S17",
+   "kind": "font-mono",
+   "claim": "Sometype Mono",
+   "actual": "文津宋体 ; 画字=Sometype Mono ; tabular-nums=tabular-nums",
+   "pass": false,
+   "detail": "code 元素首族不是声明的等宽体"
+  },
+  {
+   "id": "S17",
+   "kind": "font-ban",
+   "claim": "禁 Playfair Display/Inter/Roboto",
+   "actual": "无",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S17",
+   "kind": "radius",
+   "claim": "非全零",
+   "actual": "非零圆角元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S17",
+   "kind": "shadow",
+   "claim": "none",
+   "actual": "inset=0 outset=0 drop-shadow=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S17",
+   "kind": "line-widths",
+   "claim": "1px/2px",
+   "actual": "实测 border/outline 宽度=1px/2px",
+   "pass": true,
+   "detail": "注意口径：只量 border/outline 实算宽度；SVG stroke、伪元素、background 线不在内 → 实测值是**下界**"
+  },
+  {
+   "id": "S17",
+   "kind": "image-slots",
+   "claim": "≥5 个可见图片位",
+   "actual": "img 标签=5 可见(>4px)=5",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S17",
+   "kind": "no-carousel",
+   "claim": "无轮播",
+   "actual": "autoplay=0 swiper类名=0 aria-live=polite:0 setInterval=0 rAF=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S17",
+   "kind": "no-gradient",
+   "claim": "无紫蓝渐变/#6366F1/光斑",
+   "actual": "linear|radial gradient 元素=0 ; #6366F1 出现=否",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S17",
+   "kind": "no-glassmorphism",
+   "claim": "无 backdrop-filter/半透明浮层",
+   "actual": "backdrop-filter 元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S17",
+   "kind": "no-emoji-iconfont",
+   "claim": "无 emoji/彩色 iconfont",
+   "actual": "emoji=0 ; iconfont 命中=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S17",
+   "kind": "no-round-softshadow",
+   "claim": "无\"圆角+柔和外投影\"组合",
+   "actual": "圆角=0 外投影=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S18",
+   "kind": "palette-extra",
+   "claim": "#0A0D0A #2FA84F #278F43 #C8C4AE #6E6350 #111111",
+   "actual": "solid-not-claimed=2 [#FFFFFF #000000] ; chromatic-not-claimed=0 []",
+   "pass": true,
+   "detail": "未声称的上屏色全为灰阶（黑/白/灰），语义上不算\"新增彩色\""
+  },
+  {
+   "id": "S18",
+   "kind": "palette-unused",
+   "claim": "6 个声称色",
+   "actual": "从未上屏=1 [#278F43]",
+   "pass": true,
+   "detail": "声称了但没用到不算谎报，只是冗余；单列以便判\"配色行是否真的驱动了实现\""
+  },
+  {
+   "id": "S18",
+   "kind": "font-display",
+   "claim": "链[Glow Sans SC → Songti SC → Georgia → Times New Roman]",
+   "actual": "h1 computed 首项=\"Glow Sans SC\" ; 实际画字=Glow Sans SC Normal Medium",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S18",
+   "kind": "font-body",
+   "claim": "链[Glow Sans SC → Songti SC → Georgia → Times New Roman]",
+   "actual": "body computed 首项=\"Glow Sans SC\"",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S18",
+   "kind": "font-mono",
+   "claim": "VT323",
+   "actual": "Martian Mono ; 画字=Martian Mono SemiExpanded Condensed ; tabular-nums=tabular-nums",
+   "pass": false,
+   "detail": "code 元素首族不是声明的等宽体"
+  },
+  {
+   "id": "S18",
+   "kind": "font-ban",
+   "claim": "禁 Playfair Display/Inter/Roboto",
+   "actual": "无",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S18",
+   "kind": "radius",
+   "claim": "全站 0",
+   "actual": "非零圆角元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S18",
+   "kind": "shadow",
+   "claim": "none",
+   "actual": "inset=0 outset=0 drop-shadow=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S18",
+   "kind": "line-widths",
+   "claim": "0.8px/1px/2px/4px",
+   "actual": "实测 border/outline 宽度=1px/4px",
+   "pass": true,
+   "detail": "注意口径：只量 border/outline 实算宽度；SVG stroke、伪元素、background 线不在内 → 实测值是**下界**"
+  },
+  {
+   "id": "S18",
+   "kind": "image-slots",
+   "claim": "≥6 个可见图片位",
+   "actual": "img 标签=6 可见(>4px)=6",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S18",
+   "kind": "no-carousel",
+   "claim": "无轮播",
+   "actual": "autoplay=0 swiper类名=0 aria-live=polite:0 setInterval=0 rAF=1",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S18",
+   "kind": "no-gradient",
+   "claim": "无紫蓝渐变/#6366F1/光斑",
+   "actual": "linear|radial gradient 元素=0 ; #6366F1 出现=否",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S18",
+   "kind": "no-glassmorphism",
+   "claim": "无 backdrop-filter/半透明浮层",
+   "actual": "backdrop-filter 元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S18",
+   "kind": "no-emoji-iconfont",
+   "claim": "无 emoji/彩色 iconfont",
+   "actual": "emoji=0 ; iconfont 命中=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S18",
+   "kind": "no-round-softshadow",
+   "claim": "无\"圆角+柔和外投影\"组合",
+   "actual": "圆角=0 外投影=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S19",
+   "kind": "palette-extra",
+   "claim": "#4A5C3A #E4DECD #D8CFB6 #E9E3D2 #2A241C #3A3227 #7C7460",
+   "actual": "solid-not-claimed=7 [#000000 #A79C82 #FFFFFF #5E5443 #24201A #534C3E #DCD4BD] ; chromatic-not-claimed=5 [#A79C82 #5E5443 #24201A #534C3E #DCD4BD]",
+   "pass": false,
+   "detail": "有非灰的未声称色上屏"
+  },
+  {
+   "id": "S19",
+   "kind": "palette-unused",
+   "claim": "7 个声称色",
+   "actual": "从未上屏=0 []",
+   "pass": true,
+   "detail": "声称了但没用到不算谎报，只是冗余；单列以便判\"配色行是否真的驱动了实现\""
+  },
+  {
+   "id": "S19",
+   "kind": "font-display",
+   "claim": "链[Noto Serif SC → Georgia]",
+   "actual": "h1 computed 首项=\"Noto Serif SC\" ; 实际画字=Noto Serif SC ExtraLight",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S19",
+   "kind": "font-body",
+   "claim": "链[Noto Serif SC → Georgia]",
+   "actual": "body computed 首项=\"Noto Serif SC\"",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S19",
+   "kind": "font-mono",
+   "claim": "IBM Plex Mono",
+   "actual": "IBM Plex Mono ; 画字=IBM Plex Mono ; tabular-nums=tabular-nums",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S19",
+   "kind": "font-ban",
+   "claim": "禁 Playfair Display/Inter/Roboto",
+   "actual": "无",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S19",
+   "kind": "radius",
+   "claim": "全站 0",
+   "actual": "非零圆角元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S19",
+   "kind": "shadow",
+   "claim": "inset-only",
+   "actual": "inset=20 outset=0 drop=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S19",
+   "kind": "line-widths",
+   "claim": "0.4px/0.8px/1px/3px",
+   "actual": "实测 border/outline 宽度=1px/3px",
+   "pass": true,
+   "detail": "注意口径：只量 border/outline 实算宽度；SVG stroke、伪元素、background 线不在内 → 实测值是**下界**"
+  },
+  {
+   "id": "S19",
+   "kind": "image-slots",
+   "claim": "≥6 个可见图片位",
+   "actual": "img 标签=11 可见(>4px)=11",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S19",
+   "kind": "no-carousel",
+   "claim": "无轮播",
+   "actual": "autoplay=0 swiper类名=0 aria-live=polite:1 setInterval=0 rAF=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S19",
+   "kind": "no-gradient",
+   "claim": "无紫蓝渐变/#6366F1/光斑",
+   "actual": "linear|radial gradient 元素=0 ; #6366F1 出现=否",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S19",
+   "kind": "no-glassmorphism",
+   "claim": "无 backdrop-filter/半透明浮层",
+   "actual": "backdrop-filter 元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S19",
+   "kind": "no-emoji-iconfont",
+   "claim": "无 emoji/彩色 iconfont",
+   "actual": "emoji=0 ; iconfont 命中=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S19",
+   "kind": "no-round-softshadow",
+   "claim": "无\"圆角+柔和外投影\"组合",
+   "actual": "圆角=0 外投影=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S20",
+   "kind": "palette-extra",
+   "claim": "#FAF3E1 #26485C #0F1418 #55606B",
+   "actual": "solid-not-claimed=2 [#000000 #101010] ; chromatic-not-claimed=0 []",
+   "pass": true,
+   "detail": "未声称的上屏色全为灰阶（黑/白/灰），语义上不算\"新增彩色\""
+  },
+  {
+   "id": "S20",
+   "kind": "palette-unused",
+   "claim": "4 个声称色",
+   "actual": "从未上屏=0 []",
+   "pass": true,
+   "detail": "声称了但没用到不算谎报，只是冗余；单列以便判\"配色行是否真的驱动了实现\""
+  },
+  {
+   "id": "S20",
+   "kind": "font-display",
+   "claim": "链[Space Grotesk → Noto Sans SC]",
+   "actual": "h1 computed 首项=\"Space Grotesk\" ; 实际画字=Noto Sans SC Thin",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S20",
+   "kind": "font-body",
+   "claim": "链[Noto Sans SC → Space Grotesk]",
+   "actual": "body computed 首项=\"Noto Sans SC\"",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S20",
+   "kind": "font-mono",
+   "claim": "Martian Mono",
+   "actual": "Martian Mono ; 画字=Martian Mono SemiExpanded Condensed ; tabular-nums=tabular-nums",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S20",
+   "kind": "font-ban",
+   "claim": "禁 Playfair Display/Inter/Roboto",
+   "actual": "无",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S20",
+   "kind": "radius",
+   "claim": "全站 0",
+   "actual": "非零圆角元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S20",
+   "kind": "shadow",
+   "claim": "none",
+   "actual": "inset=0 outset=0 drop-shadow=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S20",
+   "kind": "line-widths",
+   "claim": "0.35px/0.5px/1px/3px",
+   "actual": "实测 border/outline 宽度=1px/3px",
+   "pass": true,
+   "detail": "注意口径：只量 border/outline 实算宽度；SVG stroke、伪元素、background 线不在内 → 实测值是**下界**"
+  },
+  {
+   "id": "S20",
+   "kind": "image-slots",
+   "claim": "≥6 个可见图片位",
+   "actual": "img 标签=7 可见(>4px)=7",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S20",
+   "kind": "no-carousel",
+   "claim": "无轮播",
+   "actual": "autoplay=0 swiper类名=4 aria-live=polite:0 setInterval=0 rAF=1",
+   "pass": false,
+   "detail": ""
+  },
+  {
+   "id": "S20",
+   "kind": "no-gradient",
+   "claim": "无紫蓝渐变/#6366F1/光斑",
+   "actual": "linear|radial gradient 元素=0 ; #6366F1 出现=否",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S20",
+   "kind": "no-glassmorphism",
+   "claim": "无 backdrop-filter/半透明浮层",
+   "actual": "backdrop-filter 元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S20",
+   "kind": "no-emoji-iconfont",
+   "claim": "无 emoji/彩色 iconfont",
+   "actual": "emoji=0 ; iconfont 命中=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S20",
+   "kind": "no-round-softshadow",
+   "claim": "无\"圆角+柔和外投影\"组合",
+   "actual": "圆角=0 外投影=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S21",
+   "kind": "palette-extra",
+   "claim": "#3E3A34 #E4DCC9 #924307 #6E6A5E #FFFFFF",
+   "actual": "solid-not-claimed=1 [#000000] ; chromatic-not-claimed=0 []",
+   "pass": true,
+   "detail": "未声称的上屏色全为灰阶（黑/白/灰），语义上不算\"新增彩色\""
+  },
+  {
+   "id": "S21",
+   "kind": "palette-unused",
+   "claim": "5 个声称色",
+   "actual": "从未上屏=0 []",
+   "pass": true,
+   "detail": "声称了但没用到不算谎报，只是冗余；单列以便判\"配色行是否真的驱动了实现\""
+  },
+  {
+   "id": "S21",
+   "kind": "font-display",
+   "claim": "链[Antonio → WenJin Mincho → Georgia → Songti SC]",
+   "actual": "h1 computed 首项=\"Antonio\" ; 实际画字=WenJin Mincho Plane 0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S21",
+   "kind": "font-body",
+   "claim": "链[WenJin Mincho → Georgia → Songti SC → STSong]",
+   "actual": "body computed 首项=\"WenJin Mincho\"",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S21",
+   "kind": "font-mono",
+   "claim": "IBM Plex Mono",
+   "actual": "WenJin Mincho ; 画字=n/a ; tabular-nums=tabular-nums",
+   "pass": false,
+   "detail": "code 元素首族不是声明的等宽体"
+  },
+  {
+   "id": "S21",
+   "kind": "font-ban",
+   "claim": "禁 Playfair Display/Inter/Roboto",
+   "actual": "无",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S21",
+   "kind": "radius",
+   "claim": "全站 0",
+   "actual": "非零圆角元素=3 [input:50% | input:50% | input:50%] ; 全为圆形(50%)=true",
+   "pass": false,
+   "detail": ""
+  },
+  {
+   "id": "S21",
+   "kind": "shadow",
+   "claim": "inset-only",
+   "actual": "inset=31 outset=0 drop=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S21",
+   "kind": "line-widths",
+   "claim": "1px/2px",
+   "actual": "实测 border/outline 宽度=1px/2px",
+   "pass": true,
+   "detail": "注意口径：只量 border/outline 实算宽度；SVG stroke、伪元素、background 线不在内 → 实测值是**下界**"
+  },
+  {
+   "id": "S21",
+   "kind": "image-slots",
+   "claim": "≥6 个可见图片位",
+   "actual": "img 标签=6 可见(>4px)=6",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S21",
+   "kind": "no-carousel",
+   "claim": "无轮播",
+   "actual": "autoplay=0 swiper类名=0 aria-live=polite:0 setInterval=0 rAF=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S21",
+   "kind": "no-gradient",
+   "claim": "无紫蓝渐变/#6366F1/光斑",
+   "actual": "linear|radial gradient 元素=0 ; #6366F1 出现=否",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S21",
+   "kind": "no-glassmorphism",
+   "claim": "无 backdrop-filter/半透明浮层",
+   "actual": "backdrop-filter 元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S21",
+   "kind": "no-emoji-iconfont",
+   "claim": "无 emoji/彩色 iconfont",
+   "actual": "emoji=0 ; iconfont 命中=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S21",
+   "kind": "no-round-softshadow",
+   "claim": "无\"圆角+柔和外投影\"组合",
+   "actual": "圆角=3 外投影=0",
+   "pass": false,
+   "detail": ""
+  },
+  {
+   "id": "S22",
+   "kind": "palette-extra",
+   "claim": "#565B49 #DDDAD4 #2E2A24 #6B6558",
+   "actual": "solid-not-claimed=3 [#000000 #FFFFFF #373A2F] ; chromatic-not-claimed=1 [#373A2F]",
+   "pass": false,
+   "detail": "有非灰的未声称色上屏"
+  },
+  {
+   "id": "S22",
+   "kind": "palette-unused",
+   "claim": "4 个声称色",
+   "actual": "从未上屏=1 [#6B6558]",
+   "pass": true,
+   "detail": "声称了但没用到不算谎报，只是冗余；单列以便判\"配色行是否真的驱动了实现\""
+  },
+  {
+   "id": "S22",
+   "kind": "font-display",
+   "claim": "链[Petrona → Zhuque Fangsong → Georgia]",
+   "actual": "h1 computed 首项=\"Petrona\" ; 实际画字=Zhuque Fangsong (technical preview)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S22",
+   "kind": "font-body",
+   "claim": "链[Zhuque Fangsong → Petrona → Georgia]",
+   "actual": "body computed 首项=\"Zhuque Fangsong\"",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S22",
+   "kind": "font-mono",
+   "claim": "IBM Plex Mono",
+   "actual": "IBM Plex Mono ; 画字=IBM Plex Mono ; tabular-nums=tabular-nums",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S22",
+   "kind": "font-ban",
+   "claim": "禁 Playfair Display/Inter/Roboto",
+   "actual": "无",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S22",
+   "kind": "radius",
+   "claim": "全站 0",
+   "actual": "非零圆角元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S22",
+   "kind": "shadow",
+   "claim": "inset-only",
+   "actual": "inset=7 outset=0 drop=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S22",
+   "kind": "line-widths",
+   "claim": "1px/3px",
+   "actual": "实测 border/outline 宽度=1px/3px",
+   "pass": true,
+   "detail": "注意口径：只量 border/outline 实算宽度；SVG stroke、伪元素、background 线不在内 → 实测值是**下界**"
+  },
+  {
+   "id": "S22",
+   "kind": "image-slots",
+   "claim": "≥6 个可见图片位",
+   "actual": "img 标签=8 可见(>4px)=8",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S22",
+   "kind": "no-carousel",
+   "claim": "无轮播",
+   "actual": "autoplay=0 swiper类名=0 aria-live=polite:0 setInterval=0 rAF=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S22",
+   "kind": "no-gradient",
+   "claim": "无紫蓝渐变/#6366F1/光斑",
+   "actual": "linear|radial gradient 元素=0 ; #6366F1 出现=否",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S22",
+   "kind": "no-glassmorphism",
+   "claim": "无 backdrop-filter/半透明浮层",
+   "actual": "backdrop-filter 元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S22",
+   "kind": "no-emoji-iconfont",
+   "claim": "无 emoji/彩色 iconfont",
+   "actual": "emoji=0 ; iconfont 命中=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S22",
+   "kind": "no-round-softshadow",
+   "claim": "无\"圆角+柔和外投影\"组合",
+   "actual": "圆角=0 外投影=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S23",
+   "kind": "palette-extra",
+   "claim": "#A8206B #241C16 #DCDCC8 #7A6A55 #E9E9D7 #5F5240 #B7A78C",
+   "actual": "solid-not-claimed=3 [#000000 #E9A9C6 #FFFFFF] ; chromatic-not-claimed=1 [#E9A9C6]",
+   "pass": false,
+   "detail": "有非灰的未声称色上屏"
+  },
+  {
+   "id": "S23",
+   "kind": "palette-unused",
+   "claim": "7 个声称色",
+   "actual": "从未上屏=0 []",
+   "pass": true,
+   "detail": "声称了但没用到不算谎报，只是冗余；单列以便判\"配色行是否真的驱动了实现\""
+  },
+  {
+   "id": "S23",
+   "kind": "font-display",
+   "claim": "链[Noto Serif SC → Alfa Slab One]",
+   "actual": "h1 computed 首项=\"Noto Serif SC\" ; 实际画字=Noto Serif SC ExtraLight",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S23",
+   "kind": "font-body",
+   "claim": "链[Noto Serif SC → Alfa Slab One]",
+   "actual": "body computed 首项=\"Noto Serif SC\"",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S23",
+   "kind": "font-mono",
+   "claim": "JetBrains Mono",
+   "actual": "JetBrains Mono ; 画字=JetBrains Mono Medium ; tabular-nums=tabular-nums",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S23",
+   "kind": "font-ban",
+   "claim": "禁 Playfair Display/Inter/Roboto",
+   "actual": "无",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S23",
+   "kind": "radius",
+   "claim": "全站 0",
+   "actual": "非零圆角元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S23",
+   "kind": "shadow",
+   "claim": "none",
+   "actual": "inset=0 outset=0 drop-shadow=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S23",
+   "kind": "line-widths",
+   "claim": "1px/6px",
+   "actual": "实测 border/outline 宽度=1px/6px",
+   "pass": true,
+   "detail": "注意口径：只量 border/outline 实算宽度；SVG stroke、伪元素、background 线不在内 → 实测值是**下界**"
+  },
+  {
+   "id": "S23",
+   "kind": "image-slots",
+   "claim": "≥10 个可见图片位",
+   "actual": "img 标签=10 可见(>4px)=10",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S23",
+   "kind": "no-carousel",
+   "claim": "无轮播",
+   "actual": "autoplay=0 swiper类名=0 aria-live=polite:0 setInterval=0 rAF=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S23",
+   "kind": "no-gradient",
+   "claim": "无紫蓝渐变/#6366F1/光斑",
+   "actual": "linear|radial gradient 元素=0 ; #6366F1 出现=否",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S23",
+   "kind": "no-glassmorphism",
+   "claim": "无 backdrop-filter/半透明浮层",
+   "actual": "backdrop-filter 元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S23",
+   "kind": "no-emoji-iconfont",
+   "claim": "无 emoji/彩色 iconfont",
+   "actual": "emoji=0 ; iconfont 命中=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S23",
+   "kind": "no-round-softshadow",
+   "claim": "无\"圆角+柔和外投影\"组合",
+   "actual": "圆角=0 外投影=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S24",
+   "kind": "palette-extra",
+   "claim": "#5D43AD #E6EDF2 #F3F8FB #DCE7EF #C9D8E4 #0A1116 #3A4652",
+   "actual": "solid-not-claimed=8 [#000000 #FFFFFF #6E8B7A #3C5F48 #2A1B50 #1B1136 #3A276E #4A3390] ; chromatic-not-claimed=6 [#6E8B7A #3C5F48 #2A1B50 #1B1136 #3A276E #4A3390]",
+   "pass": false,
+   "detail": "有非灰的未声称色上屏"
+  },
+  {
+   "id": "S24",
+   "kind": "palette-unused",
+   "claim": "7 个声称色",
+   "actual": "从未上屏=0 []",
+   "pass": true,
+   "detail": "声称了但没用到不算谎报，只是冗余；单列以便判\"配色行是否真的驱动了实现\""
+  },
+  {
+   "id": "S24",
+   "kind": "font-display",
+   "claim": "链[Spectral → LXGW WenKai → Georgia → Times New Roman]",
+   "actual": "h1 computed 首项=\"Spectral\" ; 实际画字=LXGW WenKai",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S24",
+   "kind": "font-body",
+   "claim": "链[LXGW WenKai → Songti SC → Georgia → Times New Roman]",
+   "actual": "body computed 首项=\"LXGW WenKai\"",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S24",
+   "kind": "font-mono",
+   "claim": "IBM Plex Mono",
+   "actual": "IBM Plex Mono ; 画字=IBM Plex Mono ; tabular-nums=tabular-nums",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S24",
+   "kind": "font-ban",
+   "claim": "禁 Playfair Display/Inter/Roboto",
+   "actual": "无",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S24",
+   "kind": "radius",
+   "claim": "全站 0",
+   "actual": "非零圆角元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S24",
+   "kind": "shadow",
+   "claim": "none",
+   "actual": "inset=0 outset=0 drop-shadow=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S24",
+   "kind": "line-widths",
+   "claim": "0.4px/0.6px/0.8px/1px/2px/2.5px",
+   "actual": "实测 border/outline 宽度=1px",
+   "pass": true,
+   "detail": "注意口径：只量 border/outline 实算宽度；SVG stroke、伪元素、background 线不在内 → 实测值是**下界**"
+  },
+  {
+   "id": "S24",
+   "kind": "image-slots",
+   "claim": "≥6 个可见图片位",
+   "actual": "img 标签=6 可见(>4px)=6",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S24",
+   "kind": "no-carousel",
+   "claim": "无轮播",
+   "actual": "autoplay=0 swiper类名=0 aria-live=polite:0 setInterval=0 rAF=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S24",
+   "kind": "no-gradient",
+   "claim": "无紫蓝渐变/#6366F1/光斑",
+   "actual": "linear|radial gradient 元素=0 ; #6366F1 出现=否",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S24",
+   "kind": "no-glassmorphism",
+   "claim": "无 backdrop-filter/半透明浮层",
+   "actual": "backdrop-filter 元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S24",
+   "kind": "no-emoji-iconfont",
+   "claim": "无 emoji/彩色 iconfont",
+   "actual": "emoji=0 ; iconfont 命中=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S24",
+   "kind": "no-round-softshadow",
+   "claim": "无\"圆角+柔和外投影\"组合",
+   "actual": "圆角=0 外投影=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S25",
+   "kind": "palette-extra",
+   "claim": "#E8E4DE #DFDAD2 #1E1A16 #914A27 #2E6B5E #FFFFFF",
+   "actual": "solid-not-claimed=4 [#000000 #4A423A #6B625A #4B453F] ; chromatic-not-claimed=3 [#4A423A #6B625A #4B453F]",
+   "pass": false,
+   "detail": "有非灰的未声称色上屏"
+  },
+  {
+   "id": "S25",
+   "kind": "palette-unused",
+   "claim": "6 个声称色",
+   "actual": "从未上屏=0 []",
+   "pass": true,
+   "detail": "声称了但没用到不算谎报，只是冗余；单列以便判\"配色行是否真的驱动了实现\""
+  },
+  {
+   "id": "S25",
+   "kind": "font-display",
+   "claim": "链[Besley → Noto Serif SC → Georgia]",
+   "actual": "h1 computed 首项=\"Besley\" ; 实际画字=Noto Serif SC ExtraLight",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S25",
+   "kind": "font-body",
+   "claim": "链[Noto Serif SC → Songti SC → Georgia]",
+   "actual": "body computed 首项=\"Noto Serif SC\"",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S25",
+   "kind": "font-ban",
+   "claim": "禁 Playfair Display/Inter/Roboto",
+   "actual": "无",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S25",
+   "kind": "radius",
+   "claim": "全站 0",
+   "actual": "非零圆角元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S25",
+   "kind": "shadow",
+   "claim": "none",
+   "actual": "inset=0 outset=0 drop-shadow=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S25",
+   "kind": "line-widths",
+   "claim": "3px",
+   "actual": "实测 border/outline 宽度=（无任何 border/outline）",
+   "pass": true,
+   "detail": "注意口径：只量 border/outline 实算宽度；SVG stroke、伪元素、background 线不在内 → 实测值是**下界**"
+  },
+  {
+   "id": "S25",
+   "kind": "image-slots",
+   "claim": "≥5 个可见图片位",
+   "actual": "img 标签=5 可见(>4px)=5",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S25",
+   "kind": "no-carousel",
+   "claim": "无轮播",
+   "actual": "autoplay=0 swiper类名=0 aria-live=polite:0 setInterval=0 rAF=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S25",
+   "kind": "no-gradient",
+   "claim": "无紫蓝渐变/#6366F1/光斑",
+   "actual": "linear|radial gradient 元素=0 ; #6366F1 出现=否",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S25",
+   "kind": "no-glassmorphism",
+   "claim": "无 backdrop-filter/半透明浮层",
+   "actual": "backdrop-filter 元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S25",
+   "kind": "no-emoji-iconfont",
+   "claim": "无 emoji/彩色 iconfont",
+   "actual": "emoji=0 ; iconfont 命中=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S25",
+   "kind": "no-round-softshadow",
+   "claim": "无\"圆角+柔和外投影\"组合",
+   "actual": "圆角=0 外投影=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S26",
+   "kind": "palette-extra",
+   "claim": "#D3D1CA #485270 #121212 #C8341F #FFFFFF #C3C1B9 #38110E",
+   "actual": "solid-not-claimed=3 [#000000 #0E0402 #2E3448] ; chromatic-not-claimed=2 [#0E0402 #2E3448]",
+   "pass": false,
+   "detail": "有非灰的未声称色上屏"
+  },
+  {
+   "id": "S26",
+   "kind": "palette-unused",
+   "claim": "7 个声称色",
+   "actual": "从未上屏=0 []",
+   "pass": true,
+   "detail": "声称了但没用到不算谎报，只是冗余；单列以便判\"配色行是否真的驱动了实现\""
+  },
+  {
+   "id": "S26",
+   "kind": "font-display",
+   "claim": "链[Syne → Noto Sans SC]",
+   "actual": "h1 computed 首项=\"Syne\" ; 实际画字=Noto Sans SC Thin",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S26",
+   "kind": "font-body",
+   "claim": "链[Noto Sans SC]",
+   "actual": "body computed 首项=\"Noto Sans SC\"",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S26",
+   "kind": "font-mono",
+   "claim": "IBM Plex Mono",
+   "actual": "IBM Plex Mono ; 画字=IBM Plex Mono ; tabular-nums=tabular-nums",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S26",
+   "kind": "font-ban",
+   "claim": "禁 Playfair Display/Inter/Roboto",
+   "actual": "无",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S26",
+   "kind": "radius",
+   "claim": "全站 0",
+   "actual": "非零圆角元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S26",
+   "kind": "shadow",
+   "claim": "drop-only",
+   "actual": "drop-shadow=9 outset-boxshadow=0 inset=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S26",
+   "kind": "line-widths",
+   "claim": "2px/8px",
+   "actual": "实测 border/outline 宽度=2px/8px",
+   "pass": true,
+   "detail": "注意口径：只量 border/outline 实算宽度；SVG stroke、伪元素、background 线不在内 → 实测值是**下界**"
+  },
+  {
+   "id": "S26",
+   "kind": "image-slots",
+   "claim": "≥6 个可见图片位",
+   "actual": "img 标签=6 可见(>4px)=6",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S26",
+   "kind": "no-carousel",
+   "claim": "无轮播",
+   "actual": "autoplay=0 swiper类名=0 aria-live=polite:0 setInterval=0 rAF=1",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S26",
+   "kind": "no-gradient",
+   "claim": "无紫蓝渐变/#6366F1/光斑",
+   "actual": "linear|radial gradient 元素=0 ; #6366F1 出现=否",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S26",
+   "kind": "no-glassmorphism",
+   "claim": "无 backdrop-filter/半透明浮层",
+   "actual": "backdrop-filter 元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S26",
+   "kind": "no-emoji-iconfont",
+   "claim": "无 emoji/彩色 iconfont",
+   "actual": "emoji=0 ; iconfont 命中=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S26",
+   "kind": "no-round-softshadow",
+   "claim": "无\"圆角+柔和外投影\"组合",
+   "actual": "圆角=0 外投影=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S27",
+   "kind": "palette-extra",
+   "claim": "#0E6258 #221C10 #E8D7B5 #1A150C #C9BFA6 #FFFFFF",
+   "actual": "solid-not-claimed=2 [#000000 #4A4232] ; chromatic-not-claimed=1 [#4A4232]",
+   "pass": false,
+   "detail": "有非灰的未声称色上屏"
+  },
+  {
+   "id": "S27",
+   "kind": "palette-unused",
+   "claim": "6 个声称色",
+   "actual": "从未上屏=0 []",
+   "pass": true,
+   "detail": "声称了但没用到不算谎报，只是冗余；单列以便判\"配色行是否真的驱动了实现\""
+  },
+  {
+   "id": "S27",
+   "kind": "font-display",
+   "claim": "链[Chivo → LXGW WenKai]",
+   "actual": "h1 computed 首项=\"Chivo\" ; 实际画字=LXGW WenKai",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S27",
+   "kind": "font-body",
+   "claim": "链[LXGW WenKai → Chivo → Georgia]",
+   "actual": "body computed 首项=\"LXGW WenKai\"",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S27",
+   "kind": "font-mono",
+   "claim": "Martian Mono",
+   "actual": "Martian Mono ; 画字=Martian Mono SemiExpanded ; tabular-nums=tabular-nums",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S27",
+   "kind": "font-ban",
+   "claim": "禁 Playfair Display/Inter/Roboto",
+   "actual": "无",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S27",
+   "kind": "radius",
+   "claim": "全站 0",
+   "actual": "非零圆角元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S27",
+   "kind": "shadow",
+   "claim": "drop-only",
+   "actual": "drop-shadow=7 outset-boxshadow=0 inset=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S27",
+   "kind": "line-widths",
+   "claim": "1.2px/2.4px/3px",
+   "actual": "实测 border/outline 宽度=1px/3px ; 超纲=1px",
+   "pass": false,
+   "detail": "注意口径：只量 border/outline 实算宽度；SVG stroke、伪元素、background 线不在内 → 实测值是**下界**"
+  },
+  {
+   "id": "S27",
+   "kind": "image-slots",
+   "claim": "≥6 个可见图片位",
+   "actual": "img 标签=7 可见(>4px)=7",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S27",
+   "kind": "no-carousel",
+   "claim": "无轮播",
+   "actual": "autoplay=0 swiper类名=0 aria-live=polite:0 setInterval=0 rAF=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S27",
+   "kind": "no-gradient",
+   "claim": "无紫蓝渐变/#6366F1/光斑",
+   "actual": "linear|radial gradient 元素=0 ; #6366F1 出现=否",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S27",
+   "kind": "no-glassmorphism",
+   "claim": "无 backdrop-filter/半透明浮层",
+   "actual": "backdrop-filter 元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S27",
+   "kind": "no-emoji-iconfont",
+   "claim": "无 emoji/彩色 iconfont",
+   "actual": "emoji=0 ; iconfont 命中=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S27",
+   "kind": "no-round-softshadow",
+   "claim": "无\"圆角+柔和外投影\"组合",
+   "actual": "圆角=0 外投影=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S28",
+   "kind": "palette-extra",
+   "claim": "#AF74BE #D8D4C6 #0B0D12 #07080C",
+   "actual": "solid-not-claimed=2 [#FFFFFF #000000] ; chromatic-not-claimed=0 []",
+   "pass": true,
+   "detail": "未声称的上屏色全为灰阶（黑/白/灰），语义上不算\"新增彩色\""
+  },
+  {
+   "id": "S28",
+   "kind": "palette-unused",
+   "claim": "4 个声称色",
+   "actual": "从未上屏=1 [#07080C]",
+   "pass": true,
+   "detail": "声称了但没用到不算谎报，只是冗余；单列以便判\"配色行是否真的驱动了实现\""
+  },
+  {
+   "id": "S28",
+   "kind": "font-display",
+   "claim": "链[Instrument Serif → Noto Serif SC → Georgia]",
+   "actual": "h1 computed 首项=\"Instrument Serif\" ; 实际画字=Noto Serif SC ExtraLight",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S28",
+   "kind": "font-body",
+   "claim": "链[Noto Serif SC → Instrument Serif → Georgia]",
+   "actual": "body computed 首项=\"Noto Serif SC\"",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S28",
+   "kind": "font-mono",
+   "claim": "JetBrains Mono",
+   "actual": "JetBrains Mono ; 画字=JetBrains Mono Medium ; tabular-nums=tabular-nums",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S28",
+   "kind": "font-ban",
+   "claim": "禁 Playfair Display/Inter/Roboto",
+   "actual": "无",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S28",
+   "kind": "radius",
+   "claim": "全站 0",
+   "actual": "非零圆角元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S28",
+   "kind": "shadow",
+   "claim": "drop-only",
+   "actual": "drop-shadow=17 outset-boxshadow=0 inset=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S28",
+   "kind": "line-widths",
+   "claim": "2px/8px",
+   "actual": "实测 border/outline 宽度=2px/8px",
+   "pass": true,
+   "detail": "注意口径：只量 border/outline 实算宽度；SVG stroke、伪元素、background 线不在内 → 实测值是**下界**"
+  },
+  {
+   "id": "S28",
+   "kind": "image-slots",
+   "claim": "≥6 个可见图片位",
+   "actual": "img 标签=15 可见(>4px)=15",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S28",
+   "kind": "no-carousel",
+   "claim": "无轮播",
+   "actual": "autoplay=0 swiper类名=0 aria-live=polite:0 setInterval=0 rAF=1",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S28",
+   "kind": "no-gradient",
+   "claim": "无紫蓝渐变/#6366F1/光斑",
+   "actual": "linear|radial gradient 元素=0 ; #6366F1 出现=否",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S28",
+   "kind": "no-glassmorphism",
+   "claim": "无 backdrop-filter/半透明浮层",
+   "actual": "backdrop-filter 元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S28",
+   "kind": "no-emoji-iconfont",
+   "claim": "无 emoji/彩色 iconfont",
+   "actual": "emoji=0 ; iconfont 命中=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S28",
+   "kind": "no-round-softshadow",
+   "claim": "无\"圆角+柔和外投影\"组合",
+   "actual": "圆角=0 外投影=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S29",
+   "kind": "palette-extra",
+   "claim": "#644F02 #D9D3C4 #1A1A17 #5A6068 #E4B400 #E0DACB",
+   "actual": "solid-not-claimed=2 [#000000 #FFFFFF] ; chromatic-not-claimed=0 []",
+   "pass": true,
+   "detail": "未声称的上屏色全为灰阶（黑/白/灰），语义上不算\"新增彩色\""
+  },
+  {
+   "id": "S29",
+   "kind": "palette-unused",
+   "claim": "6 个声称色",
+   "actual": "从未上屏=0 []",
+   "pass": true,
+   "detail": "声称了但没用到不算谎报，只是冗余；单列以便判\"配色行是否真的驱动了实现\""
+  },
+  {
+   "id": "S29",
+   "kind": "font-display",
+   "claim": "链[Saira Condensed → Noto Sans SC]",
+   "actual": "h1 computed 首项=\"Saira Condensed\" ; 实际画字=Noto Sans SC Thin",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S29",
+   "kind": "font-body",
+   "claim": "链[Noto Sans SC]",
+   "actual": "body computed 首项=\"Noto Sans SC\"",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S29",
+   "kind": "font-mono",
+   "claim": "Martian Mono",
+   "actual": "Martian Mono ; 画字=Martian Mono SemiExpanded ; tabular-nums=tabular-nums",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S29",
+   "kind": "font-ban",
+   "claim": "禁 Playfair Display/Inter/Roboto",
+   "actual": "无",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S29",
+   "kind": "radius",
+   "claim": "全站 0",
+   "actual": "非零圆角元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S29",
+   "kind": "shadow",
+   "claim": "none",
+   "actual": "inset=0 outset=0 drop-shadow=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S29",
+   "kind": "line-widths",
+   "claim": "0.4px/0.6px/1px/2px/3px/6px",
+   "actual": "实测 border/outline 宽度=1px/3px/6px",
+   "pass": true,
+   "detail": "注意口径：只量 border/outline 实算宽度；SVG stroke、伪元素、background 线不在内 → 实测值是**下界**"
+  },
+  {
+   "id": "S29",
+   "kind": "image-slots",
+   "claim": "≥6 个可见图片位",
+   "actual": "img 标签=6 可见(>4px)=6",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S29",
+   "kind": "no-carousel",
+   "claim": "无轮播",
+   "actual": "autoplay=0 swiper类名=0 aria-live=polite:0 setInterval=0 rAF=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S29",
+   "kind": "no-gradient",
+   "claim": "无紫蓝渐变/#6366F1/光斑",
+   "actual": "linear|radial gradient 元素=0 ; #6366F1 出现=否",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S29",
+   "kind": "no-glassmorphism",
+   "claim": "无 backdrop-filter/半透明浮层",
+   "actual": "backdrop-filter 元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S29",
+   "kind": "no-emoji-iconfont",
+   "claim": "无 emoji/彩色 iconfont",
+   "actual": "emoji=0 ; iconfont 命中=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S29",
+   "kind": "no-round-softshadow",
+   "claim": "无\"圆角+柔和外投影\"组合",
+   "actual": "圆角=0 外投影=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S30",
+   "kind": "palette-extra",
+   "claim": "#007B3F #EDEDED #E6E6E6 #00E676 #141414 #FFFFFF",
+   "actual": "solid-not-claimed=4 [#000000 #B9B9B9 #4A4A4A #2B2B2B] ; chromatic-not-claimed=0 []",
+   "pass": true,
+   "detail": "未声称的上屏色全为灰阶（黑/白/灰），语义上不算\"新增彩色\""
+  },
+  {
+   "id": "S30",
+   "kind": "palette-unused",
+   "claim": "6 个声称色",
+   "actual": "从未上屏=0 []",
+   "pass": true,
+   "detail": "声称了但没用到不算谎报，只是冗余；单列以便判\"配色行是否真的驱动了实现\""
+  },
+  {
+   "id": "S30",
+   "kind": "font-display",
+   "claim": "链[Anton → Zhuque Fangsong → Georgia]",
+   "actual": "h1 computed 首项=\"Anton\" ; 实际画字=Anton",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S30",
+   "kind": "font-body",
+   "claim": "链[Zhuque Fangsong → Georgia]",
+   "actual": "body computed 首项=\"Zhuque Fangsong\"",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S30",
+   "kind": "font-mono",
+   "claim": "IBM Plex Mono",
+   "actual": "IBM Plex Mono ; 画字=IBM Plex Mono ; tabular-nums=tabular-nums",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S30",
+   "kind": "font-ban",
+   "claim": "禁 Playfair Display/Inter/Roboto",
+   "actual": "无",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S30",
+   "kind": "radius",
+   "claim": "全站 0",
+   "actual": "非零圆角元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S30",
+   "kind": "shadow",
+   "claim": "drop-only",
+   "actual": "drop-shadow=10 outset-boxshadow=0 inset=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S30",
+   "kind": "line-widths",
+   "claim": "1px/3px/6px/8px",
+   "actual": "实测 border/outline 宽度=1px/3px/6px",
+   "pass": true,
+   "detail": "注意口径：只量 border/outline 实算宽度；SVG stroke、伪元素、background 线不在内 → 实测值是**下界**"
+  },
+  {
+   "id": "S30",
+   "kind": "image-slots",
+   "claim": "≥6 个可见图片位",
+   "actual": "img 标签=7 可见(>4px)=7",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S30",
+   "kind": "no-carousel",
+   "claim": "无轮播",
+   "actual": "autoplay=0 swiper类名=0 aria-live=polite:0 setInterval=0 rAF=2",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S30",
+   "kind": "no-gradient",
+   "claim": "无紫蓝渐变/#6366F1/光斑",
+   "actual": "linear|radial gradient 元素=0 ; #6366F1 出现=否",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S30",
+   "kind": "no-glassmorphism",
+   "claim": "无 backdrop-filter/半透明浮层",
+   "actual": "backdrop-filter 元素=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S30",
+   "kind": "no-emoji-iconfont",
+   "claim": "无 emoji/彩色 iconfont",
+   "actual": "emoji=0 ; iconfont 命中=0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S30",
+   "kind": "no-round-softshadow",
+   "claim": "无\"圆角+柔和外投影\"组合",
+   "actual": "圆角=0 外投影=0",
+   "pass": true,
+   "detail": ""
+  }
+ ],
+ "byKind": {
+  "palette-extra": {
+   "pass": 12,
+   "fail": 18,
+   "na": 0,
+   "fails": [
+    {
+     "id": "S02",
+     "kind": "palette-extra",
+     "claim": "#B8860B #0B0B0F #EFE6D0 #3A2E1A #111111 #B9B09A #14100A",
+     "actual": "solid-not-claimed=3 [#000000 #0000EE #0A0A0D] ; chromatic-not-claimed=2 [#0000EE #0A0A0D]",
+     "pass": false,
+     "detail": "有非灰的未声称色上屏"
+    },
+    {
+     "id": "S03",
+     "kind": "palette-extra",
+     "claim": "#13928E #101A1C #C9D6CF #B9A98C #162226 #0C1417 #2A3639",
+     "actual": "solid-not-claimed=4 [#000000 #4A5A5E #3B4A4D #7C8A8C] ; chromatic-not-claimed=2 [#4A5A5E #3B4A4D]",
+     "pass": false,
+     "detail": "有非灰的未声称色上屏"
+    },
+    {
+     "id": "S05",
+     "kind": "palette-extra",
+     "claim": "#4FA83D #0E100D #BFB9A6 #8C2F1F #111111 #2A2E28 #050605",
+     "actual": "solid-not-claimed=3 [#000000 #7D7A68 #101010] ; chromatic-not-claimed=1 [#7D7A68]",
+     "pass": false,
+     "detail": "有非灰的未声称色上屏"
+    },
+    {
+     "id": "S06",
+     "kind": "palette-extra",
+     "claim": "#85572A #ECDEC6 #241A12 #C9A87C #E6D8BC #E0D0B0 #E4D5B8",
+     "actual": "solid-not-claimed=3 [#000000 #5A3A1C #B9A87F] ; chromatic-not-claimed=2 [#5A3A1C #B9A87F]",
+     "pass": false,
+     "detail": "有非灰的未声称色上屏"
+    },
+    {
+     "id": "S08",
+     "kind": "palette-extra",
+     "claim": "#120C08 #C46A1F #E8DCC8 #6B4A22 #3A2712 #111111",
+     "actual": "solid-not-claimed=6 [#000000 #8D4C16 #663710 #49270B #351D09 #1B0F04] ; chromatic-not-claimed=5 [#8D4C16 #663710 #49270B #351D09 #1B0F04]",
+     "pass": false,
+     "detail": "有非灰的未声称色上屏"
+    },
+    {
+     "id": "S09",
+     "kind": "palette-extra",
+     "claim": "#1F4E79 #F5C842 #151310 #8A4B24",
+     "actual": "solid-not-claimed=3 [#000000 #0000EE #FFFFFF] ; chromatic-not-claimed=1 [#0000EE]",
+     "pass": false,
+     "detail": "有非灰的未声称色上屏"
+    },
+    {
+     "id": "S12",
+     "kind": "palette-extra",
+     "claim": "#B5D626 #1E2A2E #26353A #182226 #E23E57 #F2E9D8 #111111",
+     "actual": "solid-not-claimed=4 [#000000 #2C3A10 #FF9AAB #4A5C60] ; chromatic-not-claimed=3 [#2C3A10 #FF9AAB #4A5C60]",
+     "pass": false,
+     "detail": "有非灰的未声称色上屏"
+    },
+    {
+     "id": "S14",
+     "kind": "palette-extra",
+     "claim": "#C9C4B8 #D8D2C4 #12181D #E4572E #8A3320 #111111",
+     "actual": "solid-not-claimed=8 [#FFFFFF #000000 #9A968C #E8B9A4 #171E24 #E4E0D6 #3A3630 #6B6259] ; chromatic-not-claimed=5 [#E8B9A4 #171E24 #E4E0D6 #3A3630 #6B6259]",
+     "pass": false,
+     "detail": "有非灰的未声称色上屏"
+    },
+    {
+     "id": "S15",
+     "kind": "palette-extra",
+     "claim": "#3A3F45 #E7EBE9 #22282B #7A7466",
+     "actual": "solid-not-claimed=6 [#000000 #C8CECC #F0E4D8 #4C5257 #DDE2E0 #C3C9C7] ; chromatic-not-claimed=1 [#F0E4D8]",
+     "pass": false,
+     "detail": "有非灰的未声称色上屏"
+    },
+    {
+     "id": "S16",
+     "kind": "palette-extra",
+     "claim": "#C52C0F #F7EBCF #1A1A1A #8E2A18 #5C5C55",
+     "actual": "solid-not-claimed=4 [#000000 #FFFFFF #7A2410 #FFF2E9] ; chromatic-not-claimed=2 [#7A2410 #FFF2E9]",
+     "pass": false,
+     "detail": "有非灰的未声称色上屏"
+    },
+    {
+     "id": "S17",
+     "kind": "palette-extra",
+     "claim": "#E1D6BD #C9BFA6 #5A2A50 #3F1A38 #7A2E2E #B9A98C #DFD6BF",
+     "actual": "solid-not-claimed=2 [#000000 #8C7A5B] ; chromatic-not-claimed=1 [#8C7A5B]",
+     "pass": false,
+     "detail": "有非灰的未声称色上屏"
+    },
+    {
+     "id": "S19",
+     "kind": "palette-extra",
+     "claim": "#4A5C3A #E4DECD #D8CFB6 #E9E3D2 #2A241C #3A3227 #7C7460",
+     "actual": "solid-not-claimed=7 [#000000 #A79C82 #FFFFFF #5E5443 #24201A #534C3E #DCD4BD] ; chromatic-not-claimed=5 [#A79C82 #5E5443 #24201A #534C3E #DCD4BD]",
+     "pass": false,
+     "detail": "有非灰的未声称色上屏"
+    },
+    {
+     "id": "S22",
+     "kind": "palette-extra",
+     "claim": "#565B49 #DDDAD4 #2E2A24 #6B6558",
+     "actual": "solid-not-claimed=3 [#000000 #FFFFFF #373A2F] ; chromatic-not-claimed=1 [#373A2F]",
+     "pass": false,
+     "detail": "有非灰的未声称色上屏"
+    },
+    {
+     "id": "S23",
+     "kind": "palette-extra",
+     "claim": "#A8206B #241C16 #DCDCC8 #7A6A55 #E9E9D7 #5F5240 #B7A78C",
+     "actual": "solid-not-claimed=3 [#000000 #E9A9C6 #FFFFFF] ; chromatic-not-claimed=1 [#E9A9C6]",
+     "pass": false,
+     "detail": "有非灰的未声称色上屏"
+    },
+    {
+     "id": "S24",
+     "kind": "palette-extra",
+     "claim": "#5D43AD #E6EDF2 #F3F8FB #DCE7EF #C9D8E4 #0A1116 #3A4652",
+     "actual": "solid-not-claimed=8 [#000000 #FFFFFF #6E8B7A #3C5F48 #2A1B50 #1B1136 #3A276E #4A3390] ; chromatic-not-claimed=6 [#6E8B7A #3C5F48 #2A1B50 #1B1136 #3A276E #4A3390]",
+     "pass": false,
+     "detail": "有非灰的未声称色上屏"
+    },
+    {
+     "id": "S25",
+     "kind": "palette-extra",
+     "claim": "#E8E4DE #DFDAD2 #1E1A16 #914A27 #2E6B5E #FFFFFF",
+     "actual": "solid-not-claimed=4 [#000000 #4A423A #6B625A #4B453F] ; chromatic-not-claimed=3 [#4A423A #6B625A #4B453F]",
+     "pass": false,
+     "detail": "有非灰的未声称色上屏"
+    },
+    {
+     "id": "S26",
+     "kind": "palette-extra",
+     "claim": "#D3D1CA #485270 #121212 #C8341F #FFFFFF #C3C1B9 #38110E",
+     "actual": "solid-not-claimed=3 [#000000 #0E0402 #2E3448] ; chromatic-not-claimed=2 [#0E0402 #2E3448]",
+     "pass": false,
+     "detail": "有非灰的未声称色上屏"
+    },
+    {
+     "id": "S27",
+     "kind": "palette-extra",
+     "claim": "#0E6258 #221C10 #E8D7B5 #1A150C #C9BFA6 #FFFFFF",
+     "actual": "solid-not-claimed=2 [#000000 #4A4232] ; chromatic-not-claimed=1 [#4A4232]",
+     "pass": false,
+     "detail": "有非灰的未声称色上屏"
+    }
+   ]
+  },
+  "palette-unused": {
+   "pass": 30,
+   "fail": 0,
+   "na": 0,
+   "fails": []
+  },
+  "font-display": {
+   "pass": 30,
+   "fail": 0,
+   "na": 0,
+   "fails": []
+  },
+  "font-body": {
+   "pass": 30,
+   "fail": 0,
+   "na": 0,
+   "fails": []
+  },
+  "font-mono": {
+   "pass": 17,
+   "fail": 12,
+   "na": 0,
+   "fails": [
+    {
+     "id": "S01",
+     "kind": "font-mono",
+     "claim": "Martian Mono",
+     "actual": "Noto Sans SC ; 画字=Martian Mono SemiExpanded ; tabular-nums=normal",
+     "pass": false,
+     "detail": "code 元素首族不是声明的等宽体"
+    },
+    {
+     "id": "S03",
+     "kind": "font-mono",
+     "claim": "IBM Plex Mono",
+     "actual": "no-code-el ; 画字=n/a ; tabular-nums=n/a",
+     "pass": false,
+     "detail": "页面里没有 code/.mono/.num 元素可测"
+    },
+    {
+     "id": "S04",
+     "kind": "font-mono",
+     "claim": "Martian Mono",
+     "actual": "Redaction 20 ; 画字=Martian Mono SemiExpanded ; tabular-nums=normal",
+     "pass": false,
+     "detail": "code 元素首族不是声明的等宽体"
+    },
+    {
+     "id": "S05",
+     "kind": "font-mono",
+     "claim": "Departure Mono",
+     "actual": "Glow Sans SC ; 画字=Departure Mono ; tabular-nums=tabular-nums",
+     "pass": false,
+     "detail": "code 元素首族不是声明的等宽体"
+    },
+    {
+     "id": "S06",
+     "kind": "font-mono",
+     "claim": "Martian Mono",
+     "actual": "Literata ; 画字=Martian Mono SemiExpanded ; tabular-nums=tabular-nums",
+     "pass": false,
+     "detail": "code 元素首族不是声明的等宽体"
+    },
+    {
+     "id": "S09",
+     "kind": "font-mono",
+     "claim": "JetBrains Mono",
+     "actual": "LXGW Marker Gothic ; 画字=JetBrains Mono Medium ; tabular-nums=normal",
+     "pass": false,
+     "detail": "code 元素首族不是声明的等宽体"
+    },
+    {
+     "id": "S11",
+     "kind": "font-mono",
+     "claim": "Martian Mono",
+     "actual": "LXGW WenKai TC ; 画字=Martian Mono SemiExpanded Condensed ; tabular-nums=tabular-nums",
+     "pass": false,
+     "detail": "code 元素首族不是声明的等宽体"
+    },
+    {
+     "id": "S13",
+     "kind": "font-mono",
+     "claim": "DM Mono",
+     "actual": "Noto Serif SC ; 画字=n/a ; tabular-nums=normal",
+     "pass": false,
+     "detail": "code 元素首族不是声明的等宽体"
+    },
+    {
+     "id": "S16",
+     "kind": "font-mono",
+     "claim": "Fragment Mono",
+     "actual": "Noto Serif SC ; 画字=Fragment Mono ; tabular-nums=normal",
+     "pass": false,
+     "detail": "code 元素首族不是声明的等宽体"
+    },
+    {
+     "id": "S17",
+     "kind": "font-mono",
+     "claim": "Sometype Mono",
+     "actual": "文津宋体 ; 画字=Sometype Mono ; tabular-nums=tabular-nums",
+     "pass": false,
+     "detail": "code 元素首族不是声明的等宽体"
+    },
+    {
+     "id": "S18",
+     "kind": "font-mono",
+     "claim": "VT323",
+     "actual": "Martian Mono ; 画字=Martian Mono SemiExpanded Condensed ; tabular-nums=tabular-nums",
+     "pass": false,
+     "detail": "code 元素首族不是声明的等宽体"
+    },
+    {
+     "id": "S21",
+     "kind": "font-mono",
+     "claim": "IBM Plex Mono",
+     "actual": "WenJin Mincho ; 画字=n/a ; tabular-nums=tabular-nums",
+     "pass": false,
+     "detail": "code 元素首族不是声明的等宽体"
+    }
+   ]
+  },
+  "font-ban": {
+   "pass": 30,
+   "fail": 0,
+   "na": 0,
+   "fails": []
+  },
+  "radius": {
+   "pass": 28,
+   "fail": 2,
+   "na": 0,
+   "fails": [
+    {
+     "id": "S13",
+     "kind": "radius",
+     "claim": "全站 0",
+     "actual": "非零圆角元素=2 [input:50% | input:50%] ; 全为圆形(50%)=true",
+     "pass": false,
+     "detail": ""
+    },
+    {
+     "id": "S21",
+     "kind": "radius",
+     "claim": "全站 0",
+     "actual": "非零圆角元素=3 [input:50% | input:50% | input:50%] ; 全为圆形(50%)=true",
+     "pass": false,
+     "detail": ""
+    }
+   ]
+  },
+  "shadow": {
+   "pass": 28,
+   "fail": 1,
+   "na": 1,
+   "fails": [
+    {
+     "id": "S11",
+     "kind": "shadow",
+     "claim": "inset-only",
+     "actual": "inset=1 outset=0 drop=12",
+     "pass": false,
+     "detail": ""
+    }
+   ]
+  },
+  "line-widths": {
+   "pass": 26,
+   "fail": 4,
+   "na": 0,
+   "fails": [
+    {
+     "id": "S10",
+     "kind": "line-widths",
+     "claim": "1.25px/2px",
+     "actual": "实测 border/outline 宽度=1px/2px ; 超纲=1px",
+     "pass": false,
+     "detail": "注意口径：只量 border/outline 实算宽度；SVG stroke、伪元素、background 线不在内 → 实测值是**下界**"
+    },
+    {
+     "id": "S13",
+     "kind": "line-widths",
+     "claim": "1px/2px/3px/5.5px/7px/9px/14.5px",
+     "actual": "实测 border/outline 宽度=1px/3px/5px/9px ; 超纲=5px",
+     "pass": false,
+     "detail": "注意口径：只量 border/outline 实算宽度；SVG stroke、伪元素、background 线不在内 → 实测值是**下界**"
+    },
+    {
+     "id": "S15",
+     "kind": "line-widths",
+     "claim": "0.5px/0.8px/1px/1.7px/3px",
+     "actual": "实测 border/outline 宽度=2px/3px ; 超纲=2px",
+     "pass": false,
+     "detail": "注意口径：只量 border/outline 实算宽度；SVG stroke、伪元素、background 线不在内 → 实测值是**下界**"
+    },
+    {
+     "id": "S27",
+     "kind": "line-widths",
+     "claim": "1.2px/2.4px/3px",
+     "actual": "实测 border/outline 宽度=1px/3px ; 超纲=1px",
+     "pass": false,
+     "detail": "注意口径：只量 border/outline 实算宽度；SVG stroke、伪元素、background 线不在内 → 实测值是**下界**"
+    }
+   ]
+  },
+  "image-slots": {
+   "pass": 30,
+   "fail": 0,
+   "na": 0,
+   "fails": []
+  },
+  "no-carousel": {
+   "pass": 29,
+   "fail": 1,
+   "na": 0,
+   "fails": [
+    {
+     "id": "S20",
+     "kind": "no-carousel",
+     "claim": "无轮播",
+     "actual": "autoplay=0 swiper类名=4 aria-live=polite:0 setInterval=0 rAF=1",
+     "pass": false,
+     "detail": ""
+    }
+   ]
+  },
+  "no-gradient": {
+   "pass": 30,
+   "fail": 0,
+   "na": 0,
+   "fails": []
+  },
+  "no-glassmorphism": {
+   "pass": 30,
+   "fail": 0,
+   "na": 0,
+   "fails": []
+  },
+  "no-emoji-iconfont": {
+   "pass": 30,
+   "fail": 0,
+   "na": 0,
+   "fails": []
+  },
+  "no-round-softshadow": {
+   "pass": 26,
+   "fail": 4,
+   "na": 0,
+   "fails": [
+    {
+     "id": "S05",
+     "kind": "no-round-softshadow",
+     "claim": "无\"圆角+柔和外投影\"组合",
+     "actual": "圆角=5 外投影=0",
+     "pass": false,
+     "detail": ""
+    },
+    {
+     "id": "S13",
+     "kind": "no-round-softshadow",
+     "claim": "无\"圆角+柔和外投影\"组合",
+     "actual": "圆角=2 外投影=0",
+     "pass": false,
+     "detail": ""
+    },
+    {
+     "id": "S14",
+     "kind": "no-round-softshadow",
+     "claim": "无\"圆角+柔和外投影\"组合",
+     "actual": "圆角=1 外投影=0",
+     "pass": false,
+     "detail": ""
+    },
+    {
+     "id": "S21",
+     "kind": "no-round-softshadow",
+     "claim": "无\"圆角+柔和外投影\"组合",
+     "actual": "圆角=3 外投影=0",
+     "pass": false,
+     "detail": ""
+    }
+   ]
+  }
+ }
+}

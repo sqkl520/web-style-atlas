@@ -1,0 +1,39 @@
+﻿
+##### S07  fails=mono
+ families(6): Libre Franklin | Newsreader | IBM Plex Mono" /* taste-skill-ignore: 字段4 辅助数字，只用于页码/辑号/归档号 */ | var(--text) | var(--display) | var(--num)
+ mono selectors: [
+ {
+  "sel": "@font-face",
+  "decl": "\"IBM Plex Mono\" /* taste-skill-ignore: 字段4 辅助数字，只用于页码/辑号/归档号 */"
+ }
+]
+ bodyMono: []
+ hexes: 5
+
+##### S08  fails=palette-terracotta,font-count
+ families(4): var(--body-face) | Overprint Numerals | var(--display-face) | var(--serif-cn)
+ mono selectors: [
+ {
+  "sel": "code",
+  "decl": "\"Overprint Numerals\", ui-monospace, monospace"
+ }
+]
+ bodyMono: []
+ hexes: 11
+
+##### S13  fails=mono,empty-screens
+ families(3): var(--font-body) | var(--font-figure) | var(--font-display)
+ mono selectors: []
+ bodyMono: []
+ hexes: 6
+
+##### S21  fails=mono
+ families(5): WenJin Mincho | var(--face-cjk) | IBM Plex Mono | DejaVu Sans Mono | var(--face-head)
+ mono selectors: [
+ {
+  "sel": "t；tells.md 禁的是 mono 微标签与图注。 这里只出现在道岔号、锁别号、时刻、角度表与互斥对数上，绝不出现在标题或正文。 */ .face-data",
+  "decl": "\"IBM Plex Mono\",\"DejaVu Sans Mono\",monospace"
+ }
+]
+ bodyMono: []
+ hexes: 5

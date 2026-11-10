@@ -1,0 +1,1352 @@
+{
+ "at": "2026-10-29T19:57:30.888Z",
+ "summary": {
+  "n": 30,
+  "L3_key_present": 0,
+  "L2_empty": 9,
+  "L2_empty_ids": [
+   "S01",
+   "S08",
+   "S13",
+   "S14",
+   "S17",
+   "S18",
+   "S20",
+   "S25",
+   "S26"
+  ],
+  "L2_multi": 4,
+  "L0_no_clean_candidate": 0,
+  "L0_no_clean_ids": [],
+  "agree": {
+   "L1_eq_L0clean": 30,
+   "L1_eq_L2first": 20,
+   "L1_eq_area": 19,
+   "L0clean_eq_area": 19,
+   "L2first_eq_area": 12
+  },
+  "L1_fallback": 1,
+  "L1_fallback_ids": [
+   "S01:#C1121F"
+  ],
+  "L1_low_chroma": [
+   "S15:#3A3F45",
+   "S21:#3E3A34",
+   "S22:#565B49"
+  ]
+ },
+ "rows": [
+  {
+   "id": "S01",
+   "L0_raw": "#C1121F",
+   "L0_clean": "#C1121F",
+   "L0_hits": [
+    {
+     "hex": "#C1121F",
+     "dist": 7,
+     "negated": false,
+     "ctx": "`#C1121F` 朱红专色＝主色，14%（情绪：油墨未干）；`#EFE7D7` 未漂白新闻纸＝背景，62%（情绪：48g 纸的反射；色相 40°、饱"
+    },
+    {
+     "hex": "#6366F1",
+     "dist": 4,
+     "negated": true,
+     "ctx": "）。面积和 100。为什么不像 AI 默认配色：反的是 `#6366F1` 靛蓝主色配纯白 `#FFFFFF` 底这一组合，也反任何两端插值的色雾做法；本方案只有两种油墨，层级靠面积比与 11° 角度"
+    }
+   ],
+   "L1": "#C1121F",
+   "L2": [],
+   "L3_key": false,
+   "areaPrimary": "#C1121F",
+   "pct": {
+    "L1": 11.042,
+    "L0_raw": 11.042,
+    "area": 11.042
+   },
+   "agree": {
+    "L1_eq_L0clean": true,
+    "L1_eq_L2first": false,
+    "L1_eq_area": true,
+    "L0clean_eq_area": true,
+    "L2first_eq_area": false
+   },
+   "L1_reason": "兜底 pal[1] ← regex1(主色后第一个 hex) ⚠r1/r2 冲突",
+   "L1_is_palette1": true,
+   "L1_chroma": 0.686,
+   "L0_negated_only": false
+  },
+  {
+   "id": "S02",
+   "L0_raw": "#B8860B",
+   "L0_clean": "#B8860B",
+   "L0_hits": [
+    {
+     "hex": "#B8860B",
+     "dist": 5,
+     "negated": false,
+     "ctx": "度 5.1%，去掉绿相以便与另两块暗底在明度上分开）；`#B8860B` 暗金＝主色与纹样，18%（情绪：压进卡纸的金箔反光）；`#EFE6D0` 象牙纸白＝正文与烫金漏白，20%（情绪：丝绒衬里）；"
+    }
+   ],
+   "L1": "#B8860B",
+   "L2": [
+    "#B8860B"
+   ],
+   "L3_key": false,
+   "areaPrimary": "#3A2E1A",
+   "pct": {
+    "L1": 1.018,
+    "L0_raw": 1.018,
+    "area": 17.066
+   },
+   "agree": {
+    "L1_eq_L0clean": true,
+    "L1_eq_L2first": true,
+    "L1_eq_area": false,
+    "L0clean_eq_area": false,
+    "L2first_eq_area": false
+   },
+   "L1_reason": "regex1(主色后第一个 hex) ⚠r1/r2 冲突",
+   "L1_is_palette1": true,
+   "L1_chroma": 0.678,
+   "L0_negated_only": false
+  },
+  {
+   "id": "S03",
+   "L0_raw": "#13928E",
+   "L0_clean": "#13928E",
+   "L0_hits": [
+    {
+     "hex": "#13928E",
+     "dist": 5,
+     "negated": false,
+     "ctx": "景，60%（情绪：北纬 69° 冬夜剩余的空气亮度）；`#13928E` 冷青＝主色，承担年代色带与读数游标，24%（情绪：被压成一条的极光；明度由 24.3% 提到 32.3%，与底色对比度 4.6"
+    }
+   ],
+   "L1": "#13928E",
+   "L2": [
+    "#13928E"
+   ],
+   "L3_key": false,
+   "areaPrimary": "#13928E",
+   "pct": {
+    "L1": 0.859,
+    "L0_raw": 0.859,
+    "area": 0.859
+   },
+   "agree": {
+    "L1_eq_L0clean": true,
+    "L1_eq_L2first": true,
+    "L1_eq_area": true,
+    "L0clean_eq_area": true,
+    "L2first_eq_area": true
+   },
+   "L1_reason": "_CURRENT-VALUES",
+   "L1_is_palette1": true,
+   "L1_chroma": 0.498,
+   "L0_negated_only": false
+  },
+  {
+   "id": "S04",
+   "L0_raw": "#96550F",
+   "L0_clean": "#96550F",
+   "L0_hits": [
+    {
+     "hex": "#96550F",
+     "dist": 7,
+     "negated": false,
+     "ctx": "`#96550F` 深芒果橙＝主色，34%（情绪：专色油墨未干；为拿到与纸底的 4.56:1 对比度，明度由 51.4% 压到 32.4%，色相 31"
+    }
+   ],
+   "L1": "#96550F",
+   "L2": [
+    "#2F7D4F",
+    "#96550F"
+   ],
+   "L3_key": false,
+   "areaPrimary": "#96550F",
+   "pct": {
+    "L1": 2.662,
+    "L0_raw": 2.662,
+    "area": 2.662
+   },
+   "agree": {
+    "L1_eq_L0clean": true,
+    "L1_eq_L2first": false,
+    "L1_eq_area": true,
+    "L0clean_eq_area": true,
+    "L2first_eq_area": false
+   },
+   "L1_reason": "_CURRENT-VALUES",
+   "L1_is_palette1": true,
+   "L1_chroma": 0.529,
+   "L0_negated_only": false
+  },
+  {
+   "id": "S05",
+   "L0_raw": "#4FA83D",
+   "L0_clean": "#4FA83D",
+   "L0_hits": [
+    {
+     "hex": "#4FA83D",
+     "dist": 6,
+     "negated": false,
+     "ctx": ".8%、明度 5.7%，极轻绿相保留但明度抬一档）；`#4FA83D` 漆面绿＝主色与读数，18%（情绪：刷在铁皮上的磷光漆）；`#BFB9A6` 面板灰米＝面板与蚀刻标签，20%（情绪：旧设备的积灰"
+    }
+   ],
+   "L1": "#4FA83D",
+   "L2": [
+    "#4FA83D"
+   ],
+   "L3_key": false,
+   "areaPrimary": "#BFB9A6",
+   "pct": {
+    "L1": 1.207,
+    "L0_raw": 1.207,
+    "area": 16.906
+   },
+   "agree": {
+    "L1_eq_L0clean": true,
+    "L1_eq_L2first": true,
+    "L1_eq_area": false,
+    "L0clean_eq_area": false,
+    "L2first_eq_area": false
+   },
+   "L1_reason": "regex1(主色后第一个 hex) ⚠r1/r2 冲突",
+   "L1_is_palette1": true,
+   "L1_chroma": 0.42,
+   "L0_negated_only": false
+  },
+  {
+   "id": "S06",
+   "L0_raw": "#85572A",
+   "L0_clean": "#85572A",
+   "L0_hits": [
+    {
+     "hex": "#85572A",
+     "dist": 6,
+     "negated": false,
+     "ctx": "%、明度 85.1%，与方案 4 的纸底不再同值）；`#85572A` 咖啡褐＝主色与标题，22%（情绪：深焙液体在纸上的扩散；色相 29.7° 与饱和 52.5% 全程未动，明度由 35.5% 压到"
+    },
+    {
+     "hex": "#ECDEC6",
+     "dist": 5,
+     "negated": false,
+     "ctx": "%）两个脏色让纸面真的有污。可访问性：背景按阶梯换成 `#ECDEC6` 之后，主色对底色 4.66:1（过 AA 正文线），正文色 `#241A12` 对底色 12.85:1；两个数字都是在同色相内"
+    }
+   ],
+   "L1": "#85572A",
+   "L2": [
+    "#85572A"
+   ],
+   "L3_key": false,
+   "areaPrimary": "#85572A",
+   "pct": {
+    "L1": 1.776,
+    "L0_raw": 1.776,
+    "area": 1.776
+   },
+   "agree": {
+    "L1_eq_L0clean": true,
+    "L1_eq_L2first": true,
+    "L1_eq_area": true,
+    "L0clean_eq_area": true,
+    "L2first_eq_area": true
+   },
+   "L1_reason": "_CURRENT-VALUES",
+   "L1_is_palette1": true,
+   "L1_chroma": 0.357,
+   "L0_negated_only": false
+  },
+  {
+   "id": "S07",
+   "L0_raw": "#33505C",
+   "L0_clean": "#33505C",
+   "L0_hits": [
+    {
+     "hex": "#33505C",
+     "dist": 6,
+     "negated": false,
+     "ctx": "和 3%、明度 89.2%，把这一案移出暖米纸簇）；`#33505C` 铅灰蓝＝主色与栏线，24%（情绪：油墨与铅字混出的冷灰）；`#1C1A16` 油墨黑＝正文，16%（情绪：压进纸纤维的实心）；`"
+    },
+    {
+     "hex": "#1C1A16",
+     "dist": 17,
+     "negated": true,
+     "ctx": "L 28%），承担脏色，全站靠栏线与油墨浓淡分层而不是靠底色深浅分层。可访问性：主色对底色 6.92:1、正文 `#1C1A16` 对底色 13.99:1，都过 AA 正文线；主色填充上的白字 8.6"
+    },
+    {
+     "hex": "#1C1A16",
+     "dist": 24,
+     "negated": false,
+     "ctx": "92:1、正文 `#1C1A16` 对底色 13.99:1，都过 AA 正文线；主色填充上的白字 8.60:1 过 AAA。07 号审计建议的换色相未采纳，理由是色相属矩阵冻结的配色情绪分量；本项只做"
+    }
+   ],
+   "L1": "#33505C",
+   "L2": [
+    "#33505C"
+   ],
+   "L3_key": false,
+   "areaPrimary": "#9A9384",
+   "pct": {
+    "L1": 1.06,
+    "L0_raw": 1.06,
+    "area": 2.282
+   },
+   "agree": {
+    "L1_eq_L0clean": true,
+    "L1_eq_L2first": true,
+    "L1_eq_area": false,
+    "L0clean_eq_area": false,
+    "L2first_eq_area": false
+   },
+   "L1_reason": "regex1(主色后第一个 hex) ⚠r1/r2 冲突",
+   "L1_is_palette1": true,
+   "L1_chroma": 0.161,
+   "L0_negated_only": false
+  },
+  {
+   "id": "S08",
+   "L0_raw": "#C46A1F",
+   "L0_clean": "#C46A1F",
+   "L0_hits": [
+    {
+     "hex": "#C46A1F",
+     "dist": 5,
+     "negated": false,
+     "ctx": "` 暗房黑棕＝背景，58%（情绪：暗房红灯下的墙面）；`#C46A1F` 琥珀＝主色，承担板体与油墨，24%（情绪：滤光片透出的光）；`#E8DCC8` 象牙＝文字与折射高光，14%（情绪：光在边缘折"
+    }
+   ],
+   "L1": "#C46A1F",
+   "L2": [],
+   "L3_key": false,
+   "areaPrimary": "#C46A1F",
+   "pct": {
+    "L1": 5.482,
+    "L0_raw": 5.482,
+    "area": 5.482
+   },
+   "agree": {
+    "L1_eq_L0clean": true,
+    "L1_eq_L2first": false,
+    "L1_eq_area": true,
+    "L0clean_eq_area": true,
+    "L2first_eq_area": false
+   },
+   "L1_reason": "regex2(hex 后接主色)",
+   "L1_is_palette1": true,
+   "L1_chroma": 0.647,
+   "L0_negated_only": false
+  },
+  {
+   "id": "S09",
+   "L0_raw": "#1F4E79",
+   "L0_clean": "#1F4E79",
+   "L0_hits": [
+    {
+     "hex": "#1F4E79",
+     "dist": 6,
+     "negated": false,
+     "ctx": "` 招牌黄＝底色，46%（情绪：刷了两遍的调和漆）；`#1F4E79` 招牌蓝＝主色与手写字，26%（情绪：蓝漆桶底的积垢）；`#151310` 炭黑＝正文与描边，22%（情绪：旧铁皮的阴影）；`#8"
+    },
+    {
+     "hex": "#151310",
+     "dist": 17,
+     "negated": false,
+     "ctx": "3.6%）两个脏色直接给画面定了\"漆桶与锈\"的基调，黄色只做底不做光。可访问性：主色对底色 5.45:1、正文 `#151310` 对底色 11.68:1，都过 AA 正文线；主色填充上的白字 8.6"
+    },
+    {
+     "hex": "#151310",
+     "dist": 24,
+     "negated": false,
+     "ctx": "45:1、正文 `#151310` 对底色 11.68:1，都过 AA 正文线；主色填充上的白字 8.66:1 过 AAA。07 号审计建议把主色移到 H≈283° 未采纳，理由是色相属矩阵冻结的配色"
+    }
+   ],
+   "L1": "#1F4E79",
+   "L2": [
+    "#1F4E79"
+   ],
+   "L3_key": false,
+   "areaPrimary": "#1F4E79",
+   "pct": {
+    "L1": 1.898,
+    "L0_raw": 1.898,
+    "area": 1.898
+   },
+   "agree": {
+    "L1_eq_L0clean": true,
+    "L1_eq_L2first": true,
+    "L1_eq_area": true,
+    "L0clean_eq_area": true,
+    "L2first_eq_area": true
+   },
+   "L1_reason": "regex1(主色后第一个 hex) ⚠r1/r2 冲突",
+   "L1_is_palette1": true,
+   "L1_chroma": 0.353,
+   "L0_negated_only": false
+  },
+  {
+   "id": "S10",
+   "L0_raw": "#D32029",
+   "L0_clean": "#D32029",
+   "L0_hits": [
+    {
+     "hex": "#D32029",
+     "dist": 5,
+     "negated": false,
+     "ctx": "71A` 炭黑＝正文与黑版，26%（情绪：平印黑墨）；`#D32029` 正红＝主色与红版，11%（情绪：套印红）；`#6E7076` 中性灰＝套准线与刻度，5%（情绪：印版上的规线）。面积和 100"
+    }
+   ],
+   "L1": "#D32029",
+   "L2": [
+    "#D32029"
+   ],
+   "L3_key": false,
+   "areaPrimary": "#D32029",
+   "pct": {
+    "L1": 2.066,
+    "L0_raw": 2.066,
+    "area": 2.066
+   },
+   "agree": {
+    "L1_eq_L0clean": true,
+    "L1_eq_L2first": true,
+    "L1_eq_area": true,
+    "L0clean_eq_area": true,
+    "L2first_eq_area": true
+   },
+   "L1_reason": "regex1(主色后第一个 hex) ⚠r1/r2 冲突",
+   "L1_is_palette1": true,
+   "L1_chroma": 0.702,
+   "L0_negated_only": false
+  },
+  {
+   "id": "S11",
+   "L0_raw": "#1B4A4A",
+   "L0_clean": "#1B4A4A",
+   "L0_hits": [
+    {
+     "hex": "#1B4A4A",
+     "dist": 4,
+     "negated": false,
+     "ctx": "主色 `#1B4A4A`（色相 180°，复写纸第三联墨绿，情绪：压抑）44%；背景色 `#DCDDD2`（东欧未漂白书"
+    },
+    {
+     "hex": "#6366F1",
+     "dist": 4,
+     "negated": true,
+     "ctx": "8.6%，脏色）5%。面积和为 100。这套配色反的是 `#6366F1` 靛蓝主色、纯白 `#FFFFFF` 底、紫蓝二元渐变这三个 AI 默认件：靛蓝在复写纸工艺里不存在，纯白在 1960 年代东"
+    }
+   ],
+   "L1": "#1B4A4A",
+   "L2": [
+    "#1B4A4A"
+   ],
+   "L3_key": false,
+   "areaPrimary": "#1B4A4A",
+   "pct": {
+    "L1": 36.476,
+    "L0_raw": 36.476,
+    "area": 36.476
+   },
+   "agree": {
+    "L1_eq_L0clean": true,
+    "L1_eq_L2first": true,
+    "L1_eq_area": true,
+    "L0clean_eq_area": true,
+    "L2first_eq_area": true
+   },
+   "L1_reason": "regex1(主色后第一个 hex) ⚠r1/r2 冲突",
+   "L1_is_palette1": true,
+   "L1_chroma": 0.184,
+   "L0_negated_only": false
+  },
+  {
+   "id": "S12",
+   "L0_raw": "#B5D626",
+   "L0_clean": "#B5D626",
+   "L0_hits": [
+    {
+     "hex": "#B5D626",
+     "dist": 4,
+     "negated": false,
+     "ctx": "主色 `#B5D626` 青柠（色相 72°，情绪：顽皮）34%；背景色 `#1E2A2E` 深墨绿（L 15%，脏色，"
+    },
+    {
+     "hex": "#6366F1",
+     "dist": 4,
+     "negated": true,
+     "ctx": "芯纸，情绪：切口）6%，面积和 100。这套配色反的是 `#6366F1` 靛蓝主色与「深底加霓虹紫青」的仪表盘套路：青柠是被压进塑料的实色，不带光晕也没有发光边；底色是带绿的墨色，既不是纯黑也不是 "
+    },
+    {
+     "hex": "#B5D626",
+     "dist": 4,
+     "negated": true,
+     "ctx": "色是带绿的墨色，既不是纯黑也不是 `#0F172A` 那种蓝黑。按钮与色块约束：主色 `#B5D626` 作填充时白字只有 1.67:1，一律改用深色文字 `#111111`（实测 11.34:1），"
+    },
+    {
+     "hex": "#111111",
+     "dist": 16,
+     "negated": false,
+     "ctx": "1.67:1，一律改用深色文字 `#111111`（实测 11.34:1），或把主色退到只有 45° 斜切的描边与图标位、不承担文字底。"
+    }
+   ],
+   "L1": "#B5D626",
+   "L2": [
+    "#B5D626"
+   ],
+   "L3_key": false,
+   "areaPrimary": "#B5D626",
+   "pct": {
+    "L1": 22.687,
+    "L0_raw": 22.687,
+    "area": 22.687
+   },
+   "agree": {
+    "L1_eq_L0clean": true,
+    "L1_eq_L2first": true,
+    "L1_eq_area": true,
+    "L0clean_eq_area": true,
+    "L2first_eq_area": true
+   },
+   "L1_reason": "regex1(主色后第一个 hex) ⚠r1/r2 冲突",
+   "L1_is_palette1": true,
+   "L1_chroma": 0.69,
+   "L0_negated_only": false
+  },
+  {
+   "id": "S13",
+   "L0_raw": "#7B612C",
+   "L0_clean": "#7B612C",
+   "L0_hits": [
+    {
+     "hex": "#7B612C",
+     "dist": 4,
+     "negated": false,
+     "ctx": "6%；正文色 `#241F17`（印刷墨，L 12%，脏色，情绪：端肃）27%；主色 `#7B612C`（烫金击凸，色相 40.2°、明度 32.7%，脏色，情绪：矜持）9%；压印暗侧 `#D6CDB"
+    },
+    {
+     "hex": "#6366F1",
+     "dist": 4,
+     "negated": true,
+     "ctx": "一侧，情绪：形变）8%，面积和 100。这套配色反的是 `#6366F1` 靛蓝主色与「纯白底 + 纯黑字 + 单一强调色」的偷懒三色：底色是偏黄 4 级的棉纸色而非纯白，文字是暖黑而非纯黑，且全文八"
+    },
+    {
+     "hex": "#7B612C",
+     "dist": 4,
+     "negated": false,
+     "ctx": "，本方案用的是无墨盲压，两者的金色面积占比相差一个量级。对比度实测（脚本计算）：主色 `#7B612C` 对背景 `#F4E3BE` 为 4.62:1，达到 AA 正文线，修正前 `#A8843C` "
+    }
+   ],
+   "L1": "#7B612C",
+   "L2": [],
+   "L3_key": false,
+   "areaPrimary": "#D6CDB9",
+   "pct": {
+    "L1": 0.035,
+    "L0_raw": 0.035,
+    "area": 8.654
+   },
+   "agree": {
+    "L1_eq_L0clean": true,
+    "L1_eq_L2first": false,
+    "L1_eq_area": false,
+    "L0clean_eq_area": false,
+    "L2first_eq_area": false
+   },
+   "L1_reason": "_CURRENT-VALUES ⚠r1/r2 冲突",
+   "L1_is_palette1": true,
+   "L1_chroma": 0.31,
+   "L0_negated_only": false
+  },
+  {
+   "id": "S14",
+   "L0_raw": "#E4572E",
+   "L0_clean": "#E4572E",
+   "L0_hits": [
+    {
+     "hex": "#E4572E",
+     "dist": 4,
+     "negated": false,
+     "ctx": "背景色 `#12181D` 舱内暗蓝黑（L 9%，脏色，情绪：疏冷）62%；主色 `#E4572E` 铝箔标贴橙（色相 13.5°，情绪：工业标记）18%；辅助色 `#D8D2C4` 铝箔银白（未"
+    },
+    {
+     "hex": "#E4572E",
+     "dist": 4,
+     "negated": true,
+     "ctx": "反射而非 `#F5F5F5` 灰，暗部是带蓝的舱内黑而不是纯黑。按钮与色块约束：主色 `#E4572E` 作填充时白字只有 3.68:1，不达标，一律改用深色文字 `#111111`（实测 5.13:"
+    }
+   ],
+   "L1": "#E4572E",
+   "L2": [],
+   "L3_key": false,
+   "areaPrimary": "#E4572E",
+   "pct": {
+    "L1": 0.364,
+    "L0_raw": 0.364,
+    "area": 0.364
+   },
+   "agree": {
+    "L1_eq_L0clean": true,
+    "L1_eq_L2first": false,
+    "L1_eq_area": true,
+    "L0clean_eq_area": true,
+    "L2first_eq_area": false
+   },
+   "L1_reason": "regex1(主色后第一个 hex)",
+   "L1_is_palette1": true,
+   "L1_chroma": 0.714,
+   "L0_negated_only": false
+  },
+  {
+   "id": "S15",
+   "L0_raw": "#3A3F45",
+   "L0_clean": "#3A3F45",
+   "L0_hits": [
+    {
+     "hex": "#3A3F45",
+     "dist": 4,
+     "negated": false,
+     "ctx": "主色 `#3A3F45` 石墨（色相 213°，饱和 15.9%，明度 24.9%，同时构成脏色，情绪：朴拙）46%；背"
+    },
+    {
+     "hex": "#6366F1",
+     "dist": 4,
+     "negated": true,
+     "ctx": "饱和 8%，脏色）5%，面积和 100。这套配色反的是 `#6366F1` 靛蓝主色与「深蓝底加白色线稿」的蓝图套路，也反纯白底：石墨是铅笔与晒图两者的交集色，饱和只有 15.9%，而多数 AI 生成"
+    }
+   ],
+   "L1": "#3A3F45",
+   "L2": [
+    "#3A3F45"
+   ],
+   "L3_key": false,
+   "areaPrimary": null,
+   "pct": {
+    "L1": 1.725,
+    "L0_raw": 1.725,
+    "area": null
+   },
+   "agree": {
+    "L1_eq_L0clean": true,
+    "L1_eq_L2first": true,
+    "L1_eq_area": false,
+    "L0clean_eq_area": false,
+    "L2first_eq_area": false
+   },
+   "L1_reason": "regex1(主色后第一个 hex) ⚠r1/r2 冲突",
+   "L1_is_palette1": true,
+   "L1_chroma": 0.043,
+   "L0_negated_only": false
+  },
+  {
+   "id": "S16",
+   "L0_raw": "#C52C0F",
+   "L0_clean": "#C52C0F",
+   "L0_hits": [
+    {
+     "hex": "#C52C0F",
+     "dist": 4,
+     "negated": false,
+     "ctx": "主色 `#C52C0F` 未来派朱红（色相 9.6°、明度 41.6%，情绪：躁进）26%；背景色 `#F7EBCF` "
+    },
+    {
+     "hex": "#C52C0F",
+     "dist": 4,
+     "negated": false,
+     "ctx": "侧作为第四个色，第四色不另加彩色，取同一支油墨的凹陷侧。对比度实测（脚本计算）：主色 `#C52C0F` 对背景 `#F7EBCF` 为 4.74:1，达 AA 正文线（修正前 `#E63312` 只"
+    },
+    {
+     "hex": "#FFFFFF",
+     "dist": 19,
+     "negated": false,
+     "ctx": "A 正文线（修正前 `#E63312` 只有 3.52:1，属硬失败，已换掉）；主色作实色块填充时按钮文字恢复白字（`#FFFFFF` 对 `#C52C0F` 为 5.61:1），正文色 `#1A1A"
+    }
+   ],
+   "L1": "#C52C0F",
+   "L2": [
+    "#C52C0F"
+   ],
+   "L3_key": false,
+   "areaPrimary": "#C52C0F",
+   "pct": {
+    "L1": 1.479,
+    "L0_raw": 1.479,
+    "area": 1.479
+   },
+   "agree": {
+    "L1_eq_L0clean": true,
+    "L1_eq_L2first": true,
+    "L1_eq_area": true,
+    "L0clean_eq_area": true,
+    "L2first_eq_area": true
+   },
+   "L1_reason": "_CURRENT-VALUES ⚠r1/r2 冲突",
+   "L1_is_palette1": true,
+   "L1_chroma": 0.714,
+   "L0_negated_only": false
+  },
+  {
+   "id": "S17",
+   "L0_raw": "#5A2A50",
+   "L0_clean": "#5A2A50",
+   "L0_hits": [
+    {
+     "hex": "#5A2A50",
+     "dist": 4,
+     "negated": false,
+     "ctx": "布证券纸，色相 41.7°、饱和 16%、明度 81.2%，情绪：矜持）52%；主色 `#5A2A50` 凹版紫墨（色相 312.5°、明度 25.9%，脏色，情绪：沉静）30%；强调色 `#7A2E"
+    },
+    {
+     "hex": "#6366F1",
+     "dist": 4,
+     "negated": true,
+     "ctx": "背景，情绪：留档）8%，面积和 100。这套配色反的是 `#6366F1` 靛蓝主色、`#3B82F6` 那一类默认蓝与纯白底：证券纸的纸色比纯白低 9 级亮度，主墨改成含铁紫墨（色相 312.5°）"
+    },
+    {
+     "hex": "#5A2A50",
+     "dist": 4,
+     "negated": false,
+     "ctx": " 有 54°，印花红只用在印章与合计两处，不做按钮底色。对比度实测（脚本计算）：主色 `#5A2A50` 对背景 `#E1D6BD` 为 7.73:1，强调色 `#7A2E2E` 对背景 6.45:1"
+    },
+    {
+     "hex": "#E1D6BD",
+     "dist": 12,
+     "negated": true,
+     "ctx": "，强调色 `#7A2E2E` 对背景 6.45:1，两者都在 AA 正文线以上；主色块上的文字用纸色 `#E1D6BD`（7.73:1），`#111111` 压在紫墨上只有 1.69:1，不采用。"
+    }
+   ],
+   "L1": "#5A2A50",
+   "L2": [],
+   "L3_key": false,
+   "areaPrimary": "#5A2A50",
+   "pct": {
+    "L1": 2.498,
+    "L0_raw": 2.498,
+    "area": 2.498
+   },
+   "agree": {
+    "L1_eq_L0clean": true,
+    "L1_eq_L2first": false,
+    "L1_eq_area": true,
+    "L0clean_eq_area": true,
+    "L2first_eq_area": false
+   },
+   "L1_reason": "_CURRENT-VALUES ⚠r1/r2 冲突",
+   "L1_is_palette1": true,
+   "L1_chroma": 0.188,
+   "L0_negated_only": false
+  },
+  {
+   "id": "S18",
+   "L0_raw": "#2FA84F",
+   "L0_clean": "#2FA84F",
+   "L0_hits": [
+    {
+     "hex": "#2FA84F",
+     "dist": 4,
+     "negated": false,
+     "ctx": "背景色 `#0A0D0A` 机房暗底（L 2.5%，脏色，情绪：幽冷）70%；主色 `#2FA84F` 磷光绿（色相 135.9°，情绪：读数）18%；纸白 `#C8C4AE` 连续纸色（饱和 19"
+    },
+    {
+     "hex": "#6366F1",
+     "dist": 9,
+     "negated": true,
+     "ctx": "色底加霓虹紫青加发光边框」的仪表盘套路，也反 `#6366F1` 靛蓝与纯黑底：主色是带黄的磷光绿，避开霓虹青；暗底取偏绿 2 级的机房暗色，不用纯黑，纸白是耗材本色而不是 `#F5F5F5` 灰。按"
+    },
+    {
+     "hex": "#2FA84F",
+     "dist": 4,
+     "negated": true,
+     "ctx": "房暗色，不用纯黑，纸白是耗材本色而不是 `#F5F5F5` 灰。按钮与色块约束：主色 `#2FA84F` 作填充时白字只有 3.07:1，不达标，一律改用深色文字 `#111111`（实测 6.15:"
+    }
+   ],
+   "L1": "#2FA84F",
+   "L2": [],
+   "L3_key": false,
+   "areaPrimary": "#C8C4AE",
+   "pct": {
+    "L1": 1.254,
+    "L0_raw": 1.254,
+    "area": 2.38
+   },
+   "agree": {
+    "L1_eq_L0clean": true,
+    "L1_eq_L2first": false,
+    "L1_eq_area": false,
+    "L0clean_eq_area": false,
+    "L2first_eq_area": false
+   },
+   "L1_reason": "regex1(主色后第一个 hex) ⚠r1/r2 冲突",
+   "L1_is_palette1": true,
+   "L1_chroma": 0.475,
+   "L0_negated_only": false
+  },
+  {
+   "id": "S19",
+   "L0_raw": "#4A5C3A",
+   "L0_clean": "#4A5C3A",
+   "L0_hits": [
+    {
+     "hex": "#4A5C3A",
+     "dist": 4,
+     "negated": false,
+     "ctx": "工纸，色相 44.3°、饱和 10.1%、明度 84.9%，情绪：陈雅）44%；主色 `#4A5C3A` 蚀刻墨绿（色相 91.8°，明度 29.4%，脏色，情绪：静肃）27%；抽屉与柜架 `#2A2"
+    }
+   ],
+   "L1": "#4A5C3A",
+   "L2": [
+    "#4A5C3A"
+   ],
+   "L3_key": false,
+   "areaPrimary": "#7C7460",
+   "pct": {
+    "L1": 1.409,
+    "L0_raw": 1.409,
+    "area": 2.409
+   },
+   "agree": {
+    "L1_eq_L0clean": true,
+    "L1_eq_L2first": true,
+    "L1_eq_area": false,
+    "L0clean_eq_area": false,
+    "L2first_eq_area": false
+   },
+   "L1_reason": "regex1(主色后第一个 hex)",
+   "L1_is_palette1": true,
+   "L1_chroma": 0.133,
+   "L0_negated_only": false
+  },
+  {
+   "id": "S20",
+   "L0_raw": "#26485C",
+   "L0_clean": "#26485C",
+   "L0_hits": [
+    {
+     "hex": "#26485C",
+     "dist": 4,
+     "negated": false,
+     "ctx": "亮微暖白，色相 43.2°、饱和 10%、明度 93.1%，情绪：精密）52%；主色 `#26485C` 针笔墨蓝（色相 202.2°，明度 25.5%，脏色，情绪：测量）30%；坐标与暗部 `#0F"
+    },
+    {
+     "hex": "#6366F1",
+     "dist": 4,
+     "negated": true,
+     "ctx": "37.6%，脏色）6%，面积和 100。这套配色反的是 `#6366F1` 靛蓝主色与「深色底加青色发光」的科技页套路，也反纯白底：图纸白比纯白低 5 级亮度且偏暖 2 级，主色是带灰的墨蓝而不是饱和"
+    }
+   ],
+   "L1": "#26485C",
+   "L2": [],
+   "L3_key": false,
+   "areaPrimary": "#55606B",
+   "pct": {
+    "L1": 1.127,
+    "L0_raw": 1.127,
+    "area": 1.42
+   },
+   "agree": {
+    "L1_eq_L0clean": true,
+    "L1_eq_L2first": false,
+    "L1_eq_area": false,
+    "L0clean_eq_area": false,
+    "L2first_eq_area": false
+   },
+   "L1_reason": "regex1(主色后第一个 hex) ⚠r1/r2 冲突",
+   "L1_is_palette1": true,
+   "L1_chroma": 0.212,
+   "L0_negated_only": false
+  },
+  {
+   "id": "S21",
+   "L0_raw": "#3E3A34",
+   "L0_clean": "#3E3A34",
+   "L0_hits": [
+    {
+     "hex": "#3E3A34",
+     "dist": 4,
+     "negated": false,
+     "ctx": "主色 `#3E3A34` 占 42%（钢制锁块的压痕阴影与铅字，色相 36°、饱和 16.1%、明度 22.4%，同时构"
+    },
+    {
+     "hex": "#6366F1",
+     "dist": 4,
+     "negated": true,
+     "ctx": "。面积和 100。为什么不像 AI 默认配色：它反的是 `#6366F1` 靛蓝主色加纯白底这一组默认值，也反\"深底加霓虹青\"的仪表盘色组；琥珀来自信号牌漆面而非屏幕发光，纸底是带 +3 黄、−1 品"
+    },
+    {
+     "hex": "#3E3A34",
+     "dist": 4,
+     "negated": false,
+     "ctx": "纯白在屏幕上偏蓝会把纸的厚度感抹掉，而这块纸是被灯烤黄的。对比度（实测）：正文与主色 `#3E3A34`/背景 = 8.27:1（AAA）；强调 `#924307`/背景 = 5.08:1（达 AA "
+    }
+   ],
+   "L1": "#3E3A34",
+   "L2": [
+    "#3E3A34"
+   ],
+   "L3_key": false,
+   "areaPrimary": "#924307",
+   "pct": {
+    "L1": 11.781,
+    "L0_raw": 11.781,
+    "area": 0.215
+   },
+   "agree": {
+    "L1_eq_L0clean": true,
+    "L1_eq_L2first": true,
+    "L1_eq_area": false,
+    "L0clean_eq_area": false,
+    "L2first_eq_area": false
+   },
+   "L1_reason": "regex1(主色后第一个 hex) ⚠r1/r2 冲突",
+   "L1_is_palette1": true,
+   "L1_chroma": 0.039,
+   "L0_negated_only": false
+  },
+  {
+   "id": "S22",
+   "L0_raw": "#565B49",
+   "L0_clean": "#565B49",
+   "L0_hits": [
+    {
+     "hex": "#565B49",
+     "dist": 4,
+     "negated": false,
+     "ctx": "背景 `#DDDAD4` 占 58%（未上浆和纸，情绪：晨光透纸）；主色 `#565B49` 占 28%（染过楮皮的抹茶灰绿，S 11% 属脏色，情绪：旧榻榻米）；强调 `#2E2A24`"
+    },
+    {
+     "hex": "#565B49",
+     "dist": 4,
+     "negated": false,
+     "ctx": "。对比度（实测）：正文 `#2E2A24`/背景 = 10.22:1（AAA）；主色 `#565B49`/背景 = 5.04:1（达 AA 正文线；07 号给出的 `#666D51` 是对旧底色算的，"
+    },
+    {
+     "hex": "#2E2A24",
+     "dist": 15,
+     "negated": false,
+     "ctx": "算为 `#565B49`）；强调 `#2E2A24`/背景 = 10.22:1；主色作按钮底时用白字 = 6.51:1，故按钮文字指定为 `#FFFFFF`。"
+    }
+   ],
+   "L1": "#565B49",
+   "L2": [
+    "#565B49"
+   ],
+   "L3_key": false,
+   "areaPrimary": null,
+   "pct": {
+    "L1": 8.52,
+    "L0_raw": 8.52,
+    "area": null
+   },
+   "agree": {
+    "L1_eq_L0clean": true,
+    "L1_eq_L2first": true,
+    "L1_eq_area": false,
+    "L0clean_eq_area": false,
+    "L2first_eq_area": false
+   },
+   "L1_reason": "_CURRENT-VALUES ⚠r1/r2 冲突",
+   "L1_is_palette1": true,
+   "L1_chroma": 0.071,
+   "L0_negated_only": false
+  },
+  {
+   "id": "S23",
+   "L0_raw": "#A8206B",
+   "L0_clean": "#A8206B",
+   "L0_hits": [
+    {
+     "hex": "#A8206B",
+     "dist": 4,
+     "negated": false,
+     "ctx": "主色 `#A8206B` 占 34%（胭脂虫红 carmine，色相 326.9°、饱和 81%、明度 39.2%，情绪"
+    },
+    {
+     "hex": "#6366F1",
+     "dist": 24,
+     "negated": true,
+     "ctx": "配色：它反的是 `#6366F1` 靛蓝与纯白底，也反\"暗底加霓虹\"的展陈色组；主色是胭脂虫红，墨西哥壁画与织物上真实使用过的虫染颜料，色相 326.9° 属洋红而非 UI 红，与方案 1 的朱红 `"
+    },
+    {
+     "hex": "#A8206B",
+     "dist": 4,
+     "negated": false,
+     "ctx": "度（实测）：正文与强调 `#241C16`/背景 = 12.07:1（AAA）；主色 `#A8206B`/背景 = 4.90:1（达 AA 正文线）；主色作按钮底时用白字 = 6.81:1，故按钮文字"
+    },
+    {
+     "hex": "#A8206B",
+     "dist": 24,
+     "negated": false,
+     "ctx": "AAA）；主色 `#A8206B`/背景 = 4.90:1（达 AA 正文线）；主色作按钮底时用白字 = 6.81:1，故按钮文字指定为 `#FFFFFF`；辅助 `#7A6A55` 只用于 8% 的"
+    }
+   ],
+   "L1": "#A8206B",
+   "L2": [
+    "#A8206B",
+    "#241C16"
+   ],
+   "L3_key": false,
+   "areaPrimary": "#B7A78C",
+   "pct": {
+    "L1": 1.437,
+    "L0_raw": 1.437,
+    "area": 7.228
+   },
+   "agree": {
+    "L1_eq_L0clean": true,
+    "L1_eq_L2first": true,
+    "L1_eq_area": false,
+    "L0clean_eq_area": false,
+    "L2first_eq_area": false
+   },
+   "L1_reason": "_CURRENT-VALUES ⚠r1/r2 冲突",
+   "L1_is_palette1": true,
+   "L1_chroma": 0.533,
+   "L0_negated_only": false
+  },
+  {
+   "id": "S24",
+   "L0_raw": "#5D43AD",
+   "L0_clean": "#5D43AD",
+   "L0_hits": [
+    {
+     "hex": "#5D43AD",
+     "dist": 4,
+     "negated": false,
+     "ctx": "主色 `#5D43AD` 占 54%（蓝晒过曝后泛出的葡萄紫，色相 254.7°、饱和 44.2%，情绪：晒过头的纸）；"
+    },
+    {
+     "hex": "#6366F1",
+     "dist": 4,
+     "negated": true,
+     "ctx": "。面积和 100。为什么不像 AI 默认配色：它反的是 `#6366F1` 靛蓝主色与\"发光边框加玻璃卡片\"的默认组合；本方案的主色是色相 254.7° 的葡萄紫而不是 239° 的 UI 靛蓝，离开"
+    },
+    {
+     "hex": "#5D43AD",
+     "dist": 4,
+     "negated": false,
+     "ctx": "。对比度（实测）：正文 `#0A1116`/背景 = 16.08:1（AAA）；主色 `#5D43AD`/背景 = 6.18:1（达 AA 正文线，同时脱离 07 号 P3 点名的 `#3B82F6`"
+    },
+    {
+     "hex": "#0A1116",
+     "dist": 15,
+     "negated": false,
+     "ctx": "3B82F6` 默认色带）；强调 `#0A1116`/背景 = 16.08:1；主色作按钮底时用白字 = 7.22:1，故按钮文字指定为 `#FFFFFF`。"
+    }
+   ],
+   "L1": "#5D43AD",
+   "L2": [
+    "#5D43AD"
+   ],
+   "L3_key": false,
+   "areaPrimary": "#5D43AD",
+   "pct": {
+    "L1": 0.52,
+    "L0_raw": 0.52,
+    "area": 0.52
+   },
+   "agree": {
+    "L1_eq_L0clean": true,
+    "L1_eq_L2first": true,
+    "L1_eq_area": true,
+    "L0clean_eq_area": true,
+    "L2first_eq_area": true
+   },
+   "L1_reason": "regex1(主色后第一个 hex) ⚠r1/r2 冲突",
+   "L1_is_palette1": true,
+   "L1_chroma": 0.416,
+   "L0_negated_only": false
+  },
+  {
+   "id": "S25",
+   "L0_raw": "#914A27",
+   "L0_clean": "#914A27",
+   "L0_hits": [
+    {
+     "hex": "#914A27",
+     "dist": 4,
+     "negated": false,
+     "ctx": "背景 `#E8E4DE` 占 48%（未涂布纸，情绪：刚拆封的纸）；主色 `#914A27` 占 26%（专色橙红油墨压深一档，色相 19.8°、明度 36.1%，情绪：丝网印的暖）；强调"
+    },
+    {
+     "hex": "#914A27",
+     "dist": 4,
+     "negated": false,
+     "ctx": "。对比度（实测）：正文 `#1E1A16`/背景 = 13.65:1（AAA）；主色 `#914A27`/背景 = 5.16:1（达 AA 正文线；07 号给出的 `#AB4D25` 是对旧底色算的，"
+    },
+    {
+     "hex": "#1E1A16",
+     "dist": 15,
+     "negated": false,
+     "ctx": "算为 `#914A27`）；强调 `#1E1A16`/背景 = 13.65:1；主色作按钮底时用白字 = 6.54:1，故按钮文字指定为 `#FFFFFF`。面积核对（原型 1440px 整页逐像素实"
+    }
+   ],
+   "L1": "#914A27",
+   "L2": [],
+   "L3_key": false,
+   "areaPrimary": "#914A27",
+   "pct": {
+    "L1": 10.562,
+    "L0_raw": 10.562,
+    "area": 10.562
+   },
+   "agree": {
+    "L1_eq_L0clean": true,
+    "L1_eq_L2first": false,
+    "L1_eq_area": true,
+    "L0clean_eq_area": true,
+    "L2first_eq_area": false
+   },
+   "L1_reason": "_CURRENT-VALUES ⚠r1/r2 冲突",
+   "L1_is_palette1": true,
+   "L1_chroma": 0.416,
+   "L0_negated_only": false
+  },
+  {
+   "id": "S26",
+   "L0_raw": "#485270",
+   "L0_clean": "#485270",
+   "L0_hits": [
+    {
+     "hex": "#485270",
+     "dist": 4,
+     "negated": false,
+     "ctx": "背景 `#D3D1CA` 占 44%（凸版印刷纸，情绪：未上光的纸）；主色 `#485270` 占 30%（凸版蓝墨，色相 225°、饱和 21.7%，近中性的墨蓝，情绪：版蓝）；强调 `#"
+    },
+    {
+     "hex": "#485270",
+     "dist": 4,
+     "negated": false,
+     "ctx": "。对比度（实测）：正文 `#121212`/背景 = 12.26:1（AAA）；主色 `#485270`/背景 = 5.06:1（达 AA 正文线）；强调 `#121212`/背景 = 12.26:1"
+    },
+    {
+     "hex": "#121212",
+     "dist": 15,
+     "negated": false,
+     "ctx": "6:1（达 AA 正文线）；强调 `#121212`/背景 = 12.26:1；主色作按钮底时用白字 = 7.65:1，故按钮文字指定为 `#FFFFFF`。另：主色同时构成脏色（饱和 21.7% ≤"
+    },
+    {
+     "hex": "#FFFFFF",
+     "dist": 4,
+     "negated": false,
+     "ctx": "色作按钮底时用白字 = 7.65:1，故按钮文字指定为 `#FFFFFF`。另：主色同时构成脏色（饱和 21.7% ≤22%）。"
+    }
+   ],
+   "L1": "#485270",
+   "L2": [],
+   "L3_key": false,
+   "areaPrimary": "#485270",
+   "pct": {
+    "L1": 10.775,
+    "L0_raw": 10.775,
+    "area": 10.775
+   },
+   "agree": {
+    "L1_eq_L0clean": true,
+    "L1_eq_L2first": false,
+    "L1_eq_area": true,
+    "L0clean_eq_area": true,
+    "L2first_eq_area": false
+   },
+   "L1_reason": "regex1(主色后第一个 hex) ⚠r1/r2 冲突",
+   "L1_is_palette1": true,
+   "L1_chroma": 0.157,
+   "L0_negated_only": false
+  },
+  {
+   "id": "S27",
+   "L0_raw": "#0E6258",
+   "L0_clean": "#0E6258",
+   "L0_hits": [
+    {
+     "hex": "#0E6258",
+     "dist": 4,
+     "negated": false,
+     "ctx": "背景 `#E8D7B5` 占 48%（石版印刷的黄纸，情绪：晒过的墙）；主色 `#0E6258` 占 30%（门头上被阳光晒褪的墨绿刷色，色相 173°，情绪：湿刷子）；强调 `#221C10"
+    },
+    {
+     "hex": "#0E6258",
+     "dist": 4,
+     "negated": false,
+     "ctx": "。对比度（实测）：正文 `#221C10`/背景 = 11.94:1（AAA）；主色 `#0E6258`/背景 = 5.10:1（达 AA 正文线；07 号给出的 `#0E7264` 是对旧底色算的，"
+    },
+    {
+     "hex": "#E8D7B5",
+     "dist": 17,
+     "negated": false,
+     "ctx": "4` 是对旧底色算的，对新的 `#E8D7B5` 只有 4.11:1，故重算）；主色作按钮底时用白字 = 6.74:1，故按钮文字指定为 `#FFFFFF`。"
+    }
+   ],
+   "L1": "#0E6258",
+   "L2": [
+    "#0E6258",
+    "#221C10"
+   ],
+   "L3_key": false,
+   "areaPrimary": "#0E6258",
+   "pct": {
+    "L1": 19.897,
+    "L0_raw": 19.897,
+    "area": 19.897
+   },
+   "agree": {
+    "L1_eq_L0clean": true,
+    "L1_eq_L2first": true,
+    "L1_eq_area": true,
+    "L0clean_eq_area": true,
+    "L2first_eq_area": true
+   },
+   "L1_reason": "_CURRENT-VALUES ⚠r1/r2 冲突",
+   "L1_is_palette1": true,
+   "L1_chroma": 0.329,
+   "L0_negated_only": false
+  },
+  {
+   "id": "S28",
+   "L0_raw": "#AF74BE",
+   "L0_clean": "#AF74BE",
+   "L0_hits": [
+    {
+     "hex": "#AF74BE",
+     "dist": 4,
+     "negated": false,
+     "ctx": "0D12` 占 58%（凹版油墨的黑，L 4.7% 属脏色，情绪：录音棚夜班）；主色 `#AF74BE` 占 28%（凹版紫墨，色相 287.8°、饱和 36.3%，情绪：旧唱片内袋里那层发紫的墨）；"
+    },
+    {
+     "hex": "#EC4899",
+     "dist": 9,
+     "negated": true,
+     "ctx": "1°、离开 `#A855F7` 17°、离开 `#EC4899` 42°，同时把主色对底的对比从 2.99:1 提到 5.61:1，一次换色解决 07 号 P0 与 P3 两项；底不用纯黑而用 `#0"
+    },
+    {
+     "hex": "#AF74BE",
+     "dist": 4,
+     "negated": false,
+     "ctx": "色文字对深底计算）：正文 `#D8D4C6`/底 = 13.10:1（AAA）；主色 `#AF74BE`/底 = 5.61:1（达 AA 正文线）；主色作色块时块上文字用 `#0B0D12` = 5."
+    },
+    {
+     "hex": "#0B0D12",
+     "dist": 13,
+     "negated": false,
+     "ctx": "（AAA）；主色 `#AF74BE`/底 = 5.61:1（达 AA 正文线）；主色作色块时块上文字用 `#0B0D12` = 5.61:1。非色彩通道（对应 M-15）：本方案是暗底，状态不靠颜色分"
+    }
+   ],
+   "L1": "#AF74BE",
+   "L2": [
+    "#AF74BE",
+    "#D8D4C6"
+   ],
+   "L3_key": false,
+   "areaPrimary": "#AF74BE",
+   "pct": {
+    "L1": 18.878,
+    "L0_raw": 18.878,
+    "area": 18.878
+   },
+   "agree": {
+    "L1_eq_L0clean": true,
+    "L1_eq_L2first": true,
+    "L1_eq_area": true,
+    "L0clean_eq_area": true,
+    "L2first_eq_area": true
+   },
+   "L1_reason": "_CURRENT-VALUES ⚠r1/r2 冲突",
+   "L1_is_palette1": true,
+   "L1_chroma": 0.29,
+   "L0_negated_only": false
+  },
+  {
+   "id": "S29",
+   "L0_raw": "#644F02",
+   "L0_clean": "#644F02",
+   "L0_hits": [
+    {
+     "hex": "#644F02",
+     "dist": 4,
+     "negated": false,
+     "ctx": "背景 `#D9D3C4` 占 52%（手册纸，情绪：档案柜）；主色 `#644F02` 占 22%（RAL 1023 交通黄压深到可读档的印刷近似，色相 47°、明度 20%，情绪："
+    },
+    {
+     "hex": "#644F02",
+     "dist": 4,
+     "negated": false,
+     "ctx": "。对比度（实测）：正文 `#1A1A17`/背景 = 11.68:1（AAA）；主色 `#644F02`/背景 = 5.29:1（达 AA 正文线；07 号给出的 `#795F00` 是对旧底色算的，"
+    },
+    {
+     "hex": "#644F02",
+     "dist": 3,
+     "negated": false,
+     "ctx": "4` 只有 4.08:1，故在其同色相 47° 上重算为 `#644F02`）；主色作按钮底时用白字 = 6.94:1，故按钮文字指定为 `#FFFFFF`。警示框的填充可保留更亮的 `#E4B400"
+    }
+   ],
+   "L1": "#644F02",
+   "L2": [
+    "#644F02"
+   ],
+   "L3_key": false,
+   "areaPrimary": "#644F02",
+   "pct": {
+    "L1": 0.879,
+    "L0_raw": 0.879,
+    "area": 0.879
+   },
+   "agree": {
+    "L1_eq_L0clean": true,
+    "L1_eq_L2first": true,
+    "L1_eq_area": true,
+    "L0clean_eq_area": true,
+    "L2first_eq_area": true
+   },
+   "L1_reason": "_CURRENT-VALUES ⚠r1/r2 冲突",
+   "L1_is_palette1": true,
+   "L1_chroma": 0.384,
+   "L0_negated_only": false
+  },
+  {
+   "id": "S30",
+   "L0_raw": "#007B3F",
+   "L0_clean": "#007B3F",
+   "L0_hits": [
+    {
+     "hex": "#007B3F",
+     "dist": 4,
+     "negated": false,
+     "ctx": "背景 `#EDEDED` 占 46%（硅油离型纸的冷白，情绪：车间冷光）；主色 `#007B3F` 占 28%（丝网荧光绿专色压深到可读档，色相 150.8°、明度 24%，情绪：Day-Glo"
+    },
+    {
+     "hex": "#007B3F",
+     "dist": 4,
+     "negated": false,
+     "ctx": "。对比度（实测）：正文 `#141414`/背景 = 15.74:1（AAA）；主色 `#007B3F`/背景 = 4.59:1（达 AA 正文线）；主色作按钮底时用白字 = 5.38:1，故按钮文字"
+    },
+    {
+     "hex": "#007B3F",
+     "dist": 24,
+     "negated": false,
+     "ctx": "AAA）；主色 `#007B3F`/背景 = 4.59:1（达 AA 正文线）；主色作按钮底时用白字 = 5.38:1，故按钮文字指定为 `#FFFFFF`（07 号 P4 要求的按钮字色已指定）；装"
+    }
+   ],
+   "L1": "#007B3F",
+   "L2": [
+    "#007B3F"
+   ],
+   "L3_key": false,
+   "areaPrimary": "#007B3F",
+   "pct": {
+    "L1": 5.355,
+    "L0_raw": 5.355,
+    "area": 5.355
+   },
+   "agree": {
+    "L1_eq_L0clean": true,
+    "L1_eq_L2first": true,
+    "L1_eq_area": true,
+    "L0clean_eq_area": true,
+    "L2first_eq_area": true
+   },
+   "L1_reason": "_CURRENT-VALUES ⚠r1/r2 冲突",
+   "L1_is_palette1": true,
+   "L1_chroma": 0.482,
+   "L0_negated_only": false
+  }
+ ]
+}

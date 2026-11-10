@@ -1,0 +1,3213 @@
+[
+  {
+    "id": "S01",
+    "dir": "S01-red-wedge-broadsheet",
+    "files": [
+      "index.html"
+    ],
+    "roots": [
+      "io",
+      "raf",
+      "scroll",
+      "ui"
+    ],
+    "writeCount": 0,
+    "creates": [],
+    "measures": [
+      {
+        "at": "index.html:321",
+        "code": "var top = cols[i].getBoundingClientRect().top;"
+      }
+    ],
+    "trig": false,
+    "geomVars": [],
+    "motionGeomVars": [],
+    "directGeomWrites": [],
+    "motionDirectGeom": [],
+    "writes": []
+  },
+  {
+    "id": "S02",
+    "dir": "S02-gilded-symmetry-salon",
+    "files": [
+      "index.html"
+    ],
+    "roots": [
+      "io",
+      "other",
+      "pointer",
+      "raf",
+      "resize",
+      "scroll",
+      "ui"
+    ],
+    "writeCount": 4,
+    "creates": [],
+    "measures": [],
+    "trig": false,
+    "geomVars": [
+      {
+        "var": "leak-x",
+        "at": "index.html:283",
+        "drivers": [],
+        "css": [
+          {
+            "line": 157,
+            "decl": "left: min(var(--leak-x,"
+          }
+        ]
+      },
+      {
+        "var": "leak-y",
+        "at": "index.html:284",
+        "drivers": [],
+        "css": [
+          {
+            "line": 158,
+            "decl": "top: var(--leak-y,"
+          }
+        ]
+      }
+    ],
+    "motionGeomVars": [],
+    "directGeomWrites": [
+      {
+        "at": "index.html:266",
+        "drivers": [
+          "raf",
+          "resize",
+          "scroll",
+          "ui"
+        ],
+        "code": "if (foilB) foilB.style.transform = 'scaleX(-1) translateY(' + p.toFixed(2) + 'px)';"
+      }
+    ],
+    "motionDirectGeom": [
+      {
+        "at": "index.html:266",
+        "drivers": [
+          "raf",
+          "resize",
+          "scroll",
+          "ui"
+        ],
+        "code": "if (foilB) foilB.style.transform = 'scaleX(-1) translateY(' + p.toFixed(2) + 'px)';"
+      }
+    ],
+    "writes": [
+      {
+        "at": "index.html:266",
+        "kinds": [
+          "style"
+        ],
+        "drivers": [
+          "raf",
+          "resize",
+          "scroll",
+          "ui"
+        ],
+        "code": "if (foilB) foilB.style.transform = 'scaleX(-1) translateY(' + p.toFixed(2) + 'px)';",
+        "varName": null
+      },
+      {
+        "at": "index.html:283",
+        "kinds": [
+          "var:leak-x"
+        ],
+        "drivers": [],
+        "code": "el.style.setProperty('--leak-x', LEAK_SLOTS[day].left);",
+        "varName": "leak-x"
+      },
+      {
+        "at": "index.html:284",
+        "kinds": [
+          "var:leak-y"
+        ],
+        "drivers": [],
+        "code": "el.style.setProperty('--leak-y', LEAK_SLOTS[day].top);",
+        "varName": "leak-y"
+      },
+      {
+        "at": "index.html:303",
+        "kinds": [
+          "var:stagger"
+        ],
+        "drivers": [],
+        "code": "t.style.setProperty('--stagger', String(i % 9));",
+        "varName": "stagger"
+      }
+    ]
+  },
+  {
+    "id": "S03",
+    "dir": "S03-long-exposure-observatory",
+    "files": [
+      "index.html"
+    ],
+    "roots": [
+      "other",
+      "pointer",
+      "raf",
+      "scroll",
+      "ui"
+    ],
+    "writeCount": 15,
+    "creates": [
+      {
+        "at": "index.html:221",
+        "kinds": [
+          "create"
+        ],
+        "drivers": [],
+        "code": "var el = document.createElementNS(NS, \"line\");",
+        "varName": null
+      },
+      {
+        "at": "index.html:222",
+        "kinds": [
+          "attr:x1"
+        ],
+        "drivers": [],
+        "code": "el.setAttribute(\"x1\", x1); el.setAttribute(\"y1\", y1);",
+        "varName": null
+      },
+      {
+        "at": "index.html:223",
+        "kinds": [
+          "attr:x2"
+        ],
+        "drivers": [],
+        "code": "el.setAttribute(\"x2\", x2); el.setAttribute(\"y2\", y2);",
+        "varName": null
+      },
+      {
+        "at": "index.html:237",
+        "kinds": [
+          "create"
+        ],
+        "drivers": [],
+        "code": "var t = document.createElementNS(NS, \"text\");",
+        "varName": null
+      },
+      {
+        "at": "index.html:238",
+        "kinds": [
+          "attr:x"
+        ],
+        "drivers": [],
+        "code": "t.setAttribute(\"x\", 168 - drift[i]);",
+        "varName": null
+      },
+      {
+        "at": "index.html:239",
+        "kinds": [
+          "attr:y"
+        ],
+        "drivers": [],
+        "code": "t.setAttribute(\"y\", 640 - i * 128 - 4);",
+        "varName": null
+      },
+      {
+        "at": "index.html:244",
+        "kinds": [
+          "create"
+        ],
+        "drivers": [],
+        "code": "var hole = document.createElementNS(NS, \"rect\");",
+        "varName": null
+      },
+      {
+        "at": "index.html:245",
+        "kinds": [
+          "attr:x"
+        ],
+        "drivers": [],
+        "code": "hole.setAttribute(\"x\", 178 - drift[i]); hole.setAttribute(\"y\", 640 - i * 128 - 9);",
+        "varName": null
+      },
+      {
+        "at": "index.html:246",
+        "kinds": [
+          "attr:width"
+        ],
+        "drivers": [],
+        "code": "hole.setAttribute(\"width\", 7); hole.setAttribute(\"height\", 5);",
+        "varName": null
+      },
+      {
+        "at": "index.html:327",
+        "kinds": [
+          "inner"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "answer.innerHTML = \"<p><b>库房正在翻架…</b></p><p class=\\\"note\\\"><samp>正在核对片盒编号与齿孔状态</samp></p>\";",
+        "varName": null
+      },
+      {
+        "at": "index.html:330",
+        "kinds": [
+          "inner"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "answer.innerHTML = REPLIES[kind];",
+        "varName": null
+      }
+    ],
+    "measures": [
+      {
+        "at": "index.html:259",
+        "code": "var top = stream.getBoundingClientRect().top + window.scrollY;"
+      }
+    ],
+    "trig": false,
+    "geomVars": [],
+    "motionGeomVars": [],
+    "directGeomWrites": [
+      {
+        "at": "index.html:262",
+        "drivers": [
+          "raf",
+          "scroll"
+        ],
+        "code": "bands.forEach(function (b) { b.style.transform = \"translateY(\" + shift.toFixed(2) + \"px)\"; });"
+      },
+      {
+        "at": "index.html:286",
+        "drivers": [],
+        "code": "rows.forEach(function (r) { r.style.opacity = \"1\"; r.style.transform = \"none\"; });"
+      },
+      {
+        "at": "index.html:294",
+        "drivers": [],
+        "code": "row.style.transform = \"none\";"
+      },
+      {
+        "at": "index.html:307",
+        "drivers": [
+          "pointer"
+        ],
+        "code": "cursor.style.transform = \"translate(\" + e.clientX + \"px,\" + e.clientY + \"px)\";"
+      }
+    ],
+    "motionDirectGeom": [
+      {
+        "at": "index.html:262",
+        "drivers": [
+          "raf",
+          "scroll"
+        ],
+        "code": "bands.forEach(function (b) { b.style.transform = \"translateY(\" + shift.toFixed(2) + \"px)\"; });"
+      },
+      {
+        "at": "index.html:307",
+        "drivers": [
+          "pointer"
+        ],
+        "code": "cursor.style.transform = \"translate(\" + e.clientX + \"px,\" + e.clientY + \"px)\";"
+      }
+    ],
+    "writes": [
+      {
+        "at": "index.html:221",
+        "kinds": [
+          "create"
+        ],
+        "drivers": [],
+        "code": "var el = document.createElementNS(NS, \"line\");",
+        "varName": null
+      },
+      {
+        "at": "index.html:222",
+        "kinds": [
+          "attr:x1"
+        ],
+        "drivers": [],
+        "code": "el.setAttribute(\"x1\", x1); el.setAttribute(\"y1\", y1);",
+        "varName": null
+      },
+      {
+        "at": "index.html:223",
+        "kinds": [
+          "attr:x2"
+        ],
+        "drivers": [],
+        "code": "el.setAttribute(\"x2\", x2); el.setAttribute(\"y2\", y2);",
+        "varName": null
+      },
+      {
+        "at": "index.html:237",
+        "kinds": [
+          "create"
+        ],
+        "drivers": [],
+        "code": "var t = document.createElementNS(NS, \"text\");",
+        "varName": null
+      },
+      {
+        "at": "index.html:238",
+        "kinds": [
+          "attr:x"
+        ],
+        "drivers": [],
+        "code": "t.setAttribute(\"x\", 168 - drift[i]);",
+        "varName": null
+      },
+      {
+        "at": "index.html:239",
+        "kinds": [
+          "attr:y"
+        ],
+        "drivers": [],
+        "code": "t.setAttribute(\"y\", 640 - i * 128 - 4);",
+        "varName": null
+      },
+      {
+        "at": "index.html:244",
+        "kinds": [
+          "create"
+        ],
+        "drivers": [],
+        "code": "var hole = document.createElementNS(NS, \"rect\");",
+        "varName": null
+      },
+      {
+        "at": "index.html:245",
+        "kinds": [
+          "attr:x"
+        ],
+        "drivers": [],
+        "code": "hole.setAttribute(\"x\", 178 - drift[i]); hole.setAttribute(\"y\", 640 - i * 128 - 9);",
+        "varName": null
+      },
+      {
+        "at": "index.html:246",
+        "kinds": [
+          "attr:width"
+        ],
+        "drivers": [],
+        "code": "hole.setAttribute(\"width\", 7); hole.setAttribute(\"height\", 5);",
+        "varName": null
+      },
+      {
+        "at": "index.html:262",
+        "kinds": [
+          "style"
+        ],
+        "drivers": [
+          "raf",
+          "scroll"
+        ],
+        "code": "bands.forEach(function (b) { b.style.transform = \"translateY(\" + shift.toFixed(2) + \"px)\"; });",
+        "varName": null
+      },
+      {
+        "at": "index.html:286",
+        "kinds": [
+          "style"
+        ],
+        "drivers": [],
+        "code": "rows.forEach(function (r) { r.style.opacity = \"1\"; r.style.transform = \"none\"; });",
+        "varName": null
+      },
+      {
+        "at": "index.html:294",
+        "kinds": [
+          "style"
+        ],
+        "drivers": [],
+        "code": "row.style.transform = \"none\";",
+        "varName": null
+      },
+      {
+        "at": "index.html:307",
+        "kinds": [
+          "style"
+        ],
+        "drivers": [
+          "pointer"
+        ],
+        "code": "cursor.style.transform = \"translate(\" + e.clientX + \"px,\" + e.clientY + \"px)\";",
+        "varName": null
+      },
+      {
+        "at": "index.html:327",
+        "kinds": [
+          "inner"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "answer.innerHTML = \"<p><b>库房正在翻架…</b></p><p class=\\\"note\\\"><samp>正在核对片盒编号与齿孔状态</samp></p>\";",
+        "varName": null
+      },
+      {
+        "at": "index.html:330",
+        "kinds": [
+          "inner"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "answer.innerHTML = REPLIES[kind];",
+        "varName": null
+      }
+    ]
+  },
+  {
+    "id": "S04",
+    "dir": "S04-mango-collage-wall",
+    "files": [
+      "index.html"
+    ],
+    "roots": [
+      "io",
+      "ui"
+    ],
+    "writeCount": 0,
+    "creates": [],
+    "measures": [],
+    "trig": false,
+    "geomVars": [],
+    "motionGeomVars": [],
+    "directGeomWrites": [],
+    "motionDirectGeom": [],
+    "writes": []
+  },
+  {
+    "id": "S05",
+    "dir": "S05-pixel-cold-storage-console",
+    "files": [
+      "index.html"
+    ],
+    "roots": [
+      "io",
+      "ui"
+    ],
+    "writeCount": 4,
+    "creates": [
+      {
+        "at": "index.html:308",
+        "kinds": [
+          "inner"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "g.innerHTML = html;",
+        "varName": null
+      },
+      {
+        "at": "index.html:309",
+        "kinds": [
+          "attr:viewBox"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "svg.setAttribute('viewBox', '0 0 ' + (keys.length * 6 - 1) + ' 7');",
+        "varName": null
+      }
+    ],
+    "measures": [
+      {
+        "at": "index.html:326",
+        "code": "void bay.offsetWidth;"
+      },
+      {
+        "at": "index.html:359",
+        "code": "panels.forEach(function (p) { p.classList.remove('is-blanked'); p.classList.remove('is-scanned'); void p.offse"
+      }
+    ],
+    "trig": false,
+    "geomVars": [
+      {
+        "var": "pos",
+        "at": "index.html:322",
+        "drivers": [
+          "ui"
+        ],
+        "css": [
+          {
+            "line": 315,
+            "decl": "transform: translateY(calc(var(--pos,"
+          },
+          {
+            "line": 331,
+            "decl": "transform: translateY(calc(var(--pos,"
+          }
+        ]
+      },
+      {
+        "var": "pos",
+        "at": "index.html:344",
+        "drivers": [],
+        "css": [
+          {
+            "line": 315,
+            "decl": "transform: translateY(calc(var(--pos,"
+          },
+          {
+            "line": 331,
+            "decl": "transform: translateY(calc(var(--pos,"
+          }
+        ]
+      }
+    ],
+    "motionGeomVars": [],
+    "directGeomWrites": [],
+    "motionDirectGeom": [],
+    "writes": [
+      {
+        "at": "index.html:308",
+        "kinds": [
+          "inner"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "g.innerHTML = html;",
+        "varName": null
+      },
+      {
+        "at": "index.html:309",
+        "kinds": [
+          "attr:viewBox"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "svg.setAttribute('viewBox', '0 0 ' + (keys.length * 6 - 1) + ' 7');",
+        "varName": null
+      },
+      {
+        "at": "index.html:322",
+        "kinds": [
+          "var:pos"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "bay.style.setProperty('--pos', String((Number(input.value) + 22) / 4));",
+        "varName": "pos"
+      },
+      {
+        "at": "index.html:344",
+        "kinds": [
+          "var:pos"
+        ],
+        "drivers": [],
+        "code": "bay.style.setProperty('--pos', String((Number(input.value) + 22) / 4));",
+        "varName": "pos"
+      }
+    ]
+  },
+  {
+    "id": "S06",
+    "dir": "S06-showa-kissaten-ledger",
+    "files": [
+      "index.html"
+    ],
+    "roots": [
+      "raf",
+      "resize",
+      "scroll",
+      "ui"
+    ],
+    "writeCount": 4,
+    "creates": [],
+    "measures": [
+      {
+        "at": "index.html:357",
+        "code": "var r = c.getBoundingClientRect();"
+      },
+      {
+        "at": "index.html:361",
+        "code": "var coef = parseFloat(getComputedStyle(c).getPropertyValue('--coef')) || 1;"
+      }
+    ],
+    "trig": false,
+    "geomVars": [
+      {
+        "var": "dy",
+        "at": "index.html:365",
+        "drivers": [
+          "raf",
+          "resize",
+          "scroll",
+          "ui"
+        ],
+        "css": [
+          {
+            "line": 187,
+            "decl": "transform: translateY(calc(var(--dy,"
+          }
+        ]
+      },
+      {
+        "var": "rail-drift",
+        "at": "index.html:369",
+        "drivers": [
+          "raf",
+          "resize",
+          "scroll",
+          "ui"
+        ],
+        "css": [
+          {
+            "line": 153,
+            "decl": "background-position: 0 var(--rail-drift,"
+          }
+        ]
+      },
+      {
+        "var": "rail-drift",
+        "at": "index.html:418",
+        "drivers": [],
+        "css": [
+          {
+            "line": 153,
+            "decl": "background-position: 0 var(--rail-drift,"
+          }
+        ]
+      },
+      {
+        "var": "rail-drift",
+        "at": "index.html:422",
+        "drivers": [
+          "ui"
+        ],
+        "css": [
+          {
+            "line": 153,
+            "decl": "background-position: 0 var(--rail-drift,"
+          }
+        ]
+      }
+    ],
+    "motionGeomVars": [
+      {
+        "var": "dy",
+        "at": "index.html:365",
+        "drivers": [
+          "raf",
+          "resize",
+          "scroll",
+          "ui"
+        ],
+        "css": [
+          {
+            "line": 187,
+            "decl": "transform: translateY(calc(var(--dy,"
+          }
+        ]
+      },
+      {
+        "var": "rail-drift",
+        "at": "index.html:369",
+        "drivers": [
+          "raf",
+          "resize",
+          "scroll",
+          "ui"
+        ],
+        "css": [
+          {
+            "line": 153,
+            "decl": "background-position: 0 var(--rail-drift,"
+          }
+        ]
+      }
+    ],
+    "directGeomWrites": [],
+    "motionDirectGeom": [],
+    "writes": [
+      {
+        "at": "index.html:365",
+        "kinds": [
+          "var:dy"
+        ],
+        "drivers": [
+          "raf",
+          "resize",
+          "scroll",
+          "ui"
+        ],
+        "code": "c.style.setProperty('--dy', dy.toFixed(2) + 'px');",
+        "varName": "dy"
+      },
+      {
+        "at": "index.html:369",
+        "kinds": [
+          "var:rail-drift"
+        ],
+        "drivers": [
+          "raf",
+          "resize",
+          "scroll",
+          "ui"
+        ],
+        "code": "riverWrap.style.setProperty('--rail-drift', slide.toFixed(1) + 'px');",
+        "varName": "rail-drift"
+      },
+      {
+        "at": "index.html:418",
+        "kinds": [
+          "var:rail-drift"
+        ],
+        "drivers": [],
+        "code": "riverWrap.style.setProperty('--rail-drift', '0px');",
+        "varName": "rail-drift"
+      },
+      {
+        "at": "index.html:422",
+        "kinds": [
+          "var:rail-drift"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "if (reduced.matches) { cards.forEach(function (c) { c.style.removeProperty('--dy'); }); riverWrap.style.setProperty('--r",
+        "varName": "rail-drift"
+      }
+    ]
+  },
+  {
+    "id": "S07",
+    "dir": "S07-slate-ink-contents",
+    "files": [
+      "app.js"
+    ],
+    "roots": [
+      "other",
+      "pointer",
+      "raf",
+      "resize",
+      "scroll",
+      "ui"
+    ],
+    "writeCount": 10,
+    "creates": [
+      {
+        "at": "app.js:18",
+        "kinds": [
+          "attr:viewBox"
+        ],
+        "drivers": [
+          "resize",
+          "ui"
+        ],
+        "code": "ghost.setAttribute('viewBox', '0 0 ' + W + ' ' + H);",
+        "varName": null
+      },
+      {
+        "at": "app.js:19",
+        "kinds": [
+          "attr:width"
+        ],
+        "drivers": [
+          "resize",
+          "ui"
+        ],
+        "code": "ghost.setAttribute('width', W);",
+        "varName": null
+      },
+      {
+        "at": "app.js:20",
+        "kinds": [
+          "attr:height"
+        ],
+        "drivers": [
+          "resize",
+          "ui"
+        ],
+        "code": "ghost.setAttribute('height', H);",
+        "varName": null
+      },
+      {
+        "at": "app.js:23",
+        "kinds": [
+          "create"
+        ],
+        "drivers": [
+          "resize",
+          "ui"
+        ],
+        "code": "var g = document.createElementNS(NS, 'g');",
+        "varName": null
+      },
+      {
+        "at": "app.js:24",
+        "kinds": [
+          "attr:transform"
+        ],
+        "drivers": [
+          "resize",
+          "ui"
+        ],
+        "code": "g.setAttribute('transform', 'translate(' + W + ',1) scale(-1,1)'); // 1px 纸张厚度",
+        "varName": null
+      },
+      {
+        "at": "app.js:35",
+        "kinds": [
+          "create"
+        ],
+        "drivers": [
+          "resize",
+          "ui"
+        ],
+        "code": "var tx = document.createElementNS(NS, 'text');",
+        "varName": null
+      },
+      {
+        "at": "app.js:36",
+        "kinds": [
+          "attr:x"
+        ],
+        "drivers": [
+          "resize",
+          "ui"
+        ],
+        "code": "tx.setAttribute('x', it.left);",
+        "varName": null
+      },
+      {
+        "at": "app.js:37",
+        "kinds": [
+          "attr:y"
+        ],
+        "drivers": [
+          "resize",
+          "ui"
+        ],
+        "code": "tx.setAttribute('y', it.top + it.size * 0.82);",
+        "varName": null
+      }
+    ],
+    "measures": [
+      {
+        "at": "app.js:16",
+        "code": "var box = pages.getBoundingClientRect();"
+      },
+      {
+        "at": "app.js:28",
+        "code": "var r = t.getBoundingClientRect();"
+      },
+      {
+        "at": "app.js:29",
+        "code": "var cs = getComputedStyle(t);"
+      },
+      {
+        "at": "app.js:54",
+        "code": "var box = pages.getBoundingClientRect();"
+      }
+    ],
+    "trig": false,
+    "geomVars": [],
+    "motionGeomVars": [],
+    "directGeomWrites": [],
+    "motionDirectGeom": [],
+    "writes": [
+      {
+        "at": "app.js:18",
+        "kinds": [
+          "attr:viewBox"
+        ],
+        "drivers": [
+          "resize",
+          "ui"
+        ],
+        "code": "ghost.setAttribute('viewBox', '0 0 ' + W + ' ' + H);",
+        "varName": null
+      },
+      {
+        "at": "app.js:19",
+        "kinds": [
+          "attr:width"
+        ],
+        "drivers": [
+          "resize",
+          "ui"
+        ],
+        "code": "ghost.setAttribute('width', W);",
+        "varName": null
+      },
+      {
+        "at": "app.js:20",
+        "kinds": [
+          "attr:height"
+        ],
+        "drivers": [
+          "resize",
+          "ui"
+        ],
+        "code": "ghost.setAttribute('height', H);",
+        "varName": null
+      },
+      {
+        "at": "app.js:23",
+        "kinds": [
+          "create"
+        ],
+        "drivers": [
+          "resize",
+          "ui"
+        ],
+        "code": "var g = document.createElementNS(NS, 'g');",
+        "varName": null
+      },
+      {
+        "at": "app.js:24",
+        "kinds": [
+          "attr:transform"
+        ],
+        "drivers": [
+          "resize",
+          "ui"
+        ],
+        "code": "g.setAttribute('transform', 'translate(' + W + ',1) scale(-1,1)'); // 1px 纸张厚度",
+        "varName": null
+      },
+      {
+        "at": "app.js:35",
+        "kinds": [
+          "create"
+        ],
+        "drivers": [
+          "resize",
+          "ui"
+        ],
+        "code": "var tx = document.createElementNS(NS, 'text');",
+        "varName": null
+      },
+      {
+        "at": "app.js:36",
+        "kinds": [
+          "attr:x"
+        ],
+        "drivers": [
+          "resize",
+          "ui"
+        ],
+        "code": "tx.setAttribute('x', it.left);",
+        "varName": null
+      },
+      {
+        "at": "app.js:37",
+        "kinds": [
+          "attr:y"
+        ],
+        "drivers": [
+          "resize",
+          "ui"
+        ],
+        "code": "tx.setAttribute('y', it.top + it.size * 0.82);",
+        "varName": null
+      },
+      {
+        "at": "app.js:48",
+        "kinds": [
+          "var:ghost-o"
+        ],
+        "drivers": [],
+        "code": "function setInk(v) { document.body.setAttribute('data-ink', String(v)); if (pages) pages.style.setProperty('--ghost-o', ",
+        "varName": "ghost-o"
+      },
+      {
+        "at": "app.js:76",
+        "kinds": [
+          "var:i"
+        ],
+        "drivers": [],
+        "code": "li.style.setProperty('--i', String(i));",
+        "varName": "i"
+      }
+    ]
+  },
+  {
+    "id": "S08",
+    "dir": "S08-amber-overprint-lightbox",
+    "files": [
+      "index.html"
+    ],
+    "roots": [
+      "raf",
+      "scroll",
+      "ui"
+    ],
+    "writeCount": 4,
+    "creates": [],
+    "measures": [
+      {
+        "at": "index.html:350",
+        "code": "void plane.offsetWidth;"
+      }
+    ],
+    "trig": false,
+    "geomVars": [],
+    "motionGeomVars": [],
+    "directGeomWrites": [
+      {
+        "at": "index.html:309",
+        "drivers": [
+          "raf",
+          "scroll",
+          "ui"
+        ],
+        "code": "if (face) { face.style.transform = 'translateY(' + (amp * p).toFixed(2) + 'px)'; }"
+      },
+      {
+        "at": "index.html:310",
+        "drivers": [
+          "raf",
+          "scroll",
+          "ui"
+        ],
+        "code": "if (ink) { ink.style.transform = 'translateY(' + (6 * p).toFixed(2) + 'px)'; }"
+      }
+    ],
+    "motionDirectGeom": [
+      {
+        "at": "index.html:309",
+        "drivers": [
+          "raf",
+          "scroll",
+          "ui"
+        ],
+        "code": "if (face) { face.style.transform = 'translateY(' + (amp * p).toFixed(2) + 'px)'; }"
+      },
+      {
+        "at": "index.html:310",
+        "drivers": [
+          "raf",
+          "scroll",
+          "ui"
+        ],
+        "code": "if (ink) { ink.style.transform = 'translateY(' + (6 * p).toFixed(2) + 'px)'; }"
+      }
+    ],
+    "writes": [
+      {
+        "at": "index.html:309",
+        "kinds": [
+          "style"
+        ],
+        "drivers": [
+          "raf",
+          "scroll",
+          "ui"
+        ],
+        "code": "if (face) { face.style.transform = 'translateY(' + (amp * p).toFixed(2) + 'px)'; }",
+        "varName": null
+      },
+      {
+        "at": "index.html:310",
+        "kinds": [
+          "style"
+        ],
+        "drivers": [
+          "raf",
+          "scroll",
+          "ui"
+        ],
+        "code": "if (ink) { ink.style.transform = 'translateY(' + (6 * p).toFixed(2) + 'px)'; }",
+        "varName": null
+      },
+      {
+        "at": "index.html:323",
+        "kinds": [
+          "var:stagger"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "plane.style.setProperty('--stagger', '70ms');",
+        "varName": "stagger"
+      },
+      {
+        "at": "index.html:327",
+        "kinds": [
+          "var:stagger"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "plane.style.setProperty('--stagger', '180ms');",
+        "varName": "stagger"
+      }
+    ]
+  },
+  {
+    "id": "S09",
+    "dir": "S09-batik-price-board",
+    "files": [
+      "index.html",
+      "index.html"
+    ],
+    "roots": [
+      "io",
+      "other",
+      "pointer",
+      "ui"
+    ],
+    "writeCount": 3,
+    "creates": [
+      {
+        "at": "index.html:266",
+        "kinds": [
+          "inner"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "rowsBox.innerHTML = window.__shoeRows;",
+        "varName": null
+      },
+      {
+        "at": "index.html:269",
+        "kinds": [
+          "inner"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "rowsBox.innerHTML = build(LEATHER);",
+        "varName": null
+      }
+    ],
+    "measures": [
+      {
+        "at": "index.html:259",
+        "code": "void lamp.offsetWidth;"
+      }
+    ],
+    "trig": false,
+    "geomVars": [],
+    "motionGeomVars": [],
+    "directGeomWrites": [],
+    "motionDirectGeom": [],
+    "writes": [
+      {
+        "at": "index.html:226",
+        "kinds": [
+          "var:d"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "el.style.setProperty('--d', (i % 6) * 60 + 'ms');",
+        "varName": "d"
+      },
+      {
+        "at": "index.html:266",
+        "kinds": [
+          "inner"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "rowsBox.innerHTML = window.__shoeRows;",
+        "varName": null
+      },
+      {
+        "at": "index.html:269",
+        "kinds": [
+          "inner"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "rowsBox.innerHTML = build(LEATHER);",
+        "varName": null
+      }
+    ]
+  },
+  {
+    "id": "S10",
+    "dir": "S10-grid-versus-sheet",
+    "files": [
+      "index.html"
+    ],
+    "roots": [
+      "io",
+      "other",
+      "pointer",
+      "ui"
+    ],
+    "writeCount": 5,
+    "creates": [
+      {
+        "at": "index.html:472",
+        "kinds": [
+          "create"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "var a = document.createElement('a');",
+        "varName": null
+      },
+      {
+        "at": "index.html:495",
+        "kinds": [
+          "create"
+        ],
+        "drivers": [],
+        "code": "cursor = document.createElement('div');",
+        "varName": null
+      },
+      {
+        "at": "index.html:498",
+        "kinds": [
+          "inner"
+        ],
+        "drivers": [],
+        "code": "cursor.innerHTML = '<span class=\"arm-h\"></span><span class=\"arm-v\"></span><span class=\"arm-h arm-h-red\"></span><span cla",
+        "varName": null
+      }
+    ],
+    "measures": [
+      {
+        "at": "index.html:405",
+        "code": "void sheet.offsetWidth;"
+      }
+    ],
+    "trig": false,
+    "geomVars": [],
+    "motionGeomVars": [],
+    "directGeomWrites": [
+      {
+        "at": "index.html:503",
+        "drivers": [
+          "pointer"
+        ],
+        "code": "cursor.style.transform = 'translate(' + ev.clientX + 'px,' + ev.clientY + 'px)';"
+      }
+    ],
+    "motionDirectGeom": [
+      {
+        "at": "index.html:503",
+        "drivers": [
+          "pointer"
+        ],
+        "code": "cursor.style.transform = 'translate(' + ev.clientX + 'px,' + ev.clientY + 'px)';"
+      }
+    ],
+    "writes": [
+      {
+        "at": "index.html:430",
+        "kinds": [
+          "var:row-index"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "tr.style.setProperty('--row-index', String(i));",
+        "varName": "row-index"
+      },
+      {
+        "at": "index.html:472",
+        "kinds": [
+          "create"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "var a = document.createElement('a');",
+        "varName": null
+      },
+      {
+        "at": "index.html:495",
+        "kinds": [
+          "create"
+        ],
+        "drivers": [],
+        "code": "cursor = document.createElement('div');",
+        "varName": null
+      },
+      {
+        "at": "index.html:498",
+        "kinds": [
+          "inner"
+        ],
+        "drivers": [],
+        "code": "cursor.innerHTML = '<span class=\"arm-h\"></span><span class=\"arm-v\"></span><span class=\"arm-h arm-h-red\"></span><span cla",
+        "varName": null
+      },
+      {
+        "at": "index.html:503",
+        "kinds": [
+          "style"
+        ],
+        "drivers": [
+          "pointer"
+        ],
+        "code": "cursor.style.transform = 'translate(' + ev.clientX + 'px,' + ev.clientY + 'px)';",
+        "varName": null
+      }
+    ]
+  },
+  {
+    "id": "S11",
+    "dir": "S11-samizdat-typewriter",
+    "files": [
+      "index.html"
+    ],
+    "roots": [
+      "io",
+      "ui"
+    ],
+    "writeCount": 1,
+    "creates": [],
+    "measures": [
+      {
+        "at": "index.html:378",
+        "code": "void el.offsetWidth;"
+      }
+    ],
+    "trig": false,
+    "geomVars": [],
+    "motionGeomVars": [],
+    "directGeomWrites": [],
+    "motionDirectGeom": [],
+    "writes": [
+      {
+        "at": "index.html:351",
+        "kinds": [
+          "var:i"
+        ],
+        "drivers": [],
+        "code": "rows.forEach(function (tr, i) { tr.style.setProperty('--i', String(i)); });",
+        "varName": "i"
+      }
+    ]
+  },
+  {
+    "id": "S12",
+    "dir": "S12-lime-knockout-wall",
+    "files": [
+      "index.html"
+    ],
+    "roots": [
+      "io",
+      "raf",
+      "scroll",
+      "ui"
+    ],
+    "writeCount": 3,
+    "creates": [
+      {
+        "at": "index.html:286",
+        "kinds": [
+          "inner"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "slot.innerHTML = '当前关卡 <code>03</code> 青柠管道';",
+        "varName": null
+      },
+      {
+        "at": "index.html:304",
+        "kinds": [
+          "inner"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "count.innerHTML = '已凿开 <code>00</code> / <code>07</code>';",
+        "varName": null
+      },
+      {
+        "at": "index.html:325",
+        "kinds": [
+          "inner"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "state05.innerHTML = '兜底中 · <code>MASK-05</code>';",
+        "varName": null
+      }
+    ],
+    "measures": [
+      {
+        "at": "index.html:248",
+        "code": "var r = stack.getBoundingClientRect();"
+      },
+      {
+        "at": "index.html:277",
+        "code": "void stack.offsetWidth;"
+      }
+    ],
+    "trig": false,
+    "geomVars": [],
+    "motionGeomVars": [],
+    "directGeomWrites": [],
+    "motionDirectGeom": [],
+    "writes": [
+      {
+        "at": "index.html:286",
+        "kinds": [
+          "inner"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "slot.innerHTML = '当前关卡 <code>03</code> 青柠管道';",
+        "varName": null
+      },
+      {
+        "at": "index.html:304",
+        "kinds": [
+          "inner"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "count.innerHTML = '已凿开 <code>00</code> / <code>07</code>';",
+        "varName": null
+      },
+      {
+        "at": "index.html:325",
+        "kinds": [
+          "inner"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "state05.innerHTML = '兜底中 · <code>MASK-05</code>';",
+        "varName": null
+      }
+    ]
+  },
+  {
+    "id": "S13",
+    "dir": "S13-blind-debossed-dispatch",
+    "files": [
+      "index.html"
+    ],
+    "roots": [
+      "io",
+      "pointer",
+      "scroll",
+      "ui"
+    ],
+    "writeCount": 3,
+    "creates": [
+      {
+        "at": "index.html:330",
+        "kinds": [
+          "create"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "var li = document.createElement('li');",
+        "varName": null
+      },
+      {
+        "at": "index.html:336",
+        "kinds": [
+          "inner"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "li.innerHTML = '<span class=\"log__what\"></span><span class=\"log__when mono\"><code role=\"none\"></code></span>';",
+        "varName": null
+      }
+    ],
+    "measures": [
+      {
+        "at": "index.html:301",
+        "code": "var nearLog = logEl ? logEl.getBoundingClientRect().top <= window.innerHeight : false; /* 守卫边界原本是 innerHeight "
+      }
+    ],
+    "trig": false,
+    "geomVars": [],
+    "motionGeomVars": [],
+    "directGeomWrites": [
+      {
+        "at": "index.html:404",
+        "drivers": [
+          "pointer"
+        ],
+        "code": "press.style.transform = 'translate3d(' + e.clientX + 'px,' + e.clientY + 'px,0)';"
+      }
+    ],
+    "motionDirectGeom": [
+      {
+        "at": "index.html:404",
+        "drivers": [
+          "pointer"
+        ],
+        "code": "press.style.transform = 'translate3d(' + e.clientX + 'px,' + e.clientY + 'px,0)';"
+      }
+    ],
+    "writes": [
+      {
+        "at": "index.html:330",
+        "kinds": [
+          "create"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "var li = document.createElement('li');",
+        "varName": null
+      },
+      {
+        "at": "index.html:336",
+        "kinds": [
+          "inner"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "li.innerHTML = '<span class=\"log__what\"></span><span class=\"log__when mono\"><code role=\"none\"></code></span>';",
+        "varName": null
+      },
+      {
+        "at": "index.html:404",
+        "kinds": [
+          "style"
+        ],
+        "drivers": [
+          "pointer"
+        ],
+        "code": "press.style.transform = 'translate3d(' + e.clientX + 'px,' + e.clientY + 'px,0)';",
+        "varName": null
+      }
+    ]
+  },
+  {
+    "id": "S14",
+    "dir": "S14-zero-g-launch-sequence",
+    "files": [
+      "index.html",
+      "index.html"
+    ],
+    "roots": [
+      "io",
+      "other",
+      "pointer",
+      "raf",
+      "scroll",
+      "ui"
+    ],
+    "writeCount": 6,
+    "creates": [],
+    "measures": [
+      {
+        "at": "index.html:332",
+        "code": "function boxOf(el) { return el.getBoundingClientRect(); }"
+      },
+      {
+        "at": "index.html:366",
+        "code": "var m = new DOMMatrixReadOnly(getComputedStyle(field).transform);"
+      },
+      {
+        "at": "index.html:395",
+        "code": "void tag.offsetWidth;"
+      }
+    ],
+    "trig": true,
+    "geomVars": [
+      {
+        "var": "px",
+        "at": "index.html:345",
+        "drivers": [
+          "pointer"
+        ],
+        "css": [
+          {
+            "line": 169,
+            "decl": "transform: translate(-50%, -50%) translate(calc(var(--dx) * var(--k) * 1px), calc(var"
+          },
+          {
+            "line": 351,
+            "decl": "transform: translateX(calc(var(--ox) * 1px)) translate(var(--px,"
+          }
+        ]
+      },
+      {
+        "var": "py",
+        "at": "index.html:346",
+        "drivers": [
+          "pointer"
+        ],
+        "css": [
+          {
+            "line": 169,
+            "decl": "transform: translate(-50%, -50%) translate(calc(var(--dx) * var(--k) * 1px), calc(var"
+          }
+        ]
+      },
+      {
+        "var": "sy",
+        "at": "index.html:363",
+        "drivers": [
+          "raf",
+          "scroll"
+        ],
+        "css": [
+          {
+            "line": 126,
+            "decl": "transform: translate3d(0, var(--sy,"
+          }
+        ]
+      },
+      {
+        "var": "turn",
+        "at": "index.html:384",
+        "drivers": [
+          "ui"
+        ],
+        "css": [
+          {
+            "line": 126,
+            "decl": "transform: translate3d(0, var(--sy, 0px), 0) rotate(var(--turn,"
+          }
+        ]
+      },
+      {
+        "var": "turn",
+        "at": "index.html:385",
+        "drivers": [
+          "ui"
+        ],
+        "css": [
+          {
+            "line": 126,
+            "decl": "transform: translate3d(0, var(--sy, 0px), 0) rotate(var(--turn,"
+          }
+        ]
+      }
+    ],
+    "motionGeomVars": [
+      {
+        "var": "px",
+        "at": "index.html:345",
+        "drivers": [
+          "pointer"
+        ],
+        "css": [
+          {
+            "line": 169,
+            "decl": "transform: translate(-50%, -50%) translate(calc(var(--dx) * var(--k) * 1px), calc(var"
+          },
+          {
+            "line": 351,
+            "decl": "transform: translateX(calc(var(--ox) * 1px)) translate(var(--px,"
+          }
+        ]
+      },
+      {
+        "var": "py",
+        "at": "index.html:346",
+        "drivers": [
+          "pointer"
+        ],
+        "css": [
+          {
+            "line": 169,
+            "decl": "transform: translate(-50%, -50%) translate(calc(var(--dx) * var(--k) * 1px), calc(var"
+          }
+        ]
+      },
+      {
+        "var": "sy",
+        "at": "index.html:363",
+        "drivers": [
+          "raf",
+          "scroll"
+        ],
+        "css": [
+          {
+            "line": 126,
+            "decl": "transform: translate3d(0, var(--sy,"
+          }
+        ]
+      }
+    ],
+    "directGeomWrites": [],
+    "motionDirectGeom": [],
+    "writes": [
+      {
+        "at": "index.html:330",
+        "kinds": [
+          "var:pull-range"
+        ],
+        "drivers": [],
+        "code": "doc.style.setProperty('--pull-range', RANGE + 'px');",
+        "varName": "pull-range"
+      },
+      {
+        "at": "index.html:345",
+        "kinds": [
+          "var:px"
+        ],
+        "drivers": [
+          "pointer"
+        ],
+        "code": "el.style.setProperty('--px', (dx * k).toFixed(1) + 'px');",
+        "varName": "px"
+      },
+      {
+        "at": "index.html:346",
+        "kinds": [
+          "var:py"
+        ],
+        "drivers": [
+          "pointer"
+        ],
+        "code": "el.style.setProperty('--py', (dy * k).toFixed(1) + 'px');",
+        "varName": "py"
+      },
+      {
+        "at": "index.html:363",
+        "kinds": [
+          "var:sy"
+        ],
+        "drivers": [
+          "raf",
+          "scroll"
+        ],
+        "code": "view.style.setProperty('--sy', sy.toFixed(1) + 'px');",
+        "varName": "sy"
+      },
+      {
+        "at": "index.html:384",
+        "kinds": [
+          "var:turn"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "view.style.setProperty('--turn', '6deg');",
+        "varName": "turn"
+      },
+      {
+        "at": "index.html:385",
+        "kinds": [
+          "var:turn"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "setTimeout(function () { view.style.setProperty('--turn', '0deg'); }, 200);",
+        "varName": "turn"
+      }
+    ]
+  },
+  {
+    "id": "S15",
+    "dir": "S15-fishery-floor-ledger",
+    "files": [
+      "index.html",
+      "index.html"
+    ],
+    "roots": [
+      "other",
+      "pointer",
+      "scroll",
+      "ui"
+    ],
+    "writeCount": 1,
+    "creates": [],
+    "measures": [],
+    "trig": false,
+    "geomVars": [],
+    "motionGeomVars": [],
+    "directGeomWrites": [],
+    "motionDirectGeom": [],
+    "writes": [
+      {
+        "at": "index.html:481",
+        "kinds": [
+          "var:trace36"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "doc.style.setProperty('--trace36', '0.78');",
+        "varName": "trace36"
+      }
+    ]
+  },
+  {
+    "id": "S16",
+    "dir": "S16-velocity-slant-manifesto",
+    "files": [
+      "index.html"
+    ],
+    "roots": [
+      "raf",
+      "resize",
+      "scroll",
+      "ui"
+    ],
+    "writeCount": 5,
+    "creates": [],
+    "measures": [
+      {
+        "at": "index.html:316",
+        "code": "r = slabs[i].getBoundingClientRect();"
+      },
+      {
+        "at": "index.html:338",
+        "code": "for (i = 0; i < slabs.length; i++) if (slabs[i].getBoundingClientRect().top <= 160) cur = i;"
+      },
+      {
+        "at": "index.html:347",
+        "code": "for (i = 0; i < slabs.length; i++) if (slabs[i].getBoundingClientRect().top <= 160) cur = i + 1;"
+      },
+      {
+        "at": "index.html:368",
+        "code": "void s.offsetWidth;"
+      }
+    ],
+    "trig": false,
+    "geomVars": [
+      {
+        "var": "span",
+        "at": "index.html:255",
+        "drivers": [
+          "resize"
+        ],
+        "css": [
+          {
+            "line": 221,
+            "decl": "width: calc(var(--span,"
+          }
+        ]
+      },
+      {
+        "var": "shift",
+        "at": "index.html:291",
+        "drivers": [
+          "raf",
+          "resize",
+          "scroll",
+          "ui"
+        ],
+        "css": [
+          {
+            "line": 298,
+            "decl": "transform: translateX(var(--shift,"
+          },
+          {
+            "line": 379,
+            "decl": "transform: translateX(var(--shift,"
+          },
+          {
+            "line": 380,
+            "decl": "transform: translateX(var(--shift,"
+          },
+          {
+            "line": 387,
+            "decl": "transform: translateX(calc(var(--shift,"
+          },
+          {
+            "line": 388,
+            "decl": "transform: translateX(calc(var(--shift,"
+          },
+          {
+            "line": 389,
+            "decl": "transform: translateX(var(--shift,"
+          },
+          {
+            "line": 494,
+            "decl": "transform: translateX(var(--shift,"
+          }
+        ]
+      },
+      {
+        "var": "rung",
+        "at": "index.html:294",
+        "drivers": [
+          "raf",
+          "resize",
+          "scroll",
+          "ui"
+        ],
+        "css": [
+          {
+            "line": 207,
+            "decl": "left: calc(var(--rung)"
+          }
+        ]
+      },
+      {
+        "var": "rung",
+        "at": "index.html:323",
+        "drivers": [
+          "raf",
+          "scroll"
+        ],
+        "css": [
+          {
+            "line": 207,
+            "decl": "left: calc(var(--rung)"
+          }
+        ]
+      }
+    ],
+    "motionGeomVars": [
+      {
+        "var": "shift",
+        "at": "index.html:291",
+        "drivers": [
+          "raf",
+          "resize",
+          "scroll",
+          "ui"
+        ],
+        "css": [
+          {
+            "line": 298,
+            "decl": "transform: translateX(var(--shift,"
+          },
+          {
+            "line": 379,
+            "decl": "transform: translateX(var(--shift,"
+          },
+          {
+            "line": 380,
+            "decl": "transform: translateX(var(--shift,"
+          },
+          {
+            "line": 387,
+            "decl": "transform: translateX(calc(var(--shift,"
+          },
+          {
+            "line": 388,
+            "decl": "transform: translateX(calc(var(--shift,"
+          },
+          {
+            "line": 389,
+            "decl": "transform: translateX(var(--shift,"
+          },
+          {
+            "line": 494,
+            "decl": "transform: translateX(var(--shift,"
+          }
+        ]
+      },
+      {
+        "var": "rung",
+        "at": "index.html:294",
+        "drivers": [
+          "raf",
+          "resize",
+          "scroll",
+          "ui"
+        ],
+        "css": [
+          {
+            "line": 207,
+            "decl": "left: calc(var(--rung)"
+          }
+        ]
+      },
+      {
+        "var": "rung",
+        "at": "index.html:323",
+        "drivers": [
+          "raf",
+          "scroll"
+        ],
+        "css": [
+          {
+            "line": 207,
+            "decl": "left: calc(var(--rung)"
+          }
+        ]
+      }
+    ],
+    "directGeomWrites": [],
+    "motionDirectGeom": [],
+    "writes": [
+      {
+        "at": "index.html:255",
+        "kinds": [
+          "var:span"
+        ],
+        "drivers": [
+          "resize"
+        ],
+        "code": "s.style.setProperty('--span', String(v));",
+        "varName": "span"
+      },
+      {
+        "at": "index.html:263",
+        "kinds": [
+          "var:press-delay"
+        ],
+        "drivers": [],
+        "code": "s.style.setProperty('--press-delay', (i * 110) + 'ms');",
+        "varName": "press-delay"
+      },
+      {
+        "at": "index.html:291",
+        "kinds": [
+          "var:shift"
+        ],
+        "drivers": [
+          "raf",
+          "resize",
+          "scroll",
+          "ui"
+        ],
+        "code": "box.style.setProperty('--shift', cur + 'px');",
+        "varName": "shift"
+      },
+      {
+        "at": "index.html:294",
+        "kinds": [
+          "var:rung"
+        ],
+        "drivers": [
+          "raf",
+          "resize",
+          "scroll",
+          "ui"
+        ],
+        "code": "if (pointer) pointer.style.setProperty('--rung', String(cur2));",
+        "varName": "rung"
+      },
+      {
+        "at": "index.html:323",
+        "kinds": [
+          "var:rung"
+        ],
+        "drivers": [
+          "raf",
+          "scroll"
+        ],
+        "code": "if (pointer) pointer.style.setProperty('--rung', String(cur - 1));",
+        "varName": "rung"
+      }
+    ]
+  },
+  {
+    "id": "S17",
+    "dir": "S17-revenue-stamp-stub",
+    "files": [
+      "index.html"
+    ],
+    "roots": [
+      "io",
+      "ui"
+    ],
+    "writeCount": 6,
+    "creates": [
+      {
+        "at": "index.html:286",
+        "kinds": [
+          "create"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "var a = document.createElement('a');",
+        "varName": null
+      },
+      {
+        "at": "index.html:297",
+        "kinds": [
+          "inner"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "body.innerHTML = filledRows;",
+        "varName": null
+      },
+      {
+        "at": "index.html:298",
+        "kinds": [
+          "inner"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "tfoot.innerHTML = filledFoot;",
+        "varName": null
+      },
+      {
+        "at": "index.html:309",
+        "kinds": [
+          "inner"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "body.innerHTML = '<tr><td colspan=\"5\"><p class=\"state state-empty\">' + EMPTY_COPY + '</p></td></tr>';",
+        "varName": null
+      },
+      {
+        "at": "index.html:310",
+        "kinds": [
+          "inner"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "tfoot.innerHTML = '';",
+        "varName": null
+      }
+    ],
+    "measures": [],
+    "trig": false,
+    "geomVars": [],
+    "motionGeomVars": [],
+    "directGeomWrites": [],
+    "motionDirectGeom": [],
+    "writes": [
+      {
+        "at": "index.html:211",
+        "kinds": [
+          "var:row-index"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "Array.prototype.forEach.call(list, function (tr, i) { tr.style.setProperty('--row-index', String(i % 20)); });",
+        "varName": "row-index"
+      },
+      {
+        "at": "index.html:286",
+        "kinds": [
+          "create"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "var a = document.createElement('a');",
+        "varName": null
+      },
+      {
+        "at": "index.html:297",
+        "kinds": [
+          "inner"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "body.innerHTML = filledRows;",
+        "varName": null
+      },
+      {
+        "at": "index.html:298",
+        "kinds": [
+          "inner"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "tfoot.innerHTML = filledFoot;",
+        "varName": null
+      },
+      {
+        "at": "index.html:309",
+        "kinds": [
+          "inner"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "body.innerHTML = '<tr><td colspan=\"5\"><p class=\"state state-empty\">' + EMPTY_COPY + '</p></td></tr>';",
+        "varName": null
+      },
+      {
+        "at": "index.html:310",
+        "kinds": [
+          "inner"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "tfoot.innerHTML = '';",
+        "varName": null
+      }
+    ]
+  },
+  {
+    "id": "S18",
+    "dir": "S18-phosphor-service-deck",
+    "files": [
+      "index.html",
+      "index.html"
+    ],
+    "roots": [
+      "io",
+      "raf",
+      "scroll",
+      "ui"
+    ],
+    "writeCount": 3,
+    "creates": [
+      {
+        "at": "index.html:460",
+        "kinds": [
+          "inner"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "state.innerHTML = '牌位重取排到 14:22:40 那一刻。TAG-409 仍然挂在状态条上，530 与 608 两张牌一张没动。';",
+        "varName": null
+      }
+    ],
+    "measures": [],
+    "trig": false,
+    "geomVars": [
+      {
+        "var": "tug",
+        "at": "index.html:427",
+        "drivers": [
+          "raf",
+          "scroll"
+        ],
+        "css": [
+          {
+            "line": 73,
+            "decl": "background-position-y:calc(-1 * var(--tug,"
+          }
+        ]
+      }
+    ],
+    "motionGeomVars": [
+      {
+        "var": "tug",
+        "at": "index.html:427",
+        "drivers": [
+          "raf",
+          "scroll"
+        ],
+        "css": [
+          {
+            "line": 73,
+            "decl": "background-position-y:calc(-1 * var(--tug,"
+          }
+        ]
+      }
+    ],
+    "directGeomWrites": [],
+    "motionDirectGeom": [],
+    "writes": [
+      {
+        "at": "index.html:409",
+        "kinds": [
+          "var:i"
+        ],
+        "drivers": [],
+        "code": "grow.forEach(function (el, i) { el.style.setProperty('--i', i % 6); });",
+        "varName": "i"
+      },
+      {
+        "at": "index.html:427",
+        "kinds": [
+          "var:tug"
+        ],
+        "drivers": [
+          "raf",
+          "scroll"
+        ],
+        "code": "sheet.style.setProperty('--tug', snap + 'px');",
+        "varName": "tug"
+      },
+      {
+        "at": "index.html:460",
+        "kinds": [
+          "inner"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "state.innerHTML = '牌位重取排到 14:22:40 那一刻。TAG-409 仍然挂在状态条上，530 与 608 两张牌一张没动。';",
+        "varName": null
+      }
+    ]
+  },
+  {
+    "id": "S19",
+    "dir": "S19-copperplate-herbarium-cabinet",
+    "files": [
+      "index.html",
+      "index.html"
+    ],
+    "roots": [
+      "io",
+      "ui"
+    ],
+    "writeCount": 0,
+    "creates": [],
+    "measures": [],
+    "trig": false,
+    "geomVars": [],
+    "motionGeomVars": [],
+    "directGeomWrites": [],
+    "motionDirectGeom": [],
+    "writes": []
+  },
+  {
+    "id": "S20",
+    "dir": "S20-plotter-soundfield",
+    "files": [
+      "index.html"
+    ],
+    "roots": [
+      "other",
+      "pointer",
+      "raf",
+      "resize",
+      "scroll",
+      "ui"
+    ],
+    "writeCount": 7,
+    "creates": [
+      {
+        "at": "index.html:286",
+        "kinds": [
+          "create"
+        ],
+        "drivers": [
+          "other",
+          "raf",
+          "resize",
+          "scroll",
+          "ui"
+        ],
+        "code": "var e = document.createElementNS('http://www.w3.org/2000/svg', 'path');",
+        "varName": null
+      },
+      {
+        "at": "index.html:310",
+        "kinds": [
+          "attr:d"
+        ],
+        "drivers": [
+          "other",
+          "raf",
+          "resize",
+          "scroll",
+          "ui"
+        ],
+        "code": "if (!f) { o.setAttribute('d', ''); o.setAttribute('display', 'none'); continue; }",
+        "varName": null
+      },
+      {
+        "at": "index.html:311",
+        "kinds": [
+          "attr:d"
+        ],
+        "drivers": [
+          "other",
+          "raf",
+          "resize",
+          "scroll",
+          "ui"
+        ],
+        "code": "o.removeAttribute('display'); r = RD(i, p.C, p.N, p.sp, f); o.setAttribute('d', r.d);",
+        "varName": null
+      },
+      {
+        "at": "index.html:314",
+        "kinds": [
+          "attr:d"
+        ],
+        "drivers": [
+          "other",
+          "raf",
+          "resize",
+          "scroll",
+          "ui"
+        ],
+        "code": "for (i = p.C; i < POOL.length; i++) { POOL[i].setAttribute('d', ''); POOL[i].setAttribute('display', 'none'); }",
+        "varName": null
+      },
+      {
+        "at": "index.html:315",
+        "kinds": [
+          "attr:cx"
+        ],
+        "drivers": [
+          "other",
+          "raf",
+          "resize",
+          "scroll",
+          "ui"
+        ],
+        "code": "if (over && last) { DOT.setAttribute('cx', last[0]); DOT.setAttribute('cy', last[1]); DOT.removeAttribute('display'); }",
+        "varName": null
+      }
+    ],
+    "measures": [],
+    "trig": true,
+    "geomVars": [],
+    "motionGeomVars": [],
+    "directGeomWrites": [],
+    "motionDirectGeom": [],
+    "writes": [
+      {
+        "at": "index.html:286",
+        "kinds": [
+          "create"
+        ],
+        "drivers": [
+          "other",
+          "raf",
+          "resize",
+          "scroll",
+          "ui"
+        ],
+        "code": "var e = document.createElementNS('http://www.w3.org/2000/svg', 'path');",
+        "varName": null
+      },
+      {
+        "at": "index.html:299",
+        "kinds": [
+          "var:d"
+        ],
+        "drivers": [
+          "other",
+          "raf",
+          "resize",
+          "scroll",
+          "ui"
+        ],
+        "code": "e.style.setProperty('--d', Math.max(40, Math.round(1400 * lens[i] / tot)));",
+        "varName": "d"
+      },
+      {
+        "at": "index.html:300",
+        "kinds": [
+          "var:t"
+        ],
+        "drivers": [
+          "other",
+          "raf",
+          "resize",
+          "scroll",
+          "ui"
+        ],
+        "code": "e.style.setProperty('--t', 180 + Math.round(1400 * cum / tot));",
+        "varName": "t"
+      },
+      {
+        "at": "index.html:310",
+        "kinds": [
+          "attr:d"
+        ],
+        "drivers": [
+          "other",
+          "raf",
+          "resize",
+          "scroll",
+          "ui"
+        ],
+        "code": "if (!f) { o.setAttribute('d', ''); o.setAttribute('display', 'none'); continue; }",
+        "varName": null
+      },
+      {
+        "at": "index.html:311",
+        "kinds": [
+          "attr:d"
+        ],
+        "drivers": [
+          "other",
+          "raf",
+          "resize",
+          "scroll",
+          "ui"
+        ],
+        "code": "o.removeAttribute('display'); r = RD(i, p.C, p.N, p.sp, f); o.setAttribute('d', r.d);",
+        "varName": null
+      },
+      {
+        "at": "index.html:314",
+        "kinds": [
+          "attr:d"
+        ],
+        "drivers": [
+          "other",
+          "raf",
+          "resize",
+          "scroll",
+          "ui"
+        ],
+        "code": "for (i = p.C; i < POOL.length; i++) { POOL[i].setAttribute('d', ''); POOL[i].setAttribute('display', 'none'); }",
+        "varName": null
+      },
+      {
+        "at": "index.html:315",
+        "kinds": [
+          "attr:cx"
+        ],
+        "drivers": [
+          "other",
+          "raf",
+          "resize",
+          "scroll",
+          "ui"
+        ],
+        "code": "if (over && last) { DOT.setAttribute('cx', last[0]); DOT.setAttribute('cy', last[1]); DOT.removeAttribute('display'); }",
+        "varName": null
+      }
+    ]
+  },
+  {
+    "id": "S21",
+    "dir": "S21-interlocking-release-book",
+    "files": [
+      "index.html"
+    ],
+    "roots": [
+      "io",
+      "other",
+      "pointer",
+      "ui"
+    ],
+    "writeCount": 0,
+    "creates": [],
+    "measures": [
+      {
+        "at": "index.html:501",
+        "code": "void tb.offsetWidth;"
+      }
+    ],
+    "trig": false,
+    "geomVars": [],
+    "motionGeomVars": [],
+    "directGeomWrites": [],
+    "motionDirectGeom": [],
+    "writes": []
+  },
+  {
+    "id": "S22",
+    "dir": "S22-paper-screen-folded-sheet",
+    "files": [
+      "index.html",
+      "index.html"
+    ],
+    "roots": [
+      "io",
+      "ui"
+    ],
+    "writeCount": 0,
+    "creates": [],
+    "measures": [],
+    "trig": false,
+    "geomVars": [],
+    "motionGeomVars": [],
+    "directGeomWrites": [],
+    "motionDirectGeom": [],
+    "writes": []
+  },
+  {
+    "id": "S23",
+    "dir": "S23-exposed-plaster-chronology-wall",
+    "files": [
+      "index.html",
+      "index.html"
+    ],
+    "roots": [
+      "io",
+      "other",
+      "pointer",
+      "ui"
+    ],
+    "writeCount": 1,
+    "creates": [],
+    "measures": [],
+    "trig": false,
+    "geomVars": [],
+    "motionGeomVars": [],
+    "directGeomWrites": [],
+    "motionDirectGeom": [],
+    "writes": [
+      {
+        "at": "index.html:388",
+        "kinds": [
+          "var:dl"
+        ],
+        "drivers": [],
+        "code": "f.style.setProperty('--dl', (k * 90) + 'ms');",
+        "varName": "dl"
+      }
+    ]
+  },
+  {
+    "id": "S24",
+    "dir": "S24-cyanotype-rainforest-path",
+    "files": [
+      "index.html",
+      "index.html"
+    ],
+    "roots": [
+      "io",
+      "ui"
+    ],
+    "writeCount": 0,
+    "creates": [],
+    "measures": [
+      {
+        "at": "index.html:421",
+        "code": "var r = el.getBoundingClientRect();"
+      }
+    ],
+    "trig": false,
+    "geomVars": [],
+    "motionGeomVars": [],
+    "directGeomWrites": [],
+    "motionDirectGeom": [],
+    "writes": []
+  },
+  {
+    "id": "S25",
+    "dir": "S25-spotcolor-contents-zine",
+    "files": [
+      "index.html"
+    ],
+    "roots": [
+      "pointer",
+      "scroll",
+      "ui"
+    ],
+    "writeCount": 3,
+    "creates": [],
+    "measures": [
+      {
+        "at": "index.html:366",
+        "code": "var top = index.getBoundingClientRect().top;"
+      }
+    ],
+    "trig": false,
+    "geomVars": [
+      {
+        "var": "follow",
+        "at": "index.html:368",
+        "drivers": [
+          "scroll"
+        ],
+        "css": [
+          {
+            "line": 197,
+            "decl": "transform: translateY(var(--follow)"
+          }
+        ]
+      }
+    ],
+    "motionGeomVars": [
+      {
+        "var": "follow",
+        "at": "index.html:368",
+        "drivers": [
+          "scroll"
+        ],
+        "css": [
+          {
+            "line": 197,
+            "decl": "transform: translateY(var(--follow)"
+          }
+        ]
+      }
+    ],
+    "directGeomWrites": [],
+    "motionDirectGeom": [],
+    "writes": [
+      {
+        "at": "index.html:368",
+        "kinds": [
+          "var:follow"
+        ],
+        "drivers": [
+          "scroll"
+        ],
+        "code": "entries.style.setProperty('--follow', drift.toFixed(1) + 'px');",
+        "varName": "follow"
+      },
+      {
+        "at": "index.html:373",
+        "kinds": [
+          "var:d"
+        ],
+        "drivers": [],
+        "code": "[].slice.call(document.querySelectorAll('.entries > li')).forEach(function (li, i) { li.style.setProperty('--d', i); });",
+        "varName": "d"
+      },
+      {
+        "at": "index.html:374",
+        "kinds": [
+          "var:d"
+        ],
+        "drivers": [],
+        "code": "[].slice.call(document.querySelectorAll('.holes li')).forEach(function (li, i) { li.style.setProperty('--d', i); });",
+        "varName": "d"
+      }
+    ]
+  },
+  {
+    "id": "S26",
+    "dir": "S26-geometric-collision-columns",
+    "files": [
+      "index.html",
+      "index.html"
+    ],
+    "roots": [
+      "io",
+      "raf",
+      "resize",
+      "scroll"
+    ],
+    "writeCount": 1,
+    "creates": [],
+    "measures": [
+      {
+        "at": "index.html:465",
+        "code": "var r = b.getBoundingClientRect();"
+      }
+    ],
+    "trig": false,
+    "geomVars": [
+      {
+        "var": "p",
+        "at": "index.html:469",
+        "drivers": [
+          "raf",
+          "resize",
+          "scroll"
+        ],
+        "css": [
+          {
+            "line": 147,
+            "decl": "transform:translateY(calc(var(--p)"
+          }
+        ]
+      }
+    ],
+    "motionGeomVars": [
+      {
+        "var": "p",
+        "at": "index.html:469",
+        "drivers": [
+          "raf",
+          "resize",
+          "scroll"
+        ],
+        "css": [
+          {
+            "line": 147,
+            "decl": "transform:translateY(calc(var(--p)"
+          }
+        ]
+      }
+    ],
+    "directGeomWrites": [],
+    "motionDirectGeom": [],
+    "writes": [
+      {
+        "at": "index.html:469",
+        "kinds": [
+          "var:p"
+        ],
+        "drivers": [
+          "raf",
+          "resize",
+          "scroll"
+        ],
+        "code": "b.style.setProperty('--p', (t * 24).toFixed(1) + 'px');",
+        "varName": "p"
+      }
+    ]
+  },
+  {
+    "id": "S27",
+    "dir": "S27-hand-painted-bill-dispatch",
+    "files": [
+      "index.html",
+      "index.html"
+    ],
+    "roots": [
+      "io",
+      "ui"
+    ],
+    "writeCount": 1,
+    "creates": [
+      {
+        "at": "index.html:472",
+        "kinds": [
+          "inner"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "sealtail.innerHTML = '<use href=\"#h7\"/>';",
+        "varName": null
+      }
+    ],
+    "measures": [
+      {
+        "at": "index.html:418",
+        "code": "actnow.classList.remove('is-jump'); void actnow.offsetWidth; actnow.classList.add('is-jump');"
+      },
+      {
+        "at": "index.html:452",
+        "code": "target.classList.remove('is-dropping'); void target.offsetWidth; target.classList.add('is-dropping');"
+      }
+    ],
+    "trig": false,
+    "geomVars": [],
+    "motionGeomVars": [],
+    "directGeomWrites": [],
+    "motionDirectGeom": [],
+    "writes": [
+      {
+        "at": "index.html:472",
+        "kinds": [
+          "inner"
+        ],
+        "drivers": [
+          "ui"
+        ],
+        "code": "sealtail.innerHTML = '<use href=\"#h7\"/>';",
+        "varName": null
+      }
+    ]
+  },
+  {
+    "id": "S28",
+    "dir": "S28-jazz-intaglio-wall",
+    "files": [
+      "index.html",
+      "index.html"
+    ],
+    "roots": [
+      "raf",
+      "resize",
+      "scroll",
+      "ui"
+    ],
+    "writeCount": 2,
+    "creates": [],
+    "measures": [
+      {
+        "at": "index.html:444",
+        "code": "var r = f.getBoundingClientRect();"
+      },
+      {
+        "at": "index.html:469",
+        "code": "b.classList.remove('is-pushing'); void b.offsetWidth;"
+      },
+      {
+        "at": "index.html:490",
+        "code": "b.classList.remove('is-walking'); void b.offsetWidth;"
+      }
+    ],
+    "trig": false,
+    "geomVars": [
+      {
+        "var": "edge",
+        "at": "index.html:451",
+        "drivers": [
+          "raf",
+          "scroll"
+        ],
+        "css": [
+          {
+            "line": 120,
+            "decl": "filter: drop-shadow(calc(var(--edge) * -1) calc(var(--edge)"
+          },
+          {
+            "line": 128,
+            "decl": "filter: drop-shadow(calc(var(--edge) * -1) calc(var(--edge)"
+          },
+          {
+            "line": 212,
+            "decl": "filter: drop-shadow(calc(var(--edge) * -1) calc(var(--edge)"
+          }
+        ]
+      }
+    ],
+    "motionGeomVars": [
+      {
+        "var": "edge",
+        "at": "index.html:451",
+        "drivers": [
+          "raf",
+          "scroll"
+        ],
+        "css": [
+          {
+            "line": 120,
+            "decl": "filter: drop-shadow(calc(var(--edge) * -1) calc(var(--edge)"
+          },
+          {
+            "line": 128,
+            "decl": "filter: drop-shadow(calc(var(--edge) * -1) calc(var(--edge)"
+          },
+          {
+            "line": 212,
+            "decl": "filter: drop-shadow(calc(var(--edge) * -1) calc(var(--edge)"
+          }
+        ]
+      }
+    ],
+    "directGeomWrites": [
+      {
+        "at": "index.html:449",
+        "drivers": [
+          "raf",
+          "scroll"
+        ],
+        "code": "if (img) img.style.transform = 'translateY(' + (d * rate * -12).toFixed(2) + 'px)';"
+      }
+    ],
+    "motionDirectGeom": [
+      {
+        "at": "index.html:449",
+        "drivers": [
+          "raf",
+          "scroll"
+        ],
+        "code": "if (img) img.style.transform = 'translateY(' + (d * rate * -12).toFixed(2) + 'px)';"
+      }
+    ],
+    "writes": [
+      {
+        "at": "index.html:449",
+        "kinds": [
+          "style"
+        ],
+        "drivers": [
+          "raf",
+          "scroll"
+        ],
+        "code": "if (img) img.style.transform = 'translateY(' + (d * rate * -12).toFixed(2) + 'px)';",
+        "varName": null
+      },
+      {
+        "at": "index.html:451",
+        "kinds": [
+          "var:edge"
+        ],
+        "drivers": [
+          "raf",
+          "scroll"
+        ],
+        "code": "f.style.setProperty('--edge', d < 0 ? '0.5px' : '1px');",
+        "varName": "edge"
+      }
+    ]
+  },
+  {
+    "id": "S29",
+    "dir": "S29-wire-bound-safety-manual",
+    "files": [
+      "index.html",
+      "index.html"
+    ],
+    "roots": [
+      "io",
+      "other",
+      "resize",
+      "scroll",
+      "ui"
+    ],
+    "writeCount": 0,
+    "creates": [],
+    "measures": [
+      {
+        "at": "index.html:499",
+        "code": "var r = el.getBoundingClientRect();"
+      },
+      {
+        "at": "index.html:518",
+        "code": "var r = el.getBoundingClientRect();"
+      },
+      {
+        "at": "index.html:537",
+        "code": "chapters.forEach(function (c) { if (c.getBoundingClientRect().top <= y) best = c; });"
+      }
+    ],
+    "trig": false,
+    "geomVars": [],
+    "motionGeomVars": [],
+    "directGeomWrites": [],
+    "motionDirectGeom": [],
+    "writes": []
+  },
+  {
+    "id": "S30",
+    "dir": "S30-skate-sticker-split",
+    "files": [
+      "index.html",
+      "index.html"
+    ],
+    "roots": [
+      "io",
+      "pointer",
+      "raf",
+      "scroll",
+      "ui"
+    ],
+    "writeCount": 3,
+    "creates": [],
+    "measures": [],
+    "trig": false,
+    "geomVars": [
+      {
+        "var": "push",
+        "at": "index.html:286",
+        "drivers": [
+          "raf",
+          "scroll"
+        ],
+        "css": [
+          {
+            "line": 193,
+            "decl": "transform: translate(var(--mis), calc(var(--mis) + var(--push)"
+          },
+          {
+            "line": 196,
+            "decl": "transform: translateY(calc(var(--push)"
+          },
+          {
+            "line": 436,
+            "decl": "transform: translateY(calc(var(--push)"
+          },
+          {
+            "line": 437,
+            "decl": "transform: translate(var(--mis), calc(var(--mis) + var(--push)"
+          }
+        ]
+      },
+      {
+        "var": "mis",
+        "at": "index.html:287",
+        "drivers": [
+          "raf",
+          "scroll"
+        ],
+        "css": [
+          {
+            "line": 193,
+            "decl": "transform: translate(var(--mis), calc(var(--mis)"
+          },
+          {
+            "line": 437,
+            "decl": "transform: translate(var(--mis), calc(var(--mis)"
+          }
+        ]
+      }
+    ],
+    "motionGeomVars": [
+      {
+        "var": "push",
+        "at": "index.html:286",
+        "drivers": [
+          "raf",
+          "scroll"
+        ],
+        "css": [
+          {
+            "line": 193,
+            "decl": "transform: translate(var(--mis), calc(var(--mis) + var(--push)"
+          },
+          {
+            "line": 196,
+            "decl": "transform: translateY(calc(var(--push)"
+          },
+          {
+            "line": 436,
+            "decl": "transform: translateY(calc(var(--push)"
+          },
+          {
+            "line": 437,
+            "decl": "transform: translate(var(--mis), calc(var(--mis) + var(--push)"
+          }
+        ]
+      },
+      {
+        "var": "mis",
+        "at": "index.html:287",
+        "drivers": [
+          "raf",
+          "scroll"
+        ],
+        "css": [
+          {
+            "line": 193,
+            "decl": "transform: translate(var(--mis), calc(var(--mis)"
+          },
+          {
+            "line": 437,
+            "decl": "transform: translate(var(--mis), calc(var(--mis)"
+          }
+        ]
+      }
+    ],
+    "directGeomWrites": [
+      {
+        "at": "index.html:315",
+        "drivers": [
+          "pointer"
+        ],
+        "code": "scraper.style.transform = 'translate(' + (e.clientX - 13) + 'px,' + (e.clientY - 22) + 'px)';"
+      }
+    ],
+    "motionDirectGeom": [
+      {
+        "at": "index.html:315",
+        "drivers": [
+          "pointer"
+        ],
+        "code": "scraper.style.transform = 'translate(' + (e.clientX - 13) + 'px,' + (e.clientY - 22) + 'px)';"
+      }
+    ],
+    "writes": [
+      {
+        "at": "index.html:286",
+        "kinds": [
+          "var:push"
+        ],
+        "drivers": [
+          "raf",
+          "scroll"
+        ],
+        "code": "cut.style.setProperty('--push', (PUSH * w).toFixed(2) + 'px');",
+        "varName": "push"
+      },
+      {
+        "at": "index.html:287",
+        "kinds": [
+          "var:mis"
+        ],
+        "drivers": [
+          "raf",
+          "scroll"
+        ],
+        "code": "cut.style.setProperty('--mis', (MIS * Math.abs(1 - 2 * w)).toFixed(2) + 'px');",
+        "varName": "mis"
+      },
+      {
+        "at": "index.html:315",
+        "kinds": [
+          "style"
+        ],
+        "drivers": [
+          "pointer"
+        ],
+        "code": "scraper.style.transform = 'translate(' + (e.clientX - 13) + 'px,' + (e.clientY - 22) + 'px)';",
+        "varName": null
+      }
+    ]
+  }
+]

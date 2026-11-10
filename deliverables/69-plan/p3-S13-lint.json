@@ -1,0 +1,141 @@
+﻿{
+ "files": 2,
+ "findings": [
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/S13-blind-debossed-dispatch/style.css",
+   "line": 148,
+   "match": "shadow",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/S13-blind-debossed-dispatch/style.css",
+   "line": 149,
+   "match": "shadow",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "emoji",
+   "file": "prototypes/S13-blind-debossed-dispatch/style.css",
+   "line": 160,
+   "match": "⚠",
+   "message": "Emoji used as UI."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/S13-blind-debossed-dispatch/style.css",
+   "line": 164,
+   "match": "drop-shadow",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/S13-blind-debossed-dispatch/style.css",
+   "line": 165,
+   "match": "drop-shadow(",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/S13-blind-debossed-dispatch/style.css",
+   "line": 166,
+   "match": "drop-shadow(",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/S13-blind-debossed-dispatch/style.css",
+   "line": 276,
+   "match": "box-shadow:",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/S13-blind-debossed-dispatch/style.css",
+   "line": 426,
+   "match": "box-shadow:",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/S13-blind-debossed-dispatch/style.css",
+   "line": 449,
+   "match": "box-shadow:",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/S13-blind-debossed-dispatch/style.css",
+   "line": 454,
+   "match": "box-shadow:",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "emoji",
+   "file": "prototypes/S13-blind-debossed-dispatch/style.css",
+   "line": 460,
+   "match": "⚠",
+   "message": "Emoji used as UI."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/S13-blind-debossed-dispatch/style.css",
+   "line": 484,
+   "match": "box-shadow:",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/S13-blind-debossed-dispatch/style.css",
+   "line": 611,
+   "match": "shadow",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "emoji",
+   "file": "prototypes/S13-blind-debossed-dispatch/style.css",
+   "line": 630,
+   "match": "⚠",
+   "message": "Emoji used as UI."
+  },
+  {
+   "level": "FAIL",
+   "id": "emoji",
+   "file": "prototypes/S13-blind-debossed-dispatch/style.css",
+   "line": 874,
+   "match": "⚠",
+   "message": "Emoji used as UI."
+  },
+  {
+   "level": "FAIL",
+   "id": "emoji",
+   "file": "prototypes/S13-blind-debossed-dispatch/style.css",
+   "line": 916,
+   "match": "⚠",
+   "message": "Emoji used as UI."
+  },
+  {
+   "level": "WARN",
+   "id": "em-dash",
+   "file": "(all files)",
+   "line": 0,
+   "match": "32 em dashes",
+   "message": "Em-dash habit. Use a full stop or a comma; keep at most one or two on a page."
+  }
+ ]
+}

@@ -1,0 +1,478 @@
+{
+  "results": {
+    "S20": [
+      {
+        "id": "M1",
+        "claim": "body 底色 #FAF3E1",
+        "actual": "rgb(250, 243, 225)",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M2",
+        "claim": "全部色值 ⊆ 4 个 hex",
+        "actual": "用到 4 色：#FAF3E1 #0F1418 #55606B #26485C",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M3",
+        "claim": "4 个 hex 用上几个（未强制全用）",
+        "actual": "4/4",
+        "verdict": "INFO"
+      },
+      {
+        "id": "M4",
+        "claim": "标题链 Space Grotesk → Noto Sans SC",
+        "actual": "Space Grotesk → Noto Sans SC",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M5",
+        "claim": "正文链 Noto Sans SC → Space Grotesk",
+        "actual": "Noto Sans SC → Space Grotesk",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M6",
+        "claim": "数字用 Martian Mono + tabular-nums",
+        "actual": "6 处用 Martian Mono，含 tabular-nums 的 6 处",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M7",
+        "claim": "非零圆角元素数 = 0",
+        "actual": "0 个",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M8",
+        "claim": "阴影 = 0（box/text/drop 都不许）",
+        "actual": "box/text/drop 共 0，filter 非 none 0",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M9",
+        "claim": "border/outline 线宽 ⊆ {0.35, 0.5, 1, 3}（SVG stroke 归 M13/M14）",
+        "actual": "border/outline [1,3]｜SVG stroke [0.2,0.35,0.5,1,3]｜越界 []",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M10",
+        "claim": "画布 1:1",
+        "actual": "804×804，宽高比 1.0000",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M11",
+        "claim": "边长 = 视口高 − 96px",
+        "actual": "1440: 804 vs 804 ｜ 768: 704 vs 928 ｜ 390: 326 vs 748",
+        "verdict": "FAIL"
+      },
+      {
+        "id": "M12",
+        "claim": "画布内 24px 安全区",
+        "actual": "canvas padding = 24px",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M13",
+        "claim": "坐标格 8px 周期、0.2px 线",
+        "actual": "pattern 8×8 stroke=0.2",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M14",
+        "claim": "走线三级 0.6/1.2/2.4（机制句）",
+        "actual": "SVG stroke 集合 [0.2,0.35,0.5,1,3]；机制句要求但缺失 [0.6,1.2,2.4]",
+        "verdict": "FAIL"
+      },
+      {
+        "id": "M15",
+        "claim": "≥6 个不同图片位、每张 ≥40px",
+        "actual": "6 张 / src 去重 6 / ≥40px 的 6 张",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M16",
+        "claim": "每个 img 有 width/height 属性",
+        "actual": "6/6",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M17",
+        "claim": "首屏无轮播",
+        "actual": "carousel/slider/swiper 类名 []；setInterval 0 处",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M18",
+        "claim": "不用 Playfair/Inter/Roboto",
+        "actual": "渲染字体里 未出现；源码 font-family 声明里 []",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M19",
+        "claim": "单文件 + CSS 内联",
+        "actual": "1 个 html（14677 字节）；<style> true；外部 css 0 个；外部 js 0 个；框架 []",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M20",
+        "claim": "移动端单列（同排 >30% 视口宽的块 < 2）",
+        "actual": "390: 最多 2 个（父 div.plate-row，宽 [171,171]）｜1440: 最多 2 个",
+        "verdict": "FAIL"
+      },
+      {
+        "id": "M21",
+        "claim": "6 个条目（版式规模）",
+        "actual": "6 条走线（表格 6 行 + 图版 6 张）",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M22",
+        "claim": "非通用族 ⊆ {Space Grotesk, Noto Sans SC, Martian Mono, ui-monospace}",
+        "actual": "Space Grotesk , Noto Sans SC , Martian Mono",
+        "verdict": "PASS"
+      }
+    ],
+    "S21": [
+      {
+        "id": "M1",
+        "claim": "body 底色 #E4DCC9",
+        "actual": "rgb(228, 220, 201)",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M2",
+        "claim": "全部色值 ⊆ 5 个 hex",
+        "actual": "4 色：#E4DCC9 #3E3A34 #6E6A5E #924307",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M3",
+        "claim": "5 个 hex 用上几个（未强制全用）",
+        "actual": "4/5（缺 #FFFFFF）",
+        "verdict": "INFO"
+      },
+      {
+        "id": "M4",
+        "claim": "标题链 Antonio → WenJin Mincho → Georgia → Songti SC",
+        "actual": "Antonio → WenJin Mincho → Georgia → Songti SC",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M5",
+        "claim": "正文链 WenJin Mincho → Georgia → Songti SC → STSong",
+        "actual": "WenJin Mincho → Georgia → Songti SC → STSong",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M6",
+        "claim": "数字 IBM Plex Mono + tabular-nums",
+        "actual": "5 处，其中带 tabular-nums 5 处",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M7",
+        "claim": "非零圆角数 = 0",
+        "actual": "0 个",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M8",
+        "claim": "只用 inset，外投影 = 0",
+        "actual": "14 条 box-shadow，其中非 inset 0 条；filter 非 none 0",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M9",
+        "claim": "线宽 ⊆ {1px, 2px}",
+        "actual": "实测 [1,2]",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M10",
+        "claim": "10 栏网格",
+        "actual": "grid-template-columns 解析出 10 列",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M11",
+        "claim": "表 4 栏 / 条 2 栏 / 表 4 栏，条在中间",
+        "actual": "A=550.4(4.00栏) B=275.2(2.00栏) C=550.4(4.00栏)；顺序 A<B<C 且 B 居中",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M12",
+        "claim": "14 枚横条",
+        "actual": "14 枚",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M13",
+        "claim": "24×96（登记原文按「24 宽 × 96 高」；C1 允许两种解释都测）",
+        "actual": "实测统一 96×24。解释A 24宽×96高 → FAIL；解释B 96宽×24高 → PASS。取解释B 记 PASS（理由见 DISCUSS：只有 B 能让 60° 斜切在几何上成立）",
+        "verdict": "PASS",
+        "alt": false
+      },
+      {
+        "id": "M14",
+        "claim": "条间 1px 纸色缝",
+        "actual": "相邻间隙 [1]",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M15",
+        "claim": "右端 30/45/60° 三档斜切",
+        "actual": "由 clip-path 反算 [30,45,60]°（三档命中 3/3）",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M16",
+        "claim": "页面上给出三档角度 + 互斥对数",
+        "actual": "源码含角度 [\"30°\",\"45°\",\"60°\"]；含互斥词 [\"互斥对\",\"互斥组\",\"互斥\"]；表一「互斥对」列有 2/3/4",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M17",
+        "claim": "首尾相扣（相邻间隙 < 2px）",
+        "actual": "间隙 [1]，均 < 2px",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M18",
+        "claim": "≥6 个不同图片位，每张 ≥40px",
+        "actual": "6 张 / 去重 6 / 最小 146.5px",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M19",
+        "claim": "每个 img 有 width/height 属性",
+        "actual": "6/6",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M20",
+        "claim": "首屏无轮播",
+        "actual": "carousel 类名 []；setInterval 0",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M21",
+        "claim": "不用 Playfair/Inter/Roboto",
+        "actual": "渲染字体 未出现；源码声明 []",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M22",
+        "claim": "单文件 + CSS 内联",
+        "actual": "1 个 html（14096 字节）；<style> true；外部 css 0；外部 js 0",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M23",
+        "claim": "移动端单列（同排 >30% 视口宽的块 < 2）",
+        "actual": "390: 最多 2 个（父 div.plate-row，宽 [174,174]）；.sheet-a/.bars/.sheet-b 的 grid-column = 1 / -1",
+        "verdict": "FAIL"
+      },
+      {
+        "id": "M24",
+        "claim": "无火车/铁轨/蒸汽/制服图案",
+        "actual": "源码命中 []",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M25",
+        "claim": "两张表",
+        "actual": "DOM 2 张 / 源码 2 张 table",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M26",
+        "claim": "14 个条目（版式规模）",
+        "actual": "14 枚锁闭条；表一 7 行 + 表二 7 行 = 14",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M27",
+        "claim": "无 sepia / 暖色滤镜",
+        "actual": "filter 非 none 元素 0 个",
+        "verdict": "PASS"
+      }
+    ],
+    "S28": [
+      {
+        "id": "M1",
+        "claim": "body 底色 #0B0D12",
+        "actual": "rgb(11, 13, 18)",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M2",
+        "claim": "全部色值 ⊆ 4 个 hex",
+        "actual": "4 色：#0B0D12 #D8D4C6 #AF74BE #07080C",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M3",
+        "claim": "用到几个 hex（C1：risk 说 3 个，配色给 4 个）",
+        "actual": "4/4（缺 无）",
+        "verdict": "INFO"
+      },
+      {
+        "id": "M4",
+        "claim": "标题链 Instrument Serif → Noto Serif SC → Georgia",
+        "actual": "Instrument Serif → Noto Serif SC → Georgia",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M5",
+        "claim": "正文链 Noto Serif SC → Instrument Serif → Georgia",
+        "actual": "Noto Serif SC → Instrument Serif → Georgia",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M6",
+        "claim": "数字 JetBrains Mono + tabular-nums",
+        "actual": "4 处，带 tabular-nums 4 处",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M7",
+        "claim": "非零圆角数 = 0",
+        "actual": "0 个",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M8",
+        "claim": "只用 drop-shadow，且硬边（blur=0）；box-shadow=0",
+        "actual": "box-shadow 0 条；drop-shadow 12 条，解析成功 12 条，blur>0 的 0 条；blur 值 [0]",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M9",
+        "claim": "线宽 ⊆ {2px, 8px}",
+        "actual": "实测 [2,8]",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M10",
+        "claim": "16 栏、栏距 0",
+        "actual": "16 列，column-gap=0px",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M11",
+        "claim": "外距 64px",
+        "actual": "masthead padding = 64px 64px 0px",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M12",
+        "claim": "12 块",
+        "actual": "12 块",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M13",
+        "claim": "最大 7 栏 / 最小 2 栏（见 C3）",
+        "actual": "span 集合 [2,3,4,5,6,7,8]；max=8 min=2",
+        "verdict": "FAIL"
+      },
+      {
+        "id": "M14",
+        "claim": "面积不等（CV > 0.1）",
+        "actual": "CV = 0.381",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M15",
+        "claim": "错位 4–14px，至少 3 个不同值",
+        "actual": "左边距 [4,8,14,6,12,9,5,11,13,7,10]；落在 [4,14] 的 12/12；不同值 11 个",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M16",
+        "claim": "外出血 24px（块越过容器内容边界）",
+        "actual": ".board 内容左边界 64.0；各块相对它的越界量 [-4,-582,-998,-6,-176,-660,-9,-415,-667,-13,-581,-912]；最大 -4px",
+        "verdict": "FAIL"
+      },
+      {
+        "id": "M17",
+        "claim": "凸起只在左上（drop-shadow 偏移 −x −y）",
+        "actual": "12 条 drop-shadow，左上方向 12 条；偏移集合 [\"-4,-4\"]",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M18",
+        "claim": "≥6 个不同图片位，每张 ≥40px",
+        "actual": "12 张 / src 去重 6 / 最小边 154.0px",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M19",
+        "claim": "每个 img 有 width/height 属性",
+        "actual": "12/12",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M20",
+        "claim": "首屏无轮播",
+        "actual": "carousel 类名 []；setInterval 0",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M21",
+        "claim": "不用 Playfair/Inter/Roboto",
+        "actual": "渲染字体 未出现；源码声明 []",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M22",
+        "claim": "单文件 + CSS 内联",
+        "actual": "1 个 html（14164 字节）；<style> true；外部 css 0；外部 js 0",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M23",
+        "claim": "移动端单列（同排 >30% 视口宽的块 < 2）",
+        "actual": "390: 最多 1 个（父 body，宽 [390]）",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M24",
+        "claim": "不含金色",
+        "actual": "用色 #0B0D12 #D8D4C6 #AF74BE #07080C；源码无金色 hex，色相均不在 35–60° 金域",
+        "verdict": "PASS"
+      },
+      {
+        "id": "M25",
+        "claim": "写明与 8 号 / 2 号的分界",
+        "actual": "源码含 [\"8 号\",\"2 号\"]",
+        "verdict": "PASS"
+      }
+    ]
+  },
+  "summary": {
+    "S20": {
+      "total": 21,
+      "pass": 18,
+      "fail": 3,
+      "info": 1,
+      "rate": "85.7%"
+    },
+    "S21": {
+      "total": 26,
+      "pass": 25,
+      "fail": 1,
+      "info": 1,
+      "rate": "96.2%"
+    },
+    "S28": {
+      "total": 24,
+      "pass": 22,
+      "fail": 2,
+      "info": 1,
+      "rate": "91.7%"
+    }
+  }
+}

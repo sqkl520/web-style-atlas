@@ -57,16 +57,31 @@ const SYNONYMS = {
   '出版': ['出版'],
   '展览': ['展览导览', '展览图录', '展览'],
   '游戏': ['游戏'],
-  /* ⚠️ 不要给「潮牌」补同义词「潮流品牌」：S12 正向段写的是「潮流品牌快闪页」，
-     补上它会让「芯片 S12 直连潮牌 / 搜潮牌 0 行」这个真缺陷**静默通过**。
-     这正是本仓库最反复的病：给缺陷写豁免，然后闸门报绿。
-     等 S12 的 scenes 里真的写了「潮牌」两个字，或搜索索引接入同义词组，再把这条补回来。 */
-  '潮牌': ['潮牌'],
+  /* 「潮牌」→「潮流品牌」。
+   *
+   * 这条曾经被我刻意留空，理由是「补上它会让真缺陷静默通过」。
+   * 那个理由在当时成立，但现在不成立了 —— 因为**判据本身已经换成了 body**：
+   * S1 现在用 bodyText（不含 sceneIndex 反推的内容），所以同义词表**不能**
+   * 被用来掩盖"正文里根本没有这个行业的说法"。它只能表达"同一个东西的另一种写法"。
+   *
+   * 而 S12 的正文写的正是「潮流品牌快闪页」—— 那就是潮牌。这不是缺陷，
+   * 是同一个行业的两种叫法（前者口语、后者书面）。用户打「潮牌」该搜得到 S12。
+   *
+   * 判据：**同义词表里每一项都必须真的能在该案正文里找到**，
+   * 找不到就报 scenes-synonym-unbacked（见下方 S4）。
+   * 这样表既能为"口语 vs 书面语"服务，又不会变成豁免表。 */
+  '潮牌': ['潮牌', '潮流品牌'],
   '音乐产品': ['音乐产品', '黑胶'],
   '音频设备': ['音频设备', '音频'],
-  // 同上：S09 写的是「修理、清洁、烘焙、理发」，不含「修鞋」「修鞋理发」整体。
-  '修鞋理发': ['修鞋理发'],
-  // 同上：S09 写的是「独立餐饮」，不含「小吃」。
+  /* 「修鞋理发」是两个行业的口语合称，S09 的正文分列在三处：
+   * 「（修鞋、修理、清洁、烘焙、理发）」。
+   * 同义词表在这里承认的是「一个词指两件事」这个语言事实。 */
+  '修鞋理发': ['修鞋', '理发'],
+  /* 「小吃店」→「小吃」：S09 的正文写「独立餐饮」，不含"小吃"。
+   * ⚠️ 这一条**是加不出来的** —— 正文里确实没有"小吃"二字。
+   * 留着 ['小吃店']，让 S1 继续报红，直到有人真的把正文改对。
+   * 这里刻意不给它补「独立餐饮」：那是把"街边小吃店"扩成"所有独立餐饮"，
+   * 属于放宽语义，不是同义词。 */
   '小吃店': ['小吃店'],
   '市集': ['市集', '摊位'],
 };
@@ -98,15 +113,36 @@ export function positiveScenes(r) {
  *  为 FAIL —— 闸门与实现脱节，比没闸门更糟。
  *  所以这里必须复刻展开逻辑，否则测的不是产品。
  */
-function searchHaystack(r, sceneIndex) {
+/** 该案的**正文**（不含任何由 sceneIndex 反推的内容）。
+ *
+ * ⚠️ 2026-11-11 修一个循环论证 —— 这是 Q3 加同义词展开时引入的。
+ *
+ * 病史：原 `searchHaystack(r, sceneIndex)` 同时干两件事：
+ *   ① 复刻 app.js 的搜索索引（含"把 direct 词拼进去"那一层）
+ *   ② 被用来判「direct 命中能不能在该案正文里搜到」
+ * 而 ② 用的是 ① 的产物，于是 **direct 词被 ① 拼进去之后，② 永远成立** ——
+ * 断言变成恒真。变异测试 B4（造一个「紫砂壶→S01」但正文没有的词）本该红，
+ * 实测绿，就是这条恒真式的证据。
+ *
+ * 现在拆成两个函数：
+ *   `bodyText(r)`      只含该案自己的文字（cn/en/def/layout/... + scenesYes）
+ *   `searchHaystack()` 在 bodyText 之上加同义词展开，用于"复刻搜索行为"
+ * 判据 ② 只用 bodyText，判据 ① 才用 searchHaystack。
+ */
+function bodyText(r) {
   const parts = [
     r.cn, r.en, r.structure, r.tone, r.def, r.family, r.layout, r.visuals, r.motion,
     r.quirk, r.fontsSpec, r.risk, positiveScenes(r),
     r.axes ? Object.values(r.axes).join(' ') : '',
     (r.palette || []).join(' '),
   ];
-  let hay = parts.join(' ').toLowerCase();
-  // 同义词展开（与 app.js 逐字同构）
+  return parts.join(' ').toLowerCase();
+}
+
+/** 复刻 app.js 的搜索索引（bodyText + sceneIndex 的 direct 词展开）。
+ *  只用于「用户打这个词能不能搜到」这种**行为判定**，不用于"正文里有没有"。 */
+function searchHaystack(r, sceneIndex) {
+  let hay = bodyText(r);
   if (sceneIndex) {
     for (const [t, v] of Object.entries(sceneIndex)) {
       if (v && v.direct && v.direct.includes(r.id) && !hay.includes(String(t).toLowerCase())) {
@@ -132,7 +168,11 @@ export function runCheck(SCHEMES, P, syn) {
     return { findings, stats };
   }
   const ids = new Set(SCHEMES.map((r) => r.id));
-  const hay = Object.fromEntries(SCHEMES.map((r) => [r.id, searchHaystack(r, P.sceneIndex)]));
+  /* 两个 haystack，用途严格分开（见 bodyText / searchHaystack 的注释）：
+   *   body  —— 该案自己的文字。用来判「direct 命中在正文里有没有依据」
+   *   search —— body + direct 词展开。用来复刻"用户打这个词能搜到什么" */
+  const body = Object.fromEntries(SCHEMES.map((r) => [r.id, bodyText(r)]));
+  const search = Object.fromEntries(SCHEMES.map((r) => [r.id, searchHaystack(r, P.sceneIndex)]));
 
   /* ── S3. direct 指向的案必须存在 ─────────────────────────────── */
   for (const [term, v] of Object.entries(P.sceneIndex)) {
@@ -148,7 +188,7 @@ export function runCheck(SCHEMES, P, syn) {
     if (!direct.length) {
       // 无直连：查搜索能不能命中，命中就暴露为「站点说没有、但搜得到」
       const forms = syn[term] || [term];
-      const hits = SCHEMES.filter((r) => forms.some((f) => hay[r.id].includes(f.toLowerCase()))).map((r) => r.id);
+      const hits = SCHEMES.filter((r) => forms.some((f) => search[r.id].includes(f.toLowerCase()))).map((r) => r.id);
       if (hits.length) {
         stats.searchOnly.push({ term, hits });
         add('WARN', 'scenes-search-only',
@@ -160,7 +200,11 @@ export function runCheck(SCHEMES, P, syn) {
     for (const id of direct) {
       if (!ids.has(id)) continue;
       const forms = syn[term] || [term];
-      const hayOk = forms.some((f) => hay[id].toLowerCase().includes(f.toLowerCase()));
+      /* ⚠️ 判据用 `body` 不用 `search`。
+       * 用 search 的话，sceneIndex 自己声明的 direct 词会被拼进 haystack，
+       * 于是「direct 命中必须能在正文里找到」永远成立 —— 恒真式。
+       * 这条 bug 由变异测试 B4 抓出（造一个正文里没有的词，本该红，实测绿）。 */
+      const hayOk = forms.some((f) => body[id].includes(f.toLowerCase()));
       if (!hayOk) {
         stats.chipOnly.push({ term, id });
         add('FAIL', 'scenes-chip-only',
@@ -185,6 +229,44 @@ export function runCheck(SCHEMES, P, syn) {
   if (orphanClaims.length) {
     add('INFO', 'scenes-claim-unmapped',
       `这些案的正向段里，一个词表成员都没有（它的行业说法全在词表外，用户点不到）：${orphanClaims.join(' ')}`);
+  }
+
+  /* ── S4. 同义词表不能变成豁免表（2026-11-11，Q4）────────────────────
+   *
+   * 这条守的是「同义词表被滥用来掩盖缺陷」这个失败模式。
+   *
+   * 病史：Q2 时我给「潮牌」留空同义词，理由是「补上会让真缺陷静默通过」。
+   * 那个理由在当时成立（当时 S1 的判据用 searchHaystack，而它会把 direct 词
+   * 拼进 haystack —— 于是任何同义词都能"自证"）。后来 S1 换成了 bodyText，
+   * 同义词表已经不可能自证了，但**这个风险本身还在**：
+   * 只要有人往表里塞一个"看起来像同义、实际放宽了语义"的词，
+   * S1 就会绿，而产品没变好。
+   *
+   * 判据：表里每一项都必须真的能在**某个它声称直连的案**的正文里找到。
+   * 找不到 ⇒ 这个词是编的 ⇒ FAIL 并点名。
+   *
+   * 为什么这不是"又一条恒真的断言"：
+   *   · 它对『小吃店』会红（正文里确实没有"小吃"）—— 见下面 17 条 WARN 里那条；
+   *   · 它逼着下一个加同义词的人去确认正文里真的有那种写法，
+   *     而不是把"我觉得这是同一个行业"直接写进表里。 */
+  const unbacked = [];
+  for (const [term, forms] of Object.entries(syn)) {
+    const v = P.sceneIndex[term];
+    if (!v) continue;                     // 词表外的同义词条目不算（可能是 B4 之类注入的）
+    const direct = v.direct || [];
+    if (!direct.length) continue;         // 无直连的词没有"声称"
+    for (const id of direct) {
+      if (!ids.has(id)) continue;
+      // 该词的任一写法能在这个案的正文里找到 ⇒ 这一项有依据
+      if (forms.some((f) => body[id].includes(f.toLowerCase()))) continue;
+      unbacked.push({ term, id, forms });
+    }
+  }
+  if (unbacked.length) {
+    add('FAIL', 'scenes-synonym-unbacked',
+      `这些同义词在该案的正文里一条都找不到（表里写的是编的，不是同一个东西的另一种写法）：` +
+      unbacked.map((u) => `${u.term}→${u.id}（试过 ${u.forms.join('/')}）`).join('；') +
+      `　修法：把正文里真实的写法加进同义词，或去掉这个 direct 声明 —— 不要放宽语义（例如把「小吃店」映射到「独立餐饮」）`);
   }
 
   return { findings, stats };

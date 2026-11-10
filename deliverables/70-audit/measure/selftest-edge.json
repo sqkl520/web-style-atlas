@@ -1,0 +1,116 @@
+{
+ "generatedAt": "2026-10-29T16:33:49.184Z",
+ "pass": 13,
+ "fail": 0,
+ "checks": [
+  {
+   "name": "dpr1: 0.5px 边框 computed 上取整为 1px",
+   "got": "1px",
+   "want": "1px",
+   "pass": true,
+   "note": "Chrome 把 <1px 的 border 夹到 1px"
+  },
+  {
+   "name": "dpr1: 0.25px 边框同样变 1px",
+   "got": "1px",
+   "want": "1px",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "dpr1: 0.5px outline 保留小数",
+   "got": "1px",
+   "want": "(v) => parseFloat(v) <= 1",
+   "pass": true,
+   "note": "outline 不夹"
+  },
+  {
+   "name": "dpr1: column-rule 宽度",
+   "got": "1px",
+   "want": "(v) => !!v",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "dpr1: text-decoration-thickness 0.5px",
+   "got": "0.5px",
+   "want": "(v) => !!v",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "dpr1: 横线 <line> 盒子高度=0（必须靠 stroke 判可见）",
+   "got": 0,
+   "want": 0,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "dpr1: 竖线 <line> 盒子宽度=0",
+   "got": 0,
+   "want": 0,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "dpr1: <use> 盒子尺寸正确",
+   "got": [
+    30,
+    30
+   ],
+   "want": [
+    30,
+    30
+   ],
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "dpr1: <use> computed fill 拿不到 symbol 内部色",
+   "got": "rgb(0, 0, 0)",
+   "want": "(v) => v === 'rgb(0, 0, 0)' || v === 'none'",
+   "pass": true,
+   "note": "必须靠像素直方图兜底"
+  },
+  {
+   "name": "[预期修正] dpr2 下 0.5px 边框 computed 仍是 1px",
+   "got": "1px",
+   "want": "1px",
+   "pass": true,
+   "note": "border 被夹到 1px，与 dpr 无关"
+  },
+  {
+   "name": "dpr2 下 devicePixelRatio 确实是 2",
+   "got": 2,
+   "want": 2,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "AA 混合像素能被识别(占非纯色像素多数)",
+   "got": 456,
+   "want": "(v) => v > 0",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "孤立色像素占全图 < 1%（说明没有看不到的第三种色）",
+   "got": 0.00018441358024691358,
+   "want": "(v) => v < 0.01",
+   "pass": true,
+   "note": "isolated/total=0.00018"
+  }
+ ],
+ "pixel": {
+  "inPalette": 1295305,
+  "nearPair": 456,
+  "isolated": 239,
+  "total": 1296000,
+  "isolatedTop": [
+   [
+    "#CC84A1",
+    239
+   ]
+  ]
+ }
+}

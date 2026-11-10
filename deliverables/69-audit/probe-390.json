@@ -1,0 +1,188 @@
+{
+ "m390_ecom": {
+  "vh": 844,
+  "scrollY_before": 0,
+  "docH": 1005,
+  "q": {
+   "top": 316.5,
+   "bottom": 354.4,
+   "h": 37.9,
+   "screens": 0.38,
+   "text": ""
+  },
+  "count": {
+   "top": 365.9,
+   "bottom": 386.9,
+   "h": 21,
+   "screens": 0.43,
+   "text": "列出 0 / 30 个方案"
+  },
+  "empty": {
+   "top": 402.4,
+   "bottom": 664.9,
+   "h": 262.5,
+   "screens": 0.48,
+   "text": "没有符合条件的方案。这三十个案不按行业建索引——30 个案没有\"行业\"这一维；左侧「你是做什么的」44 个行业词里只有 16 个有直连方案。行业词搜不到，是这 30 个案缺这条数据，不是你条件加多了。「电商」不在这 44 个行业词里，这 3"
+  },
+  "etpl": {
+   "top": 664.9,
+   "bottom": 911.5,
+   "h": 246.6,
+   "screens": 0.79,
+   "text": "「电商」在 30 个案里 0 个命中，三个大众模板的 README 适用清单里也没有。这一类，这套图集和模板层都给不了你 —— 不是你条件加多了。 模板层承诺的全部行业（逐字来自三个 README）： M01 清爽企业站 律所 / 咨询"
+  },
+  "emptyHeadOffsetFromTop": 402.4,
+  "etplHeadOffsetFromTop": 664.9,
+  "emptyInFirstScreen": 262.484375,
+  "etplInFirstScreen": 179.109375,
+  "railFoldOpen": false,
+  "mastFoldOpen": false,
+  "barFoldOpen": false,
+  "noteInFold": {
+   "display": "block",
+   "h": 0,
+   "insideClosedFold": true
+  }
+ },
+ "m390_rest": {
+  "vh": 844,
+  "empty": {
+   "top": 402.4,
+   "h": 262.5,
+   "screens": 0.48,
+   "text": "没有符合条件的方案。这三十个案不按行业建索引——30 个案没有\"行业\"这一维；左侧「你是做什么的」44 个行业词里只有 16 个有直连方案。「餐厅」正属于没有直连方案的那一类（只有 S09 S19 这几个换文案能用的近似款）——这是这 30 个案这一层的供给缺口，不是你条件加多了。按行业筛这一层能给出 2 行： 按「餐"
+  },
+  "etpl": {
+   "top": 664.9,
+   "h": 501.6,
+   "screens": 0.79,
+   "text": "这 30 个案里没有「餐厅」专案。但模板层有：M02 暖调门店站 的 README 适用行业里就写着「餐厅」，它才是为这行做的： M02 暖调门店站 Warm Local 模板 · 不计入方案数 一页式门店官网：本地实体店用。暖米白底、烤色深褐主色、标题衬线。 适用行业（README 原文）：餐厅 / 咖啡馆 /"
+  },
+  "card": {
+   "top": 775.5,
+   "h": 223,
+   "screens": 0.92,
+   "text": "M02 暖调门店站 Warm Local 模板 · 不计入方案数 一页式门店官网：本地实体店用。暖米白底、烤色深褐主色、标题衬线。 适用行业（README 原文）：餐厅 / 咖啡馆 / 烘焙 / 民宿 / 理发店 / 花店 打开 M02 ↗"
+  },
+  "cardTop": 775.5,
+  "cardScreens": 0.92,
+  "openLink": {
+   "href": "../../templates/M02-warm-local/",
+   "text": "打开 M02 ↗"
+  },
+  "tplAllH": 118
+ },
+ "m1440_bar": {
+  "bar": {
+   "w": 1124,
+   "h": 60,
+   "display": "flex",
+   "visibility": "visible",
+   "opacity": "1",
+   "visible": true
+  },
+  "barFold": {
+   "w": 0,
+   "h": 0,
+   "display": "contents",
+   "visibility": "visible",
+   "opacity": "1",
+   "visible": false
+  },
+  "barFoldOpen": true,
+  "sortWrap": {
+   "w": 235,
+   "h": 40,
+   "display": "flex",
+   "visibility": "visible",
+   "opacity": "1",
+   "visible": true
+  },
+  "sortSelect": {
+   "w": 201,
+   "h": 40,
+   "display": "block",
+   "visibility": "visible",
+   "opacity": "1",
+   "visible": true
+  },
+  "resetBtn": {
+   "w": 74,
+   "h": 35,
+   "display": "block",
+   "visibility": "visible",
+   "opacity": "1",
+   "visible": true
+  },
+  "summary": {
+   "w": 0,
+   "h": 0,
+   "display": "none",
+   "visibility": "visible",
+   "opacity": "1",
+   "visible": false
+  }
+ },
+ "clickPath": [
+  {
+   "step": "load",
+   "note": {
+    "top": 0,
+    "h": 0,
+    "screens": 0,
+    "visibleH": 0
+   },
+   "noteDisplay": "block",
+   "toggle": {
+    "top": 484.9,
+    "h": 31,
+    "screens": 0.57,
+    "visibleH": 31.046875
+   },
+   "toggleText": "",
+   "railFoldOpen": false,
+   "scrollY": 0,
+   "vh": 844
+  },
+  {
+   "step": "1.click rail-fold summary",
+   "note": {
+    "top": 0,
+    "h": 0,
+    "screens": 0,
+    "visibleH": 0
+   },
+   "noteDisplay": "block",
+   "toggle": {
+    "top": 484.9,
+    "h": 31,
+    "screens": 0.57,
+    "visibleH": 31.046875
+   },
+   "toggleText": "还有 28 个只有近似的 →",
+   "railFoldOpen": true,
+   "scrollY": 0,
+   "vh": 844
+  },
+  {
+   "step": "2.click 还有28个近似",
+   "note": {
+    "top": 684.8,
+    "h": 107.2,
+    "screens": 0.81,
+    "visibleH": 107.1875
+   },
+   "noteDisplay": "block",
+   "toggle": {
+    "top": 799.9,
+    "h": 31,
+    "screens": 0.95,
+    "visibleH": 31.046875
+   },
+   "toggleText": "收起近似项 ←",
+   "railFoldOpen": true,
+   "scrollY": 0,
+   "vh": 844
+  }
+ ]
+}

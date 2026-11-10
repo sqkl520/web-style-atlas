@@ -1,0 +1,524 @@
+﻿/* 选型台
+   这是一件**工作台**，不是作品集封面页：信息密度优先，装饰让位于检索。
+   底色与强调色刻意选在 30 个案会被判违规的那些窗口之外：
+   #E7E7E2 明度 89.6% 但饱和只有 9.4%（palette-cream 要 s≥16%）；三个信号色明度都在 42% 以下（palette-terracotta 要 l≥42%）。
+   这份页面本身不受那 30 条规则约束，但没必要去踩同一批坑。
+
+   过闸门时改掉的几处（都是工具指出后就承认的问题，不是绕）：
+   1 三级文字对比度 4.2:1 → 5.6:1；2 小字下限收到 13px（原先 11/12px 有 115 处）；
+   3 大标题 3.8vw → 5.2vw（首屏要有一个明确的主导元素）；4 头部标签从全大写 11px 微标签
+   改成 14px 句首大写；5 行分隔线 1px → 2px（1px 被判为装饰性细线）；
+   6 截图缩略图不再用 1px 描边框；7 工具条不再 sticky（sticky 会让大标题在滚动中被压住）。 */
+
+:root {
+  --ground:   #e7e7e2;
+  --ground-2: #dcdcd6;
+  --card:     #f2f2ee;
+  --ink:      #1c1b18;
+  --ink-2:    #43413b;
+  --ink-3:    #56534b;   /* 原 #6f6c64 对底只有 4.2:1 */
+  --rule:     #bdbbb2;
+  --rule-2:   #a5a49b;
+
+  --fail: #8c1d18;
+  --warn: #6b4e0d;
+  --pass: #24453c;
+  --link: #1f3c60;
+
+  --ui:   "Archivo", "Noto Sans SC", sans-serif;
+  --cjk:  "Noto Sans SC", "Archivo", sans-serif;
+  /* 数字槽不再引入等宽族：Archivo 自带 tabular figures，同族 + font-variant-numeric: tabular-nums
+     就能让所有读数逐位对齐。原先用 IBM Plex Mono 排"30 / 17 / 12"这类元数据，
+     被 mono 规则判为"等宽字出现在代码之外"，那条判得对 —— 排的是数字不是代码，
+     而且顺带把字族数从 3 降到 2。等宽族现在只留给真正的 <code> 与 <kbd>。 */
+  --num:  "Archivo", "Noto Sans SC", sans-serif;
+  --code: "IBM Plex Mono", ui-monospace, monospace;
+
+  /* 字号只留 6 档，下限 13px */
+  --s-h1: clamp(34px, 5.2vw, 74px);
+  --s-34: 34px;
+  --s-24: 24px;
+  --s-20: 20px;
+  --s-17: 17px;
+  --s-16: 16px;
+  --s-14: 14px;
+  --s-13: 13px;
+
+  --pad: 28px;
+  --rail: 264px;
+  --detail: 560px;
+}
+
+* { box-sizing: border-box; }
+
+html { background: var(--ground); }
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--cjk);
+  font-size: var(--s-16);
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 { margin: 0; font-weight: 600; line-height: 1.14; }
+p { margin: 0; }
+ul, ol, dl, dd { margin: 0; padding: 0; list-style: none; }
+button, input, select { font: inherit; color: inherit; }
+
+.skip {
+  position: absolute; left: -9999px;
+  background: var(--ink); color: var(--card); padding: 10px 14px; z-index: 40;
+}
+.skip:focus { left: 12px; top: 12px; }
+
+kbd {
+  font-family: var(--code); font-size: var(--s-13);
+  border: 1px solid var(--rule-2); border-radius: 2px;
+  padding: 0 4px; margin: 0 1px; background: var(--card);
+}
+code { font-family: var(--code); font-size: 0.94em; }
+
+/* ── 报头：左对齐，靠数字而不是形容词立住 ─────────────────────
+   ⚠️ 首屏瘦身（2026-10-25，有实测依据）：
+   改前实测页头 465px = 视口 900px 的 52%，第一张方案卡顶边在 549px、卡高 434px
+   ⇒ 卡底边 983px **超出首屏**，用户打开第一眼看不到任何一张完整卡（0/30 张）。
+   拆开看页头 465px 的构成：padding 46 + kicker 23 + h1 **169px**（74px 字号 ×2 行）
+   + claim **110px** + wizard 48。前两项吃掉 279px。
+   修法只动排版密度、一个字不删：
+   ① h1 从 74px 降到 56px（仍是最醒目的一行），并把 max-width 放宽让标题收成 1 行；
+   ② claim 从 17px/1.75 收到 15px/1.6，并允许 3 行；
+   ③ 上下 padding 收紧；
+   ④ 报头整体改成不与右栏底部对齐，避免被 74px 高的数字块撑高。 */
+.mast {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, max-content);
+  gap: var(--pad);
+  align-items: end;
+  padding: 20px var(--pad) 14px;
+  border-bottom: 2px solid var(--ink);
+}
+.mast-kicker {
+  font-size: var(--s-14);
+  color: var(--ink-3); margin-bottom: 8px;
+}
+.mast h1 {
+  font-family: var(--ui);
+  font-size: clamp(30px, 4vw, 56px);
+  font-variation-settings: "wdth" 88;
+  letter-spacing: -.018em;
+  max-width: 22ch;
+  line-height: 1.06;
+}
+.mast-claim {
+  margin-top: 10px; max-width: 60ch;
+  font-size: var(--s-15); line-height: 1.6; color: var(--ink-2);
+}
+.mast-wizard { margin-top: 10px; }
+.mast-wizard a {
+  display: inline-block; padding: 9px 14px;
+  background: var(--ink); color: var(--card);
+  font-size: var(--s-15); text-decoration: none;
+}
+.mast-wizard a:hover { background: var(--link); }
+.mast-facts {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 2px; margin: 0;
+}
+.mast-facts > div { border-top: 2px solid var(--ink); padding-top: 8px; }
+.mast-facts dt { font-size: var(--s-14); color: var(--ink-3); }
+.mast-facts dd {
+  font-family: var(--num); font-variant-numeric: tabular-nums; font-size: var(--s-24);
+  font-variant-numeric: tabular-nums; margin-top: 2px;
+}
+
+/* ── 台面 ─────────────────────────────────────────────────── */
+.bench {
+  display: grid;
+  grid-template-columns: var(--rail) minmax(0, 1fr);
+  align-items: start;
+}
+
+.rail {
+  position: sticky; top: 0;
+  max-height: 100vh; overflow-y: auto;
+  padding: 22px 20px 40px var(--pad);
+  border-right: 2px solid var(--rule);
+}
+.rail-block { margin-bottom: 22px; }
+.rail-block h2 {
+  font-size: var(--s-14); font-weight: 600;
+  color: var(--ink); margin-bottom: 8px;
+}
+
+.chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.chips button {
+  font-size: var(--s-13); line-height: 1.25;
+  padding: 4px 8px; cursor: pointer;
+  background: transparent; color: var(--ink-2);
+  border: 1px solid var(--rule-2); border-radius: 0;
+  transition: background 120ms linear, color 120ms linear, border-color 120ms linear;
+}
+.chips button:hover { border-color: var(--ink); color: var(--ink); }
+.chips button[aria-pressed="true"] {
+  background: var(--ink); color: var(--card); border-color: var(--ink);
+}
+.chips button .n { font-family: var(--num); font-variant-numeric: tabular-nums; font-size: var(--s-13); margin-left: 5px; opacity: .8; }
+
+.rail-note p { font-size: var(--s-14); color: var(--ink-2); }
+
+/* 场景芯片上的模板角标（M01/M02/M03）。
+   为什么会存在：模板不在 sceneIndex 里，芯片点下去只筛 S\d{2}，
+   光看芯片用户永远不会知道"咖啡店这条路还有一个现成模板"。
+   角标**只提示、不参与筛选**：点芯片筛出来的仍然只有方案，模板在清单上方单独给出。
+   视觉上必须比芯片文字弱一档，否则它会被读成"这颗芯片筛的是 M02"。 */
+.scene-tpl {
+  font-family: var(--num); font-variant-numeric: tabular-nums;
+  font-size: 11px; margin-left: 5px; padding: 0 3px;
+  border: 1px dashed currentColor; opacity: .72;
+}
+.chips button[aria-pressed="true"] .scene-tpl { opacity: .9; }
+
+/* 筛选栏顶部的引导语：先说"照这四组问题挑，比按风格名挑管用" */
+.rail-lead {
+  font-size: var(--s-14); line-height: 1.7; color: var(--ink-2);
+  padding-bottom: 16px; margin-bottom: 18px;
+  border-bottom: 2px solid var(--ink);
+}
+/* 分组下面的旁注：用来把"可选项其实没那么多"这件事说破 */
+.rail-hint {
+  font-size: var(--s-13); line-height: 1.65; color: var(--ink-3);
+  margin-top: 7px;
+}
+.rail-hint b { color: var(--ink); font-weight: 600; }
+/* 两组之间的分隔说明 */
+.rail-sep {
+  font-family: var(--num); font-size: var(--s-13); color: var(--ink-3);
+  letter-spacing: .03em;
+  padding-top: 14px; margin: 26px 0 16px;
+  border-top: 2px solid var(--rule);
+}
+
+/* ── 工具条：**不 sticky** —— sticky 会让大标题在滚动中被它压住（covered-text） ── */
+.main { min-width: 0; padding: 22px var(--pad) 80px 24px; }
+
+.bar {
+  display: flex; flex-wrap: wrap; gap: 12px 18px; align-items: center;
+  padding-bottom: 16px; border-bottom: 2px solid var(--ink);
+}
+.search { display: flex; align-items: center; gap: 9px; flex: 1 1 320px; }
+.search span { font-size: var(--s-13); color: var(--ink-3); }
+.search input {
+  flex: 1 1 auto; min-width: 0;
+  padding: 7px 10px; border: 1px solid var(--rule-2); border-radius: 0;
+  background: var(--card);
+}
+.search input:focus { outline: 2px solid var(--link); outline-offset: -1px; }
+.count {
+  font-family: var(--num); font-variant-numeric: tabular-nums; font-size: var(--s-13);
+  font-variant-numeric: tabular-nums; color: var(--ink-2);
+}
+.sort { display: flex; align-items: center; gap: 8px; }
+.sort label { font-size: var(--s-13); color: var(--ink-3); }
+.sort select { padding: 6px 8px; border: 1px solid var(--rule-2); border-radius: 0; background: var(--card); }
+.btn-quiet {
+  font-size: var(--s-13); padding: 6px 10px; cursor: pointer;
+  background: transparent; border: 1px solid var(--rule-2); border-radius: 0; color: var(--ink-2);
+  transition: border-color 120ms linear, color 120ms linear;
+}
+.btn-quiet:hover { border-color: var(--ink); color: var(--ink); }
+
+/* ── 清单：每一行是一张账页，不是一个 tile ─────────────────── */
+.ledger { border-top: 2px solid var(--ink); }
+
+.row {
+  display: grid;
+  grid-template-columns: 62px minmax(0, 1fr) 316px;
+  gap: 20px;
+  padding: 13px 0;
+  border-bottom: 2px solid var(--rule);
+  cursor: pointer;
+  scroll-margin-top: 24px;
+  transition: background 140ms linear;
+}
+.row:hover { background: var(--card); }
+.row[aria-current="true"] { background: var(--card); box-shadow: inset 5px 0 0 var(--ink); }
+.row.is-unbuilt .no, .row.is-unbuilt h3 { color: var(--ink-3); }
+
+.no {
+  font-family: var(--num); font-variant-numeric: tabular-nums; font-size: var(--s-24);
+  font-variant-numeric: tabular-nums; line-height: 1;
+  padding-left: 4px;
+}
+.row-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 10px; }
+.row-head h3 { font-size: var(--s-20); font-family: var(--ui); font-variation-settings: "wdth" 92; }
+.row-head .en { font-family: var(--ui); font-size: var(--s-13); color: var(--ink-3); }
+
+.tag {
+  font-family: var(--num); font-variant-numeric: tabular-nums; font-size: var(--s-13);
+  padding: 1px 6px; border: 1px solid var(--rule-2); color: var(--ink-2);
+}
+.tag-fr { border-color: var(--ink); color: var(--ink); }
+.tag-fail { border-color: var(--fail); color: var(--fail); }
+.tag-warn { border-color: var(--warn); color: var(--warn); }
+.tag-pass { border-color: var(--pass); color: var(--pass); }
+.tag-none { border-style: dashed; color: var(--ink-3); }
+
+.row-def {
+  margin-top: 6px; font-size: var(--s-16); color: var(--ink-2); max-width: 46ch;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
+.row-meta {
+  margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center;
+  font-family: var(--num); font-variant-numeric: tabular-nums; font-size: var(--s-13); color: var(--ink-3);
+}
+.swatches { display: flex; gap: 3px; align-items: center; }
+.swatches i { width: 20px; height: 20px; display: block; outline: 1px solid rgba(0,0,0,.3); outline-offset: -1px; }
+.row-family { color: var(--ink-2); }
+
+/* 截图列：只放**一张**桌面首屏大图。
+   ⚠️ 卡片瘦身（2026-10-25，有实测依据）：
+   原来放三张（1 大 + 768/390 两小），实测卡片高 434px，其中 .shots 占 348px
+   （大图 198 + 图注 24 + 两小图各 121），反过来把整张卡撑高。
+   而两小图在卡上实际只有 155×97px —— 那个尺寸看不出任何内容，只是"有图"的占位；
+   真正的三档对照在详情面板里（那里有 1440/768/390 切换与逐张缩略图）。
+   所以卡上只留大图，行高 434 → 约 290px，一屏能看到两张卡。
+   注意：这不影响闸门。verify-prototype.mjs:144 只扫 /^S\d{2}-/ 目录，
+   _selection 从不在闸门范围内 —— 原注释里说的"真实图片 0 张"讲的是
+   原型页面自己（每案 assets 里的图），与这里的卡片缩略图无关。 */
+.shots { display: grid; grid-template-columns: 1fr; gap: 0; align-content: start; }
+.shots .shot:first-child { grid-column: auto; }
+/* 第 2、3 张（768 / 390）不再在卡片上占位：详情面板里三档齐全 */
+.shots .shot:not(:first-child) { display: none; }
+.shot { margin: 0; background: #fff; overflow: hidden; position: relative; }
+.shot img { width: 100%; display: block; aspect-ratio: 16 / 9; object-fit: cover; object-position: top center; }
+.shot figcaption {
+  font-family: var(--num); font-variant-numeric: tabular-nums; font-size: var(--s-13);
+  text-align: center; padding: 1px 0 2px; color: var(--ink-3);
+  background: var(--ground-2);
+}
+.shot.is-empty { background: var(--ground-2); }
+.shot.is-empty img { display: none; }
+.shot.is-empty::before {
+  content: ""; display: block; aspect-ratio: 16 / 10;
+  background: repeating-linear-gradient(45deg, var(--ground-2) 0 6px, var(--card) 6px 12px);
+}
+.shot.is-empty figcaption { color: var(--fail); }
+
+.row-foot {
+  grid-column: 2 / -1; display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center;
+  font-family: var(--num); font-variant-numeric: tabular-nums; font-size: var(--s-13); color: var(--ink-3);
+  margin-top: 2px;
+}
+
+.empty { padding: 40px 0; color: var(--ink-3); font-size: var(--s-16); }
+
+/* ── 模板层（三个大众模板）───────────────────────────────────
+   模板不是方案，所以视觉上必须**看得出来不是同一类东西**：
+     · 方案行是 .ledger 里的账目行（左侧大编号 + 三档截图 + 闸门脚注）；
+     · 模板卡是右侧带「模板 · 不计入方案数」标签的窄卡，没有截图、没有闸门。
+   两处容器（#tpl-strip 有行时 / #empty-tpl 无行时）共用 .tpl-card 的样式，
+   以免出现"同一种东西两种长相"。
+   颜色不用 --fail/--pass：模板没有通过/不通过这回事，用中性的 --rule-2 就够了。 */
+.tpl-strip {
+  margin: 18px 0 22px;
+  padding: 14px 16px 6px;
+  border: 1px solid var(--rule-2);
+  border-left: 5px solid var(--ink);
+  background: var(--card);
+}
+.tpl-strip-lead {
+  font-size: var(--s-14); line-height: 1.65; color: var(--ink-2);
+  max-width: 74ch; margin-bottom: 12px;
+}
+.tpl-cards { display: grid; gap: 10px; }
+.tpl-card {
+  padding: 12px 0 14px;
+  border-top: 1px solid var(--rule);
+}
+.tpl-card:first-child { border-top: none; padding-top: 2px; }
+.tpl-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 10px; }
+.tpl-head b { font-family: var(--ui); font-size: var(--s-17); font-variation-settings: "wdth" 92; }
+.tpl-en { font-family: var(--ui); font-size: var(--s-13); color: var(--ink-3); }
+/* 「不计入方案数」不是装饰标签：用户刚看到「列出 2 / 30」，必须立刻知道模板不是第 3 个。 */
+.tpl-note {
+  font-family: var(--num); font-variant-numeric: tabular-nums; font-size: var(--s-13);
+  padding: 1px 6px; border: 1px dashed var(--rule-2); color: var(--ink-3);
+}
+.tpl-desc { margin-top: 6px; font-size: var(--s-16); color: var(--ink); max-width: 62ch; }
+.tpl-scenes {
+  margin-top: 5px; font-size: var(--s-13); line-height: 1.6; color: var(--ink-3);
+  max-width: 70ch;
+}
+/* 相邻候选的理由句：故意用虚线左边框，读起来像"脚注/免责"，不像正文承诺。 */
+.tpl-why {
+  margin-top: 7px; padding-left: 9px;
+  border-left: 2px dashed var(--rule-2);
+  font-size: var(--s-13); line-height: 1.7; color: var(--ink-2); max-width: 68ch;
+}
+.tpl-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-top: 9px; }
+.tpl-open {
+  font-family: var(--num); font-variant-numeric: tabular-nums; font-size: var(--s-13);
+  padding: 6px 12px; background: var(--ink); color: var(--card); text-decoration: none;
+}
+.tpl-open:hover { background: var(--link); }
+
+/* 空状态里的模板块：紧跟在 .empty 后面，中间不留大缝，读起来是同一段回答的下一句。 */
+.tpl-empty { margin: 0 0 34px; padding-top: 4px; }
+.tpl-empty-head {
+  font-size: var(--s-16); line-height: 1.7; color: var(--ink);
+  max-width: 72ch; margin-bottom: 12px;
+}
+.tpl-empty-head strong { font-weight: 600; }
+.tpl-empty .tpl-cards {
+  padding: 12px 16px 6px; border: 1px solid var(--rule-2); border-left: 5px solid var(--ink);
+  background: var(--card);
+}
+.tpl-empty-all {
+  margin-top: 16px; font-size: var(--s-13); color: var(--ink-3);
+}
+/* 模板层全部行业口径：一行一个模板，行业词用 tabular 的数字宽度对齐。 */
+.tpl-all { margin-top: 6px; display: grid; gap: 4px; }
+.tpl-all li {
+  display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline;
+  font-size: var(--s-13); line-height: 1.6;
+}
+.tpl-all a { color: var(--link); font-family: var(--num); font-variant-numeric: tabular-nums; }
+.tpl-all span { color: var(--ink-3); }
+
+/* ── 入场动效（仍受 prefers-reduced-motion 收敛）───────────── */
+.row.is-in, .detail.is-in { animation: rise 320ms cubic-bezier(.2,.85,.2,1) both; }
+@keyframes rise {
+  from { transform: translateY(9px); opacity: 0; }
+  to   { transform: none; opacity: 1; }
+}
+.mast-facts dd.is-live { transition: none; }
+
+/* ── 详情 ─────────────────────────────────────────────────── */
+.detail {
+  position: fixed; top: 0; right: 0; bottom: 0;
+  width: min(var(--detail), 100vw);
+  background: var(--card);
+  border-left: 3px solid var(--ink);
+  overflow-y: auto; z-index: 30;
+  display: flex; flex-direction: column;
+}
+/* 必须显式写这条：`[hidden]` 的 display:none 来自 UA 样式表，
+   而上面那条作者样式 `.detail{display:flex}` 会把它盖掉 —— 结果详情面板永远渲染着，
+   在 768px 档它宽 100vw，于是整页大标题被判成"被另一个元素 100% 压住"（covered-text）。
+   这是实测出来的 bug，不是猜测。 */
+.detail[hidden] { display: none; }
+.detail-head {
+  position: sticky; top: 0; z-index: 2;
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 14px; align-items: baseline;
+  padding: 16px 20px; background: var(--card);
+  border-bottom: 2px solid var(--ink);
+}
+.detail-no { font-family: var(--num); font-variant-numeric: tabular-nums; font-size: var(--s-24); font-variant-numeric: tabular-nums; }
+.detail-title h2 { font-family: var(--ui); font-size: var(--s-24); font-variation-settings: "wdth" 92; }
+.detail-title p { font-family: var(--ui); font-size: var(--s-13); color: var(--ink-3); }
+.detail-body { padding: 18px 20px 60px; }
+
+.viewer { margin-bottom: 22px; }
+.viewer-tabs { display: flex; gap: 0; margin-bottom: 8px; }
+.viewer-tabs button {
+  font-family: var(--num); font-variant-numeric: tabular-nums; font-size: var(--s-13);
+  padding: 5px 12px; cursor: pointer; background: transparent;
+  border: 1px solid var(--rule-2); border-right: none; border-radius: 0; color: var(--ink-2);
+}
+.viewer-tabs button:last-child { border-right: 1px solid var(--rule-2); }
+.viewer-tabs button[aria-pressed="true"] { background: var(--ink); color: var(--card); border-color: var(--ink); }
+.viewer-stage { background: #fff; overflow-y: auto; max-height: 62vh; }
+.viewer-stage img { width: 100%; display: block; }
+.viewer-strip { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+.viewer-strip button { padding: 0; border: none; background: none; cursor: pointer; width: 64px; }
+.viewer-strip button[aria-pressed="true"] { outline: 2px solid var(--ink); outline-offset: 1px; }
+.viewer-strip img { width: 100%; display: block; aspect-ratio: 16/10; object-fit: cover; object-position: top; }
+.viewer-note { font-family: var(--num); font-variant-numeric: tabular-nums; font-size: var(--s-13); color: var(--ink-3); margin-top: 6px; }
+
+.open-proto {
+  display: inline-block; margin-bottom: 20px;
+  font-family: var(--num); font-variant-numeric: tabular-nums; font-size: var(--s-14);
+  padding: 9px 15px; background: var(--ink); color: var(--card); text-decoration: none;
+}
+.open-proto[aria-disabled="true"] { background: var(--rule-2); color: var(--ink-3); pointer-events: none; }
+
+.fields { border-top: 2px solid var(--ink); }
+.field { padding: 12px 0; border-bottom: 1px solid var(--rule); }
+.field dt { font-size: var(--s-13); color: var(--ink-3); margin-bottom: 4px; }
+.field dd { font-size: var(--s-16); color: var(--ink); }
+
+.gate-box { margin-bottom: 20px; }
+.gate-line {
+  display: flex; flex-wrap: wrap; gap: 6px; align-items: center;
+  font-family: var(--num); font-variant-numeric: tabular-nums; font-size: var(--s-13); color: var(--ink-2);
+}
+.gate-rules { margin-top: 8px; font-family: var(--num); font-variant-numeric: tabular-nums; font-size: var(--s-13); color: var(--ink-3); line-height: 1.7; }
+.gate-rules b { color: var(--fail); font-weight: 500; }
+.gate-rules i { color: var(--warn); font-style: normal; }
+
+.parts { margin: 0 0 18px; border-top: 2px solid var(--ink); }
+.parts li { padding: 9px 0; border-bottom: 1px solid var(--rule); font-size: var(--s-16); }
+.parts span { font-size: var(--s-13); color: var(--ink-3); display: block; margin-bottom: 2px; }
+
+@media (max-width: 1180px) {
+  .mast { grid-template-columns: 1fr; align-items: start; }
+  /* 不要再把 h1 降到 34px：768px 档 34px 只有 4.4vw，闸门会判首屏没有主导元素。
+     保持 clamp(34px, 5.2vw, 74px)，768px 档得 39.9px / 5.2vw。 */
+  .mast h1 { max-width: 20ch; }
+}
+@media (max-width: 980px) {
+  .bench { grid-template-columns: 1fr; }
+  /* 移动端 rail 原来会把 11 组筛选全部堆在列表前面：实测 390px 下 rail 高 1563px，
+     用户要滚 **2.6 屏**才看到第一个方案。改成限高内滚，让方案立刻出现。 */
+  .rail {
+    position: static; max-height: 46vh; overflow-y: auto;
+    border-right: none;
+    border-bottom: 2px solid var(--ink); padding: 14px var(--pad);
+  }
+  .row { grid-template-columns: 46px minmax(0, 1fr); }
+  .shots { grid-column: 2 / -1; }
+  /* 窄屏截图占满整行后，16:9 会把卡片拉到 600px 高（实测 tablet 卡高 602px）。
+     既然卡上只放一张桌面图，这里就不该让它撑满宽度：限一个最大宽与最大高。 */
+  .shots .shot:first-child { max-width: 380px; }
+  .shots .shot img { max-height: 214px; }
+  .row-foot { grid-column: 2 / -1; }
+  .no { font-size: var(--s-20); }
+  .detail { width: 100vw; }
+}
+@media (max-width: 620px) {
+  :root { --pad: 16px; }
+  .main { padding: 16px var(--pad) 60px; }
+  .mast { padding: 20px var(--pad) 14px; }
+  .mast h1 { font-size: max(26px, 6.6vw); max-width: none; }
+  .rail { max-height: 40vh; padding: 12px var(--pad); }
+  .rail-lead { display: none; }
+  .shots { grid-template-columns: 1fr; gap: 4px; }
+  .shots .shot:first-child { max-width: none; }
+  .shots .shot img { max-height: 190px; }
+  .shot figcaption { font-size: 11px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important; animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important; scroll-behavior: auto !important;
+  }
+  .row.is-in, .detail.is-in { animation: none; }
+}
+
+/* 详情打开时把台面让出来，别让浮层压住正在看的那一行 */
+@media (min-width: 981px) {
+  body.detail-open .bench { padding-right: min(var(--detail), 42vw); }
+  body.detail-open .rail { position: static; }
+  .detail { box-shadow: -18px 0 0 0 rgba(28, 27, 24, .06); }
+}
+/* 内容量容限标记（实测数据驱动）：
+   黄色 = degrades=yes，即单元位置写死，内容少于设计规模会留洞；
+   中性 = 自动流排布，条目可自由增减。 */
+.cap { font-size: 12px; padding: 1px 6px; border: 1px solid var(--rule-2); }
+.cap-warn { border-color: #b8860b; color: #7a5a00; background: #fdf6e3; }
+.cap-ok { color: var(--ink-3); }

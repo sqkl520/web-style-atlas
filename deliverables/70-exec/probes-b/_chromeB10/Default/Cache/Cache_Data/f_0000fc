@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>刻度对撞页 · 46 家供应商按到货周期对撞栏｜平印打样稿</title>
+<meta name="description" content="把 46 家供应商的报价按到货周期排成一栏：五栏按 6:7:9:8:5 分宽，红版相对黑版右下错 1.5px，套准线线宽 1.25px，标题基线比正文网格高 6px。含四角套准线、5 格色标条与 5 位打样编号栏。">
+<link rel="stylesheet" href="../_fonts/css/jost__500.css">
+<link rel="stylesheet" href="../_fonts/css/ibm-plex-sans__400-600.css">
+<link rel="stylesheet" href="../_fonts/css/ibm-plex-mono__400-500.css">
+<link rel="stylesheet" href="../_fonts/css/noto-sans-sc__100..900.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#compare">跳到五栏对撞表</a>
+
+<svg class="sprite" aria-hidden="true" focusable="false" width="0" height="0">
+ <defs>
+  <g id="reg-mark">
+   <line x1="0" y1="22" x2="44" y2="22" vector-effect="non-scaling-stroke"/>
+   <line x1="22" y1="0" x2="22" y2="44" vector-effect="non-scaling-stroke"/>
+   <circle cx="22" cy="22" r="11" fill="none" vector-effect="non-scaling-stroke"/>
+   <circle cx="22" cy="22" r="2.25" fill="currentColor"/>
+  </g>
+  <pattern id="dot-ink" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+   <circle cx="1.5" cy="1.5" r="1.05" fill="#17171A"/>
+   <circle cx="4.5" cy="4.5" r="1.05" fill="#17171A"/>
+  </pattern>
+  <pattern id="dot-red" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+   <circle cx="1.5" cy="1.5" r="1.05" fill="#D32029"/>
+   <circle cx="4.5" cy="4.5" r="1.05" fill="#D32029"/>
+  </pattern>
+ </defs>
+</svg>
+
+<div class="sheet" id="sheet">
+ <div class="plate-layer" aria-hidden="true">
+  <svg class="reg reg-tl" viewBox="0 0 44 44" width="44" height="44"><use href="#reg-mark"/></svg>
+  <svg class="reg reg-tr" viewBox="0 0 44 44" width="44" height="44"><use href="#reg-mark"/></svg>
+  <svg class="reg reg-bl" viewBox="0 0 44 44" width="44" height="44"><use href="#reg-mark"/></svg>
+  <svg class="reg reg-br reg-off" viewBox="0 0 44 44" width="44" height="44"><use href="#reg-mark"/></svg>
+  <svg class="reg reg-br-red" viewBox="0 0 44 44" width="44" height="44" aria-hidden="true"><use href="#reg-mark"/></svg>
+ </div>
+
+ <header class="masthead">
+  <div class="masthead-top">
+   <p class="imprint">GVS-10 · 平印打样稿 · 第 1 页 · 五栏 6 : 7 : 9 : 8 : 5</p>
+   <div class="colourbar-col">
+    <svg viewBox="0 0 150 26" width="150" height="26" role="img" aria-label="五格色标条：黑版实地、黑版 50% 网点、红版实地、红版 50% 网点、纸白">
+     <rect x="0.6" y="0.6" width="28.8" height="24.8" fill="#17171A"/>
+     <rect x="30.6" y="0.6" width="28.8" height="24.8" fill="#F2EFE8"/>
+     <rect x="30.6" y="0.6" width="28.8" height="24.8" fill="url(#dot-ink)"/>
+     <rect x="60.6" y="0.6" width="28.8" height="24.8" fill="#D32029"/>
+     <rect x="90.6" y="0.6" width="28.8" height="24.8" fill="#F2EFE8"/>
+     <rect x="90.6" y="0.6" width="28.8" height="24.8" fill="url(#dot-red)"/>
+     <rect x="120.6" y="0.6" width="28.8" height="24.8" fill="#F2EFE8"/>
+     <g fill="none" stroke="#6E7076" stroke-width="1.25">
+      <rect x="0.6" y="0.6" width="28.8" height="24.8"/>
+      <rect x="30.6" y="0.6" width="28.8" height="24.8"/>
+      <rect x="60.6" y="0.6" width="28.8" height="24.8"/>
+      <rect x="90.6" y="0.6" width="28.8" height="24.8"/>
+      <rect x="120.6" y="0.6" width="28.8" height="24.8"/>
+     </g>
+    </svg>
+    <p class="colourbar-note">色标条 5 格 · 实地与 50% 网点 · 网屏 45°</p>
+   </div>
+  </div>
+  <h1>把 46 家供应商的报价按到货周期排成一栏</h1>
+  <p class="lead">比按价格排更容易看出谁在拖。</p>
+  <dl class="raster">
+   <div><dt>栏宽比</dt><dd>6 : 7 : 9 : 8 : 5，五栏不等宽</dd></div>
+   <div><dt>栏沟 / 外距</dt><dd>24px / 56px，基线 8px</dd></div>
+   <div><dt>标题基线偏移</dt><dd>6px（相对正文网格上移）</dd></div>
+   <div><dt>红版错位</dt><dd>1.5px，进视口先错 3px，240ms 收到 1.5px</dd></div>
+   <div><dt>套准线</dt><dd>1.25px 方头，0.5 单位栅格对齐</dd></div>
+   <div><dt>右下角套准线</dt><dd>固定右偏 2px（第 1 页；第 2 页偏下，逐页轮转）</dd></div>
+   <div><dt>网屏</dt><dd>150 线 45°，双色 #17171A / #D32029</dd></div>
+  </dl>
+  <div class="masthead-actions">
+   <button class="btn btn-primary" id="proof-btn" type="button">下载这份对比的平印打样稿</button>
+   <button class="btn btn-line" id="price-btn" type="button">按价格排序</button>
+   <button class="btn btn-line" id="filled-btn" type="button">先看已填的 43 家</button>
+  </div>
+  <p class="live" id="live" role="status">本栏已排入 12 家；全量 43 家的到货周期字段已填，3 家未排上（错误码 SUP-003）。</p>
+ </header>
+
+ <main>
+  <section class="compare" id="compare" aria-labelledby="compare-h">
+   <div class="section-head">
+    <h2 id="compare-h">五栏对撞：到货周期与报价</h2>
+    <p class="section-note">同一批 46 家供应商，左栏按到货周期排，右栏是它在价格序里的位置。栏宽按内容重量分配：第 3 栏最宽，放主表。</p>
+   </div>
+
+   <div class="groups" role="group" aria-label="切换对比组">
+    <button class="chip is-on" id="g-lead" type="button" aria-pressed="true">按到货周期</button>
+    <button class="chip" id="g-price" type="button" aria-pressed="false">按报价</button>
+    <button class="chip" id="g-diff" type="button" aria-pressed="false">按差额</button>
+    <span class="groups-note">切组时两版整体分离 4px，320ms 内合版</span>
+   </div>
+
+   <div class="type-area">
+    <svg class="plate-rules" viewBox="0 0 35 100" preserveAspectRatio="none" aria-hidden="true">
+     <g vector-effect="non-scaling-stroke">
+      <line x1="6" y1="0" x2="6" y2="100"/>
+      <line x1="13" y1="0" x2="13" y2="100"/>
+      <line x1="22" y1="0" x2="22" y2="100"/>
+      <line x1="30" y1="0" x2="30" y2="100"/>
+      <line x1="35" y1="0" x2="35" y2="100"/>
+     </g>
+    </svg>
+    <table class="grid-table" id="ledger">
+     <caption>第 1 表 · 按到货周期排序 · 打样编号连号 41207–41233 · 金额为示例数据</caption>
+     <colgroup>
+      <col class="c1"><col class="c2"><col class="c3"><col class="c4"><col class="c5">
+     </colgroup>
+     <thead>
+      <tr>
+       <th scope="col">供应商</th>
+       <th scope="col">报价（元）</th>
+       <th scope="col">到货周期（天）· 0–90 刻度尺</th>
+       <th scope="col">价格序对照</th>
+       <th scope="col">打样编号</th>
+      </tr>
+     </thead>
+     <tbody id="rows">
+      <tr data-lead="22" data-price="874300">
+       <td>青岛北岸橡塑</td>
+       <td><code>874,300</code></td>
+       <td class="cell-lead"><code>22</code><span class="unit">天</span>
+        <span class="scale" style="--p:24.4%"></span>
+       </td>
+       <td>第 1 位 · 最低价</td>
+       <td class="cell-no"><code>41207</code></td>
+      </tr>
+      <tr data-lead="28" data-price="986400">
+       <td>天津海联铸锻</td>
+       <td><code>986,400</code></td>
+       <td class="cell-lead"><code>28</code><span class="unit">天</span>
+        <span class="scale" style="--p:31.1%"></span>
+       </td>
+       <td>第 2 位 · 高 12.8%</td>
+       <td class="cell-no"><code>41208</code></td>
+      </tr>
+      <tr data-lead="31" data-price="1058600">
+       <td>佛山锐驰型材</td>
+       <td><code>1,058,600</code></td>
+       <td class="cell-lead"><code>31</code><span class="unit">天</span>
+        <span class="scale" style="--p:34.4%"></span>
+       </td>
+       <td>第 3 位 · 高 21.1%</td>
+       <td class="cell-no"><code>41211</code></td>
+      </tr>
+      <tr data-lead="34" data-price="1190500">
+       <td>宁波东旭紧固件</td>
+       <td><code>1,190,500</code></td>
+       <td class="cell-lead"><code>34</code><span class="unit">天</span>
+        <span class="scale" style="--p:37.8%"></span>
+       </td>
+       <td>第 7 位 · 高 36.2%</td>
+       <td class="cell-no"><code>41213</code></td>
+      </tr>
+      <tr data-lead="36" data-price="1168900">
+       <td>广州南沙机电</td>
+       <td><code>1,168,900</code></td>
+       <td class="cell-lead"><code>36</code><span class="unit">天</span>
+        <span class="scale" style="--p:40%"></span>
+       </td>
+       <td>第 6 位 · 高 33.7%</td>
+       <td class="cell-no"><code>41215</code></td>
+      </tr>
+      <tr data-lead="37" data-price="1143800">
+       <td>潍坊宏益管件</td>
+       <td><code>1,143,800</code></td>
+       <td class="cell-lead"><code>37</code><span class="unit">天</span>
+        <span class="scale" style="--p:41.1%"></span>
+       </td>
+       <td>第 5 位 · 高 30.8%</td>
+       <td class="cell-no"><code>41218</code></td>
+      </tr>
+      <tr data-lead="39" data-price="1102750">
+       <td>无锡华远钣金</td>
+       <td><code>1,102,750</code></td>
+       <td class="cell-lead"><code>39</code><span class="unit">天</span>
+        <span class="scale" style="--p:43.3%"></span>
+       </td>
+       <td>第 4 位 · 高 26.1%</td>
+       <td class="cell-no"><code>41220</code></td>
+      </tr>
+      <tr data-lead="41" data-price="1215300">
+       <td>重庆两江精工</td>
+       <td><code>1,215,300</code></td>
+       <td class="cell-lead"><code>41</code><span class="unit">天</span>
+        <span class="scale" style="--p:45.6%"></span>
+       </td>
+       <td>第 8 位 · 高 39.0%</td>
+       <td class="cell-no"><code>41223</code></td>
+      </tr>
+      <tr data-lead="44" data-price="1276400">
+       <td>常州通润传动</td>
+       <td><code>1,276,400</code></td>
+       <td class="cell-lead"><code>44</code><span class="unit">天</span>
+        <span class="scale" style="--p:48.9%"></span>
+       </td>
+       <td>第 10 位 · 高 46.0%</td>
+       <td class="cell-no"><code>41225</code></td>
+      </tr>
+      <tr data-lead="46" data-price="1248000">
+       <td>苏州恒久精密件</td>
+       <td><code>1,248,000</code></td>
+       <td class="cell-lead"><code>46</code><span class="unit">天</span>
+        <span class="scale" style="--p:51.1%"></span>
+       </td>
+       <td>第 9 位 · 高 42.7%</td>
+       <td class="cell-no"><code>41228</code></td>
+      </tr>
+      <tr data-lead="52" data-price="1331900">
+       <td>中山立信五金</td>
+       <td><code>1,331,900</code></td>
+       <td class="cell-lead"><code>52</code><span class="unit">天</span>
+        <span class="scale" style="--p:57.8%"></span>
+       </td>
+       <td>第 11 位 · 高 52.3%</td>
+       <td class="cell-no"><code>41230</code></td>
+      </tr>
+      <tr data-lead="61" data-price="1463200">
+       <td>东莞兆丰电子</td>
+       <td><code>1,463,200</code></td>
+       <td class="cell-lead"><code>61</code><span class="unit">天</span>
+        <span class="scale" style="--p:67.8%"></span>
+       </td>
+       <td>第 12 位 · 高 67.4%</td>
+       <td class="cell-no"><code>41233</code></td>
+      </tr>
+      <tr class="row-gap">
+       <td>惠州信隆电工</td>
+       <td><code>1,097,200</code></td>
+       <td class="cell-lead cell-blank"><span class="blank">到货周期字段为空</span></td>
+       <td>不参与排位</td>
+       <td class="cell-no"><span class="blank">未排上</span></td>
+      </tr>
+      <tr class="row-gap">
+       <td>济南群力液压</td>
+       <td><code>1,240,600</code></td>
+       <td class="cell-lead cell-blank"><span class="blank">到货周期字段为空</span></td>
+       <td>不参与排位</td>
+       <td class="cell-no"><span class="blank">未排上</span></td>
+      </tr>
+      <tr class="row-gap">
+       <td>长沙星沙精测</td>
+       <td><code>1,052,400</code></td>
+       <td class="cell-lead cell-blank"><span class="blank">到货周期字段为空</span></td>
+       <td>不参与排位</td>
+       <td class="cell-no"><span class="blank">未排上</span></td>
+      </tr>
+     </tbody>
+     <tfoot>
+      <tr>
+       <td>已排入本栏 12 家</td>
+       <td>合计 <code>14,060,050</code> 元</td>
+       <td>全量 43 家的到货周期字段已填</td>
+       <td>3 家未排上 · SUP-003</td>
+       <td>41207–41233</td>
+      </tr>
+     </tfoot>
+    </table>
+   </div>
+
+   <div class="notes">
+    <div class="note n12">
+     <h3>这一栏怎么读</h3>
+     <p>第 3 栏最宽，放主表：刻度尺 0 到 90 天，每周一格，游标落在该行数值上。</p>
+     <p>栏宽比 6 : 7 : 9 : 8 : 5 由内容重量算出，不是拉空白拉出来的。</p>
+    </div>
+    <div class="note n3">
+     <h3>制版符号</h3>
+     <dl class="glyphs">
+      <div><dt><svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true"><g fill="none" stroke="#17171A" stroke-width="1.25" vector-effect="non-scaling-stroke"><line x1="1" y1="1" x2="12" y2="1"/><line x1="1" y1="1" x2="1" y2="12"/></g></svg></dt><dd>角线，交点落在 0.5 单位栅格</dd></div>
+      <div><dt><svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true"><g fill="none" stroke="#17171A" stroke-width="1.25" vector-effect="non-scaling-stroke"><line x1="2" y1="16" x2="18" y2="4"/><line x1="6" y1="18" x2="18" y2="9"/></g></svg></dt><dd>裁切刀，两笔定裁切方向</dd></div>
+      <div><dt><svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true"><g><rect x="2" y="4" width="6" height="12" fill="#17171A"/><rect x="10" y="4" width="6" height="12" fill="#D32029"/></g></svg></dt><dd>色标块，实地两块并排</dd></div>
+      <div><dt><svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true"><g fill="none" stroke="#17171A" stroke-width="1.25" vector-effect="non-scaling-stroke"><path d="M2 15 L7 5 L13 5 L18 15 Z"/><line x1="4" y1="11" x2="16" y2="11"/></g></svg></dt><dd>密度计梯形，读实地密度用</dd></div>
+     </dl>
+     <p>图标线宽 1.25px、方头线帽，端点对齐 0.5 单位栅格。</p>
+    </div>
+    <div class="note n4">
+     <h3>套准与错位</h3>
+     <p>红版相对黑版固定右下各偏 1.5px，错位处露出纸色，不是描边。</p>
+     <p>套准线线宽 1.25px，四角全在；右下角固定偏 2px。</p>
+    </div>
+    <div class="note n5">
+     <h3>第 5 栏的状态</h3>
+     <p class="state state-empty">这一栏还没有数据。等第 3 批报价到齐，系统会在 6 月 2 日自动填上。</p>
+     <div class="state state-error" id="error-block">
+      <p class="state-title">第 5 栏没排上 · 错误码 SUP-003</p>
+      <p>3 家供应商的到货周期字段是空的。先看已填的 43 家，或者按价格排序。</p>
+      <p class="state-foot">合计行已锁定，导出前须补齐这 3 家。</p>
+     </div>
+    </div>
+   </div>
+  </section>
+
+  <section class="plates" aria-labelledby="plates-h">
+   <div class="section-head">
+    <h2 id="plates-h">原片与 150 线网点</h2>
+    <p class="section-note">六张原片取自 Wikimedia Commons 公开档案，按同一条工艺链压成双色：45° 网屏分成黑版与红版，两版故意不套准 1.5px，边缘保留原片的裁切十字。</p>
+   </div>
+   <figure class="plate plate-lead">
+    <img src="assets/halftone-lead-ship-06.png" alt="重吊船靠泊港口，船艏起重机与甲板货件在 45° 网点下呈黑红两色" width="1240" height="700">
+    <figcaption>重吊船靠泊。黑版承担暗调，红版承担中间调，两版右下错开 1.5px。<span>Wikimedia Commons · 公有领域 · 美国海军</span></figcaption>
+   </figure>
+   <ul class="plate-strip">
+    <li><figure class="plate">
+     <img src="assets/halftone-port-01.png" alt="奥克兰海港的集装箱岸桥，钢架在网点里拆成红黑两层" width="880" height="620">
+     <figcaption>集装箱岸桥。<span>Cullen328 · CC BY-SA 4.0</span></figcaption>
+    </figure></li>
+    <li><figure class="plate">
+     <img src="assets/halftone-rail-02.png" alt="集装箱平车的转向架与箱体，装载面在网点下呈实地黑" width="880" height="620">
+     <figcaption>集装箱平车。<span>公有领域</span></figcaption>
+    </figure></li>
+    <li><figure class="plate">
+     <img src="assets/halftone-store-03.png" alt="散热器仓库内的货架与堆垛，仓库纵深在网点里分成三个调子" width="880" height="620">
+     <figcaption>仓库货架。<span>Pavel Ševela · CC BY-SA 3.0</span></figcaption>
+    </figure></li>
+    <li><figure class="plate">
+     <img src="assets/halftone-road-04.png" alt="敞篷货车在公路上运货，车厢与货物在网点下分成红黑两色" width="880" height="620">
+     <figcaption>公路货运。<span>Sneha G Gupta · CC BY-SA 4.0</span></figcaption>
+    </figure></li>
+    <li><figure class="plate">
+     <img src="assets/halftone-steel-05.png" alt="港口堆场上的铁路货车与集装箱列，长焦压缩下的层次被网点拆成两层" width="880" height="620">
+     <figcaption>堆场货车列。<span>Coral2712 · CC BY 4.0</span></figcaption>
+    </figure></li>
+   </ul>
+   <p class="plates-note">网屏角度 45°、150 线，单张原片按真实分辨率落版（1240×700 与 880×620），不做低分辨率拉伸。红版网点中心整体右移下移 1.5px，是算出来的，不是描边描出来的。</p>
+  </section>
+
+  <section class="motion" aria-labelledby="motion-h">
+   <div class="section-head">
+    <h2 id="motion-h">套准回位与刻度游标</h2>
+    <p class="section-note">红版与黑版进入视口时先错开 3px，随后在 240ms 内回到 1.5px 并停住。表格行悬停时右侧刻度游标滑出 12px，160ms 线性推进。</p>
+   </div>
+   <ol class="motion-list">
+    <li><b>加载</b>先出套准线与色标条，100ms 后落黑版，再 100ms 后落红版，三段落差固定。</li>
+    <li><b>滚动</b>套准回位：错位从 3px 收到 1.5px，缓动 cubic-bezier(.15,.85,.25,1)，带轻微阻尼。</li>
+    <li><b>悬停</b>刻度游标滑出 12px 并对齐该行数值，160ms 线性，没有缓动曲线。</li>
+    <li><b>切组</b>两版整体分离 4px，320ms 内合版；排序键跟着对比组换。</li>
+   </ol>
+   <figure class="regscale">
+    <svg viewBox="0 0 340 140" role="img" aria-label="套准标尺十倍放大：上排黑版与红版栏线相距 1.5px，中间露出纸色；下排是进视口的 3px 起始错位">
+     <g fill="#17171A"><rect x="40" y="18" width="12.5" height="46"/><rect x="40" y="84" width="12.5" height="46"/></g>
+     <g fill="#D32029"><rect x="55" y="18" width="12.5" height="46"/><rect x="70" y="84" width="12.5" height="46"/></g>
+     <path fill="none" stroke="#6E7076" stroke-width="2" d="M40 71h200M40 137h200M100 70v2M160 70v2M220 70v2M100 136v2M160 136v2M220 136v2"/>
+    </svg>
+    <figcaption>上排＝常驻错位 1.5px（红版右偏，错位处露出 2.5px 纸色）；下排＝进视口时先错 3px，240ms 内收到上排。<span>图示按 10 倍放大，刻度 8px 一格。</span></figcaption>
+   </figure>
+   <blockquote class="quote land"><span class="hang-open">「</span>把 46 家供应商的报价按到货周期排成一栏，比按价格排更容易看出谁在拖<span class="hang-close">」</span><cite>主张句全文</cite></blockquote>
+   <p class="motion-note">标点悬挂 0.5em：中英混排的引号、括号与句读挂在版心外，挤压规则写死，不交给浏览器默认值。</p>
+  </section>
+ </main>
+
+ <footer>
+  <div class="foot">
+   <div>
+    <h3>栅格与数值</h3>
+    <p>栏宽比 6 : 7 : 9 : 8 : 5，栏沟 24px，外距 56px，基线 8px，正文 15px / 行高 24px。</p>
+    <p>标题基线比正文网格高 6px，标题与首行之间的净空 22px，比正文行距少 2px。</p>
+   </div>
+   <div>
+    <h3>数据与口径</h3>
+    <p>46 家供应商、43 家已填、3 家到货周期字段为空。报价与打样编号为可运行原型的示例数据。</p>
+    <p>打样稿导出为 CSV，字段顺序与表头一致，末行写出 SUP-003 的未排上清单。</p>
+   </div>
+   <div>
+    <h3>图像与授权</h3>
+    <p>六张原片来自 Wikimedia Commons，授权与作者逐张列在图注与 assets/CREDITS.md，允许再分发与改作。</p>
+    <p>双色网点位图由构建期生成，页面不引用任何外部资源。</p>
+   </div>
+   <div>
+    <h3>未排上清单</h3>
+    <p>惠州信隆电工、济南群力液压、长沙星沙精测这 3 家的到货周期字段为空，错误码 SUP-003。</p>
+    <p>这 3 格补齐以后，第 5 栏的打样编号从 41234 接着往下排。</p>
+   </div>
+  </div>
+  <p class="sig">方案 10 · 刻度对撞页（Grid Versus Sheet）· R（VERSUS）｜认知门槛 中｜冷静克制 / 工程感 · 五栏不等宽 6 : 7 : 9 : 8 : 5 · 红版右下错 1.5px · 套准线 1.25px · 标题基线上移 6px · 标点悬挂 0.5em。</p>
+ </footer>
+</div>
+
+<script>
+(function () {
+ var rows = document.getElementById('rows');
+ var sheet = document.getElementById('sheet');
+ var live = document.getElementById('live');
+ var ledger = document.getElementById('ledger');
+ var errorBlock = document.getElementById('error-block');
+ var filledBtn = document.getElementById('filled-btn');
+ var proofBtn = document.getElementById('proof-btn');
+ var groups = {
+  lead:  document.getElementById('g-lead'),
+  price: document.getElementById('g-price'),
+  diff:  document.getElementById('g-diff')
+ };
+ var filledOnly = false;
+
+ /* 切组转场：两版整体分离 4px，320ms 内合版（字段 7 第四条） */
+ function separate() {
+  sheet.classList.remove('pre-separated');
+  void sheet.offsetWidth;
+  sheet.classList.add('pre-separated');
+  window.setTimeout(function () { sheet.classList.remove('pre-separated'); }, 340);
+ }
+
+ /* 排序键：到货周期/报价读 data-*，差额从「价格序对照」单元里的百分数解析 */
+ function keyOf(tr, key) {
+  if (key === 'diff') {
+   var m = (tr.children[3].textContent || '').match(/([\d.]+)\s*%/);
+   return m ? parseFloat(m[1]) : null;
+  }
+  var v = tr.getAttribute('data-' + key);
+  return v === null ? null : parseFloat(v);
+ }
+
+ function sortRows(key) {
+  separate();
+  var list = [].slice.call(rows.querySelectorAll('tr'));
+  list.sort(function (a, b) {
+   var av = keyOf(a, key), bv = keyOf(b, key);
+   if (av === null) return 1;
+   if (bv === null) return -1;
+   return av - bv;
+  });
+  list.forEach(function (tr, i) {
+   tr.style.setProperty('--row-index', String(i));
+   rows.appendChild(tr);
+  });
+  [].forEach.call(rows.querySelectorAll('tr'), function (tr) { tr.classList.add('landed'); });
+ }
+
+ function setGroup(key, label) {
+  Object.keys(groups).forEach(function (k) {
+   var on = k === key;
+   groups[k].classList.toggle('is-on', on);
+   groups[k].setAttribute('aria-pressed', on ? 'true' : 'false');
+  });
+  sortRows(key === 'lead' ? 'lead' : key);
+  live.textContent = '对比组已切到「' + label + '」：两版分离 4px 后 320ms 内合版，12 行重新落位。';
+ }
+
+ groups.lead.addEventListener('click', function () { setGroup('lead', '按到货周期'); });
+ groups.price.addEventListener('click', function () { setGroup('price', '按报价'); });
+ groups.diff.addEventListener('click', function () { setGroup('diff', '按差额'); });
+
+ /* 筛选：只留已填的 43 家，未排上的 3 家走空栏状态（字段 12 的错误态出口） */
+ filledBtn.addEventListener('click', function () {
+  filledOnly = !filledOnly;
+  sheet.classList.toggle('filled-only', filledOnly);
+  filledBtn.textContent = filledOnly ? '看全部 46 家' : '先看已填的 43 家';
+  errorBlock.classList.toggle('is-quiet', filledOnly);
+  live.textContent = filledOnly
+   ? '只显示已填到货周期的 43 家；未排上的 3 家留在末栏状态里，错误码 SUP-003 仍未解除。'
+   : '本栏已排入 12 家；全量 43 家的到货周期字段已填，3 家未排上（错误码 SUP-003）。';
+ });
+
+ /* 打样稿导出：把当前排序与未排上清单一起写成 CSV */
+ proofBtn.addEventListener('click', function () {
+  var lines = ['供应商,报价（元）,到货周期（天）,价格序对照,打样编号'];
+  [].forEach.call(rows.querySelectorAll('tr'), function (tr) {
+   var cells = [];
+   [].forEach.call(tr.querySelectorAll('td'), function (td) { cells.push(td.innerText.replace(/\s+/g, ' ').trim()); });
+   lines.push(cells.join(','));
+  });
+  lines.push('已排入本栏 12 家,,,,合计 14060050');
+  lines.push('未排上 3 家,到货周期字段为空,,,错误码 SUP-003');
+  var url = URL.createObjectURL(new Blob(['\ufeff' + lines.join('\r\n')], { type: 'text/csv;charset=utf-8' }));
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = '刻度对撞页-到货周期对比-平印打样稿.csv';
+  a.click();
+  URL.revokeObjectURL(url);
+  live.textContent = '打样稿已导出：15 行明细 + SUP-003 未排上清单，字段顺序与表头一致。';
+ });
+
+ /* 滚动时的套准回位：先错 3px，240ms 收到 1.5px 并停住 */
+ var area = document.querySelector('.type-area');
+ var io = 'IntersectionObserver' in window ? new IntersectionObserver(function (entries) {
+  entries.forEach(function (e) {
+   if (!e.isIntersecting) return;
+   e.target.classList.add('is-registering');
+   window.setTimeout(function () { sheet.classList.add('settled'); }, 260);
+   io.unobserve(e.target);
+  });
+ }, { rootMargin: '0px 0px -12% 0px' }) : null;
+ if (io && area) io.observe(area); else sheet.classList.add('settled');
+
+ /* 数据区的自绘角线光标：L 形，边长 12px，跟着指针走 */
+ var cursor = document.querySelector('.data-cursor');
+ if (!cursor) {
+  cursor = document.createElement('div');
+  cursor.className = 'data-cursor';
+  cursor.setAttribute('aria-hidden', 'true');
+  cursor.innerHTML = '<span class="arm-h"></span><span class="arm-v"></span><span class="arm-h arm-h-red"></span><span class="arm-v arm-v-red"></span>';
+  document.body.appendChild(cursor);
+ }
+ var dataArea = document.querySelector('.grid-table');
+ dataArea.addEventListener('pointermove', function (ev) {
+  cursor.style.transform = 'translate(' + ev.clientX + 'px,' + ev.clientY + 'px)';
+  cursor.classList.add('is-live');
+ });
+ dataArea.addEventListener('pointerleave', function () { cursor.classList.remove('is-live'); });
+ [].forEach.call(document.querySelectorAll('.chip, .btn'), function (el) {
+  el.addEventListener('animationend', function () { el.classList.remove('landing'); });
+ });
+})();
+</script>
+</body>
+</html>

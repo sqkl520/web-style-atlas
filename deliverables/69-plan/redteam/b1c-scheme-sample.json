@@ -1,0 +1,90 @@
+{
+ "promptKeys": [
+  "sceneIndex",
+  "unsupported",
+  "hardIds",
+  "schemes"
+ ],
+ "schemeKeys": [
+  "id",
+  "dir",
+  "plain",
+  "scenes",
+  "minItems",
+  "minPics",
+  "hard",
+  "capacity",
+  "dna"
+ ],
+ "sample": {
+  "id": "S01",
+  "dir": "S01-red-wedge-broadsheet",
+  "plain": "没裁齐的报纸感，红斜块压住版面",
+  "scenes": [
+   "内容媒体",
+   "文化机构"
+  ],
+  "minItems": 6,
+  "minPics": 6,
+  "hard": false,
+  "capacity": {
+   "id": "S01",
+   "minItems": 6,
+   "degrades": "no",
+   "minPics": 6
+  },
+  "dna": {
+   "palette": "#EFE7D7（paper）、#C1121F（red）、#1A1614（ink）、#6E6A5E（lead）",
+   "fonts": {
+    "display": "Noto Sans SC",
+    "body": "Noto Sans SC",
+    "mono": "Martian Mono",
+    "displayStack": [
+     "Noto Sans SC",
+     "Source Han Sans SC"
+    ],
+    "bodyStack": [
+     "Noto Sans SC",
+     "Source Han Sans SC"
+    ]
+   },
+   "radius": "全直角 0",
+   "radiusBare": true,
+   "shadow": "无阴影",
+   "lineWidths": "1px、3px",
+   "h1Size": "var(--fs-h1)",
+   "mechanism": "一块实色多边形以 11° 切入 4 栏版心，24px 实体隔条撑开栏沟，红块越界压住 3 行正文——阅读顺序由角度与越界量决定，与它叫什么名字无关。",
+   "degrades": false,
+   "risk": "最容易滑向\"复古报纸风海报\"——一张大图加做旧滤镜。规避动作：①纸纹只铺在满幅底色层，正文栏内部保持干净，禁止统一套做旧滤镜；②朱红只允许出现在楔形与栏目标题，不得铺满任何一个分区；③折角导读做成真能点开的短讯索引，让它在功能上成立，而不只是装饰。",
+   "reuse": "最难被复用到别的品牌之处：栏宽比与 11° 角度绑定报头文字的实际长度，换一个品牌必须重排栏宽，不能只换 logo。"
+  }
+ },
+ "s01axes": {
+  "ground": "亮底",
+  "groundL": 80,
+  "band": "暖浅色带",
+  "bandHue": 40,
+  "bandL": 89,
+  "bandSat": 43,
+  "load": "一屏说清",
+  "words": 198,
+  "loud": "就要扎眼",
+  "chroma": 83
+ },
+ "s01gate": {
+  "fail": 0,
+  "warn": 4,
+  "failIds": [],
+  "warnIds": [
+   "palette-cream",
+   "font-count",
+   "no-footage",
+   "side-scroll"
+  ],
+  "at": "2026-10-24T08:46:49.309Z",
+  "screens": 6,
+  "realPictures": 6,
+  "overflow": 0,
+  "words": 198
+ }
+}

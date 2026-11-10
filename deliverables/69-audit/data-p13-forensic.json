@@ -1,0 +1,167 @@
+{
+  "candidates": [
+    {
+      "name": "(a) 今日 390×844 默认态",
+      "docH": 11564,
+      "vh": 844,
+      "screens": 13.701,
+      "matches194": false
+    },
+    {
+      "name": "(a2) 今日 360×640 默认态",
+      "docH": 12424,
+      "vh": 640,
+      "screens": 19.413,
+      "matches194": true
+    },
+    {
+      "name": "(a3) 今日 375×812 默认态",
+      "docH": 11848,
+      "vh": 812,
+      "screens": 14.591,
+      "matches194": false
+    },
+    {
+      "name": "(b) 改动前 1753f94 390×844",
+      "docH": 17308,
+      "vh": 844,
+      "screens": 20.507,
+      "matches194": false
+    },
+    {
+      "name": "(b2) 改动前 1753f94 390×892",
+      "docH": 17327,
+      "vh": 892,
+      "screens": 19.425,
+      "matches194": true
+    },
+    {
+      "name": "(c) 历史记录「30 行总高 16,387」÷ 844",
+      "docH": 16387,
+      "vh": 844,
+      "screens": 19.416,
+      "matches194": true
+    },
+    {
+      "name": "(c2) 改动前 1753f94 390×844 30 行合计 16,295.9 ÷ 844",
+      "docH": 16295.9,
+      "vh": 844,
+      "screens": 19.308,
+      "matches194": false
+    },
+    {
+      "name": "(d) 今日 390×844 三块折叠全展开",
+      "docH": 13248,
+      "vh": 844,
+      "screens": 15.697,
+      "matches194": false
+    },
+    {
+      "name": "(e) 今日 768×1024",
+      "docH": 15272,
+      "vh": 1024,
+      "screens": 14.914,
+      "matches194": false
+    },
+    {
+      "name": "(f) 今日 1440×900",
+      "docH": 8835,
+      "vh": 900,
+      "screens": 9.817,
+      "matches194": false
+    }
+  ],
+  "forensic": [
+    {
+      "tag": "OLD 1753f94 390 (基线)",
+      "vp": "390x844",
+      "n": 30,
+      "sum": 16293.9,
+      "mean": 543.1,
+      "min": 523.7,
+      "max": 598.8,
+      "docH": 17308,
+      "vh": 844,
+      "docScreens": 20.507,
+      "rowSumScreens": 19.306
+    },
+    {
+      "tag": "OLD + 家族 16px/1.45 (16,387 的候选现场)",
+      "vp": "390x844",
+      "n": 30,
+      "sum": 16515.9,
+      "mean": 550.5,
+      "min": 531.1,
+      "max": 606.2,
+      "docH": 17529,
+      "vh": 844,
+      "docScreens": 20.769,
+      "rowSumScreens": 19.569
+    },
+    {
+      "tag": "OLD + 家族 16px 再测(复现性)",
+      "vp": "390x844",
+      "n": 30,
+      "sum": 16515.9,
+      "mean": 550.5,
+      "min": 531.1,
+      "max": 606.2,
+      "docH": 17529,
+      "vh": 844,
+      "docScreens": 20.769,
+      "rowSumScreens": 19.569
+    },
+    {
+      "tag": "NOW 390 基线（当前默认）",
+      "vp": "390x844",
+      "n": 30,
+      "sum": 11101.8,
+      "mean": 370.1,
+      "min": 340.5,
+      "max": 431.2,
+      "docH": 11564,
+      "vh": 844,
+      "docScreens": 13.701,
+      "rowSumScreens": 13.154
+    },
+    {
+      "tag": "NOW 360x640",
+      "vp": "360x640",
+      "n": 30,
+      "sum": 11960.5,
+      "mean": 398.7,
+      "min": 363.5,
+      "max": 436.2,
+      "docH": 12424,
+      "vh": 640,
+      "docScreens": 19.413,
+      "rowSumScreens": 18.688
+    },
+    {
+      "tag": "NOW 390x892",
+      "vp": "390x892",
+      "n": 30,
+      "sum": 11101.8,
+      "mean": 370.1,
+      "min": 340.5,
+      "max": 431.2,
+      "docH": 11564,
+      "vh": 892,
+      "docScreens": 12.964,
+      "rowSumScreens": 12.446
+    },
+    {
+      "tag": "OLD 390x892",
+      "vp": "390x892",
+      "n": 30,
+      "sum": 16293.9,
+      "mean": 543.1,
+      "min": 523.7,
+      "max": 598.8,
+      "docH": 17327,
+      "vh": 892,
+      "docScreens": 19.425,
+      "rowSumScreens": 18.267
+    }
+  ]
+}

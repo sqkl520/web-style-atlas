@@ -1,0 +1,895 @@
+{
+ "url": "http://127.0.0.1:8409/prototypes/_selection/index.html",
+ "at": "2026-10-28T16:07:46.188Z",
+ "runs": {
+  "1440|13px": {
+   "bodySize": 13,
+   "leading": 1.5,
+   "hairlines": 0,
+   "measureChars": 109,
+   "findings": [
+    {
+     "level": "FAIL",
+     "id": "body-size",
+     "msg": "Body text is 13px (the size most of the running text is set in)."
+    },
+    {
+     "level": "WARN",
+     "id": "no-footage",
+     "msg": "No video anywhere on the page."
+    },
+    {
+     "level": "WARN",
+     "id": "measure",
+     "msg": "Longest paragraph runs about 109 characters per line."
+    }
+   ],
+   "sorts": {
+    "n": {
+     "id": "S01",
+     "top": 430.5,
+     "h": 276.8,
+     "complete": 1
+    },
+    "fr": {
+     "id": "S01",
+     "top": 430.5,
+     "h": 276.8,
+     "complete": 1
+    },
+    "thr": {
+     "id": "S01",
+     "top": 430.5,
+     "h": 276.8,
+     "complete": 1
+    },
+    "gate": {
+     "id": "S13",
+     "top": 430.5,
+     "h": 276.8,
+     "complete": 1
+    },
+    "built": {
+     "id": "S01",
+     "top": 430.5,
+     "h": 276.8,
+     "complete": 1
+    }
+   },
+   "clamp": {
+    "n": 30,
+    "truncatedCount": 30,
+    "lineHistogram": {
+     "2": 30
+    },
+    "chars": {
+     "min": 133,
+     "max": 282
+    },
+    "sample": [
+     {
+      "chars": 152,
+      "clientH": 39,
+      "scrollH": 59,
+      "lh": 19.5,
+      "lines": 2,
+      "truncated": true,
+      "clamped": "2"
+     },
+     {
+      "chars": 175,
+      "clientH": 39,
+      "scrollH": 59,
+      "lh": 19.5,
+      "lines": 2,
+      "truncated": true,
+      "clamped": "2"
+     },
+     {
+      "chars": 194,
+      "clientH": 39,
+      "scrollH": 78,
+      "lh": 19.5,
+      "lines": 2,
+      "truncated": true,
+      "clamped": "2"
+     }
+    ]
+   },
+   "base": {
+    "vh": 900,
+    "firstTop": 430.5,
+    "firstH": 276.8,
+    "complete": 1,
+    "h1": 74,
+    "rail": 900,
+    "mast": 346.6,
+    "famSize": "13px",
+    "famLH": "19.5px",
+    "overflowX": 0
+   },
+   "detail": 1957
+  },
+  "1440|15px": {
+   "bodySize": 15,
+   "leading": 1.5,
+   "hairlines": 0,
+   "measureChars": 94,
+   "findings": [
+    {
+     "level": "WARN",
+     "id": "body-size",
+     "msg": "Body text is 15px."
+    },
+    {
+     "level": "WARN",
+     "id": "no-footage",
+     "msg": "No video anywhere on the page."
+    },
+    {
+     "level": "WARN",
+     "id": "measure",
+     "msg": "Longest paragraph runs about 94 characters per line."
+    }
+   ],
+   "sorts": {
+    "n": {
+     "id": "S01",
+     "top": 430.5,
+     "h": 276.8,
+     "complete": 1
+    },
+    "fr": {
+     "id": "S01",
+     "top": 430.5,
+     "h": 276.8,
+     "complete": 1
+    },
+    "thr": {
+     "id": "S01",
+     "top": 430.5,
+     "h": 276.8,
+     "complete": 1
+    },
+    "gate": {
+     "id": "S13",
+     "top": 430.5,
+     "h": 276.8,
+     "complete": 1
+    },
+    "built": {
+     "id": "S01",
+     "top": 430.5,
+     "h": 276.8,
+     "complete": 1
+    }
+   },
+   "clamp": {
+    "n": 30,
+    "truncatedCount": 30,
+    "lineHistogram": {
+     "2": 30
+    },
+    "chars": {
+     "min": 133,
+     "max": 282
+    },
+    "sample": [
+     {
+      "chars": 152,
+      "clientH": 45,
+      "scrollH": 68,
+      "lh": 22.5,
+      "lines": 2,
+      "truncated": true,
+      "clamped": "2"
+     },
+     {
+      "chars": 175,
+      "clientH": 45,
+      "scrollH": 90,
+      "lh": 22.5,
+      "lines": 2,
+      "truncated": true,
+      "clamped": "2"
+     },
+     {
+      "chars": 194,
+      "clientH": 45,
+      "scrollH": 90,
+      "lh": 22.5,
+      "lines": 2,
+      "truncated": true,
+      "clamped": "2"
+     }
+    ]
+   },
+   "base": {
+    "vh": 900,
+    "firstTop": 430.5,
+    "firstH": 276.8,
+    "complete": 1,
+    "h1": 74,
+    "rail": 900,
+    "mast": 346.6,
+    "famSize": "15px",
+    "famLH": "22.5px",
+    "overflowX": 0
+   },
+   "detail": 1957
+  },
+  "1440|16px": {
+   "bodySize": 16,
+   "leading": 1.45,
+   "hairlines": 0,
+   "measureChars": 88,
+   "findings": [
+    {
+     "level": "WARN",
+     "id": "no-footage",
+     "msg": "No video anywhere on the page."
+    }
+   ],
+   "sorts": {
+    "n": {
+     "id": "S01",
+     "top": 430.5,
+     "h": 276.8,
+     "complete": 1
+    },
+    "fr": {
+     "id": "S01",
+     "top": 430.5,
+     "h": 276.8,
+     "complete": 1
+    },
+    "thr": {
+     "id": "S01",
+     "top": 430.5,
+     "h": 276.8,
+     "complete": 1
+    },
+    "gate": {
+     "id": "S13",
+     "top": 430.5,
+     "h": 276.8,
+     "complete": 1
+    },
+    "built": {
+     "id": "S01",
+     "top": 430.5,
+     "h": 276.8,
+     "complete": 1
+    }
+   },
+   "clamp": {
+    "n": 30,
+    "truncatedCount": 30,
+    "lineHistogram": {
+     "2": 30
+    },
+    "chars": {
+     "min": 133,
+     "max": 282
+    },
+    "sample": [
+     {
+      "chars": 152,
+      "clientH": 46,
+      "scrollH": 93,
+      "lh": 23.2,
+      "lines": 2,
+      "truncated": true,
+      "clamped": "2"
+     },
+     {
+      "chars": 175,
+      "clientH": 46,
+      "scrollH": 93,
+      "lh": 23.2,
+      "lines": 2,
+      "truncated": true,
+      "clamped": "2"
+     },
+     {
+      "chars": 194,
+      "clientH": 46,
+      "scrollH": 93,
+      "lh": 23.2,
+      "lines": 2,
+      "truncated": true,
+      "clamped": "2"
+     }
+    ]
+   },
+   "base": {
+    "vh": 900,
+    "firstTop": 430.5,
+    "firstH": 276.8,
+    "complete": 1,
+    "h1": 74,
+    "rail": 900,
+    "mast": 346.6,
+    "famSize": "16px",
+    "famLH": "23.2px",
+    "overflowX": 0
+   },
+   "detail": 1957
+  },
+  "768|13px": {
+   "bodySize": 13,
+   "leading": 1.5,
+   "hairlines": 0,
+   "measureChars": 100,
+   "findings": [
+    {
+     "level": "FAIL",
+     "id": "body-size",
+     "msg": "Body text is 13px (the size most of the running text is set in)."
+    },
+    {
+     "level": "WARN",
+     "id": "measure",
+     "msg": "Longest paragraph runs about 100 characters per line."
+    }
+   ],
+   "sorts": {
+    "n": {
+     "id": "S01",
+     "top": 442.9,
+     "h": 498.9,
+     "complete": 1
+    },
+    "fr": {
+     "id": "S01",
+     "top": 442.9,
+     "h": 498.9,
+     "complete": 1
+    },
+    "thr": {
+     "id": "S01",
+     "top": 442.9,
+     "h": 498.9,
+     "complete": 1
+    },
+    "gate": {
+     "id": "S13",
+     "top": 442.9,
+     "h": 519.9,
+     "complete": 1
+    },
+    "built": {
+     "id": "S01",
+     "top": 442.9,
+     "h": 498.9,
+     "complete": 1
+    }
+   },
+   "clamp": {
+    "n": 30,
+    "truncatedCount": 30,
+    "lineHistogram": {
+     "2": 30
+    },
+    "chars": {
+     "min": 133,
+     "max": 282
+    },
+    "sample": [
+     {
+      "chars": 152,
+      "clientH": 39,
+      "scrollH": 59,
+      "lh": 19.5,
+      "lines": 2,
+      "truncated": true,
+      "clamped": "2"
+     },
+     {
+      "chars": 175,
+      "clientH": 39,
+      "scrollH": 59,
+      "lh": 19.5,
+      "lines": 2,
+      "truncated": true,
+      "clamped": "2"
+     },
+     {
+      "chars": 194,
+      "clientH": 39,
+      "scrollH": 78,
+      "lh": 19.5,
+      "lines": 2,
+      "truncated": true,
+      "clamped": "2"
+     }
+    ]
+   },
+   "base": {
+    "vh": 1024,
+    "firstTop": 442.9,
+    "firstH": 498.9,
+    "complete": 1,
+    "h1": 39.936,
+    "rail": 48,
+    "mast": 287,
+    "famSize": "13px",
+    "famLH": "19.5px",
+    "overflowX": 0
+   },
+   "detail": 1802
+  },
+  "768|15px": {
+   "bodySize": 15,
+   "leading": 1.5,
+   "hairlines": 0,
+   "measureChars": 87,
+   "findings": [
+    {
+     "level": "WARN",
+     "id": "body-size",
+     "msg": "Body text is 15px."
+    }
+   ],
+   "sorts": {
+    "n": {
+     "id": "S01",
+     "top": 442.9,
+     "h": 504.9,
+     "complete": 1
+    },
+    "fr": {
+     "id": "S01",
+     "top": 442.9,
+     "h": 504.9,
+     "complete": 1
+    },
+    "thr": {
+     "id": "S01",
+     "top": 442.9,
+     "h": 504.9,
+     "complete": 1
+    },
+    "gate": {
+     "id": "S13",
+     "top": 442.9,
+     "h": 525.9,
+     "complete": 1
+    },
+    "built": {
+     "id": "S01",
+     "top": 442.9,
+     "h": 504.9,
+     "complete": 1
+    }
+   },
+   "clamp": {
+    "n": 30,
+    "truncatedCount": 30,
+    "lineHistogram": {
+     "2": 30
+    },
+    "chars": {
+     "min": 133,
+     "max": 282
+    },
+    "sample": [
+     {
+      "chars": 152,
+      "clientH": 45,
+      "scrollH": 90,
+      "lh": 22.5,
+      "lines": 2,
+      "truncated": true,
+      "clamped": "2"
+     },
+     {
+      "chars": 175,
+      "clientH": 45,
+      "scrollH": 90,
+      "lh": 22.5,
+      "lines": 2,
+      "truncated": true,
+      "clamped": "2"
+     },
+     {
+      "chars": 194,
+      "clientH": 45,
+      "scrollH": 90,
+      "lh": 22.5,
+      "lines": 2,
+      "truncated": true,
+      "clamped": "2"
+     }
+    ]
+   },
+   "base": {
+    "vh": 1024,
+    "firstTop": 442.9,
+    "firstH": 504.9,
+    "complete": 1,
+    "h1": 39.936,
+    "rail": 48,
+    "mast": 287,
+    "famSize": "15px",
+    "famLH": "22.5px",
+    "overflowX": 0
+   },
+   "detail": 1802
+  },
+  "768|16px": {
+   "bodySize": 16,
+   "leading": 1.45,
+   "hairlines": 0,
+   "measureChars": 81,
+   "findings": [],
+   "sorts": {
+    "n": {
+     "id": "S01",
+     "top": 442.9,
+     "h": 506.3,
+     "complete": 1
+    },
+    "fr": {
+     "id": "S01",
+     "top": 442.9,
+     "h": 506.3,
+     "complete": 1
+    },
+    "thr": {
+     "id": "S01",
+     "top": 442.9,
+     "h": 506.3,
+     "complete": 1
+    },
+    "gate": {
+     "id": "S13",
+     "top": 442.9,
+     "h": 527.3,
+     "complete": 1
+    },
+    "built": {
+     "id": "S01",
+     "top": 442.9,
+     "h": 506.3,
+     "complete": 1
+    }
+   },
+   "clamp": {
+    "n": 30,
+    "truncatedCount": 30,
+    "lineHistogram": {
+     "2": 30
+    },
+    "chars": {
+     "min": 133,
+     "max": 282
+    },
+    "sample": [
+     {
+      "chars": 152,
+      "clientH": 46,
+      "scrollH": 93,
+      "lh": 23.2,
+      "lines": 2,
+      "truncated": true,
+      "clamped": "2"
+     },
+     {
+      "chars": 175,
+      "clientH": 46,
+      "scrollH": 93,
+      "lh": 23.2,
+      "lines": 2,
+      "truncated": true,
+      "clamped": "2"
+     },
+     {
+      "chars": 194,
+      "clientH": 46,
+      "scrollH": 116,
+      "lh": 23.2,
+      "lines": 2,
+      "truncated": true,
+      "clamped": "2"
+     }
+    ]
+   },
+   "base": {
+    "vh": 1024,
+    "firstTop": 442.9,
+    "firstH": 506.3,
+    "complete": 1,
+    "h1": 39.936,
+    "rail": 48,
+    "mast": 287,
+    "famSize": "16px",
+    "famLH": "23.2px",
+    "overflowX": 0
+   },
+   "detail": 1802
+  },
+  "390|13px": {
+   "bodySize": 13,
+   "leading": 1.5,
+   "hairlines": 0,
+   "measureChars": 47,
+   "findings": [
+    {
+     "level": "FAIL",
+     "id": "body-size",
+     "msg": "Body text is 13px (the size most of the running text is set in)."
+    }
+   ],
+   "sorts": {
+    "n": {
+     "id": "S01",
+     "top": 402.4,
+     "h": 382,
+     "complete": 1
+    },
+    "fr": {
+     "id": "S01",
+     "top": 402.4,
+     "h": 382,
+     "complete": 1
+    },
+    "thr": {
+     "id": "S01",
+     "top": 402.4,
+     "h": 382,
+     "complete": 1
+    },
+    "gate": {
+     "id": "S13",
+     "top": 402.4,
+     "h": 423.9,
+     "complete": 1
+    },
+    "built": {
+     "id": "S01",
+     "top": 402.4,
+     "h": 382,
+     "complete": 1
+    }
+   },
+   "clamp": {
+    "n": 30,
+    "truncatedCount": 30,
+    "lineHistogram": {
+     "2": 30
+    },
+    "chars": {
+     "min": 133,
+     "max": 282
+    },
+    "sample": [
+     {
+      "chars": 152,
+      "clientH": 39,
+      "scrollH": 117,
+      "lh": 19.5,
+      "lines": 2,
+      "truncated": true,
+      "clamped": "2"
+     },
+     {
+      "chars": 175,
+      "clientH": 39,
+      "scrollH": 137,
+      "lh": 19.5,
+      "lines": 2,
+      "truncated": true,
+      "clamped": "2"
+     },
+     {
+      "chars": 194,
+      "clientH": 39,
+      "scrollH": 156,
+      "lh": 19.5,
+      "lines": 2,
+      "truncated": true,
+      "clamped": "2"
+     }
+    ]
+   },
+   "base": {
+    "vh": 844,
+    "firstTop": 402.4,
+    "firstH": 382,
+    "complete": 1,
+    "h1": 26,
+    "rail": 48,
+    "mast": 258.5,
+    "famSize": "13px",
+    "famLH": "19.5px",
+    "overflowX": 0
+   },
+   "detail": 2406
+  },
+  "390|15px": {
+   "bodySize": 15,
+   "leading": 1.5,
+   "hairlines": 0,
+   "measureChars": 41,
+   "findings": [],
+   "sorts": {
+    "n": {
+     "id": "S01",
+     "top": 402.4,
+     "h": 388,
+     "complete": 1
+    },
+    "fr": {
+     "id": "S01",
+     "top": 402.4,
+     "h": 388,
+     "complete": 1
+    },
+    "thr": {
+     "id": "S01",
+     "top": 402.4,
+     "h": 388,
+     "complete": 1
+    },
+    "gate": {
+     "id": "S13",
+     "top": 402.4,
+     "h": 429.9,
+     "complete": 1
+    },
+    "built": {
+     "id": "S01",
+     "top": 402.4,
+     "h": 388,
+     "complete": 1
+    }
+   },
+   "clamp": {
+    "n": 30,
+    "truncatedCount": 30,
+    "lineHistogram": {
+     "2": 30
+    },
+    "chars": {
+     "min": 133,
+     "max": 282
+    },
+    "sample": [
+     {
+      "chars": 152,
+      "clientH": 45,
+      "scrollH": 158,
+      "lh": 22.5,
+      "lines": 2,
+      "truncated": true,
+      "clamped": "2"
+     },
+     {
+      "chars": 175,
+      "clientH": 45,
+      "scrollH": 180,
+      "lh": 22.5,
+      "lines": 2,
+      "truncated": true,
+      "clamped": "2"
+     },
+     {
+      "chars": 194,
+      "clientH": 45,
+      "scrollH": 203,
+      "lh": 22.5,
+      "lines": 2,
+      "truncated": true,
+      "clamped": "2"
+     }
+    ]
+   },
+   "base": {
+    "vh": 844,
+    "firstTop": 402.4,
+    "firstH": 388,
+    "complete": 1,
+    "h1": 26,
+    "rail": 48,
+    "mast": 258.5,
+    "famSize": "15px",
+    "famLH": "22.5px",
+    "overflowX": 0
+   },
+   "detail": 2406
+  },
+  "390|16px": {
+   "bodySize": 16,
+   "leading": 1.45,
+   "hairlines": 0,
+   "measureChars": 38,
+   "findings": [],
+   "sorts": {
+    "n": {
+     "id": "S01",
+     "top": 402.4,
+     "h": 389.3,
+     "complete": 1
+    },
+    "fr": {
+     "id": "S01",
+     "top": 402.4,
+     "h": 389.3,
+     "complete": 1
+    },
+    "thr": {
+     "id": "S01",
+     "top": 402.4,
+     "h": 389.3,
+     "complete": 1
+    },
+    "gate": {
+     "id": "S13",
+     "top": 402.4,
+     "h": 431.2,
+     "complete": 1
+    },
+    "built": {
+     "id": "S01",
+     "top": 402.4,
+     "h": 389.3,
+     "complete": 1
+    }
+   },
+   "clamp": {
+    "n": 30,
+    "truncatedCount": 30,
+    "lineHistogram": {
+     "2": 30
+    },
+    "chars": {
+     "min": 133,
+     "max": 282
+    },
+    "sample": [
+     {
+      "chars": 152,
+      "clientH": 46,
+      "scrollH": 162,
+      "lh": 23.2,
+      "lines": 2,
+      "truncated": true,
+      "clamped": "2"
+     },
+     {
+      "chars": 175,
+      "clientH": 46,
+      "scrollH": 186,
+      "lh": 23.2,
+      "lines": 2,
+      "truncated": true,
+      "clamped": "2"
+     },
+     {
+      "chars": 194,
+      "clientH": 46,
+      "scrollH": 209,
+      "lh": 23.2,
+      "lines": 2,
+      "truncated": true,
+      "clamped": "2"
+     }
+    ]
+   },
+   "base": {
+    "vh": 844,
+    "firstTop": 402.4,
+    "firstH": 389.3,
+    "complete": 1,
+    "h1": 26,
+    "rail": 48,
+    "mast": 258.5,
+    "famSize": "16px",
+    "famLH": "23.2px",
+    "overflowX": 0
+   },
+   "detail": 2406
+  }
+ }
+}

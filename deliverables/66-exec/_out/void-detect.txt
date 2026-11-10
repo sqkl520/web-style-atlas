@@ -1,0 +1,110 @@
+﻿=== A. DOM 证据（index.html 里空位相关的类名/属性）===
+
+S01  (1 处)
+   :44  <div class="slug-slot" aria-hidden="true"><span class="slug-dot"></span></div>
+
+S02  (1 处)
+   :41  <li class="step is-vacant" style="--i:4"><span class="step-band" aria-hidden="true"></span><span class="step-body"><code>第 5 级</code><b class="step-na
+
+S03  (0 处)
+
+S04  (1 处)
+   :169  <div class="alert alert--empty" role="status">
+
+S05  (0 处)
+
+S06  (3 处)
+   :140  <article class="card card--blank">
+   :145  <article class="card card--blank">
+   :150  <article class="card card--blank">
+
+S07  (1 处)
+   :161  <span class="dis" role="link" aria-disabled="true" tabindex="-1">翻到第 119 页的分类广告</span>
+
+S08  (0 处)
+
+S09  (0 处)
+
+S10  (6 处)
+   :234  <tr class="row-gap">
+   :237  <td class="cell-lead cell-blank"><span class="blank">到货周期字段为空</span></td>
+   :241  <tr class="row-gap">
+   :244  <td class="cell-lead cell-blank"><span class="blank">到货周期字段为空</span></td>
+   :248  <tr class="row-gap">
+   :251  <td class="cell-lead cell-blank"><span class="blank">到货周期字段为空</span></td>
+
+S11  (0 处)
+
+S12  (1 处)
+   :139  <tr><td><code>07</code></td><td>留空的角</td><td><span class="glyph g-void" aria-hidden="true"></span></td><td class="col-hide">只留 1 栏</td><td class="col-
+
+S13  (0 处)
+
+S14  (0 处)
+
+S15  (0 处)
+
+S16  (0 处)
+
+S17  (0 处)
+
+S18  (0 处)
+
+S19  (2 处)
+   :72  <li class="dw dw--void" id="d04" style="--s:2;--row:0"><span class="dw__bar">第 4 抽屉<code class="dw__code">K-04</code></span><span class="dw__card dw__
+   :102  <li class="dw dw--void" id="d16" style="--s:2;--row:3"><span class="dw__bar">第 16 抽屉<code class="dw__code">K-16</code></span><span class="dw__card dw_
+
+S20  (0 处)
+
+S21  (0 处)
+
+S22  (0 处)
+
+S23  (0 处)
+
+S24  (1 处)
+   :251  <li class="leaf leaf--d leaf--empty" data-grow data-picked="false" style="--depth:4;--d:3">
+
+S25  (0 处)
+
+S26  (0 处)
+
+S27  (0 处)
+
+S28  (0 处)
+
+S29  (1 处)
+   :324  <tr class="qs"><td colspan="4"></td></tr>
+
+S30  (0 处)
+
+
+=== B. 检测器判据：5 个短语在 data.js 全字段上的命中 ===
+  故意留空   -> S02 S12 S23
+  空抽屉    -> S19
+  空白卡    -> S06
+  空白行    -> S29
+  永久留    -> S01
+  并集    -> S01 S02 S06 S12 S19 S23 S29  (7 案)
+
+  逐案字段归属：
+   S01  永久留@quirk
+   S02  故意留空@audit
+   S06  空白卡@quirk
+   S12  故意留空@layout
+   S19  空抽屉@audit
+   S23  故意留空@layout
+   S29  空白行@quirk
+
+
+=== C. 负样本对照（为什么不能用单字/通用属性）===
+  「空」会命中 30/30 案：S01 S02 S03 S04 S05 S06 S07 S08 S09 S10 S11 S12 S13 S14 S15 S16 S17 S18 S19 S20 S21 S22 S23 S24 S25 S26 S27 S28 S29 S30
+  「缺」会命中 22/30 案：S02 S04 S07 S08 S09 S10 S12 S13 S14 S15 S17 S19 S21 S22 S23 S24 S25 S26 S27 S28 S29 S30
+  「disabled」会命中 1/30 案：S07
+  「--empty」会命中 2/30 案：S04 S24
+
+
+=== D. 人工读原型后的判定（与 B 的并集应完全一致）===
+  刻意留空（叙事证据）7 案：S01 S02 S06 S12 S19 S23 S29
+  看着像但不是（排版/空状态）5 案：S07 S10 S18 S24 S30
+  B 的并集 == D 的刻意留空清单：一致 ✓

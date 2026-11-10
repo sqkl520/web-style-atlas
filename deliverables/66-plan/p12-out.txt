@@ -1,0 +1,45 @@
+﻿== 7 个 commit 的规模 ==
+  eec843f  +221/-106  文件 5（其中源码 3）  把「复制 AI 提示词」从面板底部移到顶部，并修掉提示词里三处会误导 AI 的数
+  cea8436  +10462/-243  文件 22（其中源码 8）  修提示词的正确性：7 个 Agent 审出的 P0，30 案圆角/字体/主色/线
+  87a0235  +5841/-299  文件 42（其中源码 9）  11 个 Agent 审出的第二批缺陷：模板进反查、字体兜底链、risk 禁令入
+  d669ddb  +4170/-23  文件 22（其中源码 6）  hard 标注重新实测：9 个缩到 4 个，另修 4 个实测证实的 bug
+  e08ba2d  +4/-4  文件 6（其中源码 1）  顺手清掉 S18 两处死声明，并记录 S27 数据追上源报告
+  a56426e  +2782/-57  文件 14（其中源码 6）  把作者早就写好的那句硬前提接进提示词，并修掉「被反对的颜色」污染调色板
+  a0c0d54  +10390/-60  文件 25（其中源码 7）  修 4 个「有值但没人读」的字段，把详情面板首屏从 0 个字段变成 3 个
+
+== 返工：本轮新增的可执行源码行，被后续轮次再次改动 ==
+  eec843f: 新增源码行   139；其中被后续轮次删改   139  → 返工 100%   [index.html prompt-copy.js prompts.js]
+  cea8436: 新增源码行  1621；其中被后续轮次删改   169  → 返工 10%   [build-prompts.mjs clean-dna.mjs extract-dna.mjs mechanisms.mjs app.js index.html prompt-copy.js prompts.js]
+  87a0235: 新增源码行  1271；其中被后续轮次删改    92  → 返工 7%   [build-prompts.mjs clean-dna.mjs app.js index.html prompt-copy.js prompts.js style.css wizard.css wizard.js]
+  d669ddb: 新增源码行    88；其中被后续轮次删改    38  → 返工 43%   [index.html style.css collect-schemes.mjs build-prompts.mjs data.js prompts.js]
+  e08ba2d: 新增源码行     2；其中被后续轮次删改     0  → 返工 0%   [style.css]
+  a56426e: 新增源码行   333；其中被后续轮次删改    37  → 返工 11%   [collect-schemes.mjs build-prompts.mjs app.js data.js prompt-copy.js prompts.js]
+  a0c0d54: 新增源码行  1883；其中被后续轮次删改     0  → 返工 0%   [check-anchors.mjs check-docs.mjs collect-schemes.mjs app.js data.js prompt-copy.js style.css]
+
+合计：新增源码行 5337，被后续轮次删改 475 → 返工率 9%
+
+== 同一文件被这 7 轮里 ≥4 次触碰 ==
+  5× prototypes/_selection/prompt-copy.js
+  5× prototypes/_selection/prompts.js
+  4× prototypes/_prompts/build-prompts.mjs
+  4× prototypes/_selection/app.js
+
+== commit body 里自认的返工/自我纠正 ==
+  eec843f:
+     上一轮做出了复制提示词的功能，但实测它拿不到：详情面板 scrollHeight 2991px /
+  cea8436:
+     3. **回滚方向的风险是不对称的**：旧 `prompts.js` + 新 `prompt-copy.js` 不报错（有兼容分支）；
+  87a0235:
+     上一轮加这个字段的唯一目的就是补中文兜底，渲染层又丢回去。改为「保 CJK」截断。
+  d669ddb:
+     上一轮结尾我说「hard 标注来自人工写死、从未复验，是个欠账」。用户要求把它补上。
+  e08ba2d:
+     ## 1. S18 两处死声明（上一轮执行 Agent 主动披露、留给我决定）
+     且上一轮已把 L132 的 `+ var(--line)` 去掉。三档视口实测 computed top 全走 L132，这两行不参与渲染。
+     ## 2. 记录 S27 的两处数据更新（上轮被顺带提交，当时未说明）
+     上一轮的提交 `d669ddb` 里，`data.js` 除新增 30 案 `landing` 字段外，
+     这属于修正，而不是漂移——但上轮提交信息没提，这里补记。
+  a56426e:
+     上一轮结尾我说要重写 hard 警告文案（「机制绑在特定题材上，换普通内容会退化」是错的）。
+     上一轮修的是「赋值」那一半（`collect-schemes.mjs:198`），这一轮补「展示」那一半。
+     5. **`去 AI 味审查点` 30/30 解析、10,539 字、从不写入 rec** —— 与上一轮 `可落地要点` 同一个 bug、同一个文件、同一个 `FIELDS` 数组

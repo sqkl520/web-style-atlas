@@ -1,0 +1,325 @@
+{
+ "files": 5,
+ "findings": [
+  {
+   "level": "FAIL",
+   "id": "emoji",
+   "file": "prototypes/_selection/app.js",
+   "line": 284,
+   "match": "⚠",
+   "message": "Emoji used as UI."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "prototypes/_selection/app.js",
+   "line": 313,
+   "match": "border:1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "FAIL",
+   "id": "numbering",
+   "file": "prototypes/_selection/app.js",
+   "line": 513,
+   "match": "\"01\"",
+   "message": "Decorative index numbering (01 / 02 / 03)."
+  },
+  {
+   "level": "FAIL",
+   "id": "emoji",
+   "file": "prototypes/_selection/app.js",
+   "line": 641,
+   "match": "⚠",
+   "message": "Emoji used as UI."
+  },
+  {
+   "level": "FAIL",
+   "id": "emoji",
+   "file": "prototypes/_selection/app.js",
+   "line": 645,
+   "match": "⚠",
+   "message": "Emoji used as UI."
+  },
+  {
+   "level": "FAIL",
+   "id": "emoji",
+   "file": "prototypes/_selection/app.js",
+   "line": 674,
+   "match": "⚠",
+   "message": "Emoji used as UI."
+  },
+  {
+   "level": "FAIL",
+   "id": "emoji",
+   "file": "prototypes/_selection/app.js",
+   "line": 698,
+   "match": "⚠",
+   "message": "Emoji used as UI."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "prototypes/_selection/app.js",
+   "line": 718,
+   "match": "border:1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "FAIL",
+   "id": "emoji",
+   "file": "prototypes/_selection/app.js",
+   "line": 766,
+   "match": "⚠",
+   "message": "Emoji used as UI."
+  },
+  {
+   "level": "FAIL",
+   "id": "emoji",
+   "file": "prototypes/_selection/app.js",
+   "line": 1335,
+   "match": "⚠",
+   "message": "Emoji used as UI."
+  },
+  {
+   "level": "FAIL",
+   "id": "emoji",
+   "file": "prototypes/_selection/app.js",
+   "line": 1470,
+   "match": "⚠",
+   "message": "Emoji used as UI."
+  },
+  {
+   "level": "FAIL",
+   "id": "emoji",
+   "file": "prototypes/_selection/index.html",
+   "line": 260,
+   "match": "⚠",
+   "message": "Emoji used as UI."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "prototypes/_selection/style.css",
+   "line": 137,
+   "match": "border: 1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "FAIL",
+   "id": "emoji",
+   "file": "prototypes/_selection/style.css",
+   "line": 143,
+   "match": "⚠",
+   "message": "Emoji used as UI."
+  },
+  {
+   "level": "WARN",
+   "id": "h-screen",
+   "file": "prototypes/_selection/style.css",
+   "line": 287,
+   "match": "height: 100vh",
+   "message": "100vh jumps on mobile. Use 100svh / 100dvh."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "prototypes/_selection/style.css",
+   "line": 302,
+   "match": "border: 1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "prototypes/_selection/style.css",
+   "line": 375,
+   "match": "border: 1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/_selection/style.css",
+   "line": 420,
+   "match": "box-shadow:",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "prototypes/_selection/style.css",
+   "line": 434,
+   "match": "border: 1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "FAIL",
+   "id": "emoji",
+   "file": "prototypes/_selection/style.css",
+   "line": 505,
+   "match": "⚠",
+   "message": "Emoji used as UI."
+  },
+  {
+   "level": "FAIL",
+   "id": "gradient",
+   "file": "prototypes/_selection/style.css",
+   "line": 529,
+   "match": "linear-gradient(",
+   "message": "Gradient fill. Use a flat colour or a real image (a neutral scrim over a photo is the one exception)."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "prototypes/_selection/style.css",
+   "line": 551,
+   "match": "border: 1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "prototypes/_selection/style.css",
+   "line": 562,
+   "match": "border-top: 1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "prototypes/_selection/style.css",
+   "line": 599,
+   "match": "border: 1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "prototypes/_selection/style.css",
+   "line": 667,
+   "match": "border: 1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "prototypes/_selection/style.css",
+   "line": 669,
+   "match": "border-right: 1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "prototypes/_selection/style.css",
+   "line": 736,
+   "match": "border: 1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "FAIL",
+   "id": "emoji",
+   "file": "prototypes/_selection/style.css",
+   "line": 758,
+   "match": "⚠",
+   "message": "Emoji used as UI."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "prototypes/_selection/style.css",
+   "line": 776,
+   "match": "border-bottom: 1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "prototypes/_selection/style.css",
+   "line": 798,
+   "match": "border-bottom: 1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "prototypes/_selection/style.css",
+   "line": 901,
+   "match": "border-bottom: 1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/_selection/style.css",
+   "line": 988,
+   "match": "box-shadow:",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "prototypes/_selection/style.css",
+   "line": 1005,
+   "match": "border: 1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "prototypes/_selection/style.css",
+   "line": 1039,
+   "match": "border: 1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "prototypes/_selection/style.css",
+   "line": 1063,
+   "match": "border: 1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "FAIL",
+   "id": "emoji",
+   "file": "prototypes/_selection/style.css",
+   "line": 1210,
+   "match": "⚠",
+   "message": "Emoji used as UI."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "prototypes/_selection/style.css",
+   "line": 1253,
+   "match": "border: 1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "FAIL",
+   "id": "emoji",
+   "file": "prototypes/_selection/style.css",
+   "line": 1265,
+   "match": "⚠",
+   "message": "Emoji used as UI."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "prototypes/_selection/wizard.css",
+   "line": 72,
+   "match": "border-top: 1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "WARN",
+   "id": "em-dash",
+   "file": "(all files)",
+   "line": 0,
+   "match": "296 em dashes",
+   "message": "Em-dash habit. Use a full stop or a comma; keep at most one or two on a page."
+  }
+ ]
+}

@@ -1,0 +1,14 @@
+﻿=== 不传 opts 的提示词长度（README 承诺 1639–1998，中位 1829）===
+实测 min=1639 max=1998 median=1829
+README 承诺 min=1639 max=1998 median=1829  → 一致
+传 biz/action 时 min=1638 max=1997（我的 p-prompt-census 用的就是这个口径，故与 README 差 1 字，非缺陷）
+
+=== 详情面板 #d-body 的结构顺序 ===
+innerHTML = viewer + proto + gate + parts + fields
+随后 app.js:1393 调 window.mountPromptButton($('#d-body'), id)
+而 prompt-copy.js:1018 是 `if (host.firstChild) host.insertBefore(wrap, host.firstChild);`
+⇒ 复制提示词按钮被插到 #d-body **最前面**，排在截图/打开原型/闸门/字段之前。
+
+=== 结论（Q1 证据）===
+产品把「复制提示词」放在详情面板第一个位置 —— 这是「提示词是核心交付物」的强证据，
+不利于「提示词投错了地方」这个假设。我据此撤回 Q1 的强版本。

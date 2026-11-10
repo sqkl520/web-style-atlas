@@ -1,0 +1,54 @@
+═══ 1. audit 总字数 ═══
+改前 10539  改后 10065  差 -474
+（= 10539 − S13 780 + S13 306 = 10065）
+
+═══ 2. 逐案 audit sha256 / 长度 ═══
+案号  len前  len后   Δ    sha256 前 16 位    同？
+S01    292    292     0   10b3ca8fa0b9e527  10b3ca8fa0b9e527  ✓同
+S02    337    337     0   71d2239cfd89e42b  71d2239cfd89e42b  ✓同
+S03    294    294     0   5b5121cc7716a2f0  5b5121cc7716a2f0  ✓同
+S04    282    282     0   5e2b464c837492fb  5e2b464c837492fb  ✓同
+S05    286    286     0   4b20cda7f4e8512d  4b20cda7f4e8512d  ✓同
+S06    290    290     0   763f768e842c8792  763f768e842c8792  ✓同
+S07    311    311     0   27cb7af267c814a8  27cb7af267c814a8  ✓同
+S08    286    286     0   e9f76fcfd50a2da1  e9f76fcfd50a2da1  ✓同
+S09    293    293     0   8a0666a0732b3f38  8a0666a0732b3f38  ✓同
+S10    276    276     0   be4b5810ccc7abfc  be4b5810ccc7abfc  ✓同
+S11    376    376     0   422f675f04234bc2  422f675f04234bc2  ✓同
+S12    293    293     0   43fd072a62a49be3  43fd072a62a49be3  ✓同
+S13    780    306  -474   d9fa07d22af9a7af  3fb5ce2daa24387f  ✗变
+S14    342    342     0   1621fccc055768ac  1621fccc055768ac  ✓同
+S15    314    314     0   8e999dd89c6efbc0  8e999dd89c6efbc0  ✓同
+S16    317    317     0   39595df88a4c8bb7  39595df88a4c8bb7  ✓同
+S17    304    304     0   b20828958f05de97  b20828958f05de97  ✓同
+S18    367    367     0   36b7e6c3b1e6689c  36b7e6c3b1e6689c  ✓同
+S19    324    324     0   385371202a34b2a1  385371202a34b2a1  ✓同
+S20    349    349     0   85b24f3d5041a70c  85b24f3d5041a70c  ✓同
+S21    327    327     0   2d08d72696052393  2d08d72696052393  ✓同
+S22    371    371     0   b484a7facf973b33  b484a7facf973b33  ✓同
+S23    299    299     0   c1c3f0820e941f73  c1c3f0820e941f73  ✓同
+S24    417    417     0   2447d5a98964751d  2447d5a98964751d  ✓同
+S25    363    363     0   e41aba9016e367e0  e41aba9016e367e0  ✓同
+S26    391    391     0   26d44d9429756137  26d44d9429756137  ✓同
+S27    396    396     0   f49b26aa18b181f5  f49b26aa18b181f5  ✓同
+S28    401    401     0   142bd0a439b23e03  142bd0a439b23e03  ✓同
+S29    417    417     0   4fadfe7eee90feed  4fadfe7eee90feed  ✓同
+S30    444    444     0   9ec02fef8cc8cf1e  9ec02fef8cc8cf1e  ✓同
+
+相同 29/30；变化：S13
+
+═══ 3. risk 的 sha256 是否也被动过（应当全部不变）═══
+risk 变化的案：无（30/30 不变）
+
+═══ 4. 键序：audit 必须早于 risk ═══
+S01  auditIdx=14  riskIdx=15  ✓
+   keys: id,dir,cn,en,fr,structure,threshold,tone,def,family,fonts,layout,visuals,motion,audit,risk,landing,scenes,quirk,copy,copyParts,bg,primary,buttonText,errorCode,errorCodeSource,palette,built,gate,shots,axes,scenesYes,scenesNo
+S13  auditIdx=14  riskIdx=15  ✓
+   keys: id,dir,cn,en,fr,structure,threshold,tone,def,family,fonts,layout,visuals,motion,audit,risk,landing,scenes,quirk,copy,copyParts,bg,primary,buttonText,errorCode,errorCodeSource,palette,built,gate,shots,axes,scenesYes,scenesNo
+30 案中 auditIdx < riskIdx 成立 30/30
+
+═══ 5. 键集合本身有没有增删（键序之外的回归）═══
+键集合变化的案：无（30/30 键集合一致）
+
+═══ 6. S13 污染串是否还在数据层 ═══
+S13.audit 长度 = 306（期望 306 ±2）

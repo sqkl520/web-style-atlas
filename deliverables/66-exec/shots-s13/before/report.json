@@ -1,0 +1,2636 @@
+{
+  "tool": "shot.mjs",
+  "version": "1.0.0",
+  "generatedAt": "2026-10-27T10:04:14.190Z",
+  "target": "prototypes/S13-blind-debossed-dispatch/",
+  "page": "D:\\Web\\style\\prototypes\\S13-blind-debossed-dispatch\\index.html",
+  "pageRel": "prototypes/S13-blind-debossed-dispatch/index.html",
+  "name": "S13-before",
+  "options": {
+    "out": "deliverables/66-exec/shots-s13/before",
+    "widths": [
+      1440,
+      768,
+      390
+    ],
+    "height": 900,
+    "jobs": 2,
+    "gap": 700,
+    "settle": 4000,
+    "maxCapture": 24000,
+    "bands": false,
+    "inject": true,
+    "slice": true,
+    "keepRaw": false,
+    "reuseRaw": null,
+    "mode": "auto",
+    "frame": {
+      "width": 16,
+      "height": 95
+    },
+    "chrome": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+    "python": "C:/Users/Administrator/.dsh/dsh-runtimes/dsh-primary-runtime/dependencies/python/python.exe"
+  },
+  "server": {
+    "origin": "http://127.0.0.1:4425",
+    "port": 4425,
+    "root": "D:\\Web\\style"
+  },
+  "reuse": null,
+  "chromeVersion": "156.0.8078.47",
+  "tiers": [
+    {
+      "tier": "1440x900",
+      "device": "desktop",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "mode": "direct",
+      "window": {
+        "width": 1456,
+        "height": 995
+      },
+      "url": "http://127.0.0.1:4425/prototypes/S13-blind-debossed-dispatch/index.html?__shot_tier=1440x900",
+      "pageHeight": 4701,
+      "pageHeightSource": "fold-viewport",
+      "pageHeightRealViewport": 4701,
+      "pageHeightTallWindow": 5028,
+      "vhDistortion": false,
+      "screens": 6,
+      "slicesMatch": true,
+      "truncated": false,
+      "calibrated": true,
+      "attempts": 1,
+      "images": {
+        "fold": {
+          "file": "S13-before-1440-fold.png",
+          "path": "D:\\Web\\style\\deliverables\\66-exec\\shots-s13\\before\\S13-before-1440-fold.png",
+          "width": 1440,
+          "height": 900,
+          "bytes": 1593165,
+          "stats": {
+            "width": 1440,
+            "height": 900,
+            "meanRgb": [
+              187.23,
+              173.79,
+              144.63
+            ],
+            "rgbStdev": [
+              70.92,
+              67.15,
+              57.66
+            ],
+            "luminanceMean": 174.632,
+            "luminanceStdev": 67.296,
+            "nearWhiteShare": 0,
+            "nearBlackShare": 0,
+            "top3": [
+              {
+                "rgb": [
+                  240,
+                  224,
+                  187
+                ],
+                "hex": "#f0e0bb",
+                "count": 20246,
+                "share": 0.140597
+              },
+              {
+                "rgb": [
+                  240,
+                  224,
+                  188
+                ],
+                "hex": "#f0e0bc",
+                "count": 12469,
+                "share": 0.08659
+              },
+              {
+                "rgb": [
+                  239,
+                  223,
+                  187
+                ],
+                "hex": "#efdfbb",
+                "count": 10669,
+                "share": 0.07409
+              }
+            ],
+            "dominant": {
+              "rgb": [
+                240,
+                224,
+                187
+              ],
+              "hex": "#f0e0bb",
+              "count": 20246,
+              "share": 0.140597
+            },
+            "sampling": {
+              "sampleStep": 3,
+              "sampledPixels": 144000,
+              "uniqueSampled": 17585
+            },
+            "blank": false,
+            "uniform": false,
+            "file": "S13-before-1440-fold.png",
+            "bytes": 1593165
+          }
+        },
+        "full": {
+          "file": "S13-before-1440-full.png",
+          "path": "D:\\Web\\style\\deliverables\\66-exec\\shots-s13\\before\\S13-before-1440-full.png",
+          "width": 1440,
+          "height": 4701,
+          "bytes": 6972296,
+          "stats": {
+            "width": 1440,
+            "height": 4701,
+            "meanRgb": [
+              214.63,
+              199.73,
+              166.81
+            ],
+            "rgbStdev": [
+              54.37,
+              51.64,
+              44.75
+            ],
+            "luminanceMean": 200.645,
+            "luminanceStdev": 51.611,
+            "nearWhiteShare": 0.000015,
+            "nearBlackShare": 0,
+            "top3": [
+              {
+                "rgb": [
+                  240,
+                  224,
+                  187
+                ],
+                "hex": "#f0e0bb",
+                "count": 37782,
+                "share": 0.201054
+              },
+              {
+                "rgb": [
+                  240,
+                  224,
+                  188
+                ],
+                "hex": "#f0e0bc",
+                "count": 23453,
+                "share": 0.124803
+              },
+              {
+                "rgb": [
+                  239,
+                  223,
+                  187
+                ],
+                "hex": "#efdfbb",
+                "count": 19933,
+                "share": 0.106072
+              }
+            ],
+            "dominant": {
+              "rgb": [
+                240,
+                224,
+                187
+              ],
+              "hex": "#f0e0bb",
+              "count": 37782,
+              "share": 0.201054
+            },
+            "sampling": {
+              "sampleStep": 6,
+              "sampledPixels": 187920,
+              "uniqueSampled": 15154
+            },
+            "blank": false,
+            "uniform": false,
+            "file": "S13-before-1440-full.png",
+            "bytes": 6972296
+          }
+        },
+        "slices": [
+          {
+            "index": 1,
+            "file": "S13-before-1440-screen-01.png",
+            "width": 1440,
+            "height": 900,
+            "bytes": 1476048,
+            "y0": 0,
+            "y1": 900,
+            "luminanceMean": 173.016,
+            "luminanceStdev": 68.6,
+            "meanRgb": [
+              185.57,
+              172.18,
+              143.25
+            ],
+            "nearWhiteShare": 0,
+            "top3": [
+              {
+                "rgb": [
+                  240,
+                  224,
+                  187
+                ],
+                "hex": "#f0e0bb",
+                "count": 16846,
+                "share": 0.116986
+              },
+              {
+                "rgb": [
+                  244,
+                  227,
+                  190
+                ],
+                "hex": "#f4e3be",
+                "count": 11967,
+                "share": 0.083104
+              },
+              {
+                "rgb": [
+                  240,
+                  224,
+                  188
+                ],
+                "hex": "#f0e0bc",
+                "count": 10363,
+                "share": 0.071965
+              }
+            ],
+            "dominant": {
+              "rgb": [
+                240,
+                224,
+                187
+              ],
+              "hex": "#f0e0bb",
+              "count": 16846,
+              "share": 0.116986
+            },
+            "blank": false,
+            "sampling": {
+              "sampleStep": 3,
+              "sampledPixels": 144000,
+              "uniqueSampled": 16615
+            }
+          },
+          {
+            "index": 2,
+            "file": "S13-before-1440-screen-02.png",
+            "width": 1440,
+            "height": 900,
+            "bytes": 1588664,
+            "y0": 900,
+            "y1": 1800,
+            "luminanceMean": 172.616,
+            "luminanceStdev": 65.996,
+            "meanRgb": [
+              185.2,
+              171.77,
+              142.73
+            ],
+            "nearWhiteShare": 0,
+            "top3": [
+              {
+                "rgb": [
+                  240,
+                  224,
+                  187
+                ],
+                "hex": "#f0e0bb",
+                "count": 19034,
+                "share": 0.132181
+              },
+              {
+                "rgb": [
+                  240,
+                  224,
+                  188
+                ],
+                "hex": "#f0e0bc",
+                "count": 11722,
+                "share": 0.081403
+              },
+              {
+                "rgb": [
+                  239,
+                  223,
+                  187
+                ],
+                "hex": "#efdfbb",
+                "count": 9891,
+                "share": 0.068687
+              }
+            ],
+            "dominant": {
+              "rgb": [
+                240,
+                224,
+                187
+              ],
+              "hex": "#f0e0bb",
+              "count": 19034,
+              "share": 0.132181
+            },
+            "blank": false,
+            "sampling": {
+              "sampleStep": 3,
+              "sampledPixels": 144000,
+              "uniqueSampled": 17879
+            }
+          },
+          {
+            "index": 3,
+            "file": "S13-before-1440-screen-03.png",
+            "width": 1440,
+            "height": 900,
+            "bytes": 1171819,
+            "y0": 1800,
+            "y1": 2700,
+            "luminanceMean": 219.283,
+            "luminanceStdev": 21.655,
+            "meanRgb": [
+              234.26,
+              218.31,
+              182.76
+            ],
+            "nearWhiteShare": 0.000078,
+            "top3": [
+              {
+                "rgb": [
+                  240,
+                  224,
+                  187
+                ],
+                "hex": "#f0e0bb",
+                "count": 34847,
+                "share": 0.241993
+              },
+              {
+                "rgb": [
+                  240,
+                  224,
+                  188
+                ],
+                "hex": "#f0e0bc",
+                "count": 21594,
+                "share": 0.149958
+              },
+              {
+                "rgb": [
+                  239,
+                  223,
+                  187
+                ],
+                "hex": "#efdfbb",
+                "count": 18508,
+                "share": 0.128528
+              }
+            ],
+            "dominant": {
+              "rgb": [
+                240,
+                224,
+                187
+              ],
+              "hex": "#f0e0bb",
+              "count": 34847,
+              "share": 0.241993
+            },
+            "blank": false,
+            "sampling": {
+              "sampleStep": 3,
+              "sampledPixels": 144000,
+              "uniqueSampled": 3416
+            }
+          },
+          {
+            "index": 4,
+            "file": "S13-before-1440-screen-04.png",
+            "width": 1440,
+            "height": 900,
+            "bytes": 1307500,
+            "y0": 2700,
+            "y1": 3600,
+            "luminanceMean": 212.789,
+            "luminanceStdev": 37.063,
+            "meanRgb": [
+              227.39,
+              211.85,
+              177.17
+            ],
+            "nearWhiteShare": 0,
+            "top3": [
+              {
+                "rgb": [
+                  240,
+                  224,
+                  187
+                ],
+                "hex": "#f0e0bb",
+                "count": 34486,
+                "share": 0.239486
+              },
+              {
+                "rgb": [
+                  240,
+                  224,
+                  188
+                ],
+                "hex": "#f0e0bc",
+                "count": 21229,
+                "share": 0.147424
+              },
+              {
+                "rgb": [
+                  239,
+                  223,
+                  187
+                ],
+                "hex": "#efdfbb",
+                "count": 18263,
+                "share": 0.126826
+              }
+            ],
+            "dominant": {
+              "rgb": [
+                240,
+                224,
+                187
+              ],
+              "hex": "#f0e0bb",
+              "count": 34486,
+              "share": 0.239486
+            },
+            "blank": false,
+            "sampling": {
+              "sampleStep": 3,
+              "sampledPixels": 144000,
+              "uniqueSampled": 7382
+            }
+          },
+          {
+            "index": 5,
+            "file": "S13-before-1440-screen-05.png",
+            "width": 1440,
+            "height": 900,
+            "bytes": 1209477,
+            "y0": 3600,
+            "y1": 4500,
+            "luminanceMean": 220.505,
+            "luminanceStdev": 20.999,
+            "meanRgb": [
+              235.54,
+              219.52,
+              183.75
+            ],
+            "nearWhiteShare": 0,
+            "top3": [
+              {
+                "rgb": [
+                  240,
+                  224,
+                  187
+                ],
+                "hex": "#f0e0bb",
+                "count": 37947,
+                "share": 0.263521
+              },
+              {
+                "rgb": [
+                  240,
+                  224,
+                  188
+                ],
+                "hex": "#f0e0bc",
+                "count": 23235,
+                "share": 0.161354
+              },
+              {
+                "rgb": [
+                  239,
+                  223,
+                  187
+                ],
+                "hex": "#efdfbb",
+                "count": 20075,
+                "share": 0.13941
+              }
+            ],
+            "dominant": {
+              "rgb": [
+                240,
+                224,
+                187
+              ],
+              "hex": "#f0e0bb",
+              "count": 37947,
+              "share": 0.263521
+            },
+            "blank": false,
+            "sampling": {
+              "sampleStep": 3,
+              "sampledPixels": 144000,
+              "uniqueSampled": 4298
+            }
+          },
+          {
+            "index": 6,
+            "file": "S13-before-1440-screen-06.png",
+            "width": 1440,
+            "height": 201,
+            "bytes": 222612,
+            "y0": 4500,
+            "y1": 4701,
+            "luminanceMean": 223.106,
+            "luminanceStdev": 8.914,
+            "meanRgb": [
+              238.04,
+              222.15,
+              186.53
+            ],
+            "nearWhiteShare": 0,
+            "top3": [
+              {
+                "rgb": [
+                  240,
+                  224,
+                  187
+                ],
+                "hex": "#f0e0bb",
+                "count": 17863,
+                "share": 0.248097
+              },
+              {
+                "rgb": [
+                  240,
+                  224,
+                  188
+                ],
+                "hex": "#f0e0bc",
+                "count": 11132,
+                "share": 0.154611
+              },
+              {
+                "rgb": [
+                  239,
+                  223,
+                  187
+                ],
+                "hex": "#efdfbb",
+                "count": 9425,
+                "share": 0.130903
+              }
+            ],
+            "dominant": {
+              "rgb": [
+                240,
+                224,
+                187
+              ],
+              "hex": "#f0e0bb",
+              "count": 17863,
+              "share": 0.248097
+            },
+            "blank": false,
+            "sampling": {
+              "sampleStep": 2,
+              "sampledPixels": 72000,
+              "uniqueSampled": 543
+            }
+          }
+        ]
+      },
+      "probe": {
+        "beacons": [
+          {
+            "tag": "dom",
+            "n": 1,
+            "h": 4768,
+            "docH": 4768,
+            "contentH": 4768,
+            "elemMax": 4768,
+            "bodyBottom": 4768,
+            "viewportClamped": false,
+            "bottomEl": "footer.colophon",
+            "w": 1440,
+            "vw": 1440,
+            "vh": 900,
+            "sy": 0,
+            "fonts": "loading",
+            "images": 5,
+            "imagesPending": 0,
+            "brokenImages": 0,
+            "at": "2026-10-27T10:04:29.221Z"
+          },
+          {
+            "tag": "load",
+            "n": 2,
+            "h": 4701,
+            "docH": 4701,
+            "contentH": 4701,
+            "elemMax": 4701,
+            "bodyBottom": 4701,
+            "viewportClamped": false,
+            "bottomEl": "footer.colophon",
+            "w": 1440,
+            "vw": 1440,
+            "vh": 900,
+            "sy": 0,
+            "fonts": "loading",
+            "images": 5,
+            "imagesPending": 0,
+            "brokenImages": 0,
+            "at": "2026-10-27T10:04:30.074Z"
+          },
+          {
+            "tag": "fonts",
+            "n": 3,
+            "h": 4701,
+            "docH": 4701,
+            "contentH": 4701,
+            "elemMax": 4701,
+            "bodyBottom": 4701,
+            "viewportClamped": false,
+            "bottomEl": "footer.colophon",
+            "w": 1440,
+            "vw": 1440,
+            "vh": 900,
+            "sy": 0,
+            "fonts": "loaded",
+            "images": 5,
+            "imagesPending": 0,
+            "brokenImages": 0,
+            "at": "2026-10-27T10:04:30.097Z"
+          },
+          {
+            "tag": "t1",
+            "n": 4,
+            "h": 4701,
+            "docH": 4701,
+            "contentH": 4701,
+            "elemMax": 4701,
+            "bodyBottom": 4701,
+            "viewportClamped": false,
+            "bottomEl": "footer.colophon",
+            "w": 1440,
+            "vw": 1440,
+            "vh": 900,
+            "sy": 0,
+            "fonts": "loaded",
+            "images": 5,
+            "imagesPending": 0,
+            "brokenImages": 0,
+            "at": "2026-10-27T10:04:30.148Z"
+          },
+          {
+            "tag": "t2",
+            "n": 5,
+            "h": 4701,
+            "docH": 4701,
+            "contentH": 4701,
+            "elemMax": 4701,
+            "bodyBottom": 4701,
+            "viewportClamped": false,
+            "bottomEl": "footer.colophon",
+            "w": 1440,
+            "vw": 1440,
+            "vh": 900,
+            "sy": 0,
+            "fonts": "loaded",
+            "images": 5,
+            "imagesPending": 0,
+            "brokenImages": 0,
+            "at": "2026-10-27T10:04:30.171Z"
+          },
+          {
+            "tag": "t3",
+            "n": 6,
+            "h": 4701,
+            "docH": 4701,
+            "contentH": 4701,
+            "elemMax": 4701,
+            "bodyBottom": 4701,
+            "viewportClamped": false,
+            "bottomEl": "footer.colophon",
+            "w": 1440,
+            "vw": 1440,
+            "vh": 900,
+            "sy": 0,
+            "fonts": "loaded",
+            "images": 5,
+            "imagesPending": 0,
+            "brokenImages": 0,
+            "at": "2026-10-27T10:04:30.179Z"
+          }
+        ],
+        "fonts": "loaded",
+        "brokenImages": 0,
+        "imageCount": 5,
+        "tallBeacon": {
+          "tag": "t3",
+          "h": 5028,
+          "docH": 5371,
+          "contentH": 5028,
+          "elemMax": 5028,
+          "viewportClamped": true,
+          "bottomEl": "footer.colophon",
+          "vw": 1440,
+          "vh": 5371,
+          "sy": 0,
+          "fonts": "loaded",
+          "imagesPending": 0,
+          "brokenImages": 0
+        }
+      },
+      "bands": [],
+      "launched": [
+        {
+          "kind": "fold",
+          "url": "http://127.0.0.1:4425/prototypes/S13-blind-debossed-dispatch/index.html?__shot_tier=1440x900",
+          "window": [
+            1456,
+            995
+          ],
+          "code": 0,
+          "ms": 14524,
+          "killed": false,
+          "error": null,
+          "stdout": "",
+          "stderr": "1847438 bytes written to file D:\\Web\\style\\deliverables\\66-exec\\shots-s13\\before\\.raw\\S13-before-1440-fold.raw.png\r\n[13704:63148:1027/180431.643:ERROR:chrome\\browser\\web_applications\\externally_managed_app_manager.cc:680] https://docs.google.com/document/installwebapp?usp=chrome_default from install source 1 failed to install with reason 21",
+          "startedAt": "2026-10-27T10:04:18.556Z",
+          "endedAt": "2026-10-27T10:04:33.081Z"
+        },
+        {
+          "kind": "full",
+          "url": "http://127.0.0.1:4425/prototypes/S13-blind-debossed-dispatch/index.html?__shot_tier=1440x900",
+          "window": [
+            1456,
+            5466
+          ],
+          "code": 0,
+          "ms": 18575,
+          "killed": false,
+          "error": null,
+          "stdout": "",
+          "stderr": "7996372 bytes written to file D:\\Web\\style\\deliverables\\66-exec\\shots-s13\\before\\.raw\\S13-before-1440-full.raw.png\r\n[31432:64800:1027/180454.026:ERROR:chrome\\browser\\web_applications\\externally_managed_app_manager.cc:680] https://drive.google.com/drive/installwebapp?usp=chrome_default from install source 1 failed to install with reason 21",
+          "startedAt": "2026-10-27T10:04:38.611Z",
+          "endedAt": "2026-10-27T10:04:57.186Z"
+        }
+      ],
+      "error": null,
+      "warnings": [
+        "长窗口里最底元素 footer.colophon 伸到 5028，比真视口页高 4701 更低：这部分只在长窗口布局里出现，已排除在整页图之外（逐屏证据请用 --bands）",
+        "最后一屏只有 201 像素高（4701 - 5*900）"
+      ],
+      "timings": {
+        "elapsedMs": 47798
+      },
+      "pageWidthRealViewport": 1440,
+      "pageHeightRealViewportDoc": 4701,
+      "viewportClampedAtFold": false,
+      "bottomEl": "footer.colophon",
+      "pageHeightTallContent": 5028,
+      "tallOnlyContent": 5028,
+      "sliceWarnings": [
+        "最后一屏只有 201 像素高（4701 - 5*900）"
+      ]
+    },
+    {
+      "tier": "768x1024",
+      "device": "tablet",
+      "viewport": {
+        "width": 768,
+        "height": 1024
+      },
+      "mode": "direct",
+      "window": {
+        "width": 784,
+        "height": 1119
+      },
+      "url": "http://127.0.0.1:4425/prototypes/S13-blind-debossed-dispatch/index.html?__shot_tier=768x1024",
+      "pageHeight": 5410,
+      "pageHeightSource": "fold-viewport",
+      "pageHeightRealViewport": 5410,
+      "pageHeightTallWindow": 5410,
+      "vhDistortion": false,
+      "screens": 6,
+      "slicesMatch": true,
+      "truncated": false,
+      "calibrated": true,
+      "attempts": 1,
+      "images": {
+        "fold": {
+          "file": "S13-before-768-fold.png",
+          "path": "D:\\Web\\style\\deliverables\\66-exec\\shots-s13\\before\\S13-before-768-fold.png",
+          "width": 768,
+          "height": 1024,
+          "bytes": 1018971,
+          "stats": {
+            "width": 768,
+            "height": 1024,
+            "meanRgb": [
+              186.93,
+              173.51,
+              144.39
+            ],
+            "rgbStdev": [
+              69.9,
+              66.11,
+              56.61
+            ],
+            "luminanceMean": 174.352,
+            "luminanceStdev": 66.266,
+            "nearWhiteShare": 0,
+            "nearBlackShare": 0,
+            "top3": [
+              {
+                "rgb": [
+                  240,
+                  224,
+                  187
+                ],
+                "hex": "#f0e0bb",
+                "count": 28887,
+                "share": 0.146927
+              },
+              {
+                "rgb": [
+                  240,
+                  224,
+                  188
+                ],
+                "hex": "#f0e0bc",
+                "count": 17710,
+                "share": 0.090078
+              },
+              {
+                "rgb": [
+                  239,
+                  223,
+                  187
+                ],
+                "hex": "#efdfbb",
+                "count": 15001,
+                "share": 0.076299
+              }
+            ],
+            "dominant": {
+              "rgb": [
+                240,
+                224,
+                187
+              ],
+              "hex": "#f0e0bb",
+              "count": 28887,
+              "share": 0.146927
+            },
+            "sampling": {
+              "sampleStep": 2,
+              "sampledPixels": 196608,
+              "uniqueSampled": 16340
+            },
+            "blank": false,
+            "uniform": false,
+            "file": "S13-before-768-fold.png",
+            "bytes": 1018971
+          }
+        },
+        "full": {
+          "file": "S13-before-768-full.png",
+          "path": "D:\\Web\\style\\deliverables\\66-exec\\shots-s13\\before\\S13-before-768-full.png",
+          "width": 768,
+          "height": 5410,
+          "bytes": 3912062,
+          "stats": {
+            "width": 768,
+            "height": 5410,
+            "meanRgb": [
+              222.63,
+              207.09,
+              172.86
+            ],
+            "rgbStdev": [
+              45.78,
+              43.81,
+              38.77
+            ],
+            "luminanceMean": 208.043,
+            "luminanceStdev": 43.56,
+            "nearWhiteShare": 0.000024,
+            "nearBlackShare": 0,
+            "top3": [
+              {
+                "rgb": [
+                  240,
+                  224,
+                  187
+                ],
+                "hex": "#f0e0bb",
+                "count": 30049,
+                "share": 0.181515
+              },
+              {
+                "rgb": [
+                  244,
+                  227,
+                  190
+                ],
+                "hex": "#f4e3be",
+                "count": 23084,
+                "share": 0.139442
+              },
+              {
+                "rgb": [
+                  240,
+                  224,
+                  188
+                ],
+                "hex": "#f0e0bc",
+                "count": 18427,
+                "share": 0.11131
+              }
+            ],
+            "dominant": {
+              "rgb": [
+                240,
+                224,
+                187
+              ],
+              "hex": "#f0e0bb",
+              "count": 30049,
+              "share": 0.181515
+            },
+            "sampling": {
+              "sampleStep": 5,
+              "sampledPixels": 165546,
+              "uniqueSampled": 11649
+            },
+            "blank": false,
+            "uniform": false,
+            "file": "S13-before-768-full.png",
+            "bytes": 3912062
+          }
+        },
+        "slices": [
+          {
+            "index": 1,
+            "file": "S13-before-768-screen-01.png",
+            "width": 768,
+            "height": 1024,
+            "bytes": 839967,
+            "y0": 0,
+            "y1": 1024,
+            "luminanceMean": 175.452,
+            "luminanceStdev": 67.185,
+            "meanRgb": [
+              188.26,
+              174.6,
+              145.3
+            ],
+            "nearWhiteShare": 0,
+            "top3": [
+              {
+                "rgb": [
+                  244,
+                  227,
+                  190
+                ],
+                "hex": "#f4e3be",
+                "count": 56507,
+                "share": 0.287409
+              },
+              {
+                "rgb": [
+                  240,
+                  224,
+                  187
+                ],
+                "hex": "#f0e0bb",
+                "count": 12757,
+                "share": 0.064885
+              },
+              {
+                "rgb": [
+                  240,
+                  224,
+                  188
+                ],
+                "hex": "#f0e0bc",
+                "count": 7838,
+                "share": 0.039866
+              }
+            ],
+            "dominant": {
+              "rgb": [
+                244,
+                227,
+                190
+              ],
+              "hex": "#f4e3be",
+              "count": 56507,
+              "share": 0.287409
+            },
+            "blank": false,
+            "sampling": {
+              "sampleStep": 2,
+              "sampledPixels": 196608,
+              "uniqueSampled": 16089
+            }
+          },
+          {
+            "index": 2,
+            "file": "S13-before-768-screen-02.png",
+            "width": 768,
+            "height": 1024,
+            "bytes": 631675,
+            "y0": 1024,
+            "y1": 2048,
+            "luminanceMean": 216.579,
+            "luminanceStdev": 28.926,
+            "meanRgb": [
+              231.65,
+              215.6,
+              180.2
+            ],
+            "nearWhiteShare": 0,
+            "top3": [
+              {
+                "rgb": [
+                  240,
+                  224,
+                  187
+                ],
+                "hex": "#f0e0bb",
+                "count": 35700,
+                "share": 0.18158
+              },
+              {
+                "rgb": [
+                  244,
+                  227,
+                  190
+                ],
+                "hex": "#f4e3be",
+                "count": 34711,
+                "share": 0.176549
+              },
+              {
+                "rgb": [
+                  240,
+                  224,
+                  188
+                ],
+                "hex": "#f0e0bc",
+                "count": 21857,
+                "share": 0.11117
+              }
+            ],
+            "dominant": {
+              "rgb": [
+                240,
+                224,
+                187
+              ],
+              "hex": "#f0e0bb",
+              "count": 35700,
+              "share": 0.18158
+            },
+            "blank": false,
+            "sampling": {
+              "sampleStep": 2,
+              "sampledPixels": 196608,
+              "uniqueSampled": 5289
+            }
+          },
+          {
+            "index": 3,
+            "file": "S13-before-768-screen-03.png",
+            "width": 768,
+            "height": 1024,
+            "bytes": 746254,
+            "y0": 2048,
+            "y1": 3072,
+            "luminanceMean": 219.489,
+            "luminanceStdev": 22.725,
+            "meanRgb": [
+              234.42,
+              218.51,
+              183.06
+            ],
+            "nearWhiteShare": 0,
+            "top3": [
+              {
+                "rgb": [
+                  240,
+                  224,
+                  187
+                ],
+                "hex": "#f0e0bb",
+                "count": 49134,
+                "share": 0.249908
+              },
+              {
+                "rgb": [
+                  240,
+                  224,
+                  188
+                ],
+                "hex": "#f0e0bc",
+                "count": 30253,
+                "share": 0.153875
+              },
+              {
+                "rgb": [
+                  239,
+                  223,
+                  187
+                ],
+                "hex": "#efdfbb",
+                "count": 26154,
+                "share": 0.133026
+              }
+            ],
+            "dominant": {
+              "rgb": [
+                240,
+                224,
+                187
+              ],
+              "hex": "#f0e0bb",
+              "count": 49134,
+              "share": 0.249908
+            },
+            "blank": false,
+            "sampling": {
+              "sampleStep": 2,
+              "sampledPixels": 196608,
+              "uniqueSampled": 5530
+            }
+          },
+          {
+            "index": 4,
+            "file": "S13-before-768-screen-04.png",
+            "width": 768,
+            "height": 1024,
+            "bytes": 831483,
+            "y0": 3072,
+            "y1": 4096,
+            "luminanceMean": 206.074,
+            "luminanceStdev": 44.255,
+            "meanRgb": [
+              220.95,
+              205.11,
+              170.03
+            ],
+            "nearWhiteShare": 0.000128,
+            "top3": [
+              {
+                "rgb": [
+                  240,
+                  224,
+                  187
+                ],
+                "hex": "#f0e0bb",
+                "count": 41624,
+                "share": 0.211711
+              },
+              {
+                "rgb": [
+                  240,
+                  224,
+                  188
+                ],
+                "hex": "#f0e0bc",
+                "count": 25498,
+                "share": 0.12969
+              },
+              {
+                "rgb": [
+                  239,
+                  223,
+                  187
+                ],
+                "hex": "#efdfbb",
+                "count": 22082,
+                "share": 0.112315
+              }
+            ],
+            "dominant": {
+              "rgb": [
+                240,
+                224,
+                187
+              ],
+              "hex": "#f0e0bb",
+              "count": 41624,
+              "share": 0.211711
+            },
+            "blank": false,
+            "sampling": {
+              "sampleStep": 2,
+              "sampledPixels": 196608,
+              "uniqueSampled": 10122
+            }
+          },
+          {
+            "index": 5,
+            "file": "S13-before-768-screen-05.png",
+            "width": 768,
+            "height": 1024,
+            "bytes": 700980,
+            "y0": 4096,
+            "y1": 5120,
+            "luminanceMean": 218.904,
+            "luminanceStdev": 25.186,
+            "meanRgb": [
+              233.93,
+              217.92,
+              182.53
+            ],
+            "nearWhiteShare": 0,
+            "top3": [
+              {
+                "rgb": [
+                  240,
+                  224,
+                  187
+                ],
+                "hex": "#f0e0bb",
+                "count": 39955,
+                "share": 0.203222
+              },
+              {
+                "rgb": [
+                  244,
+                  227,
+                  190
+                ],
+                "hex": "#f4e3be",
+                "count": 32351,
+                "share": 0.164546
+              },
+              {
+                "rgb": [
+                  240,
+                  224,
+                  188
+                ],
+                "hex": "#f0e0bc",
+                "count": 24869,
+                "share": 0.12649
+              }
+            ],
+            "dominant": {
+              "rgb": [
+                240,
+                224,
+                187
+              ],
+              "hex": "#f0e0bb",
+              "count": 39955,
+              "share": 0.203222
+            },
+            "blank": false,
+            "sampling": {
+              "sampleStep": 2,
+              "sampledPixels": 196608,
+              "uniqueSampled": 7033
+            }
+          },
+          {
+            "index": 6,
+            "file": "S13-before-768-screen-06.png",
+            "width": 768,
+            "height": 290,
+            "bytes": 163285,
+            "y0": 5120,
+            "y1": 5410,
+            "luminanceMean": 221.179,
+            "luminanceStdev": 21.267,
+            "meanRgb": [
+              236.62,
+              220.17,
+              184.01
+            ],
+            "nearWhiteShare": 0,
+            "top3": [
+              {
+                "rgb": [
+                  244,
+                  227,
+                  190
+                ],
+                "hex": "#f4e3be",
+                "count": 77990,
+                "share": 0.350171
+              },
+              {
+                "rgb": [
+                  240,
+                  224,
+                  187
+                ],
+                "hex": "#f0e0bb",
+                "count": 35978,
+                "share": 0.161539
+              },
+              {
+                "rgb": [
+                  240,
+                  224,
+                  188
+                ],
+                "hex": "#f0e0bc",
+                "count": 22183,
+                "share": 0.0996
+              }
+            ],
+            "dominant": {
+              "rgb": [
+                244,
+                227,
+                190
+              ],
+              "hex": "#f4e3be",
+              "count": 77990,
+              "share": 0.350171
+            },
+            "blank": false,
+            "sampling": {
+              "sampleStep": 1,
+              "sampledPixels": 222720,
+              "uniqueSampled": 7912
+            }
+          }
+        ]
+      },
+      "probe": {
+        "beacons": [
+          {
+            "tag": "dom",
+            "n": 1,
+            "h": 5453,
+            "docH": 5453,
+            "contentH": 5453,
+            "elemMax": 5453,
+            "bodyBottom": 5453,
+            "viewportClamped": false,
+            "bottomEl": "footer.colophon",
+            "w": 768,
+            "vw": 768,
+            "vh": 1024,
+            "sy": 0,
+            "fonts": "loading",
+            "images": 5,
+            "imagesPending": 0,
+            "brokenImages": 0,
+            "at": "2026-10-27T10:04:29.301Z"
+          },
+          {
+            "tag": "load",
+            "n": 2,
+            "h": 5410,
+            "docH": 5410,
+            "contentH": 5410,
+            "elemMax": 5410,
+            "bodyBottom": 5410,
+            "viewportClamped": false,
+            "bottomEl": "footer.colophon",
+            "w": 768,
+            "vw": 768,
+            "vh": 1024,
+            "sy": 0,
+            "fonts": "loading",
+            "images": 5,
+            "imagesPending": 0,
+            "brokenImages": 0,
+            "at": "2026-10-27T10:04:30.248Z"
+          },
+          {
+            "tag": "fonts",
+            "n": 3,
+            "h": 5410,
+            "docH": 5410,
+            "contentH": 5410,
+            "elemMax": 5410,
+            "bodyBottom": 5410,
+            "viewportClamped": false,
+            "bottomEl": "footer.colophon",
+            "w": 768,
+            "vw": 768,
+            "vh": 1024,
+            "sy": 0,
+            "fonts": "loaded",
+            "images": 5,
+            "imagesPending": 0,
+            "brokenImages": 0,
+            "at": "2026-10-27T10:04:30.281Z"
+          },
+          {
+            "tag": "t1",
+            "n": 4,
+            "h": 5410,
+            "docH": 5410,
+            "contentH": 5410,
+            "elemMax": 5410,
+            "bodyBottom": 5410,
+            "viewportClamped": false,
+            "bottomEl": "footer.colophon",
+            "w": 768,
+            "vw": 768,
+            "vh": 1024,
+            "sy": 0,
+            "fonts": "loaded",
+            "images": 5,
+            "imagesPending": 0,
+            "brokenImages": 0,
+            "at": "2026-10-27T10:04:30.290Z"
+          },
+          {
+            "tag": "t2",
+            "n": 5,
+            "h": 5410,
+            "docH": 5410,
+            "contentH": 5410,
+            "elemMax": 5410,
+            "bodyBottom": 5410,
+            "viewportClamped": false,
+            "bottomEl": "footer.colophon",
+            "w": 768,
+            "vw": 768,
+            "vh": 1024,
+            "sy": 0,
+            "fonts": "loaded",
+            "images": 5,
+            "imagesPending": 0,
+            "brokenImages": 0,
+            "at": "2026-10-27T10:04:30.322Z"
+          },
+          {
+            "tag": "t3",
+            "n": 6,
+            "h": 5410,
+            "docH": 5410,
+            "contentH": 5410,
+            "elemMax": 5410,
+            "bodyBottom": 5410,
+            "viewportClamped": false,
+            "bottomEl": "footer.colophon",
+            "w": 768,
+            "vw": 768,
+            "vh": 1024,
+            "sy": 0,
+            "fonts": "loaded",
+            "images": 5,
+            "imagesPending": 0,
+            "brokenImages": 0,
+            "at": "2026-10-27T10:04:30.329Z"
+          }
+        ],
+        "fonts": "loaded",
+        "brokenImages": 0,
+        "imageCount": 5,
+        "tallBeacon": {
+          "tag": "t3",
+          "h": 5410,
+          "docH": 6151,
+          "contentH": 5410,
+          "elemMax": 5410,
+          "viewportClamped": true,
+          "bottomEl": "footer.colophon",
+          "vw": 768,
+          "vh": 6151,
+          "sy": 0,
+          "fonts": "loaded",
+          "imagesPending": 0,
+          "brokenImages": 0
+        }
+      },
+      "bands": [],
+      "launched": [
+        {
+          "kind": "fold",
+          "url": "http://127.0.0.1:4425/prototypes/S13-blind-debossed-dispatch/index.html?__shot_tier=768x1024",
+          "window": [
+            784,
+            1119
+          ],
+          "code": 0,
+          "ms": 14202,
+          "killed": false,
+          "error": null,
+          "stdout": "",
+          "stderr": "1127907 bytes written to file D:\\Web\\style\\deliverables\\66-exec\\shots-s13\\before\\.raw\\S13-before-768-fold.raw.png\r\n[62596:41348:1027/180431.320:ERROR:chrome\\browser\\web_applications\\externally_managed_app_manager.cc:680] https://mail.google.com/mail/installwebapp?usp=chrome_default from install source 1 failed to install with reason 21",
+          "startedAt": "2026-10-27T10:04:19.272Z",
+          "endedAt": "2026-10-27T10:04:33.474Z"
+        },
+        {
+          "kind": "full",
+          "url": "http://127.0.0.1:4425/prototypes/S13-blind-debossed-dispatch/index.html?__shot_tier=768x1024",
+          "window": [
+            784,
+            6246
+          ],
+          "code": 0,
+          "ms": 13176,
+          "killed": false,
+          "error": null,
+          "stdout": "",
+          "stderr": "4297631 bytes written to file D:\\Web\\style\\deliverables\\66-exec\\shots-s13\\before\\.raw\\S13-before-768-full.raw.png\r\n[25568:35244:1027/180446.738:ERROR:chrome\\browser\\web_applications\\externally_managed_app_manager.cc:680] https://mail.google.com/mail/installwebapp?usp=chrome_default from install source 1 failed to install with reason 21",
+          "startedAt": "2026-10-27T10:04:37.877Z",
+          "endedAt": "2026-10-27T10:04:51.053Z"
+        }
+      ],
+      "error": null,
+      "warnings": [
+        "最后一屏只有 290 像素高（5410 - 5*1024）"
+      ],
+      "timings": {
+        "elapsedMs": 37674
+      },
+      "pageWidthRealViewport": 768,
+      "pageHeightRealViewportDoc": 5410,
+      "viewportClampedAtFold": false,
+      "bottomEl": "footer.colophon",
+      "pageHeightTallContent": 5410,
+      "sliceWarnings": [
+        "最后一屏只有 290 像素高（5410 - 5*1024）"
+      ]
+    },
+    {
+      "tier": "390x844",
+      "device": "mobile",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "mode": "iframe",
+      "window": {
+        "width": 516,
+        "height": 939
+      },
+      "url": "http://127.0.0.1:4425/__shot__/frame?w=390&h=844&tier=390x844&u=%2Fprototypes%2FS13-blind-debossed-dispatch%2Findex.html",
+      "pageHeight": 8423,
+      "pageHeightSource": "fold-viewport",
+      "pageHeightRealViewport": 8423,
+      "pageHeightTallWindow": 8423,
+      "vhDistortion": false,
+      "screens": 10,
+      "slicesMatch": true,
+      "truncated": false,
+      "calibrated": true,
+      "attempts": 1,
+      "images": {
+        "fold": {
+          "file": "S13-before-390-fold.png",
+          "path": "D:\\Web\\style\\deliverables\\66-exec\\shots-s13\\before\\S13-before-390-fold.png",
+          "width": 390,
+          "height": 844,
+          "bytes": 404350,
+          "stats": {
+            "width": 390,
+            "height": 844,
+            "meanRgb": [
+              209.12,
+              194.61,
+              162.17
+            ],
+            "rgbStdev": [
+              57.87,
+              54.6,
+              47
+            ],
+            "luminanceMean": 195.455,
+            "luminanceStdev": 54.727,
+            "nearWhiteShare": 0,
+            "nearBlackShare": 0,
+            "top3": [
+              {
+                "rgb": [
+                  240,
+                  224,
+                  187
+                ],
+                "hex": "#f0e0bb",
+                "count": 16389,
+                "share": 0.199162
+              },
+              {
+                "rgb": [
+                  240,
+                  224,
+                  188
+                ],
+                "hex": "#f0e0bc",
+                "count": 10068,
+                "share": 0.122348
+              },
+              {
+                "rgb": [
+                  239,
+                  223,
+                  187
+                ],
+                "hex": "#efdfbb",
+                "count": 8526,
+                "share": 0.103609
+              }
+            ],
+            "dominant": {
+              "rgb": [
+                240,
+                224,
+                187
+              ],
+              "hex": "#f0e0bb",
+              "count": 16389,
+              "share": 0.199162
+            },
+            "sampling": {
+              "sampleStep": 2,
+              "sampledPixels": 82290,
+              "uniqueSampled": 6651
+            },
+            "blank": false,
+            "uniform": false,
+            "file": "S13-before-390-fold.png",
+            "bytes": 404350
+          }
+        },
+        "full": {
+          "file": "S13-before-390-full.png",
+          "path": "D:\\Web\\style\\deliverables\\66-exec\\shots-s13\\before\\S13-before-390-full.png",
+          "width": 390,
+          "height": 8423,
+          "bytes": 2055248,
+          "stats": {
+            "width": 390,
+            "height": 8423,
+            "meanRgb": [
+              222.59,
+              206.79,
+              172.6
+            ],
+            "rgbStdev": [
+              48.53,
+              46.25,
+              40.64
+            ],
+            "luminanceMean": 207.736,
+            "luminanceStdev": 45.941,
+            "nearWhiteShare": 0.000031,
+            "nearBlackShare": 0,
+            "top3": [
+              {
+                "rgb": [
+                  244,
+                  227,
+                  190
+                ],
+                "hex": "#f4e3be",
+                "count": 115858,
+                "share": 0.567417
+              },
+              {
+                "rgb": [
+                  240,
+                  224,
+                  187
+                ],
+                "hex": "#f0e0bb",
+                "count": 9953,
+                "share": 0.048745
+              },
+              {
+                "rgb": [
+                  240,
+                  224,
+                  188
+                ],
+                "hex": "#f0e0bc",
+                "count": 6103,
+                "share": 0.02989
+              }
+            ],
+            "dominant": {
+              "rgb": [
+                244,
+                227,
+                190
+              ],
+              "hex": "#f4e3be",
+              "count": 115858,
+              "share": 0.567417
+            },
+            "sampling": {
+              "sampleStep": 4,
+              "sampledPixels": 204185,
+              "uniqueSampled": 14069
+            },
+            "blank": false,
+            "uniform": false,
+            "file": "S13-before-390-full.png",
+            "bytes": 2055248
+          }
+        },
+        "slices": [
+          {
+            "index": 1,
+            "file": "S13-before-390-screen-01.png",
+            "width": 390,
+            "height": 844,
+            "bytes": 201700,
+            "y0": 0,
+            "y1": 844,
+            "luminanceMean": 198.063,
+            "luminanceStdev": 56.163,
+            "meanRgb": [
+              212.29,
+              197.2,
+              164.35
+            ],
+            "nearWhiteShare": 0,
+            "top3": [
+              {
+                "rgb": [
+                  244,
+                  227,
+                  190
+                ],
+                "hex": "#f4e3be",
+                "count": 57521,
+                "share": 0.699004
+              },
+              {
+                "rgb": [
+                  242,
+                  225,
+                  189
+                ],
+                "hex": "#f2e1bd",
+                "count": 616,
+                "share": 0.007486
+              },
+              {
+                "rgb": [
+                  36,
+                  32,
+                  23
+                ],
+                "hex": "#242017",
+                "count": 335,
+                "share": 0.004071
+              }
+            ],
+            "dominant": {
+              "rgb": [
+                244,
+                227,
+                190
+              ],
+              "hex": "#f4e3be",
+              "count": 57521,
+              "share": 0.699004
+            },
+            "blank": false,
+            "sampling": {
+              "sampleStep": 2,
+              "sampledPixels": 82290,
+              "uniqueSampled": 5623
+            }
+          },
+          {
+            "index": 2,
+            "file": "S13-before-390-screen-02.png",
+            "width": 390,
+            "height": 844,
+            "bytes": 75309,
+            "y0": 844,
+            "y1": 1688,
+            "luminanceMean": 212.79,
+            "luminanceStdev": 39.554,
+            "meanRgb": [
+              228.65,
+              211.77,
+              175.52
+            ],
+            "nearWhiteShare": 0,
+            "top3": [
+              {
+                "rgb": [
+                  244,
+                  227,
+                  190
+                ],
+                "hex": "#f4e3be",
+                "count": 64025,
+                "share": 0.778041
+              },
+              {
+                "rgb": [
+                  123,
+                  97,
+                  44
+                ],
+                "hex": "#7b612c",
+                "count": 4515,
+                "share": 0.054867
+              },
+              {
+                "rgb": [
+                  214,
+                  205,
+                  185
+                ],
+                "hex": "#d6cdb9",
+                "count": 3308,
+                "share": 0.040199
+              }
+            ],
+            "dominant": {
+              "rgb": [
+                244,
+                227,
+                190
+              ],
+              "hex": "#f4e3be",
+              "count": 64025,
+              "share": 0.778041
+            },
+            "blank": false,
+            "sampling": {
+              "sampleStep": 2,
+              "sampledPixels": 82290,
+              "uniqueSampled": 2033
+            }
+          },
+          {
+            "index": 3,
+            "file": "S13-before-390-screen-03.png",
+            "width": 390,
+            "height": 844,
+            "bytes": 82885,
+            "y0": 1688,
+            "y1": 2532,
+            "luminanceMean": 219.696,
+            "luminanceStdev": 27.699,
+            "meanRgb": [
+              235.11,
+              218.73,
+              183.45
+            ],
+            "nearWhiteShare": 0,
+            "top3": [
+              {
+                "rgb": [
+                  244,
+                  227,
+                  190
+                ],
+                "hex": "#f4e3be",
+                "count": 66282,
+                "share": 0.805468
+              },
+              {
+                "rgb": [
+                  214,
+                  205,
+                  185
+                ],
+                "hex": "#d6cdb9",
+                "count": 3078,
+                "share": 0.037404
+              },
+              {
+                "rgb": [
+                  243,
+                  226,
+                  189
+                ],
+                "hex": "#f3e2bd",
+                "count": 1613,
+                "share": 0.019601
+              }
+            ],
+            "dominant": {
+              "rgb": [
+                244,
+                227,
+                190
+              ],
+              "hex": "#f4e3be",
+              "count": 66282,
+              "share": 0.805468
+            },
+            "blank": false,
+            "sampling": {
+              "sampleStep": 2,
+              "sampledPixels": 82290,
+              "uniqueSampled": 1890
+            }
+          },
+          {
+            "index": 4,
+            "file": "S13-before-390-screen-04.png",
+            "width": 390,
+            "height": 844,
+            "bytes": 98903,
+            "y0": 2532,
+            "y1": 3376,
+            "luminanceMean": 225.462,
+            "luminanceStdev": 13.253,
+            "meanRgb": [
+              241.14,
+              224.47,
+              187.98
+            ],
+            "nearWhiteShare": 0,
+            "top3": [
+              {
+                "rgb": [
+                  244,
+                  227,
+                  190
+                ],
+                "hex": "#f4e3be",
+                "count": 59512,
+                "share": 0.723198
+              },
+              {
+                "rgb": [
+                  240,
+                  224,
+                  187
+                ],
+                "hex": "#f0e0bb",
+                "count": 5983,
+                "share": 0.072706
+              },
+              {
+                "rgb": [
+                  240,
+                  224,
+                  188
+                ],
+                "hex": "#f0e0bc",
+                "count": 3446,
+                "share": 0.041876
+              }
+            ],
+            "dominant": {
+              "rgb": [
+                244,
+                227,
+                190
+              ],
+              "hex": "#f4e3be",
+              "count": 59512,
+              "share": 0.723198
+            },
+            "blank": false,
+            "sampling": {
+              "sampleStep": 2,
+              "sampledPixels": 82290,
+              "uniqueSampled": 431
+            }
+          },
+          {
+            "index": 5,
+            "file": "S13-before-390-screen-05.png",
+            "width": 390,
+            "height": 844,
+            "bytes": 458105,
+            "y0": 3376,
+            "y1": 4220,
+            "luminanceMean": 187.827,
+            "luminanceStdev": 56.961,
+            "meanRgb": [
+              201.33,
+              186.93,
+              155.91
+            ],
+            "nearWhiteShare": 0,
+            "top3": [
+              {
+                "rgb": [
+                  244,
+                  227,
+                  190
+                ],
+                "hex": "#f4e3be",
+                "count": 18586,
+                "share": 0.22586
+              },
+              {
+                "rgb": [
+                  240,
+                  224,
+                  187
+                ],
+                "hex": "#f0e0bb",
+                "count": 7979,
+                "share": 0.096962
+              },
+              {
+                "rgb": [
+                  240,
+                  224,
+                  188
+                ],
+                "hex": "#f0e0bc",
+                "count": 4827,
+                "share": 0.058658
+              }
+            ],
+            "dominant": {
+              "rgb": [
+                244,
+                227,
+                190
+              ],
+              "hex": "#f4e3be",
+              "count": 18586,
+              "share": 0.22586
+            },
+            "blank": false,
+            "sampling": {
+              "sampleStep": 2,
+              "sampledPixels": 82290,
+              "uniqueSampled": 16346
+            }
+          },
+          {
+            "index": 6,
+            "file": "S13-before-390-screen-06.png",
+            "width": 390,
+            "height": 844,
+            "bytes": 439576,
+            "y0": 4220,
+            "y1": 5064,
+            "luminanceMean": 191.632,
+            "luminanceStdev": 57.395,
+            "meanRgb": [
+              205.34,
+              190.74,
+              159.35
+            ],
+            "nearWhiteShare": 0,
+            "top3": [
+              {
+                "rgb": [
+                  240,
+                  224,
+                  187
+                ],
+                "hex": "#f0e0bb",
+                "count": 10207,
+                "share": 0.124037
+              },
+              {
+                "rgb": [
+                  240,
+                  224,
+                  188
+                ],
+                "hex": "#f0e0bc",
+                "count": 6309,
+                "share": 0.076668
+              },
+              {
+                "rgb": [
+                  239,
+                  223,
+                  187
+                ],
+                "hex": "#efdfbb",
+                "count": 5405,
+                "share": 0.065682
+              }
+            ],
+            "dominant": {
+              "rgb": [
+                240,
+                224,
+                187
+              ],
+              "hex": "#f0e0bb",
+              "count": 10207,
+              "share": 0.124037
+            },
+            "blank": false,
+            "sampling": {
+              "sampleStep": 2,
+              "sampledPixels": 82290,
+              "uniqueSampled": 11773
+            }
+          },
+          {
+            "index": 7,
+            "file": "S13-before-390-screen-07.png",
+            "width": 390,
+            "height": 844,
+            "bytes": 355632,
+            "y0": 5064,
+            "y1": 5908,
+            "luminanceMean": 184.31,
+            "luminanceStdev": 64.326,
+            "meanRgb": [
+              197.44,
+              183.47,
+              153.12
+            ],
+            "nearWhiteShare": 0,
+            "top3": [
+              {
+                "rgb": [
+                  244,
+                  227,
+                  190
+                ],
+                "hex": "#f4e3be",
+                "count": 12012,
+                "share": 0.145972
+              },
+              {
+                "rgb": [
+                  240,
+                  224,
+                  187
+                ],
+                "hex": "#f0e0bb",
+                "count": 9207,
+                "share": 0.111885
+              },
+              {
+                "rgb": [
+                  240,
+                  224,
+                  188
+                ],
+                "hex": "#f0e0bc",
+                "count": 5666,
+                "share": 0.068854
+              }
+            ],
+            "dominant": {
+              "rgb": [
+                244,
+                227,
+                190
+              ],
+              "hex": "#f4e3be",
+              "count": 12012,
+              "share": 0.145972
+            },
+            "blank": false,
+            "sampling": {
+              "sampleStep": 2,
+              "sampledPixels": 82290,
+              "uniqueSampled": 7557
+            }
+          },
+          {
+            "index": 8,
+            "file": "S13-before-390-screen-08.png",
+            "width": 390,
+            "height": 844,
+            "bytes": 183801,
+            "y0": 5908,
+            "y1": 6752,
+            "luminanceMean": 215.017,
+            "luminanceStdev": 35.156,
+            "meanRgb": [
+              230.87,
+              213.98,
+              177.32
+            ],
+            "nearWhiteShare": 0.000307,
+            "top3": [
+              {
+                "rgb": [
+                  244,
+                  227,
+                  190
+                ],
+                "hex": "#f4e3be",
+                "count": 45291,
+                "share": 0.550383
+              },
+              {
+                "rgb": [
+                  240,
+                  224,
+                  187
+                ],
+                "hex": "#f0e0bb",
+                "count": 6444,
+                "share": 0.078308
+              },
+              {
+                "rgb": [
+                  240,
+                  224,
+                  188
+                ],
+                "hex": "#f0e0bc",
+                "count": 3819,
+                "share": 0.046409
+              }
+            ],
+            "dominant": {
+              "rgb": [
+                244,
+                227,
+                190
+              ],
+              "hex": "#f4e3be",
+              "count": 45291,
+              "share": 0.550383
+            },
+            "blank": false,
+            "sampling": {
+              "sampleStep": 2,
+              "sampledPixels": 82290,
+              "uniqueSampled": 3623
+            }
+          },
+          {
+            "index": 9,
+            "file": "S13-before-390-screen-09.png",
+            "width": 390,
+            "height": 844,
+            "bytes": 81866,
+            "y0": 6752,
+            "y1": 7596,
+            "luminanceMean": 221.548,
+            "luminanceStdev": 25.722,
+            "meanRgb": [
+              237.13,
+              220.55,
+              184.8
+            ],
+            "nearWhiteShare": 0,
+            "top3": [
+              {
+                "rgb": [
+                  244,
+                  227,
+                  190
+                ],
+                "hex": "#f4e3be",
+                "count": 72694,
+                "share": 0.883388
+              },
+              {
+                "rgb": [
+                  214,
+                  205,
+                  185
+                ],
+                "hex": "#d6cdb9",
+                "count": 1362,
+                "share": 0.016551
+              },
+              {
+                "rgb": [
+                  240,
+                  224,
+                  187
+                ],
+                "hex": "#f0e0bb",
+                "count": 302,
+                "share": 0.00367
+              }
+            ],
+            "dominant": {
+              "rgb": [
+                244,
+                227,
+                190
+              ],
+              "hex": "#f4e3be",
+              "count": 72694,
+              "share": 0.883388
+            },
+            "blank": false,
+            "sampling": {
+              "sampleStep": 2,
+              "sampledPixels": 82290,
+              "uniqueSampled": 2019
+            }
+          },
+          {
+            "index": 10,
+            "file": "S13-before-390-screen-10.png",
+            "width": 390,
+            "height": 827,
+            "bytes": 79466,
+            "y0": 7596,
+            "y1": 8423,
+            "luminanceMean": 221.287,
+            "luminanceStdev": 25.205,
+            "meanRgb": [
+              236.94,
+              220.29,
+              184.44
+            ],
+            "nearWhiteShare": 0,
+            "top3": [
+              {
+                "rgb": [
+                  244,
+                  227,
+                  190
+                ],
+                "hex": "#f4e3be",
+                "count": 70280,
+                "share": 0.872664
+              },
+              {
+                "rgb": [
+                  214,
+                  205,
+                  185
+                ],
+                "hex": "#d6cdb9",
+                "count": 1679,
+                "share": 0.020848
+              },
+              {
+                "rgb": [
+                  243,
+                  226,
+                  189
+                ],
+                "hex": "#f3e2bd",
+                "count": 250,
+                "share": 0.003104
+              }
+            ],
+            "dominant": {
+              "rgb": [
+                244,
+                227,
+                190
+              ],
+              "hex": "#f4e3be",
+              "count": 70280,
+              "share": 0.872664
+            },
+            "blank": false,
+            "sampling": {
+              "sampleStep": 2,
+              "sampledPixels": 80535,
+              "uniqueSampled": 2469
+            }
+          }
+        ]
+      },
+      "probe": {
+        "beacons": [
+          {
+            "tag": "dom",
+            "n": 1,
+            "h": 8501,
+            "docH": 8501,
+            "contentH": 8501,
+            "elemMax": 8501,
+            "bodyBottom": 8501,
+            "viewportClamped": false,
+            "bottomEl": "footer.colophon",
+            "w": 390,
+            "vw": 390,
+            "vh": 844,
+            "sy": 0,
+            "fonts": "loading",
+            "images": 5,
+            "imagesPending": 0,
+            "brokenImages": 0,
+            "at": "2026-10-27T10:05:02.148Z"
+          },
+          {
+            "tag": "load",
+            "n": 2,
+            "h": 8423,
+            "docH": 8423,
+            "contentH": 8423,
+            "elemMax": 8423,
+            "bodyBottom": 8423,
+            "viewportClamped": false,
+            "bottomEl": "footer.colophon",
+            "w": 390,
+            "vw": 390,
+            "vh": 844,
+            "sy": 0,
+            "fonts": "loading",
+            "images": 5,
+            "imagesPending": 0,
+            "brokenImages": 0,
+            "at": "2026-10-27T10:05:02.923Z"
+          },
+          {
+            "tag": "fonts",
+            "n": 3,
+            "h": 8423,
+            "docH": 8423,
+            "contentH": 8423,
+            "elemMax": 8423,
+            "bodyBottom": 8423,
+            "viewportClamped": false,
+            "bottomEl": "footer.colophon",
+            "w": 390,
+            "vw": 390,
+            "vh": 844,
+            "sy": 0,
+            "fonts": "loaded",
+            "images": 5,
+            "imagesPending": 0,
+            "brokenImages": 0,
+            "at": "2026-10-27T10:05:02.938Z"
+          },
+          {
+            "tag": "t1",
+            "n": 4,
+            "h": 8423,
+            "docH": 8423,
+            "contentH": 8423,
+            "elemMax": 8423,
+            "bodyBottom": 8423,
+            "viewportClamped": false,
+            "bottomEl": "footer.colophon",
+            "w": 390,
+            "vw": 390,
+            "vh": 844,
+            "sy": 0,
+            "fonts": "loaded",
+            "images": 5,
+            "imagesPending": 0,
+            "brokenImages": 0,
+            "at": "2026-10-27T10:05:02.949Z"
+          },
+          {
+            "tag": "t2",
+            "n": 5,
+            "h": 8423,
+            "docH": 8423,
+            "contentH": 8423,
+            "elemMax": 8423,
+            "bodyBottom": 8423,
+            "viewportClamped": false,
+            "bottomEl": "footer.colophon",
+            "w": 390,
+            "vw": 390,
+            "vh": 844,
+            "sy": 0,
+            "fonts": "loaded",
+            "images": 5,
+            "imagesPending": 0,
+            "brokenImages": 0,
+            "at": "2026-10-27T10:05:02.958Z"
+          },
+          {
+            "tag": "t3",
+            "n": 6,
+            "h": 8423,
+            "docH": 8423,
+            "contentH": 8423,
+            "elemMax": 8423,
+            "bodyBottom": 8423,
+            "viewportClamped": false,
+            "bottomEl": "footer.colophon",
+            "w": 390,
+            "vw": 390,
+            "vh": 844,
+            "sy": 0,
+            "fonts": "loaded",
+            "images": 5,
+            "imagesPending": 0,
+            "brokenImages": 0,
+            "at": "2026-10-27T10:05:02.970Z"
+          }
+        ],
+        "fonts": "loaded",
+        "brokenImages": 0,
+        "imageCount": 5,
+        "tallBeacon": {
+          "tag": "t3",
+          "h": 8423,
+          "docH": 9465,
+          "contentH": 8423,
+          "elemMax": 8423,
+          "viewportClamped": true,
+          "bottomEl": "footer.colophon",
+          "vw": 390,
+          "vh": 9465,
+          "sy": 0,
+          "fonts": "loaded",
+          "imagesPending": 0,
+          "brokenImages": 0
+        }
+      },
+      "bands": [],
+      "launched": [
+        {
+          "kind": "fold",
+          "url": "http://127.0.0.1:4425/__shot__/frame?w=390&h=844&tier=390x844&u=%2Fprototypes%2FS13-blind-debossed-dispatch%2Findex.html",
+          "window": [
+            516,
+            939
+          ],
+          "code": 0,
+          "ms": 9373,
+          "killed": false,
+          "error": null,
+          "stdout": "",
+          "stderr": "419470 bytes written to file D:\\Web\\style\\deliverables\\66-exec\\shots-s13\\before\\.raw\\S13-before-390-fold.raw.png\r\n[60364:65296:1027/180503.541:ERROR:chrome\\browser\\web_applications\\externally_managed_app_manager.cc:680] https://mail.google.com/mail/installwebapp?usp=chrome_default from install source 1 failed to install with reason 21",
+          "startedAt": "2026-10-27T10:04:56.508Z",
+          "endedAt": "2026-10-27T10:05:05.881Z"
+        },
+        {
+          "kind": "full",
+          "url": "http://127.0.0.1:4425/__shot__/frame?w=390&h=9465&tier=390x844&u=%2Fprototypes%2FS13-blind-debossed-dispatch%2Findex.html",
+          "window": [
+            516,
+            9560
+          ],
+          "code": 0,
+          "ms": 8980,
+          "killed": false,
+          "error": null,
+          "stdout": "",
+          "stderr": "2127634 bytes written to file D:\\Web\\style\\deliverables\\66-exec\\shots-s13\\before\\.raw\\S13-before-390-full.raw.png\r\n[69448:12172:1027/180516.047:ERROR:chrome\\browser\\web_applications\\externally_managed_app_manager.cc:680] https://mail.google.com/mail/installwebapp?usp=chrome_default from install source 1 failed to install with reason 21",
+          "startedAt": "2026-10-27T10:05:08.158Z",
+          "endedAt": "2026-10-27T10:05:17.138Z"
+        }
+      ],
+      "error": null,
+      "warnings": [
+        "最后一屏只有 827 像素高（8423 - 9*844）"
+      ],
+      "timings": {
+        "elapsedMs": 25388
+      },
+      "pageWidthRealViewport": 390,
+      "pageHeightRealViewportDoc": 8423,
+      "viewportClampedAtFold": false,
+      "bottomEl": "footer.colophon",
+      "pageHeightTallContent": 8423,
+      "sliceWarnings": [
+        "最后一屏只有 827 像素高（8423 - 9*844）"
+      ]
+    }
+  ],
+  "failed": [],
+  "warnings": [
+    "有 6 个资源 404（截图里可能是缺字/缺图，不是\"设计如此\"）：[{\"path\":\"/favicon.ico\",\"tier\":null,\"at\":\"2026-10-27T10:04:30.139Z\"},{\"path\":\"/favicon.ico\",\"tier\":null,\"at\":\"2026-10-27T10:04:30.272Z\"},{\"path\":\"/favicon.ico\",\"tier\":null,\"at\":\"2026-10-27T10:04:42.616Z\"},{\"path\":\"/favicon.ico\",\"tier\":null,\"at\":\"2026-10-27T10:04:46.669Z\"},{\"path\":\"/favicon.ico\",\"tier\":\"390x844\",\"at\":\"2026-10-27T10:05:02.940Z\"},{\"path\":\"/favicon.ico\",\"tier\":\"390x844\",\"at\":\"2026-10-27T10:05:13.862Z\"}]"
+  ],
+  "http": {
+    "requests": 242,
+    "byStatus": {
+      "200": 200,
+      "204": 36,
+      "404": 6
+    },
+    "missing": [
+      {
+        "path": "/favicon.ico",
+        "tier": null,
+        "at": "2026-10-27T10:04:30.139Z"
+      },
+      {
+        "path": "/favicon.ico",
+        "tier": null,
+        "at": "2026-10-27T10:04:30.272Z"
+      },
+      {
+        "path": "/favicon.ico",
+        "tier": null,
+        "at": "2026-10-27T10:04:42.616Z"
+      },
+      {
+        "path": "/favicon.ico",
+        "tier": null,
+        "at": "2026-10-27T10:04:46.669Z"
+      },
+      {
+        "path": "/favicon.ico",
+        "tier": "390x844",
+        "at": "2026-10-27T10:05:02.940Z"
+      },
+      {
+        "path": "/favicon.ico",
+        "tier": "390x844",
+        "at": "2026-10-27T10:05:13.862Z"
+      }
+    ],
+    "log": ".shot-http.log"
+  }
+}

@@ -1,0 +1,440 @@
+[
+  {
+    "id": "S01",
+    "text": "一块实色多边形以 11° 切入 4 栏版心，24px 实体隔条撑开栏沟，红块越界压住 3 行正文——阅读顺序由角度与越界量决定，与它叫什么名字无关。",
+    "len": 74,
+    "motion": [],
+    "measure": [],
+    "stat": [
+      "column"
+    ],
+    "ambig": [],
+    "literal": "static"
+  },
+  {
+    "id": "S02",
+    "text": "同一张位图以一条 2px 中轴做 180° 相位取样，两侧各 7 级与 9 级、级差 56px，文字全部贴轴对齐——对称只存在于图样，文字始终不对称。",
+    "len": 75,
+    "motion": [],
+    "measure": [],
+    "stat": [
+      "align"
+    ],
+    "ambig": [
+      "相位"
+    ],
+    "literal": "static"
+  },
+  {
+    "id": "S03",
+    "text": "一条 264px 宽的纵向刻度轴随滚动固定，右侧 9 栏的高度按 30 秒曝光折成 28px 一档，四角遮罩压掉 32%，游标随焦距比移动——层级由高度与固定位置承担，不由名字承担。",
+    "len": 91,
+    "motion": [
+      "scroll-coupled",
+      "follow",
+      "move"
+    ],
+    "measure": [],
+    "stat": [
+      "column"
+    ],
+    "ambig": [
+      "随"
+    ],
+    "literal": "needs-JS"
+  },
+  {
+    "id": "S04",
+    "text": "12 列隐网格上，纸块跨 2 至 6 栏、色版偏移取 3 至 7px 五档、旋转限 ±1.2°，页面上没有一条对称边——阅读入口由层叠高低与错位量给出。",
+    "len": 76,
+    "motion": [],
+    "measure": [],
+    "stat": [
+      "column",
+      "grid",
+      "offset",
+      "misalign"
+    ],
+    "ambig": [
+      "旋转",
+      "转"
+    ],
+    "literal": "static"
+  },
+  {
+    "id": "S05",
+    "text": "8px 为一个单元，8 块分区按 5:2:1 再加一个双高块分配面积，凹槽 6px 单向受光，读数按 5×7 网格排点——优先级由面积与单元数直接表达。",
+    "len": 76,
+    "motion": [],
+    "measure": [],
+    "stat": [
+      "grid"
+    ],
+    "ambig": [],
+    "literal": "static"
+  },
+  {
+    "id": "S06",
+    "text": "卡片沿 3° 斜轨排布，轨道间距 96px、相邻偏移按 0.62 递减，漂移速度为滚动量的 0.6 倍且各卡系数在 0.92 至 1.08 之间不等——顺序由速度差与斜角给出。",
+    "len": 88,
+    "motion": [
+      "scroll-coupled",
+      "drift"
+    ],
+    "measure": [],
+    "stat": [
+      "offset",
+      "gap",
+      "slant"
+    ],
+    "ambig": [],
+    "literal": "needs-JS"
+  },
+  {
+    "id": "S07",
+    "text": "同一段文字在纸背以 8% 至 14% 不透明度做镜像并整体偏移 1px，正面 5 栏对背面 7 栏、栏线 0.5px，页码竖排 28px 行高——正反两面同时进入同一张版心。",
+    "len": 87,
+    "motion": [],
+    "measure": [],
+    "stat": [
+      "column",
+      "offset",
+      "opacity",
+      "line-height"
+    ],
+    "ambig": [],
+    "literal": "static"
+  },
+  {
+    "id": "S08",
+    "text": "六块板按层号各偏移 (24px, 12px)，轮廓侧向拉出 6 至 10px、上缘 2px 高光、滚动 200px 走 6px——深度由层号位移与侧壁宽度两件事同时说明。",
+    "len": 85,
+    "motion": [
+      "scroll-coupled"
+    ],
+    "measure": [],
+    "stat": [
+      "offset"
+    ],
+    "ambig": [],
+    "literal": "needs-JS"
+  },
+  {
+    "id": "S09",
+    "text": "价目行以 1.5° 整体倾斜，行高 56px、左端起点错开 4 至 12px，描边外线 3.5px 与内线 2px 且留 5% 至 10% 缺口——可读性交给等宽数字，手绘只做外圈。",
+    "len": 91,
+    "motion": [],
+    "measure": [],
+    "stat": [
+      "slant",
+      "stagger",
+      "line-height"
+    ],
+    "ambig": [],
+    "literal": "static"
+  },
+  {
+    "id": "S10",
+    "text": "五栏按 6:7:9:8:5 分宽，红版相对黑版固定右下错 1px、进视口时先错 3px 再收到 1.5px，标题基线上移 6px——对比强度由栏宽比与错位像素共同给出。",
+    "len": 84,
+    "motion": [
+      "viewport-sequence"
+    ],
+    "measure": [
+      "viewport-relative"
+    ],
+    "stat": [
+      "column",
+      "baseline",
+      "misalign"
+    ],
+    "ambig": [],
+    "literal": "needs-JS"
+  },
+  {
+    "id": "S11",
+    "text": "章号悬挂在版心外 56px、正文压到 34 字行长，标题叠三层重影，横向错位 0.5 / 1.5 / 3px、第三层 12% 不透明——层级由错位量承担，位置交给悬挂编号。",
+    "len": 86,
+    "motion": [],
+    "measure": [],
+    "stat": [
+      "misalign",
+      "opacity"
+    ],
+    "ambig": [],
+    "literal": "static"
+  },
+  {
+    "id": "S12",
+    "text": "七个挖空块按 3/2/1/1 递减错位落位，斜边只走 45° 与 135°、切角 30px，间隙取 12/28/44px 三级，内侧压 0.5px 翻边——分区靠硬边挖空，不靠投影。",
+    "len": 91,
+    "motion": [],
+    "measure": [],
+    "stat": [
+      "misalign",
+      "slant",
+      "cut"
+    ],
+    "ambig": [],
+    "literal": "static"
+  },
+  {
+    "id": "S13",
+    "text": "光源常驻 135° 一侧，凹槽压深 0.4mm、槽带亮度差 3%、边缘对比度 14%，按下时方位角翻到 315° 并下沉 0.8px——层级由同一光源下的深浅给出，不靠颜色。",
+    "len": 87,
+    "motion": [
+      "press-state"
+    ],
+    "measure": [],
+    "stat": [],
+    "ambig": [],
+    "literal": "needs-JS"
+  },
+  {
+    "id": "S14",
+    "text": "十一个版面块按距质心 24/40/72/120px 分四档、方位角间隔 26° 至 61° 不等，整组沿 48px 半径绕 44% 横位的质心平漂——顺序由半径档位与角度间隔读出。",
+    "len": 90,
+    "motion": [
+      "drift"
+    ],
+    "measure": [],
+    "stat": [],
+    "ambig": [
+      "绕"
+    ],
+    "literal": "needs-JS"
+  },
+  {
+    "id": "S15",
+    "text": "平面图占 1 至 8 栏并左出血 40px，图例挂 9 至 12 栏、高度只到图幅 62%；同一图叠三层，错位 0/3/7px，第三层 56% 不透明——版本差异靠错位与透明度读出。",
+    "len": 91,
+    "motion": [],
+    "measure": [],
+    "stat": [
+      "column",
+      "misalign",
+      "bleed",
+      "opacity"
+    ],
+    "ambig": [],
+    "literal": "static"
+  },
+  {
+    "id": "S16",
+    "text": "所有词块左端对齐同一条 12° 斜线，每块再沿斜线递增 24px，块宽只取 4/6/7/9 栏四档，行高压到 0.95 倍、字距 0.02em——斜线给顺序，块宽与行距给层级。",
+    "len": 88,
+    "motion": [],
+    "measure": [],
+    "stat": [
+      "column",
+      "align",
+      "slant",
+      "line-height",
+      "tracking"
+    ],
+    "ambig": [],
+    "literal": "static"
+  },
+  {
+    "id": "S17",
+    "text": "两联按 3fr、16px、9fr 分栏，中缝是孔径 1.2px、孔距 6px 的孔列，行高 24px、金额列 96px 右对齐，印面偏中缝 2mm——撕口位置与小数点对齐即读出归属。",
+    "len": 91,
+    "motion": [],
+    "measure": [],
+    "stat": [
+      "column",
+      "align",
+      "seam",
+      "columns",
+      "line-height"
+    ],
+    "ambig": [],
+    "literal": "static"
+  },
+  {
+    "id": "S18",
+    "text": "单列左起 12%、右侧空 34%，24px 行高落在 8px 基线上，两侧 8px 边条按 12px 孔距打 3px 孔，行尾 8×14px 块 530ms 方波——读序由走向给出。",
+    "len": 91,
+    "motion": [],
+    "measure": [],
+    "stat": [
+      "baseline",
+      "line-height"
+    ],
+    "ambig": [],
+    "literal": "static"
+  },
+  {
+    "id": "S19",
+    "text": "20 块面板分 5 行，宽取 2/3/4 栏三档，面板高 24px、下移 24px，开口 144px 比内层矮 24px，线宽只 0.4 与 0.8px——层级由下移量与线宽差给出。",
+    "len": 91,
+    "motion": [],
+    "measure": [],
+    "stat": [
+      "column",
+      "stroke"
+    ],
+    "ambig": [],
+    "literal": "static"
+  },
+  {
+    "id": "S20",
+    "text": "画布 1:1、边长取视口高减 96px，留 24px 安全区，坐标格 0.2px 间距 8px；走线一律 0.35px 单线，量级靠走线间距 0.6/1.2/2.4px 三档表达——分清粗细与疏密：粗细只有一个值，变化的是线与线的距离。",
+    "len": 118,
+    "motion": [],
+    "measure": [
+      "vh",
+      "viewport-relative"
+    ],
+    "stat": [
+      "grid",
+      "gap",
+      "stroke"
+    ],
+    "ambig": [],
+    "literal": "static"
+  },
+  {
+    "id": "S21",
+    "text": "10 栏中 1–4 与 7–10 栏给两张表，5–6 栏留给 14 枚 24×96px 横条首尾相扣，条间留 1px 纸色缝，右端按 30/45/60° 斜切——先后由切口角度读出。",
+    "len": 91,
+    "motion": [],
+    "measure": [],
+    "stat": [
+      "column",
+      "slant",
+      "interlock"
+    ],
+    "ambig": [],
+    "literal": "static"
+  },
+  {
+    "id": "S22",
+    "text": "两半各 6 栏、栏距 22px、外距 56px，中缝 88px 宽于外距，下半页右移 8px、字号 17 与 16.5px，折痕 3px、两端 4px 起毛——分区只靠透光与折痕。",
+    "len": 90,
+    "motion": [],
+    "measure": [],
+    "stat": [
+      "column",
+      "gutter",
+      "crease",
+      "seam"
+    ],
+    "ambig": [],
+    "literal": "static"
+  },
+  {
+    "id": "S23",
+    "text": "9 处开口按 3/2/2/1/1 递减，断口露 2 至 4 层、层间夹 1px 亮线，62° 斜痕宽 2px、距 6px，右缘 96px 索引条对齐首行——层序由层数与索引高度读出。",
+    "len": 91,
+    "motion": [],
+    "measure": [],
+    "stat": [
+      "align",
+      "slant"
+    ],
+    "ambig": [],
+    "literal": "static"
+  },
+  {
+    "id": "S24",
+    "text": "8 栏加中轴，每层各伸 2 栏、最多 4 层，宽比 5:3 且窄侧下沉 24px，支线由 2.5px 递减到 1、0.6、0.4px 并留 2px 缺口——深度由层数与线宽读出。",
+    "len": 89,
+    "motion": [],
+    "measure": [],
+    "stat": [
+      "column",
+      "stroke"
+    ],
+    "ambig": [],
+    "literal": "static"
+  },
+  {
+    "id": "S25",
+    "text": "左 3 右 7 栏、中缝 56px，装订线落中缝右 12px，两版错开 0.8 至 1.6px、相压处相乘出深色，行首按 0/12/24px 缩进——层级由缩进量与版次差给出。",
+    "len": 88,
+    "motion": [],
+    "measure": [],
+    "stat": [
+      "column",
+      "stagger",
+      "seam"
+    ],
+    "ambig": [],
+    "literal": "static"
+  },
+  {
+    "id": "S26",
+    "text": "12 栏栏线整体倾 11°，三块色版按 5:3:4 分宽、高 100%/64%/80%，最窄一块再沉 16px，压叠 1.5px 与 1.2px 同向右下——次序由斜角与压叠量给出。",
+    "len": 91,
+    "motion": [],
+    "measure": [],
+    "stat": [
+      "column",
+      "slant"
+    ],
+    "ambig": [],
+    "literal": "static"
+  },
+  {
+    "id": "S27",
+    "text": "9 栏、栏距 20px、基线 7px，正文占 5 栏、签发栏 3 栏、末栏只留边距，两版固定错开 1.8px 向右上，描边共用这一位移——先后由栏宽比与错位方向给出。",
+    "len": 83,
+    "motion": [],
+    "measure": [],
+    "stat": [
+      "column",
+      "baseline",
+      "misalign",
+      "gutter",
+      "stagger"
+    ],
+    "ambig": [],
+    "literal": "static"
+  },
+  {
+    "id": "S28",
+    "text": "16 栏、栏距 0、外距 64px，12 块面积不等、最大 7 栏最小 2 栏，裁切边按 4 至 14px 写死值错开并外出血 24px，凸起只在左上——边界由错位与出血量区分。",
+    "len": 89,
+    "motion": [],
+    "measure": [],
+    "stat": [
+      "column",
+      "misalign",
+      "crop",
+      "gutter",
+      "bleed",
+      "stagger"
+    ],
+    "ambig": [],
+    "literal": "static"
+  },
+  {
+    "id": "S29",
+    "text": "左缘 72px 内 3px 穿孔按 18px 间距排一列、1.2px 环线穿过，章节号挂栏外占 48px 宽，规格表下沉 18px 并右出血 96px——归属由编号位与出血方向给出。",
+    "len": 91,
+    "motion": [],
+    "measure": [],
+    "stat": [
+      "column",
+      "gap",
+      "bleed"
+    ],
+    "ambig": [],
+    "literal": "static"
+  },
+  {
+    "id": "S30",
+    "text": "版面沿 −32° 对切成两半，斜切带高 96px、下半错开 9px，缺口宽 6 至 28px、深 2 至 9px，1.5px 白带 55% 至 70%——先后由错位量与深度给出。",
+    "len": 89,
+    "motion": [],
+    "measure": [],
+    "stat": [
+      "misalign",
+      "slant",
+      "stagger"
+    ],
+    "ambig": [],
+    "literal": "static"
+  }
+]

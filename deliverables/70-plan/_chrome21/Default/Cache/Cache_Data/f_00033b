@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>几何对撞栏 · 一条产线两班读数对照｜A 班 412 度、B 班 386 度</title>
+<meta name="description" content="几何对撞栏：三块硬边色版在 11° 斜向基线上对撞，蓝版压红版 1.5px、红版压黑版 1.2px，错位方向一律向右下。A 班每吨耗电 412 度、B 班 386 度，差在换模那 9 分钟；撞口 2px 内是两版相乘后的深色，色带上每隔 96px 有一处 1px 修补缺口，共 14 处。">
+<link rel="stylesheet" href="../_fonts/css/syne__700.css">
+<link rel="stylesheet" href="../_fonts/css/noto-sans-sc__100..900.css">
+<link rel="stylesheet" href="../_fonts/css/ibm-plex-mono__400-600.css">
+<link rel="stylesheet" href="style.css">
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+<div class="sheet">
+
+<div class="topbar">
+  <div class="hud" role="status">
+    <p><b>产线</b> <code>L-2</code> <b>对照</b> A 班 / B 班</p>
+    <p><b>窗口</b> <code>07:00–15:00</code> · <code>15:00–23:00</code> <b>采样</b> <code>1min</code></p>
+    <p><b>套准公差</b> <code>±0.5px</code> <b>斜角</b> <code>11°</code></p>
+    <p class="hud__fault"><b>状态</b> <code>MISREG-26</code> 套印错位超出公差<span>（处置见 4 与 8 节）</span></p>
+  </div>
+  <nav class="idx" aria-label="读数分区索引">
+    <p class="idx__no"><code>MISREG-26</code></p>
+    <ol class="idx__list">
+      <li><a href="#p1" aria-current="true"><code>1</code> 两班读数并置</a></li>
+      <li><a href="#p2" aria-current="false"><code>2</code> 换模那 9 分钟</a></li>
+      <li><a href="#p3" aria-current="false"><code>3</code> 印版件</a></li>
+      <li><a href="#p4" aria-current="false"><code>4</code> 套色公差</a></li>
+      <li><a href="#p5" aria-current="false"><code>5</code> 修补缺口 14 处</a></li>
+      <li><a href="#p6" aria-current="false"><code>6</code> 版式规格</a></li>
+      <li><a href="#p7" aria-current="false"><code>7</code> 采样与空档</a></li>
+      <li><a href="#p8" aria-current="false"><code>8</code> 异常与处置</a></li>
+    </ol>
+  </nav>
+</div>
+
+<header class="mast" id="top">
+  <div class="mast__head">
+    <div class="mast__lead">
+      <h1>几何对撞栏</h1>
+      <p class="mast__latin">Geometric Collision Columns</p>
+      <p class="claim">同一条产线，A 班每吨耗电 412 度，B 班 386 度，差在换模那 9 分钟。</p>
+      <p>三块硬边色版在 <code>11°</code> 斜向基线上对撞：蓝版跨 <code>5</code> 栏压过红版 <code>1.5px</code>，红版跨 <code>3</code> 栏再压过黑版 <code>1.2px</code>，错位方向一律向右下。撞口 <code>2px</code> 以内是两版相乘后的深色，构建期算成实色，边缘不羽化，层次由版压版给出，页面里没有一处投影。读数不作修饰，直接压在撞口上。</p>
+      <p class="mast__do"><a class="btn" href="#p1">把两组读数并到一栏比</a><span class="hint">对照组固定两条：A 班 <code>07:00–15:00</code>，B 班 <code>15:00–23:00</code>，同一台机器、同一批纸。</span></p>
+    </div>
+    <div class="mast__side">
+      <p class="side__t">本页全部读数取自 2 号电表的一次采样：</p>
+      <ul class="side__list">
+        <li><code>412</code> A 班每吨耗电，单位度</li>
+        <li><code>386</code> B 班每吨耗电，单位度</li>
+        <li><code>26</code> 两班之差，全部落在换模</li>
+        <li><code>9</code> 换模耗时，单位分钟</li>
+      </ul>
+      <p class="side__note">电表读数按分钟入库，页面只做两件事：把两组数并排，把差值拆开。</p>
+    </div>
+  </div>
+
+  <div class="band band--mast">
+    <div class="rules" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="plates">
+      <section class="plate plate--blue fold" aria-label="蓝版：A 班读数">
+        <h3 class="plate__t">A 班</h3>
+        <p class="plate__v"><code class="jump"><span class="jump__a">412</span><span class="jump__b">413</span></code> <span>度/吨</span></p>
+        <p class="plate__n">换模那 <code>9</code> 分钟里多花 <code>86</code> 度，去掉这一段，两班只差 <code>0</code> 度。</p>
+        <p class="plate__n">蓝版跨 <code>5</code> 栏，高度 <code>100%</code>，比红版高两个基线。</p>
+      </section>
+      <section class="plate plate--red fold" aria-label="红版：换模那 9 分钟">
+        <h3 class="plate__t">换模</h3>
+        <p class="plate__v"><code>9</code> <span>分钟</span></p>
+        <p class="plate__n">折算 <code>2.89</code> kW，红版是全页唯一的告警线。</p>
+      </section>
+      <section class="plate plate--black fold" aria-label="黑版：B 班读数">
+        <h3 class="plate__t">B 班</h3>
+        <p class="plate__v"><code>386</code> <span>度/吨</span></p>
+        <p class="plate__n">黑版跨 <code>4</code> 栏，高度 <code>80%</code>，比红版深一档：这两版叠出来就是脏黑。</p>
+      </section>
+    </div>
+    <div class="band__foot">
+      <p><b>差值</b> <code>26</code> 度/吨</p>
+      <p><b>折算</b> <code>2.89 kW</code> · <code>9 min</code></p>
+      <p><b>数据源</b> <code>METER-02</code> 分钟表</p>
+      <p><b>印版件</b> <code>PL-01</code>–<code>PL-06</code></p>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section class="sec" id="p1">
+  <h2>两班读数并置</h2>
+  <div class="two two--a">
+    <div class="col col--wide">
+      <p class="lead">把一吨纸拆成五道工序，两班的差别只剩一处：换模。其余四道工序的偏差都在 <code>±4</code> 度以内，属于电表本身的读数噪声，不构成判断依据。</p>
+      <table class="tbl">
+        <caption>工序能耗明细 · 单位 度/吨 · 采样窗口 <code>2026-10-17</code> 全天</caption>
+        <thead>
+          <tr><th scope="col">工序</th><th scope="col">A 班</th><th scope="col">B 班</th><th scope="col">差值</th><th scope="col">判定</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">换模</th><td><code>86</code></td><td><code>60</code></td><td><code>26</code></td><td class="bad">超公差</td></tr>
+          <tr><th scope="row">试印与校色</th><td><code>64</code></td><td><code>61</code></td><td><code>3</code></td><td>读数目噪声</td></tr>
+          <tr><th scope="row">正常走纸</th><td><code>214</code></td><td><code>218</code></td><td><code>4</code></td><td>读数目噪声</td></tr>
+          <tr><th scope="row">清洗</th><td><code>30</code></td><td><code>29</code></td><td><code>1</code></td><td>读数目噪声</td></tr>
+          <tr><th scope="row">待机</th><td><code>18</code></td><td><code>18</code></td><td><code>0</code></td><td>两班同值</td></tr>
+          <tr class="tbl__sum"><th scope="row">合计</th><td><code>412</code></td><td><code>386</code></td><td><code>26</code></td><td class="bad">差在换模</td></tr>
+        </tbody>
+      </table>
+      <p>表的最后一行就是主张句的那两个数：<code>412</code> 与 <code>386</code>。五行相加与电表的总账对齐，误差 <code>0</code> 度，所以这张表可以直接拿去对账，不需要再乘系数。</p>
+    </div>
+    <div class="col col--side">
+      <figure class="fig">
+        <img src="assets/reuse-s16-plate-04-metal-type.jpg" width="1280" height="850" alt="一排排铅活字按字面朝上码在排字盘里，字身侧面留有浇铸时的合模线">
+        <figcaption><code>PL-04</code> 铅活字：一色一版，一版一模，套印错位在凸版里是常态而不是故障。本页把这句话做成了版面规则：<code>1.5px</code> 与 <code>1.2px</code> 两个数值写死，方向一律向右下。<span class="ref">Willi Heidelbach · CC BY 2.5 · <a href="https://commons.wikimedia.org/wiki/File:Metal%20movable%20type.jpg">Wikimedia Commons</a> · 原为 S16 抓取</span></figcaption>
+      </figure>
+      <div class="knock">
+        <p class="knock__t">差值 <code>26</code> 度的去向</p>
+        <p>换模 <code>9</code> 分钟里，机器没有走纸，但加热与真空泵一直在吃电。这 <code>9</code> 分钟即 <code>26</code> 度。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="p2">
+  <h2>换模那 9 分钟</h2>
+  <div class="band band--r2">
+    <div class="rules" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="plates">
+      <section class="plate plate--blue fold" aria-label="蓝版：换模步骤">
+        <h3 class="plate__t">拆与装</h3>
+        <p class="plate__v"><code>5:50</code> <span>拆版加装版</span></p>
+        <p class="plate__n">旧印版拆下 <code>2:10</code>，新印版落位 <code>2:40</code>，螺栓按对角两遍过。</p>
+      </section>
+      <section class="plate plate--red fold" aria-label="红版：校套准">
+        <h3 class="plate__t">校套准</h3>
+        <p class="plate__v"><code>1:50</code> <span>分钟</span></p>
+        <p class="plate__n">校的是三个撞口：蓝压红 <code>1.5px</code>、红压黑 <code>1.2px</code>、蓝压黑 <code>0.8px</code>。</p>
+      </section>
+      <section class="plate plate--black fold" aria-label="黑版：试印">
+        <h3 class="plate__t">试印与记录</h3>
+        <p class="plate__v"><code>2:20</code> <span>分钟</span></p>
+        <p class="plate__n">试印 <code>4</code> 张，量三处撞口，记一次工时；这 <code>4</code> 张纸不计入成品。</p>
+      </section>
+    </div>
+    <div class="band__foot">
+      <p><b>合计</b> <code>9:00</code></p>
+      <p><b>耗电</b> <code>26</code> 度</p>
+      <p><b>功率</b> <code>2.89 kW</code></p>
+      <p><b>速率档</b> <code>1.00</code> / <code>0.88</code> / <code>0.94</code></p>
+    </div>
+  </div>
+  <div class="two two--b">
+    <div class="col col--side">
+      <figure class="fig">
+        <img src="assets/reuse-s16-plate-06-composing-stick.jpg" width="1280" height="1259" alt="一只木质排字手托里已经排好几行铅字，字面朝向观察者，边缘夹着锁紧的金属夹">
+        <figcaption><code>PL-06</code> 排字手托：先把字排成行，再整行落版。换模这 <code>9</code> 分钟里，人手做的事和这只手托做的事一样——把一段一段的行攒成一块能上机的版。<span class="ref">takomabibelot · CC BY 2.0 · <a href="https://commons.wikimedia.org/wiki/File:Composing-stick%20-%20Winkelhaken%20(2311727423).jpg">Wikimedia Commons</a> · 原为 S16 抓取</span></figcaption>
+      </figure>
+    </div>
+    <div class="col col--wide">
+      <p class="lead">把 <code>9</code> 分钟拆到动作上，能压的只有两段：装版 <code>2:40</code> 与校套准 <code>1:50</code>。</p>
+      <ol class="steps">
+        <li><b>拆旧版</b> <code>2:10</code> 松六个压板螺栓，版心朝下取出，编号上账。</li>
+        <li><b>装新版</b> <code>2:40</code> 版框落位前先擦净台面，落位后按对角两遍压紧。</li>
+        <li><b>校套准</b> <code>1:50</code> 三处撞口各量一次，超 <code>±0.5px</code> 就重压。</li>
+        <li><b>试印</b> <code>1:20</code> 走 <code>4</code> 张，看网点与撞口，不看图案。</li>
+        <li><b>记账</b> <code>1:00</code> 记工时、记度数，写进分钟表。</li>
+      </ol>
+      <p>B 班把这五步的顺序调了一处：试印放在校套准之前，用 <code>4</code> 张纸换掉一次重复落版，装版那段压到 <code>2:40</code> 以内，于是 <code>9</code> 分钟只剩 <code>26</code> 度的差。</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="p3">
+  <h2>印版件与车间</h2>
+  <div class="two two--c">
+    <div class="col col--wide">
+      <figure class="fig fig--wide">
+        <img src="assets/reuse-s16-plate-05-albion-press.jpg" width="1280" height="987" alt="一台木架铁件的 Albion 手摇印刷机立在车间里，压杆与版台清晰可见，机器侧面挂着印版编号牌">
+        <figcaption><code>PL-05</code> Albion 手摇印刷机：一次一版、一版一色，压杆下去的那一下就是套印。本页的两组读数也按这个顺序排：蓝版先落，红版后落，黑版压最上。<span class="ref">Rodhullandemu · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File:Albion%20press%20at%20the%20Birkenhead%20Museum%20of%20Printing.jpg">Wikimedia Commons</a> · 原为 S16 抓取</span></figcaption>
+      </figure>
+    </div>
+    <div class="col col--side">
+      <p class="lead">车间里的机器决定版面：<code>11°</code> 斜栏线不是装饰，它是印版在版台上落位的角度。</p>
+      <ul class="facts">
+        <li><b>版台角度</b> <code>11°</code>，每 <code>100px</code> 抬升 <code>19.4px</code></li>
+        <li><b>网点</b> <code>100</code> 线，网屏角 <code>30°</code></li>
+        <li><b>单张印版件长边</b> <code>1600px</code>，不超 <code>90KB</code></li>
+        <li><b>圆角</b> 全站 <code>0</code>，层次靠错位与相乘色</li>
+      </ul>
+      <p class="note">基准翻拍件编号 <code>BH-1923-011</code> 未进入本地样本库；本页印版件全部是 Wikimedia Commons 的实拍件，编号 <code>PL-01</code>–<code>PL-06</code>，逐张署名见页脚。</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="p4">
+  <h2>套色公差与三处撞口</h2>
+  <div class="two two--d">
+    <div class="col col--wide">
+      <table class="tbl">
+        <caption>三处撞口实测 · 单位 px · 公差 <code>±0.5px</code></caption>
+        <thead>
+          <tr><th scope="col">撞口</th><th scope="col">方向</th><th scope="col">规定量</th><th scope="col">实测</th><th scope="col">状态</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">蓝版压红版</th><td>向右下</td><td><code>1.5</code></td><td><code>1.6</code></td><td>合格</td></tr>
+          <tr><th scope="row">红版压黑版</th><td>向右下</td><td><code>1.2</code></td><td><code>1.9</code></td><td class="bad">超差</td></tr>
+          <tr><th scope="row">蓝版压黑版</th><td>向右下</td><td><code>0.8</code></td><td><code>1.7</code></td><td class="bad">超差</td></tr>
+          <tr class="tbl__sum"><th scope="row">撞口宽度</th><td>相乘色</td><td><code>2.0</code></td><td><code>2.0</code></td><td>合格</td></tr>
+        </tbody>
+      </table>
+      <p>两处超差都出在红版：红版的下边同时压着黑版与纸底，落版时被上一次的墨迹顶起 <code>0.7px</code>。这不是排版问题，是印版问题——所以页面上不隐掉它，按原值写出来。</p>
+      <p class="note">错位方向必须统一向右下。方向一旦不统一，读起来是脏而不稳；方向统一时，偏移量本身就成为节奏。</p>
+    </div>
+    <div class="col col--side">
+      <div class="err" role="group" aria-label="错误状态">
+        <p class="err__code"><code>MISREG-26</code></p>
+        <p class="err__t">套印错位超出公差</p>
+        <p>触发条件：任一撞口实测值超出 <code>±0.5px</code>，或三处撞口的错位方向不一致。</p>
+        <p>当前：红版压黑版实测 <code>1.9px</code>，蓝版压黑版实测 <code>1.7px</code>，两项同时命中。</p>
+        <p>处置入口在 8 节：重压红版下边，复量三处，方向仍取向右下。</p>
+      </div>
+      <figure class="fig">
+        <img src="assets/reuse-s01-plate-02-type-case.jpg" width="1280" height="853" alt="一只分格的铅字盘平放，格子里分门别类码着铅字，盘沿磨出深浅不一的木色">
+        <figcaption><code>PL-02</code> 铅字盘：一个字一格，位置不能挪。套准同理，撞口的位置定了就不能随手改。<span class="ref">Thomas Quine · CC BY 2.0 · <a href="https://commons.wikimedia.org/wiki/File:Lead_type_case_(25598835882).jpg">Wikimedia Commons</a> · 原为 S01 抓取</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="p5">
+  <h2>修补缺口 14 处</h2>
+  <div class="two two--e">
+    <div class="col col--wide">
+      <p class="lead">撞口的相乘色带不是一段纯机械的偏移：色带上每隔 <code>96px</code> 有一处 <code>1px</code> 宽的垂直缺口，位置按 1923 年那张明信片上真实的印版修补痕迹摆放，全页共 <code>14</code> 处，两条修补带各 <code>7</code> 处。这两条带在本节按 1:1 取下平放，带宽 <code>6px</code>，与相乘色带同宽。</p>
+      <table class="tbl tbl--tight">
+        <caption>14 处缺口的纵向坐标 · 单位 px · 距色带顶端</caption>
+        <thead>
+          <tr><th scope="col">带</th><th scope="col">序</th><th scope="col">坐标 y</th><th scope="col">与上一处间距</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">甲带</th><td><code>1</code></td><td><code>41</code></td><td>起</td></tr>
+          <tr><th scope="row">甲带</th><td><code>2</code></td><td><code>132</code></td><td><code>91</code></td></tr>
+          <tr><th scope="row">甲带</th><td><code>3</code></td><td><code>229</code></td><td><code>97</code></td></tr>
+          <tr><th scope="row">甲带</th><td><code>4</code></td><td><code>318</code></td><td><code>89</code></td></tr>
+          <tr><th scope="row">甲带</th><td><code>5</code></td><td><code>407</code></td><td><code>89</code></td></tr>
+          <tr><th scope="row">甲带</th><td><code>6</code></td><td><code>502</code></td><td><code>95</code></td></tr>
+          <tr><th scope="row">甲带</th><td><code>7</code></td><td><code>601</code></td><td><code>99</code></td></tr>
+          <tr><th scope="row">乙带</th><td><code>8</code></td><td><code>58</code></td><td>起</td></tr>
+          <tr><th scope="row">乙带</th><td><code>9</code></td><td><code>149</code></td><td><code>91</code></td></tr>
+          <tr><th scope="row">乙带</th><td><code>10</code></td><td><code>246</code></td><td><code>97</code></td></tr>
+          <tr><th scope="row">乙带</th><td><code>11</code></td><td><code>341</code></td><td><code>95</code></td></tr>
+          <tr><th scope="row">乙带</th><td><code>12</code></td><td><code>433</code></td><td><code>92</code></td></tr>
+          <tr><th scope="row">乙带</th><td><code>13</code></td><td><code>528</code></td><td><code>95</code></td></tr>
+          <tr><th scope="row">乙带</th><td><code>14</code></td><td><code>617</code></td><td><code>89</code></td></tr>
+        </tbody>
+      </table>
+      <p>间距在 <code>89</code>–<code>99</code> 之间浮动，围着 <code>96</code> 上下走，两条带起点不同：甲带从 <code>41</code> 起，乙带从 <code>58</code> 起。缺口处露出纸底，宽度固定 <code>6px</code>——正好是那条相乘色带的宽度。</p>
+    </div>
+    <div class="col col--side">
+      <div class="repair">
+        <p class="repair__t"><code>甲带</code> 修补缺口 7 处</p>
+        <div class="repair__run repair__run--a" role="img" aria-label="一条 6px 宽的相乘色带，带上有 7 处 1px 宽的缺口，露出纸底"></div>
+        <p class="repair__c">坐标 <code>41</code> / <code>132</code> / <code>229</code> / <code>318</code> / <code>407</code> / <code>502</code> / <code>601</code></p>
+      </div>
+      <div class="repair">
+        <p class="repair__t"><code>乙带</code> 修补缺口 7 处</p>
+        <div class="repair__run repair__run--b" role="img" aria-label="另一条 6px 宽的相乘色带，带上有 7 处 1px 宽的缺口，位置与甲带错开"></div>
+        <p class="repair__c">坐标 <code>58</code> / <code>149</code> / <code>246</code> / <code>341</code> / <code>433</code> / <code>528</code> / <code>617</code></p>
+      </div>
+      <figure class="fig">
+        <img src="assets/reuse-s12-memphis-collection.jpg" width="1536" height="2048" alt="一件 Memphis 风格的塑料层压书架，表面是彩色几何图案拼成的斜向色块">
+        <figcaption><code>PL-03</code> Sottsass 为 Memphis 做的书架：颜色分区不按对称轴走，按斜线走。本页的三原色分区用的是同一套办法。<span class="ref">Stefano Stabile · CC BY-SA 3.0 · <a href="https://commons.wikimedia.org/wiki/File:Ettore_Sottsass_per_Memphis_-_Libreria_Casablanca_-_1981_-_laminato_plastico_-_Casablanca_bookcase_in_plastic_laminate.JPG">Wikimedia Commons</a> · 原为 S12 抓取</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="p6">
+  <h2>版式规格</h2>
+  <div class="two two--f">
+    <div class="col col--wide">
+      <table class="tbl">
+        <caption>写在 CSS 变量里的六个值</caption>
+        <thead>
+          <tr><th scope="col">项</th><th scope="col">值</th><th scope="col">说明</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">斜栏线</th><td><code>11°</code></td><td>斜的是栏线本身，不叠加装饰斜线</td></tr>
+          <tr><th scope="row">分区宽比</th><td><code>5:3:4</code></td><td>蓝五栏、红三栏、黑四栏，没有一栏居中</td></tr>
+          <tr><th scope="row">分区高比</th><td><code>100:64:80</code></td><td>红区再下沉两个基线，即 <code>16px</code></td></tr>
+          <tr><th scope="row">套色错位</th><td><code>1.5px</code> / <code>1.2px</code></td><td>方向一致向右下，禁随机偏移</td></tr>
+          <tr><th scope="row">栅格</th><td><code>12</code> 栏</td><td>栏距 <code>18px</code>、外距 <code>40px</code>、基线 <code>8px</code></td></tr>
+          <tr><th scope="row">阻尼过渡</th><td><code>220ms</code></td><td>缓动 <code>cubic-bezier(0.3,0.9,0.3,1)</code></td></tr>
+        </tbody>
+      </table>
+      <p>断点三档各自换角：<code>1440px</code> 以上三区并排、保 <code>11°</code>；<code>1024–1439px</code> 折成 <code>2+1</code> 两行、降到 <code>7°</code>；<code>768–1023px</code> 转单列纵向、降到 <code>4°</code>；<code>768px</code> 以下回到单栏，<code>11°</code> 斜栏线落在每段的分区边界上，边界可视高度 <code>18px</code>。</p>
+      <p class="note"><code>prefers-reduced-motion: reduce</code> 时，三区差速与折返滑入交由 <code>120ms</code> 的不透明度切换承担；<code>11°</code> 斜栏线、<code>5:3:4</code> 的宽度比与 <code>1.5px</code>／<code>1.2px</code> 的套色错位全部按原值静态呈现，签名机制一项不少。</p>
+    </div>
+    <div class="col col--side">
+      <div class="swatch">
+        <p class="swatch__t"><code>rule</code> 斜线规样张 · <code>11°</code> · 间距 <code>24px</code> · 不透明度 <code>0.18</code></p>
+        <div class="swatch__box swatch__box--rule" role="img" aria-label="一块 512 像素见方的斜线规样张：一组 11° 等距平行细线，间距 24 像素"></div>
+        <p class="swatch__c">纹样由 <code>make-textures.py</code> 的 <code>rule</code> 生成器烘成位图，参数逐字节可复算。<span class="ref">生成物，非照片，无第三方权利</span></p>
+      </div>
+      <div class="swatch">
+        <p class="swatch__t"><code>misreg</code> 套印错位样张 · <code>1.5px</code> × <code>1.2px</code> · <code>#C8341F</code></p>
+        <div class="swatch__box swatch__box--misreg" role="img" aria-label="一块 512 像素见方的套印错位样张：同一轮廓的红版副本向右下偏移 1.5 与 1.2 像素"></div>
+        <p class="swatch__c">错位方向固定向右下，偏移量 <code>1.5px</code> 与 <code>1.2px</code> 两个值写死。<span class="ref">生成物，非照片，无第三方权利</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="p7">
+  <h2>采样与空档</h2>
+  <div class="band band--r7">
+    <div class="rules" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="plates">
+      <section class="plate plate--blue fold" aria-label="蓝版：采样设置">
+        <h3 class="plate__t">采样</h3>
+        <p class="plate__v"><code>1</code> <span>分钟</span></p>
+        <p class="plate__n">2 号电表每分钟入一行，空行不补零，缺采样就留白。</p>
+      </section>
+      <section class="plate plate--red fold" aria-label="红版：空档">
+        <h3 class="plate__t">空档</h3>
+        <p class="plate__v"><code>0</code> <span>行</span></p>
+        <p class="plate__n">上一窗口 <code>23:00–07:00</code> 停机，区间内没有一行读数。</p>
+      </section>
+      <section class="plate plate--black fold" aria-label="黑版：空状态说明">
+        <h3 class="plate__t">空状态</h3>
+        <p class="plate__v"><code>2</code> <span>号电表</span></p>
+        <p class="plate__n">接线端子空着的时候，页面不画虚线占位，只写一句实话。</p>
+      </section>
+    </div>
+    <div class="band__foot">
+      <p><b>电表</b> <code>METER-02</code></p>
+      <p><b>最近一帧</b> <code>15:00</code></p>
+      <p><b>入库频率</b> <code>1/min</code></p>
+      <p><b>补零</b> 不做</p>
+    </div>
+  </div>
+  <div class="two two--g">
+    <div class="col col--wide">
+      <div class="empty">
+        <p class="empty__t">空档区间 <code>23:00–07:00</code></p>
+        <p class="empty__say">这个区间还没有采样。接上 2 号电表，第一分钟就会出数。</p>
+        <p>停机区间不估算、不插值：页面上出现的每一个度数值都能回到某一行分钟记录。接上电表之后，同一块色版在下一帧自动落位，不需要改版。</p>
+      </div>
+      <table class="tbl">
+        <caption>电表与采样口</caption>
+        <thead>
+          <tr><th scope="col">编号</th><th scope="col">位置</th><th scope="col">状态</th><th scope="col">首行时间</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row"><code>METER-01</code></th><td>总进线</td><td>在线</td><td><code>2026-10-01 00:00</code></td></tr>
+          <tr><th scope="row"><code>METER-02</code></th><td>L-2 产线</td><td class="bad">待接线</td><td>—</td></tr>
+          <tr><th scope="row"><code>METER-03</code></th><td>空压机</td><td>在线</td><td><code>2026-10-01 00:00</code></td></tr>
+          <tr><th scope="row"><code>METER-04</code></th><td>烘干段</td><td>在线</td><td><code>2026-10-08 06:00</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col col--side">
+      <figure class="fig">
+        <img src="assets/reuse-s12-carlton-bookcase.jpg" width="1920" height="1963" alt="一件 Memphis 风格的书架，两侧是彩色层压板做的阶梯形支撑，格子高低不等">
+        <figcaption><code>PL-01</code> Carlton 书架：格子高低不等，没有一条对称轴。本页三区高度 <code>100%</code>、<code>64%</code>、<code>80%</code>，同样是故意不等。<span class="ref">Sailko · CC BY 3.0 · <a href="https://commons.wikimedia.org/wiki/File:Ettore_sottsass_per_memphis_srl.%2C_libreria_carlton%2C_milano_1981.jpg">Wikimedia Commons</a> · 原为 S12 抓取</span></figcaption>
+      </figure>
+      <p class="note">页面宽到 <code>1440px</code> 时三区并排，窄到 <code>768px</code> 以下时三区上下堆叠，纵向顺序与高度比都不变，色版错位也一起带过去。</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="p8">
+  <h2>异常与处置</h2>
+  <div class="two two--h">
+    <div class="col col--wide">
+      <table class="tbl">
+        <caption>异常清单 · 按处置顺序排列</caption>
+        <thead>
+          <tr><th scope="col">序</th><th scope="col">现象</th><th scope="col">实测</th><th scope="col">处置</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row"><code>1</code></th><td>红版压黑版错位</td><td><code>1.9px</code></td><td>松开红版下边两个压板，重压一遍</td></tr>
+          <tr><th scope="row"><code>2</code></th><td>蓝版压黑版错位</td><td><code>1.7px</code></td><td>先复量撞口，再决定是否挪蓝版</td></tr>
+          <tr><th scope="row"><code>3</code></th><td>换模耗时偏长</td><td><code>9:00</code></td><td>试印提到校套准之前，省一次重复落版</td></tr>
+          <tr><th scope="row"><code>4</code></th><td>2 号电表无采样</td><td><code>0</code> 行</td><td>接线后等第一分钟，不插值</td></tr>
+        </tbody>
+      </table>
+      <p>处置顺序不能换：先修印版，再看读数。错位没有压回公差以内之前，换模工时的对比没有意义——差值 <code>26</code> 度里有一部分是重印带来的。</p>
+      <p class="note">三处撞口复量合格之后，顶部状态条的 <code>MISREG-26</code> 才会退回 <code>OK</code>。在那之前它一直留在屏幕最上方，不折叠、不隐藏。</p>
+    </div>
+    <div class="col col--side">
+      <div class="err err--wide" role="group" aria-label="错误状态与处置条件">
+        <p class="err__code"><code>MISREG-26</code></p>
+        <p class="err__t">套印错位超出公差 · 待处理</p>
+        <p>影响项 <code>2</code> 处，涉及红版与蓝版各一处。</p>
+        <p>处置后复量三处撞口，方向仍取向右下，量值落在 <code>±0.5px</code> 以内即闭环。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="foot__grid">
+    <div>
+      <p class="foot__t">印版件署名</p>
+      <ul class="credits">
+        <li><code>PL-01</code> Carlton 书架 · Sailko · CC BY 3.0 · <a href="https://commons.wikimedia.org/wiki/File:Ettore_sottsass_per_memphis_srl.%2C_libreria_carlton%2C_milano_1981.jpg">Wikimedia Commons</a></li>
+        <li><code>PL-02</code> 铅字盘 · Thomas Quine · CC BY 2.0 · <a href="https://commons.wikimedia.org/wiki/File:Lead_type_case_(25598835882).jpg">Wikimedia Commons</a></li>
+        <li><code>PL-03</code> Memphis 书架 · Stefano Stabile · CC BY-SA 3.0 · <a href="https://commons.wikimedia.org/wiki/File:Ettore_Sottsass_per_Memphis_-_Libreria_Casablanca_-_1981_-_laminato_plastico_-_Casablanca_bookcase_in_plastic_laminate.JPG">Wikimedia Commons</a></li>
+        <li><code>PL-04</code> 铅活字 · Willi Heidelbach · CC BY 2.5 · <a href="https://commons.wikimedia.org/wiki/File:Metal%20movable%20type.jpg">Wikimedia Commons</a></li>
+        <li><code>PL-05</code> Albion 手摇机 · Rodhullandemu · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File:Albion%20press%20at%20the%20Birkenhead%20Museum%20of%20Printing.jpg">Wikimedia Commons</a></li>
+        <li><code>PL-06</code> 排字手托 · takomabibelot · CC BY 2.0 · <a href="https://commons.wikimedia.org/wiki/File:Composing-stick%20-%20Winkelhaken%20(2311727423).jpg">Wikimedia Commons</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="foot__t">纹样与字体</p>
+      <p>斜线规、套印错位、油墨颗粒三个纹样由脚本程序化生成，非照片，按参数逐字节可复算。字体自托管：标题 <code>Syne</code>、正文 <code>Noto Sans SC</code>、读数 <code>IBM Plex Mono</code>，授权均为 OFL 1.1。</p>
+      <p>印版件照片的蓝版／红版双色在渲染时用 CSS 滤镜完成（灰阶到单色版）；<code>100</code> 线、网屏角 <code>30°</code> 的半调没有烘进位图文件，本地素材目录冻结，这一项留在页面上做成一档待办。</p>
+    </div>
+    <div>
+      <p class="foot__t">版面编号</p>
+      <p><code>S26</code> 几何对撞栏 · <code>11°</code> 斜栏线 · 分区 <code>5:3:4</code> · 错位 <code>1.5px</code>／<code>1.2px</code> · 修补缺口 <code>14</code> 处</p>
+      <p><code>MISREG-26</code> 为本案错误码，由 Lead 补入，取意为三色套印错位超出公差。</p>
+    </div>
+  </div>
+</footer>
+
+</div>
+
+<script>
+(function(){
+  /* 每一段自己的部件都要滑入：折返滑入挂在 .fold 上，段落进入视口时逐块开始 */
+  var extra = '.sec > h2, .sec .lead, .band__foot, .fig, .tbl, .err, .empty, .knock, .repair, .swatch, .mast__side, .foot__grid';
+  var folds = [].slice.call(document.querySelectorAll('.fold'));
+  [].forEach.call(document.querySelectorAll(extra), function (el) { el.classList.add('fold'); folds.push(el); });
+  var bands = [].slice.call(document.querySelectorAll('.band'));
+  var reduce = false;
+  try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { reduce = false; }
+
+  function show(el) { el.classList.add('in'); }
+
+  if (!reduce && 'IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (items) {
+      items.forEach(function (it) {
+        if (it.isIntersecting) { show(it.target); io.unobserve(it.target); }
+      });
+    }, { rootMargin: '0px 0px -6% 0px', threshold: 0.08 });
+    folds.forEach(function (f) { io.observe(f); });
+    window.setTimeout(function () { folds.forEach(show); }, 2200);
+  } else {
+    folds.forEach(show);
+  }
+
+  if (!reduce && bands.length) {
+    var raf = 0;
+    var step = function () {
+      raf = 0;
+      var H = window.innerHeight || 800;
+      for (var i = 0; i < bands.length; i++) {
+        var b = bands[i];
+        var r = b.getBoundingClientRect();
+        var t = (r.top + r.height / 2 - H / 2) / H;
+        if (t > 1.4) { t = 1.4; }
+        if (t < -1.4) { t = -1.4; }
+        b.style.setProperty('--p', (t * 24).toFixed(1) + 'px');
+      }
+    };
+    var kick = function () { if (!raf) { raf = window.requestAnimationFrame(step); } };
+    window.addEventListener('scroll', kick, { passive: true });
+    window.addEventListener('resize', kick);
+    step();
+  }
+})();
+</script>
+
+</body>
+</html>

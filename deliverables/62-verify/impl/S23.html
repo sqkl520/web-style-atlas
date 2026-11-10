@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>铲痕档案 · 同一面墙的九个年份</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --carmine:#A8206B;
+    --oxide:#241C16;
+    --plaster:#DCDCC8;
+    --mortar:#7A6A55;
+    --lime:#E9E9D7;
+    --mortar-ink:#5F5240;
+    --mortar-lit:#B7A78C;
+  }
+  *,*::before,*::after{box-sizing:border-box;border-radius:0}
+  html,body{margin:0;padding:0;background:var(--plaster);color:var(--oxide)}
+  body{font-family:"Noto Serif SC",serif;font-size:15px;line-height:1.7}
+  a{color:inherit}
+
+  .page{max-width:1360px;margin:0 auto;padding-right:96px;position:relative}
+
+  /* 右缘 96px 索引条（对齐首行） */
+  .index{position:fixed;top:0;right:0;width:96px;height:100vh;background:var(--oxide);z-index:20;display:flex;flex-direction:column}
+  .index .hd{background:var(--carmine);color:var(--lime);text-align:center;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.18em;padding:9px 0 8px;line-height:1}
+  .index ol{list-style:none;margin:0;padding:0;flex:1;display:flex;flex-direction:column}
+  .index li{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border-bottom:1px solid var(--mortar-ink);font-family:"JetBrains Mono",monospace;font-size:10.5px;font-variant-numeric:tabular-nums;color:var(--mortar-lit)}
+  .index li b{font-weight:700;color:var(--lime);font-size:12px;letter-spacing:.06em}
+  .index li span{font-size:9.5px;letter-spacing:.04em}
+  .index li:last-child{border-bottom:0}
+
+  /* 页头 */
+  .head{padding:26px 34px 18px 40px;border-bottom:6px solid var(--oxide);display:grid;grid-template-columns:1fr 288px;gap:0;align-items:end}
+  .head .k{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--carmine)}
+  h1{font-family:"Noto Serif SC",serif;font-weight:600;font-size:clamp(30px,4.6vw,54px);line-height:1.08;letter-spacing:-.01em;margin:8px 0 10px;max-width:20ch}
+  .head p.lead{margin:0;font-size:15.5px;line-height:1.75;color:var(--mortar-ink);max-width:42ch}
+  .head .side{border-left:1px solid var(--mortar);padding:0 0 4px 18px;font-family:"JetBrains Mono",monospace;font-size:10.5px;line-height:2;font-variant-numeric:tabular-nums;color:var(--mortar-ink)}
+  .head .side em{font-style:normal;color:var(--carmine);letter-spacing:.14em;font-size:9.5px;text-transform:uppercase;display:block;margin-bottom:3px}
+
+  /* 墙面总览图 */
+  .overview{margin:0;position:relative;border-bottom:6px solid var(--oxide)}
+  .overview img{display:block;width:100%;height:280px;object-fit:cover}
+  .overview figcaption{position:absolute;left:40px;bottom:12px;background:var(--oxide);color:var(--lime);font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.1em;padding:5px 9px;font-variant-numeric:tabular-nums}
+
+  /* 行：3 / 2 / 2 / 1 / 1 */
+  .row{display:grid;gap:0;border-bottom:6px solid var(--oxide)}
+  .row.r3{grid-template-columns:repeat(3,1fr)}
+  .row.r2{grid-template-columns:repeat(2,1fr)}
+  .row.r1{grid-template-columns:1fr}
+
+  .cut{position:relative;border-right:1px solid var(--mortar);padding:0;display:flex;flex-direction:column}
+  .cut:last-child{border-right:0}
+  .cut .inner{padding:16px 18px 18px;display:flex;flex-direction:column;flex:1}
+  .row.r3 .cut .inner{padding:14px 14px 16px}
+  .row.r1 .cut .inner{padding:22px 26px 22px}
+
+  .cut .hd{border-bottom:1px solid var(--mortar);padding:0 0 6px;margin-bottom:10px;display:flex;align-items:baseline;gap:10px}
+  .cut .hd .no{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:11px;font-variant-numeric:tabular-nums;letter-spacing:.1em;color:var(--carmine);text-align:right;min-width:2.4em}
+  .cut .hd .cnt{margin-left:auto;font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--mortar-ink);font-variant-numeric:tabular-nums;letter-spacing:.04em;white-space:nowrap}
+  .cut h2{font-family:"Noto Serif SC",serif;font-weight:600;font-size:18px;line-height:1.3;margin:0 0 10px}
+  .row.r1 .cut h2{font-size:24px;max-width:26ch}
+
+  /* 断口分层 */
+  .layers{display:flex;flex-direction:column;border-top:1px solid var(--mortar-lit)}
+  .layer{display:grid;grid-template-columns:64px 16px 1fr;gap:0;align-items:center;border-bottom:1px solid var(--mortar-lit);padding:6px 8px 6px 0}
+  .layer .yr{grid-column:1;font-family:"JetBrains Mono",monospace;font-weight:700;font-size:12px;font-variant-numeric:tabular-nums;color:var(--lime);background:var(--carmine);text-align:center;padding:4px 0;line-height:1;align-self:stretch}
+  .layer .txt{grid-column:3;padding-left:10px;font-size:12.5px;line-height:1.55;color:var(--oxide)}
+  /* 62° 斜痕：宽 2px、距 6px（2px 线 + 6px 空 = 8px 周期；条纹垂直于 152° 渐变轴 → 痕向 62°）
+     提示词未说斜痕铺整墙还是只在断口，这里做成断口旁的窄条，既不压正文，也只用调色板内的 mortar-lit */
+  .layer::after{grid-column:2;grid-row:1;align-self:stretch;content:"";
+    background-image:repeating-linear-gradient(152deg, var(--mortar-lit) 0 2px, transparent 2px 8px)}
+  .row.r1 .layer .txt{font-size:14px;line-height:1.6}
+  .layer.d1{background:var(--mortar-lit)}
+  .layer.d2{background:var(--mortar)}
+  .layer.d2 .txt,.layer.d3 .txt,.layer.d4 .txt{color:var(--lime)}
+  .layer.d3{background:var(--mortar-ink)}
+  .layer.d4{background:var(--oxide)}
+
+  .cut p.note{margin:10px 0 0;font-size:12.5px;line-height:1.6;color:var(--mortar-ink);border-left:6px solid var(--carmine);padding-left:9px}
+
+  /* 每处一张图，真实尺寸 */
+  .plate{margin:12px 0 0;border-top:1px solid var(--mortar);padding-top:0}
+  .plate img{display:block;width:100%;height:170px;object-fit:cover;background:var(--mortar-lit);border-bottom:1px solid var(--mortar)}
+  .plate figcaption{font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.08em;color:var(--mortar-ink);padding:4px 0 0;font-variant-numeric:tabular-nums}
+
+  /* 联系 */
+  .contact{padding:26px 34px 30px 40px;background:var(--oxide);color:var(--lime);display:grid;grid-template-columns:1fr 330px;gap:28px}
+  .contact h2{font-family:"Noto Serif SC",serif;font-weight:600;font-size:clamp(22px,3vw,34px);line-height:1.25;margin:0 0 10px;color:var(--lime)}
+  .contact p{margin:0 0 8px;color:var(--mortar-lit);max-width:40ch;font-size:14px}
+  .contact .rows{font-family:"JetBrains Mono",monospace;font-size:11px;line-height:2.1;font-variant-numeric:tabular-nums;border-left:6px solid var(--carmine);padding-left:14px;align-self:start}
+  .contact .rows span{display:block}
+  .contact .rows em{font-style:normal;color:var(--carmine);letter-spacing:.14em;font-size:9px;text-transform:uppercase;margin-right:10px}
+  .contact a.go{display:inline-block;margin-top:14px;font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.1em;background:var(--carmine);color:var(--lime);padding:10px 16px;text-decoration:none}
+  .contact a.go:hover{background:var(--lime);color:var(--oxide)}
+
+  footer{padding:14px 34px 18px 40px;border-top:6px solid var(--oxide)}
+  footer .in{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-family:"JetBrains Mono",monospace;font-size:10.5px;line-height:1.9;color:var(--mortar-ink);font-variant-numeric:tabular-nums}
+  footer .in span{max-width:48ch}
+
+  @media (max-width:900px){
+    .page{padding-right:0}
+    .index{position:static;width:auto;height:auto;flex-direction:row}
+    .index .hd{padding:9px 12px;white-space:nowrap}
+    .index ol{flex-direction:row;overflow-x:auto}
+    .index li{flex:1 0 auto;padding:7px 10px;border-bottom:0;border-right:1px solid var(--mortar-ink)}
+    .head{grid-template-columns:1fr;padding:18px 18px 14px}
+    .head .side{border-left:0;border-top:1px solid var(--mortar);padding:10px 0 0;margin-top:12px}
+    .overview figcaption{left:18px}
+    .overview img{height:180px}
+    .row.r3,.row.r2,.row.r1{grid-template-columns:1fr}
+    .cut{border-right:0;border-bottom:1px solid var(--mortar)}
+    .cut .inner,.row.r3 .cut .inner,.row.r1 .cut .inner{padding:16px 18px}
+    .contact{grid-template-columns:1fr;padding:20px 18px 24px}
+    footer{padding:12px 18px 16px}
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <nav class="index" aria-label="索引">
+    <div class="hd">INDEX</div>
+    <ol>
+      <li><b>01</b><span>1953</span></li>
+      <li><b>02</b><span>1961</span></li>
+      <li><b>03</b><span>1968</span></li>
+      <li><b>04</b><span>1974</span></li>
+      <li><b>05</b><span>1979</span></li>
+      <li><b>06</b><span>1983</span></li>
+      <li><b>07</b><span>1988</span></li>
+      <li><b>08</b><span>1992</span></li>
+      <li><b>09</b><span>1997</span></li>
+    </ol>
+  </nav>
+
+  <header class="head">
+    <div>
+      <div class="k">铲痕档案 / SCRAPE SURVEY · 第玖卷</div>
+      <h1>同一面墙，铲开九处，露出不同年份</h1>
+      <p class="lead">这面墙被反复覆盖过。我们只铲开九处，不铲平——每一处断口都露着两到四层，层与层之间夹一线旧石灰的白。年份从层数读，不从标签读。</p>
+    </div>
+    <div class="side">
+      <em>本卷</em>
+      开口 9 处 · 3/2/2/1/1<br>
+      图片 10 幅<br>
+      斜痕 62° · 宽 2px<br>
+      索引条 96px<br>
+      编号 01—09 连续
+    </div>
+  </header>
+
+  <figure class="overview">
+    <img src="images/占位-1.jpg" width="1320" height="280" alt="整面墙的九处开口全景">
+    <figcaption>图 00 · 整墙九处，自左至右按年份推进</figcaption>
+  </figure>
+
+  <!-- 行一：3 处 -->
+  <div class="row r3">
+
+    <section class="cut" id="c1">
+      <div class="inner">
+        <div class="hd"><span class="no">01</span><span class="cnt">1953 · 4 层</span></div>
+        <h2>白灰底下是青砖</h2>
+        <div class="layers">
+          <div class="layer d1"><span class="yr">1953</span><span class="txt">石灰浆，掺草筋，铲口发白。</span></div>
+          <div class="layer d2"><span class="yr">1948</span><span class="txt">纸筋灰，贴得极牢。</span></div>
+          <div class="layer d3"><span class="yr">1936</span><span class="txt">青砖，砖缝尚湿。</span></div>
+          <div class="layer d4"><span class="yr">1929</span><span class="txt">夯土，铲到此为止。</span></div>
+        </div>
+        <p class="note">九处里最深的一刀，再往下就是地基。</p>
+        <figure class="plate"><img src="images/占位-2.jpg" width="420" height="170" alt="第一处断口全景"><figcaption>01-A · 断口</figcaption></figure>
+      </div>
+      <div class="scratch" aria-hidden="true"></div>
+    </section>
+
+    <section class="cut" id="c2">
+      <div class="inner">
+        <div class="hd"><span class="no">02</span><span class="cnt">1961 · 3 层</span></div>
+        <h2>绿漆下面压着报纸</h2>
+        <div class="layers">
+          <div class="layer d1"><span class="yr">1961</span><span class="txt">调和漆，豆绿，边上起皮。</span></div>
+          <div class="layer d2"><span class="yr">1957</span><span class="txt">旧报纸，字迹朝里。</span></div>
+          <div class="layer d3"><span class="yr">1954</span><span class="txt">水泥砂浆，颗粒细。</span></div>
+        </div>
+        <p class="note">报纸最薄，铲刀一过就碎。</p>
+        <figure class="plate"><img src="images/占位-3.jpg" width="420" height="170" alt="第二处绿漆断口"><figcaption>02-A · 漆层</figcaption></figure>
+      </div>
+      <div class="scratch" aria-hidden="true"></div>
+    </section>
+
+    <section class="cut" id="c3">
+      <div class="inner">
+        <div class="hd"><span class="no">03</span><span class="cnt">1968 · 2 层</span></div>
+        <h2>标语盖住一块门牌</h2>
+        <div class="layers">
+          <div class="layer d2"><span class="yr">1968</span><span class="txt">红漆字，笔画边缘有流淌。</span></div>
+          <div class="layer d3"><span class="yr">1959</span><span class="txt">搪瓷门牌，蓝底白字。</span></div>
+        </div>
+        <p class="note">只两层，但最清楚。红漆下的字没有铲。</p>
+        <figure class="plate"><img src="images/占位-4.jpg" width="420" height="170" alt="第三处门牌与红漆"><figcaption>03-A · 门牌</figcaption></figure>
+      </div>
+      <div class="scratch" aria-hidden="true"></div>
+    </section>
+  </div>
+
+  <!-- 行二：2 处 -->
+  <div class="row r2">
+
+    <section class="cut" id="c4">
+      <div class="inner">
+        <div class="hd"><span class="no">04</span><span class="cnt">1974 · 3 层</span></div>
+        <h2>水泥里嵌着一段铁丝</h2>
+        <div class="layers">
+          <div class="layer d1"><span class="yr">1974</span><span class="txt">水泥抹面，机器抹的，敲上去发闷。</span></div>
+          <div class="layer d2"><span class="yr">1969</span><span class="txt">铁丝网，锈成一条褐线，露头三厘米。</span></div>
+          <div class="layer d3"><span class="yr">1962</span><span class="txt">旧砖墙，砖面被凿过，留着凿痕。</span></div>
+        </div>
+        <p class="note">铁丝不能拔，一拔整块抹面会塌，我们把它留作这一处的标记。</p>
+        <figure class="plate"><img src="images/占位-5.jpg" width="600" height="230" alt="第四处铁丝与水泥断口"><figcaption>04-A · 铁丝</figcaption></figure>
+      </div>
+      <div class="scratch" aria-hidden="true"></div>
+    </section>
+
+    <section class="cut" id="c5">
+      <div class="inner">
+        <div class="hd"><span class="no">05</span><span class="cnt">1979 · 2 层</span></div>
+        <h2>一层白，一层更白</h2>
+        <div class="layers">
+          <div class="layer d1"><span class="yr">1979</span><span class="txt">乳胶漆，可水洗，边上有一道擦痕。</span></div>
+          <div class="layer d2"><span class="yr">1971</span><span class="txt">大白粉，遇水即化，铲口呈粉状。</span></div>
+        </div>
+        <p class="note">两层颜色差得极少，只有斜光下才看得出边界。</p>
+        <figure class="plate"><img src="images/占位-6.jpg" width="600" height="230" alt="第五处双层白灰斜光"><figcaption>05-A · 斜光</figcaption></figure>
+      </div>
+      <div class="scratch" aria-hidden="true"></div>
+    </section>
+  </div>
+
+  <!-- 行三：2 处 -->
+  <div class="row r2">
+
+    <section class="cut" id="c6">
+      <div class="inner">
+        <div class="hd"><span class="no">06</span><span class="cnt">1983 · 4 层</span></div>
+        <h2>四次翻修压在一处</h2>
+        <div class="layers">
+          <div class="layer d1"><span class="yr">1983</span><span class="txt">涂料，米黄，滚涂，留下桔皮。</span></div>
+          <div class="layer d2"><span class="yr">1978</span><span class="txt">墙纸，只余一条窄边，花纹是斜格。</span></div>
+          <div class="layer d3"><span class="yr">1972</span><span class="txt">纸筋灰，夹着一根稻草。</span></div>
+          <div class="layer d4"><span class="yr">1965</span><span class="txt">砖，最里，砖棱已经磨圆。</span></div>
+        </div>
+        <p class="note">层线最密的一处，四条白线在十厘米内排开。</p>
+        <figure class="plate"><img src="images/占位-7.jpg" width="600" height="230" alt="第六处四层断面"><figcaption>06-A · 断面</figcaption></figure>
+      </div>
+      <div class="scratch" aria-hidden="true"></div>
+    </section>
+
+    <section class="cut" id="c7">
+      <div class="inner">
+        <div class="hd"><span class="no">07</span><span class="cnt">1988 · 3 层</span></div>
+        <h2>广告字被铲掉一半</h2>
+        <div class="layers">
+          <div class="layer d1"><span class="yr">1988</span><span class="txt">喷绘，红底白字，铲口呈锯齿。</span></div>
+          <div class="layer d2"><span class="yr">1984</span><span class="txt">水泥漆，附着力差，一揭一片。</span></div>
+          <div class="layer d3"><span class="yr">1976</span><span class="txt">石灰，最底，颜色发暖。</span></div>
+        </div>
+        <p class="note">锯齿是铲刀角度造成的，不是画上去的，我们保留了它。</p>
+        <figure class="plate"><img src="images/占位-8.jpg" width="600" height="230" alt="第七处锯齿铲口"><figcaption>07-A · 锯齿</figcaption></figure>
+      </div>
+      <div class="scratch" aria-hidden="true"></div>
+    </section>
+  </div>
+
+  <!-- 行四：1 处 -->
+  <div class="row r1">
+    <section class="cut" id="c8">
+      <div class="inner">
+        <div class="hd"><span class="no">08</span><span class="cnt">1992 · 2 层</span></div>
+        <h2>第八处 · 只铲了一铲就停，一掌宽</h2>
+        <div class="layers">
+          <div class="layer d2"><span class="yr">1992</span><span class="txt">乳胶漆，新，白得发亮。</span></div>
+          <div class="layer d3"><span class="yr">1986</span><span class="txt">旧涂层，偏黄，与上一层差一档。</span></div>
+        </div>
+        <p class="note">这一处面积最小，只有一掌宽。留着，是为了不把整面墙铲完。</p>
+        <figure class="plate"><img src="images/占位-9.jpg" width="1200" height="300" alt="第八处一掌宽开口"><figcaption>08-A · 一掌宽</figcaption></figure>
+      </div>
+      <div class="scratch" aria-hidden="true"></div>
+    </section>
+  </div>
+
+  <!-- 行五：1 处 -->
+  <div class="row r1">
+    <section class="cut" id="c9">
+      <div class="inner">
+        <div class="hd"><span class="no">09</span><span class="cnt">1997 · 2 层</span></div>
+        <h2>第九处 · 最浅的一处，也是最晚</h2>
+        <div class="layers">
+          <div class="layer d1"><span class="yr">1997</span><span class="txt">外墙涂料，雨渍已经渗进来。</span></div>
+          <div class="layer d2"><span class="yr">1993</span><span class="txt">底漆，薄，几乎看不出厚度。</span></div>
+        </div>
+        <p class="note">九处到此为止。再往下铲，墙就不是这面墙了。</p>
+        <figure class="plate"><img src="images/占位-10.jpg" width="1200" height="300" alt="第九处最浅开口"><figcaption>09-A · 最浅</figcaption></figure>
+      </div>
+      <div class="scratch" aria-hidden="true"></div>
+    </section>
+  </div>
+
+  <section class="contact">
+    <div>
+      <h2>来看墙，或者让我们去看你的墙</h2>
+      <p>工作室在城南区老粮站后的一排平房里。九处开口常年开放，可以上手摸，但不许再铲。</p>
+      <p>若是你家也有一面被反复覆盖的墙，可以先拍照寄来，我们判断值不值得铲。</p>
+      <a class="go" href="tel:+862164827315">电话 021-6482 7315</a>
+    </div>
+    <div class="rows">
+      <span><em>到店</em>城南区老粮站后 4 排 2 号</span>
+      <span><em>时段</em>周四至周日 11:00—18:00</span>
+      <span><em>电话</em>021-6482 7315</span>
+      <span><em>邮件</em>scrape@wall-archive.cn</span>
+      <span><em>本卷</em>9 处 · 10 图 · 62°</span>
+    </div>
+  </section>
+
+  <footer>
+    <div class="in">
+      <span>铲痕档案 · 老粮站后 4 排 2 号 · 021-6482 7315 · scrape@wall-archive.cn</span>
+      <span>9 处开口按 3/2/2/1/1 递减；断口 2—4 层，层间 1px 亮线；斜痕 62°、宽 2px；索引条 96px；编号 01—09 连续。</span>
+    </div>
+  </footer>
+
+</div>
+
+</body>
+</html>

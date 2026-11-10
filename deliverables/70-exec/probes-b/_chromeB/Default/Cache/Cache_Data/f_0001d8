@@ -1,0 +1,518 @@
+/* ===========================================================================
+   S16 速度斜排宣言 / Velocity Slant Manifesto —— 排版机制样式表
+   配套 index.html（21.4KB，已定稿，本表不改 DOM）
+
+   一、字段 3 冻结色值（_CURRENT-VALUES.md 第 55 行，旧值一律不出现）
+     未漂白宣言纸 背景 #F7EBCF  56%   —— 全站唯一地面色，body 保持纯色
+     未来派朱红   主色 #C52C0F  26%   —— 对纸底 4.74:1（旧 #E63312 只有 3.52:1，已废）
+     铅字黑       正文 #1A1A1A  14%   —— 对纸底 14.70:1
+     压痕暗侧           #8E2A18   4%   —— 对纸底 7.16:1（铅字凹痕的背光边）
+     按钮字色：实色朱红块上的字恢复白字 #FFFFFF（对 #C52C0F 5.61:1）
+     次级墨档 #5C5C55 —— 只给图版署名、眉标、注文用，对纸底 5.73:1（≥4.5 正文线）
+
+   二、字段 4 冻结字体（四支全部自托管，head 里各链一个 css，页面无外链）
+     词块标题 = LXGW Marker Gothic 霞鹜漫黑（中文主字体，旧「得意黑」已废）
+     拉丁标题 = Archivo Black（只作 masthead-latin 一处，字数占比 1%）
+     正文/说明 = Noto Serif SC 思源宋体（中拉同族，字段 4 已删去 Spectral）
+     块号/日期 = Fragment Mono（旧 IBM Plex Mono 已废；只出现在 <code> 内）
+     ※ 正文与注文尺寸按契约「正文不得 <16px」落到 20px / 18px，
+       字段 4 原文的 15px 与契约硬规则冲突，此处以契约为准。
+
+   三、字段 5 布局：12° 斜向基线系统，8px 基线，12 栏投影
+     块宽四档 4/6/7/9 栏 = calc(var(--span) * 100% / 12)（--span 由 HTML 内联 + JS 三档覆写）
+     左端沿斜线递增偏移 24px = 3 个 8px 基线单位（= 文案里「斜向间隙固定 3 个基线单位」）
+     竖向呼吸 --gap 60px 不属于该值（供 12° 斜标在块外继续可见）
+     ≥1440 12° ｜ 1024–1439 8°、步距 16px、进度尺内收 16px
+     <1024 4° + 交错双列 54%/42% 错开 28px ｜ <768 窄列 62% + 留白栏 38%
+
+   四、字段 6 关键视觉元素（本项目落地的是这几件）
+     ① 斜排词块：.slab::before 在每块左端压一枚 3px×64px 的 12° 斜标，九枚沿楼梯连成斜线
+     ② 铅字重压：.slab-t 用 filter: drop-shadow(0 1px 0 #8E2A18) 出 1px 背光侧（契约 §9.3
+        的合规手法，不是投影），再用 -webkit-text-stroke 3px rgba(197,44,15,.22) 出字缘油墨堆积边
+     ③ 速度线拖影：.quirk 及两个伪元素 = 三条 1px 竖线，56/40/24px 三级，只在滚动/悬停中出现
+     ④ 自绘未来派符号：.slab-no::before 的编号外圈（2px 方头圆环）、.btn-primary::after 的
+        三角箭头、图注前的 12° 斜标，全部几何绘制，全页 0 个 Emoji
+     ⑤ 图像处理：六张图版已是 1-bit 阈值化 + 12° 斜撕边的真实位图（见 assets/ 与 build/bake-plates.py）
+
+   五、字段 7 动效：平方加速 cubic-bezier(.5,0,1,1)、加载 110ms 阶跃压上、悬停 180ms、
+     点击块号回推 12px 再弹回 240ms；prefers-reduced-motion 见文末，机制改为线性且位移减半
+     （每滚 100px 由 10px 起、上限 20px），斜排与进度尺全部保留。
+
+   六、契约 §9.2：整页纹理只挂 .sheet::before 一处伪元素，body 是纯色 #F7EBCF，
+     所以对比度检查不会被静默跳过（本表里每一处文字色都按 4.5:1 以上手算过）。
+   七、错误码 SLANT-16 的落点：#error-note[data-clamped] 加深、进度尺停在 09 号块。
+   =========================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+:root {
+  --paper: #F7EBCF;          /* 未漂白宣言纸 */
+  --red: #C52C0F;            /* 未来派朱红 */
+  --ink: #1A1A1A;            /* 铅字黑 */
+  --pressed: #8E2A18;        /* 压痕暗侧 */
+  --ink-2: #5C5C55;          /* 次级墨档 5.73:1 */
+  --ink-wash: rgba(26, 26, 26, 0.07);
+  --slant: 12deg;            /* 斜向基线角 */
+  --step: 24px;              /* 左端递增偏移 = 3 个 8px 基线单位 */
+  --gap: 60px;               /* 块间竖向呼吸 */
+  --pad: 72px;               /* 版心左右留白 */
+  --dot-x: 104px;            /* 签名式怪癖：第 3 个字正下方 */
+  /* 字号只留六级：14 等宽 / 18 小字 / 20 正文 / 24 中标题 / 32 词块 / h1 另算 */
+  --fs-ref: 14px;
+  --fs-small: 18px;
+  --fs-body: 20px;
+  --fs-mid: 24px;
+  --fs-disp: 32px;
+}
+
+html { scroll-behavior: smooth; }
+
+/* body 纯色：一个字都不放 background-image（契约 §9.2 / §9.16） */
+body {
+  margin: 0;
+  background: #F7EBCF;
+  color: var(--ink);
+  font-family: "Noto Serif SC", Georgia, "Songti SC", serif;
+  font-size: var(--fs-body);
+  line-height: 2.05;
+  font-kerning: normal;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img { max-width: 100%; }
+p { margin: 0; }
+
+/* 等宽只在 <code> 里；letter-spacing 保持 <0.05，避开 micro-label 判定 */
+code {
+  font-family: "Fragment Mono", "Noto Serif SC", monospace;
+  font-size: var(--fs-ref);
+  letter-spacing: normal;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+a { color: inherit; }
+
+::selection { background: rgba(197, 44, 15, 0.22); }
+
+.skip {
+  position: absolute; left: 12px; top: 10px; z-index: 20;
+  width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+}
+.skip:focus {
+  width: auto; height: auto; clip-path: none;
+  padding: 10px 14px; background: var(--ink); color: var(--paper);
+  font-size: var(--fs-small);
+}
+
+/* ----------------------------------------------------------- 纸：整页纹理层 */
+.sheet { position: relative; isolation: isolate; }
+.sheet::before {                    /* 未漂白纸的纤维不匀：384×384 平铺，幅度已烘进位图 */
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background-image: url("assets/paper-grain.png");
+  background-size: 384px 384px;
+  background-repeat: repeat;
+  opacity: 0.85;
+}
+
+/* 字段 7 光标：12° 倾斜的 2px 十字（assets/cursor-slant.png，热点在正中 16,16） */
+.sheet { cursor: url("assets/cursor-slant.png") 16 16, crosshair; }
+.slab-body, .slab-note, .plate-cap, .plate-ref, .state-text, .state-note,
+.band-intro, .foot-grid p, .foot-line, .claim, .masthead-note, .kicker, .masthead-meta li { cursor: text; }
+.btn, .slab-no, .state-empty summary { cursor: pointer; }
+
+/* ------------------------------------------------------------------- 报头 */
+.masthead {
+  max-width: 1560px; margin: 0 auto;
+  padding: 64px var(--pad) 52px;      /* 顶距 64px < 120px：眉标留在报头内，不做 eyebrow */
+}
+.masthead-grid {
+  display: grid; grid-template-columns: 1.08fr 0.92fr; gap: 34px 56px; align-items: start;
+}
+.kicker {
+  font-size: var(--fs-small); line-height: 1.6; color: var(--ink-2);
+  max-width: 32em; letter-spacing: 0.01em;
+}
+h1 {
+  font-family: "LXGW Marker Gothic", "Noto Serif SC", serif;
+  font-size: clamp(46px, 6.2vw, 88px);   /* 1440 档 88px = 6.1vw，首屏主控元素 */
+  font-weight: 400; line-height: 1.0; letter-spacing: 0.01em;
+  margin: 12px 0 0; color: var(--ink);
+  text-wrap: balance;
+}
+.claim {
+  font-size: var(--fs-body); line-height: 2.05; margin-top: 18px; max-width: 21em; color: var(--ink);
+}
+.masthead-meta {
+  list-style: none; margin: 22px 0 0; padding: 0;
+  display: flex; flex-wrap: wrap; gap: 4px 22px; max-width: 32em;
+}
+.masthead-meta li { font-size: var(--fs-small); line-height: 1.75; color: var(--ink-2); }
+.masthead-meta code { color: var(--ink); }
+.masthead-latin {
+  font-family: "Archivo Black", "LXGW Marker Gothic", serif;
+  font-size: var(--fs-disp); line-height: 1.06; letter-spacing: -0.01em; color: var(--red);
+}
+.masthead-note {
+  font-size: var(--fs-body); line-height: 1.9; margin-top: 16px; max-width: 26em; color: var(--ink);
+}
+.masthead-note code { color: var(--pressed); }
+.controls { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 14px 18px; align-items: stretch; }
+
+/* --------------------------------------------------------------- 按钮（直角） */
+.btn {
+  display: inline-flex; align-items: center; justify-content: space-between; gap: 14px;
+  min-height: 52px; padding: 12px 20px;
+  font-family: "Noto Serif SC", Georgia, serif;
+  font-size: var(--fs-small); line-height: 1.4;
+  border-radius: 0; cursor: pointer; text-decoration: none;
+  transition: filter 180ms linear, background-color 180ms linear, color 180ms linear;
+}
+.btn-primary {
+  background: var(--red); color: #FFFFFF;     /* 白字对朱红 5.61:1 */
+  border: 3px solid var(--red); position: relative; padding-right: 46px;
+}
+.btn-primary::after {                          /* 三角箭头：边框画的未来派符号，非 Emoji */
+  content: ""; position: absolute; right: 18px; top: 50%; margin-top: -6px;
+  width: 0; height: 0; border-left: 13px solid currentColor;
+  border-top: 6px solid transparent; border-bottom: 6px solid transparent;
+}
+.btn-primary:hover { filter: brightness(1.12); }
+.btn-primary[disabled], .btn[aria-busy="true"] { background: var(--pressed); border-color: var(--pressed); cursor: default; }
+.btn-ghost { background: transparent; color: var(--ink); border: 3px solid var(--ink); }
+.btn-ghost:hover { background: var(--ink); color: var(--paper); }
+.btn-paper { background: var(--paper); color: var(--ink); border: 3px solid var(--paper); }
+.btn-paper:hover { background: #FFF6E2; border-color: #FFF6E2; }
+.btn:focus-visible, .slab-no:focus-visible { outline: 3px solid var(--red); outline-offset: 3px; }
+
+/* ------------------------------------------------------- 铅字压条与斜向进度尺 */
+.press-rule {                       /* 3px 实条，不是 1px 细线 */
+  height: 3px; margin: 0 var(--pad); background: var(--red);
+}
+.ruler {
+  position: sticky; top: 0; z-index: 6;
+  display: flex; align-items: center; gap: 18px;
+  padding: 9px var(--pad) 10px;
+  background: var(--paper);         /* 与地面同色：贴着纸读，不另立色块 */
+  font-size: var(--fs-small); line-height: 1.4; color: var(--ink-2);
+}
+.ruler-face { letter-spacing: 0.01em; white-space: nowrap; }
+.ruler-track {
+  position: relative; flex: 1 1 auto; height: 3px; min-width: 80px;
+  background: rgba(26, 26, 26, 0.24);
+}
+.ruler-pointer {
+  --rung: 0;
+  position: absolute; left: calc(var(--rung) * 12.5%); top: -8px;
+  width: 3px; height: 19px; background: var(--red);
+  transform: translateX(-1px) rotate(var(--slant));
+  transform-origin: 50% 100%;
+  transition: left 140ms linear;                 /* 块与块之间 140ms 硬切推一格 */
+}
+.ruler-read { white-space: nowrap; color: var(--ink); }
+.ruler-read code { color: var(--pressed); }
+
+/* =========================================================== 斜向轨道主体 */
+.track { padding: 36px var(--pad) 0; }
+
+.slab {
+  position: relative;
+  width: calc(var(--span, 9) * 100% / 12);          /* 4/6/7/9 栏四档 */
+  margin-left: calc(var(--slot, 0) * var(--step));  /* 左端沿 12° 斜线递增 24px */
+  margin-bottom: var(--gap);
+  padding-top: 16px;
+}
+.slab::before {                    /* ① 斜排标记：每块左端一枚 12° 斜标 */
+  content: ""; position: absolute; left: 0; top: 4px;
+  width: 3px; height: 64px; background: var(--red);
+  transform: rotate(var(--slant)); transform-origin: 0 0;
+}
+.slab-in { position: relative; padding: 0 0 14px 26px; }
+
+.slab-latin {
+  font-family: "LXGW Marker Gothic", "Noto Serif SC", serif;
+  font-size: var(--fs-small); line-height: 1.45; letter-spacing: 0.04em; color: var(--pressed);
+  margin-bottom: 6px;
+}
+.slab h2 {
+  font-family: "LXGW Marker Gothic", "Noto Serif SC", serif;
+  font-size: var(--fs-disp); font-weight: 400; line-height: 0.95;  /* 词块内部压到 0.95 倍行高 */
+  letter-spacing: 0.02em; margin: 0;
+  display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap;
+  color: var(--ink); text-wrap: balance;
+}
+.slab-t {                            /* ② 铅字重压：0.3mm 凹痕 + 字缘油墨堆积边 */
+  -webkit-text-stroke: 3px rgba(197, 44, 15, 0.22);
+  paint-order: stroke fill;
+  filter: drop-shadow(0 1px 0 var(--pressed));
+  transition: -webkit-text-stroke-color 180ms linear;
+}
+.slab:hover .slab-t { -webkit-text-stroke-color: rgba(197, 44, 15, 0.30); }
+.slab-no {                           /* 块号：压痕暗侧墨，7.16:1 */
+  position: relative; z-index: 1;
+  font-size: var(--fs-ref); letter-spacing: normal; color: var(--pressed);
+  padding: 0 4px; cursor: pointer; background: transparent;
+}
+.slab-no::before {                   /* ④ 编号外圈：2px 方头圆环，20 单位网格 */
+  content: ""; position: absolute; left: -6px; top: -5px; right: -6px; bottom: -5px;
+  border: 2px solid var(--pressed); border-radius: 50%;
+}
+.slab-body {
+  font-size: var(--fs-body); line-height: 2.05; max-width: 43em;  /* 43 汉字/行 */
+  margin-top: 14px; color: var(--ink);
+}
+.slab-body code, .slab-note code { color: var(--pressed); }
+.slab-note {
+  font-size: var(--fs-small); line-height: 1.85; max-width: 43em; margin-top: 8px; color: var(--ink-2);
+}
+
+.slab-in::after {                    /* 字段 12：第 3 个字正下方的 2×2px 墨点 */
+  content: ""; position: absolute; left: var(--dot-x); bottom: 12px;
+  width: 2px; height: 2px; background: var(--ink);
+  transform: translateX(calc(var(--slot, 0) * 1px));   /* 随块号每块右偏 1px，第 9 块累计 8px */
+}
+
+/* ③ 速度线拖影：三条 1px 竖线，56 / 40 / 24px 三级，只在滚动与悬停中出现 */
+.quirk {
+  position: absolute; left: 0; bottom: 0; width: 1px; height: 56px;
+  background: rgba(26, 26, 26, 0.52);
+  opacity: 0; transform: scaleY(0.12); transform-origin: 50% 100%;
+  pointer-events: none;
+}
+.quirk::before, .quirk::after {
+  content: ""; position: absolute; bottom: 0; width: 1px;
+  background: rgba(26, 26, 26, 0.40);
+  opacity: 0; transform: scaleY(0.12); transform-origin: 50% 100%;
+}
+.quirk::before { left: 7px; height: 40px; }
+.quirk::after { left: 14px; height: 24px; background: rgba(26, 26, 26, 0.30); }
+body.is-running .quirk,
+.slab:hover .quirk { animation: speed-line 180ms linear both; }
+body.is-running .quirk::before,
+.slab:hover .quirk::before { animation: speed-line 180ms 36ms linear both; }
+body.is-running .quirk::after,
+.slab:hover .quirk::after { animation: speed-line 180ms 72ms linear both; }
+
+/* 滚动位移：位移量与滚动量成平方关系，JS 算一次写进 --shift，CSS 只读 */
+.slab-in { transform: translateX(var(--shift, 0px)); }
+body.is-running .slab-in { transition: transform 120ms cubic-bezier(0.5, 0, 1, 1); }
+.slab.is-kicked .slab-in { animation: kick-back 240ms cubic-bezier(0.5, 0, 1, 1) both; }
+.slab.is-pressed .slab-in { animation: press-on 110ms steps(2, end) var(--press-delay, 0ms) both; }
+
+/* ------------------------------------------------------------------- 图版 */
+.plate { margin: 0 0 var(--gap); position: relative; }
+.plate img { display: block; width: 100%; height: auto; }
+.plate figcaption { padding: 10px 0 0 26px; }
+.plate-cap { display: block; font-size: var(--fs-small); line-height: 1.75; max-width: 32em; color: var(--ink); }
+.plate-ref { display: block; font-size: var(--fs-ref); line-height: 1.7; margin-top: 6px; color: var(--ink-2); }
+.plate-cap::before {                 /* 每条图注前压一枚 12° 短斜标，与词块同一套语汇 */
+  content: ""; display: inline-block; width: 3px; height: 14px; margin-right: 10px;
+  background: var(--red); transform: rotate(var(--slant)) translateY(2px);
+}
+
+/* 图版宽度与左右错位：沿斜线一路向右再折回，六张不等宽，不做等量阵列 */
+.plate-lead { width: 62%; margin-left: 4%; }
+.plate-half { width: 58%; margin-left: 0; }
+figure.plate:nth-of-type(3) { width: 54%; margin-left: 44%; }
+figure.plate:nth-of-type(4) { width: 72%; margin-left: 24%; }
+figure.plate:nth-of-type(5) { width: 56%; margin-left: 2%; }
+figure.plate:nth-of-type(6) { width: 52%; margin-left: 46%; }
+
+/* --------------------------------------------------------------- 状态区 */
+.band { padding: 56px 0 0; margin-bottom: var(--gap); }
+.band h2 {
+  font-family: "LXGW Marker Gothic", "Noto Serif SC", serif;
+  font-size: var(--fs-disp); font-weight: 400; line-height: 0.98; margin: 0;
+  -webkit-text-stroke: 3px rgba(197, 44, 15, 0.22); paint-order: stroke fill;
+  filter: drop-shadow(0 1px 0 var(--pressed));
+}
+.band-intro { font-size: var(--fs-body); line-height: 2.05; max-width: 43em; margin-top: 16px; }
+.state { margin-top: 26px; padding: 20px 24px 22px; border-left: 3px solid var(--pressed); }
+.state-empty { background: var(--ink-wash); }
+.state-empty summary {
+  font-size: var(--fs-body); line-height: 1.7; cursor: pointer; color: var(--ink); list-style: none;
+}
+.state-empty summary::-webkit-details-marker { display: none; }
+.state-empty summary::before {
+  content: ""; display: inline-block; width: 3px; height: 16px; margin-right: 12px;
+  background: var(--pressed); transform: rotate(var(--slant)) translateY(2px);
+}
+.state-text { font-size: var(--fs-body); line-height: 2.05; max-width: 43em; margin-top: 10px; }
+.state-note { font-size: var(--fs-small); line-height: 1.85; max-width: 43em; margin-top: 8px; color: var(--ink-2); }
+.state-actions { display: flex; flex-wrap: wrap; gap: 14px 18px; margin-top: 18px; }
+
+/* 错误状态：朱红实色块 + 白字（5.61:1）；后代色在同作用域内重新声明（契约 §9.4） */
+.state-error { background: var(--red); color: #FFFFFF; border-left-color: #7A2410; }
+.state-error h3 {
+  font-family: "LXGW Marker Gothic", "Noto Serif SC", serif;
+  font-size: var(--fs-mid); font-weight: 400; line-height: 1.25; margin: 0; color: #FFFFFF;
+}
+.state-error code { color: #FFFFFF; background: rgba(0, 0, 0, 0.18); padding: 1px 5px; }
+.state-error .state-text { color: #FFFFFF; }
+.state-error .state-note { color: #FFF2E9; }        /* 对朱红 5.11:1 */
+/* 朱红底上的次级动作：幽灵按钮必须跟着换墨色（铅字黑压在朱红上只有 3.10:1） */
+.state-error .btn-ghost { color: #FFFFFF; border-color: #FFFFFF; }
+.state-error .btn-ghost:hover { background: #FFFFFF; color: var(--red); }   /* 4.74:1 */
+#error-note { border-left: 3px solid transparent; }
+#error-note[data-clamped] {                          /* SLANT-16 钳制中：加一条 3px 白边 */
+  border-left-color: #FFFFFF; padding-left: 14px; color: #FFFFFF;
+}
+
+/* ------------------------------------------------------------------- 页脚 */
+.foot { max-width: 1560px; margin: 0 auto; padding: 52px var(--pad) 84px; }
+.foot-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px 44px; }
+.foot h3 {
+  font-family: "LXGW Marker Gothic", "Noto Serif SC", serif;
+  font-size: var(--fs-mid); font-weight: 400; line-height: 1.2; margin: 0 0 10px; color: var(--ink);
+}
+.foot-grid p { font-size: var(--fs-body); line-height: 1.95; color: var(--ink); }
+.foot-grid .latin { font-family: "Archivo Black", "LXGW Marker Gothic", serif; font-size: var(--fs-small); color: var(--pressed); }
+.foot-line {
+  margin-top: 36px; padding-top: 16px; border-top: 3px solid var(--ink);
+  font-size: var(--fs-small); line-height: 1.8; color: var(--ink-2); max-width: 60em;
+}
+.foot-line code { color: var(--ink); }
+
+/* ------------------------------------------------------------- 动效关键帧 */
+@keyframes press-on {                /* 加载：按块号 01→09 沿斜线依次压上，阶跃式 */
+  from { opacity: 0.18; transform: translateX(var(--shift, 0px)) translateY(-10px); }
+  to   { opacity: 1;    transform: translateX(var(--shift, 0px)) translateY(0); }
+}
+@keyframes speed-line {              /* 悬停/滚动：速度线由 0 条长到 3 条，180ms，无位移 */
+  from { opacity: 0; transform: scaleY(0.12); }
+  to   { opacity: 1; transform: scaleY(1); }
+}
+@keyframes kick-back {               /* 点击块号：沿斜线回推 12px 再弹回，240ms */
+  0%   { transform: translateX(calc(var(--shift, 0px) - 12px)); }
+  60%  { transform: translateX(calc(var(--shift, 0px) + 3px)); }
+  100% { transform: translateX(var(--shift, 0px)); }
+}
+@keyframes reduce-slide {            /* 降级专用：位移与滚动量成正比，不再平方，上限 28px = 56px 的一半 */
+  from { transform: translateX(0); }
+  to   { transform: translateX(28px); }
+}
+@keyframes plate-on {                /* 图版压上：与词块同一套阶跃压印 */
+  from { opacity: 0.12; transform: translateY(-14px); }
+  to   { opacity: 1;    transform: translateY(0); }
+}
+@keyframes masthead-on {
+  from { opacity: 0.2; transform: translateX(-16px); }
+  to   { opacity: 1;   transform: translateX(0); }
+}
+.masthead h1, .masthead-latin, .kicker, .claim, .masthead-note { animation: masthead-on 260ms steps(3, end) both; }
+.masthead-latin { animation-delay: 70ms; }
+.claim { animation-delay: 140ms; }
+.masthead-note { animation-delay: 210ms; }
+.controls { animation: masthead-on 260ms steps(3, end) 280ms both; }
+.masthead-meta { animation: masthead-on 260ms steps(3, end) 340ms both; }
+.plate { animation: plate-on 220ms steps(2, end) both; }
+figure.plate:nth-of-type(1) { animation-delay: 620ms; }
+figure.plate:nth-of-type(2) { animation-delay: 700ms; }
+figure.plate:nth-of-type(3) { animation-delay: 780ms; }
+figure.plate:nth-of-type(4) { animation-delay: 860ms; }
+figure.plate:nth-of-type(5) { animation-delay: 940ms; }
+figure.plate:nth-of-type(6) { animation-delay: 1020ms; }
+.band { animation: plate-on 240ms steps(2, end) 300ms both; }
+.foot { animation: plate-on 240ms linear both; }
+
+/* =============================================== 1024–1439px：斜角降到 8° */
+@media (max-width: 1439px) and (min-width: 1024px) {
+  :root { --slant: 8deg; --step: 16px; --pad: 40px; --dot-x: 92px; }
+  h1 { font-size: clamp(46px, 5.6vw, 74px); }
+  .masthead { padding: 56px var(--pad) 46px; }
+  .ruler { padding-right: 16px; }                 /* 进度尺移到视口右缘内 16px */
+  .plate-lead { width: 66%; margin-left: 6%; }
+  .plate-half { width: 60%; margin-left: 0; }
+  figure.plate:nth-of-type(3) { width: 56%; margin-left: 40%; }
+  figure.plate:nth-of-type(4) { width: 74%; margin-left: 20%; }
+  figure.plate:nth-of-type(5) { width: 58%; margin-left: 0; }
+  figure.plate:nth-of-type(6) { width: 54%; margin-left: 44%; }
+  .foot-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* ===================== <1024px：4° + 交错双列（54% / 42%，两侧错开 28px） */
+@media (max-width: 1023px) {
+  :root {
+    --slant: 4deg; --gap: 64px; --pad: 24px; --dot-x: 84px;
+    --fs-small: 17px; --fs-body: 17px; --fs-mid: 20px; --fs-disp: 28px;
+  }
+  body { line-height: 1.9; }
+  .masthead { padding: 40px var(--pad) 34px; }
+  /* 报头折成一列：栏间距拉到 96px，避免「铅字黑 #1A1A1A」贴到拉丁标题上方 */
+  .masthead-grid { grid-template-columns: 1fr; gap: 96px 28px; }
+  h1 { font-size: clamp(44px, 8.6vw, 62px); }
+  .claim, .masthead-note { max-width: 32em; }
+  .ruler { padding: 8px var(--pad) 9px; gap: 12px; }
+  .track {
+    display: grid; grid-template-columns: 54% 42%; column-gap: 4%; row-gap: 0;
+    align-items: start; padding-top: 30px;
+  }
+  .slab { width: auto; margin-left: 0; margin-bottom: var(--gap); }
+  .slab:nth-of-type(odd) { grid-column: 1; }
+  .slab:nth-of-type(even) { grid-column: 2; margin-top: 28px; }   /* 两列错开 28px */
+  .slab-body, .slab-note { max-width: none; }
+  .quirk::before, .quirk::after { display: none; }   /* 速度线窄屏只保留 1 条 */
+  .plate, .band { grid-column: 1 / -1; }
+  .plate-lead, .plate-half, figure.plate:nth-of-type(2), figure.plate:nth-of-type(3),
+  figure.plate:nth-of-type(4), figure.plate:nth-of-type(5), figure.plate:nth-of-type(6) {
+    width: 100%; margin-left: 0;
+  }
+  .plate figcaption { padding-left: 18px; }
+  .foot-grid { grid-template-columns: 1fr 1fr; gap: 26px 32px; }
+}
+
+/* ---------------- <768px：交错双列收成「窄列 62% + 右侧留白栏 38%」 */
+@media (max-width: 767px) {
+  :root { --slant: 4deg; --gap: 48px; --dot-x: 78px; --fs-small: 16px; --fs-body: 17px; --fs-disp: 26px; }
+  body { line-height: 1.9; }
+  h1 { font-size: clamp(42px, 12vw, 56px); }
+  .masthead-meta { flex-direction: column; gap: 2px; }
+  .controls { flex-direction: column; align-items: stretch; }
+  .btn { justify-content: flex-start; }
+  .btn-primary { justify-content: space-between; }
+  .track { grid-template-columns: 62% 38%; column-gap: 0; }
+  .slab { grid-column: 1 !important; margin-top: 0; }
+  .slab-in { padding-left: 20px; }
+  .state { padding: 16px 16px 18px; }
+  .ruler-face { display: none; }           /* 窄屏进度尺只留读数与指针 */
+  .foot-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 420px) {
+  :root { --pad: 18px; }
+  .slab h2 { font-size: 25px; }
+}
+
+/* ================== prefers-reduced-motion：机制改为线性位移且位移量减半 */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  /* 降级总纲：斜排（12° 斜标 + 24px 楼梯 + 4/6/7/9 栏）与进度尺一格一块全部保留，
+     被摘掉的只有「动」：加载编排、拖影、悬停过渡、回弹、平滑滚动。
+     位移：index.html 的 JS 在 reduce 档把位移带从 20–90px 收到 10–20px 并再减半（实测 5–10px）。 */
+  body.is-running .slab-in { transition: none; }
+  .slab.is-pressed .slab-in { animation: none; opacity: 1; transform: translateX(var(--shift, 0px)); }
+  .slab.is-kicked .slab-in { animation: none; }
+  .masthead h1, .masthead-latin, .kicker, .claim, .masthead-note,
+  .controls, .masthead-meta, .plate, .band, .foot { animation: none; }
+  /* 拖影取消：速度线不再随滚动作画，改为静止的三档刻度条（56/40/24px 原样保留） */
+  .quirk, .quirk::before, .quirk::after { animation: none; opacity: 1; transform: none; }
+  .ruler-pointer { transition: none; }
+  .slab-t, .slab:hover .slab-t { transition: none; -webkit-text-stroke-color: rgba(197, 44, 15, 0.22); }
+  .btn { transition: none; }
+  /* 真线性降级：JS 里的平方关系不动（本案不改 HTML），改用滚动时间轴直接把位移做成线性，
+     上限 28px。放在 @supports 里，不支持 animation-timeline 的浏览器继续走 JS 的减半档。 */
+  @supports (animation-timeline: scroll()) {
+    .slab-in,
+    .slab.is-pressed .slab-in,
+    .slab.is-kicked .slab-in {
+      animation: reduce-slide 1s linear both;
+      animation-timeline: scroll(root block);
+    }
+  }
+}
+
+@media print {
+  .ruler { position: static; }
+  .sheet::before { display: none; }
+}

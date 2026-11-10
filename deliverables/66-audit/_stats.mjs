@@ -1,0 +1,13 @@
+﻿import { readFileSync } from "node:fs";
+const j = JSON.parse(readFileSync("prototypes/_prompts/minitems-parsed.json","utf8").replace(/^\uFEFF/,""));
+const v = j.map(x=>x.minItems).sort((a,b)=>a-b);
+console.log("n="+v.length);
+console.log("min="+v[0], "max="+v[v.length-1]);
+console.log("中位(第15/16)="+v[14]+"/"+v[15], "→ 中位数="+((v[14]+v[15])/2));
+console.log("中位数(下中位)="+v[14]);
+console.log("均="+(v.reduce((a,b)=>a+b,0)/v.length).toFixed(2));
+console.log("全部升序:", v.join(" "));
+console.log("\n>10:", j.filter(x=>x.minItems>10).map(x=>x.id+"("+x.minItems+")").join(" "));
+console.log(">15:", j.filter(x=>x.minItems>15).map(x=>x.id+"("+x.minItems+","+x.degrades+")").join(" "));
+console.log(">20:", j.filter(x=>x.minItems>20).map(x=>x.id+"("+x.minItems+","+x.degrades+")").join(" "));
+console.log("\n<=10 的案:", j.filter(x=>x.minItems<=10).length);

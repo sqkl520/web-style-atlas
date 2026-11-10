@@ -1,0 +1,6374 @@
+{
+ "S03-long-exposure-observatory": {
+  "keys": [
+   ".wrap.hero",
+   ".plate",
+   ".stream .band:first-child",
+   ".readouts table",
+   ".plates"
+  ],
+  "views": {
+   "orig@1440": {
+    "vp": {
+     "w": 1440,
+     "h": 900
+    },
+    "docH": 4591,
+    "docW": 1440,
+    "vw": 1440,
+    "vh": 900,
+    "bodyH": 4591,
+    "hOverflow": 0,
+    "keys": {
+     ".wrap.hero": {
+      "top": 56.5,
+      "left": 0,
+      "w": 1440,
+      "h": 364.1
+     },
+     ".plate": {
+      "top": 331.9,
+      "left": 36,
+      "w": 1368,
+      "h": 88.8
+     },
+     ".stream .band:first-child": {
+      "top": 1077.6,
+      "left": 320,
+      "w": 524,
+      "h": 28
+     },
+     ".readouts table": {
+      "top": 1093.6,
+      "left": 884,
+      "w": 500,
+      "h": 674.1
+     },
+     ".plates": {
+      "top": 2411.6,
+      "left": 36,
+      "w": 1368,
+      "h": 706.7
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 1,
+     "worst": [
+      {
+       "el": "body.developed > a.visually-hidden",
+       "over": 95,
+       "txt": "跳到观测记录"
+      }
+     ]
+    },
+    "overlaps": {
+     "n": 0,
+     "worst": []
+    },
+    "holes": {
+     "n": 1,
+     "total": 469,
+     "list": [
+      {
+       "from": 0,
+       "to": 469,
+       "h": 469
+      }
+     ],
+     "mainH": 3421
+    },
+    "brokenImgs": [],
+    "sheets": 5,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 225,
+    "textChars": 2185,
+    "shot": {
+     "w": 1440,
+     "h": 4591,
+     "scale": 0.5663254192986278
+    }
+   },
+   "orig@768": {
+    "vp": {
+     "w": 768,
+     "h": 1024
+    },
+    "docH": 5907,
+    "docW": 768,
+    "vw": 768,
+    "vh": 1024,
+    "bodyH": 5907,
+    "hOverflow": 0,
+    "keys": {
+     ".wrap.hero": {
+      "top": 56.5,
+      "left": 0,
+      "w": 768,
+      "h": 364.1
+     },
+     ".plate": {
+      "top": 331.9,
+      "left": 36,
+      "w": 696,
+      "h": 88.8
+     },
+     ".stream .band:first-child": {
+      "top": 1055.4,
+      "left": 224,
+      "w": 508,
+      "h": 50.8
+     },
+     ".readouts table": {
+      "top": 1659.4,
+      "left": 56,
+      "w": 656,
+      "h": 432.5
+     },
+     ".plates": {
+      "top": 3044.5,
+      "left": 36,
+      "w": 696,
+      "h": 1332
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 1,
+     "worst": [
+      {
+       "el": "body.developed > a.visually-hidden",
+       "over": 95,
+       "txt": "跳到观测记录"
+      }
+     ]
+    },
+    "overlaps": {
+     "n": 0,
+     "worst": []
+    },
+    "holes": {
+     "n": 1,
+     "total": 469,
+     "list": [
+      {
+       "from": 0,
+       "to": 469,
+       "h": 469
+      }
+     ],
+     "mainH": 4737
+    },
+    "brokenImgs": [],
+    "sheets": 5,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 225,
+    "textChars": 2185,
+    "shot": {
+     "w": 768,
+     "h": 5907,
+     "scale": 0.44015574741831726
+    }
+   },
+   "orig@390": {
+    "vp": {
+     "w": 390,
+     "h": 844
+    },
+    "docH": 5814,
+    "docW": 390,
+    "vw": 390,
+    "vh": 844,
+    "bodyH": 5814,
+    "hOverflow": 0,
+    "keys": {
+     ".wrap.hero": {
+      "top": 105,
+      "left": 0,
+      "w": 390,
+      "h": 466.7
+     },
+     ".plate": {
+      "top": 406.2,
+      "left": 20,
+      "w": 350,
+      "h": 165.5
+     },
+     ".stream .band:first-child": {
+      "top": 1105.3,
+      "left": 120,
+      "w": 250,
+      "h": 36.8
+     },
+     ".readouts table": {
+      "top": 1635.3,
+      "left": 34,
+      "w": 322,
+      "h": 551.1
+     },
+     ".plates": {
+      "top": 3105.1,
+      "left": 20,
+      "w": 350,
+      "h": 737
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 1,
+     "worst": [
+      {
+       "el": "body.developed > a.visually-hidden",
+       "over": 95,
+       "txt": "跳到观测记录"
+      }
+     ]
+    },
+    "overlaps": {
+     "n": 14,
+     "worst": [
+      {
+       "a": "table > tbody > tr > th",
+       "b": "table > tbody > tr > td",
+       "area": 1404,
+       "frac": 1,
+       "y": 1700
+      },
+      {
+       "a": "table > tbody > tr > th",
+       "b": "table > tbody > tr > td",
+       "area": 1404,
+       "frac": 1,
+       "y": 1765
+      },
+      {
+       "a": "table > tbody > tr > th",
+       "b": "table > tbody > tr > td",
+       "area": 1404,
+       "frac": 1,
+       "y": 1830
+      },
+      {
+       "a": "table > tbody > tr > th",
+       "b": "table > tbody > tr > td",
+       "area": 1404,
+       "frac": 1,
+       "y": 1936
+      },
+      {
+       "a": "table > tbody > tr > th",
+       "b": "table > tbody > tr > td",
+       "area": 1404,
+       "frac": 1,
+       "y": 2002
+      },
+      {
+       "a": "table > tbody > tr > th",
+       "b": "table > tbody > tr > td",
+       "area": 1404,
+       "frac": 1,
+       "y": 2067
+      },
+      {
+       "a": "table > tbody > tr > th",
+       "b": "table > tbody > tr > td",
+       "area": 1404,
+       "frac": 1,
+       "y": 2132
+      },
+      {
+       "a": "table > tbody > tr > td",
+       "b": "table > tbody > tr > td",
+       "area": 1184,
+       "frac": 1,
+       "y": 1700
+      }
+     ]
+    },
+    "holes": {
+     "n": 1,
+     "total": 620,
+     "list": [
+      {
+       "from": 0,
+       "to": 620,
+       "h": 620
+      }
+     ],
+     "mainH": 4318
+    },
+    "brokenImgs": [],
+    "sheets": 5,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 225,
+    "textChars": 2174,
+    "shot": {
+     "w": 390,
+     "h": 5814,
+     "scale": 0.44719642242862057
+    }
+   },
+   "swap@1440": {
+    "vp": {
+     "w": 1440,
+     "h": 900
+    },
+    "docH": 4591,
+    "docW": 1440,
+    "vw": 1440,
+    "vh": 900,
+    "bodyH": 4591,
+    "hOverflow": 0,
+    "keys": {
+     ".wrap.hero": {
+      "top": 56.5,
+      "left": 0,
+      "w": 1440,
+      "h": 364.1
+     },
+     ".plate": {
+      "top": 331.9,
+      "left": 36,
+      "w": 1368,
+      "h": 88.8
+     },
+     ".stream .band:first-child": {
+      "top": 1077.6,
+      "left": 320,
+      "w": 524,
+      "h": 28
+     },
+     ".readouts table": {
+      "top": 1093.6,
+      "left": 884,
+      "w": 500,
+      "h": 674.1
+     },
+     ".plates": {
+      "top": 2411.6,
+      "left": 36,
+      "w": 1368,
+      "h": 706.7
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 1,
+     "worst": [
+      {
+       "el": "body.developed > a.visually-hidden",
+       "over": 95,
+       "txt": "菠萝梨橙柿子"
+      }
+     ]
+    },
+    "overlaps": {
+     "n": 0,
+     "worst": []
+    },
+    "holes": {
+     "n": 1,
+     "total": 469,
+     "list": [
+      {
+       "from": 0,
+       "to": 469,
+       "h": 469
+      }
+     ],
+     "mainH": 3421
+    },
+    "brokenImgs": [],
+    "sheets": 5,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 225,
+    "textChars": 2197,
+    "shot": {
+     "w": 1440,
+     "h": 4591,
+     "scale": 0.5663254192986278
+    }
+   },
+   "swap@768": {
+    "vp": {
+     "w": 768,
+     "h": 1024
+    },
+    "docH": 5907,
+    "docW": 768,
+    "vw": 768,
+    "vh": 1024,
+    "bodyH": 5907,
+    "hOverflow": 0,
+    "keys": {
+     ".wrap.hero": {
+      "top": 56.5,
+      "left": 0,
+      "w": 768,
+      "h": 364.1
+     },
+     ".plate": {
+      "top": 331.9,
+      "left": 36,
+      "w": 696,
+      "h": 88.8
+     },
+     ".stream .band:first-child": {
+      "top": 1055.4,
+      "left": 224,
+      "w": 508,
+      "h": 50.8
+     },
+     ".readouts table": {
+      "top": 1659.4,
+      "left": 56,
+      "w": 656,
+      "h": 432.5
+     },
+     ".plates": {
+      "top": 3044.5,
+      "left": 36,
+      "w": 696,
+      "h": 1332
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 1,
+     "worst": [
+      {
+       "el": "body.developed > a.visually-hidden",
+       "over": 95,
+       "txt": "菠萝梨橙柿子"
+      }
+     ]
+    },
+    "overlaps": {
+     "n": 0,
+     "worst": []
+    },
+    "holes": {
+     "n": 1,
+     "total": 469,
+     "list": [
+      {
+       "from": 0,
+       "to": 469,
+       "h": 469
+      }
+     ],
+     "mainH": 4737
+    },
+    "brokenImgs": [],
+    "sheets": 5,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 225,
+    "textChars": 2197,
+    "shot": {
+     "w": 768,
+     "h": 5907,
+     "scale": 0.44015574741831726
+    }
+   },
+   "swap@390": {
+    "vp": {
+     "w": 390,
+     "h": 844
+    },
+    "docH": 5858,
+    "docW": 390,
+    "vw": 390,
+    "vh": 844,
+    "bodyH": 5858,
+    "hOverflow": 0,
+    "keys": {
+     ".wrap.hero": {
+      "top": 105,
+      "left": 0,
+      "w": 390,
+      "h": 466.7
+     },
+     ".plate": {
+      "top": 406.2,
+      "left": 20,
+      "w": 350,
+      "h": 165.5
+     },
+     ".stream .band:first-child": {
+      "top": 1126.1,
+      "left": 120,
+      "w": 250,
+      "h": 36.8
+     },
+     ".readouts table": {
+      "top": 1656.1,
+      "left": 34,
+      "w": 322,
+      "h": 551.1
+     },
+     ".plates": {
+      "top": 3125.9,
+      "left": 20,
+      "w": 350,
+      "h": 737
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 1,
+     "worst": [
+      {
+       "el": "body.developed > a.visually-hidden",
+       "over": 95,
+       "txt": "菠萝梨橙柿子"
+      }
+     ]
+    },
+    "overlaps": {
+     "n": 14,
+     "worst": [
+      {
+       "a": "table > tbody > tr > th",
+       "b": "table > tbody > tr > td",
+       "area": 1404,
+       "frac": 1,
+       "y": 1721
+      },
+      {
+       "a": "table > tbody > tr > th",
+       "b": "table > tbody > tr > td",
+       "area": 1404,
+       "frac": 1,
+       "y": 1786
+      },
+      {
+       "a": "table > tbody > tr > th",
+       "b": "table > tbody > tr > td",
+       "area": 1404,
+       "frac": 1,
+       "y": 1851
+      },
+      {
+       "a": "table > tbody > tr > th",
+       "b": "table > tbody > tr > td",
+       "area": 1404,
+       "frac": 1,
+       "y": 1957
+      },
+      {
+       "a": "table > tbody > tr > th",
+       "b": "table > tbody > tr > td",
+       "area": 1404,
+       "frac": 1,
+       "y": 2022
+      },
+      {
+       "a": "table > tbody > tr > th",
+       "b": "table > tbody > tr > td",
+       "area": 1404,
+       "frac": 1,
+       "y": 2088
+      },
+      {
+       "a": "table > tbody > tr > th",
+       "b": "table > tbody > tr > td",
+       "area": 1404,
+       "frac": 1,
+       "y": 2153
+      },
+      {
+       "a": "table > tbody > tr > td",
+       "b": "table > tbody > tr > td",
+       "area": 1184,
+       "frac": 1,
+       "y": 1721
+      }
+     ]
+    },
+    "holes": {
+     "n": 1,
+     "total": 620,
+     "list": [
+      {
+       "from": 0,
+       "to": 620,
+       "h": 620
+      }
+     ],
+     "mainH": 4339
+    },
+    "brokenImgs": [],
+    "sheets": 5,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 225,
+    "textChars": 2186,
+    "shot": {
+     "w": 390,
+     "h": 5858,
+     "scale": 0.44383748719699556
+    }
+   }
+  },
+  "meta": {
+   "orig": {
+    "loaded": "load",
+    "title": "北纬 69° 极光观测站 · 长曝光观测档案 1957 至 1979",
+    "sheets": [
+     "http://127.0.0.1:9612/prototypes/_fonts/css/ibm-plex-mono__400-600.css",
+     "http://127.0.0.1:9612/prototypes/_fonts/css/ibm-plex-sans__400-600.css",
+     "http://127.0.0.1:9612/prototypes/_fonts/css/space-grotesk__400-500.css",
+     "http://127.0.0.1:9612/prototypes/_fonts/css/noto-sans-sc__100..900.css",
+     "http://127.0.0.1:9612/prototypes/S03-long-exposure-observatory/style.css"
+    ],
+    "imgs": 12,
+    "broken": 0,
+    "chars": 2185,
+    "consoleErrors": []
+   },
+   "swap": {
+    "loaded": "load",
+    "title": "桃梅 17° 火龙果梨杏 · 桃橙牛油果梅枣 2114 桃 1121",
+    "sheets": [
+     "http://127.0.0.1:9612/deliverables/63-test/replica/_fonts/css/ibm-plex-mono__400-600.css",
+     "http://127.0.0.1:9612/deliverables/63-test/replica/_fonts/css/ibm-plex-sans__400-600.css",
+     "http://127.0.0.1:9612/deliverables/63-test/replica/_fonts/css/space-grotesk__400-500.css",
+     "http://127.0.0.1:9612/deliverables/63-test/replica/_fonts/css/noto-sans-sc__100..900.css",
+     "http://127.0.0.1:9612/deliverables/63-test/replica/S03-long-exposure-observatory/style.css"
+    ],
+    "imgs": 12,
+    "broken": 0,
+    "chars": 2197,
+    "consoleErrors": []
+   }
+  }
+ },
+ "S05-pixel-cold-storage-console": {
+  "keys": [
+   ".nameplate",
+   ".hero.section",
+   ".console.section",
+   ".plates.section",
+   ".colophon"
+  ],
+  "views": {
+   "orig@1440": {
+    "vp": {
+     "w": 1440,
+     "h": 900
+    },
+    "docH": 3121,
+    "docW": 1440,
+    "vw": 1440,
+    "vh": 900,
+    "bodyH": 3121,
+    "hOverflow": 0,
+    "keys": {
+     ".nameplate": {
+      "top": 25.6,
+      "left": 0,
+      "w": 1440,
+      "h": 51.6
+     },
+     ".hero.section": {
+      "top": 77.2,
+      "left": 0,
+      "w": 1440,
+      "h": 351.2
+     },
+     ".console.section": {
+      "top": 428.3,
+      "left": 0,
+      "w": 1440,
+      "h": 1287.2
+     },
+     ".plates.section": {
+      "top": 1715.5,
+      "left": 0,
+      "w": 1440,
+      "h": 965.2
+     },
+     ".colophon": {
+      "top": 2776.7,
+      "left": 0,
+      "w": 1440,
+      "h": 344.3
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 1,
+     "worst": [
+      {
+       "el": "body > a.skip",
+       "over": 127,
+       "txt": "跳到八块控制面板"
+      }
+     ]
+    },
+    "overlaps": {
+     "n": 1,
+     "worst": [
+      {
+       "a": "section.console.section > div.console-shell > div.console-grid > article.panel.panel--alarm",
+       "b": "section.console.section > div.console-shell > div.console-grid > article.panel.panel--probe",
+       "area": 37630,
+       "frac": 0.38,
+       "y": 1140
+      }
+     ]
+    },
+    "holes": {
+     "n": 0,
+     "total": 0,
+     "list": [],
+     "mainH": 2604
+    },
+    "brokenImgs": [],
+    "sheets": 4,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 146,
+    "textChars": 1750,
+    "shot": {
+     "w": 1440,
+     "h": 3121,
+     "scale": 0.62
+    }
+   },
+   "orig@768": {
+    "vp": {
+     "w": 768,
+     "h": 1024
+    },
+    "docH": 4510,
+    "docW": 768,
+    "vw": 768,
+    "vh": 1024,
+    "bodyH": 4510,
+    "hOverflow": 0,
+    "keys": {
+     ".nameplate": {
+      "top": 25.6,
+      "left": 0,
+      "w": 768,
+      "h": 83.2
+     },
+     ".hero.section": {
+      "top": 108.8,
+      "left": 0,
+      "w": 768,
+      "h": 616.5
+     },
+     ".console.section": {
+      "top": 725.3,
+      "left": 0,
+      "w": 768,
+      "h": 2176.4
+     },
+     ".plates.section": {
+      "top": 2901.7,
+      "left": 0,
+      "w": 768,
+      "h": 1167.9
+     },
+     ".colophon": {
+      "top": 4165.6,
+      "left": 0,
+      "w": 768,
+      "h": 344.3
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 1,
+     "worst": [
+      {
+       "el": "body > a.skip",
+       "over": 127,
+       "txt": "跳到八块控制面板"
+      }
+     ]
+    },
+    "overlaps": {
+     "n": 0,
+     "worst": []
+    },
+    "holes": {
+     "n": 0,
+     "total": 0,
+     "list": [],
+     "mainH": 3961
+    },
+    "brokenImgs": [],
+    "sheets": 4,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 146,
+    "textChars": 1536,
+    "shot": {
+     "w": 768,
+     "h": 4510,
+     "scale": 0.5764966740576497
+    }
+   },
+   "orig@390": {
+    "vp": {
+     "w": 390,
+     "h": 844
+    },
+    "docH": 5473,
+    "docW": 390,
+    "vw": 390,
+    "vh": 844,
+    "bodyH": 5473,
+    "hOverflow": 0,
+    "keys": {
+     ".nameplate": {
+      "top": 25.6,
+      "left": 0,
+      "w": 390,
+      "h": 114.8
+     },
+     ".hero.section": {
+      "top": 140.4,
+      "left": 0,
+      "w": 390,
+      "h": 759.4
+     },
+     ".console.section": {
+      "top": 899.8,
+      "left": 0,
+      "w": 390,
+      "h": 2521.9
+     },
+     ".plates.section": {
+      "top": 3421.7,
+      "left": 0,
+      "w": 390,
+      "h": 1483.3
+     },
+     ".colophon": {
+      "top": 5001,
+      "left": 0,
+      "w": 390,
+      "h": 472.3
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 1,
+     "worst": [
+      {
+       "el": "body > a.skip",
+       "over": 127,
+       "txt": "跳到八块控制面板"
+      }
+     ]
+    },
+    "overlaps": {
+     "n": 0,
+     "worst": []
+    },
+    "holes": {
+     "n": 0,
+     "total": 0,
+     "list": [],
+     "mainH": 4765
+    },
+    "brokenImgs": [],
+    "sheets": 4,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 146,
+    "textChars": 1536,
+    "shot": {
+     "w": 390,
+     "h": 5473,
+     "scale": 0.4750593824228028
+    }
+   },
+   "swap@1440": {
+    "vp": {
+     "w": 1440,
+     "h": 900
+    },
+    "docH": 3121,
+    "docW": 1440,
+    "vw": 1440,
+    "vh": 900,
+    "bodyH": 3121,
+    "hOverflow": 0,
+    "keys": {
+     ".nameplate": {
+      "top": 25.6,
+      "left": 0,
+      "w": 1440,
+      "h": 51.6
+     },
+     ".hero.section": {
+      "top": 77.2,
+      "left": 0,
+      "w": 1440,
+      "h": 351.2
+     },
+     ".console.section": {
+      "top": 428.3,
+      "left": 0,
+      "w": 1440,
+      "h": 1287.2
+     },
+     ".plates.section": {
+      "top": 1715.5,
+      "left": 0,
+      "w": 1440,
+      "h": 965.2
+     },
+     ".colophon": {
+      "top": 2776.7,
+      "left": 0,
+      "w": 1440,
+      "h": 344.3
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 1,
+     "worst": [
+      {
+       "el": "body > a.skip",
+       "over": 127,
+       "txt": "山楂杏荔枝杏山楂"
+      }
+     ]
+    },
+    "overlaps": {
+     "n": 1,
+     "worst": [
+      {
+       "a": "section.console.section > div.console-shell > div.console-grid > article.panel.panel--alarm",
+       "b": "section.console.section > div.console-shell > div.console-grid > article.panel.panel--probe",
+       "area": 37630,
+       "frac": 0.38,
+       "y": 1140
+      }
+     ]
+    },
+    "holes": {
+     "n": 0,
+     "total": 0,
+     "list": [],
+     "mainH": 2604
+    },
+    "brokenImgs": [],
+    "sheets": 4,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 146,
+    "textChars": 1750,
+    "shot": {
+     "w": 1440,
+     "h": 3121,
+     "scale": 0.62
+    }
+   },
+   "swap@768": {
+    "vp": {
+     "w": 768,
+     "h": 1024
+    },
+    "docH": 4510,
+    "docW": 768,
+    "vw": 768,
+    "vh": 1024,
+    "bodyH": 4510,
+    "hOverflow": 0,
+    "keys": {
+     ".nameplate": {
+      "top": 25.6,
+      "left": 0,
+      "w": 768,
+      "h": 83.2
+     },
+     ".hero.section": {
+      "top": 108.8,
+      "left": 0,
+      "w": 768,
+      "h": 616.5
+     },
+     ".console.section": {
+      "top": 725.3,
+      "left": 0,
+      "w": 768,
+      "h": 2176.4
+     },
+     ".plates.section": {
+      "top": 2901.7,
+      "left": 0,
+      "w": 768,
+      "h": 1167.9
+     },
+     ".colophon": {
+      "top": 4165.6,
+      "left": 0,
+      "w": 768,
+      "h": 344.3
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 1,
+     "worst": [
+      {
+       "el": "body > a.skip",
+       "over": 127,
+       "txt": "山楂杏荔枝杏山楂"
+      }
+     ]
+    },
+    "overlaps": {
+     "n": 0,
+     "worst": []
+    },
+    "holes": {
+     "n": 0,
+     "total": 0,
+     "list": [],
+     "mainH": 3961
+    },
+    "brokenImgs": [],
+    "sheets": 4,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 146,
+    "textChars": 1536,
+    "shot": {
+     "w": 768,
+     "h": 4510,
+     "scale": 0.5764966740576497
+    }
+   },
+   "swap@390": {
+    "vp": {
+     "w": 390,
+     "h": 844
+    },
+    "docH": 5498,
+    "docW": 390,
+    "vw": 390,
+    "vh": 844,
+    "bodyH": 5498,
+    "hOverflow": 0,
+    "keys": {
+     ".nameplate": {
+      "top": 25.6,
+      "left": 0,
+      "w": 390,
+      "h": 114.8
+     },
+     ".hero.section": {
+      "top": 140.4,
+      "left": 0,
+      "w": 390,
+      "h": 759.4
+     },
+     ".console.section": {
+      "top": 899.8,
+      "left": 0,
+      "w": 390,
+      "h": 2521.9
+     },
+     ".plates.section": {
+      "top": 3421.7,
+      "left": 0,
+      "w": 390,
+      "h": 1507.9
+     },
+     ".colophon": {
+      "top": 5025.6,
+      "left": 0,
+      "w": 390,
+      "h": 472.3
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 1,
+     "worst": [
+      {
+       "el": "body > a.skip",
+       "over": 127,
+       "txt": "山楂杏荔枝杏山楂"
+      }
+     ]
+    },
+    "overlaps": {
+     "n": 0,
+     "worst": []
+    },
+    "holes": {
+     "n": 0,
+     "total": 0,
+     "list": [],
+     "mainH": 4789
+    },
+    "brokenImgs": [],
+    "sheets": 4,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 146,
+    "textChars": 1536,
+    "shot": {
+     "w": 390,
+     "h": 5498,
+     "scale": 0.4728992360858494
+    }
+   }
+  },
+  "meta": {
+   "orig": {
+    "loaded": "load",
+    "title": "像素冷库台 · 冷库机组 K-3 控制面板｜1984 年铁皮机柜",
+    "sheets": [
+     "http://127.0.0.1:9612/prototypes/_fonts/css/barlow__500-600.css",
+     "http://127.0.0.1:9612/prototypes/_fonts/css/glow-sans-sc__400-500.css",
+     "http://127.0.0.1:9612/prototypes/_fonts/css/departure-mono__400.css",
+     "http://127.0.0.1:9612/prototypes/S05-pixel-cold-storage-console/style.css"
+    ],
+    "imgs": 6,
+    "broken": 0,
+    "chars": 1750,
+    "consoleErrors": []
+   },
+   "swap": {
+    "loaded": "load",
+    "title": "梨梅牛油果 · 梅杏梨桃 B-7 火龙果桃｜2114 青柠哈密瓜",
+    "sheets": [
+     "http://127.0.0.1:9612/deliverables/63-test/replica/_fonts/css/barlow__500-600.css",
+     "http://127.0.0.1:9612/deliverables/63-test/replica/_fonts/css/glow-sans-sc__400-500.css",
+     "http://127.0.0.1:9612/deliverables/63-test/replica/_fonts/css/departure-mono__400.css",
+     "http://127.0.0.1:9612/deliverables/63-test/replica/S05-pixel-cold-storage-console/style.css"
+    ],
+    "imgs": 6,
+    "broken": 0,
+    "chars": 1750,
+    "consoleErrors": []
+   }
+  }
+ },
+ "S10-grid-versus-sheet": {
+  "keys": [
+   ".masthead",
+   ".compare",
+   ".plates",
+   ".motion",
+   "footer"
+  ],
+  "views": {
+   "orig@1440": {
+    "vp": {
+     "w": 1440,
+     "h": 900
+    },
+    "docH": 5132,
+    "docW": 1440,
+    "vw": 1440,
+    "vh": 900,
+    "bodyH": 5132,
+    "hOverflow": 0,
+    "keys": {
+     ".masthead": {
+      "top": 56,
+      "left": 56,
+      "w": 1328,
+      "h": 692
+     },
+     ".compare": {
+      "top": 748,
+      "left": 56,
+      "w": 1328,
+      "h": 1561
+     },
+     ".plates": {
+      "top": 2309,
+      "left": 56,
+      "w": 1328,
+      "h": 1444.9
+     },
+     ".motion": {
+      "top": 3753.9,
+      "left": 56,
+      "w": 1328,
+      "h": 886.1
+     },
+     "footer": {
+      "top": 4736,
+      "left": 0,
+      "w": 1440,
+      "h": 396
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 1,
+     "worst": [
+      {
+       "el": "body > a.skip",
+       "over": 105,
+       "txt": "跳到五栏对撞表"
+      }
+     ]
+    },
+    "overlaps": {
+     "n": 5,
+     "worst": [
+      {
+       "a": "section.compare > div.type-area.is-registering > table.grid-table > colgroup",
+       "b": "section.compare > div.type-area.is-registering > table.grid-table > tbody",
+       "area": 1071696,
+       "frac": 1,
+       "y": 1020
+      },
+      {
+       "a": "section.compare > div.type-area.is-registering > table.grid-table > colgroup",
+       "b": "section.compare > div.type-area.is-registering > table.grid-table > thead",
+       "area": 47808,
+       "frac": 1,
+       "y": 984
+      },
+      {
+       "a": "section.compare > div.type-area.is-registering > table.grid-table > colgroup",
+       "b": "section.compare > div.type-area.is-registering > table.grid-table > tfoot",
+       "area": 47808,
+       "frac": 1,
+       "y": 1827
+      },
+      {
+       "a": "section.motion > figure.regscale > svg > g",
+       "b": "section.motion > figure.regscale > svg > path",
+       "area": 3859,
+       "frac": 0.54,
+       "y": 4251
+      },
+      {
+       "a": "section.motion > figure.regscale > svg > g",
+       "b": "section.motion > figure.regscale > svg > path",
+       "area": 1754,
+       "frac": 0.54,
+       "y": 4251
+      }
+     ]
+    },
+    "holes": {
+     "n": 1,
+     "total": 748,
+     "list": [
+      {
+       "from": 0,
+       "to": 748,
+       "h": 748
+      }
+     ],
+     "mainH": 3892
+    },
+    "brokenImgs": [],
+    "sheets": 5,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 349,
+    "textChars": 2543,
+    "shot": {
+     "w": 1440,
+     "h": 5132,
+     "scale": 0.5066250974279034
+    }
+   },
+   "orig@768": {
+    "vp": {
+     "w": 768,
+     "h": 1024
+    },
+    "docH": 5562,
+    "docW": 768,
+    "vw": 768,
+    "vh": 1024,
+    "bodyH": 5562,
+    "hOverflow": 0,
+    "keys": {
+     ".masthead": {
+      "top": 32,
+      "left": 32,
+      "w": 704,
+      "h": 738
+     },
+     ".compare": {
+      "top": 770,
+      "left": 32,
+      "w": 704,
+      "h": 1933
+     },
+     ".plates": {
+      "top": 2703,
+      "left": 32,
+      "w": 704,
+      "h": 1271.2
+     },
+     ".motion": {
+      "top": 3974.2,
+      "left": 32,
+      "w": 704,
+      "h": 886.1
+     },
+     "footer": {
+      "top": 4956.3,
+      "left": 0,
+      "w": 768,
+      "h": 606
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 1,
+     "worst": [
+      {
+       "el": "body > a.skip",
+       "over": 105,
+       "txt": "跳到五栏对撞表"
+      }
+     ]
+    },
+    "overlaps": {
+     "n": 5,
+     "worst": [
+      {
+       "a": "section.compare > div.type-area.is-registering > table.grid-table > colgroup",
+       "b": "section.compare > div.type-area.is-registering > table.grid-table > tbody",
+       "area": 585024,
+       "frac": 1,
+       "y": 1060
+      },
+      {
+       "a": "section.compare > div.type-area.is-registering > table.grid-table > colgroup",
+       "b": "section.compare > div.type-area.is-registering > table.grid-table > thead",
+       "area": 42240,
+       "frac": 1,
+       "y": 1000
+      },
+      {
+       "a": "section.compare > div.type-area.is-registering > table.grid-table > colgroup",
+       "b": "section.compare > div.type-area.is-registering > table.grid-table > tfoot",
+       "area": 42240,
+       "frac": 1,
+       "y": 1891
+      },
+      {
+       "a": "section.motion > figure.regscale > svg > g",
+       "b": "section.motion > figure.regscale > svg > path",
+       "area": 3859,
+       "frac": 0.54,
+       "y": 4471
+      },
+      {
+       "a": "section.motion > figure.regscale > svg > g",
+       "b": "section.motion > figure.regscale > svg > path",
+       "area": 1754,
+       "frac": 0.54,
+       "y": 4471
+      }
+     ]
+    },
+    "holes": {
+     "n": 1,
+     "total": 770,
+     "list": [
+      {
+       "from": 0,
+       "to": 770,
+       "h": 770
+      }
+     ],
+     "mainH": 4090
+    },
+    "brokenImgs": [],
+    "sheets": 5,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 349,
+    "textChars": 2543,
+    "shot": {
+     "w": 768,
+     "h": 5562,
+     "scale": 0.46745774901114706
+    }
+   },
+   "orig@390": {
+    "vp": {
+     "w": 390,
+     "h": 844
+    },
+    "docH": 10322,
+    "docW": 390,
+    "vw": 390,
+    "vh": 844,
+    "bodyH": 10322,
+    "hOverflow": 0,
+    "keys": {
+     ".masthead": {
+      "top": 20,
+      "left": 20,
+      "w": 350,
+      "h": 1004
+     },
+     ".compare": {
+      "top": 1024,
+      "left": 20,
+      "w": 350,
+      "h": 5041
+     },
+     ".plates": {
+      "top": 6065,
+      "left": 20,
+      "w": 350,
+      "h": 2336.5
+     },
+     ".motion": {
+      "top": 8401.5,
+      "left": 20,
+      "w": 350,
+      "h": 954.1
+     },
+     "footer": {
+      "top": 9451.6,
+      "left": 0,
+      "w": 390,
+      "h": 870
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 1,
+     "worst": [
+      {
+       "el": "body > a.skip",
+       "over": 105,
+       "txt": "跳到五栏对撞表"
+      }
+     ]
+    },
+    "overlaps": {
+     "n": 3,
+     "worst": [
+      {
+       "a": "section.compare > div.type-area.is-registering > table.grid-table > colgroup",
+       "b": "section.compare > div.type-area.is-registering > table.grid-table > tbody",
+       "area": 1305150,
+       "frac": 1,
+       "y": 1326
+      },
+      {
+       "a": "section.compare > div.type-area.is-registering > table.grid-table > colgroup",
+       "b": "section.compare > div.type-area.is-registering > table.grid-table > tfoot",
+       "area": 55300,
+       "frac": 1,
+       "y": 5055
+      },
+      {
+       "a": "section.motion > figure.regscale > svg > g",
+       "b": "section.motion > figure.regscale > svg > path",
+       "area": 1748,
+       "frac": 0.54,
+       "y": 8978
+      }
+     ]
+    },
+    "holes": {
+     "n": 1,
+     "total": 1024,
+     "list": [
+      {
+       "from": 0,
+       "to": 1024,
+       "h": 1024
+      }
+     ],
+     "mainH": 8332
+    },
+    "brokenImgs": [],
+    "sheets": 5,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 349,
+    "textChars": 2543,
+    "shot": {
+     "w": 390,
+     "h": 10322,
+     "scale": 0.2518891687657431
+    }
+   },
+   "swap@1440": {
+    "vp": {
+     "w": 1440,
+     "h": 900
+    },
+    "docH": 5132,
+    "docW": 1440,
+    "vw": 1440,
+    "vh": 900,
+    "bodyH": 5132,
+    "hOverflow": 0,
+    "keys": {
+     ".masthead": {
+      "top": 56,
+      "left": 56,
+      "w": 1328,
+      "h": 692
+     },
+     ".compare": {
+      "top": 748,
+      "left": 56,
+      "w": 1328,
+      "h": 1561
+     },
+     ".plates": {
+      "top": 2309,
+      "left": 56,
+      "w": 1328,
+      "h": 1444.9
+     },
+     ".motion": {
+      "top": 3753.9,
+      "left": 56,
+      "w": 1328,
+      "h": 886.1
+     },
+     "footer": {
+      "top": 4736,
+      "left": 0,
+      "w": 1440,
+      "h": 396
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 1,
+     "worst": [
+      {
+       "el": "body > a.skip",
+       "over": 105,
+       "txt": "柚枣枣柚葡萄梅"
+      }
+     ]
+    },
+    "overlaps": {
+     "n": 5,
+     "worst": [
+      {
+       "a": "section.compare > div.type-area.is-registering > table.grid-table > colgroup",
+       "b": "section.compare > div.type-area.is-registering > table.grid-table > tbody",
+       "area": 1071696,
+       "frac": 1,
+       "y": 1020
+      },
+      {
+       "a": "section.compare > div.type-area.is-registering > table.grid-table > colgroup",
+       "b": "section.compare > div.type-area.is-registering > table.grid-table > thead",
+       "area": 47808,
+       "frac": 1,
+       "y": 984
+      },
+      {
+       "a": "section.compare > div.type-area.is-registering > table.grid-table > colgroup",
+       "b": "section.compare > div.type-area.is-registering > table.grid-table > tfoot",
+       "area": 47808,
+       "frac": 1,
+       "y": 1827
+      },
+      {
+       "a": "section.motion > figure.regscale > svg > g",
+       "b": "section.motion > figure.regscale > svg > path",
+       "area": 3859,
+       "frac": 0.54,
+       "y": 4251
+      },
+      {
+       "a": "section.motion > figure.regscale > svg > g",
+       "b": "section.motion > figure.regscale > svg > path",
+       "area": 1754,
+       "frac": 0.54,
+       "y": 4251
+      }
+     ]
+    },
+    "holes": {
+     "n": 1,
+     "total": 748,
+     "list": [
+      {
+       "from": 0,
+       "to": 748,
+       "h": 748
+      }
+     ],
+     "mainH": 3892
+    },
+    "brokenImgs": [],
+    "sheets": 5,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 349,
+    "textChars": 2543,
+    "shot": {
+     "w": 1440,
+     "h": 5132,
+     "scale": 0.5066250974279034
+    }
+   },
+   "swap@768": {
+    "vp": {
+     "w": 768,
+     "h": 1024
+    },
+    "docH": 5538,
+    "docW": 768,
+    "vw": 768,
+    "vh": 1024,
+    "bodyH": 5538,
+    "hOverflow": 0,
+    "keys": {
+     ".masthead": {
+      "top": 32,
+      "left": 32,
+      "w": 704,
+      "h": 714
+     },
+     ".compare": {
+      "top": 746,
+      "left": 32,
+      "w": 704,
+      "h": 1933
+     },
+     ".plates": {
+      "top": 2679,
+      "left": 32,
+      "w": 704,
+      "h": 1271.2
+     },
+     ".motion": {
+      "top": 3950.2,
+      "left": 32,
+      "w": 704,
+      "h": 886.1
+     },
+     "footer": {
+      "top": 4932.3,
+      "left": 0,
+      "w": 768,
+      "h": 606
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 1,
+     "worst": [
+      {
+       "el": "body > a.skip",
+       "over": 105,
+       "txt": "柚枣枣柚葡萄梅"
+      }
+     ]
+    },
+    "overlaps": {
+     "n": 5,
+     "worst": [
+      {
+       "a": "section.compare > div.type-area.is-registering > table.grid-table > colgroup",
+       "b": "section.compare > div.type-area.is-registering > table.grid-table > tbody",
+       "area": 585024,
+       "frac": 1,
+       "y": 1036
+      },
+      {
+       "a": "section.compare > div.type-area.is-registering > table.grid-table > colgroup",
+       "b": "section.compare > div.type-area.is-registering > table.grid-table > thead",
+       "area": 42240,
+       "frac": 1,
+       "y": 976
+      },
+      {
+       "a": "section.compare > div.type-area.is-registering > table.grid-table > colgroup",
+       "b": "section.compare > div.type-area.is-registering > table.grid-table > tfoot",
+       "area": 42240,
+       "frac": 1,
+       "y": 1867
+      },
+      {
+       "a": "section.motion > figure.regscale > svg > g",
+       "b": "section.motion > figure.regscale > svg > path",
+       "area": 3859,
+       "frac": 0.54,
+       "y": 4447
+      },
+      {
+       "a": "section.motion > figure.regscale > svg > g",
+       "b": "section.motion > figure.regscale > svg > path",
+       "area": 1754,
+       "frac": 0.54,
+       "y": 4447
+      }
+     ]
+    },
+    "holes": {
+     "n": 1,
+     "total": 746,
+     "list": [
+      {
+       "from": 0,
+       "to": 746,
+       "h": 746
+      }
+     ],
+     "mainH": 4090
+    },
+    "brokenImgs": [],
+    "sheets": 5,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 349,
+    "textChars": 2543,
+    "shot": {
+     "w": 768,
+     "h": 5538,
+     "scale": 0.4694835680751174
+    }
+   },
+   "swap@390": {
+    "vp": {
+     "w": 390,
+     "h": 844
+    },
+    "docH": 10346,
+    "docW": 390,
+    "vw": 390,
+    "vh": 844,
+    "bodyH": 10346,
+    "hOverflow": 0,
+    "keys": {
+     ".masthead": {
+      "top": 20,
+      "left": 20,
+      "w": 350,
+      "h": 1004
+     },
+     ".compare": {
+      "top": 1024,
+      "left": 20,
+      "w": 350,
+      "h": 5065
+     },
+     ".plates": {
+      "top": 6089,
+      "left": 20,
+      "w": 350,
+      "h": 2336.5
+     },
+     ".motion": {
+      "top": 8425.5,
+      "left": 20,
+      "w": 350,
+      "h": 954.1
+     },
+     "footer": {
+      "top": 9475.6,
+      "left": 0,
+      "w": 390,
+      "h": 870
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 1,
+     "worst": [
+      {
+       "el": "body > a.skip",
+       "over": 105,
+       "txt": "柚枣枣柚葡萄梅"
+      }
+     ]
+    },
+    "overlaps": {
+     "n": 3,
+     "worst": [
+      {
+       "a": "section.compare > div.type-area.is-registering > table.grid-table > colgroup",
+       "b": "section.compare > div.type-area.is-registering > table.grid-table > tbody",
+       "area": 1305150,
+       "frac": 1,
+       "y": 1326
+      },
+      {
+       "a": "section.compare > div.type-area.is-registering > table.grid-table > colgroup",
+       "b": "section.compare > div.type-area.is-registering > table.grid-table > tfoot",
+       "area": 55300,
+       "frac": 1,
+       "y": 5055
+      },
+      {
+       "a": "section.motion > figure.regscale > svg > g",
+       "b": "section.motion > figure.regscale > svg > path",
+       "area": 1748,
+       "frac": 0.54,
+       "y": 9002
+      }
+     ]
+    },
+    "holes": {
+     "n": 1,
+     "total": 1024,
+     "list": [
+      {
+       "from": 0,
+       "to": 1024,
+       "h": 1024
+      }
+     ],
+     "mainH": 8356
+    },
+    "brokenImgs": [],
+    "sheets": 5,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 349,
+    "textChars": 2543,
+    "shot": {
+     "w": 390,
+     "h": 10346,
+     "scale": 0.2513048521167601
+    }
+   }
+  },
+  "meta": {
+   "orig": {
+    "loaded": "load",
+    "title": "刻度对撞页 · 46 家供应商按到货周期对撞栏｜平印打样稿",
+    "sheets": [
+     "http://127.0.0.1:9612/prototypes/_fonts/css/jost__500.css",
+     "http://127.0.0.1:9612/prototypes/_fonts/css/ibm-plex-sans__400-600.css",
+     "http://127.0.0.1:9612/prototypes/_fonts/css/ibm-plex-mono__400-500.css",
+     "http://127.0.0.1:9612/prototypes/_fonts/css/noto-sans-sc__100..900.css",
+     "http://127.0.0.1:9612/prototypes/S10-grid-versus-sheet/style.css"
+    ],
+    "imgs": 6,
+    "broken": 0,
+    "chars": 2543,
+    "consoleErrors": []
+   },
+   "swap": {
+    "loaded": "load",
+    "title": "无花果柚柚 · 17 柚橙梨百香果杨桃干车厘子｜梨桃杨桃干",
+    "sheets": [
+     "http://127.0.0.1:9612/deliverables/63-test/replica/_fonts/css/jost__500.css",
+     "http://127.0.0.1:9612/deliverables/63-test/replica/_fonts/css/ibm-plex-sans__400-600.css",
+     "http://127.0.0.1:9612/deliverables/63-test/replica/_fonts/css/ibm-plex-mono__400-500.css",
+     "http://127.0.0.1:9612/deliverables/63-test/replica/_fonts/css/noto-sans-sc__100..900.css",
+     "http://127.0.0.1:9612/deliverables/63-test/replica/S10-grid-versus-sheet/style.css"
+    ],
+    "imgs": 6,
+    "broken": 0,
+    "chars": 2543,
+    "consoleErrors": []
+   }
+  }
+ },
+ "S14-zero-g-launch-sequence": {
+  "keys": [
+   ".deck",
+   ".fault",
+   ".plates-sec",
+   ".stations-sec",
+   ".paths-sec"
+  ],
+  "views": {
+   "orig@1440": {
+    "vp": {
+     "w": 1440,
+     "h": 900
+    },
+    "docH": 7569,
+    "docW": 1440,
+    "vw": 1440,
+    "vh": 900,
+    "bodyH": 7569,
+    "hOverflow": 0,
+    "keys": {
+     ".deck": {
+      "top": 803.5,
+      "left": 0,
+      "w": 1440,
+      "h": 2076.9
+     },
+     ".fault": {
+      "top": 2880.3,
+      "left": 0,
+      "w": 1440,
+      "h": 475.2
+     },
+     ".plates-sec": {
+      "top": 3355.5,
+      "left": 0,
+      "w": 1440,
+      "h": 1390.6
+     },
+     ".stations-sec": {
+      "top": 4802.1,
+      "left": 0,
+      "w": 1440,
+      "h": 897.1
+     },
+     ".paths-sec": {
+      "top": 5699.2,
+      "left": 0,
+      "w": 1440,
+      "h": 756
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 1,
+     "worst": [
+      {
+       "el": "body > a.skip",
+       "over": 127,
+       "txt": "跳到极坐标站位表"
+      }
+     ]
+    },
+    "overlaps": {
+     "n": 0,
+     "worst": []
+    },
+    "holes": {
+     "n": 1,
+     "total": 803,
+     "list": [
+      {
+       "from": 0,
+       "to": 803,
+       "h": 803
+      }
+     ],
+     "mainH": 6397
+    },
+    "brokenImgs": [],
+    "sheets": 4,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 349,
+    "textChars": 4049,
+    "shot": {
+     "w": 1440,
+     "h": 7569,
+     "scale": 0.3435064077156824
+    }
+   },
+   "orig@768": {
+    "vp": {
+     "w": 768,
+     "h": 1024
+    },
+    "docH": 9264,
+    "docW": 768,
+    "vw": 768,
+    "vh": 1024,
+    "bodyH": 9264,
+    "hOverflow": 0,
+    "keys": {
+     ".deck": {
+      "top": 1158.7,
+      "left": 0,
+      "w": 768,
+      "h": 2374.6
+     },
+     ".fault": {
+      "top": 3533.3,
+      "left": 0,
+      "w": 768,
+      "h": 434
+     },
+     ".plates-sec": {
+      "top": 3967.3,
+      "left": 0,
+      "w": 768,
+      "h": 2434.4
+     },
+     ".stations-sec": {
+      "top": 6457.7,
+      "left": 0,
+      "w": 768,
+      "h": 868.8
+     },
+     ".paths-sec": {
+      "top": 7326.5,
+      "left": 0,
+      "w": 768,
+      "h": 714.8
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 1,
+     "worst": [
+      {
+       "el": "body > a.skip",
+       "over": 127,
+       "txt": "跳到极坐标站位表"
+      }
+     ]
+    },
+    "overlaps": {
+     "n": 0,
+     "worst": []
+    },
+    "holes": {
+     "n": 1,
+     "total": 1159,
+     "list": [
+      {
+       "from": 0,
+       "to": 1159,
+       "h": 1159
+      }
+     ],
+     "mainH": 7587
+    },
+    "brokenImgs": [],
+    "sheets": 4,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 349,
+    "textChars": 4006,
+    "shot": {
+     "w": 768,
+     "h": 9264,
+     "scale": 0.28065630397236613
+    }
+   },
+   "orig@390": {
+    "vp": {
+     "w": 390,
+     "h": 844
+    },
+    "docH": 12119,
+    "docW": 390,
+    "vw": 390,
+    "vh": 844,
+    "bodyH": 12119,
+    "hOverflow": 0,
+    "keys": {
+     ".deck": {
+      "top": 1147.6,
+      "left": 0,
+      "w": 390,
+      "h": 2670.2
+     },
+     ".fault": {
+      "top": 3817.7,
+      "left": 0,
+      "w": 390,
+      "h": 518
+     },
+     ".plates-sec": {
+      "top": 4335.7,
+      "left": 0,
+      "w": 390,
+      "h": 4147.4
+     },
+     ".stations-sec": {
+      "top": 8539.1,
+      "left": 0,
+      "w": 390,
+      "h": 924.1
+     },
+     ".paths-sec": {
+      "top": 9463.2,
+      "left": 0,
+      "w": 390,
+      "h": 967.7
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 1,
+     "worst": [
+      {
+       "el": "body > a.skip",
+       "over": 127,
+       "txt": "跳到极坐标站位表"
+      }
+     ]
+    },
+    "overlaps": {
+     "n": 1,
+     "worst": [
+      {
+       "a": "main > section.motion-sec > p.degrade > b",
+       "b": "main > section.motion-sec > p.degrade > code",
+       "area": 2995,
+       "frac": 0.83,
+       "y": 11223
+      }
+     ]
+    },
+    "holes": {
+     "n": 1,
+     "total": 1148,
+     "list": [
+      {
+       "from": 0,
+       "to": 1148,
+       "h": 1148
+      }
+     ],
+     "mainH": 10298
+    },
+    "brokenImgs": [],
+    "sheets": 4,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 349,
+    "textChars": 3919,
+    "shot": {
+     "w": 390,
+     "h": 12119,
+     "scale": 0.21453915339549468
+    }
+   },
+   "swap@1440": {
+    "vp": {
+     "w": 1440,
+     "h": 900
+    },
+    "docH": 7569,
+    "docW": 1440,
+    "vw": 1440,
+    "vh": 900,
+    "bodyH": 7569,
+    "hOverflow": 0,
+    "keys": {
+     ".deck": {
+      "top": 803.5,
+      "left": 0,
+      "w": 1440,
+      "h": 2076.9
+     },
+     ".fault": {
+      "top": 2880.3,
+      "left": 0,
+      "w": 1440,
+      "h": 475.2
+     },
+     ".plates-sec": {
+      "top": 3355.5,
+      "left": 0,
+      "w": 1440,
+      "h": 1390.6
+     },
+     ".stations-sec": {
+      "top": 4802.1,
+      "left": 0,
+      "w": 1440,
+      "h": 897.1
+     },
+     ".paths-sec": {
+      "top": 5699.2,
+      "left": 0,
+      "w": 1440,
+      "h": 756
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 1,
+     "worst": [
+      {
+       "el": "body > a.skip",
+       "over": 127,
+       "txt": "龙眼梨火龙果桃柚"
+      }
+     ]
+    },
+    "overlaps": {
+     "n": 0,
+     "worst": []
+    },
+    "holes": {
+     "n": 1,
+     "total": 803,
+     "list": [
+      {
+       "from": 0,
+       "to": 803,
+       "h": 803
+      }
+     ],
+     "mainH": 6397
+    },
+    "brokenImgs": [],
+    "sheets": 4,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 349,
+    "textChars": 4049,
+    "shot": {
+     "w": 1440,
+     "h": 7569,
+     "scale": 0.3435064077156824
+    }
+   },
+   "swap@768": {
+    "vp": {
+     "w": 768,
+     "h": 1024
+    },
+    "docH": 9264,
+    "docW": 768,
+    "vw": 768,
+    "vh": 1024,
+    "bodyH": 9264,
+    "hOverflow": 0,
+    "keys": {
+     ".deck": {
+      "top": 1158.7,
+      "left": 0,
+      "w": 768,
+      "h": 2374.6
+     },
+     ".fault": {
+      "top": 3533.3,
+      "left": 0,
+      "w": 768,
+      "h": 434
+     },
+     ".plates-sec": {
+      "top": 3967.3,
+      "left": 0,
+      "w": 768,
+      "h": 2434.4
+     },
+     ".stations-sec": {
+      "top": 6457.7,
+      "left": 0,
+      "w": 768,
+      "h": 868.8
+     },
+     ".paths-sec": {
+      "top": 7326.5,
+      "left": 0,
+      "w": 768,
+      "h": 714.8
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 1,
+     "worst": [
+      {
+       "el": "body > a.skip",
+       "over": 127,
+       "txt": "龙眼梨火龙果桃柚"
+      }
+     ]
+    },
+    "overlaps": {
+     "n": 0,
+     "worst": []
+    },
+    "holes": {
+     "n": 1,
+     "total": 1159,
+     "list": [
+      {
+       "from": 0,
+       "to": 1159,
+       "h": 1159
+      }
+     ],
+     "mainH": 7587
+    },
+    "brokenImgs": [],
+    "sheets": 4,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 349,
+    "textChars": 4006,
+    "shot": {
+     "w": 768,
+     "h": 9264,
+     "scale": 0.28065630397236613
+    }
+   },
+   "swap@390": {
+    "vp": {
+     "w": 390,
+     "h": 844
+    },
+    "docH": 12076,
+    "docW": 390,
+    "vw": 390,
+    "vh": 844,
+    "bodyH": 12076,
+    "hOverflow": 0,
+    "keys": {
+     ".deck": {
+      "top": 1147.6,
+      "left": 0,
+      "w": 390,
+      "h": 2670.2
+     },
+     ".fault": {
+      "top": 3817.7,
+      "left": 0,
+      "w": 390,
+      "h": 518
+     },
+     ".plates-sec": {
+      "top": 4335.7,
+      "left": 0,
+      "w": 390,
+      "h": 4126.6
+     },
+     ".stations-sec": {
+      "top": 8518.3,
+      "left": 0,
+      "w": 390,
+      "h": 924.1
+     },
+     ".paths-sec": {
+      "top": 9442.4,
+      "left": 0,
+      "w": 390,
+      "h": 967.7
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 1,
+     "worst": [
+      {
+       "el": "body > a.skip",
+       "over": 127,
+       "txt": "龙眼梨火龙果桃柚"
+      }
+     ]
+    },
+    "overlaps": {
+     "n": 2,
+     "worst": [
+      {
+       "a": "main > section.motion-sec > p.degrade > b",
+       "b": "main > section.motion-sec > p.degrade > code",
+       "area": 2995,
+       "frac": 0.83,
+       "y": 11202
+      },
+      {
+       "a": "section.motion-sec > ul.spec-list > li > b",
+       "b": "section.motion-sec > ul.spec-list > li > code",
+       "area": 998,
+       "frac": 0.83,
+       "y": 11062
+      }
+     ]
+    },
+    "holes": {
+     "n": 1,
+     "total": 1148,
+     "list": [
+      {
+       "from": 0,
+       "to": 1148,
+       "h": 1148
+      }
+     ],
+     "mainH": 10278
+    },
+    "brokenImgs": [],
+    "sheets": 4,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 349,
+    "textChars": 3919,
+    "shot": {
+     "w": 390,
+     "h": 12076,
+     "scale": 0.21530308049022856
+    }
+   }
+  },
+  "meta": {
+   "orig": {
+    "loaded": "load",
+    "title": "零重力发射序 · 十一枚铝箔标贴的极坐标站位｜发射前任务流",
+    "sheets": [
+     "http://127.0.0.1:9612/prototypes/_fonts/css/oswald__400-600.css",
+     "http://127.0.0.1:9612/prototypes/_fonts/css/noto-serif-sc__400-700.css",
+     "http://127.0.0.1:9612/prototypes/_fonts/css/space-mono__400-700.css",
+     "http://127.0.0.1:9612/prototypes/S14-zero-g-launch-sequence/style.css"
+    ],
+    "imgs": 10,
+    "broken": 0,
+    "chars": 4049,
+    "consoleErrors": []
+   },
+   "swap": {
+    "loaded": "load",
+    "title": "圣女果杏枇杷 · 西瓜番石榴西瓜车厘子柚橘子｜百香果牛油果",
+    "sheets": [
+     "http://127.0.0.1:9612/deliverables/63-test/replica/_fonts/css/oswald__400-600.css",
+     "http://127.0.0.1:9612/deliverables/63-test/replica/_fonts/css/noto-serif-sc__400-700.css",
+     "http://127.0.0.1:9612/deliverables/63-test/replica/_fonts/css/space-mono__400-700.css",
+     "http://127.0.0.1:9612/deliverables/63-test/replica/S14-zero-g-launch-sequence/style.css"
+    ],
+    "imgs": 10,
+    "broken": 0,
+    "chars": 4049,
+    "consoleErrors": []
+   }
+  }
+ },
+ "S15-fishery-floor-ledger": {
+  "keys": [
+   ".masthead",
+   ".atlas",
+   ".year",
+   ".zones",
+   ".spec"
+  ],
+  "views": {
+   "orig@1440": {
+    "vp": {
+     "w": 1440,
+     "h": 900
+    },
+    "docH": 8812,
+    "docW": 1440,
+    "vw": 1440,
+    "vh": 900,
+    "bodyH": 8812,
+    "hOverflow": 0,
+    "keys": {
+     ".masthead": {
+      "top": 48.5,
+      "left": 0,
+      "w": 1440,
+      "h": 734.8
+     },
+     ".atlas": {
+      "top": 783.3,
+      "left": 0,
+      "w": 1440,
+      "h": 1531.1
+     },
+     ".year": {
+      "top": 2314.4,
+      "left": 0,
+      "w": 1440,
+      "h": 775.6
+     },
+     ".zones": {
+      "top": 1117.8,
+      "left": 120.1,
+      "w": 721.1,
+      "h": 809.2
+     },
+     ".spec": {
+      "top": 275.1,
+      "left": 72,
+      "w": 651,
+      "h": 30.4
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 1,
+     "worst": [
+      {
+       "el": "body > a.skip",
+       "over": 111,
+       "txt": "跳到热区登记表"
+      }
+     ]
+    },
+    "overlaps": {
+     "n": 50,
+     "worst": [
+      {
+       "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1934 > div.trace__in > svg > g",
+       "area": 583483,
+       "frac": 1,
+       "y": 1118
+      },
+      {
+       "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "area": 526090,
+       "frac": 1,
+       "y": 1064
+      },
+      {
+       "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1934 > div.trace__in > svg > g",
+       "area": 455602,
+       "frac": 0.87,
+       "y": 1118
+      },
+      {
+       "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "area": 383854,
+       "frac": 1,
+       "y": 1118
+      },
+      {
+       "a": "div.trace.trace--1936 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1936 > div.trace__in > svg > use",
+       "area": 383854,
+       "frac": 1,
+       "y": 1121
+      },
+      {
+       "a": "div.trace.trace--1938 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1938 > div.trace__in > svg > use",
+       "area": 383854,
+       "frac": 1,
+       "y": 1125
+      },
+      {
+       "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "area": 375509,
+       "frac": 0.98,
+       "y": 1118
+      },
+      {
+       "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1934 > div.trace__in > svg > g",
+       "area": 375509,
+       "frac": 0.98,
+       "y": 1118
+      }
+     ]
+    },
+    "holes": {
+     "n": 1,
+     "total": 783,
+     "list": [
+      {
+       "from": 0,
+       "to": 783,
+       "h": 783
+      }
+     ],
+     "mainH": 7633
+    },
+    "brokenImgs": [],
+    "sheets": 4,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 433,
+    "textChars": 4950,
+    "shot": {
+     "w": 1440,
+     "h": 8812,
+     "scale": 0.29505220154335
+    }
+   },
+   "orig@768": {
+    "vp": {
+     "w": 768,
+     "h": 1024
+    },
+    "docH": 13296,
+    "docW": 768,
+    "vw": 768,
+    "vh": 1024,
+    "bodyH": 13296,
+    "hOverflow": 0,
+    "keys": {
+     ".masthead": {
+      "top": 74,
+      "left": 0,
+      "w": 768,
+      "h": 1090.3
+     },
+     ".atlas": {
+      "top": 1164.3,
+      "left": 0,
+      "w": 768,
+      "h": 3690
+     },
+     ".year": {
+      "top": 4854.3,
+      "left": 0,
+      "w": 768,
+      "h": 703.4
+     },
+     ".zones": {
+      "top": 1492,
+      "left": 94.7,
+      "w": 578.6,
+      "h": 649.3
+     },
+     ".spec": {
+      "top": 258,
+      "left": 24,
+      "w": 720,
+      "h": 30.4
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 1,
+     "worst": [
+      {
+       "el": "body > a.skip",
+       "over": 111,
+       "txt": "跳到热区登记表"
+      }
+     ]
+    },
+    "overlaps": {
+     "n": 58,
+     "worst": [
+      {
+       "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1934 > div.trace__in > svg > g",
+       "area": 375646,
+       "frac": 1,
+       "y": 1492
+      },
+      {
+       "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "area": 338696,
+       "frac": 1,
+       "y": 1449
+      },
+      {
+       "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1934 > div.trace__in > svg > g",
+       "area": 293316,
+       "frac": 0.87,
+       "y": 1492
+      },
+      {
+       "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "area": 247125,
+       "frac": 1,
+       "y": 1492
+      },
+      {
+       "a": "div.trace.trace--1936 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1936 > div.trace__in > svg > use",
+       "area": 247125,
+       "frac": 1,
+       "y": 2406
+      },
+      {
+       "a": "div.trace.trace--1938 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1938 > div.trace__in > svg > use",
+       "area": 247125,
+       "frac": 1,
+       "y": 3321
+      },
+      {
+       "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "area": 241752,
+       "frac": 0.98,
+       "y": 1492
+      },
+      {
+       "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1934 > div.trace__in > svg > g",
+       "area": 241752,
+       "frac": 0.98,
+       "y": 1492
+      }
+     ]
+    },
+    "holes": {
+     "n": 1,
+     "total": 1164,
+     "list": [
+      {
+       "from": 0,
+       "to": 1164,
+       "h": 1164
+      }
+     ],
+     "mainH": 11397
+    },
+    "brokenImgs": [],
+    "sheets": 4,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 433,
+    "textChars": 5056,
+    "shot": {
+     "w": 768,
+     "h": 13296,
+     "scale": 0.19554753309265946
+    }
+   },
+   "orig@390": {
+    "vp": {
+     "w": 390,
+     "h": 844
+    },
+    "docH": 15126,
+    "docW": 390,
+    "vw": 390,
+    "vh": 844,
+    "bodyH": 15126,
+    "hOverflow": 0,
+    "keys": {
+     ".masthead": {
+      "top": 125,
+      "left": 0,
+      "w": 390,
+      "h": 881.7
+     },
+     ".atlas": {
+      "top": 1006.7,
+      "left": 0,
+      "w": 390,
+      "h": 2929.8
+     },
+     ".year": {
+      "top": 3936.5,
+      "left": 0,
+      "w": 390,
+      "h": 1025.3
+     },
+     ".zones": {
+      "top": 1419.8,
+      "left": 57.6,
+      "w": 274.8,
+      "h": 308.4
+     },
+     ".spec": {
+      "top": 318.3,
+      "left": 24,
+      "w": 342,
+      "h": 30.4
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 1,
+     "worst": [
+      {
+       "el": "body > a.skip",
+       "over": 111,
+       "txt": "跳到热区登记表"
+      }
+     ]
+    },
+    "overlaps": {
+     "n": 46,
+     "worst": [
+      {
+       "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1934 > div.trace__in > svg > g",
+       "area": 84752,
+       "frac": 1,
+       "y": 1420
+      },
+      {
+       "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "area": 76416,
+       "frac": 1,
+       "y": 1399
+      },
+      {
+       "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1934 > div.trace__in > svg > g",
+       "area": 66177,
+       "frac": 0.87,
+       "y": 1420
+      },
+      {
+       "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "area": 55755,
+       "frac": 1,
+       "y": 1420
+      },
+      {
+       "a": "div.trace.trace--1936 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1936 > div.trace__in > svg > use",
+       "area": 55755,
+       "frac": 1,
+       "y": 1928
+      },
+      {
+       "a": "div.trace.trace--1938 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1938 > div.trace__in > svg > use",
+       "area": 55755,
+       "frac": 1,
+       "y": 2436
+      },
+      {
+       "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "area": 54543,
+       "frac": 0.98,
+       "y": 1420
+      },
+      {
+       "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1934 > div.trace__in > svg > g",
+       "area": 54543,
+       "frac": 0.98,
+       "y": 1420
+      }
+     ]
+    },
+    "holes": {
+     "n": 1,
+     "total": 1007,
+     "list": [
+      {
+       "from": 0,
+       "to": 1007,
+       "h": 1007
+      }
+     ],
+     "mainH": 13128
+    },
+    "brokenImgs": [],
+    "sheets": 4,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 433,
+    "textChars": 4789,
+    "shot": {
+     "w": 390,
+     "h": 15126,
+     "scale": 0.17188946185376172
+    }
+   },
+   "swap@1440": {
+    "vp": {
+     "w": 1440,
+     "h": 900
+    },
+    "docH": 8812,
+    "docW": 1440,
+    "vw": 1440,
+    "vh": 900,
+    "bodyH": 8812,
+    "hOverflow": 0,
+    "keys": {
+     ".masthead": {
+      "top": 48.5,
+      "left": 0,
+      "w": 1440,
+      "h": 734.8
+     },
+     ".atlas": {
+      "top": 783.3,
+      "left": 0,
+      "w": 1440,
+      "h": 1531.1
+     },
+     ".year": {
+      "top": 2314.4,
+      "left": 0,
+      "w": 1440,
+      "h": 775.6
+     },
+     ".zones": {
+      "top": 1117.8,
+      "left": 120.1,
+      "w": 721.1,
+      "h": 809.2
+     },
+     ".spec": {
+      "top": 275.1,
+      "left": 72,
+      "w": 651,
+      "h": 30.4
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 1,
+     "worst": [
+      {
+       "el": "body > a.skip",
+       "over": 111,
+       "txt": "桃子香蕉橙杏梨"
+      }
+     ]
+    },
+    "overlaps": {
+     "n": 50,
+     "worst": [
+      {
+       "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1934 > div.trace__in > svg > g",
+       "area": 583483,
+       "frac": 1,
+       "y": 1118
+      },
+      {
+       "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "area": 526090,
+       "frac": 1,
+       "y": 1064
+      },
+      {
+       "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1934 > div.trace__in > svg > g",
+       "area": 455602,
+       "frac": 0.87,
+       "y": 1118
+      },
+      {
+       "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "area": 383854,
+       "frac": 1,
+       "y": 1118
+      },
+      {
+       "a": "div.trace.trace--1936 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1936 > div.trace__in > svg > use",
+       "area": 383854,
+       "frac": 1,
+       "y": 1121
+      },
+      {
+       "a": "div.trace.trace--1938 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1938 > div.trace__in > svg > use",
+       "area": 383854,
+       "frac": 1,
+       "y": 1125
+      },
+      {
+       "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "area": 375509,
+       "frac": 0.98,
+       "y": 1118
+      },
+      {
+       "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1934 > div.trace__in > svg > g",
+       "area": 375509,
+       "frac": 0.98,
+       "y": 1118
+      }
+     ]
+    },
+    "holes": {
+     "n": 1,
+     "total": 783,
+     "list": [
+      {
+       "from": 0,
+       "to": 783,
+       "h": 783
+      }
+     ],
+     "mainH": 7633
+    },
+    "brokenImgs": [],
+    "sheets": 4,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 433,
+    "textChars": 4950,
+    "shot": {
+     "w": 1440,
+     "h": 8812,
+     "scale": 0.29505220154335
+    }
+   },
+   "swap@768": {
+    "vp": {
+     "w": 768,
+     "h": 1024
+    },
+    "docH": 13276,
+    "docW": 768,
+    "vw": 768,
+    "vh": 1024,
+    "bodyH": 13276,
+    "hOverflow": 0,
+    "keys": {
+     ".masthead": {
+      "top": 74,
+      "left": 0,
+      "w": 768,
+      "h": 1069.5
+     },
+     ".atlas": {
+      "top": 1143.5,
+      "left": 0,
+      "w": 768,
+      "h": 3690
+     },
+     ".year": {
+      "top": 4833.5,
+      "left": 0,
+      "w": 768,
+      "h": 703.4
+     },
+     ".zones": {
+      "top": 1471.2,
+      "left": 94.7,
+      "w": 578.6,
+      "h": 649.3
+     },
+     ".spec": {
+      "top": 258,
+      "left": 24,
+      "w": 720,
+      "h": 30.4
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 1,
+     "worst": [
+      {
+       "el": "body > a.skip",
+       "over": 111,
+       "txt": "桃子香蕉橙杏梨"
+      }
+     ]
+    },
+    "overlaps": {
+     "n": 58,
+     "worst": [
+      {
+       "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1934 > div.trace__in > svg > g",
+       "area": 375646,
+       "frac": 1,
+       "y": 1471
+      },
+      {
+       "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "area": 338696,
+       "frac": 1,
+       "y": 1428
+      },
+      {
+       "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1934 > div.trace__in > svg > g",
+       "area": 293316,
+       "frac": 0.87,
+       "y": 1471
+      },
+      {
+       "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "area": 247125,
+       "frac": 1,
+       "y": 1471
+      },
+      {
+       "a": "div.trace.trace--1936 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1936 > div.trace__in > svg > use",
+       "area": 247125,
+       "frac": 1,
+       "y": 2386
+      },
+      {
+       "a": "div.trace.trace--1938 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1938 > div.trace__in > svg > use",
+       "area": 247125,
+       "frac": 1,
+       "y": 3300
+      },
+      {
+       "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "area": 241752,
+       "frac": 0.98,
+       "y": 1471
+      },
+      {
+       "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1934 > div.trace__in > svg > g",
+       "area": 241752,
+       "frac": 0.98,
+       "y": 1471
+      }
+     ]
+    },
+    "holes": {
+     "n": 1,
+     "total": 1143,
+     "list": [
+      {
+       "from": 0,
+       "to": 1143,
+       "h": 1143
+      }
+     ],
+     "mainH": 11397
+    },
+    "brokenImgs": [],
+    "sheets": 4,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 433,
+    "textChars": 5056,
+    "shot": {
+     "w": 768,
+     "h": 13276,
+     "scale": 0.19584212112081953
+    }
+   },
+   "swap@390": {
+    "vp": {
+     "w": 390,
+     "h": 844
+    },
+    "docH": 15084,
+    "docW": 390,
+    "vw": 390,
+    "vh": 844,
+    "bodyH": 15084,
+    "hOverflow": 0,
+    "keys": {
+     ".masthead": {
+      "top": 125,
+      "left": 0,
+      "w": 390,
+      "h": 860.9
+     },
+     ".atlas": {
+      "top": 985.9,
+      "left": 0,
+      "w": 390,
+      "h": 2929.8
+     },
+     ".year": {
+      "top": 3915.8,
+      "left": 0,
+      "w": 390,
+      "h": 1025.3
+     },
+     ".zones": {
+      "top": 1399,
+      "left": 57.6,
+      "w": 274.8,
+      "h": 308.4
+     },
+     ".spec": {
+      "top": 318.3,
+      "left": 24,
+      "w": 342,
+      "h": 30.4
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 1,
+     "worst": [
+      {
+       "el": "body > a.skip",
+       "over": 111,
+       "txt": "桃子香蕉橙杏梨"
+      }
+     ]
+    },
+    "overlaps": {
+     "n": 46,
+     "worst": [
+      {
+       "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1934 > div.trace__in > svg > g",
+       "area": 84752,
+       "frac": 1,
+       "y": 1399
+      },
+      {
+       "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "area": 76416,
+       "frac": 1,
+       "y": 1378
+      },
+      {
+       "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1934 > div.trace__in > svg > g",
+       "area": 66177,
+       "frac": 0.87,
+       "y": 1399
+      },
+      {
+       "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "area": 55755,
+       "frac": 1,
+       "y": 1399
+      },
+      {
+       "a": "div.trace.trace--1936 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1936 > div.trace__in > svg > use",
+       "area": 55755,
+       "frac": 1,
+       "y": 1907
+      },
+      {
+       "a": "div.trace.trace--1938 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1938 > div.trace__in > svg > use",
+       "area": 55755,
+       "frac": 1,
+       "y": 2415
+      },
+      {
+       "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "area": 54543,
+       "frac": 0.98,
+       "y": 1399
+      },
+      {
+       "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+       "b": "div.trace.trace--1934 > div.trace__in > svg > g",
+       "area": 54543,
+       "frac": 0.98,
+       "y": 1399
+      }
+     ]
+    },
+    "holes": {
+     "n": 1,
+     "total": 986,
+     "list": [
+      {
+       "from": 0,
+       "to": 986,
+       "h": 986
+      }
+     ],
+     "mainH": 13108
+    },
+    "brokenImgs": [],
+    "sheets": 4,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 433,
+    "textChars": 4789,
+    "shot": {
+     "w": 390,
+     "h": 15084,
+     "scale": 0.17236807212940863
+    }
+   }
+  },
+  "meta": {
+   "orig": {
+    "loaded": "load",
+    "title": "渔场平面簿 · 三层硫酸纸叠在同一张网具舱平面图上",
+    "sheets": [
+     "http://127.0.0.1:9612/prototypes/_fonts/css/newsreader__400-600-700.css",
+     "http://127.0.0.1:9612/prototypes/_fonts/css/noto-serif-sc__400-700.css",
+     "http://127.0.0.1:9612/prototypes/_fonts/css/reddit-mono__400-500.css",
+     "http://127.0.0.1:9612/prototypes/S15-fishery-floor-ledger/style.css"
+    ],
+    "imgs": 8,
+    "broken": 0,
+    "chars": 4950,
+    "consoleErrors": []
+   },
+   "swap": {
+    "loaded": "load",
+    "title": "柠檬柚苹果 · 桃子猕猴桃葡萄龙眼梨菠萝车厘子梅橙",
+    "sheets": [
+     "http://127.0.0.1:9612/deliverables/63-test/replica/_fonts/css/newsreader__400-600-700.css",
+     "http://127.0.0.1:9612/deliverables/63-test/replica/_fonts/css/noto-serif-sc__400-700.css",
+     "http://127.0.0.1:9612/deliverables/63-test/replica/_fonts/css/reddit-mono__400-500.css",
+     "http://127.0.0.1:9612/deliverables/63-test/replica/S15-fishery-floor-ledger/style.css"
+    ],
+    "imgs": 8,
+    "broken": 0,
+    "chars": 4950,
+    "consoleErrors": []
+   }
+  }
+ },
+ "S18-phosphor-service-deck": {
+  "keys": [
+   ".mast",
+   ".stream",
+   ".band",
+   ".tags",
+   ".fault"
+  ],
+  "views": {
+   "orig@1440": {
+    "vp": {
+     "w": 1440,
+     "h": 900
+    },
+    "docH": 10723,
+    "docW": 1440,
+    "vw": 1440,
+    "vh": 900,
+    "bodyH": 10723,
+    "hOverflow": 0,
+    "keys": {
+     ".mast": {
+      "top": 221.8,
+      "left": 0,
+      "w": 1440,
+      "h": 1248.6
+     },
+     ".stream": {
+      "top": 1470.4,
+      "left": 0,
+      "w": 1440,
+      "h": 2094.6
+     },
+     ".band": {
+      "top": 3564.9,
+      "left": 0,
+      "w": 1440,
+      "h": 1383.8
+     },
+     ".tags": {
+      "top": 4948.8,
+      "left": 0,
+      "w": 1440,
+      "h": 1056.6
+     },
+     ".fault": {
+      "top": 6005.4,
+      "left": 0,
+      "w": 1440,
+      "h": 1137.3
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 0,
+     "worst": []
+    },
+    "overlaps": {
+     "n": 4,
+     "worst": [
+      {
+       "a": "footer.foot > div.foot__in > p.src__note > code",
+       "b": "footer.foot > div.foot__in > p.src__note > code",
+       "area": 3142,
+       "frac": 1,
+       "y": 9759
+      },
+      {
+       "a": "div > div.degrade > p.body > b",
+       "b": "div > div.degrade > p.body > code",
+       "area": 2764,
+       "frac": 0.79,
+       "y": 7335
+      },
+      {
+       "a": "footer.foot > div.foot__in > p.src__note > code",
+       "b": "footer.foot > div.foot__in > p.src__note > code",
+       "area": 1999,
+       "frac": 1,
+       "y": 9734
+      },
+      {
+       "a": "footer.foot > div.foot__in > p.src__note > code",
+       "b": "footer.foot > div.foot__in > p.src__note > code",
+       "area": 1999,
+       "frac": 1,
+       "y": 9734
+      }
+     ]
+    },
+    "holes": {
+     "n": 1,
+     "total": 1470,
+     "list": [
+      {
+       "from": 0,
+       "to": 1470,
+       "h": 1470
+      }
+     ],
+     "mainH": 7729
+    },
+    "brokenImgs": [],
+    "sheets": 4,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 200,
+    "textChars": 7370,
+    "shot": {
+     "w": 1440,
+     "h": 10723,
+     "scale": 0.24246945817401847
+    }
+   },
+   "orig@768": {
+    "vp": {
+     "w": 768,
+     "h": 1024
+    },
+    "docH": 13218,
+    "docW": 768,
+    "vw": 768,
+    "vh": 1024,
+    "bodyH": 13218,
+    "hOverflow": 0,
+    "keys": {
+     ".mast": {
+      "top": 229.8,
+      "left": 0,
+      "w": 768,
+      "h": 2302
+     },
+     ".stream": {
+      "top": 2531.8,
+      "left": 0,
+      "w": 768,
+      "h": 2030.9
+     },
+     ".band": {
+      "top": 4562.6,
+      "left": 0,
+      "w": 768,
+      "h": 1822.4
+     },
+     ".tags": {
+      "top": 6385,
+      "left": 0,
+      "w": 768,
+      "h": 1528.1
+     },
+     ".fault": {
+      "top": 7913.1,
+      "left": 0,
+      "w": 768,
+      "h": 1073.6
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 0,
+     "worst": []
+    },
+    "overlaps": {
+     "n": 3,
+     "worst": [
+      {
+       "a": "footer.foot > div.foot__in > p.src__note > code",
+       "b": "footer.foot > div.foot__in > p.src__note > code",
+       "area": 3142,
+       "frac": 1,
+       "y": 12274
+      },
+      {
+       "a": "footer.foot > div.foot__in > p.src__note > code",
+       "b": "footer.foot > div.foot__in > p.src__note > code",
+       "area": 1999,
+       "frac": 1,
+       "y": 12249
+      },
+      {
+       "a": "footer.foot > div.foot__in > p.src__note > code",
+       "b": "footer.foot > div.foot__in > p.src__note > code",
+       "area": 1999,
+       "frac": 1,
+       "y": 12249
+      }
+     ]
+    },
+    "holes": {
+     "n": 1,
+     "total": 2532,
+     "list": [
+      {
+       "from": 0,
+       "to": 2532,
+       "h": 2532
+      }
+     ],
+     "mainH": 9206
+    },
+    "brokenImgs": [],
+    "sheets": 4,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 200,
+    "textChars": 7347,
+    "shot": {
+     "w": 768,
+     "h": 13218,
+     "scale": 0.19670146769556665
+    }
+   },
+   "orig@390": {
+    "vp": {
+     "w": 390,
+     "h": 844
+    },
+    "docH": 16303,
+    "docW": 390,
+    "vw": 390,
+    "vh": 844,
+    "bodyH": 16303,
+    "hOverflow": 0,
+    "keys": {
+     ".mast": {
+      "top": 241.8,
+      "left": 0,
+      "w": 390,
+      "h": 1906.9
+     },
+     ".stream": {
+      "top": 2148.7,
+      "left": 0,
+      "w": 390,
+      "h": 3543.5
+     },
+     ".band": {
+      "top": 5692.2,
+      "left": 0,
+      "w": 390,
+      "h": 2028.4
+     },
+     ".tags": {
+      "top": 7720.6,
+      "left": 0,
+      "w": 390,
+      "h": 1587.2
+     },
+     ".fault": {
+      "top": 9307.8,
+      "left": 0,
+      "w": 390,
+      "h": 1350.9
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 0,
+     "worst": []
+    },
+    "overlaps": {
+     "n": 2,
+     "worst": [
+      {
+       "a": "div.mast__grid > div.mast__col > p.nameplate > code",
+       "b": "div.mast__grid > div.mast__col > p.nameplate > code",
+       "area": 4066,
+       "frac": 1,
+       "y": 553
+      },
+      {
+       "a": "div > div.degrade > p.body > b",
+       "b": "div > div.degrade > p.body > code",
+       "area": 2764,
+       "frac": 0.79,
+       "y": 11667
+      }
+     ]
+    },
+    "holes": {
+     "n": 1,
+     "total": 2149,
+     "list": [
+      {
+       "from": 0,
+       "to": 2149,
+       "h": 2149
+      }
+     ],
+     "mainH": 12052
+    },
+    "brokenImgs": [],
+    "sheets": 4,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 200,
+    "textChars": 7334,
+    "shot": {
+     "w": 390,
+     "h": 16303,
+     "scale": 0.1594798503342943
+    }
+   },
+   "swap@1440": {
+    "vp": {
+     "w": 1440,
+     "h": 900
+    },
+    "docH": 10747,
+    "docW": 1440,
+    "vw": 1440,
+    "vh": 900,
+    "bodyH": 10747,
+    "hOverflow": 0,
+    "keys": {
+     ".mast": {
+      "top": 221.8,
+      "left": 0,
+      "w": 1440,
+      "h": 1248.6
+     },
+     ".stream": {
+      "top": 1470.4,
+      "left": 0,
+      "w": 1440,
+      "h": 2094.6
+     },
+     ".band": {
+      "top": 3564.9,
+      "left": 0,
+      "w": 1440,
+      "h": 1383.8
+     },
+     ".tags": {
+      "top": 4948.8,
+      "left": 0,
+      "w": 1440,
+      "h": 1056.6
+     },
+     ".fault": {
+      "top": 6005.4,
+      "left": 0,
+      "w": 1440,
+      "h": 1137.3
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 0,
+     "worst": []
+    },
+    "overlaps": {
+     "n": 5,
+     "worst": [
+      {
+       "a": "footer.foot > div.foot__in > p.src__note > code",
+       "b": "footer.foot > div.foot__in > p.src__note > code",
+       "area": 3142,
+       "frac": 1,
+       "y": 9784
+      },
+      {
+       "a": "div > div.degrade > p.body > b",
+       "b": "div > div.degrade > p.body > code",
+       "area": 2764,
+       "frac": 0.79,
+       "y": 7335
+      },
+      {
+       "a": "footer.foot > div.foot__in > p.src__note > code",
+       "b": "footer.foot > div.foot__in > p.src__note > code",
+       "area": 1999,
+       "frac": 1,
+       "y": 9758
+      },
+      {
+       "a": "footer.foot > div.foot__in > p.src__note > code",
+       "b": "footer.foot > div.foot__in > p.src__note > code",
+       "area": 1999,
+       "frac": 1,
+       "y": 9758
+      },
+      {
+       "a": "footer.foot > div.foot__in > p.sig > code",
+       "b": "footer.foot > div.foot__in > p.sig > code",
+       "area": 1000,
+       "frac": 1,
+       "y": 10434
+      }
+     ]
+    },
+    "holes": {
+     "n": 1,
+     "total": 1470,
+     "list": [
+      {
+       "from": 0,
+       "to": 1470,
+       "h": 1470
+      }
+     ],
+     "mainH": 7729
+    },
+    "brokenImgs": [],
+    "sheets": 4,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 200,
+    "textChars": 7369,
+    "shot": {
+     "w": 1440,
+     "h": 10747,
+     "scale": 0.24192797990136783
+    }
+   },
+   "swap@768": {
+    "vp": {
+     "w": 768,
+     "h": 1024
+    },
+    "docH": 13242,
+    "docW": 768,
+    "vw": 768,
+    "vh": 1024,
+    "bodyH": 13242,
+    "hOverflow": 0,
+    "keys": {
+     ".mast": {
+      "top": 229.8,
+      "left": 0,
+      "w": 768,
+      "h": 2302
+     },
+     ".stream": {
+      "top": 2531.8,
+      "left": 0,
+      "w": 768,
+      "h": 2030.9
+     },
+     ".band": {
+      "top": 4562.6,
+      "left": 0,
+      "w": 768,
+      "h": 1822.4
+     },
+     ".tags": {
+      "top": 6385,
+      "left": 0,
+      "w": 768,
+      "h": 1528.1
+     },
+     ".fault": {
+      "top": 7913.1,
+      "left": 0,
+      "w": 768,
+      "h": 1073.6
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 0,
+     "worst": []
+    },
+    "overlaps": {
+     "n": 4,
+     "worst": [
+      {
+       "a": "footer.foot > div.foot__in > p.src__note > code",
+       "b": "footer.foot > div.foot__in > p.src__note > code",
+       "area": 3142,
+       "frac": 1,
+       "y": 12299
+      },
+      {
+       "a": "footer.foot > div.foot__in > p.src__note > code",
+       "b": "footer.foot > div.foot__in > p.src__note > code",
+       "area": 1999,
+       "frac": 1,
+       "y": 12273
+      },
+      {
+       "a": "footer.foot > div.foot__in > p.src__note > code",
+       "b": "footer.foot > div.foot__in > p.src__note > code",
+       "area": 1999,
+       "frac": 1,
+       "y": 12273
+      },
+      {
+       "a": "footer.foot > div.foot__in > p.sig > code",
+       "b": "footer.foot > div.foot__in > p.sig > code",
+       "area": 1000,
+       "frac": 1,
+       "y": 12950
+      }
+     ]
+    },
+    "holes": {
+     "n": 1,
+     "total": 2532,
+     "list": [
+      {
+       "from": 0,
+       "to": 2532,
+       "h": 2532
+      }
+     ],
+     "mainH": 9206
+    },
+    "brokenImgs": [],
+    "sheets": 4,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 200,
+    "textChars": 7346,
+    "shot": {
+     "w": 768,
+     "h": 13242,
+     "scale": 0.1963449629965262
+    }
+   },
+   "swap@390": {
+    "vp": {
+     "w": 390,
+     "h": 844
+    },
+    "docH": 16300,
+    "docW": 390,
+    "vw": 390,
+    "vh": 844,
+    "bodyH": 16300,
+    "hOverflow": 0,
+    "keys": {
+     ".mast": {
+      "top": 241.8,
+      "left": 0,
+      "w": 390,
+      "h": 1906.9
+     },
+     ".stream": {
+      "top": 2148.7,
+      "left": 0,
+      "w": 390,
+      "h": 3543.5
+     },
+     ".band": {
+      "top": 5692.2,
+      "left": 0,
+      "w": 390,
+      "h": 2028.4
+     },
+     ".tags": {
+      "top": 7720.6,
+      "left": 0,
+      "w": 390,
+      "h": 1587.2
+     },
+     ".fault": {
+      "top": 9307.8,
+      "left": 0,
+      "w": 390,
+      "h": 1350.9
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 0,
+     "worst": []
+    },
+    "overlaps": {
+     "n": 2,
+     "worst": [
+      {
+       "a": "div.mast__grid > div.mast__col > p.nameplate > code",
+       "b": "div.mast__grid > div.mast__col > p.nameplate > code",
+       "area": 4066,
+       "frac": 1,
+       "y": 553
+      },
+      {
+       "a": "div > div.degrade > p.body > b",
+       "b": "div > div.degrade > p.body > code",
+       "area": 2764,
+       "frac": 0.79,
+       "y": 11667
+      }
+     ]
+    },
+    "holes": {
+     "n": 1,
+     "total": 2149,
+     "list": [
+      {
+       "from": 0,
+       "to": 2149,
+       "h": 2149
+      }
+     ],
+     "mainH": 12049
+    },
+    "brokenImgs": [],
+    "sheets": 4,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 200,
+    "textChars": 7333,
+    "shot": {
+     "w": 390,
+     "h": 16300,
+     "scale": 0.15950920245398773
+    }
+   }
+  },
+  "meta": {
+   "orig": {
+    "loaded": "load",
+    "title": "磷光检修台 · 今天挂出的 4 张牌｜连续纸走 60 行 · 错误码 TAG-409",
+    "sheets": [
+     "http://127.0.0.1:9612/prototypes/_fonts/css/glow-sans-sc-s18__400-500.css",
+     "http://127.0.0.1:9612/prototypes/_fonts/css/vt323__400.css",
+     "http://127.0.0.1:9612/prototypes/_fonts/css/martian-mono-narrow__wdth75-400-600.css",
+     "http://127.0.0.1:9612/prototypes/S18-phosphor-service-deck/style.css"
+    ],
+    "imgs": 6,
+    "broken": 0,
+    "chars": 7370,
+    "consoleErrors": []
+   },
+   "swap": {
+    "loaded": "load",
+    "title": "芒果桃覆盆 · 蓝莓猕猴桃 7 橘子｜百香果枣 14 枣 · 杏香蕉 PEA-121",
+    "sheets": [
+     "http://127.0.0.1:9612/deliverables/63-test/replica/_fonts/css/glow-sans-sc-s18__400-500.css",
+     "http://127.0.0.1:9612/deliverables/63-test/replica/_fonts/css/vt323__400.css",
+     "http://127.0.0.1:9612/deliverables/63-test/replica/_fonts/css/martian-mono-narrow__wdth75-400-600.css",
+     "http://127.0.0.1:9612/deliverables/63-test/replica/S18-phosphor-service-deck/style.css"
+    ],
+    "imgs": 6,
+    "broken": 0,
+    "chars": 7369,
+    "consoleErrors": []
+   }
+  }
+ },
+ "S20-plotter-soundfield": {
+  "keys": [
+   ".masthead",
+   ".sheet-sec",
+   ".keys",
+   ".plates-sec",
+   ".maps-sec"
+  ],
+  "views": {
+   "orig@1440": {
+    "vp": {
+     "w": 1440,
+     "h": 900
+    },
+    "docH": 8834,
+    "docW": 1440,
+    "vw": 1440,
+    "vh": 900,
+    "bodyH": 8834,
+    "hOverflow": 0,
+    "keys": {
+     ".masthead": {
+      "top": 0,
+      "left": 0,
+      "w": 1440,
+      "h": 998.8
+     },
+     ".sheet-sec": {
+      "top": 998.8,
+      "left": 0,
+      "w": 1440,
+      "h": 1935.5
+     },
+     ".keys": {
+      "top": 3965.3,
+      "left": 0,
+      "w": 1440,
+      "h": 698.1
+     },
+     ".plates-sec": {
+      "top": 4663.4,
+      "left": 0,
+      "w": 1440,
+      "h": 1974
+     },
+     ".maps-sec": {
+      "top": 6637.3,
+      "left": 0,
+      "w": 1440,
+      "h": 500.2
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 1,
+     "worst": [
+      {
+       "el": "body > a.skip",
+       "over": 143,
+       "txt": "跳到图纸与参数面板"
+      }
+     ]
+    },
+    "overlaps": {
+     "n": 286,
+     "worst": [
+      {
+       "a": "div.plot__stage > div.sheet > svg > rect",
+       "b": "div.plot__stage > div.sheet > svg > g",
+       "area": 434277,
+       "frac": 1,
+       "y": 1510
+      },
+      {
+       "a": "div.sheet > svg > g > path",
+       "b": "div.sheet > svg > g > path",
+       "area": 405130,
+       "frac": 1,
+       "y": 1522
+      },
+      {
+       "a": "div.sheet > svg > g > path",
+       "b": "div.sheet > svg > g > path",
+       "area": 376380,
+       "frac": 1,
+       "y": 1533
+      },
+      {
+       "a": "div.sheet > svg > g > path",
+       "b": "div.sheet > svg > g > path",
+       "area": 376380,
+       "frac": 1,
+       "y": 1533
+      },
+      {
+       "a": "div.sheet > svg > g > path",
+       "b": "div.sheet > svg > g > path",
+       "area": 349280,
+       "frac": 1,
+       "y": 1545
+      },
+      {
+       "a": "div.sheet > svg > g > path",
+       "b": "div.sheet > svg > g > path",
+       "area": 349280,
+       "frac": 1,
+       "y": 1545
+      },
+      {
+       "a": "div.sheet > svg > g > path",
+       "b": "div.sheet > svg > g > path",
+       "area": 349280,
+       "frac": 1,
+       "y": 1545
+      },
+      {
+       "a": "div.sheet > svg > g > path",
+       "b": "div.sheet > svg > g > path",
+       "area": 323190,
+       "frac": 1,
+       "y": 1556
+      }
+     ]
+    },
+    "holes": {
+     "n": 1,
+     "total": 999,
+     "list": [
+      {
+       "from": 0,
+       "to": 999,
+       "h": 999
+      }
+     ],
+     "mainH": 7426
+    },
+    "brokenImgs": [],
+    "sheets": 4,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 281,
+    "textChars": 4851,
+    "shot": {
+     "w": 1440,
+     "h": 8834,
+     "scale": 0.29431741000679196
+    }
+   },
+   "orig@768": {
+    "vp": {
+     "w": 768,
+     "h": 1024
+    },
+    "docH": 11484,
+    "docW": 768,
+    "vw": 768,
+    "vh": 1024,
+    "bodyH": 11484,
+    "hOverflow": 0,
+    "keys": {
+     ".masthead": {
+      "top": 0,
+      "left": 0,
+      "w": 768,
+      "h": 1605.6
+     },
+     ".sheet-sec": {
+      "top": 1605.6,
+      "left": 0,
+      "w": 768,
+      "h": 2567.8
+     },
+     ".keys": {
+      "top": 5728.9,
+      "left": 0,
+      "w": 768,
+      "h": 648.9
+     },
+     ".plates-sec": {
+      "top": 6377.8,
+      "left": 0,
+      "w": 768,
+      "h": 2278.7
+     },
+     ".maps-sec": {
+      "top": 8656.5,
+      "left": 0,
+      "w": 768,
+      "h": 515.3
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 1,
+     "worst": [
+      {
+       "el": "body > a.skip",
+       "over": 143,
+       "txt": "跳到图纸与参数面板"
+      }
+     ]
+    },
+    "overlaps": {
+     "n": 286,
+     "worst": [
+      {
+       "a": "div.plot__stage > div.sheet > svg > rect",
+       "b": "div.plot__stage > div.sheet > svg > g",
+       "area": 348273,
+       "frac": 1,
+       "y": 2078
+      },
+      {
+       "a": "div.sheet > svg > g > path",
+       "b": "div.sheet > svg > g > path",
+       "area": 324898,
+       "frac": 1,
+       "y": 2089
+      },
+      {
+       "a": "div.sheet > svg > g > path",
+       "b": "div.sheet > svg > g > path",
+       "area": 301842,
+       "frac": 1,
+       "y": 2099
+      },
+      {
+       "a": "div.sheet > svg > g > path",
+       "b": "div.sheet > svg > g > path",
+       "area": 301842,
+       "frac": 1,
+       "y": 2099
+      },
+      {
+       "a": "div.sheet > svg > g > path",
+       "b": "div.sheet > svg > g > path",
+       "area": 280109,
+       "frac": 1,
+       "y": 2109
+      },
+      {
+       "a": "div.sheet > svg > g > path",
+       "b": "div.sheet > svg > g > path",
+       "area": 280109,
+       "frac": 1,
+       "y": 2109
+      },
+      {
+       "a": "div.sheet > svg > g > path",
+       "b": "div.sheet > svg > g > path",
+       "area": 280109,
+       "frac": 1,
+       "y": 2109
+      },
+      {
+       "a": "div.sheet > svg > g > path",
+       "b": "div.sheet > svg > g > path",
+       "area": 259186,
+       "frac": 1,
+       "y": 2119
+      }
+     ]
+    },
+    "holes": {
+     "n": 1,
+     "total": 1606,
+     "list": [
+      {
+       "from": 0,
+       "to": 1606,
+       "h": 1606
+      }
+     ],
+     "mainH": 9306
+    },
+    "brokenImgs": [],
+    "sheets": 4,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 281,
+    "textChars": 4978,
+    "shot": {
+     "w": 768,
+     "h": 11484,
+     "scale": 0.22640195053988157
+    }
+   },
+   "orig@390": {
+    "vp": {
+     "w": 390,
+     "h": 844
+    },
+    "docH": 13792,
+    "docW": 390,
+    "vw": 390,
+    "vh": 844,
+    "bodyH": 13792,
+    "hOverflow": 0,
+    "keys": {
+     ".masthead": {
+      "top": 213.1,
+      "left": 0,
+      "w": 390,
+      "h": 1385.7
+     },
+     ".sheet-sec": {
+      "top": 1598.8,
+      "left": 0,
+      "w": 390,
+      "h": 2684.9
+     },
+     ".keys": {
+      "top": 6064.3,
+      "left": 0,
+      "w": 390,
+      "h": 951.5
+     },
+     ".plates-sec": {
+      "top": 7015.8,
+      "left": 0,
+      "w": 390,
+      "h": 3180.8
+     },
+     ".maps-sec": {
+      "top": 10196.5,
+      "left": 0,
+      "w": 390,
+      "h": 674.2
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 1,
+     "worst": [
+      {
+       "el": "body > a.skip",
+       "over": 143,
+       "txt": "跳到图纸与参数面板"
+      }
+     ]
+    },
+    "overlaps": {
+     "n": 287,
+     "worst": [
+      {
+       "a": "div.plot__stage > div.sheet > svg > rect",
+       "b": "div.plot__stage > div.sheet > svg > g",
+       "area": 86104,
+       "frac": 1,
+       "y": 2185
+      },
+      {
+       "a": "div.sheet > svg > g > path",
+       "b": "div.sheet > svg > g > path",
+       "area": 80325,
+       "frac": 1,
+       "y": 2190
+      },
+      {
+       "a": "div.sheet > svg > g > path",
+       "b": "div.sheet > svg > g > path",
+       "area": 74624,
+       "frac": 1,
+       "y": 2195
+      },
+      {
+       "a": "div.sheet > svg > g > path",
+       "b": "div.sheet > svg > g > path",
+       "area": 74624,
+       "frac": 1,
+       "y": 2195
+      },
+      {
+       "a": "div.sheet > svg > g > path",
+       "b": "div.sheet > svg > g > path",
+       "area": 69251,
+       "frac": 1,
+       "y": 2201
+      },
+      {
+       "a": "div.sheet > svg > g > path",
+       "b": "div.sheet > svg > g > path",
+       "area": 69251,
+       "frac": 1,
+       "y": 2201
+      },
+      {
+       "a": "div.sheet > svg > g > path",
+       "b": "div.sheet > svg > g > path",
+       "area": 69251,
+       "frac": 1,
+       "y": 2201
+      },
+      {
+       "a": "div.sheet > svg > g > path",
+       "b": "div.sheet > svg > g > path",
+       "area": 64078,
+       "frac": 1,
+       "y": 2205
+      }
+     ]
+    },
+    "holes": {
+     "n": 1,
+     "total": 1599,
+     "list": [
+      {
+       "from": 0,
+       "to": 1599,
+       "h": 1599
+      }
+     ],
+     "mainH": 11466
+    },
+    "brokenImgs": [],
+    "sheets": 4,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 281,
+    "textChars": 4875,
+    "shot": {
+     "w": 390,
+     "h": 13792,
+     "scale": 0.18851508120649652
+    }
+   },
+   "swap@1440": {
+    "vp": {
+     "w": 1440,
+     "h": 900
+    },
+    "docH": 8883,
+    "docW": 1440,
+    "vw": 1440,
+    "vh": 900,
+    "bodyH": 8883,
+    "hOverflow": 0,
+    "keys": {
+     ".masthead": {
+      "top": 0,
+      "left": 0,
+      "w": 1440,
+      "h": 998.8
+     },
+     ".sheet-sec": {
+      "top": 998.8,
+      "left": 0,
+      "w": 1440,
+      "h": 1984.5
+     },
+     ".keys": {
+      "top": 4014.2,
+      "left": 0,
+      "w": 1440,
+      "h": 698.1
+     },
+     ".plates-sec": {
+      "top": 4712.3,
+      "left": 0,
+      "w": 1440,
+      "h": 1974
+     },
+     ".maps-sec": {
+      "top": 6686.3,
+      "left": 0,
+      "w": 1440,
+      "h": 500.2
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 1,
+     "worst": [
+      {
+       "el": "body > a.skip",
+       "over": 143,
+       "txt": "柠檬樱桃菠萝龙眼枣"
+      }
+     ]
+    },
+    "overlaps": {
+     "n": 286,
+     "worst": [
+      {
+       "a": "div.plot__stage > div.sheet > svg > rect",
+       "b": "div.plot__stage > div.sheet > svg > g",
+       "area": 434277,
+       "frac": 1,
+       "y": 1510
+      },
+      {
+       "a": "div.sheet > svg > g > path",
+       "b": "div.sheet > svg > g > path",
+       "area": 405130,
+       "frac": 1,
+       "y": 1522
+      },
+      {
+       "a": "div.sheet > svg > g > path",
+       "b": "div.sheet > svg > g > path",
+       "area": 376380,
+       "frac": 1,
+       "y": 1533
+      },
+      {
+       "a": "div.sheet > svg > g > path",
+       "b": "div.sheet > svg > g > path",
+       "area": 376380,
+       "frac": 1,
+       "y": 1533
+      },
+      {
+       "a": "div.sheet > svg > g > path",
+       "b": "div.sheet > svg > g > path",
+       "area": 349280,
+       "frac": 1,
+       "y": 1545
+      },
+      {
+       "a": "div.sheet > svg > g > path",
+       "b": "div.sheet > svg > g > path",
+       "area": 349280,
+       "frac": 1,
+       "y": 1545
+      },
+      {
+       "a": "div.sheet > svg > g > path",
+       "b": "div.sheet > svg > g > path",
+       "area": 349280,
+       "frac": 1,
+       "y": 1545
+      },
+      {
+       "a": "div.sheet > svg > g > path",
+       "b": "div.sheet > svg > g > path",
+       "area": 323190,
+       "frac": 1,
+       "y": 1556
+      }
+     ]
+    },
+    "holes": {
+     "n": 1,
+     "total": 999,
+     "list": [
+      {
+       "from": 0,
+       "to": 999,
+       "h": 999
+      }
+     ],
+     "mainH": 7475
+    },
+    "brokenImgs": [],
+    "sheets": 4,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 281,
+    "textChars": 4850,
+    "shot": {
+     "w": 1440,
+     "h": 8883,
+     "scale": 0.29269390971518633
+    }
+   },
+   "swap@768": {
+    "vp": {
+     "w": 768,
+     "h": 1024
+    },
+    "docH": 11484,
+    "docW": 768,
+    "vw": 768,
+    "vh": 1024,
+    "bodyH": 11484,
+    "hOverflow": 0,
+    "keys": {
+     ".masthead": {
+      "top": 0,
+      "left": 0,
+      "w": 768,
+      "h": 1605.6
+     },
+     ".sheet-sec": {
+      "top": 1605.6,
+      "left": 0,
+      "w": 768,
+      "h": 2567.8
+     },
+     ".keys": {
+      "top": 5728.9,
+      "left": 0,
+      "w": 768,
+      "h": 648.9
+     },
+     ".plates-sec": {
+      "top": 6377.8,
+      "left": 0,
+      "w": 768,
+      "h": 2278.7
+     },
+     ".maps-sec": {
+      "top": 8656.5,
+      "left": 0,
+      "w": 768,
+      "h": 515.3
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 1,
+     "worst": [
+      {
+       "el": "body > a.skip",
+       "over": 143,
+       "txt": "柠檬樱桃菠萝龙眼枣"
+      }
+     ]
+    },
+    "overlaps": {
+     "n": 286,
+     "worst": [
+      {
+       "a": "div.plot__stage > div.sheet > svg > rect",
+       "b": "div.plot__stage > div.sheet > svg > g",
+       "area": 348273,
+       "frac": 1,
+       "y": 2078
+      },
+      {
+       "a": "div.sheet > svg > g > path",
+       "b": "div.sheet > svg > g > path",
+       "area": 324898,
+       "frac": 1,
+       "y": 2089
+      },
+      {
+       "a": "div.sheet > svg > g > path",
+       "b": "div.sheet > svg > g > path",
+       "area": 301842,
+       "frac": 1,
+       "y": 2099
+      },
+      {
+       "a": "div.sheet > svg > g > path",
+       "b": "div.sheet > svg > g > path",
+       "area": 301842,
+       "frac": 1,
+       "y": 2099
+      },
+      {
+       "a": "div.sheet > svg > g > path",
+       "b": "div.sheet > svg > g > path",
+       "area": 280109,
+       "frac": 1,
+       "y": 2109
+      },
+      {
+       "a": "div.sheet > svg > g > path",
+       "b": "div.sheet > svg > g > path",
+       "area": 280109,
+       "frac": 1,
+       "y": 2109
+      },
+      {
+       "a": "div.sheet > svg > g > path",
+       "b": "div.sheet > svg > g > path",
+       "area": 280109,
+       "frac": 1,
+       "y": 2109
+      },
+      {
+       "a": "div.sheet > svg > g > path",
+       "b": "div.sheet > svg > g > path",
+       "area": 259186,
+       "frac": 1,
+       "y": 2119
+      }
+     ]
+    },
+    "holes": {
+     "n": 1,
+     "total": 1606,
+     "list": [
+      {
+       "from": 0,
+       "to": 1606,
+       "h": 1606
+      }
+     ],
+     "mainH": 9306
+    },
+    "brokenImgs": [],
+    "sheets": 4,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 281,
+    "textChars": 4977,
+    "shot": {
+     "w": 768,
+     "h": 11484,
+     "scale": 0.22640195053988157
+    }
+   },
+   "swap@390": {
+    "vp": {
+     "w": 390,
+     "h": 844
+    },
+    "docH": 13792,
+    "docW": 390,
+    "vw": 390,
+    "vh": 844,
+    "bodyH": 13792,
+    "hOverflow": 0,
+    "keys": {
+     ".masthead": {
+      "top": 213.1,
+      "left": 0,
+      "w": 390,
+      "h": 1385.7
+     },
+     ".sheet-sec": {
+      "top": 1598.8,
+      "left": 0,
+      "w": 390,
+      "h": 2684.9
+     },
+     ".keys": {
+      "top": 6064.3,
+      "left": 0,
+      "w": 390,
+      "h": 951.5
+     },
+     ".plates-sec": {
+      "top": 7015.8,
+      "left": 0,
+      "w": 390,
+      "h": 3180.8
+     },
+     ".maps-sec": {
+      "top": 10196.5,
+      "left": 0,
+      "w": 390,
+      "h": 674.2
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 1,
+     "worst": [
+      {
+       "el": "body > a.skip",
+       "over": 143,
+       "txt": "柠檬樱桃菠萝龙眼枣"
+      }
+     ]
+    },
+    "overlaps": {
+     "n": 287,
+     "worst": [
+      {
+       "a": "div.plot__stage > div.sheet > svg > rect",
+       "b": "div.plot__stage > div.sheet > svg > g",
+       "area": 86104,
+       "frac": 1,
+       "y": 2185
+      },
+      {
+       "a": "div.sheet > svg > g > path",
+       "b": "div.sheet > svg > g > path",
+       "area": 80325,
+       "frac": 1,
+       "y": 2190
+      },
+      {
+       "a": "div.sheet > svg > g > path",
+       "b": "div.sheet > svg > g > path",
+       "area": 74624,
+       "frac": 1,
+       "y": 2195
+      },
+      {
+       "a": "div.sheet > svg > g > path",
+       "b": "div.sheet > svg > g > path",
+       "area": 74624,
+       "frac": 1,
+       "y": 2195
+      },
+      {
+       "a": "div.sheet > svg > g > path",
+       "b": "div.sheet > svg > g > path",
+       "area": 69251,
+       "frac": 1,
+       "y": 2201
+      },
+      {
+       "a": "div.sheet > svg > g > path",
+       "b": "div.sheet > svg > g > path",
+       "area": 69251,
+       "frac": 1,
+       "y": 2201
+      },
+      {
+       "a": "div.sheet > svg > g > path",
+       "b": "div.sheet > svg > g > path",
+       "area": 69251,
+       "frac": 1,
+       "y": 2201
+      },
+      {
+       "a": "div.sheet > svg > g > path",
+       "b": "div.sheet > svg > g > path",
+       "area": 64078,
+       "frac": 1,
+       "y": 2205
+      }
+     ]
+    },
+    "holes": {
+     "n": 1,
+     "total": 1599,
+     "list": [
+      {
+       "from": 0,
+       "to": 1599,
+       "h": 1599
+      }
+     ],
+     "mainH": 11466
+    },
+    "brokenImgs": [],
+    "sheets": 4,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 281,
+    "textChars": 4874,
+    "shot": {
+     "w": 390,
+     "h": 13792,
+     "scale": 0.18851508120649652
+    }
+   }
+  },
+  "meta": {
+   "orig": {
+    "loaded": "load",
+    "title": "针笔声场图 · 0.35px 单线走位与滚动调参｜绘图仪图纸",
+    "sheets": [
+     "http://127.0.0.1:9612/prototypes/_fonts/css/space-grotesk__400-500.css",
+     "http://127.0.0.1:9612/prototypes/_fonts/css/noto-sans-sc__100..900.css",
+     "http://127.0.0.1:9612/prototypes/_fonts/css/martian-mono-narrow__wdth75-400-600.css",
+     "http://127.0.0.1:9612/prototypes/S20-plotter-soundfield/style.css"
+    ],
+    "imgs": 7,
+    "broken": 0,
+    "chars": 4851,
+    "consoleErrors": []
+   },
+   "swap": {
+    "loaded": "load",
+    "title": "橙圣女果桃 · 7.14me 桃枣火龙果橙樱桃杏｜百香果草莓",
+    "sheets": [
+     "http://127.0.0.1:9612/deliverables/63-test/replica/_fonts/css/space-grotesk__400-500.css",
+     "http://127.0.0.1:9612/deliverables/63-test/replica/_fonts/css/noto-sans-sc__100..900.css",
+     "http://127.0.0.1:9612/deliverables/63-test/replica/_fonts/css/martian-mono-narrow__wdth75-400-600.css",
+     "http://127.0.0.1:9612/deliverables/63-test/replica/S20-plotter-soundfield/style.css"
+    ],
+    "imgs": 7,
+    "broken": 0,
+    "chars": 4850,
+    "consoleErrors": []
+   }
+  }
+ },
+ "S21-interlocking-release-book": {
+  "keys": [
+   ".board",
+   ".sheet",
+   ".excl",
+   ".states",
+   ".ledger-foot"
+  ],
+  "views": {
+   "orig@1440": {
+    "vp": {
+     "w": 1440,
+     "h": 900
+    },
+    "docH": 3854,
+    "docW": 1440,
+    "vw": 1440,
+    "vh": 900,
+    "bodyH": 3854,
+    "hOverflow": 0,
+    "keys": {
+     ".board": {
+      "top": 683.7,
+      "left": 56,
+      "w": 1328,
+      "h": 1338.8
+     },
+     ".sheet": {
+      "top": 2046.4,
+      "left": 56,
+      "w": 1328,
+      "h": 1048.8
+     },
+     ".excl": {
+      "top": 3119.2,
+      "left": 56,
+      "w": 1328,
+      "h": 185.6
+     },
+     ".states": {
+      "top": 3328.8,
+      "left": 56,
+      "w": 1328,
+      "h": 266.2
+     },
+     ".ledger-foot": {
+      "top": 3619,
+      "left": 56,
+      "w": 1328,
+      "h": 235.2
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 0,
+     "worst": []
+    },
+    "overlaps": {
+     "n": 0,
+     "worst": []
+    },
+    "holes": {
+     "n": 0,
+     "total": 0,
+     "list": [],
+     "mainH": 3407
+    },
+    "brokenImgs": [],
+    "sheets": 3,
+    "badSheets": [],
+    "fonts": "loading",
+    "rules": 200,
+    "textChars": 2258,
+    "shot": {
+     "w": 1440,
+     "h": 3854,
+     "scale": 0.62
+    }
+   },
+   "orig@768": {
+    "vp": {
+     "w": 768,
+     "h": 1024
+    },
+    "docH": 4702,
+    "docW": 768,
+    "vw": 768,
+    "vh": 1024,
+    "bodyH": 4702,
+    "hOverflow": 0,
+    "keys": {
+     ".board": {
+      "top": 821.1,
+      "left": 56,
+      "w": 656,
+      "h": 1965.4
+     },
+     ".sheet": {
+      "top": 2810.5,
+      "left": 56,
+      "w": 656,
+      "h": 957.8
+     },
+     ".excl": {
+      "top": 3792.3,
+      "left": 56,
+      "w": 656,
+      "h": 185.6
+     },
+     ".states": {
+      "top": 4001.8,
+      "left": 56,
+      "w": 656,
+      "h": 440.9
+     },
+     ".ledger-foot": {
+      "top": 4466.8,
+      "left": 56,
+      "w": 656,
+      "h": 235.2
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 0,
+     "worst": []
+    },
+    "overlaps": {
+     "n": 0,
+     "worst": []
+    },
+    "holes": {
+     "n": 1,
+     "total": 268,
+     "list": [
+      {
+       "from": 0,
+       "to": 268,
+       "h": 268
+      }
+     ],
+     "mainH": 4174
+    },
+    "brokenImgs": [],
+    "sheets": 3,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 200,
+    "textChars": 2258,
+    "shot": {
+     "w": 768,
+     "h": 4702,
+     "scale": 0.552956188855806
+    }
+   },
+   "orig@390": {
+    "vp": {
+     "w": 390,
+     "h": 844
+    },
+    "docH": 9384,
+    "docW": 390,
+    "vw": 390,
+    "vh": 844,
+    "bodyH": 9384,
+    "hOverflow": 0,
+    "keys": {
+     ".board": {
+      "top": 816.8,
+      "left": 56,
+      "w": 278,
+      "h": 5103.9
+     },
+     ".sheet": {
+      "top": 5944.7,
+      "left": 56,
+      "w": 278,
+      "h": 1942.1
+     },
+     ".excl": {
+      "top": 7910.8,
+      "left": 56,
+      "w": 278,
+      "h": 244.8
+     },
+     ".states": {
+      "top": 8179.6,
+      "left": 56,
+      "w": 278,
+      "h": 833.5
+     },
+     ".ledger-foot": {
+      "top": 9037.1,
+      "left": 56,
+      "w": 278,
+      "h": 347.2
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 0,
+     "worst": []
+    },
+    "overlaps": {
+     "n": 0,
+     "worst": []
+    },
+    "holes": {
+     "n": 1,
+     "total": 312,
+     "list": [
+      {
+       "from": 0,
+       "to": 312,
+       "h": 312
+      }
+     ],
+     "mainH": 8701
+    },
+    "brokenImgs": [],
+    "sheets": 3,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 200,
+    "textChars": 2221,
+    "shot": {
+     "w": 390,
+     "h": 9384,
+     "scale": 0.2770673486786019
+    }
+   },
+   "swap@1440": {
+    "vp": {
+     "w": 1440,
+     "h": 900
+    },
+    "docH": 3854,
+    "docW": 1440,
+    "vw": 1440,
+    "vh": 900,
+    "bodyH": 3854,
+    "hOverflow": 0,
+    "keys": {
+     ".board": {
+      "top": 683.7,
+      "left": 56,
+      "w": 1328,
+      "h": 1338.8
+     },
+     ".sheet": {
+      "top": 2046.4,
+      "left": 56,
+      "w": 1328,
+      "h": 1048.8
+     },
+     ".excl": {
+      "top": 3119.2,
+      "left": 56,
+      "w": 1328,
+      "h": 185.6
+     },
+     ".states": {
+      "top": 3328.8,
+      "left": 56,
+      "w": 1328,
+      "h": 266.2
+     },
+     ".ledger-foot": {
+      "top": 3619,
+      "left": 56,
+      "w": 1328,
+      "h": 235.2
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 0,
+     "worst": []
+    },
+    "overlaps": {
+     "n": 0,
+     "worst": []
+    },
+    "holes": {
+     "n": 0,
+     "total": 0,
+     "list": [],
+     "mainH": 3407
+    },
+    "brokenImgs": [],
+    "sheets": 3,
+    "badSheets": [],
+    "fonts": "loading",
+    "rules": 200,
+    "textChars": 2258,
+    "shot": {
+     "w": 1440,
+     "h": 3854,
+     "scale": 0.62
+    }
+   },
+   "swap@768": {
+    "vp": {
+     "w": 768,
+     "h": 1024
+    },
+    "docH": 4753,
+    "docW": 768,
+    "vw": 768,
+    "vh": 1024,
+    "bodyH": 4753,
+    "hOverflow": 0,
+    "keys": {
+     ".board": {
+      "top": 821.1,
+      "left": 56,
+      "w": 656,
+      "h": 1965.4
+     },
+     ".sheet": {
+      "top": 2810.5,
+      "left": 56,
+      "w": 656,
+      "h": 1009
+     },
+     ".excl": {
+      "top": 3843.5,
+      "left": 56,
+      "w": 656,
+      "h": 185.6
+     },
+     ".states": {
+      "top": 4053,
+      "left": 56,
+      "w": 656,
+      "h": 440.9
+     },
+     ".ledger-foot": {
+      "top": 4518,
+      "left": 56,
+      "w": 656,
+      "h": 235.2
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 0,
+     "worst": []
+    },
+    "overlaps": {
+     "n": 0,
+     "worst": []
+    },
+    "holes": {
+     "n": 1,
+     "total": 268,
+     "list": [
+      {
+       "from": 0,
+       "to": 268,
+       "h": 268
+      }
+     ],
+     "mainH": 4226
+    },
+    "brokenImgs": [],
+    "sheets": 3,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 200,
+    "textChars": 2258,
+    "shot": {
+     "w": 768,
+     "h": 4753,
+     "scale": 0.547022932884494
+    }
+   },
+   "swap@390": {
+    "vp": {
+     "w": 390,
+     "h": 844
+    },
+    "docH": 9319,
+    "docW": 390,
+    "vw": 390,
+    "vh": 844,
+    "bodyH": 9319,
+    "hOverflow": 0,
+    "keys": {
+     ".board": {
+      "top": 816.8,
+      "left": 56,
+      "w": 278,
+      "h": 5038.6
+     },
+     ".sheet": {
+      "top": 5879.4,
+      "left": 56,
+      "w": 278,
+      "h": 1942.1
+     },
+     ".excl": {
+      "top": 7845.5,
+      "left": 56,
+      "w": 278,
+      "h": 244.8
+     },
+     ".states": {
+      "top": 8114.3,
+      "left": 56,
+      "w": 278,
+      "h": 833.5
+     },
+     ".ledger-foot": {
+      "top": 8971.8,
+      "left": 56,
+      "w": 278,
+      "h": 347.2
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 0,
+     "worst": []
+    },
+    "overlaps": {
+     "n": 0,
+     "worst": []
+    },
+    "holes": {
+     "n": 1,
+     "total": 312,
+     "list": [
+      {
+       "from": 0,
+       "to": 312,
+       "h": 312
+      }
+     ],
+     "mainH": 8636
+    },
+    "brokenImgs": [],
+    "sheets": 3,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 200,
+    "textChars": 2221,
+    "shot": {
+     "w": 390,
+     "h": 9319,
+     "scale": 0.278999892692349
+    }
+   }
+  },
+  "meta": {
+   "orig": {
+    "loaded": "load",
+    "title": "联锁释放簿 · 扳道调度台值班记录",
+    "sheets": [
+     "http://127.0.0.1:9612/prototypes/_fonts/css/antonio__400-600.css",
+     "http://127.0.0.1:9612/prototypes/_fonts/css/ibm-plex-mono__400-500.css",
+     "http://127.0.0.1:9612/prototypes/S21-interlocking-release-book/style.css"
+    ],
+    "imgs": 6,
+    "broken": 0,
+    "chars": 2258,
+    "consoleErrors": []
+   },
+   "swap": {
+    "loaded": "load",
+    "title": "柚枣橙桃子 · 圣女果哈密瓜柚龙眼",
+    "sheets": [
+     "http://127.0.0.1:9612/deliverables/63-test/replica/_fonts/css/antonio__400-600.css",
+     "http://127.0.0.1:9612/deliverables/63-test/replica/_fonts/css/ibm-plex-mono__400-500.css",
+     "http://127.0.0.1:9612/deliverables/63-test/replica/S21-interlocking-release-book/style.css"
+    ],
+    "imgs": 6,
+    "broken": 0,
+    "chars": 2258,
+    "consoleErrors": []
+   }
+  }
+ },
+ "S29-wire-bound-safety-manual": {
+  "keys": [
+   ".topbar",
+   "#ch1",
+   "#ch2",
+   "#ch3",
+   ".fault"
+  ],
+  "views": {
+   "orig@1440": {
+    "vp": {
+     "w": 1440,
+     "h": 900
+    },
+    "docH": 12777,
+    "docW": 1440,
+    "vw": 1440,
+    "vh": 900,
+    "bodyH": 12777,
+    "hOverflow": 0,
+    "keys": {
+     ".topbar": {
+      "top": 0,
+      "left": 0,
+      "w": 1440,
+      "h": 73.5
+     },
+     "#ch1": {
+      "top": 737.4,
+      "left": 128,
+      "w": 1192,
+      "h": 1443.9
+     },
+     "#ch2": {
+      "top": 2181.3,
+      "left": 0,
+      "w": 1440,
+      "h": 1272.2
+     },
+     "#ch3": {
+      "top": 3453.5,
+      "left": 128,
+      "w": 1192,
+      "h": 2436.3
+     },
+     ".fault": {
+      "top": 8297.2,
+      "left": 0,
+      "w": 1440,
+      "h": 603.3
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 0,
+     "worst": []
+    },
+    "overlaps": {
+     "n": 36,
+     "worst": [
+      {
+       "a": "section.pump > figure.pump__fig.in > svg > g",
+       "b": "section.pump > figure.pump__fig.in > svg > g",
+       "area": 20556,
+       "frac": 0.91,
+       "y": 4093
+      },
+      {
+       "a": "section.pump > figure.pump__fig.in > svg > g",
+       "b": "section.pump > figure.pump__fig.in > svg > g",
+       "area": 17848,
+       "frac": 0.62,
+       "y": 4023
+      },
+      {
+       "a": "section.pump > figure.pump__fig.in > svg > g",
+       "b": "section.pump > figure.pump__fig.in > svg > g",
+       "area": 13738,
+       "frac": 0.87,
+       "y": 4130
+      },
+      {
+       "a": "section.pump > figure.pump__fig.in > svg > g",
+       "b": "section.pump > figure.pump__fig.in > svg > g",
+       "area": 13443,
+       "frac": 0.53,
+       "y": 4023
+      },
+      {
+       "a": "section.pump > figure.pump__fig.in > svg > g",
+       "b": "section.pump > figure.pump__fig.in > svg > g",
+       "area": 13329,
+       "frac": 0.8,
+       "y": 4115
+      },
+      {
+       "a": "section.pump > figure.pump__fig.in > svg > g",
+       "b": "section.pump > figure.pump__fig.in > svg > g",
+       "area": 12738,
+       "frac": 0.51,
+       "y": 4086
+      },
+      {
+       "a": "section.pump > figure.pump__fig.in > svg > g",
+       "b": "section.pump > figure.pump__fig.in > svg > g",
+       "area": 11912,
+       "frac": 0.92,
+       "y": 4135
+      },
+      {
+       "a": "section.pump > figure.pump__fig.in > svg > g",
+       "b": "section.pump > figure.pump__fig.in > svg > g",
+       "area": 10109,
+       "frac": 0.71,
+       "y": 4140
+      }
+     ]
+    },
+    "holes": {
+     "n": 1,
+     "total": 737,
+     "list": [
+      {
+       "from": 0,
+       "to": 737,
+       "h": 737
+      }
+     ],
+     "mainH": 9685
+    },
+    "brokenImgs": [],
+    "sheets": 4,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 299,
+    "textChars": 6924,
+    "shot": {
+     "w": 1440,
+     "h": 12777,
+     "scale": 0.20349064725678953
+    }
+   },
+   "orig@768": {
+    "vp": {
+     "w": 768,
+     "h": 1024
+    },
+    "docH": 16128,
+    "docW": 768,
+    "vw": 768,
+    "vh": 1024,
+    "bodyH": 16128,
+    "hOverflow": 0,
+    "keys": {
+     ".topbar": {
+      "top": 0,
+      "left": 0,
+      "w": 768,
+      "h": 122.5
+     },
+     "#ch1": {
+      "top": 1285.7,
+      "left": 24,
+      "w": 688,
+      "h": 2233.3
+     },
+     "#ch2": {
+      "top": 3519,
+      "left": 0,
+      "w": 768,
+      "h": 1971.2
+     },
+     "#ch3": {
+      "top": 5490.2,
+      "left": 24,
+      "w": 688,
+      "h": 2359.1
+     },
+     ".fault": {
+      "top": 11433.4,
+      "left": 0,
+      "w": 768,
+      "h": 527.1
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 0,
+     "worst": []
+    },
+    "overlaps": {
+     "n": 35,
+     "worst": [
+      {
+       "a": "footer.foot.bleed > div.foot__in > p.src-note > code",
+       "b": "footer.foot.bleed > div.foot__in > p.src-note > code",
+       "area": 9816,
+       "frac": 0.38,
+       "y": 14693
+      },
+      {
+       "a": "section.pump > figure.pump__fig.in > svg > g",
+       "b": "section.pump > figure.pump__fig.in > svg > g",
+       "area": 7779,
+       "frac": 0.91,
+       "y": 6018
+      },
+      {
+       "a": "section.pump > figure.pump__fig.in > svg > g",
+       "b": "section.pump > figure.pump__fig.in > svg > g",
+       "area": 6162,
+       "frac": 0.57,
+       "y": 5978
+      },
+      {
+       "a": "section.pump > figure.pump__fig.in > svg > g",
+       "b": "section.pump > figure.pump__fig.in > svg > g",
+       "area": 5214,
+       "frac": 0.55,
+       "y": 5978
+      },
+      {
+       "a": "section.pump > figure.pump__fig.in > svg > g",
+       "b": "section.pump > figure.pump__fig.in > svg > g",
+       "area": 5046,
+       "frac": 0.54,
+       "y": 6014
+      },
+      {
+       "a": "section.pump > figure.pump__fig.in > svg > g",
+       "b": "section.pump > figure.pump__fig.in > svg > g",
+       "area": 4879,
+       "frac": 0.8,
+       "y": 6039
+      },
+      {
+       "a": "section.ch > div.warn.in > p.haz__line > b",
+       "b": "section.ch > div.warn.in > p.haz__line > code",
+       "area": 4848,
+       "frac": 0.83,
+       "y": 8076
+      },
+      {
+       "a": "section.pump > figure.pump__fig.in > svg > g",
+       "b": "section.pump > figure.pump__fig.in > svg > g",
+       "area": 4739,
+       "frac": 0.75,
+       "y": 6031
+      }
+     ]
+    },
+    "holes": {
+     "n": 1,
+     "total": 1286,
+     "list": [
+      {
+       "from": 0,
+       "to": 1286,
+       "h": 1286
+      }
+     ],
+     "mainH": 12830
+    },
+    "brokenImgs": [],
+    "sheets": 4,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 299,
+    "textChars": 6924,
+    "shot": {
+     "w": 768,
+     "h": 16128,
+     "scale": 0.16121031746031747
+    }
+   },
+   "orig@390": {
+    "vp": {
+     "w": 390,
+     "h": 844
+    },
+    "docH": 24216,
+    "docW": 390,
+    "vw": 390,
+    "vh": 844,
+    "bodyH": 24216,
+    "hOverflow": 0,
+    "keys": {
+     ".topbar": {
+      "top": 0,
+      "left": 0,
+      "w": 390,
+      "h": 226
+     },
+     "#ch1": {
+      "top": 1385.4,
+      "left": 24,
+      "w": 310,
+      "h": 3089.4
+     },
+     "#ch2": {
+      "top": 4474.8,
+      "left": 0,
+      "w": 390,
+      "h": 2554.6
+     },
+     "#ch3": {
+      "top": 7029.4,
+      "left": 24,
+      "w": 310,
+      "h": 5398.3
+     },
+     ".fault": {
+      "top": 17582.9,
+      "left": 0,
+      "w": 390,
+      "h": 708.5
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 0,
+     "worst": []
+    },
+    "overlaps": {
+     "n": 17,
+     "worst": [
+      {
+       "a": "div.clause.in > div > p > code",
+       "b": "div.clause.in > div > p > code",
+       "area": 4805,
+       "frac": 0.38,
+       "y": 13221
+      },
+      {
+       "a": "footer.foot.bleed > div.foot__in > p.src-note > code",
+       "b": "footer.foot.bleed > div.foot__in > p.src-note > code",
+       "area": 3780,
+       "frac": 0.38,
+       "y": 22346
+      },
+      {
+       "a": "footer.foot.bleed > div.foot__in > p.src-note > code",
+       "b": "footer.foot.bleed > div.foot__in > p.src-note > code",
+       "area": 3078,
+       "frac": 0.38,
+       "y": 22317
+      },
+      {
+       "a": "div.in > div.degrade > p > b",
+       "b": "div.in > div.degrade > p > code",
+       "area": 2909,
+       "frac": 0.83,
+       "y": 19224
+      },
+      {
+       "a": "div.clause.in > div > p > code",
+       "b": "div.clause.in > div > p > code",
+       "area": 1847,
+       "frac": 1,
+       "y": 13016
+      },
+      {
+       "a": "section.pump > figure.pump__fig.in > svg > g",
+       "b": "section.pump > figure.pump__fig.in > svg > g",
+       "area": 1728,
+       "frac": 0.92,
+       "y": 7577
+      },
+      {
+       "a": "div.clause.in > div > p > code",
+       "b": "div.clause.in > div > p > code",
+       "area": 1437,
+       "frac": 1,
+       "y": 12884
+      },
+      {
+       "a": "section.pump > figure.pump__fig.in > svg > g",
+       "b": "section.pump > figure.pump__fig.in > svg > g",
+       "area": 1289,
+       "frac": 0.54,
+       "y": 7559
+      }
+     ]
+    },
+    "holes": {
+     "n": 1,
+     "total": 1385,
+     "list": [
+      {
+       "from": 0,
+       "to": 1385,
+       "h": 1385
+      }
+     ],
+     "mainH": 19931
+    },
+    "brokenImgs": [],
+    "sheets": 4,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 299,
+    "textChars": 6862,
+    "shot": {
+     "w": 390,
+     "h": 24216,
+     "scale": 0.10736703006276842
+    }
+   },
+   "swap@1440": {
+    "vp": {
+     "w": 1440,
+     "h": 900
+    },
+    "docH": 12777,
+    "docW": 1440,
+    "vw": 1440,
+    "vh": 900,
+    "bodyH": 12777,
+    "hOverflow": 0,
+    "keys": {
+     ".topbar": {
+      "top": 0,
+      "left": 0,
+      "w": 1440,
+      "h": 73.5
+     },
+     "#ch1": {
+      "top": 737.4,
+      "left": 128,
+      "w": 1192,
+      "h": 1443.9
+     },
+     "#ch2": {
+      "top": 2181.3,
+      "left": 0,
+      "w": 1440,
+      "h": 1272.2
+     },
+     "#ch3": {
+      "top": 3453.5,
+      "left": 128,
+      "w": 1192,
+      "h": 2436.3
+     },
+     ".fault": {
+      "top": 8297.2,
+      "left": 0,
+      "w": 1440,
+      "h": 603.3
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 0,
+     "worst": []
+    },
+    "overlaps": {
+     "n": 35,
+     "worst": [
+      {
+       "a": "section.pump > figure.pump__fig.in > svg > g",
+       "b": "section.pump > figure.pump__fig.in > svg > g",
+       "area": 20556,
+       "frac": 0.91,
+       "y": 4093
+      },
+      {
+       "a": "section.pump > figure.pump__fig.in > svg > g",
+       "b": "section.pump > figure.pump__fig.in > svg > g",
+       "area": 17848,
+       "frac": 0.62,
+       "y": 4023
+      },
+      {
+       "a": "section.pump > figure.pump__fig.in > svg > g",
+       "b": "section.pump > figure.pump__fig.in > svg > g",
+       "area": 13738,
+       "frac": 0.87,
+       "y": 4130
+      },
+      {
+       "a": "section.pump > figure.pump__fig.in > svg > g",
+       "b": "section.pump > figure.pump__fig.in > svg > g",
+       "area": 13443,
+       "frac": 0.53,
+       "y": 4023
+      },
+      {
+       "a": "section.pump > figure.pump__fig.in > svg > g",
+       "b": "section.pump > figure.pump__fig.in > svg > g",
+       "area": 13329,
+       "frac": 0.8,
+       "y": 4115
+      },
+      {
+       "a": "section.pump > figure.pump__fig.in > svg > g",
+       "b": "section.pump > figure.pump__fig.in > svg > g",
+       "area": 12738,
+       "frac": 0.51,
+       "y": 4086
+      },
+      {
+       "a": "section.pump > figure.pump__fig.in > svg > g",
+       "b": "section.pump > figure.pump__fig.in > svg > g",
+       "area": 11912,
+       "frac": 0.92,
+       "y": 4135
+      },
+      {
+       "a": "section.pump > figure.pump__fig.in > svg > g",
+       "b": "section.pump > figure.pump__fig.in > svg > g",
+       "area": 10109,
+       "frac": 0.71,
+       "y": 4140
+      }
+     ]
+    },
+    "holes": {
+     "n": 1,
+     "total": 737,
+     "list": [
+      {
+       "from": 0,
+       "to": 737,
+       "h": 737
+      }
+     ],
+     "mainH": 9685
+    },
+    "brokenImgs": [],
+    "sheets": 4,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 299,
+    "textChars": 6924,
+    "shot": {
+     "w": 1440,
+     "h": 12777,
+     "scale": 0.20349064725678953
+    }
+   },
+   "swap@768": {
+    "vp": {
+     "w": 768,
+     "h": 1024
+    },
+    "docH": 16128,
+    "docW": 768,
+    "vw": 768,
+    "vh": 1024,
+    "bodyH": 16128,
+    "hOverflow": 0,
+    "keys": {
+     ".topbar": {
+      "top": 0,
+      "left": 0,
+      "w": 768,
+      "h": 122.5
+     },
+     "#ch1": {
+      "top": 1285.7,
+      "left": 24,
+      "w": 688,
+      "h": 2233.3
+     },
+     "#ch2": {
+      "top": 3519,
+      "left": 0,
+      "w": 768,
+      "h": 1971.2
+     },
+     "#ch3": {
+      "top": 5490.2,
+      "left": 24,
+      "w": 688,
+      "h": 2359.1
+     },
+     ".fault": {
+      "top": 11433.4,
+      "left": 0,
+      "w": 768,
+      "h": 527.1
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 0,
+     "worst": []
+    },
+    "overlaps": {
+     "n": 35,
+     "worst": [
+      {
+       "a": "footer.foot.bleed > div.foot__in > p.src-note > code",
+       "b": "footer.foot.bleed > div.foot__in > p.src-note > code",
+       "area": 9816,
+       "frac": 0.38,
+       "y": 14693
+      },
+      {
+       "a": "section.pump > figure.pump__fig.in > svg > g",
+       "b": "section.pump > figure.pump__fig.in > svg > g",
+       "area": 7779,
+       "frac": 0.91,
+       "y": 6018
+      },
+      {
+       "a": "section.pump > figure.pump__fig.in > svg > g",
+       "b": "section.pump > figure.pump__fig.in > svg > g",
+       "area": 6162,
+       "frac": 0.57,
+       "y": 5978
+      },
+      {
+       "a": "section.pump > figure.pump__fig.in > svg > g",
+       "b": "section.pump > figure.pump__fig.in > svg > g",
+       "area": 5214,
+       "frac": 0.55,
+       "y": 5978
+      },
+      {
+       "a": "section.pump > figure.pump__fig.in > svg > g",
+       "b": "section.pump > figure.pump__fig.in > svg > g",
+       "area": 5046,
+       "frac": 0.54,
+       "y": 6014
+      },
+      {
+       "a": "section.pump > figure.pump__fig.in > svg > g",
+       "b": "section.pump > figure.pump__fig.in > svg > g",
+       "area": 4879,
+       "frac": 0.8,
+       "y": 6039
+      },
+      {
+       "a": "section.ch > div.warn.in > p.haz__line > b",
+       "b": "section.ch > div.warn.in > p.haz__line > code",
+       "area": 4848,
+       "frac": 0.83,
+       "y": 8076
+      },
+      {
+       "a": "section.pump > figure.pump__fig.in > svg > g",
+       "b": "section.pump > figure.pump__fig.in > svg > g",
+       "area": 4739,
+       "frac": 0.75,
+       "y": 6031
+      }
+     ]
+    },
+    "holes": {
+     "n": 1,
+     "total": 1286,
+     "list": [
+      {
+       "from": 0,
+       "to": 1286,
+       "h": 1286
+      }
+     ],
+     "mainH": 12830
+    },
+    "brokenImgs": [],
+    "sheets": 4,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 299,
+    "textChars": 6924,
+    "shot": {
+     "w": 768,
+     "h": 16128,
+     "scale": 0.16121031746031747
+    }
+   },
+   "swap@390": {
+    "vp": {
+     "w": 390,
+     "h": 844
+    },
+    "docH": 24216,
+    "docW": 390,
+    "vw": 390,
+    "vh": 844,
+    "bodyH": 24216,
+    "hOverflow": 0,
+    "keys": {
+     ".topbar": {
+      "top": 0,
+      "left": 0,
+      "w": 390,
+      "h": 226
+     },
+     "#ch1": {
+      "top": 1385.4,
+      "left": 24,
+      "w": 310,
+      "h": 3089.4
+     },
+     "#ch2": {
+      "top": 4474.8,
+      "left": 0,
+      "w": 390,
+      "h": 2554.6
+     },
+     "#ch3": {
+      "top": 7029.4,
+      "left": 24,
+      "w": 310,
+      "h": 5398.3
+     },
+     ".fault": {
+      "top": 17582.9,
+      "left": 0,
+      "w": 390,
+      "h": 708.5
+     }
+    },
+    "keyMissing": [],
+    "textOverflow": {
+     "n": 0,
+     "worst": []
+    },
+    "ellipsisClips": {
+     "n": 0,
+     "worst": []
+    },
+    "overlaps": {
+     "n": 17,
+     "worst": [
+      {
+       "a": "div.clause.in > div > p > code",
+       "b": "div.clause.in > div > p > code",
+       "area": 4805,
+       "frac": 0.38,
+       "y": 13221
+      },
+      {
+       "a": "footer.foot.bleed > div.foot__in > p.src-note > code",
+       "b": "footer.foot.bleed > div.foot__in > p.src-note > code",
+       "area": 3780,
+       "frac": 0.38,
+       "y": 22346
+      },
+      {
+       "a": "footer.foot.bleed > div.foot__in > p.src-note > code",
+       "b": "footer.foot.bleed > div.foot__in > p.src-note > code",
+       "area": 3078,
+       "frac": 0.38,
+       "y": 22317
+      },
+      {
+       "a": "div.in > div.degrade > p > b",
+       "b": "div.in > div.degrade > p > code",
+       "area": 2909,
+       "frac": 0.83,
+       "y": 19224
+      },
+      {
+       "a": "div.clause.in > div > p > code",
+       "b": "div.clause.in > div > p > code",
+       "area": 1847,
+       "frac": 1,
+       "y": 13016
+      },
+      {
+       "a": "section.pump > figure.pump__fig.in > svg > g",
+       "b": "section.pump > figure.pump__fig.in > svg > g",
+       "area": 1728,
+       "frac": 0.92,
+       "y": 7577
+      },
+      {
+       "a": "div.clause.in > div > p > code",
+       "b": "div.clause.in > div > p > code",
+       "area": 1437,
+       "frac": 1,
+       "y": 12884
+      },
+      {
+       "a": "section.pump > figure.pump__fig.in > svg > g",
+       "b": "section.pump > figure.pump__fig.in > svg > g",
+       "area": 1289,
+       "frac": 0.54,
+       "y": 7559
+      }
+     ]
+    },
+    "holes": {
+     "n": 1,
+     "total": 1385,
+     "list": [
+      {
+       "from": 0,
+       "to": 1385,
+       "h": 1385
+      }
+     ],
+     "mainH": 19931
+    },
+    "brokenImgs": [],
+    "sheets": 4,
+    "badSheets": [],
+    "fonts": "loaded",
+    "rules": 299,
+    "textChars": 6862,
+    "shot": {
+     "w": 390,
+     "h": 24216,
+     "scale": 0.10736703006276842
+    }
+   }
+  },
+  "meta": {
+   "orig": {
+    "loaded": "load",
+    "title": "钢丝安全册 · 拆机械密封前先泄压到 0.3MPa｜1980 年代德国工业安全规程手册",
+    "sheets": [
+     "http://127.0.0.1:9612/prototypes/_fonts/css/saira-condensed__700.css",
+     "http://127.0.0.1:9612/prototypes/_fonts/css/noto-sans-sc__100..900.css",
+     "http://127.0.0.1:9612/prototypes/_fonts/css/martian-mono__400-500.css",
+     "http://127.0.0.1:9612/prototypes/S29-wire-bound-safety-manual/style.css"
+    ],
+    "imgs": 6,
+    "broken": 0,
+    "chars": 6924,
+    "consoleErrors": []
+   },
+   "swap": {
+    "loaded": "load",
+    "title": "猕猴桃青柠 · 梨梅椰子枣柚桃蓝莓梅 7.4ban｜1121 草莓桃橙牛油果圣女果榴莲",
+    "sheets": [
+     "http://127.0.0.1:9612/deliverables/63-test/replica/_fonts/css/saira-condensed__700.css",
+     "http://127.0.0.1:9612/deliverables/63-test/replica/_fonts/css/noto-sans-sc__100..900.css",
+     "http://127.0.0.1:9612/deliverables/63-test/replica/_fonts/css/martian-mono__400-500.css",
+     "http://127.0.0.1:9612/deliverables/63-test/replica/S29-wire-bound-safety-manual/style.css"
+    ],
+    "imgs": 6,
+    "broken": 0,
+    "chars": 6924,
+    "consoleErrors": []
+   }
+  }
+ }
+}

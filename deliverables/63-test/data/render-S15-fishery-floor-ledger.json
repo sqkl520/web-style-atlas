@@ -1,0 +1,899 @@
+{
+ "keys": [
+  ".masthead",
+  ".atlas",
+  ".year",
+  ".zones",
+  ".spec"
+ ],
+ "views": {
+  "orig@1440": {
+   "vp": {
+    "w": 1440,
+    "h": 900
+   },
+   "docH": 8812,
+   "docW": 1440,
+   "vw": 1440,
+   "vh": 900,
+   "bodyH": 8812,
+   "hOverflow": 0,
+   "keys": {
+    ".masthead": {
+     "top": 48.5,
+     "left": 0,
+     "w": 1440,
+     "h": 734.8
+    },
+    ".atlas": {
+     "top": 783.3,
+     "left": 0,
+     "w": 1440,
+     "h": 1531.1
+    },
+    ".year": {
+     "top": 2314.4,
+     "left": 0,
+     "w": 1440,
+     "h": 775.6
+    },
+    ".zones": {
+     "top": 1117.8,
+     "left": 120.1,
+     "w": 721.1,
+     "h": 809.2
+    },
+    ".spec": {
+     "top": 275.1,
+     "left": 72,
+     "w": 651,
+     "h": 30.4
+    }
+   },
+   "keyMissing": [],
+   "textOverflow": {
+    "n": 0,
+    "worst": []
+   },
+   "ellipsisClips": {
+    "n": 1,
+    "worst": [
+     {
+      "el": "body > a.skip",
+      "over": 111,
+      "txt": "跳到热区登记表"
+     }
+    ]
+   },
+   "overlaps": {
+    "n": 50,
+    "worst": [
+     {
+      "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1934 > div.trace__in > svg > g",
+      "area": 583483,
+      "frac": 1,
+      "y": 1118
+     },
+     {
+      "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "area": 526090,
+      "frac": 1,
+      "y": 1064
+     },
+     {
+      "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1934 > div.trace__in > svg > g",
+      "area": 455602,
+      "frac": 0.87,
+      "y": 1118
+     },
+     {
+      "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "area": 383854,
+      "frac": 1,
+      "y": 1118
+     },
+     {
+      "a": "div.trace.trace--1936 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1936 > div.trace__in > svg > use",
+      "area": 383854,
+      "frac": 1,
+      "y": 1121
+     },
+     {
+      "a": "div.trace.trace--1938 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1938 > div.trace__in > svg > use",
+      "area": 383854,
+      "frac": 1,
+      "y": 1125
+     },
+     {
+      "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "area": 375509,
+      "frac": 0.98,
+      "y": 1118
+     },
+     {
+      "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1934 > div.trace__in > svg > g",
+      "area": 375509,
+      "frac": 0.98,
+      "y": 1118
+     }
+    ]
+   },
+   "holes": {
+    "n": 1,
+    "total": 783,
+    "list": [
+     {
+      "from": 0,
+      "to": 783,
+      "h": 783
+     }
+    ],
+    "mainH": 7633
+   },
+   "brokenImgs": [],
+   "sheets": 4,
+   "badSheets": [],
+   "fonts": "loaded",
+   "rules": 433,
+   "textChars": 4950,
+   "shot": {
+    "w": 1440,
+    "h": 8812,
+    "scale": 0.29505220154335
+   }
+  },
+  "orig@768": {
+   "vp": {
+    "w": 768,
+    "h": 1024
+   },
+   "docH": 13296,
+   "docW": 768,
+   "vw": 768,
+   "vh": 1024,
+   "bodyH": 13296,
+   "hOverflow": 0,
+   "keys": {
+    ".masthead": {
+     "top": 74,
+     "left": 0,
+     "w": 768,
+     "h": 1090.3
+    },
+    ".atlas": {
+     "top": 1164.3,
+     "left": 0,
+     "w": 768,
+     "h": 3690
+    },
+    ".year": {
+     "top": 4854.3,
+     "left": 0,
+     "w": 768,
+     "h": 703.4
+    },
+    ".zones": {
+     "top": 1492,
+     "left": 94.7,
+     "w": 578.6,
+     "h": 649.3
+    },
+    ".spec": {
+     "top": 258,
+     "left": 24,
+     "w": 720,
+     "h": 30.4
+    }
+   },
+   "keyMissing": [],
+   "textOverflow": {
+    "n": 0,
+    "worst": []
+   },
+   "ellipsisClips": {
+    "n": 1,
+    "worst": [
+     {
+      "el": "body > a.skip",
+      "over": 111,
+      "txt": "跳到热区登记表"
+     }
+    ]
+   },
+   "overlaps": {
+    "n": 58,
+    "worst": [
+     {
+      "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1934 > div.trace__in > svg > g",
+      "area": 375646,
+      "frac": 1,
+      "y": 1492
+     },
+     {
+      "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "area": 338696,
+      "frac": 1,
+      "y": 1449
+     },
+     {
+      "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1934 > div.trace__in > svg > g",
+      "area": 293316,
+      "frac": 0.87,
+      "y": 1492
+     },
+     {
+      "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "area": 247125,
+      "frac": 1,
+      "y": 1492
+     },
+     {
+      "a": "div.trace.trace--1936 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1936 > div.trace__in > svg > use",
+      "area": 247125,
+      "frac": 1,
+      "y": 2406
+     },
+     {
+      "a": "div.trace.trace--1938 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1938 > div.trace__in > svg > use",
+      "area": 247125,
+      "frac": 1,
+      "y": 3321
+     },
+     {
+      "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "area": 241752,
+      "frac": 0.98,
+      "y": 1492
+     },
+     {
+      "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1934 > div.trace__in > svg > g",
+      "area": 241752,
+      "frac": 0.98,
+      "y": 1492
+     }
+    ]
+   },
+   "holes": {
+    "n": 1,
+    "total": 1164,
+    "list": [
+     {
+      "from": 0,
+      "to": 1164,
+      "h": 1164
+     }
+    ],
+    "mainH": 11397
+   },
+   "brokenImgs": [],
+   "sheets": 4,
+   "badSheets": [],
+   "fonts": "loaded",
+   "rules": 433,
+   "textChars": 5056,
+   "shot": {
+    "w": 768,
+    "h": 13296,
+    "scale": 0.19554753309265946
+   }
+  },
+  "orig@390": {
+   "vp": {
+    "w": 390,
+    "h": 844
+   },
+   "docH": 15126,
+   "docW": 390,
+   "vw": 390,
+   "vh": 844,
+   "bodyH": 15126,
+   "hOverflow": 0,
+   "keys": {
+    ".masthead": {
+     "top": 125,
+     "left": 0,
+     "w": 390,
+     "h": 881.7
+    },
+    ".atlas": {
+     "top": 1006.7,
+     "left": 0,
+     "w": 390,
+     "h": 2929.8
+    },
+    ".year": {
+     "top": 3936.5,
+     "left": 0,
+     "w": 390,
+     "h": 1025.3
+    },
+    ".zones": {
+     "top": 1419.8,
+     "left": 57.6,
+     "w": 274.8,
+     "h": 308.4
+    },
+    ".spec": {
+     "top": 318.3,
+     "left": 24,
+     "w": 342,
+     "h": 30.4
+    }
+   },
+   "keyMissing": [],
+   "textOverflow": {
+    "n": 0,
+    "worst": []
+   },
+   "ellipsisClips": {
+    "n": 1,
+    "worst": [
+     {
+      "el": "body > a.skip",
+      "over": 111,
+      "txt": "跳到热区登记表"
+     }
+    ]
+   },
+   "overlaps": {
+    "n": 46,
+    "worst": [
+     {
+      "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1934 > div.trace__in > svg > g",
+      "area": 84752,
+      "frac": 1,
+      "y": 1420
+     },
+     {
+      "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "area": 76416,
+      "frac": 1,
+      "y": 1399
+     },
+     {
+      "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1934 > div.trace__in > svg > g",
+      "area": 66177,
+      "frac": 0.87,
+      "y": 1420
+     },
+     {
+      "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "area": 55755,
+      "frac": 1,
+      "y": 1420
+     },
+     {
+      "a": "div.trace.trace--1936 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1936 > div.trace__in > svg > use",
+      "area": 55755,
+      "frac": 1,
+      "y": 1928
+     },
+     {
+      "a": "div.trace.trace--1938 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1938 > div.trace__in > svg > use",
+      "area": 55755,
+      "frac": 1,
+      "y": 2436
+     },
+     {
+      "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "area": 54543,
+      "frac": 0.98,
+      "y": 1420
+     },
+     {
+      "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1934 > div.trace__in > svg > g",
+      "area": 54543,
+      "frac": 0.98,
+      "y": 1420
+     }
+    ]
+   },
+   "holes": {
+    "n": 1,
+    "total": 1007,
+    "list": [
+     {
+      "from": 0,
+      "to": 1007,
+      "h": 1007
+     }
+    ],
+    "mainH": 13128
+   },
+   "brokenImgs": [],
+   "sheets": 4,
+   "badSheets": [],
+   "fonts": "loaded",
+   "rules": 433,
+   "textChars": 4789,
+   "shot": {
+    "w": 390,
+    "h": 15126,
+    "scale": 0.17188946185376172
+   }
+  },
+  "swap-inset@1440": {
+   "vp": {
+    "w": 1440,
+    "h": 900
+   },
+   "docH": 8812,
+   "docW": 1440,
+   "vw": 1440,
+   "vh": 900,
+   "bodyH": 8812,
+   "hOverflow": 0,
+   "keys": {
+    ".masthead": {
+     "top": 48.5,
+     "left": 0,
+     "w": 1440,
+     "h": 734.8
+    },
+    ".atlas": {
+     "top": 783.3,
+     "left": 0,
+     "w": 1440,
+     "h": 1531.1
+    },
+    ".year": {
+     "top": 2314.4,
+     "left": 0,
+     "w": 1440,
+     "h": 775.6
+    },
+    ".zones": {
+     "top": 1117.8,
+     "left": 120.1,
+     "w": 721.1,
+     "h": 809.2
+    },
+    ".spec": {
+     "top": 275.1,
+     "left": 72,
+     "w": 651,
+     "h": 30.4
+    }
+   },
+   "keyMissing": [],
+   "textOverflow": {
+    "n": 0,
+    "worst": []
+   },
+   "ellipsisClips": {
+    "n": 1,
+    "worst": [
+     {
+      "el": "body > a.skip",
+      "over": 111,
+      "txt": "用镜式码级次通"
+     }
+    ]
+   },
+   "overlaps": {
+    "n": 50,
+    "worst": [
+     {
+      "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1934 > div.trace__in > svg > g",
+      "area": 583483,
+      "frac": 1,
+      "y": 1118
+     },
+     {
+      "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "area": 526090,
+      "frac": 1,
+      "y": 1064
+     },
+     {
+      "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1934 > div.trace__in > svg > g",
+      "area": 455602,
+      "frac": 0.87,
+      "y": 1118
+     },
+     {
+      "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "area": 383854,
+      "frac": 1,
+      "y": 1118
+     },
+     {
+      "a": "div.trace.trace--1936 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1936 > div.trace__in > svg > use",
+      "area": 383854,
+      "frac": 1,
+      "y": 1121
+     },
+     {
+      "a": "div.trace.trace--1938 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1938 > div.trace__in > svg > use",
+      "area": 383854,
+      "frac": 1,
+      "y": 1125
+     },
+     {
+      "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "area": 375509,
+      "frac": 0.98,
+      "y": 1118
+     },
+     {
+      "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1934 > div.trace__in > svg > g",
+      "area": 375509,
+      "frac": 0.98,
+      "y": 1118
+     }
+    ]
+   },
+   "holes": {
+    "n": 1,
+    "total": 783,
+    "list": [
+     {
+      "from": 0,
+      "to": 783,
+      "h": 783
+     }
+    ],
+    "mainH": 7633
+   },
+   "brokenImgs": [],
+   "sheets": 4,
+   "badSheets": [],
+   "fonts": "loaded",
+   "rules": 433,
+   "textChars": 4953,
+   "shot": {
+    "w": 1440,
+    "h": 8812,
+    "scale": 0.29505220154335
+   }
+  },
+  "swap-inset@768": {
+   "vp": {
+    "w": 768,
+    "h": 1024
+   },
+   "docH": 13268,
+   "docW": 768,
+   "vw": 768,
+   "vh": 1024,
+   "bodyH": 13268,
+   "hOverflow": 0,
+   "keys": {
+    ".masthead": {
+     "top": 74,
+     "left": 0,
+     "w": 768,
+     "h": 1090.3
+    },
+    ".atlas": {
+     "top": 1164.3,
+     "left": 0,
+     "w": 768,
+     "h": 3690
+    },
+    ".year": {
+     "top": 4854.3,
+     "left": 0,
+     "w": 768,
+     "h": 703.4
+    },
+    ".zones": {
+     "top": 1492,
+     "left": 94.7,
+     "w": 578.6,
+     "h": 649.3
+    },
+    ".spec": {
+     "top": 258,
+     "left": 24,
+     "w": 720,
+     "h": 30.4
+    }
+   },
+   "keyMissing": [],
+   "textOverflow": {
+    "n": 0,
+    "worst": []
+   },
+   "ellipsisClips": {
+    "n": 1,
+    "worst": [
+     {
+      "el": "body > a.skip",
+      "over": 111,
+      "txt": "用镜式码级次通"
+     }
+    ]
+   },
+   "overlaps": {
+    "n": 58,
+    "worst": [
+     {
+      "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1934 > div.trace__in > svg > g",
+      "area": 375646,
+      "frac": 1,
+      "y": 1492
+     },
+     {
+      "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "area": 338696,
+      "frac": 1,
+      "y": 1449
+     },
+     {
+      "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1934 > div.trace__in > svg > g",
+      "area": 293316,
+      "frac": 0.87,
+      "y": 1492
+     },
+     {
+      "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "area": 247125,
+      "frac": 1,
+      "y": 1492
+     },
+     {
+      "a": "div.trace.trace--1936 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1936 > div.trace__in > svg > use",
+      "area": 247125,
+      "frac": 1,
+      "y": 2406
+     },
+     {
+      "a": "div.trace.trace--1938 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1938 > div.trace__in > svg > use",
+      "area": 247125,
+      "frac": 1,
+      "y": 3321
+     },
+     {
+      "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "area": 241752,
+      "frac": 0.98,
+      "y": 1492
+     },
+     {
+      "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1934 > div.trace__in > svg > g",
+      "area": 241752,
+      "frac": 0.98,
+      "y": 1492
+     }
+    ]
+   },
+   "holes": {
+    "n": 1,
+    "total": 1164,
+    "list": [
+     {
+      "from": 0,
+      "to": 1164,
+      "h": 1164
+     }
+    ],
+    "mainH": 11368
+   },
+   "brokenImgs": [],
+   "sheets": 4,
+   "badSheets": [],
+   "fonts": "loaded",
+   "rules": 433,
+   "textChars": 5059,
+   "shot": {
+    "w": 768,
+    "h": 13268,
+    "scale": 0.19596020500452216
+   }
+  },
+  "swap-inset@390": {
+   "vp": {
+    "w": 390,
+    "h": 844
+   },
+   "docH": 15105,
+   "docW": 390,
+   "vw": 390,
+   "vh": 844,
+   "bodyH": 15105,
+   "hOverflow": 0,
+   "keys": {
+    ".masthead": {
+     "top": 125,
+     "left": 0,
+     "w": 390,
+     "h": 881.7
+    },
+    ".atlas": {
+     "top": 1006.7,
+     "left": 0,
+     "w": 390,
+     "h": 2929.8
+    },
+    ".year": {
+     "top": 3936.5,
+     "left": 0,
+     "w": 390,
+     "h": 1025.3
+    },
+    ".zones": {
+     "top": 1419.8,
+     "left": 57.6,
+     "w": 274.8,
+     "h": 308.4
+    },
+    ".spec": {
+     "top": 318.3,
+     "left": 24,
+     "w": 342,
+     "h": 30.4
+    }
+   },
+   "keyMissing": [],
+   "textOverflow": {
+    "n": 0,
+    "worst": []
+   },
+   "ellipsisClips": {
+    "n": 1,
+    "worst": [
+     {
+      "el": "body > a.skip",
+      "over": 111,
+      "txt": "用镜式码级次通"
+     }
+    ]
+   },
+   "overlaps": {
+    "n": 46,
+    "worst": [
+     {
+      "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1934 > div.trace__in > svg > g",
+      "area": 84752,
+      "frac": 1,
+      "y": 1420
+     },
+     {
+      "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "area": 76416,
+      "frac": 1,
+      "y": 1399
+     },
+     {
+      "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1934 > div.trace__in > svg > g",
+      "area": 66177,
+      "frac": 0.87,
+      "y": 1420
+     },
+     {
+      "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "area": 55755,
+      "frac": 1,
+      "y": 1420
+     },
+     {
+      "a": "div.trace.trace--1936 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1936 > div.trace__in > svg > use",
+      "area": 55755,
+      "frac": 1,
+      "y": 1928
+     },
+     {
+      "a": "div.trace.trace--1938 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1938 > div.trace__in > svg > use",
+      "area": 55755,
+      "frac": 1,
+      "y": 2436
+     },
+     {
+      "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "area": 54543,
+      "frac": 0.98,
+      "y": 1420
+     },
+     {
+      "a": "div.trace.trace--1934 > div.trace__in > svg > use",
+      "b": "div.trace.trace--1934 > div.trace__in > svg > g",
+      "area": 54543,
+      "frac": 0.98,
+      "y": 1420
+     }
+    ]
+   },
+   "holes": {
+    "n": 1,
+    "total": 1007,
+    "list": [
+     {
+      "from": 0,
+      "to": 1007,
+      "h": 1007
+     }
+    ],
+    "mainH": 13108
+   },
+   "brokenImgs": [],
+   "sheets": 4,
+   "badSheets": [],
+   "fonts": "loaded",
+   "rules": 433,
+   "textChars": 4792,
+   "shot": {
+    "w": 390,
+    "h": 15105,
+    "scale": 0.17212843429328037
+   }
+  }
+ },
+ "meta": {
+  "orig": {
+   "loaded": "load",
+   "title": "渔场平面簿 · 三层硫酸纸叠在同一张网具舱平面图上",
+   "sheets": [
+    "http://127.0.0.1:9612/prototypes/_fonts/css/newsreader__400-600-700.css",
+    "http://127.0.0.1:9612/prototypes/_fonts/css/noto-serif-sc__400-700.css",
+    "http://127.0.0.1:9612/prototypes/_fonts/css/reddit-mono__400-500.css",
+    "http://127.0.0.1:9612/prototypes/S15-fishery-floor-ledger/style.css"
+   ],
+   "imgs": 8,
+   "broken": 0,
+   "chars": 4950,
+   "consoleErrors": []
+  },
+  "swap-inset": {
+   "loaded": "load",
+   "title": "把见叠部就 · 硫形案瑰次编参灯迹嵌表确任白架目先",
+   "sheets": [
+    "http://127.0.0.1:9612/deliverables/63-test/replica/_fonts/css/newsreader__400-600-700.css",
+    "http://127.0.0.1:9612/deliverables/63-test/replica/_fonts/css/noto-serif-sc__400-700.css",
+    "http://127.0.0.1:9612/deliverables/63-test/replica/_fonts/css/reddit-mono__400-500.css",
+    "http://127.0.0.1:9612/deliverables/63-test/replica/S15-fishery-floor-ledger/style.css"
+   ],
+   "imgs": 8,
+   "broken": 0,
+   "chars": 4953,
+   "consoleErrors": []
+  }
+ }
+}

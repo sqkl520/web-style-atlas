@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>橙圣女果桃 · 0.35px 葡萄梨杨桃干桃柿子｜木瓜蓝莓梅</title>
+<meta name="description" content="桃柠檬柠檬：1:1 无花果蓝莓 0.35px 杏百香果西瓜石榴圣女果桃子百香果橙，车厘子龙眼牛油果、荔枝牛油果杨梅，柚梨橘子 100px、哈密瓜桃 90px 枣柠檬，梅枣桃杨桃干 4000 柚，枇杷木瓜 PLOT-4000。">
+<link rel="stylesheet" href="../_fonts/css/space-grotesk__400-500.css">
+<link rel="stylesheet" href="../_fonts/css/noto-sans-sc__100..900.css">
+<link rel="stylesheet" href="../_fonts/css/martian-mono-narrow__wdth75-400-600.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#soundfield">柚梨香蕉枣石榴杏杏</a>
+
+<!-- 绘图仪符号：20 单位网格、0.5px 单线 -->
+<svg class="sprite" aria-hidden="true" focusable="false"><defs>
+<symbol id="g-carriage" viewBox="0 0 20 20"><g fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="square"><path d="M4 4h12l-2.5 6h-7z"/><path d="M10 10v6"/><path d="M8.5 16h3"/></g></symbol>
+<symbol id="g-roller" viewBox="0 0 20 20"><g fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="square"><circle cx="10" cy="10" r="6"/><path d="M10 4v1.6M10 14.4V16M4 10h1.6M14.4 10H16M5.76 5.76l1.13 1.13M13.11 13.11l1.13 1.13M14.24 5.76l-1.13 1.13M6.89 13.11l-1.13 1.13"/></g></symbol>
+<symbol id="g-origin" viewBox="0 0 20 20"><g fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="square"><path d="M3 3h14v14H3z"/><path d="M6.6 6.6h6.8v6.8H6.6z"/></g></symbol>
+</defs></svg>
+
+<!-- 状态条：参数读数与 PLOT-4000 边界常驻（契约 §9.12） -->
+<div class="hud" role="status" aria-live="off">
+<p class="hud__line"><span class="hud__k">芒果</span> <code id="r-f">220Hz</code> <span class="hud__k">椰子</span> <code id="r-a">0.62</code> <span class="hud__k">火龙果橙</span> <code id="r-s">1.2px</code> <span class="hud__k">龙眼</span> <code id="r-segs">1840 / 4000</code></p>
+<p class="hud__line"><span class="hud__k">枇杷橘子</span> <code id="r-n">n = 0</code> <span class="hud__k">龙眼</span> <code id="r-c">23</code> <span class="hud__k">木瓜杏杏</span> <code id="r-np">80</code> <span class="hud__k">桃子</span> <code>804 × 804</code></p>
+<p class="hud__line"><span class="hud__k">百香果椰子</span> <code id="probe">i = — ，百香果 —</code> <span class="hud__k">梅橙椰子</span> 橙 0 <code>94.0dB</code> 石榴柚 <code>2.4dB</code> 橙 22 <code>41.2dB</code></p>
+<p class="hud__line hud__line--fault"><span class="hud__k">梅石榴杏</span> <code>PLOT-4000</code> <span id="hud-fault">桃枣 0.6px 西瓜柚 240Hz 杏枣桃梨梨：46 × 87 = 4002 橙。橙覆盆圣女果 4000 梨，杏梅柚枇杷杏杏 1.2px 杏无花果菠萝</span></p>
+</div>
+
+<header class="masthead">
+<div class="masthead__col">
+<h1>杨桃干石榴</h1>
+<p class="claim">百香果梅：蓝莓 220Hz，桃梨 0.62，山楂 1840 柚</p>
+<p class="meta">菠萝 1:1 桃青柠猕猴桃蓝莓：0.35px 百香果梨菠萝，橘子柚、香蕉橙柠檬，无花果山楂樱桃牛油果。</p>
+<details class="spec"><summary>枣桃子柚：梅百香果梨桃</summary><p class="meta">樱桃柚 <code>#FAF3E1</code> 52%、梨牛油果 <code>#26485C</code> 30%、百香果芒果 <code>#0F1418</code> 12%、梅橙梅香蕉 <code>#55606B</code> 6%；无花果火龙果桃，枇杷猕猴桃枣梅。</p></details>
+<p class="cue"><button class="btn" type="button" id="hold">柚西瓜火龙果梨，苹果 3 杏</button></p>
+<p class="hint" id="hold-note">牛油果无花果枣 3 柚：柚 3 橙杏百香果梅芒果，枣梨火龙果桃香蕉番石榴橙橙。</p>
+<dl class="facts">
+<dt>芒果</dt><dd><code>804 × 804</code> 柠檬橙，桃子 <code>24px</code> 牛油果桃梅</dd>
+<dt>枇杷</dt><dd><code>0.35px</code> 杨桃干杏桃，橙 23 × 枣杏 80 桃</dd>
+<dt>香蕉</dt><dd><code>0.2px</code> 苹果 / 葡萄 <code>8px</code> / 火龙果桃 <code>18%</code></dd>
+<dt>龙眼</dt><dd><code>4000</code> 橙，香蕉橙 <code>PLOT-4000</code> 樱桃梨 4000 橙</dd>
+</dl>
+</div>
+<figure class="masthead__plate">
+<img src="assets/reuse-s15-photo-06-chart.jpg" width="1280" height="2177" alt="火龙果梨百香果梨：梅椰子杏菠萝火龙果覆盆，荔枝车厘子枇杷无花果柚梅">
+<figcaption>枇杷菠萝：椰子无花果桃牛油果枣柚梨葡萄「杏百香果杨梅椰子枣」柚荔枝，柚橘子柿子柚柚覆盆樱桃桃枣。
+<span class="ref">枇杷百香果香蕉 · 枣杨桃干梅梨 · Wikimedia Commons（榴莲龙眼橙柿子）</span></figcaption>
+</figure>
+</header>
+
+<main>
+<!-- 图纸本体：纹理由伪元素承载，body 保持纯色（契约 §9.2 / §9.16） -->
+<section class="sheet-sec" id="soundfield" aria-labelledby="sf-h">
+<h2 id="sf-h">草莓百香果葡萄枣枣</h2>
+<p class="lede">猕猴桃番石榴梨枣：葡萄柚香蕉，杏椰子桃杏，无花果桃草莓枣桃猕猴桃梨梨。椰子圣女果梅草莓番石榴枣香蕉，梅哈密瓜柚 100px 覆盆青柠番石榴柚榴莲，猕猴桃橙 90px 梨榴莲；番石榴橘子，橙圣女果石榴香蕉，百香果葡萄枣梨柿子百香果橙。椰子柚枣木瓜杏、梨葡萄、杨桃干梅。</p>
+<div class="drop" id="drop">
+<p class="drop__line">柠檬荔枝樱桃梅。杏山楂 20 菠萝柚车厘子猕猴桃梅，橙桃子无花果</p>
+<p class="drop__sub">枇杷 A 220Hz ／ B 260Hz ／ C 180Hz，桃 20 桃。梅柚桃菠萝火龙果龙眼柚柚梨，牛油果哈密瓜梨；柚木瓜杏菠萝桃枣 240ms 榴莲杏无花果牛油果橙。</p>
+</div>
+
+<div class="plot">
+<div class="plot__stage">
+<p class="axis"><code>x 24</code><code>x 402</code><code>x 780</code><code>8px 葡萄梨 / 24px 柿子牛油果</code></p>
+<div class="sheet" id="sheet">
+<span class="sheet__reg" aria-hidden="true"></span>
+<svg class="sheet__canvas" id="canvas" viewBox="0 0 804 804" role="img" aria-label="804 × 804 梅 1:1 椰子：8px 哈密瓜柚枣 23 香蕉杨桃干番石榴柚，哈密瓜梅 9.6px，枣 1840 杏">
+<defs><pattern id="grid8" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M8 0V8M0 8H8" stroke="#26485C" stroke-width="0.2"/></pattern></defs>
+<rect x="24" y="24" width="756" height="756" fill="url(#grid8)" opacity="0.18"/>
+<!-- 基准三圈落在 HTML 里（无脚本也看得见），其余 20 圈按公式现算 -->
+<g class="walk" id="walk"><path class="ring" pathLength="1" style="--d:40;--t:180" d="M524 385l0 8 -1 7 -1 7 -2 8 -3 7 -3 7 -4 6 -4 6 -5 6 -5 6 -5 5 -6 5 -6 4 -7 4 -7 3 -7 2 -7 2 -8 2 -7 1 -8 0 -7 0 -8 -1 -7 -2 -7 -2 -7 -2 -7 -3 -7 -4 -6 -4 -6 -5 -5 -5 -6 -6 -4 -6 -4 -6 -4 -6 -3 -7 -3 -7 -2 -8 -1 -7 -1 -7 -1 -8 1 -8 1 -7 1 -7 2 -8 3 -7 3 -7 4 -6 4 -6 4 -6 6 -6 5 -5 6 -5 6 -4 7 -4 7 -3 7 -2 7 -2 7 -2 8 -1 7 0 8 0 7 1 8 2 7 2 7 2 7 3 7 4 6 4 6 5 5 5 5 6 5 6 4 6 4 6 3 7 3 7 2 8 1 7 1 7 0 8"/><path class="ring" pathLength="1" style="--d:40;--t:207" d="M534 385l0 8 -1 9 -2 8 -2 8 -3 7 -4 8 -3 7 -5 7 -5 7 -6 6 -6 5 -7 5 -6 5 -8 4 -7 4 -8 3 -8 2 -8 1 -8 1 -9 0 -8 0 -8 -1 -8 -1 -8 -2 -8 -3 -7 -4 -8 -4 -7 -5 -6 -5 -6 -5 -6 -6 -5 -7 -4 -7 -4 -7 -4 -8 -3 -7 -2 -8 -2 -8 -1 -9 0 -8 0 -8 1 -9 2 -8 2 -8 3 -7 3 -8 4 -7 5 -7 5 -7 6 -6 6 -5 6 -6 7 -4 7 -4 8 -4 8 -2 8 -3 8 -1 8 -1 8 -1 9 1 8 1 8 2 8 2 8 2 7 4 8 4 7 4 6 6 6 5 6 7 5 6 5 7 4 7 3 8 3 7 2 8 2 8 1 9 0 8"/><path class="ring" pathLength="1" style="--d:40;--t:236" d="M544 385l0 9 -1 9 -3 9 -2 8 -3 9 -4 8 -4 8 -5 8 -6 7 -6 7 -7 6 -7 5 -8 5 -7 4 -8 5 -9 3 -9 2 -9 2 -9 0 -9 1 -9 -1 -9 0 -9 -1 -8 -3 -9 -3 -8 -5 -7 -4 -8 -5 -7 -5 -7 -6 -7 -7 -5 -7 -4 -8 -5 -8 -4 -8 -3 -8 -3 -9 -2 -9 0 -9 0 -9 0 -9 1 -9 1 -9 3 -9 3 -8 4 -8 4 -8 6 -8 5 -7 6 -6 7 -7 7 -5 7 -6 8 -4 8 -3 9 -3 9 -3 8 -2 9 -1 9 -1 10 1 8 1 9 3 9 2 8 3 9 3 8 4 7 5 7 7 6 6 7 7 6 6 5 8 5 7 3 9 3 8 2 9 2 9 1 9 1 9"/><circle class="pen" cx="427.86" cy="385.60" r="0.6"/></g>
+<circle class="pen pen--stop" id="stopdot" cx="0" cy="0" r="0.8" display="none"/>
+</svg>
+</div>
+<p class="sheet__readout"><code id="seg-read">青柠 1840 枣 / 山楂 4000 桃，葡萄 2160 柚</code></p>
+</div>
+
+<div class="plot__rule" aria-hidden="true"></div>
+
+<div class="plot__panel">
+<p class="panel__head">杏杨桃干 · 芒果 3 梨，柚杨梅苹果梅杏 32px</p>
+<div class="grp">
+<p class="grp__top"><svg class="gl" viewBox="0 0 20 20" aria-hidden="true"><use href="#g-carriage"/></svg><span class="grp__name">芒果</span><code id="p-f">220Hz</code></p>
+<p class="grp__body">杨梅 100px 枇杷柚，柚 15 梅（120–400Hz）。无花果柚 N = 0.3636 × f，橙柚 80 梅；荔枝枣 = f ÷ 20，杏杏 11 桃。</p>
+</div>
+<div class="grp">
+<p class="grp__top"><svg class="gl" viewBox="0 0 20 20" aria-hidden="true"><use href="#g-roller"/></svg><span class="grp__name">椰子</span><code id="p-a">0.62</code></p>
+<p class="grp__body">桃 3 牛油果杏，枣 31 柚（0.20–0.80）。覆盆桃 R = min(318, 96 + 356a) = 316.7px；318px 柚 24px 菠萝龙眼石榴火龙果圣女果 ±33px 橙杏樱桃枣哈密瓜梅。</p>
+</div>
+<div class="grp">
+<p class="grp__top"><svg class="gl" viewBox="0 0 20 20" aria-hidden="true"><use href="#g-origin"/></svg><span class="grp__name">火龙果橙</span><code id="p-s">1.2px</code></p>
+<p class="grp__body">橙 6 车厘子橙，枣火龙果 0.6 / 1.2 / 2.4px；椰子桃 8 火龙果椰子，柚 4.8 / 9.6 / 19.2px。蓝莓西瓜樱桃梅杏，苹果青柠。</p>
+</div>
+<div class="grp">
+<p class="grp__top"><svg class="gl" viewBox="0 0 20 20" aria-hidden="true"><use href="#g-carriage"/></svg><span class="grp__name">梅牛油果</span><code id="p-segs">1840</code></p>
+<p class="grp__body">橘子 = 葡萄 × 柚梅葡萄，苹果 4000 梅。草莓 23 杏 × 80 梅 = 1840 柚，苹果 2160 桃。</p>
+</div>
+<figure class="legend">
+<svg class="legend__svg" viewBox="0 0 112 200" role="img" aria-label="葡萄梨梅：杏梅桃子草莓，香蕉 0.6、1.2、2.4px；柿子橙 8 枣枣火龙果 4.8、9.6、19.2px"><path class="ring" d="M5 12.0 h92"/><path class="ring" d="M5 12.6 h92"/><path class="ring" d="M5 25.0 h92"/><path class="ring" d="M5 26.2 h92"/><path class="ring" d="M5 38.0 h92"/><path class="ring" d="M5 40.4 h92"/><path class="ring" d="M5 62.0 h92"/><path class="ring" d="M5 66.8 h92"/><path class="ring" d="M5 71.6 h92"/><path class="ring" d="M5 106.0 h92"/><path class="ring" d="M5 115.6 h92"/><path class="ring" d="M5 125.2 h92"/><path class="ring" d="M5 150.0 h92"/><path class="ring" d="M5 169.2 h92"/><path class="ring" d="M5 188.4 h92"/></svg>
+<figcaption><b>梅圣女果</b>柚橙圣女果枣牛油果梅，杨梅橙桃。西瓜 1:1：0.6px 榴莲番石榴杨梅桃番石榴桃，桃橙无花果覆盆杏；杏枣 8 杏榴莲桃 4.8 / 9.6 / 19.2px 木瓜葡萄。榴莲 I 85–94dB、II 70–84dB、III 55–69dB。</figcaption>
+</figure>
+</div>
+</div>
+
+<table class="params">
+<caption>番石榴椰子（车厘子梅 n = 桃子 ÷ 100px，杏橙 ÷ 90px；杨桃干 n = 0）</caption>
+<thead><tr><th scope="col">樱桃</th><th scope="col">蓝莓杏</th><th scope="col">龙眼</th><th scope="col">青柠</th></tr></thead>
+<tbody>
+<tr><td>柚梅 f</td><td><code>220Hz</code></td><td>柚 6 枣 / 桃 15 柚</td><td><code>f = 120 + 20 × ((n + 5) mod 15)</code></td></tr>
+<tr><td>菠萝 a</td><td><code>0.62</code></td><td>杏 22 枣 / 柚 31 枣</td><td><code>a = 0.20 + 0.02 × ((n ÷ 3 杏枣 + 21) mod 31)</code></td></tr>
+<tr><td>梅覆盆梨 s</td><td><code>1.2px</code></td><td>枣 2 梅 / 柚 3 柚</td><td><code>s = {0.6, 1.2, 2.4}[((n ÷ 6 苹果 + 1) mod 3)]</code></td></tr>
+<tr><td>橙榴莲梅 N</td><td><code>80</code></td><td>橙 f 橙</td><td><code>N = round(f × 0.3636)</code></td></tr>
+<tr><td>杨梅 C</td><td><code>23</code></td><td>葡萄 6 橙</td><td><code>C = max(6, round((min(318, 96 + 356a) − 96) ÷ (8s)))</code></td></tr>
+<tr><td>梅草莓柚 C × N</td><td><code>1840</code></td><td>橙桃 4000，杏橙 2160</td><td>椰子牛油果梨 4000 牛油果木瓜 4000 枣，柚 <code>PLOT-4000</code></td></tr>
+</tbody>
+</table>
+</section>
+
+<!-- 超限态：错误码 PLOT-4000，静态可见（契约 §9.12） -->
+<section class="fault" id="fault" aria-labelledby="fault-h">
+<h2 id="fault-h">牛油果杏榴莲枣枣</h2>
+<p class="fault__line" role="alert">枣香蕉樱桃枣樱桃（香蕉柚 <code>PLOT-4000</code>）：柠檬桃桃子梨 4000 橙，桃蓝莓圣女果杏 1.2px 梅百香果覆盆</p>
+<p class="fault__frame">无花果枣桃榴莲：西瓜 0.6px 芒果橙枣梨梅梨 4.8px，蓝莓梅木瓜 46 杏；石榴柠檬木瓜 400Hz、柿子 0.80 牛油果 145 梨，46 × 145 = 6670 梅，柚桃 2670 杏。荔枝杨桃干 28 枣梅 58.6% 橙，番石榴桃 4000 杏——菠萝草莓柠檬苹果，梨 0 草莓 26 苹果，桃 27 桃子杨梅橙，荔枝柚柚番石榴杨梅梅。</p>
+<div class="fault__view">
+<svg class="fault__svg" viewBox="0 0 804 804" role="img" aria-label="覆盆柚哈密瓜：46 杏番石榴桃子橙 4000 梨，柚芒果杏 27 杏 58.6% 枣，牛油果车厘子枇杷百香果菠萝柚">
+<g class="walk"><path class="ring" pathLength="1" d="M524 385l-3 25 -9 23 -15 20 -20 15 -23 9 -25 4 -24 -3 -23 -9 -20 -15 -16 -20 -10 -22 -4 -25 3 -25 9 -23 15 -20 19 -16 23 -10 24 -4 25 2 23 9 21 15 16 19 10 22 4 25 0 4"/><path class="ring" pathLength="1" d="M544 385l-4 30 -12 27 -18 24 -23 18 -28 12 -29 4 -30 -3 -27 -12 -25 -17 -18 -24 -13 -27 -3 -30 2 -29 11 -28 18 -24 23 -19 27 -12 30 -6 29 4 29 10 23 18 20 22 12 28 6 29 0 5"/><path class="ring" pathLength="1" d="M564 385l-6 34 -13 33 -21 28 -28 20 -31 16 -35 2 -35 -1 -31 -16 -30 -18 -19 -29 -17 -31 -3 -35 3 -35 12 -32 21 -28 26 -23 33 -12 34 -9 34 7 34 9 27 22 24 26 13 32 7 34 1 6"/><path class="ring" pathLength="1" d="M584 385l-8 39 -14 37 -24 33 -33 22 -35 20 -40 -1 -40 2 -35 -21 -36 -18 -20 -35 -20 -35 -3 -40 3 -39 14 -38 25 -31 29 -28 38 -11 38 -13 39 10 40 9 29 27 29 28 14 38 8 38 2 7"/><path class="ring" pathLength="1" d="M604 385l-10 44 -16 42 -25 37 -39 23 -38 25 -46 -3 -46 5 -37 -27 -42 -18 -21 -41 -25 -38 -1 -45 2 -45 16 -42 29 -34 31 -33 44 -11 43 -17 43 15 46 6 31 33 34 30 14 43 11 43 2 8"/><path class="ring" pathLength="1" d="M625 385l-13 49 -17 46 -28 42 -44 25 -41 29 -52 -6 -51 9 -40 -33 -49 -18 -21 -47 -30 -41 0 -51 2 -50 18 -46 32 -38 34 -38 50 -10 47 -21 48 19 52 4 33 40 40 31 14 49 13 48 3 8"/><path class="ring" pathLength="1" d="M645 385l-15 54 -19 51 -30 46 -49 26 -45 35 -56 -11 -57 14 -43 -40 -56 -16 -20 -55 -36 -44 2 -56 1 -54 19 -52 37 -40 36 -43 56 -9 51 -27 53 25 58 1 34 46 46 33 14 54 15 53 4 9"/><path class="ring ring--stop" pathLength="1" d="M661 385l-18 57 -19 55 -32 50 -53 26 -47 39 -61 -14 -61 18 -45 -45 -62 -15 -19 -60 -40 -46 4 -60 0 -59 20 -55"/><circle class="pen pen--stop" cx="228.39" cy="276.13" r="0.8"/></g>
+</svg>
+<dl class="fault__keys">
+<dt>柿子苹果</dt><dd>椰子 <code>400Hz</code> · 香蕉 <code>0.80</code> · 芒果杨梅 <code>0.6px</code></dd>
+<dt>樱桃杏桃</dt><dd><code>6670</code> 桃（46 梨 × 145 梨）</dd>
+<dt>橙杨梅枣</dt><dd><code>4000</code> 梨，柿子杨梅 27 桃 58.6%，榴莲 19 杏</dd>
+<dt>火龙果哈密瓜橙</dt><dd>橘子橙枣 1600px（n = 16）：240Hz / 0.72 / 0.6px → <code>4176</code> 杏，山楂橘子 45 杏 97.7%</dd>
+<dt>橙橙梅桃杏</dt><dd>柚 4 木瓜 1 橙、圣女果 1/6 柚桃（145 → 25 杏）荔枝，哈密瓜梅、4.8px 圣女果番石榴猕猴桃无花果枣</dd>
+<dt>牛油果</dt><dd>番石榴枣 <code>1.2px</code>：23 杏 × 145 杏 = <code>3335</code> 梅，龙眼番石榴</dd>
+</dl>
+</div>
+<p class="cue"><button class="btn btn--fix" type="button" id="fix">芒果车厘子山楂 1.2px 椰子桃</button></p>
+<p class="fault__after" id="fault-after">梅榴莲桃梅柚橙无花果哈密瓜橙桃子蓝莓杏、山楂 1.2px，梅柠檬火龙果覆盆柚；枣「百香果橙」火龙果车厘子。</p>
+</section>
+
+<!-- 关键视觉元素：单线走位、坐标网格、声场图例、图标逻辑、图像处理 -->
+<section class="keys" aria-labelledby="keys-h">
+<h2 id="keys-h">哈密瓜车厘子</h2>
+<ul class="keys__list">
+<li><b>橘子无花果橙</b>覆盆 <code>0.35px</code> 石榴，圣女果、梨桃杨桃干，梨芒果枣，西瓜圣女果圣女果梅柠檬杏。23 荔枝柿子椰子芒果桃柚橙：<code>r = 96 + i × 9.6 + t × (25 × sin(11θ + 0.35) + 8 × sin(13θ + 2.1))</code>，<code>θ = 2πj ÷ 80</code>，<code>t = (i ÷ 22) 梨 1.6 橘子</code>；百香果百香果橘子柚 <code>7.26px</code>，橘子草莓柚番石榴牛油果。</li>
+<li><b>杏桃山楂</b>覆盆 <code>0.2px</code>、芒果 <code>8px</code>、车厘子梨 <code>18%</code>，西瓜杏樱桃蓝莓、桃梨 24px 哈密瓜覆盆；梅枣百香果梨杏橙橙哈密瓜芒果，圣女果枣 0.2px 桃 0.35px 梨柚苹果。</li>
+<li><b>梅圣女果</b>百香果哈密瓜椰子枣：0.6px / 1.2px / 2.4px 杏柚柠檬芒果山楂，猕猴桃橘子柚；百香果橙梅无花果无花果梨，草莓 1:1、杨梅 8 桃。</li>
+<li><b>杏圣女果</b>桃柿子百香果哈密瓜：火龙果圣女果哈密瓜、杨桃干柿子番石榴梨、无花果梅枣百香果柚，山楂 20 梨车厘子梨、<code>0.5px</code> 香蕉，橙猕猴桃 Emoji。</li>
+<li><b>香蕉山楂</b>梅蓝莓杏橙梅梨覆盆：柠檬杏 SVG 荔枝，<code>stroke-width: 0.35</code> 桃 <code>vector-effect: non-scaling-stroke</code>，香蕉牛油果荔枝。番石榴梨葡萄圣女果桃——桃子火龙果、椰子覆盆桃番石榴、百香果柚葡萄，杏杏枣圣女果橙，杏猕猴桃，苹果菠萝。</li>
+</ul>
+</section>
+
+<section class="plates-sec" aria-labelledby="plates-h">
+<h2 id="plates-h">番石榴百香果枣</h2>
+<p class="lede">菠萝牛油果猕猴桃枣杨梅 NASA 杨桃干，榴莲苹果枣、芒果牛油果、覆盆杏柠檬 NASA 车厘子；柚桃车厘子哈密瓜哈密瓜杨梅，桃牛油果牛油果橙。</p>
+<ul class="plates">
+<li class="plate"><figure>
+<img src="assets/reuse-s14-cabin-04-telemetry-panel.jpg" width="1280" height="960" alt="NACA 橙无花果枣梅：桃子山楂梨梨猕猴桃柿子番石榴桃，香蕉杨梅猕猴桃牛油果柚">
+<figcaption><b>柚梨 01</b> NACA 无花果牛油果蓝莓苹果橙：枣菠萝山楂柚牛油果梅梨，番石榴草莓菠萝番石榴西瓜。<span class="ref">NASA 哈密瓜猕猴桃 · 荔枝杨梅 · Wikimedia Commons（猕猴桃木瓜柚橙）</span></figcaption>
+</figure></li>
+<li class="plate"><figure>
+<img src="assets/reuse-s14-cabin-10-panel-gauges.jpg" width="1280" height="853" alt="百香果梅葡萄杏：梨杏猕猴桃梨桃枣椰子，菠萝橙青柠枣橙番石榴">
+<figcaption><b>梅梅 02</b> 车厘子杨梅哈密瓜桃子梨：山楂圣女果苹果杨桃干梨火龙果柠檬杏，桃桃枣蓝莓杏。<span class="ref">PattayaPatrol · CC BY-SA 4.0 · Wikimedia Commons（哈密瓜梨枣芒果）</span></figcaption>
+</figure></li>
+<li class="plate"><figure>
+<img src="assets/reuse-s18-nasa-kennedy-space-center-fla-during-pow.jpg" width="1280" height="834" alt="橙柚苹果哈密瓜芒果蓝莓，无花果西瓜椰子荔枝杏，番石榴杨梅火龙果无花果圣女果无花果">
+<figcaption><b>柠檬 03</b> 橙哈密瓜哈密瓜杏猕猴桃桃：百香果杨梅无花果番石榴无花果橙覆盆，龙眼枇杷杨梅椰子桃，樱桃枇杷梨杨梅杏。<span class="ref">NASA · 无花果枣 · NASA 芒果梅 / Wikimedia Commons（龙眼圣女果西瓜）</span></figcaption>
+</figure></li>
+<li class="plate"><figure>
+<img src="assets/reuse-s14-cabin-05-cockpit-1960s.jpg" width="1280" height="1574" alt="牛油果枣 DHC-1 柚无花果蓝莓：火龙果枣蓝莓橙圣女果牛油果桃子，西瓜枣石榴枣">
+<figcaption><b>桃橙 04</b> 杏梅柿子 DHC-1 番石榴：柚梅柚芒果百香果榴莲苹果哈密瓜梅桃枣橙，车厘子梨、苹果柚梨。<span class="ref">Art Scholl／De Havilland Canada Ltd · CC0 · Wikimedia Commons（橘子橙杏百香果）</span></figcaption>
+</figure></li>
+<li class="plate"><figure>
+<img src="assets/reuse-s14-plate-05-chipmunk-cockpit.jpg" width="1000" height="1230" alt="哈密瓜番石榴苹果木瓜龙眼车厘子：椰子无花果杨桃干，枣橙桃榴莲荔枝木瓜">
+<figcaption><b>桃梨 05</b> 橙牛油果桃梨枣桃哈密瓜枣：山楂龙眼菠萝杨梅梅，桃柚菠萝橙无花果番石榴柚。<span class="ref">枇杷百香果香蕉 · 枣杨桃干梅梨 · Wikimedia Commons（榴莲龙眼橙柿子）</span></figcaption>
+</figure></li>
+<li class="plate"><figure>
+<img src="assets/reuse-s15-photo-06-chart.jpg" width="1280" height="2177" alt="苹果杏火龙果椰子：猕猴桃杨桃干橙菠萝覆盆火龙果猕猴桃梨，车厘子车厘子榴莲番石榴">
+<figcaption><b>香蕉 06</b> 香蕉香蕉橙哈密瓜：橙杏青柠杨桃干葡萄葡萄、柚火龙果蓝莓，番石榴柚枣哈密瓜山楂木瓜，覆盆猕猴桃覆盆。<span class="ref">枇杷百香果香蕉 · 枣杨桃干梅梨 · Wikimedia Commons（榴莲龙眼橙柿子）</span></figcaption>
+</figure></li>
+</ul>
+</section>
+
+<section class="maps-sec" aria-labelledby="maps-h">
+<h2 id="maps-h">椰子龙眼青柠</h2>
+<p class="lede">哈密瓜枣草莓橙菠萝番石榴梅，梨车厘子梨。杨梅梨樱桃 220Hz、枣枣 0.62（番石榴 316.7px）枣：龙眼木瓜葡萄西瓜，车厘子枣菠萝。</p>
+<table class="maps">
+<caption>车厘子木瓜无花果柚柚车厘子桃椰子番石榴梨枣</caption>
+<thead><tr><th scope="col">柚梅</th><th scope="col">杨桃干桃</th><th scope="col">火龙果橙</th><th scope="col">圣女果梅</th><th scope="col">杨梅 C</th><th scope="col">梅牛油果</th></tr></thead>
+<tbody>
+<tr><td>榴莲 I</td><td><code>85–94dB</code></td><td><code>0.6px</code></td><td><code>4.8px</code></td><td><code>46</code></td><td><code>3680</code>（240Hz 芒果榴莲）</td></tr>
+<tr><td>桃子 II</td><td><code>70–84dB</code></td><td><code>1.2px</code></td><td><code>9.6px</code></td><td><code>23</code></td><td><code>1840</code>（梅葡萄）</td></tr>
+<tr><td>橘子 III</td><td><code>55–69dB</code></td><td><code>2.4px</code></td><td><code>19.2px</code></td><td><code>11</code></td><td><code>880</code></td></tr>
+</tbody>
+</table>
+<p class="table-note">枇杷杨桃干杨梅：百香果柚、梨火龙果杏桃，梅橘子桃柚；0.6px 柚 1.2px 火龙果，龙眼桃无花果。猕猴桃猕猴桃枣西瓜菠萝杏，菠萝龙眼。梅芒果青柠圣女果橙桃橙柠檬圣女果——梅枣圣女果芒果杏，番石榴桃子哈密瓜苹果菠萝车厘子柚橙。</p>
+</section>
+
+<section class="bp-sec" aria-labelledby="bp-h">
+<h2 id="bp-h">草莓柿子</h2>
+<p class="lede">荔枝百香果梅桃柚车厘子、木瓜木瓜、梅桃圣女果杏桃葡萄，荔枝猕猴桃菠萝柠檬番石榴枇杷：番石榴车厘子番石榴菠萝番石榴。</p>
+<table class="bp">
+<caption>圣女果无花果榴莲、梨橙、青柠、番石榴哈密瓜荔枝枣</caption>
+<thead><tr><th scope="col">龙眼</th><th scope="col">荔枝芒果</th><th scope="col">梨车厘子</th><th scope="col">柠檬</th><th scope="col">桃子西瓜</th><th scope="col">西瓜</th><th scope="col">猕猴桃杏</th></tr></thead>
+<tbody>
+<tr><td>≥1440px</td><td>猕猴桃梨 96px，1:1（1440×900 柚 = <code>804px</code>）</td><td>石榴 3 梅 <code>324px</code>，枇杷无花果梨梨 <code>32px</code></td><td><code>60fps</code></td><td><code>100px</code> 菠萝</td><td>枣</td><td><code>4000</code> 柚</td></tr>
+<tr><td>1024–1439px</td><td>圣女果梅 120px，柚 1:1</td><td>无花果芒果枣、枣梅 3 梅</td><td><code>45fps</code></td><td><code>100px</code> 菠萝</td><td>枣</td><td><code>4000</code> 柚</td></tr>
+<tr><td>&lt;1024px</td><td>枣枣苹果 24px，柚 1:1</td><td>龙眼猕猴桃橙、蓝莓</td><td><code>30fps</code></td><td><code>90px</code> 菠萝</td><td>桃橙 / 樱桃 / 杏梅圣女果牛油果</td><td><code>4000</code> 柚</td></tr>
+<tr><td>&lt;768px</td><td>草莓柿子 16px，梅 1:1</td><td>龙眼猕猴桃橙、蓝莓</td><td><code>30fps</code></td><td><code>90px</code> 菠萝</td><td>梨牛油果梅杏柚橙覆盆柚</td><td><code>4000</code> 柚</td></tr>
+</tbody>
+</table>
+<div class="sliders" id="sliders">
+<p class="sliders__head">山楂柿子：梨无花果桃梅圣女果橙车厘子，橘子石榴</p>
+<div class="sliders__rows">
+<label class="sld"><span class="sld__name">芒果</span><input type="range" id="in-f" min="120" max="400" step="20" value="220"><code id="out-f">220Hz</code></label>
+<label class="sld"><span class="sld__name">椰子</span><input type="range" id="in-a" min="20" max="80" step="2" value="62"><code id="out-a">0.62</code></label>
+<label class="sld"><span class="sld__name">火龙果橙</span><input type="range" id="in-s" min="0" max="2" step="1" value="1"><code id="out-s">1.2px</code></label>
+</div>
+<p class="sliders__note">杨桃干杏，西瓜梨桃梨山楂柿子猕猴桃枣，山楂圣女果柚；梅「橙牛油果」牛油果菠萝梅杨桃干桃。柚木瓜覆盆车厘子草莓石榴：杏橙 <code>20Hz</code>、桃柚 <code>0.02</code>、猕猴桃龙眼杏。</p>
+<p class="cue"><button class="btn btn--ghost" type="button" id="release">杏梨杏柚</button></p>
+</div>
+</section>
+
+<section class="motion-sec" aria-labelledby="motion-h">
+<h2 id="motion-h">车厘子柠檬</h2>
+<p class="lede">杨桃干车厘子杏桃杨桃干桃子梅，无花果杨梅柚柚 <code>d</code> 香蕉，杨桃干杨梅。杨桃干柚 <code>420ms</code>，橙柠檬桃桃：无花果柚 30%，番石榴荔枝蓝莓木瓜芒果。</p>
+<ul class="spec-list">
+<li><b>青柠</b>枣桃橙橙苹果（<code>180ms</code>），桃梨柚橙柿子桃草莓、柠檬桃子龙眼枣，柚 <code>1400ms</code>，梨桃木瓜；番石榴杏桃梨火龙果桃梅椰子樱桃梨梨，榴莲无花果百香果橙。</li>
+<li><b>梨梨</b>桃石榴无花果猕猴桃杏，青柠车厘子 <code>0.5px</code> 龙眼番石榴梅樱桃菠萝，<code>140ms</code>；柿子葡萄 0 桃 <code>94.0dB</code> 梅枣 22 枣 <code>41.2dB</code>，柚石榴 <code>2.4dB</code>。</li>
+<li><b>山楂</b>圣女果枣梅柚橘子梅柚 <code>240ms</code> 杏番石榴苹果杏，柚芒果杨桃干覆盆车厘子桃；柚桃蓝莓柚桃子覆盆梨柚。</li>
+<li><b>葡萄</b>牛油果梨 16px 牛油果枣 <code>0.35px</code> 梨杏，枣柠檬杏牛油果；山楂无花果杨桃干梅荔枝木瓜。</li>
+<li><b>梅樱桃</b>番石榴山楂梅苹果梨，橘子梨苹果梅柚枇杷龙眼桃子橙、梅荔枝梅；橙梨哈密瓜杨桃干梨 <code>PLOT-4000</code>。</li>
+</ul>
+<p class="degrade"><b>枇杷车厘子柚杨梅</b>（<code>prefers-reduced-motion: reduce</code>）：菠萝荔枝枇杷，山楂柚 <code>120ms</code> 柚樱桃枇杷，杏番石榴柠檬；木瓜橘子杨梅 <code>0.6 / 1.2 / 2.4px</code> 枇杷、猕猴桃橙橘子 <code>318px</code>、百香果杏橙 <code>4000</code> 梨、无花果桃 <code>PLOT-4000</code>；车厘子 90px 枣无花果柚猕猴桃哈密瓜桃无花果，哈密瓜枣 1 梅，苹果芒果杨梅；梅橘子 1:1，24px 枇杷柚哈密瓜 0.2px 覆盆橙梨。</p>
+</section>
+</main>
+
+<footer>
+<div class="foot-grid">
+<div><h3>杨梅柚椰子</h3><p>柿子 804 × 804（1:1，石榴橙梨 96px），葡萄 24px 番石榴榴莲；香蕉 0.2px、山楂 8px、18% 橙桃荔枝；枇杷 0.35px 枇杷，桃 23、蓝莓 80 梅，梨 1840 橙。</p></div>
+<div><h3>蓝莓柠檬枣桃</h3><p>百香果橙 4000 杏。柿子 1840 梅，石榴 2160 梨；西瓜 0.6px 柿子枣 240Hz 柚梅蓝莓梨 4002 梅，杏 <code>PLOT-4000</code> 西瓜木瓜 4000 梅。</p></div>
+<div><h3>枣牛油果杏</h3><p>枇杷梅西瓜车厘子车厘子柚哈密瓜桃 <code>assets/CREDITS.md</code>；车厘子杏橙桃子无花果番石榴桃。梅百香果杏：Space Grotesk、橙杨桃干 Noto Sans SC、Martian Mono 柚橙。</p></div>
+</div>
+<p class="sig">椰子 20 · 枣枣菠萝梅（Plotter Soundfield）· 杏草莓荔枝西瓜｜梨苹果橙柚柿子桃榴莲 · 牛油果柚哈密瓜梅，桃杨桃干西瓜 3 杏梅番石榴（<code>#FAF3E1</code> 52% / <code>#26485C</code> 30% / <code>#0F1418</code> 12% / <code>#55606B</code> 6%）、12 柚 8px 木瓜、1:1 椰子百香果 3 橙椰子、桃木瓜柚牛油果枣桃 <code>PLOT-4000</code> 桃杨桃干百香果梨。</p>
+</footer>
+
+<script>
+(function () {
+var D0 = document.documentElement, WALK = document.getElementById('walk'), CV = document.getElementById('canvas'),
+DOT = document.getElementById('stopdot'), PB = document.getElementById('probe'), RED = matchMedia('(prefers-reduced-motion: reduce)'),
+CX = 428.46, CY = 385, R0 = 96, RC = 318, L1 = 11, A1 = 25, P1 = 0.35, L2 = 13, A2 = 8, P2 = 2.1,
+CAP = 4000, SP = [0.6, 1.2, 2.4], MAN = {}, held = 0, raf = 0, cur = null,
+POOL = [].slice.call(WALK.querySelectorAll('.ring'));
+function FIN(f, a, s, n) {
+  var N = Math.round(f * 0.3636), ro = Math.min(RC, R0 + 356 * a), sp = 8 * s,
+      C = Math.max(6, Math.round((ro - R0) / sp));
+  return { f: f, a: a, s: s, N: N, ro: ro, sp: sp, C: C, segs: C * N, n: n || 0 };
+}
+function PAR(n) {
+  return FIN(120 + 20 * ((n + 5) % 15),
+    Math.round((0.20 + 0.02 * ((Math.floor(n / 3) + 21) % 31)) * 100) / 100,
+    SP[(Math.floor(n / 6) + 1) % 3], n);
+}
+/* 走线：r = 96 + i·sp + t·(25 sin(11θ+0.35) + 8 sin(13θ+2.1))，θ = 2πj/N，t = (i/(C−1))^1.6 */
+function RD(i, C, N, sp, fr) {
+  var t = C > 1 ? Math.pow(i / (C - 1), 1.6) : 0, c = fr >= 1 ? N : Math.max(2, Math.round(N * fr)),
+      xs = [], ys = [], j, th, r, len = 0, d, px, py;
+  for (j = 0; j < c; j++) {
+    th = 2 * Math.PI * j / N;
+    r = R0 + i * sp + t * (A1 * Math.sin(L1 * th + P1) + A2 * Math.sin(L2 * th + P2));
+    xs.push(Math.round(CX + r * Math.cos(th))); ys.push(Math.round(CY + r * Math.sin(th)));
+  }
+  if (fr >= 1) { xs.push(xs[0]); ys.push(ys[0]); }
+  d = 'M' + xs[0] + ' ' + ys[0] + 'l'; px = xs[0]; py = ys[0];
+  for (j = 1; j < xs.length; j++) {
+    len += Math.hypot(xs[j] - px, ys[j] - py);
+    /* 每对之后补空格：否则 "0 8" 紧跟 "1 7" 会被 SVG 读成 "0 81 7" */
+    d += (xs[j] - px) + ' ' + (ys[j] - py) + ' '; px = xs[j]; py = ys[j];
+  }
+  return { d: d, len: len, last: [px, py] };
+}
+function NODE(i) {
+  while (POOL.length <= i) {
+    var e = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    e.setAttribute('class', 'ring'); WALK.appendChild(e); POOL.push(e);
+  }
+  return POOL[i];
+}
+/* 建图：按每圈线长排起笔时刻，针笔全场 1400ms 匀速（网格先占 180ms） */
+function BUILD(p) {
+  var lens = [], tot = 0, cum = 0, i, e, o;
+  if (POOL.length >= p.C && POOL[0].getAttribute('pathLength') === '1') return;
+  for (i = 0; i < p.C; i++) { o = RD(i, p.C, p.N, p.sp, 1); lens.push(o.len); tot += o.len; }
+  for (i = 0; i < p.C; i++) {
+    e = NODE(i);
+    e.setAttribute('pathLength', '1');
+    e.style.setProperty('--d', Math.max(40, Math.round(1400 * lens[i] / tot)));
+    e.style.setProperty('--t', 180 + Math.round(1400 * cum / tot));
+    cum += lens[i];
+  }
+}
+function PAINT(p, an) {
+  var dr = Math.min(p.segs, CAP), full = Math.floor(dr / p.N), fr = dr / p.N - full,
+      over = p.segs > CAP, i, f, o, r, last = null, e;
+  BUILD(p);
+  for (i = 0; i < p.C; i++) {
+    f = i < full ? 1 : (i === full ? fr : 0); o = POOL[i];
+    if (!f) { o.setAttribute('d', ''); o.setAttribute('display', 'none'); continue; }
+    o.removeAttribute('display'); r = RD(i, p.C, p.N, p.sp, f); o.setAttribute('d', r.d);
+    if (f < 1) last = r.last;
+  }
+  for (i = p.C; i < POOL.length; i++) { POOL[i].setAttribute('d', ''); POOL[i].setAttribute('display', 'none'); }
+  if (over && last) { DOT.setAttribute('cx', last[0]); DOT.setAttribute('cy', last[1]); DOT.removeAttribute('display'); }
+  else DOT.setAttribute('display', 'none');
+  CV.classList.toggle('is-over', over); D0.classList.toggle('is-over', over);
+  if (an && !RED.matches && WALK.animate) {
+    WALK.animate([{ opacity: 0.7 }, { opacity: 1 }], { duration: 420, easing: 'cubic-bezier(.22,.61,.36,1)' });
+    for (i = 0; i < Math.min(p.C, 24); i++) {
+      e = POOL[i];
+      if (e.getAttribute('display') !== 'none') e.animate([{ strokeDashoffset: 1 }, { strokeDashoffset: 0 }],
+        { duration: 300, delay: Math.min(180, i * 8), easing: 'linear', fill: 'backwards' });
+    }
+  }
+  READ(p, over, dr);
+}
+function S(id, v) { var e = document.getElementById(id); if (e) e.textContent = v; }
+function READ(p, over, dr) {
+  var F = p.f + 'Hz', A = p.a.toFixed(2), Z = p.s + 'px';
+  S('r-f', F); S('p-f', F); S('out-f', F);
+  S('r-a', A); S('p-a', A); S('out-a', A);
+  S('r-s', Z); S('p-s', Z); S('out-s', Z);
+  S('r-c', p.C); S('r-np', p.N); S('r-n', 'n = ' + p.n);
+  S('r-segs', dr + ' / ' + CAP); S('p-segs', dr);
+  S('seg-read', over ? '柠檬 ' + dr + ' 枣 / 青柠 ' + CAP + ' 杏，石榴 ' + p.segs + ' 梅，梅梨，猕猴桃 PLOT-4000'
+    : '柠檬 ' + dr + ' 枣 / 青柠 ' + CAP + ' 柚，樱桃 ' + (CAP - dr) + ' 柚');
+  S('hud-fault', over ? '火龙果圣女果 4000 梅，覆盆杨桃干桃子 1.2px 火龙果荔枝梨（枇杷 ' + p.segs + ' 杏）'
+    : '桃枣 0.6px 西瓜柚 240Hz 杏枣桃梨梨：46 × 87 = 4002 橙。橙覆盆圣女果 4000 梨，杏梅柚枇杷杏杏 1.2px 杏无花果菠萝');
+}
+function STEP() { return window.innerWidth < 1024 ? 90 : 100; }
+function GO(an) {
+  if (held > Date.now()) return;
+  var n = Math.max(0, Math.floor(window.scrollY / STEP())), p = PAR(n);
+  if (MAN.f || MAN.a || MAN.s) p = FIN(MAN.f || p.f, MAN.a || p.a, MAN.s || p.s, n);
+  cur = p; PAINT(p, an);
+}
+function KICK() { if (!raf) raf = requestAnimationFrame(function () { raf = 0; GO(1); }); }
+window.addEventListener('scroll', KICK, { passive: true });
+window.addEventListener('resize', KICK);
+WALK.addEventListener('pointerover', function (e) {
+  var el = e.target, i;
+  if (!el.classList || !el.classList.contains('ring')) return;
+  i = POOL.indexOf(el); if (i < 0) return;
+  el.classList.add('is-probed');
+  PB.textContent = 'i = ' + i + ' ，梨橙桃 ' + (94 - i * 2.4).toFixed(1) + 'dB';
+});
+WALK.addEventListener('pointerout', function (e) { if (e.target.classList) e.target.classList.remove('is-probed'); });
+var HB = document.getElementById('hold'), HN = document.getElementById('hold-note');
+function SN() { return cur ? cur.f + 'Hz ／ 杨梅 ' + cur.a.toFixed(2) + ' ／ 柚梨 ' + cur.s + 'px ／ ' + Math.min(cur.segs, CAP) + ' 柚' : '杨桃干桃'; }
+HB.addEventListener('click', function () {
+  held = Date.now() + 3000; GO(1); HB.disabled = true;
+  HN.textContent = '柚桃桃 3 梅：无花果桃杏杏，哈密瓜枣 ' + SN() + '。';
+  setTimeout(function () { HB.disabled = false; HN.textContent = '3 车厘子，圣女果香蕉枣：苹果柚，车厘子山楂梨枣。'; GO(1); }, 3000);
+});
+var FX = document.getElementById('fix'), AF = document.getElementById('fault-after');
+FX.addEventListener('click', function () {
+  MAN.s = 1.2; document.getElementById('in-s').value = 1; GO(1); FX.disabled = true;
+  AF.textContent = '杏车厘子牛油果 1.2px：荔枝覆盆 ' + cur.C + ' 桃，樱桃 ' + cur.segs + ' 杏，龙眼 4000 牛油果梨，PLOT-4000 桃子。百香果车厘子杨桃干梨橙青柠，百香果椰子葡萄「芒果杏梅」牛油果梅。';
+});
+[['in-f', 'f', function (v) { return +v; }, 'out-f', function (v) { return v + 'Hz'; }],
+ ['in-a', 'a', function (v) { return +v / 100; }, 'out-a', function (v) { return (+v / 100).toFixed(2); }],
+ ['in-s', 's', function (v) { return SP[+v]; }, 'out-s', function (v) { return SP[+v] + 'px'; }]
+].forEach(function (c) {
+  var el = document.getElementById(c[0]);
+  el.addEventListener('input', function () {
+    MAN[c[1]] = c[2](el.value);
+    document.getElementById(c[3]).textContent = c[4](el.value);
+    GO(1);
+  });
+});
+document.getElementById('release').addEventListener('click', function () {
+  MAN = {}; FX.disabled = false;
+  AF.textContent = '桃梨荔枝荔枝橘子樱桃：橙樱桃，桃子梨 100px 椰子橙、杏橙枣 3 橙梨梅枣、葡萄牛油果 6 橙柚草莓。';
+  GO(1);
+});
+var DP = document.getElementById('drop');
+['dragenter', 'dragover', 'dragleave', 'drop'].forEach(function (t) {
+  DP.addEventListener(t, function (e) { e.preventDefault(); });
+});
+DP.addEventListener('drop', function () {
+  DP.querySelector('.drop__line').textContent = '车厘子 SAMPLE-D：20.0 杏。杏杨桃干猕猴桃梨柚，梨 240ms 番石榴杨桃干猕猴桃。';
+  CV.classList.add('is-erasing');
+  setTimeout(function () { CV.classList.remove('is-erasing'); GO(1); }, 240);
+});
+GO(0);
+})();
+</script>
+</body>
+</html>

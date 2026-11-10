@@ -1,0 +1,27 @@
+﻿buildPrompt 行号 119–407（含）  共 289 行
+
+== 代码（剥注释）里出现的 o.* 字段 ==
+count, tone, unit
+
+== 逐字段：给不给默认值 / 谁在传 ==
+
+-- 仓库里所有 buildPrompt / buildStylePrompt 调用点 --
+   prompt-copy.js:34: * （copyPrompt 调 buildPrompt(id)、mountPromptButton 调 buildPrompt(id)、
+   prompt-copy.js:119: function buildPrompt(id, opts) {
+   prompt-copy.js:511: var text = buildPrompt(id, opts);
+   prompt-copy.js:679: var n = buildPrompt(id, v).length;
+
+-- 每个字段是否出现在任何调用点的实参里 --
+  o.count    调用点直接给值=no   文件内中转=no
+  o.tone     调用点直接给值=no   文件内中转=no
+  o.unit     调用点直接给值=no   文件内中转=no
+
+-- copyPrompt 定义行 510 --
+   510:   function copyPrompt(id, btn, opts) {
+   511:     var text = buildPrompt(id, opts);
+   512:     if (!text) return;
+   513: 
+   514:     var done = function (ok) {
+   515:       if (btn) {
+   516:         var old = btn.textContent;
+   517:         btn.textContent = ok ? "已复制 ✓" : "请手动复制";

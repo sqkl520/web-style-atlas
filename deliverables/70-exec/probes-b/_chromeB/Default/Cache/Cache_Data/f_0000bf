@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>琥珀叠印灯箱｜六块亚克力板与 1.2mm 套印错位</title>
+<link rel="stylesheet" href="../_fonts/css/gloock__400.css">
+<link rel="stylesheet" href="../_fonts/css/source-serif-4__400-600.css">
+<link rel="stylesheet" href="../_fonts/css/noto-serif-sc__400-700.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="masthead">
+  <div class="shell">
+    <div class="masthead-row">
+      <p class="wordmark">AMBER OVERPRINT LIGHTBOX <span>琥珀叠印灯箱</span></p>
+      <nav aria-label="主导航">
+        <a href="#stack">叠层</a>
+        <a href="#overprint">套印</a>
+        <a href="#spec">工艺参数</a>
+        <a href="#material">材料</a>
+        <a href="#states">状态</a>
+      </nav>
+      <button class="control action" type="button" data-retract-btn>换一组藏品</button>
+    </div>
+  </div>
+</header>
+<div class="rule-wall" role="presentation"></div>
+
+<main>
+
+<section class="band" id="stack">
+  <div class="shell">
+    <div class="two-col">
+      <div>
+        <h1>六块琥珀板叠印</h1>
+      </div>
+      <div class="params" data-ui="craft-params" aria-label="首屏工艺读数">
+        <h2 class="mini">首屏读数</h2>
+        <dl>
+          <div><dt>板数</dt><dd><code>6</code></dd></div>
+          <div><dt>每层位移</dt><dd><code>24px / 12px</code></dd></div>
+          <div><dt>侧壁厚度</dt><dd><code>6px 至 10px</code></dd></div>
+        </dl>
+      </div>
+    </div>
+
+    <p class="lede">把 6 块琥珀板叠起来，就是这个品牌的主色：单板透光率 72%，六块叠满只剩 14%，边上有一枚指纹。</p>
+
+    <div class="stage-wrap">
+      <div class="iso-stage">
+        <div class="iso-plane" data-settling="on" id="plane">
+
+          <div class="plate" data-layer="0" style="--l:0" tabindex="0" role="img" aria-label="第一块板：底足，侧壁厚 6px">
+            <div class="plate-face">
+              <div class="plate-ink"><svg viewBox="0 0 440 300" aria-hidden="true">
+                <g transform="translate(4.5,4.5)" fill="#E8DCC8"><path d="M170 250 L270 250 L262 268 L178 268 Z"/></g>
+                <g transform="translate(-4.5,-4.5)" fill="#3A2712"><path d="M170 250 L270 250 L262 268 L178 268 Z"/></g>
+              </svg></div>
+              <div class="plate-grime"></div>
+              <svg class="regmark" width="26" height="26" viewBox="0 0 26 26" aria-hidden="true" fill="none" stroke="#3A2712" stroke-width="1.25" stroke-linecap="square"><circle cx="13" cy="13" r="7"/><path d="M13 0V8M13 18V26M0 13H8M18 13H26"/></svg>
+              <div class="plate-bar"><i></i><i></i><i></i><i></i></div>
+              <div class="plate-glint top"></div><div class="plate-glint left"></div>
+            </div>
+            <div class="plate-wall"></div><div class="plate-wall b"></div>
+          </div>
+
+          <div class="plate" data-layer="1" style="--l:1" tabindex="0" role="img" aria-label="第二块板：瓶身，侧壁厚 7px">
+            <div class="plate-face">
+              <div class="plate-ink"><svg viewBox="0 0 440 300" aria-hidden="true">
+                <g transform="translate(4.5,4.5)" fill="#E8DCC8"><path d="M150 150 L290 150 L282 250 L158 250 Z"/></g>
+                <g transform="translate(-4.5,-4.5)" fill="#3A2712"><path d="M150 150 L290 150 L282 250 L158 250 Z"/></g>
+              </svg></div>
+              <div class="plate-grime"></div>
+              <svg class="regmark" width="26" height="26" viewBox="0 0 26 26" aria-hidden="true" fill="none" stroke="#3A2712" stroke-width="1.25" stroke-linecap="square"><circle cx="13" cy="13" r="7"/><path d="M13 0V8M13 18V26M0 13H8M18 13H26"/></svg>
+              <div class="plate-bar"><i></i><i></i><i></i><i></i></div>
+              <div class="plate-glint top"></div><div class="plate-glint left"></div>
+            </div>
+            <div class="plate-wall"></div><div class="plate-wall b"></div>
+          </div>
+
+          <div class="plate" data-layer="2" style="--l:2; width:488px; margin-left:-244px" tabindex="0" role="img" aria-label="第三块板：肩线，比其余板宽 48px，右下有三枚指纹">
+            <div class="plate-face">
+              <div class="plate-ink"><svg viewBox="0 0 488 300" aria-hidden="true">
+                <g transform="translate(4.5,4.5)" fill="#E8DCC8"><path d="M168 150 L316 150 L296 96 L190 96 Z"/></g>
+                <g transform="translate(-4.5,-4.5)" fill="#3A2712"><path d="M168 150 L316 150 L296 96 L190 96 Z"/></g>
+              </svg></div>
+              <div class="plate-grime"></div>
+              <svg class="regmark" width="26" height="26" viewBox="0 0 26 26" aria-hidden="true" fill="none" stroke="#3A2712" stroke-width="1.25" stroke-linecap="square"><circle cx="13" cy="13" r="7"/><path d="M13 0V8M13 18V26M0 13H8M18 13H26"/></svg>
+              <div class="plate-bar"><i></i><i></i><i></i><i></i></div>
+              <div class="plate-glint top"></div><div class="plate-glint left"></div>
+            </div>
+            <div class="plate-wall"></div><div class="plate-wall b"></div>
+          </div>
+          <div class="plate" data-layer="3" style="--l:3" tabindex="0" role="img" aria-label="第四块板：瓶颈，侧壁厚 8px">
+            <div class="plate-face">
+              <div class="plate-ink"><svg viewBox="0 0 440 300" aria-hidden="true">
+                <g transform="translate(4.5,4.5)" fill="#E8DCC8"><path d="M196 60 L244 60 L244 96 L196 96 Z"/></g>
+                <g transform="translate(-4.5,-4.5)" fill="#3A2712"><path d="M196 60 L244 60 L244 96 L196 96 Z"/></g>
+              </svg></div>
+              <div class="plate-grime"></div>
+              <svg class="regmark" width="26" height="26" viewBox="0 0 26 26" aria-hidden="true" fill="none" stroke="#3A2712" stroke-width="1.25" stroke-linecap="square"><circle cx="13" cy="13" r="7"/><path d="M13 0V8M13 18V26M0 13H8M18 13H26"/></svg>
+              <div class="plate-bar"><i></i><i></i><i></i><i></i></div>
+              <div class="plate-glint top"></div><div class="plate-glint left"></div>
+            </div>
+            <div class="plate-wall"></div><div class="plate-wall b"></div>
+          </div>
+
+          <div class="plate" data-layer="4" style="--l:4" tabindex="0" role="img" aria-label="第五块板：瓶口，侧壁厚 9px">
+            <div class="plate-face">
+              <div class="plate-ink"><svg viewBox="0 0 440 300" aria-hidden="true">
+                <g transform="translate(4.5,4.5)" fill="#E8DCC8"><path d="M188 40 L252 40 L252 60 L188 60 Z"/></g>
+                <g transform="translate(-4.5,-4.5)" fill="#3A2712"><path d="M188 40 L252 40 L252 60 L188 60 Z"/></g>
+              </svg></div>
+              <div class="plate-grime"></div>
+              <svg class="regmark" width="26" height="26" viewBox="0 0 26 26" aria-hidden="true" fill="none" stroke="#3A2712" stroke-width="1.25" stroke-linecap="square"><circle cx="13" cy="13" r="7"/><path d="M13 0V8M13 18V26M0 13H8M18 13H26"/></svg>
+              <div class="plate-bar"><i></i><i></i><i></i><i></i></div>
+              <div class="plate-glint top"></div><div class="plate-glint left"></div>
+            </div>
+            <div class="plate-wall"></div><div class="plate-wall b"></div>
+          </div>
+
+          <div class="plate" data-layer="5" style="--l:5" tabindex="0" role="img" aria-label="第六块板：标签块，侧壁厚 10px">
+            <div class="plate-face">
+              <div class="plate-ink"><svg viewBox="0 0 440 300" aria-hidden="true">
+                <g transform="translate(4.5,4.5)" fill="#E8DCC8"><path d="M150 170 L290 170 L290 214 L150 214 Z"/></g>
+                <g transform="translate(-4.5,-4.5)" fill="#3A2712"><path d="M150 170 L290 170 L290 214 L150 214 Z"/></g>
+              </svg></div>
+              <div class="plate-grime"></div>
+              <svg class="regmark" width="26" height="26" viewBox="0 0 26 26" aria-hidden="true" fill="none" stroke="#3A2712" stroke-width="1.25" stroke-linecap="square"><circle cx="13" cy="13" r="7"/><path d="M13 0V8M13 18V26M0 13H8M18 13H26"/></svg>
+              <div class="plate-bar"><i></i><i></i><i></i><i></i></div>
+              <div class="plate-glint top"></div><div class="plate-glint left"></div>
+            </div>
+            <div class="plate-wall"></div><div class="plate-wall b"></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <p>六块板各自是一个独立合成层，深度只由三件事说明：层号位移、侧壁宽度、以及透光率 0.72 的层数幂。全站没有任何背景模糊函数。</p>
+  </div>
+</section>
+<section class="band" id="overprint">
+  <div class="shell">
+    <h2>1.2mm 套印错位</h2>
+    <p class="lede">两色之间只允许偏 1.2mm。偏出来的那一道，是纸白，不是发光。</p>
+    <figure class="specimen wide" data-ui="overprint-specimen">
+      <img src="assets/overprint.png" width="1200" height="760" alt="套准状态的样张：琥珀色瓶身与深棕色轮廓对齐，纸白只出现在版面留白处">
+      <figcaption>套准：两色对齐，误差 0。纸白只出现在留白处。屏幕按 1mm 约 1px 画板体轮廓（8mm 厚对应 6px 至 10px 侧壁）。</figcaption>
+    </figure>
+    <div class="spec-grid">
+      <figure class="specimen" id="specimen-off" data-ui="overprint-specimen-offset">
+        <img src="assets/overprint-offset.png" width="1200" height="760" alt="未套准状态的样张：第二色向右下偏了 1.2mm，错位处露出一线象牙色的纸白">
+        <figcaption>未套准：第二色向右下偏 1.2mm（检查时按 3.75 倍放大画成 4.5px）。错位那一线露出的是纸白 <code>#E8DCC8</code>，不是高光。</figcaption>
+      </figure>
+      <div>
+        <p>两张样张都是可见的正片，没有藏起来的位图。按钮把未套准那张推到 3.2 倍，让 1.2mm 的那一线错位占满画面。</p>
+        <p><button class="control" type="button" id="offset-btn">看 1.2mm 套印错位的对比图</button></p>
+        <p>公差上限 3mm。超过上限的板不进灯箱，直接进错误状态。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="spec">
+  <div class="shell">
+    <h2>工艺参数与可测量值</h2>
+    <p class="lede">四个数值同时写在页面上。任何一块板的厚度、倒角、透光率、错位量缺一个，那块板就不该存在。</p>
+    <div class="panel">
+      <div class="spec-grid">
+      <div class="params" data-ui="measured-values">
+        <h3>板体与光学</h3>
+        <dl>
+          <div><dt>等效厚度</dt><dd><code>8mm</code></dd></div>
+          <div><dt>倒角</dt><dd><code>2mm / 45°</code></dd></div>
+          <div><dt>单板透光率</dt><dd><code>72%</code></dd></div>
+          <div><dt>套印错位</dt><dd><code>1.2mm</code></dd></div>
+          <div><dt>玻璃边缘暗边</dt><dd><code>2px</code></dd></div>
+          <div><dt>表面污染层</dt><dd><code>3%</code></dd></div>
+          <div><dt>滚动视差</dt><dd><code>200px / 6px</code></dd></div>
+          <div><dt>侧壁厚度</dt><dd><code>6px 至 10px</code></dd></div>
+        </dl>
+      </div>
+      <div>
+        <h3>六块板叠起来的透光阶梯</h3>
+        <p>每一块板让 72% 的光过去，六块叠满只剩 14%。这不是透明度的装饰，是乘法。</p>
+        <div class="ladder" role="img" aria-label="透光阶梯：一块板 72%，两块 52%，三块 37%，四块 27%，五块 19%，六块 14%">
+          <b></b><b></b><b></b><b></b><b></b><b></b>
+        </div>
+        <p><code>0.72 / 0.52 / 0.37 / 0.27 / 0.19 / 0.14</code></p>
+      </div>
+    </div>
+    <table class="pp">
+      <caption>六块板逐块读数：侧壁厚度按层号每层加 1px，到 10px 封顶；累计透光率是 0.72 的层数幂，不是手调的透明度。</caption>
+      <thead>
+        <tr><th scope="col">板</th><th scope="col">侧壁厚度</th><th scope="col">累计透光率</th><th scope="col">板面内容</th><th scope="col">污染</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>第 1 块</td><td><code>6px</code></td><td><code>72%</code></td><td>底足与暗房的地面线</td><td>落灰 2%，右下更密</td></tr>
+        <tr><td>第 2 块</td><td><code>7px</code></td><td><code>52%</code></td><td>瓶身外轮廓，象牙内衬</td><td>落灰 2%，右下更密</td></tr>
+        <tr><td>第 3 块</td><td><code>8px</code></td><td><code>37%</code></td><td>肩线与标签块，板宽多出 48px</td><td>三枚指纹与签名拇指，9mm，3%</td></tr>
+        <tr><td>第 4 块</td><td><code>9px</code></td><td><code>27%</code></td><td>瓶颈与口沿</td><td>落灰 2%，右下更密</td></tr>
+        <tr><td>第 5 块</td><td><code>10px</code></td><td><code>19%</code></td><td>瓶盖螺纹</td><td>落灰 2%，右下更密</td></tr>
+        <tr><td>第 6 块</td><td><code>10px</code></td><td><code>14%</code></td><td>顶面高光与套准十字</td><td>落灰 2%，右下更密</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="material">
+  <div class="shell">
+    <h2>材料与工艺</h2>
+    <div class="material-row">
+      <div>
+        <svg width="112" height="112" viewBox="0 0 58 58" fill="none" stroke="#C46A1F" stroke-width="1.25" stroke-linecap="square" aria-hidden="true">
+          <path d="M6 44 L40 44 L52 32 L18 32 Z"/><path d="M18 32 L18 44"/><path d="M40 44 L52 32"/>
+        </svg>
+        <h3>铸造亚克力与倒角</h3>
+        <p>板是浇铸的，不是挤出的：边缘抛光到 45°，倒角 2mm。厚度由 6px 到 10px 的侧壁面画出来，不是靠阴影假装。</p>
+      </div>
+      <div>
+        <svg width="112" height="112" viewBox="0 0 58 58" fill="none" stroke="#C46A1F" stroke-width="1.25" stroke-linecap="square" aria-hidden="true">
+          <circle cx="29" cy="29" r="21"/><path d="M29 8V19M29 39V50M8 29H19M39 29H50"/><circle cx="29" cy="29" r="3"/>
+        </svg>
+        <h3>套准标记与色标</h3>
+        <p>十字准星的端点落在 0.5 单位栅格上，色标条四格分别是琥珀、暗琥珀、象牙、深棕。标记是印上去的，不是贴上去的图标。</p>
+      </div>
+      <div>
+        <svg width="112" height="112" viewBox="0 0 58 58" fill="none" stroke="#C46A1F" stroke-width="1.25" stroke-linecap="square" aria-hidden="true">
+          <path d="M8 40 L50 40"/><path d="M14 40 L14 20"/><path d="M22 40 L22 26"/><path d="M30 40 L30 31"/><path d="M38 40 L38 35"/><path d="M46 40 L46 38"/>
+        </svg>
+        <h3>透光相乘</h3>
+        <p>灯在板后。每加一块板，透过的光乘 0.72。层次来自这一步乘法与侧壁的几何，全站没有一处背景模糊函数。</p>
+      </div>
+    </div>
+    <figure class="specimen wide" data-ui="chamfer-macro">
+      <img src="assets/detail.png" width="1200" height="420" alt="板体边缘微距：2mm 倒角切成 45 度，顶边与左边各一条 2px 折射高光，下方是随层号从 6px 递增到 10px 的侧壁">
+      <figcaption>边缘微距：倒角 2mm 切成 45°，折射高光只压在顶边与左边，宽 2px、楔角 12°。下方侧壁随层号从 6px 递增到 10px，再深一档的是侧壁下缘。整幅没有一处阴影函数。</figcaption>
+    </figure>
+    <figure class="specimen wide" data-ui="contamination-macro">
+      <img src="assets/grime-macro.png" width="1200" height="420" alt="板面污染层微距：落灰密度右下更高，三枚 9mm 指纹，其中一枚脊线残缺">
+      <figcaption>污染层微距：落灰压在 3% 以内，右下更密。三枚 9mm 指纹落在第三块板的右下角，脊线最残的那一枚是设计者右手拇指，其他五块板保持干净。</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="band" id="states">
+  <div class="shell">
+    <h2>状态</h2>
+    <div class="states panel">
+      <div class="state">
+        <h3>加载中</h3>
+        <p>板自底层向上依次落位，每块 180ms，落位那一下侧壁有 1px 过冲。按一下，它真的在跑。</p>
+        <button class="control" type="button" id="load-btn">压板落位</button>
+      </div>
+      <div class="state">
+        <h3>空</h3>
+        <svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="#6B4A22" stroke-width="1.25" stroke-linecap="square" aria-hidden="true">
+          <path d="M17 3 A14 14 0 1 1 4.2 24.5"/><path d="M17 9 A8 8 0 1 1 9.6 21.3"/>
+        </svg>
+        <p>这一组版还在压。周五下午两点回来，能看到侧壁的折射角度。</p>
+      </div>
+      <div class="state">
+        <h3>错误</h3>
+        <p>这块板套印偏了 2.4mm，已经贴到 3mm 的公差上限，错误码 <code>REG-24</code>。先看未套准的原样，别照这块板调色。</p>
+        <p class="stamp">公差上限 3mm</p>
+        <button class="control ghost" type="button">看未套准的原样</button>
+      </div>
+      <div class="state">
+        <h3>不可用</h3>
+        <p>第三块板正在换件，换好之前不能加进灯箱。</p>
+        <button class="control" type="button" disabled>加进灯箱</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="shell">
+    <p>字体：标题 Gloock（OFL 1.1，极高对比展示衬线，细横 0.6px 等效）｜拉丁正文 Source Serif 4（OFL 1.1，光学尺寸轴 8 至 60）｜中文 京华老宋体（免费商用，按 GB2312 一级字库切子集，font-display: swap）｜数值 IBM Plex Mono（OFL 1.1，只在 <code>&lt;code&gt;</code> 里排套准编号与测量值）。</p>
+    <p>资产：套准样张、污染层与折射高光均由构建期生成；污染层为 1 位 PNG，不透明度 2% 至 3%。灯箱本身不含任何背景模糊函数，层次由层号位移、侧壁厚度与 0.72 的层数幂给出。</p>
+    <p>降级：<code>prefers-reduced-motion: reduce</code> 时冻结分层视差与上浮，只保留 150ms 的不透明度切换与高光加宽。</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var plane = document.getElementById('plane');
+  var rm = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var plates = [].slice.call(document.querySelectorAll('.plate'));
+
+  window.setTimeout(function () { plane.removeAttribute('data-settling'); }, 180 * 6 + 260);
+
+  var ticking = false;
+  function par() {
+    ticking = false;
+    if (rm.matches) { return; }
+    var p = Math.min(1, window.scrollY / 200);
+    plates.forEach(function (el) {
+      var l = parseInt(el.getAttribute('data-layer'), 10);
+      var amp = l >= 4 ? 12 : (l >= 2 ? 6 : 3);
+      var face = el.querySelector('.plate-face');
+      var ink = el.querySelector('.plate-ink');
+      if (face) { face.style.transform = 'translateY(' + (amp * p).toFixed(2) + 'px)'; }
+      if (ink) { ink.style.transform = 'translateY(' + (6 * p).toFixed(2) + 'px)'; }
+    });
+  }
+  function req() { if (!ticking) { ticking = true; window.requestAnimationFrame(par); } }
+  window.addEventListener('scroll', req, { passive: true });
+  par();
+
+  var retract = document.querySelector('[data-retract-btn]');
+  if (retract) {
+    retract.addEventListener('click', function () {
+      plane.setAttribute('data-retract', 'on');
+      window.setTimeout(function () {
+        plane.removeAttribute('data-retract');
+        plane.style.setProperty('--stagger', '70ms');
+        plane.setAttribute('data-settling', 'on');
+        window.setTimeout(function () {
+          plane.removeAttribute('data-settling');
+          plane.style.setProperty('--stagger', '180ms');
+        }, 70 * 6 + 260);
+      }, 240);
+    });
+  }
+
+  var sp = document.getElementById('specimen-off');
+  var ob = document.getElementById('offset-btn');
+  if (sp && ob) {
+    ob.addEventListener('click', function () {
+      var on = sp.getAttribute('data-zoom') === 'on';
+      sp.setAttribute('data-zoom', on ? 'off' : 'on');
+      ob.textContent = on ? '看 1.2mm 套印错位的对比图' : '回到整张样张';
+    });
+  }
+
+  var lb = document.getElementById('load-btn');
+  if (lb) {
+    lb.addEventListener('click', function () {
+      if (lb.disabled) { return; }
+      lb.disabled = true;
+      lb.setAttribute('data-loading', '');
+      plane.removeAttribute('data-settling');
+      void plane.offsetWidth;
+      plane.setAttribute('data-settling', 'on');
+      window.setTimeout(function () {
+        lb.disabled = false;
+        lb.removeAttribute('data-loading');
+        plane.removeAttribute('data-settling');
+      }, 180 * 6 + 260);
+    });
+  }
+
+  if (rm.addEventListener) { rm.addEventListener('change', par); }
+})();
+</script>
+
+
+</body>
+</html>

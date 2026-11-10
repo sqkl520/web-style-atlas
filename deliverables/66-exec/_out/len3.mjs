@@ -1,0 +1,12 @@
+﻿const old2="2. 用你自己的真实数量排：有几个排几个，不凑整、不留空位、不留占位符、编号连续不跳号。";
+const base2="2. 用你自己的真实数量排：有几个排几个，不凑整、不重复填满，不用占位符顶数。";
+const v3="2. 用你自己的真实数量排：有几个排几个，不凑整、不重复填满。但本版式有几处位置是刻意留空的（缺号／空抽屉／空白卡），那是叙事证据，不要补满、不要删掉、编号不得重排。";
+const v4="2. 用你自己的真实数量排：有几个排几个，不凑整、不重复填满。但本版式有几处刻意留空的位置（缺号／空抽屉／空白卡），那是叙事证据：不要补满、不要删掉、编号不得重排。";
+const q1="（上面点名的刻意留空照旧空着，不删）";
+const q2="（刻意留空那几处照旧空着）";
+const L=(n,s)=>console.log(n.padEnd(6)+String(s.length).padStart(4)+'  '+s);
+L('old2',old2);L('base2',base2);L('v3',v3);L('v4',v4);L('q1',q1);L('q2',q2);
+console.log('v3-old2='+(v3.length-old2.length));
+console.log('v3+q1-old2='+(v3.length+q1.length-old2.length));
+console.log('v3+q2-old2='+(v3.length+q2.length-old2.length));
+console.log('v4+q2-old2='+(v4.length+q2.length-old2.length));

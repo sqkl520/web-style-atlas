@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>印花税对账联 · 第一百四十七期｜奥斯曼帝国印花税总署</title>
+<meta name="description" content="奥斯曼帝国印花税总署第一百四十七期印花税对账联：存根联留档、主联交付纳税人，票号连号可核验，跨月未销账逐笔列出。">
+<link rel="stylesheet" href="../_fonts/css/literata__400-600-700.css">
+<link rel="stylesheet" href="../_fonts/css/sometype-mono__400-600.css">
+<link rel="stylesheet" href="../_fonts/css/noto-serif-sc__400-700.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="sheet-head">
+  <a class="skip" href="#ledger">跳到本期应税明细</a>
+  <h1>印花税对账联</h1>
+  <p class="doc-identity">本联由奥斯曼帝国印花税总署伊斯坦布尔第十三征收所开具，为第一百四十七期（回历 1329 年 3 月）应缴印花税的对账凭证。主联交付纳税人，存根联留所归档，两联撕开后须逐号核对连号是否连续。</p>
+  <ul class="doc-meta">
+    <li><b>账期</b>1911 年 3 月 1 日至 3 月 31 日</li>
+    <li><b>起止连号</b><code>No. 004417</code> 至 <code>No. 004443</code></li>
+    <li><b>张数</b>主联 1 张／存根联 1 张</li>
+    <li><b>本位币</b>银元（折算见附注）</li>
+  </ul>
+  <div class="controls">
+    <button class="btn btn-primary" id="tear-btn" type="button">撕下存根联，导出 CSV</button>
+    <button class="btn btn-secondary" id="verify-btn" type="button">核验票号连号</button>
+  </div>
+</header>
+
+<main>
+<section aria-labelledby="ledger-heading">
+  <h2 id="ledger-heading">第一百四十七期应税明细</h2>
+  <div class="toolbar">
+    <label for="period">账期</label>
+    <select id="period">
+      <option value="147" selected>第一百四十七期 · 1911 年 3 月</option>
+      <option value="146">第一百四十六期 · 1911 年 2 月（未导入）</option>
+    </select>
+    <p class="toolbar-note" id="live-status" role="status">已载入 27 行明细，合计 12,480.00 元，等待骑缝章校验。</p>
+  </div>
+  <p class="state state-error" id="mismatch-banner" role="alert" hidden>存根联与主联编号不一致（错误码 STUB-17，两联相差 1 号）：合计行已锁定，导出前须先完成骑缝章校验。</p>
+  <div class="sheet">
+    <aside class="stub-cell">
+      <p class="stub-label">存根联 · 留所归档</p>
+      <svg viewBox="0 0 78 14" width="78" height="14" role="img" aria-label="存根联撕口旁的齿孔，第 3 孔与第 4 孔之间多出一枚倒置齿孔">
+        <g fill="#8C7A5B">
+          <circle cx="3" cy="7" r="1.2"/><circle cx="9" cy="7" r="1.2"/><circle cx="15" cy="7" r="1.2"/>
+          <circle cx="27" cy="7" r="1.2"/><circle cx="33" cy="7" r="1.2"/><circle cx="39" cy="7" r="1.2"/>
+          <circle cx="45" cy="7" r="1.2"/><circle cx="51" cy="7" r="1.2"/><circle cx="57" cy="7" r="1.2"/>
+          <circle cx="63" cy="7" r="1.2"/><circle cx="69" cy="7" r="1.2"/><circle cx="75" cy="7" r="1.2"/>
+        </g>
+        <circle cx="21" cy="5" r="1.6" fill="#5A2A50"/>
+        <path d="M19.2 2.2a3 3 0 0 0 3.6 0" fill="none" stroke="#5A2A50" stroke-width="0.5"/>
+      </svg>
+      <p class="stub-note">存根联验真记号</p>
+      <p class="stub-note">导出前按存根联编号连号校验。</p>
+    </aside>
+    <div class="perf" aria-hidden="true">
+      <svg class="seal" viewBox="0 0 132 132" role="img" aria-label="骑缝章：伊斯坦布尔第十三征收所印花税验讫，跨主联与存根联骑缝加盖">
+        <defs>
+          <g id="seal-halo">
+            <circle cx="66" cy="66" r="59" fill="none" stroke="currentColor" stroke-width="6"/>
+            <circle cx="66" cy="66" r="44" fill="none" stroke="currentColor" stroke-width="5"/>
+          </g>
+          <g id="seal-mark">
+            <circle cx="66" cy="66" r="59" fill="none" stroke="currentColor" stroke-width="2.4"/>
+            <circle cx="66" cy="66" r="44" fill="none" stroke="currentColor" stroke-width="0.8"/>
+            <path d="M66 7v16M66 109v16M7 66h16M109 66h16" fill="none" stroke="currentColor" stroke-width="0.8"/>
+            <path d="M66 30c9 9 15 15 15 23 0 8-7 13-15 13s-15-5-15-13c0-8 6-14 15-23z" fill="none" stroke="currentColor" stroke-width="0.8"/>
+            <path d="M40 108h52" fill="none" stroke="currentColor" stroke-width="0.8"/>
+            <text class="seal-glyph" x="66" y="80" text-anchor="middle">印花税验讫</text>
+            <text class="seal-glyph" x="66" y="96" text-anchor="middle">回历 1329</text>
+          </g>
+        </defs>
+        <g class="seal-bleed"><use href="#seal-halo"/></g>
+        <g class="seal-ink-b"><use href="#seal-mark"/></g>
+        <g class="seal-ink-a"><use href="#seal-mark"/></g>
+      </svg>
+    </div>
+    <div class="main-cell">
+      <table class="ledger" id="ledger">
+        <caption>第一百四十七期应税明细 · 主联（撕开后与存根联逐号核对连号）</caption>
+        <thead>
+          <tr>
+            <th scope="col">税票编号</th>
+            <th scope="col">应税事项</th>
+            <th scope="col">税率</th>
+            <th scope="col" class="num">税额（元）</th>
+            <th scope="col">销账状态</th>
+          </tr>
+        </thead>
+        <tbody id="ledger-body">
+          <tr style="--row-index:0"><td class="ticket-no"><code>No. 004417</code></td><td class="item">阿勒颇商路货运提单</td><td>3%</td><td class="num">1,482.00</td><td>已销账</td></tr>
+          <tr style="--row-index:1"><td class="ticket-no"><code>No. 004418</code></td><td class="item">伊兹密尔烟草专卖许可</td><td>2%</td><td class="num">336.00</td><td>已销账</td></tr>
+          <tr style="--row-index:2"><td class="ticket-no"><code>No. 004419</code></td><td class="item">士麦那港口仓单</td><td>1.5%</td><td class="num">96.00</td><td>已销账</td></tr>
+          <tr style="--row-index:3"><td class="ticket-no"><code>No. 004420</code></td><td class="item">巴格达铁路债券过户书</td><td>3%</td><td class="num">512.40</td><td class="is-open">未销账·跨月</td></tr>
+          <tr style="--row-index:4"><td class="ticket-no"><code>No. 004421</code></td><td class="item">贝鲁特地产抵押契</td><td>4%</td><td class="num">240.00</td><td>已销账</td></tr>
+          <tr style="--row-index:5"><td class="ticket-no"><code>No. 004422</code></td><td class="item">的黎波里商号合伙章程</td><td>2.5%</td><td class="num">187.60</td><td>已销账</td></tr>
+          <tr style="--row-index:6"><td class="ticket-no"><code>No. 004423</code></td><td class="item">邮政汇款凭单</td><td>1%</td><td class="num">72.00</td><td>已销账</td></tr>
+          <tr style="--row-index:7"><td class="ticket-no"><code>No. 004424</code></td><td class="item">大马士革丝绸出口报关单</td><td>4%</td><td class="num">1,044.00</td><td>已销账</td></tr>
+          <tr style="--row-index:8"><td class="ticket-no"><code>No. 004425</code></td><td class="item">护照申领书</td><td>2%</td><td class="num">168.00</td><td>已销账</td></tr>
+          <tr style="--row-index:9"><td class="ticket-no"><code>No. 004426</code></td><td class="item">塞萨洛尼基火险保单</td><td>3%</td><td class="num">396.00</td><td>已销账</td></tr>
+          <tr style="--row-index:10"><td class="ticket-no"><code>No. 004427</code></td><td class="item">佣工契约</td><td>1%</td><td class="num">84.00</td><td>已销账</td></tr>
+          <tr style="--row-index:11"><td class="ticket-no"><code>No. 004428</code></td><td class="item">盐场经营权契据</td><td>2%</td><td class="num">228.00</td><td>已销账</td></tr>
+          <tr style="--row-index:12"><td class="ticket-no"><code>No. 004429</code></td><td class="item">耶路撒冷朝圣通行证</td><td>3%</td><td class="num">612.00</td><td class="is-open">未销账·跨月</td></tr>
+          <tr style="--row-index:13"><td class="ticket-no"><code>No. 004430</code></td><td class="item">铸币厂银锭检验单</td><td>2.5%</td><td class="num">960.00</td><td>已销账</td></tr>
+          <tr style="--row-index:14"><td class="ticket-no"><code>No. 004431</code></td><td class="item">渔业许可</td><td>1.5%</td><td class="num">132.00</td><td>已销账</td></tr>
+          <tr style="--row-index:15"><td class="ticket-no"><code>No. 004432</code></td><td class="item">商船登记证书</td><td>2%</td><td class="num">276.00</td><td>已销账</td></tr>
+          <tr style="--row-index:16"><td class="ticket-no"><code>No. 004433</code></td><td class="item">摩苏尔油田租约</td><td>4%</td><td class="num">408.00</td><td>已销账</td></tr>
+          <tr style="--row-index:17"><td class="ticket-no"><code>No. 004434</code></td><td class="item">法庭诉讼保证金收据</td><td>1%</td><td class="num">144.00</td><td>已销账</td></tr>
+          <tr style="--row-index:18"><td class="ticket-no"><code>No. 004435</code></td><td class="item">君士坦丁堡交易所席位转让</td><td>3%</td><td class="num">1,104.00</td><td>已销账</td></tr>
+          <tr style="--row-index:19"><td class="ticket-no"><code>No. 004436</code></td><td class="item">药房营业许可</td><td>1.5%</td><td class="num">192.00</td><td>已销账</td></tr>
+          <tr style="--row-index:20"><td class="ticket-no"><code>No. 004437</code></td><td class="item">电报线路租用合同</td><td>2%</td><td class="num">660.00</td><td>已销账</td></tr>
+          <tr style="--row-index:21"><td class="ticket-no"><code>No. 004438</code></td><td class="item">遗产继承认证书</td><td>3%</td><td class="num">312.00</td><td>已销账</td></tr>
+          <tr style="--row-index:22"><td class="ticket-no"><code>No. 004439</code></td><td class="item">面粉出口许可证</td><td>1%</td><td class="num">108.00</td><td>已销账</td></tr>
+          <tr style="--row-index:23"><td class="ticket-no"><code>No. 004440</code></td><td class="item">安卡拉羊毛收购契</td><td>2%</td><td class="num">384.00</td><td class="is-open">未销账·跨月</td></tr>
+          <tr style="--row-index:24"><td class="ticket-no"><code>No. 004441</code></td><td class="item">图书进口审查单</td><td>1.5%</td><td class="num">156.00</td><td>已销账</td></tr>
+          <tr style="--row-index:25"><td class="ticket-no"><code>No. 004442</code></td><td class="item">市政工程投标保证书</td><td>2%</td><td class="num">216.00</td><td>已销账</td></tr>
+          <tr style="--row-index:26"><td class="ticket-no"><code>No. 004443</code></td><td class="item">年度印花税总缴凭证</td><td>3%</td><td class="num">1,970.00</td><td>已销账</td></tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="3">本期应缴合计 · 27 笔，其中 3 笔跨月未销账（计 1,508.40 元）</td>
+            <td class="num grand-total">12,480.00</td>
+            <td>骑缝章待验</td>
+          </tr>
+        </tfoot>
+      </table>
+      <p class="ledger-status" id="ledger-status" role="status">本期应缴 12,480.00 元，其中 3 笔跨月未销账。</p>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="plates-heading">
+  <h2 id="plates-heading">馆藏图版与票面细部</h2>
+  <p class="plates-intro">下列图版取自公开档案扫描件，按墨与纸两个色阶压印，每张标出原始文件与权利状态，便于逐号比对票面版式与骑缝戳记位置。</p>
+  <ul class="plates">
+    <li class="plate">
+      <figure>
+        <img src="assets/heritage-1905-hejaz-revenue.jpg" alt="汉志印花税票，1905 年，票面中央为阿拉伯文面值与图格拉纹样" width="1017" height="1386">
+        <figcaption>汉志印花税票，1905 年。行省专用票，全票仅两色，面值靠凹版线纹区分。<span class="ref">Wikimedia Commons · 公有领域</span></figcaption>
+      </figure>
+    </li>
+    <li class="plate">
+      <figure>
+        <img src="assets/heritage-1913-hejaz-revenue.jpg" alt="汉志印花税票，1913 年，票面加盖阿拉伯文与花饰边框" width="388" height="543">
+        <figcaption>汉志印花税票，1913 年。奥斯曼政府发行，边框花饰与 1905 年版不同版。<span class="ref">Wikimedia Commons · 公有领域</span></figcaption>
+      </figure>
+    </li>
+    <li class="plate">
+      <figure>
+        <img src="assets/heritage-1908-telegraph-receipt.jpg" alt="土耳其电信收据，1908 年，纸质单据右上角粘贴印花税票一枚" width="1200" height="1292">
+        <figcaption>土耳其电信收据，1908 年。收据粘贴印花税票一枚，可看清票与单据的骑缝关系。<span class="ref">Wikimedia Commons · 公有领域</span></figcaption>
+      </figure>
+    </li>
+    <li class="plate">
+      <figure>
+        <img src="assets/heritage-1876-paid-document-01.jpg" alt="奥斯曼已贴印花税票付款单据，1876 年，正面可见手写登记号" width="575" height="733">
+        <figcaption>奥斯曼已贴票付款单据，1876 年，正面。手写登记号与票面编号并列书写。<span class="ref">Wikimedia Commons · 公有领域</span></figcaption>
+      </figure>
+    </li>
+    <li class="plate">
+      <figure>
+        <img src="assets/heritage-1876-paid-document-02.jpg" alt="同一单据背面，可见戳记与手写连号登记" width="536" height="900">
+        <figcaption>同一单据背面。这一面留着戳记与连号登记，是骑缝校验最早的实物依据。<span class="ref">Wikimedia Commons · 公有领域</span></figcaption>
+      </figure>
+    </li>
+  </ul>
+</section>
+</main>
+
+<footer>
+  <div class="foot-grid">
+    <div>
+      <h3>使用与核验</h3>
+      <p>导出后按税票编号列排序，核对 No. 004417 至 No. 004443 是否连号。缺号一律按存根联缺失处理，须回征收所补登后方可销账。</p>
+    </div>
+    <div>
+      <h3>金额与折算</h3>
+      <p>本表以银元计，折算依据征收所 1911 年 3 月牌价 1 银元合 21.4 库鲁什；折算差额不进本期合计，单列于附表。</p>
+    </div>
+    <div>
+      <h3>图版与数据来源</h3>
+      <p>五张扫描件取自 Wikimedia Commons 公有领域档案，仅用于版式与票面比对；票号、明细与金额为可运行原型的示例数据。</p>
+    </div>
+  </div>
+  <p class="sig">方案 17 · 税票存根联（Revenue Stamp Stub）· 奥斯曼帝国印花税票 1880s–1910s · 票据纸与压印 · 本页为可运行原型，用于验证字段 3 色彩配比、12 栏栅格、齿孔撕边、骑缝章与四类状态的实现方式。</p>
+</footer>
+
+<script>
+(function () {
+  var body = document.getElementById('ledger-body');
+  var filledRows = body.innerHTML;
+  var tfoot = document.querySelector('tfoot');
+  var filledFoot = tfoot.innerHTML;
+  var banner = document.getElementById('mismatch-banner');
+  var live = document.getElementById('live-status');
+  var ledgerStatus = document.getElementById('ledger-status');
+  var exportBtn = document.getElementById('tear-btn');
+  var verifyBtn = document.getElementById('verify-btn');
+  var period = document.getElementById('period');
+  var sheet = document.querySelector('.sheet');
+  var heading = document.getElementById('ledger-heading');
+  var stage = 'draft', busy = false, torn = false;
+
+  var EMPTY_COPY = '这个账期还没有税票登记。导入 3 月的对账文件即可开始。文件到位后，本表会按票号连号自动排入并重新计算合计。';
+
+  /* 落位：每批 20 行自下方 12px 落位，只动 transform，任何状态下都不隐藏内容 */
+  function indexRows() {
+    var list = document.querySelectorAll('#ledger-body tr');
+    Array.prototype.forEach.call(list, function (tr, i) { tr.style.setProperty('--row-index', String(i % 20)); });
+    return list;
+  }
+  function landAll() {
+    Array.prototype.forEach.call(indexRows(), function (tr) { tr.classList.add('row-in'); });
+  }
+  var rise = function (el) { el.classList.add('enter'); };
+  var io = ('IntersectionObserver' in window) ? new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      rise(e.target);
+      io.unobserve(e.target);
+    });
+  }, { rootMargin: '0px 0px -10% 0px' }) : null;
+
+  landAll();
+  Array.prototype.forEach.call(document.querySelectorAll('.plates > li'), function (el) {
+    if (io) { io.observe(el); } else { rise(el); }
+  });
+
+  function foot() { return tfoot.querySelector('td:last-child'); }
+
+  function tick(text) {
+    verifyBtn.setAttribute('aria-busy', busy ? 'true' : 'false');
+    live.textContent = text;
+  }
+
+  function stamp() {
+    sheet.classList.add('is-stamped');
+    setTimeout(function () { sheet.classList.remove('is-stamped'); }, 260);
+  }
+
+  verifyBtn.addEventListener('click', function () {
+    if (busy || period.value !== '147') return;
+    busy = true;
+    tick('正在核对 27 行连号与骑缝章位置…');
+    setTimeout(function () {
+      busy = false;
+      if (stage === 'draft') {
+        stage = 'mismatch';
+        banner.hidden = false;
+        tfoot.classList.add('is-locked');
+        foot().textContent = '合计行已锁定';
+        ledgerStatus.textContent = '存根联与主联编号不一致（错误码 STUB-17）：合计行已锁定，导出前须先完成骑缝章校验。';
+        verifyBtn.textContent = '更正存根联编号并重验';
+        tick('核验未通过：两联相差 1 号，合计行已锁定。');
+        return;
+      }
+      stage = 'verified';
+      banner.hidden = true;
+      tfoot.classList.remove('is-locked');
+      foot().textContent = '骑缝章已验';
+      ledgerStatus.textContent = '本期应缴 12,480.00 元，其中 3 笔跨月未销账。连号 004417 至 004443 已核，无缺号。';
+      exportBtn.disabled = false;
+      verifyBtn.textContent = '重新核验票号连号';
+      stamp();
+      tick('连号与骑缝章均已核验，可以导出 CSV。');
+    }, 900);
+  });
+
+  exportBtn.addEventListener('click', function () {
+    if (exportBtn.disabled) return;
+    if (!torn) {
+      torn = true;
+      sheet.classList.add('is-torn');
+      exportBtn.textContent = '已撕下存根联，重新导出 CSV';
+    }
+    var lines = ['税票编号,应税事项,税率,税额,销账状态'];
+    body.querySelectorAll('tr').forEach(function (tr) {
+      var cells = [];
+      tr.querySelectorAll('td').forEach(function (td) { cells.push(td.textContent.trim()); });
+      lines.push(cells.join(','));
+    });
+    lines.push(['合计', '27 笔', '', '12480.00', '3 笔跨月未销账'].join(','));
+    var url = URL.createObjectURL(new Blob(['\ufeff' + lines.join('\r\n')], { type: 'text/csv;charset=utf-8' }));
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = '印花税对账联-第一百四十七期.csv';
+    a.click();
+    URL.revokeObjectURL(url);
+    ledgerStatus.textContent = '存根联已撕下，27 行明细已导出为 CSV，存根联留所归档。';
+  });
+
+  period.addEventListener('change', function () {
+    stamp();
+    if (period.value === '147') {
+      body.innerHTML = filledRows;
+      tfoot.innerHTML = filledFoot;
+      landAll();
+      banner.hidden = stage !== 'mismatch';
+      exportBtn.textContent = torn ? '已撕下存根联，重新导出 CSV' : '撕下存根联，导出 CSV';
+      exportBtn.disabled = stage !== 'verified';
+      verifyBtn.textContent = stage === 'mismatch' ? '更正存根联编号并重验' : '核验票号连号';
+      ledgerStatus.textContent = '本期应缴 12,480.00 元，其中 3 笔跨月未销账。';
+      heading.textContent = '第一百四十七期应税明细';
+      tick('已切回第一百四十七期，27 行明细载入完毕。');
+      return;
+    }
+    body.innerHTML = '<tr><td colspan="5"><p class="state state-empty">' + EMPTY_COPY + '</p></td></tr>';
+    tfoot.innerHTML = '';
+    banner.hidden = true;
+    exportBtn.disabled = true;
+    ledgerStatus.textContent = '这个账期还没有税票登记，合计为 0.00 元。';
+    heading.textContent = '第一百四十六期应税明细';
+    tick('已切到第一百四十六期：无税票登记，等待 3 月对账文件。');
+  });
+})();
+</script>
+</body>
+</html>
+
+

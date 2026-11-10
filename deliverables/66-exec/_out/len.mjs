@@ -1,0 +1,11 @@
+﻿const old2="2. 用你自己的真实数量排：有几个排几个，不凑整、不留空位、不留占位符、编号连续不跳号。";
+const newBase="2. 用你自己的真实数量排：有几个排几个，不凑整、不重复填满，不用占位符顶数。";
+const v1="这个版式有几处位置是刻意留空的（缺号／空抽屉／空白卡片）：那是叙事证据，不要补满、不要删掉、不要重排编号。";
+const v2="这个版式有几处位置是刻意留空的（缺号／空抽屉／空白卡片／空白行）：那是叙事证据，不要补满、不要删掉、不要重排编号。";
+const r3="除了上面那几处刻意留空，";
+const log=(n,s)=>console.log(n.padEnd(8)+s.length+'  '+s);
+log('old2',old2); log('newBase',newBase); log('v1',v1); log('v2',v2); log('r3',r3);
+console.log('base delta = '+(newBase.length-old2.length));
+console.log('void(no) +v1 = '+(newBase.length+v1.length-old2.length));
+console.log('void(yes)+v1+r3 = '+(newBase.length+v1.length+r3.length-old2.length));
+console.log('void(yes)+v2+r3 = '+(newBase.length+v2.length+r3.length-old2.length));

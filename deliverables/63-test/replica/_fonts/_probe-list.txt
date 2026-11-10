@@ -1,0 +1,16 @@
+﻿node.exe : file:///D:/Web/style/prototypes/_build/fetch-fonts.mjs:47
+所在位置 行:1 字符: 129
++ ... ew($false); & 'D:\Nodejs\node.exe' --use-system-ca 'D:\Web\style\prot ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (file:///D:/Web/...ch-fonts.mjs:47:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+                       ^
+
+Error: HTTP 400
+    at get (file:///D:/Web/style/prototypes/_build/fetch-fonts.mjs:47:24)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///D:/Web/style/prototypes/_build/fetch-fonts.mjs:69:15
+
+Node.js v24.14.0

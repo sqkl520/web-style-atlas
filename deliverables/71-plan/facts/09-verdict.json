@@ -1,0 +1,305 @@
+{
+ "at": "2026-10-29T19:56:34.041Z",
+ "inputs": [
+  "00-calibration",
+  "01-matrix",
+  "02-palette-semantics",
+  "03-pixels",
+  "04-dropped-attribution",
+  "05-four-slot",
+  "06-primary",
+  "07-fonts",
+  "08-font-intent-vs-css"
+ ],
+ "layerMap": {
+  "palette": {
+   "L0_spec": 30,
+   "L1_data": 30,
+   "L2_dna": 30,
+   "L3_prompts": 30,
+   "L3_note": ""
+  },
+  "primary": {
+   "L0_spec": 30,
+   "L1_data": 30,
+   "L2_dna": 21,
+   "L3_prompts": 0,
+   "L3_note": ""
+  },
+  "fonts": {
+   "L0_spec": 30,
+   "L1_data": 30,
+   "L2_dna": 30,
+   "L3_prompts": 30,
+   "L3_note": ""
+  },
+  "bg": {
+   "L0_spec": 30,
+   "L1_data": 30,
+   "L2_dna": 0,
+   "L3_prompts": 0,
+   "L3_note": "prompts.js 的 dna 里**没有** bg 字段（只有 palette 第 1 项隐含底色）"
+  },
+  "minItems": {
+   "L0_spec": 0,
+   "L1_data": 0,
+   "L2_dna": 0,
+   "L3_prompts": 30,
+   "L3_note": "只有 prompts.js 有（来自 minitems-parsed.json 实测 + build-prompts.mjs 的 HUMAN 兜底）"
+  },
+  "radius": {
+   "L0_spec": 25,
+   "L1_data": 0,
+   "L2_dna": 30,
+   "L3_prompts": 30,
+   "L3_note": ""
+  },
+  "shadow": {
+   "L0_spec": 28,
+   "L1_data": 0,
+   "L2_dna": 30,
+   "L3_prompts": 30,
+   "L3_note": ""
+  },
+  "lineWidths": {
+   "L0_spec": 28,
+   "L1_data": 0,
+   "L2_dna": 30,
+   "L3_prompts": 30,
+   "L3_note": ""
+  }
+ },
+ "Q1": {
+  "palette": {
+   "authoritative": "L0 规格（设计意图） + 样式面实测（落地约束），**不是**单一层",
+   "evidence": {
+    "specField3_hasHex": 30,
+    "L1_subsetOf_L3": "30/30",
+    "L1_eq_L3_set": "8/30",
+    "note": "L1 与 L3 都是「从规格/样式抽色」的产物，差别只在截断长度（4 vs 7）与排序策略；两套都不是独立事实源，所以不能指任一为\"权威\"，真正的权威是规格字段 3 + :root。"
+   },
+   "wrongLayer": "L1 的**截断**（collect-schemes.mjs:486 `if (pal.length >= 4) break`）是唯一确定的缺陷——它让 UI 少画了 19 个「独立且带角色名」的色（详见 Q2）。"
+  },
+  "primary": {
+   "authoritative": "L0 规格字段 3 的「主色」标注",
+   "evidence": {
+    "L0_hasRole": "30/30",
+    "L1_eq_L0clean": "30/30",
+    "L1_eq_L2first": "20/30",
+    "L1_eq_areaPrimary": "19/30",
+    "L0_eq_areaPrimary": "19/30"
+   },
+   "wrongLayer": "L1 在 5 案上被 collect-schemes.mjs:296 的 regex1 抓错（它取「主色」之后第一个 hex，而原文常把 hex 写在「主色」之前）；L2 在 9 案上一个主色都没认出（空数组）。",
+   "brokenIds": [
+    "S01:#C1121F"
+   ],
+   "L2_emptyIds": [
+    "S01",
+    "S08",
+    "S13",
+    "S14",
+    "S17",
+    "S18",
+    "S20",
+    "S25",
+    "S26"
+   ]
+  },
+  "fonts": {
+   "authoritative": "分两种语义，各有各的权威",
+   "evidence": {
+    "L1_isRawSpecText": "30/30",
+    "L2_eq_L3": "30/30",
+    "specTitle_eq_cssTitle": "21/30"
+   },
+   "note": "L1 的字面值 = 规格字段 4 原文（30/30 逐字相等），权威性属于\"设计意图描述\"；L2/L3 是从 :root/h1 规则解析出的可执行族名，权威性属于\"落地事实\"。两者语义不同。"
+  },
+  "bg": {
+   "authoritative": "L0/_CURRENT-VALUES.md（当前有效背景），落地以 :root 为准",
+   "evidence": {
+    "L1_eq_L3_palette0": "7/30",
+    "rootHasPaperVar": "22/30",
+    "note": "bg 在两条链上其实**没有分叉**：L3 没有独立 bg 字段，它的\"底色\"就是 palette[0]；而 L1.bg 与 palette[0] 相等只有 7/30 —— 差值全部来自「L1.palette[0] 被重排」。换句话说 bg 本身一致，是 **palette 的顺序**让它们看起来不一致。"
+   }
+  },
+  "minItems": {
+   "authoritative": "L3 prompts.js（唯一持有者）",
+   "evidence": {
+    "L1": 0,
+    "L2": 0,
+    "L3": 30,
+    "capacityDiffers": 0
+   },
+   "note": "只有一条链算过这个字段（minitems-parsed.json 实测 + build-prompts 的 HUMAN 兜底），不存在跨链分歧；风险只在「单一来源无交叉校验」。"
+  },
+  "radiusShadowLineWidths": {
+   "authoritative": "L2 dna-clean（从 CSS 抽），L3 原样搬运",
+   "evidence": {
+    "radius_L2eqL3": "30/30",
+    "shadow_L2eqL3": "30/30",
+    "lineWidths_L2eqL3": "30/30",
+    "onlyOneChain": "L1 data.js 完全没有这三个字段（0/30）"
+   },
+   "note": "三项只有一条链（CSS→dna-clean→prompts），L1 根本不存在，故无跨链分歧。它们的风险不是\"两条链不一致\"，而是\"选型台看不到这三项\"。"
+  }
+ },
+ "Q2": {
+  "verdict": "(b) 两个都对、语义不同 —— 但 L1 的截断规则本身有一个缺陷",
+  "evidence": {
+   "subset": "30/30（L1 的每个色都在 L3 里，无一例外）",
+   "seqEq": "1/30",
+   "setEq": "8/30",
+   "L1_is_subseq": "6/30",
+   "totalDropped": 52,
+   "droppedNearDup": 33,
+   "droppedIndependent": 19,
+   "meanDroppedAreaAll": "9.93%",
+   "meanDroppedAreaIndependent": "1.15%",
+   "independentGt1pct": [
+    "S02:1.959%",
+    "S05:3.484%",
+    "S08:1.375%",
+    "S17:1.27%",
+    "S23:7.667%",
+    "S27:16.157%"
+   ],
+   "independentGt5pct": [
+    "S23:7.667%",
+    "S27:16.157%"
+   ]
+  },
+  "reasoning": [
+   "L1 ⊂ L3 在 30/30 成立：两套值不是互相矛盾的两个事实，而是**同一集合的两种截断**。",
+   "被丢掉的 52 个色里，33 个与最近保留色 ΔE<10（同一色族，肉眼几乎不可分），只有 19 个是真正独立的第 5+ 种色。",
+   "按 CDP 实测面积，被丢色合计平均 9.72%，但其中**独立色**部分平均只有 1.15% —— 大面积几乎全部来自近邻噪声（纹理/渐变/抗锯齿）。",
+   "所以「data.js 丢了页面上一大半颜色」这个说法是**错的**（S06 的 62%、S03 的 44.7% 都是近邻色）。",
+   "但 L1 的截断确实有缺陷：19 个独立色被丢掉，其中 6 例面积 >1%，2 例 >5%（S23 7.7%、S27 16.2%）。",
+   "app.js:508 的 slice(0,4)：L3 前 4 的保真度（3.23/4）**不低于** L1（3.07/4），覆盖率也更高（84.12% vs 83.31%），且没有任何一案比 L1 差 —— 说明「取前 4 个」这个策略本身是合理的，问题在于 L1 只有 3–4 个可选。"
+  ],
+  "slice0_4_judgement": {
+   "L3_head4_fidelity": "3.2/4",
+   "L1_fidelity": "3.03/4",
+   "area_upper_bound": "4/4",
+   "cover": {
+    "data": 83.06,
+    "head4": 83.86,
+    "area": 91.88
+   },
+   "head4_worse_than_data": [],
+   "head4_better_than_data": [
+    "S14",
+    "S17",
+    "S22",
+    "S28",
+    "S30"
+   ],
+   "conclusion": "「取前 4 个」不是错误的策略：它比 L1 的 3–4 色更接近真实，且从不变差。真正的问题是 L3 的排序（第 1 位常常是纸色/底色，8/30 是低彩度占位），以及 UI 没有说明「你看到的是 4 个，完整配色有 N 个」。"
+  },
+  "uiRecommendation": {
+   "showHowMany": "4 个色块不变（版面约束），但必须补一个「共 N 色」的计数与展开入口",
+   "reorder": "L3 的 palette 应先按「底色 / 主色 / 其余按面积」排序，而不是按 :root 声明顺序",
+   "note": "实测 8/30 案的 palette[0] 是低彩度纸色，但其中 S08/S18/S25/S26 的纸色**确实是**面积最大（67–88%），所以「第一位是纸色」本身不错；错的是把它当\"主色\"标出来（app.js:963 无条件给 palette[1] 标「主色」）。"
+  }
+ },
+ "Q3": {
+  "verdict": "保持两个字段，但把 L1 改名并补一个结构化投影",
+  "evidence": {
+   "L1_isRawSpecText": "30/30",
+   "L2_eq_L3": "30/30",
+   "uiUseSites": 2,
+   "uiUseSitesPrompts": 11,
+   "availabilityAPI": 0
+  },
+  "reasoning": [
+   "UI 只有两处读 data.js 的 fonts：app.js:1353 直接打印整段文字，app.js:235 拼进搜索串。**两处都是纯文本消费**。",
+   "UI 里**没有任何**字体可用性检测（document.fonts / fonts.check / FontFace / measureText 全为 0 次），所以\"UI 需要结构化\"这个前提不成立。",
+   "prompt-copy.js:176-179 需要结构化对象（display/body/mono）来拼提示词，且这个对象 30/30 由 clean-dna 产生、30/30 原样进 prompts.js。",
+   "两侧的**值**语义不同：L1 是规格原文（含\"为什么不用某字体\"的论证），L2/L3 是可执行的族名栈。",
+   "若强行统一成对象，会丢掉规格原文里的取舍论证（平均 0 字/案，最多 513 字）；若统一成字符串，prompt-copy 又得回去用正则猜谁是标题（build-prompts.mjs:300 记录该猜法曾错 7/30）。"
+  ],
+  "recommendation": {
+   "keep": "两个字段都保留，但**改名消除歧义**：data.js 的 `fonts` → `fontsSpec`（规格原文，供展示/搜索）；prompts.js 的 `dna.fonts` 保持 `{display, body, mono, displayStack, bodyStack}`（供拼提示词）。",
+   "add": "若将来 UI 需要做字体可用性提示，再加 `fontsResolved`（从 L2 投影 3 个族名），而不是把原文塞进对象。",
+   "why": "命名是这次分叉的真正代价：两处都叫 `fonts`，读代码的人会以为它们是同一个东西。"
+  }
+ },
+ "provenance": {
+  "calibrationAllPass": true,
+  "pixelCalibration": {
+   "A1_double_shot": true,
+   "A1_detail": {
+    "diffRatio": [
+     0,
+     0,
+     0
+    ],
+    "areaStable": {
+     "pcts": [
+      [
+       70.75,
+       11.04,
+       6.2,
+       6.73
+      ],
+      [
+       70.75,
+       11.04,
+       6.2,
+       6.73
+      ],
+      [
+       70.75,
+       11.04,
+       6.2,
+       6.73
+      ]
+     ],
+     "maxSpreadPct": 0
+    }
+   },
+   "A2_pixel_counts": [
+    90000,
+    90000,
+    90000,
+    90000
+   ],
+   "A2_expected_each": 90000,
+   "A2_pass": true,
+   "A2_pct": [
+    25,
+    25,
+    25,
+    25
+   ],
+   "A2_unassigned": 0,
+   "A3_self_classify": [
+    {
+     "hex": "#C1121F",
+     "nearest": "#C1121F",
+     "dE": 0,
+     "ok": true
+    },
+    {
+     "hex": "#EFE7D7",
+     "nearest": "#EFE7D7",
+     "dE": 0,
+     "ok": true
+    },
+    {
+     "hex": "#1A1614",
+     "nearest": "#1A1614",
+     "dE": 0,
+     "ok": true
+    },
+    {
+     "hex": "#6E6A5E",
+     "nearest": "#6E6A5E",
+     "dE": 0,
+     "ok": true
+    }
+   ],
+   "A3_pass": true
+  },
+  "note": "所有百分比来自 03-pixels.json；所有集合关系来自 02；所有 primary 归因来自 06 的复算。"
+ }
+}

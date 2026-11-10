@@ -1,0 +1,465 @@
+﻿<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>剥落年代墙 · 九处剥落的层位与年代｜1936 年的铅红</title>
+<meta name="description" content="剥落年代墙：一面被逐层铲开的墙的剖面，九处剥落、九个层位，最早一层是 1936 年的铅红。">
+<link rel="stylesheet" href="../_fonts/css/alfa-slab-one__400.css">
+<link rel="stylesheet" href="../_fonts/css/noto-serif-sc__400-700.css">
+<link rel="stylesheet" href="../_fonts/css/jetbrains-mono__500.css">
+<link rel="stylesheet" href="style.css">
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+<a class="skip" href="#wall">跳到九处剥落与层位索引</a>
+
+<!-- 工具符号（24 单位网格、1.5px 方头线宽）与照片分色滤镜：不参与布局 -->
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <defs>
+    <filter id="sep4" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncR type="discrete" tableValues="0.1412 0.6588 0.4784 0.8627"/>
+        <feFuncG type="discrete" tableValues="0.1098 0.1255 0.4157 0.8627"/>
+        <feFuncB type="discrete" tableValues="0.0863 0.4196 0.3333 0.7843"/>
+      </feComponentTransfer>
+    </filter>
+    <filter id="sep3" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncR type="discrete" tableValues="0.1412 0.6588 0.8627"/>
+        <feFuncG type="discrete" tableValues="0.1098 0.1255 0.8627"/>
+        <feFuncB type="discrete" tableValues="0.0863 0.4196 0.7843"/>
+      </feComponentTransfer>
+    </filter>
+    <symbol id="g-trowel" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M3 21h9l4-11H7z"/><path d="M16 10l3-7h3"/><path d="M5 21v-3M9 21v-5M13 21v-7"/></g><g fill="currentColor"><rect x="6" y="18" width="2" height="2"/><rect x="10" y="18" width="2" height="2"/><rect x="15" y="9" width="2" height="2"/></g></symbol>
+    <symbol id="g-float" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M3 5h18v7H3z"/><path d="M8 12v3h8v-3"/><path d="M6 15h12v5H6z"/></g><g fill="currentColor"><rect x="4" y="6" width="2" height="2"/><rect x="18" y="6" width="2" height="2"/><rect x="7" y="16" width="2" height="2"/></g></symbol>
+    <symbol id="g-chalkline" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M2 13h11v9H2z"/><circle cx="7.5" cy="17.5" r="3"/><path d="M13 15L21 4"/><path d="M21 4v6"/></g><g fill="currentColor"><rect x="3" y="14" width="2" height="2"/><rect x="12" y="14" width="2" height="2"/><rect x="20" y="3" width="2" height="2"/></g></symbol>
+    <symbol id="g-can" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M5 8h14v13H5z"/><path d="M5 8l2-5h10l2 5"/><path d="M9 3V1M15 3V1"/><path d="M8 12h8M8 16h8"/></g><g fill="currentColor"><rect x="6" y="9" width="2" height="2"/><rect x="16" y="9" width="2" height="2"/></g></symbol>
+  </defs>
+</svg>
+
+<!-- 状态条：错误码 FLAKE-09 常驻，静态截图里直接可见 -->
+<section class="status" aria-label="当前状态">
+  <h2 class="status__h">当前状态</h2>
+  <div class="status__grid">
+    <p class="status__i"><span class="status__k">已铲开</span> <code>8 / 9</code> 处</p>
+    <p class="status__i"><span class="status__k">视口层位</span> <code id="cur">1</code> / <code>9</code></p>
+    <p class="status__i"><span class="status__k">铲痕角</span> <code>62°</code> <span class="status__k">痕宽</span> <code>2px</code> <span class="status__k">间距</span> <code>6px</code></p>
+    <p class="status__i"><span class="status__k">白石灰线</span> <code>1px</code> <span class="status__k">号牌</span> <code>40×24px</code></p>
+  </div>
+  <p class="status__fault">断面读取失败（错误码 <code>FLAKE-09</code>）：第 9 层剥落还没铲开，断面读数取不到。</p>
+  <p class="status__hint">层位与颜色的对应见下方对照表；第 9 处的修法见「断面读取失败」一节。</p>
+</section>
+
+<header class="masthead">
+  <div>
+    <h1>剥落年代墙</h1>
+    <p class="masthead__latin">Exposed-Plaster Chronology Wall</p>
+    <p class="claim">这面墙一共铲开九处，最早的一层是 1936 年的铅红。</p>
+    <p class="meta">九处剥落按 3 / 2 / 2 / 1 / 1 的面积递减自上而下排开：最大一处跨 14 栏，最小一处只占 2 栏而且故意留空。地面是掺砂的冷白石灰灰浆 <code>#DCDCC8</code>；露出来的胭脂虫红 <code>#A8206B</code> 对底 4.90:1；断面里那道氧化铁黑 <code>#241C16</code> 是 12.07:1；土灰砂浆 <code>#7A6A55</code> 只做 8% 的材质面，不承载正文。层与层之间没有渐变，只有 1px 白石灰线。</p>
+    <p class="cue"><a class="btn" href="#f4">看第 4 层：掺了沙的石灰</a></p>
+  </div>
+  <figure class="masthead__plate" data-rise>
+    <img src="assets/reuse-s11-doc-04-grate.jpg" width="1280" height="1920" alt="白灰墙面上凿出的通风口，铁栅与旧铅条固定在方形洞口里">
+    <figcaption>墙面参照：风化窗格。铁栅用旧铅条固定在凿开的方形洞口上，洞口周围的白灰已经整片掉过一次，掉口边缘就是本案要画的锐利断面。<span class="ref">Joe Mabel · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File:Bucharest_-_Casa_Paleologu_window_grate.jpg">Wikimedia Commons 原件页</a></span></figcaption>
+  </figure>
+</header>
+
+<main>
+<!-- ============================================ 墙面：36 栏、9 处剥落、96px 索引 -->
+<section class="wall-sec" id="wall" aria-labelledby="wall-h">
+  <div class="wall-head wrap">
+    <h2 id="wall-h">九处剥落与层位索引</h2>
+    <p class="lede">读年代靠数铲掉了几层，不靠颜色。每处断面依次露出 2 至 4 层颜料，层与层之间是 1px 白石灰线；剥落底部留 3 至 5 道 62° 铲痕，痕宽 2px、间距 6px，末端一道 1px 翘起高光。右侧 96px 的层位索引竖栏里，每个条目的纵向位置就是那处剥落的高度，滚动时当前视口内的层位号会亮起。</p>
+  </div>
+
+  <div class="wall">
+    <aside class="rail" aria-label="层位索引">
+      <p class="rail__h">层位索引</p>
+      <div class="rail__i" style="--r:1;--r2:1"><p class="rail__l"><span class="rail__sw" style="background:#DCDCC8"></span><a href="#f1"><span class="rail__w">层位</span> <code>1</code></a></p><p class="rail__y"><code>1987</code> <i>石灰浆</i></p></div>
+      <div class="rail__i" style="--r:13;--r2:60"><p class="rail__l"><span class="rail__sw" style="background:#7A6A55"></span><a href="#f2"><span class="rail__w">层位</span> <code>2</code></a></p><p class="rail__y"><code>1979</code> <i>掺沙砂浆</i></p></div>
+      <div class="rail__i" style="--r:25;--r2:74"><p class="rail__l"><span class="rail__sw" style="background:#A8206B"></span><a href="#f3"><span class="rail__w">层位</span> <code>3</code></a></p><p class="rail__y"><code>1971</code> <i>胭脂虫红</i></p></div>
+      <div class="rail__i" style="--r:72;--r2:127"><p class="rail__l"><span class="rail__sw" style="background:#7A6A55"></span><a href="#f4"><span class="rail__w">层位</span> <code>4</code></a></p><p class="rail__y"><code>1961</code> <i>掺了沙的石灰</i></p></div>
+      <div class="rail__i" style="--r:84;--r2:140"><p class="rail__l"><span class="rail__sw" style="background:#241C16"></span><a href="#f5"><span class="rail__w">层位</span> <code>5</code></a></p><p class="rail__y"><code>1953</code> <i>氧化铁黑</i></p></div>
+      <div class="rail__i" style="--r:126;--r2:194"><p class="rail__l"><span class="rail__sw" style="background:#DCDCC8"></span><a href="#f6"><span class="rail__w">层位</span> <code>6</code></a></p><p class="rail__y"><code>1948</code> <i>石灰浆</i></p></div>
+      <div class="rail__i rail__i--7" style="--r:138"><p class="rail__l"><span class="rail__sw" style="background:#7A6A55"></span><a href="#f7"><span class="rail__w">层位</span> <code>7</code></a></p><p class="rail__y"><code>1942</code> <i>土灰砂浆</i></p></div>
+      <div class="rail__i rail__i--8" style="--r:172"><p class="rail__l"><span class="rail__sw" style="background:#241C16"></span><a href="#f8"><span class="rail__w">层位</span> <code>8</code></a></p><p class="rail__y"><code>1939</code> <i>氧化铁黑</i></p></div>
+      <div class="rail__i rail__i--9" style="--r:200"><p class="rail__l"><span class="rail__sw" style="background:#A8206B"></span><a href="#f9"><span class="rail__w">层位</span> <code>9</code></a></p><p class="rail__y"><code>1936</code> <i>铅红</i></p></div>
+    </aside>
+
+    <span class="scan" aria-hidden="true"></span>
+
+    <article class="flake f-m e1 x3" id="f1">
+      <img class="flake__ph" src="assets/reuse-s13-src-shelving.jpg" width="1920" height="1285" alt="档案库房里成排的编号盒架，每个盒子上贴着层位编号标签">
+      <h3>1987 石灰浆</h3>
+      <p class="flake__b">最外面这一层是石灰浆，铲刀斜着推过去就成片掉，掉下来的片背面是平的，翻过来能看见下面那道掺沙砂浆的沙粒。</p>
+      <p class="flake__m">颜料 <code>#DCDCC8</code> · 断面 <code>3</code> 层</p>
+      <span class="plate"><code>1</code></span>
+      <span class="scr" style="--n:1"></span>
+    </article>
+
+    <article class="flake f-c e2 x3" id="f2">
+      <h3>1979 掺沙砂浆</h3>
+      <p class="flake__b">砂浆里掺的是筛过的河沙，断面上一粒一粒看得见，边口比上一层的石灰浆糙得多，铲到这里手上开始有阻力。</p>
+      <p class="flake__m">颜料 <code>#7A6A55</code> · 断面 <code>3</code> 层 · 深度 <code>24mm</code></p>
+      <span class="plate"><code>2</code></span>
+      <span class="scr" style="--n:2"></span>
+    </article>
+
+    <article class="flake f-m e3 x4" id="f3">
+      <img class="flake__ph" src="assets/reuse-s13-src-paraguay.jpg" width="1920" height="1440" alt="一本压花封面的旧书摊开，书脊与封面上的压纹错开重合">
+      <h3>1971 胭脂虫红</h3>
+      <p class="flake__b">胭脂虫红是修墙那年刷上去的，色相 326.9 度，明度不到 40%，一整面墙里只有这一处是彩的。</p>
+      <p class="flake__m">颜料 <code>#A8206B</code> · 断面 <code>4</code> 层</p>
+      <span class="plate"><code>3</code></span>
+      <span class="scr" style="--n:3"></span>
+    </article>
+
+    <p class="note note--a" data-rise>剥落与剥落之间至少留 24px 没动过的原墙：铲痕不外溢，断口也不接在一起，好让每处断面都能单独读。</p>
+
+    <article class="flake f-o e1 x3" id="f4">
+      <h3>1961 掺了沙的石灰</h3>
+      <p class="flake__b">掺了沙的石灰是摸上去最粗的一层，1961 年补的那块比原来的墙面高出四毫米，铲刀过这里会跳。</p>
+      <p class="flake__m">颜料 <code>#7A6A55</code> · 断面 <code>3</code> 层 · 高出 <code>4mm</code></p>
+      <span class="plate"><code>4</code></span>
+      <span class="scr" style="--n:4"></span>
+    </article>
+
+    <article class="flake f-p e2 x3" id="f5">
+      <img class="flake__ph" src="assets/reuse-s07-src-1902-page.jpg" width="1966" height="2800" alt="1902 年报刊的整版页面扫描件，密排的栏与细到 1px 的栏线">
+      <h3>1953 氧化铁黑</h3>
+      <p class="flake__b">烟熏出来的黑不是刷上去的，1953 年这面墙前面烧过东西，黑只留在下半截。</p>
+      <p class="flake__m">颜料 <code>#241C16</code> · 断面 <code>3</code> 层</p>
+      <span class="plate"><code>5</code></span>
+      <span class="scr" style="--n:5"></span>
+    </article>
+
+    <div class="wall-note wall-note--a" data-rise>
+      <p class="wall-note__h">断面怎么读</p>
+      <p>从断口往里数：一道白石灰线下面就是早一层。一处只读 2 至 4 层，再多就得把整块灰浆铲下来，那是另一件事。</p>
+      <p>九处里最深的一处读到 4 层，最浅的只读到 2 层。层数不齐不是漏铲，是每处的灰浆厚度本来就不一样。</p>
+    </div>
+
+    <p class="note note--b" data-rise>层位号按铲开的深度编，不按颜色编。同一颜色的两层（1948 与 1987 都是石灰浆）各有自己的号牌。</p>
+
+    <article class="flake f-m e3 x3" id="f6">
+      <h3>1948 石灰浆</h3>
+      <p class="flake__b">1948 年重刷的石灰浆比 1987 年那层薄，铲刀一碰就透。</p>
+      <p class="flake__m">颜料 <code>#DCDCC8</code></p>
+      <span class="plate"><code>6</code></span>
+      <span class="scr" style="--n:6"></span>
+    </article>
+
+    <article class="flake f-o e2 x2" id="f7">
+      <h3>1942 土灰砂浆</h3>
+      <p class="flake__b">土灰砂浆只剩一道边，铲到第七处时已经要贴着墙看了。</p>
+      <p class="flake__m">颜料 <code>#7A6A55</code></p>
+      <span class="plate"><code>7</code></span>
+      <span class="scr" style="--n:7"></span>
+    </article>
+
+    <p class="note note--c" data-rise>号牌 40×24px 挂在剥落左下角，牌面是刀刻的层位号：1px 凹槽加 1px 白石灰高光，牌不压在断口上。</p>
+
+    <article class="flake f-c e3 x2" id="f8">
+      <h3>1939 氧化铁黑</h3>
+      <p class="flake__m">断面 <code>2</code> 层</p>
+      <span class="plate"><code>8</code></span>
+      <span class="scr" style="--n:8"></span>
+    </article>
+
+    <p class="note note--d" data-rise><b>空状态</b>（第 9 处）：这一处还没铲开，层位号牌挂在钉子上的痕迹已经在了。断面读数失败，错误码 <code>FLAKE-09</code>。</p>
+
+    <article class="flake f-p" id="f9">
+      <span class="nails" aria-hidden="true"><i></i><i></i></span>
+      <span class="plate"><code>9</code></span>
+      <span class="scr" style="--n:9"></span>
+    </article>
+
+    <div class="wall-note wall-note--b" data-rise>
+      <p class="wall-note__h">号牌按深度编，不按颜色编</p>
+      <p>1948 与 1987 两层同为石灰浆 <code>#DCDCC8</code>，颜色一样、号牌不同；铲到第九处时手已经收力，牌下那道刮痕只剩 <code>5.6px</code>。</p>
+    </div>
+  </div>
+
+  <div class="wall-head wrap">
+    <p class="legend">读数口径：断面层数指该处露出的颜料层数（2 至 4 层），层与层之间的白石灰线固定 1px、由 <code>#DCDCC8</code> 提亮 6% 得到 <code>#E9E9D7</code>；铲痕勾在剥落底部，痕宽 <code>2px</code>、间距 <code>6px</code>、方向自左上向右下 <code>62°</code>，末端 1px 翘起高光；号牌 <code>40×24px</code>，牌下 4px 有一道横向刮痕，长度从 <code>12px</code> 起按层位号每层递减 <code>0.8px</code>，第 9 层只剩 <code>5.6px</code>。</p>
+  </div>
+</section>
+
+<!-- ================================================ 层位 / 颜色 / 年代 对照表 -->
+<section class="sec wrap" aria-labelledby="chrono-h">
+  <h2 id="chrono-h">层位与颜色与年代</h2>
+  <p class="lede">这张表是全站唯一的层位依据：层位号、颜色、色值、年代、断面读数五列。色值一列只出现四个 HEX，因为整面墙只有这四种材料。</p>
+  <ul class="strata" aria-label="九层的层厚比例与年代">
+    <li><span class="str__n"><code>1</code></span><span><code>1987</code></span><span class="str__p">石灰浆</span></li>
+    <li><span class="str__n"><code>2</code></span><span><code>1979</code></span><span class="str__p">掺沙砂浆</span></li>
+    <li><span class="str__n"><code>3</code></span><span><code>1971</code></span><span class="str__p">胭脂虫红</span></li>
+    <li><span class="str__n"><code>4</code></span><span><code>1961</code></span><span class="str__p">掺了沙的石灰</span></li>
+    <li><span class="str__n"><code>5</code></span><span><code>1953</code></span><span class="str__p">氧化铁黑</span></li>
+    <li><span class="str__n"><code>6</code></span><span><code>1948</code></span><span class="str__p">石灰浆</span></li>
+    <li><span class="str__n"><code>7</code></span><span><code>1942</code></span><span class="str__p">土灰砂浆</span></li>
+    <li><span class="str__n"><code>8</code></span><span><code>1939</code></span><span class="str__p">氧化铁黑</span></li>
+    <li><span class="str__n"><code>9</code></span><span><code>1936</code></span><span class="str__p">铅红</span></li>
+  </ul>
+  <p class="strata-note">层厚比例按实测层厚画，不是等分：最厚的一格是 1961 年补的那块。</p>
+  <div class="table-read" data-rise>
+    <p><b>读表口径</b>：色值一列只有四个 HEX，因为整面墙只有四种材料；同一个色值出现两次，是两层真实存在的同色灰浆，不是笔误。</p>
+    <p>层位号与年代一律等宽对齐，好让铲到第几层、哪一年，竖着扫一遍就对得上。</p>
+  </div>
+  <table class="chrono" data-rise>
+    <caption>九处剥落的层位与颜色与年代对照表（按铲开的先后编号，第 9 处还没铲开）</caption>
+    <thead>
+      <tr><th scope="col">层位</th><th scope="col">颜色</th><th scope="col">色值</th><th scope="col">年代</th><th scope="col">断面读数</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>1</code></td><td><span class="sw" style="background:#DCDCC8"></span>石灰浆（乳白）</td><td><code>#DCDCC8</code></td><td><code>1987</code></td><td>已读取，<code>3</code> 层</td></tr>
+      <tr><td><code>2</code></td><td><span class="sw" style="background:#7A6A55"></span>掺沙砂浆（土灰）</td><td><code>#7A6A55</code></td><td><code>1979</code></td><td>已读取，<code>3</code> 层</td></tr>
+      <tr><td><code>3</code></td><td><span class="sw" style="background:#A8206B"></span>胭脂虫红（洋红）</td><td><code>#A8206B</code></td><td><code>1971</code></td><td>已读取，<code>4</code> 层</td></tr>
+      <tr><td><code>4</code></td><td><span class="sw" style="background:#7A6A55"></span>掺了沙的石灰（土灰）</td><td><code>#7A6A55</code></td><td><code>1961</code></td><td>已读取，<code>3</code> 层</td></tr>
+      <tr><td><code>5</code></td><td><span class="sw" style="background:#241C16"></span>氧化铁黑（烟熏）</td><td><code>#241C16</code></td><td><code>1953</code></td><td>已读取，<code>3</code> 层</td></tr>
+      <tr><td><code>6</code></td><td><span class="sw" style="background:#DCDCC8"></span>石灰浆（乳白）</td><td><code>#DCDCC8</code></td><td><code>1948</code></td><td>已读取，<code>2</code> 层</td></tr>
+      <tr><td><code>7</code></td><td><span class="sw" style="background:#7A6A55"></span>土灰砂浆（掺沙）</td><td><code>#7A6A55</code></td><td><code>1942</code></td><td>已读取，<code>2</code> 层</td></tr>
+      <tr><td><code>8</code></td><td><span class="sw" style="background:#241C16"></span>氧化铁黑（烟熏）</td><td><code>#241C16</code></td><td><code>1939</code></td><td>已读取，<code>2</code> 层</td></tr>
+      <tr class="is-pending"><td><code>9</code></td><td><span class="sw" style="background:#A8206B"></span>铅红（与胭脂虫红同色相）</td><td><code>#A8206B</code></td><td><code>1936</code></td><td>断面未读取 <code>FLAKE-09</code></td></tr>
+    </tbody>
+  </table>
+  <div class="table-read table-read--b" data-rise>
+    <p><b>第 9 行为什么是推出来的</b>：那处还没铲开，号牌挂在钉子上的两个痕迹在、牌也在，断面是空的。年代 <code>1936</code> 与铅红是从墙面残留的边口推出来的，不是量出来的。</p>
+  </div>
+</section>
+
+<!-- ======================================================== 壁画工具符号 -->
+<section class="sec wrap" aria-labelledby="tools-h">
+  <h2 id="tools-h">铲刀、灰刀、墨斗、颜料罐</h2>
+  <p class="lede">图标全部是自绘的壁画工具符号：24 单位网格、1.5px 方头线宽，笔画交点各填 1 单位方角。页面上没有任何 Emoji，也没有彩色字形充当图标。</p>
+  <ul class="tools">
+    <li class="tool tool--a" data-rise>
+      <svg class="tool__m" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-trowel"/></svg>
+      <p class="tool__n">铲刀</p>
+      <p class="tool__x">trowel</p>
+      <p class="tool__d">铲刃是 9 单位宽的梯形，柄折两段；刃口三处收口线各 1.5px，交点上填 2 单位的方角。</p>
+    </li>
+    <li class="tool tool--b" data-rise>
+      <svg class="tool__m" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-float"/></svg>
+      <p class="tool__n">灰刀</p>
+      <p class="tool__x">float</p>
+      <p class="tool__d">板面 18×7 单位，握把 12×5 单位；两者之间只留 3 单位空档，不画曲线。</p>
+    </li>
+    <li class="tool tool--c" data-rise>
+      <svg class="tool__m" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-chalkline"/></svg>
+      <p class="tool__n">墨斗</p>
+      <p class="tool__x">chalk line</p>
+      <p class="tool__d">斗身 11×9 单位，轮子直径 6 单位；墨线从斗口拉到桩上，线宽 1.5px，不画虚线。</p>
+    </li>
+    <li class="tool tool--d" data-rise>
+      <svg class="tool__m" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-can"/></svg>
+      <p class="tool__n">颜料罐</p>
+      <p class="tool__x">paint can</p>
+      <p class="tool__d">罐身 14×13 单位，罐口的斜肩用两段直线折出来，罐内的两道横线是颜料位。</p>
+    </li>
+  </ul>
+</section>
+
+<!-- ================================================== FLAKE-09 与空状态 -->
+<section class="sec wrap" aria-labelledby="fault-h">
+  <h2 id="fault-h">断面读取失败</h2>
+  <p class="lede">第 9 处是九处里最小的一处，只占 2 栏，而且按规矩故意留空不填内容。它的断面取不到读数，所以层位表里那一行的年代是推出来的。</p>
+  <div class="states">
+    <div class="fault" data-rise>
+      <p class="fault__line">断面读取失败（错误码 <code>FLAKE-09</code>）：第 9 层剥落还没铲开，断面读数取不到，层位号牌与年代仍可读。</p>
+      <p class="fault__frame">已读 <code>8 / 9</code> 处；第 9 处停在「号牌已挂、钉子痕迹已在」。</p>
+      <p class="cue"><button class="btn" type="button" id="reopen">把第 9 处排进下一轮铲开</button></p>
+    </div>
+    <div class="empty" data-rise>
+      <p>这一处还没铲开，层位号牌挂在钉子上的痕迹已经在了。</p>
+      <p class="pending" id="reopen-note">空状态是本案的正常状态：钉子两个、号牌一块、刮痕 5.6px，断面留白。</p>
+      <span class="plate"><code>9</code></span>
+      <span class="scr" style="--n:9"></span>
+    </div>
+  </div>
+  <p class="pending">修法：按 <code>24mm</code> 深度把第 9 处铲到与第 8 处同一个断面，读数取到后再补进对照表第 9 行；在此之前，索引栏里第 9 个条目一直显示为待读。</p>
+</section>
+
+<!-- ============================================================== 照片图版 -->
+<section class="sec wrap" aria-labelledby="plates-h">
+  <h2 id="plates-h">图版：墙、档案与装帧</h2>
+  <p class="lede">六张图版走同一套处理：先转灰度，再按层位做 3 至 4 阶硬边分色，只保留四个 HEX。分色用离散色阶做，不用抖动、不用噪点，也不做渐变色带。每张图版下面给出原件与权利状态。</p>
+  <ul class="plates">
+    <li class="plate-i" data-rise>
+      <figure>
+        <img src="assets/reuse-s11-doc-04-grate.jpg" width="1280" height="1920" alt="白灰墙上的方形通风口与铁栅，洞口周围的白灰掉了一整片">
+        <figcaption><b>图版 01</b> 风化窗格：洞口边缘就是掉过一次的白灰，本案断面的样子从这里来。<span class="ref">Joe Mabel · CC BY-SA 4.0 · Wikimedia Commons（原为方案 S11 抓取，本案复用）</span></figcaption>
+      </figure>
+    </li>
+    <li class="plate-i plate-i--flat" data-rise>
+      <figure>
+        <img src="assets/reuse-s07-src-1902-page.jpg" width="1966" height="2800" alt="1902 年报刊整版页面扫描件，密排文字与细栏线">
+        <figcaption><b>图版 02</b> 1902 年的报刊整版：栏线细到 1px，密排与断面一样靠线分层。<span class="ref">原件未标注作者 · Wikimedia Commons（原为方案 S07 抓取，本案复用）</span></figcaption>
+      </figure>
+    </li>
+    <li class="plate-i" data-rise>
+      <figure>
+        <img src="assets/reuse-s07-src-sample-page.jpg" width="1943" height="2800" alt="1900 年前后报纸《The American Eagle》的头版，广告与新闻同版排布">
+        <figcaption><b>图版 03</b>《The American Eagle》头版：同一版上压着不同年代的活字。<span class="ref">原件未标注作者 · Wikimedia Commons（原为方案 S07 抓取，本案复用）</span></figcaption>
+      </figure>
+    </li>
+    <li class="plate-i plate-i--flat" data-rise>
+      <figure>
+        <img src="assets/reuse-s13-src-paraguay.jpg" width="1920" height="1440" alt="一本打开的书，封面与书脊上有错开的压花图案">
+        <figcaption><b>图版 04</b> 压花书封：同一块版在封面与书脊上错开压了两遍，错位处就是两层。<span class="ref">原件未标注作者 · Wikimedia Commons（原为方案 S13 抓取，本案复用）</span></figcaption>
+      </figure>
+    </li>
+    <li class="plate-i" data-rise>
+      <figure>
+        <img src="assets/reuse-s13-src-shelving.jpg" width="1920" height="1285" alt="档案库房里成排的编号盒，盒上贴着 W0 41 到 W0 48 的标签">
+        <figcaption><b>图版 05</b> 档案库房的编号盒架：层位按编号排，不按颜色排，索引栏的实物在这里。<span class="ref">原件未标注作者 · Wikimedia Commons（原为方案 S13 抓取，本案复用）</span></figcaption>
+      </figure>
+    </li>
+    <li class="plate-i plate-i--flat" data-rise>
+      <figure>
+        <img src="assets/reuse-s13-src-washi.jpg" width="1920" height="1440" alt="工作台上摊开的纸张与切好的条带，旁边的收纳盒里插着工具">
+        <figcaption><b>图版 06</b> 工作台上的纸张与条带：分层靠厚度，不靠颜色。<span class="ref">原件未标注作者 · Wikimedia Commons（原为方案 S13 抓取，本案复用）</span></figcaption>
+      </figure>
+    </li>
+  </ul>
+</section>
+
+<!-- ============================================================== 动效与降级 -->
+<section class="sec wrap" aria-labelledby="motion-h">
+  <h2 id="motion-h">动效与降级</h2>
+  <p class="lede">签名机制是「按由外向内逐层铲出」：移除，不是输送。所有动效只碰 <code>transform</code>、<code>opacity</code> 与 <code>clip-path</code> 三个属性，剥落本身不位移，任何元素都不许浮在墙上。</p>
+  <div class="budget" data-rise>
+    <p><b>动效预算</b>：首屏 JS ≤ <code>42KB</code>、CSS ≤ <code>34KB</code>、字体合计 ≤ <code>500KB</code>、LCP ≤ <code>2.1s</code>、CLS ≤ <code>0.05</code>。</p>
+    <p>层的分界只允许是 1px 白石灰线，不用渐变过渡、不用噪点叠层，也不做镜头光晕。</p>
+  </div>
+  <ul class="spec-list">
+    <li data-rise><b>滚动</b>剥落进入视口 25% 时按由外向内逐层露出，每层 <code>90ms</code>，缓动为 <code>steps()</code> 离散分支，一次只走一层；不使用淡入。</li>
+    <li data-rise><b>悬停</b>指针压在层位号牌上，该剥落右侧断面里的颜料层即时加一条 <code>1px</code> 白石灰线，层位对齐关系立刻可见；剥落不位移。</li>
+    <li data-rise><b>加载</b>先出未剥落的原墙与铲痕，再从最深的一处（第 8 处）向外逐层露出，总时长 <code>1100ms</code>，第 1 处最后落定。</li>
+    <li data-rise><b>转场</b>层位切换用 <code>160ms</code> 硬切，没有缓动也没有交叉淡出。</li>
+    <li data-rise><b>光标</b>墙面上的光标是 <code>1px</code> 竖条，闪动周期 <code>1000ms</code>，停在两处剥落之间的原墙上。</li>
+    <li data-rise><b>微交互</b>点击铲痕会露出下方 <code>1px</code> 的深色底，<code>160ms</code> 后回弹。</li>
+  </ul>
+  <div class="degrade-grid">
+    <p class="degrade" data-rise><b>减少动态时的再发明</b>（<code>prefers-reduced-motion: reduce</code>）：逐层露出与铲痕扫出不再推进，层位关系整份保留、全部静态呈现——每处 2 至 4 层颜料、层与层之间 <code>1px</code> 白石灰线、底部 <code>3</code> 至 <code>5</code> 道 <code>62°</code> 铲痕（痕宽 <code>2px</code>、间距 <code>6px</code>、末端 1px 翘起高光）、<code>40×24px</code> 号牌与牌下那道按层位号递减 <code>0.8px</code> 的刮痕，一件不少。</p>
+    <p class="degrade" data-rise>窄屏上台面更窄，机制换成纵向：9 处剥落自上而下改成 9 段通栏，断面与 <code>2px</code> 铲痕全部保留，层位索引从右侧竖栏换成主张句下方可横滑的层位条，一次露出 <code>5</code> 个层位号，牌面仍是 <code>40×24px</code>；悬停加线照常出现，它是信息，不是装饰。</p>
+  </div>
+</section>
+</main>
+
+<footer class="wrap">
+  <ul class="palette" aria-label="字段 3 的面积配比">
+    <li style="flex:1.8 1 0"><span class="pal__n"><code>#DCDCC8</code></span><span class="pal__s"><code>36%</code> 石灰灰浆（底）</span></li>
+    <li style="flex:1.7 1 0"><span class="pal__n"><code>#A8206B</code></span><span class="pal__s"><code>34%</code> 胭脂虫红（主色）</span></li>
+    <li style="flex:1.1 1 0"><span class="pal__n"><code>#241C16</code></span><span class="pal__s"><code>22%</code> 氧化铁黑</span></li>
+    <li style="flex:0.4 1 0"><span class="pal__n"><code>#7A6A55</code></span><span class="pal__s"><code>8%</code> 土灰砂浆</span></li>
+  </ul>
+  <div class="foot-grid">
+    <div data-rise>
+      <h3>层位与面积</h3>
+      <p>36 栏栅格、8px 基线、8px 栏距；九处剥落按 3 / 2 / 2 / 1 / 1 递减，最大跨 14 栏。</p>
+    </div>
+    <div data-rise>
+      <h3>当前状态</h3>
+      <p>断面读取失败（<code>FLAKE-09</code>）：第 9 处还没铲开，只占 2 栏、故意留空。</p>
+    </div>
+    <div data-rise>
+      <h3>素材与字体</h3>
+      <p>六张位图与三枚纹理的出处与许可记在 assets/CREDITS.md。</p>
+    </div>
+  </div>
+  <p class="sig">方案 23 · 剥落年代墙（Exposed-Plaster Chronology Wall）· 可运行原型，验证字段 3 的色彩配比。</p>
+  <p class="sig"><code>#DCDCC8</code> 36% / <code>#A8206B</code> 34% / <code>#241C16</code> 22% / <code>#7A6A55</code> 8%；36 栏上的 9 处递减剥落、62° 铲痕、1px 白石灰线断面、FLAKE-09 与空状态。</p>
+</footer>
+
+<script>
+(function () {
+  var flakes = [].slice.call(document.querySelectorAll('.flake'));
+  var entries = [].slice.call(document.querySelectorAll('.rail__i'));
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)');
+
+  /* 加载编排：从最深的一处（第 8 处）向外逐层露出，总 1100ms 以内 */
+  var fromDeepest = { f8: 0, f7: 1, f6: 2, f5: 3, f4: 4, f3: 5, f2: 6, f1: 7 };
+  flakes.forEach(function (f) {
+    var k = f.id in fromDeepest ? fromDeepest[f.id] : 8;
+    f.style.setProperty('--dl', (k * 90) + 'ms');
+  });
+
+  function openAll() {
+    flakes.forEach(function (f) { f.classList.add('is-open'); });
+    document.querySelectorAll('[data-rise]').forEach(function (el) { el.classList.add('in'); });
+  }
+
+  if ('IntersectionObserver' in window) {
+    /* 滚动：进入视口 25% 才逐层露出 */
+    var io = new IntersectionObserver(function (list) {
+      list.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('is-open');
+        io.unobserve(e.target);
+      });
+    }, { threshold: 0.25 });
+    flakes.forEach(function (f) { io.observe(f); });
+
+    /* 层位索引随滚动高亮当前视口内的层位号 */
+    var ioRail = new IntersectionObserver(function (list) {
+      list.forEach(function (e) {
+        var i = flakes.indexOf(e.target);
+        if (i < 0) return;
+        entries.forEach(function (en, k) { en.classList.toggle('is-cur', k === i && e.isIntersecting); });
+        if (e.isIntersecting) {
+          var cur = document.getElementById('cur');
+          if (cur) cur.textContent = String(i + 1);
+        }
+      });
+    }, { rootMargin: '-20% 0px -55% 0px' });
+    flakes.forEach(function (f) { ioRail.observe(f); });
+
+    /* 段落揭幕：只碰 transform 与 opacity */
+    var rise = [].slice.call(document.querySelectorAll('[data-rise]'));
+    var ioRise = new IntersectionObserver(function (list) {
+      list.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('in');
+        ioRise.unobserve(e.target);
+      });
+    }, { rootMargin: '0px 0px -48px 0px' });
+    rise.forEach(function (el) { ioRise.observe(el); });
+    setTimeout(function () { document.querySelectorAll('[data-rise]:not(.in)').forEach(function (el) { el.classList.add('in'); }); }, 2600);
+  } else {
+    openAll();
+  }
+
+  /* 悬停号牌：该处断面里的颜料层加 1px 白石灰线（信息，不是装饰） */
+  flakes.forEach(function (f) {
+    var p = f.querySelector('.plate');
+    if (!p) return;
+    p.addEventListener('mouseenter', function () { f.classList.add('is-aligned'); });
+    p.addEventListener('mouseleave', function () { f.classList.remove('is-aligned'); });
+    /* 点击铲痕：露出下方 1px 的深色底，160ms 后回弹 */
+    f.addEventListener('click', function (e) {
+      if (e.target.closest('a, button')) return;
+      f.classList.add('is-cut');
+      setTimeout(function () { f.classList.remove('is-cut'); }, 160);
+    });
+  });
+
+  /* 第 9 处：把重读排进下一轮 */
+  var reopen = document.getElementById('reopen');
+  var note = document.getElementById('reopen-note');
+  if (reopen) {
+    reopen.addEventListener('click', function () {
+      reopen.disabled = true;
+      reopen.textContent = '已排进下一轮铲开，等断面读数';
+      if (note) note.textContent = '第 9 处仍为未铲开：钉子两个、号牌一块、刮痕 5.6px 都在，断面留白；铲到 24mm 深度并取到读数后，才补进对照表第 9 行。';
+    });
+  }
+
+  if (reduce.matches) openAll();
+})();
+</script>
+</body>
+</html>

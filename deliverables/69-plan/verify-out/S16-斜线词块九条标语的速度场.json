@@ -1,0 +1,302 @@
+{
+ "at": "2026-10-28T19:44:46.203Z",
+ "promptId": "S16",
+ "page": "D:\\Web\\style\\deliverables\\69-plan\\pilot-S16\\sabotage-D-widths.html",
+ "spec": {
+  "id": "S16",
+  "promptChars": 1795,
+  "promptLines": 39,
+  "palette": [
+   "#C52C0F",
+   "#F7EBCF",
+   "#1A1A1A",
+   "#8E2A18",
+   "#5C5C55"
+  ],
+  "bannedHex": [
+   "#6366F1"
+  ],
+  "titleStack": [
+   "LXGW Marker Gothic",
+   "Noto Serif SC"
+  ],
+  "bodyStack": [
+   "Noto Serif SC",
+   "Georgia",
+   "Songti SC"
+  ],
+  "monoFont": "Fragment Mono",
+  "radiusMode": "zero-except-circle",
+  "shadowMode": "drop-only",
+  "claimedWidths": [
+   2,
+   3,
+   6,
+   13
+  ],
+  "nClaim": 9,
+  "picsClaim": 6,
+  "voidClause": false,
+  "autolayout": true,
+  "promptSha1": null
+ },
+ "measured": {
+  "painted": [
+   "#F7EBCF",
+   "#1A1A1A",
+   "#C52C0F",
+   "#5C5C55"
+  ],
+  "radii": [
+   [
+    "SPAN.dot",
+    "50% 50% 50% 50%"
+   ]
+  ],
+  "widths": [
+   [
+    3,
+    28
+   ],
+   [
+    6,
+    10
+   ],
+   [
+    1,
+    9
+   ],
+   [
+    13,
+    2
+   ],
+   [
+    2,
+    1
+   ]
+  ],
+  "boxShadowOuter": 0,
+  "boxShadowInset": 0,
+  "dropShadow": 9,
+  "gradients": 0,
+  "backdrop": 0,
+  "declaredFams": [
+   [
+    "Noto Serif SC",
+    33
+   ],
+   [
+    "Fragment Mono",
+    26
+   ],
+   [
+    "LXGW Marker Gothic",
+    10
+   ]
+  ],
+  "emojiHit": 0,
+  "imgs": [
+   {
+    "src": "images/占位-1.png",
+    "w": 436,
+    "h": 329,
+    "nw": 800,
+    "nh": 600
+   },
+   {
+    "src": "images/占位-2.png",
+    "w": 436,
+    "h": 329,
+    "nw": 800,
+    "nh": 600
+   },
+   {
+    "src": "images/占位-3.png",
+    "w": 436,
+    "h": 329,
+    "nw": 800,
+    "nh": 600
+   },
+   {
+    "src": "images/占位-4.png",
+    "w": 436,
+    "h": 329,
+    "nw": 800,
+    "nh": 600
+   },
+   {
+    "src": "images/占位-5.png",
+    "w": 436,
+    "h": 329,
+    "nw": 800,
+    "nh": 600
+   },
+   {
+    "src": "images/占位-6.png",
+    "w": 436,
+    "h": 329,
+    "nw": 800,
+    "nh": 600
+   }
+  ],
+  "realPics": 6,
+  "distinctPics": 6,
+  "units": [
+   [
+    "ARTICLE.word",
+    {
+     "n": 9,
+     "withHead": 9
+    }
+   ],
+   [
+    "FIGURE.",
+    {
+     "n": 6,
+     "withHead": 0
+    }
+   ],
+   [
+    "SPAN.",
+    {
+     "n": 4,
+     "withHead": 0
+    }
+   ],
+   [
+    "LINK.",
+    {
+     "n": 3,
+     "withHead": 0
+    }
+   ]
+  ],
+  "h1": {
+   "size": 22,
+   "fam": "LXGW Marker Gothic",
+   "text": "速度宣言"
+  },
+  "docH": 4786,
+  "title": "斜线词块：九条标语的速度场"
+ },
+ "platformFonts": [
+  {
+   "family": "LXGW Marker Gothic",
+   "glyphs": 4
+  }
+ ],
+ "checks": [
+  {
+   "id": "palette-covered",
+   "verdict": "PASS",
+   "got": "4 色，集合外 0 色",
+   "want": "⊆ [#C52C0F #F7EBCF #1A1A1A #8E2A18 #5C5C55]",
+   "note": ""
+  },
+  {
+   "id": "palette-banned",
+   "verdict": "PASS",
+   "got": "无",
+   "want": "不得出现 #6366F1",
+   "note": ""
+  },
+  {
+   "id": "font-title-real",
+   "verdict": "PASS",
+   "got": "LXGW Marker Gothic",
+   "want": "LXGW Marker Gothic",
+   "note": "平台字体全部：LXGW Marker Gothic(4)"
+  },
+  {
+   "id": "font-count",
+   "verdict": "PASS",
+   "got": "3",
+   "want": "≤3（2 链 + 1 等宽槽）",
+   "note": "Noto Serif SC, Fragment Mono, LXGW Marker Gothic"
+  },
+  {
+   "id": "font-mono-slot",
+   "verdict": "PASS",
+   "got": "Fragment Mono",
+   "want": "Fragment Mono",
+   "note": ""
+  },
+  {
+   "id": "radius",
+   "verdict": "PASS",
+   "got": "1 处（非圆形 0）",
+   "want": "0，圆形徽标除外",
+   "note": ""
+  },
+  {
+   "id": "shadow",
+   "verdict": "PASS",
+   "got": "box 外投影 0 / drop 9",
+   "want": "box-shadow 外投影 0（drop 允许）",
+   "note": ""
+  },
+  {
+   "id": "line-widths",
+   "verdict": "FAIL",
+   "got": "3/6/1/13/2",
+   "want": "2/3/6/13",
+   "note": "多出 1"
+  },
+  {
+   "id": "pictures",
+   "verdict": "PASS",
+   "got": "真图 6 张 / 不同 src 6",
+   "want": "≥6 张且互不相同",
+   "note": "images/占位-1.png(436x329,nat 800) | images/占位-2.png(436x329,nat 800) | images/占位-3.png(436x329,nat 800)"
+  },
+  {
+   "id": "unit-count",
+   "verdict": "PASS",
+   "got": "ARTICLE.word × 9",
+   "want": "设计规模 9（允许 ±40%）",
+   "note": "本案自动流，数量本来可增减"
+  },
+  {
+   "id": "guard-no-gradient",
+   "verdict": "PASS",
+   "got": "0 处",
+   "want": "0",
+   "note": ""
+  },
+  {
+   "id": "guard-no-emoji",
+   "verdict": "PASS",
+   "got": "0 处渲染文本",
+   "want": "0",
+   "note": ""
+  },
+  {
+   "id": "guard-no-glass",
+   "verdict": "PASS",
+   "got": "0 处 backdrop-filter",
+   "want": "0",
+   "note": ""
+  },
+  {
+   "id": "guard-single-cta",
+   "verdict": "NA",
+   "got": "需人眼/结构判定",
+   "want": "首屏不得有 2 个并排主 CTA",
+   "note": ""
+  }
+ ],
+ "tally": {
+  "PASS": 12,
+  "FAIL": 1,
+  "NA": 1
+ },
+ "leak": {
+  "protoSelectors": 124,
+  "pageSelectors": 44,
+  "selectorJaccard": 0.043,
+  "protoDecls": 526,
+  "pageDecls": 174,
+  "declJaccard": 0,
+  "verdict": "clean"
+ }
+}

@@ -1,0 +1,980 @@
+{
+ "at": "2026-10-29T19:56:34.274Z",
+ "summary": {
+  "n": 30,
+  "L1_pos0_is_bg": 30,
+  "L1_pos1_is_prim": 30,
+  "L3_pos0_is_bg": 7,
+  "L3_pos0_is_prim": 21,
+  "L3_pos0_neither": [
+   "S04:#2F7D4F(其它)",
+   "S14:#C9C4B8(其它)"
+  ],
+  "uiWouldMislabelBg": 23,
+  "uiWouldMislabelPrim": 23,
+  "appjs_role_assumption": [
+   {
+    "line": 956,
+    "code": "function paletteLine(r) {"
+   },
+   {
+    "line": 957,
+    "code": "var p = (r.palette || []).slice();"
+   },
+   {
+    "line": 958,
+    "code": "if (!p.length) return r.bg || '';"
+   },
+   {
+    "line": 959,
+    "code": "var out;"
+   },
+   {
+    "line": 960,
+    "code": "if (p.length === 1) {"
+   },
+   {
+    "line": 961,
+    "code": "out = p[0];"
+   },
+   {
+    "line": 962,
+    "code": "} else {"
+   },
+   {
+    "line": 963,
+    "code": "out = '底色 ' + p[0] + '　主色 ' + p[1] + (p.length > 2 ? '　' + p.slice(2).join('　') : '');"
+   },
+   {
+    "line": 964,
+    "code": "}"
+   },
+   {
+    "line": 965,
+    "code": "if (r.bg && p[0] !== r.bg) out += '　（底色 ' + r.bg + '）';"
+   },
+   {
+    "line": 966,
+    "code": "return out;"
+   },
+   {
+    "line": 967,
+    "code": "}"
+   }
+  ]
+ },
+ "rows": [
+  {
+   "id": "S01",
+   "l1": [
+    "#EFE7D7",
+    "#C1121F",
+    "#1A1614",
+    "#6E6A5E"
+   ],
+   "l3": [
+    "#C1121F",
+    "#EFE7D7",
+    "#1A1614",
+    "#6E6A5E"
+   ],
+   "bg": "#EFE7D7",
+   "prim": "#C1121F",
+   "L1_pos0": "#EFE7D7",
+   "L1_pos0_role": "底色/面积最大",
+   "L1_pos1": "#C1121F",
+   "L1_pos1_role": "主色",
+   "L3_pos0": "#C1121F",
+   "L3_pos0_role": "主色",
+   "L3_pos1": "#EFE7D7",
+   "L3_pos1_role": "底色/面积最大",
+   "L1_pos0_is_bg": true,
+   "L3_pos0_is_bg": false,
+   "L3_pos0_is_prim": true,
+   "L1_pos1_is_prim": true
+  },
+  {
+   "id": "S02",
+   "l1": [
+    "#0B0B0F",
+    "#B8860B",
+    "#EFE6D0",
+    "#3A2E1A"
+   ],
+   "l3": [
+    "#B8860B",
+    "#0B0B0F",
+    "#EFE6D0",
+    "#3A2E1A",
+    "#111111",
+    "#B9B09A",
+    "#14100A"
+   ],
+   "bg": "#0B0B0F",
+   "prim": "#B8860B",
+   "L1_pos0": "#0B0B0F",
+   "L1_pos0_role": "底色/面积最大",
+   "L1_pos1": "#B8860B",
+   "L1_pos1_role": "主色",
+   "L3_pos0": "#B8860B",
+   "L3_pos0_role": "主色",
+   "L3_pos1": "#0B0B0F",
+   "L3_pos1_role": "底色/面积最大",
+   "L1_pos0_is_bg": true,
+   "L3_pos0_is_bg": false,
+   "L3_pos0_is_prim": true,
+   "L1_pos1_is_prim": true
+  },
+  {
+   "id": "S03",
+   "l1": [
+    "#101A1C",
+    "#13928E",
+    "#C9D6CF",
+    "#B9A98C"
+   ],
+   "l3": [
+    "#13928E",
+    "#101A1C",
+    "#C9D6CF",
+    "#B9A98C",
+    "#162226",
+    "#0C1417",
+    "#2A3639"
+   ],
+   "bg": "#101A1C",
+   "prim": "#13928E",
+   "L1_pos0": "#101A1C",
+   "L1_pos0_role": "底色",
+   "L1_pos1": "#13928E",
+   "L1_pos1_role": "主色",
+   "L3_pos0": "#13928E",
+   "L3_pos0_role": "主色",
+   "L3_pos1": "#101A1C",
+   "L3_pos1_role": "底色",
+   "L1_pos0_is_bg": true,
+   "L3_pos0_is_bg": false,
+   "L3_pos0_is_prim": true,
+   "L1_pos1_is_prim": true
+  },
+  {
+   "id": "S04",
+   "l1": [
+    "#F0E2C8",
+    "#96550F",
+    "#2F7D4F",
+    "#14100C"
+   ],
+   "l3": [
+    "#2F7D4F",
+    "#96550F",
+    "#14100C",
+    "#F0E2C8"
+   ],
+   "bg": "#F0E2C8",
+   "prim": "#96550F",
+   "L1_pos0": "#F0E2C8",
+   "L1_pos0_role": "底色",
+   "L1_pos1": "#96550F",
+   "L1_pos1_role": "主色",
+   "L3_pos0": "#2F7D4F",
+   "L3_pos0_role": "其它",
+   "L3_pos1": "#96550F",
+   "L3_pos1_role": "主色",
+   "L1_pos0_is_bg": true,
+   "L3_pos0_is_bg": false,
+   "L3_pos0_is_prim": false,
+   "L1_pos1_is_prim": true
+  },
+  {
+   "id": "S05",
+   "l1": [
+    "#0E100D",
+    "#4FA83D",
+    "#BFB9A6",
+    "#8C2F1F"
+   ],
+   "l3": [
+    "#4FA83D",
+    "#0E100D",
+    "#BFB9A6",
+    "#8C2F1F",
+    "#111111",
+    "#2A2E28",
+    "#050605"
+   ],
+   "bg": "#0E100D",
+   "prim": "#4FA83D",
+   "L1_pos0": "#0E100D",
+   "L1_pos0_role": "底色/面积最大",
+   "L1_pos1": "#4FA83D",
+   "L1_pos1_role": "主色",
+   "L3_pos0": "#4FA83D",
+   "L3_pos0_role": "主色",
+   "L3_pos1": "#0E100D",
+   "L3_pos1_role": "底色/面积最大",
+   "L1_pos0_is_bg": true,
+   "L3_pos0_is_bg": false,
+   "L3_pos0_is_prim": true,
+   "L1_pos1_is_prim": true
+  },
+  {
+   "id": "S06",
+   "l1": [
+    "#ECDEC6",
+    "#85572A",
+    "#241A12",
+    "#C9A87C"
+   ],
+   "l3": [
+    "#85572A",
+    "#ECDEC6",
+    "#241A12",
+    "#C9A87C",
+    "#E6D8BC",
+    "#E0D0B0",
+    "#E4D5B8"
+   ],
+   "bg": "#ECDEC6",
+   "prim": "#85572A",
+   "L1_pos0": "#ECDEC6",
+   "L1_pos0_role": "底色",
+   "L1_pos1": "#85572A",
+   "L1_pos1_role": "主色",
+   "L3_pos0": "#85572A",
+   "L3_pos0_role": "主色",
+   "L3_pos1": "#ECDEC6",
+   "L3_pos1_role": "底色",
+   "L1_pos0_is_bg": true,
+   "L3_pos0_is_bg": false,
+   "L3_pos0_is_prim": true,
+   "L1_pos1_is_prim": true
+  },
+  {
+   "id": "S07",
+   "l1": [
+    "#E7E7E0",
+    "#33505C",
+    "#1C1A16",
+    "#9A9384"
+   ],
+   "l3": [
+    "#33505C",
+    "#E7E7E0",
+    "#1C1A16",
+    "#9A9384"
+   ],
+   "bg": "#E7E7E0",
+   "prim": "#33505C",
+   "L1_pos0": "#E7E7E0",
+   "L1_pos0_role": "底色/面积最大",
+   "L1_pos1": "#33505C",
+   "L1_pos1_role": "主色",
+   "L3_pos0": "#33505C",
+   "L3_pos0_role": "主色",
+   "L3_pos1": "#E7E7E0",
+   "L3_pos1_role": "底色/面积最大",
+   "L1_pos0_is_bg": true,
+   "L3_pos0_is_bg": false,
+   "L3_pos0_is_prim": true,
+   "L1_pos1_is_prim": true
+  },
+  {
+   "id": "S08",
+   "l1": [
+    "#120C08",
+    "#C46A1F",
+    "#E8DCC8",
+    "#6B4A22"
+   ],
+   "l3": [
+    "#120C08",
+    "#C46A1F",
+    "#E8DCC8",
+    "#6B4A22",
+    "#3A2712",
+    "#111111"
+   ],
+   "bg": "#120C08",
+   "prim": "#C46A1F",
+   "L1_pos0": "#120C08",
+   "L1_pos0_role": "底色/面积最大",
+   "L1_pos1": "#C46A1F",
+   "L1_pos1_role": "主色",
+   "L3_pos0": "#120C08",
+   "L3_pos0_role": "底色/面积最大",
+   "L3_pos1": "#C46A1F",
+   "L3_pos1_role": "主色",
+   "L1_pos0_is_bg": true,
+   "L3_pos0_is_bg": true,
+   "L3_pos0_is_prim": false,
+   "L1_pos1_is_prim": true
+  },
+  {
+   "id": "S09",
+   "l1": [
+    "#F5C842",
+    "#1F4E79",
+    "#151310",
+    "#8A4B24"
+   ],
+   "l3": [
+    "#1F4E79",
+    "#F5C842",
+    "#151310",
+    "#8A4B24"
+   ],
+   "bg": "#F5C842",
+   "prim": "#1F4E79",
+   "L1_pos0": "#F5C842",
+   "L1_pos0_role": "底色/面积最大",
+   "L1_pos1": "#1F4E79",
+   "L1_pos1_role": "主色",
+   "L3_pos0": "#1F4E79",
+   "L3_pos0_role": "主色",
+   "L3_pos1": "#F5C842",
+   "L3_pos1_role": "底色/面积最大",
+   "L1_pos0_is_bg": true,
+   "L3_pos0_is_bg": false,
+   "L3_pos0_is_prim": true,
+   "L1_pos1_is_prim": true
+  },
+  {
+   "id": "S10",
+   "l1": [
+    "#F2EFE8",
+    "#D32029",
+    "#17171A",
+    "#6E7076"
+   ],
+   "l3": [
+    "#D32029",
+    "#F2EFE8",
+    "#17171A",
+    "#6E7076",
+    "#B6B4AE"
+   ],
+   "bg": "#F2EFE8",
+   "prim": "#D32029",
+   "L1_pos0": "#F2EFE8",
+   "L1_pos0_role": "底色/面积最大",
+   "L1_pos1": "#D32029",
+   "L1_pos1_role": "主色",
+   "L3_pos0": "#D32029",
+   "L3_pos0_role": "主色",
+   "L3_pos1": "#F2EFE8",
+   "L3_pos1_role": "底色/面积最大",
+   "L1_pos0_is_bg": true,
+   "L3_pos0_is_bg": false,
+   "L3_pos0_is_prim": true,
+   "L1_pos1_is_prim": true
+  },
+  {
+   "id": "S11",
+   "l1": [
+    "#DCDDD2",
+    "#1B4A4A",
+    "#221E19",
+    "#6E7A64"
+   ],
+   "l3": [
+    "#1B4A4A",
+    "#DCDDD2",
+    "#221E19",
+    "#6E7A64"
+   ],
+   "bg": "#DCDDD2",
+   "prim": "#1B4A4A",
+   "L1_pos0": "#DCDDD2",
+   "L1_pos0_role": "底色/面积最大",
+   "L1_pos1": "#1B4A4A",
+   "L1_pos1_role": "主色",
+   "L3_pos0": "#1B4A4A",
+   "L3_pos0_role": "主色",
+   "L3_pos1": "#DCDDD2",
+   "L3_pos1_role": "底色/面积最大",
+   "L1_pos0_is_bg": true,
+   "L3_pos0_is_bg": false,
+   "L3_pos0_is_prim": true,
+   "L1_pos1_is_prim": true
+  },
+  {
+   "id": "S12",
+   "l1": [
+    "#1E2A2E",
+    "#B5D626",
+    "#E23E57",
+    "#F2E9D8"
+   ],
+   "l3": [
+    "#B5D626",
+    "#1E2A2E",
+    "#E23E57",
+    "#F2E9D8",
+    "#26353A",
+    "#182226",
+    "#111111"
+   ],
+   "bg": "#1E2A2E",
+   "prim": "#B5D626",
+   "L1_pos0": "#1E2A2E",
+   "L1_pos0_role": "底色/面积最大",
+   "L1_pos1": "#B5D626",
+   "L1_pos1_role": "主色",
+   "L3_pos0": "#B5D626",
+   "L3_pos0_role": "主色",
+   "L3_pos1": "#1E2A2E",
+   "L3_pos1_role": "底色/面积最大",
+   "L1_pos0_is_bg": true,
+   "L3_pos0_is_bg": false,
+   "L3_pos0_is_prim": true,
+   "L1_pos1_is_prim": true
+  },
+  {
+   "id": "S13",
+   "l1": [
+    "#F4E3BE",
+    "#7B612C",
+    "#241F17",
+    "#D6CDB9"
+   ],
+   "l3": [
+    "#F4E3BE",
+    "#241F17",
+    "#7B612C",
+    "#D6CDB9"
+   ],
+   "bg": "#F4E3BE",
+   "prim": "#7B612C",
+   "L1_pos0": "#F4E3BE",
+   "L1_pos0_role": "底色/面积最大",
+   "L1_pos1": "#7B612C",
+   "L1_pos1_role": "主色",
+   "L3_pos0": "#F4E3BE",
+   "L3_pos0_role": "底色/面积最大",
+   "L3_pos1": "#241F17",
+   "L3_pos1_role": "其它",
+   "L1_pos0_is_bg": true,
+   "L3_pos0_is_bg": true,
+   "L3_pos0_is_prim": false,
+   "L1_pos1_is_prim": true
+  },
+  {
+   "id": "S14",
+   "l1": [
+    "#12181D",
+    "#E4572E",
+    "#D8D2C4",
+    "#8A3320"
+   ],
+   "l3": [
+    "#C9C4B8",
+    "#D8D2C4",
+    "#12181D",
+    "#E4572E",
+    "#8A3320",
+    "#111111"
+   ],
+   "bg": "#12181D",
+   "prim": "#E4572E",
+   "L1_pos0": "#12181D",
+   "L1_pos0_role": "底色/面积最大",
+   "L1_pos1": "#E4572E",
+   "L1_pos1_role": "主色",
+   "L3_pos0": "#C9C4B8",
+   "L3_pos0_role": "其它",
+   "L3_pos1": "#D8D2C4",
+   "L3_pos1_role": "其它",
+   "L1_pos0_is_bg": true,
+   "L3_pos0_is_bg": false,
+   "L3_pos0_is_prim": false,
+   "L1_pos1_is_prim": true
+  },
+  {
+   "id": "S15",
+   "l1": [
+    "#E7EBE9",
+    "#3A3F45",
+    "#22282B",
+    "#7A7466"
+   ],
+   "l3": [
+    "#3A3F45",
+    "#E7EBE9",
+    "#22282B",
+    "#7A7466"
+   ],
+   "bg": "#E7EBE9",
+   "prim": "#3A3F45",
+   "L1_pos0": "#E7EBE9",
+   "L1_pos0_role": "底色/面积最大",
+   "L1_pos1": "#3A3F45",
+   "L1_pos1_role": "主色",
+   "L3_pos0": "#3A3F45",
+   "L3_pos0_role": "主色",
+   "L3_pos1": "#E7EBE9",
+   "L3_pos1_role": "底色/面积最大",
+   "L1_pos0_is_bg": true,
+   "L3_pos0_is_bg": false,
+   "L3_pos0_is_prim": true,
+   "L1_pos1_is_prim": true
+  },
+  {
+   "id": "S16",
+   "l1": [
+    "#F7EBCF",
+    "#C52C0F",
+    "#1A1A1A",
+    "#8E2A18"
+   ],
+   "l3": [
+    "#C52C0F",
+    "#F7EBCF",
+    "#1A1A1A",
+    "#8E2A18",
+    "#5C5C55"
+   ],
+   "bg": "#F7EBCF",
+   "prim": "#C52C0F",
+   "L1_pos0": "#F7EBCF",
+   "L1_pos0_role": "底色/面积最大",
+   "L1_pos1": "#C52C0F",
+   "L1_pos1_role": "主色",
+   "L3_pos0": "#C52C0F",
+   "L3_pos0_role": "主色",
+   "L3_pos1": "#F7EBCF",
+   "L3_pos1_role": "底色/面积最大",
+   "L1_pos0_is_bg": true,
+   "L3_pos0_is_bg": false,
+   "L3_pos0_is_prim": true,
+   "L1_pos1_is_prim": true
+  },
+  {
+   "id": "S17",
+   "l1": [
+    "#E1D6BD",
+    "#5A2A50",
+    "#7A2E2E"
+   ],
+   "l3": [
+    "#E1D6BD",
+    "#5A2A50",
+    "#7A2E2E",
+    "#C9BFA6",
+    "#3F1A38",
+    "#B9A98C",
+    "#DFD6BF"
+   ],
+   "bg": "#E1D6BD",
+   "prim": "#5A2A50",
+   "L1_pos0": "#E1D6BD",
+   "L1_pos0_role": "底色/面积最大",
+   "L1_pos1": "#5A2A50",
+   "L1_pos1_role": "主色",
+   "L3_pos0": "#E1D6BD",
+   "L3_pos0_role": "底色/面积最大",
+   "L3_pos1": "#5A2A50",
+   "L3_pos1_role": "主色",
+   "L1_pos0_is_bg": true,
+   "L3_pos0_is_bg": true,
+   "L3_pos0_is_prim": false,
+   "L1_pos1_is_prim": true
+  },
+  {
+   "id": "S18",
+   "l1": [
+    "#0A0D0A",
+    "#2FA84F",
+    "#C8C4AE",
+    "#6E6350"
+   ],
+   "l3": [
+    "#0A0D0A",
+    "#2FA84F",
+    "#C8C4AE",
+    "#6E6350",
+    "#278F43",
+    "#111111"
+   ],
+   "bg": "#0A0D0A",
+   "prim": "#2FA84F",
+   "L1_pos0": "#0A0D0A",
+   "L1_pos0_role": "底色/面积最大",
+   "L1_pos1": "#2FA84F",
+   "L1_pos1_role": "主色",
+   "L3_pos0": "#0A0D0A",
+   "L3_pos0_role": "底色/面积最大",
+   "L3_pos1": "#2FA84F",
+   "L3_pos1_role": "主色",
+   "L1_pos0_is_bg": true,
+   "L3_pos0_is_bg": true,
+   "L3_pos0_is_prim": false,
+   "L1_pos1_is_prim": true
+  },
+  {
+   "id": "S19",
+   "l1": [
+    "#E4DECD",
+    "#4A5C3A",
+    "#2A241C",
+    "#7C7460"
+   ],
+   "l3": [
+    "#4A5C3A",
+    "#E4DECD",
+    "#2A241C",
+    "#7C7460",
+    "#D8CFB6",
+    "#E9E3D2",
+    "#3A3227"
+   ],
+   "bg": "#E4DECD",
+   "prim": "#4A5C3A",
+   "L1_pos0": "#E4DECD",
+   "L1_pos0_role": "底色/面积最大",
+   "L1_pos1": "#4A5C3A",
+   "L1_pos1_role": "主色",
+   "L3_pos0": "#4A5C3A",
+   "L3_pos0_role": "主色",
+   "L3_pos1": "#E4DECD",
+   "L3_pos1_role": "底色/面积最大",
+   "L1_pos0_is_bg": true,
+   "L3_pos0_is_bg": false,
+   "L3_pos0_is_prim": true,
+   "L1_pos1_is_prim": true
+  },
+  {
+   "id": "S20",
+   "l1": [
+    "#FAF3E1",
+    "#26485C",
+    "#0F1418",
+    "#55606B"
+   ],
+   "l3": [
+    "#FAF3E1",
+    "#26485C",
+    "#0F1418",
+    "#55606B"
+   ],
+   "bg": "#FAF3E1",
+   "prim": "#26485C",
+   "L1_pos0": "#FAF3E1",
+   "L1_pos0_role": "底色/面积最大",
+   "L1_pos1": "#26485C",
+   "L1_pos1_role": "主色",
+   "L3_pos0": "#FAF3E1",
+   "L3_pos0_role": "底色/面积最大",
+   "L3_pos1": "#26485C",
+   "L3_pos1_role": "主色",
+   "L1_pos0_is_bg": true,
+   "L3_pos0_is_bg": true,
+   "L3_pos0_is_prim": false,
+   "L1_pos1_is_prim": true
+  },
+  {
+   "id": "S21",
+   "l1": [
+    "#E4DCC9",
+    "#3E3A34",
+    "#924307",
+    "#6E6A5E"
+   ],
+   "l3": [
+    "#3E3A34",
+    "#E4DCC9",
+    "#924307",
+    "#6E6A5E",
+    "#FFFFFF"
+   ],
+   "bg": "#E4DCC9",
+   "prim": "#3E3A34",
+   "L1_pos0": "#E4DCC9",
+   "L1_pos0_role": "底色/面积最大",
+   "L1_pos1": "#3E3A34",
+   "L1_pos1_role": "主色",
+   "L3_pos0": "#3E3A34",
+   "L3_pos0_role": "主色",
+   "L3_pos1": "#E4DCC9",
+   "L3_pos1_role": "底色/面积最大",
+   "L1_pos0_is_bg": true,
+   "L3_pos0_is_bg": false,
+   "L3_pos0_is_prim": true,
+   "L1_pos1_is_prim": true
+  },
+  {
+   "id": "S22",
+   "l1": [
+    "#DDDAD4",
+    "#565B49",
+    "#2E2A24"
+   ],
+   "l3": [
+    "#565B49",
+    "#DDDAD4",
+    "#2E2A24",
+    "#6B6558"
+   ],
+   "bg": "#DDDAD4",
+   "prim": "#565B49",
+   "L1_pos0": "#DDDAD4",
+   "L1_pos0_role": "底色/面积最大",
+   "L1_pos1": "#565B49",
+   "L1_pos1_role": "主色",
+   "L3_pos0": "#565B49",
+   "L3_pos0_role": "主色",
+   "L3_pos1": "#DDDAD4",
+   "L3_pos1_role": "底色/面积最大",
+   "L1_pos0_is_bg": true,
+   "L3_pos0_is_bg": false,
+   "L3_pos0_is_prim": true,
+   "L1_pos1_is_prim": true
+  },
+  {
+   "id": "S23",
+   "l1": [
+    "#DCDCC8",
+    "#A8206B",
+    "#241C16",
+    "#7A6A55"
+   ],
+   "l3": [
+    "#A8206B",
+    "#241C16",
+    "#DCDCC8",
+    "#7A6A55",
+    "#E9E9D7",
+    "#5F5240",
+    "#B7A78C"
+   ],
+   "bg": "#DCDCC8",
+   "prim": "#A8206B",
+   "L1_pos0": "#DCDCC8",
+   "L1_pos0_role": "底色/面积最大",
+   "L1_pos1": "#A8206B",
+   "L1_pos1_role": "主色",
+   "L3_pos0": "#A8206B",
+   "L3_pos0_role": "主色",
+   "L3_pos1": "#241C16",
+   "L3_pos1_role": "其它",
+   "L1_pos0_is_bg": true,
+   "L3_pos0_is_bg": false,
+   "L3_pos0_is_prim": true,
+   "L1_pos1_is_prim": true
+  },
+  {
+   "id": "S24",
+   "l1": [
+    "#E6EDF2",
+    "#5D43AD",
+    "#0A1116",
+    "#6E8B7A"
+   ],
+   "l3": [
+    "#5D43AD",
+    "#E6EDF2",
+    "#0A1116",
+    "#6E8B7A",
+    "#F3F8FB",
+    "#DCE7EF",
+    "#C9D8E4"
+   ],
+   "bg": "#E6EDF2",
+   "prim": "#5D43AD",
+   "L1_pos0": "#E6EDF2",
+   "L1_pos0_role": "底色/面积最大",
+   "L1_pos1": "#5D43AD",
+   "L1_pos1_role": "主色",
+   "L3_pos0": "#5D43AD",
+   "L3_pos0_role": "主色",
+   "L3_pos1": "#E6EDF2",
+   "L3_pos1_role": "底色/面积最大",
+   "L1_pos0_is_bg": true,
+   "L3_pos0_is_bg": false,
+   "L3_pos0_is_prim": true,
+   "L1_pos1_is_prim": true
+  },
+  {
+   "id": "S25",
+   "l1": [
+    "#E8E4DE",
+    "#914A27",
+    "#1E1A16",
+    "#2E6B5E"
+   ],
+   "l3": [
+    "#E8E4DE",
+    "#914A27",
+    "#1E1A16",
+    "#2E6B5E",
+    "#DFDAD2",
+    "#FFFFFF"
+   ],
+   "bg": "#E8E4DE",
+   "prim": "#914A27",
+   "L1_pos0": "#E8E4DE",
+   "L1_pos0_role": "底色/面积最大",
+   "L1_pos1": "#914A27",
+   "L1_pos1_role": "主色",
+   "L3_pos0": "#E8E4DE",
+   "L3_pos0_role": "底色/面积最大",
+   "L3_pos1": "#914A27",
+   "L3_pos1_role": "主色",
+   "L1_pos0_is_bg": true,
+   "L3_pos0_is_bg": true,
+   "L3_pos0_is_prim": false,
+   "L1_pos1_is_prim": true
+  },
+  {
+   "id": "S26",
+   "l1": [
+    "#D3D1CA",
+    "#485270",
+    "#121212",
+    "#C8341F"
+   ],
+   "l3": [
+    "#D3D1CA",
+    "#485270",
+    "#121212",
+    "#C8341F",
+    "#FFFFFF",
+    "#C3C1B9",
+    "#38110E"
+   ],
+   "bg": "#D3D1CA",
+   "prim": "#485270",
+   "L1_pos0": "#D3D1CA",
+   "L1_pos0_role": "底色/面积最大",
+   "L1_pos1": "#485270",
+   "L1_pos1_role": "主色",
+   "L3_pos0": "#D3D1CA",
+   "L3_pos0_role": "底色/面积最大",
+   "L3_pos1": "#485270",
+   "L3_pos1_role": "主色",
+   "L1_pos0_is_bg": true,
+   "L3_pos0_is_bg": true,
+   "L3_pos0_is_prim": false,
+   "L1_pos1_is_prim": true
+  },
+  {
+   "id": "S27",
+   "l1": [
+    "#E8D7B5",
+    "#0E6258",
+    "#221C10"
+   ],
+   "l3": [
+    "#0E6258",
+    "#221C10",
+    "#E8D7B5",
+    "#1A150C",
+    "#C9BFA6",
+    "#FFFFFF"
+   ],
+   "bg": "#E8D7B5",
+   "prim": "#0E6258",
+   "L1_pos0": "#E8D7B5",
+   "L1_pos0_role": "底色/面积最大",
+   "L1_pos1": "#0E6258",
+   "L1_pos1_role": "主色",
+   "L3_pos0": "#0E6258",
+   "L3_pos0_role": "主色",
+   "L3_pos1": "#221C10",
+   "L3_pos1_role": "其它",
+   "L1_pos0_is_bg": true,
+   "L3_pos0_is_bg": false,
+   "L3_pos0_is_prim": true,
+   "L1_pos1_is_prim": true
+  },
+  {
+   "id": "S28",
+   "l1": [
+    "#0B0D12",
+    "#AF74BE",
+    "#D8D4C6"
+   ],
+   "l3": [
+    "#AF74BE",
+    "#D8D4C6",
+    "#0B0D12",
+    "#07080C"
+   ],
+   "bg": "#0B0D12",
+   "prim": "#AF74BE",
+   "L1_pos0": "#0B0D12",
+   "L1_pos0_role": "底色/面积最大",
+   "L1_pos1": "#AF74BE",
+   "L1_pos1_role": "主色",
+   "L3_pos0": "#AF74BE",
+   "L3_pos0_role": "主色",
+   "L3_pos1": "#D8D4C6",
+   "L3_pos1_role": "其它",
+   "L1_pos0_is_bg": true,
+   "L3_pos0_is_bg": false,
+   "L3_pos0_is_prim": true,
+   "L1_pos1_is_prim": true
+  },
+  {
+   "id": "S29",
+   "l1": [
+    "#D9D3C4",
+    "#644F02",
+    "#1A1A17",
+    "#5A6068"
+   ],
+   "l3": [
+    "#644F02",
+    "#D9D3C4",
+    "#1A1A17",
+    "#5A6068",
+    "#E4B400",
+    "#E0DACB"
+   ],
+   "bg": "#D9D3C4",
+   "prim": "#644F02",
+   "L1_pos0": "#D9D3C4",
+   "L1_pos0_role": "底色/面积最大",
+   "L1_pos1": "#644F02",
+   "L1_pos1_role": "主色",
+   "L3_pos0": "#644F02",
+   "L3_pos0_role": "主色",
+   "L3_pos1": "#D9D3C4",
+   "L3_pos1_role": "底色/面积最大",
+   "L1_pos0_is_bg": true,
+   "L3_pos0_is_bg": false,
+   "L3_pos0_is_prim": true,
+   "L1_pos1_is_prim": true
+  },
+  {
+   "id": "S30",
+   "l1": [
+    "#EDEDED",
+    "#007B3F",
+    "#141414"
+   ],
+   "l3": [
+    "#007B3F",
+    "#EDEDED",
+    "#141414",
+    "#E6E6E6",
+    "#00E676",
+    "#FFFFFF"
+   ],
+   "bg": "#EDEDED",
+   "prim": "#007B3F",
+   "L1_pos0": "#EDEDED",
+   "L1_pos0_role": "底色/面积最大",
+   "L1_pos1": "#007B3F",
+   "L1_pos1_role": "主色",
+   "L3_pos0": "#007B3F",
+   "L3_pos0_role": "主色",
+   "L3_pos1": "#EDEDED",
+   "L3_pos1_role": "底色/面积最大",
+   "L1_pos0_is_bg": true,
+   "L3_pos0_is_bg": false,
+   "L3_pos0_is_prim": true,
+   "L1_pos1_is_prim": true
+  }
+ ]
+}

@@ -1,0 +1,21 @@
+import { Browser } from '../../prototypes/_build/vendor/cdp.mjs';
+import { createServer } from 'node:http';
+import { readFile } from 'node:fs/promises';
+import { extname, join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+const ROOT = resolve(fileURLToPath(import.meta.url), '../../..');
+const MIME = { '.html': 'text/html;charset=utf-8', '.js': 'text/javascript;charset=utf-8', '.css': 'text/css', '.jpg': 'image/jpeg', '.png': 'image/png', '.woff2': 'font/woff2', '.svg': 'image/svg+xml', '.webp': 'image/webp' };
+const srv = createServer(async (req, res) => { try { const p = join(ROOT, decodeURIComponent(req.url.split('?')[0])); const b = await readFile(p); res.writeHead(200, { 'Content-Type': MIME[extname(p)] || 'application/octet-stream' }); res.end(b); } catch { res.writeHead(404); res.end(); } });
+await new Promise(r => srv.listen(0, '127.0.0.1', r));
+const port = srv.address().port;
+const b = await Browser.launch({ width: 1440, height: 900 });
+const pg = await b.newPage();
+await pg.setViewport({ width: 1440, height: 900 });
+await pg.goto(`http://127.0.0.1:${port}/prototypes/_selection/index.html`, { settleMs: 1200 });
+console.log(JSON.stringify(await pg.eval(`(() => {
+  const blocks = [...document.querySelectorAll('.rail-block')];
+  const per = blocks.map(b => ({ h: (b.querySelector('h2')||{}).textContent, chips: b.querySelectorAll('.chips button').length, more: b.querySelectorAll('.scene-more button').length }));
+  const allChips = document.querySelectorAll('.chips button').length;
+  return { per, allChips, sum: per.reduce((a,x)=>a+x.chips+x.more,0), railBlocks: blocks.length, chipsContainers: document.querySelectorAll('.rail-block .chips').length };
+})()`), null, 1));
+await b.close(); srv.close();

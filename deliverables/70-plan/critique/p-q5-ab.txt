@@ -1,0 +1,15 @@
+=== check-docs A/B（同一副本，只改 prompts.js 的 S19 主色 #4A5C3A → #FF00FF）===
+干净态：exit 1，PASS 11 / FAIL 1 / WARN 1
+腐化态：exit 1，PASS 11 / FAIL 1 / WARN 1
+
+腐化后**新增**的 FAIL：（无）
+腐化后**消失**的 PASS：（无）
+腐化后新增 WARN：（无）
+
+=== 副本自身的固有 FAIL（两态都有，与腐化无关）===
+paths/exist
+
+=== 判定 ===
+**零反应**：把 S19 主色改成一个设计上完全不可能的颜色，check-docs 的 13 条断言一条都不响。
+原因：check-docs 只读 prompts.js 的 schemes.length / hard / capacity.degrades（app.js 那 5 处引用之外的字段），
+而 dna.palette 在 check-docs.mjs 里 grep "palette" 命中 0 次。

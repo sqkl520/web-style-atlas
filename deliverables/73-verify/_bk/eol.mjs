@@ -1,0 +1,10 @@
+﻿import { readFileSync, writeFileSync } from "node:fs";
+import { createHash } from "node:crypto";
+import { execSync } from "node:child_process";
+const f = "D:/Web/style/prototypes/_CONTRACT.md";
+const cur = readFileSync(f);
+console.log("current size:", cur.length, "sha:", createHash("sha256").update(cur).digest("hex").slice(0,16));
+console.log("CRLF count:", (cur.toString("utf8").match(/\r\n/g)||[]).length, "LF-only:", (cur.toString("utf8").match(/(?<!\r)\n/g)||[]).length);
+const head = execSync("git show HEAD:prototypes/_CONTRACT.md", { cwd:"D:/Web/style", maxBuffer: 1<<24 });
+console.log("HEAD size:", head.length, "sha:", createHash("sha256").update(head).digest("hex").slice(0,16));
+console.log("HEAD CRLF:", (head.toString("utf8").match(/\r\n/g)||[]).length, "LF-only:", (head.toString("utf8").match(/(?<!\r)\n/g)||[]).length);

@@ -1,0 +1,96 @@
+案号  现行pass  (a)pass  (b)pass  (c)pass   │ 现行为什么不过
+----------------------------------------------------------------------------------------------------------------------
+S01  true     true    true    true   │ 
+S02  true     true    true    true   │ 
+S03  false    false   false   true   │ 漏报=1.2
+S04  false    false   false   true   │ 漏报=1.1
+S05  true     true    true    true   │ 
+S06  false    true    true    true   │ 漏报=0.8
+S07  true     true    true    true   │ 
+S08  false    true    true    true   │ 漏报=1.25
+S09  false    false   false   false  │ 漏报=3.6
+S10  false    false   false   false  │ 漏报=1.5
+S11  false    false   false   true   │ 漏报=1.25
+S12  false    true    true    true   │ 漏报=5.66
+S13  false    true    true    true   │ 漏报=1.5
+S14  false    false   false   true   │ 漏报=1.25
+S15  false    false   false   false  │ 漏报=1.2,1.36,1.4,2
+S16  true     true    true    true   │ 
+S17  false    false   false   true   │ 漏报=0.5,0.8,2.4,5,6
+S18  false    false   false   true   │ 漏报=1.25
+S19  true     true    true    true   │ 
+S20  false    true    true    true   │ 漏报=0.2
+S21  false    false   false   true   │ 漏报=1.25
+S22  true     true    true    true   │ 
+S23  false    true    true    true   │ 漏报=1.5
+S24  false    false   false   false  │ 漏报=1.2,3.2
+S25  false    false   false   false  │ 漏报=1,1.2,2
+S26  true     true    true    true   │ 
+S27  false    false   false   false  │ 漏报=0.8,1.6,1.8
+S28  false    false   false   false  │ 漏报=1,1.2
+S29  false    false   false   true   │ 漏报=1.2
+S30  false    false   false   false  │ 漏报=1.6,2
+
+通过数：现行 8/30   (a) 14/30   (b) 14/30   (c) 22/30
+
+=== 五案在四种口径下的逐字文案 ===
+
+──── S09 ────
+  真值集：border/outline=[2,3]  CSS-stroke=[2,3.5,3.6]  内联=[2,3.5,3.6]
+  (now) 5. 线宽只用这几级：2px、3px、3.5px，不要自创第三级。
+      → pass=false 漏报=3.6
+  (a) 5. 线宽只用这几级：2px、3px、3.5px，不要自创第三级。
+      → pass=false 漏报=3.6
+  (b) 5. 线宽只用这几级：2px、3px、3.5px，全站只有这 3 级，不要自创第 4 级。
+      → pass=false 漏报=3.6
+  (c) 5. CSS 边框/焦点环只用 2px、3px 这几档（共 2 档），不要加新档。
+      6. SVG 描边宽度只用 2px、3.5px 这几档（共 2 档），单位是 SVG 用户单位或 px，按原值写。
+      → pass=false 漏报=3.6
+
+──── S10 ────
+  真值集：border/outline=[1.25,1.5,2]  CSS-stroke=[1.25]  内联=[1.25,2]
+  (now) 5. 线宽只用这几级：1.25px、2px，不要自创第三级。
+      → pass=false 漏报=1.5
+  (a) 5. 线宽只用这几级：1.25px、2px，不要自创第三级。
+      → pass=false 漏报=1.5
+  (b) 5. 线宽只用这几级：1.25px、2px，全站只有这 2 级，不要加第三级。
+      → pass=false 漏报=1.5
+  (c) 5. CSS 边框/焦点环只用 1.25px、2px 这几档（共 2 档），不要加新档。
+      6. SVG 描边宽度只用 1.25px、2px 这几档（共 2 档），单位是 SVG 用户单位或 px，按原值写。
+      → pass=false 漏报=1.5
+
+──── S15 ────
+  真值集：border/outline=[2,3]  CSS-stroke=[0.5,0.8,1,1.2,1.36,1.4,1.7,2]  内联=[0.5,0.8,1,1.2,1.4,1.7,2]
+  (now) 5. 线宽只用这几级：0.5px、0.8px、1px、1.7px、3px，不要自创第三级。
+      → pass=false 漏报=1.2,1.36,1.4,2
+  (a) 5. 线宽只用这几级：0.5px、0.8px、1px、1.7px、3px，不要自创第三级。
+      → pass=false 漏报=1.2,1.36,1.4,2
+  (b) 5. 线宽只用这几级：0.5px、0.8px、1px、1.7px、3px，全站只有这 5 级，不要自创第 6 级。
+      → pass=false 漏报=1.2,1.36,1.4,2
+  (c) 5. CSS 边框/焦点环只用 2px、3px 这几档（共 2 档），不要加新档。
+      6. SVG 描边宽度只用 0.5px、0.8px、1px、1.7px 这几档（共 4 档），单位是 SVG 用户单位或 px，按原值写。
+      → pass=false 漏报=1.2,1.36,1.4
+
+──── S25 ────
+  真值集：border/outline=[3]  CSS-stroke=[3]  内联=[1,1.2,2,3]
+  (now) 5. 线宽只用这几级：3px，不要自创第三级。
+      → pass=false 漏报=1,1.2,2
+  (a) 5. 线宽只用这几级：1px、2px、3px，不要自创第三级。
+      → pass=false 漏报=1.2
+  (b) 5. 线宽只用这几级：1px、2px、3px，全站只有这 3 级，不要自创第 4 级。
+      → pass=false 漏报=1.2
+  (c) 5. CSS 边框/焦点环只用 3px 这几档（只有 1 档），不要加新档。
+      6. SVG 描边宽度只用 1px、2px、3px 这几档（共 3 档），单位是 SVG 用户单位或 px，按原值写。
+      → pass=false 漏报=1.2
+
+──── S27 ────
+  真值集：border/outline=[1.2,2.4]  CSS-stroke=[1.6,3]  内联=[0.8,1.6,1.8,3]
+  (now) 5. 线宽只用这几级：1.2px、2.4px、3px，不要自创第三级。
+      → pass=false 漏报=0.8,1.6,1.8
+  (a) 5. 线宽只用这几级：0.8px、1.2px、1.8px、2.4px、3px，不要自创第三级。
+      → pass=false 漏报=1.6
+  (b) 5. 线宽只用这几级：0.8px、1.2px、1.8px、2.4px、3px，全站只有这 5 级，不要自创第 6 级。
+      → pass=false 漏报=1.6
+  (c) 5. CSS 边框/焦点环只用 1.2px、2.4px 这几档（共 2 档），不要加新档。
+      6. SVG 描边宽度只用 0.8px、1.6px、3px 这几档（共 3 档），单位是 SVG 用户单位或 px，按原值写。
+      → pass=false 漏报=1.8

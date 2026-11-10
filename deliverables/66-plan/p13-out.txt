@@ -1,0 +1,24 @@
+﻿== 每轮新增的可执行源码行，到 HEAD 的存活率 ==
+  eec843f:   87 /  123 存活 =  71%   [index.html 3/3 · prompt-copy.js 5/10 · prompts.js 79/110]
+  cea8436: 1008 / 1052 存活 =  96%   [build-prompts.mjs 171/179 · clean-dna.mjs 353/353 · extract-dna.mjs 118/118 · mechanisms.mjs 61/61 · app.js 50/53 · index.html 34/36 · prompt-copy.js 34/35 · prompts.js 187/217]
+  87a0235:  724 /  762 存活 =  95%   [build-prompts.mjs 10/10 · clean-dna.mjs 71/71 · app.js 9/9 · index.html 26/26 · prompt-copy.js 230/238 · prompts.js 288/318 · style.css 64/64 · wizard.css 4/4 · wizard.js 22/22]
+  d669ddb:   49 /   50 存活 =  98%   [index.html 4/4 · style.css 1/1 · collect-schemes.mjs 1/1 · build-prompts.mjs 5/5 · data.js 33/34 · prompts.js 5/5]
+  e08ba2d:    2 /    2 存活 = 100%   [style.css 2/2]
+  a56426e:  169 /  170 存活 =  99%   [collect-schemes.mjs 57/57 · build-prompts.mjs 27/27 · app.js 1/1 · data.js 22/22 · prompt-copy.js 2/3 · prompts.js 60/60]
+  a0c0d54:  960 /  960 存活 = 100%   [check-anchors.mjs 1/1 · check-docs.mjs 493/493 · collect-schemes.mjs 18/18 · app.js 162/162 · data.js 33/33 · prompt-copy.js 86/86 · style.css 167/167]
+
+== 整文件被"重写"的强信号（该文件在某轮里删除行 ≥ 上一轮新增行的 50%）==
+  cea8436 删了 22 行 prototypes/_selection/prompt-copy.js，而 eec843f 在该文件只新增 25 行
+  cea8436 删了 217 行 prototypes/_selection/prompts.js，而 eec843f 在该文件只新增 110 行
+  87a0235 删了 15 行 prototypes/_selection/prompt-copy.js，而 eec843f 在该文件只新增 25 行
+  87a0235 删了 62 行 prototypes/_selection/prompts.js，而 eec843f 在该文件只新增 110 行
+  a0c0d54 删了 19 行 prototypes/_selection/prompt-copy.js，而 eec843f 在该文件只新增 25 行
+  a0c0d54 删了 17 行 prototypes/_selection/app.js，而 87a0235 在该文件只新增 22 行
+  a56426e 删了 31 行 prototypes/_selection/prompts.js，而 d669ddb 在该文件只新增 5 行
+  a0c0d54 删了 17 行 prototypes/_selection/app.js，而 a56426e 在该文件只新增 8 行
+  a0c0d54 删了 19 行 prototypes/_selection/prompt-copy.js，而 a56426e 在该文件只新增 25 行
+
+== 这 7 轮的净代码增长 vs 文档增长 ==
+  源码：+5337 / -553  = 净 +4784
+  文档：+24435 / -24  = 净 +24411
+  文档:源码 的新增比 = 4.58 : 1

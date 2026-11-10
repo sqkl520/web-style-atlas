@@ -1,0 +1,168 @@
+{
+  "generatedAt": "2026-10-28T15:04:59.956Z",
+  "tmpRepo": "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ignoretest-ujUP6S",
+  "passRate": "16/19",
+  "results": [
+    {
+      "path": "deliverables/66-plan/REPORT.md",
+      "expected": false,
+      "actual": false,
+      "ok": true,
+      "rule": "(not ignored)",
+      "why": "方案报告必须入库"
+    },
+    {
+      "path": "deliverables/66-audit/AUDIT.md",
+      "expected": false,
+      "actual": false,
+      "ok": true,
+      "rule": "(not ignored)",
+      "why": "审计报告必须入库"
+    },
+    {
+      "path": "deliverables/66-plan/_p1_list.mjs",
+      "expected": true,
+      "actual": true,
+      "ok": true,
+      "rule": ".gitignore:18:deliverables/*/*.mjs\tdeliverables/66-plan/_p1_list.mjs",
+      "why": "一次性探针"
+    },
+    {
+      "path": "deliverables/65-exec/_cut/x.mjs",
+      "expected": true,
+      "actual": true,
+      "ok": true,
+      "rule": ".gitignore:22:deliverables/*/_*/\tdeliverables/65-exec/_cut/x.mjs",
+      "why": "_ 前缀过程目录"
+    },
+    {
+      "path": "deliverables/66-exec/shots/a.png",
+      "expected": true,
+      "actual": true,
+      "ok": true,
+      "rule": ".gitignore:3:deliverables/*/shots*/\tdeliverables/66-exec/shots/a.png",
+      "why": "截图目录"
+    },
+    {
+      "path": "deliverables/66-exec/_out/measure.json",
+      "expected": true,
+      "actual": true,
+      "ok": true,
+      "rule": ".gitignore:22:deliverables/*/_*/\tdeliverables/66-exec/_out/measure.json",
+      "why": "中间数据"
+    },
+    {
+      "path": "deliverables/67-exec/_lab/p2-variants.json",
+      "expected": true,
+      "actual": true,
+      "ok": true,
+      "rule": ".gitignore:22:deliverables/*/_*/\tdeliverables/67-exec/_lab/p2-variants.json",
+      "why": "3.8MB 中间数据"
+    },
+    {
+      "path": "deliverables/63-test/replica/S05/build/ground/x.otf",
+      "expected": true,
+      "actual": true,
+      "ok": true,
+      "rule": ".gitignore:13:deliverables/*/replica/\tdeliverables/63-test/replica/S05/build/ground/x.otf",
+      "why": "8.7MB 复刻字体"
+    },
+    {
+      "path": "deliverables/67-audit/_probe.mjs",
+      "expected": true,
+      "actual": true,
+      "ok": true,
+      "rule": ".gitignore:18:deliverables/*/*.mjs\tdeliverables/67-audit/_probe.mjs",
+      "why": "_ 前缀脚本"
+    },
+    {
+      "path": "deliverables/68-audit/REPO-HYGIENE.md",
+      "expected": false,
+      "actual": false,
+      "ok": true,
+      "rule": "(not ignored)",
+      "why": "本轮交付报告"
+    },
+    {
+      "path": "deliverables/68-audit/_p1_inventory.mjs",
+      "expected": true,
+      "actual": true,
+      "ok": true,
+      "rule": ".gitignore:18:deliverables/*/*.mjs\tdeliverables/68-audit/_p1_inventory.mjs",
+      "why": "本轮探针"
+    },
+    {
+      "path": "deliverables/62-exec/tpl-integration/serve.mjs",
+      "expected": true,
+      "actual": false,
+      "ok": false,
+      "rule": "(not ignored)",
+      "why": "服务脚本"
+    },
+    {
+      "path": "deliverables/65-audit/lab/measure.mjs",
+      "expected": true,
+      "actual": true,
+      "ok": true,
+      "rule": ".gitignore:8:deliverables/*/lab/\tdeliverables/65-audit/lab/measure.mjs",
+      "why": "lab 目录"
+    },
+    {
+      "path": "deliverables/62-verify/impl/x.mjs",
+      "expected": true,
+      "actual": true,
+      "ok": true,
+      "rule": ".gitignore:14:deliverables/*/impl/\tdeliverables/62-verify/impl/x.mjs",
+      "why": "impl 目录"
+    },
+    {
+      "path": "deliverables/63-test/data/rows.json",
+      "expected": true,
+      "actual": true,
+      "ok": true,
+      "rule": ".gitignore:16:deliverables/*/data/\tdeliverables/63-test/data/rows.json",
+      "why": "data 目录"
+    },
+    {
+      "path": "deliverables/63-test/data/README.md",
+      "expected": false,
+      "actual": true,
+      "ok": false,
+      "rule": ".gitignore:16:deliverables/*/data/\tdeliverables/63-test/data/README.md",
+      "why": "data 下的说明文档保留"
+    },
+    {
+      "path": "deliverables/66-audit/prompts-live/x.txt",
+      "expected": true,
+      "actual": true,
+      "ok": true,
+      "rule": ".gitignore:7:deliverables/*/prompts*/\tdeliverables/66-audit/prompts-live/x.txt",
+      "why": "prompts 目录"
+    },
+    {
+      "path": "deliverables/65-verify/shots-final/x.png",
+      "expected": true,
+      "actual": true,
+      "ok": true,
+      "rule": ".gitignore:3:deliverables/*/shots*/\tdeliverables/65-verify/shots-final/x.png",
+      "why": "shots 目录"
+    },
+    {
+      "path": "deliverables/66-audit/tpl-audit/x.json",
+      "expected": true,
+      "actual": false,
+      "ok": false,
+      "rule": "(not ignored)",
+      "why": "tpl-audit 目录"
+    }
+  ],
+  "statusSample": [
+    "?? .gitignore",
+    "?? deliverables/62-exec/tpl-integration/serve.mjs",
+    "?? deliverables/66-audit/AUDIT.md",
+    "?? deliverables/66-audit/tpl-audit/x.json",
+    "?? deliverables/66-plan/REPORT.md",
+    "?? deliverables/68-audit/REPO-HYGIENE.md",
+    ""
+  ]
+}

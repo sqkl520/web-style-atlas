@@ -1,0 +1,1339 @@
+[
+  {
+    "id": "S01",
+    "scriptCount": 1,
+    "scriptLines": 85,
+    "sites": [
+      {
+        "at": "index.html:321",
+        "kinds": [
+          "measure"
+        ],
+        "driver": "timer",
+        "targets": [],
+        "code": "var top = cols[i].getBoundingClientRect().top;"
+      }
+    ]
+  },
+  {
+    "id": "S02",
+    "scriptCount": 1,
+    "scriptLines": 148,
+    "sites": [
+      {
+        "at": "index.html:266",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "timer",
+        "targets": [
+          ".foil-b"
+        ],
+        "code": "if (foilB) foilB.style.transform = 'scaleX(-1) translateY(' + p.toFixed(2) + 'px)';"
+      },
+      {
+        "at": "index.html:283",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "scroll/rAF",
+        "targets": [
+          "leak"
+        ],
+        "code": "el.style.setProperty('--leak-x', LEAK_SLOTS[day].left);"
+      },
+      {
+        "at": "index.html:284",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "scroll/rAF",
+        "targets": [
+          "leak"
+        ],
+        "code": "el.style.setProperty('--leak-y', LEAK_SLOTS[day].top);"
+      },
+      {
+        "at": "index.html:303",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "scroll/rAF",
+        "targets": [
+          "phase-readout",
+          "step-readout",
+          "leak-day"
+        ],
+        "code": "t.style.setProperty('--stagger', String(i % 9));"
+      }
+    ]
+  },
+  {
+    "id": "S03",
+    "scriptCount": 1,
+    "scriptLines": 138,
+    "sites": [
+      {
+        "at": "index.html:221",
+        "kinds": [
+          "synthesise"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "var el = document.createElementNS(NS, \"line\");"
+      },
+      {
+        "at": "index.html:222",
+        "kinds": [
+          "path-data"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "el.setAttribute(\"x1\", x1); el.setAttribute(\"y1\", y1);"
+      },
+      {
+        "at": "index.html:223",
+        "kinds": [
+          "path-data"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "el.setAttribute(\"x2\", x2); el.setAttribute(\"y2\", y2);"
+      },
+      {
+        "at": "index.html:237",
+        "kinds": [
+          "synthesise"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "var t = document.createElementNS(NS, \"text\");"
+      },
+      {
+        "at": "index.html:238",
+        "kinds": [
+          "path-data"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "t.setAttribute(\"x\", 168 - drift[i]);"
+      },
+      {
+        "at": "index.html:239",
+        "kinds": [
+          "path-data"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "t.setAttribute(\"y\", 640 - i * 128 - 4);"
+      },
+      {
+        "at": "index.html:244",
+        "kinds": [
+          "synthesise"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "var hole = document.createElementNS(NS, \"rect\");"
+      },
+      {
+        "at": "index.html:245",
+        "kinds": [
+          "path-data"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "hole.setAttribute(\"x\", 178 - drift[i]); hole.setAttribute(\"y\", 640 - i * 128 - 9);"
+      },
+      {
+        "at": "index.html:246",
+        "kinds": [
+          "path-data"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "hole.setAttribute(\"width\", 7); hole.setAttribute(\"height\", 5);"
+      },
+      {
+        "at": "index.html:259",
+        "kinds": [
+          "measure"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "var top = stream.getBoundingClientRect().top + window.scrollY;"
+      },
+      {
+        "at": "index.html:262",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "bands.forEach(function (b) { b.style.transform = \"translateY(\" + shift.toFixed(2) + \"px)\"; });"
+      },
+      {
+        "at": "index.html:286",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "scroll/rAF",
+        "targets": [
+          "timer"
+        ],
+        "code": "rows.forEach(function (r) { r.style.opacity = \"1\"; r.style.transform = \"none\"; });"
+      },
+      {
+        "at": "index.html:294",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "scroll/rAF",
+        "targets": [],
+        "code": "row.style.transform = \"none\";"
+      },
+      {
+        "at": "index.html:307",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "scroll/rAF",
+        "targets": [
+          ".cursor"
+        ],
+        "code": "cursor.style.transform = \"translate(\" + e.clientX + \"px,\" + e.clientY + \"px)\";"
+      }
+    ]
+  },
+  {
+    "id": "S04",
+    "scriptCount": 1,
+    "scriptLines": 44,
+    "sites": []
+  },
+  {
+    "id": "S05",
+    "scriptCount": 1,
+    "scriptLines": 119,
+    "sites": [
+      {
+        "at": "index.html:309",
+        "kinds": [
+          "path-data"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "svg.setAttribute('viewBox', '0 0 ' + (keys.length * 6 - 1) + ' 7');"
+      },
+      {
+        "at": "index.html:322",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "timer",
+        "targets": [
+          "lever-bay"
+        ],
+        "code": "bay.style.setProperty('--pos', String((Number(input.value) + 22) / 4));"
+      },
+      {
+        "at": "index.html:326",
+        "kinds": [
+          "measure"
+        ],
+        "driver": "timer",
+        "targets": [],
+        "code": "void bay.offsetWidth;"
+      },
+      {
+        "at": "index.html:344",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "timer",
+        "targets": [
+          "lever-bay"
+        ],
+        "code": "bay.style.setProperty('--pos', String((Number(input.value) + 22) / 4));"
+      },
+      {
+        "at": "index.html:359",
+        "kinds": [
+          "measure"
+        ],
+        "driver": "timer",
+        "targets": [],
+        "code": "panels.forEach(function (p) { p.classList.remove('is-blanked'); p.classList.remove('is-scanned'); void p.offsetWidth; p."
+      }
+    ]
+  },
+  {
+    "id": "S06",
+    "scriptCount": 1,
+    "scriptLines": 96,
+    "sites": [
+      {
+        "at": "index.html:357",
+        "kinds": [
+          "measure"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "var r = c.getBoundingClientRect();"
+      },
+      {
+        "at": "index.html:361",
+        "kinds": [
+          "measure"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "var coef = parseFloat(getComputedStyle(c).getPropertyValue('--coef')) || 1;"
+      },
+      {
+        "at": "index.html:365",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "c.style.setProperty('--dy', dy.toFixed(2) + 'px');"
+      },
+      {
+        "at": "index.html:369",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "load",
+        "targets": [
+          ".river-wrap"
+        ],
+        "code": "riverWrap.style.setProperty('--rail-drift', slide.toFixed(1) + 'px');"
+      },
+      {
+        "at": "index.html:418",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "scroll/rAF",
+        "targets": [
+          ".river-wrap"
+        ],
+        "code": "riverWrap.style.setProperty('--rail-drift', '0px');"
+      },
+      {
+        "at": "index.html:422",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "scroll/rAF",
+        "targets": [],
+        "code": "if (reduced.matches) { cards.forEach(function (c) { c.style.removeProperty('--dy'); }); riverWrap.style.setProperty('--r"
+      }
+    ]
+  },
+  {
+    "id": "S07",
+    "scriptCount": 1,
+    "scriptLines": 124,
+    "sites": [
+      {
+        "at": "app.js:16",
+        "kinds": [
+          "measure"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "var box = pages.getBoundingClientRect();"
+      },
+      {
+        "at": "app.js:18",
+        "kinds": [
+          "path-data"
+        ],
+        "driver": "load",
+        "targets": [
+          ".ghost"
+        ],
+        "code": "ghost.setAttribute('viewBox', '0 0 ' + W + ' ' + H);"
+      },
+      {
+        "at": "app.js:19",
+        "kinds": [
+          "path-data"
+        ],
+        "driver": "load",
+        "targets": [
+          ".ghost"
+        ],
+        "code": "ghost.setAttribute('width', W);"
+      },
+      {
+        "at": "app.js:20",
+        "kinds": [
+          "path-data"
+        ],
+        "driver": "load",
+        "targets": [
+          ".ghost"
+        ],
+        "code": "ghost.setAttribute('height', H);"
+      },
+      {
+        "at": "app.js:23",
+        "kinds": [
+          "synthesise"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "var g = document.createElementNS(NS, 'g');"
+      },
+      {
+        "at": "app.js:24",
+        "kinds": [
+          "path-data"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "g.setAttribute('transform', 'translate(' + W + ',1) scale(-1,1)'); // 1px 纸张厚度"
+      },
+      {
+        "at": "app.js:28",
+        "kinds": [
+          "measure"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "var r = t.getBoundingClientRect();"
+      },
+      {
+        "at": "app.js:29",
+        "kinds": [
+          "measure"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "var cs = getComputedStyle(t);"
+      },
+      {
+        "at": "app.js:35",
+        "kinds": [
+          "synthesise"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "var tx = document.createElementNS(NS, 'text');"
+      },
+      {
+        "at": "app.js:36",
+        "kinds": [
+          "path-data"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "tx.setAttribute('x', it.left);"
+      },
+      {
+        "at": "app.js:37",
+        "kinds": [
+          "path-data"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "tx.setAttribute('y', it.top + it.size * 0.82);"
+      },
+      {
+        "at": "app.js:48",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "function setInk(v) { document.body.setAttribute('data-ink', String(v)); if (pages) pages.style.setProperty('--ghost-o', "
+      },
+      {
+        "at": "app.js:54",
+        "kinds": [
+          "measure"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "var box = pages.getBoundingClientRect();"
+      },
+      {
+        "at": "app.js:76",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "timer",
+        "targets": [],
+        "code": "li.style.setProperty('--i', String(i));"
+      }
+    ]
+  },
+  {
+    "id": "S08",
+    "scriptCount": 1,
+    "scriptLines": 72,
+    "sites": [
+      {
+        "at": "index.html:309",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "timer",
+        "targets": [
+          ".plate-face"
+        ],
+        "code": "if (face) { face.style.transform = 'translateY(' + (amp * p).toFixed(2) + 'px)'; }"
+      },
+      {
+        "at": "index.html:310",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "timer",
+        "targets": [
+          ".plate-ink"
+        ],
+        "code": "if (ink) { ink.style.transform = 'translateY(' + (6 * p).toFixed(2) + 'px)'; }"
+      },
+      {
+        "at": "index.html:323",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "scroll/rAF",
+        "targets": [
+          "plane"
+        ],
+        "code": "plane.style.setProperty('--stagger', '70ms');"
+      },
+      {
+        "at": "index.html:327",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "scroll/rAF",
+        "targets": [
+          "plane"
+        ],
+        "code": "plane.style.setProperty('--stagger', '180ms');"
+      },
+      {
+        "at": "index.html:350",
+        "kinds": [
+          "measure"
+        ],
+        "driver": "scroll/rAF",
+        "targets": [],
+        "code": "void plane.offsetWidth;"
+      }
+    ]
+  },
+  {
+    "id": "S09",
+    "scriptCount": 2,
+    "scriptLines": 107,
+    "sites": [
+      {
+        "at": "index.html:226",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "IO-reveal",
+        "targets": [],
+        "code": "el.style.setProperty('--d', (i % 6) * 60 + 'ms');"
+      },
+      {
+        "at": "index.html:259",
+        "kinds": [
+          "measure"
+        ],
+        "driver": "pointer",
+        "targets": [],
+        "code": "void lamp.offsetWidth;"
+      }
+    ]
+  },
+  {
+    "id": "S10",
+    "scriptCount": 1,
+    "scriptLines": 126,
+    "sites": [
+      {
+        "at": "index.html:405",
+        "kinds": [
+          "measure"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "void sheet.offsetWidth;"
+      },
+      {
+        "at": "index.html:430",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "timer",
+        "targets": [],
+        "code": "tr.style.setProperty('--row-index', String(i));"
+      },
+      {
+        "at": "index.html:472",
+        "kinds": [
+          "synthesise"
+        ],
+        "driver": "ui-event",
+        "targets": [],
+        "code": "var a = document.createElement('a');"
+      },
+      {
+        "at": "index.html:495",
+        "kinds": [
+          "synthesise"
+        ],
+        "driver": "IO-reveal",
+        "targets": [],
+        "code": "cursor = document.createElement('div');"
+      },
+      {
+        "at": "index.html:503",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "pointer",
+        "targets": [
+          ".data-cursor"
+        ],
+        "code": "cursor.style.transform = 'translate(' + ev.clientX + 'px,' + ev.clientY + 'px)';"
+      }
+    ]
+  },
+  {
+    "id": "S11",
+    "scriptCount": 1,
+    "scriptLines": 84,
+    "sites": [
+      {
+        "at": "index.html:351",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "rows.forEach(function (tr, i) { tr.style.setProperty('--i', String(i)); });"
+      },
+      {
+        "at": "index.html:378",
+        "kinds": [
+          "measure"
+        ],
+        "driver": "IO-reveal",
+        "targets": [],
+        "code": "void el.offsetWidth;"
+      }
+    ]
+  },
+  {
+    "id": "S12",
+    "scriptCount": 1,
+    "scriptLines": 98,
+    "sites": [
+      {
+        "at": "index.html:248",
+        "kinds": [
+          "measure"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "var r = stack.getBoundingClientRect();"
+      },
+      {
+        "at": "index.html:277",
+        "kinds": [
+          "measure"
+        ],
+        "driver": "scroll/rAF",
+        "targets": [],
+        "code": "void stack.offsetWidth;"
+      }
+    ]
+  },
+  {
+    "id": "S13",
+    "scriptCount": 1,
+    "scriptLines": 140,
+    "sites": [
+      {
+        "at": "index.html:301",
+        "kinds": [
+          "measure"
+        ],
+        "driver": "IO-reveal",
+        "targets": [],
+        "code": "var nearLog = logEl ? logEl.getBoundingClientRect().top <= window.innerHeight : false; /* 守卫边界原本是 innerHeight - 220：可贴底栏"
+      },
+      {
+        "at": "index.html:330",
+        "kinds": [
+          "synthesise"
+        ],
+        "driver": "scroll/rAF",
+        "targets": [],
+        "code": "var li = document.createElement('li');"
+      },
+      {
+        "at": "index.html:404",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "pointer",
+        "targets": [
+          "cursorPress"
+        ],
+        "code": "press.style.transform = 'translate3d(' + e.clientX + 'px,' + e.clientY + 'px,0)';"
+      }
+    ]
+  },
+  {
+    "id": "S14",
+    "scriptCount": 2,
+    "scriptLines": 121,
+    "sites": [
+      {
+        "at": "index.html:330",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "doc.style.setProperty('--pull-range', RANGE + 'px');"
+      },
+      {
+        "at": "index.html:332",
+        "kinds": [
+          "measure"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "function boxOf(el) { return el.getBoundingClientRect(); }"
+      },
+      {
+        "at": "index.html:345",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "el.style.setProperty('--px', (dx * k).toFixed(1) + 'px');"
+      },
+      {
+        "at": "index.html:346",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "el.style.setProperty('--py', (dy * k).toFixed(1) + 'px');"
+      },
+      {
+        "at": "index.html:348",
+        "kinds": [
+          "trig"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "var ang = Math.atan2(y - cy, x - cx) * 180 / Math.PI;"
+      },
+      {
+        "at": "index.html:363",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "load",
+        "targets": [
+          "view"
+        ],
+        "code": "view.style.setProperty('--sy', sy.toFixed(1) + 'px');"
+      },
+      {
+        "at": "index.html:366",
+        "kinds": [
+          "measure"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "var m = new DOMMatrixReadOnly(getComputedStyle(field).transform);"
+      },
+      {
+        "at": "index.html:384",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "scroll/rAF",
+        "targets": [
+          "view"
+        ],
+        "code": "view.style.setProperty('--turn', '6deg');"
+      },
+      {
+        "at": "index.html:385",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "scroll/rAF",
+        "targets": [
+          "view"
+        ],
+        "code": "setTimeout(function () { view.style.setProperty('--turn', '0deg'); }, 200);"
+      },
+      {
+        "at": "index.html:395",
+        "kinds": [
+          "measure"
+        ],
+        "driver": "scroll/rAF",
+        "targets": [],
+        "code": "void tag.offsetWidth;"
+      }
+    ]
+  },
+  {
+    "id": "S15",
+    "scriptCount": 2,
+    "scriptLines": 61,
+    "sites": [
+      {
+        "at": "index.html:481",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "scroll/rAF",
+        "targets": [
+          "stack",
+          ".yb"
+        ],
+        "code": "doc.style.setProperty('--trace36', '0.78');"
+      }
+    ]
+  },
+  {
+    "id": "S16",
+    "scriptCount": 1,
+    "scriptLines": 166,
+    "sites": [
+      {
+        "at": "index.html:255",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "resize",
+        "targets": [
+          ".slab"
+        ],
+        "code": "s.style.setProperty('--span', String(v));"
+      },
+      {
+        "at": "index.html:263",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "resize",
+        "targets": [
+          ".slab"
+        ],
+        "code": "s.style.setProperty('--press-delay', (i * 110) + 'ms');"
+      },
+      {
+        "at": "index.html:291",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "timer",
+        "targets": [],
+        "code": "box.style.setProperty('--shift', cur + 'px');"
+      },
+      {
+        "at": "index.html:294",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "timer",
+        "targets": [
+          "ruler-pointer"
+        ],
+        "code": "if (pointer) pointer.style.setProperty('--rung', String(cur2));"
+      },
+      {
+        "at": "index.html:316",
+        "kinds": [
+          "measure"
+        ],
+        "driver": "scroll/rAF",
+        "targets": [],
+        "code": "r = slabs[i].getBoundingClientRect();"
+      },
+      {
+        "at": "index.html:323",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "scroll/rAF",
+        "targets": [
+          "ruler-pointer"
+        ],
+        "code": "if (pointer) pointer.style.setProperty('--rung', String(cur - 1));"
+      },
+      {
+        "at": "index.html:338",
+        "kinds": [
+          "measure"
+        ],
+        "driver": "scroll/rAF",
+        "targets": [],
+        "code": "for (i = 0; i < slabs.length; i++) if (slabs[i].getBoundingClientRect().top <= 160) cur = i;"
+      },
+      {
+        "at": "index.html:347",
+        "kinds": [
+          "measure"
+        ],
+        "driver": "scroll/rAF",
+        "targets": [],
+        "code": "for (i = 0; i < slabs.length; i++) if (slabs[i].getBoundingClientRect().top <= 160) cur = i + 1;"
+      },
+      {
+        "at": "index.html:368",
+        "kinds": [
+          "measure"
+        ],
+        "driver": "scroll/rAF",
+        "targets": [],
+        "code": "void s.offsetWidth;"
+      }
+    ]
+  },
+  {
+    "id": "S17",
+    "scriptCount": 1,
+    "scriptLines": 129,
+    "sites": [
+      {
+        "at": "index.html:211",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "Array.prototype.forEach.call(list, function (tr, i) { tr.style.setProperty('--row-index', String(i % 20)); });"
+      },
+      {
+        "at": "index.html:286",
+        "kinds": [
+          "synthesise"
+        ],
+        "driver": "timer",
+        "targets": [],
+        "code": "var a = document.createElement('a');"
+      }
+    ]
+  },
+  {
+    "id": "S18",
+    "scriptCount": 2,
+    "scriptLines": 65,
+    "sites": [
+      {
+        "at": "index.html:409",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "grow.forEach(function (el, i) { el.style.setProperty('--i', i % 6); });"
+      },
+      {
+        "at": "index.html:427",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "IO-reveal",
+        "targets": [
+          ".sheet"
+        ],
+        "code": "sheet.style.setProperty('--tug', snap + 'px');"
+      }
+    ]
+  },
+  {
+    "id": "S19",
+    "scriptCount": 2,
+    "scriptLines": 61,
+    "sites": []
+  },
+  {
+    "id": "S20",
+    "scriptCount": 1,
+    "scriptLines": 150,
+    "sites": [
+      {
+        "at": "index.html:272",
+        "kinds": [
+          "trig"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "r = R0 + i * sp + t * (A1 * Math.sin(L1 * th + P1) + A2 * Math.sin(L2 * th + P2));"
+      },
+      {
+        "at": "index.html:273",
+        "kinds": [
+          "trig"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "xs.push(Math.round(CX + r * Math.cos(th))); ys.push(Math.round(CY + r * Math.sin(th)));"
+      },
+      {
+        "at": "index.html:286",
+        "kinds": [
+          "synthesise"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "var e = document.createElementNS('http://www.w3.org/2000/svg', 'path');"
+      },
+      {
+        "at": "index.html:299",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "e.style.setProperty('--d', Math.max(40, Math.round(1400 * lens[i] / tot)));"
+      },
+      {
+        "at": "index.html:300",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "e.style.setProperty('--t', 180 + Math.round(1400 * cum / tot));"
+      },
+      {
+        "at": "index.html:310",
+        "kinds": [
+          "path-data"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "if (!f) { o.setAttribute('d', ''); o.setAttribute('display', 'none'); continue; }"
+      },
+      {
+        "at": "index.html:311",
+        "kinds": [
+          "path-data"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "o.removeAttribute('display'); r = RD(i, p.C, p.N, p.sp, f); o.setAttribute('d', r.d);"
+      },
+      {
+        "at": "index.html:314",
+        "kinds": [
+          "path-data"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "for (i = p.C; i < POOL.length; i++) { POOL[i].setAttribute('d', ''); POOL[i].setAttribute('display', 'none'); }"
+      },
+      {
+        "at": "index.html:315",
+        "kinds": [
+          "path-data"
+        ],
+        "driver": "load",
+        "targets": [
+          "stopdot",
+          ".ring"
+        ],
+        "code": "if (over && last) { DOT.setAttribute('cx', last[0]); DOT.setAttribute('cy', last[1]); DOT.removeAttribute('display'); }"
+      }
+    ]
+  },
+  {
+    "id": "S21",
+    "scriptCount": 1,
+    "scriptLines": 114,
+    "sites": [
+      {
+        "at": "index.html:501",
+        "kinds": [
+          "measure"
+        ],
+        "driver": "pointer",
+        "targets": [],
+        "code": "void tb.offsetWidth;"
+      }
+    ]
+  },
+  {
+    "id": "S22",
+    "scriptCount": 2,
+    "scriptLines": 47,
+    "sites": []
+  },
+  {
+    "id": "S23",
+    "scriptCount": 2,
+    "scriptLines": 87,
+    "sites": [
+      {
+        "at": "index.html:388",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "f.style.setProperty('--dl', (k * 90) + 'ms');"
+      }
+    ]
+  },
+  {
+    "id": "S24",
+    "scriptCount": 2,
+    "scriptLines": 91,
+    "sites": [
+      {
+        "at": "index.html:421",
+        "kinds": [
+          "measure"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "var r = el.getBoundingClientRect();"
+      }
+    ]
+  },
+  {
+    "id": "S25",
+    "scriptCount": 1,
+    "scriptLines": 82,
+    "sites": [
+      {
+        "at": "index.html:366",
+        "kinds": [
+          "measure"
+        ],
+        "driver": "pointer",
+        "targets": [],
+        "code": "var top = index.getBoundingClientRect().top;"
+      },
+      {
+        "at": "index.html:368",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "pointer",
+        "targets": [
+          ".entries"
+        ],
+        "code": "entries.style.setProperty('--follow', drift.toFixed(1) + 'px');"
+      },
+      {
+        "at": "index.html:373",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "scroll/rAF",
+        "targets": [],
+        "code": "[].slice.call(document.querySelectorAll('.entries > li')).forEach(function (li, i) { li.style.setProperty('--d', i); });"
+      },
+      {
+        "at": "index.html:374",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "scroll/rAF",
+        "targets": [],
+        "code": "[].slice.call(document.querySelectorAll('.holes li')).forEach(function (li, i) { li.style.setProperty('--d', i); });"
+      }
+    ]
+  },
+  {
+    "id": "S26",
+    "scriptCount": 2,
+    "scriptLines": 46,
+    "sites": [
+      {
+        "at": "index.html:465",
+        "kinds": [
+          "measure"
+        ],
+        "driver": "IO-reveal",
+        "targets": [],
+        "code": "var r = b.getBoundingClientRect();"
+      },
+      {
+        "at": "index.html:469",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "IO-reveal",
+        "targets": [],
+        "code": "b.style.setProperty('--p', (t * 24).toFixed(1) + 'px');"
+      }
+    ]
+  },
+  {
+    "id": "S27",
+    "scriptCount": 2,
+    "scriptLines": 94,
+    "sites": [
+      {
+        "at": "index.html:418",
+        "kinds": [
+          "measure"
+        ],
+        "driver": "load",
+        "targets": [
+          "actnow"
+        ],
+        "code": "actnow.classList.remove('is-jump'); void actnow.offsetWidth; actnow.classList.add('is-jump');"
+      },
+      {
+        "at": "index.html:452",
+        "kinds": [
+          "measure"
+        ],
+        "driver": "IO-reveal",
+        "targets": [],
+        "code": "target.classList.remove('is-dropping'); void target.offsetWidth; target.classList.add('is-dropping');"
+      }
+    ]
+  },
+  {
+    "id": "S28",
+    "scriptCount": 2,
+    "scriptLines": 111,
+    "sites": [
+      {
+        "at": "index.html:444",
+        "kinds": [
+          "measure"
+        ],
+        "driver": "resize",
+        "targets": [],
+        "code": "var r = f.getBoundingClientRect();"
+      },
+      {
+        "at": "index.html:449",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "resize",
+        "targets": [
+          "img"
+        ],
+        "code": "if (img) img.style.transform = 'translateY(' + (d * rate * -12).toFixed(2) + 'px)';"
+      },
+      {
+        "at": "index.html:451",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "resize",
+        "targets": [],
+        "code": "f.style.setProperty('--edge', d < 0 ? '0.5px' : '1px');"
+      },
+      {
+        "at": "index.html:469",
+        "kinds": [
+          "measure"
+        ],
+        "driver": "scroll/rAF",
+        "targets": [],
+        "code": "b.classList.remove('is-pushing'); void b.offsetWidth;"
+      },
+      {
+        "at": "index.html:490",
+        "kinds": [
+          "measure"
+        ],
+        "driver": "scroll/rAF",
+        "targets": [],
+        "code": "b.classList.remove('is-walking'); void b.offsetWidth;"
+      }
+    ]
+  },
+  {
+    "id": "S29",
+    "scriptCount": 2,
+    "scriptLines": 96,
+    "sites": [
+      {
+        "at": "index.html:499",
+        "kinds": [
+          "measure"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "var r = el.getBoundingClientRect();"
+      },
+      {
+        "at": "index.html:518",
+        "kinds": [
+          "measure"
+        ],
+        "driver": "IO-reveal",
+        "targets": [],
+        "code": "var r = el.getBoundingClientRect();"
+      },
+      {
+        "at": "index.html:537",
+        "kinds": [
+          "measure"
+        ],
+        "driver": "scroll/rAF",
+        "targets": [],
+        "code": "chapters.forEach(function (c) { if (c.getBoundingClientRect().top <= y) best = c; });"
+      }
+    ]
+  },
+  {
+    "id": "S30",
+    "scriptCount": 2,
+    "scriptLines": 65,
+    "sites": [
+      {
+        "at": "index.html:286",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "cut.style.setProperty('--push', (PUSH * w).toFixed(2) + 'px');"
+      },
+      {
+        "at": "index.html:287",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "load",
+        "targets": [],
+        "code": "cut.style.setProperty('--mis', (MIS * Math.abs(1 - 2 * w)).toFixed(2) + 'px');"
+      },
+      {
+        "at": "index.html:315",
+        "kinds": [
+          "style-knob"
+        ],
+        "driver": "scroll/rAF",
+        "targets": [],
+        "code": "scraper.style.transform = 'translate(' + (e.clientX - 13) + 'px,' + (e.clientY - 22) + 'px)';"
+      }
+    ]
+  }
+]

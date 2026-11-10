@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>存目四十六件 · 城南旧纸修复所</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,400;0,600;0,700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --slate:#33505C;
+    --paper:#E7E7E0;
+    --ink:#1C1A16;
+    --deckle:#9A9384;
+  }
+  *,*::before,*::after{box-sizing:border-box;border-radius:0}
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink)}
+  body{font-family:"Newsreader",serif;font-size:12px;line-height:1.45;-webkit-font-smoothing:antialiased}
+  .sheet{position:relative;max-width:1440px;margin:0 auto;padding:26px 34px 34px;overflow:hidden}
+
+  /* ---- verso: same text, mirrored on the paper back, 7 columns ---- */
+  .verso{
+    position:absolute;inset:26px 34px 34px;z-index:0;
+    column-count:7;column-gap:16px;column-rule:0.5px solid var(--deckle);
+    font-family:"Newsreader",serif;font-size:9px;line-height:1.5;color:var(--ink);
+    opacity:.11;transform:scaleX(-1) translateX(1px);
+    pointer-events:none;user-select:none;
+  }
+  .verso h3{font-family:"Libre Franklin",serif;font-size:9.5px;font-weight:600;margin:1px 0}
+  .verso p{margin:0 0 5px}
+  .verso .no{display:block;text-align:right;font-family:"IBM Plex Mono",monospace;font-size:8px}
+  .verso .plate{display:none}
+
+  /* ---- masthead ---- */
+  .masthead{position:relative;z-index:1;border-top:2px solid var(--ink);border-bottom:1px solid var(--ink);padding:10px 0 12px;display:grid;grid-template-columns:1fr auto;gap:8px 26px;align-items:end}
+  .masthead .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--slate);font-variant-numeric:tabular-nums}
+  h1{font-family:"Libre Franklin",serif;font-weight:700;font-size:42px;line-height:.98;letter-spacing:-.015em;margin:6px 0 4px;max-width:20ch}
+  .standfirst{font-family:"Newsreader",serif;font-style:italic;font-size:15px;line-height:1.4;color:var(--slate);max-width:52ch;margin:0}
+  .masthead .imprint{font-family:"IBM Plex Mono",monospace;font-size:10px;line-height:1.75;color:var(--slate);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+
+  /* ---- spread: narrow left page, wide right page ---- */
+  .spread{position:relative;z-index:1;display:grid;grid-template-columns:24% 1fr;margin-top:16px}
+  .left{border-right:1px solid var(--deckle);padding:0 22px 0 0}
+  .right{padding:0 0 0 26px;column-count:5;column-gap:18px;column-rule:0.5px solid var(--deckle)}
+
+  .left h2{font-family:"Libre Franklin",serif;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin:0 0 6px;padding-bottom:4px;border-bottom:1px solid var(--deckle)}
+  .left p{font-size:11.5px;line-height:1.5;margin:0 0 10px}
+  .left p.lede{font-size:12.5px}
+  .left .contact{font-family:"IBM Plex Mono",monospace;font-size:10.5px;line-height:1.9;font-variant-numeric:tabular-nums;margin:0 0 12px}
+  .left .contact span{display:block}
+  .left .contact b{font-family:"Libre Franklin",serif;font-weight:600;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--slate);display:block}
+  .reach{display:inline-block;font-family:"Libre Franklin",serif;font-weight:600;font-size:12px;letter-spacing:.04em;color:var(--paper);background:var(--slate);padding:9px 16px;text-decoration:none;border:1px solid var(--slate)}
+  .reach:hover{background:var(--ink);border-color:var(--ink)}
+  .left .note{font-size:10.5px;color:var(--slate);line-height:1.55;margin-top:12px;border-top:1px solid var(--deckle);padding-top:8px}
+
+  .rulehead{font-family:"Libre Franklin",serif;font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--slate);margin:0 0 8px;padding-bottom:3px;border-bottom:1px solid var(--ink)}
+
+  .entry{break-inside:avoid;margin:0 0 9px;padding:0 0 8px;border-bottom:1px solid var(--deckle)}
+  .entry .no{display:block;font-family:"IBM Plex Mono",monospace;font-size:10px;font-variant-numeric:tabular-nums;text-align:right;color:var(--slate);letter-spacing:.04em}
+  .entry h3{font-family:"Libre Franklin",serif;font-weight:600;font-size:12px;line-height:1.25;margin:1px 0 2px}
+  .entry p{margin:0;font-size:11px;line-height:1.42;color:var(--slate)}
+  .entry .dim{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;font-size:9.5px;color:var(--slate);display:block;margin-top:2px;text-align:right}
+
+  .plate{break-inside:avoid;margin:0 0 10px}
+  .plate img{display:block;width:100%;height:auto;border:1px solid var(--deckle);background:var(--deckle)}
+  .plate figcaption{font-family:"IBM Plex Mono",monospace;font-size:9px;line-height:1.5;color:var(--slate);margin-top:2px;text-align:right;font-variant-numeric:tabular-nums}
+
+  .foot{position:relative;z-index:1;margin-top:18px;border-top:2px solid var(--ink);padding-top:8px;display:grid;grid-template-columns:1fr auto;gap:10px;align-items:start}
+  .foot .colophon{font-family:"IBM Plex Mono",monospace;font-size:10px;line-height:1.8;color:var(--slate);font-variant-numeric:tabular-nums}
+  .foot .mark{font-family:"Libre Franklin",serif;font-weight:700;font-size:10px;letter-spacing:.2em;text-transform:uppercase;text-align:right}
+
+  .folios{position:absolute;inset:26px 34px 34px;z-index:2;pointer-events:none}
+  .folio{position:absolute;writing-mode:vertical-rl;line-height:28px;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.22em;color:var(--slate);font-variant-numeric:tabular-nums}
+  .folio.p1{left:0;top:0}
+  .folio.p2{right:0;top:0}
+  .folio.p3{left:0;bottom:0}
+  .folio.p4{right:0;bottom:0}
+
+  @media (max-width:820px){
+    .sheet{padding:18px 18px 26px}
+    .masthead{grid-template-columns:1fr}
+    .masthead .imprint{text-align:left}
+    h1{font-size:30px;max-width:none}
+    .spread{grid-template-columns:1fr;margin-top:12px}
+    .left{border-right:0;border-bottom:1px solid var(--deckle);padding:0 0 16px;margin-bottom:14px}
+    .right{padding:0;column-count:1}
+    .verso{column-count:3;font-size:8px;inset:18px 18px 26px}
+    .folios{inset:18px 18px 26px}
+    .foot{grid-template-columns:1fr}
+    .foot .mark{text-align:left}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <div class="verso" aria-hidden="true"></div>
+
+  <header class="masthead">
+    <div>
+      <div class="eyebrow">城南旧纸修复所 · 藏品存目 · 第柒号</div>
+      <h1>存目四十六件：一九五〇至一九九八年的纸与墨</h1>
+      <p class="standfirst">本册为工作室在册待修与已修之存目。编号自 001 至 046，连续，不补白、不虚设。</p>
+    </div>
+    <div class="imprint">
+      卷一 · 目录页<br>
+      编次 001—046<br>
+      版心 5 栏 / 纸背 7 栏<br>
+      一九九八年十二月订
+    </div>
+  </header>
+
+  <div class="spread">
+    <aside class="left">
+      <h2>本所事略</h2>
+      <p class="lede">修复纸张、装订旧册、为私人档案做长期存放。承接民国至九十年代的公文、账簿、图样与家书。</p>
+      <p>我们不重写内容，只处理载体：去酸、补纸、托裱、重装。每一件在册者均有编号、尺寸与处理记录，可随时查对。</p>
+
+      <h2 style="margin-top:16px">联系方式</h2>
+      <div class="contact">
+        <span><b>到店</b>城南区文昌巷 17 号后进二层</span>
+        <span><b>时段</b>周二至周六 10:00—18:00</span>
+        <span><b>电话</b>021-6482 7315</span>
+        <span><b>信件</b>archive@chengnan-paper.cn</span>
+        <span><b>存目</b>046 件 · 在修 11 件</span>
+      </div>
+      <a class="reach" href="tel:+862164827315">来电预约到店</a>
+      <p class="note">送修前请先电话登记编号；未登记之件当日不受理。图片为存档翻拍，尺寸以实件为准。</p>
+    </aside>
+
+    <main class="right" id="catalog">
+      <h2 class="rulehead">存目 · 001—046</h2>
+
+      <article class="entry"><span class="no">001</span><h3>《市政公报》第三卷合订本</h3><p>书脊断裂，纸背托裱，保留原铅字边线。</p><span class="dim">265 × 190 mm</span></article>
+      <article class="entry"><span class="no">002</span><h3>光华染织厂出货凭单</h3><p>一束四十七张，去酸后按原序穿线。</p><span class="dim">148 × 210 mm</span></article>
+      <article class="entry"><span class="no">003</span><h3>城南电影院排片单</h3><p>油印褪色，补纸三处，字口不描。</p><span class="dim">390 × 270 mm</span></article>
+
+      <figure class="plate">
+        <img src="images/占位-1.jpg" width="640" height="420" alt="存目 004：手绘地籍图局部翻拍">
+        <figcaption>图版一 · 004 局部</figcaption>
+      </figure>
+
+      <article class="entry"><span class="no">004</span><h3>文昌巷地籍图（手绘）</h3><p>棉纸本，折痕处加薄衬，展平不入水。</p><span class="dim">540 × 780 mm</span></article>
+      <article class="entry"><span class="no">005</span><h3>裕丰米行流水账簿</h3><p>毛边纸，虫蛀十一道，补洞不补字。</p><span class="dim">240 × 320 mm</span></article>
+      <article class="entry"><span class="no">006</span><h3>小学成绩通知单</h3><p>一九六三年秋季，复写纸本，去污。</p><span class="dim">130 × 190 mm</span></article>
+      <article class="entry"><span class="no">007</span><h3>《纺织月报》抽印本</h3><p>封面缺失，依内页重制纸封，不仿古。</p><span class="dim">185 × 260 mm</span></article>
+      <article class="entry"><span class="no">008</span><h3>家书十一通</h3><p>钢笔蓝墨，局部洇散，稳定后装函。</p><span class="dim">180 × 250 mm</span></article>
+      <article class="entry"><span class="no">009</span><h3>街道居民登记卡</h3><p>卡片二百一十张，按户号重排。</p><span class="dim">105 × 150 mm</span></article>
+      <article class="entry"><span class="no">010</span><h3>剧场布景草图</h3><p>炭笔与淡彩，边缘脆化，镶边加固。</p><span class="dim">420 × 594 mm</span></article>
+
+      <figure class="plate">
+        <img src="images/占位-2.jpg" width="640" height="420" alt="存目 011：账簿纸背透光检查">
+        <figcaption>图版二 · 011 纸背</figcaption>
+      </figure>
+
+      <article class="entry"><span class="no">011</span><h3>同昌押当票存根</h3><p>三联存根，骑缝章残缺，保留残迹。</p><span class="dim">95 × 210 mm</span></article>
+      <article class="entry"><span class="no">012</span><h3>水文站观测手簿</h3><p>一九五八年，铅笔记录，书口修补。</p><span class="dim">110 × 180 mm</span></article>
+      <article class="entry"><span class="no">013</span><h3>《城南志》校样本</h3><p>朱笔校改，批注处覆薄绢。</p><span class="dim">210 × 285 mm</span></article>
+      <article class="entry"><span class="no">014</span><h3>照相馆底片袋</h3><p>牛皮纸袋三十六枚，去酸压平。</p><span class="dim">120 × 165 mm</span></article>
+      <article class="entry"><span class="no">015</span><h3>厂区平面图（晒图）</h3><p>氨熏晒图，蓝底泛黄，避光保存。</p><span class="dim">594 × 841 mm</span></article>
+      <article class="entry"><span class="no">016</span><h3>粮票与布票册</h3><p>粘贴式票册，剥离后另纸固定。</p><span class="dim">100 × 140 mm</span></article>
+      <article class="entry"><span class="no">017</span><h3>私人日记（一九七二）</h3><p>硬壳笔记本，脊纸重做，内页原装。</p><span class="dim">145 × 205 mm</span></article>
+
+      <figure class="plate">
+        <img src="images/占位-3.jpg" width="640" height="420" alt="存目 018：修复台面上的裱件">
+        <figcaption>图版三 · 018 托裱中</figcaption>
+      </figure>
+
+      <article class="entry"><span class="no">018</span><h3>戏单与海报合辑</h3><p>一九五九至六六年，二十三张，分函。</p><span class="dim">380 × 520 mm</span></article>
+      <article class="entry"><span class="no">019</span><h3>邮电所电报底稿</h3><p>薄打字纸，撕裂两处，对接补纸。</p><span class="dim">145 × 210 mm</span></article>
+      <article class="entry"><span class="no">020</span><h3>族谱残页十七</h3><p>竹纸，烟熏发脆，逐页加衬。</p><span class="dim">320 × 450 mm</span></article>
+      <article class="entry"><span class="no">021</span><h3>《工人夜校讲义》</h3><p>钢板蜡纸油印，装订线改棉线。</p><span class="dim">190 × 260 mm</span></article>
+      <article class="entry"><span class="no">022</span><h3>医院处方笺一叠</h3><p>复写蓝，二百四十张，按日期归并。</p><span class="dim">130 × 190 mm</span></article>
+      <article class="entry"><span class="no">023</span><h3>砖雕纹样拓片</h3><p>蝉翼拓，折口三处，托底不压纹。</p><span class="dim">450 × 450 mm</span></article>
+
+      <figure class="plate">
+        <img src="images/占位-4.jpg" width="640" height="420" alt="存目 024：拓片平铺于工作台">
+        <figcaption>图版四 · 024 拓片</figcaption>
+      </figure>
+
+      <article class="entry"><span class="no">024</span><h3>市政工程竣工图</h3><p>蓝图两幅，边缘磨损，包边处理。</p><span class="dim">420 × 594 mm</span></article>
+      <article class="entry"><span class="no">025</span><h3>私人相册（一九五〇年代）</h3><p>照片一百零二枚，脱胶者重新干贴。</p><span class="dim">260 × 310 mm</span></article>
+      <article class="entry"><span class="no">026</span><h3>绸布庄样本册</h3><p>布样一百二十片，装订环改缎带。</p><span class="dim">230 × 300 mm</span></article>
+      <article class="entry"><span class="no">027</span><h3>手抄曲谱一册</h3><p>工尺谱，朱墨两色，去霉。</p><span class="dim">165 × 240 mm</span></article>
+      <article class="entry"><span class="no">028</span><h3>合作社股金证</h3><p>连号四十六张，缺号三，如实标注。</p><span class="dim">105 × 145 mm</span></article>
+      <article class="entry"><span class="no">029</span><h3>《巷陌小识》手稿</h3><p>钢笔与铅笔杂写，散页编次后装订。</p><span class="dim">185 × 260 mm</span></article>
+      <article class="entry"><span class="no">030</span><h3>旧式发票存根簿</h3><p>碳写纸，透印严重，隔纸收存。</p><span class="dim">140 × 220 mm</span></article>
+
+      <figure class="plate">
+        <img src="images/占位-5.jpg" width="640" height="420" alt="存目 031：颜料样本与色卡">
+        <figcaption>图版五 · 031 色样</figcaption>
+      </figure>
+
+      <article class="entry"><span class="no">031</span><h3>颜料行色样本</h3><p>石印色卡，蓝绿两色偏移，记录在案。</p><span class="dim">210 × 150 mm</span></article>
+      <article class="entry"><span class="no">032</span><h3>铁路货运单</h3><p>一九六五年，复写三联，缺中联。</p><span class="dim">190 × 270 mm</span></article>
+      <article class="entry"><span class="no">033</span><h3>中学语文教案</h3><p>活页夹装，金属件锈蚀，改纸钉。</p><span class="dim">185 × 260 mm</span></article>
+      <article class="entry"><span class="no">034</span><h3>《市声》副刊剪报</h3><p>剪贴簿两册，胶带痕去除后留影。</p><span class="dim">280 × 380 mm</span></article>
+      <article class="entry"><span class="no">035</span><h3>水文年报表</h3><p>打字纸，装订孔撕裂，加条补强。</p><span class="dim">210 × 297 mm</span></article>
+      <article class="entry"><span class="no">036</span><h3>厂徽设计草图</h3><p>硫酸纸六张，折痕压平，不入胶。</p><span class="dim">297 × 420 mm</span></article>
+
+      <figure class="plate">
+        <img src="images/占位-6.jpg" width="640" height="420" alt="存目 037：硫酸纸叠放与折痕">
+        <figcaption>图版六 · 037 硫酸纸</figcaption>
+      </figure>
+
+      <article class="entry"><span class="no">037</span><h3>手绘宣传画稿</h3><p>水粉纸本，色层起翘，低温回软。</p><span class="dim">520 × 760 mm</span></article>
+      <article class="entry"><span class="no">038</span><h3>居民购粮证</h3><p>一九六一年度，封面布纹，内页完整。</p><span class="dim">95 × 130 mm</span></article>
+      <article class="entry"><span class="no">039</span><h3>照相馆经营账</h3><p>横格账本，脊线松脱，重穿。</p><span class="dim">200 × 280 mm</span></article>
+      <article class="entry"><span class="no">040</span><h3>《巷口》油印诗刊</h3><p>三期合订，订口加条，保留原封面。</p><span class="dim">150 × 210 mm</span></article>
+      <article class="entry"><span class="no">041</span><h3>桥梁施工日志</h3><p>硬面日记本，水渍两处，稳定处理。</p><span class="dim">160 × 230 mm</span></article>
+      <article class="entry"><span class="no">042</span><h3>老照片玻璃底片</h3><p>干版四枚，乳化层局部剥离，装盒。</p><span class="dim">90 × 120 mm</span></article>
+
+      <figure class="plate">
+        <img src="images/占位-7.jpg" width="640" height="420" alt="存目 043：玻璃底片透射检查">
+        <figcaption>图版七 · 043 底片</figcaption>
+      </figure>
+
+      <article class="entry"><span class="no">043</span><h3>剧社演出记录册</h3><p>一九五七至六三年，节目单黏贴成册。</p><span class="dim">195 × 270 mm</span></article>
+      <article class="entry"><span class="no">044</span><h3>手绘家谱图轴</h3><p>纸本立轴，天头破损，补绢。</p><span class="dim">680 × 1350 mm</span></article>
+      <article class="entry"><span class="no">045</span><h3>印刷厂活字样本</h3><p>字样条四十条，木盒原装，去尘。</p><span class="dim">310 × 230 mm</span></article>
+      <article class="entry"><span class="no">046</span><h3>《城南旧纸》修复记录（本册）</h3><p>即本存目之底稿，随册存档，编号连续。</p><span class="dim">210 × 297 mm</span></article>
+    </main>
+  </div>
+
+  <footer class="foot">
+    <div class="colophon">
+      城南旧纸修复所 · 文昌巷 17 号后进二层 · 021-6482 7315 · archive@chengnan-paper.cn<br>
+      本页共 046 条，图版 7 幅；版心 5 栏，纸背 7 栏；栏线 1px，页码竖排行高 28px。
+    </div>
+    <div class="mark">第柒号 · 存目</div>
+  </footer>
+
+  <div class="folios" aria-hidden="true">
+    <span class="folio p1">存目 · 〇一</span>
+    <span class="folio p2">〇二 · 存目</span>
+    <span class="folio p3">046</span>
+    <span class="folio p4">七</span>
+  </div>
+</div>
+<script>
+  // 纸背：把正面同一段文字镜像到背面（8%–14% 不透明度，偏移 1px，7 栏）；只搬文字，不搬图片
+  var verso = document.querySelector('.verso');
+  var catalog = document.getElementById('catalog');
+  var mirror = catalog.cloneNode(true);
+  mirror.querySelectorAll('figure, .plate, img').forEach(function (n) { n.remove(); });
+  verso.innerHTML = mirror.innerHTML;
+</script>
+</body>
+</html>

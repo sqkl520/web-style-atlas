@@ -1,0 +1,25 @@
+﻿current chars 1945  verified chars 2320
+has #4A5C3A  current: true  verified: true
+
+probe | inCurrent | inVerified
+business line              true       true       
+style name                 false      true         <== DIVERGES
+palette list               true       true       
+Spectral                   false      true         <== DIVERGES
+Noto Serif SC              true       true       
+IBM Plex Mono              true       true       
+radius 0                   true       true       
+inset only                 true       true       
+0.4px                      true       true       
+0.8px                      true       true       
+24px pull                  true       true       
+5 drawers 3+2              false      true         <== DIVERGES
+B-01-001                   false      true         <== DIVERGES
+no emoji                   true       true       
+no #6366F1                 true       true       
+single file HTML           true       true       
+no React/Vue/Tailwind      true       true       
+acceptance 3 questions     true       true       
+3-bean collapse rule       false      true         <== DIVERGES
+
+probes present in BOTH: 14 / 19   divergent: 5

@@ -1,0 +1,194 @@
+
+══════════════════════════════════════════════════════════════════════════════
+【验收 1】node prototypes/_build/collect-schemes.mjs → exit 0
+══════════════════════════════════════════════════════════════════════════════
+$ node prototypes/_build/collect-schemes.mjs
+_CURRENT-VALUES.md 解析出 30 案
+§2 旧值黑名单：21 案，共 29 个作废色
+§4 Lead 补入错误码 10 条（S21 S22 S23 S24 S25 S26 S27 S28 S29 S30）
+30 案：有页面 30｜有截图 30｜FAIL=0 26
+字段 8 评审工件切断（标记「反套路改造三指标」，按标记不按案号）：S13 780→306 字（切于第 307 字）
+调色板剔除 87 个候选 hex：否定语境或无角色标签 66｜样式面 0 次（规格有、CSS/SVG 没用） 12｜§2 作废旧值 9
+已写 prototypes/_selection/data.js（155.0 KB）
+[exit code: 0]
+
+══════════════════════════════════════════════════════════════════════════════
+【验收 2】node --check prototypes/_selection/data.js
+══════════════════════════════════════════════════════════════════════════════
+$ node --check prototypes/_selection/data.js
+
+[exit code: 0]
+
+══════════════════════════════════════════════════════════════════════════════
+【验收 3】data.js 的 audit 总字数 = 10,066（±2）
+══════════════════════════════════════════════════════════════════════════════
+$ node -e "读 data.js，reduce 求和 audit.length"
+audit 总字数 = 10065   （期望 10,066，容差 ±2 → PASS）
+  逐案长度：292 337 294 282 286 290 311 286 293 276 376 293 306 342 314 317 304 367 324 349 327 371 299 417 363 391 396 401 417 444
+  校验式：10,539（改前合计）− 780（S13 旧值）+ 306（S13 新值）= 10065
+[exit code: 0]
+
+══════════════════════════════════════════════════════════════════════════════
+【验收 4】S13 的 audit 长度 = 306（±2），且不含「反套路改造三指标」「打勾」「供 V-11」
+══════════════════════════════════════════════════════════════════════════════
+$ node -e "读 data.js 的 S13.audit"
+S13.audit 长度 = 306   （期望 306，容差 ±2 → PASS）
+S13.audit 含污染串：无（0 命中，检查 6 个串）
+S13.audit 尾部 40 字：…形容，立体感一律给成 0.4mm 压深、3% 亮度差、14% 边缘对比度三个数。
+[exit code: 0]
+
+══════════════════════════════════════════════════════════════════════════════
+【验收 6】Object.keys() 里 audit 在 risk 之前
+══════════════════════════════════════════════════════════════════════════════
+$ node -e "读 data.js，逐案 Object.keys().indexOf"
+Object.keys() 里 auditIdx < riskIdx：30/30 案成立
+  逐案 auditIdx/riskIdx：S01:14/15 S02:14/15 S03:14/15 S04:14/15 S05:14/15 S06:14/15 S07:14/15 S08:14/15 S09:14/15 S10:14/15 S11:14/15 S12:14/15 S13:14/15 S14:14/15 S15:14/15 S16:14/15 S17:14/15 S18:14/15 S19:14/15 S20:14/15 S21:14/15 S22:14/15 S23:14/15 S24:14/15 S25:14/15 S26:14/15 S27:14/15 S28:14/15 S29:14/15 S30:14/15
+  S13 完整键序：id,dir,cn,en,fr,structure,threshold,tone,def,family,fonts,layout,visuals,motion,audit,risk,landing,scenes,quirk,copy,copyParts,bg,primary,buttonText,errorCode,errorCodeSource,palette,built,gate,shots,axes,scenesYes,scenesNo
+[exit code: 0]
+
+══════════════════════════════════════════════════════════════════════════════
+【验收 5】其余 29 案 audit 的 sha256 与改前逐案相同
+══════════════════════════════════════════════════════════════════════════════
+$ node deliverables/65-exec/_cut/compare.mjs   （节选：逐案表）
+═══ 2. 逐案 audit sha256 / 长度 ═══
+案号  len前  len后   Δ    sha256 前 16 位    同？
+S01    292    292     0   10b3ca8fa0b9e527  10b3ca8fa0b9e527  ✓同
+S02    337    337     0   71d2239cfd89e42b  71d2239cfd89e42b  ✓同
+S03    294    294     0   5b5121cc7716a2f0  5b5121cc7716a2f0  ✓同
+S04    282    282     0   5e2b464c837492fb  5e2b464c837492fb  ✓同
+S05    286    286     0   4b20cda7f4e8512d  4b20cda7f4e8512d  ✓同
+S06    290    290     0   763f768e842c8792  763f768e842c8792  ✓同
+S07    311    311     0   27cb7af267c814a8  27cb7af267c814a8  ✓同
+S08    286    286     0   e9f76fcfd50a2da1  e9f76fcfd50a2da1  ✓同
+S09    293    293     0   8a0666a0732b3f38  8a0666a0732b3f38  ✓同
+S10    276    276     0   be4b5810ccc7abfc  be4b5810ccc7abfc  ✓同
+S11    376    376     0   422f675f04234bc2  422f675f04234bc2  ✓同
+S12    293    293     0   43fd072a62a49be3  43fd072a62a49be3  ✓同
+S13    780    306  -474   d9fa07d22af9a7af  3fb5ce2daa24387f  ✗变
+S14    342    342     0   1621fccc055768ac  1621fccc055768ac  ✓同
+S15    314    314     0   8e999dd89c6efbc0  8e999dd89c6efbc0  ✓同
+S16    317    317     0   39595df88a4c8bb7  39595df88a4c8bb7  ✓同
+S17    304    304     0   b20828958f05de97  b20828958f05de97  ✓同
+S18    367    367     0   36b7e6c3b1e6689c  36b7e6c3b1e6689c  ✓同
+S19    324    324     0   385371202a34b2a1  385371202a34b2a1  ✓同
+S20    349    349     0   85b24f3d5041a70c  85b24f3d5041a70c  ✓同
+S21    327    327     0   2d08d72696052393  2d08d72696052393  ✓同
+S22    371    371     0   b484a7facf973b33  b484a7facf973b33  ✓同
+S23    299    299     0   c1c3f0820e941f73  c1c3f0820e941f73  ✓同
+S24    417    417     0   2447d5a98964751d  2447d5a98964751d  ✓同
+S25    363    363     0   e41aba9016e367e0  e41aba9016e367e0  ✓同
+S26    391    391     0   26d44d9429756137  26d44d9429756137  ✓同
+S27    396    396     0   f49b26aa18b181f5  f49b26aa18b181f5  ✓同
+S28    401    401     0   142bd0a439b23e03  142bd0a439b23e03  ✓同
+S29    417    417     0   4fadfe7eee90feed  4fadfe7eee90feed  ✓同
+S30    444    444     0   9ec02fef8cc8cf1e  9ec02fef8cc8cf1e  ✓同
+
+相同 29/30；变化：S13
+[exit code: 0]
+
+══════════════════════════════════════════════════════════════════════════════
+【验收 7】node prototypes/_prompts/build-prompts.mjs（键序变化是否打坏 RISK / REUSE 两个正则闭包）
+══════════════════════════════════════════════════════════════════════════════
+$ node prototypes/_prompts/build-prompts.mjs
+=== prompts.js 已生成 ===
+  体积：59.0 KB（30 案 DNA + 场景索引）
+  场景索引：44 个行业词，其中 unsupported 单列 29 个
+  不能大众化的案：S15, S18, S21, S29
+  缺人话版的案：无
+  有机制句的案：30/30 → 实际 30/30
+  平均每案 DNA 字数：775
+
+=== 字体（P0-2：标题字＝h1 规则解析结果，不再按数组顺序猜）===
+  S01  标题 Noto Sans SC ｜ 正文 Noto Sans SC ｜ 等宽 Martian Mono
+  …（30 行字体表、调色板分布、reuse 抽样略，全文见 deliverables/65-exec/_cut/build-prompts.after.txt）
+[exit code: 0]
+prompts.js sha256 改前 = 1C0D607D62E1B854CD82D08273367668D459C7F89F97A53A54AA57AB41FEEB72
+prompts.js sha256 改后 = 1C0D607D62E1B854CD82D08273367668D459C7F89F97A53A54AA57AB41FEEB72
+字节相同 = true
+
+$ node deliverables/65-exec/_cut/regex-probe.mjs   （RISK / REUSE 正则的键序敏感性）
+═══ A. 改前 / 改后：正则抽到的 risk 与 landing ═══
+  改前 risk 命中 30/30，landing 命中 30/30
+  改后 risk 命中 30/30，landing 命中 30/30
+  risk 值变化的案：无（30/30 逐字相同）
+  landing 值变化的案：无（30/30 逐字相同）
+
+═══ B. 关键问题：正则会不会因为 audit 挡在 risk 前面而"跨条吞"？ ═══
+  抽取值与 data.js 里 risk 字段的真实值比对：30/30 相同
+  landing 同理：30/30 相同
+
+═══ C. 顺序无关性：把 risk 挪到 audit 之前，正则还成立吗 ═══
+  键序 [audit < risk < landing]  → risk="RRR" landing="LLL" ✓
+  键序 [risk < audit < landing]  → risk="RRR" landing="LLL" ✓
+  键序 [landing < risk < audit]  → risk="RRR" landing="LLL" ✓
+
+═══ D. 关键判据：每次匹配是否**跨过了本条记录的 } 边界** ═══
+  检查 30 次匹配，跨条 0 次 ✓ 全部落在本条记录内
+  旁证：改后 data.js 的**序列化文本**里 "audit" 在 "risk" 之前的记录数 = 30/30
+[exit code: 0]
+
+══════════════════════════════════════════════════════════════════════════════
+【验收 8】node prototypes/_build/verify-prototype.mjs --all → 26/4/30，FAIL = S07:1 S08:2 S13:4 S21:1
+══════════════════════════════════════════════════════════════════════════════
+$ node prototypes/_build/verify-prototype.mjs --all
+✗ S07 S07-slate-ink-contents
+    · 闸门 FAIL=1：mono
+✗ S08 S08-amber-overprint-lightbox
+    · 闸门 FAIL=2：palette-terracotta font-count
+✗ S13 S13-blind-debossed-dispatch
+    · 闸门 FAIL=4：mono shadow button-fx empty-screens
+✗ S21 S21-interlocking-release-book
+    · 闸门 FAIL=1：mono
+达标 26 / 不达标 4 / 共 30
+[exit code: 1]   （--all 在有不达标案时按设计返回 1）
+基线文件编码：UTF-16LE(BOM)，10150 B / 现在 5581 B
+与改前基线的输出逐行比对：完全相同（0 行差异，换行归一化后）
+
+══════════════════════════════════════════════════════════════════════════════
+【验收 9】node prototypes/_build/check-docs.mjs → exit 0
+══════════════════════════════════════════════════════════════════════════════
+$ node prototypes/_build/check-docs.mjs
+文档一致性：README.md ↔ data.js / prompts.js / prompt-copy.js
+  ✓ ids/exist            文档提到的方案编号全部存在（data.js 30 案）
+  ✓ nums/schemes         方案/原型总数 = 30，文档未出现别的总数
+  ✓ nums/gate            闸门 FAIL=0 的案数 = 26，与实测一致
+  ✓ nums/warn-axes       警告两轴：hard 4 / degrades 13 / 并集 14，文档口径一致
+  ✓ nums/prompt-len      提示词长度 = 1632–1920，中位 1822，文档一致
+  ✓ nums/scenes          场景词 44 / 直连 16 / 近似 28 / 标为没有 29，文档一致
+  ✓ status/fixed-claims  没有把已修项写成未修
+  ✓ status/layout-fix    layout 抽取 30/30 有值，S12/S15/S19 = 549/640/420 字
+  ✓ i18n/facts           中英两版的关键事实一致（方案数 / 达标数 / 行业词数 / 提示词区间 / 警告并集）
+  ✓ paths/exist          文档里 15 条仓库路径全部存在
+  ✓ paths/templates      文档提到的模板编号都存在
+  ✓ regression/banned    6 条已腐化原话均未回归
+
+README.md: 0 FAIL / 0 WARN / 12 PASS
+[exit code: 0]
+
+══════════════════════════════════════════════════════════════════════════════
+【验收 10】不要碰 app.js / style.css / prompt-copy.js（git diff --stat 证明）
+══════════════════════════════════════════════════════════════════════════════
+$ git diff --stat
+ README-EN.md                          |  21 ++-
+ README.md                             |  20 ++-
+ prototypes/_build/check-anchors.mjs   |   8 +-
+ prototypes/_build/collect-schemes.mjs | 160 ++++++++++++++++++-
+ prototypes/_selection/app.js          | 284 ++++++++++++++++++++++++++++++++--
+ prototypes/_selection/data.js         |  36 ++++-
+ prototypes/_selection/prompt-copy.js  | 231 ++++++++++++++++++++++++---
+ prototypes/_selection/style.css       | 260 ++++++++++++++++++++++++++++++-
+ 8 files changed, 962 insertions(+), 58 deletions(-)
+
+（注意：app.js / style.css / prompt-copy.js 的改动行数**在我开工前就存在**——本轮已有 5 个 Agent 改过这两个目录，全部未 commit。证明"我没碰"靠 mtime + 行数不变，见下。）
+
+$ Get-Item <4 个禁改文件> | mtime   （我的会话首个工具调用 = 2026-10-27T06:07:41）
+  prototypes/_selection/app.js               2026-10-26T22:06:08.008Z  51673 B
+  prototypes/_selection/style.css            2026-10-26T22:01:35.908Z  40282 B
+  prototypes/_selection/prompt-copy.js       2026-10-26T21:36:44.731Z  70907 B
+  prototypes/_selection/wizard.js            2026-10-26T12:31:58.964Z  15149 B
+
+另：本次改动跑完后，这四个文件的 SHA256（开工时未单独留档，故用 mtime 早于 06:07:41 作证）；以及本轮我实际写过的文件清单。
+  prototypes/_selection/app.js               29F7248BED9D3AAF1F605935CA5F2B846CC74B68FBC6D38D06954208540FCFAB
+  prototypes/_selection/style.css            6AE802E3BE6F1ADFCED8A5E3453C6B342E7CCBB24705D8852240C49FF60E3EFC
+  prototypes/_selection/prompt-copy.js       30181BACCB7F49B6636A3BC37D211C05EA1B724D279D76967C8C2E61EE3A9BF3
+  prototypes/_selection/wizard.js            BEF385A7E5A50B4E92BC70CCF577B65707A0553C982BBE3712F4634EB83DFFAF

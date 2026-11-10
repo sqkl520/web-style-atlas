@@ -1,0 +1,1199 @@
+[
+  {
+    "id": "S01",
+    "literal": "C",
+    "protoStrict": "C",
+    "protoLoose": "C",
+    "protoMoves": false,
+    "onMech": "no",
+    "offMechMotion": false,
+    "chromeOnly": false,
+    "axes": {
+      "motion": false,
+      "cssMotion": true,
+      "geoRuntime": false
+    },
+    "why": "脚本零几何写入；唯一 getBoundingClientRect 在 index.html:321 只读栏顶做锚点跳转。句子全静态：11° 楔形、24px 隔条、4 栏版心。",
+    "machine": {
+      "roots": [
+        "io",
+        "raf",
+        "scroll",
+        "ui"
+      ],
+      "synthSites": [],
+      "measureSites": [
+        "index.html:321"
+      ],
+      "motionGeo": [],
+      "trig": false,
+      "emptySvg": [],
+      "handPaths": 0,
+      "keyframes": [
+        "grain-in",
+        "wedge-in",
+        "bar-in",
+        "land-in",
+        "rw-fade"
+      ]
+    }
+  },
+  {
+    "id": "S02",
+    "literal": "C",
+    "protoStrict": "B",
+    "protoLoose": "B",
+    "protoMoves": true,
+    "onMech": "yes",
+    "offMechMotion": false,
+    "chromeOnly": false,
+    "axes": {
+      "motion": false,
+      "cssMotion": true,
+      "geoRuntime": false
+    },
+    "why": "index.html:266 在 scroll→rAF 内写 foilB.style.transform = scaleX(-1) translateY(p)，p=−(scrollY/100)×3，与 :250 注释「滚动 100px 对应纹样相位 3px」逐字对应。但句子的「相位」是静态镜像相位，style.css:149 scaleX(-1) translateY(-28px) 已写死；句子无运动子句。",
+    "machine": {
+      "roots": [
+        "io",
+        "other",
+        "pointer",
+        "raf",
+        "resize",
+        "scroll",
+        "ui"
+      ],
+      "synthSites": [],
+      "measureSites": [],
+      "motionGeo": [
+        "index.html:266 ←raf|resize|scroll|ui"
+      ],
+      "trig": false,
+      "emptySvg": [],
+      "handPaths": 0,
+      "keyframes": [
+        "seam-draw",
+        "seam-draw-x",
+        "press-in",
+        "foil-drift",
+        "plate-drift"
+      ]
+    }
+  },
+  {
+    "id": "S03",
+    "literal": "B",
+    "protoStrict": "B",
+    "protoLoose": "B",
+    "protoMoves": true,
+    "onMech": "yes",
+    "offMechMotion": false,
+    "chromeOnly": false,
+    "axes": {
+      "motion": true,
+      "cssMotion": true,
+      "geoRuntime": false
+    },
+    "why": "index.html:62 空 <svg id=\"scale\">；:229-232 循环造 81 条 line，:234-250 造 5 text + 5 rect；:259-262 在 scroll 里按 getBoundingClientRect 把影像带整体上移 0.5px。刻度线可用两条 repeating-linear-gradient 等价（细 8px 步进 #4A5A5E 起 x208 / 粗 40px 步进 #C9D6CF 起 x176）→ geoRuntime=false；但「随滚动固定 / 游标随焦距比移动」是句子里的运动子句。",
+    "machine": {
+      "roots": [
+        "other",
+        "pointer",
+        "raf",
+        "scroll",
+        "ui"
+      ],
+      "synthSites": [
+        "index.html:221 create",
+        "index.html:222 attr:x1",
+        "index.html:223 attr:x2",
+        "index.html:237 create",
+        "index.html:238 attr:x",
+        "index.html:239 attr:y",
+        "index.html:244 create",
+        "index.html:245 attr:x",
+        "index.html:246 attr:width",
+        "index.html:327 inner",
+        "index.html:330 inner"
+      ],
+      "measureSites": [
+        "index.html:259"
+      ],
+      "motionGeo": [
+        "index.html:262 ←raf|scroll",
+        "index.html:307 ←pointer"
+      ],
+      "trig": false,
+      "emptySvg": [
+        62
+      ],
+      "handPaths": 4,
+      "keyframes": []
+    }
+  },
+  {
+    "id": "S04",
+    "literal": "C",
+    "protoStrict": "C",
+    "protoLoose": "C",
+    "protoMoves": false,
+    "onMech": "no",
+    "offMechMotion": false,
+    "chromeOnly": false,
+    "axes": {
+      "motion": false,
+      "cssMotion": true,
+      "geoRuntime": false
+    },
+    "why": "脚本零几何写入。±1.2° 是有界静态倾斜、色版偏移 3–7px 是定值，全在 HTML 内联 style 与 class。",
+    "machine": {
+      "roots": [
+        "io",
+        "ui"
+      ],
+      "synthSites": [],
+      "measureSites": [],
+      "motionGeo": [],
+      "trig": false,
+      "emptySvg": [],
+      "handPaths": 18,
+      "keyframes": [
+        "paste",
+        "inkflash"
+      ]
+    }
+  },
+  {
+    "id": "S05",
+    "literal": "C",
+    "protoStrict": "B",
+    "protoLoose": "B",
+    "protoMoves": true,
+    "onMech": "partial",
+    "offMechMotion": false,
+    "chromeOnly": false,
+    "axes": {
+      "motion": false,
+      "cssMotion": true,
+      "geoRuntime": false
+    },
+    "why": ":303-311 paint() 用 <use> 重写 .lattice-cells 并改 viewBox，但首屏 7 处点阵已由 HTML 写死（:76/:99/:125/:136/:147/:164/:179），脚本只在 input/click 重绘；触发源非滚动/指针。",
+    "machine": {
+      "roots": [
+        "io",
+        "ui"
+      ],
+      "synthSites": [
+        "index.html:308 inner",
+        "index.html:309 attr:viewBox"
+      ],
+      "measureSites": [
+        "index.html:326",
+        "index.html:359"
+      ],
+      "motionGeo": [],
+      "trig": false,
+      "emptySvg": [],
+      "handPaths": 30,
+      "keyframes": [
+        "lamp-selfcheck",
+        "lamp-flash",
+        "scan-refresh"
+      ]
+    }
+  },
+  {
+    "id": "S06",
+    "literal": "B",
+    "protoStrict": "B",
+    "protoLoose": "B",
+    "protoMoves": true,
+    "onMech": "yes",
+    "offMechMotion": false,
+    "chromeOnly": false,
+    "axes": {
+      "motion": true,
+      "cssMotion": true,
+      "geoRuntime": false
+    },
+    "why": ":353-369 drift()：:357 每卡 getBoundingClientRect、:361 读 --coef、:365 写 --dy、:369 写 --rail-drift（模 96px）。句子「漂移速度为滚动量的 0.6 倍」逐字对应。geoRuntime=false：结果是 CSS 变量驱动的位移，@keyframes + animation-timeline 可等价（各卡系数作为每条规则的 --coef）。",
+    "machine": {
+      "roots": [
+        "raf",
+        "resize",
+        "scroll",
+        "ui"
+      ],
+      "synthSites": [],
+      "measureSites": [
+        "index.html:357",
+        "index.html:361"
+      ],
+      "motionGeo": [
+        "dy index.html:365 ←raf|resize|scroll|ui → css:187",
+        "rail-drift index.html:369 ←raf|resize|scroll|ui → css:153"
+      ],
+      "trig": false,
+      "emptySvg": [],
+      "handPaths": 15,
+      "keyframes": [
+        "rail-in"
+      ]
+    }
+  },
+  {
+    "id": "S07",
+    "literal": "A",
+    "protoStrict": "A",
+    "protoLoose": "A",
+    "protoMoves": false,
+    "onMech": "yes",
+    "offMechMotion": false,
+    "chromeOnly": false,
+    "axes": {
+      "motion": false,
+      "cssMotion": true,
+      "geoRuntime": true
+    },
+    "why": "app.js:15-46 buildGhost()：:28-30 逐行 getBoundingClientRect+getComputedStyle 取 left/top/fontSize，:23-24 建 <g transform=\"translate(W,1) scale(-1,1)\">，:35-43 建 <text>，灌进空 <svg class=\"ghost\">(index.html:94)；:10 MIRROR_BUDGET=46。坐标来自实测字号与位置 —— 无法静态声明。",
+    "machine": {
+      "roots": [
+        "other",
+        "pointer",
+        "raf",
+        "resize",
+        "scroll",
+        "ui"
+      ],
+      "synthSites": [
+        "app.js:18 attr:viewBox",
+        "app.js:19 attr:width",
+        "app.js:20 attr:height",
+        "app.js:23 create",
+        "app.js:24 attr:transform",
+        "app.js:35 create",
+        "app.js:36 attr:x",
+        "app.js:37 attr:y"
+      ],
+      "measureSites": [
+        "app.js:16",
+        "app.js:28",
+        "app.js:29",
+        "app.js:54"
+      ],
+      "motionGeo": [],
+      "trig": false,
+      "emptySvg": [
+        94
+      ],
+      "handPaths": 1,
+      "keyframes": [
+        "seepbar",
+        "seeping"
+      ]
+    }
+  },
+  {
+    "id": "S08",
+    "literal": "B",
+    "protoStrict": "B",
+    "protoLoose": "B",
+    "protoMoves": true,
+    "onMech": "yes",
+    "offMechMotion": false,
+    "chromeOnly": false,
+    "axes": {
+      "motion": true,
+      "cssMotion": true,
+      "geoRuntime": false
+    },
+    "why": ":300-315 par() 在 scroll→rAF 内：:303 p=min(1,scrollY/200)，:309/:310 写三层 transform（振幅 3/6/12px）。句子「滚动 200px 走 6px」。geoRuntime=false：线性映射，CSS scroll-timeline 可等价。",
+    "machine": {
+      "roots": [
+        "raf",
+        "scroll",
+        "ui"
+      ],
+      "synthSites": [],
+      "measureSites": [
+        "index.html:350"
+      ],
+      "motionGeo": [
+        "index.html:309 ←raf|scroll|ui",
+        "index.html:310 ←raf|scroll|ui"
+      ],
+      "trig": false,
+      "emptySvg": [],
+      "handPaths": 30,
+      "keyframes": [
+        "settle",
+        "rise"
+      ]
+    }
+  },
+  {
+    "id": "S09",
+    "literal": "C",
+    "protoStrict": "C",
+    "protoLoose": "C",
+    "protoMoves": false,
+    "onMech": "no",
+    "offMechMotion": false,
+    "chromeOnly": false,
+    "axes": {
+      "motion": false,
+      "cssMotion": true,
+      "geoRuntime": false
+    },
+    "why": ":223-231 watch() 写 --d 错开动画延迟（由 :232 watch(document) 调用，非滚动）；:259 void lamp.offsetWidth 只是重启动画的 reflow 技巧。1.5° 倾斜与 4–12px 起点错开全在 CSS。",
+    "machine": {
+      "roots": [
+        "io",
+        "other",
+        "pointer",
+        "ui"
+      ],
+      "synthSites": [
+        "index.html:266 inner",
+        "index.html:269 inner"
+      ],
+      "measureSites": [
+        "index.html:259"
+      ],
+      "motionGeo": [],
+      "trig": false,
+      "emptySvg": [],
+      "handPaths": 17,
+      "keyframes": [
+        "grain-in",
+        "paint-in",
+        "rust-in",
+        "lamp-in",
+        "lamp-dip",
+        "screw-in",
+        "h1-in",
+        "rise-in",
+        "retrace",
+        "fade-120"
+      ]
+    }
+  },
+  {
+    "id": "S10",
+    "literal": "B",
+    "protoStrict": "B",
+    "protoLoose": "B",
+    "protoMoves": true,
+    "onMech": "yes",
+    "offMechMotion": false,
+    "chromeOnly": false,
+    "axes": {
+      "motion": true,
+      "cssMotion": true,
+      "geoRuntime": false
+    },
+    "why": "句子「进视口时先错 3px 再收到 1.5px」由 style.css:32-33 --misreg/--misreg-start、:211/:216 两条 transform 规则、:212 transition 240ms 承载；index.html:486 setTimeout 260ms 加 .settled 收位（:490 IO 兜底）。",
+    "machine": {
+      "roots": [
+        "io",
+        "other",
+        "pointer",
+        "ui"
+      ],
+      "synthSites": [
+        "index.html:472 create",
+        "index.html:495 create",
+        "index.html:498 inner"
+      ],
+      "measureSites": [
+        "index.html:405"
+      ],
+      "motionGeo": [
+        "index.html:503 ←pointer"
+      ],
+      "trig": false,
+      "emptySvg": [],
+      "handPaths": 2,
+      "keyframes": [
+        "land",
+        "land-flat"
+      ]
+    }
+  },
+  {
+    "id": "S11",
+    "literal": "C",
+    "protoStrict": "C",
+    "protoLoose": "C",
+    "protoMoves": false,
+    "onMech": "no",
+    "offMechMotion": false,
+    "chromeOnly": false,
+    "axes": {
+      "motion": false,
+      "cssMotion": true,
+      "geoRuntime": false
+    },
+    "why": "脚本只做 IO 逐行落位（:351 --i、:378 reflow）与复核状态机。三层重影 0.5/1.5/3px、第三层 12% 在 style.css:24-26。",
+    "machine": {
+      "roots": [
+        "io",
+        "ui"
+      ],
+      "synthSites": [],
+      "measureSites": [
+        "index.html:378"
+      ],
+      "motionGeo": [],
+      "trig": false,
+      "emptySvg": [],
+      "handPaths": 7,
+      "keyframes": [
+        "carbon-sweep",
+        "caret-blink",
+        "row-land",
+        "enter",
+        "cut",
+        "carbon-step"
+      ]
+    }
+  },
+  {
+    "id": "S12",
+    "literal": "C",
+    "protoStrict": "C",
+    "protoLoose": "C",
+    "protoMoves": false,
+    "onMech": "no",
+    "offMechMotion": false,
+    "chromeOnly": false,
+    "axes": {
+      "motion": false,
+      "cssMotion": true,
+      "geoRuntime": false
+    },
+    "why": ":248/:277 只读 getBoundingClientRect/offsetWidth 算进度，写的是 class（源码注释「只加类，位移交给 CSS」）。挖空几何在 style.css:263-269。",
+    "machine": {
+      "roots": [
+        "io",
+        "raf",
+        "scroll",
+        "ui"
+      ],
+      "synthSites": [
+        "index.html:286 inner",
+        "index.html:304 inner",
+        "index.html:325 inner"
+      ],
+      "measureSites": [
+        "index.html:248",
+        "index.html:277"
+      ],
+      "motionGeo": [],
+      "trig": false,
+      "emptySvg": [],
+      "handPaths": 0,
+      "keyframes": [
+        "chip-drop",
+        "rise",
+        "flash-cut"
+      ]
+    }
+  },
+  {
+    "id": "S13",
+    "literal": "B",
+    "protoStrict": "C",
+    "protoLoose": "C",
+    "protoMoves": true,
+    "onMech": "no",
+    "offMechMotion": true,
+    "chromeOnly": true,
+    "axes": {
+      "motion": true,
+      "cssMotion": true,
+      "geoRuntime": false
+    },
+    "why": "句子「按下时方位角 135°→315° 并下沉 0.8px」由 :373 flip() 改 body[data-azimuth] + style.css:439 .btn:active{transform:translateY(0.8px)} + :613/:645 反向阴影完成 —— 纯 CSS 态。唯一 JS 几何是 :404 的 6×6 压痕光标，跟指针的非内容件。",
+    "machine": {
+      "roots": [
+        "io",
+        "pointer",
+        "scroll",
+        "ui"
+      ],
+      "synthSites": [
+        "index.html:330 create",
+        "index.html:336 inner"
+      ],
+      "measureSites": [
+        "index.html:301"
+      ],
+      "motionGeo": [
+        "index.html:404 ←pointer"
+      ],
+      "trig": false,
+      "emptySvg": [],
+      "handPaths": 5,
+      "keyframes": [
+        "pressfeed",
+        "press-in"
+      ]
+    }
+  },
+  {
+    "id": "S14",
+    "literal": "C",
+    "protoStrict": "B",
+    "protoLoose": "B",
+    "protoMoves": true,
+    "onMech": "partial",
+    "offMechMotion": false,
+    "chromeOnly": false,
+    "axes": {
+      "motion": false,
+      "cssMotion": true,
+      "geoRuntime": false
+    },
+    "why": "极坐标站位由 build/polar-layout.py 烘出、写进 index.html:70-133 内联 --dx/--dy/--w，由 style.css:166-171 .tag 渲染；句子说的 48px 平漂是 style.css:281-291 @keyframes drift（纯 CSS），--dr:48 在 :130。句子无运动子句（「平漂」可读作静态圆弧轨迹）。脚本额外件：:345-346 指针牵引、:363 scroll 写 --sy。",
+    "machine": {
+      "roots": [
+        "io",
+        "other",
+        "pointer",
+        "raf",
+        "scroll",
+        "ui"
+      ],
+      "synthSites": [],
+      "measureSites": [
+        "index.html:332",
+        "index.html:366",
+        "index.html:395"
+      ],
+      "motionGeo": [
+        "px index.html:345 ←pointer → css:169,351",
+        "py index.html:346 ←pointer → css:169",
+        "sy index.html:363 ←raf|scroll → css:126"
+      ],
+      "trig": true,
+      "emptySvg": [],
+      "handPaths": 11,
+      "keyframes": [
+        "drift",
+        "driftY",
+        "cone",
+        "land",
+        "tumble",
+        "sheen"
+      ]
+    }
+  },
+  {
+    "id": "S15",
+    "literal": "C",
+    "protoStrict": "C",
+    "protoLoose": "C",
+    "protoMoves": false,
+    "onMech": "no",
+    "offMechMotion": false,
+    "chromeOnly": false,
+    "axes": {
+      "motion": false,
+      "cssMotion": true,
+      "geoRuntime": false
+    },
+    "why": ":481 只写 --trace36（第二层不透明度）与状态条文案。三层错位 0/3/7px、56% 在 style.css:171-173 写死。",
+    "machine": {
+      "roots": [
+        "other",
+        "pointer",
+        "scroll",
+        "ui"
+      ],
+      "synthSites": [],
+      "measureSites": [],
+      "motionGeo": [],
+      "trig": false,
+      "emptySvg": [],
+      "handPaths": 39,
+      "keyframes": [
+        "lay",
+        "rise"
+      ]
+    }
+  },
+  {
+    "id": "S16",
+    "literal": "C",
+    "protoStrict": "C",
+    "protoLoose": "B",
+    "protoMoves": true,
+    "onMech": "no",
+    "offMechMotion": true,
+    "chromeOnly": false,
+    "axes": {
+      "motion": false,
+      "cssMotion": true,
+      "geoRuntime": false
+    },
+    "why": "句子要的 12°/24px/4-6-7-9 栏在 style.css:221-222 的 calc() 里完整表达，--span/--slot 由 index.html:56-161 内联 style 写死，脚本 :255 只在断点换成另一组写死值（:242 SPANS 表）。脚本的滚动件 --shift(:291 平方关系)/--rung(:294 进度尺) 不在句子所述区域。",
+    "machine": {
+      "roots": [
+        "raf",
+        "resize",
+        "scroll",
+        "ui"
+      ],
+      "synthSites": [],
+      "measureSites": [
+        "index.html:316",
+        "index.html:338",
+        "index.html:347",
+        "index.html:368"
+      ],
+      "motionGeo": [
+        "shift index.html:291 ←raf|resize|scroll|ui → css:298,379,380,387,388,389,494",
+        "rung index.html:294 ←raf|resize|scroll|ui → css:207",
+        "rung index.html:323 ←raf|scroll → css:207"
+      ],
+      "trig": false,
+      "emptySvg": [],
+      "handPaths": 0,
+      "keyframes": [
+        "press-on",
+        "speed-line",
+        "kick-back",
+        "reduce-slide",
+        "plate-on",
+        "masthead-on"
+      ]
+    }
+  },
+  {
+    "id": "S17",
+    "literal": "C",
+    "protoStrict": "C",
+    "protoLoose": "C",
+    "protoMoves": false,
+    "onMech": "no",
+    "offMechMotion": false,
+    "chromeOnly": false,
+    "axes": {
+      "motion": false,
+      "cssMotion": true,
+      "geoRuntime": false
+    },
+    "why": "129 行全是业务状态机：:54-80 核验 draft→mismatch→verified（错误码 STUB-17）、:82-104 CSV 导出（:96-99 Blob+createObjectURL、:286 createElement(\"a\")）、:106-128 期号切换改 innerHTML。几何只有 :211 --row-index(i%20)。",
+    "machine": {
+      "roots": [
+        "io",
+        "ui"
+      ],
+      "synthSites": [
+        "index.html:286 create",
+        "index.html:297 inner",
+        "index.html:298 inner",
+        "index.html:309 inner",
+        "index.html:310 inner"
+      ],
+      "measureSites": [],
+      "motionGeo": [],
+      "trig": false,
+      "emptySvg": [],
+      "handPaths": 4,
+      "keyframes": [
+        "press-in",
+        "fade-in",
+        "stamp-press",
+        "turn"
+      ]
+    }
+  },
+  {
+    "id": "S18",
+    "literal": "C",
+    "protoStrict": "B",
+    "protoLoose": "B",
+    "protoMoves": true,
+    "onMech": "partial",
+    "offMechMotion": false,
+    "chromeOnly": false,
+    "axes": {
+      "motion": false,
+      "cssMotion": true,
+      "geoRuntime": false
+    },
+    "why": "句子「行尾 8×14px 块 530ms 方波」是 style.css:191-193 的 CSS 动画（cu-blink 1060ms steps(1,end) infinite，半周期 530ms）。脚本另有 :427 walk() 写 --tug（scrollY%24 取整到 6px），style.css:73 background-position-y 消费 —— 走纸，句子没写。",
+    "machine": {
+      "roots": [
+        "io",
+        "raf",
+        "scroll",
+        "ui"
+      ],
+      "synthSites": [
+        "index.html:460 inner"
+      ],
+      "measureSites": [],
+      "motionGeo": [
+        "tug index.html:427 ←raf|scroll → css:73"
+      ],
+      "trig": false,
+      "emptySvg": [],
+      "handPaths": 20,
+      "keyframes": [
+        "tag-sway",
+        "cu-blink",
+        "drop-in"
+      ]
+    }
+  },
+  {
+    "id": "S19",
+    "literal": "C",
+    "protoStrict": "C",
+    "protoLoose": "C",
+    "protoMoves": false,
+    "onMech": "no",
+    "offMechMotion": false,
+    "chromeOnly": false,
+    "axes": {
+      "motion": false,
+      "cssMotion": true,
+      "geoRuntime": false
+    },
+    "why": "两个脚本：第一个只有 documentElement.classList.add(\"js\")；第二个只有 IO 抽拉与检索号联动，零几何写入。面板几何在 style.css:63-66 与 HTML 的行/档变量。",
+    "machine": {
+      "roots": [
+        "io",
+        "ui"
+      ],
+      "synthSites": [],
+      "measureSites": [],
+      "motionGeo": [],
+      "trig": false,
+      "emptySvg": [],
+      "handPaths": 9,
+      "keyframes": [
+        "seat"
+      ]
+    }
+  },
+  {
+    "id": "S20",
+    "literal": "A",
+    "protoStrict": "A",
+    "protoLoose": "A",
+    "protoMoves": false,
+    "onMech": "yes",
+    "offMechMotion": false,
+    "chromeOnly": false,
+    "axes": {
+      "motion": false,
+      "cssMotion": true,
+      "geoRuntime": true
+    },
+    "why": ":272-274 现算 r = 96 + i·sp + t·(25 sin(11θ+0.35) + 8 sin(13θ+2.1))、xs.push(CX + r·cos(θ))；:286 createElementNS(\"path\")、:311 setAttribute(\"d\", r.d)。:96 scrollY → PAR(n) 换三参数后整图重排。23 圈 × 80 点 = 1840 段。句子无运动词，但描述的走线是 trig 导出 → geoRuntime=true。注意 :72-73 有 3 圈手写 <path d>（各 81 组坐标），见 §5。",
+    "machine": {
+      "roots": [
+        "other",
+        "pointer",
+        "raf",
+        "resize",
+        "scroll",
+        "ui"
+      ],
+      "synthSites": [
+        "index.html:286 create",
+        "index.html:310 attr:d",
+        "index.html:311 attr:d",
+        "index.html:314 attr:d",
+        "index.html:315 attr:cx"
+      ],
+      "measureSites": [],
+      "motionGeo": [],
+      "trig": true,
+      "emptySvg": [],
+      "handPaths": 33,
+      "keyframes": [
+        "draw",
+        "gridin"
+      ]
+    }
+  },
+  {
+    "id": "S21",
+    "literal": "C",
+    "protoStrict": "C",
+    "protoLoose": "C",
+    "protoMoves": false,
+    "onMech": "no",
+    "offMechMotion": false,
+    "chromeOnly": false,
+    "axes": {
+      "motion": false,
+      "cssMotion": true,
+      "geoRuntime": false
+    },
+    "why": "114 行全是互斥对、IO arm 与悬停回话，零几何写入。三档斜切在 style.css:559-561 的 clip-path polygon 写死（30/45/60° → 56.7%/75%/85.57%）。",
+    "machine": {
+      "roots": [
+        "io",
+        "other",
+        "pointer",
+        "ui"
+      ],
+      "synthSites": [],
+      "measureSites": [
+        "index.html:501"
+      ],
+      "motionGeo": [],
+      "trig": false,
+      "emptySvg": [],
+      "handPaths": 3,
+      "keyframes": [
+        "caret-blink",
+        "seat",
+        "demo-seat"
+      ]
+    }
+  },
+  {
+    "id": "S22",
+    "literal": "C",
+    "protoStrict": "C",
+    "protoLoose": "C",
+    "protoMoves": false,
+    "onMech": "no",
+    "offMechMotion": false,
+    "chromeOnly": false,
+    "axes": {
+      "motion": false,
+      "cssMotion": true,
+      "geoRuntime": false
+    },
+    "why": "脚本只切 class：IO 折痕加深、翻折 is-folded、按钮回话，零几何写入。中缝 88px、折痕 3px、下端 4px 起毛在 CSS。",
+    "machine": {
+      "roots": [
+        "io",
+        "ui"
+      ],
+      "synthSites": [],
+      "measureSites": [],
+      "motionGeo": [],
+      "trig": false,
+      "emptySvg": [],
+      "handPaths": 5,
+      "keyframes": [
+        "glide",
+        "riseIn",
+        "paperUp",
+        "mirrorUp"
+      ]
+    }
+  },
+  {
+    "id": "S23",
+    "literal": "C",
+    "protoStrict": "C",
+    "protoLoose": "C",
+    "protoMoves": false,
+    "onMech": "no",
+    "offMechMotion": false,
+    "chromeOnly": false,
+    "axes": {
+      "motion": false,
+      "cssMotion": true,
+      "geoRuntime": false
+    },
+    "why": ":388 只写 --dl 错开揭幕延迟。9 处开口、62° 斜痕、层间 1px 亮线全在 HTML/SVG 静态标记里。",
+    "machine": {
+      "roots": [
+        "io",
+        "other",
+        "pointer",
+        "ui"
+      ],
+      "synthSites": [],
+      "measureSites": [],
+      "motionGeo": [],
+      "trig": false,
+      "emptySvg": [],
+      "handPaths": 13,
+      "keyframes": [
+        "peel",
+        "blink"
+      ]
+    }
+  },
+  {
+    "id": "S24",
+    "literal": "C",
+    "protoStrict": "C",
+    "protoLoose": "C",
+    "protoMoves": false,
+    "onMech": "no",
+    "offMechMotion": false,
+    "chromeOnly": false,
+    "axes": {
+      "motion": false,
+      "cssMotion": true,
+      "geoRuntime": false
+    },
+    "why": "零几何写入。:421 getBoundingClientRect 只判入场。8 栏中轴、5:3 宽比、2.5→1/0.6/0.4px 线宽在 26 个静态 <svg> 的 71 条手写 path 里（最长 22 组坐标）。",
+    "machine": {
+      "roots": [
+        "io",
+        "ui"
+      ],
+      "synthSites": [],
+      "measureSites": [
+        "index.html:421"
+      ],
+      "motionGeo": [],
+      "trig": false,
+      "emptySvg": [],
+      "handPaths": 71,
+      "keyframes": [
+        "vein-grow",
+        "expose"
+      ]
+    }
+  },
+  {
+    "id": "S25",
+    "literal": "C",
+    "protoStrict": "C",
+    "protoLoose": "B",
+    "protoMoves": true,
+    "onMech": "no",
+    "offMechMotion": true,
+    "chromeOnly": false,
+    "axes": {
+      "motion": false,
+      "cssMotion": true,
+      "geoRuntime": false
+    },
+    "why": ":364-370 在 scroll 里 getBoundingClientRect 写 --follow（1:0.94 跟随，style.css:197 translateY(var(--follow)) 消费）；:373-374 写序号 --d。句子写的是「两版错开 0.8 至 1.6px、行首按 0/12/24px 缩进」—— 静态量。",
+    "machine": {
+      "roots": [
+        "pointer",
+        "scroll",
+        "ui"
+      ],
+      "synthSites": [],
+      "measureSites": [
+        "index.html:366"
+      ],
+      "motionGeo": [
+        "follow index.html:368 ←scroll → css:197"
+      ],
+      "trig": false,
+      "emptySvg": [],
+      "handPaths": 4,
+      "keyframes": [
+        "rise",
+        "sew"
+      ]
+    }
+  },
+  {
+    "id": "S26",
+    "literal": "C",
+    "protoStrict": "C",
+    "protoLoose": "B",
+    "protoMoves": true,
+    "onMech": "no",
+    "offMechMotion": true,
+    "chromeOnly": false,
+    "axes": {
+      "motion": false,
+      "cssMotion": true,
+      "geoRuntime": false
+    },
+    "why": ":465-469 在 scroll→rAF 里逐块 getBoundingClientRect 写 --p（中心距×24px，钳 ±1.4），style.css:147 transform:translateY(calc(var(--p)*var(--rate,1))) 消费。句子写的倾 11°、5:3:4、压叠 1.5/1.2px 全静态。",
+    "machine": {
+      "roots": [
+        "io",
+        "raf",
+        "resize",
+        "scroll"
+      ],
+      "synthSites": [],
+      "measureSites": [
+        "index.html:465"
+      ],
+      "motionGeo": [
+        "p index.html:469 ←raf|resize|scroll → css:147"
+      ],
+      "trig": false,
+      "emptySvg": [],
+      "handPaths": 0,
+      "keyframes": [
+        "foldin"
+      ]
+    }
+  },
+  {
+    "id": "S27",
+    "literal": "C",
+    "protoStrict": "C",
+    "protoLoose": "C",
+    "protoMoves": false,
+    "onMech": "no",
+    "offMechMotion": false,
+    "chromeOnly": false,
+    "axes": {
+      "motion": false,
+      "cssMotion": true,
+      "geoRuntime": false
+    },
+    "why": "两处只是重启动 CSS 动画的 reflow 技巧（:418/:452 void offsetWidth 后加 class），零几何合成。9 栏、基线 7px、错开 1.8px 在 CSS。",
+    "machine": {
+      "roots": [
+        "io",
+        "ui"
+      ],
+      "synthSites": [
+        "index.html:472 inner"
+      ],
+      "measureSites": [
+        "index.html:418",
+        "index.html:452"
+      ],
+      "motionGeo": [],
+      "trig": false,
+      "emptySvg": [],
+      "handPaths": 23,
+      "keyframes": [
+        "press",
+        "curtain",
+        "jump",
+        "spread"
+      ]
+    }
+  },
+  {
+    "id": "S28",
+    "literal": "C",
+    "protoStrict": "B",
+    "protoLoose": "B",
+    "protoMoves": true,
+    "onMech": "partial",
+    "offMechMotion": false,
+    "chromeOnly": false,
+    "axes": {
+      "motion": false,
+      "cssMotion": true,
+      "geoRuntime": false
+    },
+    "why": ":440-451 drift() 在 scroll 内逐块 getBoundingClientRect，:449 img.style.transform 平移（三速率 1.0/0.92/1.06），:451 写 --edge（style.css:120/128/212 drop-shadow 消费）。句子「裁切边按 4 至 14px 写死值错开并外出血 24px」是静态量。",
+    "machine": {
+      "roots": [
+        "raf",
+        "resize",
+        "scroll",
+        "ui"
+      ],
+      "synthSites": [],
+      "measureSites": [
+        "index.html:444",
+        "index.html:469",
+        "index.html:490"
+      ],
+      "motionGeo": [
+        "edge index.html:451 ←raf|scroll → css:120,128,212",
+        "index.html:449 ←raf|scroll"
+      ],
+      "trig": false,
+      "emptySvg": [],
+      "handPaths": 10,
+      "keyframes": [
+        "fillin",
+        "pushseg",
+        "ringflash",
+        "slabflash"
+      ]
+    }
+  },
+  {
+    "id": "S29",
+    "literal": "C",
+    "protoStrict": "C",
+    "protoLoose": "C",
+    "protoMoves": false,
+    "onMech": "no",
+    "offMechMotion": false,
+    "chromeOnly": false,
+    "axes": {
+      "motion": false,
+      "cssMotion": true,
+      "geoRuntime": false
+    },
+    "why": "零几何写入。三处 getBoundingClientRect（:499/:518/:537）只判入场与章节高亮，写 class/aria-current。47 条手写 path 承载穿孔线与章节几何。",
+    "machine": {
+      "roots": [
+        "io",
+        "other",
+        "resize",
+        "scroll",
+        "ui"
+      ],
+      "synthSites": [],
+      "measureSites": [
+        "index.html:499",
+        "index.html:518",
+        "index.html:537"
+      ],
+      "motionGeo": [],
+      "trig": false,
+      "emptySvg": [],
+      "handPaths": 47,
+      "keyframes": [
+        "drawline",
+        "perf",
+        "chapterin"
+      ]
+    }
+  },
+  {
+    "id": "S30",
+    "literal": "C",
+    "protoStrict": "B",
+    "protoLoose": "B",
+    "protoMoves": true,
+    "onMech": "yes",
+    "offMechMotion": false,
+    "chromeOnly": false,
+    "axes": {
+      "motion": false,
+      "cssMotion": true,
+      "geoRuntime": false
+    },
+    "why": ":279-289 tick() 用三角波把 --push 推到 24px、--mis 从 9px 收到 0 再放回，style.css:193/196/437 消费。句子明写「下半错开 9px」但未写三角波 —— 静态读法是定值 9px；「先后由错位量与深度给出」仍是静态解读，故 motion=false。",
+    "machine": {
+      "roots": [
+        "io",
+        "pointer",
+        "raf",
+        "scroll",
+        "ui"
+      ],
+      "synthSites": [],
+      "measureSites": [],
+      "motionGeo": [
+        "push index.html:286 ←raf|scroll → css:193,196,436,437",
+        "mis index.html:287 ←raf|scroll → css:193,437",
+        "index.html:315 ←pointer"
+      ],
+      "trig": false,
+      "emptySvg": [],
+      "handPaths": 11,
+      "keyframes": [
+        "stick-in",
+        "sweep"
+      ]
+    }
+  }
+]

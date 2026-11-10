@@ -1,0 +1,942 @@
+[
+  {
+    "id": "S01",
+    "varKnobs": [],
+    "directGeomWrites": []
+  },
+  {
+    "id": "S02",
+    "varKnobs": [
+      {
+        "var": "leak-x",
+        "writes": [
+          {
+            "file": "index.html",
+            "line": 283,
+            "driver": "scroll/rAF"
+          }
+        ],
+        "driveCount": [
+          "scroll/rAF"
+        ],
+        "cssGeomConsumers": [
+          {
+            "line": 157,
+            "decl": "left: min(var(--leak-x,"
+          }
+        ],
+        "cssOtherProps": []
+      },
+      {
+        "var": "leak-y",
+        "writes": [
+          {
+            "file": "index.html",
+            "line": 284,
+            "driver": "scroll/rAF"
+          }
+        ],
+        "driveCount": [
+          "scroll/rAF"
+        ],
+        "cssGeomConsumers": [
+          {
+            "line": 158,
+            "decl": "top: var(--leak-y,"
+          }
+        ],
+        "cssOtherProps": []
+      },
+      {
+        "var": "stagger",
+        "writes": [
+          {
+            "file": "index.html",
+            "line": 303,
+            "driver": "scroll/rAF"
+          }
+        ],
+        "driveCount": [
+          "scroll/rAF"
+        ],
+        "cssGeomConsumers": [],
+        "cssOtherProps": [
+          "animation-delay"
+        ]
+      }
+    ],
+    "directGeomWrites": [
+      {
+        "file": "index.html",
+        "line": 266,
+        "code": "if (foilB) foilB.style.transform = 'scaleX(-1) translateY(' + p.toFixed(2) + 'px)';"
+      }
+    ]
+  },
+  {
+    "id": "S03",
+    "varKnobs": [],
+    "directGeomWrites": [
+      {
+        "file": "index.html",
+        "line": 262,
+        "code": "bands.forEach(function (b) { b.style.transform = \"translateY(\" + shift.toFixed(2) + \"px)\"; });"
+      },
+      {
+        "file": "index.html",
+        "line": 286,
+        "code": "rows.forEach(function (r) { r.style.opacity = \"1\"; r.style.transform = \"none\"; });"
+      },
+      {
+        "file": "index.html",
+        "line": 294,
+        "code": "row.style.transform = \"none\";"
+      },
+      {
+        "file": "index.html",
+        "line": 307,
+        "code": "cursor.style.transform = \"translate(\" + e.clientX + \"px,\" + e.clientY + \"px)\";"
+      }
+    ]
+  },
+  {
+    "id": "S04",
+    "varKnobs": [],
+    "directGeomWrites": []
+  },
+  {
+    "id": "S05",
+    "varKnobs": [
+      {
+        "var": "pos",
+        "writes": [
+          {
+            "file": "index.html",
+            "line": 322,
+            "driver": "timer"
+          },
+          {
+            "file": "index.html",
+            "line": 344,
+            "driver": "timer"
+          }
+        ],
+        "driveCount": [
+          "timer"
+        ],
+        "cssGeomConsumers": [
+          {
+            "line": 315,
+            "decl": "transform: translateY(calc(var(--pos,"
+          },
+          {
+            "line": 331,
+            "decl": "transform: translateY(calc(var(--pos,"
+          }
+        ],
+        "cssOtherProps": []
+      }
+    ],
+    "directGeomWrites": []
+  },
+  {
+    "id": "S06",
+    "varKnobs": [
+      {
+        "var": "dy",
+        "writes": [
+          {
+            "file": "index.html",
+            "line": 365,
+            "driver": "resize"
+          }
+        ],
+        "driveCount": [
+          "resize"
+        ],
+        "cssGeomConsumers": [
+          {
+            "line": 187,
+            "decl": "transform: translateY(calc(var(--dy,"
+          }
+        ],
+        "cssOtherProps": []
+      },
+      {
+        "var": "rail-drift",
+        "writes": [
+          {
+            "file": "index.html",
+            "line": 369,
+            "driver": "resize"
+          },
+          {
+            "file": "index.html",
+            "line": 418,
+            "driver": "timer"
+          },
+          {
+            "file": "index.html",
+            "line": 422,
+            "driver": "timer"
+          }
+        ],
+        "driveCount": [
+          "resize",
+          "timer"
+        ],
+        "cssGeomConsumers": [],
+        "cssOtherProps": [
+          "background-position"
+        ]
+      }
+    ],
+    "directGeomWrites": []
+  },
+  {
+    "id": "S07",
+    "varKnobs": [
+      {
+        "var": "ghost-o",
+        "writes": [
+          {
+            "file": "app.js",
+            "line": 48,
+            "driver": "unknown"
+          }
+        ],
+        "driveCount": [
+          "unknown"
+        ],
+        "cssGeomConsumers": [],
+        "cssOtherProps": [
+          "opacity"
+        ]
+      },
+      {
+        "var": "i",
+        "writes": [
+          {
+            "file": "app.js",
+            "line": 76,
+            "driver": "timer"
+          }
+        ],
+        "driveCount": [
+          "timer"
+        ],
+        "cssGeomConsumers": [],
+        "cssOtherProps": [
+          "animation-delay"
+        ]
+      }
+    ],
+    "directGeomWrites": []
+  },
+  {
+    "id": "S08",
+    "varKnobs": [
+      {
+        "var": "stagger",
+        "writes": [
+          {
+            "file": "index.html",
+            "line": 323,
+            "driver": "scroll/rAF"
+          },
+          {
+            "file": "index.html",
+            "line": 327,
+            "driver": "scroll/rAF"
+          }
+        ],
+        "driveCount": [
+          "scroll/rAF"
+        ],
+        "cssGeomConsumers": [],
+        "cssOtherProps": [
+          "animation-delay"
+        ]
+      }
+    ],
+    "directGeomWrites": [
+      {
+        "file": "index.html",
+        "line": 309,
+        "code": "if (face) { face.style.transform = 'translateY(' + (amp * p).toFixed(2) + 'px)'; }"
+      },
+      {
+        "file": "index.html",
+        "line": 310,
+        "code": "if (ink) { ink.style.transform = 'translateY(' + (6 * p).toFixed(2) + 'px)'; }"
+      }
+    ]
+  },
+  {
+    "id": "S09",
+    "varKnobs": [
+      {
+        "var": "d",
+        "writes": [
+          {
+            "file": "index.html",
+            "line": 226,
+            "driver": "IO-reveal"
+          }
+        ],
+        "driveCount": [
+          "IO-reveal"
+        ],
+        "cssGeomConsumers": [],
+        "cssOtherProps": [
+          "transition-delay",
+          "animation-delay"
+        ]
+      }
+    ],
+    "directGeomWrites": []
+  },
+  {
+    "id": "S10",
+    "varKnobs": [
+      {
+        "var": "row-index",
+        "writes": [
+          {
+            "file": "index.html",
+            "line": 430,
+            "driver": "timer"
+          }
+        ],
+        "driveCount": [
+          "timer"
+        ],
+        "cssGeomConsumers": [],
+        "cssOtherProps": [
+          "animation-delay"
+        ]
+      }
+    ],
+    "directGeomWrites": [
+      {
+        "file": "index.html",
+        "line": 503,
+        "code": "cursor.style.transform = 'translate(' + ev.clientX + 'px,' + ev.clientY + 'px)';"
+      }
+    ]
+  },
+  {
+    "id": "S11",
+    "varKnobs": [
+      {
+        "var": "i",
+        "writes": [
+          {
+            "file": "index.html",
+            "line": 351,
+            "driver": "unknown"
+          }
+        ],
+        "driveCount": [
+          "unknown"
+        ],
+        "cssGeomConsumers": [],
+        "cssOtherProps": [
+          "animation-delay"
+        ]
+      }
+    ],
+    "directGeomWrites": []
+  },
+  {
+    "id": "S12",
+    "varKnobs": [],
+    "directGeomWrites": []
+  },
+  {
+    "id": "S13",
+    "varKnobs": [],
+    "directGeomWrites": [
+      {
+        "file": "index.html",
+        "line": 404,
+        "code": "press.style.transform = 'translate3d(' + e.clientX + 'px,' + e.clientY + 'px,0)';"
+      }
+    ]
+  },
+  {
+    "id": "S14",
+    "varKnobs": [
+      {
+        "var": "pull-range",
+        "writes": [
+          {
+            "file": "index.html",
+            "line": 330,
+            "driver": "unknown"
+          }
+        ],
+        "driveCount": [
+          "unknown"
+        ],
+        "cssGeomConsumers": [],
+        "cssOtherProps": []
+      },
+      {
+        "var": "px",
+        "writes": [
+          {
+            "file": "index.html",
+            "line": 345,
+            "driver": "unknown"
+          }
+        ],
+        "driveCount": [
+          "unknown"
+        ],
+        "cssGeomConsumers": [
+          {
+            "line": 169,
+            "decl": "transform: translate(-50%, -50%) translate(calc(var(--dx) * var(--k) * 1px), calc(var(--dy"
+          },
+          {
+            "line": 351,
+            "decl": "transform: translateX(calc(var(--ox) * 1px)) translate(var(--px,"
+          }
+        ],
+        "cssOtherProps": []
+      },
+      {
+        "var": "py",
+        "writes": [
+          {
+            "file": "index.html",
+            "line": 346,
+            "driver": "unknown"
+          }
+        ],
+        "driveCount": [
+          "unknown"
+        ],
+        "cssGeomConsumers": [
+          {
+            "line": 169,
+            "decl": "transform: translate(-50%, -50%) translate(calc(var(--dx) * var(--k) * 1px), calc(var(--dy"
+          }
+        ],
+        "cssOtherProps": []
+      },
+      {
+        "var": "sy",
+        "writes": [
+          {
+            "file": "index.html",
+            "line": 363,
+            "driver": "unknown"
+          }
+        ],
+        "driveCount": [
+          "unknown"
+        ],
+        "cssGeomConsumers": [
+          {
+            "line": 126,
+            "decl": "transform: translate3d(0, var(--sy,"
+          }
+        ],
+        "cssOtherProps": []
+      },
+      {
+        "var": "turn",
+        "writes": [
+          {
+            "file": "index.html",
+            "line": 384,
+            "driver": "scroll/rAF"
+          },
+          {
+            "file": "index.html",
+            "line": 385,
+            "driver": "scroll/rAF"
+          }
+        ],
+        "driveCount": [
+          "scroll/rAF"
+        ],
+        "cssGeomConsumers": [
+          {
+            "line": 126,
+            "decl": "transform: translate3d(0, var(--sy, 0px), 0) rotate(var(--turn,"
+          }
+        ],
+        "cssOtherProps": []
+      }
+    ],
+    "directGeomWrites": []
+  },
+  {
+    "id": "S15",
+    "varKnobs": [
+      {
+        "var": "trace36",
+        "writes": [
+          {
+            "file": "index.html",
+            "line": 481,
+            "driver": "pointer"
+          }
+        ],
+        "driveCount": [
+          "pointer"
+        ],
+        "cssGeomConsumers": [],
+        "cssOtherProps": [
+          "--op",
+          "opacity"
+        ]
+      }
+    ],
+    "directGeomWrites": []
+  },
+  {
+    "id": "S16",
+    "varKnobs": [
+      {
+        "var": "span",
+        "writes": [
+          {
+            "file": "index.html",
+            "line": 255,
+            "driver": "resize"
+          }
+        ],
+        "driveCount": [
+          "resize"
+        ],
+        "cssGeomConsumers": [
+          {
+            "line": 221,
+            "decl": "width: calc(var(--span,"
+          }
+        ],
+        "cssOtherProps": []
+      },
+      {
+        "var": "press-delay",
+        "writes": [
+          {
+            "file": "index.html",
+            "line": 263,
+            "driver": "resize"
+          }
+        ],
+        "driveCount": [
+          "resize"
+        ],
+        "cssGeomConsumers": [],
+        "cssOtherProps": [
+          "animation"
+        ]
+      },
+      {
+        "var": "shift",
+        "writes": [
+          {
+            "file": "index.html",
+            "line": 291,
+            "driver": "timer"
+          }
+        ],
+        "driveCount": [
+          "timer"
+        ],
+        "cssGeomConsumers": [
+          {
+            "line": 298,
+            "decl": "transform: translateX(var(--shift,"
+          },
+          {
+            "line": 379,
+            "decl": "transform: translateX(var(--shift,"
+          },
+          {
+            "line": 380,
+            "decl": "transform: translateX(var(--shift,"
+          },
+          {
+            "line": 387,
+            "decl": "transform: translateX(calc(var(--shift,"
+          },
+          {
+            "line": 388,
+            "decl": "transform: translateX(calc(var(--shift,"
+          }
+        ],
+        "cssOtherProps": []
+      },
+      {
+        "var": "rung",
+        "writes": [
+          {
+            "file": "index.html",
+            "line": 294,
+            "driver": "timer"
+          },
+          {
+            "file": "index.html",
+            "line": 323,
+            "driver": "scroll/rAF"
+          }
+        ],
+        "driveCount": [
+          "timer",
+          "scroll/rAF"
+        ],
+        "cssGeomConsumers": [
+          {
+            "line": 207,
+            "decl": "left: calc(var(--rung)"
+          }
+        ],
+        "cssOtherProps": []
+      }
+    ],
+    "directGeomWrites": []
+  },
+  {
+    "id": "S17",
+    "varKnobs": [
+      {
+        "var": "row-index",
+        "writes": [
+          {
+            "file": "index.html",
+            "line": 211,
+            "driver": "unknown"
+          }
+        ],
+        "driveCount": [
+          "unknown"
+        ],
+        "cssGeomConsumers": [],
+        "cssOtherProps": [
+          "animation-delay"
+        ]
+      }
+    ],
+    "directGeomWrites": []
+  },
+  {
+    "id": "S18",
+    "varKnobs": [
+      {
+        "var": "i",
+        "writes": [
+          {
+            "file": "index.html",
+            "line": 409,
+            "driver": "unknown"
+          }
+        ],
+        "driveCount": [
+          "unknown"
+        ],
+        "cssGeomConsumers": [],
+        "cssOtherProps": []
+      },
+      {
+        "var": "tug",
+        "writes": [
+          {
+            "file": "index.html",
+            "line": 427,
+            "driver": "IO-reveal"
+          }
+        ],
+        "driveCount": [
+          "IO-reveal"
+        ],
+        "cssGeomConsumers": [],
+        "cssOtherProps": [
+          "background-position-y"
+        ]
+      }
+    ],
+    "directGeomWrites": []
+  },
+  {
+    "id": "S19",
+    "varKnobs": [],
+    "directGeomWrites": []
+  },
+  {
+    "id": "S20",
+    "varKnobs": [
+      {
+        "var": "d",
+        "writes": [
+          {
+            "file": "index.html",
+            "line": 299,
+            "driver": "unknown"
+          }
+        ],
+        "driveCount": [
+          "unknown"
+        ],
+        "cssGeomConsumers": [],
+        "cssOtherProps": [
+          "animation"
+        ]
+      },
+      {
+        "var": "t",
+        "writes": [
+          {
+            "file": "index.html",
+            "line": 300,
+            "driver": "unknown"
+          }
+        ],
+        "driveCount": [
+          "unknown"
+        ],
+        "cssGeomConsumers": [],
+        "cssOtherProps": [
+          "animation"
+        ]
+      }
+    ],
+    "directGeomWrites": []
+  },
+  {
+    "id": "S21",
+    "varKnobs": [],
+    "directGeomWrites": []
+  },
+  {
+    "id": "S22",
+    "varKnobs": [],
+    "directGeomWrites": []
+  },
+  {
+    "id": "S23",
+    "varKnobs": [
+      {
+        "var": "dl",
+        "writes": [
+          {
+            "file": "index.html",
+            "line": 388,
+            "driver": "unknown"
+          }
+        ],
+        "driveCount": [
+          "unknown"
+        ],
+        "cssGeomConsumers": [],
+        "cssOtherProps": [
+          "animation"
+        ]
+      }
+    ],
+    "directGeomWrites": []
+  },
+  {
+    "id": "S24",
+    "varKnobs": [],
+    "directGeomWrites": []
+  },
+  {
+    "id": "S25",
+    "varKnobs": [
+      {
+        "var": "follow",
+        "writes": [
+          {
+            "file": "index.html",
+            "line": 368,
+            "driver": "pointer"
+          }
+        ],
+        "driveCount": [
+          "pointer"
+        ],
+        "cssGeomConsumers": [
+          {
+            "line": 197,
+            "decl": "transform: translateY(var(--follow)"
+          }
+        ],
+        "cssOtherProps": []
+      },
+      {
+        "var": "d",
+        "writes": [
+          {
+            "file": "index.html",
+            "line": 373,
+            "driver": "scroll/rAF"
+          },
+          {
+            "file": "index.html",
+            "line": 374,
+            "driver": "scroll/rAF"
+          }
+        ],
+        "driveCount": [
+          "scroll/rAF"
+        ],
+        "cssGeomConsumers": [],
+        "cssOtherProps": [
+          "animation-delay"
+        ]
+      }
+    ],
+    "directGeomWrites": []
+  },
+  {
+    "id": "S26",
+    "varKnobs": [
+      {
+        "var": "p",
+        "writes": [
+          {
+            "file": "index.html",
+            "line": 469,
+            "driver": "IO-reveal"
+          }
+        ],
+        "driveCount": [
+          "IO-reveal"
+        ],
+        "cssGeomConsumers": [
+          {
+            "line": 147,
+            "decl": "transform:translateY(calc(var(--p)"
+          }
+        ],
+        "cssOtherProps": []
+      }
+    ],
+    "directGeomWrites": []
+  },
+  {
+    "id": "S27",
+    "varKnobs": [],
+    "directGeomWrites": []
+  },
+  {
+    "id": "S28",
+    "varKnobs": [
+      {
+        "var": "edge",
+        "writes": [
+          {
+            "file": "index.html",
+            "line": 451,
+            "driver": "resize"
+          }
+        ],
+        "driveCount": [
+          "resize"
+        ],
+        "cssGeomConsumers": [
+          {
+            "line": 120,
+            "decl": "filter: drop-shadow(calc(var(--edge) * -1) calc(var(--edge)"
+          },
+          {
+            "line": 128,
+            "decl": "filter: drop-shadow(calc(var(--edge) * -1) calc(var(--edge)"
+          },
+          {
+            "line": 212,
+            "decl": "filter: drop-shadow(calc(var(--edge) * -1) calc(var(--edge)"
+          }
+        ],
+        "cssOtherProps": []
+      }
+    ],
+    "directGeomWrites": [
+      {
+        "file": "index.html",
+        "line": 449,
+        "code": "if (img) img.style.transform = 'translateY(' + (d * rate * -12).toFixed(2) + 'px)';"
+      }
+    ]
+  },
+  {
+    "id": "S29",
+    "varKnobs": [],
+    "directGeomWrites": []
+  },
+  {
+    "id": "S30",
+    "varKnobs": [
+      {
+        "var": "push",
+        "writes": [
+          {
+            "file": "index.html",
+            "line": 286,
+            "driver": "unknown"
+          }
+        ],
+        "driveCount": [
+          "unknown"
+        ],
+        "cssGeomConsumers": [
+          {
+            "line": 193,
+            "decl": "transform: translate(var(--mis), calc(var(--mis) + var(--push)"
+          },
+          {
+            "line": 196,
+            "decl": "transform: translateY(calc(var(--push)"
+          },
+          {
+            "line": 436,
+            "decl": "transform: translateY(calc(var(--push)"
+          },
+          {
+            "line": 437,
+            "decl": "transform: translate(var(--mis), calc(var(--mis) + var(--push)"
+          }
+        ],
+        "cssOtherProps": []
+      },
+      {
+        "var": "mis",
+        "writes": [
+          {
+            "file": "index.html",
+            "line": 287,
+            "driver": "unknown"
+          }
+        ],
+        "driveCount": [
+          "unknown"
+        ],
+        "cssGeomConsumers": [
+          {
+            "line": 193,
+            "decl": "transform: translate(var(--mis), calc(var(--mis)"
+          },
+          {
+            "line": 437,
+            "decl": "transform: translate(var(--mis), calc(var(--mis)"
+          }
+        ],
+        "cssOtherProps": []
+      }
+    ],
+    "directGeomWrites": [
+      {
+        "file": "index.html",
+        "line": 315,
+        "code": "scraper.style.transform = 'translate(' + (e.clientX - 13) + 'px,' + (e.clientY - 22) + 'px)';"
+      }
+    ]
+  }
+]

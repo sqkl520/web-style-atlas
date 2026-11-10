@@ -1,0 +1,592 @@
+/* 方案 10｜刻度对撞页（Grid Versus Sheet）— 真实原型样式表
+   R（VERSUS）｜认知门槛 中｜冷静克制 / 工程感 · 瑞士国际主义 · 1950–60 年代胶版平印样张
+
+   色彩（_CURRENT-VALUES.md 现行值，面积和 100）：
+     无光泽纸 #F2EFE8 58%（背景；旧值 #F4F1EA 已作废）
+     炭黑     #17171A 26%（正文与黑版）
+     正红     #D32029 11%（主色与红版；对纸底 4.56:1，纸色压在红底上同为 4.56:1）
+     中性灰   #6E7076 5%（套准线、刻度、栏线；只做图形，不承载正文）
+   字体分工（声明顺序即报告口径，契约 §9.7）：
+     Jost 500      ＝标题与数字骨架（OFL 1.1；字段 4 原配，Syne 由 Lead 裁定归方案 26）
+     IBM Plex Sans ＝拉丁正文与界面（OFL 1.1）
+     IBM Plex Mono ＝仅 <code> 内的报价、刻度与 5 位打样编号（OFL 1.1）
+     Noto Sans SC  ＝中文字面，永远排在第二位，不进层级首位
+   栅格：五栏 6 : 7 : 9 : 8 : 5，栏沟 24px，外距 56px，基线 8px，正文 15px / 行高 24px
+   不对称机制：①标题整体上移 6px（标题块 -> 首行净空 22px＝24－2）②标点悬挂 0.5em
+   纹理：整页纸纹与 45° 网点底纹挂在 .sheet::before 与 .state-error::after 伪元素上，
+        body 与所有承载文字的元素保持纯色（契约 §9.2：纹理挂 body 会静默跳过对比度检查）*/
+
+:root {
+  --paper: #F2EFE8;
+  --ink: #17171A;
+  --red: #D32029;
+  --grey: #6E7076;
+  --grey-soft: #B6B4AE;
+  --gutter: 56px;
+  --column-rule: 1.25px;
+  --grid-gap: 24px;
+  --baseline: 8px;
+  --body: 15px;
+  --leading: 24px;
+  --reg-w: 1.25px;
+  --misreg: 1.5px;
+  --misreg-start: 3px;
+  --cursor: 12px;
+  --title-lift: 6px;
+  --ease-damped: cubic-bezier(.15, .85, .25, 1);
+  --ease-lift: cubic-bezier(.16, .84, .28, 1);
+  --face-display: "Jost", "Noto Sans SC", sans-serif;
+  --face-text: "IBM Plex Sans", "Noto Sans SC", sans-serif;
+  --face-mono: "IBM Plex Mono", "Noto Sans SC", monospace;
+}
+
+* { box-sizing: border-box; }
+
+html { background: var(--paper); }
+
+body {
+  margin: 0;
+  background: var(--paper);            /* 纯色；纹理只在伪元素上 */
+  color: var(--ink);
+  font-family: var(--face-text);
+  font-size: var(--body);
+  line-height: var(--leading);
+  font-variant-numeric: tabular-nums;
+  -webkit-text-size-adjust: 100%;
+}
+
+h1, h2, h3, .imprint, .colourbar-note, .lead, .quote {
+  font-family: var(--face-display);
+  font-weight: 500;
+  margin: 0;
+  text-wrap: balance;                  /* 只给标题与短句 */
+}
+
+h1 {
+  font-size: clamp(32px, 5.55vw, 80px);
+  line-height: 88px;                   /* 11 × 8px 基线 */
+  letter-spacing: -0.005em;
+  transform: translateY(calc(var(--title-lift) * -1));  /* 标题基线比正文网格高 6px */
+}
+
+h2 { font-size: 28px; line-height: 40px; }
+h3 { font-size: 20px; line-height: 32px; }
+
+p { margin: 0; max-width: 42em; }      /* 折行 42em：实测 ≈84 字符/行 */
+b, strong { font-weight: 600; }
+
+code {
+  font-family: var(--face-mono);
+  font-size: 0.94em;
+  letter-spacing: 0.01em;
+  font-variant-numeric: tabular-nums;
+}
+
+a { color: inherit; text-underline-offset: 3px; }
+
+:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+::selection { background: var(--ink); color: var(--paper); }
+
+.sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+.skip {
+  position: absolute; overflow: hidden; clip-path: inset(50%);
+  width: 0; height: 0; padding: 0; margin: 0; white-space: nowrap;
+}
+.skip:focus {
+  position: fixed; top: 8px; left: 8px; z-index: 40;
+  width: auto; height: auto; padding: 10px 16px;
+  overflow: visible; clip-path: none;
+  background: var(--ink); color: var(--paper);
+}
+
+/* ── 纸：整页纹理挂伪元素，body 始终纯色（契约 §9.2）───────────── */
+.sheet {
+  position: relative;
+  padding: var(--gutter) var(--gutter) 0;
+}
+.sheet::before {
+  content: "";
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url("assets/texture-paper.png"), url("assets/texture-screen-tint.png");
+  background-repeat: repeat, repeat;
+}
+.masthead, main, footer { position: relative; z-index: 1; }
+
+/* ── 印版层：四角套准线组（1.25px 方头，对齐 0.5 单位栅格）─────── */
+.plate-layer { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+.reg {
+  position: absolute; color: var(--ink);
+  fill: none; stroke: currentColor; stroke-width: var(--reg-w);
+  stroke-linecap: butt; stroke-linejoin: miter;
+}
+.reg line, .reg circle { vector-effect: non-scaling-stroke; }
+.reg circle[r="2.25"] { fill: currentColor; stroke: none; }
+.reg-tl { top: 10px; left: 10px; }
+.reg-tr { top: 10px; right: 10px; }
+.reg-bl { bottom: 10px; left: 10px; }
+.reg-br { bottom: 10px; right: 10px; }
+.reg-off { transform: translateX(2px); }   /* 字段 12：右下角固定偏 2px（第 1 页向右） */
+.reg-br-red { bottom: calc(10px - var(--misreg)); right: calc(10px - var(--misreg)); color: var(--red); opacity: .9; }
+
+/* ── 报头 ──────────────────────────────────────────────────────── */
+.masthead { padding-bottom: 40px; border-bottom: 2px solid var(--ink); }
+.masthead-top {
+  display: flex; flex-wrap: wrap; gap: 12px 28px;
+  align-items: flex-start; justify-content: space-between;
+  margin-bottom: 26px;
+}
+.imprint { font-size: var(--body); letter-spacing: 0.03em; font-family: var(--face-text); font-weight: 600; }
+.colourbar-col { display: grid; gap: 6px; }
+.colourbar-note { font-size: var(--body); max-width: 22em; }
+
+.lead {
+  font-size: 17px; line-height: 28px;
+  padding-top: 28px;                   /* 28px 排版距离 − 6px 上移 = 22px 净空 */
+  max-width: 30em;
+}
+
+.raster {
+  display: grid;
+  grid-template-columns: 6fr 7fr 9fr 8fr 5fr;
+  column-gap: var(--grid-gap);
+  row-gap: 12px;
+  margin: 30px 0 0; padding: 0;
+}
+.raster > div { display: grid; gap: 2px; min-width: 0; }
+.raster dt { font-weight: 600; font-size: var(--body); }
+.raster dd { margin: 0; font-size: var(--body); }
+
+.masthead-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.btn {
+  font-family: var(--face-text);
+  font-size: 16px;
+  min-height: 46px;
+  padding: 10px 22px;
+  border: 0; border-radius: 0;
+  cursor: pointer;
+  transition: background-color 160ms var(--ease-lift), color 160ms var(--ease-lift);
+}
+.btn-primary { background: var(--ink); color: var(--paper); }
+.btn-primary:hover { background: var(--red); color: var(--paper); }
+.btn-line { background: var(--ink); color: var(--paper); }
+.btn-line:hover { background: var(--grey); color: var(--paper); }
+.btn:disabled { background: var(--grey-soft); color: var(--ink); cursor: not-allowed; }
+
+/* 首屏状态条走红版：错误码 SUP-003 在静态首屏就看得见（契约 §9.12），
+   宽度锁在 42em 以内，折行长度仍 ≤84 字符 */
+.live {
+  margin-top: 22px;
+  padding: 12px 14px;
+  max-width: 42em;
+  background-color: var(--red);
+  color: var(--paper);
+}
+.live code, .live b, .live strong { color: var(--paper); }
+
+/* ── 对比组切换 ────────────────────────────────────────────────── */
+.groups {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px;
+  margin: 24px 0 var(--grid-gap);
+}
+.chip {
+  font-family: var(--face-text); font-size: var(--body);
+  min-height: 34px; padding: 6px 14px;
+  border: 0; border-radius: 0; cursor: pointer;
+  background: transparent; color: var(--ink);
+  transition: background-color 160ms var(--ease-lift), color 160ms var(--ease-lift);
+}
+.chip.is-on { background: var(--ink); color: var(--paper); }
+.chip:hover { background: var(--grey); color: var(--paper); }
+.groups-note { font-size: var(--body); }
+
+/* ── 五栏对撞表 ────────────────────────────────────────────────── */
+.section-head { border-top: 2px solid var(--ink); padding-top: 18px; margin-bottom: 22px; }
+.section-note { margin-top: 10px; font-size: var(--body); }
+
+.type-area { position: relative; }
+.plate-rules {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  pointer-events: none; overflow: visible;
+  transform: translate(var(--misreg), var(--misreg));
+  transition: transform 240ms var(--ease-damped);
+}
+.plate-rules line { stroke: var(--red); stroke-width: var(--column-rule); vector-effect: non-scaling-stroke; }
+.sheet:not(.settled) .plate-rules,
+.sheet:not(.settled) .state-error { transform: translate(var(--misreg-start), var(--misreg-start)); }
+.sheet.pre-separated .plate-rules,
+.sheet.pre-separated .state-error { transform: translate(5.5px, 5.5px); transition-duration: 320ms; }
+
+.grid-table { width: 100%; table-layout: fixed; border-collapse: separate; border-spacing: 0; margin: 0; }
+.grid-table col.c1 { width: 17.1429%; }   /* 6/35 */
+.grid-table col.c2 { width: 20%; }        /* 7/35 */
+.grid-table col.c3 { width: 25.7143%; }   /* 9/35 */
+.grid-table col.c4 { width: 22.8571%; }   /* 8/35 */
+.grid-table col.c5 { width: 14.2857%; }   /* 5/35 */
+
+.grid-table caption { text-align: left; padding: 0 0 12px; font-size: var(--body); }
+.grid-table th, .grid-table td {
+  padding: 8px 11.375px;                /* 11.375 × 2 + 1.25 栏线 = 24px 栏沟 */
+  text-align: left; vertical-align: top;
+  font-size: var(--body); line-height: var(--leading);
+  font-weight: 400;
+}
+.grid-table th {
+  border-bottom: 2px solid var(--ink);
+  padding-top: 0; padding-bottom: 10px;
+  font-weight: 600;
+}
+.grid-table tbody td { border-bottom: var(--column-rule) solid var(--grey-soft); }
+.grid-table tbody tr:hover { background: rgba(23, 23, 26, 0.05); }
+.grid-table tbody tr:hover .cell-no::after { opacity: 1; transform: translateX(0); }
+.grid-table th + th, .grid-table td + td { border-left: var(--column-rule) solid var(--grey); }
+/* 黑版栏线由第 4 栏自己的右边界承担，第 5 栏左边界换成纸色，红版才有 1.5px 露纸的错位 */
+.grid-table th:nth-child(4), .grid-table td:nth-child(4) { border-right: var(--column-rule) solid var(--grey); }
+.grid-table th:nth-child(2), .grid-table th:nth-child(5),
+.grid-table td:nth-child(2), .grid-table td:nth-child(5) { text-align: right; }
+/* 第 5 栏整栏走红版：纸色字压在红底上（4.56:1），左侧 1.5px 纸色＝红版右下错位露出的纸 */
+.grid-table th:nth-child(5), .grid-table td:nth-child(5) {
+  background-color: var(--red);
+  color: var(--paper);
+  border-left: 1.5px solid var(--paper);
+}
+.grid-table td:nth-child(5) .cell-no::after { border-color: var(--paper); }
+.grid-table td:nth-child(5) .blank { background: var(--grey-soft); color: var(--ink); }
+/* 黑版表头 2px 规则线下面留一条红版影线（右偏下错 1.5px） */
+.grid-table thead th { position: relative; }
+.grid-table thead th:nth-child(-n+4)::after {
+  content: "";
+  position: absolute; left: 0; right: 0; bottom: -3.5px; height: 2px;
+  background: var(--red); pointer-events: none;
+}
+.grid-table tfoot td { border-top: 2px solid var(--ink); padding-top: 10px; padding-bottom: 0; font-weight: 600; }
+
+.cell-lead .unit { margin-left: 2px; }
+/* 刻度尺：0/30/60/90 的刻度底纹是构建期烘的 90×10 位图，红色游标按行内 --p 落位 */
+.scale {
+  display: block; position: relative;
+  width: 100%; height: 10px; margin-top: 6px;
+  background-image: url("assets/texture-scale.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+.scale::after {
+  content: "";
+  position: absolute; top: 0; left: var(--p, 0%);
+  width: 2.5px; height: 9px;
+  background: var(--red);
+}
+
+.cell-no { position: relative; }
+/* 刻度游标：L 形，边长 12px，悬停滑出 12px（字段 7 第三条，160ms 线性） */
+.cell-no::after {
+  content: "";
+  position: absolute; right: 4px; top: 50%;
+  width: var(--cursor); height: var(--cursor);
+  margin-top: -6px;
+  border-right: var(--reg-w) solid var(--ink);
+  border-bottom: var(--reg-w) solid var(--ink);
+  opacity: 0;
+  transform: translateX(calc(var(--cursor) * -1));
+  transition: transform 160ms linear, opacity 160ms linear;
+  pointer-events: none;
+}
+.blank {
+  background: var(--grey-soft);
+  padding: 0 6px;
+}
+.cell-blank { display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: baseline; }
+.sheet.filled-only .row-gap { display: none; }
+
+/* ── 五栏注记与三种状态 ────────────────────────────────────────── */
+.notes {
+  display: grid;
+  grid-template-columns: 6fr 7fr 9fr 8fr 5fr;
+  column-gap: var(--grid-gap);
+  row-gap: var(--grid-gap);
+  margin-top: 34px;
+}
+.note { min-width: 0; }
+.note h3 { margin-bottom: 10px; }
+.note p + p { margin-top: 8px; }
+.notes .n12 { grid-column: span 2; }
+
+.glyphs { display: grid; gap: 10px; margin: 0 0 12px; }
+.glyphs > div { display: grid; grid-template-columns: 20px 1fr; gap: 10px; align-items: start; }
+.glyphs dt { margin: 0; }
+.glyphs dd { margin: 0; font-size: var(--body); }
+
+/* 红底分区：后代色必须逐层重声明，不能靠继承（契约 §9.4） */
+.state-error, .state-error p, .state-error .state-title, .state-error .state-foot {
+  color: var(--paper);
+  background-color: var(--red);
+}
+.state-error { position: relative; margin-top: 10px; padding: 14px 14px 16px; }
+.state-error::after {
+  content: "";
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url("assets/texture-mottle.png");
+  background-repeat: repeat;
+}
+.state-error > * { position: relative; z-index: 1; }
+.state-error.is-quiet { opacity: .78; }
+.state-title { font-weight: 600; }
+.state-error p + p { margin-top: 8px; }
+.state-empty { padding: 12px 14px 14px; background: var(--grey-soft); color: var(--ink); }
+
+/* ── 图版：原片与网点 ──────────────────────────────────────────── */
+.plates { padding-top: 96px; }
+.plate { margin: 0; }
+.plate img { display: block; width: 100%; height: auto; background: var(--paper); }
+.plate figcaption {
+  margin-top: 10px; padding-top: 8px;
+  border-top: 2px solid var(--ink);
+  font-size: var(--body);
+}
+.plate figcaption > span { display: block; }
+.plate-lead { margin-bottom: 26px; }
+.plate-strip {
+  display: grid;
+  grid-template-columns: 6fr 7fr 9fr 8fr 5fr;
+  column-gap: var(--grid-gap);
+  margin: 0; padding: 0; list-style: none;
+}
+.plates-note { margin-top: 26px; font-size: var(--body); }
+
+/* ── 动效清单与悬挂标点 ────────────────────────────────────────── */
+.motion { padding-top: 96px; }
+.motion-list { margin: 0; padding-left: 1.4em; display: grid; gap: 10px; }
+.motion-list li { font-size: var(--body); }
+.quote {
+  margin: 28px 0 0;
+  padding: 4px 0 4px 1.5em;
+  border-left: 2px solid var(--red);
+  font-size: 17px; line-height: 28px;
+  max-width: 34em;
+}
+.quote cite { display: block; margin-top: 8px; font-style: normal; font-family: var(--face-text); font-size: var(--body); }
+.hang-open { margin-left: -0.5em; }
+.hang-close { margin-right: -0.5em; }
+.motion-note { margin-top: 14px; font-size: var(--body); }
+
+/* 套准标尺：按 10 倍放大画出 1.5px 与 3px 两档错位 */
+.regscale { margin: 28px 0 0; }
+.regscale svg { display: block; width: 100%; max-width: 520px; height: auto; }
+.regscale figcaption {
+  margin-top: 10px; padding-top: 8px;
+  border-top: 2px solid var(--ink);
+  max-width: 34em; font-size: var(--body);
+}
+.regscale figcaption > span { display: block; }
+.regscale { animation: land 300ms var(--ease-lift) 160ms both; }
+
+/* ── 页脚（满版出血到纸边）────────────────────────────────────── */
+footer {
+  margin-top: 96px;
+  margin-left: calc(var(--gutter) * -1);
+  margin-right: calc(var(--gutter) * -1);
+  padding: 40px var(--gutter) 56px;
+  border-top: 2px solid var(--ink);
+}
+.foot { display: grid; grid-template-columns: 6fr 7fr 9fr 8fr; column-gap: var(--grid-gap); row-gap: var(--grid-gap); }
+.foot h3 { margin-bottom: 8px; }
+.foot p + p { margin-top: 8px; }
+.sig { margin-top: 34px; font-size: var(--body); }
+
+/* ── 数据区自绘角线光标：L 形，边长 12px（字段 7 第五条）───────── */
+.data-cursor {
+  position: fixed; left: 0; top: 0; width: 0; height: 0;
+  z-index: 30; pointer-events: none; visibility: hidden;
+  opacity: 0; transition: opacity 120ms linear;
+}
+.data-cursor.is-live { visibility: visible; opacity: 1; }
+.data-cursor span { position: absolute; background: var(--ink); }
+.data-cursor .arm-h { width: var(--cursor); height: var(--reg-w); }
+.data-cursor .arm-v { width: var(--reg-w); height: var(--cursor); }
+.data-cursor .arm-h-red { background: var(--red); transform: translate(var(--misreg), var(--misreg)); }
+.data-cursor .arm-v-red { background: var(--red); transform: translate(var(--misreg), var(--misreg)); }
+.grid-table { cursor: crosshair; }
+.grid-table td { cursor: none; }
+
+/* ── 加载编舞：套准线与色标条 -> 黑版（+100ms）-> 红版（再 +100ms）── */
+@keyframes land {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes land-flat { from { opacity: 0; } to { opacity: 1; } }
+
+.reg-tl { animation: land-flat 200ms var(--ease-lift) both; }
+.reg-tr { animation: land-flat 200ms var(--ease-lift) 40ms both; }
+.reg-bl { animation: land-flat 200ms var(--ease-lift) 80ms both; }
+.reg-br { animation: land-flat 200ms var(--ease-lift) 120ms both; }
+.reg-br-red { animation: land-flat 220ms var(--ease-lift) 300ms both; }
+.colourbar-col { animation: land-flat 220ms var(--ease-lift) 60ms both; }
+.masthead-top .imprint { animation: land 260ms var(--ease-lift) 120ms both; }
+h1 { animation: land-flat 320ms var(--ease-lift) 200ms both; }
+.lead { animation: land 280ms var(--ease-lift) 280ms both; }
+.raster > div { animation: land 260ms var(--ease-lift) both; }
+.raster > div:nth-child(1) { animation-delay: 300ms; }
+.raster > div:nth-child(2) { animation-delay: 330ms; }
+.raster > div:nth-child(3) { animation-delay: 360ms; }
+.raster > div:nth-child(4) { animation-delay: 390ms; }
+.raster > div:nth-child(5) { animation-delay: 420ms; }
+.raster > div:nth-child(6) { animation-delay: 450ms; }
+.raster > div:nth-child(7) { animation-delay: 480ms; }
+.masthead-actions .btn { animation: land 260ms var(--ease-lift) both; }
+.masthead-actions .btn:nth-child(1) { animation-delay: 500ms; }
+.masthead-actions .btn:nth-child(2) { animation-delay: 540ms; }
+.masthead-actions .btn:nth-child(3) { animation-delay: 580ms; }
+.live { animation: land-flat 240ms var(--ease-lift) 620ms both; }
+.section-head { animation: land 300ms var(--ease-lift) both; }
+.groups { animation: land 280ms var(--ease-lift) 200ms both; }
+.groups .chip { animation: land-flat 220ms var(--ease-lift) both; }
+.groups .chip:nth-child(1) { animation-delay: 240ms; }
+.groups .chip:nth-child(2) { animation-delay: 270ms; }
+.groups .chip:nth-child(3) { animation-delay: 300ms; }
+.grid-table tbody tr { animation: land 260ms var(--ease-lift) both; animation-delay: calc(120ms + var(--row-index, 0) * 22ms); }
+.grid-table tbody tr:nth-child(1)  { --row-index: 0; }
+.grid-table tbody tr:nth-child(2)  { --row-index: 1; }
+.grid-table tbody tr:nth-child(3)  { --row-index: 2; }
+.grid-table tbody tr:nth-child(4)  { --row-index: 3; }
+.grid-table tbody tr:nth-child(5)  { --row-index: 4; }
+.grid-table tbody tr:nth-child(6)  { --row-index: 5; }
+.grid-table tbody tr:nth-child(7)  { --row-index: 6; }
+.grid-table tbody tr:nth-child(8)  { --row-index: 7; }
+.grid-table tbody tr:nth-child(9)  { --row-index: 8; }
+.grid-table tbody tr:nth-child(10) { --row-index: 9; }
+.grid-table tbody tr:nth-child(11) { --row-index: 10; }
+.grid-table tbody tr:nth-child(12) { --row-index: 11; }
+.grid-table tbody tr:nth-child(13) { --row-index: 12; }
+.grid-table tbody tr:nth-child(14) { --row-index: 13; }
+.grid-table tbody tr:nth-child(15) { --row-index: 14; }
+.grid-table tfoot tr { animation: land 240ms var(--ease-lift) 460ms both; }
+.plate-rules { animation: land-flat 200ms linear 100ms both; }
+.notes > .note { animation: land 280ms var(--ease-lift) both; }
+.notes > .note:nth-child(1) { animation-delay: 60ms; }
+.notes > .note:nth-child(2) { animation-delay: 120ms; }
+.notes > .note:nth-child(3) { animation-delay: 180ms; }
+.notes > .note:nth-child(4) { animation-delay: 240ms; }
+.state-error { animation: land-flat 200ms linear 300ms both; }
+.plate-lead { animation: land 320ms var(--ease-lift) both; }
+.plate-strip > li { animation: land 300ms var(--ease-lift) both; }
+.plate-strip > li:nth-child(1) { animation-delay: 40ms; }
+.plate-strip > li:nth-child(2) { animation-delay: 90ms; }
+.plate-strip > li:nth-child(3) { animation-delay: 140ms; }
+.plate-strip > li:nth-child(4) { animation-delay: 190ms; }
+.plate-strip > li:nth-child(5) { animation-delay: 240ms; }
+.plates-note { animation: land-flat 260ms var(--ease-lift) 120ms both; }
+.motion-list li { animation: land 260ms var(--ease-lift) both; }
+.motion-list li:nth-child(1) { animation-delay: 60ms; }
+.motion-list li:nth-child(2) { animation-delay: 100ms; }
+.motion-list li:nth-child(3) { animation-delay: 140ms; }
+.motion-list li:nth-child(4) { animation-delay: 180ms; }
+.quote { animation: land 300ms var(--ease-lift) 220ms both; }
+.motion-note { animation: land-flat 240ms var(--ease-lift) 280ms both; }
+.foot > div { animation: land 280ms var(--ease-lift) both; }
+.foot > div:nth-child(1) { animation-delay: 60ms; }
+.foot > div:nth-child(2) { animation-delay: 120ms; }
+.foot > div:nth-child(3) { animation-delay: 180ms; }
+.foot > div:nth-child(4) { animation-delay: 240ms; }
+.sig { animation: land-flat 240ms var(--ease-lift) 240ms both; }
+
+/* ── 断点一：≥1440px 五栏全显，外距 56px，标题基线偏移 6px ─────── */
+@media (min-width: 1440px) {
+  :root { --gutter: 56px; --grid-gap: 24px; }
+}
+
+/* ── 断点二：1024–1439px 折三栏 5 : 9 : 8，标题偏移收到 4px ───── */
+@media (min-width: 1024px) and (max-width: 1439px) {
+  :root { --gutter: 40px; --grid-gap: 20px; --title-lift: 4px; }
+  h1 { line-height: 88px; }
+  .raster, .notes { grid-template-columns: 5fr 9fr 8fr; }
+  .notes .n12 { grid-column: span 1; }
+  .foot { grid-template-columns: 5fr 9fr; }
+}
+
+/* ── 断点三：768–1023px 三栏；价格序对照折成注记，表留四栏 ──────── */
+@media (min-width: 768px) and (max-width: 1023px) {
+  :root { --gutter: 32px; --grid-gap: 18px; --title-lift: 4px; }
+  h1 { line-height: 56px; }
+  .raster, .notes { grid-template-columns: 5fr 9fr 8fr; }
+  .notes .n12 { grid-column: span 1; }
+  .foot { grid-template-columns: 5fr 9fr; }
+  .grid-table col.c1 { width: 20%; }
+  .grid-table col.c2 { width: 20%; }
+  .grid-table col.c3 { width: 26%; }
+  .grid-table col.c4 { width: 22%; }
+  .grid-table col.c5 { width: 12%; }
+  .plate-strip { grid-template-columns: 1fr 1fr 1fr; row-gap: 20px; }
+}
+
+/* ── 断点四：<768px 单栏纵向；套准机制完整保留，栏宽比转成段间距 ── */
+@media (max-width: 767px) {
+  :root { --gutter: 20px; --grid-gap: 14px; }
+  h1 { font-size: 32px; line-height: 40px; }
+  h2 { font-size: 24px; line-height: 34px; }
+  .raster, .notes, .foot, .plate-strip { grid-template-columns: 1fr; }
+  .notes .n12 { grid-column: span 1; }
+  .plate-rules { display: none; }            /* 栏不存在了，栏线随之收起 */
+  .reg { width: 8px; height: 8px; }          /* 套准线边长收到 8px，线宽仍 1.25px */
+  .reg-tl { top: 8px; left: 8px; }
+  .reg-tr { top: 8px; right: 8px; }
+  .reg-bl { bottom: 8px; left: 8px; }
+  .reg-br { bottom: 8px; right: 8px; }
+  .reg-br-red { bottom: calc(8px - var(--misreg)); right: calc(8px - var(--misreg)); }
+  .grid-table { table-layout: auto; }
+  .grid-table col { width: auto !important; }
+  .grid-table thead { position: absolute; clip-path: inset(50%); }
+  .grid-table tbody tr, .grid-table tfoot tr { display: grid; gap: 2px; padding: 10px 0; }
+  .grid-table tbody td, .grid-table tfoot td {
+    display: grid; grid-template-columns: 8em 1fr; gap: 8px;
+    padding: 0;
+  }
+  .grid-table tbody td:nth-child(-n+4), .grid-table tfoot td:nth-child(-n+4) { border-left: 0; }
+  .grid-table tbody td:nth-child(4), .grid-table tfoot td:nth-child(4) { border-right: 0; }
+  .grid-table tfoot td { display: block; }
+  .grid-table tbody td::before, .grid-table tfoot td::before { color: var(--grey); }
+  .grid-table tbody td:nth-child(1)::before { content: "供应商"; }
+  .grid-table tbody td:nth-child(2)::before { content: "报价（元）"; }
+  .grid-table tbody td:nth-child(3)::before { content: "到货周期"; }
+  .grid-table tbody td:nth-child(4)::before { content: "价格序"; }
+  .grid-table tbody td:nth-child(5)::before { content: "打样编号"; }
+  /* 单栏：五栏 6 : 7 : 9 : 8 : 5 转成段间距 12 / 14 / 18 / 16 / 10px */
+  .grid-table tbody td:nth-child(1) { margin-bottom: 12px; }
+  .grid-table tbody td:nth-child(2) { margin-bottom: 14px; }
+  .grid-table tbody td:nth-child(3) { margin-bottom: 18px; }
+  .grid-table tbody td:nth-child(4) { margin-bottom: 16px; }
+  .grid-table tbody td:nth-child(5) { margin-bottom: 10px; }
+  .grid-table tbody td:nth-child(2), .grid-table tbody td:nth-child(5) { text-align: left; }
+  .scale { width: 60%; }
+  .plate-strip { row-gap: 18px; }
+  .btn { min-height: 48px; }
+  .quote { padding-left: 1.2em; }
+}
+
+/* ── prefers-reduced-motion：签名机制改为常驻的静态形式，错位量与游标边长照旧 ── */
+@media (prefers-reduced-motion: reduce) {
+  /* 套准回位改为常驻：两版恒定停在 1.5px 错位，进视口的 3px 起始量不再出现 */
+  .sheet:not(.settled) .plate-rules,
+  .sheet:not(.settled) .state-error,
+  .sheet.pre-separated .plate-rules,
+  .sheet.pre-separated .state-error {
+    transform: translate(var(--misreg), var(--misreg));
+    transition-duration: 1ms;
+  }
+  /* 游标停在行右缘 12px 处，改用 120ms 不透明度切换报出行 */
+  .cell-no::after { transform: translateX(0); transition-duration: 120ms; }
+  /* 加载三段落差合成同一时刻：套准线与色标条、黑版、红版同时在位 */
+  .reg, .reg-br-red, .colourbar-col, .imprint, h1, .lead, .raster > div,
+  .masthead-actions .btn, .live, .section-head, .groups, .groups .chip,
+  .grid-table tbody tr, .grid-table tfoot tr, .plate-rules, .notes > .note,
+  .state-error, .plate-lead, .plate-strip > li, .plates-note, .motion-list li,
+  .regscale, .quote, .motion-note, .foot > div, .sig {
+    animation-duration: 1ms;
+    animation-delay: 0ms;
+  }
+  .data-cursor, .btn, .chip, .grid-table tbody tr, .plate-rules, .state-error { transition-duration: 1ms; }
+}
+
+@media print {
+  .plate-layer, .data-cursor { display: none; }
+  tfoot { break-inside: avoid; }
+}

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>芒果拼贴墙 · 二楼展厅不要票｜OIT-2026-BR</title>
+<meta name="description" content="一整个展厅的手贴海报墙：芒果橙与叶绿的丝网色块互相压边，套色各自跑偏 3 到 7px，撕开的纸边露出纤维。8 月 17 日到 9 月 28 日，二楼展厅不要票。">
+<!-- 霞鹜文楷 LXGW WenKai（OFL 1.1）：官方 webfont 包按 unicode-range 切片，浏览器只取用到的子集。
+     其余三款（Unbounded 700 / Redaction 20 / 第四款等宽体）已自托管在 assets/fonts/，见 style.css 顶部；等宽体只用于字面量。 taste-skill-ignore -->
+<link rel="stylesheet" href="../_fonts/css/lxgw-wenkai__400.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#wall">跳到贴墙区</a>
+
+<header class="board">
+  <div class="board__inner">
+    <h1>二楼展厅不要票</h1>
+    <p class="board__latin">TROPICALIA · MANGO COLLAGE WALL</p>
+    <p class="board__lead">8 月 17 日到 9 月 28 日，周三晚上七点有铜管乐；进门右手第一面墙就是这 14 个人的东西。</p>
+    <p class="board__act">
+      <a class="btn" href="#who">看参展的 14 个人是谁</a>
+    </p>
+    <p class="board__meta">
+      开放 10:00–18:00，周三延到 21:00。展厅湿度 62%，墙面温度 24℃。
+      印刷与装裱：里约热内卢 <code>OIT-2026-BR</code> 丝网工坊，四色手工套印，纸是未漂白的包装纸。
+      这张页面本身就是那面墙的印刷档案：每块纸的套色偏移量都记在下面的偏移表里，可以逐块核对。
+    </p>
+  </div>
+</header>
+
+<main>
+<section id="wall" class="wall" aria-labelledby="wall-h">
+  <div class="wall__head">
+    <h2 id="wall-h">九张纸贴在这面墙上</h2>
+    <p class="wall__note">底下埋着 12 列隐网格，纸块跨 2 到 6 栏不等，每块自己的套色偏移量与撕口方向都不一样。页面上没有一条对称边，读的顺序由纸块压边的高低给出。</p>
+  </div>
+
+  <div class="wall__body">
+    <div class="wall__grid">
+      <figure class="slip" style="--span:5;--span-m:4;--ar:0.862;--r:-1.1deg;--lift:-16px;--lift-m:0px;--order:1;--ri:5px;--rj:3px;--torn:url('assets/torn-edge-1.webp')">
+        <img class="slip__plate" src="assets/plate-lead.webp" width="820" height="1000" alt="丝网印版《帕兰戈莱：给一面墙的穿戴》：橙色扇形与绿色日面错位套印，纸边撕裂，上下留有未裁切的胶片齿孔">
+        <figcaption class="slip__cap">
+          <span class="slip__t">帕兰戈莱：给一面墙的穿戴</span>
+          <span class="slip__m">玛丽亚·塞阿布拉 · 1968 · 四色套印 · <code>OIT-1968-014</code></span>
+          <a class="slip__go" href="#who">看这件作品</a>
+        </figcaption>
+        <svg class="slip__notch" viewBox="0 0 24 24" aria-hidden="true"><path class="bite" d="M24 6 L13 13 L24 19 Z"></path><path class="rim" d="M24 6 L13 13 L24 19"></path></svg>
+        <span class="slip__gum" aria-hidden="true"></span>
+      </figure>
+
+      <figure class="slip" style="--span:4;--span-m:3;--ar:0.691;--r:0.9deg;--lift:34px;--lift-m:56px;--order:2;--ri:-4px;--rj:6px;--torn:url('assets/torn-edge-2.webp')">
+        <img class="slip__plate" src="assets/plate-01.webp" width="640" height="800" alt="丝网印版《芒果地里的旗》：橙色圆面被绿色网线横切，黑版压边">
+        <figcaption class="slip__cap">
+          <span class="slip__t">芒果地里的旗</span>
+          <span class="slip__m">若热·阿马拉尔 · 1967 · 绿版走 30 线粗网 · <code>OIT-1967-003</code></span>
+          <a class="slip__go" href="#who">看这件作品</a>
+        </figcaption>
+        <svg class="slip__notch" viewBox="0 0 24 24" aria-hidden="true"><path class="bite" d="M24 6 L13 13 L24 19 Z"></path><path class="rim" d="M24 6 L13 13 L24 19"></path></svg>
+        <span class="slip__gum" aria-hidden="true"></span>
+      </figure>
+
+      <figure class="slip" style="--span:3;--span-m:4;--ar:0.518;--r:-0.6deg;--lift:0px;--lift-m:18px;--order:3;--ri:6px;--rj:4px;--torn:url('assets/torn-edge-3.webp')">
+        <img class="slip__plate" src="assets/plate-02.webp" width="560" height="700" alt="丝网印版《绿与橙的注册表》：三角与折线两版互相压边，错位处露出纸色">
+        <figcaption class="slip__cap">
+          <span class="slip__t">绿与橙的注册表</span>
+          <span class="slip__m">莉吉娅·瓦斯康塞洛斯 · 1969 · 套色偏移 6px · <code>OIT-1969-021</code></span>
+          <a class="slip__go" href="#who">看这件作品</a>
+        </figcaption>
+        <svg class="slip__notch" viewBox="0 0 24 24" aria-hidden="true"><path class="bite" d="M24 6 L13 13 L24 19 Z"></path><path class="rim" d="M24 6 L13 13 L24 19"></path></svg>
+        <span class="slip__gum" aria-hidden="true"></span>
+      </figure>
+    </div>
+
+    <p class="anno anno--r">这一排的套色都往右下跑了 4 到 6px，是那天下午湿度上来的那批，纸受潮就套不准</p>
+
+    <div class="wall__grid">
+      <figure class="slip" style="--span:4;--span-m:3;--ar:0.870;--r:1.1deg;--lift:-8px;--lift-m:70px;--order:4;--ri:3px;--rj:6px;--torn:url('assets/torn-edge-4.webp')">
+        <img class="slip__plate" src="assets/plate-03.webp" width="700" height="520" alt="丝网印版《巡演海报第 7 版》：橙色竖条与绿色圆面错位套印，黑版横条压在中段">
+        <figcaption class="slip__cap">
+          <span class="slip__t">巡演海报第 7 版</span>
+          <span class="slip__m">塞尔吉奥·比当古 · 1969 · 套色偏移 3px · <code>OIT-1969-017</code></span>
+          <a class="slip__go" href="#who">看这件作品</a>
+        </figcaption>
+        <svg class="slip__notch" viewBox="0 0 24 24" aria-hidden="true"><path class="bite" d="M24 6 L13 13 L24 19 Z"></path><path class="rim" d="M24 6 L13 13 L24 19"></path></svg>
+        <span class="slip__gum" aria-hidden="true"></span>
+      </figure>
+
+      <figure class="slip" style="--span:3;--span-m:4;--ar:0.652;--r:-1.2deg;--lift:22px;--lift-m:0px;--order:5;--ri:7px;--rj:3px;--torn:url('assets/torn-edge-1.webp')">
+        <img class="slip__plate" src="assets/plate-04.webp" width="520" height="660" alt="丝网印版《雨林档案：30 线网》：橙色弧线与绿色三角交叠，绿版网点可见">
+        <figcaption class="slip__cap">
+          <span class="slip__t">雨林档案：30 线网</span>
+          <span class="slip__m">迪奥戈·佩索阿 · 2025 · 套色偏移 7px · <code>OIT-2025-011</code></span>
+          <a class="slip__go" href="#who">看这件作品</a>
+        </figcaption>
+        <svg class="slip__notch" viewBox="0 0 24 24" aria-hidden="true"><path class="bite" d="M24 6 L13 13 L24 19 Z"></path><path class="rim" d="M24 6 L13 13 L24 19"></path></svg>
+        <span class="slip__gum" aria-hidden="true"></span>
+      </figure>
+
+      <figure class="slip" style="--span:5;--span-m:4;--ar:1.085;--r:0.7deg;--lift:46px;--lift-m:34px;--order:6;--ri:-5px;--rj:7px;--torn:url('assets/torn-edge-2.webp')">
+        <img class="slip__plate" src="assets/plate-05.webp" width="600" height="600" alt="丝网印版《纸边咬人》：橙色方块与绿色折线互相咬边，黑版椭圆压在中间">
+        <figcaption class="slip__cap">
+          <span class="slip__t">纸边咬人</span>
+          <span class="slip__m">娜拉·吉马良斯 · 2026 · 套色偏移 5px · <code>OIT-2026-001</code></span>
+          <a class="slip__go" href="#who">看这件作品</a>
+        </figcaption>
+        <svg class="slip__notch" viewBox="0 0 24 24" aria-hidden="true"><path class="bite" d="M24 6 L13 13 L24 19 Z"></path><path class="rim" d="M24 6 L13 13 L24 19"></path></svg>
+        <span class="slip__gum" aria-hidden="true"></span>
+      </figure>
+    </div>
+
+    <p class="anno">撕口是手撕的，纤维朝外支着；哪一块被压在下面，看右下角那个 3mm 的缺口就认得出来</p>
+
+    <div class="wall__grid">
+      <figure class="slip" style="--span:3;--span-m:4;--ar:0.568;--r:-0.4deg;--lift:-4px;--lift-m:22px;--order:7;--ri:4px;--rj:5px;--torn:url('assets/torn-edge-3.webp')">
+        <img class="slip__plate" src="assets/plate-06.webp" width="620" height="480" alt="丝网印版《日面与撕口》：橙色扇形与绿色竖条错位套印">
+        <figcaption class="slip__cap">
+          <span class="slip__t">日面与撕口</span>
+          <span class="slip__m">克拉拉·蒙特内格罗 · 1968 · 套色偏移 4px · <code>OIT-1968-009</code></span>
+          <a class="slip__go" href="#who">看这件作品</a>
+        </figcaption>
+        <svg class="slip__notch" viewBox="0 0 24 24" aria-hidden="true"><path class="bite" d="M24 6 L13 13 L24 19 Z"></path><path class="rim" d="M24 6 L13 13 L24 19"></path></svg>
+        <span class="slip__gum" aria-hidden="true"></span>
+      </figure>
+
+      <figure class="slip" style="--span:5;--span-m:4;--ar:0.945;--r:1.0deg;--lift:30px;--lift-m:64px;--order:8;--ri:6px;--rj:5px;--torn:url('assets/torn-edge-2.webp')">
+        <img class="slip__plate" src="assets/plate-07.webp" width="580" height="740" alt="丝网印版《铜管乐的八个声部》：橙色折线与绿色椭圆交叠，黑版竖条压边">
+        <figcaption class="slip__cap">
+          <span class="slip__t">铜管乐的八个声部</span>
+          <span class="slip__m">伊内斯·卡瓦略 · 2026 · 套色偏移 6px · <code>OIT-2026-005</code></span>
+          <a class="slip__go" href="#who">看这件作品</a>
+        </figcaption>
+        <svg class="slip__notch" viewBox="0 0 24 24" aria-hidden="true"><path class="bite" d="M24 6 L13 13 L24 19 Z"></path><path class="rim" d="M24 6 L13 13 L24 19"></path></svg>
+        <span class="slip__gum" aria-hidden="true"></span>
+      </figure>
+
+      <figure class="slip" style="--span:4;--span-m:3;--ar:0.758;--r:-0.8deg;--lift:8px;--lift-m:8px;--order:9;--ri:3px;--rj:4px;--torn:url('assets/torn-edge-1.webp')">
+        <img class="slip__plate" src="assets/plate-08.webp" width="660" height="560" alt="丝网印版《不要票的二楼》：橙色椭圆与绿色弧线错位套印，中段一条黑版横带">
+        <figcaption class="slip__cap">
+          <span class="slip__t">不要票的二楼</span>
+          <span class="slip__m">阿尔贝托·纳西门托 · 2026 · 套色偏移 3px · <code>OIT-2026-002</code></span>
+          <a class="slip__go" href="#who">看这件作品</a>
+        </figcaption>
+        <svg class="slip__notch" viewBox="0 0 24 24" aria-hidden="true"><path class="bite" d="M24 6 L13 13 L24 19 Z"></path><path class="rim" d="M24 6 L13 13 L24 19"></path></svg>
+        <span class="slip__gum" aria-hidden="true"></span>
+      </figure>
+    </div>
+
+    <p class="anno anno--c">九张纸里有四张的绿版是上过网的（30 线），放大看得到网点；另外五张是实色块</p>
+
+    <aside class="notes" aria-labelledby="notes-h">
+      <div class="note reveal">
+        <h3 id="notes-h">这面墙要怎么读</h3>
+        <p>没有起点。纸块压边的高低就是顺序：压在上面的先贴，露在下面的后贴。你也可以完全倒着读，右下角那个 3mm 的缺口每五块转回原处。</p>
+      </div>
+      <div class="note reveal">
+        <h3>四色是怎么分开的</h3>
+        <p>每张画拆成橙、绿、黑、纸白四版，各自制网。绿版走 30 线粗网，其余实色。套印时每版自己跑偏 3 到 7px，错位处露出纸色，就成了第五种颜色。</p>
+      </div>
+      <div class="note note--last reveal">
+        <h3>今天有没有开</h3>
+        <p>二楼展厅湿度超过 70% 时纸块会翘边，我们会把那一面墙的内容换成线上档案。监测值实时挂在页脚，超标的当天会写明原因和错误码。</p>
+      </div>
+    </aside>
+  </div>
+
+  <p class="wall__state counter" id="paste-count" aria-live="polite">正在贴：已贴上 0 / 9 张</p>
+
+  <div class="alert alert--empty" role="status">
+    <h3 class="alert__hd">这件装置今天在检修</h3>
+    <p>明天上午十点回来，纸还是热的。检修期间线上档案照常可看，九张印版的偏移量一个都没改。</p>
+  </div>
+
+  <div class="alert alert--err" role="alert">
+    <h3 class="alert__hd">这面墙今天读不出来</h3>
+    <p>二楼展厅湿度 78% 超标，纸块翘边。明天上午十点再来，或者先看线上那 14 个人的档案。</p>
+    <p class="alert__code">错误码 <code>RH-78</code></p>
+  </div>
+</section>
+
+<section class="archive" aria-labelledby="arch-h">
+  <div class="archive__inner">
+    <h2 id="arch-h">九张印版的偏移表</h2>
+    <p class="wall__note">偏移量不是随机的：全站只允许 3、4、5、6、7px 这五档，每一块纸属于哪一档都写在表里，可以拿尺子到墙上量。随机只允许出现在跨栏数与上下留白上。</p>
+    <table class="table">
+      <caption>丝网套色偏移表（绿版一律 30 线粗网；纸色不是印上去的，是纸本身）</caption>
+      <thead>
+        <tr><th scope="col">档位</th><th scope="col">偏移量</th><th scope="col">用到的作品</th><th scope="col">色版</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>第一档</td><td><code>3px</code></td><td>巡演海报第 7 版 · 不要票的二楼</td><td><span class="chip chip--o" aria-hidden="true"></span>橙版实色</td></tr>
+        <tr><td>第二档</td><td><code>4px</code></td><td>日面与撕口</td><td><span class="chip chip--g" aria-hidden="true"></span>绿版上网</td></tr>
+        <tr><td>第三档</td><td><code>5px</code></td><td>帕兰戈莱 · 纸边咬人</td><td><span class="chip chip--k" aria-hidden="true"></span>黑版压边</td></tr>
+        <tr><td>第四档</td><td><code>6px</code></td><td>绿与橙的注册表 · 铜管乐的八个声部</td><td><span class="chip chip--p" aria-hidden="true"></span>纸色露出</td></tr>
+        <tr><td>第五档</td><td><code>7px</code></td><td>雨林档案：30 线网</td><td><span class="chip chip--o" aria-hidden="true"></span>橙版实色</td></tr>
+      </tbody>
+    </table>
+    <svg class="hatch" viewBox="0 0 120 26" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <pattern id="h45" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+          <rect width="8" height="8" fill="#2F7D4F"></rect>
+          <rect width="3.4" height="8" fill="#F0E2C8"></rect>
+        </pattern>
+      </defs>
+      <rect width="120" height="26" fill="url(#h45)"></rect>
+    </svg>
+    <p class="wall__note" style="margin-top:12px">上面这条斜纹就是第二色版（绿版）在图例里的画法：全站固定 45°，只有这一个角度。</p>
+    <p class="board__act" style="margin-top:22px">
+      <button class="btn" type="button" id="shift">换一面墙看</button>
+      <button class="btn" type="button" disabled>下载 9 张印版（AVIF 构建中）</button>
+    </p>
+  </div>
+</section>
+
+<section class="who" id="who" aria-labelledby="who-h">
+  <h2 id="who-h" style="width:var(--wall);margin:0 auto 20px">参展的 14 个人</h2>
+  <ul class="who__list">
+    <li class="who__item"><span>玛丽亚·塞阿布拉<span class="who__meta"> · 参与式装置 / 帕兰戈莱系列</span></span><code>OIT-1968-014</code></li>
+    <li class="who__item"><span>若热·阿马拉尔<span class="who__meta"> · 丝网印海报 / 绿版上网实验</span></span><code>OIT-1967-003</code></li>
+    <li class="who__item"><span>莉吉娅·瓦斯康塞洛斯<span class="who__meta"> · 注册表系列 / 套准偏差记录</span></span><code>OIT-1969-021</code></li>
+    <li class="who__item"><span>阿尔贝托·纳西门托<span class="who__meta"> · 展厅现场 / 门票与开放时间</span></span><code>OIT-2026-002</code></li>
+    <li class="who__item"><span>克拉拉·蒙特内格罗<span class="who__meta"> · 撕口与日面 / 手工裁切</span></span><code>OIT-1968-009</code></li>
+    <li class="who__item"><span>塞尔吉奥·比当古<span class="who__meta"> · 巡演海报 / 第 7 版</span></span><code>OIT-1969-017</code></li>
+    <li class="who__item"><span>伊内斯·卡瓦略<span class="who__meta"> · 铜管乐谱面转印</span></span><code>OIT-2026-005</code></li>
+    <li class="who__item"><span>迪奥戈·佩索阿<span class="who__meta"> · 雨林档案 / 30 线网制版</span></span><code>OIT-2025-011</code></li>
+    <li class="who__item"><span>娜拉·吉马良斯<span class="who__meta"> · 纸边咬人 / 撕口方向研究</span></span><code>OIT-2026-001</code></li>
+    <li class="who__item"><span>鲁伊·门德斯<span class="who__meta"> · 四色分色师傅</span></span><code>OIT-2026-006</code></li>
+    <li class="who__item"><span>贝阿特丽斯·洛佩斯<span class="who__meta"> · 纸张采购 / 未漂白包装纸</span></span><code>OIT-2026-007</code></li>
+    <li class="who__item"><span>托马斯·阿基诺<span class="who__meta"> · 铜管乐八重奏领队</span></span><code>OIT-2026-008</code></li>
+    <li class="who__item"><span>若阿金·弗雷塔斯<span class="who__meta"> · 墙面湿度监测</span></span><code>OIT-2026-009</code></li>
+    <li class="who__item"><span>露西亚·塔瓦雷斯<span class="who__meta"> · 线上档案与错误码值班</span></span><code>OIT-2026-010</code></li>
+  </ul>
+  <p class="who__more">周三晚上的铜管乐在二楼东侧，坐席不收票，七点整开始，八点结束。要提前看谱面，就在上面点开伊内斯那一件。</p>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="foot__inner">
+    <p>芒果拼贴墙 · 里约热内卢 <code>OIT-2026-BR</code> · 四色手工套印 · 纸：未漂白包装纸 <code>#F0E2C8</code></p>
+    <p>墙面湿度监测：62%（阈值 70%，超阈值触发错误码 <code>RH-78</code>）· 开放 10:00–18:00，周三到 21:00</p>
+    <p>降级说明：系统开启"减少动态效果"时，纸块不再落下、墙不再推走，只保留 120ms 的不透明度切换，纸块仍然可以点。</p>
+  </div>
+</footer>
+
+<script>
+document.documentElement.classList.add('js');
+(function(){
+  var slips=Array.prototype.slice.call(document.querySelectorAll('.slip'));
+  var counter=document.getElementById('paste-count');
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // 每一段都有自己的入场：名单逐条、偏移表逐行、批注逐句，不是整块淡入
+  Array.prototype.forEach.call(document.querySelectorAll('.who__item, .table tbody tr, .anno, .wall__note, .alert, .table caption'), function(el){ el.classList.add('reveal'); });
+  var reveals=Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+  if(reduce){
+    slips.forEach(function(s){s.classList.add('is-pasted')});
+    reveals.forEach(function(r){r.classList.add('is-in')});
+    counter.textContent='这面墙已经贴好：9 / 9 张（已按系统设置定格）';
+  }else{
+    var n=0;
+    var step=function(){
+      if(n<slips.length){
+        slips[n].classList.add('is-pasted'); n++;
+        counter.textContent='正在贴：已贴上 '+n+' / '+slips.length+' 张';
+        window.setTimeout(step,90);
+      }else{
+        counter.textContent='贴完了：'+slips.length+' / '+slips.length+' 张，用时约 '+(slips.length*0.09).toFixed(1)+' 秒';
+      }
+    };
+    window.setTimeout(step,120);
+  }
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('is-in'); io.unobserve(e.target); } });
+    },{rootMargin:'0px 0px -8% 0px'});
+    reveals.forEach(function(r){io.observe(r)});
+  }else{
+    reveals.forEach(function(r){r.classList.add('is-in')});
+  }
+  var shift=document.getElementById('shift');
+  if(shift){
+    shift.addEventListener('click',function(){
+      var wall=document.getElementById('wall');
+      wall.classList.add('is-shifting');
+      window.setTimeout(function(){wall.classList.remove('is-shifting')},460);
+    });
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+﻿import { readFileSync, writeFileSync } from "node:fs";
+import { createHash } from "node:crypto";
+import { spawnSync } from "node:child_process";
+const CHILD = "D:/Web/style/deliverables/73-verify/_bk/child.mjs";
+writeFileSync(CHILD, `
+import { readFileSync } from "node:fs";
+const CON = "D:/Web/style/prototypes/_CONTRACT.md";
+const md = readFileSync(CON, "utf8");
+const i = md.indexOf("9.15");
+const j = md.indexOf("9.16", i);
+const sec = j > 0 ? md.slice(i, j) : md.slice(i);
+const rows = [...sec.split(/\\r?\\n/)].filter(l => /^\\|\\s*\`([\\w-]+)\`\\s*\\|/.test(l)).map(l => l.match(/^\\|\\s*\`([\\w-]+)\`\\s*\\|/)[1]);
+console.log(JSON.stringify({ mdLen: md.length, i, j, secLen: sec.length, rows }));
+`, "utf8");
+const CON="D:/Web/style/prototypes/_CONTRACT.md";
+const orig=readFileSync(CON); const h=(b)=>createHash("sha256").update(b).digest("hex");
+writeFileSync(CON, orig.toString("utf8").replace("| **不得横向溢出** |","| `shadow` | X | Y |\n| **不得横向溢出** |"), "utf8");
+const r = spawnSync(process.execPath, [CHILD], { encoding: "utf8" });
+console.log("child:", String(r.stdout).trim());
+console.log("parent sees len:", readFileSync(CON).length);
+writeFileSync(CON, orig);
+console.log("restored:", h(readFileSync(CON))===h(orig));

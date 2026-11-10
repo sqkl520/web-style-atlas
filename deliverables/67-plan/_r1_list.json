@@ -1,0 +1,660 @@
+{
+ "at": "2026-10-27T17:04:33.466Z",
+ "head": null,
+ "tiers": {
+  "390": {
+   "base": {
+    "vh": 844,
+    "dpr": 2,
+    "fonts": "loaded",
+    "scrollH": 17308,
+    "scrollW": 0,
+    "mast": {
+     "top": 0,
+     "h": 453.4,
+     "bottom": 453.4
+    },
+    "mastParts": {
+     ".mast-kicker": {
+      "top": 20,
+      "h": 22.7,
+      "bottom": 42.7
+     },
+     ".mast h1": {
+      "top": 50.7,
+      "h": 27.5,
+      "bottom": 78.2
+     },
+     ".mast-claim": {
+      "top": 88.2,
+      "h": 96,
+      "bottom": 184.2
+     },
+     ".mast-wizard": {
+      "top": 194.2,
+      "h": 66.6,
+      "bottom": 260.8
+     },
+     ".mast-exit": {
+      "top": 271.8,
+      "h": 76.1,
+      "bottom": 347.9
+     },
+     ".mast-facts": {
+      "top": 363.9,
+      "h": 73.5,
+      "bottom": 437.4
+     }
+    },
+    "claimChars": 97,
+    "exitChars": 76,
+    "rail": {
+     "top": 453.4,
+     "h": 337.6,
+     "bottom": 791
+    },
+    "railScrollH": 1406,
+    "bar": {
+     "top": 807,
+     "h": 145,
+     "bottom": 952
+    },
+    "barParts": {
+     ".search": {
+      "top": 807,
+      "h": 41.9,
+      "bottom": 848.9
+     },
+     ".bar .count": {
+      "top": 860.9,
+      "h": 21,
+      "bottom": 882
+     },
+     ".bar .sort": {
+      "top": 894,
+      "h": 40,
+      "bottom": 934
+     },
+     "#reset": {
+      "top": 896.4,
+      "h": 35,
+      "bottom": 931.5
+     },
+     "#q-parked": {
+      "top": 0,
+      "h": 0,
+      "bottom": 0
+     }
+    },
+    "parked": {
+     "exists": true,
+     "hidden": true,
+     "display": "none",
+     "h": 0
+    },
+    "firstRow": {
+     "top": 954,
+     "h": 577.8,
+     "bottom": 1531.8
+    },
+    "rowCount": 30,
+    "rowsFull": 0,
+    "rowsPart": 0,
+    "interTotal": 56,
+    "interFull": 28,
+    "chipsTotal": 47,
+    "chipFull": 22,
+    "railBlocks": [
+     {
+      "t": "你是做什么的",
+      "top": 465,
+      "inView": true
+     },
+     {
+      "t": "要亮底还是暗底",
+      "top": 700,
+      "inView": true
+     },
+     {
+      "t": "底色属于哪条带",
+      "top": 773,
+      "inView": true
+     },
+     {
+      "t": "要装多少内容",
+      "top": 971,
+      "inView": false
+     },
+     {
+      "t": "要安静还是要扎眼",
+      "top": 1044,
+      "inView": false
+     },
+     {
+      "t": "结构类型",
+      "top": 1225,
+      "inView": false
+     },
+     {
+      "t": "认知门槛",
+      "top": 1298,
+      "inView": false
+     },
+     {
+      "t": "调性",
+      "top": 1371,
+      "inView": false
+     },
+     {
+      "t": "建成状态",
+      "top": 1541,
+      "inView": false
+     },
+     {
+      "t": "闸门",
+      "top": 1614,
+      "inView": false
+     },
+     {
+      "t": "怎么用",
+      "top": 1687,
+      "inView": false
+     }
+    ],
+    "mountH": {
+     "top": 952,
+     "h": 16295.9,
+     "bottom": 17247.8
+    }
+   },
+   "steps": {
+    "A1": {
+     "vh": 844,
+     "mastH": 453.4,
+     "railH": 337.6,
+     "barH": 145,
+     "firstTop": 954,
+     "firstH": 577.8,
+     "rowsFull": 0,
+     "margin": -687.8
+    },
+    "A2": {
+     "vh": 844,
+     "mastH": 453.4,
+     "railH": 56,
+     "barH": 145,
+     "firstTop": 672.4,
+     "firstH": 577.8,
+     "rowsFull": 0,
+     "margin": -406.2
+    },
+    "A3": {
+     "vh": 844,
+     "mastH": 293.2,
+     "railH": 56,
+     "barH": 145,
+     "firstTop": 512.2,
+     "firstH": 577.8,
+     "rowsFull": 0,
+     "margin": -246
+    },
+    "A4": {
+     "vh": 844,
+     "mastH": 293.2,
+     "railH": 56,
+     "barH": 91,
+     "firstTop": 458.2,
+     "firstH": 577.8,
+     "rowsFull": 0,
+     "margin": -192
+    },
+    "A5": {
+     "vh": 844,
+     "mastH": 293.2,
+     "railH": 56,
+     "barH": 91,
+     "firstTop": 458.2,
+     "firstH": 453.2,
+     "rowsFull": 0,
+     "margin": -67.5
+    }
+   }
+  },
+  "414": {
+   "base": {
+    "vh": 896,
+    "dpr": 2,
+    "fonts": "loaded",
+    "scrollH": 17058,
+    "scrollW": 0,
+    "mast": {
+     "top": 0,
+     "h": 454.8,
+     "bottom": 454.8
+    },
+    "mastParts": {
+     ".mast-kicker": {
+      "top": 20,
+      "h": 22.7,
+      "bottom": 42.7
+     },
+     ".mast h1": {
+      "top": 50.7,
+      "h": 29,
+      "bottom": 79.6
+     },
+     ".mast-claim": {
+      "top": 89.6,
+      "h": 96,
+      "bottom": 185.6
+     },
+     ".mast-wizard": {
+      "top": 195.6,
+      "h": 66.6,
+      "bottom": 262.2
+     },
+     ".mast-exit": {
+      "top": 273.2,
+      "h": 76.1,
+      "bottom": 349.3
+     },
+     ".mast-facts": {
+      "top": 365.3,
+      "h": 73.5,
+      "bottom": 438.8
+     }
+    },
+    "claimChars": 97,
+    "exitChars": 76,
+    "rail": {
+     "top": 454.8,
+     "h": 358.4,
+     "bottom": 813.2
+    },
+    "railScrollH": 1320,
+    "bar": {
+     "top": 829.2,
+     "h": 159,
+     "bottom": 988.2
+    },
+    "barParts": {
+     ".search": {
+      "top": 829.2,
+      "h": 41.9,
+      "bottom": 871.1
+     },
+     ".bar .count": {
+      "top": 892.6,
+      "h": 21,
+      "bottom": 913.6
+     },
+     ".bar .sort": {
+      "top": 883.1,
+      "h": 40,
+      "bottom": 923.1
+     },
+     "#reset": {
+      "top": 935.1,
+      "h": 35,
+      "bottom": 970.2
+     },
+     "#q-parked": {
+      "top": 0,
+      "h": 0,
+      "bottom": 0
+     }
+    },
+    "parked": {
+     "exists": true,
+     "hidden": true,
+     "display": "none",
+     "h": 0
+    },
+    "firstRow": {
+     "top": 990.2,
+     "h": 510.1,
+     "bottom": 1500.3
+    },
+    "rowCount": 30,
+    "rowsFull": 0,
+    "rowsPart": 0,
+    "interTotal": 56,
+    "interFull": 31,
+    "chipsTotal": 47,
+    "chipFull": 24,
+    "railBlocks": [
+     {
+      "t": "你是做什么的",
+      "top": 467,
+      "inView": true
+     },
+     {
+      "t": "要亮底还是暗底",
+      "top": 670,
+      "inView": true
+     },
+     {
+      "t": "底色属于哪条带",
+      "top": 743,
+      "inView": true
+     },
+     {
+      "t": "要装多少内容",
+      "top": 941,
+      "inView": false
+     },
+     {
+      "t": "要安静还是要扎眼",
+      "top": 1014,
+      "inView": false
+     },
+     {
+      "t": "结构类型",
+      "top": 1194,
+      "inView": false
+     },
+     {
+      "t": "认知门槛",
+      "top": 1267,
+      "inView": false
+     },
+     {
+      "t": "调性",
+      "top": 1341,
+      "inView": false
+     },
+     {
+      "t": "建成状态",
+      "top": 1478,
+      "inView": false
+     },
+     {
+      "t": "闸门",
+      "top": 1552,
+      "inView": false
+     },
+     {
+      "t": "怎么用",
+      "top": 1625,
+      "inView": false
+     }
+    ],
+    "mountH": {
+     "top": 988.2,
+     "h": 16009.4,
+     "bottom": 16997.6
+    }
+   },
+   "steps": {
+    "A1": {
+     "vh": 896,
+     "mastH": 454.8,
+     "railH": 358.4,
+     "barH": 159,
+     "firstTop": 990.2,
+     "firstH": 510.1,
+     "rowsFull": 0,
+     "margin": -604.3
+    },
+    "A2": {
+     "vh": 896,
+     "mastH": 454.8,
+     "railH": 56,
+     "barH": 159,
+     "firstTop": 687.9,
+     "firstH": 510.1,
+     "rowsFull": 0,
+     "margin": -302
+    },
+    "A3": {
+     "vh": 896,
+     "mastH": 294.6,
+     "railH": 56,
+     "barH": 159,
+     "firstTop": 527.6,
+     "firstH": 510.1,
+     "rowsFull": 0,
+     "margin": -141.7
+    },
+    "A4": {
+     "vh": 896,
+     "mastH": 294.6,
+     "railH": 56,
+     "barH": 91,
+     "firstTop": 459.6,
+     "firstH": 510.1,
+     "rowsFull": 0,
+     "margin": -73.7
+    },
+    "A5": {
+     "vh": 896,
+     "mastH": 294.6,
+     "railH": 56,
+     "barH": 91,
+     "firstTop": 459.7,
+     "firstH": 372.1,
+     "rowsFull": 1,
+     "margin": 64.3
+    }
+   }
+  },
+  "1440": {
+   "base": {
+    "vh": 900,
+    "dpr": 2,
+    "fonts": "loaded",
+    "scrollH": 8773,
+    "scrollW": 0,
+    "mast": {
+     "top": 0,
+     "h": 304,
+     "bottom": 304
+    },
+    "mastParts": {
+     ".mast-kicker": {
+      "top": 20,
+      "h": 22.7,
+      "bottom": 42.7
+     },
+     ".mast h1": {
+      "top": 50.7,
+      "h": 59.4,
+      "bottom": 110
+     },
+     ".mast-claim": {
+      "top": 120,
+      "h": 72,
+      "bottom": 192
+     },
+     ".mast-wizard": {
+      "top": 202,
+      "h": 42.3,
+      "bottom": 244.3
+     },
+     ".mast-exit": {
+      "top": 255.3,
+      "h": 32.7,
+      "bottom": 288
+     },
+     ".mast-facts": {
+      "top": 214.5,
+      "h": 73.5,
+      "bottom": 288
+     }
+    },
+    "claimChars": 97,
+    "exitChars": 76,
+    "rail": {
+     "top": 304,
+     "h": 900,
+     "bottom": 1204
+    },
+    "railScrollH": 1996,
+    "bar": {
+     "top": 326,
+     "h": 59.9,
+     "bottom": 385.9
+    },
+    "barParts": {
+     ".search": {
+      "top": 326,
+      "h": 41.9,
+      "bottom": 367.9
+     },
+     ".bar .count": {
+      "top": 336.4,
+      "h": 21,
+      "bottom": 357.5
+     },
+     ".bar .sort": {
+      "top": 327,
+      "h": 40,
+      "bottom": 367
+     },
+     "#reset": {
+      "top": 329.4,
+      "h": 35,
+      "bottom": 364.5
+     },
+     "#q-parked": {
+      "top": 0,
+      "h": 0,
+      "bottom": 0
+     }
+    },
+    "parked": {
+     "exists": true,
+     "hidden": true,
+     "display": "none",
+     "h": 0
+    },
+    "firstRow": {
+     "top": 387.9,
+     "h": 276.8,
+     "bottom": 664.8
+    },
+    "rowCount": 30,
+    "rowsFull": 1,
+    "rowsPart": 1,
+    "interTotal": 56,
+    "interFull": 29,
+    "chipsTotal": 47,
+    "chipFull": 20,
+    "railBlocks": [
+     {
+      "t": "你是做什么的",
+      "top": 457,
+      "inView": true
+     },
+     {
+      "t": "要亮底还是暗底",
+      "top": 776,
+      "inView": true
+     },
+     {
+      "t": "底色属于哪条带",
+      "top": 849,
+      "inView": true
+     },
+     {
+      "t": "要装多少内容",
+      "top": 1122,
+      "inView": false
+     },
+     {
+      "t": "要安静还是要扎眼",
+      "top": 1228,
+      "inView": false
+     },
+     {
+      "t": "结构类型",
+      "top": 1461,
+      "inView": false
+     },
+     {
+      "t": "认知门槛",
+      "top": 1535,
+      "inView": false
+     },
+     {
+      "t": "调性",
+      "top": 1608,
+      "inView": false
+     },
+     {
+      "t": "建成状态",
+      "top": 1874,
+      "inView": false
+     },
+     {
+      "t": "闸门",
+      "top": 1948,
+      "inView": false
+     },
+     {
+      "t": "怎么用",
+      "top": 2053,
+      "inView": false
+     }
+    ],
+    "mountH": {
+     "top": 385.9,
+     "h": 8307.3,
+     "bottom": 8693.2
+    }
+   },
+   "steps": {
+    "A1": {
+     "vh": 900,
+     "mastH": 304,
+     "railH": 900,
+     "barH": 59.9,
+     "firstTop": 387.9,
+     "firstH": 276.8,
+     "rowsFull": 1,
+     "margin": 235.2
+    },
+    "A2": {
+     "vh": 900,
+     "mastH": 304,
+     "railH": 56,
+     "barH": 59.9,
+     "firstTop": 387.9,
+     "firstH": 276.8,
+     "rowsFull": 1,
+     "margin": 235.2
+    },
+    "A3": {
+     "vh": 900,
+     "mastH": 211.1,
+     "railH": 56,
+     "barH": 59.9,
+     "firstTop": 295,
+     "firstH": 276.8,
+     "rowsFull": 2,
+     "margin": 328.1
+    },
+    "A4": {
+     "vh": 900,
+     "mastH": 211.1,
+     "railH": 56,
+     "barH": 91,
+     "firstTop": 326.1,
+     "firstH": 276.8,
+     "rowsFull": 2,
+     "margin": 297.1
+    },
+    "A5": {
+     "vh": 900,
+     "mastH": 211.1,
+     "railH": 56,
+     "barH": 91,
+     "firstTop": 326.1,
+     "firstH": 178.9,
+     "rowsFull": 3,
+     "margin": 395
+    }
+   }
+  }
+ }
+}

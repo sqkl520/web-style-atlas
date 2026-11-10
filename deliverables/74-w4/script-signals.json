@@ -1,0 +1,2751 @@
+[
+  {
+    "id": "S01",
+    "dir": "S01-red-wedge-broadsheet",
+    "scriptBlocks": 1,
+    "emptyBlocks": 0,
+    "externalFiles": [],
+    "scriptLines": 15,
+    "bySignal": {
+      "getBoundingClientRect": {
+        "cls": "geo",
+        "lines": [
+          "index.html:321"
+        ],
+        "count": 1
+      },
+      "rAF": {
+        "cls": "motion",
+        "lines": [
+          "index.html:328"
+        ],
+        "count": 1
+      },
+      "on-scroll": {
+        "cls": "motion",
+        "lines": [
+          "index.html:327"
+        ],
+        "count": 1
+      },
+      "IntersectionObserver": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:258",
+          "index.html:259"
+        ],
+        "count": 2
+      },
+      "reduced-motion": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:250"
+        ],
+        "count": 1
+      },
+      "click": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:279",
+          "index.html:286",
+          "index.html:291",
+          "index.html:302"
+        ],
+        "count": 4
+      },
+      "class-write": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:254",
+          "index.html:261",
+          "index.html:266",
+          "index.html:283"
+        ],
+        "count": 4
+      }
+    },
+    "geoSignals": [
+      "getBoundingClientRect"
+    ],
+    "motionSignals": [
+      "rAF",
+      "on-scroll"
+    ],
+    "geoCount": 1,
+    "motionCount": 2,
+    "chromeOnly": false
+  },
+  {
+    "id": "S02",
+    "dir": "S02-gilded-symmetry-salon",
+    "scriptBlocks": 1,
+    "emptyBlocks": 0,
+    "externalFiles": [],
+    "scriptLines": 24,
+    "bySignal": {
+      "rAF": {
+        "cls": "motion",
+        "lines": [
+          "index.html:273"
+        ],
+        "count": 1
+      },
+      "scrollY": {
+        "cls": "motion",
+        "lines": [
+          "index.html:254"
+        ],
+        "count": 1
+      },
+      "on-scroll": {
+        "cls": "motion",
+        "lines": [
+          "index.html:369"
+        ],
+        "count": 1
+      },
+      "on-hover": {
+        "cls": "motion",
+        "lines": [
+          "index.html:312",
+          "index.html:313"
+        ],
+        "count": 2
+      },
+      "IntersectionObserver": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:294",
+          "index.html:295"
+        ],
+        "count": 2
+      },
+      "reduced-motion": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:231"
+        ],
+        "count": 1
+      },
+      "click": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:322"
+        ],
+        "count": 1
+      },
+      "submit": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:357"
+        ],
+        "count": 1
+      },
+      "class-write": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:287",
+          "index.html:298",
+          "index.html:307",
+          "index.html:312",
+          "index.html:313",
+          "index.html:324",
+          "index.html:326",
+          "index.html:332"
+        ],
+        "count": 8
+      },
+      "style-write": {
+        "cls": "motion",
+        "lines": [
+          "index.html:266",
+          "index.html:283",
+          "index.html:284",
+          "index.html:303"
+        ],
+        "count": 4
+      }
+    },
+    "geoSignals": [],
+    "motionSignals": [
+      "rAF",
+      "scrollY",
+      "on-scroll",
+      "style-write"
+    ],
+    "geoCount": 0,
+    "motionCount": 4,
+    "chromeOnly": false
+  },
+  {
+    "id": "S03",
+    "dir": "S03-long-exposure-observatory",
+    "scriptBlocks": 1,
+    "emptyBlocks": 0,
+    "externalFiles": [],
+    "scriptLines": 40,
+    "bySignal": {
+      "createElementNS": {
+        "cls": "geo",
+        "lines": [
+          "index.html:221",
+          "index.html:237",
+          "index.html:244"
+        ],
+        "count": 3
+      },
+      "appendChild": {
+        "cls": "geo",
+        "lines": [
+          "index.html:227",
+          "index.html:243",
+          "index.html:249"
+        ],
+        "count": 3
+      },
+      "setAttribute-other": {
+        "cls": "geo",
+        "lines": [
+          "index.html:222",
+          "index.html:223",
+          "index.html:238",
+          "index.html:239",
+          "index.html:245",
+          "index.html:246"
+        ],
+        "count": 6
+      },
+      "getBoundingClientRect": {
+        "cls": "geo",
+        "lines": [
+          "index.html:259"
+        ],
+        "count": 1
+      },
+      "rAF": {
+        "cls": "motion",
+        "lines": [
+          "index.html:268",
+          "index.html:278",
+          "index.html:280"
+        ],
+        "count": 3
+      },
+      "scrollY": {
+        "cls": "motion",
+        "lines": [
+          "index.html:259",
+          "index.html:260"
+        ],
+        "count": 2
+      },
+      "on-scroll": {
+        "cls": "motion",
+        "lines": [
+          "index.html:265"
+        ],
+        "count": 1
+      },
+      "on-pointer": {
+        "cls": "motion",
+        "lines": [
+          "index.html:306"
+        ],
+        "count": 1
+      },
+      "on-hover": {
+        "cls": "motion",
+        "lines": [
+          "index.html:304",
+          "index.html:305"
+        ],
+        "count": 2
+      },
+      "js-class": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:214"
+        ],
+        "count": 1
+      },
+      "reduced-motion": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:215"
+        ],
+        "count": 1
+      },
+      "click": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:324",
+          "index.html:338"
+        ],
+        "count": 2
+      },
+      "class-write": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:214",
+          "index.html:285",
+          "index.html:290",
+          "index.html:326",
+          "index.html:329"
+        ],
+        "count": 5
+      },
+      "style-write": {
+        "cls": "motion",
+        "lines": [
+          "index.html:262",
+          "index.html:286",
+          "index.html:294",
+          "index.html:307"
+        ],
+        "count": 4
+      }
+    },
+    "geoSignals": [
+      "createElementNS",
+      "setAttribute-other",
+      "getBoundingClientRect"
+    ],
+    "motionSignals": [
+      "rAF",
+      "scrollY",
+      "on-scroll",
+      "on-pointer",
+      "style-write"
+    ],
+    "geoCount": 3,
+    "motionCount": 5,
+    "chromeOnly": false
+  },
+  {
+    "id": "S04",
+    "dir": "S04-mango-collage-wall",
+    "scriptBlocks": 1,
+    "emptyBlocks": 0,
+    "externalFiles": [],
+    "scriptLines": 15,
+    "bySignal": {
+      "js-class": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:246"
+        ],
+        "count": 1
+      },
+      "IntersectionObserver": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:271",
+          "index.html:272"
+        ],
+        "count": 2
+      },
+      "reduced-motion": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:250"
+        ],
+        "count": 1
+      },
+      "click": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:281"
+        ],
+        "count": 1
+      },
+      "class-write": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:246",
+          "index.html:252",
+          "index.html:255",
+          "index.html:256",
+          "index.html:262",
+          "index.html:273",
+          "index.html:277",
+          "index.html:283",
+          "index.html:284"
+        ],
+        "count": 9
+      }
+    },
+    "geoSignals": [],
+    "motionSignals": [],
+    "geoCount": 0,
+    "motionCount": 0,
+    "chromeOnly": true
+  },
+  {
+    "id": "S05",
+    "dir": "S05-pixel-cold-storage-console",
+    "scriptBlocks": 1,
+    "emptyBlocks": 0,
+    "externalFiles": [],
+    "scriptLines": 23,
+    "bySignal": {
+      "setAttribute-other": {
+        "cls": "geo",
+        "lines": [
+          "index.html:309"
+        ],
+        "count": 1
+      },
+      "offsetWidth": {
+        "cls": "geo",
+        "lines": [
+          "index.html:326",
+          "index.html:359"
+        ],
+        "count": 2
+      },
+      "IntersectionObserver": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:382",
+          "index.html:383"
+        ],
+        "count": 2
+      },
+      "reduced-motion": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:277",
+          "index.html:374"
+        ],
+        "count": 2
+      },
+      "click": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:345",
+          "index.html:354"
+        ],
+        "count": 2
+      },
+      "class-write": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:324",
+          "index.html:327",
+          "index.html:357",
+          "index.html:359",
+          "index.html:370",
+          "index.html:376",
+          "index.html:377",
+          "index.html:385",
+          "index.html:390"
+        ],
+        "count": 9
+      },
+      "style-write": {
+        "cls": "motion",
+        "lines": [
+          "index.html:322",
+          "index.html:344"
+        ],
+        "count": 2
+      }
+    },
+    "geoSignals": [
+      "setAttribute-other",
+      "offsetWidth"
+    ],
+    "motionSignals": [
+      "style-write"
+    ],
+    "geoCount": 2,
+    "motionCount": 1,
+    "chromeOnly": false
+  },
+  {
+    "id": "S06",
+    "dir": "S06-showa-kissaten-ledger",
+    "scriptBlocks": 1,
+    "emptyBlocks": 0,
+    "externalFiles": [],
+    "scriptLines": 21,
+    "bySignal": {
+      "getBoundingClientRect": {
+        "cls": "geo",
+        "lines": [
+          "index.html:357"
+        ],
+        "count": 1
+      },
+      "getComputedStyle": {
+        "cls": "geo",
+        "lines": [
+          "index.html:361"
+        ],
+        "count": 1
+      },
+      "rAF": {
+        "cls": "motion",
+        "lines": [
+          "index.html:375"
+        ],
+        "count": 1
+      },
+      "scrollY": {
+        "cls": "motion",
+        "lines": [
+          "index.html:368"
+        ],
+        "count": 1
+      },
+      "on-scroll": {
+        "cls": "motion",
+        "lines": [
+          "index.html:377"
+        ],
+        "count": 1
+      },
+      "reduced-motion": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:333"
+        ],
+        "count": 1
+      },
+      "click": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:402"
+        ],
+        "count": 1
+      },
+      "class-write": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:348",
+          "index.html:384",
+          "index.html:385",
+          "index.html:388",
+          "index.html:391",
+          "index.html:394",
+          "index.html:397",
+          "index.html:406",
+          "index.html:411"
+        ],
+        "count": 9
+      },
+      "style-write": {
+        "cls": "motion",
+        "lines": [
+          "index.html:365",
+          "index.html:369",
+          "index.html:418",
+          "index.html:422"
+        ],
+        "count": 4
+      }
+    },
+    "geoSignals": [
+      "getBoundingClientRect",
+      "getComputedStyle"
+    ],
+    "motionSignals": [
+      "rAF",
+      "scrollY",
+      "on-scroll",
+      "style-write"
+    ],
+    "geoCount": 2,
+    "motionCount": 4,
+    "chromeOnly": false
+  },
+  {
+    "id": "S07",
+    "dir": "S07-slate-ink-contents",
+    "scriptBlocks": 1,
+    "emptyBlocks": 0,
+    "externalFiles": [
+      {
+        "file": "app.js",
+        "external": true,
+        "exists": true
+      }
+    ],
+    "scriptLines": 36,
+    "bySignal": {
+      "createElementNS": {
+        "cls": "geo",
+        "lines": [
+          "app.js:23",
+          "app.js:35"
+        ],
+        "count": 2
+      },
+      "appendChild": {
+        "cls": "geo",
+        "lines": [
+          "app.js:42",
+          "app.js:44"
+        ],
+        "count": 2
+      },
+      "setAttribute-other": {
+        "cls": "geo",
+        "lines": [
+          "app.js:18",
+          "app.js:19",
+          "app.js:20",
+          "app.js:24",
+          "app.js:36",
+          "app.js:37"
+        ],
+        "count": 6
+      },
+      "getBoundingClientRect": {
+        "cls": "geo",
+        "lines": [
+          "app.js:16",
+          "app.js:28",
+          "app.js:54"
+        ],
+        "count": 3
+      },
+      "getComputedStyle": {
+        "cls": "geo",
+        "lines": [
+          "app.js:29"
+        ],
+        "count": 1
+      },
+      "rAF": {
+        "cls": "motion",
+        "lines": [
+          "app.js:120"
+        ],
+        "count": 1
+      },
+      "on-scroll": {
+        "cls": "motion",
+        "lines": [
+          "app.js:120"
+        ],
+        "count": 1
+      },
+      "on-pointer": {
+        "cls": "motion",
+        "lines": [
+          "app.js:77"
+        ],
+        "count": 1
+      },
+      "on-hover": {
+        "cls": "motion",
+        "lines": [
+          "app.js:77",
+          "app.js:81"
+        ],
+        "count": 2
+      },
+      "reduced-motion": {
+        "cls": "chrome",
+        "lines": [
+          "app.js:11"
+        ],
+        "count": 1
+      },
+      "click": {
+        "cls": "chrome",
+        "lines": [
+          "app.js:91",
+          "app.js:101"
+        ],
+        "count": 2
+      },
+      "class-write": {
+        "cls": "chrome",
+        "lines": [
+          "app.js:63",
+          "app.js:64",
+          "app.js:70",
+          "app.js:79",
+          "app.js:83",
+          "app.js:85",
+          "app.js:86",
+          "app.js:93",
+          "app.js:94",
+          "app.js:95",
+          "app.js:96"
+        ],
+        "count": 11
+      },
+      "style-write": {
+        "cls": "motion",
+        "lines": [
+          "app.js:48",
+          "app.js:76"
+        ],
+        "count": 2
+      }
+    },
+    "geoSignals": [
+      "createElementNS",
+      "setAttribute-other",
+      "getBoundingClientRect",
+      "getComputedStyle"
+    ],
+    "motionSignals": [
+      "rAF",
+      "on-scroll",
+      "on-pointer",
+      "style-write"
+    ],
+    "geoCount": 4,
+    "motionCount": 4,
+    "chromeOnly": false
+  },
+  {
+    "id": "S08",
+    "dir": "S08-amber-overprint-lightbox",
+    "scriptBlocks": 1,
+    "emptyBlocks": 0,
+    "externalFiles": [],
+    "scriptLines": 13,
+    "bySignal": {
+      "offsetWidth": {
+        "cls": "geo",
+        "lines": [
+          "index.html:350"
+        ],
+        "count": 1
+      },
+      "rAF": {
+        "cls": "motion",
+        "lines": [
+          "index.html:313"
+        ],
+        "count": 1
+      },
+      "scrollY": {
+        "cls": "motion",
+        "lines": [
+          "index.html:303"
+        ],
+        "count": 1
+      },
+      "on-scroll": {
+        "cls": "motion",
+        "lines": [
+          "index.html:314"
+        ],
+        "count": 1
+      },
+      "reduced-motion": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:294"
+        ],
+        "count": 1
+      },
+      "click": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:319",
+          "index.html:336",
+          "index.html:345"
+        ],
+        "count": 3
+      },
+      "style-write": {
+        "cls": "motion",
+        "lines": [
+          "index.html:309",
+          "index.html:310",
+          "index.html:323",
+          "index.html:327"
+        ],
+        "count": 4
+      }
+    },
+    "geoSignals": [
+      "offsetWidth"
+    ],
+    "motionSignals": [
+      "rAF",
+      "scrollY",
+      "on-scroll",
+      "style-write"
+    ],
+    "geoCount": 1,
+    "motionCount": 4,
+    "chromeOnly": false
+  },
+  {
+    "id": "S09",
+    "dir": "S09-batik-price-board",
+    "scriptBlocks": 2,
+    "emptyBlocks": 0,
+    "externalFiles": [],
+    "scriptLines": 27,
+    "bySignal": {
+      "offsetWidth": {
+        "cls": "geo",
+        "lines": [
+          "index.html:259"
+        ],
+        "count": 1
+      },
+      "on-pointer": {
+        "cls": "motion",
+        "lines": [
+          "index.html:244",
+          "index.html:274"
+        ],
+        "count": 2
+      },
+      "on-hover": {
+        "cls": "motion",
+        "lines": [
+          "index.html:244",
+          "index.html:245",
+          "index.html:274",
+          "index.html:275"
+        ],
+        "count": 4
+      },
+      "IntersectionObserver": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:217",
+          "index.html:219"
+        ],
+        "count": 2
+      },
+      "reduced-motion": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:183"
+        ],
+        "count": 1
+      },
+      "click": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:250",
+          "index.html:280"
+        ],
+        "count": 2
+      },
+      "class-write": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:218",
+          "index.html:237",
+          "index.html:244",
+          "index.html:245",
+          "index.html:257",
+          "index.html:258",
+          "index.html:260",
+          "index.html:262",
+          "index.html:263",
+          "index.html:274",
+          "index.html:275",
+          "index.html:284"
+        ],
+        "count": 12
+      },
+      "style-write": {
+        "cls": "motion",
+        "lines": [
+          "index.html:226"
+        ],
+        "count": 1
+      }
+    },
+    "geoSignals": [
+      "offsetWidth"
+    ],
+    "motionSignals": [
+      "on-pointer",
+      "style-write"
+    ],
+    "geoCount": 1,
+    "motionCount": 2,
+    "chromeOnly": false
+  },
+  {
+    "id": "S10",
+    "dir": "S10-grid-versus-sheet",
+    "scriptBlocks": 1,
+    "emptyBlocks": 0,
+    "externalFiles": [],
+    "scriptLines": 33,
+    "bySignal": {
+      "createElement": {
+        "cls": "geo",
+        "lines": [
+          "index.html:472",
+          "index.html:495"
+        ],
+        "count": 2
+      },
+      "appendChild": {
+        "cls": "geo",
+        "lines": [
+          "index.html:431",
+          "index.html:499"
+        ],
+        "count": 2
+      },
+      "offsetWidth": {
+        "cls": "geo",
+        "lines": [
+          "index.html:405"
+        ],
+        "count": 1
+      },
+      "on-pointer": {
+        "cls": "motion",
+        "lines": [
+          "index.html:502"
+        ],
+        "count": 1
+      },
+      "on-hover": {
+        "cls": "motion",
+        "lines": [
+          "index.html:506"
+        ],
+        "count": 1
+      },
+      "IntersectionObserver": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:482"
+        ],
+        "count": 1
+      },
+      "click": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:446",
+          "index.html:447",
+          "index.html:448",
+          "index.html:451",
+          "index.html:462"
+        ],
+        "count": 5
+      },
+      "csv-export": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:471",
+          "index.html:474"
+        ],
+        "count": 2
+      },
+      "class-write": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:404",
+          "index.html:406",
+          "index.html:407",
+          "index.html:433",
+          "index.html:439",
+          "index.html:453",
+          "index.html:455",
+          "index.html:485",
+          "index.html:486",
+          "index.html:490",
+          "index.html:504",
+          "index.html:506",
+          "index.html:508"
+        ],
+        "count": 13
+      },
+      "style-write": {
+        "cls": "motion",
+        "lines": [
+          "index.html:430",
+          "index.html:503"
+        ],
+        "count": 2
+      }
+    },
+    "geoSignals": [
+      "createElement",
+      "offsetWidth"
+    ],
+    "motionSignals": [
+      "on-pointer",
+      "style-write"
+    ],
+    "geoCount": 2,
+    "motionCount": 2,
+    "chromeOnly": false
+  },
+  {
+    "id": "S11",
+    "dir": "S11-samizdat-typewriter",
+    "scriptBlocks": 1,
+    "emptyBlocks": 0,
+    "externalFiles": [],
+    "scriptLines": 20,
+    "bySignal": {
+      "offsetWidth": {
+        "cls": "geo",
+        "lines": [
+          "index.html:378"
+        ],
+        "count": 1
+      },
+      "IntersectionObserver": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:360",
+          "index.html:361",
+          "index.html:369",
+          "index.html:370"
+        ],
+        "count": 4
+      },
+      "reduced-motion": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:347"
+        ],
+        "count": 1
+      },
+      "click": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:383",
+          "index.html:389",
+          "index.html:403",
+          "index.html:412"
+        ],
+        "count": 4
+      },
+      "class-write": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:356",
+          "index.html:367",
+          "index.html:377",
+          "index.html:379",
+          "index.html:380",
+          "index.html:400",
+          "index.html:401",
+          "index.html:421"
+        ],
+        "count": 8
+      },
+      "style-write": {
+        "cls": "motion",
+        "lines": [
+          "index.html:351"
+        ],
+        "count": 1
+      }
+    },
+    "geoSignals": [
+      "offsetWidth"
+    ],
+    "motionSignals": [
+      "style-write"
+    ],
+    "geoCount": 1,
+    "motionCount": 1,
+    "chromeOnly": false
+  },
+  {
+    "id": "S12",
+    "dir": "S12-lime-knockout-wall",
+    "scriptBlocks": 1,
+    "emptyBlocks": 0,
+    "externalFiles": [],
+    "scriptLines": 20,
+    "bySignal": {
+      "getBoundingClientRect": {
+        "cls": "geo",
+        "lines": [
+          "index.html:248"
+        ],
+        "count": 1
+      },
+      "offsetWidth": {
+        "cls": "geo",
+        "lines": [
+          "index.html:277"
+        ],
+        "count": 1
+      },
+      "rAF": {
+        "cls": "motion",
+        "lines": [
+          "index.html:258"
+        ],
+        "count": 1
+      },
+      "on-scroll": {
+        "cls": "motion",
+        "lines": [
+          "index.html:255"
+        ],
+        "count": 1
+      },
+      "IntersectionObserver": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:263"
+        ],
+        "count": 1
+      },
+      "click": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:282",
+          "index.html:294",
+          "index.html:308",
+          "index.html:322"
+        ],
+        "count": 4
+      },
+      "class-write": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:251",
+          "index.html:252",
+          "index.html:266",
+          "index.html:271",
+          "index.html:276",
+          "index.html:278",
+          "index.html:279",
+          "index.html:303",
+          "index.html:316",
+          "index.html:324"
+        ],
+        "count": 10
+      }
+    },
+    "geoSignals": [
+      "getBoundingClientRect",
+      "offsetWidth"
+    ],
+    "motionSignals": [
+      "rAF",
+      "on-scroll"
+    ],
+    "geoCount": 2,
+    "motionCount": 2,
+    "chromeOnly": false
+  },
+  {
+    "id": "S13",
+    "dir": "S13-blind-debossed-dispatch",
+    "scriptBlocks": 1,
+    "emptyBlocks": 0,
+    "externalFiles": [],
+    "scriptLines": 29,
+    "bySignal": {
+      "createElement": {
+        "cls": "geo",
+        "lines": [
+          "index.html:330"
+        ],
+        "count": 1
+      },
+      "appendChild": {
+        "cls": "geo",
+        "lines": [
+          "index.html:339"
+        ],
+        "count": 1
+      },
+      "getBoundingClientRect": {
+        "cls": "geo",
+        "lines": [
+          "index.html:301"
+        ],
+        "count": 1
+      },
+      "scrollY": {
+        "cls": "motion",
+        "lines": [
+          "index.html:298"
+        ],
+        "count": 1
+      },
+      "on-scroll": {
+        "cls": "motion",
+        "lines": [
+          "index.html:306"
+        ],
+        "count": 1
+      },
+      "on-pointer": {
+        "cls": "motion",
+        "lines": [
+          "index.html:403",
+          "index.html:407",
+          "index.html:410"
+        ],
+        "count": 3
+      },
+      "IntersectionObserver": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:282",
+          "index.html:283"
+        ],
+        "count": 2
+      },
+      "reduced-motion": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:278",
+          "index.html:401"
+        ],
+        "count": 2
+      },
+      "click": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:355",
+          "index.html:382",
+          "index.html:388",
+          "index.html:394"
+        ],
+        "count": 4
+      },
+      "class-write": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:285",
+          "index.html:290",
+          "index.html:303",
+          "index.html:304",
+          "index.html:349",
+          "index.html:358",
+          "index.html:365",
+          "index.html:405",
+          "index.html:408",
+          "index.html:410",
+          "index.html:412"
+        ],
+        "count": 11
+      },
+      "style-write": {
+        "cls": "motion",
+        "lines": [
+          "index.html:404"
+        ],
+        "count": 1
+      }
+    },
+    "geoSignals": [
+      "createElement",
+      "getBoundingClientRect"
+    ],
+    "motionSignals": [
+      "scrollY",
+      "on-scroll",
+      "on-pointer",
+      "style-write"
+    ],
+    "geoCount": 2,
+    "motionCount": 4,
+    "chromeOnly": false
+  },
+  {
+    "id": "S14",
+    "dir": "S14-zero-g-launch-sequence",
+    "scriptBlocks": 2,
+    "emptyBlocks": 0,
+    "externalFiles": [],
+    "scriptLines": 37,
+    "bySignal": {
+      "js-class": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:13"
+        ],
+        "count": 1
+      },
+      "class-write": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:13",
+          "index.html:347",
+          "index.html:349",
+          "index.html:353",
+          "index.html:380",
+          "index.html:381",
+          "index.html:383",
+          "index.html:386",
+          "index.html:394",
+          "index.html:396",
+          "index.html:413",
+          "index.html:425",
+          "index.html:431"
+        ],
+        "count": 13
+      },
+      "trig-coords": {
+        "cls": "geo",
+        "lines": [
+          "index.html:348"
+        ],
+        "count": 1
+      },
+      "getBoundingClientRect": {
+        "cls": "geo",
+        "lines": [
+          "index.html:332"
+        ],
+        "count": 1
+      },
+      "getComputedStyle": {
+        "cls": "geo",
+        "lines": [
+          "index.html:366"
+        ],
+        "count": 1
+      },
+      "offsetWidth": {
+        "cls": "geo",
+        "lines": [
+          "index.html:395"
+        ],
+        "count": 1
+      },
+      "rAF": {
+        "cls": "motion",
+        "lines": [
+          "index.html:370",
+          "index.html:373"
+        ],
+        "count": 2
+      },
+      "scrollY": {
+        "cls": "motion",
+        "lines": [
+          "index.html:361"
+        ],
+        "count": 1
+      },
+      "on-scroll": {
+        "cls": "motion",
+        "lines": [
+          "index.html:375"
+        ],
+        "count": 1
+      },
+      "on-pointer": {
+        "cls": "motion",
+        "lines": [
+          "index.html:410"
+        ],
+        "count": 1
+      },
+      "on-hover": {
+        "cls": "motion",
+        "lines": [
+          "index.html:411"
+        ],
+        "count": 1
+      },
+      "IntersectionObserver": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:421",
+          "index.html:422"
+        ],
+        "count": 2
+      },
+      "reduced-motion": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:325",
+          "index.html:409"
+        ],
+        "count": 2
+      },
+      "click": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:389",
+          "index.html:403"
+        ],
+        "count": 2
+      },
+      "style-write": {
+        "cls": "motion",
+        "lines": [
+          "index.html:330",
+          "index.html:345",
+          "index.html:346",
+          "index.html:363",
+          "index.html:384",
+          "index.html:385"
+        ],
+        "count": 6
+      }
+    },
+    "geoSignals": [
+      "trig-coords",
+      "getBoundingClientRect",
+      "getComputedStyle",
+      "offsetWidth"
+    ],
+    "motionSignals": [
+      "rAF",
+      "scrollY",
+      "on-scroll",
+      "on-pointer",
+      "style-write"
+    ],
+    "geoCount": 4,
+    "motionCount": 5,
+    "chromeOnly": false
+  },
+  {
+    "id": "S15",
+    "dir": "S15-fishery-floor-ledger",
+    "scriptBlocks": 2,
+    "emptyBlocks": 0,
+    "externalFiles": [],
+    "scriptLines": 20,
+    "bySignal": {
+      "js-class": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:13"
+        ],
+        "count": 1
+      },
+      "class-write": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:13",
+          "index.html:439",
+          "index.html:447",
+          "index.html:450",
+          "index.html:464",
+          "index.html:465",
+          "index.html:480",
+          "index.html:483"
+        ],
+        "count": 8
+      },
+      "scrollY": {
+        "cls": "motion",
+        "lines": [
+          "index.html:439"
+        ],
+        "count": 1
+      },
+      "on-scroll": {
+        "cls": "motion",
+        "lines": [
+          "index.html:440"
+        ],
+        "count": 1
+      },
+      "on-pointer": {
+        "cls": "motion",
+        "lines": [
+          "index.html:473"
+        ],
+        "count": 1
+      },
+      "on-hover": {
+        "cls": "motion",
+        "lines": [
+          "index.html:473"
+        ],
+        "count": 1
+      },
+      "reduced-motion": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:433"
+        ],
+        "count": 1
+      },
+      "click": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:461",
+          "index.html:475",
+          "index.html:479"
+        ],
+        "count": 3
+      },
+      "style-write": {
+        "cls": "motion",
+        "lines": [
+          "index.html:481"
+        ],
+        "count": 1
+      }
+    },
+    "geoSignals": [],
+    "motionSignals": [
+      "scrollY",
+      "on-scroll",
+      "on-pointer",
+      "style-write"
+    ],
+    "geoCount": 0,
+    "motionCount": 4,
+    "chromeOnly": false
+  },
+  {
+    "id": "S16",
+    "dir": "S16-velocity-slant-manifesto",
+    "scriptBlocks": 1,
+    "emptyBlocks": 0,
+    "externalFiles": [],
+    "scriptLines": 35,
+    "bySignal": {
+      "getBoundingClientRect": {
+        "cls": "geo",
+        "lines": [
+          "index.html:316",
+          "index.html:338",
+          "index.html:347"
+        ],
+        "count": 3
+      },
+      "offsetWidth": {
+        "cls": "geo",
+        "lines": [
+          "index.html:368"
+        ],
+        "count": 1
+      },
+      "rAF": {
+        "cls": "motion",
+        "lines": [
+          "index.html:308",
+          "index.html:330",
+          "index.html:392"
+        ],
+        "count": 3
+      },
+      "scrollY": {
+        "cls": "motion",
+        "lines": [
+          "index.html:280"
+        ],
+        "count": 1
+      },
+      "on-scroll": {
+        "cls": "motion",
+        "lines": [
+          "index.html:306",
+          "index.html:330"
+        ],
+        "count": 2
+      },
+      "reduced-motion": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:231"
+        ],
+        "count": 1
+      },
+      "click": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:345",
+          "index.html:360",
+          "index.html:374",
+          "index.html:382"
+        ],
+        "count": 4
+      },
+      "class-write": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:260",
+          "index.html:264",
+          "index.html:268",
+          "index.html:299",
+          "index.html:303",
+          "index.html:341",
+          "index.html:342",
+          "index.html:350",
+          "index.html:351",
+          "index.html:366",
+          "index.html:367",
+          "index.html:369",
+          "index.html:370",
+          "index.html:392"
+        ],
+        "count": 14
+      },
+      "style-write": {
+        "cls": "motion",
+        "lines": [
+          "index.html:255",
+          "index.html:263",
+          "index.html:291",
+          "index.html:294",
+          "index.html:323"
+        ],
+        "count": 5
+      }
+    },
+    "geoSignals": [
+      "getBoundingClientRect",
+      "offsetWidth"
+    ],
+    "motionSignals": [
+      "rAF",
+      "scrollY",
+      "on-scroll",
+      "style-write"
+    ],
+    "geoCount": 2,
+    "motionCount": 4,
+    "chromeOnly": false
+  },
+  {
+    "id": "S17",
+    "dir": "S17-revenue-stamp-stub",
+    "scriptBlocks": 1,
+    "emptyBlocks": 0,
+    "externalFiles": [],
+    "scriptLines": 17,
+    "bySignal": {
+      "createElement": {
+        "cls": "geo",
+        "lines": [
+          "index.html:286"
+        ],
+        "count": 1
+      },
+      "IntersectionObserver": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:218"
+        ],
+        "count": 1
+      },
+      "click": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:243",
+          "index.html:271"
+        ],
+        "count": 2
+      },
+      "csv-export": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:285",
+          "index.html:288"
+        ],
+        "count": 2
+      },
+      "class-write": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:215",
+          "index.html:217",
+          "index.html:239",
+          "index.html:240",
+          "index.html:252",
+          "index.html:261",
+          "index.html:275"
+        ],
+        "count": 7
+      },
+      "style-write": {
+        "cls": "motion",
+        "lines": [
+          "index.html:211"
+        ],
+        "count": 1
+      }
+    },
+    "geoSignals": [
+      "createElement"
+    ],
+    "motionSignals": [
+      "style-write"
+    ],
+    "geoCount": 1,
+    "motionCount": 1,
+    "chromeOnly": false
+  },
+  {
+    "id": "S18",
+    "dir": "S18-phosphor-service-deck",
+    "scriptBlocks": 2,
+    "emptyBlocks": 0,
+    "externalFiles": [],
+    "scriptLines": 17,
+    "bySignal": {
+      "js-class": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:13"
+        ],
+        "count": 1
+      },
+      "class-write": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:13",
+          "index.html:414",
+          "index.html:420",
+          "index.html:441",
+          "index.html:442",
+          "index.html:443",
+          "index.html:449",
+          "index.html:450"
+        ],
+        "count": 8
+      },
+      "rAF": {
+        "cls": "motion",
+        "lines": [
+          "index.html:433"
+        ],
+        "count": 1
+      },
+      "scrollY": {
+        "cls": "motion",
+        "lines": [
+          "index.html:426"
+        ],
+        "count": 1
+      },
+      "on-scroll": {
+        "cls": "motion",
+        "lines": [
+          "index.html:430"
+        ],
+        "count": 1
+      },
+      "IntersectionObserver": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:410",
+          "index.html:411"
+        ],
+        "count": 2
+      },
+      "click": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:437"
+        ],
+        "count": 1
+      },
+      "style-write": {
+        "cls": "motion",
+        "lines": [
+          "index.html:409",
+          "index.html:427"
+        ],
+        "count": 2
+      }
+    },
+    "geoSignals": [],
+    "motionSignals": [
+      "rAF",
+      "scrollY",
+      "on-scroll",
+      "style-write"
+    ],
+    "geoCount": 0,
+    "motionCount": 4,
+    "chromeOnly": false
+  },
+  {
+    "id": "S19",
+    "dir": "S19-copperplate-herbarium-cabinet",
+    "scriptBlocks": 2,
+    "emptyBlocks": 0,
+    "externalFiles": [],
+    "scriptLines": 15,
+    "bySignal": {
+      "js-class": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:13"
+        ],
+        "count": 1
+      },
+      "class-write": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:13",
+          "index.html:387",
+          "index.html:388",
+          "index.html:401",
+          "index.html:402",
+          "index.html:407",
+          "index.html:409"
+        ],
+        "count": 7
+      },
+      "IntersectionObserver": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:383",
+          "index.html:384"
+        ],
+        "count": 2
+      },
+      "reduced-motion": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:377",
+          "index.html:378"
+        ],
+        "count": 2
+      },
+      "click": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:414",
+          "index.html:426"
+        ],
+        "count": 2
+      }
+    },
+    "geoSignals": [],
+    "motionSignals": [],
+    "geoCount": 0,
+    "motionCount": 0,
+    "chromeOnly": true
+  },
+  {
+    "id": "S20",
+    "dir": "S20-plotter-soundfield",
+    "scriptBlocks": 1,
+    "emptyBlocks": 0,
+    "externalFiles": [],
+    "scriptLines": 27,
+    "bySignal": {
+      "createElementNS": {
+        "cls": "geo",
+        "lines": [
+          "index.html:286"
+        ],
+        "count": 1
+      },
+      "appendChild": {
+        "cls": "geo",
+        "lines": [
+          "index.html:287"
+        ],
+        "count": 1
+      },
+      "setAttribute-d": {
+        "cls": "geo",
+        "lines": [
+          "index.html:310",
+          "index.html:311",
+          "index.html:314"
+        ],
+        "count": 3
+      },
+      "setAttribute-other": {
+        "cls": "geo",
+        "lines": [
+          "index.html:315"
+        ],
+        "count": 1
+      },
+      "trig-coords": {
+        "cls": "geo",
+        "lines": [
+          "index.html:272",
+          "index.html:273"
+        ],
+        "count": 2
+      },
+      "rAF": {
+        "cls": "motion",
+        "lines": [
+          "index.html:348"
+        ],
+        "count": 1
+      },
+      "scrollY": {
+        "cls": "motion",
+        "lines": [
+          "index.html:344"
+        ],
+        "count": 1
+      },
+      "on-scroll": {
+        "cls": "motion",
+        "lines": [
+          "index.html:349"
+        ],
+        "count": 1
+      },
+      "reduced-motion": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:252"
+        ],
+        "count": 1
+      },
+      "click": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:361",
+          "index.html:367",
+          "index.html:382"
+        ],
+        "count": 3
+      },
+      "class-write": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:317",
+          "index.html:355",
+          "index.html:358",
+          "index.html:393",
+          "index.html:394"
+        ],
+        "count": 5
+      },
+      "style-write": {
+        "cls": "motion",
+        "lines": [
+          "index.html:299",
+          "index.html:300"
+        ],
+        "count": 2
+      }
+    },
+    "geoSignals": [
+      "createElementNS",
+      "setAttribute-d",
+      "setAttribute-other",
+      "trig-coords"
+    ],
+    "motionSignals": [
+      "rAF",
+      "scrollY",
+      "on-scroll",
+      "style-write"
+    ],
+    "geoCount": 4,
+    "motionCount": 4,
+    "chromeOnly": false
+  },
+  {
+    "id": "S21",
+    "dir": "S21-interlocking-release-book",
+    "scriptBlocks": 1,
+    "emptyBlocks": 0,
+    "externalFiles": [],
+    "scriptLines": 20,
+    "bySignal": {
+      "offsetWidth": {
+        "cls": "geo",
+        "lines": [
+          "index.html:501"
+        ],
+        "count": 1
+      },
+      "on-pointer": {
+        "cls": "motion",
+        "lines": [
+          "index.html:460"
+        ],
+        "count": 1
+      },
+      "on-hover": {
+        "cls": "motion",
+        "lines": [
+          "index.html:460",
+          "index.html:462"
+        ],
+        "count": 2
+      },
+      "IntersectionObserver": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:424",
+          "index.html:425"
+        ],
+        "count": 2
+      },
+      "reduced-motion": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:419"
+        ],
+        "count": 1
+      },
+      "click": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:480",
+          "index.html:515"
+        ],
+        "count": 2
+      },
+      "class-write": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:423",
+          "index.html:440",
+          "index.html:445",
+          "index.html:449",
+          "index.html:473",
+          "index.html:476",
+          "index.html:500",
+          "index.html:502",
+          "index.html:503",
+          "index.html:525"
+        ],
+        "count": 10
+      }
+    },
+    "geoSignals": [
+      "offsetWidth"
+    ],
+    "motionSignals": [
+      "on-pointer"
+    ],
+    "geoCount": 1,
+    "motionCount": 1,
+    "chromeOnly": false
+  },
+  {
+    "id": "S22",
+    "dir": "S22-paper-screen-folded-sheet",
+    "scriptBlocks": 2,
+    "emptyBlocks": 0,
+    "externalFiles": [],
+    "scriptLines": 17,
+    "bySignal": {
+      "js-class": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:13"
+        ],
+        "count": 1
+      },
+      "class-write": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:13",
+          "index.html:279",
+          "index.html:282",
+          "index.html:286",
+          "index.html:294",
+          "index.html:309",
+          "index.html:312"
+        ],
+        "count": 7
+      },
+      "IntersectionObserver": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:276",
+          "index.html:277",
+          "index.html:307",
+          "index.html:308"
+        ],
+        "count": 4
+      },
+      "reduced-motion": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:273"
+        ],
+        "count": 1
+      },
+      "click": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:285",
+          "index.html:293",
+          "index.html:300"
+        ],
+        "count": 3
+      }
+    },
+    "geoSignals": [],
+    "motionSignals": [],
+    "geoCount": 0,
+    "motionCount": 0,
+    "chromeOnly": true
+  },
+  {
+    "id": "S23",
+    "dir": "S23-exposed-plaster-chronology-wall",
+    "scriptBlocks": 2,
+    "emptyBlocks": 0,
+    "externalFiles": [],
+    "scriptLines": 24,
+    "bySignal": {
+      "js-class": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:13"
+        ],
+        "count": 1
+      },
+      "class-write": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:13",
+          "index.html:392",
+          "index.html:393",
+          "index.html:401",
+          "index.html:412",
+          "index.html:426",
+          "index.html:431",
+          "index.html:440",
+          "index.html:441",
+          "index.html:445",
+          "index.html:446"
+        ],
+        "count": 11
+      },
+      "on-pointer": {
+        "cls": "motion",
+        "lines": [
+          "index.html:440"
+        ],
+        "count": 1
+      },
+      "on-hover": {
+        "cls": "motion",
+        "lines": [
+          "index.html:440",
+          "index.html:441"
+        ],
+        "count": 2
+      },
+      "IntersectionObserver": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:396",
+          "index.html:398",
+          "index.html:408",
+          "index.html:423"
+        ],
+        "count": 4
+      },
+      "reduced-motion": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:382"
+        ],
+        "count": 1
+      },
+      "click": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:443",
+          "index.html:454"
+        ],
+        "count": 2
+      },
+      "style-write": {
+        "cls": "motion",
+        "lines": [
+          "index.html:388"
+        ],
+        "count": 1
+      }
+    },
+    "geoSignals": [],
+    "motionSignals": [
+      "on-pointer",
+      "style-write"
+    ],
+    "geoCount": 0,
+    "motionCount": 2,
+    "chromeOnly": false
+  },
+  {
+    "id": "S24",
+    "dir": "S24-cyanotype-rainforest-path",
+    "scriptBlocks": 2,
+    "emptyBlocks": 0,
+    "externalFiles": [],
+    "scriptLines": 13,
+    "bySignal": {
+      "js-class": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:12"
+        ],
+        "count": 1
+      },
+      "class-write": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:12",
+          "index.html:422",
+          "index.html:428",
+          "index.html:434",
+          "index.html:460",
+          "index.html:467",
+          "index.html:480",
+          "index.html:496"
+        ],
+        "count": 8
+      },
+      "getBoundingClientRect": {
+        "cls": "geo",
+        "lines": [
+          "index.html:421"
+        ],
+        "count": 1
+      },
+      "IntersectionObserver": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:424",
+          "index.html:425"
+        ],
+        "count": 2
+      },
+      "click": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:438"
+        ],
+        "count": 1
+      }
+    },
+    "geoSignals": [
+      "getBoundingClientRect"
+    ],
+    "motionSignals": [],
+    "geoCount": 1,
+    "motionCount": 0,
+    "chromeOnly": false
+  },
+  {
+    "id": "S25",
+    "dir": "S25-spotcolor-contents-zine",
+    "scriptBlocks": 1,
+    "emptyBlocks": 0,
+    "externalFiles": [],
+    "scriptLines": 16,
+    "bySignal": {
+      "getBoundingClientRect": {
+        "cls": "geo",
+        "lines": [
+          "index.html:366"
+        ],
+        "count": 1
+      },
+      "on-scroll": {
+        "cls": "motion",
+        "lines": [
+          "index.html:370"
+        ],
+        "count": 1
+      },
+      "on-pointer": {
+        "cls": "motion",
+        "lines": [
+          "index.html:359"
+        ],
+        "count": 1
+      },
+      "on-hover": {
+        "cls": "motion",
+        "lines": [
+          "index.html:359"
+        ],
+        "count": 1
+      },
+      "reduced-motion": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:308"
+        ],
+        "count": 1
+      },
+      "click": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:345",
+          "index.html:347",
+          "index.html:358"
+        ],
+        "count": 3
+      },
+      "submit": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:378"
+        ],
+        "count": 1
+      },
+      "class-write": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:334",
+          "index.html:335",
+          "index.html:355"
+        ],
+        "count": 3
+      },
+      "style-write": {
+        "cls": "motion",
+        "lines": [
+          "index.html:368",
+          "index.html:373",
+          "index.html:374"
+        ],
+        "count": 3
+      }
+    },
+    "geoSignals": [
+      "getBoundingClientRect"
+    ],
+    "motionSignals": [
+      "on-scroll",
+      "on-pointer",
+      "style-write"
+    ],
+    "geoCount": 1,
+    "motionCount": 3,
+    "chromeOnly": false
+  },
+  {
+    "id": "S26",
+    "dir": "S26-geometric-collision-columns",
+    "scriptBlocks": 2,
+    "emptyBlocks": 0,
+    "externalFiles": [],
+    "scriptLines": 12,
+    "bySignal": {
+      "js-class": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:12"
+        ],
+        "count": 1
+      },
+      "class-write": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:12",
+          "index.html:439",
+          "index.html:444"
+        ],
+        "count": 3
+      },
+      "getBoundingClientRect": {
+        "cls": "geo",
+        "lines": [
+          "index.html:465"
+        ],
+        "count": 1
+      },
+      "rAF": {
+        "cls": "motion",
+        "lines": [
+          "index.html:472"
+        ],
+        "count": 1
+      },
+      "on-scroll": {
+        "cls": "motion",
+        "lines": [
+          "index.html:473"
+        ],
+        "count": 1
+      },
+      "IntersectionObserver": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:446",
+          "index.html:447"
+        ],
+        "count": 2
+      },
+      "reduced-motion": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:442"
+        ],
+        "count": 1
+      },
+      "style-write": {
+        "cls": "motion",
+        "lines": [
+          "index.html:469"
+        ],
+        "count": 1
+      }
+    },
+    "geoSignals": [
+      "getBoundingClientRect"
+    ],
+    "motionSignals": [
+      "rAF",
+      "on-scroll",
+      "style-write"
+    ],
+    "geoCount": 1,
+    "motionCount": 3,
+    "chromeOnly": false
+  },
+  {
+    "id": "S27",
+    "dir": "S27-hand-painted-bill-dispatch",
+    "scriptBlocks": 2,
+    "emptyBlocks": 0,
+    "externalFiles": [],
+    "scriptLines": 23,
+    "bySignal": {
+      "js-class": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:13"
+        ],
+        "count": 1
+      },
+      "class-write": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:13",
+          "index.html:418",
+          "index.html:420",
+          "index.html:430",
+          "index.html:437",
+          "index.html:442",
+          "index.html:452",
+          "index.html:453",
+          "index.html:468"
+        ],
+        "count": 9
+      },
+      "offsetWidth": {
+        "cls": "geo",
+        "lines": [
+          "index.html:418",
+          "index.html:452"
+        ],
+        "count": 2
+      },
+      "IntersectionObserver": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:424",
+          "index.html:425",
+          "index.html:434"
+        ],
+        "count": 3
+      },
+      "reduced-motion": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:406"
+        ],
+        "count": 1
+      },
+      "click": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:447",
+          "index.html:463",
+          "index.html:482",
+          "index.html:490"
+        ],
+        "count": 4
+      }
+    },
+    "geoSignals": [
+      "offsetWidth"
+    ],
+    "motionSignals": [],
+    "geoCount": 1,
+    "motionCount": 0,
+    "chromeOnly": false
+  },
+  {
+    "id": "S28",
+    "dir": "S28-jazz-intaglio-wall",
+    "scriptBlocks": 2,
+    "emptyBlocks": 0,
+    "externalFiles": [],
+    "scriptLines": 22,
+    "bySignal": {
+      "js-class": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:13"
+        ],
+        "count": 1
+      },
+      "class-write": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:13",
+          "index.html:469",
+          "index.html:470",
+          "index.html:478",
+          "index.html:490",
+          "index.html:491"
+        ],
+        "count": 6
+      },
+      "getBoundingClientRect": {
+        "cls": "geo",
+        "lines": [
+          "index.html:444"
+        ],
+        "count": 1
+      },
+      "offsetWidth": {
+        "cls": "geo",
+        "lines": [
+          "index.html:469",
+          "index.html:490"
+        ],
+        "count": 2
+      },
+      "rAF": {
+        "cls": "motion",
+        "lines": [
+          "index.html:457"
+        ],
+        "count": 1
+      },
+      "on-scroll": {
+        "cls": "motion",
+        "lines": [
+          "index.html:455"
+        ],
+        "count": 1
+      },
+      "reduced-motion": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:422"
+        ],
+        "count": 1
+      },
+      "click": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:462",
+          "index.html:477",
+          "index.html:498",
+          "index.html:508",
+          "index.html:515",
+          "index.html:522"
+        ],
+        "count": 6
+      },
+      "style-write": {
+        "cls": "motion",
+        "lines": [
+          "index.html:449",
+          "index.html:451"
+        ],
+        "count": 2
+      }
+    },
+    "geoSignals": [
+      "getBoundingClientRect",
+      "offsetWidth"
+    ],
+    "motionSignals": [
+      "rAF",
+      "on-scroll",
+      "style-write"
+    ],
+    "geoCount": 2,
+    "motionCount": 3,
+    "chromeOnly": false
+  },
+  {
+    "id": "S29",
+    "dir": "S29-wire-bound-safety-manual",
+    "scriptBlocks": 2,
+    "emptyBlocks": 0,
+    "externalFiles": [],
+    "scriptLines": 18,
+    "bySignal": {
+      "js-class": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:12"
+        ],
+        "count": 1
+      },
+      "class-write": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:12",
+          "index.html:500",
+          "index.html:506",
+          "index.html:519",
+          "index.html:528",
+          "index.html:552",
+          "index.html:553",
+          "index.html:563",
+          "index.html:564"
+        ],
+        "count": 9
+      },
+      "getBoundingClientRect": {
+        "cls": "geo",
+        "lines": [
+          "index.html:499",
+          "index.html:518",
+          "index.html:537"
+        ],
+        "count": 3
+      },
+      "on-scroll": {
+        "cls": "motion",
+        "lines": [
+          "index.html:522",
+          "index.html:544"
+        ],
+        "count": 2
+      },
+      "IntersectionObserver": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:502",
+          "index.html:503"
+        ],
+        "count": 2
+      },
+      "click": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:556"
+        ],
+        "count": 1
+      }
+    },
+    "geoSignals": [
+      "getBoundingClientRect"
+    ],
+    "motionSignals": [
+      "on-scroll"
+    ],
+    "geoCount": 1,
+    "motionCount": 1,
+    "chromeOnly": false
+  },
+  {
+    "id": "S30",
+    "dir": "S30-skate-sticker-split",
+    "scriptBlocks": 2,
+    "emptyBlocks": 0,
+    "externalFiles": [],
+    "scriptLines": 22,
+    "bySignal": {
+      "js-class": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:13"
+        ],
+        "count": 1
+      },
+      "class-write": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:13",
+          "index.html:298",
+          "index.html:299",
+          "index.html:314",
+          "index.html:325",
+          "index.html:331"
+        ],
+        "count": 6
+      },
+      "rAF": {
+        "cls": "motion",
+        "lines": [
+          "index.html:288",
+          "index.html:290"
+        ],
+        "count": 2
+      },
+      "scrollY": {
+        "cls": "motion",
+        "lines": [
+          "index.html:282"
+        ],
+        "count": 1
+      },
+      "on-scroll": {
+        "cls": "motion",
+        "lines": [
+          "index.html:291"
+        ],
+        "count": 1
+      },
+      "on-pointer": {
+        "cls": "motion",
+        "lines": [
+          "index.html:313"
+        ],
+        "count": 1
+      },
+      "IntersectionObserver": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:321",
+          "index.html:322"
+        ],
+        "count": 2
+      },
+      "reduced-motion": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:276",
+          "index.html:312"
+        ],
+        "count": 2
+      },
+      "click": {
+        "cls": "chrome",
+        "lines": [
+          "index.html:294",
+          "index.html:304"
+        ],
+        "count": 2
+      },
+      "style-write": {
+        "cls": "motion",
+        "lines": [
+          "index.html:286",
+          "index.html:287",
+          "index.html:315"
+        ],
+        "count": 3
+      }
+    },
+    "geoSignals": [],
+    "motionSignals": [
+      "rAF",
+      "scrollY",
+      "on-scroll",
+      "on-pointer",
+      "style-write"
+    ],
+    "geoCount": 0,
+    "motionCount": 5,
+    "chromeOnly": false
+  }
+]

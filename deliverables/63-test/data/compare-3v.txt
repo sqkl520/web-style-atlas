@@ -1,0 +1,387 @@
+
+########## S03-long-exposure-observatory
+  keys: .wrap.hero | .plate | .stream .band:first-child | .readouts table | .plates
+  --- swap
+   @1440x900  docH 4591->4591 (+0%)  hOv 0->0  textOv 0->0  ellipsis 1->1  overlap 0->0  holes 469->469  maxShift 0px  rules 225/225
+      .wrap.hero               h 364.1->364.1 (+0)  top 56.5->56.5 (+0)  w 1440->1440
+      .plate                   h 88.8->88.8 (+0)  top 331.9->331.9 (+0)  w 1368->1368
+      .stream .band:first-child h 28->28 (+0)  top 1077.6->1077.6 (+0)  w 524->524
+      .readouts table          h 674.1->674.1 (+0)  top 1093.6->1093.6 (+0)  w 500->500
+      .plates                  h 706.7->706.7 (+0)  top 2411.6->2411.6 (+0)  w 1368->1368
+   @768x1024  docH 5907->5907 (+0%)  hOv 0->0  textOv 0->0  ellipsis 1->1  overlap 0->0  holes 469->469  maxShift 0px  rules 225/225
+      .wrap.hero               h 364.1->364.1 (+0)  top 56.5->56.5 (+0)  w 768->768
+      .plate                   h 88.8->88.8 (+0)  top 331.9->331.9 (+0)  w 696->696
+      .stream .band:first-child h 50.8->50.8 (+0)  top 1055.4->1055.4 (+0)  w 508->508
+      .readouts table          h 432.5->432.5 (+0)  top 1659.4->1659.4 (+0)  w 656->656
+      .plates                  h 1332->1332 (+0)  top 3044.5->3044.5 (+0)  w 696->696
+   @390x844  docH 5814->5858 (+0.757%)  hOv 0->0  textOv 0->0  ellipsis 1->1  overlap 14->14  holes 620->620  maxShift 20.8px  rules 225/225
+      .wrap.hero               h 466.7->466.7 (+0)  top 105->105 (+0)  w 390->390
+      .plate                   h 165.5->165.5 (+0)  top 406.2->406.2 (+0)  w 350->350
+      .stream .band:first-child h 36.8->36.8 (+0)  top 1105.3->1126.1 (+20.8)  w 250->250 <<
+      .readouts table          h 551.1->551.1 (+0)  top 1635.3->1656.1 (+20.8)  w 322->322 <<
+      .plates                  h 737->737 (+0)  top 3105.1->3125.9 (+20.8)  w 350->350 <<
+  --- swap-cjk
+   @1440x900  docH 4591->4591 (+0%)  hOv 0->0  textOv 0->0  ellipsis 1->1  overlap 0->0  holes 469->469  maxShift 0px  rules 225/225
+      .wrap.hero               h 364.1->364.1 (+0)  top 56.5->56.5 (+0)  w 1440->1440
+      .plate                   h 88.8->88.8 (+0)  top 331.9->331.9 (+0)  w 1368->1368
+      .stream .band:first-child h 28->28 (+0)  top 1077.6->1077.6 (+0)  w 524->524
+      .readouts table          h 674.1->674.1 (+0)  top 1093.6->1093.6 (+0)  w 500->500
+      .plates                  h 706.7->706.7 (+0)  top 2411.6->2411.6 (+0)  w 1368->1368
+   @768x1024  docH 5907->5907 (+0%)  hOv 0->0  textOv 0->0  ellipsis 1->1  overlap 0->0  holes 469->469  maxShift 0px  rules 225/225
+      .wrap.hero               h 364.1->364.1 (+0)  top 56.5->56.5 (+0)  w 768->768
+      .plate                   h 88.8->88.8 (+0)  top 331.9->331.9 (+0)  w 696->696
+      .stream .band:first-child h 50.8->50.8 (+0)  top 1055.4->1055.4 (+0)  w 508->508
+      .readouts table          h 432.5->432.5 (+0)  top 1659.4->1659.4 (+0)  w 656->656
+      .plates                  h 1332->1332 (+0)  top 3044.5->3044.5 (+0)  w 696->696
+   @390x844  docH 5814->5814 (+0%)  hOv 0->0  textOv 0->0  ellipsis 1->1  overlap 14->14  holes 620->620  maxShift 0px  rules 225/225
+      .wrap.hero               h 466.7->466.7 (+0)  top 105->105 (+0)  w 390->390
+      .plate                   h 165.5->165.5 (+0)  top 406.2->406.2 (+0)  w 350->350
+      .stream .band:first-child h 36.8->36.8 (+0)  top 1105.3->1105.3 (+0)  w 250->250
+      .readouts table          h 551.1->551.1 (+0)  top 1635.3->1635.3 (+0)  w 322->322
+      .plates                  h 737->737 (+0)  top 3105.1->3105.1 (+0)  w 350->350
+  >> WORST swap: docH 0.757%  keyShift 20.8px  ovlDelta 0  holesDelta 0px
+  >> WORST ctrl: docH 0%  keyShift 0px  ovlDelta 0  holesDelta 0px
+
+########## S05-pixel-cold-storage-console
+  keys: .nameplate | .hero.section | .console.section | .plates.section | .colophon
+  --- swap
+   @1440x900  docH 3121->3121 (+0%)  hOv 0->0  textOv 0->0  ellipsis 1->1  overlap 1->1  holes 0->0  maxShift 0px  rules 146/146
+      .nameplate               h 51.6->51.6 (+0)  top 25.6->25.6 (+0)  w 1440->1440
+      .hero.section            h 351.2->351.2 (+0)  top 77.2->77.2 (+0)  w 1440->1440
+      .console.section         h 1287.2->1287.2 (+0)  top 428.3->428.3 (+0)  w 1440->1440
+      .plates.section          h 965.2->965.2 (+0)  top 1715.5->1715.5 (+0)  w 1440->1440
+      .colophon                h 344.3->344.3 (+0)  top 2776.7->2776.7 (+0)  w 1440->1440
+   @768x1024  docH 4510->4510 (+0%)  hOv 0->0  textOv 0->0  ellipsis 1->1  overlap 0->0  holes 0->0  maxShift 0px  rules 146/146
+      .nameplate               h 83.2->83.2 (+0)  top 25.6->25.6 (+0)  w 768->768
+      .hero.section            h 616.5->616.5 (+0)  top 108.8->108.8 (+0)  w 768->768
+      .console.section         h 2176.4->2176.4 (+0)  top 725.3->725.3 (+0)  w 768->768
+      .plates.section          h 1167.9->1167.9 (+0)  top 2901.7->2901.7 (+0)  w 768->768
+      .colophon                h 344.3->344.3 (+0)  top 4165.6->4165.6 (+0)  w 768->768
+   @390x844  docH 5473->5498 (+0.457%)  hOv 0->0  textOv 0->0  ellipsis 1->1  overlap 0->0  holes 0->0  maxShift 24.6px  rules 146/146
+      .nameplate               h 114.8->114.8 (+0)  top 25.6->25.6 (+0)  w 390->390
+      .hero.section            h 759.4->759.4 (+0)  top 140.4->140.4 (+0)  w 390->390
+      .console.section         h 2521.9->2521.9 (+0)  top 899.8->899.8 (+0)  w 390->390
+      .plates.section          h 1483.3->1507.9 (+24.6)  top 3421.7->3421.7 (+0)  w 390->390 <<
+      .colophon                h 472.3->472.3 (+0)  top 5001->5025.6 (+24.6)  w 390->390 <<
+  --- swap-cjk
+   @1440x900  docH 3121->3121 (+0%)  hOv 0->0  textOv 0->0  ellipsis 1->1  overlap 1->1  holes 0->0  maxShift 0px  rules 146/146
+      .nameplate               h 51.6->51.6 (+0)  top 25.6->25.6 (+0)  w 1440->1440
+      .hero.section            h 351.2->351.2 (+0)  top 77.2->77.2 (+0)  w 1440->1440
+      .console.section         h 1287.2->1287.2 (+0)  top 428.3->428.3 (+0)  w 1440->1440
+      .plates.section          h 965.2->965.2 (+0)  top 1715.5->1715.5 (+0)  w 1440->1440
+      .colophon                h 344.3->344.3 (+0)  top 2776.7->2776.7 (+0)  w 1440->1440
+   @768x1024  docH 4510->4510 (+0%)  hOv 0->0  textOv 0->0  ellipsis 1->1  overlap 0->0  holes 0->0  maxShift 0px  rules 146/146
+      .nameplate               h 83.2->83.2 (+0)  top 25.6->25.6 (+0)  w 768->768
+      .hero.section            h 616.5->616.5 (+0)  top 108.8->108.8 (+0)  w 768->768
+      .console.section         h 2176.4->2176.4 (+0)  top 725.3->725.3 (+0)  w 768->768
+      .plates.section          h 1167.9->1167.9 (+0)  top 2901.7->2901.7 (+0)  w 768->768
+      .colophon                h 344.3->344.3 (+0)  top 4165.6->4165.6 (+0)  w 768->768
+   @390x844  docH 5473->5473 (+0%)  hOv 0->0  textOv 0->0  ellipsis 1->1  overlap 0->0  holes 0->0  maxShift 0px  rules 146/146
+      .nameplate               h 114.8->114.8 (+0)  top 25.6->25.6 (+0)  w 390->390
+      .hero.section            h 759.4->759.4 (+0)  top 140.4->140.4 (+0)  w 390->390
+      .console.section         h 2521.9->2521.9 (+0)  top 899.8->899.8 (+0)  w 390->390
+      .plates.section          h 1483.3->1483.3 (+0)  top 3421.7->3421.7 (+0)  w 390->390
+      .colophon                h 472.3->472.3 (+0)  top 5001->5001 (+0)  w 390->390
+  >> WORST swap: docH 0.457%  keyShift 24.6px  ovlDelta 0  holesDelta 0px
+  >> WORST ctrl: docH 0%  keyShift 0px  ovlDelta 0  holesDelta 0px
+
+########## S10-grid-versus-sheet
+  keys: .masthead | .compare | .plates | .motion | footer
+  --- swap
+   @1440x900  docH 5132->5132 (+0%)  hOv 0->0  textOv 0->0  ellipsis 1->1  overlap 5->5  holes 748->748  maxShift 0px  rules 349/349
+      .masthead                h 692->692 (+0)  top 56->56 (+0)  w 1328->1328
+      .compare                 h 1561->1561 (+0)  top 748->748 (+0)  w 1328->1328
+      .plates                  h 1444.9->1444.9 (+0)  top 2309->2309 (+0)  w 1328->1328
+      .motion                  h 886.1->886.1 (+0)  top 3753.9->3753.9 (+0)  w 1328->1328
+      footer                   h 396->396 (+0)  top 4736->4736 (+0)  w 1440->1440
+   @768x1024  docH 5562->5538 (-0.431%)  hOv 0->0  textOv 0->0  ellipsis 1->1  overlap 5->5  holes 770->746  maxShift 24px  rules 349/349
+      .masthead                h 738->714 (-24)  top 32->32 (+0)  w 704->704 <<
+      .compare                 h 1933->1933 (+0)  top 770->746 (-24)  w 704->704 <<
+      .plates                  h 1271.2->1271.2 (+0)  top 2703->2679 (-24)  w 704->704 <<
+      .motion                  h 886.1->886.1 (+0)  top 3974.2->3950.2 (-24)  w 704->704 <<
+      footer                   h 606->606 (+0)  top 4956.3->4932.3 (-24)  w 768->768 <<
+   @390x844  docH 10322->10346 (+0.233%)  hOv 0->0  textOv 0->0  ellipsis 1->1  overlap 3->3  holes 1024->1024  maxShift 24px  rules 349/349
+      .masthead                h 1004->1004 (+0)  top 20->20 (+0)  w 350->350
+      .compare                 h 5041->5065 (+24)  top 1024->1024 (+0)  w 350->350 <<
+      .plates                  h 2336.5->2336.5 (+0)  top 6065->6089 (+24)  w 350->350 <<
+      .motion                  h 954.1->954.1 (+0)  top 8401.5->8425.5 (+24)  w 350->350 <<
+      footer                   h 870->870 (+0)  top 9451.6->9475.6 (+24)  w 390->390 <<
+  --- swap-cjk
+   @1440x900  docH 5132->5132 (+0%)  hOv 0->0  textOv 0->0  ellipsis 1->1  overlap 5->5  holes 748->748  maxShift 0px  rules 349/349
+      .masthead                h 692->692 (+0)  top 56->56 (+0)  w 1328->1328
+      .compare                 h 1561->1561 (+0)  top 748->748 (+0)  w 1328->1328
+      .plates                  h 1444.9->1444.9 (+0)  top 2309->2309 (+0)  w 1328->1328
+      .motion                  h 886.1->886.1 (+0)  top 3753.9->3753.9 (+0)  w 1328->1328
+      footer                   h 396->396 (+0)  top 4736->4736 (+0)  w 1440->1440
+   @768x1024  docH 5562->5562 (+0%)  hOv 0->0  textOv 0->0  ellipsis 1->1  overlap 5->5  holes 770->770  maxShift 0px  rules 349/349
+      .masthead                h 738->738 (+0)  top 32->32 (+0)  w 704->704
+      .compare                 h 1933->1933 (+0)  top 770->770 (+0)  w 704->704
+      .plates                  h 1271.2->1271.2 (+0)  top 2703->2703 (+0)  w 704->704
+      .motion                  h 886.1->886.1 (+0)  top 3974.2->3974.2 (+0)  w 704->704
+      footer                   h 606->606 (+0)  top 4956.3->4956.3 (+0)  w 768->768
+   @390x844  docH 10322->10322 (+0%)  hOv 0->0  textOv 0->0  ellipsis 1->1  overlap 3->3  holes 1024->1024  maxShift 0px  rules 349/349
+      .masthead                h 1004->1004 (+0)  top 20->20 (+0)  w 350->350
+      .compare                 h 5041->5041 (+0)  top 1024->1024 (+0)  w 350->350
+      .plates                  h 2336.5->2336.5 (+0)  top 6065->6065 (+0)  w 350->350
+      .motion                  h 954.1->954.1 (+0)  top 8401.5->8401.5 (+0)  w 350->350
+      footer                   h 870->870 (+0)  top 9451.6->9451.6 (+0)  w 390->390
+  >> WORST swap: docH 0.431%  keyShift 24px  ovlDelta 0  holesDelta 24px
+  >> WORST ctrl: docH 0%  keyShift 0px  ovlDelta 0  holesDelta 0px
+
+########## S14-zero-g-launch-sequence
+  keys: .deck | .fault | .plates-sec | .stations-sec | .paths-sec
+  --- swap
+   @1440x900  docH 7569->7569 (+0%)  hOv 0->0  textOv 0->0  ellipsis 1->1  overlap 0->0  holes 803->803  maxShift 0px  rules 349/349
+      .deck                    h 2076.9->2076.9 (+0)  top 803.5->803.5 (+0)  w 1440->1440
+      .fault                   h 475.2->475.2 (+0)  top 2880.3->2880.3 (+0)  w 1440->1440
+      .plates-sec              h 1390.6->1390.6 (+0)  top 3355.5->3355.5 (+0)  w 1440->1440
+      .stations-sec            h 897.1->897.1 (+0)  top 4802.1->4802.1 (+0)  w 1440->1440
+      .paths-sec               h 756->756 (+0)  top 5699.2->5699.2 (+0)  w 1440->1440
+   @768x1024  docH 9264->9264 (+0%)  hOv 0->0  textOv 0->0  ellipsis 1->1  overlap 0->0  holes 1159->1159  maxShift 0px  rules 349/349
+      .deck                    h 2374.6->2374.6 (+0)  top 1158.7->1158.7 (+0)  w 768->768
+      .fault                   h 434->434 (+0)  top 3533.3->3533.3 (+0)  w 768->768
+      .plates-sec              h 2434.4->2434.4 (+0)  top 3967.3->3967.3 (+0)  w 768->768
+      .stations-sec            h 868.8->868.8 (+0)  top 6457.7->6457.7 (+0)  w 768->768
+      .paths-sec               h 714.8->714.8 (+0)  top 7326.5->7326.5 (+0)  w 768->768
+   @390x844  docH 12119->12076 (-0.355%)  hOv 0->0  textOv 0->0  ellipsis 1->1  overlap 1->2  holes 1148->1148  maxShift 20.8px  rules 349/349
+      .deck                    h 2670.2->2670.2 (+0)  top 1147.6->1147.6 (+0)  w 390->390
+      .fault                   h 518->518 (+0)  top 3817.7->3817.7 (+0)  w 390->390
+      .plates-sec              h 4147.4->4126.6 (-20.8)  top 4335.7->4335.7 (+0)  w 390->390 <<
+      .stations-sec            h 924.1->924.1 (+0)  top 8539.1->8518.3 (-20.8)  w 390->390 <<
+      .paths-sec               h 967.7->967.7 (+0)  top 9463.2->9442.4 (-20.8)  w 390->390 <<
+  --- swap-cjk
+   @1440x900  docH 7569->7569 (+0%)  hOv 0->0  textOv 0->0  ellipsis 1->1  overlap 0->0  holes 803->803  maxShift 0px  rules 349/349
+      .deck                    h 2076.9->2076.9 (+0)  top 803.5->803.5 (+0)  w 1440->1440
+      .fault                   h 475.2->475.2 (+0)  top 2880.3->2880.3 (+0)  w 1440->1440
+      .plates-sec              h 1390.6->1390.6 (+0)  top 3355.5->3355.5 (+0)  w 1440->1440
+      .stations-sec            h 897.1->897.1 (+0)  top 4802.1->4802.1 (+0)  w 1440->1440
+      .paths-sec               h 756->756 (+0)  top 5699.2->5699.2 (+0)  w 1440->1440
+   @768x1024  docH 9264->9264 (+0%)  hOv 0->0  textOv 0->0  ellipsis 1->1  overlap 0->0  holes 1159->1159  maxShift 0px  rules 349/349
+      .deck                    h 2374.6->2374.6 (+0)  top 1158.7->1158.7 (+0)  w 768->768
+      .fault                   h 434->434 (+0)  top 3533.3->3533.3 (+0)  w 768->768
+      .plates-sec              h 2434.4->2434.4 (+0)  top 3967.3->3967.3 (+0)  w 768->768
+      .stations-sec            h 868.8->868.8 (+0)  top 6457.7->6457.7 (+0)  w 768->768
+      .paths-sec               h 714.8->714.8 (+0)  top 7326.5->7326.5 (+0)  w 768->768
+   @390x844  docH 12119->12119 (+0%)  hOv 0->0  textOv 0->0  ellipsis 1->1  overlap 1->1  holes 1148->1148  maxShift 0px  rules 349/349
+      .deck                    h 2670.2->2670.2 (+0)  top 1147.6->1147.6 (+0)  w 390->390
+      .fault                   h 518->518 (+0)  top 3817.7->3817.7 (+0)  w 390->390
+      .plates-sec              h 4147.4->4147.4 (+0)  top 4335.7->4335.7 (+0)  w 390->390
+      .stations-sec            h 924.1->924.1 (+0)  top 8539.1->8539.1 (+0)  w 390->390
+      .paths-sec               h 967.7->967.7 (+0)  top 9463.2->9463.2 (+0)  w 390->390
+  >> WORST swap: docH 0.355%  keyShift 20.8px  ovlDelta 1  holesDelta 0px
+  >> WORST ctrl: docH 0%  keyShift 0px  ovlDelta 0  holesDelta 0px
+
+########## S15-fishery-floor-ledger
+  keys: .masthead | .atlas | .year | .zones | .spec
+  --- swap
+   @1440x900  docH 8812->8812 (+0%)  hOv 0->0  textOv 0->0  ellipsis 1->1  overlap 50->50  holes 783->783  maxShift 0px  rules 433/433
+      .masthead                h 734.8->734.8 (+0)  top 48.5->48.5 (+0)  w 1440->1440
+      .atlas                   h 1531.1->1531.1 (+0)  top 783.3->783.3 (+0)  w 1440->1440
+      .year                    h 775.6->775.6 (+0)  top 2314.4->2314.4 (+0)  w 1440->1440
+      .zones                   h 809.2->809.2 (+0)  top 1117.8->1117.8 (+0)  w 721.1->721.1
+      .spec                    h 30.4->30.4 (+0)  top 275.1->275.1 (+0)  w 651->651
+   @768x1024  docH 13296->13276 (-0.15%)  hOv 0->0  textOv 0->0  ellipsis 1->1  overlap 58->58  holes 1164->1143  maxShift 20.8px  rules 433/433
+      .masthead                h 1090.3->1069.5 (-20.8)  top 74->74 (+0)  w 768->768 <<
+      .atlas                   h 3690->3690 (+0)  top 1164.3->1143.5 (-20.8)  w 768->768 <<
+      .year                    h 703.4->703.4 (+0)  top 4854.3->4833.5 (-20.8)  w 768->768 <<
+      .zones                   h 649.3->649.3 (+0)  top 1492->1471.2 (-20.8)  w 578.6->578.6 <<
+      .spec                    h 30.4->30.4 (+0)  top 258->258 (+0)  w 720->720
+   @390x844  docH 15126->15084 (-0.278%)  hOv 0->0  textOv 0->0  ellipsis 1->1  overlap 46->46  holes 1007->986  maxShift 20.8px  rules 433/433
+      .masthead                h 881.7->860.9 (-20.8)  top 125->125 (+0)  w 390->390 <<
+      .atlas                   h 2929.8->2929.8 (+0)  top 1006.7->985.9 (-20.8)  w 390->390 <<
+      .year                    h 1025.3->1025.3 (+0)  top 3936.5->3915.8 (-20.7)  w 390->390 <<
+      .zones                   h 308.4->308.4 (+0)  top 1419.8->1399 (-20.8)  w 274.8->274.8 <<
+      .spec                    h 30.4->30.4 (+0)  top 318.3->318.3 (+0)  w 342->342
+  --- swap-cjk
+   @1440x900  docH 8812->8812 (+0%)  hOv 0->0  textOv 0->0  ellipsis 1->1  overlap 50->50  holes 783->783  maxShift 0px  rules 433/433
+      .masthead                h 734.8->734.8 (+0)  top 48.5->48.5 (+0)  w 1440->1440
+      .atlas                   h 1531.1->1531.1 (+0)  top 783.3->783.3 (+0)  w 1440->1440
+      .year                    h 775.6->775.6 (+0)  top 2314.4->2314.4 (+0)  w 1440->1440
+      .zones                   h 809.2->809.2 (+0)  top 1117.8->1117.8 (+0)  w 721.1->721.1
+      .spec                    h 30.4->30.4 (+0)  top 275.1->275.1 (+0)  w 651->651
+   @768x1024  docH 13296->13296 (+0%)  hOv 0->0  textOv 0->0  ellipsis 1->1  overlap 58->58  holes 1164->1164  maxShift 0px  rules 433/433
+      .masthead                h 1090.3->1090.3 (+0)  top 74->74 (+0)  w 768->768
+      .atlas                   h 3690->3690 (+0)  top 1164.3->1164.3 (+0)  w 768->768
+      .year                    h 703.4->703.4 (+0)  top 4854.3->4854.3 (+0)  w 768->768
+      .zones                   h 649.3->649.3 (+0)  top 1492->1492 (+0)  w 578.6->578.6
+      .spec                    h 30.4->30.4 (+0)  top 258->258 (+0)  w 720->720
+   @390x844  docH 15126->15126 (+0%)  hOv 0->0  textOv 0->0  ellipsis 1->1  overlap 46->46  holes 1007->1007  maxShift 0px  rules 433/433
+      .masthead                h 881.7->881.7 (+0)  top 125->125 (+0)  w 390->390
+      .atlas                   h 2929.8->2929.8 (+0)  top 1006.7->1006.7 (+0)  w 390->390
+      .year                    h 1025.3->1025.3 (+0)  top 3936.5->3936.5 (+0)  w 390->390
+      .zones                   h 308.4->308.4 (+0)  top 1419.8->1419.8 (+0)  w 274.8->274.8
+      .spec                    h 30.4->30.4 (+0)  top 318.3->318.3 (+0)  w 342->342
+  >> WORST swap: docH 0.278%  keyShift 20.8px  ovlDelta 0  holesDelta 21px
+  >> WORST ctrl: docH 0%  keyShift 0px  ovlDelta 0  holesDelta 0px
+
+########## S18-phosphor-service-deck
+  keys: .mast | .stream | .band | .tags | .fault
+  --- swap
+   @1440x900  docH 10723->10747 (+0.224%)  hOv 0->0  textOv 0->0  ellipsis 0->0  overlap 4->5  holes 1470->1470  maxShift 0px  rules 200/200
+      .mast                    h 1248.6->1248.6 (+0)  top 221.8->221.8 (+0)  w 1440->1440
+      .stream                  h 2094.6->2094.6 (+0)  top 1470.4->1470.4 (+0)  w 1440->1440
+      .band                    h 1383.8->1383.8 (+0)  top 3564.9->3564.9 (+0)  w 1440->1440
+      .tags                    h 1056.6->1056.6 (+0)  top 4948.8->4948.8 (+0)  w 1440->1440
+      .fault                   h 1137.3->1137.3 (+0)  top 6005.4->6005.4 (+0)  w 1440->1440
+   @768x1024  docH 13218->13242 (+0.182%)  hOv 0->0  textOv 0->0  ellipsis 0->0  overlap 3->4  holes 2532->2532  maxShift 0px  rules 200/200
+      .mast                    h 2302->2302 (+0)  top 229.8->229.8 (+0)  w 768->768
+      .stream                  h 2030.9->2030.9 (+0)  top 2531.8->2531.8 (+0)  w 768->768
+      .band                    h 1822.4->1822.4 (+0)  top 4562.6->4562.6 (+0)  w 768->768
+      .tags                    h 1528.1->1528.1 (+0)  top 6385->6385 (+0)  w 768->768
+      .fault                   h 1073.6->1073.6 (+0)  top 7913.1->7913.1 (+0)  w 768->768
+   @390x844  docH 16303->16300 (-0.018%)  hOv 0->0  textOv 0->0  ellipsis 0->0  overlap 2->2  holes 2149->2149  maxShift 0px  rules 200/200
+      .mast                    h 1906.9->1906.9 (+0)  top 241.8->241.8 (+0)  w 390->390
+      .stream                  h 3543.5->3543.5 (+0)  top 2148.7->2148.7 (+0)  w 390->390
+      .band                    h 2028.4->2028.4 (+0)  top 5692.2->5692.2 (+0)  w 390->390
+      .tags                    h 1587.2->1587.2 (+0)  top 7720.6->7720.6 (+0)  w 390->390
+      .fault                   h 1350.9->1350.9 (+0)  top 9307.8->9307.8 (+0)  w 390->390
+  --- swap-cjk
+   @1440x900  docH 10723->10723 (+0%)  hOv 0->0  textOv 0->0  ellipsis 0->0  overlap 4->4  holes 1470->1470  maxShift 0px  rules 200/200
+      .mast                    h 1248.6->1248.6 (+0)  top 221.8->221.8 (+0)  w 1440->1440
+      .stream                  h 2094.6->2094.6 (+0)  top 1470.4->1470.4 (+0)  w 1440->1440
+      .band                    h 1383.8->1383.8 (+0)  top 3564.9->3564.9 (+0)  w 1440->1440
+      .tags                    h 1056.6->1056.6 (+0)  top 4948.8->4948.8 (+0)  w 1440->1440
+      .fault                   h 1137.3->1137.3 (+0)  top 6005.4->6005.4 (+0)  w 1440->1440
+   @768x1024  docH 13218->13218 (+0%)  hOv 0->0  textOv 0->0  ellipsis 0->0  overlap 3->3  holes 2532->2532  maxShift 0px  rules 200/200
+      .mast                    h 2302->2302 (+0)  top 229.8->229.8 (+0)  w 768->768
+      .stream                  h 2030.9->2030.9 (+0)  top 2531.8->2531.8 (+0)  w 768->768
+      .band                    h 1822.4->1822.4 (+0)  top 4562.6->4562.6 (+0)  w 768->768
+      .tags                    h 1528.1->1528.1 (+0)  top 6385->6385 (+0)  w 768->768
+      .fault                   h 1073.6->1073.6 (+0)  top 7913.1->7913.1 (+0)  w 768->768
+   @390x844  docH 16303->16303 (+0%)  hOv 0->0  textOv 0->0  ellipsis 0->0  overlap 2->2  holes 2149->2149  maxShift 0px  rules 200/200
+      .mast                    h 1906.9->1906.9 (+0)  top 241.8->241.8 (+0)  w 390->390
+      .stream                  h 3543.5->3543.5 (+0)  top 2148.7->2148.7 (+0)  w 390->390
+      .band                    h 2028.4->2028.4 (+0)  top 5692.2->5692.2 (+0)  w 390->390
+      .tags                    h 1587.2->1587.2 (+0)  top 7720.6->7720.6 (+0)  w 390->390
+      .fault                   h 1350.9->1350.9 (+0)  top 9307.8->9307.8 (+0)  w 390->390
+  >> WORST swap: docH 0.224%  keyShift 0px  ovlDelta 1  holesDelta 0px
+  >> WORST ctrl: docH 0%  keyShift 0px  ovlDelta 0  holesDelta 0px
+
+########## S20-plotter-soundfield
+  keys: .masthead | .sheet-sec | .keys | .plates-sec | .maps-sec
+  --- swap
+   @1440x900  docH 8834->8883 (+0.555%)  hOv 0->0  textOv 0->0  ellipsis 1->1  overlap 286->286  holes 999->999  maxShift 49px  rules 281/281
+      .masthead                h 998.8->998.8 (+0)  top 0->0 (+0)  w 1440->1440
+      .sheet-sec               h 1935.5->1984.5 (+49)  top 998.8->998.8 (+0)  w 1440->1440 <<
+      .keys                    h 698.1->698.1 (+0)  top 3965.3->4014.2 (+48.9)  w 1440->1440 <<
+      .plates-sec              h 1974->1974 (+0)  top 4663.4->4712.3 (+48.9)  w 1440->1440 <<
+      .maps-sec                h 500.2->500.2 (+0)  top 6637.3->6686.3 (+49)  w 1440->1440 <<
+   @768x1024  docH 11484->11484 (+0%)  hOv 0->0  textOv 0->0  ellipsis 1->1  overlap 286->286  holes 1606->1606  maxShift 0px  rules 281/281
+      .masthead                h 1605.6->1605.6 (+0)  top 0->0 (+0)  w 768->768
+      .sheet-sec               h 2567.8->2567.8 (+0)  top 1605.6->1605.6 (+0)  w 768->768
+      .keys                    h 648.9->648.9 (+0)  top 5728.9->5728.9 (+0)  w 768->768
+      .plates-sec              h 2278.7->2278.7 (+0)  top 6377.8->6377.8 (+0)  w 768->768
+      .maps-sec                h 515.3->515.3 (+0)  top 8656.5->8656.5 (+0)  w 768->768
+   @390x844  docH 13792->13792 (+0%)  hOv 0->0  textOv 0->0  ellipsis 1->1  overlap 287->287  holes 1599->1599  maxShift 0px  rules 281/281
+      .masthead                h 1385.7->1385.7 (+0)  top 213.1->213.1 (+0)  w 390->390
+      .sheet-sec               h 2684.9->2684.9 (+0)  top 1598.8->1598.8 (+0)  w 390->390
+      .keys                    h 951.5->951.5 (+0)  top 6064.3->6064.3 (+0)  w 390->390
+      .plates-sec              h 3180.8->3180.8 (+0)  top 7015.8->7015.8 (+0)  w 390->390
+      .maps-sec                h 674.2->674.2 (+0)  top 10196.5->10196.5 (+0)  w 390->390
+  --- swap-cjk
+   @1440x900  docH 8834->8834 (+0%)  hOv 0->0  textOv 0->0  ellipsis 1->1  overlap 286->286  holes 999->999  maxShift 0px  rules 281/281
+      .masthead                h 998.8->998.8 (+0)  top 0->0 (+0)  w 1440->1440
+      .sheet-sec               h 1935.5->1935.5 (+0)  top 998.8->998.8 (+0)  w 1440->1440
+      .keys                    h 698.1->698.1 (+0)  top 3965.3->3965.3 (+0)  w 1440->1440
+      .plates-sec              h 1974->1974 (+0)  top 4663.4->4663.4 (+0)  w 1440->1440
+      .maps-sec                h 500.2->500.2 (+0)  top 6637.3->6637.3 (+0)  w 1440->1440
+   @768x1024  docH 11484->11484 (+0%)  hOv 0->0  textOv 0->0  ellipsis 1->1  overlap 286->286  holes 1606->1606  maxShift 0px  rules 281/281
+      .masthead                h 1605.6->1605.6 (+0)  top 0->0 (+0)  w 768->768
+      .sheet-sec               h 2567.8->2567.8 (+0)  top 1605.6->1605.6 (+0)  w 768->768
+      .keys                    h 648.9->648.9 (+0)  top 5728.9->5728.9 (+0)  w 768->768
+      .plates-sec              h 2278.7->2278.7 (+0)  top 6377.8->6377.8 (+0)  w 768->768
+      .maps-sec                h 515.3->515.3 (+0)  top 8656.5->8656.5 (+0)  w 768->768
+   @390x844  docH 13792->13792 (+0%)  hOv 0->0  textOv 0->0  ellipsis 1->1  overlap 287->287  holes 1599->1599  maxShift 0px  rules 281/281
+      .masthead                h 1385.7->1385.7 (+0)  top 213.1->213.1 (+0)  w 390->390
+      .sheet-sec               h 2684.9->2684.9 (+0)  top 1598.8->1598.8 (+0)  w 390->390
+      .keys                    h 951.5->951.5 (+0)  top 6064.3->6064.3 (+0)  w 390->390
+      .plates-sec              h 3180.8->3180.8 (+0)  top 7015.8->7015.8 (+0)  w 390->390
+      .maps-sec                h 674.2->674.2 (+0)  top 10196.5->10196.5 (+0)  w 390->390
+  >> WORST swap: docH 0.555%  keyShift 49px  ovlDelta 0  holesDelta 0px
+  >> WORST ctrl: docH 0%  keyShift 0px  ovlDelta 0  holesDelta 0px
+
+########## S21-interlocking-release-book
+  keys: .board | .sheet | .excl | .states | .ledger-foot
+  --- swap
+   @1440x900  docH 3854->3854 (+0%)  hOv 0->0  textOv 0->0  ellipsis 0->0  overlap 0->1  holes 0->0  maxShift 0px  rules 200/200
+      .board                   h 1338.8->1338.8 (+0)  top 683.7->683.7 (+0)  w 1328->1328
+      .sheet                   h 1048.8->1048.8 (+0)  top 2046.4->2046.4 (+0)  w 1328->1328
+      .excl                    h 185.6->185.6 (+0)  top 3119.2->3119.2 (+0)  w 1328->1328
+      .states                  h 266.2->266.2 (+0)  top 3328.8->3328.8 (+0)  w 1328->1328
+      .ledger-foot             h 235.2->235.2 (+0)  top 3619->3619 (+0)  w 1328->1328
+   @768x1024  docH 4676->4753 (+1.647%)  hOv 0->0  textOv 0->0  ellipsis 0->0  overlap 0->0  holes 268->268  maxShift 76.8px  rules 200/200
+      .board                   h 1939.8->1965.4 (+25.6)  top 821.1->821.1 (+0)  w 656->656 <<
+      .sheet                   h 957.8->1009 (+51.2)  top 2784.9->2810.5 (+25.6)  w 656->656 <<
+      .excl                    h 185.6->185.6 (+0)  top 3766.7->3843.5 (+76.8)  w 656->656 <<
+      .states                  h 440.9->440.9 (+0)  top 3976.3->4053 (+76.7)  w 656->656 <<
+      .ledger-foot             h 235.2->235.2 (+0)  top 4441.2->4518 (+76.8)  w 656->656 <<
+   @390x844  docH 9384->9319 (-0.693%)  hOv 0->0  textOv 0->0  ellipsis 0->0  overlap 0->0  holes 312->312  maxShift 65.3px  rules 200/200
+      .board                   h 5103.9->5038.6 (-65.3)  top 816.8->816.8 (+0)  w 278->278 <<
+      .sheet                   h 1942.1->1942.1 (+0)  top 5944.7->5879.4 (-65.3)  w 278->278 <<
+      .excl                    h 244.8->244.8 (+0)  top 7910.8->7845.5 (-65.3)  w 278->278 <<
+      .states                  h 833.5->833.5 (+0)  top 8179.6->8114.3 (-65.3)  w 278->278 <<
+      .ledger-foot             h 347.2->347.2 (+0)  top 9037.1->8971.8 (-65.3)  w 278->278 <<
+  --- swap-cjk
+   @1440x900  docH 3854->3854 (+0%)  hOv 0->0  textOv 0->0  ellipsis 0->0  overlap 0->0  holes 0->0  maxShift 0px  rules 200/200
+      .board                   h 1338.8->1338.8 (+0)  top 683.7->683.7 (+0)  w 1328->1328
+      .sheet                   h 1048.8->1048.8 (+0)  top 2046.4->2046.4 (+0)  w 1328->1328
+      .excl                    h 185.6->185.6 (+0)  top 3119.2->3119.2 (+0)  w 1328->1328
+      .states                  h 266.2->266.2 (+0)  top 3328.8->3328.8 (+0)  w 1328->1328
+      .ledger-foot             h 235.2->235.2 (+0)  top 3619->3619 (+0)  w 1328->1328
+   @768x1024  docH 4676->4753 (+1.647%)  hOv 0->0  textOv 0->0  ellipsis 0->0  overlap 0->0  holes 268->268  maxShift 76.8px  rules 200/200
+      .board                   h 1939.8->1965.4 (+25.6)  top 821.1->821.1 (+0)  w 656->656 <<
+      .sheet                   h 957.8->1009 (+51.2)  top 2784.9->2810.5 (+25.6)  w 656->656 <<
+      .excl                    h 185.6->185.6 (+0)  top 3766.7->3843.5 (+76.8)  w 656->656 <<
+      .states                  h 440.9->440.9 (+0)  top 3976.3->4053 (+76.7)  w 656->656 <<
+      .ledger-foot             h 235.2->235.2 (+0)  top 4441.2->4518 (+76.8)  w 656->656 <<
+   @390x844  docH 9384->9345 (-0.416%)  hOv 0->0  textOv 0->0  ellipsis 0->0  overlap 0->0  holes 312->312  maxShift 39.7px  rules 200/200
+      .board                   h 5103.9->5064.2 (-39.7)  top 816.8->816.8 (+0)  w 278->278 <<
+      .sheet                   h 1942.1->1942.1 (+0)  top 5944.7->5905 (-39.7)  w 278->278 <<
+      .excl                    h 244.8->244.8 (+0)  top 7910.8->7871.1 (-39.7)  w 278->278 <<
+      .states                  h 833.5->833.5 (+0)  top 8179.6->8139.9 (-39.7)  w 278->278 <<
+      .ledger-foot             h 347.2->347.2 (+0)  top 9037.1->8997.4 (-39.7)  w 278->278 <<
+  >> WORST swap: docH 1.647%  keyShift 76.8px  ovlDelta 1  holesDelta 0px
+  >> WORST ctrl: docH 1.647%  keyShift 76.8px  ovlDelta 0  holesDelta 0px
+
+########## S29-wire-bound-safety-manual
+  keys: .topbar | #ch1 | #ch2 | #ch3 | .fault
+  --- swap
+   @1440x900  docH 12777->12777 (+0%)  hOv 0->0  textOv 0->0  ellipsis 0->0  overlap 36->35  holes 737->737  maxShift 0px  rules 299/299
+      .topbar                  h 73.5->73.5 (+0)  top 0->0 (+0)  w 1440->1440
+      #ch1                     h 1443.9->1443.9 (+0)  top 737.4->737.4 (+0)  w 1192->1192
+      #ch2                     h 1272.2->1272.2 (+0)  top 2181.3->2181.3 (+0)  w 1440->1440
+      #ch3                     h 2436.3->2436.3 (+0)  top 3453.5->3453.5 (+0)  w 1192->1192
+      .fault                   h 603.3->603.3 (+0)  top 8297.2->8297.2 (+0)  w 1440->1440
+   @768x1024  docH 16128->16128 (+0%)  hOv 0->0  textOv 0->0  ellipsis 0->0  overlap 35->35  holes 1286->1286  maxShift 0px  rules 299/299
+      .topbar                  h 122.5->122.5 (+0)  top 0->0 (+0)  w 768->768
+      #ch1                     h 2233.3->2233.3 (+0)  top 1285.7->1285.7 (+0)  w 688->688
+      #ch2                     h 1971.2->1971.2 (+0)  top 3519->3519 (+0)  w 768->768
+      #ch3                     h 2359.1->2359.1 (+0)  top 5490.2->5490.2 (+0)  w 688->688
+      .fault                   h 527.1->527.1 (+0)  top 11433.4->11433.4 (+0)  w 768->768
+   @390x844  docH 24216->24216 (+0%)  hOv 0->0  textOv 0->0  ellipsis 0->0  overlap 17->17  holes 1385->1385  maxShift 0px  rules 299/299
+      .topbar                  h 226->226 (+0)  top 0->0 (+0)  w 390->390
+      #ch1                     h 3089.4->3089.4 (+0)  top 1385.4->1385.4 (+0)  w 310->310
+      #ch2                     h 2554.6->2554.6 (+0)  top 4474.8->4474.8 (+0)  w 390->390
+      #ch3                     h 5398.3->5398.3 (+0)  top 7029.4->7029.4 (+0)  w 310->310
+      .fault                   h 708.5->708.5 (+0)  top 17582.9->17582.9 (+0)  w 390->390
+  --- swap-cjk
+   @1440x900  docH 12777->12777 (+0%)  hOv 0->0  textOv 0->0  ellipsis 0->0  overlap 36->36  holes 737->737  maxShift 0px  rules 299/299
+      .topbar                  h 73.5->73.5 (+0)  top 0->0 (+0)  w 1440->1440
+      #ch1                     h 1443.9->1443.9 (+0)  top 737.4->737.4 (+0)  w 1192->1192
+      #ch2                     h 1272.2->1272.2 (+0)  top 2181.3->2181.3 (+0)  w 1440->1440
+      #ch3                     h 2436.3->2436.3 (+0)  top 3453.5->3453.5 (+0)  w 1192->1192
+      .fault                   h 603.3->603.3 (+0)  top 8297.2->8297.2 (+0)  w 1440->1440
+   @768x1024  docH 16128->16128 (+0%)  hOv 0->0  textOv 0->0  ellipsis 0->0  overlap 35->35  holes 1286->1286  maxShift 0px  rules 299/299
+      .topbar                  h 122.5->122.5 (+0)  top 0->0 (+0)  w 768->768
+      #ch1                     h 2233.3->2233.3 (+0)  top 1285.7->1285.7 (+0)  w 688->688
+      #ch2                     h 1971.2->1971.2 (+0)  top 3519->3519 (+0)  w 768->768
+      #ch3                     h 2359.1->2359.1 (+0)  top 5490.2->5490.2 (+0)  w 688->688
+      .fault                   h 527.1->527.1 (+0)  top 11433.4->11433.4 (+0)  w 768->768
+   @390x844  docH 24216->24216 (+0%)  hOv 0->0  textOv 0->0  ellipsis 0->0  overlap 17->17  holes 1385->1385  maxShift 0px  rules 299/299
+      .topbar                  h 226->226 (+0)  top 0->0 (+0)  w 390->390
+      #ch1                     h 3089.4->3089.4 (+0)  top 1385.4->1385.4 (+0)  w 310->310
+      #ch2                     h 2554.6->2554.6 (+0)  top 4474.8->4474.8 (+0)  w 390->390
+      #ch3                     h 5398.3->5398.3 (+0)  top 7029.4->7029.4 (+0)  w 310->310
+      .fault                   h 708.5->708.5 (+0)  top 17582.9->17582.9 (+0)  w 390->390
+  >> WORST swap: docH 0%  keyShift 0px  ovlDelta 1  holesDelta 0px
+  >> WORST ctrl: docH 0%  keyShift 0px  ovlDelta 0  holesDelta 0px

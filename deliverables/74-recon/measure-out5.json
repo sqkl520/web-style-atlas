@@ -1,0 +1,214 @@
+{
+ "copySyncFocus": {
+  "focusOnBtnBefore": true,
+  "activeAfterCopy": "BODY#.detail-open",
+  "focusLost": true,
+  "isBody": true,
+  "btnText": "已复制 ✓",
+  "anyLive": [
+   "q-parked"
+  ],
+  "ariaStatus": false
+ },
+ "rowAX": [
+  {
+   "role": "button",
+   "name": "展开 S03 长曝光观测站",
+   "ignored": false,
+   "props": [
+    "focusable=true"
+   ]
+  }
+ ],
+ "axHasRowDefText": true,
+ "axRowButtonNames": [
+  "还有 28 个只有近似的 →",
+  "清空筛选",
+  "展开 S01 红黑斜排报",
+  "展开 S02 鎏金对称厅",
+  "展开 S03 长曝光观测站",
+  "展开 S04 芒果拼贴墙",
+  "展开 S05 像素冷库台",
+  "展开 S06 昭和喫茶账"
+ ],
+ "axStaticTextSample": [
+  "跳到方案清单",
+  "网站设计风格方案 · 选型台",
+  "三十个案，一条渲染口径",
+  "搜索",
+  "列出 30 / 30 个方案",
+  "筛不出来？走选型向导：五个问题给出 3 个推荐 + 3 个明确排除 →"
+ ],
+ "wizardSteps": [
+  {
+   "step": 0,
+   "qVisible": true,
+   "label": "三五屏，常规介绍首页、介绍、几个栏目",
+   "visibleQ": 2,
+   "outHidden": true,
+   "ariaPressCount": 1,
+   "live": 0,
+   "statusRole": 0,
+   "focus": "BODY.wz",
+   "scrollY": 485
+  },
+  {
+   "step": 1,
+   "qVisible": true,
+   "label": "有几张就够每个栏目配一张，不铺满",
+   "visibleQ": 3,
+   "outHidden": true,
+   "ariaPressCount": 2,
+   "live": 0,
+   "statusRole": 0,
+   "focus": "BODY.wz",
+   "scrollY": 900
+  },
+  {
+   "step": 2,
+   "qVisible": true,
+   "label": "有个态度，但不吵颜色有立场，整体还是",
+   "visibleQ": 4,
+   "outHidden": true,
+   "ariaPressCount": 3,
+   "live": 0,
+   "statusRole": 0,
+   "focus": "BODY.wz",
+   "scrollY": 1226
+  },
+  {
+   "step": 3,
+   "qVisible": true,
+   "label": "愿意花点时间读进去有点门槛没关系，读",
+   "visibleQ": 5,
+   "outHidden": true,
+   "ariaPressCount": 4,
+   "live": 0,
+   "statusRole": 0,
+   "focus": "BODY.wz",
+   "scrollY": 1642
+  },
+  {
+   "step": 4,
+   "qVisible": true,
+   "label": "两头都不偏稳当，但别寡淡",
+   "visibleQ": 5,
+   "outHidden": false,
+   "ariaPressCount": 5,
+   "live": 0,
+   "statusRole": 0,
+   "focus": "BODY.wz",
+   "scrollY": 2452
+  }
+ ],
+ "wizardResult": {
+  "pick": [
+   {
+    "id": "S26",
+    "h3": "几何对撞栏",
+    "why": "为什么是它：8 张真实图片（对上你要的「几张就够」）　·　认知门槛「中」（对上你要的「愿意读进去」）",
+    "gate": null,
+    "link": "./#S26"
+   },
+   {
+    "id": "S24",
+    "h3": "蓝晒雨林径",
+    "why": "为什么是它：6 张真实图片（对上你要的「几张就够」）　·　彩度 44%（对上你要的「有态度不吵」）　·　认知门槛「中」（对上你要的「愿意读进去」）",
+    "gate": null,
+    "link": "./#S24"
+   },
+   {
+    "id": "S10",
+    "h3": "刻度对撞页",
+    "why": "为什么是它：499 字正文（对上你要的「三五屏」）　·　6 张真实图片（对上你要的「几张就够」）　·　认知门槛「中」（对上你要的「愿意读进去」）",
+    "gate": null,
+    "link": "./#S10"
+   }
+  ],
+  "avoid": [
+   {
+    "id": "S09",
+    "why": "为什么排除：179 字正文，你要的是「三五屏」　·　彩度 90%，你要的是「有态度不吵」　·　认知门槛「低」，你要的是「愿意读进去」"
+   },
+   {
+    "id": "S01",
+    "why": "为什么排除：198 字正文，你要的是「三五屏」　·　彩度 83%，你要的是「有态度不吵」　·　认知门槛「低」，你要的是「愿意读进去」"
+   },
+   {
+    "id": "S30",
+    "why": "为什么排除：彩度 100%，你要的是「有态度不吵」　·　认知门槛「低」，你要的是「愿意读进去」　·　调性「混乱活力 / 街头」，你要的是「两头都不偏」"
+   }
+  ],
+  "shareHidden": false,
+  "shareText": "复制这一页的链接（带上你的答案）",
+  "hash": "",
+  "outTop": 0,
+  "method": "你这五个答案是：内容量 三五屏　·　图片 几张就够　·　安静度 有态度不吵　·　首屏引导 愿意读进去　·　更怕 两头都不偏\n参与排序的方案 30 个（有渲染报告的）。五项等权、按欧氏距离排序，全部输入来自实测值：正文字数、真实图片张数、调色板最高饱和度、声明的认知门槛、以及\"调性＋彩度\"合成的记忆点代理值。这套权重未经真人回放测试——所以别只信\"推荐\"：\"排除\"那三条更硬，它们逐条写明落差在哪；拿不准就两个都看，或直接回选型台用九组筛选自己排。只想要拿来就能用的？三个大众模板在这里，向导不覆盖那一层。"
+ },
+ "wizardShare": {
+  "text": "http://127.0.0.1:9765/prototypes/_selection/wizard.html?load=1&img=1&loud=1&guide=1&fear=1",
+  "search": "?load=1&img=1&loud=1&guide=1&fear=1"
+ },
+ "wizardReset": {
+  "outHidden": true,
+  "shareHidden": true,
+  "shareText": "http://127.0.0.1:9765/prototypes/_selection/wizard.html?load=1&img=1&loud=1&guide=1&fear=1",
+  "ariaPress": 0,
+  "visibleQ": 1,
+  "scrollY": 0,
+  "focus": "BODY.wz",
+  "focusTop": 0
+ },
+ "replay_?load=1&img=2&loud=3&guide=1&fear=2": {
+  "outHidden": false,
+  "pickCount": 3,
+  "pickIds": [
+   "S29",
+   "S30",
+   "S02"
+  ],
+  "method": "你这五个答案是：内容量 三五屏　·　图片 图是主角　·　安静度 undefined　·　首屏引导 愿意读进去　·　更怕 没记忆点\n参与排序的方案 30 个（有渲染报告的）。五项等权、按欧氏距离排序，全部输入来自实测值：正文字数、真实图片张数、调色板最高饱和度、声明的认知门槛、以及\"调性＋彩度\"合成的记忆点代理值。这套权重未经真人回放测试——所以别只信\"推荐\"：\"排除\"那三条更硬，它们逐条写明落差在",
+  "visibleQ": 5,
+  "pressed": 4
+ },
+ "replay_?load=1&img=2": {
+  "outHidden": true,
+  "pickCount": 0,
+  "pickIds": [],
+  "method": null,
+  "visibleQ": 1,
+  "pressed": 0
+ },
+ "replay_?load=abc&img=1&loud=1&guide=1&fear=1": {
+  "outHidden": false,
+  "pickCount": 3,
+  "pickIds": [
+   "S01",
+   "S02",
+   "S03"
+  ],
+  "method": "你这五个答案是：内容量 undefined　·　图片 几张就够　·　安静度 有态度不吵　·　首屏引导 愿意读进去　·　更怕 两头都不偏\n参与排序的方案 30 个（有渲染报告的）。五项等权、按欧氏距离排序，全部输入来自实测值：正文字数、真实图片张数、调色板最高饱和度、声明的认知门槛、以及\"调性＋彩度\"合成的记忆点代理值。这套权重未经真人回放测试——所以别只信\"推荐\"：\"排除\"那三条更硬，它们逐条写明",
+  "visibleQ": 5,
+  "pressed": 4
+ },
+ "replay_?load=9&img=9&loud=9&guide=9&fear=9": {
+  "outHidden": false,
+  "pickCount": 3,
+  "pickIds": [
+   "S29",
+   "S14",
+   "S20"
+  ],
+  "method": "你这五个答案是：内容量 undefined　·　图片 undefined　·　安静度 undefined　·　首屏引导 undefined　·　更怕 undefined\n参与排序的方案 30 个（有渲染报告的）。五项等权、按欧氏距离排序，全部输入来自实测值：正文字数、真实图片张数、调色板最高饱和度、声明的认知门槛、以及\"调性＋彩度\"合成的记忆点代理值。这套权重未经真人回放测试——所以别只信\"推荐\"",
+  "visibleQ": 5,
+  "pressed": 0
+ },
+ "replay_?load=&img=&loud=&guide=&fear=": {
+  "outHidden": true,
+  "pickCount": 0,
+  "pickIds": [],
+  "method": null,
+  "visibleQ": 1,
+  "pressed": 0
+ }
+}

@@ -1,0 +1,15 @@
+﻿const old2="2. 用你自己的真实数量排：有几个排几个，不凑整、不留空位、不留占位符、编号连续不跳号。";
+const p2  ="2. 用你自己的真实数量排：有几个排几个，不凑整、不留占位符。";
+const v2  ="2. 用你自己的真实数量排：有几个排几个，不凑整、不留占位符——但本版式有几处位置是刻意留空的（缺号、空抽屉、空白卡、空白行这类），那是叙事证据：不补满、不删掉、编号不重排。";
+const old3y="3. 但这个版式的位置是按 N 个数出来的（写死坐标或编号，不是自动流），少一个就空一格：确实不足 N 个时，把空出来的位置删掉、整块重排，不要留空槽，也不要编造内容去填。";
+const sv   ="（上面点名的刻意留空除外）";
+const old3n="3. 这个版式是自动流排版，删条目只会让页面变短、不会留空位，你按自己的数量排就好。";
+const sn   ="（点名那几处照旧保留）";
+const L=(n,s)=>console.log(n.padEnd(7)+String(s.length).padStart(4)+'  '+s);
+L('old2',old2);L('p2',p2);L('v2',v2);L('old3y',old3y);L('suffix',sv);L('old3n',old3n);L('nsuffix',sn);
+const d=(a,b)=>a.length-b.length;
+console.log('\nplain+yes   delta = '+(d(p2,old2)+d(old3y,old3y)));
+console.log('plain+no    delta = '+d(p2,old2));
+console.log('void +yes   delta = '+(d(v2,old2)+d(old3y,old3y)+sv.length));
+console.log('void +no    delta = '+(d(v2,old2)+sn.length));
+console.log('(p2-old2)='+d(p2,old2)+'  (v2-old2)='+d(v2,old2));

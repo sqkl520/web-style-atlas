@@ -1,0 +1,11 @@
+契约一致性闸门：§9.15 允许表(5 条) vs 30 案实测 FAIL
+  查的是「FAIL ⊆ 允许表」（契约 §7.2），不是「FAIL = 0」
+
+  C1 FAIL 全在允许表内        2/2
+  C2 允许表的规则引擎里都存在  5/5
+  C3 登记但无案触发（INFO）    3 条
+
+· [C3-allow-rule-unused] 1 条
+    _CONTRACT.md §9.15  3 条登记规则当前没有任何案触发: mono, font-fallback, measure（不是失败 —— 是审计线索：可能规则已修好、允许表该收窄）
+
+合计 FAIL 0 / WARN 0 / INFO 1

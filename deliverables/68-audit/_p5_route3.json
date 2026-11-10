@@ -1,0 +1,205 @@
+{
+  "generatedAt": "2026-10-28T15:09:48.944Z",
+  "tmpRepo": "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\route3-r7lEbm",
+  "skeletonFiles": 16351,
+  "proposedRules": "# ══════════════════════════════════════════════════════════════\n# 审查/执行 Agent 的过程产物（探针、中间 JSON、截图、日志）\n# 目标：deliverables/ 里只留 *.md 报告 + 少数被报告点名的证据图\n# ══════════════════════════════════════════════════════════════\n\n# 1) 一次性探针脚本与中间数据（顶层散落）\ndeliverables/*/*.mjs\ndeliverables/*/*.json\ndeliverables/*/*.txt\ndeliverables/*/*.log\n\n# 2) Agent 的私有过程目录（_out / _lab / _cut / _orig / _v_out / _rt_out ...）\ndeliverables/*/_*/\n\n# 3) 截图与快照目录（体积主体：约占未跟踪总量 2/3）\ndeliverables/*/shots*/\ndeliverables/*/snap/\ndeliverables/*/tpl-audit/\n\n# 4) 冻结副本 / 提示词快照 / 试验台\ndeliverables/*/frozen*/\ndeliverables/*/prompts*/\ndeliverables/*/lab/\ndeliverables/*/baseline/\ndeliverables/*/tmp/\ndeliverables/*/trials/\ndeliverables/*/impl/\ndeliverables/*/r2/\n\n# 5) 复刻站与大数据目录（deliverables/63-test/replica 单目录 115MB，含 8.7MB OTF）\ndeliverables/*/replica/\n# 写 data/* 而不是 data/：目录被整体排除后 git 不再向下遍历，\n# 任何 !data/xxx 的重包含都会失效（本仓库 internship-portal 已踩过这个坑）\ndeliverables/*/data/*\n!deliverables/*/data/*.md\n\n# 6) 唯一被提交的\"执行证据\"目录：豁免\n#    deliverables/62-exec/tpl-integration/ 下有 11 个被提交的 .mjs + 12 张最终截图\n#    （deliverables/ 里仅有的非 md 入库文件全在这里），必须留在库里\n!deliverables/62-exec/tpl-integration/\n!deliverables/62-exec/tpl-integration/**\n",
+  "before": {
+    "count": 4988,
+    "bytes": 382190982,
+    "by": {
+      "mjs": {
+        "count": 745,
+        "bytes": 2988467
+      },
+      "json": {
+        "count": 389,
+        "bytes": 25686993
+      },
+      "text": {
+        "count": 512,
+        "bytes": 2984390
+      },
+      ".err": {
+        "count": 4,
+        "bytes": 0
+      },
+      "web": {
+        "count": 281,
+        "bytes": 12720819
+      },
+      "image": {
+        "count": 1176,
+        "bytes": 257871036
+      },
+      "markdown": {
+        "count": 19,
+        "bytes": 185759
+      },
+      ".csv": {
+        "count": 1,
+        "bytes": 615
+      },
+      ".py": {
+        "count": 30,
+        "bytes": 184178
+      },
+      ".ps1": {
+        "count": 8,
+        "bytes": 47272
+      },
+      "font": {
+        "count": 1815,
+        "bytes": 79111232
+      },
+      ".ndjson": {
+        "count": 1,
+        "bytes": 1108
+      },
+      ".bak": {
+        "count": 3,
+        "bytes": 366586
+      },
+      ".diff": {
+        "count": 1,
+        "bytes": 31818
+      },
+      ".tsv": {
+        "count": 3,
+        "bytes": 10709
+      }
+    }
+  },
+  "after": {
+    "count": 121,
+    "bytes": 16053565,
+    "by": {
+      ".err": {
+        "count": 3,
+        "bytes": 0
+      },
+      "web": {
+        "count": 21,
+        "bytes": 1069563
+      },
+      "markdown": {
+        "count": 3,
+        "bytes": 36473
+      },
+      "mjs": {
+        "count": 19,
+        "bytes": 88435
+      },
+      "image": {
+        "count": 59,
+        "bytes": 14656361
+      },
+      ".diff": {
+        "count": 1,
+        "bytes": 31818
+      },
+      ".tsv": {
+        "count": 1,
+        "bytes": 1880
+      },
+      "json": {
+        "count": 9,
+        "bytes": 121907
+      },
+      "text": {
+        "count": 5,
+        "bytes": 47128
+      }
+    }
+  },
+  "savedBytes": 366137417,
+  "savedPct": "95.8%",
+  "filesIgnored": 4867,
+  "survivorsSample": [
+    "deliverables/62-verify/dump30.err",
+    "deliverables/62-verify/frozen-prompt-copy.js",
+    "deliverables/62-verify/frozen-prompts.js",
+    "deliverables/62-verify/frozen-wizard.js",
+    "deliverables/62-verify/probe.js",
+    "deliverables/63-audit/_countassert.js",
+    "deliverables/63-audit/_degdiff.js",
+    "deliverables/63-audit/_field11.js",
+    "deliverables/63-audit/_field11b.js",
+    "deliverables/63-audit/_matrix.js",
+    "deliverables/63-audit/_s03.js",
+    "deliverables/63-audit/_s14.js",
+    "deliverables/63-audit/_stats.js",
+    "deliverables/63-audit/_stats2.js",
+    "deliverables/63-audit/_verify.js",
+    "deliverables/63-test/data/final-rows.md",
+    "deliverables/63-test/scripts/00-inventory.mjs",
+    "deliverables/63-test/scripts/01-swap.mjs",
+    "deliverables/63-test/scripts/02-structure.mjs",
+    "deliverables/63-test/scripts/03-render.mjs",
+    "deliverables/63-test/scripts/04-compare.mjs",
+    "deliverables/63-test/scripts/05-element-diff.mjs",
+    "deliverables/63-test/scripts/06-font-check.mjs",
+    "deliverables/63-test/scripts/07-verdict.mjs",
+    "deliverables/63-test/scripts/08-data-location.mjs",
+    "deliverables/63-test/scripts/09-determinism.mjs",
+    "deliverables/63-test/scripts/10-s21-font-timing.mjs",
+    "deliverables/63-test/scripts/11-s21-noise.mjs",
+    "deliverables/63-test/scripts/12-final-rows.mjs",
+    "deliverables/63-test/scripts/dbg-keys.mjs",
+    "deliverables/63-test/scripts/lib/html.mjs",
+    "deliverables/64-verify/shot-S01.jpg",
+    "deliverables/64-verify/shot-S15.jpg",
+    "deliverables/64-verify/shot-S29.jpg",
+    "deliverables/64-verify/shot-swatch-S22.jpg",
+    "deliverables/64-verify/shot-swatch-S27.jpg",
+    "deliverables/64-verify/shot-swatch-S30.jpg",
+    "deliverables/65-exec/_app.diff",
+    "deliverables/65-exec/_table.tsv",
+    "deliverables/65-exec/data.after-layout.js"
+  ],
+  "survivingMjs": [
+    "deliverables/63-test/scripts/00-inventory.mjs",
+    "deliverables/63-test/scripts/01-swap.mjs",
+    "deliverables/63-test/scripts/02-structure.mjs",
+    "deliverables/63-test/scripts/03-render.mjs",
+    "deliverables/63-test/scripts/04-compare.mjs",
+    "deliverables/63-test/scripts/05-element-diff.mjs",
+    "deliverables/63-test/scripts/06-font-check.mjs",
+    "deliverables/63-test/scripts/07-verdict.mjs",
+    "deliverables/63-test/scripts/08-data-location.mjs",
+    "deliverables/63-test/scripts/09-determinism.mjs",
+    "deliverables/63-test/scripts/10-s21-font-timing.mjs",
+    "deliverables/63-test/scripts/11-s21-noise.mjs",
+    "deliverables/63-test/scripts/12-final-rows.mjs",
+    "deliverables/63-test/scripts/dbg-keys.mjs",
+    "deliverables/63-test/scripts/lib/html.mjs",
+    "deliverables/68-plan/probes/probe-comment-state.mjs",
+    "deliverables/68-plan/probes/probe-ignore-cost.mjs",
+    "deliverables/68-plan/probes/probe-lint-classify.mjs",
+    "deliverables/68-plan/probes/probe-rule-surface.mjs"
+  ],
+  "citedProbes": 462,
+  "citedProbesKept": 13,
+  "citedProbesLost": 449,
+  "citedLostSample": [
+    "deliverables/62-verify/cdp-restaurant.mjs",
+    "deliverables/62-verify/cdp-retry.mjs",
+    "deliverables/62-verify/cdp-wizard-lies.mjs",
+    "deliverables/62-verify/check-c.mjs",
+    "deliverables/62-verify/check-claim5.mjs",
+    "deliverables/62-verify/check-claims.mjs",
+    "deliverables/62-verify/check-counts.mjs",
+    "deliverables/62-verify/check-truncation.mjs",
+    "deliverables/62-verify/evidence-wizard.mjs",
+    "deliverables/62-verify/r2/a4.mjs",
+    "deliverables/62-verify/r2/b1.mjs",
+    "deliverables/62-verify/r2/b2.mjs",
+    "deliverables/62-verify/r2/b3.mjs",
+    "deliverables/62-verify/r2/b4.mjs",
+    "deliverables/62-verify/r2/b5.mjs",
+    "deliverables/62-verify/r2/b6.mjs",
+    "deliverables/62-verify/r2/b7.mjs",
+    "deliverables/62-verify/r2/b9.mjs",
+    "deliverables/62-verify/r2/c1.mjs",
+    "deliverables/62-verify/r2/c3.mjs"
+  ]
+}

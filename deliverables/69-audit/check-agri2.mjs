@@ -1,0 +1,11 @@
+﻿import fs from "node:fs";
+const probe29 = JSON.parse(fs.readFileSync("deliverables/69-audit/probe-29-raw.json","utf8"));
+const agri = probe29.find(r=>r.term==="农业");
+console.log("农业:", JSON.stringify({rows:agri.rows, emptyVisible:agri.emptyVisible, etplVisible:agri.etplVisible, strip:agri.stripVisible}));
+console.log("emptyText:", agri.emptyText.slice(0,200));
+console.log("\n-- 农业 命中行 --");
+const d = fs.readFileSync("prototypes/_selection/data.js","utf8");
+global.window={}; new Function("window",d)(global.window);
+const s = global.window.SCHEMES.find(x=>x.id==="S19");
+const i = s.scenesYes.indexOf("农业");
+console.log("S19 scenesYes 含农业 at", i, "→", s.scenesYes.slice(Math.max(0,i-30), i+30));

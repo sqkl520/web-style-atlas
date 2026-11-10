@@ -1,0 +1,50 @@
+﻿{
+ "sweeps": [
+  {
+   "setHeight": 844,
+   "inner": 844,
+   "docH": 11564,
+   "screens": 13.7
+  },
+  {
+   "setHeight": 800,
+   "inner": 800,
+   "docH": 11564,
+   "screens": 14.46
+  },
+  {
+   "setHeight": 720,
+   "inner": 720,
+   "docH": 11564,
+   "screens": 16.06
+  },
+  {
+   "setHeight": 667,
+   "inner": 667,
+   "docH": 11564,
+   "screens": 17.34
+  },
+  {
+   "setHeight": 640,
+   "inner": 640,
+   "docH": 11564,
+   "screens": 18.07
+  },
+  {
+   "setHeight": 596,
+   "inner": 596,
+   "docH": 11564,
+   "screens": 19.4
+  },
+  {
+   "setHeight": 568,
+   "inner": 568,
+   "docH": 11564,
+   "screens": 20.36
+  }
+ ],
+ "docH": 11564,
+ "impliedVhFor194": 596.1,
+ "screensAt844": 13.7,
+ "note": "19.4 is reproducible only if the visible height is ~596px, i.e. a phone whose browser chrome eats ~250px, or a 375x667 device minus toolbars. At a 390x844 logical viewport it is 13.7."
+}

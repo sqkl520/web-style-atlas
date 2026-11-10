@@ -1,0 +1,109 @@
+/* Shared chrome for every lab variant. Loaded for all variants, before the variant's own css.
+   Only styles elements the variant scripts create — never touches the bench's own rules. */
+
+.lab-grp { border-bottom: 1px solid var(--rule); }
+.lab-grp > summary {
+  list-style: none;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr);
+  column-gap: 6px;
+  padding: 12px 0;
+  align-items: start;
+}
+.lab-grp > summary::-webkit-details-marker { display: none; }
+.lab-grp > summary::before {
+  content: "+";
+  font-family: var(--num);
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ink-3);
+  grid-column: 1;
+  grid-row: 1 / span 3;
+}
+/* every text span must sit in column 2, or the grid auto-places them into the 18px
+   marker column and they wrap one glyph per line (measured: a summary 565px tall). */
+.lab-grp-t, .lab-grp-n, .lab-grp-l { grid-column: 2; }
+.lab-grp[open] > summary::before { content: "−"; }
+.lab-grp > summary:hover::before { color: var(--ink); }
+.lab-grp-t { font-size: var(--s-16); font-weight: 600; line-height: 1.4; }
+.lab-grp-n { font-size: var(--s-13); color: var(--ink-3); line-height: 1.5; display: block; }
+.lab-grp-l { font-size: var(--s-13); color: var(--ink-2); line-height: 1.55; display: block; margin-top: 2px; }
+.lab-grp[open] > summary { border-bottom: 2px solid var(--ink); margin-bottom: 2px; }
+.lab-grp-body .field:last-child { border-bottom: none; }
+
+/* field nav (乙 / 戊) */
+.lab-nav {
+  position: sticky; top: 0; z-index: 3;
+  display: flex; flex-wrap: wrap; gap: 4px;
+  padding: 8px 0; margin: 0 0 4px;
+  background: var(--card);
+  border-bottom: 2px solid var(--ink);
+}
+.lab-nav button {
+  font-size: var(--s-13); line-height: 1.4;
+  padding: 3px 7px; cursor: pointer;
+  background: transparent; color: var(--ink-2);
+  border: 1px solid var(--rule-2); border-radius: 0;
+}
+.lab-nav button:hover { background: var(--ink); color: var(--card); border-color: var(--ink); }
+.lab-nav button .n { font-family: var(--num); margin-right: 4px; color: var(--ink-3); }
+.lab-nav button:hover .n { color: var(--card); }
+
+/* tab bar (丁) */
+.lab-tabs { display: flex; margin: 0 0 14px; border-bottom: 2px solid var(--ink); }
+.lab-tabs button {
+  font-size: var(--s-14); padding: 7px 14px; cursor: pointer;
+  background: transparent; color: var(--ink-2);
+  border: none; border-bottom: 3px solid transparent; border-radius: 0;
+}
+.lab-tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--ink); font-weight: 600; }
+
+/* summary / verdict card (丙 / 戊) */
+.lab-brief { border-top: 2px solid var(--ink); padding: 12px 0 14px; margin-top: 4px; }
+.lab-brief h3 { font-size: var(--s-13); color: var(--ink-3); font-weight: 400; margin: 0 0 6px; }
+.lab-brief p { font-size: var(--s-17); line-height: 1.6; }
+.lab-brief dl { display: grid; gap: 5px; margin-top: 10px; }
+.lab-brief dl > div { display: grid; grid-template-columns: 5.6em minmax(0, 1fr); gap: 8px; }
+.lab-brief dt { font-size: var(--s-13); color: var(--ink-3); }
+.lab-brief dd { font-size: var(--s-14); color: var(--ink); }
+
+.lab-note { font-size: var(--s-13); color: var(--ink-3); margin-top: 8px; }
+
+/* collapsed viewer (己 / 庚) */
+.lab-viewer { border-bottom: 2px solid var(--ink); margin-bottom: 18px; }
+.lab-viewer > summary {
+  list-style: none; cursor: pointer;
+  display: grid; grid-template-columns: 18px minmax(0, 1fr); column-gap: 6px;
+  padding: 9px 0; align-items: start;
+}
+.lab-viewer > summary::-webkit-details-marker { display: none; }
+.lab-viewer > summary::before { content: "+"; font-family: var(--num); font-size: 15px; color: var(--ink-3); grid-column: 1; grid-row: 1 / span 2; }
+.lab-viewer > summary .lab-grp-t,
+.lab-viewer > summary .lab-grp-n { grid-column: 2; }
+.lab-viewer[open] > summary::before { content: "−"; }
+.lab-viewer-body { padding-top: 8px; }
+
+/* one-line meta row: 打开原型 | 闸门标签 | 闸门明细（折叠） */
+.lab-meta { margin: 0 0 16px; border-bottom: 1px solid var(--rule); padding-bottom: 10px; }
+.lab-meta-line { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; }
+.lab-meta-line .open-proto { margin-bottom: 0; padding: 6px 12px; font-size: var(--s-13); }
+.lab-meta-line .gate-line { font-size: var(--s-13); }
+.lab-meta-more { margin-top: 6px; }
+.lab-meta-more > summary { cursor: pointer; font-size: var(--s-13); color: var(--ink-3); list-style: none; padding: 4px 0; }
+.lab-meta-more > summary::-webkit-details-marker { display: none; }
+.lab-meta-more > summary::before { content: "+ "; font-family: var(--num); }
+.lab-meta-more[open] > summary::before { content: "− "; }
+.lab-meta-more .gate-rules { margin-top: 6px; }
+
+/* 配色 / 适合 / 别用在这 —— 三行紧凑事实，替代两个整字段 */
+.lab-facts { border-bottom: 1px solid var(--rule); padding: 10px 0 12px; display: grid; gap: 5px; }
+.lab-facts > div { display: grid; grid-template-columns: 4.6em minmax(0, 1fr); gap: 8px; }
+.lab-facts dt { font-size: var(--s-13); color: var(--ink-3); }
+.lab-facts dd { font-size: var(--s-16); color: var(--ink); }
+@media (max-width: 620px) {
+  .lab-facts > div { grid-template-columns: 4.2em minmax(0, 1fr); }
+  .lab-meta-line { gap: 4px 8px; }
+  .lab-meta-line .gate-line { font-size: 12px; }
+}
+

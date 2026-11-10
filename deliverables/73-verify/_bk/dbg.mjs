@@ -1,0 +1,10 @@
+﻿import { readFileSync } from "node:fs";
+const s = readFileSync("D:/Web/style/prototypes/_CONTRACT.md","utf8");
+const i = s.indexOf("9.15"), j = s.indexOf("9.16", i);
+const win = s.slice(i, j);
+const lines = win.split(/\r?\n/);
+console.log("window lines:", lines.length);
+const re = /^\|\s*`([\w-]+)`\s*\|/;
+lines.forEach((l,k)=>{ const m=l.match(re); if(m) console.log("  match:", m[1], "| line starts:", JSON.stringify(l.slice(0,40))); });
+console.log("--- any box-shadow line in window? ---");
+lines.forEach((l,k)=>{ if(l.includes("box-shadow")) console.log(k, JSON.stringify(l.slice(0,60))); });

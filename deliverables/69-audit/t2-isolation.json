@@ -1,0 +1,249 @@
+{
+ "S01": {
+  "mentionChars": 6992,
+  "nBlocks": 2,
+  "nLine": 0,
+  "samples": [
+   "/* ── 这一案的版式是不是\"靠空位讲故事\"（任务 1 的检测器）──────────────── * * 为什么这个检测必须在 prompt-copy.js 里做、而不是去 data.js 加一个字段： * 本轮写作用域只允许改 prompt-copy.js（+ README 的 6 个数字），",
+   "/* ── 数量这三条：`count` 是**版式的设计规模**，不是用户的内容量 ───────── * * 2026-10-27 修（本轮）。改之前这里是： * 「1. 我实际有 46 个条目，就排 46 个：」 * 「 不凑整、不留空位、不留占位符、编号连续不跳号。」 * 这句把 `minIt"
+  ]
+ },
+ "S02": {
+  "mentionChars": 9402,
+  "nBlocks": 4,
+  "nLine": 0,
+  "samples": [
+   "/* 「最难被复用」那一句：**作者原话**，从 prompts.js 的 dna.reuse 读 * （由 build-prompts.mjs 从 data.js 的 landing 字段里截出，见那里的长注释）。 * * 为什么它必须在结构约束段里：这一段是提示词里唯一讲「这个版式撑不撑得住」的",
+   "/* ── 这一案的版式是不是\"靠空位讲故事\"（任务 1 的检测器）──────────────── * * 为什么这个检测必须在 prompt-copy.js 里做、而不是去 data.js 加一个字段： * 本轮写作用域只允许改 prompt-copy.js（+ README 的 6 个数字），",
+   "/* ── 数量这三条：`count` 是**版式的设计规模**，不是用户的内容量 ───────── * * 2026-10-27 修（本轮）。改之前这里是： * 「1. 我实际有 46 个条目，就排 46 个：」 * 「 不凑整、不留空位、不留占位符、编号连续不跳号。」 * 这句把 `minIt"
+  ]
+ },
+ "S03": {
+  "mentionChars": 477,
+  "nBlocks": 1,
+  "nLine": 0,
+  "samples": [
+   "/* 字体行末尾的「不准回退」禁令：**必须分标题链、正文链各判一次**。 * * 2026-10-26 第二次修（独立验证 Agent 抓出）。第一版把两条链拼起来判 * `CJK_RE.test(fStack + bStack + ...)`，于是： * · S03 标题链 = IBM Plex"
+  ]
+ },
+ "S04": {
+  "mentionChars": 3185,
+  "nBlocks": 4,
+  "nLine": 0,
+  "samples": [
+   "/* 字体：**不再猜**。prompts.js 里的 dna.fonts 已经是 {display, body, mono} 三个结构化字段， * 由生成器 deliverables/99-scratch/clean-dna.mjs 从各案 style.css 的 h1 规则 * 实际 font-",
+   "/* 字体链截断：不能机械 slice(0,3)。 * 独立验证 Agent 抓到：S04 的 bodyStack = [\"Redaction 20\",\"Georgia\",\"Nimbus Roman\",\"LXGW WenKai\"]， * 唯一的中文字族在第 4 位，被 slice(0,3) 切掉 —",
+   "/* 字体行末尾的「不准回退」禁令：**必须分标题链、正文链各判一次**。 * * 2026-10-26 第二次修（独立验证 Agent 抓出）。第一版把两条链拼起来判 * `CJK_RE.test(fStack + bStack + ...)`，于是： * · S03 标题链 = IBM Plex"
+  ]
+ },
+ "S05": {
+  "mentionChars": 0,
+  "nBlocks": 0,
+  "nLine": 0,
+  "samples": []
+ },
+ "S06": {
+  "mentionChars": 9418,
+  "nBlocks": 7,
+  "nLine": 0,
+  "samples": [
+   "/* 字体：**不再猜**。prompts.js 里的 dna.fonts 已经是 {display, body, mono} 三个结构化字段， * 由生成器 deliverables/99-scratch/clean-dna.mjs 从各案 style.css 的 h1 规则 * 实际 font-",
+   "/* ── 这一案的版式是不是\"靠空位讲故事\"（任务 1 的检测器）──────────────── * * 为什么这个检测必须在 prompt-copy.js 里做、而不是去 data.js 加一个字段： * 本轮写作用域只允许改 prompt-copy.js（+ README 的 6 个数字），",
+   "/* ── 数量这三条：`count` 是**版式的设计规模**，不是用户的内容量 ───────── * * 2026-10-27 修（本轮）。改之前这里是： * 「1. 我实际有 46 个条目，就排 46 个：」 * 「 不凑整、不留空位、不留占位符、编号连续不跳号。」 * 这句把 `minIt"
+  ]
+ },
+ "S07": {
+  "mentionChars": 8259,
+  "nBlocks": 4,
+  "nLine": 0,
+  "samples": [
+   "/* 字体行：必须写出**完整兜底链**，不能只给第一个族名。 * * 2026-10-26 补。独立验证 Agent 干了件很硬的事：它只拿提示词、不看原型， * 照做了 S07/S30/S23 三份实现，然后用 CDP 的 CSS.getPlatformFontsForNode * 看「到底是谁",
+   "/* 内容量：数量取「实测 minItems」而不是旧的人工估计。 * s.minItems 现在由生成器优先填 CAPACITY（60-minitems-degrade-audit.md 逐案实测）， * 旧的人工估计 26/30 与实测不符（S07 人工 5 / 实测 46，差 9 倍）。 * ",
+   "/* ── 这一案的版式是不是\"靠空位讲故事\"（任务 1 的检测器）──────────────── * * 为什么这个检测必须在 prompt-copy.js 里做、而不是去 data.js 加一个字段： * 本轮写作用域只允许改 prompt-copy.js（+ README 的 6 个数字），"
+  ]
+ },
+ "S08": {
+  "mentionChars": 2995,
+  "nBlocks": 3,
+  "nLine": 0,
+  "samples": [
+   "/* 字体：**不再猜**。prompts.js 里的 dna.fonts 已经是 {display, body, mono} 三个结构化字段， * 由生成器 deliverables/99-scratch/clean-dna.mjs 从各案 style.css 的 h1 规则 * 实际 font-",
+   "/* ⚠️ 原句「建议先看详情里的「不适合」」指向一个**不存在的字段**。 * 实测 `data.js` 的 30 条记录共 31 个键，没有任何一个叫「不适合」； * 真相是\"不适合…\"这句话被拼在 `scenes` 字段 value 的尾部， * 详情面板里落在「适用场景」段末，距面板顶 29",
+   "/* ⚠️ 三个容器必须**都**清空，不能只清\"当前不显示的那个\"。 * 实测踩过（consistency.mjs 扫 44 个索引词时抓到）：只清了一半，于是隐藏容器里留着 * 上一个词的卡片。肉眼看不见（hidden），但 * · 无头浏览器/读屏器仍然能读到它； * · 任何按 `.tpl-"
+  ]
+ },
+ "S09": {
+  "mentionChars": 1898,
+  "nBlocks": 3,
+  "nLine": 0,
+  "samples": [
+   "/* 由 DNA 生成「填充好的」提示词（用户可直接粘给 AI） * * ── opts 的全部入口：一共 7 个键，逐个交代它们是不是活的 ────────────────── * 2026-10-27 逐个 grep 过（全库含 deliverables 下 200+ 个探针脚本）： * * b",
+   "/* 全站只用一款字体：判据必须**看全站所有字体声明**，不能只看标题/正文两条链。 * 验证 Agent 抓到上一版只看 displayStack 与 bodyStack，于是 S09 出现 * 「全站只用一款字体…刻意不引入第二款」紧跟着又给 `JetBrains Mono`（等宽数字）—— ",
+   "/* 气质行：默认值恒为「一个安静、有手艺感的地方」是错的。 * 实测：S09「小店摆摊那种热闹」、S12「很吵」、S16「速度感」、S30「潮流有劲」—— * 提示词同时说了「要热闹」和「要安静、有手艺感」，两句互相抵消。 * 派生来源：window.SCHEMES 的 tone（7 个气质值，3"
+  ]
+ },
+ "S10": {
+  "mentionChars": 8427,
+  "nBlocks": 4,
+  "nLine": 0,
+  "samples": [
+   "/* 字体：**不再猜**。prompts.js 里的 dna.fonts 已经是 {display, body, mono} 三个结构化字段， * 由生成器 deliverables/99-scratch/clean-dna.mjs 从各案 style.css 的 h1 规则 * 实际 font-",
+   "/* 「最难被复用」那一句：**作者原话**，从 prompts.js 的 dna.reuse 读 * （由 build-prompts.mjs 从 data.js 的 landing 字段里截出，见那里的长注释）。 * * 为什么它必须在结构约束段里：这一段是提示词里唯一讲「这个版式撑不撑得住」的",
+   "/* ── 这一案的版式是不是\"靠空位讲故事\"（任务 1 的检测器）──────────────── * * 为什么这个检测必须在 prompt-copy.js 里做、而不是去 data.js 加一个字段： * 本轮写作用域只允许改 prompt-copy.js（+ README 的 6 个数字），"
+  ]
+ },
+ "S11": {
+  "mentionChars": 0,
+  "nBlocks": 0,
+  "nLine": 0,
+  "samples": []
+ },
+ "S12": {
+  "mentionChars": 11672,
+  "nBlocks": 6,
+  "nLine": 0,
+  "samples": [
+   "/* 由 DNA 生成「填充好的」提示词（用户可直接粘给 AI） * * ── opts 的全部入口：一共 7 个键，逐个交代它们是不是活的 ────────────────── * 2026-10-27 逐个 grep 过（全库含 deliverables 下 200+ 个探针脚本）： * * b",
+   "/* 气质行：默认值恒为「一个安静、有手艺感的地方」是错的。 * 实测：S09「小店摆摊那种热闹」、S12「很吵」、S16「速度感」、S30「潮流有劲」—— * 提示词同时说了「要热闹」和「要安静、有手艺感」，两句互相抵消。 * 派生来源：window.SCHEMES 的 tone（7 个气质值，3",
+   "/* ── 这一案的版式是不是\"靠空位讲故事\"（任务 1 的检测器）──────────────── * * 为什么这个检测必须在 prompt-copy.js 里做、而不是去 data.js 加一个字段： * 本轮写作用域只允许改 prompt-copy.js（+ README 的 6 个数字），"
+  ]
+ },
+ "S13": {
+  "mentionChars": 0,
+  "nBlocks": 0,
+  "nLine": 0,
+  "samples": []
+ },
+ "S14": {
+  "mentionChars": 0,
+  "nBlocks": 0,
+  "nLine": 0,
+  "samples": []
+ },
+ "S15": {
+  "mentionChars": 4826,
+  "nBlocks": 2,
+  "nLine": 0,
+  "samples": [
+   "/* 「最难被复用」那一句：**作者原话**，从 prompts.js 的 dna.reuse 读 * （由 build-prompts.mjs 从 data.js 的 landing 字段里截出，见那里的长注释）。 * * 为什么它必须在结构约束段里：这一段是提示词里唯一讲「这个版式撑不撑得住」的",
+   "/* ── 数量这三条：`count` 是**版式的设计规模**，不是用户的内容量 ───────── * * 2026-10-27 修（本轮）。改之前这里是： * 「1. 我实际有 46 个条目，就排 46 个：」 * 「 不凑整、不留空位、不留占位符、编号连续不跳号。」 * 这句把 `minIt"
+  ]
+ },
+ "S16": {
+  "mentionChars": 1701,
+  "nBlocks": 2,
+  "nLine": 0,
+  "samples": [
+   "/* 由 DNA 生成「填充好的」提示词（用户可直接粘给 AI） * * ── opts 的全部入口：一共 7 个键，逐个交代它们是不是活的 ────────────────── * 2026-10-27 逐个 grep 过（全库含 deliverables 下 200+ 个探针脚本）： * * b",
+   "/* 气质行：默认值恒为「一个安静、有手艺感的地方」是错的。 * 实测：S09「小店摆摊那种热闹」、S12「很吵」、S16「速度感」、S30「潮流有劲」—— * 提示词同时说了「要热闹」和「要安静、有手艺感」，两句互相抵消。 * 派生来源：window.SCHEMES 的 tone（7 个气质值，3"
+  ]
+ },
+ "S17": {
+  "mentionChars": 0,
+  "nBlocks": 0,
+  "nLine": 0,
+  "samples": []
+ },
+ "S18": {
+  "mentionChars": 9403,
+  "nBlocks": 4,
+  "nLine": 0,
+  "samples": [
+   "/* 字体：**不再猜**。prompts.js 里的 dna.fonts 已经是 {display, body, mono} 三个结构化字段， * 由生成器 deliverables/99-scratch/clean-dna.mjs 从各案 style.css 的 h1 规则 * 实际 font-",
+   "/* ── 这一案的版式是不是\"靠空位讲故事\"（任务 1 的检测器）──────────────── * * 为什么这个检测必须在 prompt-copy.js 里做、而不是去 data.js 加一个字段： * 本轮写作用域只允许改 prompt-copy.js（+ README 的 6 个数字），",
+   "/* ── 数量这三条：`count` 是**版式的设计规模**，不是用户的内容量 ───────── * * 2026-10-27 修（本轮）。改之前这里是： * 「1. 我实际有 46 个条目，就排 46 个：」 * 「 不凑整、不留空位、不留占位符、编号连续不跳号。」 * 这句把 `minIt"
+  ]
+ },
+ "S19": {
+  "mentionChars": 11294,
+  "nBlocks": 7,
+  "nLine": 0,
+  "samples": [
+   "/* 字体：**不再猜**。prompts.js 里的 dna.fonts 已经是 {display, body, mono} 三个结构化字段， * 由生成器 deliverables/99-scratch/clean-dna.mjs 从各案 style.css 的 h1 规则 * 实际 font-",
+   "/* ── 这一案的版式是不是\"靠空位讲故事\"（任务 1 的检测器）──────────────── * * 为什么这个检测必须在 prompt-copy.js 里做、而不是去 data.js 加一个字段： * 本轮写作用域只允许改 prompt-copy.js（+ README 的 6 个数字），",
+   "/* ── 数量这三条：`count` 是**版式的设计规模**，不是用户的内容量 ───────── * * 2026-10-27 修（本轮）。改之前这里是： * 「1. 我实际有 46 个条目，就排 46 个：」 * 「 不凑整、不留空位、不留占位符、编号连续不跳号。」 * 这句把 `minIt"
+  ]
+ },
+ "S20": {
+  "mentionChars": 0,
+  "nBlocks": 0,
+  "nLine": 0,
+  "samples": []
+ },
+ "S21": {
+  "mentionChars": 0,
+  "nBlocks": 0,
+  "nLine": 0,
+  "samples": []
+ },
+ "S22": {
+  "mentionChars": 1693,
+  "nBlocks": 1,
+  "nLine": 0,
+  "samples": [
+   "/* ⚠️ 原句「建议先看详情里的「不适合」」指向一个**不存在的字段**。 * 实测 `data.js` 的 30 条记录共 31 个键，没有任何一个叫「不适合」； * 真相是\"不适合…\"这句话被拼在 `scenes` 字段 value 的尾部， * 详情面板里落在「适用场景」段末，距面板顶 29"
+  ]
+ },
+ "S23": {
+  "mentionChars": 11271,
+  "nBlocks": 6,
+  "nLine": 0,
+  "samples": [
+   "/* 字体：**不再猜**。prompts.js 里的 dna.fonts 已经是 {display, body, mono} 三个结构化字段， * 由生成器 deliverables/99-scratch/clean-dna.mjs 从各案 style.css 的 h1 规则 * 实际 font-",
+   "/* 字体行：必须写出**完整兜底链**，不能只给第一个族名。 * * 2026-10-26 补。独立验证 Agent 干了件很硬的事：它只拿提示词、不看原型， * 照做了 S07/S30/S23 三份实现，然后用 CDP 的 CSS.getPlatformFontsForNode * 看「到底是谁",
+   "/* ── 这一案的版式是不是\"靠空位讲故事\"（任务 1 的检测器）──────────────── * * 为什么这个检测必须在 prompt-copy.js 里做、而不是去 data.js 加一个字段： * 本轮写作用域只允许改 prompt-copy.js（+ README 的 6 个数字），"
+  ]
+ },
+ "S24": {
+  "mentionChars": 6992,
+  "nBlocks": 2,
+  "nLine": 0,
+  "samples": [
+   "/* ── 这一案的版式是不是\"靠空位讲故事\"（任务 1 的检测器）──────────────── * * 为什么这个检测必须在 prompt-copy.js 里做、而不是去 data.js 加一个字段： * 本轮写作用域只允许改 prompt-copy.js（+ README 的 6 个数字），",
+   "/* ── 数量这三条：`count` 是**版式的设计规模**，不是用户的内容量 ───────── * * 2026-10-27 修（本轮）。改之前这里是： * 「1. 我实际有 46 个条目，就排 46 个：」 * 「 不凑整、不留空位、不留占位符、编号连续不跳号。」 * 这句把 `minIt"
+  ]
+ },
+ "S25": {
+  "mentionChars": 0,
+  "nBlocks": 0,
+  "nLine": 0,
+  "samples": []
+ },
+ "S26": {
+  "mentionChars": 0,
+  "nBlocks": 0,
+  "nLine": 0,
+  "samples": []
+ },
+ "S27": {
+  "mentionChars": 0,
+  "nBlocks": 0,
+  "nLine": 0,
+  "samples": []
+ },
+ "S28": {
+  "mentionChars": 0,
+  "nBlocks": 0,
+  "nLine": 0,
+  "samples": []
+ },
+ "S29": {
+  "mentionChars": 6992,
+  "nBlocks": 2,
+  "nLine": 0,
+  "samples": [
+   "/* ── 这一案的版式是不是\"靠空位讲故事\"（任务 1 的检测器）──────────────── * * 为什么这个检测必须在 prompt-copy.js 里做、而不是去 data.js 加一个字段： * 本轮写作用域只允许改 prompt-copy.js（+ README 的 6 个数字），",
+   "/* ── 数量这三条：`count` 是**版式的设计规模**，不是用户的内容量 ───────── * * 2026-10-27 修（本轮）。改之前这里是： * 「1. 我实际有 46 个条目，就排 46 个：」 * 「 不凑整、不留空位、不留占位符、编号连续不跳号。」 * 这句把 `minIt"
+  ]
+ },
+ "S30": {
+  "mentionChars": 9649,
+  "nBlocks": 5,
+  "nLine": 0,
+  "samples": [
+   "/* 字体行：必须写出**完整兜底链**，不能只给第一个族名。 * * 2026-10-26 补。独立验证 Agent 干了件很硬的事：它只拿提示词、不看原型， * 照做了 S07/S30/S23 三份实现，然后用 CDP 的 CSS.getPlatformFontsForNode * 看「到底是谁",
+   "/* 气质行：默认值恒为「一个安静、有手艺感的地方」是错的。 * 实测：S09「小店摆摊那种热闹」、S12「很吵」、S16「速度感」、S30「潮流有劲」—— * 提示词同时说了「要热闹」和「要安静、有手艺感」，两句互相抵消。 * 派生来源：window.SCHEMES 的 tone（7 个气质值，3",
+   "/* ── 这一案的版式是不是\"靠空位讲故事\"（任务 1 的检测器）──────────────── * * 为什么这个检测必须在 prompt-copy.js 里做、而不是去 data.js 加一个字段： * 本轮写作用域只允许改 prompt-copy.js（+ README 的 6 个数字），"
+  ]
+ }
+}

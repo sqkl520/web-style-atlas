@@ -1,0 +1,18 @@
+═══ A. 改前 / 改后：正则抽到的 risk 与 landing ═══
+  改前 risk 命中 30/30，landing 命中 30/30
+  改后 risk 命中 30/30，landing 命中 30/30
+  risk 值变化的案：无（30/30 逐字相同）
+  landing 值变化的案：无（30/30 逐字相同）
+
+═══ B. 关键问题：正则会不会因为 audit 挡在 risk 前面而"跨条吞"？ ═══
+  抽取值与 data.js 里 risk 字段的真实值比对：30/30 相同
+  landing 同理：30/30 相同
+
+═══ C. 顺序无关性：把 risk 挪到 audit 之前，正则还成立吗 ═══
+  键序 [audit < risk < landing]  → risk="RRR" landing="LLL" ✓
+  键序 [risk < audit < landing]  → risk="RRR" landing="LLL" ✓
+  键序 [landing < risk < audit]  → risk="RRR" landing="LLL" ✓
+
+═══ D. 关键判据：每次匹配是否**跨过了本条记录的 } 边界** ═══
+  检查 30 次匹配，跨条 0 次 ✓ 全部落在本条记录内
+  旁证：改后 data.js 的**序列化文本**里 "audit" 在 "risk" 之前的记录数 = 30/30

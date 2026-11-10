@@ -1,0 +1,16 @@
+﻿文档一致性：README.md ↔ data.js / prompts.js / prompt-copy.js
+  ✓ ids/exist            文档提到的方案编号全部存在（data.js 30 案）
+  ✓ nums/schemes         方案/原型总数 = 30，文档未出现别的总数
+  ✓ nums/gate            闸门 FAIL=0 的案数 = 26，与实测一致
+  ✓ nums/warn-axes       警告两轴：hard 4 / degrades 13 / 并集 14，文档口径一致
+  ✓ nums/prompt-len      提示词长度 = 1632–1920，中位 1822，文档一致
+  ✓ nums/scenes          场景词 44 / 直连 16 / 近似 28 / 标为没有 29，文档一致
+  ✓ status/fixed-claims  没有把已修项写成未修
+  ✓ status/layout-fix    layout 抽取 30/30 有值，S12/S15/S19 = 549/640/420 字
+  ✓ panel/fields         12 段字段（field() 11 + auditFold 1），audit 30/30 有值（276–444，中位 324，合计 10065），顺序 audit → risk，S13 = 306 字且无评审工件
+  ✓ i18n/facts           中英两版的关键事实一致（方案数 / 达标数 / 行业词数 / 提示词区间 / 警告并集）
+  ✓ paths/exist          文档里 15 条仓库路径全部存在
+  ✓ paths/templates      文档提到的模板编号都存在
+  ✓ regression/banned    6 条已腐化原话均未回归
+
+README.md: 0 FAIL / 0 WARN / 13 PASS

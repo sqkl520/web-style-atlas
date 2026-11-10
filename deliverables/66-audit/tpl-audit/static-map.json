@@ -1,0 +1,856 @@
+{
+ "counts": {
+  "sceneIndex": 44,
+  "unsupported": 29,
+  "overlap": [],
+  "union": 73
+ },
+ "templates": [
+  {
+   "id": "M01",
+   "title": "M01 清爽企业站",
+   "en": "Clean Corporate",
+   "href": "../../templates/M01-clean-corporate/",
+   "scenes": [
+    "律所",
+    "咨询",
+    "软件服务",
+    "设计工作室",
+    "代理商"
+   ],
+   "colors": [
+    "#FFFFFF",
+    "#1B3A5C",
+    "#EAF1F8",
+    "#12283F"
+   ],
+   "desc": "单页企业站：专业服务型公司用。白底、深石板靛蓝主色、信息密度克制。"
+  },
+  {
+   "id": "M02",
+   "title": "M02 暖调门店站",
+   "en": "Warm Local",
+   "href": "../../templates/M02-warm-local/",
+   "scenes": [
+    "餐厅",
+    "咖啡馆",
+    "烘焙",
+    "民宿",
+    "理发店",
+    "花店"
+   ],
+   "colors": [
+    "#FDF7EE",
+    "#7A3B12",
+    "#9C4A16",
+    "#2B1A0F"
+   ],
+   "desc": "一页式门店官网：本地实体店用。暖米白底、烤色深褐主色、标题衬线。"
+  },
+  {
+   "id": "M03",
+   "title": "M03 醒目作品集",
+   "en": "Bold Creator",
+   "href": "../../templates/M03-bold-creator/",
+   "scenes": [
+    "个人作品集",
+    "自由职业者",
+    "小型创意工作室",
+    "摄影师",
+    "设计师",
+    "写作者"
+   ],
+   "colors": [
+    "#0e0e10",
+    "#f2f2ef",
+    "#ff5c1a",
+    "#17171a"
+   ],
+   "desc": "个人作品集：近黑底、近白字、一个橙色强调色，大留白大字。"
+  }
+ ],
+ "tplAlias": {
+  "咖啡店": "咖啡馆",
+  "律师": "律所"
+ },
+ "tplAdjacentKeys": [
+  "甜品",
+  "修鞋理发",
+  "美甲",
+  "作品集",
+  "摄影",
+  "设计工作室"
+ ],
+ "stats": {
+  "indexWithDirect": 16,
+  "indexNearOnly": 28,
+  "unionTplExact": 7,
+  "unionTplAdjOnly": 5,
+  "unionTplNone": 61,
+  "unsupportedWithTplExact": 0
+ },
+ "rows": [
+  {
+   "term": "咖啡店",
+   "inIndex": true,
+   "direct": [
+    "S06"
+   ],
+   "near": [
+    "S19",
+    "S22",
+    "S09"
+   ],
+   "tplExact": [
+    "M02"
+   ],
+   "tplAdj": []
+  },
+  {
+   "term": "茶饮",
+   "inIndex": true,
+   "direct": [],
+   "near": [
+    "S06",
+    "S19"
+   ],
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "餐厅",
+   "inIndex": true,
+   "direct": [],
+   "near": [
+    "S09",
+    "S19"
+   ],
+   "tplExact": [
+    "M02"
+   ],
+   "tplAdj": []
+  },
+  {
+   "term": "烘焙",
+   "inIndex": true,
+   "direct": [
+    "S06"
+   ],
+   "near": [
+    "S09",
+    "S19"
+   ],
+   "tplExact": [
+    "M02"
+   ],
+   "tplAdj": []
+  },
+  {
+   "term": "书店",
+   "inIndex": true,
+   "direct": [],
+   "near": [
+    "S19",
+    "S22",
+    "S25"
+   ],
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "手作品牌",
+   "inIndex": true,
+   "direct": [
+    "S22"
+   ],
+   "near": [
+    "S06",
+    "S19",
+    "S25"
+   ],
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "设计工作室",
+   "inIndex": true,
+   "direct": [
+    "S08"
+   ],
+   "near": [
+    "S16",
+    "S28"
+   ],
+   "tplExact": [
+    "M01"
+   ],
+   "tplAdj": [
+    "M03"
+   ]
+  },
+  {
+   "term": "作品集",
+   "inIndex": true,
+   "direct": [
+    "S08",
+    "S16"
+   ],
+   "near": [
+    "S25",
+    "S28"
+   ],
+   "tplExact": [],
+   "tplAdj": [
+    "M03"
+   ]
+  },
+  {
+   "term": "内容媒体",
+   "inIndex": true,
+   "direct": [
+    "S01"
+   ],
+   "near": [
+    "S07",
+    "S25"
+   ],
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "博客",
+   "inIndex": true,
+   "direct": [],
+   "near": [
+    "S22"
+   ],
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "播客",
+   "inIndex": true,
+   "direct": [],
+   "near": [
+    "S06",
+    "S22"
+   ],
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "独立杂志",
+   "inIndex": true,
+   "direct": [
+    "S25"
+   ],
+   "near": [
+    "S07"
+   ],
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "出版",
+   "inIndex": true,
+   "direct": [
+    "S25"
+   ],
+   "near": [
+    "S07"
+   ],
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "展览",
+   "inIndex": true,
+   "direct": [
+    "S04"
+   ],
+   "near": [
+    "S23",
+    "S27"
+   ],
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "戏剧",
+   "inIndex": true,
+   "direct": [],
+   "near": [
+    "S27",
+    "S16"
+   ],
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "影展",
+   "inIndex": true,
+   "direct": [],
+   "near": [
+    "S27"
+   ],
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "文化节",
+   "inIndex": true,
+   "direct": [],
+   "near": [
+    "S27",
+    "S16"
+   ],
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "游戏",
+   "inIndex": true,
+   "direct": [
+    "S12"
+   ],
+   "near": [
+    "S30"
+   ],
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "潮牌",
+   "inIndex": true,
+   "direct": [
+    "S12"
+   ],
+   "near": [
+    "S30",
+    "S28"
+   ],
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "快闪",
+   "inIndex": true,
+   "direct": [],
+   "near": [
+    "S12",
+    "S30"
+   ],
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "音乐产品",
+   "inIndex": true,
+   "direct": [
+    "S28"
+   ],
+   "near": [
+    "S30"
+   ],
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "音频设备",
+   "inIndex": true,
+   "direct": [
+    "S28"
+   ],
+   "near": [
+    "S20"
+   ],
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "工业设备",
+   "inIndex": true,
+   "direct": [],
+   "near": [
+    "S29",
+    "S05"
+   ],
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "说明书",
+   "inIndex": true,
+   "direct": [],
+   "near": [
+    "S29",
+    "S11"
+   ],
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "开发者工具",
+   "inIndex": true,
+   "direct": [],
+   "near": [
+    "S14",
+    "S18"
+   ],
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "运维",
+   "inIndex": true,
+   "direct": [],
+   "near": [
+    "S18"
+   ],
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "数据看板",
+   "inIndex": true,
+   "direct": [],
+   "near": [
+    "S26",
+    "S03"
+   ],
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "档案",
+   "inIndex": true,
+   "direct": [],
+   "near": [
+    "S07",
+    "S11",
+    "S23"
+   ],
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "科普",
+   "inIndex": true,
+   "direct": [],
+   "near": [
+    "S24",
+    "S03"
+   ],
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "教育",
+   "inIndex": true,
+   "direct": [],
+   "near": [
+    "S24"
+   ],
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "修鞋理发",
+   "inIndex": true,
+   "direct": [
+    "S09"
+   ],
+   "near": [],
+   "tplExact": [],
+   "tplAdj": [
+    "M02"
+   ]
+  },
+  {
+   "term": "小吃店",
+   "inIndex": true,
+   "direct": [
+    "S09"
+   ],
+   "near": [],
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "市集",
+   "inIndex": true,
+   "direct": [
+    "S09"
+   ],
+   "near": [
+    "S04"
+   ],
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "花店",
+   "inIndex": true,
+   "direct": [],
+   "near": [
+    "S22",
+    "S19"
+   ],
+   "tplExact": [
+    "M02"
+   ],
+   "tplAdj": []
+  },
+  {
+   "term": "民宿",
+   "inIndex": true,
+   "direct": [],
+   "near": [
+    "S02",
+    "S22"
+   ],
+   "tplExact": [
+    "M02"
+   ],
+   "tplAdj": []
+  },
+  {
+   "term": "婚礼",
+   "inIndex": true,
+   "direct": [],
+   "near": [
+    "S02",
+    "S22"
+   ],
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "摄影",
+   "inIndex": true,
+   "direct": [],
+   "near": [
+    "S02",
+    "S08"
+   ],
+   "tplExact": [],
+   "tplAdj": [
+    "M03"
+   ]
+  },
+  {
+   "term": "健身",
+   "inIndex": true,
+   "direct": [],
+   "near": [
+    "S12",
+    "S30"
+   ],
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "宠物",
+   "inIndex": true,
+   "direct": [],
+   "near": [
+    "S30",
+    "S12"
+   ],
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "诊所",
+   "inIndex": true,
+   "direct": [],
+   "near": [
+    "S13",
+    "S29"
+   ],
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "律师",
+   "inIndex": true,
+   "direct": [],
+   "near": [
+    "S13",
+    "S11"
+   ],
+   "tplExact": [
+    "M01"
+   ],
+   "tplAdj": []
+  },
+  {
+   "term": "会计",
+   "inIndex": true,
+   "direct": [],
+   "near": [
+    "S17"
+   ],
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "招聘",
+   "inIndex": true,
+   "direct": [],
+   "near": [
+    "S07",
+    "S11"
+   ],
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "非营利",
+   "inIndex": true,
+   "direct": [],
+   "near": [
+    "S23",
+    "S04"
+   ],
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "电商",
+   "inIndex": false,
+   "direct": null,
+   "near": null,
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "网店",
+   "inIndex": false,
+   "direct": null,
+   "near": null,
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "服装",
+   "inIndex": false,
+   "direct": null,
+   "near": null,
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "乐队",
+   "inIndex": false,
+   "direct": null,
+   "near": null,
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "家教",
+   "inIndex": false,
+   "direct": null,
+   "near": null,
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "培训",
+   "inIndex": false,
+   "direct": null,
+   "near": null,
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "独立开发者",
+   "inIndex": false,
+   "direct": null,
+   "near": null,
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "个人主页",
+   "inIndex": false,
+   "direct": null,
+   "near": null,
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "简历",
+   "inIndex": false,
+   "direct": null,
+   "near": null,
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "社团",
+   "inIndex": false,
+   "direct": null,
+   "near": null,
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "捐款",
+   "inIndex": false,
+   "direct": null,
+   "near": null,
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "甜品",
+   "inIndex": false,
+   "direct": null,
+   "near": null,
+   "tplExact": [],
+   "tplAdj": [
+    "M02"
+   ]
+  },
+  {
+   "term": "酒吧",
+   "inIndex": false,
+   "direct": null,
+   "near": null,
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "美甲",
+   "inIndex": false,
+   "direct": null,
+   "near": null,
+   "tplExact": [],
+   "tplAdj": [
+    "M02"
+   ]
+  },
+  {
+   "term": "展会",
+   "inIndex": false,
+   "direct": null,
+   "near": null,
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "政务",
+   "inIndex": false,
+   "direct": null,
+   "near": null,
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "金融",
+   "inIndex": false,
+   "direct": null,
+   "near": null,
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "医疗",
+   "inIndex": false,
+   "direct": null,
+   "near": null,
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "地产",
+   "inIndex": false,
+   "direct": null,
+   "near": null,
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "旅游",
+   "inIndex": false,
+   "direct": null,
+   "near": null,
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "汽车",
+   "inIndex": false,
+   "direct": null,
+   "near": null,
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "母婴",
+   "inIndex": false,
+   "direct": null,
+   "near": null,
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "儿童",
+   "inIndex": false,
+   "direct": null,
+   "near": null,
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "时尚",
+   "inIndex": false,
+   "direct": null,
+   "near": null,
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "美妆",
+   "inIndex": false,
+   "direct": null,
+   "near": null,
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "数码",
+   "inIndex": false,
+   "direct": null,
+   "near": null,
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "家居",
+   "inIndex": false,
+   "direct": null,
+   "near": null,
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "农业",
+   "inIndex": false,
+   "direct": null,
+   "near": null,
+   "tplExact": [],
+   "tplAdj": []
+  },
+  {
+   "term": "物流",
+   "inIndex": false,
+   "direct": null,
+   "near": null,
+   "tplExact": [],
+   "tplAdj": []
+  }
+ ]
+}

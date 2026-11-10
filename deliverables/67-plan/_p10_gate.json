@@ -1,0 +1,237 @@
+{
+ "390": {
+  "BASE": {
+   "findings": [
+    {
+     "level": "FAIL",
+     "id": "emoji",
+     "width": 390,
+     "message": "Emoji in the page: ⚠",
+     "fix": "Remove. Use words or real imagery."
+    },
+    {
+     "level": "FAIL",
+     "id": "body-size",
+     "width": 390,
+     "message": "Body text is 13px (the size most of the running text is set in).",
+     "fix": "Body copy 16–20px. Map small sizes from blueprints onto your body step."
+    },
+    {
+     "level": "FAIL",
+     "id": "small-text",
+     "width": 390,
+     "message": "30 text blocks under 13px.",
+     "fix": "Nothing meant to be read goes below 13px."
+    }
+   ],
+   "heroVw": 6.7,
+   "heroSize": 26,
+   "heroLines": 1,
+   "smallText": 30,
+   "sizeCount": 9,
+   "sizes": [
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    20,
+    24,
+    26
+   ],
+   "bodySize": 13,
+   "buttonsInHero": 3
+  },
+  "A5": {
+   "findings": [
+    {
+     "level": "FAIL",
+     "id": "emoji",
+     "width": 390,
+     "message": "Emoji in the page: ⚠",
+     "fix": "Remove. Use words or real imagery."
+    },
+    {
+     "level": "WARN",
+     "id": "size-count",
+     "width": 390,
+     "message": "10 different font sizes (10, 11, 12, 13, 14, 15, 16, 17, 20, 26).",
+     "fix": "A page needs about five: display, heading, lead, body, small."
+    },
+    {
+     "level": "FAIL",
+     "id": "body-size",
+     "width": 390,
+     "message": "Body text is 13px (the size most of the running text is set in).",
+     "fix": "Body copy 16–20px. Map small sizes from blueprints onto your body step."
+    },
+    {
+     "level": "FAIL",
+     "id": "small-text",
+     "width": 390,
+     "message": "32 text blocks under 13px.",
+     "fix": "Nothing meant to be read goes below 13px."
+    }
+   ],
+   "heroVw": 6.7,
+   "heroSize": 26,
+   "heroLines": 1,
+   "smallText": 32,
+   "sizeCount": 10,
+   "sizes": [
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    20,
+    26
+   ],
+   "bodySize": 13,
+   "buttonsInHero": 4
+  }
+ },
+ "1440": {
+  "BASE": {
+   "findings": [
+    {
+     "level": "FAIL",
+     "id": "emoji",
+     "width": 1440,
+     "message": "Emoji in the page: ⚠",
+     "fix": "Remove. Use words or real imagery."
+    },
+    {
+     "level": "FAIL",
+     "id": "body-size",
+     "width": 1440,
+     "message": "Body text is 13px (the size most of the running text is set in).",
+     "fix": "Body copy 16–20px. Map small sizes from blueprints onto your body step."
+    },
+    {
+     "level": "WARN",
+     "id": "no-footage",
+     "width": 1440,
+     "message": "No video anywhere on the page.",
+     "fix": "Look for one honest clip with scripts/assets.mjs --video (the place, the material, the process) and use it as a muted loop with a poster frame. Defend its absence only if no clip fits the subject."
+    },
+    {
+     "level": "WARN",
+     "id": "measure",
+     "width": 1440,
+     "message": "Longest paragraph runs about 109 characters per line.",
+     "fix": "Cap paragraphs at 45–75 characters (max-width: 60ch)."
+    },
+    {
+     "level": "FAIL",
+     "id": "small-text",
+     "width": 1440,
+     "message": "30 text blocks under 13px.",
+     "fix": "Nothing meant to be read goes below 13px."
+    },
+    {
+     "level": "FAIL",
+     "id": "focal-point",
+     "width": 1440,
+     "message": "The first screen has no dominant element: the largest type is 56px (3.9vw) and no single picture holds a third of the viewport.",
+     "fix": "Make one thing lead: the headline at display size, or one large picture. A grid of many small pictures is not one thing; in blind tests jurors marked a first screen without a headline down every time. On the strongest studied sites the largest type has a median of 8.4vw."
+    }
+   ],
+   "heroVw": 3.9,
+   "heroSize": 56,
+   "heroLines": 1,
+   "smallText": 30,
+   "sizeCount": 9,
+   "sizes": [
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    20,
+    24,
+    56
+   ],
+   "bodySize": 13,
+   "buttonsInHero": 4
+  },
+  "A5": {
+   "findings": [
+    {
+     "level": "FAIL",
+     "id": "emoji",
+     "width": 1440,
+     "message": "Emoji in the page: ⚠",
+     "fix": "Remove. Use words or real imagery."
+    },
+    {
+     "level": "WARN",
+     "id": "size-count",
+     "width": 1440,
+     "message": "11 different font sizes (10, 11, 12, 13, 14, 15, 16, 17, 20, 24, 26).",
+     "fix": "A page needs about five: display, heading, lead, body, small."
+    },
+    {
+     "level": "FAIL",
+     "id": "body-size",
+     "width": 1440,
+     "message": "Body text is 13px (the size most of the running text is set in).",
+     "fix": "Body copy 16–20px. Map small sizes from blueprints onto your body step."
+    },
+    {
+     "level": "WARN",
+     "id": "no-footage",
+     "width": 1440,
+     "message": "No video anywhere on the page.",
+     "fix": "Look for one honest clip with scripts/assets.mjs --video (the place, the material, the process) and use it as a muted loop with a poster frame. Defend its absence only if no clip fits the subject."
+    },
+    {
+     "level": "WARN",
+     "id": "measure",
+     "width": 1440,
+     "message": "Longest paragraph runs about 110 characters per line.",
+     "fix": "Cap paragraphs at 45–75 characters (max-width: 60ch)."
+    },
+    {
+     "level": "FAIL",
+     "id": "small-text",
+     "width": 1440,
+     "message": "32 text blocks under 13px.",
+     "fix": "Nothing meant to be read goes below 13px."
+    },
+    {
+     "level": "FAIL",
+     "id": "focal-point",
+     "width": 1440,
+     "message": "The first screen has no dominant element: the largest type is 26px (1.8vw) and no single picture holds a third of the viewport.",
+     "fix": "Make one thing lead: the headline at display size, or one large picture. A grid of many small pictures is not one thing; in blind tests jurors marked a first screen without a headline down every time. On the strongest studied sites the largest type has a median of 8.4vw."
+    }
+   ],
+   "heroVw": 1.8,
+   "heroSize": 26,
+   "heroLines": 1,
+   "smallText": 32,
+   "sizeCount": 11,
+   "sizes": [
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    20,
+    24,
+    26
+   ],
+   "bodySize": 13,
+   "buttonsInHero": 4
+  }
+ }
+}

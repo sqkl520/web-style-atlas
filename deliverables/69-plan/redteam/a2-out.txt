@@ -1,0 +1,35 @@
+﻿| id | panel claim | observed repeat | minItems claim/actual | pics claim/actual |
+S01 | 6 个条目            | true    | 6/6 OK         | -           
+S02 | 16 个条目           | true    | 5/16 MISMATCH  | -           
+S03 | 8 个条目            | true    | 8/8 OK         | -           
+S04 | 9 个条目            | true    | 9/9 OK         | -           
+S05 | 8 个条目            | true    | 6/8 MISMATCH   | -           
+S06 | 13 个条目           | true    | 7/13 MISMATCH  | -           
+S07 | 46 个条目           | true    | 7/46 MISMATCH  | -           
+S08 | 6 个条目            | true    | 4/6 MISMATCH   | -           
+S09 | 10 个条目           | true    | 6/10 MISMATCH  | -           
+S10 | 12 个条目           | true    | 6/12 MISMATCH  | -           
+S11 | 12 个条目           | true    | 8/12 MISMATCH  | -           
+S12 | 7 个条目            | true    | 6/7 MISMATCH   | -           
+S13 | 7 个条目            | true    | 4/7 MISMATCH   | -           
+S14 | 11 个条目           | true    | 10/11 MISMATCH | -           
+S15 | 14 个条目           | false   | 6/14 MISMATCH  | -           
+S16 | 9 个条目            | true    | 6/9 MISMATCH   | -           
+S17 | 27 个条目           | true    | 5/27 MISMATCH  | -           
+S18 | 20 个条目           | false   | 6/20 MISMATCH  | -           
+S19 | 20 块面板分 5 行      | true    | 6/20 MISMATCH  | -           
+S20 | 6 个条目            | true    | 6/6 OK         | -           
+S21 | 14 个条目           | false   | 6/14 MISMATCH  | -           
+S22 | 6 个条目            | true    | 6/6 OK         | -           
+S23 | 9 个条目            | true    | 10/9 MISMATCH  | -           
+S24 | 6 个条目            | true    | 6/6 OK         | -           
+S25 | 8 个条目            | true    | 5/8 MISMATCH   | -           
+S26 | 8 个条目            | true    | 6/8 MISMATCH   | -           
+S27 | 7 个条目            | true    | 6/7 MISMATCH   | -           
+S28 | 12 个条目           | true    | 6/12 MISMATCH  | -           
+S29 | 23 个条目           | false   | 6/23 MISMATCH  | -           
+S30 | 10 个条目           | true    | 6/10 MISMATCH  | -           
+
+minItems mismatches: S02(5vs16) S05(6vs8) S06(7vs13) S07(7vs46) S08(4vs6) S09(6vs10) S10(6vs12) S11(8vs12) S12(6vs7) S13(4vs7) S14(10vs11) S15(6vs14) S16(6vs9) S17(5vs27) S18(6vs20) S19(6vs20) S21(6vs14) S23(10vs9) S25(5vs8) S26(6vs8) S27(6vs7) S28(6vs12) S29(6vs23) S30(6vs10)
+pics short: 
+panel claim not observed: S15[14 个条目] S18[20 个条目] S21[14 个条目] S29[23 个条目]

@@ -1,0 +1,12 @@
+import { readFileSync } from 'node:fs';
+const f = 'prototypes/_selection/style.css';
+const raw = readFileSync(f, 'utf8');
+const L = raw.split(/\r?\n/);
+console.log('file bytes', Buffer.byteLength(raw), 'lines', L.length);
+const show = (n) => console.log(`  ${n}: ${L[n - 1]}`);
+console.log('\n-- linear-gradient / box-shadow / repeating --');
+L.forEach((l, i) => { if (/linear-gradient|box-shadow|repeating-linear/.test(l)) console.log(`  ${i + 1}: ${l.trim().slice(0, 100)}`); });
+console.log('\n-- lines 430..440 --'); for (let n = 430; n <= 440; n++) show(n);
+console.log('\n-- lines 955..965 --'); for (let n = 955; n <= 965; n++) show(n);
+console.log('\n-- lines 123..127 --'); for (let n = 123; n <= 127; n++) show(n);
+console.log('\n-- lines 465..472 --'); for (let n = 465; n <= 472; n++) show(n);

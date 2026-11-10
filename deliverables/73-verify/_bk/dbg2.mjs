@@ -1,0 +1,21 @@
+﻿import { readFileSync, writeFileSync } from "node:fs";
+import { createHash } from "node:crypto";
+import { execSync } from "node:child_process";
+const CON="D:/Web/style/prototypes/_CONTRACT.md";
+const orig=readFileSync(CON); const h=(b)=>createHash("sha256").update(b).digest("hex");
+const s=orig.toString("utf8");
+const anchor="| **不得横向溢出** |";
+console.log("anchor count:", s.split(anchor).length-1);
+const ins=s.replace(anchor,"| `shadow` | X | Y |\n"+anchor);
+console.log("changed:", ins!==s);
+writeFileSync(CON, ins, "utf8");
+const now=readFileSync(CON,"utf8");
+const i=now.indexOf("9.15"), j=now.indexOf("9.16",i);
+console.log("first 9.15 at char", i, "line", now.slice(0,i).split("\n").length);
+console.log("window lines:", now.slice(i,j).split(/\r?\n/).length);
+const re=/^\|\s*`([\w-]+)`\s*\|/;
+console.log("matches:", now.slice(i,j).split(/\r?\n/).filter(l=>re.test(l)).map(l=>l.match(re)[1]).join(","));
+let out; try{ out=execSync("node prototypes/_build/check-contract.mjs",{cwd:"D:/Web/style",encoding:"utf8"});}catch(e){out=e.stdout;}
+console.log(out.split(/\r?\n/).filter(l=>/允许表\(|C2 允许|C3 登记/.test(l)).join("\n"));
+writeFileSync(CON, orig);
+console.log("restored:", h(readFileSync(CON))===h(orig));

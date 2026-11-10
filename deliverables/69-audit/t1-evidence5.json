@@ -1,0 +1,1073 @@
+{
+ "S09": {
+  "id": "S09",
+  "dir": "S09-batik-price-board",
+  "decls": [
+   {
+    "line": 215,
+    "sel": ".btn",
+    "prop": "border",
+    "rawV": "0",
+    "resolved": "0",
+    "nums": []
+   },
+   {
+    "line": 222,
+    "sel": ".btn:focus-visible",
+    "prop": "outline",
+    "rawV": "3px solid var(--ink)",
+    "resolved": "3px solid #151310",
+    "nums": [
+     3
+    ]
+   },
+   {
+    "line": 231,
+    "sel": ".cat",
+    "prop": "border",
+    "rawV": "2px solid var(--ink)",
+    "resolved": "2px solid #151310",
+    "nums": [
+     2
+    ]
+   },
+   {
+    "line": 237,
+    "sel": ".cat:focus-visible",
+    "prop": "outline",
+    "rawV": "3px solid var(--blue)",
+    "resolved": "3px solid #1F4E79",
+    "nums": [
+     3
+    ]
+   },
+   {
+    "line": 282,
+    "sel": "#stroke-outer",
+    "prop": "stroke-width",
+    "rawV": "3.5",
+    "resolved": "3.5",
+    "nums": [
+     3.5
+    ]
+   },
+   {
+    "line": 283,
+    "sel": "#stroke-inner",
+    "prop": "stroke-width",
+    "rawV": "2",
+    "resolved": "2",
+    "nums": [
+     2
+    ]
+   },
+   {
+    "line": 368,
+    "sel": ".ico path",
+    "prop": "stroke-width",
+    "rawV": "3.6",
+    "resolved": "3.6",
+    "nums": [
+     3.6
+    ]
+   }
+  ],
+  "inline": [],
+  "varsOfInterest": {
+   "--line": "8px",
+   "--note-w": "96px",
+   "--price-w": "124px"
+  }
+ },
+ "S10": {
+  "id": "S10",
+  "dir": "S10-grid-versus-sheet",
+  "decls": [
+   {
+    "line": 71,
+    "sel": ":focus-visible",
+    "prop": "outline",
+    "rawV": "2px solid var(--red)",
+    "resolved": "2px solid #D32029",
+    "nums": [
+     2
+    ]
+   },
+   {
+    "line": 104,
+    "sel": ".reg",
+    "prop": "stroke-width",
+    "rawV": "var(--reg-w)",
+    "resolved": "1.25px",
+    "nums": [
+     1.25
+    ]
+   },
+   {
+    "line": 117,
+    "sel": ".masthead",
+    "prop": "border-bottom",
+    "rawV": "2px solid var(--ink)",
+    "resolved": "2px solid #17171A",
+    "nums": [
+     2
+    ]
+   },
+   {
+    "line": 150,
+    "sel": ".btn",
+    "prop": "border",
+    "rawV": "0",
+    "resolved": "0",
+    "nums": []
+   },
+   {
+    "line": 178,
+    "sel": ".chip",
+    "prop": "border",
+    "rawV": "0",
+    "resolved": "0",
+    "nums": []
+   },
+   {
+    "line": 187,
+    "sel": ".section-head",
+    "prop": "border-top",
+    "rawV": "2px solid var(--ink)",
+    "resolved": "2px solid #17171A",
+    "nums": [
+     2
+    ]
+   },
+   {
+    "line": 197,
+    "sel": ".plate-rules line",
+    "prop": "stroke-width",
+    "rawV": "var(--column-rule)",
+    "resolved": "1.25px",
+    "nums": [
+     1.25
+    ]
+   },
+   {
+    "line": 218,
+    "sel": ".grid-table th",
+    "prop": "border-bottom",
+    "rawV": "2px solid var(--ink)",
+    "resolved": "2px solid #17171A",
+    "nums": [
+     2
+    ]
+   },
+   {
+    "line": 222,
+    "sel": ".grid-table tbody td",
+    "prop": "border-bottom",
+    "rawV": "var(--column-rule) solid var(--grey-soft)",
+    "resolved": "1.25px solid #B6B4AE",
+    "nums": [
+     1.25
+    ]
+   },
+   {
+    "line": 225,
+    "sel": ".grid-table th + th, .grid-table td + td",
+    "prop": "border-left",
+    "rawV": "var(--column-rule) solid var(--grey)",
+    "resolved": "1.25px solid #6E7076",
+    "nums": [
+     1.25
+    ]
+   },
+   {
+    "line": 227,
+    "sel": ".grid-table th:nth-child(4), .grid-table td:nth-child(4)",
+    "prop": "border-right",
+    "rawV": "var(--column-rule) solid var(--grey)",
+    "resolved": "1.25px solid #6E7076",
+    "nums": [
+     1.25
+    ]
+   },
+   {
+    "line": 234,
+    "sel": ".grid-table th:nth-child(5), .grid-table td:nth-child(5)",
+    "prop": "border-left",
+    "rawV": "1.5px solid var(--paper)",
+    "resolved": "1.5px solid #F2EFE8",
+    "nums": [
+     1.5
+    ]
+   },
+   {
+    "line": 245,
+    "sel": ".grid-table tfoot td",
+    "prop": "border-top",
+    "rawV": "2px solid var(--ink)",
+    "resolved": "2px solid #17171A",
+    "nums": [
+     2
+    ]
+   },
+   {
+    "line": 270,
+    "sel": ".cell-no::after",
+    "prop": "border-right",
+    "rawV": "var(--reg-w) solid var(--ink)",
+    "resolved": "1.25px solid #17171A",
+    "nums": [
+     1.25
+    ]
+   },
+   {
+    "line": 271,
+    "sel": ".cell-no::after",
+    "prop": "border-bottom",
+    "rawV": "var(--reg-w) solid var(--ink)",
+    "resolved": "1.25px solid #17171A",
+    "nums": [
+     1.25
+    ]
+   },
+   {
+    "line": 326,
+    "sel": ".plate figcaption",
+    "prop": "border-top",
+    "rawV": "2px solid var(--ink)",
+    "resolved": "2px solid #17171A",
+    "nums": [
+     2
+    ]
+   },
+   {
+    "line": 346,
+    "sel": ".quote",
+    "prop": "border-left",
+    "rawV": "2px solid var(--red)",
+    "resolved": "2px solid #D32029",
+    "nums": [
+     2
+    ]
+   },
+   {
+    "line": 360,
+    "sel": ".regscale figcaption",
+    "prop": "border-top",
+    "rawV": "2px solid var(--ink)",
+    "resolved": "2px solid #17171A",
+    "nums": [
+     2
+    ]
+   },
+   {
+    "line": 372,
+    "sel": "footer",
+    "prop": "border-top",
+    "rawV": "2px solid var(--ink)",
+    "resolved": "2px solid #17171A",
+    "nums": [
+     2
+    ]
+   },
+   {
+    "line": 526,
+    "sel": ".grid-table tbody td:nth-child(-n+4), .grid-table tfoot td:nth-child(-n+4)",
+    "prop": "border-left",
+    "rawV": "0",
+    "resolved": "0",
+    "nums": []
+   },
+   {
+    "line": 527,
+    "sel": ".grid-table tbody td:nth-child(4), .grid-table tfoot td:nth-child(4)",
+    "prop": "border-right",
+    "rawV": "0",
+    "resolved": "0",
+    "nums": []
+   }
+  ],
+  "inline": [
+   {
+    "line": 57,
+    "val": "1.25",
+    "near": ""
+   },
+   {
+    "line": 277,
+    "val": "1.25",
+    "near": "class=\"glyphs\""
+   },
+   {
+    "line": 278,
+    "val": "1.25",
+    "near": ""
+   },
+   {
+    "line": 280,
+    "val": "1.25",
+    "near": ""
+   },
+   {
+    "line": 350,
+    "val": "2",
+    "near": ""
+   }
+  ],
+  "varsOfInterest": {
+   "--column-rule": "1.25px",
+   "--reg-w": "1.25px"
+  }
+ },
+ "S15": {
+  "id": "S15",
+  "dir": "S15-fishery-floor-ledger",
+  "decls": [
+   {
+    "line": 65,
+    "sel": ".strip",
+    "prop": "border-bottom",
+    "rawV": "3px solid var(--pencil)",
+    "resolved": "3px solid #7A7466",
+    "nums": [
+     3
+    ]
+   },
+   {
+    "line": 72,
+    "sel": ".strip__item--fault.is-lit",
+    "prop": "outline",
+    "rawV": "2px solid var(--paper)",
+    "resolved": "2px solid #E7EBE9",
+    "nums": [
+     2
+    ]
+   },
+   {
+    "line": 114,
+    "sel": ".btn",
+    "prop": "border",
+    "rawV": "0",
+    "resolved": "0",
+    "nums": []
+   },
+   {
+    "line": 119,
+    "sel": ".btn--ghost",
+    "prop": "border",
+    "rawV": "2px solid var(--graphite)",
+    "resolved": "2px solid #3A3F45",
+    "nums": [
+     2
+    ]
+   },
+   {
+    "line": 185,
+    "sel": ".ink--frame",
+    "prop": "stroke-width",
+    "rawV": "var(--ink12)",
+    "resolved": "1.2px",
+    "nums": [
+     1.2
+    ]
+   },
+   {
+    "line": 186,
+    "sel": ".ink--base",
+    "prop": "stroke-width",
+    "rawV": "0.8",
+    "resolved": "0.8",
+    "nums": [
+     0.8
+    ]
+   },
+   {
+    "line": 187,
+    "sel": ".ink--pencil",
+    "prop": "stroke-width",
+    "rawV": "0.8",
+    "resolved": "0.8",
+    "nums": [
+     0.8
+    ]
+   },
+   {
+    "line": 188,
+    "sel": ".ink--rev",
+    "prop": "stroke-width",
+    "rawV": "0.8",
+    "resolved": "0.8",
+    "nums": [
+     0.8
+    ]
+   },
+   {
+    "line": 190,
+    "sel": ".ink--c1",
+    "prop": "stroke-width",
+    "rawV": "0.8",
+    "resolved": "0.8",
+    "nums": [
+     0.8
+    ]
+   },
+   {
+    "line": 191,
+    "sel": ".ink--c2",
+    "prop": "stroke-width",
+    "rawV": "1",
+    "resolved": "1",
+    "nums": [
+     1
+    ]
+   },
+   {
+    "line": 192,
+    "sel": ".ink--c3",
+    "prop": "stroke-width",
+    "rawV": "1.2",
+    "resolved": "1.2",
+    "nums": [
+     1.2
+    ]
+   },
+   {
+    "line": 201,
+    "sel": ".hot .edge",
+    "prop": "stroke-width",
+    "rawV": "0.8",
+    "resolved": "0.8",
+    "nums": [
+     0.8
+    ]
+   },
+   {
+    "line": 205,
+    "sel": ".hot .ring",
+    "prop": "stroke-width",
+    "rawV": "0.5",
+    "resolved": "0.5",
+    "nums": [
+     0.5
+    ]
+   },
+   {
+    "line": 208,
+    "sel": ".hot:hover .edge, .hot:focus-visible .edge, .stack.is-cued .hot .edge",
+    "prop": "stroke-width",
+    "rawV": "1.2",
+    "resolved": "1.2",
+    "nums": [
+     1.2
+    ]
+   },
+   {
+    "line": 210,
+    "sel": ".hot:focus-visible",
+    "prop": "outline",
+    "rawV": "2px solid var(--press)",
+    "resolved": "2px solid #22282B",
+    "nums": [
+     2
+    ]
+   },
+   {
+    "line": 237,
+    "sel": ".sw__p",
+    "prop": "stroke-width",
+    "rawV": "0.8",
+    "resolved": "0.8",
+    "nums": [
+     0.8
+    ]
+   },
+   {
+    "line": 240,
+    "sel": ".legend__lines li.is-cued .sw__p",
+    "prop": "stroke-width",
+    "rawV": "1.2",
+    "resolved": "1.2",
+    "nums": [
+     1.2
+    ]
+   },
+   {
+    "line": 245,
+    "sel": ".plan-notes li",
+    "prop": "border-left",
+    "rawV": "3px solid var(--pencil)",
+    "resolved": "3px solid #7A7466",
+    "nums": [
+     3
+    ]
+   },
+   {
+    "line": 250,
+    "sel": ".layers li",
+    "prop": "border-left",
+    "rawV": "3px solid var(--pencil)",
+    "resolved": "3px solid #7A7466",
+    "nums": [
+     3
+    ]
+   },
+   {
+    "line": 258,
+    "sel": ".yb",
+    "prop": "border",
+    "rawV": "2px solid var(--graphite)",
+    "resolved": "2px solid #3A3F45",
+    "nums": [
+     2
+    ]
+   },
+   {
+    "line": 271,
+    "sel": ".folds details",
+    "prop": "border-left",
+    "rawV": "3px solid var(--pencil)",
+    "resolved": "3px solid #7A7466",
+    "nums": [
+     3
+    ]
+   },
+   {
+    "line": 292,
+    "sel": ".alert",
+    "prop": "border-left",
+    "rawV": "3px solid var(--pencil)",
+    "resolved": "3px solid #7A7466",
+    "nums": [
+     3
+    ]
+   },
+   {
+    "line": 297,
+    "sel": ".trace-error.is-lit .alert",
+    "prop": "outline",
+    "rawV": "2px solid var(--pencil)",
+    "resolved": "2px solid #7A7466",
+    "nums": [
+     2
+    ]
+   },
+   {
+    "line": 301,
+    "sel": ".packet",
+    "prop": "border-left",
+    "rawV": "3px solid var(--pencil)",
+    "resolved": "3px solid #7A7466",
+    "nums": [
+     3
+    ]
+   },
+   {
+    "line": 306,
+    "sel": ".zones__table th, .zones__table td",
+    "prop": "border-bottom",
+    "rawV": "2px solid #C3C9C7",
+    "resolved": "2px solid #C3C9C7",
+    "nums": [
+     2
+    ]
+   },
+   {
+    "line": 307,
+    "sel": ".zones__table thead th",
+    "prop": "border-bottom",
+    "rawV": "0",
+    "resolved": "0",
+    "nums": []
+   },
+   {
+    "line": 312,
+    "sel": ".matrix th, .matrix td",
+    "prop": "border-bottom",
+    "rawV": "2px solid #C3C9C7",
+    "resolved": "2px solid #C3C9C7",
+    "nums": [
+     2
+    ]
+   },
+   {
+    "line": 313,
+    "sel": ".matrix thead th",
+    "prop": "border-bottom",
+    "rawV": "0",
+    "resolved": "0",
+    "nums": []
+   },
+   {
+    "line": 319,
+    "sel": ".weights th, .weights td",
+    "prop": "border-bottom",
+    "rawV": "2px solid #C3C9C7",
+    "resolved": "2px solid #C3C9C7",
+    "nums": [
+     2
+    ]
+   },
+   {
+    "line": 320,
+    "sel": ".weights thead th",
+    "prop": "border-bottom",
+    "rawV": "0",
+    "resolved": "0",
+    "nums": []
+   },
+   {
+    "line": 327,
+    "sel": ".empty",
+    "prop": "border-left",
+    "rawV": "3px solid var(--pencil)",
+    "resolved": "3px solid #7A7466",
+    "nums": [
+     3
+    ]
+   },
+   {
+    "line": 353,
+    "sel": ".spec__cell",
+    "prop": "border-left",
+    "rawV": "3px solid var(--pencil)",
+    "resolved": "3px solid #7A7466",
+    "nums": [
+     3
+    ]
+   },
+   {
+    "line": 356,
+    "sel": ".degrade",
+    "prop": "border-top",
+    "rawV": "3px solid var(--pencil)",
+    "resolved": "3px solid #7A7466",
+    "nums": [
+     3
+    ]
+   },
+   {
+    "line": 424,
+    "sel": ".hot .edge",
+    "prop": "stroke-width",
+    "rawV": "1.4",
+    "resolved": "1.4",
+    "nums": [
+     1.4
+    ]
+   },
+   {
+    "line": 425,
+    "sel": ".hot .ring",
+    "prop": "stroke-width",
+    "rawV": "1.2",
+    "resolved": "1.2",
+    "nums": [
+     1.2
+    ]
+   },
+   {
+    "line": 426,
+    "sel": ".plate use",
+    "prop": "stroke-width",
+    "rawV": "calc(0.8px * 1.7)",
+    "resolved": "1.36px",
+    "nums": [
+     1.36
+    ]
+   },
+   {
+    "line": 427,
+    "sel": ".ink--frame, .ink--c3",
+    "prop": "stroke-width",
+    "rawV": "2px",
+    "resolved": "2px",
+    "nums": [
+     2
+    ]
+   },
+   {
+    "line": 428,
+    "sel": ".ink--c2",
+    "prop": "stroke-width",
+    "rawV": "1.7px",
+    "resolved": "1.7px",
+    "nums": [
+     1.7
+    ]
+   },
+   {
+    "line": 429,
+    "sel": ".ink--c1",
+    "prop": "stroke-width",
+    "rawV": "1.4px",
+    "resolved": "1.4px",
+    "nums": [
+     1.4
+    ]
+   },
+   {
+    "line": 468,
+    "sel": ".matrix tr",
+    "prop": "border-bottom",
+    "rawV": "2px solid #C3C9C7",
+    "resolved": "2px solid #C3C9C7",
+    "nums": [
+     2
+    ]
+   },
+   {
+    "line": 470,
+    "sel": ".matrix tbody tr:last-child",
+    "prop": "border-bottom",
+    "rawV": "0",
+    "resolved": "0",
+    "nums": []
+   },
+   {
+    "line": 471,
+    "sel": ".matrix th, .matrix td",
+    "prop": "border-bottom",
+    "rawV": "0",
+    "resolved": "0",
+    "nums": []
+   }
+  ],
+  "inline": [
+   {
+    "line": 94,
+    "val": "1.2",
+    "near": "id=\"g-tri\""
+   },
+   {
+    "line": 95,
+    "val": "1.2",
+    "near": "id=\"g-contour\""
+   },
+   {
+    "line": 95,
+    "val": "1",
+    "near": "id=\"g-contour\""
+   },
+   {
+    "line": 95,
+    "val": ".8",
+    "near": ""
+   },
+   {
+    "line": 96,
+    "val": "1.2",
+    "near": "id=\"g-anchor\""
+   }
+  ],
+  "varsOfInterest": {}
+ },
+ "S25": {
+  "id": "S25",
+  "dir": "S25-spotcolor-contents-zine",
+  "decls": [
+   {
+    "line": 55,
+    "sel": ":focus-visible",
+    "prop": "outline",
+    "rawV": "3px solid var(--spot-b)",
+    "resolved": "3px solid #2E6B5E",
+    "nums": [
+     3
+    ]
+   },
+   {
+    "line": 72,
+    "sel": ".btn",
+    "prop": "border",
+    "rawV": "0",
+    "resolved": "0",
+    "nums": []
+   },
+   {
+    "line": 200,
+    "sel": ".entry__open",
+    "prop": "border",
+    "rawV": "0",
+    "resolved": "0",
+    "nums": []
+   },
+   {
+    "line": 241,
+    "sel": ".order__form input",
+    "prop": "border",
+    "rawV": "0",
+    "resolved": "0",
+    "nums": []
+   },
+   {
+    "line": 287,
+    "sel": ".thread path",
+    "prop": "stroke-width",
+    "rawV": "3",
+    "resolved": "3",
+    "nums": [
+     3
+    ]
+   }
+  ],
+  "inline": [
+   {
+    "line": 35,
+    "val": "1.2",
+    "near": ""
+   },
+   {
+    "line": 106,
+    "val": "1.2",
+    "near": ""
+   },
+   {
+    "line": 139,
+    "val": "2",
+    "near": "class=\"leader\""
+   },
+   {
+    "line": 146,
+    "val": "2",
+    "near": "class=\"leader\""
+   },
+   {
+    "line": 153,
+    "val": "2",
+    "near": "class=\"leader\""
+   },
+   {
+    "line": 160,
+    "val": "2",
+    "near": "class=\"leader\""
+   },
+   {
+    "line": 167,
+    "val": "2",
+    "near": "class=\"leader\""
+   },
+   {
+    "line": 174,
+    "val": "2",
+    "near": "class=\"leader\""
+   },
+   {
+    "line": 181,
+    "val": "2",
+    "near": "class=\"leader\""
+   },
+   {
+    "line": 188,
+    "val": "2",
+    "near": "class=\"leader\""
+   },
+   {
+    "line": 235,
+    "val": "1",
+    "near": "class=\"icon\""
+   },
+   {
+    "line": 236,
+    "val": "1",
+    "near": "class=\"icon\""
+   }
+  ],
+  "varsOfInterest": {}
+ },
+ "S27": {
+  "id": "S27",
+  "dir": "S27-hand-painted-bill-dispatch",
+  "decls": [
+   {
+    "line": 100,
+    "sel": ".hb--fault",
+    "prop": "border-left",
+    "rawV": "var(--mis) solid var(--green)",
+    "resolved": "1.2px solid #0E6258",
+    "nums": [
+     1.2
+    ]
+   },
+   {
+    "line": 140,
+    "sel": ".claim b",
+    "prop": "border-bottom",
+    "rawV": "var(--mis) solid var(--green)",
+    "resolved": "1.2px solid #0E6258",
+    "nums": [
+     1.2
+    ]
+   },
+   {
+    "line": 148,
+    "sel": ".btn",
+    "prop": "border",
+    "rawV": "0",
+    "resolved": "0",
+    "nums": []
+   },
+   {
+    "line": 277,
+    "sel": ".act__sign::before",
+    "prop": "border",
+    "rawV": "var(--mis) solid var(--green)",
+    "resolved": "1.2px solid #0E6258",
+    "nums": [
+     1.2
+    ]
+   },
+   {
+    "line": 338,
+    "sel": ".seal",
+    "prop": "border",
+    "rawV": "0",
+    "resolved": "0",
+    "nums": []
+   },
+   {
+    "line": 342,
+    "sel": ".seal .ring",
+    "prop": "stroke-width",
+    "rawV": "3",
+    "resolved": "3",
+    "nums": [
+     3
+    ]
+   },
+   {
+    "line": 344,
+    "sel": ".seal .core",
+    "prop": "stroke-width",
+    "rawV": "1.6",
+    "resolved": "1.6",
+    "nums": [
+     1.6
+    ]
+   },
+   {
+    "line": 353,
+    "sel": ".schedule th, .schedule td",
+    "prop": "border",
+    "rawV": "var(--mis) solid rgba(34, 28, 16, 0.34)",
+    "resolved": "1.2px solid rgba(34, 28, 16, 0.34)",
+    "nums": [
+     1.2
+    ]
+   },
+   {
+    "line": 372,
+    "sel": ".fault__line",
+    "prop": "border-left",
+    "rawV": "calc(var(--mis) * 2) solid var(--white)",
+    "resolved": "2.4px solid #FFFFFF",
+    "nums": [
+     2.4
+    ]
+   },
+   {
+    "line": 382,
+    "sel": ".packet",
+    "prop": "border-left",
+    "rawV": "calc(var(--mis) * 2) solid var(--green)",
+    "resolved": "2.4px solid #0E6258",
+    "nums": [
+     2.4
+    ]
+   },
+   {
+    "line": 408,
+    "sel": ".plate__frame::before",
+    "prop": "border",
+    "rawV": "var(--mis) solid var(--green)",
+    "resolved": "1.2px solid #0E6258",
+    "nums": [
+     1.2
+    ]
+   },
+   {
+    "line": 517,
+    "sel": ".clause:hover b",
+    "prop": "border-bottom",
+    "rawV": "var(--mis) solid var(--green)",
+    "resolved": "1.2px solid #0E6258",
+    "nums": [
+     1.2
+    ]
+   }
+  ],
+  "inline": [
+   {
+    "line": 32,
+    "val": "1.6",
+    "near": "id=\"g-curtain\""
+   },
+   {
+    "line": 33,
+    "val": "1.6",
+    "near": "id=\"g-seal\""
+   },
+   {
+    "line": 34,
+    "val": "1.6",
+    "near": "id=\"g-cell\""
+   },
+   {
+    "line": 36,
+    "val": ".8",
+    "near": "id=\"h0\""
+   },
+   {
+    "line": 37,
+    "val": ".8",
+    "near": "id=\"h1\""
+   },
+   {
+    "line": 38,
+    "val": ".8",
+    "near": "id=\"h2\""
+   },
+   {
+    "line": 39,
+    "val": ".8",
+    "near": "id=\"h3\""
+   },
+   {
+    "line": 40,
+    "val": ".8",
+    "near": "id=\"h4\""
+   },
+   {
+    "line": 41,
+    "val": ".8",
+    "near": "id=\"h5\""
+   },
+   {
+    "line": 42,
+    "val": ".8",
+    "near": "id=\"h6\""
+   },
+   {
+    "line": 43,
+    "val": ".8",
+    "near": "id=\"h7\""
+   },
+   {
+    "line": 44,
+    "val": ".8",
+    "near": "id=\"h8\""
+   },
+   {
+    "line": 45,
+    "val": ".8",
+    "near": "id=\"h9\""
+   },
+   {
+    "line": 38,
+    "val": "1.8",
+    "near": "data-URI"
+   }
+  ],
+  "varsOfInterest": {
+   "--mis": "1.2px"
+  }
+ }
+}

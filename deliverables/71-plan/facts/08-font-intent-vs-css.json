@@ -1,0 +1,541 @@
+{
+ "at": "2026-10-29T19:56:24.400Z",
+ "summary": {
+  "n": 30,
+  "specTitleFound": 26,
+  "cssTitleFound": 27,
+  "same": 21,
+  "same_ids": [
+   "S02",
+   "S04",
+   "S05",
+   "S06",
+   "S07",
+   "S08",
+   "S10",
+   "S12",
+   "S13",
+   "S14",
+   "S15",
+   "S17",
+   "S20",
+   "S21",
+   "S22",
+   "S25",
+   "S26",
+   "S27",
+   "S28",
+   "S29",
+   "S30"
+  ],
+  "diff": [
+   {
+    "id": "S11",
+    "spec": "Redaction",
+    "css": "EB Garamond",
+    "source": "h1 系规则 h1",
+    "dna": "EB Garamond",
+    "inStack": false
+   },
+   {
+    "id": "S19",
+    "spec": "Spectral",
+    "css": "Noto Serif SC",
+    "source": "h1 系规则 h1, h2, h3",
+    "dna": "Noto Serif SC",
+    "inStack": false
+   },
+   {
+    "id": "S23",
+    "spec": "Alfa Slab One",
+    "css": "Noto Serif SC",
+    "source": "h1 系规则 h1, h2, h3",
+    "dna": "Noto Serif SC",
+    "inStack": true
+   },
+   {
+    "id": "S24",
+    "spec": "Fraunces",
+    "css": "Spectral",
+    "source": "--display",
+    "dna": "Spectral",
+    "inStack": false
+   }
+  ],
+  "dnaEqCss": 26,
+  "specInDnaStack": 21
+ },
+ "rows": [
+  {
+   "id": "S01",
+   "specTitle": "Archivo Black",
+   "cssTitle": null,
+   "cssSource": null,
+   "dnaDisplay": "Noto Sans SC",
+   "dnaStack": [
+    "Noto Sans SC",
+    "Source Han Sans SC"
+   ],
+   "same": false,
+   "sameDna": false,
+   "inStack": false,
+   "specCtx": "标题＝Archivo Black 与同超家族的 Archivo 可变宽度轴（OFL 1.1，宽度"
+  },
+  {
+   "id": "S02",
+   "specTitle": "Bodoni Moda",
+   "cssTitle": "Bodoni Moda",
+   "cssSource": "h1 系规则 h1, h2, h3, .house, .claim",
+   "dnaDisplay": "Bodoni Moda",
+   "dnaStack": [
+    "Bodoni Moda",
+    "Noto Serif SC"
+   ],
+   "same": true,
+   "sameDna": true,
+   "inStack": true,
+   "specCtx": "标题＝Bodoni Moda（OFL 1.1，Didone 系，发丝细横配球状终端，光学尺寸轴 "
+  },
+  {
+   "id": "S03",
+   "specTitle": null,
+   "cssTitle": null,
+   "cssSource": null,
+   "dnaDisplay": "IBM Plex Mono",
+   "dnaStack": [
+    "IBM Plex Mono",
+    "Cascadia Mono",
+    "Consolas"
+   ],
+   "same": false,
+   "sameDna": false,
+   "inStack": false,
+   "specCtx": "标题与读数＝IBM Plex Mono（OFL 1.1，大写配 0.08em 字距，用于年份、坐"
+  },
+  {
+   "id": "S04",
+   "specTitle": "Unbounded",
+   "cssTitle": "Unbounded",
+   "cssSource": "--f-disp",
+   "dnaDisplay": "LXGW WenKai",
+   "dnaStack": [
+    "LXGW WenKai",
+    "KaiTi",
+    "STKaiti",
+    "Kaiti SC"
+   ],
+   "same": true,
+   "sameDna": false,
+   "inStack": false,
+   "specCtx": "标题＝Unbounded（OFL 1.1，夸张的宽体展示字，可变字重 200–900）；正文＝R"
+  },
+  {
+   "id": "S05",
+   "specTitle": "Barlow",
+   "cssTitle": "Barlow",
+   "cssSource": "h1 系规则 h1, h2",
+   "dnaDisplay": "Barlow",
+   "dnaStack": [
+    "Barlow",
+    "Glow Sans SC"
+   ],
+   "same": true,
+   "sameDna": true,
+   "inStack": true,
+   "specCtx": "标题＝Barlow（OFL 1.1，DIN 派生，字肩微圆但骨架方正，字重 600）；数据与读数"
+  },
+  {
+   "id": "S06",
+   "specTitle": "EB Garamond",
+   "cssTitle": "EB Garamond",
+   "cssSource": "--f-display",
+   "dnaDisplay": "EB Garamond",
+   "dnaStack": [
+    "EB Garamond",
+    "Noto Serif SC",
+    "Songti SC",
+    "Georgia"
+   ],
+   "same": true,
+   "sameDna": true,
+   "inStack": true,
+   "specCtx": "标题＝EB Garamond（OFL 1.1，威尼斯老式衬线，小写带手写倾斜）；正文拉丁＝Lit"
+  },
+  {
+   "id": "S07",
+   "specTitle": "Libre Franklin",
+   "cssTitle": "Libre Franklin",
+   "cssSource": "--display",
+   "dnaDisplay": "Libre Franklin",
+   "dnaStack": [
+    "Libre Franklin",
+    "WenJin Mincho",
+    "文津宋体",
+    "Source Han Serif SC"
+   ],
+   "same": true,
+   "sameDna": true,
+   "inStack": true,
+   "specCtx": "标题＝Libre Franklin（OFL 1.1，美式哥特，报纸标题的原始血统，字重 700／"
+  },
+  {
+   "id": "S08",
+   "specTitle": "Gloock",
+   "cssTitle": "Gloock",
+   "cssSource": "h1 系规则 h1, h2, h3",
+   "dnaDisplay": "Gloock",
+   "dnaStack": [
+    "Gloock",
+    "Source Serif 4",
+    "Noto Serif SC"
+   ],
+   "same": true,
+   "sameDna": true,
+   "inStack": true,
+   "specCtx": "标题＝Gloock（OFL 1.1，极高对比展示衬线，横细竖粗比约 1:9，最细的那道横只有 0"
+  },
+  {
+   "id": "S09",
+   "specTitle": null,
+   "cssTitle": null,
+   "cssSource": null,
+   "dnaDisplay": "LXGW Marker Gothic",
+   "dnaStack": [
+    "LXGW Marker Gothic",
+    "Syne"
+   ],
+   "same": false,
+   "sameDna": false,
+   "inStack": false,
+   "specCtx": "标题、越了标题槽位不超过 3 次的配额，改由本案让位）；中文手写层＝霞鹜文楷 LXGW WenK"
+  },
+  {
+   "id": "S10",
+   "specTitle": "Jost",
+   "cssTitle": "Jost",
+   "cssSource": "h1 系规则 h1, h2, h3, .imprint, .colourbar-note, .",
+   "dnaDisplay": "Jost",
+   "dnaStack": [
+    "Jost",
+    "Noto Sans SC"
+   ],
+   "same": true,
+   "sameDna": true,
+   "inStack": true,
+   "specCtx": "标题＝Jost（OFL 1.1，Futura 系几何骨架，瑞士时期的原生字系）；正文拉丁＝IBM"
+  },
+  {
+   "id": "S11",
+   "specTitle": "Redaction",
+   "cssTitle": "EB Garamond",
+   "cssSource": "h1 系规则 h1",
+   "dnaDisplay": "EB Garamond",
+   "dnaStack": [
+    "EB Garamond",
+    "LXGW WenKai TC",
+    "Noto Serif SC"
+   ],
+   "same": false,
+   "sameDna": false,
+   "inStack": false,
+   "specCtx": "标题用 `Redaction`（OFL 1.1，该字体自带 10/20/35/50/70 五档「"
+  },
+  {
+   "id": "S12",
+   "specTitle": "Bricolage Grotesque",
+   "cssTitle": "Bricolage Grotesque",
+   "cssSource": "h1 系规则 h1, h2, h3, .strip-latin",
+   "dnaDisplay": "Bricolage Grotesque",
+   "dnaStack": [
+    "Bricolage Grotesque",
+    "Glow Sans SC"
+   ],
+   "same": true,
+   "sameDna": true,
+   "inStack": true,
+   "specCtx": "标题用 `Bricolage Grotesque`（OFL 1.1，宽度轴 75–100 与字重"
+  },
+  {
+   "id": "S13",
+   "specTitle": "EB Garamond",
+   "cssTitle": "EB Garamond",
+   "cssSource": "--font-display",
+   "dnaDisplay": "EB Garamond",
+   "dnaStack": [
+    "EB Garamond",
+    "Noto Serif SC"
+   ],
+   "same": true,
+   "sameDna": true,
+   "inStack": true,
+   "specCtx": "标题用 `EB Garamond`（OFL 1.1，威尼斯拉丁老式衬线，小写带手写倾斜）；正文用"
+  },
+  {
+   "id": "S14",
+   "specTitle": "Oswald",
+   "cssTitle": "Oswald",
+   "cssSource": "h1 系规则 h1, h2, h3",
+   "dnaDisplay": "Oswald",
+   "dnaStack": [
+    "Oswald",
+    "Noto Serif SC"
+   ],
+   "same": true,
+   "sameDna": true,
+   "inStack": true,
+   "specCtx": "标题用 `Oswald`（OFL 1.1，超窄展示体，字重 200–700，招牌与工程模板血统）"
+  },
+  {
+   "id": "S15",
+   "specTitle": "Newsreader",
+   "cssTitle": "Newsreader",
+   "cssSource": "h1 系规则 h1, h2, h3",
+   "dnaDisplay": "Newsreader",
+   "dnaStack": [
+    "Newsreader",
+    "Noto Serif SC",
+    "Georgia"
+   ],
+   "same": true,
+   "sameDna": true,
+   "inStack": true,
+   "specCtx": "标题用 `Newsreader`（OFL 1.1，为屏幕重绘的报纸衬线，带光学尺寸轴）；中文用思"
+  },
+  {
+   "id": "S16",
+   "specTitle": null,
+   "cssTitle": "LXGW Marker Gothic",
+   "cssSource": "h1 系规则 h1",
+   "dnaDisplay": "LXGW Marker Gothic",
+   "dnaStack": [
+    "LXGW Marker Gothic",
+    "Noto Serif SC"
+   ],
+   "same": false,
+   "sameDna": false,
+   "inStack": false,
+   "specCtx": "标题用霞鹜漫黑 LXGW Marker Gothic（OFL 1.1，马克笔头粗窄黑体，自带轻微"
+  },
+  {
+   "id": "S17",
+   "specTitle": "Literata",
+   "cssTitle": "Literata",
+   "cssSource": "h1 系规则 h1, h2, h3, .doc-series",
+   "dnaDisplay": "Literata",
+   "dnaStack": [
+    "Literata",
+    "文津宋体",
+    "Noto Serif SC"
+   ],
+   "same": true,
+   "sameDna": true,
+   "inStack": true,
+   "specCtx": "标题用 `Literata`（OFL 1.1，电子书原生衬线，字腔开阔、小字号稳定）；数字与金额"
+  },
+  {
+   "id": "S18",
+   "specTitle": null,
+   "cssTitle": "Glow Sans SC",
+   "cssSource": "h1 系规则 h1,h2,h3",
+   "dnaDisplay": "Glow Sans SC",
+   "dnaStack": [
+    "Glow Sans SC",
+    "Songti SC",
+    "Georgia",
+    "Times New Roman"
+   ],
+   "same": false,
+   "sameDna": false,
+   "inStack": false,
+   "specCtx": ""
+  },
+  {
+   "id": "S19",
+   "specTitle": "Spectral",
+   "cssTitle": "Noto Serif SC",
+   "cssSource": "h1 系规则 h1, h2, h3",
+   "dnaDisplay": "Noto Serif SC",
+   "dnaStack": [
+    "Noto Serif SC",
+    "Georgia"
+   ],
+   "same": false,
+   "sameDna": false,
+   "inStack": false,
+   "specCtx": "标题用 `Spectral`（OFL 1.1，低对比屏幕衬线，与 0.4px 蚀刻细线并置时不抢"
+  },
+  {
+   "id": "S20",
+   "specTitle": "Space Grotesk",
+   "cssTitle": "Space Grotesk",
+   "cssSource": "h1 系规则 h1, h2, h3",
+   "dnaDisplay": "Space Grotesk",
+   "dnaStack": [
+    "Space Grotesk",
+    "Noto Sans SC"
+   ],
+   "same": true,
+   "sameDna": true,
+   "inStack": true,
+   "specCtx": "标题与参数标签用 `Space Grotesk`（OFL 1.1，几何骨架加工程图纸式的窄字腔）"
+  },
+  {
+   "id": "S21",
+   "specTitle": "Antonio",
+   "cssTitle": "Antonio",
+   "cssSource": "h1 系规则 h1, h2, h3",
+   "dnaDisplay": "Antonio",
+   "dnaStack": [
+    "Antonio",
+    "WenJin Mincho",
+    "Georgia",
+    "Songti SC"
+   ],
+   "same": true,
+   "sameDna": true,
+   "inStack": true,
+   "specCtx": "标题与表头用 `Antonio`（SIL OFL 1.1，窄体几何，数字有明确开孔与平顶，字重 "
+  },
+  {
+   "id": "S22",
+   "specTitle": "Petrona",
+   "cssTitle": "Petrona",
+   "cssSource": "h1 系规则 h1, h2, h3",
+   "dnaDisplay": "Petrona",
+   "dnaStack": [
+    "Petrona",
+    "Zhuque Fangsong",
+    "Georgia"
+   ],
+   "same": true,
+   "sameDna": true,
+   "inStack": true,
+   "specCtx": "标题用 `Petrona`（SIL OFL 1.1，过渡期衬线，横竖对比只有 1:2.4，字腔开"
+  },
+  {
+   "id": "S23",
+   "specTitle": "Alfa Slab One",
+   "cssTitle": "Noto Serif SC",
+   "cssSource": "h1 系规则 h1, h2, h3",
+   "dnaDisplay": "Noto Serif SC",
+   "dnaStack": [
+    "Noto Serif SC",
+    "Alfa Slab One"
+   ],
+   "same": false,
+   "sameDna": false,
+   "inStack": true,
+   "specCtx": "标题用 `Alfa Slab One`（OFL 1.1，极粗板衬线，笔画末端圆钝，字面几乎占满字"
+  },
+  {
+   "id": "S24",
+   "specTitle": "Fraunces",
+   "cssTitle": "Spectral",
+   "cssSource": "--display",
+   "dnaDisplay": "Spectral",
+   "dnaStack": [
+    "Spectral",
+    "LXGW WenKai",
+    "Georgia",
+    "Times New Roman"
+   ],
+   "same": false,
+   "sameDna": false,
+   "inStack": false,
+   "specCtx": "标题用 `Fraunces`（SIL OFL 1.1，可变轴 SOFT 40 与 WONK 1 "
+  },
+  {
+   "id": "S25",
+   "specTitle": "Besley",
+   "cssTitle": "Besley",
+   "cssSource": "--display",
+   "dnaDisplay": "Besley",
+   "dnaStack": [
+    "Besley",
+    "Noto Serif SC",
+    "Georgia"
+   ],
+   "same": true,
+   "sameDna": true,
+   "inStack": true,
+   "specCtx": "标题用 `Besley`（SIL OFL 1.1，Clarendon 系粗衬线，字肩有明确的球形"
+  },
+  {
+   "id": "S26",
+   "specTitle": "Syne",
+   "cssTitle": "Syne",
+   "cssSource": "--display",
+   "dnaDisplay": "Syne",
+   "dnaStack": [
+    "Syne",
+    "Noto Sans SC"
+   ],
+   "same": true,
+   "sameDna": true,
+   "inStack": true,
+   "specCtx": "标题用 `Syne`（SIL OFL 1.1，宽度轴怪异、字腔左右不对称的展示无衬线，字重 70"
+  },
+  {
+   "id": "S27",
+   "specTitle": "Chivo",
+   "cssTitle": "Chivo",
+   "cssSource": "h1 系规则 h1, h2, h3",
+   "dnaDisplay": "Chivo",
+   "dnaStack": [
+    "Chivo",
+    "LXGW WenKai"
+   ],
+   "same": true,
+   "sameDna": true,
+   "inStack": true,
+   "specCtx": "标题用 `Chivo`（SIL OFL 1.1，grotesque，笔端钝、字腔方，适合被石版手"
+  },
+  {
+   "id": "S28",
+   "specTitle": "Instrument Serif",
+   "cssTitle": "Instrument Serif",
+   "cssSource": "h1 系规则 h1, h2, h3",
+   "dnaDisplay": "Instrument Serif",
+   "dnaStack": [
+    "Instrument Serif",
+    "Noto Serif SC",
+    "Georgia"
+   ],
+   "same": true,
+   "sameDna": true,
+   "inStack": true,
+   "specCtx": "标题用 `Instrument Serif`（SIL OFL 1.1，极高对比展示衬线，细笔画像"
+  },
+  {
+   "id": "S29",
+   "specTitle": "Saira Condensed",
+   "cssTitle": "Saira Condensed",
+   "cssSource": "--display",
+   "dnaDisplay": "Saira Condensed",
+   "dnaStack": [
+    "Saira Condensed",
+    "Noto Sans SC"
+   ],
+   "same": true,
+   "sameDna": true,
+   "inStack": true,
+   "specCtx": "标题用 `Saira Condensed`（SIL OFL 1.1，窄体工业字，字宽轴 50–1"
+  },
+  {
+   "id": "S30",
+   "specTitle": "Anton",
+   "cssTitle": "Anton",
+   "cssSource": "h1 系规则 h1",
+   "dnaDisplay": "Anton",
+   "dnaStack": [
+    "Anton",
+    "Zhuque Fangsong",
+    "Georgia"
+   ],
+   "same": true,
+   "sameDna": true,
+   "inStack": true,
+   "specCtx": "标题用 `Anton`（SIL OFL 1.1，超粗窄展示体，字面几乎占满字身、笔画末端无衬线，"
+  }
+ ]
+}

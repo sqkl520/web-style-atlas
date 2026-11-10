@@ -1,0 +1,40 @@
+﻿LOAD FAIL prompt-copy.js document.getElementById is not a function
+window keys: SCHEMES,STYLE_PROMPTS,mountPromptButton,buildStylePrompt,benchTemplateHits,onBenchRender
+typeof buildStylePrompt: function
+SCHEMES: 30 STYLE_PROMPTS: 4
+id   chars  多版本信息       可落地要点       landingLen  half-in-prompt
+S01  1683   false       false       386         true
+S02  1715   false       false       363         null
+S03  1745   false       false       439         null
+S04  1657   false       false       387         null
+S05  1667   false       false       401         null
+S06  1684   false       false       401         null
+S07  1662   false       false       431         null
+S08  1702   false       false       447         null
+S09  1617   false       false       445         null
+S10  1671   false       false       494         null
+S11  1807   false       false       515         true
+S12  1859   false       false       411         true
+S13  1773   false       false       468         true
+S14  1754   false       false       469         true
+S15  1827   true        false       529         true
+S16  1772   false       false       467         true
+S17  1847   false       false       458         true
+S18  1868   false       false       482         true
+S19  1852   false       false       465         true
+S20  1755   false       false       507         true
+S21  1857   false       false       472         true
+S22  1859   false       false       474         true
+S23  1905   false       false       548         true
+S24  1865   false       false       515         true
+S25  1791   false       false       550         true
+S26  1816   false       false       499         true
+S27  1817   false       false       428         true
+S28  1813   false       false       495         true
+S29  1844   false       false       542         true
+S30  1846   false       false       474         true
+
+多版本信息 命中案数: 1 /30
+可落地要点 命中案数: 0 /30
+长度 min/median/max: 1617 1807 1905
+超 1500 的案: S01:1683 S02:1715 S03:1745 S04:1657 S05:1667 S06:1684 S07:1662 S08:1702 S09:1617 S10:1671 S11:1807 S12:1859 S13:1773 S14:1754 S15:1827 S16:1772 S17:1847 S18:1868 S19:1852 S20:1755 S21:1857 S22:1859 S23:1905 S24:1865 S25:1791 S26:1816 S27:1817 S28:1813 S29:1844 S30:1846

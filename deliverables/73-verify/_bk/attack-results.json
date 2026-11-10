@@ -1,0 +1,51 @@
+[
+  {
+    "name": "T1 C2 解析：删掉 mono 的反引号",
+    "question": "允许表少解析一行时，闸门会报 C2 还是静默漏掉？",
+    "exit": 0,
+    "brief": "  C1 FAIL 全在允许表内        2/2 ⏎   C2 允许表的规则引擎里都存在  4/4 ⏎   C3 登记但无案触发（INFO）    2 条 ⏎ 合计 FAIL 0 / WARN 0 / INFO 1",
+    "note": "**没有报 C2**（行被静默丢弃，允许表从 5 缩到 4）"
+  },
+  {
+    "name": "T2 C2 解析：mono → Mono（大小写）",
+    "question": "表里名字大小写不同会怎样？",
+    "exit": 1,
+    "brief": "  C1 FAIL 全在允许表内        2/2 ⏎   C2 允许表的规则引擎里都存在  4/5 ⏎   C3 登记但无案触发（INFO）    3 条 ⏎ ✗ [C2-allow-rule-not-in-engine] 1 条 ⏎ 合计 FAIL 1 / WARN 0 / INFO 1",
+    "note": "报 C2（case 敏感，方向正确但会被当成\"表在腐化\"）"
+  },
+  {
+    "name": "T3 C2 解析：measure 行里插一个多余 |",
+    "question": "列错位会不会影响判定？",
+    "exit": 0,
+    "brief": "  C1 FAIL 全在允许表内        2/2 ⏎   C2 允许表的规则引擎里都存在  5/5 ⏎   C3 登记但无案触发（INFO）    3 条 ⏎ 合计 FAIL 0 / WARN 0 / INFO 1",
+    "note": "列错位只污染 why/how 文本，判定仍靠第一列正则"
+  },
+  {
+    "name": "T4 解析窗口：在 §6 表格里插一行 `covered-text`",
+    "question": "允许表是 194–203 行，还是 110–203 行（从 §6 表格里第一次出现 \"9.15\" 起）？",
+    "exit": 0,
+    "brief": "  C1 FAIL 全在允许表内        2/2 ⏎   C2 允许表的规则引擎里都存在  6/6 ⏎   C3 登记但无案触发（INFO）    4 条 ⏎ 合计 FAIL 0 / WARN 0 / INFO 1",
+    "note": "C3 无触发条数=4（原为 3）。若变成 4，说明 §6 表格的行被算进了允许表"
+  },
+  {
+    "name": "T5 引擎不可读：把 rules.mjs 移走",
+    "question": "C2 判定不了时是红还是绿？",
+    "exit": 0,
+    "brief": "  C1 FAIL 全在允许表内        2/2 ⏎   C2 允许表的规则引擎里都存在  ?  （引擎不可读） ⏎   C3 登记但无案触发（INFO）    3 条 ⏎ 合计 FAIL 0 / WARN 1 / INFO 1",
+    "note": "**exit 0（fail-open）**：引擎没了，闸门仍然绿，只留一条 WARN"
+  },
+  {
+    "name": "T6 数据缺失：把 S08 的 report.json 移走",
+    "question": "唯一两处 FAIL 的来源消失后，闸门会红吗？",
+    "exit": 0,
+    "brief": "  C1 FAIL 全在允许表内        0/0 ⏎   C2 允许表的规则引擎里都存在  5/5 ⏎   C3 登记但无案触发（INFO）    5 条 ⏎ 合计 FAIL 0 / WARN 1 / INFO 1",
+    "note": "**exit 0（fail-open）**：整个案的证据消失，闸门反而变绿 0/0"
+  },
+  {
+    "name": "T7 C1 判据：id 是对象",
+    "question": "畸形 id 会不会被静默放过，或者直接把闸门打崩？",
+    "exit": 1,
+    "brief": "(无摘要)",
+    "note": "崩栈（TypeError: Cannot convert object to primitive value）——exit 1，方向上 fail-closed，但输出不可读"
+  }
+]

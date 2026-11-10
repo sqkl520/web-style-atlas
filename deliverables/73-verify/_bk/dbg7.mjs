@@ -1,0 +1,12 @@
+﻿import { readFileSync, writeFileSync } from "node:fs";
+import { createHash } from "node:crypto";
+import { spawnSync } from "node:child_process";
+const CON="D:/Web/style/prototypes/_CONTRACT.md";
+const orig=readFileSync(CON); const h=(b)=>createHash("sha256").update(b).digest("hex");
+writeFileSync(CON, orig.toString("utf8").replace("| **不得横向溢出** |","| `shadow` | X | Y |\n| **不得横向溢出** |"), "utf8");
+const r = spawnSync(process.execPath, ["prototypes/_build/_probe-cc.mjs"], { cwd:"D:/Web/style", encoding:"utf8" });
+console.log("status=", r.status);
+console.log("STDERR:\n" + String(r.stderr));
+console.log("STDOUT head:\n" + String(r.stdout).split(/\r?\n/).slice(0,3).join("\n"));
+writeFileSync(CON, orig);
+console.log("restored:", h(readFileSync(CON))===h(orig));

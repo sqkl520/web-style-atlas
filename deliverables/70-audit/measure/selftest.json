@@ -1,0 +1,689 @@
+{
+ "generatedAt": "2026-10-29T16:36:02.656Z",
+ "pass": 66,
+ "fail": 0,
+ "checks": [
+  {
+   "name": "computed color 可读",
+   "got": "rgb(193, 18, 31)",
+   "want": "rgb(193, 18, 31)",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "var() 简写 border 的分项可读",
+   "got": [
+    "1px",
+    "rgb(18, 52, 86)",
+    "solid"
+   ],
+   "want": [
+    "1px",
+    "rgb(18, 52, 86)",
+    "solid"
+   ],
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "[预期修正] cs.border 简写其实可读",
+   "got": "1px solid rgb(18, 52, 86)",
+   "want": "1px solid rgb(18, 52, 86)",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "[预期修正] 0.5px border 被夹到 1px",
+   "got": "1px",
+   "want": "1px",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "[预期修正] tape 高度因此是 41px 而非 40.5px",
+   "got": 41,
+   "want": 41,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "边框颜色可读",
+   "got": "rgb(110, 106, 94)",
+   "want": "rgb(110, 106, 94)",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "多色 boxShadow 原文",
+   "got": "rgba(200, 30, 40, 0.5) 0px 0px 0px 4px, rgb(11, 11, 15) 0px 2px 8px 0px",
+   "want": "(v) => v.indexOf('rgba(200, 30, 40, 0.5)') >= 0 && v.indexOf('rgb(11, 11, 15)') >= 0",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "boxShadow 可拆成 2 段",
+   "got": 2,
+   "want": 2,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "[预期修正] ::before content 已解码为字符",
+   "got": "\"✓\"",
+   "want": "\"✓\"",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "::before color 可读",
+   "got": "rgb(47, 168, 79)",
+   "want": "rgb(47, 168, 79)",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "::after backgroundColor 可读",
+   "got": "rgb(168, 32, 107)",
+   "want": "rgb(168, 32, 107)",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "::after 尺寸可读(used value)",
+   "got": [
+    "24px",
+    "24px"
+   ],
+   "want": [
+    "24px",
+    "24px"
+   ],
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "var(--known) 展开为颜色",
+   "got": "rgb(193, 18, 31)",
+   "want": "rgb(193, 18, 31)",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "未定义 var 回落 inherit 而非空串",
+   "got": "rgb(26, 22, 20)",
+   "want": "rgb(26, 22, 20)",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "未定义 var 取值本身为空",
+   "got": "",
+   "want": "",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "linear-gradient 文末可解析",
+   "got": "linear-gradient(90deg, rgb(181, 214, 38) 0px, rgb(181, 214, 38) 50%, rgb(14, 16, 13) 50%, rgb(14, 16, 13) 100%)",
+   "want": "(v) => /rgb\\(181, 214, 38\\)/.test(v) && /rgb\\(14, 16, 13\\)/.test(v)",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "oklch computed 保持 oklch 形式",
+   "got": "oklch(0.62 0.19 25)",
+   "want": "(v) => v.indexOf('oklch') === 0",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "oklch 能被 norm 归一为 hex",
+   "got": {
+    "hex": "#E24947",
+    "r": 226,
+    "g": 73,
+    "b": 71,
+    "a": 1,
+    "raw": "oklch(0.62 0.19 25)",
+    "fmt": "canvas:oklch(0.62 0.19 25"
+   },
+   "want": "(v) => v && /^#[0-9A-F]{6}$/.test(v.hex)",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "color-mix computed 归一为 color(srgb ...)",
+   "got": "color(srgb 0.847059 0.488235 0.482353)",
+   "want": "(v) => v.indexOf('color(srgb') === 0",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "color() 能被 norm 归一为 hex",
+   "got": "#D87C7B",
+   "want": "(v) => /^#[0-9A-F]{6}$/.test(v)",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "SVG fill 可读",
+   "got": "rgb(211, 32, 41)",
+   "want": "rgb(211, 32, 41)",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "SVG fill=url(#grad) 保留 url 形式",
+   "got": "url(\"#grad1\")",
+   "want": "(v) => v.indexOf('url(') === 0",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "SVG stroke 可读",
+   "got": "rgb(62, 58, 52)",
+   "want": "rgb(62, 58, 52)",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "SVG stroke-width 可读",
+   "got": "2px",
+   "want": "2px",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "[关键] 水平 stroke 路径盒子高=0 却判为可见",
+   "got": [
+    0,
+    true
+   ],
+   "want": [
+    0,
+    true
+   ],
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "svgInk 对开放路径按路径长估面积",
+   "got": 120,
+   "want": "(v) => v > 0",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "SVG 圆的 stroke 可读",
+   "got": "rgb(18, 24, 29)",
+   "want": "rgb(18, 24, 29)",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "<g> 的 fill 继承到子元素 computed",
+   "got": "rgb(253, 238, 0)",
+   "want": "rgb(253, 238, 0)",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "<use> 实例 computed fill 拿不到 symbol 内色(需像素兜底)",
+   "got": "rgb(0, 0, 0)",
+   "want": "(v) => v === 'rgb(0, 0, 0)' || v === 'none'",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "norm(#hex)",
+   "got": {
+    "hex": "#C1121F",
+    "r": 193,
+    "g": 18,
+    "b": 31,
+    "a": 1,
+    "raw": "#C1121F",
+    "fmt": "hex"
+   },
+   "want": "(v) => v && v.hex === '#C1121F' && v.a === 1",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "norm(rgba 全透明) alpha=0",
+   "got": {
+    "hex": "#000000",
+    "r": 0,
+    "g": 0,
+    "b": 0,
+    "a": 0,
+    "raw": "rgba(0,0,0,0)",
+    "fmt": "rgb"
+   },
+   "want": "(v) => v.a === 0 && v.hex === '#000000'",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "norm(transparent) alpha=0",
+   "got": {
+    "hex": "#000000",
+    "r": 0,
+    "g": 0,
+    "b": 0,
+    "a": 0,
+    "raw": "transparent",
+    "fmt": "transparent"
+   },
+   "want": "(v) => v && v.a === 0",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "norm(currentColor) 显式标记",
+   "got": {
+    "currentColor": true,
+    "raw": "currentColor"
+   },
+   "want": "(v) => v && v.currentColor === true",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "norm(url()) 标记 unparsed",
+   "got": {
+    "unparsed": true,
+    "raw": "url(#grad1)"
+   },
+   "want": "(v) => v && v.unparsed === true",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "norm(rgba .5) 不丢色阶",
+   "got": {
+    "hex": "#C81E28",
+    "r": 200,
+    "g": 30,
+    "b": 40,
+    "a": 0.5,
+    "raw": "rgba(200, 30, 40, 0.5)",
+    "fmt": "rgb"
+   },
+   "want": "(v) => v.r === 200 && v.g === 30 && v.b === 40 && v.a === 0.5",
+   "pass": true,
+   "note": "canvas 往返会读成 199"
+  },
+  {
+   "name": "文字墨迹面积 < 元素盒子面积(2.4 行高)",
+   "got": [
+    8463,
+    22455
+   ],
+   "want": "(v) => v[0] > 0 && v[0] < v[1] * 0.8",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "13px 字号可读",
+   "got": "13px",
+   "want": "13px",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "收集到 #C1121F(文字色)",
+   "got": true,
+   "want": true,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "#C1121F 标记为 color 属性",
+   "got": true,
+   "want": true,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "收集到 #123456(var 简写边框)",
+   "got": true,
+   "want": true,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "#123456 面积按周长算(远小于盒子 100×50)",
+   "got": 308,
+   "want": "(v) => v > 0 && v < 100 * 50 * 0.2",
+   "pass": true,
+   "note": "四边合计≈300px×1=300"
+  },
+  {
+   "name": "收集到 0.5px 线色 #6E6A5E",
+   "got": true,
+   "want": true,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "#6E6A5E 面积≈100px(细线不被放大成块)",
+   "got": 100,
+   "want": "(v) => v > 0 && v < 1000",
+   "pass": true,
+   "note": "100×1=100"
+  },
+  {
+   "name": "boxShadow 两色都收到",
+   "got": [
+    true,
+    true
+   ],
+   "want": "(v) => v[0] && v[1]",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "::before 色 #2FA84F 收到",
+   "got": true,
+   "want": true,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "::after 色 #A8206B 收到",
+   "got": true,
+   "want": true,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "gradient 两色都收到",
+   "got": [
+    true,
+    true
+   ],
+   "want": "(v) => v[0] && v[1]",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "transparent 背景被过滤",
+   "got": 0,
+   "want": 0,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "opacity:0 的红色被过滤",
+   "got": true,
+   "want": true,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "零尺寸元素被过滤(无 #FF00FF)",
+   "got": true,
+   "want": true,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "SVG fill #D32029 收到",
+   "got": true,
+   "want": true,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "[关键] SVG stroke #3E3A34 收到(水平线)",
+   "got": true,
+   "want": true,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "SVG gradient stops 收到",
+   "got": [
+    true,
+    true
+   ],
+   "want": "(v) => v[0] && v[1]",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "SVG 圆 fill #00E676 收到",
+   "got": true,
+   "want": true,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "SVG 圆 stroke #12181D 收到",
+   "got": true,
+   "want": true,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "[回归] <symbol> 模板色 #7C3AED 未被计入",
+   "got": true,
+   "want": true,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "[回归] <defs> 模板色 #0891B2 未被计入",
+   "got": true,
+   "want": true,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "[回归] <svg> 根元素的默认黑 fill 不按 bbox 记面积",
+   "got": 0,
+   "want": "(v) => v < 7200 * 0.5",
+   "pass": true,
+   "note": "bbox=7200"
+  },
+  {
+   "name": "正文文本标记生效",
+   "got": true,
+   "want": true,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "伪元素面积用 pseudo-box 而非宿主",
+   "got": true,
+   "want": true,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "#A8206B 面积≈24×24=576",
+   "got": 576,
+   "want": "(v) => v >= 500 && v <= 700",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "像素级能确认 #C1121F 真的画出来了",
+   "got": true,
+   "want": true,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "像素级能确认 ::after 的 #A8206B 真的画出来了",
+   "got": true,
+   "want": true,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "像素级能确认 SVG fill #D32029 真的画出来了",
+   "got": true,
+   "want": true,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "[预期修正] <use> 内部 symbol 色在像素级被抓到（元素级拿不到）",
+   "got": 400,
+   "want": "(v) => v >= 380",
+   "pass": true,
+   "note": "20×20=400 应几乎全中"
+  },
+  {
+   "name": "孤立色占比 < 2%",
+   "got": 0.0005625,
+   "want": "(v) => v < 0.02",
+   "pass": true,
+   "note": ""
+  }
+ ],
+ "pixelTop": [
+  [
+   "#EFE7D7",
+   1257407
+  ],
+  [
+   "#2F7D4F",
+   20000
+  ],
+  [
+   "#C1121F",
+   3943
+  ],
+  [
+   "#1A1614",
+   2784
+  ],
+  [
+   "#7B612C",
+   2049
+  ],
+  [
+   "#0E100D",
+   1575
+  ],
+  [
+   "#B5D626",
+   1525
+  ],
+  [
+   "#D32029",
+   1200
+  ],
+  [
+   "#A8206B",
+   576
+  ],
+  [
+   "#2E6B5E",
+   400
+  ],
+  [
+   "#123456",
+   304
+  ],
+  [
+   "#EEE6D6",
+   266
+  ]
+ ],
+ "pixelKinds": {
+  "exact": 1293034,
+  "near": 0,
+  "aa": 2082,
+  "alpha": 155,
+  "textedge": 0,
+  "isolated": 729,
+  "raster": 0
+ },
+ "isolated": [
+  [
+   "#2E6B5E",
+   400
+  ],
+  [
+   "#BD6565",
+   58
+  ],
+  [
+   "#B35B5C",
+   46
+  ],
+  [
+   "#A85152",
+   37
+  ],
+  [
+   "#923B3F",
+   33
+  ],
+  [
+   "#23322F",
+   16
+  ],
+  [
+   "#166744",
+   12
+  ],
+  [
+   "#A85153",
+   9
+  ],
+  [
+   "#C16968",
+   6
+  ],
+  [
+   "#C26A6A",
+   4
+  ],
+  [
+   "#C06867",
+   4
+  ],
+  [
+   "#BF6766",
+   4
+  ],
+  [
+   "#BE6666",
+   4
+  ],
+  [
+   "#A95253",
+   4
+  ],
+  [
+   "#166643",
+   4
+  ],
+  [
+   "#B65E5E",
+   3
+  ],
+  [
+   "#BE6665",
+   3
+  ],
+  [
+   "#B25A5B",
+   3
+  ],
+  [
+   "#BB6362",
+   3
+  ],
+  [
+   "#B86060",
+   3
+  ]
+ ],
+ "collectorKeys": 23
+}

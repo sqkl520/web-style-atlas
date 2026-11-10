@@ -1,0 +1,37 @@
+﻿SCHEMES count: 30
+id              len             inCss           inAnywhere      primary==first  palette
+S01             4               YES             YES             false           #EFE7D7 #C1121F #1A1614 #6E6A5E
+S02             4               NO #22D3EE      NO #22D3EE      false           #0B0B0F #EFE6D0 #B8860B #22D3EE
+S03             3               YES             YES             false           #101A1C #13928E #B9A98C
+S04             4               YES             YES             false           #F0E2C8 #96550F #2F7D4F #14100C
+S05             3               YES             YES             false           #0E100D #BFB9A6 #4FA83D
+S06             4               YES             YES             false           #ECDEC6 #85572A #241A12 #C9A87C
+S07             4               YES             YES             false           #E7E7E0 #1C1A16 #33505C #9A9384
+S08             2               YES             YES             false           #120C08 #C46A1F
+S09             4               YES             YES             false           #F5C842 #151310 #1F4E79 #8A4B24
+S10             4               YES             YES             false           #F2EFE8 #6E7076 #17171A #D32029
+S11             3               YES             YES             false           #DCDDD2 #1B4A4A #6E7A64
+S12             4               NO #0F172A      NO #0F172A      false           #1E2A2E #B5D626 #E23E57 #0F172A
+S13             4               YES             YES             false           #F4E3BE #7B612C #241F17 #D6CDB9
+S14             3               YES             YES             false           #12181D #E4572E #D8D2C4
+S15             3               YES             YES             false           #E7EBE9 #3A3F45 #7A7466
+S16             4               YES             YES             false           #F7EBCF #C52C0F #1A1A1A #8E2A18
+S17             4               NO #111111      NO #111111      false           #E1D6BD #5A2A50 #7A2E2E #111111
+S18             4               YES             YES             false           #0A0D0A #2FA84F #C8C4AE #6E6350
+S19             3               YES             YES             false           #E4DECD #4A5C3A #2A241C
+S20             4               YES             YES             false           #FAF3E1 #26485C #0F1418 #55606B
+S21             4               YES             YES             false           #E4DCC9 #3E3A34 #924307 #6E6A5E
+S22             3               YES             YES             false           #DDDAD4 #565B49 #2E2A24
+S23             4               YES             YES             false           #DCDCC8 #A8206B #241C16 #7A6A55
+S24             4               YES             YES             false           #E6EDF2 #5D43AD #0A1116 #6E8B7A
+S25             4               YES             YES             false           #E8E4DE #914A27 #1E1A16 #2E6B5E
+S26             4               YES             YES             false           #D3D1CA #485270 #121212 #C8341F
+S27             3               YES             YES             false           #E8D7B5 #0E6258 #221C10
+S28             4               YES             YES             false           #0B0D12 #AF74BE #D8D4C6 #EC4899
+S29             4               YES             YES             false           #D9D3C4 #644F02 #1A1A17 #5A6068
+S30             3               YES             YES             false           #EDEDED #007B3F #141414
+
+TARGET4 banned remain: [{"id":"S02","banned":["#22D3EE"]},{"id":"S12","banned":["#0F172A"]},{"id":"S17","banned":["#111111"]},{"id":"S28","banned":["#EC4899"]}]
+palette<2: []
+not in css: [{"id":"S02","len":4,"missing":["#22D3EE"]},{"id":"S12","len":4,"missing":["#0F172A"]},{"id":"S17","len":4,"missing":["#111111"]}]
+not anywhere in case dir: [{"id":"S02","missing":["#22D3EE"]},{"id":"S12","missing":["#0F172A"]},{"id":"S17","missing":["#111111"]}]

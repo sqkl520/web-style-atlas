@@ -1,0 +1,558 @@
+{
+ "tag": "after",
+ "viewports": {
+  "390": {
+   "d1": {
+    "asIs": {
+     "exists": true,
+     "hiddenAttr": true,
+     "hiddenProp": true,
+     "display": "none",
+     "rect": {
+      "top": 0,
+      "h": 0,
+      "w": 0
+     },
+     "occupiesLayout": false,
+     "buttonCount": 2,
+     "tabbableButtons": 0,
+     "inlineDisplay": "none",
+     "barH": 145,
+     "firstRowTop": 954,
+     "docH": 17308,
+     "tabWalkFromSearch": [
+      "select#sort 方案号 结构类型 认知门槛 ",
+      "button#reset 清空筛选",
+      "li S01红黑斜排报Red We",
+      "li S02鎏金对称厅Gilded",
+      "li S03长曝光观测站Long-"
+     ]
+    },
+    "restored": {
+     "exists": true,
+     "hiddenAttr": true,
+     "hiddenProp": true,
+     "display": "none",
+     "rect": {
+      "top": 0,
+      "h": 0,
+      "w": 0
+     },
+     "occupiesLayout": false,
+     "buttonCount": 2,
+     "tabbableButtons": 0,
+     "inlineDisplay": "inline-flex",
+     "barH": 145,
+     "firstRowTop": -945,
+     "docH": 17308,
+     "note": "inline display:inline-flex + hidden=true（审计现场）",
+     "tabWalkFromSearch": [
+      "select#sort 方案号 结构类型 认知门槛 ",
+      "button#reset 清空筛选",
+      "li S01红黑斜排报Red We",
+      "li S02鎏金对称厅Gilded",
+      "li S03长曝光观测站Long-"
+     ]
+    }
+   },
+   "d4": {
+    "s15": "\"15px\"",
+    "defined": true,
+    "scale": [
+     "--s-13=\"13px\"",
+     "--s-14=\"14px\"",
+     "--s-15=\"15px\"",
+     "--s-16=\"16px\"",
+     "--s-17=\"17px\"",
+     "--s-20=\"20px\"",
+     "--s-24=\"24px\"",
+     "--s-34=\"34px\""
+    ],
+    "claimFontSize": "15px",
+    "claimLines": 4,
+    "claimH": 96,
+    "wizardFontSize": "15px",
+    "wizardH": 66.6,
+    "bodyFontSize": "16px",
+    "mastH": 453.4,
+    "firstRowTop": 954
+   },
+   "d5": {
+    "count": 3,
+    "targets": [
+     {
+      "text": "企业站 M01",
+      "h": 24,
+      "unionH": 24,
+      "fragCount": 1,
+      "frags": [
+       {
+        "w": 72,
+        "h": 24,
+        "t": 302.5
+       }
+      ]
+     },
+     {
+      "text": "餐饮本地 M02",
+      "h": 24,
+      "unionH": 24,
+      "fragCount": 1,
+      "frags": [
+       {
+        "w": 86,
+        "h": 24,
+        "t": 302.5
+       }
+      ]
+     },
+     {
+      "text": "作品集 M03",
+      "h": 24,
+      "unionH": 45.7,
+      "fragCount": 2,
+      "frags": [
+       {
+        "w": 42,
+        "h": 24,
+        "t": 302.5
+       },
+       {
+        "w": 26.9,
+        "h": 24,
+        "t": 324.2
+       }
+      ]
+     }
+    ],
+    "minHeight": 24,
+    "circleHits": [],
+    "passesBySize": true,
+    "passesBySpacing": true,
+    "mastExitH": 76.1,
+    "linkDisplay": "inline",
+    "linkPadding": "2px 0px",
+    "notWrapText": true
+   },
+   "d2": {
+    "activeAfterMouseOpen": {
+     "tag": "div",
+     "id": "",
+     "cls": "detail-head",
+     "text": "S01 红黑斜排报 Red Wedge Broadsheet · F 型／NEW",
+     "isBody": false,
+     "inDetail": true
+    },
+    "detailOpenAfterMouse": true,
+    "detailRect": {
+     "top": 0,
+     "h": 844,
+     "display": "flex",
+     "scrollTop": 0
+    },
+    "tabCountFromBodyToDetail": 1,
+    "firstInsideDetail": {
+     "tag": "button",
+     "id": "d-close",
+     "cls": "btn-quiet",
+     "text": "收起",
+     "isBody": false,
+     "inDetail": true
+    },
+    "focusBeforeEnter": {
+     "tag": "li",
+     "id": "",
+     "cls": "row is-in",
+     "text": "S03长曝光观测站Long-Exposure ObservatoryF 型 · ",
+     "isBody": false,
+     "inDetail": false
+    },
+    "activeAfterEnterOpen": {
+     "tag": "div",
+     "id": "",
+     "cls": "detail-head",
+     "text": "S03 长曝光观测站 Long-Exposure Observatory · F",
+     "isBody": false,
+     "inDetail": true
+    },
+    "detailOpenAfterEnter": true,
+    "dNo": "S03",
+    "close": {
+     "focusBeforeClose": {
+      "tag": "div",
+      "id": "",
+      "cls": "detail-head",
+      "text": "S03 长曝光观测站 Long-Exposure Observatory · F",
+      "isBody": false,
+      "inDetail": true
+     },
+     "activeAfterClose": {
+      "tag": "li",
+      "id": "",
+      "cls": "row is-in",
+      "text": "S03长曝光观测站Long-Exposure ObservatoryF 型 · ",
+      "isBody": false,
+      "inDetail": false
+     },
+     "detailHidden": true,
+     "targetRowIsS03": true,
+     "escPath": {
+      "before": {
+       "tag": "div",
+       "id": "",
+       "cls": "detail-head",
+       "text": "S05 像素冷库台 Pixel Cold-Storage Console · F",
+       "isBody": false,
+       "inDetail": true
+      },
+      "after": {
+       "tag": "li",
+       "id": "",
+       "cls": "row is-in",
+       "text": "S05像素冷库台Pixel Cold-Storage ConsoleF 型 · ",
+       "isBody": false,
+       "inDetail": false
+      },
+      "detailHidden": true
+     }
+    }
+   },
+   "d3": {
+    "setup": {
+     "detailHidden": false,
+     "focusedTag": "summary",
+     "summaryText": "原型截图预览3 张点开看 1440 / 768 / ",
+     "detailsOpen": false
+    },
+    "afterEscOnSummary": {
+     "detailHidden": false,
+     "bodyClass": "detail-open",
+     "activeTag": "div",
+     "activeIsSummary": false,
+     "activeInDetail": true,
+     "hash": "#S07",
+     "detailsOpen": false
+    },
+    "control": {
+     "setup": {
+      "focused": "a.open-proto",
+      "isSummary": false
+     },
+     "afterEsc": {
+      "detailHidden": true
+     }
+    }
+   },
+   "kbd": {
+    "J": {
+     "from": "S09",
+     "to": "S10",
+     "open": true,
+     "active": {
+      "tag": "div",
+      "id": "",
+      "cls": "detail-head",
+      "text": "S10 刻度对撞页 Grid Versus Sheet · R 型／VERSUS",
+      "isBody": false,
+      "inDetail": true
+     }
+    },
+    "K": {
+     "to": "S09"
+    },
+    "vp2": [
+     "768×1024"
+    ],
+    "vp3": [
+     "390×844"
+    ],
+    "slash": {
+     "tag": "input",
+     "id": "q",
+     "cls": "",
+     "text": "方案号、中文名、英文名、美学家族、字体、错误码…",
+     "isBody": false,
+     "inDetail": false
+    },
+    "escCloses": {
+     "detailHidden": true,
+     "hash": ""
+    }
+   }
+  },
+  "1440": {
+   "d1": {
+    "asIs": {
+     "exists": true,
+     "hiddenAttr": true,
+     "hiddenProp": true,
+     "display": "none",
+     "rect": {
+      "top": 0,
+      "h": 0,
+      "w": 0
+     },
+     "occupiesLayout": false,
+     "buttonCount": 2,
+     "tabbableButtons": 0,
+     "inlineDisplay": "none",
+     "barH": 59.9,
+     "firstRowTop": 387.9,
+     "docH": 8773,
+     "tabWalkFromSearch": [
+      "select#sort 方案号 结构类型 认知门槛 ",
+      "button#reset 清空筛选",
+      "li S01红黑斜排报Red We",
+      "li S02鎏金对称厅Gilded",
+      "li S03长曝光观测站Long-"
+     ]
+    },
+    "restored": {
+     "exists": true,
+     "hiddenAttr": true,
+     "hiddenProp": true,
+     "display": "none",
+     "rect": {
+      "top": 0,
+      "h": 0,
+      "w": 0
+     },
+     "occupiesLayout": false,
+     "buttonCount": 2,
+     "tabbableButtons": 0,
+     "inlineDisplay": "inline-flex",
+     "barH": 59.9,
+     "firstRowTop": 69.9,
+     "docH": 8773,
+     "note": "inline display:inline-flex + hidden=true（审计现场）",
+     "tabWalkFromSearch": [
+      "select#sort 方案号 结构类型 认知门槛 ",
+      "button#reset 清空筛选",
+      "li S01红黑斜排报Red We",
+      "li S02鎏金对称厅Gilded",
+      "li S03长曝光观测站Long-"
+     ]
+    }
+   },
+   "d4": {
+    "s15": "\"15px\"",
+    "defined": true,
+    "scale": [
+     "--s-13=\"13px\"",
+     "--s-14=\"14px\"",
+     "--s-15=\"15px\"",
+     "--s-16=\"16px\"",
+     "--s-17=\"17px\"",
+     "--s-20=\"20px\"",
+     "--s-24=\"24px\"",
+     "--s-34=\"34px\""
+    ],
+    "claimFontSize": "15px",
+    "claimLines": 3,
+    "claimH": 72,
+    "wizardFontSize": "15px",
+    "wizardH": 42.3,
+    "bodyFontSize": "16px",
+    "mastH": 304,
+    "firstRowTop": 387.9
+   },
+   "d5": {
+    "count": 3,
+    "targets": [
+     {
+      "text": "企业站 M01",
+      "h": 24,
+      "unionH": 24,
+      "fragCount": 1,
+      "frags": [
+       {
+        "w": 72,
+        "h": 24,
+        "t": 264.3
+       }
+      ]
+     },
+     {
+      "text": "餐饮本地 M02",
+      "h": 24,
+      "unionH": 24,
+      "fragCount": 1,
+      "frags": [
+       {
+        "w": 86,
+        "h": 24,
+        "t": 264.3
+       }
+      ]
+     },
+     {
+      "text": "作品集 M03",
+      "h": 24,
+      "unionH": 24,
+      "fragCount": 1,
+      "frags": [
+       {
+        "w": 72,
+        "h": 24,
+        "t": 264.3
+       }
+      ]
+     }
+    ],
+    "minHeight": 24,
+    "circleHits": [],
+    "passesBySize": true,
+    "passesBySpacing": true,
+    "mastExitH": 32.7,
+    "linkDisplay": "inline",
+    "linkPadding": "2px 0px",
+    "notWrapText": true
+   },
+   "d2": {
+    "activeAfterMouseOpen": {
+     "tag": "div",
+     "id": "",
+     "cls": "detail-head",
+     "text": "S01 红黑斜排报 Red Wedge Broadsheet · F 型／NEW",
+     "isBody": false,
+     "inDetail": true
+    },
+    "detailOpenAfterMouse": true,
+    "detailRect": {
+     "top": 0,
+     "h": 900,
+     "display": "flex",
+     "scrollTop": 0
+    },
+    "tabCountFromBodyToDetail": 1,
+    "firstInsideDetail": {
+     "tag": "button",
+     "id": "d-close",
+     "cls": "btn-quiet",
+     "text": "收起",
+     "isBody": false,
+     "inDetail": true
+    },
+    "focusBeforeEnter": {
+     "tag": "li",
+     "id": "",
+     "cls": "row is-in",
+     "text": "S03长曝光观测站Long-Exposure ObservatoryF 型 · ",
+     "isBody": false,
+     "inDetail": false
+    },
+    "activeAfterEnterOpen": {
+     "tag": "div",
+     "id": "",
+     "cls": "detail-head",
+     "text": "S03 长曝光观测站 Long-Exposure Observatory · F",
+     "isBody": false,
+     "inDetail": true
+    },
+    "detailOpenAfterEnter": true,
+    "dNo": "S03",
+    "close": {
+     "focusBeforeClose": {
+      "tag": "div",
+      "id": "",
+      "cls": "detail-head",
+      "text": "S03 长曝光观测站 Long-Exposure Observatory · F",
+      "isBody": false,
+      "inDetail": true
+     },
+     "activeAfterClose": {
+      "tag": "li",
+      "id": "",
+      "cls": "row is-in",
+      "text": "S03长曝光观测站Long-Exposure ObservatoryF 型 · ",
+      "isBody": false,
+      "inDetail": false
+     },
+     "detailHidden": true,
+     "targetRowIsS03": true,
+     "escPath": {
+      "before": {
+       "tag": "div",
+       "id": "",
+       "cls": "detail-head",
+       "text": "S05 像素冷库台 Pixel Cold-Storage Console · F",
+       "isBody": false,
+       "inDetail": true
+      },
+      "after": {
+       "tag": "li",
+       "id": "",
+       "cls": "row is-in",
+       "text": "S05像素冷库台Pixel Cold-Storage ConsoleF 型 · ",
+       "isBody": false,
+       "inDetail": false
+      },
+      "detailHidden": true
+     }
+    }
+   },
+   "d3": {
+    "setup": {
+     "detailHidden": false,
+     "focusedTag": "summary",
+     "summaryText": "原型截图预览3 张点开看 1440 / 768 / ",
+     "detailsOpen": false
+    },
+    "afterEscOnSummary": {
+     "detailHidden": false,
+     "bodyClass": "detail-open",
+     "activeTag": "div",
+     "activeIsSummary": false,
+     "activeInDetail": true,
+     "hash": "#S07",
+     "detailsOpen": false
+    },
+    "control": {
+     "setup": {
+      "focused": "a.open-proto",
+      "isSummary": false
+     },
+     "afterEsc": {
+      "detailHidden": true
+     }
+    }
+   },
+   "kbd": {
+    "J": {
+     "from": "S09",
+     "to": "S10",
+     "open": true,
+     "active": {
+      "tag": "div",
+      "id": "",
+      "cls": "detail-head",
+      "text": "S10 刻度对撞页 Grid Versus Sheet · R 型／VERSUS",
+      "isBody": false,
+      "inDetail": true
+     }
+    },
+    "K": {
+     "to": "S09"
+    },
+    "vp2": [
+     "768×1024"
+    ],
+    "vp3": [
+     "390×844"
+    ],
+    "slash": {
+     "tag": "input",
+     "id": "q",
+     "cls": "",
+     "text": "方案号、中文名、英文名、美学家族、字体、错误码…",
+     "isBody": false,
+     "inDetail": false
+    },
+    "escCloses": {
+     "detailHidden": true,
+     "hash": ""
+    }
+   }
+  }
+ }
+}

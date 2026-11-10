@@ -1,0 +1,45 @@
+{
+ "base": {
+  "label": "prototype-S16",
+  "fails": [
+   "palette-covered"
+  ],
+  "line": "判定：PASS 11 / FAIL 1 / WARN 1 / NA 1"
+ },
+ "pilot": {
+  "label": "pilot-S16",
+  "fails": [],
+  "line": "判定：PASS 13 / FAIL 0 / WARN 0 / NA 1"
+ },
+ "results": [
+  {
+   "label": "sabotage/A-palette",
+   "fails": [
+    "palette-covered"
+   ],
+   "line": "判定：PASS 12 / FAIL 1 / WARN 0 / NA 1"
+  },
+  {
+   "label": "sabotage/B-radius-shadow",
+   "fails": [
+    "radius",
+    "shadow"
+   ],
+   "line": "判定：PASS 11 / FAIL 2 / WARN 0 / NA 1"
+  },
+  {
+   "label": "sabotage/C-font",
+   "fails": [
+    "font-title-real"
+   ],
+   "line": "判定：PASS 12 / FAIL 1 / WARN 0 / NA 1"
+  },
+  {
+   "label": "sabotage/D-widths",
+   "fails": [
+    "line-widths"
+   ],
+   "line": "判定：PASS 12 / FAIL 1 / WARN 0 / NA 1"
+  }
+ ]
+}

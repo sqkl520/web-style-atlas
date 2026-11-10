@@ -1,0 +1,106 @@
+{
+  "script": "shot-page.py",
+  "label": "1440x900-fold",
+  "input": {
+    "file": "D:\\Web\\style\\deliverables\\66-exec\\shots-s13\\after\\.raw\\S13-after-1440-fold.raw.png",
+    "width": 1456,
+    "height": 995,
+    "bytes": 1847505,
+    "mode": "RGB"
+  },
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "crop": {
+    "x": 0,
+    "y": 0,
+    "width": 1440,
+    "height": 900
+  },
+  "pageHeight": 995,
+  "pageHeightSource": "image",
+  "measure": null,
+  "outputs": {
+    "fold": {
+      "file": "S13-after-1440-fold.png",
+      "path": "D:\\Web\\style\\deliverables\\66-exec\\shots-s13\\after\\S13-after-1440-fold.png",
+      "width": 1440,
+      "height": 900,
+      "bytes": 1593176
+    }
+  },
+  "slices": [],
+  "screens": 0,
+  "extras": [],
+  "warnings": [],
+  "total": {
+    "width": 1440,
+    "height": 900,
+    "meanRgb": [
+      187.22,
+      173.78,
+      144.62
+    ],
+    "rgbStdev": [
+      70.92,
+      67.14,
+      57.66
+    ],
+    "luminanceMean": 174.621,
+    "luminanceStdev": 67.29,
+    "nearWhiteShare": 0.0,
+    "nearBlackShare": 0.0,
+    "top3": [
+      {
+        "rgb": [
+          240,
+          224,
+          187
+        ],
+        "hex": "#f0e0bb",
+        "count": 20246,
+        "share": 0.140597
+      },
+      {
+        "rgb": [
+          240,
+          224,
+          188
+        ],
+        "hex": "#f0e0bc",
+        "count": 12469,
+        "share": 0.08659
+      },
+      {
+        "rgb": [
+          239,
+          223,
+          187
+        ],
+        "hex": "#efdfbb",
+        "count": 10638,
+        "share": 0.073875
+      }
+    ],
+    "dominant": {
+      "rgb": [
+        240,
+        224,
+        187
+      ],
+      "hex": "#f0e0bb",
+      "count": 20246,
+      "share": 0.140597
+    },
+    "sampling": {
+      "sampleStep": 3,
+      "sampledPixels": 144000,
+      "uniqueSampled": 17585
+    },
+    "blank": false,
+    "uniform": false,
+    "file": "S13-after-1440-fold.png",
+    "bytes": 1593176
+  }
+}

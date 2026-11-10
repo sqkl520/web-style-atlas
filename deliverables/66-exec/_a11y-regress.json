@@ -1,0 +1,161 @@
+{
+ "deepLink": {
+  "detailOpen": true,
+  "dNo": "S07",
+  "activeTag": "body",
+  "activeIsBody": true,
+  "activeInDetail": false,
+  "hash": "#S07",
+  "afterOneTab": {
+   "tag": "a",
+   "id": "",
+   "cls": "skip",
+   "isBody": false,
+   "inDetail": false
+  }
+ },
+ "parked_1440": {
+  "created": {
+   "parked": "咖啡店",
+   "chip": "咖啡店M02"
+  },
+  "shown": {
+   "exists": true,
+   "hidden": false,
+   "display": "flex",
+   "h": 35.5,
+   "w": 374.9,
+   "visible": true,
+   "text": "已暂存搜索词「咖啡店」——芯片正在按行业筛放回搜索丢弃",
+   "buttons": [
+    {
+     "t": "放回搜索",
+     "h": 25.5
+    },
+    {
+     "t": "丢弃",
+     "h": 25.5
+    }
+   ],
+   "labelText": "已暂存搜索词「咖啡店」——芯片正在按行业筛"
+  },
+  "afterRestore": {
+   "q": "咖啡店",
+   "parkedState": null,
+   "chipStillPressed": 0,
+   "parkedVisible": false,
+   "rows": "列出 0 / 30 个方案"
+  }
+ },
+ "parked_390": {
+  "created": {
+   "parked": "咖啡店",
+   "chip": "咖啡店M02"
+  },
+  "shown": {
+   "exists": true,
+   "hidden": false,
+   "display": "flex",
+   "h": 35.5,
+   "w": 374,
+   "visible": true,
+   "text": "已暂存「咖啡店」放回搜索丢弃",
+   "buttons": [
+    {
+     "t": "放回搜索",
+     "h": 25.5
+    },
+    {
+     "t": "丢弃",
+     "h": 25.5
+    }
+   ],
+   "labelText": "已暂存「咖啡店」"
+  },
+  "afterRestore": {
+   "q": "咖啡店",
+   "parkedState": null,
+   "chipStillPressed": 0,
+   "parkedVisible": false,
+   "rows": "列出 0 / 30 个方案"
+  }
+ },
+ "ladder": {
+  "afterOpen": {
+   "tag": "div",
+   "id": "",
+   "cls": "detail-head",
+   "isBody": false,
+   "inDetail": true
+  },
+  "jSequence": [
+   {
+    "id": "S02",
+    "active": {
+     "cls": "detail-head",
+     "inDetail": true,
+     "isBody": false
+    }
+   },
+   {
+    "id": "S03",
+    "active": {
+     "cls": "detail-head",
+     "inDetail": true,
+     "isBody": false
+    }
+   },
+   {
+    "id": "S04",
+    "active": {
+     "cls": "detail-head",
+     "inDetail": true,
+     "isBody": false
+    }
+   }
+  ],
+  "summaryFocused": {
+   "tag": "summary",
+   "id": "",
+   "cls": "",
+   "isBody": false,
+   "inDetail": true
+  },
+  "esc1": {
+   "detailOpen": true,
+   "active": {
+    "tag": "div",
+    "cls": "detail-head",
+    "inDetail": true
+   }
+  },
+  "esc2": {
+   "detailOpen": false,
+   "active": {
+    "tag": "li",
+    "cls": "row is-in",
+    "dataId": "S04"
+   },
+   "hash": ""
+  },
+  "summarySetup": {
+   "detailOpen": true,
+   "focusedIsSummary": true,
+   "open": false
+  },
+  "summaryToggle": {
+   "open": true,
+   "detailOpen": true,
+   "stillSummary": true
+  },
+  "summaryToggleBack": {
+   "open": false,
+   "detailOpen": true
+  }
+ },
+ "chipAfterClose": {
+  "before": "列出 30 / 30 个方案",
+  "clicked": true,
+  "after": "列出 4 / 30 个方案"
+ }
+}

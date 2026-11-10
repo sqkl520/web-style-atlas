@@ -1,0 +1,673 @@
+{
+ "keys": [
+  ".wrap.hero",
+  ".plate",
+  ".stream .band:first-child",
+  ".readouts table",
+  ".plates"
+ ],
+ "views": {
+  "orig@1440": {
+   "vp": {
+    "w": 1440,
+    "h": 900
+   },
+   "docH": 4591,
+   "docW": 1440,
+   "vw": 1440,
+   "vh": 900,
+   "bodyH": 4591,
+   "hOverflow": 0,
+   "keys": {
+    ".wrap.hero": {
+     "top": 56.5,
+     "left": 0,
+     "w": 1440,
+     "h": 364.1
+    },
+    ".plate": {
+     "top": 331.9,
+     "left": 36,
+     "w": 1368,
+     "h": 88.8
+    },
+    ".stream .band:first-child": {
+     "top": 1077.6,
+     "left": 320,
+     "w": 524,
+     "h": 28
+    },
+    ".readouts table": {
+     "top": 1093.6,
+     "left": 884,
+     "w": 500,
+     "h": 674.1
+    },
+    ".plates": {
+     "top": 2411.6,
+     "left": 36,
+     "w": 1368,
+     "h": 706.7
+    }
+   },
+   "keyMissing": [],
+   "textOverflow": {
+    "n": 0,
+    "worst": []
+   },
+   "ellipsisClips": {
+    "n": 1,
+    "worst": [
+     {
+      "el": "body.developed > a.visually-hidden",
+      "over": 95,
+      "txt": "跳到观测记录"
+     }
+    ]
+   },
+   "overlaps": {
+    "n": 0,
+    "worst": []
+   },
+   "holes": {
+    "n": 1,
+    "total": 469,
+    "list": [
+     {
+      "from": 0,
+      "to": 469,
+      "h": 469
+     }
+    ],
+    "mainH": 3421
+   },
+   "brokenImgs": [],
+   "sheets": 5,
+   "badSheets": [],
+   "fonts": "loaded",
+   "rules": 225,
+   "textChars": 2185,
+   "shot": {
+    "w": 1440,
+    "h": 4591,
+    "scale": 0.5663254192986278
+   }
+  },
+  "orig@768": {
+   "vp": {
+    "w": 768,
+    "h": 1024
+   },
+   "docH": 5907,
+   "docW": 768,
+   "vw": 768,
+   "vh": 1024,
+   "bodyH": 5907,
+   "hOverflow": 0,
+   "keys": {
+    ".wrap.hero": {
+     "top": 56.5,
+     "left": 0,
+     "w": 768,
+     "h": 364.1
+    },
+    ".plate": {
+     "top": 331.9,
+     "left": 36,
+     "w": 696,
+     "h": 88.8
+    },
+    ".stream .band:first-child": {
+     "top": 1055.4,
+     "left": 224,
+     "w": 508,
+     "h": 50.8
+    },
+    ".readouts table": {
+     "top": 1659.4,
+     "left": 56,
+     "w": 656,
+     "h": 432.5
+    },
+    ".plates": {
+     "top": 3044.5,
+     "left": 36,
+     "w": 696,
+     "h": 1332
+    }
+   },
+   "keyMissing": [],
+   "textOverflow": {
+    "n": 0,
+    "worst": []
+   },
+   "ellipsisClips": {
+    "n": 1,
+    "worst": [
+     {
+      "el": "body.developed > a.visually-hidden",
+      "over": 95,
+      "txt": "跳到观测记录"
+     }
+    ]
+   },
+   "overlaps": {
+    "n": 0,
+    "worst": []
+   },
+   "holes": {
+    "n": 1,
+    "total": 469,
+    "list": [
+     {
+      "from": 0,
+      "to": 469,
+      "h": 469
+     }
+    ],
+    "mainH": 4737
+   },
+   "brokenImgs": [],
+   "sheets": 5,
+   "badSheets": [],
+   "fonts": "loaded",
+   "rules": 225,
+   "textChars": 2185,
+   "shot": {
+    "w": 768,
+    "h": 5907,
+    "scale": 0.44015574741831726
+   }
+  },
+  "orig@390": {
+   "vp": {
+    "w": 390,
+    "h": 844
+   },
+   "docH": 5814,
+   "docW": 390,
+   "vw": 390,
+   "vh": 844,
+   "bodyH": 5814,
+   "hOverflow": 0,
+   "keys": {
+    ".wrap.hero": {
+     "top": 105,
+     "left": 0,
+     "w": 390,
+     "h": 466.7
+    },
+    ".plate": {
+     "top": 406.2,
+     "left": 20,
+     "w": 350,
+     "h": 165.5
+    },
+    ".stream .band:first-child": {
+     "top": 1105.3,
+     "left": 120,
+     "w": 250,
+     "h": 36.8
+    },
+    ".readouts table": {
+     "top": 1635.3,
+     "left": 34,
+     "w": 322,
+     "h": 551.1
+    },
+    ".plates": {
+     "top": 3105.1,
+     "left": 20,
+     "w": 350,
+     "h": 737
+    }
+   },
+   "keyMissing": [],
+   "textOverflow": {
+    "n": 0,
+    "worst": []
+   },
+   "ellipsisClips": {
+    "n": 1,
+    "worst": [
+     {
+      "el": "body.developed > a.visually-hidden",
+      "over": 95,
+      "txt": "跳到观测记录"
+     }
+    ]
+   },
+   "overlaps": {
+    "n": 14,
+    "worst": [
+     {
+      "a": "table > tbody > tr > th",
+      "b": "table > tbody > tr > td",
+      "area": 1404,
+      "frac": 1,
+      "y": 1700
+     },
+     {
+      "a": "table > tbody > tr > th",
+      "b": "table > tbody > tr > td",
+      "area": 1404,
+      "frac": 1,
+      "y": 1765
+     },
+     {
+      "a": "table > tbody > tr > th",
+      "b": "table > tbody > tr > td",
+      "area": 1404,
+      "frac": 1,
+      "y": 1830
+     },
+     {
+      "a": "table > tbody > tr > th",
+      "b": "table > tbody > tr > td",
+      "area": 1404,
+      "frac": 1,
+      "y": 1936
+     },
+     {
+      "a": "table > tbody > tr > th",
+      "b": "table > tbody > tr > td",
+      "area": 1404,
+      "frac": 1,
+      "y": 2002
+     },
+     {
+      "a": "table > tbody > tr > th",
+      "b": "table > tbody > tr > td",
+      "area": 1404,
+      "frac": 1,
+      "y": 2067
+     },
+     {
+      "a": "table > tbody > tr > th",
+      "b": "table > tbody > tr > td",
+      "area": 1404,
+      "frac": 1,
+      "y": 2132
+     },
+     {
+      "a": "table > tbody > tr > td",
+      "b": "table > tbody > tr > td",
+      "area": 1184,
+      "frac": 1,
+      "y": 1700
+     }
+    ]
+   },
+   "holes": {
+    "n": 1,
+    "total": 620,
+    "list": [
+     {
+      "from": 0,
+      "to": 620,
+      "h": 620
+     }
+    ],
+    "mainH": 4318
+   },
+   "brokenImgs": [],
+   "sheets": 5,
+   "badSheets": [],
+   "fonts": "loaded",
+   "rules": 225,
+   "textChars": 2174,
+   "shot": {
+    "w": 390,
+    "h": 5814,
+    "scale": 0.44719642242862057
+   }
+  },
+  "swap-inset@1440": {
+   "vp": {
+    "w": 1440,
+    "h": 900
+   },
+   "docH": 4591,
+   "docW": 1440,
+   "vw": 1440,
+   "vh": 900,
+   "bodyH": 4591,
+   "hOverflow": 0,
+   "keys": {
+    ".wrap.hero": {
+     "top": 56.5,
+     "left": 0,
+     "w": 1440,
+     "h": 364.1
+    },
+    ".plate": {
+     "top": 331.9,
+     "left": 36,
+     "w": 1368,
+     "h": 88.8
+    },
+    ".stream .band:first-child": {
+     "top": 1077.6,
+     "left": 320,
+     "w": 524,
+     "h": 28
+    },
+    ".readouts table": {
+     "top": 1093.6,
+     "left": 884,
+     "w": 500,
+     "h": 674.1
+    },
+    ".plates": {
+     "top": 2411.6,
+     "left": 36,
+     "w": 1368,
+     "h": 706.7
+    }
+   },
+   "keyMissing": [],
+   "textOverflow": {
+    "n": 0,
+    "worst": []
+   },
+   "ellipsisClips": {
+    "n": 1,
+    "worst": [
+     {
+      "el": "body.developed > a.visually-hidden",
+      "over": 95,
+      "txt": "斯铺显获肉端"
+     }
+    ]
+   },
+   "overlaps": {
+    "n": 0,
+    "worst": []
+   },
+   "holes": {
+    "n": 1,
+    "total": 469,
+    "list": [
+     {
+      "from": 0,
+      "to": 469,
+      "h": 469
+     }
+    ],
+    "mainH": 3421
+   },
+   "brokenImgs": [],
+   "sheets": 5,
+   "badSheets": [],
+   "fonts": "loaded",
+   "rules": 225,
+   "textChars": 2197,
+   "shot": {
+    "w": 1440,
+    "h": 4591,
+    "scale": 0.5663254192986278
+   }
+  },
+  "swap-inset@768": {
+   "vp": {
+    "w": 768,
+    "h": 1024
+   },
+   "docH": 5907,
+   "docW": 768,
+   "vw": 768,
+   "vh": 1024,
+   "bodyH": 5907,
+   "hOverflow": 0,
+   "keys": {
+    ".wrap.hero": {
+     "top": 56.5,
+     "left": 0,
+     "w": 768,
+     "h": 364.1
+    },
+    ".plate": {
+     "top": 331.9,
+     "left": 36,
+     "w": 696,
+     "h": 88.8
+    },
+    ".stream .band:first-child": {
+     "top": 1055.4,
+     "left": 224,
+     "w": 508,
+     "h": 50.8
+    },
+    ".readouts table": {
+     "top": 1659.4,
+     "left": 56,
+     "w": 656,
+     "h": 432.5
+    },
+    ".plates": {
+     "top": 3044.5,
+     "left": 36,
+     "w": 696,
+     "h": 1332
+    }
+   },
+   "keyMissing": [],
+   "textOverflow": {
+    "n": 0,
+    "worst": []
+   },
+   "ellipsisClips": {
+    "n": 1,
+    "worst": [
+     {
+      "el": "body.developed > a.visually-hidden",
+      "over": 95,
+      "txt": "斯铺显获肉端"
+     }
+    ]
+   },
+   "overlaps": {
+    "n": 0,
+    "worst": []
+   },
+   "holes": {
+    "n": 1,
+    "total": 469,
+    "list": [
+     {
+      "from": 0,
+      "to": 469,
+      "h": 469
+     }
+    ],
+    "mainH": 4737
+   },
+   "brokenImgs": [],
+   "sheets": 5,
+   "badSheets": [],
+   "fonts": "loaded",
+   "rules": 225,
+   "textChars": 2197,
+   "shot": {
+    "w": 768,
+    "h": 5907,
+    "scale": 0.44015574741831726
+   }
+  },
+  "swap-inset@390": {
+   "vp": {
+    "w": 390,
+    "h": 844
+   },
+   "docH": 5858,
+   "docW": 390,
+   "vw": 390,
+   "vh": 844,
+   "bodyH": 5858,
+   "hOverflow": 0,
+   "keys": {
+    ".wrap.hero": {
+     "top": 105,
+     "left": 0,
+     "w": 390,
+     "h": 466.7
+    },
+    ".plate": {
+     "top": 406.2,
+     "left": 20,
+     "w": 350,
+     "h": 165.5
+    },
+    ".stream .band:first-child": {
+     "top": 1126.1,
+     "left": 120,
+     "w": 250,
+     "h": 36.8
+    },
+    ".readouts table": {
+     "top": 1656.1,
+     "left": 34,
+     "w": 322,
+     "h": 551.1
+    },
+    ".plates": {
+     "top": 3125.9,
+     "left": 20,
+     "w": 350,
+     "h": 737
+    }
+   },
+   "keyMissing": [],
+   "textOverflow": {
+    "n": 0,
+    "worst": []
+   },
+   "ellipsisClips": {
+    "n": 1,
+    "worst": [
+     {
+      "el": "body.developed > a.visually-hidden",
+      "over": 95,
+      "txt": "斯铺显获肉端"
+     }
+    ]
+   },
+   "overlaps": {
+    "n": 14,
+    "worst": [
+     {
+      "a": "table > tbody > tr > th",
+      "b": "table > tbody > tr > td",
+      "area": 1404,
+      "frac": 1,
+      "y": 1721
+     },
+     {
+      "a": "table > tbody > tr > th",
+      "b": "table > tbody > tr > td",
+      "area": 1404,
+      "frac": 1,
+      "y": 1786
+     },
+     {
+      "a": "table > tbody > tr > th",
+      "b": "table > tbody > tr > td",
+      "area": 1404,
+      "frac": 1,
+      "y": 1851
+     },
+     {
+      "a": "table > tbody > tr > th",
+      "b": "table > tbody > tr > td",
+      "area": 1404,
+      "frac": 1,
+      "y": 1957
+     },
+     {
+      "a": "table > tbody > tr > th",
+      "b": "table > tbody > tr > td",
+      "area": 1404,
+      "frac": 1,
+      "y": 2022
+     },
+     {
+      "a": "table > tbody > tr > th",
+      "b": "table > tbody > tr > td",
+      "area": 1404,
+      "frac": 1,
+      "y": 2088
+     },
+     {
+      "a": "table > tbody > tr > th",
+      "b": "table > tbody > tr > td",
+      "area": 1404,
+      "frac": 1,
+      "y": 2153
+     },
+     {
+      "a": "table > tbody > tr > td",
+      "b": "table > tbody > tr > td",
+      "area": 1184,
+      "frac": 1,
+      "y": 1721
+     }
+    ]
+   },
+   "holes": {
+    "n": 1,
+    "total": 620,
+    "list": [
+     {
+      "from": 0,
+      "to": 620,
+      "h": 620
+     }
+    ],
+    "mainH": 4339
+   },
+   "brokenImgs": [],
+   "sheets": 5,
+   "badSheets": [],
+   "fonts": "loaded",
+   "rules": 225,
+   "textChars": 2186,
+   "shot": {
+    "w": 390,
+    "h": 5858,
+    "scale": 0.44383748719699556
+   }
+  }
+ },
+ "meta": {
+  "orig": {
+   "loaded": "load",
+   "title": "北纬 69° 极光观测站 · 长曝光观测档案 1957 至 1979",
+   "sheets": [
+    "http://127.0.0.1:9612/prototypes/_fonts/css/ibm-plex-mono__400-600.css",
+    "http://127.0.0.1:9612/prototypes/_fonts/css/ibm-plex-sans__400-600.css",
+    "http://127.0.0.1:9612/prototypes/_fonts/css/space-grotesk__400-500.css",
+    "http://127.0.0.1:9612/prototypes/_fonts/css/noto-sans-sc__100..900.css",
+    "http://127.0.0.1:9612/prototypes/S03-long-exposure-observatory/style.css"
+   ],
+   "imgs": 12,
+   "broken": 0,
+   "chars": 2185,
+   "consoleErrors": []
+  },
+  "swap-inset": {
+   "loaded": "load",
+   "title": "于条 17° 些其羽器照 · 曝十蛋下声夜型 2114 领 1121",
+   "sheets": [
+    "http://127.0.0.1:9612/deliverables/63-test/replica/_fonts/css/ibm-plex-mono__400-600.css",
+    "http://127.0.0.1:9612/deliverables/63-test/replica/_fonts/css/ibm-plex-sans__400-600.css",
+    "http://127.0.0.1:9612/deliverables/63-test/replica/_fonts/css/space-grotesk__400-500.css",
+    "http://127.0.0.1:9612/deliverables/63-test/replica/_fonts/css/noto-sans-sc__100..900.css",
+    "http://127.0.0.1:9612/deliverables/63-test/replica/S03-long-exposure-observatory/style.css"
+   ],
+   "imgs": 12,
+   "broken": 0,
+   "chars": 2197,
+   "consoleErrors": []
+  }
+ }
+}

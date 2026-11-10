@@ -1,0 +1,12 @@
+import {readFileSync} from 'node:fs';
+const s=readFileSync('D:/Web/style/prototypes/S04-mango-collage-wall/index.html','utf8');
+const figs=[...s.matchAll(/<figure class="slip"[^>]*>/g)].map(m=>m[0]);
+const spans=figs.map(f=>(f.match(/--span:(\d+)/)||[])[1]).filter(Boolean).map(Number);
+const rots=figs.map(f=>(f.match(/--r:(-?[\d.]+)deg/)||[])[1]).filter(Boolean).map(Number);
+const ri=figs.map(f=>(f.match(/--ri:(-?\d+)px/)||[])[1]).filter(Boolean).map(Number);
+const rj=figs.map(f=>(f.match(/--rj:(-?\d+)px/)||[])[1]).filter(Boolean).map(Number);
+console.log('slip figures',figs.length);
+console.log('spans',spans.sort((a,b)=>a-b));
+console.log('rot',rots.sort((a,b)=>a-b));
+console.log('ri',[...new Set(ri)].sort((a,b)=>a-b));
+console.log('rj',[...new Set(rj)].sort((a,b)=>a-b));

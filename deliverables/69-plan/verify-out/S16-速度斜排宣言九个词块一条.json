@@ -1,0 +1,305 @@
+{
+ "at": "2026-10-28T19:45:22.567Z",
+ "promptId": "S16",
+ "page": "D:\\Web\\style\\prototypes\\S16-velocity-slant-manifesto\\index.html",
+ "spec": {
+  "id": "S16",
+  "promptChars": 1795,
+  "promptLines": 39,
+  "palette": [
+   "#C52C0F",
+   "#F7EBCF",
+   "#1A1A1A",
+   "#8E2A18",
+   "#5C5C55"
+  ],
+  "bannedHex": [
+   "#6366F1"
+  ],
+  "titleStack": [
+   "LXGW Marker Gothic",
+   "Noto Serif SC"
+  ],
+  "bodyStack": [
+   "Noto Serif SC",
+   "Georgia",
+   "Songti SC"
+  ],
+  "monoFont": "Fragment Mono",
+  "radiusMode": "zero-except-circle",
+  "shadowMode": "drop-only",
+  "claimedWidths": [
+   2,
+   3,
+   6,
+   13
+  ],
+  "nClaim": 9,
+  "picsClaim": 6,
+  "voidClause": false,
+  "autolayout": true,
+  "promptSha1": null
+ },
+ "measured": {
+  "painted": [
+   "#F7EBCF",
+   "#1A1A1A",
+   "#5C5C55",
+   "#C52C0F",
+   "#8E2A18",
+   "#FFFFFF",
+   "#7A2410",
+   "#000000",
+   "#FFF2E9"
+  ],
+  "radii": [],
+  "widths": [
+   [
+    3,
+    20
+   ]
+  ],
+  "boxShadowOuter": 0,
+  "boxShadowInset": 0,
+  "dropShadow": 10,
+  "gradients": 0,
+  "backdrop": 0,
+  "declaredFams": [
+   [
+    "Noto Serif SC",
+    104
+   ],
+   [
+    "Fragment Mono",
+    74
+   ],
+   [
+    "LXGW Marker Gothic",
+    25
+   ],
+   [
+    "Archivo Black",
+    2
+   ]
+  ],
+  "emojiHit": 0,
+  "imgs": [
+   {
+    "src": "assets/plate-01-figaro-manifesto.png",
+    "w": 804,
+    "h": 1167,
+    "nw": 720,
+    "nh": 1046
+   },
+   {
+    "src": "assets/plate-04-metal-type.png",
+    "w": 752,
+    "h": 499,
+    "nw": 1060,
+    "nh": 704
+   },
+   {
+    "src": "assets/plate-03-type-case.png",
+    "w": 700,
+    "h": 525,
+    "nw": 1080,
+    "nh": 810
+   },
+   {
+    "src": "assets/plate-05-albion-press.png",
+    "w": 933,
+    "h": 719,
+    "nw": 1100,
+    "nh": 848
+   },
+   {
+    "src": "assets/plate-06-composing-stick.png",
+    "w": 726,
+    "h": 714,
+    "nw": 900,
+    "nh": 885
+   },
+   {
+    "src": "assets/plate-02-parole-liberta.png",
+    "w": 674,
+    "h": 721,
+    "nw": 700,
+    "nh": 749
+   }
+  ],
+  "realPics": 6,
+  "distinctPics": 6,
+  "units": [
+   [
+    "SECTION.slab",
+    {
+     "n": 9,
+     "withHead": 9
+    }
+   ],
+   [
+    "DIV.",
+    {
+     "n": 3,
+     "withHead": 3
+    }
+   ],
+   [
+    "FIGURE.plate",
+    {
+     "n": 6,
+     "withHead": 0
+    }
+   ],
+   [
+    "LINK.",
+    {
+     "n": 5,
+     "withHead": 0
+    }
+   ],
+   [
+    "LI.",
+    {
+     "n": 5,
+     "withHead": 0
+    }
+   ],
+   [
+    "CODE.",
+    {
+     "n": 5,
+     "withHead": 0
+    }
+   ]
+  ],
+  "h1": {
+   "size": 88,
+   "fam": "LXGW Marker Gothic",
+   "text": "速度斜排宣言"
+  },
+  "docH": 9506,
+  "title": "速度斜排宣言 · 九个词块一条斜线｜铅字活版重排"
+ },
+ "platformFonts": [
+  {
+   "family": "LXGW Marker Gothic",
+   "glyphs": 6
+  }
+ ],
+ "checks": [
+  {
+   "id": "palette-covered",
+   "verdict": "FAIL",
+   "got": "9 色，集合外 4 色",
+   "want": "⊆ [#C52C0F #F7EBCF #1A1A1A #8E2A18 #5C5C55]",
+   "note": "集合外：#FFFFFF #7A2410 #000000 #FFF2E9"
+  },
+  {
+   "id": "palette-banned",
+   "verdict": "PASS",
+   "got": "无",
+   "want": "不得出现 #6366F1",
+   "note": ""
+  },
+  {
+   "id": "font-title-real",
+   "verdict": "PASS",
+   "got": "LXGW Marker Gothic",
+   "want": "LXGW Marker Gothic",
+   "note": "平台字体全部：LXGW Marker Gothic(6)"
+  },
+  {
+   "id": "font-count",
+   "verdict": "WARN",
+   "got": "4",
+   "want": "≤3（2 链 + 1 等宽槽）",
+   "note": "Noto Serif SC, Fragment Mono, LXGW Marker Gothic, Archivo Black"
+  },
+  {
+   "id": "font-mono-slot",
+   "verdict": "PASS",
+   "got": "Fragment Mono",
+   "want": "Fragment Mono",
+   "note": ""
+  },
+  {
+   "id": "radius",
+   "verdict": "PASS",
+   "got": "0 处（非圆形 0）",
+   "want": "0，圆形徽标除外",
+   "note": ""
+  },
+  {
+   "id": "shadow",
+   "verdict": "PASS",
+   "got": "box 外投影 0 / drop 10",
+   "want": "box-shadow 外投影 0（drop 允许）",
+   "note": ""
+  },
+  {
+   "id": "line-widths",
+   "verdict": "PASS",
+   "got": "3",
+   "want": "2/3/6/13",
+   "note": ""
+  },
+  {
+   "id": "pictures",
+   "verdict": "PASS",
+   "got": "真图 6 张 / 不同 src 6",
+   "want": "≥6 张且互不相同",
+   "note": "assets/plate-01-figaro-manifesto.png(804x1167,nat 720) | assets/plate-04-metal-type.png(752x499,nat 1060) | assets/plate-03-type-case.png(700x525,nat 1080)"
+  },
+  {
+   "id": "unit-count",
+   "verdict": "PASS",
+   "got": "SECTION.slab × 9",
+   "want": "设计规模 9（允许 ±40%）",
+   "note": "本案自动流，数量本来可增减"
+  },
+  {
+   "id": "guard-no-gradient",
+   "verdict": "PASS",
+   "got": "0 处",
+   "want": "0",
+   "note": ""
+  },
+  {
+   "id": "guard-no-emoji",
+   "verdict": "PASS",
+   "got": "0 处渲染文本",
+   "want": "0",
+   "note": ""
+  },
+  {
+   "id": "guard-no-glass",
+   "verdict": "PASS",
+   "got": "0 处 backdrop-filter",
+   "want": "0",
+   "note": ""
+  },
+  {
+   "id": "guard-single-cta",
+   "verdict": "NA",
+   "got": "需人眼/结构判定",
+   "want": "首屏不得有 2 个并排主 CTA",
+   "note": ""
+  }
+ ],
+ "tally": {
+  "FAIL": 1,
+  "PASS": 11,
+  "WARN": 1,
+  "NA": 1
+ },
+ "leak": {
+  "protoSelectors": 124,
+  "pageSelectors": 33,
+  "selectorJaccard": 0,
+  "protoDecls": 526,
+  "pageDecls": 42,
+  "declJaccard": 0,
+  "verdict": "clean"
+ }
+}

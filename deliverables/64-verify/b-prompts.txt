@@ -1,0 +1,40 @@
+﻿LOAD FAIL prompt-copy.js document.getElementById is not a function
+window keys: SCHEMES,STYLE_PROMPTS,mountPromptButton,buildStylePrompt,benchTemplateHits,onBenchRender
+typeof buildStylePrompt: function
+SCHEMES: 30 STYLE_PROMPTS: 4
+id   chars  多版本信息       可落地要点       landingLen  half-in-prompt
+S01  1559   false       false       386         false
+S02  1715   false       false       363         null
+S03  1745   false       false       439         null
+S04  1657   false       false       387         null
+S05  1667   false       false       401         null
+S06  1684   false       false       401         null
+S07  1662   false       false       431         null
+S08  1702   false       false       447         null
+S09  1617   false       false       445         null
+S10  1671   false       false       494         null
+S11  1672   false       false       515         false
+S12  1720   false       false       411         false
+S13  1646   false       false       468         false
+S14  1628   false       false       469         false
+S15  1704   false       false       529         false
+S16  1651   false       false       467         false
+S17  1724   false       false       458         false
+S18  1742   false       false       482         false
+S19  1723   false       false       465         false
+S20  1632   false       false       507         false
+S21  1731   false       false       472         false
+S22  1738   false       false       474         false
+S23  1772   false       false       548         false
+S24  1747   false       false       515         false
+S25  1673   false       false       550         false
+S26  1697   false       false       499         false
+S27  1690   false       false       428         false
+S28  1688   false       false       495         false
+S29  1729   false       false       542         false
+S30  1731   false       false       474         false
+
+多版本信息 命中案数: 0 /30
+可落地要点 命中案数: 0 /30
+长度 min/median/max: 1559 1697 1772
+超 1500 的案: S01:1559 S02:1715 S03:1745 S04:1657 S05:1667 S06:1684 S07:1662 S08:1702 S09:1617 S10:1671 S11:1672 S12:1720 S13:1646 S14:1628 S15:1704 S16:1651 S17:1724 S18:1742 S19:1723 S20:1632 S21:1731 S22:1738 S23:1772 S24:1747 S25:1673 S26:1697 S27:1690 S28:1688 S29:1729 S30:1731

@@ -1,0 +1,899 @@
+{
+ "keys": [
+  ".masthead",
+  ".sheet-sec",
+  ".keys",
+  ".plates-sec",
+  ".maps-sec"
+ ],
+ "views": {
+  "orig@1440": {
+   "vp": {
+    "w": 1440,
+    "h": 900
+   },
+   "docH": 8834,
+   "docW": 1440,
+   "vw": 1440,
+   "vh": 900,
+   "bodyH": 8834,
+   "hOverflow": 0,
+   "keys": {
+    ".masthead": {
+     "top": 0,
+     "left": 0,
+     "w": 1440,
+     "h": 998.8
+    },
+    ".sheet-sec": {
+     "top": 998.8,
+     "left": 0,
+     "w": 1440,
+     "h": 1935.5
+    },
+    ".keys": {
+     "top": 3965.3,
+     "left": 0,
+     "w": 1440,
+     "h": 698.1
+    },
+    ".plates-sec": {
+     "top": 4663.4,
+     "left": 0,
+     "w": 1440,
+     "h": 1974
+    },
+    ".maps-sec": {
+     "top": 6637.3,
+     "left": 0,
+     "w": 1440,
+     "h": 500.2
+    }
+   },
+   "keyMissing": [],
+   "textOverflow": {
+    "n": 0,
+    "worst": []
+   },
+   "ellipsisClips": {
+    "n": 1,
+    "worst": [
+     {
+      "el": "body > a.skip",
+      "over": 143,
+      "txt": "跳到图纸与参数面板"
+     }
+    ]
+   },
+   "overlaps": {
+    "n": 286,
+    "worst": [
+     {
+      "a": "div.plot__stage > div.sheet > svg > rect",
+      "b": "div.plot__stage > div.sheet > svg > g",
+      "area": 434277,
+      "frac": 1,
+      "y": 1510
+     },
+     {
+      "a": "div.sheet > svg > g > path",
+      "b": "div.sheet > svg > g > path",
+      "area": 405130,
+      "frac": 1,
+      "y": 1522
+     },
+     {
+      "a": "div.sheet > svg > g > path",
+      "b": "div.sheet > svg > g > path",
+      "area": 376380,
+      "frac": 1,
+      "y": 1533
+     },
+     {
+      "a": "div.sheet > svg > g > path",
+      "b": "div.sheet > svg > g > path",
+      "area": 376380,
+      "frac": 1,
+      "y": 1533
+     },
+     {
+      "a": "div.sheet > svg > g > path",
+      "b": "div.sheet > svg > g > path",
+      "area": 349280,
+      "frac": 1,
+      "y": 1545
+     },
+     {
+      "a": "div.sheet > svg > g > path",
+      "b": "div.sheet > svg > g > path",
+      "area": 349280,
+      "frac": 1,
+      "y": 1545
+     },
+     {
+      "a": "div.sheet > svg > g > path",
+      "b": "div.sheet > svg > g > path",
+      "area": 349280,
+      "frac": 1,
+      "y": 1545
+     },
+     {
+      "a": "div.sheet > svg > g > path",
+      "b": "div.sheet > svg > g > path",
+      "area": 323190,
+      "frac": 1,
+      "y": 1556
+     }
+    ]
+   },
+   "holes": {
+    "n": 1,
+    "total": 999,
+    "list": [
+     {
+      "from": 0,
+      "to": 999,
+      "h": 999
+     }
+    ],
+    "mainH": 7426
+   },
+   "brokenImgs": [],
+   "sheets": 4,
+   "badSheets": [],
+   "fonts": "loaded",
+   "rules": 281,
+   "textChars": 4851,
+   "shot": {
+    "w": 1440,
+    "h": 8834,
+    "scale": 0.29431741000679196
+   }
+  },
+  "orig@768": {
+   "vp": {
+    "w": 768,
+    "h": 1024
+   },
+   "docH": 11484,
+   "docW": 768,
+   "vw": 768,
+   "vh": 1024,
+   "bodyH": 11484,
+   "hOverflow": 0,
+   "keys": {
+    ".masthead": {
+     "top": 0,
+     "left": 0,
+     "w": 768,
+     "h": 1605.6
+    },
+    ".sheet-sec": {
+     "top": 1605.6,
+     "left": 0,
+     "w": 768,
+     "h": 2567.8
+    },
+    ".keys": {
+     "top": 5728.9,
+     "left": 0,
+     "w": 768,
+     "h": 648.9
+    },
+    ".plates-sec": {
+     "top": 6377.8,
+     "left": 0,
+     "w": 768,
+     "h": 2278.7
+    },
+    ".maps-sec": {
+     "top": 8656.5,
+     "left": 0,
+     "w": 768,
+     "h": 515.3
+    }
+   },
+   "keyMissing": [],
+   "textOverflow": {
+    "n": 0,
+    "worst": []
+   },
+   "ellipsisClips": {
+    "n": 1,
+    "worst": [
+     {
+      "el": "body > a.skip",
+      "over": 143,
+      "txt": "跳到图纸与参数面板"
+     }
+    ]
+   },
+   "overlaps": {
+    "n": 286,
+    "worst": [
+     {
+      "a": "div.plot__stage > div.sheet > svg > rect",
+      "b": "div.plot__stage > div.sheet > svg > g",
+      "area": 348273,
+      "frac": 1,
+      "y": 2078
+     },
+     {
+      "a": "div.sheet > svg > g > path",
+      "b": "div.sheet > svg > g > path",
+      "area": 324898,
+      "frac": 1,
+      "y": 2089
+     },
+     {
+      "a": "div.sheet > svg > g > path",
+      "b": "div.sheet > svg > g > path",
+      "area": 301842,
+      "frac": 1,
+      "y": 2099
+     },
+     {
+      "a": "div.sheet > svg > g > path",
+      "b": "div.sheet > svg > g > path",
+      "area": 301842,
+      "frac": 1,
+      "y": 2099
+     },
+     {
+      "a": "div.sheet > svg > g > path",
+      "b": "div.sheet > svg > g > path",
+      "area": 280109,
+      "frac": 1,
+      "y": 2109
+     },
+     {
+      "a": "div.sheet > svg > g > path",
+      "b": "div.sheet > svg > g > path",
+      "area": 280109,
+      "frac": 1,
+      "y": 2109
+     },
+     {
+      "a": "div.sheet > svg > g > path",
+      "b": "div.sheet > svg > g > path",
+      "area": 280109,
+      "frac": 1,
+      "y": 2109
+     },
+     {
+      "a": "div.sheet > svg > g > path",
+      "b": "div.sheet > svg > g > path",
+      "area": 259186,
+      "frac": 1,
+      "y": 2119
+     }
+    ]
+   },
+   "holes": {
+    "n": 1,
+    "total": 1606,
+    "list": [
+     {
+      "from": 0,
+      "to": 1606,
+      "h": 1606
+     }
+    ],
+    "mainH": 9306
+   },
+   "brokenImgs": [],
+   "sheets": 4,
+   "badSheets": [],
+   "fonts": "loaded",
+   "rules": 281,
+   "textChars": 4978,
+   "shot": {
+    "w": 768,
+    "h": 11484,
+    "scale": 0.22640195053988157
+   }
+  },
+  "orig@390": {
+   "vp": {
+    "w": 390,
+    "h": 844
+   },
+   "docH": 13792,
+   "docW": 390,
+   "vw": 390,
+   "vh": 844,
+   "bodyH": 13792,
+   "hOverflow": 0,
+   "keys": {
+    ".masthead": {
+     "top": 213.1,
+     "left": 0,
+     "w": 390,
+     "h": 1385.7
+    },
+    ".sheet-sec": {
+     "top": 1598.8,
+     "left": 0,
+     "w": 390,
+     "h": 2684.9
+    },
+    ".keys": {
+     "top": 6064.3,
+     "left": 0,
+     "w": 390,
+     "h": 951.5
+    },
+    ".plates-sec": {
+     "top": 7015.8,
+     "left": 0,
+     "w": 390,
+     "h": 3180.8
+    },
+    ".maps-sec": {
+     "top": 10196.5,
+     "left": 0,
+     "w": 390,
+     "h": 674.2
+    }
+   },
+   "keyMissing": [],
+   "textOverflow": {
+    "n": 0,
+    "worst": []
+   },
+   "ellipsisClips": {
+    "n": 1,
+    "worst": [
+     {
+      "el": "body > a.skip",
+      "over": 143,
+      "txt": "跳到图纸与参数面板"
+     }
+    ]
+   },
+   "overlaps": {
+    "n": 287,
+    "worst": [
+     {
+      "a": "div.plot__stage > div.sheet > svg > rect",
+      "b": "div.plot__stage > div.sheet > svg > g",
+      "area": 86104,
+      "frac": 1,
+      "y": 2185
+     },
+     {
+      "a": "div.sheet > svg > g > path",
+      "b": "div.sheet > svg > g > path",
+      "area": 80325,
+      "frac": 1,
+      "y": 2190
+     },
+     {
+      "a": "div.sheet > svg > g > path",
+      "b": "div.sheet > svg > g > path",
+      "area": 74624,
+      "frac": 1,
+      "y": 2195
+     },
+     {
+      "a": "div.sheet > svg > g > path",
+      "b": "div.sheet > svg > g > path",
+      "area": 74624,
+      "frac": 1,
+      "y": 2195
+     },
+     {
+      "a": "div.sheet > svg > g > path",
+      "b": "div.sheet > svg > g > path",
+      "area": 69251,
+      "frac": 1,
+      "y": 2201
+     },
+     {
+      "a": "div.sheet > svg > g > path",
+      "b": "div.sheet > svg > g > path",
+      "area": 69251,
+      "frac": 1,
+      "y": 2201
+     },
+     {
+      "a": "div.sheet > svg > g > path",
+      "b": "div.sheet > svg > g > path",
+      "area": 69251,
+      "frac": 1,
+      "y": 2201
+     },
+     {
+      "a": "div.sheet > svg > g > path",
+      "b": "div.sheet > svg > g > path",
+      "area": 64078,
+      "frac": 1,
+      "y": 2205
+     }
+    ]
+   },
+   "holes": {
+    "n": 1,
+    "total": 1599,
+    "list": [
+     {
+      "from": 0,
+      "to": 1599,
+      "h": 1599
+     }
+    ],
+    "mainH": 11466
+   },
+   "brokenImgs": [],
+   "sheets": 4,
+   "badSheets": [],
+   "fonts": "loaded",
+   "rules": 281,
+   "textChars": 4875,
+   "shot": {
+    "w": 390,
+    "h": 13792,
+    "scale": 0.18851508120649652
+   }
+  },
+  "swap-inset@1440": {
+   "vp": {
+    "w": 1440,
+    "h": 900
+   },
+   "docH": 8856,
+   "docW": 1440,
+   "vw": 1440,
+   "vh": 900,
+   "bodyH": 8856,
+   "hOverflow": 0,
+   "keys": {
+    ".masthead": {
+     "top": 0,
+     "left": 0,
+     "w": 1440,
+     "h": 998.8
+    },
+    ".sheet-sec": {
+     "top": 998.8,
+     "left": 0,
+     "w": 1440,
+     "h": 1957
+    },
+    ".keys": {
+     "top": 3986.7,
+     "left": 0,
+     "w": 1440,
+     "h": 698.1
+    },
+    ".plates-sec": {
+     "top": 4684.8,
+     "left": 0,
+     "w": 1440,
+     "h": 1974
+    },
+    ".maps-sec": {
+     "top": 6658.8,
+     "left": 0,
+     "w": 1440,
+     "h": 500.2
+    }
+   },
+   "keyMissing": [],
+   "textOverflow": {
+    "n": 0,
+    "worst": []
+   },
+   "ellipsisClips": {
+    "n": 1,
+    "worst": [
+     {
+      "el": "body > a.skip",
+      "over": 143,
+      "txt": "配法头声偏窄框电纹"
+     }
+    ]
+   },
+   "overlaps": {
+    "n": 286,
+    "worst": [
+     {
+      "a": "div.plot__stage > div.sheet > svg > rect",
+      "b": "div.plot__stage > div.sheet > svg > g",
+      "area": 434277,
+      "frac": 1,
+      "y": 1510
+     },
+     {
+      "a": "div.sheet > svg > g > path",
+      "b": "div.sheet > svg > g > path",
+      "area": 405130,
+      "frac": 1,
+      "y": 1522
+     },
+     {
+      "a": "div.sheet > svg > g > path",
+      "b": "div.sheet > svg > g > path",
+      "area": 376380,
+      "frac": 1,
+      "y": 1533
+     },
+     {
+      "a": "div.sheet > svg > g > path",
+      "b": "div.sheet > svg > g > path",
+      "area": 376380,
+      "frac": 1,
+      "y": 1533
+     },
+     {
+      "a": "div.sheet > svg > g > path",
+      "b": "div.sheet > svg > g > path",
+      "area": 349280,
+      "frac": 1,
+      "y": 1545
+     },
+     {
+      "a": "div.sheet > svg > g > path",
+      "b": "div.sheet > svg > g > path",
+      "area": 349280,
+      "frac": 1,
+      "y": 1545
+     },
+     {
+      "a": "div.sheet > svg > g > path",
+      "b": "div.sheet > svg > g > path",
+      "area": 349280,
+      "frac": 1,
+      "y": 1545
+     },
+     {
+      "a": "div.sheet > svg > g > path",
+      "b": "div.sheet > svg > g > path",
+      "area": 323190,
+      "frac": 1,
+      "y": 1556
+     }
+    ]
+   },
+   "holes": {
+    "n": 1,
+    "total": 999,
+    "list": [
+     {
+      "from": 0,
+      "to": 999,
+      "h": 999
+     }
+    ],
+    "mainH": 7447
+   },
+   "brokenImgs": [],
+   "sheets": 4,
+   "badSheets": [],
+   "fonts": "loaded",
+   "rules": 281,
+   "textChars": 4851,
+   "shot": {
+    "w": 1440,
+    "h": 8856,
+    "scale": 0.2935862691960253
+   }
+  },
+  "swap-inset@768": {
+   "vp": {
+    "w": 768,
+    "h": 1024
+   },
+   "docH": 11484,
+   "docW": 768,
+   "vw": 768,
+   "vh": 1024,
+   "bodyH": 11484,
+   "hOverflow": 0,
+   "keys": {
+    ".masthead": {
+     "top": 0,
+     "left": 0,
+     "w": 768,
+     "h": 1605.6
+    },
+    ".sheet-sec": {
+     "top": 1605.6,
+     "left": 0,
+     "w": 768,
+     "h": 2567.8
+    },
+    ".keys": {
+     "top": 5728.9,
+     "left": 0,
+     "w": 768,
+     "h": 648.9
+    },
+    ".plates-sec": {
+     "top": 6377.8,
+     "left": 0,
+     "w": 768,
+     "h": 2278.7
+    },
+    ".maps-sec": {
+     "top": 8656.5,
+     "left": 0,
+     "w": 768,
+     "h": 515.3
+    }
+   },
+   "keyMissing": [],
+   "textOverflow": {
+    "n": 0,
+    "worst": []
+   },
+   "ellipsisClips": {
+    "n": 1,
+    "worst": [
+     {
+      "el": "body > a.skip",
+      "over": 143,
+      "txt": "配法头声偏窄框电纹"
+     }
+    ]
+   },
+   "overlaps": {
+    "n": 286,
+    "worst": [
+     {
+      "a": "div.plot__stage > div.sheet > svg > rect",
+      "b": "div.plot__stage > div.sheet > svg > g",
+      "area": 348273,
+      "frac": 1,
+      "y": 2078
+     },
+     {
+      "a": "div.sheet > svg > g > path",
+      "b": "div.sheet > svg > g > path",
+      "area": 324898,
+      "frac": 1,
+      "y": 2089
+     },
+     {
+      "a": "div.sheet > svg > g > path",
+      "b": "div.sheet > svg > g > path",
+      "area": 301842,
+      "frac": 1,
+      "y": 2099
+     },
+     {
+      "a": "div.sheet > svg > g > path",
+      "b": "div.sheet > svg > g > path",
+      "area": 301842,
+      "frac": 1,
+      "y": 2099
+     },
+     {
+      "a": "div.sheet > svg > g > path",
+      "b": "div.sheet > svg > g > path",
+      "area": 280109,
+      "frac": 1,
+      "y": 2109
+     },
+     {
+      "a": "div.sheet > svg > g > path",
+      "b": "div.sheet > svg > g > path",
+      "area": 280109,
+      "frac": 1,
+      "y": 2109
+     },
+     {
+      "a": "div.sheet > svg > g > path",
+      "b": "div.sheet > svg > g > path",
+      "area": 280109,
+      "frac": 1,
+      "y": 2109
+     },
+     {
+      "a": "div.sheet > svg > g > path",
+      "b": "div.sheet > svg > g > path",
+      "area": 259186,
+      "frac": 1,
+      "y": 2119
+     }
+    ]
+   },
+   "holes": {
+    "n": 1,
+    "total": 1606,
+    "list": [
+     {
+      "from": 0,
+      "to": 1606,
+      "h": 1606
+     }
+    ],
+    "mainH": 9306
+   },
+   "brokenImgs": [],
+   "sheets": 4,
+   "badSheets": [],
+   "fonts": "loaded",
+   "rules": 281,
+   "textChars": 4978,
+   "shot": {
+    "w": 768,
+    "h": 11484,
+    "scale": 0.22640195053988157
+   }
+  },
+  "swap-inset@390": {
+   "vp": {
+    "w": 390,
+    "h": 844
+   },
+   "docH": 13763,
+   "docW": 390,
+   "vw": 390,
+   "vh": 844,
+   "bodyH": 13763,
+   "hOverflow": 0,
+   "keys": {
+    ".masthead": {
+     "top": 213.1,
+     "left": 0,
+     "w": 390,
+     "h": 1385.7
+    },
+    ".sheet-sec": {
+     "top": 1598.8,
+     "left": 0,
+     "w": 390,
+     "h": 2656
+    },
+    ".keys": {
+     "top": 6035.4,
+     "left": 0,
+     "w": 390,
+     "h": 951.5
+    },
+    ".plates-sec": {
+     "top": 6986.9,
+     "left": 0,
+     "w": 390,
+     "h": 3180.8
+    },
+    ".maps-sec": {
+     "top": 10167.7,
+     "left": 0,
+     "w": 390,
+     "h": 674.2
+    }
+   },
+   "keyMissing": [],
+   "textOverflow": {
+    "n": 0,
+    "worst": []
+   },
+   "ellipsisClips": {
+    "n": 1,
+    "worst": [
+     {
+      "el": "body > a.skip",
+      "over": 143,
+      "txt": "配法头声偏窄框电纹"
+     }
+    ]
+   },
+   "overlaps": {
+    "n": 287,
+    "worst": [
+     {
+      "a": "div.plot__stage > div.sheet > svg > rect",
+      "b": "div.plot__stage > div.sheet > svg > g",
+      "area": 86104,
+      "frac": 1,
+      "y": 2156
+     },
+     {
+      "a": "div.sheet > svg > g > path",
+      "b": "div.sheet > svg > g > path",
+      "area": 80325,
+      "frac": 1,
+      "y": 2161
+     },
+     {
+      "a": "div.sheet > svg > g > path",
+      "b": "div.sheet > svg > g > path",
+      "area": 74624,
+      "frac": 1,
+      "y": 2166
+     },
+     {
+      "a": "div.sheet > svg > g > path",
+      "b": "div.sheet > svg > g > path",
+      "area": 74624,
+      "frac": 1,
+      "y": 2166
+     },
+     {
+      "a": "div.sheet > svg > g > path",
+      "b": "div.sheet > svg > g > path",
+      "area": 69251,
+      "frac": 1,
+      "y": 2172
+     },
+     {
+      "a": "div.sheet > svg > g > path",
+      "b": "div.sheet > svg > g > path",
+      "area": 69251,
+      "frac": 1,
+      "y": 2172
+     },
+     {
+      "a": "div.sheet > svg > g > path",
+      "b": "div.sheet > svg > g > path",
+      "area": 69251,
+      "frac": 1,
+      "y": 2172
+     },
+     {
+      "a": "div.sheet > svg > g > path",
+      "b": "div.sheet > svg > g > path",
+      "area": 64078,
+      "frac": 1,
+      "y": 2177
+     }
+    ]
+   },
+   "holes": {
+    "n": 1,
+    "total": 1599,
+    "list": [
+     {
+      "from": 0,
+      "to": 1599,
+      "h": 1599
+     }
+    ],
+    "mainH": 11437
+   },
+   "brokenImgs": [],
+   "sheets": 4,
+   "badSheets": [],
+   "fonts": "loaded",
+   "rules": 281,
+   "textChars": 4875,
+   "shot": {
+    "w": 390,
+    "h": 13763,
+    "scale": 0.18891230109714452
+   }
+  }
+ },
+ "meta": {
+  "orig": {
+   "loaded": "load",
+   "title": "针笔声场图 · 0.35px 单线走位与滚动调参｜绘图仪图纸",
+   "sheets": [
+    "http://127.0.0.1:9612/prototypes/_fonts/css/space-grotesk__400-500.css",
+    "http://127.0.0.1:9612/prototypes/_fonts/css/noto-sans-sc__100..900.css",
+    "http://127.0.0.1:9612/prototypes/_fonts/css/martian-mono-narrow__wdth75-400-600.css",
+    "http://127.0.0.1:9612/prototypes/S20-plotter-soundfield/style.css"
+   ],
+   "imgs": 7,
+   "broken": 0,
+   "chars": 4851,
+   "consoleErrors": []
+  },
+  "swap-inset": {
+   "loaded": "load",
+   "title": "板源新景缘 · 7.14le 纹压本叉中某边全序｜禁素站小齿",
+   "sheets": [
+    "http://127.0.0.1:9612/deliverables/63-test/replica/_fonts/css/space-grotesk__400-500.css",
+    "http://127.0.0.1:9612/deliverables/63-test/replica/_fonts/css/noto-sans-sc__100..900.css",
+    "http://127.0.0.1:9612/deliverables/63-test/replica/_fonts/css/martian-mono-narrow__wdth75-400-600.css",
+    "http://127.0.0.1:9612/deliverables/63-test/replica/S20-plotter-soundfield/style.css"
+   ],
+   "imgs": 7,
+   "broken": 0,
+   "chars": 4851,
+   "consoleErrors": []
+  }
+ }
+}

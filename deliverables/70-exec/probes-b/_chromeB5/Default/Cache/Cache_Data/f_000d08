@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>修鞋铺价目板 · 今天的价目与分量标注｜阿库阿修鞋铺</title>
+<meta name="description" content="一整块刷成亮黄的铁皮价目板：蓝漆手写的价目行从左上往下斜着排，数字外圈两重手绘描边收尾留缺口，四角起锈，板顶 64px 灯箱亮着。含错误码 PAINT-3 与今天的分量标注。">
+<link rel="stylesheet" href="../_fonts/css/lxgw-marker-gothic__400.css">
+<link rel="stylesheet" href="../_fonts/css/syne__700.css">
+<link rel="stylesheet" href="../_fonts/css/jetbrains-mono__500.css">
+<link rel="stylesheet" href="style.css">
+<script>document.documentElement.className += " js";</script>
+</head>
+<body>
+<a class="skip" href="#prices">跳过板头，直达今天的价目</a>
+
+<!-- 双线不闭合描边只在这里定义一次：10 行价目各自 <use> 一次，缺口是画在路径几何里的
+     （外线缺口 6% 落在左边，内线缺口 7.7% 落在顶边），所以重描动画只动 stroke-dashoffset。 -->
+<svg class="defs" width="0" height="0" aria-hidden="true" focusable="false">
+  <defs>
+    <path id="stroke-outer" pathLength="100" stroke-dasharray="100" fill="none" stroke-linecap="square" stroke-linejoin="miter" d="M3.2 22 L4.1 4.4 L58 3.5 L113.7 4.7 L114.5 22.6 L113.3 39.3 L58 40.5 L3.2 39.4"/>
+    <path id="stroke-inner" pathLength="100" stroke-dasharray="100" fill="none" stroke-linecap="square" stroke-linejoin="miter" d="M28 10.8 L106.3 11.3 L107.3 22.1 L106.4 32.6 L29 33.5 L10.1 32.7 L9.9 10.9"/>
+  </defs>
+</svg>
+
+<div class="stage">
+<div class="board">
+
+  <!-- 四角锈斑：只允许出现在四角，单角 ≤ 整板 2%（120×120＝14400px²，落在 0.24%）；z-index 压在内容之下 -->
+  <img class="rust rust-tl" src="assets/rust-corner-a.png" width="300" height="300" alt="铁皮左上角的锈斑：边缘一圈漆皮翘起的高光">
+  <img class="rust rust-tr" src="assets/rust-corner-b.png" width="300" height="300" alt="铁皮右上角的锈斑：锈色从角上匀开，边界不规则">
+  <img class="rust rust-bl" src="assets/rust-corner-c.png" width="300" height="300" alt="铁皮左下角的锈斑：漆皮从锈斑边上翘起来的一道反光">
+  <img class="rust rust-br" src="assets/rust-corner-d.png" width="300" height="300" alt="铁皮右下角的锈斑：同一噪声种子旋转 270 度复用">
+
+  <!-- 灯箱条：≥1280px 64px，720–1279px 降到 48px；四角各一颗 6px 螺丝，表面 2% 灰尘 -->
+  <div class="lampbox">
+    <img class="lamp-img lamp-wide" src="assets/lamp-tube.png" width="1440" height="64" alt="灯箱灯管：中段比两端亮 18%，表面落着一层薄灰">
+    <img class="lamp-img lamp-tight" src="assets/lamp-tube-tight.png" width="1440" height="48" alt="窄档灯箱灯管：灯箱高度从 64px 降到 48px，中段仍比两端亮 18%">
+    <span class="screw screw-1" aria-hidden="true"></span>
+    <span class="screw screw-2" aria-hidden="true"></span>
+    <span class="screw screw-3" aria-hidden="true"></span>
+    <span class="screw screw-4" aria-hidden="true"></span>
+  </div>
+
+  <header class="sign">
+    <h1>修鞋铺价目板</h1>
+    <p class="sign-latin">Akua&rsquo;s Cobblery &amp; Leather</p>
+    <p class="claim">修鞋 12 元，换鞋跟 25 元，周三下午只收现金，找不开就下次给。</p>
+    <div class="sign-act">
+      <button class="btn btn-blue" id="to-portions" type="button">看今天的分量标注</button>
+      <p class="sign-note">开门时间上午八点到下午五点 · 周三下午只收现金 · 改价一律在板上涂掉重写</p>
+    </div>
+  </header>
+
+  <section class="prices" id="prices" aria-labelledby="prices-h">
+    <h2 id="prices-h">今天的价目（元）</h2>
+    <div class="cat-row">
+      <button class="cat is-on" type="button" aria-pressed="true" data-cat="shoe">修鞋与换跟</button>
+      <button class="cat" type="button" aria-pressed="false" data-cat="leather">皮具与上色</button>
+      <p class="cat-note" id="cat-status" role="status">板上是修鞋与换跟这一档，10 行；这一档里改过价的有 3 处，都留在板上。</p>
+    </div>
+
+    <div class="rows-tilt" id="rows-tilt">
+      <ul class="rows" id="rows">
+        <li class="row" style="--start:4px"><span class="row-name">修鞋 · 补前掌</span><span class="row-note">单只 · 含钉</span><span class="row-price"><svg class="trace" viewBox="0 0 118 44" width="118" height="44" aria-hidden="true" focusable="false"><use href="#stroke-outer"/><use href="#stroke-inner"/></svg><code>12.00</code></span></li>
+        <li class="row" style="--start:7px"><span class="row-name">换鞋跟</span><span class="row-note">每双 · 含税</span><span class="row-price"><svg class="trace" viewBox="0 0 118 44" width="118" height="44" aria-hidden="true" focusable="false"><use href="#stroke-outer"/><use href="#stroke-inner"/></svg><code>25.00</code></span></li>
+        <li class="row" style="--start:12px"><span class="row-name">缝开线</span><span class="row-note">每 10cm</span><span class="row-price"><svg class="trace" viewBox="0 0 118 44" width="118" height="44" aria-hidden="true" focusable="false"><use href="#stroke-outer"/><use href="#stroke-inner"/></svg><code>6.00</code></span></li>
+        <li class="row" style="--start:5px"><span class="row-name">上油膏</span><span class="row-note">小份 200g</span><span class="row-price"><svg class="trace" viewBox="0 0 118 44" width="118" height="44" aria-hidden="true" focusable="false"><use href="#stroke-outer"/><use href="#stroke-inner"/></svg><code>8.00</code></span></li>
+        <li class="row" style="--start:9px"><span class="row-name">换拉链头</span><span class="row-note">含料 · 单只</span><span class="row-price"><svg class="trace" viewBox="0 0 118 44" width="118" height="44" aria-hidden="true" focusable="false"><use href="#stroke-outer"/><use href="#stroke-inner"/></svg><code>15.00</code></span></li>
+        <li class="row" style="--start:6px"><span class="row-name">皮鞋改色</span><span class="row-note">每双 · 两遍</span><span class="row-price"><svg class="trace" viewBox="0 0 118 44" width="118" height="44" aria-hidden="true" focusable="false"><use href="#stroke-outer"/><use href="#stroke-inner"/></svg><code>45.00</code></span></li>
+        <li class="row" style="--start:11px"><span class="row-name">高跟鞋换钉</span><span class="row-note">每双 4 颗</span><span class="row-price"><svg class="trace" viewBox="0 0 118 44" width="118" height="44" aria-hidden="true" focusable="false"><use href="#stroke-outer"/><use href="#stroke-inner"/></svg><code>10.00</code></span></li>
+        <li class="row" style="--start:8px"><span class="row-name">靴筒收窄</span><span class="row-note">每双 · 拆线</span><span class="row-price"><svg class="trace" viewBox="0 0 118 44" width="118" height="44" aria-hidden="true" focusable="false"><use href="#stroke-outer"/><use href="#stroke-inner"/></svg><code>60.00</code></span></li>
+        <li class="row" style="--start:10px"><span class="row-name">加鞋垫</span><span class="row-note">单只 · 裁切</span><span class="row-price"><svg class="trace" viewBox="0 0 118 44" width="118" height="44" aria-hidden="true" focusable="false"><use href="#stroke-outer"/><use href="#stroke-inner"/></svg><code>9.00</code></span></li>
+        <li class="row" style="--start:4px"><span class="row-name">急件加价</span><span class="row-note">2 小时内取</span><span class="row-price"><svg class="trace" viewBox="0 0 118 44" width="118" height="44" aria-hidden="true" focusable="false"><use href="#stroke-outer"/><use href="#stroke-inner"/></svg><code>30.00</code></span></li>
+      </ul>
+    </div>
+
+    <p class="state err" role="alert"><span class="state-tag">这一行读错了</span>这行价格昨天改过三次，第 3 次的黑漆盖住原数字，读出来是 <code>25</code> 元而不是 <code>2.5</code> 元，错误码 <code>PAINT-3</code>。请按分量标注再核一遍。</p>
+
+    <div class="repaint">
+      <span class="blot blot-3" aria-hidden="true"></span>
+      <span class="blot blot-2" aria-hidden="true"></span>
+      <span class="blot blot-1" aria-hidden="true"></span>
+      <span class="repaint-ghost" aria-hidden="true"><code>2.5</code></span>
+      <p class="repaint-note">左下角这处被盖掉的数字，原来写的是 <code>2.5</code>：三层黑漆，最新的那层比旧层小 1 毫米，一共盖过三次调价。漆没盖严的地方还看得见旧笔画的起笔。</p>
+    </div>
+  </section>
+
+  <section class="portions" id="portions" aria-labelledby="portions-h">
+    <h2 id="portions-h">分量标注怎么读</h2>
+    <p class="portions-lead">价目行右侧那一列是计价口径，不是折扣。一眼看不清的时候，按这四条对：</p>
+    <ul class="notes">
+      <li><b>单只／每双</b>　补前掌、换拉链头按单只算；换鞋跟、改色、收窄靴筒按双算，两只都做。</li>
+      <li><b>含钉／含料</b>　钉子、拉链头、鞋蜡都算在价里，不用另付材料钱；自带的料少收 2 元。</li>
+      <li><b>每 10cm／每 20cm</b>　缝开线按长度量，量到哪收到哪，不足一段按一段算。</li>
+      <li><b>小份 200g</b>　上油膏按罐算，一罐 200g，够一双皮靴上两遍；剩下的罐子留在店里，下次接着用。</li>
+    </ul>
+
+    <h3>板上这四样工具，价都按它算</h3>
+    <ul class="tools">
+      <li>
+        <svg class="ico" viewBox="0 0 64 64" role="img" aria-label="手绘鞋跟符号"><path d="M12 52 L18.4 20.6 L34 17.2 L44.3 24.1 L48 52"/><path d="M14.2 44 L46 41.2"/><path d="M30 33 L31.3 46"/></svg>
+        <b>鞋跟</b><span>换跟先拆旧钉，钉子重新打 4 颗，跟面磨平才上漆。</span>
+      </li>
+      <li>
+        <svg class="ico" viewBox="0 0 64 64" role="img" aria-label="手绘钉子符号"><path d="M20 44 L44 18"/><path d="M42 14 L50 22"/><path d="M22 46 L18 50"/><path d="M46.5 8.5 L54 16"/></svg>
+        <b>钉子</b><span>方头钉，长 12 毫米；钉完敲平，不许露头。</span>
+      </li>
+      <li>
+        <svg class="ico" viewBox="0 0 64 64" role="img" aria-label="手绘刷子符号"><path d="M14 22 L38 12 L44 24 L20 34 Z"/><path d="M20 34 L16 50 L40 42 L44 24"/><path d="M24 44 L36 40"/></svg>
+        <b>刷子</b><span>上色用两把：一把吃色，一把收边；每把用满 40 分钟才换。</span>
+      </li>
+      <li>
+        <svg class="ico" viewBox="0 0 64 64" role="img" aria-label="手绘秤符号"><path d="M10 46 L54 46"/><path d="M32 46 L32 14"/><path d="M18 22 L46 22"/><path d="M18 22 L14 34 M18 22 L22 34 M14 34 L22 34"/><path d="M46 22 L42 34 M46 22 L50 34 M42 34 L50 34"/></svg>
+        <b>秤</b><span>补皮面按处算，一处 2cm 以内；超过就上秤按重量报。</span>
+      </li>
+    </ul>
+  </section>
+
+  <section class="shut" aria-labelledby="shut-h">
+    <h2 id="shut-h">今天没开门</h2>
+    <p class="shut-copy">今天没开门。招牌上写着明天上午八点见，雨太大就九点。</p>
+    <p class="shut-note">板上的价目照旧，分量标注照旧。明天开门先把上周三那三双靴子的收据补上，收据上的价按今天的价目算。</p>
+  </section>
+
+  <section class="plates" aria-labelledby="plates-h">
+    <h2 id="plates-h">店、货、布上的花样</h2>
+    <p class="plates-intro">六张实拍照片，按 40 线粗网拆成蓝／黑两版压在板上：蓝版吃中间调、整体错位 4px，黑版吃暗部，轮廓外用 3px 手绘描边走一遍。黄版就是这块板自己的底色，留白处透出漆纹。</p>
+    <div class="plate-grid">
+      <figure class="plate">
+        <img src="assets/plate-01-shoe-repair.png" width="1150" height="947" alt="修鞋匠在自家铺子里干活：矮凳、成排的鞋楦，人在窗边的光里">
+        <figcaption><span class="plate-cap">铺子里的一个下午。矮凳、鞋楦、窗边的光，都是价目表上那几行的来处。</span><span class="plate-i">印版 <code>01</code></span></figcaption>
+      </figure>
+      <figure class="plate">
+        <img src="assets/plate-02-lasts.png" width="1150" height="862" alt="几只木鞋楦和一只修鞋用的金属撑具摆在木台上">
+        <figcaption><span class="plate-cap">鞋楦与撑具。换跟、收窄靴筒都先上楦子，形状由楦子定，不由手定。</span><span class="plate-i">印版 <code>02</code></span></figcaption>
+      </figure>
+      <figure class="plate">
+        <img src="assets/plate-03-signboard.png" width="862" height="1150" alt="一块手绘的村落地图招牌，字与线都是刷子刷上去的">
+        <figcaption><span class="plate-cap">手绘招牌。双线描边收尾不闭合，和这块价目板是同一只手。</span><span class="plate-i">印版 <code>03</code></span></figcaption>
+      </figure>
+      <figure class="plate">
+        <img src="assets/plate-04-market.png" width="862" height="1150" alt="市场上买番茄的人，摊位前递货收钱的一瞬">
+        <figcaption><span class="plate-cap">市场摊前的一手交钱一手交货。周三下午只收现金，就是从这里来的规矩。</span><span class="plate-i">印版 <code>04</code></span></figcaption>
+      </figure>
+      <figure class="plate">
+        <img src="assets/plate-05-kiosk.png" width="1150" height="763" alt="街角的老式小店门面，木框橱窗里塞满货品">
+        <figcaption><span class="plate-cap">街角小店的门面。价目刷在铁皮上、挂在门口，路过就能看完。</span><span class="plate-i">印版 <code>05</code></span></figcaption>
+      </figure>
+      <figure class="plate">
+        <img src="assets/plate-06-batik.png" width="835" height="1150" alt="蜡染布样：防染留白与描边形成的连续纹样">
+        <figcaption><span class="plate-cap">蜡染布上的防染留白。数字外面那圈留口子的描边，偷的是这个机制。</span><span class="plate-i">印版 <code>06</code></span></figcaption>
+      </figure>
+    </div>
+    <p class="plates-src">印版源片取自 Wikimedia Commons，逐张作者与许可见 <code>assets/CREDITS.md</code>；分色在构建期用 Pillow 生成，页面里没有任何外链。</p>
+  </section>
+
+  <div class="foot-rule" aria-hidden="true"></div>
+
+  <footer class="foot">
+    <div class="foot-grid">
+      <div>
+        <h3>改价的规矩</h3>
+        <p>改价不在纸上划，直接在板上涂。三层黑漆盖住旧数字，最新的那层比旧层小 1 毫米，一眼看得出改过几次。</p>
+      </div>
+      <div>
+        <h3>分量怎么量</h3>
+        <p>按双、按只、按 10cm 或按 200g 罐，四种量法写在每一行右侧。四种之外的一律先上秤，再报价。</p>
+      </div>
+      <div>
+        <h3>这块板本身</h3>
+        <p>铁皮刷了两遍调和漆，价目行整体斜 1.5 度，行与行之间是 1.5px 手绘抖线；锈只长在四角，单角不超过整板 2%。</p>
+      </div>
+    </div>
+    <p class="foot-line">阿库阿修鞋铺 · 修鞋铺价目板（Batik Price Board）· 错误码 <code>PAINT-3</code> · 字体与印版全部是本地文件</p>
+  </footer>
+
+</div>
+</div>
+
+<script>
+(function () {
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  var root = document.documentElement;
+  var rowsBox = document.getElementById('rows');
+  var tilt = document.getElementById('rows-tilt');
+  var lamp = document.querySelector('.lampbox');
+  var status = document.getElementById('cat-status');
+  var chips = [].slice.call(document.querySelectorAll('.cat'));
+  var prices = document.querySelectorAll('#rows code');
+
+  var FILL = '<svg class="trace" viewBox="0 0 118 44" width="118" height="44" aria-hidden="true" focusable="false"><use href="#stroke-outer"/><use href="#stroke-inner"/></svg>';
+
+  /* 第二档价目：切换分类时整档换掉，行高与错开值照旧按固定表取 */
+  var LEATHER = [
+    ['皮包清洗', '每只 · 含上油', '20.00', '4px'],
+    ['皮衣上色', '每件 · 两遍', '80.00', '7px'],
+    ['换皮带扣', '含料 · 单只', '18.00', '12px'],
+    ['补皮面破口', '每处 2cm', '12.00', '5px'],
+    ['加厚鞋垫', '每双 · 裁切', '22.00', '9px'],
+    ['皮靴保养', '每双 · 鞋蜡', '35.00', '6px'],
+    ['换长拉链', '每 20cm', '28.00', '11px'],
+    ['帽子缩号', '每顶 · 蒸汽', '16.00', '8px'],
+    ['皮绳换新', '每根 · 含料', '10.00', '10px'],
+    ['急件加价', '2 小时内取', '30.00', '4px']
+  ];
+
+  function build(data) {
+    return data.map(function (r) {
+      return '<li class="row" style="--start:' + r[3] + '"><span class="row-name">' + r[0] +
+        '</span><span class="row-note">' + r[1] + '</span><span class="row-price">' + FILL +
+        '<code>' + r[2] + '</code></span></li>';
+    }).join('');
+  }
+
+  /* 加载编排：铁皮底先出（style.css 的 .board::before 0ms），漆面色块 200ms 压上，
+     锈斑与灯箱最后亮起。行与行的刷出交给下面的 IntersectionObserver。 */
+  var brush = function (el) { el.classList.add('is-brushed'); };
+  var io = ('IntersectionObserver' in window) ? new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) { brush(e.target); io.unobserve(e.target); } });
+  }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' }) : null;
+
+  function watch(scope) {
+    var list = [].slice.call(scope.querySelectorAll('.row, .plate, .tools li, .repaint, .shut, .foot'));
+    list.forEach(function (el, i) {
+      el.style.setProperty('--d', (i % 6) * 60 + 'ms');
+      if (reduce.matches) { brush(el); return; }
+      if (io) { io.observe(el); } else { brush(el); }
+    });
+    return list;
+  }
+  watch(document);
+
+  /* 兜底：任何被观察元素在 1.2s 后仍未刷出，就直接显示，绝不把内容留在看不见的状态 */
+  setTimeout(function () {
+    [].slice.call(document.querySelectorAll('.row, .plate, .tools li, .repaint, .shut, .foot'))
+      .forEach(function (el) { el.classList.add('is-brushed'); });
+  }, 1200);
+
+  /* 悬停重描：500ms 分六段落下，缺口位置由路径几何固定，重描结束仍在原处。 */
+  prices.forEach(function (el) {
+    var row = el.closest('.row');
+    if (!row) return;
+    row.addEventListener('mouseenter', function () { row.classList.add('is-retrace'); });
+    row.addEventListener('mouseleave', function () { row.classList.remove('is-retrace'); });
+  });
+
+  /* 主按钮：跳到今天的分量标注 */
+  var toPortions = document.getElementById('to-portions');
+  toPortions.addEventListener('click', function () {
+    var t = document.getElementById('portions');
+    if (t) { t.scrollIntoView({ behavior: reduce.matches ? 'auto' : 'smooth', block: 'start' }); }
+  });
+
+  /* 转场：切档时灯箱先暗到 40% 亮度（80ms）再回升（160ms），价目行整体向右推 16px */
+  function switchCat(key, btn) {
+    chips.forEach(function (c) { c.setAttribute('aria-pressed', c === btn ? 'true' : 'false'); c.classList.toggle('is-on', c === btn); });
+    lamp.classList.remove('is-dip');
+    void lamp.offsetWidth;
+    if (!reduce.matches) { lamp.classList.add('is-dip'); }
+    if (!reduce.matches) {
+      tilt.classList.add('is-push');
+      setTimeout(function () { tilt.classList.remove('is-push'); }, 200);
+    }
+    if (key === 'shoe') {
+      rowsBox.innerHTML = window.__shoeRows;
+      status.textContent = '板上是修鞋与换跟这一档，10 行；这一档里改过价的有 3 处，都留在板上。';
+    } else {
+      rowsBox.innerHTML = build(LEATHER);
+      status.textContent = '板上换成了皮具与上色这一档，10 行；皮具的价按只、按件、按处量，不改按双算的那几行。';
+    }
+    watch(rowsBox);
+    [].slice.call(rowsBox.querySelectorAll('.row')).forEach(function (el) {
+      el.addEventListener('mouseenter', function () { el.classList.add('is-retrace'); });
+      el.addEventListener('mouseleave', function () { el.classList.remove('is-retrace'); });
+    });
+  }
+  window.__shoeRows = rowsBox.innerHTML;
+  chips.forEach(function (btn) {
+    btn.addEventListener('click', function () { switchCat(btn.getAttribute('data-cat'), btn); });
+  });
+
+  /* 板上的灯：进视口时亮起，之后不再动（no-op 兜底，避免任何"永远暗着"的状态） */
+  setTimeout(function () { lamp.classList.add('is-lit'); }, reduce.matches ? 0 : 240);
+})();
+</script>
+</body>
+</html>

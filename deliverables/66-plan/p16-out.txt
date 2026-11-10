@@ -1,0 +1,22 @@
+﻿== (1) 页头常驻模板出口 #tpl-exit ==
+  {"found":true,"tag":"P","text":"只想要拿来就能用的？不用在这三十张卡里挑——直接去三个大众模板：企业站 M01 · 餐饮本地 M02 · 作品集 M03","href":"../../templates/M01-clean-corporate/","visible":true,"top":262,"hrefs":["../../templates/M01-clean-corporate/","../../templates/M02-warm-local/","../../templates/M03-bold-creator/"]}
+  空闲态：strip=false empty=false 页头出口可见=true
+
+== (2) o.tone 与 SCHEMES.tone 冲突时谁赢 ==
+  SCHEMES[S12].tone = 「荒诞幽默 / 玩心」
+  不传 tone：这个案子的调性是「荒诞幽默 / 玩心」。照这个调性写文案和标题，不要写成通用的商业落地页。
+  传 tone：「安静、有手艺感」→ 这个案子的调性是「安静、有手艺感」。照这个调性写文案和标题，不要写成通用的商业落地页。
+  ⇒ 传了就以入参覆盖，SCHEMES.tone 被丢弃：YES（后加的参数赢）
+
+== 逐个 opts 字段：传值后提示词是否真的变了 ==
+  o.count   传值后 changed=YES  Δlen=0
+  o.unit    传值后 changed=YES  Δlen=0
+  o.tone    传值后 changed=YES  Δlen=-8
+  o.what    传值后 changed=YES  Δlen=6
+  o.biz     传值后 changed=YES  Δlen=5
+  o.action  传值后 changed=YES  Δlen=3
+
+== (3) S07 真页的条目数 ==
+  <ol> 各自的 li 数 = [18,28]  合计 46
+  提示词里说的 N（capacity.minItems）= 46
+  ⇒ 「46」= 真页里两组目录 li 加起来；它是**这个版式排出来的量**，不是"用户该有的条目数"

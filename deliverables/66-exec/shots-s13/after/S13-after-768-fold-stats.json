@@ -1,0 +1,106 @@
+{
+  "script": "shot-page.py",
+  "label": "768x1024-fold",
+  "input": {
+    "file": "D:\\Web\\style\\deliverables\\66-exec\\shots-s13\\after\\.raw\\S13-after-768-fold.raw.png",
+    "width": 784,
+    "height": 1119,
+    "bytes": 1128010,
+    "mode": "RGB"
+  },
+  "viewport": {
+    "width": 768,
+    "height": 1024
+  },
+  "crop": {
+    "x": 0,
+    "y": 0,
+    "width": 768,
+    "height": 1024
+  },
+  "pageHeight": 1119,
+  "pageHeightSource": "image",
+  "measure": null,
+  "outputs": {
+    "fold": {
+      "file": "S13-after-768-fold.png",
+      "path": "D:\\Web\\style\\deliverables\\66-exec\\shots-s13\\after\\S13-after-768-fold.png",
+      "width": 768,
+      "height": 1024,
+      "bytes": 1019118
+    }
+  },
+  "slices": [],
+  "screens": 0,
+  "extras": [],
+  "warnings": [],
+  "total": {
+    "width": 768,
+    "height": 1024,
+    "meanRgb": [
+      186.92,
+      173.5,
+      144.38
+    ],
+    "rgbStdev": [
+      69.9,
+      66.11,
+      56.6
+    ],
+    "luminanceMean": 174.342,
+    "luminanceStdev": 66.259,
+    "nearWhiteShare": 0.0,
+    "nearBlackShare": 0.0,
+    "top3": [
+      {
+        "rgb": [
+          240,
+          224,
+          187
+        ],
+        "hex": "#f0e0bb",
+        "count": 28887,
+        "share": 0.146927
+      },
+      {
+        "rgb": [
+          240,
+          224,
+          188
+        ],
+        "hex": "#f0e0bc",
+        "count": 17710,
+        "share": 0.090078
+      },
+      {
+        "rgb": [
+          239,
+          223,
+          187
+        ],
+        "hex": "#efdfbb",
+        "count": 14978,
+        "share": 0.076182
+      }
+    ],
+    "dominant": {
+      "rgb": [
+        240,
+        224,
+        187
+      ],
+      "hex": "#f0e0bb",
+      "count": 28887,
+      "share": 0.146927
+    },
+    "sampling": {
+      "sampleStep": 2,
+      "sampledPixels": 196608,
+      "uniqueSampled": 16340
+    },
+    "blank": false,
+    "uniform": false,
+    "file": "S13-after-768-fold.png",
+    "bytes": 1019118
+  }
+}

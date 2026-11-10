@@ -1,0 +1,4346 @@
+{
+ "at": "2026-10-29T19:54:51.953Z",
+ "layerMap": {
+  "palette": {
+   "L0_spec": 30,
+   "L1_data": 30,
+   "L2_dna": 30,
+   "L3_prompts": 30,
+   "L3_note": ""
+  },
+  "primary": {
+   "L0_spec": 30,
+   "L1_data": 30,
+   "L2_dna": 21,
+   "L3_prompts": 0,
+   "L3_note": ""
+  },
+  "fonts": {
+   "L0_spec": 30,
+   "L1_data": 30,
+   "L2_dna": 30,
+   "L3_prompts": 30,
+   "L3_note": ""
+  },
+  "bg": {
+   "L0_spec": 30,
+   "L1_data": 30,
+   "L2_dna": 0,
+   "L3_prompts": 0,
+   "L3_note": "prompts.js 的 dna 里**没有** bg 字段（只有 palette 第 1 项隐含底色）"
+  },
+  "minItems": {
+   "L0_spec": 0,
+   "L1_data": 0,
+   "L2_dna": 0,
+   "L3_prompts": 30,
+   "L3_note": "只有 prompts.js 有（来自 minitems-parsed.json 实测 + build-prompts.mjs 的 HUMAN 兜底）"
+  },
+  "radius": {
+   "L0_spec": 25,
+   "L1_data": 0,
+   "L2_dna": 30,
+   "L3_prompts": 30,
+   "L3_note": ""
+  },
+  "shadow": {
+   "L0_spec": 28,
+   "L1_data": 0,
+   "L2_dna": 30,
+   "L3_prompts": 30,
+   "L3_note": ""
+  },
+  "lineWidths": {
+   "L0_spec": 28,
+   "L1_data": 0,
+   "L2_dna": 30,
+   "L3_prompts": 30,
+   "L3_note": ""
+  }
+ },
+ "summary": {
+  "palette": {
+   "set_eq": 8,
+   "seq_eq": 1,
+   "seq_diff": 29,
+   "L2_eq_L3": 30,
+   "L1_sub_L3": 30,
+   "L3_sub_L1": 8,
+   "L1_len_hist": {
+    "3": 5,
+    "4": 25
+   },
+   "L3_len_hist": {
+    "4": 10,
+    "5": 3,
+    "6": 7,
+    "7": 10
+   },
+   "mean_jaccard": 0.7268,
+   "L1_sub_L3_ids": [
+    "S01",
+    "S02",
+    "S03",
+    "S04",
+    "S05",
+    "S06",
+    "S07",
+    "S08",
+    "S09",
+    "S10",
+    "S11",
+    "S12",
+    "S13",
+    "S14",
+    "S15",
+    "S16",
+    "S17",
+    "S18",
+    "S19",
+    "S20",
+    "S21",
+    "S22",
+    "S23",
+    "S24",
+    "S25",
+    "S26",
+    "S27",
+    "S28",
+    "S29",
+    "S30"
+   ],
+   "L1_not_sub_L3_ids": []
+  },
+  "primary": {
+   "L3_present": 0,
+   "L2_present": 21,
+   "L1_eq_L2_0": 20,
+   "L2_empty": 9,
+   "L1_eq_L1_palette1": 30,
+   "L0_has_role": 30,
+   "L2_multi": [
+    "S04:2",
+    "S23:2",
+    "S27:2",
+    "S28:2"
+   ]
+  },
+  "fonts": {
+   "L1_string": 30,
+   "L2_object": 30,
+   "L2_eq_L3": 30,
+   "L2_missing_display": 0
+  },
+  "bg": {
+   "L1_eq_L2_p0": 7,
+   "L1_eq_L3_p0": 7,
+   "L1_eq_L0_first": 21,
+   "root_has_paper": 22
+  },
+  "minItems": {
+   "L1": 0,
+   "L2": 0,
+   "L3": 30,
+   "capacity_differs": []
+  },
+  "radiusShadowLines": {
+   "radius_L2_eq_L3": 30,
+   "shadow_L2_eq_L3": 30,
+   "lineWidths_L2_eq_L3": 30,
+   "radius_L0_mentioned": 25,
+   "shadow_L0_mentioned": 28,
+   "lineWidths_L0_mentioned": 28
+  }
+ },
+ "rows": [
+  {
+   "id": "S01",
+   "specLine": {
+    "p3": "19-20",
+    "p4": "21-22"
+   },
+   "palette": {
+    "L0_hexes": [
+     "#C1121F",
+     "#EFE7D7",
+     "#1A1614",
+     "#6E6A5E",
+     "#6366F1",
+     "#FFFFFF"
+    ],
+    "L1": [
+     "#EFE7D7",
+     "#C1121F",
+     "#1A1614",
+     "#6E6A5E"
+    ],
+    "L2": [
+     "#C1121F",
+     "#EFE7D7",
+     "#1A1614",
+     "#6E6A5E"
+    ],
+    "L3": [
+     "#C1121F",
+     "#EFE7D7",
+     "#1A1614",
+     "#6E6A5E"
+    ],
+    "L1_len": 4,
+    "L3_len": 4,
+    "L2_eq_L3": true,
+    "set_L1_sub_L3": true,
+    "set_L3_sub_L1": true,
+    "set_eq": true,
+    "seq_eq": false,
+    "jaccard": 1,
+    "L3_only": [],
+    "L1_only": [],
+    "L0_not_in_L1": [
+     "#6366F1",
+     "#FFFFFF"
+    ],
+    "L0_not_in_L3": [
+     "#6366F1",
+     "#FFFFFF"
+    ]
+   },
+   "primary": {
+    "L1": "#C1121F",
+    "L2": [],
+    "L3": null,
+    "L3_key_present": false,
+    "L0_has_role": true
+   },
+   "fonts": {
+    "L0_kind": "string",
+    "L1_kind": "string",
+    "L1_len": 374,
+    "L2_kind": "object",
+    "L3_kind": "object",
+    "L2": {
+     "display": "Noto Sans SC",
+     "body": "Noto Sans SC",
+     "mono": "Martian Mono",
+     "displayStack": [
+      "Noto Sans SC",
+      "Source Han Sans SC"
+     ],
+     "bodyStack": [
+      "Noto Sans SC",
+      "Source Han Sans SC"
+     ]
+    },
+    "L3_eq_L2": true,
+    "L0_families": []
+   },
+   "bg": {
+    "L1": "#EFE7D7",
+    "L2_via_palette0": "#C1121F",
+    "L3_via_palette0": "#C1121F",
+    "L0_firstHex": "#C1121F",
+    "root_has_paper": true
+   },
+   "minItems": {
+    "L3": 6,
+    "L3_capacity": 6,
+    "L3_minPics": 6
+   },
+   "radius": {
+    "L2": "全直角 0",
+    "L3": "全直角 0",
+    "L0": false,
+    "L2_eq_L3": true
+   },
+   "shadow": {
+    "L2": "无阴影",
+    "L3": "无阴影",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "lineWidths": {
+    "L2": "1px、3px",
+    "L3": "1px、3px",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "root": {
+    "hasRoot": true,
+    "n": 19,
+    "hexes": [
+     "#EFE7D7",
+     "#C1121F",
+     "#1A1614",
+     "#6E6A5E"
+    ],
+    "families": [
+     "--f-latin=\"Archivo\", \"Noto Sans SC\", sans-serif",
+     "--f-text=\"Noto Sans SC\", \"Source Han Sans SC\", sans-serif",
+     "--f-mono=\"Martian Mono\", \"Noto Sans Mono\", monospace"
+    ]
+   }
+  },
+  {
+   "id": "S02",
+   "specLine": {
+    "p3": "19-20",
+    "p4": "21-22"
+   },
+   "palette": {
+    "L0_hexes": [
+     "#0B0B0F",
+     "#B8860B",
+     "#EFE6D0",
+     "#3A2E1A",
+     "#8B5CF6",
+     "#22D3EE",
+     "#C9A227",
+     "#111111"
+    ],
+    "L1": [
+     "#0B0B0F",
+     "#B8860B",
+     "#EFE6D0",
+     "#3A2E1A"
+    ],
+    "L2": [
+     "#B8860B",
+     "#0B0B0F",
+     "#EFE6D0",
+     "#3A2E1A",
+     "#111111",
+     "#B9B09A",
+     "#14100A"
+    ],
+    "L3": [
+     "#B8860B",
+     "#0B0B0F",
+     "#EFE6D0",
+     "#3A2E1A",
+     "#111111",
+     "#B9B09A",
+     "#14100A"
+    ],
+    "L1_len": 4,
+    "L3_len": 7,
+    "L2_eq_L3": true,
+    "set_L1_sub_L3": true,
+    "set_L3_sub_L1": false,
+    "set_eq": false,
+    "seq_eq": false,
+    "jaccard": 0.5714285714285714,
+    "L3_only": [
+     "#111111",
+     "#B9B09A",
+     "#14100A"
+    ],
+    "L1_only": [],
+    "L0_not_in_L1": [
+     "#8B5CF6",
+     "#22D3EE",
+     "#C9A227",
+     "#111111"
+    ],
+    "L0_not_in_L3": [
+     "#8B5CF6",
+     "#22D3EE",
+     "#C9A227"
+    ]
+   },
+   "primary": {
+    "L1": "#B8860B",
+    "L2": [
+     "#B8860B"
+    ],
+    "L3": null,
+    "L3_key_present": false,
+    "L0_has_role": true
+   },
+   "fonts": {
+    "L0_kind": "string",
+    "L1_kind": "string",
+    "L1_len": 266,
+    "L2_kind": "object",
+    "L3_kind": "object",
+    "L2": {
+     "display": "Bodoni Moda",
+     "body": "Noto Serif SC",
+     "mono": "IBM Plex Mono",
+     "displayStack": [
+      "Bodoni Moda",
+      "Noto Serif SC"
+     ],
+     "bodyStack": [
+      "Noto Serif SC",
+      "Songti SC"
+     ]
+    },
+    "L3_eq_L2": true,
+    "L0_families": []
+   },
+   "bg": {
+    "L1": "#0B0B0F",
+    "L2_via_palette0": "#B8860B",
+    "L3_via_palette0": "#B8860B",
+    "L0_firstHex": "#0B0B0F",
+    "root_has_paper": false
+   },
+   "minItems": {
+    "L3": 16,
+    "L3_capacity": 16,
+    "L3_minPics": 5
+   },
+   "radius": {
+    "L2": "全直角 0",
+    "L3": "全直角 0",
+    "L0": false,
+    "L2_eq_L3": true
+   },
+   "shadow": {
+    "L2": "只用 inset（凹槽，无外投影）",
+    "L3": "只用 inset（凹槽，无外投影）",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "lineWidths": {
+    "L2": "1px、2px",
+    "L3": "1px、2px",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "root": {
+    "hasRoot": true,
+    "n": 15,
+    "hexes": [
+     "#0B0B0F",
+     "#B8860B",
+     "#EFE6D0",
+     "#3A2E1A",
+     "#111111",
+     "#B9B09A",
+     "#14100A"
+    ],
+    "families": []
+   }
+  },
+  {
+   "id": "S03",
+   "specLine": {
+    "p3": "19-20",
+    "p4": "23-24"
+   },
+   "palette": {
+    "L0_hexes": [
+     "#101A1C",
+     "#13928E",
+     "#C9D6CF",
+     "#B9A98C",
+     "#6366F1",
+     "#22D3EE"
+    ],
+    "L1": [
+     "#101A1C",
+     "#13928E",
+     "#C9D6CF",
+     "#B9A98C"
+    ],
+    "L2": [
+     "#13928E",
+     "#101A1C",
+     "#C9D6CF",
+     "#B9A98C",
+     "#162226",
+     "#0C1417",
+     "#2A3639"
+    ],
+    "L3": [
+     "#13928E",
+     "#101A1C",
+     "#C9D6CF",
+     "#B9A98C",
+     "#162226",
+     "#0C1417",
+     "#2A3639"
+    ],
+    "L1_len": 4,
+    "L3_len": 7,
+    "L2_eq_L3": true,
+    "set_L1_sub_L3": true,
+    "set_L3_sub_L1": false,
+    "set_eq": false,
+    "seq_eq": false,
+    "jaccard": 0.5714285714285714,
+    "L3_only": [
+     "#162226",
+     "#0C1417",
+     "#2A3639"
+    ],
+    "L1_only": [],
+    "L0_not_in_L1": [
+     "#6366F1",
+     "#22D3EE"
+    ],
+    "L0_not_in_L3": [
+     "#6366F1",
+     "#22D3EE"
+    ]
+   },
+   "primary": {
+    "L1": "#13928E",
+    "L2": [
+     "#13928E"
+    ],
+    "L3": null,
+    "L3_key_present": false,
+    "L0_has_role": true
+   },
+   "fonts": {
+    "L0_kind": "string",
+    "L1_kind": "string",
+    "L1_len": 257,
+    "L2_kind": "object",
+    "L3_kind": "object",
+    "L2": {
+     "display": "IBM Plex Mono",
+     "body": "IBM Plex Sans",
+     "mono": "IBM Plex Mono",
+     "displayStack": [
+      "IBM Plex Mono",
+      "Cascadia Mono",
+      "Consolas"
+     ],
+     "bodyStack": [
+      "IBM Plex Sans",
+      "Noto Sans SC",
+      "Source Han Sans SC",
+      "Microsoft YaHei"
+     ]
+    },
+    "L3_eq_L2": true,
+    "L0_families": []
+   },
+   "bg": {
+    "L1": "#101A1C",
+    "L2_via_palette0": "#13928E",
+    "L3_via_palette0": "#13928E",
+    "L0_firstHex": "#101A1C",
+    "root_has_paper": true
+   },
+   "minItems": {
+    "L3": 8,
+    "L3_capacity": 8,
+    "L3_minPics": 8
+   },
+   "radius": {
+    "L2": "全直角 0",
+    "L3": "全直角 0",
+    "L0": false,
+    "L2_eq_L3": true
+   },
+   "shadow": {
+    "L2": "无阴影",
+    "L3": "无阴影",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "lineWidths": {
+    "L2": "1px、1.2px、1.5px、2px",
+    "L3": "1px、1.2px、1.5px、2px",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "root": {
+    "hasRoot": true,
+    "n": 14,
+    "hexes": [
+     "#101A1C",
+     "#13928E",
+     "#C9D6CF",
+     "#B9A98C",
+     "#162226",
+     "#0C1417",
+     "#2A3639"
+    ],
+    "families": []
+   }
+  },
+  {
+   "id": "S04",
+   "specLine": {
+    "p3": "19-20",
+    "p4": "21-22"
+   },
+   "palette": {
+    "L0_hexes": [
+     "#96550F",
+     "#2F7D4F",
+     "#14100C",
+     "#F0E2C8",
+     "#EC4899",
+     "#8B5CF6"
+    ],
+    "L1": [
+     "#F0E2C8",
+     "#96550F",
+     "#2F7D4F",
+     "#14100C"
+    ],
+    "L2": [
+     "#2F7D4F",
+     "#96550F",
+     "#14100C",
+     "#F0E2C8"
+    ],
+    "L3": [
+     "#2F7D4F",
+     "#96550F",
+     "#14100C",
+     "#F0E2C8"
+    ],
+    "L1_len": 4,
+    "L3_len": 4,
+    "L2_eq_L3": true,
+    "set_L1_sub_L3": true,
+    "set_L3_sub_L1": true,
+    "set_eq": true,
+    "seq_eq": false,
+    "jaccard": 1,
+    "L3_only": [],
+    "L1_only": [],
+    "L0_not_in_L1": [
+     "#EC4899",
+     "#8B5CF6"
+    ],
+    "L0_not_in_L3": [
+     "#EC4899",
+     "#8B5CF6"
+    ]
+   },
+   "primary": {
+    "L1": "#96550F",
+    "L2": [
+     "#2F7D4F",
+     "#96550F"
+    ],
+    "L3": null,
+    "L3_key_present": false,
+    "L0_has_role": true
+   },
+   "fonts": {
+    "L0_kind": "string",
+    "L1_kind": "string",
+    "L1_len": 256,
+    "L2_kind": "object",
+    "L3_kind": "object",
+    "L2": {
+     "display": "LXGW WenKai",
+     "body": "Redaction 20",
+     "mono": "Martian Mono",
+     "displayStack": [
+      "LXGW WenKai",
+      "KaiTi",
+      "STKaiti",
+      "Kaiti SC"
+     ],
+     "bodyStack": [
+      "Redaction 20",
+      "Georgia",
+      "Nimbus Roman",
+      "LXGW WenKai"
+     ]
+    },
+    "L3_eq_L2": true,
+    "L0_families": []
+   },
+   "bg": {
+    "L1": "#F0E2C8",
+    "L2_via_palette0": "#2F7D4F",
+    "L3_via_palette0": "#2F7D4F",
+    "L0_firstHex": "#96550F",
+    "root_has_paper": false
+   },
+   "minItems": {
+    "L3": 9,
+    "L3_capacity": 9,
+    "L3_minPics": 9
+   },
+   "radius": {
+    "L2": "全直角 0",
+    "L3": "全直角 0",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "shadow": {
+    "L2": "无阴影",
+    "L3": "无阴影",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "lineWidths": {
+    "L2": "1px、1.1px、3px",
+    "L3": "1px、1.1px、3px",
+    "L0": false,
+    "L2_eq_L3": true
+   },
+   "root": {
+    "hasRoot": true,
+    "n": 9,
+    "hexes": [
+     "#96550F"
+    ],
+    "families": [
+     "--f-latin=\"Redaction 20\",Georgia,\"Nimbus Roman\",serif",
+     "--f-cjk=\"LXGW WenKai\",KaiTi,STKaiti,\"Kaiti SC\",serif",
+     "--f-body=var(--f-latin),var(--f-cjk)",
+     "--f-disp=\"Unbounded\",var(--f-cjk)",
+     "--f-mono=\"Martian Mono\",ui-monospace,monospace"
+    ]
+   }
+  },
+  {
+   "id": "S05",
+   "specLine": {
+    "p3": "19-20",
+    "p4": "21-22"
+   },
+   "palette": {
+    "L0_hexes": [
+     "#0E100D",
+     "#4FA83D",
+     "#BFB9A6",
+     "#8C2F1F",
+     "#22D3EE",
+     "#10B981",
+     "#111111"
+    ],
+    "L1": [
+     "#0E100D",
+     "#4FA83D",
+     "#BFB9A6",
+     "#8C2F1F"
+    ],
+    "L2": [
+     "#4FA83D",
+     "#0E100D",
+     "#BFB9A6",
+     "#8C2F1F",
+     "#111111",
+     "#2A2E28",
+     "#050605"
+    ],
+    "L3": [
+     "#4FA83D",
+     "#0E100D",
+     "#BFB9A6",
+     "#8C2F1F",
+     "#111111",
+     "#2A2E28",
+     "#050605"
+    ],
+    "L1_len": 4,
+    "L3_len": 7,
+    "L2_eq_L3": true,
+    "set_L1_sub_L3": true,
+    "set_L3_sub_L1": false,
+    "set_eq": false,
+    "seq_eq": false,
+    "jaccard": 0.5714285714285714,
+    "L3_only": [
+     "#111111",
+     "#2A2E28",
+     "#050605"
+    ],
+    "L1_only": [],
+    "L0_not_in_L1": [
+     "#22D3EE",
+     "#10B981",
+     "#111111"
+    ],
+    "L0_not_in_L3": [
+     "#22D3EE",
+     "#10B981"
+    ]
+   },
+   "primary": {
+    "L1": "#4FA83D",
+    "L2": [
+     "#4FA83D"
+    ],
+    "L3": null,
+    "L3_key_present": false,
+    "L0_has_role": true
+   },
+   "fonts": {
+    "L0_kind": "string",
+    "L1_kind": "string",
+    "L1_len": 228,
+    "L2_kind": "object",
+    "L3_kind": "object",
+    "L2": {
+     "display": "Barlow",
+     "body": "Glow Sans SC",
+     "mono": "Departure Mono",
+     "displayStack": [
+      "Barlow",
+      "Glow Sans SC"
+     ],
+     "bodyStack": [
+      "Glow Sans SC"
+     ]
+    },
+    "L3_eq_L2": true,
+    "L0_families": []
+   },
+   "bg": {
+    "L1": "#0E100D",
+    "L2_via_palette0": "#4FA83D",
+    "L3_via_palette0": "#4FA83D",
+    "L0_firstHex": "#0E100D",
+    "root_has_paper": false
+   },
+   "minItems": {
+    "L3": 8,
+    "L3_capacity": 8,
+    "L3_minPics": 6
+   },
+   "radius": {
+    "L2": "全站方角，仅圆形徽标/圆点为 50%",
+    "L3": "全站方角，仅圆形徽标/圆点为 50%",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "shadow": {
+    "L2": "只用 inset（凹槽，无外投影）",
+    "L3": "只用 inset（凹槽，无外投影）",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "lineWidths": {
+    "L2": "1px、2px",
+    "L3": "1px、2px",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "root": {
+    "hasRoot": true,
+    "n": 13,
+    "hexes": [
+     "#0E100D",
+     "#4FA83D",
+     "#BFB9A6",
+     "#8C2F1F",
+     "#111111",
+     "#2A2E28",
+     "#050605"
+    ],
+    "families": []
+   }
+  },
+  {
+   "id": "S06",
+   "specLine": {
+    "p3": "19-20",
+    "p4": "21-22"
+   },
+   "palette": {
+    "L0_hexes": [
+     "#ECDEC6",
+     "#85572A",
+     "#241A12",
+     "#C9A87C",
+     "#6366F1",
+     "#F5EFE6",
+     "#C4A484"
+    ],
+    "L1": [
+     "#ECDEC6",
+     "#85572A",
+     "#241A12",
+     "#C9A87C"
+    ],
+    "L2": [
+     "#85572A",
+     "#ECDEC6",
+     "#241A12",
+     "#C9A87C",
+     "#E6D8BC",
+     "#E0D0B0",
+     "#E4D5B8"
+    ],
+    "L3": [
+     "#85572A",
+     "#ECDEC6",
+     "#241A12",
+     "#C9A87C",
+     "#E6D8BC",
+     "#E0D0B0",
+     "#E4D5B8"
+    ],
+    "L1_len": 4,
+    "L3_len": 7,
+    "L2_eq_L3": true,
+    "set_L1_sub_L3": true,
+    "set_L3_sub_L1": false,
+    "set_eq": false,
+    "seq_eq": false,
+    "jaccard": 0.5714285714285714,
+    "L3_only": [
+     "#E6D8BC",
+     "#E0D0B0",
+     "#E4D5B8"
+    ],
+    "L1_only": [],
+    "L0_not_in_L1": [
+     "#6366F1",
+     "#F5EFE6",
+     "#C4A484"
+    ],
+    "L0_not_in_L3": [
+     "#6366F1",
+     "#F5EFE6",
+     "#C4A484"
+    ]
+   },
+   "primary": {
+    "L1": "#85572A",
+    "L2": [
+     "#85572A"
+    ],
+    "L3": null,
+    "L3_key_present": false,
+    "L0_has_role": true
+   },
+   "fonts": {
+    "L0_kind": "string",
+    "L1_kind": "string",
+    "L1_len": 253,
+    "L2_kind": "object",
+    "L3_kind": "object",
+    "L2": {
+     "display": "EB Garamond",
+     "body": "Literata",
+     "mono": "Martian Mono",
+     "displayStack": [
+      "EB Garamond",
+      "Noto Serif SC",
+      "Songti SC",
+      "Georgia"
+     ],
+     "bodyStack": [
+      "Literata",
+      "Noto Serif SC",
+      "Songti SC",
+      "Georgia"
+     ]
+    },
+    "L3_eq_L2": true,
+    "L0_families": []
+   },
+   "bg": {
+    "L1": "#ECDEC6",
+    "L2_via_palette0": "#85572A",
+    "L3_via_palette0": "#85572A",
+    "L0_firstHex": "#ECDEC6",
+    "root_has_paper": true
+   },
+   "minItems": {
+    "L3": 13,
+    "L3_capacity": 13,
+    "L3_minPics": 7
+   },
+   "radius": {
+    "L2": "全直角 0",
+    "L3": "全直角 0",
+    "L0": false,
+    "L2_eq_L3": true
+   },
+   "shadow": {
+    "L2": "无阴影",
+    "L3": "无阴影",
+    "L0": false,
+    "L2_eq_L3": true
+   },
+   "lineWidths": {
+    "L2": "0.8px、1px、2px",
+    "L3": "0.8px、1px、2px",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "root": {
+    "hasRoot": true,
+    "n": 24,
+    "hexes": [
+     "#ECDEC6",
+     "#85572A",
+     "#241A12",
+     "#C9A87C",
+     "#E6D8BC",
+     "#E0D0B0",
+     "#E4D5B8",
+     "#5A3A1C",
+     "#B9A87F",
+     "#DECDA9"
+    ],
+    "families": [
+     "--f-display=\"EB Garamond\", \"Noto Serif SC\", \"Songti SC\", Georgia, serif",
+     "--f-text=\"Literata\", \"Noto Serif SC\", \"Songti SC\", Georgia, serif",
+     "--f-mono=\"Martian Mono\", \"Noto Serif SC\", monospace"
+    ]
+   }
+  },
+  {
+   "id": "S07",
+   "specLine": {
+    "p3": "19-20",
+    "p4": "21-22"
+   },
+   "palette": {
+    "L0_hexes": [
+     "#E7E7E0",
+     "#33505C",
+     "#1C1A16",
+     "#9A9384",
+     "#FFFFFF",
+     "#3B82F6"
+    ],
+    "L1": [
+     "#E7E7E0",
+     "#33505C",
+     "#1C1A16",
+     "#9A9384"
+    ],
+    "L2": [
+     "#33505C",
+     "#E7E7E0",
+     "#1C1A16",
+     "#9A9384"
+    ],
+    "L3": [
+     "#33505C",
+     "#E7E7E0",
+     "#1C1A16",
+     "#9A9384"
+    ],
+    "L1_len": 4,
+    "L3_len": 4,
+    "L2_eq_L3": true,
+    "set_L1_sub_L3": true,
+    "set_L3_sub_L1": true,
+    "set_eq": true,
+    "seq_eq": false,
+    "jaccard": 1,
+    "L3_only": [],
+    "L1_only": [],
+    "L0_not_in_L1": [
+     "#FFFFFF",
+     "#3B82F6"
+    ],
+    "L0_not_in_L3": [
+     "#FFFFFF",
+     "#3B82F6"
+    ]
+   },
+   "primary": {
+    "L1": "#33505C",
+    "L2": [
+     "#33505C"
+    ],
+    "L3": null,
+    "L3_key_present": false,
+    "L0_has_role": true
+   },
+   "fonts": {
+    "L0_kind": "string",
+    "L1_kind": "string",
+    "L1_len": 256,
+    "L2_kind": "object",
+    "L3_kind": "object",
+    "L2": {
+     "display": "Libre Franklin",
+     "body": "Newsreader",
+     "mono": "IBM Plex Mono",
+     "displayStack": [
+      "Libre Franklin",
+      "WenJin Mincho",
+      "文津宋体",
+      "Source Han Serif SC"
+     ],
+     "bodyStack": [
+      "Newsreader",
+      "WenJin Mincho",
+      "文津宋体",
+      "Source Han Serif SC"
+     ]
+    },
+    "L3_eq_L2": true,
+    "L0_families": []
+   },
+   "bg": {
+    "L1": "#E7E7E0",
+    "L2_via_palette0": "#33505C",
+    "L3_via_palette0": "#33505C",
+    "L0_firstHex": "#E7E7E0",
+    "root_has_paper": true
+   },
+   "minItems": {
+    "L3": 46,
+    "L3_capacity": 46,
+    "L3_minPics": 7
+   },
+   "radius": {
+    "L2": "全直角 0",
+    "L3": "全直角 0",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "shadow": {
+    "L2": "无阴影",
+    "L3": "无阴影",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "lineWidths": {
+    "L2": "0.5px、1px、2px",
+    "L3": "0.5px、1px、2px",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "root": {
+    "hasRoot": true,
+    "n": 12,
+    "hexes": [
+     "#E7E7E0",
+     "#33505C",
+     "#1C1A16",
+     "#9A9384"
+    ],
+    "families": [
+     "--display=\"Libre Franklin\",\"WenJin Mincho\",\"文津宋体\",\"Source Han Serif SC",
+     "--text=\"Newsreader\",\"WenJin Mincho\",\"文津宋体\",\"Source Han Serif SC\",\"N"
+    ]
+   }
+  },
+  {
+   "id": "S08",
+   "specLine": {
+    "p3": "19-20",
+    "p4": "23-24"
+   },
+   "palette": {
+    "L0_hexes": [
+     "#120C08",
+     "#C46A1F",
+     "#E8DCC8",
+     "#6B4A22",
+     "#8B5CF6",
+     "#22D3EE",
+     "#111111"
+    ],
+    "L1": [
+     "#120C08",
+     "#C46A1F",
+     "#E8DCC8",
+     "#6B4A22"
+    ],
+    "L2": [
+     "#120C08",
+     "#C46A1F",
+     "#E8DCC8",
+     "#6B4A22",
+     "#3A2712",
+     "#111111"
+    ],
+    "L3": [
+     "#120C08",
+     "#C46A1F",
+     "#E8DCC8",
+     "#6B4A22",
+     "#3A2712",
+     "#111111"
+    ],
+    "L1_len": 4,
+    "L3_len": 6,
+    "L2_eq_L3": true,
+    "set_L1_sub_L3": true,
+    "set_L3_sub_L1": false,
+    "set_eq": false,
+    "seq_eq": false,
+    "jaccard": 0.6666666666666666,
+    "L3_only": [
+     "#3A2712",
+     "#111111"
+    ],
+    "L1_only": [],
+    "L0_not_in_L1": [
+     "#8B5CF6",
+     "#22D3EE",
+     "#111111"
+    ],
+    "L0_not_in_L3": [
+     "#8B5CF6",
+     "#22D3EE"
+    ]
+   },
+   "primary": {
+    "L1": "#C46A1F",
+    "L2": [],
+    "L3": null,
+    "L3_key_present": false,
+    "L0_has_role": true
+   },
+   "fonts": {
+    "L0_kind": "string",
+    "L1_kind": "string",
+    "L1_len": 401,
+    "L2_kind": "object",
+    "L3_kind": "object",
+    "L2": {
+     "display": "Gloock",
+     "body": "Source Serif 4",
+     "mono": "Overprint Numerals",
+     "displayStack": [
+      "Gloock",
+      "Source Serif 4",
+      "Noto Serif SC"
+     ],
+     "bodyStack": [
+      "Source Serif 4",
+      "Noto Serif SC",
+      "Songti SC"
+     ]
+    },
+    "L3_eq_L2": true,
+    "L0_families": [
+     "opsz"
+    ]
+   },
+   "bg": {
+    "L1": "#120C08",
+    "L2_via_palette0": "#120C08",
+    "L3_via_palette0": "#120C08",
+    "L0_firstHex": "#120C08",
+    "root_has_paper": false
+   },
+   "minItems": {
+    "L3": 6,
+    "L3_capacity": 6,
+    "L3_minPics": 4
+   },
+   "radius": {
+    "L2": "全直角 0",
+    "L3": "全直角 0",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "shadow": {
+    "L2": "无阴影",
+    "L3": "无阴影",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "lineWidths": {
+    "L2": "1.25px、2px、3px、4px",
+    "L3": "1.25px、2px、3px、4px",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "root": {
+    "hasRoot": true,
+    "n": 17,
+    "hexes": [
+     "#120C08",
+     "#C46A1F",
+     "#E8DCC8",
+     "#6B4A22",
+     "#3A2712",
+     "#111111"
+    ],
+    "families": [
+     "--serif-cn=\"Noto Serif SC\", \"Songti SC\", serif",
+     "--display-face=\"Gloock\", \"Source Serif 4\", \"Noto Serif SC\", serif"
+    ]
+   }
+  },
+  {
+   "id": "S09",
+   "specLine": {
+    "p3": "19-20",
+    "p4": "21-22"
+   },
+   "palette": {
+    "L0_hexes": [
+     "#F5C842",
+     "#1F4E79",
+     "#151310",
+     "#8A4B24",
+     "#6366F1"
+    ],
+    "L1": [
+     "#F5C842",
+     "#1F4E79",
+     "#151310",
+     "#8A4B24"
+    ],
+    "L2": [
+     "#1F4E79",
+     "#F5C842",
+     "#151310",
+     "#8A4B24"
+    ],
+    "L3": [
+     "#1F4E79",
+     "#F5C842",
+     "#151310",
+     "#8A4B24"
+    ],
+    "L1_len": 4,
+    "L3_len": 4,
+    "L2_eq_L3": true,
+    "set_L1_sub_L3": true,
+    "set_L3_sub_L1": true,
+    "set_eq": true,
+    "seq_eq": false,
+    "jaccard": 1,
+    "L3_only": [],
+    "L1_only": [],
+    "L0_not_in_L1": [
+     "#6366F1"
+    ],
+    "L0_not_in_L3": [
+     "#6366F1"
+    ]
+   },
+   "primary": {
+    "L1": "#1F4E79",
+    "L2": [
+     "#1F4E79"
+    ],
+    "L3": null,
+    "L3_key_present": false,
+    "L0_has_role": true
+   },
+   "fonts": {
+    "L0_kind": "string",
+    "L1_kind": "string",
+    "L1_len": 351,
+    "L2_kind": "object",
+    "L3_kind": "object",
+    "L2": {
+     "display": "LXGW Marker Gothic",
+     "body": "LXGW Marker Gothic",
+     "mono": "JetBrains Mono",
+     "displayStack": [
+      "LXGW Marker Gothic",
+      "Syne"
+     ],
+     "bodyStack": [
+      "LXGW Marker Gothic"
+     ]
+    },
+    "L3_eq_L2": true,
+    "L0_families": []
+   },
+   "bg": {
+    "L1": "#F5C842",
+    "L2_via_palette0": "#1F4E79",
+    "L3_via_palette0": "#1F4E79",
+    "L0_firstHex": "#F5C842",
+    "root_has_paper": false
+   },
+   "minItems": {
+    "L3": 10,
+    "L3_capacity": 10,
+    "L3_minPics": 6
+   },
+   "radius": {
+    "L2": "全直角 0",
+    "L3": "全直角 0",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "shadow": {
+    "L2": "只用 drop-shadow（硬边厚度，无模糊投影）",
+    "L3": "只用 drop-shadow（硬边厚度，无模糊投影）",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "lineWidths": {
+    "L2": "2px、3px、3.5px、3.6px",
+    "L3": "2px、3px、3.5px、3.6px",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "root": {
+    "hasRoot": true,
+    "n": 24,
+    "hexes": [
+     "#F5C842",
+     "#1F4E79",
+     "#151310",
+     "#8A4B24"
+    ],
+    "families": [
+     "--f-cn=\"LXGW Marker Gothic\", serif",
+     "--f-latin=\"Syne\", serif",
+     "--f-mono=\"JetBrains Mono\", monospace"
+    ]
+   }
+  },
+  {
+   "id": "S10",
+   "specLine": {
+    "p3": "19-20",
+    "p4": "21-22"
+   },
+   "palette": {
+    "L0_hexes": [
+     "#F2EFE8",
+     "#17171A",
+     "#D32029",
+     "#6E7076",
+     "#F9FAFB",
+     "#3B82F6"
+    ],
+    "L1": [
+     "#F2EFE8",
+     "#D32029",
+     "#17171A",
+     "#6E7076"
+    ],
+    "L2": [
+     "#D32029",
+     "#F2EFE8",
+     "#17171A",
+     "#6E7076",
+     "#B6B4AE"
+    ],
+    "L3": [
+     "#D32029",
+     "#F2EFE8",
+     "#17171A",
+     "#6E7076",
+     "#B6B4AE"
+    ],
+    "L1_len": 4,
+    "L3_len": 5,
+    "L2_eq_L3": true,
+    "set_L1_sub_L3": true,
+    "set_L3_sub_L1": false,
+    "set_eq": false,
+    "seq_eq": false,
+    "jaccard": 0.8,
+    "L3_only": [
+     "#B6B4AE"
+    ],
+    "L1_only": [],
+    "L0_not_in_L1": [
+     "#F9FAFB",
+     "#3B82F6"
+    ],
+    "L0_not_in_L3": [
+     "#F9FAFB",
+     "#3B82F6"
+    ]
+   },
+   "primary": {
+    "L1": "#D32029",
+    "L2": [
+     "#D32029"
+    ],
+    "L3": null,
+    "L3_key_present": false,
+    "L0_has_role": true
+   },
+   "fonts": {
+    "L0_kind": "string",
+    "L1_kind": "string",
+    "L1_len": 268,
+    "L2_kind": "object",
+    "L3_kind": "object",
+    "L2": {
+     "display": "Jost",
+     "body": "IBM Plex Sans",
+     "mono": "IBM Plex Mono",
+     "displayStack": [
+      "Jost",
+      "Noto Sans SC"
+     ],
+     "bodyStack": [
+      "IBM Plex Sans",
+      "Noto Sans SC"
+     ]
+    },
+    "L3_eq_L2": true,
+    "L0_families": []
+   },
+   "bg": {
+    "L1": "#F2EFE8",
+    "L2_via_palette0": "#D32029",
+    "L3_via_palette0": "#D32029",
+    "L0_firstHex": "#F2EFE8",
+    "root_has_paper": true
+   },
+   "minItems": {
+    "L3": 12,
+    "L3_capacity": 12,
+    "L3_minPics": 6
+   },
+   "radius": {
+    "L2": "全直角 0",
+    "L3": "全直角 0",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "shadow": {
+    "L2": "无阴影",
+    "L3": "无阴影",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "lineWidths": {
+    "L2": "1.25px、1.5px、2px",
+    "L3": "1.25px、1.5px、2px",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "root": {
+    "hasRoot": true,
+    "n": 25,
+    "hexes": [
+     "#F2EFE8",
+     "#17171A",
+     "#D32029",
+     "#6E7076",
+     "#B6B4AE"
+    ],
+    "families": [
+     "--face-display=\"Jost\", \"Noto Sans SC\", sans-serif",
+     "--face-text=\"IBM Plex Sans\", \"Noto Sans SC\", sans-serif",
+     "--face-mono=\"IBM Plex Mono\", \"Noto Sans SC\", monospace"
+    ]
+   }
+  },
+  {
+   "id": "S11",
+   "specLine": {
+    "p3": "19-21",
+    "p4": "22-24"
+   },
+   "palette": {
+    "L0_hexes": [
+     "#1B4A4A",
+     "#DCDDD2",
+     "#221E19",
+     "#6E7A64",
+     "#6366F1",
+     "#FFFFFF"
+    ],
+    "L1": [
+     "#DCDDD2",
+     "#1B4A4A",
+     "#221E19",
+     "#6E7A64"
+    ],
+    "L2": [
+     "#1B4A4A",
+     "#DCDDD2",
+     "#221E19",
+     "#6E7A64"
+    ],
+    "L3": [
+     "#1B4A4A",
+     "#DCDDD2",
+     "#221E19",
+     "#6E7A64"
+    ],
+    "L1_len": 4,
+    "L3_len": 4,
+    "L2_eq_L3": true,
+    "set_L1_sub_L3": true,
+    "set_L3_sub_L1": true,
+    "set_eq": true,
+    "seq_eq": false,
+    "jaccard": 1,
+    "L3_only": [],
+    "L1_only": [],
+    "L0_not_in_L1": [
+     "#6366F1",
+     "#FFFFFF"
+    ],
+    "L0_not_in_L3": [
+     "#6366F1",
+     "#FFFFFF"
+    ]
+   },
+   "primary": {
+    "L1": "#1B4A4A",
+    "L2": [
+     "#1B4A4A"
+    ],
+    "L3": null,
+    "L3_key_present": false,
+    "L0_has_role": true
+   },
+   "fonts": {
+    "L0_kind": "string",
+    "L1_kind": "string",
+    "L1_len": 513,
+    "L2_kind": "object",
+    "L3_kind": "object",
+    "L2": {
+     "display": "EB Garamond",
+     "body": "LXGW WenKai TC",
+     "mono": "Martian Mono",
+     "displayStack": [
+      "EB Garamond",
+      "LXGW WenKai TC",
+      "Noto Serif SC"
+     ],
+     "bodyStack": [
+      "LXGW WenKai TC",
+      "Kaiti SC",
+      "KaiTi",
+      "Noto Serif SC"
+     ]
+    },
+    "L3_eq_L2": true,
+    "L0_families": [
+     "Redaction",
+     "Martian Mono",
+     "size-adjust",
+     "EB Garamond"
+    ]
+   },
+   "bg": {
+    "L1": "#DCDDD2",
+    "L2_via_palette0": "#1B4A4A",
+    "L3_via_palette0": "#1B4A4A",
+    "L0_firstHex": "#1B4A4A",
+    "root_has_paper": true
+   },
+   "minItems": {
+    "L3": 12,
+    "L3_capacity": 12,
+    "L3_minPics": 8
+   },
+   "radius": {
+    "L2": "全直角 0",
+    "L3": "全直角 0",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "shadow": {
+    "L2": "只用 inset（凹槽，无外投影）",
+    "L3": "只用 inset（凹槽，无外投影）",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "lineWidths": {
+    "L2": "1px、1.25px、2px、3px",
+    "L3": "1px、1.25px、2px、3px",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "root": {
+    "hasRoot": true,
+    "n": 19,
+    "hexes": [
+     "#DCDDD2",
+     "#221E19",
+     "#1B4A4A",
+     "#6E7A64"
+    ],
+    "families": [
+     "--proof-gap=12px"
+    ]
+   }
+  },
+  {
+   "id": "S12",
+   "specLine": {
+    "p3": "19-21",
+    "p4": "22-24"
+   },
+   "palette": {
+    "L0_hexes": [
+     "#B5D626",
+     "#1E2A2E",
+     "#E23E57",
+     "#F2E9D8",
+     "#6366F1",
+     "#0F172A",
+     "#111111"
+    ],
+    "L1": [
+     "#1E2A2E",
+     "#B5D626",
+     "#E23E57",
+     "#F2E9D8"
+    ],
+    "L2": [
+     "#B5D626",
+     "#1E2A2E",
+     "#E23E57",
+     "#F2E9D8",
+     "#26353A",
+     "#182226",
+     "#111111"
+    ],
+    "L3": [
+     "#B5D626",
+     "#1E2A2E",
+     "#E23E57",
+     "#F2E9D8",
+     "#26353A",
+     "#182226",
+     "#111111"
+    ],
+    "L1_len": 4,
+    "L3_len": 7,
+    "L2_eq_L3": true,
+    "set_L1_sub_L3": true,
+    "set_L3_sub_L1": false,
+    "set_eq": false,
+    "seq_eq": false,
+    "jaccard": 0.5714285714285714,
+    "L3_only": [
+     "#26353A",
+     "#182226",
+     "#111111"
+    ],
+    "L1_only": [],
+    "L0_not_in_L1": [
+     "#6366F1",
+     "#0F172A",
+     "#111111"
+    ],
+    "L0_not_in_L3": [
+     "#6366F1",
+     "#0F172A"
+    ]
+   },
+   "primary": {
+    "L1": "#B5D626",
+    "L2": [
+     "#B5D626"
+    ],
+    "L3": null,
+    "L3_key_present": false,
+    "L0_has_role": true
+   },
+   "fonts": {
+    "L0_kind": "string",
+    "L1_kind": "string",
+    "L1_len": 470,
+    "L2_kind": "object",
+    "L3_kind": "object",
+    "L2": {
+     "display": "Bricolage Grotesque",
+     "body": "Glow Sans SC",
+     "mono": "JetBrains Mono",
+     "displayStack": [
+      "Bricolage Grotesque",
+      "Glow Sans SC"
+     ],
+     "bodyStack": [
+      "Glow Sans SC",
+      "Noto Sans SC",
+      "Source Han Sans SC",
+      "PingFang SC"
+     ]
+    },
+    "L3_eq_L2": true,
+    "L0_families": [
+     "Bricolage Grotesque",
+     "JetBrains Mono",
+     "size-adjust"
+    ]
+   },
+   "bg": {
+    "L1": "#1E2A2E",
+    "L2_via_palette0": "#B5D626",
+    "L3_via_palette0": "#B5D626",
+    "L0_firstHex": "#B5D626",
+    "root_has_paper": false
+   },
+   "minItems": {
+    "L3": 7,
+    "L3_capacity": 7,
+    "L3_minPics": 6
+   },
+   "radius": {
+    "L2": "全直角 0",
+    "L3": "全直角 0",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "shadow": {
+    "L2": "无阴影",
+    "L3": "无阴影",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "lineWidths": {
+    "L2": "1px、2px、8px",
+    "L3": "1px、2px、8px",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "root": {
+    "hasRoot": true,
+    "n": 20,
+    "hexes": [
+     "#1E2A2E",
+     "#26353A",
+     "#182226",
+     "#B5D626",
+     "#E23E57",
+     "#F2E9D8",
+     "#111111"
+    ],
+    "families": []
+   }
+  },
+  {
+   "id": "S13",
+   "specLine": {
+    "p3": "19-21",
+    "p4": "22-24"
+   },
+   "palette": {
+    "L0_hexes": [
+     "#F4E3BE",
+     "#241F17",
+     "#7B612C",
+     "#D6CDB9",
+     "#6366F1",
+     "#A8843C",
+     "#111111"
+    ],
+    "L1": [
+     "#F4E3BE",
+     "#7B612C",
+     "#241F17",
+     "#D6CDB9"
+    ],
+    "L2": [
+     "#F4E3BE",
+     "#241F17",
+     "#7B612C",
+     "#D6CDB9"
+    ],
+    "L3": [
+     "#F4E3BE",
+     "#241F17",
+     "#7B612C",
+     "#D6CDB9"
+    ],
+    "L1_len": 4,
+    "L3_len": 4,
+    "L2_eq_L3": true,
+    "set_L1_sub_L3": true,
+    "set_L3_sub_L1": true,
+    "set_eq": true,
+    "seq_eq": false,
+    "jaccard": 1,
+    "L3_only": [],
+    "L1_only": [],
+    "L0_not_in_L1": [
+     "#6366F1",
+     "#A8843C",
+     "#111111"
+    ],
+    "L0_not_in_L3": [
+     "#6366F1",
+     "#A8843C",
+     "#111111"
+    ]
+   },
+   "primary": {
+    "L1": "#7B612C",
+    "L2": [],
+    "L3": null,
+    "L3_key_present": false,
+    "L0_has_role": true
+   },
+   "fonts": {
+    "L0_kind": "string",
+    "L1_kind": "string",
+    "L1_len": 363,
+    "L2_kind": "object",
+    "L3_kind": "object",
+    "L2": {
+     "display": "EB Garamond",
+     "body": "Noto Serif SC",
+     "mono": "DM Mono",
+     "displayStack": [
+      "EB Garamond",
+      "Noto Serif SC"
+     ],
+     "bodyStack": [
+      "Noto Serif SC",
+      "Songti SC",
+      "SimSun"
+     ]
+    },
+    "L3_eq_L2": true,
+    "L0_families": [
+     "EB Garamond",
+     "DM Mono"
+    ]
+   },
+   "bg": {
+    "L1": "#F4E3BE",
+    "L2_via_palette0": "#F4E3BE",
+    "L3_via_palette0": "#F4E3BE",
+    "L0_firstHex": "#F4E3BE",
+    "root_has_paper": true
+   },
+   "minItems": {
+    "L3": 7,
+    "L3_capacity": 7,
+    "L3_minPics": 4
+   },
+   "radius": {
+    "L2": "全直角 0",
+    "L3": "全直角 0",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "shadow": {
+    "L2": "inset 与外投影混用",
+    "L3": "inset 与外投影混用",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "lineWidths": {
+    "L2": "1px、1.5px、2px、3px、5.5px、9px、14.5px",
+    "L3": "1px、1.5px、2px、3px、5.5px、9px、14.5px",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "root": {
+    "hasRoot": true,
+    "n": 29,
+    "hexes": [
+     "#F4E3BE",
+     "#241F17",
+     "#7B612C",
+     "#D6CDB9"
+    ],
+    "families": [
+     "--font-display=\"EB Garamond\", \"Noto Serif SC\", serif",
+     "--font-body=\"Noto Serif SC\", \"Songti SC\", \"SimSun\", serif",
+     "--font-figure=\"DM Mono\", ui-monospace, monospace"
+    ]
+   }
+  },
+  {
+   "id": "S14",
+   "specLine": {
+    "p3": "19-21",
+    "p4": "22-24"
+   },
+   "palette": {
+    "L0_hexes": [
+     "#12181D",
+     "#E4572E",
+     "#D8D2C4",
+     "#8A3320",
+     "#6366F1",
+     "#F5F5F5",
+     "#111111"
+    ],
+    "L1": [
+     "#12181D",
+     "#E4572E",
+     "#D8D2C4",
+     "#8A3320"
+    ],
+    "L2": [
+     "#C9C4B8",
+     "#D8D2C4",
+     "#12181D",
+     "#E4572E",
+     "#8A3320",
+     "#111111"
+    ],
+    "L3": [
+     "#C9C4B8",
+     "#D8D2C4",
+     "#12181D",
+     "#E4572E",
+     "#8A3320",
+     "#111111"
+    ],
+    "L1_len": 4,
+    "L3_len": 6,
+    "L2_eq_L3": true,
+    "set_L1_sub_L3": true,
+    "set_L3_sub_L1": false,
+    "set_eq": false,
+    "seq_eq": false,
+    "jaccard": 0.6666666666666666,
+    "L3_only": [
+     "#C9C4B8",
+     "#111111"
+    ],
+    "L1_only": [],
+    "L0_not_in_L1": [
+     "#6366F1",
+     "#F5F5F5",
+     "#111111"
+    ],
+    "L0_not_in_L3": [
+     "#6366F1",
+     "#F5F5F5"
+    ]
+   },
+   "primary": {
+    "L1": "#E4572E",
+    "L2": [],
+    "L3": null,
+    "L3_key_present": false,
+    "L0_has_role": true
+   },
+   "fonts": {
+    "L0_kind": "string",
+    "L1_kind": "string",
+    "L1_len": 320,
+    "L2_kind": "object",
+    "L3_kind": "object",
+    "L2": {
+     "display": "Oswald",
+     "body": "Noto Serif SC",
+     "mono": "Space Mono",
+     "displayStack": [
+      "Oswald",
+      "Noto Serif SC"
+     ],
+     "bodyStack": [
+      "Noto Serif SC",
+      "Oswald",
+      "Georgia"
+     ]
+    },
+    "L3_eq_L2": true,
+    "L0_families": [
+     "Oswald",
+     "Space Mono"
+    ]
+   },
+   "bg": {
+    "L1": "#12181D",
+    "L2_via_palette0": "#C9C4B8",
+    "L3_via_palette0": "#C9C4B8",
+    "L0_firstHex": "#12181D",
+    "root_has_paper": false
+   },
+   "minItems": {
+    "L3": 11,
+    "L3_capacity": 11,
+    "L3_minPics": 10
+   },
+   "radius": {
+    "L2": "全站方角，仅圆形徽标/圆点为 50%",
+    "L3": "全站方角，仅圆形徽标/圆点为 50%",
+    "L0": false,
+    "L2_eq_L3": true
+   },
+   "shadow": {
+    "L2": "无阴影",
+    "L3": "无阴影",
+    "L0": false,
+    "L2_eq_L3": true
+   },
+   "lineWidths": {
+    "L2": "1px、1.25px、2px、3px",
+    "L3": "1px、1.25px、2px、3px",
+    "L0": false,
+    "L2_eq_L3": true
+   },
+   "root": {
+    "hasRoot": false,
+    "n": 0,
+    "hexes": [],
+    "families": []
+   }
+  },
+  {
+   "id": "S15",
+   "specLine": {
+    "p3": "19-21",
+    "p4": "22-24"
+   },
+   "palette": {
+    "L0_hexes": [
+     "#3A3F45",
+     "#E7EBE9",
+     "#22282B",
+     "#7A7466",
+     "#6366F1"
+    ],
+    "L1": [
+     "#E7EBE9",
+     "#3A3F45",
+     "#22282B",
+     "#7A7466"
+    ],
+    "L2": [
+     "#3A3F45",
+     "#E7EBE9",
+     "#22282B",
+     "#7A7466"
+    ],
+    "L3": [
+     "#3A3F45",
+     "#E7EBE9",
+     "#22282B",
+     "#7A7466"
+    ],
+    "L1_len": 4,
+    "L3_len": 4,
+    "L2_eq_L3": true,
+    "set_L1_sub_L3": true,
+    "set_L3_sub_L1": true,
+    "set_eq": true,
+    "seq_eq": false,
+    "jaccard": 1,
+    "L3_only": [],
+    "L1_only": [],
+    "L0_not_in_L1": [
+     "#6366F1"
+    ],
+    "L0_not_in_L3": [
+     "#6366F1"
+    ]
+   },
+   "primary": {
+    "L1": "#3A3F45",
+    "L2": [
+     "#3A3F45"
+    ],
+    "L3": null,
+    "L3_key_present": false,
+    "L0_has_role": true
+   },
+   "fonts": {
+    "L0_kind": "string",
+    "L1_kind": "string",
+    "L1_len": 318,
+    "L2_kind": "object",
+    "L3_kind": "object",
+    "L2": {
+     "display": "Newsreader",
+     "body": "Noto Serif SC",
+     "mono": "Reddit Mono",
+     "displayStack": [
+      "Newsreader",
+      "Noto Serif SC",
+      "Georgia"
+     ],
+     "bodyStack": [
+      "Noto Serif SC",
+      "Newsreader",
+      "Georgia"
+     ]
+    },
+    "L3_eq_L2": true,
+    "L0_families": [
+     "Newsreader",
+     "Reddit Mono"
+    ]
+   },
+   "bg": {
+    "L1": "#E7EBE9",
+    "L2_via_palette0": "#3A3F45",
+    "L3_via_palette0": "#3A3F45",
+    "L0_firstHex": "#3A3F45",
+    "root_has_paper": true
+   },
+   "minItems": {
+    "L3": 14,
+    "L3_capacity": 14,
+    "L3_minPics": 6
+   },
+   "radius": {
+    "L2": "全直角 0",
+    "L3": "全直角 0",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "shadow": {
+    "L2": "无阴影",
+    "L3": "无阴影",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "lineWidths": {
+    "L2": "0.5px、0.8px、1px、1.2px、2px、3px",
+    "L3": "0.5px、0.8px、1px、1.2px、2px、3px",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "root": {
+    "hasRoot": true,
+    "n": 6,
+    "hexes": [
+     "#E7EBE9",
+     "#3A3F45",
+     "#22282B",
+     "#7A7466"
+    ],
+    "families": []
+   }
+  },
+  {
+   "id": "S16",
+   "specLine": {
+    "p3": "19-21",
+    "p4": "22-24"
+   },
+   "palette": {
+    "L0_hexes": [
+     "#C52C0F",
+     "#F7EBCF",
+     "#1A1A1A",
+     "#8E2A18",
+     "#6366F1",
+     "#E63312",
+     "#FFFFFF"
+    ],
+    "L1": [
+     "#F7EBCF",
+     "#C52C0F",
+     "#1A1A1A",
+     "#8E2A18"
+    ],
+    "L2": [
+     "#C52C0F",
+     "#F7EBCF",
+     "#1A1A1A",
+     "#8E2A18",
+     "#5C5C55"
+    ],
+    "L3": [
+     "#C52C0F",
+     "#F7EBCF",
+     "#1A1A1A",
+     "#8E2A18",
+     "#5C5C55"
+    ],
+    "L1_len": 4,
+    "L3_len": 5,
+    "L2_eq_L3": true,
+    "set_L1_sub_L3": true,
+    "set_L3_sub_L1": false,
+    "set_eq": false,
+    "seq_eq": false,
+    "jaccard": 0.8,
+    "L3_only": [
+     "#5C5C55"
+    ],
+    "L1_only": [],
+    "L0_not_in_L1": [
+     "#6366F1",
+     "#E63312",
+     "#FFFFFF"
+    ],
+    "L0_not_in_L3": [
+     "#6366F1",
+     "#E63312",
+     "#FFFFFF"
+    ]
+   },
+   "primary": {
+    "L1": "#C52C0F",
+    "L2": [
+     "#C52C0F"
+    ],
+    "L3": null,
+    "L3_key_present": false,
+    "L0_has_role": true
+   },
+   "fonts": {
+    "L0_kind": "string",
+    "L1_kind": "string",
+    "L1_len": 500,
+    "L2_kind": "object",
+    "L3_kind": "object",
+    "L2": {
+     "display": "LXGW Marker Gothic",
+     "body": "Noto Serif SC",
+     "mono": "Fragment Mono",
+     "displayStack": [
+      "LXGW Marker Gothic",
+      "Noto Serif SC"
+     ],
+     "bodyStack": [
+      "Noto Serif SC",
+      "Georgia",
+      "Songti SC"
+     ]
+    },
+    "L3_eq_L2": true,
+    "L0_families": [
+     "Archivo Black",
+     "Fragment Mono"
+    ]
+   },
+   "bg": {
+    "L1": "#F7EBCF",
+    "L2_via_palette0": "#C52C0F",
+    "L3_via_palette0": "#C52C0F",
+    "L0_firstHex": "#C52C0F",
+    "root_has_paper": true
+   },
+   "minItems": {
+    "L3": 9,
+    "L3_capacity": 9,
+    "L3_minPics": 6
+   },
+   "radius": {
+    "L2": "全站方角，仅圆形徽标/圆点为 50%",
+    "L3": "全站方角，仅圆形徽标/圆点为 50%",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "shadow": {
+    "L2": "只用 drop-shadow（硬边厚度，无模糊投影）",
+    "L3": "只用 drop-shadow（硬边厚度，无模糊投影）",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "lineWidths": {
+    "L2": "2px、3px、6px、13px",
+    "L3": "2px、3px、6px、13px",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "root": {
+    "hasRoot": true,
+    "n": 21,
+    "hexes": [
+     "#F7EBCF",
+     "#C52C0F",
+     "#1A1A1A",
+     "#8E2A18",
+     "#5C5C55"
+    ],
+    "families": []
+   }
+  },
+  {
+   "id": "S17",
+   "specLine": {
+    "p3": "19-21",
+    "p4": "22-24"
+   },
+   "palette": {
+    "L0_hexes": [
+     "#E1D6BD",
+     "#5A2A50",
+     "#7A2E2E",
+     "#C9BFA6",
+     "#6366F1",
+     "#3B82F6",
+     "#8B5CF6",
+     "#111111"
+    ],
+    "L1": [
+     "#E1D6BD",
+     "#5A2A50",
+     "#7A2E2E"
+    ],
+    "L2": [
+     "#E1D6BD",
+     "#5A2A50",
+     "#7A2E2E",
+     "#C9BFA6",
+     "#3F1A38",
+     "#B9A98C",
+     "#DFD6BF"
+    ],
+    "L3": [
+     "#E1D6BD",
+     "#5A2A50",
+     "#7A2E2E",
+     "#C9BFA6",
+     "#3F1A38",
+     "#B9A98C",
+     "#DFD6BF"
+    ],
+    "L1_len": 3,
+    "L3_len": 7,
+    "L2_eq_L3": true,
+    "set_L1_sub_L3": true,
+    "set_L3_sub_L1": false,
+    "set_eq": false,
+    "seq_eq": false,
+    "jaccard": 0.42857142857142855,
+    "L3_only": [
+     "#C9BFA6",
+     "#3F1A38",
+     "#B9A98C",
+     "#DFD6BF"
+    ],
+    "L1_only": [],
+    "L0_not_in_L1": [
+     "#C9BFA6",
+     "#6366F1",
+     "#3B82F6",
+     "#8B5CF6",
+     "#111111"
+    ],
+    "L0_not_in_L3": [
+     "#6366F1",
+     "#3B82F6",
+     "#8B5CF6",
+     "#111111"
+    ]
+   },
+   "primary": {
+    "L1": "#5A2A50",
+    "L2": [],
+    "L3": null,
+    "L3_key_present": false,
+    "L0_has_role": true
+   },
+   "fonts": {
+    "L0_kind": "string",
+    "L1_kind": "string",
+    "L1_len": 358,
+    "L2_kind": "object",
+    "L3_kind": "object",
+    "L2": {
+     "display": "Literata",
+     "body": "文津宋体",
+     "mono": "Sometype Mono",
+     "displayStack": [
+      "Literata",
+      "文津宋体",
+      "Noto Serif SC"
+     ],
+     "bodyStack": [
+      "文津宋体",
+      "WenJin Mincho SC",
+      "Noto Serif SC",
+      "Source Han Serif SC"
+     ]
+    },
+    "L3_eq_L2": true,
+    "L0_families": [
+     "Literata",
+     "Sometype Mono"
+    ]
+   },
+   "bg": {
+    "L1": "#E1D6BD",
+    "L2_via_palette0": "#E1D6BD",
+    "L3_via_palette0": "#E1D6BD",
+    "L0_firstHex": "#E1D6BD",
+    "root_has_paper": true
+   },
+   "minItems": {
+    "L3": 27,
+    "L3_capacity": 27,
+    "L3_minPics": 5
+   },
+   "radius": {
+    "L2": "全站方角，仅圆形徽标/圆点为 50%",
+    "L3": "全站方角，仅圆形徽标/圆点为 50%",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "shadow": {
+    "L2": "无阴影",
+    "L3": "无阴影",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "lineWidths": {
+    "L2": "0.5px、0.8px、1px、2px、2.4px、5px、6px",
+    "L3": "0.5px、0.8px、1px、2px、2.4px、5px、6px",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "root": {
+    "hasRoot": true,
+    "n": 16,
+    "hexes": [
+     "#E1D6BD",
+     "#C9BFA6",
+     "#5A2A50",
+     "#3F1A38",
+     "#7A2E2E",
+     "#B9A98C",
+     "#DFD6BF",
+     "#D6C9AC"
+    ],
+    "families": []
+   }
+  },
+  {
+   "id": "S18",
+   "specLine": {
+    "p3": "19-21",
+    "p4": "22-24"
+   },
+   "palette": {
+    "L0_hexes": [
+     "#0A0D0A",
+     "#2FA84F",
+     "#C8C4AE",
+     "#6E6350",
+     "#6366F1",
+     "#F5F5F5",
+     "#111111"
+    ],
+    "L1": [
+     "#0A0D0A",
+     "#2FA84F",
+     "#C8C4AE",
+     "#6E6350"
+    ],
+    "L2": [
+     "#0A0D0A",
+     "#2FA84F",
+     "#C8C4AE",
+     "#6E6350",
+     "#278F43",
+     "#111111"
+    ],
+    "L3": [
+     "#0A0D0A",
+     "#2FA84F",
+     "#C8C4AE",
+     "#6E6350",
+     "#278F43",
+     "#111111"
+    ],
+    "L1_len": 4,
+    "L3_len": 6,
+    "L2_eq_L3": true,
+    "set_L1_sub_L3": true,
+    "set_L3_sub_L1": false,
+    "set_eq": false,
+    "seq_eq": false,
+    "jaccard": 0.6666666666666666,
+    "L3_only": [
+     "#278F43",
+     "#111111"
+    ],
+    "L1_only": [],
+    "L0_not_in_L1": [
+     "#6366F1",
+     "#F5F5F5",
+     "#111111"
+    ],
+    "L0_not_in_L3": [
+     "#6366F1",
+     "#F5F5F5"
+    ]
+   },
+   "primary": {
+    "L1": "#2FA84F",
+    "L2": [],
+    "L3": null,
+    "L3_key_present": false,
+    "L0_has_role": true
+   },
+   "fonts": {
+    "L0_kind": "string",
+    "L1_kind": "string",
+    "L1_len": 341,
+    "L2_kind": "object",
+    "L3_kind": "object",
+    "L2": {
+     "display": "Glow Sans SC",
+     "body": "Glow Sans SC",
+     "mono": "VT323",
+     "displayStack": [
+      "Glow Sans SC",
+      "Songti SC",
+      "Georgia",
+      "Times New Roman"
+     ],
+     "bodyStack": [
+      "Glow Sans SC",
+      "Songti SC",
+      "Georgia",
+      "Times New Roman"
+     ]
+    },
+    "L3_eq_L2": true,
+    "L0_families": [
+     "VT323",
+     "Martian Mono"
+    ]
+   },
+   "bg": {
+    "L1": "#0A0D0A",
+    "L2_via_palette0": "#0A0D0A",
+    "L3_via_palette0": "#0A0D0A",
+    "L0_firstHex": "#0A0D0A",
+    "root_has_paper": true
+   },
+   "minItems": {
+    "L3": 20,
+    "L3_capacity": 20,
+    "L3_minPics": 6
+   },
+   "radius": {
+    "L2": "全直角 0",
+    "L3": "全直角 0",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "shadow": {
+    "L2": "无阴影",
+    "L3": "无阴影",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "lineWidths": {
+    "L2": "0.8px、1px、1.25px、2px、4px",
+    "L3": "0.8px、1px、1.25px、2px、4px",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "root": {
+    "hasRoot": true,
+    "n": 18,
+    "hexes": [
+     "#0A0D0A",
+     "#2FA84F",
+     "#278F43",
+     "#C8C4AE",
+     "#6E6350",
+     "#111111"
+    ],
+    "families": [
+     "--mono='Martian Mono','Courier New',monospace"
+    ]
+   }
+  },
+  {
+   "id": "S19",
+   "specLine": {
+    "p3": "19-21",
+    "p4": "22-24"
+   },
+   "palette": {
+    "L0_hexes": [
+     "#E4DECD",
+     "#4A5C3A",
+     "#2A241C",
+     "#7C7460",
+     "#6366F1"
+    ],
+    "L1": [
+     "#E4DECD",
+     "#4A5C3A",
+     "#2A241C",
+     "#7C7460"
+    ],
+    "L2": [
+     "#4A5C3A",
+     "#E4DECD",
+     "#2A241C",
+     "#7C7460",
+     "#D8CFB6",
+     "#E9E3D2",
+     "#3A3227"
+    ],
+    "L3": [
+     "#4A5C3A",
+     "#E4DECD",
+     "#2A241C",
+     "#7C7460",
+     "#D8CFB6",
+     "#E9E3D2",
+     "#3A3227"
+    ],
+    "L1_len": 4,
+    "L3_len": 7,
+    "L2_eq_L3": true,
+    "set_L1_sub_L3": true,
+    "set_L3_sub_L1": false,
+    "set_eq": false,
+    "seq_eq": false,
+    "jaccard": 0.5714285714285714,
+    "L3_only": [
+     "#D8CFB6",
+     "#E9E3D2",
+     "#3A3227"
+    ],
+    "L1_only": [],
+    "L0_not_in_L1": [
+     "#6366F1"
+    ],
+    "L0_not_in_L3": [
+     "#6366F1"
+    ]
+   },
+   "primary": {
+    "L1": "#4A5C3A",
+    "L2": [
+     "#4A5C3A"
+    ],
+    "L3": null,
+    "L3_key_present": false,
+    "L0_has_role": true
+   },
+   "fonts": {
+    "L0_kind": "string",
+    "L1_kind": "string",
+    "L1_len": 371,
+    "L2_kind": "object",
+    "L3_kind": "object",
+    "L2": {
+     "display": "Noto Serif SC",
+     "body": "Noto Serif SC",
+     "mono": "IBM Plex Mono",
+     "displayStack": [
+      "Noto Serif SC",
+      "Georgia"
+     ],
+     "bodyStack": [
+      "Noto Serif SC",
+      "Georgia"
+     ]
+    },
+    "L3_eq_L2": true,
+    "L0_families": [
+     "Spectral",
+     "IBM Plex Mono"
+    ]
+   },
+   "bg": {
+    "L1": "#E4DECD",
+    "L2_via_palette0": "#4A5C3A",
+    "L3_via_palette0": "#4A5C3A",
+    "L0_firstHex": "#E4DECD",
+    "root_has_paper": true
+   },
+   "minItems": {
+    "L3": 20,
+    "L3_capacity": 20,
+    "L3_minPics": 6
+   },
+   "radius": {
+    "L2": "全直角 0",
+    "L3": "全直角 0",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "shadow": {
+    "L2": "只用 inset（凹槽，无外投影）",
+    "L3": "只用 inset（凹槽，无外投影）",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "lineWidths": {
+    "L2": "0.4px、0.8px、1px、3px",
+    "L3": "0.4px、0.8px、1px、3px",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "root": {
+    "hasRoot": true,
+    "n": 18,
+    "hexes": [
+     "#E4DECD",
+     "#D8CFB6",
+     "#E9E3D2",
+     "#2A241C",
+     "#3A3227",
+     "#4A5C3A",
+     "#7C7460",
+     "#5E5443",
+     "#534C3E"
+    ],
+    "families": []
+   }
+  },
+  {
+   "id": "S20",
+   "specLine": {
+    "p3": "19-21",
+    "p4": "22-24"
+   },
+   "palette": {
+    "L0_hexes": [
+     "#FAF3E1",
+     "#26485C",
+     "#0F1418",
+     "#55606B",
+     "#6366F1"
+    ],
+    "L1": [
+     "#FAF3E1",
+     "#26485C",
+     "#0F1418",
+     "#55606B"
+    ],
+    "L2": [
+     "#FAF3E1",
+     "#26485C",
+     "#0F1418",
+     "#55606B"
+    ],
+    "L3": [
+     "#FAF3E1",
+     "#26485C",
+     "#0F1418",
+     "#55606B"
+    ],
+    "L1_len": 4,
+    "L3_len": 4,
+    "L2_eq_L3": true,
+    "set_L1_sub_L3": true,
+    "set_L3_sub_L1": true,
+    "set_eq": true,
+    "seq_eq": true,
+    "jaccard": 1,
+    "L3_only": [],
+    "L1_only": [],
+    "L0_not_in_L1": [
+     "#6366F1"
+    ],
+    "L0_not_in_L3": [
+     "#6366F1"
+    ]
+   },
+   "primary": {
+    "L1": "#26485C",
+    "L2": [],
+    "L3": null,
+    "L3_key_present": false,
+    "L0_has_role": true
+   },
+   "fonts": {
+    "L0_kind": "string",
+    "L1_kind": "string",
+    "L1_len": 357,
+    "L2_kind": "object",
+    "L3_kind": "object",
+    "L2": {
+     "display": "Space Grotesk",
+     "body": "Noto Sans SC",
+     "mono": "Martian Mono",
+     "displayStack": [
+      "Space Grotesk",
+      "Noto Sans SC"
+     ],
+     "bodyStack": [
+      "Noto Sans SC",
+      "Space Grotesk"
+     ]
+    },
+    "L3_eq_L2": true,
+    "L0_families": [
+     "Space Grotesk",
+     "Martian Mono"
+    ]
+   },
+   "bg": {
+    "L1": "#FAF3E1",
+    "L2_via_palette0": "#FAF3E1",
+    "L3_via_palette0": "#FAF3E1",
+    "L0_firstHex": "#FAF3E1",
+    "root_has_paper": true
+   },
+   "minItems": {
+    "L3": 6,
+    "L3_capacity": 6,
+    "L3_minPics": 6
+   },
+   "radius": {
+    "L2": "全直角 0",
+    "L3": "全直角 0",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "shadow": {
+    "L2": "无阴影",
+    "L3": "无阴影",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "lineWidths": {
+    "L2": "0.35px、0.5px、1px、3px",
+    "L3": "0.35px、0.5px、1px、3px",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "root": {
+    "hasRoot": true,
+    "n": 5,
+    "hexes": [
+     "#FAF3E1",
+     "#26485C",
+     "#0F1418",
+     "#55606B"
+    ],
+    "families": []
+   }
+  },
+  {
+   "id": "S21",
+   "specLine": {
+    "p3": "17-18",
+    "p4": "19-20"
+   },
+   "palette": {
+    "L0_hexes": [
+     "#3E3A34",
+     "#E4DCC9",
+     "#924307",
+     "#6E6A5E",
+     "#6366F1",
+     "#FFFFFF"
+    ],
+    "L1": [
+     "#E4DCC9",
+     "#3E3A34",
+     "#924307",
+     "#6E6A5E"
+    ],
+    "L2": [
+     "#3E3A34",
+     "#E4DCC9",
+     "#924307",
+     "#6E6A5E",
+     "#FFFFFF"
+    ],
+    "L3": [
+     "#3E3A34",
+     "#E4DCC9",
+     "#924307",
+     "#6E6A5E",
+     "#FFFFFF"
+    ],
+    "L1_len": 4,
+    "L3_len": 5,
+    "L2_eq_L3": true,
+    "set_L1_sub_L3": true,
+    "set_L3_sub_L1": false,
+    "set_eq": false,
+    "seq_eq": false,
+    "jaccard": 0.8,
+    "L3_only": [
+     "#FFFFFF"
+    ],
+    "L1_only": [],
+    "L0_not_in_L1": [
+     "#6366F1",
+     "#FFFFFF"
+    ],
+    "L0_not_in_L3": [
+     "#6366F1"
+    ]
+   },
+   "primary": {
+    "L1": "#3E3A34",
+    "L2": [
+     "#3E3A34"
+    ],
+    "L3": null,
+    "L3_key_present": false,
+    "L0_has_role": true
+   },
+   "fonts": {
+    "L0_kind": "string",
+    "L1_kind": "string",
+    "L1_len": 409,
+    "L2_kind": "object",
+    "L3_kind": "object",
+    "L2": {
+     "display": "Antonio",
+     "body": "WenJin Mincho",
+     "mono": "IBM Plex Mono",
+     "displayStack": [
+      "Antonio",
+      "WenJin Mincho",
+      "Georgia",
+      "Songti SC"
+     ],
+     "bodyStack": [
+      "WenJin Mincho",
+      "Georgia",
+      "Songti SC",
+      "STSong"
+     ]
+    },
+    "L3_eq_L2": true,
+    "L0_families": [
+     "Antonio",
+     "IBM Plex Mono"
+    ]
+   },
+   "bg": {
+    "L1": "#E4DCC9",
+    "L2_via_palette0": "#3E3A34",
+    "L3_via_palette0": "#3E3A34",
+    "L0_firstHex": "#3E3A34",
+    "root_has_paper": true
+   },
+   "minItems": {
+    "L3": 14,
+    "L3_capacity": 14,
+    "L3_minPics": 6
+   },
+   "radius": {
+    "L2": "全直角 0",
+    "L3": "全直角 0",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "shadow": {
+    "L2": "只用 inset（凹槽，无外投影）",
+    "L3": "只用 inset（凹槽，无外投影）",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "lineWidths": {
+    "L2": "1px、1.25px、2px",
+    "L3": "1px、1.25px、2px",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "root": {
+    "hasRoot": true,
+    "n": 14,
+    "hexes": [
+     "#E4DCC9",
+     "#3E3A34",
+     "#924307",
+     "#6E6A5E",
+     "#FFFFFF"
+    ],
+    "families": [
+     "--face-cjk=\"WenJin Mincho\",Georgia,\"Songti SC\",STSong,SimSun,serif"
+    ]
+   }
+  },
+  {
+   "id": "S22",
+   "specLine": {
+    "p3": "17-18",
+    "p4": "19-20"
+   },
+   "palette": {
+    "L0_hexes": [
+     "#DDDAD4",
+     "#565B49",
+     "#2E2A24",
+     "#6366F1",
+     "#666D51",
+     "#FFFFFF"
+    ],
+    "L1": [
+     "#DDDAD4",
+     "#565B49",
+     "#2E2A24"
+    ],
+    "L2": [
+     "#565B49",
+     "#DDDAD4",
+     "#2E2A24",
+     "#6B6558"
+    ],
+    "L3": [
+     "#565B49",
+     "#DDDAD4",
+     "#2E2A24",
+     "#6B6558"
+    ],
+    "L1_len": 3,
+    "L3_len": 4,
+    "L2_eq_L3": true,
+    "set_L1_sub_L3": true,
+    "set_L3_sub_L1": false,
+    "set_eq": false,
+    "seq_eq": false,
+    "jaccard": 0.75,
+    "L3_only": [
+     "#6B6558"
+    ],
+    "L1_only": [],
+    "L0_not_in_L1": [
+     "#6366F1",
+     "#666D51",
+     "#FFFFFF"
+    ],
+    "L0_not_in_L3": [
+     "#6366F1",
+     "#666D51",
+     "#FFFFFF"
+    ]
+   },
+   "primary": {
+    "L1": "#565B49",
+    "L2": [
+     "#565B49"
+    ],
+    "L3": null,
+    "L3_key_present": false,
+    "L0_has_role": true
+   },
+   "fonts": {
+    "L0_kind": "string",
+    "L1_kind": "string",
+    "L1_len": 413,
+    "L2_kind": "object",
+    "L3_kind": "object",
+    "L2": {
+     "display": "Petrona",
+     "body": "Zhuque Fangsong",
+     "mono": "IBM Plex Mono",
+     "displayStack": [
+      "Petrona",
+      "Zhuque Fangsong",
+      "Georgia"
+     ],
+     "bodyStack": [
+      "Zhuque Fangsong",
+      "Petrona",
+      "Georgia"
+     ]
+    },
+    "L3_eq_L2": true,
+    "L0_families": [
+     "Petrona",
+     "IBM Plex Mono"
+    ]
+   },
+   "bg": {
+    "L1": "#DDDAD4",
+    "L2_via_palette0": "#565B49",
+    "L3_via_palette0": "#565B49",
+    "L0_firstHex": "#DDDAD4",
+    "root_has_paper": true
+   },
+   "minItems": {
+    "L3": 6,
+    "L3_capacity": 6,
+    "L3_minPics": 6
+   },
+   "radius": {
+    "L2": "全直角 0",
+    "L3": "全直角 0",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "shadow": {
+    "L2": "只用 inset（凹槽，无外投影）",
+    "L3": "只用 inset（凹槽，无外投影）",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "lineWidths": {
+    "L2": "1px、3px",
+    "L3": "1px、3px",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "root": {
+    "hasRoot": true,
+    "n": 37,
+    "hexes": [
+     "#DDDAD4",
+     "#2E2A24",
+     "#565B49",
+     "#6B6558"
+    ],
+    "families": []
+   }
+  },
+  {
+   "id": "S23",
+   "specLine": {
+    "p3": "17-18",
+    "p4": "19-20"
+   },
+   "palette": {
+    "L0_hexes": [
+     "#A8206B",
+     "#DCDCC8",
+     "#241C16",
+     "#7A6A55",
+     "#6366F1",
+     "#B01A2E",
+     "#000000",
+     "#FFFFFF"
+    ],
+    "L1": [
+     "#DCDCC8",
+     "#A8206B",
+     "#241C16",
+     "#7A6A55"
+    ],
+    "L2": [
+     "#A8206B",
+     "#241C16",
+     "#DCDCC8",
+     "#7A6A55",
+     "#E9E9D7",
+     "#5F5240",
+     "#B7A78C"
+    ],
+    "L3": [
+     "#A8206B",
+     "#241C16",
+     "#DCDCC8",
+     "#7A6A55",
+     "#E9E9D7",
+     "#5F5240",
+     "#B7A78C"
+    ],
+    "L1_len": 4,
+    "L3_len": 7,
+    "L2_eq_L3": true,
+    "set_L1_sub_L3": true,
+    "set_L3_sub_L1": false,
+    "set_eq": false,
+    "seq_eq": false,
+    "jaccard": 0.5714285714285714,
+    "L3_only": [
+     "#E9E9D7",
+     "#5F5240",
+     "#B7A78C"
+    ],
+    "L1_only": [],
+    "L0_not_in_L1": [
+     "#6366F1",
+     "#B01A2E",
+     "#000000",
+     "#FFFFFF"
+    ],
+    "L0_not_in_L3": [
+     "#6366F1",
+     "#B01A2E",
+     "#000000",
+     "#FFFFFF"
+    ]
+   },
+   "primary": {
+    "L1": "#A8206B",
+    "L2": [
+     "#A8206B",
+     "#241C16"
+    ],
+    "L3": null,
+    "L3_key_present": false,
+    "L0_has_role": true
+   },
+   "fonts": {
+    "L0_kind": "string",
+    "L1_kind": "string",
+    "L1_len": 480,
+    "L2_kind": "object",
+    "L3_kind": "object",
+    "L2": {
+     "display": "Noto Serif SC",
+     "body": "Noto Serif SC",
+     "mono": "JetBrains Mono",
+     "displayStack": [
+      "Noto Serif SC",
+      "Alfa Slab One"
+     ],
+     "bodyStack": [
+      "Noto Serif SC",
+      "Alfa Slab One"
+     ]
+    },
+    "L3_eq_L2": true,
+    "L0_families": [
+     "Alfa Slab One",
+     "JetBrains Mono"
+    ]
+   },
+   "bg": {
+    "L1": "#DCDCC8",
+    "L2_via_palette0": "#A8206B",
+    "L3_via_palette0": "#A8206B",
+    "L0_firstHex": "#A8206B",
+    "root_has_paper": false
+   },
+   "minItems": {
+    "L3": 9,
+    "L3_capacity": 9,
+    "L3_minPics": 10
+   },
+   "radius": {
+    "L2": "全直角 0",
+    "L3": "全直角 0",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "shadow": {
+    "L2": "无阴影",
+    "L3": "无阴影",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "lineWidths": {
+    "L2": "1px、1.5px、6px",
+    "L3": "1px、1.5px、6px",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "root": {
+    "hasRoot": true,
+    "n": 12,
+    "hexes": [
+     "#DCDCC8",
+     "#A8206B",
+     "#241C16",
+     "#7A6A55",
+     "#E9E9D7",
+     "#5F5240",
+     "#B7A78C",
+     "#E9A9C6"
+    ],
+    "families": [
+     "--cjk=\"Noto Serif SC\", \"Alfa Slab One\", serif",
+     "--mono=\"JetBrains Mono\", \"Noto Serif SC\", monospace"
+    ]
+   }
+  },
+  {
+   "id": "S24",
+   "specLine": {
+    "p3": "17-18",
+    "p4": "19-20"
+   },
+   "palette": {
+    "L0_hexes": [
+     "#5D43AD",
+     "#E6EDF2",
+     "#0A1116",
+     "#6E8B7A",
+     "#6366F1",
+     "#3B82F6",
+     "#A855F7",
+     "#FFFFFF"
+    ],
+    "L1": [
+     "#E6EDF2",
+     "#5D43AD",
+     "#0A1116",
+     "#6E8B7A"
+    ],
+    "L2": [
+     "#5D43AD",
+     "#E6EDF2",
+     "#0A1116",
+     "#6E8B7A",
+     "#F3F8FB",
+     "#DCE7EF",
+     "#C9D8E4"
+    ],
+    "L3": [
+     "#5D43AD",
+     "#E6EDF2",
+     "#0A1116",
+     "#6E8B7A",
+     "#F3F8FB",
+     "#DCE7EF",
+     "#C9D8E4"
+    ],
+    "L1_len": 4,
+    "L3_len": 7,
+    "L2_eq_L3": true,
+    "set_L1_sub_L3": true,
+    "set_L3_sub_L1": false,
+    "set_eq": false,
+    "seq_eq": false,
+    "jaccard": 0.5714285714285714,
+    "L3_only": [
+     "#F3F8FB",
+     "#DCE7EF",
+     "#C9D8E4"
+    ],
+    "L1_only": [],
+    "L0_not_in_L1": [
+     "#6366F1",
+     "#3B82F6",
+     "#A855F7",
+     "#FFFFFF"
+    ],
+    "L0_not_in_L3": [
+     "#6366F1",
+     "#3B82F6",
+     "#A855F7",
+     "#FFFFFF"
+    ]
+   },
+   "primary": {
+    "L1": "#5D43AD",
+    "L2": [
+     "#5D43AD"
+    ],
+    "L3": null,
+    "L3_key_present": false,
+    "L0_has_role": true
+   },
+   "fonts": {
+    "L0_kind": "string",
+    "L1_kind": "string",
+    "L1_len": 332,
+    "L2_kind": "object",
+    "L3_kind": "object",
+    "L2": {
+     "display": "Spectral",
+     "body": "LXGW WenKai",
+     "mono": "IBM Plex Mono",
+     "displayStack": [
+      "Spectral",
+      "LXGW WenKai",
+      "Georgia",
+      "Times New Roman"
+     ],
+     "bodyStack": [
+      "LXGW WenKai",
+      "Songti SC",
+      "Georgia",
+      "Times New Roman"
+     ]
+    },
+    "L3_eq_L2": true,
+    "L0_families": [
+     "Fraunces",
+     "IBM Plex Mono"
+    ]
+   },
+   "bg": {
+    "L1": "#E6EDF2",
+    "L2_via_palette0": "#5D43AD",
+    "L3_via_palette0": "#5D43AD",
+    "L0_firstHex": "#5D43AD",
+    "root_has_paper": true
+   },
+   "minItems": {
+    "L3": 6,
+    "L3_capacity": 6,
+    "L3_minPics": 6
+   },
+   "radius": {
+    "L2": "全直角 0",
+    "L3": "全直角 0",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "shadow": {
+    "L2": "无阴影",
+    "L3": "无阴影",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "lineWidths": {
+    "L2": "0.4px、0.6px、0.8px、1px、1.2px、2px、2.5px、3.2px",
+    "L3": "0.4px、0.6px、0.8px、1px、1.2px、2px、2.5px、3.2px",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "root": {
+    "hasRoot": true,
+    "n": 24,
+    "hexes": [
+     "#E6EDF2",
+     "#F3F8FB",
+     "#DCE7EF",
+     "#C9D8E4",
+     "#0A1116",
+     "#3A4652",
+     "#5D43AD",
+     "#6E8B7A",
+     "#3C5F48",
+     "#4A3390",
+     "#3A276E",
+     "#2A1B50",
+     "#1B1136"
+    ],
+    "families": [
+     "--display='Spectral','LXGW WenKai',Georgia,'Times New Roman',serif",
+     "--text='LXGW WenKai','Songti SC',Georgia,'Times New Roman',serif",
+     "--mono='IBM Plex Mono','Courier New',monospace"
+    ]
+   }
+  },
+  {
+   "id": "S25",
+   "specLine": {
+    "p3": "17-18",
+    "p4": "19-20"
+   },
+   "palette": {
+    "L0_hexes": [
+     "#E8E4DE",
+     "#914A27",
+     "#1E1A16",
+     "#2E6B5E",
+     "#181C0D",
+     "#232410",
+     "#6366F1",
+     "#AB4D25",
+     "#FFFFFF",
+     "#844222",
+     "#2A6052",
+     "#DFDAD2"
+    ],
+    "L1": [
+     "#E8E4DE",
+     "#914A27",
+     "#1E1A16",
+     "#2E6B5E"
+    ],
+    "L2": [
+     "#E8E4DE",
+     "#914A27",
+     "#1E1A16",
+     "#2E6B5E",
+     "#DFDAD2",
+     "#FFFFFF"
+    ],
+    "L3": [
+     "#E8E4DE",
+     "#914A27",
+     "#1E1A16",
+     "#2E6B5E",
+     "#DFDAD2",
+     "#FFFFFF"
+    ],
+    "L1_len": 4,
+    "L3_len": 6,
+    "L2_eq_L3": true,
+    "set_L1_sub_L3": true,
+    "set_L3_sub_L1": false,
+    "set_eq": false,
+    "seq_eq": false,
+    "jaccard": 0.6666666666666666,
+    "L3_only": [
+     "#DFDAD2",
+     "#FFFFFF"
+    ],
+    "L1_only": [],
+    "L0_not_in_L1": [
+     "#181C0D",
+     "#232410",
+     "#6366F1",
+     "#AB4D25",
+     "#FFFFFF",
+     "#844222",
+     "#2A6052",
+     "#DFDAD2"
+    ],
+    "L0_not_in_L3": [
+     "#181C0D",
+     "#232410",
+     "#6366F1",
+     "#AB4D25",
+     "#844222",
+     "#2A6052"
+    ]
+   },
+   "primary": {
+    "L1": "#914A27",
+    "L2": [],
+    "L3": null,
+    "L3_key_present": false,
+    "L0_has_role": true
+   },
+   "fonts": {
+    "L0_kind": "string",
+    "L1_kind": "string",
+    "L1_len": 423,
+    "L2_kind": "object",
+    "L3_kind": "object",
+    "L2": {
+     "display": "Besley",
+     "body": "Noto Serif SC",
+     "mono": "",
+     "displayStack": [
+      "Besley",
+      "Noto Serif SC",
+      "Georgia"
+     ],
+     "bodyStack": [
+      "Noto Serif SC",
+      "Songti SC",
+      "Georgia"
+     ]
+    },
+    "L3_eq_L2": true,
+    "L0_families": [
+     "Besley",
+     "JetBrains Mono"
+    ]
+   },
+   "bg": {
+    "L1": "#E8E4DE",
+    "L2_via_palette0": "#E8E4DE",
+    "L3_via_palette0": "#E8E4DE",
+    "L0_firstHex": "#E8E4DE",
+    "root_has_paper": true
+   },
+   "minItems": {
+    "L3": 8,
+    "L3_capacity": 8,
+    "L3_minPics": 5
+   },
+   "radius": {
+    "L2": "全站方角 0；唯一直径 50% 的地方是 1–2px 的打孔圆点，不是圆角卡片",
+    "L3": "全站方角 0；唯一直径 50% 的地方是 1–2px 的打孔圆点，不是圆角卡片",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "shadow": {
+    "L2": "无阴影",
+    "L3": "无阴影",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "lineWidths": {
+    "L2": "1px、1.2px、2px、3px",
+    "L3": "1px、1.2px、2px、3px",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "root": {
+    "hasRoot": true,
+    "n": 15,
+    "hexes": [
+     "#E8E4DE",
+     "#DFDAD2",
+     "#1E1A16",
+     "#914A27",
+     "#2E6B5E",
+     "#FFFFFF"
+    ],
+    "families": [
+     "--display=\"Besley\", \"Noto Serif SC\", Georgia, serif"
+    ]
+   }
+  },
+  {
+   "id": "S26",
+   "specLine": {
+    "p3": "17-18",
+    "p4": "19-20"
+   },
+   "palette": {
+    "L0_hexes": [
+     "#D3D1CA",
+     "#485270",
+     "#121212",
+     "#C8341F",
+     "#6366F1",
+     "#3B82F6",
+     "#FFFFFF"
+    ],
+    "L1": [
+     "#D3D1CA",
+     "#485270",
+     "#121212",
+     "#C8341F"
+    ],
+    "L2": [
+     "#D3D1CA",
+     "#485270",
+     "#121212",
+     "#C8341F",
+     "#FFFFFF",
+     "#C3C1B9",
+     "#38110E"
+    ],
+    "L3": [
+     "#D3D1CA",
+     "#485270",
+     "#121212",
+     "#C8341F",
+     "#FFFFFF",
+     "#C3C1B9",
+     "#38110E"
+    ],
+    "L1_len": 4,
+    "L3_len": 7,
+    "L2_eq_L3": true,
+    "set_L1_sub_L3": true,
+    "set_L3_sub_L1": false,
+    "set_eq": false,
+    "seq_eq": false,
+    "jaccard": 0.5714285714285714,
+    "L3_only": [
+     "#FFFFFF",
+     "#C3C1B9",
+     "#38110E"
+    ],
+    "L1_only": [],
+    "L0_not_in_L1": [
+     "#6366F1",
+     "#3B82F6",
+     "#FFFFFF"
+    ],
+    "L0_not_in_L3": [
+     "#6366F1",
+     "#3B82F6"
+    ]
+   },
+   "primary": {
+    "L1": "#485270",
+    "L2": [],
+    "L3": null,
+    "L3_key_present": false,
+    "L0_has_role": true
+   },
+   "fonts": {
+    "L0_kind": "string",
+    "L1_kind": "string",
+    "L1_len": 482,
+    "L2_kind": "object",
+    "L3_kind": "object",
+    "L2": {
+     "display": "Syne",
+     "body": "Noto Sans SC",
+     "mono": "IBM Plex Mono",
+     "displayStack": [
+      "Syne",
+      "Noto Sans SC"
+     ],
+     "bodyStack": [
+      "Noto Sans SC"
+     ]
+    },
+    "L3_eq_L2": true,
+    "L0_families": [
+     "Syne",
+     "IBM Plex Mono",
+     "Jost"
+    ]
+   },
+   "bg": {
+    "L1": "#D3D1CA",
+    "L2_via_palette0": "#D3D1CA",
+    "L3_via_palette0": "#D3D1CA",
+    "L0_firstHex": "#D3D1CA",
+    "root_has_paper": true
+   },
+   "minItems": {
+    "L3": 8,
+    "L3_capacity": 8,
+    "L3_minPics": 6
+   },
+   "radius": {
+    "L2": "全直角 0",
+    "L3": "全直角 0",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "shadow": {
+    "L2": "只用 drop-shadow（硬边厚度，无模糊投影）",
+    "L3": "只用 drop-shadow（硬边厚度，无模糊投影）",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "lineWidths": {
+    "L2": "2px、8px",
+    "L3": "2px、8px",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "root": {
+    "hasRoot": true,
+    "n": 27,
+    "hexes": [
+     "#D3D1CA",
+     "#485270",
+     "#121212",
+     "#C8341F",
+     "#FFFFFF",
+     "#C3C1B9",
+     "#38110E",
+     "#0E0402",
+     "#050608"
+    ],
+    "families": [
+     "--display='Syne','Noto Sans SC',sans-serif",
+     "--text='Noto Sans SC',sans-serif",
+     "--mono='IBM Plex Mono','Noto Sans SC',monospace"
+    ]
+   }
+  },
+  {
+   "id": "S27",
+   "specLine": {
+    "p3": "17-18",
+    "p4": "19-20"
+   },
+   "palette": {
+    "L0_hexes": [
+     "#E8D7B5",
+     "#0E6258",
+     "#221C10",
+     "#6366F1",
+     "#0E7264",
+     "#FFFFFF"
+    ],
+    "L1": [
+     "#E8D7B5",
+     "#0E6258",
+     "#221C10"
+    ],
+    "L2": [
+     "#0E6258",
+     "#221C10",
+     "#E8D7B5",
+     "#1A150C",
+     "#C9BFA6",
+     "#FFFFFF"
+    ],
+    "L3": [
+     "#0E6258",
+     "#221C10",
+     "#E8D7B5",
+     "#1A150C",
+     "#C9BFA6",
+     "#FFFFFF"
+    ],
+    "L1_len": 3,
+    "L3_len": 6,
+    "L2_eq_L3": true,
+    "set_L1_sub_L3": true,
+    "set_L3_sub_L1": false,
+    "set_eq": false,
+    "seq_eq": false,
+    "jaccard": 0.5,
+    "L3_only": [
+     "#1A150C",
+     "#C9BFA6",
+     "#FFFFFF"
+    ],
+    "L1_only": [],
+    "L0_not_in_L1": [
+     "#6366F1",
+     "#0E7264",
+     "#FFFFFF"
+    ],
+    "L0_not_in_L3": [
+     "#6366F1",
+     "#0E7264"
+    ]
+   },
+   "primary": {
+    "L1": "#0E6258",
+    "L2": [
+     "#0E6258",
+     "#221C10"
+    ],
+    "L3": null,
+    "L3_key_present": false,
+    "L0_has_role": true
+   },
+   "fonts": {
+    "L0_kind": "string",
+    "L1_kind": "string",
+    "L1_len": 470,
+    "L2_kind": "object",
+    "L3_kind": "object",
+    "L2": {
+     "display": "Chivo",
+     "body": "LXGW WenKai",
+     "mono": "Martian Mono",
+     "displayStack": [
+      "Chivo",
+      "LXGW WenKai"
+     ],
+     "bodyStack": [
+      "LXGW WenKai",
+      "Chivo",
+      "Georgia"
+     ]
+    },
+    "L3_eq_L2": true,
+    "L0_families": [
+     "Chivo",
+     "Martian Mono"
+    ]
+   },
+   "bg": {
+    "L1": "#E8D7B5",
+    "L2_via_palette0": "#0E6258",
+    "L3_via_palette0": "#0E6258",
+    "L0_firstHex": "#E8D7B5",
+    "root_has_paper": true
+   },
+   "minItems": {
+    "L3": 7,
+    "L3_capacity": 7,
+    "L3_minPics": 6
+   },
+   "radius": {
+    "L2": "全直角 0",
+    "L3": "全直角 0",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "shadow": {
+    "L2": "只用 drop-shadow（硬边厚度，无模糊投影）",
+    "L3": "只用 drop-shadow（硬边厚度，无模糊投影）",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "lineWidths": {
+    "L2": "0.8px、1.6px、1.8px、3px、3.6px",
+    "L3": "0.8px、1.6px、1.8px、3px、3.6px",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "root": {
+    "hasRoot": true,
+    "n": 14,
+    "hexes": [
+     "#E8D7B5",
+     "#0E6258",
+     "#221C10",
+     "#1A150C",
+     "#C9BFA6",
+     "#FFFFFF"
+    ],
+    "families": []
+   }
+  },
+  {
+   "id": "S28",
+   "specLine": {
+    "p3": "17-18",
+    "p4": "19-20"
+   },
+   "palette": {
+    "L0_hexes": [
+     "#0B0D12",
+     "#AF74BE",
+     "#D8D4C6",
+     "#6366F1",
+     "#3B82F6",
+     "#A855F7",
+     "#EC4899"
+    ],
+    "L1": [
+     "#0B0D12",
+     "#AF74BE",
+     "#D8D4C6"
+    ],
+    "L2": [
+     "#AF74BE",
+     "#D8D4C6",
+     "#0B0D12",
+     "#07080C"
+    ],
+    "L3": [
+     "#AF74BE",
+     "#D8D4C6",
+     "#0B0D12",
+     "#07080C"
+    ],
+    "L1_len": 3,
+    "L3_len": 4,
+    "L2_eq_L3": true,
+    "set_L1_sub_L3": true,
+    "set_L3_sub_L1": false,
+    "set_eq": false,
+    "seq_eq": false,
+    "jaccard": 0.75,
+    "L3_only": [
+     "#07080C"
+    ],
+    "L1_only": [],
+    "L0_not_in_L1": [
+     "#6366F1",
+     "#3B82F6",
+     "#A855F7",
+     "#EC4899"
+    ],
+    "L0_not_in_L3": [
+     "#6366F1",
+     "#3B82F6",
+     "#A855F7",
+     "#EC4899"
+    ]
+   },
+   "primary": {
+    "L1": "#AF74BE",
+    "L2": [
+     "#AF74BE",
+     "#D8D4C6"
+    ],
+    "L3": null,
+    "L3_key_present": false,
+    "L0_has_role": true
+   },
+   "fonts": {
+    "L0_kind": "string",
+    "L1_kind": "string",
+    "L1_len": 339,
+    "L2_kind": "object",
+    "L3_kind": "object",
+    "L2": {
+     "display": "Instrument Serif",
+     "body": "Noto Serif SC",
+     "mono": "JetBrains Mono",
+     "displayStack": [
+      "Instrument Serif",
+      "Noto Serif SC",
+      "Georgia"
+     ],
+     "bodyStack": [
+      "Noto Serif SC",
+      "Instrument Serif",
+      "Georgia"
+     ]
+    },
+    "L3_eq_L2": true,
+    "L0_families": [
+     "Instrument Serif",
+     "JetBrains Mono"
+    ]
+   },
+   "bg": {
+    "L1": "#0B0D12",
+    "L2_via_palette0": "#AF74BE",
+    "L3_via_palette0": "#AF74BE",
+    "L0_firstHex": "#0B0D12",
+    "root_has_paper": true
+   },
+   "minItems": {
+    "L3": 12,
+    "L3_capacity": 12,
+    "L3_minPics": 6
+   },
+   "radius": {
+    "L2": "全直角 0",
+    "L3": "全直角 0",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "shadow": {
+    "L2": "只用 drop-shadow（硬边厚度，无模糊投影）",
+    "L3": "只用 drop-shadow（硬边厚度，无模糊投影）",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "lineWidths": {
+    "L2": "1.2px、2px、8px",
+    "L3": "1.2px、2px、8px",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "root": {
+    "hasRoot": true,
+    "n": 14,
+    "hexes": [
+     "#0B0D12",
+     "#07080C",
+     "#AF74BE",
+     "#D8D4C6"
+    ],
+    "families": []
+   }
+  },
+  {
+   "id": "S29",
+   "specLine": {
+    "p3": "17-18",
+    "p4": "19-20"
+   },
+   "palette": {
+    "L0_hexes": [
+     "#D9D3C4",
+     "#644F02",
+     "#1A1A17",
+     "#5A6068",
+     "#6366F1",
+     "#795F00",
+     "#FFFFFF",
+     "#E4B400"
+    ],
+    "L1": [
+     "#D9D3C4",
+     "#644F02",
+     "#1A1A17",
+     "#5A6068"
+    ],
+    "L2": [
+     "#644F02",
+     "#D9D3C4",
+     "#1A1A17",
+     "#5A6068",
+     "#E4B400",
+     "#E0DACB"
+    ],
+    "L3": [
+     "#644F02",
+     "#D9D3C4",
+     "#1A1A17",
+     "#5A6068",
+     "#E4B400",
+     "#E0DACB"
+    ],
+    "L1_len": 4,
+    "L3_len": 6,
+    "L2_eq_L3": true,
+    "set_L1_sub_L3": true,
+    "set_L3_sub_L1": false,
+    "set_eq": false,
+    "seq_eq": false,
+    "jaccard": 0.6666666666666666,
+    "L3_only": [
+     "#E4B400",
+     "#E0DACB"
+    ],
+    "L1_only": [],
+    "L0_not_in_L1": [
+     "#6366F1",
+     "#795F00",
+     "#FFFFFF",
+     "#E4B400"
+    ],
+    "L0_not_in_L3": [
+     "#6366F1",
+     "#795F00",
+     "#FFFFFF"
+    ]
+   },
+   "primary": {
+    "L1": "#644F02",
+    "L2": [
+     "#644F02"
+    ],
+    "L3": null,
+    "L3_key_present": false,
+    "L0_has_role": true
+   },
+   "fonts": {
+    "L0_kind": "string",
+    "L1_kind": "string",
+    "L1_len": 509,
+    "L2_kind": "object",
+    "L3_kind": "object",
+    "L2": {
+     "display": "Saira Condensed",
+     "body": "Noto Sans SC",
+     "mono": "Martian Mono",
+     "displayStack": [
+      "Saira Condensed",
+      "Noto Sans SC"
+     ],
+     "bodyStack": [
+      "Noto Sans SC"
+     ]
+    },
+    "L3_eq_L2": true,
+    "L0_families": [
+     "Saira Condensed",
+     "Martian Mono"
+    ]
+   },
+   "bg": {
+    "L1": "#D9D3C4",
+    "L2_via_palette0": "#644F02",
+    "L3_via_palette0": "#644F02",
+    "L0_firstHex": "#D9D3C4",
+    "root_has_paper": true
+   },
+   "minItems": {
+    "L3": 23,
+    "L3_capacity": 23,
+    "L3_minPics": 6
+   },
+   "radius": {
+    "L2": "全直角 0",
+    "L3": "全直角 0",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "shadow": {
+    "L2": "无阴影",
+    "L3": "无阴影",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "lineWidths": {
+    "L2": "0.4px、0.6px、1px、1.2px、2px、3px、6px",
+    "L3": "0.4px、0.6px、1px、1.2px、2px、3px、6px",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "root": {
+    "hasRoot": true,
+    "n": 17,
+    "hexes": [
+     "#D9D3C4",
+     "#1A1A17",
+     "#644F02",
+     "#5A6068",
+     "#E4B400",
+     "#E0DACB"
+    ],
+    "families": [
+     "--display='Saira Condensed','Noto Sans SC',sans-serif",
+     "--text='Noto Sans SC',sans-serif",
+     "--mono='Martian Mono','Noto Sans SC',monospace"
+    ]
+   }
+  },
+  {
+   "id": "S30",
+   "specLine": {
+    "p3": "17-18",
+    "p4": "19-20"
+   },
+   "palette": {
+    "L0_hexes": [
+     "#EDEDED",
+     "#007B3F",
+     "#141414",
+     "#6366F1",
+     "#22D3EE",
+     "#EC4899",
+     "#EBEEF1",
+     "#FFFFFF",
+     "#00E676"
+    ],
+    "L1": [
+     "#EDEDED",
+     "#007B3F",
+     "#141414"
+    ],
+    "L2": [
+     "#007B3F",
+     "#EDEDED",
+     "#141414",
+     "#E6E6E6",
+     "#00E676",
+     "#FFFFFF"
+    ],
+    "L3": [
+     "#007B3F",
+     "#EDEDED",
+     "#141414",
+     "#E6E6E6",
+     "#00E676",
+     "#FFFFFF"
+    ],
+    "L1_len": 3,
+    "L3_len": 6,
+    "L2_eq_L3": true,
+    "set_L1_sub_L3": true,
+    "set_L3_sub_L1": false,
+    "set_eq": false,
+    "seq_eq": false,
+    "jaccard": 0.5,
+    "L3_only": [
+     "#E6E6E6",
+     "#00E676",
+     "#FFFFFF"
+    ],
+    "L1_only": [],
+    "L0_not_in_L1": [
+     "#6366F1",
+     "#22D3EE",
+     "#EC4899",
+     "#EBEEF1",
+     "#FFFFFF",
+     "#00E676"
+    ],
+    "L0_not_in_L3": [
+     "#6366F1",
+     "#22D3EE",
+     "#EC4899",
+     "#EBEEF1"
+    ]
+   },
+   "primary": {
+    "L1": "#007B3F",
+    "L2": [
+     "#007B3F"
+    ],
+    "L3": null,
+    "L3_key_present": false,
+    "L0_has_role": true
+   },
+   "fonts": {
+    "L0_kind": "string",
+    "L1_kind": "string",
+    "L1_len": 514,
+    "L2_kind": "object",
+    "L3_kind": "object",
+    "L2": {
+     "display": "Anton",
+     "body": "Zhuque Fangsong",
+     "mono": "IBM Plex Mono",
+     "displayStack": [
+      "Anton",
+      "Zhuque Fangsong",
+      "Georgia"
+     ],
+     "bodyStack": [
+      "Zhuque Fangsong",
+      "Georgia"
+     ]
+    },
+    "L3_eq_L2": true,
+    "L0_families": [
+     "Anton",
+     "IBM Plex Mono",
+     "Alfa Slab One"
+    ]
+   },
+   "bg": {
+    "L1": "#EDEDED",
+    "L2_via_palette0": "#007B3F",
+    "L3_via_palette0": "#007B3F",
+    "L0_firstHex": "#EDEDED",
+    "root_has_paper": true
+   },
+   "minItems": {
+    "L3": 10,
+    "L3_capacity": 10,
+    "L3_minPics": 6
+   },
+   "radius": {
+    "L2": "全直角 0",
+    "L3": "全直角 0",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "shadow": {
+    "L2": "只用 drop-shadow（硬边厚度，无模糊投影）",
+    "L3": "只用 drop-shadow（硬边厚度，无模糊投影）",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "lineWidths": {
+    "L2": "1px、1.6px、2px、3px、6px、8px",
+    "L3": "1px、1.6px、2px、3px、6px、8px",
+    "L0": true,
+    "L2_eq_L3": true
+   },
+   "root": {
+    "hasRoot": true,
+    "n": 10,
+    "hexes": [
+     "#EDEDED",
+     "#E6E6E6",
+     "#007B3F",
+     "#00E676",
+     "#141414",
+     "#FFFFFF"
+    ],
+    "families": []
+   }
+  }
+ ]
+}

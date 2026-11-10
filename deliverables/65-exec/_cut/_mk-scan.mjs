@@ -1,0 +1,17 @@
+﻿import fs from "node:fs";
+import { spawnSync } from "node:child_process";
+const run = (f) => { const r = spawnSync(process.execPath, ["deliverables/65-exec/_cut/scan-marker.mjs", f], {encoding:"utf8"}); return r.stdout; };
+const before = run("deliverables/65-exec/_cut/data.before.js");
+const after  = run("prototypes/_selection/data.js");
+const L = [];
+L.push("#### 改前（`_cut/data.before.js`，即人工复核前的现状）\n");
+L.push("```text\n" + before.trimEnd() + "\n```\n");
+L.push("#### 改后（`prototypes/_selection/data.js`）\n");
+L.push("```text\n" + after.trimEnd() + "\n```\n");
+L.push("**判读**：A 段（产物层）从「6 处、全在 S13.audit」变成「0 处」；B 段（`_specs/*.md` 原文）**不变，仍是 10 处** ——");
+L.push("因为源文件我没有改，也不该改（`_specs` 是 collect 的输入，动它等于伪造来源）。");
+L.push("B 段里 S03.md:21 / S08.md:21 那两处带 `3-附（…）：` 编号，被字段起点正则咬住后 key 剥成 `3-附`，");
+L.push("正文落在一个没人读的键下随对象丢弃——所以它们从未进过 `data.js`；S13.md:57 在「自评」之后被 `tailRe` 截断。");
+L.push("**这就是「按标记切」当前只影响 S13 一案的完整证据链。**");
+fs.writeFileSync("deliverables/65-exec/_cut/scan-before-after.md", L.join("\n"), "utf8");
+console.log(L.join("\n"));

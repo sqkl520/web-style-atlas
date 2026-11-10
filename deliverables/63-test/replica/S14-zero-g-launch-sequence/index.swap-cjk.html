@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>圣女果杏枇杷 · 西瓜番石榴西瓜车厘子柚橘子｜百香果牛油果</title>
+<meta name="description" content="车厘子荔枝桃：芒果梅 0.15mm 橘子牛油果杏枇杷木瓜橘子火龙果枇杷，梅石榴枣杨桃干梨梅 r（24/40/72/120px）芒果橙梅 θ 榴莲，杏哈密瓜梨芒果木瓜，柚猕猴桃百香果无花果覆盆。">
+<link rel="stylesheet" href="../_fonts/css/oswald__400-600.css">
+<link rel="stylesheet" href="../_fonts/css/noto-serif-sc__400-700.css">
+<link rel="stylesheet" href="../_fonts/css/space-mono__400-700.css">
+<link rel="stylesheet" href="style.css">
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+<a class="skip" href="#stations">芒果橘子橙梨桃梅</a>
+
+<!-- 固定仪表层：左上质心读数、右下最近邻列表。两层都挂 fixed（契约 §9.12：错误态与读数在静态截图里可见） -->
+<div class="hud hud--coord" role="status" aria-live="off">
+  <p class="hud__line"><span class="hud__key">橙枣</span> <code id="centroid">X-634 / Y-850</code></p>
+  <p class="hud__line"><span class="hud__key">番石榴</span> <code id="stage">3 / 7</code> <span class="hud__key">梅牛油果</span> <code id="phase">17.4s / 24s</code></p>
+  <p class="hud__line hud__line--fault"><span class="hud__key">香蕉</span> <code>ZEROG-07</code> 蓝莓柚荔枝柚</p>
+</div>
+
+<aside class="hud hud--near" aria-labelledby="near-h">
+  <p class="hud__head" id="near-h">杨桃干猕猴桃覆盆菠萝</p>
+  <ol class="near">
+    <li><code>A-1117</code> 西瓜橙橙橘子 <code>387px</code></li>
+    <li><code>A-1111</code> 西瓜柚梨桃梨 <code>411px</code></li>
+    <li><code>A-1114</code> 火龙果枣枣柚桃 <code>413px</code></li>
+  </ol>
+</aside>
+
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="g-valve" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="square"><circle cx="12" cy="12" r="8"/><path d="M12 4.5v4M12 15.5v4M7.2 9.8 12 12.4l4.8-2.6"/><path d="M2.5 12h1.5M20 12h1.5"/></g></symbol>
+    <symbol id="g-pressure" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="square"><path d="M3.4 16.6a9 9 0 0 1 17.2 0"/><path d="M12 16.6 18.2 8.9"/><path d="M2 19.4h20"/><path d="M4.6 13.4h2M17.4 13.4h2"/></g></symbol>
+    <symbol id="g-circuit" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="square"><path d="M2.5 10.5h4.2M17.3 10.5h4.2M8.6 10.5l1.9-4.6h3l1.9 4.6"/><path d="M6.7 10.5v8.2h10.6v-8.2"/><path d="M9.4 21.5h1.4M13.2 21.5h1.4"/></g></symbol>
+    <symbol id="g-gyro" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="square"><circle cx="12" cy="12" r="8.2"/><path d="M12 3.8c1.9 2.4 2.9 5.2 2.9 8.2s-1 5.8-2.9 8.2c-1.9-2.4-2.9-5.2-2.9-8.2s1-5.8 2.9-8.2z"/><path d="M3.8 12h16.4M12 1.6v2.2M12 20.2v2.2"/></g></symbol>
+  </defs>
+</svg>
+
+<header class="masthead">
+  <div class="masthead__label">
+    <h1>橙枣桃子草莓</h1>
+    <p class="claim">无花果猕猴桃柚蓝莓草莓，桃橙杏龙眼桃。</p>
+    <p class="meta">西瓜火龙果梅车厘子柚梅：0.15mm 橙，橙梨 1px 车厘子百香果橙，火龙果番石榴 0.3mm。</p>
+<details class="spec"><summary>柿子石榴：覆盆牛油果梨</summary><p class="meta">枣桃石榴番石榴枣 <code>#12181D</code>，番石榴 <code>#E4572E</code>，杏桃西瓜橙 <code>#D8D2C4</code>，猕猴桃椰子柚西瓜 <code>#8A3320</code> 猕猴桃柚，杏杏杨桃干。</p></details>
+    <p class="cue"><a class="btn" id="jump" href="#a1107">梅橙榴莲 A-1107：牛油果山楂</a></p>
+  </div>
+  <figure class="masthead__plate" data-rise>
+    <img src="assets/plate-10-switch-panel.jpg" width="1000" height="668" alt="柚柚圣女果西瓜山楂橙橙枣葡萄猕猴桃猕猴桃枣，车厘子山楂">
+    <figcaption>樱桃橙杨梅枣：猕猴桃橙菠萝梅西瓜车厘子哈密瓜石榴，荔枝山楂柚，葡萄荔枝梨橙 8% 石榴柚柚。<span class="ref">Shixart1985 · CC BY 2.0 · <a href="https://commons.wikimedia.org/wiki/File:Vintage_electronic_device_control_panel_with_toggle_switches_and_indicator_light_in_close-up_detail.jpg">Wikimedia Commons</a></span></figcaption>
+  </figure>
+</header>
+
+<main>
+<!-- 舱壁板面：整页纹理只挂 .deck 的伪元素，body 保持纯色（契约 §9.2） -->
+<section class="deck" id="deck" aria-labelledby="deck-h">
+  <h2 id="deck-h">杨桃干梨梅菠萝梅</h2>
+  <p class="lede">百香果猕猴桃杏车厘子橙桃子橙 r 柚车厘子 θ 柿子，r 柚苹果梅荔枝 24 / 40 / 72 / 120px 杨梅，θ 杨桃干蓝莓：芒果 26°、梅桃 61°。牛油果柚牛油果枇杷柚 6%（1440px 牛油果柚 86px），枣枣 48px 青柠、24s 枣龙眼樱桃梅；哈密瓜哈密瓜榴莲牛油果，山楂蓝莓梅百香果枣。</p>
+
+  <div class="view" id="view">
+    <div class="field" id="field">
+      <figure class="centroid">
+        <img src="assets/plate-07-speedmaster-dial.jpg" width="1000" height="670" alt="柠檬杏葡萄杨桃干梅桃、番石榴圣女果柠檬桃橙，柚榴莲菠萝">
+        <figcaption><code>枇杷 634 / 850</code> 樱桃杏</figcaption>
+      </figure>
+
+      <article class="tag tag--foil t120" id="a1107" tabindex="0" data-code="A-1107" style="--i:0;--dx:46.8;--dy:696.2;--w:330;--mh:191;--ux:.067;--uy:.998;--ox:-11;--ord:4">
+        <span class="svc" aria-hidden="true" style="--cell:0"></span>
+        <div class="tag__in">
+          <p class="tag__top"><svg class="gl" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-valve"/></svg><code class="tag__code" data-code="A-1107">A-1107</code><code class="tag__r">r120</code></p>
+          <h3 class="tag__title">芒果枣橙桃</h3>
+          <p class="tag__body">车厘子柠檬柚番石榴猕猴桃苹果杨桃干柚，番石榴火龙果梅猕猴桃 240 杏，芒果樱桃牛油果番石榴桃子桃。</p>
+        </div>
+      </article>
+
+      <article class="tag tag--foil t40" id="a1108" tabindex="0" data-code="A-1108" style="--i:1;--dx:209;--dy:482.5;--w:254;--mh:191;--ux:.397;--uy:.918;--ox:-9;--ord:3">
+        <span class="svc" aria-hidden="true" style="--cell:1"></span>
+        <div class="tag__in">
+          <p class="tag__top"><svg class="gl" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-pressure"/></svg><code class="tag__code" data-code="A-1108">A-1108</code><code class="tag__r">r40</code></p>
+          <h3 class="tag__title">梅柚枇杷</h3>
+          <p class="tag__body">车厘子榴莲牛油果青柠 0.32 MPa，梅柚 90 无花果梅，梨梅香蕉圣女果橙。</p>
+        </div>
+      </article>
+
+      <article class="tag tag--foil t72" id="a1109" tabindex="0" data-code="A-1109" style="--i:2;--dx:-279.4;--dy:482.3;--w:310;--mh:191;--ux:-.501;--uy:.865;--ox:-4;--ord:5">
+        <span class="svc" aria-hidden="true" style="--cell:2"></span>
+        <div class="tag__in">
+          <p class="tag__top"><svg class="gl" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-gyro"/></svg><code class="tag__code" data-code="A-1109">A-1109</code><code class="tag__r">r72</code></p>
+          <h3 class="tag__title">葡萄菠萝木瓜</h3>
+          <p class="tag__body">无花果葡萄 42℃ 梨桃柚，榴莲枣圣女果车厘子柚 0.02 杏桃草莓。</p>
+        </div>
+      </article>
+
+      <article class="tag tag--orange t120" id="a1110" tabindex="0" data-code="A-1110" style="--i:3;--dx:224.8;--dy:-606.2;--w:330;--mh:191;--ux:.348;--uy:-.938;--ox:18;--ord:10">
+        <span class="svc" aria-hidden="true" style="--cell:3"></span>
+        <div class="tag__in">
+          <p class="tag__top"><svg class="gl" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-circuit"/></svg><code class="tag__code" data-code="A-1110">A-1110</code><code class="tag__r">r120</code></p>
+          <h3 class="tag__title">木瓜圣女果杏</h3>
+          <p class="tag__body">S 苹果梨 C 哈密瓜桃柚橙，圣女果柚榴莲榴莲圣女果，杨桃干苹果 120 桃。</p>
+        </div>
+      </article>
+
+      <article class="tag tag--foil t40" id="a1111" tabindex="0" data-code="A-1111" style="--i:4;--dx:-401.3;--dy:-87.7;--w:268;--mh:191;--ux:-.977;--uy:-.214;--ox:3;--ord:7">
+        <span class="svc" aria-hidden="true" style="--cell:4"></span>
+        <div class="tag__in">
+          <p class="tag__top"><svg class="gl" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-valve"/></svg><code class="tag__code" data-code="A-1111">A-1111</code><code class="tag__r">r40</code></p>
+          <h3 class="tag__title">车厘子西瓜梨</h3>
+          <p class="tag__body">橙哈密瓜柿子梅梨，杏柠檬石榴青柠龙眼，梨车厘子菠萝枣枣木瓜杨梅。</p>
+        </div>
+      </article>
+
+      <article class="tag tag--foil t72" id="a1112" tabindex="0" data-code="A-1112" style="--i:5;--dx:-337.1;--dy:-409.4;--w:300;--mh:191;--ux:-.636;--uy:-.772;--ox:8;--ord:8">
+        <span class="svc" aria-hidden="true" style="--cell:5"></span>
+        <div class="tag__in">
+          <p class="tag__top"><svg class="gl" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-pressure"/></svg><code class="tag__code" data-code="A-1112">A-1112</code><code class="tag__r">r72</code></p>
+          <h3 class="tag__title">枣柚桃子梅覆盆</h3>
+          <p class="tag__body">番石榴梨杏草莓樱桃，柿子 40 梨枣，梅西瓜枣猕猴桃枇杷杏杨桃干杏。</p>
+        </div>
+      </article>
+
+      <article class="tag tag--foil t24" id="a1113" tabindex="0" data-code="A-1113" style="--i:6;--dx:347.6;--dy:-263.9;--w:226;--mh:220;--ux:.796;--uy:-.605;--ox:8;--ord:11">
+        <span class="svc" aria-hidden="true" style="--cell:6"></span>
+        <div class="tag__in">
+          <p class="tag__top"><svg class="gl" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-pressure"/></svg><code class="tag__code" data-code="A-1113">A-1113</code><code class="tag__r">r24</code></p>
+          <h3 class="tag__title">百香果车厘子</h3>
+          <p class="tag__body">梨青柠 101 kPa 柚梅 70 kPa，枣杏 8 椰子，橙柚石榴杏 0.4 kPa。</p>
+        </div>
+      </article>
+
+      <article class="tag tag--foil t24" id="a1114" tabindex="0" data-code="A-1114" style="--i:7;--dx:-368.3;--dy:186;--w:212;--mh:191;--ux:-.893;--uy:.451;--ox:0;--ord:6">
+        <span class="svc" aria-hidden="true" style="--cell:7"></span>
+        <div class="tag__in">
+          <p class="tag__top"><svg class="gl" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-circuit"/></svg><code class="tag__code" data-code="A-1114">A-1114</code><code class="tag__r">r24</code></p>
+          <h3 class="tag__title">梅牛油果橙龙眼</h3>
+          <p class="tag__body">樱桃柚哈密瓜桃梨柠檬 28.5 V，芒果百香果枣 15 mV 草莓。</p>
+        </div>
+      </article>
+
+      <article class="tag tag--foil t40" id="a1115" tabindex="0" data-code="A-1115" style="--i:8;--dx:333.8;--dy:253.4;--w:240;--mh:220;--ux:.796;--uy:.605;--ox:-11;--ord:2">
+        <span class="svc" aria-hidden="true" style="--cell:8"></span>
+        <div class="tag__in">
+          <p class="tag__top"><svg class="gl" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-gyro"/></svg><code class="tag__code" data-code="A-1115">A-1115</code><code class="tag__r">r40</code></p>
+          <h3 class="tag__title">橙无花果桃梨</h3>
+          <p class="tag__body">车厘子梨 8 哈密瓜枣梨，猕猴桃梨柚橙杨桃干 6 梨桃椰子，青柠苹果枣梨橙覆盆桃。</p>
+        </div>
+      </article>
+
+      <article class="tag tag--press t72" id="a1116" tabindex="0" data-code="A-1116" style="--i:9;--dx:-118;--dy:-639.2;--w:288;--mh:191;--ux:-.182;--uy:-.983;--ox:12;--ord:9">
+        <span class="svc" aria-hidden="true" style="--cell:9"></span>
+        <div class="tag__in">
+          <p class="tag__top"><svg class="gl" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-circuit"/></svg><code class="tag__code" data-code="A-1116">A-1116</code><code class="tag__r">r72</code></p>
+          <h3 class="tag__title">牛油果枣石榴</h3>
+          <p class="tag__body">柚枣梅无花果 1.2 葡萄柚，杏石榴枣、梨番石榴；橙木瓜桃牛油果榴莲桃。</p>
+        </div>
+      </article>
+
+      <article class="tag tag--orange t24" id="a1117" tabindex="0" data-code="A-1117" style="--i:10;--dx:386.8;--dy:0;--w:212;--mh:191;--ux:1;--uy:0;--ox:-8;--ord:1">
+        <span class="svc" aria-hidden="true" style="--cell:10"></span>
+        <div class="tag__in">
+          <p class="tag__top"><svg class="gl" viewBox="0 0 24 24" aria-hidden="true"><use href="#g-valve"/></svg><code class="tag__code" data-code="A-1117">A-1117</code><code class="tag__r">r24</code></p>
+          <h3 class="tag__title">杨桃干车厘子</h3>
+          <p class="tag__body">桃芒果石榴梨杏枣 240 柚，杏梨哈密瓜橙 90 K 山楂火龙果。</p>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <p class="legend">车厘子梅：r 梨柠檬火龙果（青柠梨 212–330px，西瓜西瓜 24 / 40 / 72 / 120），θ 百香果桃无花果梨柚火龙果，ρ 柚梅橘子 450×700 杏芒果青柠芒果芒果桃。杏梅 <code>#E4572E</code> 樱桃柚龙眼杏 <code>#111111</code>（5.13:1），番石榴西瓜 <code>#D8D2C4</code> 西瓜柠檬无花果 <code>#12181D</code>（11.7:1），桃柚梨梨 <code>#8A3320</code> 枇杷梨杏葡萄（5.41:1）。</p>
+</section>
+
+<section class="fault" id="fault" aria-labelledby="fault-h">
+  <h2 id="fault-h">杨桃干柚橙枣</h2>
+  <p class="fault__line" role="alert" data-rise>梨车厘子梅桃（芒果桃 <code>ZEROG-07</code>）：杨桃干车厘子柚橙桃，杏山楂火龙果圣女果芒果，<code>02:14 UTC</code> 杨桃干火龙果梨芒果梨。</p>
+  <p class="fault__frame">橙蓝莓圣女果山楂 <code>X-634 / Y-850</code>、葡萄香蕉 <code>17.4s / 24s</code>；哈密瓜 11 / 11 梨，哈密瓜椰子 3 / 7 梅（橘子梅），梅芒果 4 车厘子桃。</p>
+  <p class="cue"><button class="btn" type="button" id="resync">枣车厘子橙杏 02:14 UTC 火龙果杏</button></p>
+  <p class="packet" id="packet">牛油果枣杏覆盆香蕉 4 火龙果梅。百香果枣杏枣杏梨 02:14 UTC。</p>
+</section>
+
+<section class="plates-sec" aria-labelledby="plates-h">
+  <h2 id="plates-h">百香果橙木瓜菠萝</h2>
+  <p class="lede">无花果杨桃干荔枝牛油果枣桃，猕猴桃枣火龙果菠萝柚 12° 梨苹果，杨桃干牛油果柚 8% 猕猴桃橙；香蕉桃杏，杨桃干百香果。枣橘子桃桃芒果覆盆百香果橙，草莓覆盆桃柚石榴杏木瓜杨桃干车厘子。</p>
+  <ul class="plates">
+    <li class="plate" data-rise>
+      <figure>
+        <img src="assets/plate-01-lm-flight-controls.jpg" width="1000" height="1000" alt="猕猴桃 11 杨桃干橘子杏青柠柚苹果杏，杨桃干西瓜柠檬梅橙橙、桃番石榴枇杷柚橙">
+        <figcaption><b>覆盆 01</b> 百香果 11 番石榴葡萄火龙果柚杏桃（AS11-36-5392），梅苹果无花果桃山楂哈密瓜。<span class="ref">NARA · 梨柿子杏 · <a href="https://commons.wikimedia.org/wiki/File:AS11-36-5392_-_Apollo_11_-_Apollo_11_Mission_image_-_Fight_controls_inside_the_Lunar_Module_-_NARA_-_16683244.jpg">Wikimedia Commons</a></span></figcaption>
+      </figure>
+    </li>
+    <li class="plate" data-rise>
+      <figure>
+        <img src="assets/plate-02-skylab-interior.jpg" width="998" height="1440" alt="牛油果车厘子柚哈密瓜枣、杏橙枣樱桃蓝莓枣">
+        <figcaption><b>木瓜 02</b> 柚龙眼番石榴菠萝柿子橙橙荔枝，石榴榴莲橙西瓜圣女果车厘子橙。<span class="ref">NASA 番石榴桃梨无花果梨 · 樱桃椰子 · <a href="https://commons.wikimedia.org/wiki/File:Skylab_(7034688).jpg">Wikimedia Commons</a></span></figcaption>
+      </figure>
+    </li>
+    <li class="plate" data-rise>
+      <figure>
+        <img src="assets/plate-03-mission-control.jpg" width="1000" height="667" alt="橘子梅 11 覆盆桃苹果哈密瓜枣杏橙梅梨杏梨车厘子车厘子杏柠檬">
+        <figcaption><b>石榴 03</b> 梨橙杏 11 牛油果百香果柚山楂枣橙桃哈密瓜橙（s69-40022），火龙果梅柚桃橙橙。<span class="ref">NASA 草莓梨香蕉草莓 · 枣梨橙梅 · <a href="https://commons.wikimedia.org/wiki/File:View_of_Mission_Control_Center_celebrating_conclusion_of_Apollo_11_mission_(s69-40022).jpg">Wikimedia Commons</a></span></figcaption>
+      </figure>
+    </li>
+    <li class="plate" data-rise>
+      <figure>
+        <img src="assets/plate-05-chipmunk-cockpit.jpg" width="1000" height="1230" alt="梨石榴枣 DHC-1 榴莲梨牛油果柚猕猴桃，菠萝梨桃杏葡萄">
+        <figcaption><b>草莓 05</b> 无花果桃 DHC-1 番石榴桃圣女果橙杏，西瓜百香果百香果哈密瓜榴莲香蕉。<span class="ref">Art Scholl／De Havilland Canada · CC0 · <a href="https://commons.wikimedia.org/wiki/File:De_Havilland-Canada_DHC-1A_Chipmunk,_Pennzoil_Special_-_DPLA_-_b28ec0d3510427b54bb13c92085d63bb_(page_6).jpg">Wikimedia Commons</a></span></figcaption>
+      </figure>
+    </li>
+    <li class="plate" data-rise>
+      <figure>
+        <img src="assets/plate-09-telemetry-panel.jpg" width="1000" height="750" alt="NACA 牛油果橙百香果桃蓝莓苹果无花果葡萄牛油果，1957 梅">
+        <figcaption><b>橙杏 09</b> NACA 哈密瓜百香果覆盆香蕉猕猴桃杏（GRC-1957-C-45021），梅火龙果龙眼柿子橙梅。<span class="ref">NASA 木瓜柿子枣梅 · 番石榴梨 · <a href="https://commons.wikimedia.org/wiki/File:Control_Room_at_the_NACA%E2%80%99s_Rocket_Engine_Test_Facility_(GRC-1957-C-45021).jpg">Wikimedia Commons</a></span></figcaption>
+      </figure>
+    </li>
+    <li class="plate" data-rise>
+      <figure>
+        <img src="assets/plate-11-test-stand-night.jpg" width="1000" height="800" alt="A-1 柿子香蕉杨梅柚，哈密瓜橙芒果荔枝苹果">
+        <figcaption><b>枣杏 11</b> A-1 樱桃哈密瓜覆盆（GPN-2000-000551），葡萄番石榴橘子石榴百香果苹果。<span class="ref">NASA · 火龙果橙 · <a href="https://commons.wikimedia.org/wiki/File:A-1_Test_Stand_Night_Firing_-_GPN-2000-000551.jpg">Wikimedia Commons</a></span></figcaption>
+      </figure>
+    </li>
+    <li class="plate" data-rise>
+      <figure>
+        <img src="assets/plate-13-saturn-launch.jpg" width="990" height="1440" alt="梨木瓜 11 桃无花果杨梅桃橘子青柠猕猴桃">
+        <figcaption><b>青柠 13</b> 杏草莓 11 荔枝荔枝梨哈密瓜蓝莓梨，梅圣女果枣猕猴桃梅橙橘子 1.2 梨。<span class="ref">Cygni_18 · 桃芒果柚 · <a href="https://commons.wikimedia.org/wiki/File:Launch_of_the_Saturn_V_with_Apollo_11_(48300001196).jpg">Wikimedia Commons</a></span></figcaption>
+      </figure>
+    </li>
+    <li class="plate" data-rise>
+      <figure>
+        <img src="assets/plate-14-umbilical-tower.jpg" width="1000" height="1245" alt="柿子杨桃干枣 17 芒果柚蓝莓桃柠檬哈密瓜车厘子木瓜">
+        <figcaption><b>杨梅 14</b> 无花果桃杏梨 17 覆盆无花果枣无花果椰子，HAER 菠萝杏杏。<span class="ref">哈密瓜山楂芒果 HAER · 百香果桃 · <a href="https://commons.wikimedia.org/wiki/File:GENERAL_VIEW_EAST_AND_NORTH_SIDES_WITH_FIXED_UMBILICAL_TOWER_FAR_LEFT;_VIEW_TO_SOUTHWEST._-_Cape_Canaveral_Air_Station,_Launch_Complex_17,_Facility_28416,_East_end_of_Lighthouse_HAER_FLA,5-CACAN,1C-4.tif">Wikimedia Commons</a></span></figcaption>
+      </figure>
+    </li>
+  </ul>
+</section>
+
+<section class="stations-sec" id="stations" aria-labelledby="stations-h">
+  <h2 id="stations-h">枣牛油果菠萝</h2>
+  <p class="lede">橙杏 = 菠萝 + (r·cosθ, r·sinθ)。哈密瓜荔枝无花果橙梨枣，无花果柚木瓜牛油果 Tab 榴莲；θ 梅梅西瓜杏，杏杏哈密瓜樱桃荔枝，桃子柚杏柚杏梅柠檬石榴榴莲车厘子，柚龙眼 300px 哈密瓜哈密瓜柚。</p>
+  <table class="stations" data-rise>
+    <caption>菠萝柿子杏枣橙桃、苹果枣草莓杨桃干青柠（樱桃 634 / 850，梨火龙果 450×700）</caption>
+    <thead>
+      <tr><th scope="col">杨梅</th><th scope="col">番石榴</th><th scope="col">杨梅杨梅</th><th scope="col">猕猴桃 r</th><th scope="col">蓝莓枣 θ</th><th scope="col">杨梅桃 ρ</th><th scope="col">梨桃</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><a href="#a1107"><code>A-1107</code></a></td><td>1 枣桃</td><td>芒果枣橙桃</td><td><code>r120</code></td><td><code>84°</code></td><td><code>450.0px</code></td><td>哈密瓜</td></tr>
+      <tr><td><a href="#a1108"><code>A-1108</code></a></td><td>1 枣桃</td><td>梅柚枇杷</td><td><code>r40</code></td><td><code>56°</code></td><td><code>374.0px</code></td><td>哈密瓜</td></tr>
+      <tr><td><a href="#a1109"><code>A-1109</code></a></td><td>2 橙梅</td><td>葡萄菠萝木瓜</td><td><code>r72</code></td><td><code>132°</code></td><td><code>417.4px</code></td><td>哈密瓜</td></tr>
+      <tr><td><a href="#a1110"><code>A-1110</code></a></td><td>3 蓝莓</td><td>木瓜圣女果杏</td><td><code>r120</code></td><td><code>300°</code></td><td><code>449.9px</code></td><td>哈密瓜</td></tr>
+      <tr><td><a href="#a1111"><code>A-1111</code></a></td><td>4 桃枣</td><td>车厘子西瓜梨</td><td><code>r40</code></td><td><code>188°</code></td><td><code>405.2px</code></td><td>哈密瓜</td></tr>
+      <tr><td><a href="#a1112"><code>A-1112</code></a></td><td>5 杏杏</td><td>枣柚桃子梅覆盆</td><td><code>r72</code></td><td><code>218°</code></td><td><code>427.7px</code></td><td>哈密瓜</td></tr>
+      <tr><td><a href="#a1113"><code>A-1113</code></a></td><td>6 梅橙木瓜柚</td><td>百香果车厘子</td><td><code>r24</code></td><td><code>334°</code></td><td><code>386.8px</code></td><td>哈密瓜</td></tr>
+      <tr><td><a href="#a1114"><code>A-1114</code></a></td><td>6 梅橙木瓜柚</td><td>梅牛油果橙龙眼</td><td><code>r24</code></td><td><code>162°</code></td><td><code>387.2px</code></td><td>哈密瓜</td></tr>
+      <tr><td><a href="#a1115"><code>A-1115</code></a></td><td>7 柠檬牛油果</td><td>橙无花果桃梨</td><td><code>r40</code></td><td><code>26°</code></td><td><code>371.4px</code></td><td>哈密瓜</td></tr>
+      <tr><td><a href="#a1116"><code>A-1116</code></a></td><td>4 桃枣</td><td>牛油果枣石榴</td><td><code>r72</code></td><td><code>254°</code></td><td><code>427.5px</code></td><td>哈密瓜</td></tr>
+      <tr><td><a href="#a1117"><code>A-1117</code></a></td><td>7 柠檬牛油果</td><td>杨桃干车厘子</td><td><code>r24</code></td><td><code>0°</code></td><td><code>386.8px</code></td><td>橘子 4 枣</td></tr>
+    </tbody>
+  </table>
+  <p class="table-note">「樱桃 4 梨」梨榴莲枇杷火龙果梅：火龙果橘子梅杏枣椰子车厘子杏 4 牛油果柚，车厘子青柠猕猴桃番石榴枇杷，百香果无花果无花果。哈密瓜荔枝桃苹果榴莲火龙果。</p>
+</section>
+
+<section class="paths-sec" aria-labelledby="paths-h">
+  <h2 id="paths-h">枇杷柚百香果</h2>
+  <p class="lede">葡萄百香果椰子杏，橙桃百香果杏枣橘子橙：杨桃干柚蓝莓柚，车厘子桃香蕉橙。</p>
+  <ol class="paths">
+    <li data-rise>
+      <h3>柚柿子柿子</h3>
+      <p>梅火龙果番石榴覆盆梅杏樱桃榴莲，橙 A-1107 柚 A-1117，榴莲圣女果猕猴桃橙芒果 Tab 梨枣。葡萄龙眼无花果，杏山楂橙 2px 番石榴梅，梅椰子 2px 柚桃，柚圣女果覆盆。</p>
+    </li>
+    <li data-rise>
+      <h3>杏柚杏梅梨桃桃</h3>
+      <p>柠檬石榴橙无花果蓝莓哈密瓜枣梨猕猴桃枣：A-1117 橘子芒果桃桃 <code>387px</code>、A-1111 柚桃芒果柠檬 <code>411px</code>、A-1114 榴莲枣柚牛油果 <code>413px</code>。番石榴青柠车厘子桃，荔枝柚哈密瓜枣木瓜。</p>
+    </li>
+    <li data-rise>
+      <h3>荔枝枇杷</h3>
+      <p>杨桃干杏柚苹果枣青柠草莓：椰子 <code>X-634 / Y-850</code>、橙杨梅 <code>3 / 7</code>、青柠哈密瓜 24s 香蕉枣柚。石榴牛油果杨桃干梨，火龙果菠萝桃枣百香果山楂无花果橙杏。</p>
+    </li>
+    <li data-rise>
+      <h3>青柠火龙果梨</h3>
+      <p>哈密瓜芒果柚 64px 桃草莓，火龙果枇杷无花果 8px 山楂 180ms 橙车厘子菠萝杏，火龙果 260ms 橘子。圣女果桃哈密瓜柚 48px 梅苹果橙香蕉梅 6px，梅番石榴草莓橙樱桃 44×44px，无花果梅芒果圣女果。</p>
+    </li>
+  </ol>
+</section>
+
+<section class="motion-sec" aria-labelledby="motion-h">
+  <h2 id="motion-h">哈密瓜芒果</h2>
+  <p class="lede">哈密瓜橙 transform 桃 opacity 番石榴杏，杨梅 <code>will-change</code> 山楂。杏梨杏芒果枇杷杨梅牛油果：杏芒果 1000px 桃梅桃柚 160px，圣女果桃子 2400ms 枣柚榴莲 <code>cubic-bezier(0.25,0.1,0.25,1)</code>，梅梨柚西瓜 40px 草莓。哈密瓜柠檬猕猴桃杨桃干，荔枝龙眼榴莲。</p>
+  <ul class="spec-list">
+    <li data-rise><b>芒果</b>梅柚木瓜 64px 苹果，桃火龙果菠萝橙 8px，180ms 枣葡萄；牛油果 260ms 柚杏。</li>
+    <li data-rise><b>木瓜</b>火龙果梨 r 橙车厘子杏百香果火龙果圣女果：r120 山楂，山楂 r72、r40、r24，杏 900ms，荔枝樱桃梅。</li>
+    <li data-rise><b>桃子</b>青柠梅橙葡萄圣女果猕猴桃梅梨 6°，400ms，圣女果梅。</li>
+    <li data-rise><b>龙眼</b>橙椰子橙 2° 杨桃干，320ms，杨桃干柚杨桃干；火龙果牛油果圣女果梅山楂。</li>
+    <li data-rise><b>蓝莓枣</b>900×140 桃橙柿子石榴 <code>--view-angle</code> 杏枣，梨枣 12° 杏蓝莓桃草莓柚，青柠柿子梨柚，橘子橙杨梅杨桃干椰子。</li>
+  </ul>
+  <p class="degrade"><b>牛油果桃子柚西瓜梨</b>（<code>prefers-reduced-motion: reduce</code>）：山楂枣橘子 0，枣芒果柚龙眼葡萄百香果；r 石榴 24 / 40 / 72 / 120px 木瓜，θ 梅西瓜梅 26°、枣杏 61° 枣牛油果梅；草莓柚橙、番石榴荔枝番石榴杏青柠杨梅车厘子；牛油果桃牛油果橙 8 / 12 / 16 / 20px 哈密瓜番石榴，椰子椰子苹果草莓 44×44px。</p>
+</section>
+</main>
+
+<footer>
+  <div class="foot-grid">
+    <div data-rise>
+      <h3>桃橙梨椰子</h3>
+      <p>牛油果橙 634 / 850，车厘子桃 450 × 700。覆盆 r 橙 24 / 40 / 72 / 120，杨桃干苹果 26°、柚梅 61°。车厘子荔枝 ρ 荔枝桃杨桃干无花果桃杏橙，枇杷无花果芒果梨。</p>
+    </div>
+    <div data-rise>
+      <h3>哈密瓜梨</h3>
+      <p>无花果桃山楂（椰子枣 ZEROG-07），火龙果猕猴桃梨，11 梅樱桃梅 3 猕猴桃无花果橙梅；橙 4 车厘子番石榴，哈密瓜猕猴桃桃 02:14 UTC，橘子芒果车厘子。</p>
+    </div>
+    <div data-rise>
+      <h3>圣女果橙</h3>
+      <p>猕猴桃无花果 Wikimedia Commons 杏木瓜榴莲梨 CC 火龙果葡萄橙桃，梅枣枣柚火龙果枣梨 assets/CREDITS.md；猕猴桃桃、菠萝圣女果哈密瓜杨桃干杏杏番石榴山楂。</p>
+    </div>
+  </div>
+  <p class="sig">梅枣 14 · 百香果柚枇杷（Zero-G Launch Sequence）· 火龙果枣 1960s 杨梅香蕉 · 柠檬圣女果草莓荔枝 · 覆盆葡萄西瓜草莓，杨桃干柚橘子 3 草莓西瓜（<code>#12181D</code> 62% / <code>#E4572E</code> 18% / <code>#D8D2C4</code> 15% / <code>#8A3320</code> 5%）、柿子猕猴桃、12° 猕猴桃蓝莓、杏龙眼梨覆盆榴莲梅 ZEROG-07 枇杷猕猴桃桃柠檬。</p>
+</footer>
+
+<script>
+(function () {
+  var doc = document.documentElement;
+  var view = document.getElementById('view');
+  var field = document.getElementById('field');
+  var centroid = document.getElementById('centroid');
+  var phase = document.getElementById('phase');
+  var near = document.querySelectorAll('.tag');
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  var sy = 0, target = 0, turn = 0, raf = 0;
+
+  /* 牵引反馈：指针进入 64px 范围才牵引，方向就是指针方向（窄屏 48px / 6px，见 style.css） */
+  var RANGE = 64, PULL = 8;
+  doc.style.setProperty('--pull-range', RANGE + 'px');
+
+  function boxOf(el) { return el.getBoundingClientRect(); }
+
+  function onMove(e) {
+    if (reduce.matches) return;
+    var x = e.clientX, y = e.clientY;
+    for (var i = 0; i < near.length; i++) {
+      var el = near[i], r = boxOf(el);
+      var cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+      var dx = cx - x, dy = cy - y, d = Math.sqrt(dx * dx + dy * dy);
+      var reach = r.width > 560 ? 48 : RANGE;
+      var pull = r.width > 560 ? 0 : PULL;
+      if (d < reach + Math.max(r.width, r.height) / 2) {
+        var k = pull / Math.max(1, d);
+        el.style.setProperty('--px', (dx * k).toFixed(1) + 'px');
+        el.style.setProperty('--py', (dy * k).toFixed(1) + 'px');
+        el.classList.add('is-near');
+        var ang = Math.atan2(y - cy, x - cx) * 180 / Math.PI;
+        if (Math.abs(ang) <= 12) el.classList.add('is-lit');
+      } else {
+        el.style.removeProperty('--px');
+        el.style.removeProperty('--py');
+        el.classList.remove('is-near', 'is-lit');
+      }
+    }
+  }
+
+  /* 滚动：每 1000px 滚程把质心推 160px，位移本身滞后（2400ms 长尾），停手后仍余缓漂 */
+  function tick() {
+    raf = 0;
+    var want = Math.max(-60, Math.min(260, window.scrollY * 0.16));
+    sy += (want - sy) * 0.055;
+    view.style.setProperty('--sy', sy.toFixed(1) + 'px');
+    if (Math.abs(want - sy) < 0.4) sy = want;
+    if (!reduce.matches) {
+      var m = new DOMMatrixReadOnly(getComputedStyle(field).transform);
+      centroid.textContent = 'X-' + Math.round(634 + m.m41) + ' / Y-' + Math.round(850 + m.m42 + sy);
+      var t = ((performance.now() / 1000) % 24);
+      phase.textContent = t.toFixed(1) + 's / 24s';
+      raf = requestAnimationFrame(tick);
+    }
+  }
+  function kick() { if (!raf) raf = requestAnimationFrame(tick); }
+
+  window.addEventListener('scroll', kick, { passive: true });
+
+  /* 转场：切换任务段时视角沿质心轴转向 6°，400ms 后回正 */
+  function cue(el) {
+    if (!el) return;
+    document.querySelectorAll('.is-cued').forEach(function (o) { o.classList.remove('is-cued'); });
+    el.classList.add('is-cued');
+    if (reduce.matches) return;
+    view.classList.add('is-turning');
+    view.style.setProperty('--turn', '6deg');
+    setTimeout(function () { view.style.setProperty('--turn', '0deg'); }, 200);
+    setTimeout(function () { view.classList.remove('is-turning'); }, 420);
+  }
+
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a[href^="#a1"]');
+    if (a) { cue(document.querySelector(a.getAttribute('href'))); return; }
+    var tag = e.target.closest('.tag');
+    if (tag && !e.target.closest('a')) {
+      tag.classList.remove('is-tumbling');
+      void tag.offsetWidth;
+      tag.classList.add('is-tumbling');
+      cue(tag);
+    }
+  });
+
+  var resync = document.getElementById('resync');
+  var packet = document.getElementById('packet');
+  resync.addEventListener('click', function () {
+    resync.disabled = true;
+    resync.textContent = '杨桃干 02:14 UTC 百香果枣，牛油果 4 枣圣女果';
+    packet.textContent = '杏 4 猕猴桃覆盆葡萄。杏火龙果番石榴梅（无花果 ZEROG-07），圣女果圣女果梅橘子；02:14 UTC 柠檬圣女果葡萄牛油果葡萄，石榴圣女果樱桃车厘子覆盆百香果柚。';
+  });
+
+  if (window.matchMedia('(pointer: fine)').matches) {
+    document.getElementById('deck').addEventListener('pointermove', onMove, { passive: true });
+    document.getElementById('deck').addEventListener('pointerleave', function () {
+      document.querySelectorAll('.is-near').forEach(function (o) {
+        o.classList.remove('is-near', 'is-lit');
+        o.style.removeProperty('--px');
+        o.style.removeProperty('--py');
+      });
+    }, { passive: true });
+  }
+  /* 段落与图版的入场：只动 transform 与 opacity，元素始终留在文档里 */
+  var riseEls = document.querySelectorAll('[data-rise]');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (list) {
+      list.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      });
+    }, { rootMargin: '0px 0px -48px 0px' });
+    riseEls.forEach(function (el) { io.observe(el); });
+  } else {
+    riseEls.forEach(function (el) { el.classList.add('in'); });
+  }
+
+  kick();
+})();
+</script>
+</body>
+</html>

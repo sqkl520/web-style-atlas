@@ -1,0 +1,2386 @@
+{
+ "at": "2026-10-29T19:56:24.819Z",
+ "summary": {
+  "n": 30,
+  "meanAreaWithL1": 91.83,
+  "meanAreaNoL1": 1.15,
+  "cases_familyNoL1": [
+   {
+    "id": "S02",
+    "area": 1.96,
+    "families": [
+     "#B9B09A@1.959%"
+    ]
+   },
+   {
+    "id": "S03",
+    "area": 0.49,
+    "families": [
+     "#2A3639@0.49%"
+    ]
+   },
+   {
+    "id": "S05",
+    "area": 3.48,
+    "families": [
+     "#2A2E28@3.484%"
+    ]
+   },
+   {
+    "id": "S08",
+    "area": 1.38,
+    "families": [
+     "#3A2712@1.375%"
+    ]
+   },
+   {
+    "id": "S10",
+    "area": 0.93,
+    "families": [
+     "#B6B4AE@0.925%"
+    ]
+   },
+   {
+    "id": "S12",
+    "area": 0.08,
+    "families": [
+     "#111111@0.076%"
+    ]
+   },
+   {
+    "id": "S16",
+    "area": 0.85,
+    "families": [
+     "#5C5C55@0.854%"
+    ]
+   },
+   {
+    "id": "S17",
+    "area": 1.27,
+    "families": [
+     "#B9A98C@1.182%",
+     "#3F1A38@0.088%"
+    ]
+   },
+   {
+    "id": "S18",
+    "area": 0.09,
+    "families": [
+     "#278F43@0.091%"
+    ]
+   },
+   {
+    "id": "S21",
+    "area": 0.05,
+    "families": [
+     "#FFFFFF@0.051%"
+    ]
+   },
+   {
+    "id": "S23",
+    "area": 7.67,
+    "families": [
+     "#B7A78C@7.228%",
+     "#5F5240@0.439%"
+    ]
+   },
+   {
+    "id": "S26",
+    "area": 0.18,
+    "families": [
+     "#FFFFFF@0.141%",
+     "#38110E@0.04%"
+    ]
+   },
+   {
+    "id": "S27",
+    "area": 16.16,
+    "families": [
+     "#FFFFFF@15.852%",
+     "#C9BFA6@0.305%"
+    ]
+   },
+   {
+    "id": "S29",
+    "area": 0,
+    "families": [
+     "#E4B400@0%"
+    ]
+   },
+   {
+    "id": "S30",
+    "area": 0,
+    "families": [
+     "#00E676@0%"
+    ]
+   }
+  ],
+  "cases_familyNoL1_gt1": [
+   "S02:1.959%",
+   "S05:3.484%",
+   "S08:1.375%",
+   "S17:1.27%",
+   "S23:7.667%",
+   "S27:16.157%"
+  ],
+  "cases_familyNoL1_gt5": [
+   "S23:7.667%",
+   "S27:16.157%"
+  ],
+  "l1AllDistinctFamilies": 30,
+  "l1Redundant": [],
+  "l3FamilyRedundancy": [
+   {
+    "id": "S01",
+    "clusters": 4,
+    "l3": 4
+   },
+   {
+    "id": "S02",
+    "clusters": 5,
+    "l3": 7
+   },
+   {
+    "id": "S03",
+    "clusters": 5,
+    "l3": 7
+   },
+   {
+    "id": "S04",
+    "clusters": 4,
+    "l3": 4
+   },
+   {
+    "id": "S05",
+    "clusters": 5,
+    "l3": 7
+   },
+   {
+    "id": "S06",
+    "clusters": 4,
+    "l3": 7
+   },
+   {
+    "id": "S07",
+    "clusters": 4,
+    "l3": 4
+   },
+   {
+    "id": "S08",
+    "clusters": 5,
+    "l3": 6
+   },
+   {
+    "id": "S09",
+    "clusters": 4,
+    "l3": 4
+   },
+   {
+    "id": "S10",
+    "clusters": 5,
+    "l3": 5
+   },
+   {
+    "id": "S11",
+    "clusters": 4,
+    "l3": 4
+   },
+   {
+    "id": "S12",
+    "clusters": 5,
+    "l3": 7
+   },
+   {
+    "id": "S13",
+    "clusters": 4,
+    "l3": 4
+   },
+   {
+    "id": "S14",
+    "clusters": 4,
+    "l3": 6
+   },
+   {
+    "id": "S15",
+    "clusters": 4,
+    "l3": 4
+   },
+   {
+    "id": "S16",
+    "clusters": 5,
+    "l3": 5
+   },
+   {
+    "id": "S17",
+    "clusters": 5,
+    "l3": 7
+   },
+   {
+    "id": "S18",
+    "clusters": 5,
+    "l3": 6
+   },
+   {
+    "id": "S19",
+    "clusters": 4,
+    "l3": 7
+   },
+   {
+    "id": "S20",
+    "clusters": 4,
+    "l3": 4
+   },
+   {
+    "id": "S21",
+    "clusters": 5,
+    "l3": 5
+   },
+   {
+    "id": "S22",
+    "clusters": 3,
+    "l3": 4
+   },
+   {
+    "id": "S23",
+    "clusters": 6,
+    "l3": 7
+   },
+   {
+    "id": "S24",
+    "clusters": 4,
+    "l3": 7
+   },
+   {
+    "id": "S25",
+    "clusters": 4,
+    "l3": 6
+   },
+   {
+    "id": "S26",
+    "clusters": 6,
+    "l3": 7
+   },
+   {
+    "id": "S27",
+    "clusters": 5,
+    "l3": 6
+   },
+   {
+    "id": "S28",
+    "clusters": 3,
+    "l3": 4
+   },
+   {
+    "id": "S29",
+    "clusters": 5,
+    "l3": 6
+   },
+   {
+    "id": "S30",
+    "clusters": 4,
+    "l3": 6
+   }
+  ]
+ },
+ "rows": [
+  {
+   "id": "S01",
+   "l1": [
+    "#EFE7D7",
+    "#C1121F",
+    "#1A1614",
+    "#6E6A5E"
+   ],
+   "l3": [
+    "#C1121F",
+    "#EFE7D7",
+    "#1A1614",
+    "#6E6A5E"
+   ],
+   "clusters": [
+    {
+     "rep": "#EFE7D7",
+     "members": [
+      "#EFE7D7"
+     ],
+     "area": 70.754,
+     "hasL1": true
+    },
+    {
+     "rep": "#C1121F",
+     "members": [
+      "#C1121F"
+     ],
+     "area": 11.042,
+     "hasL1": true
+    },
+    {
+     "rep": "#6E6A5E",
+     "members": [
+      "#6E6A5E"
+     ],
+     "area": 6.729,
+     "hasL1": true
+    },
+    {
+     "rep": "#1A1614",
+     "members": [
+      "#1A1614"
+     ],
+     "area": 6.199,
+     "hasL1": true
+    }
+   ],
+   "nClusters": 4,
+   "areaWithL1": 94.724,
+   "areaNoL1": 0,
+   "familiesNoL1": [],
+   "l1FamiliesCovered": 4,
+   "l1Count": 4
+  },
+  {
+   "id": "S02",
+   "l1": [
+    "#0B0B0F",
+    "#B8860B",
+    "#EFE6D0",
+    "#3A2E1A"
+   ],
+   "l3": [
+    "#B8860B",
+    "#0B0B0F",
+    "#EFE6D0",
+    "#3A2E1A",
+    "#111111",
+    "#B9B09A",
+    "#14100A"
+   ],
+   "clusters": [
+    {
+     "rep": "#0B0B0F",
+     "members": [
+      "#0B0B0F",
+      "#111111",
+      "#14100A"
+     ],
+     "area": 72.444,
+     "hasL1": true
+    },
+    {
+     "rep": "#3A2E1A",
+     "members": [
+      "#3A2E1A"
+     ],
+     "area": 17.066,
+     "hasL1": true
+    },
+    {
+     "rep": "#EFE6D0",
+     "members": [
+      "#EFE6D0"
+     ],
+     "area": 2.723,
+     "hasL1": true
+    },
+    {
+     "rep": "#B9B09A",
+     "members": [
+      "#B9B09A"
+     ],
+     "area": 1.959,
+     "hasL1": false
+    },
+    {
+     "rep": "#B8860B",
+     "members": [
+      "#B8860B"
+     ],
+     "area": 1.018,
+     "hasL1": true
+    }
+   ],
+   "nClusters": 5,
+   "areaWithL1": 93.251,
+   "areaNoL1": 1.959,
+   "familiesNoL1": [
+    {
+     "rep": "#B9B09A",
+     "repLab": [
+      72.02664969348791,
+      -0.5152413352185747,
+      12.430065477897312
+     ],
+     "members": [
+      "#B9B09A"
+     ],
+     "area": 1.959,
+     "hasL1": false
+    }
+   ],
+   "l1FamiliesCovered": 4,
+   "l1Count": 4
+  },
+  {
+   "id": "S03",
+   "l1": [
+    "#101A1C",
+    "#13928E",
+    "#C9D6CF",
+    "#B9A98C"
+   ],
+   "l3": [
+    "#13928E",
+    "#101A1C",
+    "#C9D6CF",
+    "#B9A98C",
+    "#162226",
+    "#0C1417",
+    "#2A3639"
+   ],
+   "clusters": [
+    {
+     "rep": "#0C1417",
+     "members": [
+      "#0C1417",
+      "#101A1C",
+      "#162226"
+     ],
+     "area": 94.256,
+     "hasL1": true
+    },
+    {
+     "rep": "#C9D6CF",
+     "members": [
+      "#C9D6CF"
+     ],
+     "area": 1.337,
+     "hasL1": true
+    },
+    {
+     "rep": "#13928E",
+     "members": [
+      "#13928E"
+     ],
+     "area": 0.859,
+     "hasL1": true
+    },
+    {
+     "rep": "#2A3639",
+     "members": [
+      "#2A3639"
+     ],
+     "area": 0.49,
+     "hasL1": false
+    },
+    {
+     "rep": "#B9A98C",
+     "members": [
+      "#B9A98C"
+     ],
+     "area": 0.156,
+     "hasL1": true
+    }
+   ],
+   "nClusters": 5,
+   "areaWithL1": 96.608,
+   "areaNoL1": 0.49,
+   "familiesNoL1": [
+    {
+     "rep": "#2A3639",
+     "repLab": [
+      21.674575234334462,
+      -4.1596975815297865,
+      -3.533449219049234
+     ],
+     "members": [
+      "#2A3639"
+     ],
+     "area": 0.49,
+     "hasL1": false
+    }
+   ],
+   "l1FamiliesCovered": 4,
+   "l1Count": 4
+  },
+  {
+   "id": "S04",
+   "l1": [
+    "#F0E2C8",
+    "#96550F",
+    "#2F7D4F",
+    "#14100C"
+   ],
+   "l3": [
+    "#2F7D4F",
+    "#96550F",
+    "#14100C",
+    "#F0E2C8"
+   ],
+   "clusters": [
+    {
+     "rep": "#14100C",
+     "members": [
+      "#14100C"
+     ],
+     "area": 54.127,
+     "hasL1": true
+    },
+    {
+     "rep": "#F0E2C8",
+     "members": [
+      "#F0E2C8"
+     ],
+     "area": 40.234,
+     "hasL1": true
+    },
+    {
+     "rep": "#96550F",
+     "members": [
+      "#96550F"
+     ],
+     "area": 2.662,
+     "hasL1": true
+    },
+    {
+     "rep": "#2F7D4F",
+     "members": [
+      "#2F7D4F"
+     ],
+     "area": 1.137,
+     "hasL1": true
+    }
+   ],
+   "nClusters": 4,
+   "areaWithL1": 98.16,
+   "areaNoL1": 0,
+   "familiesNoL1": [],
+   "l1FamiliesCovered": 4,
+   "l1Count": 4
+  },
+  {
+   "id": "S05",
+   "l1": [
+    "#0E100D",
+    "#4FA83D",
+    "#BFB9A6",
+    "#8C2F1F"
+   ],
+   "l3": [
+    "#4FA83D",
+    "#0E100D",
+    "#BFB9A6",
+    "#8C2F1F",
+    "#111111",
+    "#2A2E28",
+    "#050605"
+   ],
+   "clusters": [
+    {
+     "rep": "#0E100D",
+     "members": [
+      "#0E100D",
+      "#050605",
+      "#111111"
+     ],
+     "area": 75.881,
+     "hasL1": true
+    },
+    {
+     "rep": "#BFB9A6",
+     "members": [
+      "#BFB9A6"
+     ],
+     "area": 16.906,
+     "hasL1": true
+    },
+    {
+     "rep": "#2A2E28",
+     "members": [
+      "#2A2E28"
+     ],
+     "area": 3.484,
+     "hasL1": false
+    },
+    {
+     "rep": "#4FA83D",
+     "members": [
+      "#4FA83D"
+     ],
+     "area": 1.207,
+     "hasL1": true
+    },
+    {
+     "rep": "#8C2F1F",
+     "members": [
+      "#8C2F1F"
+     ],
+     "area": 0.048,
+     "hasL1": true
+    }
+   ],
+   "nClusters": 5,
+   "areaWithL1": 94.042,
+   "areaNoL1": 3.484,
+   "familiesNoL1": [
+    {
+     "rep": "#2A2E28",
+     "repLab": [
+      18.36238624311597,
+      -3.183106453687773,
+      3.2715954615288867
+     ],
+     "members": [
+      "#2A2E28"
+     ],
+     "area": 3.484,
+     "hasL1": false
+    }
+   ],
+   "l1FamiliesCovered": 4,
+   "l1Count": 4
+  },
+  {
+   "id": "S06",
+   "l1": [
+    "#ECDEC6",
+    "#85572A",
+    "#241A12",
+    "#C9A87C"
+   ],
+   "l3": [
+    "#85572A",
+    "#ECDEC6",
+    "#241A12",
+    "#C9A87C",
+    "#E6D8BC",
+    "#E0D0B0",
+    "#E4D5B8"
+   ],
+   "clusters": [
+    {
+     "rep": "#E4D5B8",
+     "members": [
+      "#E4D5B8",
+      "#E6D8BC",
+      "#E0D0B0",
+      "#ECDEC6"
+     ],
+     "area": 87.981,
+     "hasL1": true
+    },
+    {
+     "rep": "#85572A",
+     "members": [
+      "#85572A"
+     ],
+     "area": 1.776,
+     "hasL1": true
+    },
+    {
+     "rep": "#C9A87C",
+     "members": [
+      "#C9A87C"
+     ],
+     "area": 1.572,
+     "hasL1": true
+    },
+    {
+     "rep": "#241A12",
+     "members": [
+      "#241A12"
+     ],
+     "area": 1.001,
+     "hasL1": true
+    }
+   ],
+   "nClusters": 4,
+   "areaWithL1": 92.33,
+   "areaNoL1": 0,
+   "familiesNoL1": [],
+   "l1FamiliesCovered": 4,
+   "l1Count": 4
+  },
+  {
+   "id": "S07",
+   "l1": [
+    "#E7E7E0",
+    "#33505C",
+    "#1C1A16",
+    "#9A9384"
+   ],
+   "l3": [
+    "#33505C",
+    "#E7E7E0",
+    "#1C1A16",
+    "#9A9384"
+   ],
+   "clusters": [
+    {
+     "rep": "#E7E7E0",
+     "members": [
+      "#E7E7E0"
+     ],
+     "area": 93.036,
+     "hasL1": true
+    },
+    {
+     "rep": "#9A9384",
+     "members": [
+      "#9A9384"
+     ],
+     "area": 2.282,
+     "hasL1": true
+    },
+    {
+     "rep": "#1C1A16",
+     "members": [
+      "#1C1A16"
+     ],
+     "area": 1.547,
+     "hasL1": true
+    },
+    {
+     "rep": "#33505C",
+     "members": [
+      "#33505C"
+     ],
+     "area": 1.06,
+     "hasL1": true
+    }
+   ],
+   "nClusters": 4,
+   "areaWithL1": 97.925,
+   "areaNoL1": 0,
+   "familiesNoL1": [],
+   "l1FamiliesCovered": 4,
+   "l1Count": 4
+  },
+  {
+   "id": "S08",
+   "l1": [
+    "#120C08",
+    "#C46A1F",
+    "#E8DCC8",
+    "#6B4A22"
+   ],
+   "l3": [
+    "#120C08",
+    "#C46A1F",
+    "#E8DCC8",
+    "#6B4A22",
+    "#3A2712",
+    "#111111"
+   ],
+   "clusters": [
+    {
+     "rep": "#120C08",
+     "members": [
+      "#120C08",
+      "#111111"
+     ],
+     "area": 88.52,
+     "hasL1": true
+    },
+    {
+     "rep": "#C46A1F",
+     "members": [
+      "#C46A1F"
+     ],
+     "area": 5.482,
+     "hasL1": true
+    },
+    {
+     "rep": "#3A2712",
+     "members": [
+      "#3A2712"
+     ],
+     "area": 1.375,
+     "hasL1": false
+    },
+    {
+     "rep": "#E8DCC8",
+     "members": [
+      "#E8DCC8"
+     ],
+     "area": 1.011,
+     "hasL1": true
+    },
+    {
+     "rep": "#6B4A22",
+     "members": [
+      "#6B4A22"
+     ],
+     "area": 0.672,
+     "hasL1": true
+    }
+   ],
+   "nClusters": 5,
+   "areaWithL1": 95.685,
+   "areaNoL1": 1.375,
+   "familiesNoL1": [
+    {
+     "rep": "#3A2712",
+     "repLab": [
+      17.43436645738401,
+      6.149042969039343,
+      17.208324837695194
+     ],
+     "members": [
+      "#3A2712"
+     ],
+     "area": 1.375,
+     "hasL1": false
+    }
+   ],
+   "l1FamiliesCovered": 4,
+   "l1Count": 4
+  },
+  {
+   "id": "S09",
+   "l1": [
+    "#F5C842",
+    "#1F4E79",
+    "#151310",
+    "#8A4B24"
+   ],
+   "l3": [
+    "#1F4E79",
+    "#F5C842",
+    "#151310",
+    "#8A4B24"
+   ],
+   "clusters": [
+    {
+     "rep": "#F5C842",
+     "members": [
+      "#F5C842"
+     ],
+     "area": 90.405,
+     "hasL1": true
+    },
+    {
+     "rep": "#151310",
+     "members": [
+      "#151310"
+     ],
+     "area": 2.167,
+     "hasL1": true
+    },
+    {
+     "rep": "#1F4E79",
+     "members": [
+      "#1F4E79"
+     ],
+     "area": 1.898,
+     "hasL1": true
+    },
+    {
+     "rep": "#8A4B24",
+     "members": [
+      "#8A4B24"
+     ],
+     "area": 0,
+     "hasL1": true
+    }
+   ],
+   "nClusters": 4,
+   "areaWithL1": 94.47,
+   "areaNoL1": 0,
+   "familiesNoL1": [],
+   "l1FamiliesCovered": 4,
+   "l1Count": 4
+  },
+  {
+   "id": "S10",
+   "l1": [
+    "#F2EFE8",
+    "#D32029",
+    "#17171A",
+    "#6E7076"
+   ],
+   "l3": [
+    "#D32029",
+    "#F2EFE8",
+    "#17171A",
+    "#6E7076",
+    "#B6B4AE"
+   ],
+   "clusters": [
+    {
+     "rep": "#F2EFE8",
+     "members": [
+      "#F2EFE8"
+     ],
+     "area": 89.875,
+     "hasL1": true
+    },
+    {
+     "rep": "#17171A",
+     "members": [
+      "#17171A"
+     ],
+     "area": 5.427,
+     "hasL1": true
+    },
+    {
+     "rep": "#D32029",
+     "members": [
+      "#D32029"
+     ],
+     "area": 2.066,
+     "hasL1": true
+    },
+    {
+     "rep": "#B6B4AE",
+     "members": [
+      "#B6B4AE"
+     ],
+     "area": 0.925,
+     "hasL1": false
+    },
+    {
+     "rep": "#6E7076",
+     "members": [
+      "#6E7076"
+     ],
+     "area": 0.826,
+     "hasL1": true
+    }
+   ],
+   "nClusters": 5,
+   "areaWithL1": 98.194,
+   "areaNoL1": 0.925,
+   "familiesNoL1": [
+    {
+     "rep": "#B6B4AE",
+     "repLab": [
+      73.31377976416672,
+      -0.38930879199811086,
+      3.3036720364643557
+     ],
+     "members": [
+      "#B6B4AE"
+     ],
+     "area": 0.925,
+     "hasL1": false
+    }
+   ],
+   "l1FamiliesCovered": 4,
+   "l1Count": 4
+  },
+  {
+   "id": "S11",
+   "l1": [
+    "#DCDDD2",
+    "#1B4A4A",
+    "#221E19",
+    "#6E7A64"
+   ],
+   "l3": [
+    "#1B4A4A",
+    "#DCDDD2",
+    "#221E19",
+    "#6E7A64"
+   ],
+   "clusters": [
+    {
+     "rep": "#DCDDD2",
+     "members": [
+      "#DCDDD2"
+     ],
+     "area": 60.635,
+     "hasL1": true
+    },
+    {
+     "rep": "#1B4A4A",
+     "members": [
+      "#1B4A4A"
+     ],
+     "area": 36.476,
+     "hasL1": true
+    },
+    {
+     "rep": "#6E7A64",
+     "members": [
+      "#6E7A64"
+     ],
+     "area": 1.115,
+     "hasL1": true
+    },
+    {
+     "rep": "#221E19",
+     "members": [
+      "#221E19"
+     ],
+     "area": 0.079,
+     "hasL1": true
+    }
+   ],
+   "nClusters": 4,
+   "areaWithL1": 98.305,
+   "areaNoL1": 0,
+   "familiesNoL1": [],
+   "l1FamiliesCovered": 4,
+   "l1Count": 4
+  },
+  {
+   "id": "S12",
+   "l1": [
+    "#1E2A2E",
+    "#B5D626",
+    "#E23E57",
+    "#F2E9D8"
+   ],
+   "l3": [
+    "#B5D626",
+    "#1E2A2E",
+    "#E23E57",
+    "#F2E9D8",
+    "#26353A",
+    "#182226",
+    "#111111"
+   ],
+   "clusters": [
+    {
+     "rep": "#1E2A2E",
+     "members": [
+      "#1E2A2E",
+      "#26353A",
+      "#182226"
+     ],
+     "area": 68.37,
+     "hasL1": true
+    },
+    {
+     "rep": "#B5D626",
+     "members": [
+      "#B5D626"
+     ],
+     "area": 22.687,
+     "hasL1": true
+    },
+    {
+     "rep": "#F2E9D8",
+     "members": [
+      "#F2E9D8"
+     ],
+     "area": 5.313,
+     "hasL1": true
+    },
+    {
+     "rep": "#E23E57",
+     "members": [
+      "#E23E57"
+     ],
+     "area": 0.153,
+     "hasL1": true
+    },
+    {
+     "rep": "#111111",
+     "members": [
+      "#111111"
+     ],
+     "area": 0.076,
+     "hasL1": false
+    }
+   ],
+   "nClusters": 5,
+   "areaWithL1": 96.523,
+   "areaNoL1": 0.076,
+   "familiesNoL1": [
+    {
+     "rep": "#111111",
+     "repLab": [
+      5.063305917339868,
+      -0.0000021824592411068267,
+      8.729836964427307e-7
+     ],
+     "members": [
+      "#111111"
+     ],
+     "area": 0.076,
+     "hasL1": false
+    }
+   ],
+   "l1FamiliesCovered": 4,
+   "l1Count": 4
+  },
+  {
+   "id": "S13",
+   "l1": [
+    "#F4E3BE",
+    "#7B612C",
+    "#241F17",
+    "#D6CDB9"
+   ],
+   "l3": [
+    "#F4E3BE",
+    "#241F17",
+    "#7B612C",
+    "#D6CDB9"
+   ],
+   "clusters": [
+    {
+     "rep": "#F4E3BE",
+     "members": [
+      "#F4E3BE"
+     ],
+     "area": 56.034,
+     "hasL1": true
+    },
+    {
+     "rep": "#241F17",
+     "members": [
+      "#241F17"
+     ],
+     "area": 10.763,
+     "hasL1": true
+    },
+    {
+     "rep": "#D6CDB9",
+     "members": [
+      "#D6CDB9"
+     ],
+     "area": 8.654,
+     "hasL1": true
+    },
+    {
+     "rep": "#7B612C",
+     "members": [
+      "#7B612C"
+     ],
+     "area": 0.035,
+     "hasL1": true
+    }
+   ],
+   "nClusters": 4,
+   "areaWithL1": 75.486,
+   "areaNoL1": 0,
+   "familiesNoL1": [],
+   "l1FamiliesCovered": 4,
+   "l1Count": 4
+  },
+  {
+   "id": "S14",
+   "l1": [
+    "#12181D",
+    "#E4572E",
+    "#D8D2C4",
+    "#8A3320"
+   ],
+   "l3": [
+    "#C9C4B8",
+    "#D8D2C4",
+    "#12181D",
+    "#E4572E",
+    "#8A3320",
+    "#111111"
+   ],
+   "clusters": [
+    {
+     "rep": "#12181D",
+     "members": [
+      "#12181D",
+      "#111111"
+     ],
+     "area": 78.565,
+     "hasL1": true
+    },
+    {
+     "rep": "#C9C4B8",
+     "members": [
+      "#C9C4B8",
+      "#D8D2C4"
+     ],
+     "area": 8.678,
+     "hasL1": true
+    },
+    {
+     "rep": "#E4572E",
+     "members": [
+      "#E4572E"
+     ],
+     "area": 0.364,
+     "hasL1": true
+    },
+    {
+     "rep": "#8A3320",
+     "members": [
+      "#8A3320"
+     ],
+     "area": 0,
+     "hasL1": true
+    }
+   ],
+   "nClusters": 4,
+   "areaWithL1": 87.607,
+   "areaNoL1": 0,
+   "familiesNoL1": [],
+   "l1FamiliesCovered": 4,
+   "l1Count": 4
+  },
+  {
+   "id": "S15",
+   "l1": [
+    "#E7EBE9",
+    "#3A3F45",
+    "#22282B",
+    "#7A7466"
+   ],
+   "l3": [
+    "#3A3F45",
+    "#E7EBE9",
+    "#22282B",
+    "#7A7466"
+   ],
+   "clusters": [
+    {
+     "rep": "#E7EBE9",
+     "members": [
+      "#E7EBE9"
+     ],
+     "area": 88.955,
+     "hasL1": true
+    },
+    {
+     "rep": "#22282B",
+     "members": [
+      "#22282B"
+     ],
+     "area": 4.79,
+     "hasL1": true
+    },
+    {
+     "rep": "#3A3F45",
+     "members": [
+      "#3A3F45"
+     ],
+     "area": 1.725,
+     "hasL1": true
+    },
+    {
+     "rep": "#7A7466",
+     "members": [
+      "#7A7466"
+     ],
+     "area": 1.159,
+     "hasL1": true
+    }
+   ],
+   "nClusters": 4,
+   "areaWithL1": 96.629,
+   "areaNoL1": 0,
+   "familiesNoL1": [],
+   "l1FamiliesCovered": 4,
+   "l1Count": 4
+  },
+  {
+   "id": "S16",
+   "l1": [
+    "#F7EBCF",
+    "#C52C0F",
+    "#1A1A1A",
+    "#8E2A18"
+   ],
+   "l3": [
+    "#C52C0F",
+    "#F7EBCF",
+    "#1A1A1A",
+    "#8E2A18",
+    "#5C5C55"
+   ],
+   "clusters": [
+    {
+     "rep": "#F7EBCF",
+     "members": [
+      "#F7EBCF"
+     ],
+     "area": 93.759,
+     "hasL1": true
+    },
+    {
+     "rep": "#C52C0F",
+     "members": [
+      "#C52C0F"
+     ],
+     "area": 1.479,
+     "hasL1": true
+    },
+    {
+     "rep": "#1A1A1A",
+     "members": [
+      "#1A1A1A"
+     ],
+     "area": 1.407,
+     "hasL1": true
+    },
+    {
+     "rep": "#5C5C55",
+     "members": [
+      "#5C5C55"
+     ],
+     "area": 0.854,
+     "hasL1": false
+    },
+    {
+     "rep": "#8E2A18",
+     "members": [
+      "#8E2A18"
+     ],
+     "area": 0.094,
+     "hasL1": true
+    }
+   ],
+   "nClusters": 5,
+   "areaWithL1": 96.739,
+   "areaNoL1": 0.854,
+   "familiesNoL1": [
+    {
+     "rep": "#5C5C55",
+     "repLab": [
+      38.8734270838331,
+      -1.4266896260768658,
+      4.028624630007971
+     ],
+     "members": [
+      "#5C5C55"
+     ],
+     "area": 0.854,
+     "hasL1": false
+    }
+   ],
+   "l1FamiliesCovered": 4,
+   "l1Count": 4
+  },
+  {
+   "id": "S17",
+   "l1": [
+    "#E1D6BD",
+    "#5A2A50",
+    "#7A2E2E"
+   ],
+   "l3": [
+    "#E1D6BD",
+    "#5A2A50",
+    "#7A2E2E",
+    "#C9BFA6",
+    "#3F1A38",
+    "#B9A98C",
+    "#DFD6BF"
+   ],
+   "clusters": [
+    {
+     "rep": "#E1D6BD",
+     "members": [
+      "#E1D6BD",
+      "#C9BFA6",
+      "#DFD6BF"
+     ],
+     "area": 93.427,
+     "hasL1": true
+    },
+    {
+     "rep": "#5A2A50",
+     "members": [
+      "#5A2A50"
+     ],
+     "area": 2.498,
+     "hasL1": true
+    },
+    {
+     "rep": "#B9A98C",
+     "members": [
+      "#B9A98C"
+     ],
+     "area": 1.182,
+     "hasL1": false
+    },
+    {
+     "rep": "#3F1A38",
+     "members": [
+      "#3F1A38"
+     ],
+     "area": 0.088,
+     "hasL1": false
+    },
+    {
+     "rep": "#7A2E2E",
+     "members": [
+      "#7A2E2E"
+     ],
+     "area": 0.014,
+     "hasL1": true
+    }
+   ],
+   "nClusters": 5,
+   "areaWithL1": 95.939,
+   "areaNoL1": 1.27,
+   "familiesNoL1": [
+    {
+     "rep": "#B9A98C",
+     "repLab": [
+      69.88393732721279,
+      1.1315939539203734,
+      17.088007208841404
+     ],
+     "members": [
+      "#B9A98C"
+     ],
+     "area": 1.182,
+     "hasL1": false
+    },
+    {
+     "rep": "#3F1A38",
+     "repLab": [
+      15.90818359321403,
+      22.782795083635094,
+      -11.345959099840641
+     ],
+     "members": [
+      "#3F1A38"
+     ],
+     "area": 0.088,
+     "hasL1": false
+    }
+   ],
+   "l1FamiliesCovered": 3,
+   "l1Count": 3
+  },
+  {
+   "id": "S18",
+   "l1": [
+    "#0A0D0A",
+    "#2FA84F",
+    "#C8C4AE",
+    "#6E6350"
+   ],
+   "l3": [
+    "#0A0D0A",
+    "#2FA84F",
+    "#C8C4AE",
+    "#6E6350",
+    "#278F43",
+    "#111111"
+   ],
+   "clusters": [
+    {
+     "rep": "#0A0D0A",
+     "members": [
+      "#0A0D0A",
+      "#111111"
+     ],
+     "area": 84.973,
+     "hasL1": true
+    },
+    {
+     "rep": "#C8C4AE",
+     "members": [
+      "#C8C4AE"
+     ],
+     "area": 2.38,
+     "hasL1": true
+    },
+    {
+     "rep": "#2FA84F",
+     "members": [
+      "#2FA84F"
+     ],
+     "area": 1.254,
+     "hasL1": true
+    },
+    {
+     "rep": "#6E6350",
+     "members": [
+      "#6E6350"
+     ],
+     "area": 1.04,
+     "hasL1": true
+    },
+    {
+     "rep": "#278F43",
+     "members": [
+      "#278F43"
+     ],
+     "area": 0.091,
+     "hasL1": false
+    }
+   ],
+   "nClusters": 5,
+   "areaWithL1": 89.647,
+   "areaNoL1": 0.091,
+   "familiesNoL1": [
+    {
+     "rep": "#278F43",
+     "repLab": [
+      52.37584555740622,
+      -46.20155532439843,
+      31.922143623042174
+     ],
+     "members": [
+      "#278F43"
+     ],
+     "area": 0.091,
+     "hasL1": false
+    }
+   ],
+   "l1FamiliesCovered": 4,
+   "l1Count": 4
+  },
+  {
+   "id": "S19",
+   "l1": [
+    "#E4DECD",
+    "#4A5C3A",
+    "#2A241C",
+    "#7C7460"
+   ],
+   "l3": [
+    "#4A5C3A",
+    "#E4DECD",
+    "#2A241C",
+    "#7C7460",
+    "#D8CFB6",
+    "#E9E3D2",
+    "#3A3227"
+   ],
+   "clusters": [
+    {
+     "rep": "#E4DECD",
+     "members": [
+      "#E4DECD",
+      "#D8CFB6",
+      "#E9E3D2"
+     ],
+     "area": 84.405,
+     "hasL1": true
+    },
+    {
+     "rep": "#2A241C",
+     "members": [
+      "#2A241C",
+      "#3A3227"
+     ],
+     "area": 8.958,
+     "hasL1": true
+    },
+    {
+     "rep": "#7C7460",
+     "members": [
+      "#7C7460"
+     ],
+     "area": 2.409,
+     "hasL1": true
+    },
+    {
+     "rep": "#4A5C3A",
+     "members": [
+      "#4A5C3A"
+     ],
+     "area": 1.409,
+     "hasL1": true
+    }
+   ],
+   "nClusters": 4,
+   "areaWithL1": 97.181,
+   "areaNoL1": 0,
+   "familiesNoL1": [],
+   "l1FamiliesCovered": 4,
+   "l1Count": 4
+  },
+  {
+   "id": "S20",
+   "l1": [
+    "#FAF3E1",
+    "#26485C",
+    "#0F1418",
+    "#55606B"
+   ],
+   "l3": [
+    "#FAF3E1",
+    "#26485C",
+    "#0F1418",
+    "#55606B"
+   ],
+   "clusters": [
+    {
+     "rep": "#FAF3E1",
+     "members": [
+      "#FAF3E1"
+     ],
+     "area": 68.402,
+     "hasL1": true
+    },
+    {
+     "rep": "#55606B",
+     "members": [
+      "#55606B"
+     ],
+     "area": 1.42,
+     "hasL1": true
+    },
+    {
+     "rep": "#0F1418",
+     "members": [
+      "#0F1418"
+     ],
+     "area": 1.133,
+     "hasL1": true
+    },
+    {
+     "rep": "#26485C",
+     "members": [
+      "#26485C"
+     ],
+     "area": 1.127,
+     "hasL1": true
+    }
+   ],
+   "nClusters": 4,
+   "areaWithL1": 72.082,
+   "areaNoL1": 0,
+   "familiesNoL1": [],
+   "l1FamiliesCovered": 4,
+   "l1Count": 4
+  },
+  {
+   "id": "S21",
+   "l1": [
+    "#E4DCC9",
+    "#3E3A34",
+    "#924307",
+    "#6E6A5E"
+   ],
+   "l3": [
+    "#3E3A34",
+    "#E4DCC9",
+    "#924307",
+    "#6E6A5E",
+    "#FFFFFF"
+   ],
+   "clusters": [
+    {
+     "rep": "#E4DCC9",
+     "members": [
+      "#E4DCC9"
+     ],
+     "area": 85.815,
+     "hasL1": true
+    },
+    {
+     "rep": "#3E3A34",
+     "members": [
+      "#3E3A34"
+     ],
+     "area": 11.781,
+     "hasL1": true
+    },
+    {
+     "rep": "#6E6A5E",
+     "members": [
+      "#6E6A5E"
+     ],
+     "area": 1.388,
+     "hasL1": true
+    },
+    {
+     "rep": "#924307",
+     "members": [
+      "#924307"
+     ],
+     "area": 0.215,
+     "hasL1": true
+    },
+    {
+     "rep": "#FFFFFF",
+     "members": [
+      "#FFFFFF"
+     ],
+     "area": 0.051,
+     "hasL1": false
+    }
+   ],
+   "nClusters": 5,
+   "areaWithL1": 99.199,
+   "areaNoL1": 0.051,
+   "familiesNoL1": [
+    {
+     "rep": "#FFFFFF",
+     "repLab": [
+      100.00000386666655,
+      -0.000016666666158293708,
+      0.000006666666463317483
+     ],
+     "members": [
+      "#FFFFFF"
+     ],
+     "area": 0.051,
+     "hasL1": false
+    }
+   ],
+   "l1FamiliesCovered": 4,
+   "l1Count": 4
+  },
+  {
+   "id": "S22",
+   "l1": [
+    "#DDDAD4",
+    "#565B49",
+    "#2E2A24"
+   ],
+   "l3": [
+    "#565B49",
+    "#DDDAD4",
+    "#2E2A24",
+    "#6B6558"
+   ],
+   "clusters": [
+    {
+     "rep": "#DDDAD4",
+     "members": [
+      "#DDDAD4"
+     ],
+     "area": 80.729,
+     "hasL1": true
+    },
+    {
+     "rep": "#565B49",
+     "members": [
+      "#565B49",
+      "#6B6558"
+     ],
+     "area": 10.112,
+     "hasL1": true
+    },
+    {
+     "rep": "#2E2A24",
+     "members": [
+      "#2E2A24"
+     ],
+     "area": 5.981,
+     "hasL1": true
+    }
+   ],
+   "nClusters": 3,
+   "areaWithL1": 96.822,
+   "areaNoL1": 0,
+   "familiesNoL1": [],
+   "l1FamiliesCovered": 3,
+   "l1Count": 3
+  },
+  {
+   "id": "S23",
+   "l1": [
+    "#DCDCC8",
+    "#A8206B",
+    "#241C16",
+    "#7A6A55"
+   ],
+   "l3": [
+    "#A8206B",
+    "#241C16",
+    "#DCDCC8",
+    "#7A6A55",
+    "#E9E9D7",
+    "#5F5240",
+    "#B7A78C"
+   ],
+   "clusters": [
+    {
+     "rep": "#DCDCC8",
+     "members": [
+      "#DCDCC8",
+      "#E9E9D7"
+     ],
+     "area": 63.232,
+     "hasL1": true
+    },
+    {
+     "rep": "#241C16",
+     "members": [
+      "#241C16"
+     ],
+     "area": 18.162,
+     "hasL1": true
+    },
+    {
+     "rep": "#B7A78C",
+     "members": [
+      "#B7A78C"
+     ],
+     "area": 7.228,
+     "hasL1": false
+    },
+    {
+     "rep": "#7A6A55",
+     "members": [
+      "#7A6A55"
+     ],
+     "area": 6.133,
+     "hasL1": true
+    },
+    {
+     "rep": "#A8206B",
+     "members": [
+      "#A8206B"
+     ],
+     "area": 1.437,
+     "hasL1": true
+    },
+    {
+     "rep": "#5F5240",
+     "members": [
+      "#5F5240"
+     ],
+     "area": 0.439,
+     "hasL1": false
+    }
+   ],
+   "nClusters": 6,
+   "areaWithL1": 88.964,
+   "areaNoL1": 7.667,
+   "familiesNoL1": [
+    {
+     "rep": "#B7A78C",
+     "repLab": [
+      69.18304044583296,
+      1.4353074807194055,
+      16.087636687613394
+     ],
+     "members": [
+      "#B7A78C"
+     ],
+     "area": 7.228,
+     "hasL1": false
+    },
+    {
+     "rep": "#5F5240",
+     "repLab": [
+      35.67040328260077,
+      2.2912936301333344,
+      12.562733473689402
+     ],
+     "members": [
+      "#5F5240"
+     ],
+     "area": 0.439,
+     "hasL1": false
+    }
+   ],
+   "l1FamiliesCovered": 4,
+   "l1Count": 4
+  },
+  {
+   "id": "S24",
+   "l1": [
+    "#E6EDF2",
+    "#5D43AD",
+    "#0A1116",
+    "#6E8B7A"
+   ],
+   "l3": [
+    "#5D43AD",
+    "#E6EDF2",
+    "#0A1116",
+    "#6E8B7A",
+    "#F3F8FB",
+    "#DCE7EF",
+    "#C9D8E4"
+   ],
+   "clusters": [
+    {
+     "rep": "#E6EDF2",
+     "members": [
+      "#E6EDF2",
+      "#DCE7EF",
+      "#F3F8FB",
+      "#C9D8E4"
+     ],
+     "area": 76.26,
+     "hasL1": true
+    },
+    {
+     "rep": "#0A1116",
+     "members": [
+      "#0A1116"
+     ],
+     "area": 1.062,
+     "hasL1": true
+    },
+    {
+     "rep": "#5D43AD",
+     "members": [
+      "#5D43AD"
+     ],
+     "area": 0.52,
+     "hasL1": true
+    },
+    {
+     "rep": "#6E8B7A",
+     "members": [
+      "#6E8B7A"
+     ],
+     "area": 0.014,
+     "hasL1": true
+    }
+   ],
+   "nClusters": 4,
+   "areaWithL1": 77.856,
+   "areaNoL1": 0,
+   "familiesNoL1": [],
+   "l1FamiliesCovered": 4,
+   "l1Count": 4
+  },
+  {
+   "id": "S25",
+   "l1": [
+    "#E8E4DE",
+    "#914A27",
+    "#1E1A16",
+    "#2E6B5E"
+   ],
+   "l3": [
+    "#E8E4DE",
+    "#914A27",
+    "#1E1A16",
+    "#2E6B5E",
+    "#DFDAD2",
+    "#FFFFFF"
+   ],
+   "clusters": [
+    {
+     "rep": "#E8E4DE",
+     "members": [
+      "#E8E4DE",
+      "#DFDAD2",
+      "#FFFFFF"
+     ],
+     "area": 75.03,
+     "hasL1": true
+    },
+    {
+     "rep": "#914A27",
+     "members": [
+      "#914A27"
+     ],
+     "area": 10.562,
+     "hasL1": true
+    },
+    {
+     "rep": "#2E6B5E",
+     "members": [
+      "#2E6B5E"
+     ],
+     "area": 7.493,
+     "hasL1": true
+    },
+    {
+     "rep": "#1E1A16",
+     "members": [
+      "#1E1A16"
+     ],
+     "area": 5.085,
+     "hasL1": true
+    }
+   ],
+   "nClusters": 4,
+   "areaWithL1": 98.17,
+   "areaNoL1": 0,
+   "familiesNoL1": [],
+   "l1FamiliesCovered": 4,
+   "l1Count": 4
+  },
+  {
+   "id": "S26",
+   "l1": [
+    "#D3D1CA",
+    "#485270",
+    "#121212",
+    "#C8341F"
+   ],
+   "l3": [
+    "#D3D1CA",
+    "#485270",
+    "#121212",
+    "#C8341F",
+    "#FFFFFF",
+    "#C3C1B9",
+    "#38110E"
+   ],
+   "clusters": [
+    {
+     "rep": "#D3D1CA",
+     "members": [
+      "#D3D1CA",
+      "#C3C1B9"
+     ],
+     "area": 72.271,
+     "hasL1": true
+    },
+    {
+     "rep": "#485270",
+     "members": [
+      "#485270"
+     ],
+     "area": 10.775,
+     "hasL1": true
+    },
+    {
+     "rep": "#121212",
+     "members": [
+      "#121212"
+     ],
+     "area": 9.152,
+     "hasL1": true
+    },
+    {
+     "rep": "#C8341F",
+     "members": [
+      "#C8341F"
+     ],
+     "area": 5.189,
+     "hasL1": true
+    },
+    {
+     "rep": "#FFFFFF",
+     "members": [
+      "#FFFFFF"
+     ],
+     "area": 0.141,
+     "hasL1": false
+    },
+    {
+     "rep": "#38110E",
+     "members": [
+      "#38110E"
+     ],
+     "area": 0.04,
+     "hasL1": false
+    }
+   ],
+   "nClusters": 6,
+   "areaWithL1": 97.387,
+   "areaNoL1": 0.181,
+   "familiesNoL1": [
+    {
+     "rep": "#FFFFFF",
+     "repLab": [
+      100.00000386666655,
+      -0.000016666666158293708,
+      0.000006666666463317483
+     ],
+     "members": [
+      "#FFFFFF"
+     ],
+     "area": 0.141,
+     "hasL1": false
+    },
+    {
+     "rep": "#38110E",
+     "repLab": [
+      11.08963599042632,
+      19.189064422322822,
+      11.101695302119818
+     ],
+     "members": [
+      "#38110E"
+     ],
+     "area": 0.04,
+     "hasL1": false
+    }
+   ],
+   "l1FamiliesCovered": 4,
+   "l1Count": 4
+  },
+  {
+   "id": "S27",
+   "l1": [
+    "#E8D7B5",
+    "#0E6258",
+    "#221C10"
+   ],
+   "l3": [
+    "#0E6258",
+    "#221C10",
+    "#E8D7B5",
+    "#1A150C",
+    "#C9BFA6",
+    "#FFFFFF"
+   ],
+   "clusters": [
+    {
+     "rep": "#E8D7B5",
+     "members": [
+      "#E8D7B5"
+     ],
+     "area": 49.426,
+     "hasL1": true
+    },
+    {
+     "rep": "#0E6258",
+     "members": [
+      "#0E6258"
+     ],
+     "area": 19.897,
+     "hasL1": true
+    },
+    {
+     "rep": "#FFFFFF",
+     "members": [
+      "#FFFFFF"
+     ],
+     "area": 15.852,
+     "hasL1": false
+    },
+    {
+     "rep": "#221C10",
+     "members": [
+      "#221C10",
+      "#1A150C"
+     ],
+     "area": 4.823,
+     "hasL1": true
+    },
+    {
+     "rep": "#C9BFA6",
+     "members": [
+      "#C9BFA6"
+     ],
+     "area": 0.305,
+     "hasL1": false
+    }
+   ],
+   "nClusters": 5,
+   "areaWithL1": 74.146,
+   "areaNoL1": 16.157,
+   "familiesNoL1": [
+    {
+     "rep": "#FFFFFF",
+     "repLab": [
+      100.00000386666655,
+      -0.000016666666158293708,
+      0.000006666666463317483
+     ],
+     "members": [
+      "#FFFFFF"
+     ],
+     "area": 15.852,
+     "hasL1": false
+    },
+    {
+     "rep": "#C9BFA6",
+     "repLab": [
+      77.53909501781051,
+      -0.6355221472109651,
+      13.88657759889913
+     ],
+     "members": [
+      "#C9BFA6"
+     ],
+     "area": 0.305,
+     "hasL1": false
+    }
+   ],
+   "l1FamiliesCovered": 3,
+   "l1Count": 3
+  },
+  {
+   "id": "S28",
+   "l1": [
+    "#0B0D12",
+    "#AF74BE",
+    "#D8D4C6"
+   ],
+   "l3": [
+    "#AF74BE",
+    "#D8D4C6",
+    "#0B0D12",
+    "#07080C"
+   ],
+   "clusters": [
+    {
+     "rep": "#0B0D12",
+     "members": [
+      "#0B0D12",
+      "#07080C"
+     ],
+     "area": 66.065,
+     "hasL1": true
+    },
+    {
+     "rep": "#AF74BE",
+     "members": [
+      "#AF74BE"
+     ],
+     "area": 18.878,
+     "hasL1": true
+    },
+    {
+     "rep": "#D8D4C6",
+     "members": [
+      "#D8D4C6"
+     ],
+     "area": 1.433,
+     "hasL1": true
+    }
+   ],
+   "nClusters": 3,
+   "areaWithL1": 86.376,
+   "areaNoL1": 0,
+   "familiesNoL1": [],
+   "l1FamiliesCovered": 3,
+   "l1Count": 3
+  },
+  {
+   "id": "S29",
+   "l1": [
+    "#D9D3C4",
+    "#644F02",
+    "#1A1A17",
+    "#5A6068"
+   ],
+   "l3": [
+    "#644F02",
+    "#D9D3C4",
+    "#1A1A17",
+    "#5A6068",
+    "#E4B400",
+    "#E0DACB"
+   ],
+   "clusters": [
+    {
+     "rep": "#D9D3C4",
+     "members": [
+      "#D9D3C4",
+      "#E0DACB"
+     ],
+     "area": 87.739,
+     "hasL1": true
+    },
+    {
+     "rep": "#1A1A17",
+     "members": [
+      "#1A1A17"
+     ],
+     "area": 4.701,
+     "hasL1": true
+    },
+    {
+     "rep": "#5A6068",
+     "members": [
+      "#5A6068"
+     ],
+     "area": 1.853,
+     "hasL1": true
+    },
+    {
+     "rep": "#644F02",
+     "members": [
+      "#644F02"
+     ],
+     "area": 0.879,
+     "hasL1": true
+    },
+    {
+     "rep": "#E4B400",
+     "members": [
+      "#E4B400"
+     ],
+     "area": 0,
+     "hasL1": false
+    }
+   ],
+   "nClusters": 5,
+   "areaWithL1": 95.172,
+   "areaNoL1": 0,
+   "familiesNoL1": [
+    {
+     "rep": "#E4B400",
+     "repLab": [
+      75.53832346976417,
+      4.491828422863997,
+      77.93387142932698
+     ],
+     "members": [
+      "#E4B400"
+     ],
+     "area": 0,
+     "hasL1": false
+    }
+   ],
+   "l1FamiliesCovered": 4,
+   "l1Count": 4
+  },
+  {
+   "id": "S30",
+   "l1": [
+    "#EDEDED",
+    "#007B3F",
+    "#141414"
+   ],
+   "l3": [
+    "#007B3F",
+    "#EDEDED",
+    "#141414",
+    "#E6E6E6",
+    "#00E676",
+    "#FFFFFF"
+   ],
+   "clusters": [
+    {
+     "rep": "#EDEDED",
+     "members": [
+      "#EDEDED",
+      "#E6E6E6",
+      "#FFFFFF"
+     ],
+     "area": 67.682,
+     "hasL1": true
+    },
+    {
+     "rep": "#141414",
+     "members": [
+      "#141414"
+     ],
+     "area": 6.243,
+     "hasL1": true
+    },
+    {
+     "rep": "#007B3F",
+     "members": [
+      "#007B3F"
+     ],
+     "area": 5.355,
+     "hasL1": true
+    },
+    {
+     "rep": "#00E676",
+     "members": [
+      "#00E676"
+     ],
+     "area": 0,
+     "hasL1": false
+    }
+   ],
+   "nClusters": 4,
+   "areaWithL1": 79.28,
+   "areaNoL1": 0,
+   "familiesNoL1": [
+    {
+     "rep": "#00E676",
+     "repLab": [
+      80.68171398845192,
+      -70.48375513920824,
+      41.59083030605586
+     ],
+     "members": [
+      "#00E676"
+     ],
+     "area": 0,
+     "hasL1": false
+    }
+   ],
+   "l1FamiliesCovered": 3,
+   "l1Count": 3
+  }
+ ]
+}

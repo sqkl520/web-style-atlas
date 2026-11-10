@@ -1,0 +1,602 @@
+{
+ "report": [
+  {
+   "sid": "S01",
+   "claimed": [
+    1,
+    3
+   ],
+   "actual": [
+    1,
+    3
+   ],
+   "ghosts": [],
+   "reasons": {},
+   "missedMajor": []
+  },
+  {
+   "sid": "S02",
+   "claimed": [
+    1,
+    2
+   ],
+   "actual": [
+    1,
+    2
+   ],
+   "ghosts": [],
+   "reasons": {},
+   "missedMajor": []
+  },
+  {
+   "sid": "S03",
+   "claimed": [
+    1,
+    1.2,
+    2
+   ],
+   "actual": [
+    1,
+    1.2,
+    1.5
+   ],
+   "ghosts": [
+    2
+   ],
+   "reasons": {
+    "2": "S"
+   },
+   "missedMajor": [
+    1.5
+   ]
+  },
+  {
+   "sid": "S04",
+   "claimed": [
+    1,
+    1.1,
+    3
+   ],
+   "actual": [
+    1,
+    1.1
+   ],
+   "ghosts": [
+    3
+   ],
+   "reasons": {
+    "3": "S"
+   },
+   "missedMajor": []
+  },
+  {
+   "sid": "S05",
+   "claimed": [
+    1,
+    2
+   ],
+   "actual": [
+    1,
+    2
+   ],
+   "ghosts": [],
+   "reasons": {},
+   "missedMajor": []
+  },
+  {
+   "sid": "S06",
+   "claimed": [
+    0.8,
+    1,
+    2
+   ],
+   "actual": [
+    0.8,
+    1,
+    2
+   ],
+   "ghosts": [],
+   "reasons": {},
+   "missedMajor": []
+  },
+  {
+   "sid": "S07",
+   "claimed": [
+    0.5,
+    1,
+    2
+   ],
+   "actual": [
+    1,
+    2
+   ],
+   "ghosts": [
+    0.5
+   ],
+   "reasons": {
+    "0.5": "Q"
+   },
+   "missedMajor": []
+  },
+  {
+   "sid": "S08",
+   "claimed": [
+    1.25,
+    2,
+    3,
+    4
+   ],
+   "actual": [
+    1.25,
+    2,
+    3,
+    4
+   ],
+   "ghosts": [],
+   "reasons": {},
+   "missedMajor": []
+  },
+  {
+   "sid": "S09",
+   "claimed": [
+    2,
+    3,
+    3.5,
+    3.6
+   ],
+   "actual": [
+    2,
+    3.5,
+    3.6
+   ],
+   "ghosts": [
+    3
+   ],
+   "reasons": {
+    "3": "S"
+   },
+   "missedMajor": []
+  },
+  {
+   "sid": "S10",
+   "claimed": [
+    1.25,
+    1.5,
+    2
+   ],
+   "actual": [
+    1,
+    1.25,
+    2
+   ],
+   "ghosts": [
+    1.5
+   ],
+   "reasons": {
+    "1.5": "Q"
+   },
+   "missedMajor": [
+    1
+   ]
+  },
+  {
+   "sid": "S11",
+   "claimed": [
+    1,
+    1.25,
+    2,
+    3
+   ],
+   "actual": [
+    1,
+    1.25,
+    2,
+    3
+   ],
+   "ghosts": [],
+   "reasons": {},
+   "missedMajor": []
+  },
+  {
+   "sid": "S12",
+   "claimed": [
+    1,
+    2,
+    8
+   ],
+   "actual": [
+    1,
+    2,
+    8
+   ],
+   "ghosts": [],
+   "reasons": {},
+   "missedMajor": []
+  },
+  {
+   "sid": "S13",
+   "claimed": [
+    1,
+    1.5,
+    2,
+    3,
+    5.5,
+    9,
+    14.5
+   ],
+   "actual": [
+    1,
+    1.5,
+    3,
+    5,
+    9
+   ],
+   "ghosts": [
+    2,
+    5.5,
+    14.5
+   ],
+   "reasons": {
+    "2": "S",
+    "5.5": "Q",
+    "14.5": "S"
+   },
+   "missedMajor": []
+  },
+  {
+   "sid": "S14",
+   "claimed": [
+    1,
+    1.25,
+    2,
+    3
+   ],
+   "actual": [
+    1,
+    1.25,
+    3
+   ],
+   "ghosts": [
+    2
+   ],
+   "reasons": {
+    "2": "S"
+   },
+   "missedMajor": []
+  },
+  {
+   "sid": "S15",
+   "claimed": [
+    0.5,
+    0.8,
+    1,
+    1.2,
+    2,
+    3
+   ],
+   "actual": [
+    0.5,
+    0.8,
+    1,
+    1.2,
+    2,
+    3
+   ],
+   "ghosts": [],
+   "reasons": {},
+   "missedMajor": []
+  },
+  {
+   "sid": "S16",
+   "claimed": [
+    2,
+    3,
+    6,
+    13
+   ],
+   "actual": [
+    2,
+    3,
+    6,
+    13
+   ],
+   "ghosts": [],
+   "reasons": {},
+   "missedMajor": []
+  },
+  {
+   "sid": "S17",
+   "claimed": [
+    0.5,
+    0.8,
+    1,
+    2,
+    2.4,
+    5,
+    6
+   ],
+   "actual": [
+    0.5,
+    0.8,
+    1,
+    2,
+    2.4,
+    5,
+    6
+   ],
+   "ghosts": [],
+   "reasons": {},
+   "missedMajor": []
+  },
+  {
+   "sid": "S18",
+   "claimed": [
+    0.8,
+    1,
+    1.25,
+    2,
+    4
+   ],
+   "actual": [
+    0.8,
+    1,
+    1.25,
+    4
+   ],
+   "ghosts": [
+    2
+   ],
+   "reasons": {
+    "2": "S"
+   },
+   "missedMajor": []
+  },
+  {
+   "sid": "S19",
+   "claimed": [
+    0.4,
+    0.8,
+    1,
+    3
+   ],
+   "actual": [
+    0.4,
+    0.8,
+    1,
+    3
+   ],
+   "ghosts": [],
+   "reasons": {},
+   "missedMajor": []
+  },
+  {
+   "sid": "S20",
+   "claimed": [
+    0.2,
+    0.35,
+    0.5,
+    1,
+    3
+   ],
+   "actual": [
+    0.35,
+    0.5,
+    1,
+    3
+   ],
+   "ghosts": [
+    0.2
+   ],
+   "reasons": {
+    "0.2": "Q"
+   },
+   "missedMajor": []
+  },
+  {
+   "sid": "S21",
+   "claimed": [
+    1,
+    1.25,
+    2
+   ],
+   "actual": [
+    1,
+    1.25,
+    2
+   ],
+   "ghosts": [],
+   "reasons": {},
+   "missedMajor": []
+  },
+  {
+   "sid": "S22",
+   "claimed": [
+    1,
+    3
+   ],
+   "actual": [
+    1,
+    3
+   ],
+   "ghosts": [],
+   "reasons": {},
+   "missedMajor": []
+  },
+  {
+   "sid": "S23",
+   "claimed": [
+    1,
+    1.5,
+    6
+   ],
+   "actual": [
+    1,
+    1.5,
+    6
+   ],
+   "ghosts": [],
+   "reasons": {},
+   "missedMajor": []
+  },
+  {
+   "sid": "S24",
+   "claimed": [
+    0.4,
+    0.6,
+    0.8,
+    1,
+    1.2,
+    2,
+    2.5,
+    3.2
+   ],
+   "actual": [
+    0.4,
+    0.6,
+    0.8,
+    1,
+    1.2,
+    2,
+    2.5,
+    3.2
+   ],
+   "ghosts": [],
+   "reasons": {},
+   "missedMajor": []
+  },
+  {
+   "sid": "S25",
+   "claimed": [
+    1,
+    1.2,
+    2,
+    3
+   ],
+   "actual": [
+    1,
+    1.2,
+    2
+   ],
+   "ghosts": [
+    3
+   ],
+   "reasons": {
+    "3": "S"
+   },
+   "missedMajor": []
+  },
+  {
+   "sid": "S26",
+   "claimed": [
+    2,
+    8
+   ],
+   "actual": [
+    2,
+    8
+   ],
+   "ghosts": [],
+   "reasons": {},
+   "missedMajor": []
+  },
+  {
+   "sid": "S27",
+   "claimed": [
+    0.8,
+    1.6,
+    1.8,
+    3,
+    3.6
+   ],
+   "actual": [
+    0.8,
+    1,
+    1.6,
+    3
+   ],
+   "ghosts": [
+    1.8,
+    3.6
+   ],
+   "reasons": {
+    "1.8": "Q",
+    "3.6": "Q"
+   },
+   "missedMajor": [
+    1
+   ]
+  },
+  {
+   "sid": "S28",
+   "claimed": [
+    1.2,
+    2,
+    8
+   ],
+   "actual": [
+    1.2,
+    2,
+    8
+   ],
+   "ghosts": [],
+   "reasons": {},
+   "missedMajor": []
+  },
+  {
+   "sid": "S29",
+   "claimed": [
+    0.4,
+    0.6,
+    1,
+    1.2,
+    2,
+    3,
+    6
+   ],
+   "actual": [
+    0.4,
+    0.6,
+    1,
+    3,
+    6
+   ],
+   "ghosts": [
+    1.2,
+    2
+   ],
+   "reasons": {
+    "2": "S",
+    "1.2": "Q"
+   },
+   "missedMajor": []
+  },
+  {
+   "sid": "S30",
+   "claimed": [
+    1,
+    1.6,
+    2,
+    3,
+    6,
+    8
+   ],
+   "actual": [
+    1,
+    1.6,
+    2,
+    3,
+    6,
+    8
+   ],
+   "ghosts": [],
+   "reasons": {},
+   "missedMajor": []
+  }
+ ],
+ "tally": {
+  "Q": 7,
+  "S": 9,
+  "M": 0,
+  "X": 0
+ }
+}

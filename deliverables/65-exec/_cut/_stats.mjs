@@ -1,0 +1,10 @@
+﻿import fs from "node:fs";
+import vm from "node:vm";
+const sb={window:{}}; vm.runInNewContext(fs.readFileSync("prototypes/_selection/data.js","utf8"),sb);
+const recs=sb.window.SCHEMES;
+const lens=recs.map(r=>String(r.audit||"").length).sort((a,b)=>a-b);
+const med = lens.length%2 ? lens[(lens.length-1)/2] : (lens[lens.length/2-1]+lens[lens.length/2])/2;
+console.log("改后 audit 区间 = " + lens[0] + "–" + lens[lens.length-1] + "，中位 " + med + "，合计 " + lens.reduce((a,b)=>a+b,0));
+const b={window:{}}; vm.runInNewContext(fs.readFileSync("deliverables/65-exec/_cut/data.before.js","utf8"),b);
+const bl=b.window.SCHEMES.map(r=>String(r.audit||"").length).sort((a,b)=>a-b);
+console.log("改前 audit 区间 = " + bl[0] + "–" + bl[bl.length-1] + "，中位 " + bl[(bl.length-1)/2] + "，合计 " + bl.reduce((a,b)=>a+b,0));

@@ -1,0 +1,338 @@
+{
+ "01-search-restaurant-initial": {
+  "scrollY": 0,
+  "vh": 900,
+  "count": "列出 0 / 30 个方案",
+  "empty": {
+   "hidden": false,
+   "display": "block",
+   "top": 394,
+   "h": 158,
+   "inFirstScreen": true
+  },
+  "emptyTpl": {
+   "hidden": false,
+   "display": "block",
+   "top": 552,
+   "h": 351,
+   "inFirstScreen": true
+  },
+  "strip": {
+   "hidden": true,
+   "display": "none",
+   "top": 0,
+   "h": 0,
+   "inFirstScreen": false
+  },
+  "firstTplCard": {
+   "top": 635,
+   "h": 144,
+   "inFirstScreen": true
+  },
+  "ledger": {
+   "top": 392,
+   "h": 2,
+   "inFirstScreen": true
+  },
+  "tplExit": {
+   "top": 262,
+   "h": 33,
+   "inFirstScreen": true
+  },
+  "emptyHead": "这 30 个案里没有「餐厅」专案。但模板层有：M02 暖调门店站 的 README 适用行业里就写着「餐厅」，它才是为这行做的：",
+  "emptyAll": "模板层承诺的全部行业（逐字来自三个 README）："
+ },
+ "03-search-bar-no-template": {
+  "scrollY": 310,
+  "vh": 900,
+  "count": "列出 0 / 30 个方案",
+  "empty": {
+   "hidden": false,
+   "display": "block",
+   "top": 394,
+   "h": 158,
+   "inFirstScreen": true
+  },
+  "emptyTpl": {
+   "hidden": false,
+   "display": "block",
+   "top": 552,
+   "h": 175,
+   "inFirstScreen": true
+  },
+  "strip": {
+   "hidden": true,
+   "display": "none",
+   "top": 310,
+   "h": 0,
+   "inFirstScreen": false
+  },
+  "firstTplCard": null,
+  "ledger": {
+   "top": 392,
+   "h": 2,
+   "inFirstScreen": true
+  },
+  "tplExit": {
+   "top": 262,
+   "h": 33,
+   "inFirstScreen": false
+  },
+  "emptyHead": "「酒吧」在 30 个案里 0 个命中，三个大众模板的 README 适用清单里也没有。这一类，这套图集和模板层都给不了你 —— 不是你条件加多了。",
+  "emptyAll": "模板层承诺的全部行业（逐字来自三个 README）："
+ },
+ "04-search-dessert-adjacent": {
+  "scrollY": 0,
+  "vh": 900,
+  "count": "列出 0 / 30 个方案",
+  "empty": {
+   "hidden": false,
+   "display": "block",
+   "top": 394,
+   "h": 158,
+   "inFirstScreen": true
+  },
+  "emptyTpl": {
+   "hidden": false,
+   "display": "block",
+   "top": 552,
+   "h": 490,
+   "inFirstScreen": true
+  },
+  "strip": {
+   "hidden": true,
+   "display": "none",
+   "top": 0,
+   "h": 0,
+   "inFirstScreen": false
+  },
+  "firstTplCard": {
+   "top": 635,
+   "h": 283,
+   "inFirstScreen": true
+  },
+  "ledger": {
+   "top": 392,
+   "h": 2,
+   "inFirstScreen": true
+  },
+  "tplExit": {
+   "top": 262,
+   "h": 33,
+   "inFirstScreen": true
+  },
+  "emptyHead": "「甜品」在 30 个案里 0 个命中；三个模板的 README 适用清单里也没有这个词。下面只是相邻候选 —— 它自己写的行业是「餐厅 / 咖啡馆 / 烘焙 / 民宿 / 理发店 / 花店」：",
+  "emptyAll": "模板层承诺的全部行业（逐字来自三个 README）："
+ },
+ "05-search-ecommerce-none": {
+  "scrollY": 0,
+  "vh": 900,
+  "count": "列出 0 / 30 个方案",
+  "empty": {
+   "hidden": false,
+   "display": "block",
+   "top": 394,
+   "h": 158,
+   "inFirstScreen": true
+  },
+  "emptyTpl": {
+   "hidden": false,
+   "display": "block",
+   "top": 552,
+   "h": 175,
+   "inFirstScreen": true
+  },
+  "strip": {
+   "hidden": true,
+   "display": "none",
+   "top": 0,
+   "h": 0,
+   "inFirstScreen": false
+  },
+  "firstTplCard": null,
+  "ledger": {
+   "top": 392,
+   "h": 2,
+   "inFirstScreen": true
+  },
+  "tplExit": {
+   "top": 262,
+   "h": 33,
+   "inFirstScreen": true
+  },
+  "emptyHead": "「电商」在 30 个案里 0 个命中，三个大众模板的 README 适用清单里也没有。这一类，这套图集和模板层都给不了你 —— 不是你条件加多了。",
+  "emptyAll": "模板层承诺的全部行业（逐字来自三个 README）："
+ },
+ "06-search-portfolio-adjacent": {
+  "scrollY": 0,
+  "vh": 900,
+  "count": "列出 5 / 30 个方案",
+  "empty": {
+   "hidden": true,
+   "display": "none",
+   "top": 0,
+   "h": 0,
+   "inFirstScreen": false
+  },
+  "emptyTpl": {
+   "hidden": true,
+   "display": "none",
+   "top": 0,
+   "h": 0,
+   "inFirstScreen": false
+  },
+  "strip": {
+   "hidden": false,
+   "display": "block",
+   "top": 410,
+   "h": 341,
+   "inFirstScreen": true
+  },
+  "firstTplCard": {
+   "top": 507,
+   "h": 238,
+   "inFirstScreen": true
+  },
+  "ledger": {
+   "top": 773,
+   "h": 1386,
+   "inFirstScreen": true
+  },
+  "tplExit": {
+   "top": 262,
+   "h": 33,
+   "inFirstScreen": true
+  },
+  "emptyHead": "",
+  "emptyAll": ""
+ },
+ "07-chip-restaurant-strip": {
+  "scrollY": 0,
+  "vh": 900,
+  "count": "列出 2 / 30 个方案",
+  "empty": {
+   "hidden": true,
+   "display": "none",
+   "top": 0,
+   "h": 0,
+   "inFirstScreen": false
+  },
+  "emptyTpl": {
+   "hidden": true,
+   "display": "none",
+   "top": 0,
+   "h": 0,
+   "inFirstScreen": false
+  },
+  "strip": {
+   "hidden": false,
+   "display": "block",
+   "top": 410,
+   "h": 224,
+   "inFirstScreen": true
+  },
+  "firstTplCard": {
+   "top": 484,
+   "h": 144,
+   "inFirstScreen": true
+  },
+  "ledger": {
+   "top": 656,
+   "h": 556,
+   "inFirstScreen": true
+  },
+  "tplExit": {
+   "top": 262,
+   "h": 33,
+   "inFirstScreen": true
+  },
+  "emptyHead": "",
+  "emptyAll": ""
+ },
+ "08-chip-coffeeshop-strip": {
+  "scrollY": 0,
+  "vh": 900,
+  "count": "列出 4 / 30 个方案",
+  "empty": {
+   "hidden": true,
+   "display": "none",
+   "top": 0,
+   "h": 0,
+   "inFirstScreen": false
+  },
+  "emptyTpl": {
+   "hidden": true,
+   "display": "none",
+   "top": 0,
+   "h": 0,
+   "inFirstScreen": false
+  },
+  "strip": {
+   "hidden": false,
+   "display": "block",
+   "top": 410,
+   "h": 224,
+   "inFirstScreen": true
+  },
+  "firstTplCard": {
+   "top": 484,
+   "h": 144,
+   "inFirstScreen": true
+  },
+  "ledger": {
+   "top": 656,
+   "h": 1109,
+   "inFirstScreen": true
+  },
+  "tplExit": {
+   "top": 262,
+   "h": 33,
+   "inFirstScreen": true
+  },
+  "emptyHead": "",
+  "emptyAll": ""
+ },
+ "09-search-dessert-tpl-scrolled": {
+  "scrollY": 0,
+  "vh": 900,
+  "count": "列出 0 / 30 个方案",
+  "empty": {
+   "hidden": false,
+   "display": "block",
+   "top": 394,
+   "h": 158,
+   "inFirstScreen": true
+  },
+  "emptyTpl": {
+   "hidden": false,
+   "display": "block",
+   "top": 552,
+   "h": 490,
+   "inFirstScreen": true
+  },
+  "strip": {
+   "hidden": true,
+   "display": "none",
+   "top": 0,
+   "h": 0,
+   "inFirstScreen": false
+  },
+  "firstTplCard": {
+   "top": 635,
+   "h": 283,
+   "inFirstScreen": true
+  },
+  "ledger": {
+   "top": 392,
+   "h": 2,
+   "inFirstScreen": true
+  },
+  "tplExit": {
+   "top": 262,
+   "h": 33,
+   "inFirstScreen": true
+  },
+  "emptyHead": "「甜品」在 30 个案里 0 个命中；三个模板的 README 适用清单里也没有这个词。下面只是相邻候选 —— 它自己写的行业是「餐厅 / 咖啡馆 / 烘焙 / 民宿 / 理发店 / 花店」：",
+  "emptyAll": "模板层承诺的全部行业（逐字来自三个 README）："
+ }
+}

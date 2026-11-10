@@ -549,13 +549,27 @@ if (process.argv.includes('--selftest')) {
   });
 
   // B6. 暖浅色带超标 → 必须红（这是 Q2 最核心的一条）
-  const b6rows = [...real, ...Array.from({ length: 5 }, (_, i) => ({
+  //
+  // ⚠️ 2026-11-11 修：这条夹具原本写死「加 5 个暖米纸色」，
+  // 而它当时是在 30 案的库上成立的（18+5 / 30+5 = 65.7% > 60%）。
+  // Q2 加了 5 个案之后库变成 35 案，同样加 5 个只有 23/40 = 57.5%，
+  // **正确地不红了** —— 断言的阈值没变，是库变大了。
+  //
+  // 所以夹具必须**按当前案数算需要加几个**才能越过 60%，而不是写死 5。
+  // 这同时让用例在库继续变大时仍然成立：库越大，需要的"注入量"越多，
+  // 那正是这条地板想表达的意思（占比要涨上去越来越难）。
+  const warmNow = real.filter((r) => r.band === '暖浅色带').length;
+  const nNow = real.length;
+  // 求最小的 k 使 (warmNow + k) / (nNow + k) > 0.60
+  let kNeed = 1;
+  while ((warmNow + kNeed) / (nNow + kNeed) <= 0.60 && kNeed < 200) kNeed++;
+  const b6rows = [...real, ...Array.from({ length: kNeed }, (_, i) => ({
     ...real[0], id: 'P' + i, bg: '#EFE7D7', hue: 40, hslL: 89, labL: 92,
     band: '暖浅色带', bandClaimed: '暖浅色带', hasAxes: true, structure: 'ZZ' + i,
   }))];
   const b6 = runCheck(b6rows, b6rows.length);
   cases.push({
-    label: 'B6. 新增 5 个暖米纸色（占比 18/35→23/35 = 65.7%）',
+    label: `B6. 注入 ${kNeed} 个暖米纸色（${warmNow}/${nNow} → ${warmNow + kNeed}/${nNow + kNeed} = ${Math.round(((warmNow + kNeed) / (nNow + kNeed)) * 100)}%）`,
     want: '红 dist-warm-pale-share',
     got: b6.findings.filter((f) => f.rule === 'dist-warm-pale-share').map((f) => f.msg.slice(0, 60)).join(''),
     ok: b6.findings.some((f) => f.rule === 'dist-warm-pale-share'),

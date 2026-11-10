@@ -1,0 +1,79 @@
+{
+ "totalLines": 620,
+ "roots": [
+  {
+   "line": 27,
+   "text": ":root {"
+  },
+  {
+   "line": 494,
+   "text": ":root { --outer: 40px; }"
+  },
+  {
+   "line": 499,
+   "text": ":root { --outer: 32px; }"
+  },
+  {
+   "line": 521,
+   "text": ":root { --outer: 20px; --gutter: 14px; --mis: 1.2px; }"
+  }
+ ],
+ "medias": [
+  {
+   "line": 493,
+   "text": "@media (max-width: 1439px) and (min-width: 1200px) {"
+  },
+  {
+   "line": 498,
+   "text": "@media (max-width: 1199px) and (min-width: 820px) {"
+  },
+  {
+   "line": 520,
+   "text": "@media (max-width: 819px) {"
+  },
+  {
+   "line": 559,
+   "text": "@media (prefers-reduced-motion: reduce) {"
+  },
+  {
+   "line": 571,
+   "text": "@media print {"
+  }
+ ],
+ "misDefs": [
+  {
+   "line": 34,
+   "text": "--mis: 1.8px;          /* 石版错位量，方向固定右上；窄屏收 1.2px */"
+  },
+  {
+   "line": 521,
+   "text": ":root { --outer: 20px; --gutter: 14px; --mis: 1.2px; }"
+  }
+ ],
+ "rootMedia": [
+  {
+   "line": 27,
+   "inMedia": null,
+   "mediaLine": null,
+   "text": ":root {"
+  },
+  {
+   "line": 494,
+   "inMedia": "@media (max-width: 1439px) and (min-width: 1200px) {",
+   "mediaLine": 493,
+   "text": ":root { --outer: 40px; }"
+  },
+  {
+   "line": 499,
+   "inMedia": "@media (max-width: 1199px) and (min-width: 820px) {",
+   "mediaLine": 498,
+   "text": ":root { --outer: 32px; }"
+  },
+  {
+   "line": 521,
+   "inMedia": "@media (max-width: 819px) {",
+   "mediaLine": 520,
+   "text": ":root { --outer: 20px; --gutter: 14px; --mis: 1.2px; }"
+  }
+ ]
+}

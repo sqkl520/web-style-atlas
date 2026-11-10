@@ -1,0 +1,1495 @@
+{
+ "at": "2026-10-29T19:56:23.066Z",
+ "summary": {
+  "totalDropped": 52,
+  "nNearDup": 33,
+  "nDistinct": 19,
+  "nIndependent": 19,
+  "meanDroppedAll": 9.93,
+  "meanDroppedIndependent": 1.15,
+  "cases_independent_area_gt_1pct": [
+   "S02:1.959%",
+   "S05:3.484%",
+   "S08:1.375%",
+   "S17:1.27%",
+   "S23:7.667%",
+   "S27:16.157%"
+  ],
+  "cases_independent_area_gt_5pct": [
+   "S23:7.667%",
+   "S27:16.157%"
+  ]
+ },
+ "rows": [
+  {
+   "id": "S01",
+   "L1": [
+    "#EFE7D7",
+    "#C1121F",
+    "#1A1614",
+    "#6E6A5E"
+   ],
+   "L3": [
+    "#C1121F",
+    "#EFE7D7",
+    "#1A1614",
+    "#6E6A5E"
+   ],
+   "dropped": [],
+   "detail": [],
+   "droppedAreaAll": 0,
+   "droppedAreaIndependent": 0,
+   "droppedAreaNearDup": 0,
+   "nIndependent": 0,
+   "nNearDup": 0
+  },
+  {
+   "id": "S02",
+   "L1": [
+    "#0B0B0F",
+    "#B8860B",
+    "#EFE6D0",
+    "#3A2E1A"
+   ],
+   "L3": [
+    "#B8860B",
+    "#0B0B0F",
+    "#EFE6D0",
+    "#3A2E1A",
+    "#111111",
+    "#B9B09A",
+    "#14100A"
+   ],
+   "dropped": [
+    "#111111",
+    "#B9B09A",
+    "#14100A"
+   ],
+   "detail": [
+    {
+     "hex": "#111111",
+     "areaPct": 30.135,
+     "nearestKept": "#0B0B0F",
+     "nearestKeptDE": 2.72,
+     "hasRole": true,
+     "roleNames": [
+      "--ink /*暗金填充上的文字*/"
+     ],
+     "distinct": false,
+     "declared": true,
+     "independent": false
+    },
+    {
+     "hex": "#B9B09A",
+     "areaPct": 1.959,
+     "nearestKept": "#EFE6D0",
+     "nearestKeptDE": 19.44,
+     "hasRole": true,
+     "roleNames": [
+      "--ivory-2 /*次级正文（对 --card 9.2:1）*/"
+     ],
+     "distinct": true,
+     "declared": true,
+     "independent": true
+    },
+    {
+     "hex": "#14100A",
+     "areaPct": 7.53,
+     "nearestKept": "#0B0B0F",
+     "nearestKeptDE": 5.32,
+     "hasRole": true,
+     "roleNames": [
+      "--band /*表头／注记的色阶，比地面亮一档*/"
+     ],
+     "distinct": false,
+     "declared": true,
+     "independent": false
+    }
+   ],
+   "droppedAreaAll": 39.624,
+   "droppedAreaIndependent": 1.959,
+   "droppedAreaNearDup": 37.665,
+   "nIndependent": 1,
+   "nNearDup": 2
+  },
+  {
+   "id": "S03",
+   "L1": [
+    "#101A1C",
+    "#13928E",
+    "#C9D6CF",
+    "#B9A98C"
+   ],
+   "L3": [
+    "#13928E",
+    "#101A1C",
+    "#C9D6CF",
+    "#B9A98C",
+    "#162226",
+    "#0C1417",
+    "#2A3639"
+   ],
+   "dropped": [
+    "#162226",
+    "#0C1417",
+    "#2A3639"
+   ],
+   "detail": [
+    {
+     "hex": "#162226",
+     "areaPct": 9.316,
+     "nearestKept": "#101A1C",
+     "nearestKeptDE": 4.18,
+     "hasRole": true,
+     "roleNames": [
+      "--panel /*分区色调步进，用于读数行 hover 与容器底面*/"
+     ],
+     "distinct": false,
+     "declared": true,
+     "independent": false
+    },
+    {
+     "hex": "#0C1417",
+     "areaPct": 44.738,
+     "nearestKept": "#101A1C",
+     "nearestKeptDE": 3.13,
+     "hasRole": true,
+     "roleNames": [
+      "--panel-2 /*更深的底面，用于仪器面板*/"
+     ],
+     "distinct": false,
+     "declared": true,
+     "independent": false
+    },
+    {
+     "hex": "#2A3639",
+     "areaPct": 0.49,
+     "nearestKept": "#101A1C",
+     "nearestKeptDE": 13.28,
+     "hasRole": true,
+     "roleNames": [
+      "--rule /*1px 实色边，禁止发光*/"
+     ],
+     "distinct": true,
+     "declared": true,
+     "independent": true
+    }
+   ],
+   "droppedAreaAll": 54.544,
+   "droppedAreaIndependent": 0.49,
+   "droppedAreaNearDup": 54.054,
+   "nIndependent": 1,
+   "nNearDup": 2
+  },
+  {
+   "id": "S04",
+   "L1": [
+    "#F0E2C8",
+    "#96550F",
+    "#2F7D4F",
+    "#14100C"
+   ],
+   "L3": [
+    "#2F7D4F",
+    "#96550F",
+    "#14100C",
+    "#F0E2C8"
+   ],
+   "dropped": [],
+   "detail": [],
+   "droppedAreaAll": 0,
+   "droppedAreaIndependent": 0,
+   "droppedAreaNearDup": 0,
+   "nIndependent": 0,
+   "nNearDup": 0
+  },
+  {
+   "id": "S05",
+   "L1": [
+    "#0E100D",
+    "#4FA83D",
+    "#BFB9A6",
+    "#8C2F1F"
+   ],
+   "L3": [
+    "#4FA83D",
+    "#0E100D",
+    "#BFB9A6",
+    "#8C2F1F",
+    "#111111",
+    "#2A2E28",
+    "#050605"
+   ],
+   "dropped": [
+    "#111111",
+    "#2A2E28",
+    "#050605"
+   ],
+   "detail": [
+    {
+     "hex": "#111111",
+     "areaPct": 0.269,
+     "nearestKept": "#0E100D",
+     "nearestKeptDE": 1.81,
+     "hasRole": true,
+     "roleNames": [
+      "--on-paint /*漆面绿上的字 6.30:1*/"
+     ],
+     "distinct": false,
+     "declared": true,
+     "independent": false
+    },
+    {
+     "hex": "#2A2E28",
+     "areaPct": 3.484,
+     "nearestKept": "#0E100D",
+     "nearestKeptDE": 14.2,
+     "hasRole": true,
+     "roleNames": [
+      "--groove-hi /*凹槽上高光 1px*/"
+     ],
+     "distinct": true,
+     "declared": true,
+     "independent": true
+    },
+    {
+     "hex": "#050605",
+     "areaPct": 1.631,
+     "nearestKept": "#0E100D",
+     "nearestKeptDE": 3.13,
+     "hasRole": true,
+     "roleNames": [
+      "--groove-lo /*凹槽下暗边 1px*/"
+     ],
+     "distinct": false,
+     "declared": true,
+     "independent": false
+    }
+   ],
+   "droppedAreaAll": 5.384,
+   "droppedAreaIndependent": 3.484,
+   "droppedAreaNearDup": 1.9,
+   "nIndependent": 1,
+   "nNearDup": 2
+  },
+  {
+   "id": "S06",
+   "L1": [
+    "#ECDEC6",
+    "#85572A",
+    "#241A12",
+    "#C9A87C"
+   ],
+   "L3": [
+    "#85572A",
+    "#ECDEC6",
+    "#241A12",
+    "#C9A87C",
+    "#E6D8BC",
+    "#E0D0B0",
+    "#E4D5B8"
+   ],
+   "dropped": [
+    "#E6D8BC",
+    "#E0D0B0",
+    "#E4D5B8"
+   ],
+   "detail": [
+    {
+     "hex": "#E6D8BC",
+     "areaPct": 21.807,
+     "nearestKept": "#ECDEC6",
+     "nearestKeptDE": 3.07,
+     "hasRole": true,
+     "roleNames": [
+      "--card"
+     ],
+     "distinct": false,
+     "declared": true,
+     "independent": false
+    },
+    {
+     "hex": "#E0D0B0",
+     "areaPct": 3.9,
+     "nearestKept": "#ECDEC6",
+     "nearestKeptDE": 6.67,
+     "hasRole": true,
+     "roleNames": [
+      "--card-2"
+     ],
+     "distinct": false,
+     "declared": true,
+     "independent": false
+    },
+    {
+     "hex": "#E4D5B8",
+     "areaPct": 62.105,
+     "nearestKept": "#ECDEC6",
+     "nearestKeptDE": 4.23,
+     "hasRole": true,
+     "roleNames": [
+      "--pale"
+     ],
+     "distinct": false,
+     "declared": true,
+     "independent": false
+    }
+   ],
+   "droppedAreaAll": 87.812,
+   "droppedAreaIndependent": 0,
+   "droppedAreaNearDup": 87.812,
+   "nIndependent": 0,
+   "nNearDup": 3
+  },
+  {
+   "id": "S07",
+   "L1": [
+    "#E7E7E0",
+    "#33505C",
+    "#1C1A16",
+    "#9A9384"
+   ],
+   "L3": [
+    "#33505C",
+    "#E7E7E0",
+    "#1C1A16",
+    "#9A9384"
+   ],
+   "dropped": [],
+   "detail": [],
+   "droppedAreaAll": 0,
+   "droppedAreaIndependent": 0,
+   "droppedAreaNearDup": 0,
+   "nIndependent": 0,
+   "nNearDup": 0
+  },
+  {
+   "id": "S08",
+   "L1": [
+    "#120C08",
+    "#C46A1F",
+    "#E8DCC8",
+    "#6B4A22"
+   ],
+   "L3": [
+    "#120C08",
+    "#C46A1F",
+    "#E8DCC8",
+    "#6B4A22",
+    "#3A2712",
+    "#111111"
+   ],
+   "dropped": [
+    "#3A2712",
+    "#111111"
+   ],
+   "detail": [
+    {
+     "hex": "#3A2712",
+     "areaPct": 1.375,
+     "nearestKept": "#6B4A22",
+     "nearestKeptDE": 20.79,
+     "hasRole": true,
+     "roleNames": [
+      "--wall-deep /*侧壁下缘的更深一档*/"
+     ],
+     "distinct": true,
+     "declared": true,
+     "independent": true
+    },
+    {
+     "hex": "#111111",
+     "areaPct": 0.023,
+     "nearestKept": "#120C08",
+     "nearestKeptDE": 3.04,
+     "hasRole": true,
+     "roleNames": [
+      "--on-amber /*琥珀面文字，实测 4.88:1*/"
+     ],
+     "distinct": false,
+     "declared": true,
+     "independent": false
+    }
+   ],
+   "droppedAreaAll": 1.398,
+   "droppedAreaIndependent": 1.375,
+   "droppedAreaNearDup": 0.023,
+   "nIndependent": 1,
+   "nNearDup": 1
+  },
+  {
+   "id": "S09",
+   "L1": [
+    "#F5C842",
+    "#1F4E79",
+    "#151310",
+    "#8A4B24"
+   ],
+   "L3": [
+    "#1F4E79",
+    "#F5C842",
+    "#151310",
+    "#8A4B24"
+   ],
+   "dropped": [],
+   "detail": [],
+   "droppedAreaAll": 0,
+   "droppedAreaIndependent": 0,
+   "droppedAreaNearDup": 0,
+   "nIndependent": 0,
+   "nNearDup": 0
+  },
+  {
+   "id": "S10",
+   "L1": [
+    "#F2EFE8",
+    "#D32029",
+    "#17171A",
+    "#6E7076"
+   ],
+   "L3": [
+    "#D32029",
+    "#F2EFE8",
+    "#17171A",
+    "#6E7076",
+    "#B6B4AE"
+   ],
+   "dropped": [
+    "#B6B4AE"
+   ],
+   "detail": [
+    {
+     "hex": "#B6B4AE",
+     "areaPct": 0.925,
+     "nearestKept": "#F2EFE8",
+     "nearestKeptDE": 21.19,
+     "hasRole": true,
+     "roleNames": [
+      "--grey-soft"
+     ],
+     "distinct": true,
+     "declared": true,
+     "independent": true
+    }
+   ],
+   "droppedAreaAll": 0.925,
+   "droppedAreaIndependent": 0.925,
+   "droppedAreaNearDup": 0,
+   "nIndependent": 1,
+   "nNearDup": 0
+  },
+  {
+   "id": "S11",
+   "L1": [
+    "#DCDDD2",
+    "#1B4A4A",
+    "#221E19",
+    "#6E7A64"
+   ],
+   "L3": [
+    "#1B4A4A",
+    "#DCDDD2",
+    "#221E19",
+    "#6E7A64"
+   ],
+   "dropped": [],
+   "detail": [],
+   "droppedAreaAll": 0,
+   "droppedAreaIndependent": 0,
+   "droppedAreaNearDup": 0,
+   "nIndependent": 0,
+   "nNearDup": 0
+  },
+  {
+   "id": "S12",
+   "L1": [
+    "#1E2A2E",
+    "#B5D626",
+    "#E23E57",
+    "#F2E9D8"
+   ],
+   "L3": [
+    "#B5D626",
+    "#1E2A2E",
+    "#E23E57",
+    "#F2E9D8",
+    "#26353A",
+    "#182226",
+    "#111111"
+   ],
+   "dropped": [
+    "#26353A",
+    "#182226",
+    "#111111"
+   ],
+   "detail": [
+    {
+     "hex": "#26353A",
+     "areaPct": 0.951,
+     "nearestKept": "#1E2A2E",
+     "nearestKeptDE": 5.06,
+     "hasRole": true,
+     "roleNames": [
+      "--room-2 /*同色相压明度一档的分区地面，不引入第四个彩色*/"
+     ],
+     "distinct": false,
+     "declared": true,
+     "independent": false
+    },
+    {
+     "hex": "#182226",
+     "areaPct": 0,
+     "nearestKept": "#1E2A2E",
+     "nearestKeptDE": 3.76,
+     "hasRole": true,
+     "roleNames": [
+      "--room-3 /*同色相再压深一档，用于状态槽*/"
+     ],
+     "distinct": false,
+     "declared": true,
+     "independent": false
+    },
+    {
+     "hex": "#111111",
+     "areaPct": 0.076,
+     "nearestKept": "#1E2A2E",
+     "nearestKeptDE": 12.52,
+     "hasRole": true,
+     "roleNames": [
+      "--btn-ink /*按钮字色，规格冻结值*/"
+     ],
+     "distinct": true,
+     "declared": true,
+     "independent": true
+    }
+   ],
+   "droppedAreaAll": 1.027,
+   "droppedAreaIndependent": 0.076,
+   "droppedAreaNearDup": 0.951,
+   "nIndependent": 1,
+   "nNearDup": 2
+  },
+  {
+   "id": "S13",
+   "L1": [
+    "#F4E3BE",
+    "#7B612C",
+    "#241F17",
+    "#D6CDB9"
+   ],
+   "L3": [
+    "#F4E3BE",
+    "#241F17",
+    "#7B612C",
+    "#D6CDB9"
+   ],
+   "dropped": [],
+   "detail": [],
+   "droppedAreaAll": 0,
+   "droppedAreaIndependent": 0,
+   "droppedAreaNearDup": 0,
+   "nIndependent": 0,
+   "nNearDup": 0
+  },
+  {
+   "id": "S14",
+   "L1": [
+    "#12181D",
+    "#E4572E",
+    "#D8D2C4",
+    "#8A3320"
+   ],
+   "L3": [
+    "#C9C4B8",
+    "#D8D2C4",
+    "#12181D",
+    "#E4572E",
+    "#8A3320",
+    "#111111"
+   ],
+   "dropped": [
+    "#C9C4B8",
+    "#111111"
+   ],
+   "detail": [
+    {
+     "hex": "#C9C4B8",
+     "areaPct": 4.43,
+     "nearestKept": "#D8D2C4",
+     "nearestKeptDE": 5.17,
+     "hasRole": false,
+     "roleNames": [],
+     "distinct": false,
+     "declared": false,
+     "independent": false
+    },
+    {
+     "hex": "#111111",
+     "areaPct": 0.008,
+     "nearestKept": "#12181D",
+     "nearestKeptDE": 5.38,
+     "hasRole": false,
+     "roleNames": [],
+     "distinct": false,
+     "declared": false,
+     "independent": false
+    }
+   ],
+   "droppedAreaAll": 4.438,
+   "droppedAreaIndependent": 0,
+   "droppedAreaNearDup": 4.438,
+   "nIndependent": 0,
+   "nNearDup": 2
+  },
+  {
+   "id": "S15",
+   "L1": [
+    "#E7EBE9",
+    "#3A3F45",
+    "#22282B",
+    "#7A7466"
+   ],
+   "L3": [
+    "#3A3F45",
+    "#E7EBE9",
+    "#22282B",
+    "#7A7466"
+   ],
+   "dropped": [],
+   "detail": [],
+   "droppedAreaAll": 0,
+   "droppedAreaIndependent": 0,
+   "droppedAreaNearDup": 0,
+   "nIndependent": 0,
+   "nNearDup": 0
+  },
+  {
+   "id": "S16",
+   "L1": [
+    "#F7EBCF",
+    "#C52C0F",
+    "#1A1A1A",
+    "#8E2A18"
+   ],
+   "L3": [
+    "#C52C0F",
+    "#F7EBCF",
+    "#1A1A1A",
+    "#8E2A18",
+    "#5C5C55"
+   ],
+   "dropped": [
+    "#5C5C55"
+   ],
+   "detail": [
+    {
+     "hex": "#5C5C55",
+     "areaPct": 0.854,
+     "nearestKept": "#1A1A1A",
+     "nearestKeptDE": 29.92,
+     "hasRole": true,
+     "roleNames": [
+      "--ink-2 /*次级墨档 5.73:1*/"
+     ],
+     "distinct": true,
+     "declared": true,
+     "independent": true
+    }
+   ],
+   "droppedAreaAll": 0.854,
+   "droppedAreaIndependent": 0.854,
+   "droppedAreaNearDup": 0,
+   "nIndependent": 1,
+   "nNearDup": 0
+  },
+  {
+   "id": "S17",
+   "L1": [
+    "#E1D6BD",
+    "#5A2A50",
+    "#7A2E2E"
+   ],
+   "L3": [
+    "#E1D6BD",
+    "#5A2A50",
+    "#7A2E2E",
+    "#C9BFA6",
+    "#3F1A38",
+    "#B9A98C",
+    "#DFD6BF"
+   ],
+   "dropped": [
+    "#C9BFA6",
+    "#3F1A38",
+    "#B9A98C",
+    "#DFD6BF"
+   ],
+   "detail": [
+    {
+     "hex": "#C9BFA6",
+     "areaPct": 13.113,
+     "nearestKept": "#E1D6BD",
+     "nearestKeptDE": 8.36,
+     "hasRole": true,
+     "roleNames": [
+      "--stub"
+     ],
+     "distinct": false,
+     "declared": true,
+     "independent": false
+    },
+    {
+     "hex": "#3F1A38",
+     "areaPct": 0.088,
+     "nearestKept": "#5A2A50",
+     "nearestKeptDE": 10.55,
+     "hasRole": true,
+     "roleNames": [
+      "--ink-deep"
+     ],
+     "distinct": true,
+     "declared": true,
+     "independent": true
+    },
+    {
+     "hex": "#B9A98C",
+     "areaPct": 1.182,
+     "nearestKept": "#E1D6BD",
+     "nearestKeptDE": 16.43,
+     "hasRole": true,
+     "roleNames": [
+      "--rule"
+     ],
+     "distinct": true,
+     "declared": true,
+     "independent": true
+    },
+    {
+     "hex": "#DFD6BF",
+     "areaPct": 0.61,
+     "nearestKept": "#E1D6BD",
+     "nearestKeptDE": 1.31,
+     "hasRole": true,
+     "roleNames": [
+      "--tone-hover"
+     ],
+     "distinct": false,
+     "declared": true,
+     "independent": false
+    }
+   ],
+   "droppedAreaAll": 14.993,
+   "droppedAreaIndependent": 1.27,
+   "droppedAreaNearDup": 13.723,
+   "nIndependent": 2,
+   "nNearDup": 2
+  },
+  {
+   "id": "S18",
+   "L1": [
+    "#0A0D0A",
+    "#2FA84F",
+    "#C8C4AE",
+    "#6E6350"
+   ],
+   "L3": [
+    "#0A0D0A",
+    "#2FA84F",
+    "#C8C4AE",
+    "#6E6350",
+    "#278F43",
+    "#111111"
+   ],
+   "dropped": [
+    "#278F43",
+    "#111111"
+   ],
+   "detail": [
+    {
+     "hex": "#278F43",
+     "areaPct": 0.091,
+     "nearestKept": "#2FA84F",
+     "nearestKeptDE": 11.35,
+     "hasRole": true,
+     "roleNames": [
+      "--phos-deep /*悬停一档，对 #111111 仍有 4.58:1*/"
+     ],
+     "distinct": true,
+     "declared": true,
+     "independent": true
+    },
+    {
+     "hex": "#111111",
+     "areaPct": 1.403,
+     "nearestKept": "#0A0D0A",
+     "nearestKeptDE": 2.33,
+     "hasRole": true,
+     "roleNames": [
+      "--ink /*填充色块上的深色文字，唯一合法值*/"
+     ],
+     "distinct": false,
+     "declared": true,
+     "independent": false
+    }
+   ],
+   "droppedAreaAll": 1.494,
+   "droppedAreaIndependent": 0.091,
+   "droppedAreaNearDup": 1.403,
+   "nIndependent": 1,
+   "nNearDup": 1
+  },
+  {
+   "id": "S19",
+   "L1": [
+    "#E4DECD",
+    "#4A5C3A",
+    "#2A241C",
+    "#7C7460"
+   ],
+   "L3": [
+    "#4A5C3A",
+    "#E4DECD",
+    "#2A241C",
+    "#7C7460",
+    "#D8CFB6",
+    "#E9E3D2",
+    "#3A3227"
+   ],
+   "dropped": [
+    "#D8CFB6",
+    "#E9E3D2",
+    "#3A3227"
+   ],
+   "detail": [
+    {
+     "hex": "#D8CFB6",
+     "areaPct": 4.733,
+     "nearestKept": "#E4DECD",
+     "nearestKeptDE": 6.93,
+     "hasRole": true,
+     "roleNames": [
+      "--paper-deep /*副卡与木底上的次级字*/"
+     ],
+     "distinct": false,
+     "declared": true,
+     "independent": false
+    },
+    {
+     "hex": "#E9E3D2",
+     "areaPct": 2.763,
+     "nearestKept": "#E4DECD",
+     "nearestKeptDE": 1.77,
+     "hasRole": true,
+     "roleNames": [
+      "--paper-lit /*抽出的卡面（比地面亮一档）*/"
+     ],
+     "distinct": false,
+     "declared": true,
+     "independent": false
+    },
+    {
+     "hex": "#3A3227",
+     "areaPct": 1.934,
+     "nearestKept": "#2A241C",
+     "nearestKeptDE": 6.98,
+     "hasRole": true,
+     "roleNames": [
+      "--wood-lit /*抽屉面板（柜架上一档）*/"
+     ],
+     "distinct": false,
+     "declared": true,
+     "independent": false
+    }
+   ],
+   "droppedAreaAll": 9.43,
+   "droppedAreaIndependent": 0,
+   "droppedAreaNearDup": 9.43,
+   "nIndependent": 0,
+   "nNearDup": 3
+  },
+  {
+   "id": "S20",
+   "L1": [
+    "#FAF3E1",
+    "#26485C",
+    "#0F1418",
+    "#55606B"
+   ],
+   "L3": [
+    "#FAF3E1",
+    "#26485C",
+    "#0F1418",
+    "#55606B"
+   ],
+   "dropped": [],
+   "detail": [],
+   "droppedAreaAll": 0,
+   "droppedAreaIndependent": 0,
+   "droppedAreaNearDup": 0,
+   "nIndependent": 0,
+   "nNearDup": 0
+  },
+  {
+   "id": "S21",
+   "L1": [
+    "#E4DCC9",
+    "#3E3A34",
+    "#924307",
+    "#6E6A5E"
+   ],
+   "L3": [
+    "#3E3A34",
+    "#E4DCC9",
+    "#924307",
+    "#6E6A5E",
+    "#FFFFFF"
+   ],
+   "dropped": [
+    "#FFFFFF"
+   ],
+   "detail": [
+    {
+     "hex": "#FFFFFF",
+     "areaPct": 0.051,
+     "nearestKept": "#E4DCC9",
+     "nearestKeptDE": 15.89,
+     "hasRole": true,
+     "roleNames": [
+      "--white /*只作强调色底上的字色，6.93:1*/"
+     ],
+     "distinct": true,
+     "declared": true,
+     "independent": true
+    }
+   ],
+   "droppedAreaAll": 0.051,
+   "droppedAreaIndependent": 0.051,
+   "droppedAreaNearDup": 0,
+   "nIndependent": 1,
+   "nNearDup": 0
+  },
+  {
+   "id": "S22",
+   "L1": [
+    "#DDDAD4",
+    "#565B49",
+    "#2E2A24"
+   ],
+   "L3": [
+    "#565B49",
+    "#DDDAD4",
+    "#2E2A24",
+    "#6B6558"
+   ],
+   "dropped": [
+    "#6B6558"
+   ],
+   "detail": [
+    {
+     "hex": "#6B6558",
+     "areaPct": 1.592,
+     "nearestKept": "#565B49",
+     "nearestKeptDE": 7.76,
+     "hasRole": true,
+     "roleNames": [
+      "--crease-dark /*折痕单向暗带的实色，取自折痕位图的暗侧*/"
+     ],
+     "distinct": false,
+     "declared": true,
+     "independent": false
+    }
+   ],
+   "droppedAreaAll": 1.592,
+   "droppedAreaIndependent": 0,
+   "droppedAreaNearDup": 1.592,
+   "nIndependent": 0,
+   "nNearDup": 1
+  },
+  {
+   "id": "S23",
+   "L1": [
+    "#DCDCC8",
+    "#A8206B",
+    "#241C16",
+    "#7A6A55"
+   ],
+   "L3": [
+    "#A8206B",
+    "#241C16",
+    "#DCDCC8",
+    "#7A6A55",
+    "#E9E9D7",
+    "#5F5240",
+    "#B7A78C"
+   ],
+   "dropped": [
+    "#E9E9D7",
+    "#5F5240",
+    "#B7A78C"
+   ],
+   "detail": [
+    {
+     "hex": "#E9E9D7",
+     "areaPct": 0,
+     "nearestKept": "#DCDCC8",
+     "nearestKeptDE": 4.77,
+     "hasRole": true,
+     "roleNames": [
+      "--lime"
+     ],
+     "distinct": false,
+     "declared": true,
+     "independent": false
+    },
+    {
+     "hex": "#5F5240",
+     "areaPct": 0.439,
+     "nearestKept": "#7A6A55",
+     "nearestKeptDE": 10.24,
+     "hasRole": true,
+     "roleNames": [
+      "--mortar-ink"
+     ],
+     "distinct": true,
+     "declared": true,
+     "independent": true
+    },
+    {
+     "hex": "#B7A78C",
+     "areaPct": 7.228,
+     "nearestKept": "#DCDCC8",
+     "nearestKeptDE": 19.76,
+     "hasRole": true,
+     "roleNames": [
+      "--mortar-lit"
+     ],
+     "distinct": true,
+     "declared": true,
+     "independent": true
+    }
+   ],
+   "droppedAreaAll": 7.667,
+   "droppedAreaIndependent": 7.667,
+   "droppedAreaNearDup": 0,
+   "nIndependent": 2,
+   "nNearDup": 1
+  },
+  {
+   "id": "S24",
+   "L1": [
+    "#E6EDF2",
+    "#5D43AD",
+    "#0A1116",
+    "#6E8B7A"
+   ],
+   "L3": [
+    "#5D43AD",
+    "#E6EDF2",
+    "#0A1116",
+    "#6E8B7A",
+    "#F3F8FB",
+    "#DCE7EF",
+    "#C9D8E4"
+   ],
+   "dropped": [
+    "#F3F8FB",
+    "#DCE7EF",
+    "#C9D8E4"
+   ],
+   "detail": [
+    {
+     "hex": "#F3F8FB",
+     "areaPct": 3.531,
+     "nearestKept": "#E6EDF2",
+     "nearestKeptDE": 4.12,
+     "hasRole": true,
+     "roleNames": [
+      "--paper-2 /*浅一档的晒后留白*/"
+     ],
+     "distinct": false,
+     "declared": true,
+     "independent": false
+    },
+    {
+     "hex": "#DCE7EF",
+     "areaPct": 29.052,
+     "nearestKept": "#E6EDF2",
+     "nearestKeptDE": 3.1,
+     "hasRole": true,
+     "roleNames": [
+      "--paper-3"
+     ],
+     "distinct": false,
+     "declared": true,
+     "independent": false
+    },
+    {
+     "hex": "#C9D8E4",
+     "areaPct": 2.755,
+     "nearestKept": "#E6EDF2",
+     "nearestKeptDE": 9.03,
+     "hasRole": true,
+     "roleNames": [
+      "--paper-4"
+     ],
+     "distinct": false,
+     "declared": true,
+     "independent": false
+    }
+   ],
+   "droppedAreaAll": 35.338,
+   "droppedAreaIndependent": 0,
+   "droppedAreaNearDup": 35.338,
+   "nIndependent": 0,
+   "nNearDup": 3
+  },
+  {
+   "id": "S25",
+   "L1": [
+    "#E8E4DE",
+    "#914A27",
+    "#1E1A16",
+    "#2E6B5E"
+   ],
+   "L3": [
+    "#E8E4DE",
+    "#914A27",
+    "#1E1A16",
+    "#2E6B5E",
+    "#DFDAD2",
+    "#FFFFFF"
+   ],
+   "dropped": [
+    "#DFDAD2",
+    "#FFFFFF"
+   ],
+   "detail": [
+    {
+     "hex": "#DFDAD2",
+     "areaPct": 1.108,
+     "nearestKept": "#E8E4DE",
+     "nearestKeptDE": 3.69,
+     "hasRole": true,
+     "roleNames": [
+      "--paper-deep"
+     ],
+     "distinct": false,
+     "declared": true,
+     "independent": false
+    },
+    {
+     "hex": "#FFFFFF",
+     "areaPct": 0.005,
+     "nearestKept": "#E8E4DE",
+     "nearestKeptDE": 9.87,
+     "hasRole": true,
+     "roleNames": [
+      "--paper-white"
+     ],
+     "distinct": false,
+     "declared": true,
+     "independent": false
+    }
+   ],
+   "droppedAreaAll": 1.113,
+   "droppedAreaIndependent": 0,
+   "droppedAreaNearDup": 1.113,
+   "nIndependent": 0,
+   "nNearDup": 2
+  },
+  {
+   "id": "S26",
+   "L1": [
+    "#D3D1CA",
+    "#485270",
+    "#121212",
+    "#C8341F"
+   ],
+   "L3": [
+    "#D3D1CA",
+    "#485270",
+    "#121212",
+    "#C8341F",
+    "#FFFFFF",
+    "#C3C1B9",
+    "#38110E"
+   ],
+   "dropped": [
+    "#FFFFFF",
+    "#C3C1B9",
+    "#38110E"
+   ],
+   "detail": [
+    {
+     "hex": "#FFFFFF",
+     "areaPct": 0.141,
+     "nearestKept": "#D3D1CA",
+     "nearestKeptDE": 16.61,
+     "hasRole": true,
+     "roleNames": [
+      "--white"
+     ],
+     "distinct": true,
+     "declared": true,
+     "independent": true
+    },
+    {
+     "hex": "#C3C1B9",
+     "areaPct": 5.268,
+     "nearestKept": "#D3D1CA",
+     "nearestKeptDE": 5.83,
+     "hasRole": true,
+     "roleNames": [
+      "--tint /*表格合计行，纸底下沉一档；#121212 对它是 10.39:1*/"
+     ],
+     "distinct": false,
+     "declared": true,
+     "independent": false
+    },
+    {
+     "hex": "#38110E",
+     "areaPct": 0.04,
+     "nearestKept": "#121212",
+     "nearestKeptDE": 22.87,
+     "hasRole": true,
+     "roleNames": [
+      "--mul-br /*蓝×红 相乘色*/"
+     ],
+     "distinct": true,
+     "declared": true,
+     "independent": true
+    }
+   ],
+   "droppedAreaAll": 5.449,
+   "droppedAreaIndependent": 0.181,
+   "droppedAreaNearDup": 5.268,
+   "nIndependent": 2,
+   "nNearDup": 1
+  },
+  {
+   "id": "S27",
+   "L1": [
+    "#E8D7B5",
+    "#0E6258",
+    "#221C10"
+   ],
+   "L3": [
+    "#0E6258",
+    "#221C10",
+    "#E8D7B5",
+    "#1A150C",
+    "#C9BFA6",
+    "#FFFFFF"
+   ],
+   "dropped": [
+    "#1A150C",
+    "#C9BFA6",
+    "#FFFFFF"
+   ],
+   "detail": [
+    {
+     "hex": "#1A150C",
+     "areaPct": 0.375,
+     "nearestKept": "#221C10",
+     "nearestKeptDE": 4.79,
+     "hasRole": true,
+     "roleNames": [
+      "--ink2 /*炭黑降 25% 明度：自绘图标线色*/"
+     ],
+     "distinct": false,
+     "declared": true,
+     "independent": false
+    },
+    {
+     "hex": "#C9BFA6",
+     "areaPct": 0.305,
+     "nearestKept": "#E8D7B5",
+     "nearestKeptDE": 10.39,
+     "hasRole": true,
+     "roleNames": [
+      "--paper2 /*次级纸色：只作炭黑面上的次要文字色*/"
+     ],
+     "distinct": true,
+     "declared": true,
+     "independent": true
+    },
+    {
+     "hex": "#FFFFFF",
+     "areaPct": 15.852,
+     "nearestKept": "#E8D7B5",
+     "nearestKeptDE": 23.22,
+     "hasRole": true,
+     "roleNames": [
+      "--white /*墨绿底上的按钮字色*/"
+     ],
+     "distinct": true,
+     "declared": true,
+     "independent": true
+    }
+   ],
+   "droppedAreaAll": 16.532,
+   "droppedAreaIndependent": 16.157,
+   "droppedAreaNearDup": 0.375,
+   "nIndependent": 2,
+   "nNearDup": 1
+  },
+  {
+   "id": "S28",
+   "L1": [
+    "#0B0D12",
+    "#AF74BE",
+    "#D8D4C6"
+   ],
+   "L3": [
+    "#AF74BE",
+    "#D8D4C6",
+    "#0B0D12",
+    "#07080C"
+   ],
+   "dropped": [
+    "#07080C"
+   ],
+   "detail": [
+    {
+     "hex": "#07080C",
+     "areaPct": 1.517,
+     "nearestKept": "#0B0D12",
+     "nearestKeptDE": 1.79,
+     "hasRole": true,
+     "roleNames": [
+      "--ink2 /*油墨黑再降一档（吨位差）：照片框的底*/"
+     ],
+     "distinct": false,
+     "declared": true,
+     "independent": false
+    }
+   ],
+   "droppedAreaAll": 1.517,
+   "droppedAreaIndependent": 0,
+   "droppedAreaNearDup": 1.517,
+   "nIndependent": 0,
+   "nNearDup": 1
+  },
+  {
+   "id": "S29",
+   "L1": [
+    "#D9D3C4",
+    "#644F02",
+    "#1A1A17",
+    "#5A6068"
+   ],
+   "L3": [
+    "#644F02",
+    "#D9D3C4",
+    "#1A1A17",
+    "#5A6068",
+    "#E4B400",
+    "#E0DACB"
+   ],
+   "dropped": [
+    "#E4B400",
+    "#E0DACB"
+   ],
+   "detail": [
+    {
+     "hex": "#E4B400",
+     "areaPct": 0,
+     "nearestKept": "#644F02",
+     "nearestKeptDE": 54.34,
+     "hasRole": true,
+     "roleNames": [
+      "--bright /*装饰性实色块，对纸底 1.50:1 → 不承载正文与图标*/"
+     ],
+     "distinct": true,
+     "declared": true,
+     "independent": true
+    },
+    {
+     "hex": "#E0DACB",
+     "areaPct": 2.799,
+     "nearestKept": "#D9D3C4",
+     "nearestKeptDE": 2.49,
+     "hasRole": true,
+     "roleNames": [
+      "--row /*规格表行悬停底色*/"
+     ],
+     "distinct": false,
+     "declared": true,
+     "independent": false
+    }
+   ],
+   "droppedAreaAll": 2.799,
+   "droppedAreaIndependent": 0,
+   "droppedAreaNearDup": 2.799,
+   "nIndependent": 1,
+   "nNearDup": 1
+  },
+  {
+   "id": "S30",
+   "L1": [
+    "#EDEDED",
+    "#007B3F",
+    "#141414"
+   ],
+   "L3": [
+    "#007B3F",
+    "#EDEDED",
+    "#141414",
+    "#E6E6E6",
+    "#00E676",
+    "#FFFFFF"
+   ],
+   "dropped": [
+    "#E6E6E6",
+    "#00E676",
+    "#FFFFFF"
+   ],
+   "detail": [
+    {
+     "hex": "#E6E6E6",
+     "areaPct": 3.199,
+     "nearestKept": "#EDEDED",
+     "nearestKeptDE": 2.46,
+     "hasRole": true,
+     "roleNames": [
+      "--paper-low /*下半：#EDEDED 上叠 3% #141414*/"
+     ],
+     "distinct": false,
+     "declared": true,
+     "independent": false
+    },
+    {
+     "hex": "#00E676",
+     "areaPct": 0,
+     "nearestKept": "#007B3F",
+     "nearestKeptDE": 47.62,
+     "hasRole": true,
+     "roleNames": [
+      "--deco /*装饰性实色块，不承载文字与图标*/"
+     ],
+     "distinct": true,
+     "declared": true,
+     "independent": true
+    },
+    {
+     "hex": "#FFFFFF",
+     "areaPct": 0.577,
+     "nearestKept": "#EDEDED",
+     "nearestKeptDE": 6.25,
+     "hasRole": true,
+     "roleNames": [
+      "--white"
+     ],
+     "distinct": false,
+     "declared": true,
+     "independent": false
+    }
+   ],
+   "droppedAreaAll": 3.776,
+   "droppedAreaIndependent": 0,
+   "droppedAreaNearDup": 3.776,
+   "nIndependent": 1,
+   "nNearDup": 2
+  }
+ ]
+}

@@ -1,0 +1,13 @@
+﻿const old2="2. 用你自己的真实数量排：有几个排几个，不凑整、不留空位、不留占位符、编号连续不跳号。";
+const base2="2. 用你自己的真实数量排：有几个排几个，不凑整、不重复填满，不用占位符顶数。";
+const void2="2. 用你自己的真实数量排：有几个排几个，不凑整、不重复填满。但这个版式有几处位置是**刻意留空**的（缺号、空抽屉、空白卡、空白行）：那是叙事证据，不要补满、不要删掉、编号也不许重排。";
+const old3yes="3. 但这个版式的位置是按 20 个数出来的（写死坐标或编号，不是自动流），少一个就空一格：确实不足 20 个时，把空出来的位置删掉、整块重排，不要留空槽，也不要编造内容去填。";
+const add3yes="（上面点名的刻意留空不算，那几处照旧空着）";
+const add3no="（上面点名的刻意留空照旧保留）";
+const old3no="3. 这个版式是自动流排版，删条目只会让页面变短、不会留空位，你按自己的数量排就好。";
+const L=(n,s)=>console.log(n.padEnd(10)+String(s.length).padStart(4)+'  '+s);
+L('old2',old2);L('base2',base2);L('void2',void2);L('old3yes',old3yes);L('old3no',old3no);L('add3yes',add3yes);L('add3no',add3no);
+console.log('base2 - old2 = '+(base2.length-old2.length));
+console.log('void2 - old2 = '+(void2.length-old2.length));
+console.log('void2+add3yes - old2 = '+(void2.length+add3yes.length-old2.length));
+console.log('void2+add3no  - old2 = '+(void2.length+add3no.length-old2.length));

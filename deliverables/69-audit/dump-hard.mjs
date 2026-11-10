@@ -1,0 +1,10 @@
+﻿import fs from "node:fs";
+const src = fs.readFileSync("prototypes/_selection/prompts.js","utf8");
+global.window = {};
+new Function("window", src)(global.window);
+const P = global.window.STYLE_PROMPTS;
+console.log("hardIds:", JSON.stringify(P.hardIds));
+console.log("unsupported type:", typeof P.unsupported, Array.isArray(P.unsupported)?"array":"obj");
+console.log("unsupported:", JSON.stringify(P.unsupported).slice(0,2000));
+console.log("schemes len:", (P.schemes||[]).length);
+console.log("scheme keys sample:", JSON.stringify(Object.keys(P.schemes?.[0]||{})));

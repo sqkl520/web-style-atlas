@@ -1,0 +1,114 @@
+{
+ "emptyButtons": {
+  "餐厅": {
+   "rows": 0,
+   "btns": [
+    {
+     "tag": "BUTTON",
+     "text": "按「餐厅」芯片筛（2 行）",
+     "cls": "e-act"
+    }
+   ]
+  },
+  "电商": {
+   "rows": 0,
+   "btns": [
+    {
+     "tag": "BUTTON",
+     "text": "清空筛选（30 行）",
+     "cls": "e-act"
+    }
+   ]
+  },
+  "律师": {
+   "rows": 0,
+   "btns": [
+    {
+     "tag": "BUTTON",
+     "text": "按「律师」芯片筛（2 行）",
+     "cls": "e-act"
+    }
+   ]
+  },
+  "诊所": {
+   "rows": 0,
+   "btns": [
+    {
+     "tag": "BUTTON",
+     "text": "按「诊所」芯片筛（2 行）",
+     "cls": "e-act"
+    }
+   ]
+  }
+ },
+ "chipFix": {
+  "rows": 2,
+  "ids": [
+   "S09",
+   "S19"
+  ],
+  "count": "列出 2 / 30 个方案",
+  "stripVisible": true,
+  "stripCards": [
+   "M02"
+  ],
+  "stripLead": "上面 2 / 30 个方案里没有专为「餐厅」做的，全部只是换文案能用的近似款；模板层有一个就是为「餐厅」写的现成模板。模板不计入这 2 个方案：",
+  "pressedChip": "餐厅",
+  "parkedBar": "放回搜索丢弃 | "
+ },
+ "detailBottom": {
+  "nChildren": 6,
+  "sections": [
+   {
+    "tag": "DIV",
+    "cls": "prompt-cta",
+    "text": "复制 AI 提示词 ⚠ 机制绑在特定题材上，换普通内容会退化。具体不适合什么，写在详情「适用场景」段末。 当前 1879 字 你经营什么 访客要做的动作 填了直接进提示词开头；不填也能复制，开头会写「开头两行要你自己填（"
+   },
+   {
+    "tag": "DETAILS",
+    "cls": "fold fold-view",
+    "text": "原型截图预览 3 张 点开看 1440 / 768 / 390 三档大图，限高可滚动"
+   },
+   {
+    "tag": "A",
+    "cls": "open-proto",
+    "text": "打开原型 S21-interlocking-release-book ↗"
+   },
+   {
+    "tag": "DETAILS",
+    "cls": "fold fold-gate",
+    "text": "闸门与报告 FAIL 1 WARN 2 展开看屏数、真实图、报告时间与逐条 FAIL/WARN"
+   },
+   {
+    "tag": "DETAILS",
+    "cls": "fold fold-parts",
+    "text": "上站文案 4 段 主张句 / 按钮 / 空状态 / 错误状态"
+   },
+   {
+    "tag": "DL",
+    "cls": "fields",
+    "text": "一句话视觉定义 整页是一张摊在值班台上的联锁释放簿：左右两栏是道岔与信号的联锁表，中间一条由 14 枚\"锁闭条\"拼成的释放路径横贯页面，读一列就等于走一遍\"扳这根之前必须先松哪根\"的推理过程。 美学家族与参考 瑞士铁路扳"
+   }
+  ],
+  "last": [
+   {
+    "tag": "DETAILS",
+    "cls": "fold fold-gate",
+    "text": "闸门与报告 FAIL 1 WARN 2 展开看屏数、真实图、报告时间与逐条 FAIL/WARN"
+   },
+   {
+    "tag": "DETAILS",
+    "cls": "fold fold-parts",
+    "text": "上站文案 4 段 主张句 / 按钮 / 空状态 / 错误状态"
+   },
+   {
+    "tag": "DL",
+    "cls": "fields",
+    "text": "一句话视觉定义 整页是一张摊在值班台上的联锁释放簿：左右两栏是道岔与信号的联锁表，中间一条由 14 枚\"锁闭条\"拼成的释放路径横贯页面，读一列就等于走一遍\"扳这根之前必须先松哪根\"的推理过程。 美学家族与参考 瑞士铁路扳"
+   }
+  ],
+  "hasTemplate": true,
+  "bodyScrollH": 2256,
+  "bodyClientH": 2256
+ }
+}

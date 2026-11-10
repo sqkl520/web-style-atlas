@@ -1,0 +1,2931 @@
+{
+ "rows": [
+  {
+   "id": "S01",
+   "now": {
+    "text": "5. 线宽只用这几级：1px、3px，不要自创第三级。",
+    "claimed": [
+     1,
+     3
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "a": {
+    "text": "5. 线宽只用这几级：1px、3px，不要自创第三级。",
+    "claimed": [
+     1,
+     3
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "b": {
+    "text": "5. 线宽只用这几级：1px、3px，全站只有这 2 级，不要加第三级。",
+    "claimed": [
+     1,
+     3
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "c": {
+    "text": "5. CSS 边框/焦点环只用 1px、3px（共 2 档），不要加新档。\n6. 不用 SVG 描边。",
+    "claimed": [
+     1,
+     3
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "d": {
+    "text": "5. CSS 边框/焦点环只用 1px、3px（共 2 档），不要加新档。\n6. 不用 SVG 描边。",
+    "claimed": [
+     1,
+     3
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "e": {
+    "text": "5. CSS 边框/焦点环只用 1px、3px（共 2 档），不要加新档。\n6. 不用 SVG 描边。",
+    "claimed": [
+     1,
+     3
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   }
+  },
+  {
+   "id": "S02",
+   "now": {
+    "text": "5. 线宽只用这几级：1px、2px，不要自创第三级。",
+    "claimed": [
+     1,
+     2
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "a": {
+    "text": "5. 线宽只用这几级：1px、2px，不要自创第三级。",
+    "claimed": [
+     1,
+     2
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "b": {
+    "text": "5. 线宽只用这几级：1px、2px，全站只有这 2 级，不要加第三级。",
+    "claimed": [
+     1,
+     2
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "c": {
+    "text": "5. CSS 边框/焦点环只用 1px、2px（共 2 档），不要加新档。\n6. 不用 SVG 描边。",
+    "claimed": [
+     1,
+     2
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "d": {
+    "text": "5. CSS 边框/焦点环只用 1px、2px（共 2 档），不要加新档。\n6. 不用 SVG 描边。",
+    "claimed": [
+     1,
+     2
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "e": {
+    "text": "5. CSS 边框/焦点环只用 1px、2px（共 2 档），不要加新档。\n6. 不用 SVG 描边。",
+    "claimed": [
+     1,
+     2
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   }
+  },
+  {
+   "id": "S03",
+   "now": {
+    "text": "5. 线宽只用这几级：1px、2px，不要自创第三级。",
+    "claimed": [
+     1,
+     2
+    ],
+    "phantom": [],
+    "omitted": [
+     1.2
+    ],
+    "tailBad": false,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "a": {
+    "text": "5. 线宽只用这几级：1px、2px，不要自创第三级。",
+    "claimed": [
+     1,
+     2
+    ],
+    "phantom": [],
+    "omitted": [
+     1.2
+    ],
+    "tailBad": false,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "b": {
+    "text": "5. 线宽只用这几级：1px、2px，全站只有这 2 级，不要加第三级。",
+    "claimed": [
+     1,
+     2
+    ],
+    "phantom": [],
+    "omitted": [
+     1.2
+    ],
+    "tailBad": false,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "c": {
+    "text": "5. CSS 边框/焦点环只用 1px、2px（共 2 档），不要加新档。\n6. SVG 描边宽度只用 1.2px（共 1 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     2,
+     1.2
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "d": {
+    "text": "5. CSS 边框/焦点环只用 1px、2px（共 2 档），不要加新档。\n6. SVG 描边宽度只用 1.2px（共 1 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     2,
+     1.2
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "e": {
+    "text": "5. CSS 边框/焦点环只用 1px、2px（共 2 档），不要加新档。\n6. SVG 描边宽度只用 1.2px（共 1 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     2,
+     1.2
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   }
+  },
+  {
+   "id": "S04",
+   "now": {
+    "text": "5. 线宽只用这几级：1px、3px，不要自创第三级。",
+    "claimed": [
+     1,
+     3
+    ],
+    "phantom": [],
+    "omitted": [
+     1.1
+    ],
+    "tailBad": false,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "a": {
+    "text": "5. 线宽只用这几级：1px、3px，不要自创第三级。",
+    "claimed": [
+     1,
+     3
+    ],
+    "phantom": [],
+    "omitted": [
+     1.1
+    ],
+    "tailBad": false,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "b": {
+    "text": "5. 线宽只用这几级：1px、3px，全站只有这 2 级，不要加第三级。",
+    "claimed": [
+     1,
+     3
+    ],
+    "phantom": [],
+    "omitted": [
+     1.1
+    ],
+    "tailBad": false,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "c": {
+    "text": "5. CSS 边框/焦点环只用 1px、3px（共 2 档），不要加新档。\n6. SVG 描边宽度只用 1.1px（共 1 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     3,
+     1.1
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "d": {
+    "text": "5. CSS 边框/焦点环只用 1px、3px（共 2 档），不要加新档。\n6. SVG 描边宽度只用 1.1px（共 1 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     3,
+     1.1
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "e": {
+    "text": "5. CSS 边框/焦点环只用 1px、3px（共 2 档），不要加新档。\n6. SVG 描边宽度只用 1.1px（共 1 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     3,
+     1.1
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   }
+  },
+  {
+   "id": "S05",
+   "now": {
+    "text": "5. 线宽只用这几级：1px、2px，不要自创第三级。",
+    "claimed": [
+     1,
+     2
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "a": {
+    "text": "5. 线宽只用这几级：1px、2px，不要自创第三级。",
+    "claimed": [
+     1,
+     2
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "b": {
+    "text": "5. 线宽只用这几级：1px、2px，全站只有这 2 级，不要加第三级。",
+    "claimed": [
+     1,
+     2
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "c": {
+    "text": "5. CSS 边框/焦点环只用 1px、2px（共 2 档），不要加新档。\n6. 不用 SVG 描边。",
+    "claimed": [
+     1,
+     2
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "d": {
+    "text": "5. CSS 边框/焦点环只用 1px、2px（共 2 档），不要加新档。\n6. 不用 SVG 描边。",
+    "claimed": [
+     1,
+     2
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "e": {
+    "text": "5. CSS 边框/焦点环只用 1px、2px（共 2 档），不要加新档。\n6. 不用 SVG 描边。",
+    "claimed": [
+     1,
+     2
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   }
+  },
+  {
+   "id": "S06",
+   "now": {
+    "text": "5. 线宽只用这几级：1px、2px，不要自创第三级。",
+    "claimed": [
+     1,
+     2
+    ],
+    "phantom": [],
+    "omitted": [
+     0.8
+    ],
+    "tailBad": false,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "a": {
+    "text": "5. 线宽只用这几级：0.8px、1px、2px，不要自创第三级。",
+    "claimed": [
+     0.8,
+     1,
+     2
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": true,
+    "truth": true,
+    "full": true,
+    "pass": false
+   },
+   "b": {
+    "text": "5. 线宽只用这几级：0.8px、1px、2px，全站只有这 3 级，不要自创第 4 级。",
+    "claimed": [
+     0.8,
+     1,
+     2
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "c": {
+    "text": "5. CSS 边框/焦点环只用 1px、2px（共 2 档），不要加新档。\n6. SVG 描边宽度只用 0.8px（共 1 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     2,
+     0.8
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "d": {
+    "text": "5. CSS 边框/焦点环只用 1px、2px（共 2 档），不要加新档。\n6. SVG 描边宽度只用 0.8px（共 1 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     2,
+     0.8
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "e": {
+    "text": "5. CSS 边框/焦点环只用 1px、2px（共 2 档），不要加新档。\n6. SVG 描边宽度只用 0.8px（共 1 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     2,
+     0.8
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   }
+  },
+  {
+   "id": "S07",
+   "now": {
+    "text": "5. 线宽只用这几级：1px、2px，不要自创第三级。",
+    "claimed": [
+     1,
+     2
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "a": {
+    "text": "5. 线宽只用这几级：1px、2px，不要自创第三级。",
+    "claimed": [
+     1,
+     2
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "b": {
+    "text": "5. 线宽只用这几级：1px、2px，全站只有这 2 级，不要加第三级。",
+    "claimed": [
+     1,
+     2
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "c": {
+    "text": "5. CSS 边框/焦点环只用 1px、2px（共 2 档），不要加新档。\n6. SVG 描边宽度只用 1px（共 1 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     2
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "d": {
+    "text": "5. CSS 边框/焦点环只用 1px、2px（共 2 档），不要加新档。\n6. SVG 描边宽度只用 1px（共 1 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     2
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "e": {
+    "text": "5. CSS 边框/焦点环只用 1px、2px（共 2 档），不要加新档。\n6. SVG 描边宽度只用 1px（共 1 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     2
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   }
+  },
+  {
+   "id": "S08",
+   "now": {
+    "text": "5. 线宽只用这几级：2px、3px、4px，不要自创第三级。",
+    "claimed": [
+     2,
+     3,
+     4
+    ],
+    "phantom": [],
+    "omitted": [
+     1.25
+    ],
+    "tailBad": true,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "a": {
+    "text": "5. 线宽只用这几级：1.25px、2px、3px、4px，不要自创第三级。",
+    "claimed": [
+     1.25,
+     2,
+     3,
+     4
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": true,
+    "truth": true,
+    "full": true,
+    "pass": false
+   },
+   "b": {
+    "text": "5. 线宽只用这几级：1.25px、2px、3px、4px，全站只有这 4 级，不要自创第 5 级。",
+    "claimed": [
+     1.25,
+     2,
+     3,
+     4
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "c": {
+    "text": "5. CSS 边框/焦点环只用 2px、3px、4px（共 3 档），不要加新档。\n6. SVG 描边宽度只用 1.25px（共 1 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     2,
+     3,
+     4,
+     1.25
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "d": {
+    "text": "5. CSS 边框/焦点环只用 2px、3px、4px（共 3 档），不要加新档。\n6. SVG 描边宽度只用 1.25px（共 1 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     2,
+     3,
+     4,
+     1.25
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "e": {
+    "text": "5. CSS 边框/焦点环只用 2px、3px、4px（共 3 档），不要加新档。\n6. SVG 描边宽度只用 1.25px（共 1 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     2,
+     3,
+     4,
+     1.25
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   }
+  },
+  {
+   "id": "S09",
+   "now": {
+    "text": "5. 线宽只用这几级：2px、3px、3.5px，不要自创第三级。",
+    "claimed": [
+     2,
+     3,
+     3.5
+    ],
+    "phantom": [],
+    "omitted": [
+     3.6
+    ],
+    "tailBad": true,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "a": {
+    "text": "5. 线宽只用这几级：2px、3px、3.5px，不要自创第三级。",
+    "claimed": [
+     2,
+     3,
+     3.5
+    ],
+    "phantom": [],
+    "omitted": [
+     3.6
+    ],
+    "tailBad": true,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "b": {
+    "text": "5. 线宽只用这几级：2px、3px、3.5px，全站只有这 3 级，不要自创第 4 级。",
+    "claimed": [
+     2,
+     3,
+     3.5
+    ],
+    "phantom": [],
+    "omitted": [
+     3.6
+    ],
+    "tailBad": false,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "c": {
+    "text": "5. CSS 边框/焦点环只用 2px、3px（共 2 档），不要加新档。\n6. SVG 描边宽度只用 2px、3.5px（共 2 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     2,
+     3,
+     3.5
+    ],
+    "phantom": [],
+    "omitted": [
+     3.6
+    ],
+    "tailBad": false,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "d": {
+    "text": "5. CSS 边框/焦点环只用 2px、3px（共 2 档），不要加新档。\n6. SVG 描边宽度只用 2px、3.5px（共 2 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     2,
+     3,
+     3.5
+    ],
+    "phantom": [],
+    "omitted": [
+     3.6
+    ],
+    "tailBad": false,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "e": {
+    "text": "5. CSS 边框/焦点环只用 2px、3px（共 2 档），不要加新档。\n6. SVG 描边宽度只用 2px、3.5px、3.6px（共 3 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     2,
+     3,
+     3.5,
+     3.6
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   }
+  },
+  {
+   "id": "S10",
+   "now": {
+    "text": "5. 线宽只用这几级：1.25px、2px，不要自创第三级。",
+    "claimed": [
+     1.25,
+     2
+    ],
+    "phantom": [],
+    "omitted": [
+     1.5
+    ],
+    "tailBad": false,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "a": {
+    "text": "5. 线宽只用这几级：1.25px、2px，不要自创第三级。",
+    "claimed": [
+     1.25,
+     2
+    ],
+    "phantom": [],
+    "omitted": [
+     1.5
+    ],
+    "tailBad": false,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "b": {
+    "text": "5. 线宽只用这几级：1.25px、2px，全站只有这 2 级，不要加第三级。",
+    "claimed": [
+     1.25,
+     2
+    ],
+    "phantom": [],
+    "omitted": [
+     1.5
+    ],
+    "tailBad": false,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "c": {
+    "text": "5. CSS 边框/焦点环只用 1.25px、2px（共 2 档），不要加新档。\n6. SVG 描边宽度只用 1.25px、2px（共 2 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1.25,
+     2
+    ],
+    "phantom": [],
+    "omitted": [
+     1.5
+    ],
+    "tailBad": false,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "d": {
+    "text": "5. CSS 边框/焦点环只用 1.25px、2px（共 2 档），不要加新档。\n6. SVG 描边宽度只用 1.25px、2px（共 2 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1.25,
+     2
+    ],
+    "phantom": [],
+    "omitted": [
+     1.5
+    ],
+    "tailBad": false,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "e": {
+    "text": "5. CSS 边框/焦点环只用 1.25px、1.5px、2px（共 3 档），不要加新档。\n6. SVG 描边宽度只用 1.25px、2px（共 2 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1.25,
+     1.5,
+     2
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   }
+  },
+  {
+   "id": "S11",
+   "now": {
+    "text": "5. 线宽只用这几级：1px、2px、3px，不要自创第三级。",
+    "claimed": [
+     1,
+     2,
+     3
+    ],
+    "phantom": [],
+    "omitted": [
+     1.25
+    ],
+    "tailBad": true,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "a": {
+    "text": "5. 线宽只用这几级：1px、2px、3px，不要自创第三级。",
+    "claimed": [
+     1,
+     2,
+     3
+    ],
+    "phantom": [],
+    "omitted": [
+     1.25
+    ],
+    "tailBad": true,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "b": {
+    "text": "5. 线宽只用这几级：1px、2px、3px，全站只有这 3 级，不要自创第 4 级。",
+    "claimed": [
+     1,
+     2,
+     3
+    ],
+    "phantom": [],
+    "omitted": [
+     1.25
+    ],
+    "tailBad": false,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "c": {
+    "text": "5. CSS 边框/焦点环只用 1px、2px、3px（共 3 档），不要加新档。\n6. SVG 描边宽度只用 1.25px（共 1 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     2,
+     3,
+     1.25
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "d": {
+    "text": "5. CSS 边框/焦点环只用 1px、2px、3px（共 3 档），不要加新档。\n6. SVG 描边宽度只用 1.25px（共 1 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     2,
+     3,
+     1.25
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "e": {
+    "text": "5. CSS 边框/焦点环只用 1px、2px、3px（共 3 档），不要加新档。\n6. SVG 描边宽度只用 1.25px（共 1 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     2,
+     3,
+     1.25
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   }
+  },
+  {
+   "id": "S12",
+   "now": {
+    "text": "5. 线宽只用这几级：1px、2px、8px，不要自创第三级。",
+    "claimed": [
+     1,
+     2,
+     8
+    ],
+    "phantom": [],
+    "omitted": [
+     5.66
+    ],
+    "tailBad": true,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "a": {
+    "text": "5. 线宽只用这几级：1px、2px、5.66px、8px，不要自创第三级。",
+    "claimed": [
+     1,
+     2,
+     5.66,
+     8
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": true,
+    "truth": true,
+    "full": true,
+    "pass": false
+   },
+   "b": {
+    "text": "5. 线宽只用这几级：1px、2px、5.66px、8px，全站只有这 4 级，不要自创第 5 级。",
+    "claimed": [
+     1,
+     2,
+     5.66,
+     8
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "c": {
+    "text": "5. CSS 边框/焦点环只用 1px、2px、8px（共 3 档），不要加新档。\n6. SVG 描边宽度只用 5.66px（共 1 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     2,
+     8,
+     5.66
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "d": {
+    "text": "5. CSS 边框/焦点环只用 1px、2px、8px（共 3 档），不要加新档。\n6. SVG 描边宽度只用 5.66px（共 1 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     2,
+     8,
+     5.66
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "e": {
+    "text": "5. CSS 边框/焦点环只用 1px、2px、8px（共 3 档），不要加新档。\n6. SVG 描边宽度只用 5.66px（共 1 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     2,
+     8,
+     5.66
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   }
+  },
+  {
+   "id": "S13",
+   "now": {
+    "text": "5. 线宽只用这几级：1px、2px、3px、5.5px、7px、9px、14.5px，不要自创第三级。",
+    "claimed": [
+     1,
+     2,
+     3,
+     5.5,
+     7,
+     9,
+     14.5
+    ],
+    "phantom": [],
+    "omitted": [
+     1.5
+    ],
+    "tailBad": true,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "a": {
+    "text": "5. 线宽只用这几级：1px、1.5px、2px、3px、5.5px、7px、9px、14.5px，不要自创第三级。",
+    "claimed": [
+     1,
+     1.5,
+     2,
+     3,
+     5.5,
+     7,
+     9,
+     14.5
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": true,
+    "truth": true,
+    "full": true,
+    "pass": false
+   },
+   "b": {
+    "text": "5. 线宽只用这几级：1px、1.5px、2px、3px、5.5px、7px、9px、14.5px，全站只有这 8 级，不要自创第 9 级。",
+    "claimed": [
+     1,
+     1.5,
+     2,
+     3,
+     5.5,
+     7,
+     9,
+     14.5
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "c": {
+    "text": "5. CSS 边框/焦点环只用 1px、2px、3px、5.5px、7px、9px、14.5px（共 7 档），不要加新档。\n6. SVG 描边宽度只用 1.5px（共 1 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     2,
+     3,
+     5.5,
+     7,
+     9,
+     14.5,
+     1.5
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "d": {
+    "text": "5. CSS 边框/焦点环只用 1px、2px、3px、5.5px、7px、9px、14.5px（共 7 档），不要加新档。\n6. SVG 描边宽度只用 1.5px（共 1 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     2,
+     3,
+     5.5,
+     7,
+     9,
+     14.5,
+     1.5
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "e": {
+    "text": "5. CSS 边框/焦点环只用 1px、2px、3px、5.5px、7px、9px、14.5px（共 7 档），不要加新档。\n6. SVG 描边宽度只用 1.5px（共 1 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     2,
+     3,
+     5.5,
+     7,
+     9,
+     14.5,
+     1.5
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   }
+  },
+  {
+   "id": "S14",
+   "now": {
+    "text": "5. 线宽只用这几级：1px、2px、3px，不要自创第三级。",
+    "claimed": [
+     1,
+     2,
+     3
+    ],
+    "phantom": [],
+    "omitted": [
+     1.25
+    ],
+    "tailBad": true,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "a": {
+    "text": "5. 线宽只用这几级：1px、2px、3px，不要自创第三级。",
+    "claimed": [
+     1,
+     2,
+     3
+    ],
+    "phantom": [],
+    "omitted": [
+     1.25
+    ],
+    "tailBad": true,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "b": {
+    "text": "5. 线宽只用这几级：1px、2px、3px，全站只有这 3 级，不要自创第 4 级。",
+    "claimed": [
+     1,
+     2,
+     3
+    ],
+    "phantom": [],
+    "omitted": [
+     1.25
+    ],
+    "tailBad": false,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "c": {
+    "text": "5. CSS 边框/焦点环只用 1px、2px、3px（共 3 档），不要加新档。\n6. SVG 描边宽度只用 1.25px（共 1 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     2,
+     3,
+     1.25
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "d": {
+    "text": "5. CSS 边框/焦点环只用 1px、2px、3px（共 3 档），不要加新档。\n6. SVG 描边宽度只用 1.25px（共 1 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     2,
+     3,
+     1.25
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "e": {
+    "text": "5. CSS 边框/焦点环只用 1px、2px、3px（共 3 档），不要加新档。\n6. SVG 描边宽度只用 1.25px（共 1 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     2,
+     3,
+     1.25
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   }
+  },
+  {
+   "id": "S15",
+   "now": {
+    "text": "5. 线宽只用这几级：0.5px、0.8px、1px、1.7px、3px，不要自创第三级。",
+    "claimed": [
+     0.5,
+     0.8,
+     1,
+     1.7,
+     3
+    ],
+    "phantom": [],
+    "omitted": [
+     1.2,
+     1.4,
+     2
+    ],
+    "tailBad": true,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "a": {
+    "text": "5. 线宽只用这几级：0.5px、0.8px、1px、1.7px、3px，不要自创第三级。",
+    "claimed": [
+     0.5,
+     0.8,
+     1,
+     1.7,
+     3
+    ],
+    "phantom": [],
+    "omitted": [
+     1.2,
+     1.4,
+     2
+    ],
+    "tailBad": true,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "b": {
+    "text": "5. 线宽只用这几级：0.5px、0.8px、1px、1.7px、3px，全站只有这 5 级，不要自创第 6 级。",
+    "claimed": [
+     0.5,
+     0.8,
+     1,
+     1.7,
+     3
+    ],
+    "phantom": [],
+    "omitted": [
+     1.2,
+     1.4,
+     2
+    ],
+    "tailBad": false,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "c": {
+    "text": "5. CSS 边框/焦点环只用 2px、3px（共 2 档），不要加新档。\n6. SVG 描边宽度只用 0.5px、0.8px、1px、1.7px（共 4 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     2,
+     3,
+     0.5,
+     0.8,
+     1,
+     1.7
+    ],
+    "phantom": [],
+    "omitted": [
+     1.2,
+     1.4
+    ],
+    "tailBad": false,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "d": {
+    "text": "5. CSS 边框/焦点环只用 2px、3px（共 2 档），不要加新档。\n6. SVG 描边宽度只用 0.5px、0.8px、1px、1.7px（共 4 档，SVG 用户单位），按原值写，不要折算。\n   小屏断点另有 1.2px，只在窄屏出现，不要带回桌面版。",
+    "claimed": [
+     2,
+     3,
+     0.5,
+     0.8,
+     1,
+     1.7,
+     1.2
+    ],
+    "phantom": [],
+    "omitted": [
+     1.4
+    ],
+    "tailBad": false,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "e": {
+    "text": "5. CSS 边框/焦点环只用 2px、3px（共 2 档），不要加新档。\n6. SVG 描边宽度只用 0.5px、0.8px、1px、1.2px、1.4px、1.7px、2px（共 7 档，SVG 用户单位），按原值写，不要折算。\n   小屏断点另有 1.36px，只在窄屏出现，不要带回桌面版。",
+    "claimed": [
+     2,
+     3,
+     0.5,
+     0.8,
+     1,
+     1.2,
+     1.4,
+     1.7,
+     1.36
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   }
+  },
+  {
+   "id": "S16",
+   "now": {
+    "text": "5. 线宽只用这几级：2px、3px、6px、13px，不要自创第三级。",
+    "claimed": [
+     2,
+     3,
+     6,
+     13
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": true,
+    "truth": true,
+    "full": true,
+    "pass": false
+   },
+   "a": {
+    "text": "5. 线宽只用这几级：2px、3px、6px、13px，不要自创第三级。",
+    "claimed": [
+     2,
+     3,
+     6,
+     13
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": true,
+    "truth": true,
+    "full": true,
+    "pass": false
+   },
+   "b": {
+    "text": "5. 线宽只用这几级：2px、3px、6px、13px，全站只有这 4 级，不要自创第 5 级。",
+    "claimed": [
+     2,
+     3,
+     6,
+     13
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "c": {
+    "text": "5. CSS 边框/焦点环只用 2px、3px、6px、13px（共 4 档），不要加新档。\n6. 不用 SVG 描边。",
+    "claimed": [
+     2,
+     3,
+     6,
+     13
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "d": {
+    "text": "5. CSS 边框/焦点环只用 2px、3px、6px、13px（共 4 档），不要加新档。\n6. 不用 SVG 描边。",
+    "claimed": [
+     2,
+     3,
+     6,
+     13
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "e": {
+    "text": "5. CSS 边框/焦点环只用 2px、3px、6px、13px（共 4 档），不要加新档。\n6. 不用 SVG 描边。",
+    "claimed": [
+     2,
+     3,
+     6,
+     13
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   }
+  },
+  {
+   "id": "S17",
+   "now": {
+    "text": "5. 线宽只用这几级：1px、2px，不要自创第三级。",
+    "claimed": [
+     1,
+     2
+    ],
+    "phantom": [],
+    "omitted": [
+     0.5,
+     0.8,
+     2.4,
+     5,
+     6
+    ],
+    "tailBad": false,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "a": {
+    "text": "5. 线宽只用这几级：0.5px、0.8px、1px、2px、5px、6px，不要自创第三级。",
+    "claimed": [
+     0.5,
+     0.8,
+     1,
+     2,
+     5,
+     6
+    ],
+    "phantom": [],
+    "omitted": [
+     2.4
+    ],
+    "tailBad": true,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "b": {
+    "text": "5. 线宽只用这几级：0.5px、0.8px、1px、2px、5px、6px，全站只有这 6 级，不要自创第 7 级。",
+    "claimed": [
+     0.5,
+     0.8,
+     1,
+     2,
+     5,
+     6
+    ],
+    "phantom": [],
+    "omitted": [
+     2.4
+    ],
+    "tailBad": false,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "c": {
+    "text": "5. CSS 边框/焦点环只用 1px、2px（共 2 档），不要加新档。\n6. SVG 描边宽度只用 0.5px、0.8px、2.4px、5px、6px（共 5 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     2,
+     0.5,
+     0.8,
+     2.4,
+     5,
+     6
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "d": {
+    "text": "5. CSS 边框/焦点环只用 1px、2px（共 2 档），不要加新档。\n6. SVG 描边宽度只用 0.5px、0.8px、2.4px、5px、6px（共 5 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     2,
+     0.5,
+     0.8,
+     2.4,
+     5,
+     6
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "e": {
+    "text": "5. CSS 边框/焦点环只用 1px、2px（共 2 档），不要加新档。\n6. SVG 描边宽度只用 0.5px、0.8px、2.4px、5px、6px（共 5 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     2,
+     0.5,
+     0.8,
+     2.4,
+     5,
+     6
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   }
+  },
+  {
+   "id": "S18",
+   "now": {
+    "text": "5. 线宽只用这几级：0.8px、1px、2px、4px，不要自创第三级。",
+    "claimed": [
+     0.8,
+     1,
+     2,
+     4
+    ],
+    "phantom": [],
+    "omitted": [
+     1.25
+    ],
+    "tailBad": true,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "a": {
+    "text": "5. 线宽只用这几级：0.8px、1px、2px、4px，不要自创第三级。",
+    "claimed": [
+     0.8,
+     1,
+     2,
+     4
+    ],
+    "phantom": [],
+    "omitted": [
+     1.25
+    ],
+    "tailBad": true,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "b": {
+    "text": "5. 线宽只用这几级：0.8px、1px、2px、4px，全站只有这 4 级，不要自创第 5 级。",
+    "claimed": [
+     0.8,
+     1,
+     2,
+     4
+    ],
+    "phantom": [],
+    "omitted": [
+     1.25
+    ],
+    "tailBad": false,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "c": {
+    "text": "5. CSS 边框/焦点环只用 1px、2px、4px（共 3 档），不要加新档。\n6. SVG 描边宽度只用 0.8px、1.25px（共 2 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     2,
+     4,
+     0.8,
+     1.25
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "d": {
+    "text": "5. CSS 边框/焦点环只用 1px、2px、4px（共 3 档），不要加新档。\n6. SVG 描边宽度只用 0.8px、1.25px（共 2 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     2,
+     4,
+     0.8,
+     1.25
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "e": {
+    "text": "5. CSS 边框/焦点环只用 1px、2px、4px（共 3 档），不要加新档。\n6. SVG 描边宽度只用 0.8px、1.25px（共 2 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     2,
+     4,
+     0.8,
+     1.25
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   }
+  },
+  {
+   "id": "S19",
+   "now": {
+    "text": "5. 线宽只用这几级：0.4px、0.8px、1px、3px，不要自创第三级。",
+    "claimed": [
+     0.4,
+     0.8,
+     1,
+     3
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": true,
+    "truth": true,
+    "full": true,
+    "pass": false
+   },
+   "a": {
+    "text": "5. 线宽只用这几级：0.4px、0.8px、1px、3px，不要自创第三级。",
+    "claimed": [
+     0.4,
+     0.8,
+     1,
+     3
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": true,
+    "truth": true,
+    "full": true,
+    "pass": false
+   },
+   "b": {
+    "text": "5. 线宽只用这几级：0.4px、0.8px、1px、3px，全站只有这 4 级，不要自创第 5 级。",
+    "claimed": [
+     0.4,
+     0.8,
+     1,
+     3
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "c": {
+    "text": "5. CSS 边框/焦点环只用 1px、3px（共 2 档），不要加新档。\n6. SVG 描边宽度只用 0.4px、0.8px（共 2 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     3,
+     0.4,
+     0.8
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "d": {
+    "text": "5. CSS 边框/焦点环只用 1px、3px（共 2 档），不要加新档。\n6. SVG 描边宽度只用 0.4px、0.8px（共 2 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     3,
+     0.4,
+     0.8
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "e": {
+    "text": "5. CSS 边框/焦点环只用 1px、3px（共 2 档），不要加新档。\n6. SVG 描边宽度只用 0.4px、0.8px（共 2 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     3,
+     0.4,
+     0.8
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   }
+  },
+  {
+   "id": "S20",
+   "now": {
+    "text": "5. 线宽只用这几级：0.35px、0.5px、1px、3px，不要自创第三级。",
+    "claimed": [
+     0.35,
+     0.5,
+     1,
+     3
+    ],
+    "phantom": [],
+    "omitted": [
+     0.2
+    ],
+    "tailBad": true,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "a": {
+    "text": "5. 线宽只用这几级：0.2px、0.35px、0.5px、1px、3px，不要自创第三级。",
+    "claimed": [
+     0.2,
+     0.35,
+     0.5,
+     1,
+     3
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": true,
+    "truth": true,
+    "full": true,
+    "pass": false
+   },
+   "b": {
+    "text": "5. 线宽只用这几级：0.2px、0.35px、0.5px、1px、3px，全站只有这 5 级，不要自创第 6 级。",
+    "claimed": [
+     0.2,
+     0.35,
+     0.5,
+     1,
+     3
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "c": {
+    "text": "5. CSS 边框/焦点环只用 1px、3px（共 2 档），不要加新档。\n6. SVG 描边宽度只用 0.2px、0.35px、0.5px（共 3 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     3,
+     0.2,
+     0.35,
+     0.5
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "d": {
+    "text": "5. CSS 边框/焦点环只用 1px、3px（共 2 档），不要加新档。\n6. SVG 描边宽度只用 0.2px、0.35px、0.5px（共 3 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     3,
+     0.2,
+     0.35,
+     0.5
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "e": {
+    "text": "5. CSS 边框/焦点环只用 1px、3px（共 2 档），不要加新档。\n6. SVG 描边宽度只用 0.2px、0.35px、0.5px（共 3 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     3,
+     0.2,
+     0.35,
+     0.5
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   }
+  },
+  {
+   "id": "S21",
+   "now": {
+    "text": "5. 线宽只用这几级：1px、2px，不要自创第三级。",
+    "claimed": [
+     1,
+     2
+    ],
+    "phantom": [],
+    "omitted": [
+     1.25
+    ],
+    "tailBad": false,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "a": {
+    "text": "5. 线宽只用这几级：1px、2px，不要自创第三级。",
+    "claimed": [
+     1,
+     2
+    ],
+    "phantom": [],
+    "omitted": [
+     1.25
+    ],
+    "tailBad": false,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "b": {
+    "text": "5. 线宽只用这几级：1px、2px，全站只有这 2 级，不要加第三级。",
+    "claimed": [
+     1,
+     2
+    ],
+    "phantom": [],
+    "omitted": [
+     1.25
+    ],
+    "tailBad": false,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "c": {
+    "text": "5. CSS 边框/焦点环只用 1px、2px（共 2 档），不要加新档。\n6. SVG 描边宽度只用 1.25px（共 1 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     2,
+     1.25
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "d": {
+    "text": "5. CSS 边框/焦点环只用 1px、2px（共 2 档），不要加新档。\n6. SVG 描边宽度只用 1.25px（共 1 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     2,
+     1.25
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "e": {
+    "text": "5. CSS 边框/焦点环只用 1px、2px（共 2 档），不要加新档。\n6. SVG 描边宽度只用 1.25px（共 1 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     2,
+     1.25
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   }
+  },
+  {
+   "id": "S22",
+   "now": {
+    "text": "5. 线宽只用这几级：1px、3px，不要自创第三级。",
+    "claimed": [
+     1,
+     3
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "a": {
+    "text": "5. 线宽只用这几级：1px、3px，不要自创第三级。",
+    "claimed": [
+     1,
+     3
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "b": {
+    "text": "5. 线宽只用这几级：1px、3px，全站只有这 2 级，不要加第三级。",
+    "claimed": [
+     1,
+     3
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "c": {
+    "text": "5. CSS 边框/焦点环只用 1px、3px（共 2 档），不要加新档。\n6. SVG 描边宽度只用 1px（共 1 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     3
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "d": {
+    "text": "5. CSS 边框/焦点环只用 1px、3px（共 2 档），不要加新档。\n6. SVG 描边宽度只用 1px（共 1 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     3
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "e": {
+    "text": "5. CSS 边框/焦点环只用 1px、3px（共 2 档），不要加新档。\n6. SVG 描边宽度只用 1px（共 1 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     3
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   }
+  },
+  {
+   "id": "S23",
+   "now": {
+    "text": "5. 线宽只用这几级：1px、6px，不要自创第三级。",
+    "claimed": [
+     1,
+     6
+    ],
+    "phantom": [],
+    "omitted": [
+     1.5
+    ],
+    "tailBad": false,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "a": {
+    "text": "5. 线宽只用这几级：1px、1.5px、6px，不要自创第三级。",
+    "claimed": [
+     1,
+     1.5,
+     6
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": true,
+    "truth": true,
+    "full": true,
+    "pass": false
+   },
+   "b": {
+    "text": "5. 线宽只用这几级：1px、1.5px、6px，全站只有这 3 级，不要自创第 4 级。",
+    "claimed": [
+     1,
+     1.5,
+     6
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "c": {
+    "text": "5. CSS 边框/焦点环只用 1px、6px（共 2 档），不要加新档。\n6. SVG 描边宽度只用 1.5px（共 1 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     6,
+     1.5
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "d": {
+    "text": "5. CSS 边框/焦点环只用 1px、6px（共 2 档），不要加新档。\n6. SVG 描边宽度只用 1.5px（共 1 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     6,
+     1.5
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "e": {
+    "text": "5. CSS 边框/焦点环只用 1px、6px（共 2 档），不要加新档。\n6. SVG 描边宽度只用 1.5px（共 1 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     6,
+     1.5
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   }
+  },
+  {
+   "id": "S24",
+   "now": {
+    "text": "5. 线宽只用这几级：0.4px、0.6px、0.8px、1px、2px、2.5px，不要自创第三级。",
+    "claimed": [
+     0.4,
+     0.6,
+     0.8,
+     1,
+     2,
+     2.5
+    ],
+    "phantom": [],
+    "omitted": [
+     1.2,
+     3.2
+    ],
+    "tailBad": true,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "a": {
+    "text": "5. 线宽只用这几级：0.4px、0.6px、0.8px、1px、2px、2.5px、3.2px，不要自创第三级。",
+    "claimed": [
+     0.4,
+     0.6,
+     0.8,
+     1,
+     2,
+     2.5,
+     3.2
+    ],
+    "phantom": [],
+    "omitted": [
+     1.2
+    ],
+    "tailBad": true,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "b": {
+    "text": "5. 线宽只用这几级：0.4px、0.6px、0.8px、1px、2px、2.5px、3.2px，全站只有这 7 级，不要自创第 8 级。",
+    "claimed": [
+     0.4,
+     0.6,
+     0.8,
+     1,
+     2,
+     2.5,
+     3.2
+    ],
+    "phantom": [],
+    "omitted": [
+     1.2
+    ],
+    "tailBad": false,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "c": {
+    "text": "5. CSS 边框/焦点环只用 1px、2px（共 2 档），不要加新档。\n6. SVG 描边宽度只用 0.4px、0.6px、0.8px、1px、2px、2.5px、3.2px（共 7 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     2,
+     0.4,
+     0.6,
+     0.8,
+     2.5,
+     3.2
+    ],
+    "phantom": [],
+    "omitted": [
+     1.2
+    ],
+    "tailBad": false,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "d": {
+    "text": "5. CSS 边框/焦点环只用 1px、2px（共 2 档），不要加新档。\n6. SVG 描边宽度只用 0.4px、0.6px、0.8px、1px、2px、2.5px、3.2px（共 7 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     2,
+     0.4,
+     0.6,
+     0.8,
+     2.5,
+     3.2
+    ],
+    "phantom": [],
+    "omitted": [
+     1.2
+    ],
+    "tailBad": false,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "e": {
+    "text": "5. CSS 边框/焦点环只用 1px、2px（共 2 档），不要加新档。\n6. SVG 描边宽度只用 0.4px、0.6px、0.8px、1px、1.2px、2px、2.5px、3.2px（共 8 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     2,
+     0.4,
+     0.6,
+     0.8,
+     1.2,
+     2.5,
+     3.2
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   }
+  },
+  {
+   "id": "S25",
+   "now": {
+    "text": "5. 线宽只用这几级：3px，不要自创第三级。",
+    "claimed": [
+     3
+    ],
+    "phantom": [],
+    "omitted": [
+     1,
+     1.2,
+     2
+    ],
+    "tailBad": true,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "a": {
+    "text": "5. 线宽只用这几级：1px、2px、3px，不要自创第三级。",
+    "claimed": [
+     1,
+     2,
+     3
+    ],
+    "phantom": [],
+    "omitted": [
+     1.2
+    ],
+    "tailBad": true,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "b": {
+    "text": "5. 线宽只用这几级：1px、2px、3px，全站只有这 3 级，不要自创第 4 级。",
+    "claimed": [
+     1,
+     2,
+     3
+    ],
+    "phantom": [],
+    "omitted": [
+     1.2
+    ],
+    "tailBad": false,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "c": {
+    "text": "5. CSS 边框/焦点环只用 3px（共 1 档），不要加新档。\n6. SVG 描边宽度只用 1px、2px、3px（共 3 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     3,
+     1,
+     2
+    ],
+    "phantom": [],
+    "omitted": [
+     1.2
+    ],
+    "tailBad": false,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "d": {
+    "text": "5. CSS 边框/焦点环只用 3px（共 1 档），不要加新档。\n6. SVG 描边宽度只用 1px、2px、3px（共 3 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     3,
+     1,
+     2
+    ],
+    "phantom": [],
+    "omitted": [
+     1.2
+    ],
+    "tailBad": false,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "e": {
+    "text": "5. CSS 边框/焦点环只用 3px（共 1 档），不要加新档。\n6. SVG 描边宽度只用 1px、1.2px、2px、3px（共 4 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     3,
+     1,
+     1.2,
+     2
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   }
+  },
+  {
+   "id": "S26",
+   "now": {
+    "text": "5. 线宽只用这几级：2px、8px，不要自创第三级。",
+    "claimed": [
+     2,
+     8
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "a": {
+    "text": "5. 线宽只用这几级：2px、8px，不要自创第三级。",
+    "claimed": [
+     2,
+     8
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "b": {
+    "text": "5. 线宽只用这几级：2px、8px，全站只有这 2 级，不要加第三级。",
+    "claimed": [
+     2,
+     8
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "c": {
+    "text": "5. CSS 边框/焦点环只用 2px、8px（共 2 档），不要加新档。\n6. 不用 SVG 描边。",
+    "claimed": [
+     2,
+     8
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "d": {
+    "text": "5. CSS 边框/焦点环只用 2px、8px（共 2 档），不要加新档。\n6. 不用 SVG 描边。",
+    "claimed": [
+     2,
+     8
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "e": {
+    "text": "5. CSS 边框/焦点环只用 2px、8px（共 2 档），不要加新档。\n6. 不用 SVG 描边。",
+    "claimed": [
+     2,
+     8
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   }
+  },
+  {
+   "id": "S27",
+   "now": {
+    "text": "5. 线宽只用这几级：1.6px、3px、3.6px，不要自创第三级。",
+    "claimed": [
+     1.6,
+     3,
+     3.6
+    ],
+    "phantom": [],
+    "omitted": [
+     0.8,
+     1.8
+    ],
+    "tailBad": true,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "a": {
+    "text": "5. 线宽只用这几级：0.8px、1.6px、3px、3.6px，不要自创第三级。",
+    "claimed": [
+     0.8,
+     1.6,
+     3,
+     3.6
+    ],
+    "phantom": [],
+    "omitted": [
+     1.8
+    ],
+    "tailBad": true,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "b": {
+    "text": "5. 线宽只用这几级：0.8px、1.6px、3px、3.6px，全站只有这 4 级，不要自创第 5 级。",
+    "claimed": [
+     0.8,
+     1.6,
+     3,
+     3.6
+    ],
+    "phantom": [],
+    "omitted": [
+     1.8
+    ],
+    "tailBad": false,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "c": {
+    "text": "5. CSS 边框/焦点环只用 1.8px、3.6px（共 2 档），不要加新档。\n6. SVG 描边宽度只用 0.8px、1.6px、3px（共 3 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1.8,
+     3.6,
+     0.8,
+     1.6,
+     3
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "d": {
+    "text": "5. CSS 边框/焦点环只用 1.8px、3.6px（共 2 档），不要加新档。\n6. SVG 描边宽度只用 0.8px、1.6px、3px（共 3 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1.8,
+     3.6,
+     0.8,
+     1.6,
+     3
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "e": {
+    "text": "5. CSS 边框/焦点环只用 1.8px、3.6px（共 2 档），不要加新档。\n6. SVG 描边宽度只用 0.8px、1.6px、1.8px、3px（共 4 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1.8,
+     3.6,
+     0.8,
+     1.6,
+     3
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   }
+  },
+  {
+   "id": "S28",
+   "now": {
+    "text": "5. 线宽只用这几级：2px、8px，不要自创第三级。",
+    "claimed": [
+     2,
+     8
+    ],
+    "phantom": [],
+    "omitted": [
+     1,
+     1.2
+    ],
+    "tailBad": false,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "a": {
+    "text": "5. 线宽只用这几级：1px、2px、8px，不要自创第三级。",
+    "claimed": [
+     1,
+     2,
+     8
+    ],
+    "phantom": [],
+    "omitted": [
+     1.2
+    ],
+    "tailBad": true,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "b": {
+    "text": "5. 线宽只用这几级：1px、2px、8px，全站只有这 3 级，不要自创第 4 级。",
+    "claimed": [
+     1,
+     2,
+     8
+    ],
+    "phantom": [],
+    "omitted": [
+     1.2
+    ],
+    "tailBad": false,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "c": {
+    "text": "5. CSS 边框/焦点环只用 2px、8px（共 2 档），不要加新档。\n6. SVG 描边宽度只用 1px（共 1 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     2,
+     8,
+     1
+    ],
+    "phantom": [],
+    "omitted": [
+     1.2
+    ],
+    "tailBad": false,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "d": {
+    "text": "5. CSS 边框/焦点环只用 2px、8px（共 2 档），不要加新档。\n6. SVG 描边宽度只用 1px（共 1 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     2,
+     8,
+     1
+    ],
+    "phantom": [],
+    "omitted": [
+     1.2
+    ],
+    "tailBad": false,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "e": {
+    "text": "5. CSS 边框/焦点环只用 2px、8px（共 2 档），不要加新档。\n6. SVG 描边宽度只用 1px、1.2px（共 2 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     2,
+     8,
+     1,
+     1.2
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   }
+  },
+  {
+   "id": "S29",
+   "now": {
+    "text": "5. 线宽只用这几级：0.4px、0.6px、1px、2px、3px、6px，不要自创第三级。",
+    "claimed": [
+     0.4,
+     0.6,
+     1,
+     2,
+     3,
+     6
+    ],
+    "phantom": [],
+    "omitted": [
+     1.2
+    ],
+    "tailBad": true,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "a": {
+    "text": "5. 线宽只用这几级：0.4px、0.6px、1px、2px、3px、6px，不要自创第三级。",
+    "claimed": [
+     0.4,
+     0.6,
+     1,
+     2,
+     3,
+     6
+    ],
+    "phantom": [],
+    "omitted": [
+     1.2
+    ],
+    "tailBad": true,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "b": {
+    "text": "5. 线宽只用这几级：0.4px、0.6px、1px、2px、3px、6px，全站只有这 6 级，不要自创第 7 级。",
+    "claimed": [
+     0.4,
+     0.6,
+     1,
+     2,
+     3,
+     6
+    ],
+    "phantom": [],
+    "omitted": [
+     1.2
+    ],
+    "tailBad": false,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "c": {
+    "text": "5. CSS 边框/焦点环只用 1px、2px、3px、6px（共 4 档），不要加新档。\n6. SVG 描边宽度只用 0.4px、0.6px、1.2px（共 3 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     2,
+     3,
+     6,
+     0.4,
+     0.6,
+     1.2
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "d": {
+    "text": "5. CSS 边框/焦点环只用 1px、2px、3px、6px（共 4 档），不要加新档。\n6. SVG 描边宽度只用 0.4px、0.6px、1.2px（共 3 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     2,
+     3,
+     6,
+     0.4,
+     0.6,
+     1.2
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   },
+   "e": {
+    "text": "5. CSS 边框/焦点环只用 1px、2px、3px、6px（共 4 档），不要加新档。\n6. SVG 描边宽度只用 0.4px、0.6px、1.2px（共 3 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     2,
+     3,
+     6,
+     0.4,
+     0.6,
+     1.2
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   }
+  },
+  {
+   "id": "S30",
+   "now": {
+    "text": "5. 线宽只用这几级：1px、3px、6px、8px，不要自创第三级。",
+    "claimed": [
+     1,
+     3,
+     6,
+     8
+    ],
+    "phantom": [],
+    "omitted": [
+     1.6,
+     2
+    ],
+    "tailBad": true,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "a": {
+    "text": "5. 线宽只用这几级：1px、1.6px、3px、6px、8px，不要自创第三级。",
+    "claimed": [
+     1,
+     1.6,
+     3,
+     6,
+     8
+    ],
+    "phantom": [],
+    "omitted": [
+     2
+    ],
+    "tailBad": true,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "b": {
+    "text": "5. 线宽只用这几级：1px、1.6px、3px、6px、8px，全站只有这 5 级，不要自创第 6 级。",
+    "claimed": [
+     1,
+     1.6,
+     3,
+     6,
+     8
+    ],
+    "phantom": [],
+    "omitted": [
+     2
+    ],
+    "tailBad": false,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "c": {
+    "text": "5. CSS 边框/焦点环只用 1px、3px、6px、8px（共 4 档），不要加新档。\n6. SVG 描边宽度只用 1.6px（共 1 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     3,
+     6,
+     8,
+     1.6
+    ],
+    "phantom": [],
+    "omitted": [
+     2
+    ],
+    "tailBad": false,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "d": {
+    "text": "5. CSS 边框/焦点环只用 1px、3px、6px、8px（共 4 档），不要加新档。\n6. SVG 描边宽度只用 1.6px（共 1 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     3,
+     6,
+     8,
+     1.6
+    ],
+    "phantom": [],
+    "omitted": [
+     2
+    ],
+    "tailBad": false,
+    "truth": true,
+    "full": false,
+    "pass": false
+   },
+   "e": {
+    "text": "5. CSS 边框/焦点环只用 1px、3px、6px、8px（共 4 档），不要加新档。\n6. SVG 描边宽度只用 1.6px、2px（共 2 档，SVG 用户单位），按原值写，不要折算。",
+    "claimed": [
+     1,
+     3,
+     6,
+     8,
+     1.6,
+     2
+    ],
+    "phantom": [],
+    "omitted": [],
+    "tailBad": false,
+    "truth": true,
+    "full": true,
+    "pass": true
+   }
+  }
+ ],
+ "summary": {
+  "now": {
+   "full": 8,
+   "pass": 6,
+   "phantomFree": 30,
+   "tailOk": 14
+  },
+  "a": {
+   "full": 14,
+   "pass": 6,
+   "phantomFree": 30,
+   "tailOk": 10
+  },
+  "b": {
+   "full": 14,
+   "pass": 14,
+   "phantomFree": 30,
+   "tailOk": 30
+  },
+  "c": {
+   "full": 23,
+   "pass": 23,
+   "phantomFree": 30,
+   "tailOk": 30
+  },
+  "d": {
+   "full": 23,
+   "pass": 23,
+   "phantomFree": 30,
+   "tailOk": 30
+  },
+  "e": {
+   "full": 30,
+   "pass": 30,
+   "phantomFree": 30,
+   "tailOk": 30
+  }
+ }
+}

@@ -1,0 +1,1060 @@
+{
+  "mq": [
+    {
+      "query": "(max-width: 1180px)",
+      "line": 711,
+      "rules": [
+        {
+          "sel": ".mast",
+          "decls": "grid-template-columns: 1fr; align-items: start;"
+        },
+        {
+          "sel": "/* 不要再把 h1 降到 34px：768px 档 34px 只有 4.4vw，闸门会判首屏没有主导元素。 保持 clamp(34px, 5.2vw, 74px)，768px 档得 39.9px / 5.2vw。 */ .mast h1",
+          "decls": "max-width: 20ch;"
+        }
+      ],
+      "innerComments": [
+        "不要再把 h1 降到 34px：768px 档 34px 只有 4.4vw，闸门会判首屏没有主导元素。 保持 clamp(34px, 5.2vw, 74px)，768px 档得 39.9px / 5.2vw。"
+      ]
+    },
+    {
+      "query": "(max-width: 980px)",
+      "line": 717,
+      "rules": [
+        {
+          "sel": ".bench",
+          "decls": "grid-template-columns: 1fr;"
+        },
+        {
+          "sel": "/* 移动端 rail 原来会把 11 组筛选全部堆在列表前面：实测 390px 下 rail 高 1563px， 用户要滚 **2.6 屏**才看到第一个方案。改成限高内滚，让方案立刻出现。 */ .rail",
+          "decls": "position: static; max-height: 46vh; overflow-y: auto; border-right: none; border-bottom: 2px solid var(--ink); padding: 14px var(--pad);"
+        },
+        {
+          "sel": ".row",
+          "decls": "grid-template-columns: 46px minmax(0, 1fr);"
+        },
+        {
+          "sel": ".shots",
+          "decls": "grid-column: 2 / -1;"
+        },
+        {
+          "sel": "/* 窄屏截图占满整行后，16:9 会把卡片拉到 600px 高（实测 tablet 卡高 602px）。 既然卡上只放一张桌面图，这里就不该让它撑满宽度：限一个最大宽与最大高。 */ .shots .shot:first-child",
+          "decls": "max-width: 380px;"
+        },
+        {
+          "sel": ".shots .shot img",
+          "decls": "max-height: 214px;"
+        },
+        {
+          "sel": ".row-foot",
+          "decls": "grid-column: 2 / -1;"
+        },
+        {
+          "sel": ".no",
+          "decls": "font-size: var(--s-20);"
+        },
+        {
+          "sel": ".detail",
+          "decls": "width: 100vw;"
+        }
+      ],
+      "innerComments": [
+        "移动端 rail 原来会把 11 组筛选全部堆在列表前面：实测 390px 下 rail 高 1563px， 用户要滚 **2.6 屏**才看到第一个方案。改成限高内滚，让方案立刻出现。",
+        "窄屏截图占满整行后，16:9 会把卡片拉到 600px 高（实测 tablet 卡高 602px）。 既然卡上只放一张桌面图，这里就不该让它撑满宽度：限一个最大宽与最大高。"
+      ]
+    },
+    {
+      "query": "(max-width: 620px)",
+      "line": 736,
+      "rules": [
+        {
+          "sel": ":root",
+          "decls": "--pad: 16px;"
+        },
+        {
+          "sel": ".main",
+          "decls": "padding: 16px var(--pad) 60px;"
+        },
+        {
+          "sel": ".mast",
+          "decls": "padding: 20px var(--pad) 14px;"
+        },
+        {
+          "sel": ".mast h1",
+          "decls": "font-size: max(26px, 6.6vw); max-width: none;"
+        },
+        {
+          "sel": ".rail",
+          "decls": "max-height: 40vh; padding: 12px var(--pad);"
+        },
+        {
+          "sel": ".rail-lead",
+          "decls": "display: none;"
+        },
+        {
+          "sel": ".shots",
+          "decls": "grid-template-columns: 1fr; gap: 4px;"
+        },
+        {
+          "sel": ".shots .shot:first-child",
+          "decls": "max-width: none;"
+        },
+        {
+          "sel": ".shots .shot img",
+          "decls": "max-height: 190px;"
+        },
+        {
+          "sel": ".shot figcaption",
+          "decls": "font-size: 11px;"
+        },
+        {
+          "sel": "/* 详情面板在窄屏是全屏层：头部 97.5px + 20px 内边距 + 64px 缩略图都是纯 chrome。 实测（390×844）这里省下的正是首字段从 720.6 回到 681.6 的那一段。 只收内边距与头部间距，**不动字号**：.detail-title h2 保持 24px —— 它是这一屏唯一的主导元素，压小会让\"这是哪个方案\"反而更难读。 */ .detail-body",
+          "decls": "padding: 12px 16px 60px;"
+        },
+        {
+          "sel": ".detail-head",
+          "decls": "padding: 10px 14px; gap: 10px;"
+        },
+        {
+          "sel": ".fold-thumb",
+          "decls": "height: 40px;"
+        },
+        {
+          "sel": "/* 闸门折叠条的副标题在 390 档藏掉（实测 51.5 → 32px）。 为什么这条可以藏、而 parts 那条必须留： · 闸门的**结论**（FAIL 0 / WARN 3 这些标签）仍然印在标题行上，副标题只写着 「展开看屏数、真实图、报告时间」—— 那是\"展开后会得到什么\"的预告， 而 summary 本身已经是个可点的三角，这个动作不需要再用一行字解释； · 「上站文案 4 段」的副标题不一样，它是「主张句 / 按钮 / 空状态 / 错误状态」， 那是**内容清单**，用户要靠它判断这 4 段是不是他想看的。标题只说\"4 段\"， 说不出是哪 4 段。所以它留着。 这是本文件里唯一一处「按视口藏文字」，藏的是预告而不是内容；两档展开后都能读到全部。 */ .fold-gate .fold-sub",
+          "decls": "display: none;"
+        }
+      ],
+      "innerComments": [
+        "详情面板在窄屏是全屏层：头部 97.5px + 20px 内边距 + 64px 缩略图都是纯 chrome。 实测（390×844）这里省下的正是首字段从 720.6 回到 681.6 的那一段。 只收内边距与头部间距，**不动字号**：.detail-title h2 保持 24px —— 它是这一屏唯一的主导元素，压小会让\"这是哪个方案\"反而更难读。",
+        "闸门折叠条的副标题在 390 档藏掉（实测 51.5 → 32px）。 为什么这条可以藏、而 parts 那条必须留： · 闸门的**结论**（FAIL 0 / WARN 3 这些标签）仍然印在标题行上，副标题只写着 「展开看屏数、真实图、报告时间」—— 那是\"展开后会得到什么\"的预告， 而 summary 本身已经是个可点的三角，这个动作不需要再用一行字解释； · 「上站文案 4 段」的副标题不一样，它是「主张句 / 按钮 / 空状态 / 错误状态」， 那是**内容清单**，用户要靠它判断这 4 段是不是他想看的。标题只说\"4 段\"， 说不出是哪 4 段。所以它留着。 这是本文件里唯一一处「按视口藏文字」，藏的是预告而不是内容；两档展开后都能读到全部。"
+      ]
+    },
+    {
+      "query": "(prefers-reduced-motion: reduce)",
+      "line": 766,
+      "rules": [
+        {
+          "sel": "*, *::before, *::after",
+          "decls": "animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;"
+        },
+        {
+          "sel": ".row.is-in, .detail.is-in",
+          "decls": "animation: none;"
+        }
+      ],
+      "innerComments": []
+    },
+    {
+      "query": "(min-width: 981px)",
+      "line": 775,
+      "rules": [
+        {
+          "sel": "body.detail-open .bench",
+          "decls": "padding-right: min(var(--detail), 42vw);"
+        },
+        {
+          "sel": "body.detail-open .rail",
+          "decls": "position: static;"
+        },
+        {
+          "sel": ".detail",
+          "decls": "box-shadow: -18px 0 0 0 rgba(28, 27, 24, .06);"
+        }
+      ],
+      "innerComments": []
+    },
+    {
+      "query": "(max-width: 620px)",
+      "line": 855,
+      "rules": [
+        {
+          "sel": ".prompt-fill-note",
+          "decls": "max-width: none;"
+        }
+      ],
+      "innerComments": []
+    }
+  ],
+  "viewports": {
+    "390": {
+      "match": [
+        {
+          "q": "(max-width: 1180px)",
+          "m": true
+        },
+        {
+          "q": "(max-width: 980px)",
+          "m": true
+        },
+        {
+          "q": "(max-width: 620px)",
+          "m": true
+        },
+        {
+          "q": "(prefers-reduced-motion: reduce)",
+          "m": false
+        },
+        {
+          "q": "(min-width: 981px)",
+          "m": false
+        },
+        {
+          "q": "(max-width: 620px)",
+          "m": true
+        }
+      ],
+      "blk": {
+        "vw": 390,
+        "vh": 844,
+        "docScrollH": 17308,
+        "mast": 453.4,
+        "mastid": 327.9,
+        "rail": {
+          "h": 337.6,
+          "scrollH": 1406,
+          "clientH": 336,
+          "maxH": "337.6px",
+          "pos": "static",
+          "overflow": "auto"
+        },
+        "bar": 145,
+        "barItems": [
+          {
+            "el": "label.search",
+            "top": 0,
+            "h": 41.9,
+            "w": 358,
+            "display": "flex"
+          },
+          {
+            "el": "p#count.count",
+            "top": 53.9,
+            "h": 21,
+            "w": 109.2,
+            "display": "block"
+          },
+          {
+            "el": "div.sort",
+            "top": 87,
+            "h": 40,
+            "w": 235,
+            "display": "flex"
+          },
+          {
+            "el": "button#reset.btn-quiet",
+            "top": 89.4,
+            "h": 35,
+            "w": 74,
+            "display": "block"
+          }
+        ],
+        "firstRowTop": 954,
+        "firstRowH": 577.8,
+        "ledgerTop": 952,
+        "mainPad": "16px 16px 60px",
+        "rowCols": "46px 292px",
+        "rowGap": "20px",
+        "rowPad": "13px 0px",
+        "rowKids": [
+          {
+            "el": "p.no",
+            "h": 228.5,
+            "w": 46
+          },
+          {
+            "el": "div.row-main",
+            "h": 228.5,
+            "w": 292
+          },
+          {
+            "el": "div.shots",
+            "h": 185.1,
+            "w": 292
+          },
+          {
+            "el": "div.row-foot",
+            "h": 94.2,
+            "w": 292
+          }
+        ],
+        "midLines": [
+          {
+            "el": "p.mast-kicker",
+            "h": 22.7,
+            "fs": "14px",
+            "lh": "22.68px",
+            "lines": 1,
+            "mt": "0px",
+            "mb": "8px",
+            "w": 358,
+            "display": "block"
+          },
+          {
+            "el": "h1",
+            "h": 27.5,
+            "fs": "26px",
+            "lh": "27.56px",
+            "lines": 1,
+            "mt": "0px",
+            "mb": "0px",
+            "w": 358,
+            "display": "block"
+          },
+          {
+            "el": "p.mast-claim",
+            "h": 96,
+            "fs": "15px",
+            "lh": "24px",
+            "lines": 4,
+            "mt": "10px",
+            "mb": "0px",
+            "w": 358,
+            "display": "block"
+          },
+          {
+            "el": "p.mast-wizard",
+            "h": 66.6,
+            "fs": "16px",
+            "lh": "25.92px",
+            "lines": 2.6,
+            "mt": "10px",
+            "mb": "0px",
+            "w": 358,
+            "display": "block"
+          },
+          {
+            "el": "p#tpl-exit.mast-exit",
+            "h": 76.1,
+            "fs": "14px",
+            "lh": "21.7px",
+            "lines": 3.5,
+            "mt": "11px",
+            "mb": "0px",
+            "w": 358,
+            "display": "block"
+          }
+        ],
+        "railItems": [
+          {
+            "el": "p.rail-lead",
+            "top": 0,
+            "h": 0,
+            "display": "none"
+          },
+          {
+            "el": "div.rail-block",
+            "top": 465.4,
+            "h": 212.4,
+            "display": "block"
+          },
+          {
+            "el": "div.rail-block",
+            "top": 699.9,
+            "h": 51.2,
+            "display": "block"
+          },
+          {
+            "el": "div.rail-block",
+            "top": 773.1,
+            "h": 176.2,
+            "display": "block"
+          },
+          {
+            "el": "div.rail-block",
+            "top": 971.3,
+            "h": 51.2,
+            "display": "block"
+          },
+          {
+            "el": "div.rail-block",
+            "top": 1044.5,
+            "h": 101.1,
+            "display": "block"
+          },
+          {
+            "el": "p.rail-sep",
+            "top": 1171.5,
+            "h": 37,
+            "display": "block"
+          },
+          {
+            "el": "div.rail-block",
+            "top": 1224.6,
+            "h": 51.2,
+            "display": "block"
+          },
+          {
+            "el": "div.rail-block",
+            "top": 1297.8,
+            "h": 51.2,
+            "display": "block"
+          },
+          {
+            "el": "div.rail-block",
+            "top": 1371,
+            "h": 148,
+            "display": "block"
+          },
+          {
+            "el": "div.rail-block",
+            "top": 1541,
+            "h": 51.2,
+            "display": "block"
+          },
+          {
+            "el": "div.rail-block",
+            "top": 1614.2,
+            "h": 51.2,
+            "display": "block"
+          },
+          {
+            "el": "div.rail-block.rail-note",
+            "top": 1687.4,
+            "h": 138.3,
+            "display": "block"
+          }
+        ],
+        "shots": {
+          "h": 185.1,
+          "imgH": 164.3,
+          "capH": 20.8
+        },
+        "railLead": "none",
+        "benchCols": "390px",
+        "detailW": "390px",
+        "detailBodyPad": "12px 16px 60px",
+        "detailHeadPad": "10px 14px",
+        "docHOverflow": 0
+      },
+      "det": {
+        "panelW": 390,
+        "panelScrollH": 3538,
+        "headH": 97.5,
+        "bodyPad": "12px 16px 60px",
+        "kids": [
+          {
+            "el": "div.prompt-cta",
+            "top": 123.5,
+            "h": 296.4
+          },
+          {
+            "el": "details.fold.fold-view",
+            "top": 423.9,
+            "h": 50.5
+          },
+          {
+            "el": "a.open-proto",
+            "top": 484.3,
+            "h": 40.7
+          },
+          {
+            "el": "details.fold.fold-gate",
+            "top": 533,
+            "h": 32
+          },
+          {
+            "el": "details.fold.fold-parts",
+            "top": 571,
+            "h": 48.5
+          },
+          {
+            "el": "dl.fields",
+            "top": 625.5,
+            "h": 2852.2
+          }
+        ],
+        "firstFieldTop": 627.5,
+        "fieldsDlTop": 625.5
+      }
+    },
+    "768": {
+      "match": [
+        {
+          "q": "(max-width: 1180px)",
+          "m": true
+        },
+        {
+          "q": "(max-width: 980px)",
+          "m": true
+        },
+        {
+          "q": "(max-width: 620px)",
+          "m": false
+        },
+        {
+          "q": "(prefers-reduced-motion: reduce)",
+          "m": false
+        },
+        {
+          "q": "(min-width: 981px)",
+          "m": false
+        },
+        {
+          "q": "(max-width: 620px)",
+          "m": false
+        }
+      ],
+      "blk": {
+        "vw": 768,
+        "vh": 1024,
+        "docScrollH": 15595,
+        "mast": 433,
+        "mastid": 295.4,
+        "rail": {
+          "h": 471,
+          "scrollH": 1224,
+          "clientH": 469,
+          "maxH": "471.04px",
+          "pos": "static",
+          "overflow": "auto"
+        },
+        "bar": 107,
+        "barItems": [
+          {
+            "el": "label.search",
+            "top": 0,
+            "h": 41.9,
+            "w": 335.8,
+            "display": "flex"
+          },
+          {
+            "el": "p#count.count",
+            "top": 10.4,
+            "h": 21,
+            "w": 109.2,
+            "display": "block"
+          },
+          {
+            "el": "div.sort",
+            "top": 1,
+            "h": 40,
+            "w": 235,
+            "display": "flex"
+          },
+          {
+            "el": "button#reset.btn-quiet",
+            "top": 53.9,
+            "h": 35,
+            "w": 74,
+            "display": "block"
+          }
+        ],
+        "firstRowTop": 1035,
+        "firstRowH": 497.3,
+        "ledgerTop": 1033,
+        "mainPad": "22px 28px 80px 24px",
+        "rowCols": "46px 650px",
+        "rowGap": "20px",
+        "rowPad": "13px 0px",
+        "rowKids": [
+          {
+            "el": "p.no",
+            "h": 137.4,
+            "w": 46
+          },
+          {
+            "el": "div.row-main",
+            "h": 137.4,
+            "w": 650
+          },
+          {
+            "el": "div.shots",
+            "h": 237.8,
+            "w": 650
+          },
+          {
+            "el": "div.row-foot",
+            "h": 52.1,
+            "w": 650
+          }
+        ],
+        "midLines": [
+          {
+            "el": "p.mast-kicker",
+            "h": 22.7,
+            "fs": "14px",
+            "lh": "22.68px",
+            "lines": 1,
+            "mt": "0px",
+            "mb": "8px",
+            "w": 712,
+            "display": "block"
+          },
+          {
+            "el": "h1",
+            "h": 65.1,
+            "fs": "30.72px",
+            "lh": "32.5632px",
+            "lines": 2,
+            "mt": "0px",
+            "mb": "0px",
+            "w": 320.7,
+            "display": "block"
+          },
+          {
+            "el": "p.mast-claim",
+            "h": 72,
+            "fs": "15px",
+            "lh": "24px",
+            "lines": 3,
+            "mt": "10px",
+            "mb": "0px",
+            "w": 499.5,
+            "display": "block"
+          },
+          {
+            "el": "p.mast-wizard",
+            "h": 42.3,
+            "fs": "16px",
+            "lh": "25.92px",
+            "lines": 1.6,
+            "mt": "10px",
+            "mb": "0px",
+            "w": 712,
+            "display": "block"
+          },
+          {
+            "el": "p#tpl-exit.mast-exit",
+            "h": 54.4,
+            "fs": "14px",
+            "lh": "21.7px",
+            "lines": 2.5,
+            "mt": "11px",
+            "mb": "0px",
+            "w": 712,
+            "display": "block"
+          }
+        ],
+        "railItems": [
+          {
+            "el": "p.rail-lead",
+            "top": 447,
+            "h": 65.6,
+            "display": "block"
+          },
+          {
+            "el": "div.rail-block",
+            "top": 530.6,
+            "h": 149.4,
+            "display": "block"
+          },
+          {
+            "el": "div.rail-block",
+            "top": 702,
+            "h": 51.2,
+            "display": "block"
+          },
+          {
+            "el": "div.rail-block",
+            "top": 775.2,
+            "h": 101.1,
+            "display": "block"
+          },
+          {
+            "el": "div.rail-block",
+            "top": 898.3,
+            "h": 51.2,
+            "display": "block"
+          },
+          {
+            "el": "div.rail-block",
+            "top": 971.5,
+            "h": 79.6,
+            "display": "block"
+          },
+          {
+            "el": "p.rail-sep",
+            "top": 1077.1,
+            "h": 37,
+            "display": "block"
+          },
+          {
+            "el": "div.rail-block",
+            "top": 1130.2,
+            "h": 51.2,
+            "display": "block"
+          },
+          {
+            "el": "div.rail-block",
+            "top": 1203.4,
+            "h": 51.2,
+            "display": "block"
+          },
+          {
+            "el": "div.rail-block",
+            "top": 1276.6,
+            "h": 83.5,
+            "display": "block"
+          },
+          {
+            "el": "div.rail-block",
+            "top": 1382,
+            "h": 51.2,
+            "display": "block"
+          },
+          {
+            "el": "div.rail-block",
+            "top": 1455.3,
+            "h": 51.2,
+            "display": "block"
+          },
+          {
+            "el": "div.rail-block.rail-note",
+            "top": 1528.5,
+            "h": 92.6,
+            "display": "block"
+          }
+        ],
+        "shots": {
+          "h": 237.8,
+          "imgH": 213.8,
+          "capH": 24
+        },
+        "railLead": "block",
+        "benchCols": "768px",
+        "detailW": "768px",
+        "detailBodyPad": "18px 20px 60px",
+        "detailHeadPad": "16px 20px",
+        "docHOverflow": 0
+      },
+      "det": {
+        "panelW": 768,
+        "panelScrollH": 2389,
+        "headH": 88.4,
+        "bodyPad": "18px 20px 60px",
+        "kids": [
+          {
+            "el": "div.prompt-cta",
+            "top": 120.4,
+            "h": 198.3
+          },
+          {
+            "el": "details.fold.fold-view",
+            "top": 322.8,
+            "h": 72
+          },
+          {
+            "el": "a.open-proto",
+            "top": 404.8,
+            "h": 40.7
+          },
+          {
+            "el": "details.fold.fold-gate",
+            "top": 453.4,
+            "h": 51.5
+          },
+          {
+            "el": "details.fold.fold-parts",
+            "top": 510.9,
+            "h": 48.5
+          },
+          {
+            "el": "dl.fields",
+            "top": 565.4,
+            "h": 1764.1
+          }
+        ],
+        "firstFieldTop": 567.4,
+        "fieldsDlTop": 565.4
+      }
+    },
+    "1440": {
+      "match": [
+        {
+          "q": "(max-width: 1180px)",
+          "m": false
+        },
+        {
+          "q": "(max-width: 980px)",
+          "m": false
+        },
+        {
+          "q": "(max-width: 620px)",
+          "m": false
+        },
+        {
+          "q": "(prefers-reduced-motion: reduce)",
+          "m": false
+        },
+        {
+          "q": "(min-width: 981px)",
+          "m": true
+        },
+        {
+          "q": "(max-width: 620px)",
+          "m": false
+        }
+      ],
+      "blk": {
+        "vw": 1440,
+        "vh": 900,
+        "docScrollH": 8773,
+        "mast": 304,
+        "mastid": 268,
+        "rail": {
+          "h": 900,
+          "scrollH": 1996,
+          "clientH": 900,
+          "maxH": "900px",
+          "pos": "sticky",
+          "overflow": "auto"
+        },
+        "bar": 59.9,
+        "barItems": [
+          {
+            "el": "label.search",
+            "top": 0,
+            "h": 41.9,
+            "w": 651.8,
+            "display": "flex"
+          },
+          {
+            "el": "span#q-parked.q-parked",
+            "top": -326,
+            "h": 0,
+            "w": 0,
+            "display": "none"
+          },
+          {
+            "el": "p#count.count",
+            "top": 10.4,
+            "h": 21,
+            "w": 109.2,
+            "display": "block"
+          },
+          {
+            "el": "div.sort",
+            "top": 1,
+            "h": 40,
+            "w": 235,
+            "display": "flex"
+          },
+          {
+            "el": "button#reset.btn-quiet",
+            "top": 3.4,
+            "h": 35,
+            "w": 74,
+            "display": "block"
+          }
+        ],
+        "firstRowTop": 387.9,
+        "firstRowH": 276.8,
+        "ledgerTop": 385.9,
+        "mainPad": "22px 28px 80px 24px",
+        "rowCols": "62px 706px 316px",
+        "rowGap": "20px",
+        "rowPad": "13px 0px",
+        "rowKids": [
+          {
+            "el": "p.no",
+            "h": 201.8,
+            "w": 62
+          },
+          {
+            "el": "div.row-main",
+            "h": 201.8,
+            "w": 706
+          },
+          {
+            "el": "div.shots",
+            "h": 201.8,
+            "w": 316
+          },
+          {
+            "el": "div.row-foot",
+            "h": 25,
+            "w": 1042
+          }
+        ],
+        "midLines": [
+          {
+            "el": "p.mast-kicker",
+            "h": 22.7,
+            "fs": "14px",
+            "lh": "22.68px",
+            "lines": 1,
+            "mt": "0px",
+            "mb": "8px",
+            "w": 1054,
+            "display": "block"
+          },
+          {
+            "el": "h1",
+            "h": 59.4,
+            "fs": "56px",
+            "lh": "59.36px",
+            "lines": 1,
+            "mt": "0px",
+            "mb": "0px",
+            "w": 643.1,
+            "display": "block"
+          },
+          {
+            "el": "p.mast-claim",
+            "h": 72,
+            "fs": "15px",
+            "lh": "24px",
+            "lines": 3,
+            "mt": "10px",
+            "mb": "0px",
+            "w": 499.5,
+            "display": "block"
+          },
+          {
+            "el": "p.mast-wizard",
+            "h": 42.3,
+            "fs": "16px",
+            "lh": "25.92px",
+            "lines": 1.6,
+            "mt": "10px",
+            "mb": "0px",
+            "w": 1054,
+            "display": "block"
+          },
+          {
+            "el": "p#tpl-exit.mast-exit",
+            "h": 32.7,
+            "fs": "14px",
+            "lh": "21.7px",
+            "lines": 1.5,
+            "mt": "11px",
+            "mb": "0px",
+            "w": 1054,
+            "display": "block"
+          }
+        ],
+        "railItems": [
+          {
+            "el": "p.rail-lead",
+            "top": 326,
+            "h": 113.2,
+            "display": "block"
+          },
+          {
+            "el": "div.rail-block",
+            "top": 457.2,
+            "h": 296.4,
+            "display": "block"
+          },
+          {
+            "el": "div.rail-block",
+            "top": 775.6,
+            "h": 51.2,
+            "display": "block"
+          },
+          {
+            "el": "div.rail-block",
+            "top": 848.8,
+            "h": 251.3,
+            "display": "block"
+          },
+          {
+            "el": "div.rail-block",
+            "top": 1122.1,
+            "h": 83.5,
+            "display": "block"
+          },
+          {
+            "el": "div.rail-block",
+            "top": 1227.6,
+            "h": 154.8,
+            "display": "block"
+          },
+          {
+            "el": "p.rail-sep",
+            "top": 1408.3,
+            "h": 37,
+            "display": "block"
+          },
+          {
+            "el": "div.rail-block",
+            "top": 1461.4,
+            "h": 51.2,
+            "display": "block"
+          },
+          {
+            "el": "div.rail-block",
+            "top": 1534.6,
+            "h": 51.2,
+            "display": "block"
+          },
+          {
+            "el": "div.rail-block",
+            "top": 1607.8,
+            "h": 244.7,
+            "display": "block"
+          },
+          {
+            "el": "div.rail-block",
+            "top": 1874.5,
+            "h": 51.2,
+            "display": "block"
+          },
+          {
+            "el": "div.rail-block",
+            "top": 1947.7,
+            "h": 83.5,
+            "display": "block"
+          },
+          {
+            "el": "div.rail-block.rail-note",
+            "top": 2053.1,
+            "h": 184.4,
+            "display": "block"
+          }
+        ],
+        "shots": {
+          "h": 201.8,
+          "imgH": 177.8,
+          "capH": 24
+        },
+        "railLead": "block",
+        "benchCols": "264px 1176px",
+        "detailW": "560px",
+        "detailBodyPad": "18px 20px 60px",
+        "detailHeadPad": "16px 20px",
+        "docHOverflow": 0
+      },
+      "det": {
+        "panelW": 560,
+        "panelScrollH": 2752,
+        "headH": 88.4,
+        "bodyPad": "18px 20px 60px",
+        "kids": [
+          {
+            "el": "div.prompt-cta",
+            "top": 120.4,
+            "h": 198.3
+          },
+          {
+            "el": "details.fold.fold-view",
+            "top": 322.8,
+            "h": 72
+          },
+          {
+            "el": "a.open-proto",
+            "top": 404.8,
+            "h": 40.7
+          },
+          {
+            "el": "details.fold.fold-gate",
+            "top": 453.4,
+            "h": 51.5
+          },
+          {
+            "el": "details.fold.fold-parts",
+            "top": 510.9,
+            "h": 48.5
+          },
+          {
+            "el": "dl.fields",
+            "top": 565.4,
+            "h": 2126.8
+          }
+        ],
+        "firstFieldTop": 567.4,
+        "fieldsDlTop": 565.4
+      }
+    }
+  }
+}

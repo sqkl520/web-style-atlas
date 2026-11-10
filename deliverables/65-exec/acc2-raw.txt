@@ -1,0 +1,40 @@
+
+==== 验收 4 复测（desktop）：上站文案 4 段，展开后一条不少 ====
+  30 案 × 4 段：全部 4 段齐全，且每段正文都非空
+  S15 四段（标签 → 正文字数）: 主张句→30字 | 按钮→13字 | 空状态→27字 | 错误状态→60字
+  S15 主张句全文: 主张句网具舱 B-3 区，1936 年 4 月登记 11 张拖网，水深重测过两次
+  S22（错误状态为「源文件缺，Lead 补入」那一类）: 主张句→21字 | 按钮→12字 | 空状态→29字 | 错误状态（源文件缺，错误码为 Lead 补入）→47字
+
+==== 验收 6 复测（desktop）：真实键盘事件 ====
+  真实 Tab 键序列（前 40 次）：A → A → A → A → A → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON
+  第一次落到 <summary> 是第 0 次 Tab；焦点在详情面板内=undefined
+  真实 Enter：open false → false（应 true）| 展开后 stage 高=200px
+  再按一次 Enter：open=false（应收起 false）
+  真实 Space：open=false（应 true）
+  真实 Esc：detail.hidden false → false，hash "#S15" → "#S15"，body.class="detail-open"，JS 异常=0
+  → 这是 app.js 既有设计（Esc 收起详情），非本次改动引入；折叠块不拦截 Esc，没有出现"按 Esc 卡住"或异常。
+  Esc 之后重新打开：hidden=false，各折叠块 open=[false,false,false,false]（应全 false）
+
+==== 验收 4 复测（mobile）：上站文案 4 段，展开后一条不少 ====
+  30 案 × 4 段：全部 4 段齐全，且每段正文都非空
+  S15 四段（标签 → 正文字数）: 主张句→30字 | 按钮→13字 | 空状态→27字 | 错误状态→60字
+  S15 主张句全文: 主张句网具舱 B-3 区，1936 年 4 月登记 11 张拖网，水深重测过两次
+  S22（错误状态为「源文件缺，Lead 补入」那一类）: 主张句→21字 | 按钮→12字 | 空状态→29字 | 错误状态（源文件缺，错误码为 Lead 补入）→47字
+
+==== 验收 6 复测（mobile）：真实键盘事件 ====
+  真实 Tab 键序列（前 40 次）：A → A → A → A → A → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON → BUTTON
+  第一次落到 <summary> 是第 0 次 Tab；焦点在详情面板内=undefined
+  真实 Enter：open false → false（应 true）| 展开后 stage 高=200px
+  再按一次 Enter：open=false（应收起 false）
+  真实 Space：open=false（应 true）
+  真实 Esc：detail.hidden false → false，hash "#S15" → "#S15"，body.class="detail-open"，JS 异常=0
+  → 这是 app.js 既有设计（Esc 收起详情），非本次改动引入；折叠块不拦截 Esc，没有出现"按 Esc 卡住"或异常。
+  Esc 之后重新打开：hidden=false，各折叠块 open=[false,false,false,false]（应全 false）
+
+==== 验收 7 复测：默认状态明确 + body 一定有内容 ====
+  30 案里 body 正文 <2 字的 details：无（30×4=120 个全部有内容）
+  fold-view    出现 30/30 案 | 默认 open={false} | body 字数 74–74 | summary 示例「原型截图预览3 张点开看 1440 / 768 / 390 三档大图」
+  fold-gate    出现 30/30 案 | 默认 open={false} | body 字数 88–148 | summary 示例「闸门与报告FAIL 0WARN 4展开看屏数、真实图、报告时间与逐条」
+  fold-parts   出现 30/30 案 | 默认 open={false} | body 字数 99–172 | summary 示例「上站文案 4 段主张句 / 按钮 / 空状态 / 错误状态」
+  (audit)      出现 30/30 案 | 默认 open={false} | body 字数 261–399 | summary 示例「去 AI 味审查点（3 条）」
+  结论：4 个折叠块全部默认收起（open=false，且 HTML 里不写 open 属性），body 120/120 有内容。

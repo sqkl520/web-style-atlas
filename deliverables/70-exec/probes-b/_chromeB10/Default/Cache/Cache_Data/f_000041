@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>北纬 69° 极光观测站 · 长曝光观测档案 1957 至 1979</title>
+<meta name="description" content="特罗姆瑟极光观测站 1957 至 1979 年的长曝光观测档案：影像带高度等于当晚曝光秒数，亮度等于极光强度，读数栅格自左下铺到页脚。">
+<link rel="stylesheet" href="../_fonts/css/ibm-plex-mono__400-600.css">
+<link rel="stylesheet" href="../_fonts/css/ibm-plex-sans__400-600.css">
+<link rel="stylesheet" href="../_fonts/css/space-grotesk__400-500.css">
+<link rel="stylesheet" href="../_fonts/css/noto-sans-sc__100..900.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="visually-hidden" href="#records">跳到观测记录</a>
+
+<header class="masthead">
+  <nav class="bar" aria-label="站点">
+    <p class="mark">北纬 69° 极光观测站</p>
+    <ul class="bar-links">
+      <li><a href="#records">观测记录</a></li>
+      <li><a href="#instruments">仪器与介质</a></li>
+      <li><a href="#states">状态</a></li>
+      <li><a href="#credits">图版来源</a></li>
+    </ul>
+  </nav>
+
+  <div class="wrap hero">
+    <h1 class="d1">整夜没有星星</h1>
+    <p class="lede">1969 年 3 月 23 日，磁针偏了 4.2 度。值班员在记录纸上写完这一句，就把快门压住不放了 30 秒。</p>
+    <p class="hero-act">
+      <button class="btn" type="button" id="load-range" aria-describedby="range-status">
+        调出 1972 至 1974 年的夜间读数
+      </button>
+      <span class="note" id="range-status" role="status" aria-live="polite">当前区间：1957 至 1979，共 23 个观测年</span>
+    </p>
+    <dl class="plate" data-ui>
+      <div><dt>曝光</dt><dd><samp>30 s</samp></dd></div>
+      <div><dt>感光度</dt><dd><samp>ISO 1600</samp></dd></div>
+      <div><dt>暗部噪声</dt><dd><samp>±5 级</samp></dd></div>
+      <div><dt>四角减光</dt><dd><samp>32 %</samp></dd></div>
+      <div><dt>高光溢出</dt><dd><samp>8 %</samp></dd></div>
+    </dl>
+  </div>
+</header>
+
+<main>
+<section id="records" class="records" aria-labelledby="records-h">
+  <div class="wrap">
+    <h2 class="h2" id="records-h">观测记录：高度即曝光时长</h2>
+    <p>下面每一条带子的高度，等于当晚快门压住的秒数；亮度等于那一夜的极光强度。带子之间的 4px 空隙是片基。右侧读数表用的是当年的磁力计原始值，单位为纳特斯拉。</p>
+
+    <figure class="plate-open">
+      <img src="assets/eclipse-of-the-sun.jpg" width="597" height="207" alt="1854 年银版照片：同一张底片上连续曝光九次，日食的九个太阳像沿一条弧线排开" decoding="async">
+      <figcaption>1854 年，W. &amp; F. Langenheim 用同一张银版连续曝光九次，把太阳在几小时里走过的位置压进一幅画面。这正是下面那些带子的原理：时间在片基上留下位置，而不是留下颜色。</figcaption>
+    </figure>
+
+    <div class="chrono">
+      <!-- 年代轴：264px 宽，全程 sticky。它是记录仪自身的读数面，故标记为界面片段。 -->
+      <aside class="axis" data-ui aria-label="年代轴与曝光计时">
+        <p class="axis-span"><samp>1957 至 1979</samp></p>
+        <svg class="scale" id="scale" viewBox="0 0 264 640" preserveAspectRatio="none" aria-hidden="true"></svg>
+        <ul class="axis-years" aria-hidden="true">
+          <li><samp>1957</samp></li><li><samp>1962</samp></li><li><samp>1967</samp></li><li><samp>1972</samp></li><li><samp>1977</samp></li>
+        </ul>
+        <p class="axis-timer">本次走片 <samp id="timer">0.0 s</samp></p>
+        <p class="axis-quirk" id="quirk">齿孔编号每 5 年整体偏移 0.3mm，偏移量取自当年仪器校准记录的漂移值。</p>
+      </aside>
+
+      <div class="stream">
+        <figure class="band" style="--h:28px">
+          <img src="assets/the-wonderful-universe-explorer-the-great-36.jpg" width="598" height="301" alt="1902 年立体照片：利克天文台 36 英寸赤道仪，蛋白银盐印相" decoding="async" loading="lazy">
+          <figcaption><samp>1957-11-04</samp> 30 s · 强度 4 级</figcaption>
+        </figure>
+        <figure class="band" style="--h:42px">
+          <img src="assets/eclipse-of-the-sun.jpg" width="597" height="207" alt="1854 年银版照片：日食的连续曝光序列" decoding="async" loading="lazy">
+          <figcaption><samp>1958-02-17</samp> 45 s · 强度 6 级</figcaption>
+        </figure>
+        <figure class="band" style="--h:14px">
+          <img src="assets/lunar-photograph-south-pole.jpg" width="458" height="625" alt="1890 年蛋白银盐印相：月球南极区域" decoding="async" loading="lazy">
+          <figcaption><samp>1960-10-02</samp> 15 s · 强度 2 级</figcaption>
+        </figure>
+        <figure class="band" style="--h:56px">
+          <img src="assets/solar-eclipse-from-caroline-island.jpg" width="599" height="591" alt="1883 年 5 月 6 日卡罗琳岛日全食，明胶银盐印相" decoding="async" loading="lazy">
+          <figcaption><samp>1969-03-23</samp> 60 s · 强度 7 级</figcaption>
+        </figure>
+        <figure class="band" style="--h:19px">
+          <img src="assets/the-moon.jpg" width="485" height="624" alt="1857 至 1860 年玻璃负片盐纸印相：月面" decoding="async" loading="lazy">
+          <figcaption><samp>1972-01-19</samp> 20 s · 强度 3 级</figcaption>
+        </figure>
+        <figure class="band" style="--h:37px">
+          <img src="assets/crater-kepler-and-vicinity.jpg" width="544" height="624" alt="1967 年明胶银盐印相：开普勒环形山及周边" decoding="async" loading="lazy">
+          <figcaption><samp>1973-09-08</samp> 40 s · 强度 5 级</figcaption>
+        </figure>
+        <figure class="band" style="--h:84px">
+          <img src="assets/far-side-of-the-moon-at-apolune.jpg" width="555" height="625" alt="1967 年明胶银盐印相：远月面" decoding="async" loading="lazy">
+          <figcaption><samp>1974-12-01</samp> 90 s · 强度 8 级</figcaption>
+        </figure>
+        <figure class="band" style="--h:23px">
+          <img src="assets/view-of-the-observatory-oxford.jpg" width="599" height="439" alt="1810 年手工上色蚀刻版画：牛津天文台外观" decoding="async" loading="lazy">
+          <figcaption><samp>1978-11-30</samp> 25 s · 停用前最后一次</figcaption>
+        </figure>
+      </div>
+
+    <div class="readouts" data-ui>
+      <h3 class="h3">磁力计原始读数</h3>
+      <table>
+        <caption>单位：磁偏角为纳特斯拉（nT），曝光为秒，强度为目视等级 1 到 9。判读栏为当年值班员的原话摘录。</caption>
+        <thead>
+          <tr><th scope="col">日期</th><th scope="col">曝光</th><th scope="col">强度</th><th scope="col">磁偏角</th><th scope="col">判读</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row"><samp>1957-11-04</samp></th><td><samp>30 s</samp></td><td><samp>4 级</samp></td><td><samp>18.4 nT</samp></td><td>幕帘自东向西铺满半个天顶</td></tr>
+          <tr><th scope="row"><samp>1958-02-17</samp></th><td><samp>45 s</samp></td><td><samp>6 级</samp></td><td><samp>31.7 nT</samp></td><td>绿色边缘出现淡红，肉眼可见</td></tr>
+          <tr><th scope="row"><samp>1960-10-02</samp></th><td><samp>15 s</samp></td><td><samp>2 级</samp></td><td><samp>7.2 nT</samp></td><td>只有北侧一条弱弧，云占七成</td></tr>
+          <tr><th scope="row"><samp>1969-03-23</samp></th><td><samp>60 s</samp></td><td><samp>7 级</samp></td><td><samp>44.2 nT</samp></td><td>整夜没有星星</td></tr>
+          <tr><th scope="row"><samp>1972-01-19</samp></th><td><samp>20 s</samp></td><td><samp>3 级</samp></td><td><samp>11.6 nT</samp></td><td>云隙间曝光两次，第二次作废</td></tr>
+          <tr><th scope="row"><samp>1973-09-08</samp></th><td><samp>40 s</samp></td><td><samp>5 级</samp></td><td><samp>26.9 nT</samp></td><td>磁针在 03:14 抖了一下</td></tr>
+          <tr><th scope="row"><samp>1974-12-01</samp></th><td><samp>90 s</samp></td><td><samp>8 级</samp></td><td><samp>58.3 nT</samp></td><td>全夜最强，片基上留下连续拖尾</td></tr>
+          <tr><th scope="row"><samp>1978-11-30</samp></th><td><samp>25 s</samp></td><td><samp>1 级</samp></td><td><samp>3.4 nT</samp></td><td>停用前最后一次走片，仅记录本底</td></tr>
+        </tbody>
+      </table>
+      <p class="note">齿孔编号每 5 年整体偏移 0.3mm；它不参与导航，点击也不响应。</p>
+    </div>
+    </div>
+  </div>
+</section>
+
+<section id="instruments" class="instruments" aria-labelledby="inst-h">
+  <div class="wrap">
+    <h2 class="h2" id="inst-h">仪器与介质：光在时间上的累积</h2>
+    <div class="split">
+      <div>
+        <p>长曝光不是把颜色调暗，而是让光在片基上累积。极光幕在 30 秒里缓慢横移，每个瞬间都往同一张底片上落一层；幕帘停留得越久，那一处的密度就越高。所以这条带子看起来像被拉长的幕布，而不是一块发光的雾。</p>
+        <p>画面里所有颜色都来自位图与实色：影像带是真实的历史银盐照片，其余部分只有四个色值与由它们派生的界面色调。全站没有一处 CSS 色彩插值函数，因此不会出现平滑色带。</p>
+        <p class="note">介质：蛋白银盐印相、玻璃负片盐纸印相、明胶银盐印相、银版照片。暗部颗粒保留原样，未做降噪与锐化。</p>
+      </div>
+      <figure class="plate-fig">
+        <img src="assets/the-wonderful-universe-explorer-the-great-36.jpg" width="598" height="301" alt="1902 年蛋白银盐立体照片：利克天文台 36 英寸赤道望远镜，双联画面" decoding="async">
+        <figcaption>1902 年，利克天文台 36 英寸赤道仪。蛋白银盐印相，双联立体画面。</figcaption>
+      </figure>
+    </div>
+
+    <div class="plates">
+      <figure class="plate-fig">
+        <img src="assets/solar-eclipse-from-caroline-island.jpg" width="599" height="591" alt="1883 年 5 月 6 日卡罗琳岛日全食，明胶银盐印相，日冕呈放射状铺开" decoding="async">
+        <figcaption>1883 年 5 月 6 日，卡罗琳岛。日冕的放射结构在约 20 秒的曝光里落下，边缘的羽状细节是靠长时间累积出来的。</figcaption>
+      </figure>
+      <figure class="plate-fig">
+        <img src="assets/view-of-the-observatory-oxford.jpg" width="599" height="439" alt="1810 年手工上色蚀刻版画：牛津天文台外观与观测圆顶" decoding="async">
+        <figcaption>1810 年，牛津天文台。手工上色蚀刻版画，记录观测建筑的形制与仪器的安置方式。</figcaption>
+      </figure>
+    </div>
+
+    <figure class="legend">
+      <svg viewBox="0 0 480 48" role="img" aria-label="观测仪器机械符号表：磁力计线圈、胶片齿孔、风速杯、记录笔尖">
+        <g fill="none" stroke="#C9D6CF" stroke-width="1.2" stroke-linecap="square">
+          <circle cx="38" cy="12" r="7"/><path d="M38 3v5M38 16v5M29 12h5M42 12h5"/>
+          <rect x="82" y="5" width="26" height="16"/><path d="M88 5v16M102 5v16"/>
+          <path d="M150 20V36M143 36h14M150 5v2M150 12v2M138 9l2 1M138 25l2-1M162 9l-2 1M162 25l-2-1"/>
+          <path d="M190 36h26M212 36 198 8M198 8h9"/>
+        </g>
+        <g fill="#B9A98C" font-size="11" font-family="IBM Plex Sans, Noto Sans SC, sans-serif">
+          <text x="16" y="46">线圈</text><text x="74" y="46">齿孔</text><text x="132" y="46">风速杯</text><text x="190" y="46">笔尖</text>
+        </g>
+      </svg>
+      <figcaption>符号全部取自极地观测仪器的机械件：磁力计线圈、胶片齿孔、风速杯、记录笔尖。线宽 1.2px，方头端点，落点对齐 1 单位栅格；不使用 Emoji，也不使用圆头。</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="states" class="states" aria-labelledby="states-h">
+  <div class="wrap">
+    <h2 class="h2" id="states-h">这台仪器怎么说话</h2>
+    <p>胶片库房的调阅请求只有四种结果：调出来了、还在扫、这一卷不在架上、以及这一卷本来就没有。前四个按钮分别对应它们；1979 年的片盒尚未归档，库房编号还没分配，所以那一项按不动。</p>
+    <div class="asks">
+      <button class="btn" type="button" data-ask="ok">调阅 1972 至 1974 片盒</button>
+      <button class="btn" type="button" data-ask="pending">调阅 1976 至 1977 片盒</button>
+      <button class="btn" type="button" data-ask="error">调阅 1975 年 3 月片盒</button>
+      <button class="btn" type="button" data-ask="empty">调阅 1978 年 12 月片盒</button>
+      <button class="btn" type="button" disabled aria-describedby="ask-why">调阅 1979 年片盒</button>
+    </div>
+    <p class="note" id="ask-why">1979 年的片盒尚未归档：库房编号未分配，因此在编号确定前这项保持不可用。</p>
+    <div class="answer" id="answer" role="status" aria-live="polite" data-ui>
+      <p class="answer-hint">按下任一按钮，这里会给出库房的回话。</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer id="credits" class="credits">
+  <div class="wrap">
+    <h2 class="h2" id="credits-h">图版来源</h2>
+    <p class="note">本站影像全部取自公有领域的历史天文照片，均通过 The Metropolitan Museum of Art 开放获取接口取得（CC0 1.0）。原件为 19 至 20 世纪的银盐与蛋白印相，扫描件保留原有颗粒，未做降噪。</p>
+    <ul class="credits-list">
+      <li>《The Wonderful Universe Explorer, The Great 36-inch Equatorial Telescope, Lick Observatory》，Underwood &amp; Underwood，1902，蛋白银盐立体照片。</li>
+      <li>《Eclipse of the Sun》，W. &amp; F. Langenheim，1854，银版照片。</li>
+      <li>《Lunar Photograph, South Pole》，Paul Henry，1890，蛋白银盐印相。</li>
+      <li>《[Solar Eclipse from Caroline Island]》，H. A. Lawrence，1883 年 5 月 6 日，明胶银盐印相。</li>
+      <li>《The Moon》，1857 至 1860，玻璃负片盐纸印相。</li>
+      <li>《Crater Kepler and Vicinity》，NASA，1967，明胶银盐印相。</li>
+      <li>《Far Side of the Moon at Apolune》，NASA，1967，明胶银盐印相。</li>
+      <li>《View of the Observatory, Oxford》，Thomas Rowlandson，1810 年 5 月 1 日，手工上色蚀刻与飞尘版画。</li>
+    </ul>
+    <p class="note">原型说明：本页是方案 03 的可运行原型。原始胶片扫描件为公有领域历史照片的替代品，用于验证版式、介质与读数机制。</p>
+  </div>
+</footer>
+
+<div class="cursor" aria-hidden="true"></div>
+
+<script>
+(function () {
+  "use strict";
+  document.documentElement.classList.add("js");
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ── 读数栅格：1px 每 8px 一条，每 40px 加粗到 1.5px，自下往上读 ── */
+  var svg = document.getElementById("scale");
+  var NS = "http://www.w3.org/2000/svg";
+  function line(x1, y1, x2, y2, w) {
+    var el = document.createElementNS(NS, "line");
+    el.setAttribute("x1", x1); el.setAttribute("y1", y1);
+    el.setAttribute("x2", x2); el.setAttribute("y2", y2);
+    el.setAttribute("stroke", w > 1 ? "#C9D6CF" : "#4A5A5E");
+    el.setAttribute("stroke-width", w);
+    el.setAttribute("stroke-linecap", "square");
+    svg.appendChild(el);
+  }
+  for (var y = 640; y >= 0; y -= 8) {
+    var major = (640 - y) % 40 === 0;
+    line(major ? 176 : 208, y, 264, y, major ? 1.5 : 1);
+  }
+  /* 齿孔编号：每 5 年一枚，累计偏移 0.3mm（约 1.13px），偏移取自当年校准漂移值 */
+  var years = [1957, 1962, 1967, 1972, 1977];
+  var drift = [0, 1.13, 2.26, 3.02, 4.15];
+  years.forEach(function (yr, i) {
+    var t = document.createElementNS(NS, "text");
+    t.setAttribute("x", 168 - drift[i]);
+    t.setAttribute("y", 640 - i * 128 - 4);
+    t.setAttribute("text-anchor", "end");
+    t.setAttribute("class", "scale-year");
+    t.textContent = String(yr);
+    svg.appendChild(t);
+    var hole = document.createElementNS(NS, "rect");
+    hole.setAttribute("x", 178 - drift[i]); hole.setAttribute("y", 640 - i * 128 - 9);
+    hole.setAttribute("width", 7); hole.setAttribute("height", 5);
+    hole.setAttribute("fill", "none"); hole.setAttribute("stroke", "#B9A98C");
+    hole.setAttribute("stroke-width", 1);
+    svg.appendChild(hole);
+  });
+
+  /* ── 胶片走片：页面下滚 1px，影像带整体上移 0.5px（同一机制、同一倍率） ── */
+  var stream = document.querySelector(".stream");
+  var bands = [].slice.call(document.querySelectorAll(".band"));
+  var rows = [].slice.call(document.querySelectorAll(".readouts tbody tr"));
+
+  function advance() {
+    if (reduce || !stream) return;
+    var top = stream.getBoundingClientRect().top + window.scrollY;
+    var rel = window.scrollY - (top - window.innerHeight);
+    var shift = Math.max(-40, Math.min(40, -(rel * 0.5)));
+    bands.forEach(function (b) { b.style.transform = "translateY(" + shift.toFixed(2) + "px)"; });
+  }
+  var ticking = false;
+  window.addEventListener("scroll", function () {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(function () { advance(); ticking = false; });
+  }, { passive: true });
+
+  /* ── 曝光计时：steps(1) 跳变，不做补间 ── */
+  var timer = document.getElementById("timer");
+  var t0 = 0, raf = null;
+  function step(ts) {
+    if (!t0) t0 = ts;
+    var s = (ts - t0) / 1000;
+    timer.textContent = s.toFixed(1) + " s";
+    if (s < 30) raf = window.requestAnimationFrame(step);
+  }
+  if (!reduce) raf = window.requestAnimationFrame(step);
+
+  /* ── 显影编排：先铺暗部颗粒 800ms，随后读数自左下向右上按 40ms 逐条出现 ── */
+  function develop() {
+    if (reduce) {
+      document.body.classList.add("developed");
+      rows.forEach(function (r) { r.style.opacity = "1"; r.style.transform = "none"; });
+      return;
+    }
+    window.setTimeout(function () {
+      document.body.classList.add("developed");
+      rows.forEach(function (row, i) {
+        window.setTimeout(function () {
+          row.style.opacity = "1";
+          row.style.transform = "none";
+        }, i * 40);
+      });
+    }, 60);
+  }
+  develop();
+
+  /* ── 游标：进入影像带换成 1.2px 自绘十字 ── */
+  var cursor = document.querySelector(".cursor");
+  bands.forEach(function (b) {
+    b.addEventListener("pointerenter", function () { cursor.style.display = "block"; });
+    b.addEventListener("pointerleave", function () { cursor.style.display = "none"; });
+    b.addEventListener("pointermove", function (e) {
+      cursor.style.transform = "translate(" + e.clientX + "px," + e.clientY + "px)";
+    });
+  });
+
+  /* ── 库房回话：调出 / 还在扫 / 不在架上 三种真实结果 ── */
+  var answer = document.getElementById("answer");
+  var REPLIES = {
+    ok: "<p><b>调出 1972 至 1974 片盒</b>，共 3 卷、41 个观测夜。</p>" +
+        "<p class=\"note\"><samp>K-114-1972</samp> 曝光 20 s · <samp>K-114-1973</samp> 曝光 40 s · <samp>K-114-1974</samp> 曝光 90 s</p>",
+    pending: "<p><b>还在扫。</b>修复室正在逐格扫描 1976 至 1977 片盒，第 2 卷进行中。</p>" +
+        "<p class=\"note\"><samp>扫描进度 6 / 14 格</samp>，预计还需 40 分钟。可以先调阅已完成的第 1 卷。</p>",
+    error: "<p><b>这一卷不在架上。</b>这卷胶片还没扫完：第 3 个片盒的齿孔断了两格，错误码 <samp>SCAN-E114</samp>。</p>" +
+        "<p class=\"note\">换成 1974 年那一卷，或者等修复室回话。</p>",
+    empty: "<p><b>架上没有这一卷。</b>这台磁力计在 1978 年 11 月停用，之后的夜间没有记录。</p>" +
+        "<p class=\"note\">原始胶片存放在特罗姆瑟的地下库房，编号 <samp>K-114</samp>，调阅需提前两周。</p>"
+  };
+  document.querySelectorAll("[data-ask]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var kind = btn.getAttribute("data-ask");
+      answer.classList.add("is-busy");
+      answer.innerHTML = "<p><b>库房正在翻架…</b></p><p class=\"note\"><samp>正在核对片盒编号与齿孔状态</samp></p>";
+      window.setTimeout(function () {
+        answer.classList.remove("is-busy");
+        answer.innerHTML = REPLIES[kind];
+      }, reduce ? 0 : 700);
+    });
+  });
+
+  /* ── 首屏按钮：切换调阅区间 ── */
+  var status = document.getElementById("range-status");
+  var load = document.getElementById("load-range");
+  load.addEventListener("click", function () {
+    status.textContent = "正在调出 1972 至 1974 年的夜间读数…";
+    window.setTimeout(function () {
+      status.textContent = "当前区间：1972 至 1974，共 3 卷、41 个观测夜";
+    }, reduce ? 0 : 700);
+  });
+
+  window.__advance = advance;
+  advance();
+})();
+</script>
+</body>
+</html>

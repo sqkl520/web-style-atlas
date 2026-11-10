@@ -1,0 +1,10 @@
+﻿import { readFileSync } from 'node:fs';
+const load=(p)=>JSON.parse(readFileSync(p,'utf8').replace(/^[\s\S]*?window\.SCHEMES\s*=\s*/,'').replace(/;\s*$/,''));
+const S=load('prototypes/_selection/data.js');
+console.log('=== S15 audit ===');
+console.log(S.find(r=>r.id==='S15').audit);
+console.log('\n=== S15 md 字段 8 到 9 之间 ===');
+const md=readFileSync('prototypes/_specs/S15.md','utf8');
+const i=md.indexOf('**8. 去 AI 味审查点');
+const j=md.indexOf('**9. 反 AI 味');
+console.log(JSON.stringify(md.slice(i,j)).slice(0,1200));

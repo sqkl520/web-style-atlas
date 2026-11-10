@@ -1,0 +1,1021 @@
+{
+ "files": 10,
+ "findings": [
+  {
+   "level": "FAIL",
+   "id": "emoji",
+   "file": "prototypes/_selection/app.js",
+   "line": 321,
+   "match": "⚠",
+   "message": "Emoji used as UI."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "prototypes/_selection/app.js",
+   "line": 350,
+   "match": "border:1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "FAIL",
+   "id": "numbering",
+   "file": "prototypes/_selection/app.js",
+   "line": 550,
+   "match": "\"01\"",
+   "message": "Decorative index numbering (01 / 02 / 03)."
+  },
+  {
+   "level": "FAIL",
+   "id": "emoji",
+   "file": "prototypes/_selection/app.js",
+   "line": 678,
+   "match": "⚠",
+   "message": "Emoji used as UI."
+  },
+  {
+   "level": "FAIL",
+   "id": "emoji",
+   "file": "prototypes/_selection/app.js",
+   "line": 682,
+   "match": "⚠",
+   "message": "Emoji used as UI."
+  },
+  {
+   "level": "FAIL",
+   "id": "emoji",
+   "file": "prototypes/_selection/app.js",
+   "line": 711,
+   "match": "⚠",
+   "message": "Emoji used as UI."
+  },
+  {
+   "level": "FAIL",
+   "id": "emoji",
+   "file": "prototypes/_selection/app.js",
+   "line": 735,
+   "match": "⚠",
+   "message": "Emoji used as UI."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "prototypes/_selection/app.js",
+   "line": 755,
+   "match": "border:1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "FAIL",
+   "id": "emoji",
+   "file": "prototypes/_selection/app.js",
+   "line": 803,
+   "match": "⚠",
+   "message": "Emoji used as UI."
+  },
+  {
+   "level": "FAIL",
+   "id": "emoji",
+   "file": "prototypes/_selection/app.js",
+   "line": 1372,
+   "match": "⚠",
+   "message": "Emoji used as UI."
+  },
+  {
+   "level": "FAIL",
+   "id": "emoji",
+   "file": "prototypes/_selection/app.js",
+   "line": 1507,
+   "match": "⚠",
+   "message": "Emoji used as UI."
+  },
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "file": "prototypes/_selection/data.js",
+   "line": 15,
+   "match": "Martian Mono",
+   "message": "Monospace type. Only literal code may be monospace."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/_selection/data.js",
+   "line": 106,
+   "match": "drop-shadow",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "file": "prototypes/_selection/data.js",
+   "line": 267,
+   "match": "Martian Mono",
+   "message": "Monospace type. Only literal code may be monospace."
+  },
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "file": "prototypes/_selection/data.js",
+   "line": 352,
+   "match": "Departure Mono",
+   "message": "Monospace type. Only literal code may be monospace."
+  },
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "file": "prototypes/_selection/data.js",
+   "line": 358,
+   "match": "Departure Mono",
+   "message": "Monospace type. Only literal code may be monospace."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/_selection/data.js",
+   "line": 358,
+   "match": "box-shadow:",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "file": "prototypes/_selection/data.js",
+   "line": 434,
+   "match": "Martian Mono",
+   "message": "Monospace type. Only literal code may be monospace."
+  },
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "file": "prototypes/_selection/data.js",
+   "line": 697,
+   "match": "JetBrains Mono",
+   "message": "Monospace type. Only literal code may be monospace."
+  },
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "file": "prototypes/_selection/data.js",
+   "line": 703,
+   "match": "JetBrains Mono",
+   "message": "Monospace type. Only literal code may be monospace."
+  },
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "file": "prototypes/_selection/data.js",
+   "line": 867,
+   "match": "Martian Mono",
+   "message": "Monospace type. Only literal code may be monospace."
+  },
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "file": "prototypes/_selection/data.js",
+   "line": 953,
+   "match": "JetBrains Mono",
+   "message": "Monospace type. Only literal code may be monospace."
+  },
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "file": "prototypes/_selection/data.js",
+   "line": 1039,
+   "match": "DM Mono",
+   "message": "Monospace type. Only literal code may be monospace."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/_selection/data.js",
+   "line": 1072,
+   "match": "shadow",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "file": "prototypes/_selection/data.js",
+   "line": 1131,
+   "match": "Space Mono",
+   "message": "Monospace type. Only literal code may be monospace."
+  },
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "file": "prototypes/_selection/data.js",
+   "line": 1137,
+   "match": "Martian Mono",
+   "message": "Monospace type. Only literal code may be monospace."
+  },
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "file": "prototypes/_selection/data.js",
+   "line": 1306,
+   "match": "Fragment Mono",
+   "message": "Monospace type. Only literal code may be monospace."
+  },
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "file": "prototypes/_selection/data.js",
+   "line": 1477,
+   "match": "Martian Mono",
+   "message": "Monospace type. Only literal code may be monospace."
+  },
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "file": "prototypes/_selection/data.js",
+   "line": 1483,
+   "match": "Martian Mono",
+   "message": "Monospace type. Only literal code may be monospace."
+  },
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "file": "prototypes/_selection/data.js",
+   "line": 1649,
+   "match": "Martian Mono",
+   "message": "Monospace type. Only literal code may be monospace."
+  },
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "file": "prototypes/_selection/data.js",
+   "line": 1655,
+   "match": "Martian Mono",
+   "message": "Monospace type. Only literal code may be monospace."
+  },
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "file": "prototypes/_selection/data.js",
+   "line": 1908,
+   "match": "JetBrains Mono",
+   "message": "Monospace type. Only literal code may be monospace."
+  },
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "file": "prototypes/_selection/data.js",
+   "line": 1914,
+   "match": "JetBrains Mono",
+   "message": "Monospace type. Only literal code may be monospace."
+  },
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "file": "prototypes/_selection/data.js",
+   "line": 2080,
+   "match": "JetBrains Mono",
+   "message": "Monospace type. Only literal code may be monospace."
+  },
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "file": "prototypes/_selection/data.js",
+   "line": 2086,
+   "match": "JetBrains Mono",
+   "message": "Monospace type. Only literal code may be monospace."
+  },
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "file": "prototypes/_selection/data.js",
+   "line": 2251,
+   "match": "Martian Mono",
+   "message": "Monospace type. Only literal code may be monospace."
+  },
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "file": "prototypes/_selection/data.js",
+   "line": 2257,
+   "match": "Martian Mono",
+   "message": "Monospace type. Only literal code may be monospace."
+  },
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "file": "prototypes/_selection/data.js",
+   "line": 2336,
+   "match": "JetBrains Mono",
+   "message": "Monospace type. Only literal code may be monospace."
+  },
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "file": "prototypes/_selection/data.js",
+   "line": 2342,
+   "match": "JetBrains Mono",
+   "message": "Monospace type. Only literal code may be monospace."
+  },
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "file": "prototypes/_selection/data.js",
+   "line": 2422,
+   "match": "Martian Mono",
+   "message": "Monospace type. Only literal code may be monospace."
+  },
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "file": "prototypes/_selection/data.js",
+   "line": 2428,
+   "match": "Martian Mono",
+   "message": "Monospace type. Only literal code may be monospace."
+  },
+  {
+   "level": "FAIL",
+   "id": "emoji",
+   "file": "prototypes/_selection/index.html",
+   "line": 259,
+   "match": "⚠",
+   "message": "Emoji used as UI."
+  },
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "file": "prototypes/_selection/prompt-copy.js",
+   "line": 172,
+   "match": "Space Mono",
+   "message": "Monospace type. Only literal code may be monospace."
+  },
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "file": "prototypes/_selection/prompt-copy.js",
+   "line": 230,
+   "match": "JetBrains Mono",
+   "message": "Monospace type. Only literal code may be monospace."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/_selection/prompt-copy.js",
+   "line": 282,
+   "match": "shadow",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/_selection/prompt-copy.js",
+   "line": 455,
+   "match": "shadow",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "purple",
+   "file": "prototypes/_selection/prompt-copy.js",
+   "line": 621,
+   "match": "#6366F1",
+   "message": "Indigo / violet — the generated-page accent."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/_selection/prompt-copy.js",
+   "line": 689,
+   "match": "box-shadow:",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "file": "prototypes/_selection/prompt-copy.js",
+   "line": 701,
+   "match": "ui-monospace",
+   "message": "Monospace type. Only literal code may be monospace."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "prototypes/_selection/prompt-copy.js",
+   "line": 744,
+   "match": "height:1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "FAIL",
+   "id": "emoji",
+   "file": "prototypes/_selection/prompt-copy.js",
+   "line": 774,
+   "match": "✓",
+   "message": "Emoji used as UI."
+  },
+  {
+   "level": "FAIL",
+   "id": "emoji",
+   "file": "prototypes/_selection/prompt-copy.js",
+   "line": 980,
+   "match": "⚠",
+   "message": "Emoji used as UI."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "prototypes/_selection/prompt-copy.js",
+   "line": 1168,
+   "match": "border:1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "file": "prototypes/_selection/prompts.js",
+   "line": 407,
+   "match": "Martian Mono",
+   "message": "Monospace type. Only literal code may be monospace."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/_selection/prompts.js",
+   "line": 419,
+   "match": "shadow",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/_selection/prompts.js",
+   "line": 462,
+   "match": "shadow",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/_selection/prompts.js",
+   "line": 508,
+   "match": "shadow",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "file": "prototypes/_selection/prompts.js",
+   "line": 539,
+   "match": "Martian Mono",
+   "message": "Monospace type. Only literal code may be monospace."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/_selection/prompts.js",
+   "line": 555,
+   "match": "shadow",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "file": "prototypes/_selection/prompts.js",
+   "line": 586,
+   "match": "Departure Mono",
+   "message": "Monospace type. Only literal code may be monospace."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/_selection/prompts.js",
+   "line": 597,
+   "match": "shadow",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "file": "prototypes/_selection/prompts.js",
+   "line": 629,
+   "match": "Martian Mono",
+   "message": "Monospace type. Only literal code may be monospace."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/_selection/prompts.js",
+   "line": 645,
+   "match": "shadow",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/_selection/prompts.js",
+   "line": 692,
+   "match": "shadow",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/_selection/prompts.js",
+   "line": 737,
+   "match": "shadow",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "file": "prototypes/_selection/prompts.js",
+   "line": 769,
+   "match": "JetBrains Mono",
+   "message": "Monospace type. Only literal code may be monospace."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/_selection/prompts.js",
+   "line": 780,
+   "match": "shadow",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/_selection/prompts.js",
+   "line": 823,
+   "match": "shadow",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "file": "prototypes/_selection/prompts.js",
+   "line": 854,
+   "match": "Martian Mono",
+   "message": "Monospace type. Only literal code may be monospace."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/_selection/prompts.js",
+   "line": 869,
+   "match": "shadow",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "file": "prototypes/_selection/prompts.js",
+   "line": 900,
+   "match": "JetBrains Mono",
+   "message": "Monospace type. Only literal code may be monospace."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/_selection/prompts.js",
+   "line": 914,
+   "match": "shadow",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "file": "prototypes/_selection/prompts.js",
+   "line": 945,
+   "match": "DM Mono",
+   "message": "Monospace type. Only literal code may be monospace."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/_selection/prompts.js",
+   "line": 958,
+   "match": "shadow",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "file": "prototypes/_selection/prompts.js",
+   "line": 989,
+   "match": "Space Mono",
+   "message": "Monospace type. Only literal code may be monospace."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/_selection/prompts.js",
+   "line": 1002,
+   "match": "shadow",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/_selection/prompts.js",
+   "line": 1047,
+   "match": "shadow",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "file": "prototypes/_selection/prompts.js",
+   "line": 1078,
+   "match": "Fragment Mono",
+   "message": "Monospace type. Only literal code may be monospace."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/_selection/prompts.js",
+   "line": 1091,
+   "match": "shadow",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/_selection/prompts.js",
+   "line": 1137,
+   "match": "shadow",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/_selection/prompts.js",
+   "line": 1184,
+   "match": "shadow",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/_selection/prompts.js",
+   "line": 1229,
+   "match": "shadow",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "file": "prototypes/_selection/prompts.js",
+   "line": 1260,
+   "match": "Martian Mono",
+   "message": "Monospace type. Only literal code may be monospace."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/_selection/prompts.js",
+   "line": 1272,
+   "match": "shadow",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/_selection/prompts.js",
+   "line": 1319,
+   "match": "shadow",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/_selection/prompts.js",
+   "line": 1365,
+   "match": "shadow",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "file": "prototypes/_selection/prompts.js",
+   "line": 1396,
+   "match": "JetBrains Mono",
+   "message": "Monospace type. Only literal code may be monospace."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/_selection/prompts.js",
+   "line": 1408,
+   "match": "shadow",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/_selection/prompts.js",
+   "line": 1455,
+   "match": "shadow",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/_selection/prompts.js",
+   "line": 1500,
+   "match": "shadow",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/_selection/prompts.js",
+   "line": 1542,
+   "match": "shadow",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "file": "prototypes/_selection/prompts.js",
+   "line": 1574,
+   "match": "Martian Mono",
+   "message": "Monospace type. Only literal code may be monospace."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/_selection/prompts.js",
+   "line": 1587,
+   "match": "shadow",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "file": "prototypes/_selection/prompts.js",
+   "line": 1619,
+   "match": "JetBrains Mono",
+   "message": "Monospace type. Only literal code may be monospace."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/_selection/prompts.js",
+   "line": 1633,
+   "match": "shadow",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "file": "prototypes/_selection/prompts.js",
+   "line": 1665,
+   "match": "Martian Mono",
+   "message": "Monospace type. Only literal code may be monospace."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/_selection/prompts.js",
+   "line": 1676,
+   "match": "shadow",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/_selection/prompts.js",
+   "line": 1721,
+   "match": "shadow",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "prototypes/_selection/style.css",
+   "line": 137,
+   "match": "border: 1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "FAIL",
+   "id": "emoji",
+   "file": "prototypes/_selection/style.css",
+   "line": 143,
+   "match": "⚠",
+   "message": "Emoji used as UI."
+  },
+  {
+   "level": "WARN",
+   "id": "h-screen",
+   "file": "prototypes/_selection/style.css",
+   "line": 311,
+   "match": "height: 100vh",
+   "message": "100vh jumps on mobile. Use 100svh / 100dvh."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "prototypes/_selection/style.css",
+   "line": 326,
+   "match": "border: 1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "prototypes/_selection/style.css",
+   "line": 399,
+   "match": "border: 1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/_selection/style.css",
+   "line": 444,
+   "match": "box-shadow:",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "prototypes/_selection/style.css",
+   "line": 458,
+   "match": "border: 1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "FAIL",
+   "id": "emoji",
+   "file": "prototypes/_selection/style.css",
+   "line": 529,
+   "match": "⚠",
+   "message": "Emoji used as UI."
+  },
+  {
+   "level": "FAIL",
+   "id": "gradient",
+   "file": "prototypes/_selection/style.css",
+   "line": 553,
+   "match": "linear-gradient(",
+   "message": "Gradient fill. Use a flat colour or a real image (a neutral scrim over a photo is the one exception)."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "prototypes/_selection/style.css",
+   "line": 575,
+   "match": "border: 1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "prototypes/_selection/style.css",
+   "line": 634,
+   "match": "border-top: 1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "prototypes/_selection/style.css",
+   "line": 671,
+   "match": "border: 1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "prototypes/_selection/style.css",
+   "line": 755,
+   "match": "border: 1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "prototypes/_selection/style.css",
+   "line": 757,
+   "match": "border-right: 1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "prototypes/_selection/style.css",
+   "line": 824,
+   "match": "border: 1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "FAIL",
+   "id": "emoji",
+   "file": "prototypes/_selection/style.css",
+   "line": 846,
+   "match": "⚠",
+   "message": "Emoji used as UI."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "prototypes/_selection/style.css",
+   "line": 864,
+   "match": "border-bottom: 1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "prototypes/_selection/style.css",
+   "line": 886,
+   "match": "border-bottom: 1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "prototypes/_selection/style.css",
+   "line": 989,
+   "match": "border-bottom: 1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "prototypes/_selection/style.css",
+   "line": 1076,
+   "match": "box-shadow:",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "prototypes/_selection/style.css",
+   "line": 1093,
+   "match": "border: 1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "prototypes/_selection/style.css",
+   "line": 1127,
+   "match": "border: 1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "prototypes/_selection/style.css",
+   "line": 1151,
+   "match": "border: 1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "FAIL",
+   "id": "emoji",
+   "file": "prototypes/_selection/style.css",
+   "line": 1298,
+   "match": "⚠",
+   "message": "Emoji used as UI."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "prototypes/_selection/style.css",
+   "line": 1341,
+   "match": "border: 1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "FAIL",
+   "id": "emoji",
+   "file": "prototypes/_selection/style.css",
+   "line": 1353,
+   "match": "⚠",
+   "message": "Emoji used as UI."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "prototypes/_selection/wizard.css",
+   "line": 72,
+   "match": "border-top: 1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "FAIL",
+   "id": "emoji",
+   "file": "prototypes/_selection/wizard.js",
+   "line": 204,
+   "match": "⚠",
+   "message": "Emoji used as UI."
+  },
+  {
+   "level": "WARN",
+   "id": "em-dash",
+   "file": "(all files)",
+   "line": 0,
+   "match": "610 em dashes",
+   "message": "Em-dash habit. Use a full stop or a comma; keep at most one or two on a page."
+  }
+ ]
+}

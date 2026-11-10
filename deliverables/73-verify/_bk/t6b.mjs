@@ -1,0 +1,16 @@
+﻿import { readFileSync, writeFileSync, renameSync, existsSync } from "node:fs";
+import { createHash } from "node:crypto";
+import { spawnSync } from "node:child_process";
+const ROOT="D:/Web/style";
+const REP=`${ROOT}/prototypes/S08-amber-overprint-lightbox/.inspect/report.json`;
+const sha=(p)=>createHash("sha256").update(readFileSync(p)).digest("hex").slice(0,16);
+const run=()=>{const r=spawnSync(process.execPath,["prototypes/_build/check-contract.mjs"],{cwd:ROOT,encoding:"utf8"});return {c:r.status,o:String(r.stdout)+String(r.stderr)};};
+const before=sha(REP);
+console.log("before sha:", before, "size:", readFileSync(REP).length);
+renameSync(REP, REP+".probe-bak");
+const r=run();
+console.log("=== S08 report.json 移走后 ===");
+console.log("exit =", r.c);
+console.log(r.o.split(/\r?\n/).filter(l=>/C0|C1 FAIL|合计/.test(l)).join("\n"));
+renameSync(REP+".probe-bak", REP);
+console.log("restored sha:", sha(REP), "match:", sha(REP)===before);

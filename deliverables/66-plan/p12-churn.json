@@ -1,0 +1,597 @@
+{
+ "meta": {
+  "eec843f": {
+   "add": 221,
+   "del": 106,
+   "files": {
+    "README-EN.md": {
+     "add": 40,
+     "del": 7
+    },
+    "README.md": {
+     "add": 42,
+     "del": 9
+    },
+    "prototypes/_selection/index.html": {
+     "add": 4,
+     "del": 6
+    },
+    "prototypes/_selection/prompt-copy.js": {
+     "add": 25,
+     "del": 3
+    },
+    "prototypes/_selection/prompts.js": {
+     "add": 110,
+     "del": 81
+    }
+   },
+   "body": "把「复制 AI 提示词」从面板底部移到顶部，并修掉提示词里三处会误导 AI 的数据\n\n## 为什么改\n\n上一轮做出了复制提示词的功能，但实测它拿不到：详情面板 scrollHeight 2991px /\nclientHeight 900px，按钮 appendChild 落在第 2881px，用户要滚 3.3 屏、跨过 10 个字段\n2589 字才看得见，且它距视口底部还差 2027px。30 张行卡上的按钮数量是 0。\n「选中 → 带走」的闭环断在最后一环。\n\n改为 insertBefore(host.firstChild)。三档视口实测按钮顶部位置：\n\n    桌面 1440×900   2881px → 120px\n    平板 768×1024   2881px → 120px\n    手机 390×844    2881px → 141px\n\n三档均「点开即见」（copyVisibleOnOpen: true）。\n\n## 提示词内容的三处数据错误\n\n1) S07 写「我实际有 5 个条目」。5 是早期人工估计，实测该案设计规模是 46 条\n   （46 份分类广告的目录跨页）。AI 照 5 条去排，风格当场失效。\n   根因：生成器只读 HUMAN 的人工估计，没读 CAPACITY 实测值。26/30 案两者不一致。\n   改为优先读 CAPACITY.minItems。\n\n2) S14 配色写成「（该案未在 :root 声明色变量，需读 CSS 正文）」。\n   S14 全文件零个 :root、颜色全是字面量。原实现遇到这种情况直接留空，\n   等于把内部缺陷甩给用户 —— 用户无法执行「需读 CSS 正文」这条指令。\n   clean-dna.mjs 加兜底：无 :root 时按全文件字面量出现频次取前 5。\n   S14 现值 #C9C4B8 / #D8D2C4 / #12181D / #E4572E / #8A3320。\n   频次权重（×16 这类元信息）在拼装时剥离，不进提示词。\n\n3) 13 个「内容少会留洞」的案（degrades=yes），提示词只写「不凑整不留空位」，\n   没告诉 AI 这一版式的位置是手工排定的。补一条分支：degrades=yes 时要求\n   「先把数量凑够再排版；凑不够就整块重排、不留空槽」，degrades=no 时说明\n   「自动流，增减只让页面变短」。\n\n30 案提示词全部复查：占位符 0、空调色板 0，长度 1121–1276 字（均值 1204）。\n\n## 删掉一份会导致静默分叉的死副本\n\nprompts.js 里有个 875 字的 `template` 字段，实测**没有任何代码读它**\n（`P.template|STYLE_PROMPTS.template` 在 _selection 的 js/html 上零命中）。\n真正拼提示词的是 prompt-copy.js 的 buildPrompt()，里面另有一份逐字相同的模板。\n两份当前同步（7 个探针句子全 same），但这正是本仓库记录在案的分叉教训\n（M01 的 box-shadow 曾出现中英文档结论相反）。留着等于埋哑弹：只改一份不会报错。\n删除后 prompts.js 33.2KB → 31.3KB。\n\n## 顺手清掉一个假控件\n\nindex.html 里 `<details class=\"rail-fold\" id=\"rail-fold\">` 的 .rail-fold-body\n子元素数实测为 0 —— rail 限高最终用 CSS max-height 实现，这个 details 从未接上内容，\n桌面与移动端都渲染成一条 26px 的空折叠条，summary 却写着「筛选与场景反查（11 组）」。\n点开什么都没有的控件，删除。\n\n## 文档\n\nREADME 中/EN 同步补上「选中之后怎么带走」整节（此前 zh `提示词` 出现 0 次、\nEN `prompt` 0 次，功能做完了文档一字未提），并修掉 README 里两处已失效的描述：\n行卡早已只留一张桌面图、三档对照搬进了详情面板。\n\n## 验证\n\n- verify-prototype.mjs --all：达标 26 / 不达标 4 / 共 30（FAIL 集合未变）\n- check-stale.mjs：无输出；check-anchors.mjs：无输出\n- check-readme.mjs：zh 0 FAIL / 0 WARN（24 PASS）；EN 0 FAIL / 2 WARN\n  （2 个 WARN 是中文正则检英文文本的已知误报，改前同样是 2）\n- prompt-copy.js / prompts.js / app.js 均 node --check 通过\n- 30 案提示词逐个生成复查，无占位符、无空调色板\n\n"
+  },
+  "cea8436": {
+   "add": 10462,
+   "del": 243,
+   "files": {
+    "deliverables/61-plan/CRITIQUE-p0-review.md": {
+     "add": 593,
+     "del": 0
+    },
+    "deliverables/61-plan/PLAN-gap-closure.md": {
+     "add": 786,
+     "del": 0
+    },
+    "deliverables/61-plan/REDTEAM-gap-premises.md": {
+     "add": 363,
+     "del": 0
+    },
+    "deliverables/61-plan/SYNTHESIS-and-plan.md": {
+     "add": 201,
+     "del": 0
+    },
+    "deliverables/61-plan/VERIFY-p0-independent.md": {
+     "add": 304,
+     "del": 0
+    },
+    "deliverables/61-research/ai-signature.md": {
+     "add": 584,
+     "del": 0
+    },
+    "deliverables/61-research/gallery-ia.md": {
+     "add": 697,
+     "del": 0
+    },
+    "deliverables/61-research/prompt-efficacy.md": {
+     "add": 713,
+     "del": 0
+    },
+    "deliverables/61-research/smb-demand.md": {
+     "add": 587,
+     "del": 0
+    },
+    "deliverables/61-research/template-usability.md": {
+     "add": 607,
+     "del": 0
+    },
+    "deliverables/61-research/trend-2026.md": {
+     "add": 466,
+     "del": 0
+    },
+    "prototypes/_prompts/build-prompts.mjs": {
+     "add": 284,
+     "del": 0
+    },
+    "prototypes/_prompts/clean-dna.mjs": {
+     "add": 621,
+     "del": 0
+    },
+    "prototypes/_prompts/dna-clean.json": {
+     "add": 1118,
+     "del": 0
+    },
+    "prototypes/_prompts/dna-raw.json": {
+     "add": 1640,
+     "del": 0
+    },
+    "prototypes/_prompts/extract-dna.mjs": {
+     "add": 173,
+     "del": 0
+    },
+    "prototypes/_prompts/mechanisms.mjs": {
+     "add": 100,
+     "del": 0
+    },
+    "prototypes/_prompts/minitems-parsed.json": {
+     "add": 182,
+     "del": 0
+    },
+    "prototypes/_selection/app.js": {
+     "add": 64,
+     "del": 2
+    },
+    "prototypes/_selection/index.html": {
+     "add": 41,
+     "del": 2
+    },
+    "prototypes/_selection/prompt-copy.js": {
+     "add": 83,
+     "del": 22
+    },
+    "prototypes/_selection/prompts.js": {
+     "add": 255,
+     "del": 217
+    }
+   },
+   "body": "修提示词的正确性：7 个 Agent 审出的 P0，30 案圆角/字体/主色/线宽全修\n\n## 为什么先修这个\n\n用户的诉求是「补掉最明显的缺口」。我先按常识列了 5 条（补行业词、把模板接进\n索引、验证提示词…），派 5 个检索 + 1 个规划 + 1 个红队共 7 个 Agent 审，\n结果 2 条被证伪、3 条被降级，而真正该先修的是我没列到的那条：\n\n**「复制 AI 提示词」在批量输出错的施工图。** 用户点一下拿到的那 1200 字，\n圆角约束 30/30 不可执行、7 条标题字体与原型不符、1 条把 CSS 注释当字体名、\n2 个案子的主强调色整个丢失。这些错误来自仓库，但用户会以为 AI 不行。\n\n红队与规划 Agent 互不相识，独立跑出同一批缺陷与同一行号，故采信。\n\n## 修了什么\n\n| # | 缺陷 | 修法 | 结果 |\n|---|---|---|---|\n| 1 | 圆角行 30/30 不可执行：9 条吐 `未声明`/`0 / 50%` 抽取记号，21 条双句号 `。。` | 回 CSS 读 border-radius 语义，判 4 种形态 | 30/30 可执行，收敛到 3 种句式 |\n| 2 | 标题字体 7/30 错（S06 写 Literata 实为 EB Garamond；S19 写 Spectral 实为 Noto Serif SC…） | 不再按 `fonts[0]` 猜，改按 h1 规则解析（展开 var，回落 class 规则/body） | 30/30 一致 |\n| 3 | S07 把 `/* taste-skill-ignore */` 当字体名喂给 AI | 抽取前剥 CSS 注释 | 命中 0 |\n| 4 | 调色板截断前 5 色，**S19 `#4A5C3A`（CSS 里 16 处引用）与 S24 `#5D43AD` 主色丢失** | 主色先入列，再按声明顺序补，上限 5→7 | 标了主色的 21 案全部在列，S19/S24 排第一位 |\n| 5 | 默认气质恒为「安静、有手艺感」，与 S09「热闹」/S12「很吵」/S16「速度感」/S30「潮流有劲」直接打架 | 改用 `data.js` 的 `tone`（7 个气质值，30/30 齐备）派生 | 30/30 有 tone，含「安静」0 案 |\n| 6 | `reset` 清不掉场景芯片（30→4→**4**，界面主动说谎） | 补 `state.sceneIds`，且原选择器选不到 `.scene-more` 里那 28 颗隐藏芯片 | 30→4→**30**，pressed 归 0 |\n| 7 | 模板出口在 rail 第 11 组，首屏曝光 0 | 移到页头左栏、紧跟选型向导（同为\"另一条路\"） | 三档 top=262/273/307，均在首屏 |\n| 8 | 空状态把\"我没有这个维度\"说成\"你条件加多了\" | 改口承认「这套图集不按行业建索引」，30/44/16 三个数字由 `syncEmptyFacts()` 现算 | — |\n| 9 | 生成器全在 gitignore 的 scratch 里，`prompts.js` 首行却写\"自动生成勿手改，生成器：…\" | 移入 `prototypes/_prompts/`，硬编码 `D:/Web/style` 改为从脚本位置推导 | 克隆者可复算，sha256 两遍一致 |\n\n## 独立验证 Agent 抓出的 3 个我没验到的\n\n1. **`lineWidths` 从不抽 SVG `stroke-width`**（原正则只覆盖 border/outline）。\n   S19 第 5 条对 AI 说「线宽只用 1px、3px」，而它的签名机制句说「线宽只 0.4 与 0.8px」\n   （`style.css:297-298` 的 `.e4{stroke-width:.4}`）。**两套交集为空**，AI 必错一个。\n   而这个 bug 对执行者的验收脚本完全隐形——`verify-p0.mjs` 只查 `indexOf(\"未声明\")`。\n   修：正则加 `stroke-width`，并放开 SVG 允许的无单位裸数字（`stroke-width: 0.4`）。\n   修后 S19 = `0.4px、0.8px、1px、3px`，与机制句一致。\n   顺带发现加 stroke 后有的案抽出 9 档（S15），而句子里写着\"不要自创第三级\"，\n   于是按\"< 1px 的细描边全留、≥ 1px 的按 0.5px 去重\"收敛——不能按 0.5px 全聚，\n   否则 S19 的 0.4/0.8 会被合成一档，正好丢掉它最核心的两级描边分层。\n\n2. **minPics 补丁与输出要求自相矛盾**（30/30 全中）：「要放 6 张真实图片…不许占位」\n   vs 原文「图片用 images/ 下的占位路径」。已改成「留 6 个图片位、路径用占位、\n   但不许用 1px 图或纯色块顶替」。顺带发现 `minPics` 此前**从未进过提示词**\n   （`prompt-copy.js` 全文命中 0 次），而 S19 唯一那次端到端实测暴露的真实事故\n   正是\"没给高度、5 个抽屉挤成两条 24px 细带\"。\n\n3. **回滚方向的风险是不对称的**：旧 `prompts.js` + 新 `prompt-copy.js` 不报错（有兼容分支）；\n   但新 `prompts.js` + 旧 `prompt-copy.js` 会让 30/30 案字体行变成「有刻印感的衬线」，\n   按钮照常显示\"已复制 ✓\"、控制台零报错。已在生成器 banner 与 prompt-copy 注释里写明。\n\n## 我自己在过程中犯的错（记录）\n\n- 写了注释 `原正则只覆盖 border*/outline*`，其中 `*/` 提前闭合了注释，\n  导致 `clean-dna.mjs` 语法错误、静默没写盘——**正是这个脚本要修的那类问题**（P0-3）。\n  症状是\"改了没生效\"，我是靠对比 `dna-clean.json` 的 mtime 才发现的。\n- 一度把 S25 的圆角写成以「圆形（50%）」开头。实测它唯一的圆角是\n  `width:1.6px;border-radius:50%` 的**打孔点**，全站再没有一处圆角。\n  首因位置给出错误指令，AI 会读成\"这一版式的特征是圆\"。改成以「全站方角 0」开头。\n\n## 验证\n\n- `verify-p0.mjs`：4/4 PASS\n- `crosscheck-p0.mjs`（第三种独立方法）：圆角 30/30、字体不一致 0/30、注释残渣 0、主色未进提示词 0 处\n- 可复算：重跑生成链两遍，`prompts.js` sha256 一致（`7e0a8f46…`）\n- 闸门 `verify-prototype.mjs --all`：**达标 26 / 不达标 4 / 共 30**，FAIL 名单逐字不变\n- `check-stale.mjs`、`check-anchors.mjs`：无输出\n- 三档视口横向溢出均 0；`node --check` 三个 JS 全过\n- 未动任何 `prototypes/S*/` 原型文件，未动 `_CONTRACT.md`\n\n## 仍然没做的（不假装做了）\n\n- **提示词落地验证**：红队指出\"实现者=验收者同一模型\"的方法破绽成立，\n  且 30 条各验一次要 30–60 人时。应只验 3 条（S07/S30/S23）并换不知道答案的实现者。\n- **补行业覆盖**：smb-demand 报告用数据推翻了我要补的律所（缺口率 2.8%）、\n  暖通（2.6%）——最饱和的三个恰是大家默认最想做的。真实缺口排序是\n  餐厅 → 个人护理 → 民宿 → 汽修 → 本地诊所。\n- **把 M0x 接进 sceneIndex**：实测 `sceneIds={M02}` → 0/30 行，会被白名单静默吞掉。\n- **S13 的 shadow/button-fx**：该案压痕是有意设计，应补批准记录而非当缺陷清掉。\n- **⚠️ 标记口径**：`hardIds`(9) 与 `degrades=yes`(13) 只重叠 5 个，**漏报 8 案、误报 4 案**。\n\n"
+  },
+  "87a0235": {
+   "add": 5841,
+   "del": 299,
+   "files": {
+    "deliverables/62-audit/hard-vs-degrades.md": {
+     "add": 532,
+     "del": 0
+    },
+    "deliverables/62-exec/tpl-integration/DESIGN.md": {
+     "add": 40,
+     "del": 0
+    },
+    "deliverables/62-exec/tpl-integration/consistency.mjs": {
+     "add": 54,
+     "del": 0
+    },
+    "deliverables/62-exec/tpl-integration/final-1440-bar.jpg": {
+     "add": 0,
+     "del": 0
+    },
+    "deliverables/62-exec/tpl-integration/final-1440-chip-coffee.jpg": {
+     "add": 0,
+     "del": 0
+    },
+    "deliverables/62-exec/tpl-integration/final-1440-chip-design.jpg": {
+     "add": 0,
+     "del": 0
+    },
+    "deliverables/62-exec/tpl-integration/final-1440-dessert.jpg": {
+     "add": 0,
+     "del": 0
+    },
+    "deliverables/62-exec/tpl-integration/final-1440-reset.jpg": {
+     "add": 0,
+     "del": 0
+    },
+    "deliverables/62-exec/tpl-integration/final-1440-restaurant.jpg": {
+     "add": 0,
+     "del": 0
+    },
+    "deliverables/62-exec/tpl-integration/final-390-dessert.jpg": {
+     "add": 0,
+     "del": 0
+    },
+    "deliverables/62-exec/tpl-integration/final-390-restaurant-tpl.jpg": {
+     "add": 0,
+     "del": 0
+    },
+    "deliverables/62-exec/tpl-integration/final-390-restaurant.jpg": {
+     "add": 0,
+     "del": 0
+    },
+    "deliverables/62-exec/tpl-integration/final-768-dessert-tpl.jpg": {
+     "add": 0,
+     "del": 0
+    },
+    "deliverables/62-exec/tpl-integration/final-768-dessert.jpg": {
+     "add": 0,
+     "del": 0
+    },
+    "deliverables/62-exec/tpl-integration/final-768-restaurant.jpg": {
+     "add": 0,
+     "del": 0
+    },
+    "deliverables/62-exec/tpl-integration/geo.mjs": {
+     "add": 43,
+     "del": 0
+    },
+    "deliverables/62-exec/tpl-integration/probe-diag.mjs": {
+     "add": 20,
+     "del": 0
+    },
+    "deliverables/62-exec/tpl-integration/serve.mjs": {
+     "add": 37,
+     "del": 0
+    },
+    "deliverables/62-exec/tpl-integration/shot-narrow.mjs": {
+     "add": 60,
+     "del": 0
+    },
+    "deliverables/62-exec/tpl-integration/shots-final.mjs": {
+     "add": 86,
+     "del": 0
+    },
+    "deliverables/62-exec/tpl-integration/text-audit.mjs": {
+     "add": 38,
+     "del": 0
+    },
+    "deliverables/62-exec/tpl-integration/verify-final.json": {
+     "add": 0,
+     "del": 0
+    },
+    "deliverables/62-exec/tpl-integration/verify-final.mjs": {
+     "add": 98,
+     "del": 0
+    },
+    "deliverables/62-exec/tpl-integration/verify.mjs": {
+     "add": 137,
+     "del": 0
+    },
+    "deliverables/62-exec/tpl-integration/verify2.mjs": {
+     "add": 84,
+     "del": 0
+    },
+    "deliverables/62-plan/PLAN-three-tasks.md": {
+     "add": 362,
+     "del": 0
+    },
+    "deliverables/62-plan/REDTEAM-three-tasks.md": {
+     "add": 415,
+     "del": 0
+    },
+    "deliverables/62-research/industry-taxonomy.md": {
+     "add": 1039,
+     "del": 0
+    },
+    "deliverables/62-verify/REPORT-prompt-fidelity.md": {
+     "add": 228,
+     "del": 0
+    },
+    "deliverables/62-verify/VERIFY-independent-round2.md": {
+     "add": 499,
+     "del": 0
+    },
+    "deliverables/62-verify/VERIFY-round2-retry.md": {
+     "add": 300,
+     "del": 0
+    },
+    "prototypes/_prompts/build-prompts.mjs": {
+     "add": 26,
+     "del": 0
+    },
+    "prototypes/_prompts/clean-dna.mjs": {
+     "add": 178,
+     "del": 0
+    },
+    "prototypes/_prompts/dna-clean.json": {
+     "add": 316,
+     "del": 30
+    },
+    "prototypes/_prompts/minitems-parsed.json": {
+     "add": 182,
+     "del": 182
+    },
+    "prototypes/_selection/app.js": {
+     "add": 22,
+     "del": 3
+    },
+    "prototypes/_selection/index.html": {
+     "add": 33,
+     "del": 2
+    },
+    "prototypes/_selection/prompt-copy.js": {
+     "add": 486,
+     "del": 15
+    },
+    "prototypes/_selection/prompts.js": {
+     "add": 378,
+     "del": 62
+    },
+    "prototypes/_selection/style.css": {
+     "add": 85,
+     "del": 0
+    },
+    "prototypes/_selection/wizard.css": {
+     "add": 7,
+     "del": 0
+    },
+    "prototypes/_selection/wizard.js": {
+     "add": 56,
+     "del": 5
+    }
+   },
+   "body": "11 个 Agent 审出的第二批缺陷：模板进反查、字体兜底链、risk 禁令入提示词、向导假断言\n\n## 这一轮怎么来的\n\n用户要求「补掉最明显的缺口」。按纪律先派 1 规划 + 5 专家（2 检索 / 1 审计 / 1 执行 / 1 红队），\n运行中又补 1 批判 + 2 独立验证，共 11 个 Agent。\n\n结论又被推翻了一次：我列的「修 ⚠️ 口径」被审计 Agent 证明**不是根因**\n（真正打架的是「粘给谁都行」与「会留空位」两句指向同一份 capacity 数据），\n而两个验证 Agent 各自独立找出我没有列到的一批缺陷。\n\n## 修了什么\n\n### 1. 三个大众模板接进行业反查（此前 0 命中）\n`prompts.js` 里 `M0[123]` 命中 **0 次**，而 M02 的 README 第一行就写着「餐厅、咖啡馆、烘焙、\n民宿、理发、花店都能套」。用户搜「餐厅」得到 0 行，什么有用的都没给。\n\n现在：搜「餐厅」→ 0 行 + M02 卡 + 三个模板的完整适用行业清单；搜「甜品」→ M02 作**相邻候选**\n并附免责句（「M02 的清单里没有甜品，但它的总述是给本地实体店用的，甜品店是本地实体店——\n这是为什么列为相邻候选」）；搜「酒吧」→ 明说「这一类，这套图集和模板层都给不了你」。\n\n技术阻断已绕开：模板走独立 `#tpl-strip` 通道，不进 `state.sceneIds` 白名单。\n实测 `benchSetSceneIds([\"M02\"])` 仍是 0/30、`[\"M02\",\"S06\",\"S19\"]` 仍是 2/30，与改前一致。\n点「咖啡店」芯片仍是 4/30，模板不污染计数。\n\n### 2. 字体：完整中文兜底链（两个验证 Agent 各自独立抓出）\n原先只输出**第一个族名**。S07 的真实声明是\n`--display:\"Libre Franklin\",\"WenJin Mincho\",\"文津宋体\",\"Source Han Serif SC\",...`，\n提示词只写「标题用 Libre Franklin」——而 Libre Franklin 没有任何中文字形。\n独立验证 Agent 只拿提示词、不看原型，照做 S07 后用 CDP `CSS.getPlatformFontsForNode`\n发现 h1 是 **SimSun** 画的。\n\n修：`dna.fonts` 增 `displayStack`/`bodyStack`（30/30 有值），提示词改为\n「标题按这个顺序取第一个可用的：Libre Franklin → WenJin Mincho → 文津宋体」。\n\n过程中又修了 5 层（每层都是实测抓出来的）：\n- `hasCJKInStack` 把标题链与正文链拼一起判 → S03（标题无中文）与 S04（正文无中文）\n  都拿到「不准回退」禁令，AI 只能违反。改为分链判。\n- `slice(0,3)` 把 S04 正文链第 4 位的唯一中文族 `LXGW WenKai` 切掉 ——\n  上一轮加这个字段的唯一目的就是补中文兜底，渲染层又丢回去。改为「保 CJK」截断。\n- `sameFace` 只看标题/正文两条链、没算 mono → S09 出现「全站只用一款字体…刻意不引入第二款」\n  紧跟 `JetBrains Mono`，同句自我否定。改为有 mono 就不说\"只用一款\"。\n- `stackFromVars` 的每个 key 共用一个宽正则 → `[\"latin\"]` 会匹配到 `--f-cn`，\n  S09 的 **Syne 从提示词里消失**（原型上英文标题确实用它）。改为按 key 窄匹配。\n- S01 的 h1 无 font-family 规则、纯继承 body，却按 `--f-latin` 取了 Archivo。改为 body 规则优先。\n\n标题字体与 h1 实测一致：30/30。\n\n### 3. `risk` 字段 5761 字从未进提示词（两个 Agent 独立发现）\n30 案 `risk` 齐全，是**唯一一份写给\"会犯错的执行者\"的具体禁令**，却 0 字进提示词。\n典型（S01）：「纸纹只铺在满幅底色层，正文栏内部保持干净，**禁止统一套做旧滤镜**；\n朱红只允许出现在楔形与栏目标题，**不得铺满任何一个分区**」——\n比通用「防退化 8 条」精确一个数量级（那 8 条只说\"不要紫蓝渐变\"）。\n\n现在每案提示词末尾加一段「这一案最容易做成的错误样子（作者原话，务必避开）：…」，截 220 字。\n\n### 4. 向导「对上你要的」曾是假话（红队 + 验证 Agent）\n`wizard.js:168` 在**匹配轴列表为空**时返回全称肯定「五项都落在你要的档位里」。\n红队遍历 162 组合：203 条断言里 128 条事实错误（63.1%）——\n用户答「基本不用图」，卡片写「6 张真实图片（对上你要的「基本不用图」）」。\n\n根因是**用连续浮点距离回答一个档位问题**。改为先映射回档位再判相等。\n实测：24 组抽样、5 条 img 类断言，事实错误 **0**。\n\n### 5. 向导不看闸门（红队）\n162 组合里 28.4%（46/162）把 `FAIL>0` 的方案当推荐给出，而 `wizard.js` 全文不含\nFAIL/failIds —— 用户在向导得到的结论比在选型台更乐观，因为最难的那一关被静默跳过。\n补一行如实标注（琥珀色，不改排名）。\n\n### 6. 「粘给谁都行」与「会留空位」互相否定（审计 Agent）\n详情顶部用 `s.hard`（9 案）、卡片用 `capacity.degrades`（13 案），两套口径只重叠 5 个。\n**同一个案子上，详情写「粘给谁都行」，卡片却写「⚠ 内容少于 N 条会留空位」**，8 案处于这种状态。\n改为：任一口径说它撑不住就不说\"都行\"，两个轴分开描述。\n\n### 7. 「不适合」指向不存在的字段（红队）\n原文让用户「先看详情里的「不适合」」——`data.js` 30 条记录 31 个键，没有任何一个叫这个名字。\n真相是它被拼在 `scenes` 字段 value 尾部。改为指向真实位置「适用场景」段末。\n\n### 8. 数据修正：S18 / S30 的 degrades 判反了（审计 Agent 逐案读 CSS）\n- S18：4 张回执牌按 `--at` 行号**绝对定位**（`style.css:122`），日志从 60 行砍到 6 行时两张悬空。\n  → no 改 yes\n- S30：对切由**容器**定位（`style.css:189/192`），条目是 flex 自动堆（`:188`），删 4 张只是变短。\n  → yes 改 no\n\n### 9. 结构约束自相矛盾（红队）\n13/30 条提示词同时含「不要拉高或重复填满」与「先把数量凑到 N 个」——方向相反，AI 二选一都错。\n恰好是 `degrades=yes` 全集。改为按 `degrades` 分岔成一句可执行的指令。\n\n## 验证\n\n- `verify-p0.mjs`：**4/4 PASS**（圆角 30/30、字体 30/30、无注释残渣、主色全在列）\n- `crosscheck-p0.mjs`（第三种独立方法）：四项全 0 问题\n- 30 条提示词逐条机读：**0 问题**（编号连续、无内部术语、无双句号、无占位残留）\n- 向导：24 组抽样，假断言 0\n- 可复算：连跑两遍 sha256 一致（`8d76298c…`）\n- 闸门 `verify-prototype.mjs --all`：**达标 26 / 不达标 4 / 共 30**，FAIL 名单逐字不变\n- `check-stale.mjs`、`check-anchors.mjs`：无输出\n- 三档视口横向溢出 0（执行 Agent 实测 15 个状态）\n- 未动任何 `prototypes/S*/` 原型文件，未动 `_CONTRACT.md`\n\n## 已知未做（不假装做了）\n\n- **提示词落地验证只做过 3 条**（S07/S30/S23）。第二位验证 Agent 明确标注：\n  「AI 只拿提示词能不能做出正确页面」它只做了文本审读，**没有真把 30 条喂给模型再渲染验收**。\n  结论是推理的，不是渲染出来的。\n- **补行业覆盖**：5 个模板之外，真正缺的是「餐厅/个人护理/民宿/汽修/本地诊所」这 5 个品类的\n  专案。smb-demand 报告用数据否决了我原本想补的律所（缺口率 2.8%）、暖通（2.6%）——\n  最饱和的三个恰是大家默认最想做的。\n- **S25 无等宽字体**：`mono=\"\"` 时提示词省略那句话。这不是 bug，是如实反映（该案确实没有等宽体）。\n- **minPics 语义**：`minPics` 是「必须放真图的槽位数」，不等于 `<img>` 标签数（S28 有 15 张图，\n  槽位 6 个）。已在提示词里写明「N 个**不同的**图片位置，同一张图重复用不算」。\n- **⚠️ 口径的根因未动**：`hard` 标注来自 `build-prompts.mjs` 人工写死、从未复验，\n  审计 Agent 核实 9 案里只有 S15/S29 站得住。这一轮只修了 UI 表现层的矛盾，\n  标注本身的可信度仍是欠账。\n\n"
+  },
+  "d669ddb": {
+   "add": 4170,
+   "del": 23,
+   "files": {
+    "deliverables/63-audit/hard-S01-S10.md": {
+     "add": 618,
+     "del": 0
+    },
+    "deliverables/63-audit/hard-S11-S20.md": {
+     "add": 449,
+     "del": 0
+    },
+    "deliverables/63-audit/hard-S21-S30.md": {
+     "add": 464,
+     "del": 0
+    },
+    "deliverables/63-audit/hard-concept-critique.md": {
+     "add": 659,
+     "del": 0
+    },
+    "deliverables/63-plan/PLAN-hard-revalidation.md": {
+     "add": 492,
+     "del": 0
+    },
+    "deliverables/63-plan/REDTEAM-hard-revalidation.md": {
+     "add": 298,
+     "del": 0
+    },
+    "deliverables/63-plan/SYNTHESIS-hard-revalidation.md": {
+     "add": 215,
+     "del": 0
+    },
+    "deliverables/63-test/REPLACE-EXPERIMENT.md": {
+     "add": 201,
+     "del": 0
+    },
+    "deliverables/63-verify/VERIFY-hard-adjudication.md": {
+     "add": 685,
+     "del": 0
+    },
+    "prototypes/S18-phosphor-service-deck/.inspect/desktop-page-01.jpg": {
+     "add": 0,
+     "del": 0
+    },
+    "prototypes/S18-phosphor-service-deck/.inspect/desktop-page-02.jpg": {
+     "add": 0,
+     "del": 0
+    },
+    "prototypes/S18-phosphor-service-deck/.inspect/desktop-page-03.jpg": {
+     "add": 0,
+     "del": 0
+    },
+    "prototypes/S18-phosphor-service-deck/.inspect/mobile-page-01.jpg": {
+     "add": 0,
+     "del": 0
+    },
+    "prototypes/S18-phosphor-service-deck/.inspect/report.json": {
+     "add": 1,
+     "del": 1
+    },
+    "prototypes/S18-phosphor-service-deck/.inspect/tablet-page-01.jpg": {
+     "add": 0,
+     "del": 0
+    },
+    "prototypes/S18-phosphor-service-deck/.inspect/tablet-page-02.jpg": {
+     "add": 0,
+     "del": 0
+    },
+    "prototypes/S18-phosphor-service-deck/index.html": {
+     "add": 5,
+     "del": 1
+    },
+    "prototypes/S18-phosphor-service-deck/style.css": {
+     "add": 11,
+     "del": 1
+    },
+    "prototypes/_build/collect-schemes.mjs": {
+     "add": 8,
+     "del": 0
+    },
+    "prototypes/_prompts/build-prompts.mjs": {
+     "add": 25,
+     "del": 6
+    },
+    "prototypes/_selection/data.js": {
+     "add": 34,
+     "del": 4
+    },
+    "prototypes/_selection/prompts.js": {
+     "add": 5,
+     "del": 10
+    }
+   },
+   "body": "hard 标注重新实测：9 个缩到 4 个，另修 4 个实测证实的 bug\n\n## 这一轮怎么来的\n\n上一轮结尾我说「hard 标注来自人工写死、从未复验，是个欠账」。用户要求把它补上。\n按纪律派了 9 个 Agent：1 规划 + 4 逐段审计（S01-10 / S11-20 / S21-30 / 概念批判）\n+ 1 红队 + 1 替换实验 + 1 独立验证。\n\n**结果四份审计给出四份不同名单**（并集 8、交集只有 3），而独立验证又推翻了三份审计的关键证据。\n这本身证明了判据从未落纸的后果。\n\n## 最终名单：9 → 4\n\n**保留**：S15 / S18 / S21 / S29\n**撤销**：S03 / S05 / S10 / S14 / S20\n**不加**：S08（六块板是同一瓶的切片，但那是\"几何来源单一\"，不是\"行业数据\"）\n\n逐案理由（都经我或验证 Agent 复算）：\n\n| 案 | 判决 | 证据 |\n|---|---|---|\n| S15 | 留 | 14 个 SVG 矩形面积与声明 m² 残差 0.00%；且 14 个 rect 的 x/y/w/h 全是 8 的倍数 |\n| S18 | 留 | 机制绑 `--at` 行号定位，改一行下游全要手改 |\n| S21 | 留 | 14 条锁、`pairs==excl` 14/14、`angle==15×pairs` 14/14、42 条互斥全对称 0 悬挂 |\n| S29 | 留 | 23≡23≡23 有序全等、0 重复；`getElementById('part-'+no)` 是真读取 |\n| S03 | 撤 | 年代轴是 5 个字面量 `[1957,1962,1967,1972,1977]`，与 8 条带零耦合；且轴停在 1977 而数据到 1978（现在就错位 1 年） |\n| S05 | 撤 | 8 块面板写死网格坐标（`style.css:245-253`），属 degrades；点阵算法换任何数字都能画 |\n| S10 | 撤 | 要的是「同一集合两套排序」，换内容仍成立 |\n| S14 | 撤 | `estimate_h` 在 **9/11 条撞 `max(3,·)` 下限**，字数不参与；正文涨到 1.7× 仍零重叠 |\n| S20 | 撤 | 图由参数生成，不读条目，连音频都不解析（`index.html:392`） |\n\n## 独立验证推翻的三条审计证据\n\n这是本轮最重要的部分——**三份审计读代码读得都对，但出错的全部集中在「需要跑一次页面才能确认」的地方**。\n\n**1. S18「前三个精确命中」是伪精度。**\n审计说 `--at:5/10/18` 精确命中第 5/10/18 行。实测 CSS 是\n`top: calc(var(--at) * var(--line) + var(--line) + 2px)`，即 `top = at×24 + 26`，\n而第 n 行顶部是 `(n−1)×24` ⇒ **四张牌全部偏 +2 行**。审计把源数据值当成了渲染结果。\n\n**2. S14 的 H1 链不成立。**\n审计说 `build/polar-layout.py:47` 的 `estimate_h(len(body))` 让坐标依赖正文字数。\n实测 `lines = max(3, estimate_h(...))` 在 9/11 条撞下限，字数根本不参与；\n把 11 条高度全拍平只有 1/11 个坐标动 24px；逐条扰动有 6/11 条纹丝不动。\n\n**3. S15 的引用伪造（但结论对）。**\n审计说「按 `S15.md:26` 1 单位 = 1.25cm」——该行讲的是 12 栏 / 8px 基线，一个字没提换算。\n6400 是从数据反推的。残差结论我复算成立，保留。\n\n## 替换实验的反直觉发现（改变了 hard 该表达什么）\n\n9 案 × 3 视口 × 4 变体、216 张截图：**8 个 NOT-HARD、1 个 PARTIAL，无一接近 15% 阈值**。\n最大文档高变化只有 1.09%，S29 三视口逐像素全同。\n\n而且它自己抓出了第一轮的假象：初测有 20–26px 位移，加了一组「只换中文、数字拉丁保留」的对照后\n**9 案全部 0px** —— 那些位移全是它自己替换拉丁署名导致来源行重排的假象。\n\n**机制解释**：这些原型把数据**预先炸进标记**（S14 有 110 个 CSS 变量、S21 有 175 个 `data-*`、\nS29 有 51 个数值 `data-*`、S20 有 33 条 SVG path）。**文案是最自由的一层，机制根本不读它。**\n\n> 所以准确的说法是：**版式没崩，是故事崩了**。\n> S03 的「带高 = 曝光秒数」在水果版里已成空话——几何 0px 变化，语义归零。\n\n⇒ **hard 的正确表述不是「换内容会退化」，而是「你得先具备某种数据结构」。**\n这与概念批判 Agent 的建议方向一致，也是我保留 4 案的理由：S29 换内容不崩，\n但「你得先有 23 个带唯一编号且能交叉引用的条目」这个要求仍然成立。\n\n## 另修 4 个实测证实的 bug\n\n| # | 缺陷 | 修法 |\n|---|---|---|\n| 1 | **S18 悬挂牌 off-by-2**：`top: calc(at*24 + 24 + 2)` 多算一行，四张牌全偏 +2 行 | 去掉 `+ var(--line)`；实测四牌 top 全部对齐（差 0px） |\n| 2 | **S18 `--at:34` 应为 28**：857 牌实际在第 28 行 | 改成 28 |\n| 3 | **`collect-schemes.mjs` 丢掉 30 案「可落地要点」**：`FIELDS:75` 解析了，`:184-195` 从不赋值 —— 字体子集预算、LCP、可执行 CSS 全蒸发 | 加一行 `landing:` 赋值；现在 30/30 有值 |\n| 4 | （未修）S05 点阵遇中文渲染 0 字形 | 需要改 `glyphsFor()` 的值域，超出本轮范围 |\n\n第 3 条比 hard 值钱一个数量级 —— 只差一行赋值，沉默了好几个月。\n\n## 为什么没采纳「全删」\n\n红队主张把 hard 全部删掉、改写进提示词。三条理由里两条成立（`hardIds` 确实是死字段、\n判据确实从未落纸、16/30=53% 确实是噪音），但**处方反了**：\n\n全删后 S03/S10/S21 会落到「粘给谁都行」而**零警告**，而这三案恰恰是红队自己点出\n「卡片绿标与硬警告同屏矛盾」的那三个。诊断对，处方反了 ——\n该做的是把两个轴拆开并列，不是砍掉一轴。\n\n（这也解释了为什么我撤了 S03/S10 但保留 S21：S21 确实 hard，S03/S10 不是。）\n\n## 验证\n\n- `verify-prototype.mjs --all`：**达标 26 / 不达标 4 / 共 30**，FAIL 名单逐字不变\n- `check-stale.mjs`：无输出（S18 已重渲染）\n- `check-anchors.mjs`：无输出\n- S18 单案：FAIL 0 / WARN 2，12 屏 / 真图 6\n- S18 四张牌 CDP 实测：`at=5/10/18/28` → top 相对差全部 **0px**\n- `hardIds` = `S15 S18 S21 S29`（4 个）\n- `data.js` 的 `landing` 字段：30/30 有值\n- 生成链可复算：跑两遍 sha256 一致\n\n## 我自己独立复算的几条\n\n| 断言 | 我的结果 |\n|---|---|\n| `hardIds` 是死字段 | ✅ 全库只有 `prompts.js:375` 生成处，UI 读 `s.hard` 布尔 |\n| 字段 11 与 hard 无关联 | ✅ 超几何 N=30 K=21 n=9 观测 6，**P(X≥6)=0.7597**，不显著 |\n| 按字段 11 派生会得到 21 案 | ✅ 不是 9 案——70% 都被标 hard，警告失去区分度 |\n| hard 与 degrades 无关联 | ✅ P(X≥6)=0.0995 |\n| **hard 与 threshold 强相关** | ✅ 新发现：高门槛 **5/7=71%** 是 hard，低门槛 **0/11=0%** |\n| `collect-schemes.mjs` 丢字段 | ✅ `FIELDS:75` 有、`:184-195` 无赋值 |\n| S08 瓶身切片 | ✅ `build-assets.py` 的 `bottle()` docstring 写「底足、瓶身、肩、颈、口」，y 坐标首尾相接 |\n\n**hard 与认知门槛强相关（71% vs 0%）** 是这一轮的新发现：它意味着 `hard` 实际在重复表达\n`threshold` 已经很接近的信息。概念批判 Agent 说「该合并的是 hard 与 threshold，不是 hard 与 degrades」，\n我复算支持这个判断。\n\n## 未做 / 欠账\n\n- **S05 点阵遇中文渲染 0 字形**：`glyphsFor('咖啡豆')` 返回空。需要改值域映射。\n- **`hard` 的文案仍写「机制绑死在行业数据上」**：本轮只改了名单，没改表述。\n  替换实验证明正确表述应是「你得先具备某种数据结构」。这是下一轮的事。\n- **16/30 案 `dna.palette[0]` ≠ `primary`**（S01 首位是纸色 `#EFE7D7`），而注释声称\"主色已排最前\"。\n  红队报的，本轮未修。\n\n"
+  },
+  "e08ba2d": {
+   "add": 4,
+   "del": 4,
+   "files": {
+    "prototypes/S18-phosphor-service-deck/.inspect/mobile-page-01.jpg": {
+     "add": 0,
+     "del": 0
+    },
+    "prototypes/S18-phosphor-service-deck/.inspect/mobile-page-02.jpg": {
+     "add": 0,
+     "del": 0
+    },
+    "prototypes/S18-phosphor-service-deck/.inspect/report.json": {
+     "add": 2,
+     "del": 2
+    },
+    "prototypes/S18-phosphor-service-deck/.inspect/tablet-page-01.jpg": {
+     "add": 0,
+     "del": 0
+    },
+    "prototypes/S18-phosphor-service-deck/.inspect/tablet-page-02.jpg": {
+     "add": 0,
+     "del": 0
+    },
+    "prototypes/S18-phosphor-service-deck/style.css": {
+     "add": 2,
+     "del": 2
+    }
+   },
+   "body": "顺手清掉 S18 两处死声明，并记录 S27 数据追上源报告\n\n## 1. S18 两处死声明（上一轮执行 Agent 主动披露、留给我决定）\n\n`style.css:340` 与 `:375`（两个 `@media` 块内）各有一行：\n```css\n.hang{display:block;width:32px;left:auto;right:0;top:calc(var(--at,0) * var(--line) + var(--line) + 4px)}\n```\n那个 `top` 是死声明：`.hangrail .hang`（特异性 0,2,0）压过 `.hang`（0,1,0），\n且上一轮已把 L132 的 `+ var(--line)` 去掉。三档视口实测 computed top 全走 L132，这两行不参与渲染。\n\n**但 `width:32px` / `width:20px` 是活的**——它们管的是移动端下标尺寸。\n所以只删 `top: ...` 这一段，保留 `display/width/left/right`。\n如果整行删掉，移动端的牌会失去尺寸约束。\n\n**验证**：删后重渲染 S18 → `FAIL 0 / WARN 2 (font-count no-footage)`，与删前逐字一致；\nCDP 实测四张牌 `at=5/10/18/28` 的 top 相对差仍全为 **0px**。\n\n## 2. 记录 S27 的两处数据更新（上轮被顺带提交，当时未说明）\n\n上一轮的提交 `d669ddb` 里，`data.js` 除新增 30 案 `landing` 字段外，\n还带进了 S27 的两处变化：`words` 854 → 866。\n\n原因不是本轮改动，而是**产物追上源数据**：\nS27 的 `.inspect/report.json` 在 `2026-10-25T03:03:22` 就被重渲染过，\n但 `data.js` 一直没重新生成。重跑 `collect-schemes.mjs` 把这份陈旧差异一并刷了。\n\n已核实：现在 `S27.gate.at = 2026-10-25T03:03:22.350Z`，与源报告一致。\n这属于修正，而不是漂移——但上轮提交信息没提，这里补记。\n\n## 3. 一条该写进纪律的教训（执行 Agent 发现）\n\n`data.js` 第一次重生成时 sha256 不一致，根因是它把「重渲染 S18」与「重生成 data.js」并行跑了 ——\n`collect-schemes.mjs` 读到了**半新的** `report.json`。\n\n⇒ **重渲染与重生成 data.js 不能并发。** 渲染落定后再跑生成链，连跑两遍才逐字节一致。\n\n## 验证\n\n- `verify-prototype.mjs --all`：**达标 26 / 不达标 4 / 共 30**，FAIL 名单逐字不变\n- `check-stale.mjs`、`check-anchors.mjs`：无输出\n- S18 单案：FAIL 0 / WARN 2，与改前一致\n- S18 四张牌 CDP 实测：相对差全 0px\n- S18 `.inspect/` 已刷新（report at `2026-10-26T16:48:10Z`）\n\n"
+  },
+  "a56426e": {
+   "add": 2782,
+   "del": 57,
+   "files": {
+    "deliverables/64-audit/code-hygiene.md": {
+     "add": 283,
+     "del": 0
+    },
+    "deliverables/64-audit/copy-candidates.md": {
+     "add": 184,
+     "del": 0
+    },
+    "deliverables/64-audit/requirements-per-scheme.md": {
+     "add": 315,
+     "del": 0
+    },
+    "deliverables/64-audit/verify-s03-degrades.md": {
+     "add": 340,
+     "del": 0
+    },
+    "deliverables/64-plan/PLAN-warning-rewrite.md": {
+     "add": 461,
+     "del": 0
+    },
+    "deliverables/64-plan/REDTEAM-warning-rewrite.md": {
+     "add": 361,
+     "del": 0
+    },
+    "deliverables/64-plan/SYNTHESIS-warning-rewrite.md": {
+     "add": 155,
+     "del": 0
+    },
+    "deliverables/64-verify/VERIFY-three-fixes.md": {
+     "add": 350,
+     "del": 0
+    },
+    "prototypes/_build/collect-schemes.mjs": {
+     "add": 141,
+     "del": 6
+    },
+    "prototypes/_prompts/build-prompts.mjs": {
+     "add": 73,
+     "del": 4
+    },
+    "prototypes/_selection/app.js": {
+     "add": 8,
+     "del": 0
+    },
+    "prototypes/_selection/data.js": {
+     "add": 22,
+     "del": 16
+    },
+    "prototypes/_selection/prompt-copy.js": {
+     "add": 25,
+     "del": 0
+    },
+    "prototypes/_selection/prompts.js": {
+     "add": 64,
+     "del": 31
+    }
+   },
+   "body": "把作者早就写好的那句硬前提接进提示词，并修掉「被反对的颜色」污染调色板\n\n## 这一轮怎么来的\n\n上一轮结尾我说要重写 hard 警告文案（「机制绑在特定题材上，换普通内容会退化」是错的）。\n按纪律派 6 个 Agent（1 规划 + 1 内容分析 + 1 文案 + 1 S03 核实 + 1 红队 + 1 代码卫生）。\n\n**红队否决了我的计划，而且三条理由都成立**：\n\n1. **那句话字面不假**。63 号替换实验强制等长替换，恰好挡掉了长度敏感性。\n   红队只改长度重测：硬案 7/8 测量点超 15% 阈值，**非 hard 对照 5/6 也超**——不可区分。\n   ⇒「会退化」是全部 30 案共有的长度敏感性，不是 hard 专利。归因错，但句子本身没错。\n2. **改的是链条末环**（`prompt-copy.js:475`），上游判据仍只有一行注释。\n3. **真正缺的不是新文案，是把已有那句话接出去的通道。**\n\n第 3 条是这一轮最有价值的发现，两个 Agent 独立得出。\n\n## 核心修复：作者早就写好了答案，但零出口\n\n`data.js` 的 `landing` 字段 30/30 有值、共 13,962 字。每案末尾那句**就是 hard 的权威答案**：\n\n| 案 | 作者原话 |\n|---|---|\n| S15 | 「任何没有「**多版本信息**」的项目套上去，三层就变成无意义的装饰」 |\n| S18 | 「任何没有「**连续记录**」语义的产品套上去，边孔只会变成无意义的点状装饰」 |\n| S21 | 「换掉站名之后这两组数值**仍然只能属于「联锁」这件事**」 |\n| S29 | 「章节编号与零件编号**必须双向交叉引用**，换品牌等于重编整本手册的编号体系」 |\n\n**而 `landing` 零 UI 消费者**——`app.js` 与 `prompt-copy.js` 全文都不读它。\n上一轮修的是「赋值」那一半（`collect-schemes.mjs:198`），这一轮补「展示」那一半。\n**同一个字段，两次都死在\"少一行\"上。**\n\n现在：\n- 提示词结构约束段有了第 5 条：**「这个版式的硬前提（作者原话，请据此判断你的内容配不配得上它）：「…」如果你的内容里没有这个东西，请先告诉我，不要靠改文案硬套。」**\n- 详情面板加了「可落地要点」字段（放在「布局与网格」后、「关键视觉元素」前——同属实现层）\n- 21/30 案有这句（另 9 案 S02–S10 作者原文就没写，整句省略、无编造）\n\n字段名用 `dna.reuse` 而不是 `landing`：语义是\"最难被复用的那一句\"。\n切句逻辑只在 `build-prompts.mjs` 有一份，`prompt-copy.js` 不再写第二遍正则（同删掉 875 字 TEMPLATE 副本的理由）。\n\n## 修掉「被反对的颜色」污染调色板（用户可见）\n\n`collect-schemes.mjs` 的 `keepHex` 从规格抽 hex 时不认否定语境，把**规格明确说要反的颜色**抽进了调色板：\n\n| 案 | 污染的色 | 在 style.css 出现次数 | 规格原话 |\n|---|---|---|---|\n| S02 | `#22D3EE` | **0** | 「反的是…`#8B5CF6`／`#22D3EE`」 |\n| S12 | `#0F172A` | **0** | 「既不是纯黑也不是 `#0F172A` 那种蓝黑」 |\n| S17 | `#111111` | **0** | 「压在上只有 1.69:1，**不采用**」 |\n| S28 | `#EC4899` | **0** | 「离开 `#EC4899` 42°」 |\n\n这 4 个色显示成色块列表的第 4 个——用户看到\"这个方案用到 #22D3EE\"，\n而该方案的设计规格写着\"反的是 #22D3EE\"。**这个仓库最恨 AI 默认色，结果把自己点名要反的颜色当调色板显示。**\n\n修法两条判据：\n1. **否定语境过滤**（按分句标点切窗口，前后都看——S17 的「不采用」在色值之后 28 字，只看前面抓不到）\n2. **样式面断言**（更强的兜底）：规格里有、`style.css` ∪ 内联 `<style>` ∪ `style=` ∪ SVG 属性 ∪ `assets/*.svg` 里 0 次 → 剔除\n\n**不能扫 `index.html` 全文**：S28 的 `#EC4899` 在 `index.html:149` 出现过 1 次，\n但那是在 `<p>` 正文里讲反例的散文（\"离开 `#EC4899` 42°\"）——扫全文件会把反例当\"落地了\"保下来。\n\n词表**故意不做同义扩张**，三处实测误杀写进注释了：裸「反」会命中「金箔反**光**」「漫反**射**」；\n裸「原」会命中「原纸色」；裸「旧」会命中「旧木／旧漆」（S19 `#2A241C` 的角色说明就是\"旧木\"，是真色）。\n\n## 修复过程中又抓到一个：过滤器把 #FFFFFF 误收\n\n独立验证 Agent 抓出：修复后 S22/S27/S30 的 palette 多出 `#FFFFFF`。\n而这 3 案规格明写「**恰好三个色**」，S22 更是写着「反的是**纯白底**」——\n**修复反而把被反对的颜色塞回了调色板**，正是任务要消灭的那类错误。\n\n根因：`ROLE_NAME_BEFORE = /[\\u4e00-\\u9fa5]{2,8}\\s*$/` 命中了 S22 原文\n「主色作按钮底时用白字 = 6.51:1，**故按钮文字指定为** `#FFFFFF`」——那 8 个汉字被当成了颜色名。\n但它描述的是\"这个色用在哪儿\"，不是它的名字。\n\n修法：加 `USAGE_WORDS` 排除（按钮/文字/字色/字体/描边/填充/背景/底色/前景/边框/阴影/高光/暗部/白字/黑字/叠印/套印）。\n修后 `#FFFFFF` 从 3 案移除，全库含 `#FFFFFF` 的案：**0**。\n\n## 顺带补回 10 个旧版漏收的真色\n\n新判据比旧白名单更准，因此补回了旧版因只认 S19/S24 那套变量名而漏收的真色：\nS02 `#3A2E1A`、S03 `#C9D6CF`、S05 `#8C2F1F`、S08 `#E8DCC8`/`#6B4A22`、S11 `#221E19`、\nS12 `#F2E9D8`、S14 `#8A3320`、S15 `#22282B`、S19 `#7C7460`。\n\n逐条验过：规格里有角色说明、CSS 里都在用、都不是反色。\n这让「palette 与 CSS 一致」从 26/30 变成 **30/30**。\n\n## 修掉「主色已排最前」的错注释\n\n`build-prompts.mjs:212` 与会发给用户的 `prompts.js:8` banner 都写着「主色已排最前」，\n实测两种口径都不到：\n- 口径 A（clean-dna 自己检出的 primary === palette[0]）：**21/30**\n- 口径 B（`_CURRENT-VALUES.md` 的主色 === palette[0]）：**15/30**\n\n两种口径下都是**同样那 9 案**完全没检出主色：S01 S08 S13 S14 S17 S18 S20 S25 S26。\n它们的 `palette[0]` 是纸色/底色（S01 `#EFE7D7`、S13 `#F4E3BE`、S20 `#FAF3E1`…），不是强调色。\n\n**只改注释、不改数据。** 两个数字都写进注释——它们的差（21 vs 15）说明\n连 clean-dna 自己的 primary 检出也不等于规格的主色，只写一个会掩盖这一点。\n\n## 我们否决的三件事\n\n| 不做 | 理由 |\n|---|---|\n| 重写 hard 警告文案 | 红队三条理由成立：句子不假、改的是末环、真正缺的是通道 |\n| 改 S03 的 `degrades` | 两个 Agent 结论相反（规划说 no、S03 核实说 yes）。我裁决**维持 no**：判据字面是「删条目只是变短」，而 S03 实测 4591→4591px **一像素没变短**——这说明**判据需要修**，不是数据需要改。另开欠账 |\n| 删 13 个死字段 | 零风险也零收益，留给下一轮 |\n\n**S03 的 degrades 判据缺口**（记入欠账）：新建一个「容器高度写死」的判据。\nS03 `.axis{height:640px}` 撑住三栏 grid 行高，删到 3 条带文档纹丝不动、轴下空白 269→508px；\nS21 `.path{grid-column:5/span 2;grid-row:1}` 同型，14→5 枚时文档总高 3854px 一像素未变。\n现有判据只查「单元自身的定位规则」，查不到「容器把高度钉死」这一类。\n\n## 验证\n\n- `verify-prototype.mjs --all`：**达标 26 / 不达标 4 / 共 30**，FAIL 名单逐字不变\n- `check-stale.mjs`、`check-anchors.mjs`：stdout 0 字节，exit 0\n- **118 → 115 个 palette hex，全部能在该案 style.css / index.html 找到（0 个孤儿）**\n- 4 个原始禁色 + 误收的 `#FFFFFF`：全部移除；含 `#FFFFFF` 的案 0 个\n- palette 长度分布：3 色 5 案 / 4 色 25 案，无案被清空\n- 提示词含「最难被复用」原句：**21/30**（其余 9 案作者原文确无，无编造）\n- 提示词长度 49–73 字的截句，无一案超 1100 汉字\n- 「复制 AI 提示词」按钮仍在详情面板顶部（距面板顶 +32px，CDP 实测未被新字段挤下去）\n- 生成链可复算：连跑两遍 `prompts.js` sha256 一致\n- 未动任何 `prototypes/S*/` 原型文件\n\n## 欠账（下一轮）\n\n1. **S03/S21 的 degrades 判据缺口**：需新增「容器高度写死」判据，现有判据查不到这类\n2. **「可落地要点」距面板顶 1874–2313px**，要滚 2–2.5 屏才看到。字段顺序合理（实现层连排），但用户不知道有这个字段\n3. **口径 A 21/30 与口径 B 15/30 差 6 案**（S02/S04/S05/S07/S09/S10）：clean-dna 自己认出的 primary 与规格主色不一致，是 clean-dna 的判断问题\n4. **13 个死字段**：`data.js` 11 个零读（含 `landing` 之外的 `copy` 4,106 字、`scenesNo` 1,453 字）、`prompts.js` 5 个\n5. **`去 AI 味审查点` 30/30 解析、10,539 字、从不写入 rec** —— 与上一轮 `可落地要点` 同一个 bug、同一个文件、同一个 `FIELDS` 数组\n\n"
+  },
+  "a0c0d54": {
+   "add": 10390,
+   "del": 60,
+   "files": {
+    "README-EN.md": {
+     "add": 22,
+     "del": 4
+    },
+    "README.md": {
+     "add": 21,
+     "del": 4
+    },
+    "deliverables/65-audit/content-value.md": {
+     "add": 574,
+     "del": 0
+    },
+    "deliverables/65-audit/field-matrix.md": {
+     "add": 870,
+     "del": 0
+    },
+    "deliverables/65-audit/ia-discoverability.md": {
+     "add": 550,
+     "del": 0
+    },
+    "deliverables/65-exec/EXEC-audit-wiring.md": {
+     "add": 388,
+     "del": 0
+    },
+    "deliverables/65-exec/EXEC-data-cut.md": {
+     "add": 671,
+     "del": 0
+    },
+    "deliverables/65-exec/EXEC-data-layer.md": {
+     "add": 569,
+     "del": 0
+    },
+    "deliverables/65-exec/EXEC-docs-blindspot.md": {
+     "add": 558,
+     "del": 0
+    },
+    "deliverables/65-exec/EXEC-docs-decay.md": {
+     "add": 370,
+     "del": 0
+    },
+    "deliverables/65-exec/EXEC-panel-discoverability.md": {
+     "add": 420,
+     "del": 0
+    },
+    "deliverables/65-exec/EXEC-prompt-opener.md": {
+     "add": 514,
+     "del": 0
+    },
+    "deliverables/65-plan/LEAD-self-correction.md": {
+     "add": 60,
+     "del": 0
+    },
+    "deliverables/65-plan/LEDGER-round5.md": {
+     "add": 95,
+     "del": 0
+    },
+    "deliverables/65-plan/PLAN-field-plumbing.md": {
+     "add": 807,
+     "del": 0
+    },
+    "deliverables/65-plan/REDTEAM-field-plumbing.md": {
+     "add": 757,
+     "del": 0
+    },
+    "deliverables/65-plan/VERDICT-audit-plumbing.md": {
+     "add": 587,
+     "del": 0
+    },
+    "deliverables/65-verify/VERIFY-round5.md": {
+     "add": 674,
+     "del": 0
+    },
+    "prototypes/_build/check-anchors.mjs": {
+     "add": 7,
+     "del": 1
+    },
+    "prototypes/_build/check-docs.mjs": {
+     "add": 945,
+     "del": 0
+    },
+    "prototypes/_build/collect-schemes.mjs": {
+     "add": 153,
+     "del": 7
+    },
+    "prototypes/_selection/app.js": {
+     "add": 278,
+     "del": 17
+    },
+    "prototypes/_selection/data.js": {
+     "add": 33,
+     "del": 3
+    },
+    "prototypes/_selection/prompt-copy.js": {
+     "add": 212,
+     "del": 19
+    },
+    "prototypes/_selection/style.css": {
+     "add": 255,
+     "del": 5
+    }
+   },
+   "body": "修 4 个「有值但没人读」的字段，把详情面板首屏从 0 个字段变成 3 个\n\n11 份 Agent 报告（1 规划 + 3 审计 + 1 红队 + 1 裁决 + 6 执行 + 1 独立验证），\n交付物在 deliverables/65-{plan,audit,exec,verify}/。\n\n## 用户能看到的 4 处变化\n\n1. 详情面板首屏终于有内容了\n   改前：字段正文从 1156px 才开始，900px 视口里一个字段都看不到——首屏全是\n   预览器(439px)+闸门+上站文案。改后：567–618px 起，首屏能读到「一句话视觉定义」\n   与「美学家族与参考」。做了 4 个折叠块（预览/闸门/上站文案/去 AI 味审查点），\n   全部默认收起，summary 上保留 FAIL 标签与缩略图，不让「这案长什么样」消失。\n\n2. 「复制 AI 提示词」不再给用户塞一句他没做过的生意\n   改前：30/30 份提示词首行完全相同是「我经营一家小店，有一些内容和图片要放上去」。\n   根因是 buildPrompt 的 opts 参数全库无人传值（copyPrompt 调 buildPrompt(id)）。\n   改后：给两个输入框（你经营什么/访客要做的动作），不填就诚实写「开头两行要你自己填\n   （我不知道你做什么生意）」+ ＿ 空槽；填了就用用户原文。长度 +15（未填）/ +49（已填）。\n\n3. 行卡上的「美学家族」不再只剩一个名字\n   改前：三刀叠加（split('。')[0] → split('：') → slice(0,34)）后 30 案只剩 657 字，\n   S13 甚至印出括号不闭合的半句「…盲压（blind emboss」。真凶是 split('。')[0]\n   （丢 5227 字），不是 slice(0,34)（只丢 8 字/1 案）。\n   改后：不切字，靠 CSS 折两行，可见 657 → 5911 字，1440 档行高零变化。\n\n4. 「去 AI 味审查点」这个字段第一次被用户看到\n   改前：解析了但赋值处漏一行，10,539 字在 data.js/UI 里 0 命中。\n   改后：折叠块进面板（30/30，默认收起），位置在「反 AI 味风险与规避」之前\n   （audit 是 risk 的前提），切掉 S13 混入的 473 字评审工件（「供 V-11/R-40 逐条打勾」）。\n   不进提示词：裁决 Agent 抽出 97 个设计参数逐条查上下文，剥掉污染后净新增 = 0。\n\n## 数据/工具链的 3 处修复\n\n5. S12/S15/S19 的「布局与网格」从 0 字恢复到 549/640/420 字\n   根因：A 惯例字段正则的分隔符被写成可选（[.．]?），这三案正文首句恰好以数字开头\n   （「8 栏，基线 6px…」），整行被读成一个叫「8」的字段标题，字段 5 的段落被切到 0。\n   修法：分隔符改必需（-附|[.．]）。全库 135 处 A 命中只误判这 3 处。\n\n6. README 三处腐化修正（中英双语）\n   「1100 字左右」→ 1632–1920（中位 1822）；「9 个方案的机制绑死」→ 两轴 4+13、\n   并集 14（红队只说对一半，UI 实际对 14 案显示警告）；「已知未修的抽取缺陷」→\n   曾存在/根因/已修/实测值（仓库风格是把错留在原地，不是删掉）。\n\n7. 新增 check-docs.mjs（13 项断言），并修好它自己的两处盲区\n   建好后立刻被独立验证 Agent 证伪：把「30 个方案」改成 31/29/40 全部 0 FAIL。\n   两处根因：`if (/模板|template/.test(line)) continue` 让招牌句「30 个方案…外加 3 个\n   模板」整行被跳过；`if (n <= 30)` 用等于当前数据规模的魔数当上界，导致 31/40 被\n   当字节数放行。修法：上下文按「小句」判（不是整行）、上界 200、加中文数字解析器\n   （一–九十九/廿卅卌）。7 个自测用例：4 改坏必红 + 2 误报必绿 + 1 守门员。\n\n## 已知边界（写进 deliverables/65-plan/LEDGER-round5.md）\n\n- 390px 档面板 scrollHeight 25/30 超 3800px：移动端字段本体占 81–84%，是内容长度\n  不是布局浪费，再压只能删内容。\n- 键盘 Tab 到折叠条要按 114 次：#detail 在 DOM 末尾（既有结构，非本轮引入）。\n- 390px 列表首屏 0 卡片（首个行卡 y=989 / 视口 844）：从未达标过，不在本轮范围。\n- 行卡 CSS clamp:2 的视觉截断有 2 案末句落在括号中间（S10/S18）：全文完整，只是\n  显示被切，严重度低。\n- 提示词「20 条约束上限」未处理：audit 未进提示词，本轮的净增量只有 +15。\n\n## 验证\n\n闸门 26/4/30（FAIL: S07:1 S08:2 S13:4 S21:1，一条不多不少）\ncheck-stale / check-anchors / check-docs 全 exit 0\nREADME 0 FAIL / 0 WARN / 24 PASS；README-EN 0 FAIL / 2 WARN（改前也是 2 条已知误报）\ndata.js 重跑 collect-schemes 后哈希一致（可复算）\n6 个改动文件语法全通过；无 BOM、LF 换行\n其余 29 案 audit sha256 逐案相同；data.js 逐行比对只有 1 行不同\n\n"
+  }
+ }
+}

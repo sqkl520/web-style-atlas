@@ -1,0 +1,11 @@
+﻿const old2="2. 用你自己的真实数量排：有几个排几个，不凑整、不留空位、不留占位符、编号连续不跳号。";
+const v2 ="2. 用你自己的真实数量排：有几个排几个，不凑整、不留占位符——但这个版式有几处刻意留空的位置（缺号／空抽屉／空白卡／空白行），它们是叙事证据：不补满、不删掉、编号不重排。";
+const old3y="3. 但这个版式的位置是按 N 个数出来的（写死坐标或编号，不是自动流），少一个就空一格：确实不足 N 个时，把空出来的位置删掉、整块重排，不要留空槽，也不要编造内容去填。";
+const new3y="3. 但这个版式的位置是按 N 个数出来的（写死坐标或编号，不是自动流），少一个就空一格：确实不足 N 个时，把空出来的位置删掉、整块重排，不要留空槽，也不要编造内容去填（上面点名的刻意留空除外，那几处照旧空着）。";
+const old3n="3. 这个版式是自动流排版，删条目只会让页面变短、不会留空位，你按自己的数量排就好。";
+const new3n="3. 这个版式是自动流排版，删条目只会让页面变短、不会留空位，你按自己的数量排就好（上面点名的刻意留空照旧保留）。";
+const L=(n,s)=>console.log(n.padEnd(8)+String(s.length).padStart(4)+'  '+s);
+L('old2',old2);L('v2',v2);L('old3y',old3y);L('new3y',new3y);L('old3n',old3n);L('new3n',new3n);
+console.log('\nv2-old2            = '+(v2.length-old2.length));
+console.log('v2+new3y-(old2+old3y) = '+((v2.length+new3y.length)-(old2.length+old3y.length)));
+console.log('v2+new3n-(old2+old3n) = '+((v2.length+new3n.length)-(old2.length+old3n.length)));

@@ -1,0 +1,581 @@
+{
+ "files": 6,
+ "findings": [
+  {
+   "level": "FAIL",
+   "id": "eyebrow",
+   "file": "templates/M01-clean-corporate/index.html",
+   "line": 71,
+   "match": "class=\"eyebrow",
+   "message": "Eyebrow / kicker label above a heading."
+  },
+  {
+   "level": "FAIL",
+   "id": "eyebrow",
+   "file": "templates/M01-clean-corporate/index.html",
+   "line": 135,
+   "match": "class=\"eyebrow",
+   "message": "Eyebrow / kicker label above a heading."
+  },
+  {
+   "level": "FAIL",
+   "id": "eyebrow",
+   "file": "templates/M01-clean-corporate/index.html",
+   "line": 227,
+   "match": "class=\"eyebrow eyebrow",
+   "message": "Eyebrow / kicker label above a heading."
+  },
+  {
+   "level": "FAIL",
+   "id": "eyebrow",
+   "file": "templates/M01-clean-corporate/index.html",
+   "line": 311,
+   "match": "class=\"eyebrow",
+   "message": "Eyebrow / kicker label above a heading."
+  },
+  {
+   "level": "FAIL",
+   "id": "numbering",
+   "file": "templates/M01-clean-corporate/index.html",
+   "line": 318,
+   "match": ">01<",
+   "message": "Decorative index numbering (01 / 02 / 03)."
+  },
+  {
+   "level": "FAIL",
+   "id": "numbering",
+   "file": "templates/M01-clean-corporate/index.html",
+   "line": 323,
+   "match": ">02<",
+   "message": "Decorative index numbering (01 / 02 / 03)."
+  },
+  {
+   "level": "FAIL",
+   "id": "numbering",
+   "file": "templates/M01-clean-corporate/index.html",
+   "line": 328,
+   "match": ">03<",
+   "message": "Decorative index numbering (01 / 02 / 03)."
+  },
+  {
+   "level": "FAIL",
+   "id": "numbering",
+   "file": "templates/M01-clean-corporate/index.html",
+   "line": 333,
+   "match": ">04<",
+   "message": "Decorative index numbering (01 / 02 / 03)."
+  },
+  {
+   "level": "FAIL",
+   "id": "eyebrow",
+   "file": "templates/M01-clean-corporate/index.html",
+   "line": 345,
+   "match": "class=\"eyebrow",
+   "message": "Eyebrow / kicker label above a heading."
+  },
+  {
+   "level": "FAIL",
+   "id": "eyebrow",
+   "file": "templates/M01-clean-corporate/style.css",
+   "line": 89,
+   "match": ".eyebrow{",
+   "message": "Eyebrow / kicker label above a heading."
+  },
+  {
+   "level": "FAIL",
+   "id": "eyebrow",
+   "file": "templates/M01-clean-corporate/style.css",
+   "line": 106,
+   "match": ".eyebrow{",
+   "message": "Eyebrow / kicker label above a heading."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "templates/M01-clean-corporate/style.css",
+   "line": 118,
+   "match": "border:1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "templates/M01-clean-corporate/style.css",
+   "line": 144,
+   "match": "border-bottom:1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "templates/M01-clean-corporate/style.css",
+   "line": 169,
+   "match": "height:1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "templates/M01-clean-corporate/style.css",
+   "line": 183,
+   "match": "border:1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "templates/M01-clean-corporate/style.css",
+   "line": 202,
+   "match": "border-top:1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "templates/M01-clean-corporate/style.css",
+   "line": 203,
+   "match": "border-bottom:1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "templates/M01-clean-corporate/style.css",
+   "line": 204,
+   "match": "box-shadow:",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "templates/M01-clean-corporate/style.css",
+   "line": 216,
+   "match": "border-bottom:1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "templates/M01-clean-corporate/style.css",
+   "line": 258,
+   "match": "border:1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "templates/M01-clean-corporate/style.css",
+   "line": 282,
+   "match": "border:1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "templates/M01-clean-corporate/style.css",
+   "line": 284,
+   "match": "box-shadow:",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "templates/M01-clean-corporate/style.css",
+   "line": 348,
+   "match": "border-top:1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "templates/M01-clean-corporate/style.css",
+   "line": 353,
+   "match": "border-bottom:1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "templates/M01-clean-corporate/style.css",
+   "line": 429,
+   "match": "border-bottom:1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "templates/M01-clean-corporate/style.css",
+   "line": 430,
+   "match": "border-top:1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "templates/M01-clean-corporate/style.css",
+   "line": 462,
+   "match": "border-top:1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "templates/M01-clean-corporate/style.css",
+   "line": 463,
+   "match": "border-bottom:1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "templates/M01-clean-corporate/style.css",
+   "line": 505,
+   "match": "border-top:1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "templates/M01-clean-corporate/style.css",
+   "line": 587,
+   "match": "border-left:1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "FAIL",
+   "id": "eyebrow",
+   "file": "templates/M02-warm-local/index.html",
+   "line": 97,
+   "match": "class=\"hero-kicker",
+   "message": "Eyebrow / kicker label above a heading."
+  },
+  {
+   "level": "FAIL",
+   "id": "eyebrow",
+   "file": "templates/M02-warm-local/index.html",
+   "line": 116,
+   "match": "class=\"eyebrow",
+   "message": "Eyebrow / kicker label above a heading."
+  },
+  {
+   "level": "FAIL",
+   "id": "eyebrow",
+   "file": "templates/M02-warm-local/index.html",
+   "line": 231,
+   "match": "class=\"eyebrow",
+   "message": "Eyebrow / kicker label above a heading."
+  },
+  {
+   "level": "FAIL",
+   "id": "eyebrow",
+   "file": "templates/M02-warm-local/index.html",
+   "line": 308,
+   "match": "class=\"eyebrow",
+   "message": "Eyebrow / kicker label above a heading."
+  },
+  {
+   "level": "FAIL",
+   "id": "eyebrow",
+   "file": "templates/M02-warm-local/index.html",
+   "line": 386,
+   "match": "class=\"eyebrow",
+   "message": "Eyebrow / kicker label above a heading."
+  },
+  {
+   "level": "FAIL",
+   "id": "eyebrow",
+   "file": "templates/M02-warm-local/index.html",
+   "line": 416,
+   "match": "class=\"eyebrow",
+   "message": "Eyebrow / kicker label above a heading."
+  },
+  {
+   "level": "FAIL",
+   "id": "eyebrow",
+   "file": "templates/M02-warm-local/style.css",
+   "line": 108,
+   "match": ".eyebrow {",
+   "message": "Eyebrow / kicker label above a heading."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "templates/M02-warm-local/style.css",
+   "line": 153,
+   "match": "border-bottom: 1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "templates/M02-warm-local/style.css",
+   "line": 172,
+   "match": "border-top: 1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "templates/M02-warm-local/style.css",
+   "line": 193,
+   "match": "border: 1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "templates/M02-warm-local/style.css",
+   "line": 208,
+   "match": "border-top: 1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "templates/M02-warm-local/style.css",
+   "line": 215,
+   "match": "border-bottom: 1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "templates/M02-warm-local/style.css",
+   "line": 259,
+   "match": "border: 1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "templates/M02-warm-local/style.css",
+   "line": 275,
+   "match": "border-top: 1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "templates/M02-warm-local/style.css",
+   "line": 356,
+   "match": "border: 1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "templates/M02-warm-local/style.css",
+   "line": 375,
+   "match": "border-bottom: 1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "templates/M02-warm-local/style.css",
+   "line": 491,
+   "match": "border-top: 1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "FAIL",
+   "id": "eyebrow",
+   "file": "templates/M03-bold-creator/index.html",
+   "line": 33,
+   "match": "class=\"eyebrow",
+   "message": "Eyebrow / kicker label above a heading."
+  },
+  {
+   "level": "FAIL",
+   "id": "numbering",
+   "file": "templates/M03-bold-creator/index.html",
+   "line": 41,
+   "match": ">01<",
+   "message": "Decorative index numbering (01 / 02 / 03)."
+  },
+  {
+   "level": "FAIL",
+   "id": "numbering",
+   "file": "templates/M03-bold-creator/index.html",
+   "line": 73,
+   "match": ">01<",
+   "message": "Decorative index numbering (01 / 02 / 03)."
+  },
+  {
+   "level": "FAIL",
+   "id": "numbering",
+   "file": "templates/M03-bold-creator/index.html",
+   "line": 106,
+   "match": ">02<",
+   "message": "Decorative index numbering (01 / 02 / 03)."
+  },
+  {
+   "level": "FAIL",
+   "id": "numbering",
+   "file": "templates/M03-bold-creator/index.html",
+   "line": 139,
+   "match": ">03<",
+   "message": "Decorative index numbering (01 / 02 / 03)."
+  },
+  {
+   "level": "FAIL",
+   "id": "numbering",
+   "file": "templates/M03-bold-creator/index.html",
+   "line": 172,
+   "match": ">04<",
+   "message": "Decorative index numbering (01 / 02 / 03)."
+  },
+  {
+   "level": "FAIL",
+   "id": "numbering",
+   "file": "templates/M03-bold-creator/index.html",
+   "line": 205,
+   "match": ">05<",
+   "message": "Decorative index numbering (01 / 02 / 03)."
+  },
+  {
+   "level": "FAIL",
+   "id": "numbering",
+   "file": "templates/M03-bold-creator/index.html",
+   "line": 217,
+   "match": ">02<",
+   "message": "Decorative index numbering (01 / 02 / 03)."
+  },
+  {
+   "level": "FAIL",
+   "id": "numbering",
+   "file": "templates/M03-bold-creator/index.html",
+   "line": 229,
+   "match": ">03<",
+   "message": "Decorative index numbering (01 / 02 / 03)."
+  },
+  {
+   "level": "FAIL",
+   "id": "emoji",
+   "file": "templates/M03-bold-creator/style.css",
+   "line": 6,
+   "match": "★",
+   "message": "Emoji used as UI."
+  },
+  {
+   "level": "FAIL",
+   "id": "eyebrow",
+   "file": "templates/M03-bold-creator/style.css",
+   "line": 36,
+   "match": ".eyebrow,",
+   "message": "Eyebrow / kicker label above a heading."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "templates/M03-bold-creator/style.css",
+   "line": 92,
+   "match": "border-bottom: 1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "templates/M03-bold-creator/style.css",
+   "line": 117,
+   "match": "border: 1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "templates/M03-bold-creator/style.css",
+   "line": 121,
+   "match": "height: 1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "templates/M03-bold-creator/style.css",
+   "line": 122,
+   "match": "box-shadow:",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "templates/M03-bold-creator/style.css",
+   "line": 129,
+   "match": "border-top: 1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "FAIL",
+   "id": "eyebrow",
+   "file": "templates/M03-bold-creator/style.css",
+   "line": 154,
+   "match": ".eyebrow{",
+   "message": "Eyebrow / kicker label above a heading."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "templates/M03-bold-creator/style.css",
+   "line": 193,
+   "match": "border-top: 1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "templates/M03-bold-creator/style.css",
+   "line": 239,
+   "match": "border-top: 1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "templates/M03-bold-creator/style.css",
+   "line": 349,
+   "match": "border: 1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "templates/M03-bold-creator/style.css",
+   "line": 357,
+   "match": "border-top: 1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "templates/M03-bold-creator/style.css",
+   "line": 371,
+   "match": "border: 1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "templates/M03-bold-creator/style.css",
+   "line": 390,
+   "match": "border: 1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "templates/M03-bold-creator/style.css",
+   "line": 400,
+   "match": "border-left: 1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "WARN",
+   "id": "em-dash",
+   "file": "(all files)",
+   "line": 0,
+   "match": "10 em dashes",
+   "message": "Em-dash habit. Use a full stop or a comma; keep at most one or two on a page."
+  }
+ ]
+}

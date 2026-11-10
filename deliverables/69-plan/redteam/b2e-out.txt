@@ -1,0 +1,36 @@
+﻿zero-hit terms: 45
+get a NAMED template recommendation : 6 -> 餐厅 修鞋理发 花店 民宿 甜品 美甲
+get generic "no template either"    : 37
+get a chip button                   : 17
+
+unsupported (29) breakdown:
+  named template rec : 2
+  generic no-template: 28
+  chip button        : 0
+
+sceneIndex zero-hit breakdown:
+  named template rec : 4 -> 餐厅 修鞋理发 花店 民宿
+  generic no-template: 9 -> 茶饮 书店 婚礼 健身 宠物 诊所 会计 招聘 非营利
+
+sample: 餐厅 -> {
+ "term": "餐厅",
+ "unsupported": false,
+ "cardCount": 1,
+ "cardNamesTerm": true,
+ "headSaysNoTemplate": false,
+ "hasChip": true,
+ "head": "这 30 个案里没有「餐厅」专案。但模板层有：M02 暖调门店站 的 README 适用行业里就写着「餐厅」，它才是为这行做的：",
+ "cards": [
+  "M02 暖调门店站Warm Local模板 · 不计入方案数一页式门店官网：本地实体店用。暖米白底、烤色深褐主色、标题衬线。适用行业（README 原文）：餐厅 / 咖啡馆 / 烘焙 / 民宿 / 理发店 / 花店打开 M02 ↗"
+ ]
+}
+sample: 金融 -> {
+ "term": "金融",
+ "unsupported": true,
+ "cardCount": 0,
+ "cardNamesTerm": false,
+ "headSaysNoTemplate": true,
+ "hasChip": false,
+ "head": "「金融」在 30 个案里 0 个命中，三个大众模板的 README 适用清单里也没有。这一类，这套图集和模板层都给不了你 —— 不是你条件加多了。",
+ "cards": []
+}

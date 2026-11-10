@@ -1,0 +1,463 @@
+/* 方案 2｜鎏金对称厅（Gilded Symmetry Salon）— 真实原型样式表
+   R（SPLIT）｜认知门槛 中｜奢华暗黑／高定｜装饰艺术 Art Deco
+   字体分工（3 族，无禁用栈）：Bodoni Moda＝拉丁标题与数字（Didone 发丝横线）
+                              Noto Serif SC＝中文标题、条款与正文（承担拉丁正文的回退字形）
+                              IBM Plex Mono＝仅 <code> 内的编号、尺寸与时段
+   为什么舍掉字段 4 里的拉丁正文族 Spectral：闸门 font-count 对 4 族直接判 FAIL，而中文站的
+   结构下限是「中文主字体＋拉丁标题＋等宽数字槽」3 族。思源宋体自带的拉丁字形就是低对比屏幕
+   衬线，与 Spectral 同一角色，所以删拉丁正文族、保住中文主字体，家族数 4→3。
+   色彩（字段 3，面积和 100）：炭黑卡纸 #0B0B0F 58%／暗金 #B8860B 18%／象牙纸白 #EFE6D0 20%
+                              暗棕 #3A2E1A 4%（只做压痕与暗边，不承载文字）
+   暗金填充上的文字固定 #111111（对 #B8860B 实测 5.80:1） */
+
+:root {
+  --card: #0B0B0F;          /* 炭黑卡纸＝地面色 */
+  --gold: #B8860B;          /* 暗金＝主色与纹样 */
+  --ivory: #EFE6D0;         /* 象牙纸白＝正文与漏白 */
+  --dirty: #3A2E1A;         /* 暗棕＝压痕与暗边（不作文字色） */
+  --ink: #111111;           /* 暗金填充上的文字 */
+  --ivory-2: #B9B09A;       /* 次级正文（对 --card 9.2:1） */
+  --band: #14100A;          /* 表头／注记的色阶，比地面亮一档 */
+  --step-h: 56px;           /* 阶梯高差：≥1440px 56px，以下 40px */
+  --pad: clamp(20px, 3vw, 44px);
+  --ease-damped: cubic-bezier(.34, .01, .2, 1);
+  --ease-step: cubic-bezier(.9, .02, 1, .2);
+}
+
+* { box-sizing: border-box; }
+
+html { background: var(--card); }
+
+body {
+  margin: 0;
+  background-color: var(--card);
+  /* 炭黑卡纸的纤维：程序化生成的 128px 平铺位图，不是渐变 */
+  background-image: url("assets/card-grain.png");
+  background-repeat: repeat;
+  color: var(--ivory);
+  font-family: "Noto Serif SC", "Songti SC", serif;
+  font-size: 16px;
+  line-height: 1.85;
+  font-variant-numeric: tabular-nums;
+}
+
+h1, h2, h3, .house, .claim {
+  font-family: "Bodoni Moda", "Noto Serif SC", serif;
+  font-weight: 700;
+  color: var(--ivory);
+  margin: 0;
+  text-wrap: balance;
+}
+
+h2 { font-size: 28px; line-height: 1.3; letter-spacing: -0.005em; }
+h3 { font-size: 18px; line-height: 1.4; font-weight: 700; }
+
+p { margin: 0; max-width: 40em; }
+
+/* 编号、尺寸、时段是机器可核验的字面数据：等宽只出现在 <code> 里 */
+code {
+  font-family: "IBM Plex Mono", "Noto Serif SC", monospace;
+  font-size: 15px;
+  color: var(--gold);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.01em;
+}
+
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+::selection { background: var(--gold); color: var(--ink); }
+
+.skip {
+  position: absolute; overflow: hidden; clip-path: inset(50%);
+  width: 0; height: 0; padding: 0; margin: 0; white-space: nowrap;
+}
+.skip:focus {
+  position: fixed; top: 8px; left: 8px; z-index: 9; width: auto; height: auto;
+  clip-path: none; padding: 10px 16px; background: var(--gold); color: var(--ink);
+}
+
+/* ── 页头：一行字号 + 一行开放时间，不承担导航 ───────────────── */
+.masthead {
+  display: grid;
+  gap: 4px;
+  padding: 24px var(--pad) 20px;
+  border-bottom: 2px solid var(--dirty);
+}
+.house { font-size: 15px; line-height: 1.5; letter-spacing: 0.01em; color: var(--gold); }
+.open-line { font-size: 15px; line-height: 1.5; color: var(--ivory-2); max-width: none; }
+
+main { display: block; }
+
+/* ── 对称厅：中缝 2px 金线把画面切成两半，两半共用一张烫金版 ──── */
+.salon { padding: 0 var(--pad); }
+.salon-grid { display: grid; grid-template-columns: 1fr 2px 1fr; }
+.half-left { grid-column: 1; }
+.seam { grid-column: 2; }
+.half-right { grid-column: 3; }
+
+.half { position: relative; padding: 40px clamp(16px, 2.4vw, 36px) 8px; }
+
+/* 烫金版位图：两半各 200% 放大 → 断开处正好落中缝。
+   【2026-10-17 修正】镜像关系改由 CSS 产生，不再由位图预设：
+   两层都取位图的**左半（原版）**，.foil-b 再经 scaleX(-1) 得到绕中缝 180° 的取样。
+   原先 .foil-b 取右半，而位图右半本身就是 fliplr(左半)，两次镜像互相抵消，
+   两侧渲染出同一朝向 —— 签名机制被抹平。且位图镜像只是近似
+   （实测 NCC(左, fliplr(右)) = +0.808，非 1.000），靠它等于靠近似。
+   改由 CSS 镜像后，该关系在结构上必然成立，与位图两半的相似度无关。 */
+.foil {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: url("assets/foil-plate@2x.png");
+  background-repeat: repeat-y;
+  background-size: 200% auto;
+  pointer-events: none;
+}
+.foil-a { background-position: left top; opacity: 0.62; animation: foil-drift 26s linear infinite; }
+.foil-b {
+  /* 取原版（左半）再整体水平镜像 = 绕中缝 180° 的旋转取样 */
+  background-position: left top;
+  opacity: 0.72;
+  /* 180° 相位＝半个 tier 周期：56px 的一半是 28px，滚动再叠 100:3 的位移比 */
+  transform: scaleX(-1) translateY(-28px);
+}
+
+/* 漏金缺口：未上金的漏白，边缘是卡纸毛边；位置由当天日期对 7 取模决定（脚本给 left/top） */
+.leak {
+  position: absolute;
+  /* 位置由脚本按当天日期给出（--leak-x/--leak-y）；横向夹在版心内，
+     768px 档半版只有 ~350px 宽，裸百分比加固定宽度会把页面撑出 15px 横向溢出 */
+  left: min(var(--leak-x, 46%), calc(100% - 152px));
+  top: var(--leak-y, 24%);
+  width: 132px;
+  height: 92px;
+  z-index: 0;
+  background-image: url("assets/leak-patch@2x.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+
+/* 文字全部压在图样之上；对称只发生在图样，文字不参与镜像 */
+.col { position: relative; }
+.col > * { position: relative; z-index: 1; }
+.col-left { text-align: right; }
+.col-right { text-align: left; }
+
+h1 {
+  font-size: clamp(60px, 7.4vw, 108px);
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+}
+.claim { font-size: clamp(22px, 2.4vw, 34px); line-height: 1.32; max-width: 22em; margin-left: auto; }
+
+.book { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; margin-top: 24px; }
+.book-note { font-size: 15px; line-height: 1.6; color: var(--ivory-2); max-width: 30em; }
+
+.btn {
+  font: inherit;
+  font-size: 16px;
+  min-height: 48px;
+  padding: 12px 24px;
+  border: 0;
+  border-radius: 0;
+  cursor: pointer;
+  transition: background-color 180ms var(--ease-damped), color 180ms var(--ease-damped);
+}
+.btn-solid { background: var(--gold); color: var(--ink); font-weight: 700; }
+.btn-solid:hover { background: var(--ivory); }
+.btn-outline { background: transparent; color: var(--ivory); border: 2px solid var(--gold); }
+.btn-outline:hover { background: var(--gold); color: var(--ink); }
+
+.lede { font-size: 18px; line-height: 1.8; margin-top: 28px; max-width: 34em; margin-left: auto; }
+.lede b { font-weight: 700; color: var(--gold); }
+
+.read-out { font-size: 15px; line-height: 1.6; color: var(--ivory-2); }
+.read-out code { color: var(--gold); }
+.doc-meta { display: grid; gap: 4px; margin: 20px 0 0; max-width: 32em; }
+.doc-meta div { display: grid; grid-template-columns: 6em 1fr; gap: 2px 8px; align-items: baseline; }
+.doc-meta dt { font-size: 15px; line-height: 1.6; color: var(--ivory-2); }
+.doc-meta dd { margin: 0; font-size: 16px; line-height: 1.6; }
+.read-note { font-size: 18px; line-height: 1.8; margin-top: 24px; max-width: 32em; }
+
+/* ── 阶梯：一行一级，级差就是 --step-h；级块里的纹样是同一张版的逐级取样 ── */
+.ladder {
+  position: relative;
+  z-index: 0;
+  display: grid;
+  grid-auto-rows: var(--step-h);
+  margin: 28px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.step { position: relative; display: flex; align-items: center; min-height: var(--step-h); }
+.ladder-left .step { justify-content: flex-end; }
+.ladder-right .step { justify-content: flex-start; }
+
+.step-band {
+  position: absolute;
+  inset: 2px 0;
+  z-index: 0;
+  background-color: rgba(184, 134, 11, 0.14);
+  background-image: url("assets/foil-plate@2x.png"), url("assets/gold-grain.png");
+  background-repeat: repeat-y, repeat;
+  background-size: 100% auto, 128px 128px;
+  /* 逐级抬升：第 i 级读版面上高 (n-1-i)×级差 的那一段，越往上纹样越稀 */
+  background-position: center calc(-1 * (var(--n) - 1 - var(--i)) * var(--step-h)), 0 0;
+  /* 烫金击凸：上缘 1px 象牙高光、下缘 1.5px 暗棕暗边，只用 inset，不做外阴影 */
+  box-shadow:
+    inset 0 1px 0 0 var(--ivory),
+    inset 0 -1.5px 0 0 var(--dirty),
+    inset 1px 0 0 0 var(--ivory),
+    inset -1.5px 0 0 0 var(--dirty);
+  transition: filter 180ms var(--ease-damped), box-shadow 180ms var(--ease-damped);
+}
+.ladder-left .step-band { margin-inline-start: calc((var(--n) - 1 - var(--i)) * 14px); }
+.ladder-right .step-band { margin-inline-end: calc((var(--n) - 1 - var(--i)) * 14px); }
+/* 悬停：金色饱和度抬升 6%、凸起高光加宽 0.5px（不位移） */
+.step.is-lit .step-band {
+  filter: saturate(1.06);
+  box-shadow:
+    inset 0 1.5px 0 0 var(--ivory),
+    inset 0 -2px 0 0 var(--dirty),
+    inset 1px 0 0 0 var(--ivory),
+    inset -1.5px 0 0 0 var(--dirty);
+}
+
+.step-body {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 0 14px;
+}
+.ladder-left .step-body { flex-direction: row-reverse; }
+.step-name { font-family: "Bodoni Moda", "Noto Serif SC", serif; font-weight: 700; font-size: 22px; line-height: 1.3; color: var(--ivory); }
+.step-size { font-size: 15px; line-height: 1.6; color: var(--ivory-2); }
+
+/* 第 5 级故意留空：级块没有上金，只剩一道未压实的边，原因写在行内 */
+.is-vacant .step-band {
+  background-color: transparent;
+  background-image: none;
+  box-shadow: inset 0 1px 0 0 rgba(185, 176, 154, 0.42);
+}
+.is-vacant .step-name, .is-vacant .step-size { color: var(--ivory-2); }
+
+/* ── 台账：真实表格，线只属于表格 ──────────────────────────── */
+.sheet {
+  padding: 56px var(--pad) 0;
+  background-color: #0A0A0D;
+}
+.sheet > p { margin-top: 16px; }
+.table-wrap { margin-top: 24px; }
+.ledger { width: 100%; border-collapse: collapse; }
+.ledger caption { text-align: left; padding: 0 0 12px; font-size: 15px; line-height: 1.6; color: var(--ivory-2); }
+.ledger th, .ledger td {
+  border-bottom: 1px solid var(--dirty);
+  padding: 8px 12px;
+  font-size: 16px;
+  line-height: 1.55;
+  text-align: left;
+  vertical-align: middle;
+  font-weight: 400;
+}
+.ledger thead th { background: var(--band); color: var(--gold); border-bottom: 2px solid var(--gold); font-size: 15px; }
+.ledger tbody tr { transition: background-color 140ms var(--ease-damped); }
+.ledger tbody tr:hover { background: #15110B; }
+.ledger tfoot td { border-top: 2px solid var(--gold); border-bottom: 0; color: var(--ivory-2); font-size: 15px; padding-top: 12px; }
+.is-gap td { color: var(--ivory-2); }
+.is-gap td:first-child code { color: var(--ivory-2); }
+
+/* ── 版式与取样：机制、窄屏再发明形式、降级形式、漏金缺口 ─────── */
+.note-strong { margin-top: 20px; }
+.note-strong b { color: var(--gold); }
+.leak-row { display: grid; grid-template-columns: 240px 1fr; gap: 24px; margin-top: 32px; align-items: start; }
+.leak-field {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  padding: 12px;
+  background-color: var(--band);
+}
+.slot-pos { display: block; height: 44px; border: 2px solid var(--dirty); }
+.slot-pos.is-live {
+  border-color: var(--gold);
+  background-color: rgba(239, 230, 208, 0.9);
+  background-image: url("assets/leak-patch@2x.png");
+  background-size: 74% auto;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.leak-copy p + p { margin-top: 12px; }
+
+/* ── 图版：五张公开档案件，横竖不一，不用等量卡片 ───────────── */
+.plates {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 24px;
+  margin: 28px 0 0;
+  padding: 0;
+  list-style: none;
+  align-items: start;
+}
+.plate { grid-column: span 2; }
+.plate-wide { grid-column: span 4; }
+.plate figure { margin: 0; overflow: clip; }
+.plate img { display: block; width: 100%; height: auto; }
+.plate:first-child img { animation: plate-drift 20s ease-in-out infinite; }
+.plate figcaption { margin-top: 12px; font-size: 15px; line-height: 1.7; color: var(--ivory); }
+.plate .ref { display: block; font-size: 15px; color: var(--ivory-2); }
+
+/* ── 预约与到店规则：时段、错误码 BOOK-409、候补空状态 ────────── */
+.house-picker { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; margin-top: 24px; }
+.house-picker label { font-size: 16px; }
+select, input[type="tel"] {
+  font: inherit;
+  font-size: 16px;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 2px solid var(--dirty);
+  border-radius: 0;
+  background: var(--band);
+  color: var(--ivory);
+}
+input[type="tel"] { min-width: 220px; }
+input::placeholder { color: var(--ivory-2); }
+.slots-view { margin-top: 20px; }
+.slots { display: flex; flex-wrap: wrap; gap: 8px; }
+.slot {
+  font: inherit;
+  font-size: 16px;
+  min-height: 44px;
+  min-width: 84px;
+  padding: 8px 14px;
+  border: 2px solid var(--dirty);
+  border-radius: 0;
+  background: transparent;
+  color: var(--ivory);
+  cursor: pointer;
+  transition: background-color 160ms var(--ease-damped), color 160ms var(--ease-damped);
+}
+.slot:hover { border-color: var(--gold); }
+.slot.is-picked { background: var(--gold); border-color: var(--gold); color: var(--ink); }
+.slot-status { margin-top: 12px; font-size: 15px; line-height: 1.7; color: var(--ivory-2); }
+
+.state { margin-top: 20px; padding: 16px 20px; }
+.state p { font-size: 16px; line-height: 1.8; }
+.state-error { background: var(--gold); color: var(--ink); font-size: 16px; line-height: 1.8; }
+.state-error code { color: var(--ink); }
+.state-empty { background: var(--band); border-left: 2px solid var(--gold); }
+
+.wait-form { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; margin-top: 24px; }
+.wait-form label { font-size: 16px; }
+.form-status { flex: 1 1 100%; font-size: 15px; line-height: 1.7; color: var(--ivory-2); }
+
+.rules { margin: 24px 0 0; padding-left: 20px; max-width: 40em; }
+.rules li { font-size: 16px; line-height: 1.85; }
+.rules li + li { margin-top: 8px; }
+
+/* ── 页脚 ──────────────────────────────────────────────── */
+footer {
+  margin-top: 64px;
+  padding: 40px var(--pad) 72px;
+  border-top: 2px solid var(--dirty);
+  background-color: #0A0A0D;
+}
+.foot-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
+.foot-grid h3 { margin-bottom: 8px; color: var(--gold); }
+.foot-grid p { font-size: 15px; line-height: 1.8; color: var(--ivory); max-width: 34em; }
+.sig { margin-top: 32px; font-size: 15px; line-height: 1.8; color: var(--ivory-2); max-width: 60em; }
+
+/* ── 动效：中缝自顶部拉下，随后纹样自内向外逐级压实 ──────────── */
+@keyframes seam-draw { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@keyframes seam-draw-x { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes press-in { from { transform: translateY(14px); opacity: 0.35; } to { transform: translateY(0); opacity: 1; } }
+@keyframes foil-drift { 0% { background-position-y: 0; } 50% { background-position-y: -18px; } 100% { background-position-y: 0; } }
+@keyframes plate-drift { 0% { transform: scale(1.01) translateY(0); } 50% { transform: scale(1.045) translateY(-8px); } 100% { transform: scale(1.01) translateY(0); } }
+
+.seam {
+  position: relative;
+  background-color: var(--gold);
+  transform-origin: top center;
+  animation: seam-draw 600ms steps(24) both;
+}
+/* 击凸的两道边压在中缝之外，中缝本身留 2px 纯金可见：
+   上缘（左）1px 象牙白高光、下缘（右）1.5px 暗棕暗边 */
+.seam::before, .seam::after { content: ""; position: absolute; }
+.seam::before { inset: 0 auto 0 -1px; width: 1px; background: var(--ivory); }
+.seam::after { inset: 0 -1.5px 0 auto; width: 1.5px; background: var(--dirty); }
+.half-left .col > *:nth-child(1) { animation: press-in 520ms var(--ease-damped) both; }
+.half-left .col > *:nth-child(2) { animation: press-in 520ms var(--ease-damped) 120ms both; }
+.half-left .col > *:nth-child(3) { animation: press-in 520ms var(--ease-damped) 200ms both; }
+.half-left .col > *:nth-child(4) { animation: press-in 520ms var(--ease-damped) 280ms both; }
+.half-right .col > *:nth-child(1) { animation: press-in 520ms var(--ease-damped) 200ms both; }
+.half-right .col > *:nth-child(2) { animation: press-in 520ms var(--ease-damped) 280ms both; }
+.half-right .col > *:nth-child(3) { animation: press-in 520ms var(--ease-damped) 360ms both; }
+.enter { animation: press-in 260ms var(--ease-damped) both; animation-delay: calc(var(--stagger, 0) * 34ms); }
+
+.slot-pos { transition: background-color 150ms linear, border-color 150ms linear; }
+
+/* ── 断点一：≥1440px 双栏满幅、9 级、级差 56px ──────────────── */
+@media (min-width: 1440px) {
+  :root { --step-h: 56px; }
+  .half { padding-top: 48px; }
+}
+
+/* ── 断点二：1024–1439px 阶梯降到 7 级、级差 40px；中缝仍成立 ── */
+@media (min-width: 1024px) and (max-width: 1439px) {
+  :root { --step-h: 40px; }
+  .ladder-right .step:nth-child(n + 8) { display: none; }
+  .step-name { font-size: 20px; }
+}
+
+/* ── 断点三：768–1023px 双栏保持、级差 40px；中缝按字段 5 不在这一档存在 ── */
+@media (min-width: 768px) and (max-width: 1023px) {
+  :root { --step-h: 40px; }
+  .ladder-right .step:nth-child(n + 8) { display: none; }
+  .seam { background-color: transparent; animation: none; }
+  .seam::before, .seam::after { background: transparent; }
+  .step-name { font-size: 18px; }
+  .half { padding-left: 12px; padding-right: 12px; }
+  .leak-row { grid-template-columns: 1fr; }
+}
+
+/* ── 断点四：<768px 中缝转 90° 成横向金线，上下叠放，5 级、级差 40px ── */
+@media (max-width: 767px) {
+  :root { --step-h: 40px; }
+  .salon-grid { grid-template-columns: 1fr; }
+  .half-left, .seam, .half-right { grid-column: 1; }
+  .seam {
+    height: 2px;
+    align-self: center;
+    width: 100%;
+    transform-origin: center left;
+    animation: seam-draw-x 600ms steps(24) both;
+  }
+  .seam::before { inset: -1px 0 auto 0; width: auto; height: 1px; }
+  .seam::after { inset: auto 0 -1.5px 0; width: auto; height: 1.5px; }
+  .step:nth-child(n + 6) { display: none; }
+  .step-name { font-size: 16px; }
+  .ladder-left .step-band { margin-inline-start: calc((var(--n) - 1 - var(--i)) * 10px); }
+  .ladder-right .step-band { margin-inline-end: calc((var(--n) - 1 - var(--i)) * 10px); }
+  .half { padding-top: 24px; }
+  .leak { width: 96px; height: 68px; }
+  .ledger td:nth-child(3), .ledger td:nth-child(5),
+  .ledger th:nth-child(3), .ledger th:nth-child(5) { display: none; }
+  .plates { grid-template-columns: 1fr; }
+  .plate, .plate-wide { grid-column: span 1; }
+  .leak-row { grid-template-columns: 1fr; }
+  .btn { min-height: 52px; }
+}
+
+/* ── 降级：相位按每 100px 滚动区间落 3px 的分段对应落位（100:3 的位移比不变），
+   压实与推入以 150ms 不透明度过渡呈现同一块 180° 相位取样；阶梯保持 5 级、级差 40px。 ── */
+@media (prefers-reduced-motion: reduce) {
+  .seam, .enter, .half .col > *, .plate:first-child img, .foil-a { animation: none; }
+  .foil-b { transition: opacity 150ms linear; }
+  .step-band, .slot-pos, .btn, .slot, .ledger tbody tr { transition-duration: 150ms; }
+}
+
+@media print {
+  .foil, .leak, .seam { transform: none; }
+  .ladder { break-inside: avoid; }
+}

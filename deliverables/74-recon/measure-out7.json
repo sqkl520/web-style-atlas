@@ -1,0 +1,124 @@
+{
+ "h3": {
+  "count": 30,
+  "ignoredCount": 0,
+  "sample": [
+   {
+    "name": "红黑斜排报",
+    "ignored": false,
+    "chain": [
+     "none:",
+     "none:",
+     "button:展开 S01 红黑斜排报",
+     "list:"
+    ]
+   },
+   {
+    "name": "鎏金对称厅",
+    "ignored": false,
+    "chain": [
+     "none:",
+     "none:",
+     "button:展开 S02 鎏金对称厅",
+     "list:"
+    ]
+   },
+   {
+    "name": "长曝光观测站",
+    "ignored": false,
+    "chain": [
+     "none:",
+     "none:",
+     "button:展开 S03 长曝光观测站",
+     "list:"
+    ]
+   }
+  ]
+ },
+ "roleCounts": {
+  "RootWebArea": 1,
+  "none": 489,
+  "link": 5,
+  "banner": 1,
+  "complementary": 1,
+  "main": 1,
+  "StaticText": 561,
+  "paragraph": 72,
+  "heading": 42,
+  "group": 13,
+  "DescriptionList": 1,
+  "LabelText": 2,
+  "list": 1,
+  "InlineTextBox": 728,
+  "term": 4,
+  "definition": 4,
+  "button": 77,
+  "searchbox": 1,
+  "combobox": 1,
+  "strong": 2,
+  "code": 1,
+  "generic": 149,
+  "MenuListPopup": 1,
+  "figure": 30,
+  "option": 5,
+  "image": 30,
+  "Figcaption": 30
+ },
+ "rowButtons": {
+  "count": 30,
+  "sampleNames": [
+   "展开 S01 红黑斜排报",
+   "展开 S02 鎏金对称厅",
+   "展开 S03 长曝光观测站"
+  ],
+  "anyHasDescription": 0,
+  "childRoleSummary": {
+   "paragraph": 30,
+   "none": 90
+  }
+ },
+ "family": [
+  {
+   "role": "StaticText",
+   "ignored": false,
+   "chain": [
+    "none:",
+    "none:",
+    "none:",
+    "button:展开 S01 红黑斜排报",
+    "list:"
+   ]
+  },
+  {
+   "role": "InlineTextBox",
+   "ignored": false,
+   "chain": [
+    "StaticText:苏联构成主义印刷。参考对象：El Lis",
+    "none:",
+    "none:",
+    "none:",
+    "button:展开 S01 红黑斜排报"
+   ]
+  }
+ ],
+ "lists": [
+  {
+   "role": "list",
+   "name": "",
+   "childCount": 30
+  }
+ ],
+ "rowIsFocusable": 30,
+ "contrastTest": {
+  "listitem": 30
+ },
+ "afterRemovingRole": {
+  "listitem": 30,
+  "h3": 30,
+  "staticText": 561
+ },
+ "beforeRemovingRole": {
+  "staticText": 561,
+  "listitem": 0
+ }
+}

@@ -1,0 +1,840 @@
+{
+ "network1440": {
+  "resourceCount": 138,
+  "byExt": {
+   "css": {
+    "n": 4,
+    "transfer": 208153,
+    "decoded": 208153
+   },
+   "js": {
+    "n": 5,
+    "transfer": 601759,
+    "decoded": 601759
+   },
+   "woff2": {
+    "n": 38,
+    "transfer": 1991128,
+    "decoded": 1991128
+   },
+   "jpg": {
+    "n": 90,
+    "transfer": 9841159,
+    "decoded": 9841159
+   },
+   "ico": {
+    "n": 1,
+    "transfer": 2,
+    "decoded": 2
+   }
+  },
+  "resourceEncodedTotal": 12642201,
+  "navEncoded": 26681,
+  "navTransfer": 26981,
+  "domContentLoaded": 7479,
+  "loadEvent": 25927
+ },
+ "images1440": {
+  "total": 90,
+  "zeroArea": 60,
+  "lazy": 0,
+  "noAlt": 0,
+  "emptyAlt": 0,
+  "loaded": 90,
+  "byArea": {
+   "inViewport": 30
+  },
+  "sample": [
+   {
+    "src": "desktop-fold.jpg",
+    "complete": true,
+    "naturalW": 1440,
+    "naturalH": 900,
+    "w": 316,
+    "h": 178,
+    "display": "block",
+    "visibility": "visible",
+    "loading": null,
+    "alt": "S01 红黑斜排报 在 1440px 视口的首屏渲染截图"
+   },
+   {
+    "src": "tablet-fold.jpg",
+    "complete": true,
+    "naturalW": 768,
+    "naturalH": 1024,
+    "w": 0,
+    "h": 0,
+    "display": "block",
+    "visibility": "visible",
+    "loading": null,
+    "alt": "S01 红黑斜排报 在 768px 视口的首屏渲染截图"
+   },
+   {
+    "src": "mobile-fold.jpg",
+    "complete": true,
+    "naturalW": 390,
+    "naturalH": 844,
+    "w": 0,
+    "h": 0,
+    "display": "block",
+    "visibility": "visible",
+    "loading": null,
+    "alt": "S01 红黑斜排报 在 390px 视口的首屏渲染截图"
+   },
+   {
+    "src": "desktop-fold.jpg",
+    "complete": true,
+    "naturalW": 1440,
+    "naturalH": 900,
+    "w": 316,
+    "h": 178,
+    "display": "block",
+    "visibility": "visible",
+    "loading": null,
+    "alt": "S02 鎏金对称厅 在 1440px 视口的首屏渲染截图"
+   },
+   {
+    "src": "tablet-fold.jpg",
+    "complete": true,
+    "naturalW": 768,
+    "naturalH": 1024,
+    "w": 0,
+    "h": 0,
+    "display": "block",
+    "visibility": "visible",
+    "loading": null,
+    "alt": "S02 鎏金对称厅 在 768px 视口的首屏渲染截图"
+   },
+   {
+    "src": "mobile-fold.jpg",
+    "complete": true,
+    "naturalW": 390,
+    "naturalH": 844,
+    "w": 0,
+    "h": 0,
+    "display": "block",
+    "visibility": "visible",
+    "loading": null,
+    "alt": "S02 鎏金对称厅 在 390px 视口的首屏渲染截图"
+   }
+  ]
+ },
+ "rows1440": {
+  "rowCount": 30,
+  "imgsPerRow": 3,
+  "shotBoxes": [
+   {
+    "display": "block",
+    "w": 316,
+    "h": 202,
+    "figcap": "1440"
+   },
+   {
+    "display": "none",
+    "w": 0,
+    "h": 0,
+    "figcap": "768"
+   },
+   {
+    "display": "none",
+    "w": 0,
+    "h": 0,
+    "figcap": "390"
+   }
+  ],
+  "rowHeight": 277,
+  "totalRowImgs": 90
+ },
+ "semantics1440": {
+  "headingLevels": {
+   "1": 1,
+   "2": 12,
+   "3": 30
+  },
+  "headings": [
+   {
+    "lvl": 1,
+    "text": "三十个案，一条渲染口径",
+    "hidden": false
+   },
+   {
+    "lvl": 2,
+    "text": "你是做什么的",
+    "hidden": false
+   },
+   {
+    "lvl": 2,
+    "text": "要亮底还是暗底",
+    "hidden": false
+   },
+   {
+    "lvl": 2,
+    "text": "底色属于哪条带",
+    "hidden": false
+   },
+   {
+    "lvl": 2,
+    "text": "要装多少内容",
+    "hidden": false
+   },
+   {
+    "lvl": 2,
+    "text": "要安静还是要扎眼",
+    "hidden": false
+   },
+   {
+    "lvl": 2,
+    "text": "结构类型",
+    "hidden": false
+   },
+   {
+    "lvl": 2,
+    "text": "认知门槛",
+    "hidden": false
+   },
+   {
+    "lvl": 2,
+    "text": "调性",
+    "hidden": false
+   },
+   {
+    "lvl": 2,
+    "text": "建成状态",
+    "hidden": false
+   },
+   {
+    "lvl": 2,
+    "text": "闸门",
+    "hidden": false
+   },
+   {
+    "lvl": 2,
+    "text": "怎么用",
+    "hidden": false
+   }
+  ],
+  "landmarks": [
+   {
+    "tag": "header",
+    "role": null,
+    "label": null,
+    "cls": "mast"
+   },
+   {
+    "tag": "aside",
+    "role": null,
+    "label": "筛选",
+    "cls": "rail"
+   },
+   {
+    "tag": "main",
+    "role": null,
+    "label": null,
+    "cls": "main"
+   },
+   {
+    "tag": "aside",
+    "role": null,
+    "label": "方案详情",
+    "cls": "detail"
+   }
+  ],
+  "rowSample": {
+   "tag": "LI",
+   "role": "button",
+   "tabindex": "0",
+   "h3": true,
+   "children": [
+    "p.no",
+    "div.row-main",
+    "div.shots",
+    "div.row-foot"
+   ]
+  },
+  "roleButtonCount": 30,
+  "countAria": {
+   "live": null,
+   "atomic": null,
+   "role": null,
+   "tag": "P"
+  },
+  "olChildren": [
+   "LI",
+   "LI",
+   "LI",
+   "LI",
+   "LI",
+   "LI",
+   "LI",
+   "LI",
+   "LI",
+   "LI",
+   "LI",
+   "LI",
+   "LI",
+   "LI",
+   "LI",
+   "LI",
+   "LI",
+   "LI",
+   "LI",
+   "LI",
+   "LI",
+   "LI",
+   "LI",
+   "LI",
+   "LI",
+   "LI",
+   "LI",
+   "LI",
+   "LI",
+   "LI"
+  ],
+  "orderedList": "OL",
+  "langAttr": "zh-Hans",
+  "titleAttrCount": 197
+ },
+ "detail1440": {
+  "detailHidden": false,
+  "activeEl": "detail-head|DIV|",
+  "detailRole": "ASIDE/null",
+  "detailAriaLabel": "方案详情",
+  "detailTabindex": null,
+  "bodyDetailOpen": "detail-open",
+  "fieldCount": 12,
+  "inlineFields": 7,
+  "foldedFields": 5,
+  "fieldKinds": [
+   {
+    "cls": "field ",
+    "fold": false,
+    "lab": "一句话视觉定义"
+   },
+   {
+    "cls": "field ",
+    "fold": false,
+    "lab": "美学家族与参考"
+   },
+   {
+    "cls": "field ",
+    "fold": false,
+    "lab": "当前有效配色"
+   },
+   {
+    "cls": "field ",
+    "fold": false,
+    "lab": "字体策略"
+   },
+   {
+    "cls": "field field-fold field-long",
+    "fold": true,
+    "lab": "布局与网格"
+   },
+   {
+    "cls": "field field-fold field-long",
+    "fold": true,
+    "lab": "可落地要点"
+   },
+   {
+    "cls": "field field-fold field-long",
+    "fold": true,
+    "lab": "关键视觉元素"
+   },
+   {
+    "cls": "field field-fold field-long",
+    "fold": true,
+    "lab": "动效与交互"
+   },
+   {
+    "cls": "field field-fold",
+    "fold": true,
+    "lab": "去 AI 味审查点（3 条）"
+   },
+   {
+    "cls": "field ",
+    "fold": false,
+    "lab": "反 AI 味风险与规避"
+   },
+   {
+    "cls": "field ",
+    "fold": false,
+    "lab": "适用场景"
+   },
+   {
+    "cls": "field ",
+    "fold": false,
+    "lab": "设计师签名式怪癖"
+   }
+  ],
+  "firstFieldTopDoc": 568,
+  "detailScrollH": 1869,
+  "copyBtn": true,
+  "copyBtnText": "复制 AI 提示词",
+  "detailsCount": 8,
+  "headingsInDetail": [
+   "H2:红黑斜排报"
+  ],
+  "dlChildren": [
+   "DIV",
+   "DIV",
+   "DIV",
+   "DIV",
+   "DIV",
+   "DIV",
+   "DIV",
+   "DIV",
+   "DIV",
+   "DIV",
+   "DIV",
+   "DIV"
+  ],
+  "detailHeight": 900
+ },
+ "focusClose": {
+  "activeEl": "LI.row is-in#",
+  "detailHidden": true,
+  "hash": ""
+ },
+ "keyboardArrowFromBody": {
+  "before": "",
+  "after": "#S01",
+  "prevented": true,
+  "activeTag": "DIV",
+  "detailHidden": false
+ },
+ "keyboardArrowFromLink": {
+  "linkText": "企业站 M01",
+  "before": "#S01",
+  "after": "#S02",
+  "prevented": true
+ },
+ "layout1440": {
+  "docScrollH": 14979,
+  "mastH": 347,
+  "railH": 900,
+  "railScrollH": 1964,
+  "railClientH": 900,
+  "barH": 112,
+  "firstCardTop": 483,
+  "hOverflow": 0,
+  "railFoldOpen": true,
+  "mastFoldOpen": true,
+  "railFoldBodyChildren": 13,
+  "chipCountTotal": 45,
+  "sceneChipCount": 44,
+  "sceneMoreVisible": "none",
+  "nearChipsParentClass": "scene-more | parentOfParent=rail-block",
+  "nearChipComputed": {
+   "border": "2px outset rgb(0, 0, 0)",
+   "borderStyle": "outset",
+   "padding": "1px 6px",
+   "fontSize": "16px",
+   "background": "rgb(240, 240, 240)",
+   "color": "rgb(28, 27, 24)"
+  },
+  "directChipComputed": {
+   "border": "1px solid rgb(165, 164, 155)",
+   "borderStyle": "solid",
+   "padding": "4px 8px",
+   "fontSize": "13px",
+   "background": "rgba(0, 0, 0, 0)"
+  },
+  "chipRuleMatched": {
+   "directMatchesChipsBtn": true,
+   "nearMatchesChipsBtn": false
+  },
+  "kbdInNote": [
+   "1",
+   "2",
+   "3",
+   "J",
+   "K",
+   "/",
+   "Esc"
+  ]
+ },
+ "rowsAx": {
+  "rows": [
+   {
+    "role": "button",
+    "label": "展开 S01 红黑斜排报",
+    "innerText": "S01\n\n红黑斜排报\nRed Wedge Broadsheet\nF 型 · NEWS-FRONT\n门槛低\n混乱活力 / ",
+    "headingText": "红黑斜排报"
+   },
+   {
+    "role": "button",
+    "label": "展开 S02 鎏金对称厅",
+    "innerText": "S02\n\n鎏金对称厅\nGilded Symmetry Salon\nR 型 · SPLIT\n门槛中\n奢华暗黑 / 高定\n\n",
+    "headingText": "鎏金对称厅"
+   },
+   {
+    "role": "button",
+    "label": "展开 S03 长曝光观测站",
+    "innerText": "S03\n\n长曝光观测站\nLong-Exposure Observatory\nF 型 · CHRONO\n门槛中\n冷静克制 ",
+    "headingText": "长曝光观测站"
+   }
+  ]
+ },
+ "mobile390": {
+  "viewport": {
+   "w": 390,
+   "h": 844
+  },
+  "hOverflow": 0,
+  "docScrollH": 11546,
+  "screens": 13.68,
+  "mastH": 259,
+  "barH": 84,
+  "railH": 48,
+  "firstCardTop": 402,
+  "folds": [
+   {
+    "id": "mast-fold",
+    "exists": true,
+    "open": false
+   },
+   {
+    "id": "rail-fold",
+    "exists": true,
+    "open": false
+   },
+   {
+    "id": "bar-fold",
+    "exists": true,
+    "open": false
+   },
+   {
+    "id": "tpl-strip",
+    "exists": true,
+    "open": false
+   }
+  ],
+  "interactiveTotal": 87,
+  "under24": [],
+  "under24Count": 0,
+  "under44Count": 51,
+  "railScrollable": {
+   "overflowY": "visible",
+   "maxHeight": "none",
+   "scrollH": 46,
+   "clientH": 46
+  },
+  "bodyScrollH": 11546,
+  "nestedScrollers": [],
+  "fontSizesUnder13": 0
+ },
+ "mobileDetail": {
+  "hidden": false,
+  "position": "fixed",
+  "inset": "0px",
+  "zIndex": "30",
+  "rect": {
+   "top": 0,
+   "left": 0,
+   "w": 390,
+   "h": 844
+  },
+  "activeEl": "DIV.detail-head",
+  "overflowY": "auto",
+  "docScrollH": 11546,
+  "nested": {
+   "scrollH": 2308,
+   "clientH": 2308,
+   "overflowY": "visible"
+  }
+ },
+ "wizard1": {
+  "title": "选型向导 · 五个问题找到适合你的方案",
+  "h": [
+   "H1:五个问题，把 30 个方案收成 3 个",
+   "H2:你这一页大概要装多少内容？",
+   "H2:图片在你这一页里有多重要？",
+   "H2:你希望它看起来多\"安静\"？",
+   "H2:访客第一次进来，你希望他怎么样？",
+   "H2:你更怕哪一种失手？",
+   "H2:推荐这 3 个",
+   "H2:以及，明确排除这 3 个"
+  ],
+  "fieldsets": 0,
+  "legends": [],
+  "radiogroups": 0,
+  "radios": 0,
+  "radioNameAttr": [],
+  "ariaLive": [],
+  "visibleText": "跳到问题\n\n网站设计风格方案 · 选型向导\n\n五个问题，把 30 个方案收成 3 个\n\n不问\"你喜欢什么风格\"——那个问题没人答得上来。问的是你的处境：这一页要装多少内容、图有多重要、能多吵、访客该怎么用、以及你更怕哪一种失手。全部结论只读已有的实测数据，没有一处是我替方案打分。\n\n← 回到选型台（看全部 30 个）\n\n问题 1 / 5\n\n你这一页大概要装多少内容？\n\n参照：全站正文从 179 字到 1212 字，中位数 509 字。\n\n就一屏，把一件事说清\n访客不需要往下翻很久\n三五屏，常规介绍\n首页、介绍、几个栏目、联系方式\n很多栏目，愿意翻很久\n条目多、要能慢慢读\n重来",
+  "elements": [
+   {
+    "tag": "h1",
+    "type": null,
+    "role": null,
+    "name": null,
+    "txt": "五个问题，把 30 个方案收成 3 个",
+    "cls": ""
+   },
+   {
+    "tag": "h2",
+    "type": null,
+    "role": null,
+    "name": null,
+    "txt": "你这一页大概要装多少内容？",
+    "cls": ""
+   },
+   {
+    "tag": "button",
+    "type": "button",
+    "role": null,
+    "name": null,
+    "txt": "就一屏，把一件事说清\n访客不需要往下翻很久",
+    "cls": ""
+   },
+   {
+    "tag": "button",
+    "type": "button",
+    "role": null,
+    "name": null,
+    "txt": "三五屏，常规介绍\n首页、介绍、几个栏目、联系方式",
+    "cls": ""
+   },
+   {
+    "tag": "button",
+    "type": "button",
+    "role": null,
+    "name": null,
+    "txt": "很多栏目，愿意翻很久\n条目多、要能慢慢读",
+    "cls": ""
+   },
+   {
+    "tag": "h2",
+    "type": null,
+    "role": null,
+    "name": null,
+    "txt": "图片在你这一页里有多重要？",
+    "cls": ""
+   },
+   {
+    "tag": "button",
+    "type": "button",
+    "role": null,
+    "name": null,
+    "txt": "基本不用图靠文字、数字和版面说话",
+    "cls": ""
+   },
+   {
+    "tag": "button",
+    "type": "button",
+    "role": null,
+    "name": null,
+    "txt": "有几张就够每个栏目配一张，不铺满",
+    "cls": ""
+   },
+   {
+    "tag": "button",
+    "type": "button",
+    "role": null,
+    "name": null,
+    "txt": "图是主角没有好图这页就不成立",
+    "cls": ""
+   },
+   {
+    "tag": "h2",
+    "type": null,
+    "role": null,
+    "name": null,
+    "txt": "你希望它看起来多\"安静\"？",
+    "cls": ""
+   },
+   {
+    "tag": "button",
+    "type": "button",
+    "role": null,
+    "name": null,
+    "txt": "很安静，别抢戏让人只看内容，不记得页面",
+    "cls": ""
+   },
+   {
+    "tag": "button",
+    "type": "button",
+    "role": null,
+    "name": null,
+    "txt": "有个态度，但不吵颜色有立场，整体还是克制",
+    "cls": ""
+   },
+   {
+    "tag": "button",
+    "type": "button",
+    "role": null,
+    "name": null,
+    "txt": "就要扎眼一眼记住，宁可有人不喜欢",
+    "cls": ""
+   },
+   {
+    "tag": "h2",
+    "type": null,
+    "role": null,
+    "name": null,
+    "txt": "访客第一次进来，你希望他怎么样？",
+    "cls": ""
+   },
+   {
+    "tag": "button",
+    "type": "button",
+    "role": null,
+    "name": null,
+    "txt": "三秒内知道先看哪、点哪路要铺好，别让他猜",
+    "cls": ""
+   },
+   {
+    "tag": "button",
+    "type": "button",
+    "role": null,
+    "name": null,
+    "txt": "愿意花点时间读进去有点门槛没关系，读懂了更值",
+    "cls": ""
+   },
+   {
+    "tag": "h2",
+    "type": null,
+    "role": null,
+    "name": null,
+    "txt": "你更怕哪一种失手？",
+    "cls": ""
+   },
+   {
+    "tag": "button",
+    "type": "button",
+    "role": null,
+    "name": null,
+    "txt": "怕做错、怕被说不专业先别出错，个性可以少一点",
+    "cls": ""
+   },
+   {
+    "tag": "button",
+    "type": "button",
+    "role": null,
+    "name": null,
+    "txt": "两头都不偏稳当，但别寡淡",
+    "cls": ""
+   },
+   {
+    "tag": "button",
+    "type": "button",
+    "role": null,
+    "name": null,
+    "txt": "怕没记忆点、怕被划过去宁可冒险也要被记住",
+    "cls": ""
+   },
+   {
+    "tag": "button",
+    "type": "button",
+    "role": null,
+    "name": null,
+    "txt": "重来",
+    "cls": "btn-quiet"
+   },
+   {
+    "tag": "button",
+    "type": "button",
+    "role": null,
+    "name": null,
+    "txt": "复制这一页的链接（带上你的答案）",
+    "cls": "btn-quiet"
+   },
+   {
+    "tag": "h2",
+    "type": null,
+    "role": null,
+    "name": null,
+    "txt": "推荐这 3 个",
+    "cls": "wz-oh"
+   },
+   {
+    "tag": "h2",
+    "type": null,
+    "role": null,
+    "name": null,
+    "txt": "以及，明确排除这 3 个",
+    "cls": "wz-oh"
+   }
+  ]
+ },
+ "bytes": [
+  {
+   "file": "index.html",
+   "raw": 26681,
+   "gzip": 11734
+  },
+  {
+   "file": "style.css",
+   "raw": 90231,
+   "gzip": 35116
+  },
+  {
+   "file": "data.js",
+   "raw": 307091,
+   "gzip": 103014
+  },
+  {
+   "file": "prompts.js",
+   "raw": 62438,
+   "gzip": 19697
+  },
+  {
+   "file": "prompt-copy.js",
+   "raw": 125724,
+   "gzip": 50480
+  },
+  {
+   "file": "app.js",
+   "raw": 106222,
+   "gzip": 42631
+  },
+  {
+   "file": "self-gate.js",
+   "raw": 284,
+   "gzip": 281
+  },
+  {
+   "file": "wizard.html",
+   "raw": 5559,
+   "gzip": 2383
+  },
+  {
+   "file": "wizard.js",
+   "raw": 15149,
+   "gzip": 6552
+  },
+  {
+   "file": "wizard.css",
+   "raw": 4271,
+   "gzip": 1484
+  }
+ ],
+ "bytesTotal": {
+  "raw": 743650,
+  "gzip": 273372
+ },
+ "fontCSS": [
+  {
+   "f": "archivo-vf__wdth-wght.css",
+   "raw": 1652,
+   "gzip": 780
+  },
+  {
+   "f": "noto-sans-sc__100..900.css",
+   "raw": 112080,
+   "gzip": 32698
+  },
+  {
+   "f": "ibm-plex-mono__400-500.css",
+   "raw": 4190,
+   "gzip": 978
+  }
+ ],
+ "jpgSample": [
+  "./desktop-fold.jpg",
+  "./desktop-page-01.jpg",
+  "./desktop-page-02.jpg",
+  "./desktop-page-03.jpg",
+  "./mobile-fold.jpg"
+ ]
+}

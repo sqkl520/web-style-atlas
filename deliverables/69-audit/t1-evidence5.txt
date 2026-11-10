@@ -1,0 +1,153 @@
+====================================================================================================
+S09  dir=S09-batik-price-board
+====================================================================================================
+  L215  border         0                                                      → 0                                              []  ⓐ.btn
+  L222  outline        3px solid var(--ink)                                   → 3px solid #151310                              [3]  ⓐ.btn:focus-visible
+  L231  border         2px solid var(--ink)                                   → 2px solid #151310                              [2]  ⓐ.cat
+  L237  outline        3px solid var(--blue)                                  → 3px solid #1F4E79                              [3]  ⓐ.cat:focus-visible
+  L282  stroke-width   3.5                                                    → 3.5                                            [3.5]  ⓐ#stroke-outer
+  L283  stroke-width   2                                                      → 2                                              [2]  ⓐ#stroke-inner
+  L368  stroke-width   3.6                                                    → 3.6                                            [3.6]  ⓐ.ico path
+  VAR --line           = 8px
+  VAR --note-w         = 96px
+  VAR --price-w        = 124px
+  L247 [focus-visible] outline: 3px solid var(--ink); outline-offset: 3px;
+  L264 [focus-visible] outline: 3px solid var(--blue); outline-offset: 3px;
+
+====================================================================================================
+S10  dir=S10-grid-versus-sheet
+====================================================================================================
+  L71   outline        2px solid var(--red)                                   → 2px solid #D32029                              [2]  ⓐ:focus-visible
+  L104  stroke-width   var(--reg-w)                                           → 1.25px                                         [1.25]  ⓐ.reg
+  L117  border-bottom  2px solid var(--ink)                                   → 2px solid #17171A                              [2]  ⓐ.masthead
+  L150  border         0                                                      → 0                                              []  ⓐ.btn
+  L178  border         0                                                      → 0                                              []  ⓐ.chip
+  L187  border-top     2px solid var(--ink)                                   → 2px solid #17171A                              [2]  ⓐ.section-head
+  L197  stroke-width   var(--column-rule)                                     → 1.25px                                         [1.25]  ⓐ.plate-rules line
+  L218  border-bottom  2px solid var(--ink)                                   → 2px solid #17171A                              [2]  ⓐ.grid-table th
+  L222  border-bottom  var(--column-rule) solid var(--grey-soft)              → 1.25px solid #B6B4AE                           [1.25]  ⓐ.grid-table tbody td
+  L225  border-left    var(--column-rule) solid var(--grey)                   → 1.25px solid #6E7076                           [1.25]  ⓐ.grid-table th + th, .grid-table td + td
+  L227  border-right   var(--column-rule) solid var(--grey)                   → 1.25px solid #6E7076                           [1.25]  ⓐ.grid-table th:nth-child(4), .grid-table td:nth-child(4)
+  L234  border-left    1.5px solid var(--paper)                               → 1.5px solid #F2EFE8                            [1.5]  ⓐ.grid-table th:nth-child(5), .grid-table td:nth-child(5)
+  L245  border-top     2px solid var(--ink)                                   → 2px solid #17171A                              [2]  ⓐ.grid-table tfoot td
+  L270  border-right   var(--reg-w) solid var(--ink)                          → 1.25px solid #17171A                           [1.25]  ⓐ.cell-no::after
+  L271  border-bottom  var(--reg-w) solid var(--ink)                          → 1.25px solid #17171A                           [1.25]  ⓐ.cell-no::after
+  L326  border-top     2px solid var(--ink)                                   → 2px solid #17171A                              [2]  ⓐ.plate figcaption
+  L346  border-left    2px solid var(--red)                                   → 2px solid #D32029                              [2]  ⓐ.quote
+  L360  border-top     2px solid var(--ink)                                   → 2px solid #17171A                              [2]  ⓐ.regscale figcaption
+  L372  border-top     2px solid var(--ink)                                   → 2px solid #17171A                              [2]  ⓐfooter
+  L526  border-left    0                                                      → 0                                              []  ⓐ.grid-table tbody td:nth-child(-n+4), .grid-table tfoot td:nth-child(-n+4)
+  L527  border-right   0                                                      → 0                                              []  ⓐ.grid-table tbody td:nth-child(4), .grid-table tfoot td:nth-child(4)
+  L57   [HTML内联] stroke-width="1.25"   
+  L277  [HTML内联] stroke-width="1.25"   class="glyphs"
+  L278  [HTML内联] stroke-width="1.25"   
+  L280  [HTML内联] stroke-width="1.25"   
+  L350  [HTML内联] stroke-width="2"   
+  VAR --column-rule    = 1.25px
+  VAR --reg-w          = 1.25px
+  L87 [focus-visible] outline: 2px solid var(--red); outline-offset: 2px;
+
+====================================================================================================
+S15  dir=S15-fishery-floor-ledger
+====================================================================================================
+  L65   border-bottom  3px solid var(--pencil)                                → 3px solid #7A7466                              [3]  ⓐ.strip
+  L72   outline        2px solid var(--paper)                                 → 2px solid #E7EBE9                              [2]  ⓐ.strip__item--fault.is-lit
+  L114  border         0                                                      → 0                                              []  ⓐ.btn
+  L119  border         2px solid var(--graphite)                              → 2px solid #3A3F45                              [2]  ⓐ.btn--ghost
+  L185  stroke-width   var(--ink12)                                           → 1.2px                                          [1.2]  ⓐ.ink--frame
+  L186  stroke-width   0.8                                                    → 0.8                                            [0.8]  ⓐ.ink--base
+  L187  stroke-width   0.8                                                    → 0.8                                            [0.8]  ⓐ.ink--pencil
+  L188  stroke-width   0.8                                                    → 0.8                                            [0.8]  ⓐ.ink--rev
+  L190  stroke-width   0.8                                                    → 0.8                                            [0.8]  ⓐ.ink--c1
+  L191  stroke-width   1                                                      → 1                                              [1]  ⓐ.ink--c2
+  L192  stroke-width   1.2                                                    → 1.2                                            [1.2]  ⓐ.ink--c3
+  L201  stroke-width   0.8                                                    → 0.8                                            [0.8]  ⓐ.hot .edge
+  L205  stroke-width   0.5                                                    → 0.5                                            [0.5]  ⓐ.hot .ring
+  L208  stroke-width   1.2                                                    → 1.2                                            [1.2]  ⓐ.hot:hover .edge, .hot:focus-visible .edge, .stack.is-cued .hot .edge
+  L210  outline        2px solid var(--press)                                 → 2px solid #22282B                              [2]  ⓐ.hot:focus-visible
+  L237  stroke-width   0.8                                                    → 0.8                                            [0.8]  ⓐ.sw__p
+  L240  stroke-width   1.2                                                    → 1.2                                            [1.2]  ⓐ.legend__lines li.is-cued .sw__p
+  L245  border-left    3px solid var(--pencil)                                → 3px solid #7A7466                              [3]  ⓐ.plan-notes li
+  L250  border-left    3px solid var(--pencil)                                → 3px solid #7A7466                              [3]  ⓐ.layers li
+  L258  border         2px solid var(--graphite)                              → 2px solid #3A3F45                              [2]  ⓐ.yb
+  L271  border-left    3px solid var(--pencil)                                → 3px solid #7A7466                              [3]  ⓐ.folds details
+  L292  border-left    3px solid var(--pencil)                                → 3px solid #7A7466                              [3]  ⓐ.alert
+  L297  outline        2px solid var(--pencil)                                → 2px solid #7A7466                              [2]  ⓐ.trace-error.is-lit .alert
+  L301  border-left    3px solid var(--pencil)                                → 3px solid #7A7466                              [3]  ⓐ.packet
+  L306  border-bottom  2px solid #C3C9C7                                      → 2px solid #C3C9C7                              [2]  ⓐ.zones__table th, .zones__table td
+  L307  border-bottom  0                                                      → 0                                              []  ⓐ.zones__table thead th
+  L312  border-bottom  2px solid #C3C9C7                                      → 2px solid #C3C9C7                              [2]  ⓐ.matrix th, .matrix td
+  L313  border-bottom  0                                                      → 0                                              []  ⓐ.matrix thead th
+  L319  border-bottom  2px solid #C3C9C7                                      → 2px solid #C3C9C7                              [2]  ⓐ.weights th, .weights td
+  L320  border-bottom  0                                                      → 0                                              []  ⓐ.weights thead th
+  L327  border-left    3px solid var(--pencil)                                → 3px solid #7A7466                              [3]  ⓐ.empty
+  L353  border-left    3px solid var(--pencil)                                → 3px solid #7A7466                              [3]  ⓐ.spec__cell
+  L356  border-top     3px solid var(--pencil)                                → 3px solid #7A7466                              [3]  ⓐ.degrade
+  L424  stroke-width   1.4                                                    → 1.4                                            [1.4]  ⓐ.hot .edge
+  L425  stroke-width   1.2                                                    → 1.2                                            [1.2]  ⓐ.hot .ring
+  L426  stroke-width   calc(0.8px * 1.7)                                      → 1.36px                                         [1.36]  ⓐ.plate use
+  L427  stroke-width   2px                                                    → 2px                                            [2]  ⓐ.ink--frame, .ink--c3
+  L428  stroke-width   1.7px                                                  → 1.7px                                          [1.7]  ⓐ.ink--c2
+  L429  stroke-width   1.4px                                                  → 1.4px                                          [1.4]  ⓐ.ink--c1
+  L468  border-bottom  2px solid #C3C9C7                                      → 2px solid #C3C9C7                              [2]  ⓐ.matrix tr
+  L470  border-bottom  0                                                      → 0                                              []  ⓐ.matrix tbody tr:last-child
+  L471  border-bottom  0                                                      → 0                                              []  ⓐ.matrix th, .matrix td
+  L94   [HTML内联] stroke-width="1.2"   id="g-tri"
+  L95   [HTML内联] stroke-width="1.2"   id="g-contour"
+  L95   [HTML内联] stroke-width="1"   id="g-contour"
+  L95   [HTML内联] stroke-width=".8"   
+  L96   [HTML内联] stroke-width="1.2"   id="g-anchor"
+  L223 [focus-visible] outline: 2px solid var(--press); outline-offset: 2px;
+
+====================================================================================================
+S25  dir=S25-spotcolor-contents-zine
+====================================================================================================
+  L55   outline        3px solid var(--spot-b)                                → 3px solid #2E6B5E                              [3]  ⓐ:focus-visible
+  L72   border         0                                                      → 0                                              []  ⓐ.btn
+  L200  border         0                                                      → 0                                              []  ⓐ.entry__open
+  L241  border         0                                                      → 0                                              []  ⓐ.order__form input
+  L287  stroke-width   3                                                      → 3                                              [3]  ⓐ.thread path
+  L35   [HTML内联] stroke-width="1.2"   
+  L106  [HTML内联] stroke-width="1.2"   
+  L139  [HTML内联] stroke-width="2"   class="leader"
+  L146  [HTML内联] stroke-width="2"   class="leader"
+  L153  [HTML内联] stroke-width="2"   class="leader"
+  L160  [HTML内联] stroke-width="2"   class="leader"
+  L167  [HTML内联] stroke-width="2"   class="leader"
+  L174  [HTML内联] stroke-width="2"   class="leader"
+  L181  [HTML内联] stroke-width="2"   class="leader"
+  L188  [HTML内联] stroke-width="2"   class="leader"
+  L235  [HTML内联] stroke-width="1"   class="icon"
+  L236  [HTML内联] stroke-width="1"   class="icon"
+  L58 [focus-visible] outline: 3px solid var(--spot-b); outline-offset: 3px;
+
+====================================================================================================
+S27  dir=S27-hand-painted-bill-dispatch
+====================================================================================================
+  L100  border-left    var(--mis) solid var(--green)                          → 1.2px solid #0E6258                            [1.2]  ⓐ.hb--fault
+  L140  border-bottom  var(--mis) solid var(--green)                          → 1.2px solid #0E6258                            [1.2]  ⓐ.claim b
+  L148  border         0                                                      → 0                                              []  ⓐ.btn
+  L277  border         var(--mis) solid var(--green)                          → 1.2px solid #0E6258                            [1.2]  ⓐ.act__sign::before
+  L338  border         0                                                      → 0                                              []  ⓐ.seal
+  L342  stroke-width   3                                                      → 3                                              [3]  ⓐ.seal .ring
+  L344  stroke-width   1.6                                                    → 1.6                                            [1.6]  ⓐ.seal .core
+  L353  border         var(--mis) solid rgba(34, 28, 16, 0.34)                → 1.2px solid rgba(34, 28, 16, 0.34)             [1.2]  ⓐ.schedule th, .schedule td
+  L372  border-left    calc(var(--mis) * 2) solid var(--white)                → 2.4px solid #FFFFFF                            [2.4]  ⓐ.fault__line
+  L382  border-left    calc(var(--mis) * 2) solid var(--green)                → 2.4px solid #0E6258                            [2.4]  ⓐ.packet
+  L408  border         var(--mis) solid var(--green)                          → 1.2px solid #0E6258                            [1.2]  ⓐ.plate__frame::before
+  L517  border-bottom  var(--mis) solid var(--green)                          → 1.2px solid #0E6258                            [1.2]  ⓐ.clause:hover b
+  L32   [HTML内联] stroke-width="1.6"   id="g-curtain"
+  L33   [HTML内联] stroke-width="1.6"   id="g-seal"
+  L34   [HTML内联] stroke-width="1.6"   id="g-cell"
+  L36   [HTML内联] stroke-width=".8"   id="h0"
+  L37   [HTML内联] stroke-width=".8"   id="h1"
+  L38   [HTML内联] stroke-width=".8"   id="h2"
+  L39   [HTML内联] stroke-width=".8"   id="h3"
+  L40   [HTML内联] stroke-width=".8"   id="h4"
+  L41   [HTML内联] stroke-width=".8"   id="h5"
+  L42   [HTML内联] stroke-width=".8"   id="h6"
+  L43   [HTML内联] stroke-width=".8"   id="h7"
+  L44   [HTML内联] stroke-width=".8"   id="h8"
+  L45   [HTML内联] stroke-width=".8"   id="h9"
+  L38   [data-URI] stroke-width=1.8
+  VAR --mis            = 1.2px

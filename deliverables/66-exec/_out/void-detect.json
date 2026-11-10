@@ -1,0 +1,161 @@
+{
+ "dom": {
+  "S01": [
+   {
+    "line": 44,
+    "text": "<div class=\"slug-slot\" aria-hidden=\"true\"><span class=\"slug-dot\"></span></div>"
+   }
+  ],
+  "S02": [
+   {
+    "line": 41,
+    "text": "<li class=\"step is-vacant\" style=\"--i:4\"><span class=\"step-band\" aria-hidden=\"true\"></span><span class=\"step-body\"><code>第 5 级</code><b class=\"step-name\">空缺</b><span class=\"step-size\">1971 年出库退回：盒盖铰链断裂，未修复，未重排</span></span></li>"
+   }
+  ],
+  "S03": [],
+  "S04": [
+   {
+    "line": 169,
+    "text": "<div class=\"alert alert--empty\" role=\"status\">"
+   }
+  ],
+  "S05": [],
+  "S06": [
+   {
+    "line": 140,
+    "text": "<article class=\"card card--blank\">"
+   },
+   {
+    "line": 145,
+    "text": "<article class=\"card card--blank\">"
+   },
+   {
+    "line": 150,
+    "text": "<article class=\"card card--blank\">"
+   }
+  ],
+  "S07": [
+   {
+    "line": 161,
+    "text": "<span class=\"dis\" role=\"link\" aria-disabled=\"true\" tabindex=\"-1\">翻到第 119 页的分类广告</span>"
+   }
+  ],
+  "S08": [],
+  "S09": [],
+  "S10": [
+   {
+    "line": 234,
+    "text": "<tr class=\"row-gap\">"
+   },
+   {
+    "line": 237,
+    "text": "<td class=\"cell-lead cell-blank\"><span class=\"blank\">到货周期字段为空</span></td>"
+   },
+   {
+    "line": 241,
+    "text": "<tr class=\"row-gap\">"
+   },
+   {
+    "line": 244,
+    "text": "<td class=\"cell-lead cell-blank\"><span class=\"blank\">到货周期字段为空</span></td>"
+   },
+   {
+    "line": 248,
+    "text": "<tr class=\"row-gap\">"
+   },
+   {
+    "line": 251,
+    "text": "<td class=\"cell-lead cell-blank\"><span class=\"blank\">到货周期字段为空</span></td>"
+   }
+  ],
+  "S11": [],
+  "S12": [
+   {
+    "line": 139,
+    "text": "<tr><td><code>07</code></td><td>留空的角</td><td><span class=\"glyph g-void\" aria-hidden=\"true\"></span></td><td class=\"col-hide\">只留 1 栏</td><td class=\"col-hide\">45°</td><td><code>106×136</code></td><td>未开</td></tr>"
+   }
+  ],
+  "S13": [],
+  "S14": [],
+  "S15": [],
+  "S16": [],
+  "S17": [],
+  "S18": [],
+  "S19": [
+   {
+    "line": 72,
+    "text": "<li class=\"dw dw--void\" id=\"d04\" style=\"--s:2;--row:0\"><span class=\"dw__bar\">第 4 抽屉<code class=\"dw__code\">K-04</code></span><span class=\"dw__card dw__card--void\"><span class=\"dw__in\"><span class=\"dw__head\">空抽屉</span><span class=\"dw__line\">这个抽屉是空的。1889 年迁库时标本被借走，位置照留。</span></span></span></li>"
+   },
+   {
+    "line": 102,
+    "text": "<li class=\"dw dw--void\" id=\"d16\" style=\"--s:2;--row:3\"><span class=\"dw__bar\">第 16 抽屉<code class=\"dw__code\">K-16</code></span><span class=\"dw__card dw__card--void\"><span class=\"dw__in\"><span class=\"dw__head\">空抽屉</span><span class=\"dw__line\">这个抽屉是空的。1889 年迁库时标本被借走，位置照留。</span></span></span></li>"
+   }
+  ],
+  "S20": [],
+  "S21": [],
+  "S22": [],
+  "S23": [],
+  "S24": [
+   {
+    "line": 251,
+    "text": "<li class=\"leaf leaf--d leaf--empty\" data-grow data-picked=\"false\" style=\"--depth:4;--d:3\">"
+   }
+  ],
+  "S25": [],
+  "S26": [],
+  "S27": [],
+  "S28": [],
+  "S29": [
+   {
+    "line": 324,
+    "text": "<tr class=\"qs\"><td colspan=\"4\"></td></tr>"
+   }
+  ],
+  "S30": []
+ },
+ "byToken": {
+  "故意留空": [
+   "S02",
+   "S12",
+   "S23"
+  ],
+  "空抽屉": [
+   "S19"
+  ],
+  "空白卡": [
+   "S06"
+  ],
+  "空白行": [
+   "S29"
+  ],
+  "永久留": [
+   "S01"
+  ]
+ },
+ "union": [
+  "S01",
+  "S02",
+  "S06",
+  "S12",
+  "S19",
+  "S23",
+  "S29"
+ ],
+ "INTENTIONAL": [
+  "S01",
+  "S02",
+  "S06",
+  "S12",
+  "S19",
+  "S23",
+  "S29"
+ ],
+ "NOT_INTENTIONAL": [
+  "S07",
+  "S10",
+  "S18",
+  "S24",
+  "S30"
+ ],
+ "agree": true
+}

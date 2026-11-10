@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>联锁释放簿 · 锁闭条切口角度表</title>
+<style>
+  :root{
+    --ink:#3E3A34;
+    --paper:#E4DCC9;
+    --amber:#924307;
+    --fibre:#6E6A5E;
+    --white:#FFFFFF;
+    --col:calc((100% - 0px) / 10);
+  }
+  *{margin:0;padding:0;border:0;box-sizing:border-box;}
+  html{background:var(--paper);}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"WenJin Mincho",Georgia,"Songti SC",STSong,serif;
+    font-size:13px;
+    line-height:1.55;
+  }
+  h1,h2,h3{
+    font-family:Antonio,"WenJin Mincho",Georgia,"Songti SC",serif;
+    font-weight:400;
+    letter-spacing:0.02em;
+  }
+  .num{
+    font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-variant-numeric:tabular-nums;
+  }
+
+  /* ── 簿头 ───────────────────────────────────────────── */
+  .ledger-head{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:24px;
+    padding:16px 32px 12px;
+    border-bottom:2px solid var(--ink);
+  }
+  .ledger-head h1{font-size:26px;line-height:1.1;}
+  .ledger-head .sub{
+    font-size:12px;
+    color:var(--fibre);
+    margin-top:5px;
+  }
+  .head-codes{
+    display:flex;
+    gap:26px;
+    text-align:right;
+  }
+  .head-codes div{
+    border-left:1px solid var(--fibre);
+    padding-left:12px;
+  }
+  .head-codes dt{
+    font-size:9px;
+    color:var(--fibre);
+    letter-spacing:0.1em;
+  }
+  .head-codes dd{
+    font-size:13px;
+    margin-top:2px;
+  }
+
+  /* ── 10 栏主体 ───────────────────────────────────────── */
+  .book{
+    display:grid;
+    grid-template-columns:repeat(10,1fr);
+    gap:0;
+    padding:24px 32px 8px;
+  }
+  /* 1–4 栏：表一 */
+  .sheet-a{grid-column:1 / span 4;padding-right:12px;}
+  /* 5–6 栏：锁闭条 */
+  .bars{grid-column:5 / span 2;padding:0 8px;}
+  /* 7–10 栏：表二 */
+  .sheet-b{grid-column:7 / span 4;padding-left:12px;}
+
+  .sec-hd{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    border-bottom:2px solid var(--ink);
+    padding-bottom:5px;
+    margin-bottom:10px;
+  }
+  .sec-hd h2{font-size:13px;letter-spacing:0.05em;}
+  .sec-hd .meta{font-size:9px;color:var(--fibre);letter-spacing:0.06em;}
+
+  table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:11.5px;
+  }
+  caption{
+    caption-side:top;
+    text-align:left;
+    font-size:9px;
+    color:var(--fibre);
+    padding-bottom:6px;
+    letter-spacing:0.05em;
+  }
+  th,td{
+    text-align:left;
+    padding:6px 6px 6px 0;
+    border-bottom:1px solid var(--fibre);
+    vertical-align:baseline;
+  }
+  thead th{
+    font-size:9px;
+    font-weight:400;
+    color:var(--fibre);
+    letter-spacing:0.08em;
+    border-bottom:2px solid var(--ink);
+  }
+  td.r,th.r{text-align:right;padding-right:0;}
+  tbody tr:last-child td{border-bottom:0;}
+  td.lock{color:var(--amber);}
+  .interlock{
+    display:inline-block;
+    border:1px solid var(--amber);
+    padding:1px 5px;
+    font-size:10px;
+    color:var(--amber);
+  }
+
+  /* ── 14 枚横条：96 宽 × 24 高，1px 纸色缝，右端 30/45/60° 斜切 ──
+     关于 24×96 的取法（提示词写「14 枚 24×96px 横条」，字面 24 宽 96 高是竖条）：
+     这里取 96 宽 × 24 高 = 横条，理由是这个取法能让「右端斜切」在几何上成立
+     （切角横跨量 = 24 · tanθ ≤ 41.6px < 96px）。取反则 30° 需 41.6px 跨度、
+     而竖条只有 24px 宽，放不下。这条歧义已登记在 JUDGE-S21 C1。 */
+  .bar-stack{
+    display:flex;
+    flex-direction:column;
+    gap:1px;                        /* 条间 1px 纸色缝 */
+    background:var(--paper);
+    border-top:2px solid var(--ink);
+    border-bottom:2px solid var(--ink);
+    padding:8px 10px;
+  }
+  .bar{
+    position:relative;
+    height:24px;
+    width:96px;
+    margin:0 auto;                  /* 居中，右端切口朝右 */
+    background:var(--ink);
+    box-shadow:inset 0 0 0 1px var(--fibre);
+  }
+  .bar .deg{
+    position:absolute;
+    left:7px;
+    top:50%;
+    transform:translateY(-50%);
+    font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-variant-numeric:tabular-nums;
+    font-size:10px;
+    line-height:1;
+    color:var(--paper);
+  }
+  .bar .no{
+    position:absolute;
+    left:40px;
+    top:50%;
+    transform:translateY(-50%);
+    font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-variant-numeric:tabular-nums;
+    font-size:9px;
+    line-height:1;
+    color:var(--paper);
+  }
+  /* 右端斜切：切角从竖直边算起，横跨量 = 24 · tanθ
+     30° → 13.86px ；45° → 24px ；60° → 41.57px */
+  .bar.cut30{clip-path:polygon(0 0, calc(100% - 13.856px) 0, 100% 100%, 0 100%);}
+  .bar.cut45{clip-path:polygon(0 0, calc(100% - 24px) 0, 100% 100%, 0 100%);}
+  .bar.cut60{clip-path:polygon(0 0, calc(100% - 41.569px) 0, 100% 100%, 0 100%);}
+
+  .bars-foot{
+    display:flex;
+    justify-content:space-between;
+    font-size:9px;
+    color:var(--fibre);
+    padding-top:6px;
+    letter-spacing:0.04em;
+  }
+
+  /* ── 图片带：6 个不同位 ──────────────────────────────── */
+  .plates{
+    padding:20px 32px 8px;
+    border-top:2px solid var(--ink);
+    margin-top:10px;
+  }
+  .plate-row{
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    gap:10px;
+  }
+  .plate{display:flex;flex-direction:column;gap:4px;}
+  .plate img{
+    display:block;
+    width:100%;
+    height:auto;
+    border:1px solid var(--fibre);
+  }
+  .plate .cap{
+    display:flex;
+    justify-content:space-between;
+    font-size:9px;
+    color:var(--fibre);
+  }
+  .plate .cap .id{color:var(--amber);}
+
+  /* ── 页脚 ───────────────────────────────────────────── */
+  .foot{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    margin:16px 32px 24px;
+    border-top:2px solid var(--ink);
+    border-bottom:2px solid var(--ink);
+  }
+  .foot div{
+    padding:8px 10px;
+    border-right:1px solid var(--fibre);
+  }
+  .foot div:last-child{border-right:0;}
+  .foot dt{font-size:9px;color:var(--fibre);letter-spacing:0.08em;}
+  .foot dd{font-size:11px;margin-top:2px;}
+
+  /* ── 窄屏单列 ───────────────────────────────────────── */
+  @media (max-width:900px){
+    .ledger-head{
+      flex-direction:column;
+      align-items:flex-start;
+      gap:10px;
+      padding:14px 16px 10px;
+    }
+    .head-codes{gap:18px;text-align:left;}
+    .head-codes div:first-child{border-left:0;padding-left:0;}
+    .book{
+      grid-template-columns:1fr;
+      padding:16px;
+      gap:22px;
+    }
+    .sheet-a,.bars,.sheet-b{grid-column:1 / -1;padding:0;}
+    .bar{margin-left:0;}
+    .bars .bar-stack{border-left:2px solid var(--ink);border-right:2px solid var(--ink);padding:6px 8px;}
+    .plates{padding:16px;margin-top:0;}
+    .plate-row{grid-template-columns:1fr 1fr;}
+    .foot{grid-template-columns:1fr 1fr;margin:0 16px 20px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="ledger-head">
+  <div>
+    <h1>联锁释放簿</h1>
+    <p class="sub">值班台 · 锁闭条切口角度表与释放路径扣接记录</p>
+  </div>
+  <dl class="head-codes">
+    <div><dt>站号</dt><dd class="num">07</dd></div>
+    <div><dt>册次</dt><dd class="num">03</dd></div>
+    <div><dt>互斥对数</dt><dd class="num">14</dd></div>
+    <div><dt>切口档</dt><dd class="num">3</dd></div>
+  </dl>
+</header>
+
+<main class="book">
+
+  <!-- 1–4 栏 -->
+  <section class="sheet-a">
+    <div class="sec-hd">
+      <h2>表一 · 锁闭条切口角度登记</h2>
+      <span class="meta num">01–07</span>
+    </div>
+    <table>
+      <caption class="num">S21-07 / 切口角度 · 锁别号 · 互斥对</caption>
+      <thead>
+        <tr>
+          <th>锁别号</th>
+          <th>道岔号牌</th>
+          <th class="r">切口</th>
+          <th class="r">互斥对</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="num">L-01</td><td>03 / 07</td><td class="r num lock">30°</td><td class="r num">2</td></tr>
+        <tr><td class="num">L-02</td><td>07 / 11</td><td class="r num lock">30°</td><td class="r num">2</td></tr>
+        <tr><td class="num">L-03</td><td>11 / 14</td><td class="r num lock">30°</td><td class="r num">3</td></tr>
+        <tr><td class="num">L-04</td><td>14 / 18</td><td class="r num lock">30°</td><td class="r num">2</td></tr>
+        <tr><td class="num">L-05</td><td>18 / 22</td><td class="r num lock">45°</td><td class="r num">4</td></tr>
+        <tr><td class="num">L-06</td><td>22 / 26</td><td class="r num lock">45°</td><td class="r num">2</td></tr>
+        <tr><td class="num">L-07</td><td>26 / 31</td><td class="r num lock">60°</td><td class="r num">3</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 5–6 栏：14 枚横条，首尾相扣 -->
+  <section class="bars">
+    <div class="sec-hd">
+      <h2>锁闭条</h2>
+      <span class="meta num">14 枚</span>
+    </div>
+    <div class="bar-stack">
+      <div class="bar cut30"><span class="deg">30°</span><span class="no">01</span></div>
+      <div class="bar cut30"><span class="deg">30°</span><span class="no">02</span></div>
+      <div class="bar cut30"><span class="deg">30°</span><span class="no">03</span></div>
+      <div class="bar cut30"><span class="deg">30°</span><span class="no">04</span></div>
+      <div class="bar cut45"><span class="deg">45°</span><span class="no">05</span></div>
+      <div class="bar cut45"><span class="deg">45°</span><span class="no">06</span></div>
+      <div class="bar cut45"><span class="deg">45°</span><span class="no">07</span></div>
+      <div class="bar cut45"><span class="deg">45°</span><span class="no">08</span></div>
+      <div class="bar cut60"><span class="deg">60°</span><span class="no">09</span></div>
+      <div class="bar cut60"><span class="deg">60°</span><span class="no">10</span></div>
+      <div class="bar cut60"><span class="deg">60°</span><span class="no">11</span></div>
+      <div class="bar cut60"><span class="deg">60°</span><span class="no">12</span></div>
+      <div class="bar cut45"><span class="deg">45°</span><span class="no">13</span></div>
+      <div class="bar cut30"><span class="deg">30°</span><span class="no">14</span></div>
+    </div>
+    <div class="bars-foot">
+      <span>条间 1px 纸色缝</span>
+      <span class="num">30/45/60</span>
+    </div>
+  </section>
+
+  <!-- 7–10 栏 -->
+  <section class="sheet-b">
+    <div class="sec-hd">
+      <h2>表二 · 释放路径扣接缝隙</h2>
+      <span class="meta num">08–14</span>
+    </div>
+    <table>
+      <caption class="num">S21-07 / 释放路径 · 扣接缝隙 · 所属互斥组</caption>
+      <thead>
+        <tr>
+          <th>释放号</th>
+          <th>扣接缝隙</th>
+          <th class="r">切口</th>
+          <th class="r">互斥组</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="num">R-08</td><td>18 / 26</td><td class="r num lock">45°</td><td class="r num"><span class="interlock">A</span></td></tr>
+        <tr><td class="num">R-09</td><td>26 / 31</td><td class="r num lock">60°</td><td class="r num"><span class="interlock">A</span></td></tr>
+        <tr><td class="num">R-10</td><td>31 / 35</td><td class="r num lock">60°</td><td class="r num"><span class="interlock">B</span></td></tr>
+        <tr><td class="num">R-11</td><td>35 / 40</td><td class="r num lock">60°</td><td class="r num"><span class="interlock">B</span></td></tr>
+        <tr><td class="num">R-12</td><td>40 / 44</td><td class="r num lock">60°</td><td class="r num"><span class="interlock">B</span></td></tr>
+        <tr><td class="num">R-13</td><td>44 / 49</td><td class="r num lock">45°</td><td class="r num"><span class="interlock">C</span></td></tr>
+        <tr><td class="num">R-14</td><td>49 / 53</td><td class="r num lock">30°</td><td class="r num"><span class="interlock">C</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+</main>
+
+<section class="plates">
+  <div class="plate-row">
+    <figure class="plate">
+      <img src="images/占位-1.jpg" width="200" height="132" alt="锁闭条切口 30° 档位图">
+      <figcaption class="cap"><span class="id num">01</span><span>30° 档</span></figcaption>
+    </figure>
+    <figure class="plate">
+      <img src="images/占位-2.jpg" width="200" height="132" alt="锁闭条切口 45° 档位图">
+      <figcaption class="cap"><span class="id num">02</span><span>45° 档</span></figcaption>
+    </figure>
+    <figure class="plate">
+      <img src="images/占位-3.jpg" width="200" height="132" alt="锁闭条切口 60° 档位图">
+      <figcaption class="cap"><span class="id num">03</span><span>60° 档</span></figcaption>
+    </figure>
+    <figure class="plate">
+      <img src="images/占位-4.jpg" width="200" height="132" alt="道岔号牌与锁别号对照">
+      <figcaption class="cap"><span class="id num">04</span><span>号牌对照</span></figcaption>
+    </figure>
+    <figure class="plate">
+      <img src="images/占位-5.jpg" width="200" height="132" alt="释放路径扣接缝隙实测">
+      <figcaption class="cap"><span class="id num">05</span><span>扣接缝隙</span></figcaption>
+    </figure>
+    <figure class="plate">
+      <img src="images/占位-6.jpg" width="200" height="132" alt="值班台联锁簿翻拍">
+      <figcaption class="cap"><span class="id num">06</span><span>簿页翻拍</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<footer class="foot">
+  <div><dt>册号</dt><dd class="num">S21-07</dd></div>
+  <div><dt>锁闭条</dt><dd class="num">14 枚 / 24×96</dd></div>
+  <div><dt>切口档</dt><dd class="num">30° / 45° / 60°</dd></div>
+  <div><dt>纸色</dt><dd class="num">#E4DCC9</dd></div>
+</footer>
+
+</body>
+</html>

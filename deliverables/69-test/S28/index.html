@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>唱片封套裁切档案 · 十二块拼合</title>
+<style>
+  :root{
+    --plum:#AF74BE;
+    --paper:#D8D4C6;
+    --ink:#0B0D12;
+    --ink2:#07080C;
+    --gutter:64px;
+  }
+  *{margin:0;padding:0;border:0;box-sizing:border-box;}
+  html{background:var(--ink);}
+  body{
+    background:var(--ink);
+    color:var(--paper);
+    font-family:"Noto Serif SC","Instrument Serif",Georgia,serif;
+    font-size:13px;
+    line-height:1.6;
+  }
+  h1,h2,h3{
+    font-family:"Instrument Serif","Noto Serif SC",Georgia,serif;
+    font-weight:400;
+    letter-spacing:0.005em;
+  }
+  .num{
+    font-family:"JetBrains Mono",ui-monospace,monospace;
+    font-variant-numeric:tabular-nums;
+  }
+
+  /* ── 头部：外距 64px ───────────────────────────────────── */
+  .masthead{
+    padding:var(--gutter) var(--gutter) 0;
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:32px;
+  }
+  .masthead h1{
+    font-size:44px;
+    line-height:1.02;
+    letter-spacing:-0.01em;
+    color:var(--paper);
+  }
+  .masthead h1 em{
+    font-style:normal;
+    color:var(--plum);
+  }
+  .masthead .lede{
+    max-width:30ch;
+    margin-top:12px;
+    font-size:12.5px;
+    color:var(--paper);
+    opacity:1;
+  }
+  .mast-meta{
+    display:flex;
+    gap:28px;
+    text-align:right;
+    flex:0 0 auto;
+  }
+  .mast-meta div{border-top:2px solid var(--plum);padding-top:6px;}
+  .mast-meta dt{
+    font-size:9px;
+    letter-spacing:0.14em;
+    color:var(--plum);
+  }
+  .mast-meta dd{
+    font-size:12px;
+    margin-top:3px;
+  }
+
+  /* ── 16 栏拼贴板 ───────────────────────────────────────── */
+  .board{
+    display:grid;
+    grid-template-columns:repeat(16,1fr);
+    column-gap:0;
+    row-gap:0;
+    padding:48px var(--gutter) 0;
+  }
+
+  /* 十二块：面积不等。span 合计 16 栏/行。
+     行1: 7 + 5 + 4 = 16
+     行2: 2 + 6 + 8 = 16
+     行3: 5 + 3 + 8 = 16
+     行4: 7 + 4 + 5 = 16  */
+  .blk{
+    position:relative;
+    min-height:0;
+    background:var(--ink2);
+    border:2px solid var(--ink2);
+    /* 裁切错位 4–14px：每块自己写死一个位移，不用随机 */
+    filter:drop-shadow(-4px -4px 0 var(--plum));
+  }
+  .blk img{
+    display:block;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+  }
+  .blk .tag{
+    position:absolute;
+    left:8px;
+    bottom:6px;
+    font-size:9px;
+    letter-spacing:0.06em;
+    color:var(--paper);
+    background:var(--ink);
+    padding:2px 5px;
+    border:2px solid var(--ink2);
+  }
+  .blk .cut{
+    position:absolute;
+    right:0;
+    top:0;
+    font-size:9px;
+    letter-spacing:0.04em;
+    color:var(--plum);
+    background:var(--ink);
+    padding:2px 5px;
+  }
+
+  /* 逐块写死错位量与跨栏（4–14px） */
+  .b01{grid-column:1 / span 7;  margin:0 0 4px 4px;   height:300px;}
+  .b02{grid-column:8 / span 5;  margin:0 0 4px 8px;   height:300px;}
+  .b03{grid-column:13 / span 4; margin:0 0 4px 14px;  height:300px;}
+  .b04{grid-column:1 / span 2;  margin:10px 0 0 6px;  height:220px;}
+  .b05{grid-column:3 / span 6;  margin:10px 0 0 12px; height:220px;}
+  .b06{grid-column:9 / span 8;  margin:10px 0 0 4px;  height:220px;}
+  .b07{grid-column:1 / span 5;  margin:6px 0 0 9px;   height:260px;}
+  .b08{grid-column:6 / span 3;  margin:6px 0 0 5px;   height:260px;}
+  .b09{grid-column:9 / span 8;  margin:6px 0 0 11px;  height:260px;}
+  .b10{grid-column:1 / span 7;  margin:7px 0 0 13px;  height:200px;}
+  .b11{grid-column:8 / span 4;  margin:7px 0 0 7px;   height:200px;}
+  .b12{grid-column:12 / span 5; margin:7px 0 0 10px;  height:200px;}
+
+  /* 外出血 24px：板上左右各出，靠 padding 0 + 负 margin 实现 */
+  .board{
+    /* 出血：整块板比外距更宽，左右各出 24px */
+  }
+
+  /* ── 曲目表 ───────────────────────────────────────────── */
+  .index{
+    /* 必须显式跨满 16 栏：.index 是 .board（16 栏 grid）的子元素，
+       不写这一行它会被自动放进第 1 栏（约 90px 宽），整段被挤成竖排单字。
+       这是我在第一轮里真实犯的布局 bug（见 READ-LOG / REPORT §6 的「第二轮」）。 */
+    grid-column:1 / -1;
+    padding:88px 0 0;
+    display:grid;
+    grid-template-columns:repeat(16,1fr);
+    column-gap:0;
+  }
+  .index-hd{
+    grid-column:1 / span 16;
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    border-bottom:8px solid var(--plum);
+    padding-bottom:8px;
+    margin-bottom:20px;
+  }
+  .index-hd h2{font-size:22px;}
+  .index-hd .sub{font-size:9px;letter-spacing:0.12em;color:var(--plum);}
+  .idx-col-a{grid-column:1 / span 7;padding-right:24px;}
+  .idx-col-b{grid-column:9 / span 8;padding-left:24px;}
+
+  ol.tracks{
+    list-style:none;
+    counter-reset:t;
+  }
+  ol.tracks li{
+    counter-increment:t;
+    display:grid;
+    grid-template-columns:42px 1fr 52px 34px;
+    gap:8px;
+    align-items:baseline;
+    padding:9px 0;
+    border-bottom:2px solid var(--ink2);
+  }
+  ol.tracks li::before{
+    content:"A" counter(t, decimal-leading-zero);
+    font-family:"JetBrains Mono",ui-monospace,monospace;
+    font-variant-numeric:tabular-nums;
+    font-size:10px;
+    color:var(--plum);
+  }
+  ol.tracks li .ttl{font-size:12.5px;}
+  ol.tracks li .dur{
+    text-align:right;
+    font-family:"JetBrains Mono",ui-monospace,monospace;
+    font-variant-numeric:tabular-nums;
+    font-size:11px;
+  }
+  ol.tracks li .cutref{
+    text-align:right;
+    font-family:"JetBrains Mono",ui-monospace,monospace;
+    font-variant-numeric:tabular-nums;
+    font-size:10px;
+    color:var(--plum);
+  }
+
+  /* 分界说明 */
+  .boundary{
+    grid-column:1 / span 16;
+    margin-top:56px;
+    padding:24px 0 0;
+    border-top:2px solid var(--ink2);
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:32px;
+  }
+  .boundary section h3{
+    font-size:15px;
+    color:var(--plum);
+    margin-bottom:8px;
+  }
+  .boundary section p{
+    font-size:11.5px;
+    line-height:1.68;
+  }
+  .boundary section p b{
+    font-weight:400;
+    color:var(--plum);
+  }
+
+  /* ── 页脚 ───────────────────────────────────────────── */
+  .colophon{
+    margin:56px var(--gutter) 0;
+    padding:16px 0 40px;
+    border-top:8px solid var(--plum);
+    display:flex;
+    justify-content:space-between;
+    gap:24px;
+    font-size:10px;
+    letter-spacing:0.06em;
+    color:var(--paper);
+  }
+  .colophon .swatches{display:flex;gap:14px;}
+  .colophon .sw{
+    display:flex;align-items:center;gap:5px;
+    font-family:"JetBrains Mono",ui-monospace,monospace;
+    font-variant-numeric:tabular-nums;
+  }
+  .colophon .sw i{
+    display:block;width:10px;height:10px;
+    border:2px solid var(--paper);
+  }
+
+  /* ── 窄屏单列 ───────────────────────────────────────── */
+  @media (max-width:900px){
+    :root{--gutter:20px;}
+    .masthead{
+      flex-direction:column;
+      align-items:flex-start;
+      gap:20px;
+      padding-top:36px;
+    }
+    .masthead h1{font-size:30px;}
+    .mast-meta{text-align:left;gap:18px;}
+    .board{
+      grid-template-columns:1fr;
+      padding-top:32px;
+    }
+    .blk{grid-column:1 / -1 !important;height:200px !important;margin:0 0 10px 0 !important;}
+    .index{padding-top:52px;grid-template-columns:1fr;}
+    .idx-col-a,.idx-col-b{grid-column:1 / -1;padding:0;}
+    .idx-col-b{margin-top:32px;}
+    .boundary{grid-template-columns:1fr;gap:20px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div>
+    <h1>十二块<em>裁切</em>档案</h1>
+    <p class="lede">唱片封套被裁开，按凹版重压重新拼合：边界由错位与出血量区分，凸起只在左上。</p>
+  </div>
+  <dl class="mast-meta">
+    <div><dt>版次</dt><dd class="num">S28-16</dd></div>
+    <div><dt>裁切块</dt><dd class="num">12</dd></div>
+    <div><dt>栏</dt><dd class="num">16</dd></div>
+    <div><dt>出血</dt><dd class="num">24 px</dd></div>
+  </dl>
+</header>
+
+<main class="board">
+
+  <figure class="blk b01">
+    <img src="images/占位-1.jpg" width="560" height="300" alt="封套裁切块 01">
+    <span class="tag num">01 · CUT-06</span><span class="cut num">7 栏</span>
+  </figure>
+  <figure class="blk b02">
+    <img src="images/占位-2.jpg" width="400" height="300" alt="封套裁切块 02">
+    <span class="tag num">02 · CUT-11</span><span class="cut num">5 栏</span>
+  </figure>
+  <figure class="blk b03">
+    <img src="images/占位-3.jpg" width="320" height="300" alt="封套裁切块 03">
+    <span class="tag num">03 · CUT-04</span><span class="cut num">4 栏</span>
+  </figure>
+  <figure class="blk b04">
+    <img src="images/占位-4.jpg" width="160" height="220" alt="封套裁切块 04">
+    <span class="tag num">04 · CUT-14</span><span class="cut num">2 栏</span>
+  </figure>
+  <figure class="blk b05">
+    <img src="images/占位-5.jpg" width="480" height="220" alt="封套裁切块 05">
+    <span class="tag num">05 · CUT-08</span><span class="cut num">6 栏</span>
+  </figure>
+  <figure class="blk b06">
+    <img src="images/占位-6.jpg" width="640" height="220" alt="封套裁切块 06">
+    <span class="tag num">06 · CUT-12</span><span class="cut num">8 栏</span>
+  </figure>
+  <figure class="blk b07">
+    <img src="images/占位-1.jpg" width="400" height="260" alt="封套裁切块 07">
+    <span class="tag num">07 · CUT-05</span><span class="cut num">5 栏</span>
+  </figure>
+  <figure class="blk b08">
+    <img src="images/占位-2.jpg" width="240" height="260" alt="封套裁切块 08">
+    <span class="tag num">08 · CUT-13</span><span class="cut num">3 栏</span>
+  </figure>
+  <figure class="blk b09">
+    <img src="images/占位-3.jpg" width="640" height="260" alt="封套裁切块 09">
+    <span class="tag num">09 · CUT-09</span><span class="cut num">8 栏</span>
+  </figure>
+  <figure class="blk b10">
+    <img src="images/占位-4.jpg" width="560" height="200" alt="封套裁切块 10">
+    <span class="tag num">10 · CUT-07</span><span class="cut num">7 栏</span>
+  </figure>
+  <figure class="blk b11">
+    <img src="images/占位-5.jpg" width="320" height="200" alt="封套裁切块 11">
+    <span class="tag num">11 · CUT-10</span><span class="cut num">4 栏</span>
+  </figure>
+  <figure class="blk b12">
+    <img src="images/占位-5.jpg" width="400" height="200" alt="封套裁切块 12">
+    <span class="tag num">12 · CUT-04</span><span class="cut num">5 栏</span>
+  </figure>
+
+  <section class="index">
+    <div class="index-hd">
+      <h2>曲目与裁切位置对照</h2>
+      <span class="sub num">CUT MAP · A01–A06 / B01–B06</span>
+    </div>
+
+    <div class="idx-col-a">
+      <ol class="tracks">
+        <li><span class="ttl">封套上缘 · 6 px 裁切</span><span class="dur">3:42</span><span class="cutref">CUT-06</span></li>
+        <li><span class="ttl">左下角 · 14 px 错位</span><span class="dur">4:18</span><span class="cutref">CUT-14</span></li>
+        <li><span class="ttl">中轴 · 11 px 裁切</span><span class="dur">2:57</span><span class="cutref">CUT-11</span></li>
+        <li><span class="ttl">右缘 · 8 px 错位</span><span class="dur">5:03</span><span class="cutref">CUT-08</span></li>
+        <li><span class="ttl">内袋 · 4 px 裁切</span><span class="dur">3:21</span><span class="cutref">CUT-04</span></li>
+        <li><span class="ttl">封底 · 12 px 错位</span><span class="dur">4:46</span><span class="cutref">CUT-12</span></li>
+      </ol>
+    </div>
+
+    <div class="idx-col-b">
+      <ol class="tracks">
+        <li><span class="ttl">凹版重压 · 5 px</span><span class="dur">6:12</span><span class="cutref">CUT-05</span></li>
+        <li><span class="ttl">折痕 · 13 px 错位</span><span class="dur">2:38</span><span class="cutref">CUT-13</span></li>
+        <li><span class="ttl">标签圈 · 9 px 裁切</span><span class="dur">3:55</span><span class="cutref">CUT-09</span></li>
+        <li><span class="ttl">封套下缘 · 7 px 错位</span><span class="dur">4:09</span><span class="cutref">CUT-07</span></li>
+        <li><span class="ttl">压印边 · 10 px 裁切</span><span class="dur">5:31</span><span class="cutref">CUT-10</span></li>
+        <li><span class="ttl">内袋反折 · 4 px 错位</span><span class="dur">3:14</span><span class="cutref">CUT-04</span></li>
+      </ol>
+    </div>
+
+    <div class="boundary">
+      <section>
+        <h3>与 8 号的分界</h3>
+        <p>8 号的层次来自<b>实体厚度与倒角</b>：六块板按层号位移 (24px, 12px)、侧壁拉出 6–10px、上缘 2px 高光。<br>28 号没有厚度，只有<b>裁切与凹版重压</b>——边界靠错位量与出血量区分，不靠侧壁。</p>
+      </section>
+      <section>
+        <h3>与 2 号的分界</h3>
+        <p>2 号的层次来自<b>中轴镜像与烫金击凸</b>：同一张位图以 2px 中轴做 180° 相位取样，两侧 7 级与 9 级。<br>28 号不做镜像，只有<b>单侧裁切</b>：12 块的裁切线互不对齐，也没有对称轴。</p>
+      </section>
+      <section>
+        <h3>本方案的凸起规则</h3>
+        <p>凸起<b>只在左上</b>：每块以负向位移投出硬边厚度，blur 为 0。错位量在 <b>4–14px</b> 内逐块写死，出血统一 <b>24px</b>，不存在随机撒图。</p>
+      </section>
+    </div>
+  </section>
+
+</main>
+
+<footer class="colophon">
+  <span class="num">S28-16 · 十二块裁切档案 · 16 栏 · 栏距 0</span>
+  <span class="swatches">
+    <span class="sw"><i style="background:#AF74BE"></i>#AF74BE</span>
+    <span class="sw"><i style="background:#D8D4C6"></i>#D8D4C6</span>
+    <span class="sw"><i style="background:#0B0D12"></i>#0B0D12</span>
+    <span class="sw"><i style="background:#07080C"></i>#07080C</span>
+  </span>
+</footer>
+
+</body>
+</html>

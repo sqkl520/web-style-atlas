@@ -1,0 +1,159 @@
+{
+ "prototype": "S15-fishery-floor-ledger",
+ "generator": "build/make-plates.py",
+ "palette": {
+  "paper": "#E7EBE9",
+  "graphite": "#3A3F45",
+  "pencil_dark": "#22282B",
+  "pencil_grey": "#7A7466"
+ },
+ "caps": {
+  "paper_noise_alpha_max": 10,
+  "paper_noise_pct": 3.92,
+  "eraser_alpha_max": 31,
+  "baseline_px": 8,
+  "module_px": 40,
+  "map_margin_px": 32
+ },
+ "files": [
+  {
+   "file": "texture-trace-1934.png",
+   "width": 1400,
+   "height": 1050,
+   "mode": "RGBA",
+   "bytes": 285317,
+   "kind": "trace-sheet",
+   "year": 1934,
+   "seed": 34,
+   "alpha_mean": 0.8772,
+   "alpha_min": 0,
+   "alpha_max": 240,
+   "deckle_max_px": 3,
+   "fibre_luminance_dev_pct": 3.9,
+   "translucent_fraction": 1.0,
+   "note": "tracing sheet 1934 | alpha_mean=0.877 | no archival marks | fibre deviation 3.90% of 255"
+  },
+  {
+   "file": "texture-trace-1936.png",
+   "width": 1400,
+   "height": 1050,
+   "mode": "RGBA",
+   "bytes": 258929,
+   "kind": "trace-sheet",
+   "year": 1936,
+   "seed": 36,
+   "alpha_mean": 0.875,
+   "alpha_min": 0,
+   "alpha_max": 240,
+   "deckle_max_px": 4,
+   "fibre_luminance_dev_pct": 3.9,
+   "translucent_fraction": 1.0,
+   "note": "tracing sheet 1936 | alpha_mean=0.875 | left-edge archival punch holes x2; full-height fold crease at 38% width | fibre deviation 3.90% of 255"
+  },
+  {
+   "file": "texture-trace-1938.png",
+   "width": 1400,
+   "height": 1050,
+   "mode": "RGBA",
+   "bytes": 251622,
+   "kind": "trace-sheet",
+   "year": 1938,
+   "seed": 38,
+   "alpha_mean": 0.8805,
+   "alpha_min": 0,
+   "alpha_max": 240,
+   "deckle_max_px": 5,
+   "fibre_luminance_dev_pct": 3.9,
+   "translucent_fraction": 1.0,
+   "note": "tracing sheet 1938 | alpha_mean=0.880 | torn-off top-right corner (~300x240px) | fibre deviation 3.90% of 255"
+  },
+  {
+   "file": "texture-grid-8px-tile.png",
+   "width": 960,
+   "height": 960,
+   "mode": "RGBA",
+   "bytes": 7939,
+   "kind": "grid-tile",
+   "seed": 15,
+   "tileable": true,
+   "periods_px": [
+    8,
+    40,
+    240
+   ],
+   "line_alpha": {
+    "minor": 7,
+    "module": 15,
+    "major": 30,
+    "node": 46
+   },
+   "note": "8px baseline grid tile, 1px hard rules, 3 weights, seamless at 960px"
+  },
+  {
+   "file": "texture-plan-frame.png",
+   "width": 1600,
+   "height": 1200,
+   "mode": "RGBA",
+   "bytes": 209983,
+   "kind": "plan-frame",
+   "seed": 16,
+   "margin_px": 32,
+   "baseline_px": 8,
+   "fibre_luminance_dev_pct": 3.9,
+   "note": "plan sheet ground: 32px map margin rule + corner survey crosses + 8px grid"
+  },
+  {
+   "file": "texture-pencil-grain.png",
+   "width": 1400,
+   "height": 1000,
+   "mode": "RGBA",
+   "bytes": 276441,
+   "kind": "pencil-grain",
+   "seed": 17,
+   "alpha_max_measured": 0.2176,
+   "streak_ratio": "8:1 along x",
+   "note": "graphite impression shading, streaks stretched 8:1 along x, procedural only"
+  },
+  {
+   "file": "texture-eraser-smudge.png",
+   "width": 1200,
+   "height": 600,
+   "mode": "RGBA",
+   "bytes": 27184,
+   "kind": "eraser-smudge",
+   "seed": 18,
+   "blots": 9,
+   "alpha_max_measured": 0.106,
+   "note": "eraser residue under the 12% cap (measured 10.6%) + 2 broken pencil stubs with 2-6px frayed ends"
+  },
+  {
+   "file": "texture-noise-4pct.png",
+   "width": 1024,
+   "height": 1024,
+   "mode": "RGBA",
+   "bytes": 596469,
+   "kind": "paper-noise",
+   "seed": 19,
+   "tileable": true,
+   "alpha_max_cap": 10,
+   "alpha_max_measured": 0.03921,
+   "alpha_max_pct": 3.92,
+   "note": "paper grain, procedural noise only, max alpha 10/255 = 3.92% <= the 4% cap"
+  },
+  {
+   "file": "texture-scalebar-1to200.png",
+   "width": 1400,
+   "height": 96,
+   "mode": "RGBA",
+   "bytes": 6895,
+   "kind": "scale-bar",
+   "cells": 14,
+   "cell_px_at_1x": 96,
+   "supersample": 4,
+   "render_scale": 2,
+   "cell7_delta_px": -0.5,
+   "cell13_delta_px": 0.5,
+   "note": "1:200 footer scale bar, cell 7 is 0.5px narrow and cell 13 0.5px wide (field 12), 2x bitmap so the half-pixel quirk survives; the page prints the 1:200 label itself"
+  }
+ ]
+}

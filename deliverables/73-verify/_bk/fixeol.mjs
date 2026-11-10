@@ -1,0 +1,10 @@
+﻿import { readFileSync, writeFileSync } from "node:fs";
+import { createHash } from "node:crypto";
+const f = "D:/Web/style/prototypes/_CONTRACT.md";
+const s = readFileSync(f, "utf8");
+const fixed = s.replace(/\r\n/g, "\n");
+writeFileSync(f, fixed, "utf8");
+const b = readFileSync(f);
+console.log("restored size:", b.length, "sha:", createHash("sha256").update(b).digest("hex").slice(0,16));
+console.log("CRLF:", (fixed.match(/\r\n/g)||[]).length, "LF-only:", (fixed.match(/(?<!\r)\n/g)||[]).length);
+console.log("injected row present:", fixed.includes("变异测试塞进来的假允许"));

@@ -1,0 +1,2550 @@
+{
+ "at": "2026-10-29T19:56:49.290Z",
+ "summary": {
+  "n": 30,
+  "meanCover": {
+   "data": 83.06,
+   "head4": 83.86,
+   "area": 91.88
+  },
+  "meanFidel": {
+   "data": 3.03,
+   "head4": 3.2,
+   "area": 4
+  },
+  "fidel4": {
+   "data": 10,
+   "head4": 14
+  },
+  "head4_worse_than_data": [],
+  "head4_better_than_data": [
+   "S14",
+   "S17",
+   "S22",
+   "S28",
+   "S30"
+  ],
+  "primary": {
+   "L1_eq_areaPrimary": 19,
+   "L1_is_achromatic": [
+    "S15:#3A3F45",
+    "S21:#3E3A34",
+    "S22:#565B49"
+   ],
+   "L3_first_achromatic": 8,
+   "L3_first_achromatic_ids": [
+    "S08:#120C08(88.497%)",
+    "S14:#C9C4B8(4.43%)",
+    "S15:#3A3F45(1.725%)",
+    "S18:#0A0D0A(83.57%)",
+    "S21:#3E3A34(11.781%)",
+    "S22:#565B49(8.52%)",
+    "S25:#E8E4DE(73.917%)",
+    "S26:#D3D1CA(67.003%)"
+   ]
+  }
+ },
+ "rows": [
+  {
+   "id": "S01",
+   "L1": [
+    "#EFE7D7",
+    "#C1121F",
+    "#1A1614",
+    "#6E6A5E"
+   ],
+   "L3": [
+    "#C1121F",
+    "#EFE7D7",
+    "#1A1614",
+    "#6E6A5E"
+   ],
+   "pct": {
+    "#C1121F": 11.042,
+    "#EFE7D7": 70.754,
+    "#1A1614": 6.199,
+    "#6E6A5E": 6.729
+   },
+   "trueTop4": [
+    "#EFE7D7",
+    "#C1121F",
+    "#6E6A5E",
+    "#1A1614"
+   ],
+   "byArea": [
+    "#EFE7D7",
+    "#C1121F",
+    "#6E6A5E",
+    "#1A1614"
+   ],
+   "strategy": {
+    "data": {
+     "four": [
+      "#EFE7D7",
+      "#C1121F",
+      "#1A1614",
+      "#6E6A5E"
+     ],
+     "cover": 94.724,
+     "fidel": 4
+    },
+    "head4": {
+     "four": [
+      "#C1121F",
+      "#EFE7D7",
+      "#1A1614",
+      "#6E6A5E"
+     ],
+     "cover": 94.724,
+     "fidel": 4
+    },
+    "area": {
+     "four": [
+      "#EFE7D7",
+      "#C1121F",
+      "#6E6A5E",
+      "#1A1614"
+     ],
+     "cover": 94.724,
+     "fidel": 4
+    }
+   },
+   "primary": {
+    "L1": "#C1121F",
+    "L2_first": null,
+    "areaPrimary": "#C1121F",
+    "areaPrimaryPct": 11.042,
+    "L1_pct": 11.042,
+    "L1_is_area_primary": true,
+    "L1_chroma": 0.686,
+    "areaPrimary_chroma": 0.686,
+    "L3_first_is_achromatic": false,
+    "L3_first_pct": 11.042
+   },
+   "measured_area_top1": "#EFE7D7",
+   "bg_pct": 70.754
+  },
+  {
+   "id": "S02",
+   "L1": [
+    "#0B0B0F",
+    "#B8860B",
+    "#EFE6D0",
+    "#3A2E1A"
+   ],
+   "L3": [
+    "#B8860B",
+    "#0B0B0F",
+    "#EFE6D0",
+    "#3A2E1A",
+    "#111111",
+    "#B9B09A",
+    "#14100A"
+   ],
+   "pct": {
+    "#B8860B": 1.018,
+    "#0B0B0F": 34.779,
+    "#EFE6D0": 2.723,
+    "#3A2E1A": 17.066,
+    "#111111": 30.135,
+    "#B9B09A": 1.959,
+    "#14100A": 7.53
+   },
+   "trueTop4": [
+    "#0B0B0F",
+    "#111111",
+    "#3A2E1A",
+    "#14100A"
+   ],
+   "byArea": [
+    "#0B0B0F",
+    "#111111",
+    "#3A2E1A",
+    "#14100A",
+    "#EFE6D0",
+    "#B9B09A",
+    "#B8860B"
+   ],
+   "strategy": {
+    "data": {
+     "four": [
+      "#0B0B0F",
+      "#B8860B",
+      "#EFE6D0",
+      "#3A2E1A"
+     ],
+     "cover": 55.586,
+     "fidel": 2
+    },
+    "head4": {
+     "four": [
+      "#B8860B",
+      "#0B0B0F",
+      "#EFE6D0",
+      "#3A2E1A"
+     ],
+     "cover": 55.586,
+     "fidel": 2
+    },
+    "area": {
+     "four": [
+      "#0B0B0F",
+      "#111111",
+      "#3A2E1A",
+      "#14100A"
+     ],
+     "cover": 89.51,
+     "fidel": 4
+    }
+   },
+   "primary": {
+    "L1": "#B8860B",
+    "L2_first": "#B8860B",
+    "areaPrimary": "#3A2E1A",
+    "areaPrimaryPct": 17.066,
+    "L1_pct": 1.018,
+    "L1_is_area_primary": false,
+    "L1_chroma": 0.678,
+    "areaPrimary_chroma": 0.125,
+    "L3_first_is_achromatic": false,
+    "L3_first_pct": 1.018
+   },
+   "measured_area_top1": "#0B0B0F",
+   "bg_pct": 34.779
+  },
+  {
+   "id": "S03",
+   "L1": [
+    "#101A1C",
+    "#13928E",
+    "#C9D6CF",
+    "#B9A98C"
+   ],
+   "L3": [
+    "#13928E",
+    "#101A1C",
+    "#C9D6CF",
+    "#B9A98C",
+    "#162226",
+    "#0C1417",
+    "#2A3639"
+   ],
+   "pct": {
+    "#13928E": 0.859,
+    "#101A1C": 40.202,
+    "#C9D6CF": 1.337,
+    "#B9A98C": 0.156,
+    "#162226": 9.316,
+    "#0C1417": 44.738,
+    "#2A3639": 0.49
+   },
+   "trueTop4": [
+    "#0C1417",
+    "#101A1C",
+    "#162226",
+    "#C9D6CF"
+   ],
+   "byArea": [
+    "#0C1417",
+    "#101A1C",
+    "#162226",
+    "#C9D6CF",
+    "#13928E",
+    "#2A3639",
+    "#B9A98C"
+   ],
+   "strategy": {
+    "data": {
+     "four": [
+      "#101A1C",
+      "#13928E",
+      "#C9D6CF",
+      "#B9A98C"
+     ],
+     "cover": 42.554,
+     "fidel": 2
+    },
+    "head4": {
+     "four": [
+      "#13928E",
+      "#101A1C",
+      "#C9D6CF",
+      "#B9A98C"
+     ],
+     "cover": 42.554,
+     "fidel": 2
+    },
+    "area": {
+     "four": [
+      "#0C1417",
+      "#101A1C",
+      "#162226",
+      "#C9D6CF"
+     ],
+     "cover": 95.593,
+     "fidel": 4
+    }
+   },
+   "primary": {
+    "L1": "#13928E",
+    "L2_first": "#13928E",
+    "areaPrimary": "#13928E",
+    "areaPrimaryPct": 0.859,
+    "L1_pct": 0.859,
+    "L1_is_area_primary": true,
+    "L1_chroma": 0.498,
+    "areaPrimary_chroma": 0.498,
+    "L3_first_is_achromatic": false,
+    "L3_first_pct": 0.859
+   },
+   "measured_area_top1": "#0C1417",
+   "bg_pct": 40.202
+  },
+  {
+   "id": "S04",
+   "L1": [
+    "#F0E2C8",
+    "#96550F",
+    "#2F7D4F",
+    "#14100C"
+   ],
+   "L3": [
+    "#2F7D4F",
+    "#96550F",
+    "#14100C",
+    "#F0E2C8"
+   ],
+   "pct": {
+    "#2F7D4F": 1.137,
+    "#96550F": 2.662,
+    "#14100C": 54.127,
+    "#F0E2C8": 40.234
+   },
+   "trueTop4": [
+    "#14100C",
+    "#F0E2C8",
+    "#96550F",
+    "#2F7D4F"
+   ],
+   "byArea": [
+    "#14100C",
+    "#F0E2C8",
+    "#96550F",
+    "#2F7D4F"
+   ],
+   "strategy": {
+    "data": {
+     "four": [
+      "#F0E2C8",
+      "#96550F",
+      "#2F7D4F",
+      "#14100C"
+     ],
+     "cover": 98.16,
+     "fidel": 4
+    },
+    "head4": {
+     "four": [
+      "#2F7D4F",
+      "#96550F",
+      "#14100C",
+      "#F0E2C8"
+     ],
+     "cover": 98.16,
+     "fidel": 4
+    },
+    "area": {
+     "four": [
+      "#14100C",
+      "#F0E2C8",
+      "#96550F",
+      "#2F7D4F"
+     ],
+     "cover": 98.16,
+     "fidel": 4
+    }
+   },
+   "primary": {
+    "L1": "#96550F",
+    "L2_first": "#2F7D4F",
+    "areaPrimary": "#96550F",
+    "areaPrimaryPct": 2.662,
+    "L1_pct": 2.662,
+    "L1_is_area_primary": true,
+    "L1_chroma": 0.529,
+    "areaPrimary_chroma": 0.529,
+    "L3_first_is_achromatic": false,
+    "L3_first_pct": 1.137
+   },
+   "measured_area_top1": "#14100C",
+   "bg_pct": 40.234
+  },
+  {
+   "id": "S05",
+   "L1": [
+    "#0E100D",
+    "#4FA83D",
+    "#BFB9A6",
+    "#8C2F1F"
+   ],
+   "L3": [
+    "#4FA83D",
+    "#0E100D",
+    "#BFB9A6",
+    "#8C2F1F",
+    "#111111",
+    "#2A2E28",
+    "#050605"
+   ],
+   "pct": {
+    "#4FA83D": 1.207,
+    "#0E100D": 73.981,
+    "#BFB9A6": 16.906,
+    "#8C2F1F": 0.048,
+    "#111111": 0.269,
+    "#2A2E28": 3.484,
+    "#050605": 1.631
+   },
+   "trueTop4": [
+    "#0E100D",
+    "#BFB9A6",
+    "#2A2E28",
+    "#050605"
+   ],
+   "byArea": [
+    "#0E100D",
+    "#BFB9A6",
+    "#2A2E28",
+    "#050605",
+    "#4FA83D",
+    "#111111",
+    "#8C2F1F"
+   ],
+   "strategy": {
+    "data": {
+     "four": [
+      "#0E100D",
+      "#4FA83D",
+      "#BFB9A6",
+      "#8C2F1F"
+     ],
+     "cover": 92.142,
+     "fidel": 2
+    },
+    "head4": {
+     "four": [
+      "#4FA83D",
+      "#0E100D",
+      "#BFB9A6",
+      "#8C2F1F"
+     ],
+     "cover": 92.142,
+     "fidel": 2
+    },
+    "area": {
+     "four": [
+      "#0E100D",
+      "#BFB9A6",
+      "#2A2E28",
+      "#050605"
+     ],
+     "cover": 96.002,
+     "fidel": 4
+    }
+   },
+   "primary": {
+    "L1": "#4FA83D",
+    "L2_first": "#4FA83D",
+    "areaPrimary": "#BFB9A6",
+    "areaPrimaryPct": 16.906,
+    "L1_pct": 1.207,
+    "L1_is_area_primary": false,
+    "L1_chroma": 0.42,
+    "areaPrimary_chroma": 0.098,
+    "L3_first_is_achromatic": false,
+    "L3_first_pct": 1.207
+   },
+   "measured_area_top1": "#0E100D",
+   "bg_pct": 73.981
+  },
+  {
+   "id": "S06",
+   "L1": [
+    "#ECDEC6",
+    "#85572A",
+    "#241A12",
+    "#C9A87C"
+   ],
+   "L3": [
+    "#85572A",
+    "#ECDEC6",
+    "#241A12",
+    "#C9A87C",
+    "#E6D8BC",
+    "#E0D0B0",
+    "#E4D5B8"
+   ],
+   "pct": {
+    "#85572A": 1.776,
+    "#ECDEC6": 0.169,
+    "#241A12": 1.001,
+    "#C9A87C": 1.572,
+    "#E6D8BC": 21.807,
+    "#E0D0B0": 3.9,
+    "#E4D5B8": 62.105
+   },
+   "trueTop4": [
+    "#E4D5B8",
+    "#E6D8BC",
+    "#E0D0B0",
+    "#85572A"
+   ],
+   "byArea": [
+    "#E4D5B8",
+    "#E6D8BC",
+    "#E0D0B0",
+    "#85572A",
+    "#C9A87C",
+    "#241A12",
+    "#ECDEC6"
+   ],
+   "strategy": {
+    "data": {
+     "four": [
+      "#ECDEC6",
+      "#85572A",
+      "#241A12",
+      "#C9A87C"
+     ],
+     "cover": 4.518,
+     "fidel": 1
+    },
+    "head4": {
+     "four": [
+      "#85572A",
+      "#ECDEC6",
+      "#241A12",
+      "#C9A87C"
+     ],
+     "cover": 4.518,
+     "fidel": 1
+    },
+    "area": {
+     "four": [
+      "#E4D5B8",
+      "#E6D8BC",
+      "#E0D0B0",
+      "#85572A"
+     ],
+     "cover": 89.588,
+     "fidel": 4
+    }
+   },
+   "primary": {
+    "L1": "#85572A",
+    "L2_first": "#85572A",
+    "areaPrimary": "#85572A",
+    "areaPrimaryPct": 1.776,
+    "L1_pct": 1.776,
+    "L1_is_area_primary": true,
+    "L1_chroma": 0.357,
+    "areaPrimary_chroma": 0.357,
+    "L3_first_is_achromatic": false,
+    "L3_first_pct": 1.776
+   },
+   "measured_area_top1": "#E4D5B8",
+   "bg_pct": 0.169
+  },
+  {
+   "id": "S07",
+   "L1": [
+    "#E7E7E0",
+    "#33505C",
+    "#1C1A16",
+    "#9A9384"
+   ],
+   "L3": [
+    "#33505C",
+    "#E7E7E0",
+    "#1C1A16",
+    "#9A9384"
+   ],
+   "pct": {
+    "#33505C": 1.06,
+    "#E7E7E0": 93.036,
+    "#1C1A16": 1.547,
+    "#9A9384": 2.282
+   },
+   "trueTop4": [
+    "#E7E7E0",
+    "#9A9384",
+    "#1C1A16",
+    "#33505C"
+   ],
+   "byArea": [
+    "#E7E7E0",
+    "#9A9384",
+    "#1C1A16",
+    "#33505C"
+   ],
+   "strategy": {
+    "data": {
+     "four": [
+      "#E7E7E0",
+      "#33505C",
+      "#1C1A16",
+      "#9A9384"
+     ],
+     "cover": 97.925,
+     "fidel": 4
+    },
+    "head4": {
+     "four": [
+      "#33505C",
+      "#E7E7E0",
+      "#1C1A16",
+      "#9A9384"
+     ],
+     "cover": 97.925,
+     "fidel": 4
+    },
+    "area": {
+     "four": [
+      "#E7E7E0",
+      "#9A9384",
+      "#1C1A16",
+      "#33505C"
+     ],
+     "cover": 97.925,
+     "fidel": 4
+    }
+   },
+   "primary": {
+    "L1": "#33505C",
+    "L2_first": "#33505C",
+    "areaPrimary": "#9A9384",
+    "areaPrimaryPct": 2.282,
+    "L1_pct": 1.06,
+    "L1_is_area_primary": false,
+    "L1_chroma": 0.161,
+    "areaPrimary_chroma": 0.086,
+    "L3_first_is_achromatic": false,
+    "L3_first_pct": 1.06
+   },
+   "measured_area_top1": "#E7E7E0",
+   "bg_pct": 93.036
+  },
+  {
+   "id": "S08",
+   "L1": [
+    "#120C08",
+    "#C46A1F",
+    "#E8DCC8",
+    "#6B4A22"
+   ],
+   "L3": [
+    "#120C08",
+    "#C46A1F",
+    "#E8DCC8",
+    "#6B4A22",
+    "#3A2712",
+    "#111111"
+   ],
+   "pct": {
+    "#120C08": 88.497,
+    "#C46A1F": 5.482,
+    "#E8DCC8": 1.011,
+    "#6B4A22": 0.672,
+    "#3A2712": 1.375,
+    "#111111": 0.023
+   },
+   "trueTop4": [
+    "#120C08",
+    "#C46A1F",
+    "#3A2712",
+    "#E8DCC8"
+   ],
+   "byArea": [
+    "#120C08",
+    "#C46A1F",
+    "#3A2712",
+    "#E8DCC8",
+    "#6B4A22",
+    "#111111"
+   ],
+   "strategy": {
+    "data": {
+     "four": [
+      "#120C08",
+      "#C46A1F",
+      "#E8DCC8",
+      "#6B4A22"
+     ],
+     "cover": 95.662,
+     "fidel": 3
+    },
+    "head4": {
+     "four": [
+      "#120C08",
+      "#C46A1F",
+      "#E8DCC8",
+      "#6B4A22"
+     ],
+     "cover": 95.662,
+     "fidel": 3
+    },
+    "area": {
+     "four": [
+      "#120C08",
+      "#C46A1F",
+      "#3A2712",
+      "#E8DCC8"
+     ],
+     "cover": 96.365,
+     "fidel": 4
+    }
+   },
+   "primary": {
+    "L1": "#C46A1F",
+    "L2_first": null,
+    "areaPrimary": "#C46A1F",
+    "areaPrimaryPct": 5.482,
+    "L1_pct": 5.482,
+    "L1_is_area_primary": true,
+    "L1_chroma": 0.647,
+    "areaPrimary_chroma": 0.647,
+    "L3_first_is_achromatic": true,
+    "L3_first_pct": 88.497
+   },
+   "measured_area_top1": "#120C08",
+   "bg_pct": 88.497
+  },
+  {
+   "id": "S09",
+   "L1": [
+    "#F5C842",
+    "#1F4E79",
+    "#151310",
+    "#8A4B24"
+   ],
+   "L3": [
+    "#1F4E79",
+    "#F5C842",
+    "#151310",
+    "#8A4B24"
+   ],
+   "pct": {
+    "#1F4E79": 1.898,
+    "#F5C842": 90.405,
+    "#151310": 2.167,
+    "#8A4B24": 0
+   },
+   "trueTop4": [
+    "#F5C842",
+    "#151310",
+    "#1F4E79",
+    "#8A4B24"
+   ],
+   "byArea": [
+    "#F5C842",
+    "#151310",
+    "#1F4E79",
+    "#8A4B24"
+   ],
+   "strategy": {
+    "data": {
+     "four": [
+      "#F5C842",
+      "#1F4E79",
+      "#151310",
+      "#8A4B24"
+     ],
+     "cover": 94.47,
+     "fidel": 4
+    },
+    "head4": {
+     "four": [
+      "#1F4E79",
+      "#F5C842",
+      "#151310",
+      "#8A4B24"
+     ],
+     "cover": 94.47,
+     "fidel": 4
+    },
+    "area": {
+     "four": [
+      "#F5C842",
+      "#151310",
+      "#1F4E79",
+      "#8A4B24"
+     ],
+     "cover": 94.47,
+     "fidel": 4
+    }
+   },
+   "primary": {
+    "L1": "#1F4E79",
+    "L2_first": "#1F4E79",
+    "areaPrimary": "#1F4E79",
+    "areaPrimaryPct": 1.898,
+    "L1_pct": 1.898,
+    "L1_is_area_primary": true,
+    "L1_chroma": 0.353,
+    "areaPrimary_chroma": 0.353,
+    "L3_first_is_achromatic": false,
+    "L3_first_pct": 1.898
+   },
+   "measured_area_top1": "#F5C842",
+   "bg_pct": 90.405
+  },
+  {
+   "id": "S10",
+   "L1": [
+    "#F2EFE8",
+    "#D32029",
+    "#17171A",
+    "#6E7076"
+   ],
+   "L3": [
+    "#D32029",
+    "#F2EFE8",
+    "#17171A",
+    "#6E7076",
+    "#B6B4AE"
+   ],
+   "pct": {
+    "#D32029": 2.066,
+    "#F2EFE8": 89.875,
+    "#17171A": 5.427,
+    "#6E7076": 0.826,
+    "#B6B4AE": 0.925
+   },
+   "trueTop4": [
+    "#F2EFE8",
+    "#17171A",
+    "#D32029",
+    "#B6B4AE"
+   ],
+   "byArea": [
+    "#F2EFE8",
+    "#17171A",
+    "#D32029",
+    "#B6B4AE",
+    "#6E7076"
+   ],
+   "strategy": {
+    "data": {
+     "four": [
+      "#F2EFE8",
+      "#D32029",
+      "#17171A",
+      "#6E7076"
+     ],
+     "cover": 98.194,
+     "fidel": 3
+    },
+    "head4": {
+     "four": [
+      "#D32029",
+      "#F2EFE8",
+      "#17171A",
+      "#6E7076"
+     ],
+     "cover": 98.194,
+     "fidel": 3
+    },
+    "area": {
+     "four": [
+      "#F2EFE8",
+      "#17171A",
+      "#D32029",
+      "#B6B4AE"
+     ],
+     "cover": 98.293,
+     "fidel": 4
+    }
+   },
+   "primary": {
+    "L1": "#D32029",
+    "L2_first": "#D32029",
+    "areaPrimary": "#D32029",
+    "areaPrimaryPct": 2.066,
+    "L1_pct": 2.066,
+    "L1_is_area_primary": true,
+    "L1_chroma": 0.702,
+    "areaPrimary_chroma": 0.702,
+    "L3_first_is_achromatic": false,
+    "L3_first_pct": 2.066
+   },
+   "measured_area_top1": "#F2EFE8",
+   "bg_pct": 89.875
+  },
+  {
+   "id": "S11",
+   "L1": [
+    "#DCDDD2",
+    "#1B4A4A",
+    "#221E19",
+    "#6E7A64"
+   ],
+   "L3": [
+    "#1B4A4A",
+    "#DCDDD2",
+    "#221E19",
+    "#6E7A64"
+   ],
+   "pct": {
+    "#1B4A4A": 36.476,
+    "#DCDDD2": 60.635,
+    "#221E19": 0.079,
+    "#6E7A64": 1.115
+   },
+   "trueTop4": [
+    "#DCDDD2",
+    "#1B4A4A",
+    "#6E7A64",
+    "#221E19"
+   ],
+   "byArea": [
+    "#DCDDD2",
+    "#1B4A4A",
+    "#6E7A64",
+    "#221E19"
+   ],
+   "strategy": {
+    "data": {
+     "four": [
+      "#DCDDD2",
+      "#1B4A4A",
+      "#221E19",
+      "#6E7A64"
+     ],
+     "cover": 98.305,
+     "fidel": 4
+    },
+    "head4": {
+     "four": [
+      "#1B4A4A",
+      "#DCDDD2",
+      "#221E19",
+      "#6E7A64"
+     ],
+     "cover": 98.305,
+     "fidel": 4
+    },
+    "area": {
+     "four": [
+      "#DCDDD2",
+      "#1B4A4A",
+      "#6E7A64",
+      "#221E19"
+     ],
+     "cover": 98.305,
+     "fidel": 4
+    }
+   },
+   "primary": {
+    "L1": "#1B4A4A",
+    "L2_first": "#1B4A4A",
+    "areaPrimary": "#1B4A4A",
+    "areaPrimaryPct": 36.476,
+    "L1_pct": 36.476,
+    "L1_is_area_primary": true,
+    "L1_chroma": 0.184,
+    "areaPrimary_chroma": 0.184,
+    "L3_first_is_achromatic": false,
+    "L3_first_pct": 36.476
+   },
+   "measured_area_top1": "#DCDDD2",
+   "bg_pct": 60.635
+  },
+  {
+   "id": "S12",
+   "L1": [
+    "#1E2A2E",
+    "#B5D626",
+    "#E23E57",
+    "#F2E9D8"
+   ],
+   "L3": [
+    "#B5D626",
+    "#1E2A2E",
+    "#E23E57",
+    "#F2E9D8",
+    "#26353A",
+    "#182226",
+    "#111111"
+   ],
+   "pct": {
+    "#B5D626": 22.687,
+    "#1E2A2E": 67.419,
+    "#E23E57": 0.153,
+    "#F2E9D8": 5.313,
+    "#26353A": 0.951,
+    "#182226": 0,
+    "#111111": 0.076
+   },
+   "trueTop4": [
+    "#1E2A2E",
+    "#B5D626",
+    "#F2E9D8",
+    "#26353A"
+   ],
+   "byArea": [
+    "#1E2A2E",
+    "#B5D626",
+    "#F2E9D8",
+    "#26353A",
+    "#E23E57",
+    "#111111",
+    "#182226"
+   ],
+   "strategy": {
+    "data": {
+     "four": [
+      "#1E2A2E",
+      "#B5D626",
+      "#E23E57",
+      "#F2E9D8"
+     ],
+     "cover": 95.572,
+     "fidel": 3
+    },
+    "head4": {
+     "four": [
+      "#B5D626",
+      "#1E2A2E",
+      "#E23E57",
+      "#F2E9D8"
+     ],
+     "cover": 95.572,
+     "fidel": 3
+    },
+    "area": {
+     "four": [
+      "#1E2A2E",
+      "#B5D626",
+      "#F2E9D8",
+      "#26353A"
+     ],
+     "cover": 96.37,
+     "fidel": 4
+    }
+   },
+   "primary": {
+    "L1": "#B5D626",
+    "L2_first": "#B5D626",
+    "areaPrimary": "#B5D626",
+    "areaPrimaryPct": 22.687,
+    "L1_pct": 22.687,
+    "L1_is_area_primary": true,
+    "L1_chroma": 0.69,
+    "areaPrimary_chroma": 0.69,
+    "L3_first_is_achromatic": false,
+    "L3_first_pct": 22.687
+   },
+   "measured_area_top1": "#1E2A2E",
+   "bg_pct": 67.419
+  },
+  {
+   "id": "S13",
+   "L1": [
+    "#F4E3BE",
+    "#7B612C",
+    "#241F17",
+    "#D6CDB9"
+   ],
+   "L3": [
+    "#F4E3BE",
+    "#241F17",
+    "#7B612C",
+    "#D6CDB9"
+   ],
+   "pct": {
+    "#F4E3BE": 56.034,
+    "#241F17": 10.763,
+    "#7B612C": 0.035,
+    "#D6CDB9": 8.654
+   },
+   "trueTop4": [
+    "#F4E3BE",
+    "#241F17",
+    "#D6CDB9",
+    "#7B612C"
+   ],
+   "byArea": [
+    "#F4E3BE",
+    "#241F17",
+    "#D6CDB9",
+    "#7B612C"
+   ],
+   "strategy": {
+    "data": {
+     "four": [
+      "#F4E3BE",
+      "#7B612C",
+      "#241F17",
+      "#D6CDB9"
+     ],
+     "cover": 75.486,
+     "fidel": 4
+    },
+    "head4": {
+     "four": [
+      "#F4E3BE",
+      "#241F17",
+      "#7B612C",
+      "#D6CDB9"
+     ],
+     "cover": 75.486,
+     "fidel": 4
+    },
+    "area": {
+     "four": [
+      "#F4E3BE",
+      "#241F17",
+      "#D6CDB9",
+      "#7B612C"
+     ],
+     "cover": 75.486,
+     "fidel": 4
+    }
+   },
+   "primary": {
+    "L1": "#7B612C",
+    "L2_first": null,
+    "areaPrimary": "#D6CDB9",
+    "areaPrimaryPct": 8.654,
+    "L1_pct": 0.035,
+    "L1_is_area_primary": false,
+    "L1_chroma": 0.31,
+    "areaPrimary_chroma": 0.114,
+    "L3_first_is_achromatic": false,
+    "L3_first_pct": 56.034
+   },
+   "measured_area_top1": "#F4E3BE",
+   "bg_pct": 56.034
+  },
+  {
+   "id": "S14",
+   "L1": [
+    "#12181D",
+    "#E4572E",
+    "#D8D2C4",
+    "#8A3320"
+   ],
+   "L3": [
+    "#C9C4B8",
+    "#D8D2C4",
+    "#12181D",
+    "#E4572E",
+    "#8A3320",
+    "#111111"
+   ],
+   "pct": {
+    "#C9C4B8": 4.43,
+    "#D8D2C4": 4.248,
+    "#12181D": 78.557,
+    "#E4572E": 0.364,
+    "#8A3320": 0,
+    "#111111": 0.008
+   },
+   "trueTop4": [
+    "#12181D",
+    "#C9C4B8",
+    "#D8D2C4",
+    "#E4572E"
+   ],
+   "byArea": [
+    "#12181D",
+    "#C9C4B8",
+    "#D8D2C4",
+    "#E4572E",
+    "#111111",
+    "#8A3320"
+   ],
+   "strategy": {
+    "data": {
+     "four": [
+      "#12181D",
+      "#E4572E",
+      "#D8D2C4",
+      "#8A3320"
+     ],
+     "cover": 83.169,
+     "fidel": 3
+    },
+    "head4": {
+     "four": [
+      "#C9C4B8",
+      "#D8D2C4",
+      "#12181D",
+      "#E4572E"
+     ],
+     "cover": 87.599,
+     "fidel": 4
+    },
+    "area": {
+     "four": [
+      "#12181D",
+      "#C9C4B8",
+      "#D8D2C4",
+      "#E4572E"
+     ],
+     "cover": 87.599,
+     "fidel": 4
+    }
+   },
+   "primary": {
+    "L1": "#E4572E",
+    "L2_first": null,
+    "areaPrimary": "#E4572E",
+    "areaPrimaryPct": 0.364,
+    "L1_pct": 0.364,
+    "L1_is_area_primary": true,
+    "L1_chroma": 0.714,
+    "areaPrimary_chroma": 0.714,
+    "L3_first_is_achromatic": true,
+    "L3_first_pct": 4.43
+   },
+   "measured_area_top1": "#12181D",
+   "bg_pct": 78.557
+  },
+  {
+   "id": "S15",
+   "L1": [
+    "#E7EBE9",
+    "#3A3F45",
+    "#22282B",
+    "#7A7466"
+   ],
+   "L3": [
+    "#3A3F45",
+    "#E7EBE9",
+    "#22282B",
+    "#7A7466"
+   ],
+   "pct": {
+    "#3A3F45": 1.725,
+    "#E7EBE9": 88.955,
+    "#22282B": 4.79,
+    "#7A7466": 1.159
+   },
+   "trueTop4": [
+    "#E7EBE9",
+    "#22282B",
+    "#3A3F45",
+    "#7A7466"
+   ],
+   "byArea": [
+    "#E7EBE9",
+    "#22282B",
+    "#3A3F45",
+    "#7A7466"
+   ],
+   "strategy": {
+    "data": {
+     "four": [
+      "#E7EBE9",
+      "#3A3F45",
+      "#22282B",
+      "#7A7466"
+     ],
+     "cover": 96.629,
+     "fidel": 4
+    },
+    "head4": {
+     "four": [
+      "#3A3F45",
+      "#E7EBE9",
+      "#22282B",
+      "#7A7466"
+     ],
+     "cover": 96.629,
+     "fidel": 4
+    },
+    "area": {
+     "four": [
+      "#E7EBE9",
+      "#22282B",
+      "#3A3F45",
+      "#7A7466"
+     ],
+     "cover": 96.629,
+     "fidel": 4
+    }
+   },
+   "primary": {
+    "L1": "#3A3F45",
+    "L2_first": "#3A3F45",
+    "areaPrimary": null,
+    "areaPrimaryPct": null,
+    "L1_pct": 1.725,
+    "L1_is_area_primary": false,
+    "L1_chroma": 0.043,
+    "areaPrimary_chroma": null,
+    "L3_first_is_achromatic": true,
+    "L3_first_pct": 1.725
+   },
+   "measured_area_top1": "#E7EBE9",
+   "bg_pct": 88.955
+  },
+  {
+   "id": "S16",
+   "L1": [
+    "#F7EBCF",
+    "#C52C0F",
+    "#1A1A1A",
+    "#8E2A18"
+   ],
+   "L3": [
+    "#C52C0F",
+    "#F7EBCF",
+    "#1A1A1A",
+    "#8E2A18",
+    "#5C5C55"
+   ],
+   "pct": {
+    "#C52C0F": 1.479,
+    "#F7EBCF": 93.759,
+    "#1A1A1A": 1.407,
+    "#8E2A18": 0.094,
+    "#5C5C55": 0.854
+   },
+   "trueTop4": [
+    "#F7EBCF",
+    "#C52C0F",
+    "#1A1A1A",
+    "#5C5C55"
+   ],
+   "byArea": [
+    "#F7EBCF",
+    "#C52C0F",
+    "#1A1A1A",
+    "#5C5C55",
+    "#8E2A18"
+   ],
+   "strategy": {
+    "data": {
+     "four": [
+      "#F7EBCF",
+      "#C52C0F",
+      "#1A1A1A",
+      "#8E2A18"
+     ],
+     "cover": 96.739,
+     "fidel": 3
+    },
+    "head4": {
+     "four": [
+      "#C52C0F",
+      "#F7EBCF",
+      "#1A1A1A",
+      "#8E2A18"
+     ],
+     "cover": 96.739,
+     "fidel": 3
+    },
+    "area": {
+     "four": [
+      "#F7EBCF",
+      "#C52C0F",
+      "#1A1A1A",
+      "#5C5C55"
+     ],
+     "cover": 97.499,
+     "fidel": 4
+    }
+   },
+   "primary": {
+    "L1": "#C52C0F",
+    "L2_first": "#C52C0F",
+    "areaPrimary": "#C52C0F",
+    "areaPrimaryPct": 1.479,
+    "L1_pct": 1.479,
+    "L1_is_area_primary": true,
+    "L1_chroma": 0.714,
+    "areaPrimary_chroma": 0.714,
+    "L3_first_is_achromatic": false,
+    "L3_first_pct": 1.479
+   },
+   "measured_area_top1": "#F7EBCF",
+   "bg_pct": 93.759
+  },
+  {
+   "id": "S17",
+   "L1": [
+    "#E1D6BD",
+    "#5A2A50",
+    "#7A2E2E"
+   ],
+   "L3": [
+    "#E1D6BD",
+    "#5A2A50",
+    "#7A2E2E",
+    "#C9BFA6",
+    "#3F1A38",
+    "#B9A98C",
+    "#DFD6BF"
+   ],
+   "pct": {
+    "#E1D6BD": 79.704,
+    "#5A2A50": 2.498,
+    "#7A2E2E": 0.014,
+    "#C9BFA6": 13.113,
+    "#3F1A38": 0.088,
+    "#B9A98C": 1.182,
+    "#DFD6BF": 0.61
+   },
+   "trueTop4": [
+    "#E1D6BD",
+    "#C9BFA6",
+    "#5A2A50",
+    "#B9A98C"
+   ],
+   "byArea": [
+    "#E1D6BD",
+    "#C9BFA6",
+    "#5A2A50",
+    "#B9A98C",
+    "#DFD6BF",
+    "#3F1A38",
+    "#7A2E2E"
+   ],
+   "strategy": {
+    "data": {
+     "four": [
+      "#E1D6BD",
+      "#5A2A50",
+      "#7A2E2E"
+     ],
+     "cover": 82.216,
+     "fidel": 2
+    },
+    "head4": {
+     "four": [
+      "#E1D6BD",
+      "#5A2A50",
+      "#7A2E2E",
+      "#C9BFA6"
+     ],
+     "cover": 95.329,
+     "fidel": 3
+    },
+    "area": {
+     "four": [
+      "#E1D6BD",
+      "#C9BFA6",
+      "#5A2A50",
+      "#B9A98C"
+     ],
+     "cover": 96.497,
+     "fidel": 4
+    }
+   },
+   "primary": {
+    "L1": "#5A2A50",
+    "L2_first": null,
+    "areaPrimary": "#5A2A50",
+    "areaPrimaryPct": 2.498,
+    "L1_pct": 2.498,
+    "L1_is_area_primary": true,
+    "L1_chroma": 0.188,
+    "areaPrimary_chroma": 0.188,
+    "L3_first_is_achromatic": false,
+    "L3_first_pct": 79.704
+   },
+   "measured_area_top1": "#E1D6BD",
+   "bg_pct": 79.704
+  },
+  {
+   "id": "S18",
+   "L1": [
+    "#0A0D0A",
+    "#2FA84F",
+    "#C8C4AE",
+    "#6E6350"
+   ],
+   "L3": [
+    "#0A0D0A",
+    "#2FA84F",
+    "#C8C4AE",
+    "#6E6350",
+    "#278F43",
+    "#111111"
+   ],
+   "pct": {
+    "#0A0D0A": 83.57,
+    "#2FA84F": 1.254,
+    "#C8C4AE": 2.38,
+    "#6E6350": 1.04,
+    "#278F43": 0.091,
+    "#111111": 1.403
+   },
+   "trueTop4": [
+    "#0A0D0A",
+    "#C8C4AE",
+    "#111111",
+    "#2FA84F"
+   ],
+   "byArea": [
+    "#0A0D0A",
+    "#C8C4AE",
+    "#111111",
+    "#2FA84F",
+    "#6E6350",
+    "#278F43"
+   ],
+   "strategy": {
+    "data": {
+     "four": [
+      "#0A0D0A",
+      "#2FA84F",
+      "#C8C4AE",
+      "#6E6350"
+     ],
+     "cover": 88.244,
+     "fidel": 3
+    },
+    "head4": {
+     "four": [
+      "#0A0D0A",
+      "#2FA84F",
+      "#C8C4AE",
+      "#6E6350"
+     ],
+     "cover": 88.244,
+     "fidel": 3
+    },
+    "area": {
+     "four": [
+      "#0A0D0A",
+      "#C8C4AE",
+      "#111111",
+      "#2FA84F"
+     ],
+     "cover": 88.607,
+     "fidel": 4
+    }
+   },
+   "primary": {
+    "L1": "#2FA84F",
+    "L2_first": null,
+    "areaPrimary": "#C8C4AE",
+    "areaPrimaryPct": 2.38,
+    "L1_pct": 1.254,
+    "L1_is_area_primary": false,
+    "L1_chroma": 0.475,
+    "areaPrimary_chroma": 0.102,
+    "L3_first_is_achromatic": true,
+    "L3_first_pct": 83.57
+   },
+   "measured_area_top1": "#0A0D0A",
+   "bg_pct": 83.57
+  },
+  {
+   "id": "S19",
+   "L1": [
+    "#E4DECD",
+    "#4A5C3A",
+    "#2A241C",
+    "#7C7460"
+   ],
+   "L3": [
+    "#4A5C3A",
+    "#E4DECD",
+    "#2A241C",
+    "#7C7460",
+    "#D8CFB6",
+    "#E9E3D2",
+    "#3A3227"
+   ],
+   "pct": {
+    "#4A5C3A": 1.409,
+    "#E4DECD": 76.909,
+    "#2A241C": 7.024,
+    "#7C7460": 2.409,
+    "#D8CFB6": 4.733,
+    "#E9E3D2": 2.763,
+    "#3A3227": 1.934
+   },
+   "trueTop4": [
+    "#E4DECD",
+    "#2A241C",
+    "#D8CFB6",
+    "#E9E3D2"
+   ],
+   "byArea": [
+    "#E4DECD",
+    "#2A241C",
+    "#D8CFB6",
+    "#E9E3D2",
+    "#7C7460",
+    "#3A3227",
+    "#4A5C3A"
+   ],
+   "strategy": {
+    "data": {
+     "four": [
+      "#E4DECD",
+      "#4A5C3A",
+      "#2A241C",
+      "#7C7460"
+     ],
+     "cover": 87.751,
+     "fidel": 2
+    },
+    "head4": {
+     "four": [
+      "#4A5C3A",
+      "#E4DECD",
+      "#2A241C",
+      "#7C7460"
+     ],
+     "cover": 87.751,
+     "fidel": 2
+    },
+    "area": {
+     "four": [
+      "#E4DECD",
+      "#2A241C",
+      "#D8CFB6",
+      "#E9E3D2"
+     ],
+     "cover": 91.429,
+     "fidel": 4
+    }
+   },
+   "primary": {
+    "L1": "#4A5C3A",
+    "L2_first": "#4A5C3A",
+    "areaPrimary": "#7C7460",
+    "areaPrimaryPct": 2.409,
+    "L1_pct": 1.409,
+    "L1_is_area_primary": false,
+    "L1_chroma": 0.133,
+    "areaPrimary_chroma": 0.11,
+    "L3_first_is_achromatic": false,
+    "L3_first_pct": 1.409
+   },
+   "measured_area_top1": "#E4DECD",
+   "bg_pct": 76.909
+  },
+  {
+   "id": "S20",
+   "L1": [
+    "#FAF3E1",
+    "#26485C",
+    "#0F1418",
+    "#55606B"
+   ],
+   "L3": [
+    "#FAF3E1",
+    "#26485C",
+    "#0F1418",
+    "#55606B"
+   ],
+   "pct": {
+    "#FAF3E1": 68.402,
+    "#26485C": 1.127,
+    "#0F1418": 1.133,
+    "#55606B": 1.42
+   },
+   "trueTop4": [
+    "#FAF3E1",
+    "#55606B",
+    "#0F1418",
+    "#26485C"
+   ],
+   "byArea": [
+    "#FAF3E1",
+    "#55606B",
+    "#0F1418",
+    "#26485C"
+   ],
+   "strategy": {
+    "data": {
+     "four": [
+      "#FAF3E1",
+      "#26485C",
+      "#0F1418",
+      "#55606B"
+     ],
+     "cover": 72.082,
+     "fidel": 4
+    },
+    "head4": {
+     "four": [
+      "#FAF3E1",
+      "#26485C",
+      "#0F1418",
+      "#55606B"
+     ],
+     "cover": 72.082,
+     "fidel": 4
+    },
+    "area": {
+     "four": [
+      "#FAF3E1",
+      "#55606B",
+      "#0F1418",
+      "#26485C"
+     ],
+     "cover": 72.082,
+     "fidel": 4
+    }
+   },
+   "primary": {
+    "L1": "#26485C",
+    "L2_first": null,
+    "areaPrimary": "#55606B",
+    "areaPrimaryPct": 1.42,
+    "L1_pct": 1.127,
+    "L1_is_area_primary": false,
+    "L1_chroma": 0.212,
+    "areaPrimary_chroma": 0.086,
+    "L3_first_is_achromatic": false,
+    "L3_first_pct": 68.402
+   },
+   "measured_area_top1": "#FAF3E1",
+   "bg_pct": 68.402
+  },
+  {
+   "id": "S21",
+   "L1": [
+    "#E4DCC9",
+    "#3E3A34",
+    "#924307",
+    "#6E6A5E"
+   ],
+   "L3": [
+    "#3E3A34",
+    "#E4DCC9",
+    "#924307",
+    "#6E6A5E",
+    "#FFFFFF"
+   ],
+   "pct": {
+    "#3E3A34": 11.781,
+    "#E4DCC9": 85.815,
+    "#924307": 0.215,
+    "#6E6A5E": 1.388,
+    "#FFFFFF": 0.051
+   },
+   "trueTop4": [
+    "#E4DCC9",
+    "#3E3A34",
+    "#6E6A5E",
+    "#924307"
+   ],
+   "byArea": [
+    "#E4DCC9",
+    "#3E3A34",
+    "#6E6A5E",
+    "#924307",
+    "#FFFFFF"
+   ],
+   "strategy": {
+    "data": {
+     "four": [
+      "#E4DCC9",
+      "#3E3A34",
+      "#924307",
+      "#6E6A5E"
+     ],
+     "cover": 99.199,
+     "fidel": 4
+    },
+    "head4": {
+     "four": [
+      "#3E3A34",
+      "#E4DCC9",
+      "#924307",
+      "#6E6A5E"
+     ],
+     "cover": 99.199,
+     "fidel": 4
+    },
+    "area": {
+     "four": [
+      "#E4DCC9",
+      "#3E3A34",
+      "#6E6A5E",
+      "#924307"
+     ],
+     "cover": 99.199,
+     "fidel": 4
+    }
+   },
+   "primary": {
+    "L1": "#3E3A34",
+    "L2_first": "#3E3A34",
+    "areaPrimary": "#924307",
+    "areaPrimaryPct": 0.215,
+    "L1_pct": 11.781,
+    "L1_is_area_primary": false,
+    "L1_chroma": 0.039,
+    "areaPrimary_chroma": 0.545,
+    "L3_first_is_achromatic": true,
+    "L3_first_pct": 11.781
+   },
+   "measured_area_top1": "#E4DCC9",
+   "bg_pct": 85.815
+  },
+  {
+   "id": "S22",
+   "L1": [
+    "#DDDAD4",
+    "#565B49",
+    "#2E2A24"
+   ],
+   "L3": [
+    "#565B49",
+    "#DDDAD4",
+    "#2E2A24",
+    "#6B6558"
+   ],
+   "pct": {
+    "#565B49": 8.52,
+    "#DDDAD4": 80.729,
+    "#2E2A24": 5.981,
+    "#6B6558": 1.592
+   },
+   "trueTop4": [
+    "#DDDAD4",
+    "#565B49",
+    "#2E2A24",
+    "#6B6558"
+   ],
+   "byArea": [
+    "#DDDAD4",
+    "#565B49",
+    "#2E2A24",
+    "#6B6558"
+   ],
+   "strategy": {
+    "data": {
+     "four": [
+      "#DDDAD4",
+      "#565B49",
+      "#2E2A24"
+     ],
+     "cover": 95.23,
+     "fidel": 3
+    },
+    "head4": {
+     "four": [
+      "#565B49",
+      "#DDDAD4",
+      "#2E2A24",
+      "#6B6558"
+     ],
+     "cover": 96.822,
+     "fidel": 4
+    },
+    "area": {
+     "four": [
+      "#DDDAD4",
+      "#565B49",
+      "#2E2A24",
+      "#6B6558"
+     ],
+     "cover": 96.822,
+     "fidel": 4
+    }
+   },
+   "primary": {
+    "L1": "#565B49",
+    "L2_first": "#565B49",
+    "areaPrimary": null,
+    "areaPrimaryPct": null,
+    "L1_pct": 8.52,
+    "L1_is_area_primary": false,
+    "L1_chroma": 0.071,
+    "areaPrimary_chroma": null,
+    "L3_first_is_achromatic": true,
+    "L3_first_pct": 8.52
+   },
+   "measured_area_top1": "#DDDAD4",
+   "bg_pct": 80.729
+  },
+  {
+   "id": "S23",
+   "L1": [
+    "#DCDCC8",
+    "#A8206B",
+    "#241C16",
+    "#7A6A55"
+   ],
+   "L3": [
+    "#A8206B",
+    "#241C16",
+    "#DCDCC8",
+    "#7A6A55",
+    "#E9E9D7",
+    "#5F5240",
+    "#B7A78C"
+   ],
+   "pct": {
+    "#A8206B": 1.437,
+    "#241C16": 18.162,
+    "#DCDCC8": 63.232,
+    "#7A6A55": 6.133,
+    "#E9E9D7": 0,
+    "#5F5240": 0.439,
+    "#B7A78C": 7.228
+   },
+   "trueTop4": [
+    "#DCDCC8",
+    "#241C16",
+    "#B7A78C",
+    "#7A6A55"
+   ],
+   "byArea": [
+    "#DCDCC8",
+    "#241C16",
+    "#B7A78C",
+    "#7A6A55",
+    "#A8206B",
+    "#5F5240",
+    "#E9E9D7"
+   ],
+   "strategy": {
+    "data": {
+     "four": [
+      "#DCDCC8",
+      "#A8206B",
+      "#241C16",
+      "#7A6A55"
+     ],
+     "cover": 88.964,
+     "fidel": 3
+    },
+    "head4": {
+     "four": [
+      "#A8206B",
+      "#241C16",
+      "#DCDCC8",
+      "#7A6A55"
+     ],
+     "cover": 88.964,
+     "fidel": 3
+    },
+    "area": {
+     "four": [
+      "#DCDCC8",
+      "#241C16",
+      "#B7A78C",
+      "#7A6A55"
+     ],
+     "cover": 94.755,
+     "fidel": 4
+    }
+   },
+   "primary": {
+    "L1": "#A8206B",
+    "L2_first": "#A8206B",
+    "areaPrimary": "#B7A78C",
+    "areaPrimaryPct": 7.228,
+    "L1_pct": 1.437,
+    "L1_is_area_primary": false,
+    "L1_chroma": 0.533,
+    "areaPrimary_chroma": 0.169,
+    "L3_first_is_achromatic": false,
+    "L3_first_pct": 1.437
+   },
+   "measured_area_top1": "#DCDCC8",
+   "bg_pct": 63.232
+  },
+  {
+   "id": "S24",
+   "L1": [
+    "#E6EDF2",
+    "#5D43AD",
+    "#0A1116",
+    "#6E8B7A"
+   ],
+   "L3": [
+    "#5D43AD",
+    "#E6EDF2",
+    "#0A1116",
+    "#6E8B7A",
+    "#F3F8FB",
+    "#DCE7EF",
+    "#C9D8E4"
+   ],
+   "pct": {
+    "#5D43AD": 0.52,
+    "#E6EDF2": 40.922,
+    "#0A1116": 1.062,
+    "#6E8B7A": 0.014,
+    "#F3F8FB": 3.531,
+    "#DCE7EF": 29.052,
+    "#C9D8E4": 2.755
+   },
+   "trueTop4": [
+    "#E6EDF2",
+    "#DCE7EF",
+    "#F3F8FB",
+    "#C9D8E4"
+   ],
+   "byArea": [
+    "#E6EDF2",
+    "#DCE7EF",
+    "#F3F8FB",
+    "#C9D8E4",
+    "#0A1116",
+    "#5D43AD",
+    "#6E8B7A"
+   ],
+   "strategy": {
+    "data": {
+     "four": [
+      "#E6EDF2",
+      "#5D43AD",
+      "#0A1116",
+      "#6E8B7A"
+     ],
+     "cover": 42.518,
+     "fidel": 1
+    },
+    "head4": {
+     "four": [
+      "#5D43AD",
+      "#E6EDF2",
+      "#0A1116",
+      "#6E8B7A"
+     ],
+     "cover": 42.518,
+     "fidel": 1
+    },
+    "area": {
+     "four": [
+      "#E6EDF2",
+      "#DCE7EF",
+      "#F3F8FB",
+      "#C9D8E4"
+     ],
+     "cover": 76.26,
+     "fidel": 4
+    }
+   },
+   "primary": {
+    "L1": "#5D43AD",
+    "L2_first": "#5D43AD",
+    "areaPrimary": "#5D43AD",
+    "areaPrimaryPct": 0.52,
+    "L1_pct": 0.52,
+    "L1_is_area_primary": true,
+    "L1_chroma": 0.416,
+    "areaPrimary_chroma": 0.416,
+    "L3_first_is_achromatic": false,
+    "L3_first_pct": 0.52
+   },
+   "measured_area_top1": "#E6EDF2",
+   "bg_pct": 40.922
+  },
+  {
+   "id": "S25",
+   "L1": [
+    "#E8E4DE",
+    "#914A27",
+    "#1E1A16",
+    "#2E6B5E"
+   ],
+   "L3": [
+    "#E8E4DE",
+    "#914A27",
+    "#1E1A16",
+    "#2E6B5E",
+    "#DFDAD2",
+    "#FFFFFF"
+   ],
+   "pct": {
+    "#E8E4DE": 73.917,
+    "#914A27": 10.562,
+    "#1E1A16": 5.085,
+    "#2E6B5E": 7.493,
+    "#DFDAD2": 1.108,
+    "#FFFFFF": 0.005
+   },
+   "trueTop4": [
+    "#E8E4DE",
+    "#914A27",
+    "#2E6B5E",
+    "#1E1A16"
+   ],
+   "byArea": [
+    "#E8E4DE",
+    "#914A27",
+    "#2E6B5E",
+    "#1E1A16",
+    "#DFDAD2",
+    "#FFFFFF"
+   ],
+   "strategy": {
+    "data": {
+     "four": [
+      "#E8E4DE",
+      "#914A27",
+      "#1E1A16",
+      "#2E6B5E"
+     ],
+     "cover": 97.057,
+     "fidel": 4
+    },
+    "head4": {
+     "four": [
+      "#E8E4DE",
+      "#914A27",
+      "#1E1A16",
+      "#2E6B5E"
+     ],
+     "cover": 97.057,
+     "fidel": 4
+    },
+    "area": {
+     "four": [
+      "#E8E4DE",
+      "#914A27",
+      "#2E6B5E",
+      "#1E1A16"
+     ],
+     "cover": 97.057,
+     "fidel": 4
+    }
+   },
+   "primary": {
+    "L1": "#914A27",
+    "L2_first": null,
+    "areaPrimary": "#914A27",
+    "areaPrimaryPct": 10.562,
+    "L1_pct": 10.562,
+    "L1_is_area_primary": true,
+    "L1_chroma": 0.416,
+    "areaPrimary_chroma": 0.416,
+    "L3_first_is_achromatic": true,
+    "L3_first_pct": 73.917
+   },
+   "measured_area_top1": "#E8E4DE",
+   "bg_pct": 73.917
+  },
+  {
+   "id": "S26",
+   "L1": [
+    "#D3D1CA",
+    "#485270",
+    "#121212",
+    "#C8341F"
+   ],
+   "L3": [
+    "#D3D1CA",
+    "#485270",
+    "#121212",
+    "#C8341F",
+    "#FFFFFF",
+    "#C3C1B9",
+    "#38110E"
+   ],
+   "pct": {
+    "#D3D1CA": 67.003,
+    "#485270": 10.775,
+    "#121212": 9.152,
+    "#C8341F": 5.189,
+    "#FFFFFF": 0.141,
+    "#C3C1B9": 5.268,
+    "#38110E": 0.04
+   },
+   "trueTop4": [
+    "#D3D1CA",
+    "#485270",
+    "#121212",
+    "#C3C1B9"
+   ],
+   "byArea": [
+    "#D3D1CA",
+    "#485270",
+    "#121212",
+    "#C3C1B9",
+    "#C8341F",
+    "#FFFFFF",
+    "#38110E"
+   ],
+   "strategy": {
+    "data": {
+     "four": [
+      "#D3D1CA",
+      "#485270",
+      "#121212",
+      "#C8341F"
+     ],
+     "cover": 92.119,
+     "fidel": 3
+    },
+    "head4": {
+     "four": [
+      "#D3D1CA",
+      "#485270",
+      "#121212",
+      "#C8341F"
+     ],
+     "cover": 92.119,
+     "fidel": 3
+    },
+    "area": {
+     "four": [
+      "#D3D1CA",
+      "#485270",
+      "#121212",
+      "#C3C1B9"
+     ],
+     "cover": 92.198,
+     "fidel": 4
+    }
+   },
+   "primary": {
+    "L1": "#485270",
+    "L2_first": null,
+    "areaPrimary": "#485270",
+    "areaPrimaryPct": 10.775,
+    "L1_pct": 10.775,
+    "L1_is_area_primary": true,
+    "L1_chroma": 0.157,
+    "areaPrimary_chroma": 0.157,
+    "L3_first_is_achromatic": true,
+    "L3_first_pct": 67.003
+   },
+   "measured_area_top1": "#D3D1CA",
+   "bg_pct": 67.003
+  },
+  {
+   "id": "S27",
+   "L1": [
+    "#E8D7B5",
+    "#0E6258",
+    "#221C10"
+   ],
+   "L3": [
+    "#0E6258",
+    "#221C10",
+    "#E8D7B5",
+    "#1A150C",
+    "#C9BFA6",
+    "#FFFFFF"
+   ],
+   "pct": {
+    "#0E6258": 19.897,
+    "#221C10": 4.448,
+    "#E8D7B5": 49.426,
+    "#1A150C": 0.375,
+    "#C9BFA6": 0.305,
+    "#FFFFFF": 15.852
+   },
+   "trueTop4": [
+    "#E8D7B5",
+    "#0E6258",
+    "#FFFFFF",
+    "#221C10"
+   ],
+   "byArea": [
+    "#E8D7B5",
+    "#0E6258",
+    "#FFFFFF",
+    "#221C10",
+    "#1A150C",
+    "#C9BFA6"
+   ],
+   "strategy": {
+    "data": {
+     "four": [
+      "#E8D7B5",
+      "#0E6258",
+      "#221C10"
+     ],
+     "cover": 73.771,
+     "fidel": 3
+    },
+    "head4": {
+     "four": [
+      "#0E6258",
+      "#221C10",
+      "#E8D7B5",
+      "#1A150C"
+     ],
+     "cover": 74.146,
+     "fidel": 3
+    },
+    "area": {
+     "four": [
+      "#E8D7B5",
+      "#0E6258",
+      "#FFFFFF",
+      "#221C10"
+     ],
+     "cover": 89.623,
+     "fidel": 4
+    }
+   },
+   "primary": {
+    "L1": "#0E6258",
+    "L2_first": "#0E6258",
+    "areaPrimary": "#0E6258",
+    "areaPrimaryPct": 19.897,
+    "L1_pct": 19.897,
+    "L1_is_area_primary": true,
+    "L1_chroma": 0.329,
+    "areaPrimary_chroma": 0.329,
+    "L3_first_is_achromatic": false,
+    "L3_first_pct": 19.897
+   },
+   "measured_area_top1": "#E8D7B5",
+   "bg_pct": 49.426
+  },
+  {
+   "id": "S28",
+   "L1": [
+    "#0B0D12",
+    "#AF74BE",
+    "#D8D4C6"
+   ],
+   "L3": [
+    "#AF74BE",
+    "#D8D4C6",
+    "#0B0D12",
+    "#07080C"
+   ],
+   "pct": {
+    "#AF74BE": 18.878,
+    "#D8D4C6": 1.433,
+    "#0B0D12": 64.548,
+    "#07080C": 1.517
+   },
+   "trueTop4": [
+    "#0B0D12",
+    "#AF74BE",
+    "#07080C",
+    "#D8D4C6"
+   ],
+   "byArea": [
+    "#0B0D12",
+    "#AF74BE",
+    "#07080C",
+    "#D8D4C6"
+   ],
+   "strategy": {
+    "data": {
+     "four": [
+      "#0B0D12",
+      "#AF74BE",
+      "#D8D4C6"
+     ],
+     "cover": 84.859,
+     "fidel": 3
+    },
+    "head4": {
+     "four": [
+      "#AF74BE",
+      "#D8D4C6",
+      "#0B0D12",
+      "#07080C"
+     ],
+     "cover": 86.376,
+     "fidel": 4
+    },
+    "area": {
+     "four": [
+      "#0B0D12",
+      "#AF74BE",
+      "#07080C",
+      "#D8D4C6"
+     ],
+     "cover": 86.376,
+     "fidel": 4
+    }
+   },
+   "primary": {
+    "L1": "#AF74BE",
+    "L2_first": "#AF74BE",
+    "areaPrimary": "#AF74BE",
+    "areaPrimaryPct": 18.878,
+    "L1_pct": 18.878,
+    "L1_is_area_primary": true,
+    "L1_chroma": 0.29,
+    "areaPrimary_chroma": 0.29,
+    "L3_first_is_achromatic": false,
+    "L3_first_pct": 18.878
+   },
+   "measured_area_top1": "#0B0D12",
+   "bg_pct": 64.548
+  },
+  {
+   "id": "S29",
+   "L1": [
+    "#D9D3C4",
+    "#644F02",
+    "#1A1A17",
+    "#5A6068"
+   ],
+   "L3": [
+    "#644F02",
+    "#D9D3C4",
+    "#1A1A17",
+    "#5A6068",
+    "#E4B400",
+    "#E0DACB"
+   ],
+   "pct": {
+    "#644F02": 0.879,
+    "#D9D3C4": 84.94,
+    "#1A1A17": 4.701,
+    "#5A6068": 1.853,
+    "#E4B400": 0,
+    "#E0DACB": 2.799
+   },
+   "trueTop4": [
+    "#D9D3C4",
+    "#1A1A17",
+    "#E0DACB",
+    "#5A6068"
+   ],
+   "byArea": [
+    "#D9D3C4",
+    "#1A1A17",
+    "#E0DACB",
+    "#5A6068",
+    "#644F02",
+    "#E4B400"
+   ],
+   "strategy": {
+    "data": {
+     "four": [
+      "#D9D3C4",
+      "#644F02",
+      "#1A1A17",
+      "#5A6068"
+     ],
+     "cover": 92.373,
+     "fidel": 3
+    },
+    "head4": {
+     "four": [
+      "#644F02",
+      "#D9D3C4",
+      "#1A1A17",
+      "#5A6068"
+     ],
+     "cover": 92.373,
+     "fidel": 3
+    },
+    "area": {
+     "four": [
+      "#D9D3C4",
+      "#1A1A17",
+      "#E0DACB",
+      "#5A6068"
+     ],
+     "cover": 94.293,
+     "fidel": 4
+    }
+   },
+   "primary": {
+    "L1": "#644F02",
+    "L2_first": "#644F02",
+    "areaPrimary": "#644F02",
+    "areaPrimaryPct": 0.879,
+    "L1_pct": 0.879,
+    "L1_is_area_primary": true,
+    "L1_chroma": 0.384,
+    "areaPrimary_chroma": 0.384,
+    "L3_first_is_achromatic": false,
+    "L3_first_pct": 0.879
+   },
+   "measured_area_top1": "#D9D3C4",
+   "bg_pct": 84.94
+  },
+  {
+   "id": "S30",
+   "L1": [
+    "#EDEDED",
+    "#007B3F",
+    "#141414"
+   ],
+   "L3": [
+    "#007B3F",
+    "#EDEDED",
+    "#141414",
+    "#E6E6E6",
+    "#00E676",
+    "#FFFFFF"
+   ],
+   "pct": {
+    "#007B3F": 5.355,
+    "#EDEDED": 63.906,
+    "#141414": 6.243,
+    "#E6E6E6": 3.199,
+    "#00E676": 0,
+    "#FFFFFF": 0.577
+   },
+   "trueTop4": [
+    "#EDEDED",
+    "#141414",
+    "#007B3F",
+    "#E6E6E6"
+   ],
+   "byArea": [
+    "#EDEDED",
+    "#141414",
+    "#007B3F",
+    "#E6E6E6",
+    "#FFFFFF",
+    "#00E676"
+   ],
+   "strategy": {
+    "data": {
+     "four": [
+      "#EDEDED",
+      "#007B3F",
+      "#141414"
+     ],
+     "cover": 75.504,
+     "fidel": 3
+    },
+    "head4": {
+     "four": [
+      "#007B3F",
+      "#EDEDED",
+      "#141414",
+      "#E6E6E6"
+     ],
+     "cover": 78.703,
+     "fidel": 4
+    },
+    "area": {
+     "four": [
+      "#EDEDED",
+      "#141414",
+      "#007B3F",
+      "#E6E6E6"
+     ],
+     "cover": 78.703,
+     "fidel": 4
+    }
+   },
+   "primary": {
+    "L1": "#007B3F",
+    "L2_first": "#007B3F",
+    "areaPrimary": "#007B3F",
+    "areaPrimaryPct": 5.355,
+    "L1_pct": 5.355,
+    "L1_is_area_primary": true,
+    "L1_chroma": 0.482,
+    "areaPrimary_chroma": 0.482,
+    "L3_first_is_achromatic": false,
+    "L3_first_pct": 5.355
+   },
+   "measured_area_top1": "#EDEDED",
+   "bg_pct": 63.906
+  }
+ ]
+}

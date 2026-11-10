@@ -1,0 +1,578 @@
+{
+ "url": "http://127.0.0.1:8100/prototypes/_selection/wizard.html",
+ "at": "2026-10-28T15:29:00.578Z",
+ "allow": [],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 2,
+   "filled": [
+    0.26,
+    0.25
+   ],
+   "motion": {
+    "elements": 0,
+    "css": 0,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 969,
+     "screens": 1.1,
+     "words": 33,
+     "img": 0,
+     "video": 0,
+     "canvas": 0,
+     "svg": 0,
+     "sections": 1,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": []
+    },
+    "hero": {
+     "text": "五个问题，把 30 个方案收成 3 个",
+     "words": 5,
+     "chars": 19,
+     "lines": 2,
+     "size": 74,
+     "vw": 5.1,
+     "font": "Archivo",
+     "weight": 600,
+     "tracking": -0.018,
+     "leading": 1.06,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "left",
+     "widthRatio": 0.59,
+     "top": 51,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "五个问题，把 30 个方案收成 3 个",
+     "words": 5,
+     "lines": 2,
+     "size": 74,
+     "font": "Archivo"
+    },
+    "headings": [
+     {
+      "text": "五个问题，把 30 个方案收成 3 个",
+      "words": 5,
+      "chars": 19,
+      "lines": 2,
+      "size": 74,
+      "vw": 5.1,
+      "font": "Archivo",
+      "weight": 600,
+      "tracking": -0.018,
+      "leading": 1.06,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.59,
+      "top": 51,
+      "tag": "h1",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 1,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": null,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Noto Sans SC",
+       "share": 0.85,
+       "mono": false
+      },
+      {
+       "family": "Archivo",
+       "share": 0.15,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      13,
+      14,
+      15,
+      16,
+      17,
+      24,
+      74
+     ],
+     "sizeCount": 7,
+     "notLoaded": [],
+     "body": {
+      "font": "Noto Sans SC",
+      "size": 15,
+      "leading": 1.6,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 8.2
+     },
+     "measureChars": 67,
+     "max": {
+      "size": 74,
+      "vw": 5.1,
+      "font": "Archivo",
+      "text": "五个问题，把 30 个方案收成 3 个"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0,
+     "centerShare": 0.01,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#e7e7e2",
+     "bodyBgHsl": {
+      "h": 60,
+      "s": 0.09,
+      "l": 0.9
+     },
+     "dark": false,
+     "sectionBgs": [],
+     "textColors": [
+      {
+       "color": "#43413b",
+       "share": 0.36
+      },
+      {
+       "color": "#56534b",
+       "share": 0.33
+      },
+      {
+       "color": "#1c1b18",
+       "share": 0.22
+      },
+      {
+       "color": "#1f3c60",
+       "share": 0.06
+      },
+      {
+       "color": "#f2f2ee",
+       "share": 0.01
+      }
+     ],
+     "button": {
+      "bg": "#f2f2ee",
+      "hsl": {
+       "h": 60,
+       "s": 0.13,
+       "l": 0.94
+      },
+      "fg": "#1c1b18"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 4,
+     "inHero": 4,
+     "radius": 0,
+     "height": 82,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "跳到问题",
+      "就一屏，把一件事说清 访客不需要往下翻很久",
+      "三五屏，常规介绍 首页、介绍、几个栏目、联系方式",
+      "很多栏目，愿意翻很久 条目多、要能慢慢读"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 0,
+     "fixed": false,
+     "height": 358,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "archivo",
+     "noto sans sc"
+    ]
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 2,
+   "filled": [
+    0.49,
+    0.49
+   ],
+   "motion": {
+    "elements": 0,
+    "css": 0,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "page": {
+     "height": 863,
+     "screens": 1,
+     "words": 33,
+     "img": 0,
+     "video": 0,
+     "canvas": 0,
+     "svg": 0,
+     "sections": 1,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": []
+    },
+    "hero": {
+     "text": "五个问题，把 30 个方案收成 3 个",
+     "words": 5,
+     "chars": 19,
+     "lines": 2,
+     "size": 26,
+     "vw": 6.7,
+     "font": "Archivo",
+     "weight": 600,
+     "tracking": -0.018,
+     "leading": 1.06,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 0.92,
+     "top": 37,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "五个问题，把 30 个方案收成 3 个",
+     "words": 5,
+     "lines": 2,
+     "size": 26,
+     "font": "Archivo"
+    },
+    "headings": [
+     {
+      "text": "五个问题，把 30 个方案收成 3 个",
+      "words": 5,
+      "chars": 19,
+      "lines": 2,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Archivo",
+      "weight": 600,
+      "tracking": -0.018,
+      "leading": 1.06,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 37,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "你这一页大概要装多少内容？",
+      "words": 1,
+      "chars": 13,
+      "lines": 1,
+      "size": 24,
+      "vw": 6.2,
+      "font": "Archivo",
+      "weight": 600,
+      "tracking": 0,
+      "leading": 1.14,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 359,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 2,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": 1,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Noto Sans SC",
+       "share": 0.85,
+       "mono": false
+      },
+      {
+       "family": "Archivo",
+       "share": 0.15,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      13,
+      14,
+      15,
+      16,
+      17,
+      24,
+      26
+     ],
+     "sizeCount": 7,
+     "notLoaded": [],
+     "body": {
+      "font": "Noto Sans SC",
+      "size": 15,
+      "leading": 1.6,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 8.2
+     },
+     "measureChars": 48,
+     "max": {
+      "size": 26,
+      "vw": 6.7,
+      "font": "Archivo",
+      "text": "五个问题，把 30 个方案收成 3 个"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0,
+     "centerShare": 0.01,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#e7e7e2",
+     "bodyBgHsl": {
+      "h": 60,
+      "s": 0.09,
+      "l": 0.9
+     },
+     "dark": false,
+     "sectionBgs": [],
+     "textColors": [
+      {
+       "color": "#43413b",
+       "share": 0.36
+      },
+      {
+       "color": "#56534b",
+       "share": 0.33
+      },
+      {
+       "color": "#1c1b18",
+       "share": 0.22
+      },
+      {
+       "color": "#1f3c60",
+       "share": 0.06
+      },
+      {
+       "color": "#f2f2ee",
+       "share": 0.01
+      }
+     ],
+     "button": {
+      "bg": "#f2f2ee",
+      "hsl": {
+       "h": 60,
+       "s": 0.13,
+       "l": 0.94
+      },
+      "fg": "#1c1b18"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 4,
+     "inHero": 4,
+     "radius": 0,
+     "height": 82,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "跳到问题",
+      "就一屏，把一件事说清 访客不需要往下翻很久",
+      "三五屏，常规介绍 首页、介绍、几个栏目、联系方式",
+      "很多栏目，愿意翻很久 条目多、要能慢慢读"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 0,
+     "fixed": false,
+     "height": 290,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "archivo",
+     "noto sans sc"
+    ]
+   },
+   "consoleErrors": []
+  }
+ ],
+ "findings": [
+  {
+   "level": "WARN",
+   "id": "body-size",
+   "width": 1440,
+   "message": "Body text is 15px.",
+   "fix": "Body copy 16–20px."
+  },
+  {
+   "level": "FAIL",
+   "id": "few-pictures",
+   "width": 1440,
+   "message": "Only 0 picture(s) on the page (0 photographs, footage or raster images, 0 interface fragments). Drawings in SVG do not count.",
+   "fix": "Find real pictures of the subject's world with scripts/assets.mjs (photographs, archival images, maps, engravings, footage), download them to assets/ and give them room: a hero picture, one per section that has a subject, a full-width band. At least four, usually six to twelve."
+  },
+  {
+   "level": "WARN",
+   "id": "no-footage",
+   "width": 1440,
+   "message": "No video anywhere on the page.",
+   "fix": "Look for one honest clip with scripts/assets.mjs --video (the place, the material, the process) and use it as a muted loop with a poster frame. Defend its absence only if no clip fits the subject."
+  },
+  {
+   "level": "FAIL",
+   "id": "still-page",
+   "width": 1440,
+   "message": "Only 0 element(s) moved while the page loaded and scrolled.",
+   "fix": "Build the motion layer (SKILL.md step 9, references/motion.md): the signature move, an entrance for the parts of every section, feedback on every control, and one moving picture. Transform and opacity only, with a reduced-motion fallback."
+  }
+ ],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "D:\\Web\\style\\deliverables\\68-audit\\inspect-inspect-wizard\\desktop-fold.jpg",
+   "pages": [
+    "D:\\Web\\style\\deliverables\\68-audit\\inspect-inspect-wizard\\desktop-page-01.jpg"
+   ]
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "D:\\Web\\style\\deliverables\\68-audit\\inspect-inspect-wizard\\mobile-fold.jpg",
+   "pages": [
+    "D:\\Web\\style\\deliverables\\68-audit\\inspect-inspect-wizard\\mobile-page-01.jpg"
+   ]
+  }
+ ]
+}

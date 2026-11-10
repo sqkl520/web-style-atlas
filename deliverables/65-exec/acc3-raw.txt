@@ -1,0 +1,25 @@
+==== 验收 6A：从 #S15 深链进入后，summary 在 Tab 序里排第几 ====
+  页面可聚焦元素共 130 个；第一个 <summary> 排第 119 位，它前面有 114 个元素在详情面板**之外**（rail 芯片 + 30 行方案卡）。
+  详情面板内共 4 个 summary（4 个折叠块 + …）。
+  ⇒ 键盘用户要走到折叠条，必须先在面板外的 114 个元素间穿行。
+     这是**既有结构**（#detail 在 index.html 里排在 .bench 之后），不是本次改动引入；
+     本次改动没有增加面板外的可聚焦元素，也没有把面板内元素挪出 Tab 序。
+
+==== 验收 6B：焦点在 summary 上时，真实 Enter / Space / Esc ====
+  summary.focus() → activeElement=SUMMARY, tabIndex=0, 可聚焦=true; 初始 open=false, stage 高=200
+  真实 Enter → open=true（应 true），stage 高 200 → 200 px
+  再按 Enter → open=false（应 false）
+  真实 Space → open=true（应 true）
+  真实 Esc → detail.hidden=true, hash="", body.class="", JS 异常=0
+  ⇒ Esc 没有让折叠块进入异常状态（没有"卡在展开一半"、没有 JS 报错）；它触发的是 app.js 既有的「收起详情」。
+  重新打开 → hidden=false, 4 个折叠块 open=[false,false,false,false]（应全 false）, summary 数=4
+
+==== 验收 6C：进入面板后，Tab 在 4 个折叠条之间推进 ====
+  焦点序列：SUMMARY「原型截图预览4 张点开看 144」 → A「打开原型 S15-fishe」 → SUMMARY「闸门与报告FAIL 0WARN 」 → SUMMARY「上站文案 4 段主张句 / 按钮」 → SUMMARY「去 AI 味审查点（4 条）」 → BODY「跳到方案清单
+
+
+  
+  」 → A「跳到方案清单」 → A「筛不出来？走选型向导：五个问」
+  这 8 步里经过 4 个 summary —— 说明折叠条确实在 Tab 序里，且是连续可达的。
+
+结论：summary 可聚焦=true、Enter 可展开=true、Space 可展开=true、Esc 无异常=true。

@@ -1,0 +1,38 @@
+﻿实际算出 box-shadow 的非 none 元素：20 个（闸门报 17，其判据是「有外层分量」）
+  纯 inset（只有凹槽、没有外接触阴影）：0
+  混合（inset + 外接触阴影）：16
+  纯外投影：4
+
+== 混合的（这些是「凹槽 + 接触阴影」，闸门按外层分量计一处）==
+  header#top.letterhead insets=1 outer=1 r=0px
+  h3.clause__head insets=1 outer=1 r=0px
+  h3.clause__head insets=1 outer=1 r=0px
+  h3.clause__head insets=1 outer=1 r=0px
+  h3.clause__head insets=1 outer=1 r=0px
+  h3.clause__head insets=1 outer=1 r=0px
+  h3.clause__head insets=1 outer=1 r=0px
+  h3.clause__head insets=1 outer=1 r=0px
+  div.pressline insets=1 outer=1 r=0px
+  li.signchain__row signchain__row--done insets=1 outer=1 r=0px
+  li.signchain__row insets=1 outer=1 r=0px
+  li.signchain__row insets=1 outer=1 r=0px
+  button#archiveBtn.btn insets=1 outer=1 r=0px
+  p#logEmpty.log__empty insets=1 outer=1 r=0px
+  span#quirkChar.quirk__char insets=1 outer=1 r=0px
+  div#cursorPress.cursorpress insets=1 outer=1 r=0px
+
+== 纯外投影 ==
+  div.specimen__foil outer=1 r=0px | rgba(36, 31, 23, 0.08) 2px 2px 3px 0px
+  button#issueBtn.btn btn--issue outer=1 r=0px | rgba(36, 31, 23, 0.08) 2px 2px 3px 0px
+  button#rejectBtn.btn btn--reject outer=1 r=0px | rgba(36, 31, 23, 0.08) 2px 2px 3px 0px
+  button#forwardBtn.btn outer=1 r=0px | rgba(36, 31, 23, 0.08) 2px 2px 3px 0px
+
+== 带 box-shadow 的按钮（button-fx 的 4 个）==
+  「按下即签发（注意光源会反转）」 .btn btn--issue → rgba(36, 31, 23, 0.08) 2px 2px 3px 0px
+  「驳回并退回印样」 .btn btn--reject → rgba(36, 31, 23, 0.08) 2px 2px 3px 0px
+  「转呈复核科」 .btn → rgba(36, 31, 23, 0.08) 2px 2px 3px 0px
+  「归档（须先签发）」 .btn → rgba(36, 31, 23, 0.11) 2px 2px 3px 0px inset, rgba(36, 31, 23, 0.06) 2
+
+判定：
+  可迁 drop-shadow（纯外投影）：4 处
+  不可迁（含 inset，drop-shadow 没有 inset 形式）：16 处

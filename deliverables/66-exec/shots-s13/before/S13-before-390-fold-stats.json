@@ -1,0 +1,106 @@
+{
+  "script": "shot-page.py",
+  "label": "390x844-fold",
+  "input": {
+    "file": "D:\\Web\\style\\deliverables\\66-exec\\shots-s13\\before\\.raw\\S13-before-390-fold.raw.png",
+    "width": 516,
+    "height": 939,
+    "bytes": 419470,
+    "mode": "RGB"
+  },
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "crop": {
+    "x": 0,
+    "y": 0,
+    "width": 390,
+    "height": 844
+  },
+  "pageHeight": 939,
+  "pageHeightSource": "image",
+  "measure": null,
+  "outputs": {
+    "fold": {
+      "file": "S13-before-390-fold.png",
+      "path": "D:\\Web\\style\\deliverables\\66-exec\\shots-s13\\before\\S13-before-390-fold.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 404350
+    }
+  },
+  "slices": [],
+  "screens": 0,
+  "extras": [],
+  "warnings": [],
+  "total": {
+    "width": 390,
+    "height": 844,
+    "meanRgb": [
+      209.12,
+      194.61,
+      162.17
+    ],
+    "rgbStdev": [
+      57.87,
+      54.6,
+      47.0
+    ],
+    "luminanceMean": 195.455,
+    "luminanceStdev": 54.727,
+    "nearWhiteShare": 0.0,
+    "nearBlackShare": 0.0,
+    "top3": [
+      {
+        "rgb": [
+          240,
+          224,
+          187
+        ],
+        "hex": "#f0e0bb",
+        "count": 16389,
+        "share": 0.199162
+      },
+      {
+        "rgb": [
+          240,
+          224,
+          188
+        ],
+        "hex": "#f0e0bc",
+        "count": 10068,
+        "share": 0.122348
+      },
+      {
+        "rgb": [
+          239,
+          223,
+          187
+        ],
+        "hex": "#efdfbb",
+        "count": 8526,
+        "share": 0.103609
+      }
+    ],
+    "dominant": {
+      "rgb": [
+        240,
+        224,
+        187
+      ],
+      "hex": "#f0e0bb",
+      "count": 16389,
+      "share": 0.199162
+    },
+    "sampling": {
+      "sampleStep": 2,
+      "sampledPixels": 82290,
+      "uniqueSampled": 6651
+    },
+    "blank": false,
+    "uniform": false,
+    "file": "S13-before-390-fold.png",
+    "bytes": 404350
+  }
+}

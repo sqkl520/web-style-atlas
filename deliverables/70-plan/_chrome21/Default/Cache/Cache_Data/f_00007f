@@ -1,0 +1,573 @@
+/* 方案 5｜像素冷库台（Pixel Cold-Storage Console）—— 真实原型样式表
+   1980 年代冷库机组控制箱 · 结构类型 F（CONSOLE）· 调性：机能冷峻／工业
+   ─────────────────────────────────────────────────────────────────────
+   配色（字段 3，面积和 100）：
+     铁皮底 #0E100D 58%（背景，色相 100°／饱和 18.8%／明度 5.7%）
+     漆面绿 #4FA83D 18%（主色与读数；对铁皮底 6.33:1）
+     面板灰米 #BFB9A6 20%（面板与蚀刻标签；对铁皮底 9.74:1 ＝ 正文对比度）
+     告警砖红 #8C2F1F 4%（状态灯与警示条；对铁皮底仅 2.29:1，所以只做灯与实色条，
+       不承载任何文字——这是本表唯一一处对规格字段 3 的收窄，理由写进交付说明）
+     漆面绿填充上的文字一律 #111111（6.30:1）；白字只有 3.00:1，已声明不采用。
+   字体分工（字段 4）：Barlow 600＝标题；Departure Mono＝<code>／<pre> 内的数据与读数
+     （契约 §9.8：等宽不得出现在 code 之外）；Glow Sans SC 未来荧黑＝全部中文标签与说明。
+   单位（字段 5／11）：8px 为一个像素单元，12 列 × 8px 栅格，凹槽 6px，外距 48px，
+     基线 8px，标签 12px／行高 1.6，读数 20px／行高 1。全表没有任何 border-radius 用于容器，
+     也没有一处柔和投影：立体感只来自 6px 凹槽、1px 上高光与 1px 下暗边这组单向硬光源。 */
+
+:root {
+  --plate: #0E100D;        /* 铁皮底 */
+  --paint: #4FA83D;        /* 漆面绿 */
+  --panel: #BFB9A6;        /* 面板灰米 */
+  --alarm: #8C2F1F;        /* 告警砖红：只做灯与实色条 */
+  --on-paint: #111111;     /* 漆面绿上的字 6.30:1 */
+  --groove-hi: #2A2E28;    /* 凹槽上高光 1px */
+  --groove-lo: #050605;    /* 凹槽下暗边 1px */
+  --unit: 8px;             /* 一个像素单元 */
+  --groove: 6px;           /* 分区之间的凹槽 */
+  --pad: 48px;             /* 外距 */
+  --relay: cubic-bezier(.4, 0, .6, 1); /* 继电器吸合：对称输入输出 */
+}
+
+* { box-sizing: border-box; }
+
+html { background: var(--plate); }
+
+/* body 保持纯色：整页纹理一律挂伪元素（契约 §9.2 —— 纹理挂 body／文本祖先会让
+   probe 的 bgBehind() 直接跳过整条对比度检查，检查会静默失效）。 */
+body {
+  margin: 0;
+  background: var(--plate);
+  color: var(--panel);
+  font-family: "Glow Sans SC", sans-serif;
+  /* 字号阶梯只有四档：12（标签）／16（正文＝2 个像素单元）／20（读数）／28（标题） */
+  font-size: 16px;
+  line-height: 1.6;
+  font-variant-numeric: tabular-nums;
+}
+
+p { margin: 0; max-width: 62ch; }
+
+h1, h2 {
+  font-family: "Barlow", "Glow Sans SC", sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0;
+  color: var(--panel);
+}
+h1 { font-size: clamp(46px, 6vw, 88px); line-height: 1.02; }
+/* 26px 以上才会被审查当成标题；这里 28px＝3.5 个 8px 单元，标题落在基线上 */
+h2 { font-size: 28px; line-height: 1.2; }
+
+/* 数据与读数只用等宽，且只出现在 <code>／<pre> 内 */
+code {
+  font-family: "Departure Mono", monospace;
+  font-size: inherit;
+  color: inherit;
+  letter-spacing: 0.01em;
+  /* 读数禁用平滑，保住点阵硬边（字段 11） */
+  -webkit-font-smoothing: none;
+}
+.readout, .gauge-value { -webkit-font-smoothing: none; }
+
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--paint); outline-offset: 2px; }
+::selection { background: var(--paint); color: var(--on-paint); }
+
+/* 只有屏幕阅读器拿得到的跳转链接：用契约 §9.10 认得的 clip-path 写法，
+   不用 opacity:0／height:0（那两种会被算进文本统计） */
+.skip {
+  position: absolute;
+  width: 1px; height: 1px;
+  clip-path: inset(50%);
+  overflow: hidden;
+  white-space: nowrap;
+}
+.skip:focus { clip-path: none; width: auto; height: auto; padding: 10px 16px; background: var(--paint); color: var(--on-paint); }
+
+/* ── 48px 蚀刻铭牌条（字段 8：导航不做固定，顶部只有一块铭牌条） ───────── */
+.nameplate {
+  position: relative;
+  min-height: 48px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 28px;
+  padding: 12px var(--pad);
+  background: var(--panel);
+  color: var(--plate);
+  border-bottom: 2px solid var(--plate);
+}
+/* 蚀刻磨损：擦掉漆面露出铁皮。伪元素，不进 bgBehind 的祖先链 */
+.nameplate::before {
+  content: "";
+  position: absolute; inset: 0;
+  background-image: url("assets/plate-wear.png");
+  background-size: 320px 320px;
+  opacity: .22;
+  pointer-events: none;
+}
+.nameplate > * { position: relative; }
+.nameplate-id { font-size: 16px; font-weight: 600; }
+/* 铭牌上的拉丁机型号：字段 4 把标题交给 Barlow 600，中文标题落不到 Barlow，
+   所以让 Barlow 真正承担设备自己的拉丁铭文（不是装饰性的副标题）。 */
+.nameplate-latin {
+  font-family: "Barlow", "Glow Sans SC", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: 0.04em;
+  color: var(--plate);
+}
+.nameplate-live { font-size: 16px; }
+.nameplate-live { display: flex; align-items: center; gap: 8px; }
+
+/* ── 第一屏：主张句 ＋ 主读数 ─────────────────────────────────────── */
+.section { padding: var(--pad) var(--pad) 0; }
+.section + .section { padding-top: 96px; }
+.section-lead { margin-top: 16px; max-width: 64ch; }
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 420px);
+  gap: 32px var(--pad);
+  align-items: start;
+  padding-top: 40px;
+}
+.hero-copy { display: flex; flex-direction: column; gap: 16px; }
+.hero-claim { font-size: 16px; color: var(--panel); }
+.hero-note { font-size: 16px; color: var(--panel); }
+.hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px; margin-top: 8px; }
+.hero-hint { font-size: 16px; max-width: 40ch; }
+
+.btn {
+  font: inherit;
+  font-size: 16px;
+  min-height: 48px;
+  padding: 12px 22px;
+  border: 2px solid var(--paint);
+  border-radius: 0;
+  background: transparent;
+  color: var(--panel);
+  cursor: crosshair;
+  transition: background-color 90ms linear, color 90ms linear;
+}
+.btn--primary { background: var(--paint); color: var(--on-paint); }
+.btn--primary:hover { background: var(--panel); border-color: var(--panel); color: var(--plate); }
+.btn:disabled { background: var(--panel); border-color: var(--panel); color: var(--plate); cursor: default; }
+
+/* 主读数：漆面绿直接漆在铁皮上，不是浮在上面 */
+.gauge {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 18px 20px 16px;
+  background: var(--plate);
+  box-shadow: inset 1px 1px 0 var(--groove-hi), inset -1px -1px 0 var(--groove-lo),
+              inset 0 6px 0 rgba(5, 6, 5, .42);
+}
+.gauge::before {
+  content: "";
+  position: absolute; inset: 0;
+  background-image: url("assets/plate-brushed.png");
+  background-size: 256px 256px;
+  opacity: .5;
+  pointer-events: none;
+}
+.gauge > * { position: relative; z-index: 1; }
+.gauge-value { margin: 0; }
+
+/* ── 5×7 点阵读数：整格方块，无曲线 ──────────────────────────────── */
+.lattice { flex: none; display: block; }
+.lattice-cells { fill: var(--plate); }
+.lattice--xl { height: 56px; }   /* 单元 8px ＝ 一个像素单元 */
+.lattice--md { height: 28px; }   /* 单元 4px */
+.lattice--sm { height: 28px; }
+
+/* ── 五块面板与右侧维护记录栏 ─────────────────────────────────────── */
+.console-shell {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 180px;
+  gap: var(--groove);
+  margin-top: 30px;
+}
+.console-grid {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: var(--groove);
+}
+
+.panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px 18px 14px;
+  background: var(--panel);
+  color: var(--plate);
+  /* 凹槽：两层 inset ＋ 6px 落深。全是 inset，静止状态下没有任何外投影 */
+  box-shadow: inset 1px 1px 0 var(--groove-hi), inset -1px -1px 0 var(--groove-lo),
+              inset 0 6px 0 rgba(5, 6, 5, .42);
+  transition: opacity 120ms linear;
+}
+.panel::before {
+  content: "";
+  position: absolute; inset: 0;
+  background-image: url("assets/plate-wear.png");
+  background-size: 320px 320px;
+  opacity: .18;
+  pointer-events: none;
+}
+.panel > * { position: relative; z-index: 1; }
+.panel--dark {
+  background: var(--plate);
+  color: var(--panel);
+  box-shadow: inset 1px 1px 0 var(--groove-hi), inset -1px -1px 0 var(--groove-lo),
+              inset 0 6px 0 rgba(5, 6, 5, .6);
+}
+.panel--dark::before {
+  background-image: url("assets/plate-brushed.png");
+  background-size: 256px 256px;
+  opacity: .55;
+}
+/* 扫描线栅格：8px 单元里 1px 暗行 ＋ 1px 微亮行，逐行显影就落在这一层。
+   z-index 压到文字之下，纹理是读数的底子而不是盖在读数上的一层膜。 */
+.panel--dark::after, .gauge::after {
+  content: "";
+  position: absolute; inset: 0;
+  z-index: 0;
+  background-image: url("assets/plate-scanline.png"), url("assets/plate-grain.png");
+  background-size: 8px 8px, 192px 192px;
+  pointer-events: none;
+}
+.panel--dark .lattice-cells, .gauge .lattice-cells { fill: var(--paint); }
+.panel--dark code { color: var(--panel); }
+
+/* 分区定位：5 列主库 ／ 2 列除霜 ／ 1 列告警拉高两倍（字段 1 附、字段 5） */
+.panel--main       { grid-column: 1 / 6; grid-row: 1; }
+.panel--defrost    { grid-column: 6 / 8; grid-row: 1; }
+.panel--alarm      { grid-column: 8 / 9; grid-row: 1 / 3; }
+.panel--bay2       { grid-column: 1 / 4; grid-row: 2; }
+.panel--compressor { grid-column: 4 / 6; grid-row: 2; }
+.panel--probe      { grid-column: 6 / 9; grid-row: 2; }
+.panel--marks      { grid-column: 1 / 5; grid-row: 3; }
+.panel--switch     { grid-column: 5 / 9; grid-row: 3; }
+
+.panel-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.lbl { font-size: 12px; line-height: 1.6; letter-spacing: 0.01em; }
+.panel-note { font-size: 16px; max-width: 44ch; }
+.readout { margin: 0; }
+.mark {
+  margin-top: auto;
+  display: flex; flex-wrap: wrap; gap: 4px 14px;
+  font-size: 12px;
+  opacity: .78;
+}
+.alarm-strip { height: 6px; background: var(--alarm); flex: none; }
+
+/* 状态灯：8px 圆形实体灯，凹进面板 1px；只有亮、灭、闪三态 */
+.lamp {
+  flex: none;
+  width: var(--unit);
+  height: var(--unit);
+  border-radius: 50%;
+  background: #191c17;
+  box-shadow: inset 1px 1px 0 rgba(5, 6, 5, .85), inset 0 0 0 1px var(--groove-hi);
+}
+.lamp--on { background: var(--paint); }
+.lamp--alarm { background: var(--alarm); }
+.lamp--flash { background: var(--paint); animation: lamp-flash 1s steps(1, end) infinite; }
+
+/* 读数行：标签 12/16px，读数 20px／行高 1（字段 5）；悬停时底色与文字反相，
+   90ms 线性、无位移（字段 7）。 */
+.rows, .gauge-rows { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 9px; }
+.rows li, .gauge-rows li {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
+  font-size: 16px;
+  padding: 2px 6px;
+  transition: background-color 90ms linear, color 90ms linear;
+}
+.rows code, .gauge-rows code { font-size: 20px; line-height: 1; }
+.rows li:hover, .gauge-rows li:hover { background: var(--paint); color: var(--on-paint); }
+.rows li:nth-child(even) { background: rgba(14, 16, 13, .07); }
+.rows li:nth-child(even):hover { background: var(--paint); }
+
+/* 检修痕迹 */
+.traces { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; font-size: 16px; }
+.traces li { max-width: 52ch; }
+
+/* ── 拨杆：带 perspective 的伪三维刚体，6px 厚侧壁面 ＋ 落位凹槽 ───── */
+.lever {
+  position: relative;
+  width: 56px;
+  height: 120px;
+  flex: none;
+  margin-top: 4px;
+  perspective: 180px;
+}
+.lever-well {
+  position: absolute; left: 18px; top: 0; width: 20px; height: 100%;
+  background: var(--groove-lo);
+  box-shadow: inset 1px 1px 0 var(--groove-hi), inset -1px -1px 0 rgba(191, 185, 166, .28);
+  pointer-events: none;
+}
+.lever-arm {
+  position: absolute; left: 12px; top: 0; width: 32px; height: 44px;
+  transform: translateY(calc(var(--pos, 1) * 76px));
+  transition: transform 120ms steps(2, end);
+  pointer-events: none;
+}
+/* 6px 厚侧壁面：只有这一块有厚度，不做圆角、不做投影 */
+.lever-wall {
+  position: absolute; left: 0; top: 0; width: 6px; height: 100%;
+  background: #7d7a68;
+  box-shadow: inset -1px 0 0 rgba(5, 6, 5, .5);
+}
+.lever-knob {
+  position: absolute; left: 6px; top: 0; width: 26px; height: 100%;
+  background: var(--paint);
+  box-shadow: inset 1px 1px 0 rgba(255, 255, 255, .22), inset -1px -1px 0 rgba(5, 6, 5, .5);
+}
+/* 落位：2 帧共 120ms，随后读数按 steps(4) 跳变；下沉 1px、位移 1px，不做补间 */
+.lever.is-settling .lever-arm { transform: translateY(calc(var(--pos, 1) * 76px + 1px)); }
+.lever.is-settling .lever-knob { transform: translateX(1px); }
+.lever-input {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  margin: 0; opacity: 0;
+  appearance: none;
+  background: transparent;
+  cursor: crosshair;
+}
+.lever:focus-within { outline: 2px solid var(--paint); outline-offset: 2px; }
+.lever-scale { margin-top: -6px; }
+
+/* 探头编号输入 */
+.field-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.field-input {
+  font: inherit;
+  font-size: 16px;
+  width: 12ch;
+  min-height: 34px;
+  padding: 4px 8px;
+  border: 2px solid var(--plate);
+  border-radius: 0;
+  background: rgba(255, 255, 255, .5);
+  color: var(--plate);
+}
+.panel--dark .field-input { border-color: var(--groove-hi); }
+/* 探头编号抄满 6 位后亮出一枚登记标记：只确认"编号抄下了"，
+   不假装读数已经上来（空状态承诺的是 30 秒后才有数）。 */
+.panel--probe.is-probe-logged .mark::after {
+  content: "探头编号已登记 · 等读数";
+  color: var(--paint);
+}
+
+/* 库区切换 */
+.zones { display: flex; flex-wrap: wrap; gap: 6px; }
+.zone {
+  font: inherit;
+  font-size: 16px;
+  min-width: 92px;
+  min-height: 40px;
+  padding: 8px 14px;
+  border: 2px solid var(--panel);
+  border-radius: 0;
+  background: transparent;
+  color: var(--panel);
+  cursor: crosshair;
+  transition: background-color 90ms linear, color 90ms linear;
+}
+.zone[aria-pressed="true"] { background: var(--paint); border-color: var(--paint); color: var(--on-paint); }
+
+/* 维护记录栏（≥1440px 在右侧 180px） */
+.rail {
+  position: relative;
+  padding: 14px 14px 12px;
+  background: var(--plate);
+  box-shadow: inset 1px 1px 0 var(--groove-hi), inset -1px -1px 0 var(--groove-lo);
+  display: flex; flex-direction: column; gap: 10px;
+}
+/* 与面板同一层扫描线材质，逐行显影也落在这一层（同样压在文字之下） */
+.rail::before {
+  content: "";
+  position: absolute; inset: 0;
+  z-index: 0;
+  background-image: url("assets/plate-scanline.png");
+  background-size: 8px 8px;
+  pointer-events: none;
+}
+.rail > * { position: relative; z-index: 1; }
+.rail-title { font-size: 16px; font-weight: 600; color: var(--paint); }
+.rail-note { font-size: 12px; line-height: 1.6; opacity: .8; }
+.rail-power { font-size: 16px; }
+.log { border-collapse: collapse; width: 100%; font-size: 16px; }
+.log caption { font-size: 16px; text-align: start; padding-bottom: 6px; opacity: .8; }
+.log th, .log td { text-align: start; padding: 5px 6px; border-bottom: 1px solid var(--groove-hi); }
+.log th { font-weight: 400; font-size: 12px; color: var(--panel); }
+.log tbody tr:hover { background: var(--paint); color: var(--on-paint); }
+
+/* ── 现场图版：二值抖动照片 ───────────────────────────────────────── */
+.plate-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--groove);
+  margin-top: 30px;
+}
+.plate { position: relative; margin: 0; background: var(--plate); }
+.plate img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  height: auto;
+  object-fit: cover;
+  background: var(--plate);
+}
+/* 图上的扫描线栅格：与面板同一层材质 */
+.plate::after {
+  content: "";
+  position: absolute; inset: 0 0 46px 0;
+  background-image: url("assets/plate-scanline.png");
+  background-size: 8px 8px;
+  pointer-events: none;
+}
+.plate figcaption {
+  display: flex; flex-wrap: wrap; gap: 2px 12px; justify-content: space-between;
+  padding: 8px 10px 10px;
+  font-size: 16px;
+}
+.plate-name { color: var(--panel); }
+.plate-credit { font-size: 16px; color: var(--paint); }
+
+/* ── 页脚 ─────────────────────────────────────────────────────── */
+.colophon {
+  margin-top: 96px;
+  padding: 30px var(--pad) 56px;
+  border-top: 2px solid var(--groove-hi);
+  display: flex; flex-direction: column; gap: 12px;
+}
+.colophon-title { font-size: 16px; font-weight: 600; color: var(--paint); }
+.colophon p { font-size: 16px; max-width: 66ch; }
+
+/* ── 动效 ─────────────────────────────────────────────────────── */
+/* 自检序列：八盏灯各亮三次后停在当前状态，整段 1.4s，按面板编号固定顺序错开 */
+@keyframes lamp-selfcheck {
+  0%, 10%    { opacity: 1; }
+  11%, 21%   { opacity: .12; }
+  22%, 32%   { opacity: 1; }
+  33%, 42%   { opacity: .12; }
+  43%, 53%   { opacity: 1; }
+  54%, 64%   { opacity: .12; }
+  65%, 100%  { opacity: 1; }
+}
+@keyframes lamp-flash {
+  0%, 49%   { opacity: 1; }
+  50%, 100% { opacity: .16; }
+}
+body.is-selfchecking .lamp {
+  animation: lamp-selfcheck calc(1400ms - var(--lamp-delay, 0ms)) steps(1, end) var(--lamp-delay, 0ms) 1 both;
+}
+.panel:nth-of-type(1) { --lamp-delay: 0ms; }
+.panel:nth-of-type(2) { --lamp-delay: 50ms; }
+.panel:nth-of-type(3) { --lamp-delay: 100ms; }
+.panel:nth-of-type(4) { --lamp-delay: 150ms; }
+.panel:nth-of-type(5) { --lamp-delay: 200ms; }
+.panel:nth-of-type(6) { --lamp-delay: 250ms; }
+.panel:nth-of-type(7) { --lamp-delay: 300ms; }
+.panel:nth-of-type(8) { --lamp-delay: 350ms; }
+
+/* 扫描线栅格刷新：每行 8ms、整块 480ms ＝ steps(60)，造逐行推进的顿挫而非平滑淡入。
+   显影落在 ::after 的扫描线层上（clip-path 自下而上收），面板本体始终可见，
+   这样静态截图里不会出现"半块空面板"。 */
+@keyframes scan-refresh {
+  from { clip-path: inset(100% 0 0 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+.panel.is-scanned::after, .panel.is-scanned::before,
+.plate.is-scanned::after, .rail.is-scanned::before { animation: scan-refresh 480ms steps(60, end) both; }
+.panel.is-blanked { opacity: .06; transition: opacity 120ms var(--relay); }
+
+/* ── 断点 3：1024–1439px 折为六面板，维护记录栏并入底部（字段 5） ─── */
+@media (max-width: 1439px) {
+  .console-shell { grid-template-columns: minmax(0, 1fr); }
+  .panel--compressor, .panel--marks { display: none; }
+  /* 六面板下把 1 列让给告警：错误文案比除霜读数长得多，主库仍占 5 列 */
+  .panel--defrost    { grid-column: 6 / 7; }
+  .panel--alarm      { grid-column: 7 / 9; }
+  .panel--bay2       { grid-column: 1 / 5; }
+  .panel--probe      { grid-column: 5 / 7; grid-row: 2; }
+  .panel--switch     { grid-column: 1 / 9; grid-row: 3; }
+  .rail { flex-direction: row; flex-wrap: wrap; align-items: flex-start; gap: 6px 28px; }
+  .rail .log { width: auto; min-width: 240px; }
+  .rail-note, .rail .mark { flex-basis: 100%; max-width: 74ch; }
+}
+
+/* ── 断点 2：1024px 以下单列纵向；768 以下拨杆改横向滑块、点阵降到 6px 单元 × 9px 行距 ── */
+@media (max-width: 1023px) {
+  :root { --pad: 32px; }
+  .section + .section { padding-top: 88px; }
+  .hero { grid-template-columns: minmax(0, 1fr); }
+  .console-grid { grid-template-columns: minmax(0, 1fr); }
+  .panel { grid-column: 1 / -1 !important; grid-row: auto !important; }
+  .plate-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 767px) {
+  :root { --pad: 20px; }
+  .nameplate { padding: 12px var(--pad); }
+  h1 { font-size: 46px; }
+  h2 { font-size: 26px; }
+  /* 点阵读数降到 6×9 像素单元（字段 5 的窄屏形态）：格宽 6px、格高 9px，
+     一行 9px、一格 6px。preserveAspectRatio="none" 把方格拉成 6×9 矩形，
+     所以整格方块的硬边仍在，只是像素单元不再是正方形。 */
+  .lattice { height: 63px; }
+  .lattice--w41 { width: 246px; }
+  .lattice--w23 { width: 138px; }
+  .lattice--w17 { width: 102px; }
+  .rows { gap: 9px; }
+  /* 图版在窄屏改成错落拼版：两张大图做整幅，中间两张并排，宽度不等 */
+  .plate-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); align-items: start; }
+  .plate:nth-child(1) { grid-column: span 6; }
+  .plate:nth-child(2) { grid-column: span 3; }
+  .plate:nth-child(3) { grid-column: span 3; }
+  .plate:nth-child(4) { grid-column: span 6; }
+  .plate:nth-child(5) { grid-column: span 3; }
+  .plate:nth-child(6) { grid-column: span 3; }
+  .plate img { aspect-ratio: 4 / 3; }  /* 拨杆改横向滑块：同一个 <input type="range">，窄屏露出原生轨道 */
+  .lever { width: 100%; height: auto; perspective: none; margin: 2px 0 0; }
+  .lever-well, .lever-arm { display: none; }
+  .lever-input {
+    position: static;
+    opacity: 1;
+    height: 34px;
+    appearance: none;
+  }
+  .lever-input::-webkit-slider-runnable-track {
+    height: 6px;
+    background: var(--groove-lo);
+    box-shadow: inset 1px 1px 0 var(--groove-hi);
+  }
+  .lever-input::-webkit-slider-thumb {
+    appearance: none;
+    width: 16px; height: 30px;
+    margin-top: -12px;
+    background: var(--paint);
+    border: 0; border-radius: 0;
+  }
+  .lever-input::-moz-range-track { height: 6px; background: var(--groove-lo); }
+  .lever-input::-moz-range-thumb { width: 16px; height: 30px; background: var(--paint); border: 0; border-radius: 0; }
+  .lever-scale { margin-top: 2px; }
+}
+
+/* ── 降级：prefers-reduced-motion ─────────────────────────────── */
+/* 逐行显影（60 行 × 8ms＝480ms）与自检序列（1.4s／3 次闪烁）冻结，
+   只保留 120ms 不透明度切换；闪烁态灯改常亮（1Hz → 0Hz）。
+   扫描线栅格保留 8px 点距，点阵读数仍是整格方块——机制在降级下换形式，不是被关掉。 */
+@media (prefers-reduced-motion: reduce) {
+  body.is-selfchecking .lamp { animation: none; }
+  .lamp--flash { animation: none; opacity: 1; }
+  .panel.is-scanned::after, .panel.is-scanned::before,
+  .plate.is-scanned::after, .rail.is-scanned::before { animation: none; clip-path: none; }
+  .panel, .panel.is-blanked { transition: opacity 120ms linear; }
+  .lever-arm { transition: transform 1ms linear; }
+  .btn, .zone, .rows li { transition-duration: 1ms; }
+}

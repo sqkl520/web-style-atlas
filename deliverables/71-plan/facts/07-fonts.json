@@ -1,0 +1,1570 @@
+{
+ "at": "2026-10-29T19:57:30.536Z",
+ "summary": {
+  "n": 30,
+  "L1_isRawSpecText": 30,
+  "L2_eq_L3": 30,
+  "ui": {
+   "useSites": [
+    {
+     "file": "app.js",
+     "line": 235,
+     "code": "var hay = [r.id, r.cn, r.en, r.family, r.fonts, r.def, r.tone, r.structure,",
+     "side": "data.js (字符串)"
+    },
+    {
+     "file": "app.js",
+     "line": 1353,
+     "code": "field('字体策略', r.fonts) +",
+     "side": "data.js (字符串)"
+    },
+    {
+     "file": "prompt-copy.js",
+     "line": 157,
+     "code": "/* 字体：**不再猜**。prompts.js 里的 dna.fonts 已经是 {display, body, mono} 三个结构化字段，",
+     "side": "prompts.js (对象)"
+    },
+    {
+     "file": "prompt-copy.js",
+     "line": 162,
+     "code": "* 旧实现按数组顺序「第一个非 mono 非 CJK 的族」当标题 —— 而 dna.fonts 的顺序是",
+     "side": "prompts.js (对象)"
+    },
+    {
+     "file": "prompt-copy.js",
+     "line": 176,
+     "code": "if (d.fonts && !Array.isArray(d.fonts) && (d.fonts.display || d.fonts.body)) {",
+     "side": "prompts.js (对象)"
+    },
+    {
+     "file": "prompt-copy.js",
+     "line": 177,
+     "code": "fTitle = d.fonts.display || d.fonts.body || \"\";",
+     "side": "prompts.js (对象)"
+    },
+    {
+     "file": "prompt-copy.js",
+     "line": 178,
+     "code": "fBody = d.fonts.body || fTitle;",
+     "side": "prompts.js (对象)"
+    },
+    {
+     "file": "prompt-copy.js",
+     "line": 179,
+     "code": "mono = d.fonts.mono || \"\";",
+     "side": "prompts.js (对象)"
+    },
+    {
+     "file": "prompt-copy.js",
+     "line": 180,
+     "code": "} else if (d.fonts && d.fonts.length) {",
+     "side": "prompts.js (对象)"
+    },
+    {
+     "file": "prompt-copy.js",
+     "line": 182,
+     "code": "for (var i = 0; i < d.fonts.length; i++) {",
+     "side": "prompts.js (对象)"
+    },
+    {
+     "file": "prompt-copy.js",
+     "line": 183,
+     "code": "var f = d.fonts[i];",
+     "side": "prompts.js (对象)"
+    },
+    {
+     "file": "prompt-copy.js",
+     "line": 225,
+     "code": "var fStack = trimStack((d.fonts && d.fonts.displayStack) || [], 4);",
+     "side": "prompts.js (对象)"
+    },
+    {
+     "file": "prompt-copy.js",
+     "line": 226,
+     "code": "var bStack = trimStack((d.fonts && d.fonts.bodyStack) || [], 4);",
+     "side": "prompts.js (对象)"
+    }
+   ],
+   "availabilityAPI": []
+  },
+  "specFamilyStats": {
+   "meanSpecFamilies": 2.23,
+   "meanCssFamilies": 5.27,
+   "meanHitRatio": 0.781,
+   "perfect": 19,
+   "worst": [
+    {
+     "id": "S01",
+     "miss": [
+      "得意黑"
+     ]
+    },
+    {
+     "id": "S08",
+     "miss": [
+      "京华老宋体"
+     ]
+    },
+    {
+     "id": "S09",
+     "miss": [
+      "霞鹜文楷"
+     ]
+    },
+    {
+     "id": "S11",
+     "miss": [
+      "Redaction"
+     ]
+    },
+    {
+     "id": "S13",
+     "miss": [
+      "文津宋体"
+     ]
+    },
+    {
+     "id": "S19",
+     "miss": [
+      "京华老宋体"
+     ]
+    }
+   ]
+  },
+  "emptySlots": {
+   "display": 0,
+   "body": 0,
+   "mono": [
+    "S25"
+   ]
+  }
+ },
+ "rows": [
+  {
+   "id": "S01",
+   "L1_kind": "string",
+   "L1_len": 374,
+   "L1_isRawSpecText": true,
+   "L2_kind": "object",
+   "L3_kind": "object",
+   "L2_eq_L3": true,
+   "slots": {
+    "display": "Noto Sans SC",
+    "body": "Noto Sans SC",
+    "mono": "Martian Mono"
+   },
+   "stacks": {
+    "displayStack": [
+     "Noto Sans SC",
+     "Source Han Sans SC"
+    ],
+    "bodyStack": [
+     "Noto Sans SC",
+     "Source Han Sans SC"
+    ]
+   },
+   "specFamilies": [
+    "得意黑",
+    "思源黑体"
+   ],
+   "negatedFonts": [],
+   "cssFamilies": [
+    "Archivo",
+    "Noto Sans SC",
+    "Source Han Sans SC",
+    "Martian Mono",
+    "Noto Sans Mono"
+   ],
+   "specHitInCss": [
+    "思源黑体"
+   ],
+   "specMissInCss": [
+    "得意黑"
+   ],
+   "hitRatio": 0.5,
+   "uiNeedsOnlyText": true,
+   "uiNeedsSearch": true,
+   "uiNeedsStructured": false
+  },
+  {
+   "id": "S02",
+   "L1_kind": "string",
+   "L1_len": 266,
+   "L1_isRawSpecText": true,
+   "L2_kind": "object",
+   "L3_kind": "object",
+   "L2_eq_L3": true,
+   "slots": {
+    "display": "Bodoni Moda",
+    "body": "Noto Serif SC",
+    "mono": "IBM Plex Mono"
+   },
+   "stacks": {
+    "displayStack": [
+     "Bodoni Moda",
+     "Noto Serif SC"
+    ],
+    "bodyStack": [
+     "Noto Serif SC",
+     "Songti SC"
+    ]
+   },
+   "specFamilies": [
+    "思源宋体"
+   ],
+   "negatedFonts": [],
+   "cssFamilies": [
+    "Noto Serif SC",
+    "Songti SC",
+    "Bodoni Moda",
+    "IBM Plex Mono"
+   ],
+   "specHitInCss": [
+    "思源宋体"
+   ],
+   "specMissInCss": [],
+   "hitRatio": 1,
+   "uiNeedsOnlyText": true,
+   "uiNeedsSearch": true,
+   "uiNeedsStructured": false
+  },
+  {
+   "id": "S03",
+   "L1_kind": "string",
+   "L1_len": 257,
+   "L1_isRawSpecText": true,
+   "L2_kind": "object",
+   "L3_kind": "object",
+   "L2_eq_L3": true,
+   "slots": {
+    "display": "IBM Plex Mono",
+    "body": "IBM Plex Sans",
+    "mono": "IBM Plex Mono"
+   },
+   "stacks": {
+    "displayStack": [
+     "IBM Plex Mono",
+     "Cascadia Mono",
+     "Consolas"
+    ],
+    "bodyStack": [
+     "IBM Plex Sans",
+     "Noto Sans SC",
+     "Source Han Sans SC",
+     "Microsoft YaHei"
+    ]
+   },
+   "specFamilies": [
+    "思源黑体"
+   ],
+   "negatedFonts": [],
+   "cssFamilies": [
+    "IBM Plex Sans",
+    "Noto Sans SC",
+    "Source Han Sans SC",
+    "Microsoft YaHei",
+    "IBM Plex Mono",
+    "Cascadia Mono",
+    "Consolas",
+    "Space Grotesk"
+   ],
+   "specHitInCss": [
+    "思源黑体"
+   ],
+   "specMissInCss": [],
+   "hitRatio": 1,
+   "uiNeedsOnlyText": true,
+   "uiNeedsSearch": true,
+   "uiNeedsStructured": false
+  },
+  {
+   "id": "S04",
+   "L1_kind": "string",
+   "L1_len": 256,
+   "L1_isRawSpecText": true,
+   "L2_kind": "object",
+   "L3_kind": "object",
+   "L2_eq_L3": true,
+   "slots": {
+    "display": "LXGW WenKai",
+    "body": "Redaction 20",
+    "mono": "Martian Mono"
+   },
+   "stacks": {
+    "displayStack": [
+     "LXGW WenKai",
+     "KaiTi",
+     "STKaiti",
+     "Kaiti SC"
+    ],
+    "bodyStack": [
+     "Redaction 20",
+     "Georgia",
+     "Nimbus Roman",
+     "LXGW WenKai"
+    ]
+   },
+   "specFamilies": [
+    "霞鹜文楷"
+   ],
+   "negatedFonts": [],
+   "cssFamilies": [
+    "Redaction 20",
+    "Georgia",
+    "Nimbus Roman",
+    "LXGW WenKai",
+    "KaiTi",
+    "STKaiti",
+    "Kaiti SC",
+    "Unbounded",
+    "Martian Mono"
+   ],
+   "specHitInCss": [
+    "霞鹜文楷"
+   ],
+   "specMissInCss": [],
+   "hitRatio": 1,
+   "uiNeedsOnlyText": true,
+   "uiNeedsSearch": true,
+   "uiNeedsStructured": false
+  },
+  {
+   "id": "S05",
+   "L1_kind": "string",
+   "L1_len": 228,
+   "L1_isRawSpecText": true,
+   "L2_kind": "object",
+   "L3_kind": "object",
+   "L2_eq_L3": true,
+   "slots": {
+    "display": "Barlow",
+    "body": "Glow Sans SC",
+    "mono": "Departure Mono"
+   },
+   "stacks": {
+    "displayStack": [
+     "Barlow",
+     "Glow Sans SC"
+    ],
+    "bodyStack": [
+     "Glow Sans SC"
+    ]
+   },
+   "specFamilies": [],
+   "negatedFonts": [],
+   "cssFamilies": [
+    "Glow Sans SC",
+    "Barlow",
+    "Departure Mono"
+   ],
+   "specHitInCss": [],
+   "specMissInCss": [],
+   "hitRatio": null,
+   "uiNeedsOnlyText": true,
+   "uiNeedsSearch": true,
+   "uiNeedsStructured": false
+  },
+  {
+   "id": "S06",
+   "L1_kind": "string",
+   "L1_len": 253,
+   "L1_isRawSpecText": true,
+   "L2_kind": "object",
+   "L3_kind": "object",
+   "L2_eq_L3": true,
+   "slots": {
+    "display": "EB Garamond",
+    "body": "Literata",
+    "mono": "Martian Mono"
+   },
+   "stacks": {
+    "displayStack": [
+     "EB Garamond",
+     "Noto Serif SC",
+     "Songti SC",
+     "Georgia"
+    ],
+    "bodyStack": [
+     "Literata",
+     "Noto Serif SC",
+     "Songti SC",
+     "Georgia"
+    ]
+   },
+   "specFamilies": [],
+   "negatedFonts": [],
+   "cssFamilies": [
+    "EB Garamond",
+    "Noto Serif SC",
+    "Songti SC",
+    "Georgia",
+    "Literata",
+    "Martian Mono"
+   ],
+   "specHitInCss": [],
+   "specMissInCss": [],
+   "hitRatio": null,
+   "uiNeedsOnlyText": true,
+   "uiNeedsSearch": true,
+   "uiNeedsStructured": false
+  },
+  {
+   "id": "S07",
+   "L1_kind": "string",
+   "L1_len": 256,
+   "L1_isRawSpecText": true,
+   "L2_kind": "object",
+   "L3_kind": "object",
+   "L2_eq_L3": true,
+   "slots": {
+    "display": "Libre Franklin",
+    "body": "Newsreader",
+    "mono": "IBM Plex Mono"
+   },
+   "stacks": {
+    "displayStack": [
+     "Libre Franklin",
+     "WenJin Mincho",
+     "文津宋体",
+     "Source Han Serif SC"
+    ],
+    "bodyStack": [
+     "Newsreader",
+     "WenJin Mincho",
+     "文津宋体",
+     "Source Han Serif SC"
+    ]
+   },
+   "specFamilies": [
+    "文津宋体"
+   ],
+   "negatedFonts": [],
+   "cssFamilies": [
+    "Libre Franklin",
+    "WenJin Mincho",
+    "文津宋体",
+    "Source Han Serif SC",
+    "Noto Serif CJK SC",
+    "Songti SC",
+    "SimSun",
+    "Newsreader",
+    "IBM Plex Mono",
+    "Noto Sans Mono CJK SC"
+   ],
+   "specHitInCss": [
+    "文津宋体"
+   ],
+   "specMissInCss": [],
+   "hitRatio": 1,
+   "uiNeedsOnlyText": true,
+   "uiNeedsSearch": true,
+   "uiNeedsStructured": false
+  },
+  {
+   "id": "S08",
+   "L1_kind": "string",
+   "L1_len": 401,
+   "L1_isRawSpecText": true,
+   "L2_kind": "object",
+   "L3_kind": "object",
+   "L2_eq_L3": true,
+   "slots": {
+    "display": "Gloock",
+    "body": "Source Serif 4",
+    "mono": "Overprint Numerals"
+   },
+   "stacks": {
+    "displayStack": [
+     "Gloock",
+     "Source Serif 4",
+     "Noto Serif SC"
+    ],
+    "bodyStack": [
+     "Source Serif 4",
+     "Noto Serif SC",
+     "Songti SC"
+    ]
+   },
+   "specFamilies": [
+    "京华老宋体"
+   ],
+   "negatedFonts": [],
+   "cssFamilies": [
+    "Noto Serif SC",
+    "Songti SC",
+    "Gloock",
+    "Source Serif 4",
+    "Overprint Numerals"
+   ],
+   "specHitInCss": [],
+   "specMissInCss": [
+    "京华老宋体"
+   ],
+   "hitRatio": 0,
+   "uiNeedsOnlyText": true,
+   "uiNeedsSearch": true,
+   "uiNeedsStructured": false
+  },
+  {
+   "id": "S09",
+   "L1_kind": "string",
+   "L1_len": 351,
+   "L1_isRawSpecText": true,
+   "L2_kind": "object",
+   "L3_kind": "object",
+   "L2_eq_L3": true,
+   "slots": {
+    "display": "LXGW Marker Gothic",
+    "body": "LXGW Marker Gothic",
+    "mono": "JetBrains Mono"
+   },
+   "stacks": {
+    "displayStack": [
+     "LXGW Marker Gothic",
+     "Syne"
+    ],
+    "bodyStack": [
+     "LXGW Marker Gothic"
+    ]
+   },
+   "specFamilies": [
+    "霞鹜文楷",
+    "霞鹜漫黑"
+   ],
+   "negatedFonts": [],
+   "cssFamilies": [
+    "LXGW Marker Gothic",
+    "Syne",
+    "JetBrains Mono"
+   ],
+   "specHitInCss": [
+    "霞鹜漫黑"
+   ],
+   "specMissInCss": [
+    "霞鹜文楷"
+   ],
+   "hitRatio": 0.5,
+   "uiNeedsOnlyText": true,
+   "uiNeedsSearch": true,
+   "uiNeedsStructured": false
+  },
+  {
+   "id": "S10",
+   "L1_kind": "string",
+   "L1_len": 268,
+   "L1_isRawSpecText": true,
+   "L2_kind": "object",
+   "L3_kind": "object",
+   "L2_eq_L3": true,
+   "slots": {
+    "display": "Jost",
+    "body": "IBM Plex Sans",
+    "mono": "IBM Plex Mono"
+   },
+   "stacks": {
+    "displayStack": [
+     "Jost",
+     "Noto Sans SC"
+    ],
+    "bodyStack": [
+     "IBM Plex Sans",
+     "Noto Sans SC"
+    ]
+   },
+   "specFamilies": [
+    "思源黑体"
+   ],
+   "negatedFonts": [],
+   "cssFamilies": [
+    "Jost",
+    "Noto Sans SC",
+    "IBM Plex Sans",
+    "IBM Plex Mono"
+   ],
+   "specHitInCss": [
+    "思源黑体"
+   ],
+   "specMissInCss": [],
+   "hitRatio": 1,
+   "uiNeedsOnlyText": true,
+   "uiNeedsSearch": true,
+   "uiNeedsStructured": false
+  },
+  {
+   "id": "S11",
+   "L1_kind": "string",
+   "L1_len": 513,
+   "L1_isRawSpecText": true,
+   "L2_kind": "object",
+   "L3_kind": "object",
+   "L2_eq_L3": true,
+   "slots": {
+    "display": "EB Garamond",
+    "body": "LXGW WenKai TC",
+    "mono": "Martian Mono"
+   },
+   "stacks": {
+    "displayStack": [
+     "EB Garamond",
+     "LXGW WenKai TC",
+     "Noto Serif SC"
+    ],
+    "bodyStack": [
+     "LXGW WenKai TC",
+     "Kaiti SC",
+     "KaiTi",
+     "Noto Serif SC"
+    ]
+   },
+   "specFamilies": [
+    "Redaction",
+    "Martian Mono",
+    "霞鹜文楷"
+   ],
+   "negatedFonts": [
+    "EB Garamond"
+   ],
+   "cssFamilies": [
+    "12px",
+    "LXGW WenKai TC",
+    "Kaiti SC",
+    "KaiTi",
+    "Noto Serif SC",
+    "EB Garamond",
+    "Martian Mono",
+    "Noto Sans Mono",
+    "Courier New"
+   ],
+   "specHitInCss": [
+    "Martian Mono",
+    "霞鹜文楷"
+   ],
+   "specMissInCss": [
+    "Redaction"
+   ],
+   "hitRatio": 0.67,
+   "uiNeedsOnlyText": true,
+   "uiNeedsSearch": true,
+   "uiNeedsStructured": false
+  },
+  {
+   "id": "S12",
+   "L1_kind": "string",
+   "L1_len": 470,
+   "L1_isRawSpecText": true,
+   "L2_kind": "object",
+   "L3_kind": "object",
+   "L2_eq_L3": true,
+   "slots": {
+    "display": "Bricolage Grotesque",
+    "body": "Glow Sans SC",
+    "mono": "JetBrains Mono"
+   },
+   "stacks": {
+    "displayStack": [
+     "Bricolage Grotesque",
+     "Glow Sans SC"
+    ],
+    "bodyStack": [
+     "Glow Sans SC",
+     "Noto Sans SC",
+     "Source Han Sans SC",
+     "PingFang SC"
+    ]
+   },
+   "specFamilies": [
+    "Bricolage Grotesque",
+    "JetBrains Mono"
+   ],
+   "negatedFonts": [],
+   "cssFamilies": [
+    "Glow Sans SC",
+    "Noto Sans SC",
+    "Source Han Sans SC",
+    "PingFang SC",
+    "Bricolage Grotesque",
+    "JetBrains Mono",
+    "Noto Sans Mono"
+   ],
+   "specHitInCss": [
+    "Bricolage Grotesque",
+    "JetBrains Mono"
+   ],
+   "specMissInCss": [],
+   "hitRatio": 1,
+   "uiNeedsOnlyText": true,
+   "uiNeedsSearch": true,
+   "uiNeedsStructured": false
+  },
+  {
+   "id": "S13",
+   "L1_kind": "string",
+   "L1_len": 363,
+   "L1_isRawSpecText": true,
+   "L2_kind": "object",
+   "L3_kind": "object",
+   "L2_eq_L3": true,
+   "slots": {
+    "display": "EB Garamond",
+    "body": "Noto Serif SC",
+    "mono": "DM Mono"
+   },
+   "stacks": {
+    "displayStack": [
+     "EB Garamond",
+     "Noto Serif SC"
+    ],
+    "bodyStack": [
+     "Noto Serif SC",
+     "Songti SC",
+     "SimSun"
+    ]
+   },
+   "specFamilies": [
+    "EB Garamond",
+    "DM Mono",
+    "文津宋体"
+   ],
+   "negatedFonts": [],
+   "cssFamilies": [
+    "EB Garamond",
+    "Noto Serif SC",
+    "Songti SC",
+    "SimSun",
+    "DM Mono"
+   ],
+   "specHitInCss": [
+    "EB Garamond",
+    "DM Mono"
+   ],
+   "specMissInCss": [
+    "文津宋体"
+   ],
+   "hitRatio": 0.67,
+   "uiNeedsOnlyText": true,
+   "uiNeedsSearch": true,
+   "uiNeedsStructured": false
+  },
+  {
+   "id": "S14",
+   "L1_kind": "string",
+   "L1_len": 320,
+   "L1_isRawSpecText": true,
+   "L2_kind": "object",
+   "L3_kind": "object",
+   "L2_eq_L3": true,
+   "slots": {
+    "display": "Oswald",
+    "body": "Noto Serif SC",
+    "mono": "Space Mono"
+   },
+   "stacks": {
+    "displayStack": [
+     "Oswald",
+     "Noto Serif SC"
+    ],
+    "bodyStack": [
+     "Noto Serif SC",
+     "Oswald",
+     "Georgia"
+    ]
+   },
+   "specFamilies": [
+    "Oswald",
+    "Space Mono"
+   ],
+   "negatedFonts": [],
+   "cssFamilies": [
+    "Noto Serif SC",
+    "Oswald",
+    "Georgia",
+    "Space Mono"
+   ],
+   "specHitInCss": [
+    "Oswald",
+    "Space Mono"
+   ],
+   "specMissInCss": [],
+   "hitRatio": 1,
+   "uiNeedsOnlyText": true,
+   "uiNeedsSearch": true,
+   "uiNeedsStructured": false
+  },
+  {
+   "id": "S15",
+   "L1_kind": "string",
+   "L1_len": 318,
+   "L1_isRawSpecText": true,
+   "L2_kind": "object",
+   "L3_kind": "object",
+   "L2_eq_L3": true,
+   "slots": {
+    "display": "Newsreader",
+    "body": "Noto Serif SC",
+    "mono": "Reddit Mono"
+   },
+   "stacks": {
+    "displayStack": [
+     "Newsreader",
+     "Noto Serif SC",
+     "Georgia"
+    ],
+    "bodyStack": [
+     "Noto Serif SC",
+     "Newsreader",
+     "Georgia"
+    ]
+   },
+   "specFamilies": [
+    "Newsreader",
+    "Reddit Mono",
+    "思源宋体"
+   ],
+   "negatedFonts": [],
+   "cssFamilies": [
+    "Noto Serif SC",
+    "Newsreader",
+    "Georgia",
+    "Reddit Mono"
+   ],
+   "specHitInCss": [
+    "Newsreader",
+    "Reddit Mono",
+    "思源宋体"
+   ],
+   "specMissInCss": [],
+   "hitRatio": 1,
+   "uiNeedsOnlyText": true,
+   "uiNeedsSearch": true,
+   "uiNeedsStructured": false
+  },
+  {
+   "id": "S16",
+   "L1_kind": "string",
+   "L1_len": 500,
+   "L1_isRawSpecText": true,
+   "L2_kind": "object",
+   "L3_kind": "object",
+   "L2_eq_L3": true,
+   "slots": {
+    "display": "LXGW Marker Gothic",
+    "body": "Noto Serif SC",
+    "mono": "Fragment Mono"
+   },
+   "stacks": {
+    "displayStack": [
+     "LXGW Marker Gothic",
+     "Noto Serif SC"
+    ],
+    "bodyStack": [
+     "Noto Serif SC",
+     "Georgia",
+     "Songti SC"
+    ]
+   },
+   "specFamilies": [
+    "Archivo Black",
+    "Fragment Mono",
+    "思源宋体",
+    "霞鹜漫黑"
+   ],
+   "negatedFonts": [],
+   "cssFamilies": [
+    "Noto Serif SC",
+    "Georgia",
+    "Songti SC",
+    "Fragment Mono",
+    "LXGW Marker Gothic",
+    "Archivo Black"
+   ],
+   "specHitInCss": [
+    "Archivo Black",
+    "Fragment Mono",
+    "思源宋体",
+    "霞鹜漫黑"
+   ],
+   "specMissInCss": [],
+   "hitRatio": 1,
+   "uiNeedsOnlyText": true,
+   "uiNeedsSearch": true,
+   "uiNeedsStructured": false
+  },
+  {
+   "id": "S17",
+   "L1_kind": "string",
+   "L1_len": 358,
+   "L1_isRawSpecText": true,
+   "L2_kind": "object",
+   "L3_kind": "object",
+   "L2_eq_L3": true,
+   "slots": {
+    "display": "Literata",
+    "body": "文津宋体",
+    "mono": "Sometype Mono"
+   },
+   "stacks": {
+    "displayStack": [
+     "Literata",
+     "文津宋体",
+     "Noto Serif SC"
+    ],
+    "bodyStack": [
+     "文津宋体",
+     "WenJin Mincho SC",
+     "Noto Serif SC",
+     "Source Han Serif SC"
+    ]
+   },
+   "specFamilies": [
+    "Literata",
+    "Sometype Mono",
+    "文津宋体"
+   ],
+   "negatedFonts": [],
+   "cssFamilies": [
+    "文津宋体",
+    "WenJin Mincho SC",
+    "Noto Serif SC",
+    "Source Han Serif SC",
+    "Songti SC",
+    "Literata",
+    "Sometype Mono",
+    "Noto Sans Mono"
+   ],
+   "specHitInCss": [
+    "Literata",
+    "Sometype Mono",
+    "文津宋体"
+   ],
+   "specMissInCss": [],
+   "hitRatio": 1,
+   "uiNeedsOnlyText": true,
+   "uiNeedsSearch": true,
+   "uiNeedsStructured": false
+  },
+  {
+   "id": "S18",
+   "L1_kind": "string",
+   "L1_len": 341,
+   "L1_isRawSpecText": true,
+   "L2_kind": "object",
+   "L3_kind": "object",
+   "L2_eq_L3": true,
+   "slots": {
+    "display": "Glow Sans SC",
+    "body": "Glow Sans SC",
+    "mono": "VT323"
+   },
+   "stacks": {
+    "displayStack": [
+     "Glow Sans SC",
+     "Songti SC",
+     "Georgia",
+     "Times New Roman"
+    ],
+    "bodyStack": [
+     "Glow Sans SC",
+     "Songti SC",
+     "Georgia",
+     "Times New Roman"
+    ]
+   },
+   "specFamilies": [
+    "VT323",
+    "Martian Mono"
+   ],
+   "negatedFonts": [],
+   "cssFamilies": [
+    "Martian Mono",
+    "Courier New",
+    "Glow Sans SC",
+    "Songti SC",
+    "Georgia",
+    "Times New Roman",
+    "VT323"
+   ],
+   "specHitInCss": [
+    "VT323",
+    "Martian Mono"
+   ],
+   "specMissInCss": [],
+   "hitRatio": 1,
+   "uiNeedsOnlyText": true,
+   "uiNeedsSearch": true,
+   "uiNeedsStructured": false
+  },
+  {
+   "id": "S19",
+   "L1_kind": "string",
+   "L1_len": 371,
+   "L1_isRawSpecText": true,
+   "L2_kind": "object",
+   "L3_kind": "object",
+   "L2_eq_L3": true,
+   "slots": {
+    "display": "Noto Serif SC",
+    "body": "Noto Serif SC",
+    "mono": "IBM Plex Mono"
+   },
+   "stacks": {
+    "displayStack": [
+     "Noto Serif SC",
+     "Georgia"
+    ],
+    "bodyStack": [
+     "Noto Serif SC",
+     "Georgia"
+    ]
+   },
+   "specFamilies": [
+    "Spectral",
+    "IBM Plex Mono",
+    "京华老宋体"
+   ],
+   "negatedFonts": [],
+   "cssFamilies": [
+    "Noto Serif SC",
+    "Georgia",
+    "IBM Plex Mono",
+    "Spectral"
+   ],
+   "specHitInCss": [
+    "Spectral",
+    "IBM Plex Mono"
+   ],
+   "specMissInCss": [
+    "京华老宋体"
+   ],
+   "hitRatio": 0.67,
+   "uiNeedsOnlyText": true,
+   "uiNeedsSearch": true,
+   "uiNeedsStructured": false
+  },
+  {
+   "id": "S20",
+   "L1_kind": "string",
+   "L1_len": 357,
+   "L1_isRawSpecText": true,
+   "L2_kind": "object",
+   "L3_kind": "object",
+   "L2_eq_L3": true,
+   "slots": {
+    "display": "Space Grotesk",
+    "body": "Noto Sans SC",
+    "mono": "Martian Mono"
+   },
+   "stacks": {
+    "displayStack": [
+     "Space Grotesk",
+     "Noto Sans SC"
+    ],
+    "bodyStack": [
+     "Noto Sans SC",
+     "Space Grotesk"
+    ]
+   },
+   "specFamilies": [
+    "Space Grotesk",
+    "Martian Mono",
+    "思源黑体"
+   ],
+   "negatedFonts": [],
+   "cssFamilies": [
+    "Noto Sans SC",
+    "Space Grotesk",
+    "Martian Mono"
+   ],
+   "specHitInCss": [
+    "Space Grotesk",
+    "Martian Mono",
+    "思源黑体"
+   ],
+   "specMissInCss": [],
+   "hitRatio": 1,
+   "uiNeedsOnlyText": true,
+   "uiNeedsSearch": true,
+   "uiNeedsStructured": false
+  },
+  {
+   "id": "S21",
+   "L1_kind": "string",
+   "L1_len": 409,
+   "L1_isRawSpecText": true,
+   "L2_kind": "object",
+   "L3_kind": "object",
+   "L2_eq_L3": true,
+   "slots": {
+    "display": "Antonio",
+    "body": "WenJin Mincho",
+    "mono": "IBM Plex Mono"
+   },
+   "stacks": {
+    "displayStack": [
+     "Antonio",
+     "WenJin Mincho",
+     "Georgia",
+     "Songti SC"
+    ],
+    "bodyStack": [
+     "WenJin Mincho",
+     "Georgia",
+     "Songti SC",
+     "STSong"
+    ]
+   },
+   "specFamilies": [
+    "Antonio",
+    "IBM Plex Mono",
+    "文津宋体"
+   ],
+   "negatedFonts": [],
+   "cssFamilies": [
+    "WenJin Mincho",
+    "Georgia",
+    "Songti SC",
+    "STSong",
+    "SimSun",
+    "IBM Plex Mono",
+    "DejaVu Sans Mono",
+    "Antonio"
+   ],
+   "specHitInCss": [
+    "Antonio",
+    "IBM Plex Mono",
+    "文津宋体"
+   ],
+   "specMissInCss": [],
+   "hitRatio": 1,
+   "uiNeedsOnlyText": true,
+   "uiNeedsSearch": true,
+   "uiNeedsStructured": false
+  },
+  {
+   "id": "S22",
+   "L1_kind": "string",
+   "L1_len": 413,
+   "L1_isRawSpecText": true,
+   "L2_kind": "object",
+   "L3_kind": "object",
+   "L2_eq_L3": true,
+   "slots": {
+    "display": "Petrona",
+    "body": "Zhuque Fangsong",
+    "mono": "IBM Plex Mono"
+   },
+   "stacks": {
+    "displayStack": [
+     "Petrona",
+     "Zhuque Fangsong",
+     "Georgia"
+    ],
+    "bodyStack": [
+     "Zhuque Fangsong",
+     "Petrona",
+     "Georgia"
+    ]
+   },
+   "specFamilies": [
+    "Petrona",
+    "IBM Plex Mono"
+   ],
+   "negatedFonts": [],
+   "cssFamilies": [
+    "Zhuque Fangsong",
+    "Petrona",
+    "Georgia",
+    "IBM Plex Mono"
+   ],
+   "specHitInCss": [
+    "Petrona",
+    "IBM Plex Mono"
+   ],
+   "specMissInCss": [],
+   "hitRatio": 1,
+   "uiNeedsOnlyText": true,
+   "uiNeedsSearch": true,
+   "uiNeedsStructured": false
+  },
+  {
+   "id": "S23",
+   "L1_kind": "string",
+   "L1_len": 480,
+   "L1_isRawSpecText": true,
+   "L2_kind": "object",
+   "L3_kind": "object",
+   "L2_eq_L3": true,
+   "slots": {
+    "display": "Noto Serif SC",
+    "body": "Noto Serif SC",
+    "mono": "JetBrains Mono"
+   },
+   "stacks": {
+    "displayStack": [
+     "Noto Serif SC",
+     "Alfa Slab One"
+    ],
+    "bodyStack": [
+     "Noto Serif SC",
+     "Alfa Slab One"
+    ]
+   },
+   "specFamilies": [
+    "Alfa Slab One",
+    "JetBrains Mono",
+    "京华老宋体"
+   ],
+   "negatedFonts": [],
+   "cssFamilies": [
+    "Noto Serif SC",
+    "Alfa Slab One",
+    "JetBrains Mono"
+   ],
+   "specHitInCss": [
+    "Alfa Slab One",
+    "JetBrains Mono"
+   ],
+   "specMissInCss": [
+    "京华老宋体"
+   ],
+   "hitRatio": 0.67,
+   "uiNeedsOnlyText": true,
+   "uiNeedsSearch": true,
+   "uiNeedsStructured": false
+  },
+  {
+   "id": "S24",
+   "L1_kind": "string",
+   "L1_len": 332,
+   "L1_isRawSpecText": true,
+   "L2_kind": "object",
+   "L3_kind": "object",
+   "L2_eq_L3": true,
+   "slots": {
+    "display": "Spectral",
+    "body": "LXGW WenKai",
+    "mono": "IBM Plex Mono"
+   },
+   "stacks": {
+    "displayStack": [
+     "Spectral",
+     "LXGW WenKai",
+     "Georgia",
+     "Times New Roman"
+    ],
+    "bodyStack": [
+     "LXGW WenKai",
+     "Songti SC",
+     "Georgia",
+     "Times New Roman"
+    ]
+   },
+   "specFamilies": [
+    "Fraunces",
+    "IBM Plex Mono",
+    "霞鹜文楷"
+   ],
+   "negatedFonts": [],
+   "cssFamilies": [
+    "Spectral",
+    "LXGW WenKai",
+    "Georgia",
+    "Times New Roman",
+    "Songti SC",
+    "IBM Plex Mono",
+    "Courier New"
+   ],
+   "specHitInCss": [
+    "IBM Plex Mono",
+    "霞鹜文楷"
+   ],
+   "specMissInCss": [
+    "Fraunces"
+   ],
+   "hitRatio": 0.67,
+   "uiNeedsOnlyText": true,
+   "uiNeedsSearch": true,
+   "uiNeedsStructured": false
+  },
+  {
+   "id": "S25",
+   "L1_kind": "string",
+   "L1_len": 423,
+   "L1_isRawSpecText": true,
+   "L2_kind": "object",
+   "L3_kind": "object",
+   "L2_eq_L3": true,
+   "slots": {
+    "display": "Besley",
+    "body": "Noto Serif SC",
+    "mono": null
+   },
+   "stacks": {
+    "displayStack": [
+     "Besley",
+     "Noto Serif SC",
+     "Georgia"
+    ],
+    "bodyStack": [
+     "Noto Serif SC",
+     "Songti SC",
+     "Georgia"
+    ]
+   },
+   "specFamilies": [
+    "Besley",
+    "JetBrains Mono",
+    "思源宋体"
+   ],
+   "negatedFonts": [],
+   "cssFamilies": [
+    "Noto Serif SC",
+    "Songti SC",
+    "Georgia",
+    "Besley"
+   ],
+   "specHitInCss": [
+    "Besley",
+    "思源宋体"
+   ],
+   "specMissInCss": [
+    "JetBrains Mono"
+   ],
+   "hitRatio": 0.67,
+   "uiNeedsOnlyText": true,
+   "uiNeedsSearch": true,
+   "uiNeedsStructured": false
+  },
+  {
+   "id": "S26",
+   "L1_kind": "string",
+   "L1_len": 482,
+   "L1_isRawSpecText": true,
+   "L2_kind": "object",
+   "L3_kind": "object",
+   "L2_eq_L3": true,
+   "slots": {
+    "display": "Syne",
+    "body": "Noto Sans SC",
+    "mono": "IBM Plex Mono"
+   },
+   "stacks": {
+    "displayStack": [
+     "Syne",
+     "Noto Sans SC"
+    ],
+    "bodyStack": [
+     "Noto Sans SC"
+    ]
+   },
+   "specFamilies": [
+    "Syne",
+    "IBM Plex Mono",
+    "Jost",
+    "思源黑体"
+   ],
+   "negatedFonts": [],
+   "cssFamilies": [
+    "Syne",
+    "Noto Sans SC",
+    "IBM Plex Mono"
+   ],
+   "specHitInCss": [
+    "Syne",
+    "IBM Plex Mono",
+    "思源黑体"
+   ],
+   "specMissInCss": [
+    "Jost"
+   ],
+   "hitRatio": 0.75,
+   "uiNeedsOnlyText": true,
+   "uiNeedsSearch": true,
+   "uiNeedsStructured": false
+  },
+  {
+   "id": "S27",
+   "L1_kind": "string",
+   "L1_len": 470,
+   "L1_isRawSpecText": true,
+   "L2_kind": "object",
+   "L3_kind": "object",
+   "L2_eq_L3": true,
+   "slots": {
+    "display": "Chivo",
+    "body": "LXGW WenKai",
+    "mono": "Martian Mono"
+   },
+   "stacks": {
+    "displayStack": [
+     "Chivo",
+     "LXGW WenKai"
+    ],
+    "bodyStack": [
+     "LXGW WenKai",
+     "Chivo",
+     "Georgia"
+    ]
+   },
+   "specFamilies": [
+    "Chivo",
+    "Martian Mono",
+    "霞鹜文楷"
+   ],
+   "negatedFonts": [],
+   "cssFamilies": [
+    "LXGW WenKai",
+    "Chivo",
+    "Georgia",
+    "Martian Mono"
+   ],
+   "specHitInCss": [
+    "Chivo",
+    "Martian Mono",
+    "霞鹜文楷"
+   ],
+   "specMissInCss": [],
+   "hitRatio": 1,
+   "uiNeedsOnlyText": true,
+   "uiNeedsSearch": true,
+   "uiNeedsStructured": false
+  },
+  {
+   "id": "S28",
+   "L1_kind": "string",
+   "L1_len": 339,
+   "L1_isRawSpecText": true,
+   "L2_kind": "object",
+   "L3_kind": "object",
+   "L2_eq_L3": true,
+   "slots": {
+    "display": "Instrument Serif",
+    "body": "Noto Serif SC",
+    "mono": "JetBrains Mono"
+   },
+   "stacks": {
+    "displayStack": [
+     "Instrument Serif",
+     "Noto Serif SC",
+     "Georgia"
+    ],
+    "bodyStack": [
+     "Noto Serif SC",
+     "Instrument Serif",
+     "Georgia"
+    ]
+   },
+   "specFamilies": [
+    "Instrument Serif",
+    "JetBrains Mono",
+    "思源宋体"
+   ],
+   "negatedFonts": [],
+   "cssFamilies": [
+    "Noto Serif SC",
+    "Instrument Serif",
+    "Georgia",
+    "JetBrains Mono"
+   ],
+   "specHitInCss": [
+    "Instrument Serif",
+    "JetBrains Mono",
+    "思源宋体"
+   ],
+   "specMissInCss": [],
+   "hitRatio": 1,
+   "uiNeedsOnlyText": true,
+   "uiNeedsSearch": true,
+   "uiNeedsStructured": false
+  },
+  {
+   "id": "S29",
+   "L1_kind": "string",
+   "L1_len": 509,
+   "L1_isRawSpecText": true,
+   "L2_kind": "object",
+   "L3_kind": "object",
+   "L2_eq_L3": true,
+   "slots": {
+    "display": "Saira Condensed",
+    "body": "Noto Sans SC",
+    "mono": "Martian Mono"
+   },
+   "stacks": {
+    "displayStack": [
+     "Saira Condensed",
+     "Noto Sans SC"
+    ],
+    "bodyStack": [
+     "Noto Sans SC"
+    ]
+   },
+   "specFamilies": [
+    "Saira Condensed",
+    "Martian Mono"
+   ],
+   "negatedFonts": [],
+   "cssFamilies": [
+    "Saira Condensed",
+    "Noto Sans SC",
+    "Martian Mono"
+   ],
+   "specHitInCss": [
+    "Saira Condensed",
+    "Martian Mono"
+   ],
+   "specMissInCss": [],
+   "hitRatio": 1,
+   "uiNeedsOnlyText": true,
+   "uiNeedsSearch": true,
+   "uiNeedsStructured": false
+  },
+  {
+   "id": "S30",
+   "L1_kind": "string",
+   "L1_len": 514,
+   "L1_isRawSpecText": true,
+   "L2_kind": "object",
+   "L3_kind": "object",
+   "L2_eq_L3": true,
+   "slots": {
+    "display": "Anton",
+    "body": "Zhuque Fangsong",
+    "mono": "IBM Plex Mono"
+   },
+   "stacks": {
+    "displayStack": [
+     "Anton",
+     "Zhuque Fangsong",
+     "Georgia"
+    ],
+    "bodyStack": [
+     "Zhuque Fangsong",
+     "Georgia"
+    ]
+   },
+   "specFamilies": [
+    "Anton",
+    "IBM Plex Mono",
+    "Alfa Slab One"
+   ],
+   "negatedFonts": [],
+   "cssFamilies": [
+    "Zhuque Fangsong",
+    "Georgia",
+    "IBM Plex Mono",
+    "Anton"
+   ],
+   "specHitInCss": [
+    "Anton",
+    "IBM Plex Mono"
+   ],
+   "specMissInCss": [
+    "Alfa Slab One"
+   ],
+   "hitRatio": 0.67,
+   "uiNeedsOnlyText": true,
+   "uiNeedsSearch": true,
+   "uiNeedsStructured": false
+  }
+ ]
+}

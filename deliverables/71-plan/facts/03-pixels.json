@@ -1,0 +1,2045 @@
+{
+ "at": "2026-10-29T19:56:22.747Z",
+ "summary": {
+  "calibration": {
+   "A1_double_shot": true,
+   "A1_detail": {
+    "diffRatio": [
+     0,
+     0,
+     0
+    ],
+    "areaStable": {
+     "pcts": [
+      [
+       70.75,
+       11.04,
+       6.2,
+       6.73
+      ],
+      [
+       70.75,
+       11.04,
+       6.2,
+       6.73
+      ],
+      [
+       70.75,
+       11.04,
+       6.2,
+       6.73
+      ]
+     ],
+     "maxSpreadPct": 0
+    }
+   },
+   "A2_pixel_counts": [
+    90000,
+    90000,
+    90000,
+    90000
+   ],
+   "A2_expected_each": 90000,
+   "A2_pass": true,
+   "A2_pct": [
+    25,
+    25,
+    25,
+    25
+   ],
+   "A2_unassigned": 0,
+   "A3_self_classify": [
+    {
+     "hex": "#C1121F",
+     "nearest": "#C1121F",
+     "dE": 0,
+     "ok": true
+    },
+    {
+     "hex": "#EFE7D7",
+     "nearest": "#EFE7D7",
+     "dE": 0,
+     "ok": true
+    },
+    {
+     "hex": "#1A1614",
+     "nearest": "#1A1614",
+     "dE": 0,
+     "ok": true
+    },
+    {
+     "hex": "#6E6A5E",
+     "nearest": "#6E6A5E",
+     "dE": 0,
+     "ok": true
+    }
+   ],
+   "A3_pass": true
+  },
+  "n": 30,
+  "cases_dropped_max_gt_min_kept": [
+   "S02",
+   "S03",
+   "S05",
+   "S06",
+   "S08",
+   "S10",
+   "S12",
+   "S14",
+   "S16",
+   "S17",
+   "S18",
+   "S19",
+   "S23",
+   "S24",
+   "S26",
+   "S27",
+   "S28",
+   "S29"
+  ],
+  "cases_dropped_max_gt_1pct": [
+   "S02:30.135%",
+   "S03:44.738%",
+   "S05:3.484%",
+   "S06:62.105%",
+   "S08:1.375%",
+   "S14:4.43%",
+   "S17:13.113%",
+   "S18:1.403%",
+   "S19:4.733%",
+   "S22:1.592%",
+   "S23:7.228%",
+   "S24:29.052%",
+   "S25:1.108%",
+   "S26:5.268%",
+   "S27:15.852%",
+   "S28:1.517%",
+   "S29:2.799%",
+   "S30:3.199%"
+  ],
+  "mean_dropped_area": 9.925,
+  "mean_kept_area": 83.057,
+  "top4_exact": 14,
+  "top4_partial": 10,
+  "top4_bad": [
+   "S02:2",
+   "S03:2",
+   "S05:2",
+   "S06:1",
+   "S19:2",
+   "S24:1"
+  ]
+ },
+ "rows": [
+  {
+   "id": "S01",
+   "url": "http://127.0.0.1:8791/prototypes/S01-red-wedge-broadsheet/index.html",
+   "refs": [
+    "#C1121F",
+    "#EFE7D7",
+    "#1A1614",
+    "#6E6A5E"
+   ],
+   "L1": [
+    "#EFE7D7",
+    "#C1121F",
+    "#1A1614",
+    "#6E6A5E"
+   ],
+   "L3": [
+    "#C1121F",
+    "#EFE7D7",
+    "#1A1614",
+    "#6E6A5E"
+   ],
+   "dropped": [],
+   "pct": {
+    "#C1121F": 11.042,
+    "#EFE7D7": 70.754,
+    "#1A1614": 6.199,
+    "#6E6A5E": 6.729
+   },
+   "covered": 94.72,
+   "unassignedPct": 5.28,
+   "keptPct": 94.724,
+   "droppedPct": 0,
+   "maxDropped": 0,
+   "minKept": 6.199,
+   "trueTop4": [
+    "#EFE7D7",
+    "#C1121F",
+    "#6E6A5E",
+    "#1A1614"
+   ],
+   "l3Top4": [
+    "#C1121F",
+    "#EFE7D7",
+    "#1A1614",
+    "#6E6A5E"
+   ],
+   "top4Match": 4,
+   "droppedDetail": []
+  },
+  {
+   "id": "S02",
+   "url": "http://127.0.0.1:8791/prototypes/S02-gilded-symmetry-salon/index.html",
+   "refs": [
+    "#B8860B",
+    "#0B0B0F",
+    "#EFE6D0",
+    "#3A2E1A",
+    "#111111",
+    "#B9B09A",
+    "#14100A"
+   ],
+   "L1": [
+    "#0B0B0F",
+    "#B8860B",
+    "#EFE6D0",
+    "#3A2E1A"
+   ],
+   "L3": [
+    "#B8860B",
+    "#0B0B0F",
+    "#EFE6D0",
+    "#3A2E1A",
+    "#111111",
+    "#B9B09A",
+    "#14100A"
+   ],
+   "dropped": [
+    "#111111",
+    "#B9B09A",
+    "#14100A"
+   ],
+   "pct": {
+    "#B8860B": 1.018,
+    "#0B0B0F": 34.779,
+    "#EFE6D0": 2.723,
+    "#3A2E1A": 17.066,
+    "#111111": 30.135,
+    "#B9B09A": 1.959,
+    "#14100A": 7.53
+   },
+   "covered": 95.21,
+   "unassignedPct": 4.79,
+   "keptPct": 55.586,
+   "droppedPct": 39.624,
+   "maxDropped": 30.135,
+   "minKept": 1.018,
+   "trueTop4": [
+    "#0B0B0F",
+    "#111111",
+    "#3A2E1A",
+    "#14100A"
+   ],
+   "l3Top4": [
+    "#B8860B",
+    "#0B0B0F",
+    "#EFE6D0",
+    "#3A2E1A"
+   ],
+   "top4Match": 2,
+   "droppedDetail": [
+    {
+     "hex": "#111111",
+     "pct": 30.135
+    },
+    {
+     "hex": "#B9B09A",
+     "pct": 1.959
+    },
+    {
+     "hex": "#14100A",
+     "pct": 7.53
+    }
+   ]
+  },
+  {
+   "id": "S03",
+   "url": "http://127.0.0.1:8791/prototypes/S03-long-exposure-observatory/index.html",
+   "refs": [
+    "#13928E",
+    "#101A1C",
+    "#C9D6CF",
+    "#B9A98C",
+    "#162226",
+    "#0C1417",
+    "#2A3639"
+   ],
+   "L1": [
+    "#101A1C",
+    "#13928E",
+    "#C9D6CF",
+    "#B9A98C"
+   ],
+   "L3": [
+    "#13928E",
+    "#101A1C",
+    "#C9D6CF",
+    "#B9A98C",
+    "#162226",
+    "#0C1417",
+    "#2A3639"
+   ],
+   "dropped": [
+    "#162226",
+    "#0C1417",
+    "#2A3639"
+   ],
+   "pct": {
+    "#13928E": 0.859,
+    "#101A1C": 40.202,
+    "#C9D6CF": 1.337,
+    "#B9A98C": 0.156,
+    "#162226": 9.316,
+    "#0C1417": 44.738,
+    "#2A3639": 0.49
+   },
+   "covered": 97.1,
+   "unassignedPct": 2.9,
+   "keptPct": 42.554,
+   "droppedPct": 54.544,
+   "maxDropped": 44.738,
+   "minKept": 0.156,
+   "trueTop4": [
+    "#0C1417",
+    "#101A1C",
+    "#162226",
+    "#C9D6CF"
+   ],
+   "l3Top4": [
+    "#13928E",
+    "#101A1C",
+    "#C9D6CF",
+    "#B9A98C"
+   ],
+   "top4Match": 2,
+   "droppedDetail": [
+    {
+     "hex": "#162226",
+     "pct": 9.316
+    },
+    {
+     "hex": "#0C1417",
+     "pct": 44.738
+    },
+    {
+     "hex": "#2A3639",
+     "pct": 0.49
+    }
+   ]
+  },
+  {
+   "id": "S04",
+   "url": "http://127.0.0.1:8791/prototypes/S04-mango-collage-wall/index.html",
+   "refs": [
+    "#2F7D4F",
+    "#96550F",
+    "#14100C",
+    "#F0E2C8"
+   ],
+   "L1": [
+    "#F0E2C8",
+    "#96550F",
+    "#2F7D4F",
+    "#14100C"
+   ],
+   "L3": [
+    "#2F7D4F",
+    "#96550F",
+    "#14100C",
+    "#F0E2C8"
+   ],
+   "dropped": [],
+   "pct": {
+    "#2F7D4F": 1.137,
+    "#96550F": 2.662,
+    "#14100C": 54.127,
+    "#F0E2C8": 40.234
+   },
+   "covered": 98.16,
+   "unassignedPct": 1.84,
+   "keptPct": 98.16,
+   "droppedPct": 0,
+   "maxDropped": 0,
+   "minKept": 1.137,
+   "trueTop4": [
+    "#14100C",
+    "#F0E2C8",
+    "#96550F",
+    "#2F7D4F"
+   ],
+   "l3Top4": [
+    "#2F7D4F",
+    "#96550F",
+    "#14100C",
+    "#F0E2C8"
+   ],
+   "top4Match": 4,
+   "droppedDetail": []
+  },
+  {
+   "id": "S05",
+   "url": "http://127.0.0.1:8791/prototypes/S05-pixel-cold-storage-console/index.html",
+   "refs": [
+    "#4FA83D",
+    "#0E100D",
+    "#BFB9A6",
+    "#8C2F1F",
+    "#111111",
+    "#2A2E28",
+    "#050605"
+   ],
+   "L1": [
+    "#0E100D",
+    "#4FA83D",
+    "#BFB9A6",
+    "#8C2F1F"
+   ],
+   "L3": [
+    "#4FA83D",
+    "#0E100D",
+    "#BFB9A6",
+    "#8C2F1F",
+    "#111111",
+    "#2A2E28",
+    "#050605"
+   ],
+   "dropped": [
+    "#111111",
+    "#2A2E28",
+    "#050605"
+   ],
+   "pct": {
+    "#4FA83D": 1.207,
+    "#0E100D": 73.981,
+    "#BFB9A6": 16.906,
+    "#8C2F1F": 0.048,
+    "#111111": 0.269,
+    "#2A2E28": 3.484,
+    "#050605": 1.631
+   },
+   "covered": 97.53,
+   "unassignedPct": 2.47,
+   "keptPct": 92.142,
+   "droppedPct": 5.384,
+   "maxDropped": 3.484,
+   "minKept": 0.048,
+   "trueTop4": [
+    "#0E100D",
+    "#BFB9A6",
+    "#2A2E28",
+    "#050605"
+   ],
+   "l3Top4": [
+    "#4FA83D",
+    "#0E100D",
+    "#BFB9A6",
+    "#8C2F1F"
+   ],
+   "top4Match": 2,
+   "droppedDetail": [
+    {
+     "hex": "#111111",
+     "pct": 0.269
+    },
+    {
+     "hex": "#2A2E28",
+     "pct": 3.484
+    },
+    {
+     "hex": "#050605",
+     "pct": 1.631
+    }
+   ]
+  },
+  {
+   "id": "S06",
+   "url": "http://127.0.0.1:8791/prototypes/S06-showa-kissaten-ledger/index.html",
+   "refs": [
+    "#85572A",
+    "#ECDEC6",
+    "#241A12",
+    "#C9A87C",
+    "#E6D8BC",
+    "#E0D0B0",
+    "#E4D5B8"
+   ],
+   "L1": [
+    "#ECDEC6",
+    "#85572A",
+    "#241A12",
+    "#C9A87C"
+   ],
+   "L3": [
+    "#85572A",
+    "#ECDEC6",
+    "#241A12",
+    "#C9A87C",
+    "#E6D8BC",
+    "#E0D0B0",
+    "#E4D5B8"
+   ],
+   "dropped": [
+    "#E6D8BC",
+    "#E0D0B0",
+    "#E4D5B8"
+   ],
+   "pct": {
+    "#85572A": 1.776,
+    "#ECDEC6": 0.169,
+    "#241A12": 1.001,
+    "#C9A87C": 1.572,
+    "#E6D8BC": 21.807,
+    "#E0D0B0": 3.9,
+    "#E4D5B8": 62.105
+   },
+   "covered": 92.33,
+   "unassignedPct": 7.67,
+   "keptPct": 4.518,
+   "droppedPct": 87.812,
+   "maxDropped": 62.105,
+   "minKept": 0.169,
+   "trueTop4": [
+    "#E4D5B8",
+    "#E6D8BC",
+    "#E0D0B0",
+    "#85572A"
+   ],
+   "l3Top4": [
+    "#85572A",
+    "#ECDEC6",
+    "#241A12",
+    "#C9A87C"
+   ],
+   "top4Match": 1,
+   "droppedDetail": [
+    {
+     "hex": "#E6D8BC",
+     "pct": 21.807
+    },
+    {
+     "hex": "#E0D0B0",
+     "pct": 3.9
+    },
+    {
+     "hex": "#E4D5B8",
+     "pct": 62.105
+    }
+   ]
+  },
+  {
+   "id": "S07",
+   "url": "http://127.0.0.1:8791/prototypes/S07-slate-ink-contents/index.html",
+   "refs": [
+    "#33505C",
+    "#E7E7E0",
+    "#1C1A16",
+    "#9A9384"
+   ],
+   "L1": [
+    "#E7E7E0",
+    "#33505C",
+    "#1C1A16",
+    "#9A9384"
+   ],
+   "L3": [
+    "#33505C",
+    "#E7E7E0",
+    "#1C1A16",
+    "#9A9384"
+   ],
+   "dropped": [],
+   "pct": {
+    "#33505C": 1.06,
+    "#E7E7E0": 93.036,
+    "#1C1A16": 1.547,
+    "#9A9384": 2.282
+   },
+   "covered": 97.93,
+   "unassignedPct": 2.07,
+   "keptPct": 97.925,
+   "droppedPct": 0,
+   "maxDropped": 0,
+   "minKept": 1.06,
+   "trueTop4": [
+    "#E7E7E0",
+    "#9A9384",
+    "#1C1A16",
+    "#33505C"
+   ],
+   "l3Top4": [
+    "#33505C",
+    "#E7E7E0",
+    "#1C1A16",
+    "#9A9384"
+   ],
+   "top4Match": 4,
+   "droppedDetail": []
+  },
+  {
+   "id": "S08",
+   "url": "http://127.0.0.1:8791/prototypes/S08-amber-overprint-lightbox/index.html",
+   "refs": [
+    "#120C08",
+    "#C46A1F",
+    "#E8DCC8",
+    "#6B4A22",
+    "#3A2712",
+    "#111111"
+   ],
+   "L1": [
+    "#120C08",
+    "#C46A1F",
+    "#E8DCC8",
+    "#6B4A22"
+   ],
+   "L3": [
+    "#120C08",
+    "#C46A1F",
+    "#E8DCC8",
+    "#6B4A22",
+    "#3A2712",
+    "#111111"
+   ],
+   "dropped": [
+    "#3A2712",
+    "#111111"
+   ],
+   "pct": {
+    "#120C08": 88.497,
+    "#C46A1F": 5.482,
+    "#E8DCC8": 1.011,
+    "#6B4A22": 0.672,
+    "#3A2712": 1.375,
+    "#111111": 0.023
+   },
+   "covered": 97.06,
+   "unassignedPct": 2.94,
+   "keptPct": 95.662,
+   "droppedPct": 1.398,
+   "maxDropped": 1.375,
+   "minKept": 0.672,
+   "trueTop4": [
+    "#120C08",
+    "#C46A1F",
+    "#3A2712",
+    "#E8DCC8"
+   ],
+   "l3Top4": [
+    "#120C08",
+    "#C46A1F",
+    "#E8DCC8",
+    "#6B4A22"
+   ],
+   "top4Match": 3,
+   "droppedDetail": [
+    {
+     "hex": "#3A2712",
+     "pct": 1.375
+    },
+    {
+     "hex": "#111111",
+     "pct": 0.023
+    }
+   ]
+  },
+  {
+   "id": "S09",
+   "url": "http://127.0.0.1:8791/prototypes/S09-batik-price-board/index.html",
+   "refs": [
+    "#1F4E79",
+    "#F5C842",
+    "#151310",
+    "#8A4B24"
+   ],
+   "L1": [
+    "#F5C842",
+    "#1F4E79",
+    "#151310",
+    "#8A4B24"
+   ],
+   "L3": [
+    "#1F4E79",
+    "#F5C842",
+    "#151310",
+    "#8A4B24"
+   ],
+   "dropped": [],
+   "pct": {
+    "#1F4E79": 1.898,
+    "#F5C842": 90.405,
+    "#151310": 2.167,
+    "#8A4B24": 0
+   },
+   "covered": 94.47,
+   "unassignedPct": 5.53,
+   "keptPct": 94.47,
+   "droppedPct": 0,
+   "maxDropped": 0,
+   "minKept": 0,
+   "trueTop4": [
+    "#F5C842",
+    "#151310",
+    "#1F4E79",
+    "#8A4B24"
+   ],
+   "l3Top4": [
+    "#1F4E79",
+    "#F5C842",
+    "#151310",
+    "#8A4B24"
+   ],
+   "top4Match": 4,
+   "droppedDetail": []
+  },
+  {
+   "id": "S10",
+   "url": "http://127.0.0.1:8791/prototypes/S10-grid-versus-sheet/index.html",
+   "refs": [
+    "#D32029",
+    "#F2EFE8",
+    "#17171A",
+    "#6E7076",
+    "#B6B4AE"
+   ],
+   "L1": [
+    "#F2EFE8",
+    "#D32029",
+    "#17171A",
+    "#6E7076"
+   ],
+   "L3": [
+    "#D32029",
+    "#F2EFE8",
+    "#17171A",
+    "#6E7076",
+    "#B6B4AE"
+   ],
+   "dropped": [
+    "#B6B4AE"
+   ],
+   "pct": {
+    "#D32029": 2.066,
+    "#F2EFE8": 89.875,
+    "#17171A": 5.427,
+    "#6E7076": 0.826,
+    "#B6B4AE": 0.925
+   },
+   "covered": 99.12,
+   "unassignedPct": 0.88,
+   "keptPct": 98.194,
+   "droppedPct": 0.925,
+   "maxDropped": 0.925,
+   "minKept": 0.826,
+   "trueTop4": [
+    "#F2EFE8",
+    "#17171A",
+    "#D32029",
+    "#B6B4AE"
+   ],
+   "l3Top4": [
+    "#D32029",
+    "#F2EFE8",
+    "#17171A",
+    "#6E7076"
+   ],
+   "top4Match": 3,
+   "droppedDetail": [
+    {
+     "hex": "#B6B4AE",
+     "pct": 0.925
+    }
+   ]
+  },
+  {
+   "id": "S11",
+   "url": "http://127.0.0.1:8791/prototypes/S11-samizdat-typewriter/index.html",
+   "refs": [
+    "#1B4A4A",
+    "#DCDDD2",
+    "#221E19",
+    "#6E7A64"
+   ],
+   "L1": [
+    "#DCDDD2",
+    "#1B4A4A",
+    "#221E19",
+    "#6E7A64"
+   ],
+   "L3": [
+    "#1B4A4A",
+    "#DCDDD2",
+    "#221E19",
+    "#6E7A64"
+   ],
+   "dropped": [],
+   "pct": {
+    "#1B4A4A": 36.476,
+    "#DCDDD2": 60.635,
+    "#221E19": 0.079,
+    "#6E7A64": 1.115
+   },
+   "covered": 98.3,
+   "unassignedPct": 1.7,
+   "keptPct": 98.305,
+   "droppedPct": 0,
+   "maxDropped": 0,
+   "minKept": 0.079,
+   "trueTop4": [
+    "#DCDDD2",
+    "#1B4A4A",
+    "#6E7A64",
+    "#221E19"
+   ],
+   "l3Top4": [
+    "#1B4A4A",
+    "#DCDDD2",
+    "#221E19",
+    "#6E7A64"
+   ],
+   "top4Match": 4,
+   "droppedDetail": []
+  },
+  {
+   "id": "S12",
+   "url": "http://127.0.0.1:8791/prototypes/S12-lime-knockout-wall/index.html",
+   "refs": [
+    "#B5D626",
+    "#1E2A2E",
+    "#E23E57",
+    "#F2E9D8",
+    "#26353A",
+    "#182226",
+    "#111111"
+   ],
+   "L1": [
+    "#1E2A2E",
+    "#B5D626",
+    "#E23E57",
+    "#F2E9D8"
+   ],
+   "L3": [
+    "#B5D626",
+    "#1E2A2E",
+    "#E23E57",
+    "#F2E9D8",
+    "#26353A",
+    "#182226",
+    "#111111"
+   ],
+   "dropped": [
+    "#26353A",
+    "#182226",
+    "#111111"
+   ],
+   "pct": {
+    "#B5D626": 22.687,
+    "#1E2A2E": 67.419,
+    "#E23E57": 0.153,
+    "#F2E9D8": 5.313,
+    "#26353A": 0.951,
+    "#182226": 0,
+    "#111111": 0.076
+   },
+   "covered": 96.6,
+   "unassignedPct": 3.4,
+   "keptPct": 95.572,
+   "droppedPct": 1.027,
+   "maxDropped": 0.951,
+   "minKept": 0.153,
+   "trueTop4": [
+    "#1E2A2E",
+    "#B5D626",
+    "#F2E9D8",
+    "#26353A"
+   ],
+   "l3Top4": [
+    "#B5D626",
+    "#1E2A2E",
+    "#E23E57",
+    "#F2E9D8"
+   ],
+   "top4Match": 3,
+   "droppedDetail": [
+    {
+     "hex": "#26353A",
+     "pct": 0.951
+    },
+    {
+     "hex": "#182226",
+     "pct": 0
+    },
+    {
+     "hex": "#111111",
+     "pct": 0.076
+    }
+   ]
+  },
+  {
+   "id": "S13",
+   "url": "http://127.0.0.1:8791/prototypes/S13-blind-debossed-dispatch/index.html",
+   "refs": [
+    "#F4E3BE",
+    "#241F17",
+    "#7B612C",
+    "#D6CDB9"
+   ],
+   "L1": [
+    "#F4E3BE",
+    "#7B612C",
+    "#241F17",
+    "#D6CDB9"
+   ],
+   "L3": [
+    "#F4E3BE",
+    "#241F17",
+    "#7B612C",
+    "#D6CDB9"
+   ],
+   "dropped": [],
+   "pct": {
+    "#F4E3BE": 56.034,
+    "#241F17": 10.763,
+    "#7B612C": 0.035,
+    "#D6CDB9": 8.654
+   },
+   "covered": 75.49,
+   "unassignedPct": 24.51,
+   "keptPct": 75.486,
+   "droppedPct": 0,
+   "maxDropped": 0,
+   "minKept": 0.035,
+   "trueTop4": [
+    "#F4E3BE",
+    "#241F17",
+    "#D6CDB9",
+    "#7B612C"
+   ],
+   "l3Top4": [
+    "#F4E3BE",
+    "#241F17",
+    "#7B612C",
+    "#D6CDB9"
+   ],
+   "top4Match": 4,
+   "droppedDetail": []
+  },
+  {
+   "id": "S14",
+   "url": "http://127.0.0.1:8791/prototypes/S14-zero-g-launch-sequence/index.html",
+   "refs": [
+    "#C9C4B8",
+    "#D8D2C4",
+    "#12181D",
+    "#E4572E",
+    "#8A3320",
+    "#111111"
+   ],
+   "L1": [
+    "#12181D",
+    "#E4572E",
+    "#D8D2C4",
+    "#8A3320"
+   ],
+   "L3": [
+    "#C9C4B8",
+    "#D8D2C4",
+    "#12181D",
+    "#E4572E",
+    "#8A3320",
+    "#111111"
+   ],
+   "dropped": [
+    "#C9C4B8",
+    "#111111"
+   ],
+   "pct": {
+    "#C9C4B8": 4.43,
+    "#D8D2C4": 4.248,
+    "#12181D": 78.557,
+    "#E4572E": 0.364,
+    "#8A3320": 0,
+    "#111111": 0.008
+   },
+   "covered": 87.61,
+   "unassignedPct": 12.39,
+   "keptPct": 83.169,
+   "droppedPct": 4.438,
+   "maxDropped": 4.43,
+   "minKept": 0,
+   "trueTop4": [
+    "#12181D",
+    "#C9C4B8",
+    "#D8D2C4",
+    "#E4572E"
+   ],
+   "l3Top4": [
+    "#C9C4B8",
+    "#D8D2C4",
+    "#12181D",
+    "#E4572E"
+   ],
+   "top4Match": 4,
+   "droppedDetail": [
+    {
+     "hex": "#C9C4B8",
+     "pct": 4.43
+    },
+    {
+     "hex": "#111111",
+     "pct": 0.008
+    }
+   ]
+  },
+  {
+   "id": "S15",
+   "url": "http://127.0.0.1:8791/prototypes/S15-fishery-floor-ledger/index.html",
+   "refs": [
+    "#3A3F45",
+    "#E7EBE9",
+    "#22282B",
+    "#7A7466"
+   ],
+   "L1": [
+    "#E7EBE9",
+    "#3A3F45",
+    "#22282B",
+    "#7A7466"
+   ],
+   "L3": [
+    "#3A3F45",
+    "#E7EBE9",
+    "#22282B",
+    "#7A7466"
+   ],
+   "dropped": [],
+   "pct": {
+    "#3A3F45": 1.725,
+    "#E7EBE9": 88.955,
+    "#22282B": 4.79,
+    "#7A7466": 1.159
+   },
+   "covered": 96.63,
+   "unassignedPct": 3.37,
+   "keptPct": 96.629,
+   "droppedPct": 0,
+   "maxDropped": 0,
+   "minKept": 1.159,
+   "trueTop4": [
+    "#E7EBE9",
+    "#22282B",
+    "#3A3F45",
+    "#7A7466"
+   ],
+   "l3Top4": [
+    "#3A3F45",
+    "#E7EBE9",
+    "#22282B",
+    "#7A7466"
+   ],
+   "top4Match": 4,
+   "droppedDetail": []
+  },
+  {
+   "id": "S16",
+   "url": "http://127.0.0.1:8791/prototypes/S16-velocity-slant-manifesto/index.html",
+   "refs": [
+    "#C52C0F",
+    "#F7EBCF",
+    "#1A1A1A",
+    "#8E2A18",
+    "#5C5C55"
+   ],
+   "L1": [
+    "#F7EBCF",
+    "#C52C0F",
+    "#1A1A1A",
+    "#8E2A18"
+   ],
+   "L3": [
+    "#C52C0F",
+    "#F7EBCF",
+    "#1A1A1A",
+    "#8E2A18",
+    "#5C5C55"
+   ],
+   "dropped": [
+    "#5C5C55"
+   ],
+   "pct": {
+    "#C52C0F": 1.479,
+    "#F7EBCF": 93.759,
+    "#1A1A1A": 1.407,
+    "#8E2A18": 0.094,
+    "#5C5C55": 0.854
+   },
+   "covered": 97.59,
+   "unassignedPct": 2.41,
+   "keptPct": 96.739,
+   "droppedPct": 0.854,
+   "maxDropped": 0.854,
+   "minKept": 0.094,
+   "trueTop4": [
+    "#F7EBCF",
+    "#C52C0F",
+    "#1A1A1A",
+    "#5C5C55"
+   ],
+   "l3Top4": [
+    "#C52C0F",
+    "#F7EBCF",
+    "#1A1A1A",
+    "#8E2A18"
+   ],
+   "top4Match": 3,
+   "droppedDetail": [
+    {
+     "hex": "#5C5C55",
+     "pct": 0.854
+    }
+   ]
+  },
+  {
+   "id": "S17",
+   "url": "http://127.0.0.1:8791/prototypes/S17-revenue-stamp-stub/index.html",
+   "refs": [
+    "#E1D6BD",
+    "#5A2A50",
+    "#7A2E2E",
+    "#C9BFA6",
+    "#3F1A38",
+    "#B9A98C",
+    "#DFD6BF"
+   ],
+   "L1": [
+    "#E1D6BD",
+    "#5A2A50",
+    "#7A2E2E"
+   ],
+   "L3": [
+    "#E1D6BD",
+    "#5A2A50",
+    "#7A2E2E",
+    "#C9BFA6",
+    "#3F1A38",
+    "#B9A98C",
+    "#DFD6BF"
+   ],
+   "dropped": [
+    "#C9BFA6",
+    "#3F1A38",
+    "#B9A98C",
+    "#DFD6BF"
+   ],
+   "pct": {
+    "#E1D6BD": 79.704,
+    "#5A2A50": 2.498,
+    "#7A2E2E": 0.014,
+    "#C9BFA6": 13.113,
+    "#3F1A38": 0.088,
+    "#B9A98C": 1.182,
+    "#DFD6BF": 0.61
+   },
+   "covered": 97.21,
+   "unassignedPct": 2.79,
+   "keptPct": 82.216,
+   "droppedPct": 14.993,
+   "maxDropped": 13.113,
+   "minKept": 0.014,
+   "trueTop4": [
+    "#E1D6BD",
+    "#C9BFA6",
+    "#5A2A50",
+    "#B9A98C"
+   ],
+   "l3Top4": [
+    "#E1D6BD",
+    "#5A2A50",
+    "#7A2E2E",
+    "#C9BFA6"
+   ],
+   "top4Match": 3,
+   "droppedDetail": [
+    {
+     "hex": "#C9BFA6",
+     "pct": 13.113
+    },
+    {
+     "hex": "#3F1A38",
+     "pct": 0.088
+    },
+    {
+     "hex": "#B9A98C",
+     "pct": 1.182
+    },
+    {
+     "hex": "#DFD6BF",
+     "pct": 0.61
+    }
+   ]
+  },
+  {
+   "id": "S18",
+   "url": "http://127.0.0.1:8791/prototypes/S18-phosphor-service-deck/index.html",
+   "refs": [
+    "#0A0D0A",
+    "#2FA84F",
+    "#C8C4AE",
+    "#6E6350",
+    "#278F43",
+    "#111111"
+   ],
+   "L1": [
+    "#0A0D0A",
+    "#2FA84F",
+    "#C8C4AE",
+    "#6E6350"
+   ],
+   "L3": [
+    "#0A0D0A",
+    "#2FA84F",
+    "#C8C4AE",
+    "#6E6350",
+    "#278F43",
+    "#111111"
+   ],
+   "dropped": [
+    "#278F43",
+    "#111111"
+   ],
+   "pct": {
+    "#0A0D0A": 83.57,
+    "#2FA84F": 1.254,
+    "#C8C4AE": 2.38,
+    "#6E6350": 1.04,
+    "#278F43": 0.091,
+    "#111111": 1.403
+   },
+   "covered": 89.74,
+   "unassignedPct": 10.26,
+   "keptPct": 88.244,
+   "droppedPct": 1.494,
+   "maxDropped": 1.403,
+   "minKept": 1.04,
+   "trueTop4": [
+    "#0A0D0A",
+    "#C8C4AE",
+    "#111111",
+    "#2FA84F"
+   ],
+   "l3Top4": [
+    "#0A0D0A",
+    "#2FA84F",
+    "#C8C4AE",
+    "#6E6350"
+   ],
+   "top4Match": 3,
+   "droppedDetail": [
+    {
+     "hex": "#278F43",
+     "pct": 0.091
+    },
+    {
+     "hex": "#111111",
+     "pct": 1.403
+    }
+   ]
+  },
+  {
+   "id": "S19",
+   "url": "http://127.0.0.1:8791/prototypes/S19-copperplate-herbarium-cabinet/index.html",
+   "refs": [
+    "#4A5C3A",
+    "#E4DECD",
+    "#2A241C",
+    "#7C7460",
+    "#D8CFB6",
+    "#E9E3D2",
+    "#3A3227"
+   ],
+   "L1": [
+    "#E4DECD",
+    "#4A5C3A",
+    "#2A241C",
+    "#7C7460"
+   ],
+   "L3": [
+    "#4A5C3A",
+    "#E4DECD",
+    "#2A241C",
+    "#7C7460",
+    "#D8CFB6",
+    "#E9E3D2",
+    "#3A3227"
+   ],
+   "dropped": [
+    "#D8CFB6",
+    "#E9E3D2",
+    "#3A3227"
+   ],
+   "pct": {
+    "#4A5C3A": 1.409,
+    "#E4DECD": 76.909,
+    "#2A241C": 7.024,
+    "#7C7460": 2.409,
+    "#D8CFB6": 4.733,
+    "#E9E3D2": 2.763,
+    "#3A3227": 1.934
+   },
+   "covered": 97.18,
+   "unassignedPct": 2.82,
+   "keptPct": 87.751,
+   "droppedPct": 9.43,
+   "maxDropped": 4.733,
+   "minKept": 1.409,
+   "trueTop4": [
+    "#E4DECD",
+    "#2A241C",
+    "#D8CFB6",
+    "#E9E3D2"
+   ],
+   "l3Top4": [
+    "#4A5C3A",
+    "#E4DECD",
+    "#2A241C",
+    "#7C7460"
+   ],
+   "top4Match": 2,
+   "droppedDetail": [
+    {
+     "hex": "#D8CFB6",
+     "pct": 4.733
+    },
+    {
+     "hex": "#E9E3D2",
+     "pct": 2.763
+    },
+    {
+     "hex": "#3A3227",
+     "pct": 1.934
+    }
+   ]
+  },
+  {
+   "id": "S20",
+   "url": "http://127.0.0.1:8791/prototypes/S20-plotter-soundfield/index.html",
+   "refs": [
+    "#FAF3E1",
+    "#26485C",
+    "#0F1418",
+    "#55606B"
+   ],
+   "L1": [
+    "#FAF3E1",
+    "#26485C",
+    "#0F1418",
+    "#55606B"
+   ],
+   "L3": [
+    "#FAF3E1",
+    "#26485C",
+    "#0F1418",
+    "#55606B"
+   ],
+   "dropped": [],
+   "pct": {
+    "#FAF3E1": 68.402,
+    "#26485C": 1.127,
+    "#0F1418": 1.133,
+    "#55606B": 1.42
+   },
+   "covered": 72.08,
+   "unassignedPct": 27.92,
+   "keptPct": 72.082,
+   "droppedPct": 0,
+   "maxDropped": 0,
+   "minKept": 1.127,
+   "trueTop4": [
+    "#FAF3E1",
+    "#55606B",
+    "#0F1418",
+    "#26485C"
+   ],
+   "l3Top4": [
+    "#FAF3E1",
+    "#26485C",
+    "#0F1418",
+    "#55606B"
+   ],
+   "top4Match": 4,
+   "droppedDetail": []
+  },
+  {
+   "id": "S21",
+   "url": "http://127.0.0.1:8791/prototypes/S21-interlocking-release-book/index.html",
+   "refs": [
+    "#3E3A34",
+    "#E4DCC9",
+    "#924307",
+    "#6E6A5E",
+    "#FFFFFF"
+   ],
+   "L1": [
+    "#E4DCC9",
+    "#3E3A34",
+    "#924307",
+    "#6E6A5E"
+   ],
+   "L3": [
+    "#3E3A34",
+    "#E4DCC9",
+    "#924307",
+    "#6E6A5E",
+    "#FFFFFF"
+   ],
+   "dropped": [
+    "#FFFFFF"
+   ],
+   "pct": {
+    "#3E3A34": 11.781,
+    "#E4DCC9": 85.815,
+    "#924307": 0.215,
+    "#6E6A5E": 1.388,
+    "#FFFFFF": 0.051
+   },
+   "covered": 99.25,
+   "unassignedPct": 0.75,
+   "keptPct": 99.199,
+   "droppedPct": 0.051,
+   "maxDropped": 0.051,
+   "minKept": 0.215,
+   "trueTop4": [
+    "#E4DCC9",
+    "#3E3A34",
+    "#6E6A5E",
+    "#924307"
+   ],
+   "l3Top4": [
+    "#3E3A34",
+    "#E4DCC9",
+    "#924307",
+    "#6E6A5E"
+   ],
+   "top4Match": 4,
+   "droppedDetail": [
+    {
+     "hex": "#FFFFFF",
+     "pct": 0.051
+    }
+   ]
+  },
+  {
+   "id": "S22",
+   "url": "http://127.0.0.1:8791/prototypes/S22-paper-screen-folded-sheet/index.html",
+   "refs": [
+    "#565B49",
+    "#DDDAD4",
+    "#2E2A24",
+    "#6B6558"
+   ],
+   "L1": [
+    "#DDDAD4",
+    "#565B49",
+    "#2E2A24"
+   ],
+   "L3": [
+    "#565B49",
+    "#DDDAD4",
+    "#2E2A24",
+    "#6B6558"
+   ],
+   "dropped": [
+    "#6B6558"
+   ],
+   "pct": {
+    "#565B49": 8.52,
+    "#DDDAD4": 80.729,
+    "#2E2A24": 5.981,
+    "#6B6558": 1.592
+   },
+   "covered": 96.82,
+   "unassignedPct": 3.18,
+   "keptPct": 95.23,
+   "droppedPct": 1.592,
+   "maxDropped": 1.592,
+   "minKept": 5.981,
+   "trueTop4": [
+    "#DDDAD4",
+    "#565B49",
+    "#2E2A24",
+    "#6B6558"
+   ],
+   "l3Top4": [
+    "#565B49",
+    "#DDDAD4",
+    "#2E2A24",
+    "#6B6558"
+   ],
+   "top4Match": 4,
+   "droppedDetail": [
+    {
+     "hex": "#6B6558",
+     "pct": 1.592
+    }
+   ]
+  },
+  {
+   "id": "S23",
+   "url": "http://127.0.0.1:8791/prototypes/S23-exposed-plaster-chronology-wall/index.html",
+   "refs": [
+    "#A8206B",
+    "#241C16",
+    "#DCDCC8",
+    "#7A6A55",
+    "#E9E9D7",
+    "#5F5240",
+    "#B7A78C"
+   ],
+   "L1": [
+    "#DCDCC8",
+    "#A8206B",
+    "#241C16",
+    "#7A6A55"
+   ],
+   "L3": [
+    "#A8206B",
+    "#241C16",
+    "#DCDCC8",
+    "#7A6A55",
+    "#E9E9D7",
+    "#5F5240",
+    "#B7A78C"
+   ],
+   "dropped": [
+    "#E9E9D7",
+    "#5F5240",
+    "#B7A78C"
+   ],
+   "pct": {
+    "#A8206B": 1.437,
+    "#241C16": 18.162,
+    "#DCDCC8": 63.232,
+    "#7A6A55": 6.133,
+    "#E9E9D7": 0,
+    "#5F5240": 0.439,
+    "#B7A78C": 7.228
+   },
+   "covered": 96.63,
+   "unassignedPct": 3.37,
+   "keptPct": 88.964,
+   "droppedPct": 7.667,
+   "maxDropped": 7.228,
+   "minKept": 1.437,
+   "trueTop4": [
+    "#DCDCC8",
+    "#241C16",
+    "#B7A78C",
+    "#7A6A55"
+   ],
+   "l3Top4": [
+    "#A8206B",
+    "#241C16",
+    "#DCDCC8",
+    "#7A6A55"
+   ],
+   "top4Match": 3,
+   "droppedDetail": [
+    {
+     "hex": "#E9E9D7",
+     "pct": 0
+    },
+    {
+     "hex": "#5F5240",
+     "pct": 0.439
+    },
+    {
+     "hex": "#B7A78C",
+     "pct": 7.228
+    }
+   ]
+  },
+  {
+   "id": "S24",
+   "url": "http://127.0.0.1:8791/prototypes/S24-cyanotype-rainforest-path/index.html",
+   "refs": [
+    "#5D43AD",
+    "#E6EDF2",
+    "#0A1116",
+    "#6E8B7A",
+    "#F3F8FB",
+    "#DCE7EF",
+    "#C9D8E4"
+   ],
+   "L1": [
+    "#E6EDF2",
+    "#5D43AD",
+    "#0A1116",
+    "#6E8B7A"
+   ],
+   "L3": [
+    "#5D43AD",
+    "#E6EDF2",
+    "#0A1116",
+    "#6E8B7A",
+    "#F3F8FB",
+    "#DCE7EF",
+    "#C9D8E4"
+   ],
+   "dropped": [
+    "#F3F8FB",
+    "#DCE7EF",
+    "#C9D8E4"
+   ],
+   "pct": {
+    "#5D43AD": 0.52,
+    "#E6EDF2": 40.922,
+    "#0A1116": 1.062,
+    "#6E8B7A": 0.014,
+    "#F3F8FB": 3.531,
+    "#DCE7EF": 29.052,
+    "#C9D8E4": 2.755
+   },
+   "covered": 77.86,
+   "unassignedPct": 22.14,
+   "keptPct": 42.518,
+   "droppedPct": 35.338,
+   "maxDropped": 29.052,
+   "minKept": 0.014,
+   "trueTop4": [
+    "#E6EDF2",
+    "#DCE7EF",
+    "#F3F8FB",
+    "#C9D8E4"
+   ],
+   "l3Top4": [
+    "#5D43AD",
+    "#E6EDF2",
+    "#0A1116",
+    "#6E8B7A"
+   ],
+   "top4Match": 1,
+   "droppedDetail": [
+    {
+     "hex": "#F3F8FB",
+     "pct": 3.531
+    },
+    {
+     "hex": "#DCE7EF",
+     "pct": 29.052
+    },
+    {
+     "hex": "#C9D8E4",
+     "pct": 2.755
+    }
+   ]
+  },
+  {
+   "id": "S25",
+   "url": "http://127.0.0.1:8791/prototypes/S25-spotcolor-contents-zine/index.html",
+   "refs": [
+    "#E8E4DE",
+    "#914A27",
+    "#1E1A16",
+    "#2E6B5E",
+    "#DFDAD2",
+    "#FFFFFF"
+   ],
+   "L1": [
+    "#E8E4DE",
+    "#914A27",
+    "#1E1A16",
+    "#2E6B5E"
+   ],
+   "L3": [
+    "#E8E4DE",
+    "#914A27",
+    "#1E1A16",
+    "#2E6B5E",
+    "#DFDAD2",
+    "#FFFFFF"
+   ],
+   "dropped": [
+    "#DFDAD2",
+    "#FFFFFF"
+   ],
+   "pct": {
+    "#E8E4DE": 73.917,
+    "#914A27": 10.562,
+    "#1E1A16": 5.085,
+    "#2E6B5E": 7.493,
+    "#DFDAD2": 1.108,
+    "#FFFFFF": 0.005
+   },
+   "covered": 98.17,
+   "unassignedPct": 1.83,
+   "keptPct": 97.057,
+   "droppedPct": 1.113,
+   "maxDropped": 1.108,
+   "minKept": 5.085,
+   "trueTop4": [
+    "#E8E4DE",
+    "#914A27",
+    "#2E6B5E",
+    "#1E1A16"
+   ],
+   "l3Top4": [
+    "#E8E4DE",
+    "#914A27",
+    "#1E1A16",
+    "#2E6B5E"
+   ],
+   "top4Match": 4,
+   "droppedDetail": [
+    {
+     "hex": "#DFDAD2",
+     "pct": 1.108
+    },
+    {
+     "hex": "#FFFFFF",
+     "pct": 0.005
+    }
+   ]
+  },
+  {
+   "id": "S26",
+   "url": "http://127.0.0.1:8791/prototypes/S26-geometric-collision-columns/index.html",
+   "refs": [
+    "#D3D1CA",
+    "#485270",
+    "#121212",
+    "#C8341F",
+    "#FFFFFF",
+    "#C3C1B9",
+    "#38110E"
+   ],
+   "L1": [
+    "#D3D1CA",
+    "#485270",
+    "#121212",
+    "#C8341F"
+   ],
+   "L3": [
+    "#D3D1CA",
+    "#485270",
+    "#121212",
+    "#C8341F",
+    "#FFFFFF",
+    "#C3C1B9",
+    "#38110E"
+   ],
+   "dropped": [
+    "#FFFFFF",
+    "#C3C1B9",
+    "#38110E"
+   ],
+   "pct": {
+    "#D3D1CA": 67.003,
+    "#485270": 10.775,
+    "#121212": 9.152,
+    "#C8341F": 5.189,
+    "#FFFFFF": 0.141,
+    "#C3C1B9": 5.268,
+    "#38110E": 0.04
+   },
+   "covered": 97.57,
+   "unassignedPct": 2.43,
+   "keptPct": 92.119,
+   "droppedPct": 5.449,
+   "maxDropped": 5.268,
+   "minKept": 5.189,
+   "trueTop4": [
+    "#D3D1CA",
+    "#485270",
+    "#121212",
+    "#C3C1B9"
+   ],
+   "l3Top4": [
+    "#D3D1CA",
+    "#485270",
+    "#121212",
+    "#C8341F"
+   ],
+   "top4Match": 3,
+   "droppedDetail": [
+    {
+     "hex": "#FFFFFF",
+     "pct": 0.141
+    },
+    {
+     "hex": "#C3C1B9",
+     "pct": 5.268
+    },
+    {
+     "hex": "#38110E",
+     "pct": 0.04
+    }
+   ]
+  },
+  {
+   "id": "S27",
+   "url": "http://127.0.0.1:8791/prototypes/S27-hand-painted-bill-dispatch/index.html",
+   "refs": [
+    "#0E6258",
+    "#221C10",
+    "#E8D7B5",
+    "#1A150C",
+    "#C9BFA6",
+    "#FFFFFF"
+   ],
+   "L1": [
+    "#E8D7B5",
+    "#0E6258",
+    "#221C10"
+   ],
+   "L3": [
+    "#0E6258",
+    "#221C10",
+    "#E8D7B5",
+    "#1A150C",
+    "#C9BFA6",
+    "#FFFFFF"
+   ],
+   "dropped": [
+    "#1A150C",
+    "#C9BFA6",
+    "#FFFFFF"
+   ],
+   "pct": {
+    "#0E6258": 19.897,
+    "#221C10": 4.448,
+    "#E8D7B5": 49.426,
+    "#1A150C": 0.375,
+    "#C9BFA6": 0.305,
+    "#FFFFFF": 15.852
+   },
+   "covered": 90.3,
+   "unassignedPct": 9.7,
+   "keptPct": 73.771,
+   "droppedPct": 16.532,
+   "maxDropped": 15.852,
+   "minKept": 4.448,
+   "trueTop4": [
+    "#E8D7B5",
+    "#0E6258",
+    "#FFFFFF",
+    "#221C10"
+   ],
+   "l3Top4": [
+    "#0E6258",
+    "#221C10",
+    "#E8D7B5",
+    "#1A150C"
+   ],
+   "top4Match": 3,
+   "droppedDetail": [
+    {
+     "hex": "#1A150C",
+     "pct": 0.375
+    },
+    {
+     "hex": "#C9BFA6",
+     "pct": 0.305
+    },
+    {
+     "hex": "#FFFFFF",
+     "pct": 15.852
+    }
+   ]
+  },
+  {
+   "id": "S28",
+   "url": "http://127.0.0.1:8791/prototypes/S28-jazz-intaglio-wall/index.html",
+   "refs": [
+    "#AF74BE",
+    "#D8D4C6",
+    "#0B0D12",
+    "#07080C"
+   ],
+   "L1": [
+    "#0B0D12",
+    "#AF74BE",
+    "#D8D4C6"
+   ],
+   "L3": [
+    "#AF74BE",
+    "#D8D4C6",
+    "#0B0D12",
+    "#07080C"
+   ],
+   "dropped": [
+    "#07080C"
+   ],
+   "pct": {
+    "#AF74BE": 18.878,
+    "#D8D4C6": 1.433,
+    "#0B0D12": 64.548,
+    "#07080C": 1.517
+   },
+   "covered": 86.38,
+   "unassignedPct": 13.62,
+   "keptPct": 84.859,
+   "droppedPct": 1.517,
+   "maxDropped": 1.517,
+   "minKept": 1.433,
+   "trueTop4": [
+    "#0B0D12",
+    "#AF74BE",
+    "#07080C",
+    "#D8D4C6"
+   ],
+   "l3Top4": [
+    "#AF74BE",
+    "#D8D4C6",
+    "#0B0D12",
+    "#07080C"
+   ],
+   "top4Match": 4,
+   "droppedDetail": [
+    {
+     "hex": "#07080C",
+     "pct": 1.517
+    }
+   ]
+  },
+  {
+   "id": "S29",
+   "url": "http://127.0.0.1:8791/prototypes/S29-wire-bound-safety-manual/index.html",
+   "refs": [
+    "#644F02",
+    "#D9D3C4",
+    "#1A1A17",
+    "#5A6068",
+    "#E4B400",
+    "#E0DACB"
+   ],
+   "L1": [
+    "#D9D3C4",
+    "#644F02",
+    "#1A1A17",
+    "#5A6068"
+   ],
+   "L3": [
+    "#644F02",
+    "#D9D3C4",
+    "#1A1A17",
+    "#5A6068",
+    "#E4B400",
+    "#E0DACB"
+   ],
+   "dropped": [
+    "#E4B400",
+    "#E0DACB"
+   ],
+   "pct": {
+    "#644F02": 0.879,
+    "#D9D3C4": 84.94,
+    "#1A1A17": 4.701,
+    "#5A6068": 1.853,
+    "#E4B400": 0,
+    "#E0DACB": 2.799
+   },
+   "covered": 95.17,
+   "unassignedPct": 4.83,
+   "keptPct": 92.373,
+   "droppedPct": 2.799,
+   "maxDropped": 2.799,
+   "minKept": 0.879,
+   "trueTop4": [
+    "#D9D3C4",
+    "#1A1A17",
+    "#E0DACB",
+    "#5A6068"
+   ],
+   "l3Top4": [
+    "#644F02",
+    "#D9D3C4",
+    "#1A1A17",
+    "#5A6068"
+   ],
+   "top4Match": 3,
+   "droppedDetail": [
+    {
+     "hex": "#E4B400",
+     "pct": 0
+    },
+    {
+     "hex": "#E0DACB",
+     "pct": 2.799
+    }
+   ]
+  },
+  {
+   "id": "S30",
+   "url": "http://127.0.0.1:8791/prototypes/S30-skate-sticker-split/index.html",
+   "refs": [
+    "#007B3F",
+    "#EDEDED",
+    "#141414",
+    "#E6E6E6",
+    "#00E676",
+    "#FFFFFF"
+   ],
+   "L1": [
+    "#EDEDED",
+    "#007B3F",
+    "#141414"
+   ],
+   "L3": [
+    "#007B3F",
+    "#EDEDED",
+    "#141414",
+    "#E6E6E6",
+    "#00E676",
+    "#FFFFFF"
+   ],
+   "dropped": [
+    "#E6E6E6",
+    "#00E676",
+    "#FFFFFF"
+   ],
+   "pct": {
+    "#007B3F": 5.355,
+    "#EDEDED": 63.906,
+    "#141414": 6.243,
+    "#E6E6E6": 3.199,
+    "#00E676": 0,
+    "#FFFFFF": 0.577
+   },
+   "covered": 79.28,
+   "unassignedPct": 20.72,
+   "keptPct": 75.504,
+   "droppedPct": 3.776,
+   "maxDropped": 3.199,
+   "minKept": 5.355,
+   "trueTop4": [
+    "#EDEDED",
+    "#141414",
+    "#007B3F",
+    "#E6E6E6"
+   ],
+   "l3Top4": [
+    "#007B3F",
+    "#EDEDED",
+    "#141414",
+    "#E6E6E6"
+   ],
+   "top4Match": 4,
+   "droppedDetail": [
+    {
+     "hex": "#E6E6E6",
+     "pct": 3.199
+    },
+    {
+     "hex": "#00E676",
+     "pct": 0
+    },
+    {
+     "hex": "#FFFFFF",
+     "pct": 0.577
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,282 @@
+{
+ "consumers": [
+  {
+   "file": "prototypes/_selection/app.js",
+   "hits": [
+    {
+     "name": "window.STYLE_PROMPTS",
+     "n": 4,
+     "firstLine": 1645
+    },
+    {
+     "name": "P.schemes",
+     "n": 9,
+     "firstLine": 1645
+    },
+    {
+     "name": "sceneIndex",
+     "n": 4,
+     "firstLine": 1645
+    }
+   ]
+  },
+  {
+   "file": "prototypes/_selection/index.html",
+   "hits": [
+    {
+     "name": "window.STYLE_PROMPTS",
+     "n": 1,
+     "firstLine": 369
+    },
+    {
+     "name": "sceneIndex",
+     "n": 4,
+     "firstLine": 369
+    }
+   ]
+  },
+  {
+   "file": "prototypes/_selection/prompt-copy.js",
+   "hits": [
+    {
+     "name": "window.STYLE_PROMPTS",
+     "n": 2,
+     "firstLine": 1634
+    },
+    {
+     "name": "P.schemes",
+     "n": 5,
+     "firstLine": 1634
+    },
+    {
+     "name": "buildStylePrompt",
+     "n": 6,
+     "firstLine": 1634
+    },
+    {
+     "name": "buildPrompt(",
+     "n": 5,
+     "firstLine": 1634
+    },
+    {
+     "name": "sceneIndex",
+     "n": 13,
+     "firstLine": 1634
+    },
+    {
+     "name": "unsupported",
+     "n": 8,
+     "firstLine": 1634
+    }
+   ]
+  },
+  {
+   "file": "prototypes/_selection/prompts.js",
+   "hits": [
+    {
+     "name": "window.STYLE_PROMPTS",
+     "n": 1,
+     "firstLine": 1732
+    },
+    {
+     "name": "dna.palette",
+     "n": 1,
+     "firstLine": 1732
+    },
+    {
+     "name": "dna.lineWidths",
+     "n": 1,
+     "firstLine": 1732
+    },
+    {
+     "name": "hardIds",
+     "n": 1,
+     "firstLine": 1732
+    },
+    {
+     "name": "sceneIndex",
+     "n": 1,
+     "firstLine": 1732
+    },
+    {
+     "name": "unsupported",
+     "n": 1,
+     "firstLine": 1732
+    }
+   ]
+  },
+  {
+   "file": "prototypes/_build/check-docs.mjs",
+   "hits": [
+    {
+     "name": "window.STYLE_PROMPTS",
+     "n": 1,
+     "firstLine": 946
+    },
+    {
+     "name": "P.schemes",
+     "n": 4,
+     "firstLine": 946
+    },
+    {
+     "name": "buildStylePrompt",
+     "n": 2,
+     "firstLine": 946
+    },
+    {
+     "name": "buildPrompt(",
+     "n": 1,
+     "firstLine": 946
+    },
+    {
+     "name": "hardIds",
+     "n": 3,
+     "firstLine": 946
+    },
+    {
+     "name": "sceneIndex",
+     "n": 5,
+     "firstLine": 946
+    },
+    {
+     "name": "unsupported",
+     "n": 6,
+     "firstLine": 946
+    }
+   ]
+  },
+  {
+   "file": "prototypes/_build/check-prompts.mjs",
+   "hits": [
+    {
+     "name": "window.STYLE_PROMPTS",
+     "n": 9,
+     "firstLine": 322
+    },
+    {
+     "name": "P.schemes",
+     "n": 2,
+     "firstLine": 322
+    },
+    {
+     "name": "buildStylePrompt",
+     "n": 9,
+     "firstLine": 322
+    },
+    {
+     "name": "sceneIndex",
+     "n": 1,
+     "firstLine": 322
+    }
+   ]
+  },
+  {
+   "file": "prototypes/_prompts/build-prompts.mjs",
+   "hits": [
+    {
+     "name": "window.STYLE_PROMPTS",
+     "n": 2,
+     "firstLine": 399
+    },
+    {
+     "name": "dna.palette",
+     "n": 3,
+     "firstLine": 399
+    },
+    {
+     "name": "dna.lineWidths",
+     "n": 1,
+     "firstLine": 399
+    },
+    {
+     "name": "buildPrompt(",
+     "n": 3,
+     "firstLine": 399
+    },
+    {
+     "name": "hardIds",
+     "n": 1,
+     "firstLine": 399
+    },
+    {
+     "name": "sceneIndex",
+     "n": 1,
+     "firstLine": 399
+    },
+    {
+     "name": "unsupported",
+     "n": 3,
+     "firstLine": 399
+    }
+   ]
+  },
+  {
+   "file": "tools/taste-skill/skills/brandkit/SKILL.md",
+   "hits": [
+    {
+     "name": "unsupported",
+     "n": 1,
+     "firstLine": 844
+    }
+   ]
+  }
+ ],
+ "checkers": {
+  "check-anchors.mjs": {
+   "importsEntries": true,
+   "readsPromptsJs": false,
+   "readsPromptCopy": false,
+   "hasSelfTest": false,
+   "assertions": []
+  },
+  "check-docs.mjs": {
+   "importsEntries": false,
+   "readsPromptsJs": true,
+   "readsPromptCopy": true,
+   "hasSelfTest": true,
+   "assertions": [
+    "ids/exist",
+    "nums/schemes",
+    "nums/gate",
+    "nums/warn-axes",
+    "nums/prompt-len",
+    "nums/scenes",
+    "status/fixed-claims",
+    "status/layout-fix",
+    "panel/fields",
+    "i18n/pair",
+    "i18n/facts",
+    "paths/exist",
+    "paths/templates",
+    "regression/banned"
+   ]
+  },
+  "check-prompts.mjs": {
+   "importsEntries": false,
+   "readsPromptsJs": true,
+   "readsPromptCopy": true,
+   "hasSelfTest": false,
+   "assertions": []
+  },
+  "check-stale.mjs": {
+   "importsEntries": true,
+   "readsPromptsJs": true,
+   "readsPromptCopy": true,
+   "hasSelfTest": false,
+   "assertions": []
+  }
+ },
+ "lensClaims": [
+  {
+   "file": "README.md",
+   "min": "1639",
+   "max": "1998",
+   "median": "1829"
+  }
+ ],
+ "determinism": {
+  "headBlob": "75a5b1d06a06c670a0bde8375554c9402ecd4dc4",
+  "currentBlob": "5df25e0eb2dec49aa3f7a89811f09083f8e320ff"
+ },
+ "note": "重生成本身不得跑在工作区（会覆写 tracked 的 prototypes/_selection/prompts.js）；本探针只做静态扫描与 HEAD blob 比对。"
+}

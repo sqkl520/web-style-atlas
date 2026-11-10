@@ -1,0 +1,87 @@
+{
+ "generatedAt": "2026-10-29T15:03:44.142Z",
+ "head": "03f6fd47e364c43dffdf240f3eb298987f840625",
+ "artifacts": [
+  {
+   "path": "prototypes/_prompts/dna-raw.json",
+   "got": "2d6bfe3ff34721fcca3db8e9cabe65c212aac24c",
+   "want": "14ddeff52f3fea0574349f2ea913571e22bd75a5",
+   "same": false
+  },
+  {
+   "path": "prototypes/_prompts/dna-clean.json",
+   "got": "1a10ac652e0cdf8b09abf0bf00d20f68530ac421",
+   "want": "50babe3eee07036ce95ef7fe05881c09e829f94f",
+   "same": false
+  },
+  {
+   "path": "prototypes/_selection/prompts.js",
+   "got": "75a5b1d06a06c670a0bde8375554c9402ecd4dc4",
+   "want": "75a5b1d06a06c670a0bde8375554c9402ecd4dc4",
+   "same": true
+  }
+ ],
+ "semantic": [
+  {
+   "path": "prototypes/_prompts/dna-raw.json",
+   "n": 6,
+   "diffs": [
+    {
+     "path": "$.rows.6.families.6",
+     "now": "monospace（Chrome 实测，见 deliverables/69-exec/EXEC-mono-empty.md §2.3），\n   下面把这条与其余可能因引擎而异的默认值一并还原成继承值：换标记，不换排版。 */\ncode{font-family:inherit"
+    },
+    {
+     "path": "$.rows.12.families.3",
+     "now": "monospace（Chrome 实测，见 deliverables/69-exec/EXEC-mono-empty.md §2.3），\n   下面把这条与其余可能因引擎而异的默认值一并还原成继承值：换标记，不换排版。 */\ncode{font-family:inherit"
+    },
+    {
+     "path": "$.rows.12.shadowSample.0",
+     "head": "var(--press-2)",
+     "now": "none"
+    },
+    {
+     "path": "$.rows.12.dropSample.0",
+     "now": "2px 2px 3px rgba(36, 31, 23, 0.08"
+    },
+    {
+     "path": "$.rows.12.dropSample.1",
+     "now": "2px 2px 4px rgba(36, 31, 23, 0.18"
+    },
+    {
+     "path": "$.rows.20.families.4",
+     "now": "monospace（Chrome 实测，见 deliverables/69-exec/EXEC-mono-empty.md §2.3），\n   下面把这条与其余可能因引擎而异的默认值一并还原成继承值：换标记，不换排版。 */\ncode{font-family:inherit"
+    }
+   ]
+  },
+  {
+   "path": "prototypes/_prompts/dna-clean.json",
+   "n": 5,
+   "diffs": [
+    {
+     "path": "$.12.shadowDetail.inset",
+     "head": 8,
+     "now": 13
+    },
+    {
+     "path": "$.12.shadowDetail.outer",
+     "head": 9,
+     "now": 1
+    },
+    {
+     "path": "$.12.shadowDetail.drops",
+     "head": 0,
+     "now": 2
+    },
+    {
+     "path": "$.12.shadowDetail.samples.0",
+     "head": "2px 2px 3px rgba(36, 31, 23, 0.08)",
+     "now": "0 -2px 3px rgba(36, 31, 23, 0.06)"
+    },
+    {
+     "path": "$.12.shadowDetail.samples.1",
+     "head": "2px 2px 2px rgba(36, 31, 23, 0)"
+    }
+   ]
+  }
+ ]
+}
