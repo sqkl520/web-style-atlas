@@ -316,6 +316,96 @@ async function runAll(pg) {
     if (!r.hasPrefix) return { ok: false, want: '含「不适合：」前缀', got: r.sample, detail: '缺前缀 → 负向语义会被读成正向' };
     return { ok: true, detail: '「' + r.sample + '…」' };
   });
+
+  /* ── 9. 搜索框必须真的能筛（2026-11-10 新增，Q2）─────────────────────
+   *
+   * 【为什么必须加这一条 —— 它是本文件里代价最高的一次教训】
+   *
+   * 2026-11-10 我在 `match()` 里加「场景同义词展开」时写了个变量名错误：
+   * 用了 `P`，而 `P` 只在几个函数内部局部定义，`match()` 作用域里没有它。
+   * 后果：**`match()` 每次调用都抛 `ReferenceError: P is not defined`**，
+   * 于是 `render()` 抛错 → `state.q` 写了但列表永不更新 →
+   * **搜索框完全失效**：输入任何词（包括「S12」和不存在的词）都返回 30 行。
+   * 用户在搜索框里打第一个字就会撞上，而：
+   *   · 9 个静态闸门全绿（它们读源码/数据，不跑 app.js）
+   *   · `probe-ui` 原有 8 条断言全绿（**没有一条碰过搜索框**）
+   *   · `check-ui-copy` 全绿（它只查 index.html 的文案与 data-derived）
+   * 也就是说这个缺陷能一路推到线上，而所有防线都报绿。
+   *
+   * 这条断言的设计要点：**必须用一个「绝不匹配」的词**，因为
+   * 用真实词去测会混淆两种失败：搜索没生效（返回 30 行）与
+   * 搜索生效但没命中（返回 0 行）。只有「不存在的词必须返回 0 行」
+   * 这一条能同时证明：事件被收到、state.q 被写入、match() 没抛、render() 跑了。
+   */
+  await check('search-actually-filters', async () => {
+    await goto();
+    const r = await pg.eval(`(() => {
+      const inp = document.getElementById('q');
+      if (!inp) return { ok: false, want: '#q', got: 'missing', detail: '找不到搜索框' };
+      const total = document.querySelectorAll('#ledger .row').length;
+      const probes = [];
+      const tryTerm = (t) => {
+        inp.value = t;
+        inp.dispatchEvent(new Event('input', { bubbles: true }));
+        return document.querySelectorAll('#ledger .row').length;
+      };
+      // 1) 一个绝不存在的串 → 必须 0 行
+      const nomatch = tryTerm('zzz-no-such-scheme-zzz');
+      // 2) 一个必然存在的方案号 → 必须 1 行
+      const exact = tryTerm('S12');
+      // 3) 清空 → 必须回到总数
+      const cleared = tryTerm('');
+      return { ok: true, total, nomatch, exact, cleared };
+    })()`);
+    if (!r.ok) return r;
+    if (r.total < 10) return { ok: false, want: '≥10 行初始列表', got: r.total, detail: '页面本身没渲染出来，这条断言无意义' };
+    if (r.nomatch !== 0) {
+      return { ok: false, want: '不存在的词 → 0 行', got: r.nomatch + ' 行',
+        detail: '搜索没有生效（match() 可能抛错，render() 没跑）—— 用户在搜索框打第一个字就会撞上' };
+    }
+    if (r.exact !== 1) {
+      return { ok: false, want: '搜「S12」→ 1 行', got: r.exact + ' 行',
+        detail: '搜索生效但方案号不唯一命中，或 haystack 少索引了 id' };
+    }
+    if (r.cleared !== r.total) {
+      return { ok: false, want: '清空 → ' + r.total + ' 行', got: r.cleared + ' 行', detail: '清空后没恢复全量' };
+    }
+    return { ok: true, detail: '空词 ' + r.total + ' / 乱码 0 / S12 1 / 清空 ' + r.cleared };
+  });
+
+  /* ── 10. 场景同义词：芯片能点到、搜索也必须能搜到（Q2）──────────────
+   *
+   * 为什么单列一条：`check-scenes.mjs` 静态核过「每个 direct 命中的案，
+   * 正文里能找到该词或同义词」。但那是**复刻** app.js 的索引逻辑，
+   * 复刻对了不等于产品对了（上一条断言就是活证据）。
+   * 这一条在真浏览器里核同样三件事，用 `sceneIndex` 的 direct 词逐个打。
+   */
+  await check('scene-term-searchable', async () => {
+    await goto();
+    const r = await pg.eval(`(() => {
+      const P = window.STYLE_PROMPTS;
+      if (!P || !P.sceneIndex) return { ok: false, want: 'STYLE_PROMPTS.sceneIndex', got: 'missing', detail: '没有词表' };
+      const inp = document.getElementById('q');
+      const bad = [];
+      for (const term of Object.keys(P.sceneIndex)) {
+        const direct = (P.sceneIndex[term] || {}).direct || [];
+        if (!direct.length) continue;
+        inp.value = term;
+        inp.dispatchEvent(new Event('input', { bubbles: true }));
+        const rows = [...document.querySelectorAll('#ledger .row')].map((x) => x.getAttribute('data-id'));
+        for (const want of direct) if (!rows.includes(want)) bad.push(term + '→' + want);
+      }
+      inp.value = '';
+      inp.dispatchEvent(new Event('input', { bubbles: true }));
+      return { ok: true, bad, terms: Object.keys(P.sceneIndex).filter((t) => ((P.sceneIndex[t] || {}).direct || []).length).length };
+    })()`);
+    if (!r.ok) return r;
+    if (r.bad.length) {
+      return { ok: false, want: '每个 direct 词都能搜到它声明的案', got: r.bad.join(' '),
+        detail: '芯片能点到、搜索搜不到（同词不同路）' };
+    }
+    return { ok: true, detail: r.terms + ' 个直连词全部可搜到' };
+  });
 }
 
 /* ── 主流程 ─────────────────────────────────────────────────────────── */
@@ -418,6 +508,32 @@ async function runSelftest(pg) {
       from: "'<div class=\"shots\">' + shotFig(r, 'desktop') + '</div>' +",
       to: "'<div class=\"shots\">' + shotFig(r, 'desktop') + shotFig(r, 'tablet') + shotFig(r, 'mobile') + '</div>' +",
       note: '恢复每行三张图（其中两张被 CSS 隐藏）',
+    },
+    /* ── 2026-11-10 新增两条：把「搜索彻底失效」这个真实事故装回去 ──────────
+     *
+     * 事故经过（这是本仓库代价最高的一次，因为它能一路推到线上）：
+     *   我在 match() 里加同义词展开时用了变量 `P`，而 `P` 只在几个函数内部局部定义，
+     *   match() 作用域里没有它 ⇒ 每次调用都抛 `ReferenceError: P is not defined`
+     *   ⇒ render() 抛错 ⇒ 搜索框完全失效（打任何词都返回 30 行）。
+     *   当时 **9 个静态闸门全绿 + probe-ui 原有 8 条全绿** —— 没有一条碰过搜索框。
+     *
+     * 下面两条就是那次事故的成品回归测试：
+     *   ① 把 `window.STYLE_PROMPTS` 换回一个不存在的裸变量名，重现 ReferenceError；
+     *   ② 关掉同义词展开，重现「潮牌能点不能搜」。
+     */
+    {
+      name: 'search-actually-filters',
+      file: 'prototypes/_selection/app.js',
+      from: 'if (window.STYLE_PROMPTS && window.STYLE_PROMPTS.sceneIndex) {\n        var _si = window.STYLE_PROMPTS.sceneIndex;',
+      to: 'if (P_NOT_DEFINED_FOR_SELFTEST && P_NOT_DEFINED_FOR_SELFTEST.sceneIndex) {\n        var _si = P_NOT_DEFINED_FOR_SELFTEST.sceneIndex;',
+      note: '重现 2026-11-10 的 ReferenceError（match() 抛错 ⇒ 搜索返回全量）',
+    },
+    {
+      name: 'scene-term-searchable',
+      file: 'prototypes/_selection/app.js',
+      from: 'if (_v && _v.direct && _v.direct.indexOf(r.id) >= 0 && hay.indexOf(String(_t).toLowerCase()) < 0) {\n            hay += \' \' + String(_t).toLowerCase();\n          }',
+      to: 'if (false && _v && _v.direct && _v.direct.indexOf(r.id) >= 0) {\n            hay += \' \' + String(_t).toLowerCase();\n          }',
+      note: '关掉同义词展开（潮牌能点不能搜）',
     },
   ];
 

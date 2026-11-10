@@ -63,6 +63,15 @@ jobs:
       - name: check-distribution 自检（11 条内存变异，证明闸门不是恒真）
         run: node prototypes/_build/check-distribution.mjs --selftest
 
+      # 行业词表一致性（Q2 新增）：守「芯片路径 vs 搜索路径」给出同一个答案。
+      # 开工实测有 3 个词「芯片能点出、搜索 0 行」+ 15 个词「芯片说没有、搜索能命中」。
+      # 前者 FAIL（用户点得到、搜不到，是明确的错），后者 WARN（站点说了两套话）。
+      - name: check-scenes（芯片 vs 搜索）
+        run: node prototypes/_build/check-scenes.mjs
+
+      - name: check-scenes 自检（7 条内存变异）
+        run: node prototypes/_build/check-scenes.mjs --selftest
+
       - name: collect-schemes --check（数据完整性，不写盘）
         run: node prototypes/_build/collect-schemes.mjs --check
 

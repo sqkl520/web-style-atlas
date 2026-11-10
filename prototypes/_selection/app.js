@@ -247,6 +247,40 @@
                  r.scenesYes,
                  ax.ground, ax.band, ax.load, ax.loud,
                  (r.palette || []).join(' ')].join(' ').toLowerCase();
+      /* ── 场景同义词展开（2026-11-10，Q2）─────────────────────────────────
+       *
+       * 【要修的死路，实测】`check-scenes.mjs` 抓到 3 个词「芯片能点出结果，
+       * 手动搜同一个词 0 行」：
+       *   · 「潮牌」→ 芯片直连 S12，但 S12 正文写的是「潮流品牌快闪页」；
+       *   · 「修鞋理发」「小吃店」→ 芯片直连 S09，正文写的是「修理、清洁、烘焙、理发」
+       *     和「独立餐饮」。
+       * 用户点芯片能筛出案，自己把同一个词打进搜索框却什么也没有 ——
+       * 同词不同路，一条通一条死。这不是文案问题，是索引少了同义关系。
+       *
+       * 【改法】把 sceneIndex 当作**同义词字典的正本**：若本案是某词的 direct 命中，
+       * 且该词本身不在 hay 里，就把该词拼进 hay（只拼词本身，不拼它的 near 列表）。
+       * 于是「潮牌」能搜到 S12，因为 sceneIndex 声明了 潮牌.direct 含 S12。
+       *
+       * 【为什么这不算「自己给自己发通行证」】
+       * 判据的方向是反的：这里不判断"该不该直连"，只让**已经声明的直连关系**
+       * 在搜索路径上生效。声明本身由 `check-scenes.mjs` 的 scenes-chip-only 断言看守
+       * （它要求 direct 命中必须在该案正文里找到同义表述，找不到就 FAIL）。
+       * 两条合起来才闭环：这里让两条路一致，那里防止 direct 声明本身是假的。
+       *
+       * 【为什么不在 collect-schemes 里改 scenesYes】
+       * scenesYes 是 `_specs` 字段 10 的**原文**，详情面板直接渲染它。
+       * 往里注入同义词 = 修改规格原文，会让"这个案说自己适合什么"变得不可信。
+       * 搜索索引是**派生视图**，同义词属于它，不属于原文。
+       */
+      if (window.STYLE_PROMPTS && window.STYLE_PROMPTS.sceneIndex) {
+        var _si = window.STYLE_PROMPTS.sceneIndex;
+        for (var _t in _si) {
+          var _v = _si[_t];
+          if (_v && _v.direct && _v.direct.indexOf(r.id) >= 0 && hay.indexOf(String(_t).toLowerCase()) < 0) {
+            hay += ' ' + String(_t).toLowerCase();
+          }
+        }
+      }
       if (hay.indexOf(state.q) < 0) return false;
     }
     return true;
