@@ -53,6 +53,16 @@ jobs:
       - name: check-ui-copy（选型台界面文案）
         run: node prototypes/_build/check-ui-copy.mjs
 
+      # 分布闸门（Q2 新增）。默认模式：**回归类硬失败，缺口类只报 WARN**。
+      # 为什么不 --strict：Q2 开工实测有 4 个缺口（中间明度 1/2、亮底紫 0/1、
+      # 很安静 2/5、少货少图 0/2）。永久红的闸门会训练所有人无视红灯（见本文件头注释）。
+      # 缺口类会在 Q2 的 5 个新案落地后转绿，届时改成 --strict 作为验收开关。
+      - name: check-distribution（分布：同质化不许变糟）
+        run: node prototypes/_build/check-distribution.mjs
+
+      - name: check-distribution 自检（11 条内存变异，证明闸门不是恒真）
+        run: node prototypes/_build/check-distribution.mjs --selftest
+
       - name: collect-schemes --check（数据完整性，不写盘）
         run: node prototypes/_build/collect-schemes.mjs --check
 

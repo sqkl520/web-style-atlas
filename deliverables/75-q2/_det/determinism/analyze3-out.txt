@@ -1,0 +1,68 @@
+=== 每个文件在 7 次渲染里的 sha 聚类 ===
+
+desktop-fold.jpg  len=128407  不同sha数=1
+   9519a97a6529865a  n=7  [run1,run2,run3,run4,run5,run6,run7]
+
+desktop-page-01.jpg  len=131831  不同sha数=1
+   abca5889623f5d19  n=7  [run1,run2,run3,run4,run5,run6,run7]
+
+mobile-fold.jpg  len=55017  不同sha数=1
+   7252cd06ffba59e4  n=7  [run1,run2,run3,run4,run5,run6,run7]
+
+mobile-page-01.jpg  len=299126  不同sha数=1
+   b43e79194fce29fb  n=7  [run1,run2,run3,run4,run5,run6,run7]
+
+mobile-page-02.jpg  len=80265  不同sha数=1
+   be14dcd16c69dd4e  n=7  [run1,run2,run3,run4,run5,run6,run7]
+
+tablet-fold.jpg  len=79746  不同sha数=1
+   0934ea2f8efe0a03  n=7  [run1,run2,run3,run4,run5,run6,run7]
+
+tablet-page-01.jpg  len=184858  不同sha数=2
+   cb6f1ab618fa3e43  n=4  [run1,run2,run3,run5]
+   87c7317aeb4cd393  n=3  [run4,run6,run7]
+
+tablet-page-02.jpg  len=60137  不同sha数=1
+   dcec9617a39ee251  n=7  [run1,run2,run3,run4,run5,run6,run7]
+
+
+=== tablet-page-01 变体 A vs B 逐字节 ===
+A(run4) vs B(run5): len 184858/184858 不同=1 首差=51023 全部偏移=51023
+  offset 51023: A=0x86(134)  B=0x66(102)  XOR=0xe0
+
+=== 各 run 在 offset 51023 的字节 ===
+  run1  0x66  sha=cb6f1ab618fa
+  run2  0x66  sha=cb6f1ab618fa
+  run3  0x66  sha=cb6f1ab618fa
+  run4  0x86  sha=87c7317aeb4c
+  run5  0x66  sha=cb6f1ab618fa
+  run6  0x86  sha=87c7317aeb4c
+  run7  0x86  sha=87c7317aeb4c
+
+=== 全部文件的变体内一致性 ===
+  desktop-fold.jpg 9519a97a: n=7 组内最大差异字节=0
+  desktop-page-01.jpg abca5889: n=7 组内最大差异字节=0
+  mobile-fold.jpg 7252cd06: n=7 组内最大差异字节=0
+  mobile-page-01.jpg b43e7919: n=7 组内最大差异字节=0
+  mobile-page-02.jpg be14dcd1: n=7 组内最大差异字节=0
+  tablet-fold.jpg 0934ea2f: n=7 组内最大差异字节=0
+  tablet-page-01.jpg cb6f1ab6: n=4 组内最大差异字节=0
+  tablet-page-01.jpg 87c7317a: n=3 组内最大差异字节=0
+  tablet-page-02.jpg dcec9617: n=7 组内最大差异字节=0
+
+
+=== report.json 7 次逐叶子键 ===
+file:///D:/Web/style/deliverables/75-q2/_det/determinism/analyze3.mjs:61
+  if (o === null || typeof o !== 'object') { out.set(p, o); return out; }
+                                                 ^
+
+TypeError: out.set is not a function
+    at leaves (file:///D:/Web/style/deliverables/75-q2/_det/determinism/analyze3.mjs:61:50)
+    at leaves (file:///D:/Web/style/deliverables/75-q2/_det/determinism/analyze3.mjs:65:23)
+    at Array.map (<anonymous>)
+    at file:///D:/Web/style/deliverables/75-q2/_det/determinism/analyze3.mjs:68:17
+    at ModuleJob.run (node:internal/modules/esm/module_job:569:25)
+    at async node:internal/modules/esm/loader:650:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:105:5)
+
+Node.js v26.12.1

@@ -573,7 +573,7 @@ ls prototypes/_selection/                                 # 选型台 + 向导�
 
 Pure static: no build step, no backend, no dependency install. Open `prototypes/_selection/` over HTTP and all 30 schemes appear on one page with real renders at 1440 / 768 / 390 (**272 screenshots**, `git ls-files "prototypes/S*/.inspect/*.jpg" | wc -l`).
 
-26 prototypes pass the mechanical gate with FAIL = 0. What this repository cannot do — 8 remaining gate failures, measured ground-colour homogeneity (18 / 30 = 60% in a warm pale band), the `file://` `mask-image` breakage, the incomplete photo attribution tables — is listed under [做不到与已知边界](#做不到与已知边界).
+29 prototypes pass the mechanical gate with FAIL = 0. What this repository cannot do — 2 remaining gate failures, measured ground-colour homogeneity (18 / 30 = 60% in a warm pale band), the `file://` `mask-image` breakage, the incomplete photo attribution tables — is listed under [做不到与已知边界](#做不到与已知边界).
 
 Full English README: **[README-EN.md](README-EN.md)**（与本文逐节对译）.
 

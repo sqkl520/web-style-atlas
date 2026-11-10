@@ -502,7 +502,7 @@ Run these three commands first and paste the raw output:
 
 ```bash
 git ls-files "prototypes/S*/.inspect/*.jpg" | wc -l     # this README says 272
-node prototypes/_build/verify-prototype.mjs --all        # this README says 26 schemes at FAIL = 0
+node prototypes/_build/verify-prototype.mjs --all        # this README says 29 schemes at FAIL = 0
 ls prototypes/_selection/                                # the bench + wizard files
 ```
 

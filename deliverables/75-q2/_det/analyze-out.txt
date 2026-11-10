@@ -1,0 +1,85 @@
+=== A. sha256 对照表 ===
+desktop-fold.jpg	len=128407	unique=1
+   run1  9519a97a6529865ac1c0f41d0ec9c992e92420ac53ce134fa1eaf507130ab4a7
+   run2  9519a97a6529865ac1c0f41d0ec9c992e92420ac53ce134fa1eaf507130ab4a7
+   run3  9519a97a6529865ac1c0f41d0ec9c992e92420ac53ce134fa1eaf507130ab4a7
+desktop-page-01.jpg	len=131831	unique=1
+   run1  abca5889623f5d197fb4e836c2d16b36c664a2a44a5b2001043675c46bb8706d
+   run2  abca5889623f5d197fb4e836c2d16b36c664a2a44a5b2001043675c46bb8706d
+   run3  abca5889623f5d197fb4e836c2d16b36c664a2a44a5b2001043675c46bb8706d
+mobile-fold.jpg	len=55017	unique=1
+   run1  7252cd06ffba59e4a6dfc393c9f296da9621bbefd9a648d5f62e9c9ee4cc5294
+   run2  7252cd06ffba59e4a6dfc393c9f296da9621bbefd9a648d5f62e9c9ee4cc5294
+   run3  7252cd06ffba59e4a6dfc393c9f296da9621bbefd9a648d5f62e9c9ee4cc5294
+mobile-page-01.jpg	len=299126	unique=1
+   run1  b43e79194fce29fb3398211e458d7847bc3c48e12ff5484ac11b76b79f747df3
+   run2  b43e79194fce29fb3398211e458d7847bc3c48e12ff5484ac11b76b79f747df3
+   run3  b43e79194fce29fb3398211e458d7847bc3c48e12ff5484ac11b76b79f747df3
+mobile-page-02.jpg	len=80265	unique=1
+   run1  be14dcd16c69dd4e2018bed23d4582b6b9fefa01830e1126ba72ec3167de53ab
+   run2  be14dcd16c69dd4e2018bed23d4582b6b9fefa01830e1126ba72ec3167de53ab
+   run3  be14dcd16c69dd4e2018bed23d4582b6b9fefa01830e1126ba72ec3167de53ab
+tablet-fold.jpg	len=79746	unique=1
+   run1  0934ea2f8efe0a03f010f05a92929003577740ad7c9a43082e16d2f74912576d
+   run2  0934ea2f8efe0a03f010f05a92929003577740ad7c9a43082e16d2f74912576d
+   run3  0934ea2f8efe0a03f010f05a92929003577740ad7c9a43082e16d2f74912576d
+tablet-page-01.jpg	len=184858	unique=2
+   run1  87c7317aeb4cd3938612e7c6193d052eda172cc7f0590b5d15f543d4cc21b6a8
+   run2  87c7317aeb4cd3938612e7c6193d052eda172cc7f0590b5d15f543d4cc21b6a8
+   run3  cb6f1ab618fa3e43fc3fb111c3279102275ccc72066935617c4bfcf04d3e4953
+tablet-page-02.jpg	len=60137	unique=1
+   run1  dcec9617a39ee25168f29dec8a948c9a4834e4bef40a093958dac962940f2fdb
+   run2  dcec9617a39ee25168f29dec8a948c9a4834e4bef40a093958dac962940f2fdb
+   run3  dcec9617a39ee25168f29dec8a948c9a4834e4bef40a093958dac962940f2fdb
+
+=== B. 逐字节差异 ===
+desktop-fold.jpg run1 vs run2: 不同=0/128407 首差=-1  全等
+desktop-fold.jpg run1 vs run3: 不同=0/128407 首差=-1  全等
+desktop-fold.jpg run2 vs run3: 不同=0/128407 首差=-1  全等
+desktop-page-01.jpg run1 vs run2: 不同=0/131831 首差=-1  全等
+desktop-page-01.jpg run1 vs run3: 不同=0/131831 首差=-1  全等
+desktop-page-01.jpg run2 vs run3: 不同=0/131831 首差=-1  全等
+mobile-fold.jpg run1 vs run2: 不同=0/55017 首差=-1  全等
+mobile-fold.jpg run1 vs run3: 不同=0/55017 首差=-1  全等
+mobile-fold.jpg run2 vs run3: 不同=0/55017 首差=-1  全等
+mobile-page-01.jpg run1 vs run2: 不同=0/299126 首差=-1  全等
+mobile-page-01.jpg run1 vs run3: 不同=0/299126 首差=-1  全等
+mobile-page-01.jpg run2 vs run3: 不同=0/299126 首差=-1  全等
+mobile-page-02.jpg run1 vs run2: 不同=0/80265 首差=-1  全等
+mobile-page-02.jpg run1 vs run3: 不同=0/80265 首差=-1  全等
+mobile-page-02.jpg run2 vs run3: 不同=0/80265 首差=-1  全等
+tablet-fold.jpg run1 vs run2: 不同=0/79746 首差=-1  全等
+tablet-fold.jpg run1 vs run3: 不同=0/79746 首差=-1  全等
+tablet-fold.jpg run2 vs run3: 不同=0/79746 首差=-1  全等
+tablet-page-01.jpg run1 vs run2: 不同=0/184858 首差=-1  全等
+tablet-page-01.jpg run1 vs run3: 不同=1/184858 首差=51023  offsets(前1)=51023
+tablet-page-01.jpg run2 vs run3: 不同=1/184858 首差=51023  offsets(前1)=51023
+tablet-page-02.jpg run1 vs run2: 不同=0/60137 首差=-1  全等
+tablet-page-02.jpg run1 vs run3: 不同=0/60137 首差=-1  全等
+tablet-page-02.jpg run2 vs run3: 不同=0/60137 首差=-1  全等
+
+=== C. report.json 去 at 后全等? ===
+run1 at=2026-11-10T09:05:22.291Z  keys=url,at,allow,viewports,findings,images
+run2 at=2026-11-10T09:06:42.852Z  keys=url,at,allow,viewports,findings,images
+run3 at=2026-11-10T09:08:01.876Z  keys=url,at,allow,viewports,findings,images
+去 at 后 run1==run2: true
+去 at 后 run1==run3: true
+去 at 后 run2==run3: true
+
+=== D. report.json 逐叶子键对比（不剔 at）===
+叶子键总数=810  不一致键数=1
+  UNSTABLE at: "2026-11-10T09:05:22.291Z" | "2026-11-10T09:06:42.852Z" | "2026-11-10T09:08:01.876Z"
+
+=== E. 6 个可度量在三次渲染里的值 ===
+width=1440
+  run1 {"imgCount":5}
+  run2 {"imgCount":5}
+  run3 {"imgCount":5}
+width=768
+  run1 {"imgCount":5}
+  run2 {"imgCount":5}
+  run3 {"imgCount":5}
+width=390
+  run1 {"imgCount":5}
+  run2 {"imgCount":5}
+  run3 {"imgCount":5}

@@ -56,6 +56,152 @@ export function probe() {
 
   // --- collect elements
   const all = [...document.body.querySelectorAll('*')].slice(0, 9000);
+  /* ── 结构可度量：栏数 / 主轴宽 / 线宽集合（2026-11-10 新增，Q2）─────────
+   *
+   * 为什么要加：`deliverables/74-plan/00-MASTER-PLAN.md` 把「用 DOM 量 6 个可度量
+   * 与原型对账」定成季度复刻验货的唯一证伪手段（栏数／主轴宽／最大标题字号／
+   * 正文比／线宽集合／图片位数）。其中 3 个（最大标题字号、正文比、图片位数）
+   * report.json 一直有；**另外 3 个此前 0 命中**——实测 S17 的 report.json 里
+   * `column` / `grid` / `axis` / `lineWidth` / `border` / `gutter` 全是 0 次。
+   * 后果不是抽象的：那 3 项过去只能拿 `dna-clean.json` 的**规格值**自我印证，
+   * 那是「设计说了什么 vs 设计说了什么」，不是「设计说了什么 vs 渲染出什么」。
+   * 这一节把它们变成渲染事实。
+   *
+   * 采集口径（每条都写清为什么不取别的）：
+   *   · columns —— 只看**真正承载多栏正文**的容器，不数任意 `grid-template-columns`。
+   *     取法：对每个可见元素读 computed 的 `grid-template-columns` 与 `column-count`，
+   *     要求该元素的**直接文本量** ≥ 40 字（`innerText` 长度），否则把导航条、
+   *     按钮行、卡片网格也算进「栏数」——S17 的表格有 8 个 grid 列，但它不是"栏"。
+   *     记 `{ value, source, selector }`，value = 该元素有效轨道数（`none` 记 0）。
+   *     全页取**最大值**作为 `columns`（"这一页最多几栏"），另记每个不同值的出现次数。
+   *   · axisWidth —— 主轴内容宽。取法：正文文本节点最长的那一段所在元素的
+   *     内容盒宽度（`clientWidth − padding`）。这才是「版心宽度」，
+   *     比 `body` 宽度有意义：body 常是 100vw 满幅出血。
+   *   · lineWidths —— 去重后的所有**可见描边宽度**集合（px 数值，升序）。
+   *     取法：扫 `border-{top,right,bottom,left}-width` 与 `outline-width`，
+   *     只收 >0 且元素**有实际描边**（border-style 不是 none）的；伪元素的线宽
+   *     CSSOM 拿不到，所以额外记 `fromPseudo: false` 这一事实，不假装覆盖了。
+   *     这个数之所以重要：`0.5px` vs `1px` 是丝网印与"描边"的分界，
+   *     提示词里写了线宽，验货时要能对着渲染值核。
+   */
+  const STRUCT = { columns: 0, columnSamples: [], axisWidth: null, axisChars: 0, lineWidths: [], lineWidthSamples: [], sawContentBox: 0 };
+  const _lw = new Set();
+  const _colVals = [];
+  const _colEls = [];
+  for (const el of all) {
+    const tag = el.tagName;
+    if (tag === 'SCRIPT' || tag === 'STYLE' || tag === 'NOSCRIPT' || tag === 'TEMPLATE') continue;
+    const rr = el.getBoundingClientRect();
+    if (rr.width < 1 || rr.height < 1) continue;
+    const c = getComputedStyle(el);
+    if (c.display === 'none' || c.visibility === 'hidden') continue;
+
+    // 线宽：只要真的有描边才算
+    const sides = [['borderTopWidth', 'borderTopStyle'], ['borderRightWidth', 'borderRightStyle'], ['borderBottomWidth', 'borderBottomStyle'], ['borderLeftWidth', 'borderLeftStyle']];
+    for (const [wProp, sProp] of sides) {
+      const wv = parseFloat(c[wProp]);
+      if (wv > 0 && c[sProp] !== 'none' && c[sProp] !== 'hidden') _lw.add(Math.round(wv * 100) / 100);
+    }
+    const ow = parseFloat(c.outlineWidth);
+    if (ow > 0 && c.outlineStyle !== 'none') _lw.add(Math.round(ow * 100) / 100);
+
+    // 栏数：只认承载正文的容器
+    const ownText = (el.innerText || '').replace(/\s+/g, '');
+    if (ownText.length >= 40) STRUCT.sawContentBox = (STRUCT.sawContentBox || 0) + 1;
+    if (ownText.length >= 40) {
+      const gtc = c.gridTemplateColumns;
+      let tracks = 0;
+      let trackList = [];
+      /* ⚠️ 必须同时检查 `display`。实测踩到的坑：`grid-template-columns` 的 computed 值
+         在 `display: block` 的元素上**仍然是声明值**（不会变回 `none`）。
+         S01 在 ≤1023px 把 `.col-4` 改成 `display: block`，而它的
+         `grid-template-columns: 5fr var(--bar) 4fr` 还留在样式里 —— 于是 390px 上
+         一个**单栏**页面被判成「3 栏」。这正是季度验货最怕的那种错：
+         基准本身是假的，后面所有对账都无从谈起。 */
+      const isGrid = /grid/.test(c.display);
+      if (isGrid && gtc && gtc !== 'none') {
+        trackList = gtc.split(/\s+/).filter((t) => t && t !== 'none');
+        tracks = trackList.length;
+      }
+      // 多栏文本（column-count）：只在真的按列排版时生效，display 必须是 block 类
+      const cc = parseInt(c.columnCount, 10);
+      if (!isGrid && Number.isFinite(cc) && cc > 1) { tracks = cc; trackList = []; }
+      /* ⚠️ 必须剔掉「栏沟轨道」和「卡片网格」两种假栏，否则栏数会系统性偏大。
+       *
+       * 实测反例（2026-11-10）：
+       *   · S01 的 `.columns` 是 `5fr var(--bar) 4fr var(--bar) 4fr var(--bar) 3fr`，
+       *     7 条轨道里有 3 条是 24px 的实体铅条（栏沟）。**真值 4 栏，会数成 7。**
+       *     这个仓库的规格里 S01 明写「四栏」，第一版采集直接把它算成 7 ——
+       *     而季度复刻验货正是要拿这个数去对账，会把一个忠实实现判成错的。
+       *   · S17 的 `.plates` 是 `repeat(auto-fit, minmax(228px, 1fr))` 的**卡片网格**，
+       *     1440 下展开成 5 轨，被判成「5 栏」。它是图的格子，不是文字栏。
+       *
+       * 判据（两条都要满足才算"栏"）：
+       *   A. 轨道宽 > 0 且 **不是窄沟**：把 `trackList` 里宽度 < 32px 的轨道当成栏沟剔掉。
+       *      （本仓库 30 案的栏沟实测 16–26px；正文栏最窄也在 100px 以上。）
+       *   B. 该容器的**子元素必须是文字块**而不是卡片：若子元素是 `li/img/figure` 这类
+       *      重复单元，且每个都装图片，那是网格画廊，不是分栏正文。
+       *      简化判据：容器里 `img` 数 ≥ 子元素数的一半 ⇒ 判为画廊，不算栏。
+       */
+      if (tracks > 1) {
+        // 判据 A：剔掉窄轨道（栏沟）
+        const numTracks = trackList
+          .map((t) => parseFloat(t))
+          .filter((n) => Number.isFinite(n));
+        if (numTracks.length === trackList.length && trackList.length > 1) {
+          const wide = numTracks.filter((n) => n >= 32);
+          if (wide.length) tracks = wide.length;
+        }
+        // 判据 B：画廊判据
+        const kids = [...el.children];
+        if (kids.length >= 3) {
+          const withImg = kids.filter((k) => k.querySelector('img, picture, svg, canvas')).length;
+          if (withImg >= kids.length / 2) tracks = 0;   // 是网格画廊，不是文字栏
+        }
+      }
+      if (tracks > 1) {
+        _colVals.push(tracks);
+        _colEls.push({ el, cs: c, tracks, chars: ownText.length });
+        if (STRUCT.columnSamples.length < 6) {
+          STRUCT.columnSamples.push({ value: tracks, selector: (tag.toLowerCase() + (el.id ? '#' + el.id : '') + (typeof el.className === 'string' && el.className ? '.' + el.className.trim().split(/\s+/).slice(0, 2).join('.') : '')).slice(0, 50), text: ownText.length });
+        }
+      }
+    }
+  }
+  if (_colVals.length) {
+    /* 页面的「栏数」取**承载正文最多**的那个容器的栏数，不是全页最大值。
+     *
+     * ⚠️ 第一版取 `Math.max(..._colVals)`，实测在 S07 上出错：
+     *   实际分布 {2:2, 3:2, 4:1}，最大值 4 —— 而那个 4 是 `header.bar`（导航条，53 字）。
+     *   真正的正文栏是 `.toc`：正页 2 栏、背页 3 栏（规格原文），各 479 / 730 字。
+     *   「4 栏」这个数在任何一处正文里都不存在，拿它当验货基准是错的。
+     *
+     * 正确口径：按**容器里的文字量**排序（`_colEls` 里已带 `chars`），
+     * 取文字量最大的那个容器的栏数当页面栏数。导航条 53 字自然排在最后。
+     * 同时保留 `columnsAll`（去重后的全部值）以便看到分布。 */
+    const ranked = [..._colEls].sort((a, b) => b.chars - a.chars);
+    STRUCT.columns = ranked[0].tracks;
+    STRUCT.columnsFrom = (ranked[0].el.tagName.toLowerCase() + (ranked[0].el.id ? '#' + ranked[0].el.id : '') +
+      (typeof ranked[0].el.className === 'string' && ranked[0].el.className ? '.' + ranked[0].el.className.trim().split(/\s+/)[0] : '')).slice(0, 60);
+    STRUCT.columnsAll = [...new Set(_colVals)].sort((a, b) => a - b);
+    const dist = {};
+    for (const v of _colVals) dist[v] = (dist[v] || 0) + 1;
+    STRUCT.columnDistribution = dist;
+  } else if (STRUCT.sawContentBox) {
+    /* 单栏也是一种栏数，不是「没测到」。
+     *
+     * 实测踩到（2026-11-10）：S01 在 390px 是**单栏**（规格原文「<768px 单栏纵向报摘」），
+     * 而第一版采集只在 tracks > 1 时记录，于是 390 输出 `columns: 0`。
+     * 0 与 1 在验货里语义完全不同：0 读作「这一页没有分栏概念」，
+     * 1 读作「单栏」。把 1 报成 0，复刻验货会拿一个不存在的值去对账。
+     * 判据：只要页面上**存在**承载正文的容器（sawContentBox），
+     * 且没有任何容器是多栏的，那它就是单栏 ⇒ columns = 1。 */
+    STRUCT.columns = 1;
+    STRUCT.columnDistribution = { 1: STRUCT.sawContentBox };
+  }
+  STRUCT.lineWidths = [..._lw].sort((a, b) => a - b).slice(0, 12);
+  /* 主轴宽要在 `big` 建好之后算 —— 第一版把这段放在这里（`big` 还没声明），
+     触发 const 的 TDZ 错误，整个 probe() 会抛。所以它挪到了下面 `big` 填充完之后。 */
   const texts = [];
   const big = [];
   for (const el of all) {
@@ -85,6 +231,60 @@ export function probe() {
       clipText: (cs.webkitBackgroundClip || cs.backgroundClip || '').includes('text'),
       inCode: !!el.closest('pre, code, kbd, samp, textarea'), inUI: !!el.closest('[data-ui]'), textShadow: cs.textShadow !== 'none',
     });
+  }
+
+  // 主轴宽：**分栏正文容器的内容盒宽度**，不是页面宽度。
+  //
+  // ⚠️ 第一版取的是「innerText 最长的元素」，实测在 S01 上选中的是 `<main>`，
+  // 输出 1440 —— 那是满幅 body 宽，而真正的版心是 `.front`（左右各 40px padding）
+  // ⇒ 真值 1360。差 80px。用 1440 当基准去验货，一个忠实实现会被判成窄了 80px。
+  //
+  // 正确取法：优先用**已经识别出来的多栏容器**（`_colEls`）里文本量最大的那个；
+  // 页面上没有多栏容器（单栏页）时，退回「正文字号 + 文本量最大」的元素。
+  // 两种情况下都减去左右 padding，因为 `.clientWidth` 含 padding。
+  {
+    let best = null;
+    for (const cand of _colEls) {
+      const t = (cand.el.innerText || '').replace(/\s+/g, '');
+      if (!best || t.length > best.chars) best = { chars: t.length, el: cand.el, cs: cand.cs };
+    }
+    if (!best) {
+      /* 单栏页没有多栏容器可依，退回「最像正文段落」的元素。
+       *
+       * ⚠️ 第一版退回时只看「字号 14–22 + 文本最长」，实测在 390px 选中的是
+       * `div.sheet`（整个页面容器，宽 390 = 满幅），而不是正文段落。
+       * 原因是页面容器把子元素的文字全算进 `innerText`，永远比单个 `<p>` 长。
+       * 正确判据：**优先选叶子级的段落元素**（p / li / dd / blockquote / figcaption），
+       * 只有找不到时，才退回「文本最长且不是 body/main/section 这类容器」的元素。 */
+      const LEAF = 'p, li, dd, blockquote, figcaption, td';
+      const leafCands = big.filter((b) => {
+        const t = (b.el.innerText || '').replace(/\s+/g, '');
+        if (t.length < 40) return false;
+        const fs = parseFloat(b.cs.fontSize);
+        if (!(fs >= 14 && fs <= 22)) return false;
+        return b.el.matches(LEAF) || b.el.querySelector(LEAF) === null;
+      });
+      const pool = leafCands.length ? leafCands : big.filter((b) => {
+        const t = (b.el.innerText || '').replace(/\s+/g, '');
+        if (t.length < 40) return false;
+        const fs = parseFloat(b.cs.fontSize);
+        if (!(fs >= 14 && fs <= 22)) return false;
+        // 排除结构性容器：它们是"包着正文"而不是"是正文"
+        if (b.el.matches('body, main, section, article, div') && b.el.querySelector('p, li, dd, blockquote')) return false;
+        return true;
+      });
+      for (const b of pool) {
+        const t = (b.el.innerText || '').replace(/\s+/g, '');
+        if (!best || t.length > best.chars) best = { chars: t.length, el: b.el, cs: b.cs };
+      }
+    }
+    if (best) {
+      const padL = parseFloat(best.cs.paddingLeft) || 0, padR = parseFloat(best.cs.paddingRight) || 0;
+      STRUCT.axisWidth = Math.round(best.el.clientWidth - padL - padR);
+      STRUCT.axisChars = best.chars;
+      STRUCT.axisSelector = (best.el.tagName.toLowerCase() + (best.el.id ? '#' + best.el.id : '') + (typeof best.el.className === 'string' && best.el.className ? '.' + best.el.className.trim().split(/\s+/)[0] : '')).slice(0, 60);
+      STRUCT.axisFromColumns = _colEls.length > 0;
+    }
   }
 
   // --- heading blocks: climb from a large text node to the block that holds the whole headline
@@ -458,6 +658,10 @@ export function probe() {
     },
     buttons: { count: buttons.length, inHero: buttons.filter((b) => b.top < H).length, radius: mode(buttons.map((b) => b.radius)), height: mode(buttons.map((b) => b.h)), withShadow: buttons.filter((b) => b.shadow).length, withGradient: buttons.filter((b) => b.gradient).length, mono: buttons.filter((b) => b.mono).length, upper: buttons.filter((b) => b.upper).length, heroLabels: buttons.filter((b) => b.top < H).map((b) => b.text).filter(Boolean).slice(0, 5) },
     surfaces: { shadowStatic, shadowOverlay, shadowSamples, gradients, scrims, gradientSamples, gradientText, hairlines, hairlineSamples, outlinedBoxes, dashed, blurred, roundedBoxes, boxRadius: mode(boxRadii) ?? 0, squareMedia, roundedMedia, mediaRadius: mode(mediaRadii) ?? 0, textShadow: texts.filter((t) => t.textShadow).length, cardRows: cardRows.slice(0, 8) },
+    /* 结构可度量（2026-11-10 新增）：栏数 / 主轴宽 / 线宽集合。
+       MASTER-PLAN 把这三个与「最大标题字号 / 正文比 / 图片位数」并列成复刻验货的 6 个可度量，
+       而此前三个在 report.json 里 0 命中 —— 见上面 STRUCT 那段注释。 */
+    structure: STRUCT,
     heroMedia: heroMedia.slice(0, 4), nav,
     fontsLoaded: [...loaded].slice(0, 12),
   };

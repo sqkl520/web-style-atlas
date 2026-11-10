@@ -592,20 +592,88 @@ function readNum(raw) {
 }
 
 // 2b 闸门达标数
+//
+// ⚠️ 2026-11-10 修一处**假绿**（Q2 开工复核时实测抓出）。
+//
+// 原实现的判据是两条只认固定语序的正则：
+//   ① `N 个闸门 FAIL=0` / `N prototypes pass the gate with FAIL = 0` / `N 案 FAIL=0`
+//   ② `FAIL = 0 … N 案|schemes`
+// 而 `nums/schemes` 那一段有一条 `GATE_TAIL` 规则，把「数字后面跟 pass/闸门/FAIL」的句子
+// **明确转交给本节**处理（它怕把达标数误判成总数）。于是出现一个闭环：
+// 甲方把句子转交给乙方，乙方的正则看不见那些句子 ⇒ 两个闸门都不管它。
+//
+// 实测后果（2026-11-10，两份 README）：
+//   · `README.md:576`（英文摘要段）「26 prototypes pass the mechanical gate with FAIL = 0 …
+//     8 remaining gate failures」——实测 29 案 / 2 条 FAIL。**GitHub 首屏上正在说错的数字。**
+//     两条正则都看不见：数字与 `pass` 之间隔着名词 `prototypes`，而 ② 要求数字在 `FAIL = 0` 之后。
+//   · `README-EN.md:505`「this README says 26 schemes at FAIL = 0」——同样漏。
+//   · `README-EN.md:569`（中文摘要段）「29 个原型机械闸门 FAIL=0 … 剩余 2 条 FAIL」——**是对的**，
+//     但它是碰巧对的：没有任何断言在核它。
+// 单独跑 `check-docs.mjs README-EN.md` 当时报「✓ nums/gate 与实测一致」，而那份文档里
+// 就写着 26。**闸门报绿、文档在说谎，正是本仓库反复在治的那个病。**
+//
+// 修法不是再加一条更长的正则（那只会把下一个语序漏在外面），而是改成**上报驱动**：
+// 先找「这一行在讲达标数」的正确性断言，抽出行内**所有**数字，只要句中出现了
+// 达标语义词（pass the gate / 闸门 / FAIL = 0 / at FAIL），就必须有一个数字等于实测值；
+// 同时在下面加一条 `gate-claim-unparsed`：若某行看起来在讲达标数、却一个数都抽不出来，
+// 记 FAIL 而不是静默放过 —— 这一条是本节防止自己再次瞎掉的唯一手段。
 {
   const bad = [];
+  // 达标语义词：出现在同一句里，才算「这行在讲达标数」
+  //
+  // ⚠️ 不要把裸的 `闸门 FAIL` 收进来（2026-11-10 实测误报）：README.md:63 有一行 UI 示意
+  //   「闸门 FAIL 1（mono） · 错误码 MIR-47 · 5 屏 / 6 张真图 · [展开 12 字段]」
+  // 那是**单张卡片上的标签样例**，其中 FAIL 1 是那一案的失败数、MIR-47 是错误码。
+  // 用裸 `闸门\s*FAIL` 当语境词会把它当成"达标案数声明"，抽出 47/12 两个假数并报红。
+  // 正确判据是「这一行在断言一个**聚合**达标数」，所以语境必须带 `FAIL = 0` 或 `pass … gate`。
+  const GATE_CONTEXT = /pass(?:es|ed|ing)?\s+(?:the\s+)?(?:mechanical\s+)?gate|FAIL\s*=\s*0/i;
+  // 剩余 FAIL 条数（README 常与达标案数成对出现，必须一起核）
+  const REMAIN_RE = /(\d{1,3})\s*(?:remaining gate failures?|条\s*FAIL|remaining failures?|条失败)/gi;
+  let claimedLines = 0, parsedLines = 0;
+
   for (const line of L) {
-    for (const m of line.matchAll(/([\d]{1,3})\s*(?:个闸门 FAIL=0|pass(?:es)? the gate with FAIL\s*=?\s*0|案 FAIL=0)/gi)) {
-      const n = num(m[1]);
-      if (n !== F.gateFailZero) bad.push(`${n}（原句：${m[0]}）`);
+    if (!GATE_CONTEXT.test(line)) continue;
+    claimedLines++;
+    // 本行出现的全部 1–3 位数字（含括号里的"原句"之类噪声由后面按句判定过滤）
+    const nums = [...line.matchAll(/\b(\d{1,3})\b/g)].map((m) => +m[1]);
+    // 这一行是否声明了达标案数：只要有一个数字等于实测达标数，就认为它说对了
+    const saysFailZeroCount = nums.includes(F.gateFailZero);
+    // 这一行是否声明了「剩余 N 条 FAIL」
+    const rem = [...line.matchAll(REMAIN_RE)].map((m) => +m[1]);
+    const remOk = rem.every((n) => n === F.gateFailTotal);
+
+    if (nums.length === 0) {
+      // 讲达标数却抽不出数：不许静默。这正是本节从前瞎掉的方式。
+      bad.push(`gate-claim-unparsed：这一行在讲达标数但抽不出任何数字 —— ${line.trim().slice(0, 80)}`);
+      continue;
     }
-    for (const m of line.matchAll(/FAIL\s*=\s*0[^\n]{0,20}?([\d]{1,3})\s*(?:案|schemes)/gi)) {
-      const n = num(m[1]);
-      if (n !== F.gateFailZero) bad.push(`${n}（FAIL=0 之后的案数）`);
+    parsedLines++;
+
+    /* 判「这一行有没有把达标案数写错」。
+     * 难点：一行里常有别的数字（18/30 同质化、272 张截图、30 个方案），不能要求「行内所有数字都对」。
+     * 取法：把已知的**别的量**从候选里剔掉，再看剩下的数字里有没有一个等于实测达标数。
+     *   · 剔除方案总数（F.schemes）、同质化分子分母、截图数、行业词数 —— 这些都是行内合法数字。
+     * 剔除之后若还剩数字，却没有一个等于 F.gateFailZero，就是真的写错了。 */
+    const legit = new Set([F.schemes, F.gateFailZero, F.gateFailTotal, F.sceneTerms, F.sceneDirect, F.sceneNear, F.unsupported]);
+    // 18/30 这类比值、272 张截图这类具体量，按「出现在 / 或 张 或 个 后面」识别为别的量，直接放行
+    const ratioNums = new Set();
+    for (const m of line.matchAll(/(\d{1,3})\s*\/\s*(\d{1,3})/g)) { ratioNums.add(+m[1]); ratioNums.add(+m[2]); }
+    for (const m of line.matchAll(/(\d{1,4})\s*(?:张|个方案|个案子|个行业词|个场景词|screenshots)/g)) ratioNums.add(+m[1]);
+
+    if (!remOk) {
+      bad.push(`剩余 FAIL 条数与实测 ${F.gateFailTotal} 不符：${rem.join('/')}（原句：${line.trim().slice(0, 80)}）`);
+    }
+    if (!saysFailZeroCount) {
+      // 行内确实有数字，但没有一个是达标案数 —— 说明它写了别的数
+      const suspicious = nums.filter((n) => !legit.has(n) && !ratioNums.has(n) && n > 10 && n <= 200);
+      if (suspicious.length) {
+        bad.push(`达标案数写成 ${[...new Set(suspicious)].join('/')}，实测 ${F.gateFailZero}（原句：${line.trim().slice(0, 80)}）`);
+      }
     }
   }
+
   if (bad.length) fail('nums/gate', `达标案数与实测 ${F.gateFailZero} 不符：${[...new Set(bad)].join('；')}（实测 FAIL 总数 ${F.gateFailTotal}，落在 ${F.gateFailIds.join(' ')}）`);
-  else pass('nums/gate', `闸门 FAIL=0 的案数 = ${F.gateFailZero}，与实测一致`);
+  else pass('nums/gate', `闸门 FAIL=0 的案数 = ${F.gateFailZero}（核了 ${parsedLines}/${claimedLines} 行讲达标数的句子），与实测一致`);
 }
 
 // 2c hard / degrades / 警告并集，三个数都要对得上，且名单本身也要对

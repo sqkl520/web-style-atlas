@@ -1,0 +1,48 @@
+
+### run1  (184858 bytes)
+  SOI    start=      0 len=     2 end=1
+  APP0   start=      2 len=    18 end=19
+  APP2   start=     20 len=   474 end=493
+  DQT    start=    494 len=    69 end=562
+  DQT    start=    563 len=    69 end=631
+  SOF0   start=    632 len=    19 end=650
+  DHT    start=    651 len=    30 end=680
+  DHT    start=    681 len=    90 end=770
+  DHT    start=    771 len=    27 end=797
+  DHT    start=    798 len=    45 end=842
+  SOS    start=    843 len=    14 end=856
+  -> 51023 落在: SOS(843) 与 EOI 之间的扫描数据区，距 SOS 头 50180 字节，距文件尾 133835 字节
+  hex dump [50975, 51071):
+      50975  c3 ad 73 9b d7 49 d1 9c 66 3d c1 53 05 92 da fb
+      50991  0c 56 79 a1 b3 d9 46 35 e9 5b 14 ce 96 f3 2b 78
+      51007  e7 2d 6e 77 3b 4e 6d 04 f7 ae aa 29 a8 c5 96 2c
+      51023  86 d9 66 8d 8d 68 73 99 34 52 0a 9c c2 eb da 49
+      51039  e0 0a aa d1 62 96 d1 94 67 7b 80 64 2f b2 e0 07
+      51055  d6 a6 a4 9a e6 5d 24 53 4d ae 04 99 0a 46 f6 97
+  邻域对比(±512B): 前 512B 内差异=0, 后 512B 内差异=0
+  该字节值=134 (0x86)
+
+### run3  (184858 bytes)
+  SOI    start=      0 len=     2 end=1
+  APP0   start=      2 len=    18 end=19
+  APP2   start=     20 len=   474 end=493
+  DQT    start=    494 len=    69 end=562
+  DQT    start=    563 len=    69 end=631
+  SOF0   start=    632 len=    19 end=650
+  DHT    start=    651 len=    30 end=680
+  DHT    start=    681 len=    90 end=770
+  DHT    start=    771 len=    27 end=797
+  DHT    start=    798 len=    45 end=842
+  SOS    start=    843 len=    14 end=856
+  -> 51023 落在: SOS(843) 与 EOI 之间的扫描数据区，距 SOS 头 50180 字节，距文件尾 133835 字节
+  hex dump [50975, 51071):
+      50975  c3 ad 73 9b d7 49 d1 9c 66 3d c1 53 05 92 da fb
+      50991  0c 56 79 a1 b3 d9 46 35 e9 5b 14 ce 96 f3 2b 78
+      51007  e7 2d 6e 77 3b 4e 6d 04 f7 ae aa 29 a8 c5 96 2c
+      51023  66 d9 66 8d 8d 68 73 99 34 52 0a 9c c2 eb da 49
+      51039  e0 0a aa d1 62 96 d1 94 67 7b 80 64 2f b2 e0 07
+      51055  d6 a6 a4 9a e6 5d 24 53 4d ae 04 99 0a 46 f6 97
+  邻域对比(±512B): 前 512B 内差异=0, 后 512B 内差异=0
+  该字节值=102 (0x66)
+
+>>> 51023: run1=0x86  run3=0x66  XOR=0xe0
