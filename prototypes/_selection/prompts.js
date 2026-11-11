@@ -1790,8 +1790,12 @@ window.STYLE_PROMPTS = {
   {
    "id": "S31",
    "dir": "S31-quiet-mid-grey-rulesheet",
-   "plain": "",
-   "scenes": [],
+   "plain": "只给读数不表态，刻度当骨架",
+   "scenes": [
+    "修表修鞋",
+    "零件目录",
+    "B端采购"
+   ],
    "minItems": 6,
    "minPics": 1,
    "hard": false,
@@ -1833,8 +1837,12 @@ window.STYLE_PROMPTS = {
   {
    "id": "S32",
    "dir": "S32-violet-card-cabinet",
-   "plain": "",
-   "scenes": [],
+   "plain": "紫色卡片柜，编号代替图片",
+   "scenes": [
+    "花艺工作室",
+    "香氛",
+    "定制家具"
+   ],
    "minItems": 3,
    "minPics": 1,
    "hard": false,
@@ -1876,8 +1884,12 @@ window.STYLE_PROMPTS = {
   {
    "id": "S33",
    "dir": "S33-teal-mirror-ledger",
-   "plain": "",
-   "scenes": [],
+   "plain": "两组信息并排对账，青灰底",
+   "scenes": [
+    "装修施工",
+    "咨询顾问",
+    "法务"
+   ],
    "minItems": 8,
    "minPics": 1,
    "hard": false,
@@ -1919,8 +1931,12 @@ window.STYLE_PROMPTS = {
   {
    "id": "S34",
    "dir": "S34-graphite-zero-photo-index",
-   "plain": "",
-   "scenes": [],
+   "plain": "一张图都不放，纯文字索引",
+   "scenes": [
+    "写作课",
+    "编辑服务",
+    "政策说明"
+   ],
    "minItems": 7,
    "minPics": 3,
    "hard": false,
@@ -1962,8 +1978,12 @@ window.STYLE_PROMPTS = {
   {
    "id": "S35",
    "dir": "S35-ash-newsprint-flip",
-   "plain": "",
-   "scenes": [],
+   "plain": "器物开口说话，命令行语气",
+   "scenes": [
+    "小众硬件",
+    "更新日志",
+    "独立工具"
+   ],
    "minItems": 7,
    "minPics": 1,
    "hard": false,

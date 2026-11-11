@@ -89,6 +89,7 @@ const STEPS = [
   /* 自测：证明闸门不是恒真。这一组本身不判定产品状态，但它决定了
    * 上面那些绿是不是可信的 —— 所以它失败要单独标出来。 */
   { id: 'selftest-docs', label: '自测：文档闸门', kind: 'gate', script: join(B, 'check-docs.mjs'), args: ['--selftest'] },
+  { id: 'selftest-prompts', label: '自测：提示词闸门', kind: 'gate', script: join(B, 'check-prompts.mjs'), args: ['--selftest'] },
   { id: 'selftest-dist', label: '自测：分布闸门', kind: 'gate', script: join(B, 'check-distribution.mjs'), args: ['--selftest'] },
   { id: 'selftest-scenes', label: '自测：词表闸门', kind: 'gate', script: join(B, 'check-scenes.mjs'), args: ['--selftest'] },
   { id: 'selftest-prov', label: '自测：出处闸门', kind: 'gate', script: join(B, 'check-provenance.mjs'), args: ['--selftest'] },

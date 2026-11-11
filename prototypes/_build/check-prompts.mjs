@@ -36,7 +36,28 @@ const JSON_OUT = argv.includes('--json');
  * prompts.js 是 `window.STYLE_PROMPTS = {...}` 形式的普通脚本，不是 ES 模块。
  * 用 Function 包一层在沙箱里求值，不引 jsdom。
  */
-const promptsSrc = readFileSync(join(ROOT, 'prototypes/_selection/prompts.js'), 'utf8');
+const SELFTEST = argv.includes('--selftest');
+/* selftest 时，`__mutations` 里存「原文 → 替换后」的源码，**只在内存里**。
+ * 为什么在内存里做而不改真实文件：probe-ui.mjs 的注释记过一次事故 ——
+ * 第一版 selftest 直接改真实文件再还原，结果一次 timeout 杀进程就把坏代码留在了
+ * app.js 里，之后所有探针跑的都是坏代码（`process.on('exit')` 对 SIGKILL 无效）。
+ * 这个仓库不再重复那个错误。 */
+let promptsSrc = readFileSync(
+  process.env.PROMPTS_OVERRIDE || join(ROOT, 'prototypes/_selection/prompts.js'), 'utf8');
+const MUTATIONS = {
+  /* 把 S31 的 plain 置空 —— 复现 Q2 建新案时漏加 HUMAN 表条目的那个真实缺陷。 */
+  'plain-empty': {
+    from: /("id":\s*"S31"[^}]*?"plain":\s*)"[^"]*"/,
+    to: '$1""',
+    expect: 'plain-empty',
+  },
+  /* 把 S31 的 plain 换成一个含 px 的施工细节 —— 复现「人话版写成施工说明」。 */
+  'plain-not-human': {
+    from: /("id":\s*"S31"[^}]*?"plain":\s*)"[^"]*"/,
+    to: '$1"刻度每 60px 一道，主次分明"',
+    expect: 'plain-not-human',
+  },
+};
 const sandbox = { window: {} };
 new Function('window', promptsSrc)(sandbox.window);
 const STYLE_PROMPTS = sandbox.window.STYLE_PROMPTS;
@@ -319,6 +340,41 @@ for (const d of DIRS) {
   }
   lens.push(text.length);
 
+  /* ── 0. plain 非空且可读（2026-11-12 加，D1）─────────────────────────
+   *
+   * 起因：S31–S35 是 Q2 新建的 5 个案子，建案时没同步加进 build-prompts.mjs 的
+   * HUMAN 手写表，于是取值落到 `HUMAN[d.id] || { plain: "", … }` 的兜底上 ——
+   * **缺失被静默成空字符串**。后果有三处，全部用户可见：
+   *
+   *   ① 提示词第 597 行拼出 `请把整页做成这个风格：。`（没有宾语的病句）；
+   *   ② 选型台卡片上的「人话版」是空白（build-prompts.mjs:12 说它存在的理由是
+   *      「让用户三秒判断这适不适合我」）；
+   *   ③ sceneIndex 里这 5 案的场景全部丢失。
+   *
+   * 而当时全库 15 步季度体检**全过** —— 因为没有一条断言问过「plain 是不是非空」。
+   * 这就是本仓库的老病：闸门读不到数据 → 不报错 → 打印一个漂亮结果。
+   *
+   * 判据的三项都来自 build-prompts.mjs:118 自己写下的验收标准
+   * （「plain ≤20 字，不含 px/HEX/角度；能让人三秒判断"适不适合我"」）：
+   *   · 非空 —— 否则提示词出病句
+   *   · ≤20 字 —— 超过就不再是「三秒判断」
+   *   · 不含 px / #HEX / 角度 —— 那是施工细节，不是人话
+   *
+   * 变异测试（`--selftest`）会把某案的 plain 改成空串，确认这条会响。 */
+  {
+    const pl = text.match(/请把整页做成这个风格：([^。]*)。/);
+    const raw = pl ? pl[1].trim() : '';
+    if (!raw) {
+      add('FAIL', id, 'plain-empty',
+        'plain 为空 ⇒ 提示词出现「请把整页做成这个风格：。」。' +
+        '修法：把该案加进 build-prompts.mjs 的 HUMAN 表');
+    } else if (raw.length > 20) {
+      add('FAIL', id, 'plain-too-long', `plain ${raw.length} 字，超过 20 字（不再是「三秒判断」）：${raw}`);
+    } else if (/px|#[0-9A-Fa-f]{3,6}|°|度角/.test(raw)) {
+      add('FAIL', id, 'plain-not-human', `plain 含施工细节（px/HEX/角度），不是人话：${raw}`);
+    }
+  }
+
   /* ── 1. 提示词里的色值 vs style.css 真实声明的色值 ────────────────────
    * 判据：提示词配色段列出的每个 hex，必须能在 style.css（剥注释后）里找到声明。
    * 反方向不查——CSS 里可以有大量派生色，提示词不必全列（那是设计选择）。
@@ -574,6 +630,9 @@ stats.warn = WARNS.length;
 
 if (JSON_OUT) {
   console.log(JSON.stringify({ stats, findings }, null, 2));
+} else if (SELFTEST) {
+  /* selftest 母进程：正常检查的报告没有意义（它跑的是未变异的数据），
+   * 只输出下面的变异结果。子进程带 --json，所以也有自己的分支。 */
 } else {
   console.log(`提示词闸门：检查 ${DIRS.length} 条提示词（源: ${stats.source}）`);
   console.log(`  长度 ${stats.promptLen.min}–${stats.promptLen.max}，中位 ${stats.promptLen.median}  配色段 hex 合计 ${stats.paletteHexTotal}`);
@@ -602,6 +661,53 @@ if (JSON_OUT) {
   }
 
   console.log(`合计 FAIL ${stats.fail} / WARN ${stats.warn}`);
+}
+
+/* ── --selftest：确认新加的 plain 断言真的会响 ────────────────────────────
+ *
+ * 为什么需要它：一条从不失败的断言等于没写。本仓库已经栽过 ——
+ * compare.mjs 里 4 条判据把 ok:true 写死了，于是「S07 得 7/7」的分母是假的。
+ *
+ * 做法：用**子进程**跑，而不是在主进程里重跑检查逻辑。
+ * 原因：主循环是顶层代码（`for (const d of DIRS) { … }` 直接写在模块作用域），
+ * 要重跑就得把它包成函数，那是 300 行的大改。子进程能零改动复用同一份逻辑。
+ *
+ * 但「子进程」不等于「改文件」：变异后的 prompts.js 写到**临时目录**，
+ * 用 MEASURE_STUB 指向它，母文件一个字节都不动。
+ * 这一点是从 probe-ui.mjs 的事故里学的：直接改真实文件再还原，
+ * 一次 timeout 杀进程就会把坏代码留在仓库里。
+ */
+if (SELFTEST) {
+  const { execFileSync } = await import('node:child_process');
+  const { mkdtempSync, writeFileSync: wf } = await import('node:fs');
+  const { tmpdir } = await import('node:os');
+  const tmp = mkdtempSync(join(tmpdir(), 'ckprompt-'));
+  console.log('\n=== --selftest：把缺陷装回去，确认断言会响 ===\n');
+  let allGreen = true;
+  for (const [name, m] of Object.entries(MUTATIONS)) {
+    const mutated = promptsSrc.replace(m.from, m.to);
+    if (mutated === promptsSrc) {
+      console.log(`✗ ${name} —— 变异没生效（正则没匹配上），无法判定断言是否有效`);
+      allGreen = false;
+      continue;
+    }
+    const f = join(tmp, `${name}.js`);
+    wf(f, mutated);
+    let out = '', code = 0;
+    try {
+      out = execFileSync(process.execPath, [fileURLToPath(import.meta.url), '--json'],
+        { env: { ...process.env, PROMPTS_OVERRIDE: f }, encoding: 'utf8', timeout: 120000 });
+    } catch (e) { out = e.stdout || ''; code = e.status ?? 1; }
+    let hit = false;
+    try {
+      const j = JSON.parse(out);
+      hit = j.findings.some((x) => x.rule === m.expect && x.level === 'FAIL');
+    } catch { /* 解析失败按没命中处理 */ }
+    if (hit) { console.log(`✓ ${name} —— 触发了 ${m.expect}（退出码 ${code}）`); }
+    else { console.log(`✗ ${name} —— 没响！断言无效`); allGreen = false; }
+  }
+  console.log(allGreen ? '\n全部变异都响了 —— 断言有效。' : '\n有变异没响 —— 断言需要重写。');
+  process.exit(allGreen ? 0 : 1);
 }
 
 process.exit(FAILS.length ? 1 : 0);
