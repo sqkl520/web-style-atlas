@@ -1172,7 +1172,7 @@
     var base = buildPrompt(id, opts);
     if (!base) return;
     var text = base + "\n" + buildProvenanceAppendix(id);
-    copyText(text, btn, "提示词与出处已一起复制");
+    copyText(text, btn, "提示词与出处已一起复制", id, "copy-prov");
   }
 
   /* ── 下载成 .md 文件（2026-11-11，Q3 第四项）─────────────────────────
@@ -1247,6 +1247,14 @@
     announce(ok
       ? "已下载 " + filename
       : "下载失败，请改用「复制并附出处」再自己存成文件");
+    /* 使用记录（Q4）：下载也是一次"带走"。和复制分开记，
+     * 因为它们是两种不同的意图（存档 vs 直接粘），归档决策需要分开看。 */
+    if (ok && window.USAGE) {
+      try {
+        window.USAGE.record(id, rec.cn || '', 'download', { tool: getTool() });
+        if (window.onUsageRecorded) window.onUsageRecorded();
+      } catch (e) { /* 记录失败不影响下载 */ }
+    }
     /* 下载失败时不弹手动框：用户点的是"下载"，给他一个复制框是答非所问。
      * 播报里已经给了替代方案。 */
     return ok;
@@ -1255,12 +1263,24 @@
   function copyPrompt(id, btn, opts) {
     var text = buildPrompt(id, opts);
     if (!text) return;
-    copyText(text, btn, "提示词已复制到剪贴板");
+    copyText(text, btn, "提示词已复制到剪贴板", id, "copy");
   }
 
   /* 复制一段文本并给反馈。两个入口（纯提示词 / 提示词+出处）共用。 */
-  function copyText(text, btn, okMsg) {
+  function copyText(text, btn, okMsg, usageId, usageAction) {
+    /* 使用记录（Q4）：只在本机 localStorage 记一笔，不发任何请求。
+       失败不影响复制 —— 见 usage-log.js 的「失败时怎么办」。
+       记在复制**成功之后**：没复制成功的不算"被复制走了"。 */
+    var logOnce = function () {
+      if (!usageId || !window.USAGE) return;
+      try {
+        window.USAGE.record(usageId, (meta(usageId) || {}).cn, usageAction || 'copy',
+          { withProv: usageAction === 'copy-prov', tool: getTool() });
+        if (window.onUsageRecorded) window.onUsageRecorded();
+      } catch (e) { /* 记录失败绝不影响主功能 */ }
+    };
     var done = function (ok) {
+      if (ok) logOnce();
       if (btn) {
         var old = btn.textContent;
         btn.textContent = ok ? "已复制 ✓" : "请手动复制";
@@ -1642,6 +1662,93 @@
     wrap.appendChild(toolRow);
     wrap.appendChild(fill);
     wrap.appendChild(note);
+
+    /* ── 使用记录说明与导出（2026-11-11，Q4）────────────────────────────
+     *
+     * 【为什么这块必须存在，而且必须默认可见】
+     * 这个功能在用户机器上记「复制过哪几案」。**偷偷记然后给他一个导出按钮**
+     * 等于把用户当数据源而不告诉他 —— 即使数据真的没出本机，
+     * 那种做法本身也是错的。
+     *
+     * 所以：第一次记录之前就把话说明白；随时能看、能导出、能清空。
+     * 三条都在一个折叠条里，不占首屏高度（按钮区已经为 2026-10-25 那次
+     * "主按钮滚到 2881px" 的事故限制过高度了）。
+     *
+     * 【为什么用 <details> 而不是单独一个页面】
+     * 用户不会为了"看看记了什么"跳到另一个页面。它必须长在复制按钮旁边，
+     * 就在他做那个动作的地方。 */
+    if (window.USAGE && window.USAGE.available()) {
+      var ud = document.createElement("details");
+      ud.className = "usage-note";
+
+      var us = document.createElement("summary");
+      us.textContent = "我复制过什么？（只记在你自己浏览器里）";
+      ud.appendChild(us);
+
+      var ub = document.createElement("div");
+      ub.className = "usage-body";
+
+      var uexp = document.createElement("p");
+      uexp.className = "usage-explain";
+      uexp.textContent = "你每次点复制或下载，我会在这台机器的浏览器里记一行" +
+        "（哪个案、什么时候、有没有附出处）。**它不会发到任何地方**——没有服务器、没有统计脚本。" +
+        "你可以随时导出成文件自己看，也可以一键清空。";
+
+      var ustat = document.createElement("p");
+      ustat.className = "usage-stat";
+
+      function refreshUsage() {
+        var s = window.USAGE.summary();
+        ustat.textContent = s.total
+          ? "现在有 " + s.total + " 条记录，涉及 " + s.cases + " 个方案。"
+          : "还没有任何记录。";
+      }
+      refreshUsage();
+      /* copyText / downloadPromptMarkdown 在记录成功后会调这个。 */
+      window.onUsageRecorded = refreshUsage;
+
+      var ubtnRow = document.createElement("div");
+      ubtnRow.className = "usage-actions";
+
+      var uexpBtn = document.createElement("button");
+      uexpBtn.type = "button";
+      uexpBtn.className = "prompt-copy prompt-copy-dl";
+      uexpBtn.textContent = "导出记录";
+      uexpBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        var md = window.USAGE.toMarkdown();
+        var blob = new Blob([md], { type: "text/markdown;charset=utf-8" });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement("a");
+        a.href = url;
+        a.download = "我的选型台使用记录-" + new Date().toISOString().slice(0, 10) + ".md";
+        a.style.cssText = "position:absolute;width:1px;height:1px;opacity:0;pointer-events:none";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
+        announce("使用记录已导出");
+      });
+
+      var uclrBtn = document.createElement("button");
+      uclrBtn.type = "button";
+      uclrBtn.className = "prompt-copy";
+      uclrBtn.textContent = "清空记录";
+      uclrBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        window.USAGE.clear();
+        refreshUsage();
+        announce("使用记录已清空");
+      });
+
+      ubtnRow.appendChild(uexpBtn);
+      ubtnRow.appendChild(uclrBtn);
+      ub.appendChild(uexp);
+      ub.appendChild(ustat);
+      ub.appendChild(ubtnRow);
+      ud.appendChild(ub);
+      wrap.appendChild(ud);
+    }
 
     /* 必须放在详情面板**最顶部**，不能 appendChild 到末尾。
      * 实测（2026-10-25，1440×900，CDP）：详情面板 scrollHeight 2991px / clientHeight 900px，

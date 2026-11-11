@@ -570,6 +570,68 @@ async function runAll(pg) {
     if (!r.hasBody) return { ok: false, want: '>1500 字正文', got: r.bytes, detail: '' };
     return { ok: true, detail: `${r.filename}，${r.bytes} 字节` };
   });
+
+  /* ── 15. 使用记录必须是「不偷偷记」（Q4）────────────────────────────────
+   *
+   * 这个功能在用户机器上记「复制过哪几案」。三条硬约束里最容易破的是第一条：
+   * **必须让用户知道**。
+   *
+   * 判据不是"有没有 USAGE 这个对象"，而是：
+   *   · 界面上有没有那行说明，且说明里写清了数据不出本机
+   *   · 记录真的发生时，界面上的数字会不会跟着变（说明它不是死文案）
+   *   · 能清空，且清空后界面上真的归零
+   *
+   * 为什么第三条重要：一个"能导出但不能清空"的记录功能，即使用户被通知了，
+   * 也等于没有退出的权利。
+   */
+  await check('usage-log-transparent', async () => {
+    await goto('#S17');
+    const r = await pg.eval(`(() => {
+      if (typeof window.USAGE === 'undefined') {
+        return { ok: false, want: 'window.USAGE', got: 'missing', detail: 'usage-log.js 没加载' };
+      }
+      var note = document.querySelector('.usage-note');
+      if (!note) return { ok: false, want: '.usage-note 说明条', got: 'missing', detail: '记录功能对用户不可见 —— 这就是偷偷记' };
+      var txt = note.textContent || '';
+      var disclosed = txt.indexOf('不会发到任何地方') >= 0 || txt.indexOf('只记在你自己浏览器里') >= 0;
+      if (!disclosed) return { ok: false, want: '说明里写清数据不出本机', got: txt.slice(0, 60), detail: '' };
+
+      var stat = function(){ return (document.querySelector('.usage-stat') || {}).textContent || ''; };
+      var before = stat();
+      window.USAGE.clear();
+      window.USAGE.record('S17', '税票存根联', 'copy', { tool: 'generic' });
+      if (window.onUsageRecorded) window.onUsageRecorded();
+      var after = stat();
+      var reacted = before !== after && after.indexOf('1 条记录') >= 0;
+
+      window.USAGE.clear();
+      if (window.onUsageRecorded) window.onUsageRecorded();
+      var cleared = stat();
+
+      var md = window.USAGE.toMarkdown();
+      var btns = [].slice.call(note.querySelectorAll('.usage-actions .prompt-copy'));
+      return { ok: true, disclosed: disclosed, reacted: reacted, after: after, cleared: cleared,
+        mdHasDisclaimer: md.indexOf('项目方没有收到过任何东西') >= 0,
+        hasExportBtn: btns.some(function(b){ return b.textContent.indexOf('导出') >= 0; }),
+        hasClearBtn: btns.some(function(b){ return b.textContent.indexOf('清空') >= 0; }) };
+    })()`);
+    if (!r.ok) return r;
+    if (!r.reacted) {
+      return { ok: false, want: '记录后界面数字跟着变', got: r.after, detail: '说明条是死文案 —— 用户看不到自己在被记录' };
+    }
+    /* ⚠️ 判据要用「还没有任何记录」而不是「没有记录」——
+     * 实测第一次写成 /没有记录/ 时误报失败：文案是「还没有任何记录。」，
+     * 中间插了「任何」两个字，子串「没有记录」并不连续出现。
+     * 这是本仓库反复出现的那类错：判据比原文更"我以为的样子"。
+     * 改成锚定完整短语。 */
+    if (!/还没有任何记录/.test(r.cleared)) {
+      return { ok: false, want: '清空后显示「还没有任何记录」', got: r.cleared, detail: '清空没有反映到界面' };
+    }
+    if (!r.hasExportBtn) return { ok: false, want: '导出按钮', got: 'missing', detail: '' };
+    if (!r.hasClearBtn) return { ok: false, want: '清空按钮', got: 'missing', detail: '能记不能清 —— 用户没有退出的权利' };
+    if (!r.mdHasDisclaimer) return { ok: false, want: '导出文件含「数据不出本机」声明', got: '无', detail: '' };
+    return { ok: true, detail: '说明可见、数字联动、可导出可清空' };
+  });
 }
 
 /* ── 主流程 ─────────────────────────────────────────────────────────── */
@@ -738,6 +800,25 @@ async function runSelftest(pg) {
       to: '    /* 变异：不挂下载按钮 */',
       note: '摘掉下载按钮（两个按钮照常工作，闭环却缺一环）',
     },
+    /* Q4：使用记录的三条。守的都是「功能在、但对用户不透明」这类失败。 */
+    {
+      name: 'usage-log-transparent',
+      file: 'prototypes/_selection/prompt-copy.js',
+      from: 'if (window.USAGE && window.USAGE.available()) {',
+      to: 'if (false && window.USAGE && window.USAGE.available()) {   /* 变异：不显示说明条 */',
+      note: '不显示说明条（变成偷偷记：后台照记，用户看不见）',
+    },
+    {
+      /* 断言查的是「任一处披露」⇒ 变异必须把**两处都**抹掉。
+       * 只抹一处时断言正确地通过（另一处还在），那不是缺陷。
+       * 用 `also` 支持同文件第二处替换 —— 见变异循环里那段注释。 */
+      name: 'usage-log-transparent',
+      file: 'prototypes/_selection/prompt-copy.js',
+      from: '我复制过什么？（只记在你自己浏览器里）',
+      to: '使用记录',
+      also: { from: '**它不会发到任何地方**——没有服务器、没有统计脚本。', to: '记录一下使用情况。' },
+      note: '两处披露同时抹掉（这才是真正的偷偷记）',
+    },
   ];
 
   console.log('变异测试：逐条把缺陷装回去，确认对应断言会红\n');
@@ -752,8 +833,27 @@ async function runSelftest(pg) {
       console.log(`? ${c.name}: 变异锚点不在文件里（代码变了？）—— ${JSON.stringify(c.from.slice(0, 40))}`);
       continue;
     }
-    /* 只改内存里这一份；浏览器请求时由 server 返回变异版本 */
-    mutations.set(path, src.replace(c.from, c.to));
+    /* 只改内存里这一份；浏览器请求时由 server 返回变异版本。
+     *
+     * ⚠️ 2026-11-11（Q4）：支持 `also` —— 同一文件里的第二处替换。
+     *
+     * 为什么需要它：有一条断言检查的是「说明里**任一处**提到数据不出本机」。
+     * 想模拟"偷偷记"，必须**两处披露同时抹掉** —— 只抹一处时断言正确地
+     * 仍然通过（因为另一处还在）。第一版把它拆成两条变异，各自单改一处，
+     * 结果两条都不红，看起来像"探针坏了"，实际是**变异设计错了**：
+     * 它模拟的不是"两处都没有"，而是"两处只留一处"，而后者不是缺陷。
+     *
+     * 这个坑值得记：变异用例的语义必须与断言的口径对齐。
+     * 断言查 A∪B，变异就必须把 A 和 B 都去掉，不能只去一个。 */
+    let mutated = src.replace(c.from, c.to);
+    if (c.also) {
+      if (!mutated.includes(c.also.from)) {
+        console.log(`? ${c.name}: 第二处锚点不在文件里 —— ${JSON.stringify(c.also.from.slice(0, 40))}`);
+        continue;
+      }
+      mutated = mutated.replace(c.also.from, c.also.to);
+    }
+    mutations.set(path, mutated);
     try {
       const rs = [];
       globalThis.__selftestSink = (r) => rs.push(r);

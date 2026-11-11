@@ -1198,6 +1198,34 @@ code { font-family: var(--code); font-size: 0.94em; }
   outline-offset: 2px;
 }
 .prompt-tool-select:focus-visible { outline: 2px solid var(--ink); }
+
+/* 使用记录折叠条（Q4）。刻意做得**很轻** —— 它是说明，不是主功能。
+   用浅色小字，展开后才出现按钮。
+   判据：如果它看起来比「复制」按钮更显眼，说明权重错了。 */
+.usage-note {
+  margin-top: 10px;
+  font-size: var(--s-13);
+  color: var(--ink-3);
+}
+.usage-note > summary {
+  cursor: pointer;
+  padding: 2px 0;
+  list-style: none;
+}
+.usage-note > summary::-webkit-details-marker { display: none; }
+.usage-note[open] > summary { color: var(--ink); }
+.usage-body {
+  margin: 8px 0 0;
+  padding: 10px 12px;
+  border-left: 2px solid currentColor;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.usage-explain { margin: 0; line-height: 1.6; }
+.usage-stat { margin: 0; font-variant-numeric: tabular-nums; }
+.usage-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 2px; }
+.usage-actions .prompt-copy { padding: 6px 12px; font-size: var(--s-13); }
 /* 说明只在选中非「不限」时出现。hidden 时完全不占位（display:none 由 [hidden] 默认给） */
 .prompt-tool-note { color: var(--ink-3); }
 .prompt-tool-note[hidden] { display: none; }
