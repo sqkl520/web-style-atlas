@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S17-revenue-stamp-stub/index.html",
- "at": "2026-11-08T19:39:38.724Z",
+ "at": "2026-11-11T20:47:38.098Z",
  "allow": [],
  "viewports": [
   {
@@ -298,6 +298,39 @@
        "top": 1509
       }
      ]
+    },
+    "structure": {
+     "columns": 3,
+     "columnSamples": [
+      {
+       "value": 3,
+       "selector": "div.foot-grid",
+       "text": 194
+      }
+     ],
+     "axisWidth": 1352,
+     "axisChars": 194,
+     "lineWidths": [
+      1,
+      2
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 39,
+     "layoutKind": "no-column-layout",
+     "columnsFrom": "div.foot-grid",
+     "columnsAll": [
+      3
+     ],
+     "columnDistribution": {
+      "3": 1
+     },
+     "layoutKindFrom": null,
+     "layoutKindSelector": null,
+     "columnsInLandmark": "footer",
+     "layoutKindNote": "no multi-column body container outside header/footer/nav/aside; the columns value comes from a footer and does not describe the body layout",
+     "autoFitContentBoxes": 1,
+     "axisSelector": "div.foot-grid",
+     "axisFromColumns": true
     },
     "heroMedia": [],
     "nav": {
@@ -618,6 +651,39 @@
      "mediaRadius": 0,
      "textShadow": 0,
      "cardRows": []
+    },
+    "structure": {
+     "columns": 2,
+     "columnSamples": [
+      {
+       "value": 2,
+       "selector": "div.foot-grid",
+       "text": 194
+      }
+     ],
+     "axisWidth": 712,
+     "axisChars": 194,
+     "lineWidths": [
+      1,
+      2
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 39,
+     "layoutKind": "no-column-layout",
+     "columnsFrom": "div.foot-grid",
+     "columnsAll": [
+      2
+     ],
+     "columnDistribution": {
+      "2": 1
+     },
+     "layoutKindFrom": null,
+     "layoutKindSelector": null,
+     "columnsInLandmark": "footer",
+     "layoutKindNote": "no multi-column body container outside header/footer/nav/aside; the columns value comes from a footer and does not describe the body layout",
+     "autoFitContentBoxes": 1,
+     "axisSelector": "div.foot-grid",
+     "axisFromColumns": true
     },
     "heroMedia": [],
     "nav": {
@@ -968,6 +1034,27 @@
        "top": 5307
       }
      ]
+    },
+    "structure": {
+     "columns": 1,
+     "columnSamples": [],
+     "axisWidth": 334,
+     "axisChars": 103,
+     "lineWidths": [
+      1,
+      2
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 39,
+     "layoutKind": "auto-fit",
+     "columnDistribution": {
+      "1": 39
+     },
+     "layoutKindNote": "repeat(auto-fit|auto-fill, …) collapsed to 1 track at this viewport width; columns=1 is a runtime expansion, not a single-column design",
+     "layoutKindFrom": null,
+     "autoFitContentBoxes": 1,
+     "axisSelector": "p.sig",
+     "axisFromColumns": false
     },
     "heroMedia": [],
     "nav": {

@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S26-geometric-collision-columns/index.html",
- "at": "2026-11-08T22:44:04.776Z",
+ "at": "2026-11-11T20:38:38.808Z",
  "allow": [],
  "viewports": [
   {
@@ -460,6 +460,66 @@
      "textShadow": 0,
      "cardRows": []
     },
+    "structure": {
+     "columns": 3,
+     "columnSamples": [
+      {
+       "value": 2,
+       "selector": "div.mast__head",
+       "text": 342
+      },
+      {
+       "value": 3,
+       "selector": "div.plates",
+       "text": 123
+      },
+      {
+       "value": 2,
+       "selector": "div.two.two--a",
+       "text": 412
+      },
+      {
+       "value": 3,
+       "selector": "div.plates",
+       "text": 123
+      },
+      {
+       "value": 2,
+       "selector": "div.two.two--b",
+       "text": 332
+      },
+      {
+       "value": 2,
+       "selector": "div.two.two--c",
+       "text": 304
+      }
+     ],
+     "axisWidth": 1360,
+     "axisChars": 570,
+     "lineWidths": [
+      2,
+      8
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 124,
+     "layoutKind": "fixed",
+     "columnsFrom": "div.foot__grid",
+     "columnsAll": [
+      2,
+      3
+     ],
+     "columnDistribution": {
+      "2": 10,
+      "3": 4
+     },
+     "layoutKindFrom": "6fr 6fr",
+     "layoutKindSelector": "div.two",
+     "columnsInLandmark": "footer",
+     "layoutKindNote": "body layout is fixed, but columns was measured on a container inside a footer — see layoutKindSelector for the body container",
+     "autoFitContentBoxes": 0,
+     "axisSelector": "div.foot__grid",
+     "axisFromColumns": true
+    },
     "heroMedia": [],
     "nav": {
      "links": 8,
@@ -911,6 +971,27 @@
      "mediaRadius": 0,
      "textShadow": 0,
      "cardRows": []
+    },
+    "structure": {
+     "columns": 1,
+     "columnSamples": [],
+     "axisWidth": 704,
+     "axisChars": 124,
+     "lineWidths": [
+      2,
+      8
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 124,
+     "layoutKind": "fixed",
+     "columnDistribution": {
+      "1": 124
+     },
+     "layoutKindNote": "body is an explicitly declared single-track grid at this viewport width (grid-template-columns: 1fr), not an absence of layout",
+     "layoutKindFrom": null,
+     "autoFitContentBoxes": 0,
+     "axisSelector": "p",
+     "axisFromColumns": false
     },
     "heroMedia": [],
     "nav": {
@@ -1393,6 +1474,38 @@
      "mediaRadius": 0,
      "textShadow": 0,
      "cardRows": []
+    },
+    "structure": {
+     "columns": 2,
+     "columnSamples": [
+      {
+       "value": 2,
+       "selector": "div.hud",
+       "text": 86
+      }
+     ],
+     "axisWidth": 350,
+     "axisChars": 86,
+     "lineWidths": [
+      2,
+      8
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 124,
+     "layoutKind": "fixed",
+     "columnsFrom": "div.hud",
+     "columnsAll": [
+      2
+     ],
+     "columnDistribution": {
+      "2": 1
+     },
+     "layoutKindFrom": "1fr 1fr",
+     "layoutKindSelector": "div.hud",
+     "columnsInLandmark": null,
+     "autoFitContentBoxes": 0,
+     "axisSelector": "div.hud",
+     "axisFromColumns": true
     },
     "heroMedia": [],
     "nav": {

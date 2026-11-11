@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S21-interlocking-release-book/index.html",
- "at": "2026-10-29T09:04:26.011Z",
+ "at": "2026-11-11T20:32:49.160Z",
  "allow": [],
  "viewports": [
   {
@@ -248,6 +248,62 @@
      "mediaRadius": 0,
      "textShadow": 0,
      "cardRows": []
+    },
+    "structure": {
+     "columns": 10,
+     "columnSamples": [
+      {
+       "value": 2,
+       "selector": "header.masthead",
+       "text": 72
+      },
+      {
+       "value": 4,
+       "selector": "dl.masthead__meta",
+       "text": 42
+      },
+      {
+       "value": 2,
+       "selector": "div.lede",
+       "text": 184
+      },
+      {
+       "value": 10,
+       "selector": "div#board-grid.board__grid",
+       "text": 262
+      },
+      {
+       "value": 4,
+       "selector": "ul.states__grid",
+       "text": 200
+      }
+     ],
+     "axisWidth": 1328,
+     "axisChars": 262,
+     "lineWidths": [
+      1,
+      2
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 58,
+     "layoutKind": "fixed",
+     "columnsFrom": "div#board-grid.board__grid",
+     "columnsAll": [
+      2,
+      4,
+      10
+     ],
+     "columnDistribution": {
+      "2": 2,
+      "4": 2,
+      "10": 1
+     },
+     "layoutKindFrom": "repeat(10, minmax(0px, 1fr))",
+     "layoutKindSelector": "div#board-grid.board__grid",
+     "columnsInLandmark": null,
+     "autoFitContentBoxes": 1,
+     "axisSelector": "div#board-grid.board__grid",
+     "axisFromColumns": true
     },
     "heroMedia": [
      {
@@ -536,6 +592,50 @@
      "mediaRadius": 0,
      "textShadow": 0,
      "cardRows": []
+    },
+    "structure": {
+     "columns": 6,
+     "columnSamples": [
+      {
+       "value": 2,
+       "selector": "dl.masthead__meta",
+       "text": 42
+      },
+      {
+       "value": 6,
+       "selector": "div#board-grid.board__grid",
+       "text": 262
+      },
+      {
+       "value": 2,
+       "selector": "ul.states__grid",
+       "text": 200
+      }
+     ],
+     "axisWidth": 656,
+     "axisChars": 262,
+     "lineWidths": [
+      1,
+      2
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 58,
+     "layoutKind": "fixed",
+     "columnsFrom": "div#board-grid.board__grid",
+     "columnsAll": [
+      2,
+      6
+     ],
+     "columnDistribution": {
+      "2": 2,
+      "6": 1
+     },
+     "layoutKindFrom": "repeat(6, minmax(0px, 1fr))",
+     "layoutKindSelector": "div#board-grid.board__grid",
+     "columnsInLandmark": null,
+     "autoFitContentBoxes": 1,
+     "axisSelector": "div#board-grid.board__grid",
+     "axisFromColumns": true
     },
     "heroMedia": [
      {
@@ -914,6 +1014,38 @@
      "mediaRadius": 0,
      "textShadow": 0,
      "cardRows": []
+    },
+    "structure": {
+     "columns": 2,
+     "columnSamples": [
+      {
+       "value": 2,
+       "selector": "dl.masthead__meta",
+       "text": 42
+      }
+     ],
+     "axisWidth": 278,
+     "axisChars": 42,
+     "lineWidths": [
+      2
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 58,
+     "layoutKind": "no-column-layout",
+     "columnsFrom": "dl.masthead__meta",
+     "columnsAll": [
+      2
+     ],
+     "columnDistribution": {
+      "2": 1
+     },
+     "layoutKindFrom": null,
+     "layoutKindSelector": null,
+     "columnsInLandmark": "header",
+     "layoutKindNote": "no multi-column body container outside header/footer/nav/aside; the columns value comes from a header and does not describe the body layout",
+     "autoFitContentBoxes": 0,
+     "axisSelector": "dl.masthead__meta",
+     "axisFromColumns": true
     },
     "heroMedia": [
      {

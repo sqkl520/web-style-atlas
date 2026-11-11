@@ -40,10 +40,20 @@
 
 import { readFileSync, existsSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const ROOT = new URL('../..', import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1');
-const P = join(ROOT, 'prototypes');
-const CONTRACT = join(P, '_CONTRACT.md');
+/* selftest 用：把「读 report.json 的根」指向一个临时副本，真实文件一个字节都不动。
+ * 理由同 check-prompts.mjs 与 probe-ui.mjs 的注释：直接在真文件上做变异再还原，
+ * 一次 timeout 杀进程就会把坏数据留在仓库里。 */
+const P = process.env.CONTRACT_PROTOS_OVERRIDE || join(ROOT, 'prototypes');
+/* ⚠️ 契约文件固定在真实路径，**不跟 CONTRACT_PROTOS_OVERRIDE 走**。
+ * 踩过一次：selftest 只把 report.json 复制到临时目录，如果 CONTRACT 也
+ * 从 P 拼，就会去临时目录找 _CONTRACT.md 然后 ENOENT 崩掉 ——
+ * 而现象是「子进程 stdout 为空 → JSON 解析失败 → 判定断言没响」，
+ * 看起来像断言无效，实际是脚本崩了。这类「崩了被当成没命中」的假阴性，
+ * 和本仓库那些「读不到数据也不报错」的闸门是同一个病。 */
+const CONTRACT = join(ROOT, 'prototypes', '_CONTRACT.md');
 /* 规则引擎的来源（2026-11-04 起仓库自包含）。
  * 原来写死 tools/ 下的 rules.mjs，而 tools/ 被 .gitignore 排除 ⇒ 干净 clone 里本脚本 exit 1
  * （「读不到规则引擎的 RULE_IDS」）。现在优先用入库的 _build/vendor/rules.mjs。 */
@@ -167,6 +177,52 @@ const stats = {
   warn: 0,
   info: 0,
 };
+/* ── C7：每份 report.json 必须有可用的 layoutKind ─────────────────────────
+ *
+ * 起因（2026-11-12）：`measure.mjs` 与 `probe.mjs` 是两套独立的度量实现，
+ * 它们的「栏」不是同一个量 —— 前者数轨道（含中缝），后者数内容栏。
+ * 更要命的是 probe 会在 13/35 案里选中页头/页脚当主容器（实测，见
+ * deliverables/78-northstar/_probe/12-main-thread-measure-findings.md §九）。
+ *
+ * 于是加了 `layoutKind` 来区分三类：fixed / auto-fit / no-column-layout。
+ * 但**只有生产者、没有消费者** —— 没有任何断言检查它。
+ * 这和 S31–S35 的 plain 为空是同一个病：字段加了、没人验，可以随时静默失效。
+ * （那次是 15 步季度体检全过，而提示词里是「请把整页做成这个风格：。」）
+ *
+ * 判据三条：
+ *   1. 35 案每份 report.json 的 viewports[0].metrics.structure 都要有 layoutKind
+ *   2. 值必须是三个之一
+ *   3. layoutKind !== 'no-column-layout' 时，layoutKindSelector 必须非空
+ *      —— 否则就是「说有分栏但说不出在哪」，这种值不可用
+ *
+ * 变异测试：把某案的 layoutKind 删掉，确认这条会响。 */
+const LAYOUT_KINDS = new Set(['fixed', 'auto-fit', 'no-column-layout']);
+let c7checked = 0;
+for (const c of cases) {
+  if (c.missing || c.unreadable) continue;   // 缺文件的由 C4/C5 负责报
+  const rp = join(P, c.dir, '.inspect', 'report.json');
+  let s = null;
+  try {
+    s = JSON.parse(readFileSync(rp, 'utf8').replace(/^﻿/, '')).viewports?.[0]?.metrics?.structure;
+  } catch { /* 解析失败由 C5 报 */ }
+  if (!s) {
+    add('FAIL', c.id, 'C7-structure-missing',
+      '没有 viewports[0].metrics.structure —— layoutKind 无从判定。修法：重跑 render-scheme.mjs');
+    continue;
+  }
+  c7checked++;
+  const lk = s.layoutKind;
+  if (!lk) {
+    add('FAIL', c.id, 'C7-layoutKind-missing',
+      'structure 里没有 layoutKind —— 栏数这个量对本案不可判定。修法：重跑 render-scheme.mjs');
+  } else if (!LAYOUT_KINDS.has(lk)) {
+    add('FAIL', c.id, 'C7-layoutKind-invalid', `layoutKind="${lk}" 不在 ${[...LAYOUT_KINDS].join(' / ')} 之内`);
+  } else if (lk !== 'no-column-layout' && !s.layoutKindSelector) {
+    add('FAIL', c.id, 'C7-selector-missing',
+      `layoutKind=${lk} 但 layoutKindSelector 为空 —— 说有分栏却指不出容器，这个值不可用`);
+  }
+}
+
 
 /* C2 先查：允许表里登记的规则，引擎里真的有吗？
  * 放在 C1 前面，因为如果表本身在腐化，C1 的结论就不可信。 */
@@ -500,6 +556,8 @@ stats.info = INFOS.length;
 
 if (JSON_OUT) {
   console.log(JSON.stringify({ stats, findings }, null, 2));
+} else if (process.argv.includes('--selftest')) {
+  /* selftest 母进程：正常检查的报告没意义（它跑的是未变异的数据），只输出变异结果。 */
 } else {
   console.log(`契约一致性闸门：§9.15 允许表(${stats.allowRules} 条) vs 30 案实测 FAIL`);
   console.log('  查的是「FAIL ⊆ 允许表」（契约 §7.2），不是「FAIL = 0」');
@@ -543,6 +601,74 @@ if (JSON_OUT) {
   }
 
   console.log(`合计 FAIL ${stats.fail} / WARN ${stats.warn} / INFO ${stats.info}`);
+}
+
+/* ── --selftest：确认 C7 的 layoutKind 断言真的会响 ─────────────────────
+ *
+ * 为什么这条必须有：C7 是 2026-11-12 新加的，而加它的**起因**就是这个仓库
+ * 反复犯的错 —— 一个字段加了、没人验，于是可以静默失效（S31–S35 的 plain 空串
+ * 让 15 步季度体检全过）。如果 C7 自己也是恒真式，那只是把同一个错误再犯一次。
+ *
+ * 做法：临时目录放一份 report.json 的副本，删掉某个案子的 layoutKind，
+ * 用 CONTRACT_PROTOS_OVERRIDE 指过去，确认子进程报 FAIL。
+ * 真实 `prototypes/` 下的文件一个字节都不动。 */
+if (process.argv.includes('--selftest')) {
+  const { mkdtempSync, mkdirSync, writeFileSync, cpSync, readdirSync: rd } = await import('node:fs');
+  const { tmpdir } = await import('node:os');
+  const { execFileSync } = await import('node:child_process');
+  const tmp = mkdtempSync(join(tmpdir(), 'ckcontract-'));
+  /* 只复制必要的骨架：案目录 + .inspect/report.json。图片/字体不复制（C7 用不到）。 */
+  const dirsAll = rd(join(ROOT, 'prototypes'), { withFileTypes: true })
+    .filter((d) => d.isDirectory() && /^S\d\d-/.test(d.name)).map((d) => d.name);
+  for (const d of dirsAll) {
+    const dst = join(tmp, d, '.inspect');
+    mkdirSync(dst, { recursive: true });
+    const src = join(ROOT, 'prototypes', d, '.inspect', 'report.json');
+    if (existsSync(src)) cpSync(src, join(dst, 'report.json'));
+  }
+  /* 变异：删掉 S08 的 layoutKind（选它是因为它原本就有，删掉才是真变异）。 */
+  const target = join(tmp, 'S08-amber-overprint-lightbox', '.inspect', 'report.json');
+  const j = JSON.parse(readFileSync(target, 'utf8'));
+  const had = j.viewports?.[0]?.metrics?.structure?.layoutKind;
+  delete j.viewports[0].metrics.structure.layoutKind;
+  writeFileSync(target, JSON.stringify(j));
+
+  console.log('\n=== --selftest：把缺陷装回去，确认 C7 会响 ===\n');
+  if (!had) {
+    console.log('✗ 前置失败：S08 原本就没有 layoutKind，无法构造变异');
+    process.exit(1);
+  }
+  let hit = false, code = 0;
+  try {
+    execFileSync(process.execPath, [fileURLToPath(import.meta.url), '--json'],
+      { env: { ...process.env, CONTRACT_PROTOS_OVERRIDE: tmp }, encoding: 'utf8', timeout: 180000 });
+  } catch (e) {
+    const out = e.stdout || '';
+    code = e.status ?? 1;
+    /* ⚠️ 这里踩过一次：本文件当时**没有 import fileURLToPath**，
+     * 于是上面那行抛 ReferenceError，被这个 catch 抓住，out 为空 →
+     * 「JSON 解析失败 → 判定断言没响」。现象是「断言无效」，真因是脚本自己崩了。
+     * 这类「报错被当成否定结果」与本仓库那些「读不到数据也不报错」的闸门是同一个病，
+     * 只是方向相反：那个是假绿，这个是假红。
+     * 所以：stderr 非空时要显式打出来，不能只报「没响」。 */
+    if (e.stderr) console.error('[selftest] 子进程 stderr:', String(e.stderr).slice(0, 600));
+    try {
+      const r = JSON.parse(out);
+      const fs2 = r.findings || r;
+      hit = Array.isArray(fs2) && fs2.some((x) => x.rule === 'C7-layoutKind-missing');
+      if (process.env.CONTRACT_SELFTEST_DEBUG) {
+        console.error('[debug] 子进程 findings 数:', Array.isArray(fs2) ? fs2.length : 'not array');
+        console.error('[debug] 含 C7 的:', Array.isArray(fs2) ? fs2.filter((x) => /C7/.test(x.rule || '')).map((x) => x.rule).join(',') || '（无）' : '?');
+      }
+    } catch (err) {
+      console.error('[selftest] 子进程输出不是 JSON（stdout 长度 ' + out.length + '）：', out.slice(0, 300));
+    }
+  }
+  console.log(hit
+    ? `✓ layoutKind-removed —— 触发了 C7-layoutKind-missing（退出码 ${code}）`
+    : '✗ layoutKind-removed —— 没响！C7 是恒真式，需要重写');
+  console.log(hit ? '\n断言有效。' : '\n断言无效。');
+  process.exit(hit ? 0 : 1);
 }
 
 process.exit(FAILS.length ? 1 : 0);

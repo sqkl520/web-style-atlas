@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S09-batik-price-board/index.html",
- "at": "2026-10-17T12:40:03.397Z",
+ "at": "2026-11-11T20:23:05.198Z",
  "allow": [],
  "viewports": [
   {
@@ -367,6 +367,38 @@
      "textShadow": 0,
      "cardRows": []
     },
+    "structure": {
+     "columns": 3,
+     "columnSamples": [
+      {
+       "value": 3,
+       "selector": "div.foot-grid",
+       "text": 163
+      }
+     ],
+     "axisWidth": 1352,
+     "axisChars": 163,
+     "lineWidths": [
+      2
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 30,
+     "layoutKind": "no-column-layout",
+     "columnsFrom": "div.foot-grid",
+     "columnsAll": [
+      3
+     ],
+     "columnDistribution": {
+      "3": 1
+     },
+     "layoutKindFrom": null,
+     "layoutKindSelector": null,
+     "columnsInLandmark": "footer",
+     "layoutKindNote": "no multi-column body container outside header/footer/nav/aside; the columns value comes from a footer and does not describe the body layout",
+     "autoFitContentBoxes": 0,
+     "axisSelector": "div.foot-grid",
+     "axisFromColumns": true
+    },
     "heroMedia": [],
     "nav": {
      "links": 0,
@@ -725,6 +757,38 @@
      "mediaRadius": 0,
      "textShadow": 0,
      "cardRows": []
+    },
+    "structure": {
+     "columns": 3,
+     "columnSamples": [
+      {
+       "value": 3,
+       "selector": "div.foot-grid",
+       "text": 163
+      }
+     ],
+     "axisWidth": 680,
+     "axisChars": 163,
+     "lineWidths": [
+      2
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 30,
+     "layoutKind": "no-column-layout",
+     "columnsFrom": "div.foot-grid",
+     "columnsAll": [
+      3
+     ],
+     "columnDistribution": {
+      "3": 1
+     },
+     "layoutKindFrom": null,
+     "layoutKindSelector": null,
+     "columnsInLandmark": "footer",
+     "layoutKindNote": "no multi-column body container outside header/footer/nav/aside; the columns value comes from a footer and does not describe the body layout",
+     "autoFitContentBoxes": 0,
+     "axisSelector": "div.foot-grid",
+     "axisFromColumns": true
     },
     "heroMedia": [],
     "nav": {
@@ -1118,6 +1182,26 @@
      "mediaRadius": 0,
      "textShadow": 0,
      "cardRows": []
+    },
+    "structure": {
+     "columns": 1,
+     "columnSamples": [],
+     "axisWidth": 358,
+     "axisChars": 82,
+     "lineWidths": [
+      2
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 30,
+     "layoutKind": "no-column-layout",
+     "columnDistribution": {
+      "1": 30
+     },
+     "layoutKindNote": "no multi-column content container found; columns=1 is the single-column fallback, not a layout intent",
+     "layoutKindFrom": null,
+     "autoFitContentBoxes": 0,
+     "axisSelector": "p.plates-intro",
+     "axisFromColumns": false
     },
     "heroMedia": [],
     "nav": {

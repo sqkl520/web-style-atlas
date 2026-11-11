@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S01-red-wedge-broadsheet/index.html",
- "at": "2026-10-30T21:09:07.391Z",
+ "at": "2026-11-11T20:39:13.263Z",
  "allow": [],
  "viewports": [
   {
@@ -403,6 +403,45 @@
      "textShadow": 0,
      "cardRows": []
     },
+    "structure": {
+     "columns": 4,
+     "columnSamples": [
+      {
+       "value": 4,
+       "selector": "div.columns",
+       "text": 1451
+      },
+      {
+       "value": 3,
+       "selector": "div.foot-grid",
+       "text": 195
+      }
+     ],
+     "axisWidth": 1242,
+     "axisChars": 1451,
+     "lineWidths": [
+      1,
+      3
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 58,
+     "layoutKind": "fixed",
+     "columnsFrom": "div.columns",
+     "columnsAll": [
+      3,
+      4
+     ],
+     "columnDistribution": {
+      "3": 1,
+      "4": 1
+     },
+     "layoutKindFrom": "5fr var(--bar) 4fr var(--bar) 4fr var(--bar) 3fr",
+     "layoutKindSelector": "div.columns",
+     "columnsInLandmark": null,
+     "autoFitContentBoxes": 0,
+     "axisSelector": "div.columns",
+     "axisFromColumns": true
+    },
     "heroMedia": [],
     "nav": {
      "links": 0,
@@ -690,6 +729,43 @@
      "mediaRadius": 0,
      "textShadow": 0,
      "cardRows": []
+    },
+    "structure": {
+     "columns": 2,
+     "columnSamples": [
+      {
+       "value": 2,
+       "selector": "div.columns",
+       "text": 1451
+      },
+      {
+       "value": 2,
+       "selector": "div.foot-grid",
+       "text": 195
+      }
+     ],
+     "axisWidth": 644,
+     "axisChars": 1451,
+     "lineWidths": [
+      1,
+      3
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 58,
+     "layoutKind": "fixed",
+     "columnsFrom": "div.columns",
+     "columnsAll": [
+      2
+     ],
+     "columnDistribution": {
+      "2": 2
+     },
+     "layoutKindFrom": "5fr var(--bar) 4fr",
+     "layoutKindSelector": "div.columns",
+     "columnsInLandmark": null,
+     "autoFitContentBoxes": 0,
+     "axisSelector": "div.columns",
+     "axisFromColumns": true
     },
     "heroMedia": [],
     "nav": {
@@ -1107,6 +1183,27 @@
      "mediaRadius": 0,
      "textShadow": 0,
      "cardRows": []
+    },
+    "structure": {
+     "columns": 1,
+     "columnSamples": [],
+     "axisWidth": 358,
+     "axisChars": 99,
+     "lineWidths": [
+      1,
+      3
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 58,
+     "layoutKind": "fixed",
+     "columnDistribution": {
+      "1": 58
+     },
+     "layoutKindNote": "body is an explicitly declared single-track grid at this viewport width (grid-template-columns: 1fr), not an absence of layout",
+     "layoutKindFrom": null,
+     "autoFitContentBoxes": 0,
+     "axisSelector": "p",
+     "axisFromColumns": false
     },
     "heroMedia": [],
     "nav": {

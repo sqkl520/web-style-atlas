@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S23-exposed-plaster-chronology-wall/index.html",
- "at": "2026-10-23T21:11:30.247Z",
+ "at": "2026-11-11T20:35:13.582Z",
  "allow": [],
  "viewports": [
   {
@@ -406,6 +406,61 @@
      "mediaRadius": 0,
      "textShadow": 0,
      "cardRows": []
+    },
+    "structure": {
+     "columns": 2,
+     "columnSamples": [
+      {
+       "value": 2,
+       "selector": "header.masthead",
+       "text": 334
+      },
+      {
+       "value": 2,
+       "selector": "div.states",
+       "text": 147
+      },
+      {
+       "value": 2,
+       "selector": "ul.spec-list",
+       "text": 257
+      },
+      {
+       "value": 2,
+       "selector": "div.degrade-grid",
+       "text": 271
+      },
+      {
+       "value": 3,
+       "selector": "div.foot-grid",
+       "text": 126
+      }
+     ],
+     "axisWidth": 1377,
+     "axisChars": 334,
+     "lineWidths": [
+      1,
+      6
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 106,
+     "layoutKind": "fixed",
+     "columnsFrom": "header.masthead",
+     "columnsAll": [
+      2,
+      3
+     ],
+     "columnDistribution": {
+      "2": 4,
+      "3": 1
+     },
+     "layoutKindFrom": "1fr 1fr",
+     "layoutKindSelector": "div.degrade-grid",
+     "columnsInLandmark": "header",
+     "layoutKindNote": "body layout is fixed, but columns was measured on a container inside a header — see layoutKindSelector for the body container",
+     "autoFitContentBoxes": 0,
+     "axisSelector": "header.masthead",
+     "axisFromColumns": true
     },
     "heroMedia": [
      {
@@ -820,6 +875,45 @@
        "top": 1931
       }
      ]
+    },
+    "structure": {
+     "columns": 8,
+     "columnSamples": [
+      {
+       "value": 8,
+       "selector": "div.wall",
+       "text": 766
+      },
+      {
+       "value": 3,
+       "selector": "div.foot-grid",
+       "text": 126
+      }
+     ],
+     "axisWidth": 734,
+     "axisChars": 766,
+     "lineWidths": [
+      1,
+      6
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 104,
+     "layoutKind": "fixed",
+     "columnsFrom": "div.wall",
+     "columnsAll": [
+      3,
+      8
+     ],
+     "columnDistribution": {
+      "3": 1,
+      "8": 1
+     },
+     "layoutKindFrom": "repeat(6, minmax(0px, 1fr)) 72px",
+     "layoutKindSelector": "div.wall",
+     "columnsInLandmark": null,
+     "autoFitContentBoxes": 0,
+     "axisSelector": "div.wall",
+     "axisFromColumns": true
     },
     "heroMedia": [
      {
@@ -1527,6 +1621,27 @@
      "mediaRadius": 0,
      "textShadow": 0,
      "cardRows": []
+    },
+    "structure": {
+     "columns": 1,
+     "columnSamples": [],
+     "axisWidth": 358,
+     "axisChars": 165,
+     "lineWidths": [
+      1,
+      6
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 105,
+     "layoutKind": "fixed",
+     "columnDistribution": {
+      "1": 105
+     },
+     "layoutKindNote": "body is an explicitly declared single-track grid at this viewport width (grid-template-columns: 1fr), not an absence of layout",
+     "layoutKindFrom": null,
+     "autoFitContentBoxes": 0,
+     "axisSelector": "p.meta",
+     "axisFromColumns": false
     },
     "heroMedia": [],
     "nav": {

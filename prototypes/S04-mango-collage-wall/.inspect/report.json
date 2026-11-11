@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S04-mango-collage-wall/index.html",
- "at": "2026-11-08T22:42:16.509Z",
+ "at": "2026-11-11T20:19:11.894Z",
  "allow": [],
  "viewports": [
   {
@@ -351,6 +351,37 @@
       }
      ]
     },
+    "structure": {
+     "columns": 2,
+     "columnSamples": [
+      {
+       "value": 2,
+       "selector": "div.wall__body",
+       "text": 739
+      }
+     ],
+     "axisWidth": 1056,
+     "axisChars": 739,
+     "lineWidths": [
+      1
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 56,
+     "layoutKind": "fixed",
+     "columnsFrom": "div.wall__body",
+     "columnsAll": [
+      2
+     ],
+     "columnDistribution": {
+      "2": 1
+     },
+     "layoutKindFrom": "minmax(0px, 8fr) minmax(0px, 4fr)",
+     "layoutKindSelector": "div.wall__body",
+     "columnsInLandmark": null,
+     "autoFitContentBoxes": 0,
+     "axisSelector": "div.wall__body",
+     "axisFromColumns": true
+    },
     "heroMedia": [],
     "nav": {
      "links": 0,
@@ -700,6 +731,26 @@
      "mediaRadius": 0,
      "textShadow": 0,
      "cardRows": []
+    },
+    "structure": {
+     "columns": 1,
+     "columnSamples": [],
+     "axisWidth": 672,
+     "axisChars": 128,
+     "lineWidths": [
+      1
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 56,
+     "layoutKind": "fixed",
+     "columnDistribution": {
+      "1": 56
+     },
+     "layoutKindNote": "body is an explicitly declared single-track grid at this viewport width (grid-template-columns: 1fr), not an absence of layout",
+     "layoutKindFrom": null,
+     "autoFitContentBoxes": 0,
+     "axisSelector": "p.board__meta",
+     "axisFromColumns": false
     },
     "heroMedia": [
      {
@@ -1398,6 +1449,26 @@
        "top": 4883
       }
      ]
+    },
+    "structure": {
+     "columns": 1,
+     "columnSamples": [],
+     "axisWidth": 330,
+     "axisChars": 128,
+     "lineWidths": [
+      1
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 56,
+     "layoutKind": "fixed",
+     "columnDistribution": {
+      "1": 56
+     },
+     "layoutKindNote": "body is an explicitly declared single-track grid at this viewport width (grid-template-columns: 1fr), not an absence of layout",
+     "layoutKindFrom": null,
+     "autoFitContentBoxes": 0,
+     "axisSelector": "p.board__meta",
+     "axisFromColumns": false
     },
     "heroMedia": [],
     "nav": {

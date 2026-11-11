@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S24-cyanotype-rainforest-path/index.html",
- "at": "2026-10-30T21:06:47.398Z",
+ "at": "2026-11-11T20:36:34.530Z",
  "allow": [],
  "viewports": [
   {
@@ -631,6 +631,62 @@
      "textShadow": 0,
      "cardRows": []
     },
+    "structure": {
+     "columns": 2,
+     "columnSamples": [
+      {
+       "value": 2,
+       "selector": "header#top.masthead",
+       "text": 351
+      },
+      {
+       "value": 2,
+       "selector": "div.lv.lv--1",
+       "text": 304
+      },
+      {
+       "value": 2,
+       "selector": "div#lv2.lv.lv--mirror",
+       "text": 250
+      },
+      {
+       "value": 2,
+       "selector": "div#lv3.lv.lv--1",
+       "text": 274
+      },
+      {
+       "value": 2,
+       "selector": "div.ladder__grid",
+       "text": 339
+      },
+      {
+       "value": 2,
+       "selector": "div.print__grid",
+       "text": 350
+      }
+     ],
+     "axisWidth": 1376,
+     "axisChars": 548,
+     "lineWidths": [
+      1
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 110,
+     "layoutKind": "fixed",
+     "columnsFrom": "div.motion__grid",
+     "columnsAll": [
+      2
+     ],
+     "columnDistribution": {
+      "2": 7
+     },
+     "layoutKindFrom": "5fr 4fr",
+     "layoutKindSelector": "div.motion__grid",
+     "columnsInLandmark": null,
+     "autoFitContentBoxes": 0,
+     "axisSelector": "div.motion__grid",
+     "axisFromColumns": true
+    },
     "heroMedia": [
      {
       "type": "img",
@@ -1116,6 +1172,26 @@
       }
      ]
     },
+    "structure": {
+     "columns": 1,
+     "columnSamples": [],
+     "axisWidth": 616,
+     "axisChars": 232,
+     "lineWidths": [
+      1
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 100,
+     "layoutKind": "fixed",
+     "columnDistribution": {
+      "1": 100
+     },
+     "layoutKindNote": "body is an explicitly declared single-track grid at this viewport width (grid-template-columns: 1fr), not an absence of layout",
+     "layoutKindFrom": null,
+     "autoFitContentBoxes": 0,
+     "axisSelector": "p.sig",
+     "axisFromColumns": false
+    },
     "heroMedia": [
      {
       "type": "svg",
@@ -1584,6 +1660,26 @@
        "top": 6082
       }
      ]
+    },
+    "structure": {
+     "columns": 1,
+     "columnSamples": [],
+     "axisWidth": 354,
+     "axisChars": 232,
+     "lineWidths": [
+      1
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 110,
+     "layoutKind": "fixed",
+     "columnDistribution": {
+      "1": 110
+     },
+     "layoutKindNote": "body is an explicitly declared single-track grid at this viewport width (grid-template-columns: 1fr), not an absence of layout",
+     "layoutKindFrom": null,
+     "autoFitContentBoxes": 0,
+     "axisSelector": "p.sig",
+     "axisFromColumns": false
     },
     "heroMedia": [
      {

@@ -1,6 +1,6 @@
 {
  "url": "prototypes/_selection/index.html",
- "at": "2026-11-11T14:29:40.180Z",
+ "at": "2026-11-11T21:35:07.868Z",
  "allow": [],
  "viewports": [
   {
@@ -18,9 +18,9 @@
     0.59,
     0.56,
     0.52,
-    0.51,
-    0.72,
-    0.69
+    0.49,
+    0.66,
+    0.63
    ],
    "motion": {
     "elements": 35,
@@ -38,7 +38,7 @@
     "page": {
      "height": 10325,
      "screens": 11.5,
-     "words": 1760,
+     "words": 1736,
      "img": 35,
      "video": 0,
      "canvas": 0,
@@ -130,12 +130,12 @@
      "families": [
       {
        "family": "Archivo",
-       "share": 0.87,
+       "share": 0.9,
        "mono": false
       },
       {
        "family": "Noto Sans SC",
-       "share": 0.13,
+       "share": 0.09,
        "mono": false
       },
       {
@@ -180,7 +180,7 @@
      "microLabels": 0,
      "microLabelShare": 0,
      "microSamples": [],
-     "upperShare": 0.09,
+     "upperShare": 0.08,
      "centerShare": 0.03,
      "smallText": 0
     },
@@ -198,11 +198,11 @@
      "textColors": [
       {
        "color": "#43413b",
-       "share": 0.61
+       "share": 0.6
       },
       {
        "color": "#56534b",
-       "share": 0.28
+       "share": 0.29
       },
       {
        "color": "#1c1b18",
@@ -210,7 +210,7 @@
       },
       {
        "color": "#24453c",
-       "share": 0.01
+       "share": 0.02
       },
       {
        "color": "#6b4e0d",
@@ -276,7 +276,7 @@
       {
        "value": 2,
        "selector": "div.bench",
-       "text": 13426
+       "text": 12898
       },
       {
        "value": 3,
@@ -300,13 +300,14 @@
       }
      ],
      "axisWidth": 1440,
-     "axisChars": 13426,
+     "axisChars": 12898,
      "lineWidths": [
       1,
       2
      ],
      "lineWidthSamples": [],
-     "sawContentBox": 272,
+     "sawContentBox": 267,
+     "layoutKind": "fixed",
      "columnsFrom": "div.bench",
      "columnsAll": [
       2,
@@ -316,6 +317,10 @@
       "2": 2,
       "3": 35
      },
+     "layoutKindFrom": "var(--rail) minmax(0, 1fr)",
+     "layoutKindSelector": "div.bench",
+     "columnsInLandmark": null,
+     "autoFitContentBoxes": 0,
      "axisSelector": "div.bench",
      "axisFromColumns": true
     },
@@ -368,9 +373,9 @@
      "h": 1024
     },
     "page": {
-     "height": 18112,
-     "screens": 17.7,
-     "words": 1641,
+     "height": 17853,
+     "screens": 17.4,
+     "words": 1617,
      "img": 35,
      "video": 0,
      "canvas": 0,
@@ -462,12 +467,12 @@
      "families": [
       {
        "family": "Archivo",
-       "share": 0.87,
+       "share": 0.9,
        "mono": false
       },
       {
        "family": "Noto Sans SC",
-       "share": 0.13,
+       "share": 0.1,
        "mono": false
       },
       {
@@ -529,11 +534,11 @@
      "textColors": [
       {
        "color": "#43413b",
-       "share": 0.61
+       "share": 0.6
       },
       {
        "color": "#56534b",
-       "share": 0.28
+       "share": 0.29
       },
       {
        "color": "#1c1b18",
@@ -629,13 +634,14 @@
       }
      ],
      "axisWidth": 716,
-     "axisChars": 554,
+     "axisChars": 469,
      "lineWidths": [
       1,
       2
      ],
      "lineWidthSamples": [],
-     "sawContentBox": 254,
+     "sawContentBox": 249,
+     "layoutKind": "fixed",
      "columnsFrom": "li.row",
      "columnsAll": [
       2
@@ -643,6 +649,10 @@
      "columnDistribution": {
       "2": 35
      },
+     "layoutKindFrom": "46px minmax(0px, 1fr)",
+     "layoutKindSelector": "li.row",
+     "columnsInLandmark": null,
+     "autoFitContentBoxes": 0,
      "axisSelector": "li.row",
      "axisFromColumns": true
     },
@@ -700,9 +710,9 @@
      "h": 844
     },
     "page": {
-     "height": 13871,
-     "screens": 16.4,
-     "words": 1641,
+     "height": 13612,
+     "screens": 16.1,
+     "words": 1617,
      "img": 35,
      "video": 0,
      "canvas": 0,
@@ -785,12 +795,12 @@
      "families": [
       {
        "family": "Archivo",
-       "share": 0.87,
+       "share": 0.9,
        "mono": false
       },
       {
        "family": "Noto Sans SC",
-       "share": 0.13,
+       "share": 0.09,
        "mono": false
       },
       {
@@ -852,11 +862,11 @@
      "textColors": [
       {
        "color": "#43413b",
-       "share": 0.61
+       "share": 0.59
       },
       {
        "color": "#56534b",
-       "share": 0.28
+       "share": 0.29
       },
       {
        "color": "#1c1b18",
@@ -952,13 +962,14 @@
       }
      ],
      "axisWidth": 358,
-     "axisChars": 554,
+     "axisChars": 469,
      "lineWidths": [
       1,
       2
      ],
      "lineWidthSamples": [],
-     "sawContentBox": 254,
+     "sawContentBox": 249,
+     "layoutKind": "fixed",
      "columnsFrom": "li.row",
      "columnsAll": [
       2
@@ -966,6 +977,10 @@
      "columnDistribution": {
       "2": 35
      },
+     "layoutKindFrom": "46px minmax(0px, 1fr)",
+     "layoutKindSelector": "li.row",
+     "columnsInLandmark": null,
+     "autoFitContentBoxes": 0,
      "axisSelector": "li.row",
      "axisFromColumns": true
     },

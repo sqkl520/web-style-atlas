@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S08-amber-overprint-lightbox/index.html",
- "at": "2026-10-30T18:26:37.942Z",
+ "at": "2026-11-11T21:32:48.950Z",
  "allow": [],
  "viewports": [
   {
@@ -376,6 +376,67 @@
       }
      ]
     },
+    "structure": {
+     "columns": 4,
+     "columnSamples": [
+      {
+       "value": 2,
+       "selector": "div.spec-grid",
+       "text": 155
+      },
+      {
+       "value": 2,
+       "selector": "div.spec-grid",
+       "text": 156
+      },
+      {
+       "value": 2,
+       "selector": "div",
+       "text": 62
+      },
+      {
+       "value": 2,
+       "selector": "div",
+       "text": 63
+      },
+      {
+       "value": 2,
+       "selector": "div",
+       "text": 54
+      },
+      {
+       "value": 4,
+       "selector": "div.states.panel",
+       "text": 175
+      }
+     ],
+     "axisWidth": 1264,
+     "axisChars": 175,
+     "lineWidths": [
+      2,
+      3,
+      4
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 54,
+     "layoutKind": "auto-fit",
+     "columnsFrom": "div.states",
+     "columnsAll": [
+      2,
+      4
+     ],
+     "columnDistribution": {
+      "2": 5,
+      "4": 1
+     },
+     "layoutKindFrom": "repeat(auto-fit, minmax(250px, 1fr))",
+     "layoutKindSelector": "div.states",
+     "columnsInLandmark": null,
+     "layoutKindNote": "body columns come from repeat(auto-fit|auto-fill, …); the column count is a runtime expansion at this viewport width, not a fixed design value",
+     "autoFitContentBoxes": 3,
+     "axisSelector": "div.states",
+     "axisFromColumns": true
+    },
     "heroMedia": [
      {
       "type": "svg",
@@ -425,8 +486,8 @@
     0.57
    ],
    "motion": {
-    "elements": 42,
-    "css": 30,
+    "elements": 43,
+    "css": 31,
     "transitions": 12,
     "scripted": 0,
     "videos": 0,
@@ -781,6 +842,65 @@
       }
      ]
     },
+    "structure": {
+     "columns": 2,
+     "columnSamples": [
+      {
+       "value": 2,
+       "selector": "div.spec-grid",
+       "text": 155
+      },
+      {
+       "value": 2,
+       "selector": "div.spec-grid",
+       "text": 156
+      },
+      {
+       "value": 2,
+       "selector": "div",
+       "text": 62
+      },
+      {
+       "value": 2,
+       "selector": "div",
+       "text": 63
+      },
+      {
+       "value": 2,
+       "selector": "div",
+       "text": 54
+      },
+      {
+       "value": 2,
+       "selector": "div.states.panel",
+       "text": 175
+      }
+     ],
+     "axisWidth": 643,
+     "axisChars": 175,
+     "lineWidths": [
+      2,
+      3,
+      4
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 54,
+     "layoutKind": "auto-fit",
+     "columnsFrom": "div.states",
+     "columnsAll": [
+      2
+     ],
+     "columnDistribution": {
+      "2": 6
+     },
+     "layoutKindFrom": "repeat(auto-fit, minmax(250px, 1fr))",
+     "layoutKindSelector": "div.states",
+     "columnsInLandmark": null,
+     "layoutKindNote": "body columns come from repeat(auto-fit|auto-fill, …); the column count is a runtime expansion at this viewport width, not a fixed design value",
+     "autoFitContentBoxes": 3,
+     "axisSelector": "div.states",
+     "axisFromColumns": true
+    },
     "heroMedia": [],
     "nav": {
      "links": 5,
@@ -816,8 +936,8 @@
     0.61
    ],
    "motion": {
-    "elements": 42,
-    "css": 30,
+    "elements": 43,
+    "css": 31,
     "transitions": 12,
     "scripted": 0,
     "videos": 0,
@@ -1168,6 +1288,28 @@
        "top": 6110
       }
      ]
+    },
+    "structure": {
+     "columns": 1,
+     "columnSamples": [],
+     "axisWidth": 350,
+     "axisChars": 162,
+     "lineWidths": [
+      2,
+      3,
+      4
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 53,
+     "layoutKind": "auto-fit",
+     "columnDistribution": {
+      "1": 53
+     },
+     "layoutKindNote": "repeat(auto-fit|auto-fill, …) collapsed to 1 track at this viewport width; columns=1 is a runtime expansion, not a single-column design",
+     "layoutKindFrom": null,
+     "autoFitContentBoxes": 2,
+     "axisSelector": "p",
+     "axisFromColumns": false
     },
     "heroMedia": [],
     "nav": {

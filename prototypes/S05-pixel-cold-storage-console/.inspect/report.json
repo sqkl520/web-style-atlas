@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S05-pixel-cold-storage-console/index.html",
- "at": "2026-10-17T06:08:20.120Z",
+ "at": "2026-11-11T20:19:58.332Z",
  "allow": [],
  "viewports": [
   {
@@ -294,6 +294,43 @@
        "top": 1996
       }
      ]
+    },
+    "structure": {
+     "columns": 2,
+     "columnSamples": [
+      {
+       "value": 2,
+       "selector": "section.hero.section",
+       "text": 217
+      },
+      {
+       "value": 2,
+       "selector": "div.console-shell",
+       "text": 722
+      }
+     ],
+     "axisWidth": 1344,
+     "axisChars": 722,
+     "lineWidths": [
+      1,
+      2
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 32,
+     "layoutKind": "fixed",
+     "columnsFrom": "div.console-shell",
+     "columnsAll": [
+      2
+     ],
+     "columnDistribution": {
+      "2": 2
+     },
+     "layoutKindFrom": "minmax(0px, 1fr) 180px",
+     "layoutKindSelector": "div.console-shell",
+     "columnsInLandmark": null,
+     "autoFitContentBoxes": 0,
+     "axisSelector": "div.console-shell",
+     "axisFromColumns": true
     },
     "heroMedia": [],
     "nav": {
@@ -622,6 +659,27 @@
        "top": 3174
       }
      ]
+    },
+    "structure": {
+     "columns": 1,
+     "columnSamples": [],
+     "axisWidth": 627,
+     "axisChars": 164,
+     "lineWidths": [
+      1,
+      2
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 28,
+     "layoutKind": "fixed",
+     "columnDistribution": {
+      "1": 28
+     },
+     "layoutKindNote": "body is an explicitly declared single-track grid at this viewport width (grid-template-columns: 1fr), not an absence of layout",
+     "layoutKindFrom": null,
+     "autoFitContentBoxes": 0,
+     "axisSelector": "p",
+     "axisFromColumns": false
     },
     "heroMedia": [],
     "nav": {
@@ -952,6 +1010,27 @@
        "top": 1221
       }
      ]
+    },
+    "structure": {
+     "columns": 1,
+     "columnSamples": [],
+     "axisWidth": 350,
+     "axisChars": 164,
+     "lineWidths": [
+      1,
+      2
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 28,
+     "layoutKind": "fixed",
+     "columnDistribution": {
+      "1": 28
+     },
+     "layoutKindNote": "body is an explicitly declared single-track grid at this viewport width (grid-template-columns: 1fr), not an absence of layout",
+     "layoutKindFrom": null,
+     "autoFitContentBoxes": 0,
+     "axisSelector": "p",
+     "axisFromColumns": false
     },
     "heroMedia": [],
     "nav": {

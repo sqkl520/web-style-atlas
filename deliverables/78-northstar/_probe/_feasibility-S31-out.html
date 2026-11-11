@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>恒记钟表修理铺 · 上海福州路 218 号</title>
+<style>
+  :root{
+    --ink:#F2F0EC;
+    --paper:#5F5B55;
+    --ink-soft:#DEDAD3;
+    --paper-deep:#55514B;
+    --rule:#8A857C;
+    --inset:26px;
+  }
+
+  *,*::before,*::after{box-sizing:border-box;border-radius:0;box-shadow:none;}
+
+  html,body{margin:0;padding:0;}
+
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Noto Serif SC','Literata',Georgia,serif;
+    font-size:16px;
+    line-height:1.75;
+    letter-spacing:.01em;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  h1,h2,h3,.sans{font-family:'Jost','Noto Sans SC',sans-serif;font-weight:500;}
+  h1,h2,h3,p,dl,dd,dt{margin:0;}
+
+  ::selection{background:var(--ink);color:var(--paper);}
+
+  /* ---------- 上段：门头 ---------- */
+
+  .hero{padding:20px var(--inset) 46px;}
+
+  .strip{
+    display:flex;
+    flex-wrap:wrap;
+    gap:0 30px;
+    font-family:'Jost','Noto Sans SC',sans-serif;
+    font-size:12px;
+    letter-spacing:.16em;
+    color:var(--ink-soft);
+  }
+
+  .display{
+    font-size:104px;
+    line-height:.9;
+    letter-spacing:.02em;
+    padding-top:30px;
+  }
+
+  .hero-body{
+    display:grid;
+    grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);
+    gap:0 70px;
+    margin-top:46px;
+  }
+
+  .lede{
+    max-width:34ch;
+    font-size:18px;
+    line-height:1.8;
+  }
+
+  .facts{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    align-content:start;
+  }
+
+  .facts>div{
+    padding:12px 18px 14px 0;
+    border-top:1px solid var(--rule);
+  }
+
+  .facts dt{
+    font-family:'Jost','Noto Sans SC',sans-serif;
+    font-size:12px;
+    letter-spacing:.14em;
+    color:var(--ink-soft);
+  }
+
+  .facts dd{
+    margin-top:6px;
+    font-size:16px;
+    line-height:1.4;
+  }
+
+  /* ---------- 横向尺规 ---------- */
+
+  .rulebar{
+    position:relative;
+    height:76px;
+    overflow:hidden;
+    border-top:1px solid var(--rule);
+    border-bottom:1px solid var(--rule);
+  }
+
+  .tick{
+    position:absolute;
+    background:var(--rule);
+  }
+
+  .tick.major{width:3px;height:34px;}
+  .tick.minor{width:2px;height:12px;}
+  .tick.top{top:1px;}
+  .tick.bottom{bottom:1px;}
+
+  /* ---------- 中段：六个服务格 ---------- */
+
+  .bench{padding:42px var(--inset) 0;}
+
+  .bench-head{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:30px;
+    flex-wrap:wrap;
+    padding-bottom:24px;
+  }
+
+  .bench-head h2{
+    font-size:44px;
+    line-height:1;
+    letter-spacing:.02em;
+  }
+
+  .bench-head p{
+    font-family:'Jost','Noto Sans SC',sans-serif;
+    font-size:13px;
+    letter-spacing:.12em;
+    color:var(--ink-soft);
+    padding-bottom:4px;
+  }
+
+  /* 方阵：整块贴左边缘长出，格高不等，无外留白 */
+  .grid{
+    display:grid;
+    grid-template-columns:1.55fr 1fr 1.2fr;
+    grid-template-rows:minmax(250px,1fr) minmax(268px,1.1fr) minmax(214px,.9fr);
+    margin-left:calc(var(--inset) * -1);
+    margin-right:calc(var(--inset) * -1);
+    border-top:1px solid var(--rule);
+  }
+
+  .cell{
+    display:flex;
+    flex-direction:column;
+    padding:26px 26px 22px;
+    border-right:1px solid var(--rule);
+    border-bottom:1px solid var(--rule);
+  }
+
+  .cell .no{
+    font-family:'Jost','Noto Sans SC',sans-serif;
+    font-size:12px;
+    letter-spacing:.2em;
+    color:var(--rule);
+  }
+
+  .cell h3{
+    font-size:24px;
+    line-height:1.3;
+    margin-top:14px;
+    letter-spacing:.015em;
+  }
+
+  .cell p{
+    font-size:16px;
+    line-height:1.75;
+    margin-top:12px;
+    max-width:42ch;
+  }
+
+  .cell .spec{
+    margin-top:auto;
+    padding-top:16px;
+    border-top:1px solid var(--rule);
+    font-family:'Jost','Noto Sans SC',sans-serif;
+    font-size:13px;
+    letter-spacing:.1em;
+    color:var(--ink-soft);
+  }
+
+  .c1{grid-column:1 / span 2;grid-row:1;}
+  .c2{grid-column:3;grid-row:1 / span 2;background:var(--paper-deep);}
+  .c3{grid-column:1;grid-row:2;}
+  .c4{grid-column:2;grid-row:2 / span 2;}
+  .c5{grid-column:1;grid-row:3;}
+  .c6{grid-column:3;grid-row:3;}
+
+  /* ---------- 下段：联系 ---------- */
+
+  .contact{padding:50px var(--inset) 34px;}
+
+  .contact h2{
+    font-size:44px;
+    line-height:1;
+    letter-spacing:.02em;
+    padding-bottom:28px;
+  }
+
+  .contact-grid{
+    display:grid;
+    grid-template-columns:1.35fr 1fr 1fr 1.3fr;
+  }
+
+  .cbox{
+    padding:20px 24px 26px;
+    border-top:1px solid var(--rule);
+  }
+
+  .cbox+.cbox{border-left:1px solid var(--rule);}
+
+  .cbox h3{
+    font-size:16px;
+    letter-spacing:.08em;
+    color:var(--ink-soft);
+    padding-bottom:10px;
+  }
+
+  .cbox p{font-size:16px;line-height:1.8;}
+
+  .foot{
+    display:flex;
+    flex-wrap:wrap;
+    gap:0 30px;
+    padding:16px var(--inset) 22px;
+    border-top:1px solid var(--rule);
+    font-family:'Jost','Noto Sans SC',sans-serif;
+    font-size:12px;
+    letter-spacing:.16em;
+    color:var(--ink-soft);
+  }
+
+  @media (max-width:900px){
+    .display{font-size:56px;}
+    .hero-body{grid-template-columns:1fr;gap:34px 0;}
+    .grid{
+      grid-template-columns:1fr;
+      grid-template-rows:none;
+      min-height:0;
+    }
+    .c1,.c2,.c3,.c4,.c5,.c6{grid-column:auto;grid-row:auto;}
+    .contact-grid{grid-template-columns:1fr;}
+    .cbox+.cbox{border-left:0;}
+  }
+</style>
+</head>
+<body>
+
+  <!-- 上段 -->
+  <header class="hero">
+    <div class="strip">
+      <span>恒记钟表修理铺</span>
+      <span>上海 · 福州路 218 号</span>
+      <span>创号 1936</span>
+      <span>021-6321 8642</span>
+    </div>
+
+    <h1 class="display">恒记钟表</h1>
+
+    <div class="hero-body">
+      <p class="lede">一间只修表、不卖表的铺子。1936 年在福州路开门，三代师傅守着四张工作台，做机械钟表的拆解、清洗、调校与零件重制。不设快修柜台，取件按工时排。</p>
+
+      <dl class="facts">
+        <div><dt>在修工时</dt><dd>四至六周</dd></div>
+        <div><dt>工作台</dt><dd>四张</dd></div>
+        <div><dt>年接件</dt><dd>约 900 只</dd></div>
+        <div><dt>保修</dt><dd>12 个月</dd></div>
+      </dl>
+    </div>
+  </header>
+
+  <!-- 尺规之一：上下两排刻度共用两条贯穿基线 -->
+  <div class="rulebar" aria-hidden="true"></div>
+
+  <!-- 中段 -->
+  <section class="bench">
+    <div class="bench-head">
+      <h2>六项服务</h2>
+      <p>按序接件 · 报价先出单 · 不修不收费</p>
+    </div>
+
+    <div class="grid">
+      <article class="cell c1">
+        <span class="no">01</span>
+        <h3>机械腕表保养洗油</h3>
+        <p>全拆解至零件，超声波清洗两道，按原厂油号分区上油，六方位走时校准。</p>
+        <span class="spec">工时 4–6 周 · 起价 ¥680</span>
+      </article>
+
+      <article class="cell c2">
+        <span class="no">02</span>
+        <h3>石英表换电与走时校</h3>
+        <p>原装或等规格电池更换。开底盖前先验防水圈，换后测静耗、秒针对点、日差复测，附一张走时记录单。</p>
+        <span class="spec">当场可取 · 起价 ¥80</span>
+      </article>
+
+      <article class="cell c3">
+        <span class="no">03</span>
+        <h3>怀表与古董钟修复</h3>
+        <p>老件配齿、轴榫补焊、发条重制，保留原有包浆，不改原装结构。</p>
+        <span class="spec">视件况报价 · 先检后定</span>
+      </article>
+
+      <article class="cell c4">
+        <span class="no">04</span>
+        <h3>表壳抛光与拉丝复原</h3>
+        <p>手工打磨，按原厂棱线与拉丝方向走。能留的划痕留着，不做电镀、不补金、不改壳型。</p>
+        <span class="spec">工时 2–3 周 · 起价 ¥420</span>
+      </article>
+
+      <article class="cell c5">
+        <span class="no">05</span>
+        <h3>表镜更换与防水检测</h3>
+        <p>亚克力或蓝宝石表镜按原弧度换装，换后做 3–10ATM 气压检测并出单。</p>
+        <span class="spec">当天至 3 天</span>
+      </article>
+
+      <article class="cell c6">
+        <span class="no">06</span>
+        <h3>表带调整与皮带定制</h3>
+        <p>钢带截节、生耳与表扣配换；皮带按腕围裁长缝制，原带原扣归还。</p>
+        <span class="spec">当天可取</span>
+      </article>
+    </div>
+  </section>
+
+  <!-- 尺规之二 -->
+  <div class="rulebar" aria-hidden="true"></div>
+
+  <!-- 下段 -->
+  <section class="contact">
+    <h2>送修与联系</h2>
+
+    <div class="contact-grid">
+      <div class="cbox">
+        <h3>到店</h3>
+        <p>上海市黄浦区福州路 218 号二楼 204 室（近山东中路）。楼下不便停车，建议地铁 2／10 号线南京东路站 4 号口步行六分钟。</p>
+      </div>
+      <div class="cbox">
+        <h3>电话与微信</h3>
+        <p>021-6321 8642<br>微信 hengji1936<br>接件时间以外请留言，次日回电。</p>
+      </div>
+      <div class="cbox">
+        <h3>营业时间</h3>
+        <p>周一至周六 10:00–19:00<br>周日与法定节假日闭店<br>每年 8 月 1 日至 8 日例休</p>
+      </div>
+      <div class="cbox">
+        <h3>送修须知</h3>
+        <p>到店前请先电话确认工位。邮寄送修请先微信登记，包裹内附联系人与回寄地址纸条，寄回一律顺丰到付。</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <span>恒记钟表修理铺</span>
+    <span>1936–2026</span>
+    <span>本页不提供线上销售</span>
+  </footer>
+
+<script>
+(function(){
+  var MINOR = 12, MAJOR = 60;
+
+  function build(){
+    var w = Math.max(
+      document.documentElement.clientWidth || 0,
+      window.innerWidth || 0,
+      1280
+    );
+    var count = Math.ceil(w / MINOR) + 3;
+    var bars = document.querySelectorAll('.rulebar');
+
+    for (var b = 0; b < bars.length; b++){
+      var bar = bars[b];
+      var old = bar.querySelectorAll('.tick');
+      for (var o = 0; o < old.length; o++){ bar.removeChild(old[o]); }
+
+      var frag = document.createDocumentFragment();
+      for (var i = 0; i < count; i++){
+        var x = i * MINOR;
+        var cls = (x % MAJOR === 0) ? 'major' : 'minor';
+
+        var t = document.createElement('i');
+        t.className = 'tick top ' + cls;
+        t.style.left = x + 'px';
+        frag.appendChild(t);
+
+        var u = document.createElement('i');
+        u.className = 'tick bottom ' + cls;
+        u.style.left = x + 'px';
+        frag.appendChild(u);
+      }
+      bar.appendChild(frag);
+    }
+  }
+
+  if (document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', build);
+  } else {
+    build();
+  }
+  window.addEventListener('resize', build);
+})();
+</script>
+</body>
+</html>

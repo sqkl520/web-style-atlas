@@ -90,6 +90,7 @@ const STEPS = [
    * 上面那些绿是不是可信的 —— 所以它失败要单独标出来。 */
   { id: 'selftest-docs', label: '自测：文档闸门', kind: 'gate', script: join(B, 'check-docs.mjs'), args: ['--selftest'] },
   { id: 'selftest-prompts', label: '自测：提示词闸门', kind: 'gate', script: join(B, 'check-prompts.mjs'), args: ['--selftest'] },
+  { id: 'selftest-contract', label: '自测：契约闸门', kind: 'gate', script: join(B, 'check-contract.mjs'), args: ['--selftest'] },
   { id: 'selftest-dist', label: '自测：分布闸门', kind: 'gate', script: join(B, 'check-distribution.mjs'), args: ['--selftest'] },
   { id: 'selftest-scenes', label: '自测：词表闸门', kind: 'gate', script: join(B, 'check-scenes.mjs'), args: ['--selftest'] },
   { id: 'selftest-prov', label: '自测：出处闸门', kind: 'gate', script: join(B, 'check-provenance.mjs'), args: ['--selftest'] },

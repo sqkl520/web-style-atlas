@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S28-jazz-intaglio-wall/index.html",
- "at": "2026-10-25T02:58:06.677Z",
+ "at": "2026-11-11T20:40:36.122Z",
  "allow": [],
  "viewports": [
   {
@@ -392,6 +392,65 @@
      "textShadow": 0,
      "cardRows": []
     },
+    "structure": {
+     "columns": 16,
+     "columnSamples": [
+      {
+       "value": 16,
+       "selector": "div.head__grid",
+       "text": 402
+      },
+      {
+       "value": 16,
+       "selector": "div.press__grid",
+       "text": 733
+      },
+      {
+       "value": 2,
+       "selector": "dl.press__spec",
+       "text": 89
+      },
+      {
+       "value": 16,
+       "selector": "div.status__grid",
+       "text": 699
+      },
+      {
+       "value": 2,
+       "selector": "ul.frozen",
+       "text": 135
+      },
+      {
+       "value": 2,
+       "selector": "dl.press__spec",
+       "text": 91
+      }
+     ],
+     "axisWidth": 1312,
+     "axisChars": 733,
+     "lineWidths": [
+      2,
+      8
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 148,
+     "layoutKind": "fixed",
+     "columnsFrom": "div.press__grid",
+     "columnsAll": [
+      2,
+      16
+     ],
+     "columnDistribution": {
+      "2": 3,
+      "16": 5
+     },
+     "layoutKindFrom": "repeat(16, minmax(0px, 1fr))",
+     "layoutKindSelector": "div.press__grid",
+     "columnsInLandmark": null,
+     "autoFitContentBoxes": 0,
+     "axisSelector": "div.press__grid",
+     "axisFromColumns": true
+    },
     "heroMedia": [
      {
       "type": "img",
@@ -778,6 +837,65 @@
      "mediaRadius": 0,
      "textShadow": 0,
      "cardRows": []
+    },
+    "structure": {
+     "columns": 16,
+     "columnSamples": [
+      {
+       "value": 16,
+       "selector": "div.head__grid",
+       "text": 402
+      },
+      {
+       "value": 2,
+       "selector": "dl.press__spec",
+       "text": 89
+      },
+      {
+       "value": 2,
+       "selector": "ul.frozen",
+       "text": 135
+      },
+      {
+       "value": 2,
+       "selector": "dl.press__spec",
+       "text": 91
+      },
+      {
+       "value": 16,
+       "selector": "ul.spec-list",
+       "text": 424
+      },
+      {
+       "value": 16,
+       "selector": "div.wrap.foot-grid",
+       "text": 281
+      }
+     ],
+     "axisWidth": 704,
+     "axisChars": 424,
+     "lineWidths": [
+      2,
+      8
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 123,
+     "layoutKind": "fixed",
+     "columnsFrom": "ul.spec-list",
+     "columnsAll": [
+      2,
+      16
+     ],
+     "columnDistribution": {
+      "2": 3,
+      "16": 3
+     },
+     "layoutKindFrom": "repeat(16, minmax(0px, 1fr))",
+     "layoutKindSelector": "ul.spec-list",
+     "columnsInLandmark": null,
+     "autoFitContentBoxes": 0,
+     "axisSelector": "ul.spec-list",
+     "axisFromColumns": true
     },
     "heroMedia": [
      {
@@ -1653,6 +1771,50 @@
      "mediaRadius": 0,
      "textShadow": 0,
      "cardRows": []
+    },
+    "structure": {
+     "columns": 16,
+     "columnSamples": [
+      {
+       "value": 2,
+       "selector": "ul.frozen",
+       "text": 135
+      },
+      {
+       "value": 16,
+       "selector": "ul.spec-list",
+       "text": 424
+      },
+      {
+       "value": 16,
+       "selector": "div.wrap.foot-grid",
+       "text": 281
+      }
+     ],
+     "axisWidth": 350,
+     "axisChars": 424,
+     "lineWidths": [
+      2,
+      8
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 147,
+     "layoutKind": "fixed",
+     "columnsFrom": "ul.spec-list",
+     "columnsAll": [
+      2,
+      16
+     ],
+     "columnDistribution": {
+      "2": 1,
+      "16": 2
+     },
+     "layoutKindFrom": "repeat(16, minmax(0px, 1fr))",
+     "layoutKindSelector": "ul.spec-list",
+     "columnsInLandmark": null,
+     "autoFitContentBoxes": 0,
+     "axisSelector": "ul.spec-list",
+     "axisFromColumns": true
     },
     "heroMedia": [
      {

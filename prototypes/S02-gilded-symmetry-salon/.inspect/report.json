@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S02-gilded-symmetry-salon/index.html",
- "at": "2026-10-30T21:04:45.314Z",
+ "at": "2026-11-11T20:46:49.744Z",
  "allow": [],
  "viewports": [
   {
@@ -365,6 +365,50 @@
      "textShadow": 0,
      "cardRows": []
     },
+    "structure": {
+     "columns": 2,
+     "columnSamples": [
+      {
+       "value": 2,
+       "selector": "div.salon-grid",
+       "text": 606
+      },
+      {
+       "value": 2,
+       "selector": "div.leak-row",
+       "text": 98
+      },
+      {
+       "value": 3,
+       "selector": "div.foot-grid",
+       "text": 397
+      }
+     ],
+     "axisWidth": 1354,
+     "axisChars": 606,
+     "lineWidths": [
+      1,
+      2
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 61,
+     "layoutKind": "fixed",
+     "columnsFrom": "div.salon-grid",
+     "columnsAll": [
+      2,
+      3
+     ],
+     "columnDistribution": {
+      "2": 2,
+      "3": 1
+     },
+     "layoutKindFrom": "1fr 2px 1fr",
+     "layoutKindSelector": "div.salon-grid",
+     "columnsInLandmark": null,
+     "autoFitContentBoxes": 1,
+     "axisSelector": "div.salon-grid",
+     "axisFromColumns": true
+    },
     "heroMedia": [
      {
       "type": "bg-image",
@@ -728,6 +772,43 @@
      "mediaRadius": 0,
      "textShadow": 0,
      "cardRows": []
+    },
+    "structure": {
+     "columns": 2,
+     "columnSamples": [
+      {
+       "value": 2,
+       "selector": "div.salon-grid",
+       "text": 574
+      },
+      {
+       "value": 2,
+       "selector": "div.foot-grid",
+       "text": 397
+      }
+     ],
+     "axisWidth": 722,
+     "axisChars": 574,
+     "lineWidths": [
+      1,
+      2
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 61,
+     "layoutKind": "fixed",
+     "columnsFrom": "div.salon-grid",
+     "columnsAll": [
+      2
+     ],
+     "columnDistribution": {
+      "2": 2
+     },
+     "layoutKindFrom": "1fr 2px 1fr",
+     "layoutKindSelector": "div.salon-grid",
+     "columnsInLandmark": null,
+     "autoFitContentBoxes": 1,
+     "axisSelector": "div.salon-grid",
+     "axisFromColumns": true
     },
     "heroMedia": [
      {
@@ -1118,6 +1199,27 @@
      "mediaRadius": 0,
      "textShadow": 0,
      "cardRows": []
+    },
+    "structure": {
+     "columns": 1,
+     "columnSamples": [],
+     "axisWidth": 350,
+     "axisChars": 162,
+     "lineWidths": [
+      1,
+      2
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 61,
+     "layoutKind": "auto-fit",
+     "columnDistribution": {
+      "1": 61
+     },
+     "layoutKindNote": "repeat(auto-fit|auto-fill, …) collapsed to 1 track at this viewport width; columns=1 is a runtime expansion, not a single-column design",
+     "layoutKindFrom": null,
+     "autoFitContentBoxes": 1,
+     "axisSelector": "p",
+     "axisFromColumns": false
     },
     "heroMedia": [
      {

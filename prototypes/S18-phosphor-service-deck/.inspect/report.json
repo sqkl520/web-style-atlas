@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S18-phosphor-service-deck/index.html",
- "at": "2026-10-26T16:47:17.147Z",
+ "at": "2026-11-11T20:29:39.475Z",
  "allow": [],
  "viewports": [
   {
@@ -404,6 +404,60 @@
      "mediaRadius": 0,
      "textShadow": 0,
      "cardRows": []
+    },
+    "structure": {
+     "columns": 3,
+     "columnSamples": [
+      {
+       "value": 2,
+       "selector": "div.mast__grid",
+       "text": 517
+      },
+      {
+       "value": 3,
+       "selector": "div.stream__grid",
+       "text": 2099
+      },
+      {
+       "value": 2,
+       "selector": "div.band__split",
+       "text": 404
+      },
+      {
+       "value": 2,
+       "selector": "div.tags__grid",
+       "text": 345
+      },
+      {
+       "value": 2,
+       "selector": "div.motion__grid",
+       "text": 855
+      }
+     ],
+     "axisWidth": 1440,
+     "axisChars": 2099,
+     "lineWidths": [
+      1,
+      4
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 107,
+     "layoutKind": "fixed",
+     "columnsFrom": "div.stream__grid",
+     "columnsAll": [
+      2,
+      3
+     ],
+     "columnDistribution": {
+      "2": 4,
+      "3": 1
+     },
+     "layoutKindFrom": "12% 54% 34%",
+     "layoutKindSelector": "div.stream__grid",
+     "columnsInLandmark": null,
+     "autoFitContentBoxes": 0,
+     "axisSelector": "div.stream__grid",
+     "axisFromColumns": true
     },
     "heroMedia": [
      {
@@ -826,6 +880,27 @@
      "mediaRadius": 0,
      "textShadow": 0,
      "cardRows": []
+    },
+    "structure": {
+     "columns": 1,
+     "columnSamples": [],
+     "axisWidth": 693,
+     "axisChars": 664,
+     "lineWidths": [
+      1,
+      4
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 106,
+     "layoutKind": "fixed",
+     "columnDistribution": {
+      "1": 106
+     },
+     "layoutKindNote": "body is an explicitly declared single-track grid at this viewport width (grid-template-columns: 1fr), not an absence of layout",
+     "layoutKindFrom": null,
+     "autoFitContentBoxes": 0,
+     "axisSelector": "div.blk",
+     "axisFromColumns": false
     },
     "heroMedia": [
      {
@@ -1373,6 +1448,27 @@
      "mediaRadius": 0,
      "textShadow": 0,
      "cardRows": []
+    },
+    "structure": {
+     "columns": 1,
+     "columnSamples": [],
+     "axisWidth": 322,
+     "axisChars": 664,
+     "lineWidths": [
+      1,
+      4
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 106,
+     "layoutKind": "fixed",
+     "columnDistribution": {
+      "1": 106
+     },
+     "layoutKindNote": "body is an explicitly declared single-track grid at this viewport width (grid-template-columns: 1fr), not an absence of layout",
+     "layoutKindFrom": null,
+     "autoFitContentBoxes": 0,
+     "axisSelector": "div.blk",
+     "axisFromColumns": false
     },
     "heroMedia": [
      {

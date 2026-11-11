@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S25-spotcolor-contents-zine/index.html",
- "at": "2026-11-08T22:43:14.781Z",
+ "at": "2026-11-11T20:37:43.210Z",
  "allow": [],
  "viewports": [
   {
@@ -350,6 +350,60 @@
      "mediaRadius": 0,
      "textShadow": 0,
      "cardRows": []
+    },
+    "structure": {
+     "columns": 4,
+     "columnSamples": [
+      {
+       "value": 2,
+       "selector": "header.masthead",
+       "text": 208
+      },
+      {
+       "value": 2,
+       "selector": "div.masthead__sheet",
+       "text": 92
+      },
+      {
+       "value": 2,
+       "selector": "section#contents.contents",
+       "text": 337
+      },
+      {
+       "value": 3,
+       "selector": "div.sheets",
+       "text": 52
+      },
+      {
+       "value": 4,
+       "selector": "div.colophon-foot__cols",
+       "text": 345
+      }
+     ],
+     "axisWidth": 1352,
+     "axisChars": 345,
+     "lineWidths": [],
+     "lineWidthSamples": [],
+     "sawContentBox": 45,
+     "layoutKind": "fixed",
+     "columnsFrom": "div.colophon-foot__cols",
+     "columnsAll": [
+      2,
+      3,
+      4
+     ],
+     "columnDistribution": {
+      "2": 3,
+      "3": 1,
+      "4": 1
+     },
+     "layoutKindFrom": "3fr 7fr",
+     "layoutKindSelector": "section#contents.contents",
+     "columnsInLandmark": "footer",
+     "layoutKindNote": "body layout is fixed, but columns was measured on a container inside a footer — see layoutKindSelector for the body container",
+     "autoFitContentBoxes": 1,
+     "axisSelector": "div.colophon-foot__cols",
+     "axisFromColumns": true
     },
     "heroMedia": [],
     "nav": {
@@ -713,6 +767,36 @@
      "mediaRadius": 0,
      "textShadow": 0,
      "cardRows": []
+    },
+    "structure": {
+     "columns": 3,
+     "columnSamples": [
+      {
+       "value": 3,
+       "selector": "div.colophon-foot__cols",
+       "text": 345
+      }
+     ],
+     "axisWidth": 732,
+     "axisChars": 345,
+     "lineWidths": [],
+     "lineWidthSamples": [],
+     "sawContentBox": 45,
+     "layoutKind": "no-column-layout",
+     "columnsFrom": "div.colophon-foot__cols",
+     "columnsAll": [
+      3
+     ],
+     "columnDistribution": {
+      "3": 1
+     },
+     "layoutKindFrom": null,
+     "layoutKindSelector": null,
+     "columnsInLandmark": "footer",
+     "layoutKindNote": "no multi-column body container outside header/footer/nav/aside; the columns value comes from a footer and does not describe the body layout",
+     "autoFitContentBoxes": 1,
+     "axisSelector": "div.colophon-foot__cols",
+     "axisFromColumns": true
     },
     "heroMedia": [],
     "nav": {
@@ -1079,6 +1163,24 @@
      "mediaRadius": 0,
      "textShadow": 0,
      "cardRows": []
+    },
+    "structure": {
+     "columns": 1,
+     "columnSamples": [],
+     "axisWidth": 354,
+     "axisChars": 241,
+     "lineWidths": [],
+     "lineWidthSamples": [],
+     "sawContentBox": 45,
+     "layoutKind": "auto-fit",
+     "columnDistribution": {
+      "1": 45
+     },
+     "layoutKindNote": "repeat(auto-fit|auto-fill, …) collapsed to 1 track at this viewport width; columns=1 is a runtime expansion, not a single-column design",
+     "layoutKindFrom": null,
+     "autoFitContentBoxes": 1,
+     "axisSelector": "p.credits",
+     "axisFromColumns": false
     },
     "heroMedia": [],
     "nav": {

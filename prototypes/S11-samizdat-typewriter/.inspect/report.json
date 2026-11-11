@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S11-samizdat-typewriter/index.html",
- "at": "2026-10-24T08:53:41.100Z",
+ "at": "2026-11-11T20:24:24.849Z",
  "allow": [],
  "viewports": [
   {
@@ -520,6 +520,68 @@
      "textShadow": 0,
      "cardRows": []
     },
+    "structure": {
+     "columns": 12,
+     "columnSamples": [
+      {
+       "value": 2,
+       "selector": "div#carbon-proof.carbon-proof",
+       "text": 109
+      },
+      {
+       "value": 12,
+       "selector": "div.chapter-grid",
+       "text": 169
+      },
+      {
+       "value": 12,
+       "selector": "div.chapter-grid",
+       "text": 265
+      },
+      {
+       "value": 12,
+       "selector": "div.chapter-grid",
+       "text": 320
+      },
+      {
+       "value": 12,
+       "selector": "div.chapter-grid",
+       "text": 256
+      },
+      {
+       "value": 12,
+       "selector": "div.chapter-grid",
+       "text": 234
+      }
+     ],
+     "axisWidth": 1296,
+     "axisChars": 320,
+     "lineWidths": [
+      1,
+      2,
+      3
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 124,
+     "layoutKind": "fixed",
+     "columnsFrom": "div.chapter-grid",
+     "columnsAll": [
+      2,
+      3,
+      12
+     ],
+     "columnDistribution": {
+      "2": 1,
+      "3": 1,
+      "12": 11
+     },
+     "layoutKindFrom": "repeat(12, minmax(0px, 1fr))",
+     "layoutKindSelector": "div.chapter-grid",
+     "columnsInLandmark": null,
+     "autoFitContentBoxes": 0,
+     "axisSelector": "div.chapter-grid",
+     "axisFromColumns": true
+    },
     "heroMedia": [],
     "nav": {
      "links": 0,
@@ -791,6 +853,40 @@
      "mediaRadius": 0,
      "textShadow": 0,
      "cardRows": []
+    },
+    "structure": {
+     "columns": 2,
+     "columnSamples": [
+      {
+       "value": 2,
+       "selector": "div.foot-grid",
+       "text": 169
+      }
+     ],
+     "axisWidth": 704,
+     "axisChars": 169,
+     "lineWidths": [
+      1,
+      2,
+      3
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 124,
+     "layoutKind": "no-column-layout",
+     "columnsFrom": "div.foot-grid",
+     "columnsAll": [
+      2
+     ],
+     "columnDistribution": {
+      "2": 1
+     },
+     "layoutKindFrom": null,
+     "layoutKindSelector": null,
+     "columnsInLandmark": "footer",
+     "layoutKindNote": "no multi-column body container outside header/footer/nav/aside; the columns value comes from a footer and does not describe the body layout",
+     "autoFitContentBoxes": 0,
+     "axisSelector": "div.foot-grid",
+     "axisFromColumns": true
     },
     "heroMedia": [],
     "nav": {
@@ -1324,6 +1420,28 @@
      "mediaRadius": 0,
      "textShadow": 0,
      "cardRows": []
+    },
+    "structure": {
+     "columns": 1,
+     "columnSamples": [],
+     "axisWidth": 358,
+     "axisChars": 107,
+     "lineWidths": [
+      1,
+      2,
+      3
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 124,
+     "layoutKind": "no-column-layout",
+     "columnDistribution": {
+      "1": 124
+     },
+     "layoutKindNote": "no multi-column content container found; columns=1 is the single-column fallback, not a layout intent",
+     "layoutKindFrom": null,
+     "autoFitContentBoxes": 0,
+     "axisSelector": "p.sig",
+     "axisFromColumns": false
     },
     "heroMedia": [],
     "nav": {

@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S35-ash-newsprint-flip/index.html",
- "at": "2026-11-10T14:57:42.650Z",
+ "at": "2026-11-11T20:51:00.670Z",
  "allow": [],
  "viewports": [
   {
@@ -16,10 +16,10 @@
     0.44
    ],
    "motion": {
-    "elements": 22,
+    "elements": 23,
     "css": 0,
-    "transitions": 0,
-    "scripted": 22,
+    "transitions": 6,
+    "scripted": 17,
     "videos": 0,
     "playingVideos": 0
    },
@@ -349,6 +349,7 @@
      ],
      "lineWidthSamples": [],
      "sawContentBox": 51,
+     "layoutKind": "fixed",
      "columnsFrom": "footer",
      "columnsAll": [
       2,
@@ -358,6 +359,11 @@
       "2": 4,
       "3": 1
      },
+     "layoutKindFrom": "92px 1fr",
+     "layoutKindSelector": "li.note",
+     "columnsInLandmark": "footer",
+     "layoutKindNote": "body layout is fixed, but columns was measured on a container inside a footer — see layoutKindSelector for the body container",
+     "autoFitContentBoxes": 1,
      "axisSelector": "footer",
      "axisFromColumns": true
     },
@@ -743,6 +749,7 @@
      ],
      "lineWidthSamples": [],
      "sawContentBox": 51,
+     "layoutKind": "fixed",
      "columnsFrom": "footer",
      "columnsAll": [
       2
@@ -750,6 +757,11 @@
      "columnDistribution": {
       "2": 5
      },
+     "layoutKindFrom": "78px 1fr",
+     "layoutKindSelector": "li.note",
+     "columnsInLandmark": "footer",
+     "layoutKindNote": "body layout is fixed, but columns was measured on a container inside a footer — see layoutKindSelector for the body container",
+     "autoFitContentBoxes": 1,
      "axisSelector": "footer",
      "axisFromColumns": true
     },
@@ -1111,9 +1123,13 @@
      ],
      "lineWidthSamples": [],
      "sawContentBox": 51,
+     "layoutKind": "auto-fit",
      "columnDistribution": {
       "1": 51
      },
+     "layoutKindNote": "repeat(auto-fit|auto-fill, …) collapsed to 1 track at this viewport width; columns=1 is a runtime expansion, not a single-column design",
+     "layoutKindFrom": null,
+     "autoFitContentBoxes": 1,
      "axisSelector": "div.error",
      "axisFromColumns": false
     },

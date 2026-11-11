@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S07-slate-ink-contents/index.html",
- "at": "2026-10-29T09:05:42.135Z",
+ "at": "2026-11-11T20:21:28.372Z",
  "allow": [],
  "viewports": [
   {
@@ -309,6 +309,61 @@
      "textShadow": 0,
      "cardRows": []
     },
+    "structure": {
+     "columns": 2,
+     "columnSamples": [
+      {
+       "value": 4,
+       "selector": "header.bar",
+       "text": 53
+      },
+      {
+       "value": 2,
+       "selector": "div.pages",
+       "text": 1574
+      },
+      {
+       "value": 2,
+       "selector": "ol#toc-list.toc",
+       "text": 479
+      },
+      {
+       "value": 3,
+       "selector": "ol.toc",
+       "text": 730
+      },
+      {
+       "value": 3,
+       "selector": "div.panels",
+       "text": 84
+      }
+     ],
+     "axisWidth": 1360,
+     "axisChars": 1574,
+     "lineWidths": [
+      2
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 22,
+     "layoutKind": "fixed",
+     "columnsFrom": "div.pages",
+     "columnsAll": [
+      2,
+      3,
+      4
+     ],
+     "columnDistribution": {
+      "2": 2,
+      "3": 2,
+      "4": 1
+     },
+     "layoutKindFrom": "5fr 1px 7fr",
+     "layoutKindSelector": "div.pages",
+     "columnsInLandmark": null,
+     "autoFitContentBoxes": 0,
+     "axisSelector": "div.pages",
+     "axisFromColumns": true
+    },
     "heroMedia": [
      {
       "type": "svg",
@@ -595,6 +650,26 @@
      "mediaRadius": 0,
      "textShadow": 0,
      "cardRows": []
+    },
+    "structure": {
+     "columns": 1,
+     "columnSamples": [],
+     "axisWidth": 544,
+     "axisChars": 115,
+     "lineWidths": [
+      2
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 22,
+     "layoutKind": "fixed",
+     "columnDistribution": {
+      "1": 22
+     },
+     "layoutKindNote": "body is an explicitly declared single-track grid at this viewport width (grid-template-columns: 1fr), not an absence of layout",
+     "layoutKindFrom": null,
+     "autoFitContentBoxes": 0,
+     "axisSelector": "p.missing-p",
+     "axisFromColumns": false
     },
     "heroMedia": [
      {
@@ -945,6 +1020,26 @@
      "mediaRadius": 0,
      "textShadow": 0,
      "cardRows": []
+    },
+    "structure": {
+     "columns": 1,
+     "columnSamples": [],
+     "axisWidth": 350,
+     "axisChars": 115,
+     "lineWidths": [
+      2
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 22,
+     "layoutKind": "fixed",
+     "columnDistribution": {
+      "1": 22
+     },
+     "layoutKindNote": "body is an explicitly declared single-track grid at this viewport width (grid-template-columns: 1fr), not an absence of layout",
+     "layoutKindFrom": null,
+     "autoFitContentBoxes": 0,
+     "axisSelector": "p.missing-p",
+     "axisFromColumns": false
     },
     "heroMedia": [
      {

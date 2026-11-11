@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S34-graphite-zero-photo-index/index.html",
- "at": "2026-11-10T14:49:43.242Z",
+ "at": "2026-11-11T20:50:13.155Z",
  "allow": [],
  "viewports": [
   {
@@ -18,8 +18,8 @@
    "motion": {
     "elements": 17,
     "css": 0,
-    "transitions": 0,
-    "scripted": 17,
+    "transitions": 16,
+    "scripted": 1,
     "videos": 0,
     "playingVideos": 0
    },
@@ -280,6 +280,7 @@
      ],
      "lineWidthSamples": [],
      "sawContentBox": 34,
+     "layoutKind": "no-column-layout",
      "columnsFrom": "footer",
      "columnsAll": [
       3
@@ -287,6 +288,11 @@
      "columnDistribution": {
       "3": 1
      },
+     "layoutKindFrom": null,
+     "layoutKindSelector": null,
+     "columnsInLandmark": "footer",
+     "layoutKindNote": "no multi-column body container outside header/footer/nav/aside; the columns value comes from a footer and does not describe the body layout",
+     "autoFitContentBoxes": 1,
      "axisSelector": "footer",
      "axisFromColumns": true
     },
@@ -321,8 +327,8 @@
    "motion": {
     "elements": 17,
     "css": 0,
-    "transitions": 0,
-    "scripted": 17,
+    "transitions": 8,
+    "scripted": 9,
     "videos": 0,
     "playingVideos": 0
    },
@@ -625,6 +631,7 @@
      ],
      "lineWidthSamples": [],
      "sawContentBox": 34,
+     "layoutKind": "no-column-layout",
      "columnsFrom": "footer",
      "columnsAll": [
       2
@@ -632,6 +639,11 @@
      "columnDistribution": {
       "2": 1
      },
+     "layoutKindFrom": null,
+     "layoutKindSelector": null,
+     "columnsInLandmark": "footer",
+     "layoutKindNote": "no multi-column body container outside header/footer/nav/aside; the columns value comes from a footer and does not describe the body layout",
+     "autoFitContentBoxes": 1,
      "axisSelector": "footer",
      "axisFromColumns": true
     },
@@ -668,8 +680,8 @@
    "motion": {
     "elements": 17,
     "css": 0,
-    "transitions": 0,
-    "scripted": 17,
+    "transitions": 5,
+    "scripted": 12,
     "videos": 0,
     "playingVideos": 0
    },
@@ -1112,9 +1124,13 @@
      ],
      "lineWidthSamples": [],
      "sawContentBox": 34,
+     "layoutKind": "auto-fit",
      "columnDistribution": {
       "1": 34
      },
+     "layoutKindNote": "repeat(auto-fit|auto-fill, …) collapsed to 1 track at this viewport width; columns=1 is a runtime expansion, not a single-column design",
+     "layoutKindFrom": null,
+     "autoFitContentBoxes": 1,
      "axisSelector": "li.drift-block",
      "axisFromColumns": false
     },

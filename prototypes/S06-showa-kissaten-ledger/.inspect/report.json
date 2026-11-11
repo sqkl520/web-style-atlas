@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S06-showa-kissaten-ledger/index.html",
- "at": "2026-10-17T02:27:57.720Z",
+ "at": "2026-11-11T20:20:37.365Z",
  "allow": [],
  "viewports": [
   {
@@ -387,6 +387,65 @@
      "mediaRadius": 0,
      "textShadow": 0,
      "cardRows": []
+    },
+    "structure": {
+     "columns": 2,
+     "columnSamples": [
+      {
+       "value": 2,
+       "selector": "header.masthead",
+       "text": 247
+      },
+      {
+       "value": 2,
+       "selector": "dl.mast-meta",
+       "text": 80
+      },
+      {
+       "value": 2,
+       "selector": "div.river-row",
+       "text": 999
+      },
+      {
+       "value": 3,
+       "selector": "div#river-rail.river",
+       "text": 945
+      },
+      {
+       "value": 2,
+       "selector": "ul.plates",
+       "text": 143
+      },
+      {
+       "value": 3,
+       "selector": "div.foot-grid",
+       "text": 245
+      }
+     ],
+     "axisWidth": 1020,
+     "axisChars": 999,
+     "lineWidths": [
+      1,
+      2
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 80,
+     "layoutKind": "fixed",
+     "columnsFrom": "div.river-row",
+     "columnsAll": [
+      2,
+      3
+     ],
+     "columnDistribution": {
+      "2": 4,
+      "3": 2
+     },
+     "layoutKindFrom": "876px 120px",
+     "layoutKindSelector": "div.river-row",
+     "columnsInLandmark": null,
+     "autoFitContentBoxes": 0,
+     "axisSelector": "div.river-row",
+     "axisFromColumns": true
     },
     "heroMedia": [
      {
@@ -803,6 +862,53 @@
      "mediaRadius": 0,
      "textShadow": 0,
      "cardRows": []
+    },
+    "structure": {
+     "columns": 2,
+     "columnSamples": [
+      {
+       "value": 2,
+       "selector": "header.masthead",
+       "text": 247
+      },
+      {
+       "value": 2,
+       "selector": "dl.mast-meta",
+       "text": 80
+      },
+      {
+       "value": 2,
+       "selector": "div#river-rail.river",
+       "text": 945
+      },
+      {
+       "value": 2,
+       "selector": "ul.plates",
+       "text": 143
+      }
+     ],
+     "axisWidth": 590,
+     "axisChars": 945,
+     "lineWidths": [
+      1,
+      2
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 80,
+     "layoutKind": "fixed",
+     "columnsFrom": "div#river-rail.river",
+     "columnsAll": [
+      2
+     ],
+     "columnDistribution": {
+      "2": 4
+     },
+     "layoutKindFrom": null,
+     "layoutKindSelector": "div#river-rail.river",
+     "columnsInLandmark": null,
+     "autoFitContentBoxes": 0,
+     "axisSelector": "div#river-rail.river",
+     "axisFromColumns": true
     },
     "heroMedia": [
      {
@@ -1510,6 +1616,27 @@
      "mediaRadius": 0,
      "textShadow": 0,
      "cardRows": []
+    },
+    "structure": {
+     "columns": 1,
+     "columnSamples": [],
+     "axisWidth": 358,
+     "axisChars": 109,
+     "lineWidths": [
+      1,
+      2
+     ],
+     "lineWidthSamples": [],
+     "sawContentBox": 80,
+     "layoutKind": "fixed",
+     "columnDistribution": {
+      "1": 80
+     },
+     "layoutKindNote": "body is an explicitly declared single-track grid at this viewport width (grid-template-columns: 1fr), not an absence of layout",
+     "layoutKindFrom": null,
+     "autoFitContentBoxes": 0,
+     "axisSelector": "p.sig",
+     "axisFromColumns": false
     },
     "heroMedia": [
      {
