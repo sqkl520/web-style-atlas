@@ -84,10 +84,106 @@ export function probe() {
    *     这个数之所以重要：`0.5px` vs `1px` 是丝网印与"描边"的分界，
    *     提示词里写了线宽，验货时要能对着渲染值核。
    */
-  const STRUCT = { columns: 0, columnSamples: [], axisWidth: null, axisChars: 0, lineWidths: [], lineWidthSamples: [], sawContentBox: 0 };
+  const STRUCT = { columns: 0, columnSamples: [], axisWidth: null, axisChars: 0, lineWidths: [], lineWidthSamples: [], sawContentBox: 0, layoutKind: null };
   const _lw = new Set();
   const _colVals = [];
   const _colEls = [];
+  /* ── layoutKind：区分「写死的轨道」与「按容器宽自动换列的轨道」（2026-11-12 新增）
+   *
+   * 为什么必须区分：`columns` 当验货基准时，两类案的含义完全不同。
+   *   · fixed —— CSS 写死轨道（S01 的 `5fr var(--bar) 4fr …`）。`columns` 就是设计意图，
+   *     换视口宽度它不变（除非另有 @media 显式改写）。
+   *   · auto-fit —— `repeat(auto-fit|auto-fill, minmax(Npx,1fr))`。`columns` 是**运行时
+   *     展开值**：S31 实测 1440/768/390 下是 4/2/1 列。拿它当「这个设计是 4 栏」的证据，
+   *     会把一个流式网格判成写死的四栏；反过来也一样。
+   *   · no-column-layout —— 全页没有承载正文的多栏容器（S14）。此时 `columns` 走的是
+   *     「单栏也是一种栏数」的兜底分支，它不代表任何分栏设计。
+   *
+   * 判据只能读**样式表声明值**，不能读 computed：Chrome 会把
+   * `repeat(auto-fit, minmax(280px,1fr))` 的 computed `gridTemplateColumns` 求值成
+   * `300px 300px 300px 300px` —— 设计意图在 computed 里已经消失，事后无法反推。
+   * 所以这里扫 document.styleSheets，收「声明了 auto-fit/auto-fill」的规则选择器，
+   * 再用 el.matches() 判断某个元素是否命中。
+   *
+   * 已知边界（不假装覆盖）：
+   *   · 选择器命中 ≠ **层叠后**生效。若同一元素基础规则是 auto-fit、某条媒体查询又用
+   *     写死轨道覆盖，这里会判 auto-fit。本仓库 35 案实测没有这种写法（auto-fit 声明
+   *     只出现在 base 规则里，无覆盖），换别人的产物会撞上。因此同时记
+   *     `layoutKindDeclared`（命中的声明原文）——判错时人能从报告里看出来。
+   *   · @media 只在 matchMedia 为真时才下钻，避免把别的断点的声明算进来。
+   *   · 跨域样式表读 cssRules 会抛，吞掉（本仓库原型全部同源）。
+   */
+  const _autoFitSel = [];
+  const _gtcRules = [];
+  const _scanRules = (rules) => {
+    for (const r of rules) {
+      try {
+        /* ⚠️ 顺序不能反。实测（2026-11-12）：Chrome 支持 CSS 嵌套后，**每一条
+           CSSStyleRule 都带一个 `.cssRules`**（通常是空的 CSSRuleList）。
+           先判 `r.cssRules` 再取 `r.style`，就会对每条样式规则都递归进空列表、
+           永远走不到 `gridTemplateColumns`，扫描结果恒为空数组 ——
+           而 layoutKind 会因此把 S31（四条 auto-fit）静默判成 fixed。
+           这正是本仓库「采集器读不到数据也不报错、照样输出一个合法值」的老病。
+           所以：先取声明，再决定要不要下钻。 */
+        const g = r.style && r.style.gridTemplateColumns;
+        if (g && r.selectorText) {
+          _gtcRules.push({ sel: r.selectorText, val: g });
+          if (/auto-(fit|fill)/.test(g)) _autoFitSel.push(r.selectorText);
+          continue;
+        }
+        if (r.media && r.media.mediaText !== undefined) {          // @media
+          if (matchMedia(r.media.mediaText).matches) _scanRules(r.cssRules);
+          continue;
+        }
+        if (r.cssRules && r.cssRules.length) { _scanRules(r.cssRules); continue; } // 嵌套 / @supports / @layer
+      } catch (e) { /* 跨域 / 未实现的选择器，跳过 */ }
+    }
+  };
+  for (const sh of document.styleSheets) {
+    try { if (sh.cssRules) _scanRules(sh.cssRules); } catch (e) { /* 跨域样式表 */ }
+  }
+  /* 某元素命中的**最后一条** grid-template-columns 声明（近似层叠：文档序靠后者胜，
+     不比较特异性）。返回的是**这一视口下生效的**那条声明，而不是"曾经出现过 auto-fit"。
+     这个区别实测必须做对：S31 的基础规则是 auto-fit（style.css:134），但
+     `@media (max-width:1023px)` 在 :552 又把它改写成 `1fr 1fr`。
+     若只问"有没有命中过 auto-fit 规则"，768 会报 auto-fit，而实际生效的是
+     写死的两栏 —— 报告里就会自相矛盾（layoutKind=auto-fit 配 layoutKindFrom="1fr 1fr"）。 */
+  const _declaredGtc = (el) => {
+    let val = null;
+    for (const r of _gtcRules) { try { if (el.matches(r.sel)) val = r.val; } catch (e) {} }
+    return val;
+  };
+  /* auto-fit 判定同样只看**生效的**那条声明。 */
+  const _isAutoFit = (el) => {
+    const d = _declaredGtc(el);
+    return !!d && /auto-(fit|fill)/.test(d);
+  };
+  /* 某元素（含自身）落在哪个 landmark 里：header / footer / nav / aside 或对应 role。
+   *
+   * 为什么要这一步（2026-11-12 实测）：`columns` 取「承载正文最多的多栏容器」，
+   * 而**页脚往往比版心文字更多**。35 案实测有 12 案的 `columnsFrom` 落在
+   * header/footer 里：
+   *   · S14 报 3 栏，来源 `div.foot-grid`（footer）—— 而 S14 的版心是
+   *     `.masthead`（header，2 轨）+ 图片格 `.plates`（画廊），**整页没有正文分栏**。
+   *     这正是平行实现 `deliverables/74-q7/measure.mjs` 判成 `no-column-layout` 的案子。
+   *   · S09/S10/S16/S19/S26 同类：版心栏数被页脚的 2–3 栏顶替。
+   * 判据从 `measure.mjs` 的第 5 条搬来（「版心不会长在 footer 里」）。
+   * ⚠️ 必须从元素**自身**开始查：S34 的主版式确实是 `<footer>` 这个元素本身。
+   */
+  const _landOf = (el) => {
+    for (let p = el; p && p !== document.body.parentElement; p = p.parentElement) {
+      const t = p.tagName.toLowerCase();
+      if (t === 'footer' || t === 'header' || t === 'nav' || t === 'aside') return t;
+      const role = typeof p.getAttribute === 'function' ? p.getAttribute('role') : null;
+      if (role === 'contentinfo' || role === 'banner' || role === 'navigation' || role === 'complementary') return 'role:' + role;
+    }
+    return '';
+  };
+  let _autoFitBoxes = 0;   // 承载正文且命中 auto-fit 规则的容器数（兜底分支要用）
+  let _singleTrackBoxes = 0; // 正文区被显式写成单轨的容器数（S01@390 这类）
+  /* 单轨容器的明细（chars / 是否 auto-fit / 选择器），供 390 兜底分支按文字量挑选 ——
+     只数个数会把 S31@390（`.blocks` 流式塌成 1 轨，86 字）与页脚里的小网格混为一谈。 */
+  const _oneTrackEls = [];
   for (const el of all) {
     const tag = el.tagName;
     if (tag === 'SCRIPT' || tag === 'STYLE' || tag === 'NOSCRIPT' || tag === 'TEMPLATE') continue;
@@ -122,6 +218,31 @@ export function probe() {
       if (isGrid && gtc && gtc !== 'none') {
         trackList = gtc.split(/\s+/).filter((t) => t && t !== 'none');
         tracks = trackList.length;
+        /* 画廊判据要先算，供「单轨计数」与下面的「多轨剔假栏」共用。
+           为什么单轨也要用：S14 的 `.plates` 在 390px 有
+           `.plates { grid-template-columns: 1fr }`（style.css:382）—— 那是一条
+           **显式单轨声明**，但它装的是 7 张图，是画廊。若不排除，S14 会被判成
+           「fixed 单栏版式」，而真值是 no-column-layout（整页没有正文分栏）。 */
+        const kids0 = [...el.children];
+        const isGallery = kids0.length >= 3 &&
+          kids0.filter((k) => k.querySelector('img, picture, svg, canvas')).length >= kids0.length / 2;
+        /* 记下「承载正文 + 命中 auto-fit 规则」的容器，供单栏兜底分支区分
+           「流式塌成一列」与「根本没有分栏」（S31@390 vs S14）。
+           口径用**声明值**（_isAutoFit），不用 computed —— 后者已被求值，反推不出意图。 */
+        if (_isAutoFit(el) && !isGallery) _autoFitBoxes++;
+        /* 同样记「正文区被**显式声明**成单轨」的：S01 在 ≤767px 把 `.columns` 改成
+           `grid-template-columns: 1fr`（style.css:455），那是**设计意图明确的单栏**，
+           不是「这一页没有分栏」。两者在 columns 上都报 1，但 layoutKind 必须不同 ——
+           否则「单栏设计」会被读成「采集器没找到版式」。
+           ⚠️ 必须要求**有声明**，不能只看 computed 是几条轨道：`display:grid; gap:26px`
+           而没写 grid-template-columns 的容器，computed 会给出单条隐式轨道
+           （S14 的 `ol.paths` 在 768 实测 `720px`）—— 那是「没分栏」，不是「单栏设计」。
+           只看 computed 会把 S14 从 no-column-layout 误判成 fixed（实测踩到）。
+           明细存进 _oneTrackEls：兜底分支要按文字量挑出真正的版心，不能只数个数。 */
+        else if (tracks === 1 && !_landOf(el) && !isGallery && _declaredGtc(el)) {
+          _singleTrackBoxes++;
+          _oneTrackEls.push({ chars: ownText.length, autoFit: _isAutoFit(el), declared: _declaredGtc(el), sel: (el.tagName.toLowerCase() + (el.id ? '#' + el.id : '') + (typeof el.className === 'string' && el.className ? '.' + el.className.trim().split(/\s+/)[0] : '')).slice(0, 60) });
+        }
       }
       // 多栏文本（column-count）：只在真的按列排版时生效，display 必须是 block 类
       const cc = parseInt(c.columnCount, 10);
@@ -161,7 +282,7 @@ export function probe() {
       }
       if (tracks > 1) {
         _colVals.push(tracks);
-        _colEls.push({ el, cs: c, tracks, chars: ownText.length });
+        _colEls.push({ el, cs: c, tracks, chars: ownText.length, autoFit: _isAutoFit(el), declared: _declaredGtc(el), land: _landOf(el) });
         if (STRUCT.columnSamples.length < 6) {
           STRUCT.columnSamples.push({ value: tracks, selector: (tag.toLowerCase() + (el.id ? '#' + el.id : '') + (typeof el.className === 'string' && el.className ? '.' + el.className.trim().split(/\s+/).slice(0, 2).join('.') : '')).slice(0, 50), text: ownText.length });
         }
@@ -187,6 +308,53 @@ export function probe() {
     const dist = {};
     for (const v of _colVals) dist[v] = (dist[v] || 0) + 1;
     STRUCT.columnDistribution = dist;
+    /* ── layoutKind ────────────────────────────────────────────────────────
+     *
+     * 回答的问题是：**这一页的正文版式是怎么排的**。三值：
+     *   · fixed            —— 版心容器轨道在 CSS 里写死，`columns` 即设计意图。
+     *   · auto-fit         —— 版心容器命中 `repeat(auto-fit|auto-fill, …)`，
+     *                         `columns` 是**运行时展开值**（S31: 4/2/1）。
+     *   · no-column-layout —— 版心没有分栏（见下）。
+     *
+     * 判定口径与 `columns` **刻意不同**，这是这张表的要点：
+     *
+     * `columns` 取「承载文字最多的多栏容器」，而页脚常比版心字多 —— 35 案实测
+     * **12 案的 `columnsFrom` 落在 header/footer 里**（S14: `div.foot-grid` 3 栏；
+     * S09/S10/S16/S19/S26 同类）。若 layoutKind 跟着 `columns` 走，S14 会被标成
+     * 「fixed 三栏」，而它整页只有 header 的两栏标题区 + 写死四轨的图片格
+     * `.plates`（画廊，已被上面的判据 B 剔掉）—— 正文根本没分栏。
+     * 平行实现 `deliverables/74-q7/measure.mjs` 对同一页给出的正是
+     * `gridFrom: "no-column-layout"`。
+     *
+     * 所以 layoutKind 只认**不在 landmark 里**的容器（判据搬自 measure.mjs 第 5 条：
+     * 「版心不会长在 footer 里」）。`columns` 保持原口径不动 —— 改它会让 30 份
+     * 老报告与新报告不可比，也会把这个采集缺陷藏起来。缺陷改为单独记在
+     * `columnsInLandmark` 里，让人看得见。
+     */
+    const body = ranked.filter((r) => !r.land);
+    const topBody = body[0] || null;
+    STRUCT.layoutKind = topBody ? (topBody.autoFit ? 'auto-fit' : 'fixed') : 'no-column-layout';
+    STRUCT.layoutKindFrom = topBody ? (topBody.declared || null) : null;
+    STRUCT.layoutKindSelector = topBody
+      ? (topBody.el.tagName.toLowerCase() + (topBody.el.id ? '#' + topBody.el.id : '') +
+         (typeof topBody.el.className === 'string' && topBody.el.className ? '.' + topBody.el.className.trim().split(/\s+/)[0] : '')).slice(0, 60)
+      : null;
+    /* `columnsFrom` 落在 landmark 里时把事实写出来 —— 这是「columns 可能量错对象」的唯一提示。 */
+    STRUCT.columnsInLandmark = _landOf(ranked[0].el) || null;
+    if (topBody && topBody.autoFit) {
+      /* 把「这个 columns 是运行时展开值」写成事实，而不是留给读者记。
+         同一容器在不同视口下的值不同，这才使 auto-fit 的 columns 不能直接当设计意图。 */
+      STRUCT.layoutKindNote = 'body columns come from repeat(auto-fit|auto-fill, …); the column count is a runtime expansion at this viewport width, not a fixed design value';
+    } else if (!topBody && STRUCT.columnsInLandmark) {
+      STRUCT.layoutKindNote = 'no multi-column body container outside header/footer/nav/aside; the columns value comes from a ' +
+        STRUCT.columnsInLandmark + ' and does not describe the body layout';
+    } else if (STRUCT.columnsInLandmark) {
+      STRUCT.layoutKindNote = 'body layout is fixed, but columns was measured on a container inside a ' + STRUCT.columnsInLandmark + ' — see layoutKindSelector for the body container';
+    }
+    /* 顺带记下：页面上还有几个承载正文的容器也是 auto-fit。
+       用途是把「版心是写死的，但页脚/卡片区是流式」这种混合案区分出来 ——
+       只报 layoutKind 会把它们全压成 fixed，读者会以为整页都是写死的。 */
+    STRUCT.autoFitContentBoxes = ranked.filter((r) => r.autoFit).length;
   } else if (STRUCT.sawContentBox) {
     /* 单栏也是一种栏数，不是「没测到」。
      *
@@ -198,6 +366,37 @@ export function probe() {
      * 且没有任何容器是多栏的，那它就是单栏 ⇒ columns = 1。 */
     STRUCT.columns = 1;
     STRUCT.columnDistribution = { 1: STRUCT.sawContentBox };
+    /* 没有多栏容器时 columns=1 是兜底值，不是设计意图 —— 必须说出来。
+       ⚠️ 但也不能一律报 no-column-layout：auto-fit 的容器在窄视口会**塌成 1 轨**
+       （S31@390 实测 `repeat(auto-fit, minmax(280px,1fr))` 只剩 1 列），
+       那是同一个流式版式的另一个展开值，不是「这一页没有分栏」。
+       ⚠️ 判据必须落在**文字最多的那个单轨容器**上，不能看「页面上有没有某个单轨
+       auto-fit 盒」：S31@390 的版心 `.blocks` 塌成 1 轨（86 字，auto-fit），
+       而页脚里也有 auto-fit 小网格。按文字量取第一，才选中真正的版心。 */
+    const topOne = [..._oneTrackEls].sort((a, b) => b.chars - a.chars)[0] || null;
+    if (topOne && topOne.autoFit) {
+      STRUCT.layoutKind = 'auto-fit';
+      STRUCT.layoutKindNote = 'repeat(auto-fit|auto-fill, …) collapsed to 1 track at this viewport width; columns=1 is a runtime expansion, not a single-column design';
+    } else if (topOne) {
+      /* S01@390：`.columns { grid-template-columns: 1fr }`（style.css:455）—— 写死的单栏。
+         这在 columns 上同样是 1，但它是**设计意图**，与「没找到版式」必须分开报。 */
+      STRUCT.layoutKind = 'fixed';
+      STRUCT.layoutKindNote = 'body is an explicitly declared single-track grid at this viewport width (grid-template-columns: 1fr), not an absence of layout';
+    } else {
+      STRUCT.layoutKind = 'no-column-layout';
+      STRUCT.layoutKindNote = 'no multi-column content container found; columns=1 is the single-column fallback, not a layout intent';
+    }
+    STRUCT.layoutKindFrom = topOne ? topOne.declared : null;
+    STRUCT.layoutKindSelector = topOne ? topOne.sel : null;
+    STRUCT.autoFitContentBoxes = _autoFitBoxes;
+  } else {
+    /* 连承载正文的容器都没找到（sawContentBox=0）：既没有分栏，也没有可认的正文盒。
+       与上面分开报，是因为「测到了单栏」和「没测到东西」在验货里必须能区分开 ——
+       本仓库反复出现的病就是后者被前者冒充。 */
+    STRUCT.layoutKind = 'no-column-layout';
+    STRUCT.layoutKindFrom = null;
+    STRUCT.layoutKindNote = 'no content box detected at all; columns=0 means "not measured", not "single column"';
+    STRUCT.autoFitContentBoxes = 0;
   }
   STRUCT.lineWidths = [..._lw].sort((a, b) => a - b).slice(0, 12);
   /* 主轴宽要在 `big` 建好之后算 —— 第一版把这段放在这里（`big` 还没声明），

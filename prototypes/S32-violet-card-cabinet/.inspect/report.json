@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S32-violet-card-cabinet/index.html",
- "at": "2026-11-11T21:35:50.282Z",
+ "at": "2026-11-11T21:38:07.127Z",
  "allow": [],
  "viewports": [
   {
@@ -15,9 +15,9 @@
     0.46
    ],
    "motion": {
-    "elements": 12,
+    "elements": 8,
     "css": 0,
-    "transitions": 12,
+    "transitions": 8,
     "scripted": 0,
     "videos": 0,
     "playingVideos": 0
@@ -327,6 +327,7 @@
      ],
      "lineWidthSamples": [],
      "sawContentBox": 31,
+     "layoutKind": "auto-fit",
      "columnsFrom": "div#drawers.drawers",
      "columnsAll": [
       2,
@@ -336,6 +337,11 @@
       "2": 3,
       "3": 2
      },
+     "layoutKindFrom": "repeat(auto-fit, minmax(300px, 1fr))",
+     "layoutKindSelector": "div#drawers.drawers",
+     "columnsInLandmark": null,
+     "layoutKindNote": "body columns come from repeat(auto-fit|auto-fill, …); the column count is a runtime expansion at this viewport width, not a fixed design value",
+     "autoFitContentBoxes": 2,
      "axisSelector": "div#drawers.drawers",
      "axisFromColumns": true
     },
@@ -699,6 +705,7 @@
      ],
      "lineWidthSamples": [],
      "sawContentBox": 31,
+     "layoutKind": "auto-fit",
      "columnsFrom": "div#drawers.drawers",
      "columnsAll": [
       2
@@ -706,6 +713,11 @@
      "columnDistribution": {
       "2": 5
      },
+     "layoutKindFrom": "repeat(auto-fit, minmax(300px, 1fr))",
+     "layoutKindSelector": "div#drawers.drawers",
+     "columnsInLandmark": null,
+     "layoutKindNote": "body columns come from repeat(auto-fit|auto-fill, …); the column count is a runtime expansion at this viewport width, not a fixed design value",
+     "autoFitContentBoxes": 2,
      "axisSelector": "div#drawers.drawers",
      "axisFromColumns": true
     },
@@ -738,9 +750,9 @@
     0.33
    ],
    "motion": {
-    "elements": 9,
+    "elements": 8,
     "css": 0,
-    "transitions": 9,
+    "transitions": 8,
     "scripted": 0,
     "videos": 0,
     "playingVideos": 0
@@ -1106,9 +1118,13 @@
      ],
      "lineWidthSamples": [],
      "sawContentBox": 31,
+     "layoutKind": "auto-fit",
      "columnDistribution": {
       "1": 31
      },
+     "layoutKindNote": "repeat(auto-fit|auto-fill, …) collapsed to 1 track at this viewport width; columns=1 is a runtime expansion, not a single-column design",
+     "layoutKindFrom": null,
+     "autoFitContentBoxes": 2,
      "axisSelector": "li.card",
      "axisFromColumns": false
     },
@@ -1225,7 +1241,7 @@
    "level": "WARN",
    "id": "still-page",
    "width": 1440,
-   "message": "Little motion: 12 element(s) moved while the page loaded and scrolled.",
+   "message": "Little motion: 8 element(s) moved while the page loaded and scrolled.",
    "fix": "Give every section an entrance for its parts (not one fade of the whole block) and add one moving picture: a looping clip or a slow move on a photograph."
   }
  ],

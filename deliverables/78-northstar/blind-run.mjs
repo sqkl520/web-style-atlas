@@ -68,59 +68,67 @@ function loadSchemes() {
   return W;
 }
 
-/* 提示词拼装。刻意**不复用** prompt-copy.js 的 buildPrompt：
- * 那个函数依赖 window.SCHEMES 与浏览器环境，而且它的输出面向真实用户（含交付说明）。
- * 盲测要的是一份「中性任务书」—— 同等约束，但不要"复制到你的 AI"这类产品话术。
- * ⚠️ 两边必须保持约束一致，否则测的不是产品实际给的东西。这是一处已知的维护风险，
- *    所以这里只从 dna 取**结构化字段**，不自己编任何约束。 */
-function buildBlindPrompt(id, dna, tone) {
-  const f = dna.fonts || {};
-  const line = (arr) => (Array.isArray(arr) && arr.length ? arr.join(' → ') : '');
-  const dStack = line(f.displayStack) || f.display || '';
-  const bStack = line(f.bodyStack) || f.body || '';
-  const h1 = parseFloat(dna.h1SizeAt1440) || 0;
-  const body = parseFloat(String(dna.bodySize || '').match(/([\d.]+)px/)?.[1] || '') || 16;
-  const ratio = h1 ? Math.round((h1 / body) * 10) / 10 : 0;
-
-  const parts = [
-    '你是一个前端开发者。请根据下面的风格描述，写出**一个完整的 HTML 文件**',
-    '（内联 CSS，不引用任何外部文件、不用任何 CDN、不用任何图片文件）。',
-    '',
-    '# 风格描述',
-    '',
-    tone ? `气质：${tone}。` : '',
-    '',
-    `这个风格的签名动作：${dna.mechanism || ''}`,
-    '',
-    '视觉硬约束（逐条执行；配色与字体照此固定）：',
-    `1. 配色只用这几个值：${dna.palette || ''}。不新增更多彩色。`,
-    dStack ? `2. 字体：标题按这个顺序取第一个可用的：${dStack}（前一个缺字就用下一个）。` : '',
-    bStack ? `   正文同理，按序取：${bStack}。` : '',
-    `3. 圆角：${dna.radiusBare || dna.radius === '全直角 0' ? '全站一律 0，卡片、按钮、图片、标签全部方角' : dna.radius}。`,
-    `4. 阴影：${dna.shadow}。`,
-    `5. 线宽只用这几级：${dna.lineWidths}，全站线条都从这几级里取。`,
-    ratio
-      ? `6. 字号：正文约 ${Math.round(body)}px；最大标题要压到正文的 ${ratio} 倍（约 ${Math.round(h1)}px）。` +
-        '比这更小就撑不出这个版式——这是本案最容易被做塌的一处。中间层级你按内容需要分，但**最大那一档必须够大**。'
-      : '',
-    '',
-    '结构约束：',
-    dna.risk ? `- 常见失败方式（务必规避）：${dna.risk}` : '',
-    dna.reuse ? `- 最难被复用到别处之处：${dna.reuse}` : '',
-    '',
-    '# 输出要求',
-    '',
-    '只输出 HTML 代码，写进 `out.html`。不要解释，不要额外文件。',
-    '页面要真的是一个能用的网站首页，内容自拟、用中文，不要用占位符文字。',
-    '字号、线宽、配色必须严格照上面给的数。',
-  ];
-  return parts.filter((x) => x !== '').join('\n') + '\n';
+/* 提示词：**必须直接调产品的 buildStylePrompt**，不许自己拼。
+ *
+ * ⚠️ 这里返工过一次，记下来免得下一个人重犯：
+ * 第一版我自己拼了一个「中性任务书」，理由是「产品提示词含『复制到你的 AI』这类话术」。
+ * 结果是它比产品实际输出**少了一半约束** —— 实测同一案 S31：
+ *   产品 buildStylePrompt：40 行 / 5025 字节
+ *   我拼的盲测版：        20 行 / 2580 字节
+ * 缺的是：结构约束 5 条（含 minItems / minPics）、防退化 8 条、验收三问。
+ *
+ * 更糟的是有一处**直接矛盾**：我的版本写「不用任何图片文件」，
+ * 而产品提示词第 4 条写「图片位置写成 <img src="images/占位-N.jpg">」——
+ * 而 compare.mjs 的「图片位」判据正是判这个。
+ * 用那种产物去跑对账，会在一条它被明确禁止的判据上判失败，是假 FAIL。
+ *
+ * 所以现在：直接调 buildStylePrompt。盲测测的必须**就是**产品给的东西。
+ * 不传 opts —— 产品提示词里「我经营＿＿＿＿」那段是留给真实用户填空的，
+ * 盲测不替它编一个假身份（那正是本仓库反复修的「系统替用户编假前提」那个病）。
+ */
+function loadBuildPrompt() {
+  const stubEl = () => ({
+    style: {}, classList: { add() {}, remove() {}, toggle() {}, contains: () => false },
+    setAttribute() {}, appendChild() {}, addEventListener() {},
+    querySelector: () => null, querySelectorAll: () => [], innerHTML: '', textContent: '',
+    insertBefore() {}, removeChild() {}, remove() {}, focus() {}, cloneNode() { return stubEl(); },
+  });
+  const w = {};
+  w.window = w;
+  w.document = {
+    readyState: 'complete',
+    getElementById: () => stubEl(),
+    createElement: stubEl, querySelector: () => null, querySelectorAll: () => [],
+    body: stubEl(), documentElement: stubEl(), addEventListener() {},
+  };
+  w.navigator = { clipboard: { writeText: async () => {} } };
+  w.setTimeout = () => {}; w.clearTimeout = () => {};
+  w.console = { warn() {}, log() {}, error() {} };
+  const ctx = vm.createContext(w);
+  /* 加载顺序必须与 index.html 一致。prompt-copy.js 依赖 window.SCHEMES 取 tone，
+   * data.js 必须在它之前加载。
+   * ⚠️ prompt-copy.js 末尾会**自执行** DOM 挂载（mountSceneChips 等），
+   * 在 node 的 stub 环境下会抛错。但 window.buildStylePrompt 在抛错之前的
+   * 赋值语句里已经挂上了，所以这里容忍加载期错误 —— 只要随后能取到函数即可。
+   * 这不是「吞异常」：下面紧接着检查 buildStylePrompt 是否存在，取不到就抛。 */
+  for (const f of ['prototypes/_selection/data.js',
+    'prototypes/_selection/prompts.js',
+    'prototypes/_selection/prompt-copy.js']) {
+    try {
+      vm.runInContext(readFileSync(join(ROOT, f), 'utf8'), ctx, { filename: f });
+    } catch (e) {
+      if (!/Cannot read properties of undefined|is not a function/.test(e.message)) throw e;
+    }
+  }
+  if (typeof w.buildStylePrompt !== 'function') {
+    throw new Error('window.buildStylePrompt 不存在 —— 加载顺序或 DOM stub 有问题');
+  }
+  return w.buildStylePrompt;
 }
+const buildStylePrompt = loadBuildPrompt();
 
 /* ── 主流程 ─────────────────────────────────────────────────────────── */
 const P = loadPrompts();
-const W = loadSchemes();
-const toneOf = (id) => (W.find((s) => s.id === id)?.tone || '');
 
 mkdirSync(OUT, { recursive: true });
 const manifest = [];
@@ -128,12 +136,17 @@ const manifest = [];
 for (const id of IDS) {
   const rec = P.find((s) => s.id === id);
   if (!rec) { console.error(`跳过 ${id}：prompts.js 里没有`); continue; }
-  const promptText = buildBlindPrompt(id, rec.dna, toneOf(id));
+  /* 直接调产品函数。传空 opts —— 让「我经营＿＿＿＿」保持留给用户的填空位，
+   * 不替盲测编一个假身份。 */
+  let promptText = '';
+  try { promptText = buildStylePrompt(id) || ''; }
+  catch (e) { console.error(`跳过 ${id}：buildStylePrompt 抛错 ${e.message}`); continue; }
+  if (!promptText) { console.error(`跳过 ${id}：提示词为空`); continue; }
   const dir = join(OUT, id);
   mkdirSync(dir, { recursive: true });
   writeFileSync(join(dir, 'task.txt'), promptText);
-  manifest.push({ id, promptBytes: Buffer.byteLength(promptText), dnaBytes: JSON.stringify(rec.dna).length });
-  console.log(`${id}: 提示词 ${Buffer.byteLength(promptText)} 字节 → ${dir}/task.txt`);
+  manifest.push({ id, promptBytes: Buffer.byteLength(promptText), lines: promptText.split('\n').length });
+  console.log(`${id}: ${promptText.split('\n').length} 行 / ${Buffer.byteLength(promptText)} 字节`);
 }
 writeFileSync(join(OUT, 'manifest-prepare.json'), JSON.stringify(manifest, null, 1));
 

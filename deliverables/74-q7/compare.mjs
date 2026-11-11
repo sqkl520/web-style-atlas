@@ -191,12 +191,19 @@ function specRatioCandidates(prompt) {
 }
 
 /* 提示词里写明的线宽档位：「5. 线宽只用这几级：0.5px、0.8px、1px、2px……」。
- * 找不到这一句就返回 null（该判据跳过，而不是默认通过）。 */
+ * 找不到这一句就返回 null（该判据跳过，而不是默认通过）。
+ *
+ * ⚠️ **单值档位也是合法档位，必须判不能跳过**。实测 S31 / S34 的提示词写的正是
+ * 「5. 线宽只用这几级：1px，全站线条都从这几级里取。」—— 只有 1px 一级。
+ * 第一版这里写了 `vals.length >= 2`，等于把这两个案静默降级成「无法判定」，
+ * 而它们其实有一条比多值档位**更严格**的判据（产物出现 2px 就该红）。
+ * 那正是这次要修的毛病（读不到 ≠ 成立，也不该倒过来变成「读到了但不判」）。
+ * 锚定在「线宽只用这几级」这句上，所以单值不会误匹配到别处的 px。 */
 function specWidthScale(prompt) {
   const line = prompt.split('\n').find((l) => /线宽只用这几级/.test(l));
   if (!line) return null;
   const vals = [...line.matchAll(/([0-9]+(?:\.[0-9]+)?)px/g)].map((m) => parseFloat(m[1]));
-  return vals.length >= 2 ? [...new Set(vals)].sort((a, b) => a - b) : null;
+  return vals.length >= 1 ? [...new Set(vals)].sort((a, b) => a - b) : null;
 }
 
 /* ══ 度量结果的可信度 ═══════════════════════════════════════════════════
@@ -770,6 +777,26 @@ async function runSelftest() {
       base: 'S17', row: '线宽档位合规', state: 'skip',
       mut: (f) => { f.prompt = f.prompt.replace(/^5\. 线宽只用这几级.*$/m, ''); },
       note: '提示词没有档位句 → 跳过，不默认通过',
+    },
+    /* ── 2026-11-12 补：单值档位必须照样判 ─────────────────────────
+     * 实测 S31 / S34 的产品提示词写的是「线宽只用这几级：**1px**」——只有一级。
+     * 我的第一版解析器要求 `vals.length >= 2`，于是把这两案静默降级成「无法判定」。
+     * 那是错的：单值档位是一条**更严格**的判据（产物出现 2px 就该红），
+     * 读到了却不判，和「读不到就放行」是同一类毛病。
+     * 下面两条把这个坑钉死：单值档位下，产物合规必须 PASS、超档必须 FAIL。 */
+    {
+      name: 'width-single-tier [反向]',
+      base: 'S17', row: '线宽档位合规', state: 'pass',
+      mut: (f) => { f.prompt = f.prompt.replace(/^5\. 线宽只用这几级.*$/m, '5. 线宽只用这几级：1px，全站线条都从这几级里取。');
+        f.got.borderWidths = ['1.00']; f.got.svgStrokeWidths = []; },
+      note: '单值档位「只有 1px」（S31/S34 的真实形态），产物也只有 1px → 必须 PASS 而不是跳过',
+    },
+    {
+      name: 'width-single-tier-violated',
+      base: 'S17', row: '线宽档位合规', state: 'fail',
+      mut: (f) => { f.prompt = f.prompt.replace(/^5\. 线宽只用这几级.*$/m, '5. 线宽只用这几级：1px，全站线条都从这几级里取。');
+        f.got.borderWidths = ['1.00', '2.00']; f.got.svgStrokeWidths = []; },
+      note: '单值档位「只有 1px」，产物用了 2px → 必须 FAIL（单值不是「无法判定」）',
     },
 
     /* ── ⑦ 配色 ─────────────────────────────────────────────────── */

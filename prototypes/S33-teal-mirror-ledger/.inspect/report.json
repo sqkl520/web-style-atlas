@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S33-teal-mirror-ledger/index.html",
- "at": "2026-11-11T21:36:25.039Z",
+ "at": "2026-11-11T21:38:42.702Z",
  "allow": [],
  "viewports": [
   {
@@ -308,6 +308,7 @@
      ],
      "lineWidthSamples": [],
      "sawContentBox": 45,
+     "layoutKind": "fixed",
      "columnsFrom": "footer",
      "columnsAll": [
       2,
@@ -317,6 +318,11 @@
       "2": 15,
       "3": 1
      },
+     "layoutKindFrom": "88px 1fr",
+     "layoutKindSelector": "li.note",
+     "columnsInLandmark": "footer",
+     "layoutKindNote": "body layout is fixed, but columns was measured on a container inside a footer — see layoutKindSelector for the body container",
+     "autoFitContentBoxes": 1,
      "axisSelector": "footer",
      "axisFromColumns": true
     },
@@ -348,10 +354,10 @@
     0.44
    ],
    "motion": {
-    "elements": 38,
+    "elements": 37,
     "css": 0,
-    "transitions": 8,
-    "scripted": 30,
+    "transitions": 0,
+    "scripted": 37,
     "videos": 0,
     "playingVideos": 0
    },
@@ -682,6 +688,7 @@
      ],
      "lineWidthSamples": [],
      "sawContentBox": 45,
+     "layoutKind": "fixed",
      "columnsFrom": "footer",
      "columnsAll": [
       2
@@ -689,6 +696,11 @@
      "columnDistribution": {
       "2": 16
      },
+     "layoutKindFrom": "74px 1fr",
+     "layoutKindSelector": "li.note",
+     "columnsInLandmark": "footer",
+     "layoutKindNote": "body layout is fixed, but columns was measured on a container inside a footer — see layoutKindSelector for the body container",
+     "autoFitContentBoxes": 1,
      "axisSelector": "footer",
      "axisFromColumns": true
     },
@@ -724,8 +736,8 @@
    "motion": {
     "elements": 38,
     "css": 0,
-    "transitions": 5,
-    "scripted": 33,
+    "transitions": 38,
+    "scripted": 0,
     "videos": 0,
     "playingVideos": 0
    },
@@ -1025,9 +1037,13 @@
      ],
      "lineWidthSamples": [],
      "sawContentBox": 45,
+     "layoutKind": "auto-fit",
      "columnDistribution": {
       "1": 45
      },
+     "layoutKindNote": "repeat(auto-fit|auto-fill, …) collapsed to 1 track at this viewport width; columns=1 is a runtime expansion, not a single-column design",
+     "layoutKindFrom": null,
+     "autoFitContentBoxes": 1,
      "axisSelector": "div.error",
      "axisFromColumns": false
     },
