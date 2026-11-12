@@ -46,8 +46,8 @@ img{opacity:1}
 
 .wrap{width:min(1120px,92vw);margin:0 auto}
 .num{font-family:var(--num);font-variant-numeric:tabular-nums;text-align:right}
-/* 明度关系全站同一组：ivory 落在 room 上（正文与所有从句），
-   on-amber 落在 amber 上（琥珀块里的字）；amber 只做点状/线状强调与数字 */
+/* 全站同一组明度关系：正文与从句一律 ivory 落 room；
+   琥珀块里一律 on-amber 落 amber；amber 只做点状/线状强调与数字 */
 .dim{color:var(--ivory)}
 
 /* ============ 顶部：随页面走，不做固定条 ============ */
@@ -77,7 +77,7 @@ img{opacity:1}
 }
 h1{
   font-family:var(--display);font-weight:400;
-  font-size:clamp(46px,5.5vw,78px);      /* 78 / 16 = 4.9 倍正文 */
+  font-size:78px;                        /* 78 / 16 = 正文的 4.9 倍，最大那一档不许压小 */
   line-height:1.04;letter-spacing:.005em;margin:18px 0 0;
 }
 h1 .sub{
@@ -86,9 +86,10 @@ h1 .sub{
   border-top:var(--l4) solid var(--wall-deep);padding-top:14px;
 }
 .lead{
-  margin-top:20px;max-width:34em;font-size:16px;line-height:1.72;
+  margin-top:20px;max-width:36em;font-size:16px;line-height:1.72;
   border-left:var(--l3) solid var(--amber);padding-left:18px;
 }
+.lead p+p{margin-top:6px}
 .lead strong{font-weight:600}
 
 .side{border:var(--l2) solid var(--wall);padding:20px;background:var(--room)}
@@ -319,9 +320,7 @@ td.job{font-size:12px}
   color:var(--amber);white-space:nowrap}
 .foot dd{font-family:var(--num);font-size:12px;padding:10px 0;text-align:right;border-top:var(--l1) solid var(--wall-deep)}
 .foot dd.on{color:var(--amber)}
-.foot .mail{display:block;margin-top:22px;border:var(--l2) solid var(--ivory);color:var(--ivory);
-  font-family:var(--num);font-size:13px;text-decoration:none;padding:14px 16px}
-.foot .mail span{color:var(--amber);padding-left:8px}
+.foot .cta{margin-top:24px}
 .sign{grid-column:1/-1;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
   margin-top:36px;padding-top:14px;border-top:var(--l1) solid var(--wall);font-size:12px}
 .sign .num{display:inline}
@@ -331,7 +330,6 @@ td.job{font-size:12px}
 /* ============ 移动端：单列，顺序不变 ============ */
 @media (max-width:1180px){
   .hero{grid-template-columns:minmax(0,1fr);gap:26px}
-  .stack-row{grid-template-columns:minmax(0,1fr);gap:20px}
   .foot .grid{grid-template-columns:minmax(0,1fr)}
   /* 六个板位逐行退回两栏，再退单栏，条目顺序不变 */
   .plate.p01{grid-template-columns:minmax(0,1fr) minmax(220px,280px);
@@ -348,7 +346,7 @@ td.job{font-size:12px}
 @media (max-width:860px){
   .fold{min-height:0}
   .side{padding:18px}
-  h1{font-size:clamp(42px,13vw,64px)}
+  h1{font-size:58px}
   h1 .sub{letter-spacing:.12em}
   .stack{margin-top:18px;height:auto}
   .stack-in{position:static}
@@ -400,9 +398,10 @@ td.job{font-size:12px}
           琥珀暗房
           <span class="sub">Amber Darkroom · Hand processed · Since 2016</span>
         </h1>
-        <p class="lead">
-          我经营一间小规模的<strong>手工胶片冲洗与暗房输出工作室</strong>，只做手工，不做批量。六块琥珀亚克力手冲板立在水槽上方，每一卷片按板号走光：几秒、几次、多少度，全写在板边上。<span class="dim">页面需要让访客看完这六块板上正在做的片，然后约一个自己的暗房时段。</span>
-        </p>
+        <div class="lead">
+          <p>我经营一间小规模的<strong>手工胶片冲洗与暗房输出工作室</strong>，只做手工，不做批量。六块琥珀亚克力手冲板立在水槽上方，每一卷片按板号走光：几秒、几次、多少度，全写在板边上。</p>
+          <p>页面需要让访客看完这六块板上正在做的片，然后约一个自己的暗房时段。</p>
+        </div>
       </div>
 
       <aside class="side">
@@ -427,34 +426,34 @@ td.job{font-size:12px}
       </div>
       <div class="stack" role="img" aria-label="六块琥珀亚克力手冲板按层号各偏移 24px 与 12px 叠放的示意，每块板列出板厚、倒角、透光率、层号错位">
         <div class="stack-in">
-            <div class="row p1">
-              <span class="edge"></span>
-              <p class="tag"><b>L1 · 板位 01</b><span>板厚 4 · 倒角 3 · 透光 62% · 错位 0,0 · 侧壁 6px</span></p>
-            </div>
-            <div class="row p2">
-              <span class="edge"></span>
-              <p class="tag"><b>L2 · 板位 02</b><span>板厚 6 · 倒角 4 · 透光 55% · 错位 +24,+12 · 侧壁 7px</span></p>
-            </div>
-            <div class="row p3">
-              <span class="edge"></span>
-              <p class="tag"><b>L3 · 板位 03</b><span>板厚 8 · 倒角 4 · 透光 48% · 错位 +48,+24 · 侧壁 8px</span></p>
-            </div>
-            <div class="row p4">
-              <span class="edge"></span>
-              <p class="tag"><b>L4 · 板位 04</b><span>板厚 8 · 倒角 5 · 透光 32% · 错位 +72,+36 · 侧壁 8px</span></p>
-            </div>
-            <div class="row p5">
-              <span class="edge"></span>
-              <p class="tag"><b>L5 · 板位 05</b><span>板厚 9 · 倒角 5 · 透光 40% · 错位 +96,+48 · 侧壁 9px</span></p>
-            </div>
-            <div class="row p6">
-              <span class="edge"></span>
-              <p class="tag"><b>L6 · 板位 06</b><span>板厚 10 · 倒角 6 · 透光 68% · 错位 +120,+60 · 侧壁 10px</span></p>
-              <p class="face">
-                <em>最上面这块正在冲四联页「晨雾06」</em>
-                <u>上缘高光 2px / 净重 2.3kg / <s>当前在冲</s></u>
-              </p>
-            </div>
+          <div class="row p1">
+            <span class="edge"></span>
+            <p class="tag"><b>L1 · 板位 01</b><span>板厚 4 · 倒角 3 · 透光 62% · 错位 0,0 · 侧壁 6px</span></p>
+          </div>
+          <div class="row p2">
+            <span class="edge"></span>
+            <p class="tag"><b>L2 · 板位 02</b><span>板厚 6 · 倒角 4 · 透光 55% · 错位 +24,+12 · 侧壁 7px</span></p>
+          </div>
+          <div class="row p3">
+            <span class="edge"></span>
+            <p class="tag"><b>L3 · 板位 03</b><span>板厚 8 · 倒角 4 · 透光 48% · 错位 +48,+24 · 侧壁 8px</span></p>
+          </div>
+          <div class="row p4">
+            <span class="edge"></span>
+            <p class="tag"><b>L4 · 板位 04</b><span>板厚 8 · 倒角 5 · 透光 32% · 错位 +72,+36 · 侧壁 8px</span></p>
+          </div>
+          <div class="row p5">
+            <span class="edge"></span>
+            <p class="tag"><b>L5 · 板位 05</b><span>板厚 9 · 倒角 5 · 透光 40% · 错位 +96,+48 · 侧壁 9px</span></p>
+          </div>
+          <div class="row p6">
+            <span class="edge"></span>
+            <p class="tag"><b>L6 · 板位 06</b><span>板厚 10 · 倒角 6 · 透光 68% · 错位 +120,+60 · 侧壁 10px</span></p>
+            <p class="face">
+              <em>最上面这块正在冲四联页「晨雾06」</em>
+              <u>上缘高光 2px / 净重 2.3kg / <s>当前在冲</s></u>
+            </p>
+          </div>
         </div>
       </div>
       <div class="stack-cap">
@@ -562,7 +561,7 @@ td.job{font-size:12px}
         </div>
       </div>
       <p class="note">五个显影时间写在同一张卡上，卡就挂在板位 03 的钩子上。</p>
-      <figure class="main">
+      <figure class="main b11">
         <img src="images/占位-4.jpg" width="1200" height="1200" alt="「旧墙」五张在 L3 板上的加深样张">
         <figcaption><span>加深样张 · 1200×1200</span><span class="num">L3 · 板位 03 / 48%</span></figcaption>
       </figure>
@@ -586,7 +585,7 @@ td.job{font-size:12px}
         </div>
       </div>
       <p class="note">板位 02 正对门口，冬天开门那一下的风会先吹到它。</p>
-      <figure class="main">
+      <figure class="main b34">
         <img src="images/占位-5.jpg" width="900" height="1200" alt="「南方冬季」八张在 L2 板上的连晒样张">
         <figcaption><span>连晒样张 · 900×1200</span><span class="num">L2 · 板位 02 / 55%</span></figcaption>
       </figure>
@@ -616,7 +615,7 @@ td.job{font-size:12px}
         <i>06</i> 板厚 10 · 透光 68% · 错位 +120,+60
       </p>
       <p class="note">最下面一层是门槛：够得着，才谈得上往上叠。</p>
-      <figure class="main">
+      <figure class="main b73">
         <img src="images/占位-6.jpg" width="1680" height="720" alt="「最后一卷」两张终点显影在 L1 板上的样张">
         <figcaption><span>终点显影样张 · 1680×720</span><span class="num">L1 · 板位 01 / 62% / 0,0</span></figcaption>
       </figure>
@@ -691,7 +690,7 @@ td.job{font-size:12px}
     <div class="stock">
       <div>
         <h3>一块板立起来的样子</h3>
-        <p>琥珀亚克力开料，上缘铣一圈倒角，侧壁拉出 6–10px 的亮边。不抛光成镜面，留着刀痕——光从侧壁进去，才在板里走出一条琥珀线。<span class="dim">这张大样画的是 L4，四个数值跟第 04 格写的是同一组。</span></p>
+        <p>琥珀亚克力开料，上缘铣一圈倒角，侧壁拉出 6–10px 的亮边。不抛光成镜面，留着刀痕——光从侧壁进去，才在板里走出一条琥珀线。<span class="dim">下面这张大样画的正是 L4，四个数值与第 04 格写的是同一组。</span></p>
         <dl>
           <dt>板厚</dt><dd>4 / 6 / 8 / 9 / 10 mm</dd>
           <dt>倒角</dt><dd>3 / 4 / 5 / 6 mm</dd>
@@ -737,7 +736,7 @@ td.job{font-size:12px}
       <p class="say">
         我带过两百多卷，板就这么六块，一天只开一场。你要来，先说你手里是什么片、想放到多慢。<span class="dim">三个小时，够冲完一卷、看清一格、再决定下一格怎么走。</span>
       </p>
-      <a class="mail" href="mailto:studio@amberdarkroom.cn">studio@amberdarkroom.cn<span>写这一封 &#9656;</span></a>
+      <a class="cta" href="mailto:studio@amberdarkroom.cn">写这一封约时段<span>studio@amberdarkroom.cn &#9656;</span></a>
     </div>
     <dl>
       <dt>L1 · 板位 01</dt><dd>板厚 4 · 倒角 3 · 透光 62% · 错位 0,0</dd>

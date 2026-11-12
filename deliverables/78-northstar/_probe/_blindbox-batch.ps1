@@ -57,8 +57,8 @@ foreach ($id in $idList) {
     }
     $state = 'NO_OUT'
     if ($hasOut) {
-        if ($finished) { $state = 'OK ' + $bytes + 'B' }
-        else { $state = 'OK(early) ' + $bytes + 'B' }
+        if ($finished) { $state = 'OK' }
+        else { $state = 'OK(early)' }
     } elseif (-not $finished) {
         $state = 'TIMEOUT(no result in stream)'
     } else {
@@ -67,13 +67,13 @@ foreach ($id in $idList) {
     $results += [pscustomobject]@{
         id = $id; ok = $hasOut; bytes = $bytes; ms = $caseMs; finished = $finished; state = $state
     }
-    Write-Host ("----- " + $id + "  " + $state + "  " + [math]::Round($caseMs / 1000) + "s -----")
+    Write-Host ("----- " + $id + "  " + $state + "  " + $bytes + "B  " + [math]::Round($caseMs / 1000) + "s -----")
 }
 
 Write-Host "`n===== batch summary ====="
 $ok = @($results | Where-Object { $_.ok }).Count
 foreach ($r in $results) {
-    Write-Host ("  " + $r.id + "  " + $r.state + "  " + $r.bytes + "B  " + [math]::Round($r.ms / 1000) + "s")
+    Write-Host ("  " + $r.id + "  " + $r.state.PadRight(26) + $r.bytes.ToString().PadLeft(7) + "B  " + [math]::Round($r.ms / 1000) + "s")
 }
 $timeouts = @($results | Where-Object { -not $_.finished }).Count
 Write-Host ("  total: " + $ok + "/" + $results.Count + " produced, " +

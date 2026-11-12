@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>一介 · 旧房改造小组 · 先画三遍，再动一锤</title>
+<meta name="description" content="一介是一间三个人的旧房改造小组。每间屋子都画三版图，三张硫酸纸叠在同一张平面图上，改动的地方靠错位和深浅读出来。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Noto+Serif+SC:wght@400;500;600&family=Reddit+Mono:wght@400;500&display=swap">
+<style>
+/* ================= 调色 · 只有这四个值 ================= */
+:root{
+  --graphite:#3A3F45;
+  --paper:#E7EBE9;
+  --press:#22282B;
+  --pencil:#7A7466;
+  /* 线宽只有这六级 */
+  --l05:0.5px; --l08:0.8px; --l1:1px; --l12:1.2px; --l2:2px; --l3:3px;
+  /* 字体三条链，按序取第一个可用的 */
+  --head:Newsreader,"Noto Serif SC",Georgia,serif;
+  --body:"Noto Serif SC",Newsreader,Georgia,serif;
+  --mono:"Reddit Mono",monospace;
+}
+*,*::before,*::after{box-sizing:border-box;border-radius:0}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--graphite);
+  font-family:var(--body);font-size:16px;line-height:1.72;font-weight:400;
+  text-rendering:optimizeLegibility;
+}
+h1,h2,h3,h4,p,ul,ol,li,figure,figcaption,blockquote{margin:0;padding:0}
+ul,ol{list-style:none}
+img{display:block;max-width:100%;border:0}
+a{color:inherit;text-decoration:none}
+b,strong{font-weight:600}
+em{font-style:normal}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;font-weight:400}
+.ta-r{text-align:right}
+h1,h2,h3,h4{font-family:var(--head);font-weight:500;line-height:1.16;letter-spacing:.005em}
+
+/* ================= 栏网 ================= */
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);column-gap:24px;row-gap:0}
+.bleed-l{margin-left:-40px}
+.c1-3{grid-column:1/4}.c1-4{grid-column:1/5}.c1-5{grid-column:1/6}.c1-6{grid-column:1/7}.c1-7{grid-column:1/8}.c1-8{grid-column:1/9}.c1-9{grid-column:1/10}.c1-12{grid-column:1/13}
+.c4-8{grid-column:4/9}.c4-12{grid-column:4/13}
+.c5-9{grid-column:5/10}.c5-13{grid-column:5/13}
+.c6-13{grid-column:6/13}.c9-13{grid-column:9/13}
+.c7-13{grid-column:7/13}
+.c10-13{grid-column:10/13}
+.c12-13{grid-column:12/13}
+
+/* 结构线：一律直角 + 无阴影，只用线宽级别 */
+.hr{border:0;border-top:var(--l08) solid var(--pencil);height:0}
+.hr-g{border:0;border-top:var(--l08) solid rgba(122,116,102,.45);height:0}
+.hr-p{border:0;border-top:var(--l12) solid var(--press);height:0}
+
+/* ================= 顶栏 ================= */
+.bar{background:var(--graphite);color:var(--paper);border-bottom:var(--l08) solid var(--press)}
+.bar-in{display:grid;grid-template-columns:5fr 4fr 3fr;column-gap:24px;align-items:baseline;padding-top:13px;padding-bottom:13px}
+.bar p{font-size:13px;line-height:1.5;letter-spacing:.02em}
+.bar .b1{font-family:var(--head);font-size:16px;letter-spacing:.06em}
+.bar .b3{text-align:right;color:#cfd5d2}
+.bar .num{color:var(--paper)}
+
+/* ================= 首屏 ================= */
+.hero{padding-top:20px;padding-bottom:0}
+.eyebrow{grid-row:1;font-size:13px;letter-spacing:.06em;color:var(--pencil);border-bottom:var(--l08) solid var(--pencil);padding-bottom:9px}
+.eyebrow .num{color:var(--graphite)}
+.h1{grid-row:2;margin-top:24px;font-size:92px;line-height:.98;font-weight:500;letter-spacing:-.01em}
+.lede{grid-row:3;margin-top:18px;font-size:16px;line-height:1.85;color:var(--graphite)}
+.lede .num{color:var(--press)}
+
+/* ---- 平面图：同一图叠三层，错位 0/3/7px，第三层 56% ---- */
+.plan-cell{grid-row:4;margin-top:24px}
+.plan-frame{position:relative;aspect-ratio:1200/700;isolation:isolate}
+.sheet{
+  position:absolute;inset:0;background:var(--paper);
+  border:var(--l08) solid var(--pencil);mix-blend-mode:multiply;
+  transition:transform .34s cubic-bezier(.2,.7,.2,1);
+}
+.sheet img{width:100%;height:100%;object-fit:cover;background:var(--paper)}
+.sheet .anno{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.s1{transform:translate(0,0);z-index:1}
+.s2{transform:translate(3px,3px);z-index:2}
+.s3{transform:translate(7px,7px);z-index:3;opacity:.56}
+.tab{
+  position:absolute;top:10px;right:10px;background:var(--graphite);color:var(--paper);
+  font-family:var(--mono);font-size:11px;line-height:1;padding:5px 7px;letter-spacing:.04em;z-index:4;
+}
+.tab .num{color:var(--paper)}
+/* 唯一一个动效：三层错位松开，版本差异同一次读出来 */
+.plan-frame:hover .s1{transform:translate(0,0)}
+.plan-frame:hover .s2{transform:translate(11px,11px)}
+.plan-frame:hover .s3{transform:translate(24px,24px);opacity:.62}
+.plan-cap{grid-row:5;margin-top:14px;font-size:13px;line-height:1.7;color:var(--pencil);max-width:62ch}
+.plan-cap .num{color:var(--graphite)}
+
+/* ---- 图例：挂 9–12 栏，高度只到图幅 62% ---- */
+.side{grid-row:4;margin-top:24px;align-self:stretch;position:relative}
+.legend{
+  position:absolute;top:0;left:0;right:0;height:62%;
+  border-top:var(--l2) solid var(--graphite);display:flex;flex-direction:column;
+}
+.legend-h{font-family:var(--head);font-size:16px;line-height:1.2;letter-spacing:.08em;padding:7px 0 6px;border-bottom:var(--l08) solid var(--pencil)}
+.legend-list{margin-top:1px}
+.legend-list li{display:grid;grid-template-columns:62px 1fr 52px;column-gap:10px;align-items:center;padding:6px 0;border-bottom:var(--l08) solid rgba(122,116,102,.42)}
+.legend-list .sw svg{display:block}
+.legend-list .lb{font-size:12px;line-height:1.3}
+.legend-list .w{font-size:11px;color:var(--pencil);text-align:right}
+.legend-note{margin-top:auto;padding-top:12px;font-size:11px;line-height:1.6;color:var(--pencil)}
+
+/* ---- 全屏唯一的主行动 ---- */
+.cta{position:absolute;left:0;right:0;top:calc(62% + 16px)}
+.act{
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+  background:var(--graphite);color:var(--paper);border:var(--l12) solid var(--press);
+  padding:15px 16px;font-family:var(--head);font-size:19px;line-height:1.35;
+}
+.act .arw{font-family:var(--mono);font-size:16px}
+.act-note{margin-top:10px;font-size:11px;line-height:1.6;color:var(--pencil)}
+
+/* ================= 深色带 · 三层怎么读 ================= */
+.band{background:var(--graphite);color:var(--paper);margin-top:64px;padding:56px 0 60px;border-top:var(--l08) solid var(--press);border-bottom:var(--l08) solid var(--press)}
+.band h2{font-size:46px;line-height:1.1}
+.band h3{font-size:21px;line-height:1.3;color:var(--paper)}
+.band p{font-size:16px;line-height:1.85;color:#d5dad7}
+.band .mut{color:#b9bfbc}
+.band .num{color:var(--paper)}
+.band .hr{border-top-color:rgba(231,235,233,.34)}
+.band .lead{margin-top:20px;max-width:34ch}
+.three{margin-top:34px}
+.vrow{display:grid;grid-template-columns:60px 1fr 96px;column-gap:14px;align-items:start;padding:18px 0;border-top:var(--l08) solid rgba(231,235,233,.34)}
+.vrow .vk{font-family:var(--mono);font-size:19px;line-height:1.2;letter-spacing:.02em}
+.vrow .vt{font-size:13px;line-height:1.7;color:#c8cecb;margin-top:6px}
+.vrow .vd{font-size:11px;line-height:1.5;color:#a9b0ad;text-align:right}
+.vrow.v-last{border-bottom:var(--l08) solid rgba(231,235,233,.34)}
+.pic{background:var(--graphite);border:var(--l08) solid var(--pencil);position:relative}
+.pic img{width:100%;height:100%;object-fit:cover;background:var(--graphite)}
+.pic-a{aspect-ratio:4/3}
+.pic-b{aspect-ratio:12/5}
+.pic-c{aspect-ratio:3/4}
+.pic-d{aspect-ratio:1/1}
+.pic-e{aspect-ratio:4/5}
+.pic-f{aspect-ratio:3/2}
+.pic-g{aspect-ratio:50/31}
+.pic-cap{font-size:11px;line-height:1.6;color:var(--pencil);margin-top:9px}
+.band .pic-cap{color:#a9b0ad}
+.band .pic{background:var(--press)}
+
+/* ================= 案子 ================= */
+.sec{padding-top:64px}
+.sec-h{display:grid;grid-template-columns:7fr 5fr;column-gap:24px;align-items:end;padding-bottom:14px;border-bottom:var(--l2) solid var(--graphite)}
+.sec-h h2{font-size:46px;line-height:1.08}
+.sec-h .sub{font-size:13px;line-height:1.7;color:var(--pencil)}
+.cases{margin-top:0}
+.case{border-bottom:var(--l08) solid var(--pencil);padding:24px 24px 26px 0;position:relative}
+.case:first-child{border-top:var(--l08) solid var(--pencil)}
+.case-n{font-family:var(--mono);font-size:13px;letter-spacing:.06em;color:var(--pencil)}
+.case-n .num{color:var(--graphite)}
+.case h3{font-size:30px;line-height:1.2;margin-top:10px}
+.case .place{font-size:13px;color:var(--pencil);margin-top:7px;letter-spacing:.02em}
+.case .say{margin-top:14px;font-size:16px;line-height:1.8}
+.case .say .q{font-family:var(--head);color:var(--press)}
+.case .numrow{display:grid;grid-template-columns:repeat(3,1fr);column-gap:12px;margin-top:16px;border-top:var(--l08) solid rgba(122,116,102,.45);padding-top:10px}
+.case .numrow div{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.case .numrow .k{font-size:11px;color:var(--pencil);line-height:1.4}
+.case .numrow .v{font-family:var(--mono);font-size:15px;font-variant-numeric:tabular-nums}
+.case .vlist{margin-top:14px}
+.case .vlist li{display:grid;grid-template-columns:34px 1fr;column-gap:10px;font-size:13px;line-height:1.7;padding:6px 0;border-bottom:var(--l08) solid rgba(122,116,102,.35)}
+.case .vlist .vk{font-family:var(--mono);font-size:12px;color:var(--press)}
+.case-img{margin-top:16px}
+.case.dark{background:var(--graphite);color:var(--paper);padding-left:24px}
+.case.dark .case-n,.case.dark .case-n .num{color:#c8cecb}
+.case.dark .place{color:#a9b0ad}
+.case.dark .say .q{color:var(--paper)}
+.case.dark .numrow{border-top-color:rgba(231,235,233,.34)}
+.case.dark .numrow .k{color:#a9b0ad}
+.case.dark .vlist li{border-bottom-color:rgba(231,235,233,.28)}
+.case.dark .vlist .vk{color:var(--paper)}
+.case.dark .pic{background:var(--press)}
+.case.tall{display:flex;flex-direction:column}
+.case.tall .grow{margin-top:auto}
+.bignum{font-family:var(--mono);font-size:92px;line-height:.86;letter-spacing:-.02em;color:var(--pencil)}
+.case.dark .bignum{color:#8b9298}
+
+/* ================= 我们 ================= */
+.us{padding-top:64px}
+.us-txt p{font-size:16px;line-height:1.85}
+.us-txt p+p{margin-top:14px}
+.us-txt .sig{margin-top:20px;font-family:var(--head);font-size:21px;line-height:1.4;color:var(--press)}
+.us-facts{margin-top:22px}
+.us-facts li{display:grid;grid-template-columns:1fr auto;column-gap:16px;align-items:baseline;padding:9px 0;border-bottom:var(--l08) solid rgba(122,116,102,.45);font-size:13px}
+.us-facts .v{font-family:var(--mono);font-size:15px;font-variant-numeric:tabular-nums;color:var(--graphite)}
+.us-pic{margin-top:22px}
+
+/* ================= 页脚 ================= */
+.foot{background:var(--graphite);color:var(--paper);margin-top:64px;padding:48px 0 40px;border-top:var(--l3) solid var(--press)}
+.foot h2{font-size:30px;line-height:1.2;color:var(--paper)}
+.foot p{font-size:13px;line-height:1.75;color:#c8cecb}
+.foot .hr{border-top-color:rgba(231,235,233,.3)}
+.idx{margin-top:14px}
+.idx li{display:grid;grid-template-columns:46px 1fr auto;column-gap:12px;align-items:baseline;padding:7px 0;border-bottom:var(--l08) solid rgba(231,235,233,.24);font-size:13px;color:#d5dad7}
+.idx .n{font-family:var(--mono);font-size:13px;font-variant-numeric:tabular-nums;color:var(--paper)}
+.idx .a{font-family:var(--mono);font-size:12px;font-variant-numeric:tabular-nums;color:#a9b0ad}
+.foot .act{margin-top:0}
+.foot-note{margin-top:26px;padding-top:14px;border-top:var(--l08) solid rgba(231,235,233,.3);display:grid;grid-template-columns:7fr 5fr;column-gap:24px;font-size:11px;line-height:1.7;color:#a9b0ad}
+.foot-note .num{color:#d5dad7}
+
+/* ================= 程序化噪声 · 唯一纹理，3.5% ================= */
+.svgdefs{position:absolute;width:0;height:0;overflow:hidden}
+.grain{position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.035;filter:url(#prograin);mix-blend-mode:multiply}
+
+/* ================= 移动端：单列，顺序不变 ================= */
+@media (max-width:900px){
+  .wrap{padding:0 20px}
+  .bleed-l{margin-left:-20px}
+  .grid{grid-template-columns:1fr;column-gap:0}
+  [class*="c1-"],[class*="c4-"],[class*="c5-"],[class*="c6-"],[class*="c7-"],[class*="c9-"],[class*="c10-"],[class*="c12-"]{grid-column:1/2}
+  .eyebrow,.h1,.lede,.plan-cell,.plan-cap,.side,.cta{grid-row:auto}
+  .bar-in{grid-template-columns:1fr;row-gap:4px}
+  .bar .b3{text-align:left}
+  .h1{font-size:46px;margin-top:20px}
+  .hero{padding-top:16px}
+  .plan-cell,.side{margin-top:20px}
+  .side{position:static;margin-top:26px}
+  .legend{position:static;height:auto}
+  .cta{position:static;margin-top:22px}
+  .band h2,.sec-h h2{font-size:30px}
+  .sec-h{grid-template-columns:1fr;row-gap:10px}
+  .bignum{font-size:56px}
+  .foot-note{grid-template-columns:1fr;row-gap:10px}
+  .foot .c1-4,.foot .c5-9,.foot .c9-13{margin-top:26px}
+  .case{padding-right:0}
+  .case.dark{padding-left:18px;padding-right:18px}
+  .hero-grid{row-gap:0}
+}
+@media (max-width:560px){
+  .h1{font-size:34px}
+  .case h3{font-size:24px}
+  .case .numrow{grid-template-columns:1fr;row-gap:6px}
+}
+</style>
+</head>
+<body>
+
+<svg class="svgdefs" aria-hidden="true" focusable="false">
+  <filter id="prograin" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.86" numOctaves="4" stitchTiles="stitch"/>
+    <feColorMatrix type="saturate" values="0"/>
+  </filter>
+</svg>
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ============ 顶栏 ============ -->
+<header class="bar">
+  <div class="wrap bar-in">
+    <p class="b1">一介 · 旧房改造小组</p>
+    <p class="b2">工作室在城南，一层，门口有棵枇杷树。三个人，一个木工台，一台老式晒图机。</p>
+    <p class="b3">从 <span class="num">2016</span> 年到现在，做了 <span class="num">9</span> 家</p>
+  </div>
+</header>
+
+<main>
+<!-- ============ 首屏 ============ -->
+<section class="hero">
+  <div class="wrap grid hero-grid">
+
+    <p class="eyebrow c1-12 bleed-l">
+      案 <span class="num">01</span> · 学堂巷 · <span class="num">62</span>㎡ · 一九九八年的房子 ·
+      同一张平面图上叠了三张硫酸纸，错位 <span class="num">0 / 3 / 7</span>px
+    </p>
+
+    <h1 class="h1 c1-8 bleed-l">先画三遍，<br>再动一锤。</h1>
+
+    <p class="lede c1-6 bleed-l">
+      这面墙拆不拆，我们前后画了三版图。第一版是第一次进屋那天下午，蹲在阳台上画的；第二版是你说「我妈来的时候得有个地方坐」之后改的；第三版是施工那天师傅拿粉笔贴在墙上的那一张。三张硫酸纸叠在同一张平面图上，改过的地方就靠错位和深浅读出来——这是我们的施工图，也是这间屋子的全部来历。
+    </p>
+
+    <!-- ---- 平面图：1–8 栏，左出血 40px，三层错位 0/3/7 ---- -->
+    <figure class="plan-cell c1-8 bleed-l">
+      <div class="plan-frame">
+        <div class="sheet s1">
+          <img src="images/占位-1.jpg" width="1200" height="700" alt="案 01 学堂巷，第一版平面图，画于三月八日下午">
+          <svg class="anno" viewBox="0 0 1200 700" preserveAspectRatio="none" aria-hidden="true">
+            <rect x="60" y="40" width="1080" height="610" fill="none" stroke="#3A3F45" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="430" y1="40" x2="430" y2="650" stroke="#3A3F45" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="430" y1="360" x2="760" y2="360" stroke="#3A3F45" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="760" y1="40" x2="760" y2="650" stroke="#3A3F45" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="60" y1="360" x2="430" y2="360" stroke="#3A3F45" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="430" y1="40" x2="430" y2="270" stroke="#7A7466" stroke-width="0.8" stroke-dasharray="7 5" vector-effect="non-scaling-stroke"/>
+            <text x="86" y="76" fill="#7A7466" font-family="monospace" font-size="15">客厅</text>
+            <text x="456" y="76" fill="#7A7466" font-family="monospace" font-size="15">卧室</text>
+            <text x="786" y="76" fill="#7A7466" font-family="monospace" font-size="15">厨房</text>
+            <text x="86" y="396" fill="#7A7466" font-family="monospace" font-size="15">玄关</text>
+            <text x="456" y="396" fill="#7A7466" font-family="monospace" font-size="15">卫生间</text>
+            <text x="786" y="396" fill="#7A7466" font-family="monospace" font-size="15">阳台</text>
+            <text x="86" y="626" fill="#7A7466" font-family="monospace" font-size="14">洞口 900</text>
+            <text x="600" y="626" fill="#7A7466" font-family="monospace" font-size="14">层高 2700</text>
+          </svg>
+          <span class="tab"><span class="num">v1</span> · 03.08</span>
+        </div>
+
+        <div class="sheet s2">
+          <img src="images/占位-1.jpg" width="1200" height="700" alt="案 01 学堂巷，第二版平面图，三月二十二日改">
+          <svg class="anno" viewBox="0 0 1200 700" preserveAspectRatio="none" aria-hidden="true">
+            <rect x="60" y="40" width="1080" height="610" fill="none" stroke="#3A3F45" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="430" y1="40" x2="430" y2="650" stroke="#3A3F45" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="430" y1="360" x2="760" y2="360" stroke="#3A3F45" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="760" y1="40" x2="760" y2="650" stroke="#3A3F45" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="430" y1="40" x2="430" y2="270" stroke="#7A7466" stroke-width="0.8" stroke-dasharray="7 5" vector-effect="non-scaling-stroke"/>
+            <rect x="150" y="430" width="230" height="96" fill="none" stroke="#7A7466" stroke-width="1" stroke-dasharray="14 4 3 4" vector-effect="non-scaling-stroke"/>
+            <circle cx="560" cy="160" r="46" fill="none" stroke="#7A7466" stroke-width="0.5" stroke-dasharray="2 4" vector-effect="non-scaling-stroke"/>
+            <line x1="430" y1="560" x2="760" y2="560" stroke="#22282B" stroke-width="0.8" stroke-dasharray="4 3" vector-effect="non-scaling-stroke"/>
+            <text x="86" y="76" fill="#7A7466" font-family="monospace" font-size="15">客厅</text>
+            <text x="456" y="76" fill="#7A7466" font-family="monospace" font-size="15">卧室</text>
+            <text x="786" y="76" fill="#7A7466" font-family="monospace" font-size="15">厨房</text>
+            <text x="165" y="482" fill="#7A7466" font-family="monospace" font-size="14">老樟木柜</text>
+            <text x="516" y="165" fill="#7A7466" font-family="monospace" font-size="14">还没定</text>
+            <text x="452" y="588" fill="#7A7466" font-family="monospace" font-size="13">改走这里的电线</text>
+          </svg>
+          <span class="tab"><span class="num">v2</span> · 03.22</span>
+        </div>
+
+        <div class="sheet s3">
+          <img src="images/占位-1.jpg" width="1200" height="700" alt="案 01 学堂巷，第三版平面图，四月九日施工版">
+          <svg class="anno" viewBox="0 0 1200 700" preserveAspectRatio="none" aria-hidden="true">
+            <rect x="60" y="40" width="1080" height="610" fill="none" stroke="#3A3F45" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="430" y1="40" x2="430" y2="360" stroke="#22282B" stroke-width="0.5" vector-effect="non-scaling-stroke"/>
+            <line x1="437" y1="40" x2="437" y2="360" stroke="#22282B" stroke-width="0.5" vector-effect="non-scaling-stroke"/>
+            <line x1="430" y1="360" x2="760" y2="360" stroke="#3A3F45" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="760" y1="40" x2="760" y2="650" stroke="#3A3F45" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+            <line x1="560" y1="360" x2="560" y2="650" stroke="#22282B" stroke-width="0.5" vector-effect="non-scaling-stroke"/>
+            <line x1="567" y1="360" x2="567" y2="650" stroke="#22282B" stroke-width="0.5" vector-effect="non-scaling-stroke"/>
+            <line x1="150" y1="526" x2="380" y2="526" stroke="#7A7466" stroke-width="1" vector-effect="non-scaling-stroke"/>
+            <rect x="150" y="430" width="230" height="96" fill="none" stroke="#7A7466" stroke-width="1" stroke-dasharray="14 4 3 4" vector-effect="non-scaling-stroke"/>
+            <text x="86" y="76" fill="#7A7466" font-family="monospace" font-size="15">客厅</text>
+            <text x="456" y="76" fill="#7A7466" font-family="monospace" font-size="15">卧室</text>
+            <text x="786" y="76" fill="#7A7466" font-family="monospace" font-size="15">厨房</text>
+            <text x="165" y="482" fill="#7A7466" font-family="monospace" font-size="14">老樟木柜</text>
+            <text x="592" y="516" fill="#7A7466" font-family="monospace" font-size="14">新砌一道薄墙</text>
+            <text x="86" y="626" fill="#7A7466" font-family="monospace" font-size="14">插座离地 300</text>
+          </svg>
+          <span class="tab"><span class="num">v3</span> · 04.09</span>
+        </div>
+      </div>
+      <figcaption class="plan-cap">
+        案 <span class="num">01</span> 学堂巷 · 图幅 <span class="num">1200 × 700</span>。
+        第一层是三月八日那天下午画的第一版，第二层偏 <span class="num">3</span>px，第三层偏 <span class="num">7</span>px、压到 <span class="num">56%</span>。三张叠着看，改过哪里不用问我们，自己就看见了。
+      </figcaption>
+    </figure>
+
+    <!-- ---- 图例：9–12 栏，高度到图幅 62% ---- -->
+    <div class="side c9-13">
+      <div class="legend">
+        <p class="legend-h">图例 · 线型表</p>
+        <ul class="legend-list">
+          <li>
+            <span class="sw"><svg width="62" height="10" viewBox="0 0 62 10" aria-hidden="true"><line x1="1" y1="5" x2="61" y2="5" stroke="#3A3F45" stroke-width="1.2"/></svg></span>
+            <span class="lb">现有墙，动不得</span><span class="w num">1.2px</span>
+          </li>
+          <li>
+            <span class="sw"><svg width="62" height="10" viewBox="0 0 62 10" aria-hidden="true"><line x1="1" y1="5" x2="61" y2="5" stroke="#7A7466" stroke-width="0.8" stroke-dasharray="7 5"/></svg></span>
+            <span class="lb">以后要拆的墙</span><span class="w num">0.8px</span>
+          </li>
+          <li>
+            <span class="sw"><svg width="62" height="10" viewBox="0 0 62 10" aria-hidden="true"><line x1="1" y1="2.5" x2="61" y2="2.5" stroke="#22282B" stroke-width="0.5"/><line x1="1" y1="7.5" x2="61" y2="7.5" stroke="#22282B" stroke-width="0.5"/></svg></span>
+            <span class="lb">新砌的墙，双线</span><span class="w num">0.5px</span>
+          </li>
+          <li>
+            <span class="sw"><svg width="62" height="10" viewBox="0 0 62 10" aria-hidden="true"><line x1="1" y1="5" x2="61" y2="5" stroke="#7A7466" stroke-width="1" stroke-dasharray="14 4 3 4"/></svg></span>
+            <span class="lb">留下的老东西</span><span class="w num">1px</span>
+          </li>
+          <li>
+            <span class="sw"><svg width="62" height="10" viewBox="0 0 62 10" aria-hidden="true"><line x1="1" y1="5" x2="61" y2="5" stroke="#22282B" stroke-width="0.8" stroke-dasharray="4 3"/></svg></span>
+            <span class="lb">水管和电线</span><span class="w num">0.8px</span>
+          </li>
+          <li>
+            <span class="sw"><svg width="62" height="10" viewBox="0 0 62 10" aria-hidden="true"><line x1="1" y1="5" x2="61" y2="5" stroke="#7A7466" stroke-width="0.5" stroke-dasharray="2 4"/></svg></span>
+            <span class="lb">还没定，先画个圈</span><span class="w num">0.5px</span>
+          </li>
+        </ul>
+        <p class="legend-note">三种线只差零点几毫米，但拆墙的师傅就看这个。所以我们的图从不缩放打印——缩一次，线就糊成一样粗了。</p>
+      </div>
+
+      <div class="cta">
+        <a class="act" href="#liangfang">把地址发给我们，先上门量一次房 <span class="arw">→</span></a>
+        <p class="act-note">量房不收钱，量完你不做，我们也不催。</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+<!-- ============ 三层怎么读 ============ -->
+<section class="band">
+  <div class="wrap">
+    <div class="grid">
+      <h2 class="c1-5">同一个屋子，<br>改三遍。</h2>
+      <p class="c6-13 lead">
+        我们不给一版「最终效果图」。给你的是三层纸：最早那一版、改过的那一版、真正上墙的那一版。哪一版都留着，因为改动的理由本身也是这间屋子的一部分——你可能过两年想改回去，那时得知道当初为什么改。
+      </p>
+    </div>
+
+    <div class="grid three">
+      <div class="c1-5">
+        <div class="vrow">
+          <span class="vk num">v1</span>
+          <div><h3>第一版 · 第一次进屋那天画的</h3><p class="vt">进门先不说话，屋里走一圈，量尺寸，蹲在阳台上画。这一版通常最像你心里原来的样子，也通常最先被推翻。</p></div>
+          <span class="vd">画在<br>描图纸上</span>
+        </div>
+        <div class="vrow">
+          <span class="vk num">v2</span>
+          <div><h3>第二版 · 把日子往里填过一遍</h3><p class="vt">你说你妈来的时候得有个地方坐，你说晾衣服不想绕一圈，你说厨房台面上要放得下那个老樟木柜。这些填进去，墙就得动。</p></div>
+          <span class="vd">叠在<br>v1 上偏 3px</span>
+        </div>
+        <div class="vrow v-last">
+          <span class="vk num">v3</span>
+          <div><h3>第三版 · 施工那天拿粉笔贴在墙上的</h3><p class="vt">这一版是要给师傅看的，所以只有线，没有形容词。师傅拿尺子量着它砌墙、开槽、留插座。</p></div>
+          <span class="vd">叠在<br>v2 上偏 7px</span>
+        </div>
+        <figure class="pic pic-b" style="margin-top:20px">
+          <img src="images/占位-2.jpg" width="1200" height="500" alt="三版图纸平铺在工作台上，旁边是裁纸刀和铅笔">
+        </figure>
+        <p class="pic-cap">三位屋主的三版图摊在工作台上，从上往下是 <span class="num">v1</span>、<span class="num">v2</span>、<span class="num">v3</span></p>
+      </div>
+
+      <div class="c7-13">
+        <figure class="pic pic-a">
+          <img src="images/占位-3.jpg" width="1200" height="900" alt="工作台上的裁纸刀、铅笔和一卷描图纸">
+        </figure>
+        <p class="pic-cap">工作室的台面 · 分享图，不是某一个案子</p>
+        <figure class="pic pic-g" style="margin-top:18px">
+          <img src="images/占位-4.jpg" width="1000" height="620" alt="一介工作室门口，卷帘门半开，门牌是手写的">
+        </figure>
+        <p class="pic-cap">城南的工作室 · 一层，门口有棵枇杷树</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 案子 ============ -->
+<section class="sec" id="cases">
+  <div class="wrap">
+    <div class="sec-h">
+      <h2>四季，九个家。</h2>
+      <p class="sub">从 <span class="num">2016</span> 年到现在，九个案子全部结束在屋主自己手里——最后一颗螺丝是他们拧的，图纸最后一版也是他们签的字。</p>
+    </div>
+  </div>
+</section>
+  <div class="wrap cases">
+
+    <!-- 01 宽栏 + 两只图 + 长文字 -->
+    <article class="case grid">
+      <div class="c1-8">
+        <p class="case-n">案 <span class="num">01</span> · 学堂巷</p>
+        <h3>把客厅让给那扇窗</h3>
+        <p class="place">城南 学堂巷 · 一九九八年 · <span class="num">62</span>㎡ · <span class="num">2024</span> 年秋</p>
+        <p class="say">房子是九八年的，砖混，承重墙一根都不能动。屋主是一对刚退休的夫妻，男主人说：<span class="q">「我不要大客厅，我要下午三点那道光能照到我坐的地方。」</span>我们量了三次光：秋分、冬至、春分。最后只拆了一面非承重的隔墙，把客厅挪到窗边，原来的客厅位置做成一整面书墙。第三版图上新砌的那道薄墙只有 <span class="num">11</span> 公分厚，是砌来挡冰箱声音的。</p>
+        <div class="numrow">
+          <div><span class="k">面积</span><span class="v">62㎡</span></div>
+          <div><span class="k">工期</span><span class="v">68 天</span></div>
+          <div><span class="k">图纸</span><span class="v">3 版</span></div>
+        </div>
+        <figure class="pic pic-g case-img">
+          <img src="images/占位-5.jpg" width="1000" height="620" alt="案 01 学堂巷，下午三点的光落在书墙上">
+        </figure>
+        <p class="pic-cap">下午三点 · 案 <span class="num">01</span> 的第三版图纸上，这面书墙原本是隔断</p>
+      </div>
+      <div class="c9-13">
+        <figure class="pic pic-c">
+          <img src="images/占位-6.jpg" width="900" height="1200" alt="案 01 学堂巷，老樟木柜留在原位，墙上还留着原来的插座位置">
+        </figure>
+        <p class="pic-cap">屋主家的老樟木柜，拆墙那天先抬到楼道里，砌完再抬回来</p>
+      </div>
+    </article>
+
+    <!-- 02 窄栏 + 版本清单 -->
+    <article class="case grid">
+      <div class="c1-5">
+        <p class="case-n">案 <span class="num">02</span> · 老盐仓</p>
+        <h3>和一只猫一起住的 <span class="num">58</span> 平米</h3>
+        <p class="place">城西 老盐仓路 · 一九九三年 · <span class="num">58</span>㎡ · <span class="num">2024</span> 年冬</p>
+        <p class="say">屋主一个人住，一只橘猫，十四岁。她的要求只有一个：<span class="q">「它跳不上去的地方，就别做柜子。」</span>于是全屋柜子做到 <span class="num">40</span> 公分高为止，上面留空让它走。第二版图本来有一道通顶高柜，是猫先被否掉的。</p>
+        <ol class="vlist">
+          <li><span class="vk num">v1</span><span>通顶高柜，<span class="num">2.4</span> 米 · 猫上不去，否</span></li>
+          <li><span class="vk num">v2</span><span>柜高降到 <span class="num">1.8</span> 米，中间加搁板给它 · 它还是不走这儿</span></li>
+          <li><span class="vk num">v3</span><span>全屋柜高 <span class="num">0.4</span> 米，上面全空 · 现在它睡在柜顶上</span></li>
+        </ol>
+      </div>
+      <div class="c6-13">
+        <figure class="pic pic-b">
+          <img src="images/占位-7.jpg" width="1200" height="500" alt="案 02 老盐仓路，客厅靠窗一排四十公分高的柜子，猫在柜顶">
+        </figure>
+        <p class="pic-cap">柜子做完那天，它自己上去的 · 案 <span class="num">02</span> 第三版</p>
+      </div>
+    </article>
+
+    <!-- 03 深色大块 + 大数字 -->
+    <article class="case dark grid">
+      <div class="c1-3">
+        <p class="case-n">案 <span class="num">03</span> · 祠堂前</p>
+        <h3>老屋，只动两处</h3>
+        <p class="place">城北 祠堂前 · 一九六二年 · <span class="num">47</span>㎡ · <span class="num">2025</span> 年春</p>
+      </div>
+      <div class="c4-8">
+        <p class="say">这是爷爷留下的房子，屋主舍不得改，只说：<span class="q">「能不动的地方，一根钉子都别动。」</span>最后只做了两件事：地面找平、后墙加一层保温。其余的老砖、老窗、老门,包括门上那道一九六几年的划痕，原样留着。</p>
+        <div class="numrow">
+          <div><span class="k">面积</span><span class="v">47㎡</span></div>
+          <div><span class="k">工期</span><span class="v">34 天</span></div>
+          <div><span class="k">图纸</span><span class="v">3 版</span></div>
+        </div>
+      </div>
+      <div class="c9-13">
+        <p class="bignum num ta-r">2</p>
+        <p class="say">整间屋子，只动了这两处。第一版图上列了七项，全被屋主划掉了。</p>
+      </div>
+    </article>
+
+    <!-- 04 竖向大图 + 窄文字 -->
+    <article class="case grid">
+      <div class="c1-4">
+        <figure class="pic pic-d">
+          <img src="images/占位-8.jpg" width="1000" height="1000" alt="案 04 木樨地，客厅地面旧水泥用水磨石补到三点七米长">
+        </figure>
+        <p class="pic-cap">案 <span class="num">04</span> · 客厅那道补过的地</p>
+      </div>
+      <div class="c5-9">
+        <p class="case-n">案 <span class="num">04</span> · 木樨地</p>
+        <h3>三十七年的地面，补一补</h3>
+        <p class="place">城东 木樨地 · 一九八八年 · <span class="num">76</span>㎡ · <span class="num">2025</span> 年夏</p>
+        <p class="say">屋主说这地上的裂缝他都记得在哪。我们没铺新砖，把裂的地方开成槽，用水磨石填回去，干了以后磨平——现在地面是一整块的，裂缝还在，只是不扎脚了。</p>
+      </div>
+      <div class="c9-13">
+        <figure class="pic pic-e">
+          <img src="images/占位-9.jpg" width="800" height="1000" alt="案 04 木樨地，开槽灌水磨石的施工过程">
+        </figure>
+        <p class="pic-cap">开槽那天，屋主蹲在旁边看了一下午</p>
+        <div class="numrow">
+          <div><span class="k">面积</span><span class="v">76㎡</span></div>
+          <div><span class="k">工期</span><span class="v">92 天</span></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 05 深色窄条 + 横向图 -->
+    <article class="case dark grid">
+      <div class="c1-5">
+        <p class="case-n">案 <span class="num">05</span> · 河口</p>
+        <h3>厨房的窗户开低一点</h3>
+        <p class="place">江边 河口街 · 二〇一一年 · <span class="num">89</span>㎡ · <span class="num">2025</span> 年秋</p>
+        <p class="say">女主人个子不高，说洗碗的时候一直看不到江。台面降了 <span class="num">5</span> 公分，窗户下沿降了 <span class="num">18</span> 公分。改完那天她站在水槽前看了很久，说：<span class="q">「原来江上有船。」</span></p>
+      </div>
+      <div class="c6-13">
+        <figure class="pic pic-b">
+          <img src="images/占位-10.jpg" width="1200" height="500" alt="案 05 河口街，厨房水槽前的窗，窗外是江">
+        </figure>
+        <p class="pic-cap">案 <span class="num">05</span> · 窗户下沿降了 <span class="num">18</span> 公分以后</p>
+      </div>
+    </article>
+
+    <!-- 06 三等分 + 三张不同比例 -->
+    <article class="case grid">
+      <div class="c1-4">
+        <p class="case-n">案 <span class="num">06</span> · 白塔寺</p>
+        <h3>一堆书的去处</h3>
+        <p class="place">城中心 白塔寺后 · 二〇〇五年 · <span class="num">53</span>㎡ · <span class="num">2026</span> 年春</p>
+        <p class="say">屋主搬家时有 <span class="num">41</span> 箱书。第一版图画了一整面墙的书架，第二版改成一米二高的矮架，第三版矮架加了两条可移动的凳子——他说他的书大多只到一米二，剩下的箱子装的都是旧讲义。</p>
+        <ol class="vlist">
+          <li><span class="vk num">v1</span><span>通高书架一整面</span></li>
+          <li><span class="vk num">v2</span><span>矮架 <span class="num">1.2</span> 米，上面留白墙</span></li>
+          <li><span class="vk num">v3</span><span>矮架 + 两条可移动凳子</span></li>
+        </ol>
+      </div>
+      <div class="c5-9">
+        <figure class="pic pic-g">
+          <img src="images/占位-11.jpg" width="1000" height="620" alt="案 06 白塔寺后，一米二高的矮书架和可移动凳子">
+        </figure>
+        <p class="pic-cap">案 <span class="num">06</span> 第三版 · 矮架做完的样子</p>
+      </div>
+      <div class="c9-13">
+        <figure class="pic pic-a">
+          <img src="images/占位-12.jpg" width="1200" height="900" alt="案 06 白塔寺后，从矮架上方看过去，白墙上留着原来的电表">
+        </figure>
+        <p class="pic-cap">架子上方留白 · 旧电表没拆，接着用</p>
+      </div>
+    </article>
+
+    <!-- 07 拉长 + 大数字 -->
+    <article class="case grid">
+      <div class="c1-7">
+        <p class="case-n">案 <span class="num">07</span> · 铁匠营</p>
+        <h3>给三个人留一张能同时摊开的桌子</h3>
+        <p class="place">城东 铁匠营 · 二〇〇一年 · <span class="num">104</span>㎡ · <span class="num">2026</span> 年夏</p>
+        <p class="say">三个孩子，最小的四岁。屋主只坚持一件事：<span class="q">「三个人得能同时摊开作业。」</span>我们把原来的两间小房并成一间，桌子做成 <span class="num">2.7</span> 米长的一条，靠墙不靠窗——因为窗边永远是最抢手的位置，不如干脆谁都不占。</p>
+      </div>
+      <div class="c9-13">
+        <figure class="pic pic-f">
+          <img src="images/占位-13.jpg" width="900" height="600" alt="案 07 铁匠营，二点七米长的整条桌子">
+        </figure>
+        <p class="pic-cap">案 <span class="num">07</span> · <span class="num">2.7</span> 米，三个人够摊</p>
+      </div>
+    </article>
+
+    <!-- 08 深色小样：三张图的三版 -->
+    <article class="case dark grid">
+      <div class="c1-5">
+        <p class="case-n">案 <span class="num">08</span> · 药王庙</p>
+        <h3>和老人一起，把门槛降下来</h3>
+        <p class="place">城西 药王庙前 · 一九九六年 · <span class="num">68</span>㎡ · <span class="num">2026</span> 年秋</p>
+        <p class="say">屋主和父亲一起住，父亲腿脚不便。第一版图上列了六项适老改造，最后只做了三项——老人自己划掉了另外三项，说：<span class="q">「我又不是不能走，留两处我自己能干的。」</span></p>
+      </div>
+      <div class="c6-8">
+        <figure class="pic pic-c">
+          <img src="images/占位-14.jpg" width="900" height="1200" alt="案 08 药王庙，门槛从四公分降下来的样子">
+        </figure>
+        <p class="pic-cap">v1 · 门槛原样</p>
+      </div>
+      <div class="c9-11">
+        <figure class="pic pic-c">
+          <img src="images/占位-15.jpg" width="900" height="1200" alt="案 08 药王庙，卫生间加装的扶手">
+        </figure>
+        <p class="pic-cap">v2 · 只加扶手</p>
+      </div>
+      <div class="c12-13">
+        <p class="bignum num ta-r">3</p>
+        <p class="say">六项里留下的三项</p>
+      </div>
+    </article>
+  </div>
+</section>
+<!-- ============ 我们 ============ -->
+<section class="sec us">
+  <div class="wrap grid">
+    <div class="c1-7 us-txt">
+      <h2 style="font-size:46px;line-height:1.08">三个人，一台晒图机。</h2>
+      <p style="margin-top:20px">工作室在城南，一层，门口有棵枇杷树。我们三个人：老陈做木工，以前在家具厂；小周画图，图纸上的字都是她写的；我管量房和吵架——跟师傅吵，有时候也跟屋主吵。</p>
+      <p>我们不接全包。你要么自己找工人，我们出图、盯现场；要么用我们熟悉的几个师傅，钱你直接给他们。我们的图纸上不写「高级」「轻奢」这种词，写了师傅也不看。我们只写：这道墙多厚、这个插座离地多高、这扇窗下沿降几公分。</p>
+      <p>每间屋子我们都画三版图。第一版常常是错的，但我们不扔——你要过两年想改回去，得知道当初为什么改。</p>
+      <p class="sig">—— 一介，2026 年冬天</p>
+    </div>
+    <div class="c9-13">
+      <ul class="us-facts">
+        <li><span>从 <span class="num">2016</span> 年做到现在</span><span class="v">9 家</span></li>
+        <li><span>平均每家的图纸版本数</span><span class="v">3 版</span></li>
+        <li><span>同时接的案子，最多</span><span class="v">2 个</span></li>
+        <li><span>量房</span><span class="v">不收钱</span></li>
+        <li><span>出图前先聊</span><span class="v">1 次</span></li>
+        <li><span>图纸交付</span><span class="v">纸质 + 电子</span></li>
+      </ul>
+      <p class="pic-cap" style="margin-top:14px">师傅们看的是纸。所以我们每次都打出来，晒图机还在用。</p>
+      <figure class="pic pic-f us-pic">
+        <img src="images/占位-16.jpg" width="900" height="600" alt="一介工作室的晒图机和一摞图纸">
+      </figure>
+      <p class="pic-cap">晒图机 · 每天早上第一件事是它先热起来</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============ 页脚 ============ -->
+<footer class="foot" id="liangfang">
+  <div class="wrap grid">
+    <div class="c1-7">
+      <h2>这十四件，都在册。</h2>
+      <p style="margin-top:14px">从 <span class="num">2016</span> 年到现在，图纸上一共 <span class="num">14</span> 个编号。前面九个建成了，后面五个停在半路——编号照样留着。</p>
+      <ul class="idx">
+        <li><span class="n">01</span><span>学堂巷 · 把客厅让给那扇窗</span><span class="a">2024</span></li>
+        <li><span class="n">02</span><span>老盐仓路 · 和一只猫一起住的五十八平米</span><span class="a">2024</span></li>
+        <li><span class="n">03</span><span>祠堂前 · 老屋，只动两处</span><span class="a">2025</span></li>
+        <li><span class="n">04</span><span>木樨地 · 三十七年的地面，补一补</span><span class="a">2025</span></li>
+        <li><span class="n">05</span><span>河口街 · 厨房的窗户开低一点</span><span class="a">2025</span></li>
+        <li><span class="n">06</span><span>白塔寺后 · 一堆书的去处</span><span class="a">2026</span></li>
+        <li><span class="n">07</span><span>铁匠营 · 三个人能同时摊开的桌子</span><span class="a">2026</span></li>
+        <li><span class="n">08</span><span>药王庙前 · 和老人一起，把门槛降下来</span><span class="a">2026</span></li>
+        <li><span class="n">09</span><span>稻香湖 · 只换了一扇窗，别的没动</span><span class="a">2026</span></li>
+        <li><span class="n">10</span><span>南横街 · 屋主说，再想想</span><span class="a">未建</span></li>
+        <li><span class="n">11</span><span>半步桥 · 我们觉得该拆，屋主说先别</span><span class="a">未建</span></li>
+        <li><span class="n">12</span><span>甘水桥 · 出到第三版，家里有事，搁下了</span><span class="a">未建</span></li>
+        <li><span class="n">13</span><span>绒线胡同 · 钱不够，留了一面墙没动</span><span class="a">未建</span></li>
+        <li><span class="n">14</span><span>太平桥 · 做得太快，来不及画第三版</span><span class="a">未建</span></li>
+      </ul>
+    </div>
+
+    <div class="c9-13">
+      <h2 style="font-size:21px">一介 · 旧房改造小组</h2>
+      <ul class="us-facts" style="margin-top:16px">
+        <li style="border-bottom-color:rgba(231,235,233,.28)"><span style="color:#c8cecb">地址</span><span class="v" style="color:#E7EBE9">城南 · 枇杷树下</span></li>
+        <li style="border-bottom-color:rgba(231,235,233,.28)"><span style="color:#c8cecb">电话</span><span class="v" style="color:#E7EBE9">138 0000 0000</span></li>
+        <li style="border-bottom-color:rgba(231,235,233,.28)"><span style="color:#c8cecb">在工作室</span><span class="v" style="color:#E7EBE9">周一至周六</span></li>
+        <li style="border-bottom-color:rgba(231,235,233,.28)"><span style="color:#c8cecb">图纸交付</span><span class="v" style="color:#E7EBE9">v1 / v2 / v3</span></li>
+      </ul>
+      <p style="margin-top:20px">要看现场就看现场，不用预约。图纸摊在台面上，随便翻——包括那五件没做成的。</p>
+    </div>
+
+    <div class="foot-note c1-12">
+      <p>本页所有平面图是工作稿的缩印，尺寸以现场量的为准。<br>线型表上的六种线，是这套图里全部的线。</p>
+      <p>纸色只有 <span class="num">#E7EBE9</span> 一个值。图上那层极淡的颗粒是程序生成的噪声，不透明度 <span class="num">3.5%</span>；没有用任何纸张贴图，也没有加暖色。<br>全站没有圆角，没有阴影。</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
