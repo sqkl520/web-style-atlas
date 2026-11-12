@@ -1938,7 +1938,7 @@ window.STYLE_PROMPTS = {
     "政策说明"
    ],
    "minItems": 7,
-   "minPics": 3,
+   "minPics": 0,
    "hard": false,
    "capacity": {
     "id": "S34",

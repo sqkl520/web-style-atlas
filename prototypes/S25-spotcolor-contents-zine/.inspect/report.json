@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S25-spotcolor-contents-zine/index.html",
- "at": "2026-11-11T20:37:43.210Z",
+ "at": "2026-11-11T22:46:58.509Z",
  "allow": [],
  "viewports": [
   {
@@ -1172,12 +1172,13 @@
      "lineWidths": [],
      "lineWidthSamples": [],
      "sawContentBox": 45,
-     "layoutKind": "auto-fit",
+     "layoutKind": "fixed",
      "columnDistribution": {
       "1": 45
      },
-     "layoutKindNote": "repeat(auto-fit|auto-fill, …) collapsed to 1 track at this viewport width; columns=1 is a runtime expansion, not a single-column design",
-     "layoutKindFrom": null,
+     "layoutKindNote": "body is an explicitly declared single-track grid at this viewport width (grid-template-columns: 1fr), not an absence of layout",
+     "layoutKindFrom": "1fr",
+     "layoutKindSelector": "section#contents.contents",
      "autoFitContentBoxes": 1,
      "axisSelector": "p.credits",
      "axisFromColumns": false

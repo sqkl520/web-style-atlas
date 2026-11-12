@@ -324,7 +324,22 @@ for (const d of dna) {
     plain: h.plain,
     scenes: h.scenes,
     minItems: count,
-    minPics: (cap && cap.minPics) || h.minPics,
+    /* ⚠️ 不能用 `||` 兜底。2026-11-12 修：
+     *
+     * 原写法 `(cap && cap.minPics) || h.minPics` 把「实测值是 0」和「实测值不存在」
+     * 混成同一件事 —— `0` 是 falsy，于是 0 被 HUMAN 表的值顶掉。
+     *
+     * 实测后果（S34「石墨零图索引」）：它是**刻意零图**的设计，
+     * minitems-parsed.json 里 minPics = 0，而 index.html 里 <img> 数量实测是 0。
+     * 但 since 0 || 3 === 3，产出的提示词写着
+     * 「版式里至少要 3 个**不同的**图片位置」——**要求模型放 3 张图到一个零图设计里**。
+     *
+     * 这属于本仓库第四类缺陷（量错了对象）的变体：代码看着在「用实测值」，
+     * 实际用了兜底值，而且没有任何闸门会发现 —— 提示词里那句话说得很正常。
+     *
+     * 现在：只有 cap.minPics 是**明确缺失**（undefined / null）时才回退；
+     * 0 是一个合法的实测值，必须保留。 */
+    minPics: (cap && cap.minPics !== undefined && cap.minPics !== null) ? cap.minPics : h.minPics,
     hard: !!h.hard,
     // 实测的内容量容限（优先用实测值，没有才回退到上面的人工估计）
     capacity: cap,

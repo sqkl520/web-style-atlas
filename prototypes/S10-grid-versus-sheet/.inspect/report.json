@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S10-grid-versus-sheet/index.html",
- "at": "2026-11-11T20:23:42.307Z",
+ "at": "2026-11-11T22:23:36.127Z",
  "allow": [],
  "viewports": [
   {
@@ -1083,7 +1083,8 @@
       "1": 49
      },
      "layoutKindNote": "body is an explicitly declared single-track grid at this viewport width (grid-template-columns: 1fr), not an absence of layout",
-     "layoutKindFrom": null,
+     "layoutKindFrom": "1fr",
+     "layoutKindSelector": "div.notes",
      "autoFitContentBoxes": 0,
      "axisSelector": "p.sig",
      "axisFromColumns": false

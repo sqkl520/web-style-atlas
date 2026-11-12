@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S17-revenue-stamp-stub/index.html",
- "at": "2026-11-11T20:47:38.098Z",
+ "at": "2026-11-11T22:34:43.248Z",
  "allow": [],
  "viewports": [
   {
@@ -1046,12 +1046,13 @@
      ],
      "lineWidthSamples": [],
      "sawContentBox": 39,
-     "layoutKind": "auto-fit",
+     "layoutKind": "no-column-layout",
      "columnDistribution": {
       "1": 39
      },
-     "layoutKindNote": "repeat(auto-fit|auto-fill, …) collapsed to 1 track at this viewport width; columns=1 is a runtime expansion, not a single-column design",
+     "layoutKindNote": "no multi-column content container found; columns=1 is the single-column fallback, not a layout intent",
      "layoutKindFrom": null,
+     "layoutKindSelector": null,
      "autoFitContentBoxes": 1,
      "axisSelector": "p.sig",
      "axisFromColumns": false

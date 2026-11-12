@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S01-red-wedge-broadsheet/index.html",
- "at": "2026-11-11T20:39:13.263Z",
+ "at": "2026-11-11T22:11:35.109Z",
  "allow": [],
  "viewports": [
   {
@@ -1200,7 +1200,8 @@
       "1": 58
      },
      "layoutKindNote": "body is an explicitly declared single-track grid at this viewport width (grid-template-columns: 1fr), not an absence of layout",
-     "layoutKindFrom": null,
+     "layoutKindFrom": "1fr",
+     "layoutKindSelector": "div.columns",
      "autoFitContentBoxes": 0,
      "axisSelector": "p",
      "axisFromColumns": false

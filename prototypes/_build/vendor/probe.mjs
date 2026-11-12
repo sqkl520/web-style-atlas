@@ -161,12 +161,15 @@ export function probe() {
   /* 某元素（含自身）落在哪个 landmark 里：header / footer / nav / aside 或对应 role。
    *
    * 为什么要这一步（2026-11-12 实测）：`columns` 取「承载正文最多的多栏容器」，
-   * 而**页脚往往比版心文字更多**。35 案实测有 12 案的 `columnsFrom` 落在
-   * header/footer 里：
+   * 而**页脚往往比版心文字更多**。35 案 @1440 实测有 **14 案**的 `columnsFrom` 落在
+   * header/footer 里，其中 **6 案（S09 S13 S14 S16 S17 S34）**由此被判成
+   * `layoutKind=no-column-layout` —— 即 `columns` 报的那个数其实来自页脚/页头，
+   * 版心根本没有分栏。其余 8 案的 landmark 元素**自身**就是版心（S20/S23 的
+   * `header.masthead`、S33/S35 的 `<footer>`），属合法。
    *   · S14 报 3 栏，来源 `div.foot-grid`（footer）—— 而 S14 的版心是
    *     `.masthead`（header，2 轨）+ 图片格 `.plates`（画廊），**整页没有正文分栏**。
    *     这正是平行实现 `deliverables/74-q7/measure.mjs` 判成 `no-column-layout` 的案子。
-   *   · S09/S10/S16/S19/S26 同类：版心栏数被页脚的 2–3 栏顶替。
+   *   · S09/S16/S17/S19/S26 同类：版心栏数被页脚的 2–3 栏顶替。
    * 判据从 `measure.mjs` 的第 5 条搬来（「版心不会长在 footer 里」）。
    * ⚠️ 必须从元素**自身**开始查：S34 的主版式确实是 `<footer>` 这个元素本身。
    */
@@ -318,9 +321,10 @@ export function probe() {
      *
      * 判定口径与 `columns` **刻意不同**，这是这张表的要点：
      *
-     * `columns` 取「承载文字最多的多栏容器」，而页脚常比版心字多 —— 35 案实测
-     * **12 案的 `columnsFrom` 落在 header/footer 里**（S14: `div.foot-grid` 3 栏；
-     * S09/S10/S16/S19/S26 同类）。若 layoutKind 跟着 `columns` 走，S14 会被标成
+     * `columns` 取「承载文字最多的多栏容器」，而页脚常比版心字多 —— 35 案 @1440 实测
+     * **14 案的 `columnsFrom` 落在 header/footer 里**，其中 6 案（S09 S13 S14 S16 S17
+     * S34）的版心其实没分栏（S14: `div.foot-grid` 3 栏；S09/S16/S19/S26 同类）。
+     * 若 layoutKind 跟着 `columns` 走，S14 会被标成
      * 「fixed 三栏」，而它整页只有 header 的两栏标题区 + 写死四轨的图片格
      * `.plates`（画廊，已被上面的判据 B 剔掉）—— 正文根本没分栏。
      * 平行实现 `deliverables/74-q7/measure.mjs` 对同一页给出的正是

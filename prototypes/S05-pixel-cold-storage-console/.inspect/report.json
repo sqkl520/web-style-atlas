@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S05-pixel-cold-storage-console/index.html",
- "at": "2026-11-11T20:19:58.332Z",
+ "at": "2026-11-11T22:23:34.774Z",
  "allow": [],
  "viewports": [
   {
@@ -676,7 +676,8 @@
       "1": 28
      },
      "layoutKindNote": "body is an explicitly declared single-track grid at this viewport width (grid-template-columns: 1fr), not an absence of layout",
-     "layoutKindFrom": null,
+     "layoutKindFrom": "minmax(0px, 1fr)",
+     "layoutKindSelector": "div.console-shell",
      "autoFitContentBoxes": 0,
      "axisSelector": "p",
      "axisFromColumns": false
@@ -1027,7 +1028,8 @@
       "1": 28
      },
      "layoutKindNote": "body is an explicitly declared single-track grid at this viewport width (grid-template-columns: 1fr), not an absence of layout",
-     "layoutKindFrom": null,
+     "layoutKindFrom": "minmax(0px, 1fr)",
+     "layoutKindSelector": "div.console-shell",
      "autoFitContentBoxes": 0,
      "axisSelector": "p",
      "axisFromColumns": false

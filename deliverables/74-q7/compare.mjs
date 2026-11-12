@@ -558,7 +558,26 @@ async function runAll() {
     if (!existsSync(outFile)) { console.log(`${p.id}: 还没有生成物（out-${p.id}${SUFFIX}.html），跳过`); continue; }
     const prompt = readFileSync(promptFile, 'utf8');
     console.log(`\n=== ${p.id} ===`);
-    const [want, got] = [await measure(p.proto), await measure(outFile)];
+    /* 逐案容错：单案测量失败**不能炸掉整批**。
+     *
+     * 起因是实测（2026-11-12）：跑六案时 S14 遇到 `CDP timeout: Page.navigate`，
+     * 整个进程抛异常退出，前五案的结果全部丢失 —— 已经跑完的测量白跑了，
+     * 而失败那案连一句「我失败了」都没有，只有一段栈。
+     * 重跑同一案就通过了，说明是浏览器/端口的偶发抖动（measure.mjs 里
+     * BAD_PORTS 那段注释记的就是这类问题）。
+     *
+     * 处理：捕获后记成一条 **measure-error** 行（state=fail，计入分母），
+     * 而不是 skip —— 「没测到」在这里等同于「验货没做成」，
+     * 按 check-contract C0 的教训，无法判定不能当成立。 */
+    let want, got;
+    try {
+      [want, got] = [await measure(p.proto), await measure(outFile)];
+    } catch (e) {
+      const msg = String(e.message || e).slice(0, 100);
+      console.log(`  ✗ ${'测量失败'.padEnd(16)} ${msg}`);
+      results.push({ id: p.id, rows: [{ name: '测量失败', state: 'fail', want: '-', got: '-', note: `度量器抛错：${msg}` }] });
+      continue;
+    }
     const rows = judge(want, got, prompt, minPicsById[p.id]);
     for (const r of rows) {
       const mark = r.state === 'pass' ? '✓' : r.state === 'fail' ? '✗' : '—';

@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S20-plotter-soundfield/index.html",
- "at": "2026-11-11T20:31:47.839Z",
+ "at": "2026-11-11T22:39:33.329Z",
  "allow": [],
  "viewports": [
   {
@@ -1427,7 +1427,8 @@
       "1": 111
      },
      "layoutKindNote": "body is an explicitly declared single-track grid at this viewport width (grid-template-columns: 1fr), not an absence of layout",
-     "layoutKindFrom": null,
+     "layoutKindFrom": "1fr",
+     "layoutKindSelector": "div.fault__view",
      "autoFitContentBoxes": 0,
      "axisSelector": "p.degrade",
      "axisFromColumns": false

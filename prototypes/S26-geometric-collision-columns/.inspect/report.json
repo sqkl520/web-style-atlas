@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S26-geometric-collision-columns/index.html",
- "at": "2026-11-11T20:38:38.808Z",
+ "at": "2026-11-11T22:47:52.372Z",
  "allow": [],
  "viewports": [
   {
@@ -988,7 +988,8 @@
       "1": 124
      },
      "layoutKindNote": "body is an explicitly declared single-track grid at this viewport width (grid-template-columns: 1fr), not an absence of layout",
-     "layoutKindFrom": null,
+     "layoutKindFrom": "1fr",
+     "layoutKindSelector": "div.two",
      "autoFitContentBoxes": 0,
      "axisSelector": "p",
      "axisFromColumns": false

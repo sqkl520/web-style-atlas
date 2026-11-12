@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S04-mango-collage-wall/index.html",
- "at": "2026-11-11T20:19:11.894Z",
+ "at": "2026-11-11T22:15:32.492Z",
  "allow": [],
  "viewports": [
   {
@@ -747,7 +747,8 @@
       "1": 56
      },
      "layoutKindNote": "body is an explicitly declared single-track grid at this viewport width (grid-template-columns: 1fr), not an absence of layout",
-     "layoutKindFrom": null,
+     "layoutKindFrom": "minmax(0px, 1fr)",
+     "layoutKindSelector": "div.wall__body",
      "autoFitContentBoxes": 0,
      "axisSelector": "p.board__meta",
      "axisFromColumns": false
@@ -1465,7 +1466,8 @@
       "1": 56
      },
      "layoutKindNote": "body is an explicitly declared single-track grid at this viewport width (grid-template-columns: 1fr), not an absence of layout",
-     "layoutKindFrom": null,
+     "layoutKindFrom": "minmax(0px, 1fr)",
+     "layoutKindSelector": "div.wall__body",
      "autoFitContentBoxes": 0,
      "axisSelector": "p.board__meta",
      "axisFromColumns": false

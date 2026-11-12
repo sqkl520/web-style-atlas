@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S06-showa-kissaten-ledger/index.html",
- "at": "2026-11-11T20:20:37.365Z",
+ "at": "2026-11-11T22:18:24.196Z",
  "allow": [],
  "viewports": [
   {
@@ -1633,7 +1633,8 @@
       "1": 80
      },
      "layoutKindNote": "body is an explicitly declared single-track grid at this viewport width (grid-template-columns: 1fr), not an absence of layout",
-     "layoutKindFrom": null,
+     "layoutKindFrom": "1fr",
+     "layoutKindSelector": "div.river-row",
      "autoFitContentBoxes": 0,
      "axisSelector": "p.sig",
      "axisFromColumns": false

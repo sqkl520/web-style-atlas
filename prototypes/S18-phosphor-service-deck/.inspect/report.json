@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S18-phosphor-service-deck/index.html",
- "at": "2026-11-11T20:29:39.475Z",
+ "at": "2026-11-11T22:36:41.662Z",
  "allow": [],
  "viewports": [
   {
@@ -897,7 +897,8 @@
       "1": 106
      },
      "layoutKindNote": "body is an explicitly declared single-track grid at this viewport width (grid-template-columns: 1fr), not an absence of layout",
-     "layoutKindFrom": null,
+     "layoutKindFrom": "1fr",
+     "layoutKindSelector": "div.stream__grid",
      "autoFitContentBoxes": 0,
      "axisSelector": "div.blk",
      "axisFromColumns": false
@@ -1465,7 +1466,8 @@
       "1": 106
      },
      "layoutKindNote": "body is an explicitly declared single-track grid at this viewport width (grid-template-columns: 1fr), not an absence of layout",
-     "layoutKindFrom": null,
+     "layoutKindFrom": "1fr",
+     "layoutKindSelector": "div.stream__grid",
      "autoFitContentBoxes": 0,
      "axisSelector": "div.blk",
      "axisFromColumns": false

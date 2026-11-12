@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S03-long-exposure-observatory/index.html",
- "at": "2026-11-11T20:40:16.096Z",
+ "at": "2026-11-11T22:14:16.463Z",
  "allow": [],
  "viewports": [
   {
@@ -776,7 +776,8 @@
       "1": 44
      },
      "layoutKindNote": "body is an explicitly declared single-track grid at this viewport width (grid-template-columns: 1fr), not an absence of layout",
-     "layoutKindFrom": null,
+     "layoutKindFrom": "minmax(0px, 1fr)",
+     "layoutKindSelector": "div.split",
      "autoFitContentBoxes": 0,
      "axisSelector": "li",
      "axisFromColumns": false
@@ -1167,7 +1168,8 @@
       "1": 44
      },
      "layoutKindNote": "body is an explicitly declared single-track grid at this viewport width (grid-template-columns: 1fr), not an absence of layout",
-     "layoutKindFrom": null,
+     "layoutKindFrom": "minmax(0px, 1fr)",
+     "layoutKindSelector": "div.split",
      "autoFitContentBoxes": 0,
      "axisSelector": "li",
      "axisFromColumns": false

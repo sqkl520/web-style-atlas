@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S19-copperplate-herbarium-cabinet/index.html",
- "at": "2026-11-11T20:30:47.926Z",
+ "at": "2026-11-11T22:38:12.172Z",
  "allow": [],
  "viewports": [
   {
@@ -983,7 +983,8 @@
       "1": 130
      },
      "layoutKindNote": "body is an explicitly declared single-track grid at this viewport width (grid-template-columns: 1fr), not an absence of layout",
-     "layoutKindFrom": null,
+     "layoutKindFrom": "1fr",
+     "layoutKindSelector": "div.fault__grid",
      "autoFitContentBoxes": 0,
      "axisSelector": "li.xc",
      "axisFromColumns": false
@@ -1645,7 +1646,8 @@
       "1": 129
      },
      "layoutKindNote": "body is an explicitly declared single-track grid at this viewport width (grid-template-columns: 1fr), not an absence of layout",
-     "layoutKindFrom": null,
+     "layoutKindFrom": "1fr",
+     "layoutKindSelector": "div.fault__grid",
      "autoFitContentBoxes": 0,
      "axisSelector": "li.xc",
      "axisFromColumns": false

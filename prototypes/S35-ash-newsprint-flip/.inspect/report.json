@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S35-ash-newsprint-flip/index.html",
- "at": "2026-11-11T21:40:23.449Z",
+ "at": "2026-11-11T22:55:51.964Z",
  "allow": [],
  "viewports": [
   {
@@ -16,10 +16,10 @@
     0.44
    ],
    "motion": {
-    "elements": 22,
+    "elements": 23,
     "css": 0,
-    "transitions": 0,
-    "scripted": 22,
+    "transitions": 7,
+    "scripted": 16,
     "videos": 0,
     "playingVideos": 0
    },
@@ -395,10 +395,10 @@
     0.45
    ],
    "motion": {
-    "elements": 22,
+    "elements": 23,
     "css": 0,
-    "transitions": 0,
-    "scripted": 22,
+    "transitions": 6,
+    "scripted": 17,
     "videos": 0,
     "playingVideos": 0
    },
@@ -795,10 +795,10 @@
     0.32
    ],
    "motion": {
-    "elements": 22,
+    "elements": 23,
     "css": 0,
-    "transitions": 0,
-    "scripted": 22,
+    "transitions": 5,
+    "scripted": 18,
     "videos": 0,
     "playingVideos": 0
    },
@@ -1123,12 +1123,13 @@
      ],
      "lineWidthSamples": [],
      "sawContentBox": 51,
-     "layoutKind": "auto-fit",
+     "layoutKind": "fixed",
      "columnDistribution": {
       "1": 51
      },
-     "layoutKindNote": "repeat(auto-fit|auto-fill, …) collapsed to 1 track at this viewport width; columns=1 is a runtime expansion, not a single-column design",
-     "layoutKindFrom": null,
+     "layoutKindNote": "body is an explicitly declared single-track grid at this viewport width (grid-template-columns: 1fr), not an absence of layout",
+     "layoutKindFrom": "1fr",
+     "layoutKindSelector": "li.note",
      "autoFitContentBoxes": 1,
      "axisSelector": "div.error",
      "axisFromColumns": false

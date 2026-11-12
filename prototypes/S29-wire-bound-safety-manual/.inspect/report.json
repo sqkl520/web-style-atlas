@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S29-wire-bound-safety-manual/index.html",
- "at": "2026-11-11T20:41:30.100Z",
+ "at": "2026-11-11T22:50:58.149Z",
  "allow": [],
  "viewports": [
   {
@@ -975,7 +975,8 @@
       "1": 162
      },
      "layoutKindNote": "body is an explicitly declared single-track grid at this viewport width (grid-template-columns: 1fr), not an absence of layout",
-     "layoutKindFrom": null,
+     "layoutKindFrom": "1fr",
+     "layoutKindSelector": "div.ch__grid",
      "autoFitContentBoxes": 0,
      "axisSelector": "p.sig",
      "axisFromColumns": false
@@ -1473,7 +1474,8 @@
       "1": 162
      },
      "layoutKindNote": "body is an explicitly declared single-track grid at this viewport width (grid-template-columns: 1fr), not an absence of layout",
-     "layoutKindFrom": null,
+     "layoutKindFrom": "1fr",
+     "layoutKindSelector": "div.ch__grid",
      "autoFitContentBoxes": 0,
      "axisSelector": "p.sig",
      "axisFromColumns": false

@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S23-exposed-plaster-chronology-wall/index.html",
- "at": "2026-11-11T20:35:13.582Z",
+ "at": "2026-11-11T22:44:48.022Z",
  "allow": [],
  "viewports": [
   {
@@ -1638,7 +1638,8 @@
       "1": 105
      },
      "layoutKindNote": "body is an explicitly declared single-track grid at this viewport width (grid-template-columns: 1fr), not an absence of layout",
-     "layoutKindFrom": null,
+     "layoutKindFrom": "1fr",
+     "layoutKindSelector": "div.degrade-grid",
      "autoFitContentBoxes": 0,
      "axisSelector": "p.meta",
      "axisFromColumns": false

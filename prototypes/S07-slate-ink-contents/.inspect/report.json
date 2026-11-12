@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S07-slate-ink-contents/index.html",
- "at": "2026-11-11T20:21:28.372Z",
+ "at": "2026-11-11T23:01:04.066Z",
  "allow": [],
  "viewports": [
   {
@@ -599,7 +599,7 @@
       },
       {
        "color": "#33505c",
-       "share": 0.32
+       "share": 0.33
       },
       {
        "color": "#e7e7e0",
@@ -666,7 +666,8 @@
       "1": 22
      },
      "layoutKindNote": "body is an explicitly declared single-track grid at this viewport width (grid-template-columns: 1fr), not an absence of layout",
-     "layoutKindFrom": null,
+     "layoutKindFrom": "1fr",
+     "layoutKindSelector": "div.pages",
      "autoFitContentBoxes": 0,
      "axisSelector": "p.missing-p",
      "axisFromColumns": false
@@ -1036,7 +1037,8 @@
       "1": 22
      },
      "layoutKindNote": "body is an explicitly declared single-track grid at this viewport width (grid-template-columns: 1fr), not an absence of layout",
-     "layoutKindFrom": null,
+     "layoutKindFrom": "1fr",
+     "layoutKindSelector": "div.pages",
      "autoFitContentBoxes": 0,
      "axisSelector": "p.missing-p",
      "axisFromColumns": false

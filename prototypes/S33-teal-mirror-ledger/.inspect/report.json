@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S33-teal-mirror-ledger/index.html",
- "at": "2026-11-11T21:38:42.702Z",
+ "at": "2026-11-11T22:54:28.639Z",
  "allow": [],
  "viewports": [
   {
@@ -354,10 +354,10 @@
     0.44
    ],
    "motion": {
-    "elements": 37,
+    "elements": 38,
     "css": 0,
-    "transitions": 0,
-    "scripted": 37,
+    "transitions": 7,
+    "scripted": 31,
     "videos": 0,
     "playingVideos": 0
    },
@@ -734,10 +734,10 @@
     0.28
    ],
    "motion": {
-    "elements": 38,
+    "elements": 37,
     "css": 0,
-    "transitions": 38,
-    "scripted": 0,
+    "transitions": 0,
+    "scripted": 37,
     "videos": 0,
     "playingVideos": 0
    },
@@ -1037,12 +1037,13 @@
      ],
      "lineWidthSamples": [],
      "sawContentBox": 45,
-     "layoutKind": "auto-fit",
+     "layoutKind": "fixed",
      "columnDistribution": {
       "1": 45
      },
-     "layoutKindNote": "repeat(auto-fit|auto-fill, …) collapsed to 1 track at this viewport width; columns=1 is a runtime expansion, not a single-column design",
-     "layoutKindFrom": null,
+     "layoutKindNote": "body is an explicitly declared single-track grid at this viewport width (grid-template-columns: 1fr), not an absence of layout",
+     "layoutKindFrom": "1fr",
+     "layoutKindSelector": "li.note",
      "autoFitContentBoxes": 1,
      "axisSelector": "div.error",
      "axisFromColumns": false

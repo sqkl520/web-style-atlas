@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S31-quiet-mid-grey-rulesheet/index.html",
- "at": "2026-11-11T20:48:16.923Z",
+ "at": "2026-11-11T22:53:03.528Z",
  "allow": [],
  "viewports": [
   {
@@ -769,7 +769,7 @@
      ],
      "lineWidthSamples": [],
      "sawContentBox": 86,
-     "layoutKind": "auto-fit",
+     "layoutKind": "fixed",
      "columnsFrom": "div#blocks.blocks",
      "columnsAll": [
       2
@@ -780,8 +780,7 @@
      "layoutKindFrom": "1fr 1fr",
      "layoutKindSelector": "div#blocks.blocks",
      "columnsInLandmark": null,
-     "layoutKindNote": "body columns come from repeat(auto-fit|auto-fill, …); the column count is a runtime expansion at this viewport width, not a fixed design value",
-     "autoFitContentBoxes": 4,
+     "autoFitContentBoxes": 3,
      "axisSelector": "div#blocks.blocks",
      "axisFromColumns": true
     },
@@ -1197,13 +1196,14 @@
      ],
      "lineWidthSamples": [],
      "sawContentBox": 86,
-     "layoutKind": "auto-fit",
+     "layoutKind": "fixed",
      "columnDistribution": {
       "1": 86
      },
-     "layoutKindNote": "repeat(auto-fit|auto-fill, …) collapsed to 1 track at this viewport width; columns=1 is a runtime expansion, not a single-column design",
-     "layoutKindFrom": null,
-     "autoFitContentBoxes": 4,
+     "layoutKindNote": "body is an explicitly declared single-track grid at this viewport width (grid-template-columns: 1fr), not an absence of layout",
+     "layoutKindFrom": "1fr",
+     "layoutKindSelector": "div#blocks.blocks",
+     "autoFitContentBoxes": 3,
      "axisSelector": "li",
      "axisFromColumns": false
     },

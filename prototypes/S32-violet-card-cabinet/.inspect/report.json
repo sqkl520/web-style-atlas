@@ -1,6 +1,6 @@
 {
  "url": "prototypes/S32-violet-card-cabinet/index.html",
- "at": "2026-11-11T21:38:07.127Z",
+ "at": "2026-11-11T22:53:54.274Z",
  "allow": [],
  "viewports": [
   {
@@ -15,9 +15,9 @@
     0.46
    ],
    "motion": {
-    "elements": 8,
+    "elements": 9,
     "css": 0,
-    "transitions": 8,
+    "transitions": 9,
     "scripted": 0,
     "videos": 0,
     "playingVideos": 0
@@ -750,9 +750,9 @@
     0.33
    ],
    "motion": {
-    "elements": 8,
+    "elements": 9,
     "css": 0,
-    "transitions": 8,
+    "transitions": 9,
     "scripted": 0,
     "videos": 0,
     "playingVideos": 0
@@ -1118,13 +1118,14 @@
      ],
      "lineWidthSamples": [],
      "sawContentBox": 31,
-     "layoutKind": "auto-fit",
+     "layoutKind": "fixed",
      "columnDistribution": {
       "1": 31
      },
-     "layoutKindNote": "repeat(auto-fit|auto-fill, …) collapsed to 1 track at this viewport width; columns=1 is a runtime expansion, not a single-column design",
-     "layoutKindFrom": null,
-     "autoFitContentBoxes": 2,
+     "layoutKindNote": "body is an explicitly declared single-track grid at this viewport width (grid-template-columns: 1fr), not an absence of layout",
+     "layoutKindFrom": "1fr",
+     "layoutKindSelector": "div#drawers.drawers",
+     "autoFitContentBoxes": 1,
      "axisSelector": "li.card",
      "axisFromColumns": false
     },
@@ -1241,7 +1242,7 @@
    "level": "WARN",
    "id": "still-page",
    "width": 1440,
-   "message": "Little motion: 8 element(s) moved while the page loaded and scrolled.",
+   "message": "Little motion: 9 element(s) moved while the page loaded and scrolled.",
    "fix": "Give every section an entrance for its parts (not one fade of the whole block) and add one moving picture: a looping clip or a slow move on a photograph."
   }
  ],
