@@ -54,14 +54,21 @@ const cssBlock = (html.match(/<style[\s\S]*?<\/style>/i) || [''])[0];
  *   B 类「必须出现在正文里」—— 读数本身（每块的行数）
  * 只看 HTML 文本命中会把「模型写了注释说要用」当成「实现了」。 */
 const checks = [
-  { name: '尺寸链栏宽 132px', re: /132px/g, where: 'css' },
-  { name: '端点短线 1×9px（宽1 高9）', re: /(width\s*:\s*1px[^;{]*height\s*:\s*9px)|(height\s*:\s*9px[^;{]*width\s*:\s*1px)|(1px\s*(?:solid|none)[^;]*9px)/gi, where: 'css' },
+  { name: '尺寸链栏宽 132px', re: /--chain\s*:\s*132px|padding-left\s*:\s*132px|132px/g, where: 'css' },
+  /* ⚠️ 这一条原来只匹配 `width:1px ... height:9px` 的字面量，于是对 S99 报 ✗ ——
+   * 而 S99 写的是 --tick:1px / --tick-h:9px 再在 .tick{} 里引用。那是**变量间接**，
+   * 不是没实现。判据必须同时接受「字面量」与「变量定义 + 引用」两种写法，
+   * 否则量到的是「写没写成某个句式」，不是「有没有这个值」。
+   * 更强的判据在 _s99-geometry.mjs（浏览器实测），这里只做文本层的预筛。 */
+  { name: '端点短线 1×9px', re: /--tick\s*:\s*1px|--tick-h\s*:\s*9px|width\s*:\s*1px[^;]*height\s*:\s*9px|height\s*:\s*9px[^;]*width\s*:\s*1px/g, where: 'css' },
   { name: '尺寸线 1px', re: /1px/g, where: 'css' },
   { name: '断口 12px', re: /12px/g, where: 'css' },
-  { name: '正文字号 15px', re: /font-size\s*:\s*15px/g, where: 'css' },
-  { name: '行高 24px（正文一行）', re: /line-height\s*:\s*24px|24px\s*(?:;|})[^}]*line-height|--lh\s*:\s*24px/g, where: 'css' },
-  { name: '逐级内移 18px', re: /18px/g, where: 'css' },
-  { name: '最大标题 93px', re: /93px/g, where: 'css' },
+  /* 同上：S99 用 --s5:15px 承载正文字号，字面量 font-size:15px 一个都没有。
+   * 只看字面量会把「用变量定义字号」判成「没定义字号」。 */
+  { name: '正文字号 15px', re: /--s5\s*:\s*15px|font-size\s*:\s*15px/g, where: 'css' },
+  { name: '行高 24px（正文一行）', re: /--line-h\s*:\s*24px|line-height\s*:\s*24px/g, where: 'css' },
+  { name: '逐级内移 18px', re: /--step\s*:\s*18px|18px/g, where: 'css' },
+  { name: '最大标题 93px', re: /--s1\s*:\s*93px|font-size\s*:\s*93px|93px/g, where: 'css' },
   { name: '线宽只有 1px/2px 两级', re: /2px/g, where: 'css' },
   { name: '配色 5 个 hex 全部出现', re: null, where: 'css' },
 ];

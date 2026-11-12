@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>直角车间 — 按图加工，公差不猜</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;700&family=Newsreader:opsz,wght@6..72,400;6..72,700&family=Noto+Sans+SC:wght@400;700&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   直角车间 · 单页施工图
+   骨架：左侧 132px 空白里挂一条尺寸链。
+     每块内容的上下沿各横向引出一条 6px 延长线（2px 线宽）；
+     两条延长线之间是一条 1px 尺寸线；
+     尺寸线两端各一枚 1×9px 的端点短线；
+     正中留 12px 断口，断口里竖排这一块的行数（正文 24px 一行）；
+     总尺寸记在最外侧，分段尺寸按 18px 逐级内移。
+   读序：总行数 → 分段行数 → 块里的字。
+   ========================================================================== */
+:root{
+  --paper:#E8E3D9;      /* 底：铺最大面积 */
+  --ink:#1F2A2E;        /* 字与结构线 */
+  --ink-soft:#7A8C8E;   /* 次级线 */
+  --paper-deep:#3C4A4D; /* 次级字 */
+  --accent:#C9A227;     /* 只做点、线、小块 */
+
+  --chain:132px;   /* 尺寸链栏宽（可测值 1） */
+  --ext:6px;       /* 延长线长 */
+  --tick:1px;      /* 端点短线宽 */
+  --tick-h:9px;    /* 端点短线高（可测值 2：1×9px） */
+  --notch:12px;    /* 断口（可测值 3） */
+  --step:18px;     /* 分段尺寸逐级内移 */
+  --line-h:24px;   /* 正文一行 = 读数一行 */
+
+  --r1:1px;--r2:2px;                 /* 全站只有这两级线宽 */
+  --x2:calc(-1 * var(--ext));                        /* 每块：-6px  */
+  --x1:calc(-1 * (var(--ext) + var(--step)));        /* 分段：-24px */
+  --x0:calc(-1 * (var(--ext) + var(--step) * 2));    /* 总尺寸：-42px */
+  --rule-in:1px;    /* 尺寸线起止落在延长线的中线上，端点短线压在这里 */
+
+  --f-t:Karla,"Noto Sans SC",sans-serif;
+  --f-b:Newsreader,"Noto Serif SC","Songti SC",serif;
+
+  --s1:93px;   /* 最大档 = 正文 15px 的 6.2 倍 */
+  --s2:46px;--s3:30px;--s4:20px;--s5:15px;--s6:13px;--s7:11px;
+}
+*{margin:0;padding:0;box-sizing:border-box;border-radius:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-b);font-size:var(--s5);line-height:var(--line-h)}
+h1,h2,h3,h4,th,.f-t,.btn,.no,.st,.m,dt,.cap,.u{font-family:var(--f-t);font-weight:700}
+img{display:block;border:0;border-radius:0}
+a{color:inherit;text-decoration:none;border-radius:0}
+
+/* ---------- 页栏：内容自 132px 之后起排，链挂在左边空白里 ---------- */
+.wrap{max-width:1280px;margin:0 auto;padding-left:var(--chain)}
+.sec{padding-right:30px}
+.stack{position:relative}
+
+/* ---------- 块：高度 = 行数 × 24px，读数就是从这里来的 ---------- */
+.blk{position:relative;height:calc(var(--rows) * var(--line-h));border-top:var(--r1) solid var(--ink)}
+.blk:first-child{border-top:0}
+.b1{--rows:2}.b2{--rows:6}.b3{--rows:7}.b4{--rows:9}.b5{--rows:8}.b6{--rows:5}.b7{--rows:4}
+
+/* ---------- 尺寸链 ---------- */
+.dim{position:absolute;pointer-events:none}
+.dim.blk-dim{top:0;bottom:0;left:var(--x2);width:0}
+.dim.seg-dim,.dim.tot-dim{left:0;width:0}
+/* 1px 尺寸线：两端各让出 9px 给端点短线，正中留 12px 断口 */
+.rule{position:absolute;left:0;width:var(--r1)}
+.rule::before,.rule::after{content:"";position:absolute;left:0;width:var(--r1);background:var(--ink)}
+.rule::before{top:0;height:calc(50% - var(--notch) / 2)}
+.rule::after{bottom:0;height:calc(50% - var(--notch) / 2)}
+/* 端点短线 1×9px：跨在链线上，两端各一枚 */
+.tick{position:absolute;width:var(--tick);height:var(--tick-h);background:var(--ink)}
+/* 6px 延长线（2px 线宽）：自块的上下沿横向引出 */
+.ext{position:absolute;width:var(--ext);height:var(--r2);background:var(--ink)}
+/* 断口：12px，居中；断口里竖排这一块的行数 */
+.rd{position:absolute;top:50%;transform:translateY(-50%);
+    width:var(--notch);background:var(--paper);display:flex;align-items:center;justify-content:center;z-index:2}
+.rd b{writing-mode:vertical-rl;text-orientation:upright;font:700 12px/1 var(--f-t);letter-spacing:0}
+/* 总尺寸：量全页七块 */
+.tot-dim{top:0;bottom:0}
+/* 分段尺寸：量正文六块（收件条之后到页尾） */
+.seg-dim{top:calc(var(--line-h) * 2);bottom:0}
+/* 每块自己的尺寸：延长线压在本块的上下沿，尺寸线贴在本块左沿 6px 处 */
+.blk-dim .ext.t{top:0}
+.blk-dim .ext.b{bottom:0}
+.blk-dim .tick{left:0}
+.blk-dim .tick.t,.blk-dim .tick.b{top:calc((var(--r2) - var(--tick-h)) / 2)}
+.blk-dim .tick.b{top:auto;bottom:calc((var(--r2) - var(--tick-h)) / 2)}
+.blk-dim .rule{left:0;top:0;bottom:0}
+.blk-dim .rd{left:calc(var(--notch) / -2)}
+/* 行数牌的高度按本块可用高度给，2 行的块也放得下 */
+.rd{height:calc(var(--notch) + 20px)}
+.b3 .rd,.b4 .rd,.b5 .rd{height:calc(var(--notch) + 30px)}
+.b7 .rd{height:calc(var(--notch) + 16px)}
+/* 总尺寸 / 分段尺寸：延长线自它们所辖范围的首尾块边缘一直拉到本档位置 */
+.tot-dim .ext,.seg-dim .ext{height:var(--r2)}
+.tot-dim .ext.t,.seg-dim .ext.t{top:0}
+.tot-dim .ext.b,.seg-dim .ext.b{bottom:0}
+.tot-dim .ext{left:var(--x0);width:calc(-1 * var(--x0))}
+.seg-dim .ext{left:var(--x1);width:calc(-1 * var(--x1))}
+.tot-dim .rule,.seg-dim .rule{top:0;bottom:0}
+.tot-dim .rule{left:var(--x0)}
+.seg-dim .rule{left:var(--x1)}
+.tot-dim .tick{left:var(--x0)}
+.seg-dim .tick{left:var(--x1)}
+.tot-dim .tick.t,.seg-dim .tick.t{top:calc((var(--r2) - var(--tick-h)) / 2)}
+.tot-dim .tick.b,.seg-dim .tick.b{top:auto;bottom:calc((var(--r2) - var(--tick-h)) / 2)}
+.tot-dim .rd{left:calc(var(--x0) - var(--notch) / 2);height:calc(var(--notch) + 28px)}
+.seg-dim .rd{left:calc(var(--x1) - var(--notch) / 2);height:calc(var(--notch) + 28px)}
+.tot-dim .rd b,.seg-dim .rd b{font-size:var(--s6)}
+/* 链的抬头：说明这条链量的是什么 */
+.chain-cap{position:absolute;left:calc(-1 * var(--chain) + 12px);top:14px;height:130px;width:0;
+  display:flex;flex-direction:column;align-items:center;pointer-events:none}
+.chain-cap b{writing-mode:vertical-rl;text-orientation:upright;
+  font:700 var(--s7)/1 var(--f-t);letter-spacing:.22em;color:var(--ink-soft)}
+.chain-cap u{display:block;width:var(--r2);height:8px;background:var(--accent);border:0;text-decoration:none;margin-top:10px}
+
+/* ---------- ④ 并列条目：栏宽不等 + 内部结构各不相同 ----------
+   同一块里各栏的内部结构本就不一样（规格表 / 编号工序 / 公差口径），
+   线条与字色仍走全站同一组明度关系。 */
+.band>div:nth-child(2),.caps>div:nth-child(2){border-left-color:var(--ink)}
+
+/* ---------- 通用件 ---------- */
+.eyebrow{font-family:var(--f-t);font-size:var(--s7);letter-spacing:.16em;color:var(--paper-deep);line-height:20px}
+.sub{font-size:var(--s7);line-height:18px;color:var(--paper-deep)}
+.u{border-bottom:var(--r1) solid var(--accent);padding-bottom:1px}
+
+/* ---------- 01 收件条：全屏唯一主行动 ---------- */
+.ticket{display:grid;grid-template-columns:auto 1fr auto;height:44px;margin-top:2px;
+  border:var(--r2) solid var(--ink);border-left:6px solid var(--accent)}
+.tk-no{display:flex;align-items:center;gap:12px;padding:0 16px;border-right:var(--r1) solid var(--ink)}
+.tk-no .no{font-size:var(--s3);line-height:1}
+.tk-no .lbl{font-family:var(--f-t);font-size:var(--s7);letter-spacing:.16em;color:var(--paper-deep)}
+.tk-txt{display:flex;align-items:center;padding:0 16px;font-size:var(--s6);color:var(--paper-deep)}
+.tk-txt b{color:var(--ink);font-family:var(--f-t)}
+.btn{display:flex;align-items:center;padding:0 18px;border-left:var(--r2) solid var(--ink);
+  background:var(--ink);color:var(--paper);font-size:var(--s6);letter-spacing:.06em}
+
+/* ---------- 02 报头 ---------- */
+.head{display:grid;grid-template-columns:1.56fr 1fr;gap:28px;align-items:end;height:100%;padding:11px 0 6px}
+.biz{font-size:var(--s4);line-height:26px;color:var(--paper-deep)}
+.biz b{color:var(--ink);font-family:var(--f-t)}
+h1{font-size:var(--s1);line-height:.92;letter-spacing:-.025em;margin-left:-.05em;margin-top:6px}
+h1 .n{color:var(--accent)}
+.hm{border-top:var(--r2) solid var(--ink);padding-top:6px}
+.hm dl{display:grid;grid-template-columns:auto 1fr;gap:0 10px;font-family:var(--f-t);font-size:var(--s7);line-height:20px}
+.hm dt{color:var(--paper-deep);letter-spacing:.1em}
+.ask{margin-top:8px;border-top:var(--r1) solid var(--ink-soft);padding-top:6px;font-size:var(--s6);line-height:20px}
+
+/* ---------- 03 三栏：栏宽不等，内部结构各不相同 ---------- */
+.band{display:grid;grid-template-columns:1fr 1.32fr 1.28fr;height:100%}
+.band>div{display:flex;flex-direction:column;justify-content:space-between;
+  padding:10px 22px 8px 0}
+.band>div+div{border-left:var(--r1) solid var(--ink-soft);padding-left:22px}
+.lead{font-size:var(--s4);line-height:28px}
+.lead .q{color:var(--accent)}
+.mats{list-style:none;margin-top:6px}
+.mats li{display:flex;justify-content:space-between;border-top:var(--r1) solid var(--ink-soft);
+  font-family:var(--f-t);font-size:var(--s7);line-height:20px}
+.mats li span{color:var(--paper-deep)}
+.fig{margin:0}
+.fig img{width:100%;aspect-ratio:960/300;object-fit:cover;border:var(--r1) solid var(--ink)}
+.cap{font-size:var(--s7);line-height:20px;color:var(--paper-deep);margin-top:6px}
+.jobs{list-style:none}
+.jobs li{border-top:var(--r1) solid var(--ink-soft);padding:1px 0}
+.jobs li:first-child{border-top:0}
+.jobs .row{display:flex;align-items:baseline;gap:8px;font-family:var(--f-t);line-height:20px}
+.jobs .m{font-size:var(--s7);letter-spacing:.1em;color:var(--paper-deep);width:44px}
+.jobs .t{font-size:var(--s6);flex:1}
+.jobs .st{font-size:var(--s7);color:var(--accent)}
+.jobs .sub{padding-left:52px}
+
+/* ---------- 04 能力表 ---------- */
+.caps{display:grid;grid-template-columns:.92fr 1.42fr 1.26fr;height:100%}
+.caps>div{padding:10px 22px 0 0}
+.caps>div+div{border-left:var(--r1) solid var(--ink-soft);padding-left:22px}
+.caps h2{font-size:var(--s6);line-height:20px;letter-spacing:.08em;padding-bottom:3px;
+  border-bottom:var(--r2) solid var(--ink);margin-bottom:3px}
+.caps h2 em{font-style:normal;font-weight:400;font-family:var(--f-b);font-size:var(--s7);
+  color:var(--paper-deep);letter-spacing:0;float:right}
+.spec{list-style:none}
+.spec li{display:grid;grid-template-columns:1fr auto;font-size:var(--s7);line-height:28px;
+  border-bottom:var(--r1) solid var(--ink-soft)}
+.spec b{font-family:var(--f-t);font-weight:400;color:var(--paper-deep)}
+.ops{list-style:none;counter-reset:o}
+.ops li{counter-increment:o;display:grid;grid-template-columns:26px 1fr;font-size:var(--s6);line-height:26px}
+.ops li::before{content:counter(o,decimal-leading-zero);font-family:var(--f-t);font-size:var(--s7);
+  line-height:26px;color:var(--accent)}
+.tol{list-style:none}
+.tol li{display:flex;gap:8px;font-size:var(--s7);line-height:24px;border-top:var(--r1) solid var(--ink-soft);padding-top:1px;margin-top:1px}
+.tol li:first-child{border-top:0;margin-top:0;padding-top:0}
+.tol b{font-family:var(--f-t);width:56px;flex:none}
+.tol span{color:var(--paper-deep)}
+
+/* ---------- 05 工位：两张比例不同、面积不同的图 ---------- */
+.bays{display:grid;grid-template-columns:.9fr auto auto 1fr;gap:22px;height:100%;align-items:start;padding-top:10px}
+.bays .txt{font-size:var(--s6);line-height:22px}
+.shot{margin:0}
+.shot img{border:var(--r1) solid var(--ink);object-fit:cover}
+.shot .cap{margin-top:5px}
+.shot-a img{width:108px;height:81px}
+.shot-b img{width:288px;height:81px;border-right:var(--r2) solid var(--ink)}
+
+/* ---------- 06 流程：一条 2px 脊线上挂四步 ---------- */
+.flow{display:grid;grid-template-columns:repeat(4,1fr);height:100%;margin-top:5px;border-top:var(--r2) solid var(--ink)}
+.flow>div{padding:6px 18px 0 0;border-right:var(--r1) solid var(--ink-soft)}
+.flow>div:last-child{border-right:0}
+.flow .stp{font-family:var(--f-t);font-size:var(--s7);letter-spacing:.14em;color:var(--paper-deep);line-height:20px}
+.flow h3{font-size:var(--s6);line-height:22px}
+.flow p{font-size:var(--s7);line-height:19px;color:var(--paper-deep)}
+.flow .hit{color:var(--accent);font-family:var(--f-t)}
+
+/* ---------- 07 落款 ---------- */
+.foot{display:grid;grid-template-columns:1.42fr 1fr .86fr;height:100%;align-items:start;padding-top:9px}
+.foot .sig{font-size:var(--s6);line-height:22px}
+.foot .adr{font-size:var(--s7);line-height:20px;color:var(--paper-deep)}
+.foot .end{text-align:right}
+.foot .end .no{font-size:var(--s5);line-height:22px}
+
+/* ---------- 窄屏：单列，顺序不变；链仍在左侧，读序不变 ---------- */
+@media (max-width:1080px){
+  :root{--chain:78px;--step:12px;--line-h:20px;
+        --s1:40px;--s2:30px;--s3:24px;--s4:17px;--s5:13px;--s6:12px;--s7:10px}
+  .sec{padding-right:14px}
+  .blk{height:auto;min-height:calc(var(--rows) * var(--line-h) + 12px)}
+  .head,.band,.caps,.bays,.flow,.foot{grid-template-columns:1fr;height:auto}
+  .head{align-items:start;padding:10px 0}
+  h1{margin-top:4px}
+  .hm{margin-top:10px}
+  .band>div,.caps>div{padding:8px 0;border-left:0;border-top:var(--r1) solid var(--ink-soft)}
+  .band>div:first-child,.caps>div:first-child{border-top:0}
+  .bays{gap:12px;grid-template-columns:auto 1fr}
+  .shot-a{grid-column:1;grid-row:2}
+  .shot-b{grid-column:1/-1;grid-row:3}
+  .shot-b img{width:100%;height:auto;aspect-ratio:864/243}
+  .flow{border-top:0;margin-top:0}
+  .flow>div{border-right:0;border-top:var(--r1) solid var(--ink-soft);padding:6px 0}
+  .flow>div:first-child{border-top:0}
+  .foot{grid-template-columns:1fr;gap:8px;padding-top:8px}
+  .foot .end{text-align:left}
+  .ticket{grid-template-columns:auto 1fr;grid-template-rows:auto auto;height:auto}
+  .tk-txt{padding:6px 12px;line-height:19px}
+  .ticket .btn{grid-column:1/-1;align-items:center;justify-content:center;
+    border-left:0;border-top:var(--r2) solid var(--ink);padding:8px 0}
+  .blk-dim .rd{height:calc(var(--notch) + 22px)}
+  .band>div{justify-content:flex-start;gap:8px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<main class="stack">
+
+  <!-- 左栏抬头：说明这条链量的是什么 -->
+  <p class="chain-cap" aria-hidden="true"><u></u><b>本页行数 24px/行</b></p>
+
+  <!-- 总尺寸：记在最外侧（-42px）。全页 7 块合计 36 行 -->
+  <div class="dim tot-dim" aria-hidden="true">
+    <span class="ext t"></span>
+    <span class="ext b"></span>
+    <span class="rule"></span>
+    <span class="tick t"></span><span class="tick b"></span>
+    <span class="rd"><b>36</b></span>
+  </div>
+
+  <!-- 分段尺寸：正文六块合计 34 行，按 18px 内移一级（-24px） -->
+  <div class="dim seg-dim" aria-hidden="true">
+    <span class="ext t"></span>
+    <span class="ext b"></span>
+    <span class="rule"></span>
+    <span class="tick t"></span><span class="tick b"></span>
+    <span class="rd"><b>34</b></span>
+  </div>
+
+  <div class="sec">
+
+  <!-- ══ 01 收件条 ══ 2 行 ══ 全屏唯一主行动 ══ -->
+  <section class="blk b1">
+    <div class="dim blk-dim" aria-hidden="true">
+      <span class="ext t"></span><span class="ext b"></span>
+      <span class="rule"></span>
+      <span class="tick t"></span><span class="tick b"></span>
+      <span class="rd"><b>02</b></span>
+    </div>
+    <div class="ticket">
+      <div class="tk-no"><span class="no">047</span><span class="lbl">单号 JG-2611-047</span></div>
+      <p class="tk-txt">图纸发来 → <b>4 小时内</b>回可做性、单价、交期。不急的单也按当天排。</p>
+      <a class="btn" href="#send">发图纸询价</a>
+    </div>
+  </section>
+
+  <!-- ══ 02 报头 ══ 6 行 ══ -->
+  <section class="blk b2">
+    <div class="dim blk-dim" aria-hidden="true">
+      <span class="ext t"></span><span class="ext b"></span>
+      <span class="rule"></span>
+      <span class="tick t"></span><span class="tick b"></span>
+      <span class="rd"><b>06</b></span>
+    </div>
+    <div class="head">
+      <div>
+        <p class="biz">我经营<b>直角车间</b>——一间按图加工的精密钣金厂。</p>
+        <h1>公差不<span class="n">猜</span></h1>
+      </div>
+      <div class="hm">
+        <dl>
+          <dt>设备</dt><dd>激光切割 / 折弯 / 焊接 / 表面</dd>
+          <dt>材质</dt><dd>碳钢 · 不锈钢 · 铝 · 镀锌板</dd>
+          <dt>板厚</dt><dd>0.8 – 12 mm</dd>
+        </dl>
+        <p class="ask">页面需要让访客 <b><span class="u">把图纸发过来</span></b>，而不是先打电话聊半小时。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 03 人话 / 车间 / 在办 ══ 7 行 ══ -->
+  <section class="blk b3">
+    <div class="dim blk-dim" aria-hidden="true">
+      <span class="ext t"></span><span class="ext b"></span>
+      <span class="rule"></span>
+      <span class="tick t"></span><span class="tick b"></span>
+      <span class="rd"><b>07</b></span>
+    </div>
+    <div class="band">
+      <div>
+        <p class="lead">图纸上写多少，<br>机器就走多少。<span class="q">多一分不算本事。</span></p>
+        <ul class="mats">
+          <li><span>冷轧板 SPCC</span><b>常备</b></li>
+          <li><span>304 / 316L</span><b>常备</b></li>
+          <li><span>6061 铝板</span><b>订货</b></li>
+        </ul>
+      </div>
+      <div>
+        <figure class="fig">
+          <img src="images/占位-1.jpg" width="960" height="300" alt="车间平面：左切割、右折弯，中检台在两区之间">
+        </figure>
+        <p class="cap">01 车间平面 · 左切割右折弯 · 中检台在两区之间</p>
+      </div>
+      <div>
+        <p class="eyebrow">在办 / 单号 JG-2611-047</p>
+        <ul class="jobs">
+          <li>
+            <span class="row"><span class="m">11-12</span><span class="t">动力柜内衬板 240 件</span><span class="st">折弯中</span></span>
+            <span class="sub">1.5 mm 镀锌 · 折 6 刀 · ±0.2</span>
+          </li>
+          <li>
+            <span class="row"><span class="m">11-13</span><span class="t">检修平台踏板 96 件</span><span class="st">待激光</span></span>
+            <span class="sub">3.0 mm 花纹板 · 去毛刺后交</span>
+          </li>
+          <li>
+            <span class="row"><span class="m">11-15</span><span class="t">不锈钢护罩 18 套</span><span class="st">已发货</span></span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 04 能力表 ══ 9 行 ══ 三栏不等宽、内部结构各不相同 ══ -->
+  <section class="blk b4">
+    <div class="dim blk-dim" aria-hidden="true">
+      <span class="ext t"></span><span class="ext b"></span>
+      <span class="rule"></span>
+      <span class="tick t"></span><span class="tick b"></span>
+      <span class="rd"><b>09</b></span>
+    </div>
+    <div class="caps">
+      <div>
+        <h2>机器 <em>主力四台</em></h2>
+        <ul class="spec">
+          <li><b>激光 6kW</b><span>3000×1500</span></li>
+          <li><b>折弯 100T</b><span>3200 mm</span></li>
+          <li><b>折弯 40T</b><span>1600 mm</span></li>
+          <li><b>氩弧 / 二保</b><span>各 2 工位</span></li>
+        </ul>
+      </div>
+      <div>
+        <h2>从图纸到出货 <em>五道</em></h2>
+        <ol class="ops">
+          <li>来图核价：先看折弯半径与刀口避让</li>
+          <li>拆板排版：报出料率与边角料去向</li>
+          <li>首件：拍照回传，等你点头</li>
+          <li>批量：中检台按图抽检，记录留档</li>
+          <li>出货：按件贴标，木架或纸箱</li>
+        </ol>
+        <p class="sub" style="padding-left:26px">第 3 步不点头，后面不动刀。</p>
+      </div>
+      <div>
+        <h2>公差口径 <em>先说断</em></h2>
+        <ul class="tol">
+          <li><b>外形</b><span>±0.2 mm（激光件）</span></li>
+          <li><b>折弯角</b><span>±1°，回弹按材质调</span></li>
+          <li><b>孔位</b><span>±0.15 mm，用模具冲</span></li>
+          <li><b>表面</b><span>拉丝纹向随图，默认顺长边</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 05 工位 ══ 5 行 ══ 两张比例不同、面积不同的图 ══ -->
+  <section class="blk b5">
+    <div class="dim blk-dim" aria-hidden="true">
+      <span class="ext t"></span><span class="ext b"></span>
+      <span class="rule"></span>
+      <span class="tick t"></span><span class="tick b"></span>
+      <span class="rd"><b>05</b></span>
+    </div>
+    <div class="bays">
+      <p class="txt"><b>首件台。</b>第一件不焊死，先卡尺量完、拍照发你。点头了才上批量。</p>
+      <figure class="shot shot-a">
+        <img src="images/占位-2.jpg" width="432" height="324" alt="首件检验台：卡尺、图纸与贴标的首件">
+        <figcaption class="cap">02 首件台 · 1:1 出图对照</figcaption>
+      </figure>
+      <figure class="shot shot-b">
+        <img src="images/占位-3.jpg" width="864" height="243" alt="折弯工位：100T 折弯机与待折板料">
+        <figcaption class="cap">03 折弯工位 · 100T / 3200 mm</figcaption>
+      </figure>
+      <p class="txt"><b>料架直连机台。</b>板料不上下搬，少一道划伤。不锈钢单独分区，不跟碳钢混。</p>
+    </div>
+  </section>
+
+  <!-- ══ 06 流程 ══ 4 行 ══ -->
+  <section class="blk b6">
+    <div class="dim blk-dim" aria-hidden="true">
+      <span class="ext t"></span><span class="ext b"></span>
+      <span class="rule"></span>
+      <span class="tick t"></span><span class="tick b"></span>
+      <span class="rd"><b>04</b></span>
+    </div>
+    <div class="flow">
+      <div><p class="stp">STEP 01</p><h3>发图</h3><p>PDF / DWG / STEP 都收，手绘标注也认。</p></div>
+      <div><p class="stp">STEP 02</p><h3>核价</h3><p>4 小时内回单价与交期，<span class="hit">含料率</span>。</p></div>
+      <div><p class="stp">STEP 03</p><h3>首件</h3><p>出第一件，拍照回传等你确认。</p></div>
+      <div><p class="stp">STEP 04</p><h3>批量交付</h3><p>按件贴标，随货附检验记录。</p></div>
+    </div>
+  </section>
+
+  <!-- ══ 07 落款 ══ 3 行 ══ -->
+  <section class="blk b7" id="send">
+    <div class="dim blk-dim" aria-hidden="true">
+      <span class="ext t"></span><span class="ext b"></span>
+      <span class="rule"></span>
+      <span class="tick t"></span><span class="tick b"></span>
+      <span class="rd"><b>03</b></span>
+    </div>
+    <div class="foot">
+      <p class="sig"><b>直角车间</b> · 图纸发到 drawing@zhijiao.example · 附上数量与材质即可</p>
+      <p class="adr">江苏省 无锡市 新吴区 某路 18 号 3 号厂房<br>周一至周六 08:00 – 18:00</p>
+      <p class="end no">单号 JG-2611-047 · 本页 36 行</p>
+    </div>
+  </section>
+
+  </div>
+</main>
+</div>
+</body>
+</html>
