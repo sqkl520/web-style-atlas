@@ -45,16 +45,20 @@ foreach ($id in $idList) {
     $hasOut = Test-Path $outFile
     $bytes = 0
     if ($hasOut) { $bytes = (Get-Item $outFile).Length }
-    # Distinguish "timed out with nothing produced" from "agent finished but wrote nothing".
-    # Without this the summary reads MISS for both, and a timeout looks like a failed task.
-    $stream = Join-Path $taskDir 'stream.jsonl'
+    # The agent often writes out.html well before it finishes its final reply, and a run
+    # that hit the timeout can still have produced a complete file. So an existing file
+    # counts as success regardless of whether a "result" event landed in the stream.
+    # (Evidence: S08/S13/S22 in an earlier batch produced 23-38KB complete pages and were
+    #  reported as "TIMEOUT / 0B" purely because the collector only checked after the run.)
     $finished = $false
+    $stream = Join-Path $taskDir 'stream.jsonl'
     if (Test-Path $stream) {
         $finished = (Select-String -Path $stream -Pattern '"type":"result"' -Quiet)
     }
     $state = 'NO_OUT'
     if ($hasOut) {
-        $state = 'OK ' + $bytes + 'B'
+        if ($finished) { $state = 'OK ' + $bytes + 'B' }
+        else { $state = 'OK(early) ' + $bytes + 'B' }
     } elseif (-not $finished) {
         $state = 'TIMEOUT(no result in stream)'
     } else {
