@@ -169,6 +169,14 @@ h1 .sub{
 .stack-cap b{font-weight:600;color:var(--amber)}
 .stack-cap .num{display:inline;color:var(--ivory)}
 .edge-svg{display:block;width:100%;height:auto;border:var(--l2) solid var(--wall);background:var(--room)}
+/* 缘部大样：单块板的厚度/倒角/透光/错位四个数值同时在这里再写一遍 */
+.stock{margin-top:36px;display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,320px);gap:32px;align-items:start;
+  padding-top:16px;border-top:var(--l2) solid var(--wall)}
+.stock h3{font-family:var(--display);font-weight:400;font-size:clamp(22px,2vw,28px);line-height:1.28}
+.stock p{margin-top:12px;font-size:16px;line-height:1.74;max-width:34em}
+.stock dl{display:grid;grid-template-columns:1fr auto;margin-top:18px;max-width:30em}
+.stock dt{font-size:13px;padding:9px 0;border-top:var(--l1) solid var(--wall-deep)}
+.stock dd{font-family:var(--num);font-size:13px;padding:9px 0;text-align:right;border-top:var(--l1) solid var(--wall-deep)}
 
 /* ============ 小节头 ============ */
 .part{padding:72px 0 0}
@@ -205,7 +213,7 @@ h1 .sub{
 .plate figure{margin:16px 0 0}
 .plate figure.main{grid-area:fig}
 .plate figure.aside{margin-top:0}
-.plate img{display:block;width:100%;height:auto;
+.plate img{display:block;width:100%;height:auto;object-fit:cover;
   border:var(--l2) solid var(--wall);background:var(--wall-deep)}
 .plate figcaption{
   margin-top:10px;font-size:12px;line-height:1.55;
@@ -216,7 +224,14 @@ h1 .sub{
 .plate .sidebox{grid-area:side}
 .plate .sidebox figure{margin-top:0}
 .plate .sidebox .more{margin-top:20px;padding-top:12px;border-top:var(--l2) solid var(--wall)}
-/* width/height 属性给出真实比例，画面按该比例占位（height:auto 保持比例） */
+/* 每个图片位按 width/height 属性给出的比例占出真实面积（占位图缺失时也占住） */
+.plate figure.b169 img{aspect-ratio:16/9}
+.plate figure.b32 img{aspect-ratio:3/2}
+.plate figure.b45 img{aspect-ratio:4/5}
+.plate figure.b219 img{aspect-ratio:32/9}
+.plate figure.b11 img{aspect-ratio:1/1}
+.plate figure.b34 img{aspect-ratio:3/4}
+.plate figure.b73 img{aspect-ratio:7/3}
 
 /* p01 · L6 —— 三栏：竖排编号 / 宽幅图压在正文下 / 右栏小方图 */
 .plate.p01{grid-template-columns:minmax(0,96px) minmax(300px,1fr) minmax(240px,300px);
@@ -345,6 +360,7 @@ td.job{font-size:12px}
   .stack-head{flex-direction:column;align-items:flex-start;gap:6px}
   .stack-head p{text-align:left}
   .part-head{grid-template-columns:minmax(0,1fr)}
+  .stock{grid-template-columns:minmax(0,1fr)}
   /* 六个板位退回单列，顺序不变（DOM 顺序即阅读顺序） */
   .plate{display:block}
   .plate .no,.plate .hd,.plate .body,.plate .pull,.plate .note,.plate .more,
@@ -473,7 +489,7 @@ td.job{font-size:12px}
         </div>
       </div>
       <div class="sidebox">
-        <figure class="aside">
+        <figure class="aside b32">
           <img src="images/占位-7.jpg" width="1200" height="800" alt="L6 板的上缘高光与倒角，摄于水槽上方">
           <figcaption><span>上缘高光 2px · 倒角 6 mm · 1200×800</span><span class="num">L6 · 板位 06</span></figcaption>
         </figure>
@@ -482,7 +498,7 @@ td.job{font-size:12px}
           这是六块里最厚的一块，10 mm，透光只放 68%。四页片一次过，中间不停手。整块板净重 2.3kg，抬上水槽要两只手。
         </p>
       </div>
-      <figure class="main">
+      <figure class="main b169">
         <img src="images/占位-1.jpg" width="1600" height="900" alt="四联页「晨雾06」在 L6 板上连印的样张">
         <figcaption><span>连印样张 · 四页拼一 · 1600×900</span><span class="num">L6 · 板位 06 / 68% / +120,+60</span></figcaption>
       </figure>
@@ -504,7 +520,7 @@ td.job{font-size:12px}
         </div>
       </div>
       <p class="note">侧壁 9 mm，是六块里第二宽的。宽一点，片夹就压得住。</p>
-      <figure class="main">
+      <figure class="main b45">
         <img src="images/占位-2.jpg" width="1000" height="1250" alt="单张宽幅「浅滩」在 L5 板上的内凹槽侧壁">
         <figcaption><span>内凹槽侧壁 9 mm</span><span class="num">L5 · 板位 05 / 40%</span></figcaption>
       </figure>
@@ -525,7 +541,7 @@ td.job{font-size:12px}
         </div>
       </div>
       <p class="note">板子越厚，光走得越慢。慢下来以后，照片里的夜才留得住。</p>
-      <figure class="main">
+      <figure class="main b219">
         <img src="images/占位-3.jpg" width="1920" height="540" alt="十二张接触印相「夜班车」在 L4 板上铺满整块的排布">
         <figcaption><span>十二格整幅通栏 · 1920×540 · 一次曝光</span><span class="num">L4 · 板位 04 / 32% / +72,+36</span></figcaption>
       </figure>
@@ -670,6 +686,44 @@ td.job{font-size:12px}
       <div><b>倒角</b>上缘铣掉的那一圈，3–6 mm。手摸上去不割手，光也更集中一点。</div>
       <div><b>透光率</b>32% 到 68%。最低的那块留给最慢的一卷，最高的那块给连印。</div>
       <div><b>层号错位</b>每上一层错开 (24px, 12px)，六层叠到 (+120, +60)。深度由层号位移与侧壁宽度一起说明。</div>
+    </div>
+
+    <div class="stock">
+      <div>
+        <h3>一块板立起来的样子</h3>
+        <p>琥珀亚克力开料，上缘铣一圈倒角，侧壁拉出 6–10px 的亮边。不抛光成镜面，留着刀痕——光从侧壁进去，才在板里走出一条琥珀线。<span class="dim">这张大样画的是 L4，四个数值跟第 04 格写的是同一组。</span></p>
+        <dl>
+          <dt>板厚</dt><dd>4 / 6 / 8 / 9 / 10 mm</dd>
+          <dt>倒角</dt><dd>3 / 4 / 5 / 6 mm</dd>
+          <dt>透光率</dt><dd>32 / 40 / 48 / 55 / 62 / 68 %</dd>
+          <dt>层号错位</dt><dd>+24,+12 每层 · 共 +120,+60</dd>
+        </dl>
+      </div>
+      <svg class="edge-svg" viewBox="0 0 320 232" role="img"
+           aria-label="单块板缘部大样：上缘 2 像素高光，侧壁亮边 6 到 10 像素，板厚 4 到 10 毫米，倒角 3 到 6 毫米">
+        <rect x="8" y="8" width="304" height="216" fill="#120C08" stroke="#3A2712" stroke-width="1.25"/>
+        <rect x="28" y="40" width="250" height="126" fill="#6B4A22" stroke="#3A2712" stroke-width="1.25"/>
+        <rect x="28" y="40" width="8" height="126" fill="#C46A1F" stroke="#120C08" stroke-width="1.25"/>
+        <rect x="272" y="40" width="6" height="126" fill="#C46A1F" stroke="#120C08" stroke-width="1.25"/>
+        <rect x="28" y="40" width="250" height="2" fill="#E8DCC8"/>
+        <path d="M28 49 L37 40" fill="none" stroke="#C46A1F" stroke-width="2"/>
+        <path d="M37 157 L28 166" fill="none" stroke="#C46A1F" stroke-width="2"/>
+        <line x1="37" y1="32" x2="272" y2="32" stroke="#E8DCC8" stroke-width="1.25"/>
+        <line x1="37" y1="26" x2="37" y2="38" stroke="#E8DCC8" stroke-width="1.25"/>
+        <line x1="272" y1="26" x2="272" y2="38" stroke="#E8DCC8" stroke-width="1.25"/>
+        <text x="154" y="22" fill="#E8DCC8" font-size="11" text-anchor="middle"
+              font-family="ui-monospace,Consolas,monospace">上缘高光 2px</text>
+        <line x1="28" y1="182" x2="278" y2="182" stroke="#C46A1F" stroke-width="1.25"/>
+        <line x1="28" y1="176" x2="28" y2="188" stroke="#C46A1F" stroke-width="1.25"/>
+        <line x1="278" y1="176" x2="278" y2="188" stroke="#C46A1F" stroke-width="1.25"/>
+        <text x="153" y="200" fill="#C46A1F" font-size="11" text-anchor="middle"
+              font-family="ui-monospace,Consolas,monospace">板厚 4–10 mm</text>
+        <text x="48" y="70" fill="#E8DCC8" font-size="11"
+              font-family="ui-monospace,Consolas,monospace">侧壁 6–10px</text>
+        <line x1="44" y1="78" x2="28" y2="78" stroke="#E8DCC8" stroke-width="1.25"/>
+        <text x="153" y="218" fill="#E8DCC8" font-size="11" text-anchor="middle"
+              font-family="ui-monospace,Consolas,monospace">缘部大样 · 倒角 3–6 mm</text>
+      </svg>
     </div>
   </section>
 
