@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../../..');
 const proto = join(ROOT, 'prototypes/S31-quiet-mid-grey-rulesheet/index.html');
-const gen = join(ROOT, 'deliverables/78-northstar/_probe/_feasibility-S31-out.html');
+const gen = join(ROOT, 'deliverables/78-northstar/_probe/_sandbox-S31-out.html');
 
 const [w, g] = [await measure(proto), await measure(gen)];
 const pick = (o) => ({

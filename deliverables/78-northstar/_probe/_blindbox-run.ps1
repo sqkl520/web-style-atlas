@@ -61,11 +61,19 @@ while ((Get-Date) -lt $deadline) {
 schtasks /Delete /TN $taskName /F 2>$null | Out-Null
 
 Write-Host '[6/7] collect'
-if (Test-Path $outHtml) {
-    Copy-Item $outHtml $OutFile -Force
-    Write-Host ('OUT_OK bytes=' + (Get-Item $OutFile).Length)
+# The output filename is not necessarily out.html -- the model wrote index.html in one run.
+# Only looking for out.html reported a successful run as NO_OUT_HTML; keep this fallback.
+$cand = @('out.html', 'index.html') | ForEach-Object { Join-Path $TaskDir $_ } | Where-Object { Test-Path $_ }
+if (-not $cand) {
+    $cand = @(Get-ChildItem -Path $TaskDir -Filter '*.html' -File -ErrorAction SilentlyContinue |
+              Sort-Object Length -Descending | Select-Object -First 1 -ExpandProperty FullName)
+}
+if ($cand) {
+    $src = $cand[0]
+    Copy-Item $src $OutFile -Force
+    Write-Host ('OUT_OK src=' + (Split-Path $src -Leaf) + ' bytes=' + (Get-Item $OutFile).Length)
 } else {
-    Write-Host 'NO_OUT_HTML'
+    Write-Host 'NO_HTML_FOUND'
 }
 
 Write-Host '[7/7] removing deny'
