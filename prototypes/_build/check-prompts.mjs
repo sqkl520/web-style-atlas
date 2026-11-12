@@ -57,6 +57,16 @@ const MUTATIONS = {
     to: '$1"刻度每 60px 一道，主次分明"',
     expect: 'plain-not-human',
   },
+  /* 把 S34 的 minPics 从 0 改成 3 —— 复现 build-prompts 的 falsy-0 回退。
+   *
+   * 改完后的状态：prompts.js 说 3（于是提示词里会出现「至少要 3 个图片位置」），
+   * 而 minitems-parsed.json 记的实测值仍是 0。**这正是那个 `||` 造成的错位**：
+   * 生成器拿到 0 却写成了 3。断言应该报 minpics-mismatch。 */
+  'minpics-falsy-zero': {
+    from: /("id":\s*"S34"[^}]*?"minPics":\s*)0/,
+    to: '$1' + '3',
+    expect: 'minpics-falsy-zero',
+  },
 };
 const sandbox = { window: {} };
 new Function('window', promptsSrc)(sandbox.window);
@@ -339,6 +349,43 @@ for (const d of DIRS) {
     continue;
   }
   lens.push(text.length);
+
+  /* ── 0b. minPics 的提示词与实测必须一致（2026-11-12 加，D2）──────────
+   *
+   * 起因：`build-prompts.mjs:327` 原写 `(cap && cap.minPics) || h.minPics`。
+   * `0` 是 falsy，于是「实测 0 张图」被当成「没有实测值」，回退到人工估计 3。
+   * S34「石墨零图索引」因此拿到一句「至少要 3 个不同的图片位置」——
+   * 往一个刻意零图的设计里要求放 3 张图。而提示词本身读起来完全正常。
+   *
+   * 判据：提示词里的「至少要 N 个图片位置」那个 N，必须等于
+   * `minitems-parsed.json` 里该案的实测 minPics（0 时提示词应**没有**这句）。
+   * 这条能同时抓住三类错：
+   *   · falsy-0 回退（实测 0，提示词说 3）
+   *   · 生成器与解析器口径分叉
+   *   · 有人手改了 HUMAN 表却没重跑 */
+  {
+    const mpFile = join(ROOT, 'prototypes/_prompts/minitems-parsed.json');
+    let mpById = {};
+    try {
+      for (const x of JSON.parse(readFileSync(mpFile, 'utf8'))) mpById[x.id] = x.minPics;
+    } catch { /* 读不到就不查，下面不会产生假结论 */ }
+    const measured = mpById[id];
+    const m = text.match(/版式里至少要\s*(\d+)\s*个\*?\*?不同的\*?\*?图片位置/);
+    const claimed = m ? Number(m[1]) : null;
+    if (measured !== undefined) {
+      if (measured === 0 && claimed !== null) {
+        add('FAIL', id, 'minpics-falsy-zero',
+          `实测 minPics=0（零图设计）但提示词要求「至少 ${claimed} 个图片位置」——` +
+          '这是 build-prompts 的 falsy-0 回退，会要求模型往零图设计里放图');
+      } else if (measured > 0 && claimed === null) {
+        add('FAIL', id, 'minpics-missing-claim',
+          `实测 minPics=${measured} 但提示词里没有「至少要 N 个图片位置」这句 —— 模型不知道该放几张`);
+      } else if (claimed !== null && claimed !== measured) {
+        add('FAIL', id, 'minpics-mismatch',
+          `提示词说 ${claimed} 个图片位置，实测 minPics=${measured} —— 两处口径分叉`);
+      }
+    }
+  }
 
   /* ── 0. plain 非空且可读（2026-11-12 加，D1）─────────────────────────
    *
