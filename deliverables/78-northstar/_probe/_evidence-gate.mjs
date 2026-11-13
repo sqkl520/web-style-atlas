@@ -4,7 +4,7 @@
  * 或判别逻辑改坏，报告里的 64/64 就变成一句无源之谈，而没有任何东西会报错。
  * 这正是本仓库最老的病（闸门读不到数据也不报错）。
  *
- * 五条断言：
+ * 六条断言：
  *   A. 判别值总数 = 64，且每案 100% 命中
  *   B. 阴性对照：非对角线命中率 < 15%，且与对角线差 ≥ 5 倍
  *   C. 剔除「在别的产物里也出现过」的弱判别值后，干净判别值仍 100% 命中
@@ -21,8 +21,14 @@ const ROOT = resolve(HERE, '../../..');
 const BLIND = join(ROOT, 'deliverables/78-northstar/blind');
 const STAGED = join(ROOT, 'deliverables/78-northstar/_probe/_staged');
 
-const tokensOf = (txt) => {
-  const s = new Set();
+/* 证据链里"应该有产物"的案。写死而不是从文件推：
+ * 若从 _staged/ 现推，删掉一个产物之后分母跟着变小，闸门会安静地通过 ——
+ * 那正是这个仓库最老的病（读不到数据不报错）。
+ * 实测：删掉 S31 的两份产物后，diagN 从 64 掉到 61，只报"总数不符"，
+ * 看不出是"文件丢了"还是"该改常数"。所以这里要有第二份独立的期望。 */
+const DEFAULT_CASES = ['S04', 'S08', 'S13', 'S15', 'S18', 'S22', 'S29', 'S31', 'S32', 'S35', 'S99'];
+
+const tokensOf = (txt) => {  const s = new Set();
   for (const m of txt.matchAll(/#[0-9A-Fa-f]{6}/g)) s.add(m[0].toUpperCase());
   for (const m of txt.matchAll(/\b\d+(?:\.\d+)?(?:px|vw|fr|mm|%)\b/g)) s.add(m[0]);
   return s;
@@ -119,6 +125,19 @@ export function judge(r, opts = {}) {
   const expectTotal = opts.expectTotal ?? 64;
 
   if (r.diagN !== expectTotal) {
+    /* 分母变小有两种完全不同的原因，报错时必须分开 —— 否则下一个人看到
+     * 「总数 61，期望 64」会以为要改常数，而其实是**产物丢了**。
+     *   ① _staged/ 里少了某案的产物 → 这是证据链断裂，必须先恢复文件
+     *   ② 新增/删除了案 → 才轮到改 expectTotal
+     * 判据：拿「有产物的案数」与已知的 11 案比。 */
+    const missing = (opts.expectCases || DEFAULT_CASES).filter((id) => !r.withArt.includes(id));
+    const extra = r.withArt.filter((id) => !(opts.expectCases || DEFAULT_CASES).includes(id));
+    if (missing.length) {
+      f.push({ rule: 'A-CASES', level: 'FAIL', msg: `有产物的案少了 ${missing.length} 个: ${missing.join(' ')} —— _staged/ 里的产物丢了，先恢复文件，别改常数` });
+    }
+    if (extra.length) {
+      f.push({ rule: 'A-CASES', level: 'FAIL', msg: `出现了预期外的产物: ${extra.join(' ')} —— 若是新增案，需要更新 DEFAULT_CASES 与判别值统计` });
+    }
     f.push({ rule: 'A-TOTAL', level: 'FAIL', msg: `判别值总数 ${r.diagN}，期望 ${expectTotal}` });
   }
   if (diagRate < 1) {
@@ -161,6 +180,7 @@ if (isMain) {
       { name: '假装干净判别值少命中一个', run: () => judge({ ...base, cleanH: base.cleanH - 1 }), expect: 'C-CLEAN' },
       { name: '报告把 50 个 hex 写成 45', run: () => judge({ ...base }, { expectHex: 45 }), expect: 'D-HEX' },
       { name: 'hex 与数值之和对不上总数', run: () => judge({ ...base, numN: base.numN + 3 }), expect: 'D-SUM' },
+      { name: '删掉一个案的产物', run: () => judge({ ...base, withArt: base.withArt.filter((x) => x !== 'S31'), diagN: base.diagN - 3, diagH: base.diagH - 3 }), expect: 'A-CASES' },
       { name: '产物目录换成空的', run: () => judge(collect({ artDir: join(HERE, '_nonexistent') })), expect: null },
     ];
     let bad = 0;
@@ -197,7 +217,7 @@ if (isMain) {
 
   console.log('');
   if (f.length === 0) {
-    console.log('✓ 五条断言全部成立');
+    console.log('✓ 六条断言全部成立');
     process.exit(0);
   }
   for (const x of f) console.log(`${x.level === 'FAIL' ? '✗' : '⚠'} [${x.rule}] ${x.msg}`);

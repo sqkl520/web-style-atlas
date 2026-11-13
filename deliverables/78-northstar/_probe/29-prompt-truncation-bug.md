@@ -561,29 +561,34 @@ S32 的 118px                  ← 只有它有
 ### 11.5 这条结论怎么复验（三个脚本，几秒，不碰 claude）
 
 ```bash
-node deliverables/78-northstar/_probe/_evidence-gate.mjs            # 五条断言
+node deliverables/78-northstar/_probe/_evidence-gate.mjs            # 六条断言
 node deliverables/78-northstar/_probe/_evidence-gate.mjs --selftest # 证明闸门会响
 node deliverables/78-northstar/_probe/_discriminator-check.mjs      # 逐案 64/64
 node deliverables/78-northstar/_probe/_discriminator-crosscheck.mjs # 阴性对照矩阵
 node deliverables/78-northstar/_probe/_discriminator-semantic.mjs   # 语义位置
 ```
 
-`_evidence-gate.mjs` 的五条断言：
+`_evidence-gate.mjs` 的六条断言：
 
 | 断言 | 阈值 | 实测 |
 |---|---|---|
 | A. 判别值总数与逐案满分 | = 64 且 100% | 64/64 ✅ |
+| A′. 有产物的案数 = 11（写死，不从文件推） | 11 案 | ✅ |
 | B. 阴性对照非对角线 < 15%，且倍数 ≥ 5× | 4.2% / 23.7× | ✅ |
 | C. 干净判别值（零份无关产物含它）100% | 57/57 | ✅ |
 | D. 报告引用的 50 个 hex 与实测一致，且 hex+数值 = 64 | 50 + 14 | ✅ |
+
+A′ 单独存在的理由：分母变小有两种原因 —— **产物丢了** 还是 **该改常数**。
+只有 A 的话，删掉 S31 的两份文件只会报「总数 61，期望 64」，
+下一个人会以为要改常数，而真正要做的是恢复文件。实测过这个区别。
 
 **为什么需要这个闸门**：这三个数字原来只存在于本文和 `30-artifact-validity.md` 里。
 如果 `_staged/` 的产物被清理、或判别逻辑改坏，报告里的「64/64」就变成
 一句无源之谈，而**没有任何东西会报错** —— 这正是本仓库最老的病。
 产物已经在 git 里（`_staged/` 下 16 个文件，460 KB），所以这条证据是可永久复验的。
 
-自测证明它不是恒真：7 个变异（总数改成 65 / 对角线少 1 / 非对角线 50% /
-干净值少 1 / hex 数写成 45 / hex+数值对不上 / 产物目录换成空的）**全部让闸门响了**。
+自测证明它不是恒真：8 个变异（总数改成 65 / 对角线少 1 / 非对角线 50% /
+干净值少 1 / hex 数写成 45 / hex+数值对不上 / 删掉一个案的产物 / 产物目录换成空的）**全部让闸门响了**。
 
 > 这个闸门**没有**接进 `quarter.mjs`。那是产品链的季度体检，
 > 而这份证据属于研究线。接进去的后果是「有人清理研究产物 → 产品体检失败」，
