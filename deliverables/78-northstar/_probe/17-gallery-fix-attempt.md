@@ -140,3 +140,37 @@ S22  div#sheet.sheet 13 轨  1046 字
 ```
 
 任何改动都不能动这四个。
+
+---
+
+## 六、2026-11-14 补：这个缺陷的严重性比想的小，因为 `columns` 不进产品
+
+C9 闸门现在会把「`layoutKind=no-column-layout` 但 `columns>1` 且值来自 landmark」
+标成 WARN（5 条：S09 S13 S14 S16 S17）。看起来像个待修的缺陷。
+查了一遍下游，**它不是**：
+
+```
+$ grep -rn "\.columns\b" prototypes/_build/*.mjs prototypes/_prompts/*.mjs
+prototypes/_build/check-contract.mjs:263   ← 唯一消费者，就是 C9 自己
+
+$ grep -n "columns" prototypes/_build/collect-schemes.mjs
+（无输出）
+```
+
+`collect-schemes.mjs` 不读 `columns`，所以这个值**从来没有流进 `data.js` /
+`prompts.js`，也就没有流进店主拿到的提示词**。它唯一的存在方式就是让 C9 说出
+「这个 columns 不代表版式」。
+
+**这意味着 C9 的形态就是终态，不是欠债。** 它没有伪造一个可信值，
+而是把不可信的测量连同「为什么不可信」一起标出来 —— 这正是本仓库一直想要的
+那种闸门（读不到数据时说读不到，而不是打一个好看的数）。
+
+而 S33/S34/S35 那三案另有性质：它们的版心**本来就没有多栏**（真正的
+`no-column-layout`），所以「候选里页脚的字最多」是当前逻辑下的必然结果。
+C9 用 `columnsFrom === columnsInLandmark === "footer"` 把它们正确排除在外。
+
+**所以「修 probe.mjs 画廊判据」这件事的优先级应该下调**：它影响的是一个
+不进产品的中间值，而风险是 18/35 的选择变化 + 4 处退步。§四 的决定是对的。
+
+如果将来 `columns` 要进产品（比如用来生成「这个版式是几栏」的提示词），
+那么这五案必须先修 —— **那时**再回来看 §五.1。
