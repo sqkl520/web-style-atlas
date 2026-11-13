@@ -94,7 +94,14 @@ ARRAY JOIN (= what Start-Process passes):
 `Read` 返回的是全文。
 
 原文推测「这解释 S98 的 47,212 token 权衡和 S04/S13 的三次 cut off」——
-这条**没有验证过**，现在只保留为待查线索，不作为结论。
+这条**已查，不成立**（2026-11-14）。
+
+依据：S21 重跑时元指令**完整送达**（`_probe/_staged/S21-runner.log` 第一行就是
+整句 `-p "Read task.txt ... write out.html in a single Write call ..."`），
+它仍然陷入 **78,876 thinking token** 的长思考，87 分钟零 Write。
+所以长思考是这个案型的性质，不是传参 bug 造成的。
+
+完整数据：`_probe/34-s21-rerun.md`、`_probe/_staged/S21-thinking-stall.json`。
 
 > 这一条不影响「任务书本身」的可信度：十个案子都自己找到并读了 `task.txt`
 > （实测 `readTask.txt=true` 10/10）。所以**对提示词内容的测量仍然有效**，
