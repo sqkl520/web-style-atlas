@@ -220,6 +220,52 @@ for (const c of cases) {
   } else if (lk !== 'no-column-layout' && !s.layoutKindSelector) {
     add('FAIL', c.id, 'C7-selector-missing',
       `layoutKind=${lk} 但 layoutKindSelector 为空 —— 说有分栏却指不出容器，这个值不可用`);
+  } else if (lk !== 'no-column-layout' && /^\s*$/.test(String(s.layoutKindSelector || ''))) {
+    /* 红队 C7 的绕过之一：selector 写一个空格也算「非空」。 */
+    add('FAIL', c.id, 'C7-selector-blank',
+      `layoutKindSelector 是空白字符 —— 不算指得出容器`);
+  } else if (lk !== 'no-column-layout' && /footer|foot-|masthead|colophon|\bheader\b|\bnav\b|topbar|sidebar/i.test(String(s.layoutKindSelector || ''))) {
+    /* 红队 C7-b：selector 指向页脚/页头也算通过。但版心不长在 landmark 里 ——
+     * 这是本仓库用 measure.mjs 实测 13 案后确认的判据（有个案例外：S34 的版式
+     * 真的就是 <footer> 这个元素本身，所以只在 layoutKind 说「有分栏」时才判）。 */
+    add('FAIL', c.id, 'C7-selector-in-landmark',
+      `layoutKind=${lk} 但 selector 指向页头/页脚/导航（${s.layoutKindSelector}）——` +
+      '版心不长在 landmark 里；若该案确实如此，应在 layoutKindNote 里写明理由');
+  }
+  /* ── C9：「说没有分栏，但 columns 数出了一个像样的值」──────────────────
+   *
+   * 红队 C7-a 是最严重的一条：**今天的仓库数据就是错的，而 C7 报绿**。
+   * 实测 S13：layoutKind=no-column-layout、selector 空，
+   * 但 columns=2 且 columnsFrom=div.letterhead__top（页头）——
+   * 而 main.dossier 有 16 轨。C7 只校枚举值合法性，对这种「值自相矛盾」无感。
+   *
+   * 判据：layoutKind 说 no-column-layout 时，columns 应当 ≤1
+   * （或者 columns 来自 landmark，说明那个数不是版心的，可以接受）。
+   *
+   * ⚠️ 我第一版把后半句写成了 `!s.columnsInLandmark` —— 反了。
+   * 实测 S13 columnsInLandmark="header"、S17 = "footer"，两者**都非空**，
+   * 于是 `!非空` 为假，判据从不触发。又一个恒真式。
+   * 正确写法：columnsInLandmark **非空**才是可接受的理由。
+   *
+   * 现在的判据：lk=no-column-layout 且 columns>1 且**版心确实没量到**
+   * （即 columnsFrom 与 columnsInLandmark 指向同一个 landmark，那次测量不算数）。
+   * 这种情况说明这一案要么 layoutKind 错、要么 columns 错，数据自相矛盾。
+   *
+   * 用 WARN 不用 FAIL：S13/S17 现在就落在这条里，根因在 probe.mjs 的画廊判据
+   * （已记录在 _probe/17-gallery-fix-attempt.md，修它要全库重渲染）。
+   * 这条先把它暴露出来，不阻塞季度体检。
+   *
+   * 例外：S34 的版式**真的就是 <footer> 这个元素本身**（零图索引，无分栏）。
+   * 它 columnsFrom === columnsInLandmark === "footer"，是自洽的，
+   * 不是「版心没找到」。判据要能区分这两种情况。 */
+  const fromIsLandmark = String(s.columnsFrom || '') === String(s.columnsInLandmark || '')
+    || String(s.columnsFrom || '').includes(String(s.columnsInLandmark || '§none§'));
+  if (lk === 'no-column-layout' && typeof s.columns === 'number' && s.columns > 1
+      && s.columnsInLandmark && !fromIsLandmark) {
+    add('WARN', c.id, 'C9-no-layout-but-columns',
+      `layoutKind=no-column-layout，但 columns=${s.columns} 且是从 landmark 里量到的` +
+      `（columnsFrom=${s.columnsFrom}，landmark=${s.columnsInLandmark}）——` +
+      '说明版心没被找到，这个 columns 不代表版式。根因见 _probe/17-gallery-fix-attempt.md');
   }
 }
 
