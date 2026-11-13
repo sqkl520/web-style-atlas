@@ -122,7 +122,8 @@ window.STYLE_PROMPTS = {
     "S25"
    ],
    "near": [
-    "S07"
+    "S07",
+    "S34"
    ]
   },
   "展览": {
@@ -198,7 +199,8 @@ window.STYLE_PROMPTS = {
    "direct": [],
    "near": [
     "S29",
-    "S05"
+    "S05",
+    "S35"
    ]
   },
   "说明书": {
@@ -212,20 +214,24 @@ window.STYLE_PROMPTS = {
    "direct": [],
    "near": [
     "S14",
-    "S18"
+    "S18",
+    "S35"
    ]
   },
   "运维": {
    "direct": [],
    "near": [
-    "S18"
+    "S18",
+    "S35",
+    "S21"
    ]
   },
   "数据看板": {
    "direct": [],
    "near": [
     "S26",
-    "S03"
+    "S03",
+    "S35"
    ]
   },
   "档案": {
@@ -233,7 +239,8 @@ window.STYLE_PROMPTS = {
    "near": [
     "S07",
     "S11",
-    "S23"
+    "S23",
+    "S15"
    ]
   },
   "科普": {
@@ -246,14 +253,17 @@ window.STYLE_PROMPTS = {
   "教育": {
    "direct": [],
    "near": [
-    "S24"
+    "S24",
+    "S34"
    ]
   },
   "修鞋理发": {
    "direct": [
     "S09"
    ],
-   "near": []
+   "near": [
+    "S31"
+   ]
   },
   "小吃店": {
    "direct": [
@@ -273,7 +283,8 @@ window.STYLE_PROMPTS = {
    "direct": [],
    "near": [
     "S22",
-    "S19"
+    "S19",
+    "S32"
    ]
   },
   "民宿": {
@@ -294,7 +305,8 @@ window.STYLE_PROMPTS = {
    "direct": [],
    "near": [
     "S02",
-    "S08"
+    "S08",
+    "S32"
    ]
   },
   "健身": {
@@ -322,13 +334,15 @@ window.STYLE_PROMPTS = {
    "direct": [],
    "near": [
     "S13",
-    "S11"
+    "S11",
+    "S33"
    ]
   },
   "会计": {
    "direct": [],
    "near": [
-    "S17"
+    "S17",
+    "S33"
    ]
   },
   "招聘": {
