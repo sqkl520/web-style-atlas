@@ -645,6 +645,36 @@ function selectorClasses(sel) {
   return out;
 }
 
+/* 从 CSS 里收集所有 repeating-linear-gradient 的函数体，并带出它所在的 @media。
+ *
+ * 为什么复用 eachRule 而不是全文扫：全文扫拿不到 @media 归属，会把 S31 降级态
+ * （prefers-reduced-motion 里刻度一次性加粗到 2px）当成桌面线宽。
+ * 也不手写配对扫描：`var(--rule)` 里的括号会把 `/repeating-linear-gradient\(([^)]*)\)/`
+ * 提前截断（实测拿到 "var(--rule"）—— 那个坑这个仓库已经踩过。
+ *
+ * body 本身仍要按括号深度扫一遍，因为一个 rule body 里可能有多条 gradient
+ * （S31 的 `.ruler` 就是两条叠加）。 */
+function repeatingGradientBlocks(css) {
+  const out = [];
+  const tag = "repeating-linear-gradient(";
+  eachRule(css, function (sel, body, media) {
+    const lower = String(body || "").toLowerCase();
+    let at = lower.indexOf(tag);
+    while (at >= 0) {
+      let i = at + tag.length, depth = 1;
+      while (i < body.length && depth > 0) {
+        if (body[i] === "(") depth++;
+        else if (body[i] === ")") depth--;
+        if (depth === 0) break;
+        i++;
+      }
+      out.push({ body: body.slice(at + tag.length, i), media: media, selector: sel });
+      at = lower.indexOf(tag, i + 1);
+    }
+  });
+  return out;
+}
+
 function lineWidthVerdict(cleanCss, vars, htmlRaw, provenance) {
   const widths = new Set();
   /* 被排除的交互态取值单独留档：dna-clean.json 会存成 lineWidthsWhy，
@@ -833,6 +863,76 @@ function lineWidthVerdict(cleanCss, vars, htmlRaw, provenance) {
        * 但坐标误收的风险真实存在，所以只收 <= 24px 且带出处，让人能复核。 */
       note(x.n, x.how, "(index.html <script>)", null);
     }
+  }
+
+  /* ④ repeating-linear-gradient 里的线宽。
+   *
+   * 实测（2026-11-14）：S31 的刻度是用 background-image 画的，不是 border：
+   *   rawHtml/style.css:112-113
+   *     repeating-linear-gradient(to right, var(--rule) 0 1px, transparent 1px 12px),
+   *     repeating-linear-gradient(to right, var(--ink) 0 1.5px, transparent 1.5px 60px)
+   * 主刻度 1.5px、次刻度 1px 都只存在于渐变里，WIDTH_DECL_RE 一条都读不到，
+   * 于是 S31 的 lineWidths 只有「1px」（来自某条 border），第 5 条告诉 AI
+   * 「线宽只用 1px」—— 而这一页的签名正是那两级刻度。
+   *
+   * 判据：`<color> A B` 这种两个偏移紧挨着的色标，硬停区间 [A,B] 就是一条实线，
+   * 宽度 = B - A。只认 repeating-linear-gradient（它才有"每 N px 重复"的条纹语义），
+   * 普通 linear-gradient 的硬停是"大面积分层"（S23 用它做断面取色），不是线。
+   *
+   * ⚠️ 必须过 conditionApplies：S31 的 `@media (prefers-reduced-motion: reduce)`
+   *   里把刻度一次性加粗到 2px（`style.css:579-585`）。那是**降级态**，不是桌面版式
+   *   线宽。全文扫描不加这道判断会把 2px 收进来，于是提示词又对不上桌面实现 ——
+   *   与 `@media` 那段注释里写的口径（桌面视口 = 1440px，reduce 一律不算）一致。
+   *
+   * 刻意不做的事：
+   *   · 不解析角度/方向 —— 线宽与方向无关。
+   *   · 不认 `transparent A B` 那段 —— 那是间隙，不是线。
+   *   · 间隙 <= 8px 才算"线"：S31 的 60px 是刻度间距，不能当线宽。 */
+  for (const block of repeatingGradientBlocks(cleanCss)) {
+    if (block.media && !conditionApplies(block.media)) continue;
+    const body = resolveVars(block.body, vars, 0);
+      /* 拆色标：按逗号切，但要避开 rgb()/rgba() 里的逗号 */
+      const stops = [];
+      let depth = 0, cur = "";
+      for (const ch of body) {
+        if (ch === "(") depth++;
+        if (ch === ")") depth--;
+        if (ch === "," && depth === 0) { if (cur.trim()) stops.push(cur.trim()); cur = ""; continue; }
+        cur += ch;
+      }
+      if (cur.trim()) stops.push(cur.trim());
+      /* 每个色标 → { color, offsets: [n...] }
+       * ⚠️ 偏移可以是**不带单位**的 0（`#8A939C 0 1px`）。只匹配 /([0-9.]+)px/ 会把那个 0
+       * 吃掉，于是 `0 1px` 只剩一个偏移、`transparent 1px 12px` 反而被当成 11px 的线 ——
+       * 实测这么写时 S31 抽出一个凭空多出来的 11px，而真正的 1.5px 不见了。
+       * 所以按位置取：色标里**除颜色之外**的所有数字 token（带不带 px 都算）。
+       *
+       * ⚠️⚠️ 取颜色名时**不能**用 `s.replace(/([0-9.]+)(?:px)?/g,'')` —— 那会把 hex 里的
+       * 数字一起删掉（`#F2F0EC` → `#AC`，实测）。颜色是"第一个不是偏移的 token 之前的部分"，
+       * 用「先去掉偏移再 trim」就必须保护 hex。这里改成只删**带位置信息**的写法。 */
+      const parsed = stops.map(function (s) {
+        const offs = [];
+        for (const m of s.matchAll(/(^|\s)(-?[0-9.]+)(px)?(?=\s|$)/g)) {
+          if (m[3] === "px") offs.push(parseFloat(m[2]));
+          else if (parseFloat(m[2]) === 0) offs.push(0);
+        }
+        /* 颜色 = 去掉那些带边界的偏移 token 之后剩下的第一个词 */
+        const без = s.replace(/(^|\s)(-?[0-9.]+)(px)?(?=\s|$)/g, " ").replace(/\s+/g, " ").trim();
+        return { color: без.split(" ")[0] || "", offs: offs };
+      });
+      for (let i = 0; i < parsed.length; i++) {
+        const a = parsed[i];
+        /* 双偏移写法（A 0 1px）→ 线宽 = offs[1] - offs[0]。单偏移是同色延伸，不是硬停。
+         * ⚠️ `transparent 1px 12px` 是**间隙**，不是线 —— 不排掉的话 S31 会多出一个
+         * 11px 的"线宽"（12-1），而它其实是两次刻度之间的距离。 */
+        if (/^(?:transparent|none|currentcolor)$/i.test(a.color.replace(/\s+/g, ""))) continue;
+        if (a.offs.length >= 2) {
+          const w = round2(a.offs[1] - a.offs[0]);
+          if (w > 0 && w <= 8) {
+            note(w, "background-image: repeating-linear-gradient(… " + a.color + " " + a.offs[0] + "px " + a.offs[1] + "px …)", "(gradient)", null);
+          }
+        }
+      }
   }
 
   const list = [...widths].sort(function (a, b) { return a - b; });

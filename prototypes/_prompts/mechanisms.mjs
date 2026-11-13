@@ -34,8 +34,8 @@ export const MECHANISMS = {
     source: "style.css 的 .drawer-tab.t1/t2/t3 min-width 74/96/118px / .drawer.is-active 只展开当前通道 / .card 的 grid-template-columns 96px 1fr",
   },
   S31: {
-    text: "一条横向尺规把版面切成上中下三段：主刻度每 60px、长 34px、3px 宽，次刻度每 12px、长 12px、2px 宽，上下各一排共用两条贯穿基线——刻度既做读数骨架也顶掉图片的位置。",
-    source: "style.css:118 .ruler 的 repeating-linear-gradient（12px/60px 两层）/ 注释里的主刻度 34px 3px 与次刻度 12px 2px / assets/ruler-field.png 用同一组数生成",
+    text: "一条横向尺规把版面切成上中下三段：主刻度每 60px、长 34px、1.5px 宽，次刻度每 12px、长 12px、1px 宽，上下各一排共用两条贯穿基线——刻度既做读数骨架也顶掉图片的位置。",
+    source: "style.css:112-113 .ruler 的 repeating-linear-gradient（12px/60px 两层，线宽 1px 与 1.5px）/ 滚动后 .ruler.is-live 主刻度加粗到 2px（style.css:579）/ assets/ruler-field.png 用同一组数生成（实测刻度 1px、间距 12px）",
   },
   S11: {
     text: "章号悬挂在版心外 56px、正文压到 34 字行长，标题叠三层重影，横向错位 0.5 / 1.5 / 3px、第三层 12% 不透明——层级由错位量承担，位置交给悬挂编号。",

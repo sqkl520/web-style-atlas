@@ -341,6 +341,57 @@ function cssLineWidths(css) {
     if (w && +w[1] > 0 && +w[1] <= 40) out.add(parseFloat(w[1]));
   }
   // HTML 里的 stroke-width 属性也写在这个函数里读不到，交给 htmlLineWidths
+
+  /* repeating-linear-gradient 里的线宽。
+   * 2026-11-14：抽取器（clean-dna.mjs ④）补上 gradient 之后，S31 的提示词变成
+   * 「1px、1.5px」（真实值：次刻度 1px、主刻度 1.5px，都只在 gradient 里）。
+   * 而闸门这一侧还在只看 border/outline，于是报「1.5px 查不到」——
+   * **闸门与抽取器共享同一个盲点**，两边都"对"，其实都错。
+   * 这类错误的特征：修好被测对象之后，闸门反而变红。看到这种红，先怀疑闸门。
+   *
+   * 判据与抽取器一致：双偏移色标（`color A B`）的硬停区间就是一条线，宽度 B-A；
+   * 不看 transparent（那是间隙）；不断言 @media 归属（闸门只查存在性，
+   * 抽取器那边才需要判断桌面作用域）。 */
+  {
+    const lower = clean.toLowerCase();
+    const tag = "repeating-linear-gradient(";
+    let at = lower.indexOf(tag);
+    while (at >= 0) {
+      let i = at + tag.length, depth = 1;
+      while (i < clean.length && depth > 0) {
+        if (clean[i] === "(") depth++;
+        else if (clean[i] === ")") depth--;
+        if (depth === 0) break;
+        i++;
+      }
+      const body = resolveVars(clean.slice(at + tag.length, i), vars);
+      /* 按括号深度切色标 */
+      const stops = [];
+      let d = 0, cur = "";
+      for (const ch of body) {
+        if (ch === "(") d++;
+        if (ch === ")") d--;
+        if (ch === "," && d === 0) { if (cur.trim()) stops.push(cur.trim()); cur = ""; continue; }
+        cur += ch;
+      }
+      if (cur.trim()) stops.push(cur.trim());
+      for (const s of stops) {
+        /* 偏移：带 px 的，以及不带单位的 0（`color 0 1px`） */
+        const offs = [];
+        for (const m2 of s.matchAll(/(^|\s)(-?[0-9.]+)(px)?(?=\s|$)/g)) {
+          if (m2[3] === "px") offs.push(parseFloat(m2[2]));
+          else if (parseFloat(m2[2]) === 0) offs.push(0);
+        }
+        if (offs.length < 2) continue;
+        /* 颜色名：去掉偏移 token 后剩下的第一个词；transparent 是间隙 */
+        const name = s.replace(/(^|\s)(-?[0-9.]+)(px)?(?=\s|$)/g, " ").replace(/\s+/g, " ").trim().split(" ")[0] || "";
+        if (/^(transparent|none|currentcolor)$/i.test(name)) continue;
+        const w = offs[1] - offs[0];
+        if (w > 0 && w <= 8) out.add(Math.round(w * 100) / 100);
+      }
+      at = lower.indexOf(tag, i + 1);
+    }
+  }
   return [...out].sort((a, b) => a - b);
 }
 

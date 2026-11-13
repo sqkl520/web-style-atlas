@@ -1569,7 +1569,7 @@
       "drops": 0,
       "samples": []
     },
-    "lineWidths": "1px、1.5px、6px",
+    "lineWidths": "1px、1.5px、2px、6px",
     "lineWidthsWhy": [
       "1 ← outline: 1px solid var(--lime)（交互态）  ⓐ.flake.is-aligned::before,\n.flake:has(.plate:hover)::before",
       "1 ← border-bottom: 1px solid var(--oxide)（交互态）  ⓐ.flake.is-cut::after",
@@ -1578,7 +1578,9 @@
       "1.5 ← html stroke-width=\"1.5\"  ⓐ(index.html)",
       "1.5 ← html stroke-width=\"1.5\"  ⓐ(index.html)",
       "1.5 ← html stroke-width=\"1.5\"  ⓐ(index.html)",
-      "1.5 ← html stroke-width=\"1.5\"  ⓐ(index.html)"
+      "1.5 ← html stroke-width=\"1.5\"  ⓐ(index.html)",
+      "1 ← background-image: repeating-linear-gradient(… #E9E9D7 7px 8px …)  ⓐ(gradient)",
+      "2 ← background-image: repeating-linear-gradient(… var(--scr, 6px 8px …)  ⓐ(gradient)"
     ],
     "lineWidthsInteractive": [
       "1 ← outline: 1px solid var(--lime)  ⓐ.flake.is-aligned::before,\n.flake:has(.plate:hover)::before（这一级来自交互态：静态首屏看不到，但键盘聚焦/悬停时用户会看到）"
@@ -2138,7 +2140,7 @@
       "drops": 0,
       "samples": []
     },
-    "lineWidths": "1px",
+    "lineWidths": "1px、1.5px",
     "lineWidthsWhy": [
       "1 ← border-bottom: 1px solid var(--rule-strong)  ⓐ.head",
       "1 ← border-bottom: 1px solid var(--rule-strong)  ⓐ.ruler",
@@ -2164,7 +2166,9 @@
       "1 ← border-left: 1px solid var(--rule-strong)  ⓐ.visit-grid",
       "1 ← border-right: 1px solid var(--rule-strong)  ⓐ.visit-item",
       "1 ← border-bottom: 1px solid var(--rule-strong)  ⓐ.visit-item",
-      "1 ← border-top: 1px solid var(--rule-strong)  ⓐfooter"
+      "1 ← border-top: 1px solid var(--rule-strong)  ⓐfooter",
+      "1 ← background-image: repeating-linear-gradient(… #8A857C 0px 1px …)  ⓐ(gradient)",
+      "1.5 ← background-image: repeating-linear-gradient(… #F2F0EC 0px 1.5px …)  ⓐ(gradient)"
     ],
     "lineWidthsInteractive": [],
     "h1Size": "clamp(38px, 8.6vw, 104px)",
