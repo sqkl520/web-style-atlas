@@ -67,6 +67,14 @@ const MUTATIONS = {
     to: '$1' + '3',
     expect: 'minpics-falsy-zero',
   },
+  /* 把 S31 机制句里的全部尺寸数值删掉，只留文字描述 —— 复现负对照 B（S98）的形态。
+   * 那个实验里，同样的模型跑了 2 小时、44,788 thinking token，一个文件都没写。
+   * 这条断言就是要在生产提示词之前把这种形态拦下来。 */
+  'mech-no-measurable': {
+    from: /("mechanism":\s*)"[^"]*横向尺规[^"]*"/,
+    to: '"mechanism": "一条横向尺规把版面切成上中下三段，主刻度间隔宽、刻线长而粗，次刻度间隔窄、刻线短而细"',
+    expect: 'mech-no-measurable',
+  },
 };
 const sandbox = { window: {} };
 new Function('window', promptsSrc)(sandbox.window);
@@ -349,6 +357,37 @@ for (const d of DIRS) {
     continue;
   }
   lens.push(text.length);
+
+  /* ── 0c. 机制句必须含至少一个带单位的可测值（2026-11-13 加，D3）──────
+   *
+   * 起因是一个对照实验（deliverables/78-northstar/07-NEGATIVE-B.md）：
+   * 把 S31 提示词里的全部数值删掉、只保留文字描述（「主刻度的间隔宽、刻线长而粗」），
+   * 同一个模型、同样的环境，跑了 2 小时、44,788 thinking token，**一个文件都没写**。
+   *
+   * 而泛化的描述（「干净、现代、留白充足」）反而能做出 466 行 ——
+   * 说明失败形态不是「没数值」，而是「具体到需要精确值，却没给值」。
+   *
+   * 机制句是这些值的**唯一**承载体：实测 35 案里 33 案的可测值
+   * 只出现在机制句这一句话里，结构化字段（lineWidths / h1Size …）并不复述它们。
+   * 所以机制句一旦丢了数字，提示词会静默失效 —— 读起来完全正常，模型却做不出来。
+   *
+   * 判据：机制句里至少有一个「数字 + 单位」或「a:b」比例。
+   * 这条不判数字对不对（那是其他断言的事），只判「还有没有可测的东西」。 */
+  {
+    const mechM = text.match(/这个风格的签名动作：([^\n]*)/);
+    const body = mechM ? mechM[1] : '';
+    if (!body) {
+      add('FAIL', id, 'mech-missing', '提示词里找不到「这个风格的签名动作：」这一句');
+    } else {
+      const hasUnit = /\d+(?:\.\d+)?\s*(?:px|vw|fr|mm|%|deg|°)/.test(body);
+      const hasRatio = /\b\d+:\d+/.test(body);
+      if (!hasUnit && !hasRatio) {
+        add('FAIL', id, 'mech-no-measurable',
+          '机制句里一个带单位的可测值都没有 —— 这种「具体但无数值」的提示词会让模型卡住' +
+          '（实测：删掉数值后 2 小时零产物）。机制句：' + body.slice(0, 60));
+      }
+    }
+  }
 
   /* ── 0b. minPics 的提示词与实测必须一致（2026-11-12 加，D2）──────────
    *
