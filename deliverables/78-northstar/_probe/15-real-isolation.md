@@ -371,3 +371,54 @@ v5 的 `errors count: 0`，工具调用全部成功（`ls`、`Read task.txt`、`
 | 35 案批量 | ❌ 未做 |
 
 **所以「真隔离盲测」在单案上是成立的。** 下一步是批量，以及红队要求的负对照。
+
+---
+
+## 十二、两处判据缺陷（S99 报告指出，已修）
+
+### 12.1 `stderr.txt` 全程 0 字节 —— 错误信息一直是隐形的
+
+`Start-Process -RedirectStandardError $errLog` 会**独占**该文件句柄。
+之后再 `Add-Content -Path $errLog` 会静默失败，不报错。
+
+实测：`C:\tmp\bb\S31\stderr.txt` 整个运行过程 **0 字节**
+（对比 `S29/stderr.txt` 54 字节，那份是 Start-Process 自己写的）。
+
+**后果**：我调试了十几轮「为什么没产物」，而真正的错误信息可能一直在 stderr 里，
+只是写不进去。这也解释了为什么我看不到任何报错。
+
+**修法**：生命周期日志写到独立文件 `runner.log`，不要和被 redirect 的文件抢句柄。
+
+### 12.2 存活判据用错了对象
+
+我原来的等待循环：
+
+```powershell
+if (-not $hasOut -and $idle -ge 15) { break }   # stream 停了 15×20s = 5 分钟就判失败
+```
+
+这个判据有三个洞，S99 的报告逐个实测到了：
+
+| 洞 | 实测现象 |
+|---|---|
+| `stream.jsonl` 安静不等于结束 | S99 的 stream 冻在 13KB 五分钟，之后又产出 43,892 个 thinking token |
+| 计划任务的 `powershell.exe` wrapper 比 `claude.exe` 先退出 | 某次 900 秒就报 "exited"，而 `claude.exe` 还在跑 |
+| `stderr` 里自报的 PID 不可用 | 见 12.1，文件是空的 |
+
+**修法**：判据改成「**`claude.exe` 进程是否还活着**」，并且只统计本轮启动时间之后的进程
+（避免误判别的会话）。
+
+```powershell
+$alive = @(Get-Process claude -ErrorAction SilentlyContinue |
+           Where-Object { $_.StartTime -gt $script:startedAt }).Count
+if (-not $alive) { break }
+```
+
+### 12.3 这两条与本仓库的老病同源
+
+- 12.1 是「**读不到数据 → 不报错**」：stderr 写不进去，但没有任何提示，
+  于是我以为「没有错误」。
+- 12.2 是「**量错了对象**」：我量的是「文件安静程度」和「wrapper 进程」，
+  而不是「真正干活的那个进程」。
+
+两次都是同一句话：**判据看到的东西 ≠ 实际发生的事。**

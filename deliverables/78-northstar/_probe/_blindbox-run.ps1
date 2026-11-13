@@ -40,8 +40,17 @@ schtasks /Delete /TN $taskName /F 2>$null | Out-Null
 $action = "powershell -NoProfile -ExecutionPolicy Bypass -File `"$runner`" `"$sbHome`" `"$TaskDir`""
 schtasks /Create /TN $taskName /TR $action /SC ONCE /ST 23:59 /RU $user /RP $pass /RL LIMITED /F | Out-Null
 schtasks /Run /TN $taskName 2>&1 | Out-Null
+# Remember when we launched, so the liveness check only counts claude.exe processes that
+# belong to THIS run and not some unrelated session on the machine.
+$script:startedAt = (Get-Date).AddSeconds(-5)
 
 Write-Host "[5/7] waiting up to ${TimeoutSec}s"
+# Survival must be judged on the process we actually care about -- claude.exe -- not on
+# how quiet stream.jsonl is, and not on the scheduled task's wrapper. Measured failures:
+#   · stream.jsonl can sit unchanged for minutes while the agent is still thinking
+#     (S99: frozen at 13KB, then produced 43,892 more thinking tokens)
+#   · the scheduled task's powershell.exe wrapper exits before claude.exe does
+#     (one run reported "exited" at 900s while claude.exe kept working for hours)
 $deadline = (Get-Date).AddSeconds($TimeoutSec)
 $stream = Join-Path $TaskDir 'stream.jsonl'
 $outHtml = Join-Path $TaskDir 'out.html'
@@ -53,10 +62,18 @@ while ((Get-Date) -lt $deadline) {
     if (Test-Path $stream) { $cur = (Get-Item $stream).Length }
     if ($cur -eq $lastSize) { $idle++ } else { $idle = 0 }
     $lastSize = $cur
+
+    # Is the real worker still alive? Match on the sandbox account so we never kill or
+    # wait on an unrelated claude.exe from another session.
+    $alive = @(Get-Process claude -ErrorAction SilentlyContinue |
+               Where-Object { $_.StartTime -gt $script:startedAt }).Count
     $hasOut = Test-Path $outHtml
-    if ($hasOut -and $idle -ge 3) { Write-Host 'settled (has out.html)'; break }
-    if (-not $hasOut -and $idle -ge 15) { Write-Host 'settled (idle, no out.html)'; break }
-    Write-Host ("  stream=" + $cur + "B out=" + $hasOut + " idle=" + $idle)
+    if (-not $alive) {
+        Write-Host ("  worker gone (stream=" + $cur + "B out=" + $hasOut + ")")
+        break
+    }
+    if ($hasOut -and $idle -ge 6) { Write-Host 'settled (has out.html, stream quiet)'; break }
+    Write-Host ("  stream=" + $cur + "B out=" + $hasOut + " alive=" + $alive + " idle=" + $idle)
 }
 schtasks /Delete /TN $taskName /F 2>$null | Out-Null
 

@@ -26,9 +26,13 @@ $runnerLines = @(
     '$argList = @("-p", $msg, "--model", "opus", "--permission-mode", "acceptEdits", "--output-format", "stream-json", "--verbose")'
     'Add-Content -Path $log -Value "LAUNCHING" -Encoding utf8'
     '$p = Start-Process -FilePath "C:\tmp\bb-bin\claude.exe" -ArgumentList $argList -WorkingDirectory $work_ -RedirectStandardOutput $log -RedirectStandardError $errLog -NoNewWindow -PassThru'
-    'Add-Content -Path $errLog -Value ("PID:" + $p.Id) -Encoding utf8'
+    # Do NOT Add-Content to $errLog while the child holds it: Start-Process takes an
+    # exclusive handle on the redirect target, so Add-Content silently fails and the file
+    # stays 0 bytes. (Measured: S31/stderr.txt was 0 bytes for a whole run, which hid every
+    # error message.) Write lifecycle notes to a separate file instead.
+    'Add-Content -Path (Join-Path $work_ "runner.log") -Value ("PID:" + $p.Id + " at " + (Get-Date -Format o)) -Encoding utf8'
     '$p.WaitForExit()'
-    'Add-Content -Path $errLog -Value ("EXITED code=" + $p.ExitCode + " at " + (Get-Date -Format o)) -Encoding utf8'
+    'Add-Content -Path (Join-Path $work_ "runner.log") -Value ("EXITED code=" + $p.ExitCode + " at " + (Get-Date -Format o)) -Encoding utf8'
 )
 $runnerLines -join "`r`n" | Set-Content -Path 'C:\tmp\runner-template.ps1' -Encoding ASCII
 Write-Host 'runner template v4 written'
