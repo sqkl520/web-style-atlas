@@ -49,10 +49,11 @@ $taskName = 'BlindBox_' + ([guid]::NewGuid().ToString('N').Substring(0,6))
 schtasks /Delete /TN $taskName /F 2>$null | Out-Null
 $action = "powershell -NoProfile -ExecutionPolicy Bypass -File `"$runner`" `"$sbHome`" `"$TaskDir`""
 schtasks /Create /TN $taskName /TR $action /SC ONCE /ST 23:59 /RU $user /RP $pass /RL LIMITED /F | Out-Null
+# Capture the baseline BEFORE launching. Liveness is "how many claude.exe now vs then",
+# which works across user accounts; filtering by StartTime does not, because Get-Process
+# cannot read another user's StartTime without elevation (see the wait loop).
+$script:baselineProcs = @(Get-Process claude -ErrorAction SilentlyContinue).Count
 schtasks /Run /TN $taskName 2>&1 | Out-Null
-# Remember when we launched, so the liveness check only counts claude.exe processes that
-# belong to THIS run and not some unrelated session on the machine.
-$script:startedAt = (Get-Date).AddSeconds(-5)
 
 Write-Host "[5/7] waiting up to ${TimeoutSec}s"
 # Survival must be judged on the process we actually care about -- claude.exe -- not on
@@ -73,17 +74,23 @@ while ((Get-Date) -lt $deadline) {
     if ($cur -eq $lastSize) { $idle++ } else { $idle = 0 }
     $lastSize = $cur
 
-    # Is the real worker still alive? Match on the sandbox account so we never kill or
-    # wait on an unrelated claude.exe from another session.
-    $alive = @(Get-Process claude -ErrorAction SilentlyContinue |
-               Where-Object { $_.StartTime -gt $script:startedAt }).Count
+    # Is the real worker still alive?
+    #
+    # ⚠️ Do NOT filter by StartTime here. The sandbox runs as a different Windows account,
+    # and Get-Process cannot read another user's StartTime without elevation -- the filter
+    # silently matched nothing and the runner declared "worker gone" after 204s while the
+    # agent kept working for two more hours (S98: reported 204s, actually ran 25,768 lines).
+    # Match on the process name only, and require that at least one claude.exe exists that
+    # we did not have before the run started.
+    $now = @(Get-Process claude -ErrorAction SilentlyContinue).Count
+    $alive = $now -gt $script:baselineProcs
     $hasOut = Test-Path $outHtml
     if (-not $alive) {
-        Write-Host ("  worker gone (stream=" + $cur + "B out=" + $hasOut + ")")
+        Write-Host ("  worker gone (procs " + $now + " <= baseline " + $script:baselineProcs + ", stream=" + $cur + "B out=" + $hasOut + ")")
         break
     }
     if ($hasOut -and $idle -ge 6) { Write-Host 'settled (has out.html, stream quiet)'; break }
-    Write-Host ("  stream=" + $cur + "B out=" + $hasOut + " alive=" + $alive + " idle=" + $idle)
+    Write-Host ("  stream=" + $cur + "B out=" + $hasOut + " procs=" + $now + " idle=" + $idle)
 }
 schtasks /Delete /TN $taskName /F 2>$null | Out-Null
 
