@@ -219,3 +219,84 @@ Start-Process -FilePath powershell -ArgumentList $argLineB ...
 `_probe/_argprobe.ps1`，纯 ASCII，跑一次几秒钟，不涉及 claude、不涉及沙箱。
 
 如果以后有人改传参，先跑它。
+
+---
+
+## 九、更正：模型通过读 `_run.ps1` 把元指令补了回来
+
+§一 到 §七 我写的「模型从未收到任务书」**是错的**。取证 Agent 用 S99 的完整 stream
+（13.7 MB，还在 `_probe/_s99-stream-final.jsonl`）证明了两条通道都通了。
+
+### 9.1 模型自己的话（S99 的 thinking 原文）
+
+> Let me look at the other files briefly to understand context.
+> The task: The user wants me to read task.txt and write out.html. Wait — the system prompt
+> here says "Read" only. The actual user message is "Read" — hmm, actually the human turn
+> says just "Read". **But the `_run.ps1` script indicates the message should be
+> "Read task.txt in this directory, then write the finished page to out.html with the Write tool…"**
+> Actually the human turn content is "Read". Hmm, that's ambiguous. But the environment is a
+> benchmark harness. **The intent is clear: read task.txt and produce out.html.**
+
+**它发现 argv 丢了 prompt，然后主动去读 `_run.ps1` 把指令找了回来，并判定「intent is clear」。**
+
+### 9.2 行为证据：28 次写操作全部指向 out.html
+
+```
+$ node …统计 S99 的 tool_use…
+读 _run.ps1 的次数: 1
+写操作次数: 28
+写入目标: "C:\tmp\bb\S99\out.html"（28/28 零例外）
+```
+
+**所以「没收到写 out.html」这条不成立** —— 它收到了，还照做了 28 次。
+
+同理「没收到别过度分析」也不成立（`$msg` 里那句话也在 `_run.ps1` 里）。
+
+### 9.3 那 S31 为什么写 index.html
+
+取证 Agent 查清了：**S31 没有读 `_run.ps1`。**
+
+所以「S31 写 index.html」的原因是「它没去读那个文件」，
+不是「提示词没告诉它写 out.html」。**两件事被我合成了一件。**
+
+### 9.4 正确的结论
+
+| 我原先写的 | 实际 |
+|---|---|
+| 模型从未收到任务书 | ❌ 错。产品提示词（`task.txt`）与元指令（`_run.ps1`）都到了 |
+| 13 个盲测全部作废 | ❌ 错。分类型：内容类有效 12/12，行为类与模型能力类作废 |
+| 产物不是按提示词做的 | ❌ 错。是按提示词做的，只是送达路径不是标准对话通道 |
+
+**准确的说法**：
+
+> 产品提示词与元指令都完整到达了模型，只是元指令走的是「读文件」这条绕道，
+> 不是标准对话通道。`Read` 返回的就是全文，与店主粘进 ChatGPT 的文字没有区别。
+>
+> 受影响的不是「内容」，是「行为」：没有标准 user turn、没有目标路径提示、
+> 没有「别过度分析」压着 —— 所以**耗时、卡不卡、想多久这些结论不可用**。
+
+### 9.5 「argv 丢 prompt」这个 bug 本身仍然是真的
+
+§八 的 argv 复现（argc=11 vs argc=4）没有错。错的是我**从它推出了过大的结论**。
+
+bug 的后果是「元指令不经过对话通道」，而不是「指令没送达」。
+
+### 9.6 这是我第几次同类错误
+
+第九次。前八次是「读了一个信号，误判成缺陷」。这次是：
+**拿到了一个真实的 bug（argv 确实被拆了），然后推断出一个夸大的后果（指令没送达）。**
+
+规则补充：**发现 bug 之后，要验证它的实际后果，不要从机制推后果。**
+这个 bug 的机制是「argv 被拆」，我推的后果是「指令没送达」，
+而实际后果是「模型绕道读了回来」—— 中间那一步我没有验证。
+
+### 9.7 唯一真正作废的那一类
+
+取证 Agent 指出一条我自己没想到的：**沙箱测的是 agent 路径，不是店主聊天路径。**
+
+沙箱里的模型会 `Glob` 找文件、自己推路径、`Edit` 自纠 24 次。
+而店主是把提示词粘进 ChatGPT —— 那条路上没有工具、没有自纠。
+
+**所以这批数据对 Cursor/v0 这类 agent 路径有效，对纯聊天路径证明不了什么。**
+
+这是比「argv bug」更根本的一条限制。
