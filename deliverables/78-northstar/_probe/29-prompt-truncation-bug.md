@@ -155,3 +155,67 @@ node -e "…读 C:/tmp/bb-home/.claude/projects/C--tmp-<案>/… 的 content…"
 
 **需要你决定的是**：重跑十案（约 10 小时 × 案数，且要错峰到凌晨避开 524），
 还是先把这条线挂起、转去做别的（比如 `probe.mjs` 的画廊判据、内容层不稳定的问题）。
+
+---
+
+## 八、最小复现：不是推测，是子进程实际收到的 argv
+
+有人（包括我自己）会怀疑「PowerShell 真的会拆吗」。写了个只打印 argv 的子进程来验：
+
+```powershell
+$msg = 'Read task.txt in this directory then write out.html'
+
+# A: 数组形式（旧运行器的写法）
+$argListA = @('-NoProfile','-File',$echoer,'-p',$msg,'--model','opus')
+Start-Process -FilePath powershell -ArgumentList $argListA ...
+
+# B: 拼成带引号的字符串（新写法）
+$argLineB = '-NoProfile -File "' + $echoer + '" -p "' + $msg + '" --model opus'
+Start-Process -FilePath powershell -ArgumentList $argLineB ...
+```
+
+子进程实际收到的：
+
+```
+=== A) ArgumentList as ARRAY (old style) ===
+  argc=11
+  argv[0]=-p
+  argv[1]=Read              ← 只有这一个词是 prompt
+  argv[2]=task.txt
+  argv[3]=in
+  argv[4]=this
+  argv[5]=directory
+  argv[6]=then
+  argv[7]=write
+  argv[8]=out.html
+  argv[9]=--model
+  argv[10]=opus
+
+=== B) ArgumentList as STRING with quotes (new style) ===
+  argc=4
+  argv[0]=-p
+  argv[1]=Read task.txt in this directory then write out.html   ← 完整
+  argv[2]=--model
+  argv[3]=opus
+```
+
+**A 里 `-p` 后面散成了 8 个独立参数。** `claude` 取第一个词当 prompt，
+`task.txt` / `in` / `this` / ... 全被当成无法识别的位置参数丢掉。
+
+而 `--model opus` 因为不含空格，两种写法都能正确传过去 ——
+这也解释了为什么「模型参数看起来是生效的」，从而掩盖了 prompt 的问题。
+
+### 8.1 这条复现为什么重要
+
+在前面的诊断里，我用的证据是「会话记录 `lastPrompt: "Read"`」和「模型说 The user just said "Read"」。
+那两条是**间接**的 —— 有可能被解释成别的意思（比如 lastPrompt 记录的是最后一个工具名）。
+
+**argv 复现是直接的**：子进程亲口告诉你它收到了什么。
+
+规则：**能拿到直接证据时，不要停在间接证据上。**
+
+### 8.2 复现脚本
+
+`_probe/_argprobe.ps1`，纯 ASCII，跑一次几秒钟，不涉及 claude、不涉及沙箱。
+
+如果以后有人改传参，先跑它。
