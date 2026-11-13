@@ -89,6 +89,18 @@ for (const id of ids) {
 
   const gotHex = new Set((g.hexes || []).map((h) => h.toUpperCase()));
   const missHex = claims ? [...claims.hexes].filter((h) => !gotHex.has(h)) : [];
+  /* 反向也查：产物用了提示词没给的色。
+   *
+   * 这条是复现性 Agent 抓出来的假绿：原实现只看「提示词给的色是否都出现」，
+   * 不看「产物是否多用了未声明的色」。它构造的例子是 S15-oldverify 多加了 6 个
+   * 未声明的 hex，仍然得 4/4「全中」。
+   *
+   * 为什么它算缺陷：提示词明写「配色只用这几个值。不新增更多彩色」，
+   * 多用色就是没照做。只看单向会把这个漏掉。
+   *
+   * 注意区分严重度：少用色是「没执行到位」，多用色是「违反了明确禁令」。
+   * 两者都记，但 extraHex 单独一列，不混进「全中」的计数里。 */
+  const extraHex = claims ? [...gotHex].filter((h) => !claims.hexes.has(h)) : [];
 
   const gotLW = new Set((g.borderWidths || []).map((x) => parseFloat(x)));
   const missLW = claims ? claims.lineWidths.filter((n) => {
@@ -110,6 +122,7 @@ for (const id of ids) {
     id, lk,
     hex: claims ? `${claims.hexes.size - missHex.length}/${claims.hexes.size}` : '?',
     missHex,
+    extraHex,
     lw: claims && claims.lineWidths.length ? `${claims.lineWidths.length - missLW.length}/${claims.lineWidths.length}` : '?',
     missLW,
     hr: claims?.ratio ?? null, gotHr: g.headBodyRatio,
@@ -143,6 +156,8 @@ if (good.length) {
   const hrTotal = good.filter((r) => r.hrOk !== null).length;
   const picGood = good.filter((r) => r.picturesOk === true).length;
   console.log(`  配色全中:   ${hexFull}/${good.length}`);
+  const extraClean = good.filter((r) => (r.extraHex || []).length === 0).length;
+  console.log(`  配色未超用: ${extraClean}/${good.length}   ← 提示词写「不新增更多彩色」`);
   console.log(`  线宽全中:   ${lwFull}/${good.length}`);
   console.log(`  字号比达标: ${hrGood}/${hrTotal}`);
   console.log(`  图片数达标: ${picGood}/${good.length}`);
@@ -155,6 +170,18 @@ if (detail.length) {
     if (r.missHex.length) console.log(`  ${r.id} 缺色: ${r.missHex.join(' ')}`);
     if (r.missLW.length) console.log(`  ${r.id} 缺线宽: ${r.missLW.join(' ')}`);
   }
+}
+
+/* 超用色单独一节：它违反的是「不新增更多彩色」这条明确禁令，
+ * 与「少用色」不是一个性质，不能混进上面那张缺口表。 */
+const overuse = good.filter((r) => (r.extraHex || []).length > 0);
+if (overuse.length) {
+  console.log('\n=== 超用色（产物用了提示词没给的色）===');
+  for (const r of overuse) {
+    console.log(`  ${r.id} 多出 ${r.extraHex.length} 个: ${r.extraHex.join(' ')}`);
+  }
+} else {
+  console.log('\n=== 超用色 ===\n  无 —— 十案都只用了提示词给的色。');
 }
 
 process.exit(0);

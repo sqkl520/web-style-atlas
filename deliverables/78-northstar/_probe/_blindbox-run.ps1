@@ -18,6 +18,18 @@ $repo = 'D:\Web\style'
 $sbHome = 'C:\tmp\bb-home'
 
 Write-Host '[1/7] preparing sandbox HOME'
+# Wipe this run's logs first. Claude Code appends to stream.jsonl, so re-running a case
+# without clearing it concatenates two sessions into one file. Measured after the fact:
+#   S31  22.7% NUL bytes, 2 session_ids
+#   S18  41.0% NUL bytes, 2 session_ids
+#   S29   1.9% NUL bytes, 2 session_ids
+# Those three are the only ones where the recorded tool calls no longer explain the
+# artifact (S31 shows zero Write calls despite a complete 399-line page). The batch
+# script already removes the whole task dir per case; this covers direct single runs.
+foreach ($f in @('stream.jsonl', 'stderr.txt', 'runner.log', 'out.html', 'index.html')) {
+    $p = Join-Path $TaskDir $f
+    if (Test-Path $p) { Remove-Item $p -Force -ErrorAction SilentlyContinue }
+}
 if (-not (Test-Path "$sbHome\.claude")) { New-Item -ItemType Directory -Path "$sbHome\.claude" -Force | Out-Null }
 Copy-Item 'C:\Users\Administrator\.claude\settings.json' "$sbHome\.claude\settings.json" -Force
 Copy-Item 'C:\Users\Administrator\.claude.json' "$sbHome\.claude.json" -Force

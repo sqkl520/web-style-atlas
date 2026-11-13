@@ -451,11 +451,70 @@ export async function measure(file, { viewport = { width: 1440, height: 900 } } 
       };
       document.querySelectorAll('body, body *').forEach((el) => {
         const cs = getComputedStyle(el);
-        for (const prop of ['color', 'backgroundColor', 'borderTopColor', 'borderBottomColor', 'outlineColor', 'fill', 'stroke']) {
-          const h = rgbToHex(cs[prop]);
-          if (h && h !== '#000000' || (h === '#000000' && cs[prop] === 'rgb(0, 0, 0)')) {
-            if (h) hexes.add(h);
+        /* fill / stroke 只对 SVG 元素有意义。
+         *
+         * 实测（_trace-black.mjs）：在普通 HTML 元素上，getComputedStyle(el).fill
+         * 返回初始值 rgb(0, 0, 0) —— 一个页面 286 次、全部来自 fill、
+         * 全部 hasRule:null（没有任何 CSS 规则声明过它）。
+         * 那不是设计色，是 CSS 规范的初始值。
+         *
+         * 原实现把所有元素的 fill 都收进去，于是每个产物都被加进一个 #000000，
+         * 十案对账时被双向配色判据抓成「超用色 10/10」—— 假阳性，
+         * 源头在度量器不在模型。 */
+        const isSvg = el.namespaceURI === 'http://www.w3.org/2000/svg';
+        const props = ['color', 'backgroundColor', 'borderTopColor', 'borderBottomColor', 'outlineColor'];
+        if (isSvg) props.push('fill', 'stroke');
+        for (const prop of props) {
+          const raw = cs[prop];
+          const h = rgbToHex(raw);
+          if (!h) continue;
+          /* 排除浏览器默认值带来的假色。
+           *
+           * 原写法是 (h && h !== '#000000') || (h === '#000000' && raw === 'rgb(0, 0, 0)')。
+           * 按优先级 && 先于 ||，第二个分支**恒为真** —— h 是 #000000 时 raw 必然是 rgb(0, 0, 0)。
+           * 于是「排除黑色」的意图完全没实现，每个页面都被加进一个 #000000。
+           *
+           * 实测后果：十案对账时十个产物全部多出 #000000，
+           * 被双向配色判据抓成「超用色 10/10」—— 假阳性，源头在这里不在产物。
+           *
+           * 真正要排除的是**继承来的默认色**，不是黑色本身：
+           * 一个页面完全可以刻意声明 color:#000。所以判据不能用颜色值。
+           * 简化判据：transparent 与完全透明排除，其余（含真·黑色）保留 ——
+           * 原型里 #1A1614 这类近黑是设计色，纯黑若真被用了是模型的选择，该记下来。 */
+          /* SVG 内部的 rect/path 若没显式设 fill，getComputedStyle 也回 rgb(0,0,0)。
+           * 实测 S04：1 个 <svg>，其子元素同样带出假黑。
+           * 判据与上面同理 —— 只有**显式声明过**才算设计色，三种形式：
+           *   内联 style / presentation attribute（fill="..."）/ 匹配到的 CSS 规则。 */
+          if (isSvg && (prop === 'fill' || prop === 'stroke')) {
+            const inlineDecl = el.style && el.style.getPropertyValue(prop);
+            const attrDecl = el.getAttribute && el.getAttribute(prop);
+            let ruleDecl = false;
+            if (!inlineDecl && !attrDecl) {
+              for (const sheet of Array.from(document.styleSheets)) {
+                let rules; try { rules = sheet.cssRules; } catch { continue; }
+                for (const rule of Array.from(rules)) {
+                  if (!rule.selectorText || !rule.style || !rule.style[prop]) continue;
+                  try { if (el.matches(rule.selectorText)) { ruleDecl = true; break; } } catch { /* 无效选择器 */ }
+                }
+                if (ruleDecl) break;
+              }
+            }
+            if (!inlineDecl && !attrDecl && !ruleDecl) continue;
           }
+          if (raw === 'rgba(0, 0, 0, 0)' || raw === 'transparent') continue;
+          /* 表单控件的颜色是浏览器 UA 样式给的，不是作者的选择。
+           *
+           * 实测 S32：3 个 input.ch-in 带出 rgb(0,0,0) 的 color / border / outline，
+           * 而 CSS 里只有 .ch-in 声明了 border 宽度、没声明颜色 ——
+           * 于是浏览器给默认黑。整页其余部分都是紫色系，这一处黑是漏设样式，
+           * 但把它算成「配色超用」会让判据失真：它既不是设计色，也不是明确的违规。
+           *
+           * 只对表单元件的 color / border*Color / outlineColor 放宽；
+           * backgroundColor 仍然收（作者若真设了黑底，那是设计选择）。 */
+          const isFormControl = /^(INPUT|TEXTAREA|SELECT|BUTTON|OPTION)$/.test(el.tagName)
+            && prop !== 'backgroundColor';
+          if (isFormControl && raw === 'rgb(0, 0, 0)') continue;
+          hexes.add(h);
         }
       });
 
