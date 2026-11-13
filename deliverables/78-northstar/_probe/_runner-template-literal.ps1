@@ -1,3 +1,20 @@
+# ============================================================================
+#  CURRENT RUNNER TEMPLATE -- the only one in use.
+#
+#  _make-runner.ps1 copies this to C:\tmp\runner-template.ps1, and
+#  _blindbox-run.ps1 uses that copy to generate each run's _run.ps1.
+#
+#  Change argument passing ONLY in this file. After changing it, run:
+#      powershell -File deliverables/78-northstar/_probe/_argprobe.ps1
+#  which prints the argv the child process actually received. That is the only
+#  direct proof that the prompt was not split on its spaces.
+#      node deliverables/78-northstar/_probe/_evidence-gate.mjs --selftest
+#  proves the blind-test evidence gate still fires.
+#
+#  NOTE: keep this file ASCII-only. PowerShell 5.1 reads BOM-less files as the
+#  system codepage (GBK here) and Chinese comments break parsing -- that is
+#  exactly what happened to _runner-template2.ps1 (historical, see its header).
+# ============================================================================
 $ProgressPreference = "SilentlyContinue"
 $ErrorActionPreference = "Continue"
 $home_ = $args[0]

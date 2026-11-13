@@ -1,3 +1,16 @@
+﻿# ============================================================================
+#  ⚠️  这是历史版本，不是当前模板。
+#
+#  当前模板：_runner-template-literal.ps1（由 _make-runner.ps1 复制到
+#            C:\tmp\runner-template.ps1，_blindbox-run.ps1 用它）
+#
+#  这份 _runner-template2.ps1 只被 _blindbox-run5.ps1 引用，那是探索期的旧驱动。
+#  两者在「传参」这个关键点上已经等价（都用 Quote-Arg 拼单一命令行，都不走数组），
+#  差别只在：这份多了 agent.pid 落盘、注释是中文简版。
+#
+#  保留原因：_blindbox-run5.ps1 还能跑，删了它会静默失效。
+#  不要用它做新工作 —— 改传参时只改 literal 那一份，改完跑 _argprobe.ps1 验。
+# ============================================================================
 $ProgressPreference = "SilentlyContinue"
 $ErrorActionPreference = "Continue"
 $home_ = $args[0]
