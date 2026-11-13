@@ -21,9 +21,19 @@ Write-Host '[1/7] preparing sandbox HOME'
 if (-not (Test-Path "$sbHome\.claude")) { New-Item -ItemType Directory -Path "$sbHome\.claude" -Force | Out-Null }
 Copy-Item 'C:\Users\Administrator\.claude\settings.json' "$sbHome\.claude\settings.json" -Force
 Copy-Item 'C:\Users\Administrator\.claude.json' "$sbHome\.claude.json" -Force
+# Wipe per-project transcripts before every run.
+# Claude Code writes a full .jsonl transcript per session under
+#   <HOME>\.claude\projects\C--tmp-bb-<id>\
+# so after a few runs that tree holds the COMPLETE conversation of every earlier case,
+# including their answers. The agent can `Read` them (it already probes for MEMORY.md).
+# That is a real leak even though the repo itself is ACL-denied.
+$projRoot = Join-Path $sbHome '.claude\projects'
+if (Test-Path $projRoot) { Remove-Item $projRoot -Recurse -Force -ErrorAction SilentlyContinue }
+New-Item -ItemType Directory -Path $projRoot -Force | Out-Null
 icacls $sbHome /grant "${user}:(OI)(CI)(M)" /T | Out-Null
 icacls $TaskDir /grant "${user}:(OI)(CI)(M)" /T | Out-Null
-# claude.exe 必须放在沙箱用户读得到的地方；Administrator 的 .local\bin 对它不可读（实测 PATH_TEST:False）
+# claude.exe must live where the sandbox user can read it; Administrator's .local\bin
+# is not readable by it (measured PATH_TEST:False).
 icacls 'C:\tmp\bb-bin' /grant "${user}:(OI)(CI)(RX)" /T | Out-Null
 
 Write-Host '[2/7] copying runner template'

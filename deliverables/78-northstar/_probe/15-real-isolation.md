@@ -422,3 +422,124 @@ if (-not $alive) { break }
   而不是「真正干活的那个进程」。
 
 两次都是同一句话：**判据看到的东西 ≠ 实际发生的事。**
+
+---
+
+## 十三、发现一个真实的隔离泄漏：沙箱 HOME 里留着所有案的历史 transcript
+
+### 13.1 现象
+
+跑 S98 时，它的工具调用里有这一条：
+
+```
+Read {"file_path":"C:\tmp\bb-home\.claude\projects\C--tmp-bb-S98\memory\MEMORY.md"}
+```
+
+`MEMORY.md` 不存在（Read 失败），所以**那一次没有泄漏**。
+但顺着这个目录查下去，发现了更严重的东西：
+
+```
+C:\tmp\bb-home\.claude\projects\
+  C--tmp-bb-S04\  3 个 .jsonl
+  C--tmp-bb-S08\  2 个 .jsonl
+  C--tmp-bb-S13\  2 个 .jsonl
+  C--tmp-bb-S15\  2 个 .jsonl
+  C--tmp-bb-S98\  2 个 .jsonl
+  ...
+  合计 38 个文件
+```
+
+**Claude Code 在每个 session 结束后，把完整对话写进 `<HOME>\.claude\projects\C--tmp-bb-<案号>\`。**
+所以跑了几轮之后，沙箱 HOME 里就攒下了**每一个案子的完整对话**，
+包括它们的答案。
+
+### 13.2 为什么这是真泄漏
+
+- 仓库路径被 ACL 拒绝，但 `C:\tmp\bb-home` 是沙箱用户自己的 HOME，**完全可读**
+- agent 已经证明它会主动去找 `MEMORY.md`（它读了那个路径）
+- 一个 agent 只要 `Glob **/*.jsonl` 再 `Read`，就能拿到前面所有案的完整提示词、产物、对账结果
+- **而这一切不会报错、不会留下异常** —— 产物看起来完全正常
+
+实测：S98 这一轮**没有**去读别案的 transcript
+（`grep 'C--tmp-bb-S3[0-9]\|C--tmp-bb-S0[0-9]' S98/stream.jsonl` → 0 命中）。
+所以 S98 的结果目前是干净的。
+
+### 13.3 已修
+
+`_blindbox-run.ps1` 第 1 步现在会在每次运行前**清空 `$sbHome\.claude\projects`**：
+
+```powershell
+$projRoot = Join-Path $sbHome '.claude\projects'
+if (Test-Path $projRoot) { Remove-Item $projRoot -Recurse -Force -ErrorAction SilentlyContinue }
+```
+
+### 13.4 这条对前面十案的影响：需要复核
+
+S31/S08/S13/S22 等案的运行**发生在这次修复之前**，所以它们的 transcript 确实留在了沙箱里。
+需要检查它们有没有读过更早的 transcript。
+
+判据：在每案的 `stream.jsonl` 里 grep 别案的目录名。
+
+```bash
+for id in S31 S04 S08 S13 S22 S32 S15 S18 S29 S35; do
+  n=$(grep -c 'bb-home.*C--tmp-bb-S' /c/tmp/bb/$id/stream.jsonl 2>/dev/null)
+  echo "$id: $n"
+done
+```
+
+**这个核查必须做，否则前面十案的结论都带着一个未排除的污染途径。**
+
+### 13.5 核查结果：十案全部干净
+
+按「引用了**别案**的 transcript 目录」这个判据逐案查（`grep -a` 避免 binary 提示）：
+
+```
+S31  → 只引用自己
+S04  → 只引用自己
+S08  → 只引用自己
+S13  → 只引用自己
+S22  → 只引用自己
+S32  → 只引用自己
+S15  → 只引用自己
+S18  → 只引用自己
+S29  → 只引用自己
+S35  → 只引用自己
+S98  → 只引用自己
+```
+
+**没有一案读过别案的 transcript。** 所以前面十案的结论不带这个污染。
+
+### 13.6 但核查过程本身又踩了一次同一个坑
+
+第一次核查我用的是：
+
+```bash
+grep -c 'C--tmp-bb-S[0-9][0-9]' "$f"
+```
+
+结果 **11 案全部"命中"**，看起来像全线污染。实际呢？
+
+命中的内容是：
+
+```
+"memory_paths":{"auto":"C:\tmp\bb-home\.claude\projects\C--tmp-bb-S18\memory\\"}
+Glob {"path":"C:\tmp\bb-home\.claude\projects\C--tmp-bb-S18\memory"}
+```
+
+—— **都是它自己的目录**，一个是 init 事件里系统打印的 `memory_paths`，
+一个是 agent 去 Glob 自己的 memory 目录。
+
+**判据写的是「有没有引用 transcript 目录」，而不是「有没有引用别案的」。**
+少了一个 `grep -v "^$id$"`。
+
+这与本仓库那些「量错了对象」的闸门是同一个病，只是这次发生在我的核查脚本里。
+也是本轮第 **五** 次了。
+
+**正确写法**：
+
+```bash
+others=$(grep -oa 'C--tmp-bb-S[0-9][0-9]' "$f" | sed 's/C--tmp-bb-//' | sort -u | grep -v "^$id$")
+[ -n "$others" ] && echo "$id: 引用了 $others"
+```
+
+注意 `grep -a`：不加它，二进制内容的文件只会输出 "Binary file matches"，**看起来像命中但拿不到内容**。
