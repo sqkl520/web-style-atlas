@@ -1,0 +1,38 @@
+$ProgressPreference = "SilentlyContinue"
+$ErrorActionPreference = "Continue"
+$home_ = $args[0]
+$work_ = $args[1]
+$log = Join-Path $work_ "stream.jsonl"
+$errLog = Join-Path $work_ "stderr.txt"
+"START " + (Get-Date -Format o) | Set-Content -Path $log -Encoding utf8
+
+# PATH must include the real system dirs, or claude's internal PowerShell calls fail
+# with "pwsh timed out after 5000ms" and the agent cannot even list a directory.
+$env:PATH = "C:\tmp\bb-bin;" + [System.Environment]::GetEnvironmentVariable("PATH", "Machine") + ";" + [System.Environment]::GetEnvironmentVariable("PATH", "User")
+$env:HOME = $home_
+$env:USERPROFILE = $home_
+$env:ANTHROPIC_API_KEY = "PROXY_MANAGED"
+$env:ANTHROPIC_BASE_URL = "http://127.0.0.1:15721"
+$env:CLAUDE_CODE_EFFORT_LEVEL = "medium"
+$env:TEMP = $work_
+$env:TMP = $work_
+Set-Location $work_
+
+$msg = "Read task.txt in this directory, then write the finished page to out.html with the Write tool. Do not over-analyze: read the task once, then write out.html in a single Write call. It must be a complete standalone HTML file. Reply with one short sentence afterwards."
+
+# CRITICAL: -ArgumentList with an ARRAY splits a multi-word prompt on its spaces.
+# claude then receives only the first word ("Read") and silently drops the rest.
+# Measured 2026-11-13: "lastPrompt":"Read" in the sandbox transcript, and the model's
+# own words: 'The user just said "Read". That is a minimal message. The instruction
+# "Read" is ambiguous.' Build ONE already-quoted string instead.
+$argLine = '-p "' + $msg + '" --model opus --permission-mode acceptEdits --output-format stream-json --verbose'
+
+Add-Content -Path (Join-Path $work_ "runner.log") -Value ("ARGS: " + $argLine) -Encoding utf8
+
+# Note: Start-Process takes an exclusive handle on -RedirectStandardError, so a later
+# Add-Content to that same file silently fails and it stays 0 bytes. Keep lifecycle
+# notes in runner.log instead.
+$proc = Start-Process -FilePath "C:\tmp\bb-bin\claude.exe" -ArgumentList $argLine -WorkingDirectory $work_ -RedirectStandardOutput $log -RedirectStandardError $errLog -NoNewWindow -PassThru
+Add-Content -Path (Join-Path $work_ "runner.log") -Value ("PID:" + $proc.Id + " at " + (Get-Date -Format o)) -Encoding utf8
+$proc.WaitForExit()
+Add-Content -Path (Join-Path $work_ "runner.log") -Value ("EXITED code=" + $proc.ExitCode + " at " + (Get-Date -Format o)) -Encoding utf8
