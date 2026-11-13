@@ -34,10 +34,40 @@ Claude Code 在 Windows 上按 `USERPROFILE` 解析，真正生效的 HOME 是 `
 ```
 账户：ClaudeBlindBox（本轮创建，密码 BlindRun-2026-tmp!）
 拒绝：icacls D:\Web\style /deny "ClaudeBlindBox:(OI)(CI)(RX)"
+      icacls D:\Web\style /deny "ClaudeBlindBox:(OI)(CI)(W)"
 ```
 
 Deny ACE 优先于任何 Allow（包括 `BUILTIN\Users` 的继承权限），
 且由内核在文件系统层强制 —— 模型无论怎么要求 `bypassPermissions` 都改不了它。
+
+### 2.0 ⚠️ 2026-11-14 更正：只有 `(RX)` 是半个隔离
+
+**本文原版只下了 `(RX)`，实测漏了写权限。** 用沙箱账户实测（`_probe/_deny-verify.ps1`）：
+
+```
+--- 只有 (RX) ---
+READ_REPO_DENIED
+LIST_REPO_DENIED
+WRITE_REPO_OK        ← 洞在这里
+READ_CONTROL_OK
+
+--- 加上 (W) ---
+READ_REPO_DENIED
+LIST_REPO_DENIED
+WRITE_REPO_DENIED    ← 补上了
+READ_CONTROL_OK
+```
+
+`(RX)` 只拒绝读和执行，对写**什么也没说**；而继承来的
+`Authenticated Users:(M)` 仍然给着写权限。所以模型读不到仓库，
+**但能往仓库里扔文件** —— 而「往仓库里写」正是案与案之间泄漏答案的那条通道。
+
+**为什么之前没发现**：`Set-DenyAce` 的判定是 `$acl -match $user`，
+只要用户名在 `icacls` 输出里出现过就算成功。那个断言在 `(RX)` 下是真的，
+在「写没堵住」下也是真的 —— 它测的是「ACE 存在」，不是「隔离完整」。
+
+**现在的判定**：必须同时匹配到 `(DENY)(RX)` 和 `(DENY)(W)`，缺一条就打印
+`DENY ACE INCOMPLETE` 并返回 false（`_blindbox-run.ps1` 会因此中止本次尝试）。
 
 ### 2.1 三步实测证据
 

@@ -1,4 +1,4 @@
-# Real isolation runner: run claude as ClaudeBlindBox with the repo path denied by NTFS ACL.
+﻿# Real isolation runner: run claude as ClaudeBlindBox with the repo path denied by NTFS ACL.
 # Usage: powershell -File _blindbox-run.ps1 -TaskDir C:\tmp\bb\S31 -OutFile C:\tmp\bb\S31\out.html
 #
 # Why not rely on --permission-mode: the red team proved that switching it to
@@ -80,9 +80,24 @@ function Set-DenyAce {
     # Measured: applying the same /deny twice yields two identical DENY entries; ACL
     # evaluation ORs them, so this is safe but does grow the ACE list. /remove:d then
     # clears all of them at once.
+    #
+    # (RX) alone is HALF an isolation. Measured 2026-11-14 under ClaudeBlindBox:
+    #   READ_REPO_DENIED  LIST_REPO_DENIED  WRITE_REPO_OK   <-- the hole
+    # A Deny ACE for (RX) says nothing about write access, and the inherited
+    # `Authenticated Users:(M)` still grants it. So the agent could not read the repo
+    # but could still drop files into it -- which is exactly the channel that leaks
+    # answers between cases. (W) closes it; /remove:d clears both entries together.
     icacls $repo /deny "${user}:(OI)(CI)(RX)" 2>$null | Out-Null
+    icacls $repo /deny "${user}:(OI)(CI)(W)"  2>$null | Out-Null
     $acl = (icacls $repo 2>$null) -join ';'
-    return ($acl -match [regex]::Escape($user))
+    # Both (RX) and (W) must show up, otherwise this is the "reads nothing, reports
+    # clean" failure this repo keeps rediscovering.
+    $hasRx = $acl -match [regex]::Escape($user) -and $acl -match '\(DENY\)\(RX\)'
+    $hasW  = $acl -match [regex]::Escape($user) -and $acl -match '\(DENY\)\(W\)'
+    if (-not ($hasRx -and $hasW)) {
+        Write-Host ('  DENY ACE INCOMPLETE: RX=' + $hasRx + ' W=' + $hasW)
+    }
+    return ($hasRx -and $hasW)
 }
 
 function Clear-CaseArtifacts {
