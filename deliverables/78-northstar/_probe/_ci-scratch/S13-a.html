@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>棉纸公函 · 盲压装帧条例</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+SC:wght@300;400;500;600;700&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   棉纸公函 / 盲压装帧条例
+   光源常驻 135°；凹槽压深 0.4mm、槽带亮度差 3%、边缘对比度 14%
+   按下：方位角翻到 315°，下沉 0.8px。层级只由同光源下的深浅给出。
+   ============================================================ */
+
+*,*::before,*::after{box-sizing:border-box;border-radius:0}
+
+:root{
+  /* 四值，仅此四值 */
+  --gold:#7B612C;
+  --paper:#F4E3BE;
+  --ink:#241F17;
+  --shade:#D6CDB9;
+
+  /* 线宽级别：全站线条只从这七级取 */
+  --l1:1px; --l2:1.5px; --l3:2px; --l4:3px; --l5:5.5px; --l6:9px; --l7:14.5px;
+
+  --band:var(--shade);   /* 回退 */
+  --edge:var(--ink);     /* 回退 */
+
+  --font-title:"EB Garamond","Noto Serif SC",serif;      /* 标题链 */
+  --font-body:"Noto Serif SC","Songti SC","SimSun",serif; /* 正文链 */
+  --font-num:"DM Mono",monospace;                         /* 数字链 */
+
+  --sink:0.8px;
+}
+
+/* 由四值派生的两级明度：不引入新色，只在相邻两级之间过渡 */
+@supports (background:color-mix(in srgb,red 50%,blue)){
+  :root{
+    --band:color-mix(in srgb,var(--paper) 97%,var(--ink)); /* 槽带：亮度差 3% */
+    --edge:color-mix(in srgb,var(--paper) 86%,var(--ink)); /* 槽缘：对比度 14% */
+  }
+}
+
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  font-family:var(--font-body);
+  font-size:15px;
+  line-height:1.9;
+  font-weight:400;
+  color:var(--ink);
+  background-color:var(--paper);
+  background-image:linear-gradient(168deg,var(--paper) 0%,var(--paper) 68%,var(--shade) 100%);
+}
+/* 棉纸帘纹：背景层，最大面积，只由 paper↔shade 两级之间的 1px 线构成 */
+body::before{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:repeating-linear-gradient(90deg,var(--paper) 0 60px,var(--shade) 60px 61px);
+}
+
+.wrap{max-width:1180px;margin:0 auto;padding:0 clamp(18px,4.2vw,56px);position:relative;z-index:1}
+p{margin:0}
+.num{font-family:var(--font-num);font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
+
+/* ── 公函抬头：14.5px 重墨线 ─────────────────────────── */
+.letterhead{padding-top:0}
+.lh-heavy{height:var(--l7);background:var(--ink)}
+.lh-row{
+  display:flex;justify-content:space-between;align-items:baseline;gap:18px;
+  padding:13px 0 11px;border-bottom:var(--l2) solid var(--ink);
+}
+.lh-mark{font-family:var(--font-title);font-size:19px;letter-spacing:.3em;font-weight:600}
+.lh-mid{font-size:12.5px;letter-spacing:.24em;color:var(--gold);text-indent:.24em}
+.lh-no{font-size:13px;letter-spacing:.1em}
+
+/* ── 首屏 ──────────────────────────────────────────── */
+.hero{padding:32px 0 44px;border-bottom:var(--l4) solid var(--ink)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.66fr) minmax(0,1fr);gap:clamp(22px,3.6vw,54px);align-items:start}
+.kicker{
+  font-size:13.5px;letter-spacing:.05em;line-height:1.7;margin-bottom:16px;
+  padding-left:14px;border-left:var(--l5) solid var(--gold);
+}
+.hero-title{
+  font-family:var(--font-title);
+  font-size:56px;               /* 正文的 3.7 倍 */
+  line-height:1.22;font-weight:600;letter-spacing:.012em;
+  margin:0 0 18px;text-align:left;
+}
+.deck{font-size:15px;line-height:1.95;max-width:33em;margin-bottom:26px}
+.act{margin-bottom:30px}
+.btn-lead{
+  display:inline-block;text-decoration:none;
+  font-family:var(--font-body);font-size:15.5px;font-weight:500;letter-spacing:.06em;
+  color:var(--paper);background-color:var(--ink);
+  border:var(--l3) solid var(--ink);
+  padding:12px 22px;
+  box-shadow:var(--l4) var(--l4) 0 var(--edge),0 var(--l2) 0 var(--edge);  /* 单向硬光 + 接触阴影 */
+  transition:transform .1s steps(2,end),box-shadow .1s steps(2,end);
+}
+.btn-lead:active{                                                            /* 方位角翻到 315° + 下沉 0.8px */
+  transform:translateY(var(--sink));
+  box-shadow:calc(-1 * var(--l4)) calc(-1 * var(--l4)) 0 var(--edge),0 var(--l2) 0 var(--edge);
+}
+
+.toc-h{font-size:12.5px;letter-spacing:.22em;color:var(--gold);padding-bottom:8px}
+.toc-list{list-style:none;margin:0;padding:0;border-top:var(--l4) solid var(--ink)}
+.toc-list li{
+  display:grid;grid-template-columns:38px 1fr auto;gap:14px;align-items:baseline;
+  padding:6px 0;border-bottom:var(--l1) solid var(--edge);
+}
+.toc-list .n{font-family:var(--font-num);font-variant-numeric:tabular-nums;font-size:13.5px;font-weight:500}
+.toc-list .t{font-size:13.5px;line-height:1.65}
+.toc-list .pg{font-family:var(--font-num);font-variant-numeric:tabular-nums;font-size:12.5px;text-align:right;color:var(--gold)}
+
+.hero-plate{position:relative}
+.hero-plate img{margin-bottom:0}
+.cap{
+  font-size:12.5px;line-height:1.7;padding-top:8px;margin-top:0;
+  border-top:var(--l1) solid var(--edge);
+}
+.cap-no{font-family:var(--font-num);letter-spacing:.06em;margin-right:10px;color:var(--gold)}
+
+img{
+  display:block;width:100%;height:auto;object-fit:cover;
+  background-color:var(--shade);
+  border:var(--l2) solid var(--ink);
+  box-shadow:0 var(--l3) 0 var(--edge);
+}
+.plate-1{aspect-ratio:480/640}
+.plate-2{aspect-ratio:1200/420}
+.plate-3{aspect-ratio:520/520}
+.plate-4{aspect-ratio:640/480}
+.plate-5{aspect-ratio:560/700}
+
+/* ── 条款通用：直角边界 + inset 与外投影混用，全站同一套 ── */
+.clause{padding:38px 0 44px}
+.c-head{display:grid;grid-template-columns:var(--l5) 1fr;gap:14px;align-items:stretch;margin-bottom:24px}
+.c-bar{background:var(--ink)}
+.dent{
+  display:block;margin:0;padding:11px 18px 12px;
+  font-family:var(--font-title);font-size:21px;font-weight:600;line-height:1.55;letter-spacing:.01em;
+  background-color:var(--band);                                   /* 槽带：亮度差 3% */
+  box-shadow:
+    inset var(--l3) var(--l3) 0 var(--edge),                      /* 上左内壁：背光（对比度 14%） */
+    inset calc(-1 * var(--l2)) calc(-1 * var(--l2)) 0 var(--paper),/* 下右内壁：受光 */
+    0 var(--l1) 0 var(--edge);                                     /* 接触阴影 */
+  transition:box-shadow .1s steps(2,end),transform .1s steps(2,end);
+}
+.dent:active{
+  box-shadow:
+    inset calc(-1 * var(--l3)) calc(-1 * var(--l3)) 0 var(--edge),
+    inset var(--l2) var(--l2) 0 var(--paper),
+    0 var(--l1) 0 var(--edge);
+  transform:translateY(var(--sink));
+}
+.c-no{font-family:var(--font-num);font-size:14px;font-variant-numeric:tabular-nums;letter-spacing:.06em;margin-right:14px;vertical-align:.14em}
+.prose{font-size:15px;line-height:1.95}
+.prose + .prose{margin-top:12px}
+
+.spec-t{margin:22px 0 0;padding:0;border-top:var(--l2) solid var(--ink)}
+.spec-t .row{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:baseline;padding:7px 0;border-bottom:var(--l1) solid var(--edge)}
+.spec-t dt{font-size:13.5px;margin:0}
+.spec-t dd{margin:0;text-align:right;font-family:var(--font-num);font-variant-numeric:tabular-nums;font-size:13.5px}
+
+.fig{margin:0}
+.fig-cap{font-size:12.5px;line-height:1.7;padding-top:8px;border-top:var(--l1) solid var(--edge)}
+.fig-cap .num,.fig-cap .cap-no{font-family:var(--font-num);margin-right:10px;color:var(--gold)}
+
+/* ── 01 纸：文字左（1.5）／竖版图右（1） ── */
+.c1 .body{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:0;border:var(--l3) solid var(--ink);background-color:var(--paper)}
+.c1 .col-a{padding:24px 26px 26px}
+.c1 .col-b{padding:24px 26px 22px;border-left:var(--l1) solid var(--edge)}
+
+/* ── 02 压：通栏横带图 + 五级深度表 ── */
+.c2{border-top:var(--l4) solid var(--ink)}
+.c2 .band{margin:0 0 26px}
+.c2 .lv{margin:0;padding:0;border-top:var(--l2) solid var(--ink)}
+.c2 .lv .row{display:grid;grid-template-columns:64px 1fr auto;gap:16px;align-items:baseline;padding:8px 0;border-bottom:var(--l1) solid var(--edge)}
+.c2 .lv .g{font-family:var(--font-num);font-variant-numeric:tabular-nums;font-size:13.5px;font-weight:500}
+.c2 .lv .u{font-size:13.5px}
+.c2 .lv .v{font-family:var(--font-num);font-variant-numeric:tabular-nums;font-size:13.5px;text-align:right}
+.c2 .note{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:26px;align-items:center;margin-top:22px}
+.c2 .az{width:132px;height:132px;border:var(--l2) solid var(--ink);box-shadow:0 var(--l3) 0 var(--edge);background-color:var(--paper)}
+
+/* ── 03 槽：方图左（1）／文与剖面右（1.55） ── */
+.c3 .body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.55fr);gap:clamp(20px,3vw,40px);align-items:start}
+.c3 .box{border:var(--l2) solid var(--ink);background-color:var(--paper);box-shadow:0 var(--l3) 0 var(--edge);padding:20px 22px 16px}
+.c3 .gutter{height:var(--l6);background:var(--ink);margin:22px 0 18px}
+.diagram{display:block;width:100%;height:auto}
+.diagram .ln{fill:none;stroke:var(--ink)}
+.diagram .w1{stroke-width:1px}
+.diagram .w15{stroke-width:1.5px}
+.diagram .bandfill{fill:var(--band)}
+.diagram .edgefill{fill:var(--edge)}
+.diagram text{font-family:var(--font-num);font-size:12px;fill:var(--ink)}
+
+/* ── 04 号：编号块与价目左（0.62）／文与横图右（1.38） ── */
+.c4{border-top:var(--l4) solid var(--ink)}
+.c4 .body{display:grid;grid-template-columns:minmax(0,.62fr) minmax(0,1.38fr);gap:clamp(20px,3vw,40px);align-items:start}
+.c4 .plate-no{
+  display:grid;grid-template-columns:var(--l5) 1fr;gap:12px;align-items:stretch;
+  border:var(--l3) solid var(--ink);background-color:var(--paper);box-shadow:0 var(--l3) 0 var(--edge);
+}
+.c4 .plate-no .bar{background:var(--ink)}
+.c4 .plate-no .big{font-family:var(--font-num);font-variant-numeric:tabular-nums;font-size:34px;line-height:1;font-weight:500;padding:14px 16px 12px}
+.c4 .plate-no .sub{font-size:12.5px;letter-spacing:.16em;color:var(--gold);padding:0 16px 14px}
+.price{margin:18px 0 0;padding:0;border-top:var(--l2) solid var(--ink)}
+.price .row{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:baseline;padding:8px 0;border-bottom:var(--l1) solid var(--edge)}
+.price dt{font-size:13.5px;margin:0}
+.price dd{margin:0;text-align:right;font-family:var(--font-num);font-variant-numeric:tabular-nums;font-size:13.5px;white-space:nowrap}
+
+/* ── 05 交：清单左（1.6）／立像图右（.9） ── */
+.c5{border-top:var(--l4) solid var(--ink);border-bottom:var(--l3) solid var(--ink)}
+.c5 .body{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,.9fr);gap:clamp(20px,3vw,44px);align-items:start}
+.check{list-style:none;margin:22px 0 0;padding:0;border-top:var(--l2) solid var(--ink)}
+.check li{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:baseline;padding:8px 0;border-bottom:var(--l1) solid var(--edge)}
+.check .bx{width:13px;height:13px;border:var(--l2) solid var(--ink);align-self:center}
+.check .nm{font-size:13.5px}
+.check .qty{font-family:var(--font-num);font-variant-numeric:tabular-nums;font-size:13.5px;text-align:right}
+
+/* ── 页脚 ─────────────────────────────────────────── */
+.ft{padding:0 0 0}
+.ft-heavy{height:var(--l6);background:var(--ink)}
+.ft-grid{
+  display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.9fr) minmax(0,1.1fr);
+  gap:clamp(20px,3.4vw,48px);padding:26px 0 30px;
+}
+.ft-h{font-size:12.5px;letter-spacing:.22em;color:var(--gold);padding-bottom:8px}
+.ft p{font-size:13.5px;line-height:1.8}
+.ft-idx{list-style:none;margin:0;padding:0;border-top:var(--l1) solid var(--edge)}
+.ft-idx li{display:grid;grid-template-columns:38px 1fr;gap:12px;padding:5px 0;border-bottom:var(--l1) solid var(--edge)}
+.ft-idx .n{font-family:var(--font-num);font-variant-numeric:tabular-nums;font-size:13px}
+.ft-idx .t{font-size:13px}
+.ft-foot{height:var(--l7);background:var(--ink)}
+
+/* ── 移动端：单列，顺序不变 ───────────────────────── */
+@media (max-width:880px){
+  .hero-grid,
+  .c1 .body,
+  .c3 .body,
+  .c4 .body,
+  .c5 .body,
+  .ft-grid{grid-template-columns:minmax(0,1fr)}
+  .c1 .col-b{border-left:0;border-top:var(--l1) solid var(--edge)}
+  .c2 .note{grid-template-columns:minmax(0,1fr)}
+  .hero{padding-top:26px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ══ 公函抬头 ══ -->
+  <header class="letterhead">
+    <div class="lh-heavy"></div>
+    <div class="lh-row">
+      <span class="lh-mark">棉纸公函</span>
+      <span class="lh-mid">盲压装帧条例</span>
+      <span class="lh-no num">01—05</span>
+    </div>
+  </header>
+
+  <!-- ══ 首屏：一屏之内全部可见，左对齐，只留一个主行动 ══ -->
+  <section class="hero">
+    <div class="hero-grid">
+      <div class="hero-main">
+        <p class="kicker">我经营一家替档案馆、方志馆与学术出版机构做手工装帧的作坊</p>
+        <h1 class="hero-title">凹痕的深浅，即层级</h1>
+        <p class="deck">本坊只做一条线：纸用棉纸，字用铅字，凹凸只由压深交代。不上色，不描边，不做圆角——深浅就是层级，颜色不参与。第一次交付之前，请先寄一叠散页来试压：纸样、压深与槽宽在您手上定死，往后每一册都照同一张压深卡。</p>
+        <p class="act"><a class="btn-lead" href="#c05">预约试压 · 寄一叠散页来</a></p>
+
+        <section class="toc">
+          <p class="toc-h">装帧条例 · 目次 · 共五条</p>
+          <ol class="toc-list">
+            <li><span class="n">01</span><span class="t">纸 · 棉纸静置十二个月，含水率降到 6% 才上机</span><span class="pg">02</span></li>
+            <li><span class="n">02</span><span class="t">压 · 盲压分五级，深度自 0.4mm 起，每级递加 0.4mm</span><span class="pg">04</span></li>
+            <li><span class="n">03</span><span class="t">槽 · 槽带亮度差 3%、边缘对比度 14%，两级之外不再加</span><span class="pg">06</span></li>
+            <li><span class="n">04</span><span class="t">号 · 编号与价目一律等宽右对齐，号随纸走，不随人走</span><span class="pg">08</span></li>
+            <li><span class="n">05</span><span class="t">交 · 交付必附压深卡一张，日后补装仍对同一光源</span><span class="pg">10</span></li>
+          </ol>
+        </section>
+      </div>
+
+      <aside class="hero-plate">
+        <img class="plate-1" src="images/占位-1.jpg" width="480" height="640" alt="试压样张：侧光下的槽口与铅字凹痕">
+        <p class="cap"><span class="cap-no">图一</span>试压样张 · 侧光 · 未上色</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ══ 01 纸 ══ -->
+  <article class="clause c1" id="c01">
+    <div class="c-head">
+      <span class="c-bar" aria-hidden="true"></span>
+      <h2 class="dent"><span class="c-no">01</span>纸 · 棉纸静置十二个月，含水率降到 <span class="num">6%</span> 才上机</h2>
+    </div>
+    <div class="body">
+      <div class="col-a">
+        <p class="prose">我们不用市面上的成品纸。棉纸入库后先在纸库静置十二个月，让帘纹自己收住；含水率降到六分以下才上机。同一批纸只装同一批卷宗，装完余下的纸归入纸样柜，编号入册——来日补装，翻册即得。纸是这一行里唯一不能临时去买的材料，所以纸样柜比机器重要。</p>
+        <dl class="spec-t">
+          <div class="row"><dt>静置期</dt><dd>12 个月</dd></div>
+          <div class="row"><dt>上机含水率</dt><dd>≤ 6%</dd></div>
+          <div class="row"><dt>帘纹间距</dt><dd>61 mm</dd></div>
+          <div class="row"><dt>定量</dt><dd>42 g/m²</dd></div>
+        </dl>
+      </div>
+      <div class="col-b">
+        <figure class="fig">
+          <img class="plate-3" src="images/占位-3.jpg" width="520" height="520" alt="纸样柜中的棉纸样张与批号签">
+          <figcaption class="fig-cap"><span class="cap-no">图二</span>纸样柜 · 每批留样，签上写明批号与入库日</figcaption>
+        </figure>
+      </div>
+    </div>
+  </article>
+
+  <!-- ══ 02 压 ══ -->
+  <article class="clause c2" id="c02">
+    <div class="c-head">
+      <span class="c-bar" aria-hidden="true"></span>
+      <h2 class="dent"><span class="c-no">02</span>压 · 盲压分五级，深度自 <span class="num">0.4mm</span> 起，每级递加 <span class="num">0.4mm</span></h2>
+    </div>
+    <figure class="fig band">
+      <img class="plate-2" src="images/占位-2.jpg" width="1200" height="420" alt="压印机台面全景：铅字版、压深垫片与待压函套">
+      <figcaption class="fig-cap"><span class="cap-no">图三</span>压印台 · 铅字版与压深垫片，五级垫片按厚薄排在一条线上</figcaption>
+    </figure>
+    <dl class="lv">
+      <div class="row"><span class="g">级 01</span><span class="u">影线，只作暗示，不承字</span><span class="v">0.40 mm</span></div>
+      <div class="row"><span class="g">级 02</span><span class="u">内封与衬页的边号</span><span class="v">0.80 mm</span></div>
+      <div class="row"><span class="g">级 03</span><span class="u">函套封面题名，常档</span><span class="v">1.20 mm</span></div>
+      <div class="row"><span class="g">级 04</span><span class="u">案卷脊上的全宗号</span><span class="v">1.60 mm</span></div>
+      <div class="row"><span class="g">级 05</span><span class="u">总卷号，最深一档，不轻用</span><span class="v">2.00 mm</span></div>
+    </dl>
+    <div class="note">
+      <p class="prose">压深不入色。级与级之间靠深浅分，不靠金线分；金只允许出现在点、线与印章大小的地方。同一册里凡出现两级以上，必须按上表递减，不许跳级——跳级的凹痕在侧光下会互相吃掉。<span class="num">135°</span> 是台面上那盏灯的角度，十年没动过。</p>
+      <svg class="az" viewBox="0 0 132 132" role="img" aria-label="方位角示意：常驻 135°，按下翻到 315°">
+        <circle class="ln w15" cx="66" cy="66" r="46"/>
+        <line class="ln w15" x1="66" y1="66" x2="34" y2="34"/>
+        <line class="ln w1" x1="66" y1="66" x2="98" y2="98" stroke-dasharray="3 3"/>
+        <text x="26" y="26">135°</text>
+        <text x="86" y="114">315°</text>
+      </svg>
+    </div>
+  </article>
+
+  <!-- ══ 03 槽 ══ -->
+  <article class="clause c3" id="c03">
+    <div class="c-head">
+      <span class="c-bar" aria-hidden="true"></span>
+      <h2 class="dent"><span class="c-no">03</span>槽 · 槽带亮度差 <span class="num">3%</span>、边缘对比度 <span class="num">14%</span>，两级之外不再加</h2>
+    </div>
+    <div class="body">
+      <figure class="fig">
+        <img class="plate-4" src="images/占位-4.jpg" width="640" height="480" alt="槽口显微照：帘纹与压痕交角">
+        <figcaption class="fig-cap"><span class="cap-no">图四</span>槽口 · 帘纹与槽向垂直，压痕落在两纹之间</figcaption>
+      </figure>
+      <div>
+        <p class="prose">槽带只压深 0.4mm：带内亮度差 3%，槽缘对比度 14%，一侧背光、一侧受光，剩下的全交给纸。这三个数是我们全部的家当——任何带彩色强调色的品牌把方案套上去，凹槽都会被颜色抢走，整套即刻失效。所以我们不做彩色封面，也不接要求彩压的活。</p>
+        <div class="box">
+          <div class="gutter" aria-hidden="true"></div>
+          <svg class="diagram" viewBox="0 0 460 152" role="img" aria-label="槽口剖面：纸面、压深 0.4 毫米、槽带亮度差 3%、槽缘对比度 14%">
+            <line class="ln w15" x1="10" y1="46" x2="450" y2="46"/>
+            <rect class="bandfill" x="150" y="46" width="180" height="26"/>
+            <rect class="edgefill" x="150" y="46" width="3" height="26"/>
+            <rect x="327" y="46" width="3" height="26" fill="#F4E3BE"/>
+            <line class="ln w15" x1="150" y1="72" x2="330" y2="72"/>
+            <line class="ln w1" x1="150" y1="46" x2="150" y2="72"/>
+            <line class="ln w1" x1="330" y1="46" x2="330" y2="72"/>
+            <line class="ln w1" x1="120" y1="46" x2="120" y2="72"/>
+            <line class="ln w1" x1="114" y1="46" x2="126" y2="46"/>
+            <line class="ln w1" x1="114" y1="72" x2="126" y2="72"/>
+            <text x="60" y="64">0.40 mm</text>
+            <text x="150" y="94">槽带 +3%</text>
+            <text x="150" y="112">槽缘 14%</text>
+            <text x="360" y="42">纸面</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ══ 04 号 ══ -->
+  <article class="clause c4" id="c04">
+    <div class="c-head">
+      <span class="c-bar" aria-hidden="true"></span>
+      <h2 class="dent"><span class="c-no">04</span>号 · 编号与价目一律等宽右对齐，号随纸走，不随人走</h2>
+    </div>
+    <div class="body">
+      <div>
+        <div class="plate-no">
+          <span class="bar" aria-hidden="true"></span>
+          <div>
+            <p class="big">04</p>
+            <p class="sub">本条编号 · 全卷通用</p>
+          </div>
+        </div>
+        <dl class="price">
+          <div class="row"><dt>卷宗函套 · 单册</dt><dd>¥ 480.00</dd></div>
+          <div class="row"><dt>函套 ＋ 压凹编号</dt><dd>¥ 620.00</dd></div>
+          <div class="row"><dt>全卷统装 · 十册起</dt><dd>¥ 3,200.00</dd></div>
+          <div class="row"><dt>试压样张 · 不退</dt><dd>¥ 120.00</dd></div>
+        </dl>
+      </div>
+      <div>
+        <p class="prose">每册一个号，号压进第三级凹痕里：案卷号随纸走，不随人走。经手人换过三任，号一次没有动过。价目同样列在这里，等宽、右对齐——核对方便，日后加装也照同一张表结算，不另议价。凡客人自带的号，我们照排，但会另附一张对照条，写明旧号与册号如何对应。</p>
+        <figure class="fig" style="margin-top:24px">
+          <img class="plate-2" src="images/占位-2.jpg" width="1200" height="420" alt="编号铅字盘与压好的案卷脊号">
+          <figcaption class="fig-cap"><span class="cap-no">图五</span>编号铅字盘 · 右起为册号、案卷号、全宗号</figcaption>
+        </figure>
+      </div>
+    </div>
+  </article>
+
+  <!-- ══ 05 交 ══ -->
+  <article class="clause c5" id="c05">
+    <div class="c-head">
+      <span class="c-bar" aria-hidden="true"></span>
+      <h2 class="dent"><span class="c-no">05</span>交 · 交付必附压深卡一张，日后补装仍对同一光源</h2>
+    </div>
+    <div class="body">
+      <div>
+        <p class="prose">交付三件，缺一件不算交：样册一本、压深卡一张、存档条一枚。卡上写明这一册的纸批号、五级压深与当日的库房湿度；条上只写册号与交件日。三年后您寄回残页，我们照卡对光补装，补出来的凹痕与原件同深、同向。若要加急，请在散页里夹一张纸条写明日子，我们先排压印台，后补函套。</p>
+        <ul class="check">
+          <li><span class="bx" aria-hidden="true"></span><span class="nm">样册 · 与交件同批同纸</span><span class="qty">1 本</span></li>
+          <li><span class="bx" aria-hidden="true"></span><span class="nm">压深卡 · 五级深度与纸批号</span><span class="qty">1 张</span></li>
+          <li><span class="bx" aria-hidden="true"></span><span class="nm">存档条 · 册号与交件日</span><span class="qty">1 枚</span></li>
+          <li><span class="bx" aria-hidden="true"></span><span class="nm">补装凭据 · 三年内有效</span><span class="qty">1 份</span></li>
+        </ul>
+      </div>
+      <figure class="fig">
+        <img class="plate-5" src="images/占位-5.jpg" width="560" height="700" alt="交付件：样册、压深卡与存档条并排">
+        <figcaption class="fig-cap"><span class="cap-no">图六</span>交付件 · 自左至右：样册、压深卡、存档条</figcaption>
+      </figure>
+    </div>
+  </article>
+
+  <!-- ══ 页脚 ══ -->
+  <footer class="ft">
+    <div class="ft-heavy" aria-hidden="true"></div>
+    <div class="ft-grid">
+      <div>
+        <p class="ft-h">作坊</p>
+        <p>纸凹 · 手工装帧作坊<br>立坊二〇〇九 · 只做棉纸、函套与铅字盲压<br>不做彩色封面，不接彩压的活</p>
+      </div>
+      <div>
+        <p class="ft-h">通讯</p>
+        <p>城西纸库巷十二号<br>收样：每月初一、十五<br>样张与压深卡随信附回</p>
+      </div>
+      <div>
+        <p class="ft-h">索引 · 装帧条例共五条</p>
+        <ul class="ft-idx">
+          <li><span class="n">01</span><span class="t">纸</span></li>
+          <li><span class="n">02</span><span class="t">压</span></li>
+          <li><span class="n">03</span><span class="t">槽</span></li>
+          <li><span class="n">04</span><span class="t">号</span></li>
+          <li><span class="n">05</span><span class="t">交</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ft-foot" aria-hidden="true"></div>
+  </footer>
+
+</div>
+</body>
+</html>
