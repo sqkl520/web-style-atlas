@@ -108,6 +108,16 @@ const MUTATIONS = {
     to: '$1"每六十像素一道刻度线主次分明"',
     expect: 'plain-not-human',
   },
+  /* D4 的变异：把 S04 的机制句改成一个「要求 5px 宽的线」，
+   * 而 S04 的档位表是 1px / 1.1px / 3px —— 5 不在里面，应触发。
+   * 选 S04 是因为它现在没有这个矛盾（D4 对全库只报 S31 一条），
+   * 拿它造矛盾才能证明断言是判据在响、不是在读现成的坏数据。 */
+  'mech-width-vs-scale': {
+    from: /("mechanism":\s*)"[^"]*12 列隐网格[^"]*"/,
+    to: '"mechanism": "12 列隐网格上纸块跨 3 至 5 栏，栏间用 5px 宽的刻线分隔，页面上没有一条对称边"',
+    expect: 'mech-width-vs-scale',
+    level: 'WARN',   // 这条判据是 WARN 不是 FAIL（档位表本身抽取不全，见断言注释）
+  },
 };
 const sandbox = { window: {} };
 new Function('window', promptsSrc)(sandbox.window);
@@ -418,6 +428,58 @@ for (const d of DIRS) {
         add('FAIL', id, 'mech-no-measurable',
           '机制句里一个带单位的可测值都没有 —— 这种「具体但无数值」的提示词会让模型卡住' +
           '（实测：删掉数值后 2 小时零产物）。机制句：' + body.slice(0, 60));
+      }
+    }
+  }
+
+  /* ── 0d. 机制句的线宽值必须与档位表相容（2026-11-13 加，D4）──────────
+   *
+   * 起因：S31 的提示词自相矛盾。
+   *
+   *   机制句：「主刻度每 60px、长 34px、**3px 宽**…」
+   *   第 5 条：「线宽只用这几级：**1px**，全站线条都从这几级里取。」
+   *
+   * 两句话要求了两件冲突的事。模型选了机制句那一句、用了 3px，
+   * 然后在「线宽是否都在档位表内」这条上被判违规
+   * （实测 S31 用了档位表外的 3px，档位表只有 1px）。
+   *
+   * 这不是模型不听话，是提示词给了它一个不可能同时满足的约束。
+   * 规划 Agent 实测 35 份里有 2 份同类矛盾（S27、S31）。
+   *
+   * 判据：机制句里所有 `Npx` 的 N，若档位表非空，必须能在档位表里找到
+   * （允许向上取整，因为 Chrome 会把 0.5px 算成 1px）。
+   *
+   * 注意只查 px —— 机制句里的 vw / fr / % 不是线宽，不该跟档位表比。 */
+  {
+    const mechM = text.match(/这个风格的签名动作：([^\n]*)/);
+    const lwM = text.match(/5\.\s*线宽只用这几级：([^，,\n]*)/);
+    if (mechM && lwM) {
+      const mechPx = [...mechM[1].matchAll(/(\d+(?:\.\d+)?)\s*px/g)].map((m) => parseFloat(m[1]));
+      const scale = [...lwM[1].matchAll(/(\d+(?:\.\d+)?)\s*px/g)].map((m) => parseFloat(m[1]));
+      if (mechPx.length && scale.length) {
+        /* 机制句里的 px 有相当一部分是字号 / 间距 / 轴宽，不全是线宽。
+         * 第一版我抓 `(\d+)px 宽`，结果假阳性 4 案：
+         *   S03「264px 宽的纵向刻度轴」—— 那是轴宽
+         *   S22「88px 宽」、S29「48px」—— 同理
+         * 只有 S31 的「3px 宽 / 2px 宽」是真的在说刻度线。
+         *
+         * 更可靠的判据：机制句里凡出现「线宽」「刻线」「边框」这类词附近的 px 才查。
+         * 退一步：只在同一句里同时出现「3px 宽」与「刻线/线/边框/描边」时判。
+         * 这样漏报多于误报 —— 但漏报只是少抓一个矛盾，误报会让 4 个案子凭空变红。 */
+        const widths = [];
+        for (const m of mechM[1].matchAll(/(\d+(?:\.\d+)?)\s*px\s*宽/g)) {
+          const idx = m.index ?? 0;
+          const around = mechM[1].slice(Math.max(0, idx - 30), idx + 30);
+          /* 还要排除「轴 / 栏 / 版心」这类语境 —— S03 的「264px 宽的纵向刻度轴」是轴宽，不是线宽。 */
+          const isAxis = /轴|栏宽|版心|轨宽/.test(around);
+          if (!isAxis && /刻线|刻度|尺规|线宽|边框|描边|线条/.test(around)) widths.push(parseFloat(m[1]));
+        }
+        const bad = widths.filter((w) => !scale.some((n) => Math.abs(w - n) < 0.01 || Math.abs(w - Math.ceil(n)) < 0.01));
+        if (bad.length) {
+          add('WARN', id, 'mech-width-vs-scale',
+            `机制句要求 ${bad.join('/')}px 宽的线，而第 5 条档位表只有 ${scale.join('/')}px —— ` +
+            '提示词自相矛盾，模型无论照哪一句都会违反另一句');
+        }
       }
     }
   }
@@ -863,7 +925,7 @@ if (SELFTEST) {
     let hit = false;
     try {
       const j = JSON.parse(out);
-      hit = j.findings.some((x) => x.rule === m.expect && x.level === 'FAIL');
+      hit = j.findings.some((x) => x.rule === m.expect && x.level === (m.level || 'FAIL'));
     } catch { /* 解析失败按没命中处理 */ }
     if (hit) { console.log(`✓ ${name} —— 触发了 ${m.expect}（退出码 ${code}）`); }
     else { console.log(`✗ ${name} —— 没响！断言无效`); allGreen = false; }

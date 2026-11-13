@@ -127,11 +127,30 @@ for (const id of ids) {
     ? [...gotHex].filter((h) => !claims.hexes.has(h) && !UA_DEFAULTS.has(h))
     : [];
 
+  /* 线宽判据：**方向是包含性，不是全覆盖。**
+   *
+   * 提示词原文（35/35 份都这句）：
+   *   「线宽只用这几级：0.5px、0.8px、1px、1.2px、2px、3px，**全站线条都从这几级里取**。」
+   *
+   * 它约束的是「不许用档位表之外的值」，**不是**「档位表每一档都必须出现」。
+   * 一个只用 1px 和 2px 的页面完全合规 —— 它没有需要 0.5px 的地方。
+   *
+   * 我原来的判据写反了（要求每档都出现），于是 S15「缺线宽」这类是**假失败**
+   * （规划 Agent 2026-11-13 指出，我复核了原文）。
+   *
+   * 另外那个 0.6px 容差也太宽：
+   *   miss([0.5,0.8,1,1.2,2,3], {1,2,3}) 在本该返回 [0.5,0.8,1.2] 时返回了 []
+   *   —— 0.5 与 1 差 0.5 < 0.6 被误判为命中。
+   * Chrome 的取整只在计算值上发生（0.5px 报成 1px），而这里是源码声明的档位，
+   * 所以只保留「向上取整相等」这一种宽容，去掉 0.6 的粗容差。
+   */
   const gotLW = new Set((g.borderWidths || []).map((x) => parseFloat(x)));
-  const missLW = claims ? claims.lineWidths.filter((n) => {
-    /* 允许取整误差：Chrome 会把 0.5px 报成 1px（见 compare.mjs 的注释） */
-    return ![...gotLW].some((v) => Math.abs(v - n) < 0.6 || Math.abs(v - Math.ceil(n)) < 0.01);
-  }) : [];
+  const near = (a, b) => Math.abs(a - b) < 0.01 || Math.abs(a - Math.ceil(b)) < 0.01;
+  const scale = claims ? claims.lineWidths : [];
+  /* 违规 = 产物用了一档，而档位表里没有 */
+  const offScale = scale.length
+    ? [...gotLW].filter((v) => !scale.some((n) => near(v, n)))
+    : [];
 
   const hrOk = (claims && claims.ratio && g.headBodyRatio)
     ? Math.abs(g.headBodyRatio - claims.ratio) / claims.ratio <= 0.20 : null;
@@ -148,8 +167,9 @@ for (const id of ids) {
     hex: claims ? `${claims.hexes.size - missHex.length}/${claims.hexes.size}` : '?',
     missHex,
     extraHex,
-    lw: claims && claims.lineWidths.length ? `${claims.lineWidths.length - missLW.length}/${claims.lineWidths.length}` : '?',
-    missLW,
+    lw: scale.length ? `${[...gotLW].length - offScale.length}/${[...gotLW].length}` : '?',
+    offScale,
+    usedLW: [...gotLW].sort((a, b) => a - b),
     hr: claims?.ratio ?? null, gotHr: g.headBodyRatio,
     hrOk,
     pics: claims ? `${g.imgVisible}/${claims.minPics}` : '?',
@@ -176,7 +196,7 @@ const good = rows.filter((r) => !r.err);
 console.log(`成功对账 ${good.length} / ${rows.length}`);
 if (good.length) {
   const hexFull = good.filter((r) => r.missHex.length === 0).length;
-  const lwFull = good.filter((r) => r.missLW.length === 0).length;
+  const lwFull = good.filter((r) => r.offScale.length === 0).length;
   const hrGood = good.filter((r) => r.hrOk === true).length;
   const hrTotal = good.filter((r) => r.hrOk !== null).length;
   const picGood = good.filter((r) => r.picturesOk === true).length;
@@ -188,12 +208,12 @@ if (good.length) {
   console.log(`  图片数达标: ${picGood}/${good.length}`);
 }
 
-const detail = good.filter((r) => r.missHex.length || r.missLW.length);
+const detail = good.filter((r) => r.missHex.length || r.offScale.length);
 if (detail.length) {
   console.log('\n=== 缺口明细 ===');
   for (const r of detail) {
     if (r.missHex.length) console.log(`  ${r.id} 缺色: ${r.missHex.join(' ')}`);
-    if (r.missLW.length) console.log(`  ${r.id} 缺线宽: ${r.missLW.join(' ')}`);
+    if (r.offScale.length) console.log(`  ${r.id} 用了档位表外的线宽: ${r.offScale.join(' ')}（档位 ${r.usedLW.join('/')}）`);
   }
 }
 
