@@ -110,13 +110,18 @@ const MUTATIONS = {
   },
   /* D4 的变异：把 S04 的机制句改成一个「要求 5px 宽的线」，
    * 而 S04 的档位表是 1px / 1.1px / 3px —— 5 不在里面，应触发。
-   * 选 S04 是因为它现在没有这个矛盾（D4 对全库只报 S31 一条），
-   * 拿它造矛盾才能证明断言是判据在响、不是在读现成的坏数据。 */
+   * 选 S04 是因为它现在没有这个矛盾，拿它造矛盾才能证明断言是判据在响、
+   * 不是在读现成的坏数据。 */
   'mech-width-vs-scale': {
     from: /("mechanism":\s*)"[^"]*12 列隐网格[^"]*"/,
     to: '"mechanism": "12 列隐网格上纸块跨 3 至 5 栏，栏间用 5px 宽的刻线分隔，页面上没有一条对称边"',
     expect: 'mech-width-vs-scale',
-    level: 'WARN',   // 这条判据是 WARN 不是 FAIL（档位表本身抽取不全，见断言注释）
+    /* 2026-11-14：从 WARN 升为 FAIL。
+     * 当初定 WARN 的理由是「档位表本身抽取不全」—— S31 的刻度是 gradient 画的，
+     * lineWidths 只认 border 所以只报 1px。那个根因已经修掉（clean-dna.mjs ④
+     * 现在会读 repeating-linear-gradient，S31 变成 1px、1.5px），
+     * 于是这条判据不再有「已知的假阳性来源」，可以是 FAIL 了。 */
+    level: 'FAIL',
   },
 };
 const sandbox = { window: {} };
@@ -527,7 +532,7 @@ for (const d of DIRS) {
         }
         const bad = widths.filter((w) => !scale.some((n) => Math.abs(w - n) < 0.01 || Math.abs(w - Math.ceil(n)) < 0.01));
         if (bad.length) {
-          add('WARN', id, 'mech-width-vs-scale',
+          add('FAIL', id, 'mech-width-vs-scale',
             `机制句要求 ${bad.join('/')}px 宽的线，而第 5 条档位表只有 ${scale.join('/')}px —— ` +
             '提示词自相矛盾，模型无论照哪一句都会违反另一句');
         }
