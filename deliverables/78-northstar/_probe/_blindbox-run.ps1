@@ -144,8 +144,25 @@ function Invoke-Attempt {
     Write-Host ("[attempt " + $Attempt + "] launching scheduled task")
     $taskName = 'BlindBox_' + ([guid]::NewGuid().ToString('N').Substring(0,6))
     schtasks /Delete /TN $taskName /F 2>$null | Out-Null
-    $action = "powershell -NoProfile -ExecutionPolicy Bypass -File `"$runner`" `"$sbHome`" `"$TaskDir`""
+    # schtasks /TR takes ONE command-line string that IT re-parses, and a real `"` in
+    # that string ends the OS-level token: with a space in any path, /Create fails
+    # outright ("invalid argument/option - 'space'") and no task is ever registered.
+    # Measured 2026-11-14 on 'C:\tmp\bb space test\V01':
+    #   plain quotes ........................ created=False
+    #   only SOME quotes escaped as \" ..... created=False   (must be all or nothing)
+    #   ALL quotes escaped as \" ........... created=True, stored Arguments keep proper quotes
+    # Task dirs are derived from case ids today (no spaces), but the failure is silent
+    # in the log and total in effect, so quote it correctly rather than rely on that.
+    $esc = '\' + [char]34     # -> \"
+    $action = 'powershell -NoProfile -ExecutionPolicy Bypass -File ' + $esc + $runner + $esc +
+              ' ' + $esc + $sbHome + $esc + ' ' + $esc + $TaskDir + $esc
     schtasks /Create /TN $taskName /TR $action /SC ONCE /ST 23:59 /RU $user /RP $pass /RL LIMITED /F | Out-Null
+    if (-not (schtasks /Query /TN $taskName 2>$null)) {
+        # Never wait out the full timeout on a task that was never created.
+        Write-Host '  TASK CREATE FAILED -- refusing to wait'
+        icacls $repo /remove:d $user 2>$null | Out-Null
+        return @{ Started = $false; AbortReason = 'task_create_failed'; TaskAction = $action }
+    }
     # Kept only as the fallback signal when identity reads fail; see Get-SandboxWorkerCount.
     $legacyBaseline = @(Get-Process claude -ErrorAction SilentlyContinue).Count
     schtasks /Run /TN $taskName 2>&1 | Out-Null
@@ -200,14 +217,44 @@ function Invoke-Attempt {
     }
     $hasOutput = $false
     $outputBytes = 0
-    if ($cand) {
-        # Copy into place only on a trusted attempt. On an untrusted attempt we still
-        # record what exists, but the retry will clear it -- see the driver loop.
-        $src = $cand[0]
-        Copy-Item -LiteralPath $src -Destination $OutFile -Force
-        $hasOutput = $true
-        $outputBytes = (Get-Item -LiteralPath $OutFile).Length
-        Write-Host ('  OUT_OK src=' + (Split-Path $src -Leaf) + ' bytes=' + $outputBytes)
+    if (@($cand).Count -gt 0) {
+        # @() is load-bearing: with exactly ONE match, PowerShell unrolls the pipeline
+        # result to a scalar String, and $cand[0] then returns its first CHARACTER.
+        # Measured 2026-11-14 with a space in the path: $cand[0] = 'C', Copy-Item threw
+        # PathNotFound, yet the code still printed OUT_OK and set hasOutput = true.
+        # It stayed hidden because OutFile is normally inside TaskDir, so the "copy"
+        # was a no-op that happened to leave the right file already in place.
+        $src = @($cand)[0]
+        Copy-Item -LiteralPath $src -Destination $OutFile -Force -ErrorAction SilentlyContinue
+        # Do not trust the copy: verify the DESTINATION actually exists and is non-empty
+        # before claiming success.
+        #
+        # Three bugs in this runner all had the same shape — "reported success after a
+        # failure": a space in the path made schtasks /Create fail (runner sat there looking
+        # busy), a double quote in the prompt got silently eaten, and $cand[0] on a scalar
+        # returned the first character so Copy-Item threw yet OUT_OK was still printed.
+        # This one assertion covers all three and their future variants.
+        if ((Test-Path -LiteralPath $OutFile) -and (Get-Item -LiteralPath $OutFile).Length -gt 0) {
+            $hasOutput = $true
+            $outputBytes = (Get-Item -LiteralPath $OutFile).Length
+            Write-Host ('  OUT_OK src=' + (Split-Path $src -Leaf) + ' bytes=' + $outputBytes)
+        } else {
+            Write-Host ('  COPY_FAILED src=' + $src + ' -> ' + $OutFile)
+        }
+        # 额外一层：只含 BOM / 空白的文件不算产物。
+        # 实测 Set-Content -Value '' 会写出 5 字节（BOM+CRLF），Length > 0 但内容为空。
+        # 判据：去掉 BOM 与空白后长度必须 > 0。
+        if ($hasOutput) {
+            $raw = [System.IO.File]::ReadAllText($OutFile)
+            # Strip a leading BOM by codepoint rather than by literal character:
+            # embedding U+FEFF in this script survives only if the file keeps its
+            # encoding, and a mismatch turns the -replace into a silent no-op.
+            if ($raw.Length -gt 0 -and [int]$raw[0] -eq 0xFEFF) { $raw = $raw.Substring(1) }
+            if ($raw.Trim().Length -eq 0) {
+                $hasOutput = $false
+                Write-Host '  COPY_FAILED (file has only BOM/whitespace)'
+            }
+        }
     } else {
         Write-Host '  NO_HTML_FOUND'
     }

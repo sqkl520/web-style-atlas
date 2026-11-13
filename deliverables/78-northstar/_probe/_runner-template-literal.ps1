@@ -25,7 +25,34 @@ $msg = "Read task.txt in this directory, then write the finished page to out.htm
 # Measured 2026-11-13: "lastPrompt":"Read" in the sandbox transcript, and the model's
 # own words: 'The user just said "Read". That is a minimal message. The instruction
 # "Read" is ambiguous.' Build ONE already-quoted string instead.
-$argLine = '-p "' + $msg + '" --model opus --permission-mode acceptEdits --output-format stream-json --verbose'
+#
+# But hand-writing '-p "' + $msg + '"' is NOT enough -- measured 2026-11-14, three ways:
+#   1. a double quote inside $msg closes the argument early and is silently DELETED.
+#      Prompt 'say ALPHA"BETA"GAMMA' arrived at the model as 'say ALPHABETAGAMMA'.
+#      Every production task.txt in this repo contains <img src="...">, so this is live.
+#   2. a $msg ending in a backslash escapes the closing quote; the rest of the flags
+#      are swallowed into the prompt ('write to C:\tmp\out\' ate ' --model opus').
+#   3. newlines happen to survive, but nothing else about the naive form is safe.
+# Quote-Arg applies the documented Windows CommandLineToArgvW rule (this is the same
+# transform .NET's ProcessStartInfo.ArgumentList and the C runtime use). Verified
+# byte-exact on: plain text, internal quotes, trailing backslash, backslash+quote,
+# multi-line, and the real 1959-char S01 task.txt.
+function Quote-Arg([string]$s) {
+    $sb = New-Object System.Text.StringBuilder
+    [void]$sb.Append('"')
+    $bs = 0
+    foreach ($ch in $s.ToCharArray()) {
+        if ($ch -eq '\') { $bs++; continue }
+        if ($ch -eq '"') { [void]$sb.Append(('\' * ($bs * 2 + 1))); [void]$sb.Append('"'); $bs = 0; continue }
+        if ($bs -gt 0) { [void]$sb.Append(('\' * $bs)); $bs = 0 }
+        [void]$sb.Append($ch)
+    }
+    if ($bs -gt 0) { [void]$sb.Append(('\' * ($bs * 2))) }   # trailing run must not eat the closing quote
+    [void]$sb.Append('"')
+    return $sb.ToString()
+}
+
+$argLine = '-p ' + (Quote-Arg $msg) + ' --model opus --permission-mode acceptEdits --output-format stream-json --verbose'
 
 Add-Content -Path (Join-Path $work_ "runner.log") -Value ("ARGS: " + $argLine) -Encoding utf8
 

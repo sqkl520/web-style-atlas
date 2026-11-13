@@ -300,3 +300,95 @@ bug 的后果是「元指令不经过对话通道」，而不是「指令没送�
 **所以这批数据对 Cursor/v0 这类 agent 路径有效，对纯聊天路径证明不了什么。**
 
 这是比「argv bug」更根本的一条限制。
+
+---
+
+## 十、运行器验证 Agent 又挖出三个静默失败（我全都复核了）
+
+这三个比我修的那个 argv bug 更难发现，因为**它们失败之后仍然报成功**。
+
+### 10.1 已修好的：完整指令送达 ✅
+
+Agent 在真实沙箱里跑（`ClaudeBlindBox` + 计划任务 + Deny ACE）：
+
+```
+expected len=265  received len=265  BYTE-EXACT MATCH: true
+```
+
+三种确认都过了：模型复述了任务书三件事、产物 `<title>` 精确命中当次标记
+（`FRAMBOISE-77` / `QUINCE-88`，两次用不同标记排除残留）、最终话是
+"Wrote out.html — a 5-line standalone page with FRAMBOISE-77 in the title"。
+
+### 10.2 新发现一：路径含空格时 `schtasks /TR` 静默失败
+
+```
+/TR = ... -File "C:\tmp\bb space test\V01\_run.ps1" ...
+create: 错误: 无效参数/选项 - 'space'。
+```
+
+**`/Create` 失败了，但运行器照常进等待循环、空等 90 秒。** 日志看起来像在跑。
+
+四种写法实测：普通引号 ❌、部分转义 ❌、**全部转义成 `\"` ✅**、8.3 短路径 ✅。
+已改成全转义，并加了「创建失败即中止」。
+
+### 10.3 新发现二：prompt 里的双引号被静默删除（高危）
+
+Agent 真跑 claude 验证：发 `ALPHA"BETA"GAMMA`，模型收到 **`ALPHABETAGAMMA`**。
+
+我复核了影响面：
+
+```
+$ for f in deliverables/78-northstar/blind/*/task.txt; do grep -q '"' "$f" && echo x; done
+含双引号的: 38 / 38
+```
+
+**38/38 个生产任务书都含双引号**，位置有两类：
+
+```html
+<img src="images/占位-N.jpg">           ← 输出要求里的 HTML 示例
+方阵"贴左边缘长出"这个不对称             ← 中文引号包裹的短语
+```
+
+如果把它们塞进 `-p`，`src="images/..."` 会变成 `src=images/...`（非法 HTML）。
+
+**当前没爆，因为这些任务书走 `task.txt` + Read 工具，不走 `-p`。**
+但任何「把 task.txt 塞进 `-p`」的改法会立刻踩中 —— 这是定时炸弹。
+
+### 10.4 新发现三：`$cand[0]` 在单元素时返回首字符（本次真实发生）
+
+```powershell
+$single = 'only-one-item'
+$single[0]        → 'o'          ← 标量取下标 = 取字符
+@('only-one-item')[0] → 'only-one-item'
+```
+
+我把管道结果赋给变量时，如果只有一个结果，PowerShell 退化成标量 String，
+`$cand[0]` = `'C'`，`Copy-Item` 抛 PathNotFound —— **但仍然打印 OUT_OK、仍然置 hasOutput=true。**
+
+之前一直没发现，是因为 `OutFile` 通常在 `TaskDir` 里、源文件名也恰好是 `out.html`，
+复制成了自我覆盖的空操作。
+
+已改成 `@($cand)[0]`。
+
+### 10.5 三个坑是同一个形状
+
+> **失败之后仍然报成功。**
+
+- 路径含空格 → `/Create` 失败 → 空等 90 秒 → 看起来像在跑
+- 引号被吃 → HTML 变成非法的 → 产物仍然是「成功写出」
+- 标量取下标 → `Copy-Item` 抛错 → 仍然 OUT_OK
+
+Agent 留了一条建议给我：`Invoke-Attempt` 宣布 `hasOutput` 之前应
+`Test-Path` 目标文件且字节数 > 0。**这条我没让它改，我来定。**
+
+**我的判断：应该加。** 这一行断言能同时挡住这三个坑和将来的变体。
+这是本仓库最老的病（闸门读不到数据也不报错），只是这次发生在运行器里。
+
+### 10.6 一个需要纠正的放大
+
+Agent 提醒：**这个 bug 只影响 PowerShell 沙箱线。**
+
+- `blind-run.mjs` 用 Node 的 `execFile` 传数组，Node 自己加引号，安全
+- 40 行任务书走 `task.txt` + Read 工具，不走 `-p`
+
+所以「argv bug 影响了整个项目」这个说法是错的，它只影响沙箱运行器这一条线。
