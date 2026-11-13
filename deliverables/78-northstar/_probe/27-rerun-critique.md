@@ -604,7 +604,9 @@ S17 那三版对照甚至是本仓库最好的因果证据（唯一变量是色�
 
 ```
 S35 实测 0.47h / $1.33（历史最快的一案）
-判据：run.json.trusted === true ∧ lastPrompt == 完整 $msg（不是 "Read"）
+判据：run.json.trusted === true ∧ lastPrompt 的前 200 字符 == $msg 的前 200 字符
+     ⚠️ 不能要求「等于完整 $msg」—— lastPrompt 硬截断在 201 字符，而 $msg 是 265 字符，
+        那个判据永远不可能通过（实测 review-e2e-long: 长度 201 vs probe 265）。
      ∧ 产物的 8 个 px 值全中 ∧ stream 里有 ≥1 次 Write 且路径 == out.html
 ```
 

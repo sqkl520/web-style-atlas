@@ -452,8 +452,9 @@ $ grep -o '#[0-9A-Fa-f]\{6\}' ... | sort -u | wc -l → 5
 ```bash
 # 判据：从 sandbox transcript 读 lastPrompt / content
 grep -o '"lastPrompt":"[^"]*"' C:/tmp/bb-home/.claude/projects/C--tmp-bb-<id>/*.jsonl
-# 通过 = 包含完整的 240 字符提示语
+# 通过 = 前 200 字符与 $msg 的前 200 字符相同
 # 失败 = 等于 "Read"   ← 本轮 10/10 全失败
+# 注意：lastPrompt 硬截断在 201 字符（实测），所以判据只能是前缀比对，不能要求全文相等。
 ```
 
 **这一条如果不过，整个重跑等于没做**：因为「模型想多久才动手」这个观测，
