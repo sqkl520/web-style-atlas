@@ -71,8 +71,21 @@ for (const id of ids) {
   const dir = dirOf(id);
   if (!dir) { rows.push({ id, err: '原型目录找不到' }); continue; }
   /* 产物可能是 out.html 或 index.html（运行器已处理，这里兜底） */
+  /* 产物来源按优先级找三处：
+   *   1. C:\tmp\bb\<id>\out.html       —— 刚跑完的运行
+   *   2. C:\tmp\bb\<id>\index.html     —— 模型自己起的名字
+   *   3. _probe/_staged/<id>-sandbox.html —— 已入库的副本
+   *
+   * 为什么要第三处：C:\tmp 是易失的。2026-11-13 系统把整个 C:\tmp 清掉了，
+   * 十案产物一次全丢。幸好对账时会把每份产物复制进 _staged/（原本只是为了绕开
+   * measure() 的仓库根限制），那些副本还在，证据因此没丢。
+   * 不能把证据只放在 tmp 里。 */
   let gen = join(BOX, id, 'out.html');
   if (!existsSync(gen)) gen = join(BOX, id, 'index.html');
+  if (!existsSync(gen)) {
+    const stagedCopy = join(STAGING, `${id}-sandbox.html`);
+    if (existsSync(stagedCopy)) gen = stagedCopy;
+  }
   if (!existsSync(gen)) { rows.push({ id, err: '沙箱产物缺失' }); continue; }
 
   /* 搬进仓库再量 —— 见文件头 STAGING 的注释 */
@@ -100,7 +113,19 @@ for (const id of ids) {
    *
    * 注意区分严重度：少用色是「没执行到位」，多用色是「违反了明确禁令」。
    * 两者都记，但 extraHex 单独一列，不混进「全中」的计数里。 */
-  const extraHex = claims ? [...gotHex].filter((h) => !claims.hexes.has(h)) : [];
+  /* UA 默认色不算「超用」。
+   *
+   * 回归审计（2026-11-13）指出：拿 35 个**原型**自己去过这条判据，
+   * 27 个过不了 —— 7 案带 `#0000EE`（未设色的 <a> 链接蓝）、
+   * 17 案带 `#FFFFFF`、2 案带 `#000000`。
+   * 这些都不是作者选的颜色，是浏览器渲染未设样式元素时给的默认值。
+   *
+   * 加这条过滤之后，沙箱产物那十案本来就没有多余色（它们的 <a> 都上了色），
+   * 所以结论不变；但判据对「原型 vs 原型」这类用途不再假阳性。 */
+  const UA_DEFAULTS = new Set(['#0000EE', '#FFFFFF', '#000000', '#551A8B', '#00FF00', '#FF0000']);
+  const extraHex = claims
+    ? [...gotHex].filter((h) => !claims.hexes.has(h) && !UA_DEFAULTS.has(h))
+    : [];
 
   const gotLW = new Set((g.borderWidths || []).map((x) => parseFloat(x)));
   const missLW = claims ? claims.lineWidths.filter((n) => {

@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>贴满印社 · 第 04 面墙 · 编号 001—009</title>
+<meta name="description" content="贴满印社第 04 面墙，九张手贴印品，编号 001 到 009。带纸来，墙归你贴。">
+<!--
+  施工图开头两行（自填）：
+  我经营「贴满印社」——一间只做手贴印品的小印社，丝网、木刻、手抄纸，糊和刷子都是自己的。
+  页面需要让访客带着自己那张纸走上墙，并记住 001—009 这九个编号。
+
+  ── 风格：手贴满的展览墙 / 色块互相压边        调性：混乱活力 / 街头 ──
+
+  【版式规模】9 个条目位，跨栏与错移量全部写死（不走自动流）：
+      第 1 排  001 跨 5 栏   002 跨 4 栏   003 跨 3 栏
+      第 2 排  004 跨 3 栏   005 跨 5 栏   006 跨 4 栏
+      第 3 排  007 跨 5 栏   008 跨 4 栏   009 跨 3 栏
+      九条的内部结构依次为 A—I 九型，没有两条长得一样。
+  【公开表 A · 色版偏移五档】（写死，档位与内容绑定，不随机）
+      档 I  +3px/+3px   档 II +4px/+2px   档 III +5px/+4px
+      档 IV +6px/+3px   档 V  +7px/+5px
+  【公开表 B · 斜纹与胶带】（各写死一级）
+      斜纹 45° · 线宽 1.1px · 间距 6px        胶带 −2.5° · 46×14px
+  【公开表 C · 层叠高差】0 / 6 / 12 / 18 px，阅读入口由高低与错位量给出。
+  【面积账 · 按作者表】墨场（body 底＋栏间缝＋左右页边）与墨块、线合计约 26%，
+      压住画面；橙 34%、绿 26% 只以卡面与色版出现；纸 14% 只做文字承托面。
+      全场不出现第五种实色。
+  【随机项】只有跨栏序列与留白；偏移量与斜纹角度已固定成表并公开。
+  【动效】机制句里没写任何可动的动作，所以全站静止：无 transition、
+      无 animation、无 hover 位移；浮起一律靠错移量与边界差。
+-->
+<style>
+:root{
+  --green:#2F7D4F; --orange:#96550F; --ink:#14100C; --paper:#F0E2C8;
+  --kai:"LXGW WenKai","KaiTi","STKaiti","Kaiti SC",serif;
+  --song:"Redaction 20",Georgia,"Nimbus Roman","LXGW WenKai",serif;
+  --mono:"Martian Mono",monospace;
+  --w1:1px; --w2:1.1px; --w3:3px;
+  --gut-l:clamp(14px,2.9vw,48px);
+  --gut-r:clamp(10px,1.1vw,18px);
+  --gap:clamp(10px,1.1vw,18px);
+}
+*,*::before,*::after{box-sizing:border-box;border-radius:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--ink);color:var(--paper);
+  font-family:var(--song);font-size:17px;line-height:1.58;
+  border-left:var(--w3) solid var(--orange);overflow-x:hidden;
+}
+img{display:block;width:100%;height:auto;background:var(--ink);border:var(--w2) solid var(--ink)}
+h1,h2,h3{margin:0;font-family:var(--kai);font-weight:400;line-height:1.08}
+p{margin:0}
+ul,ol,li{margin:0;padding:0;list-style:none}
+a{color:inherit;text-decoration:none}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.r{text-align:right}
+.push{margin-left:auto}
+.page{max-width:1500px;margin:0 auto;padding-left:var(--gut-l);padding-right:var(--gut-r)}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gap);align-items:start}
+.sec{padding-top:clamp(26px,4vh,58px)}
+.bleed-l{margin-left:calc(0px - var(--gut-l))}
+
+/* —— 纸块 / 色版：压边靠错移，浮起靠边界差，不用透明度 —— */
+.blk{position:relative;z-index:1;display:block}
+.blk>.face{
+  position:relative;z-index:1;display:block;
+  background:var(--paper);color:var(--ink);
+  border:var(--w2) solid var(--ink);
+  padding:clamp(12px,1.05vw,20px);
+}
+.blk::before{
+  content:"";position:absolute;top:0;right:0;bottom:0;left:0;z-index:0;
+  transform:translate(var(--ox,4px),var(--oy,4px));
+}
+.plate-orange::before{background:var(--orange)}
+.plate-green::before{background:var(--green)}
+.plate-ink::before{background:var(--ink)}
+.plate-paper::before{background:var(--paper)}
+.off-1{--ox:3px;--oy:3px}
+.off-2{--ox:4px;--oy:2px}
+.off-3{--ox:5px;--oy:4px}
+.off-4{--ox:6px;--oy:3px}
+.off-5{--ox:7px;--oy:5px}
+.hi-0{margin-top:0}
+.hi-1{margin-top:6px}
+.hi-2{margin-top:12px}
+.hi-3{margin-top:18px}
+.tape{position:absolute;z-index:3;width:46px;height:14px;background:var(--paper);transform:rotate(-2.5deg)}
+.tape.g{background:var(--green)}
+.tape.o{background:var(--orange)}
+.t-tl{top:-8px;left:16px}
+.t-tr{top:-8px;right:22px}
+.t-bl{bottom:-8px;left:28px}
+.t-br{bottom:-8px;right:14px}
+
+/* —— 脸的四种落色：全场只有这四种，明度关系同一套 —— */
+.face.ink{background:var(--ink);color:var(--paper);border-color:var(--paper)}
+.face.orange{background:var(--orange);color:var(--paper);border-color:var(--ink)}
+.face.green{background:var(--green);color:var(--paper);border-color:var(--ink)}
+.face.paper{background:var(--paper);color:var(--ink);border-color:var(--ink)}
+.face.tight{padding:clamp(8px,.7vw,12px)}
+.face.ink .krow,.face.ink .mrow,.face.ink .mrow>span,.face.ink .spec-list li{border-color:var(--paper)}
+.face.orange .krow,.face.orange .mrow,.face.orange .mrow>span,.face.orange .spec-list li{border-color:var(--paper)}
+.face.green .krow,.face.green .mrow,.face.green .mrow>span,.face.green .spec-list li{border-color:var(--paper)}
+.face.ink .rule3,.face.orange .rule3,.face.green .rule3{border-top-color:var(--paper)}
+.face.ink .cols12,.face.ink .cols12 i{border-color:var(--paper)}
+.face.ink .big-num,.face.ink .c-note,.face.ink .small{color:var(--paper)}
+
+/* —— 斜纹：角度 / 线宽 / 间距固定成表；底色一律不透明 —— */
+.hatch-g{background-color:var(--paper);background-image:repeating-linear-gradient(45deg,var(--green) 0 var(--w2),var(--paper) var(--w2) 6px)}
+.hatch-o{background-color:var(--paper);background-image:repeating-linear-gradient(45deg,var(--orange) 0 var(--w2),var(--paper) var(--w2) 6px)}
+.hatch-k{background-color:var(--paper);background-image:repeating-linear-gradient(45deg,var(--ink) 0 var(--w2),var(--paper) var(--w2) 6px)}
+.hatch-strip{height:18px;border:var(--w1) solid var(--ink)}
+.face.ink .hatch-strip,.face.green .hatch-strip,.face.orange .hatch-strip{border-color:var(--paper)}
+
+/* —— 字 —— */
+.hero-title{font-size:clamp(38px,6.2vw,72px);line-height:1.02}
+.h2{font-size:clamp(26px,2.4vw,38px)}
+.c-title{font-size:clamp(21px,1.5vw,26px);line-height:1.2}
+.c-title.xl{font-size:clamp(24px,2.1vw,34px)}
+.kicker{font-size:13px;letter-spacing:.16em}
+.lead{font-size:17px}
+.small{font-size:13.5px;line-height:1.55}
+.c-note{font-size:15px;line-height:1.55;margin-top:8px}
+.big-num{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:clamp(22px,2vw,30px);text-align:right;letter-spacing:-.03em}
+
+/* —— 零件 —— */
+.krow{display:flex;justify-content:space-between;align-items:baseline;gap:10px;border-bottom:var(--w1) solid var(--ink);padding-bottom:6px;margin-bottom:10px;font-size:13.5px}
+.tagkey{background:var(--ink);color:var(--paper);padding:3px 8px;font-size:12.5px;letter-spacing:.14em}
+.tagkey.inv{background:var(--paper);color:var(--ink)}
+.mrow{display:flex;flex-wrap:wrap;border-top:var(--w1) solid var(--ink);margin-top:12px}
+.mrow>span{padding:5px 10px 4px;border-right:var(--w1) solid var(--ink);font-size:13.5px}
+.mrow>span:first-child{padding-left:0}
+.mrow>span:last-child{border-right:0;padding-right:0}
+.split{display:grid;grid-template-columns:1.15fr .85fr;column-gap:clamp(10px,1vw,16px);align-items:start}
+.split.rev{grid-template-columns:.8fr 1.2fr}
+.split.feat{grid-template-columns:150px 1fr}
+.rule3{border-top:var(--w3) solid var(--ink);margin:12px 0}
+.mt{margin-top:12px}
+.spec-list li{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:6px 0;border-bottom:var(--w1) solid var(--ink);font-size:14.5px}
+.spec-list li:last-child{border-bottom:0}
+.cols12{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:clamp(4px,.45vw,7px);padding:10px 0;border-top:var(--w1) solid var(--ink);border-bottom:var(--w1) solid var(--ink);margin-top:14px}
+.cols12 i{display:block;height:30px;border-left:var(--w1) solid var(--ink);border-right:var(--w1) solid var(--ink)}
+.cols12 i.kg{background-color:var(--paper);background-image:repeating-linear-gradient(45deg,var(--green) 0 var(--w2),var(--paper) var(--w2) 6px)}
+.cols12 i.ko{background-color:var(--paper);background-image:repeating-linear-gradient(45deg,var(--orange) 0 var(--w2),var(--paper) var(--w2) 6px)}
+.cols12 i.kk{background:var(--ink)}
+.numstrip{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:var(--w1);background:var(--ink)}
+.numstrip>span{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right;font-size:clamp(9.5px,.8vw,12.5px);letter-spacing:-.03em;padding:5px 5px 4px 0;background:var(--orange);color:var(--paper)}
+.numstrip>span.key{background:var(--ink);color:var(--paper)}
+.cta{display:block}
+.cta>.face{
+  border-width:var(--w3);border-color:var(--paper);
+  padding:12px 15px;font-family:var(--kai);
+  font-size:clamp(18px,1.5vw,22px);line-height:1.2;
+}
+.arow{display:grid;grid-template-columns:88px minmax(0,1fr) minmax(0,2fr) 148px;column-gap:clamp(8px,1vw,16px);align-items:baseline;padding:7px 0;border-bottom:var(--w1) solid var(--paper);font-size:14px}
+.arow .c-no,.arow .c-da{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right;font-size:13px}
+.arow.key{background:var(--orange);padding-left:9px;padding-right:9px}
+.foot-end{margin-top:clamp(16px,1.6vw,24px);padding-top:12px;border-top:var(--w1) solid var(--paper)}
+.foot-end p+p{margin-top:6px}
+.plan{width:100%;max-width:440px;height:auto;border:var(--w1) solid var(--paper);background:var(--ink)}
+.plan text{font-family:var(--song);font-size:12.5px;fill:var(--paper)}
+.rule-s{height:var(--w3);background:var(--ink)}
+.face.ink .rule-s,.face.orange .rule-s,.face.green .rule-s{background:var(--paper)}
+
+/* —— 首屏：静态，一屏内全部可见 —— */
+.hero{display:flex;flex-direction:column;min-height:100svh;padding:clamp(11px,1.6vh,20px) 0 clamp(13px,1.8vh,24px)}
+.hero>.page{flex:1;display:flex;flex-direction:column}
+.hero-grid{
+  display:grid;flex:1;align-content:space-between;
+  grid-template-columns:repeat(12,minmax(0,1fr));
+  column-gap:var(--gap);row-gap:clamp(10px,1.6vh,22px);
+  align-items:start;
+}
+.h-name{margin-bottom:clamp(12px,1.8vh,22px)}
+.h-main{grid-column:1/span 5;grid-row:1}
+.h-sample{grid-column:7/span 6;grid-row:1 / span 2}
+.h-num{grid-column:1/span 5;grid-row:2 / span 2}
+.h-cta{grid-column:7/span 3;grid-row:3}
+.h-meta{grid-column:10/span 3;grid-row:3}
+.strip{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;padding:9px clamp(12px,1.05vw,20px)}
+.strip-name{font-family:var(--kai);font-size:clamp(19px,1.6vw,24px);letter-spacing:.06em}
+.strip-meta{font-size:13px;letter-spacing:.06em}
+
+/* —— 移动端：单列，顺序不变 —— */
+@media (max-width:900px){
+  .grid,.hero-grid{grid-template-columns:1fr}
+  .grid>*,.hero-grid>*{grid-column:1/-1 !important;margin-top:0 !important}
+  .hero{min-height:auto}
+  .h-name,.h-main,.h-sample,.h-num,.h-cta,.h-meta{grid-row:auto}
+  .split,.split.rev,.split.feat{grid-template-columns:1fr}
+  .numstrip{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .arow{grid-template-columns:82px 1fr}
+  .arow .c-da{grid-column:2;text-align:right}
+  .arow.key{padding-left:7px;padding-right:7px}
+  .bleed-l{margin-left:0}
+  .strip{gap:8px}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="page" style="width:100%">
+
+    <!-- 站名条：左出血、右端编号，两边不对称 -->
+    <div class="blk bleed-l off-2 plate-orange hi-0 h-name">
+      <div class="face ink strip">
+        <span class="strip-name">贴满印社</span>
+        <span class="strip-meta">第 04 面墙 · 只做手贴 · 丝网 木刻 手抄纸</span>
+        <span class="push mono r">009 张全在墙上</span>
+      </div>
+    </div>
+
+    <div class="hero-grid">
+
+      <!-- 阅读起点：左栏起点；入口由层叠高低与错位量给出 -->
+      <div class="blk off-3 plate-orange hi-0 h-main">
+        <div class="face paper">
+          <span class="kicker">我经营一间手贴印社</span>
+          <h1 class="hero-title">纸带来，<br>墙归你贴</h1>
+          <div class="rule3"></div>
+          <p class="small">第 04 面墙 · 2026.09.05 – 2027.02.28 · 九张全贴上了，谁也没打算对齐。</p>
+        </div>
+        <span class="tape o t-tr"></span>
+      </div>
+
+      <!-- 首屏举例条目：编号与卡片、页脚同一串 -->
+      <article class="blk off-1 plate-ink hi-2 h-sample">
+        <div class="face green">
+          <div class="krow"><span class="tagkey inv">本墙第一张</span><span class="mono r">001</span></div>
+          <div class="split feat">
+            <div><img src="images/占位-1.jpg" alt="夜班三轮，何嘉树，编号 001" width="720" height="720"></div>
+            <div>
+              <h3 class="c-title">夜班三轮</h3>
+              <p class="c-note">夜班三轮跑完才开印，纸是当天的，墨是隔夜的。</p>
+              <p class="small mt">何嘉树 · 三色丝网 · 78×109cm</p>
+            </div>
+          </div>
+          <div class="mrow"><span>09.05–12.20</span><span class="push mono r">001</span></div>
+        </div>
+      </article>
+
+      <!-- 编号串：首屏、卡片、页脚同一串，一个不落 -->
+      <div class="blk off-2 plate-ink hi-3 h-num">
+        <div class="face paper tight">
+          <div class="numstrip">
+            <span class="key">001</span><span>002</span><span>003</span><span>004</span><span>005</span><span>006</span><span>007</span><span>008</span><span>009</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 全屏唯一主行动 -->
+      <div class="blk off-5 plate-paper hi-0 h-cta">
+        <a class="cta" href="#wall">
+          <span class="face orange">看这九张，<br>带你那张来 ↓</span>
+        </a>
+      </div>
+
+      <!-- 一句自述：把访客要做的事写清楚 -->
+      <div class="blk off-4 plate-green hi-2 h-meta">
+        <div class="face paper tight">
+          <p class="small">我经营「贴满印社」，只做手贴印品。<br>九张 · 5 位贴手 ＋ 众手 · 176 天<br>带纸来就能贴，糊和刷子我们出。</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- 施工表：偏移量与斜纹角度固定成表并公开 -->
+  <section class="sec" id="spec">
+    <div class="page">
+      <div class="grid" style="row-gap:clamp(16px,1.6vw,28px)">
+
+        <div class="blk off-4 plate-green hi-0" style="grid-column:1/span 4">
+          <div class="face ink">
+            <span class="kicker">工艺</span>
+            <h2 class="h2" style="margin-top:8px">这面墙怎么贴的</h2>
+            <p class="small" style="margin-top:12px">偏移、斜纹、跨栏、高差，全在这张表里。随机的只有跨栏序列和留白，别的都是死的。</p>
+            <div class="hatch-strip hatch-g" style="margin-top:14px"></div>
+          </div>
+          <span class="tape o t-br"></span>
+        </div>
+
+        <div class="blk off-2 plate-orange hi-2" style="grid-column:7/span 5">
+          <div class="face green">
+            <ul class="spec-list">
+              <li><span>隐网格</span><span class="mono r">12 列</span></li>
+              <li><span>纸块跨栏</span><span class="mono r">3 / 4 / 5 栏</span></li>
+              <li><span>色版偏移（五档）</span><span class="mono r">3 / 4 / 5 / 6 / 7 px</span></li>
+              <li><span>偏移方向表</span><span class="mono r">I +3+3 · II +4+2 · III +5+4 · IV +6+3 · V +7+5</span></li>
+              <li><span>层叠高差</span><span class="mono r">0 / 6 / 12 / 18 px</span></li>
+              <li><span>斜纹</span><span class="mono r">45° · 1.1px · 间距 6px</span></li>
+              <li><span>胶带</span><span class="mono r">−2.5° · 46 × 14 px</span></li>
+              <li><span>线宽级</span><span class="mono r">1 / 1.1 / 3 px</span></li>
+              <li><span>圆角 · 阴影 · 透明度</span><span class="mono r">0 · 无 · 不用</span></li>
+            </ul>
+            <div class="cols12" aria-hidden="true">
+              <i class="kk"></i><i class="kk"></i><i class="kk"></i><i class="kk"></i><i class="kg"></i><i class="kg"></i><i class="kg"></i><i class="kg"></i><i class="kg"></i><i class="ko"></i><i class="ko"></i><i class="ko"></i>
+            </div>
+            <p class="small" style="margin-top:10px">斜纹块就是纸块的三种落位：跨 3 栏、跨 4 栏、跨 5 栏。网格本身不画线，靠错移量读出来。</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 九个编号，九张纸 -->
+  <section class="sec" id="wall">
+    <div class="page">
+      <div class="grid" style="row-gap:clamp(20px,1.9vw,34px)">
+
+        <div class="blk bleed-l off-2 plate-orange hi-0" style="grid-column:1/span 5">
+          <div class="face ink">
+            <span class="kicker">本墙全部条目</span>
+            <h2 class="h2" style="margin-top:8px">九张，一个不落</h2>
+            <p class="small" style="margin-top:10px">每个编号后面都挂着真人、真展期、真墙位。看中哪张，按编号问。</p>
+          </div>
+        </div>
+
+        <div class="blk off-5 plate-green hi-3" style="grid-column:7/span 3">
+          <div class="face hatch-o tight">
+            <p class="small">跨栏序列（本墙固定）</p>
+            <p class="mono r" style="margin-top:6px">5-4-3 / 3-5-4 / 5-4-3</p>
+          </div>
+        </div>
+
+        <div class="blk off-3 plate-ink hi-1" style="grid-column:11/span 2">
+          <div class="face paper tight">
+            <p class="small">本墙<br>编号</p>
+            <p class="mono" style="margin-top:6px">001—009</p>
+            <p class="small" style="margin-top:6px">9 张<br>176 天</p>
+          </div>
+          <span class="tape o t-bl"></span>
+        </div>
+
+        <!-- 001 · A 型：横题 → 通栏图 → 斜纹条 → 三格 -->
+        <article class="blk off-3 plate-green hi-1" style="grid-column:1/span 5">
+          <div class="face orange">
+            <div class="krow"><span class="kicker">A 墙 · 北段</span><span class="mono r">001</span></div>
+            <h3 class="c-title xl">夜班三轮</h3>
+            <p class="c-note">夜班三轮跑完才开印，纸是当天的，墨是隔夜的。</p>
+            <div class="mt"><img src="images/占位-2.jpg" alt="夜班三轮，何嘉树，编号 001" width="960" height="640"></div>
+            <div class="hatch-strip hatch-g" style="margin-top:10px"></div>
+            <div class="mrow"><span>何嘉树</span><span>三色丝网 · 78×109cm</span><span class="push mono r">09.05–12.20</span></div>
+          </div>
+          <span class="tape t-tl"></span>
+        </article>
+
+        <!-- 002 · B 型：左文右竖图 -->
+        <article class="blk off-5 plate-orange hi-3" style="grid-column:6/span 4">
+          <div class="face paper">
+            <div class="krow"><span class="kicker">A 墙 · 中段</span><span class="mono r">002</span></div>
+            <div class="split">
+              <div>
+                <h3 class="c-title">三十七张废版</h3>
+                <p class="c-note">三十七张废版一张没扔，全钉在这张纸上。</p>
+                <div class="rule3"></div>
+                <p class="small">邓九<br>单色木刻<br>54×79cm</p>
+              </div>
+              <div><img src="images/占位-3.jpg" alt="三十七张废版，邓九，编号 002" width="800" height="1100"></div>
+            </div>
+            <div class="mrow"><span class="mono">09.19–01.10</span><span class="push">A 墙 中段</span></div>
+          </div>
+        </article>
+
+        <!-- 003 · C 型：题在上、竖图在下，收尾一条 3px 线 -->
+        <article class="blk off-1 plate-ink hi-0" style="grid-column:10/span 3">
+          <div class="face green">
+            <div class="krow"><span class="kicker">B 墙 · 北段</span><span class="mono r">003</span></div>
+            <h3 class="c-title">油墨未干</h3>
+            <p class="c-note">印完没等干就贴，边上现在还有两道手印。</p>
+            <img class="mt" src="images/占位-4.jpg" alt="油墨未干，苏木，编号 003" width="900" height="1200">
+            <div class="rule3"></div>
+            <div class="mrow" style="border-top:0;margin-top:0"><span>苏木</span><span class="push mono r">10.03–12.28</span></div>
+          </div>
+          <span class="tape g t-br"></span>
+        </article>
+
+        <!-- 004 · D 型：大号编号起头 → 3px 线 → 方图 -->
+        <article class="blk off-2 plate-green hi-0" style="grid-column:1/span 3">
+          <div class="face paper">
+            <div class="big-num">004</div>
+            <div class="rule3"></div>
+            <img src="images/占位-5.jpg" alt="巷口第七根电线杆，龙阿满，编号 004" width="1000" height="750">
+            <h3 class="c-title" style="margin-top:10px">巷口第七根电线杆</h3>
+            <p class="c-note">数到第七根才敢下手，前六根都有人包了。</p>
+            <div class="mrow"><span>龙阿满</span><span class="push mono r">10.17–01.31</span></div>
+          </div>
+        </article>
+
+        <!-- 005 · E 型：墨底头条 + 左图右文 -->
+        <article class="blk off-4 plate-orange hi-2" style="grid-column:4/span 5">
+          <div class="face paper">
+            <div class="face ink tight" style="border-width:var(--w1)">
+              <div class="krow" style="margin-bottom:6px"><span class="kicker">C 墙 · 北段</span><span class="mono r">005</span></div>
+              <h3 class="c-title xl">贴歪了也算数</h3>
+            </div>
+            <div class="mt split">
+              <div><img src="images/占位-6.jpg" alt="贴歪了也算数，郑小满，编号 005" width="1100" height="800"></div>
+              <div>
+                <p class="c-note" style="margin-top:0">揭下来重贴三次，第四次歪得最好看，就它了。</p>
+                <div class="rule3"></div>
+                <p class="small">郑小满<br>拼贴 · 回收纸<br>尺寸不定</p>
+              </div>
+            </div>
+            <div class="mrow"><span>对位偏差 ±7mm</span><span class="push mono r">10.31–12.14</span></div>
+          </div>
+        </article>
+
+        <!-- 006 · F 型：窄竖图在左，三格收尾 -->
+        <article class="blk off-1 plate-ink hi-1" style="grid-column:9/span 4">
+          <div class="face ink">
+            <div class="krow"><span class="kicker">C 墙 · 中段</span><span class="mono r">006</span></div>
+            <div class="split rev">
+              <div><img src="images/占位-7.jpg" alt="一百个路人的手，何嘉树与众手，编号 006" width="820" height="1040"></div>
+              <div>
+                <h3 class="c-title">一百个<br>路人的手</h3>
+                <p class="c-note">谁路过都能按一个，按满一百个为止。</p>
+                <p class="small mt">已经按了 89 个，还空 11 个。</p>
+              </div>
+            </div>
+            <div class="mrow"><span>何嘉树 ＋ 众手</span><span class="push mono r">11.07–01.24</span></div>
+          </div>
+        </article>
+
+        <!-- 007 · G 型：宽题 + 通栏横图 + 双 3px 线夹说明 -->
+        <article class="blk off-3 plate-orange hi-2" style="grid-column:1/span 5">
+          <div class="face paper">
+            <div class="krow"><span class="kicker">C 墙 · 南段</span><span class="mono r">007</span></div>
+            <h3 class="c-title xl">雨天补墙</h3>
+            <img class="mt" src="images/占位-8.jpg" alt="雨天补墙，邓九，编号 007" width="1400" height="700">
+            <div class="rule3"></div>
+            <p class="small">雨把前一天贴的边角泡开了。邓九当天下午回来，在原来那张上面又压了一张新的，两层一起留着，没有揭下来。</p>
+            <div class="rule3"></div>
+            <div class="mrow" style="border-top:0;margin-top:0"><span>邓九 · 现场补版</span><span class="push mono r">11.14–12.31</span></div>
+          </div>
+        </article>
+
+        <!-- 008 · H 型：斜纹头条 + 大标题 + 双列信息 -->
+        <article class="blk off-5 plate-green hi-0" style="grid-column:6/span 4">
+          <div class="face green">
+            <div class="hatch-strip hatch-o" style="margin-bottom:12px"></div>
+            <div class="krow"><span class="kicker">D 墙 · 北段</span><span class="mono r">008</span></div>
+            <h3 class="c-title xl">回收纸的<br>三次命</h3>
+            <img class="mt" src="images/占位-9.jpg" alt="回收纸的三次命，苏木，编号 008" width="1000" height="700">
+            <div class="split" style="margin-top:12px">
+              <p class="small">纸是印社自己裁下来的边角，抄了三回。</p>
+              <p class="small r">苏木<br>手抄纸／丝网<br>56×76cm</p>
+            </div>
+            <div class="mrow"><span>11.21–02.14</span><span class="push mono r">008</span></div>
+          </div>
+        </article>
+
+        <!-- 009 · I 型：大号编号在左、图在右，收全场 -->
+        <article class="blk off-4 plate-ink hi-3" style="grid-column:10/span 3">
+          <div class="face orange">
+            <div class="krow"><span class="kicker">D 墙 · 南段</span><span class="mono r">009</span></div>
+            <p class="big-num" style="text-align:left">009</p>
+            <div class="rule3"></div>
+            <h3 class="c-title">整面墙<br>的呼吸</h3>
+            <img class="mt" src="images/占位-10.jpg" alt="整面墙的呼吸，全体，编号 009" width="1100" height="850">
+            <p class="small mt">九张一起压边、互相搭角，从北往南走过去，整面墙起伏一次。压边量 3—7px，按表。</p>
+            <div class="mrow"><span>全体</span><span class="push mono r">12.05–02.28</span></div>
+          </div>
+          <span class="tape g t-tr"></span>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 来贴的方式：图形只用 1 / 1.1 / 3px 线条 -->
+  <section class="sec" id="visit">
+    <div class="page">
+      <div class="grid" style="row-gap:clamp(16px,1.6vw,28px)">
+
+        <div class="blk off-5 plate-green hi-0" style="grid-column:1/span 5">
+          <div class="face ink">
+            <span class="kicker">来贴</span>
+            <h2 class="h2" style="margin-top:8px">每周四下午，带纸来</h2>
+            <ul class="spec-list" style="margin-top:14px">
+              <li><span>地方</span><span class="mono r">印社后间 · 北墙 04 段</span></li>
+              <li><span>开门</span><span class="mono r">周四 15:00 – 19:00</span></li>
+              <li><span>带什么</span><span class="mono r">自己那张纸</span></li>
+              <li><span>我们出</span><span class="mono r">小麦糊 · 刷子 · 压边</span></li>
+              <li><span>规矩</span><span class="mono r">不揭别人的 · 其余随意</span></li>
+            </ul>
+            <div class="hatch-strip hatch-g" style="margin-top:14px"></div>
+          </div>
+          <span class="tape o t-tr"></span>
+        </div>
+
+        <div class="blk off-2 plate-orange hi-3" style="grid-column:7/span 5">
+          <div class="face paper">
+            <span class="kicker">路线</span>
+            <h3 class="c-title" style="margin-top:8px">后间怎么走</h3>
+            <div class="mt">
+              <svg class="plan" viewBox="0 0 400 220" width="400" height="220" role="img" aria-label="印社后间平面：卷帘门、北墙 04 段、糊桶、刷子、后间入口">
+                <rect x="0.5" y="0.5" width="399" height="219" fill="none" stroke="#F0E2C8" stroke-width="1"/>
+                <rect x="16.5" y="18.5" width="230" height="14" fill="none" stroke="#96550F" stroke-width="3"/>
+                <rect x="16.5" y="50.5" width="150" height="44" fill="none" stroke="#2F7D4F" stroke-width="1.1"/>
+                <rect x="182.5" y="50.5" width="64" height="44" fill="none" stroke="#2F7D4F" stroke-width="1.1"/>
+                <line x1="262" y1="18" x2="262" y2="106" stroke="#F0E2C8" stroke-width="3"/>
+                <line x1="262" y1="106" x2="384" y2="106" stroke="#F0E2C8" stroke-width="3"/>
+                <rect x="16.5" y="128.5" width="118" height="24" fill="none" stroke="#F0E2C8" stroke-width="1"/>
+                <rect x="150.5" y="128.5" width="28" height="28" fill="none" stroke="#96550F" stroke-width="1.1"/>
+                <path d="M332 206 L332 170 L288 170" fill="none" stroke="#F0E2C8" stroke-width="1.1"/>
+                <circle cx="286" cy="170" r="3" fill="#2F7D4F"/>
+                <text x="20" y="28">卷帘门</text>
+                <text x="20" y="78">北墙 04 段 · 九张在这</text>
+                <text x="252" y="58">长条桌</text>
+                <text x="20" y="145">糊桶</text>
+                <text x="188" y="148">刷子</text>
+                <text x="304" y="212">门</text>
+                <text x="286" y="190">后间入口</text>
+              </svg>
+            </div>
+            <div class="mrow"><span>从印社前厅掀帘子进去</span><span class="push mono r">04 段</span></div>
+          </div>
+        </div>
+
+        <div class="blk off-3 plate-ink hi-1" style="grid-column:2/span 4">
+          <div class="face green">
+            <p class="lead">九张已经贴满一面墙，编号从 001 数到 009。你的那张进不来这九个号，就贴到它压着的边上——歪一点没关系，糊干了就定住了。</p>
+            <div class="rule3"></div>
+            <p class="small">找不到后间就敲两下门，有人应。后间窄，一次进去两个人。</p>
+            <div class="mrow"><span>本墙编号</span><span class="mono push">001 — 009</span></div>
+          </div>
+        </div>
+
+        <div class="blk off-5 plate-orange hi-3" style="grid-column:7/span 3">
+          <div class="face paper">
+            <p class="small">带纸来的人</p>
+            <p class="big-num" style="text-align:left;margin-top:6px">001</p>
+            <p class="small">起，往上加</p>
+          </div>
+          <span class="tape t-br"></span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- 页脚：同一串编号，一个不落 -->
+<footer class="sec" style="padding-bottom:clamp(26px,4vh,54px)">
+  <div class="page">
+    <div class="grid">
+      <div class="blk bleed-l off-3 plate-orange hi-0" style="grid-column:1/span 11">
+        <div class="face ink">
+          <div class="krow"><span class="kicker">本墙档案</span><span class="mono r">2026.09.05 – 2027.02.28</span></div>
+          <h2 class="h2">九张，一个不落</h2>
+          <ol style="margin-top:16px">
+            <li class="arow"><span class="c-no">001</span><span>何嘉树</span><span>夜班三轮</span><span class="c-da">09.05–12.20</span></li>
+            <li class="arow"><span class="c-no">002</span><span>邓九</span><span>三十七张废版</span><span class="c-da">09.19–01.10</span></li>
+            <li class="arow"><span class="c-no">003</span><span>苏木</span><span>油墨未干</span><span class="c-da">10.03–12.28</span></li>
+            <li class="arow"><span class="c-no">004</span><span>龙阿满</span><span>巷口第七根电线杆</span><span class="c-da">10.17–01.31</span></li>
+            <li class="arow"><span class="c-no">005</span><span>郑小满</span><span>贴歪了也算数</span><span class="c-da">10.31–12.14</span></li>
+            <li class="arow"><span class="c-no">006</span><span>何嘉树 ＋ 众手</span><span>一百个路人的手</span><span class="c-da">11.07–01.24</span></li>
+            <li class="arow"><span class="c-no">007</span><span>邓九</span><span>雨天补墙</span><span class="c-da">11.14–12.31</span></li>
+            <li class="arow"><span class="c-no">008</span><span>苏木</span><span>回收纸的三次命</span><span class="c-da">11.21–02.14</span></li>
+            <li class="arow"><span class="c-no">009</span><span>全体</span><span>整面墙的呼吸</span><span class="c-da">12.05–02.28</span></li>
+          </ol>
+          <div class="foot-end">
+            <p class="small">贴满印社 · 后间北墙 04 段 · 周四 15:00–19:00 开门刷糊 · 带纸来就能贴</p>
+            <p class="small">这面墙的位置是按 9 个数出来的，九张刚好贴满。九个编号：001 002 003 004 005 006 007 008 009。<a href="#wall">回墙上挑编号</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

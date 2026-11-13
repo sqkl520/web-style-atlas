@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<!--
+本案施工前两行（自填）：
+我经营一间机械表走时校准工作室——一人一机位，只做基础机务与走时校准。
+页面需要让访客在送表之前看懂报价与工期，并直接预约送检。
+-->
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>走时校准间 · 日差 ±2 秒</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&family=Literata&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#F2F0EC;
+  --paper:#5F5B55;
+  --ink-soft:#DEDAD3;
+  --paper-deep:#55514B;
+  --rule:#8A857C;
+
+  --u:12px;
+  --scale-major:60px;
+  --scale-minor:12px;
+  --tick-major-len:34px;
+  --tick-minor-len:12px;
+  --tick-major-w:3px;
+  --tick-minor-w:2px;
+  --hair:1px;
+
+  --tex-major:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='34'%3E%3Crect x='0' y='0' width='3' height='34' fill='%23DEDAD3'/%3E%3C/svg%3E");
+  --tex-minor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Crect x='0' y='0' width='2' height='12' fill='%238A857C'/%3E%3C/svg%3E");
+
+  --sans:"Jost","Noto Sans SC",sans-serif;
+  --serif:"Noto Serif SC","Literata",Georgia,serif;
+}
+*,*::before,*::after{box-sizing:border-box;border-radius:0;box-shadow:none}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased}
+h1,h2,h3,p,dl,dd,dt,ol,ul,figure,table{margin:0;padding:0}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+.band{padding-left:24px;padding-right:24px}
+
+/* 顶栏 */
+.top{display:flex;justify-content:space-between;gap:8px 24px;flex-wrap:wrap;padding:14px 24px;border-bottom:var(--hair) solid var(--rule);background:var(--paper-deep);font-family:var(--sans);font-size:12px;letter-spacing:.1em;color:var(--ink-soft)}
+.top b{font-weight:500;color:var(--ink)}
+
+/* 上段 · 首屏 */
+.hero{padding-top:36px;padding-bottom:60px}
+.hero-grid{display:grid;grid-template-columns:7fr 5fr;gap:60px;align-items:start}
+.tag{display:flex;align-items:center;gap:10px;font-family:var(--sans);font-size:12px;letter-spacing:.16em;color:var(--ink-soft)}
+.tag::before{content:"";width:var(--tick-major-w);height:14px;background:var(--ink-soft)}
+h1{font-family:var(--sans);font-weight:600;font-size:clamp(46px,10.4vw,104px);line-height:.94;letter-spacing:-.02em;color:var(--ink);margin-top:18px}
+.hero-sub{font-family:var(--sans);font-size:18px;letter-spacing:.02em;color:var(--ink-soft);margin-top:16px}
+.hero-p{font-size:16px;line-height:1.8;color:var(--ink);margin-top:22px;max-width:640px}
+.cta{display:inline-flex;align-items:center;gap:16px;margin-top:30px;padding:14px 26px;background:var(--ink);color:var(--paper);border:var(--hair) solid var(--ink);font-family:var(--sans);font-size:16px;font-weight:500;letter-spacing:.1em}
+.cta:hover{background:var(--ink-soft);border-color:var(--ink-soft)}
+.cta .arw{font-family:var(--sans);font-size:15px}
+
+.hero-side{margin-top:24px;border:var(--hair) solid var(--rule)}
+.side-head{display:flex;justify-content:space-between;padding:11px 14px;border-bottom:var(--hair) solid var(--rule);background:var(--paper-deep);font-family:var(--sans);font-size:11px;letter-spacing:.16em;color:var(--ink-soft)}
+.list{width:100%;border-collapse:collapse}
+.list th,.list td{text-align:left;padding:9px 14px;border-bottom:var(--hair) solid var(--rule);vertical-align:baseline;white-space:nowrap}
+.list th{font-family:var(--sans);font-weight:500;font-size:10.5px;letter-spacing:.16em;color:var(--ink-soft)}
+.list td{font-size:13.5px;color:var(--ink)}
+.list td.n,.list td.v{font-family:var(--sans);font-variant-numeric:tabular-nums}
+.list td.n{color:var(--ink-soft);width:38px}
+.list td.v{text-align:right;color:var(--ink-soft)}
+.list-note{padding:11px 14px;font-family:var(--sans);font-size:12px;letter-spacing:.08em;color:var(--ink-soft);background:var(--paper-deep)}
+
+/* 尺规：贯穿基线 + 上下两排刻度 */
+.ruler{position:relative;background:var(--paper-deep)}
+.ruler--join{margin-top:-1px}
+.baseline{height:0;border-top:var(--hair) solid var(--rule)}
+.ticks{position:relative;height:var(--tick-major-len);overflow:hidden;background-image:var(--tex-major),var(--tex-minor);background-repeat:repeat-x,repeat-x;background-size:var(--scale-major) var(--tick-major-len),var(--scale-minor) var(--tick-minor-len)}
+.ticks--down{background-position:left top,left top}
+.ticks--up{background-position:left bottom,left bottom}
+.marker{position:absolute;left:0;top:0;width:var(--tick-major-w);height:var(--tick-major-len);background:var(--ink);animation:sweep 2.8s cubic-bezier(.22,.68,.16,1) 1 both}
+@keyframes sweep{from{transform:translateX(0)}to{transform:translateX(calc(100vw - var(--tick-major-w)))}}
+.ruler-read{display:flex;flex-wrap:wrap;align-items:center;min-height:46px;padding:0 24px}
+.rd{font-family:var(--sans);font-size:12px;letter-spacing:.1em;color:var(--ink-soft);padding:2px 14px;border-left:var(--hair) solid var(--rule);white-space:nowrap}
+.rd:first-child{padding-left:0;border-left:0}
+.rd b{font-weight:500;color:var(--ink);font-variant-numeric:tabular-nums}
+
+/* 中段 · 方阵：贴左边缘长出，栏宽不等、格高不等 */
+.matrix{display:grid;grid-template-columns:repeat(12,1fr)}
+.cell{display:flex;flex-direction:column;padding:22px 24px 24px;border-right:var(--hair) solid var(--rule);border-bottom:var(--hair) solid var(--rule);min-height:240px}
+.cell--tall{min-height:300px}
+.cell--img{padding:0;min-height:0}
+.cell--img img{width:100%;height:auto}
+.img-1{aspect-ratio:720/900}
+.img-2{aspect-ratio:900/600}
+.c1{grid-column:span 7}
+.c2{grid-column:span 5}
+.c3{grid-column:span 5}
+.c4{grid-column:span 4}
+.c5{grid-column:span 8}
+.ci1{grid-column:span 3}
+.ci2{grid-column:span 4}
+
+.cell-head{display:flex;align-items:center;gap:10px;font-family:var(--sans);font-size:11px;letter-spacing:.16em;color:var(--ink-soft)}
+.cell-head .n{font-weight:500;color:var(--ink);font-variant-numeric:tabular-nums}
+.cell-head .k{padding-left:10px;border-left:var(--hair) solid var(--rule)}
+.cell h3{font-family:var(--sans);font-weight:500;font-size:22px;letter-spacing:.01em;color:var(--ink);margin-top:10px}
+.cell-body{flex:1;padding-top:16px}
+.cell-p{font-size:14px;line-height:1.8;color:var(--ink-soft);margin-top:16px}
+.reads{display:flex;margin-top:24px;border-top:var(--hair) solid var(--rule)}
+.reads>div{flex:1;padding:12px 0 0 14px;border-left:var(--hair) solid var(--rule)}
+.reads>div:first-child{border-left:0;padding-left:0}
+.reads .k{display:block;font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;color:var(--ink-soft)}
+.reads .v{display:block;font-family:var(--sans);font-size:15px;font-weight:500;color:var(--ink);margin-top:4px;white-space:nowrap;font-variant-numeric:tabular-nums}
+
+.steps{display:flex;list-style:none;border-top:var(--hair) solid var(--rule);border-bottom:var(--hair) solid var(--rule)}
+.steps li{flex:1;padding:9px 0 9px 12px;border-left:var(--hair) solid var(--rule);font-size:13px;color:var(--ink);white-space:nowrap}
+.steps li:first-child{border-left:0;padding-left:0}
+
+.pos{display:grid;grid-template-columns:repeat(3,1fr);border-top:var(--hair) solid var(--rule);border-left:var(--hair) solid var(--rule)}
+.pos>div{padding:12px 0 12px 12px;border-right:var(--hair) solid var(--rule);border-bottom:var(--hair) solid var(--rule)}
+.pos .k{display:block;font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;color:var(--ink-soft)}
+.pos .v{display:block;font-family:var(--sans);font-size:19px;font-weight:500;color:var(--ink);margin-top:4px;font-variant-numeric:tabular-nums}
+
+.claim{border-left:var(--tick-major-w) solid var(--ink-soft);padding-left:14px;font-size:16px;line-height:1.8;color:var(--ink)}
+.checks{list-style:none;margin-top:20px;border-top:var(--hair) solid var(--rule)}
+.checks li{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:var(--hair) solid var(--rule);font-size:13.5px;color:var(--ink)}
+.checks .v{font-family:var(--sans);color:var(--ink-soft);white-space:nowrap}
+
+.scale{display:flex;border-top:var(--hair) solid var(--rule)}
+.scale span{flex:1;padding:10px 0 0 10px;border-left:var(--hair) solid var(--rule);font-family:var(--sans);font-size:15px;font-weight:500;color:var(--ink);font-variant-numeric:tabular-nums}
+.scale span:first-child{border-left:0;padding-left:0}
+.scale span::after{content:"";display:block;width:var(--hair);height:10px;background:var(--rule);margin-top:8px}
+
+.tiers{display:grid;grid-template-columns:repeat(2,1fr);border-top:var(--hair) solid var(--rule);border-left:var(--hair) solid var(--rule)}
+.tiers>div{padding:12px 14px;border-right:var(--hair) solid var(--rule);border-bottom:var(--hair) solid var(--rule)}
+.tiers .k{display:block;font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;color:var(--ink-soft)}
+.tiers .v{display:block;font-size:14px;color:var(--ink);margin-top:4px}
+.atm{margin-top:22px;display:flex;flex-direction:column;gap:10px}
+.atm>div{display:flex;align-items:center;gap:14px}
+.atm .bar{display:block;height:var(--tick-major-w);background:var(--ink-soft)}
+.b1{width:var(--scale-major)}
+.b2{width:calc(var(--scale-major) * 2)}
+.b3{width:calc(var(--scale-major) * 3)}
+.atm .k{font-family:var(--sans);font-size:11px;letter-spacing:.16em;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+
+/* 下段 · 送检与记录 */
+.foot{padding-top:60px;padding-bottom:48px}
+.foot-grid{display:grid;grid-template-columns:7fr 5fr;gap:60px}
+.foot-grid h2{font-family:var(--sans);font-weight:500;font-size:34px;letter-spacing:-.01em;color:var(--ink)}
+.foot-p{font-size:15px;line-height:1.8;color:var(--ink-soft);margin-top:14px;max-width:560px}
+.contact{display:grid;grid-template-columns:repeat(3,1fr);margin-top:24px;border-top:var(--hair) solid var(--rule)}
+.contact>div{padding:12px 0 0 14px;border-left:var(--hair) solid var(--rule)}
+.contact>div:first-child{border-left:0;padding-left:0}
+.contact dt{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;color:var(--ink-soft)}
+.contact dd{font-size:14px;line-height:1.7;color:var(--ink);margin-top:4px}
+.log{width:100%;border-collapse:collapse;margin-top:24px;border-top:var(--hair) solid var(--rule)}
+.log td{padding:11px 0;border-bottom:var(--hair) solid var(--rule);font-size:13.5px}
+.log .k{color:var(--ink-soft)}
+.log .v{text-align:right;font-family:var(--sans);font-weight:500;color:var(--ink);white-space:nowrap;font-variant-numeric:tabular-nums}
+.index{list-style:none;margin-top:24px;border-top:var(--hair) solid var(--rule)}
+.index li{display:flex;gap:14px;padding:9px 0;border-bottom:var(--hair) solid var(--rule);font-size:13px;color:var(--ink-soft)}
+.index .n{font-family:var(--sans);font-weight:500;color:var(--ink);font-variant-numeric:tabular-nums}
+.index .v{margin-left:auto;font-family:var(--sans);white-space:nowrap}
+
+.plate{border-top:var(--hair) solid var(--rule)}
+.plate img{width:100%;height:auto;aspect-ratio:1600/500}
+.bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px 24px;padding:16px 24px 40px;background:var(--paper-deep);border-top:var(--hair) solid var(--rule);font-family:var(--sans);font-size:11.5px;letter-spacing:.1em;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+
+@media (max-width:1000px){
+  .hero-grid,.foot-grid{grid-template-columns:1fr;gap:36px}
+  .hero-side{margin-top:0}
+}
+@media (max-width:820px){
+  .matrix{grid-template-columns:1fr}
+  .cell{grid-column:auto;min-height:0;padding:20px 24px}
+  .cell--img{padding:0}
+  .hero{padding-top:28px;padding-bottom:36px}
+  .hero-sub{font-size:16px}
+  .list th,.list td{padding:8px 10px;font-size:12.5px}
+  .list th{font-size:10px;letter-spacing:.1em}
+  .steps li{padding-left:8px;font-size:12px;letter-spacing:-.02em}
+  .contact{grid-template-columns:1fr}
+  .contact>div{padding-left:0;border-left:0;border-bottom:var(--hair) solid var(--rule);padding-bottom:12px}
+  .contact>div:last-child{border-bottom:0}
+  .foot-grid h2{font-size:26px}
+}
+@media (prefers-reduced-motion:reduce){
+  .marker{animation:none;transform:translateX(calc(100vw - var(--tick-major-w)))}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div><b>走时校准间</b> ／ 机械表机务 · № 03 机位</div>
+  <div>周一至周六 10:00–19:00 ／ 送检前先预约</div>
+</header>
+
+<!-- 上段 -->
+<section class="hero band">
+  <div class="hero-grid">
+    <div class="hero-main">
+      <p class="tag">到店送检 · 一人一机位 · 只做机械表与石英表</p>
+      <h1>日差 ±2 秒</h1>
+      <p class="hero-sub">洗油 · 校准 · 电池 · 表带 · 防水，五项都上仪器测</p>
+      <p class="hero-p">表送来先做检测：日差、摆幅、偏振、防水压力，读数写在工单上。报价按检查结果出，不做不加项；工期按下表，超期我们打电话。</p>
+      <a class="cta" href="#send">预约送检 <span class="arw">→</span></a>
+    </div>
+    <div class="hero-side">
+      <div class="side-head"><span>本周读数</span><span>排期 / 起价</span></div>
+      <table class="list">
+        <thead>
+          <tr><th>编号</th><th>项目</th><th>工期</th><th>起价</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="n">01</td><td>洗油保养</td><td class="v">6–8 天</td><td class="v">¥380</td></tr>
+          <tr><td class="n">02</td><td>走时校准</td><td class="v">隔天取</td><td class="v">¥120</td></tr>
+          <tr><td class="n">03</td><td>换电池</td><td class="v">15 分钟</td><td class="v">¥60</td></tr>
+          <tr><td class="n">04</td><td>换表带</td><td class="v">立等</td><td class="v">工费 ¥0</td></tr>
+          <tr><td class="n">05</td><td>防水检测</td><td class="v">30 分钟</td><td class="v">¥80</td></tr>
+        </tbody>
+      </table>
+      <div class="list-note">在店 4 只 · 本周还可约 2 只</div>
+    </div>
+  </div>
+</section>
+
+<!-- 尺规 01：贯穿基线两条，主刻度 60/34/3，次刻度 12/12/2 -->
+<div class="ruler" aria-hidden="true">
+  <div class="baseline"></div>
+  <div class="ticks ticks--down"><span class="marker"></span></div>
+  <div class="ruler-read">
+    <span class="rd">在测 №2411</span>
+    <span class="rd">日差 <b>−2 s/d</b></span>
+    <span class="rd">摆幅 <b>287°</b></span>
+    <span class="rd">偏振 <b>0.1 ms</b></span>
+    <span class="rd">温度 <b>22 ℃</b></span>
+  </div>
+  <div class="ticks ticks--up"></div>
+  <div class="baseline"></div>
+</div>
+
+<!-- 中段 · 方阵（贴左边缘长出） -->
+<section class="matrix">
+
+  <article class="cell c1 cell--tall">
+    <div class="cell-head"><span class="n">01</span><span class="k">机械 · 全拆</span></div>
+    <h3>洗油保养</h3>
+    <div class="cell-body">
+      <ol class="steps"><li>全拆</li><li>清洗</li><li>上油</li><li>装配</li><li>调校</li></ol>
+      <p class="cell-p">一天最多接两只。装回后先跑 24 小时，再上机对六方位微调；旧件、废油和换下的密封圈一并装袋还给你。</p>
+    </div>
+    <div class="reads">
+      <div><span class="k">工期</span><span class="v">6–8 天</span></div>
+      <div><span class="k">起价</span><span class="v">¥380</span></div>
+      <div><span class="k">上限</span><span class="v">2 只 / 天</span></div>
+    </div>
+  </article>
+
+  <article class="cell c2 cell--tall">
+    <div class="cell-head"><span class="n">02</span><span class="k">不换件 · 上机</span></div>
+    <h3>走时校准</h3>
+    <div class="cell-body">
+      <div class="pos">
+        <div><span class="k">面上</span><span class="v">+1</span></div>
+        <div><span class="k">面下</span><span class="v">−2</span></div>
+        <div><span class="k">12 上</span><span class="v">−1</span></div>
+        <div><span class="k">3 上</span><span class="v">+2</span></div>
+        <div><span class="k">6 上</span><span class="v">0</span></div>
+        <div><span class="k">9 上</span><span class="v">−1</span></div>
+      </div>
+      <p class="cell-p">六方位测完出日差曲线。不换件也能校：偏得快就动快慢针，偏得散再谈游丝。</p>
+    </div>
+    <div class="reads">
+      <div><span class="k">工期</span><span class="v">隔天取</span></div>
+      <div><span class="k">起价</span><span class="v">¥120</span></div>
+      <div><span class="k">标准</span><span class="v">±2 s/d</span></div>
+    </div>
+  </article>
+
+  <figure class="cell ci1 cell--img">
+    <img class="img-1" src="images/占位-1.jpg" width="720" height="900" alt="工位上的机芯拆解盘：发条盒、轮系、摆轮分格摆放">
+  </figure>
+
+  <article class="cell c3 cell--tall">
+    <div class="cell-head"><span class="n">03</span><span class="k">石英 · 测后换</span></div>
+    <h3>换电池</h3>
+    <div class="cell-body">
+      <p class="claim">不测就换的电池，是把水汽关进表里。</p>
+      <ul class="checks">
+        <li><span>静态功耗</span><span class="v">µA 读数</span></li>
+        <li><span>密封圈</span><span class="v">换或留，写在工单</span></li>
+        <li><span>后盖扭力</span><span class="v">按厂标上扭</span></li>
+      </ul>
+    </div>
+    <div class="reads">
+      <div><span class="k">工期</span><span class="v">15 分钟</span></div>
+      <div><span class="k">起价</span><span class="v">¥60</span></div>
+      <div><span class="k">含</span><span class="v">干测一次</span></div>
+    </div>
+  </article>
+
+  <article class="cell c4 cell--tall">
+    <div class="cell-head"><span class="n">04</span><span class="k">表耳 · 按 mm 配</span></div>
+    <h3>换表带</h3>
+    <div class="cell-body">
+      <div class="scale"><span>12</span><span>14</span><span>16</span><span>18</span><span>20</span><span>22</span><span>24</span></div>
+      <p class="cell-p">表耳宽度按 mm 配。拆装不收工费；原装扣、代购表带另计，先报价再动手。</p>
+    </div>
+    <div class="reads">
+      <div><span class="k">工期</span><span class="v">立等</span></div>
+      <div><span class="k">工费</span><span class="v">¥0</span></div>
+    </div>
+  </article>
+
+  <article class="cell c5 cell--tall">
+    <div class="cell-head"><span class="n">05</span><span class="k">干测 + 湿测</span></div>
+    <h3>防水检测</h3>
+    <div class="cell-body">
+      <div class="tiers">
+        <div><span class="k">干测</span><span class="v">气压 0.5 bar，看漏率</span></div>
+        <div><span class="k">湿测</span><span class="v">水压加到位，看渗点</span></div>
+      </div>
+      <div class="atm">
+        <div><span class="bar b1"></span><span class="k">3 ATM</span></div>
+        <div><span class="bar b2"></span><span class="k">5 ATM</span></div>
+        <div><span class="bar b3"></span><span class="k">10 ATM</span></div>
+      </div>
+      <p class="cell-p">测完给压力读数，能到哪一级写在工单上；表壳有伤、把头松动会先说明，不口头承诺下水。</p>
+    </div>
+    <div class="reads">
+      <div><span class="k">工期</span><span class="v">30 分钟</span></div>
+      <div><span class="k">起价</span><span class="v">¥80</span></div>
+      <div><span class="k">项目</span><span class="v">两项都测</span></div>
+    </div>
+  </article>
+
+  <figure class="cell ci2 cell--img">
+    <img class="img-2" src="images/占位-2.jpg" width="900" height="600" alt="测表仪的六方位读数屏与打点纸带">
+  </figure>
+
+</section>
+
+<!-- 尺规 02 -->
+<div class="ruler ruler--join" aria-hidden="true">
+  <div class="baseline"></div>
+  <div class="ticks ticks--down"></div>
+  <div class="ruler-read">
+    <span class="rd">本季完成 <b>186 只</b></span>
+    <span class="rd">返修 <b>0 只</b></span>
+    <span class="rd">平均在店 <b>6 天</b></span>
+    <span class="rd">洗油上限 <b>2 只 / 天</b></span>
+  </div>
+  <div class="ticks ticks--up"></div>
+  <div class="baseline"></div>
+</div>
+
+<!-- 下段 -->
+<section class="foot band" id="send">
+  <div class="foot-grid">
+    <div>
+      <h2>送检</h2>
+      <p class="foot-p">表送到店里，或先说清型号与症状，我们按排期回你一个可送时间。到店先登记，检测读数当场给你看一遍。</p>
+      <dl class="contact">
+        <div><dt>地址</dt><dd>建设路 108 号 3 号铺</dd></div>
+        <div><dt>时间</dt><dd>周一至周六 10:00–19:00</dd></div>
+        <div><dt>电话</dt><dd>到店登记时留号，排到前一天打给你</dd></div>
+      </dl>
+    </div>
+    <div>
+      <h2>记录</h2>
+      <table class="log">
+        <tr><td class="k">本季完成</td><td class="v">186 只</td></tr>
+        <tr><td class="k">返修</td><td class="v">0 只</td></tr>
+        <tr><td class="k">平均在店</td><td class="v">6 天</td></tr>
+        <tr><td class="k">最久一只</td><td class="v">14 天（等配件）</td></tr>
+      </table>
+      <ol class="index">
+        <li><span class="n">01</span><span>洗油保养</span><span class="v">6–8 天</span></li>
+        <li><span class="n">02</span><span>走时校准</span><span class="v">隔天取</span></li>
+        <li><span class="n">03</span><span>换电池</span><span class="v">15 分钟</span></li>
+        <li><span class="n">04</span><span>换表带</span><span class="v">立等</span></li>
+        <li><span class="n">05</span><span>防水检测</span><span class="v">30 分钟</span></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<div class="plate">
+  <img src="images/占位-3.jpg" width="1600" height="500" alt="工作台全景：镊子、油笔、测表仪与摊开的工单">
+</div>
+
+<footer class="bottom">
+  <span>走时校准间 · 建设路 108 号 3 号铺 · 价目更新于 2026-10</span>
+  <span>最近工单 № 2411</span>
+</footer>
+
+</body>
+</html>

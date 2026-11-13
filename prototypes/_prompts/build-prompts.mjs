@@ -484,12 +484,12 @@ const withPrimary = dna.filter((d) => d.primary && d.primary.length);
 /* 原文是「其余按 :root 声明顺序取前 7，主色本来就在前 7 位内」——后半句对那 9 案不成立：
  * 它们不是"主色被挤出前 7"，而是**一个主色都没认出**（primary 为空数组），palette[0] 是底色。
  * 改成只说能证的那一半。 */
-console.log("  识别出主色的案：" + withPrimary.length + "/30（其余 9 案没有可靠主色标记，按 :root 声明顺序取，见 banner）；"
+console.log("  识别出主色的案：" + withPrimary.length + "/" + out.length + "（其余 " + (out.length - withPrimary.length) + " 案没有可靠主色标记，按 :root 声明顺序取，见 banner）；"
   + "没认出主色的：" + dna.filter((d) => !(d.primary && d.primary.length)).map((d) => d.id).join(" "));
 console.log("");
 console.log("=== 可落地要点里的「最难被复用」那一句（任务 B：接进提示词）===");
 const withReuse = out.filter((x) => x.dna.reuse);
-console.log("  取到该句的案：" + withReuse.length + "/30；缺的：" +
+console.log("  取到该句的案：" + withReuse.length + "/" + out.length + "；缺的：" +
   (out.filter((x) => !x.dna.reuse).map((x) => x.id).join(" ") || "无") + "（缺的案提示词里整句省略，不编）");
 console.log("  长度区间：" + Math.min(...withReuse.map((x) => x.dna.reuse.length)) + "–" +
   Math.max(...withReuse.map((x) => x.dna.reuse.length)) + " 字");

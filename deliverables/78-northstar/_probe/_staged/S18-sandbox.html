@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>机房连续记录带 · LOGBAND-1</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=VT323&display=swap">
+<style>
+/* ===================================================================
+   LOGBAND-1 ／ 机房连续记录带
+   色只用六个：#2FA84F phos ／ #0A0D0A bay ／ #C8C4AE paper
+                #6E6350 tag ／ #278F43 phos-deep ／ #111111 ink
+   线宽只用五级：0.8 ／ 1 ／ 1.25 ／ 2 ／ 4 px
+   圆角 0、阴影无、底色不透明、全站同一组明度关系（亮字压暗底）
+   =================================================================== */
+:root{
+  --phos:#2FA84F;
+  --bay:#0A0D0A;
+  --paper:#C8C4AE;
+  --tag:#6E6350;
+  --phos-deep:#278F43;
+  --ink:#111111;
+  --ft:"Glow Sans SC","Songti SC",Georgia,"Times New Roman",serif;
+  --fm:VT323,"Glow Sans SC","Songti SC",Georgia,"Times New Roman",monospace;
+  --w1:0.8px;
+  --w2:1px;
+  --w3:1.25px;
+  --w4:2px;
+  --w5:4px;
+}
+*{margin:0;padding:0;box-sizing:border-box;border-radius:0;box-shadow:none}
+html{background:var(--bay)}
+body{
+  background:var(--bay);
+  color:var(--phos);
+  font-family:var(--ft);
+  font-size:16px;
+  line-height:24px;
+  text-rendering:optimizeLegibility;
+}
+img{display:block;max-width:100%;height:auto;border:var(--w1) solid var(--tag);background:var(--bay)}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--ink);color:var(--phos)}   /* ink 只做小块选中底，不做大面积底色 */
+
+/* 数字：等宽 VT323、tabular-nums、右对齐 ------------------------------ */
+.num{font-family:var(--fm);font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;letter-spacing:.01em}
+.cur{font-family:var(--ft)}
+
+/* 墙 与 纸带 ---------------------------------------------------------- */
+.wall{background:var(--bay);min-height:100%}
+.tape{
+  position:relative;
+  margin-left:12%;          /* 单列左起 12% */
+  width:54%;                /* 右侧空 34% */
+  max-width:1400px;         /* 12/54/34 的比例在全部桌面宽度内保持 */
+  border-left:var(--w3) solid var(--tag);   /* 纸带左撕边 */
+  border-right:var(--w3) solid var(--tag);  /* 纸带右撕边 */
+  padding-bottom:64px;
+}
+.in{padding-left:32px;padding-right:32px}
+
+/* 两侧 8px 边条，按 12px 孔距打 3px 孔 */
+.perf{
+  position:absolute;top:0;bottom:0;width:8px;
+  background-repeat:repeat-y;
+  background-position:center top;
+  background-size:8px 12px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='12'%3E%3Ccircle cx='4' cy='6' r='1.5' fill='%23C8C4AE'/%3E%3C/svg%3E");
+}
+.perf-l{left:0}
+.perf-r{right:0}
+
+/* 折页压痕：贯通整条纸带 */
+.crease{height:0;border-top:var(--w2) dashed var(--tag)}
+
+/* 卷头挂绳 ------------------------------------------------------------ */
+.rig{position:relative;height:72px;margin-top:24px}
+.rig svg{display:block;width:100%;height:72px}
+.nail{position:absolute;left:50%;top:0;width:8px;height:8px;margin-left:-4px;background:var(--paper)}
+
+/* 字级：正文 16 ／ 微标 14 ／ 小节 24 ／ 大数 32 ／ 节标题 40 ／ 首屏 76（4.8×） */
+.micro{font-size:14px;line-height:16px;color:var(--phos-deep);letter-spacing:.08em}
+.lede{font-size:16px;line-height:24px;color:var(--phos);max-width:44em}
+h2{font-size:40px;line-height:48px;font-weight:400;color:var(--phos)}
+h3{font-size:24px;line-height:32px;font-weight:400;color:var(--phos)}
+.cap{font-size:14px;line-height:16px;color:var(--phos-deep)}
+/* 卷首自述两行：开案必填，写在纸带最上端 */
+.say{
+  margin-top:16px;padding:8px 0 8px 16px;
+  border-left:var(--w4) solid var(--paper);
+  border-top:var(--w2) solid var(--tag);border-bottom:var(--w2) solid var(--tag);
+}
+.say p{font-size:16px;line-height:24px;color:var(--paper)}
+.h2tick{width:64px;height:var(--w4);background:var(--paper);margin-bottom:16px}
+
+/* 首屏 ---------------------------------------------------------------- */
+.hero{padding-top:0}
+.hero .micro{margin-bottom:16px}
+h1{
+  font-weight:400;color:var(--phos);letter-spacing:.01em;
+  font-size:76px;line-height:88px;   /* 正文 16px 的 4.8 倍；88 仍落在 8px 基线上 */
+}
+h1 .hl{display:block}
+h1 .lastline{display:inline-block;position:relative;padding-bottom:32px}
+h1 .ret{position:absolute;left:0;right:0;bottom:8px;height:var(--w2);background:var(--phos)} /* 回执行 */
+/* 行尾 8×14px 块，530ms 方波——全站唯一动效 */
+h1 .blk{
+  display:inline-block;width:8px;height:14px;margin-left:16px;
+  vertical-align:baseline;background-color:var(--phos);
+  animation:sq 530ms linear infinite;
+}
+@keyframes sq{
+  0%,50%{background-color:var(--phos)}
+  50.01%,100%{background-color:var(--bay)}
+}
+@media (prefers-reduced-motion:reduce){h1 .blk{animation:none;background-color:var(--phos)}}
+.hero .lede{margin-top:8px}
+
+.livelog{margin-top:32px}
+.livelog .micro{margin-bottom:8px}
+.lrow{
+  display:grid;grid-template-columns:72px 1fr auto;align-items:baseline;
+  padding:8px 0;border-top:var(--w1) solid var(--tag);
+}
+.lrow .id{font-family:var(--fm);color:var(--phos-deep)}
+.lrow .nm{color:var(--phos)}
+.lrow .vv{font-family:var(--fm);font-variant-numeric:tabular-nums;text-align:right;color:var(--phos)}
+
+.figs3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0 24px;margin-top:32px}
+.figs3 .f{border-top:var(--w4) solid var(--paper);padding-top:8px}
+.figs3 .v{font-size:32px;line-height:40px;color:var(--phos)}
+.figs3 .k{margin-top:0}
+
+.act{margin-top:48px;display:flex;flex-wrap:wrap;align-items:flex-end;gap:8px 32px}
+.cta{
+  display:inline-grid;grid-template-columns:auto 40px;align-items:center;gap:0 16px;
+  padding:16px 0 12px;border-bottom:var(--w4) solid var(--paper);
+  color:var(--phos);font-size:24px;line-height:32px;cursor:pointer;
+}
+.cta .mk{width:var(--w5);height:24px;background:var(--paper);justify-self:end}
+.cta:hover{color:var(--paper)}
+.cta:hover .mk{background:var(--phos)}
+.act .p{font-size:16px;line-height:24px;color:var(--phos-deep);padding-bottom:16px}
+
+/* 节 ------------------------------------------------------------------ */
+.sec{padding-top:64px}
+.sec>.lede{margin-top:16px}
+.sec h2+.lede{margin-top:16px}
+
+/* 图位：一律方角、无阴影；位置错移表达层级 ---------------------------- */
+figure{margin-top:32px}
+figure .ph{display:block}
+figcaption{margin-top:8px}
+.f1{margin-left:0}
+.f1 img{max-width:640px}
+.f5 img{max-width:100%}
+.f8{margin-left:64px}
+.split{display:grid;grid-template-columns:var(--c1,5fr) var(--c2,7fr);gap:0 24px;align-items:start;margin-top:32px}
+.split .ph img{max-width:100%}
+.split .tx{padding-top:8px}
+/* 并列条目一律不等栏宽，且各自结构不同 */
+.r1{--c1:4fr;--c2:8fr}   /* 窄图在前 */
+.r2{--c1:7fr;--c2:5fr}   /* 中图在前 */
+.r3{--c1:5fr;--c2:6fr}   /* 文在前，图在后 */
+.r4{--c1:6fr;--c2:5fr}   /* 文字宽，方图在后 */
+.r5{--c1:7fr;--c2:4fr}   /* 文字宽，竖图在后 */
+.f4{margin-left:0}
+.f4 img{max-width:460px}
+.f3{margin-left:96px}
+.f3 img{max-width:520px}
+.f6{margin-left:16px}
+.f6 img{max-width:360px}
+.f2b{margin-left:40px}
+.f2b img{max-width:400px}
+.f7{margin-left:48px}
+
+/* 二十条记录：五组，栏宽与内部结构各不相同，坐标写死 ------------------ */
+.grp{margin-top:40px}
+.gh{margin-bottom:8px;color:var(--phos-deep)}
+.gh .r{font-family:var(--fm)}
+.gex{margin-top:8px}
+
+/* A：电 —— 12 栏行，名称／采样／点数三分，栏宽逐条不同 */
+.ra{
+  display:grid;grid-template-columns:repeat(12,1fr);
+  align-items:baseline;padding:8px 0;border-top:var(--w1) solid var(--tag);
+}
+.ra .id{grid-column:1/2;font-family:var(--fm);color:var(--phos-deep)}
+.ra .nm{color:var(--phos)}
+.ra .iv{grid-column:auto;font-family:var(--fm);text-align:right;color:var(--phos-deep)}
+.ra .ct{font-family:var(--fm);font-variant-numeric:tabular-nums;text-align:right;color:var(--phos)}
+.a01 .nm{grid-column:2/7}.a01 .iv{grid-column:7/10}.a01 .ct{grid-column:10/13}
+.a02 .nm{grid-column:2/8}.a02 .iv{grid-column:8/10}.a02 .ct{grid-column:10/13}
+.a03 .nm{grid-column:2/6}.a03 .iv{grid-column:6/9}.a03 .ct{grid-column:9/13}
+.a04 .nm{grid-column:2/9}.a04 .iv{grid-column:9/11}.a04 .ct{grid-column:11/13}
+
+/* B：动力 —— 不等双栏，右侧大号等宽数 */
+.rb{
+  display:grid;align-items:baseline;gap:0 24px;
+  padding:16px 0;border-top:var(--w2) solid var(--tag);
+}
+.b05{grid-template-columns:7fr 5fr}
+.b06{grid-template-columns:8fr 4fr}
+.b07{grid-template-columns:6fr 6fr}
+.b08{grid-template-columns:9fr 3fr}
+.rb .id{font-family:var(--fm);color:var(--phos-deep);margin-right:8px}
+.rb .nm{color:var(--phos);font-size:24px;line-height:32px}
+.rb .chip{
+  margin-left:16px;border:var(--w1) solid var(--tag);color:var(--phos-deep);
+  font-size:14px;line-height:16px;padding:0 8px;white-space:nowrap;
+}
+.rb .big{font-size:32px;line-height:40px;text-align:right;color:var(--phos);display:block}
+.rb .iv{display:block;text-align:right;font-family:var(--fm);color:var(--phos-deep)}
+
+/* C：环境 —— 缩进不等，点线引 */
+.rc{
+  display:grid;grid-template-columns:auto 1fr auto auto;align-items:baseline;
+  gap:0 8px;padding:8px 0;border-top:var(--w1) solid var(--tag);
+}
+.rc .id{font-family:var(--fm);color:var(--phos-deep)}
+.rc .nm{color:var(--phos)}
+.rc .lead{border-bottom:var(--w1) dotted var(--tag);height:20px}
+.rc .ct{font-family:var(--fm);font-variant-numeric:tabular-nums;text-align:right;color:var(--phos)}
+.rc .iv{font-family:var(--fm);text-align:right;color:var(--phos-deep)}
+.c09{padding-left:8px}.c10{padding-left:24px}.c11{padding-left:40px}.c12{padding-left:16px}
+
+/* D：安防与网络 —— 每行带一节刻度线（2px 线级） */
+.rd{
+  display:grid;grid-template-columns:72px auto 1fr auto;align-items:center;
+  gap:0 24px;padding:8px 0;border-top:var(--w1) solid var(--tag);
+}
+.rd .id{font-family:var(--fm);color:var(--phos-deep)}
+.rd .nm{color:var(--phos)}
+.rd .ct{font-family:var(--fm);font-variant-numeric:tabular-nums;text-align:right;color:var(--phos)}
+.ticks{display:flex;align-items:flex-end;gap:4px;height:16px}
+.ticks i{display:block;width:var(--w4);background:var(--paper)}
+.t13 i:nth-child(1){height:4px}.t13 i:nth-child(2){height:8px}
+.t13 i:nth-child(3){height:12px}.t13 i:nth-child(4){height:16px}
+.t14 i:nth-child(1){height:8px}.t14 i:nth-child(2){height:8px}.t14 i:nth-child(3){height:16px}
+.t15 i:nth-child(1){height:4px}.t15 i:nth-child(2){height:4px}
+.t15 i:nth-child(3){height:8px}.t15 i:nth-child(4){height:4px}.t15 i:nth-child(5){height:12px}
+.t16 i:nth-child(1){height:12px}.t16 i:nth-child(2){height:4px}.t16 i:nth-child(3){height:16px}
+
+/* E：系统 —— 2×2，每格错移量不同，坐标写死 */
+.ge{display:grid;grid-template-columns:repeat(12,1fr);gap:24px 24px;margin-top:8px}
+.ge .cell{border-top:var(--w2) solid var(--paper);padding-top:8px}
+.ge .id{display:block;font-family:var(--fm);color:var(--phos-deep)}
+.ge .nm{display:block;font-size:24px;line-height:32px;color:var(--phos)}
+.ge .big{display:block;font-size:32px;line-height:40px;text-align:right;color:var(--phos)}
+.ge .iv{display:block;text-align:right;font-family:var(--fm);color:var(--phos-deep)}
+.e17{grid-area:1/1/2/6}
+.e18{grid-area:1/7/2/13}
+.e19{grid-area:2/3/3/8}
+.e20{grid-area:2/8/3/13}
+
+/* 折页带：4px 线级，标记第 15 天那一折 */
+.foldband{
+  display:grid;grid-template-columns:4px 1fr;align-items:center;gap:0 16px;
+  padding:8px 32px;border-top:var(--w2) dashed var(--tag);
+}
+.foldband .mk{width:var(--w5);height:40px;background:var(--paper)}
+.foldband .tx{font-size:14px;line-height:16px;color:var(--phos-deep)}
+
+/* 价目：等宽数右对齐 */
+.price{margin-top:24px;max-width:640px}
+.pr{
+  display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:0 24px;
+  padding:8px 0;border-top:var(--w1) solid var(--tag);
+}
+.pr .pn{color:var(--phos)}
+.pr .pv{font-family:var(--fm);font-variant-numeric:tabular-nums;text-align:right;font-size:24px;line-height:32px;color:var(--phos)}
+
+/* 卷尾 */
+.tail{padding-top:64px}
+.tail .line{padding:8px 0;border-top:var(--w1) solid var(--tag);color:var(--phos-deep)}
+.tail .line b{font-weight:400;color:var(--phos)}
+.sigrow{display:grid;grid-template-columns:auto 1fr;align-items:end;gap:0 16px;padding:24px 0 8px}
+.sigrow .sig{height:0;border-bottom:var(--w2) solid var(--paper);margin-bottom:6px}
+.end{height:0;border-top:var(--w2) dashed var(--tag);margin-top:32px}
+
+/* 移动端：单列，顺序不变 ---------------------------------------------- */
+@media (max-width:1100px){
+  h1{font-size:64px;line-height:80px}
+  .f3{margin-left:48px}
+}
+@media (max-width:900px){
+  .tape{margin-left:16px;width:calc(100% - 40px);max-width:none}
+  .in{padding-left:24px;padding-right:24px}
+  .foldband{padding-left:24px;padding-right:24px}
+  h1{font-size:40px;line-height:48px}
+  h2{font-size:32px;line-height:40px}
+  .figs3{grid-template-columns:1fr;gap:16px 0}
+  .lrow{grid-template-columns:64px 1fr auto;gap:0 8px}
+  .ra,.rd{grid-template-columns:1fr auto}
+  .ra .id,.rd .id{grid-column:1/2}
+  .ra .nm,.rd .nm{grid-column:1/3}
+  .ra .iv,.ra .ct,.rd .ct{grid-column:auto;text-align:right}
+  .a01 .nm,.a02 .nm,.a03 .nm,.a04 .nm,.a01 .iv,.a02 .iv,.a03 .iv,.a04 .iv,
+  .a01 .ct,.a02 .ct,.a03 .ct,.a04 .ct{grid-column:auto}
+  .rb,.b05,.b06,.b07,.b08{grid-template-columns:1fr;gap:8px 0}
+  .rb .big,.rb .iv{text-align:left}
+  .rc{grid-template-columns:auto 1fr auto;gap:0 8px}
+  .rc .lead{display:none}
+  .rc .ct{grid-column:2/4;text-align:right}
+  .rc .iv{grid-column:3/4}
+  .ge{grid-template-columns:1fr;gap:24px 0}
+  .e17,.e18,.e19,.e20{grid-area:auto}
+  .split,.split.r1,.split.r2,.split.r3,.split.r4,.split.r5{grid-template-columns:1fr;gap:24px 0}
+  .f1 img,.f3 img,.f4 img,.f6 img,.f7 img,.f8 img,.f2b img,.f5 img{max-width:100%}
+  .f3,.f6,.f7,.f8,.f2b{margin-left:0}
+  .act{gap:0}
+  .act .p{padding-bottom:8px}
+}
+</style>
+</head>
+<body>
+<div class="wall">
+<div class="tape">
+  <i class="perf perf-l" aria-hidden="true"></i>
+  <i class="perf perf-r" aria-hidden="true"></i>
+
+  <!-- 卷头：一根棉绳，一颗钉子 -->
+  <div class="rig" aria-hidden="true">
+    <svg viewBox="0 0 100 16" preserveAspectRatio="none" focusable="false">
+      <path d="M50 1 L15 16 M50 1 L85 16" fill="none" stroke="#C8C4AE" stroke-width="1" vector-effect="non-scaling-stroke"/>
+    </svg>
+    <i class="nail"></i>
+  </div>
+
+  <!-- 首屏 -->
+  <header class="in hero">
+    <p class="micro">LOGBAND-1 纸带记录仪 ／ 无人值守机房 ／ 一卷三十天</p>
+    <div class="say">
+      <p>我经营一条给机房用的连续记录带。</p>
+      <p>页面需要让访客订走第一卷，并且相信这条带子中间不会断。</p>
+    </div>
+    <h1>
+      <span class="hl">机房不断电，</span><span class="lastline">纸带不断行。<i class="blk" aria-hidden="true"></i><i class="ret" aria-hidden="true"></i></span>
+    </h1>
+    <p class="lede">市电、电流、温度、门磁、心跳——一秒一行，写进同一条纸带；三十天写满一卷，中间不留空行。写完的带子挂在墙上，谁都能从头读到尾。</p>
+
+    <div class="livelog">
+      <p class="micro">刚落的头三行</p>
+      <div class="lrow"><span class="id">R-01</span><span class="nm">市电进线电压</span><span class="vv">230.4 V</span></div>
+      <div class="lrow"><span class="id">R-02</span><span class="nm">进线电流三相</span><span class="vv">128 A</span></div>
+      <div class="lrow"><span class="id">R-03</span><span class="nm">配电柜温度</span><span class="vv">31.6 C</span></div>
+    </div>
+
+    <div class="figs3">
+      <div class="f"><span class="v num">1</span><span class="k micro"> 行／秒 · 走纸</span></div>
+      <div class="f"><span class="v num">2 592 000</span><span class="k micro"> 行／卷 · 三十天</span></div>
+      <div class="f"><span class="v num">12</span><span class="k micro"> 卷／年 · 换卷</span></div>
+    </div>
+
+    <div class="act">
+      <a class="cta" href="#order"><span>接入机房 · 订第一卷</span><i class="mk" aria-hidden="true"></i></a>
+      <p class="p"><span class="cur">￥</span><span class="num">1 200</span> ／ 卷（30 天）</p>
+    </div>
+  </header>
+
+  <div class="crease" aria-hidden="true"></div>
+
+  <!-- 一 · 机器 -->
+  <section class="in sec" id="unit">
+    <div class="h2tick" aria-hidden="true"></div>
+    <h2>机器不停，笔就不停。</h2>
+    <p class="lede">壁挂 2U 铁壳，220V 供电。断电以后靠自带电池把缓存写完——最后三十行也一定落在纸上。落在纸上才算数。</p>
+
+    <figure class="f1">
+      <span class="ph"><img src="images/占位-1.jpg" width="1200" height="800" alt="记录仪整机，壁挂 2U，下方是纸带出口"></span>
+      <figcaption class="cap">记录仪整机 · 壁挂 2U 铁壳 · 下方是纸带出口</figcaption>
+    </figure>
+
+    <div class="price" style="max-width:100%">
+      <div class="pr"><span class="pn">纸宽</span><span class="pv">210 mm</span></div>
+      <div class="pr"><span class="pn">走纸</span><span class="pv">1 line / s</span></div>
+      <div class="pr"><span class="pn">一卷</span><span class="pv">30 d / 2 592 000</span></div>
+      <div class="pr"><span class="pn">接口</span><span class="pv">RS-485 / SNMP</span></div>
+      <div class="pr"><span class="pn">装机</span><span class="pv">0.5 d</span></div>
+    </div>
+  </section>
+
+  <div class="crease" aria-hidden="true"></div>
+
+  <!-- 二 · 二十条记录 -->
+  <section class="in sec" id="records">
+    <div class="h2tick" aria-hidden="true"></div>
+    <h2>一卷二十条，缺一条这卷不算数。</h2>
+    <p class="lede">下面二十条就是这一卷的全部内容，编号从 R-01 排到 R-20，顺序就是它们落纸的顺序。每条后面是采样间隔和本卷记录点数：三十天 = 2 592 000 秒，除得出来的都写在纸上。</p>
+
+    <!-- A 电 -->
+    <div class="grp">
+      <p class="gh micro"><span class="r">R-01 – R-04</span> ／ 电</p>
+      <div class="ra a01"><span class="id">R-01</span><span class="nm">市电进线电压</span><span class="iv">1 s</span><span class="ct">2 592 000</span></div>
+      <div class="ra a02"><span class="id">R-02</span><span class="nm">进线电流三相</span><span class="iv">1 s</span><span class="ct">2 592 000</span></div>
+      <div class="ra a03"><span class="id">R-03</span><span class="nm">配电柜温度</span><span class="iv">5 s</span><span class="ct">518 400</span></div>
+      <div class="ra a04"><span class="id">R-04</span><span class="nm">机柜前后温差</span><span class="iv">5 s</span><span class="ct">518 400</span></div>
+      <p class="gex micro">进线三相加柜内温度，一秒一个点。配电先出问题，纸带先看得出来。</p>
+    </div>
+
+    <!-- B 动力 -->
+    <div class="grp">
+      <p class="gh micro"><span class="r">R-05 – R-08</span> ／ 动力</p>
+      <div class="rb b05">
+        <div><span class="id">R-05</span><span class="nm">UPS 电池内阻</span><span class="chip">必录</span></div>
+        <div><span class="big num">43 200</span><span class="iv">60 s</span></div>
+      </div>
+      <div class="rb b06">
+        <div><span class="id">R-06</span><span class="nm">UPS 放电次数</span><span class="chip">告警项</span></div>
+        <div><span class="big num">9</span><span class="iv">event</span></div>
+      </div>
+      <div class="rb b07">
+        <div><span class="id">R-07</span><span class="nm">柴发油位</span><span class="chip">只看趋势</span></div>
+        <div><span class="big num">43 200</span><span class="iv">60 s</span></div>
+      </div>
+      <div class="rb b08">
+        <div><span class="id">R-08</span><span class="nm">柴发启动延迟</span><span class="chip">年检核对</span></div>
+        <div><span class="big num">4</span><span class="iv">event</span></div>
+      </div>
+      <p class="gex micro">UPS 与柴发一年只在几分钟里有用，所以它们一直在写。</p>
+    </div>
+
+    <!-- C 环境 -->
+    <div class="grp">
+      <p class="gh micro"><span class="r">R-09 – R-12</span> ／ 环境</p>
+      <div class="rc c09"><span class="id">R-09</span><span class="nm">精密空调回风温度</span><span class="lead"></span><span class="ct">518 400</span><span class="iv">5 s</span></div>
+      <div class="rc c10"><span class="id">R-10</span><span class="nm">冷通道露点</span><span class="lead"></span><span class="ct">259 200</span><span class="iv">10 s</span></div>
+      <div class="rc c11"><span class="id">R-11</span><span class="nm">地板下漏水绳</span><span class="lead"></span><span class="ct">2 592 000</span><span class="iv">1 s</span></div>
+      <div class="rc c12"><span class="id">R-12</span><span class="nm">消防主机状态</span><span class="lead"></span><span class="ct">2 592 000</span><span class="iv">1 s</span></div>
+      <p class="gex micro">空调、露点、漏水绳：这三样坏了，机器先热，人后知道。</p>
+    </div>
+
+    <!-- D 安防与网络 -->
+    <div class="grp">
+      <p class="gh micro"><span class="r">R-13 – R-16</span> ／ 安防与网络</p>
+      <div class="rd d13"><span class="id">R-13</span><span class="ticks t13" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="nm">门磁与门禁</span><span class="ct">1 148</span></div>
+      <div class="rd d14"><span class="id">R-14</span><span class="ticks t14" aria-hidden="true"><i></i><i></i><i></i></span><span class="nm">视频存储剩余</span><span class="ct">8 640</span></div>
+      <div class="rd d15"><span class="id">R-15</span><span class="ticks t15" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span class="nm">交换机端口误码</span><span class="ct">86 400</span></div>
+      <div class="rd d16"><span class="id">R-16</span><span class="ticks t16" aria-hidden="true"><i></i><i></i><i></i></span><span class="nm">上行链路丢包</span><span class="ct">259 200</span></div>
+      <p class="gex micro">门开了有人签，丢包了有行数。</p>
+    </div>
+
+    <!-- E 系统 -->
+    <div class="grp">
+      <p class="gh micro"><span class="r">R-17 – R-20</span> ／ 系统</p>
+      <div class="ge">
+        <div class="cell e17">
+          <span class="id">R-17</span><span class="nm">NTP 时钟偏差</span>
+          <span class="big num">43 200</span><span class="iv">60 s</span>
+        </div>
+        <div class="cell e18">
+          <span class="id">R-18</span><span class="nm">主机心跳</span>
+          <span class="big num">2 592 000</span><span class="iv">1 s</span>
+        </div>
+        <div class="cell e19">
+          <span class="id">R-19</span><span class="nm">阵列重建进度</span>
+          <span class="big num">3</span><span class="iv">event</span>
+        </div>
+        <div class="cell e20">
+          <span class="id">R-20</span><span class="nm">巡检人签字</span>
+          <span class="big num">60</span><span class="iv">12 h</span>
+        </div>
+      </div>
+      <p class="gex micro">时钟、心跳、重建进度，最后一条留给人签字。</p>
+    </div>
+  </section>
+
+  <!-- 第 15 天那一折 -->
+  <div class="foldband" aria-hidden="false">
+    <i class="mk" aria-hidden="true"></i>
+    <p class="tx"><span class="num">15</span> 天 ／ 折页压痕 · 十一英寸一折，八折一叠</p>
+  </div>
+
+  <!-- 三 · 纸带的物理 -->
+  <section class="in sec" id="paper">
+    <div class="h2tick" aria-hidden="true"></div>
+    <h2>孔、折、绳：这条带的全部结构。</h2>
+    <p class="lede">连续记录纸两侧各一条 8mm 边条，孔距 12.7mm，一英寸两孔；折页十一英寸一折，八折一叠；卷头一根棉绳，钉子一颗。没有别的装饰——纸带上的每一道线，都是它自己折出来、打出来、挂出来的。</p>
+
+    <div class="split r4">
+      <div class="tx">
+        <h3>边孔</h3>
+        <p>孔是走纸用的，不是看的：12.7mm 一孔，两侧对齐，偏一孔就走不动。换卷对不上孔，整卷作废。</p>
+      </div>
+      <figure class="f4">
+        <span class="ph"><img src="images/占位-4.jpg" width="1200" height="1200" alt="边孔与折页压痕微距"></span>
+        <figcaption class="cap">边孔与折页压痕 · 12.7mm 孔距 · 1:1</figcaption>
+      </figure>
+    </div>
+
+    <div class="split r1">
+      <figure class="f3">
+        <span class="ph"><img src="images/占位-3.jpg" width="1200" height="900" alt="九针打印头微距"></span>
+        <figcaption class="cap">九针打印头 · 一秒一行 · 4:3</figcaption>
+      </figure>
+      <div class="tx">
+        <h3>打印头</h3>
+        <p>九针打印头，一秒一行，一个字都不省。字迹淡了换色带，不停机、不清缓存。</p>
+      </div>
+    </div>
+
+    <div class="split r5">
+      <div class="tx">
+        <h3>挂绳</h3>
+        <p>一根棉绳挂住整卷三十天。换卷时整条落下，看得见的一整段就是这三十天，不用导出、不用加载。</p>
+      </div>
+      <figure class="f6">
+        <span class="ph"><img src="images/占位-6.jpg" width="960" height="1200" alt="卷头挂绳与钉子"></span>
+        <figcaption class="cap">卷头挂绳与钉子 · 4:5</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <div class="crease" aria-hidden="true"></div>
+
+  <!-- 四 · 装法 -->
+  <section class="in sec" id="install">
+    <div class="h2tick" aria-hidden="true"></div>
+    <h2>从挂上到落笔，半天。</h2>
+
+    <figure class="f5">
+      <span class="ph"><img src="images/占位-5.jpg" width="1600" height="900" alt="机房冷通道，记录仪挂在入口"></span>
+      <figcaption class="cap">机房冷通道 · 记录仪挂在入口 · 16:9</figcaption>
+    </figure>
+
+    <div class="price" style="max-width:100%">
+      <div class="pr"><span class="pn">现场</span><span class="pv">挂机 / 接干接点 / 拉纸 / 落笔</span></div>
+      <div class="pr"><span class="pn">远程</span><span class="pv">点位表发来，样机先跑满一卷</span></div>
+      <div class="pr"><span class="pn">交付</span><span class="pv">记录仪 / 纸卷 / 挂绳 / 钉子 / 色带</span></div>
+      <div class="pr"><span class="pn">换卷</span><span class="pv">12 / 年，旧带签收后带走或留档</span></div>
+    </div>
+
+    <div class="split r2">
+      <figure class="f7">
+        <span class="ph"><img src="images/占位-7.jpg" width="1200" height="800" alt="未拆封的记录带纸卷"></span>
+        <figcaption class="cap">未拆封的记录带纸卷 · 3:2</figcaption>
+      </figure>
+      <div class="tx">
+        <h3>一卷一签</h3>
+        <p>卷头写机器号，卷尾留巡检人签字。中间两千五百九十二万行，一根线接一根线，不空行、不跳号。</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="crease" aria-hidden="true"></div>
+
+  <!-- 五 · 订卷 -->
+  <section class="in sec" id="order">
+    <div class="h2tick" aria-hidden="true"></div>
+    <h2>订一卷，写满三十天。</h2>
+    <p class="lede">第一卷随机器一起到。写完不用还，挂在墙上就是这三十天的全部记录。</p>
+
+    <div class="price">
+      <div class="pr"><span class="pn">记录带 · 30 天 · 2 592 000 行</span><span class="pv"><span class="cur">￥</span>1 200</span></div>
+      <div class="pr"><span class="pn">记录仪 · 壁挂 2U · 含首卷</span><span class="pv"><span class="cur">￥</span>6 800</span></div>
+      <div class="pr"><span class="pn">现场装机 · 半天</span><span class="pv"><span class="cur">￥</span>0</span></div>
+      <div class="pr"><span class="pn">全年 · 12 卷 · 到货</span><span class="pv"><span class="cur">￥</span>13 200</span></div>
+    </div>
+
+    <div class="split r3" style="margin-top:40px">
+      <div class="tx">
+        <h3>挂在墙上的三十天</h3>
+        <p>一卷写完不装订、不索引：从上往下就是时间顺序，R-01 在最前，R-20 在最后。</p>
+      </div>
+      <figure class="f2b">
+        <span class="ph"><img src="images/占位-2.jpg" width="900" height="1200" alt="挂在墙上的整条记录带"></span>
+        <figcaption class="cap">挂在墙上的整条记录带 · 3:4</figcaption>
+      </figure>
+    </div>
+
+    <figure class="f8">
+      <span class="ph"><img src="images/占位-8.jpg" width="1000" height="1000" alt="整条记录带垂到地面"></span>
+      <figcaption class="cap">一条完整记录带垂到地面 · 1:1</figcaption>
+    </figure>
+
+    <div class="act">
+      <a class="cta" href="#order"><span>接入机房 · 订第一卷</span><i class="mk" aria-hidden="true"></i></a>
+      <p class="p"><span class="cur">￥</span><span class="num">1 200</span> ／ 卷（30 天）</p>
+    </div>
+  </section>
+
+  <div class="crease" aria-hidden="true"></div>
+
+  <!-- 卷尾 -->
+  <footer class="in tail">
+    <p class="line"><b>卷号</b> <span class="num">2026-11-A</span> ／ <span class="num">R-01</span> → <span class="num">R-20</span> ／ <span class="num">2 592 000</span> 行 ／ <span class="num">30</span> 天</p>
+    <p class="line"><b>走纸</b> <span class="num">1</span> 行／秒 · 断电续写 <span class="num">30</span> 行 · 孔距 <span class="num">12.7</span> mm</p>
+    <div class="sigrow">
+      <span><b>R-20</b> 巡检人签字</span>
+      <i class="sig" aria-hidden="true"></i>
+    </div>
+    <p class="line">值班台 <span class="num">021 0000 0000</span> ／ 记录科 · LOGBAND-1 ／ 一卷一签，签完归档</p>
+    <div class="end" aria-hidden="true"></div>
+  </footer>
+</div>
+</div>
+</body>
+</html>

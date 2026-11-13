@@ -492,10 +492,26 @@ export async function measure(file, { viewport = { width: 1440, height: 900 } } 
             if (!inlineDecl && !attrDecl) {
               for (const sheet of Array.from(document.styleSheets)) {
                 let rules; try { rules = sheet.cssRules; } catch { continue; }
-                for (const rule of Array.from(rules)) {
-                  if (!rule.selectorText || !rule.style || !rule.style[prop]) continue;
-                  try { if (el.matches(rule.selectorText)) { ruleDecl = true; break; } } catch { /* 无效选择器 */ }
-                }
+                /* 必须递归进 @media / @supports —— 它们的 selectorText 是 undefined，
+                 * 只看顶层会把「写在媒体查询里的 SVG fill/stroke」全部判成未声明，
+                 * 那些颜色就被整条丢掉了。
+                 *
+                 * 回归审计（2026-11-13）构造用例复现过：旧版 hexes 含 #AB12CD，
+                 * 加了「显式声明」判据之后没有了 —— 因为声明在 @media 里。
+                 * 当前 35 案无症状（没有一个在 @media 里写 SVG fill），
+                 * 但响应式配色是最常见写法，下次有人这么写就会被静默吞掉。 */
+                const walk = (rs) => {
+                  for (const rule of Array.from(rs || [])) {
+                    if (rule.selectorText && rule.style && rule.style[prop]) {
+                      try { if (el.matches(rule.selectorText)) { ruleDecl = true; return true; } } catch { /* 无效选择器 */ }
+                    }
+                    if (rule.cssRules && rule.cssRules.length) {
+                      if (walk(rule.cssRules)) return true;
+                    }
+                  }
+                  return false;
+                };
+                walk(rules);
                 if (ruleDecl) break;
               }
             }
