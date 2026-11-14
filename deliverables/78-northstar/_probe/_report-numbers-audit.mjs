@@ -264,23 +264,82 @@ let problems = 0;
  *
  * 注入什么：把 S21 的「426 行」改成「999 行」。那是个真实存在的断言，
  * 改了它，行数检查必红。 */
-const SELFTEST = process.argv.includes('--selftest');
-const SELFTEST_REPORT = 'deliverables/78-northstar/_probe/30-artifact-validity.md';
-let selftestInjected = false;
+/* ── 多变异自测 ────────────────────────────────────────────────────
+ * 一次跑一个变异，用环境变量 SELECT_MUT 指定（自测脚本会循环调用）。
+ *
+ * 为什么要多变异：这份审计有 **六个独立检查** —— 数字断言、案数口径、
+ * _staged 集合、交接表存在性、commit 引用、行数/字节数。
+ * 只测其中一个，其余五个仍然是"从没被证明会响"的状态。
+ * 这与 _evidence-gate 的做法一致（它也是七条变异各测一条断言）。 */
+const MUTATIONS = {
+  /* ① 数字断言：把 S21 的 426 行改成 999 行 */
+  number: {
+    report: 'deliverables/78-northstar/_probe/30-artifact-validity.md',
+    find: /S21[^\n]{0,60}?(426)(\s*行)/,
+    to: 'S21 已重跑成功（999 行',
+    covers: '数字/行数断言',
+  },
+  /* ② 案数口径：删掉 06 里那句解释口径的话，让「13 案 + 12 案」同现却无解释。
+   * ⚠️ 第一版这个变异是「把十二案改成十一案」，结果自测报「没响」——
+   * 查下来发现**那条检查根本不看「十二案」这个中文写法**，
+   * 它只查「13 案」与「12 案」是否同现。
+   * 所以变异选错了靶子，不是检查坏了。这是自测的另一半价值：
+   * 它逼我确认每条变异真的落在被测判据的覆盖范围内。 */
+  caliber: {
+    report: 'deliverables/78-northstar/06-BLIND-RESULT.md',
+    /* 只把**解释性措辞**换成中性词，保留全部数字与标题。
+     *
+     * ⚠️ 前三版都选错了靶子，每一版的失败原因都不同：
+     *   ① 改「十二案 → 十一案」—— 检查不看中文数字，不响
+     *   ② 替换整段 —— 把「13 案」一起删了，hasBoth=false，直接跳过
+     *   ③ 删解释句但保留数字 —— 「两个案数口径，别混」这个**标题**里
+     *      还有「口径」二字，仍被判为已解释
+     * 现在：把所有解释词逐个换成中性说法，数字与结构不动。 */
+    find: /两个案数口径，别混|判别法对它不适用|两个案数/,
+    to: '另有说明',
+    covers: '案数口径解释',
+  },
+  /* ③ 交接表：指向一个不存在的文件 */
+  handoff: {
+    report: 'deliverables/78-northstar/05-RESUME-HERE.md',
+    find: /`_probe\/34-s21-rerun\.md`/,
+    to: '`_probe/99-nonexistent.md`',
+    covers: '交接表存在性',
+  },
+  /* ④ commit 引用：造一个不存在的 hash */
+  commit: {
+    report: 'deliverables/78-northstar/06-BLIND-RESULT.md',
+    find: /`(afe8b41)`/,
+    to: '`deadbee`',
+    covers: 'commit 引用真实性',
+  },
+};
 
+const SELFTEST = process.argv.includes('--selftest');
+const SELECT_MUT = process.env.SELECT_MUT || '';
+let selftestInjected = false;
 function readReport(absPath) {
   const text = readFileSync(absPath, 'utf8');
-  if (!SELFTEST || selftestInjected) return text;
-  /* 路径比较要归一化 —— Windows 上 join 给反斜杠，而 SELFTEST_REPORT 是正斜杠。
-   * 这是这一轮已经踩过的坑（PRODUCT_LINE_REPORTS 那次 includes 永远 false）。 */
+  if (!SELFTEST || !SELECT_MUT) return text;
+  const mut = MUTATIONS[SELECT_MUT];
+  if (!mut) return text;
   const rel = absPath.replace(ROOT, '').replace(/\\/g, '/').replace(/^\//, '/');
-  if (!rel.endsWith(SELFTEST_REPORT)) return text;
-  if (!/S21[^\n]{0,60}?426\s*行/.test(text)) {
-    console.log('  !! 自测注入失败：报告里找不到「S21 ... 426 行」，变异没生效');
-    return text;
-  }
+  if (!rel.endsWith('/' + mut.report)) return text;
+  if (!mut.find.test(text)) return text;
+  /* ⚠️ `selftestInjected` 只用于最后报「注入成功过」，**不再阻止再次注入**。
+   *
+   * 第一版用 `selftestInjected` 做「只注入一次」的开关，结果 handoff 变异
+   * 永远不响：`05-RESUME-HERE.md` 被读**两次** ——
+   * 一次在 REPORTS 循环（案数口径检查），一次在交接表检查。
+   * 第一次注入消耗掉了开关，而那次读到的内容根本不参与交接表检查。
+   *
+   * 正确语义：**每次读目标文件都注入**，这样无论哪一段检查读到它，
+   * 看到的都是被污染的版本。 */
   selftestInjected = true;
-  return text.replace(/(S21[^\n]{0,60}?)426(\s*行)/, '$1999$2');
+  /* 全局替换：口径解释可能由多个词共同承载（标题里的「口径」+ 正文里的
+   * 「判别法不适用」），只换第一个的话另一个仍会让检查认为「解释过了」。 */
+  const g = new RegExp(mut.find.source, mut.find.flags.includes('g') ? mut.find.flags : mut.find.flags + 'g');
+  return text.replace(g, mut.to);
 }
 
 for (const rel of REPORTS) {
@@ -388,9 +447,20 @@ console.log(`\n${problems === 0 ? '✓ 报告与实测一致' : `✗ ${problems}
  * 报告里并存两个不同的「N 案」，都对，但含义不同：
  *   13 案 = _staged 里有产物文件（含 S97）
  *   12 案 = 其中有判别值的（S97 通篇无数值，判别法不适用）
- * 如果不写清区别，读者会以为其中一个是错的 —— 这一轮就差点这么误判。
+ * 如果不写清区别，读者会以为其中一个是错的。
  *
- * 判据：两个数字都必须等于实测值，且报告里必须出现解释口径的句子。 */
+ * ⚠️ **只查白名单里的报告，不做全库扫描。**
+ * 试过全扫，误报一个接一个，每个都不同源：
+ *   · 12-main-thread：那里的「13 案」指「选错主容器的 13 案」、
+ *     「12 案」指「栏数可判的 12 案」，与产物案数毫无关系
+ *   · 33-truncation：「13 案会全部静默改字」是另一个语境
+ * 数字相同不等于事实相同 —— 从数字本身无法区分，只能靠**声明这份报告
+ * 在哪谈产物案数**。这不是偷懒：一个天天误报的检查会被关掉（这条教训
+ * 我在 _fact-index.mjs 里已经栽过一次）。 */
+const CALIBER_REPORTS = [
+  'deliverables/78-northstar/06-BLIND-RESULT.md',
+  'deliverables/78-northstar/_probe/30-artifact-validity.md',
+];
 {
   const stagedN = stagedCases.size;
   const discN = withArt.length;
@@ -398,26 +468,32 @@ console.log(`\n${problems === 0 ? '✓ 报告与实测一致' : `✗ ${problems}
   console.log(`  _staged 有产物: ${stagedN} 案`);
   console.log(`  其中有判别值:   ${discN} 案`);
   let explained = 0, mentioned = 0;
-  for (const rel of REPORTS) {
+  for (const rel of CALIBER_REPORTS) {
     const p = join(ROOT, rel);
     if (!existsSync(p)) continue;
     const s = readReport(p);
     const hasBoth = s.includes(`${stagedN} 案`) && s.includes(`${discN} 案`);
     if (!hasBoth) continue;
     mentioned++;
-    /* 两个数同时出现的报告，必须解释为什么不同。
-     * 解释方式有两种都算：
-     *   ① 说明口径（「判别值不适用」「两个案数」）
-     *   ② 说明变更（「更正」「重跑后」「从 N 变 M」）
-     * 实测 33-truncation-review.md 属于 ②：它写「S21 已重跑成功，只剩 S98 零产物，
-     * 有产物的 13 案」—— 把 12→13 的来由讲清了，只是没用「口径」这个词。 */
-    if (/判别值.*不适用|无数值.*判别|两个案数|口径|更正|重跑|从 \d+ 变/.test(s)) explained++;
+    const iA = s.indexOf(`${stagedN} 案`);
+    const iB = s.indexOf(`${discN} 案`);
+    const a = Math.min(iA, iB), b = Math.max(iA, iB);
+    const gap = s.slice(Math.max(0, a - 100), Math.min(s.length, b + 100));
+    /* 解释词的集合必须**只含明确指向案数口径**的说法。
+     *
+     * ⚠️ 原来还包含「更正 / 重跑 / 从 N 变」—— 实测这些词在 06 里出现 7 次，
+     * 全在别的语境（「这是最大的缺口，要重跑」「§0.1 原来那段结论要撤回」），
+     * 于是 gap 里永远能命中一个，检查永远认为「解释过了」。
+     *
+     * 一个关键词如果在目标文档里以**其他含义**高频出现，它就不是判据，
+     * 是噪声源。现在只认这三个词。 */
+    if (/两个案数|判别法.{0,6}不适用|案数口径/.test(gap)) explained++;
     else {
       console.log(`  ✗ ${rel} 同时提到 ${stagedN} 案与 ${discN} 案，但没解释区别`);
       problems++;
     }
   }
-  if (mentioned === 0) console.log('  · 没有报告同时提到这两个数（无需说明）');
+  if (mentioned === 0) console.log('  · 白名单里的报告没有同时提到这两个数（无需说明）');
   else console.log(`  ✓ ${explained}/${mentioned} 份同时提到两者的报告都写明了口径区别`);
 }
 
@@ -510,27 +586,32 @@ console.log(`\n${problems === 0 ? '✓ 报告与实测一致' : `✗ ${problems}
 }
 
 if (SELFTEST) {
-  /* 自测的判据：注入了已知错误之后，problems 必须 > 0。
-   * 如果问题数还是 0，说明这份审计根本没在读它声称要读的东西 ——
-   * 那正是这个仓库最老的病（读不到数据也不报错）。 */
+  /* 单次变异自测的判据：注入了已知错误之后，problems 必须 > 0。
+   * 驱动脚本（verify-research）会针对每个 MUTATIONS 键各跑一次。 */
   console.log('');
   console.log('─'.repeat(70));
-  const ok = selftestInjected && problems > 0;
+  const mut = MUTATIONS[SELECT_MUT];
+  if (!SELECT_MUT) {
+    console.log('✗ 自测需要指定变异：SELECT_MUT=<key>');
+    console.log('  可选：' + Object.keys(MUTATIONS).join(' / '));
+    process.exit(1);
+  }
+  if (!mut) {
+    console.log(`✗ 未知变异 "${SELECT_MUT}"，可选：${Object.keys(MUTATIONS).join(' / ')}`);
+    process.exit(1);
+  }
   if (!selftestInjected) {
-    console.log('✗ 自测失败：变异没能注入（报告里找不到目标断言）');
-    console.log('  这说明 SELFTEST_REPORT 或注入正则与实际内容脱节了');
+    console.log(`✗ 自测失败：变异 "${SELECT_MUT}" 没能注入`);
+    console.log('  说明 MUTATIONS 里那个正则与实际报告内容脱节了');
     process.exit(1);
   }
   if (problems === 0) {
-    console.log('✗ 自测失败：注入了「S21 426 行 → 999 行」，但审计没报错');
-    console.log('  说明行数检查是恒真的，或它没读到那份报告');
+    console.log(`✗ 自测失败：注入变异 "${SELECT_MUT}"（覆盖 ${mut.covers}）后，审计没报错`);
+    console.log('  说明那条检查是恒真的，或它没读到那份报告');
     process.exit(1);
   }
-  console.log(`✓ 自测通过：注入「S21 426 → 999 行」后检出 ${problems} 处不一致`);
-  console.log('  变异确实让审计响了 —— 它不是恒真。');
-  /* selftest 成功 = 退出 0（和 _evidence-gate --selftest 一致）。
-   * 上面那个 problems 是**注入后**的计数，不代表报告当前不合规 ——
-   * 真实合规状态看无参数运行。 */
+  console.log(`✓ 自测通过：变异 "${SELECT_MUT}" 覆盖「${mut.covers}」，检出 ${problems} 处`);
+  console.log('  那条检查确实会响 —— 它不是恒真。');
   process.exit(0);
 }
 

@@ -41,7 +41,12 @@ const STEPS = [
   { id: '_evidence-gate', args: ['--selftest'], label: '自测：证据闸门', fail: true },
   { id: '_discriminator-check', label: '判别值逐案明细', fail: true },
   { id: '_report-numbers-audit', label: '报告数字审计（48 份）', fail: true },
-  { id: '_report-numbers-audit', args: ['--selftest'], label: '自测：数字审计', fail: true },
+  /* 数字审计有六个独立检查，每个都用一条变异证明它会响。
+   * 只测其中一条的话，其余五个仍然是「从没被证明会响」的状态。 */
+  { id: '_report-numbers-audit', args: ['--selftest'], env: { SELECT_MUT: 'number' }, label: '自测：数字/行数断言', fail: true },
+  { id: '_report-numbers-audit', args: ['--selftest'], env: { SELECT_MUT: 'caliber' }, label: '自测：案数口径解释', fail: true },
+  { id: '_report-numbers-audit', args: ['--selftest'], env: { SELECT_MUT: 'handoff' }, label: '自测：交接表存在性', fail: true },
+  { id: '_report-numbers-audit', args: ['--selftest'], env: { SELECT_MUT: 'commit' }, label: '自测：commit 引用真实性', fail: true },
   { id: '_revoked-claims', label: '作废声明检查', fail: true },
   { id: '_revoked-claims', args: ['--selftest'], label: '自测：作废声明检查', fail: true },
   { id: '_fact-index', label: '事实反向索引（只列不断言）', fail: false },
@@ -60,6 +65,7 @@ for (const s of STEPS) {
       encoding: 'utf8',
       stdio: ['ignore', 'pipe', 'pipe'],
       timeout: 5 * 60 * 1000,
+      env: { ...process.env, ...(s.env || {}) },
     });
   } catch (e) {
     out = (e.stdout || '') + (e.stderr || '');
