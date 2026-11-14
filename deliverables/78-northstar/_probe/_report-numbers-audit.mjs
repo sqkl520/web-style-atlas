@@ -12,10 +12,11 @@
  *
  * 只报**不一致**，不重复计算过程。
  */
-import { readFileSync, readdirSync, existsSync } from 'node:fs';
+import { readFileSync, readdirSync, existsSync, writeFileSync, unlinkSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { resolve, dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { tmpdir } from 'node:os';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { tokensOf, discriminatorsFor, hitIn as hitOne } from './_discriminator-lib.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -85,6 +86,12 @@ for (const id of withArt) {
 const SELFTEST = process.argv.includes('--selftest');
 const SELECT_MUT = process.env.SELECT_MUT || '';
 let selftestInjected = false;
+/* 文件级变异的还原函数。caliberDrift 需要在跑检查之前改另一个脚本，
+ * 跑完必须还原 —— 用 process.on('exit') 兜底，避免异常路径留下脏文件。 */
+let selftestRestore = null;
+if (SELFTEST) {
+  process.on('exit', () => { if (selftestRestore) { try { selftestRestore(); } catch { /* 尽力而为 */ } } });
+}
 
 /* 实测：_staged 里到底有几案的产物 ──────────────────────────────── */
 const stagedCases = new Set();
@@ -326,7 +333,20 @@ const MUTATIONS = {
     to: '**14 个案号里，12 案有产物',
     covers: '案数本身（是否等于实测）',
   },
-  /* ⑦ commit 引用：造一个不存在的 hash */
+  /* ⑦ 口径一致性：让其中一个脚本临时算错，检查必须发现。
+   *
+   * ⚠️ **不碰原文件。** 第一版是改 _discriminator-semantic.mjs 再还原，
+   * 用 process.on('exit') 兜底 —— 实测 `timeout 3` 杀掉进程后文件留在损坏状态
+   * （SIGTERM 不触发 exit 钩子），git status 里能看到 M。
+   * 仓库的老笔记里记过同一件事：「改真实文件再还原，被 timeout 杀掉后留下坏代码」。
+   *
+   * 现在：复制一份到 _selftest-drift-copy.mjs，改副本、跑副本。
+   * 原文件全程不动；被 kill 最多留一个临时文件。 */
+  caliberDrift: {
+    report: '',
+    covers: '多份实现口径一致性',
+  },
+  /* ⑧ commit 引用：造一个不存在的 hash */
   commit: {
     report: 'deliverables/78-northstar/06-BLIND-RESULT.md',
     find: /`(afe8b41)`/,
@@ -619,9 +639,34 @@ const CALIBER_REPORTS = [
  * 两份实现各自跑通不代表它们一致。 */
 {
   console.log(`\n=== 实现口径一致性（3 份参与比对）===`);
+  /* 文件级变异：复制一份 semantic 到临时文件并注入漂移，跑副本、不碰原文件。 */
+  let semPath = join(HERE, '_discriminator-semantic.mjs');
+  /* ⚠️ 副本必须留在 _probe/ 里。
+   *
+   * 试过放系统 temp：副本里 `ROOT = resolve(dirname(import.meta.url), '../../..')`
+   * 会指向 temp 往上三级，于是 BLIND / STAGED 全断，输出 0/0 ——
+   * 检查确实报了「不一致」，但那是副本崩了，不是真的检测到漂移（假阳性）。
+   *
+   * 现在放 _probe/ 并用 `_tmp_` 前缀 —— .gitignore 里已有 `_tmp_*` 规则，
+   * 被 kill 时残留的临时文件不会脏 git status。
+   * 也不用改 import 路径（同一目录，相对路径照常）。 */
+  const DRIFT_COPY = join(HERE, '_tmp_selftest-drift.mjs');
+  if (SELFTEST && SELECT_MUT === 'caliberDrift') {
+    const orig = readFileSync(semPath, 'utf8');
+    /* 副本与 lib 在同一目录，相对 import 照常能解析 —— 不必改写 import。 */
+    const mutated = orig.replace(
+      'const mine = discriminatorsFor(id, all);',
+      'const mine = [...all[id]];  // 自测注入：故意漂移'
+    );
+    if (mutated !== orig) {
+      writeFileSync(DRIFT_COPY, mutated);
+      semPath = DRIFT_COPY;
+      selftestInjected = true;
+    }
+  }
   const run = (f) => {
     try {
-      return execFileSync(process.execPath, [join(HERE, f)], {
+      return execFileSync(process.execPath, [f], {
         cwd: ROOT, encoding: 'utf8', timeout: 120000,
       });
     } catch (e) { return (e.stdout || '') + (e.stderr || ''); }
@@ -634,17 +679,18 @@ const CALIBER_REPORTS = [
    * 重复出现，因为内层那一次又跑了一遍这三个。
    * 它自己的判别值统计用的是同一个 lib，天然一致，不需要自检。 */
   const SOURCES = [
-    ['_discriminator-check.mjs', /TOTAL discriminators:\s*(\d+)/],
-    ['_discriminator-semantic.mjs', /可定位到语义的判别值:\s*(\d+)/],
-    ['_evidence-gate.mjs', /判别值总数:\s*(\d+)/],
+    [join(HERE, '_discriminator-check.mjs'), /TOTAL discriminators:\s*(\d+)/],
+    [semPath, /可定位到语义的判别值:\s*(\d+)/],           // 变异时指向副本
+    [join(HERE, '_evidence-gate.mjs'), /判别值总数:\s*(\d+)/],
   ];
   const got = [];
-  for (const [f, re] of SOURCES) {
-    const out = run(f);
+  for (const [fp, re] of SOURCES) {
+    const out = run(fp);
     const n = (out.match(re) || [])[1];
-    console.log(`  ${f.replace('.mjs', '').padEnd(30)} ${n ?? '?（解析失败）'}`);
-    if (n) got.push({ f, n: Number(n) });
+    console.log(`  ${fp.split(/[\\/]/).pop().replace('.mjs', '').padEnd(30)} ${n ?? '?（解析失败）'}`);
+    if (n) got.push({ f: fp.split(/[\\/]/).pop(), n: Number(n) });
   }
+  try { if (existsSync(DRIFT_COPY)) unlinkSync(DRIFT_COPY); } catch { /* 尽力而为 */ }
   const uniq = [...new Set(got.map((g) => g.n))];
   if (got.length < 2) {
     console.log('  · 少于两个脚本给出可解析的总数（跳过）');

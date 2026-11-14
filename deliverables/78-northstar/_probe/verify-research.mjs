@@ -50,6 +50,7 @@ const STEPS = [
   { id: '_report-numbers-audit', args: ['--selftest'], env: { SELECT_MUT: 'staged' }, label: '自测：_staged 产物集合', fail: true },
   { id: '_report-numbers-audit', args: ['--selftest'], env: { SELECT_MUT: 'casenum' }, label: '自测：案数是否等于实测', fail: true },
   { id: '_report-numbers-audit', args: ['--selftest'], env: { SELECT_MUT: 'commit' }, label: '自测：commit 引用真实性', fail: true },
+  { id: '_report-numbers-audit', args: ['--selftest'], env: { SELECT_MUT: 'caliberDrift' }, label: '自测：多份实现口径一致', fail: true },
   { id: '_revoked-claims', label: '作废声明检查', fail: true },
   { id: '_revoked-claims', args: ['--selftest'], label: '自测：作废声明检查', fail: true },
   { id: '_fact-index', label: '事实反向索引（只列不断言）', fail: false },
