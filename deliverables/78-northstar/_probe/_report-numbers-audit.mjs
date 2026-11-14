@@ -20,12 +20,31 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, '../../..');
 const BLIND = join(ROOT, 'deliverables/78-northstar/blind');
 const STAGED = join(ROOT, 'deliverables/78-northstar/_probe/_staged');
-const REPORTS = [
-  'deliverables/78-northstar/_probe/29-prompt-truncation-bug.md',
-  'deliverables/78-northstar/06-BLIND-RESULT.md',
-  'deliverables/78-northstar/05-RESUME-HERE.md',
-  'deliverables/78-northstar/_probe/30-artifact-validity.md',
+/* 覆盖范围：**自动抓全部报告**，不手维护列表。
+ *
+ * 原来写死 4 份，而 _probe/ 下有 48 份报告带可核数字。
+ * 手维护的清单一定会漏 —— 这一轮就已经因为只看 4 份而漏掉了
+ * 11-POSTBUG-PLAN（26 处）、09-VERIFY-PLAN（22 处）等。
+ * 自动抓取的代价是多跑几十次正则，几毫秒的事。 */
+const REPORT_DIRS = [
+  'deliverables/78-northstar',
+  'deliverables/78-northstar/_probe',
 ];
+const REPORTS = [];
+for (const d of REPORT_DIRS) {
+  const abs = join(ROOT, d);
+  if (!existsSync(abs)) continue;
+  for (const f of readdirSync(abs)) {
+    if (!f.endsWith('.md')) continue;
+    /* 只要序号开头的报告；跳过 README/brief 这类杂项 */
+    if (!/^\d{2}-/.test(f)) continue;
+    /* 存成正斜杠形式：PRODUCT_LINE_REPORTS 里也写正斜杠。
+     * 实测 Windows 上 join 产生反斜杠，直接 includes 永远 false ——
+     * 于是「N 行」检查一次都没跑过，而脚本照样打印全绿。 */
+    REPORTS.push(join(d, f).replace(/\\/g, '/'));
+  }
+}
+REPORTS.sort();
 
 /* ── 实测：判别值（与 _evidence-gate.mjs 同口径） ───────────────────── */
 const tokensOf = (txt) => {
@@ -134,29 +153,73 @@ for (const id of stagedCases) {
   }
 }
 
+/* 哪些报告把「产物有几行 / 几字节」当作结论陈述。
+ * 只有这几份里的「N 行」才算产物行数断言；其他报告里同样的字面
+ * 多指任务书行数、stream 行数、计划条数。 */
+const PRODUCT_LINE_REPORTS = [
+  'deliverables/78-northstar/06-BLIND-RESULT.md',
+  'deliverables/78-northstar/_probe/30-artifact-validity.md',
+  'deliverables/78-northstar/_probe/34-s21-rerun.md',
+  'deliverables/78-northstar/_probe/16-negative-control.md',
+];
+
 /* 有哪些「历史值」是**已经被明确记录为历史**的，不该再报。
  * 每一条都必须能在报告里找到一句说明它为什么不同 —— 否则就是真漂移。 */
 const KNOWN_HISTORY = [
   { id: 'S29', kind: '字节', value: 59861,
     why: '06-BLIND-RESULT.md:156 与 :254 都写了：59861 是那次 TIMEOUT 边缘救回来的版本，' +
          '之后重跑变成 41371。两处叙述一致，且 §156 明列「三处字节变化」。' },
+  { id: 'S08', kind: '字节(对账表)', value: 36146,
+    why: '20-reproducibility.md:157 与 :177 都写了它的演进：36146 → 40074 → 39807。' +
+         '12-main-thread-measure-findings.md:776 那张表是更早一轮的对账，记的是当时的 36146。' },
+  { id: 'S13', kind: '字节', value: 25730,
+    why: '06-BLIND-RESULT.md:156 明列「S13 25730→31256」，09-VERIFY-PLAN.md:33 也是同一组' +
+         '「旧值→新值」对照。_staged 里还留着 S13-v25730.html 作证。' },
+  { id: 'S13', kind: '字节(对账表)', value: 25730,
+    why: '同上 —— 那是更早一轮对账表里的历史值，报告已在 §156 说明变化过程。' },
 ];
 
 /* 报告里常见的两种写法：
  *   「S31 399 行」
  *   「S97 466 行，20853 字节」
  * 只在同一行里同时出现案号与数字时才核 —— 否则「399 行」也是别的案。 */
-const SIZE_CHECKS = [];
-for (const [id, v] of Object.entries(sizeOf)) {
-  SIZE_CHECKS.push({ id, kind: '行数', value: v.lines, pat: new RegExp(`\\b${id}\\b[^\\n]{0,40}?(\\d{2,4})\\s*行`, 'g') });
-  SIZE_CHECKS.push({ id, kind: '字节', value: v.bytes, pat: new RegExp(`\\b${id}\\b[^\\n]{0,80}?(\\d{4,6})\\s*字节`, 'g') });
-  /* 对账表里的字节数是**裸数字**（`S21 fixed ... 27557`），没有「字节」二字。
-   * 第一版漏了这种，实测把 27557 改成 99999 也照样全绿 —— 那是个真遗漏。
-   *
-   * 不用 `.*(\d{4,6})\s*$` 这种写法：贪婪的 `.*` 会吞掉所有数字，
-   * 回溯后 `\d{4,6}` 只能匹配到 `9999` 而 `\s*$` 前还剩一个 `9`，于是 0 匹配。
-   * 改成「抓整行、在行内取最后一个 4–6 位数」，语义清楚也不受回溯影响。 */
-  SIZE_CHECKS.push({ id, kind: '字节(表末列)', value: v.bytes, tableRow: true });
+/* 按**报告**生成检查项，而不是全量生成。
+ *
+ * 为什么必须按报告区分：「N 行」这个字面在不同报告里指完全不同的东西 ——
+ *   「S31 399 行」        产物行数（要核）
+ *   「S31 任务书 40 行」   提示词行数（不是产物）
+ *   「S29 stream 9813 行」 日志行数（不是产物）
+ *   「S99 prompt 10 行」   提示词行数（不是产物）
+ * 实测把「N 行」扩到全部 48 份报告 → 误报 30+ 条。
+ * 一个天天误报的审计，下一个人第一件事就是把它关掉。
+ *
+ * 「对账表末列字节数」同理：曾有 78 条误报（「S31 1971 | 72 98」是任务书字节数）。
+ * 现在用严格的表行形状匹配（案号 + layoutKind + 行末字节数）。 */
+function checksFor(rel) {
+  const out = [];
+  const wantLines = PRODUCT_LINE_REPORTS.includes(rel);
+  for (const [id, v] of Object.entries(sizeOf)) {
+    if (wantLines) {
+      /* 「N 行」这一项必须同时排除两类：
+       *   ① 任务书行数（「S99 task.txt 40 行」）
+       *   ② 日志行数（「S31 stream 459 行」）
+       * 判据：同一行里出现 task.txt / prompt / 任务书 / stream 就跳过。
+       * 实测不加这三条会误报 5 处，全是别的行数。 */
+      out.push({
+        id, kind: '行数', value: v.lines, skipLine: /task\.txt|prompt|任务书|stream|快照|正文/,
+        /* 案号与数字之间不能再出现别的案号 —— 实测「S99 做出了一个和 S31 同量级完整的页面。
+         * 它 459 行」这句里，S31 的正则会一路吃到 459，把 S99 的行数记到 S31 头上。
+         * 用负向前瞻挡掉中间出现 S\d\d 的情况。 */
+        pat: new RegExp(`\\b${id}\\b(?:(?!S\\d{2})[^\\n]){0,40}?(\\d{2,4})\\s*行`, 'g'),
+      });
+      out.push({
+        id, kind: '字节', value: v.bytes, skipLine: /task\.txt|prompt|任务书|stream|快照|正文/,
+        pat: new RegExp(`\\b${id}\\b(?:(?!S\\d{2})[^\\n]){0,80}?(\\d{4,6})\\s*字节`, 'g'),
+      });
+    }
+    out.push({ id, kind: '字节(对账表)', value: v.bytes, tableRow: true });
+  }
+  return out;
 }
 
 /* 单案判别值表：{S04: {n, hit}, ...} */
@@ -209,18 +272,23 @@ for (const rel of REPORTS) {
    * 判据：同一行里出现 `→` 时跳过（那是"从 A 变到 B"的叙述）；
    *       并且只在「行」或「字节」**紧跟**在那个数字后面时才认。 */
   const sizeHits = [];
-  for (const c of SIZE_CHECKS) {
+  for (const c of checksFor(rel)) {
     if (c.tableRow) {
-      /* 对账表：找所有以该案号开头的行，取行内最后一个 4–6 位数当字节数 */
+      /* 对账表行的判据（严格）：案号 + 已知 layoutKind + 至少两个 x/y 分式。
+       * 实测这样能把 48 份报告里的误报从 78 条降到 0 —— 那些「S31 1971 | 72 98」
+       * 「S99 全长 61070 行」都不满足「有 layoutKind」这一条。 */
+      const ROW_RE = new RegExp(
+        `^\\s*${c.id}\\s+(?:fixed|auto-fit|no-column-layout)\\b.*?(\\d{4,6})\\s*$`
+      );
       for (const line of s.split('\n')) {
-        if (!new RegExp(`^\\s*${c.id}\\s`).test(line)) continue;
-        const nums = [...line.matchAll(/\b(\d{4,6})\b/g)].map((m) => Number(m[1]));
-        if (!nums.length) continue;
-        /* 排除年份（20xx）：实测有「S31 · 2026-11-14 重跑…」这种行，
-         * 末位 4 位数是年份而不是字节数，会产生假的不一致。 */
-        const plausible = nums.filter((n) => !(n >= 2000 && n <= 2099));
-        if (!plausible.length) continue;
-        const claimed = plausible[plausible.length - 1];
+        const m = line.match(ROW_RE);
+        if (!m) continue;
+        const claimed = Number(m[1]);
+        const hist = KNOWN_HISTORY.find((h) => h.id === c.id && h.kind === c.kind && h.value === claimed);
+        if (hist) {
+          sizeHits.push({ kind: `${c.id} ${c.kind}`, got: claimed, want: c.value, ok: true, hist: hist.why });
+          continue;
+        }
         const ok = claimed === c.value;
         sizeHits.push({ kind: `${c.id} ${c.kind}`, got: claimed, want: c.value, ok, line: line.trim().slice(0, 70) });
         if (!ok) problems++;
@@ -232,9 +300,12 @@ for (const rel of REPORTS) {
       const lineEnd = s.indexOf('\n', m.index);
       const line = s.slice(lineStart, lineEnd < 0 ? undefined : lineEnd);
       if (line.includes('→')) continue;              // 历史变更叙述，不是当前断言
-      /* 还要排除「stream 第 N 行」这类：那是日志行号，不是产物行数。
-       * 实测误报三条：「在 S99 stream 全长 61070 行里搜」「读 S99 stream 第 62 行」。 */
       if (/stream|第\s*\d+\s*行|全长/.test(line)) continue;
+      if (c.skipLine && c.skipLine.test(line)) continue;   // 任务书/日志语境
+      /* 比较句不算断言：「和 S31 同量级完整、它 459 行」——
+       * 这里的 S31 只是参照物，459 行属于主语 S99。
+       * 判据：行内出现「和 Sxx 同/比 Sxx」这类比较结构就跳过。 */
+      if (/(?:和|比|与)\s*S\d{2}|S\d{2}\s*(?:同量级|相比|更)/.test(line)) continue;
       const claimed = Number(m[1]);
       /* 已被明确记录为历史的旧值 → 豁免，但在输出里标注，不静默吞掉 */
       const hist = KNOWN_HISTORY.find((h) => h.id === c.id && h.kind === c.kind && h.value === claimed);
