@@ -26,7 +26,12 @@ S31-sandbox.html S32-sandbox.html S35-sandbox.html S97-judge.html
 S99-judge.html   S99-sandbox.html _tmp-s13-25730.html
 ```
 
-**14 个案号里，12 案有产物，2 案零产物**（S21、S98）。
+**14 个案号里，13 案有产物，1 案零产物**（S98）。
+
+> ⚠️ **2026-11-14 更正**：本文原写「12 案有产物，2 案零产物（S21、S98）」。
+> **S21 已重跑成功**（04:58–07:12，27,557B / 426 行，判别值 3/3），
+> 产物在 `_staged/S21-sandbox.html`。详见 `34-s21-rerun.md`。
+> 下表里 S21 那一行的「无效」判定已随之改为「完全有效」。
 
 ### 0.2 三句话结论
 
@@ -54,7 +59,7 @@ S99-judge.html   S99-sandbox.html _tmp-s13-25730.html
 | S13 | **完全有效** | 内容全中，`out.html`，1 次 Write（27331 字符） |
 | S15 | **完全有效** | 内容全中，`out.html`，187 次 Write/Edit |
 | S18 | **部分有效** | 内容全中，但 stream 混了两次会话，过程记录不完整 |
-| S21 | **无效** | **无产物**（`out=False 0B`，`api_error`） |
+| S21 | **完全有效**（重跑后） | 2026-11-14 重跑：`out.html` 27,557B / 426 行，1 Write，判别值 3/3。原判定「无效 / 无产物」已作废 |
 | S22 | **完全有效** | 内容全中，正常收尾 |
 | S29 | **完全有效** | 内容全中，`out.html`，两段 session 都正常 |
 | S31 | **部分有效** | 内容全中，但**原始文件名是 `index.html`**、0 次 Write、stream 23% NUL |
@@ -64,7 +69,9 @@ S99-judge.html   S99-sandbox.html _tmp-s13-25730.html
 | S98 | **无效** | **无产物**（524 风暴 + 零产物，且模型身份也错） |
 | S99 | **完全有效** | 内容全中，`out.html`，4 Write + 24 Edit，**stream 完整可回放** |
 
-**计：完全有效 9 案（S08 S13 S15 S22 S29 S32 S35 S97 S99）／部分有效 3 案（S04 S18 S31）／无效 2 案（S21 S98）。**
+**计：完全有效 10 案（S08 S13 S15 S21 S22 S29 S32 S35 S97 S99）／部分有效 3 案（S04 S18 S31）／无效 1 案（S98）。**
+
+> 原写「完全有效 9 案 / 无效 2 案」。S21 重跑成功后归入完全有效。
 
 ---
 
@@ -138,7 +145,7 @@ S08: pal=6/6 absMax=78px  -> HIT ratio=4.9 mechStrong=2/2 mechWeak=4/4 font=4/5 
 S13: pal=4/4 absMax=56px  -> HIT ratio=3.7 mechStrong=6/6 mechWeak=0/0 font=5/5
 S15: pal=4/4 absMax=92px  -> HIT ratio=5.8 mechStrong=3/3 mechWeak=1/1 font=4/4
 S18: pal=6/6 absMax=76px  -> HIT ratio=4.8 mechStrong=3/3 mechWeak=4/4 font=5/5
-S21: NO ARTIFACT
+S21: pal=5/5 absMax=86px  -> HIT ratio=5.4 mechStrong=2/2 mechWeak=1/1 font=3/3
 S22: pal=4/4 absMax=81px  -> HIT ratio=4.7 mechStrong=4/4 mechWeak=3/3 font=4/4
 S29: pal=6/6 absMax=75px  -> HIT ratio=4.7 mechStrong=4/4 mechWeak=2/2 font=3/3
 S31: pal=5/5 absMax=104px -> HIT ratio=6.5 mechStrong=2/2 mechWeak=3/3 font=5/5
@@ -298,7 +305,7 @@ $ node -e '...读 S99 stream 第 62 行的 tool_result...'
 | S13 | ✅ | 31256 | ✅ | 4/4 | 3.7 → 3.73 | 6/6 | 5/5 | ✅ out.html | ✅ 1 Write（27331 字符） | **完全有效** |
 | S15 | ✅ | 47030 | ✅ | 4/4 | 5.8 → 5.80 | 4/4 | 4/4 | ✅ out.html | ✅ 187 次 Write/Edit | **完全有效** |
 | S18 | ✅ | 29697 | ✅ | 6/6 | 4.8 → 4.75 | 7/7 | 5/5 | 无法判断 | ⚠️ stream 混两次会话 | **部分有效** |
-| **S21** | **❌** | **0** | — | — | — | — | — | — | — | **无效** |
+| **S21** | **✅** | **27557** | ✅ | **3/3** | **（重跑）** | 见 `34-s21-rerun.md` | — | **✅ out.html** | ✅ 1 Write | **完全有效** |
 | S22 | ✅ | 22952 | ✅ | 4/4 | 4.7 → 4.76 | 7/7 | 4/4 | 无法判断 | ✅ 正常收尾 | **完全有效** |
 | S29 | ✅ | 41371 | ✅ | 6/6 | 4.7 → 4.69 | 6/6 | 3/3 | ✅ out.html | ✅ 两段 session 均正常 | **完全有效** |
 | S31 | ✅ | 22064 | ✅ | 5/5 | 6.5 → 6.50 | 5/5（`--scale-major:60px` 等 6 个变量显式声明） | 5/5 | ❌ **index.html** | **✗ 0 次 Write/Edit，且 stream 23% NUL，产物早于 stream 结束 2.5h** | **部分有效** |
@@ -319,11 +326,14 @@ $ node -e '...读 S99 stream 第 62 行的 tool_result...'
 - **S31 另缺「写对文件名」。** 这是唯一有 `index.html` 书面证据的案。
 - **S18 —— 缺「记录完整」。** stream 混了两次会话，无法完整回放。
 
-### 3.2 两案零产物
+### 3.2 一案零产物
+
+> 2026-11-14 更正：原来是两案（S21、S98）。**S21 已重跑成功**，
+> 现在只剩 S98 零产物，而 S98 测的状态产品里不存在（见 `28-s98-relevance-check.md`）。
 
 ```
 $ grep -n "S21\|S98" 24-retry-implementation.md
-142: S21   out=False 0B   retry=True  api_error
+142: S21   out=False 0B   retry=True  api_error     ← 已重跑成功，此行作废
 143: S98   out=False 0B   retry=True  api_error
 ```
 
