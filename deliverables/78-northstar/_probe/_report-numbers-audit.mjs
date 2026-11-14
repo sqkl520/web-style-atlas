@@ -329,7 +329,14 @@ const MUTATIONS = {
     report: '',                   // 空 = 不做文本注入
     covers: '_staged 产物集合',
   },
-  /* ⑥ commit 引用：造一个不存在的 hash */
+  /* ⑥ 案数本身的数字：把「13 案有产物」改成 12（S21 重跑前的旧值） */
+  casenum: {
+    report: 'deliverables/78-northstar/_probe/30-artifact-validity.md',
+    find: /\*\*14 个案号里，13 案有产物/,
+    to: '**14 个案号里，12 案有产物',
+    covers: '案数本身（是否等于实测）',
+  },
+  /* ⑦ commit 引用：造一个不存在的 hash */
   commit: {
     report: 'deliverables/78-northstar/06-BLIND-RESULT.md',
     find: /`(afe8b41)`/,
@@ -494,6 +501,14 @@ const CALIBER_REPORTS = [
     const p = join(ROOT, rel);
     if (!existsSync(p)) continue;
     const s = readReport(p);
+    /* 除了「有没有解释」，还要核**数字本身对不对**。
+     * 实测 30-artifact-validity:29 写「13 案有产物」—— 那个 13 必须等于
+     * _staged 的实测值。原文曾写 12（S21 重跑前的数），没人核就会一直错。 */
+    const mStaged = s.match(/(\d+)\s*案有产物/);
+    if (mStaged && Number(mStaged[1]) !== stagedN) {
+      console.log(`  ✗ ${rel} 写「${mStaged[1]} 案有产物」，实测 ${stagedN} 案`);
+      problems++;
+    }
     const hasBoth = s.includes(`${stagedN} 案`) && s.includes(`${discN} 案`);
     if (!hasBoth) continue;
     mentioned++;
