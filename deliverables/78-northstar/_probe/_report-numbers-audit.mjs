@@ -351,6 +351,43 @@ for (const rel of REPORTS) {
 
 console.log(`\n${problems === 0 ? '✓ 报告与实测一致' : `✗ ${problems} 处不一致`}`);
 
+/* ── 附加核验：两个案数口径必须都能被解释 ──────────────────────────
+ * 报告里并存两个不同的「N 案」，都对，但含义不同：
+ *   13 案 = _staged 里有产物文件（含 S97）
+ *   12 案 = 其中有判别值的（S97 通篇无数值，判别法不适用）
+ * 如果不写清区别，读者会以为其中一个是错的 —— 这一轮就差点这么误判。
+ *
+ * 判据：两个数字都必须等于实测值，且报告里必须出现解释口径的句子。 */
+{
+  const stagedN = stagedCases.size;
+  const discN = withArt.length;
+  console.log(`\n=== 案数口径 ===`);
+  console.log(`  _staged 有产物: ${stagedN} 案`);
+  console.log(`  其中有判别值:   ${discN} 案`);
+  let explained = 0, mentioned = 0;
+  for (const rel of REPORTS) {
+    const p = join(ROOT, rel);
+    if (!existsSync(p)) continue;
+    const s = readFileSync(p, 'utf8');
+    const hasBoth = s.includes(`${stagedN} 案`) && s.includes(`${discN} 案`);
+    if (!hasBoth) continue;
+    mentioned++;
+    /* 两个数同时出现的报告，必须解释为什么不同。
+     * 解释方式有两种都算：
+     *   ① 说明口径（「判别值不适用」「两个案数」）
+     *   ② 说明变更（「更正」「重跑后」「从 N 变 M」）
+     * 实测 33-truncation-review.md 属于 ②：它写「S21 已重跑成功，只剩 S98 零产物，
+     * 有产物的 13 案」—— 把 12→13 的来由讲清了，只是没用「口径」这个词。 */
+    if (/判别值.*不适用|无数值.*判别|两个案数|口径|更正|重跑|从 \d+ 变/.test(s)) explained++;
+    else {
+      console.log(`  ✗ ${rel} 同时提到 ${stagedN} 案与 ${discN} 案，但没解释区别`);
+      problems++;
+    }
+  }
+  if (mentioned === 0) console.log('  · 没有报告同时提到这两个数（无需说明）');
+  else console.log(`  ✓ ${explained}/${mentioned} 份同时提到两者的报告都写明了口径区别`);
+}
+
 /* ── 附加核验：报告里引用的 commit hash 必须真实存在 ──────────────────
  * 报告经常写「见 commit `afe8b41`」当作证据链。如果那个 hash 不存在
  * （打错、或者在 rebase 里被改写掉了），整条证据就断了，而读的人
