@@ -73,9 +73,16 @@ node deliverables/78-northstar/_probe/_discriminator-semantic.mjs
 # 逐案对账（脚本名沿用早期的 _batch-compare）
 node deliverables/78-northstar/_probe/_batch-compare.mjs
 
+# 报告里的数字 vs 实测的数字（48 份报告 / 35 项核验）
+node deliverables/78-northstar/_probe/_report-numbers-audit.mjs
+
 # 季度体检
 node prototypes/_build/quarter.mjs
 ```
+
+**前三个都不碰 claude、不花钱、几秒到几十秒**。改任何报告之后跑一次
+`_report-numbers-audit.mjs` —— 它核的是「报告里写的数」和「磁盘上真实的数」，
+这一轮已经靠它抓出多处过时结论（64/64 该是 67/67、8/10 该是 10/11）。
 
 ---
 

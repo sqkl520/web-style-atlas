@@ -221,7 +221,21 @@ export async function measure(file, { viewport = { width: 1440, height: 900 } } 
   }
 }
 
-/* CLI */
+/* CLI
+ *
+ * ⚠️ 这里的 `endsWith('measure.mjs')` 是一个**已知会误判**的写法，保留原样是为了
+ * 让这个文件忠实地当"旧判据"的样本（`_probe-compare-all.mjs` 拿它做新旧对比）。
+ *
+ * 它的缺陷：本文件路径 `_old-measure.mjs` 也以 `measure.mjs` 结尾，
+ * 所以任何**把它当模块 import** 的脚本都会被这段 CLI 分支命中。
+ * 实测 `node -e "console.log('_old-measure.mjs'.endsWith('measure.mjs'))"` → true。
+ * 当前没爆，只是因为 import 它的 `_probe-compare-all.mjs` 自己的 argv[1]
+ * 不以 measure.mjs 结尾。
+ *
+ * 正确写法（见 deliverables/74-q7/measure.mjs:586）：
+ *   const isMain = resolve(process.argv[1] || '') === fileURLToPath(import.meta.url);
+ * 新代码一律用那个；这里不要改 —— 改了它就不再是"旧判据"了。
+ */
 if (process.argv[1] && process.argv[1].endsWith('measure.mjs')) {
   const file = process.argv[2];
   if (!file) { console.error('用法: node measure.mjs <html 文件>'); process.exit(2); }
