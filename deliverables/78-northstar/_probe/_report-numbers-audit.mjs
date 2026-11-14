@@ -13,6 +13,7 @@
  * 只报**不一致**，不重复计算过程。
  */
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
 import { resolve, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -349,4 +350,34 @@ for (const rel of REPORTS) {
 }
 
 console.log(`\n${problems === 0 ? '✓ 报告与实测一致' : `✗ ${problems} 处不一致`}`);
+
+/* ── 附加核验：报告里引用的 commit hash 必须真实存在 ──────────────────
+ * 报告经常写「见 commit `afe8b41`」当作证据链。如果那个 hash 不存在
+ * （打错、或者在 rebase 里被改写掉了），整条证据就断了，而读的人
+ * 会以为「有 commit 就一定有据」。
+ *
+ * 判据：只收反引号里的 7 位十六进制串 —— 不戴反引号的 7 位数字
+ * 全是字节数/行数，实测会误报。 */
+{
+  const seen = new Set();
+  for (const rel of REPORTS) {
+    const p = join(ROOT, rel);
+    if (!existsSync(p)) continue;
+    const s = readFileSync(p, 'utf8');
+    for (const m of s.matchAll(/`([0-9a-f]{7})`/g)) seen.add(m[1]);
+  }
+  console.log(`\n=== commit 引用核验（${seen.size} 个）===`);
+  let bad = 0;
+  for (const h of seen) {
+    try {
+      execFileSync('git', ['cat-file', '-e', `${h}^{commit}`], { cwd: ROOT, stdio: 'ignore' });
+    } catch {
+      console.log(`  ✗ ${h} 不存在于本仓库历史里`);
+      bad++;
+    }
+  }
+  if (bad === 0) console.log(`  ✓ ${seen.size} 个 commit 引用全部真实存在`);
+  else { console.log(`  ✗ ${bad} 个引用指向不存在的 commit`); problems += bad; }
+}
+
 process.exit(problems === 0 ? 0 : 1);
