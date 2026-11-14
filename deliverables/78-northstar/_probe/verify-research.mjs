@@ -46,6 +46,7 @@ const STEPS = [
   { id: '_report-numbers-audit', args: ['--selftest'], env: { SELECT_MUT: 'number' }, label: '自测：数字/行数断言', fail: true },
   { id: '_report-numbers-audit', args: ['--selftest'], env: { SELECT_MUT: 'caliber' }, label: '自测：案数口径解释', fail: true },
   { id: '_report-numbers-audit', args: ['--selftest'], env: { SELECT_MUT: 'handoff' }, label: '自测：交接表存在性', fail: true },
+  { id: '_report-numbers-audit', args: ['--selftest'], env: { SELECT_MUT: 'staged' }, label: '自测：_staged 产物集合', fail: true },
   { id: '_report-numbers-audit', args: ['--selftest'], env: { SELECT_MUT: 'commit' }, label: '自测：commit 引用真实性', fail: true },
   { id: '_revoked-claims', label: '作废声明检查', fail: true },
   { id: '_revoked-claims', args: ['--selftest'], label: '自测：作废声明检查', fail: true },

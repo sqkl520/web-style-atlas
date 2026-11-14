@@ -92,11 +92,26 @@ for (const id of withArt) {
   hexN += disc[id].filter((t) => t.startsWith('#')).length;
 }
 
+const SELFTEST = process.argv.includes('--selftest');
+const SELECT_MUT = process.env.SELECT_MUT || '';
+let selftestInjected = false;
+
 /* 实测：_staged 里到底有几案的产物 ──────────────────────────────── */
 const stagedCases = new Set();
 for (const f of readdirSync(STAGED)) {
   const m = f.match(/^(S\d{2})-(?:sandbox|judge)\.html$/);
   if (m) stagedCases.add(m[1]);
+}
+
+/* 自测注入（磁盘类）：有些检查的对象是**磁盘状态**而不是报告文本，
+ * readReport 那套注入覆盖不到它们。这里给 `_staged 产物集合` 检查
+ * 一个注入点：假装 S98 的产物出现了（它被记为零产物，本不该有文件）。
+ *
+ * 为什么必须真的加进 Set 而不是别的做法：那条检查读的就是这个 Set，
+ * 只有改它才能证明检查逻辑本身会响。 */
+if (SELFTEST && process.env.SELECT_MUT === 'staged') {
+  stagedCases.add('S98');
+  selftestInjected = true;
 }
 
 /* 对照组：虚构风格，没有原型目录，_batch-compare 明确跳过，不进对账分母 */
@@ -306,7 +321,15 @@ const MUTATIONS = {
     to: '`_probe/99-nonexistent.md`',
     covers: '交接表存在性',
   },
-  /* ④ commit 引用：造一个不存在的 hash */
+  /* ⑤ _staged 集合：假装 S98 的产物出现了。
+   * 这条检查的对象是**磁盘状态**，不是报告文本 —— 所以注入点在
+   * stagedCases 的构建处，不在这里。这里只声明元信息，
+   * 让末尾的自测逻辑知道这个变异名是合法的。 */
+  staged: {
+    report: '',                   // 空 = 不做文本注入
+    covers: '_staged 产物集合',
+  },
+  /* ⑥ commit 引用：造一个不存在的 hash */
   commit: {
     report: 'deliverables/78-northstar/06-BLIND-RESULT.md',
     find: /`(afe8b41)`/,
@@ -315,14 +338,13 @@ const MUTATIONS = {
   },
 };
 
-const SELFTEST = process.argv.includes('--selftest');
-const SELECT_MUT = process.env.SELECT_MUT || '';
-let selftestInjected = false;
 function readReport(absPath) {
   const text = readFileSync(absPath, 'utf8');
   if (!SELFTEST || !SELECT_MUT) return text;
   const mut = MUTATIONS[SELECT_MUT];
   if (!mut) return text;
+  /* report 为空 = 这个变异的注入点不在文本层（如 staged 那条改的是磁盘状态） */
+  if (!mut.report) return text;
   const rel = absPath.replace(ROOT, '').replace(/\\/g, '/').replace(/^\//, '/');
   if (!rel.endsWith('/' + mut.report)) return text;
   if (!mut.find.test(text)) return text;
