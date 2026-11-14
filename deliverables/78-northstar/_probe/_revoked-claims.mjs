@@ -107,6 +107,7 @@ const MAIN_REPORTS = [
   'deliverables/78-northstar/_probe/15-real-isolation.md',
   'deliverables/78-northstar/_probe/12-main-thread-measure-findings.md',
   'deliverables/78-northstar/04-ROUND-REPORT.md',
+  'deliverables/78-northstar/07-NEGATIVE-B.md',
 ];
 
 console.log('=== 检查：被别处判为作废的表述，主报告里还在不在 ===\n');
