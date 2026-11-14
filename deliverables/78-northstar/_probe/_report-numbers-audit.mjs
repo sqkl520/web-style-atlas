@@ -388,6 +388,33 @@ console.log(`\n${problems === 0 ? '✓ 报告与实测一致' : `✗ ${problems}
   else console.log(`  ✓ ${explained}/${mentioned} 份同时提到两者的报告都写明了口径区别`);
 }
 
+/* ── 附加核验：_staged 里的产物集合必须与报告的案数一致 ────────────
+ * 报告说「13 案有产物」，而 _staged 里恰好 13 个案的产物 —— 这两者
+ * 必须始终相等。有人加了一份产物却没更新报告、或者删了产物却没改数字，
+ * 都应该在这里红。
+ *
+ * 实测的另一个作用：S98 是零产物（作废），所以它不该出现在 _staged 里。
+ * 如果哪天它出现了，说明有人重跑了它而没更新这套结论。 */
+{
+  const EXPECTED_ZERO = ['S98'];          // 已知零产物的案
+  const listed = [...stagedCases].sort();
+  console.log(`\n=== _staged 产物集合（${listed.length} 案）===`);
+  const unexpected = listed.filter((id) => EXPECTED_ZERO.includes(id));
+  if (unexpected.length) {
+    console.log(`  ✗ 这些案被记为零产物，但 _staged 里有文件: ${unexpected.join(' ')}`);
+    console.log('    若重跑成功，要同步更新 30-artifact-validity 与 06 的案数');
+    problems += unexpected.length;
+  }
+  const missingControl = ['S97', 'S99'].filter((id) => !listed.includes(id));
+  if (missingControl.length) {
+    console.log(`  ✗ 对照组的产物不见了: ${missingControl.join(' ')}`);
+    problems += missingControl.length;
+  }
+  if (unexpected.length === 0 && missingControl.length === 0) {
+    console.log(`  ✓ ${listed.length} 案，与报告一致；对照组 S97/S99 都在；S98 按预期零产物`);
+  }
+}
+
 /* ── 附加核验：交接文档「产出在哪」表里的文件必须存在 ──────────────
  * 05-RESUME-HERE.md 是新会话第一个读的文件，那张表是它的导航。
  * 表里指向不存在的文件 = 导航断了。实测清单里曾漏掉两份今天新增的报告
