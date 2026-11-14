@@ -14,7 +14,11 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../../..');
 const BLIND = join(ROOT, 'deliverables/78-northstar/blind');
 const STAGED = join(ROOT, 'deliverables/78-northstar/_probe/_staged');
 
-const CASES = ['S04', 'S08', 'S13', 'S15', 'S18', 'S22', 'S29', 'S31', 'S32', 'S35', 'S99'];
+/* 有产物且有判别值的案。
+ * ⚠️ 2026-11-14 补 S21 —— 原来漏了它（那时它还没产物），
+ * 导致这里算 64 而 _discriminator-check 算 67。
+ * 两个脚本的口径必须一致：都是「有产物 + 有判别值」的 12 案。 */
+const CASES = ['S04', 'S08', 'S13', 'S15', 'S18', 'S21', 'S22', 'S29', 'S31', 'S32', 'S35', 'S99'];
 
 const artifactOf = (id) => {
   for (const n of [`${id}-sandbox.html`, `${id}-judge.html`, `${id}.html`]) {

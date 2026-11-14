@@ -55,9 +55,17 @@ const tokensOf = (txt) => {
   return s;
 };
 const hitOne = (html, t) => {
-  if (html.includes(t)) return true;
+  if (t.startsWith('#')) return html.includes(t);
   const num = t.replace(/[a-z%]+$/, '');
-  return new RegExp(`(^|[^\\d.])${num.replace('.', '\\.')}\\s*(px|vw|fr|mm|%)`, 'i').test(html);
+  const unit = t.slice(num.length);
+  /* 单位必须一致 + 左边界不能是数字。
+   * 原写法 `includes(t)` + `(px|vw|fr|mm|%)` 有两个 bug：
+   *   · '160PX'.includes('60PX') → true
+   *   · 60vw 会被当成 60px
+   * 这个 bug 由 _discriminator-check 的 --selftest 先抓到，
+   * 当时三份脚本各有一份同源实现，这里是第四份。
+   * 修完之后阴性对照从 28/737 变成 24/737。 */
+  return new RegExp(`(^|[^\\d.])${num.replace('.', '\\.')}\\s*${unit}`, 'i').test(html);
 };
 
 const ids = readdirSync(BLIND, { withFileTypes: true })
@@ -617,6 +625,39 @@ const CALIBER_REPORTS = [
     } else {
       console.log('  · 没能从 crosscheck 的输出里解析出数字（跳过）');
     }
+  }
+}
+
+/* ── 四份脚本的口径必须一致 ────────────────────────────────────────
+ * check / crosscheck / semantic / evidence-gate 各自有一份判别值实现。
+ * 它们必须对同一批数据给出同一个总数 —— 否则「互相验证」是空话。
+ *
+ * 实测过这个漂移：_discriminator-semantic 的 CASES 漏了 S21，
+ * 输出 64 而 check 是 67，而报告里却写着「两边都输出 64/64，可互相验证」。
+ * 两份实现各自跑通不代表它们一致。 */
+{
+  console.log(`\n=== 四份实现的口径一致性 ===`);
+  const run = (f) => {
+    try {
+      return execFileSync(process.execPath, [join(HERE, f)], {
+        cwd: ROOT, encoding: 'utf8', timeout: 120000,
+      });
+    } catch (e) { return (e.stdout || '') + (e.stderr || ''); }
+  };
+  const checkOut = run('_discriminator-check.mjs');
+  const semOut = run('_discriminator-semantic.mjs');
+  const nCheck = (checkOut.match(/TOTAL discriminators:\s*(\d+)/) || [])[1];
+  const nSem = (semOut.match(/可定位到语义的判别值:\s*(\d+)/) || [])[1];
+  console.log(`  _discriminator-check    ${nCheck ?? '?'}`);
+  console.log(`  _discriminator-semantic ${nSem ?? '?'}`);
+  if (!nCheck || !nSem) {
+    console.log('  · 有一个脚本没输出可解析的总数（跳过）');
+  } else if (nCheck !== nSem) {
+    console.log(`  ✗ 两份实现口径不一致：${nCheck} vs ${nSem}`);
+    console.log('    「互相验证」的前提是两边都跑过且数字相同，不能凭印象写');
+    problems++;
+  } else {
+    console.log(`  ✓ 一致（${nCheck}）`);
   }
 }
 
