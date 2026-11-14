@@ -117,6 +117,48 @@ const EXPECT = [
   { pat: /图片数达标\s+(\d+)\s*\/\s*(\d+)/, name: '图片数达标 x/y', want: [reconN, reconN] },
 ];
 
+/* ── 逐案行数 / 字节数断言 ──────────────────────────────────────────
+ * 「S31 399 行」「S97 466 行」这类句子散在多份报告里。
+ * 行数与字节数都能从 _staged 实测，没有理由靠人眼对。 */
+const sizeOf = {};
+for (const id of stagedCases) {
+  for (const n of [`${id}-sandbox.html`, `${id}-judge.html`]) {
+    const f = join(STAGED, n);
+    if (!existsSync(f)) continue;
+    const buf = readFileSync(f);
+    /* `wc -l` 数的是换行符；用同一口径才能和报告里的数对上 */
+    let lines = 0;
+    for (const b of buf) if (b === 0x0a) lines++;
+    sizeOf[id] = { lines, bytes: buf.length, file: n };
+    break;
+  }
+}
+
+/* 有哪些「历史值」是**已经被明确记录为历史**的，不该再报。
+ * 每一条都必须能在报告里找到一句说明它为什么不同 —— 否则就是真漂移。 */
+const KNOWN_HISTORY = [
+  { id: 'S29', kind: '字节', value: 59861,
+    why: '06-BLIND-RESULT.md:156 与 :254 都写了：59861 是那次 TIMEOUT 边缘救回来的版本，' +
+         '之后重跑变成 41371。两处叙述一致，且 §156 明列「三处字节变化」。' },
+];
+
+/* 报告里常见的两种写法：
+ *   「S31 399 行」
+ *   「S97 466 行，20853 字节」
+ * 只在同一行里同时出现案号与数字时才核 —— 否则「399 行」也是别的案。 */
+const SIZE_CHECKS = [];
+for (const [id, v] of Object.entries(sizeOf)) {
+  SIZE_CHECKS.push({ id, kind: '行数', value: v.lines, pat: new RegExp(`\\b${id}\\b[^\\n]{0,40}?(\\d{2,4})\\s*行`, 'g') });
+  SIZE_CHECKS.push({ id, kind: '字节', value: v.bytes, pat: new RegExp(`\\b${id}\\b[^\\n]{0,80}?(\\d{4,6})\\s*字节`, 'g') });
+  /* 对账表里的字节数是**裸数字**（`S21 fixed ... 27557`），没有「字节」二字。
+   * 第一版漏了这种，实测把 27557 改成 99999 也照样全绿 —— 那是个真遗漏。
+   *
+   * 不用 `.*(\d{4,6})\s*$` 这种写法：贪婪的 `.*` 会吞掉所有数字，
+   * 回溯后 `\d{4,6}` 只能匹配到 `9999` 而 `\s*$` 前还剩一个 `9`，于是 0 匹配。
+   * 改成「抓整行、在行内取最后一个 4–6 位数」，语义清楚也不受回溯影响。 */
+  SIZE_CHECKS.push({ id, kind: '字节(表末列)', value: v.bytes, tableRow: true });
+}
+
 /* 单案判别值表：{S04: {n, hit}, ...} */
 const perCase = {};
 for (const id of withArt) {
@@ -156,6 +198,62 @@ for (const rel of REPORTS) {
     console.log(name);
     for (const f of found) {
       console.log(`  ${f.ok ? '✓' : '✗'} ${f.kind}: 报告 ${f.got}　实测 ${f.want}`);
+    }
+  }
+
+  /* 逐案行数 / 字节数
+   *
+   * ⚠️ 必须排除两类会误报的行：
+   *   ① 历史记录「S29 59861→41371」—— 那个 59861 是被取代的旧值，是对的记录
+   *   ② 别的数字碰巧挨着案号 —— 如「S99 ... 1070 行」可能是某个列表的行数
+   * 判据：同一行里出现 `→` 时跳过（那是"从 A 变到 B"的叙述）；
+   *       并且只在「行」或「字节」**紧跟**在那个数字后面时才认。 */
+  const sizeHits = [];
+  for (const c of SIZE_CHECKS) {
+    if (c.tableRow) {
+      /* 对账表：找所有以该案号开头的行，取行内最后一个 4–6 位数当字节数 */
+      for (const line of s.split('\n')) {
+        if (!new RegExp(`^\\s*${c.id}\\s`).test(line)) continue;
+        const nums = [...line.matchAll(/\b(\d{4,6})\b/g)].map((m) => Number(m[1]));
+        if (!nums.length) continue;
+        /* 排除年份（20xx）：实测有「S31 · 2026-11-14 重跑…」这种行，
+         * 末位 4 位数是年份而不是字节数，会产生假的不一致。 */
+        const plausible = nums.filter((n) => !(n >= 2000 && n <= 2099));
+        if (!plausible.length) continue;
+        const claimed = plausible[plausible.length - 1];
+        const ok = claimed === c.value;
+        sizeHits.push({ kind: `${c.id} ${c.kind}`, got: claimed, want: c.value, ok, line: line.trim().slice(0, 70) });
+        if (!ok) problems++;
+      }
+      continue;
+    }
+    for (const m of s.matchAll(c.pat)) {
+      const lineStart = s.lastIndexOf('\n', m.index) + 1;
+      const lineEnd = s.indexOf('\n', m.index);
+      const line = s.slice(lineStart, lineEnd < 0 ? undefined : lineEnd);
+      if (line.includes('→')) continue;              // 历史变更叙述，不是当前断言
+      /* 还要排除「stream 第 N 行」这类：那是日志行号，不是产物行数。
+       * 实测误报三条：「在 S99 stream 全长 61070 行里搜」「读 S99 stream 第 62 行」。 */
+      if (/stream|第\s*\d+\s*行|全长/.test(line)) continue;
+      const claimed = Number(m[1]);
+      /* 已被明确记录为历史的旧值 → 豁免，但在输出里标注，不静默吞掉 */
+      const hist = KNOWN_HISTORY.find((h) => h.id === c.id && h.kind === c.kind && h.value === claimed);
+      if (hist) {
+        sizeHits.push({ kind: `${c.id} ${c.kind}`, got: claimed, want: c.value, ok: true, hist: hist.why });
+        continue;
+      }
+      const ok = claimed === c.value;
+      sizeHits.push({ kind: `${c.id} ${c.kind}`, got: claimed, want: c.value, ok, line: line.trim().slice(0, 70) });
+      if (!ok) problems++;
+    }
+  }
+  if (sizeHits.length) {
+    console.log(`${name}（行数/字节）`);
+    for (const f of sizeHits) {
+      const mark = f.hist ? '·' : (f.ok ? '✓' : '✗');
+      console.log(`  ${mark} ${f.kind}: 报告 ${f.got}　实测 ${f.want}`);
+      if (f.hist) console.log(`      （已记为历史值，豁免）${f.hist.slice(0, 70)}`);
+      else if (!f.ok) console.log(`      出处: ${f.line}`);
     }
   }
 }
