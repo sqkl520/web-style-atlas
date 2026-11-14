@@ -61,28 +61,37 @@ node deliverables/78-northstar/_probe/_evidence-gate.mjs --selftest # 证明闸�
 
 ## 三、要复算的话
 
+**一条命令跑完整个研究线的体检**（5 项，5 秒内，不碰 claude）：
+
 ```bash
-# 盲测有效性（最重要的一条，几秒钟）
-node deliverables/78-northstar/_probe/_evidence-gate.mjs
+node deliverables/78-northstar/_probe/verify-research.mjs
+```
 
-# 判别值逐案明细 + 阴性对照 + 语义位置
-node deliverables/78-northstar/_probe/_discriminator-check.mjs
-node deliverables/78-northstar/_probe/_discriminator-crosscheck.mjs
-node deliverables/78-northstar/_probe/_discriminator-semantic.mjs
+它串起这五项：证据闸门（六条断言）、判别值逐案明细、报告数字审计（48 份）、
+作废声明检查、事实反向索引。**改任何报告之后跑一次。**
 
-# 逐案对账（脚本名沿用早期的 _batch-compare）
+要单独跑其中某一项：
+
+```bash
+node deliverables/78-northstar/_probe/_evidence-gate.mjs            # 六条断言
+node deliverables/78-northstar/_probe/_report-numbers-audit.mjs     # 报告数字 vs 实测
+node deliverables/78-northstar/_probe/_revoked-claims.mjs           # 有没有引用已作废的结论
+node deliverables/78-northstar/_probe/_fact-index.mjs               # 一个数字被几份报告引用
+node deliverables/78-northstar/_probe/_discriminator-check.mjs      # 逐案判别值
+node deliverables/78-northstar/_probe/_discriminator-crosscheck.mjs # 阴性对照矩阵
+node deliverables/78-northstar/_probe/_discriminator-semantic.mjs   # 语义位置
+
+# 逐案对账（脚本名沿用早期的 _batch-compare，要起浏览器，慢）
 node deliverables/78-northstar/_probe/_batch-compare.mjs
 
-# 报告里的数字 vs 实测的数字（48 份报告 / 35 项核验）
-node deliverables/78-northstar/_probe/_report-numbers-audit.mjs
-
-# 季度体检
+# 产品链的季度体检（与研究线分开，别混跑）
 node prototypes/_build/quarter.mjs
 ```
 
-**前三个都不碰 claude、不花钱、几秒到几十秒**。改任何报告之后跑一次
-`_report-numbers-audit.mjs` —— 它核的是「报告里写的数」和「磁盘上真实的数」，
-这一轮已经靠它抓出多处过时结论（64/64 该是 67/67、8/10 该是 10/11）。
+> **两条线为什么分开**：`quarter.mjs` 是产品链（规格 → DNA → 提示词 → 九道闸门），
+> 上面这些是研究线（盲测产物、判别值、报告一致性）。
+> 混在一起的后果是耦合：有人清理 `_probe/_staged/` 的研究产物，
+> 产品体检就会红 —— 那是一个没人能理解的失败。
 
 ---
 
