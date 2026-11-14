@@ -59,6 +59,36 @@ const STEPS = [
 const results = [];
 const t0 = Date.now();
 
+/* ── 崩溃 vs 断言失败 ──────────────────────────────────────────────
+ * 这两件事的处置完全不同：
+ *   断言失败 = 脚本认为某条判据不成立 → 去看报告/数据哪里错了
+ *   脚本崩溃 = 脚本自己坏了 → 去看脚本，判据根本没被执行
+ *
+ * 不加区分时的后果我实测过两次（写 caliberDrift 变异时）：
+ *   · 副本路径指错 → 输出 0/0 → 退出码非零 → 我读成「检测到漂移」
+ *   · 实际是 MODULE_NOT_FOUND，判据一次都没跑
+ * 「因为崩了而红」和「因为真的有问题而红」在 exit code 上完全一样。
+ *
+ * 判据：输出里出现未捕获异常的痕迹，或者退出码是 -1（信号杀掉），
+ * 就归为崩溃，单独标注并单独计数。 */
+const CRASH_PATTERNS = [
+  /^\s*at\s+\S+\s+\(/m,                  // 堆栈帧
+  /Error:.*\n\s+at /,                    // 带堆栈的 Error
+  /Cannot find module/,
+  /SyntaxError/,
+  /ReferenceError/,
+  /TypeError/,
+  /ERR_[A-Z_]+/,
+];
+function detectCrash(code, out) {
+  if (code === -1) return '进程被信号杀掉（超时或外部 kill）';
+  if (code === 0) return null;
+  for (const re of CRASH_PATTERNS) {
+    if (re.test(out)) return '脚本抛出未捕获异常（判据未执行）';
+  }
+  return null;
+}
+
 for (const s of STEPS) {
   const file = join(HERE, `${s.id}.mjs`);
   const started = Date.now();
@@ -80,15 +110,20 @@ for (const s of STEPS) {
    * 要看细节目录里单独跑那个脚本。 */
   const lines = out.trim().split('\n').filter(Boolean);
   const tail = lines.slice(-3);
-  results.push({ ...s, code, ms, tail, out });
-  const mark = code === 0 ? '✓' : (s.fail ? '✗' : '·');
+  const crash = detectCrash(code, out);
+  results.push({ ...s, code, ms, tail, out, crash });
+  /* 三种标记：✓ 通过　✗ 断言失败　💥 脚本崩溃 */
+  const mark = code === 0 ? '✓' : (crash ? '💥' : (s.fail ? '✗' : '·'));
   if (!QUIET || code !== 0) {
     console.log(`${mark} ${s.label.padEnd(36)} ${(ms / 1000).toFixed(1)}s`);
+    if (crash) console.log(`    ⚠️ ${crash} —— 这不是判据失败，是脚本本身坏了`);
     for (const t of tail) console.log(`    ${t.trim().slice(0, 100)}`);
   }
 }
 
 const failed = results.filter((r) => r.fail && r.code !== 0);
+const crashed = failed.filter((r) => r.crash);
+const asserted = failed.filter((r) => !r.crash);
 const totalMs = Date.now() - t0;
 
 console.log('');
@@ -98,7 +133,21 @@ if (failed.length === 0) {
   console.log('');
   console.log('这些脚本都不碰 claude、不花钱。改任何报告之后跑一次。');
 } else {
-  console.log(`结论：${failed.length} 项失败`);
+  /* 崩溃和断言失败分开报 —— 处置完全不同。 */
+  console.log(`结论：${failed.length} 项未通过` +
+    (crashed.length ? `（其中 ${crashed.length} 项是脚本崩溃，${asserted.length} 项是断言失败）` : ''));
+
+  if (crashed.length) {
+    console.log('');
+    console.log('💥 脚本崩溃 —— 先修脚本，这些判据根本没被执行：');
+    for (const f of crashed) console.log(`  · ${f.label}：${f.crash}`);
+  }
+  if (asserted.length) {
+    console.log('');
+    console.log('✗ 断言失败 —— 脚本跑通了但认为判据不成立：');
+    for (const f of asserted) console.log(`  · ${f.label}`);
+  }
+
   for (const f of failed) {
     console.log('');
     console.log(`── ${f.label} ──`);
@@ -107,7 +156,9 @@ if (failed.length === 0) {
   }
   console.log('');
   console.log('单独重跑：');
-  for (const f of failed) console.log(`  node deliverables/78-northstar/_probe/${f.id}.mjs`);
+  for (const f of failed) {
+    console.log(`  node deliverables/78-northstar/_probe/${f.id}.mjs ${(f.args || []).join(' ')}`);
+  }
 }
 
 process.exit(failed.length === 0 ? 0 : 1);
