@@ -8,7 +8,7 @@
 
 ## 零、一句话结论
 
-**盲测做完了，而且比之前更硬：十二案产物、67 个判别值全中、阴性对照 3.8%。**
+**盲测做完了，而且比之前更硬：十二案产物、67 个判别值全中、阴性对照 3.3%。**
 
 这份提示词靠的是数值，不是文字描述：
 
@@ -46,7 +46,7 @@ node deliverables/78-northstar/_probe/verify-research.mjs
 | 文件 | 内容 |
 |---|---|
 | `06-BLIND-RESULT.md` | 主报告。三轮实验结论 + 十案对账表 + 隔离方式（写于 S21 重跑之前，产物数为当时的 10 案） |
-| `_probe/29-prompt-truncation-bug.md` | **判别值证据链**（67/67、阴性对照 3.8%）+ 传参 bug 的完整记录 |
+| `_probe/29-prompt-truncation-bug.md` | **判别值证据链**（67/67、阴性对照 3.3%）+ 传参 bug 的完整记录 |
 | `_probe/30-artifact-validity.md` | 逐案有效性评级（13 案有产物 / 1 案零产物） |
 | `_probe/34-s21-rerun.md` | S21 重跑全过程，含两版错误结论的复盘 |
 | `_probe/35-s31-contradiction-evidence.md` | **S31 的线宽违规查清了**：提示词自相矛盾，模型忠实执行了其中一句 |

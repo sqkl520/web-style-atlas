@@ -35,9 +35,15 @@ const tokensOf = (txt) => {  const s = new Set();
 };
 
 const hitOne = (html, t) => {
-  if (html.includes(t)) return true;
+  if (t.startsWith('#')) return html.includes(t);
   const num = t.replace(/[a-z%]+$/, '');
-  return new RegExp(`(^|[^\\d.])${num.replace('.', '\\.')}\\s*(px|vw|fr|mm|%)`, 'i').test(html);
+  const unit = t.slice(num.length);            // 'px' / 'vw' / 'fr' / 'mm' / '%'
+  /* 单位必须**与判别值自身的单位一致**。
+   * 原写法是 `\s*(px|vw|fr|mm|%)` —— 任意单位都算命中，
+   * 于是「提示词写 60px、产物写 60vw」会被判为命中。
+   * 这个 bug 是 _discriminator-check 的自测用例先抓到的，
+   * 两边实现同源，所以一并修。 */
+  return new RegExp(`(^|[^\\d.])${num.replace('.', '\\.')}\\s*${unit}`, 'i').test(html);
 };
 
 export function collect(opts = {}) {

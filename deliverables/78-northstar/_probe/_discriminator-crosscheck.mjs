@@ -57,9 +57,13 @@ const artifactOf = (id) => {
 };
 
 const hitOne = (html, t) => {
-  if (html.includes(t)) return true;
+  if (t.startsWith('#')) return html.includes(t);
   const num = t.replace(/[a-z%]+$/, '');
-  return new RegExp(`(^|[^\\d.])${num.replace('.', '\\.')}\\s*(px|vw|fr|mm|%)`, 'i').test(html);
+  const unit = t.slice(num.length);
+  /* 单位必须一致 —— 详见 _discriminator-check.mjs 里同一函数的注释。
+   * 这个 bug 是三份脚本共用的（check / crosscheck / evidence-gate），
+   * 由 _discriminator-check 的自测用例先抓到。 */
+  return new RegExp(`(^|[^\\d.])${num.replace('.', '\\.')}\\s*${unit}`, 'i').test(html);
 };
 
 const withArtifact = Object.keys(disc).filter((id) => artifactOf(id) && disc[id].length);

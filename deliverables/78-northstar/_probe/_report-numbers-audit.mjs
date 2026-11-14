@@ -561,6 +561,65 @@ const CALIBER_REPORTS = [
   }
 }
 
+/* ── 阴性对照的三个数字必须与实测一致 ──────────────────────────────
+ * 这三个数来自 _discriminator-crosscheck 的实算，报告里反复引用。
+ * 2026-11-14 修了一个 hitIn 的 bug（数值分支用子串搜索，
+ * '160PX' 会命中 '60PX'），修完之后数字变了：
+ *   非对角线 28/737=3.8% → 24/737=3.3%
+ *   倍数     26.3×       → 30.7×
+ *   干净值   60/60       → 62/62
+ * 那种「修了 bug 之后报告里的数就该变」的情况，正需要这一条守着。 */
+{
+  const p = join(ROOT, 'deliverables/78-northstar/_probe/_discriminator-crosscheck.mjs');
+  if (existsSync(p)) {
+    /* 直接跑那个脚本拿实测，不重算 —— 避免又多一份同源实现。 */
+    const out = (() => {
+      try {
+        return execFileSync(process.execPath, [p], { cwd: ROOT, encoding: 'utf8', timeout: 120000 });
+      } catch (e) { return (e.stdout || '') + (e.stderr || ''); }
+    })();
+    const mOff = out.match(/非对角线（本案×他人）平均命中率:\s*([\d.]+)%\s*\[(\d+)\/(\d+)\]/);
+    const mClean = out.match(/【干净判别值】（零份无关产物含它）:\s*(\d+)\s*个/);
+    console.log(`\n=== 阴性对照（实测）===`);
+    if (mOff && mClean) {
+      const offPct = mOff[1], offNum = `${mOff[2]}/${mOff[3]}`, clean = mClean[1];
+      console.log(`  非对角线 ${offPct}%（${offNum}）　干净判别值 ${clean} 个`);
+      /* 在报告里找这几个数字，任何一个写成别的值就报 */
+      /* ⚠️ 只认「实际值」，不认阈值/假设。实测两版都误报：
+       *   ① `非对角线[^\n]{0,30}?([\d.]+)%` —— 命中「非对角线 < 15%」（阈值）
+       *   ② 加「命中率」等词 —— 仍然命中同一行的「| 3.3% / 30.7× |」后面的
+       *      「非对角线 50%」（自测变异描述，与 3.3% 同行）
+       *
+       * 现在：要求数字**紧跟在「非对角线」之后**（中间不超过 12 字符），
+       * 且中间不能出现 `<` `>`（那是阈值写法）。
+       * 一行里若同时有实际值和阈值，正则只吃紧邻的那个。 */
+      const pat = new RegExp(`非对角线(?:（[^）]*）)?(?:平均)?[^\\n<>]{0,10}?([\\d.]+)%`, 'g');
+      let bad = 0;
+      for (const rel of REPORTS) {
+        const fp = join(ROOT, rel);
+        if (!existsSync(fp)) continue;
+        const s = readReport(fp);
+        for (const mm of s.matchAll(pat)) {
+          if (mm[1] === offPct) continue;
+          /* 排除「讨论变异」的行：592 行写「8 个变异（… / 非对角线 50% / …）」——
+           * 那是自测用例的描述，不是实际值断言。 */
+          const ls = s.lastIndexOf('\n', mm.index) + 1;
+          const le = s.indexOf('\n', mm.index);
+          const line = s.slice(ls, le < 0 ? undefined : le);
+          if (/变异|自测|改成|假设|阈值|<=?|>=?/.test(line)) continue;
+          console.log(`  ✗ ${rel.split('/').pop()} 写「${mm[1]}%」，实测 ${offPct}%`);
+          console.log(`      出处: ${line.trim().slice(0, 90)}`);
+          bad++;
+        }
+      }
+      if (bad === 0) console.log(`  ✓ 报告里的非对角线命中率与实测一致`);
+      else problems += bad;
+    } else {
+      console.log('  · 没能从 crosscheck 的输出里解析出数字（跳过）');
+    }
+  }
+}
+
 /* ── 附加核验：交接文档「产出在哪」表里的文件必须存在 ──────────────
  * 05-RESUME-HERE.md 是新会话第一个读的文件，那张表是它的导航。
  * 表里指向不存在的文件 = 导航断了。实测清单里曾漏掉两份今天新增的报告

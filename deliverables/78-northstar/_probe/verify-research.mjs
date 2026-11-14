@@ -40,6 +40,7 @@ const STEPS = [
   { id: '_evidence-gate', label: '证据闸门（六条断言）', fail: true },
   { id: '_evidence-gate', args: ['--selftest'], label: '自测：证据闸门', fail: true },
   { id: '_discriminator-check', label: '判别值逐案明细', fail: true },
+  { id: '_discriminator-check', args: ['--selftest'], label: '自测：判别值定义与命中判定', fail: true },
   { id: '_report-numbers-audit', label: '报告数字审计（48 份）', fail: true },
   /* 数字审计有六个独立检查，每个都用一条变异证明它会响。
    * 只测其中一条的话，其余五个仍然是「从没被证明会响」的状态。 */
