@@ -16,16 +16,16 @@
 S31   有数值             → 399 行，六值精确命中
 S21   有数值（重跑）      → 426 行，判别值 3/3，配色 5/5
 S99   不存在的风格 + 数值  → 459 行，9 值精确命中
-S98   有文字、无数值       → 零产物
+S97   纯泛化描述         → 466 行（正对照：没有具体描述也能做出东西）
+S98   有文字、无数值       → 零产物，但**已作废**（被 524 打断，未跑完）
 ```
 
 对产品是好消息（本来就给施工图）。「只说风格不给数字」的简短版本不可行。
 
-**想快速确认这套结论还站得住**：
+**想快速确认这套结论还站得住**（一条命令跑完五项）：
 
 ```bash
-node deliverables/78-northstar/_probe/_evidence-gate.mjs            # 六条断言
-node deliverables/78-northstar/_probe/_evidence-gate.mjs --selftest # 证明闸门会响
+node deliverables/78-northstar/_probe/verify-research.mjs
 ```
 
 ---
