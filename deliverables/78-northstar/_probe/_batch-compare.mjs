@@ -145,7 +145,26 @@ for (const id of ids) {
    * 所以只保留「向上取整相等」这一种宽容，去掉 0.6 的粗容差。
    */
   const gotLW = new Set((g.borderWidths || []).map((x) => parseFloat(x)));
-  const near = (a, b) => Math.abs(a - b) < 0.01 || Math.abs(a - Math.ceil(b)) < 0.01;
+  /* Chrome 在 getComputedStyle 里把亚像素边框宽度**截断到整数**，不是四舍五入。
+   *
+   * 实测（`_roundtest.html`，一次声明四个值，用 measure.mjs 量）：
+   *   声明 border-left: 5.5px / 5.4px / 1.25px / 0.5px
+   *   量到 borderWidths: ["1.00", "5.00"]
+   * 即：5.5 → 5.00（向下截断）、5.4 → 5.00、1.25 → 1.00、
+   *     0.5 → 1.00（**小于 1px 时进到最小可见宽度**，这是唯一向上走的情况）
+   *
+   * 所以判据必须是「截断」而不是「四舍五入」：
+   *   round(5.5)=6 ≠ 5 → 用四舍五入会把 S13 那个**完全正确**的 5.5px 判成违规。
+   *   floor(5.5)=5 = 5 ✓，floor(1.25)=1 = 1 ✓
+   *
+   * `09-compare-fix.md` §1.5 写的是「两边都四舍五入到整像素」，那一条的表述不准
+   * （它当时只观察到 0.5→1、0.8→1、2.4→2 这几个值，没测 5.5 这种 x.5 的情形，
+   * 而四舍五入与截断只在 .5 处分歧）。按实测改成截断。
+   *
+   * 已知代价（与 §1.5 记录的一致）：0.4 与 0.8 在这一层分不开，都会量到 1。
+   */
+  const quantize = (v) => (v > 0 && v < 1 ? 1 : Math.floor(v));
+  const near = (measured, declared) => Math.abs(measured - quantize(declared)) < 0.01;
   const scale = claims ? claims.lineWidths : [];
   /* 违规 = 产物用了一档，而档位表里没有 */
   const offScale = scale.length
