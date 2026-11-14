@@ -16,7 +16,7 @@ import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { resolve, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { tokensOf, hitIn as hitOne } from './_discriminator-lib.mjs';
+import { tokensOf, discriminatorsFor, hitIn as hitOne } from './_discriminator-lib.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, '../../..');
@@ -63,9 +63,7 @@ for (const id of ids) {
 }
 const disc = {};
 for (const id of Object.keys(all)) {
-  const others = new Set();
-  for (const [o, s] of Object.entries(all)) { if (o === id) continue; for (const t of s) others.add(t); }
-  disc[id] = [...all[id]].filter((t) => !others.has(t));
+  disc[id] = discriminatorsFor(id, all);
 }
 const artifactOf = (id) => {
   for (const n of [`${id}-sandbox.html`, `${id}-judge.html`]) {
@@ -620,7 +618,7 @@ const CALIBER_REPORTS = [
  * 输出 64 而 check 是 67，而报告里却写着「两边都输出 64/64，可互相验证」。
  * 两份实现各自跑通不代表它们一致。 */
 {
-  console.log(`\n=== 四份实现的口径一致性 ===`);
+  console.log(`\n=== 实现口径一致性（3 份参与比对）===`);
   const run = (f) => {
     try {
       return execFileSync(process.execPath, [join(HERE, f)], {
@@ -628,20 +626,34 @@ const CALIBER_REPORTS = [
       });
     } catch (e) { return (e.stdout || '') + (e.stderr || ''); }
   };
-  const checkOut = run('_discriminator-check.mjs');
-  const semOut = run('_discriminator-semantic.mjs');
-  const nCheck = (checkOut.match(/TOTAL discriminators:\s*(\d+)/) || [])[1];
-  const nSem = (semOut.match(/可定位到语义的判别值:\s*(\d+)/) || [])[1];
-  console.log(`  _discriminator-check    ${nCheck ?? '?'}`);
-  console.log(`  _discriminator-semantic ${nSem ?? '?'}`);
-  if (!nCheck || !nSem) {
-    console.log('  · 有一个脚本没输出可解析的总数（跳过）');
-  } else if (nCheck !== nSem) {
-    console.log(`  ✗ 两份实现口径不一致：${nCheck} vs ${nSem}`);
-    console.log('    「互相验证」的前提是两边都跑过且数字相同，不能凭印象写');
+  /* 每份脚本的输出格式不同，各自一条解析规则。
+   * 全部改成从 _discriminator-lib.mjs 取实现之后，理论上必然一致 ——
+   * 但「理论上」正是要测的东西：某份脚本可能还在用本地旧拷贝。 */
+  /* ⚠️ 不能把 _report-numbers-audit 自己列进来 —— 它会递归调自己。
+   * 实测加上之后输出变成「_discriminator-semantic 71 / _evidence-gate 71」
+   * 重复出现，因为内层那一次又跑了一遍这三个。
+   * 它自己的判别值统计用的是同一个 lib，天然一致，不需要自检。 */
+  const SOURCES = [
+    ['_discriminator-check.mjs', /TOTAL discriminators:\s*(\d+)/],
+    ['_discriminator-semantic.mjs', /可定位到语义的判别值:\s*(\d+)/],
+    ['_evidence-gate.mjs', /判别值总数:\s*(\d+)/],
+  ];
+  const got = [];
+  for (const [f, re] of SOURCES) {
+    const out = run(f);
+    const n = (out.match(re) || [])[1];
+    console.log(`  ${f.replace('.mjs', '').padEnd(30)} ${n ?? '?（解析失败）'}`);
+    if (n) got.push({ f, n: Number(n) });
+  }
+  const uniq = [...new Set(got.map((g) => g.n))];
+  if (got.length < 2) {
+    console.log('  · 少于两个脚本给出可解析的总数（跳过）');
+  } else if (uniq.length > 1) {
+    console.log(`  ✗ 口径不一致：${got.map((g) => `${g.f}=${g.n}`).join('　')}`);
+    console.log('    「互相验证」的前提是几边都跑过且数字相同，不能凭印象写');
     problems++;
   } else {
-    console.log(`  ✓ 一致（${nCheck}）`);
+    console.log(`  ✓ ${got.length} 份全部一致（${uniq[0]}）`);
   }
 }
 

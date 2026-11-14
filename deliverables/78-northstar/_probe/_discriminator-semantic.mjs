@@ -9,7 +9,7 @@
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { resolve, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { tokensOf } from './_discriminator-lib.mjs';
+import { tokensOf, discriminatorsFor } from './_discriminator-lib.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../../..');
 const BLIND = join(ROOT, 'deliverables/78-northstar/blind');
@@ -69,9 +69,7 @@ for (const id of CASES) {
     const p = join(BLIND, d.name, 'task.txt');
     if (existsSync(p)) all[d.name] = tokensOf(readFileSync(p, 'utf8'));
   }
-  const others = new Set();
-  for (const [o, s] of Object.entries(all)) if (o !== id) for (const t of s) others.add(t);
-  const mine = [...all[id]].filter((t) => !others.has(t));
+  const mine = discriminatorsFor(id, all);
 
   console.log(`\n${'='.repeat(78)}\n${id}　判别值 ${mine.length} 个\n${'='.repeat(78)}`);
   for (const t of mine) {

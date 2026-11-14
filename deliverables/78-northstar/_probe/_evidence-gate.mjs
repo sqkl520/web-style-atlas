@@ -15,7 +15,7 @@
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { resolve, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { tokensOf, hitIn as hitOne } from './_discriminator-lib.mjs';
+import { tokensOf, discriminatorsFor, hitIn as hitOne } from './_discriminator-lib.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, '../../..');
@@ -47,12 +47,7 @@ export function collect(opts = {}) {
 
   const disc = {};
   for (const id of Object.keys(all)) {
-    const others = new Set();
-    for (const [o, s] of Object.entries(all)) {
-      if (o === id) continue;
-      for (const t of s) others.add(t);
-    }
-    disc[id] = [...all[id]].filter((t) => !others.has(t));
+    disc[id] = discriminatorsFor(id, all);
   }
 
   const artDir = opts.artDir || STAGED;

@@ -12,7 +12,7 @@
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { resolve, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { tokensOf, hitIn as hitOne } from './_discriminator-lib.mjs';
+import { tokensOf, discriminatorsFor, hitIn as hitOne } from './_discriminator-lib.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../../..');
 const BLIND = join(ROOT, 'deliverables/78-northstar/blind');
@@ -34,15 +34,12 @@ for (const id of ids) {
   allTokens[id] = tokensOf(readFileSync(p, 'utf8'));
 }
 
-/* 判别值 */
+/* 判别值 —— 用共享的 discriminatorsFor，不在这里重算一遍。
+ * 这段原本是第 6 份拷贝。虽然逻辑与 lib 里的完全相同，但「完全相同」
+ * 是当下的事实，不是保证 —— 上一轮就是在这里发现了五份拷贝开始漂移。 */
 const disc = {};
 for (const id of Object.keys(allTokens)) {
-  const others = new Set();
-  for (const [o, s] of Object.entries(allTokens)) {
-    if (o === id) continue;
-    for (const t of s) others.add(t);
-  }
-  disc[id] = [...allTokens[id]].filter((t) => !others.has(t));
+  disc[id] = discriminatorsFor(id, allTokens);
 }
 
 /* 产物 */
