@@ -8,6 +8,7 @@
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { resolve, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { tokensOf, discriminatorsFor, hitIn } from './_discriminator-lib.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../../..');
 const BLIND = join(ROOT, 'deliverables/78-northstar/blind');
@@ -19,46 +20,10 @@ const ids = readdirSync(BLIND, { withFileTypes: true })
   .map((d) => d.name)
   .sort();
 
-const tokensOf = (txt) => {
-  const s = new Set();
-  for (const m of txt.matchAll(/#[0-9A-Fa-f]{6}/g)) s.add(m[0].toUpperCase());
-  for (const m of txt.matchAll(/\b\d+(?:\.\d+)?(?:px|vw|fr|mm|%)\b/g)) s.add(m[0]);
-  return s;
-};
-
-/* ── 两个纯函数：抽出来是为了能被自测直接检验 ─────────────────────
- * 原来这两段逻辑内联在循环里，只能靠"看输出对不对"来判断。
- * 抽出来之后，selftest 可以用内存数据测边界，不必依赖磁盘上的真实文件。 */
-
-/* 判别值 = 只在这一份任务书里出现的 token。
- * 定义的关键在 "others"：它是**其他所有**任务书的并集，
- * 不是"某一份"。漏掉任何一份都会让判别值虚高（把别的案也有的值算成独有）。 */
-function discriminatorsFor(id, allTokens) {
-  const others = new Set();
-  for (const [other, set] of Object.entries(allTokens)) {
-    if (other === id) continue;
-    for (const t of set) others.add(t);
-  }
-  return [...allTokens[id]].filter((t) => !others.has(t));
-}
-
-/* 某个判别值在产物里出现了吗？
- * hex 直接子串匹配；数值要防三件事：
- *   ① 118px 不能被 1180px 命中
- *   ② 60px 不能被 160px 命中 —— 这一条最初漏了，因为代码里先做了一次
- *      `htmlUpper.includes(t.toUpperCase())`（子串搜索），而 '160PX' 确实
- *      包含 '60PX'。自测用例「60px 不被 160px 命中」把这个抓了出来。
- *   ③ 60vw 不能被当成 60px —— 单位必须一致。
- *
- * 所以数值分支**不能**用 includes，只能走带边界的正则。 */
-function hitIn(htmlUpper, t) {
-  if (t.startsWith('#')) return htmlUpper.includes(t);
-  const num = t.replace(/[a-z%]+$/, '');
-  const unit = t.slice(num.length);            // 'px' / 'vw' / 'fr' / 'mm' / '%'
-  /* 左边界：前面不能是数字或小数点；右边必须紧跟**同一个单位**。 */
-  const re = new RegExp(`(^|[^\\d.])${num.replace('.', '\\.')}\\s*${unit}`, 'i');
-  return re.test(htmlUpper);
-}
+/* 三个纯函数（tokensOf / discriminatorsFor / hitIn）已移到 _discriminator-lib.mjs。
+ * 为什么：同一组逻辑曾在四份脚本里各写一份，2026-11-14 同一个 bug 犯了四次
+ * （子串搜索让 160PX 命中 60PX）。两份实现跑通不等于它们一致。
+ * 那个模块有独立的 20 条边界用例（_discriminator-lib-selftest.mjs）。 */
 
 const all = {};
 for (const id of ids) {

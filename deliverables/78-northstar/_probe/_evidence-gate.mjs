@@ -15,6 +15,7 @@
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { resolve, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { tokensOf, hitIn as hitOne } from './_discriminator-lib.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, '../../..');
@@ -28,23 +29,9 @@ const STAGED = join(ROOT, 'deliverables/78-northstar/_probe/_staged');
  * 看不出是"文件丢了"还是"该改常数"。所以这里要有第二份独立的期望。 */
 const DEFAULT_CASES = ['S04', 'S08', 'S13', 'S15', 'S18', 'S21', 'S22', 'S29', 'S31', 'S32', 'S35', 'S99'];
 
-const tokensOf = (txt) => {  const s = new Set();
-  for (const m of txt.matchAll(/#[0-9A-Fa-f]{6}/g)) s.add(m[0].toUpperCase());
-  for (const m of txt.matchAll(/\b\d+(?:\.\d+)?(?:px|vw|fr|mm|%)\b/g)) s.add(m[0]);
-  return s;
-};
-
-const hitOne = (html, t) => {
-  if (t.startsWith('#')) return html.includes(t);
-  const num = t.replace(/[a-z%]+$/, '');
-  const unit = t.slice(num.length);            // 'px' / 'vw' / 'fr' / 'mm' / '%'
-  /* 单位必须**与判别值自身的单位一致**。
-   * 原写法是 `\s*(px|vw|fr|mm|%)` —— 任意单位都算命中，
-   * 于是「提示词写 60px、产物写 60vw」会被判为命中。
-   * 这个 bug 是 _discriminator-check 的自测用例先抓到的，
-   * 两边实现同源，所以一并修。 */
-  return new RegExp(`(^|[^\\d.])${num.replace('.', '\\.')}\\s*${unit}`, 'i').test(html);
-};
+/* tokensOf 与 hitOne（=hitIn）已移到 _discriminator-lib.mjs，见顶部 import。
+ * 那里有 20 条边界用例；同一组逻辑曾在四份脚本里各写一份，
+ * 2026-11-14 同一个 bug 犯了四次。 */
 
 export function collect(opts = {}) {
   const ids = readdirSync(BLIND, { withFileTypes: true })
@@ -128,7 +115,7 @@ export function judge(r, opts = {}) {
   const diagRate = r.diagH / Math.max(1, r.diagN);
   const offRate = r.offH / Math.max(1, r.offN);
   const cleanRate = r.cleanH / Math.max(1, r.cleanN);
-  const expectTotal = opts.expectTotal ?? 67;
+  const expectTotal = opts.expectTotal ?? 71;
 
   if (r.diagN !== expectTotal) {
     /* 分母变小有两种完全不同的原因，报错时必须分开 —— 否则下一个人看到

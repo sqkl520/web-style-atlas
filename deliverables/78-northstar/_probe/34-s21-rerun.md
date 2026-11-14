@@ -30,10 +30,10 @@
 $ node _probe/_discriminator-check.mjs | grep S21
 S21      3     3  100%
 
-TOTAL discriminators: 67 hits: 67
+TOTAL discriminators: 71 hits: 71
 ```
 
-**十二案的判别值现在是 67/67，全数命中。**
+**十二案的判别值现在是 71/71，全数命中。**
 
 ## 一、为什么它值得重跑
 

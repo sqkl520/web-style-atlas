@@ -9,6 +9,7 @@
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { resolve, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { tokensOf } from './_discriminator-lib.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../../..');
 const BLIND = join(ROOT, 'deliverables/78-northstar/blind');
@@ -56,13 +57,10 @@ for (const id of CASES) {
   if (!existsSync(txtPath) || !html) continue;
   const txt = readFileSync(txtPath, 'utf8');
 
-  /* 该案的判别值（同前两个脚本的规则） */
-  const tokensOf = (s) => {
-    const set = new Set();
-    for (const m of s.matchAll(/#[0-9A-Fa-f]{6}/g)) set.add(m[0].toUpperCase());
-    for (const m of s.matchAll(/\b\d+(?:\.\d+)?(?:px|vw|fr|mm|%)\b/g)) set.add(m[0]);
-    return set;
-  };
+  /* 该案的判别值 —— 用共享实现 _discriminator-lib.mjs。
+   * 这段原本是内联的第 5 份拷贝，而且是**旧版**：
+   * 它的 % 正则末尾带 \b（漏掉所有百分比），也没有跳过「最容易做成的
+   * 错误样子」那一段。于是它输出 67 而其他脚本已经 71。 */
   /* 语料库必须与 _discriminator-check.mjs 完全一致（全部 38 份），
      否则「其他任务书里也出现过」的判定会不同，判别值个数就对不上。 */
   const all = {};

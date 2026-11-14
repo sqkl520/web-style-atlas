@@ -12,6 +12,7 @@
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { resolve, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { tokensOf, hitIn as hitOne } from './_discriminator-lib.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../../..');
 const BLIND = join(ROOT, 'deliverables/78-northstar/blind');
@@ -22,12 +23,9 @@ const ids = readdirSync(BLIND, { withFileTypes: true })
   .map((d) => d.name)
   .sort();
 
-const tokensOf = (txt) => {
-  const s = new Set();
-  for (const m of txt.matchAll(/#[0-9A-Fa-f]{6}/g)) s.add(m[0].toUpperCase());
-  for (const m of txt.matchAll(/\b\d+(?:\.\d+)?(?:px|vw|fr|mm|%)\b/g)) s.add(m[0]);
-  return s;
-};
+/* tokensOf / hitOne 来自 _discriminator-lib.mjs（顶部 import）。
+ * 2026-11-14 之前这里各有一份本地实现，同一个 bug（子串搜索让 160PX 命中 60PX）
+ * 在四份脚本里各犯一次。 */
 
 const allTokens = {};
 for (const id of ids) {
@@ -54,16 +52,6 @@ const artifactOf = (id) => {
     if (existsSync(f)) return readFileSync(f, 'utf8').toUpperCase();
   }
   return null;
-};
-
-const hitOne = (html, t) => {
-  if (t.startsWith('#')) return html.includes(t);
-  const num = t.replace(/[a-z%]+$/, '');
-  const unit = t.slice(num.length);
-  /* 单位必须一致 —— 详见 _discriminator-check.mjs 里同一函数的注释。
-   * 这个 bug 是三份脚本共用的（check / crosscheck / evidence-gate），
-   * 由 _discriminator-check 的自测用例先抓到。 */
-  return new RegExp(`(^|[^\\d.])${num.replace('.', '\\.')}\\s*${unit}`, 'i').test(html);
 };
 
 const withArtifact = Object.keys(disc).filter((id) => artifactOf(id) && disc[id].length);

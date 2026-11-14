@@ -16,6 +16,7 @@ import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { resolve, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { tokensOf, hitIn as hitOne } from './_discriminator-lib.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, '../../..');
@@ -48,25 +49,8 @@ for (const d of REPORT_DIRS) {
 REPORTS.sort();
 
 /* ── 实测：判别值（与 _evidence-gate.mjs 同口径） ───────────────────── */
-const tokensOf = (txt) => {
-  const s = new Set();
-  for (const m of txt.matchAll(/#[0-9A-Fa-f]{6}/g)) s.add(m[0].toUpperCase());
-  for (const m of txt.matchAll(/\b\d+(?:\.\d+)?(?:px|vw|fr|mm|%)\b/g)) s.add(m[0]);
-  return s;
-};
-const hitOne = (html, t) => {
-  if (t.startsWith('#')) return html.includes(t);
-  const num = t.replace(/[a-z%]+$/, '');
-  const unit = t.slice(num.length);
-  /* 单位必须一致 + 左边界不能是数字。
-   * 原写法 `includes(t)` + `(px|vw|fr|mm|%)` 有两个 bug：
-   *   · '160PX'.includes('60PX') → true
-   *   · 60vw 会被当成 60px
-   * 这个 bug 由 _discriminator-check 的 --selftest 先抓到，
-   * 当时三份脚本各有一份同源实现，这里是第四份。
-   * 修完之后阴性对照从 28/737 变成 24/737。 */
-  return new RegExp(`(^|[^\\d.])${num.replace('.', '\\.')}\\s*${unit}`, 'i').test(html);
-};
+/* tokensOf / hitOne 来自 _discriminator-lib.mjs（顶部 import）。
+ * 2026-11-14 之前这里是第四份本地实现，同一个 bug 犯了四次。 */
 
 const ids = readdirSync(BLIND, { withFileTypes: true })
   .filter((d) => d.isDirectory() && /^S\d{2}$/.test(d.name))
