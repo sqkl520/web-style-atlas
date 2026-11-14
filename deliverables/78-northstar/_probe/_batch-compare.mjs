@@ -88,10 +88,33 @@ for (const id of ids) {
   }
   if (!existsSync(gen)) { rows.push({ id, err: '沙箱产物缺失' }); continue; }
 
-  /* 搬进仓库再量 —— 见文件头 STAGING 的注释 */
+  /* 搬进仓库再量 —— 见文件头 STAGING 的注释。
+   *
+   * ⚠️ 这里**不再无条件覆盖**。`_staged/` 里的副本是入库的证据：
+   * 一旦被 C:\tmp 里的另一份产物悄悄换掉，`git diff` 才看得见，
+   * 而所有引用那些字节数的报告就全部失去依据（2026-11-13 已经发生过一次：
+   * S13 25730→31256、S29 59861→41371 都是这样变的，原数字再也复现不出来）。
+   *
+   * 新规则：
+   *   · 副本不存在        → 复制（正常首次入库）
+   *   · 副本存在且字节相同 → 什么都不做
+   *   · 副本存在但字节不同 → **不覆盖**，把源另存成 <id>-sandbox-incoming.html
+   *                        并在此案的 err 里报出来，由人决定要不要替换
+   * 这样任何一次「证据被换掉」都会在输出里显形，而不是静默写进 git。 */
   mkdirSync(STAGING, { recursive: true });
   const staged = join(STAGING, `${id}-sandbox.html`);
-  copyFileSync(gen, staged);
+  let stagedNote = null;
+  if (!existsSync(staged)) {
+    copyFileSync(gen, staged);
+  } else if (resolve(gen) !== resolve(staged)) {
+    const a = readFileSync(gen), b = readFileSync(staged);
+    if (!a.equals(b)) {
+      const incoming = join(STAGING, `${id}-sandbox-incoming.html`);
+      copyFileSync(gen, incoming);
+      stagedNote = `证据冲突: C:\\tmp 的产物与 _staged 副本不同（${a.length}B vs ${b.length}B），` +
+        `已另存为 ${id}-sandbox-incoming.html，未覆盖`;
+    }
+  }
   gen = staged;
 
   const proto = join(ROOT, 'prototypes', dir, 'index.html');
@@ -183,6 +206,7 @@ for (const id of ids) {
 
   rows.push({
     id, lk,
+    stagedNote,
     hex: claims ? `${claims.hexes.size - missHex.length}/${claims.hexes.size}` : '?',
     missHex,
     extraHex,
@@ -209,6 +233,9 @@ for (const r of rows) {
   const pic = r.picturesOk === null ? '—' : `${r.pics} ${r.picturesOk ? '✓' : '✗'}`;
   console.log(w(r.id, 5) + w(r.lk || '?', 18) + w(r.hex, 7) + w(r.lw, 7) +
     w(hr, 14) + w(pic, 8) + w(r.tracks, 8) + w(r.genBytes, 8));
+  /* 证据冲突单独一行，不塞进表格列 —— 它的长度会把表撑坏，
+   * 但又必须让人看见（否则 _staged 里的入库证据被换掉时没有任何提示）。 */
+  if (r.stagedNote) console.log('     ⚠️ ' + r.stagedNote);
 }
 
 console.log('\n=== 汇总 ===');
