@@ -91,7 +91,7 @@ node prototypes/_build/quarter.mjs
 | 项 | 为什么值得做 | 状态 |
 |---|---|---|
 | ~~正对照~~ | — | ✅ 已做，见 `08-POSITIVE-CONTROL.md` |
-| `probe.mjs` 画廊判据 | 5 案从 landmark 量到列 | **优先级下调** —— 已查实 `columns` 不进产品，见 `17-gallery-fix-attempt.md` §六 |
+| `probe.mjs` 画廊判据 | 13/35 案主容器取到页头/页脚；其中 5 案被 C9 标「无分栏却量到多列」（两个口径别混） | **优先级下调** —— 已查实 `columns` 不进产品，见 `17-gallery-fix-attempt.md` §六 |
 | 运行器自动放弃逻辑 | 防止无限重试烧钱 | **结论：不该加**。四类判据全有成功案例反例，见 `34-s21-rerun.md` §三 |
 | 图片数「多了算不算」 | 现判据只判下限 | 未做 |
 | 栏数判据 | 只报不判 | 未做 |

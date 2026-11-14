@@ -102,6 +102,22 @@ for (const f of readdirSync(STAGED)) {
 const CONTROL_GROUP = ['S97', 'S98', 'S99'];
 const reconN = withArt.filter((id) => !CONTROL_GROUP.includes(id)).length;
 
+/* 机制句覆盖率：从 prompts.js 实测，不手填。
+ * 判据与 D3 闸门一致 —— 机制句里必须出现 px 或「N 倍」这类可测值。 */
+const mechCoverage = (() => {
+  const p = join(ROOT, 'prototypes/_selection/prompts.js');
+  if (!existsSync(p)) return { hit: 0, total: 0 };
+  const sandbox = { window: {} };
+  new Function('window', readFileSync(p, 'utf8'))(sandbox.window);
+  const schemes = sandbox.window.STYLE_PROMPTS?.schemes || [];
+  let hit = 0;
+  for (const s of schemes) {
+    const m = (s.dna && s.dna.mechanism) || '';
+    if (/\d+(?:\.\d+)?\s*(?:px|倍)/.test(m)) hit++;
+  }
+  return { hit, total: schemes.length };
+})();
+
 console.log('=== 实测（这一份是基准）===');
 console.log(`判别值 ${diagH}/${diagN}　有产物的案 ${withArt.length}（${withArt.join(' ')}）`);
 console.log(`唯一 hex ${hexN}　_staged 里出现过产物的案 ${stagedCases.size}（${[...stagedCases].sort().join(' ')}）`);
@@ -134,6 +150,9 @@ const EXPECT = [
   { pat: /配色未超用\s+(\d+)\s*\/\s*(\d+)/, name: '配色未超用 x/y', want: [reconN, reconN] },
   { pat: /字号比达标\s+(\d+)\s*\/\s*(\d+)/, name: '字号比达标 x/y', want: [reconN, reconN] },
   { pat: /图片数达标\s+(\d+)\s*\/\s*(\d+)/, name: '图片数达标 x/y', want: [reconN, reconN] },
+  /* 机制句覆盖率：35 案的 dna.mechanism 必须全部含可测值（D3 闸门守这条）。
+   * 实测 2026-11-14 是 35/35，而报告里曾写 33/35（修复前的数）。 */
+  { pat: /机制句是\s*\**(\d+)\/(\d+)\s*案/, name: '机制句覆盖率', want: [mechCoverage.hit, mechCoverage.total] },
 ];
 
 /* ── 逐案行数 / 字节数断言 ──────────────────────────────────────────
