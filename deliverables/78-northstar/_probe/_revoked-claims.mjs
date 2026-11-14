@@ -73,6 +73,24 @@ const REVOKED = [
     fixedAt: '2026-11-14 已改成「✅ 已做」',
     allowedIn: /更正|已做|早已/,
   },
+  {
+    /* 2026-11-14 按时间线扫出来的：03-INTERIM（11-12）拿 3px/2px 当依据判 ✅，
+     * 而 11-14 查实 CSS 真相是 1px/1.5px（35-s31-contradiction-evidence.md）。
+     * 判定本身没错（产物确实复刻了提示词给的数），但它不能当「规格正确」的证据。 */
+    anchor: /主刻度.*3px 宽.*\| *✅/,
+    what: '03-INTERIM 用「主刻度 3px 宽」判 ✅',
+    verdictBy: '_probe/35-s31-contradiction-evidence.md —— 3px/2px 是规格写错的，CSS 真相是 1.5px/1px',
+    fixedAt: '2026-11-14 已加更正块（✅ 保留，但不能当规格正确的证据）',
+    allowedIn: /更正|复刻了|不是 CSS 的真相|35-s31/,
+  },
+  {
+    /* 隔离判据缺了第三条。只有 READ + CONTROL 时，写权限还开着也能通过。 */
+    anchor: /期望输出必须同时出现 `READ_REPO_DENIED` 与 `READ_CONTROL_OK/,
+    what: '隔离判据只要求两条（READ + CONTROL）',
+    verdictBy: '_deny-verify.ps1 实测只有 (RX) 时 WRITE_REPO_OK —— 必须三条',
+    fixedAt: '2026-11-14 已改成三条（加 WRITE_REPO_DENIED）',
+    allowedIn: /WRITE_REPO_DENIED|三条|半个隔离/,
+  },
 ];
 
 const MAIN_REPORTS = [
@@ -82,6 +100,12 @@ const MAIN_REPORTS = [
   'deliverables/78-northstar/08-POSITIVE-CONTROL.md',
   'deliverables/78-northstar/10-RERUN-PLAN.md',
   'deliverables/78-northstar/11-POSTBUG-PLAN.md',
+  /* 按时间线补进来的早期报告 —— 它们更早，更容易「被推翻但自己没标」。
+   * 2026-11-14 扫时间线时发现 03-INTERIM（11-12）和 15-real-isolation（11-12）
+   * 各有这样一处。 */
+  'deliverables/78-northstar/03-INTERIM-REPORT.md',
+  'deliverables/78-northstar/_probe/15-real-isolation.md',
+  'deliverables/78-northstar/_probe/12-main-thread-measure-findings.md',
 ];
 
 console.log('=== 检查：被别处判为作废的表述，主报告里还在不在 ===\n');
@@ -96,6 +120,13 @@ for (const rel of MAIN_REPORTS) {
       if (!r.anchor.test(line)) continue;
       /* 允许出现在「更正说明」里 —— 那种行必须同时提到这是历史/更正 */
       if (r.allowedIn.test(line)) continue;
+      /* ⚠️ 还要看**上文**：更正块通常写在表格上面，而表格行本身
+       * 只写着原始数据、不带「更正」二字。
+       * 判据：往前看 30 行（同一节内），出现「2026-11-14 更正」这类标记就放过。
+       * 实测不加这一条会误报 03-INTERIM:88 与 15-real-isolation:370 ——
+       * 那两处的更正块就在表格上方第 5–10 行。 */
+      const above = lines.slice(Math.max(0, i - 30), i).join('\n');
+      if (/2026-11-14 更正|2026-11-14 补|本节 2026-11-14|⚠️ \*\*2026-11-14/.test(above)) continue;
       found.push({ lineNo: i + 1, what: r.what, text: line.trim().slice(0, 100) });
     }
   });

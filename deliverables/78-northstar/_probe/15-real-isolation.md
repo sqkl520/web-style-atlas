@@ -156,11 +156,19 @@ VERSION:2.1.289 (Claude Code)
 复算完整隔离性：
 
 ```bash
-powershell -File deliverables/78-northstar/_probe/_grant-batch.ps1
+powershell -File deliverables/78-northstar/_probe/_deny-verify.ps1
 ```
 
-期望输出必须同时出现 `READ_REPO_DENIED` 与 `READ_CONTROL_OK:CONTROL-OK`。
-**只有前者没有后者，不能证明隔离，只能证明环境坏了。**
+期望输出必须**同时**出现这三行：
+
+```
+READ_REPO_DENIED
+WRITE_REPO_DENIED          ← 2026-11-14 补：只有 (RX) 时这一行会是 OK
+READ_CONTROL_OK:CONTROL-OK
+```
+
+**只有前两行没有第三行，不能证明隔离，只能证明环境坏了。**
+**只有 READ_REPO_DENIED 没有 WRITE_REPO_DENIED，是半个隔离** —— 见 §2.0。
 
 ---
 
@@ -355,6 +363,13 @@ v5 的 `errors count: 0`，工具调用全部成功（`ls`、`Read task.txt`、`
 ### 11.1 那 17329 个 thinking 事件是什么
 
 不是卡住，是**在正常构思**。产物质量证明它在干活：
+
+> ⚠️ **2026-11-14 更正：下表「主刻度 3px 宽」「次刻度 2px 宽」两行的依据是错的。**
+> 产物确实用了 3px/2px，判定本身没错 —— 但**那两个数不是 CSS 的真相**：
+> `style.css:112-113` 的 gradient 是 **1.5px（主）/ 1px（次）**。
+> 3px/2px 来自 `_specs/S31.md:32` 那个写错的规格，产物忠实复刻了错的值。
+> 所以这张表证明「模型精确复刻了提示词给的数」，
+> 不证明「提示词给的数是 CSS 的真相」。见 `_probe/35-s31-contradiction-evidence.md`。
 
 | 约束 | 提示词 | 产物 | 判定 |
 |---|---|---|---|
