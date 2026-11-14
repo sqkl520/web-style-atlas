@@ -636,9 +636,24 @@ const CALIBER_REPORTS = [
  *
  * 实测过这个漂移：_discriminator-semantic 的 CASES 漏了 S21，
  * 输出 64 而 check 是 67，而报告里却写着「两边都输出 64/64，可互相验证」。
- * 两份实现各自跑通不代表它们一致。 */
+ *
+ * ⚠️ **默认跳过，只在 --full 或 selftest 时跑。**
+ * CPU profile 显示这一节占本脚本 99% 的时间（spawnSync 三个子进程，
+ * 每个都要全库扫一遍 BLIND，合计约 21 秒）。而它比对的只是「71」这一个数 ——
+ * 主进程在第 81 行已经算出同一个值（diagN）。
+ *
+ * 所以日常跑用主进程的值，需要真比对时才起子进程：
+ *   node _report-numbers-audit.mjs           # 快，不比对
+ *   node _report-numbers-audit.mjs --full    # 慢，真比对三份
+ *   verify-research 里只在变异那一步加 --full */
 {
+  const WANT_FULL = process.argv.includes('--full') || SELFTEST;
   console.log(`\n=== 实现口径一致性（3 份参与比对）===`);
+  if (!WANT_FULL) {
+    console.log(`  · 跳过（默认不比对，主进程算出 diagN=${diagN}）`);
+    console.log(`    要真比对三份子进程：加 --full`);
+    /* 用主进程的值填 got，后面的判定逻辑照常走 */
+  }
   /* 文件级变异：复制一份 semantic 到临时文件并注入漂移，跑副本、不碰原文件。 */
   let semPath = join(HERE, '_discriminator-semantic.mjs');
   /* ⚠️ 副本必须留在 _probe/ 里。
@@ -684,15 +699,20 @@ const CALIBER_REPORTS = [
     [join(HERE, '_evidence-gate.mjs'), /判别值总数:\s*(\d+)/],
   ];
   const got = [];
-  for (const [fp, re] of SOURCES) {
-    const out = run(fp);
-    const n = (out.match(re) || [])[1];
-    console.log(`  ${fp.split(/[\\/]/).pop().replace('.mjs', '').padEnd(30)} ${n ?? '?（解析失败）'}`);
-    if (n) got.push({ f: fp.split(/[\\/]/).pop(), n: Number(n) });
+  if (WANT_FULL) {
+    for (const [fp, re] of SOURCES) {
+      const out = run(fp);
+      const n = (out.match(re) || [])[1];
+      console.log(`  ${fp.split(/[\\/]/).pop().replace('.mjs', '').padEnd(30)} ${n ?? '?（解析失败）'}`);
+      if (n) got.push({ f: fp.split(/[\\/]/).pop(), n: Number(n) });
+    }
   }
   try { if (existsSync(DRIFT_COPY)) unlinkSync(DRIFT_COPY); } catch { /* 尽力而为 */ }
   const uniq = [...new Set(got.map((g) => g.n))];
-  if (got.length < 2) {
+  /* 跳过模式下 got 为空 —— 不算失败，只是没核。 */
+  if (!WANT_FULL) {
+    /* 已经打过「跳过」的提示，这里不再重复 */
+  } else if (got.length < 2) {
     console.log('  · 少于两个脚本给出可解析的总数（跳过）');
   } else if (uniq.length > 1) {
     console.log(`  ✗ 口径不一致：${got.map((g) => `${g.f}=${g.n}`).join('　')}`);
@@ -752,13 +772,29 @@ const CALIBER_REPORTS = [
   }
   console.log(`\n=== commit 引用核验（${seen.size} 个）===`);
   let bad = 0;
-  for (const h of seen) {
-    try {
-      execFileSync('git', ['cat-file', '-e', `${h}^{commit}`], { cwd: ROOT, stdio: 'ignore' });
-    } catch {
-      console.log(`  ✗ ${h} 不存在于本仓库历史里`);
-      bad++;
+  /* ⚠️ 一次批量查，不要循环起 28 个 git 进程。
+   * 原来每个 hash 一次 `git cat-file -e`，实测 28 次 ≈ 11 秒，
+   * 占整份脚本默认耗时（13.5 秒）的八成 —— CPU profile 里 93% 是 spawnSync。
+   * `--batch-check` 一次就能查完，输出每行 `<hash> <type>` 或 `<hash> missing`。 */
+  const hashes = [...seen];
+  try {
+    const out = execFileSync('git', ['cat-file', '--batch-check'], {
+      cwd: ROOT,
+      input: hashes.join('\n') + '\n',
+      encoding: 'utf8',
+      timeout: 60000,
+    });
+    for (const line of out.trim().split('\n')) {
+      const parts = line.trim().split(/\s+/);
+      if (parts.length >= 2 && parts[1] === 'missing') {
+        console.log(`  ✗ ${parts[0]} 不存在于本仓库历史里`);
+        bad++;
+      }
     }
+  } catch (e) {
+    /* git 不可用（不是仓库、没装 git）→ 明说，不要静默通过 */
+    console.log(`  · 无法执行 git（${String(e.message).slice(0, 60)}），这项跳过`);
+    bad = 0;
   }
   if (bad === 0) console.log(`  ✓ ${seen.size} 个 commit 引用全部真实存在`);
   else { console.log(`  ✗ ${bad} 个引用指向不存在的 commit`); problems += bad; }
