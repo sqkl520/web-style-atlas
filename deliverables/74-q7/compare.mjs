@@ -301,11 +301,18 @@ function matchRatio(cands, wantParts) {
  * 起因是实测：out-S07 的 CSS 里写了 12 处 0.5px 边框，measure 的 borderWidths
  * 只报 [1.00, 2.00]；out-S17 写了 0.5 / 0.8 / 2.4，报出 [1.00, 2.00, 5.00, 6.00]。
  * 也就是 Chrome 在 getComputedStyle 里把亚像素边框**取整**了
- * （measure.mjs ④ 的注释记的是同一件事）。拿浮点数做集合包含会得到大面积假 FAIL；
- * 正确做法是把两边都四舍五入到整像素再比。
+ * （measure.mjs ④ 的注释记的是同一件事）。拿浮点数做集合包含会得到大面积假 FAIL。
  * 代价（已知、接受）：0.4px 与 0.8px 在这一层无法区分，它们都算 1px。
+ *
+ * ⚠️ 2026-11-14 更正：取整方向是**截断**，不是四舍五入。
+ * 上面那三个观测值（0.5 / 0.8 / 2.4）都不在 .5 分歧点上，所以两种规则看起来一样。
+ * 实测（`_probe/_roundtest.html`，一次声明四个值）：
+ *   声明 5.5px / 5.4px / 1.25px / 0.5px  →  量到 ["1.00", "5.00"]
+ * 即 5.5→5.00（向下截断）、0.5→1.00（小于 1px 时进到最小可见宽度）。
+ * 用 Math.round 会把一个**完全正确**的 5.5px 判成 6px 而报假 FAIL
+ * （实测 S13 的 --w55:5.5px 就因此被错报过）。
  */
-const roundPx = (v) => Math.round(parseFloat(v));
+const roundPx = (v) => { const n = parseFloat(v); return n > 0 && n < 1 ? 1 : Math.floor(n); };
 const widthSet = (arr) => new Set((arr || []).map(roundPx).filter((v) => v > 0));
 
 /* ══ 八条判据 ══════════════════════════════════════════════════════════
@@ -645,6 +652,34 @@ function clone(o) { return JSON.parse(JSON.stringify(o)); }
 async function runSelftest() {
   console.log('变异测试：逐条把缺陷装回去，确认对应判据真的会响\n');
   console.log('（变异在内存里做，磁盘文件全程不动 —— 素材是真实生成物的实测结果）\n');
+
+  /* ── 0. 取整方向：直接测 roundPx，不绕测量链 ──────────────────────
+   * 这一条不依赖任何素材文件，因为要测的是纯函数。
+   * 为什么必须单列：Chrome 的取整方向曾经在文档里被写错两周
+   * （09-compare-fix.md §1.5 说「四舍五入」，实际是截断），
+   * 而错的那一版会把一个**完全正确**的 5.5px 判成违规。
+   * 判据：必须专测 .5 这个分歧点，否则两种规则在样本上长得一样。 */
+  const ROUND_CASES = [
+    [5.5, 5, '声明 5.5px，Chrome 截断成 5.00'],
+    [5.4, 5, '声明 5.4px → 5.00'],
+    [1.25, 1, '声明 1.25px → 1.00'],
+    [0.5, 1, '声明 0.5px → 1.00（小于 1px 进到最小可见）'],
+    [0.8, 1, '声明 0.8px → 1.00'],
+    [2.4, 2, '声明 2.4px → 2.00'],
+    [3, 3, '整数不变'],
+  ];
+  let roundBad = 0;
+  for (const [input, want, why] of ROUND_CASES) {
+    const got = roundPx(input);
+    const ok = got === want;
+    if (!ok) roundBad++;
+    console.log(`  ${ok ? '✓' : '✗'} roundPx(${input}) = ${got}，期望 ${want} —— ${why}`);
+  }
+  if (roundBad) {
+    console.log(`\n✗ 取整方向错了 ${roundBad} 处：这会让产物里正确的非整数线宽被判成违规。`);
+    return 1;
+  }
+  console.log('  （若改成 Math.round，5.5 会变 6 —— 上面第 1 条就会红。这就是这条自检的作用。）\n');
 
   const need = ['S03', 'S14', 'S17'];
   const fx = {};
