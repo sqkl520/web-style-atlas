@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>联锁释放簿 · 值班台 03</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Antonio:wght@400;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root{
+  --ink:#3E3A34;
+  --paper:#E4DCC9;
+  --amber:#924307;
+  --fibre:#6E6A5E;
+  --white:#FFFFFF;
+  --t:"Antonio","WenJin Mincho",Georgia,"Songti SC",serif;      /* 标题链 */
+  --b:"WenJin Mincho",Georgia,"Songti SC","STSong",serif;       /* 正文链 */
+  --m:"IBM Plex Mono",ui-monospace,monospace;                   /* 数字链 */
+}
+*,*::before,*::after{box-sizing:border-box;border-radius:0;}
+html{background:var(--paper);}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--b);font-size:16px;line-height:1.55;
+  font-variant-numeric:tabular-nums;
+}
+h1,h2,h3,p,dl,dd,dt,ul,li,figure{margin:0;padding:0;}
+ul{list-style:none;}
+.num{font-family:var(--m);font-variant-numeric:tabular-nums;text-align:right;}
+.lbl{font-family:var(--m);font-size:11px;letter-spacing:.08em;}
+
+.sheet{max-width:1440px;margin:0 auto;padding:26px 32px 0;}
+
+/* ── 簿头 ───────────────────────────────── */
+.mast{border-bottom:2px solid var(--ink);padding-bottom:0;}
+.kicker{font-family:var(--m);font-size:11px;letter-spacing:.1em;}
+h1{font-family:var(--t);font-weight:400;font-size:86px;line-height:.92;letter-spacing:.012em;margin:10px 0 12px;}
+.self{max-width:1000px;border-left:2px solid var(--ink);padding-left:14px;}
+.self p{font-size:16px;margin-bottom:5px;}
+.self .mk{font-family:var(--m);font-size:11px;color:var(--amber);letter-spacing:.1em;margin-right:8px;}
+
+.strip{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-top:1px solid var(--fibre);margin-top:16px;}
+.strip .cell{padding:9px 12px 8px 0;border-right:1px solid var(--fibre);text-align:right;}
+.strip .cell:last-child{border-right:0;padding-right:0;}
+.strip .lbl{display:block;color:var(--ink);}
+.strip .val{display:block;font-family:var(--m);font-size:24px;line-height:1.25;margin-top:1px;}
+.strip .val.sm{font-size:16px;padding-top:5px;}
+
+/* ── 10 栏账页：1–4 表 / 5–6 锁条 / 7–10 表 ── */
+.ledger{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));border-bottom:2px solid var(--ink);}
+.zoneA{grid-column:1/5;border-right:1.25px solid var(--ink);padding:14px 16px 16px 0;}
+.chain{grid-column:5/7;border-right:1.25px solid var(--ink);padding:14px 14px 16px;}
+.zoneB{grid-column:7/11;padding:14px 0 16px 16px;}
+h2.zh{font-family:var(--t);font-weight:400;font-size:20px;letter-spacing:.02em;}
+.sub{font-size:16px;line-height:1.5;margin:4px 0 10px;max-width:46ch;}
+.foot-note{font-family:var(--m);font-size:11px;line-height:1.5;color:var(--ink);margin-top:8px;letter-spacing:.02em;}
+
+table{width:100%;border-collapse:collapse;}
+th{
+  font-family:var(--m);font-size:11px;font-weight:400;letter-spacing:.06em;
+  text-align:left;padding:5px 7px;box-shadow:inset 0 0 0 1px var(--fibre);
+}
+th.r{text-align:right;}
+td{font-size:15px;padding:6px 7px;border-bottom:1px solid var(--fibre);vertical-align:baseline;}
+td.num,th.r{font-family:var(--m);text-align:right;}
+td.ang{font-size:20px;}
+td.locks{font-family:var(--m);font-size:12px;letter-spacing:.04em;}
+tfoot td{border-bottom:0;border-top:2px solid var(--ink);font-family:var(--m);font-size:12px;letter-spacing:.04em;padding-top:6px;}
+tfoot td.num{font-size:13px;}
+
+.chainWrap{position:relative;width:96px;margin:10px 0 0;border-top:1px solid var(--fibre);border-bottom:2px solid var(--ink);}
+.bar{display:block;width:96px;height:24px;}
+.bar + .bar{margin-top:1px;}
+.scan{
+  position:absolute;left:0;top:0;width:96px;height:1.25px;background:var(--amber);
+  transform:translateY(347.75px);
+  animation:interlock 1.5s cubic-bezier(.2,.75,.25,1) 1 both;
+}
+@keyframes interlock{from{transform:translateY(0);}to{transform:translateY(347.75px);}}
+@media (prefers-reduced-motion:reduce){.scan{animation:none;}}
+
+/* ── 主行动 ─────────────────────────────── */
+.actionrow{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));align-items:center;border-bottom:1px solid var(--fibre);padding:14px 0;}
+.actionrow .txt{grid-column:1/8;}
+.actionrow .txt p{font-size:16px;}
+.actionrow .txt .foot-note{margin-top:3px;}
+.actionrow .do{grid-column:8/11;text-align:right;}
+.btn{
+  font-family:var(--m);font-size:14px;letter-spacing:.08em;
+  color:var(--paper);background:var(--amber);border:1px solid var(--ink);
+  box-shadow:inset 0 1px 0 0 var(--white);
+  padding:11px 20px;cursor:pointer;
+}
+.btn:hover{background:var(--ink);}
+
+/* ── 时刻刻线 ──────────────────────────── */
+.rulerSec{padding:12px 0 0;border-bottom:1px solid var(--fibre);}
+.rulerSec .lbl{display:inline-block;margin-right:10px;}
+.ruler{display:block;width:100%;height:20px;}
+.rticks{display:flex;justify-content:space-between;font-family:var(--m);font-size:11px;letter-spacing:.06em;padding:5px 0 9px;}
+
+/* ── 台账条目：不等的栏宽 / 不同的内部结构 ── */
+.entHead{padding:16px 0 12px;border-bottom:1px solid var(--fibre);}
+.entries{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));}
+.entry{border-right:1px solid var(--fibre);border-bottom:1px solid var(--fibre);padding:16px;}
+.c3{grid-column:span 3;}
+.c4{grid-column:span 4;}
+.c6{grid-column:span 6;}
+.c10{grid-column:span 10;}
+.ehead{display:flex;align-items:baseline;gap:8px;}
+.ehead .no{font-family:var(--m);font-size:11px;letter-spacing:.08em;color:var(--amber);}
+.entry h3{font-family:var(--t);font-weight:400;font-size:26px;line-height:1.15;}
+figure.ph{border:1px solid var(--ink);background:var(--paper);}
+figure.ph img{display:block;width:100%;height:auto;background:var(--paper);}
+.note{font-size:16px;line-height:1.5;margin-top:8px;}
+.kv{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:12px;border-top:1px solid var(--fibre);}
+.kv.two{grid-template-columns:repeat(2,minmax(0,1fr));}
+.kv > div{padding:7px 8px 7px 0;border-bottom:1px solid var(--fibre);}
+.kv dt{font-family:var(--m);font-size:11px;letter-spacing:.06em;}
+.kv dd{font-family:var(--m);font-size:16px;text-align:right;}
+.tag{display:inline-block;font-family:var(--m);font-size:12px;letter-spacing:.06em;border:1px solid var(--ink);box-shadow:inset 0 1px 0 0 var(--fibre);padding:5px 8px;margin:0 6px 6px 0;background:var(--paper);}
+.rows li{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid var(--fibre);padding:7px 0;}
+.rows li:first-child{border-top:1px solid var(--fibre);}
+.rows li span{font-family:var(--m);font-size:11px;letter-spacing:.06em;}
+.rows li b{font-family:var(--m);font-size:15px;font-weight:400;text-align:right;}
+.ticklist li{display:grid;grid-template-columns:10px 1fr auto;align-items:baseline;gap:8px;padding:6px 0;border-bottom:1px solid var(--fibre);}
+.ticklist li:first-child{border-top:2px solid var(--ink);}
+.ticklist .tick{display:block;height:11px;border-left:1px solid var(--ink);}
+.ticklist li b{font-family:var(--m);font-size:15px;font-weight:400;}
+.e-a .ehead{margin-top:12px;}
+.e-b .split{display:grid;grid-template-columns:1fr;gap:10px;margin-top:10px;}
+.e-b figure.ph{margin-top:12px;}
+.e-d{display:grid;grid-template-columns:1fr 1.05fr;gap:16px;align-items:start;}
+.e-d figure.ph{margin-top:2px;}
+.e-e{display:flex;flex-direction:column;justify-content:space-between;}
+.e-e figure.ph{margin-top:12px;}
+.e-f{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start;}
+.e-f .ehead,.e-f .rows{grid-column:1/3;}
+.e-g .note{margin-top:6px;}
+.e-h{display:grid;grid-template-columns:3.2fr 5fr 1.8fr;gap:16px;align-items:start;}
+.e-h figure.ph{align-self:start;}
+
+/* ── 页脚 ───────────────────────────────── */
+.foot{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));border-top:2px solid var(--ink);padding:14px 0 30px;}
+.foot .f1{grid-column:1/6;}
+.foot .f2{grid-column:6/9;}
+.foot .f3{grid-column:9/11;text-align:right;}
+.foot p{font-size:16px;}
+.foot .lbl{display:block;margin-bottom:3px;}
+
+@media (max-width:900px){
+  .sheet{padding:18px 16px 0;}
+  h1{font-size:52px;}
+  .strip{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .strip .cell{border-bottom:1px solid var(--fibre);padding-right:12px;}
+  .ledger{grid-template-columns:1fr;}
+  .zoneA,.chain,.zoneB{grid-column:1/-1;border-right:0;padding:14px 0;}
+  .chain{border-top:1px solid var(--fibre);border-bottom:1px solid var(--fibre);}
+  .actionrow{grid-template-columns:1fr;gap:12px;}
+  .actionrow .txt,.actionrow .do{grid-column:1/-1;text-align:left;}
+  .entries{grid-template-columns:1fr;}
+  .c3,.c4,.c6,.c10{grid-column:1/-1;}
+  .entry{border-right:0;}
+  .e-d,.e-f,.e-h{grid-template-columns:1fr;}
+  .e-f .ehead,.e-f .rows{grid-column:auto;}
+  .kv{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .foot{grid-template-columns:1fr;gap:12px;}
+  .foot .f1,.foot .f2,.foot .f3{grid-column:1/-1;text-align:left;}
+}
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <!-- ── 簿头：标题按栏起点左对齐，全簿只有一个主行动 ── -->
+  <header class="mast">
+    <div class="kicker">值班台 03 · 第 41 册 · 截至 2026-11-14 06:00</div>
+    <h1>联锁释放簿</h1>
+    <div class="self">
+      <p><span class="mk">01</span>我经营一套挂牌上锁与互锁释放的值班系统，替连续生产的厂子记住每一道锁是谁挂的、谁才有权放。</p>
+      <p><span class="mk">02</span>页面需要让访客在半分钟内查出自己那台设备被哪一枚锁别锁着、该走哪条释放路径，并当场递出一次释放申请。</p>
+    </div>
+    <div class="strip">
+      <div class="cell"><span class="lbl">在册锁别</span><span class="val">14 枚</span></div>
+      <div class="cell"><span class="lbl">互斥对</span><span class="val">28 对</span></div>
+      <div class="cell"><span class="lbl">释放路径</span><span class="val">6 条</span></div>
+      <div class="cell"><span class="lbl">在办台账</span><span class="val">8 条</span></div>
+      <div class="cell"><span class="lbl">当班锁死</span><span class="val sm">L-04 · L-07 · L-12</span></div>
+    </div>
+  </header>
+
+  <!-- ── 栏 1–4：切口角度表｜栏 5–6：14 枚锁条｜栏 7–10：扣接缝隙表 ── -->
+  <section class="ledger">
+
+    <div class="zoneA">
+      <h2 class="zh">锁闭条切口角度表</h2>
+      <p class="sub">同组任两枚互为排斥；只有不同组的两枚，才准压在一条释放路径上。</p>
+      <table>
+        <thead>
+          <tr><th>切口角</th><th class="r">右端退缩</th><th class="r">互斥对数</th><th>适用锁别</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="num ang">30°</td><td class="num">13.9px</td><td class="num">3 对</td><td class="locks">L-03 L-09 L-12</td></tr>
+          <tr><td class="num ang">45°</td><td class="num">24.0px</td><td class="num">10 对</td><td class="locks">L-01 L-04 L-07 L-11 L-13</td></tr>
+          <tr><td class="num ang">60°</td><td class="num">41.6px</td><td class="num">15 对</td><td class="locks">L-02 L-05 L-06 L-08 L-10 L-14</td></tr>
+        </tbody>
+        <tfoot>
+          <tr><td>合计 3 档</td><td class="num">—</td><td class="num">28 对</td><td>14 枚</td></tr>
+        </tfoot>
+      </table>
+      <p class="foot-note">退缩 = 24px × tan(切口角)，自铅垂线起算。三档之外不许开第四条缝。</p>
+    </div>
+
+    <div class="chain">
+      <h2 class="zh">锁别链</h2>
+      <p class="sub">14 枚 96×24px，首尾相扣，先后从切口角读出。</p>
+      <div class="chainWrap">
+        <svg class="bar" width="96" height="24" viewBox="0 0 96 24" role="img" aria-label="锁别 L-01，切口 45 度"><polygon points="0,0 96,0 72,24 0,24" fill="#3E3A34"/><line x1="0" y1="0.5" x2="96" y2="0.5" stroke="#FFFFFF" stroke-width="1"/><line x1="96" y1="0" x2="72" y2="24" stroke="#924307" stroke-width="1.25"/><text x="14" y="17.5" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="1" fill="#E4DCC9">L-01</text></svg>
+        <svg class="bar" width="96" height="24" viewBox="0 0 96 24" role="img" aria-label="锁别 L-02，切口 60 度"><polygon points="24,0 96,0 54.43,24 0,24" fill="#3E3A34"/><line x1="24" y1="0.5" x2="96" y2="0.5" stroke="#FFFFFF" stroke-width="1"/><line x1="96" y1="0" x2="54.43" y2="24" stroke="#924307" stroke-width="1.25"/><text x="14" y="17.5" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="1" fill="#E4DCC9">L-02</text></svg>
+        <svg class="bar" width="96" height="24" viewBox="0 0 96 24" role="img" aria-label="锁别 L-03，切口 30 度"><polygon points="41.57,0 96,0 82.14,24 0,24" fill="#3E3A34"/><line x1="41.57" y1="0.5" x2="96" y2="0.5" stroke="#FFFFFF" stroke-width="1"/><line x1="96" y1="0" x2="82.14" y2="24" stroke="#924307" stroke-width="1.25"/><text x="14" y="17.5" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="1" fill="#E4DCC9">L-03</text></svg>
+        <svg class="bar" width="96" height="24" viewBox="0 0 96 24" role="img" aria-label="锁别 L-04，切口 45 度"><polygon points="13.86,0 96,0 72,24 0,24" fill="#3E3A34"/><line x1="13.86" y1="0.5" x2="96" y2="0.5" stroke="#FFFFFF" stroke-width="1"/><line x1="96" y1="0" x2="72" y2="24" stroke="#924307" stroke-width="1.25"/><text x="14" y="17.5" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="1" fill="#E4DCC9">L-04</text></svg>
+        <svg class="bar" width="96" height="24" viewBox="0 0 96 24" role="img" aria-label="锁别 L-05，切口 60 度"><polygon points="24,0 96,0 54.43,24 0,24" fill="#3E3A34"/><line x1="24" y1="0.5" x2="96" y2="0.5" stroke="#FFFFFF" stroke-width="1"/><line x1="96" y1="0" x2="54.43" y2="24" stroke="#924307" stroke-width="1.25"/><text x="14" y="17.5" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="1" fill="#E4DCC9">L-05</text></svg>
+        <svg class="bar" width="96" height="24" viewBox="0 0 96 24" role="img" aria-label="锁别 L-06，切口 60 度"><polygon points="41.57,0 96,0 54.43,24 0,24" fill="#3E3A34"/><line x1="41.57" y1="0.5" x2="96" y2="0.5" stroke="#FFFFFF" stroke-width="1"/><line x1="96" y1="0" x2="54.43" y2="24" stroke="#924307" stroke-width="1.25"/><text x="14" y="17.5" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="1" fill="#E4DCC9">L-06</text></svg>
+        <svg class="bar" width="96" height="24" viewBox="0 0 96 24" role="img" aria-label="锁别 L-07，切口 45 度"><polygon points="41.57,0 96,0 72,24 0,24" fill="#3E3A34"/><line x1="41.57" y1="0.5" x2="96" y2="0.5" stroke="#FFFFFF" stroke-width="1"/><line x1="96" y1="0" x2="72" y2="24" stroke="#924307" stroke-width="1.25"/><text x="14" y="17.5" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="1" fill="#E4DCC9">L-07</text></svg>
+        <svg class="bar" width="96" height="24" viewBox="0 0 96 24" role="img" aria-label="锁别 L-08，切口 60 度"><polygon points="24,0 96,0 54.43,24 0,24" fill="#3E3A34"/><line x1="24" y1="0.5" x2="96" y2="0.5" stroke="#FFFFFF" stroke-width="1"/><line x1="96" y1="0" x2="54.43" y2="24" stroke="#924307" stroke-width="1.25"/><text x="14" y="17.5" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="1" fill="#E4DCC9">L-08</text></svg>
+        <svg class="bar" width="96" height="24" viewBox="0 0 96 24" role="img" aria-label="锁别 L-09，切口 30 度"><polygon points="41.57,0 96,0 82.14,24 0,24" fill="#3E3A34"/><line x1="41.57" y1="0.5" x2="96" y2="0.5" stroke="#FFFFFF" stroke-width="1"/><line x1="96" y1="0" x2="82.14" y2="24" stroke="#924307" stroke-width="1.25"/><text x="14" y="17.5" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="1" fill="#E4DCC9">L-09</text></svg>
+        <svg class="bar" width="96" height="24" viewBox="0 0 96 24" role="img" aria-label="锁别 L-10，切口 60 度"><polygon points="13.86,0 96,0 54.43,24 0,24" fill="#3E3A34"/><line x1="13.86" y1="0.5" x2="96" y2="0.5" stroke="#FFFFFF" stroke-width="1"/><line x1="96" y1="0" x2="54.43" y2="24" stroke="#924307" stroke-width="1.25"/><text x="14" y="17.5" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="1" fill="#E4DCC9">L-10</text></svg>
+        <svg class="bar" width="96" height="24" viewBox="0 0 96 24" role="img" aria-label="锁别 L-11，切口 45 度"><polygon points="41.57,0 96,0 72,24 0,24" fill="#3E3A34"/><line x1="41.57" y1="0.5" x2="96" y2="0.5" stroke="#FFFFFF" stroke-width="1"/><line x1="96" y1="0" x2="72" y2="24" stroke="#924307" stroke-width="1.25"/><text x="14" y="17.5" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="1" fill="#E4DCC9">L-11</text></svg>
+        <svg class="bar" width="96" height="24" viewBox="0 0 96 24" role="img" aria-label="锁别 L-12，切口 30 度"><polygon points="24,0 96,0 82.14,24 0,24" fill="#3E3A34"/><line x1="24" y1="0.5" x2="96" y2="0.5" stroke="#FFFFFF" stroke-width="1"/><line x1="96" y1="0" x2="82.14" y2="24" stroke="#924307" stroke-width="1.25"/><text x="14" y="17.5" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="1" fill="#E4DCC9">L-12</text></svg>
+        <svg class="bar" width="96" height="24" viewBox="0 0 96 24" role="img" aria-label="锁别 L-13，切口 45 度"><polygon points="13.86,0 96,0 72,24 0,24" fill="#3E3A34"/><line x1="13.86" y1="0.5" x2="96" y2="0.5" stroke="#FFFFFF" stroke-width="1"/><line x1="96" y1="0" x2="72" y2="24" stroke="#924307" stroke-width="1.25"/><text x="14" y="17.5" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="1" fill="#E4DCC9">L-13</text></svg>
+        <svg class="bar" width="96" height="24" viewBox="0 0 96 24" role="img" aria-label="锁别 L-14，切口 60 度"><polygon points="24,0 96,0 54.43,24 0,24" fill="#3E3A34"/><line x1="24" y1="0.5" x2="96" y2="0.5" stroke="#FFFFFF" stroke-width="1"/><line x1="96" y1="0" x2="54.43" y2="24" stroke="#924307" stroke-width="1.25"/><text x="14" y="17.5" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="1" fill="#E4DCC9">L-14</text></svg>
+        <span class="scan"></span>
+      </div>
+      <p class="foot-note">每枚 96×24px，条间留 1px 纸色缝；上一枚的尾切口，就是下一枚的头切口。</p>
+    </div>
+
+    <div class="zoneB">
+      <h2 class="zh">释放路径扣接缝隙表</h2>
+      <p class="sub">起讫锁别不得同组。缝隙只取 1 / 1.25 / 2px 三档，缝宽就是这条路径的信用等级。</p>
+      <table>
+        <thead>
+          <tr><th>路径</th><th>起锁别</th><th>讫锁别</th><th class="r">扣接缝隙</th><th class="r">释放时长</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="locks">P-01</td><td class="locks">L-01</td><td class="locks">L-02</td><td class="num">1px</td><td class="num">12 分</td></tr>
+          <tr><td class="locks">P-02</td><td class="locks">L-03</td><td class="locks">L-05</td><td class="num">2px</td><td class="num">25 分</td></tr>
+          <tr><td class="locks">P-03</td><td class="locks">L-04</td><td class="locks">L-08</td><td class="num">1.25px</td><td class="num">18 分</td></tr>
+          <tr><td class="locks">P-04</td><td class="locks">L-09</td><td class="locks">L-11</td><td class="num">1px</td><td class="num">9 分</td></tr>
+          <tr><td class="locks">P-05</td><td class="locks">L-06</td><td class="locks">L-12</td><td class="num">1.25px</td><td class="num">30 分</td></tr>
+          <tr><td class="locks">P-06</td><td class="locks">L-07</td><td class="locks">L-14</td><td class="num">2px</td><td class="num">6 分</td></tr>
+        </tbody>
+        <tfoot>
+          <tr><td>合计 6 条</td><td>跨组</td><td>无重复锁别</td><td class="num">最短 6 分</td><td class="num">最长 30 分</td></tr>
+        </tfoot>
+      </table>
+      <p class="foot-note">缝隙越窄，扣得越死，放行越慢；2px 缝只给不压人的那几条路。</p>
+    </div>
+
+  </section>
+
+  <!-- ── 主行动：全簿只此一个 ── -->
+  <section class="actionrow">
+    <div class="txt">
+      <p>全簿只此一个动作：递一次释放申请。</p>
+      <p class="foot-note">递了也不放锁，只是排队。值班台按路径顺序回你，锁别照旧挂在原处。</p>
+    </div>
+    <div class="do"><button class="btn" type="button">递释放申请</button></div>
+  </section>
+
+  <!-- ── 时刻刻线 ── -->
+  <section class="rulerSec">
+    <span class="lbl">时刻刻线 · 交班 06:00 / 18:00</span>
+    <svg class="ruler" width="100%" height="20" aria-hidden="true">
+      <defs>
+        <pattern id="tick" width="40" height="20" patternUnits="userSpaceOnUse">
+          <line x1="8.5" y1="0" x2="8.5" y2="5" stroke="#6E6A5E" stroke-width="1"/>
+          <line x1="16.5" y1="0" x2="16.5" y2="5" stroke="#6E6A5E" stroke-width="1"/>
+          <line x1="24.5" y1="0" x2="24.5" y2="5" stroke="#6E6A5E" stroke-width="1"/>
+          <line x1="32.5" y1="0" x2="32.5" y2="5" stroke="#6E6A5E" stroke-width="1"/>
+          <line x1="0" y1="0" x2="0" y2="11" stroke="#3E3A34" stroke-width="2"/>
+        </pattern>
+      </defs>
+      <rect width="100%" height="20" fill="url(#tick)"/>
+    </svg>
+    <div class="rticks"><span>00</span><span>06</span><span>12</span><span>18</span><span>24</span></div>
+  </section>
+
+  <!-- ── 在办台账：8 条，栏宽不等、内部结构各不相同 ── -->
+  <section class="entHead">
+    <h2 class="zh">在办台账 · 8 条</h2>
+    <p class="sub">一条设备只走一条路径。同一路并挂两枚互斥锁别，一律驳回，不问理由。</p>
+  </section>
+
+  <section class="entries">
+
+    <!-- T-01 图在上，参数六格 -->
+    <article class="entry c6 e-a">
+      <figure class="ph"><img src="images/占位-1.jpg" width="640" height="360" alt="窑尾收尘风机变频柜的锁别挂牌位与切口量规"></figure>
+      <div class="ehead"><span class="no">T-01</span><h3>窑尾收尘风机变频柜</h3></div>
+      <dl class="kv">
+        <div><dt>锁别 / 组</dt><dd>L-04 · 45°</dd></div>
+        <div><dt>借道</dt><dd>P-03</dd></div>
+        <div><dt>扣接缝隙</dt><dd>1.25px</dd></div>
+        <div><dt>释放时长</dt><dd>18 分</dd></div>
+        <div><dt>现挂</dt><dd>2 枚</dd></div>
+        <div><dt>排队</dt><dd>0 人</dd></div>
+      </dl>
+    </article>
+
+    <!-- T-02 号牌行 + 方图 -->
+    <article class="entry c4 e-b">
+      <div class="ehead"><span class="no">T-02</span><h3>循环水泵房 2 号机组</h3></div>
+      <div class="split">
+        <div>
+          <span class="tag">L-07</span><span class="tag">L-14</span><span class="tag">钥匙 3 号柜</span>
+        </div>
+        <p class="note">两枚号牌挂在架上，第三枚在 3 号柜；缺一枚，缝隙再窄也不放行。</p>
+      </div>
+      <figure class="ph"><img src="images/占位-2.jpg" width="480" height="480" alt="循环水泵房 2 号机组的锁别号牌架"></figure>
+    </article>
+
+    <!-- T-03 无图，四行对开 -->
+    <article class="entry c4 e-c">
+      <div class="ehead"><span class="no">T-03</span><h3>3 号熟料线斗提机主回路</h3></div>
+      <ul class="rows">
+        <li><span>锁别 / 组</span><b>L-12 · 30°</b></li>
+        <li><span>借道</span><b>P-05</b></li>
+        <li><span>上一枚释放</span><b>06:40</b></li>
+        <li><span>下一枚排队</span><b>2 人</b></li>
+        <li><span>钥匙位</span><b>A-12</b></li>
+      </ul>
+    </article>
+
+    <!-- T-04 图在右 -->
+    <article class="entry c6 e-d">
+      <div>
+        <div class="ehead"><span class="no">T-04</span><h3>生料磨选粉机</h3></div>
+        <p class="note">60° 组里互斥面最大的一根：动它之前，先把 15 对排斥关系核一遍。</p>
+        <dl class="kv two">
+          <div><dt>锁别 / 组</dt><dd>L-02 · 60°</dd></div>
+          <div><dt>借道</dt><dd>P-01</dd></div>
+          <div><dt>扣接缝隙</dt><dd>1px</dd></div>
+          <div><dt>释放时长</dt><dd>12 分</dd></div>
+        </dl>
+      </div>
+      <figure class="ph"><img src="images/占位-3.jpg" width="800" height="450" alt="生料磨选粉机的锁闭条与道岔号牌"></figure>
+    </article>
+
+    <!-- T-05 窄栏，小图压底 -->
+    <article class="entry c3 e-e">
+      <div>
+        <div class="ehead"><span class="no">T-05</span><h3>回转窑 1 号主传</h3></div>
+        <p class="note">缝最窄的一条路，9 分钟放一次。</p>
+      </div>
+      <ul class="rows">
+        <li><span>锁别</span><b>L-11</b></li>
+        <li><span>借道</span><b>P-04</b></li>
+      </ul>
+      <figure class="ph"><img src="images/占位-4.jpg" width="360" height="270" alt="回转窑 1 号主传的锁别挂点"></figure>
+    </article>
+
+    <!-- T-06 左图右牌 -->
+    <article class="entry c4 e-f">
+      <div class="ehead"><span class="no">T-06</span><h3>篦冷机液压站</h3></div>
+      <figure class="ph"><img src="images/占位-5.jpg" width="512" height="384" alt="篦冷机液压站的锁闭条切口量规"></figure>
+      <div>
+        <span class="tag">L-08</span><span class="tag">60°</span><span class="tag">P-03</span>
+        <p class="note">切口最斜的一档，斜到 41.6px；量规不入槽，钥匙不落地。</p>
+      </div>
+      <ul class="rows">
+        <li><span>扣接缝隙</span><b>1.25px</b></li>
+        <li><span>释放时长</span><b>18 分</b></li>
+      </ul>
+    </article>
+
+    <!-- T-07 窄栏，纯刻线清单 -->
+    <article class="entry c3 e-g">
+      <div class="ehead"><span class="no">T-07</span><h3>煤磨袋收尘</h3></div>
+      <p class="note">互斥面 15 对，已核 15 对。</p>
+      <ul class="ticklist">
+        <li><i class="tick"></i><span>锁别 L-05</span><b>60°</b></li>
+        <li><i class="tick"></i><span>借道 P-02</span><b>2px</b></li>
+        <li><i class="tick"></i><span>待核</span><b>0</b></li>
+        <li><i class="tick"></i><span>释放时长</span><b>25 分</b></li>
+      </ul>
+    </article>
+
+    <!-- T-08 通栏，三路并挂 -->
+    <article class="entry c10 e-h">
+      <div>
+        <div class="ehead"><span class="no">T-08</span><h3>全厂压缩空气母管</h3></div>
+        <p class="note">三枚并挂，分属三组，两两不互斥，才准同时压在这一路母管上。</p>
+        <dl class="kv two">
+          <div><dt>并挂</dt><dd>3 枚</dd></div>
+          <div><dt>合时</dt><dd>46 分</dd></div>
+        </dl>
+      </div>
+      <figure class="ph"><img src="images/占位-6.jpg" width="960" height="540" alt="全厂压缩空气母管的三枚并挂锁别号牌"></figure>
+      <ul class="rows">
+        <li><span>L-01 · 45°</span><b>P-01 · 1px</b></li>
+        <li><span>L-09 · 30°</span><b>P-04 · 1px</b></li>
+        <li><span>L-05 · 60°</span><b>P-02 · 2px</b></li>
+      </ul>
+    </article>
+
+  </section>
+
+  <!-- ── 页脚：同一串编号 ── -->
+  <footer class="foot">
+    <div class="f1">
+      <span class="lbl">本册合计</span>
+      <p>本簿在册锁别 14 枚 · 互斥对 28 对 · 释放路径 6 条 · 在办台账 8 条。</p>
+    </div>
+    <div class="f2">
+      <span class="lbl">当班锁死</span>
+      <p>L-04 · L-07 · L-12</p>
+    </div>
+    <div class="f3">
+      <span class="lbl">值班台 03 · 第 41 册</span>
+      <p class="num">交班 06:00 / 18:00</p>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

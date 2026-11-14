@@ -26,7 +26,7 @@ const STAGED = join(ROOT, 'deliverables/78-northstar/_probe/_staged');
  * 那正是这个仓库最老的病（读不到数据不报错）。
  * 实测：删掉 S31 的两份产物后，diagN 从 64 掉到 61，只报"总数不符"，
  * 看不出是"文件丢了"还是"该改常数"。所以这里要有第二份独立的期望。 */
-const DEFAULT_CASES = ['S04', 'S08', 'S13', 'S15', 'S18', 'S22', 'S29', 'S31', 'S32', 'S35', 'S99'];
+const DEFAULT_CASES = ['S04', 'S08', 'S13', 'S15', 'S18', 'S21', 'S22', 'S29', 'S31', 'S32', 'S35', 'S99'];
 
 const tokensOf = (txt) => {  const s = new Set();
   for (const m of txt.matchAll(/#[0-9A-Fa-f]{6}/g)) s.add(m[0].toUpperCase());
@@ -122,7 +122,7 @@ export function judge(r, opts = {}) {
   const diagRate = r.diagH / Math.max(1, r.diagN);
   const offRate = r.offH / Math.max(1, r.offN);
   const cleanRate = r.cleanH / Math.max(1, r.cleanN);
-  const expectTotal = opts.expectTotal ?? 64;
+  const expectTotal = opts.expectTotal ?? 67;
 
   if (r.diagN !== expectTotal) {
     /* 分母变小有两种完全不同的原因，报错时必须分开 —— 否则下一个人看到
@@ -154,7 +154,7 @@ export function judge(r, opts = {}) {
     f.push({ rule: 'C-CLEAN', level: 'FAIL', msg: `干净判别值命中 ${(cleanRate * 100).toFixed(1)}% < 100%` });
   }
   /* 报告里引用的两个拆分数字（29-prompt-truncation-bug.md §三 / §11.3） */
-  const expectHex = opts.expectHex ?? 50;
+  const expectHex = opts.expectHex ?? 53;
   if (r.hexN !== expectHex) {
     f.push({ rule: 'D-HEX', level: 'FAIL', msg: `唯一 hex 数 ${r.hexN}，报告写的是 ${expectHex}` });
   }

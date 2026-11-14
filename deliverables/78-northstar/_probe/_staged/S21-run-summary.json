@@ -1,0 +1,27 @@
+{
+  "case": "S21",
+  "outcome": "success",
+  "runStart": "2026-11-14T04:58",
+  "artifactAt": "2026-11-14T07:12",
+  "durationMin": 134,
+  "cumulativeThinkingTokens": 114937,
+  "toolUse": {
+    "Read": 1,
+    "Write": 1
+  },
+  "outputBytes": 27557,
+  "outputLines": 426,
+  "closed": true,
+  "discriminators": {
+    "total": 3,
+    "hit": 3,
+    "values": [
+      "#3E3A34",
+      "#E4DCC9",
+      "#924307"
+    ]
+  },
+  "servedModel": "deepseek-ai/deepseek-v4.1-flash",
+  "requestedModel": "claude-opus-5[1M]",
+  "note": "Two earlier verdicts in this file were wrong: they were written from mid-run snapshots taken while the sandbox process kept running after the monitor was stopped."
+}

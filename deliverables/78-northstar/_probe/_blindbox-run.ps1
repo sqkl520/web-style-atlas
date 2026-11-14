@@ -290,6 +290,17 @@ function Invoke-Attempt {
     if ($modelInfo.Mismatch) {
         Write-Host ('  MODEL MISMATCH: asked=' + $modelInfo.InitModel + ' served=' + $modelInfo.ServedModel)
     }
+    # 空转信号：**只报告，不改变任何判定**。
+    # S21 实测「全部 usage 记录 output_tokens=0 + stop_reason 全缺 + thinking 378k 字符
+    # + 说了 61 次 let me write」，87 分钟零产物。但这个组合不是判据：
+    #   · S99 思考 188,121 token 却产出了完整页面
+    #   · S04/S31 零 Write 也有完整产物
+    # 所以这里只把它印出来，让下一个人不必再花 87 分钟才能看出发生过什么。
+    if ($modelInfo.UsageRecords -gt 0 -and $modelInfo.ZeroOutputRecords -eq $modelInfo.UsageRecords) {
+        Write-Host ('  ZERO-OUTPUT SIGNAL: ' + $modelInfo.ZeroOutputRecords + '/' + $modelInfo.UsageRecords +
+            ' usage records report output_tokens=0; thinking=' + $modelInfo.ThinkingChars +
+            ' chars; "let me write" x' + $modelInfo.LetMeWriteCount + '  (diagnostic only, not a verdict)')
+    }
 
     return @{
         Started           = $true

@@ -1,4 +1,4 @@
-# Terminal-reason reader + retry decision for the blind-box sandbox runner.
+﻿# Terminal-reason reader + retry decision for the blind-box sandbox runner.
 #
 # Deliberately pure: no ACL work, no scheduled task, no process launch, no claude.exe.
 # Everything here can be unit-tested against fabricated stream.jsonl files, which is
@@ -442,7 +442,16 @@ function Get-ServedModelInfo {
     # capped scan makes AssistantEvents a half-truth (S08 reported 90 of 320 when the
     # cap was 20,000 lines).
     param([Parameter(Mandatory=$true)][string]$StreamPath, [int]$MaxLines = 0)
-    $info = [ordered]@{ InitModel = $null; ServedModel = $null; AssistantEvents = 0; Mismatch = $false }
+    $info = [ordered]@{
+        InitModel = $null; ServedModel = $null; AssistantEvents = 0; Mismatch = $false
+        # 空转检测用的三个字段（2026-11-14 加）。**不参与任何 pass/fail 判断**，
+        # 只记录 —— 理由见下面的注释与 _probe/34-s21-rerun.md §七。
+        UsageRecords       = 0
+        ZeroOutputRecords  = 0
+        MissingStopReasons = 0
+        ThinkingChars      = 0
+        LetMeWriteCount    = 0
+    }
     if (-not (Test-Path -LiteralPath $StreamPath)) { return [pscustomobject]$info }
     $sr = $null
     try {
@@ -461,6 +470,26 @@ function Get-ServedModelInfo {
                 if ($m.Success) {
                     $info.AssistantEvents++
                     $served[$m.Groups[1].Value] = 1 + $served[$m.Groups[1].Value]
+                }
+                # 空转信号：usage 里 output_tokens 恒为 0、stop_reason 缺失、
+                # content 只有 thinking 没有 text。S21 实测三项全中（87 分钟零产物）。
+                # 但 S99 思考了 188k token 却正常产出，所以「想得久」不是判据，
+                # 这组字段只是把事情记下来，不自动刹车。见 _probe/34-s21-rerun.md §七。
+                $um = [regex]::Match($line, '"output_tokens"\s*:\s*(\d+)')
+                if ($um.Success) {
+                    $info.UsageRecords++
+                    if ([int]$um.Groups[1].Value -eq 0) { $info.ZeroOutputRecords++ }
+                }
+                if ($line -notmatch '"stop_reason"\s*:\s*"[^"]+"') { $info.MissingStopReasons++ }
+            }
+            # thinking 原文长度与「let me write」承诺次数 —— 后者是 S21 的特征指纹：
+            # 它说了 61 次「现在就写」，Write 调用 0 次。这个计数不解释任何事，
+            # 只在事后回答「这次是空转还是真在干活」。
+            if ($line -match '"type"\s*:\s*"thinking"') {
+                $tm = [regex]::Match($line, '"thinking"\s*:\s*"((?:[^"\\]|\\.)*)"')
+                if ($tm.Success) {
+                    $info.ThinkingChars += $tm.Groups[1].Value.Length
+                    $info.LetMeWriteCount += ([regex]::Matches($tm.Groups[1].Value, '(?i)let me write')).Count
                 }
             }
             # The init event is the first line or two; stop caring about it after a while
