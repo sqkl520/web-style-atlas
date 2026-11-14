@@ -388,6 +388,38 @@ console.log(`\n${problems === 0 ? '✓ 报告与实测一致' : `✗ ${problems}
   else console.log(`  ✓ ${explained}/${mentioned} 份同时提到两者的报告都写明了口径区别`);
 }
 
+/* ── 附加核验：交接文档「产出在哪」表里的文件必须存在 ──────────────
+ * 05-RESUME-HERE.md 是新会话第一个读的文件，那张表是它的导航。
+ * 表里指向不存在的文件 = 导航断了。实测清单里曾漏掉两份今天新增的报告
+ * （35-s31-contradiction-evidence、31-content-instability）——
+ * 不是我写错路径，是**新报告没被登记进交接文档**。
+ *
+ * 判据：只查那张表里的 `_probe/xxx.md` / `NN-xxx.md` 形式，
+ * 不查正文里的路径引用（那些很多是沙箱内文件，见 36-path-refs-not-worth-checking.md）。 */
+{
+  const p = join(ROOT, 'deliverables/78-northstar/05-RESUME-HERE.md');
+  if (existsSync(p)) {
+    const s = readFileSync(p, 'utf8');
+    const start = s.indexOf('## 二、产出在哪');
+    const end = s.indexOf('## 三');
+    const table = (start >= 0 && end > start) ? s.slice(start, end) : '';
+    const refs = new Set();
+    /* ⚠️ 必须允许大写：报告名里有 `06-BLIND-RESULT.md`、`07-NEGATIVE-B.md`。
+     * 第一版写 [a-z0-9-]+ 只匹配到 8 份，把这两个大写名的漏掉了 ——
+     * 而「核验了 8 份全部存在」听起来完全正常，实际漏了 2 份。 */
+    for (const m of table.matchAll(/`((?:_probe\/)?\d{2}-[A-Za-z0-9-]+\.md)`/g)) {
+      refs.add(join(ROOT, 'deliverables/78-northstar', m[1]));
+    }
+    console.log(`\n=== 交接文档「产出在哪」表（${refs.size} 份）===`);
+    let missing = 0;
+    for (const f of refs) {
+      if (!existsSync(f)) { console.log(`  ✗ 表里指向不存在的文件: ${f.replace(ROOT, '')}`); missing++; }
+    }
+    if (missing === 0) console.log(`  ✓ ${refs.size} 份全部存在`);
+    else problems += missing;
+  }
+}
+
 /* ── 附加核验：报告里引用的 commit hash 必须真实存在 ──────────────────
  * 报告经常写「见 commit `afe8b41`」当作证据链。如果那个 hash 不存在
  * （打错、或者在 rebase 里被改写掉了），整条证据就断了，而读的人

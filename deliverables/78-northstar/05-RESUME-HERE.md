@@ -49,6 +49,8 @@ node deliverables/78-northstar/_probe/_evidence-gate.mjs --selftest # 证明闸�
 | `_probe/29-prompt-truncation-bug.md` | **判别值证据链**（67/67、阴性对照 3.8%）+ 传参 bug 的完整记录 |
 | `_probe/30-artifact-validity.md` | 逐案有效性评级（13 案有产物 / 1 案零产物） |
 | `_probe/34-s21-rerun.md` | S21 重跑全过程，含两版错误结论的复盘 |
+| `_probe/35-s31-contradiction-evidence.md` | **S31 的线宽违规查清了**：提示词自相矛盾，模型忠实执行了其中一句 |
+| `_probe/31-content-instability.md` | 内容层不稳**不是缺陷**的定论（§0，2026-11-14） |
 | `_probe/17-gallery-fix-attempt.md` | `probe.mjs` 画廊判据为什么不改（§六 有 2026-11-14 补的定论） |
 | `_probe/15-real-isolation.md` | 真隔离的实现与坑（**§2.0 是 (RX) 漏写权限那个洞**） |
 | `07-NEGATIVE-B.md` | 负对照 B（S98）的完整记录 |
