@@ -84,7 +84,7 @@ deliverables/50-scratch/head/     30 套（index.html 与原型逐字节相同�
 | 配色 | 5 个色值 | 恰好这 5 个，一个不多不少 | ✅ |
 | 圆角 | 全站 0 | `border-radius:0`（reset 里显式归零） | ✅ |
 | 阴影 | 无 | `box-shadow:none` | ✅ |
-| 最大标题 | 正文 6.5 倍 ≈104px | `font-size:104px`，正文 16px | ✅ |
+| 最大标题 | 正文 6.5 倍 ≈104px | `clamp(46px,10.4vw,104px)`（1440 下 clamp 到上限 104px），正文 16px | ✅ |
 | 机制句·主刻度 | 每 60px、长 34px、3px 宽 | `MINOR=12, MAJOR=60`；`.tick.major{width:3px;height:34px}` | ✅ |
 | 机制句·次刻度 | 每 12px、长 12px、2px 宽 | `.tick.minor{width:2px;height:12px}` | ✅ |
 | 字体兜底链 | `Jost → Noto Sans SC` | 逐字照抄 | ✅ |

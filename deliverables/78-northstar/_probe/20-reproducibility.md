@@ -134,7 +134,7 @@ $ diff _feasibility-prompt-S31.txt blind/S31/task.txt
 |---|---|---|---|
 | 行数 / 字节 | 399 / 22064 | 414 / 10722 | 差 2 倍 |
 | 五个色值 | 5/5 全中 | 5/5 全中 | ✅ |
-| 字号比 | 6.5（`clamp(46px,10.4vw,104px)`） | 6.5（`font-size:104px`） | ✅ 完全相同 |
+| 字号比 | 6.5（`clamp(46px,10.4vw,104px)`） | 6.5（`font-size:104px`） | ✅ 计算值相同（实现写法不同） |
 | 线宽 1px | 1/1 | 1/1 | ✅ |
 | 圆角 / 阴影 | `border-radius:0` / `box-shadow:none` | 同 | ✅ |
 | `--scale-major` 等 6 个机制变量 | **全部显式声明**：`--scale-major:60px; --tick-major-len:34px; --tick-major-w:3px; --scale-minor:12px; --tick-minor-len:12px; --tick-minor-w:2px` | **一个都没有**，改写成 `.tick.major{width:3px;height:34px}` / `.tick.minor{width:2px;height:12px}` | ❌ 机制承载方式不同 |
