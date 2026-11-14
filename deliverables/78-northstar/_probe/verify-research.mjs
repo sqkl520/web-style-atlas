@@ -38,9 +38,12 @@ const STEPS = [
    * 第一版写成 'evidence-gate' 漏了下划线，报 MODULE_NOT_FOUND ——
    * 而它恰好是唯一带下划线的那个，这说明「凭记忆写文件名」不可靠。 */
   { id: '_evidence-gate', label: '证据闸门（六条断言）', fail: true },
+  { id: '_evidence-gate', args: ['--selftest'], label: '自测：证据闸门', fail: true },
   { id: '_discriminator-check', label: '判别值逐案明细', fail: true },
   { id: '_report-numbers-audit', label: '报告数字审计（48 份）', fail: true },
+  { id: '_report-numbers-audit', args: ['--selftest'], label: '自测：数字审计', fail: true },
   { id: '_revoked-claims', label: '作废声明检查', fail: true },
+  { id: '_revoked-claims', args: ['--selftest'], label: '自测：作废声明检查', fail: true },
   { id: '_fact-index', label: '事实反向索引（只列不断言）', fail: false },
 ];
 
@@ -52,7 +55,7 @@ for (const s of STEPS) {
   const started = Date.now();
   let out = '', code = 0;
   try {
-    out = execFileSync(process.execPath, [file], {
+    out = execFileSync(process.execPath, [file, ...(s.args || [])], {
       cwd: resolve(HERE, '../../..'),
       encoding: 'utf8',
       stdio: ['ignore', 'pipe', 'pipe'],

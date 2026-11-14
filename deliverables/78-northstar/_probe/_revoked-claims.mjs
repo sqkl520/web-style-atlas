@@ -122,11 +122,30 @@ const MAIN_REPORTS = [
 ];
 
 console.log('=== 检查：被别处判为作废的表述，主报告里还在不在 ===\n');
+
+/* ── 自测注入点 ──────────────────────────────────────────────────────
+ * 目标：证明这份检查**会响**。
+ *
+ * 做法：`--selftest` 时往第一份报告的文本末尾追加一行已知的作废表述
+ * （「S98 零产物」不带作废标注），断言 hits > 0。
+ *
+ * 为什么选这一条：`S98[^\n]{0,30}零产物` 这个锚点是这一轮新加的，
+ * 而且第一版写成具体句式时漏过真实案例 —— 它最需要被证明有效。
+ */
+const SELFTEST = process.argv.includes('--selftest');
+const SELFTEST_INJECT = '（自测注入）S98 有文字、无数值 → 零产物';
+let selftestInjected = false;
+
 let hits = 0;
 for (const rel of MAIN_REPORTS) {
   const p = join(ROOT, rel);
   if (!existsSync(p)) { console.log(`? 缺文件 ${rel}`); continue; }
-  const lines = readFileSync(p, 'utf8').split('\n');
+  let text = readFileSync(p, 'utf8');
+  if (SELFTEST && !selftestInjected) {
+    text += '\n' + SELFTEST_INJECT + '\n';
+    selftestInjected = true;
+  }
+  const lines = text.split('\n');
   const found = [];
   lines.forEach((line, i) => {
     for (const r of REVOKED) {
@@ -152,6 +171,23 @@ for (const rel of MAIN_REPORTS) {
     console.log('');
     hits += found.length;
   }
+}
+
+if (SELFTEST) {
+  console.log('');
+  console.log('─'.repeat(70));
+  if (!selftestInjected) {
+    console.log('✗ 自测失败：变异没能注入');
+    process.exit(1);
+  }
+  if (hits === 0) {
+    console.log('✗ 自测失败：注入了「S98 … 零产物」（不带作废标注），但检查没报错');
+    console.log('  说明这条锚点是恒假的，或检查根本没跑');
+    process.exit(1);
+  }
+  console.log(`✓ 自测通过：注入一条已知作废表述后检出 ${hits} 处`);
+  console.log('  锚点确实会响 —— 它不是恒假。');
+  process.exit(0);
 }
 
 if (hits === 0) {

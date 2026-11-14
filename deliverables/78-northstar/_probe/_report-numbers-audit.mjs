@@ -250,10 +250,43 @@ for (const id of withArt) {
 }
 
 let problems = 0;
+
+/* ── 自测注入点 ──────────────────────────────────────────────────────
+ * 目标：证明这份审计**会响**，不是恒真。
+ *
+ * 做法：`--selftest` 时在读取报告文本这一步注入一处已知错误
+ * （把某份报告的第一个数字改掉），然后断言「problems > 0」。
+ *
+ * 为什么在读取层注入而不是重构出 judge()：
+ * 这个脚本是过程式的，五段检查各自读文件、各自加 problems。
+ * 重构成纯函数要动五处、风险大于收益。在唯一的数据入口注入，
+ * 能让**每一条检查**都经过被测数据 —— 这比单独测某个函数更接近真实。
+ *
+ * 注入什么：把 S21 的「426 行」改成「999 行」。那是个真实存在的断言，
+ * 改了它，行数检查必红。 */
+const SELFTEST = process.argv.includes('--selftest');
+const SELFTEST_REPORT = 'deliverables/78-northstar/_probe/30-artifact-validity.md';
+let selftestInjected = false;
+
+function readReport(absPath) {
+  const text = readFileSync(absPath, 'utf8');
+  if (!SELFTEST || selftestInjected) return text;
+  /* 路径比较要归一化 —— Windows 上 join 给反斜杠，而 SELFTEST_REPORT 是正斜杠。
+   * 这是这一轮已经踩过的坑（PRODUCT_LINE_REPORTS 那次 includes 永远 false）。 */
+  const rel = absPath.replace(ROOT, '').replace(/\\/g, '/').replace(/^\//, '/');
+  if (!rel.endsWith(SELFTEST_REPORT)) return text;
+  if (!/S21[^\n]{0,60}?426\s*行/.test(text)) {
+    console.log('  !! 自测注入失败：报告里找不到「S21 ... 426 行」，变异没生效');
+    return text;
+  }
+  selftestInjected = true;
+  return text.replace(/(S21[^\n]{0,60}?)426(\s*行)/, '$1999$2');
+}
+
 for (const rel of REPORTS) {
   const p = join(ROOT, rel);
   if (!existsSync(p)) { console.log(`? 缺文件 ${rel}`); continue; }
-  const s = readFileSync(p, 'utf8');
+  const s = readReport(p);
   const name = rel.split('/').pop();
   const found = [];
   for (const e of EXPECT) {
@@ -368,7 +401,7 @@ console.log(`\n${problems === 0 ? '✓ 报告与实测一致' : `✗ ${problems}
   for (const rel of REPORTS) {
     const p = join(ROOT, rel);
     if (!existsSync(p)) continue;
-    const s = readFileSync(p, 'utf8');
+    const s = readReport(p);
     const hasBoth = s.includes(`${stagedN} 案`) && s.includes(`${discN} 案`);
     if (!hasBoth) continue;
     mentioned++;
@@ -426,7 +459,7 @@ console.log(`\n${problems === 0 ? '✓ 报告与实测一致' : `✗ ${problems}
 {
   const p = join(ROOT, 'deliverables/78-northstar/05-RESUME-HERE.md');
   if (existsSync(p)) {
-    const s = readFileSync(p, 'utf8');
+    const s = readReport(p);
     const start = s.indexOf('## 二、产出在哪');
     const end = s.indexOf('## 三');
     const table = (start >= 0 && end > start) ? s.slice(start, end) : '';
@@ -459,7 +492,7 @@ console.log(`\n${problems === 0 ? '✓ 报告与实测一致' : `✗ ${problems}
   for (const rel of REPORTS) {
     const p = join(ROOT, rel);
     if (!existsSync(p)) continue;
-    const s = readFileSync(p, 'utf8');
+    const s = readReport(p);
     for (const m of s.matchAll(/`([0-9a-f]{7})`/g)) seen.add(m[1]);
   }
   console.log(`\n=== commit 引用核验（${seen.size} 个）===`);
@@ -474,6 +507,31 @@ console.log(`\n${problems === 0 ? '✓ 报告与实测一致' : `✗ ${problems}
   }
   if (bad === 0) console.log(`  ✓ ${seen.size} 个 commit 引用全部真实存在`);
   else { console.log(`  ✗ ${bad} 个引用指向不存在的 commit`); problems += bad; }
+}
+
+if (SELFTEST) {
+  /* 自测的判据：注入了已知错误之后，problems 必须 > 0。
+   * 如果问题数还是 0，说明这份审计根本没在读它声称要读的东西 ——
+   * 那正是这个仓库最老的病（读不到数据也不报错）。 */
+  console.log('');
+  console.log('─'.repeat(70));
+  const ok = selftestInjected && problems > 0;
+  if (!selftestInjected) {
+    console.log('✗ 自测失败：变异没能注入（报告里找不到目标断言）');
+    console.log('  这说明 SELFTEST_REPORT 或注入正则与实际内容脱节了');
+    process.exit(1);
+  }
+  if (problems === 0) {
+    console.log('✗ 自测失败：注入了「S21 426 行 → 999 行」，但审计没报错');
+    console.log('  说明行数检查是恒真的，或它没读到那份报告');
+    process.exit(1);
+  }
+  console.log(`✓ 自测通过：注入「S21 426 → 999 行」后检出 ${problems} 处不一致`);
+  console.log('  变异确实让审计响了 —— 它不是恒真。');
+  /* selftest 成功 = 退出 0（和 _evidence-gate --selftest 一致）。
+   * 上面那个 problems 是**注入后**的计数，不代表报告当前不合规 ——
+   * 真实合规状态看无参数运行。 */
+  process.exit(0);
 }
 
 process.exit(problems === 0 ? 0 : 1);
