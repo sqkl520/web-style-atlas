@@ -69,7 +69,22 @@ function promptClaims(id) {
 const rows = [];
 for (const id of ids) {
   const dir = dirOf(id);
-  if (!dir) { rows.push({ id, err: '原型目录找不到' }); continue; }
+  /* 没有原型目录有两种完全不同的情况，报错措辞必须区分开 ——
+   * 否则「对照组本来就没有原型」会被读成「脚本坏了 / 文件丢了」。
+   *
+   *   S99 是**虚构风格负对照**：它测的正是「给一个不存在的风格，
+   *   模型还能不能做出像样的页面」。没有原型不是缺陷，是实验设计。
+   *   详见 _probe/16-negative-control.md。
+   *
+   * 其他案缺原型目录才是真故障（prototypes/ 下被改名或删了）。 */
+  if (!dir) {
+    if (/^S(97|98|99)$/.test(id)) {
+      rows.push({ id, skip: '对照组（虚构风格），本就不设原型目录' });
+    } else {
+      rows.push({ id, err: '原型目录找不到（prototypes/ 下应有 ' + id + '-*）' });
+    }
+    continue;
+  }
   /* 产物可能是 out.html 或 index.html（运行器已处理，这里兜底） */
   /* 产物来源按优先级找三处：
    *   1. C:\tmp\bb\<id>\out.html       —— 刚跑完的运行
@@ -228,6 +243,9 @@ console.log(w('案', 5) + w('layoutKind', 18) + w('配色', 7) + w('线宽', 7) 
   w('字号比', 14) + w('图', 8) + w('轨道', 8) + w('字节', 8));
 console.log('─'.repeat(75));
 for (const r of rows) {
+  /* 跳过与失败分开显示：跳过用「·」，失败用「✗」。
+   * 这两者混用会让「对照组按设计不参与」看起来像「有案子挂了」。 */
+  if (r.skip) { console.log(w(r.id, 5) + '· 跳过 — ' + r.skip); continue; }
   if (r.err) { console.log(w(r.id, 5) + '✗ ' + r.err); continue; }
   const hr = r.hr ? `${r.hr}→${r.gotHr} ${r.hrOk ? '✓' : '✗'}` : '—';
   const pic = r.picturesOk === null ? '—' : `${r.pics} ${r.picturesOk ? '✓' : '✗'}`;
@@ -239,8 +257,21 @@ for (const r of rows) {
 }
 
 console.log('\n=== 汇总 ===');
-const good = rows.filter((r) => !r.err);
-console.log(`成功对账 ${good.length} / ${rows.length}`);
+/* 三类要分开数，否则分母会骗人：
+ *   good    真正对账成功的案 → 下面所有比率的分母
+ *   skipped 按设计不参与的案（S97/S98/S99 对照组的虚构风格没有原型）
+ *   failed  真故障（缺产物、度量失败、原型目录丢了）
+ * 旧写法 `good = rows.filter(r => !r.err)` 会把 skipped 也算进 good，
+ * 于是「各维度全中 11/12」看起来像有一案没中，实际是 1 案没参与。 */
+const good = rows.filter((r) => !r.err && !r.skip);
+const skipped = rows.filter((r) => r.skip);
+const failed = rows.filter((r) => r.err);
+console.log(`参与对账 ${good.length} 案` +
+  (skipped.length ? `　跳过 ${skipped.length} 案（对照组）` : '') +
+  (failed.length ? `　失败 ${failed.length} 案` : ''));
+for (const r of skipped) console.log(`  · ${r.id}: ${r.skip}`);
+for (const r of failed) console.log(`  ✗ ${r.id}: ${r.err}`);
+console.log('');
 if (good.length) {
   const hexFull = good.filter((r) => r.missHex.length === 0).length;
   const lwFull = good.filter((r) => r.offScale.length === 0).length;
@@ -276,7 +307,7 @@ if (overuse.length) {
     console.log(`  ${r.id} 多出 ${r.extraHex.length} 个: ${r.extraHex.join(' ')}`);
   }
 } else {
-  console.log('\n=== 超用色 ===\n  无 —— 十案都只用了提示词给的色。');
+  console.log('\n=== 超用色 ===\n  无 —— ' + good.length + ' 案都只用了提示词给的色。');
 }
 
 process.exit(0);
