@@ -170,6 +170,7 @@ for (const id of ids) {
     lw: scale.length ? `${[...gotLW].length - offScale.length}/${[...gotLW].length}` : '?',
     offScale,
     usedLW: [...gotLW].sort((a, b) => a - b),
+    scaleLW: scale.slice().sort((a, b) => a - b),
     hr: claims?.ratio ?? null, gotHr: g.headBodyRatio,
     hrOk,
     pics: claims ? `${g.imgVisible}/${claims.minPics}` : '?',
@@ -213,7 +214,10 @@ if (detail.length) {
   console.log('\n=== 缺口明细 ===');
   for (const r of detail) {
     if (r.missHex.length) console.log(`  ${r.id} 缺色: ${r.missHex.join(' ')}`);
-    if (r.offScale.length) console.log(`  ${r.id} 用了档位表外的线宽: ${r.offScale.join(' ')}（档位 ${r.usedLW.join('/')}）`);
+    /* 措辞要紧：这里第二个括号里的数是**产物实际用到的线宽**，不是档位表。
+     * 原来写「（档位 1/3）」会被读成「档位表是 1px 和 3px」——
+     * 实测 S31 的档位表是 1px、1.5px，产物用了 1/1.5/3，被误读成档位表只有两档。 */
+    if (r.offScale.length) console.log(`  ${r.id} 用了档位表外的线宽 ${r.offScale.join('/')}px —— 档位表 [${r.scaleLW.join('/')}]，产物实际 [${r.usedLW.join('/')}]`);
   }
 }
 

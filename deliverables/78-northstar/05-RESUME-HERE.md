@@ -45,7 +45,7 @@ node deliverables/78-northstar/_probe/_evidence-gate.mjs --selftest # 证明闸�
 
 | 文件 | 内容 |
 |---|---|
-| `06-BLIND-RESULT.md` | 主报告。三轮实验结论 + 十案对账表 + 隔离方式 |
+| `06-BLIND-RESULT.md` | 主报告。三轮实验结论 + 十案对账表 + 隔离方式（写于 S21 重跑之前，产物数为当时的 10 案） |
 | `_probe/29-prompt-truncation-bug.md` | **判别值证据链**（67/67、阴性对照 3.8%）+ 传参 bug 的完整记录 |
 | `_probe/30-artifact-validity.md` | 逐案有效性评级（13 案有产物 / 1 案零产物） |
 | `_probe/34-s21-rerun.md` | S21 重跑全过程，含两版错误结论的复盘 |
@@ -70,7 +70,7 @@ node deliverables/78-northstar/_probe/_discriminator-check.mjs
 node deliverables/78-northstar/_probe/_discriminator-crosscheck.mjs
 node deliverables/78-northstar/_probe/_discriminator-semantic.mjs
 
-# 十案对账
+# 逐案对账（脚本名沿用早期的 _batch-compare）
 node deliverables/78-northstar/_probe/_batch-compare.mjs
 
 # 季度体检
