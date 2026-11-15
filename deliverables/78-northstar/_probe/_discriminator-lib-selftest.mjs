@@ -5,7 +5,7 @@
  *
  * 所以这里测的比原来那几个内联版本的用例更多：每条边界都配正反两例。
  */
-import { tokensOf, discriminatorsFor, hitIn } from './_discriminator-lib.mjs';
+import { tokensOf, discriminatorsFor, hitIn, crosscheck } from './_discriminator-lib.mjs';
 
 let bad = 0;
 const check = (name, got, want, why) => {

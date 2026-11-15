@@ -102,3 +102,58 @@ export function findArtifact(STAGED, id, { exists, read, upper = true } = {}) {
   }
   return null;
 }
+
+/* 阴性对照的三个数：对角线均值、非对角线均值、干净判别值数。
+ *
+ * 这段逻辑原本在 _discriminator-crosscheck.mjs 里，只有 CLI 形态 ——
+ * 于是 _report-numbers-audit 为了拿这三个数，必须 spawn 一个子进程，
+ * 每次都把 BLIND 全库重读一遍（约 1.8 秒）。
+ * 而 verify-research 要跑 7 次报告审计（1 正常 + 6 变异），
+ * 光这一项就是 12 秒。
+ *
+ * 抽成纯函数之后主进程内就能算，不必起子进程。
+ * crosscheck 的 CLI 仍然调用它，两边口径天然一致。
+ *
+ * 参数都是直接传数据，不碰文件系统 —— 与这个模块的契约一致。 */
+export function crosscheck({ disc, artifactOf, ids }) {
+  const withArtifact = ids.filter((id) => disc[id] && disc[id].length && artifactOf(id));
+  if (!withArtifact.length) return null;
+
+  /* 对角线：自己命中自己 */
+  let diagSum = 0, diagN = 0;
+  const offdiag = [];
+  for (const rowId of withArtifact) {
+    const html = artifactOf(rowId);
+    for (const colId of withArtifact) {
+      const ts = disc[colId];
+      const h = ts.filter((t) => hitIn(html, t)).length;
+      if (rowId === colId) { diagSum += h / ts.length; diagN++; }
+      else offdiag.push({ h, n: ts.length });
+    }
+  }
+  const diagAvg = diagN ? (diagSum / diagN) * 100 : 0;
+  const offH = offdiag.reduce((a, x) => a + x.h, 0);
+  const offN = offdiag.reduce((a, x) => a + x.n, 0);
+  const offAvg = offN ? (offH / offN) * 100 : 0;
+
+  /* 逐 token 基线：这个判别值在多少份「无关产物」里也出现 */
+  let cleanTotal = 0, cleanHit = 0;
+  for (const id of withArtifact) {
+    const html = artifactOf(id);
+    const others = withArtifact.filter((x) => x !== id);
+    for (const t of disc[id]) {
+      const inOthers = others.filter((x) => hitIn(artifactOf(x), t)).length;
+      if (inOthers > 0) continue;
+      cleanTotal++;
+      if (hitIn(html, t)) cleanHit++;
+    }
+  }
+
+  return {
+    offPct: offAvg.toFixed(1), offH, offN,
+    diagPct: diagAvg.toFixed(1),
+    cleanTotal, cleanHit,
+    cleanPct: ((cleanHit / Math.max(1, cleanTotal)) * 100).toFixed(1),
+  };
+}
+

@@ -12,7 +12,7 @@
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { resolve, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { tokensOf, discriminatorsFor, hitIn as hitOne } from './_discriminator-lib.mjs';
+import { tokensOf, discriminatorsFor, hitIn as hitOne, crosscheck } from './_discriminator-lib.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../../..');
 const BLIND = join(ROOT, 'deliverables/78-northstar/blind');
@@ -101,3 +101,18 @@ const cleanHit = rows.filter((r) => r.inOthers === 0 && r.inSelf).length;
 console.log(`\n【干净判别值】（零份无关产物含它）: ${cleanTotal} 个`);
 console.log(`  其中自身产物命中: ${cleanHit} 个 = ${((cleanHit / Math.max(1, cleanTotal)) * 100).toFixed(1)}%`);
 console.log('  ← 这一行才是排除巧合后的真实证据强度');
+
+/* ── 交叉校验：上面这些数是本地算的，共享函数也必须给出同一组 ─────────
+ * 不改上面的详细输出（矩阵与逐 token 基线需要本地数据），
+ * 只在末尾比对汇总值。两边不一致就明确报出来 —— 这比"看起来一致"可靠。 */
+const cc = crosscheck({ disc, artifactOf, ids: Object.keys(disc) });
+if (cc) {
+  const same = cc.offH === offH && cc.offN === offN && cc.cleanTotal === cleanTotal && cc.cleanHit === cleanHit;
+  if (!same) {
+    console.log('');
+    console.log('✗ 与 _discriminator-lib.mjs 的 crosscheck() 不一致：');
+    console.log(`  本地    ${offH}/${offN}　干净 ${cleanHit}/${cleanTotal}`);
+    console.log(`  共享库  ${cc.offH}/${cc.offN}　干净 ${cc.cleanHit}/${cc.cleanTotal}`);
+    process.exit(1);
+  }
+}

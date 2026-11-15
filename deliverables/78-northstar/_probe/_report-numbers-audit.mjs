@@ -17,7 +17,7 @@ import { execFileSync } from 'node:child_process';
 import { resolve, dirname, join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { fileURLToPath, pathToFileURL } from 'node:url';
-import { tokensOf, discriminatorsFor, hitIn as hitOne } from './_discriminator-lib.mjs';
+import { tokensOf, discriminatorsFor, hitIn as hitOne, crosscheck } from './_discriminator-lib.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, '../../..');
@@ -580,16 +580,14 @@ const CALIBER_REPORTS = [
  *   干净值   60/60       → 62/62
  * 那种「修了 bug 之后报告里的数就该变」的情况，正需要这一条守着。 */
 {
-  const p = join(ROOT, 'deliverables/78-northstar/_probe/_discriminator-crosscheck.mjs');
-  if (existsSync(p)) {
-    /* 直接跑那个脚本拿实测，不重算 —— 避免又多一份同源实现。 */
-    const out = (() => {
-      try {
-        return execFileSync(process.execPath, [p], { cwd: ROOT, encoding: 'utf8', timeout: 120000 });
-      } catch (e) { return (e.stdout || '') + (e.stderr || ''); }
-    })();
-    const mOff = out.match(/非对角线（本案×他人）平均命中率:\s*([\d.]+)%\s*\[(\d+)\/(\d+)\]/);
-    const mClean = out.match(/【干净判别值】（零份无关产物含它）:\s*(\d+)\s*个/);
+  /* 直接调 lib 里的 crosscheck()，不再 spawn 子进程。
+   * 那段逻辑现在在 _discriminator-lib.mjs，crosscheck 的 CLI 也调它 ——
+   * 两边口径天然一致，不存在「谁的版本对」的问题。
+   * 实测：函数 650ms vs 子进程 1850ms，而且不用重复读 BLIND。 */
+  {
+    const cc = crosscheck({ disc, artifactOf, ids: Object.keys(disc) });
+    const mOff = cc ? [null, cc.offPct, String(cc.offH), String(cc.offN)] : null;
+    const mClean = cc ? [null, String(cc.cleanTotal)] : null;
     console.log(`\n=== 阴性对照（实测）===`);
     if (mOff && mClean) {
       const offPct = mOff[1], offNum = `${mOff[2]}/${mOff[3]}`, clean = mClean[1];
@@ -647,7 +645,12 @@ const CALIBER_REPORTS = [
  *   node _report-numbers-audit.mjs --full    # 慢，真比对三份
  *   verify-research 里只在变异那一步加 --full */
 {
-  const WANT_FULL = process.argv.includes('--full') || SELFTEST;
+  /* ⚠️ 只有 caliberDrift 这个变异需要真起子进程 —— 它的目的就是让
+   * 另一份脚本算出不同的数，不 spawn 就测不到。
+   * 其他 6 个变异与口径比对无关，跟着一起 spawn 会白花约 12 秒每个。
+   * 实测：selftest 模式下全部强制 full，单次 4-5 秒里有 3 秒是这三个子进程。 */
+  const WANT_FULL = process.argv.includes('--full')
+    || (SELFTEST && SELECT_MUT === 'caliberDrift');
   console.log(`\n=== 实现口径一致性（3 份参与比对）===`);
   if (!WANT_FULL) {
     console.log(`  · 跳过（默认不比对，主进程算出 diagN=${diagN}）`);
