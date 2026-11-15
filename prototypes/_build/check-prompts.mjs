@@ -49,6 +49,9 @@ let promptsSrc = readFileSync(
  * 「模板变异」和「数据变异」用同一种写法。 */
 const copySrc = readFileSync(
   process.env.COPY_OVERRIDE || join(ROOT, 'prototypes/_selection/prompt-copy.js'), 'utf8');
+/* 第三份：dna-clean.json 原文，供 --selftest 变异 verified 出处层。 */
+const dnaCleanSrc = readFileSync(
+  process.env.DNA_OVERRIDE || join(ROOT, 'prototypes/_prompts/dna-clean.json'), 'utf8');
 const MUTATIONS = {
   /* 把 S31 的 plain 置空 —— 复现 Q2 建新案时漏加 HUMAN 表条目的那个真实缺陷。 */
   'plain-empty': {
@@ -169,6 +172,21 @@ const MUTATIONS = {
     to: 'var ratio = Math.round((h1 / body) * 10) / 10 + 0.7;',
     expect: 'typescale-ratio-mismatch',
     level: 'FAIL',
+  },
+  /* 0e 的变异：把 S13 的 lineWidthsWhy 清空 —— 复现「Why 丢了，下游就分不清
+   * 抽取失败与设计上无此值」那个形态。
+   *
+   * ⚠️ 这条变异改的是 dna-clean.json（第三根通道 DNA_OVERRIDE）。
+   * 三根通道现在各守一侧：
+   *   PROMPTS_OVERRIDE → prompts.js 的数据
+   *   COPY_OVERRIDE    → prompt-copy.js 的模板
+   *   DNA_OVERRIDE     → dna-clean.json 的出处层
+   * 不分开的话，就分不清某条断言到底在守哪一侧。 */
+  'why-missing': {
+    dna: true,
+    from: /("id": "S13",[\s\S]*?)"lineWidthsWhy": \[[\s\S]*?\n    \]/,
+    to: '$1"lineWidthsWhy": []',
+    expect: 'why-missing',
   },
 };
 const sandbox = { window: {} };
@@ -1002,7 +1020,8 @@ for (const d of DIRS) {
  * 对应案的字段逐项比对。只比对 prompts.js 顶层的案对象（不含 sceneIndex 等索引表）。
  */
 {
-  const cleanRaw = readFileSync(join(ROOT, 'prototypes/_prompts/dna-clean.json'), 'utf8');
+  const cleanRaw = readFileSync(
+    process.env.DNA_OVERRIDE || join(ROOT, 'prototypes/_prompts/dna-clean.json'), 'utf8');
   const cleanArr0 = JSON.parse(cleanRaw);
   const cleanArr = Array.isArray(cleanArr0) ? cleanArr0 : Object.values(cleanArr0);
   const cleanById = new Map(cleanArr.map((e) => [e.id, e]));
@@ -1030,6 +1049,56 @@ for (const d of DIRS) {
   }
   if (staleCases) {
     add('FAIL', '*', 'stale-summary', `共 ${staleCases}/30 案的 prompts.js 落后于 dna-clean.json`);
+  }
+
+  /* ── 0e. 四个 `*Why` 必须真的记着出处（2026-11-15 加）────────────────
+   *
+   * 这一条的目的**不是**守内容，是让四个 Why 字段第一次被机器读到。
+   *
+   * 背景：`clean-dna.mjs` 从 2026-10-26 起就为 radius / lineWidths / h1Size /
+   * bodySize 各产出一个 Why，记录「这个值从哪来」。当时注释写得很清楚：
+   *
+   *   「判据留档：这句话是怎么得出的……不进提示词（AI 不需要看抽取过程），
+   *     只留在 dna-clean.json 里供人复核 —— 这个仓库的教训是
+   *     『结论不带依据，下一轮就会有人按自己的理解改回去』。」
+   *
+   * 但实测（`_probe/42-why-fields-dropped.md`）：dna-clean.json 的 23 个字段里
+   * 有 8 个零读取者，四个 Why 全在其中。「供人复核」这个意图两年没有被任何
+   * 机器执行过 —— 它不会失效、不会报错、也没有人为它负责。
+   *
+   * 为什么这件事重要：判据要区分三种状态，而区分它们的信息只存在于 Why 里 ——
+   *
+   *   抽取成功       → 有值
+   *   抽取失败       → 空值 + why 应当说「读不到」
+   *   设计上无此值   → 空值 + why 说「本案没有显式规则，不编造」（如 clean-dna.mjs:1093）
+   *
+   * 后两种在 prompts.js 里长得完全一样。没有 Why，任何「非空」断言都会把
+   * 第三种（正确行为）判成缺陷。
+   *
+   * ⚠️ 判据只查**结构**，不查语义。实测过用关键词（失败/读不到/error）判断
+   * Why 是否在说「抽取失败」，结果 100% 误报 —— 它命中了 S31 的 `.error`
+   * 和 `.error-code` 两个 CSS 类名。所以这里只要求「非空 + 有可辨认的出处形态」。
+   *
+   * 当前基线：四个 Why 在 35 案全部非空，本条 0 命中。它守的是下一次。 */
+  const WHY_FIELDS = [
+    /* lineWidthsWhy 是数组，元素形如「1.5 ← border-bottom: 1.5px solid var(--x)  ⓐ.sel」。
+     * 含 `←` 说明它指向了具体的 CSS 声明，这是它唯一有意义的形态。 */
+    ['lineWidthsWhy', (v) => Array.isArray(v) && v.length > 0 && v.every((s) => /\S\s*←\s*\S/.test(String(s)))],
+    /* 其余三个是句子。只要非空且长度像话 —— 不判语义，理由见上。 */
+    ['radiusWhy', (v) => typeof v === 'string' && v.trim().length >= 4],
+    ['h1SizeWhy', (v) => typeof v === 'string' && v.trim().length >= 4],
+    ['bodySizeWhy', (v) => typeof v === 'string' && v.trim().length >= 4],
+  ];
+  for (const sp of schemes) {
+    const dc = cleanById.get(sp.id);
+    if (!dc) continue;
+    for (const [f, ok] of WHY_FIELDS) {
+      if (!ok(dc[f])) {
+        add('FAIL', sp.id, 'why-missing',
+          `dna-clean.json 的 ${f} 缺失或没有可辨认的出处形态（值：${JSON.stringify(dc[f]).slice(0, 60)}）。` +
+          `它是「这个值从哪来」的唯一记录 —— 没有它，下游无法区分「抽取失败」与「设计上无此值」`);
+      }
+    }
   }
 }
 
@@ -1096,11 +1165,12 @@ if (SELFTEST) {
   console.log('\n=== --selftest：把缺陷装回去，确认断言会响 ===\n');
   let allGreen = true;
   for (const [name, m] of Object.entries(MUTATIONS)) {
-    /* `copy: true` 的变异改的是 prompt-copy.js 模板（走 COPY_OVERRIDE），
-     * 其余改 prompts.js 数据（走 PROMPTS_OVERRIDE）。两条通道分开，
-     * 否则「模板被改坏会不会响」和「数据被改坏会不会响」混在一起，
-     * 就无法判断某条断言到底在守哪一侧。 */
-    const baseSrc = m.copy ? copySrc : promptsSrc;
+    /* 三根通道，各守一侧：
+     *   copy: true → prompt-copy.js 模板（COPY_OVERRIDE）
+     *   dna:  true → dna-clean.json 出处层（DNA_OVERRIDE）
+     *   默认       → prompts.js 数据（PROMPTS_OVERRIDE）
+     * 不分开的话，就分不清某条断言到底在守哪一侧。 */
+    const baseSrc = m.copy ? copySrc : m.dna ? dnaCleanSrc : promptsSrc;
     const mutated = baseSrc.replace(m.from, m.to);
     if (mutated === baseSrc) {
       console.log(`✗ ${name} —— 变异没生效（正则没匹配上），无法判定断言是否有效`);
@@ -1111,7 +1181,9 @@ if (SELFTEST) {
     wf(f, mutated);
     let out = '', code = 0;
     const env = { ...process.env };
-    if (m.copy) env.COPY_OVERRIDE = f; else env.PROMPTS_OVERRIDE = f;
+    if (m.copy) env.COPY_OVERRIDE = f;
+    else if (m.dna) env.DNA_OVERRIDE = f;
+    else env.PROMPTS_OVERRIDE = f;
     try {
       out = execFileSync(process.execPath, [fileURLToPath(import.meta.url), '--json'],
         { env, encoding: 'utf8', timeout: 120000 });
