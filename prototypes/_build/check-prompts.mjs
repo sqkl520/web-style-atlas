@@ -235,6 +235,26 @@ const MUTATIONS = {
     to: '按你的内容放真实图片',
     expect: 'have-pics-lost-distinct',
   },
+  /* T-15 的两个变异：
+   *
+   * ① minpics-one-nonsense —— 把 minPics=1 的分支去掉，退回原来那句
+   *    「不是 1 个 img 标签就够」自相矛盾的话。
+   *
+   * ② minpics-one-lost-constraint —— 走另一个错法：把整个括号删掉。
+   *    这时矛盾消失了，但「必须是真图」这个实质约束也一起没了 ——
+   *    正是「修一个错，引入另一个错」的形态，而 ① 那种判据抓不到它。 */
+  'minpics-one-nonsense': {
+    copy: true,
+    from: /s\.minPics >= 2\s*\n\s*\? "不是" \+ s\.minPics \+ " 个 img 标签就够——同一张图重复用不算"\s*\n\s*: "这一处必须是真图，不能用纯色块或占位图顶替"/,
+    to: '"不是" + s.minPics + " 个 img 标签就够——同一张图重复用不算"',
+    expect: 'minpics-one-nonsense',
+  },
+  'minpics-one-lost-constraint': {
+    copy: true,
+    from: /: "这一处必须是真图，不能用纯色块或占位图顶替"/,
+    to: ': ""',
+    expect: 'minpics-one-lost-constraint',
+  },
 };
 const sandbox = { window: {} };
 new Function('window', promptsSrc)(sandbox.window);
@@ -1094,6 +1114,10 @@ for (const d of DIRS) {
         const mpById = new Map(
           JSON.parse(readFileSync(mpSrc, 'utf8').replace(/^﻿/, '')).map((x) => [x.id, Number(x.minPics) || 0]));
         const mp = mpById.get(id) || 0;
+        /* tFull 提到 if (mp > 1) 外面：T-15（minPics===1 的病句检查）
+         * 也要用它，而它只在 mp>1 的块里声明过。 */
+        let tFull = '';
+        try { tFull = buildStylePrompt(id, { ...FILLED, have: mp }) || ''; } catch { /* 下面按空处理 */ }
         if (mp > 1) {
           /* 用一个必然不足的数去探（minPics 最大是 10，用 1 一定不足） */
           let tShort = '';
@@ -1112,12 +1136,34 @@ for (const d of DIRS) {
                 '第 4 条降级时把「不同的图片」这条要求丢了 —— AI 会用一张图重复填满');
             }
           }
-          /* 反向：足量时不得降级。用 minPics 本身去做探针。 */
-          let tFull = '';
-          try { tFull = buildStylePrompt(id, { ...FILLED, have: mp }) || ''; } catch { /* 同上 */ }
+          /* 反向：足量时不得降级。用 minPics 本身去做探针（tFull 已在上面算好）。 */
           if (tFull && /你只有 \d+ 条内容/.test(tFull)) {
             add('FAIL', id, 'have-pics-needless-degrade',
               `用户有 ${mp} 条内容、本案也只要 ${mp} 个图片位，却仍然降级了 —— 不该触发`);
+          }
+        }
+        /* ── T-15：minPics=1 时不得出现「不是 1 个 img 标签就够」──────���───
+         *
+         * 这一条与 have 无关，是扫边界时连带发现的既有缺陷：
+         * minPics=1 的 4 个案（S31/S32/S33/S35）原来写的是
+         *
+         *   「至少要 1 个不同的图片位置（不是 1 个 img 标签就够——同一张图重复用不算）」
+         *
+         * **自相矛盾**：只有 1 个位时，1 个 img 标签就是够的；
+         * 「同一张图重复用不算」在只有一个位时也无从谈起。
+         * 这句警告是为多图位写的，套到 1 上就成了病句。
+         *
+         * 判据：minPics === 1 时，第 4 条**不得**出现「不是1 个 img 标签」或
+         * 「同一张图重复用不算」；同时必须保留「必须是真图」这个实质约束
+         * （否则修法就是把整句删掉，那会丢掉「不许用色块顶替」）。 */
+        if (mp === 1 && tFull) {
+          const item4 = (tFull.split('结构约束：')[1] || '').split('\n').find((l) => /^4\./.test(l)) || '';
+          if (/不是1 个 img 标签|同一张图重复用不算/.test(item4)) {
+            add('FAIL', id, 'minpics-one-nonsense',
+              '只有 1 个图片位却说「不是 1 个 img 标签就够」「同一张图重复用不算」—— 自相矛盾');
+          } else if (!/必须是真图/.test(item4)) {
+            add('FAIL', id, 'minpics-one-lost-constraint',
+              'minPics=1 时第 4 条没有「必须是真图」的约束 —— 修矛盾不能把实质要求一起删掉');
           }
         }
       }
