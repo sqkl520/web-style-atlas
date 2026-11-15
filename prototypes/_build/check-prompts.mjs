@@ -276,6 +276,36 @@ const MUTATIONS = {
     to: '（见第 9 条）',
     expect: 'xref-missing',
   },
+  /* T-23 的两个变异，各打验收段的一句自陈：
+   *
+   * ① acceptance-count —— 把验收里的「上面 8 条」改成「上面 9 条」。
+   *    这正是「有人加了一条防退化，但忘了改验收里的数」的形态。
+   *
+   * ② acceptance-range —— 把「第 3–5 条」改成「第 3–7 条」，
+   *    而硬约束只有 6 条 —— 引用了一个不存在的编号。
+   *    与 xref-missing 同源但是另一个位置（验收段 vs 防退化 ⑤）。 */
+  'acceptance-count': {
+    copy: true,
+    /* ⚠️ 「上面 8 条正面要求」在 prompt-copy.js 里出现**两次**：
+     * :1052 是注释（「逐条对着上面 8 条正面要求…」），:1054 才是真正拼进提示词的字符串。
+     * `String.replace` 只替换第一处 → 变异改的是注释，提示词没变，断言当然不响。
+     * 第一版就是这么写的，被 selftest 抓出来「没响」。
+     *
+     * 用 `/g` 全局替换：两处一起改，注释也跟着改是一致的（注释描述的就是那句话）。
+     * 这类「同一串文字在注释和代码里各有一份」的坑，本仓库已经踩过多次 ——
+     * prompt-copy.js 自己的注释里就记过「`mood` 只在本注释和 mountPromptButton
+     * 那段注释里出现，代码行 0 命中」。 */
+    from: /上面 8 条正面要求/g,
+    to: '上面 9 条正面要求',
+    expect: 'acceptance-count',
+  },
+  'acceptance-range': {
+    copy: true,
+    /* 同上，`第 3–5 条硬约束` 也在注释 :1052 与字符串 :1054 各出现一次。 */
+    from: /第 3–5 条硬约束/g,
+    to: '第 3–7 条硬约束',
+    expect: 'acceptance-range',
+  },
 };
 const sandbox = { window: {} };
 new Function('window', promptsSrc)(sandbox.window);
@@ -1191,42 +1221,58 @@ for (const d of DIRS) {
     }
   }
 
-  /* ── T-22：交叉引用必须真指向（2026-11-15 加）────────────────────────────
+  /* ── T-22 / T-23：提示词分段自洽（2026-11-15 加）──────────────────────────
    *
-   * 提示词里有一处交叉引用：「⑤ 图形一律用本案线宽级别的线条画（见第 5 条）」。
-   * 而「第 5 条」是**视觉硬约束段的第 5 条**（线宽只用这几级）。
+   * 这一块先解决一个前置问题：**怎么正确地把提示词切成段**。
    *
-   * ⚠️ 编号在提示词里出现了两次：视觉硬约束段有 1–6，结构约束段也有 1–6。
-   * 所以「见第 5 条」是有歧义的 —— 靠上下文（「线宽级别」）才能确定它指前者。
-   * 这个歧义本身不是缺陷（人类读者不会搞错），但它让「检查引用是否正确」
-   * 需要按段解析，不能把全文的 "N. " 收进一个 map。
+   * ⚠️ 用裸 `indexOf('输出要求')` 切段是错的 —— 结构约束第 4 条里有
+   * 「路径用 images/ 占位（见末尾输出要求）」，那是正文里的一次提及，
+   * 不是段标题。实测这一条让我的第一版脚本把「防退化」段切成空串，
+   * 于是 34/35 案误报「实际防退化 0 条」。
    *
-   * 我第一版扫描脚本就是那样写的，结果 35 案全部误报「第 5 条不含线宽」——
-   * 因为结构约束段的第 5 条（首屏只用静态内容）覆盖了视觉硬约束段的第 5 条。
-   * **判据自己错了，产品是对的。** 记在这里免得下次重犯。
-   *
-   * 为什么值得有这条：`prompt-copy.js:968` 附近的注释记着这条引用
-   * 「原来是写『结构约束第 4 条』，但那时图片位是第 3 条、第 4 条是『首屏不要轮播图』——
-   *  引用一直是错的（差一位），只是没人读到这里」。
-   * 也就是说：**这个仓库有过一次真实的交叉引用错位事故，而没有任何断言在守它。** */
+   * 正确做法：段标题必须在**行首**（`^…$`，带 m 标志）。
+   * 这个仓库已经为「判据比原文更我以为的样子」付过很多次代价，
+   * 所以这里把切段做成一个显式函数，并在注释里钉住为什么不能省。 */
   {
-    /* 先按段切。四段的顺序在模板里是固定的。 */
-    const cut = (title) => {
-      const i = text.indexOf(title);
-      if (i < 0) return '';
-      /* 切到下一个段标题为止 */
-      const rest = text.slice(i + title.length);
-      const next = ['视觉硬约束', '结构约束', '防退化', '输出要求']
-        .map((n) => rest.indexOf(n)).filter((k) => k >= 0);
-      return next.length ? rest.slice(0, Math.min(...next)) : rest;
+    const SECTION_RE = /^(视觉硬约束（[^\n]*|结构约束：|防退化（[^\n]*|验收三问（[^\n]*|输出要求：[^\n]*)$/gm;
+    const splitSections = (txt) => {
+      const hits = [...txt.matchAll(SECTION_RE)];
+      const out = {};
+      for (let k = 0; k < hits.length; k++) {
+        const from = hits[k].index;
+        const to = k + 1 < hits.length ? hits[k + 1].index : txt.length;
+        out[hits[k][1].split(/[（：]/)[0]] = txt.slice(from, to);
+      }
+      return out;
     };
-    const hardSec = cut('视觉硬约束');
-    const hardItems = {};
-    for (const line of hardSec.split('\n')) {
-      const mm = line.match(/^(\d+)\.\s*(.+)$/);
-      if (mm) hardItems[mm[1]] = mm[2];
+    const sec = splitSections(text);
+    /* 段必须都切得出来 —— 否则后面的判据全会静默失效（本仓库的老病） */
+    for (const name of ['视觉硬约束', '结构约束', '防退化', '验收三问', '输出要求']) {
+      if (!sec[name]) {
+        add('FAIL', id, 'section-missing',
+          `切不出「${name}」段 —— 模板结构变了，依赖它的判据会静默失效`);
+      }
     }
-    /* 逐处引用检查：上下文提到什么主题，被引条目就必须讲那个主题 */
+
+    const hardGen = {};
+    for (const line of (sec['视觉硬约束'] || '').split('\n')) {
+      const mm = line.match(/^(\d+)\.\s*(.+)$/);
+      if (mm) hardGen[mm[1]] = mm[2];
+    }
+
+    /* ── T-22：交叉引用必须真指向 ─────────────────────────────────────
+     *
+     * 提示词里有一处按编号的引用：「⑤ 图形一律用本案线宽级别的线条画（见第 5 条）」。
+     *
+     * 为什么值得有这条：`prompt-copy.js:1064` 记着一次真实事故 ——
+     * 那条注释原来写「结构约束第 4 条」，而那时第 4 条是「首屏不要轮播图」，
+     * **引用一直是错的（差一位），只是没人读到这里**。
+     * 那次之后同类注释改成了按内容指代，但这处「见第 5 条」仍是按编号的：
+     * 只要有人往视觉硬约束里插一条，它就会错。
+     *
+     * ⚠️ 编号在提示词里出现两次（视觉硬约束 1–6、结构约束 1–6），
+     * 所以必须只拿视觉硬约束段里的编号去对 —— 全文收一个 map 会让后者覆盖前者。
+     * 我第一版扫描脚本就是这么写的，35 案全部误报。 */
     const THEMES = [
       { ctx: /线条|线宽|描边|刻线/, want: /线宽/, name: '线宽' },
       { ctx: /字号|标题大小|倍率/, want: /字号/, name: '字号' },
@@ -1236,16 +1282,47 @@ for (const d of DIRS) {
     for (const m of text.matchAll(/见第\s*(\d+)\s*条/g)) {
       const n = m[1];
       const ctx = text.slice(Math.max(0, m.index - 40), m.index);
-      const target = hardItems[n];
+      const target = hardGen[n];
       if (!target) {
         add('FAIL', id, 'xref-missing',
-          `「见第 ${n} 条」指向不存在的硬约束（该段只有 ${Object.keys(hardItems).sort().join(',')} 条）`);
+          `「见第 ${n} 条」指向不存在的硬约束（该段只有 ${Object.keys(hardGen).sort().join(',')} 条）`);
         continue;
       }
       for (const th of THEMES) {
         if (th.ctx.test(ctx) && !th.want.test(target)) {
           add('FAIL', id, 'xref-wrong-target',
             `上下文在讲${th.name}（「…${ctx.slice(-24)}」），却指向第 ${n} 条「${target.slice(0, 30)}」—— 引用错位`);
+        }
+      }
+    }
+
+    /* ── T-23：验收段的自陈必须与实际相符 ─────────────────────────────
+     *
+     * 验收第 3 问写着「上面 8 条正面要求与第 3–5 条硬约束，是不是每一条都看得见？」
+     * 这句话里的两个数都是**自陈**：
+     *   · 「8 条正面要求」= 防退化段的实际条数
+     *   · 「第 3–5 条硬约束」= 视觉硬约束段的编号范围
+     *
+     * 它们现在都是对的（实测 35 案防退化全部 8 条、范围全部存在），
+     * 但**没有任何断言在守**。而 ① 的数量一旦变（加一条或删一条），
+     * 验收那句就会静默说错 —— 与本仓库 S34 断号、交叉引用差一位是同一类：
+     * **写死在字符串里的数字不会跟着重排。**
+     *
+     * 实测数据：防退化条数分布 {"8":35}，全部 8 条。 */
+    const accept = sec['验收三问'] || '';
+    const antiSec = sec['防退化'] || '';
+    const antiCount = [...antiSec.matchAll(/^[①②③④⑤⑥⑦⑧⑨⑩]/gm)].length;
+    const claimed = /上面\s*(\d+)\s*条正面要求/.exec(accept);
+    if (claimed && Number(claimed[1]) !== antiCount) {
+      add('FAIL', id, 'acceptance-count',
+        `验收说「上面 ${claimed[1]} 条正面要求」，实际防退化 ${antiCount} 条 —— 数字写死了没跟着重排`);
+    }
+    const hardNums = Object.keys(hardGen).map(Number);
+    for (const m of accept.matchAll(/第\s*(\d+)\s*[–—-]\s*(\d+)\s*条/g)) {
+      for (let n = Number(m[1]); n <= Number(m[2]); n++) {
+        if (!hardNums.includes(n)) {
+          add('FAIL', id, 'acceptance-range',
+            `验收提到第 ${m[1]}–${m[2]} 条硬约束，但实际只有 ${hardNums.sort((a, b) => a - b).join(',')}`);
         }
       }
     }
