@@ -668,7 +668,12 @@ const CALIBER_REPORTS = [
    * 现在放 _probe/ 并用 `_tmp_` 前缀 —— .gitignore 里已有 `_tmp_*` 规则，
    * 被 kill 时残留的临时文件不会脏 git status。
    * 也不用改 import 路径（同一目录，相对路径照常）。 */
-  const DRIFT_COPY = join(HERE, '_tmp_selftest-drift.mjs');
+  /* ⚠️ 文件名必须唯一：同一个 verify-research 可以用不同并行度跑
+   * （我一次并发跑两个，多花一倍时间），而 fork 出来的子进程会同时命中这里。
+   * 固定文件名时两个实例互相覆盖副本、又互相删对方的副本 ——
+   * 晚到的那个 unlink 会把还需要的文件删掉。
+   * 实测并发两次：21s → 37s / 48s，且结果不是我那份。 */
+  const DRIFT_COPY = join(HERE, `_tmp_selftest-drift-${process.pid}.mjs`);
   if (SELFTEST && SELECT_MUT === 'caliberDrift') {
     const orig = readFileSync(semPath, 'utf8');
     /* 副本与 lib 在同一目录，相对 import 照常能解析 —— 不必改写 import。 */
