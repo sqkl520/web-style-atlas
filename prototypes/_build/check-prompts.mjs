@@ -44,6 +44,11 @@ const SELFTEST = argv.includes('--selftest');
  * 这个仓库不再重复那个错误。 */
 let promptsSrc = readFileSync(
   process.env.PROMPTS_OVERRIDE || join(ROOT, 'prototypes/_selection/prompts.js'), 'utf8');
+/* 模块作用域也留一份 prompt-copy.js 源码，供 --selftest 造变异用。
+ * 主检查路径不用它（`loadBuildPrompt()` 自己会读一遍），这里只是为了让
+ * 「模板变异」和「数据变异」用同一种写法。 */
+const copySrc = readFileSync(
+  process.env.COPY_OVERRIDE || join(ROOT, 'prototypes/_selection/prompt-copy.js'), 'utf8');
 const MUTATIONS = {
   /* 把 S31 的 plain 置空 —— 复现 Q2 建新案时漏加 HUMAN 表条目的那个真实缺陷。 */
   'plain-empty': {
@@ -123,6 +128,48 @@ const MUTATIONS = {
      * 于是这条判据不再有「已知的假阳性来源」，可以是 FAIL 了。 */
     level: 'FAIL',
   },
+  /* ── 字号三件套的三条（2026-11-15 加）─────────────────────────────────
+   *
+   * 前两条变异改的是 **prompt-copy.js 的模板**，所以走 COPY_OVERRIDE 通道；
+   * 第三条改的是 **prompts.js 的数据**，走 PROMPTS_OVERRIDE。
+   *
+   * 这个区分很重要：如果三条都只用数据变异，就证明不了「模板被改坏时会响」，
+   * 而那恰恰是这两个缺陷的真实形态（bodySize 缺失导致模板走另一支）。 */
+  /* T-11：把第 6 条改回降级形态 —— 精确复现 bodySize 为空时发生的事。
+   *
+   * ⚠️ 第一版变异写成 `var ratio = 0`，**没响**——因为那只让倍率变成 0，
+   * 模板仍然走 `body > 0` 的完整分支，「正文约」「倍」两个子句都还在。
+   * 真正的降级开关是 `body > 0` 这个判断本身，所以要改的是它的输入。
+   *
+   * 这也说明变异测试必须精确复现**真实的失效路径**，而不是随手改个数字：
+   * 改错地方会得到「没响」，看起来像断言无效，其实是变异没打中要害。 */
+  'typescale-degraded': {
+    copy: true,
+    from: /var body = parseFloat\(String\(d\.bodySize \|\| ""\)\.match\(\/\(\[\\d\.\]\+\)px\/\)\?\.\[1\] \|\| ""\);/,
+    to: 'var body = 0;',
+    expect: 'typescale-degraded',
+  },
+  /* T-12：删掉「最容易被做塌的一处」这个严重性标记。
+   * 判据读的是 `text.includes('最容易被做塌的一处')`，删了就一定响。
+   * 这一条与 T-11 独立：三件套还在，只是严重性标记没了。 */
+  'typescale-detail': {
+    copy: true,
+    from: /"比这更小就撑不出这个版式——这是本案最容易被做塌的一处。"/,
+    to: '""',
+    expect: 'typescale-detail',
+  },
+  /* W-02：三件套形状不变，但**接错了线** —— 让倍率按错误的基准算。
+   *
+   * 这是唯一能证明 W-02 不是「只看形状」的变异：T-11 和 T-12 都不会响，
+   * 因为文本仍然同时给出了三个数、严重性标记也在。
+   * 只有「数对不对」这条判据会响。 */
+  'typescale-wrong-ratio': {
+    copy: true,
+    from: /var ratio = Math\.round\(\(h1 \/ body\) \* 10\) \/ 10;/,
+    to: 'var ratio = Math.round((h1 / body) * 10) / 10 + 0.7;',
+    expect: 'typescale-ratio-mismatch',
+    level: 'FAIL',
+  },
 };
 const sandbox = { window: {} };
 new Function('window', promptsSrc)(sandbox.window);
@@ -134,7 +181,13 @@ const STYLE_PROMPTS = sandbox.window.STYLE_PROMPTS;
  */
 function loadBuildPrompt() {
   const dataSrc = readFileSync(join(ROOT, 'prototypes/_selection/data.js'), 'utf8');
-  const copySrc = readFileSync(join(ROOT, 'prototypes/_selection/prompt-copy.js'), 'utf8');
+  /* `COPY_OVERRIDE` 只在 --selftest 的子进程里用：变异 prompt-copy.js 的模板。
+   *
+   * 为什么需要第二根变异通道：`PROMPTS_OVERRIDE` 只能改 prompts.js（数据），
+   * 而 T-11 / T-12 的触发点在**模板字面量**里 —— 要让它们响，必须能把第 6 条
+   * 改回降级形态。没有这个通道，那两条断言就无法证明自己不是恒真。 */
+  const copySrc = readFileSync(
+    process.env.COPY_OVERRIDE || join(ROOT, 'prototypes/_selection/prompt-copy.js'), 'utf8');
   const w = { STYLE_PROMPTS, console: { warn() {}, log() {} } };
   w.window = w;
   try { new Function('window', dataSrc)(w); } catch (e) { /* data.js 可能引用 DOM，忽略 */ }
@@ -827,10 +880,88 @@ for (const d of DIRS) {
     }
   }
 
+  /* ── T-11 / T-12 / W-02：字号条必须把三个数都说出来（2026-11-15 加）────────
+   *
+   * 起因（实测，不是推测）：把某案的 `bodySize` 清空后，提示词第 6 条从
+   *
+   *   「6. 字号：正文约 15px；最大标题要压到正文的 3.7 倍（约 56px）。
+   *     比这更小就撑不出这个版式——这是本案最容易被做塌的一处。」
+   *
+   * **静默降级**成
+   *
+   *   「6. 字号：最大标题取 56px 这一档，比这更小就撑不出这个版式的气势。」
+   *
+   * 而当时整个闸门报 FAIL 0 / WARN 1（与正常态完全相同）。
+   *
+   * 为什么现有断言拦不住：`prompt-copy.js:665` 起的第 6 条是一个 IIFE，
+   * `body > 0` 为假时**仍然返回一行**。所以「第 6 条存在」恒真，
+   * 而「第 6 条说清了正文值与倍率」没有任何断言。`no-typescale` 那条 WARN
+   * （下面第 4 段）也查不出来 —— 降级句里还有「最大标题」四个字，
+   * `/字号|字阶|最大标题|主标题取|font-size/` 会命中。
+   *
+   * 这三条是本仓库唯一一类**作用在产品输出文本上**的断言。
+   * 现有 14 条断言读的都是 `dna` 字段或 CSS —— 而「值在数据里、但没进文本」
+   * 这个形态它们零反应（历史上 `h1Size` 抽到 30/30、渲染 0/30 就是这样漏掉的）。
+   *
+   * 设计取舍：只加这三条，不加 40 号报告里的其余 35 条。
+   * 那 35 条守的是模板骨架，而骨架目前没有已知缺陷；一次加 38 条等于给
+   * 一个没病的部位做 38 项体检。先加这三条，看它响不响。 */
+  {
+    const dna = (mechEntry && mechEntry.dna) || {};
+    /* T-11：三件套必须在同一句里 —— 正文值 + 倍率 + 标题 px。
+     * 正则要求「正文约 Npx」与「正文的 X 倍（约 Mpx）」同时出现，
+     * 降级句两个子句都没有，所以一定不匹配。 */
+    const T11 = /6\. 字号：正文约 \d+px；最大标题要压到正文的 [\d.]+ 倍（约 \d+px）/;
+    if (!T11.test(text)) {
+      add('FAIL', id, 'typescale-degraded',
+        '字号条没有同时给出「正文值 + 倍率 + 标题 px」。' +
+        (/\d+\. 字号：最大标题取/.test(text)
+          ? '它是降级形态（正文值未知）——检查该案 dna.bodySize 是否为空或非法'
+          : '整条缺失或格式变了'));
+    }
+    /* T-12：降级分支会丢掉这两个子句，它们只在完整分支里。
+     * 「最容易被做塌」是严重性标记，「最大那一档必须够大」是可执行要求。 */
+    for (const [frag, why] of [
+      ['最容易被做塌的一处', '严重性标记（告诉 AI 这是本版式最脆的地方）'],
+      ['最大那一档必须够大', '可执行要求（防止 AI 把标题做小）'],
+    ]) {
+      if (!text.includes(frag)) {
+        add('FAIL', id, 'typescale-detail', `字号条缺「${frag}」——${why}`);
+      }
+    }
+    /* W-02：三个数必须与 dna **复算**一致，不是只看形状对。
+     *
+     * 为什么容差是 0.6px / 0.06：文本里写的是整数（`Math.round`），
+     * dna 里是小数（如 h1SizeAt1440 = 56.4 → 文本 56px）。
+     * 0.6 够覆盖一个取整误差，又不足以放过「接错了另一根线」。 */
+    const body = parseFloat(String(dna.bodySize || '').match(/([\d.]+)px/)?.[1] || '');
+    const h1 = parseFloat(dna.h1SizeAt1440);
+    const m = text.match(/6\. 字号：正文约 (\d+)px；最大标题要压到正文的 ([\d.]+) 倍（约 (\d+)px）/);
+    if (m && body > 0 && h1 > 0) {
+      const [gotBody, gotRatio, gotH1] = [Number(m[1]), Number(m[2]), Number(m[3])];
+      const wantRatio = Math.round((h1 / body) * 10) / 10;
+      if (Math.abs(gotBody - body) > 0.6) {
+        add('FAIL', id, 'typescale-body-mismatch',
+          `正文值对不上：提示词写 ${gotBody}px，dna.bodySize=${dna.bodySize}`);
+      }
+      if (Math.abs(gotH1 - h1) > 0.6) {
+        add('FAIL', id, 'typescale-h1-mismatch',
+          `标题值对不上：提示词写 ${gotH1}px，dna.h1SizeAt1440=${h1}`);
+      }
+      if (Math.abs(gotRatio - wantRatio) > 0.06) {
+        add('FAIL', id, 'typescale-ratio-mismatch',
+          `倍率对不上：提示词写 ${gotRatio}，按 dna 复算应为 ${wantRatio}（${h1}/${body}）`);
+      }
+    } else if (m && !(body > 0 && h1 > 0)) {
+      /* 提示词给了三件套，但 dna 里取不到能复算的值 —— 这是「闸门读不到数据」，
+       * 必须报出来，不能像本仓库反复踩的坑那样静默放行。 */
+      add('FAIL', id, 'typescale-unverifiable',
+        `提示词有三件套，但 dna 无法复算（bodySize=${JSON.stringify(dna.bodySize)} h1SizeAt1440=${JSON.stringify(dna.h1SizeAt1440)}）`);
+    }
+  }
+
   stats.pass++;
 }
-
-/* ── 全局检查 ────────────────────────────────────────────────────────── */
 
 /* A. 30 条提示词必须全部生成成功 */
 if (lens.length !== DIRS.length) {
@@ -965,8 +1096,13 @@ if (SELFTEST) {
   console.log('\n=== --selftest：把缺陷装回去，确认断言会响 ===\n');
   let allGreen = true;
   for (const [name, m] of Object.entries(MUTATIONS)) {
-    const mutated = promptsSrc.replace(m.from, m.to);
-    if (mutated === promptsSrc) {
+    /* `copy: true` 的变异改的是 prompt-copy.js 模板（走 COPY_OVERRIDE），
+     * 其余改 prompts.js 数据（走 PROMPTS_OVERRIDE）。两条通道分开，
+     * 否则「模板被改坏会不会响」和「数据被改坏会不会响」混在一起，
+     * 就无法判断某条断言到底在守哪一侧。 */
+    const baseSrc = m.copy ? copySrc : promptsSrc;
+    const mutated = baseSrc.replace(m.from, m.to);
+    if (mutated === baseSrc) {
       console.log(`✗ ${name} —— 变异没生效（正则没匹配上），无法判定断言是否有效`);
       allGreen = false;
       continue;
@@ -974,9 +1110,11 @@ if (SELFTEST) {
     const f = join(tmp, `${name}.js`);
     wf(f, mutated);
     let out = '', code = 0;
+    const env = { ...process.env };
+    if (m.copy) env.COPY_OVERRIDE = f; else env.PROMPTS_OVERRIDE = f;
     try {
       out = execFileSync(process.execPath, [fileURLToPath(import.meta.url), '--json'],
-        { env: { ...process.env, PROMPTS_OVERRIDE: f }, encoding: 'utf8', timeout: 120000 });
+        { env, encoding: 'utf8', timeout: 120000 });
     } catch (e) { out = e.stdout || ''; code = e.status ?? 1; }
     let hit = false;
     try {
