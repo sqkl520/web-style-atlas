@@ -188,6 +188,33 @@ const MUTATIONS = {
     to: '$1"lineWidthsWhy": []',
     expect: 'why-missing',
   },
+  /* T-13 的两个变异，各打一个方向：
+   *
+   * ① have-not-wired —— 让模板**不读** o.have（回到 2026-11-15 之前的形态）。
+   *    这证明「接线断了会响」，而不是「只要代码里有 have 字样就算数」。
+   *
+   * ② have-phantom-number —— 给 have 一个凭空默认值。
+   *    这证明反向要求（不填时不得出现数字）也真的在守。
+   *    这个形态就是 2026-10-27 修掉的那个 bug：系统替用户编了一个数。
+   *
+   * ⚠️ 变异用 `h1 / body` 之外的东西做锚点时，别把中文写进正则 ——
+   * 这个仓库已经两次因为 shell 转义把正则里的中文改坏，导致「变异没生效」。
+   * 这里改用纯 ASCII 锚点：`(have > 0` 与 `parseHave(o.have)`。 */
+  'have-not-wired': {
+    copy: true,
+    /* 锚点说明：`[^"]*` 不够 —— 三元表达式中间有 `+ have +`，字符串会被切成好几段。
+     * 改用 `[\s\S]*?` 并锚住结尾的 `(hasVoid`，这样中间有几段都无所谓。
+     * 替换成一个恒假的等价表达式：第 2 条退回原文，接线等于断了。 */
+    from: /\(have > 0\n[\s\S]*?\)\s*\+\n\s*\(hasVoid/,
+    to: '(false ? "" : "") +\n      (hasVoid',
+    expect: 'have-not-wired',
+  },
+  'have-phantom-number': {
+    copy: true,
+    from: /var have = parseHave\(o\.have\);/,
+    to: 'var have = parseHave(o.have) || 7;',
+    expect: 'have-phantom-number',
+  },
 };
 const sandbox = { window: {} };
 new Function('window', promptsSrc)(sandbox.window);
@@ -975,6 +1002,57 @@ for (const d of DIRS) {
        * 必须报出来，不能像本仓库反复踩的坑那样静默放行。 */
       add('FAIL', id, 'typescale-unverifiable',
         `提示词有三件套，但 dna 无法复算（bodySize=${JSON.stringify(dna.bodySize)} h1SizeAt1440=${JSON.stringify(dna.h1SizeAt1440)}）`);
+    }
+  }
+
+  /* ── T-13：`o.have` 必须真的进提示词（2026-11-15 加）─────────────────────
+   *
+   * 起因：结构约束第 2 条一直是「用你自己的真实数量排：有几个排几个」，
+   * 而界面只有「经营什么」「访客要做什么」两个输入框 —— 用户没有地方填这个数，
+   * 于是 AI 只能按第 1 条的版式规模编。实测 35/35 案都受影响。
+   *
+   * 2026-11-15 加了 `o.have` 和第三个输入框。这条断言守的是那个接线别断：
+   *
+   *   不传 have      → 第 2 条必须是原文「用你自己的真实数量排」
+   *   传 have: N     → 第 2 条必须说出 N
+   *
+   * ⚠️ 这条断言必须用**已填形态**调 buildStylePrompt —— 现有闸门主循环调的是
+   * `buildStylePrompt(id)`（空形态），而 o.have 只在已填形态下才有意义。
+   * 这是本仓库第④类缺陷的教训：量测的必须是真的交付形态。
+   *
+   * 顺带守一个反向要求：不填时**不得**凭空出现数字。
+   * 若哪天有人给 have 加了个默认值（比如 "7"），这条会立刻响 ——
+   * 那正是 2026-10-27 修掉的「我实际有 46 个条目」那个 bug 的形态。 */
+  if (typeof buildStylePrompt === 'function') {
+    const FILLED = { biz: '一家咖啡店', action: '下单买豆子' };
+    let t0 = '', t5 = '';
+    try {
+      t0 = buildStylePrompt(id, FILLED) || '';
+      t5 = buildStylePrompt(id, { ...FILLED, have: 5 }) || '';
+    } catch (e) {
+      add('FAIL', id, 'have-throws', `传 have 时 buildStylePrompt 抛错: ${e.message.slice(0, 80)}`);
+    }
+    if (t0) {
+      const bare = /2\. 用你自己的真实数量排：有几个排几个，不凑整、不留占位符。/;
+      const withNum = /2\. 你手上有 5 条内容，就排 5 条：不凑整、不留占位符。/;
+      /* 顺序要紧：先判「凭空出现了数字」，再判「退回了原文」。
+       *
+       * ⚠️ 第一版写反了 —— 用 `if (!bare) … else if (/\d+ 条内容/)`，
+       * 于是 phantom-number 变异（have 默认 7）只会触发 have-default-changed，
+       * 永远不会触发 have-phantom-number，而变异测试期望的就是后者的规则名。
+       * 这次是变异测试把它抓出来的：两条断言都响时，只有先命中的那条算数。 */
+      if (/\d+ 条内容，就排/.test(t0)) {
+        add('FAIL', id, 'have-phantom-number',
+          '没传 have，但第 2 条里出现了「N 条内容」——用户没填的数不许凭空出现');
+      } else if (!bare.test(t0)) {
+        add('FAIL', id, 'have-default-changed',
+          '不传 have 时第 2 条不是原文「用你自己的真实数量排」——' +
+          '若改成了别的说法，必须同步更新本条断言，并确认没有凭空出现数字');
+      }
+      if (!withNum.test(t5)) {
+        add('FAIL', id, 'have-not-wired',
+          '传了 have:5，但第 2 条没有说「你手上有 5 条内容」——o.have 没接进模板');
+      }
     }
   }
 

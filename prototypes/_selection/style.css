@@ -1242,6 +1242,20 @@ code { font-family: var(--code); font-size: 0.94em; }
   border-top: 2px solid var(--rule);
 }
 .prompt-f { display: grid; gap: 3px; min-width: 0; }
+/* 数字框（「你有几条内容」）比另外两个窄。
+ *
+ * 为什么单独设：`.prompt-fill` 是 `repeat(auto-fit, minmax(200px, 1fr))`，
+ * 三个 200px 的框在 1440 档 517px 宽的面板里会排成 2+1 两行 ——
+ * 第三个孤立在第二行、只占半行，看起来像没做完。
+ * 数字框只需要放 1–3 位数字，给它 96px 就够：517 - 96 - 2×12 = 397，两个文字框各 198px，
+ * 三个框**挤在一行**。390 档仍是单列（347px 放不下 96+200+200+24），
+ * 这是对的：窄屏本来就该一列。
+ *
+ * 为什么用 class 而不是 `.prompt-f:has(> input[type=number])`：
+ * 我先写了 :has 版本，注释里还顺口写了「本页本来就用了 :has」——
+ * 实测全库 grep `:has(` 只有我刚写的那三处，这个说法是编的。
+ * 为这个页面引入一个此前从未用过的选择器不值得，加个 class 更省事也更明确。 */
+.prompt-f--num { min-width: 96px; }
 .prompt-f-cap { font-size: var(--s-13); color: var(--ink-2); font-weight: 600; }
 .prompt-f-input {
   width: 100%; min-width: 0; max-width: 100%;

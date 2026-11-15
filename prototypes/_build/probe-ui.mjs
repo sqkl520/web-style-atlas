@@ -632,6 +632,42 @@ async function runAll(pg) {
     if (!r.mdHasDisclaimer) return { ok: false, want: '导出文件含「数据不出本机」声明', got: '无', detail: '' };
     return { ok: true, detail: '说明可见、数字联动、可导出可清空' };
   });
+
+  /* ── 14b. 第三个输入框「你有几条内容」真的存在且接线（2026-11-15 加）──
+   *
+   * 起因：结构约束第 2 条一直要求「用你自己的真实数量排」，
+   * 而界面只有两个框 —— 用户没地方填这个数，AI 只能按第 1 条的版式规模编。
+   * 2026-11-15 加了 `o.have` 和第三个框。这条断言守的是那个框别消失、
+   * 也别变成一个没有消费者的装饰件（本仓库的老病）。 */
+  await check('have-field-wired', async () => {
+    await goto('#S13');
+    const r = await pg.eval(`(() => {
+      var fields = [].slice.call(document.querySelectorAll('.prompt-fill [data-prompt-field]'));
+      var names = fields.map(function (f) { return f.getAttribute('data-prompt-field'); });
+      var have = document.querySelector('[data-prompt-field="have"]');
+      if (!have) return { ok: false, want: 'have 输入框', got: names.join(','), detail: '第三个框不存在' };
+      /* 填一个数，读回生成的提示词里第 2 条 */
+      have.value = '5';
+      have.dispatchEvent(new Event('input', { bubbles: true }));
+      var btn = document.querySelector('.prompt-copy');
+      if (!btn) return { ok: false, want: '.prompt-copy', got: 'missing', detail: '' };
+      var text = window.buildStylePrompt('S13', { biz: '咖啡店', action: '买豆子', have: have.value });
+      return {
+        ok: true,
+        names: names.join(','),
+        type: have.type,
+        wired: text.indexOf('你手上有 5 条内容，就排 5 条') >= 0,
+      };
+    })()`);
+    if (!r.ok) return r;
+    if (r.type !== 'number') {
+      return { ok: false, want: 'type=number', got: r.type, detail: '数字框应该是 number 类型（手机弹数字键盘）' };
+    }
+    if (!r.wired) {
+      return { ok: false, want: '第 2 条说出 5', got: '仍是原文', detail: 'o.have 没接进模板 —— 这个框是个装饰件' };
+    }
+    return { ok: true, detail: '三个框齐全（' + r.names + '），typed=number，第 2 条跟着变' };
+  });
 }
 
 /* ── 主流程 ─────────────────────────────────────────────────────────── */
@@ -818,6 +854,21 @@ async function runSelftest(pg) {
       to: '使用记录',
       also: { from: '**它不会发到任何地方**——没有服务器、没有统计脚本。', to: '记录一下使用情况。' },
       note: '两处披露同时抹掉（这才是真正的偷偷记）',
+    },
+    /* ── 2026-11-15：把「第三个输入框没了」这个形态装回去 ──────────────────
+     *
+     * 它守的是 have-field-wired：结构约束第 2 条要求「用你自己的真实数量排」，
+     * 而这个框是用户唯一能给出那个数的地方。框没了 = 用户又回到「只能让 AI 编」。
+     *
+     * 变异方式：让 mountPromptButton 不再追加第三个框。
+     * 用 `fill.appendChild(f);` 这一行做锚点会同时命中 biz/action 两处，
+     * 所以锚在数字框特有的那一行上（`f.classList.add("prompt-f--num")`）。 */
+    {
+      name: 'have-field-wired',
+      file: 'prototypes/_selection/prompt-copy.js',
+      from: 'f.classList.add("prompt-f--num");\n      fill.appendChild(f);',
+      to: 'f.classList.add("prompt-f--num");',
+      note: '第三个输入框不挂进 DOM（回到 2026-11-15 之前的形态）',
     },
   ];
 
