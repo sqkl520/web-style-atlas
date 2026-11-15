@@ -40,11 +40,30 @@ const RISK = (() => {
   const src = readFileSync(join(ROOT, "prototypes/_selection/data.js"), "utf8");
   const out = {};
   /* data.js 的形状是 `window.SCHEMES = [ { "id": "S01", ..., "risk": "..." }, ... ]`
-   * ——键名带引号（是 JSON 字面量，不是手写对象）。正则必须按带引号的键匹配。 */
-  const re = /"id":\s*"(S\d{2})"[\s\S]*?"risk":\s*"((?:[^"\\]|\\.)*)"/g;
-  let m;
-  while ((m = re.exec(src))) {
-    out[m[1]] = m[2].replace(/\\"/g, '"').replace(/\\n/g, " ").trim();
+   * ——键名带引号（是 JSON 字面量，不是手写对象）。正则必须按带引号的键匹配。
+   *
+   * ⚠️ 2026-11-15 修：原正则是
+   *     /"id":\s*"(S\d{2})"[\s\S]*?"risk":\s*"((?:[^"\\]|\\.)*)"/g
+   * 那个 `[\s\S]*?` 虽然是非贪婪，但它**可以跨过整个案对象**。于是某一案如果
+   * 没有 `risk` 键，这段会一路吃到**下一案的** risk，把别人的原文安在它头上。
+   *
+   * 实测（`_probe/37-field-coverage-map.md` §6.4 + 我自己的复现）：
+   * 删掉 S13 的 risk 键后，S13 拿到的是 S14 的原文
+   * （"最易滑向「深色太空壁纸加星点」…"），而闸门全绿 —— 因为那个值确实存在于
+   * 源码里、确实是合法文本，只是属于另一个案。
+   *
+   * 这是「数字对但对象错」的形态：闸门校的是「值和源码对不对得上」，
+   * 而这里值与源码对得上，错的是它属于谁。
+   *
+   * 修法：先按 `"id"` 切成每案的块，再在**块内**找 risk。找不到就是没有。
+   * 当前 35 案都有 risk，所以这个改动对输出零影响 —— 它守的是下一次。 */
+  const ids = [...src.matchAll(/"id":\s*"(S\d{2})"/g)];
+  for (let i = 0; i < ids.length; i++) {
+    const from = ids[i].index;
+    const to = i + 1 < ids.length ? ids[i + 1].index : src.length;
+    const block = src.slice(from, to);
+    const r = /"risk":\s*"((?:[^"\\]|\\.)*)"/.exec(block);
+    if (r) out[ids[i][1]] = r[1].replace(/\\"/g, '"').replace(/\\n/g, " ").trim();
   }
   return out;
 })();
@@ -75,12 +94,20 @@ const RISK = (() => {
 const REUSE = (() => {
   const src = readFileSync(join(ROOT, "prototypes/_selection/data.js"), "utf8");
   const out = {};
-  const re = /"id":\s*"(S\d{2})"[\s\S]*?"landing":\s*"((?:[^"\\]|\\.)*)"/g;
-  let m;
-  while ((m = re.exec(src))) {
-    const text = m[2].replace(/\\"/g, '"').replace(/\\n/g, " ");
+  /* ⚠️ 2026-11-15 同一处修复（见上面 RISK 的长注释）。
+   * 原正则 /"id":\s*"(S\d{2})"[\s\S]*?"landing":\s*"…"/g 里的 `[\s\S]*?`
+   * 会跨过整个案对象 —— 某案若缺 `landing` 键，它会把下一案的 landing 当成自己的。
+   * 改成先按 "id" 切块、再在块内找。 */
+  const ids = [...src.matchAll(/"id":\s*"(S\d{2})"/g)];
+  for (let i = 0; i < ids.length; i++) {
+    const from = ids[i].index;
+    const to = i + 1 < ids.length ? ids[i + 1].index : src.length;
+    const block = src.slice(from, to);
+    const r = /"landing":\s*"((?:[^"\\]|\\.)*)"/.exec(block);
+    if (!r) continue;
+    const text = r[1].replace(/\\"/g, '"').replace(/\\n/g, " ");
     const s = /最难被复用[^。]*。/.exec(text);
-    if (s) out[m[1]] = s[0].trim();
+    if (s) out[ids[i][1]] = s[0].trim();
   }
   return out;
 })();
