@@ -373,6 +373,19 @@ for (const d of dna) {
       radiusBare: !!d.radiusBare,
       shadow: d.shadow,
       lineWidths: d.lineWidths,
+      /* ⚠️ h1Size 是**中间量，不影响产品输出**。2026-11-15 哨兵实测 0/35 渲染。
+       *
+       * 它曾经出过一次事故（`h1Size` 抽到 30/30 但渲染进提示词 0/30，
+       * 详见 prompt-copy.js:643 起的注释），当时的修法是改用下面的 h1SizeAt1440。
+       * 值接上了，但 h1Size 本身没有被接上、也没有被删掉 —— 于是它一直留在这里。
+       *
+       * 实测依据见 deliverables/78-northstar/_probe/45-sentinel-test-dead-fields.md：
+       * 把它改成 "999px" 后，35 案的提示词逐字不变。
+       *
+       * 保留它只有一个理由：裸 px 的 5 案（S03/S04/S13/S25/S30）里它与
+       * h1SizeAt1440 完全相同，clamp 的 30 案里它是展开前的原文，可作为出处回看。
+       * 但它是**产品数据里的死字段**，下一个人改它不会有任何效果。
+       * 真要清理就从这个字段开始 —— 删它需要同步改 check-prompts.mjs:880 的 KEY_FIELDS。 */
       h1Size: d.h1Size,
       /* 正文字号 + clamp 在 1440 视口的实际落值（2026-10-30 新增）。
        *

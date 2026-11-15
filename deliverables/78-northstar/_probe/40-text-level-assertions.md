@@ -143,7 +143,7 @@
 | `3. 但这个版式的位置是按 N 个数出来的…` | 13 | `d.degrades === true` | 与下一行互斥 |
 | `3. 这个版式是自动流排版…` | 22 | `d.degrades === false` | 13 + 22 = 35 |
 | `（上面说的刻意留空除外 / 照旧留着）` | 7 | `hasVoid` | 与第 2 条的追加句同源 |
-| `4. 版式里至少要 N 个**不同的**图片位置…` | **34** | `s.minPics > 0` | **S34 的 minPics = 0**（零图设计） |
+| `4. 版式里至少要 N 个**不同的**图片位置…` | **34** | `s.minPics > 0` | S34 的 `minPics = 0`（零图设计）。**修复前这一条整行被滤掉，造成编号挖洞（事故 C）；现已修成「本案是零图片设计」正向声明，35/35 都有第 4 条** |
 | `6. 这个版式的硬前提（作者原话…）` | **26** | `dna.reuse` 非空 | 缺的 9 案：S02–S10 |
 | `3. 圆角：全站一律 0，…` | 31 | `d.radiusBare` | 另外 4 案（S05/S14/S16/S17）走 `d.radius` 原值 |
 | `编号/价格等数字用等宽 …` | 29 | `d.fonts.mono` 非空 | 6 案无 mono |
@@ -251,7 +251,7 @@
 
 ### 3.1 方法：如何在内存里造变异（不改真实文件）
 
-`check-prompts.mjs` 的 `--selftest` 只支持 `PROMPTS_OVERRIDE`（`check-prompts.mjs:46`），也就是说**它只能变异 `prototypes/_selection/prompts.js`，无法变异 `prompt-copy.js`**。而本轮 38 条断言里有相当一部分的键位在 `prompt-copy.js` 的模板字面量里。
+`check-prompts.mjs` 的 `--selftest` 只支持 `PROMPTS_OVERRIDE`（`check-prompts.mjs:46`），也就是说**它只能变异 `prototypes/_selection/prompts.js`，无法变异 `prompt-copy.js`**。而本轮 39 条断言里有相当一部分的键位在 `prompt-copy.js` 的模板字面量里。
 
 本轮探针用的办法：把三份源码读进内存，`new Function` 加载后**替换字符串再重新加载**，全程零写盘。要接进 `--selftest`，需要新增一个 `COPY_OVERRIDE`（见 §4.2）。
 
@@ -296,13 +296,16 @@
 | 阴影条换读 `d.radius` | W-06 | **✓ 干净** 35/35 翻红 |
 | 字体条用假字体名替换标题链 | W-07 | **✓ 干净** 22/35 翻红 |
 | 结构 1 条改读 `minPics` | W-08 | **✓ 干净** 29/35 翻红 |
-| 结构 4 条改读 `minItems` | W-09 | **✓ 干净** 28/35 翻红 |
+| 结构第 4 条改读 `minItems` | W-09 | **✓ 干净** 28/35 翻红 |
+| 结构第 4 条整块删掉 | W-09 | **✓ 干净** 34/35 翻红（S34 走零图分支，不受影响） |
+| 零图声明删掉、退回空串（复发事故 C） | T-16 + W-09 + W-12 | **✓ 兼响** S34 单案，三条都响 |
+| 零图声明改成「至少要 1 个图片位置」 | W-09 + W-15 | **✓ 兼响** S34 单案，两条都响 |
 | 调性行改读 `s.plain` | W-10 | **✓ 干净** 35/35 翻红 |
 | 验收第 1 问改读 `tone` | W-11 | **✓ 干净** 35/35 翻红 |
 | 结构段多插一条（6→7） | W-12 | **✓ 干净** 25/35 翻红 |
 | reuse 第 6 条整条删掉 | W-12 + W-13 | **✓ 兼响**，目标全响 |
 
-**并集：38 条断言各有 ≥1 个已实测的隔离变异。**
+**并集：39 条断言各有 ≥1 个已实测的隔离变异。**
 
 ### 3.3 「假响」是怎么避免的
 
@@ -464,7 +467,7 @@ extra = [...fired].filter(r => r !== m.expect && !(m.allow||[]).includes(r));
 
 ## 5. 哪些可以直接上线，哪些要先修别的
 
-### 5.1 可以直接上线（36 条）
+### 5.1 可以直接上线（37 条）
 
 全部 24 条 T 断言 + 13 条 W 断言（W-01 ~ W-15 中除 W-10、W-12 之外的 13 条）。理由：
 
@@ -495,10 +498,10 @@ extra = [...fired].filter(r => r !== m.expect && !(m.allow||[]).includes(r));
 
 ### 5.4 一条总的判断
 
-这 38 条断言守的是「**骨架**」，不是「**内容对不对**」。
+这 39 条断言守的是「**骨架**」，不是「**内容对不对**」。
 
 - 内容对不对（配色值在 CSS 里存不存在、机制句的数字在实现里存不存在）——那部分是 `check-prompts.mjs` 现有的 `palette-not-in-css`、`mech-value-not-in-source` 等 14 条断言在管，本轮**没有重复造**。
-- 骨架在不在、值有没有接上去、句子有没有被静默降级——那部分此前只有 `REQUIRED_MARKERS` 的 4 条（约 39 行骨架的 10%），本轮补到 38 条。
+- 骨架在不在、值有没有接上去、句子有没有被静默降级、编号有没有挖洞——那部分此前只有 `REQUIRED_MARKERS` 的 4 条（约 39 行骨架的 10%），本轮补到 39 条。
 
 两者互补，缺一不可。事故 B 的教训是：**「这一行存在」和「这一行说清了」是两件事**，而后者此前没有一条断言。
 
@@ -517,4 +520,7 @@ extra = [...fired].filter(r => r !== m.expect && !(m.allow||[]).includes(r));
 | 交叉引用曾错一位的自述 | `prototypes/_selection/prompt-copy.js:968-978` |
 | 空串过滤（正文只剩 1 处空行） | `prototypes/_selection/prompt-copy.js:991` |
 | `REQUIRED_MARKERS`（现有唯一模板断言） | `prototypes/_build/check-prompts.mjs:847-861` |
-| `no-t
+| `no-typescale` WARN（对事故 B 无效） | `prototypes/_build/check-prompts.mjs:745-747` |
+| `loadBuildPrompt()`（W 层需要的 dna 入口） | `prototypes/_build/check-prompts.mjs:135-153` |
+| `PROMPTS_OVERRIDE`（selftest 的唯一变异通道） | `prototypes/_build/check-prompts.mjs:46` |
+| selftest 子进程循环（需加 `COPY_OVERRIDE`） | `prototypes/_build/check-prompts.mjs:960-991` |

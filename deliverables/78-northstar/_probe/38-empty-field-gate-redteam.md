@@ -41,7 +41,7 @@
 |---|---|---|
 | `radius` | `"全直角 0"` —— 常量字符串（`border-radius` 一处都没有时也一样） | `clean-dna.mjs:463` |
 | `lineWidths` | `"无边框线条（全站不画描边，只用色块与留白分隔）"` | `clean-dna.mjs:952` |
-| `shadow` | `shadowText()` 的 `map` 查表，永远返回一个非空句子 | `clean-dna.mjs:1581-1592` |
+| `shadow` | `shadowText()` 的 `map` 查表，永远返回一个非空句子 | `clean-dna.mjs:1571-1582` |
 | `palette` | 兜底成 `"#XXXXXX ×N"`（按全文件频次取前 6），**非空** | `clean-dna.mjs:1457-1469` |
 | `bodySize` | **`""`** —— 唯一一个真的写空串的 | `clean-dna.mjs:1093` |
 | `h1SizeAt1440` | **数字 `0`** —— `at1440()` 的失败编码 | `clean-dna.mjs:1029-1043` |
@@ -94,12 +94,13 @@ Date(0)      → "Thu Jan 01 1970…" PASS
 对 `REQUIRED` 里的 `h1SizeAt1440`（**类型是 number，35/35**）：`0` 判 **PASS**。而 `0` 正是 `at1440()` 的失败编码：
 
 ```js
-// prototypes/_prompts/clean-dna.mjs:1041-1046
-if (/clamp\(|calc\(/.test(s)) return 0;      // clamp 其它写法（含 vh / %）不支持
-const p = s.match(/^([\d.]+)px$/);
-if (p) return parseFloat(p[1]);
-const any = s.match(/([\d.]+)px/);
-return any ? parseFloat(any[1]) : 0;
+// prototypes/_prompts/clean-dna.mjs:1029-1043
+function at1440(text) {
+  …
+  if (/clamp\(|calc\)/.test(s)) return 0;      // clamp 其它写法（含 vh / %）不支持
+  …
+  return any ? parseFloat(any[1]) : 0;          // 抽不到也返回 0
+}
 ```
 
 实测：`at1440("4rem") = 0`、`at1440("var(--fs-h1)") = 0`、`at1440("") = 0`、`at1440("calc(40px + 2vw)") = 0`。**8 个字段里唯一一个「失败即通过」的字段。**
@@ -287,7 +288,7 @@ ReferenceError: dna is not defined
 退出码: 1   stdout: ""   stderr: ReferenceError
 ```
 
-原因：`check-prompts.mjs` 的 per-case 循环里 `d` 是**目录名字符串**（`check-prompts.mjs:446`，注释 `:752` 专门记过这个坑）。`dna` 这个标识符只存在于 block D 的 `for (const sp of schemes)` 内部（`:887`），是那个块的 `const`，外层拿不到。
+原因：`check-prompts.mjs` 的 per-case 循环里 `d` 是**目录名字符串**（`check-prompts.mjs:445`，注释 `:752` 专门记过这个坑）。`dna` 这个标识符只存在于 block D 的 `for (const sp of schemes)` 内部（`:887`），是那个块的 `const`，外层拿不到。
 
 所以这条断言**连"恒真"都够不上，它是"整个闸门崩溃"**。崩溃比恒真好（至少退出码 1），但 stdout 为空，CI 里看到的是"脚本崩了"而不是"哪条断言失败"—— 这正是 `deliverables/78-northstar/_probe/verify-research.mjs` 最近一个 commit 专门修过的形态（`2544d25 verify-research 区分「断言失败」与「脚本崩溃」`）。
 
@@ -446,7 +447,7 @@ if (!m) {
 ```js
 /* 取代 `dna-empty-h1SizeAt1440`。
  * 为什么不会恒真：读数来自 dna 字段，但断言的是**数值域**而非「非空」。
- * at1440() 的失败编码是 0（clean-dna.mjs:1041-1046），0 是 String 意义上的非空，
+ * at1440() 的失败编码是 0（clean-dna.mjs:1029-1043），0 是 String 意义上的非空，
  * 所以只有范围判据能拦住它。 */
 const h1a = Number(dna.h1SizeAt1440);
 if (!Number.isFinite(h1a) || h1a <= 0) {
@@ -606,16 +607,16 @@ if (m2 && Math.abs(+m2[1] - Number(dna.h1SizeAt1440)) > 0.5) {
 
 | 位置 | 内容 |
 |---|---|
-| `check-prompts.mjs:446` | per-case 循环，`d` 是**目录名字符串** |
+| `check-prompts.mjs:445` | per-case 循环，`d` 是**目录名字符串** |
 | `check-prompts.mjs:752` | 注释：「`d` 是目录名字符串，不是案件对象」 |
 | `check-prompts.mjs:880` | `KEY_FIELDS = ['h1Size','lineWidths','radius','shadow']` |
-| `check-prompts.mjs:887` | `const dna = sp.dna`（block D 内部，外层不可见） |
+| `check-prompts.mjs:887` | `const dna = sp.dna \|\| {}`（block D 内部，外层不可见） |
 | `prompt-copy.js:630-633` | `radiusBare` 覆盖 `radius` |
 | `prompt-copy.js:666-677` | 第 6 条的 `body > 0` 分支与降级 return |
 | `prompt-copy.js:432-444` | `if (d.mechanism)` 恒真 ⇒ `h1Size` 的 else 分支死掉 |
-| `clean-dna.mjs:1029-1046` | `at1440()`，失败返回数字 `0` |
+| `clean-dna.mjs:1029-1043` | `at1440()`，失败返回数字 `0` |
 | `clean-dna.mjs:1093` | `bodySize` 的合法降级（`text: ""` + why） |
 | `clean-dna.mjs:463` | `radius` 无声明时返回常量 `"全直角 0"` |
-| `clean-dna.mjs:951` | `lineWidths` 无声明时返回常量句 |
+| `clean-dna.mjs:952` | `lineWidths` 无声明时返回常量句 |
 | `build-prompts.mjs:108-111` | `mechanisms.mjs` 补 25 案 mechanism |
 | `build-prompts.mjs:364-397` | 手工枚举 dna 字段，四个 `*Why` 被丢 |
