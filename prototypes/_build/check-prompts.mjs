@@ -255,6 +255,27 @@ const MUTATIONS = {
     to: ': ""',
     expect: 'minpics-one-lost-constraint',
   },
+  /* T-22 的两个变异：
+   *
+   * ① xref-wrong-target —— 精确复现 prompt-copy.js:968 记的那次真实事故：
+   *    引用写成「见第 4 条」而第 4 条是「阴影」，不是线宽。**差一位**。
+   *    那次没有任何断言在守，靠人读才发现的。
+   *
+   * ② xref-missing —— 引用指向一个不存在的编号（比如硬约束只剩 5 条却引用第 6 条）。
+   *    这个形态在「有人删掉一条硬约束」时会出现，而编号是写死在字符串里的，
+   *    不会跟着重排 —— 与本仓库 S34 断号那个缺陷同源。 */
+  'xref-wrong-target': {
+    copy: true,
+    from: /（见第 5 条）/,
+    to: '（见第 4 条）',
+    expect: 'xref-wrong-target',
+  },
+  'xref-missing': {
+    copy: true,
+    from: /（见第 5 条）/,
+    to: '（见第 9 条）',
+    expect: 'xref-missing',
+  },
 };
 const sandbox = { window: {} };
 new Function('window', promptsSrc)(sandbox.window);
@@ -1165,6 +1186,66 @@ for (const d of DIRS) {
             add('FAIL', id, 'minpics-one-lost-constraint',
               'minPics=1 时第 4 条没有「必须是真图」的约束 —— 修矛盾不能把实质要求一起删掉');
           }
+        }
+      }
+    }
+  }
+
+  /* ── T-22：交叉引用必须真指向（2026-11-15 加）────────────────────────────
+   *
+   * 提示词里有一处交叉引用：「⑤ 图形一律用本案线宽级别的线条画（见第 5 条）」。
+   * 而「第 5 条」是**视觉硬约束段的第 5 条**（线宽只用这几级）。
+   *
+   * ⚠️ 编号在提示词里出现了两次：视觉硬约束段有 1–6，结构约束段也有 1–6。
+   * 所以「见第 5 条」是有歧义的 —— 靠上下文（「线宽级别」）才能确定它指前者。
+   * 这个歧义本身不是缺陷（人类读者不会搞错），但它让「检查引用是否正确」
+   * 需要按段解析，不能把全文的 "N. " 收进一个 map。
+   *
+   * 我第一版扫描脚本就是那样写的，结果 35 案全部误报「第 5 条不含线宽」——
+   * 因为结构约束段的第 5 条（首屏只用静态内容）覆盖了视觉硬约束段的第 5 条。
+   * **判据自己错了，产品是对的。** 记在这里免得下次重犯。
+   *
+   * 为什么值得有这条：`prompt-copy.js:968` 附近的注释记着这条引用
+   * 「原来是写『结构约束第 4 条』，但那时图片位是第 3 条、第 4 条是『首屏不要轮播图』——
+   *  引用一直是错的（差一位），只是没人读到这里」。
+   * 也就是说：**这个仓库有过一次真实的交叉引用错位事故，而没有任何断言在守它。** */
+  {
+    /* 先按段切。四段的顺序在模板里是固定的。 */
+    const cut = (title) => {
+      const i = text.indexOf(title);
+      if (i < 0) return '';
+      /* 切到下一个段标题为止 */
+      const rest = text.slice(i + title.length);
+      const next = ['视觉硬约束', '结构约束', '防退化', '输出要求']
+        .map((n) => rest.indexOf(n)).filter((k) => k >= 0);
+      return next.length ? rest.slice(0, Math.min(...next)) : rest;
+    };
+    const hardSec = cut('视觉硬约束');
+    const hardItems = {};
+    for (const line of hardSec.split('\n')) {
+      const mm = line.match(/^(\d+)\.\s*(.+)$/);
+      if (mm) hardItems[mm[1]] = mm[2];
+    }
+    /* 逐处引用检查：上下文提到什么主题，被引条目就必须讲那个主题 */
+    const THEMES = [
+      { ctx: /线条|线宽|描边|刻线/, want: /线宽/, name: '线宽' },
+      { ctx: /字号|标题大小|倍率/, want: /字号/, name: '字号' },
+      { ctx: /配色|颜色|色值/, want: /配色/, name: '配色' },
+      { ctx: /字体|字族/, want: /字体/, name: '字体' },
+    ];
+    for (const m of text.matchAll(/见第\s*(\d+)\s*条/g)) {
+      const n = m[1];
+      const ctx = text.slice(Math.max(0, m.index - 40), m.index);
+      const target = hardItems[n];
+      if (!target) {
+        add('FAIL', id, 'xref-missing',
+          `「见第 ${n} 条」指向不存在的硬约束（该段只有 ${Object.keys(hardItems).sort().join(',')} 条）`);
+        continue;
+      }
+      for (const th of THEMES) {
+        if (th.ctx.test(ctx) && !th.want.test(target)) {
+          add('FAIL', id, 'xref-wrong-target',
+            `上下文在讲${th.name}（「…${ctx.slice(-24)}」），却指向第 ${n} 条「${target.slice(0, 30)}」—— 引用错位`);
         }
       }
     }
