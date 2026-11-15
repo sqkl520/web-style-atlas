@@ -215,6 +215,26 @@ const MUTATIONS = {
     to: 'var have = parseHave(o.have) || 7;',
     expect: 'have-phantom-number',
   },
+  /* T-14 的两个变异，各打一个方向：
+   *
+   * ① have-pics-conflict-ignored —— 关掉「have < minPics 时降级」这个分支。
+   *    回到 2026-11-15 加 have 之前的形态：用户说只有 1 条，提示词仍然要 10 个图位。
+   *
+   * ② have-pics-lost-distinct —— 保留降级，但把「不同的」这条要求从降级句里删掉。
+   *    这证明第 ③ 条判据（降级也不许放开多样性要求）真的在守，
+   *    而不是被 ① 那条粗判据顺带覆盖。 */
+  'have-pics-conflict-ignored': {
+    copy: true,
+    from: /have > 0 && have < s\.minPics/,
+    to: 'false',
+    expect: 'have-pics-conflict-ignored',
+  },
+  'have-pics-lost-distinct': {
+    copy: true,
+    from: /按你的内容放\*\*不同的\*\*真实图片/,
+    to: '按你的内容放真实图片',
+    expect: 'have-pics-lost-distinct',
+  },
 };
 const sandbox = { window: {} };
 new Function('window', promptsSrc)(sandbox.window);
@@ -1052,6 +1072,54 @@ for (const d of DIRS) {
       if (!withNum.test(t5)) {
         add('FAIL', id, 'have-not-wired',
           '传了 have:5，但第 2 条没有说「你手上有 5 条内容」——o.have 没接进模板');
+      }
+
+      /* ── T-14：have 与 minPics 冲突时必须降级（2026-11-15 加）──────────────
+       *
+       * 加 `o.have` 之后才变得可达的一个矛盾：用户说「我只有 1 条内容」，
+       * 而 30/35 案的 minPics > 1（最大 S14/S23 是 10）。
+       * 直接说「至少要 10 个图片位」而用户只有 1 条内容，AI 只有两条路：
+       * 编 9 条内容（正是本仓库反复要防的），或者把版面压扁塞 10 个空图位。
+       *
+       * 判据（三条，都要）：
+       *   ① have < minPics  → 第 4 条必须提到用户的数量，且给出替代做法
+       *   ② have >= minPics → 第 4 条必须还是正常的「至少要 N 个」
+       *   ③ 降级时也不许放开「不同的图片」这条 —— 否则 AI 会用一张图填满
+       *
+       * ③ 是我第一版漏掉的：降级句原本只写「放真实图片」，
+       * 而「不同的」和「同一张图重复用不算」都被丢掉了 —— 那等于把
+       * 当初加 minPics 要防的事（S19 把 5 个抽屉压成两条 24px 细带）换了个形式放回来。 */
+      const mpSrc = join(ROOT, 'prototypes/_prompts/minitems-parsed.json');
+      if (existsSync(mpSrc)) {
+        const mpById = new Map(
+          JSON.parse(readFileSync(mpSrc, 'utf8').replace(/^﻿/, '')).map((x) => [x.id, Number(x.minPics) || 0]));
+        const mp = mpById.get(id) || 0;
+        if (mp > 1) {
+          /* 用一个必然不足的数去探（minPics 最大是 10，用 1 一定不足） */
+          let tShort = '';
+          try { tShort = buildStylePrompt(id, { ...FILLED, have: 1 }) || ''; } catch { /* 已在上面报过 */ }
+          if (tShort) {
+            const hasUserCount = /你只有 1 条内容/.test(tShort);
+            const hasNoSqueeze = /不要把图片压小去凑数/.test(tShort);
+            const keepsDistinct = /不同的\*\*真实图片|不同的\*\*图片/.test(tShort);
+            if (!hasUserCount || !hasNoSqueeze) {
+              add('FAIL', id, 'have-pics-conflict-ignored',
+                `用户只有 1 条内容而本案要 ${mp} 个图片位，第 4 条没有降级` +
+                `（提到用户数量=${hasUserCount} / 给出「不要把图片压小」=${hasNoSqueeze}）——` +
+                `AI 只能编内容或压扁版面`);
+            } else if (!keepsDistinct) {
+              add('FAIL', id, 'have-pics-lost-distinct',
+                '第 4 条降级时把「不同的图片」这条要求丢了 —— AI 会用一张图重复填满');
+            }
+          }
+          /* 反向：足量时不得降级。用 minPics 本身去做探针。 */
+          let tFull = '';
+          try { tFull = buildStylePrompt(id, { ...FILLED, have: mp }) || ''; } catch { /* 同上 */ }
+          if (tFull && /你只有 \d+ 条内容/.test(tFull)) {
+            add('FAIL', id, 'have-pics-needless-degrade',
+              `用户有 ${mp} 条内容、本案也只要 ${mp} 个图片位，却仍然降级了 —— 不该触发`);
+          }
+        }
       }
     }
   }
