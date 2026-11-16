@@ -375,6 +375,14 @@ const MUTATIONS = {
     to: '$1"bodySize": "60px"',
     expect: 'typescale-body-not-in-css',
   },
+  /* ⑦ unit-quantifier-broken —— 把模板改回「个 + unit」。
+   * 这正是 2026-11-17 修掉的那个病句形态。 */
+  'unit-quantifier-broken': {
+    copy: true,
+    from: /"1\. 这个版式设计时排了 " \+ count \+ " " \+ unit/,
+    to: '"1. 这个版式设计时排了 " + count + " 个" + unit',
+    expect: 'unit-quantifier-broken',
+  },
 };
 const sandbox = { window: {} };
 new Function('window', promptsSrc)(sandbox.window);
@@ -1272,6 +1280,48 @@ for (const d of DIRS) {
       if (!withNum.test(t5)) {
         add('FAIL', id, 'have-not-wired',
           '传了 have:5，但第 2 条没有说「你手上有 5 条内容」——o.have 没接进模板');
+      }
+
+      /* ── T-17：`o.unit` 必须自带量词（2026-11-17 加）──────────────────
+       *
+       * 原模板是 `count + " 个" + unit`，把「个」写死在模板里。
+       * 传 `{unit:'款产品'}` 会拼出「7 个款产品」——病句。
+       *
+       * 现在模板是 `count + " " + unit`，`unit` 必须自带量词。
+       * 这条断言守三件事：
+       *   ① 默认输出仍是「N 个条目」（零变化）
+       *   ② 传带量词的值能拼出正确中文（「5 款产品」「5 条新闻」）
+       *   ③ 传**不带量词**的裸名词时必须暴露 —— 拼出「5 产品」就该报
+       *
+       * ③ 是关键：它是这个参数唯一会出错的用法。
+       * 如果哪天有人把模板改回 `" 个" + unit`，②会立刻响。 */
+      const withUnit = (u) => {
+        try { return buildStylePrompt(id, { ...FILLED, count: 5, unit: u }) || ''; }
+        catch { return ''; }
+      };
+      const item1 = (t) => {
+        const seg = (t.split('结构约束：')[1] || '').split('\n')[1] || '';
+        return seg;
+      };
+      if (t0) {
+        /* ① 默认 */
+        const d = item1(t0);
+        if (!/排了\s*\d+\s*个条目/.test(d)) {
+          add('FAIL', id, 'unit-default-changed',
+            `默认第 1 条不是「排了 N 个条目」：${d.slice(0, 50)}`);
+        }
+      }
+      /* ② 带量词的正确用法 */
+      const ua = withUnit('款产品');
+      if (ua && !/排了 5 款产品/.test(item1(ua))) {
+        add('FAIL', id, 'unit-quantifier-broken',
+          `传 unit:'款产品' 应拼出「5 款产品」，实际：${item1(ua).slice(0, 50)}—— 模板可能又写死了「个」`);
+      }
+      /* ③ 不带量词时必须暴露 */
+      const ub = withUnit('产品');
+      if (ub && /排了 5 个产品/.test(item1(ub))) {
+        add('FAIL', id, 'unit-double-quantifier',
+          '传 unit:"产品" 拼出了「5 个产品」—— 模板又写死了「个」量词');
       }
 
       /* ── T-14：have 与 minPics 冲突时必须降级（2026-11-15 加）──────────────
