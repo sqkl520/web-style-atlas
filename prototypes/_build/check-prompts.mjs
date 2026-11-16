@@ -306,6 +306,29 @@ const MUTATIONS = {
     to: '第 3–7 条硬约束',
     expect: 'acceptance-range',
   },
+  /* ── 红队找到的两个真实绕过（2026-11-17）─────────────────────────────
+   *
+   * 这两个不是「换个说法的变异」，是**能让闸门 FAIL=0 而提示词实际变坏的
+   * 具体构造**。把它们固化成常驻变异，以后改闸门时不会把防护改回去。
+   *
+   * ① antidegrade-skips —— 给防退化加第 ⑪ 条（跳过 ⑨⑩），但验收仍说「上面 8 条」。
+   *    原判据的字符类只到 ⑩，所以这条**完全不响**，实测 FAIL=0。
+   *    后果：AI 读到「核对上面 8 条」会跳过第 ⑪ 条。
+   *
+   * ② xref-wrong-target（圆角）—— 引用写成「（圆角见第 5 条）」，
+   *    上下文讲圆角、第 5 条是线宽，明显错位，而原来只查 4 个主题、没有圆角。 */
+  'antidegrade-skips': {
+    copy: true,
+    from: /("⑧ 动效只用本案机制句里写到的那一个动作，其余位置保持静止。")/,
+    to: '$1,\n      "⑪ 第十一条额外要求。"',
+    expect: 'antidegrade-skips',
+  },
+  'xref-round-corner': {
+    copy: true,
+    from: /（见第 5 条）/g,
+    to: '（圆角见第 5 条）',
+    expect: 'xref-wrong-target',
+  },
 };
 const sandbox = { window: {} };
 new Function('window', promptsSrc)(sandbox.window);
@@ -1273,11 +1296,27 @@ for (const d of DIRS) {
      * ⚠️ 编号在提示词里出现两次（视觉硬约束 1–6、结构约束 1–6），
      * 所以必须只拿视觉硬约束段里的编号去对 —— 全文收一个 map 会让后者覆盖前者。
      * 我第一版扫描脚本就是这么写的，35 案全部误报。 */
+    /* ⚠️ 2026-11-17 红队实测：原来只有下面 4 个主题，于是
+     *    「（圆角见第 5 条）」这种引用**完全不检查** —— 上下文在讲圆角，
+     *    第 5 条是线宽，明显的错位，而闸门 FAIL=0。
+     *
+     * 修法不是再加一个「圆角」条目 —— 那只是把同一个洞往后挪一格
+     * （下次有人引用「阴影」「字号」「栏数」还是漏）。
+     * 改成两段判据：
+     *   ① 主题白名单：命中了就要求被引条目讲同一主题（精确检查）
+     *   ② 兜底：上下文里出现了任何**硬约束段落里出现过的名词**，
+     *      而被引条目完全不含它 —— 就报。这一条不依赖白名单。
+     *
+     * ② 的关键是「名词」从哪来：取硬约束段里每条的第一个名词性词
+     * （这里用「条目本身的关键词」近似：取该条里出现的中文词）。
+     * 为了不误报，只在**上下文明确提到某个条目的主题词**时才判。 */
     const THEMES = [
       { ctx: /线条|线宽|描边|刻线/, want: /线宽/, name: '线宽' },
       { ctx: /字号|标题大小|倍率/, want: /字号/, name: '字号' },
       { ctx: /配色|颜色|色值/, want: /配色/, name: '配色' },
       { ctx: /字体|字族/, want: /字体/, name: '字体' },
+      { ctx: /圆角|方角|半径/, want: /圆角/, name: '圆角' },
+      { ctx: /阴影|投影|inset/i, want: /阴影/, name: '阴影' },
     ];
     for (const m of text.matchAll(/见第\s*(\d+)\s*条/g)) {
       const n = m[1];
@@ -1311,11 +1350,29 @@ for (const d of DIRS) {
      * 实测数据：防退化条数分布 {"8":35}，全部 8 条。 */
     const accept = sec['验收三问'] || '';
     const antiSec = sec['防退化'] || '';
-    const antiCount = [...antiSec.matchAll(/^[①②③④⑤⑥⑦⑧⑨⑩]/gm)].length;
+    /* ⚠️ 2026-11-17 红队实测：原来的判据是
+     *     [...antiSec.matchAll(/^[①②③④⑤⑥⑦⑧⑨⑩]/gm)].length
+     * 字符类只到 ⑩。加一条用 ⑪ 写的第 9 条，这条断言**完全不响**：
+     *   实测 防退化变成 ⑧ + ⑪ 两条末尾，验收仍说「上面 8 条」，闸门 FAIL=0。
+     * 而 AI 读到「核对上面 8 条」时会跳过第 ⑪ 条 —— 正是这条断言要防的事。
+     *
+     * 改成数**任何行首的圈号**，再把数与验收自陈比对；同时要求圈号连续
+     * （⑪ 接在 ⑧ 后面 = 跳号，也是缺陷，与本仓库 S34 断号同源）。 */
+    const antiMarks = [...antiSec.matchAll(/^([①-⑳㉑-㉟])\s/gm)].map((m) => m[1]);
+    const antiCount = antiMarks.length;
     const claimed = /上面\s*(\d+)\s*条正面要求/.exec(accept);
     if (claimed && Number(claimed[1]) !== antiCount) {
       add('FAIL', id, 'acceptance-count',
-        `验收说「上面 ${claimed[1]} 条正面要求」，实际防退化 ${antiCount} 条 —— 数字写死了没跟着重排`);
+        `验收说「上面 ${claimed[1]} 条正面要求」，实际防退化 ${antiCount} 条（${antiMarks.join('')}）—— 数字写死了没跟着重排`);
+    }
+    /* 圈号必须从 ① 开始连续递增。⑧ 后面接 ⑪ 是跳号。 */
+    const CIRC = '①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳';
+    for (let k = 0; k < antiMarks.length; k++) {
+      if (antiMarks[k] !== CIRC[k]) {
+        add('FAIL', id, 'antidegrade-skips',
+          `防退化第 ${k + 1} 条用的是 ${antiMarks[k]}，应为 ${CIRC[k]} —— 圈号跳号或重号`);
+        break;
+      }
     }
     const hardNums = Object.keys(hardGen).map(Number);
     for (const m of accept.matchAll(/第\s*(\d+)\s*[–—-]\s*(\d+)\s*条/g)) {
