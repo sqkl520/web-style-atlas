@@ -383,6 +383,29 @@ const MUTATIONS = {
     to: '"1. 这个版式设计时排了 " + count + " 个" + unit',
     expect: 'unit-quantifier-broken',
   },
+  /* ⑧ degraded-marker —— 把一个 undefined 拼进提示词。
+   *
+   * ⚠️ 第一版写成 `(d.shadow || undefined)`，**没响**——因为 `d.shadow` 永远有值
+   * （35/35 非空），`||` 右边根本不会被求值。
+   * 要模拟「某个字段丢了」，得直接拼一个字面量 undefined，
+   * 而不是靠一个在当前数据下恒真的短路。 */
+  'degraded-marker': {
+    copy: true,
+    from: /"4\. 阴影：" \+ d\.shadow \+ "。"/,
+    to: '"4. 阴影：" + ({}).nope + "。"',
+    expect: 'degraded-marker',
+  },
+  /* ⑨ degraded-marker（双标点）—— 复现历史缺陷「全部方角。。」
+   *
+   * 模板第 3 条的字符串不带句号（`"全站一律 0，…全部方角"`），
+   * 句号由外层 `"} + "。""` 拼上。变异在字符串内部补一个句号，
+   * 外层那个就变成了第二个 —— 正是当年 21 案的形态。 */
+  'degraded-double-period': {
+    copy: true,
+    from: /"全站一律 0，卡片、按钮、图片、标签全部方角"/,
+    to: '"全站一律 0，卡片、按钮、图片、标签全部方角。"',
+    expect: 'degraded-marker',
+  },
 };
 const sandbox = { window: {} };
 new Function('window', promptsSrc)(sandbox.window);
@@ -1578,6 +1601,45 @@ for (const d of DIRS) {
             `引用无限定词，但上下文在讲${outerTopics[0]}（「…${outer.trim().slice(-16)}」），` +
             `而第 ${n} 条是「${topic}」—— 引用错位`);
         }
+      }
+    }
+
+    /* ── T-21：全文不得出现退化标记（2026-11-17 加，40 号报告优先级最高的一条）──
+     *
+     * 一个 `undefined` 或 `NaN` 漏进提示词，是用户**直接看得见**的。
+     * 这类问题已经在这个仓库发生过：`clean-dna.mjs` 的 `shadowText` 有
+     * `return map[sh.kind] || sh.kind`，一旦 `shadowDetail` 产出未映射的 kind，
+     * 用户拿到的提示词里就会出现一行英文内部标识符。
+     *
+     * 双标点那几项来自真实历史缺陷：21 案曾输出「全部方角。。」——
+     * 原因是某个字段本身以句号结尾，模板又补了一个。
+     *
+     * 实测当前 35 案 × 4 种形态（空槽 / 已填 / have=5 / have=1）**零命中**。
+     * 这条断言守的是下一次。
+     *
+     * ⚠️ 判据里的双标点不能盲查全文 —— 提示词正文里可能合法地出现
+     * 中文省略或引号嵌套。所以只在**字段拼接边界**容易出问题的形态上判：
+     * 「：。」「：，」「；。」「、。」这四种在正常中文里几乎不可能自然出现。 */
+    const DEGRADE = [
+      ['undefined', /undefined/],
+      ['NaN', /NaN/],
+      ['[object Object]', /\[object [A-Z]/],
+      ['空引号「」', /「」/],
+      /* 双句号是**真实历史缺陷**：21 案曾输出「全部方角。。」，
+       * 原因是字段本身以句号结尾、模板又补了一个。
+       * 我第一版漏了这一项（只列了「：。」「：，」这类组合），
+       * 于是 degraded-double-period 变异不响 —— 是变异测试把它抓出来的。 */
+      ['双句号「。。」', /。。/],
+      ['冒号句号「：。」', /：。/],
+      ['冒号逗号「：，」', /：，/],
+      ['分号句号「；。」', /；。/],
+      ['顿号句号「、。」', /、。/],
+    ];
+    for (const [name, re] of DEGRADE) {
+      if (re.test(text)) {
+        add('FAIL', id, 'degraded-marker',
+          `提示词里出现退化标记「${name}」—— 用户会直接看到。` +
+          `上下文：「${(text.match(new RegExp(`.{0,20}${re.source}.{0,20}`)) || [''])[0]}」`);
       }
     }
 
