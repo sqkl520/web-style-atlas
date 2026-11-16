@@ -340,6 +340,41 @@ const MUTATIONS = {
     to: '（间距见第 4 条）',
     expect: 'xref-unknown-topic',
   },
+  /* ④ section-duplicated —— 重复一个同名段，让切段被覆盖。
+   *
+   * 红队实测：在「输出要求」前插一段伪造的「验收三问」，里面第 3 问照抄正确数字，
+   * 结果 FAIL=0 —— 真实段里那三个数根本没被检查过（`out[key]=` 后写覆盖先写）。
+   * 这是「守护段落的断言自己被绕过」的形态，比单条判据失效严重。 */
+  'section-duplicated': {
+    copy: true,
+    from: /"输出要求：只给一个完整单文件 HTML/,
+    to: '"验收三问（伪造补充）：",\n      "1. 假的。",\n      "3. 扫一眼：上面 8 条正面要求与第 3–5 条硬约束，是不是每一条都看得见？",\n      "输出要求：只给一个完整单文件 HTML',
+    expect: 'section-duplicated',
+  },
+  /* ⑤ acceptance-claim-missing —— 把验收的自陈整句删掉。
+   *
+   * 红队实测：`if (claimed && …)` 在 claimed 为 null 时整条跳过，FAIL=0。
+   * 而那是最坏形态：验收不再告诉 AI 要核对几条，自检退化成「随便看看」。 */
+  'acceptance-claim-missing': {
+    copy: true,
+    from: /上面 8 条正面要求与第 3–5 条硬约束，是不是每一条都看得见？/g,
+    to: '是不是每一条都看得见？',
+    expect: 'acceptance-claim-missing',
+  },
+  /* ⑥ typescale-body-not-in-css —— dna 的字号与 style.css 不符。
+   *
+   * 红队实测：W-02 只做「提示词 ↔ dna」自洽。把 S01 的 bodySize 从 16px 改成 60px，
+   * 提示词跟着变成「正文约 60px」，而 CSS 里是 --fs-body:16px —— 闸门 FAIL=0。
+   *
+   * 也就是说提示词可以对用户宣称一个与原型完全不符的字号，而全绿。
+   * 这是「数字对但对象错」：值与 dna 对得上，错的是 dna 与 CSS 不符。
+   *
+   * 变异走 PROMPTS_OVERRIDE 通道（改 prompts.js 的数据）。 */
+  'typescale-body-not-in-css': {
+    from: /("id":\s*"S01"[\s\S]*?)"bodySize":\s*"[^"]*"/,
+    to: '$1"bodySize": "60px"',
+    expect: 'typescale-body-not-in-css',
+  },
 };
 const sandbox = { window: {} };
 new Function('window', promptsSrc)(sandbox.window);
@@ -1128,6 +1163,66 @@ for (const d of DIRS) {
       add('FAIL', id, 'typescale-unverifiable',
         `提示词有三件套，但 dna 无法复算（bodySize=${JSON.stringify(dna.bodySize)} h1SizeAt1440=${JSON.stringify(dna.h1SizeAt1440)}）`);
     }
+
+    /* ── T-16：字号必须能溯源到本案 style.css（2026-11-17 加）─────────────
+     *
+     * 上面 W-02 只做「提示词 ↔ dna」的自洽。红队实测它有个大洞：
+     *
+     *   把 S01 的 dna.bodySize 从 16px 改成 60px、h1SizeAt1440 从 96 改成 400，
+     *   提示词跟着变成「正文约 60px；最大标题要压到正文的 6.7 倍（约 400px）」，
+     *   而 style.css 里是 --fs-body:16px、--fs-h1:clamp(48px,6.67vw,96px)。
+     *   **闸门 FAIL=0。**
+     *
+     * 也就是说：提示词可以对用户宣称一个与原型完全不符的字号，而全绿。
+     * 这是「数字对但对象错」——W-02 校的是「值与 dna 对不对得上」，
+     * 而这里值与 dna 对得上，错的是 dna 本身与 CSS 不符。
+     *
+     * 判据：正文值必须能在该案 style.css 里找到（直接数字或 --var 展开），
+     * 标题值必须等于 clamp 在 1440 视口下的落值（或裸 px）。
+     *
+     * 容差 1px：clean-dna 计算 clamp 时用 1440 视口，这里用同样的算法。 */
+    if (m) {
+      const gotBody = Number(m[1]);
+      const gotH1 = Number(m[3]);
+      const cssNoComment = css.replace(/\/\*[\s\S]*?\*\//g, ' ');
+      /* ⚠️ 第一版判据是「CSS 里出现这个 px 就算溯源成功」，实测太宽松：
+       * S01 的 CSS 里别的地方正好有一个 60px（某个 padding/width），
+       * 于是把 bodySize 改成 60px 时判据 PASS，而真正的字号是 16px。
+       *
+       * 改成必须出现在**字号语境**里：
+       *   font-size: Npx  或字号变量（--fs-…、--text-…、--body-…、--base-…）= Npx
+       * 这样「别处碰巧有个 60px」不会误放行。 */
+      const sizeCtx = (n) => {
+        const num = String(n).replace(/\./g, '\\.');
+        const pats = [
+          new RegExp(`font-size\\s*:\\s*${num}px`, 'i'),
+          new RegExp(`font\\s*:[^;{}]*${num}px`, 'i'),
+          new RegExp(`--[\\w-]*(fs|size|text|body|base|font)[\\w-]*\\s*:\\s*${num}px`, 'i'),
+        ];
+        if (pats.some((re) => re.test(cssNoComment))) return true;
+        const htmlNoComment = html.replace(/<!--[\s\S]*?-->/g, ' ')
+          .replace(/<script[\s\S]*?<\/script>/gi, ' ');
+        return pats.some((re) => re.test(htmlNoComment));
+      };
+      if (!sizeCtx(gotBody)) {
+        add('FAIL', id, 'typescale-body-not-in-css',
+          `提示词说正文 ${gotBody}px，但 style.css / index.html 的**字号声明**里找不到它 —— 提示词与原型不符`);
+      }
+      /* 标题：从 CSS 的 clamp 算 1440 落值，或字号语境里的裸 px */
+      const h1Ok = (() => {
+        const clampRe = /clamp\(\s*([\d.]+)px\s*,\s*([\d.]+)vw\s*,\s*([\d.]+)px\s*\)/g;
+        for (const c of cssNoComment.matchAll(clampRe)) {
+          const lo = Number(c[1]), vw = Number(c[2]), hi = Number(c[3]);
+          const at1440 = Math.min(hi, Math.max(lo, vw * 14.4));
+          if (Math.abs(at1440 - gotH1) <= 1) return true;
+        }
+        return sizeCtx(gotH1);
+      })();
+      if (!h1Ok) {
+        add('FAIL', id, 'typescale-h1-not-in-css',
+          `提示词说最大标题 ${gotH1}px，但 style.css 里既没有这个字号声明，也没有一个 clamp 在 1440 下落到它 —— 提示词与原型不符`);
+      }
+    }
   }
 
   /* ── T-13：`o.have` 必须真的进提示词（2026-11-15 加）─────────────────────
@@ -1287,6 +1382,32 @@ for (const d of DIRS) {
           `切不出「${name}」段 —— 模板结构变了，依赖它的判据会静默失效`);
       }
     }
+    /* ⚠️ 段名必须唯一（2026-11-17 红队实测）。
+     *
+     * `out[key] = ...` 是**后写覆盖先写**。模板里若出现第二个「验收三问」段
+     * （哪怕是有人手滑复制了一段），`sec['验收三问']` 拿到的是**最后那个**，
+     * 于是所有 acceptance-* 判据都在检查伪造的段，而真实段无人过问。
+     *
+     * 实测攻击：在「输出要求」前插一段伪造的「验收三问（伪造补充）」，
+     * 里面第 3 问照抄正确的「上面 8 条」，结果 FAIL=0 ——
+     * 真实段里那三个数**根本没被检查过**。
+     *
+     * 同理「视觉硬约束」被复制一份，`hardGen` 会以伪造段为准，
+     * xref-* 全部指向假条目。
+     *
+     * 判据：每类段标题只能出现一次。 */
+    const secCount = {};
+    for (const m of text.matchAll(SECTION_RE)) {
+      const k = m[1].split(/[（：]/)[0];
+      (secCount[k] = secCount[k] || []).push(m.index);
+    }
+    for (const [k, poss] of Object.entries(secCount)) {
+      if (poss.length > 1) {
+        add('FAIL', id, 'section-duplicated',
+          `「${k}」段出现 ${poss.length} 次（位置 ${poss.join(', ')}）—— 切段是后写覆盖先写，` +
+          `依赖它的判据会全部作用在最后那一段上，前面的无人检查`);
+      }
+    }
 
     const hardGen = {};
     for (const line of (sec['视觉硬约束'] || '').split('\n')) {
@@ -1439,6 +1560,18 @@ for (const d of DIRS) {
     if (claimed && Number(claimed[1]) !== antiCount) {
       add('FAIL', id, 'acceptance-count',
         `验收说「上面 ${claimed[1]} 条正面要求」，实际防退化 ${antiCount} 条（${antiMarks.join('')}）—— 数字写死了没跟着重排`);
+    }
+    /* ⚠️ claimed 缺失时不许静默放行（2026-11-17 红队实测）。
+     *
+     * 原实现是 `if (claimed && …)` —— 把验收第 3 问里的「上面 8 条正面要求」
+     * 整句删掉，`claimed` 为 null，整条断言跳过，FAIL=0。
+     * 而那正是最坏的形态：验收段不再告诉 AI「要核对几条」，
+     * 这条自检就从「核对 8 条」退化成「随便看看」。
+     *
+     * 判据：验收段里**必须**有这句自陈。没有 = 缺陷。 */
+    if (!claimed) {
+      add('FAIL', id, 'acceptance-claim-missing',
+        '验收三问里没有「上面 N 条正面要求」这句自陈 —— 少了它，AI 不知道该核对几条');
     }
     /* 圈号必须从 ① 开始连续递增。⑧ 后面接 ⑪ 是跳号。 */
     const CIRC = '①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳';
