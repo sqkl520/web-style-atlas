@@ -406,6 +406,17 @@ const MUTATIONS = {
     to: '"全站一律 0，卡片、按钮、图片、标签全部方角。"',
     expect: 'degraded-marker',
   },
+  /* ⑩ font-line-no-body —— 字体条只给标题、不给正文。
+   * 复现 40 号报告的 T-07 要防的形态：AI 只能自己猜正文字体。
+   *
+   * 注意变异必须命中**两个分支**（链式和单值），否则只改一处时
+   * 另一分支的案仍然正常，断言可能不响。用 /g 全局替换。 */
+  'font-line-no-body': {
+    copy: true,
+    from: /fontLine \+= "正文同理，按序取：" \+ bStack\.join\(" → "\) \+ "。";|fontLine \+= "正文用 " \+ fBody \+ "。";/g,
+    to: 'fontLine += "";',
+    expect: 'font-line-no-body',
+  },
 };
 const sandbox = { window: {} };
 new Function('window', promptsSrc)(sandbox.window);
@@ -1600,6 +1611,51 @@ for (const d of DIRS) {
           add('FAIL', id, 'xref-wrong-target',
             `引用无限定词，但上下文在讲${outerTopics[0]}（「…${outer.trim().slice(-16)}」），` +
             `而第 ${n} 条是「${topic}」—— 引用错位`);
+        }
+      }
+    }
+
+    /* ── T-07：字体条必须把标题与正文都说清（2026-11-17 加）──────────────
+     *
+     * 40 号报告的 T-07：「字体条必须同时给出标题链与正文链（防止只给标题就收工）」。
+     *
+     * ⚠️ 但原判据「必须同时有『标题按这个顺序』和『正文同理』」是错的 ——
+     * 我第一版扫描脚本就按这个写，结果 4 案（S05/S09/S26/S31）被误报。
+     *
+     * 真相：模板有**四种形态**（`prompt-copy.js:395-408`）：
+     *   sameFace（标题正文同一款且都是单值）→ 「全站只用一款字体：X」
+     *   标题链（fStack.length>1）          → 「标题按这个顺序取第一个可用的：A → B」
+     *   标题单值                            → 「标题用 X」
+     *   正文链（bStack.length>1）          → 「正文同理，按序取：A → B」
+     *   正文单值                            → 「正文用 X」
+     *
+     * S05/S09/S26/S31 的 bodyStack 只有 1 个元素，所以正确输出是「正文用 X」。
+     * **产品是对的，我的判据只认了一种说法。** 这是本仓库第 N 次同一个错。
+     *
+     * 判据：无论哪种形态，都必须**同时**给出标题用的是什么、正文用的是什么。 */
+    {
+      const hardSec2 = sec['视觉硬约束'] || '';
+      const fontLine = hardSec2.split('\n').find((l) => /^2\. 字体：/.test(l)) || '';
+      if (!fontLine) {
+        add('FAIL', id, 'font-line-missing', '视觉硬约束里没有第 2 条字体');
+      } else {
+        const sameFace = /全站只用一款字体：/.test(fontLine);
+        if (sameFace) {
+          /* 单款字体形态：只需确认它真的说了那一款是什么，不是空话 */
+          if (!/全站只用一款字体：\S/.test(fontLine)) {
+            add('FAIL', id, 'font-line-empty', '「全站只用一款字体」后面没有字体名');
+          }
+        } else {
+          const titleOk = /标题按这个顺序取第一个可用的：\S|标题用 \S/.test(fontLine);
+          const bodyOk = /正文同理，按序取：\S|正文用 \S/.test(fontLine);
+          if (!titleOk) {
+            add('FAIL', id, 'font-line-no-title',
+              `字体条没说标题用哪款：${fontLine.slice(0, 60)}`);
+          }
+          if (!bodyOk) {
+            add('FAIL', id, 'font-line-no-body',
+              `字体条没说正文用哪款 —— AI 只能自己猜正文字体：${fontLine.slice(0, 60)}`);
+          }
         }
       }
     }
