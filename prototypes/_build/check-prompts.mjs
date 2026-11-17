@@ -417,6 +417,29 @@ const MUTATIONS = {
     to: 'fontLine += "";',
     expect: 'font-line-no-body',
   },
+  /* ⑪ shape-double-period 已由 degraded-double-period 覆盖（同一形态），
+   * 这里补 T-19 / T-20 / T-24 三个骨架变异。 */
+  'shape-acceptance-numbering': {
+    copy: true,
+    from: /"3\. 扫一眼：上面 8 条正面要求/,
+    to: '"4. 扫一眼：上面 8 条正面要求',
+    expect: 'shape-acceptance-numbering',
+  },
+  'shape-triple-newline': {
+    copy: true,
+    /* ⚠️ 第一版写成在数组里插两个空串 `"", ""`，**没响**——
+     * 因为模板末尾 `.filter(x => x !== "")` 会把空串整个滤掉。
+     * 要造三重换行，得把换行写在**字符串内部**，filter 滤不掉它。 */
+    from: /"结构约束：",/,
+    to: '"结构约束：\\n\\n",',
+    expect: 'shape-triple-newline',
+  },
+  'shape-output-short': {
+    copy: true,
+    from: /"移动端单列，顺序不变。回复里只放这一份代码。",/,
+    to: '',
+    expect: 'shape-output-short',
+  },
 };
 const sandbox = { window: {} };
 new Function('window', promptsSrc)(sandbox.window);
@@ -1613,6 +1636,54 @@ for (const d of DIRS) {
             `而第 ${n} 条是「${topic}」—— 引用错位`);
         }
       }
+    }
+
+    /* ── T-09 / T-19 / T-20 / T-24：骨架形状守卫（2026-11-17 加）───────────
+     *
+     * 这四条在当前 35 案 × 4 种形态下**全部零违规**（实测），所以它们是
+     * 潜伏守卫而非活跃缺陷。但 T-09 有历史：21 案曾输出过「全部方角。。」，
+     * 原因是字段本身以句号结尾、模板又补了一个 —— 而当时没有任何断言。
+     *
+     * 把它们集中在一处，因为都是「读一段文本、检查形状」的同类判据。 */
+    {
+      /* T-09：圆角 / 阴影条必须以**单个**句号收尾 */
+      for (const [label, prefix] of [['圆角', '3. 圆角：'], ['阴影', '4. 阴影：']]) {
+        const line = text.split('\n').find((l) => l.startsWith(prefix)) || '';
+        if (!line) {
+          add('FAIL', id, 'shape-line-missing', `找不到「${label}」条`);
+        } else if (/。。/.test(line)) {
+          add('FAIL', id, 'shape-double-period', `${label}条出现双句号：${line.slice(-20)}`);
+        } else if (!line.trim().endsWith('。')) {
+          add('FAIL', id, 'shape-no-period', `${label}条不以句号结尾：${line.slice(-20)}`);
+        }
+      }
+
+      /* T-19：验收三问必须恰为 1,2,3 */
+      const ai = text.search(/^验收三问（/m);
+      const oj = text.search(/^输出要求：/m);
+      if (ai < 0) {
+        add('FAIL', id, 'shape-acceptance-missing', '找不到验收三问段');
+      } else if (oj > ai) {
+        const accept = text.slice(ai, oj);
+        const nums = [...accept.matchAll(/^(\d+)\./gm)].map((m) => Number(m[1]));
+        if (nums.join(',') !== '1,2,3') {
+          add('FAIL', id, 'shape-acceptance-numbering',
+            `验收三问编号是 [${nums.join(',')}]，应为 [1,2,3]`);
+        }
+      }
+
+      /* T-20：输出要求段至少 3 行实质内容（模板是 4 行，第 1 行是段标题） */
+      if (oj >= 0) {
+        const outLines = text.slice(oj).split('\n').filter((l) => l.trim() && !/^输出要求：/.test(l));
+        if (outLines.length < 3) {
+          add('FAIL', id, 'shape-output-short',
+            `输出要求段只有 ${outLines.length} 行实质内容，应有 3 行以上`);
+        }
+      }
+
+      /* T-24：排版守卫 */
+      if (/\n{3,}/.test(text)) add('FAIL', id, 'shape-triple-newline', '出现三重换行');
+      if (/\t/.test(text)) add('FAIL', id, 'shape-tab', '出现制表符');
     }
 
     /* ── T-07：字体条必须把标题与正文都说清（2026-11-17 加）──────────────
