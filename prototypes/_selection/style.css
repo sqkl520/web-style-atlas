@@ -356,6 +356,19 @@ code { font-family: var(--code); font-size: 0.94em; }
 .chips button .n,
 .scene-more button .n { font-family: var(--num); font-variant-numeric: tabular-nums; font-size: var(--s-13); margin-left: 5px; opacity: .8; }
 
+/* 「当前条件下会筛出 0 个」的芯片（2026-11-05）。
+   角标改成随筛选重算之后，必然出现一批 0 —— 以前它们显示的是全库计数（非零），
+   点下去才撞空。灰掉 + 划线数字是在说"这一颗现在点了没用"，而不是"这颗芯片不存在"：
+   芯片仍然存在、仍然可点（点它会清掉这一组的其它选择？不 —— 它只是加一个必然 0 的条件，
+   所以更要提前说）。用透明度而不是 display:none，理由是后者会让 rail 的芯片布局
+   在每次筛选后跳动，反而更难用；0 本身也要看得见，它是"你的条件已经太窄"的证据。 */
+.chips button.is-dead,
+.scene-more button.is-dead { opacity: .42; cursor: not-allowed; border-style: dotted; }
+.chips button.is-dead .n,
+.scene-more button.is-dead .n { text-decoration: line-through; }
+.chips button.is-dead:hover,
+.scene-more button.is-dead:hover { border-color: var(--rule-2); color: var(--ink-2); }
+
 /* 图例的两个档位（index.html:165 承诺的「实心 / 虚边」）。
    直连 = 实线边；近似 = 虚线边 + 更淡的字。两者同字号同内距，
    **强弱只由线的样式承担**，不靠尺寸差 —— 尺寸差会让「近似」看起来更像主控件。 */

@@ -60,6 +60,52 @@
   }
   var THR = { '低': 0, '中': 1, '高': 2 };
 
+  /* ── 参照行里的数字，现算（2026-11-05）─────────────────────
+   * 三行"参照"原来全是手写的，且全部过期：
+   *   · 正文「179–1212，中位 509」→ 实测 78–1188，中位 478
+   *   · 图片「4–15，中位 6.5」   → 实测 0–15，中位 6
+   *   · 门槛「11 低 / 12 中 / 7 高」→ 实测 14 / 14 / 7
+   * 三个数字的合计都是 30，而方案是 35 —— 它们是扩容前的快照，之后无人重算。
+   * 这几行不是旁注：它们就挂在题干下面，是用户回答这一题时唯一的参照系。
+   * 尤其图片那行，「4 张起」会把整批"零图/单图"的新案（S31–S35）从选项里劝退，
+   * 而那批案子正是为"手上没有摄影素材"的店主做的。
+   * 所以不写死任何数，一律现算 —— 与选型台 fillDerived() 同一个原则。 */
+  function median(a) {
+    var s = a.slice().sort(function (x, y) { return x - y; });
+    var n = s.length;
+    if (!n) return 0;
+    return n % 2 ? s[(n - 1) / 2] : (s[n / 2 - 1] + s[n / 2]) / 2;
+  }
+  function fillWzFacts() {
+    var by = function (k) {
+      var m = {};
+      ALL.forEach(function (r) { var v = r[k]; if (v) m[v] = (m[v] || 0) + 1; });
+      return m;
+    };
+    var thr = by('threshold');
+    var vals = {
+      'total': ALL.length,
+      'rest': Math.max(0, ALL.length - 3),
+      'words-min': Math.min.apply(null, words),
+      'words-max': Math.max.apply(null, words),
+      'words-med': median(words),
+      'pics-min': Math.min.apply(null, pics),
+      'pics-max': Math.max.apply(null, pics),
+      'pics-med': median(pics),
+      'thr-low': thr['低'] || 0,
+      'thr-mid': thr['中'] || 0,
+      'thr-high': thr['高'] || 0
+    };
+    var nodes = document.querySelectorAll('[data-wz]');
+    for (var i = 0; i < nodes.length; i++) {
+      var k = nodes[i].getAttribute('data-wz');
+      if (vals[k] === undefined) continue;
+      nodes[i].textContent = String(vals[k]);
+      nodes[i].setAttribute('data-filled', '1');
+    }
+  }
+  fillWzFacts();
+
   var V = ALL.map(function (r) {
     var loud = stretch(louds, loudnessOf(r.palette));
     var toneBold = TONE_BOLD[r.tone];

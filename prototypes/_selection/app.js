@@ -157,15 +157,52 @@
   $('#f-shots').textContent = stats.shots;
 
   /* ── 筛选芯片 ─────────────────────────────────────────── */
-  function chips(host, keyFn, set, labelFn) {
+  /* 角标必须随当前筛选重算（2026-11-05）。
+     旧实现只在初始化时 uniq() 一次，render() 从不碰它 —— 实测 748 个角标里
+     444 个(59%)在点下第一颗芯片后即成为假数（点「咖啡店」后「暗底」仍写 10，
+     真值是 0）。这里改成**分面计数**：每颗芯片显示的数字是「在其它已选条件
+     不变的前提下，加上这一颗会剩几行」。
+     zero 分支：算出来是 0 的芯片标成禁用态（`.is-dead` + aria-disabled），
+     而不是让用户点下去才撞空——「显示非零、点下去 0 行」是这套筛选最伤人的
+     一种说法，全组合实测占 30.8%（106/344）。
+     注意：**已选中的芯片不显示 0**。它自己就是当前条件的一部分，把它关掉才
+     是恢复，标成 dead 会让用户以为"当前状态没救"（`dead = !on && live === 0`）。 */
+  function facetCount(keyFn, skipKey) {
+    var m = new Map();
+    ALL.forEach(function (r) {
+      if (!match(r, skipKey)) return;
+      var v = (keyFn(r) || '').trim();
+      if (!v) return;
+      m.set(v, (m.get(v) || 0) + 1);
+    });
+    return m;
+  }
+
+  function chips(host, keyFn, set, labelFn, skipKey) {
     var box = $(host);
     box.innerHTML = '';
+    var counts = facetCount(keyFn, skipKey);
+    /* 取值全集必须来自**全库 uniq()**，绝不能用 facetCount 的键。
+       实测过这个错：facetCount 只包含"当前还剩 ≥1 行"的取值，于是点「咖啡店」后
+       明暗组只剩「亮底 4」一颗，暗底/中间调两颗连同芯片**一起消失** ——
+       用户既点不到它们，也看不出"原来还有暗底这一档，是当前条件把它排掉了"。
+       角标数字要诚实（可以是 0），芯片存在性不能跟着数字走。
+       这一条与 chips-count-not-filtered 的断言方向相反，两者都要：
+       芯片不去留 = 布局稳定 + 可发现性；数字随筛选 = 不说谎。 */
     uniq(keyFn).forEach(function (pair) {
-      var val = pair[0], n = pair[1];
+      var val = pair[0];
+      var live = counts.has(val) ? counts.get(val) : 0;
+      var on = set.has(val);
+      var dead = !on && live === 0;
       var b = document.createElement('button');
       b.type = 'button';
-      b.setAttribute('aria-pressed', set.has(val) ? 'true' : 'false');
-      b.innerHTML = esc(labelFn ? labelFn(val) : val) + '<span class="n">' + n + '</span>';
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      if (dead) {
+        b.className = 'is-dead';
+        b.setAttribute('aria-disabled', 'true');
+        b.title = '当前条件下这一项会筛出 0 个方案';
+      }
+      b.innerHTML = esc(labelFn ? labelFn(val) : val) + '<span class="n">' + live + '</span>';
       b.addEventListener('click', function () {
         if (set.has(val)) set.delete(val); else set.add(val);
         b.setAttribute('aria-pressed', set.has(val) ? 'true' : 'false');
@@ -185,39 +222,52 @@
     return 'FAIL ' + r.gate.fail;
   }
 
-  /* 先挂用户能回答的四组轴，再挂设计口径与质检状态 */
+  /* 先挂用户能回答的四组轴，再挂设计口径与质检状态。
+     第 5 个参数是分面计数的"跳过键"——必须与本组在 match() 里的键名逐字一致，
+     否则角标会把自己也算进去（永远不小于 1，永远不显示 0）。 */
   function axColor(c) {
     return '<i class="sw" style="background:#' + String(c).replace(/^#/, '') + '"></i>';
   }
-  chips('#flt-ground', function (r) { return (r.axes || {}).ground; }, state.ground);
-  chips('#flt-band', function (r) { return (r.axes || {}).band; }, state.band);
-  chips('#flt-load', function (r) { return (r.axes || {}).load; }, state.load);
-  chips('#flt-loud', function (r) { return (r.axes || {}).loud; }, state.loud);
+  function mountChips() {
+    chips('#flt-ground', function (r) { return (r.axes || {}).ground; }, state.ground, null, 'ground');
+    chips('#flt-band', function (r) { return (r.axes || {}).band; }, state.band, null, 'band');
+    chips('#flt-load', function (r) { return (r.axes || {}).load; }, state.load, null, 'load');
+    chips('#flt-loud', function (r) { return (r.axes || {}).loud; }, state.loud, null, 'loud');
 
-  chips('#flt-fr', function (r) { return r.fr; }, state.fr, function (v) { return v + ' 型'; });
-  chips('#flt-thr', function (r) { return r.threshold; }, state.thr);
-  chips('#flt-tone', function (r) { return r.tone; }, state.tone);
-  chips('#flt-state', stateKey, state.st, function (v) { return v.replace(' · ', '·'); });
-  chips('#flt-gate', gateKey, state.gate);
+    chips('#flt-fr', function (r) { return r.fr; }, state.fr, function (v) { return v + ' 型'; }, 'fr');
+    chips('#flt-thr', function (r) { return r.threshold; }, state.thr, null, 'thr');
+    chips('#flt-tone', function (r) { return r.tone; }, state.tone, null, 'tone');
+    chips('#flt-state', stateKey, state.st, function (v) { return v.replace(' · ', '·'); }, 'st');
+    chips('#flt-gate', gateKey, state.gate, null, 'gate');
+  }
+  mountChips();
 
   /* ── 过滤与排序 ───────────────────────────────────────── */
-  function match(r) {
+  /* 分面计数（2026-11-05）：`skip` 指定「本组自己不算」。
+     没有它，芯片角标就会说谎：`chips()` 在初始化时按全库 uniq() 算一次，
+     而 render() 从不重算 —— 实测点「咖啡店」(4 行)之后，「亮底/暗底/中间调」
+     仍分别写着 23/10/2，真实交集是 4/0/0。全库 748 个角标里 444 个(59%)
+     在点下第一颗芯片的瞬间变成假数。用户看到「暗底 10」点下去是 0 行 ——
+     这比"条件加多了"更直接导致放弃。
+     角标的正确定义是「在其它已选条件不变的前提下，加上这一颗会剩几行」，
+     所以每一组都要以"其它组的条件"为基准重算，且不含自己。 */
+  function match(r, skip) {
     var ax = r.axes || {};
     /* 场景反查（由 prompt-copy.js 的「你是做什么的」芯片驱动）：
        芯片不能靠往搜索框里拼方案号来筛 —— state.q 是**整串子串匹配**（见下方 L141
        hay.indexOf(state.q)），"S06 S19 S22 S09" 这种串在 hay 里根本不存在，
        实测点了芯片会筛出 0 个。所以单独开一个 id 白名单状态。
        sceneIds 为空表示不按场景筛。 */
-    if (state.sceneIds && state.sceneIds.size && !state.sceneIds.has(r.id)) return false;
-    if (state.ground.size && !state.ground.has(ax.ground)) return false;
-    if (state.band.size && !state.band.has(ax.band)) return false;
-    if (state.load.size && !state.load.has(ax.load)) return false;
-    if (state.loud.size && !state.loud.has(ax.loud)) return false;
-    if (state.fr.size && !state.fr.has(r.fr)) return false;
-    if (state.thr.size && !state.thr.has(r.threshold)) return false;
-    if (state.tone.size && !state.tone.has(r.tone)) return false;
-    if (state.st.size && !state.st.has(stateKey(r))) return false;
-    if (state.gate.size && !state.gate.has(gateKey(r))) return false;
+    if (state.sceneIds && state.sceneIds.size && skip !== 'scene' && !state.sceneIds.has(r.id)) return false;
+    if (state.ground.size && skip !== 'ground' && !state.ground.has(ax.ground)) return false;
+    if (state.band.size && skip !== 'band' && !state.band.has(ax.band)) return false;
+    if (state.load.size && skip !== 'load' && !state.load.has(ax.load)) return false;
+    if (state.loud.size && skip !== 'loud' && !state.loud.has(ax.loud)) return false;
+    if (state.fr.size && skip !== 'fr' && !state.fr.has(r.fr)) return false;
+    if (state.thr.size && skip !== 'thr' && !state.thr.has(r.threshold)) return false;
+    if (state.tone.size && skip !== 'tone' && !state.tone.has(r.tone)) return false;
+    if (state.st.size && skip !== 'st' && !state.st.has(stateKey(r))) return false;
+    if (state.gate.size && skip !== 'gate' && !state.gate.has(gateKey(r))) return false;
     if (state.q) {
       /* ⚠️ `r.scenes`（字段 10 适用场景，含"不适合"）原本**不在搜索索引里**。
          后果是用户第一个会问的问题搜不到答案：实测搜「餐饮 / 金融 / 政务 / 课程」
@@ -779,11 +829,11 @@
     var saveQ = state.q, saveIds = state.sceneIds;
     var parked = state.qParked;
     var nChipOnly, nSearchOnly, nChipAlone;
-    state.q = ''; nChipOnly = ALL.filter(match).length;                   // 只去 q，其余不动
+    state.q = ''; nChipOnly = ALL.filter(function (r) { return match(r); }).length;                   // 只去 q，其余不动
     /* "只看搜索词"= 保留芯片之外的九组 + 搜索词本身（现打的 q 或挂起的 parked） */
     state.sceneIds = new Set();
     state.q = (saveQ || parked || '').toLowerCase();
-    nSearchOnly = ALL.filter(match).length;
+    nSearchOnly = ALL.filter(function (r) { return match(r); }).length;
 
     /* 「只留芯片」：松开九组、不动芯片、不动 q。做法是先备份再清空再还原，
        借用同一个 match() —— 多写一份判据就多一个会说谎的地方。
@@ -795,7 +845,7 @@
               state.fr, state.thr, state.tone, state.st, state.gate];
     var keep = AX.map(function (s) { return Array.from(s); });
     AX.forEach(function (s) { s.clear(); });
-    state.q = ''; nChipAlone = ALL.filter(match).length;
+    state.q = ''; nChipAlone = ALL.filter(function (r) { return match(r); }).length;
     AX.forEach(function (s, i) { s.clear(); keep[i].forEach(function (v) { s.add(v); }); });
     state.q = saveQ; state.sceneIds = saveIds;
 
@@ -835,7 +885,7 @@
         var chipRows = 0;
         var tmpIds = new Set(d.concat(near));
         var s2 = state.q; state.sceneIds = tmpIds; state.q = '';
-        chipRows = ALL.filter(match).length;
+        chipRows = ALL.filter(function (r) { return match(r); }).length;
         state.q = s2; state.sceneIds = saveIds;
         /* 这里不再重复 #e-why 已经说过的"为什么搜不到"（改前两句几乎逐字重复，
            读起来像界面结巴）。#e-why 讲原因，这里只给动作和行数。 */
@@ -902,11 +952,17 @@
   }
 
   function render() {
-    var rows = sorted(ALL.filter(match));
+    var rows = sorted(ALL.filter(function (r) { return match(r); }));
     ledger.innerHTML = rows.map(rowHTML).join('');
     $$('.row', ledger).forEach(function (el, i) { el.setAttribute('data-i', String(i)); });
     $('#empty').hidden = rows.length > 0;
     $('#count').textContent = '列出 ' + rows.length + ' / ' + ALL.length + ' 个方案';
+    /* 角标每轮重算（2026-11-05）。挂在 render 这里而不是各 click handler 里：
+       所有改变筛选状态的路径最终都走 render（芯片、搜索、清空、重置、深链、
+       prompt-copy.js 的场景芯片），挂在这里才不会有漏网的分支。
+       重挂整组芯片而不是只改 .n 里的数字 —— chips() 还要同步 is-dead / title，
+       只改数字会让"该置灰的没置灰"，那是另一种界面说谎。 */
+    mountChips();
     if (!rows.length) syncEmptyFacts();
     /* 挂起条每轮都同步：有暂存词时必须一直看得见 —— 它是"我打的字还在"的唯一凭据，
        也是唯一的一键放回入口。没有暂存词时它只是 hidden。 */
@@ -1648,7 +1704,7 @@
     $$('.chips button, .scene-chip').forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
     /* 清完必须校验：如果清空后命中数不是全部，说明还有没被清掉的轴 —— 宁可当场暴露，
        也不要再出现"芯片全灭但列表全空"这种自相矛盾的界面。 */
-    var n = ALL.filter(match).length;
+    var n = ALL.filter(function (r) { return match(r); }).length;
     if (n !== ALL.length && window.console) {
       console.warn('[选型台] reset 之后命中 ' + n + '/' + ALL.length + '，还有轴没被清掉');
     }
@@ -1695,7 +1751,7 @@
     var arrow = (e.key === 'ArrowDown' || e.key === 'ArrowUp');
     if (arrow && !detailOpen) return;
 
-    var rows = sorted(ALL.filter(match));
+    var rows = sorted(ALL.filter(function (r) { return match(r); }));
     var i = rows.findIndex(function (r) { return r.id === state.open; });
     if (e.key === '/') { e.preventDefault(); $('#q').focus(); return; }
     if (e.key === 'Escape') { close(); return; }
@@ -1789,10 +1845,44 @@
      * 而 fieldOut 是特意排除在外的第 13 段内容。若把 fieldOut 也数进来，
      * 界面会显示 13 段而 README 写 12 段，两边又不一致了。 */
     var fieldCount = document.querySelectorAll('#d-body .fields .field:not(.field-out)').length;
+    /* 「默认折叠」的段数也必须现数（2026-11-05）。
+       它原来是手写的「其中 5 段默认折叠」，5 是"4 个长字段 + auditFold"的口算结果。
+       口径一旦变（加一个折叠字段、或某个字段在没有数据时不渲染），这个数字
+       就会静默错掉，而页面上没有任何东西会响。现在数 DOM：
+       面板里的 details 折叠条减去不在字段区的那几个（截图预览/闸门/上站文案
+       也是 details，但它们不是"字段"）。 */
+    var foldedCount = document.querySelectorAll('#d-body .fields details').length;
+    /* 两条 rail-hint 的整句短语（2026-11-05）。
+       这两句原来是手写的，写着「30 个里有 18 个落在暖浅色带…（…中间明度带 1、
+       冷浅色带 1）」，而实测是 35 个、中间明度带 3、冷浅色带 2、还漏了两个带。
+       它不是"数字旧了"，是**用错误的证据替店主下了一个结论**。
+       修法不是把 30 改成 35（下一次扩容会原样重演），而是让句子由分布生成：
+       只报"最多的一档有几个"，不枚举全部色带 —— 枚举越长越容易腐化，
+       而这句话要传达的判断（"一半以上挤在同一条带里"）只需要最大项。
+       注意 `!vals[k]` 那个守卫会把 0 当成"没算出来"。这里是字符串短语，
+       空串才是"没算出来"，所以下面单独放行（见 hasFilled）。 */
+    var BAND_EXPLAIN = function () {
+      var m = new Map();
+      ALL.forEach(function (r) { var v = (r.axes || {}).band; if (v) m.set(v, (m.get(v) || 0) + 1); });
+      var top = Array.from(m.entries()).sort(function (a, b) { return b[1] - a[1]; })[0];
+      if (!top) return '';
+      var pct = Math.round(top[1] / ALL.length * 100);
+      return top[1] + ' 个方案（' + pct + '%）挤在「' + top[0] + '」这一条带里';
+    };
+    var LOUD_EXPLAIN = function () {
+      var m = new Map();
+      ALL.forEach(function (r) { var v = (r.axes || {}).loud; if (v) m.set(v, (m.get(v) || 0) + 1); });
+      var top = Array.from(m.entries()).sort(function (a, b) { return b[1] - a[1]; })[0];
+      if (!top) return '';
+      return top[1] + ' 个都属于「' + top[0] + '」';
+    };
     var vals = {
       'chip-groups': chipGroups,
       'chip-count': chipCount,
-      'field-count': fieldCount
+      'field-count': fieldCount,
+      'field-folded': foldedCount,
+      'band-top': BAND_EXPLAIN(),
+      'loud-top': LOUD_EXPLAIN()
     };
     for (var i = 0; i < nodes.length; i++) {
       var k = nodes[i].getAttribute('data-derived');
