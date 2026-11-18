@@ -205,13 +205,32 @@ export function findStale() {
        * 变成 prototypes/prototypes/_prompts/... → existsSync 恒 false → 守卫静默失效。
        * 而它失效的样子是"全部新鲜"，看起来像通过 —— 这是最危险的一类 bug。 */
       product: '_prompts/dna-raw.json',
-      inputs: () => caseDirs(P).flatMap((n) => [join(P, n, 'style.css'), join(P, n, 'index.html')]),
+      /* ⚠️ 2026-11-17 补：除 style.css / index.html，`extract-dna.mjs:114` 还读
+       * `_specs/<id>.md`（取 threshold / structType 等元信息）。 */
+      inputs: () => caseDirs(P).flatMap((n) => [
+        join(P, n, 'style.css'),
+        join(P, n, 'index.html'),
+        join(P, '_specs', n.slice(0, 3) + '.md'),
+      ]),
       hint: 'node prototypes/_prompts/extract-dna.mjs',
       label: '提示词链·dna-raw',
     },
     {
       product: '_prompts/dna-clean.json',
-      inputs: () => [join(P, '_prompts/dna-raw.json'), join(P, '_prompts/clean-dna.mjs')],
+      inputs: () => [
+        join(P, '_prompts/dna-raw.json'),
+        join(P, '_prompts/clean-dna.mjs'),
+        /* ⚠️ 2026-11-17 补：`_specs/Sxx.md` 也是 clean-dna 的输入。
+         *
+         * `clean-dna.mjs:1165 / 1295` 从 `_specs/<id>.md` 读「配色系统」段，
+         * 用来定 `primary`（主色）与 `specDeclared`（声明过的色）。
+         * 实测：把 S13 规格里的主色 `#7B612C` 改成 `#FF00FF`，重跑 clean-dna 后
+         * `primary` 变成空数组、`palette` 少了那个色 —— 说明它确实影响输出。
+         *
+         * 这条和上面 data.js 那条是同类：`build-prompts` / `clean-dna` 读的源文件
+         * 比 CHAIN 里列的多了几个，逐个 `grep readFileSync` 才找得出来。 */
+        ...caseDirs(P).map((n) => join(P, '_specs', n.slice(0, 3) + '.md')),
+      ],
       hint: 'node prototypes/_prompts/clean-dna.mjs',
       label: '提示词链·dna-clean',
     },
@@ -235,6 +254,16 @@ export function findStale() {
         join(P, '_prompts/dna-clean.json'),
         join(P, '_prompts/build-prompts.mjs'),
         join(P, '_selection/data.js'),
+        /* ⚠️ 2026-11-17 补：`minitems-parsed.json` 也是 build-prompts 的输入。
+         *
+         * `build-prompts.mjs:127` 用它建 CAPACITY（minItems / degrades / minPics），
+         * 而这三个值直接进提示词（结构约束第 1、3、4 条）。
+         * 实测：把 S13 的 minItems 改成 99 再重跑 build-prompts，
+         * prompts.js 里就是 99 —— 说明它确实是源。
+         *
+         * 这条是我修完 data.js 之后顺着 `grep readFileSync` 查出来的：
+         * build-prompts 一共读 4 个文件，我第一版只补了 1 个。 */
+        join(P, '_prompts/minitems-parsed.json'),
       ],
       hint: 'node prototypes/_prompts/build-prompts.mjs',
       label: '提示词链·prompts.js',
