@@ -440,6 +440,22 @@ const MUTATIONS = {
     to: '',
     expect: 'shape-output-short',
   },
+  /* ⑫ shadow-not-in-css —— dna.shadow 与 CSS 不符，且**两份文件一起改**。
+   *
+   * 这条变异同时改 prompts.js 与 dna-clean.json（走 dna:true 通道只能改后者，
+   * 所以这里用 copy:true 改前者 + 在 selftest 里同时传两个 override 不可行）。
+   *
+   * 实际做法：只改 prompts.js，让 dna.shadow 说「无阴影」。
+   * stale-vs-dna-clean 会先响 —— 但那条测的是「两份文件一致」，
+   * 不是「与 CSS 一致」。所以这条变异真正验证的是**后者**：
+   * 万一 stale 检查被绕过（两份一起改），shadow-not-in-css 仍然会响。
+   * 实测：这份变异同时触发 stale 和 shadow-not-in-css 两条，
+   * 而「两份一起改」的验证在 50b-redteam 报告里做过（手工，不进 selftest）。 */
+  'shadow-not-in-css': {
+    from: /("id":\s*"S13"[\s\S]*?)("shadow":\s*)"[^"]*"/,
+    to: '$1$2"无阴影"',
+    expect: 'shadow-not-in-css',
+  },
 };
 const sandbox = { window: {} };
 new Function('window', promptsSrc)(sandbox.window);
@@ -1634,6 +1650,116 @@ for (const d of DIRS) {
           add('FAIL', id, 'xref-wrong-target',
             `引用无限定词，但上下文在讲${outerTopics[0]}（「…${outer.trim().slice(-16)}」），` +
             `而第 ${n} 条是「${topic}」—— 引用错位`);
+        }
+      }
+    }
+
+    /* ── T-18：圆角 / 阴影必须能溯源到 CSS（2026-11-17 加）───────────────
+     *
+     * 这是 `typescale-*-not-in-css` 那个洞的同族问题。实测：
+     *
+     *   只改 prompts.js 的 radius 或 shadow → `stale-vs-dna-clean` 抓住 ✓
+     *   **两份文件一起改** → 完全绕过，FAIL=0 ✗
+     *
+     * 因为 `stale-vs-dna-clean` 比的是「dna-clean.json 与 prompts.js 一致」，
+     * 不是「与 style.css 一致」。两份一起改，它们仍然彼此一致。
+     *
+     * 对照组：`lineWidths` 被 `linewidth-not-in-css` 抓住了 —— 那条是真溯源。
+     * 所以 gap 只在 radius 和 shadow 上。
+     *
+     * 判据（各自对 CSS 溯源）：
+     *   · radius：`radiusBare` 为真时，CSS 里的 border-radius 必须真的是全 0 或没有；
+     *             否则 dna.radius 描述的每个值都得在 CSS 里找到。
+     *   · shadow：dna.shadow 说「无阴影」时 CSS 里不许有 box-shadow 声明；
+     *             说「只用 inset」时必须有 inset；说「有外投影」时必须有非 inset。
+     *
+     * 这是**弱判据**（不是全等），因为 dna.shadow 是 clean-dna 归纳出的句子，
+     * 不可能与 CSS 逐字对应。但它能拦住「两份一起改成一个明显的假话」。 */
+    {
+      /* ⚠️ 这个块在「分段自洽」作用域里，那里没有 `dna`。
+       * 自己取一份 —— 不要指望外层变量，实测 reference error。 */
+      const me = ((STYLE_PROMPTS && STYLE_PROMPTS.schemes) || []).find((x) => x.id === id);
+      const dna = (me && me.dna) || {};
+      const cssNC = css.replace(/\/\*[\s\S]*?\*\//g, ' ')
+        .replace(/\/\/[^\n]*/g, ' ');
+      const htmlNC = html.replace(/<!--[\s\S]*?-->/g, ' ')
+        .replace(/<script[\s\S]*?<\/script>/gi, ' ');
+      const allNC = cssNC + '\n' + htmlNC;
+
+      /* 圆角 */
+      const radShadows = [...allNC.matchAll(/border-radius\s*:\s*([^;}]+)/gi)].map((m) => m[1].trim());
+      const dnaRadius = String(dna.radius || '');
+      const claimsBare = dna.radiusBare || dnaRadius.includes('全直角') || dnaRadius.includes('全站一律 0');
+      /* ⚠️ 判据必须只看 **border-radius 的取值**，不能全文搜这个 px。
+       * 实测教训：S13 的 CSS 里有 37 处 8px（用于 padding/margin/gap），
+       * 我把 dna.radius 改成「圆角全是 8px」时，全文搜 8px 竟然通过 ——
+       * 与 typescale 那一版「S01 别处正好有个 60px」是同一个错。 */
+      const radVals = radShadows.map((v) => v.replace(/\s+/g, ''));
+      if (claimsBare) {
+        /* 声称全直角：每个 border-radius 值都必须是 0 或 50% */
+        const realNonZero = radVals.filter((v) => !/^0+[a-z%]*$/i.test(v) && v !== '50%');
+        if (realNonZero.length && !dnaRadius.includes('50%')) {
+          add('FAIL', id, 'radius-not-in-css',
+            `dna.radius 说「${dnaRadius.slice(0, 20)}」但 CSS 的 border-radius 有非零值：${realNonZero.slice(0, 3).join(' / ')}`);
+        }
+      } else {
+        /* 声称有具体档位：每个 N px/em/% 都得在 **border-radius 的取值里**出现 */
+        const claimed = [...dnaRadius.matchAll(/([\d.]+)\s*(px|%|em|rem)/g)].map((m) => m[0].replace(/\s+/g, ''));
+        const missing = claimed.filter((c) => !radVals.some((v) => v.includes(c)));
+        if (missing.length) {
+          add('FAIL', id, 'radius-not-in-css',
+            `dna.radius 提到 ${missing.length} 个 CSS 的 border-radius 里不存在的值：${missing.slice(0, 3).join('、')}` +
+            `（CSS 实际：${radVals.slice(0, 4).join(' / ') || '无 border-radius'}）`);
+        }
+      }
+
+      /* 阴影
+       * ⚠️ `inset` 必须**只在 box-shadow 的值里**才算 —— 它是 CSS 的定位简写属性
+       * （`inset: 0` = top/right/bottom/left 全 0），在真实 CSS 里到处都是。
+       * 第一版用 `/inset/i.test(cssNC)` 全文搜，实测 22 案误报：
+       * S01 的 CSS 里有 3 处 `inset`，但没有一处是 box-shadow 的。
+       *
+       * ⚠️ 第二版又漏了 var 展开：S13 写的是 `box-shadow: var(--press-1-off)`，
+       * 而 `--press-1: inset 2px …` —— 字面值里没有 inset，展开后才有。
+       * 实测因此误报 S13 一条。这里先展开一层 var 再判。 */
+      const dnaShadow = String(dna.shadow || '');
+      const rootVars = {};
+      for (const v of cssNC.matchAll(/(--[\w-]+)\s*:\s*([^;}]+)/g)) rootVars[v[1]] = v[2].trim();
+      const expandVar = (val) => {
+        let out = val, guard = 0;
+        while (/var\(/.test(out) && guard++ < 5) {
+          out = out.replace(/var\(\s*(--[\w-]+)\s*(?:,\s*[^)]*)?\)/g, (mm, name) => rootVars[name] || '');
+        }
+        return out;
+      };
+      const shadowDecls = [...cssNC.matchAll(/box-shadow\s*:\s*([^;}]+)/gi)]
+        .map((m) => m[1].trim())
+        .filter((v) => !/^\s*none\s*$/i.test(v))
+        .map(expandVar);
+      const hasInset = shadowDecls.some((v) => /inset/i.test(v));
+      const hasOuter = shadowDecls.some((v) => {
+        const parts = v.split(/,(?![^(]*\))/);
+        return parts.some((p) => !/inset/i.test(p) && p.trim() && !/^\s*none\s*$/i.test(p.trim()));
+      });
+      if (dnaShadow === '无阴影') {
+        if (shadowDecls.length) {
+          add('FAIL', id, 'shadow-not-in-css',
+            `dna.shadow 说「无阴影」但 CSS 里有 ${shadowDecls.length} 处 box-shadow 声明`);
+        }
+      } else if (/只用 inset/.test(dnaShadow)) {
+        if (!hasInset) {
+          add('FAIL', id, 'shadow-not-in-css',
+            `dna.shadow 说「${dnaShadow.slice(0, 20)}」但 CSS 的 box-shadow（展开 var 后）里没有 inset`);
+        }
+      } else if (/混用/.test(dnaShadow)) {
+        if (!hasInset || !hasOuter) {
+          add('FAIL', id, 'shadow-not-in-css',
+            `dna.shadow 说「${dnaShadow.slice(0, 20)}」但 CSS 里 inset=${hasInset} 外投影=${hasOuter}（已展开 var）`);
+        }
+      } else if (/外投影/.test(dnaShadow)) {
+        if (!hasOuter) {
+          add('FAIL', id, 'shadow-not-in-css',
+            `dna.shadow 说「${dnaShadow.slice(0, 20)}」但 CSS 的 box-shadow（展开 var 后）里没有非 inset 分量`);
         }
       }
     }
