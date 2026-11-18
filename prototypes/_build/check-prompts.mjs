@@ -482,6 +482,14 @@ const MUTATIONS = {
     to: 'if (body.length > 220) { body = body.slice(0, 220) + "…"; }\n        if (false && 0) {\n        /* 先在 220 内找完整句',
     expect: 'shape-risk-truncated',
   },
+  /* ⑮ field-truncated-midword —— 用户输入被硬切在词中间。
+   * 复现 cleanField 原来无条件 slice(0, 80) 的形态。 */
+  'field-truncated-midword': {
+    copy: true,
+    from: /return lastSep >= 40 \? head\.slice\(0, lastSep\)\.replace\(\/\[，、\\s\]\+\$\/, ""\) : head;/,
+    to: 'return head;',
+    expect: 'field-truncated-midword',
+  },
 };
 const sandbox = { window: {} };
 new Function('window', promptsSrc)(sandbox.window);
@@ -1902,6 +1910,37 @@ for (const d of DIRS) {
         if (riskBody && !/[。！？]$/.test(riskBody)) {
           add('FAIL', id, 'shape-risk-truncated',
             `risk 段没有以完整句子结尾（末尾：…${riskBody.slice(-24)}）—— 用户会读到半句话`);
+        }
+      }
+
+      /* ── T-25：用户输入被截断时必须切在完整分隔处（2026-11-17 加）────────
+       *
+       * `cleanField()` 把用户填的 biz/action 截到 80 字。原来是无条件 `slice(0, 80)`，
+       * 硬切在字符中间。
+       *
+       * 实测：输入 102 字「…店里有一面墙贴着每个产区的海拔和杯测分数…」
+       * 被切成「…店里有一面墙贴着每个产区的海」，而模板又补了句号 ——
+       * 用户拿到的是「…每个产区的海。」
+       *
+       * **这比 risk 那处更隐蔽**：risk 截断留下「…」痕迹，用户看得出没说完；
+       * 这里补上句号后完全看不出，读起来像作者的原话。
+       *
+       * 判据：喂一段 100 字、含明确分隔符的输入，检查截断点是否落在分隔符上。
+       * 用一个**不含空格**的长串，确保 80 字截断一定触发。 */
+      if (typeof buildStylePrompt === 'function') {
+        const probe = '这是一段很长很长的输入用来测试截断行为，'
+          + '它有明确的中文逗号分隔，'
+          + '每一个分句都是完整的意思，'
+          + '截断必须落在分句边界上而不是切断某个词，'
+          + '最后这一句是多余的填充用来保证总长度超过八十个字。';
+        let tp = '';
+        try { tp = buildStylePrompt(id, { biz: probe, action: '买豆子' }) || ''; } catch { /* 上面已报 */ }
+        const first = tp.split('\n')[0] || '';
+        const body = first.replace(/^我经营/, '').replace(/。$/, '');
+        /* body 不应以半个词结尾：若原文在 body.length 处是句中字符，说明硬切了 */
+        if (body && body.length >= 78 && probe.charAt(body.length) && !/[，。；！？、\s]/.test(probe.charAt(body.length))) {
+          add('FAIL', id, 'field-truncated-midword',
+            `用户输入在「…${body.slice(-12)}」处被硬切，下一个字符「${probe.charAt(body.length)}」说明切断了词`);
         }
       }
     }
