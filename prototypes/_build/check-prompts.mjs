@@ -1097,6 +1097,27 @@ for (const d of DIRS) {
   const mech = ((mechEntry && mechEntry.dna && mechEntry.dna.mechanism) || '').trim();
   if (!mech) {
     add('FAIL', id, 'mech-empty', '取不到 dna.mechanism（STYLE_PROMPTS.schemes 里没有该案，或 dna.mechanism 为空）');
+    /* ── 2026-11-17：机制句缺失时，兜底分支必须真的能兜住 ─────────────
+     *
+     * `prompt-copy.js:472-481` 有一条兜底：mechanism 为空时用
+     * 「这个风格的签名动作：{plain}。具体到实现：{facts}。」拼一句，
+     * 而 facts 里依赖 radius / shadow / lineWidths / **h1Size** 四个字段。
+     *
+     * 这正是 h1Size 唯一还活着的路径（主路径用 h1SizeAt1440）。
+     * 实测：清空 S13 的 mechanism 后，签名动作行确实出现
+     * 「首屏主标题取 56px 这一档」；把 h1Size 改成 999px，那句跟着变。
+     *
+     * 所以机制句缺失时，必须确认兜底拼出来的话**不是一句空壳** ——
+     * 否则用户会拿到「具体到实现：。」这种残句。 */
+    if (typeof buildStylePrompt === 'function') {
+      let tb = '';
+      try { tb = buildStylePrompt(id, { biz: '一家咖啡店', action: '下单买豆子' }) || ''; } catch { /* 上面已报 */ }
+      const ml = tb.split('\n').find((l) => /这个风格的签名动作/.test(l)) || '';
+      if (ml && /具体到实现：\s*。?\s*$/.test(ml)) {
+        add('FAIL', id, 'mech-fallback-empty',
+          '机制句缺失且兜底的 facts 一个都没拼出来，用户会读到「具体到实现：。」这种残句');
+      }
+    }
   }
   if (mech) {
     const vars = parseRootVars(css);

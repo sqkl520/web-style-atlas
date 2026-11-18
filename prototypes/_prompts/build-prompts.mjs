@@ -400,19 +400,31 @@ for (const d of dna) {
       radiusBare: !!d.radiusBare,
       shadow: d.shadow,
       lineWidths: d.lineWidths,
-      /* ⚠️ h1Size 是**中间量，不影响产品输出**。2026-11-15 哨兵实测 0/35 渲染。
+      /* ⚠️ h1Size 是「**死分支里的活字段**」——不是纯粹的中间量。2026-11-17 查清。
        *
-       * 它曾经出过一次事故（`h1Size` 抽到 30/30 但渲染进提示词 0/30，
-       * 详见 prompt-copy.js:643 起的注释），当时的修法是改用下面的 h1SizeAt1440。
-       * 值接上了，但 h1Size 本身没有被接上、也没有被删掉 —— 于是它一直留在这里。
+       * 它曾经出过一次事故（抽到 30/30 但渲染进提示词 0/30，详见 prompt-copy.js:643 起的
+       * 注释），当时的修法是改用下面的 h1SizeAt1440。所以**主路径**上它不被读取 ——
+       * 哨兵实测（45 号报告）：把它改成 "999px" 后 35 案提示词逐字不变。
        *
-       * 实测依据见 deliverables/78-northstar/_probe/45-sentinel-test-dead-fields.md：
-       * 把它改成 "999px" 后，35 案的提示词逐字不变。
+       * 但它在**一条活路径**里：`prompt-copy.js:478` 的 mechanism 兜底分支 ——
        *
-       * 保留它只有一个理由：裸 px 的 5 案（S03/S04/S13/S25/S30）里它与
-       * h1SizeAt1440 完全相同，clamp 的 30 案里它是展开前的原文，可作为出处回看。
-       * 但它是**产品数据里的死字段**，下一个人改它不会有任何效果。
-       * 真要清理就从这个字段开始 —— 删它需要同步改 check-prompts.mjs:880 的 KEY_FIELDS。 */
+       *     if (d.mechanism) { mech = "这个风格的签名动作：" + d.mechanism }
+       *     else { … if (d.h1Size) facts.push("首屏主标题取 " + d.h1Size + " 这一档") … }
+       *
+       * 实测（把 S13 的 mechanism 清空）：签名动作行变成
+       *   「…具体到实现：全站直角、零圆角；线宽只分 …；**首屏主标题取 56px 这一档**。」
+       * 再把 h1Size 改成 999px，那句就变成「取 999px」——**它确实会进提示词**。
+       *
+       * 那为什么测出来是 0/35？因为 35 案的 mechanism 全部非空：
+       *   dna-clean 里 25 案 mechanism 为空，但 `build-prompts.mjs:135` 用
+       *   `MECHANISMS[id].text` 把 25 案全补上了（实测覆盖率 25/25），
+       *   而 `check-prompts.mjs` 还有 `mech-empty` 断言守着「任何一案取不到机制句就报」。
+       *
+       * **所以删 h1Size 是不安全的**：它现在是「两道闸门（mechanisms 补全 + mech-empty）
+       * 都失效」时的最后一道兜底。保留成本是 dna 里多一个字段，删除的代价是那条路径静默残缺。
+       *
+       * 顺带：裸 px 的 5 案（S03/S04/S13/S25/S30）里它与 h1SizeAt1440 完全相同，
+       * clamp 的 30 案里它是展开前的原文，可作出处回看。 */
       h1Size: d.h1Size,
       /* 正文字号 + clamp 在 1440 视口的实际落值（2026-10-30 新增）。
        *
