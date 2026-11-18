@@ -1089,6 +1089,52 @@
         /* 从"规避动作"起截取；没有这个标记就整句保留（不能因为格式不同就吞掉内容） */
         var cut = body.indexOf("规避动作");
         if (cut > 0) body = body.slice(cut);
+        /* ── 删掉「与 N 号…」这类内部案号项（2026-11-17 加）───────────────
+         *
+         * 10 案的 risk 里有作者写给**仓库维护者**的话，例如 S26：
+         *   「（3）与 10 号（五栏非对称基线网格）、8 号（等距层叠厚度）的分界写明：
+         *     26 号的对撞发生在斜向基线上…，10 号是水平五栏加套准线，8 号是实体厚度。」
+         *
+         * 那段话的作用是「区分容易混的三个方案」，读者是下一个改代码的人。
+         * 但整段 risk 会进提示词 —— 而 **AI 拿到的是一份孤立提示词，没有图鉴目录，
+         * 不知道「10 号」是什么**。对它是纯噪音；对店主是不可理解的内部记号。
+         *
+         * 修法不是文本清洗（我试过用正则改措辞，产生了「本案的特征：。」这种空壳，
+         * 还漏掉 5 案）—— 而是**结构截断**：编号列表里含案号的那一整项删掉，
+         * 再把剩余项重编号。这与上面「从规避动作起截取」是同一个思路。
+         *
+         * 实测：10 案（S10/S21/S22/S24/S25/S26/S27/S28/S29/S30）全部清干净，
+         * 编号连续，其余 25 案零改动。原 data.js 不动 —— 那段对维护者仍有价值。 */
+        body = (function stripCaseRefs(s) {
+          var MARK = /(?:[①②③④⑤⑥⑦⑧⑨⑩⑪⑫]|（\d+）)/g;
+          var marks = [], m;
+          while ((m = MARK.exec(s)) !== null) marks.push({ idx: m.index, text: m[0] });
+          if (!marks.length) return s;
+          var head = s.slice(0, marks[0].idx);
+          var kept = [];
+          for (var i = 0; i < marks.length; i++) {
+            var start = marks[i].idx;
+            var end = i + 1 < marks.length ? marks[i + 1].idx : s.length;
+            var item = s.slice(start, end);
+            if (/[0-9]{1,2}\s*号|方案\s*[0-9]{1,2}/.test(item)) continue;  /* 含案号 → 整项丢 */
+            kept.push(item);
+          }
+          var CIRCLED = "①②③④⑤⑥⑦⑧⑨⑩⑪⑫";
+          var isCircled = /^[①②③④⑤⑥⑦⑧⑨⑩⑪⑫]/.test(marks[0].text);
+          var n = 0;
+          var rebuilt = kept.map(function (item) {
+            var b = item.replace(/^(?:[①②③④⑤⑥⑦⑧⑨⑩⑪⑫]|（\d+）)\s*/, "");
+            n++;
+            return (isCircled ? CIRCLED.charAt(n - 1) : "（" + n + "）") + b;
+          }).join("");
+          /* ⚠️ 删掉末项后，新的末项往往以「，不允许…交差」这种**从句**结尾
+           * （它原本是句中的一项，靠后面的项收尾）。实测 9 案因此变成半句话，
+           * 被 `shape-risk-truncated` 抓到。补一个句号收尾。 */
+          var tail = head + rebuilt;
+          tail = tail.replace(/[；，]\s*$/, "").replace(/；；/g, "；");
+          if (tail && !/[。！？]$/.test(tail)) tail += "。";
+          return tail;
+        })(body);
         /* ⚠️ 2026-11-17 修：原来是无条件 `body.slice(0, 220) + "…"` ——
          * **硬截在字符中间**。实测 10 案的 risk 原文超过 220 字，
          * 其中 S10 / S26 / S31 三案被切断在句子中间，用户读到：
