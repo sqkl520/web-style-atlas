@@ -217,7 +217,25 @@ export function findStale() {
     },
     {
       product: '_selection/prompts.js',
-      inputs: () => [join(P, '_prompts/dna-clean.json'), join(P, '_prompts/build-prompts.mjs')],
+      /* ⚠️ 2026-11-17 修：原来只列 dna-clean.json 与 build-prompts.mjs，**漏了 data.js**。
+       *
+       * `build-prompts.mjs` 从 data.js 读三样东西：
+       *   · RISK   —— `"risk"` 字段（35 案全有）
+       *   · REUSE  —— `"landing"` 里的「最难被复用」那句（26 案有）
+       *   · CAPACITY —— minItems / degrades / minPics
+       *
+       * 实测：改 data.js 里 S13 的 risk，不重跑 build-prompts，
+       * 提示词**逐字不变**（因为它读的是 prompts.js 那份副本），
+       * 而两条闸门都不响 —— check-stale 只报「prompts.js 比 report.json 旧」的警告，
+       * check-prompts 报 FAIL 0。**data.js 与 prompts.js 就这样静默漂移了。**
+       *
+       * 这正是 check-stale 存在的意义：它守的是「源改了但产物没重生成」。
+       * data.js 是 prompts.js 的源之一，必须列进来。 */
+      inputs: () => [
+        join(P, '_prompts/dna-clean.json'),
+        join(P, '_prompts/build-prompts.mjs'),
+        join(P, '_selection/data.js'),
+      ],
       hint: 'node prototypes/_prompts/build-prompts.mjs',
       label: '提示词链·prompts.js',
     },
