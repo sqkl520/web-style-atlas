@@ -490,6 +490,14 @@ const MUTATIONS = {
     to: 'return head;',
     expect: 'field-truncated-midword',
   },
+  /* ⑯ prompt-talks-to-owner —— 把「对店主说的话」塞回提示词。
+   * 复现 2026-11-17 删掉的那个形态（26/35 案带「请先告诉我」）。 */
+  'prompt-talks-to-owner': {
+    copy: true,
+    from: /reuse \? \("6\. 这个版式的硬前提（作者原话）：「" \+ reuse \+ "」"\) : ""/,
+    to: 'reuse ? ("6. 这个版式的硬前提（作者原话）：「" + reuse + "」如果你的内容里没有这个东西，请先告诉我，我们换一个更合适的版式。") : ""',
+    expect: 'prompt-talks-to-owner',
+  },
 };
 const sandbox = { window: {} };
 new Function('window', promptsSrc)(sandbox.window);
@@ -1910,6 +1918,33 @@ for (const d of DIRS) {
         if (riskBody && !/[。！？]$/.test(riskBody)) {
           add('FAIL', id, 'shape-risk-truncated',
             `risk 段没有以完整句子结尾（末尾：…${riskBody.slice(-24)}）—— 用户会读到半句话`);
+        }
+      }
+
+      /* ── T-26：提示词里不许出现「对店主说的话」（2026-11-17 加）────────────
+       *
+       * 这个产品里，提示词是交给 AI 的；店主只是转交者（`index.html:53`：
+       * 「选一个风格 → 复制 → 粘进 ChatGPT，让它建你的站」）。
+       *
+       * 但有一句写给店主的话漏进了提示词：
+       *   「如果你的内容里没有这个东西，请先告诉我，我们换一个更合适的版式。」
+       * 26/35 案带这句。**AI 不会来问** —— 它只会硬做，或者编一个满足前提的内容。
+       *
+       * 这类句子的特征是「对店主施加一个动作」，而不是「给 AI 一条指令」。
+       * 判据盯几个典型说法：请告诉我 / 请回复我 / 告诉我你想要 / 我可以帮你换。
+       *
+       * ⚠️ 注意排除合法的「回复里只放这一份代码」——那是对 AI 说的，不是对店主。
+       * 所以匹配的是「请…我」这一组（第一人称宾语 + 祈使），不是所有「请」。 */
+      const TALK_TO_OWNER = [
+        [/请先告诉我/, '「请先告诉我」——AI 不会来问'],
+        [/告诉我你想要/, '「告诉我你想要」——同样是对店主说话'],
+        [/我可以帮你换|帮你换一个/, '「帮你换一个」——对店主的承诺'],
+        [/请你回复|请回复我/, '「请回复我」——AI 不会回复'],
+      ];
+      for (const [re, why] of TALK_TO_OWNER) {
+        if (re.test(text)) {
+          add('FAIL', id, 'prompt-talks-to-owner',
+            `提示词里出现对店主说的话（${why}）。提示词是给 AI 的施工图，店主只是转交者`);
         }
       }
 
