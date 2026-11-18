@@ -474,6 +474,14 @@ const MUTATIONS = {
     to: '"图片位置写成 img 标签，带该案实际可用的宽高属性"',
     expect: 'zero-image-contradiction',
   },
+  /* ⑭ shape-risk-truncated —— risk 段被硬截在句子中间。
+   * 复现 2026-11-17 修掉的那个形态（S10/S26/S31 曾读到半句话）。 */
+  'shape-risk-truncated': {
+    copy: true,
+    from: /if \(body\.length > 220\) \{\n\s*\/\* 先在 220 内找完整句/,
+    to: 'if (body.length > 220) { body = body.slice(0, 220) + "…"; }\n        if (false && 0) {\n        /* 先在 220 内找完整句',
+    expect: 'shape-risk-truncated',
+  },
 };
 const sandbox = { window: {} };
 new Function('window', promptsSrc)(sandbox.window);
@@ -1875,6 +1883,27 @@ for (const d of DIRS) {
       /* T-24：排版守卫 */
       if (/\n{3,}/.test(text)) add('FAIL', id, 'shape-triple-newline', '出现三重换行');
       if (/\t/.test(text)) add('FAIL', id, 'shape-tab', '出现制表符');
+
+      /* ── shape-risk-truncated：risk 段必须是完整句子（2026-11-17 加）──
+       *
+       * 逐字读 35 份提示词时发现：`prompt-copy.js` 把 risk 硬截到 220 字，
+       * 而 S10 / S26 / S31 三案被切断在句子中间，用户读到：
+       *   「…方案 26 不得使用同一款…」  「…偏移加套准线组加五…」  「…换电池是把水汽关进…」
+       *
+       * 闸门当时全绿 —— T-18 只查「≥60 字」，不查是不是半句。
+       * 这类「截断」在提示词里是最刺眼的：用户一眼就看得出系统没做完。
+       *
+       * 判据：risk 段去掉标题后，末尾必须是 。！？ 之一。
+       * 注意排除「以…结尾但那是省略号」的情况 —— 省略号说明是刻意截断，
+       * 那也算不完整（AI 会以为后面还有）。 */
+      const riskLine = text.split('\n').find((l) => /这一案最容易/.test(l)) || '';
+      if (riskLine) {
+        const riskBody = riskLine.replace(/^[^：]*：/, '').trim();
+        if (riskBody && !/[。！？]$/.test(riskBody)) {
+          add('FAIL', id, 'shape-risk-truncated',
+            `risk 段没有以完整句子结尾（末尾：…${riskBody.slice(-24)}）—— 用户会读到半句话`);
+        }
+      }
     }
 
     /* ── T-07：字体条必须把标题与正文都说清（2026-11-17 加）──────────────

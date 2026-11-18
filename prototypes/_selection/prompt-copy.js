@@ -1059,7 +1059,43 @@
         /* 从"规避动作"起截取；没有这个标记就整句保留（不能因为格式不同就吞掉内容） */
         var cut = body.indexOf("规避动作");
         if (cut > 0) body = body.slice(cut);
-        if (body.length > 220) body = body.slice(0, 220) + "…";
+        /* ⚠️ 2026-11-17 修：原来是无条件 `body.slice(0, 220) + "…"` ——
+         * **硬截在字符中间**。实测 10 案的 risk 原文超过 220 字，
+         * 其中 S10 / S26 / S31 三案被切断在句子中间，用户读到：
+         *   「…方案 26 不得使用同一款…」          （S10）
+         *   「…偏移加套准线组加五…」              （S26）
+         *   「…换电池是把水汽关进…」              （S31）
+         * 这是逐字读完 35 份提示词才发现的 —— 闸门的 `T-18 risk 段 ≥60 字`
+         * 只查够不够长，不查是不是半句。
+         *
+         * 改成回退到最后一个完整句：优先在 220 字内找 。；！？
+         * 若无（极长的单句），才硬切。这样最多多丢几十字，
+         * 但用户永远读到完整的句子。 */
+        if (body.length > 220) {
+          /* 先在 220 内找完整句；找不到就放宽到 260 再找一次。
+           * 实测 S10 的 risk 是 261 字、三个分句全靠 `；` 分隔，
+           * 第一个 `；` 出现在 220 之后 —— 只查 220 会退回硬切，又切出半句。
+           * 260 这个上限的依据：最长的 S26 是 331 字，放到 260 仍然有截断，
+           * 但 S10 这类「差一点就能切在句号上」的案能保住完整。 */
+          var head = body.slice(0, 220);
+          var cutAt = function (s) {
+            return Math.max(s.lastIndexOf("；"), s.lastIndexOf("。"),
+              s.lastIndexOf("！"), s.lastIndexOf("？"));
+          };
+          var lastStop = cutAt(head);
+          if (lastStop < 120 && body.length > 260) {
+            /* 220 内没有可用断点，放宽到 260 再试 */
+            var head2 = body.slice(0, 260);
+            var s2 = cutAt(head2);
+            if (s2 >= 120) { body = head2.slice(0, s2 + 1); }
+            else { body = head + "…"; }
+          } else if (lastStop >= 120) {
+            body = head.slice(0, lastStop + 1);
+          } else {
+            /* 整段本来就 ≤260 且 220 内无断点 —— 保留全文，不截 */
+            body = body.length <= 260 ? body : head + "…";
+          }
+        }
         /* 标题保持「这一案最容易做成的错误样子」这个**不含具体风格名**的说法。
          * 原因是诚实的：69-audit 的抽取器用这个前缀定位这一段（S 类 risk + J 类 risk-vibe
          * 各 30 条）。换个前缀会让那 60 条"看起来消失了"，而实际内容还在 ——
