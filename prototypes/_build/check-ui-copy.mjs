@@ -395,7 +395,12 @@ if (process.argv.includes('--selftest')) {
     {
       name: '派生槽退回手写',
       file: 'index.html',
-      from: /<span data-derived="band-top">[^<]*<\/span>/,
+      /* ⚠️ 这条锚点随 derived key 改名要一起改。
+       * 2026-11-05：`band-top` 改名为 `warm-top`（那一组从"底色属于哪条带"
+       * 换成"暖色还是冷色"之后，键名跟着不再准确）。锚点没跟上时
+       * selftest 报的是"变异体没能应用（锚点变了？）"——那正是它该做的事：
+       * 不假装通过。 */
+      from: /<span data-derived="warm-top">[^<]*<\/span>/,
       to: '18 个方案',
       expect: 'derived-number-hardcoded',
     },
