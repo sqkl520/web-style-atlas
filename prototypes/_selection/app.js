@@ -13,7 +13,7 @@
     q: '',
     /* 用户能回答的轴（放在前面 —— 它们才是挑选时要问的问题） */
     ground: new Set(),   // 亮底 / 暗底
-    band: new Set(),     // 底色带（把"多少人挤在同一条带里"摆到台面上）
+    warm: new Set(),     // 底色冷暖（按 bg 的实际色相算，与明暗正交）
     load: new Set(),     // 一屏说清 / 三五屏 / 很多栏目
     loud: new Set(),     // 很安静 / 有态度不吵 / 就要扎眼
     /* 设计口径与项目质检状态（保留，但排在后面） */
@@ -180,6 +180,18 @@
 
   function chips(host, keyFn, set, labelFn, skipKey) {
     var box = $(host);
+    /* 挂载点不存在就跳过，不要抛（2026-11-05）。
+       实测：把 index.html 的 `id="flt-warm"` 改回 `id="flt-band"` 之后，
+       `$(host)` 返回 null，`box.innerHTML` 直接抛 TypeError ——
+       整个 app.js 的 IIFE 中断，**列表一行都不渲染**，页面变成空白。
+       一个筛选组的 id 拼错，代价是整页不可用；而症状（白页）离原因
+       （一个 id 少改了一处）隔着整个初始化流程。
+       现在：缺挂载点只跳过这一组，其余照常渲染，控制台留一条能定位的警告。
+       这不是"容错"——是不让一个局部错误炸掉全部无关功能。 */
+    if (!box) {
+      if (window.console && console.warn) console.warn('[选型台] 找不到筛选组挂载点 ' + host + '，跳过这一组');
+      return;
+    }
     box.innerHTML = '';
     var counts = facetCount(keyFn, skipKey);
     /* 取值全集必须来自**全库 uniq()**，绝不能用 facetCount 的键。
@@ -210,6 +222,50 @@
       });
       box.appendChild(b);
     });
+  }
+
+  /* 暖冷 = 按**底色实际色相**算，不按 axes.band 的名字（2026-11-05）。
+   *
+   * 【要修的死路，实测】原来这一组叫「底色属于哪条带」，取值是
+   * `axes.band` 的 8 条带：暖浅色带/冷暗带/暖暗带/中间明度带/中性浅带/
+   * 冷浅色带/中性中带/纯中性暗带。交叉表实测：
+   *   亮底 = 暖浅18 + 中间明度1 + 中性浅2 + 冷浅2
+   *   暗底 = 冷暗5 + 暖暗3 + 中性中1 + 纯中性暗1
+   *   中间调 = 中间明度2
+   * **8 条带里 7 条完全被明暗决定**，只有「中间明度带」能细分。
+   * 也就是说这一组与上面那组是同一根轴的两套说法 —— 两组一起选，
+   * 明暗×色带 24 种组合里 15 种结构性归零（62.5%）：
+   * 「亮底 + 冷暗带」角标写 5，点下去 0 行；「暗底 + 暖浅色带」角标写 18，0 行。
+   *
+   * 【为什么不是简单删掉】店主确实会问"我要暖的还是冷的"——那是个真问题，
+   * 只是它不该用"带"来问（"中性中带"与"中间明度带"与"中性浅带"三种说法
+   * 非专业人无法区分）。改成按 bg 的 HSL 色相分类后，它与明暗真正正交：
+   *   亮底 暖19 / 冷3 / 中性1 ；暗底 冷6 / 暖1 / 中性1 / 过渡2 ；中间调 冷2
+   * 「亮底 + 暖」现在有 19 个案，不再是 0。
+   *
+   * 【判据为什么用色相不是用名字】三案的 bg 色相分别是黄(#F5C842)、
+   * 紫(#AE8ECD)、青灰(#4A6763)，全被旧标签叫成"中间明度带"——
+   * 名字丢掉了它们最明显的差异。按色相重算才把它们分开。 */
+  function hueWarmth(hex) {
+    var m = /^#?([0-9a-f]{6})$/i.exec(String(hex || '').trim());
+    if (!m) return '';
+    var n = parseInt(m[1], 16);
+    var r = ((n >> 16) & 255) / 255, g = ((n >> 8) & 255) / 255, b = (n & 255) / 255;
+    var mx = Math.max(r, g, b), mn = Math.min(r, g, b), l = (mx + mn) / 2, d = mx - mn;
+    var h = 0, s = 0;
+    if (d > 0) {
+      s = l > 0.5 ? d / (2 - mx - mn) : d / (mx + mn);
+      if (mx === r) h = ((g - b) / d + (g < b ? 6 : 0));
+      else if (mx === g) h = ((b - r) / d + 2);
+      else h = ((r - g) / d + 4);
+      h *= 60;
+    }
+    if (s * 100 < 8) return '中性';
+    if (h < 70 || h >= 330) return '暖';
+    if (h >= 150 && h < 290) return '冷';
+    /* 70–150（黄绿）与 290–330（品红）是过渡带：彩度低时读作中性，
+       否则按就近归类。S05/S18 的 #0E100D / #0A0D0A 落在这里（极暗的绿黑）。 */
+    return l * 100 < 20 ? '冷' : '暖';
   }
 
   function stateKey(r) {
@@ -245,7 +301,7 @@
   }
   function mountChips() {
     chips('#flt-ground', function (r) { return (r.axes || {}).ground; }, state.ground, null, 'ground');
-    chips('#flt-band', function (r) { return (r.axes || {}).band; }, state.band, null, 'band');
+    chips('#flt-warm', function (r) { return hueWarmth(r.bg); }, state.warm, null, 'warm');
     chips('#flt-load', function (r) { return (r.axes || {}).load; }, state.load, null, 'load');
     chips('#flt-loud', function (r) { return (r.axes || {}).loud; }, state.loud, null, 'loud');
 
@@ -275,7 +331,7 @@
        sceneIds 为空表示不按场景筛。 */
     if (state.sceneIds && state.sceneIds.size && skip !== 'scene' && !state.sceneIds.has(r.id)) return false;
     if (state.ground.size && skip !== 'ground' && !state.ground.has(ax.ground)) return false;
-    if (state.band.size && skip !== 'band' && !state.band.has(ax.band)) return false;
+    if (state.warm.size && skip !== 'warm' && !state.warm.has(hueWarmth(r.bg))) return false;
     if (state.load.size && skip !== 'load' && !state.load.has(ax.load)) return false;
     if (state.loud.size && skip !== 'loud' && !state.loud.has(ax.loud)) return false;
     if (state.fr.size && skip !== 'fr' && !state.fr.has(r.fr)) return false;
@@ -939,7 +995,7 @@
        ⚠️ 还必须先把 sceneIds **恢复**成 saveIds：上一行为算 nSearchOnly 把它清空了，
        不恢复的话这里算出来的是"什么都没留"，会报出 30 行（探针抓到的第二个谎）。 */
     state.sceneIds = saveIds;
-    var AX = [state.ground, state.band, state.load, state.loud,
+    var AX = [state.ground, state.warm, state.load, state.loud,
               state.fr, state.thr, state.tone, state.st, state.gate];
     var keep = AX.map(function (s) { return Array.from(s); });
     AX.forEach(function (s) { s.clear(); });
@@ -1024,7 +1080,7 @@
           render(); return;
         }
         if (act === 'drop-axes') {
-          state.ground.clear(); state.band.clear(); state.load.clear(); state.loud.clear();
+          state.ground.clear(); state.warm.clear(); state.load.clear(); state.loud.clear();
           state.fr.clear(); state.thr.clear(); state.tone.clear(); state.st.clear(); state.gate.clear();
           /* 芯片这几组也得跟着灭，否则界面说"只留芯片"却亮着别的组 */
           $$('.chips button').forEach(function (x) {
@@ -1781,7 +1837,7 @@
        用 className 挂上去的），原来的通配选择器**根本选不到它们**。
        所以这里分两步：清 state.sceneIds，再把 .scene-chip 的 aria-pressed 逐颗压成 false。 */
     state.q = '';
-    state.ground.clear(); state.band.clear(); state.load.clear(); state.loud.clear();
+    state.ground.clear(); state.warm.clear(); state.load.clear(); state.loud.clear();
     state.fr.clear(); state.thr.clear(); state.tone.clear(); state.st.clear(); state.gate.clear();
     /* 场景轴：必须赋新 Set 而不是 .clear()。
        对外接口 benchSetSceneIds 是**替换**整个 Set（state.sceneIds = new Set(ids)），
@@ -1978,13 +2034,20 @@
        而这句话要传达的判断（"一半以上挤在同一条带里"）只需要最大项。
        注意 `!vals[k]` 那个守卫会把 0 当成"没算出来"。这里是字符串短语，
        空串才是"没算出来"，所以下面单独放行（见 hasFilled）。 */
-    var BAND_EXPLAIN = function () {
+    /* 冷暖分布（2026-11-05 改：原来说的是 axes.band 的 8 条带，
+       而 8 条带里 7 条完全被明暗决定，这组与上面那组是同一根轴 ——
+       两组一起选 62.5% 的组合结构性归零。现在按 bg 的实际色相算，
+       与该组的判据同源（hueWarmth），不会再出现"文案说 18、点下去 0"。 */
+    var WARM_EXPLAIN = function () {
       var m = new Map();
-      ALL.forEach(function (r) { var v = (r.axes || {}).band; if (v) m.set(v, (m.get(v) || 0) + 1); });
+      ALL.forEach(function (r) {
+        var v = hueWarmth(r.bg);
+        if (v) m.set(v, (m.get(v) || 0) + 1);
+      });
       var top = Array.from(m.entries()).sort(function (a, b) { return b[1] - a[1]; })[0];
       if (!top) return '';
       var pct = Math.round(top[1] / ALL.length * 100);
-      return top[1] + ' 个方案（' + pct + '%）挤在「' + top[0] + '」这一条带里';
+      return top[1] + ' 个方案（' + pct + '%）偏「' + top[0] + '」';
     };
     var LOUD_EXPLAIN = function () {
       var m = new Map();
@@ -1998,7 +2061,7 @@
       'chip-count': chipCount,
       'field-count': fieldCount,
       'field-folded': foldedCount,
-      'band-top': BAND_EXPLAIN(),
+      'warm-top': WARM_EXPLAIN(),
       'loud-top': LOUD_EXPLAIN()
     };
     for (var i = 0; i < nodes.length; i++) {

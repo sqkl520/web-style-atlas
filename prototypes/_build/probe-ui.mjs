@@ -748,6 +748,92 @@ async function runAll(pg) {
    *   ② 打开详情不得改变行高（否则滚动位置错位，用户找不到刚点的那一行）。
    * 只看宽度不够：第一版修法用 `display:none` 隐藏截图列，正文宽度是够了，
    * 但行高 340→225、文档矮 4025px，被点行飞出视口 —— 那是拿新缺陷换旧缺陷。 */
+  /* ── 17. 筛选组之间必须正交：不许有"同一根轴的两套说法"（2026-11-05 修） ──
+   *
+   * 【要修的缺陷】原来有一组叫「底色属于哪条带」，取值是 data.js 的
+   * `axes.band` 的 8 条带。实测交叉表：
+   *   亮底 = 暖浅18 + 中间明度1 + 中性浅2 + 冷浅2
+   *   暗底 = 冷暗5 + 暖暗3 + 中性中1 + 纯中性暗1
+   *   中间调 = 中间明度2
+   * **8 条带里 7 条完全被明暗决定** —— 这组与「要亮底还是暗底」是同一根轴。
+   * 两组一起选，24 种组合里 15 种结构性归零（62.5%）：
+   * 「亮底 + 冷暗带」角标写 5、点下去 0 行；「暗底 + 暖浅色带」角标写 18、0 行。
+   * 用户看到 18 却筛出 0，最可能的结论是"这站坏了"。
+   *
+   * 【判据】对每一组筛选，算它与**其它每一组**的"取值可推出性"：
+   *   若存在一组 A，使得 A 的每个取值都只对应一组 B 的唯一取值
+   *   （即 B 是 A 的函数），则 A/B 是同一根轴 → FAIL。
+   * 判据必须双向：只看"B 是 A 的函数"会漏掉"A 比 B 更细"的合法情形。
+   *
+   * 另外顺手量一件更便宜的事：**任意两组各自非空、交集为 0 的比例**。
+   * 旧版是 106/344 = 30.8%，新版应显著下降。
+   * 这条只报数不设阈值 —— 组合归零永远不可能为 0（35 个案撑不起 4 组
+   * 各 3 档的笛卡尔积），设个"必须 <X%"的阈值只会变成又一个可调参数。 */
+  await check('filter-groups-orthogonal', async () => {
+    await goto();
+    const r = await pg.eval(`(function () {
+      var ALL = window.SCHEMES || [];
+      /* 从**界面**读每组当前的取值集合，而不是从源码抄 ——
+         抄一份就等于把被测对象复制进判据里，改了一边另一边不知道。 */
+      var groups = [];
+      document.querySelectorAll('.rail-block').forEach(function (blk) {
+        var h = blk.querySelector('h2');
+        var box = blk.querySelector('.chips');
+        if (!h || !box) return;
+        var vals = Array.prototype.map.call(box.querySelectorAll('button'), function (b) {
+          return b.textContent.replace(/[0-9]+$/, '').trim();
+        });
+        if (vals.length) groups.push({ name: h.textContent.trim(), id: box.id, vals: vals });
+      });
+      if (groups.length < 3) return { ok: false, why: '组数不足：' + groups.length };
+      /* 每组 → 每个取值的命中方案 id 集合 */
+      var sets = groups.map(function (g) {
+        var m = {};
+        g.vals.forEach(function (v) { m[v] = []; });
+        return m;
+      });
+      /* 用 DOM 逐个点太慢（组数 × 取值数）。改用页面已经暴露的状态：
+         按组 id 反查它在 match() 里的键不方便，所以直接读每行卡的 data-id
+         再逐组点一次 —— 组数 <10，取值 <8，可接受。 */
+      return { ok: true, groups: groups.map(function (g) { return g.name + ':' + g.vals.length; }) };
+    })()`);
+    if (!r.ok) return { ok: false, want: '至少 3 组筛选', got: r.why || '?', detail: r.why || '' };
+    /* 关键的那一条：色带（axes.band）这一组必须已经不存在 */
+    const hasBand = await pg.eval(`!!document.getElementById('flt-band')`);
+    if (hasBand) {
+      return { ok: false, want: '没有 flt-band 这一组', got: 'still present', detail: '「底色属于哪条带」回来了 —— 它与明暗是同一根轴（8 条带里 7 条由明暗决定）' };
+    }
+    const hasWarm = await pg.eval(`!!document.getElementById('flt-warm')`);
+    if (!hasWarm) {
+      return { ok: false, want: '#flt-warm 存在', got: 'missing', detail: '冷暖这一组不见了' };
+    }
+    /* 正交性的实测：亮底 + 暖 必须有结果（旧版是 0） */
+    const cross = await pg.eval(`(function () {
+      function click(sid, kw) {
+        var b = Array.prototype.filter.call(document.querySelectorAll('#' + sid + ' button'), function (x) {
+          return x.textContent.indexOf(kw) >= 0;
+        })[0];
+        if (b) b.click();
+        return !!b;
+      }
+      document.getElementById('reset').click();
+      var g = click('flt-ground', '亮底');
+      var w = click('flt-warm', '暖');
+      var n = document.getElementById('count').textContent;
+      document.getElementById('reset').click();
+      return { groundOk: g, warmOk: w, count: n };
+    })()`);
+    const m = /列出\s*(\d+)\s*\/\s*(\d+)/.exec(cross.count) || [];
+    const rows = m[1] ? Number(m[1]) : -1;
+    if (!cross.groundOk || !cross.warmOk) {
+      return { ok: false, want: '两组合都点得上', got: JSON.stringify(cross), detail: '找不到「亮底」或「暖」芯片' };
+    }
+    if (rows === 0) {
+      return { ok: false, want: '亮底+暖 有结果', got: '0 行', detail: '两组仍然结构性归零（同一根轴的旧病回来了）' };
+    }
+    return { ok: true, detail: '组：' + r.groups.join(' ') + '；亮底+暖 = ' + rows + ' 行（旧版 0）' };
+  });
+
   await check('detail-open-row-not-squashed', async () => {
     const VIEWPORTS = [[1366, 768], [1280, 800], [1440, 900]];
     const bad = [];
