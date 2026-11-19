@@ -668,9 +668,72 @@ async function runAll(pg) {
     }
     return { ok: true, detail: '三个框齐全（' + r.names + '），typed=number，第 2 条跟着变' };
   });
+/* ── 18. 详情打开后行卡不许崩成单字（2026-11-05，红队实测抓出） ──
+   *
+   * 【要修的缺陷】`.row` 是固定三列 `62px minmax(0,1fr) 316px`，而详情面板
+   * 靠 `body.detail-open .bench{padding-right:560px}` 让位。窄一点的桌面档
+   * 让完之后正文彻底不够，实测（before）：
+   *   视口   .row-main   h3 盒      行高    被点行 top（开前→开后）
+   *   1440   146px      100×23     467     309→1685     ✗
+   *   1366    72px       72×46     647     309→2946     ✗
+   *   1280     8px       20×114   1053     309→5250     ✗
+   * 1280 档的 h3 是 20px 宽 × 114px 高 ——「红黑斜排报」五个字**每字一行**。
+   * 1280×800 与 1366×768 是笔记本最常见的两档。
+   *
+   * 【为什么它活了这么久】本探针写死 1440×900，`inspect.mjs` 只滚不点，
+   * 仓库测量矩阵缺 1280/1366/1536 —— 崩溃点完整落在缺口里。
+   * 所以这条断言必须**自己换视口**：测三档笔记本宽度，而不是在当前档上顺手量。
+   *
+   * 【判据（两条，都要）】
+   *   ① h3 盒高度不得超过 2 行（单字一行的特征是高度暴涨到 5–6 倍）；
+   *   ② 打开详情不得改变行高（否则滚动位置错位，用户找不到刚点的那一行）。
+   * 只看宽度不够：第一版修法用 `display:none` 隐藏截图列，正文宽度是够了，
+   * 但行高 340→225、文档矮 4025px，被点行飞出视口 —— 那是拿新缺陷换旧缺陷。 */
+  await check('detail-open-row-not-squashed', async () => {
+    const VIEWPORTS = [[1366, 768], [1280, 800], [1440, 900]];
+    const bad = [];
+    const seen = [];
+    for (const [w, h] of VIEWPORTS) {
+      await pg.setViewport({ width: w, height: h });
+      await goto();
+      const r = await pg.eval(`(() => {
+        const row = document.querySelectorAll('#ledger .row')[8];
+        if (!row) return { ok: false, why: 'no row' };
+        row.scrollIntoView({ block: 'center' });
+        const hBefore = row.getBoundingClientRect().height;
+        row.click();
+        return new Promise((res) => setTimeout(() => {
+          const rm = document.querySelector('#ledger .row .row-main');
+          const h3 = document.querySelector('#ledger .row h3');
+          if (!rm || !h3) return res({ ok: false, why: 'no row-main/h3' });
+          const lh = parseFloat(getComputedStyle(h3).lineHeight) || 23;
+          res({
+            ok: true,
+            rmW: Math.round(rm.getBoundingClientRect().width),
+            h3H: Math.round(h3.getBoundingClientRect().height),
+            h3Lines: Math.round(h3.getBoundingClientRect().height / lh),
+            hBefore: Math.round(hBefore),
+            hAfter: Math.round(row.getBoundingClientRect().height),
+            open: !document.getElementById('detail').hidden
+          });
+        }, 600));
+      })()`);
+      seen.push(w + ':rm' + r.rmW + '/h3行' + r.h3Lines);
+      if (!r.ok) { bad.push(w + ' 量不到行卡（' + r.why + '）'); continue; }
+      if (!r.open) { bad.push(w + ' 详情没打开'); continue; }
+      if (r.h3Lines > 2) bad.push(w + ' h3 折成 ' + r.h3Lines + ' 行（正文宽仅 ' + r.rmW + 'px）');
+      if (r.hAfter > r.hBefore + 8) bad.push(w + ' 打开详情后行高 ' + r.hBefore + '→' + r.hAfter + '（滚动位置会错位）');
+    }
+    await pg.setViewport({ width: 1440, height: 900 });
+    await goto();
+    if (bad.length) {
+      return { ok: false, want: '三档笔记本宽度下 h3 ≤2 行且行高不变', got: bad.join('；'), detail: bad.join('；') };
+    }
+    return { ok: true, detail: seen.join('　') + '　（h3 均 ≤2 行，行高不变）' };
+  });
 }
 
-/* ── 主流程 ─────────────────────────────────────────────────────────── */
+  /* ── 主流程 ─────────────────────────────────────────────────────────── */
 async function main() {
   await new Promise((r) => server.listen(0, '127.0.0.1', r));
   let browser;

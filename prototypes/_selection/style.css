@@ -1142,12 +1142,28 @@ code { font-family: var(--code); font-size: 0.94em; }
   .row.is-in, .detail.is-in { animation: none; }
 }
 
-/* 详情打开时把台面让出来，别让浮层压住正在看的那一行 */
-@media (min-width: 981px) {
+/* 详情打开时把台面让出来，别让浮层压住正在看的那一行。
+   ⚠️ 这里的断点不是"视口多宽"，而是"让位之后正文还剩多少"。
+   实测（2026-11-05，CDP 逐档量）：rail 固定 264px，`.main` = 视口 − 264 − padding，
+   再减掉详情让位 560px，`.row` 再减 62(号列) + 20(gap) + 截图列：
+     1440 → main 616 − 560 = 56 …实际 ledger 564、row-main 282（截图列 180 时）
+     1280 → row-main 144；1180 → row-main 86（h3 已经每字一行）
+   并排要到 **1600 以上**才真的够宽（1600 档 row-main 306 仍然局促，
+   1920 档 626 才算舒展）。1600 以下一律**浮层**：详情盖住台面，
+   列表保持全宽，用户关掉详情就回到原位 —— 比"挤成一条缝但还能看见列表"好。
+   判据来自测量，不是拍脑袋；这条规则改了之后必须重跑
+   _tmp_final.mjs 那种逐档量测，不能只看 1440。 */
+@media (min-width: 1700px) {
   body.detail-open .bench { padding-right: min(var(--detail), 42vw); }
   body.detail-open .rail { position: static; }
   .detail { box-shadow: -18px 0 0 0 rgba(28, 27, 24, .06); }
 }
+@media (min-width: 981px) and (max-width: 1699px) {
+  /* 浮层模式：详情不占版面宽度 */
+  body.detail-open .bench { padding-right: 0; }
+  body.detail-open .detail { width: min(var(--detail), 72vw); }
+}
+
 /* 内容量容限标记（实测数据驱动）：
    黄色 = degrades=yes，即单元位置写死，内容少于设计规模会留洞；
    中性 = 自动流排布，条目可自由增减。
