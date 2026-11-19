@@ -530,6 +530,68 @@ async function runAll(pg) {
    * 判据用截获剪贴板：把 writeText 打桩，拿到真实要写的内容再断言。
    * 这比"点一下按钮看它变没变色"可靠得多 —— 后者只能证明 click 生效了。
    */
+  /* ── 11b. 决策闭环：店主凭什么选的，提示词里必须兑现（2026-11-05 修） ──
+   *
+   * 【要修的缺陷】实测 35 份提示词，这四个字段覆盖率**全是 0%**：
+   *   · family（抄哪个流派）—— 35/35 有值，中位 200 字
+   *   · scenesYes（适合什么行业）—— 35/35 有值
+   *   · scenesNo（不适合什么）—— 35/35 有值
+   *   · quirk（签名怪癖）—— 35/35 有值，中位 113 字
+   * 而它们正是店主在选型台上**做决定所依据的东西**：他读到「适合：调查报道类
+   * 内容媒体」才点的这颗卡。提示词不写，AI 就按"一个通用网站"组织信息层级，
+   * 店主拿到的是"风格对、内容结构不对"的站。
+   *
+   * quirk 那条最要命：S19 的怪癖是「每张索引卡右下角有一处 1px 指甲压痕，
+   * 位置随卡号每 20 张偏移 1px，因此第 240 张比第 001 张低了 12px」——
+   * 那是这个风格的灵魂，而提示词里一个字都没有。
+   *
+   * 【判据】对每个案生成提示词，断言四类内容各自出现：
+   *   ① 身份行（S01 编号 + 中文名）—— 店主粘走后能回查
+   *   ② 「这个风格出自」—— 流派出处（含"偷的是机制不是配色"那句）
+   *   ③ 「原本是给这些场景做的」—— 适合的行业
+   *   ④ 「明确不适合」—— 不适合什么
+   *   ⑤ 「签名怪癖」—— quirk 原文
+   *   ⑥ 底色赋值句（「页面底色…用 #XXXXXX」）
+   * ⑥ 单独列一条是因为它防的是另一件事：`dna.palette` 的顺序来自 :root 声明序，
+   * 实测 35 案只有 4 案第一条是底色，其余 31 案第一条是强调色 ——
+   * AI 读到"配色只用这几个值"+"背景层铺最大面积"，最省力的解释是把第一个色铺满。
+   *
+   * 【为什么每案都验而不是抽查】这四个字段是**逐案不同**的。抽 3 个案通过
+   * 不能说明第 4 个也对，而它们全部来自同一个模板分支 —— 分支断了就是 35 案全断。
+   * 35 案 × 一次 buildStylePrompt 约 1.2 秒，值得。
+   */
+  await check('prompt-carries-decision-fields', async () => {
+    await goto();
+    const r = await pg.eval(`(function () {
+      var S = window.SCHEMES || [];
+      if (!S.length) return { ok: false, why: '没有 SCHEMES' };
+      var miss = { id: [], family: [], yes: [], no: [], quirk: [], bg: [] };
+      var sample = null;
+      for (var i = 0; i < S.length; i++) {
+        var sc = S[i];
+        var t;
+        try { t = window.buildStylePrompt(sc.id, { biz: 'x', action: 'y' }); }
+        catch (e) { return { ok: false, why: sc.id + ' 生成失败：' + e.message }; }
+        if (t.indexOf(sc.id) < 0) miss.id.push(sc.id);
+        if (t.indexOf('这个风格出自') < 0) miss.family.push(sc.id);
+        if (t.indexOf('原本是给这些场景做的') < 0) miss.yes.push(sc.id);
+        if (t.indexOf('明确不适合') < 0) miss.no.push(sc.id);
+        if (t.indexOf('签名怪癖') < 0) miss.quirk.push(sc.id);
+        if (sc.bg && t.indexOf(sc.bg) < 0) miss.bg.push(sc.id);
+        if (!sample) sample = t.length;
+      }
+      return { ok: true, n: S.length, miss: miss, sample: sample };
+    })()`);
+    if (!r.ok) return { ok: false, want: '35 案提示词', got: r.why, detail: r.why };
+    var bad = [];
+    var LABEL = { id: '身份行', family: '流派出处', yes: '适合的场景', no: '不适合', quirk: '签名怪癖', bg: '底色赋值' };
+    for (var k in LABEL) {
+      if (r.miss[k] && r.miss[k].length) bad.push(LABEL[k] + '缺 ' + r.miss[k].length + ' 案（' + r.miss[k].slice(0, 3).join(' ') + '…）');
+    }
+    if (bad.length) return { ok: false, want: '六类内容全部进入提示词', got: bad.join('；'), detail: bad.join('；') };
+    return { ok: true, detail: r.n + ' 案：身份行 / 出处 / 适合 / 不适合 / 怪癖 / 底色 全部到位（首案 ' + r.sample + ' 字）' };
+  });
+
   await check('provenance-appendix-copied', async () => {
     await goto('#S17');
     const r = await pg.eval(`(function(){

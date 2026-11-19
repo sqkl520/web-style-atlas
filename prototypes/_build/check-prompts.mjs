@@ -1999,7 +1999,16 @@ for (const d of DIRS) {
           + '最后这一句是多余的填充用来保证总长度超过八十个字。';
         let tp = '';
         try { tp = buildStylePrompt(id, { biz: probe, action: '买豆子' }) || ''; } catch { /* 上面已报 */ }
-        const first = tp.split('\n')[0] || '';
+        /* ⚠️ 不能直接取 `split('\n')[0]`（2026-11-05 修）。
+         * 2026-11-05 在提示词最前面加了一行身份标识
+         * （「（风格来源：S01 红黑斜排报 · …）」），于是第一行不再是
+         * 「我经营 X」，而是那行元信息。断言读第一行拿到的是身份行，
+         * `body.length` 恒为 0，截断检测**永远不会触发** ——
+         * 变异测试立刻抓到了这一点（field-truncated-midword「没响」）。
+         *
+         * 这正是本仓库反复记录的那类病：判据依赖一个它没明说的位置假设。
+         * 现在改成**按内容定位**：找那一行"我经营…"，而不是找第 0 行。 */
+        const first = (tp.split('\n').filter((l) => /^我经营/.test(l))[0]) || '';
         const body = first.replace(/^我经营/, '').replace(/。$/, '');
         /* body 不应以半个词结尾：若原文在 body.length 处是句中字符，说明硬切了 */
         if (body && body.length >= 78 && probe.charAt(body.length) && !/[，。；！？、\s]/.test(probe.charAt(body.length))) {
