@@ -760,6 +760,53 @@
       '条目可增减（设计时 ' + cap.minItems + ' 条）</span>';
   }
 
+  /* 卡片上的「适不适合我」三行（2026-11-05）。
+     见调用处的长注释：scenesNo / minPics / hard 三个字段 35/35 有值，
+     而卡片上原来一个字都没有。
+     实现要点：
+     · scenesNo 原文常常是「需要低决策风险的 B 端采购站、面向幼儿的亲和型产品页。」
+       开头就是"需要…"的否定式，直接拼「不适合：不适合…」会重复。
+       去掉开头的"不适合："前缀（有的案有、有的没有），统一由我们加。
+     · minPics 与"真实图"的关系要说清：不是"至少 N 张"，而是"这个版式有 N 个
+       放真图的位置"。区别在哪：S07 的 minPics=7 但它是 column-count 自动流，
+       删到 3 条只是变短；真正会留洞的是 degrades==="yes"（capacityHTML 已经在说）。
+       所以这一行只报"版式要 N 张图"，不吓唬人。
+     · hard 只在 true 时出现，且必须说清"会坏在哪、为什么看不出来" ——
+       这是全站唯一一个这个性质的字段，值得占一行。 */
+  function rowFitHTML(r) {
+    var out = [];
+    var no = String(r.scenesNo || '').trim().replace(/^(不适合|不适用于)[：:]\s*/, '');
+    if (no) {
+      out.push('<span class="fit-no" title="这个风格不适合用在哪些场合（来自规格字段 10 的原文）">不适合：' + esc(no) + '</span>');
+    }
+    var P = window.STYLE_PROMPTS;
+    if (P && P.schemes) {
+      for (var i = 0; i < P.schemes.length; i++) {
+        var s = P.schemes[i];
+        if (s.id !== r.id) continue;
+        if (s.capacity && typeof s.capacity.minPics === 'number') {
+          var need = s.capacity.minPics;
+          var have = (r.gate && typeof r.gate.realPictures === 'number') ? r.gate.realPictures : null;
+          var txt = need === 0
+            ? '这个版式不放图也成立'
+            : '这个版式要 ' + need + ' 张真图';
+          /* 只有"你手上的图可能不够"这一件事需要提醒。have 是本案实际放了几张，
+             它 ≥ need 说明这个案证明了自己能做到；< need 才是真落差。 */
+          if (have !== null && have < need) {
+            txt += '（这个案自己只放了 ' + have + ' 张）';
+          }
+          out.push('<span class="fit-pics" title="版式里放真图的位置数，不是「至少需要几张」">' + esc(txt) + '</span>');
+        }
+        if (s.hard) {
+          out.push('<span class="fit-hard" title="这个案的核心机制靠 JavaScript 跑。v0 一类工具会把 script 剥掉或改写，机制会消失，而且不易察觉">机制依赖 JS：换个工具可能悄悄失效</span>');
+        }
+        break;
+      }
+    }
+    if (!out.length) return '';
+    return '<p class="row-fit">' + out.join('') + '</p>';
+  }
+
   function rowHTML(r) {
     var sw = (r.palette || []).slice(0, 4).map(function (h) {
       return '<i style="background:' + esc(h) + '" title="' + esc(h) + '"></i>';
@@ -814,6 +861,26 @@
             (r.tone ? '<span class="tag">' + esc(r.tone) + '</span>' : '') +
           '</div>' +
           '<p class="row-def">' + esc(plainOf(r)) + '</p>' +
+          /* 三件店主真正需要、原来卡上零字的东西（2026-11-05）：
+           *
+           * ① 不适合什么行业（scenesNo）—— 35/35 有值，卡上原来 0 字。
+           *    作者自己在详情面板的注释里已经认定「负向信息对『这案能不能用在我这行』
+           *    的判断比正向描述更硬 —— 用户常常先排除、再挑选」，却没让它在卡上出现一个字。
+           *    这是审计列出的"最大单点缺口"。
+           * ② 这个版式需要几张图（minPics）—— 35/35 有值，卡上原来 0 字。
+           *    卡上印的"真实图 N"是**另一个东西**（那案子实际放了几张），
+           *    两者 15/35 不相等，2 张卡上"真实图"少于版式实际需要。
+           *    店主手上 3 张产品照时，卡片给他的唯一数字回答的不是他的问题。
+           * ③ 机制依赖 JS（hard，4 案）—— 唯一一个"选了会坏、而且看不出来"的字段。
+           *    prompt-copy.js 的文案说「v0 会把 <script> 剥掉或改写，所以你在 v0 里
+           *    拿到的版本机制会消失，而且看起来不容易发现哪里坏了」。
+           *    这段话只存在于生成的提示词里，选型那一刻不可见。
+           *
+           * 为什么放在 row-def 下面而不是页脚：页脚是质检区（308 个信息单元里
+           * 238 个是质检项），这三件是决策信息，混进页脚等于被噪声埋掉。
+           * 为什么用 .row-fit 而不是再加一个 tag：tag 是"分类标签"（F型/门槛/调性），
+           * 这三件是**句子**，视觉上要能和标签区分开。 */
+          rowFitHTML(r) +
           '<div class="row-meta">' + meta.join('') + '</div>' +
         '</div>' +
         /* 只生成桌面一张（2026-11-04）。原来这里是三张，而 style.css 把第 2、3 张

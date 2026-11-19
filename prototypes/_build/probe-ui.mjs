@@ -893,6 +893,60 @@ async function runAll(pg) {
     return { ok: true, detail: '组：' + r.groups.join(' ') + '；亮底+暖 = ' + rows + ' 行（旧版 0）' };
   });
 
+  /* ── 15b. 卡片上必须有"适不适合我"三行（2026-11-05 加） ──
+   *
+   * 【要修的缺陷】三个 35/35 都有值的字段，卡片上原来**一个字都没有**：
+   *   · scenesNo（不适合什么行业）—— 作者自己在详情面板的注释里已认定
+   *     「负向信息对『这案能不能用在我这行』的判断比正向描述更硬」，
+   *     却没让它在卡上出现。审计把它列为"最大单点缺口"。
+   *   · minPics（这个版式要几张真图）—— 卡上印的"真实图 N"是另一个东西
+   *     （那案子实际放了几张），两者 15/35 不相等。店主手上 3 张产品照时，
+   *     卡片给他的唯一数字回答的不是他的问题。
+   *   · hard（机制依赖 JS，4 案）—— 唯一一个"选了会坏、而且看不出来"的字段，
+   *     原来只存在于生成的提示词里，选型那一刻不可见。
+   *
+   * 【判据】三条都用**页面真实渲染**验，不查源码：
+   *   ① 每张卡都有 .fit-no（不适合…）；
+   *   ② 每张卡都有 .fit-pics（要 N 张图 / 不放图也成立）；
+   *   ③ hard 为真的案必须有 .fit-hard，其余案不许有。
+   * ③ 必须**双向**验：只验"该有的有"会放过"所有卡都有"这种泛滥，
+   * 而那是把警示色变成装饰（本仓库的老病：35 张卡都印 no-footage）。 */
+  await check('row-card-fit-lines', async () => {
+    await goto();
+    const r = await pg.eval(`(function () {
+      var rows = Array.prototype.slice.call(document.querySelectorAll('#ledger .row'));
+      if (!rows.length) return { ok: false, why: '没有行卡' };
+      var P = window.STYLE_PROMPTS;
+      var hardIds = (P && P.schemes || []).filter(function (s) { return s.hard; }).map(function (s) { return s.id; });
+      var missNo = [], missPics = [];
+      var hardShown = [], hardWrong = [];
+      rows.forEach(function (row) {
+        var id = row.getAttribute('data-id');
+        if (!row.querySelector('.fit-no')) missNo.push(id);
+        if (!row.querySelector('.fit-pics')) missPics.push(id);
+        var hasHard = !!row.querySelector('.fit-hard');
+        if (hardIds.indexOf(id) >= 0) { if (hasHard) hardShown.push(id); else hardWrong.push(id + '(该有但没有)'); }
+        else if (hasHard) hardWrong.push(id + '(不该有却有)');
+      });
+      return { ok: true, n: rows.length, missNo: missNo, missPics: missPics,
+               hardIds: hardIds, hardShown: hardShown, hardWrong: hardWrong };
+    })()`);
+    if (!r.ok) return { ok: false, want: '至少一行卡', got: r.why, detail: r.why };
+    if (r.missNo.length) {
+      return { ok: false, want: '每张卡都有「不适合」', got: r.missNo.length + ' 张缺：' + r.missNo.slice(0, 5).join(' '),
+        detail: 'scenesNo 35/35 有值，卡上却缺 —— 这是审计列的最大单点缺口' };
+    }
+    if (r.missPics.length) {
+      return { ok: false, want: '每张卡都有「要 N 张图」', got: r.missPics.length + ' 张缺：' + r.missPics.slice(0, 5).join(' '),
+        detail: 'minPics 35/35 有值，卡上没有 —— 店主拿不到与他手上照片数对应的那个数' };
+    }
+    if (r.hardWrong.length) {
+      return { ok: false, want: 'hard 标注与数据一致', got: r.hardWrong.join('；'),
+        detail: '机制依赖 JS 的警示显示了不该显示的案，或漏了该显示的（4 案：' + r.hardIds.join(' ') + '）' };
+    }
+    return { ok: true, detail: r.n + ' 张卡：不适合 + 要几张图 全有；hard ' + r.hardShown.join(' ') + ' 标注正确' };
+  });
+
   await check('detail-open-row-not-squashed', async () => {
     const VIEWPORTS = [[1366, 768], [1280, 800], [1440, 900]];
     const bad = [];

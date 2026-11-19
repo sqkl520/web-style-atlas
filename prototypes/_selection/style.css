@@ -532,6 +532,36 @@ code { font-family: var(--code); font-size: 0.94em; }
   margin-top: 6px; font-size: var(--s-16); color: var(--ink-2); max-width: 46ch;
   display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
 }
+/* 「适不适合我」三行（2026-11-05）。
+   它们回答的是店主最先问的问题，所以紧跟在 row-def 之后、排在质检页脚之前。
+   视觉上要与 .tag（分类标签）区分开：tag 是短词 + 边框，这里是句子，
+   所以用无边框、浅底、小字号，读起来像正文的补充而不是又一层标签。
+   三行各有自己的色：
+     · 不适合 —— 中性灰（排除信息，不吓人，但要说清）
+     · 需要 N 张图 —— 中性灰
+     · 机制依赖 JS —— 唯一的警示色。它是全站唯一"选了会坏且看不出来"的字段，
+       用与 .cap-warn 同一族的赭色，让"这需要你注意"这件事在扫视时能跳出来。 */
+.row-fit {
+  margin-top: 8px; display: flex; flex-wrap: wrap; gap: 4px 10px;
+  font-size: var(--s-13); line-height: 1.5; color: var(--ink-3);
+}
+.row-fit > span { max-width: 100%; }
+/* .fit-no 是唯一可能很长的（原料最长 87 字，S31/S22/S13）。限两行：
+   它在页脚之前、又是决策信息，不能无限长；两行足够说清"不适合什么"，
+   想看全文可以点开详情（详情里 scenesNo 是完整原文）。
+   为什么不用 JS 截字：截字会切到句子中间（本仓库在这种修法上出过事，
+   见 row-def 那段注释），CSS clamp 至少能让它停在一个完整的视觉行上。 */
+.row-fit .fit-no {
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.row-fit .fit-no::before,
+.row-fit .fit-pics::before { content: ""; display: inline-block; width: 3px; height: 3px; background: currentColor; margin-right: 7px; vertical-align: middle; opacity: .45; }
+.row-fit .fit-hard {
+  color: #7a5a00; background: #fdf6e3; border: 1px solid #b8860b;
+  padding: 0 6px; cursor: help;
+}
+
 .row-meta {
   margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center;
   font-family: var(--num); font-variant-numeric: tabular-nums; font-size: var(--s-13); color: var(--ink-3);
