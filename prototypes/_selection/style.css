@@ -328,6 +328,17 @@ code { font-family: var(--code); font-size: 0.94em; }
   font-size: var(--s-14); font-weight: 600;
   color: var(--ink); margin-bottom: 8px;
 }
+/* 「单选」徽标（2026-11-05）。
+   「你是做什么的」这一组与其余各组的行为**不同**：它是单选（点新的换掉旧的），
+   而引导语原来写「组内多选是「或者」」—— 对第一组不成立。
+   只把引导语改掉不够：用户读到的是组标题，不会回头再看页首那段总则。
+   所以把差异标在组标题上，用最小的视觉代价（12px、方框、与 .tag 同族）。
+   不用彩色：这不是警告，只是"这一条规则和别的组不一样"。 */
+.rail-badge {
+  font-family: var(--num); font-size: var(--s-13); font-weight: 400;
+  color: var(--ink-3); border: 1px solid var(--rule-2);
+  padding: 0 4px; margin-left: 6px; vertical-align: 1px;
+}
 
 .chips { display: flex; flex-wrap: wrap; gap: 5px; }
 /* ⚠️ 芯片有**两个**挂载点：`#flt-scene` 在 `.chips` 里，而 28 颗「只有近似」的

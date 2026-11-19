@@ -1043,6 +1043,87 @@ async function runAll(pg) {
     return { ok: true, detail: '主台 ' + main.n + ' 条 minPics 可读；向导 S31 minPics=' + wz.minPics + '，' + wz.notes + ' 张卡无「不达标」误述' };
   });
 
+  /* ── 16c. 「你是做什么的」是单选，界面必须说出来（2026-11-05 修） ──
+   *
+   * 【要修的缺陷】引导语写「组间是「并且」，组内多选是「或者」」，而第一组
+   * 是**单选**：prompt-copy.js 的 click handler 每次先把所有 scene 芯片置 false。
+   * 实测点「咖啡店」(4 行) 再点「书店」，只剩 3 行而不是并集 5 行，
+   * 而页面从头到尾没有一处说明这一组是单选。
+   *
+   * 【为什么不改行为、只改文案】行业词取并集会把结果放大 ——
+   * 一个开咖啡店的店主选「咖啡店 + 书店」并不代表他要两个行业的方案，
+   * 而是他还没想清楚。单选逼他先答一个。
+   *
+   * 【判据】三件事一起验，缺一条这个修复就只是说了句漂亮话：
+   *   ① 组标题上有「单选」徽标（用户读到的是组标题，不会回头翻页首总则）；
+   *   ② 该组的提示行说明"一次只能选一个"；
+   *   ③ 页首总则不再说"组内多选是或者"这种对第一组不成立的话。
+   * 另外实测行为本身（点两颗，只剩后一颗按下）—— 文案与行为必须同时成立，
+   * 否则就是"文档说一套、界面做一套"。
+   * ⚠️ 点第二颗时要用 `.scene-more button` 也在选择器里：书店属于"只有近似"，
+   * 挂在折叠区，只查 `#flt-scene button` 会点不到，测试就会假通过。 */
+  await check('scene-group-says-single-select', async () => {
+    await goto();
+    const r = await pg.eval(`(function () {
+      var blk = document.getElementById('flt-scene');
+      blk = blk ? blk.closest('.rail-block') : null;
+      if (!blk) return { ok: false, why: '找不到 #flt-scene 的 .rail-block' };
+      var h2 = blk.querySelector('h2');
+      var hint = blk.querySelector('.rail-hint');
+      var lead = document.querySelector('.rail-lead');
+      return {
+        ok: true,
+        badge: h2 ? h2.textContent.indexOf('单选') >= 0 : false,
+        hint: hint ? hint.textContent : '',
+        lead: lead ? lead.textContent : ''
+      };
+    })()`);
+    if (!r.ok) return { ok: false, want: '#flt-scene 组', got: r.why, detail: r.why };
+    if (!r.badge) {
+      return { ok: false, want: '组标题上有「单选」', got: '没有', detail: '用户读的是组标题，不会回头翻页首总则' };
+    }
+    if (!/一次只能选一个|单选/.test(r.hint)) {
+      return { ok: false, want: '提示行说明是单选', got: r.hint.slice(0, 50), detail: '组内行为与其余各组不同，却没在这一组旁边说' };
+    }
+    /* ⚠️ 判据不能用「文案里出现"组内多选是或者"」—— 正确的文案是
+     * 「**其余每组**内多选是「或者」」，它合法地包含了这串字。
+     * 第一版断言就是这么写的，于是它把正确的文案判成错（假阳性）。
+     * 正确的判据是**语义**：这句话必须带限定（"其余"/"后面几组"），
+     * 否则它就是无条件地宣称"组内多选"，而第一组不是。 */
+    if (/组内多选是「或者」/.test(r.lead) && !/(其余|其他|后面|除了第一组)[^。]{0,12}组内多选/.test(r.lead)) {
+      return { ok: false, want: '页首总则对"组内多选"加限定', got: r.lead.slice(0, 70),
+        detail: '无条件地说"组内多选是或者"，而第一组是单选' };
+    }
+    /* 行为本身：点两颗，只剩后一颗按下 */
+    const beh = await pg.eval(`(function () {
+      var t = document.querySelector('.scene-toggle');
+      if (t) t.click();
+      function click(kw) {
+        var b = Array.prototype.filter.call(
+          document.querySelectorAll('#flt-scene button, .scene-more button'),
+          function (x) { return x.textContent.indexOf(kw) >= 0; })[0];
+        if (b) b.click();
+        return !!b;
+      }
+      var a = click('咖啡店');
+      var b2 = click('书店');
+      var pressed = Array.prototype.filter.call(
+        document.querySelectorAll('#flt-scene button, .scene-more button'),
+        function (x) { return x.getAttribute('aria-pressed') === 'true'; }
+      ).map(function (x) { return x.textContent.replace(/[0-9]+$/, '').trim(); });
+      document.getElementById('reset').click();
+      return { a: a, b: b2, pressed: pressed };
+    })()`);
+    if (!beh.a || !beh.b) {
+      return { ok: false, want: '找得到咖啡店与书店芯片', got: JSON.stringify(beh), detail: '前置条件不成立' };
+    }
+    if (beh.pressed.length !== 1) {
+      return { ok: false, want: '只留一颗按下', got: beh.pressed.join(' / '),
+        detail: '这一组不是单选，或者文案该改成"多选"' };
+    }
+    return { ok: true, detail: '标题有「单选」+ 提示行说明 + 页首总则不冲突；实测点两颗只剩「' + beh.pressed[0] + '」' };
+  });
+
   await check('filter-groups-orthogonal', async () => {
     await goto();
     const r = await pg.eval(`(function () {
