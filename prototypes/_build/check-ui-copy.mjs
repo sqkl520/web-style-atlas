@@ -272,6 +272,100 @@ for (const g of HARDCODED_GUARDS) {
 }
 
 /* ══════════════════════════════════════════════════════════════════════
+   断言 6：界面上的豁免判定，必须与 check-contract.mjs 的 C1 同判据
+   ──────────────────────────────────────────────────────────────────────
+   2026-11-05：`app.js` 新增 gateVerdict()，把契约 §9.15 允许表搬进界面，
+   于是卡片上「FAIL 3」变成「检查 3 · 契约允许」，筛选栏也不再出现
+   「FAIL 3 → 5 案」。动机是对的（那 5 案的 17 条 FAIL 全在允许表内），
+   但**这引入了一个新的信任点**：豁免判定写在渲染层，如果它错了，
+   界面会把真缺陷说成"契约允许"——这比原来显示红字更危险，
+   因为它把错误包装成了权威。
+
+   两个实现各有各的数据源：
+     · check-contract.mjs → prototypes/_prompts/minitems-parsed.json
+     · app.js gateVerdict → window.STYLE_PROMPTS.schemes[].capacity.minPics
+   两份至今逐条相等（实测 35/35 一致），但**没有任何东西保证它继续相等**。
+   一旦分叉，闸门说"这案豁免成立"、界面说"不成立"（或反过来），
+   而两边都会绿 —— 各自都在自己的判据里自洽。
+
+   这条断言就是把两个数据源钉在一起：
+     ① 两份 minPics 逐案相等；
+     ② app.js 里「有条件豁免」的规则名集合，等于 check-contract 的 CONDITIONAL 键集合。
+   任一条不成立 → FAIL，指名是哪一案/哪条规则。
+   ══════════════════════════════════════════════════════════════════════ */
+{
+  const miPath = join(ROOT, 'prototypes/_prompts/minitems-parsed.json');
+  const contractPath = join(ROOT, 'prototypes/_build/check-contract.mjs');
+  if (!existsSync(miPath)) {
+    add('FAIL', 'exemption-source-missing', '找不到 prototypes/_prompts/minitems-parsed.json —— 无法校验豁免判定的数据源');
+  } else {
+    let fromJson = {};
+    try {
+      const mj = JSON.parse(readFileSync(miPath, 'utf8').replace(/^﻿/, ''));
+      fromJson = Object.fromEntries(mj.map((x) => [x.id, x.minPics]));
+    } catch (e) {
+      add('FAIL', 'exemption-source-unparsable', 'minitems-parsed.json 解析失败：' + (e.message || e));
+    }
+    /* 从 app.js 里现读它用的豁免条件（不手抄 —— 手抄的会和实现脱节） */
+    const lowPicMatch = app.match(/pics\s*<=\s*(\d+)/);
+    const appThreshold = lowPicMatch ? Number(lowPicMatch[1]) : null;
+    const cMatch = existsSync(contractPath)
+      ? readFileSync(contractPath, 'utf8').match(/CONDITIONAL\s*=\s*\{([\s\S]*?)\};/)
+      : null;
+    const contractThresholds = new Set();
+    if (cMatch) for (const m of cMatch[1].matchAll(/mp\s*<=\s*(\d+)/g)) contractThresholds.add(Number(m[1]));
+    if (appThreshold === null) {
+      add('FAIL', 'exemption-threshold-unreadable', '在 app.js 里找不到 `pics <= N` 形式的豁免阈值 —— 判据结构变了？');
+    }
+    if (!cMatch) {
+      add('FAIL', 'exemption-conditional-unreadable', '在 check-contract.mjs 里找不到 CONDITIONAL 定义 —— 两处判据无法比对');
+    } else if (appThreshold !== null && !contractThresholds.has(appThreshold)) {
+      add('FAIL', 'exemption-threshold-diverged',
+        `app.js 用 minPics ≤ ${appThreshold} 判条件豁免，而 check-contract.mjs 的 CONDITIONAL 用的是 ${[...contractThresholds].join('/')} —— 两处判据已经分叉`);
+    }
+    /* 逐案比对两份 minPics：这不是"再算一遍"，是证两个源是同一个源 */
+    let checked = 0, diverged = [];
+    const pat = /'(S\d{2})':\s*\{\s*plain:/g;
+    void pat;
+    /* app.js 侧走 prompts.js（它才是界面读的那份）。
+       ⚠️ 不用正则/JSON.parse 抠 —— prompts.js 是 `window.STYLE_PROMPTS = {...}`
+       的赋值语句，不是纯 JSON，抠块状文本会脆。
+       直接在一个隔离的 `window` 桩里执行它，比解析它的文本可靠一个量级：
+       这正是界面运行时做的事，两边读到的一定是同一份。 */
+    let fromPrompts = {};
+    const promptsPath = join(SEL, 'prompts.js');
+    if (existsSync(promptsPath)) {
+      try {
+        const src = readFileSync(promptsPath, 'utf8');
+        const sandbox = { window: {} };
+        const fn = new Function('window', src + '\n;return window.STYLE_PROMPTS;');
+        const P = fn(sandbox.window);
+        for (const s of (P && P.schemes) || []) {
+          if (s && s.id && s.capacity && typeof s.capacity.minPics === 'number') {
+            fromPrompts[s.id] = s.capacity.minPics;
+          }
+        }
+      } catch (e) {
+        add('FAIL', 'exemption-prompts-unreadable', 'prompts.js 执行失败，界面豁免判定的数据源无法校验：' + (e.message || e));
+      }
+    }
+    const ids = Object.keys(fromJson);
+    for (const id of ids) {
+      if (!(id in fromPrompts)) continue;
+      checked++;
+      if (fromPrompts[id] !== fromJson[id]) diverged.push(`${id}：界面=${fromPrompts[id]} 契约闸门=${fromJson[id]}`);
+    }
+    if (diverged.length) {
+      add('FAIL', 'exemption-source-diverged',
+        `豁免判定的两个数据源已经不一致（界面读 prompts.js，契约闸门读 minitems-parsed.json）：${diverged.join('；')}`);
+    } else if (checked === 0) {
+      add('WARN', 'exemption-source-unchecked',
+        '没能从 prompts.js 解析出任何 minPics —— 这条一致性校验实际上没跑（不是通过，是没检查）');
+    }
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════════
    --selftest：证明这条闸门真的会响
    ──────────────────────────────────────────────────────────────────────
    起因：这份脚本的文件头从 2026-11-04 起就写着 `--selftest`，但**从来没实现**。
@@ -319,15 +413,38 @@ if (process.argv.includes('--selftest')) {
       to: '<title>选型台 · 35 个网站设计风格方案</title>',
       expect: 'derived-number-hardcoded',
     },
+    /* 断言 6 的变异体：豁免判定的两个数据源分叉。
+       这条比上面四条更要紧 —— 上面四条抓的是"数字写错了"，
+       这一条抓的是"界面的权威结论与闸门的结论不一致"。
+       它需要在**别的目录**改文件，所以下面 selftest 支持 `file` 带路径前缀。 */
+    {
+      name: '豁免阈值分叉（app.js 2→3）',
+      file: 'app.js',
+      from: 'pics <= 2',
+      to: 'pics <= 3',
+      expect: 'exemption-threshold-diverged',
+    },
+    {
+      name: '豁免数据源分叉（minPics 被单边改动）',
+      file: '../_prompts/minitems-parsed.json',
+      from: /("id":\s*"S31",[\s\S]*?"minPics":\s*)1/,
+      to: '$19',
+      expect: 'exemption-source-diverged',
+      json: true,
+    },
   ];
   let bad = 0;
-  const bak = join(SEL, '.selftest.bak');
   for (const m of RULES_MUT) {
+    /* `file` 允许带 `../` 前缀（断言 6 要改 prototypes/_prompts/ 下的文件）。
+       用一个临时备份路径**按变异体区分**，否则连续跑会在同一个 .selftest.bak
+       上来回覆盖（并发跑时更糟：两个实例互相盖，结果全是假的）。 */
     const p = join(SEL, m.file);
+    const bak = p + '.selftest.bak';
     copyFileSync(p, bak);
     try {
       const src = readFileSync(p, 'utf8');
-      const next = typeof m.from === 'string' ? src.replace(m.from, m.to) : src.replace(m.from, m.to);
+      /* 字符串与正则都走 replace；正则的 `$1` 反向引用在 String.replace 里有效。 */
+      const next = src.replace(m.from, m.to);
       if (next === src) { console.log(`  ✗ 变异体「${m.name}」没能应用到 ${m.file}（锚点变了？）`); bad++; continue; }
       writeFileSync(p, next);
       let out = '';

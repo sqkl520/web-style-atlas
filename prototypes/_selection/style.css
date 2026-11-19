@@ -356,6 +356,16 @@ code { font-family: var(--code); font-size: 0.94em; }
 .chips button .n,
 .scene-more button .n { font-family: var(--num); font-variant-numeric: tabular-nums; font-size: var(--s-13); margin-left: 5px; opacity: .8; }
 
+/* 角标与取值之间必须有一道可见的间隔（2026-11-05）。
+   原来只有一个 `margin-left: 5px`，而取值文字是中文字符串，视觉上
+   「无真缺陷」和「29」之间只隔 5px，读出来是「无真缺陷29」——
+   与「FAIL 029」是同一个病：两个数/两段语义粘成一串，谁也说不清哪个是哪个。
+   加一道左侧竖线做分隔符，不占宽度、不引入新字形（用 border 不用伪元素，
+   避免又一处「字体里有没有那个字形不由我们决定」）。
+   只在角标前画，芯片内文字布局不变，所以 rail 的高度与折行行为零变化。 */
+.chips button .n,
+.scene-more button .n { border-left: 1px solid currentColor; padding-left: 5px; }
+
 /* 「当前条件下会筛出 0 个」的芯片（2026-11-05）。
    角标改成随筛选重算之后，必然出现一批 0 —— 以前它们显示的是全库计数（非零），
    点下去才撞空。灰掉 + 划线数字是在说"这一颗现在点了没用"，而不是"这颗芯片不存在"：
@@ -363,7 +373,7 @@ code { font-family: var(--code); font-size: 0.94em; }
    所以更要提前说）。用透明度而不是 display:none，理由是后者会让 rail 的芯片布局
    在每次筛选后跳动，反而更难用；0 本身也要看得见，它是"你的条件已经太窄"的证据。 */
 .chips button.is-dead,
-.scene-more button.is-dead { opacity: .42; cursor: not-allowed; border-style: dotted; }
+.scene-more button.is-dead { opacity: .42; cursor: not-allowed; }
 .chips button.is-dead .n,
 .scene-more button.is-dead .n { text-decoration: line-through; }
 .chips button.is-dead:hover,
@@ -506,6 +516,17 @@ code { font-family: var(--code); font-size: 0.94em; }
 .tag-warn { border-color: var(--warn); color: var(--warn); }
 .tag-pass { border-color: var(--pass); color: var(--pass); }
 .tag-none { border-style: dashed; color: var(--ink-3); }
+/* 「契约允许」（2026-11-05）。
+   它不是通过（所以不用 pass 的绿），也不是缺陷（所以不用 fail 的红）。
+   用**灰字 + 无边框**：比 .tag-none 更轻，因为它的结论是"没问题"，
+   只是"问题不在这个案身上"。
+   ⚠️ 不要用虚线边。第一版写的 `border-style: dashed`，实测把页面的
+   dashed 计数从 4 抬到 6，render-scheme 的 `dashed` WARN 从 1 条变 2 条 ——
+   这不是闸门误报，是我真的往页面里加了虚线，而规则原文是
+   「Remove unless it is a real drop zone」。这条徽标不是投放区，
+   就不该占用虚线的视觉语汇（虚线在本页已经专用于"未建/未渲染/近似"）。 */
+.tag-allowed { border-color: transparent; color: var(--ink-2); cursor: help; }
+.tag-allowed:hover { color: var(--ink); text-decoration: underline dotted; }
 
 .row-def {
   margin-top: 6px; font-size: var(--s-16); color: var(--ink-2); max-width: 46ch;

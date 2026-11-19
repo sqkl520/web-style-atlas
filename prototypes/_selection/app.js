@@ -217,9 +217,24 @@
     if (!r.gate) return '已建 · 未渲染';
     return '已建 · 已渲染';
   }
+  /* 闸门筛选的取值（2026-11-05 改）。
+     原来返回 'FAIL ' + fail，于是筛选栏里出现「FAIL 3 → 5 案」。
+     而那 5 案的 FAIL 全部落在契约 §9.15 允许表内（见 gateVerdict），
+     照原样摆出来等于用质检术语劝店主避开唯一为他做的五个案。
+     现在按**真缺陷数**分档：契约允许的不再归进 FAIL 组，
+     而是单独一档「契约允许」—— 它仍然可筛（用户可能就想看这批），
+     但名字说的是事实，不是事故。
+
+     ⚠️ 标签里**不带数字**（曾用 'FAIL 0'，渲染成「FAIL 029」—— 取值名自己的 0
+     与角标计数 29 粘成一串，读成 "FAIL 029" / "fail 3 共 5" 都说得通）。
+     分档信息由文案本身承担：「无真缺陷 / 契约允许 / 有真缺陷」三档，
+     具体几个由芯片角标给，两者不再挤在同一行里。 */
   function gateKey(r) {
     if (!r.gate) return '未渲染';
-    return 'FAIL ' + r.gate.fail;
+    var v = gateVerdict(r);
+    if (v.real.length) return '有真缺陷';
+    if (v.exempt.length) return '契约允许';
+    return '无真缺陷';
   }
 
   /* 先挂用户能回答的四组轴，再挂设计口径与质检状态。
@@ -539,13 +554,96 @@
     return '<figure class="shot"><img src="' + esc(src) + '"' + lazy + ' alt="' + esc(r.id + ' ' + r.cn + ' 在 ' + cap + 'px 视口的首屏渲染截图') + '"><figcaption>' + cap + '</figcaption></figure>';
   }
 
+  /* ── 契约 §9.15 的豁免判定（2026-11-05）───────────────────────────────
+   *
+   * 【要修的死路，实测】
+   * 契约 `_CONTRACT.md:194-203` §9.15 逐条写明了哪些规则**对中文站结构性不利**，
+   * 处置口径是「保留设计，报告原始 FAIL 并说明」。其中三条的豁免条件**可计算**：
+   *   · `few-pictures` —— 仅当该案 `capacity.minPics ≤ 2`（"找得到就放 4–12 张"
+   *     对"店主手上只有两三张图"的世界不成立）；
+   *   · `hairline` —— 同一条件（无照片的案子只能靠线/边框/留白分区）；
+   *   · `mono` / `font-count` —— 中文主字体+拉丁+等宽数字槽=3 族是下限。
+   *
+   * 而界面上这三个字长得和真缺陷一模一样。实测后果：
+   * S31–S35 的 `FAIL 3` 徽标是红的，而它们的 `minPics` 是 1,1,1,0,1 —— 全库最低，
+   * 是**唯一为"手上没有摄影素材"的店主做的五个案子**。店主点「FAIL 3」芯片
+   * → 5 张卡全是红字 → 最合理的动作是避开这 5 个。
+   * 更糟的是"真实图 1"这个数字紧挨着 `FAIL 3`，读起来是"缺图→所以不合格"，
+   * 实际是"缺图→所以这是为你做的"。
+   *
+   * 【判据】把 §9.15 里可计算的部分搬进代码，逐条判定每个 failId：
+   *   exempt —— 落在豁免条件内（界面要说清"这是契约允许的"）
+   *   real   —— 不在允许表内（才是真缺陷，该红）
+   * 34 条 FAIL token 逐条实测：100% 落在允许表内。也就是说现在页面上那 6 个
+   * FAIL>0 的案，一个真缺陷都没有。
+   *
+   * 【为什么不在 collect-schemes 里算】豁免理由要带上下文（哪条规则、为什么），
+   * 那是契约的语言，属于渲染层。数据层只该给原始 failIds。
+   * 这与仓库既有分工一致：`data.js` 不做判断，判断在 `app.js`/`prompt-copy.js`。
+   */
+  function minPicsOf(r) {
+    var P = window.STYLE_PROMPTS;
+    if (!P || !P.schemes) return null;
+    for (var i = 0; i < P.schemes.length; i++) {
+      var s = P.schemes[i];
+      if (s.id === r.id && s.capacity && typeof s.capacity.minPics === 'number') return s.capacity.minPics;
+    }
+    return null;
+  }
+
+  /* 每一条规则的豁免判据。返回 null = 不在允许表内（真缺陷）。
+     返回字符串 = 豁免理由（会进 title，界面上只显示"允许N"）。 */
+  function exemptionFor(id, r) {
+    var pics = minPicsOf(r);
+    var lowPic = pics !== null && pics <= 2;
+    switch (id) {
+      case 'mono':
+        return '契约 §9.15：辅助数字用等宽字族（编号/时刻/页码/尺寸），中文主字体+拉丁+等宽=3 族是下限';
+      case 'font-count':
+        return '契约 §9.15：中文主字体 + 拉丁字体 + 等宽数字槽 = 3 族是下限，不要为它合并中文字体';
+      case 'few-pictures':
+        return lowPic
+          ? '契约 §9.15：本案 minPics=' + pics + '（≤2），"找得到就放 4–12 张"对"手上只有两三张图"不成立'
+          : null;   /* minPics > 2 却图少 —— 那是真缺陷 */
+      case 'hairline':
+        return lowPic
+          ? '契约 §9.15：本案 minPics=' + pics + '（≤2），无照片的案子只能靠线/边框/留白分区'
+          : null;
+      case 'palette-terracotta':
+        return '契约 §9.15：S08 的琥珀主色是矩阵冻结值（_specs 字段 3 钉死承担板体与油墨 24%），不是随手选的 AI 陶土';
+      default:
+        return null;
+    }
+  }
+
+  function gateVerdict(r) {
+    var ids = (r.gate && r.gate.failIds) || [];
+    var real = [], exempt = [];
+    for (var i = 0; i < ids.length; i++) {
+      var why = exemptionFor(ids[i], r);
+      if (why) exempt.push({ id: ids[i], why: why }); else real.push(ids[i]);
+    }
+    return { real: real, exempt: exempt };
+  }
+
   function gateTags(r) {
     if (!r.built) return '<span class="tag tag-none">未建原型</span>';
     if (!r.gate) return '<span class="tag tag-none">未渲染</span>';
     var out = [];
-    out.push(r.gate.fail === 0
-      ? '<span class="tag tag-pass">FAIL 0</span>'
-      : '<span class="tag tag-fail">FAIL ' + r.gate.fail + '</span>');
+    var v = gateVerdict(r);
+    if (r.gate.fail === 0) {
+      out.push('<span class="tag tag-pass">FAIL 0</span>');
+    } else if (v.real.length) {
+      /* 有真缺陷就照旧标红，并把**真的那几条**写出来 —— 店主不需要知道
+         契约豁免了什么，只需要知道"这个案确实有 N 处没做好"。 */
+      out.push('<span class="tag tag-fail" title="真缺陷（不在契约豁免表内）：' + esc(v.real.join(' ')) + '">FAIL ' + v.real.length + '</span>');
+    } else {
+      /* 一条真缺陷都没有，全部落在 §9.15 允许表内。
+         这时**不能**再显示红色 FAIL —— 那是在用质检术语把一个合规的案子
+         标成次品。改为可点的说明：「检查 3（允许）」，title 逐条给理由。 */
+      var why = v.exempt.map(function (e) { return e.id + '：' + e.why; }).join('\n');
+      out.push('<span class="tag tag-allowed" title="' + esc(why) + '">检查 ' + v.exempt.length + ' · 契约允许</span>');
+    }
     if (r.gate.warn) out.push('<span class="tag tag-warn">WARN ' + r.gate.warn + '</span>');
     return out.join('');
   }
