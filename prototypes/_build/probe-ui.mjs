@@ -1124,6 +1124,97 @@ async function runAll(pg) {
     return { ok: true, detail: '标题有「单选」+ 提示行说明 + 页首总则不冲突；实测点两颗只剩「' + beh.pressed[0] + '」' };
   });
 
+  /* ── 16d. 场景芯片要带角标，结果行要标直连/近似（2026-11-05 修） ──
+   *
+   * 【要修的缺陷，两条】
+   * ① 场景芯片没有 `.n` 角标，而其余九组都有。16 颗实心芯片 `withCount: 0`。
+   *    店主点之前完全不知道"咖啡店"会出 4 行还是 1 行，而这一组恰恰是他最先点的。
+   * ② 点完芯片，4 行里哪几行是"这个行业本来就是为它做的"、哪几行是"换文案能用"，
+   *    行卡上完全看不出（`直连|近似` 命中 0/4）。
+   *    而这两件事意义相反：16 颗实心芯片合计 17 行直连 + 26 行近似（**近似占 60%**），
+   *    8/16 颗实心的近似数多于直连数，5/16 颗按方案号排序时**第一行就是近似行**。
+   *    也就是说：他点了「手作品牌」，第一眼看的那行很可能不是为这行做的。
+   *
+   * 【判据】
+   *   ① 每颗场景芯片都有 `.n`，且数字等于 direct+near 的长度（不是写死的）；
+   *   ② 点一个 direct≥1 的词之后，行卡上的 .fit-scene 数 == 该词 direct+near 长度，
+   *      且 S\d{2} 的分布与 sceneIndex 逐案一致（直连的就是直连，近似就是近似）。
+   * ② 必须逐案比对而不是"有没有标记"：只验存在性会放过"全标成直连"这种错，
+   * 而那正是最坏的情况——它把 3 个勉强的方案说成量身定制。
+   */
+  await check('scene-chip-counts-and-row-labels', async () => {
+    await goto();
+    const r = await pg.eval(`(function () {
+      var P = window.STYLE_PROMPTS || {};
+      var idx = P.sceneIndex || {};
+      var chips = Array.prototype.slice.call(document.querySelectorAll('#flt-scene button'));
+      var noCount = [];
+      var wrongCount = [];
+      chips.forEach(function (b) {
+        var term = b.getAttribute('data-scene');
+        var n = b.querySelector('.n');
+        if (!n) { noCount.push(term); return; }
+        var want = ((idx[term] || {}).direct || []).length + ((idx[term] || {}).near || []).length;
+        /* 角标渲染成「1+3」或「4」，把里面的数字全加起来比对 */
+        var got = (n.textContent.match(/[0-9]+/g) || []).reduce(function (a, x) { return a + Number(x); }, 0);
+        if (got !== want) wrongCount.push(term + ' 显示 ' + got + ' 实际 ' + want);
+      });
+      /* 找一个 direct >= 2 的词（这样直连/近似两侧都有样本） */
+      var probe = null;
+      for (var t in idx) { if (idx[t] && (idx[t].direct || []).length >= 2 && (idx[t].near || []).length >= 1) { probe = t; break; } }
+      if (!probe) { for (var t2 in idx) { if (idx[t2] && (idx[t2].direct || []).length >= 1) { probe = t2; break; } } }
+      var labels = null;
+      if (probe) {
+        var tgl = document.querySelector('.scene-toggle');
+        if (tgl) tgl.click();
+        var cb = Array.prototype.filter.call(
+          document.querySelectorAll('#flt-scene button, .scene-more button'),
+          function (x) { return x.getAttribute('data-scene') === probe; })[0];
+        if (cb) {
+          cb.click();
+          labels = { term: probe, rows: [], want: {} };
+          (idx[probe].direct || []).forEach(function (id) { labels.want[id] = 'direct'; });
+          (idx[probe].near || []).forEach(function (id) { labels.want[id] = 'near'; });
+          Array.prototype.forEach.call(document.querySelectorAll('#ledger .row'), function (row) {
+            var el = row.querySelector('.fit-scene');
+            labels.rows.push({
+              id: row.getAttribute('data-id'),
+              cls: el ? el.className : '(none)'
+            });
+          });
+          document.getElementById('reset').click();
+        }
+      }
+      return { ok: true, chips: chips.length, noCount: noCount, wrongCount: wrongCount, labels: labels };
+    })()`);
+    if (!r.ok) return { ok: false, want: '场景芯片', got: '?', detail: '' };
+    if (r.noCount.length) {
+      return { ok: false, want: '每颗场景芯片都有角标', got: r.noCount.length + ' 颗没有（' + r.noCount.slice(0, 3).join(' ') + '）',
+        detail: '其余九组都有 .n，唯独这一组没有 —— 而这是店主最先点的一组' };
+    }
+    if (r.wrongCount.length) {
+      return { ok: false, want: '角标数 = direct+near', got: r.wrongCount.join('；'), detail: '角标与 sceneIndex 不一致' };
+    }
+    if (!r.labels) {
+      return { ok: false, want: '能点一个场景词', got: 'no probe', detail: '前置条件不成立' };
+    }
+    var bad = [];
+    r.labels.rows.forEach(function (row) {
+      var want = r.labels.want[row.id];
+      if (!want) { bad.push(row.id + ' 不该出现却有'); return; }
+      var isDirect = /is-direct/.test(row.cls);
+      var isNear = /is-near/.test(row.cls);
+      if (want === 'direct' && !isDirect) bad.push(row.id + ' 应为直连');
+      if (want === 'near' && !isNear) bad.push(row.id + ' 应为近似');
+    });
+    if (bad.length) {
+      return { ok: false, want: '行卡标记与 sceneIndex 逐案一致', got: bad.join('；'),
+        detail: '「' + r.labels.term + '」的行卡标错了 —— 把近似标成直连是最坏的情况' };
+    }
+    return { ok: true, detail: r.chips + ' 颗芯片角标齐全；「' + r.labels.term + '」' +
+      r.labels.rows.length + ' 行标记与 sceneIndex 逐案一致' };
+  });
+
   await check('filter-groups-orthogonal', async () => {
     await goto();
     const r = await pg.eval(`(function () {

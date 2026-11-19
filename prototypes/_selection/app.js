@@ -25,7 +25,8 @@
     /* 场景反查白名单：由 prompt-copy.js 的「你是做什么的」芯片写入。
        为空 = 不按场景筛。单独开一个状态是因为 state.q 是整串子串匹配，
        拼"S06 S19"这种串会筛出 0 个（实测踩过）。 */
-    sceneIds: new Set(),
+    sceneIds: new Set(),     // 选中的场景词对应的方案 id 白名单
+    sceneTerm: '',           // 选中的场景词本身（用来在结果行上标直连/近似）
     /* 被行业芯片「接管」时寄存的搜索词（2026-10-27）。
        为什么需要它：见下面 parkQuery() 的长注释。简言之 —— 点芯片时若搜索框里有词，
        两条筛选取交集；而 18/44 个行业词在方案正文里根本没有，交集恒为空。
@@ -803,6 +804,32 @@
        这是全站唯一一个这个性质的字段，值得占一行。 */
   function rowFitHTML(r) {
     var out = [];
+    /* 直连 / 近似 标记（2026-11-05 新增）。
+     *
+     * 【要修的死路，实测】点完场景芯片，4 行里哪几行是"这个行业本来就是为它做的"、
+     * 哪几行是"换文案能用"，行卡上完全看不出（`直连|近似` 命中 0/4）。
+     * 而这两件事对店主的意义相反：16 颗实心芯片合计 17 行直连 + 26 行近似
+     * （**近似占 60%**），8/16 颗实心的近似数多于直连数，
+     * 5/16 颗按方案号排序时**第一行就是近似行**。
+     * 也就是说：他点了「手作品牌」，第一眼看的那一行很可能不是为这行做的。
+     *
+     * 【判据】按当前选中的场景词（state.sceneTerm）查 sceneIndex：
+     * id 在 direct 里 → 直连；在 near 里 → 近似。两者都不是 → 不标
+     * （那说明是搜索词或轴筛出来的，与场景无关）。
+     * 只在有选中场景词时才标 —— 平时 35 行的页面上多两列标记是纯噪声。 */
+    var term = state.sceneTerm;
+    if (term) {
+      var P0 = window.STYLE_PROMPTS;
+      var idx = (P0 && P0.sceneIndex) || {};
+      var rec = idx[term];
+      if (rec) {
+        if ((rec.direct || []).indexOf(r.id) >= 0) {
+          out.push('<span class="fit-scene is-direct" title="「' + esc(term) + '」的直接匹配：这个行业本来就是为它做的">直连「' + esc(term) + '」</span>');
+        } else if ((rec.near || []).indexOf(r.id) >= 0) {
+          out.push('<span class="fit-scene is-near" title="「' + esc(term) + '」的近似项：换文案能用，但不是为这个行业做的">近似「' + esc(term) + '」</span>');
+        }
+      }
+    }
     var no = String(r.scenesNo || '').trim().replace(/^(不适合|不适用于)[：:]\s*/, '');
     if (no) {
       out.push('<span class="fit-no" title="这个风格不适合用在哪些场合（来自规格字段 10 的原文）">不适合：' + esc(no) + '</span>');
@@ -2120,12 +2147,14 @@
 
   /* 对外接口：给 prompt-copy.js 的场景芯片用。
      只暴露「按 id 集合筛选」这一个动作，不让外部直接碰 state 内部结构。 */
-  window.benchSetSceneIds = function (ids) {
+  window.benchSetSceneIds = function (ids, term) {
     state.sceneIds = new Set(ids || []);
+    state.sceneTerm = term || '';
     render();
   };
   window.benchClearSceneIds = function () {
     state.sceneIds = new Set();
+    state.sceneTerm = '';
     render();
   };
   /* 2026-10-27 新增两个原子动作，给芯片的 click handler 用。
@@ -2138,14 +2167,16 @@
   };
   /* 点芯片时调用：先挂起搜索词，再换白名单，一次渲染。
      ids 为空 = 取消芯片（此时不动搜索框里用户自己打的字）。 */
-  window.benchSetSceneIdsParkingQuery = function (ids) {
+  window.benchSetSceneIdsParkingQuery = function (ids, term) {
     var parked = parkQuery();
     state.sceneIds = new Set(ids || []);
+    state.sceneTerm = term || '';
     render();
     return { parked: parked, parkedText: state.qParked };
   };
   window.benchClearSceneIdsKeepQuery = function () {
     state.sceneIds = new Set();
+    state.sceneTerm = '';
     render();
   };
   window.benchParked = function () { return state.qParked; };

@@ -2348,7 +2348,29 @@
        * 这一点是刻意的：把模板塞进 sceneIds 会直接撞上白名单（实测 {M02} → 0/30 行）。 */
       var tplHit = resolveTemplateHits(term);
       var tplIds = tplHit.exact.map(function (t) { return t.id; });
-      btn.innerHTML = tplEsc(term) + (tplIds.length
+      /* 场景芯片也必须有角标（2026-11-05）。
+       *
+       * 【要修的死路，实测】其余九组芯片都带 `.n` 角标（点之前就知道会剩几行），
+       * 唯独这一组没有 —— 16 颗实心芯片 `withCount: 0`。店主点下去之前
+       * 完全不知道"咖啡店"会出 4 行还是 1 行，而这一组恰恰是他最先点的一组。
+       *
+       * 【为什么给两个数而不是一个】direct 与 near 的语义不同：
+       *   direct = 直接匹配（这个行业本来就是为它做的）
+       *   near   = 只有近似（换文案能用，但不是为这行做的）
+       * 合成一个总数会把「1 个直连 + 3 个近似」和「4 个直连」显示成同一个 4，
+       * 而这两件事对店主的意义完全相反。实测 8/16 颗实心芯片的近似数
+       * **多于**直连数，5/16 颗按方案号排序时第一行是近似行 ——
+       * 只看总数他会以为这个行业被支持得很好。
+       *
+       * 【样式】用与 `.chips button .n` 同一族的等宽数字，直连在前、近似在后
+       * 且用 + 号分隔，读作「直连 1 + 近似 3」。近似那半走 `.nd`（d = dashed，
+       * 与虚边芯片的视觉呼应），让"这几行是换文案能用的"在数字上就看得出。 */
+      var nDirect = (v.direct || []).length;
+      var nNear = (v.near || []).length;
+      var countHTML = '<span class="n" title="直连 ' + nDirect + ' 个；近似 ' + nNear +
+        ' 个（近似＝换文案能用，不是为这行做的）">' + nDirect +
+        (nNear ? '<span class="nd">+' + nNear + '</span>' : '') + '</span>';
+      btn.innerHTML = tplEsc(term) + countHTML + (tplIds.length
         ? '<span class="scene-tpl" title="模板层有对应：' + tplEsc(tplIds.join(" ")) +
           '（点它只筛方案，模板另在清单上方给出）">' + tplEsc(tplIds.join(" ")) + '</span>'
         : "");
@@ -2385,8 +2407,8 @@
              而他很可能要的正是"在咖啡店这 4 个里再挑"。挂起同时保住这两件事。
              为什么不做"q 是行业词就不参与匹配"：那是猜；猜错了没有任何提示，
              而「摄影」这种既是行业词、又真的出现在正文里的词会变成新的静默行为。 */
-          if (window.benchSetSceneIdsParkingQuery) window.benchSetSceneIdsParkingQuery(ids);
-          else if (window.benchSetSceneIds) window.benchSetSceneIds(ids);
+          if (window.benchSetSceneIdsParkingQuery) window.benchSetSceneIdsParkingQuery(ids, term);
+          else if (window.benchSetSceneIds) window.benchSetSceneIds(ids, term);
           /* 选好了 → 窄档收起筛选栏，让结果进入首屏（见 collapseRailAfterPick 的长注释）。
              放在两个 bench* 调用**之后**：先让列表换成新结果，再收容器，
              否则收起那一下的重排会落在旧列表上，多一帧"空了"的观感。 */
