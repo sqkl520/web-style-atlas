@@ -307,7 +307,61 @@ async function runAll(pg) {
     return { ok: true, detail: 'j 换方案(' + before + '→' + afterJ + ')、Esc 一次收起、Enter 仍激活按钮' };
   });
 
-  /* ── 6. aria-live：注释声称 #count 是活口，而属性曾经不存在 ── */
+  /* ── 7b. 卡片加载的是缩略图，不是全尺寸截图（2026-11-05 修） ──
+   *
+   * 【要修的缺陷】卡片缩略图实显 152×86 CSS px，@dpr2 需要 304×171；
+   * 而它加载的是 1440×900 的原图 —— 只用到 4.0% 的像素，超采样 4.7×。
+   * 实测 35 张合计 5.03 MiB（均 147 KB），而首屏只有 1 张完整卡可见。
+   *
+   * 同一处还有两件事长得很像但不同：
+   *   · 上一轮修掉了"隐藏的图"（60 张 display:none 却仍下载），
+   *     顺手把 `loading="lazy"` 变成了永不生效的三元（因为只剩 desktop 一种）；
+   *   · 这一轮修掉了"超采样的图"，并把懒加载恢复。
+   * 只验其中一件会漏掉另一件，所以判据三条：
+   *   ① 卡片 img 的 src 是 .thumb.jpg（不是全尺寸）；
+   *   ② 有 data-full 回退目标（缩略图缺失时不至于空白）；
+   *   ③ 首屏实际下载的图 ≤ 12 张（懒加载生效；全量 35 张说明没懒加载）。
+   * ③ 的阈值取 12 而不是"必须 <7"：视口高度会影响预加载范围，
+   * 不同机器上 6–9 都出现过。12 是"明显少于 35"的下限，不是精确值。 */
+  await check('card-uses-thumbnails', async () => {
+    const before = servedImages;
+    await goto();
+    await new Promise((r) => setTimeout(r, 1200));
+    const loaded = servedImages - before;
+    const r = await pg.eval(`(function () {
+      var imgs = Array.prototype.slice.call(document.querySelectorAll('#ledger .row .shot img'));
+      if (!imgs.length) return { ok: false, why: '没有卡片缩略图' };
+      var srcs = imgs.map(function (i) { return i.getAttribute('src') || ''; });
+      var fulls = imgs.map(function (i) { return i.getAttribute('data-full') || ''; });
+      return {
+        ok: true,
+        n: imgs.length,
+        thumb: srcs.filter(function (s) { return /\.thumb\.jpg$/.test(s); }).length,
+        full: srcs.filter(function (s) { return !/\.thumb\.jpg$/.test(s); }).length,
+        withFull: fulls.filter(Boolean).length,
+        lazyish: imgs.filter(function (i) { return i.getAttribute('loading') === 'lazy'; }).length,
+        sample: srcs[0]
+      };
+    })()`);
+    if (!r.ok) return { ok: false, want: '卡片缩略图', got: r.why, detail: r.why };
+    if (r.thumb < r.n) {
+      return { ok: false, want: '全部 ' + r.n + ' 张都是 .thumb.jpg', got: r.thumb + ' 张缩略图 / ' + r.full + ' 张原图',
+        detail: '卡片在加载全尺寸截图（超采样 4.7×，5.03 MiB）。样本：' + r.sample };
+    }
+    if (r.withFull < r.n) {
+      return { ok: false, want: '每张都有 data-full 回退', got: r.withFull + '/' + r.n,
+        detail: '缺回退目标 —— 缩略图没生成时卡片会空白' };
+    }
+    if (r.lazyish < r.n) {
+      return { ok: false, want: '全部懒加载', got: r.lazyish + '/' + r.n, detail: '有图是 loading="auto"，会挤进首屏请求' };
+    }
+    if (loaded > 12) {
+      return { ok: false, want: '首屏加载 ≤12 张', got: String(loaded), detail: '懒加载没生效（全量是 35 张）' };
+    }
+    return { ok: true, detail: r.n + ' 张全为缩略图 + 回退；首屏实际加载 ' + loaded + ' 张' };
+  });
+
+  /* ── 8. aria-live：注释声称 #count 是活口，而属性曾经不存在 ── */
   await check('count-aria-live', async () => {
     const r = await pg.eval(`(() => {
       const n = document.getElementById('count');

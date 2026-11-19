@@ -595,8 +595,7 @@
     var src = (r.shots[vp] || [])[0];
     if (!src) {
       return '<figure class="shot is-empty"><figcaption>' + cap + ' 未渲染</figcaption></figure>';
-    }
-    /* 卡片上只留桌面一张（2026-11-04）。
+    }    /* 卡片上只留桌面一张（2026-11-04）。
      *
      * 原来这里生成三张（1440/768/390），但 style.css 的 `.shots .shot:not(:first-child){display:none}`
      * 把第 2、3 张永久藏起来 —— 于是 30 案 × 2 张 = **60 张图（4.84 MB）被下载给谁都不看**。
@@ -606,8 +605,37 @@
      * 原注释说不加 `loading="lazy"` 是为了让"页面里到底有没有图"这个指标不失真；
      * 但那段理由本身也写着 `_selection` 从不在闸门范围内（verify-prototype 只扫 /^S\d{2}-/）。
      * 真正该省的是这 4.84 MB。 */
-    var lazy = vp === 'desktop' ? '' : ' loading="lazy" decoding="async"';
-    return '<figure class="shot"><img src="' + esc(src) + '"' + lazy + ' alt="' + esc(r.id + ' ' + r.cn + ' 在 ' + cap + 'px 视口的首屏渲染截图') + '"><figcaption>' + cap + '</figcaption></figure>';
+    /* 卡片缩略图用缩略图变体，缺了回退原图（2026-11-05）。
+     *
+     * 卡片实显 152×86 CSS px，@dpr2 需要 304×171；而原图是 1440×900 ——
+     * 只用到 4.0% 的像素，超采样 4.7×。实测 35 张合计 5.03 MiB（均 147 KB）。
+     * 生成 `.thumb.jpg` 之后 0.26 MiB（均 7.6 KB），19 倍。
+     * 生成脚本：prototypes/_build/make-thumbs.mjs（零依赖，用 CDP 让浏览器
+     * 自己解码→缩放→重编码 —— 仓库铁律是不装图像库）。
+     *
+     * 回退是**故意的**，不是保守：
+     *   ① 缩略图是派生文件，可能还没生成（新加一个案、或有人清了 .inspect）；
+     *   ② 加一条"必须存在"的硬断言会让"新加案"变成两步操作，
+     *      漏一步的代价是卡片一片空白 —— 回退让漏跑只是慢，不是坏。
+     * 回退靠 onerror，因为**浏览器端无法查文件是否存在**：
+     * 静态站没有服务端，fetch+HEAD 既慢又会在 file:// 下失败。
+     *
+     * 懒加载（同一轮修的另一件事）：
+     * 原来这里是 `var lazy = vp === 'desktop' ? '' : ' loading="lazy"'` ——
+     * 但本函数现在**只生成 desktop 一张**，于是这个三元**恒为 ''**：
+     * 35 张图全部 `loading="auto"`，一张不懒加载。上一次为省流量做的改动
+     * （删掉 60 张被 display:none 的图）顺手让懒加载永不再生效，
+     * 而没人发现 —— 省下来的是"隐藏的图"，没省下来的是"超采样的图"，
+     * 两个问题长得很像但不是同一个。
+     * 现在卡片缩略图一律懒加载：它们全部在首屏之下（实测首卡 top 426），
+     * 没有一张是 LCP 元素。详情面板的 #stage 走 paintViewer 另一条路径。 */
+    var thumb = src.replace(/\.jpg$/i, '.thumb.jpg');
+    var lazy = ' loading="lazy" decoding="async"';
+    return '<figure class="shot"><img src="' + esc(thumb) + '"' + lazy +
+      ' data-full="' + esc(src) + '"' +
+      ' onerror="if(!this.dataset.fell){this.dataset.fell=1;this.src=this.dataset.full;}"' +
+      ' alt="' + esc(r.id + ' ' + r.cn + ' 在 ' + cap + 'px 视口的首屏渲染截图') + '">' +
+      '<figcaption>' + cap + '</figcaption></figure>';
   }
 
   /* ── 契约 §9.15 的豁免判定（2026-11-05）───────────────────────────────

@@ -1,7 +1,7 @@
 // 由 render-scheme.mjs 生成，勿手改。选型台自身的闸门结果。
 // 生成时机：node prototypes/_build/render-scheme.mjs _selection
 window.SELECTION_REPORT = {
- "at": "2026-11-19T13:55:21.947Z",
+ "at": "2026-11-19T14:24:06.679Z",
  "findings": [
   {
    "level": "WARN",
