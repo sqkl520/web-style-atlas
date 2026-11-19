@@ -342,6 +342,36 @@
   }
 
   function render() {
+    /* 把答案写回地址栏（2026-11-05 新增）。
+     *
+     * 【要修的死路，实测】答完五题 → 点推荐卡去选型台 → 浏览器**后退** →
+     * 回到向导，URL 是 `/wizard.html`（不带任何参数）、只剩第 1 题、
+     * 0 个按钮按下。**用户必须重答五题。** 而"点开一个方案看看"是这条路上
+     * 最自然的动作 —— 看一个不满意，想回去看另外两个，代价是全部重来。
+     *
+     * 【为什么用 replaceState 而不是 pushState】
+     * 五题 = 五条历史会让"后退"变成"回到上一题"，而用户的意图通常是离开这个页面。
+     * replaceState 只更新当前这一条：地址栏里有答案（可分享、可后退回来复原），
+     * 但历史长度不变。
+     *
+     * 【为什么写在 render 里而不是每题点击时】
+     * render 是所有路径的汇合点：点按钮、URL 回放、重来（reset 后会清空）。
+     * 写在各 click handler 里必然漏一条（本仓库在这类"两处要一起改"上失守过多次）。
+     * 代价是 reset 之后也会跑一次 —— 那时 ans 被清空，下面的守卫会让它把参数去掉，
+     * 这正是想要的结果。
+     *
+     * 【为什么不碰 hash】选型台用 `#S07` 表示"打开这个方案"。向导没有这个概念，
+     * 用 query 与它区分开；以后若给向导加"定位到第 N 题"，可以再加 hash，不冲突。 */
+    (function syncUrl() {
+      if (typeof history === 'undefined' || !history.replaceState) return;
+      var have = ORDER.filter(function (k) { return ans[k] !== undefined; });
+      var qs = have.map(function (k) { return k + '=' + ans[k]; }).join('&');
+      /* 只在五题全答时才写：部分答案回放不出来（replay 要求 ORDER.every 都有值），
+         写一半进去只会让后退回来看到一个"有一半答案但结论不显示"的半死状态。 */
+      var url = location.pathname + (have.length === ORDER.length && qs ? '?' + qs : '');
+      try { history.replaceState(null, '', url); } catch (e) { /* file:// 下可能被拒，忽略 */ }
+    })();
+
     var ranked = V.slice().sort(function (a, b) { return score(a) - score(b); });
     var pick = ranked.slice(0, 3);
     var avoid = ranked.slice(-3).reverse();
@@ -389,6 +419,12 @@
     document.getElementById('wz-out').hidden = true;
     document.getElementById('wz-share').hidden = true;
     showOnly(0);
+    /* 重来也要把地址栏里的答案清掉（2026-11-05）。
+     * 不调 render()，所以上面那个 syncUrl 不会跑 —— 留着的话，
+     * 用户点"重来"再刷新页面，五道题又带着旧答案回来了，看起来像"重来没生效"。 */
+    if (typeof history !== 'undefined' && history.replaceState) {
+      try { history.replaceState(null, '', location.pathname); } catch (e) { /* 忽略 */ }
+    }
     window.scrollTo({ top: 0 });
   });
 

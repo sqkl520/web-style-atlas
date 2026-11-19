@@ -1317,6 +1317,70 @@ async function runAll(pg) {
       r.hashLinks.length + ' 个直达链接（与 ' + r.pickN + ' 个推荐对齐）' };
   });
 
+  /* ── 16g. 答完五题后，地址栏要能带住答案（2026-11-05 修） ──
+   *
+   * 【要修的死路，实测】答完五题 → 点推荐卡去选型台 → 浏览器**后退** →
+   * 回到向导，URL 是 /wizard.html（不带任何参数）、只剩第 1 题、0 个按钮按下。
+   * **用户必须重答五题。** 而"点开一个方案看看"是这条路上最自然的动作 ——
+   * 看一个不满意，想回去看另外两个，代价是全部重来。
+   *
+   * 【判据】四件事：
+   *   ① 答完五题后 location.search 含全部五个键；
+   *   ② history.length 没有因为答题而增长（用 replaceState 不是 pushState，
+   *      否则"后退"会变成"回到上一题"，而用户的意图是离开这个页面）；
+   *   ③ 带着这条 URL 重新加载，结论区可见且五个按钮都是按下态；
+   *   ④ 点「重来」后 search 被清空（否则用户重来再刷新，旧答案又回来了）。
+   * ② 是这条断言最容易被忽略的一半：只验"URL 里有答案"会放过用 pushState
+   * 的实现，而那种实现下后退键变成"回上一题"——修好了丢答案，弄坏了后退。 */
+  await check('wizard-answers-survive-navigation', async () => {
+    const base = `http://127.0.0.1:${server.address().port}/${PAGE.replace('index.html', 'wizard.html')}`;
+    await pg.goto(base, { settleMs: 900 });
+    await new Promise((r) => setTimeout(r, 1200));
+    const h0 = await pg.eval(`history.length`);
+    /* 逐题点 */
+    for (const [q, v] of [['load', '1'], ['img', '1'], ['loud', '1'], ['guide', '0'], ['fear', '1']]) {
+      await pg.eval(`(function(){var b=document.querySelector('.wz-q[data-q="${q}"] button[data-v="${v}"]');if(b)b.click();})()`);
+      await new Promise((r) => setTimeout(r, 160));
+    }
+    const st = await pg.eval(`(function(){
+      return { search: location.search, len: history.length, href: location.href };
+    })()`);
+    if (!/load=1/.test(st.search) || !/fear=1/.test(st.search) || !/guide=0/.test(st.search)) {
+      await goto();
+      return { ok: false, want: 'URL 带住五题答案', got: st.search || '(空)',
+        detail: '答完后地址栏没有答案 —— 后退/刷新都会丢掉全部选择' };
+    }
+    if (st.len > h0) {
+      await goto();
+      return { ok: false, want: '历史长度不变（' + h0 + '）', got: String(st.len),
+        detail: '答题写进了历史 —— 后退会变成"回上一题"，而用户想离开这个页面' };
+    }
+    /* 重新加载这条 URL */
+    await pg.goto(st.href, { settleMs: 900 });
+    await new Promise((r) => setTimeout(r, 1300));
+    const back = await pg.eval(`(function(){
+      return {
+        out: !document.getElementById('wz-out').hidden,
+        pressed: document.querySelectorAll('.wz-opts button[aria-pressed="true"]').length
+      };
+    })()`);
+    if (!back.out || back.pressed !== 5) {
+      await goto();
+      return { ok: false, want: '回放：结论可见 + 5 个按钮按下', got: JSON.stringify(back),
+        detail: '带着答案回来却没有复原 —— 用户要重答五题' };
+    }
+    /* 重来要清空 URL */
+    await pg.eval(`document.getElementById('wz-reset').click()`);
+    await new Promise((r) => setTimeout(r, 250));
+    const afterReset = await pg.eval(`location.search`);
+    await goto();
+    if (afterReset) {
+      return { ok: false, want: '重来后 URL 无参数', got: afterReset,
+        detail: '重来没清地址栏 —— 用户重来再刷新，旧答案又回来了' };
+    }
+    return { ok: true, detail: '答完写入 URL 且历史长度不变（' + h0 + '）；回放 5 题全复原；重来清空' };
+  });
+
   await check('filter-groups-orthogonal', async () => {
     await goto();
     const r = await pg.eval(`(function () {
