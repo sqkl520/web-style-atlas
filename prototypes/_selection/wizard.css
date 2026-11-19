@@ -93,3 +93,30 @@
   .wz-main { padding: 22px var(--pad) 60px; }
   .wz-card { grid-template-columns: 1fr; gap: 8px; }
 }
+
+/* 「下一步：把提示词带走」块（2026-11-05 新增）。
+   为什么它需要自己的样式而不是复用 .wz-note：
+   这块是全页**唯一**一处指向交付物的说明，而上面所有内容都是"挑哪个"。
+   视觉上要能把它与推荐/排除两块分开（一道上边线），否则它读起来像
+   结论区的一条脚注，而它是这条路走完的出口。
+   底色用卡片色而不是透明：让它在长页末尾有一块"可停靠"的面积。 */
+.wz-nextstep {
+  margin-top: 30px; padding: 18px 20px;
+  border-top: 2px solid var(--ink);
+  background: var(--card);
+}
+.wz-nextstep p { font-size: var(--s-15); line-height: 1.7; color: var(--ink-2); }
+.wz-nextstep strong { color: var(--ink); }
+.wz-nextstep-lead { margin-top: 14px; font-size: var(--s-14); color: var(--ink-3); }
+.wz-nextstep-links {
+  display: flex; flex-wrap: wrap; gap: 8px 14px; margin-top: 6px;
+  font-family: var(--num); font-size: var(--s-14);
+}
+.wz-nextstep-links a {
+  color: var(--ink); text-decoration-thickness: 1px; text-underline-offset: 3px;
+}
+.wz-nextstep-links a:hover { text-decoration-thickness: 2px; }
+.wz-nextstep-foot {
+  margin-top: 14px; font-size: var(--s-13); color: var(--ink-3);
+}
+.wz-nextstep-foot a { color: var(--link); }

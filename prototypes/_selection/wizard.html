@@ -95,6 +95,22 @@
     <ul class="wz-list wz-avoid" id="wz-avoid"></ul>
 
     <p class="wz-note wz-method" id="wz-method"></p>
+
+    <!-- 「下一步」块（2026-11-05 新增）。
+         为什么要加：实测 wizard.html / wizard.js / wizard.css 全文
+         「提示词」出现 **0 次**。而主台页头写的是「点『复制 AI 提示词』→
+         粘进 ChatGPT / Claude / v0，让它照这个风格建你的站」——
+         从主台进来的店主知道要拿提示词；从向导这条"官方第二路"进来的，
+         走到结论页一个字都不会看到它。**这条路走完拿不到本站唯一的交付物。**
+         位置放在排除区之后、方法说明之前：读完"推荐什么、排除什么"，
+         下一个问题一定是"所以我现在该干什么"。 -->
+    <section class="wz-nextstep" aria-label="下一步">
+      <h2 class="wz-oh">下一步：把提示词带走</h2>
+      <p>选型台给的不是一张图，是一段<strong>可以直接粘给 AI 的提示词</strong>。到选型台点开任一个方案，详情面板顶部就有「复制 AI 提示词」，粘进 ChatGPT / Claude / v0，它就会照这个风格把你自己的内容做成一个整站。</p>
+      <p class="wz-nextstep-lead">这 3 个里挑一个开始：</p>
+      <p class="wz-nextstep-links" id="wz-nextstep-links"></p>
+      <p class="wz-nextstep-foot">提示词包含什么、为什么不是套话 → <a href="./#tpl-exit">回到选型台看说明</a>。</p>
+    </section>
   </section>
 
 </main>

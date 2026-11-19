@@ -1262,6 +1262,61 @@ async function runAll(pg) {
     return { ok: true, detail: (r.groups - 1) + ' 个筛选组都有说明；F/R = ' + r.fr.join(' / ') };
   });
 
+  /* ── 16f. 向导这条路走完，必须能拿到提示词（2026-11-05 修） ──
+   *
+   * 【要修的缺陷】实测 wizard.html / wizard.js / wizard.css 全文
+   * 「提示词」出现 **0 次**。而主台页头写的是「点『复制 AI 提示词』→
+   * 粘进 ChatGPT / Claude / v0」——从主台进来的店主知道要拿提示词；
+   * 从向导这条"官方第二路"进来的，走到结论页一个字都不会看到它。
+   * **这条路走完拿不到本站唯一的交付物。**
+   *
+   * 更隐蔽的一层：向导的卡片链接写「到选型台看它的三档截图」——
+   * 那是"去看"，不是"去拿"。两个动作在落地后是同一处，
+   * 但措辞让人以为这条路只到"看"为止。
+   *
+   * 【判据】答完五题之后：
+   *   ① 页面上「提示词」出现的次数 > 0（不是卡片里，是全页可见文本）；
+   *   ② 有 .wz-nextstep 块，且块里有指向 #Sxx 的直达链接；
+   *   ③ 链接数与推荐数一致（3 个）—— 少一个就代表那条路断了。
+   * ③ 不能用"至少一个"：只验存在性会放过"三个推荐却只给了一个链接"，
+   * 而那正是最可能的实现错（map 里提前 return、或 pick 被消费过一次）。
+   */
+  await check('wizard-path-reaches-the-prompt', async () => {
+    await pg.goto(`http://127.0.0.1:${server.address().port}/${PAGE.replace('index.html', 'wizard.html')}?load=1&img=1&loud=1&guide=0&fear=1`, { settleMs: 900 });
+    await new Promise((r) => setTimeout(r, 1400));
+    const r = await pg.eval(`(function () {
+      var txt = document.body.innerText || '';
+      var cnt = txt.split('提示词').length - 1;
+      var box = document.querySelector('.wz-nextstep');
+      var links = box ? Array.prototype.map.call(box.querySelectorAll('a[href]'), function (a) {
+        return a.getAttribute('href');
+      }) : [];
+      var pickN = document.querySelectorAll('#wz-pick li').length;
+            /* 这个块整段是一个模板字符串，里面不能再出现反斜杠转义或反引号
+         （会提前闭合/被吃掉，本仓库踩过两次）。
+         所以下面改用不含反斜杠的判断：前 4 位是 ./#S，后面两位是数字。 */
+      var hashLinks = links.filter(function (h) {
+        return h.indexOf('./#S') === 0 && h.length === 6 && /^[0-9][0-9]$/.test(h.slice(4));
+      });
+      return { ok: true, count: cnt, hasBox: !!box, links: links, hashLinks: hashLinks, pickN: pickN };
+    })()`);
+    await goto();   /* 回到主台，别把后面的断言带偏 */
+    if (!r.ok) return { ok: false, want: '向导结论页', got: '?', detail: '' };
+    if (r.count === 0) {
+      return { ok: false, want: '页面上出现「提示词」', got: '0 次',
+        detail: '这条路走完拿不到本站唯一的交付物 —— 店主不知道要回主台复制提示词' };
+    }
+    if (!r.hasBox) {
+      return { ok: false, want: '.wz-nextstep 块', got: '不存在', detail: '结论页没有"下一步"的落地指引' };
+    }
+    if (r.hashLinks.length !== r.pickN) {
+      return { ok: false, want: r.pickN + ' 个直达链接', got: r.hashLinks.length + ' 个',
+        detail: '推荐了 ' + r.pickN + ' 个却只给了 ' + r.hashLinks.length + ' 条路' };
+    }
+    return { ok: true, detail: '「提示词」出现 ' + r.count + ' 次；下一步块给了 ' +
+      r.hashLinks.length + ' 个直达链接（与 ' + r.pickN + ' 个推荐对齐）' };
+  });
+
   await check('filter-groups-orthogonal', async () => {
     await goto();
     const r = await pg.eval(`(function () {

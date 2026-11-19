@@ -349,6 +349,21 @@
     document.getElementById('wz-pick').innerHTML = pick.map(function (v) { return card(v, false); }).join('');
     document.getElementById('wz-avoid').innerHTML = avoid.map(function (v) { return card(v, true); }).join('');
 
+    /* 「下一步」的三个直达链接（2026-11-05）。
+     * 与卡片上那条链接指向同一处（./#Sxx），但作用不同：
+     * 卡片上那条是"我要看看它长什么样"，这里这三条是"我要把它带走"。
+     * 分成两块是因为店主读完推荐之后要做的决定变了 —— 前者是继续比较，
+     * 后者是结束选择。同一个链接在两种意图下需要两种措辞。
+     * ⚠️ 只在有推荐时才渲染：pick 为空（例如数据没加载）时这块会是空壳，
+     * 不如让它整个空着 —— 那句"这 3 个里挑一个开始"在上文没有 3 个时就是假话。 */
+    var nl = document.getElementById('wz-nextstep-links');
+    if (nl) {
+      nl.innerHTML = pick.map(function (v) {
+        return '<a href="./#' + v.r.id + '">' + v.r.id + ' ' + (v.r.cn || '') +
+          ' → 复制它的提示词</a>';
+      }).join('');
+    }
+
     document.getElementById('wz-method').innerHTML =
       '你这五个答案是：内容量 ' + ['一屏说清', '三五屏', '很多栏目'][ans.load] +
       '　·　图片 ' + ['基本不用', '几张就够', '图是主角'][ans.img] +
