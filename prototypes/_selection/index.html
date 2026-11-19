@@ -191,6 +191,7 @@
     <div class="rail-block">
       <h2>要亮底还是暗底</h2>
       <div class="chips" id="flt-ground" role="group" aria-label="按底色明暗筛选"></div>
+      <p class="rail-hint">整页最大面积那一层是浅色还是深色。<b>「中间调」很少</b>——浅底和深底各占一大块，中间那档本来就少，不是筛选出了错。</p>
     </div>
     <div class="rail-block">
       <h2>暖色还是冷色</h2>
@@ -200,6 +201,7 @@
     <div class="rail-block">
       <h2>要装多少内容</h2>
       <div class="chips" id="flt-load" role="group" aria-label="按内容量筛选"></div>
+      <p class="rail-hint">按每案正文的<b>实际字数</b>分的档（不是"需要几屏"）——所以标「一屏说清」的案也可能要往下滚几屏，那是横向排得稀，不是内容多。你的内容字数落在哪档就选哪档。</p>
     </div>
     <div class="rail-block">
       <h2>要安静还是要扎眼</h2>
@@ -212,22 +214,27 @@
     <div class="rail-block">
       <h2>结构类型</h2>
       <div class="chips" id="flt-fr" role="group" aria-label="按结构类型筛选"></div>
+      <p class="rail-hint"><b>F 型＝有固定骨架</b>：进去三秒就知道先看哪、点哪里。<b>R 型＝靠一个物理机制组织</b>：内容是随某个动作（翻、滑、对齐）展开的，得多看一眼才懂。两种都不比对方好，区别只是"要不要让访客先动一下"。</p>
     </div>
     <div class="rail-block">
       <h2>认知门槛</h2>
       <div class="chips" id="flt-thr" role="group" aria-label="按认知门槛筛选"></div>
+      <p class="rail-hint">访客要看懂这页<b>要花多少力气</b>。门槛低＝摆明了给他看；门槛高＝要读进去才明白好在哪。<b>不是"好不好"</b>——门槛高的案往往更有记忆点，只是不适合第一次见面的人。</p>
     </div>
     <div class="rail-block">
       <h2>调性</h2>
       <div class="chips" id="flt-tone" role="group" aria-label="按调性筛选"></div>
+      <p class="rail-hint">这个风格<b>说话是什么口气</b>。斜杠前是气质、斜杠后是它像哪个行业——两句一起读才准，只看前半会误判。</p>
     </div>
     <div class="rail-block">
       <h2>建成状态</h2>
       <div class="chips" id="flt-state" role="group" aria-label="按建成状态筛选"></div>
+      <p class="rail-hint">这一批<b>全部已建、全部有真截图</b>。留着这一组是因为数据里允许"未建"的状态，将来新增案时会用到——现在点它不改变结果。</p>
     </div>
     <div class="rail-block">
       <h2>闸门</h2>
       <div class="chips" id="flt-gate" role="group" aria-label="按闸门结果筛选"></div>
+      <p class="rail-hint">自动质检的结果。分三档：<b>无真缺陷</b>（一条问题都没有）、<b>契约允许</b>（有几条检查没通过，但契约里写明这几条对这类案不适用，比如"少图"案本来就该只有 1–2 张图）、<b>有真缺陷</b>（确实没做好）。<span data-derived="gate-allowed-n">6</span> 个案子属于"契约允许"。</p>
     </div>
     <div class="rail-block rail-note">
       <h2>怎么用</h2>

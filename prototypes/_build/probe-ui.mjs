@@ -1215,6 +1215,53 @@ async function runAll(pg) {
       r.labels.rows.length + ' 行标记与 sceneIndex 逐案一致' };
   });
 
+  /* ── 16e. 每个筛选组都要能读懂（2026-11-05 修） ──
+   *
+   * 【要修的缺陷】实测 10 个筛选组里 **6 组没有任何说明**（明暗/内容量/结构类型/
+   * 认知门槛/调性/建成状态/闸门），而其中两类是纯粹的内部术语：
+   *   · 「F 型 / R 型」—— 两个字母，页面全文没有解释（只有 README:162 有，
+   *     而读页面的店主不会去翻 README），详情面板也不含这个字段，点开也查不到；
+   *   · 「认知门槛 低/中/高」—— 容易被读成"难做/贵"，实际说的是"访客要看懂
+   *     要花多少力气"。
+   *
+   * 【判据】每个 .rail-block（除「怎么用」——那不是筛选组）都要有一个非空的
+   * .rail-hint，且 F/R 芯片的文案里必须出现"骨架"或"机制"这类可解码的词，
+   * 不能只剩字母。
+   * 这条只能验"有没有说明"，验不了"说明对不对"——后者要靠人读。
+   * 但"有没有"是能自动守的，而它是"对不对"的前提：一组没有说明的筛选器，
+   * 正确性无从谈起。 */
+  await check('every-filter-group-explains-itself', async () => {
+    await goto();
+    const r = await pg.eval(`(function () {
+      var blocks = Array.prototype.slice.call(document.querySelectorAll('.rail-block'));
+      var missing = [];
+      blocks.forEach(function (b) {
+        var h = b.querySelector('h2');
+        var name = h ? h.textContent.trim() : '(无名)';
+        if (name.indexOf('怎么用') >= 0) return;   /* 不是筛选组 */
+        var hint = b.querySelector('.rail-hint');
+        if (!hint || !hint.textContent.trim()) missing.push(name);
+      });
+      var fr = Array.prototype.map.call(document.querySelectorAll('#flt-fr button'), function (b) {
+        return b.textContent.replace(/[0-9]+$/, '').trim();
+      });
+      var frReadable = fr.length > 0 && fr.every(function (t) {
+        return /骨架|机制/.test(t);
+      });
+      return { ok: true, groups: blocks.length, missing: missing, fr: fr, frReadable: frReadable };
+    })()`);
+    if (!r.ok) return { ok: false, want: '筛选组', got: '?', detail: '' };
+    if (r.missing.length) {
+      return { ok: false, want: '每组都有 .rail-hint', got: r.missing.length + ' 组没有：' + r.missing.join('、'),
+        detail: '没有说明的筛选器，用户只能靠猜' };
+    }
+    if (!r.frReadable) {
+      return { ok: false, want: 'F/R 芯片文案可解码', got: r.fr.join(' / '),
+        detail: '只剩字母 F/R —— 页面全文没有解释，详情面板也不含这个字段' };
+    }
+    return { ok: true, detail: (r.groups - 1) + ' 个筛选组都有说明；F/R = ' + r.fr.join(' / ') };
+  });
+
   await check('filter-groups-orthogonal', async () => {
     await goto();
     const r = await pg.eval(`(function () {

@@ -269,6 +269,26 @@
     return l * 100 < 20 ? '冷' : '暖';
   }
 
+  /* 结构类型的取值文案（2026-11-05）。
+   *
+   * 【要修的死路】芯片上原来只写「F 型」「R 型」—— 两个内部缩写，
+   * 页面上没有任何一处解释（README:162 有，但读页面的店主不会去翻 README）。
+   * 实测：详情面板也不含这个字段，所以点开一个案也查不到。
+   *
+   * 【含义从哪来】README:162 的原话：
+   * 「F 型是有固定骨架的结构，访客 3 秒内知道先看哪、点哪；
+   *   R 型靠一个物理机制组织内容。」
+   * 这是作者自己的定义，照抄不改。
+   *
+   * 【为什么保留 F/R 而不是全换成中文】这两个字母在 35 案的 `structure`
+   * 取值里是与具体骨架名（NEWS-FRONT / COLLAGE…）配套的，行卡上也印着
+   * 「F 型 · NEWS-FRONT」。全换会让两处对不上。所以改成「F 型·有骨架」，
+   * 字母留着做锚点，后缀给人看。 */
+  var FR_LABEL = {
+    'F': 'F 型·有固定骨架',
+    'R': 'R 型·靠一个机制组织'
+  };
+
   function stateKey(r) {
     if (!r.built) return '未建原型';
     if (!r.gate) return '已建 · 未渲染';
@@ -306,7 +326,7 @@
     chips('#flt-load', function (r) { return (r.axes || {}).load; }, state.load, null, 'load');
     chips('#flt-loud', function (r) { return (r.axes || {}).loud; }, state.loud, null, 'loud');
 
-    chips('#flt-fr', function (r) { return r.fr; }, state.fr, function (v) { return v + ' 型'; }, 'fr');
+    chips('#flt-fr', function (r) { return r.fr; }, state.fr, function (v) { return FR_LABEL[v] || (v + ' 型'); }, 'fr');
     chips('#flt-thr', function (r) { return r.threshold; }, state.thr, null, 'thr');
     chips('#flt-tone', function (r) { return r.tone; }, state.tone, null, 'tone');
     chips('#flt-state', stateKey, state.st, function (v) { return v.replace(' · ', '·'); }, 'st');
@@ -2241,6 +2261,19 @@
       'chip-count': chipCount,
       'field-count': fieldCount,
       'field-folded': foldedCount,
+      /* 「契约允许」的案数（2026-11-05）。填的是闸门那一组的说明句里的数字。
+         它随数据变：现在 6 个，将来契约表改了或新案进来就会变。
+         写死会让那句说明立刻腐化——本仓库已经在这上面栽过一次
+         （rail-hint 的色带分布 13 个月无人重算）。 */
+      'gate-allowed-n': (function () {
+        var n = 0;
+        ALL.forEach(function (r) {
+          if (!r.gate) return;
+          var v = gateVerdict(r);
+          if (!v.real.length && v.exempt.length) n++;
+        });
+        return n;
+      })(),
       'warm-top': WARM_EXPLAIN(),
       'loud-top': LOUD_EXPLAIN()
     };
