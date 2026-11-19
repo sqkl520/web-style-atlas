@@ -248,6 +248,65 @@ async function runAll(pg) {
     return { ok: true, detail: '滚动 ' + before.y + ' → ' + after.y + '，详情保持关闭' };
   });
 
+  /* ── 5b. 焦点落在按钮上时，全局快捷键不许失效（2026-11-05 修） ──
+   *
+   * 【要修的缺陷】键盘处理器原判据是 `if (tag === 'button') return;` ——
+   * 理由是"焦点在筛选芯片上按 J 会误开详情"。那个理由本身成立，但代价从没被量过：
+   * "复制 AI 提示词"是本页唯一的交付动作，点完焦点停在那个 button 上，从此
+   *   · `2` 不切视口、`j` 不换方案、`/` 不定位搜索框
+   *   · `Esc` 只 blur（面板还开着），要按第二次才收起
+   * 而 index.html 的「怎么用」把四条都写成承诺。同一条路径还包括详情里的
+   * 三档视口按钮与 #d-close。
+   *
+   * 【判据】按一次键之后，三件事都要成立：
+   *   ① `j` 真的换了方案（#d-no 变化）；
+   *   ② `Esc` 一次就把详情收起（不是只 blur）；
+   *   ③ Enter 仍然激活按钮（不能为了放行快捷键而抢掉按钮的激活键）。
+   * ③ 是这条断言的重点：只验前两条的话，"把 button 整个放行"这种改法
+   * 会顺带把 Enter/Space 也吃掉，而那才是按钮最核心的可访问性行为。 */
+  await check('shortcuts-work-from-button', async () => {
+    await goto('#S10');
+    await pg.eval(`(() => { const b = document.querySelector('.prompt-copy'); if (b) b.focus(); })()`);
+    const focused = await pg.eval(`document.activeElement ? document.activeElement.className : ''`);
+    if (focused.indexOf('prompt-copy') < 0) {
+      return { ok: false, want: '焦点在 .prompt-copy', got: focused || '(none)', detail: '前置条件不成立：没聚焦到复制按钮' };
+    }
+    const before = await pg.eval(`document.getElementById('d-no').textContent`);
+    await pg.send('Input.dispatchKeyEvent', { type: 'keyDown', key: 'j', code: 'KeyJ', windowsVirtualKeyCode: 74 });
+    await pg.send('Input.dispatchKeyEvent', { type: 'keyUp', key: 'j', code: 'KeyJ', windowsVirtualKeyCode: 74 });
+    await new Promise((r) => setTimeout(r, 320));
+    const afterJ = await pg.eval(`document.getElementById('d-no').textContent`);
+    if (afterJ === before) {
+      return { ok: false, want: 'j 换方案', got: before + '→' + afterJ, detail: '焦点在按钮上时 j 失效（守卫吞掉了全局快捷键）' };
+    }
+    /* Esc 一次收起：先确认面板开着，再按一次 */
+    const wasOpen = await pg.eval(`!document.getElementById('detail').hidden`);
+    if (!wasOpen) return { ok: false, want: '详情开着', got: 'closed', detail: '前置条件不成立' };
+    await pg.send('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Escape', code: 'Escape', windowsVirtualKeyCode: 27 });
+    await pg.send('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Escape', code: 'Escape', windowsVirtualKeyCode: 27 });
+    await new Promise((r) => setTimeout(r, 320));
+    const stillOpen = await pg.eval(`!document.getElementById('detail').hidden`);
+    if (stillOpen) {
+      return { ok: false, want: 'Esc 一次收起', got: 'still open', detail: '焦点在按钮上时 Esc 只 blur，要按两次才收起' };
+    }
+    /* Enter 仍须激活按钮 */
+    await goto();
+    await pg.eval(`(() => {
+      const btn = document.querySelector('#flt-ground button');
+      window.__btnClicks = 0;
+      btn.addEventListener('click', () => { window.__btnClicks++; });
+      btn.focus();
+    })()`);
+    await pg.send('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Enter', code: 'Enter', windowsVirtualKeyCode: 13, text: '\r' });
+    await pg.send('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Enter', code: 'Enter', windowsVirtualKeyCode: 13 });
+    await new Promise((r) => setTimeout(r, 300));
+    const clicks = await pg.eval(`window.__btnClicks`);
+    if (clicks !== 1) {
+      return { ok: false, want: 'Enter 激活按钮 1 次', got: String(clicks), detail: '放行快捷键时把按钮的激活键也吃掉了' };
+    }
+    return { ok: true, detail: 'j 换方案(' + before + '→' + afterJ + ')、Esc 一次收起、Enter 仍激活按钮' };
+  });
+
   /* ── 6. aria-live：注释声称 #count 是活口，而属性曾经不存在 ── */
   await check('count-aria-live', async () => {
     const r = await pg.eval(`(() => {
