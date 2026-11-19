@@ -100,6 +100,17 @@
 </main>
 
 <script src="data.js"></script>
+<!-- prompts.js 是**必需**的，不是可选（2026-11-05）。
+     它提供 STYLE_PROMPTS.schemes[].capacity.minPics，而契约 §9.15 的
+     条件豁免（few-pictures / hairline 仅对 minPics ≤ 2 的案生效）要靠它判定。
+     不加载的后果实测：minPicsOf() 恒返回 null → lowPic 恒 false →
+     这两个规则被判成"真缺陷" → 卡片上写「⚠ 有 2 项没达到机械闸门的要求
+     （不在契约豁免表内）」，而事实是那 2 项**恰恰在豁免表内**。
+     也就是说：漏一个 script 标签，把"契约允许"翻成了"不达标"，
+     与主台的「检查 3 · 契约允许」正相反。
+     check-ui-copy 的断言 6 只比对两份数据源是否相等，看不到"根本没加载"，
+     所以这条注释必须留在 HTML 里，而不是只写在 js 里。 -->
+<script src="prompts.js"></script>
 <script src="wizard.js"></script>
 </body>
 </html>

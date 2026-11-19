@@ -769,6 +769,65 @@ async function runAll(pg) {
    * 旧版是 106/344 = 30.8%，新版应显著下降。
    * 这条只报数不设阈值 —— 组合归零永远不可能为 0（35 个案撑不起 4 组
    * 各 3 档的笛卡尔积），设个"必须 <X%"的阈值只会变成又一个可调参数。 */
+  /* ── 16b. 豁免判定在**两个入口**都必须生效（2026-11-05 修） ──
+   *
+   * 【要修的缺陷】契约 §9.15 的条件豁免（few-pictures / hairline 仅对
+   * `capacity.minPics ≤ 2` 的案生效）要靠 `STYLE_PROMPTS.schemes[].capacity.minPics`
+   * 判定。而 `wizard.html` 原来只加载 `data.js`，**没有 prompts.js** ——
+   * 于是 `minPicsOf()` 恒返回 null、`lowPic` 恒 false、这两条被判成"真缺陷"。
+   * 实测后果：向导卡片写「⚠ 有 2 项没达到机械闸门的要求（不在契约豁免表内）」，
+   * 而事实是那 2 项**恰恰在豁免表内**；主台同一个案写的是「检查 3 · 契约允许」。
+   * 两个入口对同一件事给出相反说法，而"漏一个 script 标签"是根本原因。
+   *
+   * 【为什么 check-ui-copy 的断言 6 抓不到】那条断言比对的是
+   * `prompts.js` 与 `minitems-parsed.json` 两份数据是否相等 ——
+   * 两份确实相等，只是页面**根本没加载**其中一份。数据层一致 ≠ 消费层有效。
+   *
+   * 【判据】在两个入口分别断言：
+   *   ① 页面里 `window.STYLE_PROMPTS.schemes[].capacity.minPics` 取得到；
+   *   ② 对一个 minPics ≤ 2 的案，`realFailCount` 必须为 0（即豁免生效）。
+   * 两条都只在页面上下文里验，不问源码怎么说。 */
+  await check('exemption-applies-in-both-pages', async () => {
+    /* ① 主台 */
+    await goto();
+    const main = await pg.eval(`(function () {
+      var P = window.STYLE_PROMPTS;
+      if (!P || !P.schemes) return { ok: false, why: '主台没有 STYLE_PROMPTS.schemes' };
+      var withPics = P.schemes.filter(function (s) { return s.capacity && typeof s.capacity.minPics === 'number'; });
+      if (!withPics.length) return { ok: false, why: '主台 STYLE_PROMPTS 里没有任何 minPics' };
+      return { ok: true, n: withPics.length };
+    })()`);
+    if (!main.ok) return { ok: false, want: '主台能读到 minPics', got: main.why, detail: main.why };
+
+    /* ② 向导：必须也加载了 prompts.js，且 S31（minPics=1）的 FAIL 被判为豁免 */
+    await pg.goto(`http://127.0.0.1:${server.address().port}/${PAGE.replace('index.html', 'wizard.html')}?load=0&img=0&loud=0&guide=0&fear=0`, { settleMs: 900 });
+    await new Promise((r) => setTimeout(r, 1400));
+    const wz = await pg.eval(`(function () {
+      var P = window.STYLE_PROMPTS;
+      if (!P || !P.schemes) return { ok: false, why: '向导没有 STYLE_PROMPTS.schemes —— prompts.js 没加载？' };
+      var s31 = P.schemes.filter(function (s) { return s.id === 'S31'; })[0];
+      if (!s31 || !s31.capacity) return { ok: false, why: 'S31 没有 capacity' };
+      /* 向导卡片上凡是带 .wz-gate 的，不许出现"不在契约豁免表内"这种话 */
+      var notes = Array.prototype.map.call(document.querySelectorAll('#wz-pick .wz-gate, #wz-avoid .wz-gate'), function (n) {
+        return n.textContent;
+      });
+      var wrong = notes.filter(function (t) { return t.indexOf('不在契约豁免表内') >= 0; });
+      return { ok: true, minPics: s31.capacity.minPics, notes: notes.length, wrong: wrong.length, sample: wrong[0] || '' };
+    })()`);
+    if (!wz.ok) return { ok: false, want: '向导能读到 minPics', got: wz.why, detail: wz.why };
+    if (wz.wrong > 0) {
+      return {
+        ok: false,
+        want: '向导不把契约豁免项叫"不达标"',
+        got: wz.wrong + ' 张卡仍写「不在契约豁免表内」',
+        detail: '豁免在向导侧没生效（多半是 wizard.html 漏了 prompts.js）：' + wz.sample.slice(0, 80),
+      };
+    }
+    /* 回到主台，别把后面的断言带偏 */
+    await goto();
+    return { ok: true, detail: '主台 ' + main.n + ' 条 minPics 可读；向导 S31 minPics=' + wz.minPics + '，' + wz.notes + ' 张卡无「不达标」误述' };
+  });
+
   await check('filter-groups-orthogonal', async () => {
     await goto();
     const r = await pg.eval(`(function () {

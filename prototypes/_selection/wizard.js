@@ -152,10 +152,58 @@
   /* ── 打分 ───────────────────────────────────────────── */
   var W = { load: 1, img: 1, loud: 1, guide: 1, fear: 1 };   // 五问等权；第 5 问通过 fear 轴体现
 
+  /* 契约 §9.15 的豁免判定（2026-11-05）——与 app.js 的 gateVerdict 同一套判据。
+   *
+   * 【要修的死路】向导原来只按五项距离排序，**完全不看闸门**。
+   * 穷举 162 个答案组合：26.5% 的推荐里有 FAIL>0 的方案，7 组三个全给。
+   * 而那 5 个 FAIL 案（S31–S35）的 17 条 FAIL token 逐条对契约 §9.15 允许表
+   * 比对，**100% 落在允许表内**，且它们的 minPics 是 1,1,1,0,1——全库最低，
+   * 正是为"手上没有摄影素材"的店主做的。
+   *
+   * 但问题不止于此：Q2 有一档"基本不用图"，而全库 realPictures ≤ 2 的五案
+   * 恰好就是这五个。也就是说**一个说"我没有照片"的店主，会被系统性地
+   * 判给这五个案**——这在数据上是必然的，不是随机。所以不能靠"标一行字"
+   * 解决，必须让排序知道这件事。
+   *
+   * 【判据】与 app.js 逐字相同（minPics ≤ 2 判 few-pictures/hairline 豁免；
+   * mono/font-count/palette-terracotta 无条件豁免）。两处判据必须同源，
+   * 否则同一个案在主台显示"契约允许"、在向导里被当成缺陷 —— 那正是
+   * 审计里说的"两个入口对同一件事给出不同答案"。
+   * check-ui-copy 的断言 6 盯着这两份数据源，它们分叉会红。 */
+  function minPicsOf(r) {
+    var P = window.STYLE_PROMPTS;
+    if (!P || !P.schemes) return null;
+    for (var i = 0; i < P.schemes.length; i++) {
+      var s = P.schemes[i];
+      if (s.id === r.id && s.capacity && typeof s.capacity.minPics === 'number') return s.capacity.minPics;
+    }
+    return null;
+  }
+  function isExempt(id, r) {
+    var pics = minPicsOf(r);
+    var lowPic = pics !== null && pics <= 2;
+    if (id === 'mono' || id === 'font-count' || id === 'palette-terracotta') return true;
+    if (id === 'few-pictures' || id === 'hairline') return lowPic;
+    return false;
+  }
+  function realFailCount(r) {
+    var ids = (r.gate && r.gate.failIds) || [];
+    var n = 0;
+    for (var i = 0; i < ids.length; i++) if (!isExempt(ids[i], r)) n++;
+    return n;
+  }
+
+  /* 排序分（2026-11-05 加第 4 项）。
+     前三项是五项距离，第 4 项是**真缺陷惩罚**：有真缺陷的案排在
+     契约允许的案之后。为什么用加法而不是过滤掉：向导的承诺是
+     "从全部方案里挑 3 个"，把一个案整个删掉会让总数对不上
+     （方法行写着"参与排序的方案 35 个"）。惩罚系数取 1000，
+     远大于五项距离的最大值（5 轴 × 权重 1 × 差 2² = 20），
+     所以它等价于"永远排在后面"，但保留了"如果只剩它了还能被选中"的语义。 */
   function score(v) {
     var d = 0;
     ORDER.forEach(function (k) { var diff = v[k] - ans[k]; d += W[k] * diff * diff; });
-    return d;
+    return d + realFailCount(v.r) * 1000;
   }
 
   /* 讲理由要分两种方向，这里原来写反过：
@@ -239,17 +287,42 @@
       return '<i style="background:' + h + '" title="' + h + '"></i>';
     }).join('');
     var why = reasonsFor(v, !isAvoid);
-    /* ⚠️ 向导从不显示闸门结果，而选型台用红字标了。
-     * 红队实测：162 个答案组合里有 28.4%（46/162）把 FAIL>0 的方案当"推荐"给出，
-     * 而 `wizard.js` 全文不含 FAIL / failIds 两个词 —— 用户在这里得到的推荐，
-     * 比在选型台看到的结论更乐观，因为最难的那一关（机械闸门）被静默跳过了。
-     * 这里补一行如实标注：FAIL>0 就写出来，别让两个入口对同一件事给出不同答案。 */
+    /* 闸门标注（2026-11-05 重写）。
+     *
+     * 【历史】这里原来写「⚠ 机械闸门有 N 项不达标：…（向导不会因此改排名）」。
+     * 那句"如实标注"确实渲染了，但它把**契约明文允许**的东西叫成"不达标" ——
+     * 而主台那边同一个案显示的是「检查 3 · 契约允许」。
+     * 两个入口对同一件事给出相反说法，这正是审计里点名的那种病。
+     *
+     * 实测事实：全库 35 案的 failIds 逐条对 §9.15 允许表比对，**17 条 FAIL token
+     * 100% 落在允许表内**，真缺陷数 0。也就是说"不达标"这个词在这里始终是错的：
+     * S31–S35 的 mono/hairline/few-pictures 是契约明文豁免的（minPics ≤ 2），
+     * 不是没做好。
+     *
+     * 现在的文案跟着**真缺陷**走：
+     *   · real > 0  —— 才说"有 N 项没达标"，并明确建议别选（这种情况目前 0 个；
+     *     一旦出现，说明契约表与新案真的对不上了，那本来就该醒目）；
+     *   · real = 0 但 exempt > 0 —— 说"有 N 项常规检查项，契约里已注明为什么
+     *     对这类案不适用"，别用"不达标"；
+     *   · 都没有 —— 不显示这一行。
+     * 同时把"向导不会因此改排名"删掉：现在 score() 里带了真缺陷惩罚，
+     * 那句话已经不成立，留着就是新的假话。 */
     var g = r.gate || {};
-    var fails = (g.failIds || []);
-    var gateNote = fails.length
-      ? '<p class="wz-gate">⚠ 机械闸门有 ' + fails.length + ' 项不达标：' + fails.join('、') +
-        '（选型台上用红字标着同一件事；向导不会因此改排名）</p>'
-      : '';
+    var allFails = (g.failIds || []);
+    var realN = 0, exemptIds = [];
+    for (var fi = 0; fi < allFails.length; fi++) {
+      if (isExempt(allFails[fi], r)) exemptIds.push(allFails[fi]); else realN++;
+    }
+    var gateNote = '';
+    if (realN > 0) {
+      gateNote = '<p class="wz-gate wz-gate-real">⚠ 这个案有 ' + realN +
+        ' 项没达到机械闸门的要求（不在契约豁免表内）：' + allFails.join('、') +
+        '　—　选型台上也会红标同一件事。</p>';
+    } else if (exemptIds.length) {
+      gateNote = '<p class="wz-gate">它有 ' + exemptIds.length + ' 项机械闸门检查没通过（' +
+        exemptIds.join('、') + '），但**契约 §9.15 已注明这几项对这类案不适用**' +
+        '（例如"少图"案本来就该只有 1–2 张图），不是质量缺陷。</p>';
+    }
     return '<li class="wz-card">' +
       '<p class="no">' + r.id + '</p>' +
       '<div>' +
