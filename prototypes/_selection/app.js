@@ -986,11 +986,46 @@
            · 有直连 → 说清"搜索框匹配整串、索引里是有的"，并把编号点出来；
            · 只有近似 → 说清"没有直连，只有换文案能用的近似款"；
            · 不在索引里（敲错字/搜别的东西）→ 只说结构，不暗示这个词在索引里。
-         三种话术都不能替用户下"是你条件加多了"的结论 —— 供给缺口不怪他。 */
+         三种话术都不能替用户下"是你条件加多了"的结论 —— 供给缺口不怪他。
+
+         ⚠️ 2026-11-05 第五次修：上面那三种话术全都建立在**有搜索词**的前提上，
+         而这里没有守卫。于是"亮底 + 冷暗带"这类**纯轴归零**（一个字没搜、一颗芯片没点）
+         也会落到最后一个 else，输出「行业词搜不到，是这 35 个案缺这条数据，
+         **不是你条件加多了**」——
+         而这一次**确实就是他条件加多了**（两组筛选取「并且」把结果乘成了 0）。
+         同一屏紧接着 #e-next 的 d 分支又说「只有你条件加多了这一种解释」，
+         两句正面对冲。实测（报告 66 §4.3）：用户只会信更坏的那句。
+
+         根因是判据只看了 `state.q`，没看"当前到底有没有搜索/芯片这两个非轴条件"。
+         现在先分叉：
+           · 纯轴归零（无 q、无 sceneIds）→ 不说供给缺口，改成中性的"这一屏是被筛窄的"，
+             #e-next 的 d 分支会接着说清怎么退（且带可点按钮）；
+           · 有 q 或芯片 → 才走原来那三分。 */
+      var hasQuery = !!state.q;
+      var hasScene = !!(state.sceneIds && state.sceneIds.size);
       var rec = state.q ? idx[state.q] : null;
       var dIds = (rec && rec.direct) || [];
       var nIds = (rec && rec.near) || [];
-      if (dIds.length) {
+      if (!hasQuery && !hasScene) {
+        /* 纯轴归零：不下任何关于"供给"的结论。只说这里发生了什么。 */
+        why.textContent = '这一屏是被左侧那几组筛选取「并且」筛窄到空的——不是这 ' + ALL.length +
+          ' 个案里没有符合的，是条件叠在一起把交集乘成了 0。';
+      } else if (hasScene && !hasQuery) {
+        /* 只有场景芯片（无搜索词）也归零 —— 「暗底 + 咖啡店」就是这样。
+         * ⚠️ 这一支必须单独存在：下面三支的 dIds/nIds 都读 `idx[state.q]`，
+         * 而芯片走的是 state.sceneIds、不写 q，所以 dIds/nIds 恒为空，
+         * 会一路落到最后的 else，说出「行业词搜不到…不是你条件加多了」——
+         * 而用户根本没搜词，是芯片 + 轴筛窄的。
+         * 实测（2026-11-05）：改前「暗底 + 咖啡店」0 行时，页面就是这么说的。
+         *
+         * ⚠️ 不在这里报"本身有几个方案" —— #e-next 的 b 分支紧接着会说
+         * 「这条芯片本身能筛出 N 行」，两处报同一件事会读成两套数字
+         * （一个说"4 个方案"、一个说"4 行"，用户会怀疑哪个才对）。
+         * 这里只定性地说"这两边不重叠"，具体数字留给下面带按钮的那句。 */
+        why.textContent = '这一屏是「' + Array.from(state.sceneIds).join(' ') +
+          '」这颗芯片和后面几组筛选一起取「并且」筛空了的——不是这 ' + ALL.length +
+          ' 个案里没有符合的，是这两边本来就不重叠。';
+      } else if (dIds.length) {
         why.textContent = '「' + state.q + '」按文字搜不到（搜索框匹配整串，这 ' + ALL.length +
           ' 个案里没有哪一行逐字写着它），但索引里 ' + dIds.join(' ') +
           ' 就是它的直连方案 —— 左边那颗「' + state.q + '」芯片是实的。';
@@ -1077,8 +1112,27 @@
        用的是同一组操作，所以数字与行为不可能再分叉。 */
     var saveQ = state.q, saveIds = state.sceneIds;
     var parked = state.qParked;
-    var nChipOnly, nSearchOnly, nChipAlone;
+    var nChipOnly, nSearchOnly, nChipAlone, nChipPure;
+    /* ⚠️ `nChipOnly` 只去 q、**不动后面九组** —— 它是"芯片 + 当前所有轴"的行数。
+     * 这个名字容易读成"只有芯片"，于是文案「这条芯片本身能筛出 N 行」引用了它，
+     * 实测在「暗底 + 咖啡店」0 行时输出「这条芯片本身能筛出 **0** 行」——
+     * 而咖啡店芯片本身有 4 个方案，那 4 个是被「暗底」筛没的。
+     * 这是探针 _empty-probe.mjs 当年抓到的同一个谎，2026-11-05 又复发了：
+     * 当时修的是"把两句话分开说"，但没说清哪个变量对应哪一句。
+     * 现在**增加** nChipPure（只有芯片，无 q 无轴），"本身能有几行"改用它；
+     * nChipOnly 保留原来的语义（芯片 + 现有轴），"只去 q"那句仍用它。
+     * 两者在"轴全空"时相等，在"轴非空"时必须不同 —— 这正是这条注释要守的东西。 */
     state.q = ''; nChipOnly = ALL.filter(function (r) { return match(r); }).length;                   // 只去 q，其余不动
+    /* 只有芯片：q 清空 + 九组全清。这是"这条芯片自己值几行"的唯一正确算法。 */
+    (function () {
+      var groups = [state.ground, state.warm, state.load, state.loud,
+                    state.fr, state.thr, state.tone, state.st, state.gate];
+      var saved = groups.map(function (s) { return Array.from(s); });
+      groups.forEach(function (s) { s.clear(); });
+      state.q = '';
+      nChipPure = ALL.filter(function (r) { return match(r); }).length;
+      groups.forEach(function (s, si) { s.clear(); saved[si].forEach(function (v) { s.add(v); }); });
+    })();
     /* "只看搜索词"= 保留芯片之外的九组 + 搜索词本身（现打的 q 或挂起的 parked） */
     state.sceneIds = new Set();
     state.q = (saveQ || parked || '').toLowerCase();
@@ -1121,7 +1175,7 @@
       /* b) 芯片本身是通的（实测 44/44 个词都 ≥1 行），0 行一定是后面几组筛没的。
          句子把"芯片单独能出几行"与"只留芯片能出几行"分开说 —— 用户手动松过几组时
          两者不等，混成一句就会报出一个不是芯片造成的数字。 */
-      parts.push('「' + esc(chipTerm || '行业芯片') + '」这条芯片本身能筛出 <b>' + nChipOnly +
+      parts.push('「' + esc(chipTerm || '行业芯片') + '」这条芯片本身能筛出 <b>' + nChipPure +
         '</b> 行；只留它、把后面几组松开是 <b>' + nChipAlone + '</b> 行。' +
         '现在是后面几组（底色／内容量／调性…）把它筛没了：');
       if (nChipAlone) parts.push(btn('drop-axes', '只留芯片，松开后面几组（' + nChipAlone + ' 行）'));

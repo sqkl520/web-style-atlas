@@ -592,6 +592,105 @@ async function runAll(pg) {
     return { ok: true, detail: r.n + ' 案：身份行 / 出处 / 适合 / 不适合 / 怪癖 / 底色 全部到位（首案 ' + r.sample + ' 字）' };
   });
 
+  /* ── 8b. 空状态说的那句话，必须与"空是怎么来的"一致（2026-11-05 修） ──
+   *
+   * 【要修的缺陷】`#e-why` 的判据只看了 `state.q`，没看"当前有没有搜索/芯片"。
+   * 于是三种归零都落到同一个 else，说出「行业词搜不到，是这 35 个案缺这条数据，
+   * **不是你条件加多了**」：
+   *   · 纯轴归零（亮底+冷暗带）—— 确实是他条件加多了，说的是反话；
+   *   · 只有场景芯片（暗底+咖啡店）—— 他根本没搜词，却在跟他讲"行业词搜不到"。
+   * 而同一屏紧接着 #e-next 又说「只有你条件加多了这一种解释」，两句正面对冲。
+   * 实测（报告 66 §4.3）：用户只会信更坏的那句。
+   *
+   * 同一处还有第二个谎（本轮一并修）：`#e-next` 的 b 分支写
+   * 「这条芯片本身能筛出 N 行」，引用的却是 `nChipOnly` —— 那个变量是
+   * 「只去掉搜索词、后面九组照旧」，实测在「暗底+咖啡店」时说"N=0"，
+   * 而咖啡店芯片本身有 4 个方案。新增 `nChipPure` 才是"只有芯片"的行数。
+   *
+   * 【判据】造两种归零，各查各的话：
+   *   ① 只有芯片（点咖啡店 + 暗底）→ #e-why 不许出现"行业词搜不到"；
+   *      且 #e-next 里"芯片本身能筛出 N"的 N 必须 > 0（咖啡店确实有 4 个）。
+   *   ② 纯轴（两两组合）→ #e-why 不许说"不是你条件加多了"（因为没有供给缺口可谈）。
+   * ① 的第二个子断言是本轮最要紧的：只查"文案不出现某个词"会放过数字错，
+   * 而数字错正是用户会照着去点的东西。 */
+  await check('empty-state-tells-truth', async () => {
+    await goto();
+    const r = await pg.eval(`(function () {
+      function click(sel, kw) {
+        var b = Array.prototype.filter.call(document.querySelectorAll(sel + ' button'), function (x) {
+          return x.textContent.indexOf(kw) >= 0;
+        })[0];
+        if (b) b.click();
+        return !!b;
+      }
+      function reset() { document.getElementById('reset').click(); }
+      function count() { return document.getElementById('count').textContent; }
+      var out = {};
+
+      /* ① 只有芯片：咖啡店 + 暗底（实测 0 行） */
+      reset();
+      click('#flt-scene', '咖啡店');
+      click('#flt-ground', '暗底');
+      out.chipCount = count();
+      out.chipWhy = (document.getElementById('e-why') || {}).textContent || '';
+      out.chipNext = (document.getElementById('e-next') || {}).textContent || '';
+      out.emptyShown = !document.getElementById('empty').hidden;
+
+      /* ② 纯轴：找一个两两归零的组合；找不到就退到三组 */
+      reset();
+      var GROUPS = ['#flt-ground', '#flt-warm', '#flt-load', '#flt-loud'];
+      var found = null;
+      function labels(sel) {
+        return Array.prototype.map.call(document.querySelectorAll(sel + ' button'), function (b) {
+          return b.textContent.replace(/[0-9]+$/, '').trim();
+        });
+      }
+      outer:
+      for (var i = 0; i < GROUPS.length; i++) {
+        for (var j = i + 1; j < GROUPS.length; j++) {
+          var la = labels(GROUPS[i]), lb = labels(GROUPS[j]);
+          for (var a = 0; a < la.length; a++) {
+            for (var c = 0; c < lb.length; c++) {
+              reset(); click(GROUPS[i], la[a]); click(GROUPS[j], lb[c]);
+              if (/列出 0 /.test(count())) { found = [la[a], lb[c]]; reset(); break outer; }
+              reset();
+            }
+          }
+        }
+      }
+      if (found) {
+        click(GROUPS[i], found[0]); click(GROUPS[j], found[1]);
+        out.axisWhy = (document.getElementById('e-why') || {}).textContent || '';
+        reset();
+      } else {
+        out.axisWhy = null;
+      }
+      return out;
+    })()`);
+
+    if (!r.emptyShown) {
+      return { ok: false, want: '芯片+暗底应筛出 0 行', got: r.chipCount, detail: '前置条件不成立：没归零' };
+    }
+    if (/行业词搜不到/.test(r.chipWhy)) {
+      return { ok: false, want: '#e-why 不提"行业词"', got: r.chipWhy.slice(0, 60),
+        detail: '用户没搜词，页面却在跟他讲行业词搜不到（判据只看了 state.q）' };
+    }
+    var m = /芯片本身能筛出\s*(\d+)\s*行/.exec(r.chipNext);
+    if (!m) {
+      return { ok: false, want: '#e-next 报芯片本身的行数', got: r.chipNext.slice(0, 60), detail: '找不到那个数字' };
+    }
+    if (Number(m[1]) === 0) {
+      return { ok: false, want: '芯片本身能筛出 >0 行', got: '0 行',
+        detail: '引用了 nChipOnly（芯片+现有轴）而不是 nChipPure（只有芯片）—— 咖啡店实际有 4 个方案' };
+    }
+    if (r.axisWhy !== null && /不是你条件加多了/.test(r.axisWhy)) {
+      return { ok: false, want: '纯轴归零不说"不是你条件加多了"', got: r.axisWhy.slice(0, 60),
+        detail: '这次确实是他条件加多了，说反话' };
+    }
+    return { ok: true, detail: '芯片归零：why 不提行业词、next 报 ' + m[1] + ' 行' +
+      (r.axisWhy !== null ? '；纯轴归零：why 不下供给结论' : '；纯轴归零：当前两两组合已无 0（色带组修好后的结果）') };
+  });
+
   await check('provenance-appendix-copied', async () => {
     await goto('#S17');
     const r = await pg.eval(`(function(){
