@@ -11,7 +11,7 @@
 
 ### 0.1 本次使用的链路
 
-1. **静态 HTTP 服务**：`python -m http.server 8795 --bind 127.0.0.1`，工作目录 `D:\Web\style`。所有页面经 `http://127.0.0.1:8795/prototypes/<CASE>/index.html` 访问，**不使用 `file://`**（规避批次 1 §0.2 的 `mask-image` CORS 陷阱；虽然本批次 10 案实测均未使用 `mask-image`）。
+1. **静态 HTTP 服务**：`python -m http.server 8795 --bind 127.0.0.1`，工作目录 `<repo>`。所有页面经 `http://127.0.0.1:8795/prototypes/<CASE>/index.html` 访问，**不使用 `file://`**（规避批次 1 §0.2 的 `mask-image` CORS 陷阱；虽然本批次 10 案实测均未使用 `mask-image`）。
 2. **CDP 三档采集**：`tools/taste-skill/skills/taste-skill/scripts/lib/cdp.mjs`，**静态方法**用法：`const b = await Browser.launch({width,height})` → `b.newPage({width,height})` → `page.goto(url,{settleMs})` → `page.eval(fn)` → `b.close()`。三档 = `Emulation.setDeviceMetricsOverride` 的 **1440×900 / 768×1024 / 390×844**。
    **不使用 CLI `--window-size`**（Windows 上 390 会按 500px 布局再裁切，批次 1 已证为假故障）；**不使用 `--virtual-time-budget`**（冻结 CSS 动画在起点）。
    每次导航后 `await document.fonts.ready` + 600–1500ms settle。

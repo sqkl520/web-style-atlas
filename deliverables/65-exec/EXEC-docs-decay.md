@@ -1,7 +1,7 @@
 # 执行报告：文档与代码背离（4 处）
 
 - **执行时间**：2026-10-27
-- **工作目录**：`D:\Web\style`
+- **工作目录**：`<repo>`
 - **改动文件**：`README.md`、`README-EN.md`、`prototypes/_build/check-anchors.mjs`、`prototypes/_build/check-docs.mjs`（新建）
 - **未 commit**（按硬约束）
 

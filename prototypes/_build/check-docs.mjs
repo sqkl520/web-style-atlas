@@ -1163,6 +1163,55 @@ const DRIFT = 0.03;
     else pass('nums/shots', `真截图 ${real} 张（另有 ${thumbs} 个缩略图不计），正文与命令口径一致`);
   }
 
+  /* 本地绝对路径不许出现在公开仓库里（2026-11-05 加）。
+   *
+   * 规则 2.1「公开仓库是永久的」禁止内部主机名、内网 IP、个人服务器地址。
+   * 实测发现 101 个文件里散落着两类本地路径：
+   *   `C:\Users\Administrator\...`（含 8.3 短名 `ADMINI~1`）—— 暴露用户名
+   *   `<盘符>:\Web\style\...`                                —— 暴露克隆位置
+   * 共 193 处。已全部替换成 `~` 与 `<repo>`。
+   *
+   * 【为什么这条重要】这类泄漏不会让任何东西跑不起来，所以没人会注意到它 ——
+   * 而它一旦推到公开仓库就永久可见。这不是"代码质量"，是"不要把自己的
+   * 机器布局贴到互联网上"。
+   *
+   * 【判据收窄的原因】只查这两个具体前缀，不做通用的"绝对路径"检测：
+   * 通用检测会把 `C:\tmp\...`（审计记录里讨论路径时的举例）、
+   * `/usr/bin/...`（Linux 标准路径，无害）全部误报。
+   * 这两个前缀是**本机特有**的，它们出现就一定是泄漏。 */
+  {
+    const bad = [];
+    /* ⚠️ 检测用的字符串不能以字面形式出现在本文件里 —— 否则 `git grep -l`
+     * 会扫到检查器自己，于是这条断言**永远报红**（第一次写完就是这样：
+     * 它报「check-docs.mjs（克隆位置）」）。
+     * 这和本仓库别处记过的「注释里引述违规字符、于是自己变成违规」是同一个病。
+     * 拆成两段拼接，字面上就不存在完整的路径串。 */
+    const DRV = 'D:' + '\\Web\\style';
+    const USR = 'C:' + '\\Users\\' + 'Administrator';
+    const USR8 = 'C:' + '\\Users\\' + 'ADMINI';
+    const scan = (pattern, label) => {
+      let out = '';
+      try {
+        out = execFileSync('git', ['grep', '-l', '-F', pattern, '--', '*.md', '*.mjs', '*.js', '*.json'], {
+          cwd: REAL_ROOT, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'],
+        });
+      } catch { return; }   /* git grep 无命中时退出码 1，不是错误 */
+      for (const f of out.split('\n').filter(Boolean)) {
+        /* 排除检查器自己（见上） */
+        if (/check-docs\.mjs$/.test(f)) continue;
+        bad.push(`${f}（${label}）`);
+      }
+    };
+    scan(DRV, '克隆位置');
+    scan(USR, '用户名');
+    scan(USR8, '用户名简称');
+    if (bad.length) {
+      fail('hygiene/local-paths', `本地绝对路径泄漏到公开仓库：${[...new Set(bad)].slice(0, 6).join(' ')}${bad.length > 6 ? ` 等 ${bad.length} 处` : ''} —— 换成 ~ 或 <repo>`);
+    } else {
+      pass('hygiene/local-paths', '没有本地绝对路径（D:\\Web\\style / C:\\Users\\…）泄漏');
+    }
+  }
+
   // 模板编号存在性：`templates/M01` 这类
   const tplBad = [];
   for (const m of src.matchAll(/templates\/(M\d{2})/g)) {

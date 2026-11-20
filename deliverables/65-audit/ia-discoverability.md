@@ -466,7 +466,7 @@ AX 节点数 2461 → 2412（−49）。**这是推荐方案唯一的实质损�
 
 ```powershell
 [Console]::OutputEncoding=[System.Text.Encoding]::UTF8
-cd D:\Web\style
+cd <repo>
 
 # 1. 基线（直接读仓库现状）
 node deliverables/65-audit/lab/measure-baseline.mjs

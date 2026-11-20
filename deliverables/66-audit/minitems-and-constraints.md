@@ -18,7 +18,7 @@
 
 ```powershell
 [Console]::OutputEncoding=[System.Text.Encoding]::UTF8
-cd D:\Web\style
+cd <repo>
 
 node deliverables/66-audit/dump-prompts.mjs        # 从当前 prompt-copy.js 导出 30 份 → prompts/
 node deliverables/66-audit/count-units.mjs         # 独立重数重复单元（候选表）

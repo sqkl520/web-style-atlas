@@ -1,6 +1,6 @@
 # 54 · 仓库卫生锐评（第 2 轮 / 第 7 席）
 
-> 审计对象：`D:\Web\style`（GitHub: `sqkl520/web-style-atlas`）
+> 审计对象：`<repo>`（GitHub: `sqkl520/web-style-atlas`）
 > 立场：只读审计 + 受控 dry-run。不 commit、不改仓库文件、不运行 `_build/`。
 > 状态：Lead 定稿（续跑席死在收尾空消息，正文已全实，见文末批注）
 
@@ -408,7 +408,7 @@ L80–L89 带前导 `/` 的共 **10 条**：`/.tmp-*`、`/.tmp_*`、`/_ud_*/`、
 **N-4 [新] `52-critique-leness.md` 是被砍掉前缀的残名（改名零风险）**
 用 UTF-8 读首行确认标题为 `# 52｜数量凑数检察官：30 案里有多少是"一个方案的两张脸"`——"凑数" 的 slug 该是 `count-padding`/`number-stuffing`，`leness` 只剩后缀残骸。**由 `e15a6ee`（subject 明写"…+ 52 号入库"）带病入库**。
 实测引用面：`README.md`、`README-EN.md`、全部 `deliverables/*.md` 中 **0 处引用 `52-`** → 改名安全（1 分钟）。
-顺带扫了文件名风险面（Lead 没要求）：**tracked 里 CJK 文件名 0 个、含空格 0 个、含 `@` 7 个（全是 `@1x/@2x` 资产，合法）**；**最长相对路径 140 字符**、`D:\Web\style\` 下最长绝对路径 **153 字符**、**超过 260（MAX_PATH）0 个**、>120 字符 412 个（全在 `prototypes/_fonts/files/<family>/<hash>.<n>.woff2`）。**结论：文件名本身不是病，但 clone 者把仓库放很深（`C:\Users\<长用户名>\Documents\…`）就会撞 MAX_PATH——这是 `_fonts/` hash 命名的隐性税，README 值得提一句"别放太深"。**
+顺带扫了文件名风险面（Lead 没要求）：**tracked 里 CJK 文件名 0 个、含空格 0 个、含 `@` 7 个（全是 `@1x/@2x` 资产，合法）**；**最长相对路径 140 字符**、`<repo>\` 下最长绝对路径 **153 字符**、**超过 260（MAX_PATH）0 个**、>120 字符 412 个（全在 `prototypes/_fonts/files/<family>/<hash>.<n>.woff2`）。**结论：文件名本身不是病，但 clone 者把仓库放很深（`C:\Users\<长用户名>\Documents\…`）就会撞 MAX_PATH——这是 `_fonts/` hash 命名的隐性税，README 值得提一句"别放太深"。**
 
 **N-5 [新] README 说"工具链都在 `prototypes/_build/`"——实际 22 个脚本散在案目录，其中 18 个混在 `assets/` 里**
 README `:127` 明写"**工具链**（都在 `prototypes/_build/`…）"。实测 tracked 脚本：`_build/` **20 个**（19 脚本 + `SHOT-README.md`），**另有 22 个 tracked 脚本在案目录内**：`S03/` 4（`check-palette.mjs`、`make-masks.mjs`、`measure-area.py`、`verify.mjs`）、`S10/assets/` **7**（`bake-plates.py`、`bake-scale.py`、`write-credits.py`、`fetch-assets{,-bitmap,-plate6,-topup}.ps1`）、`S13/` 2（`_fillmap.mjs`、`_plate.py`）、其余为 8 个案子各一份 `assets/fetch-assets.ps1` + `S08/build-assets.py` + `S25/assets/fetch-and-bake.py`。

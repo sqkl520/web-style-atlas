@@ -14,7 +14,7 @@
 | 自述 | "Agent skills that give coding agents taste: art direction, reference images and a browser check instead of generic AI pages" | "The design language that makes your AI harness better at design." |
 | 许可 | MIT | Apache-2.0 |
 | 体量 | 39,656 KB（浅克隆 39 MB） | 686,190 KB（**改用 blobless + sparse 克隆，落地 4.5 MB**） |
-| 本地路径 | `D:\Web\style\tools\taste-skill\` | `D:\Web\style\tools\impeccable\` |
+| 本地路径 | `<repo>\tools\taste-skill\` | `<repo>\tools\impeccable\` |
 | 关键入口 | `skills/taste-skill/SKILL.md` | `.claude/skills/impeccable/SKILL.md` |
 | 运行时 | Node 22+（本机 v24.14.0） | 自带 Rust 引擎二进制（首次运行自动下载） |
 | 引擎版本 | — | `VERSION = 0.1.14`，二进制落在 `~/.impeccable/bin/0.1.14/impeccable.exe`（19.2 MB） |

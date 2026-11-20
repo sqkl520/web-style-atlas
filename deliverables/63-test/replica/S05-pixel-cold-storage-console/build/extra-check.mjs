@@ -2,7 +2,7 @@
 //   1) 1920 / 1024 两个闸门没跑的宽度：横向溢出、面板与点阵实测尺寸
 //   2) prefers-reduced-motion: reduce 时逐行显影与自检序列是否真的冻结、闪烁灯是否常亮
 //   3) 错误态与空状态在无脚本前提下是否可见（把 JS 关掉再量一次）
-// 用法：node build/extra-check.mjs   （cwd 必须是 D:\Web\style）
+// 用法：node build/extra-check.mjs   （cwd 必须是 <repo>）
 import { createServer } from 'node:http';
 import { createReadStream, statSync } from 'node:fs';
 import { resolve, join, relative, extname, sep } from 'node:path';

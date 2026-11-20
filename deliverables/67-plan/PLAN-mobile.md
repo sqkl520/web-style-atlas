@@ -1002,7 +1002,7 @@ D:\Nodejs\node.exe prototypes\_build\verify-prototype.mjs --all   # 期望仍是
 
 ```powershell
 [Console]::OutputEncoding=[System.Text.Encoding]::UTF8
-cd D:\Web\style
+cd <repo>
 
 # 闸门基线（26/4/30）
 D:\Nodejs\node.exe prototypes\_build\verify-prototype.mjs --all

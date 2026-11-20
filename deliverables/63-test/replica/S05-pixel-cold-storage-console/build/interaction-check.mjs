@@ -1,5 +1,5 @@
 // S05 交互功能实测：闸门只看静态渲染，动效与控件是否真的接上要自己量。
-// 用法：node build/interaction-check.mjs（cwd 必须是 D:\Web\style）
+// 用法：node build/interaction-check.mjs（cwd 必须是 <repo>）
 import { createServer } from 'node:http';
 import { createReadStream, statSync } from 'node:fs';
 import { resolve, join, relative, extname, sep } from 'node:path';

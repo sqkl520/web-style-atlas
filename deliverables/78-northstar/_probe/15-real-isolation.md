@@ -19,7 +19,7 @@
 
 **③ 更糟的是，我自己的隔离脚本抄错了 HOME。**
 脚本里 `HOME=/tmp/blindtest/home` 而 `USERPROFILE='C:\tmp\blindtest\home'`。
-在这台机器上 `/tmp` → `C:\Users\...\AppData\Local\Temp`，所以这两个**不是同一个目录**。
+在这台机器上 `/tmp` → `~\...\AppData\Local\Temp`，所以这两个**不是同一个目录**。
 Claude Code 在 Windows 上按 `USERPROFILE` 解析，真正生效的 HOME 是 `C:\tmp\...`，
 而 `cp` 过去的那份 `.claude.json` 从来没被加载过。
 
@@ -33,8 +33,8 @@ Claude Code 在 Windows 上按 `USERPROFILE` 解析，真正生效的 HOME 是 `
 
 ```
 账户：ClaudeBlindBox（本轮创建，密码 BlindRun-2026-tmp!）
-拒绝：icacls D:\Web\style /deny "ClaudeBlindBox:(OI)(CI)(RX)"
-      icacls D:\Web\style /deny "ClaudeBlindBox:(OI)(CI)(W)"
+拒绝：icacls <repo> /deny "ClaudeBlindBox:(OI)(CI)(RX)"
+      icacls <repo> /deny "ClaudeBlindBox:(OI)(CI)(W)"
 ```
 
 Deny ACE 优先于任何 Allow（包括 `BUILTIN\Users` 的继承权限），
@@ -80,7 +80,7 @@ WHOAMI:win10pc-sqkl520\claudeblindbox
 **② 仓库被拒、对照文件正常**（这条是关键：有对照才能排除「环境坏了」）
 
 ```
-READ_REPO_DENIED                    ← 读 D:\Web\style\README.md 失败
+READ_REPO_DENIED                    ← 读 <repo>\README.md 失败
 READ_CONTROL_OK:CONTROL-OK          ← 同一进程读 C:\tmp\blindbox-control.txt 成功
 ```
 
@@ -178,7 +178,7 @@ READ_CONTROL_OK:CONTROL-OK
 不再需要时：
 
 ```bash
-powershell -Command "icacls D:\Web\style /remove:d ClaudeBlindBox"
+powershell -Command "icacls <repo> /remove:d ClaudeBlindBox"
 powershell -Command "Remove-LocalUser ClaudeBlindBox"
 rm -rf /c/tmp/bb-bin /c/tmp/bb-home /c/tmp/bb
 ```

@@ -1,6 +1,6 @@
 # 计划：三项遗留任务的拆解与排序
 
-> 规划 Agent。**只读，未改任何仓库文件。**所有数字均为本 Agent 在 `D:\Web\style` 亲手跑出。
+> 规划 Agent。**只读，未改任何仓库文件。**所有数字均为本 Agent 在 `<repo>` 亲手跑出。
 > 核实时间 2026-10-26 18:10–18:40（Asia/Shanghai）。
 > ⚠️ **重要前提**：我核实的这段时间里，另一个执行 Agent 正在并发改 `prototypes/_selection/`（`app.js` / `index.html` / `prompt-copy.js` / `style.css` 四个文件 `M`，HEAD 仍是 `cea8436`）。第 0 节钉住我实测的时点与状态，避免本文数字与工作树错位。
 

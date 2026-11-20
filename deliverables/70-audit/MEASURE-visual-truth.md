@@ -636,7 +636,7 @@
 ## 9 复现
 
 ```powershell
-cd D:\Web\style
+cd <repo>
 node deliverables/70-audit/measure/probe-selftest.mjs        # 66 断言，必须全 PASS
 node deliverables/70-audit/measure/probe-selftest-edge.mjs   # 边界专项
 node deliverables/70-audit/measure/probe-blend-model.mjs     # 合成色彩空间

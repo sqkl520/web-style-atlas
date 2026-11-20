@@ -1,7 +1,7 @@
 # EXEC — `audit` 接通 + S13 清理 + 配色行标签 + family 截断修复
 
 日期：2026-10-27
-工作目录：`D:\Web\style`
+工作目录：`<repo>`
 改动文件（**只有这两个**，且都在允许清单内）：
 - `prototypes/_selection/app.js`（+154 行）
 - `prototypes/_selection/style.css`（+146 行）

@@ -308,7 +308,7 @@ Day A 晚        若 R1 不过 → 查管道；若 R1 过 → 结束
 ### 4.1 硬约束：Deny ACE 按账户生效
 
 ```powershell
-icacls D:\Web\style /deny ClaudeBlindBox:(OI)(CI)(RX)
+icacls <repo> /deny ClaudeBlindBox:(OI)(CI)(RX)
 ```
 
 `_blindbox-batch.ps1:1-9` 写明：几个沙箱重叠时，任一撤 Deny 都会**静默解隔离**其余，

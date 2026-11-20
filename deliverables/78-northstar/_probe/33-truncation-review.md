@@ -188,7 +188,7 @@ S31 的「the instruction is just "Read"」同样是困惑而非规划。但注�
 
 ### 4.1 主线程自己保留的那份证据是坏的
 
-`C:\tmp\bb-home\projects` 旁边的 `C:\Users\Administrator\.claude\projects\C--tmp-argtest\`
+`C:\tmp\bb-home\projects` 旁边的 `~\.claude\projects\C--tmp-argtest\`
 两份 transcript（`be209efe` = array 模式，`f5f54024` = quoted 模式）**都是失败运行**：
 
 ```

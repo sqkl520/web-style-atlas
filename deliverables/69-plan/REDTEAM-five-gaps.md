@@ -552,7 +552,7 @@ S01 · 红黑斜排报 · Red Wedge Broadsheet · F型 · NEWS-FRONT · 门槛�
 ## 6. 复跑命令
 
 ```powershell
-[Console]::OutputEncoding=[System.Text.Encoding]::UTF8; cd D:\Web\style
+[Console]::OutputEncoding=[System.Text.Encoding]::UTF8; cd <repo>
 
 # 闸门基线（D1）
 D:\Nodejs\node.exe prototypes\_build\verify-prototype.mjs --all

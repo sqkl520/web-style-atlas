@@ -58,7 +58,7 @@ deliverables/50-scratch/head/     30 套（index.html 与原型逐字节相同�
 - 临时 `HOME`（没有 `MEMORY.md`、没有 projects 历史、没有 skills）
 - 临时 cwd（只有一个 `task.txt`）
 - 实测读仓库被**真实拒绝**，原文：
-  `Claude requested permissions to read from D:\Web\style\README.md, but you haven't granted it yet.`
+  `Claude requested permissions to read from <repo>\README.md, but you haven't granted it yet.`
 - 对照实验：隔离区自己的 `canary.txt` 能读到 ⇒ 拒绝来自权限，不是工具坏了
 - 隔离环境里看不到 `MEMORY.md`（agent 答 NO）
 

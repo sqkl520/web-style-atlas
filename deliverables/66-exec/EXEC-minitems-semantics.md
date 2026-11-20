@@ -1,6 +1,6 @@
 # EXEC · `minItems` 的语义错位：从「我实际有 N 个」改成「这个版式设计时排了 N 个」
 
-日期：2026-10-27　执行 Agent　工作目录 `D:\Web\style`　node `D:\Nodejs\node.exe`（v26.12.1）
+日期：2026-10-27　执行 Agent　工作目录 `<repo>`　node `D:\Nodejs\node.exe`（v26.12.1）
 
 改动文件：**`prototypes/_selection/prompt-copy.js` 一个文件**（+109 / −15，`git diff --stat` 见 §5.8）。
 
@@ -225,7 +225,7 @@ README 的「中位 1822」按 `check-docs` 口径写。所以脚本现在**两�
 
 ## 5. 七条验收的原文输出
 
-> 全部命令在 `D:\Web\style` 下用 `D:\Nodejs\node.exe` 跑。原始输出另存于
+> 全部命令在 `<repo>` 下用 `D:\Nodejs\node.exe` 跑。原始输出另存于
 > `deliverables/66-exec/_out/acc1..acc7*.txt`。
 
 ### 5.1 `node --check prototypes/_selection/prompt-copy.js` → 通过

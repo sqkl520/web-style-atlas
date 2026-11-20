@@ -1,7 +1,7 @@
 # 执行报告：清 `mono` ×3 + S13 `empty-screens`
 
 - 会话：69-exec ｜ 执行 Agent ｜ 2026-10-29
-- 工作目录：`D:\Web\style` ｜ node `v26.12.1`
+- 工作目录：`<repo>` ｜ node `v26.12.1`
 - 基线提交：`9d842c7ae58e9772b965a37d118c69726ea1dfbd`
 - 开工时 `git status --porcelain`（已剥离 `deliverables/` 下的未跟踪文件）：
   ```

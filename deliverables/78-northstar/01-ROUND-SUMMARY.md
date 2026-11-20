@@ -9,7 +9,7 @@
 
 ### ① 本机所有「Claude 模型名」都被路由到别的模型
 
-`C:\Users\Administrator\.claude\settings.json` 的 `env`：
+`~\.claude\settings.json` 的 `env`：
 
 ```
 ANTHROPIC_BASE_URL                  = http://127.0.0.1:15721

@@ -1,6 +1,6 @@
 # 审计：hard 与 degrades 两套警告口径
 
-> 审计 Agent。**只读，未改任何仓库文件。**所有数字均为本 Agent 在 `D:\Web\style` 亲手跑出。
+> 审计 Agent。**只读，未改任何仓库文件。**所有数字均为本 Agent 在 `<repo>` 亲手跑出。
 > 核实时间 2026-10-26 18:10–19:15（Asia/Shanghai）。
 >
 > ⚠️ **行号时点说明（必读）**：核实时另有执行 Agent 并发改 `prototypes/_selection/`

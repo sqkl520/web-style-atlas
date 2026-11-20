@@ -1,6 +1,6 @@
 # 第 6 轮任务拆解：7 条事实的复算、排序与执行方案
 
-> 规划 Agent · 2026-10-27 · 工作目录 `D:\Web\style` · HEAD `a0c0d54`
+> 规划 Agent · 2026-10-27 · 工作目录 `<repo>` · HEAD `a0c0d54`
 > 本轮**只读**：所有探针写在 `deliverables/66-plan/`，未改动 `prototypes/`、`templates/`、`README*`。
 > 全部数字都附可复算命令，脚本都在 `deliverables/66-plan/`（`_pNN_*.mjs`）。
 

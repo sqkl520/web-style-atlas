@@ -111,7 +111,7 @@ S25 用作 display（`prototypes/S25-spotcolor-contents-zine/style.css`）。已
 | assistant 消息 | 96 条；估算 thinking tokens 峰值 **58,295** |
 | tool calls | PowerShell 3 / Glob 1 / Read 13 / Write 4 / Edit 24 |
 | 产物 | `_probe/_S99-out.html`，**459 行 / 23,204 字节** |
-| 隔离审计 | agent 触碰过的路径**全部**在 `C:\tmp\bb\S99\` 内（`task.txt`、`out.html`、`_run.ps1`）；对 `D:\Web\style` 的引用 **0 次** |
+| 隔离审计 | agent 触碰过的路径**全部**在 `C:\tmp\bb\S99\` 内（`task.txt`、`out.html`、`_run.ps1`）；对 `<repo>` 的引用 **0 次** |
 
 ### 2.2 前四次尝试为什么作废（全是判据 bug，不是模型 bug）
 

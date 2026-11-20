@@ -1053,7 +1053,7 @@ summarize-all.mjs, verify-prototype.mjs, write-credits.mjs
 ```powershell
 # 一次性全部复跑（需已存在 probe-out/ 里的渲染产物）
 [Console]::OutputEncoding=[System.Text.Encoding]::UTF8
-cd D:\Web\style
+cd <repo>
 Get-ChildItem deliverables\68-plan\probe-*.mjs | Sort-Object Name | ForEach-Object {
   Write-Output "`n===== $($_.Name) ====="
   & D:\Nodejs\node.exe $_.FullName

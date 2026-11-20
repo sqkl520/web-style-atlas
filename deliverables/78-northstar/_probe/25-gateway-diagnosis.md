@@ -1,7 +1,7 @@
 # 25 · 推理网关 524 诊断
 
 调查日期：2026-11-13 夜（本地 CST/UTC+8）。
-数据来源：本机 13 个 `C:\tmp\bb\*\stream.jsonl`（合计 ~150 MB）、`C:\Users\Administrator\.cc-switch\logs\*.log`（4 个文件，~70 MB）、`cc-switch.db`（只读副本，临时拷出后已删除）。
+数据来源：本机 13 个 `C:\tmp\bb\*\stream.jsonl`（合计 ~150 MB）、`~\.cc-switch\logs\*.log`（4 个文件，~70 MB）、`cc-switch.db`（只读副本，临时拷出后已删除）。
 
 ---
 
@@ -45,7 +45,7 @@ CommandLine     : "D:\CC Switch\cc-switch.exe"
 CreationDate    : 2026/11/13 21:32:20
 ```
 
-`cc-switch` v4.0.13（日志首行 `=== CC Switch v4.0.13 started ===`），父进程是 `explorer.exe`——**它是个托盘 GUI 应用，不是服务**。配置目录 `C:\Users\Administrator\.cc-switch\`（不是 `%APPDATA%`，那两个 `com.ccswitch.desktop` 目录是空壳）。
+`cc-switch` v4.0.13（日志首行 `=== CC Switch v4.0.13 started ===`），父进程是 `explorer.exe`——**它是个托盘 GUI 应用，不是服务**。配置目录 `~\.cc-switch\`（不是 `%APPDATA%`，那两个 `com.ccswitch.desktop` 目录是空壳）。
 
 关键设置（`settings.json`）：`enableLocalProxy: true`、`launchOnStartup: true`、`silentStartup: true`、**`enableFailoverToggle: false`**。
 `live-state.json` 显示 claude 走 `mode: proxy`，路由到 `myclaude-1785485826696`。
@@ -81,7 +81,7 @@ X-Oneapi-Request-Id: 202611131618035971324008268d9d6cn4lHyPq
 
 ### 1.3 网关自己的日志与重试配置
 
-日志：`C:\Users\Administrator\.cc-switch\logs\cc-switch.log`（当前 9.0 MB，按 20 MB 轮转）。相关行格式：
+日志：`~\.cc-switch\logs\cc-switch.log`（当前 9.0 MB，按 20 MB 轮转）。相关行格式：
 
 ```
 [2026-11-13][20:48:49][WARN][cc_switch_lib::proxy::forwarder] [claude] [FWD-003] Provider S3AI 请求失败: 上游 HTTP 524

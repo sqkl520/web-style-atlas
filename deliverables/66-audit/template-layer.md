@@ -1,6 +1,6 @@
 # 模板层审计：三层产品的覆盖矩阵、界面实说与接法取舍
 
-审计对象：`D:\Web\style` 的 `prototypes/S01..S30`、`prototypes/_selection/`、`templates/M01..M03`
+审计对象：`<repo>` 的 `prototypes/S01..S30`、`prototypes/_selection/`、`templates/M01..M03`
 时间：2026-10-27 · 只读审计（未改 `prototypes/`、`templates/`、`README*`）
 探针与原始数据：`deliverables/66-audit/tpl-audit/`　截图：`deliverables/66-audit/shots/`
 

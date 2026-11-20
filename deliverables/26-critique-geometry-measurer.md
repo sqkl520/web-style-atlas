@@ -15,7 +15,7 @@
 
 ```
 node _crit3/measure.mjs --shard N --of 4            # 4 分片并行，36 案 × 4 档
-  ├─ _crit3/serve.mjs      node:http 静态服务器，站点根 = D:\Web\style
+  ├─ _crit3/serve.mjs      node:http 静态服务器，站点根 = <repo>
   │                        （file:// 下 CSS mask-image:url() 与 ../_fonts/ 会失效 → 必须 http）
   ├─ cdp.mjs               Browser.launch + newPage({width,height,mobile})
   │                        → Emulation.setDeviceMetricsOverride（CDP 真改视口；不用 --window-size）
@@ -1952,7 +1952,7 @@ node _crit3/bleedcheck.mjs --shard N --of 2          # 出血元素 → 沿祖�
 
 ### 3.1 对账前置状态
 
-在生成这份报告的这一刻，**`deliverables/25-critique-cascade-analyst.md` 不存在**（`existsSync("D:\\Web\\style\\deliverables\\25-critique-cascade-analyst.md") === true`，检查时间 2026-10-21 14:01:52 UTC）。
+在生成这份报告的这一刻，**`deliverables/25-critique-cascade-analyst.md` 不存在**（`existsSync("<repo>\\deliverables\\25-critique-cascade-analyst.md") === true`，检查时间 2026-10-21 14:01:52 UTC）。
 按任务规定，我先做通用测绘，并**把全部可证伪量落成机器可读台账**，等 25 号文件出现即可机械对账：
 
 - 台账文件：`_crit3/ledger.json`（逐「案 × 档」144 条，每条 30 个实测标量）

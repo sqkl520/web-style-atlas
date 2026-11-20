@@ -476,7 +476,7 @@ README-EN.md  BOM=False  CRLF=0  LF=492
 
 ```powershell
 [Console]::OutputEncoding=[System.Text.Encoding]::UTF8
-cd D:\Web\style
+cd <repo>
 
 # 语法
 D:\Nodejs\node.exe --check prototypes/_selection/prompt-copy.js

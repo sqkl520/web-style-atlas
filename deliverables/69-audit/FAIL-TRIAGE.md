@@ -390,7 +390,7 @@ max-width: 640px;
 | 7 | Lead：「上一轮已经清掉了 S13 的 shadow 和 button-fx」 | ✅ **正确**。就是 `1753f94`（2026-10-27），不是更早 | `git log` |
 | 8 | `_CONTRACT.md:197`：「`mono` 在**本语料上必然触发**」 | **反证**：26/30 案做到 `monoProseShare = 0`（合计 3048 个 `<code>`/`<samp>`，均值 117 个/案）。全库仅 4 案一个 inCode 标签都没有，其中 3 案正是 `mono` 的 FAIL 案（第 4 个 S25 不用等宽） | `p07-mono-premise.mjs`、`p24-incode-tags.mjs` |
 | 9 | `12-tool-rule-audit-30-retry5.md:123`：S13 `empty-screens` 判 `earned` | **错**。它讲的是 `.log__empty` 空状态区块，而规则量的是整屏面积填充率；且"整页填充率并不低"与实测 0.14/0.14/0.17 矛盾 | `p14-s13-bands.mjs` |
-| 10 | 任务书：「工作目录 D:\Web\style，只读」 | ✅ 已遵守。`git status --porcelain -- prototypes templates README* tools` 收工时为空 | §0 |
+| 10 | 任务书：「工作目录 <repo>，只读」 | ✅ 已遵守。`git status --porcelain -- prototypes templates README* tools` 收工时为空 | §0 |
 
 ### 7.1 踩到的坑（给后来者）
 

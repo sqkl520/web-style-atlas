@@ -2,7 +2,7 @@
 
 审查者：锐评 Agent（独立验收，不采信交付方自述）
 审查时间：2026-10-31 02:14 – 03:00（Asia/Shanghai）
-仓库：`D:\Web\style`
+仓库：`<repo>`
 开工 HEAD：`0d3d499`
 被验收物：`prototypes/_build/check-contract.mjs`、`deliverables/73-verify/ab-contract.mjs`、`deliverables/73-exec/LEAD-P1a-contract-gate.md`
 

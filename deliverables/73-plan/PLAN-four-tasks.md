@@ -1,7 +1,7 @@
 # 四项任务实施计划（P1a / P1b / P2 / P3）
 
 > 计划撰写者：规划 Agent（本轮只读）
-> 仓库：`D:\Web\style`　基线 commit：`0d3d499`（2026-10-30 20:58:44 +0800）
+> 仓库：`<repo>`　基线 commit：`0d3d499`（2026-10-30 20:58:44 +0800）
 > 开工 tracked 改动数：**0**　收尾 tracked 改动数：**0**
 > 本计划内所有数字均来自 `deliverables/73-plan/plan-probe-*.mjs` 与 `plan-p1a-mutation.mjs` 的实测输出，不是估算。
 >

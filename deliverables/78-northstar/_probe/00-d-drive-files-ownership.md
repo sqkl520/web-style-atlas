@@ -38,9 +38,9 @@ Server folder already exists: ...\Temp\r4v03\th7\servers\sim (use -Force to over
 报错里反复出现三个不同目录：
 
 ```
-C:\Users\Administrator\AppData\Local\Temp\r4v03\th2\scripts\new-server.ps1
-C:\Users\Administrator\AppData\Local\Temp\r4v03\th3\scripts\new-server.ps1
-C:\Users\Administrator\AppData\Local\Temp\r4v03\th7\scripts\new-server.ps1
+~\AppData\Local\Temp\r4v03\th2\scripts\new-server.ps1
+~\AppData\Local\Temp\r4v03\th3\scripts\new-server.ps1
+~\AppData\Local\Temp\r4v03\th7\scripts\new-server.ps1
 ```
 
 `th2` / `th3` / `th7` 是三个独立的临时工作区，每个都在反复创建 `servers\sim`、
@@ -79,13 +79,13 @@ C:\Users\Administrator\AppData\Local\Temp\r4v03\th7\scripts\new-server.ps1
 部分输出末尾有：
 
 ```
-Shell cwd was reset to D:\Web\style
+Shell cwd was reset to <repo>
 ```
 
 看起来像指向本会话，但它不是。
 
 - 这是 **shell 的兜底消息**，语义是「shell 回到了它的默认目录」，
-  不是「这条命令由 `D:\Web\style` 的会话发起」。
+  不是「这条命令由 `<repo>` 的会话发起」。
 - 真正标明发起者的是同一批输出里的**来源路径**（`Temp\r4v03\th*`）和**transcript 归属**（证据三）。
 - 多会话同时在一台机器上跑时，`cwd` 这类共享状态会互相串味。这条消息是其中一例。
 

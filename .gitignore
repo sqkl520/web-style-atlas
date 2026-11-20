@@ -61,6 +61,25 @@ _vw-out/
 # ── 审查 agent 的草稿目录（放在 deliverables/ 下以免被临时目录 sweeper 扫掉；不进 git）──
 deliverables/*-scratch/
 
+# ── deliverables 里的实验产物（2026-11-05）──────────────────────────────────
+# 每个复刻/盲测实验都会整份拷贝字体、截图、html、css。实测积到 19523 个文件 /
+# 1.43 GB，其中 12498 个 woff2 是 946 个唯一字体被复制成平均 13 份。
+# 而 README 只引用 deliverables 里的 5 处。
+#
+# 结论写在 `.md` 里，产物本身可从 `.mjs` 重跑 —— 所以只留文档、脚本、实测数据，
+# 不留这些可再生的二进制与副本。
+#
+# ⚠️ 排除 78-northstar：那是当前主线工作区，里面的 _probe 是报告本体。
+deliverables/[0-9][0-9]-*/**/*.woff2
+deliverables/[0-9][0-9]-*/**/*.png
+deliverables/[0-9][0-9]-*/**/*.jpg
+deliverables/[0-9][0-9]-*/**/*.jpeg
+deliverables/[0-9][0-9]-*/**/*.gif
+deliverables/[0-9][0-9]-*/**/*.svg
+deliverables/[0-9][0-9]-*/**/*.html
+deliverables/[0-9][0-9]-*/**/*.css
+!deliverables/78-northstar/**
+
 # ---- one-shot scratch left at repo root by review sessions (root-anchored) ----
 /.tmp-*
 /.tmp_*

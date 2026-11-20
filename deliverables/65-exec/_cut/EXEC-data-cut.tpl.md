@@ -1,7 +1,7 @@
 # EXEC — `audit` 的两处数据层修复（S13 评审工件切断 + 键位）
 
 日期：2026-10-27
-工作目录：`D:\Web\style`（Windows 10 / node v26.12.1 / PowerShell 5.1 / git 2.x）
+工作目录：`<repo>`（Windows 10 / node v26.12.1 / PowerShell 5.1 / git 2.x）
 任务来源：`deliverables/65-plan/VERDICT-audit-plumbing.md` §3.2 / §3.3 / §9（P0 两条）
 
 ## 0. 一句话结论

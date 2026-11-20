@@ -69,7 +69,7 @@ R2 FAIL: {emoji:14, numbering:1, shadow:2, gradient:1, hairline:6}  合计 24   
 - **`templates/` 全程未变**（R1/R2/R3 都是 60 FAIL，构成逐条一致）。
 - 唯一不受漂移影响的结论：**`wizard.js:204` 的 `⚠` 在 R1、R2、R3 三次探针里都稳定渲染到 DOM**。
 
-所有命令均以 `D:\Web\style` 为 cwd，`D:\Nodejs\node.exe`，PowerShell 前置 `[Console]::OutputEncoding=[System.Text.Encoding]::UTF8`。
+所有命令均以 `<repo>` 为 cwd，`D:\Nodejs\node.exe`，PowerShell 前置 `[Console]::OutputEncoding=[System.Text.Encoding]::UTF8`。
 
 ---
 
@@ -354,7 +354,7 @@ node deliverables/68-audit/lint-ratchet.mjs check deliverables/68-audit/lint-bas
 
 ```powershell
 [Console]::OutputEncoding=[System.Text.Encoding]::UTF8
-Set-Location D:\Web\style
+Set-Location <repo>
 & D:\Nodejs\node.exe deliverables\68-audit\runlint.mjs deliverables\68-audit\lint-selection.json prototypes\_selection\app.js prototypes\_selection\index.html prototypes\_selection\style.css prototypes\_selection\wizard.html prototypes\_selection\wizard.css
 & D:\Nodejs\node.exe deliverables\68-audit\runlint.mjs deliverables\68-audit\lint-templates.json templates
 & D:\Nodejs\node.exe deliverables\68-audit\runlint.mjs deliverables\68-audit\lint-sel-dir.json prototypes\_selection

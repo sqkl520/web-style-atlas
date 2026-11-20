@@ -249,7 +249,7 @@ S29 的两份需要特别说明：stream 里有两个会话（`cf3ad59e` 与 `eb
 
 `_blindbox-batch.ps1:4-9` 写明了为什么不能并行：
 
-> Deny ACE 是按**账户**生效的（`icacls D:\Web\style /deny ClaudeBlindBox`），
+> Deny ACE 是按**账户**生效的（`icacls <repo> /deny ClaudeBlindBox`），
 > 不是按进程。几个沙箱运行重叠时，任何一个撤 Deny 都会静默解隔离其余的。
 
 实测确认当时的并发情况：**最大同时运行 5 个**（17:48 时刻），

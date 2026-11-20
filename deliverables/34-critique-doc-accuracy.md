@@ -179,7 +179,7 @@
   prototypes/_build/SHOT-README.md L8 / L215: --out .shot-test --widths 1440,768,390 --name S14
   shot.mjs 的默认 --out = .shot
   ```
-- **为什么这不是"意图 vs 状态"的问题**：这是一条**照抄即产生副作用**的指令。按 README 跑一次，工作区里就多一个 `D:\Web\style\.shots\`（34 张 PNG + report.json，实测 S14 单案就 2.8–3.6 MB/档），而它**不被任何忽略规则覆盖**，会直接出现在 `git status` 里。工具自己的文档与 `.gitignore` 用的是另一个名字，说明命名不一致是 README 单方面的偏差。
+- **为什么这不是"意图 vs 状态"的问题**：这是一条**照抄即产生副作用**的指令。按 README 跑一次，工作区里就多一个 `<repo>\.shots\`（34 张 PNG + report.json，实测 S14 单案就 2.8–3.6 MB/档），而它**不被任何忽略规则覆盖**，会直接出现在 `git status` 里。工具自己的文档与 `.gitignore` 用的是另一个名字，说明命名不一致是 README 单方面的偏差。
 - **可直接替换**：CN L137 / EN L138 的 `--out .shots` 改为 `--out .shot-test`（与 `.gitignore` L45 和 `SHOT-README.md` 一致）；若坚持 `.shots`，则 `.gitignore` 需补一行 `.shots/`。
 
 ### C1【高｜命令】`render-scheme.mjs` 被两重阻断：硬编码 `D:/Web/style` + 依赖未入库的 `tools/`
@@ -226,10 +226,10 @@
 - **实测证据**：
   ```
   shot.mjs L39: chrome: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
-  shot.mjs L40: python: 'C:\\Users\\Administrator\\.dsh\\dsh-runtimes\\...\\python.exe',
+  shot.mjs L40: python: '~\\.dsh\\dsh-runtimes\\...\\python.exe',
   实跑（本机）: exit 0，3 档全部成功
   ```
-- **为什么这不是"意图 vs 状态"的问题**：`C:\Users\Administrator\.dsh\dsh-runtimes\…` 是**本会话运行时**的私有路径。README L170 只说"需要 Python 3.8+（Pillow）"，没提这条路径依赖。本机能跑通不构成"文档准确"——这是**可移植性断言**，而默认值是机器绑定的静态常量（有 `--chrome`/`--python` 覆盖位，README 未提）。
+- **为什么这不是"意图 vs 状态"的问题**：`~\.dsh\dsh-runtimes\…` 是**本会话运行时**的私有路径。README L170 只说"需要 Python 3.8+（Pillow）"，没提这条路径依赖。本机能跑通不构成"文档准确"——这是**可移植性断言**，而默认值是机器绑定的静态常量（有 `--chrome`/`--python` 覆盖位，README 未提）。
 - **可直接替换**（CN L137 之后加一句，EN L138 同步）：
   > `shot.mjs` 的 `--chrome` / `--python` 默认值是本机绝对路径；换机器请显式传入，例如
   > `node prototypes/_build/shot.mjs prototypes/S14-zero-g-launch-sequence/ --out .shot-test --widths 1440,768,390 --name S14 --python "C:\Python313\python.exe"`
@@ -340,8 +340,8 @@
 ```
 > D:\Nodejs\node.exe prototypes\_build\shot.mjs prototypes/S14-zero-g-launch-sequence/ --out _crit10b/shots --widths 1440,768,390 --name S14
 shot.mjs  target=prototypes/S14-zero-g-launch-sequence/index.html
-         server=http://127.0.0.1:13674  root=D:\Web\style
-         out=D:\Web\style\_crit10b\shots  tiers=1440x900, 768x900, 390x900  jobs=2 gap=700ms
+         server=http://127.0.0.1:13674  root=<repo>
+         out=<repo>\_crit10b\shots  tiers=1440x900, 768x900, 390x900  jobs=2 gap=700ms
 
 [1440x900] mode=direct window=1456x995
    页高 7569（真视口 7569，长窗口独有内容到 8490 已排除）  来源=fold-viewport  9 屏  校准=ok

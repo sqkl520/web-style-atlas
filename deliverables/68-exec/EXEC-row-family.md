@@ -2,7 +2,7 @@
 
 日期：2026-10-29（本地 Asia/Shanghai）
 执行 Agent：68-exec
-工作目录：`D:\Web\style`
+工作目录：`<repo>`
 
 ---
 
@@ -314,7 +314,7 @@ finding 列表：仅 [WARN] no-footage @1440
 
 ```powershell
 [Console]::OutputEncoding=[System.Text.Encoding]::UTF8
-cd D:\Web\style
+cd <repo>
 
 # 13/15/16px 三档 × 三视口，闸门判据 + 基线 + clamp 检查（约 3 分钟）
 D:\Nodejs\node.exe deliverables/68-exec/rf-decide.mjs

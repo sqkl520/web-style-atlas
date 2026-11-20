@@ -281,7 +281,7 @@ export function findStale() {
         newest = m;
         /* 显示用路径：优先截成 `prototypes/` 之后的部分（原型链的输入都在那下面）；
          * 规格链的输入在仓库根的 `deliverables/` 下，那条 `split` 命中不了，
-         * 原来会回退成完整绝对路径（`D:\Web\style\deliverables\...`），读起来很吵。 */
+         * 原来会回退成完整绝对路径（`<repo>\deliverables\...`），读起来很吵。 */
         const norm = f.replace(/\\/g, '/');
         const afterProto = norm.split('/prototypes/')[1];
         which = afterProto || norm.split('/deliverables/').pop() || norm;

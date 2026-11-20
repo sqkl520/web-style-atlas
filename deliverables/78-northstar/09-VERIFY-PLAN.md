@@ -583,5 +583,5 @@ D2 对「自己和自己比」不响、C7 对「把有版心的案判成 no-colu
 
 **唯一的越界**：为了测 D1/D3 绕过，我在仓库根临时写了 `.t.js` / `.tmp-prompts-d3*.js`
 （因为 `PROMPTS_OVERRIDE` 必须是可被 `check-prompts` 读到的路径，写到 `/tmp` 会因
-Git Bash 的路径映射变成 `C:\Users\...\Temp` 而 ENOENT）。**三份临时文件已全部删除，
+Git Bash 的路径映射变成 `~\...\Temp` 而 ENOENT）。**三份临时文件已全部删除，
 最终 `git status` 只显示本文件与三个并行 Agent 的产出。**

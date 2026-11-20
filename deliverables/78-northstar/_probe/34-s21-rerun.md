@@ -155,7 +155,7 @@ S21 这次在 134 分钟才写完，**超过了 90 分钟超时**。如果让它
 **② 中断运行器后必须手动清 Deny ACE**（它走不到第 7 步清理）：
 
 ```powershell
-icacls 'D:\Web\style' /remove:d ClaudeBlindBox
+icacls '<repo>' /remove:d ClaudeBlindBox
 ```
 
 **③ `estimated_tokens` 会归零重计。** 只读最后一条会严重低估

@@ -1,7 +1,7 @@
 # 选型台移动端长度审计（69）
 
 - 审计时间：2026-10-29
-- 仓库：`D:\Web\style`，HEAD = `9d842c7ae58e9772b965a37d118c69726ea1dfbd`
+- 仓库：`<repo>`，HEAD = `9d842c7ae58e9772b965a37d118c69726ea1dfbd`
 - 工作树：`git status --porcelain -- prototypes templates README.md README-EN.md tools` **空**；`git diff --stat` **空**
 - 只读承诺：`prototypes/`、`templates/`、`README*`、`tools/` 一个字节未改。所有"改动"都在 CDP 里用运行时注入的 `<style>` / DOM 模拟，探测完进程即销毁。
 - 环境：Chrome headless（CDP），`node v26.12.1`，自建 http server（端口 8901 = 当前 HEAD；8902 = `git archive` 出来的改动前 `1753f94` 覆盖层）

@@ -238,12 +238,12 @@ S08@1440 只有 **1 屏**低于 0.2（s6=0.07），未达"≥2 屏"的门槛；S
 ### 附：本报告用到的实测命令（可重跑）
 
 ```powershell
-cd D:\Web\style
+cd <repo>
 & D:\Nodejs\node.exe _crit9\crop.mjs                 # 16 张目视取证 + AH-01/02/25/17 关键数字
 & D:\Nodejs\node.exe _crit9\f.mjs                    # AH-08：S05/S20/M03 表单控件是否真的渲染文本
 & D:\Nodejs\node.exe _crit9\g.mjs                    # AH-08：S13 的 2 个 radio
 $env:PYTHONIOENCODING="utf-8"
-& C:\Users\Administrator\.dsh\dsh-runtimes\dsh-primary-runtime\dependencies\python\python.exe _crit9\match2.py
+& ~\.dsh\dsh-runtimes\dsh-primary-runtime\dependencies\python\python.exe _crit9\match2.py
 #   图片原件相关匹配：S07 的 plate-*.jpg 是否已是 src-*.jpg 的 1:1 裁切（可用倍率）
 ```
 

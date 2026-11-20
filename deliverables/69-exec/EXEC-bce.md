@@ -1,6 +1,6 @@
 # EXEC-BCE — B / C / E 三项的执行报告（69 轮）
 
-**执行 Agent** · 2026-10-29 · 工作目录 `D:\Web\style`
+**执行 Agent** · 2026-10-29 · 工作目录 `<repo>`
 
 | 项 | 内容 | 结论 |
 |---|---|---|
@@ -79,7 +79,7 @@ diffstat（4 个允许文件合计）：
 
 ```powershell
 [Console]::OutputEncoding=[System.Text.Encoding]::UTF8
-cd D:\Web\style
+cd <repo>
 # 改后：直接跑工作区
 D:\Nodejs\node.exe deliverables\69-exec\_bce\srv.mjs 9311
 # 改前：overlay 把 4 个文件盖回备份

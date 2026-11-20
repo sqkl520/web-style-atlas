@@ -114,8 +114,8 @@ node prototypes/_build/quarter.mjs
 Deny ACE 是**按账户**生效的，不是按进程：
 
 ```powershell
-icacls D:\Web\style /deny "ClaudeBlindBox:(OI)(CI)(RX)"
-icacls D:\Web\style /deny "ClaudeBlindBox:(OI)(CI)(W)"
+icacls <repo> /deny "ClaudeBlindBox:(OI)(CI)(RX)"
+icacls <repo> /deny "ClaudeBlindBox:(OI)(CI)(W)"
 ```
 
 两个沙箱同时跑时，任何一方执行「撤掉 deny」都会让另一方**静默失去隔离**，
@@ -124,7 +124,7 @@ icacls D:\Web\style /deny "ClaudeBlindBox:(OI)(CI)(W)"
 > **2026-11-14 补**：原来只有 `(RX)` 一条，实测**写权限没堵住**
 > （`WRITE_REPO_OK`）。两条都要下，`_deny-verify.ps1` 是回归脚本。
 > 另外中断运行器后它走不到清理步骤，必须手动
-> `icacls 'D:\Web\style' /remove:d ClaudeBlindBox`。
+> `icacls '<repo>' /remove:d ClaudeBlindBox`。
 
 ---
 

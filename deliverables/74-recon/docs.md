@@ -741,7 +741,7 @@ L427 引用 `1753f94`、L529「经 `git log -S` 全史核验」、L342 引用 `d
 
 ```
 $ node prototypes/_build/render-scheme.mjs S14-zero-g-launch-sequence
-缺渲染引擎：D:\Web\style\tools\taste-skill\skills\taste-skill\scripts\inspect.mjs
+缺渲染引擎：<repo>\tools\taste-skill\skills\taste-skill\scripts\inspect.mjs
   tools/ 不在仓库里（.gitignore:2 排除）——本机需自备 taste-skill；只想截图取证请用 shot.mjs（零依赖，不碰 tools/）。
 $ echo $?
 4

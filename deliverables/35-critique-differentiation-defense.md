@@ -1,7 +1,7 @@
 # 35 · 差异化辩护（缩略图尺度）
 
 **辩护员**：差异化辩护员
-**工作目录**：`D:\Web\style`
+**工作目录**：`<repo>`
 **辩护对象**：`deliverables/29-critique-homogeneity.md`（41,954 B）的 7 条指控
 **辩护规则（我自己给自己上锁）**：只使用**缩略图尺度上看得见的证据**（我自己拼的图，逐张用 `read_image` 看过），以及**对方自己测量里的口径问题**。**不使用任何规格文本**（不引 `data.js` 的 `structure`/`tone`/`family`，不引 §04–§06 方案书，不引"机制不同/结构不同/调性不同"）。凡是"必须读文案才知道不同"的，我自己也判**不可分辨**。
 
@@ -215,10 +215,10 @@
 8. **清理风险是真的**：会话中途 `_crit11/` 被清空过一次（同批消失 `_crit4/_crit4b/_crit7b/_crit8/_crit10/_crit12/_crit6`）。所以我把**一键复现**留在下面：
 
 ```powershell
-$py='C:\Users\Administrator\.dsh\dsh-runtimes\dsh-primary-runtime\dependencies\python\python.exe'
-cd D:\Web\style\_crit11; & $py mk.py        # 全部拼图
-cd D:\Web\style\_crit11; & $py measure.py   # 全部数字（cards/de/block/topband/plates）
-cd D:\Web\style; node prototypes\_build\shot.mjs _crit11/real316b.html --out _crit11/real --widths 1440 --heights 1300 --name real316
+$py='~\.dsh\dsh-runtimes\dsh-primary-runtime\dependencies\python\python.exe'
+cd <repo>\_crit11; & $py mk.py        # 全部拼图
+cd <repo>\_crit11; & $py measure.py   # 全部数字（cards/de/block/topband/plates）
+cd <repo>; node prototypes\_build\shot.mjs _crit11/real316b.html --out _crit11/real --widths 1440 --heights 1300 --name real316
 ```
 
 ---

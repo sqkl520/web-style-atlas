@@ -56,14 +56,14 @@ S28 16 轨 div.press__grid ← CSS 是 repeat(16, minmax(0,1fr))
 - 干净 `HOME` + 临时工作目录跑 `claude -p` **能通**（需从 `~/.claude/settings.json` 复制 env：
   `ANTHROPIC_API_KEY=PROXY_MANAGED`、`ANTHROPIC_BASE_URL=http://127.0.0.1:15721`）。
 - **读本仓库被真实拒绝**，原文错误：
-  `Claude requested permissions to read from D:\Web\style\README.md, but you haven't granted it yet.`
+  `Claude requested permissions to read from <repo>\README.md, but you haven't granted it yet.`
 - 对照实验：隔离区内自己的 `canary.txt` **能读到** ⇒ 拒绝来自权限而非工具坏掉。
 - 隔离环境里**看不到 `MEMORY.md`**（agent 答 NO）。
 - `Write` 工具可用（写出的文件内容正确）。
 - ⚠️ 该环境里 **shell 不可用**（`pwsh timed out after 5000ms`），agent 只能 Read/Write。
   生成 HTML/CSS 够用，但**不能让它跑构建脚本**。
 
-**注意隔离的边界**：`D:\Web\style` 只是被权限挡住，不是物理不可见。
+**注意隔离的边界**：`<repo>` 只是被权限挡住，不是物理不可见。
 一个足够执着的 agent 仍可能绕。这一点必须在报告里如实写，不能宣称「绝对盲」。
 
 ### 1.3 已知但未修的确证缺陷

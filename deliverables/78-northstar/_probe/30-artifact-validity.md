@@ -132,7 +132,7 @@ $ node -e '...在 S99 stream 全长 61070 行里搜 D:\Web|D:/Web|Web\style|prot
 total lines 61070   repo-mentions 0
 ```
 
-配合 `_blindbox-run.ps1` 的 NTFS Deny ACE（`icacls D:\Web\style /deny "ClaudeBlindBox:..."`，
+配合 `_blindbox-run.ps1` 的 NTFS Deny ACE（`icacls <repo> /deny "ClaudeBlindBox:..."`，
 内核级拒绝，模型改不动），因果链是闭合的：
 **hex/字体名只能来自 `task.txt`，`task.txt` 逐字节等于产品 `buildStylePrompt()` 的输出。**
 这不是「模型先验碰巧撞上」——`Zhuque Fangsong`、`Redaction 20`、`VT323` 这类名字没有先验可撞。

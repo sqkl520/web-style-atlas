@@ -345,7 +345,7 @@ check-docs  EXIT=1
 
 **这一条在两个平台都对**——因为 Linux 路径本来就以 `/` 开头。真正的问题在**另一类**：如果仓库路径里含空格或非 ASCII（GitHub Actions 的默认路径不含，但自建 runner 或 `$RUNNER_WORKSPACE` 含中文时会），`decodeURIComponent` 是必要的、这里做了。所以 `check-ui-copy` 的路径处理**没问题**。
 
-**但我验过 `check-docs.mjs:206` 与 `:304` 的地方**：`execFileSync(process.execPath, [new URL(import.meta.url).pathname.replace(...), '--root', tmp], ...)`——**没有 `decodeURIComponent`**。在含空格/中文的路径下（本机 `D:\Web\style` 不含空格，所以本机绿），这里传给子进程的脚本路径会被 `%20` 编码污染。CI 的默认路径不含空格，所以不会炸；但**这是一条只在特定环境复现的静默失败**，与 W5 无关，我记下来供 Q2 参考。
+**但我验过 `check-docs.mjs:206` 与 `:304` 的地方**：`execFileSync(process.execPath, [new URL(import.meta.url).pathname.replace(...), '--root', tmp], ...)`——**没有 `decodeURIComponent`**。在含空格/中文的路径下（本机 `<repo>` 不含空格，所以本机绿），这里传给子进程的脚本路径会被 `%20` 编码污染。CI 的默认路径不含空格，所以不会炸；但**这是一条只在特定环境复现的静默失败**，与 W5 无关，我记下来供 Q2 参考。
 
 **真正会炸的是另一处**：`gates.yml:113` 的 `check-stale || true` 掩盖一切；而 `:100` 的 `verify-prototype || true` 同理。这两条 `|| true` 与 workflow 的「硬/软闸」叙事（文件头 `:5-9`）不一致：**叙事说「只有红了就说明产品坏了的才阻塞」，实际是「我们有两盏永远红的灯，用 `|| true` 关掉」**。这不是错，但它让 `advisory` job 变成一个必然绿的装饰品——与 W5 要治的病同形。
 

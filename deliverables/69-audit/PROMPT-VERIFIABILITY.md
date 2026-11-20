@@ -470,7 +470,7 @@ S19 提示词里「安静、旧、可触摸」「像旧书店或标本馆里一�
 物理做法（不是靠"请勿查看"的口头约定）：
 
 ```
-D:\Web\style\_e2e\<run-id>\
+<repo>\_e2e\<run-id>\
 ├── prompt.txt              ← 只有 buildStylePrompt(id) 的输出，逐字节
 ├── assets/                 ← 只含 images/占位-N.jpg（纯色 1 张，无原型素材）
 ├── START.md                ← 任务书：只许读同目录下的文件

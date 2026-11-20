@@ -1,6 +1,6 @@
 # 22 · 视觉审查报告（批次二：S11–S20）
 
-审查员：视觉审查员（独立子代理，重跑） · 工作目录 `D:\Web\style`
+审查员：视觉审查员（独立子代理，重跑） · 工作目录 `<repo>`
 本轮取证目录：`_audit2/rt/`（自动截图 `rt/shots2/` 391 张、修复前留档 `rt/prefix/` 24 张、修复后复验 `rt/postfix/` 29 张、
 放大裁剪 `rt/crop/` 12 张；JSON 与文本证据：`recon-Sxx.json` / `lines-Sxx.json` / `occ3-Sxx.json` / `pixstats2.json` /
 `void.txt` / `linefind.txt` / `analysis.txt` / `probe-log.txt`）。
@@ -18,7 +18,7 @@
 
 | 环节 | 做法 | 落盘 |
 |---|---|---|
-| 静态服务 | `python -m http.server 8799 --directory D:\Web\style`（后台作业） | — |
+| 静态服务 | `python -m http.server 8799 --directory <repo>`（后台作业） | — |
 | 定档 | `tools/taste-skill/…/lib/cdp.mjs`（`Browser.launch` 是**静态方法**）+ `Emulation.setDeviceMetricsOverride` | `_audit2/rt/recon-Sxx.json` |
 | 判据 | 每档记 `window.innerWidth` / `documentElement.scrollWidth` / `clientWidth`；**30 档全部满足 `innerWidth` 精确等于目标宽** | 同上 |
 | 截图 | 每档按视口高逐屏滚动截 PNG（先做一次整页滚轮走查触发进场动画，再回到顶部），另加整页图 | `_audit2/rt/shots2/`（391 张）＋ `_audit2/rt/postfix/`（修复后 29 张）＋ `_audit2/rt/prefix/`（修复前留档 24 张） |

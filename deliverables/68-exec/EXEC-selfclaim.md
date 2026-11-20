@@ -1,6 +1,6 @@
 # EXEC-selfclaim — 让「选型台自述清单」与实现对齐
 
-**执行 Agent** ｜ 2026-10-28 ｜ 工作目录 `D:\Web\style` ｜ node `D:\Nodejs\node.exe`
+**执行 Agent** ｜ 2026-10-28 ｜ 工作目录 `<repo>` ｜ node `D:\Nodejs\node.exe`
 **未 commit**（`git rev-parse HEAD` = `ce4ea78c0c603a1f1357f1282fc8537349a431ac`，与开工时相同）。
 
 ---

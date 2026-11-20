@@ -1,9 +1,9 @@
-// Minimal static file server for D:\Web\style on port 8611 (file:// is not allowed for CDP probes).
+// Minimal static file server for <repo> on port 8611 (file:// is not allowed for CDP probes).
 import { createServer } from 'node:http';
 import { readFile, stat } from 'node:fs/promises';
 import { extname, join, normalize } from 'node:path';
 
-const ROOT = 'D:\\Web\\style';
+const ROOT = '<repo>';
 const PORT = Number(process.argv[2] || 8611);
 const MIME = {
   '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8',

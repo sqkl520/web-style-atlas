@@ -11,10 +11,10 @@
  *   1. 临时 HOME（没有 MEMORY.md、没有 projects 历史、没有 skills）
  *   2. 临时 cwd（只有一个 task.txt）
  *   3. --permission-mode 使得仓库路径被真实拒绝（实测原文：
- *      "Claude requested permissions to read from D:\Web\style\README.md, but you haven't granted it yet."）
+ *      "Claude requested permissions to read from <repo>\README.md, but you haven't granted it yet."）
  *   4. 保留 transcript，用来读实际 served model —— 否则又是「名义模型」
  *
- * ⚠️ 隔离边界要如实说：D:\Web\style 只是被权限挡住，不是物理不可见。
+ * ⚠️ 隔离边界要如实说：<repo> 只是被权限挡住，不是物理不可见。
  *    一个足够执着的 agent 仍可能绕。所以报告里不能宣称「绝对盲」。
  *
  * 用法：

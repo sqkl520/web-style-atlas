@@ -1,6 +1,6 @@
 # README 重写执行记录（write-attractive-readme skill）
 
-工作目录 `D:\Web\style`。验收标准 = `_readme-skill-fetch/write-attractive-readme-main/scripts/check-readme.mjs`（24 项静态校验，必须 0 FAIL，全程未用 `--http`）。
+工作目录 `<repo>`。验收标准 = `_readme-skill-fetch/write-attractive-readme-main/scripts/check-readme.mjs`（24 项静态校验，必须 0 FAIL，全程未用 `--http`）。
 
 **结论先行**：`README.md` **0 FAIL / 0 WARN / 24 PASS**；`README-EN.md` **0 FAIL / 2 WARN / 22 PASS**。
 改动文件仅 3 个：`README.md`（+377 行区间）、`README-EN.md`、`deliverables/README-REWRITE-NOTES.md`，另有 `deliverables/44-scratch/`（已 gitignore）。**未 commit、未 push。**

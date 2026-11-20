@@ -1,6 +1,6 @@
 # 芯片死路：点完芯片仍是 0 行（44 词全矩阵 + 改法取舍）
 
-> 执行 Agent，2026-10-27。工作目录 `D:\Web\style`，Node v26.12.1，Chrome headless via CDP。
+> 执行 Agent，2026-10-27。工作目录 `<repo>`，Node v26.12.1，Chrome headless via CDP。
 > 写作用域：`prototypes/_selection/app.js`（主要）+ `prototypes/_selection/prompt-copy.js` 的芯片点击段（一处）。
 > 所有数字都是本轮实跑，原始输出在 `deliverables/66-exec/*.out.txt` 与 `*.json`。
 

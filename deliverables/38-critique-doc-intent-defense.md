@@ -71,7 +71,7 @@
 | P2 | README 写 `--out .shots` | `.gitignore` L45 只有 `.shot-test/`；`git check-ignore -v .shots/x.png` → **exit 1（未被忽略）**；`.shot` 同样未被忽略；`shot.mjs` L102 默认 `out: '.shot'`、头注释 L5 用 `.shot-test`；`SHOT-README.md` L8 / L215 用 `--out .shot-test` | **成立**（未修；定级低，属一致性缺陷） |
 | C1 | `render-scheme.mjs` 双重阻断 | `L16 const ROOT = 'D:/Web/style'`；`L17 INSPECT = join(ROOT,'tools/taste-skill/skills/taste-skill/scripts/inspect.mjs')`；`git ls-files tools` → **0**；`git check-ignore -v` → `.gitignore:2:tools/`；磁盘上 `tools/` 有 **302** 个文件；`LICENSE` §4（L45–L48）自己写明 taste-skill / impeccable「**均未包含在本仓库中**」 | **已修（快照时成立）·仅文档层**；脚本本体未动，仍不可移植 |
 | C2 | `verify-prototype.mjs` 把 ROOT 写死 | `L12 const ROOT = 'D:/Web/style'`。我用 `D:\Nodejs\node.exe prototypes\_build\verify-prototype.mjs --all` 复跑：**exit 1，末行「达标 26 / 不达标 4 / 共 30」**（逐字复现） | **成立**（未修） |
-| C3 | `shot.mjs` 把 Chrome/Python 写成绝对路径 | `L39 chrome: 'C:\Program Files\Google\Chrome\Application\chrome.exe'`；`L40 python: 'C:\Users\Administrator\.dsh\…\python.exe'`。**但同时**：`L37 const REPO_ROOT = resolve(HERE,'..','..')`（脚本用自身位置推导仓库根，**不硬编码目录**）、`L106` 有 `--chrome`/`--python` 覆盖位 | **误报（口径越界）**，见 §2-A |
+| C3 | `shot.mjs` 把 Chrome/Python 写成绝对路径 | `L39 chrome: 'C:\Program Files\Google\Chrome\Application\chrome.exe'`；`L40 python: '~\.dsh\…\python.exe'`。**但同时**：`L37 const REPO_ROOT = resolve(HERE,'..','..')`（脚本用自身位置推导仓库根，**不硬编码目录**）、`L106` 有 `--chrome`/`--python` 覆盖位 | **误报（口径越界）**，见 §2-A |
 | Q1 | 「`box-shadow` **0**」（CN L53 / EN L54） | M01 `style.css` **3 处**：L204（hero）、L284（卡片两层）、L560（`box-shadow:none` 复位）；M03 **1 处**：L122（画汉堡两条杠）；M02 **0 处**。仓库内反证齐备：`templates/M01/README.md` **L162** 写「一段很浅的两层阴影 `0 1px 2px` + `0 16px 30px -24px`」；`templates/M02/README.md` **L188** 写「**全站零 `box-shadow`**」 | **已修（快照时成立）**；附注：M01 的"3 处"含 1 处 `none` 复位，**实体阴影 2 处**（它自己的替换文本写的也是 2） |
 | Q2 | L30「可逐字节复算」与 L162 警示块 | 14 个 `gen_*` 全对；**磁盘上有 `build/texture-job.json` 的恰 12/30 案**（S18 S19 S20 S21 S22 S23 S24 S26 S27 S28 S29 S30，与它一致）；`git ls-files` 无 `texture-job`；`.gitignore` L7 排除 `prototypes/*/build/` | **部分成立**（缺陷成立，"自相矛盾/互斥"定性过强），见 §2-B |
 
@@ -372,4 +372,4 @@ deliverables/02-anti-ai-rules.md L593 §7、L602 §7.2（40 词）、L355 R-25�
 → 三模板 index.html / style.css 用 D-08 正则均 0 命中
 ```
 
-**落盘自检**：`D:\Web\style\deliverables\38-critique-doc-intent-defense.md`（本文件）与 `deliverables/38-scratch/` 下的脚本与转储（`check1..check12`、`*.txt`、`px*.py`、`probe.html`、`s04-{http,file}.png`、`snap/`）。除本文件外无任何受跟踪文件被创建或修改。
+**落盘自检**：`<repo>\deliverables\38-critique-doc-intent-defense.md`（本文件）与 `deliverables/38-scratch/` 下的脚本与转储（`check1..check12`、`*.txt`、`px*.py`、`probe.html`、`s04-{http,file}.png`、`snap/`）。除本文件外无任何受跟踪文件被创建或修改。

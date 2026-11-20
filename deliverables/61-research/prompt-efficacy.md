@@ -1,7 +1,7 @@
 # 检索报告：AI 建站提示词的实证与最佳实践
 
 > 检索日期：2026-10-26　检索者：联网检索子 Agent
-> 服务对象：`D:\Web\style\prototypes\_selection\prompt-copy.js` 中 `buildPrompt()` 生成的约 1200 字中文提示词（7 段结构）
+> 服务对象：`<repo>\prototypes\_selection\prompt-copy.js` 中 `buildPrompt()` 生成的约 1200 字中文提示词（7 段结构）
 > 任务边界：只回答「给 AI 一份设计风格提示词，让它生成指定风格的完整网页」这件事的**实证证据**与**最佳实践**。仓库既有事实（30 案、1/30 落地验证）不重新调研。
 
 ## 0. 证据分级与阅读约定

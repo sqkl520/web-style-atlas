@@ -2448,11 +2448,11 @@ task-11 的验收标准要求「**每个方案标题下标注版本来源、每�
 
 ### 11f-7.3 插入脚本（全文留档，可复现）
 
-脚本路径：`D:\Web\style\_compiler-insert-annotations.ps1`（UTF-8 带 BOM，PowerShell 7 执行）。它以 `^### 方案 (\d+)` 定位每个方案块，先找该块的下一个 `### 方案` 或下一个一级/二级标题作为边界，再回退到最后一个非空且非 `---` 的内容行，在其后插入三行；**从最后一个方案往前处理**，避免插入导致的索引漂移。脚本在**每一个环节都设了失败即停止的断言**（方案块数必须为 10、数据必须齐全、内容行必须存在、三行计数必须各为 30），任一断言失败会抛出异常并中止，**不会留下半插入状态**。
+脚本路径：`<repo>\_compiler-insert-annotations.ps1`（UTF-8 带 BOM，PowerShell 7 执行）。它以 `^### 方案 (\d+)` 定位每个方案块，先找该块的下一个 `### 方案` 或下一个一级/二级标题作为边界，再回退到最后一个非空且非 `---` 的内容行，在其后插入三行；**从最后一个方案往前处理**，避免插入导致的索引漂移。脚本在**每一个环节都设了失败即停止的断言**（方案块数必须为 10、数据必须齐全、内容行必须存在、三行计数必须各为 30），任一断言失败会抛出异常并中止，**不会留下半插入状态**。
 
 ```powershell
 $ErrorActionPreference = 'Stop'
-$dir = 'D:\Web\style\deliverables'
+$dir = '<repo>\deliverables'
 $stamp = Get-Date -Format 'yyyyMMdd-HHmmss'
 $bak = Join-Path $dir "_backup-$stamp"
 New-Item -ItemType Directory -Force -Path $bak | Out-Null
@@ -2554,14 +2554,14 @@ $report | ForEach-Object { $_ }
 ### 11f-7.4 断言输出（脚本实际打印，逐字留档）
 
 ```text
-04-schemes-01-10.md : 备份=D:\Web\style\deliverables\_backup-20261015-200251\04-schemes-01-10.md  插入案数=10  插入行数=30
-05-schemes-11-20.md : 备份=D:\Web\style\deliverables\_backup-20261015-200251\05-schemes-11-20.md  插入案数=10  插入行数=30
-06-schemes-21-30.md : 备份=D:\Web\style\deliverables\_backup-20261015-200251\06-schemes-21-30.md  插入案数=10  插入行数=30
+04-schemes-01-10.md : 备份=<repo>\deliverables\_backup-20261015-200251\04-schemes-01-10.md  插入案数=10  插入行数=30
+05-schemes-11-20.md : 备份=<repo>\deliverables\_backup-20261015-200251\05-schemes-11-20.md  插入案数=10  插入行数=30
+06-schemes-21-30.md : 备份=<repo>\deliverables\_backup-20261015-200251\06-schemes-21-30.md  插入案数=10  插入行数=30
 04-schemes-01-10.md : 版本：=10  校验：=10  审查：=10
 05-schemes-11-20.md : 版本：=10  校验：=10  审查：=10
 06-schemes-21-30.md : 版本：=10  校验：=10  审查：=10
 合计：插入案数=30（期望 30）  版本：=30  校验：=30  审查：=30（各期望 30）
-断言通过：30 案各成功插入 3 行，合计 90 行。备份目录=D:\Web\style\deliverables\_backup-20261015-200251
+断言通过：30 案各成功插入 3 行，合计 90 行。备份目录=<repo>\deliverables\_backup-20261015-200251
 ```
 
 ### 11f-7.5 保真性复核输出

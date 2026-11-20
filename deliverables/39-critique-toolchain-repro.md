@@ -59,8 +59,8 @@
 | `remake-s02-leak.py` | py | numpy + Pillow | **无**（L35 `Path(__file__)` 推根 ✓） | 否 | 输入是原型里的 PNG（入库） | 未记 | 脚本**是**（幂等）；但**原地覆盖 `assets/`**，见 §2-B18 |
 | `_s03-probe.mjs` | mjs | **`tools/…/lib/cdp.mjs`（仓库外）**、Chrome | **L8 ROOT / L8 PORT=9179 写死** | 否 | **否**（模块不在库） | **未记**（§10 脚本清单里没有它） | 否 |
 | `S13-blind-debossed-dispatch/_fillmap.mjs` | mjs | **`tools/…/lib/cdp.mjs`**、Chrome | **L9 ROOT** | 否 | **否** | 未记 | 否；且 L77 `Math.min(11, …)` **静默砍到 11 屏** |
-| `S21-interlocking-release-book/build/pick-and-bake.py` | py | numpy + Pillow（WEBP/AVIF 编码器） | **L37 `D:\Web\style\prototypes\S21-…` 写死** | 否 | 输入 `assets/_cand/`（未被忽略）⇒ ✓ | 未记 | 否（路径）；`assert 两点阶` 中途失败会**留下半写状态**；默认删 `pl-0N.png` |
-| 各案 `assets/fetch-assets.ps1`（≥14 份） | ps1 | PowerShell、`commons.wikimedia.org` | **每份都写死 `$assets='D:\Web\style\…'`**（如 S02 L9、S06 L15、S13 L8、S21 L10、S14 L27） | **是** | 产物入库 | 未记 | 部分：产物在，重跑随搜索排序变化 |
+| `S21-interlocking-release-book/build/pick-and-bake.py` | py | numpy + Pillow（WEBP/AVIF 编码器） | **L37 `<repo>\prototypes\S21-…` 写死** | 否 | 输入 `assets/_cand/`（未被忽略）⇒ ✓ | 未记 | 否（路径）；`assert 两点阶` 中途失败会**留下半写状态**；默认删 `pl-0N.png` |
+| 各案 `assets/fetch-assets.ps1`（≥14 份） | ps1 | PowerShell、`commons.wikimedia.org` | **每份都写死 `$assets='<repo>\…'`**（如 S02 L9、S06 L15、S13 L8、S21 L10、S14 L27） | **是** | 产物入库 | 未记 | 部分：产物在，重跑随搜索排序变化 |
 
 **三条统计**（本轮实跑/只读得出）：
 
@@ -91,7 +91,7 @@
 
 - **在哪一步断**：L29 `spawnSync(process.execPath, [INSPECT, …])` —— `INSPECT` 指向不存在**的** `tools/taste-skill/skills/taste-skill/scripts/inspect.mjs`。
 - **为什么**：`.gitignore` L2 `tools/` 排除整个目录（【实跑】`git ls-files -- tools` = 0 行、`git check-ignore -v` 命中 `.gitignore:2:tools/`），磁盘上它只有 233 个文件。LICENSE L46 已声明 taste-skill 是 MIT 且给出上游 `https://github.com/Leonxlnx/taste-skill`，**但仓库没有任何一处说"怎么把它弄回来"**。
-- **用户会看到什么错误**：先是一大段 `Error: Cannot find module 'D:\Web\style\tools\taste-skill\…\inspect.mjs'`（子进程原样透传），紧接着 L34 打印 `没有生成 report.json —— 渲染失败。` 并 exit 3。**两句话拼在一起，看不出根因是"工具没装"。** 对比：`shot.mjs` L856-859 在启动前显式 `existsSync` 三个依赖并 `die('找不到 Chrome: …')` —— `render-scheme.mjs` 缺这一层。
+- **用户会看到什么错误**：先是一大段 `Error: Cannot find module '<repo>\tools\taste-skill\…\inspect.mjs'`（子进程原样透传），紧接着 L34 打印 `没有生成 report.json —— 渲染失败。` 并 exit 3。**两句话拼在一起，看不出根因是"工具没装"。** 对比：`shot.mjs` L856-859 在启动前显式 `existsSync` 三个依赖并 `die('找不到 Chrome: …')` —— `render-scheme.mjs` 缺这一层。
 - **严重度**：P0。
 - **可执行修法**：① 在 L28 之前加前置断言 `if (!existsSync(INSPECT)) { console.error('缺渲染引擎：' + INSPECT + '\n  tools/ 不在仓库里（.gitignore L2）。取法：git clone --depth 1 https://github.com/Leonxlnx/taste-skill tools/taste-skill'); process.exit(4); }`；② 在 README「渲染与验收」与 `_CONTRACT.md` §3 各补一行同样的 clone 命令。
 
@@ -115,8 +115,8 @@
 ### B05【P0｜`shot.mjs` L40】Python 默认路径是**本会话运行时私有路径**，同一路径还被写进了契约
 
 - **在哪一步断**：L859 `if (!existsSync(opt.python)) die('找不到 python: ' + opt.python);`
-- **为什么**：L40 是 `C:\Users\Administrator\.dsh\dsh-runtimes\dsh-primary-runtime\dependencies\python\python.exe` —— 这是 **DSH 会话运行时的私有路径**，不是任何正常装机形态。它同时被抄进 `_CONTRACT.md` §5 L86，即**施工规程把这条路径当作"Pillow 就在这儿"教给了 22 个原型建设者**。有 `--python` 兜底。
-- **用户会看到什么错误**：`找不到 python: C:\Users\Administrator\.dsh\…\python.exe`（exit 2）。
+- **为什么**：L40 是 `~\.dsh\dsh-runtimes\dsh-primary-runtime\dependencies\python\python.exe` —— 这是 **DSH 会话运行时的私有路径**，不是任何正常装机形态。它同时被抄进 `_CONTRACT.md` §5 L86，即**施工规程把这条路径当作"Pillow 就在这儿"教给了 22 个原型建设者**。有 `--python` 兜底。
+- **用户会看到什么错误**：`找不到 python: ~\.dsh\…\python.exe`（exit 2）。
 - **严重度**：P0（错误信息里出现 `Administrator\.dsh\dsh-runtimes` 会让任何外部读者立刻判断"这工具是给一台特定机器写的"）。
 - **可执行修法**：① L40 改为 `python: process.env.SHOT_PYTHON || (process.platform === 'win32' ? 'python.exe' : 'python3')`，并在 L859 前置一句 `--python "…"` 提示；② `_CONTRACT.md` §5 L85-89 把那条字面路径换掉，改成"用 `python -c "import PIL, numpy; print(PIL.__version__)"` 确认环境"，只保留版本要求。
 
@@ -132,7 +132,7 @@
 
 - **在哪一步断**：模块解析期（Node 启动的第一件事），早于任何业务逻辑。
 - **为什么**：`import { Browser } from '../../tools/taste-skill/skills/taste-skill/scripts/lib/cdp.mjs'` —— 相对路径本身可移植，但目标是 0 受跟踪文件。
-- **用户会看到什么错误**：`Error [ERR_MODULE_NOT_FOUND]: Cannot find module 'D:\Web\style\tools\taste-skill\…\lib\cdp.mjs'`，进程 exit 1。
+- **用户会看到什么错误**：`Error [ERR_MODULE_NOT_FOUND]: Cannot find module '<repo>\tools\taste-skill\…\lib\cdp.mjs'`，进程 exit 1。
 - **严重度**：P0（但只影响想复现 S03 那次读数测量的人）。
 - **可执行修法**：同 B02；另外 L8 `PORT = 9179` 写死，改成 `listen(0)`（`S13/_fillmap.mjs` L26 就是这么做的，可直接照抄），否则第二次并发运行直接 `EADDRINUSE`。
 
@@ -148,7 +148,7 @@
 
 - **在哪一步断**：`page.screenshot({ path: 'D:/Web/style/deliverables/tool-runs/S03-area-full.png', fullPage: true })`。
 - **为什么**：两重问题叠加：① 绝对路径；② 目标是 `deliverables/tool-runs/`，被 `.gitignore` L14 排除（【实跑】`git check-ignore -v deliverables/tool-runs/x.txt` → `.gitignore:14`），**干净克隆里这个目录不存在**，截图 API 不会自建父目录。
-- **用户会看到什么错误**：`ENOENT: no such file or directory, open 'D:\Web\style\deliverables\tool-runs\S03-area-full.png'`。
+- **用户会看到什么错误**：`ENOENT: no such file or directory, open '<repo>\deliverables\tool-runs\S03-area-full.png'`。
 - **严重度**：P1。
 - **可执行修法**：`const out = join(ROOT, 'deliverables/tool-runs'); mkdirSync(out, { recursive: true });`，其中 `ROOT` 用 `fileURLToPath(new URL('..', import.meta.url))`。或者直接输出到该案自己的 `build/` 下。
 
@@ -197,7 +197,7 @@
 ### B14【P2｜`.gitignore` L14 `deliverables/tool-runs/`】多份审查报告把证据指向克隆里不存在的图
 
 - **在哪一步断**：不断，但引用无法复核。
-- **为什么**：`deliverables/16-render-look-audit.md:30` 直接引用 `D:\Web\style\deliverables\tool-runs\S04-inspect-shots\full-1440.png`；`.gitignore` L14 排除整个目录。**报告入库、证据不入库** —— 正是契约 §9.18（"存在临时目录里不算存证"）的同型问题，只不过这次存在一个**被忽略的正式目录**里。
+- **为什么**：`deliverables/16-render-look-audit.md:30` 直接引用 `<repo>\deliverables\tool-runs\S04-inspect-shots\full-1440.png`；`.gitignore` L14 排除整个目录。**报告入库、证据不入库** —— 正是契约 §9.18（"存在临时目录里不算存证"）的同型问题，只不过这次存在一个**被忽略的正式目录**里。
 - **用户会看到什么错误**：按图索骥找不到文件。
 - **严重度**：P2（对"想核证据的人"是 P1，因为他会怀疑报告在编）。
 - **可执行修法**：要么把关键图（每案 1 张首屏 + 1 张整页，约 60 张 JPG）移到 `deliverables/figures/` 并取消忽略，要么把这些图里的数字全部内联进 md（§9.18 要求的做法）。

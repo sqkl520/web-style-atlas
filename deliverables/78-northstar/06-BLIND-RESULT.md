@@ -254,8 +254,8 @@ blind/S31/task.txt（2026-11-12 的快照，即那次盲测实际用的文本）
 ### 2.1 不是权限提示，是内核级拒绝
 
 ```powershell
-icacls D:\Web\style /deny "ClaudeBlindBox:(OI)(CI)(RX)"
-icacls D:\Web\style /deny "ClaudeBlindBox:(OI)(CI)(W)"
+icacls <repo> /deny "ClaudeBlindBox:(OI)(CI)(RX)"
+icacls <repo> /deny "ClaudeBlindBox:(OI)(CI)(W)"
 ```
 
 Deny ACE 优先于任何 Allow（包括 `BUILTIN\Users` 的继承权限），由文件系统层强制。
@@ -269,7 +269,7 @@ Deny ACE 优先于任何 Allow（包括 `BUILTIN\Users` 的继承权限），由
 **决定性证据必须三者同时出现**：
 
 ```
-READ_REPO_DENIED              ← 以 claudeblindbox 身份读 D:\Web\style 被拒
+READ_REPO_DENIED              ← 以 claudeblindbox 身份读 <repo> 被拒
 WRITE_REPO_DENIED             ← 往里写也被拒（2026-11-14 补）
 READ_CONTROL_OK:CONTROL-OK    ← 同一进程读别处正常
 WHOAMI:win10pc-sqkl520\claudeblindbox

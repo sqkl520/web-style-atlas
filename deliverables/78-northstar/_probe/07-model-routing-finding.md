@@ -4,7 +4,7 @@
 
 ## 事实
 
-`C:\Users\Administrator\.claude\settings.json` 的 `env` 段：
+`~\.claude\settings.json` 的 `env` 段：
 
 ```
 ANTHROPIC_API_KEY                = PROXY_MANAGED
@@ -17,7 +17,7 @@ ANTHROPIC_DEFAULT_FABLE_MODEL_NAME  = deepseek-ai/deepseek-v4.1-flash
 CLAUDE_CODE_EFFORT_LEVEL         = max
 ```
 
-`C:\Users\Administrator\.claude\config.json` 里 `primaryApiKey: "any"`，
+`~\.claude\config.json` 里 `primaryApiKey: "any"`，
 `customApiKeyResponses.approved` 含 `PROXY_MANAGED`。
 
 ## 实测：实际跑的是谁

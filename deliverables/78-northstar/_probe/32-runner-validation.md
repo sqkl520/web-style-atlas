@@ -358,7 +358,7 @@ FINAL terminalReason=success trusted=True attempts=1 hasOutput=True bytes=109
 
 - 外部 `OutFile` 收到 109 字节，内容含当次标记 `QUINCE-88`：`C:\tmp\val-collect\V04-out.html`
 - transcript 首条 content 仍是完整 265 字符
-- 收尾 `icacls D:\Web\style` 无残留 Deny ACE
+- 收尾 `icacls <repo>` 无残留 Deny ACE
 - 两个改动文件 `Parser::ParseFile` 语法错误数均 0
 
 ### 5.3 建议加进闸门的一条

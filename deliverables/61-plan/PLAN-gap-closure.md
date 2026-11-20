@@ -17,7 +17,7 @@
 ### 1.0 复跑命令（PowerShell，中文先设 UTF8）
 
 ```powershell
-[Console]::OutputEncoding=[System.Text.Encoding]::UTF8; cd D:\Web\style
+[Console]::OutputEncoding=[System.Text.Encoding]::UTF8; cd <repo>
 D:\Nodejs\node.exe prototypes\_build\verify-prototype.mjs --all      # 26/4/30
 D:\Nodejs\node.exe prototypes\_build\check-stale.mjs                 # ✓ 全部新鲜, exit 0
 D:\Nodejs\node.exe prototypes\_build\check-anchors.mjs               # ✓ 无死锚点, exit 0
@@ -687,7 +687,7 @@ B08 (竞态)       独立，但需先复现
 ### 4.4 每个批次的共同验收（每次收工都跑）
 
 ```powershell
-[Console]::OutputEncoding=[System.Text.Encoding]::UTF8; cd D:\Web\style
+[Console]::OutputEncoding=[System.Text.Encoding]::UTF8; cd <repo>
 D:\Nodejs\node.exe prototypes\_build\verify-prototype.mjs --all   # 必须仍为 达标 26 / 不达标 4 / 共 30
 D:\Nodejs\node.exe prototypes\_build\check-stale.mjs              # 必须无输出/exit 0
 D:\Nodejs\node.exe prototypes\_build\check-anchors.mjs            # 必须无死锚点

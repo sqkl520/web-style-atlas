@@ -79,7 +79,7 @@
 
 - 版面本身：`deliverables/43-scratch/matrix-shots/matrix-after-a.png` 第 1 屏 CSS 144–844（表体）+ `matrix-after-b.png` 第 2 屏（表尾与下邻居）；改前对照 `matrix-before-a.png` 同位置。
 - 不能看图的模型：`ascii-after.txt` L12–L63（左起顶格、行行分隔）对 `ascii-before.txt` L21–L63（4 条窄列竖叠）。
-- **caption 可见性必须用干净图**：`C:/Users/Administrator/AppData/Local/Temp/vc-shots/vc-cap-1.png`（第 1 屏 CSS 226–267）。重生成命令（只依赖 `tools/.../lib/cdp.mjs`，不碰 `_build/`）：`node C:\Users\Administrator\AppData\Local\Temp\vc5.mjs`。若要把交付图修对，改 `matrix-shot.mjs` L29 的 `- 60` 为 `- 220` 即可。
+- **caption 可见性必须用干净图**：`C:/Users/Administrator/AppData/Local/Temp/vc-shots/vc-cap-1.png`（第 1 屏 CSS 226–267）。重生成命令（只依赖 `tools/.../lib/cdp.mjs`，不碰 `_build/`）：`node ~\AppData\Local\Temp\vc5.mjs`。若要把交付图修对，改 `matrix-shot.mjs` L29 的 `- 60` 为 `- 220` 即可。
 
 ## 4. 修饰建议（非阻断，不改判定）
 

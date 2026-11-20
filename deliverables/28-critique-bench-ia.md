@@ -9,7 +9,7 @@
 
 ## §0 我怎么测的
 
-**服务器**：自写 `_crit5/serve.mjs`（`node:http`，站点根 `D:\Web\style`，`listen(0)` 拿随机端口，本次是 **8573**）。全程用 `http://127.0.0.1:8573/prototypes/_selection/` 打开，没有用 `file://`。
+**服务器**：自写 `_crit5/serve.mjs`（`node:http`，站点根 `<repo>`，`listen(0)` 拿随机端口，本次是 **8573**）。全程用 `http://127.0.0.1:8573/prototypes/_selection/` 打开，没有用 `file://`。
 **浏览器**：`tools/taste-skill/skills/taste-skill/scripts/lib/cdp.mjs` 的 `Browser.launch`，CDP 真点真按键。
 **视口**：桌面 **1440×900**、平板 **768×1024**、手机 **390×844**。390 档用的是 `Emulation.setDeviceMetricsOverride({width:390,height:844,mobile:true})`，**没有用 `chrome --window-size=390,844`**（那是 500px 布局的左侧裁切）。
 **真实点击与按键**：芯片逐组逐颗点（每组点开后读 `#count` 再点回）、`#reset`、行展开、`.viewer-tabs` 三档、`#strip` 缩略图、`#sort` 五个选项、`#q` 输入 7 个关键词、向导 5 问 × 6 组答案 + 162 组答案全枚举（复算 + 3 组浏览器交叉验证）、向导 `#wz-share` 与回放 URL、向导卡片链接真实点击跳转。键盘实测：`J` `J` `K` `2` `3` `/` `Esc` 各一次，每次都读 `location.hash`、`#d-no`、`aria-pressed`。

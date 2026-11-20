@@ -2,7 +2,7 @@
 （口径：只核契约与规格自身是否过时/矛盾/不可执行，不判实现）
 # 32 · 规格自洽性审查
 （口径：只核契约与规格自身是否过时/矛盾/不可执行，不判实现）
-> 审查员：规格自洽性审查员 ｜ 工作目录 `D:\Web\style`（未改任何原型/模板/脚本/README/既有 deliverables；新增写入仅本文件与 `_crit4c/`）
+> 审查员：规格自洽性审查员 ｜ 工作目录 `<repo>`（未改任何原型/模板/脚本/README/既有 deliverables；新增写入仅本文件与 `_crit4c/`）
 > 条款源：`prototypes/_CONTRACT.md`、`prototypes/_specs/_CURRENT-VALUES.md`、`prototypes/_specs/Sxx.md`（30 份）、`deliverables/00-BRIEF-AND-CONSTRAINTS.md`、`deliverables/02-anti-ai-rules.md`、`deliverables/03-uniqueness-matrix.md`、`deliverables/04|05|06-schemes-*.md`、`deliverables/08-audit-differentiation.md`、`deliverables/21-lead-verify-homogeneity.md`、`deliverables/29-critique-homogeneity.md`、`prototypes/_build/{verify-prototype,render-scheme}.mjs`、`prototypes/_build/_gate-old8.txt`
 > 全部行号由 grep/Select-String 定位，未估算；可复算脚本见 `_crit4c/wc.mjs`（字数四口径交叉核对，30/30 不一致）、`_crit4c/findhex.mjs`（hex 在 `report.json` 里的键路径定位）。
 

@@ -1,7 +1,7 @@
 # EXEC — 选型台 `_selection` 的两条真 FAIL
 
 **执行 Agent 报告 · 2026-10-28**
-工作目录 `D:\Web\style` · 起始 HEAD `ce4ea78c0c603a1f1357f1282fc8537349a431ac`
+工作目录 `<repo>` · 起始 HEAD `ce4ea78c0c603a1f1357f1282fc8537349a431ac`
 
 ---
 

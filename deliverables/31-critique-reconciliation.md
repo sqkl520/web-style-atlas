@@ -12,7 +12,7 @@
 
 ```
 node _crit8b/measure.mjs                     # 本裁决的实测链路
-  ├─ _crit8b/serve.mjs                       node:http 静态服务器，站点根 = D:\Web\style
+  ├─ _crit8b/serve.mjs                       node:http 静态服务器，站点根 = <repo>
   │                                          （file:// 下 mask-image:url() 与 ../_fonts/ 整体失效 → 必须 http）
   ├─ tools/.../lib/cdp.mjs  Browser.launch({width:1440,height:900})
   │    └─ b.newPage({width,height,dsf:1,mobile})  → Emulation.setDeviceMetricsOverride（CDP 真改视口）
@@ -100,7 +100,7 @@ node _crit8b/measure.mjs                     # 本裁决的实测链路
 复算命令（全部只读原型、只往 `_crit8b/` 与本文写文件）：
 
 ```powershell
-cd D:\Web\style
+cd <repo>
 D:\Nodejs\node.exe _crit8b\measure.mjs            # 10 条 CA 的全量实测（含 S08 时间序列）→ _crit8b/out/*.json
 D:\Nodejs\node.exe _crit8b\summary.mjs            # 压成人读行 → _crit8b/summary.log
 D:\Nodejs\node.exe _crit8b\s13prefix.mjs          # CA-01 修复前/后对照（含 h1 行数）
@@ -345,7 +345,7 @@ S23 在 768/1024 档 `#f7`、`#f8`、`#f9` 的 rect 是 `0×0`、`display:none`�
 
 ## §5 我对这次对账本身的限制
 
-1. **`_crit3/ledger.json` 在我开始前就已经不存在了**。测量员 §3.1 写的台账路径是 `_crit3/ledger.json`（144 条 × 30 标量），我开工时 `_crit3/` 整个目录已经不在（`Get-ChildItem D:\Web\style\_crit3` → PathNotFound；全盘搜 `ledger*.json` 无命中）。所以**我没有做"逐标量机械对账"**，而是：① 严格按测量员 §3.2 三条口径**自建同口径链路重测全部 10 条 CA**；② 引用 26 号文的文字结论做交叉核对（例如 §3.3 的 `0/144` 滚动条、`innerWidth` 全部通过）。→ **凡是我给出的实测值，都来自我自己的链路，不是台账转抄。**
+1. **`_crit3/ledger.json` 在我开始前就已经不存在了**。测量员 §3.1 写的台账路径是 `_crit3/ledger.json`（144 条 × 30 标量），我开工时 `_crit3/` 整个目录已经不在（`Get-ChildItem <repo>\_crit3` → PathNotFound；全盘搜 `ledger*.json` 无命中）。所以**我没有做"逐标量机械对账"**，而是：① 严格按测量员 §3.2 三条口径**自建同口径链路重测全部 10 条 CA**；② 引用 26 号文的文字结论做交叉核对（例如 §3.3 的 `0/144` 滚动条、`innerWidth` 全部通过）。→ **凡是我给出的实测值，都来自我自己的链路，不是台账转抄。**
 2. **临时目录被外部清理进程删了一次（本次运行中）**。我在 `_crit8b/` 下的脚本与 JSON（`measure.mjs`、`summary.mjs`、`probe-inpage.js`、`sweep.mjs`、`out/*.json`、`sweep/classes.json`、`newfind.json` 等）在测量阶段结束后被删除（只剩 `bvb.mjs` 与日志）。因此：本报告里所有数值是我从运行输出**转抄**进来的，原样 JSON 已不可再取；要复算必须按 §2 顶部的命令**先重建脚本**（脚本的判据已在 §0/§2 文字里写全：`__WIN` = 浏览器引擎匹配 + `!important > 特异性 > 源序` 排序）。这同时说明：`_crit8b` 作为"写范围"是可靠的（它确实只让我写了自己要写的东西），但**不作为交付物**。
 3. **前一轮停滞 agent 的 `_crit8/` 数据我用了，但只当"候选指针"**：它的 `causal.log` / `cp.json` 提供了"哪些声明可能被压"的线索（我据此找到 S04/S14/S15/S26 这几条线索），但**每一条我都用自己的装置重测并做因果隔离**（§3.3 表里"因果验证"列就是证据）。我没有重跑它的全库 3148 行因果扫描，所以"全库同类缺陷的完整条数"这个更强的结论我不能背书——**我能背书的是：我扫的 12 个原型（媒体意图类）+ 30 个原型（基础 vs 基础类）里，它漏报 8 条**。
 4. **覆盖不到的量**（与它的自报限制一致，也适用于我）：交互态（`:hover/:focus/:active` 我按它的做法从赢家判定里剔除）、`prefers-reduced-motion: reduce`（那 218 条规则我没测）、打印、320px 与 1920px、断点 ±1px 的连续区间代数、无障碍树。我的赢家判定倒是**覆盖了它自报的第 7 个盲区**（`index.html` 里的 `<style>`：`window.__RULES` 遍历 `document.styleSheets`，内联 stylesheet 也在内），但**不含 `element.style` 内联属性**——S30 `--mis` 那条正是从内联属性来的，所以我另外单独读了内联值。

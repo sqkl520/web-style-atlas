@@ -41,12 +41,12 @@ prototypes/<Sxx>-<kebab-english-name>/
 **⚠️ 裁决补写（治 32 号矛盾点 7："唯一"与 `--allow` 申诉参数从前无关系句）：**"唯一"约束的是**命令本身与 cwd**；`--allow <ids>` 允许加，但**加了就必须在交付说明里列出放过了哪些 id 与理由**（`report.json.allow` 会记录用的是哪一种）。不列 = 视同未跑渲染。
 
 ```powershell
-& 'D:\Nodejs\node.exe' 'D:\Web\style\prototypes\_build\render-scheme.mjs' <原型目录名>
+& 'D:\Nodejs\node.exe' '<repo>\prototypes\_build\render-scheme.mjs' <原型目录名>
 ```
 
-它会以 `cwd = D:\Web\style` 调 `tools/taste-skill/skills/taste-skill/scripts/inspect.mjs`，三档视口 **1440×900 / 768×1024 / 390×844**，输出到 `prototypes/<name>/.inspect/`。
+它会以 `cwd = <repo>` 调 `tools/taste-skill/skills/taste-skill/scripts/inspect.mjs`，三档视口 **1440×900 / 768×1024 / 390×844**，输出到 `prototypes/<name>/.inspect/`。
 
-**cwd 必须是 `D:\Web\style`，这不是风格问题**：inspect.mjs 起本地 http 服务时以 cwd 为站点根，只有根是整个工作区时，原型里的 `../_fonts/` 共享字体缓存才取得到；若把 cwd 设成原型目录，`../_fonts/` 会返回 403。
+**cwd 必须是 `<repo>`，这不是风格问题**：inspect.mjs 起本地 http 服务时以 cwd 为站点根，只有根是整个工作区时，原型里的 `../_fonts/` 共享字体缓存才取得到；若把 cwd 设成原型目录，`../_fonts/` 会返回 403。
 
 ---
 
@@ -62,7 +62,7 @@ prototypes/<Sxx>-<kebab-english-name>/
 2. 把需要的族与字重写进 `prototypes/_fonts/` 的抓取（**只需一次，缓存共享**）：
 
    ```powershell
-   & 'D:\Nodejs\node.exe' --use-system-ca 'D:\Web\style\prototypes\_build\fetch-fonts.mjs' --families "Noto Serif SC:400,700" "Literata:400,600" "Sometype Mono:400,600"
+   & 'D:\Nodejs\node.exe' --use-system-ca '<repo>\prototypes\_build\fetch-fonts.mjs' --families "Noto Serif SC:400,700" "Literata:400,600" "Sometype Mono:400,600"
    ```
 
    **`--use-system-ca` 必加**：本机有 TLS 拦截代理，Node 默认拒绝其证书。

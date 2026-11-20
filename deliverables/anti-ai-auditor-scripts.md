@@ -8,7 +8,7 @@
 
 ```powershell
 $ErrorActionPreference = 'Stop'
-$base = 'D:\Web\style\deliverables'
+$base = '<repo>\deliverables'
 $map = [ordered]@{ '04' = '04-schemes-01-10.md'; '05' = '05-schemes-11-20.md'; '06' = '06-schemes-21-30.md' }
 $wordlist = @('赋能','解锁','一站式','无缝','颠覆','革命性','极致','助力','闭环','生态','抓手','颗粒度','心智','种草','吊打','碾压','数智化','全链路','沉浸式体验','未来已来','打造','引领','深耕','聚焦','加持','焕新','破圈','打通','沉淀','飞轮','护城河','顶层设计','降本增效','全场景','全周期','一键','黑科技','重新定义','触手可及','开启新篇章')
 $fonts = @('Inter','Roboto','Arial','Helvetica','system-ui','-apple-system','BlinkMacSystemFont','Segoe UI','Ubuntu')
@@ -85,7 +85,7 @@ $out -join "`n"
 ## 脚本 S-2｜黑名单词逐条命中（带全局行号，供判决书引用）
 
 ```powershell
-$base='D:\Web\style\deliverables'
+$base='<repo>\deliverables'
 $words=@('赋能','解锁','一站式','无缝','颠覆','革命性','极致','助力','闭环','生态','抓手','颗粒度','心智','种草','吊打','碾压','数智化','全链路','沉浸式体验','未来已来','打造','引领','深耕','聚焦','加持','焕新','破圈','打通','沉淀','飞轮','护城河','顶层设计','降本增效','全场景','全周期','一键','黑科技','重新定义','触手可及','开启新篇章')
 foreach($f in @('04-schemes-01-10.md','05-schemes-11-20.md','06-schemes-21-30.md')){
   foreach($w in $words){
@@ -98,7 +98,7 @@ foreach($f in @('04-schemes-01-10.md','05-schemes-11-20.md','06-schemes-21-30.md
 ## 脚本 S-3｜禁用字体词边界复核（防 Interlocking 误报）
 
 ```powershell
-$base='D:\Web\style\deliverables'
+$base='<repo>\deliverables'
 foreach($f in @('04-schemes-01-10.md','05-schemes-11-20.md','06-schemes-21-30.md')){
   $lines=Get-Content -Encoding UTF8 (Join-Path $base $f)
   for($i=0;$i -lt $lines.Count;$i++){
@@ -111,7 +111,7 @@ foreach($f in @('04-schemes-01-10.md','05-schemes-11-20.md','06-schemes-21-30.md
 ## 脚本 S-4｜全批背景色收敛统计（判定"暖米纸残余"）
 
 ```powershell
-$base='D:\Web\style\deliverables'
+$base='<repo>\deliverables'
 $all=@()
 foreach($f in @('04-schemes-01-10.md','05-schemes-11-20.md','06-schemes-21-30.md')){
   $lines=Get-Content -Encoding UTF8 (Join-Path $base $f); $cur=''
@@ -129,7 +129,7 @@ $all | Group-Object BG | Sort-Object Count -Descending | ForEach-Object { "$($_.
 
 ```powershell
 $ErrorActionPreference='Stop'
-$base='D:\Web\style\deliverables'
+$base='<repo>\deliverables'
 $map=[ordered]@{'04'='04-schemes-01-10.md';'05'='05-schemes-11-20.md';'06'='06-schemes-21-30.md'}
 $fonts=@('Inter','Roboto','Arial','Helvetica','system-ui','-apple-system','BlinkMacSystemFont','Segoe UI')
 function Get-Hue([string]$hex){
@@ -219,7 +219,7 @@ foreach($k in $map.Keys){
 
 ```powershell
 $ErrorActionPreference='Stop'
-$base='D:\Web\style\deliverables'
+$base='<repo>\deliverables'
 $map=[ordered]@{'04'='04-schemes-01-10.md';'05'='05-schemes-11-20.md';'06'='06-schemes-21-30.md'}
 foreach($k in $map.Keys){
   $lines=Get-Content -Encoding UTF8 (Join-Path $base $map[$k])
@@ -254,7 +254,7 @@ foreach($k in $map.Keys){
 用途：确认每案 D 节十二字段全部存在且顺序递增、字段 3 写出"面积和 100"、字段 5 至少给出两档断点行为。硬尾端取下一个 `### 方案` 或 `## ` 行，避免末案吞掉自检附录（见 09 号文件 A.7 的 E-5／E-6）。
 
 ```powershell
-$base='D:\Web\style\deliverables'
+$base='<repo>\deliverables'
 $map=[ordered]@{'04'='04-schemes-01-10.md';'05'='05-schemes-11-20.md';'06'='06-schemes-21-30.md'}
 foreach($k in $map.Keys){
   $lines=Get-Content -Encoding UTF8 (Join-Path $base $map[$k]); $starts=@()
@@ -283,7 +283,7 @@ foreach($k in $map.Keys){
 用途：抽查三处最容易写成空话的字段——字段 2 是否写出"偷的是…机制"这一类机制级表述、字段 10 是否点出不适用场景、字段 12 的怪癖是否用"不提升效率／无功能"这类非效率口径陈述理由。
 
 ```powershell
-$base='D:\Web\style\deliverables'
+$base='<repo>\deliverables'
 $map=[ordered]@{'04'='04-schemes-01-10.md';'05'='05-schemes-11-20.md';'06'='06-schemes-21-30.md'}
 $effWords='不参与|无任何功能|无功能|不影响|不提升|不改善|不表示|不传递|无任何导航作用|不改变|无障碍|不指向|不提供任何信息|降本增效|提升效率|优化性能'
 foreach($k in $map.Keys){

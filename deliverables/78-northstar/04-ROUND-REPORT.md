@@ -134,7 +134,7 @@ S09 S10 S14 S16 S17 S19 S20 S23 S25 S26 S33 S34 S35。
 用 **NTFS Deny ACE + 独立本地账户**，内核级强制，`bypassPermissions` 也绕不过：
 
 ```
-READ_REPO_DENIED              ← 以 claudeblindbox 身份读 D:\Web\style 被拒
+READ_REPO_DENIED              ← 以 claudeblindbox 身份读 <repo> 被拒
 READ_CONTROL_OK:CONTROL-OK    ← 同一进程读别处正常（证明不是环境坏了）
 WHOAMI:win10pc-sqkl520\claudeblindbox
 ```

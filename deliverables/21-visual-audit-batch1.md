@@ -1,6 +1,6 @@
 # 21 · 视觉审查报告（批次一：S01–S10）
 
-审查员：视觉审查员（独立子代理） · 工作目录 `D:\Web\style`
+审查员：视觉审查员（独立子代理） · 工作目录 `<repo>`
 临时截图与取证脚本：`_audit1/`（最终采信图为 `_audit1/cdp2/`，HTTP 采集）
 本报告只写这一个文件；**未修改任何原型文件**，未动 `_specs` / `_build` / 其它 deliverables。
 
@@ -339,7 +339,7 @@
 ### 4.1 方法
 1. **取全量目录**：`Get-ChildItem prototypes -Directory | Where-Object Name -match '^S(0[1-9]|10)-'` → S01…S10 十个目录。
 2. **三档 + 整页截图**：先按给定 CLI 命令截 1440×900 / 768×1024 / 390×844 / 1440×12000（40 张），再发现两处工具陷阱（§0），改为：
-   - 起本地 HTTP 服务（`python -m http.server 8791 --directory D:\Web\style`）；
+   - 起本地 HTTP 服务（`python -m http.server 8791 --directory <repo>`）；
    - 用 `tools/taste-skill/.../lib/cdp.mjs`（Node 24，零依赖）经 CDP 采三档首屏（`Emulation.setDeviceMetricsOverride`，判据 `innerWidth` 精确等于目标值）+ 1440/768/390 的整页（把视口设成 12000/14000 高；先确认 10 份 CSS 里**没有任何 `vh/dvh` 用法**，所以拉高视口不改变布局）。
    - 原型视图 PNG 共 **170 张**：CLI 40（10 案 × 4 档）＋ CDP 首屏/整页 50（`C-*` 30 + `F-*` 10 + `G-*` 10）＋ HTTP 首屏/整页 80（`H-*` 30 + `HF-*` 10 + `TF-*` 10 + `PF-*` 10）。
    - 另有放大裁剪、掩膜 A/B、协议对照、能力测试 PNG **76 张**。

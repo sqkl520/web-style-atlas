@@ -540,7 +540,7 @@ scenesNo  需要低决策风险的 B 端采购站、面向幼儿的亲和型产�
 
 ```powershell
 [Console]::OutputEncoding=[System.Text.Encoding]::UTF8
-cd D:\Web\style
+cd <repo>
 
 node deliverables/65-audit/_extract.mjs      # 从 _specs 抽 12 字段 → _raw.json
 node deliverables/65-audit/_sizes.mjs        # 字段体量与分档（汉字/字符/字节三口径）

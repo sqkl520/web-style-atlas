@@ -264,7 +264,7 @@ function HSL([string]$hex){
   return @{h=$h;s=$s;l=$l}}
 # 1) 抽取：按 "### 方案 " 切块，再按 "^\*{0,2}(\d{1,2})\.\s" 切字段
 foreach($file in '04-schemes-01-10.md','05-schemes-11-20.md','06-schemes-21-30.md'){
-  $txt=Get-Content "D:\Web\style\deliverables\$file" -Encoding UTF8 -Raw
+  $txt=Get-Content "<repo>\deliverables\$file" -Encoding UTF8 -Raw
   $parts=[regex]::Split($txt,'(?m)^### 方案 ')
   for($i=1;$i -lt $parts.Count;$i++){
     $p=$parts[$i]; $num=[int]([regex]::Match($p,'^(\d+)').Groups[1].Value); $f=@{}

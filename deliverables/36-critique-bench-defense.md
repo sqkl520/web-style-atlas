@@ -10,7 +10,7 @@
 
 ### 0.1 我实测了什么（可复现清单）
 
-**环境**：自写 `_crit12/serve.mjs`（`node:http`，站点根 `D:\Web\style`，`listen(0)`）。全程 `http://127.0.0.1:<port>/prototypes/_selection/`，未用 `file://`。浏览器用 `tools/taste-skill/skills/taste-skill/scripts/lib/cdp.mjs` 的 `Browser.launch`，CDP 真点真按键。三档视口用 `Emulation.setDeviceMetricsOverride`（1440×900 / 768×1024 / 390×844，390 档 `mobile:true`），**未用 `chrome --window-size=390,844`**。
+**环境**：自写 `_crit12/serve.mjs`（`node:http`，站点根 `<repo>`，`listen(0)`）。全程 `http://127.0.0.1:<port>/prototypes/_selection/`，未用 `file://`。浏览器用 `tools/taste-skill/skills/taste-skill/scripts/lib/cdp.mjs` 的 `Browser.launch`，CDP 真点真按键。三档视口用 `Emulation.setDeviceMetricsOverride`（1440×900 / 768×1024 / 390×844，390 档 `mobile:true`），**未用 `chrome --window-size=390,844`**。
 
 | 脚本 | 做了什么 | 规模 |
 | --- | --- | --- |
@@ -35,7 +35,7 @@
 
 ### 0.3 我自己工具的缺陷（必须先交代，否则我的数字本身就是新的噪音）
 
-1. **它的原始证据已经不可核验。** `Test-Path D:\Web\style\_crit5` → `False`。它在 §0/§5 里反复引用的 `_crit5/probe*.json`、29 张截图、三条 SHA256（`B06B00C10C2B0B31` / `A380B95DB16A0943` / `45C34ACEF2489D44`）**全部不存在了**。我能复核的只有它的**文字数字**，复核不了它的**证据文件**。这一条进 §1 的"无法判定"。
+1. **它的原始证据已经不可核验。** `Test-Path <repo>\_crit5` → `False`。它在 §0/§5 里反复引用的 `_crit5/probe*.json`、29 张截图、三条 SHA256（`B06B00C10C2B0B31` / `A380B95DB16A0943` / `45C34ACEF2489D44`）**全部不存在了**。我能复核的只有它的**文字数字**，复核不了它的**证据文件**。这一条进 §1 的"无法判定"。
 2. **`data.js` 在它写作之后被刷新过**（`git log`：`28-…md` 随 `e935882` 入库 22:01；`data.js` 在下一个提交 `b2e0ea8` 23:26 被重写，S21 由 `words 284 / realPictures 0 / load 一屏说清` 变成 `403 / 6 / 三五屏`）。**这是本次答辩最重要的方法论发现**：任何"向导数字"都必须绑定 data.js 版本，否则会同时冤枉两边。
 3. **字数口径有 ±5% 方法差。** 我的"行内可见文字"用 `innerText` 去空白计 246–289 字，它的 249–292 字（同样去空白）——同一量级但不同实现（我用 `.replace(/\s+/g,' ')` 保留单空格）。所有**百分比**结论不受影响，**绝对字数**请以各自口径读。
 4. **我没有真人计时**（它也没有）。所有"读几屏要多久"都是几何换算。
@@ -86,7 +86,7 @@
 | 34 | `scenes` 字段"平均 65 字" | **误报** | 实测 30 案 `scenes` 长度 **60–341 字，平均 206 字**；含"不适合"的 **30/30**。"30/30 都有、都写着不适合"这半是对的，字数错了 3.2 倍 | `datafacts.mjs` |
 | 35 | §6 判"其实够用、不用改"的 9 项 | **8 项它对 / 1 项过宽** | 见 §3 逐项 | `probe2.json`、`probe3.json`、`probe1.json` |
 | 36 | §5 的八条改法（最该改 5 条 + P2-6/7/8） | **分条裁定** | 见 §5。其中 **P1-3 与 P1-5 的改法会引入新问题**（已实测到其中一个后果） | `polarity.mjs`、`probe1.json.chips.flt-gate` |
-| 37 | 它的原始证据文件（`_crit5/` 29 张截图 + `probe*.json` + 三条 SHA256）可核验性 | **无法判定** | `Test-Path D:\Web\style\_crit5` = **False**。文件不在，我无法核验它的截图与 JSON，只能核验它写下的数字 | 见 §0.3.1 |
+| 37 | 它的原始证据文件（`_crit5/` 29 张截图 + `probe*.json` + 三条 SHA256）可核验性 | **无法判定** | `Test-Path <repo>\_crit5` = **False**。文件不在，我无法核验它的截图与 JSON，只能核验它写下的数字 | 见 §0.3.1 |
 | 38 | "519 字首屏 / 一案的阅读成本折算" | **无法判定** | 首屏可见文字我实测 **519 字**（与它逐字相同，`probe1.json.top.firstScreenChars`），但"读 519 字要多久""读一案要 1.5 遍五分钟预算"是它的估算，无计时实验，我也无法补做 | `probe1.json.top` |
 
 **裁定分布（表内 38 条）**：

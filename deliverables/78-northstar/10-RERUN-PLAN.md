@@ -346,7 +346,7 @@ $ grep -o '#[0-9A-Fa-f]\{6\}' ... | sort -u | wc -l → 5
 
 ### 4.1 硬约束（实测，不是估计）
 
-**沙箱 Deny ACE 按账户生效**：`icacls D:\Web\style /deny ClaudeBlindBox:(OI)(CI)(RX)`。
+**沙箱 Deny ACE 按账户生效**：`icacls <repo> /deny ClaudeBlindBox:(OI)(CI)(RX)`。
 `_blindbox-batch.ps1:4-9` 已写明：几个沙箱重叠时，任一撤 Deny 都会静默解隔离其余。
 **所以所有 R 任务必须串行。**
 

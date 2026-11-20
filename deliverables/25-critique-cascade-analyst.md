@@ -1,7 +1,7 @@
 # CSS 级联与声明顺序分析（唯一焦点：媒体查询意图被压掉）
 
 **分析角色**：CSS 级联与声明顺序分析师（只看源码推导，不看渲染结果）
-**工作目录**：`D:\Web\style`
+**工作目录**：`<repo>`
 **冻结修订**：见本文末 §修订快照（35 个 `style.css` 的 sha256 前 12 位 + mtime；git HEAD `a844e48`，git status 有 41 项未提交改动）
 
 > **重要前提（并发写入）**：`prototypes/S21-interlocking-release-book/style.css` 在本次分析过程中被**其他写入者改过**（mtime 2026-10-21 21:20:19，我的首次读取在其之前）。S21 不在下面任何一条结论的范围内；但我据此把全部结论重跑了一遍（见 §修订快照），并对 5797 条规则做了行号校验（**不匹配 0 条**）。若对账在 21:49 之后进行，请以附录里的 sha256 为准。
@@ -298,7 +298,7 @@
 now       = 2026-10-21 21:49:57 (+08:00)
 git HEAD  = a844e48
 git dirty = 41 项未提交改动
-python    = C:\Users\Administrator\.dsh\dsh-runtimes\dsh-primary-runtime\dependencies\python\python.exe
+python    = ~\.dsh\dsh-runtimes\dsh-primary-runtime\dependencies\python\python.exe
 ```
 
 | 文件 | sha256 前 12 | mtime |

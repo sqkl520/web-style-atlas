@@ -574,7 +574,7 @@ P1 已经反转了——两条链**本该不等**。合并会把"设计意图"�
 | `rt-x7-supplement.mjs` | 新⑧ 补色口径复核 | 52 补色中 22 在规格出现、30 不在 |
 | `rt-x8-stale-false.mjs` | **新① S17 假阳性** | 规格 8% + CSS 6 处引用，却被当旧值剔除 |
 
-**复算方式**：`cd D:\Web\style && node deliverables/71-plan/redteam/<探针>.mjs`
+**复算方式**：`cd <repo> && node deliverables/71-plan/redteam/<探针>.mjs`
 所有探针只读；除 `rt-x8-stale-false.mjs` 会以 `--check` 调用 `collect-schemes.mjs`（该分支不写盘）外，不执行任何生成器。
 
 ---

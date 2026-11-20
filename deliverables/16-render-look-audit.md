@@ -27,7 +27,7 @@
 直接读图，得到的是模型级拒绝，逐字如下：
 
 ```
-Error: cannot read "D:\Web\style\deliverables\tool-runs\S04-inspect-shots\full-1440.png" as an image:
+Error: cannot read "<repo>\deliverables\tool-runs\S04-inspect-shots\full-1440.png" as an image:
 model "deepseek-ai/deepseek-v4.1-flash" does not declare image input;
 switch to an image-capable model to read images
 ```
@@ -60,7 +60,7 @@ input: declaredInput(entry.input) ?? base?.input ?? [...request.defaultInput]
 
 ### 1.3 第三道：desktop profile 的 `s3ai` 模型三条全空
 
-`C:\Users\Administrator\.dsh\profiles\desktop\cordis.patch.yml` 里 `s3ai` 供应商的模型是这样声明的：
+`~\.dsh\profiles\desktop\cordis.patch.yml` 里 `s3ai` 供应商的模型是这样声明的：
 
 ```yaml
   - id: deepseek-ai/deepseek-v4.1-flash
@@ -91,7 +91,7 @@ input: declaredInput(entry.input) ?? base?.input ?? [...request.defaultInput]
 **路径 B 的确切改法**（依据 `dsh-llm-pi-ai/lib/index.js:1607` 的 `input: z.array(z.union(MODALITIES))`）：
 
 ```yaml
-# C:\Users\Administrator\.dsh\profiles\desktop\cordis.patch.yml 内 s3ai 的 models 下
+# ~\.dsh\profiles\desktop\cordis.patch.yml 内 s3ai 的 models 下
   - id: nvidia/nemotron-3.5-super-vl-120b-a12b
     name: nvidia/nemotron-3.5-super-vl-120b-a12b
     input: [text, image]        # ← 只加这一行，read_image 就会放行
@@ -441,7 +441,7 @@ S03 的 `#010101`／`#000000` 是它自己**近黑底色**的组成部分（合�
 
 **而且 S17 的 `report.json` 是 8 个原型里唯一一份留在原地的完整闸门报告**，它是 S17 渲染过的铁证：
 
-- `"url": "D:\\Web\\style\\prototypes\\S17-revenue-stamp-stub\\index.html"`
+- `"url": "<repo>\\prototypes\\S17-revenue-stamp-stub\\index.html"`
 - `"at": "2026-10-15T17:11:14.663Z"`
 - 三个视口 1440×900 ／ 768×1024 ／ 390×844，各带 `filled` 数组与 `motion` 动作计数
 - **`findings` 只有 3 条 WARN：`font-count`、`font-fallback`、`no-footage`。FAIL = 0**

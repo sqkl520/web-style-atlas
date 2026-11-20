@@ -1,6 +1,6 @@
 # 仓库卫生审计：`deliverables/` 的 5,114 个未跟踪文件
 
-> 审计对象：`D:\Web\style`（公开仓库 `sqkl520/web-style-atlas`）
+> 审计对象：`<repo>`（公开仓库 `sqkl520/web-style-atlas`）
 > 审计性质：**只读**。全程未修改仓库任何被跟踪文件、未改 `.gitignore`、未 `git add`/`git rm`/`git checkout`、未删除任何文件。
 > 唯一写入：本目录 `deliverables/68-audit/` 下的 9 个探针脚本 + 9 个 JSON + 本报告。该目录本身就是未跟踪的。
 

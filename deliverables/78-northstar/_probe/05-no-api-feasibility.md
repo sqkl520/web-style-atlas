@@ -307,7 +307,7 @@ REPORT 正文之外的 6 案分数（只存在于 e3b69ca 的提交信息里）*
 **证据 1：16/16 的盲测 agent 都被注入了项目记忆（`MEMORY.md`，1066 字符）。**
 
 每个 agent 的前 12 条记录里都有 `attachment.type === "instructions"`，`files` 含
-`C:\Users\Administrator\.claude\projects\D--Web-style\memory\MEMORY.md`，内容包含：
+`~\.claude\projects\D--Web-style\memory\MEMORY.md`，内容包含：
 
 > `- [Web-style project] — what D:/Web/style is: 30 static style specimens, a selection console that emits AI prompts...`
 > `- [Web-style Q1 decisions] — four 2026-11-04 rulings: replace unattributed photos, vendor the renderer, additive-only curation, **static+replication publish gate**`
@@ -317,7 +317,7 @@ REPORT 正文之外的 6 案分数（只存在于 e3b69ca 的提交信息里）*
 
 **证据 2：工作区路径被注入，`git status` 里有上一轮产物名（16/16 注入环境，6/16 的 git status 具体含 `out-*.html`）。**
 
-`attachment.type === "environment"` → `workingDirectory: "D:\\Web\\style"`、`isGitRepo: true`（16/16）。
+`attachment.type === "environment"` → `workingDirectory: "<repo>"`、`isGitRepo: true`（16/16）。
 `attachment.type === "session_context"` → 一段 2697 字符的 `git status`。
 **我逐份核过：16/16 都有这个附件，其中 6 份的 `git status` 文本里明确列出了 `deliverables/74-q7/out-S03-v2.html`、`out-S07-v2.html` 等上一轮产物名**（`M` 状态，即「这两个文件被改过」）。
 其余 10 份的 git status 只含其他未跟踪文件，不含 `out-*.html`。
