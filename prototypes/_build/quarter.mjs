@@ -85,6 +85,11 @@ const STEPS = [
   { id: 'check-distribution', label: '分布（--strict）', kind: 'gate', script: join(B, 'check-distribution.mjs'), args: ['--strict'] },
   { id: 'check-scenes', label: '芯片 vs 搜索', kind: 'gate', script: join(B, 'check-scenes.mjs') },
   { id: 'check-provenance', label: '出处完整性', kind: 'gate', script: join(B, 'check-provenance.mjs') },
+  /* 2026-11-21 新增。存在的理由：`data.js` 的 `motion` 字段 35/35 有值，
+   * 而实测进入提示词 0/35 —— 几个月没人发现，因为**没有任何闸门问过
+   * "这个字段该不该到交付物里"**。这条闸门就是问这一句。
+   * 详见 deliverables/78-northstar/_probe/79-measurement-layer-audit.md §十八。 */
+  { id: 'check-prompt-fields', label: '字段是否到达提示词', kind: 'gate', script: join(B, 'check-prompt-fields.mjs') },
 
   /* 自测：证明闸门不是恒真。这一组本身不判定产品状态，但它决定了
    * 上面那些绿是不是可信的 —— 所以它失败要单独标出来。 */
@@ -94,6 +99,7 @@ const STEPS = [
   { id: 'selftest-dist', label: '自测：分布闸门', kind: 'gate', script: join(B, 'check-distribution.mjs'), args: ['--selftest'] },
   { id: 'selftest-scenes', label: '自测：词表闸门', kind: 'gate', script: join(B, 'check-scenes.mjs'), args: ['--selftest'] },
   { id: 'selftest-prov', label: '自测：出处闸门', kind: 'gate', script: join(B, 'check-provenance.mjs'), args: ['--selftest'] },
+  { id: 'selftest-prompt-fields', label: '自测：字段到达闸门', kind: 'gate', script: join(B, 'check-prompt-fields.mjs'), args: ['--selftest'] },
 
   { id: 'probe-ui', label: '运行时探针（真浏览器）', kind: 'slow', script: join(B, 'probe-ui.mjs') },
 ];
