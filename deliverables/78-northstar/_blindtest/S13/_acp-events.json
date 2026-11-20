@@ -1,0 +1,275 @@
+[
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "18070e74-25b7-4e7f-83d9-3eaf0b330505",
+      "update": {
+        "sessionUpdate": "agent_message_chunk",
+        "messageId": "407b549e-a755-4b0c-8f9c-4812a2231618",
+        "content": {
+          "type": "text",
+          "text": " "
+        }
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "18070e74-25b7-4e7f-83d9-3eaf0b330505",
+      "update": {
+        "sessionUpdate": "usage_update",
+        "used": 10499,
+        "size": 200000
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "18070e74-25b7-4e7f-83d9-3eaf0b330505",
+      "update": {
+        "sessionUpdate": "tool_call",
+        "toolCallId": "call_b705e8e46db24a3d82951e9ceb30625b",
+        "title": "glob",
+        "kind": "other",
+        "status": "in_progress",
+        "rawInput": {
+          "path": ".",
+          "pattern": "*"
+        }
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "18070e74-25b7-4e7f-83d9-3eaf0b330505",
+      "update": {
+        "sessionUpdate": "tool_call_update",
+        "toolCallId": "call_b705e8e46db24a3d82951e9ceb30625b",
+        "status": "completed",
+        "content": [
+          {
+            "type": "content",
+            "content": {
+              "type": "text",
+              "text": ".\\README.md"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "18070e74-25b7-4e7f-83d9-3eaf0b330505",
+      "update": {
+        "sessionUpdate": "tool_call",
+        "toolCallId": "call_1c34ffe061084a4295b8f7ae092b35b7",
+        "title": "glob",
+        "kind": "other",
+        "status": "in_progress",
+        "rawInput": {
+          "path": ".",
+          "pattern": "**/*"
+        }
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "18070e74-25b7-4e7f-83d9-3eaf0b330505",
+      "update": {
+        "sessionUpdate": "tool_call_update",
+        "toolCallId": "call_1c34ffe061084a4295b8f7ae092b35b7",
+        "status": "completed",
+        "content": [
+          {
+            "type": "content",
+            "content": {
+              "type": "text",
+              "text": ".\\README.md"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "18070e74-25b7-4e7f-83d9-3eaf0b330505",
+      "update": {
+        "sessionUpdate": "agent_message_chunk",
+        "messageId": "cbf62aff-2aea-4b36-9497-f80111b3f581",
+        "content": {
+          "type": "text",
+          "text": " "
+        }
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "18070e74-25b7-4e7f-83d9-3eaf0b330505",
+      "update": {
+        "sessionUpdate": "usage_update",
+        "used": 10506,
+        "size": 200000
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "18070e74-25b7-4e7f-83d9-3eaf0b330505",
+      "update": {
+        "sessionUpdate": "tool_call",
+        "toolCallId": "call_3e38fc5644334edb88fd3383903726fe",
+        "title": "read",
+        "kind": "other",
+        "status": "in_progress",
+        "rawInput": {
+          "file_path": "README.md"
+        }
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "18070e74-25b7-4e7f-83d9-3eaf0b330505",
+      "update": {
+        "sessionUpdate": "tool_call_update",
+        "toolCallId": "call_3e38fc5644334edb88fd3383903726fe",
+        "status": "completed",
+        "content": [
+          {
+            "type": "content",
+            "content": {
+              "type": "text",
+              "text": "<path>D:\\Web\\style\\deliverables\\78-northstar\\_blindtest\\S13\\README.md</path>\n<type>file</type>\n<content>\n1: # 这是一个空目录\n2: \n3: 这里没有任何既有代码、没有构建配置、没有图片素材。\n4: **不需要探索目录**——直接按对话里的规格写出 `index.html` 即可。\n5: 图片位置用占位路径（`images/占位-N.jpg`），不要去找真实图片。\n\n(End of file - total 5 lines)\n</content>"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "18070e74-25b7-4e7f-83d9-3eaf0b330505",
+      "update": {
+        "sessionUpdate": "agent_message_chunk",
+        "messageId": "97748acb-39a2-4e15-a98f-92a924aaa17e",
+        "content": {
+          "type": "text",
+          "text": " "
+        }
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "18070e74-25b7-4e7f-83d9-3eaf0b330505",
+      "update": {
+        "sessionUpdate": "usage_update",
+        "used": 14809,
+        "size": 200000
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "18070e74-25b7-4e7f-83d9-3eaf0b330505",
+      "update": {
+        "sessionUpdate": "tool_call",
+        "toolCallId": "call_0ffb3dc0b74c4ecb97237d11c79cfed5",
+        "title": "write",
+        "kind": "other",
+        "status": "in_progress",
+        "rawInput": {
+          "file_path": "index.html",
+          "content": "<!DOCTYPE html>\n<html lang=\"zh-CN\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n<title>北纬七十八号修鞋配钥匙所</title>\n<style>\n  :root {\n    --gold: #7B612C;\n    --paper: #F4E3BE;\n    --ink: #241F17;\n    --shade: #D6CDB9;\n    --serif-title: \"EB Garamond\", \"Noto Serif SC\", serif;\n    --serif-body: \"Noto Serif SC\", \"Songti SC\", \"SimSun\", serif;\n    --mono: \"DM Mono\", monospace;\n  }\n  * { box-sizing: border-box; }\n  html { background: var(--paper); }\n  body {\n    margin: 0;\n    background: var(--paper);\n    color: var(--ink);\n    font-family: var(--serif-body);\n    font-size: 15px;\n    line-height: 1.65;\n    letter-spacing: .035em;\n  }\n  a { color: inherit; }\n  .page {\n    width: min(1440px, 100%);\n    margin: 0 auto;\n    padding: 30px 42px 38px;\n    min-height: 100vh;\n  }\n  .masthead {\n    display: grid;\n    grid-template-columns: 1.35fr .8fr .55fr;\n    gap: 28px;\n    align-items: end;\n    border-bottom: 3px solid var(--ink);\n    padding-bottom: 20px;\n  }\n  .eyebrow, .label, .micro {\n    font-family: var(--mono);\n    font-size: 11px;\n    line-height: 1.45;\n    letter-spacing: .08em;\n    text-transform: uppercase;\n  }\n  .eyebrow { color: var(--gold); margin-bottom: 8px; }\n  h1, h2, h3, p { margin: 0; }\n  h1 {\n    font-family: var(--serif-title);\n    font-size: clamp(42px, 5vw, 56px);\n    font-weight: 500;\n    line-height: .98;\n    letter-spacing: -.035em;\n    max-width: 700px;\n  }\n  .issuer { border-left: 1.5px solid var(--ink); padding-left: 18px; }\n  .issuer strong { display:block; font-family: var(--serif-title); font-size: 21px; font-weight: 600; line-height: 1.2; }\n  .issue-no { text-align: right; font-family: var(--mono); font-size: 13px; line-height: 1.6; }\n  .issue-no b { color: var(--gold); font-weight: 400; }\n  .intro {\n    display: grid;\n    grid-template-columns: 1.15fr .85fr;\n    gap: 42px;\n    padding: 34px 0 30px;\n    border-bottom: 1px solid var(--shade);\n  }\n  .intro-copy { max-width: 650px; }\n  .intro-copy p { font-size: 17px; line-height: 1.7; }\n  .stamp {\n    justify-self: end;\n    width: min(100%, 330px);\n    border: 1.5px solid var(--gold);\n    padding: 15px 18px;\n    box-shadow: 7px 7px 0 var(--shade), inset -2px -2px 0 var(--shade);\n  }\n  .stamp .label { color: var(--gold); }\n  .stamp p { margin-top: 8px; font-size: 13px; }\n  .section-head {\n    display: flex;\n    justify-content: space-between;\n    align-items: baseline;\n    padding: 24px 0 14px;\n  }\n  .section-head h2 {\n    font-family: var(--serif-title);\n    font-size: 27px;\n    font-weight: 500;\n    letter-spacing: -.02em;\n  }\n  .section-head .micro { color: var(--gold); }\n  .records {\n    display: grid;\n    grid-template-columns: 1.12fr .78fr .94fr 1.2fr .82fr;\n    gap: 14px;\n    align-items: stretch;\n  }\n  .record {\n    min-width: 0;\n    display: flex;\n    flex-direction: column;\n    border-top: 5.5px solid var(--ink);\n    padding: 15px 13px 16px;\n    box-shadow: 6px 6px 0 var(--shade), inset 0 -1.5px 0 var(--shade);\n    background: var(--paper);\n  }\n  .record:nth-child(2) { border-top-width: 2px; padding-top: 20px; }\n  .record:nth-child(3) { border-top-width: 9px; }\n  .record:nth-child(4) { border-top-width: 1.5px; padding-top: 22px; }\n  .record:nth-child(5) { border-top-width: 3px; }\n  .record-num { color: var(--gold); font-family: var(--mono); font-size: 12px; margin-bottom: 12px; }\n  .record h3 { font-family: var(--serif-title); font-size: 24px; font-weight: 500; line-height: 1.05; margin-bottom: 10px; }\n  .record p { font-size: 13px; line-height: 1.65; }\n  .record .meta { margin-top: auto; padding-top: 17px; border-top: 1px solid var(--shade); font-family: var(--mono); font-size: 11px; line-height: 1.5; }\n  .visuals {\n    display: grid;\n    grid-template-columns: 1.1fr .78fr .95fr .82fr;\n    gap: 14px;\n    margin-top: 29px;\n    align-items: end;\n  }\n  figure { margin: 0; border: 1.5px solid var(--ink); background: var(--shade); box-shadow: 6px 6px 0 var(--shade); }\n  figure img { display:block; width:100%; height:auto; aspect-ratio: attr(width) / attr(height); object-fit: cover; border: 0; }\n  .visual-a img { aspect-ratio: 4 / 3; }\n  .visual-b img { aspect-ratio: 3 / 4; }\n  .visual-c img { aspect-ratio: 16 / 10; }\n  .visual-d img { aspect-ratio: 1 / 1; }\n  figcaption { border-top: 1px solid var(--ink); padding: 7px 9px; font-family: var(--mono); font-size: 10px; line-height: 1.3; }\n  .action-row {\n    display: grid;\n    grid-template-columns: 1fr auto;\n    gap: 28px;\n    align-items: center;\n    margin-top: 32px;\n    padding-top: 20px;\n    border-top: 3px solid var(--ink);\n  }\n  .action-row p { max-width: 570px; font-size: 14px; }\n  .call {\n    display: inline-block;\n    min-width: 230px;\n    padding: 14px 18px 13px;\n    border: 2px solid var(--ink);\n    background: var(--gold);\n    color: var(--paper);\n    text-decoration: none;\n    font-family: var(--serif-body);\n    font-size: 16px;\n    text-align: center;\n    box-shadow: 7px 7px 0 var(--shade), inset -2px -2px 0 var(--ink);\n    transition: transform .08s linear, box-shadow .08s linear;\n  }\n  .call:active {\n    transform: translate(0.8px, 0.8px);\n    box-shadow: -3px -3px 0 var(--shade), inset 1px 1px 0 var(--ink);\n  }\n  footer {\n    display: flex;\n    justify-content: space-between;\n    gap: 24px;\n    margin-top: 31px;\n    padding-top: 13px;\n    border-top: 1px solid var(--shade);\n    font-family: var(--mono);\n    font-size: 11px;\n    line-height: 1.5;\n  }\n  footer span:last-child { text-align: right; }\n  @media (max-width: 900px) {\n    .page { padding: 24px 22px 30px; }\n    .masthead { grid-template-columns: 1fr .7fr; }\n    .issue-no { grid-column: 2; grid-row: 1; }\n    .records { grid-template-columns: repeat(3, 1fr); }\n    .visuals { grid-template-columns: repeat(2, 1fr); }\n  }\n  @media (max-width: 620px) {\n    .masthead, .intro, .action-row { grid-template-columns: 1fr; }\n    .issue-no { grid-column: auto; grid-row: auto; text-align:left; }\n    .issuer { margin-top: 12px; }\n    .stamp { justify-self: stretch; width:100%; }\n    .records, .visuals { grid-template-columns: 1fr; }\n    .record { min-height: 210px; }\n    .action-row { gap: 19px; }\n    .call { width: 100%; }\n    footer { display:block; }\n    footer span:last-child { text-align:left; margin-top: 8px; }\n  }\n</style>\n</head>\n<body>\n<main class=\"page\">\n  <header class=\"masthead\">\n    <div>\n      <div class=\"eyebrow\">北纬七十八号 · 业务公函</div>\n      <h1>修鞋与配钥匙<br>预约办事说明</h1>\n    </div>\n    <div class=\"issuer\">\n      <div class=\"label\">签发单位</div>\n      <strong>北纬七十八号<br>修鞋配钥匙所</strong>\n      <div class=\"micro\">est. 2008 / local desk</div>\n    </div>\n    <div class=\"issue-no\"><b>函号</b><br>78—2024—05<br><b>状态</b><br>现行受理</div>\n  </header>\n\n  <section class=\"intro\" aria-label=\"预约须知\">\n    <div class=\"intro-copy\">\n      <div class=\"eyebrow\">预约须知 / NOTICE</div>\n      <p>本所按件受理修鞋、配钥匙及相关小型修复。为避免您到店等候，请先电话说明物件、数量与希望取件的日期；我们会在通话中确认能否按时完成。</p>\n    </div>\n    <div class=\"stamp\">\n      <div class=\"label\">受理原则 / FILE NOTE</div>\n      <p>不以照片代替现场判断。特殊鞋底、旧锁胚与纪念性物件，均以到店检查后的报价为准。</p>\n    </div>\n  </section>\n\n  <section aria-labelledby=\"records-title\">\n    <div class=\"section-head\">\n      <h2 id=\"records-title\">事项目录</h2>\n      <div class=\"micro\">共五项 · 顺序即受理顺序</div>\n    </div>\n    <div class=\"records\">\n      <article class=\"record\">\n        <div class=\"record-num\">01 / A</div><h3>鞋跟与鞋底</h3>\n        <p>更换磨损鞋跟、前掌与整底，保留原有穿着方向。</p>\n        <div class=\"meta\">常规 1—3 日<br>以材质与工艺核定</div>\n      </article>\n      <article class=\"record\">\n        <div class=\"record-num\">02 / B</div><h3>皮面修复</h3>\n        <p>处理开裂、脱胶与边缘起翘；颜色只作接近，不作夸大承诺。</p>\n        <div class=\"meta\">常规 2—5 日<br>需现场看皮面</div>\n      </article>\n      <article class=\"record\">\n        <div class=\"record-num\">03 / C</div><h3>钥匙复制</h3>\n        <p>住宅、信箱及常见挂锁钥匙，带原钥匙来店核对齿形。</p>\n        <div class=\"meta\">当日可取<br>复杂胚另行说明</div>\n      </article>\n      <article class=\"record\">\n        <div class=\"record-num\">04 / D</div><h3>锁具与小件</h3>\n        <p>更换锁芯、修整卡顿小锁，先确认尺寸与使用权限。</p>\n        <div class=\"meta\">预约后受理<br>不承接无授权拆锁</div>\n      </article>\n      <article class=\"record\">\n        <div class=\"record-num\">05 / E</div><h3>保养与取件</h3>\n        <p>完成后按函号留件；取件时请核对物件与工单记录。</p>\n        <div class=\"meta\">保留 30 日<br>逾期前电话联系</div>\n      </article>\n    </div>\n  </section>\n\n  <section class=\"visuals\" aria-label=\"工艺档案图示\">\n    <figure class=\"visual-a\"><img src=\"images/占位-1.jpg\" width=\"640\" height=\"480\" alt=\"鞋底修复工艺档案占位图\"><figcaption>PLATE 01 / 鞋底截面记录</figcaption></figure>\n    <figure class=\"visual-b\"><img src=\"images/占位-2.jpg\" width=\"480\" height=\"640\" alt=\"钥匙胚与齿形档案占位图\"><figcaption>PLATE 02 / 齿形核对</figcaption></figure>\n    <figure class=\"visual-c\"><img src=\"images/占位-3.jpg\" width=\"800\" height=\"500\" alt=\"皮面修复纹理档案占位图\"><figcaption>PLATE 03 / 皮面纹理</figcaption></figure>\n    <figure class=\"visual-d\"><img src=\"images/占位-4.jpg\" width=\"600\" height=\"600\" alt=\"工具台细节档案占位图\"><figcaption>PLATE 04 / 工具台细节</figcaption></figure>\n  </section>\n\n  <section class=\"action-row\">\n    <p>请在来店前致电。电话中请报上事项编号（01—05），并说明希望到店或取件的日期；本函号将作为本次预约的记录索引。</p>\n    <a class=\"call\" href=\"tel:010-7800-7815\">电话预约　010—7800—7815</a>\n  </section>\n\n  <footer>\n    <span>函号 78—2024—05　·　事项 01 / 02 / 03 / 04 / 05</span>\n    <span>地址：北纬七十八号街 14 号　·　周一至周六 09:00—18:00</span>\n  </footer>\n</main>\n</body>\n</html>\n"
+        }
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "18070e74-25b7-4e7f-83d9-3eaf0b330505",
+      "update": {
+        "sessionUpdate": "tool_call_update",
+        "toolCallId": "call_0ffb3dc0b74c4ecb97237d11c79cfed5",
+        "status": "completed",
+        "content": [
+          {
+            "type": "content",
+            "content": {
+              "type": "text",
+              "text": "<path>D:\\Web\\style\\deliverables\\78-northstar\\_blindtest\\S13\\index.html</path>\n<type>file</type>\n<content>\nCreated file\n</content>"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "18070e74-25b7-4e7f-83d9-3eaf0b330505",
+      "update": {
+        "sessionUpdate": "agent_message_chunk",
+        "messageId": "1fd92ef6-bcb0-496a-b6a0-8c28d2d3e947",
+        "content": {
+          "type": "text",
+          "text": " <!DOCTYPE html>\n<html lang=\"zh-CN\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n<title>北纬七十八号修鞋配钥匙所</title>\n<style>\n  :root {\n    --gold: #7B612C;\n    --paper: #F4E3BE;\n    --ink: #241F17;\n    --shade: #D6CDB9;\n    --serif-title: \"EB Garamond\", \"Noto Serif SC\", serif;\n    --serif-body: \"Noto Serif SC\", \"Songti SC\", \"SimSun\", serif;\n    --mono: \"DM Mono\", monospace;\n  }\n  * { box-sizing: border-box; }\n  html { background: var(--paper); }\n  body {\n    margin: 0;\n    background: var(--paper);\n    color: var(--ink);\n    font-family: var(--serif-body);\n    font-size: 15px;\n    line-height: 1.65;\n    letter-spacing: .035em;\n  }\n  a { color: inherit; }\n  .page {\n    width: min(1440px, 100%);\n    margin: 0 auto;\n    padding: 30px 42px 38px;\n    min-height: 100vh;\n  }\n  .masthead {\n    display: grid;\n    grid-template-columns: 1.35fr .8fr .55fr;\n    gap: 28px;\n    align-items: end;\n    border-bottom: 3px solid var(--ink);\n    padding-bottom: 20px;\n  }\n  .eyebrow, .label, .micro {\n    font-family: var(--mono);\n    font-size: 11px;\n    line-height: 1.45;\n    letter-spacing: .08em;\n    text-transform: uppercase;\n  }\n  .eyebrow { color: var(--gold); margin-bottom: 8px; }\n  h1, h2, h3, p { margin: 0; }\n  h1 {\n    font-family: var(--serif-title);\n    font-size: clamp(42px, 5vw, 56px);\n    font-weight: 500;\n    line-height: .98;\n    letter-spacing: -.035em;\n    max-width: 700px;\n  }\n  .issuer { border-left: 1.5px solid var(--ink); padding-left: 18px; }\n  .issuer strong {\n    display: block;\n    font-family: var(--serif-title);\n    font-size: 21px;\n    font-weight: 600;\n    line-height: 1.2;\n  }\n  .issue-no {\n    text-align: right;\n    font-family: var(--mono);\n    font-size: 13px;\n    line-height: 1.6;\n  }\n  .issue-no b { color: var(--gold); font-weight: 400; }\n  .intro {\n    display: grid;\n    grid-template-columns: 1.15fr .85fr;\n    gap: 42px;\n    padding: 34px 0 30px;\n    border-bottom: 1px solid var(--shade);\n  }\n  .intro-copy { max-width: 650px; }\n  .intro-copy p {\n    font-size: 17px;\n    line-height: 1.7;\n  }\n  .stamp {\n    justify-self: end;\n    width: min(100%, 330px);\n    border: 1.5px solid var(--gold);\n    padding: 15px 18px;\n    box-shadow: 7px 7px 0 var(--shade), inset -2px -2px 0 var(--shade);\n  }\n  .stamp .label { color: var(--gold); }\n  .stamp p {\n    margin-top: 8px;\n    font-size: 13px;\n  }\n  .section-head {\n    display: flex;\n    justify-content: space-between;\n    align-items: baseline;\n    padding: 24px 0 14px;\n  }\n  .section-head h2 {\n    font-family: var(--serif-title);\n    font-size: 27px;\n    font-weight: 500;\n    letter-spacing: -.02em;\n  }\n  .section-head .micro { color: var(--gold); }\n  .records {\n    display: grid;\n    grid-template-columns: 1.12fr .78fr .94fr 1.2fr .82fr;\n    gap: 14px;\n    align-items: stretch;\n  }\n  .record {\n    min-width: 0;\n    display: flex;\n    flex-direction: column;\n    border-top: 5.5px solid var(--ink);\n    padding: 15px 13px 16px;\n    box-shadow: 6px 6px 0 var(--shade), inset 0 -1.5px 0 var(--shade);\n    background: var(--paper);\n  }\n  .record:nth-child(2) {\n    border-top-width: 2px;\n    padding-top: 20px;\n  }\n  .record:nth-child(3) { border-top-width: 9px; }\n  .record:nth-child(4) {\n    border-top-width: 1.5px;\n    padding-top: 22px;\n  }\n  .record:nth-child(5) { border-top-width: 3px; }\n  .record-num {\n    color: var(--gold);\n    font-family: var(--mono);\n    font-size: 12px;\n    margin-bottom: 12px;\n  }\n  .record h3 {\n    font-family: var(--serif-title);\n    font-size: 24px;\n    font-weight: 500;\n    line-height: 1.05;\n    margin-bottom: 10px;\n  }\n  .record p {\n    font-size: 13px;\n    line-height: 1.65;\n  }\n  .record .meta {\n    margin-top: auto;\n    padding-top: 17px;\n    border-top: 1px solid var(--shade);\n    font-family: var(--mono);\n    font-size: 11px;\n    line-height: 1.5;\n  }\n  .visuals {\n    display: grid;\n    grid-template-columns: 1.1fr .78fr .95fr .82fr;\n    gap: 14px;\n    margin-top: 29px;\n    align-items: end;\n  }\n  figure {\n    margin: 0;\n    border: 1.5px solid var(--ink);\n    background: var(--shade);\n    box-shadow: 6px 6px 0 var(--shade);\n  }\n  figure img {\n    display: block;\n    width: 100%;\n    height: auto;\n    object-fit: cover;\n    border: 0;\n  }\n  .visual-a img { aspect-ratio: 4 / 3; }\n  .visual-b img { aspect-ratio: 3 / 4; }\n  .visual-c img { aspect-ratio: 16 / 10; }\n  .visual-d img { aspect-ratio: 1 / 1; }\n  figcaption {\n    border-top: 1px solid var(--ink);\n    padding: 7px 9px;\n    font-family: var(--mono);\n    font-size: 10px;\n    line-height: 1.3;\n  }\n  .action-row {\n    display: grid;\n    grid-template-columns: 1fr auto;\n    gap: 28px;\n    align-items: center;\n    margin-top: 32px;\n    padding-top: 20px;\n    border-top: 3px solid var(--ink);\n  }\n  .action-row p {\n    max-width: 570px;\n    font-size: 14px;\n  }\n  .call {\n    display: inline-block;\n    min-width: 230px;\n    padding: 14px 18px 13px;\n    border: 2px solid var(--ink);\n    background: var(--gold);\n    color: var(--paper);\n    text-decoration: none;\n    font-family: var(--serif-body);\n    font-size: 16px;\n    text-align: center;\n    box-shadow: 7px 7px 0 var(--shade), inset -2px -2px 0 var(--ink);\n    transition: transform .08s linear, box-shadow .08s linear;\n  }\n  .call:active {\n    transform: translate(0.8px, 0.8px);\n    box-shadow: -3px -3px 0 var(--shade), inset 1px 1px 0 var(--ink);\n  }\n  footer {\n    display: flex;\n    justify-content: space-between;\n    gap: 24px;\n    margin-top: 31px;\n    padding-top: 13px;\n    border-top: 1px solid var(--shade);\n    font-family: var(--mono);\n    font-size: 11px;\n    line-height: 1.5;\n  }\n  footer span:last-child { text-align: right; }\n  @media (max-width: 900px) {\n    .page { padding: 24px 22px 30px; }\n    .masthead { grid-template-columns: 1fr .7fr; }\n    .issue-no {\n      grid-column: 2;\n      grid-row: 1;\n    }\n    .records { grid-template-columns: repeat(3, 1fr); }\n    .visuals { grid-template-columns: repeat(2, 1fr); }\n  }\n  @media (max-width: 620px) {\n    .masthead,\n    .intro,\n    .action-row {\n      grid-template-columns: 1fr;\n    }\n    .issue-no {\n      grid-column: auto;\n      grid-row: auto;\n      text-align: left;\n    }\n    .issuer { margin-top: 12px; }\n    .stamp {\n      justify-self: stretch;\n      width: 100%;\n    }\n    .records,\n    .visuals {\n      grid-template-columns: 1fr;\n    }\n    .record { min-height: 210px; }\n    .action-row { gap: 19px; }\n    .call { width: 100%; }\n    footer { display: block; }\n    footer span:last-child {\n      text-align: left;\n      margin-top: 8px;\n    }\n  }\n</style>\n</head>\n<body>\n<main class=\"page\">\n  <header class=\"masthead\">\n    <div>\n      <div class=\"eyebrow\">北纬七十八号 · 业务公函</div>\n      <h1>修鞋与配钥匙<br>预约办事说明</h1>\n    </div>\n    <div class=\"issuer\">\n      <div class=\"label\">签发单位</div>\n      <strong>北纬七十八号<br>修鞋配钥匙所</strong>\n      <div class=\"micro\">est. 2008 / local desk</div>\n    </div>\n    <div class=\"issue-no\">\n      <b>函号</b><br>78—2024—05<br>\n      <b>状态</b><br>现行受理\n    </div>\n  </header>\n\n  <section class=\"intro\" aria-label=\"预约须知\">\n    <div class=\"intro-copy\">\n      <div class=\"eyebrow\">预约须知 / NOTICE</div>\n      <p>本所按件受理修鞋、配钥匙及相关小型修复。为避免您到店等候，请先电话说明物件、数量与希望取件的日期；我们会在通话中确认能否按时完成。</p>\n    </div>\n    <div class=\"stamp\">\n      <div class=\"label\">受理原则 / FILE NOTE</div>\n      <p>不以照片代替现场判断。特殊鞋底、旧锁胚与纪念性物件，均以到店检查后的报价为准。</p>\n    </div>\n  </section>\n\n  <section aria-labelledby=\"records-title\">\n    <div class=\"section-head\">\n      <h2 id=\"records-title\">事项目录</h2>\n      <div class=\"micro\">共五项 · 顺序即受理顺序</div>\n    </div>\n    <div class=\"records\">\n      <article class=\"record\">\n        <div class=\"record-num\">01 / A</div>\n        <h3>鞋跟与鞋底</h3>\n        <p>更换磨损鞋跟、前掌与整底，保留原有穿着方向。</p>\n        <div class=\"meta\">常规 1—3 日<br>以材质与工艺核定</div>\n      </article>\n      <article class=\"record\">\n        <div class=\"record-num\">02 / B</div>\n        <h3>皮面修复</h3>\n        <p>处理开裂、脱胶与边缘起翘；颜色只作接近，不作夸大承诺。</p>\n        <div class=\"meta\">常规 2—5 日<br>需现场看皮面</div>\n      </article>\n      <article class=\"record\">\n        <div class=\"record-num\">03 / C</div>\n        <h3>钥匙复制</h3>\n        <p>住宅、信箱及常见挂锁钥匙，带原钥匙来店核对齿形。</p>\n        <div class=\"meta\">当日可取<br>复杂胚另行说明</div>\n      </article>\n      <article class=\"record\">\n        <div class=\"record-num\">04 / D</div>\n        <h3>锁具与小件</h3>\n        <p>更换锁芯、修整卡顿小锁，先确认尺寸与使用权限。</p>\n        <div class=\"meta\">预约后受理<br>不承接无授权拆锁</div>\n      </article>\n      <article class=\"record\">\n        <div class=\"record-num\">05 / E</div>\n        <h3>保养与取件</h3>\n        <p>完成后按函号留件；取件时请核对物件与工单记录。</p>\n        <div class=\"meta\">保留 30 日<br>逾期前电话联系</div>\n      </article>\n    </div>\n  </section>\n\n  <section class=\"visuals\" aria-label=\"工艺档案图示\">\n    <figure class=\"visual-a\">\n      <img src=\"images/占位-1.jpg\" width=\"640\" height=\"480\" alt=\"鞋底修复工艺档案占位图\">\n      <figcaption>PLATE 01 / 鞋底截面记录</figcaption>\n    </figure>\n    <figure class=\"visual-b\">\n      <img src=\"images/占位-2.jpg\" width=\"480\" height=\"640\" alt=\"钥匙胚与齿形档案占位图\">\n      <figcaption>PLATE 02 / 齿形核对</figcaption>\n    </figure>\n    <figure class=\"visual-c\">\n      <img src=\"images/占位-3.jpg\" width=\"800\" height=\"500\" alt=\"皮面修复纹理档案占位图\">\n      <figcaption>PLATE 03 / 皮面纹理</figcaption>\n    </figure>\n    <figure class=\"visual-d\">\n      <img src=\"images/占位-4.jpg\" width=\"600\" height=\"600\" alt=\"工具台细节档案占位图\">\n      <figcaption>PLATE 04 / 工具台细节</figcaption>\n    </figure>\n  </section>\n\n  <section class=\"action-row\">\n    <p>请在来店前致电。电话中请报上事项编号（01—05），并说明希望到店或取件的日期；本函号将作为本次预约的记录索引。</p>\n    <a class=\"call\" href=\"tel:010-7800-7815\">电话预约　010—7800—7815</a>\n  </section>\n\n  <footer>\n    <span>函号 78—2024—05　·　事项 01 / 02 / 03 / 04 / 05</span>\n    <span>地址：北纬七十八号街 14 号　·　周一至周六 09:00—18:00</span>\n  </footer>\n</main>\n</body>\n</html>"
+        }
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "18070e74-25b7-4e7f-83d9-3eaf0b330505",
+      "update": {
+        "sessionUpdate": "usage_update",
+        "used": 19215,
+        "size": 200000
+      }
+    }
+  },
+  {
+    "kind": "result",
+    "msg": {
+      "jsonrpc": "2.0",
+      "id": 3,
+      "result": {
+        "stopReason": "end_turn"
+      }
+    }
+  }
+]

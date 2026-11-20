@@ -1,0 +1,469 @@
+  <!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>北纬修补所｜鞋履与钥匙登记簿</title>
+<style>
+:root{
+  --green:#4A5C3A;
+  --paper:#E4DECD;
+  --wood:#2A241C;
+  --faded:#7C7460;
+  --paper-deep:#D8CFB6;
+  --paper-lit:#E9E3D2;
+  --wood-lit:#3A3227;
+  --ink2:#5E5443;
+  --note:#534C3E;
+}
+*{box-sizing:border-box}
+html{background:var(--paper)}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--wood);
+  font-family:"Noto Serif SC",Georgia;
+  font-size:16px;
+  line-height:1.45;
+}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+.page{
+  width:min(1440px,100%);
+  margin:0 auto;
+  padding:32px 42px 48px;
+}
+.mono{
+  font-family:"IBM Plex Mono",monospace;
+  font-variant-numeric:tabular-nums;
+}
+.masthead{
+  display:grid;
+  grid-template-columns:1.2fr 2fr 1fr;
+  gap:24px;
+  align-items:start;
+  border-top:3px solid var(--wood);
+  border-bottom:.8px solid var(--wood);
+  padding:14px 0 18px;
+}
+.kicker{
+  color:var(--green);
+  font-size:13px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+.masthead h1{
+  margin:0;
+  font-size:clamp(48px,6.2vw,72px);
+  line-height:.98;
+  font-weight:400;
+  letter-spacing:-.055em;
+}
+.register{
+  justify-self:end;
+  text-align:right;
+  color:var(--ink2);
+  font-size:13px;
+  line-height:1.7;
+}
+.register strong{
+  color:var(--green);
+  font-size:20px;
+  font-weight:400;
+}
+.intro{
+  display:grid;
+  grid-template-columns:1.2fr 2fr 1fr;
+  gap:24px;
+  padding:22px 0 28px;
+  border-bottom:.8px solid var(--wood);
+}
+.intro-label{
+  color:var(--faded);
+  font-size:13px;
+  letter-spacing:.08em;
+}
+.intro-copy{
+  max-width:620px;
+  color:var(--note);
+}
+.intro-copy p{margin:0 0 10px}
+.booking{
+  justify-self:end;
+  align-self:start;
+  width:100%;
+  max-width:230px;
+  border:1px solid var(--wood);
+  background:var(--green);
+  color:var(--paper-lit);
+  padding:13px 15px;
+  text-align:left;
+  box-shadow:inset 0 0 0 3px var(--green), inset 0 0 0 4px var(--paper-deep);
+  transition:transform .2s ease;
+}
+.booking:hover,.booking:focus-visible{transform:translateY(4px)}
+.booking-label{
+  display:block;
+  font-size:12px;
+  letter-spacing:.1em;
+  margin-bottom:3px;
+}
+.booking-number{
+  display:block;
+  font-family:"IBM Plex Mono",monospace;
+  font-size:22px;
+  font-variant-numeric:tabular-nums;
+  letter-spacing:.02em;
+}
+.shelf-heading{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  padding:18px 0 10px;
+}
+.shelf-heading h2{
+  margin:0;
+  font-size:21px;
+  font-weight:400;
+  letter-spacing:.04em;
+}
+.shelf-heading span{
+  color:var(--faded);
+  font-size:12px;
+}
+.shelf{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  grid-auto-rows:24px;
+  gap:0 12px;
+  border-top:3px solid var(--wood);
+  border-bottom:3px solid var(--wood);
+  padding:24px 0;
+  background:
+    linear-gradient(var(--paper-deep),var(--paper-deep)) left top/100% .4px no-repeat,
+    linear-gradient(var(--paper-deep),var(--paper-deep)) left bottom/100% .4px no-repeat;
+}
+.drawer{
+  position:relative;
+  display:grid;
+  grid-template-columns:minmax(88px,1fr) minmax(0,2.2fr);
+  gap:18px;
+  min-width:0;
+  background:var(--paper-lit);
+  border:1px solid var(--wood);
+  border-left:3px solid var(--green);
+  padding:18px;
+  box-shadow:inset 0 0 0 3px var(--paper-lit), inset 0 0 0 4px var(--paper-deep);
+}
+.drawer::after{
+  content:"";
+  position:absolute;
+  width:34px;
+  height:7px;
+  right:13px;
+  bottom:10px;
+  border-right:.8px solid var(--faded);
+  border-bottom:.8px solid var(--faded);
+  transform:skew(-24deg);
+}
+.drawer-001{grid-column:1 / span 5;grid-row:1 / span 7;transform:translateY(0)}
+.drawer-002{grid-column:6 / span 3;grid-row:2 / span 8;transform:translateY(24px)}
+.drawer-003{grid-column:9 / span 4;grid-row:1 / span 9;transform:translateY(0)}
+.drawer-004{grid-column:1 / span 4;grid-row:10 / span 8;transform:translateY(24px)}
+.drawer-005{grid-column:5 / span 5;grid-row:11 / span 8;transform:translateY(0)}
+.empty-drawer{
+  grid-column:10 / span 3;
+  grid-row:11 / span 8;
+  border:1px solid var(--faded);
+  border-left:3px solid var(--faded);
+  background:var(--paper);
+  padding:18px;
+  color:var(--faded);
+  transform:translateY(24px);
+  box-shadow:inset 0 0 0 3px var(--paper), inset 0 0 0 4px var(--paper-deep);
+}
+.empty-drawer .empty-mark{
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  border-bottom:.4px solid var(--faded);
+  padding-bottom:8px;
+}
+.entry-index{
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  min-width:0;
+}
+.entry-index .code{
+  color:var(--green);
+  font-size:22px;
+  line-height:1;
+  text-align:right;
+}
+.entry-index .class{
+  color:var(--faded);
+  font-size:11px;
+  line-height:1.4;
+  writing-mode:vertical-rl;
+  justify-self:end;
+}
+.entry-body{
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+}
+.entry-body h3{
+  margin:0 0 3px;
+  font-size:22px;
+  line-height:1.15;
+  font-weight:400;
+}
+.entry-body .latin{
+  color:var(--faded);
+  font-size:12px;
+  letter-spacing:.04em;
+  margin-bottom:10px;
+}
+.entry-body p{
+  margin:0;
+  color:var(--note);
+  font-size:14px;
+}
+.specimen{
+  margin:14px 0 0;
+  border-top:.8px solid var(--faded);
+  padding-top:10px;
+}
+.specimen img{
+  display:block;
+  width:100%;
+  height:auto;
+  aspect-ratio:4/3;
+  object-fit:cover;
+  background:var(--paper-deep);
+  border:0;
+  filter:grayscale(1);
+}
+.specimen figcaption{
+  margin-top:5px;
+  color:var(--faded);
+  font-size:11px;
+  line-height:1.3;
+}
+.meta{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  margin-top:auto;
+  padding-top:12px;
+  border-top:.4px solid var(--paper-deep);
+  color:var(--ink2);
+  font-size:11px;
+}
+.meta .price{text-align:right}
+.note-strip{
+  margin-top:34px;
+  display:grid;
+  grid-template-columns:1.2fr 2fr 1fr;
+  gap:24px;
+  border-top:.8px solid var(--wood);
+  padding-top:14px;
+  color:var(--faded);
+  font-size:12px;
+}
+.note-strip p{margin:0}
+.note-strip .rule{color:var(--green)}
+.footer{
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  margin-top:30px;
+  padding-top:12px;
+  border-top:3px solid var(--wood);
+  color:var(--ink2);
+  font-size:12px;
+}
+.footer .phone{
+  color:var(--green);
+  font-size:18px;
+}
+@media (max-width:900px){
+  .page{padding:24px 22px 36px}
+  .masthead,.intro,.note-strip{grid-template-columns:1fr 1.5fr}
+  .register,.booking{justify-self:start}
+  .masthead h1{grid-column:1 / -1;grid-row:1}
+  .kicker{grid-column:1;grid-row:2}
+  .register{grid-column:2;grid-row:2}
+  .intro-label{grid-column:1}
+  .intro-copy{grid-column:2}
+  .booking{grid-column:1 / -1;grid-row:2;max-width:none}
+  .shelf{grid-template-columns:1fr;display:grid;grid-auto-rows:auto;gap:14px;padding:14px 0}
+  .drawer,.empty-drawer{
+    grid-column:1;
+    grid-row:auto;
+    min-height:260px;
+    transform:none;
+  }
+  .drawer-001,.drawer-002,.drawer-003,.drawer-004,.drawer-005{transform:none}
+  .empty-drawer{min-height:180px}
+  .note-strip{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  .masthead,.intro{display:block}
+  .kicker,.register,.intro-label,.intro-copy,.booking{display:block;margin-bottom:14px}
+  .masthead h1{margin:14px 0 18px}
+  .drawer{grid-template-columns:72px 1fr;padding:14px;gap:12px}
+  .entry-body h3{font-size:20px}
+  .footer{display:block}
+  .footer span{display:block;margin-bottom:8px}
+}
+</style>
+</head>
+<body>
+<main class="page">
+  <header class="masthead">
+    <div class="kicker">鞋履・钥匙 / 登记簿 S19</div>
+    <h1>北纬修补所</h1>
+    <div class="register">
+      <strong class="mono">NORTH-KEY / 240</strong><br>
+      现场修补与配制<br>
+      预约制登记
+    </div>
+  </header>
+
+  <section class="intro" aria-label="预约说明">
+    <div class="intro-label mono">检索路径<br>INDEX / CALL / ARRIVE</div>
+    <div class="intro-copy">
+      <p>我们不收急件，也不把修补写成一项模糊的服务。先报编号，再说明物件；我们据此留出一段确切的时间。</p>
+      <p>鞋底、拉链、钥匙胚，都按进店时的实际状况登记。电话是本册唯一的入口。</p>
+    </div>
+    <a class="booking" href="tel:010-5555-0188" aria-label="电话预约 010-5555-0188">
+      <span class="booking-label">电话预约 / 研究室值班</span>
+      <span class="booking-number">010-5555-0188</span>
+    </a>
+  </section>
+
+  <section aria-label="服务索引">
+    <div class="shelf-heading">
+      <h2>现行修补条目</h2>
+      <span class="mono">五项在册 / 一格留空 / 2024—</span>
+    </div>
+
+    <div class="shelf">
+      <article class="drawer drawer-001">
+        <div class="entry-index">
+          <span class="code mono">001</span>
+          <span class="class">鞋履・边缘</span>
+        </div>
+        <div class="entry-body">
+          <h3>鞋底加固</h3>
+          <span class="latin">sola / reinforcement</span>
+          <p>适用于前掌磨薄、鞋边开胶与日常通勤鞋。先看磨损方向，再决定补片厚度。</p>
+          <figure class="specimen">
+            <img src="images/占位-1.jpg" width="640" height="480" alt="鞋底加固的线稿占位图">
+            <figcaption class="mono">板片记录 / 01—SOLE</figcaption>
+          </figure>
+          <div class="meta mono"><span>约 45—60 MIN</span><span class="price">¥ 68 起</span></div>
+        </div>
+      </article>
+
+      <article class="drawer drawer-002">
+        <div class="entry-index">
+          <span class="code mono">002</span>
+          <span class="class">鞋履・缝线</span>
+        </div>
+        <div class="entry-body">
+          <h3>鞋面补缝</h3>
+          <span class="latin">cutis / stitching</span>
+          <p>沿原有针孔回补，不另起装饰线。皮面、帆布与工作鞋均先现场判断。</p>
+          <figure class="specimen">
+            <img src="images/占位-2.jpg" width="480" height="640" alt="鞋面补缝的线稿占位图">
+            <figcaption class="mono">针路记录 / 02—UPPER</figcaption>
+          </figure>
+          <div class="meta mono"><span>约 30—50 MIN</span><span class="price">¥ 48 起</span></div>
+        </div>
+      </article>
+
+      <article class="drawer drawer-003">
+        <div class="entry-index">
+          <span class="code mono">003</span>
+          <span class="class">锁具・日用</span>
+        </div>
+        <div class="entry-body">
+          <h3>家用钥匙</h3>
+          <span class="latin">clavis / domestic</span>
+          <p>携原钥匙来店，按齿形与锁芯规格核对。普通住宅钥匙通常可当场完成。</p>
+          <figure class="specimen">
+            <img src="images/占位-3.jpg" width="720" height="480" alt="家用钥匙的线稿占位图">
+            <figcaption class="mono">齿形记录 / 03—DOMESTIC</figcaption>
+          </figure>
+          <div class="meta mono"><span>约 10—20 MIN</span><span class="price">¥ 18 起</span></div>
+        </div>
+      </article>
+
+      <article class="drawer drawer-004">
+        <div class="entry-index">
+          <span class="code mono">004</span>
+          <span class="class">锁具・车辆</span>
+        </div>
+        <div class="entry-body">
+          <h3>车钥匙配制</h3>
+          <span class="latin">clavis / vehiculum</span>
+          <p>请先电话说明车型与年份。涉及芯片或特殊胚体的项目，需提前查库存。</p>
+          <figure class="specimen">
+            <img src="images/占位-4.jpg" width="640" height="480" alt="车钥匙配制的线稿占位图">
+            <figcaption class="mono">胚体记录 / 04—VEHICLE</figcaption>
+          </figure>
+          <div class="meta mono"><span>约 30—90 MIN</span><span class="price">¥ 80 起</span></div>
+        </div>
+      </article>
+
+      <article class="drawer drawer-005">
+        <div class="entry-index">
+          <span class="code mono">005</span>
+          <span class="class">鞋履・结构</span>
+        </div>
+        <div class="entry-body">
+          <h3>鞋跟更换</h3>
+          <span class="latin">calx / replacement</span>
+          <p>鞋跟高度与受力面必须配对。我们保留原鞋的站姿，不追求不必要的改造。</p>
+          <figure class="specimen">
+            <img src="images/占位-5.jpg" width="480" height="640" alt="鞋跟更换的线稿占位图">
+            <figcaption class="mono">受力记录 / 05—HEEL</figcaption>
+          </figure>
+          <div class="meta mono"><span>约 60—120 MIN</span><span class="price">¥ 88 起</span></div>
+        </div>
+      </article>
+
+      <aside class="empty-drawer" aria-label="刻意留空的抽屉">
+        <div class="empty-mark">
+          <span class="mono">006 / OPEN DRAWER</span>
+          <span>此格留空。<br>不是缺项，是留给下一次登记。</span>
+        </div>
+      </aside>
+
+      <div class="empty-drawer" aria-label="第六图片位留白">
+        <div class="empty-mark">
+          <span class="mono">PLATE / UNILLUSTRATED</span>
+          <span>第六图位不复制素材。<br>留白本身也是索引的一部分。</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <aside class="note-strip">
+    <p class="rule mono">RULE 01<br>先检索，再来店。</p>
+    <p>电话中请报条目编号，例如“003，家用钥匙”。编号会同时出现在登记、报价与取件记录上。</p>
+    <p class="mono">OPEN<br>09:30—18:30<br>MON—SAT</p>
+  </aside>
+
+  <footer class="footer">
+    <span class="mono">NORTH-KEY / 2024— / REGISTERED REPAIR ROOM</span>
+    <span>地址：北纬路 18 号，旧书店旁</span>
+    <a class="phone mono" href="tel:010-5555-0188">010-5555-0188</a>
+  </footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,35 @@
+# 盲测专用 patch（2026-11-05）——**不改 profile 本体**，用 --patch 叠加。
+#
+# 为什么需要它：
+#   · `dsh-acp-app` 的 bundle 层把模型钉在 `provider: deepseek-official /
+#     model: deepseek-v4-flash`，而那个 provider 余额不足
+#     （实测报 `Internal error: turn failed: Insufficient Balance`）；
+#   · 本机有一个可用的模型代理 127.0.0.1:15721，实测 `/v1/chat/completions`
+#     （OpenAI 兼容）在 23.6s 返回 HTTP 200，模型 `openai/gpt-5.6-luna`；
+#   · 它的 `/v1/messages`（Anthropic 兼容）已不可用：固定路由到一个
+#     2026-11-16 下线的模型，任何 model 参数都返回 HTTP 410。
+#     所以这里必须用 `openai-completions` 而不是 `anthropic-messages`。
+#
+# ⚠️ 这个文件**只用于测试**，不要合并进 profile 的 cordis.patch.yml：
+# 它把模型指向一个本机代理，正常使用应该走用户自己配的 provider。
+- id: acp
+  config:
+    provider: blindtest-proxy
+    model: openai/gpt-5.6-luna
+
+- id: session-title-llm
+  disabled: true
+
+- id: llm-pi-ai
+  config:
+    providers:
+      blindtest-proxy:
+        displayName: Blind-test local proxy
+        api: openai-completions
+        baseURL: http://127.0.0.1:15721/v1
+        apiKeyEnv: ANTHROPIC_AUTH_TOKEN
+        models:
+          - id: openai/gpt-5.6-luna
+            name: gpt-5.6-luna (local proxy)
+            contextWindow: 200000
+            maxTokens: 32000

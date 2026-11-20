@@ -1,0 +1,375 @@
+    <!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>北纬七十八号修鞋配钥匙所</title>
+<style>
+  :root {
+    --gold: #7B612C;
+    --paper: #F4E3BE;
+    --ink: #241F17;
+    --shade: #D6CDB9;
+    --serif-title: "EB Garamond", "Noto Serif SC", serif;
+    --serif-body: "Noto Serif SC", "Songti SC", "SimSun", serif;
+    --mono: "DM Mono", monospace;
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--paper); }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--serif-body);
+    font-size: 15px;
+    line-height: 1.65;
+    letter-spacing: .035em;
+  }
+  a { color: inherit; }
+  .page {
+    width: min(1440px, 100%);
+    margin: 0 auto;
+    padding: 30px 42px 38px;
+    min-height: 100vh;
+  }
+  .masthead {
+    display: grid;
+    grid-template-columns: 1.35fr .8fr .55fr;
+    gap: 28px;
+    align-items: end;
+    border-bottom: 3px solid var(--ink);
+    padding-bottom: 20px;
+  }
+  .eyebrow, .label, .micro {
+    font-family: var(--mono);
+    font-size: 11px;
+    line-height: 1.45;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .eyebrow { color: var(--gold); margin-bottom: 8px; }
+  h1, h2, h3, p { margin: 0; }
+  h1 {
+    font-family: var(--serif-title);
+    font-size: clamp(42px, 5vw, 56px);
+    font-weight: 500;
+    line-height: .98;
+    letter-spacing: -.035em;
+    max-width: 700px;
+  }
+  .issuer { border-left: 1.5px solid var(--ink); padding-left: 18px; }
+  .issuer strong {
+    display: block;
+    font-family: var(--serif-title);
+    font-size: 21px;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+  .issue-no {
+    text-align: right;
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .issue-no b { color: var(--gold); font-weight: 400; }
+  .intro {
+    display: grid;
+    grid-template-columns: 1.15fr .85fr;
+    gap: 42px;
+    padding: 34px 0 30px;
+    border-bottom: 1px solid var(--shade);
+  }
+  .intro-copy { max-width: 650px; }
+  .intro-copy p {
+    font-size: 17px;
+    line-height: 1.7;
+  }
+  .stamp {
+    justify-self: end;
+    width: min(100%, 330px);
+    border: 1.5px solid var(--gold);
+    padding: 15px 18px;
+    box-shadow: 7px 7px 0 var(--shade), inset -2px -2px 0 var(--shade);
+  }
+  .stamp .label { color: var(--gold); }
+  .stamp p {
+    margin-top: 8px;
+    font-size: 13px;
+  }
+  .section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 24px 0 14px;
+  }
+  .section-head h2 {
+    font-family: var(--serif-title);
+    font-size: 27px;
+    font-weight: 500;
+    letter-spacing: -.02em;
+  }
+  .section-head .micro { color: var(--gold); }
+  .records {
+    display: grid;
+    grid-template-columns: 1.12fr .78fr .94fr 1.2fr .82fr;
+    gap: 14px;
+    align-items: stretch;
+  }
+  .record {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    border-top: 5.5px solid var(--ink);
+    padding: 15px 13px 16px;
+    box-shadow: 6px 6px 0 var(--shade), inset 0 -1.5px 0 var(--shade);
+    background: var(--paper);
+  }
+  .record:nth-child(2) {
+    border-top-width: 2px;
+    padding-top: 20px;
+  }
+  .record:nth-child(3) { border-top-width: 9px; }
+  .record:nth-child(4) {
+    border-top-width: 1.5px;
+    padding-top: 22px;
+  }
+  .record:nth-child(5) { border-top-width: 3px; }
+  .record-num {
+    color: var(--gold);
+    font-family: var(--mono);
+    font-size: 12px;
+    margin-bottom: 12px;
+  }
+  .record h3 {
+    font-family: var(--serif-title);
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.05;
+    margin-bottom: 10px;
+  }
+  .record p {
+    font-size: 13px;
+    line-height: 1.65;
+  }
+  .record .meta {
+    margin-top: auto;
+    padding-top: 17px;
+    border-top: 1px solid var(--shade);
+    font-family: var(--mono);
+    font-size: 11px;
+    line-height: 1.5;
+  }
+  .visuals {
+    display: grid;
+    grid-template-columns: 1.1fr .78fr .95fr .82fr;
+    gap: 14px;
+    margin-top: 29px;
+    align-items: end;
+  }
+  figure {
+    margin: 0;
+    border: 1.5px solid var(--ink);
+    background: var(--shade);
+    box-shadow: 6px 6px 0 var(--shade);
+  }
+  figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border: 0;
+  }
+  .visual-a img { aspect-ratio: 4 / 3; }
+  .visual-b img { aspect-ratio: 3 / 4; }
+  .visual-c img { aspect-ratio: 16 / 10; }
+  .visual-d img { aspect-ratio: 1 / 1; }
+  figcaption {
+    border-top: 1px solid var(--ink);
+    padding: 7px 9px;
+    font-family: var(--mono);
+    font-size: 10px;
+    line-height: 1.3;
+  }
+  .action-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 28px;
+    align-items: center;
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 3px solid var(--ink);
+  }
+  .action-row p {
+    max-width: 570px;
+    font-size: 14px;
+  }
+  .call {
+    display: inline-block;
+    min-width: 230px;
+    padding: 14px 18px 13px;
+    border: 2px solid var(--ink);
+    background: var(--gold);
+    color: var(--paper);
+    text-decoration: none;
+    font-family: var(--serif-body);
+    font-size: 16px;
+    text-align: center;
+    box-shadow: 7px 7px 0 var(--shade), inset -2px -2px 0 var(--ink);
+    transition: transform .08s linear, box-shadow .08s linear;
+  }
+  .call:active {
+    transform: translate(0.8px, 0.8px);
+    box-shadow: -3px -3px 0 var(--shade), inset 1px 1px 0 var(--ink);
+  }
+  footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    margin-top: 31px;
+    padding-top: 13px;
+    border-top: 1px solid var(--shade);
+    font-family: var(--mono);
+    font-size: 11px;
+    line-height: 1.5;
+  }
+  footer span:last-child { text-align: right; }
+  @media (max-width: 900px) {
+    .page { padding: 24px 22px 30px; }
+    .masthead { grid-template-columns: 1fr .7fr; }
+    .issue-no {
+      grid-column: 2;
+      grid-row: 1;
+    }
+    .records { grid-template-columns: repeat(3, 1fr); }
+    .visuals { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 620px) {
+    .masthead,
+    .intro,
+    .action-row {
+      grid-template-columns: 1fr;
+    }
+    .issue-no {
+      grid-column: auto;
+      grid-row: auto;
+      text-align: left;
+    }
+    .issuer { margin-top: 12px; }
+    .stamp {
+      justify-self: stretch;
+      width: 100%;
+    }
+    .records,
+    .visuals {
+      grid-template-columns: 1fr;
+    }
+    .record { min-height: 210px; }
+    .action-row { gap: 19px; }
+    .call { width: 100%; }
+    footer { display: block; }
+    footer span:last-child {
+      text-align: left;
+      margin-top: 8px;
+    }
+  }
+</style>
+</head>
+<body>
+<main class="page">
+  <header class="masthead">
+    <div>
+      <div class="eyebrow">北纬七十八号 · 业务公函</div>
+      <h1>修鞋与配钥匙<br>预约办事说明</h1>
+    </div>
+    <div class="issuer">
+      <div class="label">签发单位</div>
+      <strong>北纬七十八号<br>修鞋配钥匙所</strong>
+      <div class="micro">est. 2008 / local desk</div>
+    </div>
+    <div class="issue-no">
+      <b>函号</b><br>78—2024—05<br>
+      <b>状态</b><br>现行受理
+    </div>
+  </header>
+
+  <section class="intro" aria-label="预约须知">
+    <div class="intro-copy">
+      <div class="eyebrow">预约须知 / NOTICE</div>
+      <p>本所按件受理修鞋、配钥匙及相关小型修复。为避免您到店等候，请先电话说明物件、数量与希望取件的日期；我们会在通话中确认能否按时完成。</p>
+    </div>
+    <div class="stamp">
+      <div class="label">受理原则 / FILE NOTE</div>
+      <p>不以照片代替现场判断。特殊鞋底、旧锁胚与纪念性物件，均以到店检查后的报价为准。</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="records-title">
+    <div class="section-head">
+      <h2 id="records-title">事项目录</h2>
+      <div class="micro">共五项 · 顺序即受理顺序</div>
+    </div>
+    <div class="records">
+      <article class="record">
+        <div class="record-num">01 / A</div>
+        <h3>鞋跟与鞋底</h3>
+        <p>更换磨损鞋跟、前掌与整底，保留原有穿着方向。</p>
+        <div class="meta">常规 1—3 日<br>以材质与工艺核定</div>
+      </article>
+      <article class="record">
+        <div class="record-num">02 / B</div>
+        <h3>皮面修复</h3>
+        <p>处理开裂、脱胶与边缘起翘；颜色只作接近，不作夸大承诺。</p>
+        <div class="meta">常规 2—5 日<br>需现场看皮面</div>
+      </article>
+      <article class="record">
+        <div class="record-num">03 / C</div>
+        <h3>钥匙复制</h3>
+        <p>住宅、信箱及常见挂锁钥匙，带原钥匙来店核对齿形。</p>
+        <div class="meta">当日可取<br>复杂胚另行说明</div>
+      </article>
+      <article class="record">
+        <div class="record-num">04 / D</div>
+        <h3>锁具与小件</h3>
+        <p>更换锁芯、修整卡顿小锁，先确认尺寸与使用权限。</p>
+        <div class="meta">预约后受理<br>不承接无授权拆锁</div>
+      </article>
+      <article class="record">
+        <div class="record-num">05 / E</div>
+        <h3>保养与取件</h3>
+        <p>完成后按函号留件；取件时请核对物件与工单记录。</p>
+        <div class="meta">保留 30 日<br>逾期前电话联系</div>
+      </article>
+    </div>
+  </section>
+
+  <section class="visuals" aria-label="工艺档案图示">
+    <figure class="visual-a">
+      <img src="images/占位-1.jpg" width="640" height="480" alt="鞋底修复工艺档案占位图">
+      <figcaption>PLATE 01 / 鞋底截面记录</figcaption>
+    </figure>
+    <figure class="visual-b">
+      <img src="images/占位-2.jpg" width="480" height="640" alt="钥匙胚与齿形档案占位图">
+      <figcaption>PLATE 02 / 齿形核对</figcaption>
+    </figure>
+    <figure class="visual-c">
+      <img src="images/占位-3.jpg" width="800" height="500" alt="皮面修复纹理档案占位图">
+      <figcaption>PLATE 03 / 皮面纹理</figcaption>
+    </figure>
+    <figure class="visual-d">
+      <img src="images/占位-4.jpg" width="600" height="600" alt="工具台细节档案占位图">
+      <figcaption>PLATE 04 / 工具台细节</figcaption>
+    </figure>
+  </section>
+
+  <section class="action-row">
+    <p>请在来店前致电。电话中请报上事项编号（01—05），并说明希望到店或取件的日期；本函号将作为本次预约的记录索引。</p>
+    <a class="call" href="tel:010-7800-7815">电话预约　010—7800—7815</a>
+  </section>
+
+  <footer>
+    <span>函号 78—2024—05　·　事项 01 / 02 / 03 / 04 / 05</span>
+    <span>地址：北纬七十八号街 14 号　·　周一至周六 09:00—18:00</span>
+  </footer>
+</main>
+</body>
+</html>

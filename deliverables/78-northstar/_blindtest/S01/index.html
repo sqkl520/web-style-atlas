@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>街角修鞋配钥匙 · 今天开门</title>
+  <style>
+    :root {
+      --red: #C1121F;
+      --paper: #EFE7D7;
+      --ink: #1A1614;
+      --lead: #6E6A5E;
+      --gutter: 24px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      background: var(--paper);
+      color: var(--ink);
+    }
+
+    body {
+      font-family: "Noto Sans SC", "Source Han Sans SC";
+      font-size: 16px;
+      line-height: 1.35;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .page {
+      min-height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page::after {
+      content: "";
+      position: absolute;
+      z-index: 0;
+      top: -18vh;
+      left: 38%;
+      width: 27%;
+      height: 145vh;
+      background: var(--red);
+      transform: rotate(11deg);
+      transform-origin: center;
+      pointer-events: none;
+    }
+
+    .masthead,
+    .main-grid,
+    .footer {
+      position: relative;
+      z-index: 1;
+    }
+
+    .masthead {
+      display: grid;
+      grid-template-columns: 1fr 1.45fr 0.7fr 0.9fr;
+      column-gap: var(--gutter);
+      align-items: end;
+      padding: 26px 5vw 18px;
+      border-bottom: 3px solid var(--ink);
+    }
+
+    .kicker {
+      color: var(--red);
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      font-size: 14px;
+      text-transform: uppercase;
+    }
+
+    .masthead h1 {
+      grid-column: 1 / 3;
+      margin: 8px 0 0;
+      max-width: 720px;
+      font-size: clamp(56px, 8.7vw, 96px);
+      line-height: 0.9;
+      letter-spacing: -0.08em;
+      font-weight: 900;
+    }
+
+    .masthead-note {
+      grid-column: 3 / 5;
+      align-self: end;
+      max-width: 290px;
+      border-left: 3px solid var(--ink);
+      padding: 0 0 3px 16px;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .masthead-note strong {
+      color: var(--red);
+    }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: 0.82fr 1.18fr 0.94fr 1.06fr;
+      gap: var(--gutter);
+      padding: 0 5vw;
+      align-items: start;
+    }
+
+    .col {
+      min-width: 0;
+    }
+
+    .col-1 {
+      padding-top: 0;
+    }
+
+    .missing-news {
+      height: 78px;
+      position: relative;
+      border-bottom: 1px solid var(--lead);
+      margin-bottom: 15px;
+    }
+
+    .missing-news::after {
+      content: "";
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: var(--lead);
+      left: 50%;
+      top: 37px;
+    }
+
+    .section-label {
+      display: inline-block;
+      background: var(--red);
+      color: var(--paper);
+      padding: 4px 8px 3px;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+    }
+
+    .intro {
+      border-top: 3px solid var(--ink);
+      margin-top: 12px;
+      padding-top: 10px;
+    }
+
+    .intro h2 {
+      margin: 0 0 10px;
+      font-size: 29px;
+      line-height: 1;
+      letter-spacing: -0.05em;
+    }
+
+    .intro p {
+      margin: 0;
+      font-size: 15px;
+    }
+
+    .rule {
+      border: 0;
+      border-top: 1px solid var(--lead);
+      margin: 16px 0;
+    }
+
+    .phone-link {
+      display: block;
+      border: 3px solid var(--ink);
+      margin-top: 15px;
+      padding: 11px 10px 9px;
+      text-decoration: none;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .phone-link span {
+      display: block;
+      color: var(--red);
+      margin-bottom: 5px;
+      font-size: 13px;
+    }
+
+    .phone-link b {
+      font-family: "Martian Mono", monospace;
+      font-variant-numeric: tabular-nums;
+      font-size: 19px;
+      letter-spacing: -0.06em;
+    }
+
+    .story {
+      border-top: 3px solid var(--ink);
+      margin-bottom: 21px;
+      padding-top: 9px;
+    }
+
+    .story-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: baseline;
+    }
+
+    .story-no {
+      color: var(--red);
+      font-family: "Martian Mono", monospace;
+      font-size: 13px;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
+    .story h3 {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.02;
+      letter-spacing: -0.06em;
+    }
+
+    .story p {
+      margin: 8px 0 0;
+      font-size: 15px;
+    }
+
+    .story em {
+      color: var(--red);
+      font-style: normal;
+      font-weight: 800;
+    }
+
+    .photo {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 3px solid var(--ink);
+      margin: 9px 0 10px;
+      object-fit: cover;
+      background: var(--lead);
+    }
+
+    .photo-wide {
+      aspect-ratio: 4 / 3;
+    }
+
+    .photo-tall {
+      aspect-ratio: 3 / 4;
+    }
+
+    .photo-square {
+      aspect-ratio: 1 / 1;
+    }
+
+    .index-block {
+      min-height: 168px;
+      border: 3px solid var(--ink);
+      margin-bottom: 21px;
+      padding: 12px;
+    }
+
+    .index-block h3 {
+      margin: 0 0 12px;
+      font-size: 25px;
+      line-height: 0.95;
+      letter-spacing: -0.06em;
+    }
+
+    .index-block p {
+      margin: 0;
+      font-size: 15px;
+    }
+
+    .index-block .tiny {
+      margin-top: 16px;
+      color: var(--lead);
+      font-size: 12px;
+    }
+
+    .meta {
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid var(--lead);
+      padding-top: 7px;
+      color: var(--lead);
+      font-size: 12px;
+    }
+
+    .meta b {
+      color: var(--ink);
+      font-family: "Martian Mono", monospace;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .footer {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: var(--gutter);
+      margin: 2px 5vw 0;
+      border-top: 3px solid var(--ink);
+      padding: 12px 0 20px;
+      font-size: 13px;
+    }
+
+    .footer strong {
+      color: var(--red);
+    }
+
+    .footer .mono {
+      font-family: "Martian Mono", monospace;
+      font-variant-numeric: tabular-nums;
+      text-align: right;
+    }
+
+    @media (max-width: 760px) {
+      .page::after {
+        top: 8vh;
+        left: 58%;
+        width: 42%;
+        height: 88vh;
+      }
+
+      .masthead {
+        grid-template-columns: 1fr 1fr;
+        padding: 18px 18px 15px;
+      }
+
+      .masthead h1 {
+        grid-column: 1 / 3;
+        margin-top: 12px;
+        font-size: 60px;
+      }
+
+      .masthead-note {
+        grid-column: 1 / 3;
+        max-width: none;
+        margin-top: 15px;
+      }
+
+      .main-grid {
+        display: block;
+        padding: 0 18px;
+      }
+
+      .col {
+        margin-bottom: 22px;
+      }
+
+      .missing-news {
+        height: 78px;
+      }
+
+      .story {
+        margin-bottom: 25px;
+      }
+
+      .footer {
+        grid-template-columns: 1fr 1fr;
+        margin: 0 18px;
+      }
+
+      .footer .mono {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="masthead">
+      <div class="kicker">街角现场 / 今日开门</div>
+      <div></div>
+      <div></div>
+      <div></div>
+
+      <h1>鞋底在说<br>别再拖了</h1>
+
+      <div class="masthead-note">
+        <strong>一通电话，</strong>把磨坏的鞋、断掉的钥匙和今天的时间，先摊到台面上。
+      </div>
+    </header>
+
+    <section class="main-grid" aria-label="修鞋配钥匙服务条目">
+      <div class="col col-1">
+        <div class="missing-news" aria-label="留白栏目"></div>
+
+        <span class="section-label">小店口供 / 01</span>
+
+        <div class="intro">
+          <h2>门一开，街就有事。</h2>
+          <p>
+            我们修鞋，也配钥匙。不是把东西弄得像新的一样，是让它今晚还能继续上班、回家、赶下一班车。
+          </p>
+
+          <hr class="rule">
+
+          <p>
+            <strong>不排队猜。</strong>直接打过来，说你要修什么、什么时候到。
+          </p>
+
+          <a class="phone-link" href="tel:010-66778899">
+            <span>唯一行动 / 现在约</span>
+            <b>010-66778899</b>
+          </a>
+        </div>
+      </div>
+
+      <div class="col col-2">
+        <article class="story">
+          <div class="story-head">
+            <h3>鞋跟先投降</h3>
+            <span class="story-no">02</span>
+          </div>
+
+          <img
+            class="photo photo-wide"
+            src="images/占位-1.jpg"
+            width="640"
+            height="480"
+            alt="正在修理的黑色皮鞋后跟"
+          >
+
+          <p>
+            鞋底开口、后跟打滑、线头乱跑？<em>带来，别让它继续拖。</em>我们先看伤口，再说怎么补。
+          </p>
+
+          <div class="meta">
+            <span>修鞋 / 现场判断</span>
+            <b>02</b>
+          </div>
+        </article>
+
+        <article class="story">
+          <div class="story-head">
+            <h3>一把钥匙的脾气</h3>
+            <span class="story-no">03</span>
+          </div>
+
+          <p>
+            旧钥匙转不动，不代表门要换。拿原钥匙来，或者把门的故事讲清楚，剩下的交给机器和手。
+          </p>
+
+          <div class="meta">
+            <span>配钥匙 / 常见胚</span>
+            <b>03</b>
+          </div>
+        </article>
+      </div>
+
+      <div class="col col-3">
+        <article class="story">
+          <div class="story-head">
+            <h3>别等雨来验货</h3>
+            <span class="story-no">04</span>
+          </div>
+
+          <img
+            class="photo photo-tall"
+            src="images/占位-2.jpg"
+            width="480"
+            height="640"
+            alt="雨天门口的一双旧鞋"
+          >
+
+          <p>
+            防滑底、开胶、鞋面刮伤，都是小事，直到你站在水坑里。<em>今天说，今天排。</em>
+          </p>
+
+          <div class="meta">
+            <span>补底 / 粘合 / 加固</span>
+            <b>04</b>
+          </div>
+        </article>
+
+        <div class="index-block" role="note">
+          <h3>折角索引<br>先打，再来。</h3>
+          <p>
+            报上你的名字、要修的东西、预计到店时间。三句话，够我们把台子腾出来。
+          </p>
+          <p class="tiny">
+            不接在线排号，不让你在页面里迷路。
+          </p>
+        </div>
+      </div>
+
+      <div class="col col-4">
+        <article class="story">
+          <div class="story-head">
+            <h3>一把新钥匙<br>不该长得孤单</h3>
+            <span class="story-no">05</span>
+          </div>
+
+          <img
+            class="photo photo-square"
+            src="images/占位-3.jpg"
+            width="560"
+            height="560"
+            alt="摊在桌面上的钥匙与金属工具"
+          >
+
+          <p>
+            家门、车库、储物间，常用的那把可以多配一把。<em>少一次折返，多一晚踏实。</em>
+          </p>
+
+          <div class="meta">
+            <span>钥匙 / 多配一份</span>
+            <b>05</b>
+          </div>
+        </article>
+
+        <article class="story">
+          <div class="story-head">
+            <h3>鞋带还在，鞋也该在</h3>
+            <span class="story-no">06</span>
+          </div>
+
+          <img
+            class="photo photo-wide"
+            src="images/占位-4.jpg"
+            width="640"
+            height="480"
+            alt="鞋店工作台上的鞋带和皮革边角料"
+          >
+
+          <p>
+            鞋带、鞋垫、边角补强，能换的先换，能救的别扔。来店前先打电话，<em>别让好东西提前退休。</em>
+          </p>
+
+          <div class="meta">
+            <span>小修 / 配件 / 加固</span>
+            <b>06</b>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div>
+        <strong>街角修鞋配钥匙</strong><br>
+        看得见的手艺，听得见的电话。
+      </div>
+
+      <div>
+        周一至周六 / 09:00—19:00<br>
+        急事先说，别客气。
+      </div>
+
+      <div>
+        店在街口，不在云里<br>
+        电话确认后再出发。
+      </div>
+
+      <div class="mono">
+        版号 06<br>
+        RED / INK / PAPER
+      </div>
+    </footer>
+  </main>
+</body>
+</html>
