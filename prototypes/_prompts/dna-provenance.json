@@ -5047,7 +5047,7 @@
  {
   "id": "S31",
   "file": "S31-quiet-mid-grey-rulesheet/style.css",
-  "mechanism": "一条横向尺规把版面切成上中下三段：主刻度每 60px、长 34px、3px 宽，次刻度每 12px、长 12px、2px 宽，上下各一排共用两条贯穿基线——刻度既做读数骨架也顶掉图片的位置。",
+  "mechanism": "一条横向尺规把版面切成上中下三段：主刻度每 60px、长 34px、1.5px 宽，次刻度每 12px、长 12px、1px 宽，上下各一排共用两条贯穿基线——刻度既做读数骨架也顶掉图片的位置。",
   "claims": [
    {
     "raw": "60",
@@ -5110,8 +5110,8 @@
     ]
    },
    {
-    "raw": "3",
-    "n": 3,
+    "raw": "1.5",
+    "n": 1.5,
     "unit": "px",
     "kind": "len",
     "_dir": "S31-quiet-mid-grey-rulesheet",
@@ -5119,28 +5119,13 @@
     "displayOnly": false,
     "why": "CSS 里直接写着",
     "hintFile": null,
-    "hintLine": 261,
-    "hintText": "padding: 3px 8px;",
+    "hintLine": 113,
+    "hintText": "repeating-linear-gradient(to right, var(--ink) 0 1.5px, transparent 1.5px 60px);",
     "hits": [
      {
-      "line": 261,
-      "text": "padding: 3px 8px;",
+      "line": 113,
+      "text": "repeating-linear-gradient(to right, var(--ink) 0 1.5px, transparent 1.5px 60px);",
       "byComment": false
-     },
-     {
-      "line": 13,
-      "text": "* 但 depth-check 报 `contrast FAIL 1:1` 与 `grey-body WARN 3:1`。",
-      "byComment": true
-     },
-     {
-      "line": 15,
-      "text": "*   #7A756C + #1C1B19 = 3.76:1；#6E6A63 + #1C1B19 = 3.20:1；",
-      "byComment": true
-     },
-     {
-      "line": 19,
-      "text": "* 实测扫了一遍：#5F5B55（HSL 36/6/35，Lab 38.8，仍是中间明度）配 #DEDAD3 = 4.84:1，",
-      "byComment": true
      }
     ]
    },
@@ -5190,42 +5175,42 @@
     ]
    },
    {
-    "raw": "2",
-    "n": 2,
+    "raw": "1",
+    "n": 1,
     "unit": "px",
     "kind": "len",
     "_dir": "S31-quiet-mid-grey-rulesheet",
-    "status": "direct",
+    "status": "derived",
     "displayOnly": false,
-    "why": "CSS 里直接写着",
+    "why": "在注释里说明，生效值由别处推得",
     "hintFile": null,
-    "hintLine": 27,
-    "hintText": "所以分隔线一律用 2px 或用 --ink-soft 的 1px（4.84:1）*/",
+    "hintLine": 13,
+    "hintText": "* 但 depth-check 报 `contrast FAIL 1:1` 与 `grey-body WARN 3:1`。",
     "hits": [
      {
-      "line": 27,
-      "text": "所以分隔线一律用 2px 或用 --ink-soft 的 1px（4.84:1）*/",
-      "byComment": false
+      "line": 13,
+      "text": "* 但 depth-check 报 `contrast FAIL 1:1` 与 `grey-body WARN 3:1`。",
+      "byComment": true
      },
      {
-      "line": 565,
-      "text": ".case-list dt { padding-bottom: 2px; border-top: 1px solid var(--rule-strong); }",
-      "byComment": false
+      "line": 14,
+      "text": "* 查下来是**中间明度底色配深色文字在数学上不可能达 4.5:1**：",
+      "byComment": true
      },
      {
-      "line": 571,
-      "text": "机制的再发明形式：动效阶段刻度随滚动逐段加粗（1px → 2px）；",
-      "byComment": false
+      "line": 15,
+      "text": "*   #7A756C + #1C1B19 = 3.76:1；#6E6A63 + #1C1B19 = 3.20:1；",
+      "byComment": true
      },
      {
-      "line": 572,
-      "text": "reduce 时整条尺规一次性到 2px 满格，保留\"这里有一把尺\"这一事实，",
-      "byComment": false
+      "line": 16,
+      "text": "*   越深越糟（#4F4B42 + #1C1B19 = 1.98:1）。",
+      "byComment": true
      },
      {
-      "line": 581,
-      "text": "repeating-linear-gradient(to right, var(--ink) 0 2px, transparent 2px 12px),",
-      "byComment": false
+      "line": 19,
+      "text": "* 实测扫了一遍：#5F5B55（HSL 36/6/35，Lab 38.8，仍是中间明度）配 #DEDAD3 = 4.84:1，",
+      "byComment": true
      },
      {
       "line": 20,
