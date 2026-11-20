@@ -41,6 +41,73 @@ function loadScheme(id) {
   return (win.SCHEMES || []).find((s) => s.id === id);
 }
 
+/* ══ ④ 结构的两个纯函数 ═══════════════════════════════════════════════
+ *
+ * 抽出来只有一个理由：**让变异测试打进来**。
+ *
+ * 这两个判据上一版是内联在 score() 里的，于是它们既没法被自测打，也就没人
+ * 发现「26/35 案从未被检查」（见 _probe/79-measurement-layer-audit.md）。
+ * 本仓库对闸门的态度是：没有 --selftest 的闸门不算闸门。评分器不在
+ * quarter.mjs 的 11 条闸门里（合理，它要联网花钱），那就更要自带自测。
+ *
+ * 两个函数都不碰文件系统、不碰全局状态 —— 传进去什么就判什么。
+ */
+
+/* 条目：比 have（用户条数），不比 minItems（版式规模）。 */
+function judgeItems(prompt, html) {
+  const itemM = prompt.match(/这个版式设计时排了\s*(\d+)\s*个条目/);
+  if (!itemM) return null;
+  const haveM = prompt.match(/你手上有\s*(\d+)\s*条内容/);
+  const scale = Number(itemM[1]);
+  const expect = haveM ? Number(haveM[1]) : null;
+  const counts = {};
+  for (const tag of ['article', 'li', 'section', 'figure']) {
+    const n = (html.match(new RegExp('<' + tag + '[\\s>]', 'g')) || []).length;
+    if (n) counts[tag] = n;
+  }
+  return {
+    scale,
+    expect,
+    counts,
+    got: counts.article != null ? counts.article : null,
+    hit: expect != null && counts.article != null ? Math.abs(counts.article - expect) <= 1 : null,
+    note: expect == null ? '提示词没写用户条数（have=0 的路径），这一类跳过' : null,
+  };
+}
+
+/* 图片：三条句式，三条各自的合格线。 */
+function judgePictures(prompt, html) {
+  const imgs = (html.match(/<img[\s>]/g) || []).length;
+  const uniq = new Set(html.match(/src="[^"]*"/g) || []).size;
+
+  if (/本案是零图片设计/.test(prompt)) {
+    /* 零图设计的合格线是 0，**多了就是错** —— 与另外两条方向相反。 */
+    return { branch: 'zero', want: 0, got: imgs, uniq, hit: imgs === 0 };
+  }
+  const alt = prompt.match(/这个版式有\s*(\d+)\s*个图片位，但你只有\s*(\d+)\s*条内容/);
+  if (alt) {
+    const slots = Number(alt[1]);
+    const have = Number(alt[2]);
+    const need = Math.min(have, slots);
+    /* 合格线不是 slots：提示词允许空出来的位用留白顶上。
+     * 真正要判的是「放了的不能重复、不能超过位位数、不能少于 min(have,slots)」。
+     * 面积与比例这一层判不了（要真渲染），所以只报到数量层，不越权。 */
+    return {
+      branch: 'alt', want: need, slots, got: imgs, uniq,
+      hit: imgs <= slots && imgs === uniq && imgs >= need,
+      note: '空出来的位允许留白，合格线是 min(have, slots)；同一张图重复用算违规',
+    };
+  }
+  const minM = prompt.match(/至少要\s*(\d+)\s*个\*{0,2}不同的\*{0,2}图片位置/);
+  if (minM) {
+    const want = Number(minM[1]);
+    return { branch: 'strict', want, got: imgs, uniq, hit: imgs >= want && imgs === uniq };
+  }
+  /* 三条都不匹配 → 显式记"没判"。旧版静默不输出，于是"没判"和"通过"
+   * 在报告里长得一模一样。 */
+  return { branch: 'none', hit: null, got: imgs, uniq, note: '⚠️ 三种句式都没匹配到，这一类没判' };
+}
+
 function score(id) {
   const dir = join(BT, id);
   const htmlPath = join(dir, 'index.html');
@@ -195,27 +262,10 @@ function score(id) {
   out.geometry = geo;
 
   /* ── ④ 结构 ──────────────────────────────────────────────────────── */
-  const st = {};
-  const itemM = prompt.match(/这个版式设计时排了\s*(\d+)\s*个条目/);
-  if (itemM) {
-    /* 启发式：数 HTML 里重复出现最多的那类元素（li / article / section / .card…）。
-       只在"最相近的那个数"与提示词相差 ≤2 时算命中，否则记下来但不打分 ——
-       结构猜测不可靠，报数比报结论诚实。 */
-    const counts = {};
-    for (const tag of ['li', 'article', 'section', 'figure']) {
-      const n = (html.match(new RegExp('<' + tag + '[\\s>]', 'g')) || []).length;
-      if (n) counts[tag] = n;
-    }
-    const want = Number(itemM[1]);
-    const best = Object.entries(counts).sort((a, b) => Math.abs(a[1] - want) - Math.abs(b[1] - want))[0];
-    st.items = { want, counts, closest: best ? best[0] + '=' + best[1] : null, hit: best ? Math.abs(best[1] - want) <= 2 : false };
-  }
-  const picM = prompt.match(/至少要\s*(\d+)\s*个\*{0,2}不同的\*{0,2}图片位置/);
-  if (picM) {
-    const imgs = (html.match(/<img[\s>]/g) || []).length;
-    st.pictures = { want: Number(picM[1]), got: imgs };
-  }
-  out.structure = st;
+  out.structure = {
+    items: judgeItems(prompt, html),
+    pictures: judgePictures(prompt, html),
+  };
 
   /* ── ⑤ 禁项 ──────────────────────────────────────────────────────── */
   const banned = [];
@@ -234,11 +284,96 @@ function score(id) {
   return out;
 }
 
+/* ── 自测：变异测试 ────────────────────────────────────────────────────
+ *
+ * 这个评分器量的是北极星指标（复刻保真度），但它在 quarter.mjs 的 11 条闸门
+ * 之外（合理 —— 它要联网、花钱、慢）。于是它是本仓库唯一一把没人变异过的尺。
+ * 2026-11-21 实测它就犯了本仓库最老的病：26/35 案图片判据从未被检查，
+ * 而报告读出来是"全案通过"。
+ *
+ * 做法与 quarter.mjs 的其他 --selftest 一致：**把被测值改成不可能的值，
+ * 看判据会不会响**。只测纯函数，不碰文件系统、不联网。
+ *
+ *   node score.mjs --selftest
+ */
+function selfTest() {
+  const S = [];
+  const eq = (name, got, want) => S.push([name, JSON.stringify(got) === JSON.stringify(want), got, want]);
+
+  /* ── judgeItems ── 六条 */
+  const P19 = '1. 这个版式设计时排了 20 个条目——这是版式的规模，不是你的内容量。\n2. 你手上有 5 条内容，就排 5 条。';
+  /* 正常：5 条 → ✓（旧判据在这里会报 ✗，因为 5≠20） */
+  eq('items/照做5条算过', judgeItems(P19, '<article></article>'.repeat(5)).hit, true);
+  /* 变异 1：排了 20 条（照 minItems 排，是错的行为）→ 必须报 ✗ */
+  eq('items/按版式规模排20条算错', judgeItems(P19, '<article></article>'.repeat(20)).hit, false);
+  /* 变异 2：差 1 条 → 仍算过（边界差异不算缺陷） */
+  eq('items/差1条容差内', judgeItems(P19, '<article></article>'.repeat(6)).hit, true);
+  /* 变异 3：差 2 条 → 报 ✗ */
+  eq('items/差2条报错', judgeItems(P19, '<article></article>'.repeat(7)).hit, false);
+  /* 变异 4：没有 have 句 → 不下结论（null），不能默认通过 */
+  eq('items/无have时不下结论', judgeItems('这个版式设计时排了 7 个条目——这是版式的规模', '<article></article>'.repeat(7)).hit, null);
+  /* 变异 5：一个 article 都没有 → null，不能算 ✓ */
+  eq('items/零article不下结论', judgeItems(P19, '<section></section>'.repeat(5)).hit, null);
+
+  /* ── judgePictures ── strict 分支 */
+  const PSTRICT = '4. 版式里至少要 4 个**不同的**图片位置（不是4 个 img 标签就够——同一张图重复用不算）。';
+  eq('pics/strict恰好够', judgePictures(PSTRICT, '<img src="a"><img src="b"><img src="c"><img src="d">').hit, true);
+  eq('pics/strict少一张', judgePictures(PSTRICT, '<img src="a"><img src="b"><img src="c">').hit, false);
+  eq('pics/strict重复图算违规', judgePictures(PSTRICT, '<img src="a"><img src="a"><img src="a"><img src="a">').hit, false);
+
+  /* ── alt 分支：这是 74% 的案走的那一条，旧判据完全不认 ── */
+  const PALT = '4. 这个版式有 6 个图片位，但你只有 5 条内容：按你的内容放**不同的**真实图片，空出来的图片位改成留白或文字块。';
+  eq('pics/alt放满5张', judgePictures(PALT, '<img src="a"><img src="b"><img src="c"><img src="d"><img src="e">').hit, true);
+  /* 少放一张（4 < min(5,6)=5）→ ✗ */
+  eq('pics/alt少放一张', judgePictures(PALT, '<img src="a"><img src="b"><img src="c"><img src="d">').hit, false);
+  /* 用同一张图凑满 → ✗（提示词明写"不要用同一张图重复填满"） */
+  eq('pics/alt重复图凑数', judgePictures(PALT, '<img src="a"><img src="a"><img src="a"><img src="a"><img src="a">').hit, false);
+  /* 超过位位数 → ✗ */
+  eq('pics/alt超出位位数',
+    judgePictures(PALT, '<img src="a"><img src="b"><img src="c"><img src="d"><img src="e"><img src="f"><img src="g">').hit, false);
+  /* 老判据在这里返回 undefined（静默）—— 现在必须有明确的三态 */
+  eq('pics/alt分支被识别', judgePictures(PALT, '').branch, 'alt');
+
+  /* ── zero 分支 ── */
+  const PZERO = '4. 本案是零图片设计：整页不出现任何图片位，全用文字与色块承载，不要自己补图片。';
+  eq('pics/zero零图正确', judgePictures(PZERO, '<div></div>').hit, true);
+  /* ⚠️ 方向相反：零图设计里**多放一张就是错** */
+  eq('pics/zero多放一张算错', judgePictures(PZERO, '<img src="a">').hit, false);
+  eq('pics/zero分支被识别', judgePictures(PZERO, '').branch, 'zero');
+
+  /* ── none 分支：必须显式说"没判"，不能静默 ── */
+  eq('pics/三种句式都不匹配时明确报未判', judgePictures('随便一段没有图片约束的话', '').branch, 'none');
+  eq('pics/未判时hit必须是null', judgePictures('随便一段话', '').hit, null);
+
+  /* ── 反向：判据不能恒真也不能恒假 ──
+     如果某条判据对任何输入都给同一个答案，它就是坏的。
+     下面用同一份输入翻转一个变量，两次结果必须不同。 */
+  const flipA = judgePictures(PALT, '<img src="a"><img src="b"><img src="c"><img src="d"><img src="e">').hit;
+  const flipB = judgePictures(PALT, '<img src="a"><img src="a"><img src="a"><img src="a"><img src="a">').hit;
+  S.push(['变异/图片判据非恒真非恒假', flipA !== flipB, { flipA, flipB }, '两者不同']);
+  const itA = judgeItems(P19, '<article></article>'.repeat(5)).hit;
+  const itB = judgeItems(P19, '<article></article>'.repeat(20)).hit;
+  S.push(['变异/条目判据非恒真非恒假', itA !== itB, { itA, itB }, '两者不同']);
+
+  const bad = S.filter(([, ok]) => !ok);
+  for (const [name, ok, got, want] of S) {
+    console.log(`  ${ok ? '✓' : '✗'} ${name}`);
+    if (!ok) console.log(`      实得 ${JSON.stringify(got)}，期望 ${JSON.stringify(want)}`);
+  }
+  console.log(`\n自测：${S.length - bad.length}/${S.length} 通过`);
+  return bad.length === 0;
+}
+
 /* ── 输出 ──────────────────────────────────────────────────────────── */
 const arg = process.argv[2] || '--all';
+if (arg === '--selftest') {
+  console.log('=== 评分器自测（变异测试）===');
+  process.exit(selfTest() ? 0 : 1);
+}
 const ids = arg === '--all'
   ? readdirSync(BT, { withFileTypes: true }).filter((d) => d.isDirectory() && /^S\d{2}$/.test(d.name)).map((d) => d.name).sort()
   : [arg];
+const UNDECIDED = [];
 
 for (const id of ids) {
   const r = score(id);
@@ -266,15 +401,48 @@ for (const id of ids) {
     const mark = (ok) => (ok === null ? '–' : ok ? '✓' : '✗');
     console.log(`     字号   标题 ${g.maxTitle}px（要 ${g.wantTitleAbs}）${mark(g.titleOk)}　正文 ${g.body}px（要 ${g.wantBody}）${mark(g.bodyOk)}`);
   }
-  /* ④ */
+  /* ④
+   * ⚠️ 2026-11-21：这一段的写法有一条硬要求 ——
+   *   **「没判」必须有三态标记，不能和「通过」长得一样。**
+   * 旧版对没匹配上的分支静默不输出，于是第一轮报告读出来是"五类全过"，
+   * 而实际有两案没判。下面统一用 ✓ / ✗ / –（未判）三种，且 – 一律带原因。 */
+  const mark = (ok) => (ok === null || ok === undefined ? '–' : ok ? '✓' : '✗');
   if (r.structure.items) {
     const s = r.structure.items;
-    console.log(`  ④ 结构   想要 ${s.want} 条；最接近 ${s.closest}${s.hit ? ' ✓' : '（启发式，仅供参考）'}`);
+    if (s.expect == null) {
+      console.log(`  ④ 结构   条目 –（${s.note}）`);
+    } else {
+      console.log(`  ④ 结构   条目 应排 ${s.expect} 条（版式规模 ${s.scale}，不是目标）；HTML <article>=${s.got} ${mark(s.hit)}`
+        + (Object.keys(s.counts).length > 1 ? `　〔其他标签仅供参考：${Object.entries(s.counts).filter(([t]) => t !== 'article').map(([t, n]) => t + '=' + n).join(' ') || '无'}〕` : ''));
+    }
+  } else {
+    console.log(`  ④ 结构   条目 –（提示词里没有条目句）`);
   }
-  if (r.structure.pictures) {
+  {
     const s = r.structure.pictures;
-    console.log(`     图片   提示词要 ${s.want} 个位置；HTML 里 ${s.got} 个 img`);
+    if (!s || s.branch === 'none') {
+      console.log(`     图片   – ${s ? s.note : '没读到图片段'}`);
+    } else if (s.branch === 'zero') {
+      console.log(`     图片   零图设计，要求 0 个 img；实得 ${s.got} ${mark(s.hit)}`);
+    } else if (s.branch === 'alt') {
+      console.log(`     图片   版式 ${s.slots} 位 / 用户 ${s.want} 条 → 合格线 ${s.want}；实得 ${s.got} 个 img（唯一 src ${s.uniq}）${mark(s.hit)}`);
+    } else {
+      console.log(`     图片   要求 ≥${s.want} 个不同图片位；实得 ${s.got} 个 img（唯一 src ${s.uniq}）${mark(s.hit)}`);
+    }
+    /* 全案汇总用得上：把"未判"累计出来，免得又是"全绿"其实是"没跑"。 */
+    if (s && s.hit === null) UNDECIDED.push(`${id}/图片`);
   }
+  if (r.structure.items && r.structure.items.hit === null) UNDECIDED.push(`${id}/条目`);
   /* ⑤ */
   console.log(`  ⑤ 禁项   ${r.banned.length ? r.banned.map((b) => b.rule + '×' + b.hits).join('；') : '无违反'}`);
+}
+
+if (ids.length > 1) {
+  console.log(`\n${'─'.repeat(56)}`);
+  if (UNDECIDED.length) {
+    console.log(`⚠️ 未判 ${UNDECIDED.length} 项：${UNDECIDED.join('、')}`);
+    console.log('   （未判 ≠ 通过。这几项没有对应的判据，或判据没匹配上。）');
+  } else {
+    console.log('✓ 所有已跑案的五类判据都真正判过（没有"未判"项）');
+  }
 }

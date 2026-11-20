@@ -1978,7 +1978,20 @@
     var riskNote = "";
     if (riskyTopic || riskyCount) {
       var why = [];
-      if (riskyTopic) why.push("机制绑在特定题材上，换普通内容会退化");
+      /* ⚠️ 2026-11-21 修：这句话原来写的是「机制绑在特定题材上，换普通内容会退化」，
+       * 但 `hard` 的定义是**机制依赖 JavaScript**（见 app.js:876 / app.js:949 /
+       * prompt-copy.js:196 的 v0 分支，三处一致），不是"绑在特定题材上"——
+       * 那是 dna.reuse / scenesNo 描述的可迁移性问题，是两个不同的字段。
+       *
+       * 后果不是措辞问题：S21 是唯一「hard 但 degrades=no」的案（hard 4 案里
+       * S15/S18/S29 同时也 degrades=yes）。S21 的 why 数组原来只有那一句错话，
+       * 于是店主选 ChatGPT/Claude（默认路径，不加任何补充说明）时，
+       * 界面与提示词全文**没有一处**告诉他这案要 JS。只有选 v0 才看得到正确的句子。
+       * 详见 deliverables/78-northstar/_probe/79-measurement-layer-audit.md §九。
+       *
+       * 改后的句子要同时说清"为什么坏"和"坏在哪看不出来"，因为用户此刻的
+       * 决策是"要不要继续用这个案"，不是"要不要读技术细节"。 */
+      if (riskyTopic) why.push("签名机制要靠 JavaScript 才成立，剥掉脚本的工具有一半会把它做丢，而且页面看起来是对的");
       if (riskyCount) why.push("单元位置是手工排定的，内容少于 " + (s.minItems || "设计规模") + " 条会留洞");
       /* ── 尾句：把「这条路不存在」明说出来（2026-10-29，C 项）───────────────
        *

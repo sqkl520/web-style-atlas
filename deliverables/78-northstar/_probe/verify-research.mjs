@@ -54,6 +54,15 @@ const STEPS = [
   { id: '_revoked-claims', label: '作废声明检查', fail: true },
   { id: '_revoked-claims', args: ['--selftest'], label: '自测：作废声明检查', fail: true },
   { id: '_fact-index', label: '事实反向索引（只列不断言）', fail: false },
+  /* ⚠️ 2026-11-21 新增：评分器盲区。
+   * 上面十几项检查的都是"研究报告说得对不对"，没有一项检查
+   * **北极星指标的尺子本身**。而实测它当时对 26/35 案从未判过，
+   * 报告却读作"四案五类全过"。
+   * 这一项不判分（fail: false）—— 它报的是覆盖率的清单，
+   * 覆盖率低不等于错。但它必须每次都被打印出来。
+   * 加 `--id` 跑：node _scorer-blindspot.mjs */
+  { id: '../_blindtest/score', args: ['--selftest'], label: '自测：盲测评分器判据', fail: true },
+  { id: '_scorer-blindspot', label: '评分器覆盖率（不判分，只报）', fail: false },
 ];
 
 const results = [];
