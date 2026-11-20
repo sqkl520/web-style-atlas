@@ -108,6 +108,69 @@ function judgePictures(prompt, html) {
   return { branch: 'none', hit: null, got: imgs, uniq, note: '⚠️ 三种句式都没匹配到，这一类没判' };
 }
 
+/* 渐变受限：两版措辞都要认，且**认不出来时必须返回 null（未判）**。
+ *
+ * 这条判据的病史值得留着：它原来只认「允许渐变时只用相邻两级」，
+ * 而 prompt-copy.js:1276 早把措辞改成「只用同一色系里明度接近的两档」。
+ * 于是它对现行 35 份提示词永远为假 —— 一次都没执行过，
+ * 而输出显示"无违反"。这是第 5 类缺陷（闸门与被测物共享盲区）。
+ *
+ * ⚠️ 补完后立刻踩了第二个坑，记在这里：第一版补丁把
+ * 「出现 linear-gradient 就算违规」当成判据，跑出来 S19 报「渐变受限×2」。
+ * 去看那两处，写的是
+ *     linear-gradient(var(--paper-deep),var(--paper-deep)) left top/100% .4px
+ * ——**两端是同一个变量**，这是画 0.4px 细线的手法，根本不是颜色渐变。
+ * 而 S19 的提示词恰恰要求「只用同一色系里明度接近的两档」，
+ * 它用的 #E4DECD / #D8CFB6 正是同一色系相邻两档，**完全合规**。
+ * 旧判据漏判（措辞变了），我的新判据又误判（只看函数名）——
+ * 两次都是"量了错的信号"。所以现在按语义判：
+ */
+const STOP = new Set(['to', 'top', 'bottom', 'left', 'right', 'center', 'at', 'from', 'in', 'oklab', 'oklch', 'srgb', 'hsl', 'hwb', 'calc', 'var', 'deg', 'turn', 'rad']);
+function colorArgs(gradBody) {
+  /* 只取"像颜色"的片段：hex、rgb/rgba/hsl 函数、var(--x)、颜色关键字。
+     位置/角度/尺寸/color-mix 的百分比一律不算 —— 它们不构成颜色跨度。 */
+  const out = [];
+  const hex = gradBody.match(/#[0-9A-Fa-f]{3,8}/g) || [];
+  out.push(...hex.map((h) => h.toUpperCase()));
+  /* 每个 var(--x) 单独当一个颜色槽；同名的算同一个 */
+  const vars = [...gradBody.matchAll(/var\(\s*(--[\w-]+)/g)].map((m) => m[1]);
+  out.push(...vars);
+  const fns = gradBody.match(/\b(?:rgba?|hsla?|oklch|oklab|lab|lch)\([^)]*\)/g) || [];
+  out.push(...fns);
+  return out;
+}
+function isDecorativeLine(gradBody) {
+  /* 同色两端的 gradient = 画线，不是渐变。这只是**同色**判定，
+     不做"明度接近"的色差判定 —— 后者要写色彩空间换算，
+     会引入它自己的 bug（本仓库已因此放弃追 var() 展开）。 */
+  const c = colorArgs(gradBody);
+  if (c.length >= 2 && c.every((x) => x === c[0])) return true;
+  return false;
+}
+function scoreGradient(prompt, html) {
+  const css = (html.match(/<style[^>]*>([\s\S]*?)<\/style>/i) || ['', ''])[1] || '';
+  const wording = /允许渐变时只用相邻两级/.test(prompt) ? 'old'
+    : /只用\*{0,2}同一色系里明度接近的两档/.test(prompt) ? 'new'
+    : /不用渐变/.test(prompt) ? 'ban'
+    : null;
+  if (!wording) return { wording: null, hits: 0, decorative: 0 };
+  /* 逐个 gradient 取出函数体（简易括号配对，不追求通用 CSS 解析） */
+  const bodies = [];
+  const re = /(?:linear|radial|conic)-gradient\s*\(/g;
+  let m;
+  while ((m = re.exec(css))) {
+    let depth = 1, i = re.lastIndex, start = i;
+    while (i < css.length && depth > 0) {
+      if (css[i] === '(') depth++;
+      else if (css[i] === ')') depth--;
+      i++;
+    }
+    bodies.push(css.slice(start, i - 1));
+  }
+  const decorative = bodies.filter(isDecorativeLine).length;
+  return { wording, hits: bodies.length - decorative, decorative };
+}
+
 function score(id) {
   const dir = join(BT, id);
   const htmlPath = join(dir, 'index.html');
@@ -275,10 +338,18 @@ function score(id) {
     const n = (css.match(/box-shadow\s*:\s*(?!none)[^;}]+/g) || []).length;
     if (n) banned.push({ rule: '无阴影', hits: n });
   }
-  if (/允许渐变时只用相邻两级/.test(prompt) || /不用渐变/.test(prompt)) {
-    const n = (css.match(/(?:linear|radial|conic)-gradient\s*\(/g) || []).length;
-    if (n) banned.push({ rule: '渐变受限', hits: n });
-  }
+  /* ⚠️ 2026-11-21：这条判据原来只认「允许渐变时只用相邻两级」，而
+   * prompt-copy.js:1276 早在 S19 盲测之后就把那句改成了
+   * 「需要做渐变或纹理时只用**同一色系里明度接近的两档**」。
+   * 结果：现行 35 份提示词里 0 份含旧措辞 → 这个分支**一次都没执行过**，
+   * 而输出显示「⑤ 禁项 无违反」，读起来像"查过了"。
+   * 这是第 5 类缺陷（闸门与被测物共享盲区）。
+   * 已抽成 scoreGradient()，两版措辞都认，且认不出来时返回 null=未判。
+   * 详见证报告 _probe/79-measurement-layer-audit.md §十二。 */
+  const grad = scoreGradient(prompt, html);
+  if (grad.wording && grad.hits) banned.push({ rule: '渐变受限', hits: grad.hits, wording: grad.wording });
+  out.gradientChecked = grad.wording;
+  out.gradientDecorative = grad.decorative || 0;
   out.banned = banned;
 
   return out;
@@ -354,6 +425,33 @@ function selfTest() {
   const itA = judgeItems(P19, '<article></article>'.repeat(5)).hit;
   const itB = judgeItems(P19, '<article></article>'.repeat(20)).hit;
   S.push(['变异/条目判据非恒真非恒假', itA !== itB, { itA, itB }, '两者不同']);
+
+  /* ── ⑤ 渐变措辞：两版都要认，且一版都不认时必须报"未判" ──
+   * 这条判据曾经只认旧措辞，而代码早就改了措辞 → 一次都没执行过。 */
+  const gOld = '① 面积分配：…允许渐变时只用相邻两级之间的过渡。';
+  const gNew = '① 面积分配：…需要做渐变或纹理时只用**同一色系里明度接近的两档**，跨度不超过一档。';
+  const cssGrad = '<style>.a{background:linear-gradient(90deg,#000,#fff)}</style>';
+  eq('⑤/旧措辞能识别', scoreGradient(gOld, cssGrad).wording, 'old');
+  eq('⑤/新措辞能识别', scoreGradient(gNew, cssGrad).wording, 'new');
+  eq('⑤/两版都能抓到渐变', scoreGradient(gNew, cssGrad).hits, 1);
+  eq('⑤/无渐变时不误报', scoreGradient(gNew, '<style>.a{color:red}</style>').hits, 0);
+  /* ⚠️ 最关键的一条：措辞一版都不认时，必须返回 null（未判），不能返回 0（无违反） */
+  eq('⑤/措辞不认识时报未判而非无违反', scoreGradient('完全无关的一句话', cssGrad).wording, null);
+
+  /* ── 同色 gradient 必须被剔除 ──
+   * 这是 2026-11-21 的真实假阳性：S19 用
+   *   linear-gradient(var(--paper-deep),var(--paper-deep)) … /100% .4px
+   * 画 0.4px 细线，被第一版判据报成「渐变受限×2」。
+   * 判据只看函数名，不看它的两个颜色槽是不是同一个。 */
+  const lineGrad = '<style>.a{background:linear-gradient(var(--pd),var(--pd)) left top/100% .4px no-repeat}</style>';
+  eq('⑤/同色两端算画线不算渐变', scoreGradient(gNew, lineGrad).hits, 0);
+  eq('⑤/同色两端被计入 decorative', scoreGradient(gNew, lineGrad).decorative, 1);
+  /* 真的有颜色跨度的必须报 */
+  const realGrad = '<style>.a{background:linear-gradient(#E4DECD,#2C3034)}</style>';
+  eq('⑤/真渐变仍然报出', scoreGradient(gNew, realGrad).hits, 1);
+  /* var 两端不同变量 → 不知道颜色是否相同，按"可能是真渐变"报出来（宁可报） */
+  const diffVars = '<style>.a{background:linear-gradient(var(--a),var(--b))}</style>';
+  eq('⑤/不同变量的两端按真渐变处理', scoreGradient(gNew, diffVars).hits, 1);
 
   const bad = S.filter(([, ok]) => !ok);
   for (const [name, ok, got, want] of S) {
@@ -433,8 +531,13 @@ for (const id of ids) {
     if (s && s.hit === null) UNDECIDED.push(`${id}/图片`);
   }
   if (r.structure.items && r.structure.items.hit === null) UNDECIDED.push(`${id}/条目`);
-  /* ⑤ */
-  console.log(`  ⑤ 禁项   ${r.banned.length ? r.banned.map((b) => b.rule + '×' + b.hits).join('；') : '无违反'}`);
+  /* ⑤
+   * 渐变那条要显示"匹配到哪一版措辞"。如果一版都没匹配到，就是**没判**，
+   * 不能写成"无违反" —— 那正是这条判据过去几个月的样子。 */
+  const gradNote = r.gradientChecked === null ? '　〔渐变 – 未判：提示词不含任何一版渐变约束〕'
+    : r.gradientChecked === 'old' ? '　〔渐变按旧措辞判〕'
+    : (r.gradientDecorative ? `　〔已剔除 ${r.gradientDecorative} 处同色 gradient：那是画线，不是渐变〕` : '');
+  console.log(`  ⑤ 禁项   ${r.banned.length ? r.banned.map((b) => b.rule + '×' + b.hits).join('；') : '无违反'}${gradNote}`);
 }
 
 if (ids.length > 1) {
