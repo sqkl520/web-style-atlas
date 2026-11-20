@@ -90,6 +90,12 @@ const STEPS = [
    * "这个字段该不该到交付物里"**。这条闸门就是问这一句。
    * 详见 deliverables/78-northstar/_probe/79-measurement-layer-audit.md §十八。 */
   { id: 'check-prompt-fields', label: '字段是否到达提示词', kind: 'gate', script: join(B, 'check-prompt-fields.mjs') },
+  /* 2026-11-21 新增。`quirk`/`mechanism`/`reuse` 会把条目数写死，与结构段
+   * 「你手上有 N 条就排 N 条」打架。实测 S19 的怪癖说「第 240 张」，
+   * 而模型真的把 240 写进了产物页头（`_blindtest/S19/index.html:330`）。
+   * 只判"序数 > N"与"可流版面却声称固定总数"两种硬情况，其余只报不判。
+   * 见 deliverables/78-northstar/_probe/79-measurement-layer-audit.md §十九。 */
+  { id: 'check-prose-counts', label: '散文序数 vs 版式规模', kind: 'gate', script: join(B, 'check-prose-counts.mjs') },
 
   /* 自测：证明闸门不是恒真。这一组本身不判定产品状态，但它决定了
    * 上面那些绿是不是可信的 —— 所以它失败要单独标出来。 */
@@ -100,6 +106,7 @@ const STEPS = [
   { id: 'selftest-scenes', label: '自测：词表闸门', kind: 'gate', script: join(B, 'check-scenes.mjs'), args: ['--selftest'] },
   { id: 'selftest-prov', label: '自测：出处闸门', kind: 'gate', script: join(B, 'check-provenance.mjs'), args: ['--selftest'] },
   { id: 'selftest-prompt-fields', label: '自测：字段到达闸门', kind: 'gate', script: join(B, 'check-prompt-fields.mjs'), args: ['--selftest'] },
+  { id: 'selftest-prose-counts', label: '自测：散文序数闸门', kind: 'gate', script: join(B, 'check-prose-counts.mjs'), args: ['--selftest'] },
 
   { id: 'probe-ui', label: '运行时探针（真浏览器）', kind: 'slow', script: join(B, 'probe-ui.mjs') },
 ];
