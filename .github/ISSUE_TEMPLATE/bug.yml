@@ -1,0 +1,84 @@
+name: Bug 报告
+description: 脚本跑不通、锚点跳空、闸门计数与文中数字不符、文中路径与仓库结构不符
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        这个仓库把「什么算 bug」写得很具体，见 README 的「反馈与贡献」一节：
+
+        - 脚本跑不通
+        - 锚点跳空
+        - 闸门计数与文中数字不符
+        - 文中路径与仓库实际结构不符
+
+        如果是**风格方案本身的观感问题**（配色不好看、排版不喜欢），那是设计取舍，
+        不是 bug —— 每个案都经过逐案实测，改动它会让 20 多条闸门的基准失效。
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: 发生了什么
+      description: 一句话说清现象。如果有报错信息，原样贴上来，不要概括。
+      placeholder: 跑 node prototypes/_build/check-docs.mjs 之后它说 paths/exist 有 3 条路径不存在，但我 ls 过那些路径都在。
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期望 vs 实际
+      description: 你期望它怎样，实际它怎样。只写期望不算，两者都要写。
+      value: |
+        期望：
+        实际：
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: 复现步骤
+      description: |
+        请贴**可以直接复制运行**的命令和原始输出。这个仓库的判断靠数字，不靠描述。
+        如果涉及闸门，先跑一遍对应闸门的 --selftest，把结果也贴上 ——
+        它能区分"真的坏了"和"判据自己坏了"。
+      placeholder: |
+        1. node prototypes/_build/check-docs.mjs
+        2. 输出：...
+        3. node prototypes/_build/check-docs.mjs --selftest
+        4. 输出：...
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: 环境
+      description: 操作系统、Node 版本。截图相关的问题还要说浏览器版本（脚本用 CDP 驱动 Chrome/Edge）。
+      placeholder: |
+        OS: Windows 11
+        Node: v24.21.0
+        Browser: Chrome 140（仅截图相关的问题需要）
+    validations:
+      required: true
+
+  - type: input
+    id: commit
+    attributes:
+      label: 你测的是哪个提交
+      description: 输出 `git rev-parse --short HEAD` 的结果。不填的话没法判断是不是已经修了。
+      placeholder: 9386850
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: 提交前确认
+      options:
+        - label: 我跑了相关闸门的 `--selftest`，确认判据本身没坏
+          required: false
+        - label: 我在最新提交上验证过（不是几周前的克隆）
+          required: false

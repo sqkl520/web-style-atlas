@@ -30,7 +30,7 @@ npx serve . -l 8080                # or: python -m http.server 8080
 
 Works everywhere —— any browser, any static host, nothing to install.
 
-[See the proof](#see-the-proof-272-real-screenshots-on-one-bench) · [Install](#install-and-open-it-over-http) · [Content](#what-you-get-35-schemes-35-prototypes-3-templates) · [Mechanism](#how-this-atlas-is-built-four-hard-rules) · [Limits](#limitations-what-this-atlas-cannot-do)
+[See the proof](#see-the-proof-308-real-screenshots-on-one-bench) · [Install](#install-and-open-it-over-http) · [Content](#what-you-get-35-schemes-35-prototypes-3-templates) · [Mechanism](#how-this-atlas-is-built-four-hard-rules) · [Limits](#limitations-what-this-atlas-cannot-do)
 
 <br>
 
@@ -38,12 +38,12 @@ Works everywhere —— any browser, any static host, nothing to install.
 
 ---
 
-## See the proof: 272 real screenshots on one bench
+## See the proof: 308 real screenshots on one bench
 
 There is no GIF here, and nothing is borrowed from another project. What this repository can hand you is **a file you can open right now**.
 
 ```bash
-git ls-files "prototypes/S*/.inspect/*.jpg" | wc -l    # 272 real renders at three viewports
+git ls-files "prototypes/S*/.inspect/*.jpg" | grep -v '.thumb.' | wc -l    # 308 real renders at three viewports
 ```
 
 Start the server (next section) and open `prototypes/_selection/`:
@@ -154,7 +154,7 @@ Check your clone afterwards: `prototypes/_selection/index.html` opens, `prototyp
 
 **35 design schemes** —— not a colour skin but a complete **design argument**, written across 12 fields:
 a one-line visual definition, aesthetic family and references, a colour system (with area ratios and mood), a type strategy, layout and grid (with behaviour at three breakpoints), key visual elements, motion and interaction (with a reduced-motion fallback), anti-AI-cliché review points, risks and how they are avoided, suitable uses (plus what it is *not* for), implementation notes (with a performance budget), and one **signature quirk of the designer**.
-All 12 are **rendered in the selection bench** (30 of 30, not a sample); the "anti-AI-cliché review points" one is collapsed, because it is the longest and the most "written for a reviewer" —— how to open it is under [See the proof](#see-the-proof-272-real-screenshots-on-one-bench).
+All 12 are **rendered in the selection bench** (30 of 30, not a sample); the "anti-AI-cliché review points" one is collapsed, because it is the longest and the most "written for a reviewer" —— how to open it is under [See the proof](#see-the-proof-308-real-screenshots-on-one-bench).
 
 **35 runnable prototypes** —— real typography, real copy, real assets, real error states, real `prefers-reduced-motion` fallbacks.
 **29 pass the gate with FAIL = 0.** The 17 remaining failures in the 6 remaining scheme are listed one by one under [Limitations](#limitations-what-this-atlas-cannot-do).
@@ -231,7 +231,7 @@ Colour, type, breakpoints and the degradation path are **declared values**, not 
 node prototypes/_build/verify-prototype.mjs --all
 ```
 
-**Three: rendering is the last word, not decoration.** Every scheme is captured at 1440 / 768 / 390, and pixel statistics flag blank screens. The captures are the evidence: all **272** of them are in the repository and you can count them with `git ls-files`.
+**Three: rendering is the last word, not decoration.** Every scheme is captured at 1440 / 768 / 390, and pixel statistics flag blank screens. The captures are the evidence: all **308** of them are in the repository and you can count them with `git ls-files "prototypes/S*/.inspect/*.jpg" | grep -v '\.thumb\.' | wc -l` (plus 35 `.thumb.jpg` card thumbnails, derived, not counted).
 
 **Four: origin and correction live in separate files.** `_specs/Sxx.md` holds the pre-correction text; the currently valid colours, fonts and error codes are governed by **`_specs/_CURRENT-VALUES.md`** —— across several review rounds, more than twenty background colours, brand colours and typefaces were replaced. If anyone asks "how did you get this number", those two files together are the chain.
 
@@ -502,7 +502,7 @@ What counts as a bug: a script that will not run, an anchor that jumps nowhere, 
 Run these three commands first and paste the raw output:
 
 ```bash
-git ls-files "prototypes/S*/.inspect/*.jpg" | wc -l     # this README says 308
+git ls-files "prototypes/S*/.inspect/*.jpg" | grep -v '\.thumb\.' | wc -l     # this README says 308
 node prototypes/_build/verify-prototype.mjs --all        # this README says 29 schemes at FAIL = 0
 ls prototypes/_selection/                                # the bench + wizard files
 ```
@@ -566,9 +566,9 @@ In plain words: **take the code and the docs, use them, change them, ship them; 
 
 ## 中文
 
-**网站设计风格图集** —— 30 个网站设计风格方案，每个都配一个可直接打开、可运行的 HTML/CSS 原型；另有 3 个大众化模板、一张可筛选的选型台和一个五问选型向导。
+**网站设计风格图集** —— 35 个网站设计风格方案，每个都配一个可直接打开、可运行的 HTML/CSS 原型；另有 3 个大众化模板、一张可筛选的选型台和一个五问选型向导。
 
-纯静态：没有构建、没有后端、没有依赖安装。通过 HTTP 打开 `prototypes/_selection/`，35 个案子摊在一页，附 1440／768／390 三档真实渲染截图（**308 张**，`git ls-files "prototypes/S*/.inspect/*.jpg" | wc -l`）。
+Pure static: no build step, no backend, no dependency install. Open `prototypes/_selection/` over HTTP and all 35 schemes appear on one page with real renders at 1440 / 768 / 390 (**308 screenshots**, `git ls-files "prototypes/S*/.inspect/*.jpg" | grep -v '\.thumb\.' | wc -l`; another 35 `.thumb.jpg` are card thumbnails — derived, not counted).
 
 29 个原型机械闸门 FAIL=0。做不到的部分 —— 剩余 17 条 FAIL、底色同质（18/35 = 51% 落在暖浅色带）、`file://` 下 `mask-image` 失效、署名表不完整 —— 全部列在[做不到与已知边界](README.md#做不到与已知边界)。
 

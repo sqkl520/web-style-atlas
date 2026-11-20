@@ -63,6 +63,7 @@
 
 import { readFileSync, existsSync, readdirSync } from 'node:fs';
 import { join, isAbsolute } from 'node:path';
+import { execFileSync } from 'node:child_process';
 
 // 仓库根由脚本自身位置推得（模板 = check-stale.mjs:16；含 Windows 盘符修正与 39 §3-N10 的 decodeURIComponent）。
 const REAL_ROOT = decodeURIComponent(new URL('../..', import.meta.url).pathname).replace(/^\/([A-Za-z]:)/, '$1');
@@ -747,6 +748,41 @@ function readNum(raw) {
 
   if (problems.length) fail('nums/warn-axes', `警告口径与实测不符：${[...new Set(problems)].join('；')}（实测 hard=${F.hard.length}［${F.hard.join(' ')}］，degrades=${F.degrades.length}，并集=${F.warn.length}）`);
   else pass('nums/warn-axes', `警告两轴：hard ${F.hard.length} / degrades ${F.degrades.length} / 并集 ${F.warn.length}，文档口径一致`);
+
+  /* F 型 / R 型的计数与美学家族数（2026-11-05 加）。
+   *
+   * 【为什么加】实测 README 写「F 型 15 / R 型 15」「30 个美学家族」，
+   * 而 data.js 是 **16 / 19**、家族 **35**。三个数全错，且没有一个闸门看它。
+   * 这类数字最容易漂：方案从 30 扩到 35 时，正文的综合数字改了（35 个方案），
+   * 但这一句里的三个分项数没跟着改 —— 因为它们各自都是独立写死的。
+   *
+   * 【判据】从 data.js 现算 fr 分布与 family 去重数，再查文档里那两句。
+   * 只在文档确实写了这两个形态时才查（`F 型 15 / R 型 15` 与 `N 个美学家族`），
+   * 没写就跳过 —— 不强制文档必须提这两件事。 */
+  {
+    const frCount = { F: 0, R: 0 };
+    for (const r of SCHEMES) if (frCount[r.fr] !== undefined) frCount[r.fr]++;
+    const famCount = new Set(SCHEMES.map((r) => String(r.family || '').split('。')[0])).size;
+    const bad = [];
+    /* 只查当前这份文档（`src` 就是 DOC_ROOT 下 docName 的内容）。
+       中英两版由 i18n/facts 那条断言管一致性，这里不重复读第二个文件 ——
+       读法不同（DOC_ROOT 可被 --root 改）会让两处判据分叉。 */
+    {
+      const text = src;
+      /* 「F 型 15 / R 型 15」这种连写 */
+      const m = text.match(/F\s*型\s*(\d+)\s*\/\s*R\s*型\s*(\d+)/);
+      if (m) {
+        if (Number(m[1]) !== frCount.F || Number(m[2]) !== frCount.R) {
+          bad.push(`${docName} 写 F 型 ${m[1]} / R 型 ${m[2]}，实测 ${frCount.F} / ${frCount.R}`);
+        }
+      }
+      /* 「30 个美学家族」 */
+      const fam = text.match(/(\d+)\s*个\s*美学家族/);
+      if (fam && Number(fam[1]) !== famCount) bad.push(`${docName} 写 ${fam[1]} 个美学家族，实测 ${famCount}`);
+    }
+    if (bad.length) fail('nums/fr-family', `F/R 型与美学家族数不一致：${bad.join('；')}`);
+    else pass('nums/fr-family', `F 型 ${frCount.F} / R 型 ${frCount.R}，美学家族 ${famCount}，文档一致`);
+  }
 }
 
 // 2d 提示词字数区间
@@ -1068,6 +1104,63 @@ const DRIFT = 0.03;
     } else {
       pass('contrib/commands', `CONTRIBUTING 里 ${checkedCmds} 条 node 命令全部指向存在的脚本`);
     }
+  }
+
+  /* Issue 模板里引用的仓库路径必须存在（2026-11-05 加）。
+   *
+   * 规则 7.3：`.github/` 下的文件是陌生人判断「这个仓库是否被认真对待」的依据。
+   * 一个写着「格式参见 prototypes/_specs/ 下任意一案」却指不到东西的模板，
+   * 比没有模板更糟 —— 它教人按一个不存在的东西做。
+   *
+   * 判据：模板里每一处 `prototypes/…` 或 `_CONTRACT.md` 都要能 resolve 到真实文件/目录。
+   * 只查这两类前缀：模板里还会有 `https://` 链接与 `git`/`node` 命令，
+   * 那些的校验在 contrib/commands 与 paths/exist 里，不在这里重复。 */
+  {
+    const tplDir = join(REAL_ROOT, '.github/ISSUE_TEMPLATE');
+    if (!existsSync(tplDir)) {
+      warn('contrib/issue-templates', '没有 .github/ISSUE_TEMPLATE/ —— 这条断言没跑');
+    } else {
+      const tplFiles = readdirSync(tplDir).filter((f) => /\.ya?ml$/.test(f));
+      const bad = [];
+      let refs = 0;
+      for (const f of tplFiles) {
+        const text = readFileSync(join(tplDir, f), 'utf8');
+        for (const m of text.matchAll(/(prototypes\/[\w./_-]+|_CONTRACT\.md)/g)) {
+          /* 去掉行尾的标点（模板里常写成 `prototypes/_specs/` 后跟句号或中文标点） */
+          const p = m[1].replace(/[，。、）)]+$/, '');
+          refs++;
+          if (!existsSync(join(REAL_ROOT, p))) bad.push(`${f}: ${p}`);
+        }
+      }
+      if (bad.length) fail('contrib/issue-templates', `Issue 模板引用了不存在的路径：${[...new Set(bad)].join('；')}`);
+      else pass('contrib/issue-templates', `${tplFiles.length} 个 Issue 模板，${refs} 条仓库路径全部存在`);
+    }
+  }
+
+  /* 截图张数（2026-11-05 加）。
+   *
+   * 【为什么加】README 说「308 张真截图」，并给了一条 `git ls-files | wc -l`
+   * 让人自己数。而 2026-11-05 加了 35 个 `.thumb.jpg` 卡片缩略图之后，
+   * 那条命令返回 **343** —— 数字本身没错（308 是不含缩略图的真截图），
+   * 但**命令与正文对不上**，读者自己一数就会认为文档在撒谎。
+   *
+   * 【判据】按 README 现在的口径数：glob 到的 jpg 里排除 `.thumb.` 的。
+   * 两件事一起验：① 正文写的 308 与实测一致；② 正文引用的那条命令
+   * 如果缺 `grep -v` 就报警 —— 因为那条命令会给出另一个数。 */
+  {
+    const jpgs = execFileSync('git', ['ls-files', 'prototypes/S*/.inspect/*.jpg'], { cwd: REAL_ROOT, encoding: 'utf8' })
+      .split('\n').filter(Boolean);
+    const real = jpgs.filter((f) => !/\.thumb\./.test(f)).length;
+    const thumbs = jpgs.length - real;
+    const m = src.match(/`?(\d+)\s*张`?\s*(?:三档)?真实?渲染截图/);
+    const bad = [];
+    if (m && Number(m[1]) !== real) bad.push(`正文写 ${m[1]} 张，实测 ${real} 张（另有 ${thumbs} 个缩略图）`);
+    /* 正文里凡是 `git ls-files ... jpg" | wc -l` 这种命令，必须带 grep -v '.thumb.' */
+    for (const cm of src.matchAll(/git ls-files\s+"([^"]*\.jpg)"\s*\|\s*(?:grep[^|]*\|\s*)?wc -l/g)) {
+      if (!/grep/.test(cm[0])) bad.push('正文里的截图计数命令没排除 .thumb.jpg，会数出 ' + jpgs.length + ' 而不是 ' + real);
+    }
+    if (bad.length) fail('nums/shots', `截图张数或计数命令不一致：${bad.join('；')}`);
+    else pass('nums/shots', `真截图 ${real} 张（另有 ${thumbs} 个缩略图不计），正文与命令口径一致`);
   }
 
   // 模板编号存在性：`templates/M01` 这类

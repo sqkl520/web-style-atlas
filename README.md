@@ -4,7 +4,7 @@
 
 # 网站设计风格图集
 
-> *「30 个能跑的风格，不是 30 张配色图。」*
+> *「35 个能跑的风格，不是 35 张配色图。」*
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Schemes: 35](https://img.shields.io/badge/Schemes-35-blue)](#仓库里有什么)
@@ -43,7 +43,7 @@ npx serve . -l 8080                # 或者：python -m http.server 8080
 没有 GIF，也不借图。这里能给你的是**能当场点开的文件**。
 
 ```bash
-git ls-files "prototypes/S*/.inspect/*.jpg" | wc -l    # 308 张三档真实渲染截图
+git ls-files "prototypes/S*/.inspect/*.jpg" | grep -v '\.thumb\.' | wc -l   # 308 张三档真实渲染截图
 ```
 
 起个服务器（命令在下一节），然后打开 `prototypes/_selection/`：
@@ -159,7 +159,7 @@ git clone --depth 1 https://github.com/sqkl520/web-style-atlas.git
 **35 个可运行原型**——真排版、真文案、真素材、真错误状态、真 `prefers-reduced-motion` 降级。
 **29 个闸门 FAIL=0**。剩下 6 个的 17 条失败逐条列在[做不到与已知边界](#做不到与已知边界)。
 
-**F 型 15 / R 型 15**——F 型是有固定骨架的结构，访客 3 秒内知道先看哪、点哪；R 型靠一个物理机制组织内容。30 个美学家族**互不重复**。
+**F 型 16 / R 型 19**——F 型是有固定骨架的结构，访客 3 秒内知道先看哪、点哪；R 型靠一个物理机制组织内容。35 个美学家族**互不重复**。
 
 **3 个大众化模板**——独立的一层，规则和 30 案不同，豁免范围写进各自的 README。见[模板层](#模板层改-12-个变量就是一个站)。
 
@@ -230,7 +230,7 @@ templates/M01-clean-corporate/
 node prototypes/_build/verify-prototype.mjs --all
 ```
 
-**三、渲染是最后一道，不是装饰。** 每个案子在 1440／768／390 三档真截图，像素统计判空白屏。截图即取证，`308 张`全部在库里，可 `git ls-files` 数出来。
+**三、渲染是最后一道，不是装饰。** 每个案子在 1440／768／390 三档真截图，像素统计判空白屏。截图即取证，`308 张`全部在库里，可 `git ls-files "prototypes/S*/.inspect/*.jpg" | grep -v '\.thumb\.' | wc -l` 数出来。（另有 35 个 `.thumb.jpg` 是卡片缩略图，派生件，不计入 308。）
 
 **四、来源与修正分文件写。** `_specs/Sxx.md` 是修正前的原文，当前有效的色值／字体／错误码以 **`_specs/_CURRENT-VALUES.md`** 为准——跨若干轮审查后有二十多处背景色、主色和字体被替换过。想追溯"这个数你怎么算的"，两份文件相加就是链条。
 
@@ -499,12 +499,12 @@ grep -rEo '<a href="https?://[^"]+"' prototypes/S14-zero-g-launch-sequence/index
 提之前请先跑这三条复算命令，把原始输出贴上来：
 
 ```bash
-git ls-files "prototypes/S*/.inspect/*.jpg" | wc -l     # 文中写 308
+git ls-files "prototypes/S*/.inspect/*.jpg" | grep -v '\.thumb\.' | wc -l     # 文中写 308
 node prototypes/_build/verify-prototype.mjs --all        # 文中写 29 案 FAIL=0
 ls prototypes/_selection/                                 # 选型台 + 向导的文件
 ```
 
-什么算提案：新的美学家族要能说清它和已有 30 族里最接近的一族差在哪；说不清就不是新族，是皮肤。
+什么算提案：新的美学家族要能说清它和已有 35 族里最接近的一族差在哪；说不清就不是新族，是皮肤。
 提案请附一份 12 字段规格，别只附一张参考图。
 
 贡献代码不需要签 CLA；改动了 `_specs/` 或 `_CONTRACT.md` 请一并更新 `_CURRENT-VALUES.md`。
@@ -575,7 +575,7 @@ ls prototypes/_selection/                                 # 选型台 + 向导�
 
 **Web Style Atlas** — 30 website design schemes, each with a real, runnable HTML/CSS prototype, plus 3 mainstream templates, a filterable selection bench and a five-question wizard.
 
-Pure static: no build step, no backend, no dependency install. Open `prototypes/_selection/` over HTTP and all 35 schemes appear on one page with real renders at 1440 / 768 / 390 (**272 screenshots**, `git ls-files "prototypes/S*/.inspect/*.jpg" | wc -l`).
+纯静态：没有构建、没有后端、没有依赖安装。通过 HTTP 打开 `prototypes/_selection/`，35 个案子摊在一页，附 1440／768／390 三档真实渲染截图（**308 张**，`git ls-files "prototypes/S*/.inspect/*.jpg" | grep -v '\.thumb\.' | wc -l`；另有 35 个 `.thumb.jpg` 是卡片缩略图，派生件，不计入）。
 
 29 prototypes pass the mechanical gate with FAIL = 0. What this repository cannot do — 17 remaining gate failures, measured ground-colour homogeneity (18 / 35 = 51% in a warm pale band), the `file://` `mask-image` breakage, the incomplete photo attribution tables — is listed under [做不到与已知边界](#做不到与已知边界).
 

@@ -1,0 +1,79 @@
+name: 提案
+description: 新风格方案、工具链改进、文档结构建议
+title: "[提案] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **从问题出发，不要从「我要一个 X」出发。**
+
+        「加一个赛博朋克风格」不是提案，是愿望。有用的写法是：
+        你在什么场景下找不到能用的案，现有 35 个为什么都不合适。
+
+        新增一个风格方案的成本比看起来高得多：它要满足 `prototypes/_CONTRACT.md`
+        的约束、通过 `check-distribution.mjs` 的分布要求、跑通全部闸门，
+        还要在选型台上能被筛出来。所以请先讨论，再动手。
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: 你遇到的问题
+      description: |
+        描述具体场景。不要写"希望能有更多选择"这种话 ——
+        写你拿着什么内容、要给谁看、卡在哪个案上。
+      placeholder: |
+        我开的是家宠物殡葬服务，内容主要是服务流程、价格、和一些告别仪式的照片。
+        试了 S12（青柠挖空墙）和 S19（铜版标本柜），前者太活泼不合适，
+        后者偏学术但排不下照片。现有案里没有一个是「安静 + 有照片 + 不悲情」的组合。
+    validations:
+      required: true
+
+  - type: dropdown
+    id: kind
+    attributes:
+      label: 这是哪一类提案
+      options:
+        - 新的风格方案（会让图集从 35 变成 36）
+        - 工具链改进（闸门、生成脚本、截图取证）
+        - 选型台 / 向导的交互改进
+        - 文档结构或表述
+    validations:
+      required: true
+
+  - type: textarea
+    id: why-existing-fails
+    attributes:
+      label: 现有方案为什么不行（仅新增风格时需要）
+      description: |
+        说出**最接近的那一个**，以及它差在哪。
+        说不清就不是新族，是皮肤 —— 这条规则写在 README 的「反馈与贡献」里。
+
+        新增的案还要能通过分布检查：现在 35 个里有 18 个落在暖浅色带，
+        再加一个同色带的案不会让图集更好，只会让选择更难。
+    validations:
+      required: false
+
+  - type: textarea
+    id: spec
+    attributes:
+      label: 12 字段规格（仅新增风格时需要）
+      description: |
+        如果是要加新案，请附一份规格。格式参见 `prototypes/_specs/` 下任意一案。
+        最低要有：一句话视觉定义、美学家族与参考对象、版式规则、动效机制、
+        适用场景、不适合的场景、当前有效配色。
+
+        只附一张参考图不够 —— 图能说明"看起来像什么"，
+        但这个仓库的每个案都要求"能逐条写成可验收的约束"。
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: 提交前确认
+      options:
+        - label: 我看过现有 35 个方案，确认没有能直接用的
+          required: false
+        - label: 我知道新增方案需要同时满足契约约束和分布要求
+          required: false

@@ -20,6 +20,11 @@ If you want a new style scheme, please open an issue first — adding one has to
 satisfy the constraints in `_CONTRACT.md`, the distribution requirements in
 `check-distribution.mjs`, and pass every gate. It is not just "add a directory".
 
+Pick the matching template when you open one: **Bug report** (script fails,
+numbers disagree, a path does not exist) or **Proposal** (new scheme, toolchain
+improvement, docs). Both ask for copy-pasteable commands and raw output — the
+judgements in this repository are made on numbers, not on descriptions.
+
 ## Requirements
 
 - **Node 18+**
