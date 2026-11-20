@@ -1039,6 +1039,37 @@ const DRIFT = 0.03;
   else if (soft.length) warn('paths/exist', `${soft.length} 个路径只能按缩写/省略前缀解析（存在但写法不完整）：${soft.map((m) => m.v).slice(0, 6).join(' ')}`);
   else pass('paths/exist', `文档里 ${checked.length} 条仓库路径全部存在`);
 
+  /* CONTRIBUTING 里写的命令必须真实可跑（2026-11-05 加）。
+   *
+   * 规则 7.3 的话：「一个没有实际流程的 CONTRIBUTING 比没有这个文件更糟糕」。
+   * 本文本自身无法判断"命令跑起来对不对"，但至少能判断**脚本存在不存在** ——
+   * 路径写错、脚本被重命名、脚本被删，这三种都能在这里响。
+   *
+   * 判据收窄到 `node prototypes/...` 这一种写法：CONTRIBUTING 里还引用了
+   * `npm` 类命令（本项目没有）和 `git` 命令（不必验），混进来会误报。
+   * 只查 .mjs 结尾的，因为 .py 的调用方式与 .mjs 不同，混在一条断言里说不清。 */
+  {
+    const cbFiles = ['CONTRIBUTING.md', 'CONTRIBUTING-EN.md']
+      .map((f) => join(REAL_ROOT, f))
+      .filter((p) => existsSync(p));
+    const bad = [];
+    let checkedCmds = 0;
+    for (const p of cbFiles) {
+      const text = readFileSync(p, 'utf8');
+      for (const m of text.matchAll(/node\s+(prototypes\/[\w./-]+\.mjs)/g)) {
+        checkedCmds++;
+        if (!existsSync(join(REAL_ROOT, m[1]))) bad.push(m[1]);
+      }
+    }
+    if (!cbFiles.length) {
+      warn('contrib/commands', '找不到 CONTRIBUTING（中英任一）—— 这条断言没跑');
+    } else if (bad.length) {
+      fail('contrib/commands', `CONTRIBUTING 里引用了不存在的脚本：${[...new Set(bad)].join(' ')}（规则 7.3：写了命令就必须真能跑）`);
+    } else {
+      pass('contrib/commands', `CONTRIBUTING 里 ${checkedCmds} 条 node 命令全部指向存在的脚本`);
+    }
+  }
+
   // 模板编号存在性：`templates/M01` 这类
   const tplBad = [];
   for (const m of src.matchAll(/templates\/(M\d{2})/g)) {

@@ -456,6 +456,7 @@ A self-deprecating calibration: **this is an 80-point specimen library, not a 10
 .
 ├── index.html                  # redirects to the selection bench (entry point for static hosting)
 ├── README.md / README-EN.md    # bilingual, translated section by section
+├── CONTRIBUTING.md / -EN.md    # requirements, how to run the gates, PR flow
 ├── LICENSE
 ├── .nojekyll                   # must be kept (see Deployment, stage 2)
 ├── templates/                  # ★ the 3 mainstream templates (M01 / M02 / M03)
@@ -510,6 +511,9 @@ What counts as a proposal: a new aesthetic family has to name the closest of the
 Attach a 12-field specification, not a mood board.
 
 No CLA is required. If you change `_specs/` or `_CONTRACT.md`, update `_CURRENT-VALUES.md` in the same commit.
+
+**Requirements, how to run the gates, what to re-render after editing sources, and the PR flow** →
+[`CONTRIBUTING-EN.md`](CONTRIBUTING-EN.md) ([简体中文](CONTRIBUTING.md)).
 
 ## License and attribution: MIT covers code, not fonts or photos
 

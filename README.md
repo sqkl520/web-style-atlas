@@ -453,6 +453,7 @@ grep -rEo '<a href="https?://[^"]+"' prototypes/S14-zero-g-launch-sequence/index
 .
 ├── index.html                  # 跳转到选型台（给静态托管当入口）
 ├── README.md / README-EN.md    # 中英双语，逐节对译
+├── CONTRIBUTING.md / -EN.md    # 环境要求、闸门怎么跑、提 PR 流程
 ├── LICENSE
 ├── .nojekyll                   # 必须保留（见部署阶段 2）
 ├── templates/                  # ★ 3 个大众化模板（M01 / M02 / M03）
@@ -507,6 +508,9 @@ ls prototypes/_selection/                                 # 选型台 + 向导�
 提案请附一份 12 字段规格，别只附一张参考图。
 
 贡献代码不需要签 CLA；改动了 `_specs/` 或 `_CONTRACT.md` 请一并更新 `_CURRENT-VALUES.md`。
+
+**环境要求、闸门怎么跑、改了源文件之后要重渲什么、提 PR 的流程** →
+[`CONTRIBUTING.md`](CONTRIBUTING.md)（[English](CONTRIBUTING-EN.md)）。
 
 ## License 与署名：MIT，但三类素材不归它管
 
