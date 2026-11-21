@@ -80,6 +80,12 @@ const STEPS = [
    * 这一项按 check-prompts 已有的三态（hit/script/comment/absent）判，
    * 只报不判：阈值取决于每个案机制句自己写了多少。 */
   { id: '_mech-fidelity', label: '机制保真度（只报不判）', fail: false },
+  /* 2026-11-21 新增：两套「机制数值」实现的一致性。
+   * 「从 CSS 抽机制数值」有两套实现：check-prompts 的 mechSourceNumbers
+   * （判原型）与 mech-fidelity 的 declaredNumbers（判产物）。它们是照抄关系，
+   * 但照抄不是保证 —— 本仓库记过「同一组逻辑四份实现、同一个 bug 犯了四次」。
+   * 这一项用 11 个样本（含 opacity 归一与子串陷阱）逐样本比对两者。 */
+  { id: '_mech-impl-consistency', label: '机制数值两套实现一致', fail: true },
 ];
 
 const results = [];
