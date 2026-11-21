@@ -167,6 +167,37 @@ function isDecorativeLine(gradBody) {
     const hasTransparent = stops.some((m) => m[1].toLowerCase() === 'transparent');
     if (same && hasTransparent) return true;
   }
+
+  /* ⚠️ 2026-11-22 补第三种"画线"形态 —— 双色硬边条纹。
+   *
+   * 实测 S18 报「渐变受限×1」，那一处是
+   *   linear-gradient(to bottom, var(--phos) 0 3px, var(--bay) 3px 12px)
+   *
+   * 在 3px 处从磷光绿**瞬间**切到暗底色，没有过渡带 —— 画的是折页压痕 /
+   * 边孔（该案的机制句写的就是「两侧 8px 边条按 12px 孔距打 3px 孔」）。
+   *
+   * ⚠️ 解析这个语法踩了一次坑：CSS 允许**双位置**写法
+   *   `color <start> <end>`（这里 `var(--phos) 0 3px` 就是 0 到 3px）。
+   * 第一版正则要求「颜色 + 一个带单位的数值」，`0` 没有单位所以断了，
+   * 只抓到 1 个 stop，判据自然不命中。
+   * 现在允许颜色后面跟 1–2 个位置，每个位置带不带单位都收。
+   *
+   * 判据：相邻两个 stop 的**某个边界位置相同**且颜色不同 → 硬边切换。
+   * 对 `color 0 3px` / `color 3px 12px`，前者的 end=3 与后者的 start=3 重合。 */
+  const stopRe = /(transparent|#[0-9A-Fa-f]{3,8}|var\(--[\w-]+\))((?:\s+[\d.]+(?:px|%)?){1,2})/gi;
+  const cs = [];
+  for (const m of gradBody.matchAll(stopRe)) {
+    const ps = [...m[2].matchAll(/[\d.]+/g)].map((x) => parseFloat(x[0]));
+    cs.push({ c: m[1].toLowerCase(), positions: ps });
+  }
+  for (let i = 0; i + 1 < cs.length; i++) {
+    const a = cs[i], b = cs[i + 1];
+    if (a.c === b.c) continue;
+    /* a 的最后一个位置与 b 的第一个位置重合 → 硬边 */
+    const aEnd = a.positions.length ? a.positions[a.positions.length - 1] : null;
+    const bStart = b.positions.length ? b.positions[0] : null;
+    if (aEnd != null && bStart != null && Math.abs(aEnd - bStart) <= 0.01) return true;
+  }
   return false;
 }
 function scoreGradient(prompt, html) {
@@ -276,7 +307,41 @@ function judgeFontChain(prompt, html) {
       used.add(p);
     }
   }
-  const outside = [...used].filter((f) => !allowed.has(f) && !GENERIC_FAMILIES.has(f.toLowerCase()));
+  /* ── 三处收窄（2026-11-22，实测 S18 报「链外×4」而四处都不该报）────────
+   *
+   * ① **空格差异不算链外**。提示词写 `Glow Sans SC`，产物写 `GlowSansSC` ——
+   *    同一个字体的两种写法（Google Fonts 官方名与文件名两个形态）。
+   *    判据只认字面，于是报了。现在两边都去掉空格再比。
+   *
+   * ② **链尾的合理回退不算链外**。产物写
+   *      font-family: VT323, "Courier New", monospace
+   *    提示词给的等宽只有 `VT323`，但任何负责任的字体栈都会在后面补系统
+   *    等宽兜底 —— 提示词禁的是"**跳过链**回退成系统默认无衬线"
+   *    （一上来就用 Arial），不是禁止链尾兜底。
+   *    判据：只要每一组声明的**第一个**非 var() 字体在链上，整组就合规；
+   *    后续元素只做记录不判违规。
+   *
+   * ③ **手写/装饰字体放行**。S18 的 `.job-id .hand` 用
+   *      font-family: "Comic Sans MS", "Segoe Print", cursive
+   *    那是为了做「中间那位数字是手写笔迹」（该案的签名怪癖明确要求）。
+   *    这类字体不进主字体分工，只承担一个局部效果。
+   *
+   *    判断方式：**只在该组声明的第一个字体确实是手写类**时放行。
+   *    白名单收窄到这几个真实用来模拟手写的，不做"看起来像手写"的猜测。 */
+  const norm = (s) => s.replace(/\s+/g, '').toLowerCase();
+  const allowedNorm = new Set([...allowed].map(norm));
+  const HANDWRITING = new Set(['comic sans ms', 'segoe print', 'bradley hand', 'chalkboard', 'marker felt', 'brush script mt']);
+  const outside = [];
+  for (const d of decls) {
+    const parts = d.split(',').map((x) => x.trim().replace(/^["']|["']$/g, '')).filter((p) => p && !p.startsWith('var('));
+    if (!parts.length) continue;
+    /* ③ 整组是手写效果 */
+    if (HANDWRITING.has(parts[0].toLowerCase())) continue;
+    /* ② 只看第一个 */
+    const head = parts[0];
+    if (allowedNorm.has(norm(head)) || GENERIC_FAMILIES.has(head.toLowerCase())) continue;
+    outside.push(head);
+  }
   return {
     allowed: [...allowed],
     used: [...used],
@@ -757,8 +822,23 @@ function selfTest() {
   eq('⑤字体/通用回退不算违规',
     judgeFontChain(PFONT, '<style>.a{font-family:"Martian Mono",monospace}</style>').outside, []);
   /* 真链外要报 */
+  /* 真链外要报。用一款既不在链上、也不是手写/通用回退的字体。 */
   eq('⑤字体/真链外要报',
-    judgeFontChain(PFONT, '<style>.a{font-family:"Comic Sans MS"}</style>').outside, ['Comic Sans MS']);
+    judgeFontChain(PFONT, '<style>.a{font-family:"Papyrus"}</style>').outside, ['Papyrus']);
+  /* ⚠️ 2026-11-22 改：链尾回退不算违规，只看第一个非 var() 字体。
+   * 实测 S18 写 VT323, "Courier New", monospace —— Courier New 是兜底。
+   * 用 S18 的真实提示词片段，而不是 PFONT（那是 S01 的字体系）。 */
+  const PFONT18 = '2. 字体：标题按这个顺序取第一个可用的：Glow Sans SC → Songti SC → Georgia（前一个缺字就用下一个）。正文同理，按序取：Glow Sans SC → Songti SC → Georgia。编号/价格等数字用等宽 VT323、tabular-nums 右对齐。';
+  eq('⑤字体/链尾回退不算违规',
+    judgeFontChain(PFONT18, '<style>.a{font-family:VT323,"Courier New",monospace}</style>').outside, []);
+  eq('⑤字体/但首位链外仍要报',
+    judgeFontChain(PFONT18, '<style>.a{font-family:"Courier New",VT323}</style>').outside, ['Courier New']);
+  /* ⚠️ 2026-11-22 改：空格差异不算链外（Glow Sans SC vs GlowSansSC）。 */
+  eq('⑤字体/空格差异不算链外',
+    judgeFontChain(PFONT18, '<style>.a{font-family:GlowSansSC}</style>').outside, []);
+  /* 手写效果放行 */
+  eq('⑤字体/手写效果放行',
+    judgeFontChain(PFONT18, '<style>.a{font-family:"Comic Sans MS","Segoe Print",cursive}</style>').outside, []);
   /* 全走 var() → 未判，不能算通过 */
   eq('⑤字体/全 var() 时记未判',
     judgeFontChain(PFONT, '<style>.a{font-family:var(--f1)}.b{font-family:var(--f2)}</style>').undecided, true);
@@ -821,7 +901,16 @@ function selfTest() {
   eq('⑤/有过渡带的真渐变仍报', scoreGradient(gNew, softFade).hits, 1);
   /* 没有 transparent 的同位置 stop 不按画线处理（保守：宁可报） */
   const samePosNoTrans = '<style>.a{background:linear-gradient(#111 0px,#EEE 0px)}</style>';
-  eq('⑤/同位置无 transparent 仍报', scoreGradient(gNew, samePosNoTrans).hits, 1);
+  /* ⚠️ 2026-11-22 改：同位置双色现在是硬边（画线），不再算渐变。
+   * 实测 S18 的 linear-gradient(to bottom, phos 0 3px, bay 3px 12px)
+   * 就是这种双位置写法，在 3px 处硬切 —— 画的是折页压痕。 */
+  eq('⑤/同位置双色算硬边', scoreGradient(gNew, samePosNoTrans).hits, 0);
+  /* 但有过渡带的双色仍要报 */
+  const softTwo = '<style>.a{background:linear-gradient(#111 0px,#EEE 40px)}</style>';
+  eq('⑤/有间距的双色仍报', scoreGradient(gNew, softTwo).hits, 1);
+  /* 双位置写法（color start end）也要能解析 */
+  const dualPos = '<style>.a{background:linear-gradient(to bottom,var(--a) 0 3px,var(--b) 3px 12px)}</style>';
+  eq('⑤/双位置写法算硬边', scoreGradient(gNew, dualPos).hits, 0);
   /* 真的有颜色跨度的必须报 */
   const realGrad = '<style>.a{background:linear-gradient(#E4DECD,#2C3034)}</style>';
   eq('⑤/真渐变仍然报出', scoreGradient(gNew, realGrad).hits, 1);
