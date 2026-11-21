@@ -462,10 +462,38 @@ function judgeFontChain(prompt, html) {
     if (allowedNorm.has(norm(head)) || GENERIC_FAMILIES.has(head.toLowerCase())) continue;
     outside.push(head);
   }
+  /* ── ③ 字体**来源**（2026-11-22 加，渲染审计查出的 A 级缺陷）──────────
+   *
+   * 判据此前只查「font-family 里写的族名在不在提示词给的链上」——
+   * 那只能证明**字符串在**，证明不了**字体能加载**。
+   *
+   * 渲染审计（`_render-audit*.mjs`，真 Chrome + `CSS.getPlatformFontsForNode`）
+   * 实测：10/18 案的 h1 实际渲染字体完全没落在链上，而原型全部正确。
+   * 抽查源码：
+   *
+   *   S18 产物：@font-face{font-family:GlowSansSC;src:local("Glow Sans SC")}
+   *   S18 原型：<link rel="stylesheet" href="../_fonts/css/glow-sans-sc-s18__400-500.css">
+   *
+   * 原型自托管 woff2；产物只有 `src:local()` —— 依赖**本机恰好装了这款字体**。
+   * 6 案（S13 S15 S19 S21 S22 S24）连 `@font-face` / `@import` / `<link>` 都没有，
+   * 只写了个名字。
+   *
+   * 但注意：**提示词从不要求自托管字体**（全文 0 处提到 `@font-face` / woff /
+   * 字体文件）。它只说「按这个顺序取第一个可用的」。所以这不是产物"做错了"，
+   * 是**提示词没告诉 AI 字体从哪来**。所以这条记 `noSource` 而**不判违规**，
+   * 并显式标注它是未判 —— 判只有靠真渲染才准。
+   */
+  const hasFace = /@font-face/i.test(html);
+  const hasImport = /@import\s+url\([^)]*fonts|fonts\.googleapis/i.test(html);
+  const hasLink = /<link[^>]+(?:fonts\.googleapis|\.css)[^>]*>/i.test(html);
+  const localOnly = /src\s*:\s*local\(/i.test(html) && !/url\(/i.test((html.match(/@font-face\{[^}]*\}/gi) || []).join(''));
+  const fontSource = hasImport || hasLink ? 'remote' : hasFace ? (localOnly ? 'local-only' : 'embedded') : 'none';
+
   return {
     allowed: [...allowed],
     used: [...used],
     outside,
+    fontSource,
     /* 全部走变量 → 这条判不了。必须记下来，不能算通过。 */
     undecided: outside.length === 0 && used.size === 0 && varOnly > 0,
   };
@@ -719,7 +747,31 @@ function score(id, opts = {}) {
          而 S19 的众数是 22px（它有很多 18–22px 的小标题），
          于是报「正文 22px vs 要 16px ✗」—— 而它的 `body{font-size:16px}`
          就在那儿，**完全正确**。判据先信了一个间接信号，把直接信号扔了。 */
-      const bodyRule = html.match(/(?:^|\n)\s*body\s*\{([^}]*)\}/);
+      /* ⚠️ 2026-11-22：组合选择器 `html,\nbody { }` 要能匹配。
+       *
+       * 原正则 `(?:^|\n)\s*body\s*\{` 从行首匹配 `body`，遇到
+       *   html,
+       *   body { font-size:16px }
+       * 时 `body` 前面不是行首，于是**跳过了这条规则**，落到兜底取到 15px。
+       * 实测 S01：真实 `body{font-size:16px}` 就在 index.html:31-32，
+       * 渲染审计用真浏览器量出来是 **16px**，而判据报 15px。
+       *
+       * ⚠️ 前两版修法都错：
+       *   ① `[^{}]*,\s*` —— 把**前一个块**（`html { … }` 的尾巴）也吃进来；
+       *   ② `[^,{}]{0,40}\s*,\s*` —— 同样跨到了 `html {` 那个块。
+       * 根因是"从任意位置找 body"，而真正要的是「body 是某个选择器列表的一项」。
+       *
+       * 现在先把所有规则块切出来，再逐个看**选择器**里有没有独立的 `body` 项：
+       * 用 `(?:^|,)\s*body\s*(?:,|$)` 要求 body 是列表里的完整一项，
+       * 这样 `.not-body` / `bodyguard` 不会被误认。 */
+      let bodyPx2 = null;
+      for (const rb of html.matchAll(/([^{}]*)\{([^}]*)\}/g)) {
+        const sel = rb[1].split('\n').pop().trim() || rb[1].trim();
+        if (!/(?:^|,)\s*body\s*(?:,|$)/i.test(sel)) continue;
+        const fs2 = rb[2].match(/font-size\s*:\s*([^;}]+)/);
+        if (fs2) { bodyPx2 = pxOf(fs2[1]); break; }
+      }
+      const bodyRule = bodyPx2 != null ? [null, `font-size:${bodyPx2}px`] : null;
       const rootRule = html.match(/(?:^|\n)\s*:root\s*\{([^}]*)\}/);
       let bodyPx = 0;
       if (bodyRule) bodyPx = pxOf((bodyRule[1].match(/font-size\s*:\s*([^;}]+)/) || [])[1] || '');
@@ -1003,6 +1055,18 @@ function selfTest() {
   /* 手写效果放行 */
   eq('⑤字体/手写效果放行',
     judgeFontChain(PFONT18, '<style>.a{font-family:"Comic Sans MS","Segoe Print",cursive}</style>').outside, []);
+  /* ── 字体来源（2026-11-22 加，渲染审计查出的 A 级缺陷）──
+   * 族名在链上 ≠ 字体能加载。实测 10/18 案渲染时完全没落在链上。 */
+  const pure = '<style>.a{font-family:"Glow Sans SC"}</style>';
+  eq('⑤字体来源/无来源', judgeFontChain(PFONT18, pure).fontSource, 'none');
+  eq('⑤字体来源/仅 local()',
+    judgeFontChain(PFONT18, '<style>@font-face{font-family:G;src:local("Glow Sans SC")}</style>' + pure).fontSource, 'local-only');
+  eq('⑤字体来源/内嵌 url()',
+    judgeFontChain(PFONT18, '<style>@font-face{font-family:G;src:url(a.woff2)}</style>' + pure).fontSource, 'embedded');
+  eq('⑤字体来源/远程 link',
+    judgeFontChain(PFONT18, '<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=x">' + pure).fontSource, 'remote');
+  eq('⑤字体来源/@import 远程',
+    judgeFontChain(PFONT18, '<style>@import url(https://fonts.googleapis.com/css?family=x);</style>' + pure).fontSource, 'remote');
   /* 全走 var() → 未判，不能算通过 */
   eq('⑤字体/全 var() 时记未判',
     judgeFontChain(PFONT, '<style>.a{font-family:var(--f1)}.b{font-family:var(--f2)}</style>').undecided, true);
@@ -1291,7 +1355,11 @@ for (const id of ids) {
   const fcNote = !r.fontChain ? ''
     : r.fontChain.undecided ? '　〔字体链 – 未判：产物全用 var() 定义字体，不追展开〕'
     : r.fontChain.outside.length ? `　〔链外：${r.fontChain.outside.join(' ')}〕`
-    : `　〔字体 ${r.fontChain.used.length} 个，全在链上〕`;
+    /* 字体来源要单独报：族名在链上 ≠ 字体能加载。
+     * 实测 10/18 案渲染时完全没落在链上，而源码判据报"全在链上"。 */
+    : `　〔字体 ${r.fontChain.used.length} 个在链上；来源：${
+      { remote: '远程', embedded: '内嵌', 'local-only': '⚠仅 local()，依赖本机已装', none: '⚠无任何来源，只写了名字' }[r.fontChain.fontSource] || r.fontChain.fontSource
+    }〕`;
   /* 渐变明度跨度：没有可判的渐变时显示"未判"，不显示"通过"。 */
   const gsNote = !r.gradientSpan ? ''
     : r.gradientSpan.undecided ? '　〔明度跨度 – 未判：没有可解析两端色值的渐变〕'
