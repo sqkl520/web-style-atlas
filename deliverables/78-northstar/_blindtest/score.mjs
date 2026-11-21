@@ -193,10 +193,20 @@ function isDecorativeLine(gradBody) {
   for (let i = 0; i + 1 < cs.length; i++) {
     const a = cs[i], b = cs[i + 1];
     if (a.c === b.c) continue;
-    /* a 的最后一个位置与 b 的第一个位置重合 → 硬边 */
+    /* a 的最后一个位置与 b 的第一个位置重合 → 硬边。
+     *
+     * ⚠️ 容差从 0.01 放宽到 0.25（2026-11-22，实测 S29）。原例：
+     *   radial-gradient(circle at 26px 22px,
+     *     var(--paper) 0 4px, var(--ink) 4.1px 5.6px, var(--paper) 5.7px 9px)
+     * 4px → 4.1px 之间有 0.1px 间隔。这不是渐变，是**抗锯齿的故意重叠** ——
+     * 画圆点时留 0.1px 交叠可以避免浏览器采样出白边。
+     * 0.1px 在任何渲染尺度上都看不见，所以它仍然是硬边。
+     *
+     * 0.25px 是保守上界：真正的颜色过渡至少是几个 px 量级
+     * （提示词说的「相邻两档」在 16px 的色带上也有 4px 以上）。 */
     const aEnd = a.positions.length ? a.positions[a.positions.length - 1] : null;
     const bStart = b.positions.length ? b.positions[0] : null;
-    if (aEnd != null && bStart != null && Math.abs(aEnd - bStart) <= 0.01) return true;
+    if (aEnd != null && bStart != null && Math.abs(aEnd - bStart) <= 0.25) return true;
   }
   return false;
 }
@@ -911,6 +921,15 @@ function selfTest() {
   /* 双位置写法（color start end）也要能解析 */
   const dualPos = '<style>.a{background:linear-gradient(to bottom,var(--a) 0 3px,var(--b) 3px 12px)}</style>';
   eq('⑤/双位置写法算硬边', scoreGradient(gNew, dualPos).hits, 0);
+  /* ⚠️ 2026-11-22：抗锯齿的 0.1px 交叠仍是硬边。实测 S29 的圆点：
+   *   radial-gradient(circle at 26px 22px,
+   *     var(--paper) 0 4px, var(--ink) 4.1px 5.6px, var(--paper) 5.7px 9px)
+   * 4px → 4.1px 的间隔是故意留的，避免采样出白边，视觉上仍是硬边。 */
+  const aaGrad = '<style>.a{background:radial-gradient(circle at 26px 22px,var(--p) 0 4px,var(--i) 4.1px 5.6px)}</style>';
+  eq('⑤/抗锯齿交叠算硬边', scoreGradient(gNew, aaGrad).hits, 0);
+  /* 但超过容差的必须仍报（否则容差成了恒真） */
+  const realFade = '<style>.a{background:linear-gradient(#111 0px,#EEE 8px)}</style>';
+  eq('⑤/8px 间距仍算渐变', scoreGradient(gNew, realFade).hits, 1);
   /* 真的有颜色跨度的必须报 */
   const realGrad = '<style>.a{background:linear-gradient(#E4DECD,#2C3034)}</style>';
   eq('⑤/真渐变仍然报出', scoreGradient(gNew, realGrad).hits, 1);

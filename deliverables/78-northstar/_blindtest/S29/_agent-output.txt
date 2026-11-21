@@ -1,1 +1,875 @@
- 
+  <!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S29 修鞋与配钥匙作业规程</title>
+<style>
+:root {
+  --amber: #644F02;
+  --paper: #D9D3C4;
+  --ink: #1A1A17;
+  --gray: #5A6068;
+  --bright: #E4B400;
+  --row: #E0DACB;
+  --wire: 1.2px;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Noto Sans SC";
+  font-size: 16px;
+  line-height: 1.55;
+  cursor: none;
+}
+body::before {
+  content: "";
+  position: fixed;
+  z-index: 30;
+  top: 0;
+  left: 0;
+  width: 72px;
+  height: 100vh;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 26px 22px, var(--paper) 0 4px, var(--ink) 4.1px 5.6px, var(--paper) 5.7px 9px);
+  background-size: 72px 18px;
+  background-position: 0 4px;
+  border-right: 0.6px solid var(--gray);
+}
+body::after {
+  content: "";
+  position: fixed;
+  z-index: 31;
+  top: 0;
+  left: 25px;
+  width: 1.2px;
+  height: 100vh;
+  pointer-events: none;
+  background: var(--gray);
+}
+a { color: inherit; }
+button { font: inherit; }
+.page {
+  width: calc(100% - 72px);
+  margin-left: 72px;
+  overflow: hidden;
+}
+.mono,
+.number,
+.price,
+.part-no,
+table,
+.spec-value {
+  font-family: "Martian Mono";
+  font-variant-numeric: tabular-nums;
+}
+.topline {
+  min-height: 34px;
+  padding: 8px 5vw;
+  border-bottom: 1px solid var(--ink);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--gray);
+  font-family: "Martian Mono";
+  font-size: 11px;
+  letter-spacing: .08em;
+}
+.hero {
+  min-height: 680px;
+  padding: 7vh 5vw 8vh;
+  display: grid;
+  grid-template-columns: minmax(0, 1.18fr) minmax(280px, .82fr);
+  gap: 7vw;
+  align-items: end;
+  border-bottom: 2px solid var(--ink);
+}
+.kicker {
+  margin-bottom: 22px;
+  color: var(--amber);
+  font-family: "Martian Mono";
+  font-size: 12px;
+  letter-spacing: .11em;
+}
+h1, h2, h3 {
+  margin: 0;
+  font-family: "Saira Condensed", "Noto Sans SC";
+  font-weight: 700;
+  letter-spacing: -.035em;
+  line-height: .93;
+}
+h1 {
+  max-width: 780px;
+  font-size: clamp(52px, 7.3vw, 75px);
+  text-transform: uppercase;
+}
+.hero-copy {
+  max-width: 620px;
+  margin-top: 28px;
+  color: var(--gray);
+}
+.hero-meta {
+  align-self: stretch;
+  border-left: 3px solid var(--amber);
+  padding: 18px 0 0 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.meta-label {
+  color: var(--gray);
+  font-family: "Martian Mono";
+  font-size: 11px;
+  letter-spacing: .08em;
+}
+.meta-value {
+  margin-top: 5px;
+  font-family: "Martian Mono";
+  font-size: clamp(28px, 4vw, 48px);
+  line-height: 1;
+}
+.call-button {
+  width: 100%;
+  min-height: 66px;
+  margin-top: 28px;
+  padding: 15px 18px;
+  border: 2px solid var(--ink);
+  background: var(--bright);
+  color: var(--ink);
+  text-decoration: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Martian Mono";
+  font-size: 13px;
+  letter-spacing: .04em;
+  transition: background 100ms linear, color 100ms linear;
+}
+.call-button:hover { background: var(--amber); color: var(--paper); }
+.index {
+  position: sticky;
+  z-index: 10;
+  top: 0;
+  min-height: 48px;
+  padding: 0 5vw;
+  border-bottom: 1px solid var(--ink);
+  background: var(--paper);
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+}
+.index a {
+  min-width: 110px;
+  padding: 14px 16px 11px;
+  border-right: 0.6px solid var(--gray);
+  color: var(--gray);
+  text-decoration: none;
+  font-family: "Martian Mono";
+  font-size: 11px;
+  transition: color 100ms linear, background 100ms linear;
+}
+.index a:first-child { border-left: 0.6px solid var(--gray); }
+.index a.active,
+.index a:hover { color: var(--ink); background: var(--row); }
+.chapter {
+  position: relative;
+  padding: 86px 5vw 96px;
+  border-bottom: 1px solid var(--ink);
+}
+.chapter-grid {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  gap: 24px;
+}
+.chapter-no {
+  padding-top: 5px;
+  color: var(--amber);
+  font-family: "Martian Mono";
+  font-size: 14px;
+  writing-mode: vertical-rl;
+  letter-spacing: .1em;
+}
+.chapter-head {
+  display: grid;
+  grid-template-columns: minmax(220px, .7fr) minmax(280px, 1fr);
+  gap: 7vw;
+  align-items: start;
+  margin-bottom: 54px;
+}
+.chapter h2 {
+  font-size: clamp(38px, 5vw, 62px);
+  text-transform: uppercase;
+}
+.chapter-lead {
+  max-width: 560px;
+  color: var(--gray);
+  border-left: 1px solid var(--amber);
+  padding-left: 18px;
+}
+.warning {
+  position: relative;
+  overflow: hidden;
+  margin: 0 0 50px;
+  padding: 18px 22px;
+  border: 2px solid var(--amber);
+  background-color: var(--bright);
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+.warning::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(45deg, var(--amber) 0 8px, var(--bright) 8px 16px);
+  opacity: .18;
+  mix-blend-mode: multiply;
+  transition: transform 160ms linear;
+}
+.warning:hover::before { transform: translate(8px, 8px); }
+.warning > * { position: relative; z-index: 1; }
+.warning-mark {
+  min-width: 36px;
+  height: 36px;
+  border: 2px solid var(--ink);
+  display: grid;
+  place-items: center;
+  font-family: "Martian Mono";
+  font-weight: 700;
+}
+.warning strong {
+  display: block;
+  margin-bottom: 4px;
+  font-family: "Martian Mono";
+  font-size: 12px;
+  letter-spacing: .08em;
+}
+.warning p { margin: 0; }
+.content-split {
+  display: grid;
+  grid-template-columns: minmax(0, .9fr) minmax(300px, 1.1fr);
+  gap: 6vw;
+  align-items: start;
+}
+.content-split.reverse { grid-template-columns: minmax(300px, 1.1fr) minmax(0, .9fr); }
+.image-frame {
+  margin: 0;
+  border: 1px solid var(--ink);
+  background: var(--row);
+}
+.image-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  filter: grayscale(1) sepia(.18) contrast(1.08);
+}
+.image-frame figcaption {
+  min-height: 38px;
+  padding: 8px 12px;
+  border-top: 1px solid var(--ink);
+  display: flex;
+  justify-content: space-between;
+  color: var(--gray);
+  font-family: "Martian Mono";
+  font-size: 10px;
+}
+.procedure {
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--ink);
+}
+.procedure-item {
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  gap: 16px;
+  padding: 17px 0;
+  border-bottom: 0.6px solid var(--gray);
+}
+.procedure-item .number { color: var(--amber); font-size: 12px; }
+.procedure-item strong { display: block; margin-bottom: 4px; }
+.procedure-item p { margin: 0; color: var(--gray); }
+.image-stack {
+  display: grid;
+  grid-template-columns: 1.15fr .85fr;
+  gap: 18px;
+  align-items: end;
+}
+.image-stack .image-frame:first-child { margin-top: 44px; }
+.image-stack .image-frame img { aspect-ratio: 3 / 4; }
+.image-stack .image-frame:last-child img { aspect-ratio: 1 / 1; }
+.diagram {
+  border: 1px solid var(--ink);
+  background: var(--paper);
+  padding: 16px;
+}
+.diagram svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 290px;
+}
+.diagram line,
+.diagram polyline,
+.diagram rect,
+.diagram circle {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: .6px;
+  vector-effect: non-scaling-stroke;
+  transition: stroke-width 120ms linear;
+}
+.diagram .axis { stroke: var(--gray); stroke-dasharray: 3 5; }
+.diagram text {
+  fill: var(--ink);
+  stroke: none;
+  font-family: "Martian Mono";
+  font-size: 11px;
+}
+.diagram .part { cursor: pointer; }
+.diagram .part:hover line,
+.diagram .part:hover polyline,
+.diagram .part:hover rect,
+.diagram .part:hover circle {
+  stroke-width: 1.2px;
+}
+.diagram-label {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid var(--ink);
+  padding-top: 10px;
+  color: var(--gray);
+  font-family: "Martian Mono";
+  font-size: 10px;
+}
+.spec-wrap {
+  margin: 18px -96px 0 0;
+  border-top: 2px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+}
+.spec-title {
+  padding: 12px 14px;
+  background: var(--amber);
+  color: var(--paper);
+  font-family: "Martian Mono";
+  font-size: 12px;
+  letter-spacing: .08em;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+th, td {
+  padding: 13px 14px;
+  border-bottom: 0.6px solid var(--gray);
+  text-align: left;
+  white-space: nowrap;
+}
+th {
+  color: var(--gray);
+  font-size: 10px;
+  font-weight: 400;
+}
+td:not(:first-child), th:not(:first-child) { text-align: right; }
+tbody tr { transition: background 100ms linear; }
+tbody tr:hover, tbody tr.flash { background: var(--row); }
+.ghost-row td { height: 42px; color: var(--paper); }
+.price-block {
+  margin-top: 42px;
+  padding: 20px 0 0;
+  border-top: 1px solid var(--ink);
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+}
+.price-label { color: var(--gray); }
+.price { font-size: 28px; }
+.booking-grid {
+  display: grid;
+  grid-template-columns: 1.25fr .75fr;
+  gap: 7vw;
+  align-items: start;
+}
+.booking-note {
+  max-width: 630px;
+  color: var(--gray);
+  font-size: 18px;
+}
+.contact-box {
+  border: 2px solid var(--ink);
+  padding: 22px;
+}
+.contact-box dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 9px 18px;
+  font-family: "Martian Mono";
+  font-size: 12px;
+}
+.contact-box dt { color: var(--gray); }
+.contact-box dd { margin: 0; text-align: right; }
+.footer {
+  padding: 26px 5vw 38px;
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  color: var(--gray);
+  font-family: "Martian Mono";
+  font-size: 10px;
+}
+.cursor-wrench {
+  position: fixed;
+  z-index: 100;
+  width: 24px;
+  height: 24px;
+  pointer-events: none;
+  transform: translate(-4px, -4px) rotate(-38deg);
+}
+.cursor-wrench::before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 5px;
+  width: 4px;
+  height: 17px;
+  border: 1.2px solid var(--ink);
+  background: var(--bright);
+}
+.cursor-wrench::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 1px;
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--ink);
+  background: var(--paper);
+  clip-path: polygon(0 0, 100% 0, 100% 35%, 65% 35%, 65% 100%, 35% 100%, 35% 35%, 0 35%);
+}
+.js-ready .chapter,
+.js-ready .hero-meta,
+.js-ready .warning,
+.js-ready .content-split,
+.js-ready .booking-grid {
+  opacity: 0;
+  transform: translateY(12px);
+}
+.js-ready .chapter.revealed,
+.js-ready .hero-meta.revealed,
+.js-ready .warning.revealed,
+.js-ready .content-split.revealed,
+.js-ready .booking-grid.revealed {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 240ms linear, transform 240ms linear;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 120ms !important;
+  }
+  .js-ready .chapter,
+  .js-ready .hero-meta,
+  .js-ready .warning,
+  .js-ready .content-split,
+  .js-ready .booking-grid {
+    opacity: 1;
+    transform: none;
+  }
+  .warning:hover::before { transform: none; }
+}
+@media (max-width: 850px) {
+  body::before, body::after { display: none; }
+  body { cursor: auto; }
+  .cursor-wrench { display: none; }
+  .page { width: 100%; margin-left: 0; }
+  .hero,
+  .chapter-head,
+  .content-split,
+  .content-split.reverse,
+  .booking-grid {
+    grid-template-columns: 1fr;
+  }
+  .hero { min-height: auto; gap: 48px; }
+  .hero-meta { min-height: 260px; }
+  .index { overflow-x: auto; }
+  .index a { min-width: 94px; }
+  .image-stack { grid-template-columns: 1fr 1fr; }
+  .spec-wrap { margin-right: -5vw; }
+}
+@media (max-width: 560px) {
+  .topline { padding: 8px 5vw; }
+  .topline span:last-child { display: none; }
+  .hero, .chapter { padding-left: 5vw; padding-right: 5vw; }
+  .chapter-grid { grid-template-columns: 1fr; gap: 20px; }
+  .chapter-no { writing-mode: horizontal-tb; }
+  .image-stack { grid-template-columns: 1fr; }
+  .image-stack .image-frame:first-child { margin-top: 0; }
+  .spec-wrap { margin-right: -5vw; overflow-x: auto; }
+  table { min-width: 620px; }
+  .footer { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+<div class="cursor-wrench" aria-hidden="true"></div>
+
+<main class="page">
+  <div class="topline">
+    <span>S29 / 现场服务规程</span>
+    <span>REV. 04 · 1987 / 维修柜台版</span>
+  </div>
+
+  <header class="hero" id="top">
+    <div>
+      <div class="kicker">01 / 接收与预约 · SERVICE INTAKE</div>
+      <h1>鞋底、钥匙、<br>按规程处理。</h1>
+      <p class="hero-copy">
+        先确认故障，再安排时间。修鞋与配钥匙不是临时手艺，是一套可复核的柜台作业。
+        每一件交付物都挂在编号上，电话预约从这里开始。
+      </p>
+    </div>
+    <aside class="hero-meta">
+      <div>
+        <div class="meta-label">营业状态 / COUNTER STATUS</div>
+        <div class="meta-value">OPEN / 09—18</div>
+      </div>
+      <div>
+        <div class="meta-label">作业编号 / JOB CODE</div>
+        <div class="meta-value">S29—023</div>
+        <a class="call-button" href="tel:010-6487-2307">
+          <span>电话预约</span>
+          <span>010—6487—2307 ↗</span>
+        </a>
+      </div>
+    </aside>
+  </header>
+
+  <nav class="index" aria-label="章节索引">
+    <a href="#ch01" data-section="ch01">01 接收</a>
+    <a href="#ch02" data-section="ch02">02 判断</a>
+    <a href="#ch03" data-section="ch03">03 修鞋</a>
+    <a href="#ch04" data-section="ch04">04 配钥匙</a>
+    <a href="#ch05" data-section="ch05">05 交付</a>
+  </nav>
+
+  <section class="chapter" id="ch01">
+    <div class="chapter-grid">
+      <div class="chapter-no">CH—01</div>
+      <div>
+        <div class="chapter-head">
+          <h2>接收<br>登记</h2>
+          <p class="chapter-lead">
+            来件先入册。鞋面材质、钥匙胚型、客户要求，全部写在同一张工作单上。
+            不凭印象开工，不把编号留在口头。
+          </p>
+        </div>
+        <div class="warning">
+          <div class="warning-mark">!</div>
+          <div>
+            <strong>警示 / WARNING 01</strong>
+            <p>未确认原件状态，不得承诺完成时间。电话预约只锁定时间段，不替代现场判断。</p>
+          </div>
+        </div>
+        <div class="content-split">
+          <figure class="image-frame">
+            <img src="images/占位-1.jpg" width="1200" height="900" alt="柜台上的鞋件与登记单">
+            <figcaption><span>图 01 / 接收台</span><span>REF—01</span></figcaption>
+          </figure>
+          <div class="procedure">
+            <div class="procedure-item">
+              <span class="number">01</span>
+              <div><strong>说明要做什么</strong><p>鞋底脱胶、跟面磨损、钥匙复制或其他现场问题，使用客户原话记录。</p></div>
+            </div>
+            <div class="procedure-item">
+              <span class="number">02</span>
+              <div><strong>确认交付窗口</strong><p>常规项目按现场排程处理；复杂项目先检查，再回拨确认。</p></div>
+            </div>
+            <div class="procedure-item">
+              <span class="number">03</span>
+              <div><strong>挂上工作编号</strong><p>工作单、待修件、价格确认单使用同一串编号，不拆分。</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="chapter" id="ch02">
+    <div class="chapter-grid">
+      <div class="chapter-no">CH—02</div>
+      <div>
+        <div class="chapter-head">
+          <h2>现场<br>判断</h2>
+          <p class="chapter-lead">
+            先找受力点，再决定工序。硬材料不靠猜，软材料不靠拉。
+            能当场确认的项目，当场给出范围；不能确认的项目，不给虚假数字。
+          </p>
+        </div>
+        <div class="content-split reverse">
+          <div class="image-stack">
+            <figure class="image-frame">
+              <img src="images/占位-2.jpg" width="900" height="1200" alt="鞋底磨损检查">
+              <figcaption><span>图 02 / 鞋底检查</span><span>REF—07</span></figcaption>
+            </figure>
+            <figure class="image-frame">
+              <img src="images/占位-3.jpg" width="900" height="900" alt="钥匙胚型检查">
+              <figcaption><span>图 03 / 胚型识别</span><span>REF—11</span></figcaption>
+            </figure>
+          </div>
+          <div>
+            <div class="procedure">
+              <div class="procedure-item"><span class="number">04</span><div><strong>观察磨损边界</strong><p>边缘翘起、裂缝扩大、鞋跟偏磨，分别进入不同处理路径。</p></div></div>
+              <div class="procedure-item"><span class="number">05</span><div><strong>核对钥匙槽形</strong><p>只以原件和胚型表为依据。齿位不清时，先停止复制。</p></div></div>
+              <div class="procedure-item"><span class="number">06</span><div><strong>记录异常</strong><p>记录缺口、变形、旧胶残留与锁芯阻滞，交付时一并说明。</p></div></div>
+            </div>
+            <div class="price-block">
+              <span class="price-label">常规项目起价 / FROM</span>
+              <span class="price">¥30.00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="chapter" id="ch03">
+    <div class="chapter-grid">
+      <div class="chapter-no">CH—03</div>
+      <div>
+        <div class="chapter-head">
+          <h2>修鞋<br>工序</h2>
+          <p class="chapter-lead">
+            剥离、清洁、定位、压合。每一步都要让下一步有可见的基准。
+            胶水不是遮盖物，缝线不是装饰物，受力必须回到鞋底结构。
+          </p>
+        </div>
+        <div class="warning">
+          <div class="warning-mark">02</div>
+          <div>
+            <strong>警示 / WARNING 02</strong>
+            <p>鞋底潮湿或旧胶未清除时，禁止进入压合工序。表面平整不代表粘接合格。</p>
+          </div>
+        </div>
+        <div class="content-split">
+          <div>
+            <div class="diagram" aria-label="修鞋工序爆炸图">
+              <svg viewBox="0 0 620 330" role="img">
+                <line class="axis" x1="22" y1="165" x2="598" y2="165"></line>
+                <g class="part" data-part="07" tabindex="0">
+                  <polyline points="58,140 140,140 166,165 140,190 58,190 82,165"></polyline>
+                  <text x="64" y="120">07</text>
+                </g>
+                <g class="part" data-part="08" tabindex="0">
+                  <line x1="188" y1="115" x2="188" y2="215"></line><line x1="204" y1="115" x2="204" y2="215"></line>
+                  <text x="184" y="95">08</text>
+                </g>
+                <g class="part" data-part="09" tabindex="0">
+                  <rect x="232" y="135" width="78" height="60"></rect><line x1="248" y1="135" x2="248" y2="195"></line>
+                  <text x="258" y="115">09</text>
+                </g>
+                <g class="part" data-part="10" tabindex="0">
+                  <polyline points="338,125 382,125 405,145 405,185 382,205 338,205"></polyline>
+                  <text x="358" y="105">10</text>
+                </g>
+                <g class="part" data-part="11" tabindex="0">
+                  <line x1="438" y1="125" x2="438" y2="205"></line><line x1="456" y1="125" x2="456" y2="205"></line><line x1="474" y1="125" x2="474" y2="205"></line>
+                  <text x="442" y="105">11</text>
+                </g>
+                <g class="part" data-part="12" tabindex="0">
+                  <polyline points="510,140 570,140 592,165 570,190 510,190"></polyline>
+                  <text x="530" y="120">12</text>
+                </g>
+              </svg>
+              <div class="diagram-label"><span>爆炸图 / SOLE ASSEMBLY</span><span>编号 07—12</span></div>
+            </div>
+            <div class="spec-wrap">
+              <div class="spec-title">4.2 / 修鞋规格表 · 点击图中编号可定位</div>
+              <table>
+                <thead>
+                  <tr><th>零件编号</th><th>扭矩 N·m</th><th>间隙 mm</th><th>油品型号</th></tr>
+                </thead>
+                <tbody>
+                  <tr id="part-07"><td>07 / 前掌底</td><td>—</td><td>0.8</td><td>—</td></tr>
+                  <tr id="part-08"><td>08 / 压合片</td><td>2.4</td><td>0.6</td><td>GL—02</td></tr>
+                  <tr id="part-09"><td>09 / 胶层</td><td>—</td><td>0.4</td><td>AD—17</td></tr>
+                  <tr id="part-10"><td>10 / 鞋跟芯</td><td>3.1</td><td>1.2</td><td>GL—02</td></tr>
+                  <tr id="part-11"><td>11 / 定位钉</td><td>1.8</td><td>0.5</td><td>—</td></tr>
+                  <tr id="part-12"><td>12 / 后掌底</td><td>—</td><td>0.8</td><td>—</td></tr>
+                  <tr class="ghost-row"><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="procedure">
+            <div class="procedure-item"><span class="number">07</span><div><strong>剥离旧层</strong><p>保留鞋底原有边界，避免扩大清理范围。</p></div></div>
+            <div class="procedure-item"><span class="number">08</span><div><strong>清洁并晾置</strong><p>清除粉尘与旧胶，确认接触面干燥。</p></div></div>
+            <div class="procedure-item"><span class="number">09</span><div><strong>定位压合</strong><p>从中心向边缘施力，压合后保持静置。</p></div></div>
+            <div class="procedure-item"><span class="number">10</span><div><strong>边缘复核</strong><p>用手沿边缘检查，不接受可见空腔与翘边。</p></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="chapter" id="ch04">
+    <div class="chapter-grid">
+      <div class="chapter-no">CH—04</div>
+      <div>
+        <div class="chapter-head">
+          <h2>配钥匙<br>核对</h2>
+          <p class="chapter-lead">
+            铣削前确认胚型，铣削后确认齿位。编号从图纸到规格表保持不变，
+            让每把钥匙都能回到它的原件。
+          </p>
+        </div>
+        <div class="content-split reverse">
+          <figure class="image-frame">
+            <img src="images/占位-4.jpg" width="1200" height="800" alt="配钥匙设备与钥匙胚">
+            <figcaption><span>图 04 / 铣削台</span><span>REF—19</span></figcaption>
+          </figure>
+          <div>
+            <div class="warning">
+              <div class="warning-mark">!</div>
+              <div>
+                <strong>警示 / WARNING 03</strong>
+                <p>原钥匙有裂纹、变形或齿位磨平时，不直接复制。先确认锁芯可用性。</p>
+              </div>
+            </div>
+            <div class="procedure">
+              <div class="procedure-item"><span class="number">13</span><div><strong>确认胚型</strong><p>钥匙槽宽度、肩位与长度必须同时匹配。</p></div></div>
+              <div class="procedure-item"><span class="number">14</span><div><strong>夹具锁定</strong><p>原件与胚件肩位对齐，夹紧后再启动设备。</p></div></div>
+              <div class="procedure-item"><span class="number">15</span><div><strong>逐齿检查</strong><p>完成后按齿位顺序比对，不以外观相似作为合格依据。</p></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="spec-wrap">
+          <div class="spec-title">4.2 / 配钥匙规格表 · 原件核对记录</div>
+          <table>
+            <thead>
+              <tr><th>零件编号</th><th>扭矩 N·m</th><th>间隙 mm</th><th>油品型号</th></tr>
+            </thead>
+            <tbody>
+              <tr id="part-19"><td>19 / 胚件夹具</td><td>1.6</td><td>0.3</td><td>CL—01</td></tr>
+              <tr id="part-20"><td>20 / 导向片</td><td>1.2</td><td>0.4</td><td>CL—01</td></tr>
+              <tr id="part-21"><td>21 / 铣削刀</td><td>2.0</td><td>0.2</td><td>OL—05</td></tr>
+              <tr id="part-22"><td>22 / 原件定位</td><td>—</td><td>0.5</td><td>—</td></tr>
+              <tr id="part-23"><td>23 / 成品检验</td><td>—</td><td>0.6</td><td>—</td></tr>
+              <tr class="ghost-row"><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="chapter" id="ch05">
+    <div class="chapter-grid">
+      <div class="chapter-no">CH—05</div>
+      <div>
+        <div class="chapter-head">
+          <h2>交付<br>回签</h2>
+          <p class="chapter-lead">
+            交付时复述完成项目、价格和注意事项。客户确认后，编号才算闭合。
+            有疑问现在提出，不把返工留给下一次电话。
+          </p>
+        </div>
+        <div class="booking-grid">
+          <div>
+            <figure class="image-frame">
+              <img src="images/占位-5.jpg" width="1200" height="675" alt="修复完成的鞋与配好的钥匙">
+              <figcaption><span>图 05 / 交付检查</span><span>REF—23</span></figcaption>
+            </figure>
+            <p class="booking-note">
+              需要预约？请直接电话说明项目。我们按现场顺序留出时间，
+              到店后先看原件，再给出可执行的处理方案。
+            </p>
+          </div>
+          <div class="contact-box">
+            <dl>
+              <dt>电话 / TEL</dt><dd>010—6487—2307</dd>
+              <dt>营业 / HOURS</dt><dd>09:00—18:00</dd>
+              <dt>地址 / BAY</dt><dd>北门 04 号柜</dd>
+              <dt>回签 / CLOSE</dt><dd>S29—023</dd>
+            </dl>
+            <a class="call-button" href="tel:010-6487-2307">
+              <span>现在预约</span>
+              <span>CALL ↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span>S29 / WIRE-BOUND SERVICE MANUAL</span>
+    <span>零件 07—23 · 章节 01—05 · 版本 04</span>
+  </footer>
+</main>
+
+<script>
+(function () {
+  document.documentElement.classList.add("js-ready");
+
+  var cursor = document.querySelector(".cursor-wrench");
+  document.addEventListener("mousemove", function (event) {
+    if (cursor) {
+      cursor.style.left = event.clientX + "px";
+      cursor.style.top = event.clientY + "px";
+    }
+  });
+
+  var revealTargets = document.querySelectorAll(".hero-meta, .chapter, .warning, .content-split, .booking-grid");
+  var revealIndex = 0;
+  revealTargets.forEach(function (item) {
+    setTimeout(function () {
+      item.classList.add("revealed");
+    }, 160 + revealIndex++ * 240);
+  });
+
+  var links = document.querySelectorAll(".index a");
+  var sections = document.querySelectorAll(".chapter");
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        links.forEach(function (link) {
+          link.classList.toggle("active", link.dataset.section === entry.target.id);
+        });
+      }
+    });
+  }, { rootMargin: "-35% 0px -55% 0px" });
+  sections.forEach(function (section) { observer.observe(section); });
+
+  document.querySelectorAll(".diagram .part").forEach(function (part) {
+    function jump() {
+      var row = document.getElementById("part-" + part.dataset.part);
+      if (!row) return;
+      row.scrollIntoView({ behavior: "smooth", block: "center" });
+      row.classList.remove("flash");
+      void row.offsetWidth;
+      row.classList.add("flash");
+      setTimeout(function () { row.classList.remove("flash"); }, 520);
+    }
+    part.addEventListener("click", jump);
+    part.addEventListener("keydown", function (event) {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        jump();
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>
