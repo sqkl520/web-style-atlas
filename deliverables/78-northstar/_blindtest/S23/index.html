@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>北街修鞋配钥匙｜把时间铲开</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Noto+Serif+SC:wght@400;600;700;900&family=JetBrains+Mono:wght@400;600;700&display=swap');
+
+    :root {
+      --carmine: #A8206B;
+      --oxide: #241C16;
+      --plaster: #DCDCC8;
+      --mortar: #7A6A55;
+      --lime: #E9E9D7;
+      --mortar-ink: #5F5240;
+      --mortar-lit: #B7A78C;
+      --carmine-lit: #E9A9C6;
+      --line: 1px;
+      --line-mid: 1.5px;
+      --line-heavy: 2px;
+      --line-block: 6px;
+    }
+
+    * {
+      box-sizing: border-box;
+      border-radius: 0;
+    }
+
+    html {
+      background: var(--plaster);
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--oxide);
+      background: var(--plaster);
+      font-family: "Noto Serif SC", "Alfa Slab One", serif;
+      font-size: 16px;
+      line-height: 1.55;
+      overflow-x: hidden;
+    }
+
+    body::selection {
+      color: var(--lime);
+      background: var(--carmine);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .site-header {
+      position: relative;
+      z-index: 10;
+      display: grid;
+      grid-template-columns: minmax(190px, 1fr) minmax(260px, 1.4fr) 96px;
+      min-height: 82px;
+      border-bottom: var(--line-heavy) solid var(--oxide);
+      background: var(--plaster);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      padding: 18px 24px;
+      border-right: var(--line) solid var(--mortar);
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: .06em;
+    }
+
+    .header-note {
+      display: flex;
+      align-items: center;
+      padding: 18px 28px;
+      color: var(--mortar-ink);
+      font-size: 14px;
+    }
+
+    .index-rail {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+      padding: 12px;
+      color: var(--lime);
+      background: var(--oxide);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 12px;
+      line-height: 1.2;
+      text-align: right;
+    }
+
+    .index-rail span:nth-child(2) {
+      color: var(--carmine-lit);
+    }
+
+    .hero {
+      position: relative;
+      min-height: 710px;
+      padding: 78px 9vw 72px;
+      overflow: hidden;
+      border-bottom: var(--line-heavy) solid var(--oxide);
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 3;
+      max-width: 840px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 22px;
+      padding: 5px 10px;
+      border: var(--line) solid var(--oxide);
+      color: var(--oxide);
+      background: var(--carmine-lit);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 12px;
+      letter-spacing: .08em;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      max-width: 900px;
+      margin-bottom: 28px;
+      font-size: clamp(58px, 9vw, 96px);
+      font-weight: 900;
+      line-height: .98;
+      letter-spacing: -.06em;
+    }
+
+    h1 em {
+      color: var(--carmine);
+      font-style: normal;
+    }
+
+    .hero-lede {
+      max-width: 570px;
+      margin-bottom: 34px;
+      color: var(--mortar-ink);
+      font-size: 19px;
+      line-height: 1.7;
+    }
+
+    .primary-action {
+      display: inline-flex;
+      align-items: center;
+      min-height: 58px;
+      padding: 14px 22px;
+      border: var(--line-heavy) solid var(--oxide);
+      color: var(--lime);
+      background: var(--carmine);
+      font-weight: 700;
+      letter-spacing: .04em;
+      transition: background 160ms steps(1), color 160ms steps(1);
+    }
+
+    .primary-action:hover,
+    .primary-action:focus-visible {
+      color: var(--oxide);
+      background: var(--lime);
+      outline: none;
+    }
+
+    .hero-meta {
+      display: flex;
+      gap: 22px;
+      margin-top: 56px;
+      color: var(--mortar-ink);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 12px;
+    }
+
+    .hero-meta span {
+      padding-top: 8px;
+      border-top: var(--line) solid var(--mortar);
+    }
+
+    .hero-wall {
+      position: absolute;
+      right: 5vw;
+      bottom: 38px;
+      width: min(430px, 44vw);
+      height: 300px;
+      border: var(--line-heavy) solid var(--oxide);
+      background: var(--mortar-lit);
+    }
+
+    .hero-wall::before,
+    .hero-wall::after {
+      position: absolute;
+      content: "";
+      background: var(--oxide);
+      transform: rotate(62deg);
+    }
+
+    .hero-wall::before {
+      top: 112px;
+      left: 30px;
+      width: 2px;
+      height: 215px;
+    }
+
+    .hero-wall::after {
+      top: 62px;
+      right: 68px;
+      width: 2px;
+      height: 178px;
+    }
+
+    .hero-wall-layer {
+      position: absolute;
+      border: var(--line) solid var(--lime);
+    }
+
+    .hero-wall-layer.one {
+      inset: 24px 24px 110px 62px;
+      background: var(--carmine);
+    }
+
+    .hero-wall-layer.two {
+      inset: 96px 74px 42px 160px;
+      background: var(--oxide);
+    }
+
+    .hero-wall-layer.three {
+      inset: 166px 26px 23px 48px;
+      background: var(--mortar);
+    }
+
+    .wall-section {
+      position: relative;
+      padding: 72px 9vw 120px;
+      border-bottom: var(--line-heavy) solid var(--oxide);
+      background: var(--plaster);
+    }
+
+    .section-heading {
+      display: grid;
+      grid-template-columns: minmax(220px, .75fr) minmax(260px, 1fr);
+      gap: 48px;
+      align-items: end;
+      margin-bottom: 70px;
+    }
+
+    .section-heading h2 {
+      margin-bottom: 0;
+      font-size: clamp(38px, 5vw, 62px);
+      line-height: 1;
+      letter-spacing: -.05em;
+    }
+
+    .section-heading p {
+      max-width: 470px;
+      margin-bottom: 0;
+      color: var(--mortar-ink);
+    }
+
+    .openings {
+      position: relative;
+      min-height: 940px;
+      border-top: var(--line) solid var(--mortar);
+      border-left: var(--line) solid var(--mortar);
+      background: var(--plaster);
+    }
+
+    .opening {
+      position: absolute;
+      display: block;
+      overflow: visible;
+      border: var(--line-heavy) solid var(--oxide);
+      background: var(--mortar);
+      cursor: crosshair;
+    }
+
+    .opening[data-slot="1"] {
+      top: 36px;
+      left: 4%;
+      width: 27%;
+      height: 188px;
+    }
+
+    .opening[data-slot="2"] {
+      top: 62px;
+      left: 35%;
+      width: 22%;
+      height: 264px;
+    }
+
+    .opening[data-slot="3"] {
+      top: 28px;
+      right: 6%;
+      width: 29%;
+      height: 150px;
+    }
+
+    .opening[data-slot="4"] {
+      top: 382px;
+      left: 11%;
+      width: 21%;
+      height: 274px;
+    }
+
+    .opening[data-slot="5"] {
+      top: 438px;
+      left: 39%;
+      width: 30%;
+      height: 184px;
+    }
+
+    .opening[data-slot="6"] {
+      top: 360px;
+      right: 5%;
+      width: 19%;
+      height: 270px;
+    }
+
+    .opening[data-slot="7"] {
+      bottom: 54px;
+      left: 3%;
+      width: 25%;
+      height: 150px;
+    }
+
+    .opening[data-slot="8"] {
+      right: 34%;
+      bottom: 38px;
+      width: 22%;
+      height: 196px;
+    }
+
+    .opening[data-slot="9"] {
+      right: 5%;
+      bottom: 70px;
+      width: 23%;
+      height: 128px;
+    }
+
+    .opening .underlayer {
+      position: absolute;
+      inset: 0;
+      background: var(--oxide);
+    }
+
+    .opening .layer {
+      position: absolute;
+      border: var(--line) solid var(--lime);
+      transition: border-color 160ms steps(1);
+    }
+
+    .opening .layer.carmine {
+      background: var(--carmine);
+    }
+
+    .opening .layer.oxide {
+      background: var(--oxide);
+    }
+
+    .opening .layer.mortar {
+      background: var(--mortar);
+    }
+
+    .opening .layer.lit {
+      background: var(--mortar-lit);
+    }
+
+    .opening[data-slot="1"] .layer:nth-child(2) {
+      inset: 22px 20px 78px 40px;
+    }
+
+    .opening[data-slot="1"] .layer:nth-child(3) {
+      inset: 74px 50px 32px 94px;
+    }
+
+    .opening[data-slot="1"] .layer:nth-child(4) {
+      inset: 112px 22px 16px 32px;
+    }
+
+    .opening[data-slot="2"] .layer:nth-child(2) {
+      inset: 18px 42px 136px 18px;
+    }
+
+    .opening[data-slot="2"] .layer:nth-child(3) {
+      inset: 84px 16px 68px 60px;
+    }
+
+    .opening[data-slot="2"] .layer:nth-child(4) {
+      inset: 140px 48px 20px 22px;
+    }
+
+    .opening[data-slot="3"] .layer:nth-child(2) {
+      inset: 18px 15px 65px 52px;
+    }
+
+    .opening[data-slot="3"] .layer:nth-child(3) {
+      inset: 68px 60px 18px 20px;
+    }
+
+    .opening[data-slot="4"] .layer:nth-child(2) {
+      inset: 22px 18px 140px 42px;
+    }
+
+    .opening[data-slot="4"] .layer:nth-child(3) {
+      inset: 93px 48px 74px 18px;
+    }
+
+    .opening[data-slot="4"] .layer:nth-child(4) {
+      inset: 154px 15px 18px 64px;
+    }
+
+    .opening[data-slot="5"] .layer:nth-child(2) {
+      inset: 19px 38px 78px 18px;
+    }
+
+    .opening[data-slot="5"] .layer:nth-child(3) {
+      inset: 70px 16px 23px 72px;
+    }
+
+    .opening[data-slot="6"] .layer:nth-child(2) {
+      inset: 18px 12px 136px 34px;
+    }
+
+    .opening[data-slot="6"] .layer:nth-child(3) {
+      inset: 90px 32px 66px 12px;
+    }
+
+    .opening[data-slot="6"] .layer:nth-child(4) {
+      inset: 142px 10px 16px 42px;
+    }
+
+    .opening[data-slot="7"] .layer:nth-child(2) {
+      inset: 17px 38px 68px 16px;
+    }
+
+    .opening[data-slot="7"] .layer:nth-child(3) {
+      inset: 70px 12px 14px 58px;
+    }
+
+    .opening[data-slot="8"] .layer:nth-child(2) {
+      inset: 19px 14px 90px 46px;
+    }
+
+    .opening[data-slot="8"] .layer:nth-child(3) {
+      inset: 80px 48px 20px 14px;
+    }
+
+    .opening[data-slot="9"] .layer:nth-child(2) {
+      inset: 16px 12px 58px 38px;
+    }
+
+    .opening[data-slot="9"] .layer:nth-child(3) {
+      inset: 58px 42px 12px 14px;
+    }
+
+    .opening .scrape {
+      position: absolute;
+      z-index: 5;
+      width: 2px;
+      height: 42px;
+      background: var(--oxide);
+      transform: rotate(62deg);
+      transform-origin: center;
+    }
+
+    .opening .scrape.one {
+      top: 12px;
+      left: 22px;
+    }
+
+    .opening .scrape.two {
+      right: 22px;
+      bottom: 18px;
+    }
+
+    .opening .plaque {
+      position: absolute;
+      z-index: 8;
+      right: -13px;
+      bottom: -13px;
+      display: grid;
+      place-items: center;
+      width: 40px;
+      height: 24px;
+      border: var(--line) solid var(--oxide);
+      color: var(--lime);
+      background: var(--carmine);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 11px;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .opening .plaque::after {
+      position: absolute;
+      top: 28px;
+      left: 0;
+      width: calc(12px - (var(--slot) * .8px));
+      min-width: 5.6px;
+      height: 1.5px;
+      content: "";
+      background: var(--oxide);
+    }
+
+    .opening.marked .layer:nth-child(3) {
+      border-bottom: 1px solid var(--lime);
+    }
+
+    .opening.scratched::after {
+      position: absolute;
+      z-index: 7;
+      inset: 0;
+      content: "";
+      border: var(--line) solid var(--oxide);
+      background: var(--oxide);
+      animation: scratch 160ms steps(2) both;
+      pointer-events: none;
+    }
+
+    @keyframes scratch {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(3px); }
+      100% { transform: translateY(0); }
+    }
+
+    .layer-table-wrap {
+      display: grid;
+      grid-template-columns: minmax(220px, .7fr) minmax(0, 1.3fr);
+      gap: 52px;
+      margin-top: 72px;
+      padding-top: 28px;
+      border-top: var(--line-heavy) solid var(--oxide);
+    }
+
+    .layer-table-wrap h3 {
+      max-width: 300px;
+      margin-bottom: 12px;
+      font-size: 30px;
+      line-height: 1.1;
+    }
+
+    .layer-table-wrap p {
+      max-width: 330px;
+      color: var(--mortar-ink);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    th,
+    td {
+      padding: 10px 8px;
+      border-bottom: var(--line) solid var(--mortar);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--mortar-ink);
+      font-weight: 400;
+    }
+
+    th:first-child,
+    td:first-child {
+      width: 62px;
+      font-family: "JetBrains Mono", monospace;
+      text-align: right;
+    }
+
+    .swatch {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      margin-right: 8px;
+      vertical-align: -3px;
+      border: var(--line) solid var(--oxide);
+    }
+
+    .swatch.carmine { background: var(--carmine); }
+    .swatch.oxide { background: var(--oxide); }
+    .swatch.mortar { background: var(--mortar); }
+    .swatch.lit { background: var(--mortar-lit); }
+
+    .content-section {
+      padding: 88px 9vw 110px;
+      border-bottom: var(--line-heavy) solid var(--oxide);
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 28px;
+      align-items: start;
+    }
+
+    .service-card {
+      border-top: var(--line-heavy) solid var(--oxide);
+      background: var(--plaster);
+    }
+
+    .service-card:nth-child(1) {
+      grid-column: span 5;
+    }
+
+    .service-card:nth-child(2) {
+      grid-column: span 4;
+      margin-top: 76px;
+    }
+
+    .service-card:nth-child(3) {
+      grid-column: span 3;
+      margin-top: 22px;
+    }
+
+    .service-card:nth-child(4) {
+      grid-column: 2 / span 5;
+      margin-top: 46px;
+    }
+
+    .service-card:nth-child(5) {
+      grid-column: 8 / span 5;
+      margin-top: 4px;
+    }
+
+    .card-image,
+    .image-empty {
+      display: block;
+      width: 100%;
+      border: var(--line-heavy) solid var(--oxide);
+      object-fit: cover;
+      background: var(--mortar-lit);
+    }
+
+    .card-image {
+      height: 230px;
+    }
+
+    .service-card:nth-child(2) .card-image {
+      height: 190px;
+    }
+
+    .service-card:nth-child(3) .card-image {
+      height: 280px;
+    }
+
+    .service-card:nth-child(4) .card-image {
+      height: 210px;
+    }
+
+    .service-card:nth-child(5) .card-image {
+      height: 250px;
+    }
+
+    .image-empty {
+      position: relative;
+      height: 104px;
+      border-style: dashed;
+      background: var(--plaster);
+    }
+
+    .image-empty::before,
+    .image-empty::after {
+      position: absolute;
+      content: "";
+      background: var(--mortar);
+      transform: rotate(62deg);
+    }
+
+    .image-empty::before {
+      top: 26px;
+      left: 30%;
+      width: 2px;
+      height: 78px;
+    }
+
+    .image-empty::after {
+      top: 12px;
+      left: 52%;
+      width: 2px;
+      height: 95px;
+    }
+
+    .card-body {
+      padding: 18px 0 0;
+    }
+
+    .card-number {
+      display: block;
+      margin-bottom: 12px;
+      color: var(--carmine);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 12px;
+      text-align: right;
+    }
+
+    .service-card h3 {
+      margin-bottom: 10px;
+      font-size: clamp(24px, 3vw, 38px);
+      line-height: 1.08;
+      letter-spacing: -.04em;
+    }
+
+    .service-card p {
+      margin-bottom: 14px;
+      color: var(--mortar-ink);
+    }
+
+    .price-list {
+      margin: 18px 0 0;
+      padding: 0;
+      list-style: none;
+      border-top: var(--line) solid var(--mortar);
+    }
+
+    .price-list li {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 9px 0;
+      border-bottom: var(--line) solid var(--mortar);
+    }
+
+    .price {
+      flex: 0 0 auto;
+      color: var(--carmine);
+      font-family: "JetBrains Mono", monospace;
+      font-variant-numeric: tabular-nums;
+      text-align: right;
+    }
+
+    .hours-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      margin-top: 18px;
+      border: var(--line) solid var(--oxide);
+      background: var(--oxide);
+    }
+
+    .hours-block span {
+      padding: 12px;
+      background: var(--mortar-lit);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 13px;
+    }
+
+    .hours-block span:nth-child(2) {
+      color: var(--lime);
+      background: var(--mortar-ink);
+      text-align: right;
+    }
+
+    .contact-strip {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr 96px;
+      min-height: 190px;
+      color: var(--lime);
+      background: var(--oxide);
+    }
+
+    .contact-copy {
+      padding: 36px 9vw;
+      padding-right: 30px;
+    }
+
+    .contact-copy h2 {
+      margin-bottom: 8px;
+      font-size: clamp(30px, 4vw, 54px);
+      line-height: 1;
+    }
+
+    .contact-copy p {
+      margin-bottom: 0;
+      color: var(--carmine-lit);
+    }
+
+    .contact-phone {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 28px;
+      border-left: var(--line) solid var(--mortar-lit);
+      font-family: "JetBrains Mono", monospace;
+      font-size: clamp(22px, 3vw, 36px);
+      font-variant-numeric: tabular-nums;
+      text-align: center;
+    }
+
+    .contact-index {
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding: 18px;
+      border-left: var(--line) solid var(--mortar-lit);
+      color: var(--carmine-lit);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 12px;
+    }
+
+    .site-footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 30px;
+      padding: 22px 9vw;
+      color: var(--mortar-ink);
+      background: var(--plaster);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 11px;
+    }
+
+    .site-footer span:last-child {
+      color: var(--carmine);
+      text-align: right;
+    }
+
+    .wall-cursor {
+      position: fixed;
+      z-index: 30;
+      top: 0;
+      left: 0;
+      width: 1px;
+      height: 18px;
+      background: var(--oxide);
+      pointer-events: none;
+      opacity: 0;
+      animation: cursor-blink 1000ms steps(1) infinite;
+    }
+
+    @keyframes cursor-blink {
+      0%, 48% { opacity: 1; }
+      49%, 100% { opacity: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0ms !important;
+      }
+    }
+
+    @media (max-width: 820px) {
+      .site-header {
+        grid-template-columns: 1fr 72px;
+      }
+
+      .header-note {
+        display: none;
+      }
+
+      .hero {
+        min-height: 800px;
+        padding: 60px 7vw;
+      }
+
+      .hero-wall {
+        right: 7vw;
+        bottom: 42px;
+        width: 80vw;
+        max-width: 430px;
+      }
+
+      .wall-section,
+      .content-section {
+        padding-right: 7vw;
+        padding-left: 7vw;
+      }
+
+      .section-heading,
+      .layer-table-wrap {
+        grid-template-columns: 1fr;
+        gap: 22px;
+      }
+
+      .openings {
+        min-height: 1210px;
+      }
+
+      .opening[data-slot="1"] {
+        top: 34px;
+        left: 3%;
+        width: 44%;
+      }
+
+      .opening[data-slot="2"] {
+        top: 68px;
+        left: 53%;
+        width: 42%;
+      }
+
+      .opening[data-slot="3"] {
+        top: 264px;
+        right: 4%;
+        width: 48%;
+      }
+
+      .opening[data-slot="4"] {
+        top: 326px;
+        left: 4%;
+        width: 42%;
+      }
+
+      .opening[data-slot="5"] {
+        top: 548px;
+        left: 18%;
+        width: 50%;
+      }
+
+      .opening[data-slot="6"] {
+        top: 650px;
+        right: 4%;
+        width: 36%;
+      }
+
+      .opening[data-slot="7"] {
+        bottom: 48px;
+        left: 3%;
+        width: 42%;
+      }
+
+      .opening[data-slot="8"] {
+        right: 42%;
+        bottom: 14px;
+        width: 30%;
+      }
+
+      .opening[data-slot="9"] {
+        right: 3%;
+        bottom: 66px;
+        width: 34%;
+      }
+
+      .content-grid {
+        display: block;
+      }
+
+      .service-card,
+      .service-card:nth-child(2),
+      .service-card:nth-child(3),
+      .service-card:nth-child(4),
+      .service-card:nth-child(5) {
+        width: 100%;
+        margin: 0 0 58px;
+      }
+
+      .contact-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-copy {
+        padding: 34px 7vw 24px;
+      }
+
+      .contact-phone {
+        justify-content: flex-start;
+        padding: 24px 7vw;
+        border-top: var(--line) solid var(--mortar-lit);
+        border-left: 0;
+      }
+
+      .contact-index {
+        min-height: 54px;
+        border-top: var(--line) solid var(--mortar-lit);
+        border-left: 0;
+      }
+    }
+
+    @media (max-width: 520px) {
+      h1 {
+        font-size: 58px;
+      }
+
+      .hero-lede {
+        font-size: 17px;
+      }
+
+      .hero-meta {
+        display: grid;
+        gap: 10px;
+        margin-top: 36px;
+      }
+
+      .hero-wall {
+        height: 230px;
+      }
+
+      .openings {
+        min-height: 1340px;
+      }
+
+      .opening[data-slot="1"] {
+        top: 28px;
+        left: 4%;
+        width: 55%;
+      }
+
+      .opening[data-slot="2"] {
+        top: 242px;
+        left: 30%;
+        width: 62%;
+      }
+
+      .opening[data-slot="3"] {
+        top: 470px;
+        right: 5%;
+        width: 54%;
+      }
+
+      .opening[data-slot="4"] {
+        top: 532px;
+        left: 3%;
+        width: 49%;
+      }
+
+      .opening[data-slot="5"] {
+        top: 740px;
+        left: 13%;
+        width: 68%;
+      }
+
+      .opening[data-slot="6"] {
+        top: 918px;
+        right: 4%;
+        width: 42%;
+      }
+
+      .opening[data-slot="7"] {
+        bottom: 48px;
+        left: 3%;
+        width: 52%;
+      }
+
+      .opening[data-slot="8"] {
+        right: 39%;
+        bottom: 10px;
+        width: 32%;
+      }
+
+      .opening[data-slot="9"] {
+        right: 3%;
+        bottom: 72px;
+        width: 35%;
+      }
+
+      .site-footer {
+        display: grid;
+        gap: 10px;
+        padding-right: 7vw;
+        padding-left: 7vw;
+      }
+
+      .site-footer span:last-child {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">北街修鞋・配钥匙</div>
+    <div class="header-note">鞋跟落地，钥匙转半圈，都是活儿。</div>
+    <nav class="index-rail" aria-label="墙面索引">
+      <span>WALL / 09</span>
+      <span>CALL / 01</span>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow">第 01 处 · 现在营业</span>
+        <h1>鞋底要换，<br><em>钥匙要配。</em></h1>
+        <p class="hero-lede">你把磨坏的、拧不动的、差最后一齿的东西带来。我们把旧层铲开，看到哪儿坏，就从哪儿接着干。</p>
+        <a class="primary-action" href="tel:01055550186">打电话，约个时间 →</a>
+        <div class="hero-meta">
+          <span>接单 / 修鞋 / 配钥匙</span>
+          <span>北街老店 / 不绕弯</span>
+        </div>
+      </div>
+
+      <div class="hero-wall" aria-label="墙体剥落示意">
+        <div class="hero-wall-layer one"></div>
+        <div class="hero-wall-layer two"></div>
+        <div class="hero-wall-layer three"></div>
+      </div>
+    </section>
+
+    <section class="wall-section" aria-labelledby="wall-title">
+      <div class="section-heading">
+        <h2 id="wall-title">一面墙，九处开口。</h2>
+        <p>每一处都不是装饰。鞋面、鞋底、锁芯、钥匙胚，留下来的顺序不一样，手上的力道也不一样。</p>
+      </div>
+
+      <div class="openings" aria-label="九处墙面剥落">
+        <article class="opening" data-slot="1" style="--slot:1" data-index="01">
+          <div class="underlayer"></div>
+          <div class="layer carmine"></div>
+          <div class="layer mortar"></div>
+          <div class="layer lit"></div>
+          <span class="scrape one"></span>
+          <span class="scrape two"></span>
+          <button class="plaque" type="button" aria-label="查看第01处">01</button>
+        </article>
+
+        <article class="opening" data-slot="2" style="--slot:2" data-index="02">
+          <div class="underlayer"></div>
+          <div class="layer oxide"></div>
+          <div class="layer carmine"></div>
+          <div class="layer mortar"></div>
+          <span class="scrape one"></span>
+          <span class="scrape two"></span>
+          <button class="plaque" type="button" aria-label="查看第02处">02</button>
+        </article>
+
+        <article class="opening" data-slot="3" style="--slot:3" data-index="03">
+          <div class="underlayer"></div>
+          <div class="layer mortar"></div>
+          <div class="layer carmine"></div>
+          <span class="scrape one"></span>
+          <span class="scrape two"></span>
+          <button class="plaque" type="button" aria-label="查看第03处">03</button>
+        </article>
+
+        <article class="opening" data-slot="4" style="--slot:4" data-index="04">
+          <div class="underlayer"></div>
+          <div class="layer lit"></div>
+          <div class="layer oxide"></div>
+          <div class="layer carmine"></div>
+          <span class="scrape one"></span>
+          <span class="scrape two"></span>
+          <button class="plaque" type="button" aria-label="查看第04处">04</button>
+        </article>
+
+        <article class="opening" data-slot="5" style="--slot:5" data-index="05">
+          <div class="underlayer"></div>
+          <div class="layer carmine"></div>
+          <div class="layer lit"></div>
+          <span class="scrape one"></span>
+          <span class="scrape two"></span>
+          <button class="plaque" type="button" aria-label="查看第05处">05</button>
+        </article>
+
+        <article class="opening" data-slot="6" style="--slot:6" data-index="06">
+          <div class="underlayer"></div>
+          <div class="layer oxide"></div>
+          <div class="layer mortar"></div>
+          <div class="layer lit"></div>
+          <span class="scrape one"></span>
+          <span class="scrape two"></span>
+          <button class="plaque" type="button" aria-label="查看第06处">06</button>
+        </article>
+
+        <article class="opening" data-slot="7" style="--slot:7" data-index="07">
+          <div class="underlayer"></div>
+          <div class="layer mortar"></div>
+          <div class="layer carmine"></div>
+          <span class="scrape one"></span>
+          <span class="scrape two"></span>
+          <button class="plaque" type="button" aria-label="查看第07处">07</button>
+        </article>
+
+        <article class="opening" data-slot="8" style="--slot:8" data-index="08">
+          <div class="underlayer"></div>
+          <div class="layer lit"></div>
+          <div class="layer oxide"></div>
+          <span class="scrape one"></span>
+          <span class="scrape two"></span>
+          <button class="plaque" type="button" aria-label="查看第08处">08</button>
+        </article>
+
+        <article class="opening" data-slot="9" style="--slot:9" data-index="09">
+          <div class="underlayer"></div>
+          <div class="layer carmine"></div>
+          <div class="layer mortar"></div>
+          <span class="scrape one"></span>
+          <span class="scrape two"></span>
+          <button class="plaque" type="button" aria-label="查看第09处">09</button>
+        </article>
+      </div>
+
+      <div class="layer-table-wrap">
+        <div>
+          <h3>层位不是年份，是证据。</h3>
+          <p>从最里头往外看：哪一层颜色先出现，哪一次修补就先发生。我们不拿“差不多”糊过去。</p>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>层</th>
+              <th>颜色</th>
+              <th>留下来的年份</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>01</td>
+              <td><span class="swatch oxide"></span>氧化底</td>
+              <td>2011 · 第一把门钥匙</td>
+            </tr>
+            <tr>
+              <td>02</td>
+              <td><span class="swatch mortar"></span>砂浆灰</td>
+              <td>2015 · 鞋底开始换厚底</td>
+            </tr>
+            <tr>
+              <td>03</td>
+              <td><span class="swatch carmine"></span>胭脂红</td>
+              <td>2019 · 街口店面重漆</td>
+            </tr>
+            <tr>
+              <td>04</td>
+              <td><span class="swatch lit"></span>亮砂浆</td>
+              <td>2024 · 还是这双手</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="content-section" aria-labelledby="work-title">
+      <div class="section-heading">
+        <h2 id="work-title">你带来的东西，<br>各有各的旧。</h2>
+        <p>五条内容，五种落法。别把鞋和钥匙排成一列，它们坏掉的方式本来就不一样。</p>
+      </div>
+
+      <div class="content-grid">
+        <article class="service-card">
+          <img class="card-image" src="images/占位-1.jpg" width="720" height="460" alt="鞋底与修鞋工具">
+          <div class="card-body">
+            <span class="card-number">01 / 鞋底</span>
+            <h3>鞋底开口，先看走路。</h3>
+            <p>不是一上来就换。鞋底哪边磨得快，鞋跟有没有歪，先把脚印看明白。</p>
+            <ul class="price-list">
+              <li><span>鞋跟修补</span><span class="price">¥30 起</span></li>
+              <li><span>前掌换底</span><span class="price">¥60 起</span></li>
+              <li><span>整底翻新</span><span class="price">¥120 起</span></li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="service-card">
+          <div class="image-empty" aria-label="留白图位：鞋面检查"></div>
+          <div class="card-body">
+            <span class="card-number">02 / 鞋面</span>
+            <h3>皮面裂了，别急着扔。</h3>
+            <p>皮子有自己的脾气。清洁、补色、缝线，我们按伤口大小一层层处理。</p>
+          </div>
+        </article>
+
+        <article class="service-card">
+          <img class="card-image" src="images/占位-2.jpg" width="420" height="700" alt="钥匙胚与钥匙机">
+          <div class="card-body">
+            <span class="card-number">03 / 配钥匙</span>
+            <h3>钥匙差一齿，门就不认。</h3>
+            <p>带原钥匙来，别只报型号。我们看齿口、厚薄和转动的那一下。</p>
+            <ul class="price-list">
+              <li><span>普通钥匙</span><span class="price">¥10 起</span></li>
+              <li><span>门禁钥匙</span><span class="price">¥25 起</span></li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="service-card">
+          <img class="card-image" src="images/占位-3.jpg" width="720" height="420" alt="鞋带、鞋扣与修鞋桌">
+          <div class="card-body">
+            <span class="card-number">04 / 小修</span>
+            <h3>扣子掉了，别让它把整双鞋拖下去。</h3>
+            <p>鞋带、鞋扣、拉链、缝线，零碎活儿也接。能修的，不劝你换新的。</p>
+            <div class="hours-block">
+              <span>当天取</span>
+              <span>看活儿</span>
+              <span>急件</span>
+              <span>先打电话</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="service-card">
+          <div class="image-empty" aria-label="留白图位：取件记录"></div>
+          <div class="card-body">
+            <span class="card-number">05 / 取件</span>
+            <h3>修好以后，按原来的路拿走。</h3>
+            <p>工作日白天都在。你要是赶时间，电话里先说，我们把那一处留给你。</p>
+            <a class="primary-action" href="tel:01055550186">现在打电话</a>
+          </div>
+        </article>
+
+        <article class="service-card">
+          <img class="card-image" src="images/占位-4.jpg" width="720" height="480" alt="修鞋师傅的手与工具">
+          <div class="card-body">
+            <span class="card-number">06 / 手艺</span>
+            <h3>每一刀都留在墙上。</h3>
+            <p>我们不遮掉旧痕。修过哪里、补过几层，下一次还从这里接着看。</p>
+          </div>
+        </article>
+
+        <article class="service-card">
+          <div class="image-empty" aria-label="留白图位：店门时间"></div>
+          <div class="card-body">
+            <span class="card-number">07 / 时间</span>
+            <h3>别在门口猜，先问。</h3>
+            <p>营业时间会跟着活儿变。电话接通，就能约到确切的那一格。</p>
+          </div>
+        </article>
+
+        <article class="service-card">
+          <img class="card-image" src="images/占位-5.jpg" width="720" height="520" alt="修好的皮鞋与新配钥匙">
+          <div class="card-body">
+            <span class="card-number">08 / 带走</span>
+            <h3>拿回去，继续穿，继续开门。</h3>
+            <p>这家店不替你更新生活。我们只把手上的东西，修回它该有的样子。</p>
+          </div>
+        </article>
+
+        <article class="service-card">
+          <div class="image-empty" aria-label="留白图位：街角空墙"></div>
+          <div class="card-body">
+            <span class="card-number">09 / 留白</span>
+            <h3>这里故意空着。</h3>
+            <p>下一处开口，等你的旧鞋、旧钥匙，或者一句“还能不能修”。不编内容，不替你决定。</p>
+          </div>
+        </article>
+
+        <article class="service-card">
+          <div class="image-empty" aria-label="留白图位：墙面刮痕"></div>
+          <div class="card-body">
+            <span class="card-number">10 / 余痕</span>
+            <h3>刮痕不收钱。</h3>
+            <p>它只是证明，铲到最后一处，手已经收了力。</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="contact-strip" aria-label="电话预约">
+      <div class="contact-copy">
+        <h2>把时间约上。</h2>
+        <p>电话说清楚要修什么，我们留一块墙，也留一张工作台。</p>
+      </div>
+      <a class="contact-phone" href="tel:01055550186">010-5555-0186</a>
+      <div class="contact-index">CALL<br>01</div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>北街修鞋配钥匙 · 旧物继续用</span>
+    <span>同一串编号 / 01—09 / 不重排</span>
+  </footer>
+
+  <span class="wall-cursor" aria-hidden="true"></span>
+
+  <script>
+    (function () {
+      var openings = document.querySelectorAll(".opening");
+      var cursor = document.querySelector(".wall-cursor");
+      var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      document.body.classList.add("js");
+
+      openings.forEach(function (opening) {
+        var plaque = opening.querySelector(".plaque");
+
+        plaque.addEventListener("mouseenter", function () {
+          opening.classList.add("marked");
+        });
+
+        plaque.addEventListener("mouseleave", function () {
+          opening.classList.remove("marked");
+        });
+
+        plaque.addEventListener("focus", function () {
+          opening.classList.add("marked");
+        });
+
+        plaque.addEventListener("blur", function () {
+          opening.classList.remove("marked");
+        });
+
+        opening.querySelectorAll(".scrape").forEach(function (scrape) {
+          scrape.addEventListener("click", function () {
+            opening.classList.remove("scratched");
+            void opening.offsetWidth;
+            opening.classList.add("scratched");
+          });
+        });
+      });
+
+      if (!reduced) {
+        document.addEventListener("mousemove", function (event) {
+          cursor.style.transform = "translate(" + event.clientX + "px," + event.clientY + "px)";
+          cursor.style.opacity = "1";
+        });
+
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("in-view");
+            }
+          });
+        }, { threshold: 0.25 });
+
+        openings.forEach(function (opening) {
+          observer.observe(opening);
+        });
+      }
+    }());
+  </script>
+</body>
+</html>

@@ -65,12 +65,31 @@ function judgeItems(prompt, html) {
     const n = (html.match(new RegExp('<' + tag + '[\\s>]', 'g')) || []).length;
     if (n) counts[tag] = n;
   }
+  /* ⚠️ 2026-11-22：原来固定取 `counts.article`，实测 S23 报「应排 5 条，
+   * <article>=19 ✗」—— 而那 19 个 `<article class="opening">` 是墙面剥落块
+   * （该案的机制元素，每个剥落块一层），真正的 5 条内容在 `<li>` 里：
+   *
+   *   li1: 鞋跟修补 ¥30 起   …   li5: 门禁钥匙 ¥25 起
+   *
+   * 判据量的是"哪个标签用了 article"，而不是"内容放在哪"。
+   * 这与 §9.19「量错了对象」是同一个病。
+   *
+   * 修法：四个标签里**取最接近 expect 的那个**，并记录选了哪个 ——
+   * 不能静默换目标，否则下次又不知道它量了什么。 */
+  let best = null;
+  if (expect != null) {
+    for (const [tag, n] of Object.entries(counts)) {
+      if (!best || Math.abs(n - expect) < Math.abs(best.n - expect)) best = { tag, n };
+    }
+  }
+  const got = best ? best.n : null;
   return {
     scale,
     expect,
     counts,
-    got: counts.article != null ? counts.article : null,
-    hit: expect != null && counts.article != null ? Math.abs(counts.article - expect) <= 1 : null,
+    gotTag: best ? best.tag : null,
+    got,
+    hit: expect != null && got != null ? Math.abs(got - expect) <= 1 : null,
     note: expect == null ? '提示词没写用户条数（have=0 的路径），这一类跳过' : null,
   };
 }
@@ -746,6 +765,21 @@ function selfTest() {
   const P19 = '1. 这个版式设计时排了 20 个条目——这是版式的规模，不是你的内容量。\n2. 你手上有 5 条内容，就排 5 条。';
   /* 正常：5 条 → ✓（旧判据在这里会报 ✗，因为 5≠20） */
   eq('items/照做5条算过', judgeItems(P19, '<article></article>'.repeat(5)).hit, true);
+  /* ⚠️ 2026-11-22：内容不一定在 <article> 里。实测 S23 的 5 条内容在 <li>，
+   * 而 <article> 有 19 个（每个是墙面剥落块 —— 机制元素）。
+   * 判据原来固定数 article，把"机制元素多"判成"内容条目超标"。 */
+  eq('items/内容在 li 里也能判对',
+    judgeItems(P19, '<article></article>'.repeat(19) + '<li></li>'.repeat(5)).hit, true);
+  eq('items/选中的是 li 不是 article',
+    judgeItems(P19, '<article></article>'.repeat(19) + '<li></li>'.repeat(5)).gotTag, 'li');
+  /* 实测 S29 的 5 条在 <section> */
+  eq('items/内容在 section 里也能判对',
+    judgeItems(P19, '<figure></figure>'.repeat(5) + '<section></section>'.repeat(5)).hit, true);
+  /* 全部都偏离时，选最接近的那个并如实报 ✗ */
+  eq('items/全偏离时报 ✗',
+    judgeItems(P19, '<article></article>'.repeat(19) + '<li></li>'.repeat(12)).hit, false);
+  eq('items/全偏离时选最接近的',
+    judgeItems(P19, '<article></article>'.repeat(19) + '<li></li>'.repeat(12)).gotTag, 'li');
   /* 变异 1：排了 20 条（照 minItems 排，是错的行为）→ 必须报 ✗ */
   eq('items/按版式规模排20条算错', judgeItems(P19, '<article></article>'.repeat(20)).hit, false);
   /* 变异 2：差 1 条 → 仍算过（边界差异不算缺陷） */
@@ -755,7 +789,11 @@ function selfTest() {
   /* 变异 4：没有 have 句 → 不下结论（null），不能默认通过 */
   eq('items/无have时不下结论', judgeItems('这个版式设计时排了 7 个条目——这是版式的规模', '<article></article>'.repeat(7)).hit, null);
   /* 变异 5：一个 article 都没有 → null，不能算 ✓ */
-  eq('items/零article不下结论', judgeItems(P19, '<section></section>'.repeat(5)).hit, null);
+  /* ⚠️ 2026-11-22 改：这条原来断言「只有 section 时不下结论」，
+   * 但那是旧逻辑（固定数 article）。现在会选中 section 并判 ✓ ——
+   * 内容在 section 里就该算对。
+   * 真正"不下结论"的情况是**一个候选标签都没有**。 */
+  eq('items/没有任何候选标签时不下结论', judgeItems(P19, '<div></div>'.repeat(5)).hit, null);
 
   /* ── judgePictures ── strict 分支 */
   const PSTRICT = '4. 版式里至少要 4 个**不同的**图片位置（不是4 个 img 标签就够——同一张图重复用不算）。';
@@ -1080,8 +1118,11 @@ for (const id of ids) {
     if (s.expect == null) {
       console.log(`  ④ 结构   条目 –（${s.note}）`);
     } else {
-      console.log(`  ④ 结构   条目 应排 ${s.expect} 条（版式规模 ${s.scale}，不是目标）；HTML <article>=${s.got} ${mark(s.hit)}`
-        + (Object.keys(s.counts).length > 1 ? `　〔其他标签仅供参考：${Object.entries(s.counts).filter(([t]) => t !== 'article').map(([t, n]) => t + '=' + n).join(' ') || '无'}〕` : ''));
+      /* 显示的是**实际选中的那个标签**，不是硬编码 article ——
+       * 否则读者会以为判据在数 article，而它其实数了别的。 */
+      const others = Object.entries(s.counts).filter(([t]) => t !== s.gotTag).map(([t, n]) => t + '=' + n).join(' ');
+      console.log(`  ④ 结构   条目 应排 ${s.expect} 条（版式规模 ${s.scale}，不是目标）；HTML <${s.gotTag}>=${s.got} ${mark(s.hit)}`
+        + (others ? `　〔其他标签仅供参考：${others}〕` : ''));
     }
   } else {
     console.log(`  ④ 结构   条目 –（提示词里没有条目句）`);
