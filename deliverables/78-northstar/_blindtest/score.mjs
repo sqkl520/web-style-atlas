@@ -264,6 +264,71 @@ function judgeFontChain(prompt, html) {
   };
 }
 
+/* 渐变明度跨度：提示词写「只用同一色系里明度接近的两档，跨度不超过一档
+ * （比如底色与它稍深的一档之间），不要从深色直接过渡到浅色」。
+ *
+ * 这条与 ⑤ 已有的「渐变受限」是两条不同的禁令：那条查**有没有**渐变，
+ * 这条查渐变**两端的明度差**。前者是数量，后者是性质。
+ *
+ * 用 CIELAB 的 L*（0–100）判明度，口径与 `check-distribution.mjs:79` 的
+ * `labLOf` 逐字一致 —— 不另写一套色彩空间换算，那会引入它自己的 bug。
+ *
+ * 阈值 25：L* 差 25 大约是「一眼能看出是两个不同明度层」的下限。
+ * 提示词说「不超过一档」，一档在 L* 上大致 15–25，取上界 25 作为告警线，
+ * **保守取值**（宁可漏报，不误判 —— 误判过一次 gradient 已经够了）。 */
+function relLumL(hex) {
+  const m = /^#?([0-9a-f]{6})$/i.exec(String(hex || '').trim());
+  if (!m) return null;
+  const n = parseInt(m[1], 16);
+  const rgb = [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+  const f = (v) => { v /= 255; return v <= 0.04045 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); };
+  const Y = f(rgb[0]) * 0.2126 + f(rgb[1]) * 0.7152 + f(rgb[2]) * 0.0722;
+  const t = Y > 0.008856 ? Math.cbrt(Y) : 7.787 * Y + 16 / 116;
+  return Math.round((116 * t - 16) * 10) / 10;
+}
+
+const L_SPAN_MAX = 25;
+
+/* 抽出渐变里的颜色槽，返回 hex 列表。只认字面 hex 与 rgb()，
+ * 不展开 var() —— 展开要写小求值器（同圆角那处取舍）。 */
+function gradientColors(body) {
+  const out = [];
+  for (const m of body.matchAll(/#[0-9A-Fa-f]{6}\b/g)) out.push(m[0].toUpperCase());
+  for (const m of body.matchAll(/rgba?\(\s*(\d+)[\s,]+(\d+)[\s,]+(\d+)/g)) {
+    const h = ((+m[1] << 16) | (+m[2] << 8) | +m[3]).toString(16).padStart(6, '0');
+    out.push('#' + h.toUpperCase());
+  }
+  return out;
+}
+
+function judgeGradientSpan(prompt, html) {
+  /* 只在这一案真的写了这条约束时才判 */
+  if (!/明度接近的两档|不要从深色直接过渡到浅色/.test(prompt)) return null;
+  const css = (html.match(/<style[^>]*>([\s\S]*?)<\/style>/i) || ['', ''])[1] || '';
+  const spans = [];
+  const re = /(?:linear|radial|conic)-gradient\s*\(/g;
+  let m;
+  while ((m = re.exec(css))) {
+    let depth = 1, i = re.lastIndex;
+    const start = i;
+    while (i < css.length && depth > 0) {
+      if (css[i] === '(') depth++;
+      else if (css[i] === ')') depth--;
+      i++;
+    }
+    const body = css.slice(start, i - 1);
+    const cols = gradientColors(body);
+    /* 同色两端是画线手法（见 scoreGradient 的注释），不参与明度判 */
+    if (cols.length < 2 || cols.every((c) => c === cols[0])) continue;
+    const Ls = cols.map(relLumL).filter((v) => v != null);
+    if (Ls.length < 2) continue;
+    const span = Math.round((Math.max(...Ls) - Math.min(...Ls)) * 10) / 10;
+    spans.push({ span, from: cols[0], to: cols[cols.length - 1] });
+  }
+  const over = spans.filter((s) => s.span > L_SPAN_MAX);
+  return { spans, over, threshold: L_SPAN_MAX, undecided: spans.length === 0 };
+}
+
 function score(id) {
   const dir = join(BT, id);
   const htmlPath = join(dir, 'index.html');
@@ -467,6 +532,11 @@ function score(id) {
   const fc = judgeFontChain(prompt, html);
   out.fontChain = fc;
   if (fc && fc.outside.length) banned.push({ rule: '字体链外', hits: fc.outside.length, families: fc.outside });
+  /* 渐变明度跨度：与上面「渐变受限」是两条不同的禁令，
+   * 那条查有没有渐变，这条查两端明度差。 */
+  const gs = judgeGradientSpan(prompt, html);
+  out.gradientSpan = gs;
+  if (gs && gs.over.length) banned.push({ rule: '渐变跨度过大', hits: gs.over.length, spans: gs.over.map((s) => s.span) });
   out.banned = banned;
 
   return out;
@@ -584,6 +654,32 @@ function selfTest() {
   eq('⑤字体/全 var() 时记未判',
     judgeFontChain(PFONT, '<style>.a{font-family:var(--f1)}.b{font-family:var(--f2)}</style>').undecided, true);
 
+  /* ── ⑤ 渐变明度跨度 ──
+   * 提示词：「只用同一色系里明度接近的两档…不要从深色直接过渡到浅色」。
+   * 这条与「渐变受限」是两条禁令：那条查有没有，这条查两端明度差。 */
+  const PG = '需要做渐变或纹理时只用**同一色系里明度接近的两档**，跨度不超过一档，不要从深色直接过渡到浅色。';
+  /* 同一色系相邻两档 → 跨度小，不报 */
+  eq('⑤跨度/相邻两档不报',
+    judgeGradientSpan(PG, '<style>.a{background:linear-gradient(#E4DECD,#D8CFB6)}</style>').over.length, 0);
+  /* 深到浅 → 跨度大，要报 */
+  eq('⑤跨度/深到浅要报',
+    judgeGradientSpan(PG, '<style>.a{background:linear-gradient(#111111,#EEEEEE)}</style>').over.length, 1);
+  /* 同色两端是画线手法，不参与明度判（与 scoreGradient 同一口径） */
+  eq('⑤跨度/同色两端不算跨度',
+    judgeGradientSpan(PG, '<style>.a{background:linear-gradient(#888888,#888888)}</style>').spans.length, 0);
+  /* rgb() 写法也要能解析 */
+  eq('⑤跨度/rgb() 写法能解析',
+    judgeGradientSpan(PG, '<style>.a{background:linear-gradient(rgb(17,17,17),rgb(238,238,238))}</style>').over.length, 1);
+  /* 提示词没有这条约束 → 整条跳过，返回 null */
+  eq('⑤跨度/无此约束时返回 null',
+    judgeGradientSpan('随便一句话', '<style>.a{background:linear-gradient(#000,#fff)}</style>'), null);
+  /* 有约束但产物没渐变 → 未判，不是通过 */
+  eq('⑤跨度/没渐变时记未判',
+    judgeGradientSpan(PG, '<style>.a{color:red}</style>').undecided, true);
+  /* 明度计算的边界：纯黑 L*=0、纯白 L*=100 */
+  eq('⑤跨度/纯黑 L*=0', relLumL('#000000'), 0);
+  eq('⑤跨度/纯白 L*=100', relLumL('#FFFFFF'), 100);
+
   /* ── ⑤ 渐变措辞：两版都要认，且一版都不认时必须报"未判" ──
    * 这条判据曾经只认旧措辞，而代码早就改了措辞 → 一次都没执行过。 */
   const gOld = '① 面积分配：…允许渐变时只用相邻两级之间的过渡。';
@@ -693,6 +789,7 @@ for (const id of ids) {
    * 第一版只在行内显示「字体链 – 未判」，而末尾汇总仍说「没有未判项」——
    * 于是最后一行又把"没判"读成了"通过"，正是这一整轮在治的那个病。 */
   if (r.fontChain && r.fontChain.undecided) UNDECIDED.push(`${id}/字体链`);
+  if (r.gradientSpan && r.gradientSpan.undecided) UNDECIDED.push(`${id}/明度跨度`);
   if (r.gradientChecked === null) UNDECIDED.push(`${id}/渐变`);
   /* ⑤
    * 渐变那条要显示"匹配到哪一版措辞"。如果一版都没匹配到，就是**没判**，
@@ -705,7 +802,12 @@ for (const id of ids) {
     : r.fontChain.undecided ? '　〔字体链 – 未判：产物全用 var() 定义字体，不追展开〕'
     : r.fontChain.outside.length ? `　〔链外：${r.fontChain.outside.join(' ')}〕`
     : `　〔字体 ${r.fontChain.used.length} 个，全在链上〕`;
-  console.log(`  ⑤ 禁项   ${r.banned.length ? r.banned.map((b) => b.rule + '×' + b.hits + (b.families ? '(' + b.families.join(',') + ')' : '')).join('；') : '无违反'}${gradNote}${fcNote}`);
+  /* 渐变明度跨度：没有可判的渐变时显示"未判"，不显示"通过"。 */
+  const gsNote = !r.gradientSpan ? ''
+    : r.gradientSpan.undecided ? '　〔明度跨度 – 未判：没有可解析两端色值的渐变〕'
+    : r.gradientSpan.over.length ? `　〔跨度过大：${r.gradientSpan.over.map((s) => s.span).join(' ')}（阈值 ${r.gradientSpan.threshold}）〕`
+    : `　〔明度跨度 ${r.gradientSpan.spans.map((s) => s.span).join(' ')}，均在阈值内〕`;
+  console.log(`  ⑤ 禁项   ${r.banned.length ? r.banned.map((b) => b.rule + '×' + b.hits + (b.families ? '(' + b.families.join(',') + ')' : '')).join('；') : '无违反'}${gradNote}${fcNote}${gsNote}`);
 }
 
 if (ids.length > 1) {
