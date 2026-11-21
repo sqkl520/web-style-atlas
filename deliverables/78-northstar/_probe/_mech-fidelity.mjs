@@ -69,31 +69,78 @@ function equivalents(tok) {
   return out;
 }
 
-/* 把产物切成三段：CSS 声明体 / <script> 体 / 注释。注释要先从 CSS 里剔除，
- * 否则"只在注释里出现"会被误判成"实现了"。 */
+/* 把产物切三段：CSS 声明体 / <script> 体 / 注释。注释要先从 CSS 里剔除，
+ * 否则"只在注释里出现"会被误判成"实现了"。
+ *
+ * ⚠️ 2026-11-21 大改：第一版用 `decl.includes(tok)` 做字面比对，
+ * 于是 `opacity: .14` 不算实现了机制句里的 `14%`、`0.5px` 也不认 `stroke-width: .5`。
+ * 实测 S07 因此被报「缺 14%、0.5px」，而原型里写的是 `opacity: min(.14, …)` 与 SVG 描边宽度。
+ *
+ * **仓库里早就有正确的做法**：`check-prompts.mjs` 的 `mechSourceNumbers()`
+ * 把 px/mm/stroke-width/r/rx/ry/百分比/opacity 都归一成数值集合再比对。
+ * 我另写一套字面匹配，等于把别人踩过的坑重踩一遍。
+ * 下面直接照抄那一套的口径（不 import，因为它在 check-prompts 内部没导出）。
+ */
+function declaredNumbers(text) {
+  const len = new Set();
+  const pct = new Set();
+  const push = (v) => { const n = Number(v); if (Number.isFinite(n)) len.add(n.toFixed(2)); };
+  for (const m of text.matchAll(/(?<![\w-])(\d*\.?\d+)\s*(px|mm)(?![\w])/g)) push(m[1]);
+  for (const m of text.matchAll(/stroke-width\s*[:=]\s*["']?(\d*\.?\d+)/g)) push(m[1]);
+  for (const m of text.matchAll(/\b(?:r|rx|ry)\s*[:=]\s*["'](\d*\.?\d+)["']/g)) push(m[1]);
+  for (const m of text.matchAll(/(\d*\.?\d+)\s*%/g)) {
+    const n = Number(m[1]); if (Number.isFinite(n)) pct.add(n.toFixed(2));
+  }
+  /* opacity 归一：`opacity: .14` 与 `opacity: min(.14, …)` 两种都认。
+   * S07 的「8% 至 14%」正是后者。 */
+  for (const m of text.matchAll(/opacity\s*:\s*[^;{}]*?(\d*\.\d+)/g)) {
+    const n = Number(m[1]);
+    if (Number.isFinite(n) && n > 0 && n <= 1) pct.add((n * 100).toFixed(2));
+  }
+  for (const m of text.matchAll(/opacity\s*=\s*["']?(\d*\.\d+)/g)) {
+    const n = Number(m[1]);
+    if (Number.isFinite(n) && n > 0 && n <= 1) pct.add((n * 100).toFixed(2));
+  }
+  return { len, pct };
+}
+
 function splitArtifact(html) {
   const style = (html.match(/<style[^>]*>([\s\S]*?)<\/style>/i) || ['', ''])[1] || '';
   const script = (html.match(/<script[^>]*>([\s\S]*?)<\/script>/gi) || []).join('\n');
   const comments = (html.match(/\/\*[\s\S]*?\*\//g) || []).join('\n');
-  /* 声明坐标系：去掉注释与 <script>，剩下的才是"真的在渲染" */
+  /* 声明坐标系：去掉注释与 <script>，剩下的才是"真的在渲染"。
+   * 内联 style 属性也算声明。 */
   const decl = style.replace(/\/\*[\s\S]*?\*\//g, ' ') + '\n' +
-    (html.match(/style="[^"]*"/g) || []).join('\n');
+    (html.match(/style="[^"]*"/g) || []).join('\n') + '\n' +
+    (html.match(/<(?:rect|circle|line|path|svg)\b[^>]*>/g) || []).join('\n');
   return { decl, script, comments };
 }
 
 function judge(mechanism, html) {
   const { decl, script, comments } = splitArtifact(html);
+  const D = declaredNumbers(decl);
+  const S = declaredNumbers(script);
+  const C = declaredNumbers(comments);
   const toks = [...new Set(mechanism.match(NUM_RE) || [])];
   const rows = [];
   for (const tok of toks) {
-    const forms = equivalents(tok);
-    /* 数值必须作为**完整 token** 出现，不能用子串 ——
-     * `60px` 不能命中 `160px`，这是 _discriminator-lib 记过的坑。 */
-    const inDecl = forms.some((f) => new RegExp('(?:^|[^\\d.])' + f.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '(?![\\d])').test(decl));
-    const inScript = forms.some((f) => new RegExp('(?:^|[^\\d.])' + f.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '(?![\\d])').test(script));
-    const inComment = forms.some((f) => comments.includes(f));
-    const state = inDecl ? 'hit' : inScript ? 'script' : inComment ? 'comment' : 'absent';
-    rows.push({ tok, forms, state });
+    const m = tok.match(/^([\d.]+)(px|deg|fr|mm|%)$/);
+    if (!m) { rows.push({ tok, state: 'absent' }); continue; }
+    const num = Number(m[1]);
+    const isPct = m[2] === '%';
+    /* mm 先换算成 px 再比（0.4mm ≈ 1.51px）；deg/fr 没有通用等价，不做换算。 */
+    const vals = [num];
+    if (m[2] === 'mm') {
+      const px = num * 96 / 25.4;
+      vals.push(Math.round(px * 10) / 10, Math.round(px));
+    }
+    const inSet = (set) => vals.some((v) => set.has(Number(v).toFixed(2)));
+    /* 百分比只跟百分比集合比；长度只跟长度集合比 —— 单位不能串 */
+    const state = (isPct ? inSet(D.pct) : inSet(D.len)) ? 'hit'
+      : (isPct ? inSet(S.pct) : inSet(S.len)) ? 'script'
+      : (isPct ? inSet(C.pct) : inSet(C.len)) ? 'comment'
+      : 'absent';
+    rows.push({ tok, state });
   }
   const hit = rows.filter((r) => r.state === 'hit').length;
   const soft = rows.filter((r) => r.state === 'script' || r.state === 'comment').length;
@@ -134,6 +181,19 @@ function selfTest() {
   /* 记录这条局限：斜杠省略写法会少算。S34 的七个缩进档只数到 1 个。 */
   eq('斜杠省略写法只抓到带单位的那一个',
     judge('0/3/5.5/2/7/4/1%', '<style></style>').rows.map((r) => r.tok), ['1%']);
+  /* ⚠️ 归一化：`14%` 写成 `opacity: .14` 必须认。
+   * 实测 S07 的「8% 至 14%」在 style.css 里就是 `opacity: min(.14, calc(...))`，
+   * 第一版字面匹配把它判成缺失 —— 那是判据的错，不是实现的错。 */
+  eq('opacity .14 认作 14%',
+    judge('亮度差 14%', '<style>.a{opacity:.14}</style>').rows[0].state, 'hit');
+  eq('opacity: min(.14,…) 也认',
+    judge('亮度差 14%', '<style>.a{opacity:min(.14,calc(1 - .2))}</style>').rows[0].state, 'hit');
+  /* SVG 描边宽度归一：`stroke-width: .5` 认作 0.5px */
+  eq('stroke-width .5 认作 0.5px',
+    judge('栏线 0.5px', '<svg><line stroke-width="0.5"/></svg>').rows[0].state, 'hit');
+  /* 单位不能串：14% 不能被 14px 满足 */
+  eq('百分比与长度不串',
+    judge('亮度差 14%', '<style>.a{width:14px}</style>').rows[0].state, 'absent');
   const bad = S.filter(([, ok]) => !ok);
   for (const [n, ok, g, w] of S) {
     console.log(`  ${ok ? '✓' : '✗'} ${n}`);
@@ -175,10 +235,70 @@ for (const id of ids) {
 }
 console.log('');
 console.log(`合计：命中 ${totHit}/${totAll}　软 ${totSoft}　缺失 ${totAbs}`);
+
+/* ── 缺失值的原型对照 ──────────────────────────────────────────────────
+ *
+ * 一个值在产物里缺席，有两种完全不同的含义：
+ *
+ *   · 原型**也**没有 → 机制句写了一个两头都没做到的要求。那是机制句的问题。
+ *   · 原型**有**但产物没有 → 提示词没把它传过去，或 AI 没复刻。那才是产品的洞。
+ *
+ * 不区分这两者，这个数就只能说"缺了 N 个"，说不出缺的是谁的锅。
+ * 所以每个缺席的值都回原型里查一次。 */
+const W = {};
+new Function('window', readFileSync(ROOT + '/prototypes/_selection/data.js', 'utf8'))(W);
+console.log('');
+console.log('缺失值的原型对照：');
+let protoHas = 0, protoLacks = 0, protoSoft = 0;
+for (const id of ids) {
+  const dir = `${BT}/${id}`;
+  const htmlPath = ['index.html', 'out.html'].map((f) => `${dir}/${f}`).find((f) => existsSync(f));
+  if (!htmlPath) continue;
+  const base = id.match(/^S\d{2}/)[0];
+  const sp = P.STYLE_PROMPTS.schemes.find((x) => x.id === base);
+  const sc = W.SCHEMES.find((x) => x.id === base);
+  if (!sp || !sc || !sp.dna || !sp.dna.mechanism) continue;
+  const r = judge(sp.dna.mechanism, readFileSync(htmlPath, 'utf8'));
+  const missing = r.rows.filter((x) => x.state === 'absent').map((x) => x.tok);
+  if (!missing.length) continue;
+  const pdir = `${ROOT}/prototypes/${sc.dir}`;
+  if (!existsSync(`${pdir}/index.html`)) continue;
+  const proto = readFileSync(`${pdir}/index.html`, 'utf8') +
+    (existsSync(`${pdir}/style.css`) ? readFileSync(`${pdir}/style.css`, 'utf8') : '');
+  const pr = judge(sp.dna.mechanism, `<style>${proto}</style>`);
+  const protoMap = Object.fromEntries(pr.rows.map((x) => [x.tok, x.state]));
+  for (const tok of missing) {
+    /* 原型侧的三态要保留，不能压成"有/没有"：
+     * S13 的 `14%` 只出现在 style.css:13 的**排版规格注释**里
+     * （`检查项/压深/亮度差/对比度` 那张表），实现里没有对应声明。
+     * 把它归成"原型有"是错的（产物确实没法从实现里复刻它），
+     * 归成"原型没有"也不对（原型确实写了这个量）。
+     * 所以三种结论分开报。 */
+    const st = protoMap[tok];
+    if (st === 'hit') {
+      protoHas++;
+      console.log(`  ${id}  ${tok.padEnd(8)} 原型：✓ 有声明 → 是产物/提示词的洞`);
+    } else if (st === 'script' || st === 'comment') {
+      protoSoft++;
+      console.log(`  ${id}  ${tok.padEnd(8)} 原型：~ 只在${st === 'comment' ? '注释' : '脚本'}里 → 本来就没有声明可复刻`);
+    } else {
+      protoLacks++;
+      console.log(`  ${id}  ${tok.padEnd(8)} 原型：✗ 也没有 → 机制句写了两头都没做到的要求`);
+    }
+  }
+}
+if (!protoHas && !protoLacks && !protoSoft) console.log('  （没有缺失值）');
+else {
+  console.log('');
+  if (protoHas) console.log(`  ${protoHas} 个原型有声明、产物没有 → 提示词没传过去或 AI 没复刻`);
+  if (protoSoft) console.log(`  ${protoSoft} 个原型只在注释/脚本里 → 没有声明可复刻，机制句写了推导值`);
+  if (protoLacks) console.log(`  ${protoLacks} 个原型也没有 → 机制句写了两头都没做到的要求`);
+}
 console.log('');
 console.log('说明：');
 console.log('  · 「软」= 只在 script 或注释里出现，不是 CSS 声明。原型侧同样的判定');
 console.log('    在 check-prompts.mjs:1197-1203 里降成 WARN，这里保持一致。');
-console.log('  · mm 做了 → px 换算（0.4mm ≈ 1.51px）；deg / fr / % 不换算 ——');
-console.log('    它们没有通用等价，硬换会制造假阳性。');
+console.log('  · 数值归一化照抄 check-prompts.mjs 的 mechSourceNumbers()：');
+console.log('    opacity .14 认作 14%、stroke-width .5 认作 0.5px、mm 换 px。');
+console.log('    deg / fr 不换算 —— 没有通用等价，硬换会制造假阳性。');
 console.log('  · 这一层 score.mjs 完全没有，所以它报"五类全过"时机制可能是缺的。');
