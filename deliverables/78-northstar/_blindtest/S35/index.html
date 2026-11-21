@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>北站修鞋配钥匙 / 终端输出</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=Literata:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@400;500;600&display=swap');
+
+    :root {
+      --paper: #DCE0E4;
+      --ink: #1A1E22;
+      --ink-mid: #454C53;
+      --ink-soft: #6B7480;
+      --rule: #8A939C;
+      --paper-deep: #CDD3D8;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      background: var(--paper);
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Noto Serif SC', 'Literata', Georgia, serif;
+      font-size: 16px;
+      line-height: 1.55;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .machine {
+      width: min(1320px, calc(100% - 64px));
+      margin: 0 auto;
+      padding: 34px 0 46px;
+    }
+
+    .masthead {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      border-bottom: 2px solid var(--ink);
+      padding-bottom: 18px;
+      margin-bottom: 34px;
+    }
+
+    .machine-id,
+    .status,
+    .command,
+    .index,
+    .tel-label {
+      font-family: 'Jost', 'Noto Sans SC', sans-serif;
+      letter-spacing: .04em;
+    }
+
+    .machine-id {
+      color: var(--ink-mid);
+      font-size: 13px;
+      text-transform: uppercase;
+    }
+
+    .status {
+      color: var(--ink-soft);
+      font-size: 13px;
+      text-align: right;
+    }
+
+    .output-grid {
+      display: grid;
+      grid-template-columns: 1.25fr .82fr .95fr;
+      column-gap: 42px;
+      row-gap: 38px;
+      align-items: start;
+    }
+
+    .entry {
+      animation: print-in 240ms linear both;
+    }
+
+    .entry:nth-child(1) {
+      animation-delay: 0ms;
+      grid-column: 1 / -1;
+    }
+
+    .entry:nth-child(2) {
+      animation-delay: 40ms;
+    }
+
+    .entry:nth-child(3) {
+      animation-delay: 80ms;
+    }
+
+    .entry:nth-child(4) {
+      animation-delay: 120ms;
+    }
+
+    .entry:nth-child(5) {
+      animation-delay: 160ms;
+    }
+
+    @keyframes print-in {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .command {
+      margin: 0 0 7px;
+      color: var(--ink);
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .prompt {
+      display: inline-block;
+      width: 22px;
+      font-weight: 500;
+    }
+
+    .output {
+      margin-left: 22px;
+      max-width: 72ch;
+    }
+
+    .hero .output {
+      max-width: none;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 290px;
+      gap: 48px;
+      align-items: end;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 920px;
+      font-family: 'Jost', 'Noto Sans SC', sans-serif;
+      font-size: clamp(58px, 8vw, 96px);
+      line-height: .96;
+      letter-spacing: -.055em;
+      font-weight: 600;
+    }
+
+    .hero-note {
+      margin: 20px 0 0;
+      color: var(--ink-mid);
+      max-width: 650px;
+    }
+
+    .hero-meta {
+      align-self: end;
+      border-left: 3px solid var(--rule);
+      padding-left: 16px;
+      color: var(--ink-mid);
+    }
+
+    .hero-meta strong {
+      display: block;
+      color: var(--ink);
+      font-family: 'Jost', 'Noto Sans SC', sans-serif;
+      font-size: 25px;
+      line-height: 1.1;
+    }
+
+    .label {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--ink-soft);
+      font-family: 'Jost', 'Noto Sans SC', sans-serif;
+      font-size: 12px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .service-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .service-list li {
+      display: grid;
+      grid-template-columns: 46px 1fr;
+      border-top: 1px solid var(--rule);
+      padding: 10px 0 11px;
+    }
+
+    .service-list li:last-child {
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .index {
+      color: var(--ink-soft);
+      font-size: 13px;
+    }
+
+    .service-list b {
+      font-weight: 500;
+    }
+
+    .service-list small {
+      display: block;
+      color: var(--ink-soft);
+      font-size: 14px;
+    }
+
+    .photo-wrap {
+      margin: 0;
+      border: 2px solid var(--ink);
+      background: var(--paper-deep);
+    }
+
+    .photo-wrap img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 640 / 420;
+      object-fit: cover;
+    }
+
+    figcaption {
+      padding: 8px 10px 9px;
+      color: var(--ink-mid);
+      font-family: 'Jost', 'Noto Sans SC', sans-serif;
+      font-size: 12px;
+      border-top: 1px solid var(--ink);
+    }
+
+    .hours {
+      color: var(--ink-mid);
+      font-size: 18px;
+    }
+
+    .hours strong {
+      color: var(--ink);
+      font-family: 'Jost', 'Noto Sans SC', sans-serif;
+      font-size: 30px;
+      font-weight: 500;
+      letter-spacing: -.02em;
+    }
+
+    .warning {
+      border-left: 3px solid var(--rule);
+      padding: 3px 0 3px 15px;
+      color: var(--ink-mid);
+    }
+
+    .warning + .warning {
+      margin-top: 14px;
+    }
+
+    .complaint .warning:last-child {
+      border-left-width: 4px;
+      color: var(--ink);
+    }
+
+    .cta {
+      display: inline-block;
+      margin-top: 20px;
+      border: 2px solid var(--ink);
+      padding: 10px 15px 11px;
+      background: var(--ink);
+      color: var(--paper);
+      text-decoration: none;
+      font-family: 'Jost', 'Noto Sans SC', sans-serif;
+      font-size: 15px;
+      transition: opacity 200ms linear;
+    }
+
+    .cta:hover {
+      opacity: .82;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      border-top: 2px solid var(--ink);
+      margin-top: 48px;
+      padding-top: 14px;
+      color: var(--ink-soft);
+      font-family: 'Jost', 'Noto Sans SC', sans-serif;
+      font-size: 12px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .entry {
+        animation: none;
+        opacity: 1;
+      }
+
+      .prompt {
+        font-weight: 700;
+      }
+
+      .cta {
+        transition: none;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .machine {
+        width: min(100% - 32px, 620px);
+        padding-top: 20px;
+      }
+
+      .masthead {
+        margin-bottom: 25px;
+      }
+
+      .output-grid {
+        display: block;
+      }
+
+      .entry {
+        margin-bottom: 34px;
+      }
+
+      .hero .output {
+        display: block;
+      }
+
+      .hero-meta {
+        margin-top: 24px;
+      }
+
+      h1 {
+        font-size: clamp(54px, 18vw, 78px);
+      }
+
+      .footer {
+        display: block;
+      }
+
+      .footer span {
+        display: block;
+        margin-top: 5px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="machine">
+    <header class="masthead">
+      <div class="machine-id">NORTHSTAR / SHOE-KEY TERMINAL</div>
+      <div class="status">输出状态：可接单　编号：005</div>
+    </header>
+
+    <section class="output-grid" aria-label="店铺终端输出">
+      <article class="entry hero">
+        <p class="command"><span class="prompt">$</span> boot --speak-first-person</p>
+        <div class="output">
+          <div>
+            <h1>我替你的鞋，<br>把路走回来。</h1>
+            <p class="hero-note">我是北站街角那台修鞋配钥匙的老机器。皮革、鞋底、门锁，凡是还想再工作一下的东西，都可以先来找我。</p>
+            <a class="cta" href="tel:13800138000">拨号预约：138 0013 8000</a>
+          </div>
+
+          <div class="hero-meta">
+            <span class="label">当前心情</span>
+            <strong>愿意开门</strong>
+            今天不擅长等待，但擅长把坏掉的东西说服回来。
+          </div>
+        </div>
+      </article>
+
+      <article class="entry">
+        <p class="command"><span class="prompt">$</span> list --services</p>
+        <div class="output">
+          <ul class="service-list">
+            <li>
+              <span class="index">01</span>
+              <span>
+                <b>鞋底续命</b>
+                <small>换底、补边、粘合，走路先别辞职。</small>
+              </span>
+            </li>
+            <li>
+              <span class="index">02</span>
+              <span>
+                <b>钥匙复制</b>
+                <small>给门一份备用答案。</small>
+              </span>
+            </li>
+            <li>
+              <span class="index">03</span>
+              <span>
+                <b>拉链抢救</b>
+                <small>卡住的脾气，我见得比你多。</small>
+              </span>
+            </li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="entry">
+        <p class="command"><span class="prompt">$</span> inspect --workbench</p>
+        <div class="output">
+          <figure class="photo-wrap">
+            <img src="images/占位-1.jpg" width="640" height="420" alt="修鞋工具与钥匙坯的工作台">
+            <figcaption>图像记录：工具比我更早到岗。</figcaption>
+          </figure>
+        </div>
+      </article>
+
+      <article class="entry">
+        <p class="command"><span class="prompt">$</span> query --opening-hours</p>
+        <div class="output hours">
+          <span class="label">营业时间 / 人类时间</span>
+          <strong>09:00 — 19:00</strong><br>
+          周一至周六。周日让我和螺丝们开个短会。<br>
+          <span class="label" style="margin-top:16px;">建议</span>
+          急件请先拨号，我不保证接电话时手上没有胶。
+        </div>
+      </article>
+
+      <article class="entry complaint">
+        <p class="command"><span class="prompt">$</span> report --complaints</p>
+        <div class="output">
+          <div class="warning">警告：不要把钥匙拍得太近。我没有上镜许可。</div>
+          <div class="warning">警告：鞋底脱落不等于鞋子背叛你，通常只是胶水累了。</div>
+          <div class="warning">严重警告：我修不好自己的电机，但我可以修好你的拉链。此事我仍然委屈。</div>
+        </div>
+      </article>
+    </section>
+
+    <footer class="footer">
+      <span>终端编号 005 / 北站修鞋配钥匙</span>
+      <span>如果机器沉默，请再拨一次。</span>
+    </footer>
+  </main>
+</body>
+</html>

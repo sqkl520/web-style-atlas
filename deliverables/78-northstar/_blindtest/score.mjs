@@ -1171,8 +1171,26 @@ for (const id of ids) {
 if (ids.length > 1) {
   console.log(`\n${'─'.repeat(56)}`);
   if (UNDECIDED.length) {
-    console.log(`⚠️ 未判 ${UNDECIDED.length} 项：${UNDECIDED.join('、')}`);
-    console.log('   （未判 ≠ 通过。这几项没有对应的判据，或判据没匹配上。）');
+    /* 按**类别**聚合，不逐个列（2026-11-22 改）。
+     *
+     * 原来把 11 项平铺成一行，而其中 10 项是同一个原因（"产物没有可解析
+     * 两端的渐变"）—— 读起来像十条问题，实际是一件事。这类"数字对但
+     * 呈现方式误导"正是本仓库反复在治的东西。
+     *
+     * 聚合后按类别降序排，并列出涉及哪几案（最多 4 个，其余用 +N）。 */
+    const byKind = {};
+    for (const u of UNDECIDED) {
+      const [caseId, kind] = u.split('/');
+      (byKind[kind] = byKind[kind] || []).push(caseId);
+    }
+    const entries = Object.entries(byKind).sort((a, b) => b[1].length - a[1].length);
+    console.log(`⚠️ 未判 ${UNDECIDED.length} 项，按原因分 ${entries.length} 类：`);
+    for (const [kind, cases] of entries) {
+      const shown = cases.slice(0, 4).join(' ');
+      const more = cases.length > 4 ? ` +${cases.length - 4}` : '';
+      console.log(`     ${kind.padEnd(8)} ${String(cases.length).padStart(2)} 案：${shown}${more}`);
+    }
+    console.log('   （未判 ≠ 通过。多数是"这一案本来就不涉及该判据"，不是缺陷。）');
   } else {
     console.log('✓ 所有已跑案的五类判据都真正判过（没有"未判"项）');
   }

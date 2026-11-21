@@ -1,0 +1,234 @@
+[
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "78ba9cfd-57aa-418a-9dca-9ae7e1e53c6d",
+      "update": {
+        "sessionUpdate": "agent_message_chunk",
+        "messageId": "ad3a49d4-c0d9-49f4-865b-68f1b44d8cc9",
+        "content": {
+          "type": "text",
+          "text": " "
+        }
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "78ba9cfd-57aa-418a-9dca-9ae7e1e53c6d",
+      "update": {
+        "sessionUpdate": "usage_update",
+        "used": 10712,
+        "size": 200000
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "78ba9cfd-57aa-418a-9dca-9ae7e1e53c6d",
+      "update": {
+        "sessionUpdate": "tool_call",
+        "toolCallId": "call_66bf80ffdccd4d768e5dab07103707ff",
+        "title": "glob",
+        "kind": "other",
+        "status": "in_progress",
+        "rawInput": {
+          "path": ".",
+          "pattern": "*"
+        }
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "78ba9cfd-57aa-418a-9dca-9ae7e1e53c6d",
+      "update": {
+        "sessionUpdate": "tool_call_update",
+        "toolCallId": "call_66bf80ffdccd4d768e5dab07103707ff",
+        "status": "completed",
+        "content": [
+          {
+            "type": "content",
+            "content": {
+              "type": "text",
+              "text": "No files found"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "78ba9cfd-57aa-418a-9dca-9ae7e1e53c6d",
+      "update": {
+        "sessionUpdate": "agent_message_chunk",
+        "messageId": "d08e2aa4-b781-4126-9f0e-68ee6277bc46",
+        "content": {
+          "type": "text",
+          "text": " "
+        }
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "78ba9cfd-57aa-418a-9dca-9ae7e1e53c6d",
+      "update": {
+        "sessionUpdate": "usage_update",
+        "used": 10733,
+        "size": 200000
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "78ba9cfd-57aa-418a-9dca-9ae7e1e53c6d",
+      "update": {
+        "sessionUpdate": "tool_call",
+        "toolCallId": "call_e7d8b47ceaa24fd491b71251cb0aecb5",
+        "title": "working_directory",
+        "kind": "other",
+        "status": "in_progress",
+        "rawInput": {}
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "78ba9cfd-57aa-418a-9dca-9ae7e1e53c6d",
+      "update": {
+        "sessionUpdate": "tool_call_update",
+        "toolCallId": "call_e7d8b47ceaa24fd491b71251cb0aecb5",
+        "status": "completed",
+        "content": [
+          {
+            "type": "content",
+            "content": {
+              "type": "text",
+              "text": "D:\\Web\\style\\deliverables\\78-northstar\\_blindtest\\S35"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "78ba9cfd-57aa-418a-9dca-9ae7e1e53c6d",
+      "update": {
+        "sessionUpdate": "agent_message_chunk",
+        "messageId": "681ac7ad-34e4-418f-b4c2-eecc20e244fb",
+        "content": {
+          "type": "text",
+          "text": " "
+        }
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "78ba9cfd-57aa-418a-9dca-9ae7e1e53c6d",
+      "update": {
+        "sessionUpdate": "usage_update",
+        "used": 14444,
+        "size": 200000
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "78ba9cfd-57aa-418a-9dca-9ae7e1e53c6d",
+      "update": {
+        "sessionUpdate": "tool_call",
+        "toolCallId": "call_182bba923e034884b4f33579d202ce5d",
+        "title": "write",
+        "kind": "other",
+        "status": "in_progress",
+        "rawInput": {
+          "file_path": "index.html",
+          "content": "<!DOCTYPE html>\n<html lang=\"zh-CN\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>北站修鞋配钥匙 / 终端输出</title>\n  <style>\n    @import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=Literata:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@400;500;600&display=swap');\n\n    :root {\n      --paper: #DCE0E4;\n      --ink: #1A1E22;\n      --ink-mid: #454C53;\n      --ink-soft: #6B7480;\n      --rule: #8A939C;\n      --paper-deep: #CDD3D8;\n    }\n\n    * { box-sizing: border-box; }\n\n    html { background: var(--paper); }\n\n    body {\n      margin: 0;\n      background: var(--paper);\n      color: var(--ink);\n      font-family: 'Noto Serif SC', 'Literata', Georgia, serif;\n      font-size: 16px;\n      line-height: 1.55;\n    }\n\n    a { color: inherit; }\n\n    .machine {\n      width: min(1320px, calc(100% - 64px));\n      margin: 0 auto;\n      padding: 34px 0 46px;\n    }\n\n    .masthead {\n      display: flex;\n      justify-content: space-between;\n      align-items: end;\n      border-bottom: 2px solid var(--ink);\n      padding-bottom: 18px;\n      margin-bottom: 34px;\n    }\n\n    .machine-id,\n    .status,\n    .command,\n    .index,\n    .tel-label {\n      font-family: 'Jost', 'Noto Sans SC', sans-serif;\n      letter-spacing: .04em;\n    }\n\n    .machine-id {\n      color: var(--ink-mid);\n      font-size: 13px;\n      text-transform: uppercase;\n    }\n\n    .status {\n      color: var(--ink-soft);\n      font-size: 13px;\n      text-align: right;\n    }\n\n    .output-grid {\n      display: grid;\n      grid-template-columns: 1.25fr .82fr .95fr;\n      column-gap: 42px;\n      row-gap: 38px;\n      align-items: start;\n    }\n\n    .entry {\n      animation: print-in 240ms linear both;\n    }\n\n    .entry:nth-child(1) { animation-delay: 0ms; grid-column: 1 / -1; }\n    .entry:nth-child(2) { animation-delay: 40ms; }\n    .entry:nth-child(3) { animation-delay: 80ms; }\n    .entry:nth-child(4) { animation-delay: 120ms; }\n    .entry:nth-child(5) { animation-delay: 160ms; }\n\n    @keyframes print-in { from { opacity: 0; } to { opacity: 1; } }\n\n    .command {\n      margin: 0 0 7px;\n      color: var(--ink);\n      font-size: 15px;\n      font-weight: 600;\n    }\n\n    .prompt {\n      display: inline-block;\n      width: 22px;\n      font-weight: 500;\n    }\n\n    .output {\n      margin-left: 22px;\n      max-width: 72ch;\n    }\n\n    .hero .output {\n      max-width: none;\n      display: grid;\n      grid-template-columns: minmax(0, 1fr) 290px;\n      gap: 48px;\n      align-items: end;\n    }\n\n    h1 {\n      margin: 0;\n      max-width: 920px;\n      font-family: 'Jost', 'Noto Sans SC', sans-serif;\n      font-size: clamp(58px, 8vw, 96px);\n      line-height: .96;\n      letter-spacing: -.055em;\n      font-weight: 600;\n    }\n\n    .hero-note {\n      margin: 20px 0 0;\n      color: var(--ink-mid);\n      max-width: 650px;\n    }\n\n    .hero-meta {\n      align-self: end;\n      border-left: 3px solid var(--rule);\n      padding-left: 16px;\n      color: var(--ink-mid);\n    }\n\n    .hero-meta strong {\n      display: block;\n      color: var(--ink);\n      font-family: 'Jost', 'Noto Sans SC', sans-serif;\n      font-size: 25px;\n      line-height: 1.1;\n    }\n\n    .label {\n      display: block;\n      margin-bottom: 10px;\n      color: var(--ink-soft);\n      font-family: 'Jost', 'Noto Sans SC', sans-serif;\n      font-size: 12px;\n      letter-spacing: .1em;\n      text-transform: uppercase;\n    }\n\n    .service-list {\n      margin: 0;\n      padding: 0;\n      list-style: none;\n    }\n\n    .service-list li {\n      display: grid;\n      grid-template-columns: 46px 1fr;\n      border-top: 1px solid var(--rule);\n      padding: 10px 0 11px;\n    }\n\n    .service-list li:last-child { border-bottom: 1px solid var(--rule); }\n\n    .index { color: var(--ink-soft); font-size: 13px; }\n    .service-list b { font-weight: 500; }\n    .service-list small { display: block; color: var(--ink-soft); font-size: 14px; }\n\n    .photo-wrap {\n      margin: 0;\n      border: 2px solid var(--ink);\n      background: var(--paper-deep);\n    }\n\n    .photo-wrap img {\n      display: block;\n      width: 100%;\n      height: auto;\n      aspect-ratio: 640 / 420;\n      object-fit: cover;\n    }\n\n    figcaption {\n      padding: 8px 10px 9px;\n      color: var(--ink-mid);\n      font-family: 'Jost', 'Noto Sans SC', sans-serif;\n      font-size: 12px;\n      border-top: 1px solid var(--ink);\n    }\n\n    .hours {\n      color: var(--ink-mid);\n      font-size: 18px;\n    }\n\n    .hours strong {\n      color: var(--ink);\n      font-family: 'Jost', 'Noto Sans SC', sans-serif;\n      font-size: 30px;\n      font-weight: 500;\n      letter-spacing: -.02em;\n    }\n\n    .warning {\n      border-left: 3px solid var(--rule);\n      padding: 3px 0 3px 15px;\n      color: var(--ink-mid);\n    }\n\n    .warning + .warning { margin-top: 14px; }\n\n    .complaint .warning:last-child {\n      border-left-width: 4px;\n      color: var(--ink);\n    }\n\n    .cta {\n      display: inline-block;\n      margin-top: 20px;\n      border: 2px solid var(--ink);\n      padding: 10px 15px 11px;\n      background: var(--ink);\n      color: var(--paper);\n      text-decoration: none;\n      font-family: 'Jost', 'Noto Sans SC', sans-serif;\n      font-size: 15px;\n      transition: opacity 200ms linear;\n    }\n\n    .cta:hover { opacity: .82; }\n\n    .footer {\n      display: flex;\n      justify-content: space-between;\n      gap: 24px;\n      border-top: 2px solid var(--ink);\n      margin-top: 48px;\n      padding-top: 14px;\n      color: var(--ink-soft);\n      font-family: 'Jost', 'Noto Sans SC', sans-serif;\n      font-size: 12px;\n    }\n\n    @media (prefers-reduced-motion: reduce) {\n      .entry { animation: none; opacity: 1; }\n      .prompt { font-weight: 700; }\n      .cta { transition: none; }\n    }\n\n    @media (max-width: 760px) {\n      .machine { width: min(100% - 32px, 620px); padding-top: 20px; }\n      .masthead { margin-bottom: 25px; }\n      .output-grid { display: block; }\n      .entry { margin-bottom: 34px; }\n      .hero .output { display: block; }\n      .hero-meta { margin-top: 24px; }\n      h1 { font-size: clamp(54px, 18vw, 78px); }\n      .footer { display: block; }\n      .footer span { display: block; margin-top: 5px; }\n    }\n  </style>\n</head>\n<body>\n  <main class=\"machine\">\n    <header class=\"masthead\">\n      <div class=\"machine-id\">NORTHSTAR / SHOE-KEY TERMINAL</div>\n      <div class=\"status\">输出状态：可接单　编号：005</div>\n    </header>\n\n    <section class=\"output-grid\" aria-label=\"店铺终端输出\">\n      <article class=\"entry hero\">\n        <p class=\"command\"><span class=\"prompt\">$</span> boot --speak-first-person</p>\n        <div class=\"output\">\n          <div>\n            <h1>我替你的鞋，<br>把路走回来。</h1>\n            <p class=\"hero-note\">我是北站街角那台修鞋配钥匙的老机器。皮革、鞋底、门锁，凡是还想再工作一下的东西，都可以先来找我。</p>\n            <a class=\"cta\" href=\"tel:13800138000\">拨号预约：138 0013 8000</a>\n          </div>\n          <div class=\"hero-meta\"><span class=\"label\">当前心情</span><strong>愿意开门</strong>今天不擅长等待，但擅长把坏掉的东西说服回来。</div>\n        </div>\n      </article>\n\n      <article class=\"entry\">\n        <p class=\"command\"><span class=\"prompt\">$</span> list --services</p>\n        <div class=\"output\">\n          <ul class=\"service-list\">\n            <li><span class=\"index\">01</span><span><b>鞋底续命</b><small>换底、补边、粘合，走路先别辞职。</small></span></li>\n            <li><span class=\"index\">02</span><span><b>钥匙复制</b><small>给门一份备用答案。</small></span></li>\n            <li><span class=\"index\">03</span><span><b>拉链抢救</b><small>卡住的脾气，我见得比你多。</small></span></li>\n          </ul>\n        </div>\n      </article>\n\n      <article class=\"entry\">\n        <p class=\"command\"><span class=\"prompt\">$</span> inspect --workbench</p>\n        <div class=\"output\">\n          <figure class=\"photo-wrap\">\n            <img src=\"images/占位-1.jpg\" width=\"640\" height=\"420\" alt=\"修鞋工具与钥匙坯的工作台\">\n            <figcaption>图像记录：工具比我更早到岗。</figcaption>\n          </figure>\n        </div>\n      </article>\n\n      <article class=\"entry\">\n        <p class=\"command\"><span class=\"prompt\">$</span> query --opening-hours</p>\n        <div class=\"output hours\">\n          <span class=\"label\">营业时间 / 人类时间</span>\n          <strong>09:00 — 19:00</strong><br>\n          周一至周六。周日让我和螺丝们开个短会。<br>\n          <span class=\"label\" style=\"margin-top:16px;\">建议</span>\n          急件请先拨号，我不保证接电话时手上没有胶。\n        </div>\n      </article>\n\n      <article class=\"entry complaint\">\n        <p class=\"command\"><span class=\"prompt\">$</span> report --complaints</p>\n        <div class=\"output\">\n          <div class=\"warning\">警告：不要把钥匙拍得太近。我没有上镜许可。</div>\n          <div class=\"warning\">警告：鞋底脱落不等于鞋子背叛你，通常只是胶水累了。</div>\n          <div class=\"warning\">严重警告：我修不好自己的电机，但我可以修好你的拉链。此事我仍然委屈。</div>\n        </div>\n      </article>\n    </section>\n\n    <footer class=\"footer\">\n      <span>终端编号 005 / 北站修鞋配钥匙</span>\n      <span>如果机器沉默，请再拨一次。</span>\n    </footer>\n  </main>\n</body>\n</html>\n"
+        }
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "78ba9cfd-57aa-418a-9dca-9ae7e1e53c6d",
+      "update": {
+        "sessionUpdate": "tool_call_update",
+        "toolCallId": "call_182bba923e034884b4f33579d202ce5d",
+        "status": "completed",
+        "content": [
+          {
+            "type": "content",
+            "content": {
+              "type": "text",
+              "text": "<path>D:\\Web\\style\\deliverables\\78-northstar\\_blindtest\\S35\\index.html</path>\n<type>file</type>\n<content>\nCreated file\n</content>"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "78ba9cfd-57aa-418a-9dca-9ae7e1e53c6d",
+      "update": {
+        "sessionUpdate": "agent_message_chunk",
+        "messageId": "0d7a2cb8-ac3d-47c9-a407-ff7fa0f8118d",
+        "content": {
+          "type": "text",
+          "text": " <!DOCTYPE html>\n<html lang=\"zh-CN\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>北站修鞋配钥匙 / 终端输出</title>\n  <style>\n    @import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=Literata:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@400;500;600&display=swap');\n\n    :root {\n      --paper: #DCE0E4;\n      --ink: #1A1E22;\n      --ink-mid: #454C53;\n      --ink-soft: #6B7480;\n      --rule: #8A939C;\n      --paper-deep: #CDD3D8;\n    }\n\n    * {\n      box-sizing: border-box;\n    }\n\n    html {\n      background: var(--paper);\n    }\n\n    body {\n      margin: 0;\n      background: var(--paper);\n      color: var(--ink);\n      font-family: 'Noto Serif SC', 'Literata', Georgia, serif;\n      font-size: 16px;\n      line-height: 1.55;\n    }\n\n    a {\n      color: inherit;\n    }\n\n    .machine {\n      width: min(1320px, calc(100% - 64px));\n      margin: 0 auto;\n      padding: 34px 0 46px;\n    }\n\n    .masthead {\n      display: flex;\n      justify-content: space-between;\n      align-items: end;\n      border-bottom: 2px solid var(--ink);\n      padding-bottom: 18px;\n      margin-bottom: 34px;\n    }\n\n    .machine-id,\n    .status,\n    .command,\n    .index,\n    .tel-label {\n      font-family: 'Jost', 'Noto Sans SC', sans-serif;\n      letter-spacing: .04em;\n    }\n\n    .machine-id {\n      color: var(--ink-mid);\n      font-size: 13px;\n      text-transform: uppercase;\n    }\n\n    .status {\n      color: var(--ink-soft);\n      font-size: 13px;\n      text-align: right;\n    }\n\n    .output-grid {\n      display: grid;\n      grid-template-columns: 1.25fr .82fr .95fr;\n      column-gap: 42px;\n      row-gap: 38px;\n      align-items: start;\n    }\n\n    .entry {\n      animation: print-in 240ms linear both;\n    }\n\n    .entry:nth-child(1) {\n      animation-delay: 0ms;\n      grid-column: 1 / -1;\n    }\n\n    .entry:nth-child(2) {\n      animation-delay: 40ms;\n    }\n\n    .entry:nth-child(3) {\n      animation-delay: 80ms;\n    }\n\n    .entry:nth-child(4) {\n      animation-delay: 120ms;\n    }\n\n    .entry:nth-child(5) {\n      animation-delay: 160ms;\n    }\n\n    @keyframes print-in {\n      from {\n        opacity: 0;\n      }\n\n      to {\n        opacity: 1;\n      }\n    }\n\n    .command {\n      margin: 0 0 7px;\n      color: var(--ink);\n      font-size: 15px;\n      font-weight: 600;\n    }\n\n    .prompt {\n      display: inline-block;\n      width: 22px;\n      font-weight: 500;\n    }\n\n    .output {\n      margin-left: 22px;\n      max-width: 72ch;\n    }\n\n    .hero .output {\n      max-width: none;\n      display: grid;\n      grid-template-columns: minmax(0, 1fr) 290px;\n      gap: 48px;\n      align-items: end;\n    }\n\n    h1 {\n      margin: 0;\n      max-width: 920px;\n      font-family: 'Jost', 'Noto Sans SC', sans-serif;\n      font-size: clamp(58px, 8vw, 96px);\n      line-height: .96;\n      letter-spacing: -.055em;\n      font-weight: 600;\n    }\n\n    .hero-note {\n      margin: 20px 0 0;\n      color: var(--ink-mid);\n      max-width: 650px;\n    }\n\n    .hero-meta {\n      align-self: end;\n      border-left: 3px solid var(--rule);\n      padding-left: 16px;\n      color: var(--ink-mid);\n    }\n\n    .hero-meta strong {\n      display: block;\n      color: var(--ink);\n      font-family: 'Jost', 'Noto Sans SC', sans-serif;\n      font-size: 25px;\n      line-height: 1.1;\n    }\n\n    .label {\n      display: block;\n      margin-bottom: 10px;\n      color: var(--ink-soft);\n      font-family: 'Jost', 'Noto Sans SC', sans-serif;\n      font-size: 12px;\n      letter-spacing: .1em;\n      text-transform: uppercase;\n    }\n\n    .service-list {\n      margin: 0;\n      padding: 0;\n      list-style: none;\n    }\n\n    .service-list li {\n      display: grid;\n      grid-template-columns: 46px 1fr;\n      border-top: 1px solid var(--rule);\n      padding: 10px 0 11px;\n    }\n\n    .service-list li:last-child {\n      border-bottom: 1px solid var(--rule);\n    }\n\n    .index {\n      color: var(--ink-soft);\n      font-size: 13px;\n    }\n\n    .service-list b {\n      font-weight: 500;\n    }\n\n    .service-list small {\n      display: block;\n      color: var(--ink-soft);\n      font-size: 14px;\n    }\n\n    .photo-wrap {\n      margin: 0;\n      border: 2px solid var(--ink);\n      background: var(--paper-deep);\n    }\n\n    .photo-wrap img {\n      display: block;\n      width: 100%;\n      height: auto;\n      aspect-ratio: 640 / 420;\n      object-fit: cover;\n    }\n\n    figcaption {\n      padding: 8px 10px 9px;\n      color: var(--ink-mid);\n      font-family: 'Jost', 'Noto Sans SC', sans-serif;\n      font-size: 12px;\n      border-top: 1px solid var(--ink);\n    }\n\n    .hours {\n      color: var(--ink-mid);\n      font-size: 18px;\n    }\n\n    .hours strong {\n      color: var(--ink);\n      font-family: 'Jost', 'Noto Sans SC', sans-serif;\n      font-size: 30px;\n      font-weight: 500;\n      letter-spacing: -.02em;\n    }\n\n    .warning {\n      border-left: 3px solid var(--rule);\n      padding: 3px 0 3px 15px;\n      color: var(--ink-mid);\n    }\n\n    .warning + .warning {\n      margin-top: 14px;\n    }\n\n    .complaint .warning:last-child {\n      border-left-width: 4px;\n      color: var(--ink);\n    }\n\n    .cta {\n      display: inline-block;\n      margin-top: 20px;\n      border: 2px solid var(--ink);\n      padding: 10px 15px 11px;\n      background: var(--ink);\n      color: var(--paper);\n      text-decoration: none;\n      font-family: 'Jost', 'Noto Sans SC', sans-serif;\n      font-size: 15px;\n      transition: opacity 200ms linear;\n    }\n\n    .cta:hover {\n      opacity: .82;\n    }\n\n    .footer {\n      display: flex;\n      justify-content: space-between;\n      gap: 24px;\n      border-top: 2px solid var(--ink);\n      margin-top: 48px;\n      padding-top: 14px;\n      color: var(--ink-soft);\n      font-family: 'Jost', 'Noto Sans SC', sans-serif;\n      font-size: 12px;\n    }\n\n    @media (prefers-reduced-motion: reduce) {\n      .entry {\n        animation: none;\n        opacity: 1;\n      }\n\n      .prompt {\n        font-weight: 700;\n      }\n\n      .cta {\n        transition: none;\n      }\n    }\n\n    @media (max-width: 760px) {\n      .machine {\n        width: min(100% - 32px, 620px);\n        padding-top: 20px;\n      }\n\n      .masthead {\n        margin-bottom: 25px;\n      }\n\n      .output-grid {\n        display: block;\n      }\n\n      .entry {\n        margin-bottom: 34px;\n      }\n\n      .hero .output {\n        display: block;\n      }\n\n      .hero-meta {\n        margin-top: 24px;\n      }\n\n      h1 {\n        font-size: clamp(54px, 18vw, 78px);\n      }\n\n      .footer {\n        display: block;\n      }\n\n      .footer span {\n        display: block;\n        margin-top: 5px;\n      }\n    }\n  </style>\n</head>\n<body>\n  <main class=\"machine\">\n    <header class=\"masthead\">\n      <div class=\"machine-id\">NORTHSTAR / SHOE-KEY TERMINAL</div>\n      <div class=\"status\">输出状态：可接单　编号：005</div>\n    </header>\n\n    <section class=\"output-grid\" aria-label=\"店铺终端输出\">\n      <article class=\"entry hero\">\n        <p class=\"command\"><span class=\"prompt\">$</span> boot --speak-first-person</p>\n        <div class=\"output\">\n          <div>\n            <h1>我替你的鞋，<br>把路走回来。</h1>\n            <p class=\"hero-note\">我是北站街角那台修鞋配钥匙的老机器。皮革、鞋底、门锁，凡是还想再工作一下的东西，都可以先来找我。</p>\n            <a class=\"cta\" href=\"tel:13800138000\">拨号预约：138 0013 8000</a>\n          </div>\n\n          <div class=\"hero-meta\">\n            <span class=\"label\">当前心情</span>\n            <strong>愿意开门</strong>\n            今天不擅长等待，但擅长把坏掉的东西说服回来。\n          </div>\n        </div>\n      </article>\n\n      <article class=\"entry\">\n        <p class=\"command\"><span class=\"prompt\">$</span> list --services</p>\n        <div class=\"output\">\n          <ul class=\"service-list\">\n            <li>\n              <span class=\"index\">01</span>\n              <span>\n                <b>鞋底续命</b>\n                <small>换底、补边、粘合，走路先别辞职。</small>\n              </span>\n            </li>\n            <li>\n              <span class=\"index\">02</span>\n              <span>\n                <b>钥匙复制</b>\n                <small>给门一份备用答案。</small>\n              </span>\n            </li>\n            <li>\n              <span class=\"index\">03</span>\n              <span>\n                <b>拉链抢救</b>\n                <small>卡住的脾气，我见得比你多。</small>\n              </span>\n            </li>\n          </ul>\n        </div>\n      </article>\n\n      <article class=\"entry\">\n        <p class=\"command\"><span class=\"prompt\">$</span> inspect --workbench</p>\n        <div class=\"output\">\n          <figure class=\"photo-wrap\">\n            <img src=\"images/占位-1.jpg\" width=\"640\" height=\"420\" alt=\"修鞋工具与钥匙坯的工作台\">\n            <figcaption>图像记录：工具比我更早到岗。</figcaption>\n          </figure>\n        </div>\n      </article>\n\n      <article class=\"entry\">\n        <p class=\"command\"><span class=\"prompt\">$</span> query --opening-hours</p>\n        <div class=\"output hours\">\n          <span class=\"label\">营业时间 / 人类时间</span>\n          <strong>09:00 — 19:00</strong><br>\n          周一至周六。周日让我和螺丝们开个短会。<br>\n          <span class=\"label\" style=\"margin-top:16px;\">建议</span>\n          急件请先拨号，我不保证接电话时手上没有胶。\n        </div>\n      </article>\n\n      <article class=\"entry complaint\">\n        <p class=\"command\"><span class=\"prompt\">$</span> report --complaints</p>\n        <div class=\"output\">\n          <div class=\"warning\">警告：不要把钥匙拍得太近。我没有上镜许可。</div>\n          <div class=\"warning\">警告：鞋底脱落不等于鞋子背叛你，通常只是胶水累了。</div>\n          <div class=\"warning\">严重警告：我修不好自己的电机，但我可以修好你的拉链。此事我仍然委屈。</div>\n        </div>\n      </article>\n    </section>\n\n    <footer class=\"footer\">\n      <span>终端编号 005 / 北站修鞋配钥匙</span>\n      <span>如果机器沉默，请再拨一次。</span>\n    </footer>\n  </main>\n</body>\n</html>"
+        }
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "78ba9cfd-57aa-418a-9dca-9ae7e1e53c6d",
+      "update": {
+        "sessionUpdate": "usage_update",
+        "used": 18011,
+        "size": 200000
+      }
+    }
+  },
+  {
+    "kind": "result",
+    "msg": {
+      "jsonrpc": "2.0",
+      "id": 3,
+      "result": {
+        "stopReason": "end_turn"
+      }
+    }
+  }
+]
