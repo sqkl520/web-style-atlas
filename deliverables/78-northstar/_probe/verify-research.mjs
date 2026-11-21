@@ -62,6 +62,13 @@ const STEPS = [
    * 覆盖率低不等于错。但它必须每次都被打印出来。
    * 加 `--id` 跑：node _scorer-blindspot.mjs */
   { id: '../_blindtest/score', args: ['--selftest'], label: '自测：盲测评分器判据', fail: true },
+  /* 2026-11-21 新增：正对照。
+   * 拿 35 个**原型**（手工做的、已知合格）当产物跑一遍判据。
+   * 判据如果判它们违规，那是判据错了 —— 不是原型错了。
+   * 本仓库已经两次因为"判据把对的判成错的"而差点改坏正确的东西
+   * （§十三 gradient 误判、§二十七 字体锚点连错三次），两次都靠人肉回查。
+   * 这一项把"判据会不会冤枉合格样品"变成可自动跑的检查。 */
+  { id: '../_blindtest/score', args: ['--positive-control'], label: '正对照：35 个原型不被判违规', fail: true },
   { id: '_scorer-blindspot', label: '评分器覆盖率（不判分，只报）', fail: false },
   /* 2026-11-21 新增：动效段的效果对照。
    * 补上 motion 之后，"补对了没有"不能靠读提示词确认 —— 那只能证明文本变了。

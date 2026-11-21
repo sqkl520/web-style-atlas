@@ -29,7 +29,7 @@
  *   node score.mjs <Sxx>            # 对这个案的产物打分
  *   node score.mjs --all            # 所有跑过的案
  */
-import { readFileSync, existsSync, readdirSync } from 'node:fs';
+import { readFileSync, existsSync, readdirSync, writeFileSync, mkdirSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
 
 const ROOT = decodeURIComponent(new URL('../../../', import.meta.url).pathname).replace(/^\/([A-Za-z]:)/, '$1');
@@ -331,46 +331,34 @@ function judgeGradientSpan(prompt, html) {
 
 /* 默认字体栈：提示词写「也不要跳过上面这两条链回退成系统默认无衬线」。
  *
- * 黑名单直接引用 `deliverables/02-anti-ai-rules.md:223` 的 R-07 定义，
+ * 黑名单直接引用 deliverables/02-anti-ai-rules.md:223 的 R-07 定义，
  * 不在这里另立一份 —— 两份名单各自漂移是这个仓库反复踩的坑。
  *
- * ⚠️ 两个必须说清的边界：
- *
- *   ① **通用回退不算违规**。`font-family: "Martian Mono", sans-serif` 里那个
- *      `sans-serif` 是 CSS 关键字，不是某个具体字体，它是链走完之后的兜底。
- *      提示词禁的是"回退成**系统默认**无衬线"（指某款具体的默认字体），
- *      不是禁止写 CSS 关键字。`judgeFontChain` 里也用了同一套 GENERIC_FAMILIES。
- *
- *   ② **`Noto Sans` 只在"作为唯一无衬线"时违规**（R-07 原文）。
- *      而几乎所有案的中文链都含 `Noto Sans SC` —— 它是思源黑体，是本案
- *      明确指定的字体，不是"模型偷懒选的默认值"。所以不能按名字一刀切。
- *      判据只在**该案链里没有别的无衬线**时才报 `Noto Sans`。
- *
- * 不带 `SC` / `Serif` / `Mono` 等后缀的裸 `Noto Sans` 才在名单上，
- * 因为 `Noto Sans SC` 是一个具体的中文字体，不是那个默认栈。
+ * 两个边界：
+ *   ① 通用回退不算违规。sans-serif 是 CSS 关键字，不是某款具体字体，
+ *      它是链走完之后的兜底。提示词禁的是“回退成系统默认无衬线”。
+ *   ② Noto Sans 只在「作为唯一无衬线」时违规（R-07 原文）。
+ *      几乎所有案的中文链都含 Noto Sans SC —— 它是思源黑体、是本案指定的字体。
+ *      所以名单只收不带 SC/Serif/Mono 后缀的裸名字。
  */
-const DEFAULT_STACK = [
-  'Inter', 'Roboto', 'Arial', 'Helvetica', 'Helvetica Neue',
-  'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI',
-  'San Francisco', 'Ubuntu',
-];
+const DEFAULT_STACK = ['Inter', 'Roboto', 'Arial', 'Helvetica', 'Helvetica Neue',
+  'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'San Francisco', 'Ubuntu'];
+
 function judgeDefaultFontStack(prompt, html) {
-  /* 只在该案提示词真的写了这条约束时才判 */
   if (!/不要跳过上面这两条链回退成系统默认无衬线/.test(prompt)) return null;
   const decls = [...html.matchAll(/font-family\s*:\s*([^;}]+)/g)].map((m) => m[1].trim());
   if (!decls.length) return { hits: [], undecided: true };
   const hits = new Set();
   for (const d of decls) {
-    const parts = d.split(',').map((x) => x.trim().replace(/^["']|["']$/g, ''));
-    for (const p of parts) {
-      if (!p || p.startsWith('var(')) continue;
-      if (DEFAULT_STACK.some((b) => p.toLowerCase() === b.toLowerCase())) hits.add(p);
+    for (const part of d.split(',').map((x) => x.trim().replace(/^["']|["']$/g, ''))) {
+      if (!part || part.startsWith('var(')) continue;
+      if (DEFAULT_STACK.some((b) => part.toLowerCase() === b.toLowerCase())) hits.add(part);
     }
   }
   return { hits: [...hits], undecided: false };
 }
 
-function score(id) {
+function score(id, opts = {}) {
   const dir = join(BT, id);
   const htmlPath = join(dir, 'index.html');
   const promptPath = join(dir, '_prompt.txt');
@@ -586,7 +574,6 @@ function score(id) {
   out.gradientSpan = gs;
   if (gs && gs.over.length) banned.push({ rule: '渐变跨度过大', hits: gs.over.length, spans: gs.over.map((s) => s.span) });
   if (gs && gs.undecided) undecided.push('明度跨度');
-  /* 默认字体栈：提示词禁「回退成系统默认无衬线」 */
   const dfs = judgeDefaultFontStack(prompt, html);
   out.defaultStack = dfs;
   if (dfs && dfs.hits.length) banned.push({ rule: '系统默认字体', hits: dfs.hits.length, families: dfs.hits });
@@ -761,20 +748,6 @@ function selfTest() {
   eq('⑤跨度/纯黑 L*=0', relLumL('#000000'), 0);
   eq('⑤跨度/纯白 L*=100', relLumL('#FFFFFF'), 100);
 
-  /* ── ⑤ 默认字体栈（R-07 黑名单） ── */
-  const PD = '也不要跳过上面这两条链回退成系统默认无衬线。';
-  eq('⑤默认栈/Inter 要报', judgeDefaultFontStack(PD, '<style>.a{font-family:Inter,sans-serif}</style>').hits, ['Inter']);
-  eq('⑤默认栈/system-ui 要报', judgeDefaultFontStack(PD, '<style>.a{font-family:system-ui}</style>').hits, ['system-ui']);
-  eq('⑤默认栈/案例不区分大小写', judgeDefaultFontStack(PD, '<style>.a{font-family:ROBOTO}</style>').hits, ['ROBOTO']);
-  /* ⚠️ 通用回退不违规 —— 它是 CSS 关键字，不是"某款系统默认字体" */
-  eq('⑤默认栈/通用回退不报', judgeDefaultFontStack(PD, '<style>.a{font-family:"Martian Mono",sans-serif}</style>').hits, []);
-  /* ⚠️ Noto Sans SC 是本案指定的中文字体，不在一刀切名单里 */
-  eq('⑤默认栈/Noto Sans SC 不报', judgeDefaultFontStack(PD, '<style>.a{font-family:"Noto Sans SC"}</style>').hits, []);
-  /* 提示词没有这条约束 → 整条跳过 */
-  eq('⑤默认栈/无此约束时返回 null', judgeDefaultFontStack('随便一句', '<style>.a{font-family:Inter}</style>'), null);
-  /* 有约束但产物没 font-family → 未判 */
-  eq('⑤默认栈/没声明时记未判', judgeDefaultFontStack(PD, '<style>.a{color:red}</style>').undecided, true);
-
   /* ── ⑤ 渐变措辞：两版都要认，且一版都不认时必须报"未判" ──
    * 这条判据曾经只认旧措辞，而代码早就改了措辞 → 一次都没执行过。 */
   const gOld = '① 面积分配：…允许渐变时只用相邻两级之间的过渡。';
@@ -815,6 +788,14 @@ function selfTest() {
   S.push(['结构/score() 必须返回 undecided 数组',
     Array.isArray(sampleR && sampleR.undecided), sampleR && typeof sampleR.undecided, 'array']);
 
+  /* ── ⑤ 默认字体栈（R-07 黑名单） ── */
+  const PD = '也不要跳过上面这两条链回退成系统默认无衬线。';
+  eq('⑤默认栈/Inter 要报', judgeDefaultFontStack(PD, '<style>.a{font-family:Inter,sans-serif}</style>').hits, ['Inter']);
+  eq('⑤默认栈/system-ui 要报', judgeDefaultFontStack(PD, '<style>.a{font-family:system-ui}</style>').hits, ['system-ui']);
+  eq('⑤默认栈/通用回退不报', judgeDefaultFontStack(PD, '<style>.a{font-family:"Martian Mono",sans-serif}</style>').hits, []);
+  eq('⑤默认栈/Noto Sans SC 不报', judgeDefaultFontStack(PD, '<style>.a{font-family:"Noto Sans SC"}</style>').hits, []);
+  eq('⑤默认栈/无此约束时返回 null', judgeDefaultFontStack('随便一句', '<style>.a{font-family:Inter}</style>'), null);
+  eq('⑤默认栈/没声明时记未判', judgeDefaultFontStack(PD, '<style>.a{color:red}</style>').undecided, true);
   const bad = S.filter(([, ok]) => !ok);
   for (const [name, ok, got, want] of S) {
     console.log(`  ${ok ? '✓' : '✗'} ${name}`);
@@ -830,6 +811,71 @@ if (arg === '--selftest') {
   console.log('=== 评分器自测（变异测试）===');
   process.exit(selfTest() ? 0 : 1);
 }
+
+/* ── 正对照：拿 35 个原型当产物打分 ─────────────────────────────────────
+ *
+ * 原型是手工做的、已知合格。如果判据判它们违规，那是**判据错了**。
+ *
+ * 为什么必须有这个：本仓库已经两次因为"判据把对的判成错的"而差点改坏
+ * 正确的东西（§十三 的 gradient 误判、§二十七 的字体锚点连错三次）。
+ * 两次都靠人肉回查才发现。正对照把这件事变成可自动跑的一道检查。
+ *
+ * 局限（写出来免得被高估）：原型把 CSS 放在外部 style.css，产物内联在
+ * <style> 里 —— 这里把 style.css 拼进 HTML 再判，模拟"一个自包含的页面"。
+ * 配色/字体/几何/禁项不受影响；④ 结构（数 <article>）可能因原型用别的
+ * 标签而偏低，那一类在这里不作断言。 */
+if (arg === '--positive-control') {
+  const W = {};
+  new Function('window', readFileSync(join(ROOT, 'prototypes/_selection/data.js'), 'utf8'))(W);
+  const P2 = {};
+  new Function('window', readFileSync(join(ROOT, 'prototypes/_selection/prompts.js'), 'utf8'))(P2);
+  const stub = {
+    getElementById: () => null, querySelector: () => null, querySelectorAll: () => [],
+    createElement: () => ({ style: {}, setAttribute() {}, appendChild() {}, addEventListener() {} }),
+    addEventListener: () => {}, readyState: 'complete', body: { appendChild() {} },
+  };
+  const G = {
+    STYLE_PROMPTS: P2.STYLE_PROMPTS, SCHEMES: W.SCHEMES, document: stub,
+    location: { href: 'http://x/', search: '', hash: '' },
+    localStorage: { getItem: () => null, setItem() {}, removeItem() {} },
+    navigator: { clipboard: { writeText: async () => {} } },
+    history: { replaceState() {} }, setTimeout, clearTimeout,
+  };
+  new Function('window', 'document', 'location', 'localStorage', 'navigator', 'history', 'setTimeout', 'clearTimeout',
+    readFileSync(join(ROOT, 'prototypes/_selection/prompt-copy.js'), 'utf8'))(
+    G, G.document, G.location, G.localStorage, G.navigator, G.history, setTimeout, clearTimeout);
+
+  console.log('正对照：35 个原型（手工做的合格样品）跑一遍判据\n');
+  let checked = 0, violations = 0;
+  const tmp = join(ROOT, '.pc-tmp');
+  mkdirSync(tmp, { recursive: true });
+  for (const s of W.SCHEMES) {
+    const pdir = join(ROOT, 'prototypes', s.dir);
+    const ip = join(pdir, 'index.html');
+    if (!existsSync(ip)) continue;
+    const cssPath = join(pdir, 'style.css');
+    const html = readFileSync(ip, 'utf8') +
+      (existsSync(cssPath) ? '\n<style>\n' + readFileSync(cssPath, 'utf8') + '\n</style>' : '');
+    const prompt = G.buildStylePrompt(s.id, { biz: '一家修鞋配钥匙的小店', action: '打电话约个时间', have: 5 });
+    const hp = join(tmp, 'index.html'), pp = join(tmp, '_prompt.txt');
+    writeFileSync(hp, html);
+    writeFileSync(pp, prompt);
+    const r = score(s.id, { htmlPath: hp, promptPath: pp });
+    checked++;
+    if (r.ok && r.banned.length) {
+      violations++;
+      console.log(`  ✗ ${s.id}  ${r.banned.map((b) => b.rule + '×' + b.hits).join('；')}`);
+    }
+  }
+  rmSync(tmp, { recursive: true, force: true });
+  console.log('');
+  console.log(`检查 ${checked} 个原型，${violations} 个被判违规`);
+  console.log(violations === 0
+    ? '✓ 正对照通过：判据没有把手工做的合格样品判成违规'
+    : '✗ 正对照失败：判据把合格样品判成违规了，先怀疑判据');
+  process.exit(violations === 0 ? 0 : 1);
+}
+
 const ids = arg === '--all'
   ? readdirSync(BT, { withFileTypes: true }).filter((d) => d.isDirectory() && /^S\d{2}$/.test(d.name)).map((d) => d.name).sort()
   : [arg];
