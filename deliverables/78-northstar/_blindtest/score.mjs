@@ -588,6 +588,103 @@ function judgeGradientSpan(prompt, html) {
  *      几乎所有案的中文链都含 Noto Sans SC —— 它是思源黑体、是本案指定的字体。
  *      所以名单只收不带 SC/Serif/Mono 后缀的裸名字。
  */
+/* 字号判据（2026-11-22 从 score() 内联块抽出来）。
+ *
+ * 抽出来的唯一理由：**内联的逻辑没法被 --selftest 打到**。
+ * 这块里的 `body` 组合选择器 bug（`html,\nbody{}` 匹配不上、落到众数兜底
+ * 取 15px）静默存在了很久，没有任何断言发现它 ——
+ * 是渲染审计用真浏览器量出 16px 才暴露的。
+ *
+ * 仓库里圆角/线宽/条目/图片/渐变/字体链都已抽成纯函数并带自测，字号是最后一个没抽的。
+ *
+ * 判据逻辑（原样搬过来，一个字没改）：
+ *   · 标题：全页最大的 font-size
+ *   · 正文：优先 `body{...font-size}`，其次 `:root`，都没有才用 ≥14px 众数
+ *   · 两个都对才算过（各允许 ±4px）
+ *
+ * ⚠️ 顺序不能反（2026-11-05 修）：我原来先取 ≥14px 的众数，
+ * 而 S19 的众数是 22px（它有很多 18–22px 的小标题），
+ * 于是报「正文 22px vs 要 16px ✗」—— 而它的 `body{font-size:16px}`
+ * 就在那儿，**完全正确**。判据先信了一个间接信号，把直接信号扔了。
+ */
+function judgeScale(prompt, html) {
+  const h1M = prompt.match(/最大标题要压到正文的\s*([\d.]+)\s*倍/);
+  const bodyM = prompt.match(/正文约\s*(\d+)px/);
+  if (!h1M && !bodyM) return null;
+
+  const pxOf = (expr) => {
+    const v = String(expr).trim();
+    const fn = v.match(/^(clamp|min|max)\(([\s\S]*)\)$/i);
+    if (fn) {
+      const args = fn[2].split(',').map((s) => pxOf(s)).filter((n) => n > 0);
+      return args.length ? Math.max(...args) : 0;
+    }
+    const calc = v.match(/^calc\(([\s\S]*)\)$/i);
+    if (calc) {
+      const parts = [...calc[1].matchAll(/([+-]?)\s*([\d.]+)px/g)];
+      return parts.reduce((a, m) => a + (m[1] === '-' ? -1 : 1) * parseFloat(m[2]), 0);
+    }
+    const p = v.match(/^([\d.]+)px$/);
+    if (p) return parseFloat(p[1]);
+    const r = v.match(/^([\d.]+)(rem|em)$/);
+    if (r) return parseFloat(r[1]) * 16;
+    return 0;
+  };
+
+  const decls = [...html.matchAll(/font-size\s*:\s*([^;}]+)/g)].map((m) => pxOf(m[1])).filter((n) => n > 0);
+  const out = { wantTitle: h1M ? Number(h1M[1]) : null };
+  if (!decls.length) return out;
+
+  out.maxTitle = Math.max(...decls);
+
+  /* 正文第一优先：`body{...font-size}`。
+   *
+   * ⚠️ 2026-11-22：组合选择器 `html,\nbody { }` 要能匹配。
+   * 原正则 `(?:^|\n)\s*body\s*\{` 从行首匹配 `body`，遇到
+   *   html,
+   *   body { font-size:16px }
+   * 时 `body` 前面不是行首，于是**跳过了这条规则**，落到兜底取到 15px。
+   * 实测 S01：真实 `body{font-size:16px}` 就在 index.html:31-32，
+   * 渲染审计用真浏览器量出来是 **16px**，而判据报 15px。
+   *
+   * ⚠️ 前两版修法都错：
+   *   ① `[^{}]*,\s*` —— 把**前一个块**（`html { … }` 的尾巴）也吃进来；
+   *   ② `[^,{}]{0,40}\s*,\s*` —— 同样跨到了 `html {` 那个块。
+   * 根因是"从任意位置找 body"，而真正要的是「body 是某个选择器列表的一项」。
+   *
+   * 现在先把所有规则块切出来，再逐个看**选择器**里有没有独立的 `body` 项：
+   * 用 `(?:^|,)\s*body\s*(?:,|$)` 要求 body 是列表里的完整一项，
+   * 这样 `.not-body` / `bodyguard` 不会被误认。 */
+  let bodyPx = 0;
+  for (const rb of html.matchAll(/([^{}]*)\{([^}]*)\}/g)) {
+    const sel = rb[1].split('\n').pop().trim() || rb[1].trim();
+    if (!/(?:^|,)\s*body\s*(?:,|$)/i.test(sel)) continue;
+    const fs = rb[2].match(/font-size\s*:\s*([^;}]+)/);
+    if (fs) { bodyPx = pxOf(fs[1]); break; }
+  }
+  if (!bodyPx) {
+    const rootRule = html.match(/(?:^|\n)\s*:root\s*\{([^}]*)\}/);
+    if (rootRule) bodyPx = pxOf((rootRule[1].match(/font-size\s*:\s*([^;}]+)/) || [])[1] || '');
+  }
+  if (!bodyPx) {
+    const freq = {};
+    decls.filter((n) => n >= 14).forEach((n) => { freq[n] = (freq[n] || 0) + 1; });
+    const top = Object.entries(freq).sort((a, b) => b[1] - a[1])[0];
+    bodyPx = top ? Number(top[0]) : 0;
+  }
+  out.body = bodyPx || null;
+
+  /* 提示词给的标题绝对值：从「（约 Npx）」里取 */
+  const titleAbsM = prompt.match(/倍（约\s*(\d+)px）/);
+  out.wantTitleAbs = titleAbsM ? Number(titleAbsM[1]) : null;
+  out.wantBody = bodyM ? Number(bodyM[1]) : null;
+  /* 判定：标题与正文各自允许 ±4px（浏览器取整、clamp 上限、边框吃掉的零头） */
+  const near = (a, b) => a != null && b != null && Math.abs(a - b) <= 4;
+  out.titleOk = out.wantTitleAbs != null ? near(out.maxTitle, out.wantTitleAbs) : null;
+  out.bodyOk = out.wantBody != null ? near(out.body, out.wantBody) : null;
+  return out;
+}
+
 const DEFAULT_STACK = ['Inter', 'Roboto', 'Arial', 'Helvetica', 'Helvetica Neue',
   'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'San Francisco', 'Ubuntu'];
 
@@ -716,84 +813,13 @@ function score(id, opts = {}) {
    *
    * 第三版（现在）：直接查两个绝对值。
    *   正文看 `body` 或 `:root` 的 font-size；标题看全页最大的那个 font-size。
-   *   两个都对才算过 —— 这才是提示词真正要求的东西。 */
-  const h1M = prompt.match(/最大标题要压到正文的\s*([\d.]+)\s*倍/);
-  const bodyM = prompt.match(/正文约\s*(\d+)px/);
-  if (h1M || bodyM) {
-    const pxOf = (expr) => {
-      const v = String(expr).trim();
-      const fn = v.match(/^(clamp|min|max)\(([\s\S]*)\)$/i);
-      if (fn) {
-        const args = fn[2].split(',').map((s) => pxOf(s)).filter((n) => n > 0);
-        return args.length ? Math.max(...args) : 0;
-      }
-      const calc = v.match(/^calc\(([\s\S]*)\)$/i);
-      if (calc) {
-        const parts = [...calc[1].matchAll(/([+-]?)\s*([\d.]+)px/g)];
-        return parts.reduce((a, m) => a + (m[1] === '-' ? -1 : 1) * parseFloat(m[2]), 0);
-      }
-      const p = v.match(/^([\d.]+)px$/);
-      if (p) return parseFloat(p[1]);
-      const r = v.match(/^([\d.]+)(rem|em)$/);
-      if (r) return parseFloat(r[1]) * 16;
-      return 0;
-    };
-    const decls = [...html.matchAll(/font-size\s*:\s*([^;}]+)/g)].map((m) => pxOf(m[1])).filter((n) => n > 0);
-    const out2 = { wantTitle: h1M ? Number(h1M[1]) : null };
-    if (decls.length) {
-      out2.maxTitle = Math.max(...decls);
-      /* 正文：优先取 `body{...font-size}`；没有就取 `:root` 的；都没有才用众数。
-         ⚠️ 顺序不能反（2026-11-05 修）：我原来先取 ≥14px 的众数，
-         而 S19 的众数是 22px（它有很多 18–22px 的小标题），
-         于是报「正文 22px vs 要 16px ✗」—— 而它的 `body{font-size:16px}`
-         就在那儿，**完全正确**。判据先信了一个间接信号，把直接信号扔了。 */
-      /* ⚠️ 2026-11-22：组合选择器 `html,\nbody { }` 要能匹配。
-       *
-       * 原正则 `(?:^|\n)\s*body\s*\{` 从行首匹配 `body`，遇到
-       *   html,
-       *   body { font-size:16px }
-       * 时 `body` 前面不是行首，于是**跳过了这条规则**，落到兜底取到 15px。
-       * 实测 S01：真实 `body{font-size:16px}` 就在 index.html:31-32，
-       * 渲染审计用真浏览器量出来是 **16px**，而判据报 15px。
-       *
-       * ⚠️ 前两版修法都错：
-       *   ① `[^{}]*,\s*` —— 把**前一个块**（`html { … }` 的尾巴）也吃进来；
-       *   ② `[^,{}]{0,40}\s*,\s*` —— 同样跨到了 `html {` 那个块。
-       * 根因是"从任意位置找 body"，而真正要的是「body 是某个选择器列表的一项」。
-       *
-       * 现在先把所有规则块切出来，再逐个看**选择器**里有没有独立的 `body` 项：
-       * 用 `(?:^|,)\s*body\s*(?:,|$)` 要求 body 是列表里的完整一项，
-       * 这样 `.not-body` / `bodyguard` 不会被误认。 */
-      let bodyPx2 = null;
-      for (const rb of html.matchAll(/([^{}]*)\{([^}]*)\}/g)) {
-        const sel = rb[1].split('\n').pop().trim() || rb[1].trim();
-        if (!/(?:^|,)\s*body\s*(?:,|$)/i.test(sel)) continue;
-        const fs2 = rb[2].match(/font-size\s*:\s*([^;}]+)/);
-        if (fs2) { bodyPx2 = pxOf(fs2[1]); break; }
-      }
-      const bodyRule = bodyPx2 != null ? [null, `font-size:${bodyPx2}px`] : null;
-      const rootRule = html.match(/(?:^|\n)\s*:root\s*\{([^}]*)\}/);
-      let bodyPx = 0;
-      if (bodyRule) bodyPx = pxOf((bodyRule[1].match(/font-size\s*:\s*([^;}]+)/) || [])[1] || '');
-      if (!bodyPx && rootRule) bodyPx = pxOf((rootRule[1].match(/font-size\s*:\s*([^;}]+)/) || [])[1] || '');
-      if (!bodyPx) {
-        const freq = {};
-        decls.filter((n) => n >= 14).forEach((n) => { freq[n] = (freq[n] || 0) + 1; });
-        const top = Object.entries(freq).sort((a, b) => b[1] - a[1])[0];
-        bodyPx = top ? Number(top[0]) : 0;
-      }
-      out2.body = bodyPx || null;
-      /* 提示词给的标题绝对值：从「（约 Npx）」里取 */
-      const titleAbsM = prompt.match(/倍（约\s*(\d+)px）/);
-      out2.wantTitleAbs = titleAbsM ? Number(titleAbsM[1]) : null;
-      out2.wantBody = bodyM ? Number(bodyM[1]) : null;
-      /* 判定：标题与正文各自允许 ±4px（浏览器取整、clamp 上限、边框吃掉的零头） */
-      const near = (a, b) => a != null && b != null && Math.abs(a - b) <= 4;
-      out2.titleOk = out2.wantTitleAbs != null ? near(out2.maxTitle, out2.wantTitleAbs) : null;
-      out2.bodyOk = out2.wantBody != null ? near(out2.body, out2.wantBody) : null;
-    }
-    geo.scale = out2;
-  }
+   *   两个都对才算过 —— 这才是提示词真正要求的东西。
+   *
+   * ⚠️ 2026-11-22：整块抽成 `judgeScale(prompt, html)`（见文件上方）。
+   * 原因是**内联的逻辑没法被 --selftest 打到** —— 这块里的 `body` 组合选择器
+   * bug（`html,\nbody{}` 匹配不上、落到众数兜底取 15px）静默存在了很久，
+   * 没有任何断言发现它，是渲染审计用真浏览器量出 16px 才暴露的。 */
+  geo.scale = judgeScale(prompt, html);
   out.geometry = geo;
 
   /* ── ④ 结构 ──────────────────────────────────────────────────────── */
@@ -998,6 +1024,30 @@ function selfTest() {
   /* ── ③ 几何：圆角与线宽的两处误报（2026-11-21 实测 S21 后加的回归） ──
    * 这两条判据各自错过一次，方向相反，都记在这里。 */
   const P21 = '3. 圆角：全站一律 0，卡片、按钮、图片、标签全部方角。\n5. 线宽只用这几级：1px、1.25px、2px，全站线条都从这几级里取。';
+  /* ── ③ 字号（2026-11-22 抽出后补的自测）──
+   * 这块原来是内联的，所以 `body` 组合选择器那个 bug 静默存在了很久。 */
+  const PSC = '6. 字号：正文约 16px；最大标题要压到正文的 4.5 倍（约 72px）。';
+  /* 普通 body 规则 */
+  eq('③字号/普通 body 规则',
+    judgeScale(PSC, '<style>body{font-size:16px}h1{font-size:72px}</style>').body, 16);
+  /* ⚠️ 组合选择器 `html,\nbody{}` —— 这正是那个静默 bug 的输入 */
+  eq('③字号/组合选择器 html,body',
+    judgeScale(PSC, '<style>html,\nbody{font-size:16px}h1{font-size:72px}</style>').body, 16);
+  eq('③字号/组合选择器 body,html',
+    judgeScale(PSC, '<style>body,html{font-size:16px}h1{font-size:72px}</style>').body, 16);
+  /* `.not-body` 不能被误认成 body */
+  eq('③字号/类名含 body 不误认',
+    judgeScale(PSC, '<style>.not-body{font-size:99px}</style>').body, 99);  /* 落到众数兜底 */
+  /* 正文与标题双判 */
+  eq('③字号/双判命中',
+    judgeScale(PSC, '<style>body{font-size:16px}h1{font-size:72px}</style>').bodyOk, true);
+  eq('③字号/正文偏小要报',
+    judgeScale(PSC, '<style>body{font-size:11px}h1{font-size:72px}</style>').bodyOk, false);
+  /* clamp() 取上限 */
+  eq('③字号/clamp 取上限',
+    judgeScale(PSC, '<style>body{font-size:16px}h1{font-size:clamp(40px,6vw,72px)}</style>').maxTitle, 72);
+  /* 没有字号约束 → 返回 null */
+  eq('③字号/无约束返回 null', judgeScale('随便一句', '<style>body{font-size:16px}</style>'), null);
   /* 圆角：!important 不是值的一部分 */
   eq('③/圆角 0 !important 不算违规', judgeRadius(P21, '<style>.a{border-radius:0 !important}</style>').violations, 0);
   /* 圆角：多值全 0 不算违规 */
