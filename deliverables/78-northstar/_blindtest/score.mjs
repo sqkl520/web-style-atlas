@@ -199,6 +199,71 @@ function judgeLineWidth(prompt, html) {
   return { allowed: [...allowed].map((n) => n + 'px'), used: used.length, outside: [...new Set(outside)].map((n) => n + 'px') };
 }
 
+/* 字体链外检查：提示词写「不要用 上面两条链之外的字体」，
+ * 而 ⑤ 禁项原先只查阴影与渐变两条 —— 这条可机械验证的约束没人守。
+ *
+ * 判据：
+ *   · 提示词给了 display / body 两条链，各 2–4 个族名；
+ *   · 产物里 `font-family` 出现的每个族名，要么在链上，要么是**通用回退**
+ *     （`monospace` / `serif` / `sans-serif` / `system-ui` 等）。
+ * 通用回退不算违规 —— 它本来就是你链走完之后的兜底，提示词也没禁它。
+ *
+ * 局限（必须写出来）：只看 `font-family` 的**字面值**，不追 `var(--font-x)` 展开。
+ * 追展开要写一个小 CSS 求值器，那会引入它自己的 bug（同 ③ 圆角的取舍）。
+ * 所以产物如果全用变量定义字体，这条会报 0 —— 那是"没判"，不是"通过"。 */
+const GENERIC_FAMILIES = new Set([
+  'monospace', 'serif', 'sans-serif', 'system-ui', 'cursive', 'fantasy',
+  'ui-monospace', 'ui-serif', 'ui-sans-serif', 'emoji', 'math', 'inherit', 'initial',
+]);
+function judgeFontChain(prompt, html) {
+  /* 提示词里的允许集合。两处要抓：
+   *   「标题按这个顺序取第一个可用的：A → B」/「按序取：A → B」
+   *   「编号/价格等数字用等宽 X、tabular-nums 右对齐」
+   *
+   * ⚠️ 第一版把第二处的锚点写成「数字用等宽」，而提示词原文是
+   * 「编号/价格等数字用**等宽** Martian Mono」—— 中间隔着「等」字，
+   * 锚点匹配不上，于是 Martian Mono 没进允许集合，
+   * S01/S19/S21 全被判「链外」。**判据先错了，不是产物错了。** */
+  const allowed = new Set();
+  /* ⚠️ `[^（\n]+` 里的 `\n` 必须留 —— 第一版漏了，正则跨行吃掉整段，
+   * 允许集合里混进了
+   *   'Source Han Sans SC。编号/价格等数字用等宽 Martian Mono、tabular-nums 右对齐。'
+   * 这样整句，于是一个合法字体都没匹配上。 */
+  for (const m of prompt.matchAll(/(?:按这个顺序取第一个可用的|按序取)：([^（\n。]+)/g)) {
+    for (const part of m[1].split('→')) {
+      const n = part.trim();
+      if (n) allowed.add(n);
+    }
+  }
+  /* 等宽：字体名可能带空格（`Martian Mono` / `IBM Plex Mono`）。
+   * ⚠️ 第一版写成 `等宽\s*([^\s、，,。]+)`，只抓到 `Martian` 就断了，
+   * 于是 `Martian Mono` 被判链外。改成吃到标点为止，允许内部空格。 */
+  const monoM = prompt.match(/等宽\s+([A-Za-z][A-Za-z0-9 ]*?)(?=[、，,。]|$)/m);
+  if (monoM) allowed.add(monoM[1].trim());
+  if (!allowed.size) return null;
+
+  const decls = [...html.matchAll(/font-family\s*:\s*([^;}]+)/g)].map((m) => m[1].trim());
+  if (!decls.length) return { allowed: [...allowed], used: [], outside: [], note: '产物没有 font-family 声明' };
+  const used = new Set();
+  let varOnly = 0;
+  for (const d of decls) {
+    const parts = d.split(',').map((x) => x.trim().replace(/^["']|["']$/g, ''));
+    if (parts.every((p) => p.startsWith('var('))) varOnly++;
+    for (const p of parts) {
+      if (!p || p.startsWith('var(')) continue;
+      used.add(p);
+    }
+  }
+  const outside = [...used].filter((f) => !allowed.has(f) && !GENERIC_FAMILIES.has(f.toLowerCase()));
+  return {
+    allowed: [...allowed],
+    used: [...used],
+    outside,
+    /* 全部走变量 → 这条判不了。必须记下来，不能算通过。 */
+    undecided: outside.length === 0 && used.size === 0 && varOnly > 0,
+  };
+}
+
 function score(id) {
   const dir = join(BT, id);
   const htmlPath = join(dir, 'index.html');
@@ -397,6 +462,11 @@ function score(id) {
   if (grad.wording && grad.hits) banned.push({ rule: '渐变受限', hits: grad.hits, wording: grad.wording });
   out.gradientChecked = grad.wording;
   out.gradientDecorative = grad.decorative || 0;
+  /* 字体链外：提示词写「不要用 上面两条链之外的字体」，这条一直没人守
+   * （⑤ 原先只查阴影与渐变两条）。见 judgeFontChain 上方注释。 */
+  const fc = judgeFontChain(prompt, html);
+  out.fontChain = fc;
+  if (fc && fc.outside.length) banned.push({ rule: '字体链外', hits: fc.outside.length, families: fc.outside });
   out.banned = banned;
 
   return out;
@@ -490,6 +560,29 @@ function selfTest() {
   eq('③/真 6px 边要报', judgeLineWidth(P21, '<style>.a{border-left:6px solid #000}</style>').outside, ['6px']);
   /* 线宽：允许级内不报 */
   eq('③/1.25px 在允许级内', judgeLineWidth(P21, '<style>.a{border-top:1.25px solid #000}</style>').outside, []);
+
+  /* ── ⑤ 字体链：这条判据我连错三次才修对，三次都留成回归用例 ── */
+  const PFONT = '2. 字体：标题按这个顺序取第一个可用的：Noto Sans SC → Source Han Sans SC（前一个缺字就用下一个）。正文同理，按序取：Noto Sans SC → Source Han Sans SC。编号/价格等数字用等宽 Martian Mono、tabular-nums 右对齐。\n   不要用 上面两条链之外的字体。';
+  /* 错一：等宽那句的锚点写成「数字用等宽」，而原文是「数字用等宽 Martian Mono」
+   * 中间隔着「等」字，匹配不上 → Martian Mono 被判链外。 */
+  eq('⑤字体/等宽字体进允许集合', judgeFontChain(PFONT, '').allowed.includes('Martian Mono'), true);
+  /* 错二：链的正则没排除换行，跨行吃掉整段，允许集合里混进整句。 */
+  eq('⑤字体/允许集合不含整句',
+    judgeFontChain(PFONT, '').allowed.some((f) => f.length > 30), false);
+  /* 错三：等宽捕获用了 [^\s…]，遇到空格就断，只抓到 Martian。 */
+  eq('⑤字体/多词字体名完整', judgeFontChain(PFONT, '').allowed.includes('Martian'), false);
+  /* 正向：全在链上 → 无违规 */
+  eq('⑤字体/全在链上无违规',
+    judgeFontChain(PFONT, '<style>.a{font-family:"Noto Sans SC",sans-serif}</style>').outside, []);
+  /* 通用回退不算违规 */
+  eq('⑤字体/通用回退不算违规',
+    judgeFontChain(PFONT, '<style>.a{font-family:"Martian Mono",monospace}</style>').outside, []);
+  /* 真链外要报 */
+  eq('⑤字体/真链外要报',
+    judgeFontChain(PFONT, '<style>.a{font-family:"Comic Sans MS"}</style>').outside, ['Comic Sans MS']);
+  /* 全走 var() → 未判，不能算通过 */
+  eq('⑤字体/全 var() 时记未判',
+    judgeFontChain(PFONT, '<style>.a{font-family:var(--f1)}.b{font-family:var(--f2)}</style>').undecided, true);
 
   /* ── ⑤ 渐变措辞：两版都要认，且一版都不认时必须报"未判" ──
    * 这条判据曾经只认旧措辞，而代码早就改了措辞 → 一次都没执行过。 */
@@ -596,13 +689,23 @@ for (const id of ids) {
     if (s && s.hit === null) UNDECIDED.push(`${id}/图片`);
   }
   if (r.structure.items && r.structure.items.hit === null) UNDECIDED.push(`${id}/条目`);
+  /* ⚠️ 字体链的"未判"也必须进这个汇总。
+   * 第一版只在行内显示「字体链 – 未判」，而末尾汇总仍说「没有未判项」——
+   * 于是最后一行又把"没判"读成了"通过"，正是这一整轮在治的那个病。 */
+  if (r.fontChain && r.fontChain.undecided) UNDECIDED.push(`${id}/字体链`);
+  if (r.gradientChecked === null) UNDECIDED.push(`${id}/渐变`);
   /* ⑤
    * 渐变那条要显示"匹配到哪一版措辞"。如果一版都没匹配到，就是**没判**，
    * 不能写成"无违反" —— 那正是这条判据过去几个月的样子。 */
   const gradNote = r.gradientChecked === null ? '　〔渐变 – 未判：提示词不含任何一版渐变约束〕'
     : r.gradientChecked === 'old' ? '　〔渐变按旧措辞判〕'
     : (r.gradientDecorative ? `　〔已剔除 ${r.gradientDecorative} 处同色 gradient：那是画线，不是渐变〕` : '');
-  console.log(`  ⑤ 禁项   ${r.banned.length ? r.banned.map((b) => b.rule + '×' + b.hits).join('；') : '无违反'}${gradNote}`);
+  /* 字体链：全走变量时这一条判不了，必须显示成未判而不是"无违反"。 */
+  const fcNote = !r.fontChain ? ''
+    : r.fontChain.undecided ? '　〔字体链 – 未判：产物全用 var() 定义字体，不追展开〕'
+    : r.fontChain.outside.length ? `　〔链外：${r.fontChain.outside.join(' ')}〕`
+    : `　〔字体 ${r.fontChain.used.length} 个，全在链上〕`;
+  console.log(`  ⑤ 禁项   ${r.banned.length ? r.banned.map((b) => b.rule + '×' + b.hits + (b.families ? '(' + b.families.join(',') + ')' : '')).join('；') : '无违反'}${gradNote}${fcNote}`);
 }
 
 if (ids.length > 1) {
