@@ -67,6 +67,12 @@ const STEPS = [
    * 补上 motion 之后，"补对了没有"不能靠读提示词确认 —— 那只能证明文本变了。
    * 这一项比较 S34 两轮产物（有/无动效段），断言动效结构真的出现了。 */
   { id: '_motion-effect', label: '动效段是否到达产物（S34 两轮对照）', fail: true },
+  /* 2026-11-21 新增：机制保真度。
+   * `score.mjs` 的五类判据里**没有一类查机制** —— 所以它报"五类全过"时，
+   * 风格可能对、机制却不在（实测 S13 两份产物五类全过，机制 5/8 vs 8/8）。
+   * 这一项按 check-prompts 已有的三态（hit/script/comment/absent）判，
+   * 只报不判：阈值取决于每个案机制句自己写了多少。 */
+  { id: '_mech-fidelity', label: '机制保真度（只报不判）', fail: false },
 ];
 
 const results = [];
