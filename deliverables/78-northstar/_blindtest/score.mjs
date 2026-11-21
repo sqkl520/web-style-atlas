@@ -82,13 +82,42 @@ function judgeItems(prompt, html) {
       if (!best || Math.abs(n - expect) < Math.abs(best.n - expect)) best = { tag, n };
     }
   }
-  const got = best ? best.n : null;
+
+  /* ⚠️ 2026-11-22 补第三处：**明确标记为空的单元要剔除**。
+   *
+   * 实测 S12 报「应排 5 条，<article>=7 ✗」。逐个看那 7 个：
+   *   1–5  hole / hole tall   ← 真内容（修鞋配钥匙的五条服务）
+   *   6    hole empty          ← 刻意留空（提示词说「1 处位置是刻意留空」）
+   *   7    hole booking        ← 联络卡，不是内容条目
+   *
+   * 所以 7 = 5 内容 + 1 刻意空位 + 1 版式元素。
+   * 判据数了全部 article，把"版式结构"当成了"内容条目"。
+   *
+   * 剔除规则（只认**明确的语义标记**，不做"看起来像空"的猜测）：
+   *   class 里含 `empty` / `void` / `blank` / `placeholder` / `booking` / `cta`
+   * 这条只对"选中的那个标签"生效，且剔除后如果结果是 0 就退回不剔除 ——
+   * 免得整页都被判成空。 */
+  const EMPTY_MARK = /(^|[\s-])(empty|void|blank|placeholder|booking|cta)([\s-]|$)/i;
+  let got = best ? best.n : null;
+  let dropped = 0;
+  if (best && best.n > 0) {
+    const blocks = html.match(new RegExp('<' + best.tag + '\\b[\\s\\S]*?</' + best.tag + '>', 'gi')) || [];
+    const empties = blocks.filter((b) => {
+      const cm = b.match(/class="([^"]*)"/);
+      return cm && EMPTY_MARK.test(cm[1]);
+    }).length;
+    if (empties > 0 && blocks.length - empties > 0) {
+      got = blocks.length - empties;
+      dropped = empties;
+    }
+  }
   return {
     scale,
     expect,
     counts,
     gotTag: best ? best.tag : null,
     got,
+    dropped,
     hit: expect != null && got != null ? Math.abs(got - expect) <= 1 : null,
     note: expect == null ? '提示词没写用户条数（have=0 的路径），这一类跳过' : null,
   };
@@ -179,7 +208,7 @@ function isDecorativeLine(gradBody) {
    *
    * 保守起见只认 `transparent` 这个关键字，不猜 rgba(0,0,0,0) 之类的等价写法 ——
    * 宁可漏判（把真渐变当画线放过），也不要把真渐变误判成画线而漏掉违规。 */
-  const stops = [...gradBody.matchAll(/(transparent|#[0-9A-Fa-f]{3,8}|var\(--[\w-]+\))\s+([\d.]+)(px|%)/gi)];
+  const stops = [...gradBody.matchAll(new RegExp('(' + COLOR_TOKEN + ')\\s+([\\d.]+)(px|%)', 'gi'))];
   if (stops.length >= 2) {
     const positions = stops.map((m) => parseFloat(m[2]));
     const same = positions.every((p) => Math.abs(p - positions[0]) <= 0.01);
@@ -203,7 +232,7 @@ function isDecorativeLine(gradBody) {
    *
    * 判据：相邻两个 stop 的**某个边界位置相同**且颜色不同 → 硬边切换。
    * 对 `color 0 3px` / `color 3px 12px`，前者的 end=3 与后者的 start=3 重合。 */
-  const stopRe = /(transparent|#[0-9A-Fa-f]{3,8}|var\(--[\w-]+\))((?:\s+[\d.]+(?:px|%)?){1,2})/gi;
+  const stopRe = new RegExp('(' + COLOR_TOKEN + ')((?:\\s+[\\d.]+(?:px|%)?){1,2})', 'gi');
   const cs = [];
   for (const m of gradBody.matchAll(stopRe)) {
     const ps = [...m[2].matchAll(/[\d.]+/g)].map((x) => parseFloat(x[0]));
@@ -244,7 +273,7 @@ function isDecorativeLine(gradBody) {
    * 保守：要求 transparent 占多数。`linear-gradient(#fff, transparent)`
    * 这种真渐变（一半白一半透）不会命中，因为它是 1:1。 */
   const allStops = [];
-  for (const m of gradBody.matchAll(/(transparent|#[0-9A-Fa-f]{3,8}|var\(--[\w-]+\))(?:\s+[\d.]+(?:px|%)?)?/gi)) {
+  for (const m of gradBody.matchAll(new RegExp('(' + COLOR_TOKEN + ')(?:\\s+[\\d.]+(?:px|%)?)?', 'gi'))) {
     allStops.push(m[1].toLowerCase());
   }
   if (allStops.length >= 3) {
@@ -429,6 +458,18 @@ function relLumL(hex) {
 }
 
 const L_SPAN_MAX = 25;
+
+/* 渐变里「一个颜色槽」的写法集合 —— 三处判据共用，避免各自漂移。
+ *
+ * ⚠️ 2026-11-22 加 `rgb/rgba/hsl/hsla`：实测 S12 报「渐变受限×1」，那处是
+ *   linear-gradient(45deg, transparent 0 26px, rgba(181,214,38,.035) 26px 28px)
+ * 26px 处硬切（画 2px 的窄条纹理），但 `rgba(...)` 不被原正则识别，
+ * 于是只解析出 1 个 stop，判据认为"不是硬边"。
+ *
+ * 这是「判据量字面」的第 N 次 —— 前几次是 `!important`、`GlowSansSC`、
+ * 双位置写法、抗锯齿交叠。共同点：**同一个概念有多种写法，判据只认其中几种**。
+ * 所以这次抽成常量，三处共用；将来加写法只改这一个地方。 */
+const COLOR_TOKEN = 'transparent|#[0-9A-Fa-f]{3,8}|var\\(--[\\w-]+\\)|rgba?\\([^)]*\\)|hsla?\\([^)]*\\)';
 
 /* 抽出渐变里的颜色槽，返回 hex 列表。只认字面 hex 与 rgb()，
  * 不展开 var() —— 展开要写小求值器（同圆角那处取舍）。 */
@@ -805,6 +846,19 @@ function selfTest() {
     judgeItems(P19, '<article></article>'.repeat(19) + '<li></li>'.repeat(12)).hit, false);
   eq('items/全偏离时选最接近的',
     judgeItems(P19, '<article></article>'.repeat(19) + '<li></li>'.repeat(12)).gotTag, 'li');
+  /* ⚠️ 2026-11-22：明确标记为空的单元要剔除。
+   * 实测 S12 有 7 个 article，其中 1 个 class="hole empty"（刻意留空）、
+   * 1 个 class="hole booking"（联络卡），真内容是 5 条。 */
+  const mixed = '<article class="hole"></article>'.repeat(5)
+    + '<article class="hole empty"></article><article class="hole booking"></article>';
+  eq('items/剔除标记为空的单元', judgeItems(P19, mixed).got, 5);
+  eq('items/剔除数被记录', judgeItems(P19, mixed).dropped, 2);
+  eq('items/剔除后判 ✓', judgeItems(P19, mixed).hit, true);
+  /* 但全都被标成空时不剔除（否则整页判 0） */
+  const allEmpty = '<article class="empty"></article>'.repeat(5);
+  eq('items/全空时不剔除到底', judgeItems(P19, allEmpty).got, 5);
+  /* 普通的 "hole" 不算空 —— 只认明确的语义标记 */
+  eq('items/普通类名不算空', judgeItems(P19, '<article class="hole"></article>'.repeat(5)).dropped, 0);
   /* 变异 1：排了 20 条（照 minItems 排，是错的行为）→ 必须报 ✗ */
   eq('items/按版式规模排20条算错', judgeItems(P19, '<article></article>'.repeat(20)).hit, false);
   /* 变异 2：差 1 条 → 仍算过（边界差异不算缺陷） */
@@ -1002,6 +1056,17 @@ function selfTest() {
   /* 但 transparent 不占多数时不放行（真渐变可能是 color → transparent） */
   const fadeOut = '<style>.a{background:linear-gradient(#111 0%,#222 40%,#333 80%,transparent 100%)}</style>';
   eq('⑤/transparent 不占多数仍报', scoreGradient(gNew, fadeOut).hits, 1);
+  /* ⚠️ 2026-11-22：rgba() 也要被认作颜色槽。实测 S12 报「渐变受限×1」，那处是
+   *   linear-gradient(45deg, transparent 0 26px, rgba(181,214,38,.035) 26px 28px)
+   * 26px 硬切（2px 窄条纹理），但 rgba 不被识别 → 只解析出 1 个 stop。 */
+  const rgbaEdge = '<style>.a{background:linear-gradient(45deg,transparent 0 26px,rgba(181,214,38,.035) 26px 28px)}</style>';
+  eq('⑤/rgba 硬边算画线', scoreGradient(gNew, rgbaEdge).hits, 0);
+  /* hsl() 同样 */
+  const hslEdge = '<style>.a{background:linear-gradient(90deg,hsl(0 0% 10%) 0 4px,hsl(0 0% 90%) 4px 8px)}</style>';
+  eq('⑤/hsl 硬边算画线', scoreGradient(gNew, hslEdge).hits, 0);
+  /* 但 rgba 之间的真过渡仍要报 */
+  const rgbaFade = '<style>.a{background:linear-gradient(90deg,rgba(0,0,0,.9) 0%,rgba(255,255,255,.1) 100%)}</style>';
+  eq('⑤/rgba 真过渡仍报', scoreGradient(gNew, rgbaFade).hits, 1);
   /* 真的有颜色跨度的必须报 */
   const realGrad = '<style>.a{background:linear-gradient(#E4DECD,#2C3034)}</style>';
   eq('⑤/真渐变仍然报出', scoreGradient(gNew, realGrad).hits, 1);
@@ -1155,7 +1220,10 @@ for (const id of ids) {
       /* 显示的是**实际选中的那个标签**，不是硬编码 article ——
        * 否则读者会以为判据在数 article，而它其实数了别的。 */
       const others = Object.entries(s.counts).filter(([t]) => t !== s.gotTag).map(([t, n]) => t + '=' + n).join(' ');
-      console.log(`  ④ 结构   条目 应排 ${s.expect} 条（版式规模 ${s.scale}，不是目标）；HTML <${s.gotTag}>=${s.got} ${mark(s.hit)}`
+      /* 剔除了刻意留空/版式元素时要显示出来 —— 否则读者会奇怪
+       * 「HTML 里明明有 7 个 article，为什么报 5」。 */
+      const dropNote = s.dropped ? `（已剔除 ${s.dropped} 个标记为空的单元）` : '';
+      console.log(`  ④ 结构   条目 应排 ${s.expect} 条（版式规模 ${s.scale}，不是目标）；HTML <${s.gotTag}>=${s.got}${dropNote} ${mark(s.hit)}`
         + (others ? `　〔其他标签仅供参考：${others}〕` : ''));
     }
   } else {
