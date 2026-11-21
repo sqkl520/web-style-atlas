@@ -128,6 +128,26 @@ function cnSelfCheck() {
     .map(([s, want]) => `「${s}」期望 ${want}，实际 ${cnToNumber(s)}`);
 }
 
+/* 交接文档命令闸门的自检样本（2026-11-22 加）。
+ *
+ * 与 cnSelfCheck 同一个思路：**判据必须证明自己会响**。
+ * 这里给三组样本：真实存在的脚本、不存在的脚本、以及要被忽略的非命令文本。
+ * 期望结果写死在样本里，跑出来不符就报错 —— 说明正则回退了。 */
+const HANDOFF_CMD_CASES = [
+  ['node deliverables/78-northstar/_probe/_mech-fidelity.mjs', ['deliverables/78-northstar/_probe/_mech-fidelity.mjs'], '真实命令要被抓到'],
+  ['  node prototypes/_build/quarter.mjs --dry-run', ['prototypes/_build/quarter.mjs'], '带参数也要抓到路径'],
+  ['node deliverables/78-northstar/_probe/99-nonexistent.mjs', ['deliverables/78-northstar/_probe/99-nonexistent.mjs'], '不存在的脚本也要抓出来（好让上面判它 FAIL）'],
+  ['`node deliverables/x/y.mjs`', ['deliverables/x/y.mjs'], '反引号包裹的也要抓到'],
+  ['运行 node 看看', [], '只说 node 不带路径时不抓'],
+];
+function handoffCmdSelfCheck() {
+  const RE = /node\s+((?:prototypes|deliverables)\/[\w./-]+\.mjs)/g;
+  return HANDOFF_CMD_CASES.filter(([text, want]) => {
+    const got = [...text.matchAll(RE)].map((m) => m[1]);
+    return JSON.stringify(got) !== JSON.stringify(want);
+  }).map(([text, want]) => `「${text}」期望 ${JSON.stringify(want)}，实际 ${JSON.stringify([...text.matchAll(RE)].map((m) => m[1]))}`);
+}
+
 // ── --selftest：证明"它真的能查出腐化"，而不是只会在干净仓库上返绿 ─────────
 // 做法：把当前 README 复制到临时目录，**逐条把已知的三处腐化改回去**，再跑自己一遍，
 // 断言恰好是那几条断言红了、退出码是 1。全程不碰真仓库，跑完删临时目录。
@@ -145,6 +165,18 @@ if (argv.includes('--selftest')) {
       process.exit(2);
     }
     console.log(`  ✓ 自测零（中文数字解析器）：${CN_CASES.length} 条解析用例全部符合预期（含「十」「廿」「卅」「一百」「两百零一」，以及必须拒绝的「两千零一十七」）`);
+  }
+  /* 自测零之二：交接文档命令的正则。与上面同一个理由 ——
+   * 正则错了会让整条闸门静默放过（抓到 0 条 ⇒ 0 FAIL ⇒ 绿）。 */
+  {
+    const bad = handoffCmdSelfCheck();
+    if (bad.length) {
+      console.log(`  ✗ 自测失败：交接文档命令的正则不符合预期 ——`);
+      for (const b of bad) console.log(`      ${b}`);
+      console.log('    正则错了，那条闸门会在抓到 0 条命令时报绿 —— 比红更糟。');
+      process.exit(2);
+    }
+    console.log(`  ✓ 自测零之二（交接文档命令正则）：${HANDOFF_CMD_CASES.length} 条样本全部符合预期（含带参数、反引号、不带路径三种）`);
   }
   const { mkdtempSync, rmSync, copyFileSync, writeFileSync } = await import('node:fs');
   const { tmpdir } = await import('node:os');
@@ -1103,6 +1135,45 @@ const DRIFT = 0.03;
       fail('contrib/commands', `CONTRIBUTING 里引用了不存在的脚本：${[...new Set(bad)].join(' ')}（规则 7.3：写了命令就必须真能跑）`);
     } else {
       pass('contrib/commands', `CONTRIBUTING 里 ${checkedCmds} 条 node 命令全部指向存在的脚本`);
+    }
+  }
+
+  /* 交接文档里的 `node <path>` 命令必须指向真实脚本（2026-11-22 加）。
+   *
+   * 【为什么单列一条，而不是并进 contrib/commands】
+   *
+   * 上面的 contrib/commands 只扫 CONTRIBUTING，正则也写死 `prototypes/` 前缀。
+   * 而 `05-RESUME-HERE.md` 是新会话读的**第一份**文件 —— 它里面列的
+   * 「要复算的话」一节有 10 条 `node …` 命令，全在 `deliverables/` 下，
+   * 一条都不被上面那条覆盖。
+   *
+   * 2026-11-22 复查发现：那份文档当时停在 2026-11-14，写着「quarter.mjs 17 步
+   * 全过」（实际 23 步）、「盲测做完了」（实际当前提示词只验过 4/35）。
+   * 数字过期还能靠人读出来，**命令指不到东西则是直接撞墙** ——
+   * 下一个人会以为脚本坏了或者仓库不完整。
+   *
+   * 判据：`node <相对路径>.mjs`，路径以 `prototypes/` 或 `deliverables/` 开头。
+   * 不判带参数的形式（`node x.mjs --selftest` 里的 `--selftest` 不进路径捕获）。
+   * 不实际执行 —— 执行要花钱、要网、要时间，而且"能跑"不代表"该跑"。 */
+  {
+    const handoff = join(REAL_ROOT, 'deliverables/78-northstar/05-RESUME-HERE.md');
+    if (!existsSync(handoff)) {
+      warn('handoff/commands', '找不到 05-RESUME-HERE.md —— 这条断言没跑');
+    } else {
+      const text = readFileSync(handoff, 'utf8');
+      const bad = [];
+      let n = 0;
+      for (const m of text.matchAll(/node\s+((?:prototypes|deliverables)\/[\w./-]+\.mjs)/g)) {
+        n++;
+        if (!existsSync(join(REAL_ROOT, m[1]))) bad.push(m[1]);
+      }
+      if (bad.length) {
+        fail('handoff/commands',
+          `交接文档里有 ${bad.length} 条 node 命令指向不存在的脚本：${[...new Set(bad)].join(' ')}` +
+          '（下一个人会以为仓库坏了，或者去修一个根本不存在的文件）');
+      } else {
+        pass('handoff/commands', `交接文档里 ${n} 条 node 命令全部指向存在的脚本`);
+      }
     }
   }
 
