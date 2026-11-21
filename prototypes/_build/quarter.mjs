@@ -96,6 +96,11 @@ const STEPS = [
    * 只判"序数 > N"与"可流版面却声称固定总数"两种硬情况，其余只报不判。
    * 见 deliverables/78-northstar/_probe/79-measurement-layer-audit.md §十九。 */
   { id: 'check-prose-counts', label: '散文序数 vs 版式规模', kind: 'gate', script: join(B, 'check-prose-counts.mjs') },
+  /* 2026-11-21 新增。有些案的 `risk` 字段声称「大小与内容重量相关」，
+   * 而那句话**进了提示词**，AI 会照它做。它是一个可量的主张，可以验。
+   * 实测 S34 原型 ρ=−0.43，去掉 d7 后 −0.94 —— 规律成立，但有一块坏点。
+   * 只报不判（合格线取决于每个案自己的说法）。 */
+  { id: 'check-quality-distribution', label: '质量分布相关性', kind: 'gate', script: join(B, 'check-quality-distribution.mjs') },
 
   /* 自测：证明闸门不是恒真。这一组本身不判定产品状态，但它决定了
    * 上面那些绿是不是可信的 —— 所以它失败要单独标出来。 */
@@ -107,6 +112,7 @@ const STEPS = [
   { id: 'selftest-prov', label: '自测：出处闸门', kind: 'gate', script: join(B, 'check-provenance.mjs'), args: ['--selftest'] },
   { id: 'selftest-prompt-fields', label: '自测：字段到达闸门', kind: 'gate', script: join(B, 'check-prompt-fields.mjs'), args: ['--selftest'] },
   { id: 'selftest-prose-counts', label: '自测：散文序数闸门', kind: 'gate', script: join(B, 'check-prose-counts.mjs'), args: ['--selftest'] },
+  { id: 'selftest-quality', label: '自测：质量分布闸门', kind: 'gate', script: join(B, 'check-quality-distribution.mjs'), args: ['--selftest'] },
 
   { id: 'probe-ui', label: '运行时探针（真浏览器）', kind: 'slow', script: join(B, 'probe-ui.mjs') },
 ];
