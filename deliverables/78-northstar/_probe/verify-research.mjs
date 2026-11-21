@@ -63,6 +63,10 @@ const STEPS = [
    * 加 `--id` 跑：node _scorer-blindspot.mjs */
   { id: '../_blindtest/score', args: ['--selftest'], label: '自测：盲测评分器判据', fail: true },
   { id: '_scorer-blindspot', label: '评分器覆盖率（不判分，只报）', fail: false },
+  /* 2026-11-21 新增：动效段的效果对照。
+   * 补上 motion 之后，"补对了没有"不能靠读提示词确认 —— 那只能证明文本变了。
+   * 这一项比较 S34 两轮产物（有/无动效段），断言动效结构真的出现了。 */
+  { id: '_motion-effect', label: '动效段是否到达产物（S34 两轮对照）', fail: true },
 ];
 
 const results = [];
