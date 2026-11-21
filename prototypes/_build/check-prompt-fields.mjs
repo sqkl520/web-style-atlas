@@ -83,10 +83,8 @@ const SKIP = {
   scenesNo: '不适用场景 —— 实际进了提示词，但会被加工',
   /* ⚠️ 下面这两个**不是**有意跳过的。它们是已知的缺陷，登记在这里
    * 让闸门暂时不红，但每条都必须在报告里被追踪：
-   *   motion 35/35 有值、0/35 进提示词 → _probe/79 §十六
    *   audit  35/35 有值、0/35 进提示词 → _probe/79 §十八
-   * 修好之后把这两行删掉，闸门会自动开始守护它们。 */
-  motion: '⚠️ 已知缺陷：35/35 有值但 0/35 进提示词，一个字都没传过去 —— 待修（_probe/79 §十六）',
+   * 修好之后把这一行删掉，闸门会自动开始守护它。 */
   audit: '⚠️ 已知缺陷：35/35 有值，但只有"风险规避"子集进了「最容易做成的错误样子」段，反 AI 味的审查点本身没进 —— 待修（_probe/79 §十八）',
 };
 
@@ -246,11 +244,15 @@ function selfTest() {
   eq('sliceHit/幂等', sliceHit(long, long), sliceHit(long, long));
 
   const r = run({ verbose: false });
-  /* 真实数据上的期望：motion / audit 是已知缺陷 → 落在 known，不是 fail */
+  /* 真实数据上的期望：audit 是已知缺陷 → 落在 known，不是 fail */
   const knownFields = new Set(r.known.map((x) => x.field));
-  eq('真实数据/motion 被登记为已知缺陷', knownFields.has('motion'), true);
   eq('真实数据/audit 被登记为已知缺陷', knownFields.has('audit'), true);
-  /* 这三个是必须流动的字段，任何一个报 fail 就是真缺陷 */
+  /* ⚠️ motion 曾经也在这张"已知缺陷"名单里（35/35 有值、0/35 进提示词）。
+   * 2026-11-21 接进提示词之后，它必须**从名单里消失**并受到正常守护。
+   * 这条断言就是那件事的回归测试：如果哪天 motion 又没进提示词，
+   * 它会重新出现在 known 里，这条会红。 */
+  eq('真实数据/motion 已不再缺席', knownFields.has('motion'), false);
+  /* 这两个是必须流动的字段，任何一个报 fail 就是真缺陷 */
   eq('真实数据/MUST_FLOW 字段没有缺席', r.fail.length, 0);
   /* unknown 必须是空 —— 新增字段若不显式处理会落在这里 */
   if (r.unknown.length) {
