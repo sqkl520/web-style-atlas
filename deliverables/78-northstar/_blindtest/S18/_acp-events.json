@@ -1,0 +1,68 @@
+[
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "79b92674-425a-4f19-9b74-3f7cfa2eacc7",
+      "update": {
+        "sessionUpdate": "agent_message_chunk",
+        "messageId": "73b8b457-8ee4-4276-817d-d0c001dab7b4",
+        "content": {
+          "type": "text",
+          "text": " "
+        }
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "79b92674-425a-4f19-9b74-3f7cfa2eacc7",
+      "update": {
+        "sessionUpdate": "usage_update",
+        "used": 10945,
+        "size": 200000
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "79b92674-425a-4f19-9b74-3f7cfa2eacc7",
+      "update": {
+        "sessionUpdate": "tool_call",
+        "toolCallId": "call_c893b4b8cc164986a27ccce13fa878a6",
+        "title": "glob",
+        "kind": "other",
+        "status": "in_progress",
+        "rawInput": {
+          "path": ".",
+          "pattern": "*"
+        }
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "79b92674-425a-4f19-9b74-3f7cfa2eacc7",
+      "update": {
+        "sessionUpdate": "tool_call_update",
+        "toolCallId": "call_c893b4b8cc164986a27ccce13fa878a6",
+        "status": "completed",
+        "content": [
+          {
+            "type": "content",
+            "content": {
+              "type": "text",
+              "text": "No files found"
+            }
+          }
+        ]
+      }
+    }
+  }
+]

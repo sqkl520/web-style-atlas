@@ -145,6 +145,28 @@ function isDecorativeLine(gradBody) {
      会引入它自己的 bug（本仓库已因此放弃追 var() 展开）。 */
   const c = colorArgs(gradBody);
   if (c.length >= 2 && c.every((x) => x === c[0])) return true;
+
+  /* ⚠️ 2026-11-22 补第二种"画线"形态 —— 硬边透明过渡。
+   *
+   * 实测 S15 报「渐变受限×4」，四处全是这个写法：
+   *   linear-gradient(to right, var(--pencil) 0.5px, transparent 0.5px)
+   *
+   * 两个 stop 都在 **0.5px** 上：0 → 0.5px 是不透明，之后瞬间透明。
+   * 没有过渡带，画出来是一条 0.5px 的硬线。这是 CSS 里画细线的标准手法
+   * （`border` 放不进去的位置只能用这个）。
+   *
+   * 判据：**所有 stop 位置相同**（或只差 ≤0.01）且其中一个是 transparent
+   * → 没有过渡带，是硬边，不算渐变。
+   *
+   * 保守起见只认 `transparent` 这个关键字，不猜 rgba(0,0,0,0) 之类的等价写法 ——
+   * 宁可漏判（把真渐变当画线放过），也不要把真渐变误判成画线而漏掉违规。 */
+  const stops = [...gradBody.matchAll(/(transparent|#[0-9A-Fa-f]{3,8}|var\(--[\w-]+\))\s+([\d.]+)(px|%)/gi)];
+  if (stops.length >= 2) {
+    const positions = stops.map((m) => parseFloat(m[2]));
+    const same = positions.every((p) => Math.abs(p - positions[0]) <= 0.01);
+    const hasTransparent = stops.some((m) => m[1].toLowerCase() === 'transparent');
+    if (same && hasTransparent) return true;
+  }
   return false;
 }
 function scoreGradient(prompt, html) {
@@ -547,7 +569,26 @@ function score(id, opts = {}) {
   /* 只看 CSS 声明与元素，不看注释与文案 —— 提示词里提到这些词是"禁止"，不是"要用"。 */
   const css = (html.match(/<style[^>]*>([\s\S]*?)<\/style>/i) || ['', ''])[1] || '';
   if (/无阴影|阴影：无/.test(prompt)) {
-    const n = (css.match(/box-shadow\s*:\s*(?!none)[^;}]+/g) || []).length;
+    /* ⚠️ 2026-11-22：原来只要 `box-shadow` 不是 none 就判违规，实测 S15 报
+     * 「无阴影×1」而那一处是
+     *   box-shadow: 0 -12px 0 -0.25px var(--pencil), 0 12px 0 -0.25px var(--pencil)
+     * 模糊半径是 **0**、扩散是负值 —— 这是用 box-shadow 画两条硬线的经典手法，
+     * 视觉上是一条 1px 线，不是阴影。
+     *
+     * 提示词禁的是"投影"（有模糊、有扩散的那种浮起感），不是禁止用这个属性
+     * 画线。判据改成：**必须有非零模糊半径才算阴影**。
+     * 语法是 `box-shadow: [inset] <x> <y> [blur] [spread] [color]`，
+     * 多组用逗号分隔，逐组判。 */
+    const decls = [...css.matchAll(/box-shadow\s*:\s*((?!none)[^;}]+)/g)].map((m) => m[1]);
+    let n = 0;
+    for (const d of decls) {
+      for (const part of d.split(/,(?![^(]*\))/)) {
+        const nums = (part.match(/-?\d*\.?\d+px/g) || []).map((x) => parseFloat(x));
+        /* nums[0]=x, [1]=y, [2]=blur, [3]=spread。缺省视为 0。 */
+        const blur = nums.length >= 3 ? Math.abs(nums[2]) : 0;
+        if (blur > 0) { n++; break; }
+      }
+    }
     if (n) banned.push({ rule: '无阴影', hits: n });
   }
   /* ⚠️ 2026-11-21：这条判据原来只认「允许渐变时只用相邻两级」，而
@@ -768,6 +809,19 @@ function selfTest() {
   const lineGrad = '<style>.a{background:linear-gradient(var(--pd),var(--pd)) left top/100% .4px no-repeat}</style>';
   eq('⑤/同色两端算画线不算渐变', scoreGradient(gNew, lineGrad).hits, 0);
   eq('⑤/同色两端被计入 decorative', scoreGradient(gNew, lineGrad).decorative, 1);
+  /* ⚠️ 2026-11-22 补：硬边透明过渡也是画线，不是渐变。
+   * 实测 S15 报「渐变受限×4」，四处全是
+   *   linear-gradient(to right, var(--pencil) 0.5px, transparent 0.5px)
+   * 两个 stop 都在 0.5px，没有过渡带，画出来是一条 0.5px 硬线。 */
+  const hardEdge = '<style>.a{background:linear-gradient(to right,var(--pencil) 0.5px,transparent 0.5px)}</style>';
+  eq('⑤/硬边透明过渡算画线', scoreGradient(gNew, hardEdge).hits, 0);
+  eq('⑤/硬边透明被计入 decorative', scoreGradient(gNew, hardEdge).decorative, 1);
+  /* 但有过渡带的真渐变仍要报 */
+  const softFade = '<style>.a{background:linear-gradient(to right,var(--pencil) 0%,transparent 100%)}</style>';
+  eq('⑤/有过渡带的真渐变仍报', scoreGradient(gNew, softFade).hits, 1);
+  /* 没有 transparent 的同位置 stop 不按画线处理（保守：宁可报） */
+  const samePosNoTrans = '<style>.a{background:linear-gradient(#111 0px,#EEE 0px)}</style>';
+  eq('⑤/同位置无 transparent 仍报', scoreGradient(gNew, samePosNoTrans).hits, 1);
   /* 真的有颜色跨度的必须报 */
   const realGrad = '<style>.a{background:linear-gradient(#E4DECD,#2C3034)}</style>';
   eq('⑤/真渐变仍然报出', scoreGradient(gNew, realGrad).hits, 1);
@@ -944,7 +998,7 @@ for (const id of ids) {
    * 不能写成"无违反" —— 那正是这条判据过去几个月的样子。 */
   const gradNote = r.gradientChecked === null ? '　〔渐变 – 未判：提示词不含任何一版渐变约束〕'
     : r.gradientChecked === 'old' ? '　〔渐变按旧措辞判〕'
-    : (r.gradientDecorative ? `　〔已剔除 ${r.gradientDecorative} 处同色 gradient：那是画线，不是渐变〕` : '');
+    : (r.gradientDecorative ? `　〔已剔除 ${r.gradientDecorative} 处画线式 gradient（同色或硬边透明）：不是渐变〕` : '');
   /* 字体链：全走变量时这一条判不了，必须显示成未判而不是"无违反"。 */
   const fcNote = !r.fontChain ? ''
     : r.fontChain.undecided ? '　〔字体链 – 未判：产物全用 var() 定义字体，不追展开〕'

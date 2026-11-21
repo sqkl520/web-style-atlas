@@ -1,0 +1,1052 @@
+ <!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>鞋底和钥匙，先把时间约好</title>
+  <style>
+    :root {
+      --graphite: #3A3F45;
+      --paper: #E7EBE9;
+      --press: #22282B;
+      --pencil: #7A7466;
+      --line: 0.8px;
+      --strong-line: 1.2px;
+      --heavy-line: 2px;
+      --serif-title: "Newsreader", "Noto Serif SC", Georgia, serif;
+      --serif-body: "Noto Serif SC", "Newsreader", Georgia, serif;
+      --mono: "Reddit Mono", monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      border-radius: 0 !important;
+    }
+
+    html {
+      background: var(--paper);
+      color: var(--graphite);
+      font-size: 16px;
+    }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: var(--paper);
+      color: var(--graphite);
+      font-family: var(--serif-body);
+      line-height: 1.45;
+      cursor: crosshair;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      pointer-events: none;
+      z-index: 20;
+    }
+
+    body::before {
+      width: 24px;
+      height: 24px;
+      left: var(--cursor-x, -40px);
+      top: var(--cursor-y, -40px);
+      transform: translate(-50%, -50%);
+      border: 0.5px solid var(--pencil);
+    }
+
+    body::after {
+      width: 24px;
+      height: 0.5px;
+      left: var(--cursor-x, -40px);
+      top: var(--cursor-y, -40px);
+      transform: translate(-50%, -50%);
+      background: var(--pencil);
+      box-shadow: 0 -12px 0 -0.25px var(--pencil), 0 12px 0 -0.25px var(--pencil);
+    }
+
+    body.zone-cursor::before {
+      border-style: dashed;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .site-frame {
+      min-height: 100vh;
+      padding: 28px 40px 24px;
+      overflow: hidden;
+    }
+
+    .masthead {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 16px;
+      align-items: start;
+      border-top: var(--heavy-line) solid var(--graphite);
+      padding-top: 12px;
+      margin-bottom: 24px;
+    }
+
+    .masthead-mark {
+      grid-column: 1 / span 2;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      line-height: 1.2;
+    }
+
+    .masthead-note {
+      grid-column: 9 / -1;
+      border-left: var(--line) solid var(--pencil);
+      padding-left: 12px;
+      color: var(--pencil);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 16px;
+      align-items: start;
+    }
+
+    .plan-wrap {
+      grid-column: 1 / span 8;
+      margin-left: -40px;
+      min-width: 0;
+    }
+
+    .plan-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      padding: 0 0 11px 40px;
+      border-bottom: var(--line) solid var(--graphite);
+    }
+
+    .plan-heading h1 {
+      max-width: 780px;
+      margin: 0;
+      color: var(--press);
+      font-family: var(--serif-title);
+      font-size: clamp(52px, 7.2vw, 92px);
+      font-weight: 400;
+      letter-spacing: -0.055em;
+      line-height: 0.88;
+    }
+
+    .plan-heading .registration {
+      flex: 0 0 auto;
+      margin-left: 20px;
+      color: var(--pencil);
+      font-family: var(--mono);
+      font-size: 12px;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .plan {
+      position: relative;
+      height: 650px;
+      margin-top: 14px;
+      background: var(--paper);
+      border-top: var(--strong-line) solid var(--graphite);
+      border-bottom: var(--strong-line) solid var(--graphite);
+      transform-origin: top left;
+      transition: transform 600ms cubic-bezier(0.25, 0.8, 0.35, 1);
+      isolation: isolate;
+    }
+
+    .plan.is-shrunk {
+      transform: scale(0.68);
+    }
+
+    .sheet {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: var(--paper);
+      animation: place-sheet 220ms linear both;
+    }
+
+    .sheet svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .sheet--1934 {
+      z-index: 1;
+      animation-delay: 0ms;
+    }
+
+    .sheet--1936 {
+      z-index: 2;
+      transform: translate(3px, 1px);
+      animation-delay: 220ms;
+    }
+
+    .sheet--1938 {
+      z-index: 3;
+      transform: translate(7px, 3px);
+      opacity: 0.56;
+      animation-delay: 440ms;
+    }
+
+    .sheet path,
+    .sheet line,
+    .sheet polyline,
+    .sheet rect,
+    .sheet circle {
+      vector-effect: non-scaling-stroke;
+    }
+
+    .sheet--1934 path,
+    .sheet--1934 line,
+    .sheet--1934 polyline,
+    .sheet--1934 rect,
+    .sheet--1934 circle {
+      stroke: var(--graphite);
+    }
+
+    .sheet--1936 path,
+    .sheet--1936 line,
+    .sheet--1936 polyline,
+    .sheet--1936 rect,
+    .sheet--1936 circle {
+      stroke: var(--pencil);
+    }
+
+    .sheet--1938 path,
+    .sheet--1938 line,
+    .sheet--1938 polyline,
+    .sheet--1938 rect,
+    .sheet--1938 circle {
+      stroke: var(--press);
+    }
+
+    .map-grid {
+      position: absolute;
+      inset: 0;
+      z-index: 4;
+      pointer-events: none;
+      background-image:
+        linear-gradient(to right, var(--pencil) 0.5px, transparent 0.5px),
+        linear-gradient(to bottom, var(--pencil) 0.5px, transparent 0.5px);
+      background-size: 84px 84px;
+      opacity: 0.12;
+    }
+
+    .zone {
+      position: absolute;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-width: 88px;
+      padding: 10px;
+      border: var(--line) solid var(--pencil);
+      background: var(--paper);
+      color: var(--press);
+      cursor: pointer;
+      transition: border-width 140ms ease;
+    }
+
+    .zone:hover,
+    .zone:focus-visible {
+      border-width: 1.2px;
+      outline: none;
+    }
+
+    .zone::after {
+      content: attr(data-reg);
+      position: absolute;
+      right: 8px;
+      bottom: 8px;
+      color: var(--pencil);
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.02em;
+    }
+
+    .zone-id {
+      color: var(--pencil);
+      font-family: var(--mono);
+      font-size: 11px;
+      line-height: 1;
+    }
+
+    .zone-name {
+      margin-top: 20px;
+      font-family: var(--serif-title);
+      font-size: 21px;
+      line-height: 1;
+    }
+
+    .zone--01 { left: 7%; top: 9%; width: 29%; height: 24%; }
+    .zone--02 { left: 48%; top: 7%; width: 22%; height: 30%; }
+    .zone--03 { left: 17%; top: 45%; width: 34%; height: 29%; }
+    .zone--04 { left: 61%; top: 48%; width: 27%; height: 20%; }
+    .zone--05 { left: 4%; top: 80%; width: 41%; height: 13%; }
+
+    .plan-stamp {
+      position: absolute;
+      z-index: 6;
+      right: 18px;
+      top: 18px;
+      border: var(--line) solid var(--graphite);
+      padding: 7px 9px;
+      color: var(--graphite);
+      font-family: var(--mono);
+      font-size: 11px;
+      line-height: 1.2;
+      background: var(--paper);
+    }
+
+    .legend {
+      grid-column: 9 / -1;
+      height: 403px;
+      border-top: var(--heavy-line) solid var(--graphite);
+      border-bottom: var(--line) solid var(--graphite);
+      padding-top: 12px;
+    }
+
+    .legend-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: var(--line) solid var(--graphite);
+      padding-bottom: 10px;
+    }
+
+    .legend-header h2 {
+      margin: 0;
+      color: var(--press);
+      font-family: var(--serif-title);
+      font-size: 25px;
+      font-weight: 400;
+      line-height: 1;
+    }
+
+    .legend-header span {
+      color: var(--pencil);
+      font-family: var(--mono);
+      font-size: 11px;
+    }
+
+    .year-switch {
+      display: flex;
+      gap: 5px;
+      margin: 13px 0 17px;
+    }
+
+    .year-switch button {
+      appearance: none;
+      border: var(--line) solid var(--pencil);
+      padding: 5px 7px;
+      background: var(--paper);
+      color: var(--graphite);
+      font-family: var(--mono);
+      font-size: 11px;
+      cursor: pointer;
+    }
+
+    .year-switch button[aria-pressed="true"] {
+      border-color: var(--press);
+      background: var(--press);
+      color: var(--paper);
+    }
+
+    .legend-list {
+      display: grid;
+      gap: 9px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .legend-item {
+      display: grid;
+      grid-template-columns: 34px 1fr auto;
+      gap: 9px;
+      align-items: center;
+      min-height: 38px;
+      border-bottom: var(--line) solid var(--pencil);
+      padding-bottom: 7px;
+      transition: border-width 160ms ease;
+    }
+
+    .legend-item.is-emphasized {
+      border-bottom-width: 2px;
+    }
+
+    .legend-line {
+      display: block;
+      height: 0;
+      border-top: var(--line) solid var(--graphite);
+    }
+
+    .legend-item:nth-child(2) .legend-line {
+      border-top-style: dashed;
+    }
+
+    .legend-item:nth-child(3) .legend-line {
+      border-top-style: dotted;
+    }
+
+    .legend-item:nth-child(4) .legend-line {
+      border-top-width: 1.2px;
+    }
+
+    .legend-item:nth-child(5) .legend-line {
+      border-top-style: dashed;
+      border-top-width: 1.2px;
+    }
+
+    .legend-copy strong {
+      display: block;
+      color: var(--press);
+      font-family: var(--serif-title);
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 1.1;
+    }
+
+    .legend-copy small {
+      display: block;
+      margin-top: 3px;
+      color: var(--pencil);
+      font-size: 12px;
+      line-height: 1.15;
+    }
+
+    .legend-no {
+      color: var(--graphite);
+      font-family: var(--mono);
+      font-size: 12px;
+      font-variant-numeric: tabular-nums;
+      text-align: right;
+    }
+
+    .contact-block {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 15px;
+      align-items: end;
+      margin-top: 27px;
+      border-top: var(--heavy-line) solid var(--graphite);
+      padding-top: 14px;
+    }
+
+    .contact-block p {
+      max-width: 260px;
+      margin: 0;
+      color: var(--graphite);
+      font-size: 15px;
+      line-height: 1.35;
+    }
+
+    .phone-link {
+      display: inline-block;
+      border: var(--heavy-line) solid var(--press);
+      padding: 13px 14px 11px;
+      background: var(--press);
+      color: var(--paper);
+      font-family: var(--mono);
+      font-size: 15px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .records {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1.25fr 0.8fr 1.4fr 0.9fr 1.15fr;
+      gap: 16px;
+      margin-top: 23px;
+      border-top: var(--heavy-line) solid var(--graphite);
+      padding-top: 15px;
+    }
+
+    .record {
+      display: flex;
+      flex-direction: column;
+      min-height: 245px;
+      border-right: var(--line) solid var(--pencil);
+      padding-right: 14px;
+    }
+
+    .record:last-child {
+      border-right: 0;
+    }
+
+    .record-image,
+    .record-blank {
+      display: block;
+      width: 100%;
+      height: 128px;
+      object-fit: cover;
+      border: var(--line) solid var(--pencil);
+      background: var(--paper);
+    }
+
+    .record-blank {
+      position: relative;
+      background:
+        linear-gradient(to right, var(--pencil) 0.5px, transparent 0.5px),
+        linear-gradient(to bottom, var(--pencil) 0.5px, transparent 0.5px);
+      background-size: 20px 20px;
+      opacity: 0.5;
+    }
+
+    .record-blank::after {
+      content: "留白页 / 还没遇到的那双鞋";
+      position: absolute;
+      left: 10px;
+      bottom: 9px;
+      color: var(--pencil);
+      font-size: 12px;
+    }
+
+    .record-meta {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+      color: var(--pencil);
+      font-family: var(--mono);
+      font-size: 11px;
+    }
+
+    .record h3 {
+      margin: 9px 0 4px;
+      color: var(--press);
+      font-family: var(--serif-title);
+      font-size: 24px;
+      font-weight: 400;
+      line-height: 1;
+    }
+
+    .record p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.35;
+    }
+
+    .record:nth-child(2) {
+      padding-top: 22px;
+    }
+
+    .record:nth-child(3) {
+      padding-top: 7px;
+    }
+
+    .record:nth-child(4) {
+      padding-top: 35px;
+    }
+
+    .record:nth-child(5) {
+      padding-top: 14px;
+    }
+
+    .footer {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 20px;
+      align-items: end;
+      margin-top: 25px;
+      border-top: var(--line) solid var(--graphite);
+      padding-top: 13px;
+      color: var(--pencil);
+      font-size: 12px;
+    }
+
+    .footer-note {
+      max-width: 360px;
+    }
+
+    .scale-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      color: var(--graphite);
+      font-family: var(--mono);
+      font-size: 10px;
+    }
+
+    .scale {
+      display: flex;
+      align-items: end;
+      height: 24px;
+      border-bottom: var(--line) solid var(--graphite);
+    }
+
+    .scale-segment {
+      position: relative;
+      display: block;
+      width: 20px;
+      height: 12px;
+      border-left: var(--line) solid var(--graphite);
+    }
+
+    .scale-segment:nth-child(7) {
+      width: 19.5px;
+    }
+
+    .scale-segment:nth-child(13) {
+      width: 20.5px;
+    }
+
+    .scale-segment:last-child {
+      border-right: var(--line) solid var(--graphite);
+    }
+
+    .scale-segment:nth-child(even) {
+      height: 18px;
+    }
+
+    .footer-index {
+      justify-self: end;
+      font-family: var(--mono);
+      font-size: 11px;
+      text-align: right;
+    }
+
+    @keyframes place-sheet {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @media (max-width: 900px) {
+      .site-frame {
+        padding: 20px 22px 20px;
+      }
+
+      .masthead,
+      .layout {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+      }
+
+      .masthead-mark {
+        grid-column: 1 / span 2;
+      }
+
+      .masthead-note {
+        grid-column: 4 / -1;
+      }
+
+      .plan-wrap {
+        grid-column: 1 / -1;
+        margin-left: -22px;
+      }
+
+      .legend {
+        grid-column: 1 / -1;
+      }
+
+      .records {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .record:nth-child(4),
+      .record:nth-child(5) {
+        margin-top: 15px;
+      }
+
+      .footer {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .scale-wrap {
+        justify-self: end;
+      }
+
+      .footer-index {
+        grid-column: 1 / -1;
+        justify-self: start;
+      }
+    }
+
+    @media (max-width: 620px) {
+      body::before,
+      body::after {
+        display: none;
+      }
+
+      .site-frame {
+        padding: 16px 16px 18px;
+      }
+
+      .masthead {
+        display: flex;
+        justify-content: space-between;
+        gap: 14px;
+      }
+
+      .masthead-note {
+        max-width: 190px;
+      }
+
+      .plan-wrap {
+        margin-left: -16px;
+      }
+
+      .plan-heading {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .plan-heading h1 {
+        font-size: clamp(48px, 15vw, 72px);
+      }
+
+      .plan-heading .registration {
+        display: none;
+      }
+
+      .plan {
+        height: 560px;
+      }
+
+      .legend {
+        height: auto;
+        min-height: 403px;
+      }
+
+      .contact-block {
+        grid-template-columns: 1fr;
+      }
+
+      .phone-link {
+        justify-self: start;
+      }
+
+      .records {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .record,
+      .record:nth-child(2),
+      .record:nth-child(3),
+      .record:nth-child(4),
+      .record:nth-child(5) {
+        min-height: 0;
+        margin-top: 0;
+        border-right: 0;
+        border-bottom: var(--line) solid var(--pencil);
+        padding: 0 0 18px;
+      }
+
+      .record:last-child {
+        border-bottom: 0;
+      }
+
+      .record-image,
+      .record-blank {
+        height: auto;
+        aspect-ratio: 3 / 2;
+      }
+
+      .footer {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+      }
+
+      .scale-wrap,
+      .footer-index {
+        justify-self: start;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .sheet {
+        animation: none;
+      }
+
+      .plan {
+        transform: none !important;
+        transition: none;
+      }
+
+      .sheet--1934,
+      .sheet--1936,
+      .sheet--1938 {
+        opacity: 1;
+      }
+
+      .year-switch button,
+      .zone,
+      .legend-item {
+        transition: none;
+      }
+
+      .year-switch button {
+        transition: opacity 100ms linear;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="site-frame">
+    <header class="masthead">
+      <div class="masthead-mark">NORTHSTAR / 05<br>鞋铺・钥匙台</div>
+      <div class="masthead-note">我把每一双鞋、每一把钥匙都记在这张纸上。<br>你先打电话，剩下的交给我。</div>
+    </header>
+
+    <main class="layout">
+      <section class="plan-wrap" aria-labelledby="page-title">
+        <div class="plan-heading">
+          <h1 id="page-title">鞋底和钥匙，<br>先把时间约好</h1>
+          <div class="registration">登记簿 01—05<br>手工修订 / 2024</div>
+        </div>
+
+        <div class="plan" id="plan" aria-label="店内服务平面图">
+          <div class="sheet sheet--1934" aria-hidden="true">
+            <svg viewBox="0 0 900 650" preserveAspectRatio="none">
+              <path d="M30 95H270V42H505V166H866M30 282H168V203H380V382H608V281H866M44 542H330V470H477V611M712 166V281M505 42V166M168 203V382" fill="none" stroke-width="0.8"/>
+              <path d="M84 42V611M270 42V166M380 203V542M608 281V611M756 95V542" fill="none" stroke-width="0.5"/>
+              <rect x="72" y="65" width="141" height="90" fill="none" stroke-width="1.2"/>
+              <rect x="530" y="68" width="156" height="76" fill="none" stroke-width="0.8"/>
+              <circle cx="444" cy="274" r="58" fill="none" stroke-width="0.8"/>
+              <path d="M395 274h98M444 225v98M30 611h836" fill="none" stroke-width="0.5"/>
+            </svg>
+          </div>
+
+          <div class="sheet sheet--1936" aria-hidden="true">
+            <svg viewBox="0 0 900 650" preserveAspectRatio="none">
+              <path d="M30 111H286V57H520V179H866M30 299H182V220H394V397H622V298H866M44 558H344V486H489V627M726 179V298M520 57V179M182 220V397" fill="none" stroke-width="0.8"/>
+              <path d="M99 57V627M286 57V179M394 220V558M622 298V627M770 111V558" fill="none" stroke-width="0.5"/>
+              <rect x="87" y="79" width="141" height="90" fill="none" stroke-width="1.2"/>
+              <rect x="545" y="84" width="156" height="76" fill="none" stroke-width="0.8"/>
+              <circle cx="458" cy="290" r="58" fill="none" stroke-width="0.8"/>
+              <path d="M409 290h98M458 241v98M30 627h836" fill="none" stroke-width="0.5"/>
+            </svg>
+          </div>
+
+          <div class="sheet sheet--1938" aria-hidden="true">
+            <svg viewBox="0 0 900 650" preserveAspectRatio="none">
+              <path d="M30 123H302V72H536V191H866M30 314H196V237H409V411H636V313H866M44 570H358V501H503V641M740 191V313M536 72V191M196 237V411" fill="none" stroke-width="0.8"/>
+              <path d="M112 72V641M302 72V191M409 237V570M636 313V641M784 123V570" fill="none" stroke-width="0.5"/>
+              <rect x="102" y="94" width="141" height="90" fill="none" stroke-width="1.2"/>
+              <rect x="560" y="98" width="156" height="76" fill="none" stroke-width="0.8"/>
+              <circle cx="472" cy="305" r="58" fill="none" stroke-width="0.8"/>
+              <path d="M423 305h98M472 256v98M30 641h836" fill="none" stroke-width="0.5"/>
+            </svg>
+          </div>
+
+          <div class="map-grid" aria-hidden="true"></div>
+
+          <div class="zone zone--01" data-reg="REG-01" data-legend="legend-01" tabindex="0" role="button" aria-label="01 鞋底登记区">
+            <span class="zone-id">01 / 1934</span>
+            <span class="zone-name">鞋底登记</span>
+          </div>
+          <div class="zone zone--02" data-reg="REG-02" data-legend="legend-02" tabindex="0" role="button" aria-label="02 鞋面缝补区">
+            <span class="zone-id">02 / 1936</span>
+            <span class="zone-name">鞋面缝补</span>
+          </div>
+          <div class="zone zone--03" data-reg="REG-03" data-legend="legend-03" tabindex="0" role="button" aria-label="03 配钥匙区">
+            <span class="zone-id">03 / 1938</span>
+            <span class="zone-name">配钥匙</span>
+          </div>
+          <div class="zone zone--04" data-reg="REG-04" data-legend="legend-04" tabindex="0" role="button" aria-label="04 取件区">
+            <span class="zone-id">04 / 1936</span>
+            <span class="zone-name">取件台</span>
+          </div>
+          <div class="zone zone--05" data-reg="REG-05" data-legend="legend-05" tabindex="0" role="button" aria-label="05 等候区">
+            <span class="zone-id">05 / 1934</span>
+            <span class="zone-name">门口等候</span>
+          </div>
+
+          <div class="plan-stamp">三层纸已叠合<br>不同时代，同一间店</div>
+        </div>
+      </section>
+
+      <aside class="legend" aria-labelledby="legend-title">
+        <div class="legend-header">
+          <h2 id="legend-title">这张图怎么读</h2>
+          <span>线型 / 登记号</span>
+        </div>
+
+        <div class="year-switch" aria-label="选择图纸年份">
+          <button type="button" data-year="1934" aria-pressed="true">1934</button>
+          <button type="button" data-year="1936" aria-pressed="false">1936</button>
+          <button type="button" data-year="1938" aria-pressed="false">1938</button>
+        </div>
+
+        <ol class="legend-list">
+          <li class="legend-item" id="legend-01">
+            <span class="legend-line"></span>
+            <span class="legend-copy"><strong>鞋底登记</strong><small>先看磨损，再决定怎么补</small></span>
+            <span class="legend-no">REG-01</span>
+          </li>
+          <li class="legend-item" id="legend-02">
+            <span class="legend-line"></span>
+            <span class="legend-copy"><strong>鞋面缝补</strong><small>线脚尽量沿着原来的走向</small></span>
+            <span class="legend-no">REG-02</span>
+          </li>
+          <li class="legend-item" id="legend-03">
+            <span class="legend-line"></span>
+            <span class="legend-copy"><strong>配钥匙</strong><small>带上旧钥匙，省得猜齿口</small></span>
+            <span class="legend-no">REG-03</span>
+          </li>
+          <li class="legend-item" id="legend-04">
+            <span class="legend-line"></span>
+            <span class="legend-copy"><strong>取件台</strong><small>做好了我会把它放在这里</small></span>
+            <span class="legend-no">REG-04</span>
+          </li>
+          <li class="legend-item" id="legend-05">
+            <span class="legend-line"></span>
+            <span class="legend-copy"><strong>门口等候</strong><small>不用挤，到了就先坐一会儿</small></span>
+            <span class="legend-no">REG-05</span>
+          </li>
+        </ol>
+
+        <div class="contact-block">
+          <p>要修鞋或配钥匙，打电话告诉我你方便的时间。我会把台面空出来等你。</p>
+          <a class="phone-link" href="tel:010-19361938">010—1936—1938</a>
+        </div>
+      </aside>
+
+      <section class="records" aria-label="五条服务登记">
+        <article class="record" id="record-01">
+          <img class="record-image" src="images/占位-1.jpg" width="1200" height="800" alt="一双正在修补的旧皮鞋">
+          <div class="record-meta"><span>01 / REG-01</span><span>鞋底</span></div>
+          <h3>旧鞋底，别急着丢</h3>
+          <p>先把鞋底翻过来看一眼。能补的，我都尽量给它再走一段路。</p>
+        </article>
+
+        <article class="record" id="record-02">
+          <img class="record-image" src="images/占位-2.jpg" width="900" height="1200" alt="手工缝补鞋面的针线">
+          <div class="record-meta"><span>02 / REG-02</span><span>缝补</span></div>
+          <h3>线脚慢一点</h3>
+          <p>手工活不能催。线脚稳了，穿起来才不会硌脚。</p>
+        </article>
+
+        <article class="record" id="record-03">
+          <img class="record-image" src="images/占位-3.jpg" width="1200" height="900" alt="一排不同齿形的钥匙">
+          <div class="record-meta"><span>03 / REG-03</span><span>钥匙</span></div>
+          <h3>旧钥匙也认得门</h3>
+          <p>带着旧的来，我照着它配。每个齿口都要对得上。</p>
+        </article>
+
+        <article class="record" id="record-04">
+          <img class="record-image" src="images/占位-4.jpg" width="1000" height="1000" alt="修鞋店台面上的工具">
+          <div class="record-meta"><span>04 / REG-04</span><span>取件</span></div>
+          <h3>放在台边等你</h3>
+          <p>做好以后我会收好，不让灰落上去。你按约好的时间来拿。</p>
+        </article>
+
+        <article class="record" id="record-05">
+          <div class="record-blank" aria-label="暂时留白的服务位置"></div>
+          <div class="record-meta"><span>05 / REG-05</span><span>等候</span></div>
+          <h3>坐一会儿也行</h3>
+          <p>如果早到了，门口有地方坐。我们不赶这一会儿。</p>
+        </article>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-note">纸上的改动都算数。磨掉的铅笔痕，是这间小店留下来的时间。</div>
+      <div class="scale-wrap">
+        <span>比例尺 1:200</span>
+        <div class="scale" aria-label="手绘比例尺 1比200">
+          <i class="scale-segment"></i><i class="scale-segment"></i><i class="scale-segment"></i><i class="scale-segment"></i>
+          <i class="scale-segment"></i><i class="scale-segment"></i><i class="scale-segment"></i><i class="scale-segment"></i>
+          <i class="scale-segment"></i><i class="scale-segment"></i><i class="scale-segment"></i><i class="scale-segment"></i>
+          <i class="scale-segment"></i><i class="scale-segment"></i>
+        </div>
+      </div>
+      <div class="footer-index">登记簿 / 01—05<br>今天也开门</div>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      const plan = document.getElementById("plan");
+      const yearButtons = document.querySelectorAll("[data-year]");
+      const zones = document.querySelectorAll(".zone");
+      const legendItems = document.querySelectorAll(".legend-item");
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+      function setYear(year) {
+        plan.dataset.view = year;
+        yearButtons.forEach(function (button) {
+          button.setAttribute("aria-pressed", button.dataset.year === year ? "true" : "false");
+        });
+      }
+
+      yearButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
+          setYear(button.dataset.year);
+        });
+      });
+
+      function emphasize(zone) {
+        legendItems.forEach(function (item) {
+          item.classList.remove("is-emphasized");
+        });
+        const target = document.getElementById(zone.dataset.legend);
+        if (target) {
+          target.classList.add("is-emphasized");
+          window.setTimeout(function () {
+            target.classList.remove("is-emphasized");
+          }, 160);
+        }
+      }
+
+      zones.forEach(function (zone) {
+        zone.addEventListener("mouseenter", function () {
+          document.body.classList.add("zone-cursor");
+        });
+
+        zone.addEventListener("mouseleave", function () {
+          document.body.classList.remove("zone-cursor");
+        });
+
+        zone.addEventListener("focus", function () {
+          document.body.classList.add("zone-cursor");
+        });
+
+        zone.addEventListener("blur", function () {
+          document.body.classList.remove("zone-cursor");
+        });
+
+        zone.addEventListener("click", function () {
+          emphasize(zone);
+        });
+
+        zone.addEventListener("keydown", function (event) {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            emphasize(zone);
+          }
+        });
+      });
+
+      if (!reduceMotion.matches) {
+        window.addEventListener("mousemove", function (event) {
+          document.body.style.setProperty("--cursor-x", event.clientX + "px");
+          document.body.style.setProperty("--cursor-y", event.clientY + "px");
+        });
+
+        let ticking = false;
+        window.addEventListener("scroll", function () {
+          if (!ticking) {
+            window.requestAnimationFrame(function () {
+              plan.classList.toggle("is-shrunk", window.scrollY >= 200);
+              ticking = false;
+            });
+            ticking = true;
+          }
+        }, { passive: true });
+      }
+    }());
+  </script>
+</body>
+</html>
