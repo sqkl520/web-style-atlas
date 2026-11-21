@@ -48,16 +48,20 @@ const RUNS = runsArg > 0 ? Number(process.argv[runsArg + 1]) || 3 : 3;
 function ping(timeoutSec) {
   try {
     const out = execFileSync('curl', [
-      '-s', '-o', '/dev/null', '-w', '%{http_code} %{time_total}',
+      '-s', '-w', '\n%{http_code} %{time_total}',
       '--max-time', String(timeoutSec),
       '-X', 'POST', `${PROXY}/v1/chat/completions`,
       '-H', 'Content-Type: application/json',
       '-d', JSON.stringify({ model: MODEL, messages: [{ role: 'user', content: 'ok' }], max_tokens: 5 }),
     ], { encoding: 'utf8', timeout: (timeoutSec + 5) * 1000 });
-    const [code, time] = out.trim().split(/\s+/);
-    return { ok: code === '200', code, sec: Number(time) };
+    /* 响应体与状态码要分开取：失败时 body 里有上游的原始错误，
+     * 那是判断"谁的锅"的唯一依据（见下面失败分支的注释）。 */
+    const nl = out.lastIndexOf('\n');
+    const body = out.slice(0, nl).trim();
+    const [code, time] = out.slice(nl + 1).trim().split(/\s+/);
+    return { ok: code === '200', code, sec: Number(time), body };
   } catch (e) {
-    return { ok: false, code: 'timeout/err', sec: null };
+    return { ok: false, code: 'timeout/err', sec: null, body: (e.stdout || '') };
   }
 }
 
@@ -65,10 +69,54 @@ console.log('盲测管线健康检查\n');
 console.log(`  代理 ${PROXY}，模型 ${MODEL}，最小请求（5 token）连测 ${RUNS} 次：\n`);
 
 const samples = [];
+let lastErr = '';
 for (let i = 0; i < RUNS; i++) {
   const r = ping(90);
   samples.push(r);
+  /* 只收失败响应的 body —— 成功的 body 是正常回复，不是错误，
+   * 拿它当"错误原文"打印出来会误导（实测踩过一次：
+   * 一次成功 31.7s 的响应体被当成错误打了出来）。 */
+  if (!r.ok && r.body) lastErr = r.body;
   console.log(`    第 ${i + 1} 次：${r.ok ? r.sec.toFixed(1) + 's' : r.code}`);
+}
+
+/* ── 失败时把根因报出来，别只说"不可用" ────────────────────────────────
+ *
+ * 2026-11-21 实测拿到的原文：
+ *
+ *   CC Switch local proxy failed while handling Codex endpoint /chat/completions.
+ *   Provider: S3 AI; model: openai/gpt-5.6-luna;
+ *   cause: 请求超时: 上游请求超时: error sending request:
+ *          client error (Connect): operation timed out
+ *
+ * 这条信息很关键：**代理本身是活的**（`/v1/models` 13ms 返回 200），
+ * 断的是它到上游 provider 那一段。两者要分清 ——
+ * 代理挂了要重启，上游断了只能等，处置完全不同。
+ *
+ * 另外实测换模型也没用：`MiniMax-M2.7-free` 报同样的错、同一个 provider。
+ * 所以这**不是模型的问题**，那个 provider 的出口整个不通。 */
+if (lastErr) {
+  console.log('');
+  console.log('  上游返回的错误原文：');
+  try {
+    const j = JSON.parse(lastErr);
+    const msg = (j.error && j.error.message) || lastErr;
+    const provider = (j.error && j.error.provider) || '?';
+    const cause = msg.match(/cause:\s*(.+)$/);
+    console.log(`    provider：${provider}`);
+    if (cause) console.log(`    cause：   ${cause[1].slice(0, 160)}`);
+    else console.log(`    ${msg.slice(0, 200)}`);
+    /* 把"谁的锅"说清楚，这决定了该做什么 */
+    if (/Connect|timed out|超时/.test(msg)) {
+      console.log('');
+      console.log('    这是**代理到上游那一段**断了，不是代理本身挂了。');
+      console.log('    实测 /v1/models 仍能 13ms 返回 200，换模型也没用');
+      console.log('    （MiniMax-M2.7-free 报同样的错、同一个 provider）。');
+      console.log('    所以：不重启代理，等 provider 恢复。');
+    }
+  } catch {
+    console.log(`    ${lastErr.slice(0, 200)}`);
+  }
 }
 
 const good = samples.filter((s) => s.ok && s.sec != null);
