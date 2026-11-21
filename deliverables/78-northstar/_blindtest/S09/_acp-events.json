@@ -1,0 +1,105 @@
+[
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "36a7f0fc-30c9-40be-86a5-aaebfc999b44",
+      "update": {
+        "sessionUpdate": "agent_message_chunk",
+        "messageId": "36abf2ca-bcf2-4937-8f84-f3fbb768d68f",
+        "content": {
+          "type": "text",
+          "text": " "
+        }
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "36a7f0fc-30c9-40be-86a5-aaebfc999b44",
+      "update": {
+        "sessionUpdate": "usage_update",
+        "used": 10738,
+        "size": 200000
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "36a7f0fc-30c9-40be-86a5-aaebfc999b44",
+      "update": {
+        "sessionUpdate": "tool_call",
+        "toolCallId": "call_4ec3668bb87d42a792980f84ff4ee797",
+        "title": "glob",
+        "kind": "other",
+        "status": "in_progress",
+        "rawInput": {
+          "path": ".",
+          "pattern": "*"
+        }
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "36a7f0fc-30c9-40be-86a5-aaebfc999b44",
+      "update": {
+        "sessionUpdate": "tool_call_update",
+        "toolCallId": "call_4ec3668bb87d42a792980f84ff4ee797",
+        "status": "completed",
+        "content": [
+          {
+            "type": "content",
+            "content": {
+              "type": "text",
+              "text": "No files found"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "36a7f0fc-30c9-40be-86a5-aaebfc999b44",
+      "update": {
+        "sessionUpdate": "agent_message_chunk",
+        "messageId": "eacfc60c-9666-4268-b2e6-2233b9dcf6c6",
+        "content": {
+          "type": "text",
+          "text": " <!DOCTYPE html>\n<html lang=\"zh-CN\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>鞋钥匙小铺 · 今天修好不嘴硬</title>\n  <style>\n    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=LXGW+Marker+Gothic&family=Syne:wght@700;800&display=swap');\n\n    :root {\n      --blue: #1F4E79;\n      --yellow: #F5C842;\n      --ink: #151310;\n      --rust: #8A4B24;\n      --line: 3px;\n      --heavy: 3.5px;\n      --shadow: 7px 7px 0 var(--ink);\n    }\n\n    * {\n      box-sizing: border-box;\n      border-radius: 0;\n    }\n\n    html {\n      background: var(--yellow);\n      scroll-behavior: smooth;\n    }\n\n    body {\n      margin: 0;\n      min-width: 320px;\n      background: var(--yellow);\n      color: var(--ink);\n      font-family: \"LXGW Marker Gothic\", Syne;\n      cursor: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cpath d='M3 17L6 10 14 2 18 6 10 14 3 17Z' fill='%23F5C842' stroke='%23151310' stroke-width='3' stroke-linejoin='miter'/%3E%3Cpath d='M6 10L10 14' stroke='%238A4B24' stroke-width='3'/%3E%3C/svg%3E\") 2 18, auto;\n    }\n\n    a,\n    button {\n      cursor: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cpath d='M3 17L6 10 14 2 18 6 10 14 3 17Z' fill='%23F5C842' stroke='%23151310' stroke-width='3' stroke-linejoin='miter'/%3E%3Cpath d='M6 10L10 14' stroke='%238A4B24' stroke-width='3'/%3E%3C/svg%3E\") 2 18, pointer;\n    }\n\n    .page {\n      width: min(1420px, calc(100% - 32px));\n      margin: 0 auto;\n      padding: 20px 0 36px;\n    }\n\n    .top-strip {\n      min-height: 42px;\n      display: flex;\n      align-items: center;\n      justify-content: space-between;\n      gap: 16px;\n      border-top: var(--line) solid var(--ink);\n      border-bottom: var(--line) solid var(--ink);\n      font-size: 16px;\n      letter-spacing: 0.04em;\n    }\n\n    .top-strip strong {\n      color: var(--blue);\n    }\n\n    .top-strip span:last-child {\n      font-family: \"JetBrains Mono\";\n      font-size: 12px;\n      font-variant-numeric: tabular-nums;\n      text-align: right;\n    }\n\n    .hero {\n      display: grid;\n      grid-template-columns: minmax(0, 1.55fr) minmax(260px, 0.7fr);\n      gap: 28px;\n      align-items: end;\n      padding: 28px 0 22px;\n    }\n\n    h1 {\n      max-width: 900px;\n      margin: 0;\n      color: var(--blue);\n      font-family: \"LXGW Marker Gothic\", Syne;\n      font-size: clamp(58px, 9vw, 97px);\n      line-height: 0.86;\n      letter-spacing: -0.075em;\n      text-wrap: balance;\n    }\n\n    .hero-note {\n      border: var(--heavy) solid var(--ink);\n      background: var(--blue);\n      color: var(--yellow);\n      padding: 18px 18px 16px;\n      box-shadow: var(--shadow);\n      transform: rotate(1.5deg);\n      font-size: 18px;\n      line-height: 1.2;\n    }\n\n    .hero-note b {\n      display: block;\n      margin-bottom: 10px;\n      color: var(--yellow);\n      font-size: 27px;\n      line-height: 1;\n    }\n\n    .hero-note small {\n      display: block;\n      color: var(--yellow);\n      font-size: 14px;\n      line-height: 1.35;\n    }\n\n    .board {\n      position: relative;\n      border: var(--heavy) solid var(--ink);\n      background: var(--ink);\n      padding: 20px 18px 16px;\n      box-shadow: 9px 9px 0 var(--rust);\n      overflow: hidden;\n    }\n\n    .board::before,\n    .board::after {\n      content: \"\";\n      position: absolute;\n      width: 23px;\n      height: 23px;\n      background: var(--rust);\n      z-index: 2;\n    }\n\n    .board::before {\n      top: 0;\n      left: 0;\n    }\n\n    .board::after {\n      right: 0;\n      bottom: 0;\n    }\n\n    .board-heading {\n      display: flex;\n      justify-content: space-between;\n      align-items: baseline;\n      gap: 18px;\n      margin-bottom: 13px;\n      color: var(--yellow);\n    }\n\n    .board-heading h2 {\n      margin: 0;\n      font-size: 30px;\n      line-height: 1;\n    }\n\n    .board-heading span {\n      font-family: \"JetBrains Mono\";\n      font-size: 11px;\n      font-variant-numeric: tabular-nums;\n    }\n\n    .price-list {\n      display: grid;\n      gap: 10px;\n    }\n\n    .price-row {\n      --start: 4px;\n      position: relative;\n      display: grid;\n      grid-template-columns: 78px minmax(0, 1fr) 140px;\n      gap: 13px;\n      align-items: center;\n      min-height: 78px;\n      padding: 12px 14px 12px var(--start);\n      color: var(--ink);\n      background: var(--yellow);\n      border: 2px solid var(--ink);\n      transform: rotate(1.5deg);\n      isolation: isolate;\n    }\n\n    .price-row:nth-child(2) {\n      --start: 8px;\n      transform: rotate(1.5deg) translateX(4px);\n    }\n\n    .price-row:nth-child(3) {\n      --start: 11px;\n      transform: rotate(1.5deg) translateX(-2px);\n    }\n\n    .price-row:nth-child(4) {\n      --start: 6px;\n      transform: rotate(1.5deg) translateX(5px);\n    }\n\n    .price-row:nth-child(5) {\n      --start: 9px;\n      transform: rotate(1.5deg) translateX(1px);\n    }\n\n    .price-row::before {\n      content: \"\";\n      position: absolute;\n      inset: -2px;\n      z-index: -1;\n      border: var(--heavy) solid var(--blue);\n      clip-path: polygon(0 0, 94% 0, 100% 0, 100% 100%, 0 100%, 0 8%);\n      pointer-events: none;\n    }\n\n    .price-row::after {\n      content: \"\";\n      position: absolute;\n      left: -2px;\n      bottom: -2px;\n      width: 31px;\n      height: 17px;\n      background: var(--ink);\n      box-shadow: 4px -5px 0 var(--ink), 7px -9px 0 var(--ink);\n      z-index: 3;\n      pointer-events: none;\n    }\n\n    .price-row:hover::before {\n      animation: redraw 500ms steps(6, end) both;\n    }\n\n    .number {\n      align-self: stretch;\n      display: flex;\n      align-items: center;\n      justify-content: center;\n      color: var(--blue);\n      border-right: 2px solid var(--ink);\n      font-family: \"JetBrains Mono\";\n      font-size: 22px;\n      font-variant-numeric: tabular-nums;\n      font-weight: 700;\n    }\n\n    .service {\n      min-width: 0;\n    }\n\n    .service h3 {\n      margin: 0 0 4px;\n      font-size: 26px;\n      line-height: 0.95;\n    }\n\n    .service p {\n      margin: 0;\n      font-size: 14px;\n      line-height: 1.2;\n    }\n\n    .cost {\n      text-align: right;\n      color: var(--blue);\n      font-family: \"JetBrains Mono\";\n      font-size: 25px;\n      line-height: 1;\n      font-variant-numeric: tabular-nums;\n      font-weight: 700;\n      white-space: nowrap;\n    }\n\n    .cost small {\n      display: block;\n      margin-top: 5px;\n      color: var(--ink);\n      font-family: \"LXGW Marker Gothic\", Syne;\n      font-size: 13px;\n      line-height: 1;\n      font-weight: 400;\n    }\n\n    .row-image {\n      width: 100%;\n      height: 72px;\n      object-fit: cover;\n      display: block;\n      border: 2px solid var(--ink);\n      filter: sepia(0.35) saturate(1.2);\n    }\n\n    .bottom-grid {\n      display: grid;\n      grid-template-columns: minmax(0, 1fr) 240px 240px;\n      gap: 18px;\n      align-items: stretch;\n      margin-top: 27px;\n    }\n\n    .image-card,\n    .empty-slot,\n    .call-card {\n      border: var(--heavy) solid var(--ink);\n      background: var(--yellow);\n      box-shadow: 6px 6px 0 var(--blue);\n    }\n\n    .image-card {\n      min-height: 176px;\n      padding: 10px;\n      transform: rotate(-1.5deg);\n    }\n\n    .image-card img {\n      width: 100%;\n      height: 150px;\n      display: block;\n      object-fit: cover;\n      border: 2px solid var(--ink);\n      filter: sepia(0.35) saturate(1.2);\n    }\n\n    .empty-slot {\n      min-height: 176px;\n      padding: 16px;\n      display: flex;\n      flex-direction: column;\n      justify-content: space-between;\n      transform: rotate(1.5deg);\n    }\n\n    .empty-slot strong {\n      color: var(--rust);\n      font-size: 27px;\n      line-height: 0.95;\n    }\n\n    .empty-slot p {\n      margin: 0;\n      font-size: 15px;\n      line-height: 1.2;\n    }\n\n    .call-card {\n      min-height: 176px;\n      padding: 16px;\n      background: var(--blue);\n      color: var(--yellow);\n      transform: rotate(-1.5deg);\n    }\n\n    .call-card span {\n      display: block;\n      margin-bottom: 8px;\n      color: var(--yellow);\n      font-size: 18px;\n    }\n\n    .call-card strong {\n      display: block;\n      color: var(--yellow);\n      font-family: \"JetBrains Mono\";\n      font-size: 22px;\n      font-variant-numeric: tabular-nums;\n      line-height: 1.2;\n    }\n\n    .call-button {\n      display: block;\n      width: 100%;\n      margin-top: 19px;\n      padding: 12px 8px;\n      border: var(--line) solid var(--yellow);\n      background: var(--yellow);\n      color: var(--blue);\n      font-family: \"LXGW Marker Gothic\", Syne;\n      font-size: 21px;\n      line-height: 1;\n      text-align: center;\n      text-decoration: none;\n      box-shadow: 4px 4px 0 var(--rust);\n      transition: transform 120ms ease, box-shadow 120ms ease;\n    }\n\n    .call-button:hover,\n    .call-button:focus-visible {\n      transform: translate(3px, 3px);\n      box-shadow: 1px 1px 0 var(--rust);\n      outline: none;\n    }\n\n    footer {\n      display: flex;\n      justify-content: space-between;\n      gap: 20px;\n      margin-top: 28px;\n      padding-top: 12px;\n      border-top: var(--line) solid var(--ink);\n      font-size: 14px;\n      line-height: 1.2;\n    }\n\n    footer span:last-child {\n      font-family: \"JetBrains Mono\";\n      font-size: 12px;\n      font-variant-numeric: tabular-nums;\n      text-align: right;\n    }\n\n    @keyframes redraw {\n      0% {\n        clip-path: polygon(0 0, 0 0, 0 0, 0 100%, 0 100%, 0 8%);\n      }\n      25% {\n        clip-path: polygon(0 0, 25% 0, 25% 0, 25% 100%, 0 100%, 0 8%);\n      }\n      50% {\n        clip-path: polygon(0 0, 50% 0, 50% 0, 50% 100%, 0 100%, 0 8%);\n      }\n      75% {\n        clip-path: polygon(0 0, 75% 0, 75% 0, 75% 100%, 0 100%, 0 8%);\n      }\n      100% {\n        clip-path: polygon(0 0, 94% 0, 100% 0, 100% 100%, 0 100%, 0 8%);\n      }\n    }\n\n    @media (min-width: 760px) {\n      .price-row:nth-child(1) .service {\n        padding-left: 9px;\n      }\n\n      .price-row:nth-child(2) .service {\n        padding-left: 19px;\n      }\n\n      .price-row:nth-child(3) .service {\n        padding-left: 3px;\n      }\n\n      .price-row:nth-child(4) .service {\n        padding-left: 15px;\n      }\n\n      .price-row:nth-child(5) .service {\n        padding-left: 7px;\n      }\n    }\n\n    @media (max-width: 780px) {\n      .hero {\n        grid-template-columns: 1fr;\n        gap: 20px;\n      }\n\n      .bottom-grid {\n        grid-template-columns: 1fr 1fr;\n      }\n\n      .image-card {\n        grid-column: 1 / -1;\n      }\n    }\n\n    @media (max-width: 560px) {\n      .page {\n        width: min(100% - 20px, 440px);\n        padding-top: 12px;\n      }\n\n      .top-strip {\n        align-items: flex-start;\n        flex-direction: column;\n        gap: 5px;\n        padding: 9px 0;\n      }\n\n      .top-strip span:last-child {\n        text-align: left;\n      }\n\n      .hero {\n        padding-top: 24px;\n      }\n\n      h1 {\n        font-size: clamp(55px, 18vw, 82px);\n      }\n\n      .board {\n        padding: 15px 10px 12px;\n      }\n\n      .price-row {\n        grid-template-columns: 47px minmax(0, 1fr) 93px;\n        gap: 8px;\n        min-height: 86px;\n        padding-right: 8px;\n      }\n\n      .number {\n        font-size: 17px;\n      }\n\n      .service h3 {\n        font-size: 21px;\n      }\n\n      .service p {\n        font-size: 12px;\n      }\n\n      .cost {\n        font-size: 18px;\n      }\n\n      .cost small {\n        font-size: 11px;\n      }\n\n      .bottom-grid {\n        grid-template-columns: 1fr;\n      }\n\n      .image-card,\n      .empty-slot,\n      .call-card {\n        min-height: 0;\n      }\n\n      .image-card img {\n        height: 170px;\n      }\n\n      footer {\n        flex-direction: column;\n      }\n\n      footer span:last-child {\n        text-align: left;\n      }\n    }\n\n    @media (prefers-reduced-motion: reduce) {\n      html {\n        scroll-behavior: auto;\n      }\n\n      .price-row:hover::before {\n        animation: none;\n      }\n\n      .call-button {\n        transition: opacity 120ms ease;\n      }\n\n      .call-button:hover,\n      .call-button:focus-visible {\n        transform: none;\n        box-shadow: 4px 4px 0 var(--rust);\n        opacity: 0.85;\n      }\n    }\n  </style>\n</head>\n<body>\n  <main class=\"page\">\n    <div class=\"top-strip\">\n      <strong>鞋钥匙小铺 · 铁皮门口营业中</strong>\n      <span>编号统一：SHOE-KEY-05 / 不修心情</span>\n    </div>\n\n    <section class=\"hero\" aria-labelledby=\"main-title\">\n      <h1 id=\"main-title\">鞋坏了？<br>别让它<br>带薪躺平。</h1>\n      <aside class=\"hero-note\">\n        <b>今日招牌话</b>\n        鞋底能补，钥匙能配，<br>\n        只有老板的腰不能乱拧。\n        <small>小店手艺，响当当；价格写在板上，不跟你玩捉迷藏。</small>\n      </aside>\n    </section>\n\n    <section class=\"board\" aria-labelledby=\"price-title\">\n      <div class=\"board-heading\">\n        <h2 id=\"price-title\">修理价目板 · 现在就整</h2>\n        <span>含税 / 小份也认真 / 单位写清楚</span>\n      </div>\n\n      <div class=\"price-list\">\n        <article class=\"price-row\">\n          <div class=\"number\">01</div>\n          <div class=\"service\">\n            <h3>鞋底补洞</h3>\n            <p>一双 1 处起，耐走不耐你踢石头</p>\n          </div>\n          <div class=\"cost\">¥28<small>含税 / 双</small></div>\n        </article>\n\n        <article class=\"price-row\">\n          <div class=\"number\">02</div>\n          <div class=\"service\">\n            <h3>换鞋跟</h3>\n            <p>小跟 1 对，走路声音重新做人</p>\n          </div>\n          <div class=\"cost\">¥36<small>含税 / 对</small></div>\n        </article>\n\n        <article class=\"price-row\">\n          <div class=\"number\">03</div>\n          <div class=\"service\">\n            <h3>皮鞋清洁</h3>\n            <p>一双 200g 泡沫，擦到它开始反光</p>\n          </div>\n          <div class=\"cost\">¥22<small>含税 / 双</small></div>\n        </article>\n\n        <article class=\"price-row\">\n          <div class=\"number\">04</div>\n          <div class=\"service\">\n            <h3>普通钥匙</h3>\n            <p>1 把 8 分钟，打不开算老板输</p>\n          </div>\n          <div class=\"cost\">¥12<small>含税 / 把</small></div>\n        </article>\n\n        <article class=\"price-row\">\n          <div class=\"number\">05</div>\n          <div class=\"service\">\n            <h3>门禁卡复制</h3>\n            <p>1 张 1 次测试，门见了都说熟</p>\n          </div>\n          <div class=\"cost\">¥25<small>含税 / 张</small></div>\n        </article>\n      </div>\n    </section>\n\n    <section class=\"bottom-grid\" aria-label=\"小店现场与预约\">\n      <div class=\"image-card\">\n        <img src=\"images/占位-1.jpg\" width=\"640\" height=\"300\" alt=\"修鞋工具和工作台\">\n      </div>\n      <div class=\"empty-slot\">\n        <strong>第六块？</strong>\n        <p>留给今天突然想修、但还没决定修什么的你。先打电话，别让鞋替你犹豫。</p>\n      </div>\n      <div class=\"call-card\">\n        <span>要约时间？现在喊我。</span>\n        <strong>010-5555-0520</strong>\n        <a class=\"call-button\" href=\"tel:01055550520\">打电话预约</a>\n      </div>\n    </section>\n\n    <footer>\n      <span>SHOE-KEY-05 · 5 条服务，5 个编号，板上不藏第 6 个价。</span>\n      <span>周一至周六 09:30—19:00</span>\n    </footer>\n  </main>\n</body>\n</html>"
+        }
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "36a7f0fc-30c9-40be-86a5-aaebfc999b44",
+      "update": {
+        "sessionUpdate": "usage_update",
+        "used": 16014,
+        "size": 200000
+      }
+    }
+  },
+  {
+    "kind": "result",
+    "msg": {
+      "jsonrpc": "2.0",
+      "id": 3,
+      "result": {
+        "stopReason": "end_turn"
+      }
+    }
+  }
+]

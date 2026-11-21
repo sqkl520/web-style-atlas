@@ -1,0 +1,613 @@
+  <!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>街角鞋钥匙维修站｜SERVICE CONSOLE</title>
+<style>
+  :root {
+    --paint: #4FA83D;
+    --plate: #0E100D;
+    --panel: #BFB9A6;
+    --alarm: #8C2F1F;
+    --ink: #111111;
+    --groove-hi: #2A2E28;
+    --groove-lo: #050605;
+  }
+
+  @font-face {
+    font-family: "Barlow";
+    src: local("Barlow");
+  }
+
+  @font-face {
+    font-family: "Glow Sans SC";
+    src: local("Glow Sans SC");
+  }
+
+  @font-face {
+    font-family: "Departure Mono";
+    src: local("Departure Mono");
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    background: var(--plate);
+    color: var(--panel);
+    font-family: "Glow Sans SC";
+  }
+
+  body {
+    margin: 0;
+    min-width: 320px;
+    background: var(--plate);
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 20;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 7px,
+      var(--groove-lo) 8px
+    );
+    opacity: .18;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  .console {
+    width: min(1500px, 100%);
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 16px;
+    display: grid;
+    grid-template-columns: 1.8fr 1fr 1fr 1.35fr;
+    grid-template-rows: minmax(300px, 1.5fr) minmax(220px, 1fr) minmax(170px, .8fr);
+    grid-template-areas:
+      "hero hero service image1"
+      "hero hero hours image2"
+      "process contact image3 log";
+    gap: 8px;
+  }
+
+  .zone {
+    position: relative;
+    overflow: hidden;
+    border: 2px solid var(--groove-lo);
+    background: var(--panel);
+    color: var(--ink);
+    padding: 20px;
+    box-shadow:
+      inset 6px 6px 0 var(--groove-hi),
+      inset -6px -6px 0 var(--groove-lo);
+    animation: reveal 480ms steps(60, end) both;
+  }
+
+  .zone::after {
+    content: attr(data-id);
+    position: absolute;
+    right: 12px;
+    bottom: 9px;
+    color: var(--groove-hi);
+    font-family: "Departure Mono";
+    font-size: 10px;
+    letter-spacing: 1px;
+    line-height: 1;
+    white-space: pre;
+    opacity: 1;
+  }
+
+  .zone:nth-child(1) { animation-delay: 0ms; }
+  .zone:nth-child(2) { animation-delay: 70ms; }
+  .zone:nth-child(3) { animation-delay: 140ms; }
+  .zone:nth-child(4) { animation-delay: 210ms; }
+  .zone:nth-child(5) { animation-delay: 280ms; }
+  .zone:nth-child(6) { animation-delay: 350ms; }
+  .zone:nth-child(7) { animation-delay: 420ms; }
+  .zone:nth-child(8) { animation-delay: 490ms; }
+
+  .hero {
+    grid-area: hero;
+    background: var(--paint);
+    color: var(--ink);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 30px;
+    min-height: 0;
+  }
+
+  .service { grid-area: service; }
+  .hours { grid-area: hours; }
+  .process { grid-area: process; }
+  .contact {
+    grid-area: contact;
+    background: var(--alarm);
+    color: var(--panel);
+  }
+
+  .image1 { grid-area: image1; }
+  .image2 { grid-area: image2; }
+  .image3 { grid-area: image3; }
+  .log {
+    grid-area: log;
+    background: var(--groove-hi);
+    color: var(--panel);
+  }
+
+  .eyebrow,
+  .panel-label,
+  .micro,
+  .stamp {
+    font-family: "Departure Mono";
+    font-variant-numeric: tabular-nums;
+    letter-spacing: .06em;
+  }
+
+  .eyebrow {
+    font-size: 13px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 10px;
+  }
+
+  h1,
+  h2,
+  h3,
+  p {
+    margin: 0;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: "Barlow", "Glow Sans SC";
+    font-weight: 700;
+    letter-spacing: -.035em;
+  }
+
+  h1 {
+    max-width: 800px;
+    font-size: clamp(62px, 8vw, 86px);
+    line-height: .88;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    font-size: clamp(27px, 3vw, 42px);
+    line-height: .95;
+  }
+
+  h3 {
+    font-size: 20px;
+    line-height: 1;
+  }
+
+  .hero-bottom {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: end;
+    border-top: 2px solid var(--ink);
+    padding-top: 14px;
+  }
+
+  .hero-note {
+    max-width: 470px;
+    font-size: 16px;
+    line-height: 1.35;
+  }
+
+  .signal {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    font-family: "Departure Mono";
+    font-size: 12px;
+  }
+
+  .lamp {
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    border: 1px solid var(--ink);
+    background: var(--ink);
+  }
+
+  .lamp.live {
+    background: var(--alarm);
+  }
+
+  .panel-label {
+    font-size: 11px;
+    color: var(--groove-hi);
+    margin-bottom: 20px;
+  }
+
+  .metric {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 10px;
+    border-top: 2px solid var(--groove-hi);
+    padding: 11px 0 8px;
+    font-family: "Departure Mono";
+    font-variant-numeric: tabular-nums;
+  }
+
+  .metric strong {
+    font-size: 28px;
+    line-height: .9;
+    font-weight: 400;
+    text-align: right;
+  }
+
+  .metric span {
+    font-size: 12px;
+  }
+
+  .service-list {
+    display: grid;
+    gap: 10px;
+  }
+
+  .service-row {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 9px;
+    border-top: 2px solid var(--groove-hi);
+    padding-top: 9px;
+    font-size: 15px;
+    line-height: 1.15;
+  }
+
+  .service-row b {
+    font-family: "Departure Mono";
+    font-weight: 400;
+  }
+
+  .process p,
+  .log p {
+    font-size: 15px;
+    line-height: 1.35;
+  }
+
+  .process .step {
+    border-top: 2px solid var(--groove-hi);
+    padding: 8px 0;
+    display: flex;
+    justify-content: space-between;
+    font-family: "Departure Mono";
+    font-size: 12px;
+  }
+
+  .contact {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .contact .panel-label {
+    color: var(--panel);
+  }
+
+  .contact h2 {
+    max-width: 190px;
+  }
+
+  .call-button {
+    display: block;
+    width: 100%;
+    padding: 13px 12px;
+    border: 2px solid var(--panel);
+    color: var(--panel);
+    text-decoration: none;
+    font-family: "Departure Mono";
+    font-size: 17px;
+    text-align: center;
+    background: var(--alarm);
+  }
+
+  .call-button:hover,
+  .call-button:focus-visible {
+    background: var(--panel);
+    color: var(--alarm);
+    outline: none;
+  }
+
+  .photo {
+    padding: 0;
+    background: var(--groove-lo);
+    color: var(--panel);
+  }
+
+  .photo::after {
+    color: var(--panel);
+    background: var(--groove-lo);
+    padding: 3px;
+  }
+
+  .photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    object-fit: cover;
+    border: 0;
+    filter: grayscale(1) contrast(1.15);
+  }
+
+  .photo-caption {
+    position: absolute;
+    left: 12px;
+    top: 12px;
+    padding: 5px 7px;
+    background: var(--panel);
+    color: var(--ink);
+    font-family: "Departure Mono";
+    font-size: 11px;
+  }
+
+  .log {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .log .stamp {
+    border-top: 2px solid var(--panel);
+    padding-top: 9px;
+    font-size: 11px;
+  }
+
+  .log .empty-slot {
+    border: 2px solid var(--panel);
+    padding: 10px;
+    font-family: "Departure Mono";
+    font-size: 12px;
+    line-height: 1.25;
+  }
+
+  .hover-readout {
+    transition: background 90ms steps(1, end), color 90ms steps(1, end);
+  }
+
+  .hover-readout:hover {
+    background: var(--ink);
+    color: var(--panel);
+  }
+
+  .lever {
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .lever:active {
+    transform: translateY(2px);
+  }
+
+  .lever-value {
+    display: inline-block;
+    min-width: 40px;
+    text-align: right;
+  }
+
+  @keyframes reveal {
+    from {
+      clip-path: inset(0 0 100% 0);
+    }
+    to {
+      clip-path: inset(0 0 0 0);
+    }
+  }
+
+  @keyframes self-test {
+    0%, 12%, 24%, 36%, 48%, 60%, 72%, 84%, 100% {
+      opacity: 1;
+    }
+    6%, 18%, 30%, 42%, 54%, 66%, 78%, 90% {
+      opacity: .2;
+    }
+  }
+
+  .hero .lamp {
+    animation: self-test 1.4s steps(2, end) both;
+  }
+
+  .hero .lamp:nth-child(2) { animation-delay: 70ms; }
+  .hero .lamp:nth-child(3) { animation-delay: 140ms; }
+  .hero .lamp:nth-child(4) { animation-delay: 210ms; }
+  .hero .lamp:nth-child(5) { animation-delay: 280ms; }
+  .hero .lamp:nth-child(6) { animation-delay: 350ms; }
+  .hero .lamp:nth-child(7) { animation-delay: 420ms; }
+  .hero .lamp:nth-child(8) { animation-delay: 490ms; }
+
+  @media (pointer: fine) {
+    .zone {
+      cursor: crosshair;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .zone,
+    .hero .lamp {
+      animation: none;
+    }
+
+    .hover-readout {
+      transition: opacity 120ms steps(1, end);
+    }
+
+    .lever:active {
+      transform: none;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .console {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto;
+      grid-template-areas:
+        "hero hero"
+        "service hours"
+        "image1 image2"
+        "process contact"
+        "image3 log";
+    }
+
+    .hero {
+      min-height: 430px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .console {
+      display: flex;
+      flex-direction: column;
+      padding: 8px;
+    }
+
+    .zone,
+    .hero {
+      min-height: 220px;
+    }
+
+    .hero {
+      min-height: 510px;
+      padding: 22px;
+    }
+
+    h1 {
+      font-size: clamp(58px, 18vw, 78px);
+    }
+
+    .hero-bottom {
+      grid-template-columns: 1fr;
+    }
+
+    .photo {
+      min-height: 280px;
+    }
+  }
+</style>
+</head>
+<body>
+<main class="console" aria-label="街角鞋钥匙维修站服务控制台">
+  <section class="zone hero" data-id="S01 / 2024 / 1">
+    <div class="eyebrow">
+      <span>街角维修站 / SERVICE CONSOLE</span>
+      <span>UNIT 01</span>
+    </div>
+    <h1>鞋<br>钥匙<br>修复</h1>
+    <div class="hero-bottom">
+      <p class="hero-note">鞋底开胶、鞋跟磨损、钥匙断了。带来，说明问题。我们按现场状况处理。</p>
+      <div class="signal" aria-label="设备状态正常">
+        <span class="lamp live"></span>
+        <span class="lamp"></span>
+        <span class="lamp"></span>
+        <span class="lamp"></span>
+        <span class="lamp"></span>
+        <span class="lamp"></span>
+        <span class="lamp"></span>
+        <span>READY / LOCAL</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="zone service hover-readout" data-id="S02 / 2024 / 2">
+    <div class="panel-label">02 / SERVICE LOAD</div>
+    <h2>能修的<br>先修</h2>
+    <div class="service-list">
+      <div class="service-row"><b>01</b><span>鞋底、鞋跟、拉链与开胶处</span></div>
+      <div class="service-row"><b>02</b><span>普通钥匙复制与现场配制</span></div>
+    </div>
+  </section>
+
+  <section class="zone hours hover-readout" data-id="S03 / 2024 / 3">
+    <div class="panel-label">03 / OPEN WINDOW</div>
+    <h2>营业<br>时段</h2>
+    <div class="metric">
+      <span>MON—SAT</span>
+      <strong>09:00—19:00</strong>
+    </div>
+    <div class="metric">
+      <span>SUNDAY</span>
+      <strong>10:00—17:00</strong>
+    </div>
+  </section>
+
+  <figure class="zone photo image1" data-id="S04 / 2024 / 4">
+    <img src="images/占位-1.jpg" alt="鞋底维修工位" width="720" height="540">
+    <figcaption class="photo-caption">PHOTO / SHOE UNIT</figcaption>
+  </figure>
+
+  <figure class="zone photo image2" data-id="S05 / 2024 / 5">
+    <img src="images/占位-2.jpg" alt="钥匙复制设备" width="720" height="960">
+    <figcaption class="photo-caption">PHOTO / KEY UNIT</figcaption>
+  </figure>
+
+  <section class="zone process hover-readout" data-id="S06 / 2024 / 6">
+    <div class="panel-label">06 / WORK ORDER</div>
+    <h3>到店处理流程</h3>
+    <div class="step"><span>01 / 看现场</span><span>CHECK</span></div>
+    <div class="step"><span>02 / 说时间</span><span>QUOTE</span></div>
+    <div class="step"><span>03 / 取成品</span><span>READY</span></div>
+  </section>
+
+  <section class="zone contact" data-id="S07 / 2024 / 7">
+    <div>
+      <div class="panel-label">07 / BOOKING LINE</div>
+      <h2>先打电话<br>再过来</h2>
+    </div>
+    <a class="call-button lever" href="tel:13800000000" aria-label="拨打维修预约电话">TEL 138 0000 0000</a>
+  </section>
+
+  <figure class="zone photo image3" data-id="S08 / 2024 / 8">
+    <img src="images/占位-3.jpg" alt="维修中的鞋面与工具" width="960" height="640">
+    <figcaption class="photo-caption">PHOTO / BENCH</figcaption>
+  </figure>
+
+  <section class="zone photo image4" data-id="S09 / 2024 / 9">
+    <img src="images/占位-4.jpg" alt="店面工作台细节" width="960" height="640">
+    <figcaption class="photo-caption">PHOTO / COUNTER</figcaption>
+  </section>
+
+  <section class="zone log hover-readout" data-id="S10 / 2024 / 0">
+    <div>
+      <div class="panel-label">10 / SERVICE LOG</div>
+      <div class="empty-slot">NO EXTRA IMAGE SLOT<br>文字记录保持可读。<br>每一单按现场状态处理。</div>
+    </div>
+    <div class="stamp">LAST CHECK / 2024-06-01 / LOCAL SHOP</div>
+  </section>
+
+  <figure class="zone photo image5" data-id="S11 / 2024 / 1">
+    <img src="images/占位-5.jpg" alt="钥匙成品与标签" width="720" height="540">
+    <figcaption class="photo-caption">PHOTO / FINISH</figcaption>
+  </figure>
+</main>
+
+<script>
+  (function () {
+    var lever = document.querySelector(".lever");
+    var value = document.querySelector(".lever-value");
+
+    if (lever && value) {
+      lever.addEventListener("click", function () {
+        value.textContent = value.textContent === "OPEN" ? "SENT" : "OPEN";
+      });
+    }
+  }());
+</script>
+</body>
+</html>

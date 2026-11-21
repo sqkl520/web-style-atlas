@@ -227,6 +227,31 @@ function isDecorativeLine(gradBody) {
     const bStart = b.positions.length ? b.positions[0] : null;
     if (aEnd != null && bStart != null && Math.abs(aEnd - bStart) <= 0.25) return true;
   }
+
+  /* ⚠️ 2026-11-22 补第四种"画线"形态 —— 透明间隔 + 一条实色 = 纹理。
+   *
+   * 实测 S05 报「渐变受限×1」，那一处是
+   *   repeating-linear-gradient(to bottom,
+   *     transparent 0, transparent 7px, var(--groove-lo) 8px)
+   * 配 opacity: .18
+   *
+   * 这是画**凹槽/扫描线纹理**的经典手法：7px 透明 + 1px 暗线，然后重复。
+   * 中间那 1px 的过渡带是抗锯齿必需的（0 → 8px 之间只有这一段有颜色）。
+   *
+   * 判据：整条渐变里**至少一半的 stop 是 transparent**，且颜色种类 ≤ 2
+   * → 这是"在一段透明里挖一条线"，不是颜色过渡。
+   *
+   * 保守：要求 transparent 占多数。`linear-gradient(#fff, transparent)`
+   * 这种真渐变（一半白一半透）不会命中，因为它是 1:1。 */
+  const allStops = [];
+  for (const m of gradBody.matchAll(/(transparent|#[0-9A-Fa-f]{3,8}|var\(--[\w-]+\))(?:\s+[\d.]+(?:px|%)?)?/gi)) {
+    allStops.push(m[1].toLowerCase());
+  }
+  if (allStops.length >= 3) {
+    const transN = allStops.filter((c) => c === 'transparent').length;
+    const distinct = new Set(allStops).size;
+    if (transN > allStops.length / 2 && distinct <= 3) return true;
+  }
   return false;
 }
 function scoreGradient(prompt, html) {
@@ -968,6 +993,15 @@ function selfTest() {
   /* 但超过容差的必须仍报（否则容差成了恒真） */
   const realFade = '<style>.a{background:linear-gradient(#111 0px,#EEE 8px)}</style>';
   eq('⑤/8px 间距仍算渐变', scoreGradient(gNew, realFade).hits, 1);
+  /* ⚠️ 2026-11-22：透明间隔 + 一条实色 = 纹理，不是渐变。
+   * 实测 S05 的 repeating-linear-gradient(to bottom,
+   *   transparent 0, transparent 7px, var(--groove) 8px) + opacity:.18
+   * 是画凹槽/扫描线的手法。 */
+  const texture = '<style>.a{background:repeating-linear-gradient(to bottom,transparent 0,transparent 7px,var(--g) 8px)}</style>';
+  eq('⑤/透明间隔纹理算画线', scoreGradient(gNew, texture).hits, 0);
+  /* 但 transparent 不占多数时不放行（真渐变可能是 color → transparent） */
+  const fadeOut = '<style>.a{background:linear-gradient(#111 0%,#222 40%,#333 80%,transparent 100%)}</style>';
+  eq('⑤/transparent 不占多数仍报', scoreGradient(gNew, fadeOut).hits, 1);
   /* 真的有颜色跨度的必须报 */
   const realGrad = '<style>.a{background:linear-gradient(#E4DECD,#2C3034)}</style>';
   eq('⑤/真渐变仍然报出', scoreGradient(gNew, realGrad).hits, 1);
