@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>联锁释放簿｜修鞋与配钥匙</title>
+<style>
+  :root {
+    --ink: #3E3A34;
+    --paper: #E4DCC9;
+    --amber: #924307;
+    --fibre: #6E6A5E;
+    --white: #FFFFFF;
+  }
+
+  * {
+    box-sizing: border-box;
+    border-radius: 0 !important;
+  }
+
+  html {
+    background: var(--paper);
+    color: var(--ink);
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "WenJin Mincho", Georgia, "Songti SC", STSong;
+    font-size: 16px;
+    line-height: 1.45;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    border: 1px solid var(--fibre);
+    z-index: 20;
+  }
+
+  button,
+  a {
+    color: inherit;
+    font: inherit;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  .page {
+    width: min(1540px, calc(100% - 40px));
+    margin: 0 auto;
+    padding: 24px 0 28px;
+  }
+
+  .masthead {
+    display: grid;
+    grid-template-columns: 1fr 270px;
+    gap: 26px;
+    align-items: end;
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 16px;
+  }
+
+  .eyebrow,
+  .section-label,
+  .record-meta,
+  .table-code,
+  .field-label,
+  .footer-code,
+  .bar-code,
+  .switch-number {
+    font-family: "IBM Plex Mono", monospace;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.06em;
+  }
+
+  .eyebrow {
+    margin: 0 0 10px;
+    color: var(--amber);
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    max-width: 950px;
+    margin: 0;
+    font-family: "Antonio", "WenJin Mincho", Georgia, "Songti SC";
+    font-size: clamp(52px, 7.2vw, 86px);
+    font-weight: 400;
+    letter-spacing: -0.045em;
+    line-height: 0.93;
+  }
+
+  .masthead-note {
+    border-left: 1.25px solid var(--ink);
+    padding-left: 18px;
+    font-size: 15px;
+  }
+
+  .masthead-note strong {
+    display: block;
+    margin-bottom: 7px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--amber);
+  }
+
+  .workbench {
+    display: grid;
+    grid-template-columns: minmax(0, 4fr) minmax(190px, 2fr) minmax(280px, 4fr);
+    gap: 20px;
+    margin-top: 20px;
+    align-items: start;
+  }
+
+  .left-column,
+  .right-column,
+  .path-panel {
+    min-width: 0;
+  }
+
+  .section-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1.25px solid var(--ink);
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+    color: var(--amber);
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+
+  .section-label span:last-child {
+    color: var(--fibre);
+  }
+
+  .release-list {
+    display: grid;
+    gap: 10px;
+  }
+
+  .release-record {
+    display: grid;
+    grid-template-columns: 54px minmax(0, 1fr) 120px;
+    gap: 12px;
+    min-height: 134px;
+    border: 1px solid var(--ink);
+    background: var(--paper);
+    box-shadow: inset 0 0 0 3px var(--paper), inset 0 0 0 4px var(--fibre);
+    padding: 12px;
+  }
+
+  .release-record:nth-child(2) {
+    grid-template-columns: 66px minmax(0, 1.35fr) 96px;
+  }
+
+  .release-record:nth-child(3) {
+    grid-template-columns: 48px minmax(0, 1fr) 142px;
+  }
+
+  .release-record:nth-child(4) {
+    grid-template-columns: 74px minmax(0, 1.2fr) 104px;
+  }
+
+  .release-record:nth-child(5) {
+    grid-template-columns: 58px minmax(0, 1.45fr) 126px;
+  }
+
+  .record-index {
+    border-right: 1px solid var(--fibre);
+    padding-right: 10px;
+    color: var(--amber);
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 24px;
+    line-height: 1;
+  }
+
+  .record-index small {
+    display: block;
+    margin-top: 9px;
+    color: var(--fibre);
+    font-size: 10px;
+  }
+
+  .record-copy h2 {
+    margin: 0 0 5px;
+    font-family: "Antonio", "WenJin Mincho", Georgia, "Songti SC";
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  .record-copy p {
+    margin: 0;
+    color: var(--ink);
+    font-size: 14px;
+  }
+
+  .record-meta {
+    align-self: end;
+    border-top: 1px solid var(--fibre);
+    padding-top: 6px;
+    color: var(--fibre);
+    font-size: 10px;
+    text-align: right;
+  }
+
+  .record-image {
+    width: 100%;
+    height: 100px;
+    min-height: 100px;
+    object-fit: cover;
+    border: 1px solid var(--fibre);
+    background: var(--white);
+    filter: none;
+  }
+
+  .path-panel {
+    border-left: 1.25px solid var(--ink);
+    border-right: 1.25px solid var(--ink);
+    padding: 0 16px 18px;
+  }
+
+  .path-intro {
+    min-height: 90px;
+    border-bottom: 1px solid var(--fibre);
+    padding-bottom: 12px;
+    margin-bottom: 18px;
+  }
+
+  .path-intro h2 {
+    margin: 0 0 6px;
+    font-family: "Antonio", "WenJin Mincho", Georgia, "Songti SC";
+    font-size: 29px;
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  .path-intro p {
+    margin: 0;
+    color: var(--fibre);
+    font-size: 12px;
+  }
+
+  .lock-path {
+    display: grid;
+    grid-template-columns: repeat(2, 96px);
+    justify-content: center;
+    gap: 1px;
+    border: 1px solid var(--ink);
+    background: var(--paper);
+    padding: 8px 5px;
+  }
+
+  .lock-bar {
+    position: relative;
+    width: 96px;
+    height: 24px;
+    overflow: visible;
+    border: 1px solid var(--fibre);
+    background: var(--white);
+    color: var(--ink);
+    cursor: crosshair;
+    clip-path: polygon(0 0, 100% 0, 100% 62%, 94% 100%, 0 100%);
+  }
+
+  .lock-bar.angle-45 {
+    clip-path: polygon(0 0, 100% 0, 100% 45%, 88% 100%, 0 100%);
+  }
+
+  .lock-bar.angle-60 {
+    clip-path: polygon(0 0, 100% 0, 100% 28%, 82% 100%, 0 100%);
+  }
+
+  .lock-bar::before {
+    content: "";
+    position: absolute;
+    inset: 4px 6px 4px 7px;
+    border-left: 1px solid var(--fibre);
+    pointer-events: none;
+  }
+
+  .lock-bar::after {
+    content: "";
+    position: absolute;
+    right: -1px;
+    bottom: -1px;
+    width: 1.5px;
+    height: 1.5px;
+    background: var(--ink);
+    transform: translate(calc(var(--drift) * 0.25px), calc(var(--drift) * 0.25px));
+    pointer-events: none;
+  }
+
+  .bar-code {
+    position: absolute;
+    top: 3px;
+    right: 7px;
+    font-size: 10px;
+    line-height: 1;
+  }
+
+  .lock-bar.joined {
+    border-color: var(--amber);
+    box-shadow: inset 0 0 0 1px var(--amber);
+  }
+
+  .lock-bar.highlight,
+  .lock-bar.paired {
+    border-color: var(--ink);
+    box-shadow: inset 0 0 0 1px var(--ink);
+  }
+
+  .angle-key {
+    display: grid;
+    gap: 5px;
+    margin-top: 14px;
+    color: var(--fibre);
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+  }
+
+  .angle-key div {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--fibre);
+    padding-bottom: 3px;
+  }
+
+  .angle-key b {
+    color: var(--amber);
+    font-weight: 400;
+  }
+
+  .switch-plate {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid var(--ink);
+    margin-top: 15px;
+    padding: 8px 10px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .switch-plate span:first-child {
+    color: var(--amber);
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+  }
+
+  .switch-number {
+    display: block;
+    min-width: 52px;
+    color: var(--ink);
+    font-size: 18px;
+    text-align: right;
+    transform-style: preserve-3d;
+  }
+
+  .switch-number.flip {
+    animation: plate-flip 140ms steps(1) 1;
+  }
+
+  @keyframes plate-flip {
+    0% { transform: rotateX(0deg); }
+    50% { transform: rotateX(90deg); }
+    100% { transform: rotateX(0deg); }
+  }
+
+  .right-column {
+    display: grid;
+    gap: 12px;
+  }
+
+  .contact-panel {
+    border: 2px solid var(--ink);
+    background: var(--paper);
+    box-shadow: inset 0 0 0 4px var(--paper), inset 0 0 0 5px var(--ink);
+    padding: 16px;
+  }
+
+  .contact-panel h2 {
+    margin: 0 0 8px;
+    font-family: "Antonio", "WenJin Mincho", Georgia, "Songti SC";
+    font-size: 34px;
+    font-weight: 400;
+    line-height: 0.95;
+  }
+
+  .contact-panel p {
+    margin: 0 0 18px;
+    font-size: 14px;
+  }
+
+  .phone-link {
+    display: block;
+    border-top: 1.25px solid var(--ink);
+    border-bottom: 1.25px solid var(--ink);
+    padding: 12px 0 10px;
+    color: var(--amber);
+    font-family: "IBM Plex Mono", monospace;
+    font-size: clamp(23px, 3vw, 33px);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.04em;
+    text-align: right;
+  }
+
+  .phone-link::before {
+    content: "CALL / ";
+    color: var(--ink);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+  }
+
+  .note-block {
+    border-left: 6px solid var(--amber);
+    background: var(--white);
+    padding: 12px 14px;
+  }
+
+  .note-block h3 {
+    margin: 0 0 6px;
+    font-family: "Antonio", "WenJin Mincho", Georgia, "Songti SC";
+    font-size: 23px;
+    font-weight: 400;
+  }
+
+  .note-block p {
+    margin: 0;
+    font-size: 13px;
+  }
+
+  .image-block {
+    display: grid;
+    grid-template-columns: 92px 1fr;
+    gap: 12px;
+    border: 1px solid var(--fibre);
+    padding: 9px;
+  }
+
+  .image-block img {
+    width: 92px;
+    height: 78px;
+    object-fit: cover;
+    border: 1px solid var(--fibre);
+    background: var(--white);
+  }
+
+  .image-block p {
+    margin: 0;
+    font-size: 13px;
+  }
+
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    border-top: 2px solid var(--ink);
+    margin-top: 20px;
+    padding-top: 10px;
+    color: var(--fibre);
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+  }
+
+  .footer-code {
+    color: var(--amber);
+  }
+
+  .cursor-line {
+    display: inline-block;
+    width: 1px;
+    height: 13px;
+    margin-left: 4px;
+    background: var(--ink);
+    vertical-align: -2px;
+    animation: cursor-blink 1200ms steps(1) infinite;
+  }
+
+  @keyframes cursor-blink {
+    0%, 49% { background: var(--ink); }
+    50%, 100% { background: var(--paper); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    .cursor-line,
+    .switch-number.flip {
+      animation: none;
+    }
+  }
+
+  @media (max-width: 1080px) {
+    .workbench {
+      grid-template-columns: minmax(0, 1fr) minmax(190px, 250px);
+    }
+
+    .path-panel {
+      grid-column: 1 / -1;
+      grid-row: 2;
+      border-left: 0;
+      border-right: 0;
+      border-top: 1.25px solid var(--ink);
+      border-bottom: 1.25px solid var(--ink);
+      padding: 16px 0;
+    }
+
+    .path-intro {
+      min-height: 0;
+      margin-bottom: 12px;
+    }
+
+    .lock-path {
+      grid-template-columns: repeat(7, 96px);
+      overflow-x: auto;
+      justify-content: start;
+    }
+
+    .angle-key {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .page {
+      width: min(100% - 24px, 560px);
+      padding-top: 16px;
+    }
+
+    .masthead {
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    h1 {
+      font-size: clamp(48px, 16vw, 76px);
+    }
+
+    .masthead-note {
+      border-left: 0;
+      border-top: 1px solid var(--ink);
+      padding: 10px 0 0;
+    }
+
+    .workbench {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .left-column,
+    .path-panel,
+    .right-column {
+      width: 100%;
+    }
+
+    .left-column {
+      order: 1;
+    }
+
+    .path-panel {
+      order: 2;
+      border-top: 1.25px solid var(--ink);
+      border-bottom: 1.25px solid var(--ink);
+    }
+
+    .right-column {
+      order: 3;
+    }
+
+    .release-record,
+    .release-record:nth-child(n) {
+      grid-template-columns: 46px minmax(0, 1fr);
+    }
+
+    .record-image {
+      grid-column: 2;
+      grid-row: 2;
+      width: 100%;
+      height: 92px;
+    }
+
+    .record-meta {
+      grid-column: 2;
+      grid-row: 3;
+      text-align: left;
+    }
+
+    .lock-path {
+      grid-template-columns: repeat(2, 96px);
+      justify-content: center;
+      overflow: visible;
+    }
+
+    .angle-key {
+      grid-template-columns: 1fr;
+    }
+
+    .footer {
+      display: grid;
+      gap: 5px;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .lock-path {
+      grid-template-columns: repeat(2, 96px);
+    }
+
+    .release-record,
+    .release-record:nth-child(n) {
+      grid-template-columns: 40px minmax(0, 1fr);
+      padding: 9px;
+    }
+
+    .record-copy h2 {
+      font-size: 21px;
+    }
+  }
+</style>
+</head>
+<body>
+  <main class="page">
+    <header class="masthead">
+      <div>
+        <p class="eyebrow">Interlocking Release Book / North Desk</p>
+        <h1>修鞋与配钥匙<br>联锁释放簿</h1>
+      </div>
+      <div class="masthead-note">
+        <strong>值班台记录 · 今日可受理</strong>
+        先确认工序，再放行时间。<br>
+        电话接通后，按编号报你的项目。
+      </div>
+    </header>
+
+    <section class="workbench" aria-label="值班台联锁释放簿">
+      <section class="left-column" aria-labelledby="records-title">
+        <div class="section-label">
+          <span id="records-title">01—05 / RELEASE RECORDS</span>
+          <span>当前条目</span>
+        </div>
+
+        <div class="release-list">
+          <article class="release-record" data-record="01">
+            <div class="record-index">01<small>R-01</small></div>
+            <div class="record-copy">
+              <h2>鞋底补强</h2>
+              <p>先看磨损边线，再决定补片。急件不跳过检查。</p>
+            </div>
+            <img class="record-image" src="images/占位-1.jpg" width="120" height="100" alt="鞋底补强作业记录">
+            <div class="record-meta">约 30 MIN<br>放行：01</div>
+          </article>
+
+          <article class="release-record" data-record="02">
+            <div class="record-index">02<small>R-02</small></div>
+            <div class="record-copy">
+              <h2>鞋跟更换</h2>
+              <p>旧跟拆下后量高。左右脚不按同一尺寸放行。</p>
+            </div>
+            <img class="record-image" src="images/占位-2.jpg" width="96" height="100" alt="鞋跟更换作业记录">
+            <div class="record-meta">约 45 MIN<br>放行：02</div>
+          </article>
+
+          <article class="release-record" data-record="03">
+            <div class="record-index">03<small>R-03</small></div>
+            <div class="record-copy">
+              <h2>钥匙复制</h2>
+              <p>读齿、夹紧、复制。原钥匙状态不清，先打电话确认。</p>
+            </div>
+            <img class="record-image" src="images/占位-3.jpg" width="142" height="100" alt="钥匙复制作业记录">
+            <div class="record-meta">约 15 MIN<br>放行：03</div>
+          </article>
+
+          <article class="release-record" data-record="04">
+            <div class="record-index">04<small>R-04</small></div>
+            <div class="record-copy">
+              <h2>门锁配钥</h2>
+              <p>需要门锁型号或清晰照片。无型号，不直接排时间。</p>
+            </div>
+            <img class="record-image" src="images/占位-4.jpg" width="104" height="100" alt="门锁配钥作业记录">
+            <div class="record-meta">约 30 MIN<br>放行：04</div>
+          </article>
+
+          <article class="release-record" data-record="05">
+            <div class="record-index">05<small>R-05</small></div>
+            <div class="record-copy">
+              <h2>皮具小修</h2>
+              <p>边油、线脚、扣件分开记。到店后逐项核对。</p>
+            </div>
+            <img class="record-image" src="images/占位-5.jpg" width="126" height="100" alt="皮具小修作业记录">
+            <div class="record-meta">约 20 MIN<br>放行：05</div>
+          </article>
+        </div>
+      </section>
+
+      <section class="path-panel" id="release-path" aria-labelledby="path-title">
+        <div class="section-label">
+          <span id="path-title">LOCKING PATH</span>
+          <span>14 LOCKS</span>
+        </div>
+
+        <div class="path-intro">
+          <h2>扣接路径</h2>
+          <p>切口读先后，缝隙留互斥。条号只作记录，不作装饰。</p>
+        </div>
+
+        <div class="lock-path" aria-label="十四枚联锁条">
+          <div class="lock-bar angle-30" data-lock="01" data-pair="08" style="--drift: 0"><span class="bar-code">01 / 30°</span></div>
+          <div class="lock-bar angle-45" data-lock="02" data-pair="09" style="--drift: 1"><span class="bar-code">02 / 45°</span></div>
+          <div class="lock-bar angle-60" data-lock="03" data-pair="10" style="--drift: 2"><span class="bar-code">03 / 60°</span></div>
+          <div class="lock-bar angle-30" data-lock="04" data-pair="11" style="--drift: 3"><span class="bar-code">04 / 30°</span></div>
+          <div class="lock-bar angle-45" data-lock="05" data-pair="12" style="--drift: 4"><span class="bar-code">05 / 45°</span></div>
+          <div class="lock-bar angle-60" data-lock="06" data-pair="13" style="--drift: 5"><span class="bar-code">06 / 60°</span></div>
+          <div class="lock-bar angle-30" data-lock="07" data-pair="14" style="--drift: 6"><span class="bar-code">07 / 30°</span></div>
+          <div class="lock-bar angle-45" data-lock="08" data-pair="01" style="--drift: 7"><span class="bar-code">08 / 45°</span></div>
+          <div class="lock-bar angle-60" data-lock="09" data-pair="02" style="--drift: 8"><span class="bar-code">09 / 60°</span></div>
+          <div class="lock-bar angle-30" data-lock="10" data-pair="03" style="--drift: 9"><span class="bar-code">10 / 30°</span></div>
+          <div class="lock-bar angle-45" data-lock="11" data-pair="04" style="--drift: 10"><span class="bar-code">11 / 45°</span></div>
+          <div class="lock-bar angle-60" data-lock="12" data-pair="05" style="--drift: 11"><span class="bar-code">12 / 60°</span></div>
+          <div class="lock-bar angle-30" data-lock="13" data-pair="06" style="--drift: 12"><span class="bar-code">13 / 30°</span></div>
+          <div class="lock-bar angle-45" data-lock="14" data-pair="07" style="--drift: 13"><span class="bar-code">14 / 45°</span></div>
+        </div>
+
+        <div class="angle-key">
+          <div><span>30° / 对数 05</span><b>短放行</b></div>
+          <div><span>45° / 对数 05</span><b>标准放行</b></div>
+          <div><span>60° / 对数 04</span><b>复核放行</b></div>
+        </div>
+
+        <div class="switch-plate" role="button" tabindex="0" aria-label="点击翻转道岔号牌">
+          <span>道岔号牌 / CLICK</span>
+          <strong class="switch-number" data-main="S-05" data-lock="L-14">S-05</strong>
+        </div>
+      </section>
+
+      <aside class="right-column" aria-labelledby="contact-title">
+        <div class="section-label">
+          <span id="contact-title">CALL DESK</span>
+          <span>唯一主行动</span>
+        </div>
+
+        <section class="contact-panel">
+          <h2>要约时间，打电话。</h2>
+          <p>报项目编号、数量和希望到店时段。我们按释放路径排，不按口头顺序猜。</p>
+          <a class="phone-link" href="tel:01055550146">010 5555 0146</a>
+        </section>
+
+        <section class="note-block">
+          <h3>到店前备件</h3>
+          <p>钥匙项目带原件。鞋类项目先清掉泥水。照片可以先发，时间仍以电话确认。</p>
+        </section>
+
+        <section class="image-block">
+          <img src="images/占位-6.jpg" width="92" height="78" alt="预约登记文字块">
+          <p><span class="field-label">FIELD / 06</span><br>没有第六项作业。这里留作登记位，不补内容，不重复图片。</p>
+        </section>
+      </aside>
+    </section>
+
+    <footer class="footer">
+      <span class="footer-code">BOOK / R-01—R-05 / PATH L-01—L-14</span>
+      <span>纸面状态：可读 <i class="cursor-line" aria-hidden="true"></i></span>
+      <span>每项编号与释放簿一致</span>
+    </footer>
+  </main>
+
+<script>
+  (function () {
+    const bars = Array.from(document.querySelectorAll(".lock-bar"));
+    const path = document.querySelector("#release-path");
+    const plate = document.querySelector(".switch-plate");
+    const number = document.querySelector(".switch-number");
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let joined = false;
+
+    function joinBars() {
+      if (joined) return;
+      joined = true;
+      bars.forEach(function (bar, index) {
+        window.setTimeout(function () {
+          bar.classList.add("joined");
+        }, reduced ? 0 : index * 70);
+      });
+    }
+
+    if (reduced) {
+      joinBars();
+    } else {
+      window.setTimeout(joinBars, 900);
+      if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting && entry.intersectionRatio >= 0.2) {
+              joinBars();
+              observer.disconnect();
+            }
+          });
+        }, { threshold: [0.2] });
+        observer.observe(path);
+      }
+    }
+
+    bars.forEach(function (bar) {
+      bar.addEventListener("mouseenter", function () {
+        const pair = document.querySelector('.lock-bar[data-lock="' + bar.dataset.pair + '"]');
+        bar.classList.add("highlight");
+        if (pair) pair.classList.add("paired");
+      });
+
+      bar.addEventListener("mouseleave", function () {
+        const pair = document.querySelector('.lock-bar[data-lock="' + bar.dataset.pair + '"]');
+        bar.classList.remove("highlight");
+        if (pair) pair.classList.remove("paired");
+      });
+    });
+
+    function flipPlate() {
+      number.classList.remove("flip");
+      void number.offsetWidth;
+      number.classList.add("flip");
+      number.textContent = number.textContent === number.dataset.main ? number.dataset.lock : number.dataset.main;
+      window.setTimeout(function () {
+        number.classList.remove("flip");
+      }, 140);
+    }
+
+    plate.addEventListener("click", flipPlate);
+    plate.addEventListener("keydown", function (event) {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        flipPlate();
+      }
+    });
+  }());
+</script>
+</body>
+</html>

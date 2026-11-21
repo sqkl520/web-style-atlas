@@ -171,6 +171,34 @@ function scoreGradient(prompt, html) {
   return { wording, hits: bodies.length - decorative, decorative };
 }
 
+/* 圆角与线宽：抽成纯函数以便自测。
+ *
+ * 这两条判据各自错过一次，方向相反：
+ *   · 圆角把 `0 !important` 判成非 0（!important 是声明的一部分，不是值）；
+ *   · 线宽第一版太松（从 `padding-bottom: 16px` 截出 `6px`），
+ *     收紧后又太紧（简写 `border-bottom: 1px solid` 全被漏掉，S01 从 11 处掉到 0 处）。
+ * 「误报」和「什么都不报」在报告里都长得像"正常"—— 所以两条都要有回归用例。 */
+function judgeRadius(prompt, html) {
+  if (!/圆角：全站一律\s*0/.test(prompt)) return null;
+  const radii = [...html.matchAll(/border-radius\s*:\s*([^;}]+)/g)].map((m) => m[1].trim());
+  const corners = (v) => v.replace(/!important/gi, '').trim().split(/\s+/).filter(Boolean);
+  const isZero = (c) => /^0(px|em|rem|%)?$/i.test(c);
+  const nonZero = radii.filter((v) => !corners(v).every(isZero));
+  return { rule: '全站一律 0', declared: radii.length, violations: nonZero.length, samples: nonZero.slice(0, 3) };
+}
+
+function judgeLineWidth(prompt, html) {
+  const m = prompt.match(/线宽只用这几级：([^。]+)/);
+  if (!m) return null;
+  const allowed = new Set((m[1].match(/[\d.]+px/g) || []).map((s) => Number(parseFloat(s).toFixed(2))));
+  /* 属性名必须是完整词：`border` / `border-top` 等，且宽度是声明里的第一个数值。
+   * `border-bottom: 1px solid #000` 这种简写必须收（否则会把正常页面数成 0 处）。 */
+  const used = [...html.matchAll(/(?:^|[\s;{])(border|border-(?:top|right|bottom|left))(?:\s*:\s*)([\d.]+)px\b/g)]
+    .map((x) => Number(parseFloat(x[2]).toFixed(2)));
+  const outside = used.filter((v) => !allowed.has(v));
+  return { allowed: [...allowed].map((n) => n + 'px'), used: used.length, outside: [...new Set(outside)].map((n) => n + 'px') };
+}
+
 function score(id) {
   const dir = join(BT, id);
   const htmlPath = join(dir, 'index.html');
@@ -235,21 +263,40 @@ function score(id) {
 
   /* ── ③ 几何 ──────────────────────────────────────────────────────── */
   const geo = {};
-  /* 圆角：提示词「圆角：全站一律 0」。查 HTML 有没有非 0 的 border-radius。 */
+  /* 圆角：提示词「圆角：全站一律 0」。查 HTML 有没有非 0 的 border-radius。
+   *
+   * ⚠️ 2026-11-21 修两处误报（实测 S21 报「违反 1 条」而它写的是正确的）：
+   *   ① `border-radius: 0 !important` 被判成非 0 —— `!important` 是声明的一部分，
+   *      不是值的一部分。原来直接对整串做 /^0(px|em|rem|%)?$/ 当然不匹配。
+   *   ② 多值写法 `0 0 4px 0` 里只要有一个非 0 就算违规，但原来整串判断，
+   *      连 `0 0 0 0` 也会被判成非 0（串不等于 "0"）。
+   * 现在先剥 `!important`、再按空白切成四个角逐个判。 */
   if (/圆角：全站一律\s*0/.test(prompt)) {
     const radii = [...html.matchAll(/border-radius\s*:\s*([^;}]+)/g)].map((m) => m[1].trim());
-    const nonZero = radii.filter((v) => !/^0(px|em|rem|%)?$/.test(v.replace(/\s+/g, '')));
+    const corners = (v) => v.replace(/!important/gi, '').trim().split(/\s+/).filter(Boolean);
+    const isZero = (c) => /^0(px|em|rem|%)?$/i.test(c);
+    const nonZero = radii.filter((v) => !corners(v).every(isZero));
     geo.radius = { rule: '全站一律 0', declared: radii.length, violations: nonZero.length, samples: nonZero.slice(0, 3) };
   }
   /* 线宽：提示词「线宽只用这几级：1px、1.5px」。查 HTML 里 border 宽度有没有跳出去。
      ⚠️ 必须按**数值**比，不能按字符串比（2026-11-05 修）：
      CSS 允许 `.8px` 和 `0.8px` 两种写法，字符串比对会把同一个值判成越界。
-     实测 S19 因此报「越界 .8px .4px」—— 而提示词写的正是 `0.4px`。 */
+     实测 S19 因此报「越界 .8px .4px」—— 而提示词写的正是 `0.4px`。
+     ⚠️ 2026-11-21 又修一处（实测 S21 报「越界 6px」而它没写 6px）：
+     属性名正则里的可选段太松，会从 `padding-bottom: 16px` 里匹配到 `bottom: 16px`
+     的尾巴，再从 `16px` 截出 `6px` —— 于是报了一个页面里根本不存在的线宽。
+     现在用词边界锁死属性名整词（`border` 必须是一个完整属性名的开头）。
+
+     ⚠️ 但收紧时又收过头了一次：第一版要求 `px` 后紧跟 `;` 或 `}`，
+     于是 `border-bottom: 3px solid var(--ink)` 这种**简写**全部漏掉，
+     S01 从 11 处掉到 0 处 —— 判据从"误报"变成"什么都不报"，
+     而两者在报告里都长得像"正常"。现在允许 px 之后还有别的值（style/color），
+     只要求宽度是声明里的**第一个数值**。 */
   const lwM = prompt.match(/线宽只用这几级：([^。]+)/);
   if (lwM) {
     const allowed = new Set((lwM[1].match(/[\d.]+px/g) || []).map((s) => Number(parseFloat(s).toFixed(2))));
-    const used = [...html.matchAll(/(?:border|outline)(?:-(?:top|right|bottom|left))?(?:-width)?\s*:\s*([\d.]+)px/g)]
-      .map((m) => Number(parseFloat(m[1]).toFixed(2)));
+    const used = [...html.matchAll(/(?:^|[\s;{])(border|border-(?:top|right|bottom|left))(?:\s*:\s*)([\d.]+)px\b/g)]
+      .map((m) => Number(parseFloat(m[2]).toFixed(2)));
     const outside = used.filter((v) => !allowed.has(v));
     geo.lineWidth = { allowed: [...allowed].map((n) => n + 'px'), used: used.length, outside: [...new Set(outside)].map((n) => n + 'px') };
   }
@@ -425,6 +472,24 @@ function selfTest() {
   const itA = judgeItems(P19, '<article></article>'.repeat(5)).hit;
   const itB = judgeItems(P19, '<article></article>'.repeat(20)).hit;
   S.push(['变异/条目判据非恒真非恒假', itA !== itB, { itA, itB }, '两者不同']);
+
+  /* ── ③ 几何：圆角与线宽的两处误报（2026-11-21 实测 S21 后加的回归） ──
+   * 这两条判据各自错过一次，方向相反，都记在这里。 */
+  const P21 = '3. 圆角：全站一律 0，卡片、按钮、图片、标签全部方角。\n5. 线宽只用这几级：1px、1.25px、2px，全站线条都从这几级里取。';
+  /* 圆角：!important 不是值的一部分 */
+  eq('③/圆角 0 !important 不算违规', judgeRadius(P21, '<style>.a{border-radius:0 !important}</style>').violations, 0);
+  /* 圆角：多值全 0 不算违规 */
+  eq('③/圆角 0 0 0 0 不算违规', judgeRadius(P21, '<style>.a{border-radius:0 0 0 0}</style>').violations, 0);
+  /* 圆角：真非 0 仍要报 */
+  eq('③/圆角 4px 要报', judgeRadius(P21, '<style>.a{border-radius:4px}</style>').violations, 1);
+  /* 线宽：简写必须能数到（第一版收紧过头，S01 从 11 处掉到 0 处） */
+  eq('③/线宽简写能数到', judgeLineWidth(P21, '<style>.a{border-bottom:1px solid #000}</style>').used, 1);
+  /* 线宽：padding 里的 16px 不能截出 6px 冒充线宽 */
+  eq('③/padding 里的 16px 不冒充线宽', judgeLineWidth(P21, '<style>.a{padding-bottom:16px}</style>').used, 0);
+  /* 线宽：真的 6px 边要报 */
+  eq('③/真 6px 边要报', judgeLineWidth(P21, '<style>.a{border-left:6px solid #000}</style>').outside, ['6px']);
+  /* 线宽：允许级内不报 */
+  eq('③/1.25px 在允许级内', judgeLineWidth(P21, '<style>.a{border-top:1.25px solid #000}</style>').outside, []);
 
   /* ── ⑤ 渐变措辞：两版都要认，且一版都不认时必须报"未判" ──
    * 这条判据曾经只认旧措辞，而代码早就改了措辞 → 一次都没执行过。 */

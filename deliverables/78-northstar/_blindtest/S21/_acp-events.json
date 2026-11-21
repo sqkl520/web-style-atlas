@@ -1,0 +1,170 @@
+[
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "1aab845e-e9f3-40fb-95b7-77a786b199d7",
+      "update": {
+        "sessionUpdate": "agent_message_chunk",
+        "messageId": "d61aaebd-0117-429f-b795-4cdc05238ed7",
+        "content": {
+          "type": "text",
+          "text": " "
+        }
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "1aab845e-e9f3-40fb-95b7-77a786b199d7",
+      "update": {
+        "sessionUpdate": "usage_update",
+        "used": 11033,
+        "size": 200000
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "1aab845e-e9f3-40fb-95b7-77a786b199d7",
+      "update": {
+        "sessionUpdate": "tool_call",
+        "toolCallId": "call_22be3ae3d06c43e48f4196f8887aaf34",
+        "title": "working_directory",
+        "kind": "other",
+        "status": "in_progress",
+        "rawInput": {}
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "1aab845e-e9f3-40fb-95b7-77a786b199d7",
+      "update": {
+        "sessionUpdate": "tool_call_update",
+        "toolCallId": "call_22be3ae3d06c43e48f4196f8887aaf34",
+        "status": "completed",
+        "content": [
+          {
+            "type": "content",
+            "content": {
+              "type": "text",
+              "text": "D:\\Web\\style\\deliverables\\78-northstar\\_blindtest\\S21"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "1aab845e-e9f3-40fb-95b7-77a786b199d7",
+      "update": {
+        "sessionUpdate": "agent_message_chunk",
+        "messageId": "80969610-b0fe-4339-9db0-856eaf59f851",
+        "content": {
+          "type": "text",
+          "text": " "
+        }
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "1aab845e-e9f3-40fb-95b7-77a786b199d7",
+      "update": {
+        "sessionUpdate": "usage_update",
+        "used": 11183,
+        "size": 200000
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "1aab845e-e9f3-40fb-95b7-77a786b199d7",
+      "update": {
+        "sessionUpdate": "tool_call",
+        "toolCallId": "call_cb3eecd43cda483192e70ebc3318a46a",
+        "title": "glob",
+        "kind": "other",
+        "status": "in_progress",
+        "rawInput": {
+          "path": ".",
+          "pattern": "*"
+        }
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "1aab845e-e9f3-40fb-95b7-77a786b199d7",
+      "update": {
+        "sessionUpdate": "tool_call_update",
+        "toolCallId": "call_cb3eecd43cda483192e70ebc3318a46a",
+        "status": "completed",
+        "content": [
+          {
+            "type": "content",
+            "content": {
+              "type": "text",
+              "text": "No files found"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "1aab845e-e9f3-40fb-95b7-77a786b199d7",
+      "update": {
+        "sessionUpdate": "tool_call",
+        "toolCallId": "call_252c77938280401387f873eae507e112",
+        "title": "glob",
+        "kind": "other",
+        "status": "in_progress",
+        "rawInput": {
+          "path": ".",
+          "pattern": "images/*"
+        }
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "1aab845e-e9f3-40fb-95b7-77a786b199d7",
+      "update": {
+        "sessionUpdate": "tool_call_update",
+        "toolCallId": "call_252c77938280401387f873eae507e112",
+        "status": "completed",
+        "content": [
+          {
+            "type": "content",
+            "content": {
+              "type": "text",
+              "text": "No files found"
+            }
+          }
+        ]
+      }
+    }
+  }
+]
