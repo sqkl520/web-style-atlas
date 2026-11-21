@@ -43,8 +43,17 @@ const BT = ROOT + '/deliverables/78-northstar/_blindtest';
 const P = {};
 new Function('window', readFileSync(ROOT + '/prototypes/_selection/prompts.js', 'utf8'))(P);
 
-/* 抓机制句里的数值 token。单位表与 check-prompts 保持一致，另加 deg/fr。 */
-const NUM_RE = /\b\d+(?:\.\d+)?(?:px|%|deg|fr|mm)\b/g;
+/* 抓机制句里的数值 token。单位表与 check-prompts 保持一致，另加 deg/fr。
+ *
+ * ⚠️ 不能用 `\b` 收尾 —— 这是个真踩过的坑。
+ * `\b` 在 `%` 与空格之间不成立（`%` 是非词字符，空格也是，两者之间没有边界），
+ * 于是 `1%` / `3%` / `5.5%` 全部抓不到。实测 S34 的机制句
+ * 「左缩进分 0/3/5.5/2/7/4/1% 七档」只被抓到 `72px` 一个值，
+ * 而它真正的核心是那七个百分比。
+ *
+ * 改成用「前面不是数字或小数点」+「后面不是字母数字」来界定边界，
+ * 并且允许 `%` 结尾（它天然不在 `\w` 里）。 */
+const NUM_RE = /(?<![\d.])\d+(?:\.\d+)?(?:px|deg|fr|mm|%)(?![\w%])/g;
 
 /* mm → px（96dpi）。只此一种换算，理由见文件头。 */
 function equivalents(tok) {
@@ -115,6 +124,16 @@ function selfTest() {
   /* 变异：同一个输入两次结果必须一致 */
   eq('幂等', JSON.stringify(judge('12px 34%', '<style>.a{width:12px}</style>')),
     JSON.stringify(judge('12px 34%', '<style>.a{width:12px}</style>')));
+  /* ⚠️ 百分比必须能抓到 —— 用 `\b` 收尾时 `34%` 会漏。
+   * 实测 S34 的机制句写的是「0/3/5.5/2/7/4/1%」这种**省略写法**：
+   * 只有最后一个带单位，前面的裸数字在原句里就是百分比。
+   * 那六个裸数字本判据抓不到，是**数据写法**的问题，不是正则的 ——
+   * 所以这里的用例只断言"带 % 的能抓到"，不假装能还原省略写法。 */
+  eq('带百分号的值能抓到', judge('缩进分 1% 与 7%', '<style></style>').rows.map((r) => r.tok), ['1%', '7%']);
+  eq('px 与百分数能共存', judge('72px 与 1%', '<style></style>').rows.length, 2);
+  /* 记录这条局限：斜杠省略写法会少算。S34 的七个缩进档只数到 1 个。 */
+  eq('斜杠省略写法只抓到带单位的那一个',
+    judge('0/3/5.5/2/7/4/1%', '<style></style>').rows.map((r) => r.tok), ['1%']);
   const bad = S.filter(([, ok]) => !ok);
   for (const [n, ok, g, w] of S) {
     console.log(`  ${ok ? '✓' : '✗'} ${n}`);
