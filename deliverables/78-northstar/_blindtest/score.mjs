@@ -319,8 +319,45 @@ function judgeRadius(prompt, html) {
   const radii = [...html.matchAll(/border-radius\s*:\s*([^;}]+)/g)].map((m) => m[1].trim());
   const corners = (v) => v.replace(/!important/gi, '').trim().split(/\s+/).filter(Boolean);
   const isZero = (c) => /^0(px|em|rem|%)?$/i.test(c);
-  const nonZero = radii.filter((v) => !corners(v).every(isZero));
-  return { rule: '全站一律 0', declared: radii.length, violations: nonZero.length, samples: nonZero.slice(0, 3) };
+
+  /* ⚠️ 2026-11-22 补：`border-radius: 50%` 画圆点不算"圆角卡片"。
+   *
+   * 实测 S20 报「圆角违反 2 条（50% / 50%）」，两处是：
+   *   .crosshair i{width:16px;height:16px;border:.35px solid;border-radius:50%}
+   *   .start-point{width:4px;height:4px;...;border-radius:50%}
+   * 都是 **画圆点**（十字准星、起点标记），不是给方形容器加圆角。
+   *
+   * 提示词的原话是「圆角：全站一律 0，**卡片、按钮、图片、标签**全部方角」——
+   * 它禁的是"给容器加圆角"，不是"任何元素都不能是圆的"。
+   *
+   * 判据：50% 圆角 + 宽高相等（或接近）→ 这是画圆，不是圆角。
+   * 需要从 CSS 里找该选择器的 width/height 才能判，所以要看声明所在的规则块。 */
+  const ruleBlocks = [...html.matchAll(/([^{}]+)\{([^}]*)\}/g)];
+  const isCircleRule = (body) => {
+    const r = body.match(/border-radius\s*:\s*([^;}]+)/);
+    if (!r || !/^\s*50%\s*$/.test(r[1])) return false;
+    const w = body.match(/(?:^|[;{\s])width\s*:\s*([\d.]+)px/);
+    const h = body.match(/(?:^|[;{\s])height\s*:\s*([\d.]+)px/);
+    if (!w || !h) return false;
+    /* 宽高相等（±1px）→ 这是画圆，不是给方形容器加圆角 */
+    return Math.abs(Number(w[1]) - Number(h[1])) <= 1;
+  };
+  /* 统计"真正的圆角违规"：逐个规则块看，而不是先收集所有 radius 再事后比对。
+   * 事后比对要解决"哪个 50% 属于哪个选择器"，容易因为空白/顺序对不上而失败
+   * （第一版就是这么失败的：规则块能匹配、单测能通过，但两边字符串不相等）。 */
+  let violations = 0;
+  const samples = [];
+  for (const m of ruleBlocks) {
+    const body = m[2];
+    const r = body.match(/border-radius\s*:\s*([^;}]+)/);
+    if (!r) continue;
+    const v = r[1].trim();
+    if (corners(v).every(isZero)) continue;
+    if (isCircleRule(body)) continue;
+    violations++;
+    if (samples.length < 3) samples.push(v);
+  }
+  return { rule: '全站一律 0', declared: radii.length, violations, samples };
 }
 
 function judgeLineWidth(prompt, html) {
@@ -615,13 +652,13 @@ function score(id, opts = {}) {
    *   ② 多值写法 `0 0 4px 0` 里只要有一个非 0 就算违规，但原来整串判断，
    *      连 `0 0 0 0` 也会被判成非 0（串不等于 "0"）。
    * 现在先剥 `!important`、再按空白切成四个角逐个判。 */
-  if (/圆角：全站一律\s*0/.test(prompt)) {
-    const radii = [...html.matchAll(/border-radius\s*:\s*([^;}]+)/g)].map((m) => m[1].trim());
-    const corners = (v) => v.replace(/!important/gi, '').trim().split(/\s+/).filter(Boolean);
-    const isZero = (c) => /^0(px|em|rem|%)?$/i.test(c);
-    const nonZero = radii.filter((v) => !corners(v).every(isZero));
-    geo.radius = { rule: '全站一律 0', declared: radii.length, violations: nonZero.length, samples: nonZero.slice(0, 3) };
-  }
+  /* 圆角与线宽：判据已抽到 judgeRadius / judgeLineWidth（见文件上方）。
+   *
+   * ⚠️ 2026-11-22：这里原来还留着一份**内联的旧实现**，改上面那两个函数时
+   * 它一直在生效，于是「改了没效果」—— 我为此调了三轮才找到原因。
+   * 这是重构时漏删的重复代码。现在只调用，不再内联。 */
+  geo.radius = judgeRadius(prompt, html);
+  geo.lineWidth = judgeLineWidth(prompt, html);
   /* 线宽：提示词「线宽只用这几级：1px、1.5px」。查 HTML 里 border 宽度有没有跳出去。
      ⚠️ 必须按**数值**比，不能按字符串比（2026-11-05 修）：
      CSS 允许 `.8px` 和 `0.8px` 两种写法，字符串比对会把同一个值判成越界。
@@ -636,14 +673,6 @@ function score(id, opts = {}) {
      S01 从 11 处掉到 0 处 —— 判据从"误报"变成"什么都不报"，
      而两者在报告里都长得像"正常"。现在允许 px 之后还有别的值（style/color），
      只要求宽度是声明里的**第一个数值**。 */
-  const lwM = prompt.match(/线宽只用这几级：([^。]+)/);
-  if (lwM) {
-    const allowed = new Set((lwM[1].match(/[\d.]+px/g) || []).map((s) => Number(parseFloat(s).toFixed(2))));
-    const used = [...html.matchAll(/(?:^|[\s;{])(border|border-(?:top|right|bottom|left))(?:\s*:\s*)([\d.]+)px\b/g)]
-      .map((m) => Number(parseFloat(m[2]).toFixed(2)));
-    const outside = used.filter((v) => !allowed.has(v));
-    geo.lineWidth = { allowed: [...allowed].map((n) => n + 'px'), used: used.length, outside: [...new Set(outside)].map((n) => n + 'px') };
-  }
   /* 字号：提示词同时给了**正文**与**最大标题**两个绝对值，直接对这两个数。
    *
    * ⚠️ 判据改过两次，两次都错，记在这里免得第三个人重走：
@@ -923,6 +952,14 @@ function selfTest() {
   eq('③/圆角 0 0 0 0 不算违规', judgeRadius(P21, '<style>.a{border-radius:0 0 0 0}</style>').violations, 0);
   /* 圆角：真非 0 仍要报 */
   eq('③/圆角 4px 要报', judgeRadius(P21, '<style>.a{border-radius:4px}</style>').violations, 1);
+  /* ⚠️ 2026-11-22：`border-radius:50%` + 宽高相等 = 画圆，不是圆角卡片。
+   * 实测 S20 报「违反 2 条（50%/50%）」，两处是 16×16 的十字准星和 4×4 的起点标记。
+   * 提示词的原话是「卡片、按钮、图片、标签全部方角」——禁的是给容器加圆角。 */
+  eq('③/50% 圆形不算违规',
+    judgeRadius(P21, '<style>.a{width:16px;height:16px;border-radius:50%}</style>').violations, 0);
+  /* 但宽高不等的 50% 是真的把方形容器变圆 —— 要报 */
+  eq('③/50% 但宽高不等要报',
+    judgeRadius(P21, '<style>.a{width:16px;height:60px;border-radius:50%}</style>').violations, 1);
   /* 线宽：简写必须能数到（第一版收紧过头，S01 从 11 处掉到 0 处） */
   eq('③/线宽简写能数到', judgeLineWidth(P21, '<style>.a{border-bottom:1px solid #000}</style>').used, 1);
   /* 线宽：padding 里的 16px 不能截出 6px 冒充线宽 */

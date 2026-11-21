@@ -1,0 +1,171 @@
+[
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "411f0bcf-4090-467f-9793-714c2e3395f3",
+      "update": {
+        "sessionUpdate": "agent_message_chunk",
+        "messageId": "10b2c7f8-8112-48cc-a10b-cf309f6e7ab3",
+        "content": {
+          "type": "text",
+          "text": " "
+        }
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "411f0bcf-4090-467f-9793-714c2e3395f3",
+      "update": {
+        "sessionUpdate": "usage_update",
+        "used": 11110,
+        "size": 200000
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "411f0bcf-4090-467f-9793-714c2e3395f3",
+      "update": {
+        "sessionUpdate": "tool_call",
+        "toolCallId": "call_2c3eb653595e4406bd526e7bd97056c1",
+        "title": "glob",
+        "kind": "other",
+        "status": "in_progress",
+        "rawInput": {
+          "path": ".",
+          "pattern": "*"
+        }
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "411f0bcf-4090-467f-9793-714c2e3395f3",
+      "update": {
+        "sessionUpdate": "tool_call_update",
+        "toolCallId": "call_2c3eb653595e4406bd526e7bd97056c1",
+        "status": "completed",
+        "content": [
+          {
+            "type": "content",
+            "content": {
+              "type": "text",
+              "text": "No files found"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "411f0bcf-4090-467f-9793-714c2e3395f3",
+      "update": {
+        "sessionUpdate": "agent_message_chunk",
+        "messageId": "0a961801-93b3-4397-bb81-0b33eafdf34e",
+        "content": {
+          "type": "text",
+          "text": " "
+        }
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "411f0bcf-4090-467f-9793-714c2e3395f3",
+      "update": {
+        "sessionUpdate": "usage_update",
+        "used": 15409,
+        "size": 200000
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "411f0bcf-4090-467f-9793-714c2e3395f3",
+      "update": {
+        "sessionUpdate": "tool_call",
+        "toolCallId": "call_d9c9c8a2c6b5463ab8a751aba7ba89e7",
+        "title": "write",
+        "kind": "other",
+        "status": "in_progress",
+        "rawInput": {
+          "file_path": "index.html",
+          "content": "<!DOCTYPE html>\n<html lang=\"zh-CN\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n<title>北纬修配所｜修鞋 · 配钥匙</title>\n<style>\n@import url('https://fonts.googleapis.com/css2?family=Martian+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;700&family=Space+Grotesk:wght@400;500;600&display=swap');\n:root{--blue:#26485C;--paper:#FAF3E1;--ink:#0F1418;--pencil:#55606B;--line:#0F1418;--grid:rgba(85,96,107,.22)}\n*{box-sizing:border-box}\nhtml{background:var(--paper);color:var(--ink);cursor:none}\nbody{margin:0;background:var(--paper);font-family:'Noto Sans SC','Space Grotesk',sans-serif;font-size:16px;line-height:1.45}\nbody:before{content:\"\";position:fixed;inset:0;pointer-events:none;opacity:.38;background-image:linear-gradient(to right,transparent 7px,var(--grid) 7px,var(--grid) 7.2px,transparent 7.2px),linear-gradient(to bottom,transparent 7px,var(--grid) 7px,var(--grid) 7.2px,transparent 7.2px);background-size:8px 8px;mix-blend-mode:multiply}\na{color:inherit;text-decoration:none}\nbutton{font:inherit;color:inherit;background:none;border:0;border-radius:0;padding:0;cursor:none}\n.shell{position:relative;max-width:1440px;margin:0 auto;padding:24px;min-height:100vh}\n.crosshair{position:fixed;z-index:20;width:16px;height:16px;pointer-events:none;transform:translate(-50%,-50%)}\n.crosshair:before,.crosshair:after{content:\"\";position:absolute;background:var(--ink)}\n.crosshair:before{width:16px;height:.35px;left:0;top:7.8px}.crosshair:after{height:16px;width:.35px;left:7.8px;top:0}\n.crosshair i{display:block;width:16px;height:16px;border:.35px solid var(--ink);border-radius:50%}\nheader{display:grid;grid-template-columns:1fr auto;align-items:start;border-bottom:1px solid var(--ink);padding-bottom:14px}\n.eyebrow,.mono,.index,.price,.readout{font-family:'Martian Mono',monospace;font-variant-numeric:tabular-nums}\n.eyebrow{font-size:11px;letter-spacing:.08em;color:var(--pencil);text-transform:uppercase}\n.brand{font-family:'Space Grotesk','Noto Sans SC',sans-serif;font-size:18px;letter-spacing:.02em;margin-top:2px}\n.header-right{text-align:right;font-size:13px;color:var(--pencil)}\nmain{display:grid;grid-template-columns:minmax(0,1fr) minmax(420px,52%);gap:clamp(32px,6vw,96px);padding-top:40px;align-items:start}\n.intro{padding-top:7vh;max-width:510px}\nh1{font-family:'Space Grotesk','Noto Sans SC',sans-serif;font-size:clamp(52px,6.2vw,72px);font-weight:500;line-height:.98;letter-spacing:-.06em;margin:0 0 30px;max-width:520px}\n.lead{font-size:18px;max-width:375px;margin:0 0 34px}\n.call{display:inline-flex;align-items:center;gap:18px;border-top:3px solid var(--blue);border-bottom:1px solid var(--blue);padding:13px 0 11px;color:var(--blue);font-weight:700;min-width:210px}\n.call:after{content:\"↗\";font-family:'Martian Mono',monospace;font-size:17px;margin-left:auto}.call:hover{letter-spacing:.02em}\n.note{margin-top:80px;border-top:1px solid var(--pencil);padding-top:11px;color:var(--pencil);font-size:13px;max-width:300px}\n.note strong{display:block;color:var(--ink);font-weight:500;margin-bottom:7px}\n.instrument{position:relative;border:1px solid var(--ink);padding:24px;background:var(--paper)}\n.instrument-head{display:flex;justify-content:space-between;gap:20px;border-bottom:1px solid var(--ink);padding-bottom:12px;margin-bottom:16px;align-items:end}\n.instrument-title{font-size:14px}.instrument-meta{font-size:11px;color:var(--pencil);text-align:right}\n.plot-wrap{position:relative;width:100%;aspect-ratio:1/1;min-height:380px}\n#plot{display:block;width:100%;height:100%;background:var(--paper)}\n.start-point{position:absolute;width:4px;height:4px;border:.35px solid var(--ink);left:calc(6% - .6px);bottom:calc(6% - .6px);transform:translate(-50%,50%);border-radius:50%;background:var(--paper)}\n.legend{display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid var(--ink);margin-top:16px;padding-top:12px;gap:14px}\n.legend-item{font-size:11px;color:var(--pencil);display:grid;grid-template-columns:1fr auto;gap:6px;align-items:end}.legend-line{height:22px;position:relative}.legend-line:after{content:\"\";position:absolute;left:0;right:0;top:12px;border-top:.35px solid var(--blue)}.legend-item:nth-child(2) .legend-line:after{top:8px;box-shadow:0 4px 0 var(--blue)}.legend-item:nth-child(3) .legend-line:after{top:3px;box-shadow:0 4px 0 var(--blue),0 8px 0 var(--blue),0 12px 0 var(--blue)}\n.controls{display:grid;grid-template-columns:1fr auto;gap:20px;border-top:1px solid var(--ink);margin-top:16px;padding-top:13px;align-items:center}.control-label{font-size:12px;color:var(--pencil)}input[type=range]{appearance:none;width:100%;height:1px;background:var(--pencil);outline:none}input[type=range]::-webkit-slider-thumb{appearance:none;width:10px;height:10px;background:var(--blue);border:0;border-radius:0}input[type=range]::-moz-range-thumb{width:10px;height:10px;background:var(--blue);border:0;border-radius:0}.readout{font-size:12px;color:var(--blue);white-space:nowrap}\n.grid{display:grid;grid-template-columns:1.15fr .85fr 1.35fr .8fr 1.1fr 1fr;gap:0;border-top:1px solid var(--ink);margin-top:52px}.item{min-height:205px;border-right:1px solid var(--ink);padding:14px 14px 20px 0;margin-right:14px;display:flex;flex-direction:column}.item:last-child{border-right:0}.item:nth-child(2){min-height:260px;padding-top:42px}.item:nth-child(3){min-height:190px}.item:nth-child(4){padding-top:62px;min-height:235px}.item:nth-child(5){min-height:250px}.item:nth-child(6){padding-top:36px;min-height:210px}.item img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border:1px solid var(--ink);filter:grayscale(1) contrast(1.08);background:var(--paper);margin-bottom:12px}.item:nth-child(2) img{aspect-ratio:3/4}.item:nth-child(5) img{aspect-ratio:1/1}.item h2{font-family:'Space Grotesk','Noto Sans SC',sans-serif;font-size:18px;font-weight:500;line-height:1.15;margin:0 0 7px}.item p{font-size:13px;margin:0;color:var(--pencil);max-width:190px}.index{font-size:11px;color:var(--blue);margin-bottom:12px}.price{font-size:12px;color:var(--blue);margin-top:auto;padding-top:16px;text-align:right}.empty{background:var(--blue);color:var(--paper);padding:15px 14px 20px 0;margin-right:14px}.empty .index,.empty p{color:var(--paper)}.empty:after{content:\"\";display:block;border-top:.35px solid var(--paper);margin-top:28px;width:70%}\nfooter{display:flex;justify-content:space-between;border-top:1px solid var(--ink);margin-top:30px;padding:12px 0 18px;font-size:11px;color:var(--pencil)}\n@media (max-width:900px){html{cursor:auto}.crosshair{display:none}.shell{padding:16px}header{padding-bottom:11px}main{display:block;padding-top:26px}.intro{padding-top:12px;max-width:none}h1{font-size:clamp(52px,15vw,72px);max-width:600px}.lead{font-size:16px}.note{margin-top:45px}.instrument{margin-top:48px;padding:16px}.plot-wrap{min-height:0}.grid{grid-template-columns:1fr 1.15fr;gap:0;margin-top:42px}.item,.item:nth-child(n){min-height:230px;padding-top:14px}.item:nth-child(2n){padding-top:42px}.item:nth-child(3n){padding-top:14px}.item:nth-child(2n){border-right:0;margin-right:0;padding-left:14px}.item:nth-child(5),.item:nth-child(6){min-height:220px}.empty{margin-right:0;padding-left:14px}.item img{max-width:100%}}\n@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important;animation:none!important}}\n</style>\n</head>\n<body>\n<div class=\"crosshair\" aria-hidden=\"true\"><i></i></div>\n<div class=\"shell\">\n<header><div><div class=\"eyebrow\">NORTH LATITUDE / REPAIR UNIT 06</div><div class=\"brand\">北纬修配所</div></div><div class=\"header-right\">修鞋 · 配钥匙<br><span class=\"mono\">09:00—18:30 / MON—SAT</span></div></header>\n<main>\n<section class=\"intro\"><div class=\"eyebrow\">LOCAL SERVICE / 01—05</div><h1>把鞋修好。<br>把钥匙配准。</h1><p class=\"lead\">不延展故事，只处理一双鞋、一把钥匙。来之前打电话，留出合适的时间。</p><a class=\"call\" href=\"tel:010-6824-0916\">电话预约&nbsp; 010-6824-0916</a><div class=\"note\"><strong>工作方式</strong>先看磨损，再定工序。钥匙按锁芯测量，不凭手感复制。</div></section>\n<section class=\"instrument\" aria-label=\"服务参数图\"><div class=\"instrument-head\"><div><div class=\"eyebrow\">SERVICE TRACE / LIVE DRAW</div><div class=\"instrument-title\">今日工位：鞋底与锁芯</div></div><div class=\"instrument-meta mono\">PLOT 1:1<br>LINE 0.35PX</div></div><div class=\"plot-wrap\"><canvas id=\"plot\"></canvas><span class=\"start-point\" aria-hidden=\"true\"></span></div><div class=\"legend\"><div class=\"legend-item\"><span class=\"legend-line\"></span><span>轻量<br>0.6 mm</span></div><div class=\"legend-item\"><span class=\"legend-line\"></span><span>标准<br>1.2 mm</span></div><div class=\"legend-item\"><span class=\"legend-line\"></span><span>高频<br>2.4 mm</span></div></div><div class=\"controls\"><label class=\"control-label\" for=\"density\">走线密度 / 工作量</label><input id=\"density\" type=\"range\" min=\"12\" max=\"42\" value=\"26\"><output class=\"readout\" id=\"readout\">026 SEG</output></div></section>\n</main>\n<section class=\"grid\" aria-label=\"服务条目\">\n<article class=\"item\"><div class=\"index\">01 / SHOE</div><img src=\"images/占位-1.jpg\" width=\"640\" height=\"480\" alt=\"鞋底修补示意图\"><h2>鞋底修补</h2><p>开胶、磨穿、断底，先判断能否继续使用。</p><div class=\"price\">¥ 30 起</div></article>\n<article class=\"item\"><div class=\"index\">02 / KEY</div><img src=\"images/占位-2.jpg\" width=\"480\" height=\"640\" alt=\"钥匙配制示意图\"><h2>普通配钥匙</h2><p>按原钥匙齿形复制，现场试开。</p><div class=\"price\">¥ 10 起</div></article>\n<article class=\"item\"><div class=\"index\">03 / LEATHER</div><img src=\"images/占位-3.jpg\" width=\"640\" height=\"480\" alt=\"皮革缝补示意图\"><h2>皮面缝补</h2><p>边缘脱线、表面裂口，尽量保留原结构。</p><div class=\"price\">¥ 40 起</div></article>\n<article class=\"item empty\"><div class=\"index\">04 / MEASURE</div><h2>先测量</h2><p>钥匙不顺，不直接重配。先查锁芯与齿深。</p><div class=\"price\">现场判断</div></article>\n<article class=\"item\"><div class=\"index\">05 / CARE</div><img src=\"images/占位-4.jpg\" width=\"600\" height=\"600\" alt=\"鞋面护理示意图\"><h2>鞋面护理</h2><p>清洁、补色、上蜡，按材质分开处理。</p><div class=\"price\">¥ 25 起</div></article>\n<article class=\"item\"><div class=\"index\">06 / CUSTOM</div><img src=\"images/占位-5.jpg\" width=\"640\" height=\"480\" alt=\"定制钥匙示意图\"><h2>特殊钥匙</h2><p>汽车、门禁与异形钥匙，电话确认后安排。</p><div class=\"price\">电话报价</div></article>\n</section>\n<footer><span class=\"mono\">N 39° / E 116°</span><span>北京市西城区 · 到店前请预约</span><span class=\"mono\">TRACE 2024—06</span></footer>\n</div>\n<script>\n(function(){\n const canvas=document.getElementById('plot'),ctx=canvas.getContext('2d'),range=document.getElementById('density'),readout=document.getElementById('readout');\n let dpr=window.devicePixelRatio||1, lines=[], hover=-1, reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;\n function resize(){const r=canvas.getBoundingClientRect();canvas.width=r.width*dpr;canvas.height=r.height*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);draw(false)}\n function makeLines(n){const r=canvas.getBoundingClientRect(),w=r.width,h=r.height,p=Math.min(w,h)*.06; lines=[];for(let i=0;i<n;i++){const y=p+(h-p*2)*(i/(n-1));let pts=[];for(let x=p;x<=w-p;x+=4){const wave=Math.sin(x*.035+i*.48)*7+Math.sin(x*.011-i*.17)*4;pts.push([x,y+wave*(.35+i%3*.15)])}lines.push(pts)}}\n function draw(animate){const r=canvas.getBoundingClientRect(),w=r.width,h=r.height;ctx.clearRect(0,0,w,h);ctx.strokeStyle='#26485C';ctx.lineWidth=.35;ctx.lineCap='round';const start=performance.now(),dur=animate?420:0;function frame(now){const t=dur?Math.min(1,(now-start)/dur):1;ctx.clearRect(0,0,w,h);lines.forEach((pts,i)=>{const k=animate?t:1;ctx.globalAlpha=animate?.3+.7*k:1;ctx.lineWidth=i===hover?.5:.35;ctx.beginPath();const upto=Math.max(1,Math.floor(pts.length*k));pts.slice(0,upto).forEach((q,j)=>j?ctx.lineTo(q[0],q[1]):ctx.moveTo(q[0],q[1]));ctx.stroke()});ctx.globalAlpha=1;if(t<1)requestAnimationFrame(frame)}requestAnimationFrame(frame)}\n function update(animate=true){const n=+range.value;readout.textContent=String(n).padStart(3,'0')+' SEG';makeLines(n);draw(!reduced&&animate)}\n canvas.addEventListener('pointermove',e=>{const r=canvas.getBoundingClientRect(),y=e.clientY-r.top,p=Math.min(r.width,r.height)*.06;hover=Math.max(0,Math.min(lines.length-1,Math.round((y-p)/(r.height-p*2)*(lines.length-1))));draw(false)});canvas.addEventListener('pointerleave',()=>{hover=-1;draw(false)});range.addEventListener('input',()=>update(true));window.addEventListener('resize',resize);document.addEventListener('pointermove',e=>{const c=document.querySelector('.crosshair');if(c){c.style.left=e.clientX+'px';c.style.top=e.clientY+'px'}});resize();update(false);\n})();\n</script>\n</body>\n</html>"
+        }
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "411f0bcf-4090-467f-9793-714c2e3395f3",
+      "update": {
+        "sessionUpdate": "tool_call_update",
+        "toolCallId": "call_d9c9c8a2c6b5463ab8a751aba7ba89e7",
+        "status": "completed",
+        "content": [
+          {
+            "type": "content",
+            "content": {
+              "type": "text",
+              "text": "<path>D:\\Web\\style\\deliverables\\78-northstar\\_blindtest\\S20\\index.html</path>\n<type>file</type>\n<content>\nCreated file\n</content>"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "411f0bcf-4090-467f-9793-714c2e3395f3",
+      "update": {
+        "sessionUpdate": "agent_message_chunk",
+        "messageId": "2fb2075a-5428-43e6-b09f-946840e8eb18",
+        "content": {
+          "type": "text",
+          "text": " <!DOCTYPE html>\n<html lang=\"zh-CN\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n<title>北纬修配所｜修鞋 · 配钥匙</title>\n<style>\n@import url('https://fonts.googleapis.com/css2?family=Martian+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;700&family=Space+Grotesk:wght@400;500;600&display=swap');\n:root{--blue:#26485C;--paper:#FAF3E1;--ink:#0F1418;--pencil:#55606B;--grid:rgba(85,96,107,.22)}\n*{box-sizing:border-box}\nhtml{background:var(--paper);color:var(--ink);cursor:none}\nbody{margin:0;background:var(--paper);font-family:'Noto Sans SC','Space Grotesk',sans-serif;font-size:16px;line-height:1.45}\nbody:before{content:\"\";position:fixed;inset:0;pointer-events:none;opacity:.38;background-image:linear-gradient(to right,transparent 7px,var(--grid) 7px,var(--grid) 7.2px,transparent 7.2px),linear-gradient(to bottom,transparent 7px,var(--grid) 7px,var(--grid) 7.2px,transparent 7.2px);background-size:8px 8px;mix-blend-mode:multiply}\na{color:inherit;text-decoration:none}\nbutton{font:inherit;color:inherit;background:none;border:0;border-radius:0;padding:0;cursor:none}\n.shell{position:relative;max-width:1440px;margin:0 auto;padding:24px;min-height:100vh}\n.crosshair{position:fixed;z-index:20;width:16px;height:16px;pointer-events:none;transform:translate(-50%,-50%)}\n.crosshair:before,.crosshair:after{content:\"\";position:absolute;background:var(--ink)}\n.crosshair:before{width:16px;height:.35px;left:0;top:7.8px}\n.crosshair:after{height:16px;width:.35px;left:7.8px;top:0}\n.crosshair i{display:block;width:16px;height:16px;border:.35px solid var(--ink);border-radius:50%}\nheader{display:grid;grid-template-columns:1fr auto;align-items:start;border-bottom:1px solid var(--ink);padding-bottom:14px}\n.eyebrow,.mono,.index,.price,.readout{font-family:'Martian Mono',monospace;font-variant-numeric:tabular-nums}\n.eyebrow{font-size:11px;letter-spacing:.08em;color:var(--pencil);text-transform:uppercase}\n.brand{font-family:'Space Grotesk','Noto Sans SC',sans-serif;font-size:18px;letter-spacing:.02em;margin-top:2px}\n.header-right{text-align:right;font-size:13px;color:var(--pencil)}\nmain{display:grid;grid-template-columns:minmax(0,1fr) minmax(420px,52%);gap:clamp(32px,6vw,96px);padding-top:40px;align-items:start}\n.intro{padding-top:7vh;max-width:510px}\nh1{font-family:'Space Grotesk','Noto Sans SC',sans-serif;font-size:clamp(52px,6.2vw,72px);font-weight:500;line-height:.98;letter-spacing:-.06em;margin:0 0 30px;max-width:520px}\n.lead{font-size:18px;max-width:375px;margin:0 0 34px}\n.call{display:inline-flex;align-items:center;gap:18px;border-top:3px solid var(--blue);border-bottom:1px solid var(--blue);padding:13px 0 11px;color:var(--blue);font-weight:700;min-width:210px}\n.call:after{content:\"↗\";font-family:'Martian Mono',monospace;font-size:17px;margin-left:auto}\n.call:hover{letter-spacing:.02em}\n.note{margin-top:80px;border-top:1px solid var(--pencil);padding-top:11px;color:var(--pencil);font-size:13px;max-width:300px}\n.note strong{display:block;color:var(--ink);font-weight:500;margin-bottom:7px}\n.instrument{position:relative;border:1px solid var(--ink);padding:24px;background:var(--paper)}\n.instrument-head{display:flex;justify-content:space-between;gap:20px;border-bottom:1px solid var(--ink);padding-bottom:12px;margin-bottom:16px;align-items:end}\n.instrument-title{font-size:14px}\n.instrument-meta{font-size:11px;color:var(--pencil);text-align:right}\n.plot-wrap{position:relative;width:100%;aspect-ratio:1/1;min-height:380px}\n#plot{display:block;width:100%;height:100%;background:var(--paper)}\n.start-point{position:absolute;width:4px;height:4px;border:.35px solid var(--ink);left:calc(6% - .6px);bottom:calc(6% - .6px);transform:translate(-50%,50%);border-radius:50%;background:var(--paper)}\n.legend{display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid var(--ink);margin-top:16px;padding-top:12px;gap:14px}\n.legend-item{font-size:11px;color:var(--pencil);display:grid;grid-template-columns:1fr auto;gap:6px;align-items:end}\n.legend-line{height:22px;position:relative}\n.legend-line:after{content:\"\";position:absolute;left:0;right:0;top:12px;border-top:.35px solid var(--blue)}\n.legend-item:nth-child(2) .legend-line:after{top:8px;box-shadow:0 4px 0 var(--blue)}\n.legend-item:nth-child(3) .legend-line:after{top:3px;box-shadow:0 4px 0 var(--blue),0 8px 0 var(--blue),0 12px 0 var(--blue)}\n.controls{display:grid;grid-template-columns:1fr auto;gap:20px;border-top:1px solid var(--ink);margin-top:16px;padding-top:13px;align-items:center}\n.control-label{font-size:12px;color:var(--pencil)}\ninput[type=range]{appearance:none;width:100%;height:1px;background:var(--pencil);outline:none}\ninput[type=range]::-webkit-slider-thumb{appearance:none;width:10px;height:10px;background:var(--blue);border:0;border-radius:0}\ninput[type=range]::-moz-range-thumb{width:10px;height:10px;background:var(--blue);border:0;border-radius:0}\n.readout{font-size:12px;color:var(--blue);white-space:nowrap}\n.grid{display:grid;grid-template-columns:1.15fr .85fr 1.35fr .8fr 1.1fr 1fr;gap:0;border-top:1px solid var(--ink);margin-top:52px}\n.item{min-height:205px;border-right:1px solid var(--ink);padding:14px 14px 20px 0;margin-right:14px;display:flex;flex-direction:column}\n.item:last-child{border-right:0}\n.item:nth-child(2){min-height:260px;padding-top:42px}\n.item:nth-child(3){min-height:190px}\n.item:nth-child(4){padding-top:62px;min-height:235px}\n.item:nth-child(5){min-height:250px}\n.item:nth-child(6){padding-top:36px;min-height:210px}\n.item img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border:1px solid var(--ink);filter:grayscale(1) contrast(1.08);background:var(--paper);margin-bottom:12px}\n.item:nth-child(2) img{aspect-ratio:3/4}\n.item:nth-child(5) img{aspect-ratio:1/1}\n.item h2{font-family:'Space Grotesk','Noto Sans SC',sans-serif;font-size:18px;font-weight:500;line-height:1.15;margin:0 0 7px}\n.item p{font-size:13px;margin:0;color:var(--pencil);max-width:190px}\n.index{font-size:11px;color:var(--blue);margin-bottom:12px}\n.price{font-size:12px;color:var(--blue);margin-top:auto;padding-top:16px;text-align:right}\n.empty{background:var(--blue);color:var(--paper);padding:15px 14px 20px 0;margin-right:14px}\n.empty .index,.empty p{color:var(--paper)}\n.empty:after{content:\"\";display:block;border-top:.35px solid var(--paper);margin-top:28px;width:70%}\nfooter{display:flex;justify-content:space-between;border-top:1px solid var(--ink);margin-top:30px;padding:12px 0 18px;font-size:11px;color:var(--pencil)}\n@media (max-width:900px){\nhtml{cursor:auto}\n.crosshair{display:none}\n.shell{padding:16px}\nheader{padding-bottom:11px}\nmain{display:block;padding-top:26px}\n.intro{padding-top:12px;max-width:none}\nh1{font-size:clamp(52px,15vw,72px);max-width:600px}\n.lead{font-size:16px}\n.note{margin-top:45px}\n.instrument{margin-top:48px;padding:16px}\n.plot-wrap{min-height:0}\n.grid{grid-template-columns:1fr 1.15fr;gap:0;margin-top:42px}\n.item,.item:nth-child(n){min-height:230px;padding-top:14px}\n.item:nth-child(2n){padding-top:42px}\n.item:nth-child(3n){padding-top:14px}\n.item:nth-child(2n){border-right:0;margin-right:0;padding-left:14px}\n.item:nth-child(5),.item:nth-child(6){min-height:220px}\n.empty{margin-right:0;padding-left:14px}\n.item img{max-width:100%}\n}\n@media (prefers-reduced-motion:reduce){\n*{scroll-behavior:auto!important;transition:none!important;animation:none!important}\n}\n</style>\n</head>\n<body>\n<div class=\"crosshair\" aria-hidden=\"true\"><i></i></div>\n<div class=\"shell\">\n<header>\n<div>\n<div class=\"eyebrow\">NORTH LATITUDE / REPAIR UNIT 06</div>\n<div class=\"brand\">北纬修配所</div>\n</div>\n<div class=\"header-right\">修鞋 · 配钥匙<br><span class=\"mono\">09:00—18:30 / MON—SAT</span></div>\n</header>\n\n<main>\n<section class=\"intro\">\n<div class=\"eyebrow\">LOCAL SERVICE / 01—05</div>\n<h1>把鞋修好。<br>把钥匙配准。</h1>\n<p class=\"lead\">不延展故事，只处理一双鞋、一把钥匙。来之前打电话，留出合适的时间。</p>\n<a class=\"call\" href=\"tel:010-6824-0916\">电话预约&nbsp; 010-6824-0916</a>\n<div class=\"note\">\n<strong>工作方式</strong>\n先看磨损，再定工序。钥匙按锁芯测量，不凭手感复制。\n</div>\n</section>\n\n<section class=\"instrument\" aria-label=\"服务参数图\">\n<div class=\"instrument-head\">\n<div>\n<div class=\"eyebrow\">SERVICE TRACE / LIVE DRAW</div>\n<div class=\"instrument-title\">今日工位：鞋底与锁芯</div>\n</div>\n<div class=\"instrument-meta mono\">PLOT 1:1<br>LINE 0.35PX</div>\n</div>\n\n<div class=\"plot-wrap\">\n<canvas id=\"plot\"></canvas>\n<span class=\"start-point\" aria-hidden=\"true\"></span>\n</div>\n\n<div class=\"legend\">\n<div class=\"legend-item\">\n<span class=\"legend-line\"></span>\n<span>轻量<br>0.6 mm</span>\n</div>\n<div class=\"legend-item\">\n<span class=\"legend-line\"></span>\n<span>标准<br>1.2 mm</span>\n</div>\n<div class=\"legend-item\">\n<span class=\"legend-line\"></span>\n<span>高频<br>2.4 mm</span>\n</div>\n</div>\n\n<div class=\"controls\">\n<label class=\"control-label\" for=\"density\">走线密度 / 工作量</label>\n<input id=\"density\" type=\"range\" min=\"12\" max=\"42\" value=\"26\">\n<output class=\"readout\" id=\"readout\">026 SEG</output>\n</div>\n</section>\n</main>\n\n<section class=\"grid\" aria-label=\"服务条目\">\n<article class=\"item\">\n<div class=\"index\">01 / SHOE</div>\n<img src=\"images/占位-1.jpg\" width=\"640\" height=\"480\" alt=\"鞋底修补示意图\">\n<h2>鞋底修补</h2>\n<p>开胶、磨穿、断底，先判断能否继续使用。</p>\n<div class=\"price\">¥ 30 起</div>\n</article>\n\n<article class=\"item\">\n<div class=\"index\">02 / KEY</div>\n<img src=\"images/占位-2.jpg\" width=\"480\" height=\"640\" alt=\"钥匙配制示意图\">\n<h2>普通配钥匙</h2>\n<p>按原钥匙齿形复制，现场试开。</p>\n<div class=\"price\">¥ 10 起</div>\n</article>\n\n<article class=\"item\">\n<div class=\"index\">03 / LEATHER</div>\n<img src=\"images/占位-3.jpg\" width=\"640\" height=\"480\" alt=\"皮革缝补示意图\">\n<h2>皮面缝补</h2>\n<p>边缘脱线、表面裂口，尽量保留原结构。</p>\n<div class=\"price\">¥ 40 起</div>\n</article>\n\n<article class=\"item empty\">\n<div class=\"index\">04 / MEASURE</div>\n<h2>先测量</h2>\n<p>钥匙不顺，不直接重配。先查锁芯与齿深。</p>\n<div class=\"price\">现场判断</div>\n</article>\n\n<article class=\"item\">\n<div class=\"index\">05 / CARE</div>\n<img src=\"images/占位-4.jpg\" width=\"600\" height=\"600\" alt=\"鞋面护理示意图\">\n<h2>鞋面护理</h2>\n<p>清洁、补色、上蜡，按材质分开处理。</p>\n<div class=\"price\">¥ 25 起</div>\n</article>\n\n<article class=\"item\">\n<div class=\"index\">06 / CUSTOM</div>\n<img src=\"images/占位-5.jpg\" width=\"640\" height=\"480\" alt=\"定制钥匙示意图\">\n<h2>特殊钥匙</h2>\n<p>汽车、门禁与异形钥匙，电话确认后安排。</p>\n<div class=\"price\">电话报价</div>\n</article>\n</section>\n\n<footer>\n<span class=\"mono\">N 39° / E 116°</span>\n<span>北京市西城区 · 到店前请预约</span>\n<span class=\"mono\">TRACE 2024—06</span>\n</footer>\n</div>\n\n<script>\n(function(){\nconst canvas=document.getElementById('plot');\nconst ctx=canvas.getContext('2d');\nconst range=document.getElementById('density');\nconst readout=document.getElementById('readout');\nlet dpr=window.devicePixelRatio||1;\nlet lines=[];\nlet hover=-1;\nlet reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;\n\nfunction resize(){\nconst r=canvas.getBoundingClientRect();\ncanvas.width=r.width*dpr;\ncanvas.height=r.height*dpr;\nctx.setTransform(dpr,0,0,dpr,0,0);\ndraw(false);\n}\n\nfunction makeLines(n){\nconst r=canvas.getBoundingClientRect();\nconst w=r.width,h=r.height,p=Math.min(w,h)*.06;\nlines=[];\nfor(let i=0;i<n;i++){\nconst y=p+(h-p*2)*(i/(n-1));\nlet pts=[];\nfor(let x=p;x<=w-p;x+=4){\nconst wave=Math.sin(x*.035+i*.48)*7+Math.sin(x*.011-i*.17)*4;\npts.push([x,y+wave*(.35+i%3*.15)]);\n}\nlines.push(pts);\n}\n}\n\nfunction draw(animate){\nconst r=canvas.getBoundingClientRect();\nconst w=r.width,h=r.height;\nctx.clearRect(0,0,w,h);\nctx.strokeStyle='#26485C';\nctx.lineWidth=.35;\nctx.lineCap='round';\nconst start=performance.now();\nconst dur=animate?420:0;\n\nfunction frame(now){\nconst t=dur?Math.min(1,(now-start)/dur):1;\nctx.clearRect(0,0,w,h);\nlines.forEach((pts,i)=>{\nconst k=animate?t:1;\nctx.globalAlpha=animate?.3+.7*k:1;\nctx.lineWidth=i===hover?.5:.35;\nctx.beginPath();\nconst upto=Math.max(1,Math.floor(pts.length*k));\npts.slice(0,upto).forEach((q,j)=>j?ctx.lineTo(q[0],q[1]):ctx.moveTo(q[0],q[1]));\nctx.stroke();\n});\nctx.globalAlpha=1;\nif(t<1)requestAnimationFrame(frame);\n}\nrequestAnimationFrame(frame);\n}\n\nfunction update(animate=true){\nconst n=+range.value;\nreadout.textContent=String(n).padStart(3,'0')+' SEG';\nmakeLines(n);\ndraw(!reduced&&animate);\n}\n\ncanvas.addEventListener('pointermove',e=>{\nconst r=canvas.getBoundingClientRect();\nconst y=e.clientY-r.top;\nconst p=Math.min(r.width,r.height)*.06;\nhover=Math.max(0,Math.min(lines.length-1,Math.round((y-p)/(r.height-p*2)*(lines.length-1))));\ndraw(false);\n});\n\ncanvas.addEventListener('pointerleave',()=>{\nhover=-1;\ndraw(false);\n});\n\nrange.addEventListener('input',()=>update(true));\nwindow.addEventListener('resize',resize);\n\ndocument.addEventListener('pointermove',e=>{\nconst c=document.querySelector('.crosshair');\nif(c){\nc.style.left=e.clientX+'px';\nc.style.top=e.clientY+'px';\n}\n});\n\nresize();\nupdate(false);\n})();\n</script>\n</body>\n</html>"
+        }
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "411f0bcf-4090-467f-9793-714c2e3395f3",
+      "update": {
+        "sessionUpdate": "usage_update",
+        "used": 20680,
+        "size": 200000
+      }
+    }
+  },
+  {
+    "kind": "result",
+    "msg": {
+      "jsonrpc": "2.0",
+      "id": 3,
+      "result": {
+        "stopReason": "end_turn"
+      }
+    }
+  }
+]
