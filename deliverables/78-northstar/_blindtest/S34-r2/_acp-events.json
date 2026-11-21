@@ -1,0 +1,197 @@
+[
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "65f5c66b-ceaa-48d1-929a-e537b25fb039",
+      "update": {
+        "sessionUpdate": "agent_message_chunk",
+        "messageId": "358ed20d-39ed-4722-b2a2-5bdf40a852ae",
+        "content": {
+          "type": "text",
+          "text": " "
+        }
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "65f5c66b-ceaa-48d1-929a-e537b25fb039",
+      "update": {
+        "sessionUpdate": "usage_update",
+        "used": 10721,
+        "size": 200000
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "65f5c66b-ceaa-48d1-929a-e537b25fb039",
+      "update": {
+        "sessionUpdate": "tool_call",
+        "toolCallId": "call_f3f4acbbd789459d8b28513011c0b11e",
+        "title": "glob",
+        "kind": "other",
+        "status": "in_progress",
+        "rawInput": {
+          "path": "",
+          "pattern": "*"
+        }
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "65f5c66b-ceaa-48d1-929a-e537b25fb039",
+      "update": {
+        "sessionUpdate": "tool_call_update",
+        "toolCallId": "call_f3f4acbbd789459d8b28513011c0b11e",
+        "status": "failed",
+        "content": [
+          {
+            "type": "content",
+            "content": {
+              "type": "text",
+              "text": "Error: path must be a non-empty string when given"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "65f5c66b-ceaa-48d1-929a-e537b25fb039",
+      "update": {
+        "sessionUpdate": "agent_message_chunk",
+        "messageId": "6bc22225-a618-411a-a857-6a2e3c48c8c9",
+        "content": {
+          "type": "text",
+          "text": " "
+        }
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "65f5c66b-ceaa-48d1-929a-e537b25fb039",
+      "update": {
+        "sessionUpdate": "usage_update",
+        "used": 10717,
+        "size": 200000
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "65f5c66b-ceaa-48d1-929a-e537b25fb039",
+      "update": {
+        "sessionUpdate": "tool_call",
+        "toolCallId": "call_a47cc136d660468b8658d095bb5cd3fb",
+        "title": "working_directory",
+        "kind": "other",
+        "status": "in_progress",
+        "rawInput": {}
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "65f5c66b-ceaa-48d1-929a-e537b25fb039",
+      "update": {
+        "sessionUpdate": "tool_call_update",
+        "toolCallId": "call_a47cc136d660468b8658d095bb5cd3fb",
+        "status": "completed",
+        "content": [
+          {
+            "type": "content",
+            "content": {
+              "type": "text",
+              "text": "D:\\Web\\style\\deliverables\\78-northstar\\_blindtest\\S34-r2"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "65f5c66b-ceaa-48d1-929a-e537b25fb039",
+      "update": {
+        "sessionUpdate": "agent_message_chunk",
+        "messageId": "0262448c-a9a3-493f-ac10-0bb7deb9803e",
+        "content": {
+          "type": "text",
+          "text": " "
+        }
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "65f5c66b-ceaa-48d1-929a-e537b25fb039",
+      "update": {
+        "sessionUpdate": "usage_update",
+        "used": 10790,
+        "size": 200000
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "65f5c66b-ceaa-48d1-929a-e537b25fb039",
+      "update": {
+        "sessionUpdate": "tool_call",
+        "toolCallId": "call_fa93c13666e34d39b0385ae9864385ed",
+        "title": "glob",
+        "kind": "other",
+        "status": "in_progress",
+        "rawInput": {
+          "path": "D:\\Web\\style\\deliverables\\78-northstar\\_blindtest\\S34-r2",
+          "pattern": "*"
+        }
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "65f5c66b-ceaa-48d1-929a-e537b25fb039",
+      "update": {
+        "sessionUpdate": "tool_call_update",
+        "toolCallId": "call_fa93c13666e34d39b0385ae9864385ed",
+        "status": "completed",
+        "content": [
+          {
+            "type": "content",
+            "content": {
+              "type": "text",
+              "text": "index.html\n_acp-events.json\n_prompt.txt\n_agent-output.txt"
+            }
+          }
+        ]
+      }
+    }
+  }
+]

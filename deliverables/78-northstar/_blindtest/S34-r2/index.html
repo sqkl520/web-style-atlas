@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="修鞋与配钥匙的小店，电话预约服务。">
+  <title>北纬零点 / 修鞋与配钥匙</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=Literata:opsz,wght@7..72,400;7..72,500&family=Noto+Sans+SC:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;500;600&display=swap');
+
+    :root {
+      --paper: #2C3034;
+      --ink: #EBEEF0;
+      --ink-mid: #C2C8CD;
+      --ink-soft: #A8AFB5;
+      --rule: #6E767C;
+      --paper-lift: #33383D;
+      --sans: Jost, "Noto Sans SC";
+      --serif: "Noto Serif SC", Literata, Georgia;
+    }
+
+    * { box-sizing: border-box; }
+    html { background: var(--paper); }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--serif);
+      font-size: 17px;
+      line-height: 1.58;
+      font-weight: 400;
+    }
+    a { color: inherit; }
+    .page {
+      width: min(100%, 1440px);
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: 34px 5.5% 42px;
+      overflow: hidden;
+    }
+    .masthead {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 28px;
+      border-bottom: 1px solid var(--rule);
+      padding-bottom: 16px;
+      font-family: var(--sans);
+      font-size: 12px;
+      line-height: 1.35;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+    .masthead span:last-child { text-align: right; }
+    .intro {
+      padding-top: 23px;
+      padding-left: 0;
+      max-width: 1040px;
+    }
+    h1 {
+      margin: 0;
+      font-family: var(--sans);
+      font-weight: 500;
+      font-size: clamp(68px, 7.55vw, 108px);
+      line-height: .92;
+      letter-spacing: -.055em;
+      color: var(--ink);
+    }
+    .dek {
+      max-width: 650px;
+      margin: 20px 0 0;
+      color: var(--ink-mid);
+      font-size: 19px;
+      line-height: 1.5;
+    }
+    .index {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-top: 28px;
+    }
+    .entry {
+      --indent: 0%;
+      --gap: 98px;
+      width: calc(100% - var(--indent));
+      margin-left: var(--indent);
+      padding: 17px 0 18px;
+      border-top: 1px solid var(--rule);
+      display: grid;
+      grid-template-columns: minmax(96px, 13%) minmax(0, 1fr) minmax(180px, 27%);
+      column-gap: 26px;
+      align-items: start;
+      opacity: 1;
+      animation: appear 300ms linear both;
+      animation-delay: calc(var(--order) * 26ms + var(--text-delay));
+    }
+    .entry:last-child { border-bottom: 1px solid var(--rule); }
+    .entry:nth-child(1) { --indent: 0%; --text-delay: 0ms; --order: 0; margin-bottom: 98px; }
+    .entry:nth-child(2) { --indent: 3%; --text-delay: 12ms; --order: 1; margin-bottom: 58px; }
+    .entry:nth-child(3) { --indent: 5.5%; --text-delay: 26ms; --order: 2; margin-bottom: 72px; }
+    .entry:nth-child(4) { --indent: 2%; --text-delay: 7ms; --order: 3; margin-bottom: 98px; }
+    .entry:nth-child(5) { --indent: 7%; --text-delay: 40ms; --order: 4; margin-bottom: 58px; }
+    .entry:nth-child(6) { --indent: 4%; --text-delay: 18ms; --order: 5; margin-bottom: 72px; }
+    .entry:nth-child(7) { --indent: 1%; --text-delay: 30ms; --order: 6; margin-bottom: 0; padding-right: 12px; }
+    .num, .label, .meta {
+      font-family: var(--sans);
+      font-size: 12px;
+      line-height: 1.35;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .num { color: var(--ink-soft); }
+    .label { color: var(--ink-mid); }
+    .entry h2 {
+      margin: -4px 0 6px;
+      font-family: var(--serif);
+      font-size: clamp(21px, 2vw, 29px);
+      font-weight: 500;
+      line-height: 1.2;
+      letter-spacing: -.02em;
+    }
+    .entry p { margin: 0; max-width: 640px; color: var(--ink-mid); }
+    .meta { color: var(--ink-soft); text-align: right; }
+    .meta strong {
+      display: block;
+      margin-top: 5px;
+      color: var(--ink);
+      font-family: var(--serif);
+      font-size: 16px;
+      font-weight: 400;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+    .entry--call { background: var(--paper-lift); padding-left: 16px; padding-right: 16px; }
+    .call-link {
+      display: inline-block;
+      margin-top: 13px;
+      padding: 9px 13px 8px;
+      border: 1px solid var(--ink-mid);
+      color: var(--ink);
+      text-decoration: none;
+      font-family: var(--sans);
+      font-size: 13px;
+      letter-spacing: .08em;
+      transition: border-color 180ms linear;
+    }
+    .call-link:hover, .call-link:focus-visible { border-color: var(--rule); }
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      margin-top: 28px;
+      padding-top: 13px;
+      border-top: 1px solid var(--rule);
+      color: var(--ink-soft);
+      font-family: var(--sans);
+      font-size: 12px;
+      letter-spacing: .08em;
+    }
+    @keyframes appear { from { opacity: 0; } to { opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) {
+      .entry { animation: none; opacity: 1; }
+      .entry:nth-child(1) { margin-bottom: 104px; }
+      .entry:nth-child(2) { margin-bottom: 96px; }
+      .entry:nth-child(3) { margin-bottom: 112px; }
+      .entry:nth-child(4) { margin-bottom: 88px; }
+      .entry:nth-child(5) { margin-bottom: 120px; }
+      .entry:nth-child(6) { margin-bottom: 92px; }
+      .entry:nth-child(7) { margin-bottom: 0; }
+    }
+    @media (max-width: 720px) {
+      .page { padding: 22px 20px 30px; }
+      .masthead { font-size: 10px; }
+      h1 { font-size: clamp(61px, 20vw, 94px); }
+      .dek { font-size: 17px; margin-top: 16px; }
+      .index { margin-top: 22px; }
+      .entry, .entry:nth-child(n) {
+        width: calc(100% - var(--indent));
+        grid-template-columns: 48px minmax(0, 1fr);
+        column-gap: 12px;
+        padding-top: 14px;
+        padding-bottom: 16px;
+        margin-bottom: 42px;
+      }
+      .entry:last-child { margin-bottom: 0; }
+      .label { grid-column: 2; margin-bottom: 6px; }
+      .num { grid-row: span 2; }
+      .entry h2 { grid-column: 2; margin-top: 0; }
+      .entry p { grid-column: 2; margin-top: 8px; }
+      .meta { grid-column: 2; text-align: left; margin-top: 14px; }
+      .entry--call { padding-left: 10px; padding-right: 10px; }
+      .footer { font-size: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="masthead">
+      <span>档案 04 / 北纬零点</span>
+      <span>修鞋与配钥匙 / 独立店铺索引</span>
+    </header>
+
+    <section class="intro" aria-labelledby="page-title">
+      <h1 id="page-title">修鞋，配钥匙</h1>
+      <p class="dek">一间把日常物件修回原位的小店。请先电话说明来意，再让我们为你保留一段不被打断的时间。</p>
+    </section>
+
+    <section class="index" aria-label="店铺服务索引">
+      <article class="entry">
+        <div class="num">01</div>
+        <div class="label">店铺档案</div>
+        <div>
+          <h2>小修小补，认真完成</h2>
+          <p>鞋底、鞋跟、开胶、断线，以及那些还值得继续穿的旧物。我们先判断是否值得修，再动手。</p>
+        </div>
+        <div class="meta">工作原则<strong>先看实物，再报时间</strong></div>
+      </article>
+
+      <article class="entry">
+        <div class="num">02</div>
+        <div class="label">服务目录</div>
+        <div>
+          <h2>修鞋与配钥匙</h2>
+          <p>常见家用钥匙、鞋类基础维修、拉链与边缘加固均可先来电咨询。复杂项目以现场判断为准。</p>
+        </div>
+        <div class="meta">接受方式<strong>电话预约 / 到店确认</strong></div>
+      </article>
+
+      <article class="entry entry--call">
+        <div class="num">03</div>
+        <div class="label">预约记录</div>
+        <div>
+          <h2>请打电话，约一个时间</h2>
+          <p>告诉我们要修什么、要配什么，以及你方便到店的时段。电话里说清楚，现场就少等一会儿。</p>
+          <a class="call-link" href="tel:13800138000" aria-label="拨打 138 0013 8000">拨打 138 0013 8000</a>
+        </div>
+        <div class="meta">唯一行动<strong>现在打电话</strong></div>
+      </article>
+
+      <article class="entry">
+        <div class="num">04</div>
+        <div class="label">开放时间</div>
+        <div>
+          <h2>把时间留给手上的活</h2>
+          <p>周一至周六，09:30—18:30。午间可能短暂离店；来之前打一通电话，可以避免空跑。</p>
+        </div>
+        <div class="meta">营业日<strong>周日休息</strong></div>
+      </article>
+
+      <article class="entry">
+        <div class="num">05</div>
+        <div class="label">交付说明</div>
+        <div>
+          <h2>能当日完成的，不拖到明天</h2>
+          <p>钥匙通常可当场交付；修鞋按损坏程度安排。需要留店的物件，我们会在接件时说明取件时间。</p>
+        </div>
+        <div class="meta">判断依据<strong>材料与工序的实际耗时</strong></div>
+      </article>
+
+      <article class="entry">
+        <div class="num">06</div>
+        <div class="label">到店须知</div>
+        <div>
+          <h2>带上物件，也带上问题</h2>
+          <p>请尽量把需要处理的鞋、钥匙或锁具一并带来。若只是咨询，电话描述尺寸与用途即可开始。</p>
+        </div>
+        <div class="meta">现场承诺<strong>不夸大，不隐瞒</strong></div>
+      </article>
+
+      <article class="entry">
+        <div class="num">07</div>
+        <div class="label">下一期什么时候</div>
+        <div>
+          <h2>下一次见面，由电话决定</h2>
+          <p>我们不设线上排号，也不让你在表格里等待。每一次预约，都从一段简短、清楚的通话开始。</p>
+        </div>
+        <div class="meta">当前状态<strong>等待你的来电</strong></div>
+      </article>
+    </section>
+
+    <footer class="footer">
+      <span>索引结束 / 仍可来电</span>
+      <span>北纬零点 · 2024—</span>
+    </footer>
+  </main>
+</body>
+</html>
