@@ -1,0 +1,68 @@
+[
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "a39c96dd-253d-4437-8b1d-682ef18bd40a",
+      "update": {
+        "sessionUpdate": "agent_message_chunk",
+        "messageId": "60ab2341-8cd5-452a-abb8-8bd4ef27a32b",
+        "content": {
+          "type": "text",
+          "text": " "
+        }
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "a39c96dd-253d-4437-8b1d-682ef18bd40a",
+      "update": {
+        "sessionUpdate": "usage_update",
+        "used": 11039,
+        "size": 200000
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "a39c96dd-253d-4437-8b1d-682ef18bd40a",
+      "update": {
+        "sessionUpdate": "tool_call",
+        "toolCallId": "call_1b56fd2a156644a9bec6103c06f5e8d5",
+        "title": "glob",
+        "kind": "other",
+        "status": "in_progress",
+        "rawInput": {
+          "path": ".",
+          "pattern": "*"
+        }
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "a39c96dd-253d-4437-8b1d-682ef18bd40a",
+      "update": {
+        "sessionUpdate": "tool_call_update",
+        "toolCallId": "call_1b56fd2a156644a9bec6103c06f5e8d5",
+        "status": "completed",
+        "content": [
+          {
+            "type": "content",
+            "content": {
+              "type": "text",
+              "text": "No files found"
+            }
+          }
+        ]
+      }
+    }
+  }
+]
