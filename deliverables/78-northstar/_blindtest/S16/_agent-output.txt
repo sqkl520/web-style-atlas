@@ -1,0 +1,619 @@
+   <!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>街角修鞋配钥匙｜Northstar</title>
+<style>
+:root {
+  --red: #C52C0F;
+  --paper: #F7EBCF;
+  --ink: #1A1A1A;
+  --pressed: #8E2A18;
+  --ink-2: #5C5C55;
+  --line: 3px;
+}
+@font-face {
+  font-family: "LXGW Marker Gothic";
+  src: local("LXGW Marker Gothic");
+}
+@font-face {
+  font-family: "Noto Serif SC";
+  src: local("Noto Serif SC");
+}
+@font-face {
+  font-family: "Fragment Mono";
+  src: local("Fragment Mono");
+}
+* {
+  box-sizing: border-box;
+}
+html {
+  background: var(--paper);
+}
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: "Noto Serif SC", Georgia, "Songti SC", serif;
+  font-size: 20px;
+  line-height: .95;
+  overflow-x: hidden;
+  cursor: none;
+}
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  z-index: 20;
+  pointer-events: none;
+  background: var(--ink);
+}
+body::before {
+  width: 2px;
+  height: 18px;
+  left: var(--mx, -10px);
+  top: calc(var(--my, -10px) - 9px);
+  transform: rotate(12deg);
+}
+body::after {
+  width: 18px;
+  height: 2px;
+  left: calc(var(--mx, -10px) - 8px);
+  top: var(--my, -10px);
+  transform: rotate(12deg);
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+button {
+  font: inherit;
+}
+.page {
+  min-height: 100vh;
+  padding: 28px 5vw 44px;
+  position: relative;
+}
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: var(--line) solid var(--ink);
+  padding-bottom: 14px;
+  line-height: 1.1;
+}
+.masthead {
+  font-family: "LXGW Marker Gothic", "Noto Serif SC", serif;
+  font-size: 27px;
+  letter-spacing: .02em;
+}
+.meta,
+.mono {
+  font-family: "Fragment Mono", monospace;
+  font-variant-numeric: tabular-nums;
+}
+.meta {
+  font-size: 13px;
+  text-align: right;
+  line-height: 1.15;
+}
+.hero {
+  position: relative;
+  padding: 28px 0 24px;
+  min-height: 650px;
+}
+.hero-intro {
+  width: min(410px, 78vw);
+  position: relative;
+  z-index: 3;
+}
+.kicker {
+  color: var(--red);
+  font-family: "Fragment Mono", monospace;
+  font-size: 14px;
+  letter-spacing: .08em;
+  line-height: 1.1;
+}
+h1 {
+  margin: 16px 0 20px;
+  font-family: "LXGW Marker Gothic", "Noto Serif SC", serif;
+  font-size: clamp(62px, 8.6vw, 88px);
+  font-weight: 400;
+  line-height: .95;
+  letter-spacing: .02em;
+  max-width: 700px;
+}
+.lede {
+  font-size: 20px;
+  line-height: 1.35;
+  max-width: 350px;
+}
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 25px;
+  padding: 16px 19px 14px;
+  color: var(--paper);
+  background: var(--red);
+  border: var(--line) solid var(--red);
+  box-shadow: 7px 7px 0 var(--pressed);
+  line-height: 1;
+  cursor: pointer;
+  transition: box-shadow 180ms steps(2), transform 180ms steps(2);
+}
+.cta:hover {
+  box-shadow: 10px 10px 0 var(--pressed);
+  transform: translate(-3px, -3px);
+}
+.cta .mono {
+  font-size: 14px;
+}
+.slant-rail {
+  position: absolute;
+  left: 31%;
+  top: 28px;
+  width: 66%;
+  transform: skewY(-12deg);
+  transform-origin: left top;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+.word-block {
+  position: relative;
+  min-height: 74px;
+  display: flex;
+  align-items: center;
+  border: var(--line) solid var(--ink);
+  background: var(--paper);
+  filter: drop-shadow(8px 8px 0 var(--pressed));
+  transition: filter 180ms steps(2);
+  cursor: pointer;
+}
+.word-block::after {
+  content: "";
+  position: absolute;
+  left: 25%;
+  bottom: -9px;
+  width: 2px;
+  height: 2px;
+  background: var(--ink);
+  transform: translateX(var(--dot-shift));
+}
+.word-block:hover {
+  filter: drop-shadow(11px 11px 0 var(--pressed));
+}
+.word-block:hover .speed-lines,
+.word-block.is-scrolling .speed-lines {
+  display: block;
+}
+.block-content {
+  width: 100%;
+  padding: 13px 18px 11px;
+  transform: skewY(12deg);
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 14px;
+}
+.block-word {
+  font-family: "LXGW Marker Gothic", "Noto Serif SC", serif;
+  font-size: clamp(27px, 4vw, 48px);
+  line-height: .95;
+  white-space: nowrap;
+}
+.block-note {
+  font-size: 15px;
+  line-height: 1.15;
+  color: var(--ink-2);
+  text-align: right;
+  max-width: 180px;
+}
+.block-number {
+  position: absolute;
+  left: -14px;
+  top: -13px;
+  padding: 3px 6px 2px;
+  background: var(--red);
+  color: var(--paper);
+  font-size: 13px;
+  line-height: 1;
+  transform: skewY(12deg);
+  z-index: 2;
+}
+.speed-lines {
+  display: none;
+  position: absolute;
+  left: -26px;
+  top: 50%;
+  width: 18px;
+  height: 3px;
+  background: var(--red);
+  box-shadow: 0 -8px 0 var(--red), 0 8px 0 var(--red);
+}
+.w4 {
+  width: 46%;
+}
+.w6 {
+  width: 62%;
+}
+.w7 {
+  width: 72%;
+}
+.w9 {
+  width: 90%;
+}
+.w4 .block-content {
+  padding-right: 12px;
+}
+.w9 {
+  align-self: flex-end;
+}
+.track {
+  position: absolute;
+  left: 31%;
+  right: 0;
+  bottom: 13px;
+  border-bottom: 2px solid var(--ink);
+  transform: rotate(-12deg);
+  transform-origin: left;
+}
+.track-label {
+  position: absolute;
+  right: 0;
+  bottom: 12px;
+  font: 12px/1 "Fragment Mono", monospace;
+  transform: rotate(-12deg);
+}
+.pointer {
+  position: absolute;
+  left: 43%;
+  bottom: -7px;
+  width: 13px;
+  height: 13px;
+  background: var(--red);
+  transition: left 140ms steps(1);
+}
+.section-rule {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  border-top: 6px solid var(--ink);
+  padding-top: 13px;
+  margin-top: 6px;
+}
+.section-rule h2 {
+  margin: 0;
+  font-family: "LXGW Marker Gothic", "Noto Serif SC", serif;
+  font-size: 38px;
+  font-weight: 400;
+}
+.section-rule p {
+  margin: 0;
+  font-size: 15px;
+  color: var(--ink-2);
+  line-height: 1.15;
+}
+.cards {
+  display: grid;
+  grid-template-columns: 1.15fr .8fr 1fr;
+  gap: 22px;
+  margin-top: 22px;
+  align-items: stretch;
+}
+.card {
+  border: var(--line) solid var(--ink);
+  background: var(--paper);
+  position: relative;
+  filter: drop-shadow(6px 6px 0 var(--pressed));
+}
+.card-image {
+  display: block;
+  width: 100%;
+  height: 166px;
+  object-fit: cover;
+  border-bottom: var(--line) solid var(--ink);
+  background: var(--ink-2);
+}
+.card:nth-child(2) .card-image {
+  height: 202px;
+}
+.card-body {
+  padding: 15px 16px 17px;
+  line-height: 1.15;
+}
+.card-title {
+  margin: 0 0 10px;
+  font-family: "LXGW Marker Gothic", "Noto Serif SC", serif;
+  font-size: 28px;
+  line-height: .95;
+}
+.card p {
+  margin: 0;
+  font-size: 16px;
+}
+.card-price {
+  margin-top: 16px;
+  display: block;
+  text-align: right;
+  font: 18px/1 "Fragment Mono", monospace;
+}
+footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  border-top: var(--line) solid var(--ink);
+  margin-top: 30px;
+  padding-top: 12px;
+  font-size: 14px;
+  line-height: 1.2;
+}
+footer strong {
+  color: var(--red);
+  font-family: "LXGW Marker Gothic", "Noto Serif SC", serif;
+  font-size: 23px;
+  font-weight: 400;
+}
+@keyframes press {
+  0% {
+    transform: translate(-12px, 12px);
+  }
+  70% {
+    transform: translate(3px, -3px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+.word-block {
+  animation: press 330ms steps(3, end) both;
+  animation-delay: calc(var(--i) * 110ms);
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+  }
+  .speed-lines {
+    display: none !important;
+  }
+  .slant-rail {
+    transform: skewY(-12deg) translateY(calc(var(--scroll-y, 0px) * .5));
+  }
+}
+@media (max-width: 760px) {
+  body {
+    cursor: auto;
+  }
+  body::before,
+  body::after {
+    display: none;
+  }
+  .page {
+    padding: 18px 16px 32px;
+  }
+  .topbar {
+    align-items: flex-start;
+  }
+  .hero {
+    min-height: 0;
+    padding-bottom: 31px;
+  }
+  .hero-intro {
+    width: 100%;
+  }
+  h1 {
+    font-size: clamp(57px, 17vw, 78px);
+    max-width: 600px;
+  }
+  .slant-rail {
+    position: relative;
+    left: 6%;
+    top: auto;
+    width: 94%;
+    margin-top: 55px;
+    gap: 18px;
+  }
+  .word-block,
+  .w4,
+  .w6,
+  .w7,
+  .w9 {
+    width: 100%;
+  }
+  .block-note {
+    max-width: 44%;
+  }
+  .track {
+    position: relative;
+    left: 7%;
+    width: 93%;
+    bottom: auto;
+    margin-top: 38px;
+  }
+  .track-label {
+    bottom: -20px;
+  }
+  .pointer {
+    bottom: -7px;
+  }
+  .cards {
+    grid-template-columns: 1fr;
+    gap: 19px;
+  }
+  .card-image,
+  .card:nth-child(2) .card-image {
+    height: 190px;
+  }
+  footer {
+    flex-direction: column;
+  }
+}
+</style>
+</head>
+<body>
+<main class="page">
+  <header class="topbar">
+    <div class="masthead">北星修补站 / NORTHSTAR</div>
+    <div class="meta">街角 07:30—19:30<br>不接急单，只接好活</div>
+  </header>
+
+  <section class="hero" aria-labelledby="main-title">
+    <div class="hero-intro">
+      <div class="kicker">鞋底在喊 / 钥匙在响 / 现在就来</div>
+      <h1 id="main-title">鞋坏了？<br>钥匙呢？</h1>
+      <p class="lede">别把今天交给坏鞋底。把鞋、锁、还有那点不服输，统统带到街角来。</p>
+      <a class="cta" href="tel:010-5800-7716"><span class="mono">CALL 01</span><span>打电话，约个时间 →</span></a>
+    </div>
+
+    <div class="slant-rail" aria-label="服务项目">
+      <div class="word-block w9" style="--i:0;--dot-shift:0px" data-index="01">
+        <span class="block-number mono">01</span>
+        <span class="speed-lines"></span>
+        <div class="block-content">
+          <span class="block-word">补鞋底</span>
+          <span class="block-note">旧鞋不退场<br>再跑一轮</span>
+        </div>
+      </div>
+      <div class="word-block w6" style="--i:1;--dot-shift:1px" data-index="02">
+        <span class="block-number mono">02</span>
+        <span class="speed-lines"></span>
+        <div class="block-content">
+          <span class="block-word">配钥匙</span>
+          <span class="block-note">一拧就开<br>不和门较劲</span>
+        </div>
+      </div>
+      <div class="word-block w7" style="--i:2;--dot-shift:2px" data-index="03">
+        <span class="block-number mono">03</span>
+        <span class="speed-lines"></span>
+        <div class="block-content">
+          <span class="block-word">换鞋跟</span>
+          <span class="block-note">站稳了<br>气势才出来</span>
+        </div>
+      </div>
+      <div class="word-block w4" style="--i:3;--dot-shift:3px" data-index="04">
+        <span class="block-number mono">04</span>
+        <span class="speed-lines"></span>
+        <div class="block-content">
+          <span class="block-word">修拉链</span>
+          <span class="block-note">卡住的<br>给它一条路</span>
+        </div>
+      </div>
+      <div class="word-block w9" style="--i:4;--dot-shift:4px" data-index="05">
+        <span class="block-number mono">05</span>
+        <span class="speed-lines"></span>
+        <div class="block-content">
+          <span class="block-word">刻门牌</span>
+          <span class="block-note">你的门<br>要有自己的字</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="track" aria-hidden="true"><span class="pointer"></span></div>
+    <div class="track-label">TRACK / 01—05</div>
+  </section>
+
+  <section aria-labelledby="visit-title">
+    <div class="section-rule">
+      <h2 id="visit-title">带上它，来。</h2>
+      <p>五个动作，都是街坊每天会用到的硬招。</p>
+    </div>
+    <div class="cards">
+      <article class="card">
+        <img class="card-image" src="images/占位-1.jpg" width="720" height="400" alt="磨旧的皮鞋和修鞋工具">
+        <div class="card-body">
+          <h3 class="card-title">鞋底重做</h3>
+          <p>走路打滑、鞋底开口，别等它在雨里散架。先打电话，留一段时间给师傅。</p>
+          <span class="card-price">FROM 68</span>
+        </div>
+      </article>
+      <article class="card">
+        <img class="card-image" src="images/占位-2.jpg" width="520" height="500" alt="一串不同形状的钥匙">
+        <div class="card-body">
+          <h3 class="card-title">钥匙复制</h3>
+          <p>家门、信箱、车库。带原钥匙来，现场试到顺手为止。</p>
+          <span class="card-price">FROM 12</span>
+        </div>
+      </article>
+      <article class="card">
+        <img class="card-image" src="images/占位-3.jpg" width="640" height="400" alt="鞋跟和金属修补件">
+        <div class="card-body">
+          <h3 class="card-title">鞋跟换新</h3>
+          <p>高跟、皮靴、工作鞋，站不稳的那一下，我们把它按回地面。</p>
+          <span class="card-price">FROM 35</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <footer>
+    <div>
+      <strong>北星修补站</strong><br>
+      北京市东城区北新桥街 16 号 · 010-5800-7716
+    </div>
+    <div class="mono">
+      CALL INDEX / 01—05<br>
+      先约时间，再来敲门。
+    </div>
+  </footer>
+</main>
+
+<script>
+(function () {
+  const root = document.documentElement;
+  const rail = document.querySelector(".slant-rail");
+  const pointer = document.querySelector(".pointer");
+  const blocks = document.querySelectorAll(".word-block");
+  let ticking = false;
+
+  function moveRail() {
+    const y = window.scrollY || 0;
+    root.style.setProperty("--scroll-y", y + "px");
+
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      rail.style.transform = "skewY(-12deg) translateY(" + (y * y / 9000) + "px)";
+      blocks.forEach(function (block) {
+        block.classList.toggle("is-scrolling", y > 4);
+      });
+    }
+
+    pointer.style.left = (43 + Math.min(46, y / 10)) + "%";
+    ticking = false;
+  }
+
+  window.addEventListener("scroll", function () {
+    if (!ticking) {
+      window.requestAnimationFrame(moveRail);
+      ticking = true;
+    }
+  }, { passive: true });
+
+  blocks.forEach(function (block, i) {
+    block.addEventListener("click", function () {
+      block.animate(
+        [
+          { transform: "translate(-12px, 12px)" },
+          { transform: "translate(0, 0)" }
+        ],
+        {
+          duration: 240,
+          easing: "steps(2, end)"
+        }
+      );
+      pointer.style.left = (12 + i * 18) + "%";
+    });
+  });
+
+  document.addEventListener("mousemove", function (event) {
+    root.style.setProperty("--mx", event.clientX + "px");
+    root.style.setProperty("--my", event.clientY + "px");
+  });
+}());
+</script>
+</body>
+</html>

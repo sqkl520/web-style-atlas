@@ -85,8 +85,12 @@ function signature(value) {
  *
  * 这是本方案的核心：判据改了，这张表必须跟着改；表没跟上，普查会报
  * "产物里出现了你声明之外的形态" —— 那正是误报的前兆。
+ *
+ * ⚠️ 报告与判据的绑定是**人工维护**的，会有漂移。所以本脚本末尾会打印
+ * 每条判据在 score.mjs 里的行号，改判据时能对上。防漂移的机制在
+ * `--as-of` 里演示：表是可替换的，替换成历史版本就复现历史盲区。
  */
-const DECLARED = {
+const DECLARED_TODAY = {
   /* judgeRadius: corners(v) 剥 !important → 按空白切 → 每个必须是 /^0(px|em|rem|%)?$/ */
   'border-radius': {
     judge: 'judgeRadius (score.mjs:288)',
@@ -131,6 +135,54 @@ const DECLARED = {
     note: 'px/rem/em/calc/clamp/min/max；vw/vh/% 量不到（返回 0）',
   },
 };
+
+/* ── 历史声明表（从对应 commit 的 score.mjs 反推） ───────────────────────
+ *
+ * 用途：证明"如果当时就有这道闸门，它会报出后来出事的那一形态"。
+ * 这是本方案唯一能自证的证据 —— 不是"理论上能防"，是"回放当时的状态会红"。
+ *
+ * 每一版只写**当时判据真正能处理的成分**，多一个都算作弊。
+ */
+const DECLARED_ASOF = {
+  /* 9d5beff（修 #1 #2 之前）：judgeRadius 内联在 score() 里，
+   * 直接对整串做 /^0(px|em|rem|%)?$/ —— 不认识 !important，
+   * 也不做多值切分（`0 0 0 0` 整串比不过）。 */
+  '9d5beff': {
+    'border-radius': { judge: '(内联 v1, 9d5beff)', atoms: ['ZERO'], groups: 1, note: '只认整串恰好是 0' },
+    'border-width': { judge: '(内联 v1, 9d5beff)', atoms: ['LEN'], groups: 1, note: '属性名无词边界' },
+    'box-shadow': { judge: '(内联 v1, 9d5beff)', atoms: ['LEN', 'COLORFN', 'HEX', 'VAR', 'KW', 'ZERO', 'IMP'], groups: Infinity, note: '有 box-shadow 就算' },
+    gradient: { judge: '(v1, 9d5beff)', atoms: ['GKW:transparent', 'HEX', 'VAR', 'COLORFN', 'ZERO', 'LEN', 'KW', 'CALC'], groups: Infinity, note: '只看函数名' },
+    'font-family': { judge: '(v1, 9d5beff)', atoms: ['QUOTED', 'KW', 'VAR', 'OTHER:'], groups: Infinity, note: '首位字面比' },
+    'font-size': { judge: '(v1, 9d5beff)', atoms: ['LEN'], groups: 1, note: '只认 px 字面' },
+  },
+  /* e8e2bad（修 #3 #4 之后、#5 之前）：渐变已认同色与硬边透明，
+   * 但 stop 正则仍要求颜色后跟**一个带单位**的数值 —— 双位置 `0 3px` 断掉。 */
+  'e8e2bad': {
+    ...{
+      'border-radius': { judge: '(v2, e8e2bad)', atoms: ['ZERO', 'IMP'], groups: 1, note: '已剥 !important' },
+      'border-width': { judge: '(v2, e8e2bad)', atoms: ['LEN'], groups: 1, note: '已加词边界；仍只认 px 字面' },
+      'box-shadow': { judge: '(v2, e8e2bad)', atoms: ['LEN', 'COLORFN', 'HEX', 'VAR', 'KW', 'ZERO', 'IMP'], groups: Infinity, note: '已要求 blur>0' },
+      'font-family': { judge: '(v2, e8e2bad)', atoms: ['QUOTED', 'KW', 'VAR', 'OTHER:'], groups: Infinity, note: '首位字面比' },
+      'font-size': { judge: '(v2, e8e2bad)', atoms: ['LEN', 'CALC'], groups: 1, note: '已认 clamp' },
+    },
+    gradient: {
+      judge: '(v2, e8e2bad)',
+      atoms: ['GKW:transparent', 'HEX', 'VAR', 'COLORFN', 'ZERO', 'LEN', 'KW', 'CALC'],
+      groups: Infinity,
+      /* 关键：位置只认"带单位"的单个数值。`0 3px` 里的无量纲 0 让它多抓一个 stop，
+       * 于是"相邻边界重合"的判据失效。这一条正是 #6。 */
+      stopPositions: 'unit-required',
+      note: 'stop 位置必须带单位；双位置写法只解析到第一个',
+    },
+  },
+};
+
+let DECLARED = DECLARED_TODAY;
+const asof = (() => { const i = process.argv.indexOf('--as-of'); return i > 0 ? process.argv[i + 1] : null; })();
+if (asof) {
+  if (!DECLARED_ASOF[asof]) { console.error(`未知的历史版本 ${asof}；可选：${Object.keys(DECLARED_ASOF).join(' ')}`); process.exit(2); }
+  DECLARED = DECLARED_ASOF[asof];
+}
 
 /* ── 抽出所有声明 ──────────────────────────────────────────────────────── */
 function cssOf(html) {
@@ -247,6 +299,102 @@ console.log('\n' + '═'.repeat(70));
 console.log(`\n## 渐变函数体形态（${Object.values(gradCount).reduce((a, b) => a + b, 0)} 处）`);
 for (const [sig, n] of Object.entries(gradCount).sort((a, b) => b[1] - a[1])) {
   console.log(`   ${String(n).padStart(3)}  ${sig}`);
+}
+
+/* ── 关键一步：把"形态"接到"判据会不会误报"上 ────────────────────────────
+ *
+ * 只报"出现了未登记形态"还不够 —— 未登记不等于误报（有些是合规的）。
+ * 真正要回答的是：**这个形态，判据判对了吗？**
+ *
+ * 做法：对产物里真实出现的每一条 border-radius / border / box-shadow /
+ * gradient 声明，跑一次真实判据，把它的判定与"人读一眼就知道的答案"对齐。
+ *
+ * 但"人读一眼的答案"没法自动化。所以退一步，用**可机械判定的必要条件**：
+ *   圆角规则「全站一律 0」下，值里**只有一个 0**（任意零写法）→ 该合规。
+ *   若判据报违规 → 误报。
+ * 这类断言不需要知道全部答案，只需要几个**必然**的。这就是本探针的判据。
+ */
+console.log('\n' + '═'.repeat(70));
+console.log('\n## 必然断言：产物里真实出现的声明，判据判对了吗\n');
+
+function loadJudgesForCensus(asof) {
+  const { readFileSync: rf } = { readFileSync };
+  const path = asof
+    ? join(ROOT, `deliverables/78-northstar/_probe/_replay/score-${asof}.mjs`)
+    : join(ROOT, 'deliverables/78-northstar/_blindtest/score.mjs');
+  if (!existsSync(path)) return null;
+  const src = rf(path, 'utf8');
+  const cut = src.indexOf('/* ── 输出 ──');
+  const body = (cut > 0 ? src.slice(0, cut) : src)
+    .replace(/^#!.*\n/, '').replace(/^import .*$/gm, '')
+    .replace(/const ROOT = [\s\S]*?\n/, '').replace(/const BT = [\s\S]*?\n/, '');
+  try {
+    return new Function(body + `
+      return {
+        judgeRadius: (typeof judgeRadius==='function'?judgeRadius:null),
+        judgeLineWidth: (typeof judgeLineWidth==='function'?judgeLineWidth:null),
+        scoreGradient: (typeof scoreGradient==='function'?scoreGradient:null),
+      };`)();
+  } catch (e) { console.log('  ⚠️ 判据加载失败：' + e.message); return null; }
+}
+
+const J = loadJudgesForCensus(asof);
+if (!J) {
+  console.log('  （找不到对应版本的 score.mjs，跳过）');
+} else {
+  /* 断言 1：圆角「全站一律 0」下，单个零写法必须判合规 */
+  const P_RADIUS = '3. 圆角：全站一律 0，卡片、按钮全部方角。';
+  const zeroForms = ['0', '0px', '0em', '0rem', '0%', '0 !important', '0!important', '0 0 0 0', '0.0px'];
+  let radBad = 0;
+  for (const f of zeroForms) {
+    if (!J.judgeRadius) break;
+    const r = J.judgeRadius(P_RADIUS, `<style>.a{border-radius:${f}}</style>`);
+    if (r && r.violations > 0) { radBad++; console.log(`  ✗ 圆角合规写法被报违规：border-radius: ${f}`); }
+  }
+  if (J.judgeRadius && !radBad) console.log('  ✓ 圆角：9 种零写法全部判合规');
+
+  /* 断言 2：线宽——同一数值的 px 字面与 var() 必须等价 */
+  const P_LW = '5. 线宽只用这几级：1px、1.25px、2px。';
+  if (J.judgeLineWidth) {
+    const a = J.judgeLineWidth(P_LW, '<style>.a{border-top:6px solid #000}</style>');
+    const b = J.judgeLineWidth(P_LW, '<style>:root{--w:6px}.a{border-top:var(--w) solid #000}</style>');
+    const same = JSON.stringify(a.outside) === JSON.stringify(b.outside);
+    console.log(`  ${same ? '✓' : '✗'} 线宽：6px 字面 vs var(--w)=6px → ${JSON.stringify(a.outside)} / ${JSON.stringify(b.outside)}`);
+  }
+
+  /* 断言 4（最关键）：产物里**真实存在**的每一处 gradient，判据的 stop 正则
+   * 能不能看见它的全部颜色？看不见 → 那个颜色参与不了"同色判定"，
+   * 判据在这处 gradient 上就是瞎的。
+   *
+   * 这正是 #6/#7/#8 三处的共同形状，而且不需要我事先知道正确答案：
+   * 只问"这个 gradient 里有 N 个颜色 token，判据认出了几个"。
+   */
+  if (J.scoreGradient) {
+    /* ⚠️ 重要更正：`COLOR_TOKEN`（score.mjs:472）**包含** rgba()/hsl()，
+     * 所以 rgb 家族不是盲区 —— 我一开始以为它是，实测推翻了。
+     *
+     * 真正的盲区是**具名颜色**（`black` / `white` / `red`）与
+     * `currentColor`、`oklch()`、`color-mix()`：它们不在 COLOR_TOKEN 里。
+     * 后果不是"漏判成违规"，而是更隐蔽的一种 —— 颜色一个都认不出，
+     * allStops 为空，"同色"与"硬边"两道判据都不命中 → 默认算渐变。
+     * 也就是说：**用具名颜色写的画线会被报成渐变**。
+     *
+     * 实测（见 /tmp 复现）：linear-gradient(black,black) → hits=1；
+     * 同一件事写成 #000 → hits=0。这是 #4 的第二种形态，尚未在产物里出现，
+     * 但语法完全合法，随时可能被生成出来。 */
+    const P_G = '需要做渐变或纹理时只用同一色系里明度接近的两档，跨度不超过一档。';
+    const pairs = [
+      ['同色两端（画线）', 'linear-gradient(black,black)', 'linear-gradient(#000000,#000000)'],
+      ['硬边双色', 'linear-gradient(black 0 2px,white 2px 4px)', 'linear-gradient(#000000 0 2px,#FFFFFF 2px 4px)'],
+    ];
+    for (const [name, named, hexed] of pairs) {
+      const a = J.scoreGradient(P_G, `<style>.a{background:${named}}</style>`).hits;
+      const b = J.scoreGradient(P_G, `<style>.a{background:${hexed}}</style>`).hits;
+      const same = a === b;
+      console.log(`  ${same ? '✓' : '✗'} 渐变${name}：具名颜色 hits=${a} vs hex hits=${b}`);
+      if (!same) console.log(`        具名颜色不在 COLOR_TOKEN 里 → 颜色认不出 → 默认算渐变（误报）`);
+    }
+  }
 }
 
 console.log(`\n${'─'.repeat(70)}`);
