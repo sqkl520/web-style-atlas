@@ -393,6 +393,9 @@ function score(id) {
 
   /* ── ③ 几何 ──────────────────────────────────────────────────────── */
   const geo = {};
+  /* 未判清单。每条判据在自己的三态结果是"判不了"时往这里 push，
+   * 汇总统一从它取 —— 见文件末尾 out.undecided 处那段病史注释。 */
+  const undecided = [];
   /* 圆角：提示词「圆角：全站一律 0」。查 HTML 有没有非 0 的 border-radius。
    *
    * ⚠️ 2026-11-21 修两处误报（实测 S21 报「违反 1 条」而它写的是正确的）：
@@ -506,6 +509,9 @@ function score(id) {
     items: judgeItems(prompt, html),
     pictures: judgePictures(prompt, html),
   };
+  /* 结构与未判：在这里声明，不让输出层记（见 out.undecided 处的病史注释） */
+  if (out.structure.items && out.structure.items.hit === null) undecided.push('条目');
+  if (out.structure.pictures && out.structure.pictures.hit === null) undecided.push('图片');
 
   /* ── ⑤ 禁项 ──────────────────────────────────────────────────────── */
   const banned = [];
@@ -532,11 +538,28 @@ function score(id) {
   const fc = judgeFontChain(prompt, html);
   out.fontChain = fc;
   if (fc && fc.outside.length) banned.push({ rule: '字体链外', hits: fc.outside.length, families: fc.outside });
+  if (fc && fc.undecided) undecided.push('字体链');
   /* 渐变明度跨度：与上面「渐变受限」是两条不同的禁令，
    * 那条查有没有渐变，这条查两端明度差。 */
   const gs = judgeGradientSpan(prompt, html);
   out.gradientSpan = gs;
   if (gs && gs.over.length) banned.push({ rule: '渐变跨度过大', hits: gs.over.length, spans: gs.over.map((s) => s.span) });
+  if (gs && gs.undecided) undecided.push('明度跨度');
+  /* 渐变措辞一版都认不出来 = 没判 */
+  if (out.gradientChecked === null) undecided.push('渐变');
+  /* ── 未判清单：由判据自己声明，不靠输出层记 ──────────────────────────
+   *
+   * ⚠️ 这一段的历史：原来「未判」是在输出循环里散落 push 的 ——
+   *   图片一处、条目一处、字体链一处、明度跨度一处、渐变一处，共五处。
+   * 结果是**每加一条判据就得记得加一行**，我漏了两次：
+   *   · 加字体链时漏了汇总，行内显示「未判」而末尾说「没有未判项」；
+   *   · 加明度跨度时又漏了一次。
+   * 两次都是同一个病：**行内说了实话，汇总把实话抹掉了**。
+   *
+   * 现在改成判据自己往 `undecided` 里写，`score()` 把它作为返回值的一部分
+   * 带出去。加新判据时只要在那条判据里写一句 `undecided.push(...)`，
+   * 汇总自动跟上 —— 不需要再记得改第二个地方。 */
+  out.undecided = undecided;
   out.banned = banned;
 
   return out;
@@ -554,6 +577,18 @@ function score(id) {
  *
  *   node score.mjs --selftest
  */
+/* 自测要举一个真实案来验 score() 的返回结构。挑第一个有产物的，
+ * 找不到就返回 null（那条断言会红，提示"自测环境不完整"）。 */
+function idsForSelftest() {
+  try {
+    const withHtml = readdirSync(BT, { withFileTypes: true })
+      .filter((d) => d.isDirectory() && /^S\d/.test(d.name))
+      .map((d) => d.name)
+      .filter((id) => ['index.html', 'out.html'].some((f) => existsSync(join(BT, id, f))));
+    return withHtml[0] || null;
+  } catch { return null; }
+}
+
 function selfTest() {
   const S = [];
   const eq = (name, got, want) => S.push([name, JSON.stringify(got) === JSON.stringify(want), got, want]);
@@ -707,6 +742,19 @@ function selfTest() {
   const diffVars = '<style>.a{background:linear-gradient(var(--a),var(--b))}</style>';
   eq('⑤/不同变量的两端按真渐变处理', scoreGradient(gNew, diffVars).hits, 1);
 
+  /* ── 结构性断言：未判清单必须由判据自己带出来，不能靠输出层记 ──
+   *
+   * 这条不是测某个判据对不对，而是测**加判据的方式**对不对。
+   * 病史：未判原来是散落在输出循环里 push 的，我加字体链和明度跨度时
+   * 各漏了一次，两次都表现为「行内说未判、汇总说没有」。
+   *
+   * 现在 score() 返回 undecided 数组，输出层只做 `for (const k of r.undecided)`。
+   * 这条断言检查那个数组真的存在且是数组 —— 如果哪天有人把声明删了、
+   * 退回散落 push 的写法，这条会红。 */
+  const sampleR = score(idsForSelftest());
+  S.push(['结构/score() 必须返回 undecided 数组',
+    Array.isArray(sampleR && sampleR.undecided), sampleR && typeof sampleR.undecided, 'array']);
+
   const bad = S.filter(([, ok]) => !ok);
   for (const [name, ok, got, want] of S) {
     console.log(`  ${ok ? '✓' : '✗'} ${name}`);
@@ -781,16 +829,10 @@ for (const id of ids) {
     } else {
       console.log(`     图片   要求 ≥${s.want} 个不同图片位；实得 ${s.got} 个 img（唯一 src ${s.uniq}）${mark(s.hit)}`);
     }
-    /* 全案汇总用得上：把"未判"累计出来，免得又是"全绿"其实是"没跑"。 */
-    if (s && s.hit === null) UNDECIDED.push(`${id}/图片`);
+    /* 全案汇总用的未判清单现在由 score() 自己带出来（out.undecided），
+     * 不再在这里 push —— 见 out.undecided 处的病史注释。 */
   }
-  if (r.structure.items && r.structure.items.hit === null) UNDECIDED.push(`${id}/条目`);
-  /* ⚠️ 字体链的"未判"也必须进这个汇总。
-   * 第一版只在行内显示「字体链 – 未判」，而末尾汇总仍说「没有未判项」——
-   * 于是最后一行又把"没判"读成了"通过"，正是这一整轮在治的那个病。 */
-  if (r.fontChain && r.fontChain.undecided) UNDECIDED.push(`${id}/字体链`);
-  if (r.gradientSpan && r.gradientSpan.undecided) UNDECIDED.push(`${id}/明度跨度`);
-  if (r.gradientChecked === null) UNDECIDED.push(`${id}/渐变`);
+  /* 旧的三处散落 push 已移除，改由判据各自声明。 */
   /* ⑤
    * 渐变那条要显示"匹配到哪一版措辞"。如果一版都没匹配到，就是**没判**，
    * 不能写成"无违反" —— 那正是这条判据过去几个月的样子。 */
@@ -808,6 +850,9 @@ for (const id of ids) {
     : r.gradientSpan.over.length ? `　〔跨度过大：${r.gradientSpan.over.map((s) => s.span).join(' ')}（阈值 ${r.gradientSpan.threshold}）〕`
     : `　〔明度跨度 ${r.gradientSpan.spans.map((s) => s.span).join(' ')}，均在阈值内〕`;
   console.log(`  ⑤ 禁项   ${r.banned.length ? r.banned.map((b) => b.rule + '×' + b.hits + (b.families ? '(' + b.families.join(',') + ')' : '')).join('；') : '无违反'}${gradNote}${fcNote}${gsNote}`);
+  /* 汇总：直接取判据自己声明的清单，不在这里逐个判据重新判断。
+   * 加新判据时只要那条判据往 undecided 里写过，这里自动跟上。 */
+  for (const k of r.undecided || []) UNDECIDED.push(`${id}/${k}`);
 }
 
 if (ids.length > 1) {
