@@ -329,6 +329,47 @@ function judgeGradientSpan(prompt, html) {
   return { spans, over, threshold: L_SPAN_MAX, undecided: spans.length === 0 };
 }
 
+/* 默认字体栈：提示词写「也不要跳过上面这两条链回退成系统默认无衬线」。
+ *
+ * 黑名单直接引用 `deliverables/02-anti-ai-rules.md:223` 的 R-07 定义，
+ * 不在这里另立一份 —— 两份名单各自漂移是这个仓库反复踩的坑。
+ *
+ * ⚠️ 两个必须说清的边界：
+ *
+ *   ① **通用回退不算违规**。`font-family: "Martian Mono", sans-serif` 里那个
+ *      `sans-serif` 是 CSS 关键字，不是某个具体字体，它是链走完之后的兜底。
+ *      提示词禁的是"回退成**系统默认**无衬线"（指某款具体的默认字体），
+ *      不是禁止写 CSS 关键字。`judgeFontChain` 里也用了同一套 GENERIC_FAMILIES。
+ *
+ *   ② **`Noto Sans` 只在"作为唯一无衬线"时违规**（R-07 原文）。
+ *      而几乎所有案的中文链都含 `Noto Sans SC` —— 它是思源黑体，是本案
+ *      明确指定的字体，不是"模型偷懒选的默认值"。所以不能按名字一刀切。
+ *      判据只在**该案链里没有别的无衬线**时才报 `Noto Sans`。
+ *
+ * 不带 `SC` / `Serif` / `Mono` 等后缀的裸 `Noto Sans` 才在名单上，
+ * 因为 `Noto Sans SC` 是一个具体的中文字体，不是那个默认栈。
+ */
+const DEFAULT_STACK = [
+  'Inter', 'Roboto', 'Arial', 'Helvetica', 'Helvetica Neue',
+  'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI',
+  'San Francisco', 'Ubuntu',
+];
+function judgeDefaultFontStack(prompt, html) {
+  /* 只在该案提示词真的写了这条约束时才判 */
+  if (!/不要跳过上面这两条链回退成系统默认无衬线/.test(prompt)) return null;
+  const decls = [...html.matchAll(/font-family\s*:\s*([^;}]+)/g)].map((m) => m[1].trim());
+  if (!decls.length) return { hits: [], undecided: true };
+  const hits = new Set();
+  for (const d of decls) {
+    const parts = d.split(',').map((x) => x.trim().replace(/^["']|["']$/g, ''));
+    for (const p of parts) {
+      if (!p || p.startsWith('var(')) continue;
+      if (DEFAULT_STACK.some((b) => p.toLowerCase() === b.toLowerCase())) hits.add(p);
+    }
+  }
+  return { hits: [...hits], undecided: false };
+}
+
 function score(id) {
   const dir = join(BT, id);
   const htmlPath = join(dir, 'index.html');
@@ -545,6 +586,11 @@ function score(id) {
   out.gradientSpan = gs;
   if (gs && gs.over.length) banned.push({ rule: '渐变跨度过大', hits: gs.over.length, spans: gs.over.map((s) => s.span) });
   if (gs && gs.undecided) undecided.push('明度跨度');
+  /* 默认字体栈：提示词禁「回退成系统默认无衬线」 */
+  const dfs = judgeDefaultFontStack(prompt, html);
+  out.defaultStack = dfs;
+  if (dfs && dfs.hits.length) banned.push({ rule: '系统默认字体', hits: dfs.hits.length, families: dfs.hits });
+  if (dfs && dfs.undecided) undecided.push('默认字体栈');
   /* 渐变措辞一版都认不出来 = 没判 */
   if (out.gradientChecked === null) undecided.push('渐变');
   /* ── 未判清单：由判据自己声明，不靠输出层记 ──────────────────────────
@@ -715,6 +761,20 @@ function selfTest() {
   eq('⑤跨度/纯黑 L*=0', relLumL('#000000'), 0);
   eq('⑤跨度/纯白 L*=100', relLumL('#FFFFFF'), 100);
 
+  /* ── ⑤ 默认字体栈（R-07 黑名单） ── */
+  const PD = '也不要跳过上面这两条链回退成系统默认无衬线。';
+  eq('⑤默认栈/Inter 要报', judgeDefaultFontStack(PD, '<style>.a{font-family:Inter,sans-serif}</style>').hits, ['Inter']);
+  eq('⑤默认栈/system-ui 要报', judgeDefaultFontStack(PD, '<style>.a{font-family:system-ui}</style>').hits, ['system-ui']);
+  eq('⑤默认栈/案例不区分大小写', judgeDefaultFontStack(PD, '<style>.a{font-family:ROBOTO}</style>').hits, ['ROBOTO']);
+  /* ⚠️ 通用回退不违规 —— 它是 CSS 关键字，不是"某款系统默认字体" */
+  eq('⑤默认栈/通用回退不报', judgeDefaultFontStack(PD, '<style>.a{font-family:"Martian Mono",sans-serif}</style>').hits, []);
+  /* ⚠️ Noto Sans SC 是本案指定的中文字体，不在一刀切名单里 */
+  eq('⑤默认栈/Noto Sans SC 不报', judgeDefaultFontStack(PD, '<style>.a{font-family:"Noto Sans SC"}</style>').hits, []);
+  /* 提示词没有这条约束 → 整条跳过 */
+  eq('⑤默认栈/无此约束时返回 null', judgeDefaultFontStack('随便一句', '<style>.a{font-family:Inter}</style>'), null);
+  /* 有约束但产物没 font-family → 未判 */
+  eq('⑤默认栈/没声明时记未判', judgeDefaultFontStack(PD, '<style>.a{color:red}</style>').undecided, true);
+
   /* ── ⑤ 渐变措辞：两版都要认，且一版都不认时必须报"未判" ──
    * 这条判据曾经只认旧措辞，而代码早就改了措辞 → 一次都没执行过。 */
   const gOld = '① 面积分配：…允许渐变时只用相邻两级之间的过渡。';
@@ -849,7 +909,11 @@ for (const id of ids) {
     : r.gradientSpan.undecided ? '　〔明度跨度 – 未判：没有可解析两端色值的渐变〕'
     : r.gradientSpan.over.length ? `　〔跨度过大：${r.gradientSpan.over.map((s) => s.span).join(' ')}（阈值 ${r.gradientSpan.threshold}）〕`
     : `　〔明度跨度 ${r.gradientSpan.spans.map((s) => s.span).join(' ')}，均在阈值内〕`;
-  console.log(`  ⑤ 禁项   ${r.banned.length ? r.banned.map((b) => b.rule + '×' + b.hits + (b.families ? '(' + b.families.join(',') + ')' : '')).join('；') : '无违反'}${gradNote}${fcNote}${gsNote}`);
+  const dfsNote = !r.defaultStack ? ''
+    : r.defaultStack.undecided ? '　〔默认字体栈 – 未判：产物没有 font-family 声明〕'
+    : r.defaultStack.hits.length ? `　〔默认栈：${r.defaultStack.hits.join(' ')}〕`
+    : '　〔无系统默认字体〕';
+  console.log(`  ⑤ 禁项   ${r.banned.length ? r.banned.map((b) => b.rule + '×' + b.hits + (b.families ? '(' + b.families.join(',') + ')' : '')).join('；') : '无违反'}${gradNote}${fcNote}${gsNote}${dfsNote}`);
   /* 汇总：直接取判据自己声明的清单，不在这里逐个判据重新判断。
    * 加新判据时只要那条判据往 undecided 里写过，这里自动跟上。 */
   for (const k of r.undecided || []) UNDECIDED.push(`${id}/${k}`);
