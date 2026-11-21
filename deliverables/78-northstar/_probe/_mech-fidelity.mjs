@@ -121,6 +121,30 @@ function judge(mechanism, html) {
   const D = declaredNumbers(decl);
   const S = declaredNumbers(script);
   const C = declaredNumbers(comments);
+  /* 百分比 ↔ 像素的等价换算（2026-11-22 加）。
+   *
+   * 实测 S15：机制句写「图例挂 9–12 栏、高度只到图幅 **62%**」，
+   * 产物写的是 `.legend{height:403px}` 而图幅是 `height:650px`。
+   * 403 / 650 = 62.0% —— 换算完全正确，但字面值对不上，判据报「缺 62%」。
+   *
+   * 这与 §二十七 的字体锚点是同一个病：判据在量**字面**，而实现用的是**等价形式**。
+   *
+   * 做法：从产物里抽出所有 px 高度，以及容器的 px 高度，
+   * 算它们的比值；若机制句里的百分比能被某个比值命中（±0.5%），算实现。
+   *
+   * ⚠️ 局限：只对**高度/宽度**这类有明确参照的含义成立，而且参照物要能猜到。
+   * 所以只在 D.pct 里找不到时才走这条退路，且结果标成 'hit'(pct≈px)，
+   * 在输出里单独说明是换算命中的，不假装是字面命中。 */
+  const pxHeights = [...new Set([...decl.matchAll(/(?:^|[;{\s])height\s*:\s*(\d+(?:\.\d+)?)px/g)].map((m) => Number(m[1])))];
+  const pctApprox = [];
+  for (const a of pxHeights) {
+    for (const b of pxHeights) {
+      if (b > a && b > 0) {
+        const r = (a / b) * 100;
+        if (r > 1 && r < 100) pctApprox.push({ pct: r, from: a, of: b });
+      }
+    }
+  }
   const toks = [...new Set(mechanism.match(NUM_RE) || [])];
   const rows = [];
   for (const tok of toks) {
@@ -136,11 +160,17 @@ function judge(mechanism, html) {
     }
     const inSet = (set) => vals.some((v) => set.has(Number(v).toFixed(2)));
     /* 百分比只跟百分比集合比；长度只跟长度集合比 —— 单位不能串 */
-    const state = (isPct ? inSet(D.pct) : inSet(D.len)) ? 'hit'
+    let state = (isPct ? inSet(D.pct) : inSet(D.len)) ? 'hit'
       : (isPct ? inSet(S.pct) : inSet(S.len)) ? 'script'
       : (isPct ? inSet(C.pct) : inSet(C.len)) ? 'comment'
       : 'absent';
-    rows.push({ tok, state });
+    /* 百分比的退路：能不能由两个 px 高度比值命中 */
+    let approx = null;
+    if (state === 'absent' && isPct) {
+      const near = pctApprox.find((x) => Math.abs(x.pct - num) <= 0.5);
+      if (near) { state = 'hit'; approx = near; }
+    }
+    rows.push({ tok, state, approx });
   }
   const hit = rows.filter((r) => r.state === 'hit').length;
   const soft = rows.filter((r) => r.state === 'script' || r.state === 'comment').length;
@@ -168,6 +198,18 @@ function selfTest() {
   /* 完全没有 → absent */
   const j6 = judge('7px', '<style>.a{color:red}</style>');
   eq('完全没有记 absent', j6.rows[0].state, 'absent');
+  /* ⚠️ 百分比 ↔ px 等价换算。实测 S15：机制句「高度只到图幅 62%」，
+   * 产物写 .legend{height:403px} 而图幅 height:650px，403/650=62.0%。
+   * 这是正确实现，字面值对不上。 */
+  const j7 = judge('62%', '<style>.legend{height:403px}.plate{height:650px}</style>');
+  eq('百分比可由两个px比值命中', j7.rows[0].state, 'hit');
+  eq('换算中标记了来源', j7.rows[0].approx && j7.rows[0].approx.from, 403);
+  /* 但不相近的比值不能命中 —— 否则等于判据恒真 */
+  const j8 = judge('62%', '<style>.a{height:200px}.b{height:650px}</style>');
+  eq('比值不符仍记 absent', j8.rows[0].state, 'absent');
+  /* px 与百分比不串：62% 不能被 width:62px 满足 */
+  const j9 = judge('62%', '<style>.a{width:62px}</style>');
+  eq('百分比不被同数字的 px 满足', j9.rows[0].state, 'absent');
   /* 变异：同一个输入两次结果必须一致 */
   eq('幂等', JSON.stringify(judge('12px 34%', '<style>.a{width:12px}</style>')),
     JSON.stringify(judge('12px 34%', '<style>.a{width:12px}</style>')));
