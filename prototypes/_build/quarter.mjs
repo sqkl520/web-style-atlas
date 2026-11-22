@@ -125,8 +125,16 @@ const STEPS = [
   { id: 'selftest-quality', label: '自测：质量分布闸门', kind: 'gate', script: join(B, 'check-quality-distribution.mjs'), args: ['--selftest'] },
   { id: 'selftest-image-slots', label: '自测：图片位闸门', kind: 'gate', script: join(B, 'check-image-slots.mjs'), args: ['--selftest'] },
   { id: 'selftest-audit-prescription', label: '自测：audit 改写闸门', kind: 'gate', script: join(ROOT, 'deliverables/78-northstar/_probe/_check-audit-prescription.mjs'), args: ['--selftest'] },
+  { id: 'selftest-image-area', label: '自测：图片面积闸门', kind: 'gate', script: join(B, 'check-image-area.mjs'), args: ['--selftest'] },
 
   { id: 'probe-ui', label: '运行时探针（真浏览器）', kind: 'slow', script: join(B, 'probe-ui.mjs') },
+  /* 2026-11-22 新增：图片位面积（真浏览器）。
+   * 这是**第一条只能在渲染层看见的判据** —— 源码判据数 <img> 标签个数，
+   * 而实测 S21 有 6 个标签却只有 120×100 的盒子（原型 909×342，面积差 19 倍），
+   * 源码层报「图片 6/5 达标 ✓」。
+   * 用「图片面积 / (1440×页高)」的份额比，不判绝对面积（会被页高差污染）。
+   * 正对照：35 个原型自比全 1.00。 */
+  { id: 'check-image-area', label: '图片位面积（真浏览器）', kind: 'slow', script: join(B, 'check-image-area.mjs') },
 ];
 
 /* ── 跑一步 ─────────────────────────────────────────────────────────── */
