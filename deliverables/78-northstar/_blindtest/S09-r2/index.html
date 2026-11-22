@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>铁皮鞋钥匙铺 · 先打电话，别让鞋等急了</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Syne:wght@700;800&display=swap');
+
+    :root {
+      --blue: #1F4E79;
+      --yellow: #F5C842;
+      --ink: #151310;
+      --rust: #8A4B24;
+      --board-shadow: 7px 7px 0 var(--ink);
+      --line: 3px solid var(--ink);
+      --heavy-line: 3.5px solid var(--ink);
+    }
+
+    * {
+      box-sizing: border-box;
+      border-radius: 0 !important;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--yellow);
+    }
+
+    body {
+      margin: 0;
+      background: var(--yellow);
+      color: var(--ink);
+      font-family: "LXGW Marker Gothic", "Syne";
+      font-size: 16px;
+      line-height: 1.35;
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cpath d='M3 3h14v5H3zM7 8v9M13 8v9' fill='none' stroke='%23151310' stroke-width='3'/%3E%3C/svg%3E") 3 3, crosshair;
+    }
+
+    a,
+    button {
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cpath d='M3 3h14v5H3zM7 8v9M13 8v9' fill='none' stroke='%23151310' stroke-width='3'/%3E%3C/svg%3E") 3 3, pointer;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      width: min(1440px, 100%);
+      margin: 0 auto;
+      padding: 24px 34px 52px;
+      overflow: hidden;
+    }
+
+    .top-strip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 44px;
+      border-top: 3px solid var(--ink);
+      border-bottom: 3px solid var(--ink);
+      letter-spacing: 0.08em;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .top-strip span:last-child {
+      font-family: "JetBrains Mono";
+      font-size: 12px;
+      letter-spacing: 0.02em;
+    }
+
+    header {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr;
+      gap: 28px;
+      align-items: end;
+      padding: 35px 0 42px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      width: fit-content;
+      padding: 5px 10px;
+      background: var(--blue);
+      color: var(--yellow);
+      border: 3px solid var(--ink);
+      box-shadow: 5px 5px 0 var(--ink);
+      font-weight: 800;
+      transform: rotate(-1.5deg);
+    }
+
+    h1 {
+      max-width: 900px;
+      margin: 18px 0 16px;
+      font-family: "LXGW Marker Gothic", "Syne";
+      font-size: clamp(62px, 10vw, 97px);
+      line-height: 0.88;
+      letter-spacing: -0.07em;
+      text-align: left;
+      text-wrap: balance;
+    }
+
+    .intro {
+      max-width: 660px;
+      margin: 0;
+      font-size: 19px;
+      font-weight: 700;
+    }
+
+    .header-note {
+      align-self: center;
+      border-left: 3.5px solid var(--ink);
+      padding: 18px 0 18px 22px;
+      transform: rotate(1.5deg);
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .header-note strong {
+      display: block;
+      margin-bottom: 8px;
+      font-family: "JetBrains Mono";
+      font-size: 28px;
+      line-height: 1;
+    }
+
+    .hero-line {
+      height: 3.5px;
+      background: var(--ink);
+      box-shadow: 0 7px 0 var(--rust);
+      margin-bottom: 34px;
+    }
+
+    .price-list {
+      display: grid;
+      gap: 25px;
+      padding-bottom: 20px;
+    }
+
+    .price-row {
+      --tilt: 1.5deg;
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(210px, 0.92fr) minmax(280px, 1.5fr) minmax(130px, 0.55fr) minmax(155px, 0.7fr);
+      gap: 18px;
+      align-items: center;
+      min-height: 186px;
+      padding: 22px 25px 25px;
+      border: 3.5px solid var(--ink);
+      background: var(--yellow);
+      box-shadow: var(--board-shadow);
+      transform: rotate(var(--tilt));
+      isolation: isolate;
+      overflow: hidden;
+      clip-path: polygon(0 0, 93.9% 0, 100% 6.2%, 100% 100%, 5.8% 100%, 0 94%);
+    }
+
+    .price-row:nth-child(2) {
+      --tilt: -1.5deg;
+      grid-template-columns: minmax(230px, 1.05fr) minmax(260px, 1.25fr) minmax(150px, 0.62fr) minmax(155px, 0.7fr);
+      padding-left: 35px;
+    }
+
+    .price-row:nth-child(3) {
+      --tilt: 1.5deg;
+      grid-template-columns: minmax(190px, 0.78fr) minmax(280px, 1.55fr) minmax(140px, 0.55fr) minmax(160px, 0.72fr);
+      padding-left: 29px;
+    }
+
+    .price-row:nth-child(4) {
+      --tilt: -1.5deg;
+      grid-template-columns: minmax(250px, 1.12fr) minmax(245px, 1.12fr) minmax(155px, 0.65fr) minmax(155px, 0.68fr);
+      padding-left: 39px;
+    }
+
+    .price-row:nth-child(5) {
+      --tilt: 1.5deg;
+      grid-template-columns: minmax(220px, 0.95fr) minmax(285px, 1.42fr) minmax(145px, 0.57fr) minmax(160px, 0.7fr);
+      padding-left: 31px;
+    }
+
+    .price-row::before,
+    .price-row::after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      background: var(--rust);
+      pointer-events: none;
+    }
+
+    .price-row::before {
+      left: 0;
+      top: 0;
+      width: 22px;
+      height: 16px;
+      clip-path: polygon(0 0, 100% 0, 75% 100%, 0 85%);
+    }
+
+    .price-row::after {
+      right: 0;
+      bottom: 0;
+      width: 24px;
+      height: 18px;
+      clip-path: polygon(25% 0, 100% 14%, 100% 100%, 0 100%);
+    }
+
+    .row-number {
+      position: absolute;
+      top: 8px;
+      right: 13px;
+      color: var(--blue);
+      font-family: "JetBrains Mono";
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .service-name {
+      align-self: stretch;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-right: 3px solid var(--ink);
+      padding-right: 18px;
+    }
+
+    .service-name h2 {
+      margin: 0;
+      font-size: clamp(29px, 3.2vw, 48px);
+      line-height: 0.95;
+      letter-spacing: -0.05em;
+    }
+
+    .service-name small {
+      margin-top: 10px;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .detail {
+      align-self: stretch;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+      padding: 4px 0;
+    }
+
+    .detail p {
+      margin: 0;
+      font-weight: 700;
+    }
+
+    .detail .note {
+      color: var(--blue);
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .amount {
+      display: flex;
+      align-items: baseline;
+      justify-content: flex-end;
+      gap: 7px;
+      align-self: center;
+      white-space: nowrap;
+      font-family: "JetBrains Mono";
+      font-variant-numeric: tabular-nums;
+      text-align: right;
+    }
+
+    .amount strong {
+      font-size: clamp(30px, 4vw, 54px);
+      line-height: 0.9;
+      letter-spacing: -0.08em;
+    }
+
+    .amount span {
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .photo {
+      width: 100%;
+      height: 116px;
+      object-fit: cover;
+      border: 3px solid var(--ink);
+      filter: sepia(1) saturate(0.75) contrast(1.1);
+      background: var(--blue);
+      box-shadow: 4px 4px 0 var(--rust);
+    }
+
+    .correction {
+      position: absolute;
+      left: 22px;
+      bottom: 7px;
+      z-index: 3;
+      display: block;
+      width: 51px;
+      height: 17px;
+      transform: rotate(-7deg);
+      pointer-events: none;
+    }
+
+    .correction i {
+      position: absolute;
+      display: block;
+      height: 8px;
+      background: var(--ink);
+      border: 2px solid var(--ink);
+    }
+
+    .correction i:nth-child(1) {
+      left: 0;
+      top: 7px;
+      width: 44px;
+      transform: rotate(8deg);
+    }
+
+    .correction i:nth-child(2) {
+      left: 5px;
+      top: 3px;
+      width: 41px;
+      transform: rotate(-11deg);
+    }
+
+    .correction i:nth-child(3) {
+      left: 12px;
+      top: 0;
+      width: 32px;
+      transform: rotate(6deg);
+    }
+
+    .correction b {
+      position: absolute;
+      left: 52px;
+      top: 2px;
+      color: var(--rust);
+      font-family: "JetBrains Mono";
+      font-size: 10px;
+      text-decoration: line-through;
+    }
+
+    .price-row .draw-line {
+      position: absolute;
+      inset: 0;
+      border: 3px solid var(--blue);
+      clip-path: polygon(0 0, 93.9% 0, 100% 6.2%, 100% 100%, 5.8% 100%, 0 94%);
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    .price-row:hover .draw-line,
+    .price-row.is-visible .draw-line {
+      opacity: 1;
+      animation: redraw 500ms steps(6, end) both;
+    }
+
+    @keyframes redraw {
+      from {
+        clip-path: polygon(0 0, 0 0, 0 0, 0 0, 0 0, 0 0);
+      }
+      to {
+        clip-path: polygon(0 0, 93.9% 0, 100% 6.2%, 100% 100%, 5.8% 100%, 0 94%);
+      }
+    }
+
+    .empty-slot {
+      display: grid;
+      place-items: center;
+      min-height: 116px;
+      padding: 13px;
+      border: 3px solid var(--ink);
+      background: var(--blue);
+      color: var(--yellow);
+      box-shadow: 4px 4px 0 var(--rust);
+      text-align: center;
+      font-size: 17px;
+      font-weight: 800;
+      transform: rotate(-2deg);
+    }
+
+    .callout {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 30px;
+      margin: 35px 0 30px;
+      padding: 27px 31px;
+      border: 3.5px solid var(--ink);
+      background: var(--blue);
+      color: var(--yellow);
+      box-shadow: 8px 8px 0 var(--ink);
+      transform: rotate(-1.5deg);
+    }
+
+    .callout h2 {
+      margin: 0 0 7px;
+      font-size: clamp(27px, 4vw, 48px);
+      line-height: 0.95;
+    }
+
+    .callout p {
+      max-width: 650px;
+      margin: 0;
+      font-weight: 700;
+    }
+
+    .phone {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 62px;
+      padding: 13px 21px;
+      border: 3px solid var(--ink);
+      background: var(--yellow);
+      color: var(--ink);
+      box-shadow: 5px 5px 0 var(--ink);
+      font-family: "JetBrains Mono";
+      font-size: clamp(19px, 2.5vw, 31px);
+      font-weight: 700;
+      white-space: nowrap;
+      transition: transform 120ms steps(2, end);
+    }
+
+    .phone:hover {
+      transform: translate(4px, 4px);
+      box-shadow: 1px 1px 0 var(--ink);
+    }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding-top: 19px;
+      border-top: 3px solid var(--ink);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    footer span:last-child {
+      font-family: "JetBrains Mono";
+      text-align: right;
+    }
+
+    @media (max-width: 900px) {
+      .page {
+        padding: 18px 18px 38px;
+      }
+
+      header {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .header-note {
+        max-width: 420px;
+      }
+
+      .price-row,
+      .price-row:nth-child(n) {
+        grid-template-columns: 1fr 1fr;
+        gap: 13px;
+        padding: 22px 18px 25px;
+      }
+
+      .service-name {
+        border-right: 0;
+        border-bottom: 3px solid var(--ink);
+        padding: 0 0 12px;
+      }
+
+      .detail {
+        border-bottom: 3px solid var(--ink);
+        padding-bottom: 12px;
+      }
+
+      .amount {
+        justify-content: flex-start;
+      }
+
+      .photo,
+      .empty-slot {
+        height: 96px;
+        min-height: 96px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .top-strip {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 6px;
+        padding: 8px 0;
+      }
+
+      h1 {
+        font-size: clamp(56px, 18vw, 78px);
+      }
+
+      .intro {
+        font-size: 17px;
+      }
+
+      .price-list {
+        gap: 22px;
+      }
+
+      .price-row,
+      .price-row:nth-child(n) {
+        display: grid;
+        grid-template-columns: 1fr;
+        min-height: 0;
+        padding: 27px 17px 30px;
+      }
+
+      .service-name {
+        display: block;
+        padding-bottom: 10px;
+      }
+
+      .service-name h2 {
+        font-size: 38px;
+      }
+
+      .detail {
+        min-height: 70px;
+      }
+
+      .photo,
+      .empty-slot {
+        height: 138px;
+        min-height: 138px;
+      }
+
+      .amount {
+        justify-content: flex-end;
+      }
+
+      .callout {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 22px 19px;
+      }
+
+      .phone {
+        width: 100%;
+      }
+
+      footer {
+        flex-direction: column;
+      }
+
+      footer span:last-child {
+        text-align: left;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .price-row:hover .draw-line,
+      .price-row.is-visible .draw-line {
+        animation: none;
+        opacity: 1;
+      }
+
+      .phone {
+        transition: opacity 120ms linear;
+      }
+    }
+
+    noscript .draw-line {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="top-strip">
+      <span>北边街 · 旧铁皮修鞋钥匙铺</span>
+      <span>营业：09:30—19:30 / 周一也开门</span>
+    </div>
+
+    <header>
+      <div>
+        <span class="eyebrow">今日不跑路价目板 · 001</span>
+        <h1>鞋坏了？<br>钥匙丢了？<br>别装没事。</h1>
+        <p class="intro">我们把鞋底、拉链和钥匙都劝回正轨。先看价，再打电话，免得你的鞋在门口排队生闷气。</p>
+      </div>
+      <aside class="header-note">
+        <strong>小店宣言</strong>
+        修得好就修，修不好先说。<br>
+        不会把一只鞋修成两只。
+      </aside>
+    </header>
+
+    <div class="hero-line" aria-hidden="true"></div>
+
+    <section class="price-list" aria-label="修鞋配钥匙服务价目表">
+      <article class="price-row">
+        <span class="row-number">NO.01</span>
+        <div class="service-name">
+          <h2>鞋底急救</h2>
+          <small>开胶、磨穿、走路吱呀</small>
+        </div>
+        <div class="detail">
+          <p>含一双基础粘合与压边</p>
+          <p class="note">小面积 ≤ 12cm · 含税</p>
+        </div>
+        <div class="amount"><strong>¥28</strong><span>起</span></div>
+        <img class="photo" src="images/占位-1.jpg" width="240" height="116" alt="鞋底修补示意图">
+        <span class="correction" aria-hidden="true"><i></i><i></i><i></i><b>35</b></span>
+        <span class="draw-line" aria-hidden="true"></span>
+      </article>
+
+      <article class="price-row">
+        <span class="row-number">NO.02</span>
+        <div class="service-name">
+          <h2>拉链回魂</h2>
+          <small>卡住、脱齿、只上不上</small>
+        </div>
+        <div class="detail">
+          <p>更换拉头 1 个，现场试拉</p>
+          <p class="note">普通鞋靴 · 约 15 分钟</p>
+        </div>
+        <div class="amount"><strong>¥18</strong><span>起</span></div>
+        <img class="photo" src="images/占位-2.jpg" width="240" height="116" alt="鞋靴拉链修理示意图">
+        <span class="correction" aria-hidden="true"><i></i><i></i><i></i><b>22</b></span>
+        <span class="draw-line" aria-hidden="true"></span>
+      </article>
+
+      <article class="price-row">
+        <span class="row-number">NO.03</span>
+        <div class="service-name">
+          <h2>钥匙复制</h2>
+          <small>家门、抽屉、那把神秘的</small>
+        </div>
+        <div class="detail">
+          <p>常规一字钥匙，复制 1 把</p>
+          <p class="note">不含特殊防盗芯片 · 现场验齿</p>
+        </div>
+        <div class="amount"><strong>¥12</strong><span>/把</span></div>
+        <img class="photo" src="images/占位-3.jpg" width="240" height="116" alt="钥匙复制示意图">
+        <span class="correction" aria-hidden="true"><i></i><i></i><i></i><b>15</b></span>
+        <span class="draw-line" aria-hidden="true"></span>
+      </article>
+
+      <article class="price-row">
+        <span class="row-number">NO.04</span>
+        <div class="service-name">
+          <h2>皮鞋擦亮</h2>
+          <small>让鞋面重新有点体面</small>
+        </div>
+        <div class="detail">
+          <p>基础清洁、上油、抛光 1 双</p>
+          <p class="note">约 30 分钟 · 不洗麂皮</p>
+        </div>
+        <div class="amount"><strong>¥25</strong><span>/双</span></div>
+        <img class="photo" src="images/占位-4.jpg" width="240" height="116" alt="皮鞋清洁抛光示意图">
+        <span class="correction" aria-hidden="true"><i></i><i></i><i></i><b>30</b></span>
+        <span class="draw-line" aria-hidden="true"></span>
+      </article>
+
+      <article class="price-row">
+        <span class="row-number">NO.05</span>
+        <div class="service-name">
+          <h2>鞋带换班</h2>
+          <small>旧的退休，新的上岗</small>
+        </div>
+        <div class="detail">
+          <p>棉质鞋带 1 双，长度现场配</p>
+          <p class="note">120cm / 150cm · 含打结</p>
+        </div>
+        <div class="amount"><strong>¥9</strong><span>/双</span></div>
+        <div class="empty-slot">这里没有第六张图。<br>我们留一块地方给鞋喘气。</div>
+        <span class="correction" aria-hidden="true"><i></i><i></i><i></i><b>12</b></span>
+        <span class="draw-line" aria-hidden="true"></span>
+      </article>
+    </section>
+
+    <section class="callout" id="call">
+      <div>
+        <h2>别排队，先来一通电话。</h2>
+        <p>告诉我们：哪只鞋、哪把钥匙、什么时候到。我们把工具摆好，不让你站在门口和鞋互相沉默。</p>
+      </div>
+      <a class="phone" href="tel:13800138000" aria-label="拨打电话 138 0013 8000">☎ 138 0013 8000</a>
+    </section>
+
+    <footer>
+      <span>价格按现场情况确认；特殊材质先问，不逞强。</span>
+      <span>今日编号：001 / 002 / 003 / 004 / 005</span>
+    </footer>
+  </main>
+
+  <script>
+    (function () {
+      var rows = document.querySelectorAll(".price-row");
+      if (!("IntersectionObserver" in window)) {
+        rows.forEach(function (row) { row.classList.add("is-visible"); });
+        return;
+      }
+
+      var observer = new IntersectionObserver(function (entries, obs) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+
+      rows.forEach(function (row) { observer.observe(row); });
+    }());
+  </script>
+</body>
+</html>
