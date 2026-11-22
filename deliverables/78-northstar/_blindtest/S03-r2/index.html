@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>北纬 78° 修鞋配钥匙观测记录</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@400;500&display=swap');
+:root{--aurora:#13928E;--void:#101A1C;--paper:#C9D6CF;--tape:#B9A98C;--panel:#162226;--panel2:#0C1417;--rule:#2A3639;--axis:264px;--content:524px;--readout:540px}
+*{box-sizing:border-box}
+html{background:var(--void);color:var(--paper);scroll-behavior:smooth}
+body{margin:0;background:var(--void);font-family:'IBM Plex Sans','Noto Sans SC','Source Han Sans SC','Microsoft YaHei',sans-serif;font-size:16px;line-height:1.55;letter-spacing:.02em}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.08;background-image:radial-gradient(var(--paper) .6px,transparent .7px);background-size:5px 5px;z-index:20;mix-blend-mode:screen}
+.page{min-height:100vh;position:relative}
+.topbar{height:42px;border-bottom:1px solid var(--rule);display:flex;justify-content:space-between;align-items:center;padding:0 28px;color:var(--tape);font:12px/1 'IBM Plex Mono',Consolas,monospace;letter-spacing:.14em}
+.topbar span:last-child{color:var(--paper)}
+.hero{min-height:100vh;border-bottom:1px solid var(--rule);display:grid;grid-template-columns:var(--axis) var(--content) 1fr;position:relative}
+.hero-axis{border-right:1px solid var(--rule);position:relative;padding:25px 20px 0 28px}
+.eyebrow{color:var(--aurora);font:12px 'IBM Plex Mono',Consolas,monospace;letter-spacing:.16em;margin:0 0 42px}
+.axis-label{font:12px 'IBM Plex Mono',Consolas,monospace;color:var(--tape);writing-mode:vertical-rl;transform:rotate(180deg);position:absolute;left:28px;top:155px;letter-spacing:.2em}
+.hero-axis:after{content:"";position:absolute;top:0;right:-1px;width:1px;height:100%;background:repeating-linear-gradient(to bottom,var(--rule) 0 1px,transparent 1px 40px)}
+.hero-copy{padding:70px 52px 56px 42px;display:flex;flex-direction:column;justify-content:space-between;border-right:1px solid var(--rule)}
+h1{font-family:'IBM Plex Mono',Consolas,serif;font-size:clamp(42px,5.3vw,68px);line-height:1.02;font-weight:500;letter-spacing:-.08em;margin:0 0 34px;color:var(--paper)}
+.hero-copy h1 .latin{font-family:'Space Grotesk','IBM Plex Sans',sans-serif;letter-spacing:-.06em}
+.lead{max-width:425px;font-size:17px;margin:0;color:var(--paper)}
+.hero-meta{border-top:1px solid var(--rule);padding-top:17px;display:flex;justify-content:space-between;gap:20px;font:12px 'IBM Plex Mono',Consolas,monospace;color:var(--tape)}
+.hero-photo{position:relative;min-height:620px;background:var(--panel2);overflow:hidden}
+.hero-photo img{width:100%;height:100%;min-height:620px;display:block;object-fit:cover;filter:grayscale(1) sepia(.12) contrast(1.12);border:0}
+.vignette{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 38%,var(--void) 118%)}
+.exposure{position:absolute;left:24px;bottom:25px;border-left:2px solid var(--aurora);padding-left:13px;background:var(--void);padding-right:14px;color:var(--paper);font:12px/1.7 'IBM Plex Mono',Consolas,monospace}
+.exposure b{font-size:24px;font-weight:400;color:var(--aurora)}
+.crosshair{display:none;position:absolute;width:22px;height:22px;pointer-events:none;border:1.2px solid var(--aurora)}
+.crosshair:before,.crosshair:after{content:"";position:absolute;background:var(--aurora)}
+.crosshair:before{height:1px;width:34px;left:-7px;top:9px}.crosshair:after{width:1px;height:34px;left:10px;top:-7px}
+.log{display:grid;grid-template-columns:var(--axis) var(--content) var(--readout);position:relative}
+.axis{border-right:1px solid var(--rule);position:relative;background:var(--void)}
+.axis:before{content:"";position:absolute;top:0;bottom:0;right:-1px;width:1px;background:repeating-linear-gradient(to bottom,var(--rule) 0 1px,transparent 1px 40px)}
+.axis-mark{height:200px;border-bottom:1px solid var(--rule);padding:18px 25px;position:relative;color:var(--tape);font:12px 'IBM Plex Mono',Consolas,monospace}
+.axis-mark:before{content:"";position:absolute;top:25px;right:-1px;width:20px;border-top:1.5px solid var(--aurora)}
+.axis-mark small{display:block;color:var(--paper);margin-top:8px}
+.axis-mark span{display:block;margin-top:70px;color:var(--aurora);font-size:11px}
+.entries{border-right:1px solid var(--rule)}
+.entry{min-height:200px;border-bottom:1px solid var(--rule);padding:24px 38px 28px 42px;position:relative;display:grid;grid-template-columns:1fr 190px;gap:28px;align-items:start;overflow:hidden}
+.entry:before{content:"";position:absolute;left:0;top:0;width:8px;height:100%;background:repeating-linear-gradient(to bottom,var(--rule) 0 1px,transparent 1px 8px)}
+.entry:nth-child(2){min-height:238px;grid-template-columns:190px 1fr}.entry:nth-child(2) .entry-text{order:2}.entry:nth-child(2) img{order:1}.entry:nth-child(3){min-height:222px;grid-template-columns:1fr 120px}.entry:nth-child(4){min-height:255px;grid-template-columns:1fr}.entry:nth-child(5){min-height:230px;grid-template-columns:150px 1fr}.entry h2{margin:2px 0 14px;font:500 23px/1.1 'IBM Plex Mono',Consolas,serif;letter-spacing:-.04em}.entry .code{font:11px 'IBM Plex Mono',Consolas,monospace;color:var(--aurora);letter-spacing:.1em;margin-bottom:12px}.entry p{margin:0;color:var(--paper);font-size:15px;max-width:320px}.entry img{width:100%;height:132px;object-fit:cover;display:block;border:1px solid var(--rule);filter:grayscale(.85) sepia(.12) contrast(1.12)}
+.entry:nth-child(2) img{height:172px}.entry:nth-child(3) img{height:138px}.entry:nth-child(4) .blank-field{height:120px;border-top:1px solid var(--aurora);border-bottom:1px solid var(--rule);padding:14px;color:var(--tape);font:12px 'IBM Plex Mono',Consolas,monospace;display:flex;justify-content:space-between}.entry:nth-child(5) img{height:166px}
+.readouts{background:var(--panel2)}
+.readout{min-height:200px;border-bottom:1px solid var(--rule);padding:25px 29px 20px;position:relative}.readout:hover{background:var(--panel)}.readout .label{font:11px 'IBM Plex Mono',Consolas,monospace;color:var(--tape);letter-spacing:.12em}.value{font:500 30px/1.1 'IBM Plex Mono',Consolas,monospace;color:var(--paper);font-variant-numeric:tabular-nums;text-align:right;margin:29px 0 8px}.unit{font:11px 'IBM Plex Mono',Consolas,monospace;color:var(--aurora);text-align:right}.readout .side-note{display:none;position:absolute;right:29px;top:48px;color:var(--aurora);font:11px 'IBM Plex Mono',Consolas,monospace}.readout:hover .side-note{display:block}.readout:hover .value{visibility:hidden}
+.cta{border-top:1.5px solid var(--aurora);border-bottom:1px solid var(--rule);display:grid;grid-template-columns:var(--axis) var(--content) 1fr;min-height:180px}.cta-axis{border-right:1px solid var(--rule);padding:25px 28px;color:var(--tape);font:11px 'IBM Plex Mono',Consolas,monospace}.cta-copy{padding:25px 42px;border-right:1px solid var(--rule)}.cta-copy h2{font:500 26px 'IBM Plex Mono',Consolas,serif;margin:0 0 10px}.cta-copy p{margin:0;color:var(--paper)}.phone{padding:25px 29px;display:flex;flex-direction:column;justify-content:space-between}.phone-label{font:11px 'IBM Plex Mono',Consolas,monospace;color:var(--tape)}.phone a{color:var(--aurora);font:500 28px 'IBM Plex Mono',Consolas,monospace;text-decoration:none;border-bottom:1px solid var(--aurora);width:max-content}.footer{height:62px;display:flex;justify-content:space-between;align-items:center;padding:0 28px;color:var(--tape);font:11px 'IBM Plex Mono',Consolas,monospace}.film-strip{position:fixed;z-index:10;left:0;top:42px;width:6px;height:100vh;background:repeating-linear-gradient(to bottom,var(--aurora) 0 1px,transparent 1px 40px);pointer-events:none}
+@keyframes exposureIn{from{opacity:0;transform:translateX(-12px)}to{opacity:1;transform:translateX(0)}}
+.readout{animation:exposureIn .22s steps(1) both}.readout:nth-child(2){animation-delay:40ms}.readout:nth-child(3){animation-delay:80ms}.readout:nth-child(4){animation-delay:120ms}.readout:nth-child(5){animation-delay:160ms}
+@media (max-width:1050px){:root{--axis:190px;--content:1fr;--readout:260px}.hero{grid-template-columns:var(--axis) 1fr}.hero-photo{grid-column:2;grid-row:1;min-height:420px}.hero-copy{grid-column:2;grid-row:2;border-right:0}.hero-axis{grid-row:1 / span 2}.log{grid-template-columns:var(--axis) 1fr var(--readout)}.entry{grid-template-columns:1fr 150px}.cta{grid-template-columns:var(--axis) 1fr var(--readout)}}
+@media (max-width:700px){body{font-size:16px}.topbar{padding:0 16px}.topbar span:first-child{display:none}.film-strip{display:none}.hero,.log,.cta{display:block}.hero-axis{height:130px;border-right:0;border-bottom:1px solid var(--rule);padding:20px 16px}.axis-label{writing-mode:horizontal-tb;transform:none;top:65px;left:16px}.hero-axis:after{display:none}.hero-copy{padding:40px 20px 34px;border-right:0;min-height:390px}.hero-copy h1{font-size:48px}.hero-photo{min-height:330px}.hero-photo img{min-height:330px}.entries{border-right:0}.axis{display:none}.entry{min-height:auto!important;display:flex!important;flex-direction:column!important;padding:24px 20px 28px 28px;gap:22px}.entry .entry-text{order:1!important}.entry img,.blank-field{order:2!important;width:100%;height:180px!important}.readouts{display:block}.readout{min-height:150px;padding:21px 28px}.value{margin:20px 0 5px}.cta-axis{display:none}.cta-copy{border-right:0;padding:25px 20px}.phone{padding:25px 20px;min-height:130px}.phone a{font-size:25px}.footer{padding:0 16px;font-size:10px}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.readout{animation:none}.hero-photo img{transform:none}.crosshair{display:none}}
+</style>
+</head>
+<body>
+<div class="page">
+<div class="film-strip"></div>
+<header class="topbar"><span>OBSERVATORY / S03-SHOE-KEY</span><span>STATUS: OPEN · 09:00—19:00</span></header>
+<section class="hero">
+  <div class="hero-axis"><p class="eyebrow">FIELD LOG / 1957—2024</p><div class="axis-label">修复记录 · CALIBRATION DRIFT +0.3MM / 5Y</div></div>
+  <div class="hero-copy">
+    <div><h1>把旧物<br><span class="latin">return</span><br>到手上。</h1><p class="lead">我们修鞋，也配钥匙。每一件交到台面上的东西，都先记录磨损，再决定下一步。预约一个时间，避免让你在门外等。</p></div>
+    <div class="hero-meta"><span>STATION 78°N / LOCAL</span><span>EXPOSURE 30 SEC</span></div>
+  </div>
+  <div class="hero-photo" id="heroPhoto"><img src="images/占位-1.jpg" width="900" height="1200" alt="鞋底与钥匙在工作台上的长曝光记录"><div class="vignette"></div><div class="exposure"><b>30 s</b><br>曝光参数 / 暗部颗粒 / 记录 001</div><div class="crosshair"></div></div>
+</section>
+<section class="log" aria-label="服务观测记录">
+  <div class="axis">
+    <div class="axis-mark">1957<small>校准起点</small><span>01</span></div><div class="axis-mark">1972<small>工具更换</small><span>02</span></div><div class="axis-mark">1987<small>皮料档案</small><span>03</span></div><div class="axis-mark">2002<small>钥匙槽</small><span>04</span></div><div class="axis-mark">2017<small>交付标准</small><span>05</span></div>
+  </div>
+  <div class="entries">
+    <article class="entry"><div class="entry-text"><div class="code">REC / 01 · 1957—NOW</div><h2>鞋底更换</h2><p>先找出受力最深的那一段。换底、补边、加固，保留原来的走路方向。</p></div><img src="images/占位-2.jpg" width="760" height="500" alt="鞋底修复工作记录"></article>
+    <article class="entry"><div class="entry-text"><div class="code">REC / 02 · 1972—NOW</div><h2>拉链与缝补</h2><p>拉链卡住不等于整件报废。我们把断点拆开，重新校准每一齿。</p></div><img src="images/占位-3.jpg" width="760" height="680" alt="皮具拉链与缝补记录"></article>
+    <article class="entry"><div class="entry-text"><div class="code">REC / 03 · 1987—NOW</div><h2>钥匙复制</h2><p>带原钥匙来。齿形、深度、回弹，每项都在交付前复核。</p></div><img src="images/占位-4.jpg" width="760" height="520" alt="钥匙复制与齿形读数"></article>
+    <article class="entry"><div class="entry-text"><div class="code">REC / 04 · 2002—NOW</div><h2>皮鞋护理</h2><p>清洁、补色、上蜡分三次完成。颜色不追求新，只恢复它原本的层次。</p></div><div class="blank-field"><span>NO IMAGE / SURFACE TEST</span><span>3 LEVELS</span></div></article>
+    <article class="entry"><div class="entry-text"><div class="code">REC / 05 · 2017—NOW</div><h2>户外鞋加固</h2><p>针对鞋头、后跟和接缝处做定点处理。适合继续走，不适合只放着看。</p></div><img src="images/占位-5.jpg" width="760" height="840" alt="户外鞋接缝加固记录"></article>
+  </div>
+  <div class="readouts">
+    <div class="readout"><span class="label">LOAD / 01</span><div class="value">30</div><div class="unit">MIN / 标准检视</div><span class="side-note">FIELD NOTE: sole / 12 nT</span></div>
+    <div class="readout"><span class="label">LOAD / 02</span><div class="value">45</div><div class="unit">MIN / 缝线复位</div><span class="side-note">FIELD NOTE: zip / 08 nT</span></div>
+    <div class="readout"><span class="label">LOAD / 03</span><div class="value">15</div><div class="unit">MIN / 单把复制</div><span class="side-note">FIELD NOTE: key / 04 nT</span></div>
+    <div class="readout"><span class="label">LOAD / 04</span><div class="value">60</div><div class="unit">MIN / 三段护理</div><span class="side-note">FIELD NOTE: leather / 16 nT</span></div>
+    <div class="readout"><span class="label">LOAD / 05</span><div class="value">90</div><div class="unit">MIN / 定点加固</div><span class="side-note">FIELD NOTE: trail / 21 nT</span></div>
+  </div>
+</section>
+<section class="cta"><div class="cta-axis">NEXT OBSERVATION<br><br>预约通道<br>固定电话</div><div class="cta-copy"><h2>请先报项目。</h2><p>告诉我们要修什么、需要几件，以及你方便到店的日期。我们会给出一个明确的时间。</p></div><div class="phone"><span class="phone-label">CALL / APPOINTMENT</span><a href="tel:010-7857-1957">010-7857-1957</a></div></section>
+<footer class="footer"><span>记录持续。物件也持续。</span><span>LOG END / 05 OF 05 / 2024</span></footer>
+</div>
+<script>
+(function(){
+  const photo=document.getElementById('heroPhoto');
+  const cross=photo.querySelector('.crosshair');
+  let ticking=false;
+  function move(){photo.querySelector('img').style.transform='translateY('+(window.scrollY*.5)+'px)';ticking=false}
+  window.addEventListener('scroll',function(){if(!ticking){requestAnimationFrame(move);ticking=true}},{passive:true});
+  photo.addEventListener('mousemove',function(e){const r=photo.getBoundingClientRect();cross.style.display='block';cross.style.left=(e.clientX-r.left-11)+'px';cross.style.top=(e.clientY-r.top-11)+'px'});
+  photo.addEventListener('mouseleave',function(){cross.style.display='none'});
+})();
+</script>
+</body>
+</html>

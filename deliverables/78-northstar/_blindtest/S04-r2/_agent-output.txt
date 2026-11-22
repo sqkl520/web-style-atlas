@@ -1,0 +1,71 @@
+     <!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>一脚一匙｜修鞋配钥匙</title>
+<style>
+@font-face{font-family:Redaction20;src:local("Redaction 20")}@font-face{font-family:Martian;src:local("Martian Mono")}
+:root{--green:#2F7D4F;--orange:#96550F;--ink:#14100C;--paper:#F0E2C8}
+*{box-sizing:border-box;border-radius:0!important}
+html{background:var(--paper);color:var(--ink);font-size:17px}
+body{margin:0;background:var(--paper);font-family:Redaction20,Georgia,"Nimbus Roman","LXGW WenKai",serif;line-height:1.22;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(20,16,12,.035) 0 1px,transparent 1px 5px);opacity:.35;z-index:10}
+.page{width:min(1440px,100%);margin:auto;padding:20px 28px 36px;position:relative}
+header{display:grid;grid-template-columns:repeat(12,1fr);gap:12px;min-height:132px;align-items:start;position:relative}
+.kicker{grid-column:1 / span 3;border-top:3px solid var(--ink);padding-top:8px;font-size:14px;letter-spacing:.06em;text-transform:uppercase}
+.latin{font-family:Unbounded,"LXGW WenKai","KaiTi","STKaiti",serif;letter-spacing:.04em}
+.title-wrap{grid-column:3 / span 7;position:relative;z-index:4;padding:2px 10px 10px;border-left:3px solid var(--orange);border-bottom:1px solid var(--ink);transform:rotate(-1.2deg);background:var(--paper)}
+h1{font-family:"LXGW WenKai","KaiTi","STKaiti","Kaiti SC",serif;font-weight:400;font-size:clamp(52px,7.1vw,72px);line-height:.9;margin:0;letter-spacing:-.08em;white-space:nowrap}
+.title-wrap:after{content:"修鞋 · 配钥匙 · 不耽误你赶路";display:block;color:var(--green);font-size:16px;margin-top:12px;transform:rotate(1.2deg)}
+.header-note{grid-column:10 / span 3;border:1px solid var(--ink);padding:9px 10px;margin-top:22px;transform:rotate(2.2deg);font-size:15px;background:var(--orange);color:var(--paper)}
+.wall{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));grid-auto-rows:76px;gap:12px;position:relative;margin-top:4px;min-height:680px}
+.paper{position:relative;border:1px solid var(--ink);padding:14px 16px;background:var(--paper);overflow:visible;transform:translateY(-24px);animation:drop .42s steps(2,end) forwards;animation-delay:var(--delay);transition:transform 140ms cubic-bezier(.22,1.4,.36,1);z-index:var(--z);cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Cpath d='M3 20L8 4l3 10 8-3-8 8z' fill='%23F0E2C8' stroke='%2314100C' stroke-width='2'/%3E%3C/svg%3E") 3 20,pointer}
+.paper:after{content:"";position:absolute;right:-1px;bottom:-1px;width:11px;height:11px;background:var(--paper);border-left:1px solid var(--ink);clip-path:polygon(100% 0,100% 100%,0 100%);transform:rotate(var(--tear));transform-origin:100% 100%;pointer-events:none}
+.paper:hover{transform:translate(0,-30px) rotate(.4deg);border-bottom:3px solid var(--orange)}
+.paper:before{content:"";position:absolute;left:0;bottom:-3px;height:2px;width:100%;background:var(--orange);z-index:-1}
+.paper h2,.paper h3{font-family:"LXGW WenKai","KaiTi","STKaiti","Kaiti SC",serif;font-weight:400;margin:0 0 6px;line-height:.95}
+.paper h2{font-size:31px}.paper h3{font-size:24px}.paper p{margin:0;font-size:16px}.meta{font-family:Martian,monospace;font-variant-numeric:tabular-nums;text-align:right;font-size:12px;line-height:1.4;display:block;margin-top:10px;border-top:1px solid var(--ink);padding-top:6px}
+.one{grid-column:1 / span 4;grid-row:1 / span 3;background:var(--green);color:var(--paper);padding:18px;transform:translateY(-24px) rotate(-1.8deg);--z:5;--delay:90ms;--tear:0deg}.one:hover{transform:translate(0,-30px) rotate(-1.4deg)}.one h2{font-size:38px}.one .meta{border-color:var(--paper)}
+.two{grid-column:5 / span 3;grid-row:1 / span 2;background:var(--orange);color:var(--paper);--z:4;--delay:180ms;--tear:72deg;transform:translateY(-24px) rotate(1.2deg)}.two:hover{transform:translate(0,-30px) rotate(1.6deg)}
+.three{grid-column:8 / span 5;grid-row:1 / span 2;--z:3;--delay:270ms;--tear:144deg;transform:translateY(-24px) rotate(-.7deg);padding:0;display:grid;grid-template-columns:1.05fr .95fr}
+.three img{width:100%;height:100%;object-fit:cover;display:block;border-right:3px solid var(--ink);filter:grayscale(1) contrast(1.1);background:var(--green)}
+.three .copy{padding:14px 13px}.three h3{font-size:29px}
+.four{grid-column:1 / span 3;grid-row:4 / span 3;--z:2;--delay:360ms;--tear:216deg;transform:translateY(-24px) rotate(1.6deg)}
+.five{grid-column:4 / span 5;grid-row:4 / span 4;--z:6;--delay:450ms;--tear:288deg;transform:translateY(-24px) rotate(-1deg);padding:0;display:grid;grid-template-rows:1fr auto}
+.five img{width:100%;height:100%;min-height:150px;object-fit:cover;display:block;border-bottom:3px solid var(--ink);filter:grayscale(1) contrast(1.1);background:var(--orange)}
+.five .copy{padding:12px 15px 14px}.five h2{font-size:34px}.five .meta{margin-top:6px}
+.six{grid-column:9 / span 4;grid-row:3 / span 3;--z:1;--delay:540ms;--tear:0deg;transform:translateY(-24px) rotate(2.1deg);background:var(--green);color:var(--paper)}.six .meta{border-color:var(--paper)}
+.note-a{grid-column:1 / span 3;grid-row:7 / span 2;--z:1;--delay:630ms;--tear:72deg;transform:translateY(-24px) rotate(-2.3deg);padding:15px;background:var(--orange);color:var(--paper)}
+.note-b{grid-column:9 / span 4;grid-row:6 / span 3;--z:1;--delay:720ms;--tear:144deg;transform:translateY(-24px) rotate(-1.3deg);padding:17px 15px}
+.blank{grid-column:6 / span 3;grid-row:8 / span 2;--z:0;--delay:810ms;--tear:216deg;transform:translateY(-24px) rotate(1.4deg);padding:12px;border:1px solid var(--orange);font-size:14px;display:flex;align-items:end}
+.call{display:flex;align-items:center;justify-content:space-between;gap:20px;border-top:3px solid var(--ink);border-bottom:1px solid var(--ink);padding:15px 0;margin-top:18px;position:relative;z-index:8}.call strong{font-family:"LXGW WenKai","KaiTi","STKaiti","Kaiti SC",serif;font-size:27px;font-weight:400}.call a{background:var(--ink);color:var(--paper);text-decoration:none;padding:12px 18px;border:1px solid var(--ink);font-family:Martian,monospace;font-size:14px;font-variant-numeric:tabular-nums;white-space:nowrap}.call a:hover{background:var(--orange);border-color:var(--orange)}
+footer{display:flex;justify-content:space-between;font-family:Martian,monospace;font-size:11px;padding-top:12px;font-variant-numeric:tabular-nums}
+@keyframes drop{to{transform:translateY(0) rotate(var(--r,0deg))}}
+@media (prefers-reduced-motion:reduce){.paper{animation:none;transform:rotate(var(--r,0deg));transition:opacity 120ms linear}.paper:hover{transform:rotate(var(--r,0deg));opacity:.82}}
+@media (max-width:760px){.page{padding:14px 14px 28px}.wall{display:flex;flex-direction:column;gap:14px;margin-top:16px;min-height:0}.paper,.one,.two,.three,.four,.five,.six,.note-a,.note-b,.blank{width:100%;min-height:0;transform:none!important;animation:none;grid-column:auto;grid-row:auto}.one{order:1}.two{order:2}.three{order:3;min-height:210px}.four{order:4}.five{order:5;min-height:300px}.six{order:6}.note-a{order:7}.note-b{order:8}.blank{order:9;min-height:88px}.paper:hover{transform:translateY(-6px)!important}.three img{min-height:190px}.title-wrap{grid-column:1 / span 10;margin-top:10px}.kicker{grid-column:1 / span 5}.header-note{grid-column:9 / span 4;font-size:12px}.title-wrap h1{font-size:53px;white-space:normal}.call{align-items:flex-start;flex-direction:column}.call a{width:100%;text-align:center}}
+</style>
+</head>
+<body>
+<main class="page">
+<header>
+<div class="kicker latin">鞋底 / KEY / 07</div>
+<div class="title-wrap"><h1>补一脚，<br>再出发。</h1></div>
+<div class="header-note">街角小店<br>今天也开着。<br><span class="latin">OPEN 09—19</span></div>
+</header>
+<section class="wall" aria-label="修鞋配钥匙服务墙">
+<article class="paper one"><h2>鞋底急救</h2><p>开胶、磨偏、鞋跟晃？带来，别让它在路上散架。我们把每一针都钉回你的步子。</p><span class="meta">01 / SHOE-REPAIR<br>当日可取 · 约 30—90 MIN</span></article>
+<article class="paper two"><h3>钥匙复制</h3><p>旧钥匙也能配。先试锁，再交货，不跟你玩猜谜。</p><span class="meta">02 / KEY-CUT<br>普通钥匙 · 15 MIN</span></article>
+<article class="paper three"><img src="images/占位-1.jpg" width="640" height="480" alt="鞋底修补的工作台"><div class="copy"><h3>皮革缝补</h3><p>包带、皮鞋、皮夹的小伤口，交给针线和一点耐心。</p><span class="meta">03 / LEATHER<br>预约留位 · 1—2 DAYS</span></div></article>
+<article class="paper four"><h3>鞋跟换新</h3><p>走路别再一高一低。软底、硬底、耐磨底，现场一起挑。</p><span class="meta">04 / HEEL-SET<br>作品编号 04</span></article>
+<article class="paper five"><img src="images/占位-2.jpg" width="800" height="560" alt="街角店铺与修鞋工具"><div class="copy"><h2>来店前，先占一格</h2><p>电话告诉我们：什么坏了、几双、什么时候要。我们把时间摊开给你看。</p><span class="meta">05 / BOOK-A-SLOT · 09:00—19:00</span></div></article>
+<article class="paper six"><h3>配匙小提醒</h3><p>门锁很挑钥匙坯。拍张正面照，打电话来，我们先帮你看一眼。</p><span class="meta">06 / CHECK-FIRST<br>带原钥匙更快</span></article>
+<article class="paper note-a"><h3>不接急单？</h3><p>能做的我们马上说，不能做的也不绕弯。</p><span class="meta">07 / STRAIGHT TALK</span></article>
+<article class="paper note-b"><h3>一双鞋，一个编号。</h3><p>取鞋时对好票根，别拿错。你的那双，我们记着。</p><span class="meta">08 / PICK-UP TICKET</span></article>
+<article class="paper blank"><span class="latin">09 / WALL NOTE<br>把问题带来，答案在店里。</span></article>
+</section>
+<div class="call"><strong>现在打来，约个不赶的时间。</strong><a href="tel:010-5555-2407" aria-label="拨打 010-5555-2407">TEL 010—5555—2407</a></div>
+<footer><span>一脚一匙 · 街角修鞋配钥匙</span><span>WALL 01—09 / 2025</span></footer>
+</main>
+</body>
+</html>
