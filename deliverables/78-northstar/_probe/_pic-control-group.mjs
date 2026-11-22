@@ -18,7 +18,11 @@ import { fileURLToPath } from 'node:url';
 const HERE = dirname(fileURLToPath(import.meta.url));
 const BT = join(resolve(HERE, '..'), '_blindtest');
 
-const CASES = ['S01', 'S09', 'S15', 'S24', 'S20', 'S21', 'S22', 'S23'];
+/* S09-r2 是第二轮，同样 slots=6/have=5 的提示词。放进同构组是**故意的**：
+ * 它给同一案提供了第二个样本，而且两轮同为失手（1 张 vs 4 张，都不够 5）。
+ * 这让「概率性失手」这个结论多一条独立证据 —— 同一案跑两次，两次都失手，
+ * 但仍不是 0 张，说明是"放少了"而不是"完全不做"。 */
+const CASES = ['S01', 'S09', 'S09-r2', 'S15', 'S24', 'S20', 'S21', 'S22', 'S23'];
 const SIGNATURE = /这个版式有 (\d+) 个图片位，但你只有 (\d+) 条内容/;
 
 function readArtifact(id) {
