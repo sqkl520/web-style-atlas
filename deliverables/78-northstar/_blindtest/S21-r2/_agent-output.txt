@@ -1,0 +1,1011 @@
+  <!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>联锁释放簿｜修鞋与配钥匙</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Antonio:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap");
+
+    :root {
+      --ink: #3E3A34;
+      --paper: #E4DCC9;
+      --amber: #924307;
+      --fibre: #6E6A5E;
+      --white: #FFFFFF;
+      --line: 1px;
+      --strong-line: 2px;
+      --mono: "IBM Plex Mono", monospace;
+      --title: Antonio, "WenJin Mincho", Georgia, "Songti SC", serif;
+      --body: "WenJin Mincho", Georgia, "Songti SC", STSong, serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      border-radius: 0;
+    }
+
+    html {
+      scroll-behavior: auto;
+      background: var(--paper);
+    }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: var(--body);
+      font-size: 16px;
+      line-height: 1.45;
+      cursor: text;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      border: var(--line) solid var(--ink);
+      z-index: 20;
+    }
+
+    .sheet {
+      position: relative;
+      max-width: 1560px;
+      margin: 0 auto;
+      padding: 36px 42px 48px;
+      overflow: hidden;
+    }
+
+    .sheet::after {
+      content: "";
+      position: fixed;
+      width: 1px;
+      height: 18px;
+      left: 18px;
+      top: 50%;
+      background: var(--ink);
+      animation: caret 1200ms steps(1) infinite;
+      pointer-events: none;
+    }
+
+    @keyframes caret {
+      0%, 48% { opacity: 1; }
+      49%, 100% { opacity: 0; }
+    }
+
+    .topline {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 24px;
+      border-bottom: var(--strong-line) solid var(--ink);
+      padding-bottom: 14px;
+      margin-bottom: 28px;
+    }
+
+    .masthead {
+      display: flex;
+      align-items: baseline;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .kicker,
+    .micro,
+    .mono,
+    .service-code,
+    .service-price,
+    .bar-id,
+    .stamp,
+    .phone-label {
+      font-family: var(--mono);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .kicker {
+      font-size: 11px;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .record {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.58fr) minmax(260px, .82fr);
+      gap: 34px;
+      align-items: end;
+      margin-bottom: 32px;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 900px;
+      font-family: var(--title);
+      font-size: clamp(58px, 8.3vw, 86px);
+      font-weight: 500;
+      letter-spacing: -.045em;
+      line-height: .92;
+    }
+
+    .hero-note {
+      border-left: var(--strong-line) solid var(--amber);
+      padding: 5px 0 5px 18px;
+      max-width: 360px;
+    }
+
+    .hero-note p {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.28;
+    }
+
+    .hero-note .micro {
+      display: block;
+      margin-top: 16px;
+      color: var(--amber);
+      font-size: 11px;
+      letter-spacing: .08em;
+    }
+
+    .time-rule {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 0;
+      border-top: var(--line) solid var(--ink);
+      border-bottom: var(--line) solid var(--ink);
+      margin-bottom: 28px;
+    }
+
+    .time-rule span {
+      min-height: 25px;
+      padding: 5px 8px 4px;
+      border-right: var(--line) solid var(--ink);
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: .05em;
+      text-align: center;
+    }
+
+    .time-rule span:first-child {
+      border-left: var(--line) solid var(--ink);
+    }
+
+    .ledger {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr);
+      gap: 26px;
+      align-items: start;
+    }
+
+    .column {
+      min-width: 0;
+    }
+
+    .column-heading {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 9px 12px 8px;
+      border: var(--line) solid var(--ink);
+      border-bottom: var(--strong-line) solid var(--ink);
+      margin-bottom: 14px;
+    }
+
+    .column-heading h2 {
+      margin: 0;
+      font-family: var(--title);
+      font-size: 25px;
+      font-weight: 500;
+      line-height: 1;
+    }
+
+    .column-heading span {
+      color: var(--fibre);
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: .07em;
+      white-space: nowrap;
+    }
+
+    .services {
+      display: grid;
+      gap: 10px;
+    }
+
+    .service {
+      display: grid;
+      grid-template-columns: 72px minmax(0, 1fr) 94px;
+      min-height: 150px;
+      border: var(--line) solid var(--ink);
+      position: relative;
+      overflow: hidden;
+      background: var(--paper);
+      box-shadow: inset 0 0 0 1px var(--paper);
+    }
+
+    .service:nth-child(2) {
+      grid-template-columns: 58px minmax(0, 1fr) 122px;
+      min-height: 170px;
+    }
+
+    .service:nth-child(3) {
+      grid-template-columns: 88px minmax(0, 1fr) 82px;
+      min-height: 138px;
+    }
+
+    .service:nth-child(4) {
+      grid-template-columns: 64px minmax(0, 1fr) 108px;
+      min-height: 160px;
+    }
+
+    .service:nth-child(5) {
+      grid-template-columns: 78px minmax(0, 1fr) 96px;
+      min-height: 145px;
+    }
+
+    .service-code {
+      padding: 12px 9px;
+      border-right: var(--line) solid var(--ink);
+      font-size: 13px;
+      letter-spacing: .04em;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+    }
+
+    .service-body {
+      padding: 13px 16px 15px;
+    }
+
+    .service-body h3 {
+      margin: 0 0 8px;
+      font-family: var(--title);
+      font-size: 25px;
+      font-weight: 500;
+      line-height: 1;
+    }
+
+    .service-body p {
+      margin: 0;
+      max-width: 36em;
+      font-size: 15px;
+      line-height: 1.48;
+    }
+
+    .service-side {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding: 12px 11px;
+      border-left: var(--line) solid var(--ink);
+      text-align: right;
+    }
+
+    .service-price {
+      font-size: 13px;
+      color: var(--amber);
+      white-space: nowrap;
+    }
+
+    .service-note {
+      font-family: var(--mono);
+      font-size: 10px;
+      line-height: 1.35;
+      color: var(--fibre);
+    }
+
+    .image-grid {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .image-slot,
+    .text-slot {
+      border: var(--line) solid var(--ink);
+      min-height: 166px;
+      background: var(--paper);
+      overflow: hidden;
+    }
+
+    .image-slot:nth-child(2) {
+      min-height: 205px;
+    }
+
+    .image-slot:nth-child(3) {
+      min-height: 135px;
+    }
+
+    .image-slot img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: inherit;
+      object-fit: cover;
+      background: var(--paper);
+      border: 0;
+    }
+
+    .text-slot {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 15px;
+    }
+
+    .text-slot strong {
+      font-family: var(--title);
+      font-size: 24px;
+      font-weight: 500;
+      line-height: 1;
+    }
+
+    .text-slot p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .text-slot .stamp {
+      color: var(--amber);
+      font-size: 11px;
+      letter-spacing: .06em;
+    }
+
+    .release-panel {
+      margin-top: 14px;
+      border: var(--line) solid var(--ink);
+      padding: 16px 16px 18px;
+    }
+
+    .release-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      padding-bottom: 13px;
+      border-bottom: var(--line) solid var(--ink);
+    }
+
+    .release-header h2 {
+      margin: 0;
+      font-family: var(--title);
+      font-size: 25px;
+      font-weight: 500;
+      line-height: 1;
+    }
+
+    .release-header span {
+      font-family: var(--mono);
+      color: var(--fibre);
+      font-size: 10px;
+      letter-spacing: .08em;
+    }
+
+    .lock-path {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      padding: 18px 0 8px;
+      counter-reset: lock;
+    }
+
+    .lock-bar {
+      --cut: 45deg;
+      position: relative;
+      display: grid;
+      grid-template-columns: 58px minmax(0, 1fr) 80px;
+      align-items: center;
+      width: calc(100% - var(--drift, 0px));
+      min-height: 32px;
+      padding: 0 10px 0 0;
+      color: var(--ink);
+      background: var(--ink);
+      clip-path: polygon(0 0, calc(100% - 13px) 0, 100% 50%, calc(100% - 13px) 100%, 0 100%);
+      box-shadow: inset 0 0 0 1px var(--ink);
+      transform-origin: left center;
+      transform: translateX(0);
+    }
+
+    .lock-bar::before {
+      content: "";
+      position: absolute;
+      inset: 1px 2px 1px 1px;
+      background: var(--paper);
+      clip-path: polygon(0 0, calc(100% - 13px) 0, 100% 50%, calc(100% - 13px) 100%, 0 100%);
+      z-index: 0;
+    }
+
+    .lock-bar::after {
+      content: "";
+      position: absolute;
+      width: 1.5px;
+      height: 1.5px;
+      right: calc(15px - var(--drift, 0px));
+      bottom: calc(4px - var(--drift, 0px));
+      background: var(--ink);
+      z-index: 2;
+    }
+
+    .lock-bar > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .lock-bar[data-angle="30"] {
+      --cut: 30deg;
+      clip-path: polygon(0 0, calc(100% - 13px) 0, 100% 50%, calc(100% - 13px) 100%, 0 100%);
+    }
+
+    .lock-bar[data-angle="45"] {
+      --cut: 45deg;
+    }
+
+    .lock-bar[data-angle="60"] {
+      --cut: 60deg;
+      clip-path: polygon(0 0, calc(100% - 13px) 0, 100% 50%, calc(100% - 13px) 100%, 0 100%);
+    }
+
+    .bar-id {
+      padding-left: 11px;
+      font-size: 11px;
+      letter-spacing: .04em;
+    }
+
+    .bar-text {
+      padding-left: 13px;
+      font-size: 14px;
+      line-height: 1;
+      border-left: var(--line) solid var(--ink);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .bar-angle {
+      font-family: var(--mono);
+      font-size: 10px;
+      text-align: right;
+      letter-spacing: .04em;
+    }
+
+    .lock-bar[data-conflict="true"] {
+      cursor: crosshair;
+    }
+
+    .lock-bar.is-active,
+    .lock-bar.is-conflict {
+      outline: var(--line) solid var(--amber);
+      outline-offset: -1px;
+    }
+
+    .lock-bar.is-ready {
+      animation: seat 70ms steps(1) forwards;
+    }
+
+    @keyframes seat {
+      from { transform: translateX(9px); }
+      to { transform: translateX(0); }
+    }
+
+    .release-foot {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      border-top: var(--line) solid var(--ink);
+      padding-top: 12px;
+      margin-top: 9px;
+      font-family: var(--mono);
+      font-size: 10px;
+      line-height: 1.4;
+    }
+
+    .release-foot strong {
+      color: var(--amber);
+      font-weight: 500;
+    }
+
+    .cta {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 24px;
+      align-items: center;
+      margin-top: 28px;
+      padding: 17px 19px;
+      border: var(--strong-line) solid var(--ink);
+      box-shadow: inset 0 0 0 1px var(--paper);
+    }
+
+    .cta-copy h2 {
+      margin: 0 0 5px;
+      font-family: var(--title);
+      font-size: 29px;
+      font-weight: 500;
+      line-height: 1;
+    }
+
+    .cta-copy p {
+      margin: 0;
+      font-size: 14px;
+    }
+
+    .phone {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: flex-end;
+      min-width: 230px;
+      padding: 10px 14px 9px;
+      color: var(--white);
+      background: var(--amber);
+      border: var(--line) solid var(--ink);
+      text-decoration: none;
+      box-shadow: inset 0 0 0 1px var(--amber);
+    }
+
+    .phone-label {
+      color: var(--white);
+      font-size: 10px;
+      letter-spacing: .09em;
+    }
+
+    .phone-number {
+      font-family: var(--mono);
+      font-size: 25px;
+      line-height: 1.05;
+      letter-spacing: .02em;
+    }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      margin-top: 22px;
+      padding-top: 12px;
+      border-top: var(--line) solid var(--ink);
+      color: var(--fibre);
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: .04em;
+    }
+
+    .number-plate {
+      display: inline-block;
+      min-width: 38px;
+      padding: 5px 7px;
+      border: var(--line) solid var(--ink);
+      box-shadow: inset 0 2px 0 var(--fibre), inset 0 -2px 0 var(--paper);
+      font-family: var(--mono);
+      font-size: 12px;
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+      transform-style: preserve-3d;
+    }
+
+    .number-plate.flip {
+      animation: flip 140ms steps(1);
+    }
+
+    @keyframes flip {
+      0% { transform: rotateY(0); }
+      50% { transform: rotateY(90deg); }
+      100% { transform: rotateY(0); }
+    }
+
+    @media (max-width: 900px) {
+      .sheet {
+        padding: 25px 24px 36px;
+      }
+
+      .hero,
+      .ledger {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-note {
+        max-width: none;
+      }
+
+      .image-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .sheet {
+        padding: 20px 16px 30px;
+      }
+
+      .topline,
+      footer {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .record {
+        text-align: left;
+      }
+
+      h1 {
+        font-size: clamp(54px, 17vw, 76px);
+      }
+
+      .time-rule {
+        grid-template-columns: repeat(6, 1fr);
+      }
+
+      .time-rule span:nth-child(n + 7) {
+        display: none;
+      }
+
+      .service,
+      .service:nth-child(n) {
+        grid-template-columns: 48px minmax(0, 1fr);
+        min-height: 0;
+      }
+
+      .service-side {
+        grid-column: 2;
+        flex-direction: row;
+        align-items: baseline;
+        border-left: 0;
+        border-top: var(--line) solid var(--ink);
+        padding: 8px 12px;
+        text-align: left;
+      }
+
+      .service-code {
+        grid-row: 1 / span 2;
+        padding-left: 7px;
+        padding-right: 7px;
+      }
+
+      .service-body {
+        padding: 13px 12px;
+      }
+
+      .service-body h3 {
+        font-size: 22px;
+      }
+
+      .image-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .image-slot,
+      .image-slot:nth-child(n),
+      .text-slot {
+        min-height: 190px;
+      }
+
+      .lock-bar {
+        grid-template-columns: 48px minmax(0, 1fr) 62px;
+      }
+
+      .bar-text {
+        padding-left: 8px;
+        font-size: 12px;
+      }
+
+      .cta {
+        grid-template-columns: 1fr;
+      }
+
+      .phone {
+        align-items: flex-start;
+        width: 100%;
+        min-width: 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      .sheet::after {
+        animation: none;
+      }
+
+      .lock-bar {
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="sheet">
+    <header class="topline">
+      <div class="masthead">
+        <span class="kicker">值班台 / 释放簿</span>
+        <span class="kicker">鞋履 · 钥匙 · 小件修复</span>
+      </div>
+      <div class="record">记录号 S21-KEY / 现场接单<br>营业时间 09:00—19:00</div>
+    </header>
+
+    <section class="hero" aria-labelledby="page-title">
+      <div>
+        <h1 id="page-title">先解除<br>再交件。</h1>
+      </div>
+      <div class="hero-note">
+        <p>每一件东西都有它的锁别。把需求说清，时间就能放行。</p>
+        <span class="micro">不接模糊指令。先电话确认。</span>
+      </div>
+    </section>
+
+    <div class="time-rule" aria-label="营业时间刻线">
+      <span>09</span>
+      <span>10</span>
+      <span>11</span>
+      <span>12</span>
+      <span>13</span>
+      <span>14</span>
+      <span>15</span>
+      <span>16</span>
+      <span>17</span>
+      <span>18</span>
+      <span>19</span>
+      <span>关</span>
+    </div>
+
+    <section class="ledger" aria-label="修鞋与配钥匙服务台">
+      <div class="column">
+        <div class="column-heading">
+          <h2>左栏 / 受理项目</h2>
+          <span>条目 05</span>
+        </div>
+
+        <div class="services">
+          <article class="service">
+            <div class="service-code">01 / 鞋底</div>
+            <div class="service-body">
+              <h3>鞋底更换</h3>
+              <p>旧底先拆，鞋面再检。适合磨穿、开胶、踩空的日常鞋。</p>
+            </div>
+            <div class="service-side">
+              <span class="service-price">￥80 起</span>
+              <span class="service-note">依鞋型<br>现场判定</span>
+            </div>
+          </article>
+
+          <article class="service">
+            <div class="service-code">02 / 鞋跟</div>
+            <div class="service-body">
+              <h3>鞋跟修复</h3>
+              <p>高跟、皮鞋、工作鞋均可。先固定受力点，再处理外层磨损。</p>
+            </div>
+            <div class="service-side">
+              <span class="service-price">￥35 起</span>
+              <span class="service-note">当日可取<br>需先看实物</span>
+            </div>
+          </article>
+
+          <article class="service">
+            <div class="service-code">03 / 拉链</div>
+            <div class="service-body">
+              <h3>拉链与缝线</h3>
+              <p>不硬拽。拉头、齿口、开线位置分开处理，避免二次损伤。</p>
+            </div>
+            <div class="service-side">
+              <span class="service-price">￥25 起</span>
+              <span class="service-note">小件优先<br>可预约</span>
+            </div>
+          </article>
+
+          <article class="service">
+            <div class="service-code">04 / 配钥</div>
+            <div class="service-body">
+              <h3>普通钥匙复制</h3>
+              <p>带原钥匙来。锁芯磨损、齿形不清的，先试配再决定是否放行。</p>
+            </div>
+            <div class="service-side">
+              <span class="service-price">￥10 起</span>
+              <span class="service-note">普通民用<br>现场确认</span>
+            </div>
+          </article>
+
+          <article class="service">
+            <div class="service-code">05 / 门禁</div>
+            <div class="service-body">
+              <h3>门禁扣复制</h3>
+              <p>携原扣到台。不同系统读写方式不同，电话里先确认型号与数量。</p>
+            </div>
+            <div class="service-side">
+              <span class="service-price">￥30 起</span>
+              <span class="service-note">需留号<br>不接猜测</span>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div class="column">
+        <div class="column-heading">
+          <h2>右栏 / 留痕与释放</h2>
+          <span>锁闭路径 14 格</span>
+        </div>
+
+        <div class="image-grid" aria-label="现场图片位">
+          <figure class="image-slot">
+            <img src="images/占位-1.jpg" width="640" height="420" alt="修鞋工具与工作台">
+          </figure>
+          <figure class="image-slot">
+            <img src="images/占位-2.jpg" width="480" height="560" alt="鞋底修复细节">
+          </figure>
+          <figure class="image-slot">
+            <img src="images/占位-3.jpg" width="640" height="360" alt="钥匙复制台">
+          </figure>
+          <figure class="image-slot">
+            <img src="images/占位-4.jpg" width="480" height="360" alt="皮革与缝线细节">
+          </figure>
+          <figure class="image-slot">
+            <img src="images/占位-5.jpg" width="640" height="420" alt="钥匙坯与编号牌">
+          </figure>
+          <div class="text-slot">
+            <span class="stamp">现场规则 / 05</span>
+            <strong>先看实物，<br>再报时间。</strong>
+            <p>电话预约只锁定到店时刻，不替代现场判定。</p>
+          </div>
+        </div>
+
+        <section class="release-panel" id="release-path">
+          <div class="release-header">
+            <h2>释放路径</h2>
+            <span>扣接顺序 / 01—14</span>
+          </div>
+
+          <div class="lock-path">
+            <div class="lock-bar" data-angle="30" data-group="a" style="--drift:0px">
+              <span class="bar-id">01</span><span class="bar-text">报项目</span><span class="bar-angle">30° / 01</span>
+            </div>
+            <div class="lock-bar" data-angle="45" data-group="b" style="--drift:.25px">
+              <span class="bar-id">02</span><span class="bar-text">报数量</span><span class="bar-angle">45° / 02</span>
+            </div>
+            <div class="lock-bar" data-angle="60" data-group="c" style="--drift:.5px">
+              <span class="bar-id">03</span><span class="bar-text">报原件状态</span><span class="bar-angle">60° / 03</span>
+            </div>
+            <div class="lock-bar" data-angle="30" data-group="a" style="--drift:.75px">
+              <span class="bar-id">04</span><span class="bar-text">确认是否带原件</span><span class="bar-angle">30° / 04</span>
+            </div>
+            <div class="lock-bar" data-angle="45" data-group="b" style="--drift:1px">
+              <span class="bar-id">05</span><span class="bar-text">登记称呼</span><span class="bar-angle">45° / 05</span>
+            </div>
+            <div class="lock-bar" data-angle="60" data-group="c" style="--drift:1.25px">
+              <span class="bar-id">06</span><span class="bar-text">锁定来店时刻</span><span class="bar-angle">60° / 06</span>
+            </div>
+            <div class="lock-bar" data-angle="30" data-group="a" style="--drift:1.5px">
+              <span class="bar-id">07</span><span class="bar-text">到店复核</span><span class="bar-angle">30° / 07</span>
+            </div>
+            <div class="lock-bar" data-angle="45" data-group="b" style="--drift:1.75px">
+              <span class="bar-id">08</span><span class="bar-text">确认报价</span><span class="bar-angle">45° / 08</span>
+            </div>
+            <div class="lock-bar" data-angle="60" data-group="c" style="--drift:2px">
+              <span class="bar-id">09</span><span class="bar-text">确认工序</span><span class="bar-angle">60° / 09</span>
+            </div>
+            <div class="lock-bar" data-angle="30" data-group="a" style="--drift:2.25px">
+              <span class="bar-id">10</span><span class="bar-text">开始处理</span><span class="bar-angle">30° / 10</span>
+            </div>
+            <div class="lock-bar" data-angle="45" data-group="b" style="--drift:2.5px">
+              <span class="bar-id">11</span><span class="bar-text">中途不改件</span><span class="bar-angle">45° / 11</span>
+            </div>
+            <div class="lock-bar" data-angle="60" data-group="c" style="--drift:2.75px">
+              <span class="bar-id">12</span><span class="bar-text">完成检视</span><span class="bar-angle">60° / 12</span>
+            </div>
+            <div class="lock-bar" data-angle="30" data-group="a" style="--drift:3px">
+              <span class="bar-id">13</span><span class="bar-text">电话通知</span><span class="bar-angle">30° / 13</span>
+            </div>
+            <div class="lock-bar" data-angle="45" data-group="b" style="--drift:3.5px">
+              <span class="bar-id">14</span><span class="bar-text">交件，路径关闭</span><span class="bar-angle">45° / 14</span>
+            </div>
+          </div>
+
+          <div class="release-foot">
+            <span><strong>互斥：</strong>同组条目不可同时改动。</span>
+            <span>切口 30° / 45° / 60°</span>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section class="cta" aria-label="电话预约">
+      <div class="cta-copy">
+        <h2>要预约，直接打电话。</h2>
+        <p>说清楚要修什么、几件、什么时候到。其余的，到台上处理。</p>
+      </div>
+      <a class="phone" href="tel:02168091234">
+        <span class="phone-label">值班台 / 电话预约</span>
+        <span class="phone-number">021 6809 1234</span>
+      </a>
+    </section>
+
+    <footer>
+      <span>联锁释放簿 / 鞋钥小店 / S21</span>
+      <span>无预约不承诺时刻 · 到店以实物为准</span>
+      <span class="number-plate" role="button" tabindex="0" aria-label="翻转道岔号牌">S21</span>
+    </footer>
+  </main>
+
+  <script>
+    (() => {
+      const path = document.querySelector("#release-path");
+      const bars = [...document.querySelectorAll(".lock-bar")];
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      const seatBars = () => {
+        bars.forEach((bar, index) => {
+          window.setTimeout(() => bar.classList.add("is-ready"), index * 70);
+        });
+      };
+
+      if (reduced) {
+        bars.forEach(bar => bar.classList.add("is-ready"));
+      } else if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver((entries, instance) => {
+          if (entries.some(entry => entry.isIntersecting)) {
+            seatBars();
+            instance.disconnect();
+          }
+        }, { threshold: 0.2 });
+        observer.observe(path);
+      } else {
+        seatBars();
+      }
+
+      bars.forEach(bar => {
+        bar.addEventListener("mouseenter", () => {
+          const group = bar.dataset.group;
+          bars.forEach(other => {
+            if (other.dataset.group === group) {
+              other.classList.add(other === bar ? "is-active" : "is-conflict");
+            }
+          });
+        });
+
+        bar.addEventListener("mouseleave", () => {
+          bars.forEach(other => {
+            other.classList.remove("is-active", "is-conflict");
+          });
+        });
+      });
+
+      const plate = document.querySelector(".number-plate");
+      const flipPlate = () => {
+        plate.classList.remove("flip");
+        void plate.offsetWidth;
+        plate.classList.add("flip");
+        plate.textContent = plate.textContent === "S21" ? "L14" : "S21";
+        window.setTimeout(() => {
+          plate.classList.remove("flip");
+          plate.textContent = "S21";
+        }, 140);
+      };
+
+      plate.addEventListener("click", flipPlate);
+      plate.addEventListener("keydown", event => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          flipPlate();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
