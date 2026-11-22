@@ -1037,6 +1037,9 @@ function score(id, opts = {}) {
    * 汇总自动跟上 —— 不需要再记得改第二个地方。 */
   out.undecided = undecided;
   out.banned = banned;
+  /* 提示词原文带出去，输出层用它判「这份产物是哪一代提示词做的」。
+   * 不带的话输出层只能重读一遍文件 —— 那是第二个实现，会漂。 */
+  out.promptRaw = prompt;
 
   return out;
 }
@@ -1522,14 +1525,37 @@ if (arg === '--positive-control') {
 }
 
 const ids = arg === '--all'
-  ? readdirSync(BT, { withFileTypes: true }).filter((d) => d.isDirectory() && /^S\d{2}$/.test(d.name)).map((d) => d.name).sort()
+  /* ⚠️ 目录名必须允许 `S21-r2` 这种重跑后缀。
+   *
+   * 原来写的是 `/^S\d{2}$/`，于是 --all 只扫到 19 个目录，
+   * 而重跑产物（S21-r2 / S34-r2，正是**唯一带 audit 段的那两份**）从来没被批量评过分。
+   * 那两份恰好是这一轮最要紧的证据 —— 全案汇总里少掉它们，
+   * 「audit 段有没有效」就永远没有分母。
+   * 这是第①类缺陷（闸门读不到对象却报出一个干净数）的第五次复现。 */
+  ? readdirSync(BT, { withFileTypes: true })
+      .filter((d) => d.isDirectory() && /^S\d{2}(-r\d+)?$/.test(d.name))
+      .map((d) => d.name).sort()
   : [arg];
 const UNDECIDED = [];
 
 for (const id of ids) {
   const r = score(id);
   if (!r.ok) { console.log(`${id}: ${r.why}`); continue; }
-  console.log(`\n══ ${id} ${r.cn || ''}  ${r.lines} 行 / ${r.bytes} 字节`);
+  /* 提示词代次。产物是**某一版**提示词生成的，提示词一改，旧产物就不再是
+   * 「用今天的提示词做出来的东西」。这一行不加的后果本仓库吃过好几次：
+   * 2026-11-21 把 11 案旧产物报成「14 案已验货」，差 31% 的提示词长度。
+   *
+   * 判据用提示词里可辨识的分段，从旧到新：
+   *   · 有「第四处字体分工」→ 今（2026-11-22 加第四个字体槽之后）
+   *   · 有「这一案自己的做法」→ 上一代（audit 段接进提示词之后）
+   *   · 有「静态降级」      → 再上一代（motion 段之后）
+   *   · 都没有              → 最早的
+   * 这不是为了给产物排优劣，是为了让「拿旧产物当新结果」这件事在输出里看得见。 */
+  const gen = /第四处字体分工/.test(r.promptRaw || '') ? '今'
+    : /这一案自己的做法/.test(r.promptRaw || '') ? 'audit'
+    : /静态降级/.test(r.promptRaw || '') ? 'motion'
+    : '最早';
+  console.log(`\n══ ${id} ${r.cn || ''}  ${r.lines} 行 / ${r.bytes} 字节　〔提示词：${gen}〕`);
   /* ① */
   const c = r.colors;
   console.log(`  ① 配色   ${c.got}/${c.want} 个 hex 出现${c.missing.length ? '；缺 ' + c.missing.join(' ') : ''}`);
