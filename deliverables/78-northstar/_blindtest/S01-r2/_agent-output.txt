@@ -1,0 +1,109 @@
+    <!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>鞋底与钥匙｜街口修补站</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;700;900&family=Martian+Mono:wght@400;700&family=Noto+Sans+SC:wght@400;500;700;900&display=swap');
+:root{--red:#C1121F;--paper:#EFE7D7;--ink:#1A1614;--lead:#6E6A5E;--gap:24px;}
+*{box-sizing:border-box;border-radius:0;}
+html{background:var(--paper);}
+body{margin:0;background-color:var(--paper);color:var(--ink);font-family:'Noto Sans SC','Source Han Sans SC',sans-serif;font-size:16px;line-height:1.42;overflow-x:hidden;}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background-image:repeating-linear-gradient(0deg,var(--paper) 0,var(--paper) 5px,var(--lead) 5px,var(--lead) 6px);background-size:100% 17px;mix-blend-mode:multiply;opacity:.075;z-index:10;}
+.page{position:relative;max-width:1440px;margin:0 auto;padding:24px 40px 32px;overflow:hidden;}
+.masthead{position:relative;display:grid;grid-template-columns:5fr 4fr 4fr 3fr;column-gap:var(--gap);min-height:108px;border-bottom:3px solid var(--ink);align-items:end;padding-bottom:12px;}
+.kicker{grid-column:1/3;font-family:'Archivo','Noto Sans SC',sans-serif;font-weight:900;letter-spacing:.08em;text-transform:uppercase;font-size:15px;}
+.issue{grid-column:4;text-align:right;font-family:'Martian Mono',monospace;font-variant-numeric:tabular-nums;font-size:12px;line-height:1.2;}
+.issue strong{font-size:19px;display:block;}
+.rule-note{position:absolute;left:0;top:0;width:100%;font-family:'Martian Mono',monospace;font-size:10px;color:var(--lead);letter-spacing:.03em;}
+.red-wedge{position:absolute;z-index:0;background:var(--red);width:71%;height:124px;left:-10%;top:104px;transform:skewX(-11deg) rotate(-11deg);transform-origin:left center;}
+.red-wedge:after{content:"";position:absolute;right:-20px;top:0;width:20px;height:100%;background:var(--red);}
+.content-grid{position:relative;z-index:1;display:grid;grid-template-columns:5fr 4fr 4fr 3fr;column-gap:var(--gap);align-items:start;padding-top:18px;}
+.col{min-width:0;}
+.lead-col{padding-top:54px;}
+.empty-news{height:58px;margin-bottom:8px;position:relative;border-top:1px solid var(--lead);}
+.empty-news:before{content:"";position:absolute;top:25px;left:50%;width:6px;height:6px;background:var(--lead);transform:translateX(-50%);}
+.empty-news span{position:absolute;left:0;top:2px;font-family:'Martian Mono',monospace;font-size:9px;color:var(--lead);}
+h1{font-size:clamp(64px,7vw,96px);line-height:.88;letter-spacing:-.085em;margin:0 0 18px;font-weight:900;max-width:5.3em;position:relative;}
+.deck{font-size:18px;line-height:1.35;font-weight:700;max-width:23em;margin:0 0 22px;border-left:3px solid var(--ink);padding-left:12px;}
+.cta{display:inline-block;background:var(--ink);color:var(--paper);border:3px solid var(--ink);padding:11px 15px 10px;text-decoration:none;font-weight:900;letter-spacing:.04em;position:relative;}
+.cta:after{content:"";position:absolute;left:0;bottom:-7px;width:100%;height:3px;background:var(--red);}
+.section-label{font-family:'Martian Mono',monospace;font-size:11px;font-weight:700;border-bottom:3px solid var(--red);padding-bottom:6px;margin-bottom:14px;position:relative;display:inline-block;}
+.section-label:hover:after{content:"";position:absolute;left:0;bottom:-3px;height:3px;width:100%;background:var(--red);animation:label-jump 90ms steps(3) both;}
+@keyframes label-jump{from{width:0}to{width:100%}}
+.story{border-top:1px solid var(--ink);padding-top:10px;margin-bottom:18px;position:relative;}
+.story:nth-of-type(odd){padding-right:10px;}
+.story h2{font-size:22px;line-height:1.08;margin:0 0 7px;font-weight:900;letter-spacing:-.04em;}
+.story p{margin:0;font-size:15px;line-height:1.45;}
+.num{font-family:'Martian Mono',monospace;font-size:12px;text-align:right;display:block;margin-bottom:4px;font-variant-numeric:tabular-nums;}
+.photo{display:block;width:100%;height:auto;border:3px solid var(--ink);object-fit:cover;margin:0 0 10px;filter:grayscale(1) contrast(1.15);}
+.photo-caption{font-family:'Martian Mono',monospace;font-size:10px;line-height:1.25;color:var(--lead);margin:0 0 16px;}
+.image-block{border-bottom:1px solid var(--ink);padding-bottom:12px;margin-bottom:16px;}
+.text-image{height:156px;border:3px solid var(--ink);padding:12px;background:var(--paper);display:flex;align-items:end;margin-bottom:10px;}
+.text-image b{font-size:28px;line-height:.95;letter-spacing:-.06em;}
+.fold{position:relative;border:3px solid var(--ink);padding:13px 13px 15px;background:var(--paper);margin-top:10px;cursor:pointer;}
+.fold:before{content:"";position:absolute;right:-3px;top:-3px;width:30px;height:30px;background:var(--red);clip-path:polygon(0 0,100% 0,100% 100%);}
+.fold:after{content:"↗";position:absolute;right:4px;top:1px;color:var(--paper);font-size:18px;font-family:'Archivo','Noto Sans SC',sans-serif;}
+.fold summary{list-style:none;font-weight:900;font-size:18px;line-height:1.05;padding-right:20px;}
+.fold summary::-webkit-details-marker{display:none;}
+.fold p{font-size:14px;margin:10px 0 0;}
+.latin{font-family:'Archivo','Noto Sans SC',sans-serif;font-weight:900;letter-spacing:.02em;text-transform:uppercase;}
+.footer{display:grid;grid-template-columns:5fr 4fr 4fr 3fr;column-gap:var(--gap);border-top:3px solid var(--ink);margin-top:6px;padding-top:11px;font-size:12px;}
+.footer p{margin:0}.footer .latin{font-size:12px}.footer .phone{grid-column:4;text-align:right;font-family:'Martian Mono',monospace;font-size:14px;font-weight:700;}
+.reveal{animation:drop-in 320ms cubic-bezier(.2,.9,.15,1) both;animation-delay:calc(var(--i)*60ms);}
+@keyframes drop-in{from{transform:translateY(-12px)}to{transform:translateY(0)}}
+@media (prefers-reduced-motion:reduce){.reveal{animation:fade-in 120ms ease both;animation-delay:0!important}.red-wedge{transform:skewX(-11deg) rotate(-11deg)}}
+@keyframes fade-in{from{opacity:0}to{opacity:1}}
+@media (max-width:850px){.page{padding:18px 18px 25px}.masthead,.content-grid,.footer{grid-template-columns:1fr;column-gap:0}.masthead{min-height:120px}.kicker{grid-column:1}.issue{grid-column:1;text-align:left;margin-top:12px}.red-wedge{top:116px;left:-20%;width:115%;height:100px}.content-grid{padding-top:14px}.lead-col{padding-top:48px}h1{font-size:clamp(60px,18vw,86px)}.col{padding-top:18px;border-top:24px solid var(--paper)}.footer{border-top:3px solid var(--ink);gap:11px}.footer .phone{grid-column:1;text-align:left}.photo{max-width:100%}.empty-news{height:58px}}
+</style>
+</head>
+<body>
+<main class="page">
+<header class="masthead">
+<div class="rule-note">街口记录 / 03—24—2025 / NO.017</div>
+<div class="kicker">NORTHSTAR SHOE + KEY / 现场修补部</div>
+<div class="issue"><strong>017</strong>今天也开门<br>雨天照样配钥匙</div>
+</header>
+<div class="red-wedge" aria-hidden="true"></div>
+<section class="content-grid" aria-label="街口修补服务">
+<article class="col lead-col reveal" style="--i:0">
+<div class="empty-news"><span>未刊 / NEWS THAT GOT PUSHED OUT</span></div>
+<h1>鞋底<br>别硬撑。</h1>
+<p class="deck">鞋跟响了、钥匙卡了、拉链跟你闹脾气了？拿来。我们在街角把小麻烦修回能用。</p>
+<a class="cta" href="tel:01055550177">打电话，约时间 →</a>
+<div class="image-block" style="margin-top:28px">
+<img class="photo" src="images/占位-1.jpg" width="540" height="390" alt="工作台上的鞋底与工具">
+<p class="photo-caption">01 / 台面不漂亮，活儿要漂亮。</p>
+</div>
+<details class="fold"><summary>折角导读：今天先修哪一件？</summary><p>先把最急的说出来。上班要穿的鞋、今晚要开的门、明早要交的钥匙，我们按时间排，不按脸色排。</p></details>
+</article>
+<article class="col reveal" style="--i:1">
+<div class="section-label">01 / 鞋底急救</div>
+<div class="story"><span class="num">01</span><h2>鞋跟不该替你发言。</h2><p>走三步响一声，整条街都知道你来了。换底、补口、钉跟，别让鞋替你喊救命。</p></div>
+<div class="image-block"><img class="photo" src="images/占位-2.jpg" width="420" height="300" alt="正在修补的皮鞋"><p class="photo-caption">修补现场 / 先看磨损，再动刀。</p></div>
+<div class="story"><span class="num">02</span><h2>皮面刮花？别急着扔。</h2><p>颜色能找回来，边角能收住。旧鞋有旧鞋的脾气，我们不把它修成陌生人。</p></div>
+</article>
+<article class="col reveal" style="--i:2">
+<div class="section-label">02 / 钥匙与门</div>
+<div class="image-block"><img class="photo" src="images/占位-3.jpg" width="420" height="350" alt="钥匙坯与配钥匙机器"><p class="photo-caption">钥匙位 / 一把对，一整天顺。</p></div>
+<div class="story"><span class="num">03</span><h2>卡住的门，不等于卡住的日子。</h2><p>家门、储物柜、老抽屉。带原钥匙最好，没有也别慌，先来电话说清楚。</p></div>
+<div class="story"><span class="num">04</span><h2>多配一把，少跑一趟。</h2><p>给室友、给爸妈、给那个总忘带钥匙的人。现场试开，不让你回家才发现不对。</p></div>
+</article>
+<article class="col reveal" style="--i:3">
+<div class="section-label">03 / 小修小补</div>
+<div class="image-block"><img class="photo" src="images/占位-4.jpg" width="320" height="300" alt="修鞋店门口的工具与布料"><p class="photo-caption">门口 / 工具比招牌更会说话。</p></div>
+<div class="story"><span class="num">05</span><h2>拉链、扣子、包角，能救就救。</h2><p>我们不卖“换新的比较快”。能补的先补，能撑的再撑，东西跟人一样，值得多一轮。</p></div>
+<div class="text-image"><b>来之前<br>先打个电话。</b></div>
+<p class="photo-caption">05 / 预约不是排场，是让你不用白跑。</p>
+</article>
+</section>
+<footer class="footer">
+<p class="latin">OPEN WHEN THE STREET IS AWAKE</p>
+<p>周一至周六 09:30—19:30<br>周日看雨势，电话确认</p>
+<p>北京 · 北站口 · 红砖巷 7 号<br>进巷第二个卷帘门</p>
+<p class="phone">010 5555 0177</p>
+</footer>
+</main>
+</body>
+</html>

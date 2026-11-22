@@ -1595,7 +1595,12 @@ for (const id of ids) {
       /* 剔除了刻意留空/版式元素时要显示出来 —— 否则读者会奇怪
        * 「HTML 里明明有 7 个 article，为什么报 5」。 */
       const dropNote = s.dropped ? `（已剔除 ${s.dropped} 个标记为空的单元）` : '';
-      console.log(`  ④ 结构   条目 应排 ${s.expect} 条（版式规模 ${s.scale}，不是目标）；HTML <${s.gotTag}>=${s.got}${dropNote} ${mark(s.hit)}`
+      /* ⚠️ 2026-11-22：判据容许 ±1 条（`Math.abs(got-expect)<=1`，有自测守着）。
+       * 但显示成裸 ✓ 会让读者以为「5 条排了 5 条」——实测 S01-r2 报 ✓
+       * 而实际只排了 4 条。容差是设计，**但读者看不出来**。
+       * 所以差 1 条时标成 `✓±1`，把容差摆在脸上。 */
+      const tol = (s.hit && s.got !== s.expect) ? '±1' : '';
+      console.log(`  ④ 结构   条目 应排 ${s.expect} 条（版式规模 ${s.scale}，不是目标）；HTML <${s.gotTag}>=${s.got}${dropNote} ${mark(s.hit)}${tol}`
         + (others ? `　〔其他标签仅供参考：${others}〕` : ''));
     }
   } else {
