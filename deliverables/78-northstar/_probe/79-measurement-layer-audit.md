@@ -2660,3 +2660,114 @@ function score(id, opts) {
 这个比例本身就是这个仓库的问题所在 —— 报在
 `web-style-recon-74.md` 里，这一轮又加了 3 个脚本、1 份计划文件。
 **下一轮应该先减，不要再加。**
+
+---
+
+## 四十五、S19 的那条豁免，掩盖的是数据模型缺一个槽
+
+> 2026-11-22。起于一句不情愿写的注释。
+
+正对照里有一条豁免：
+
+```js
+const KNOWN_EXEMPT = {
+  S19: ['字体链外'],   // 原型自声明「拉丁标题 = Spectral」，dna.fonts 缺这个字段
+};
+```
+
+这条注释写了两件事，第二件比第一件严重得多。**第一件是判据报了违规，
+第二件是数据模型没有地方放这个角色。** 我把它登记成豁免，等于让判据闭嘴，
+而不是去补那个槽。这一轮把它查到底。
+
+### 先说清楚：S19 的 `display` 没抽错
+
+第一反应是「`clean-dna` 抽错了字体」。查下来不是：
+
+```
+S19 style.css:98    h1, h2, h3 { font-family: "Noto Serif SC", Georgia, serif; }
+S19 style.css:143   .mast__en  { font-family: "Spectral", "Noto Serif SC", Georgia, serif; }
+S19 style.css:287   .xc__la    { font-family: "Spectral", "Noto Serif SC", Georgia, serif; }
+```
+
+h1 真的是 Noto Serif SC。**Spectral 只承担一处局部拉丁字排版** ——
+报头英文副题与卡片拉丁名。`dna.fonts` 三个槽（display / body / mono）
+全被占满，Spectral 无处可去，于是整个蒸发。
+
+而作者在 `fontsSpec` 里明写了这件事：「拉丁标题用 Spectral（OFL 1.1，
+低对比屏幕衬线，与 0.4px 蚀刻细线并置时不抢戏）；分工：柜门标题与卡面标题 =
+Spectral 加京华老宋体宽排」。**这段散文一次都没进提示词**
+（`prompt-copy.js` 里 `fontsSpec` 引用数 = 0）。
+
+### 普查：不是 S19 一例，是 5 例
+
+写了一个提取判据（`_latin-role-probe.mjs`），两条来源按可靠性排序：
+
+1. **作者显式命名的变量** `--f-latin` —— 直接声明，最可靠
+2. **规则里换了字体，且该字体不在三个已知角色里**，且不是中文族、不是等宽族
+
+结果：
+
+| 案 | 拉丁角色 | 来源 | 作者原话 |
+|---|---|---|---|
+| S01 | Archivo | `--f-latin` 变量 | 「Archivo 拉丁标题（variable wdth 62.5–125）」 |
+| S03 | Space Grotesk | `.h2` 规则 | （标题链是 IBM Plex Mono，`.h2` 级别换了） |
+| S04 | Unbounded | `.board__latin` | 「Unbounded 拉丁标题 / Redaction 20 拉丁正文」 |
+| S16 | Archivo Black | `.masthead-latin` | 「拉丁标题 = Archivo Black（只作 masthead-latin 一处，字数占比 1%）」 |
+| S19 | Spectral | `.mast__en` / `.xc__la` | 「拉丁标题用 Spectral」 |
+
+**5/35 案的语言分工在提示词里完全消失。** 这不是判据太严，
+是 AI 拿到的施工图里根本没有这一层。
+
+### 判据本身也错过两次，都记下来
+
+**第一次：靠选择器命名，两头不讨好。** v1 只看「选择器里带 latin/en/la」，
+结果 S01 误报（`.latin` 那条其实是正文链，Archivo 写在 `--f-latin` 变量里
+根本没进选择器），S03 漏报（换字体的规则叫 `.h2`，一个拉丁字样都没有）。
+
+**第二次：没挡等宽体。** v2 加上变量来源后 5/5 全中，但 S18 被误报成
+「拉丁角色 = Martian Mono」—— 它只是 `code` / `.promptline` 的等宽宿主。
+等宽是**已有的第三个角色**，不是第四角色。
+
+修完之后 5/5 真阳、0 误报。但「5 个全中 0 个误报」这句话本身可以是
+对着期望表写死的，所以加了三条变异：
+
+```
+· 基线：5/5 认出（应为 5）✓
+· 变异 A（清空已占角色集）：误报 19 案（应 >0）✓ 守卫在起作用
+· 变异 B（给 S21 注入 .zzz-latin → 中文族 Noto Sans SC）：认出（无）✓ CJK 过滤在起作用
+· 变异 C（给 S21 注入 .zzz-latin）：认出 Zzz Test Face ✓ 真能认出新字体
+```
+
+**变异 B 第一版是错的，值得单独说。** 它原本写成「去掉 CJK 过滤后误报数应 >0」，
+实测 0，我第一反应是「守卫是空的」。查下来是**这道题在真实语料里没有反例**：
+唯一一处「latin 选择器首位是中文族」是 S16 的
+`.slab-latin { font-family: "LXGW Marker Gothic", … }`，而 LXGW Marker Gothic
+正是 S16 的 `dna.display`，早被「已占角色」守卫挡掉了。
+改成**注入**一个中文族到还没人占的位置，才真正考到 CJK 过滤本身。
+
+> 这条经验可以直接复用：**当一条变异测试不变红时，先分清是「守卫是空的」
+> 还是「这道题没有反例」。** 两者的修法完全相反 —— 前者补守卫，后者换题目。
+
+### 这不是「修好」了，是「量清楚了」
+
+这一轮**没有**给 `dna.fonts` 加第四个槽。理由是：
+
+- 加槽要动 `clean-dna.mjs`（生成器）、`prompts.js`（生成物）、
+  `prompt-copy.js`（提示词渲染）、`extract-constraints.mjs`（约束抽取器），
+  四处，且 `prompts.js` 是生成物、改了会被 `quarter --write` 覆盖回去
+- 它属于**产品侧**改动，而这一轮的任务是量尺。两者混在一起，
+  出了问题分不清是尺子错还是产品错 —— 上一轮就是这么把两件事搅在一起的
+
+已经落地的只有一件事：**这条缺陷现在有名字、有数量、有可复现的判据**，
+并且接进了 `verify-research.mjs`（第 20 项）。S19 的 `KNOWN_EXEMPT`
+仍然是豁免，但注释可以改得诚实一点了 —— 它不是「字体的边缘情况」，
+是「数据模型少一个槽」。
+
+下一轮该做的三件事（按顺序）：
+
+1. `clean-dna.mjs` 加 `fonts.latin`，用本报告的判据提取
+2. `prompt-copy.js` 在 `fontLine` 里，有 `latin` 时追加一句
+   「另有一处局部拉丁字用 X 排（只用于…）」
+3. 改完跑 `score.mjs --positive-control`，S19 的豁免应当自然消失
+
+第 3 步是验收条件：**如果豁免还得留着，说明槽加错了。**

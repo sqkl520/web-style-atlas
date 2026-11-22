@@ -92,6 +92,17 @@ const STEPS = [
    * 五个概念（圆角/线宽/渐变/字体链/默认栈）各列 4–6 种等价写法，
    * 双向测（假阳性 + 假阴性），断言判据给出同一结论。 */
   { id: '_equiv-matrix', label: '等价形式矩阵（27 种写法）', fail: true },
+  /* 2026-11-22 新增：拉丁字体角色（第四角色）普查。
+   *
+   * S19 的 KNOWN_EXEMPT 写着「原型自声明『拉丁标题 = Spectral』，dna.fonts 缺这个字段」。
+   * 那句话本身就是一条我们不愿承认的账 —— 判据豁免掩盖了数据模型缺槽。
+   * 这一项用同一个提取判据跑全部 35 原型：认出 5 案（S01 Archivo / S03 Space Grotesk /
+   * S04 Unbounded / S16 Archivo Black / S19 Spectral），0 误报，
+   * 并用三条变异证明这三个守卫（已占角色 / CJK / 等宽）都不是空的。
+   *
+   * fail: true —— 因为「真阳必须是 5、误报必须是 0」是可断言的，
+   * 判据一退化成"对着期望表输出对答案"，变异测试就会红。 */
+  { id: '_latin-role-probe', label: '拉丁字体第四角色（5 案 + 3 变异）', fail: true, args: ['--selftest'] },
 ];
 
 const results = [];
