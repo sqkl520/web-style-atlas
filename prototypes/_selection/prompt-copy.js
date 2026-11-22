@@ -433,6 +433,31 @@
       }
     }
     if (mono) fontLine += "编号/价格等数字用等宽 " + mono + "、tabular-nums 右对齐。";
+    /* 第四角色：局部拉丁字。
+     *
+     * 5/35 案为一处**局部拉丁字排版**单独排了一款字体（S01 Archivo、S03 Space Grotesk、
+     * S04 Unbounded、S16 Archivo Black、S19 Spectral）。dna.fonts 只有三个槽，
+     * 全被占满时这一角色无处可去，整个从提示词里蒸发 —— 在此之前它挂在
+     * score.mjs 的 KNOWN_EXEMPT 上，把产品缺陷登记成了判据豁免。
+     * 详见 _probe/79-measurement-layer-audit.md §四十五。
+     *
+     * 措辞三条要求，都是为了不让它变成「多加一款字体」的许可：
+     *  · 说清**只用在什么地方** —— 不给范围，AI 会把它抬成第二标题字体
+     *  · 说清**这不是新增**，是这个版式本来就有的一层分工
+     *  · 与上面「不要用 上面两条链之外的字体」不冲突：那一条管的是标题/正文/数字
+     *    三个角色，这一条是第四个角色，它的字体是**指定的**，不是让 AI 自选 */
+    var fLatin = d.fonts && d.fonts.latin;
+    if (fLatin && fLatin.name) {
+      var latinStack = (fLatin.stack && fLatin.stack.length > 1)
+        ? fLatin.stack.join(" → ")
+        : fLatin.name;
+      var latinScope = (fLatin.selectors && fLatin.selectors.length)
+        ? "（原型的 " + fLatin.selectors.slice(0, 2).join(" / ") + " 这几处）"
+        : "";
+      fontLine += "\n   这个版式还有第四处字体分工：有一小块**拉丁字**单独用 " + latinStack +
+        " 排" + latinScope + "。这不是让你新增字体，是这个版式本来就这么分工的 —— " +
+        "只在那一小块用，不要把标题、正文或数字改成它。";
+    }
     /* 字体行末尾的「回退纪律」：**必须分标题链、正文链各判一次**。
      *
      * 2026-10-26 第二次修（独立验证 Agent 抓出）。第一版把两条链拼起来判

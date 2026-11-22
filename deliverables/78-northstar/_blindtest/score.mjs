@@ -492,6 +492,21 @@ function judgeFontChain(prompt, html) {
    * 于是 `Martian Mono` 被判链外。改成吃到标点为止，允许内部空格。 */
   const monoM = prompt.match(/等宽\s+([A-Za-z][A-Za-z0-9 ]*?)(?=[、，,。]|$)/m);
   if (monoM) allowed.add(monoM[1].trim());
+  /* 第四角色（局部拉丁字）。提示词原文：
+   *   「这个版式还有第四处字体分工：有一小块**拉丁字**单独用 Spectral → Noto Serif SC
+   *     → Georgia 排（原型的 .mast__en / .xc__la 这几处）。…」
+   *
+   * 这一行是 2026-11-22 才有的。加它之前，5/35 案的这个角色在提示词里整段蒸发，
+   * 而 score.mjs 用 KNOWN_EXEMPT 把因此产生的违规登记成豁免 —— 判据闭嘴，
+   * 缺陷留着。补上这条解析之后 S19 的豁免应当自然消失，那才是验收条件。
+   *
+   * 只取「单独用 … 排」之间的链，遇到「（」或句号就停（括号里是选择器，不是字体名）。 */
+  for (const m of prompt.matchAll(/单独用\s+([^（\n。]+?)\s*排/g)) {
+    for (const part of m[1].split('→')) {
+      const n = part.trim().replace(/\*+/g, '');
+      if (n) allowed.add(n);
+    }
+  }
   if (!allowed.size) { if (process.env.DBG) console.error('[dbg] allowed empty'); return null; }
 
   const decls = [...stripCssComments(html).matchAll(/font-family\s*:\s*([^;}]+)/g)].map((m) => m[1].trim());
@@ -1207,6 +1222,33 @@ function selfTest() {
   /* 通用回退不算违规 */
   eq('⑤字体/通用回退不算违规',
     judgeFontChain(PFONT, '<style>.a{font-family:"Martian Mono",monospace}</style>').outside, []);
+
+  /* ── 第四角色（局部拉丁字）的解析。2026-11-22 加。
+   *
+   * 这一段不测「解析能不能跑」，测的是它**该不该把字体放进允许集合**。
+   * 背景：5/35 案有第四款字体，此前在提示词里整段蒸发，S19 靠 KNOWN_EXEMPT 闭嘴。
+   * 补完之后豁免数必须是 0 —— 下面的正例就是那个验收条件的最小复现。 */
+  const PLATIN = '2. 字体：标题按这个顺序取第一个可用的：Noto Sans SC → Source Han Sans SC。'
+    + '正文同理，按序取：Noto Sans SC → Source Han Sans SC。'
+    + '编号/价格等数字用等宽 Martian Mono、tabular-nums 右对齐。\n'
+    + '   这个版式还有第四处字体分工：有一小块**拉丁字**单独用 Spectral → Noto Serif SC 排'
+    + '（原型的 .mast__en / .xc__la 这几处）。这不是让你新增字体。';
+  /* 正例：第四角色的字体用了，不该报链外。这就是 S19 原来那条豁免。 */
+  eq('⑤字体/第四角色在允许集合里',
+    judgeFontChain(PLATIN, '<style>.a{font-family:"Spectral","Noto Serif SC",serif}</style>').outside, []);
+  /* 链上的第二个字体也算（括号里的选择器不能被吃进允许集合）。
+   * ⚠️ 第一版这里写的是 Georgia，红了 —— 但那是**断言错**不是判据错：
+   * 这个测试提示词的第四角色链是「Spectral → Noto Serif SC」，Georgia 根本不在链上。
+   * 拿一个链外字体当「链尾」来测，红了也不说明任何事。改成链上真实存在的第二个。 */
+  eq('⑤字体/第四角色链尾字体也认',
+    judgeFontChain(PLATIN, '<style>.a{font-family:"Noto Serif SC","Spectral"}</style>').outside, []);
+  /* 反例：**链外**的字体不能因为这段存在就免检。
+   * 没有这一条，上面两条可以靠「把整段都塞进 allowed」蒙过去。 */
+  eq('⑤字体/第四角色不放行链外字体',
+    judgeFontChain(PLATIN, '<style>.a{font-family:"Comic Neue"}</style>').outside, ['Comic Neue']);
+  /* 反例：括号里的选择器名不是字体名，不能进允许集合 */
+  eq('⑤字体/选择器名不进允许集合',
+    judgeFontChain(PLATIN, '').allowed.includes('.mast__en'), false);
   /* 真链外要报 */
   /* 真链外要报。用一款既不在链上、也不是手写/通用回退的字体。 */
   eq('⑤字体/真链外要报',
@@ -1429,7 +1471,16 @@ if (arg === '--positive-control') {
    * 登记原则：每条豁免必须写明"为什么这条不是判据的错"。
    * 不写理由的豁免一律不许加 —— 那会把正对照变成"永远绿"。 */
   const KNOWN_EXEMPT = {
-    S19: ['字体链外'],   // 原型自声明「拉丁标题 = Spectral」，dna.fonts 缺这个字段
+    /* 2026-11-22 已清空。原来这里挂着：
+     *   S19: ['字体链外']   // 原型自声明「拉丁标题 = Spectral」，dna.fonts 缺这个字段
+     *
+     * 那条豁免底下是**数据模型缺一个槽**，不是判据太严。补法见 79 §四十五：
+     * clean-dna 加 fonts.latin（5/35 案有这个角色）、prompt-copy 把它写进提示词、
+     * 本文件学会解析那句「单独用 X 排」。改完正对照的豁免数从 1 降到 0。
+     *
+     * 注意验收条件当初就写明是「豁免自然消失」。如果下次有人要往这里加条目，
+     * 先问一句：这是判据的边缘情况，还是产品少了一个字段？
+     */
   };
   let checked = 0, violations = 0, exempted = 0;
   const tmp = join(ROOT, '.pc-tmp');

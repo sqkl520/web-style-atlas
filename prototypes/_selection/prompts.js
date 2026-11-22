@@ -428,7 +428,16 @@ window.STYLE_PROMPTS = {
      "bodyStack": [
       "Noto Sans SC",
       "Source Han Sans SC"
-     ]
+     ],
+     "latin": {
+      "name": "Archivo",
+      "stack": [
+       "Archivo",
+       "Noto Sans SC"
+      ],
+      "src": "变量 --f-latin",
+      "selectors": []
+     }
     },
     "radius": "全直角 0",
     "radiusBare": true,
@@ -521,7 +530,18 @@ window.STYLE_PROMPTS = {
       "Noto Sans SC",
       "Source Han Sans SC",
       "Microsoft YaHei"
-     ]
+     ],
+     "latin": {
+      "name": "Space Grotesk",
+      "stack": [
+       "Space Grotesk",
+       "IBM Plex Sans"
+      ],
+      "src": "局部规则",
+      "selectors": [
+       ".h2"
+      ]
+     }
     },
     "radius": "全直角 0",
     "radiusBare": true,
@@ -570,7 +590,20 @@ window.STYLE_PROMPTS = {
       "Georgia",
       "Nimbus Roman",
       "LXGW WenKai"
-     ]
+     ],
+     "latin": {
+      "name": "Unbounded",
+      "stack": [
+       "Unbounded",
+       "LXGW WenKai",
+       "KaiTi",
+       "STKaiti"
+      ],
+      "src": "局部规则",
+      "selectors": [
+       ".board__latin"
+      ]
+     }
     },
     "radius": "全直角 0",
     "radiusBare": true,
@@ -1130,7 +1163,19 @@ window.STYLE_PROMPTS = {
       "Noto Serif SC",
       "Georgia",
       "Songti SC"
-     ]
+     ],
+     "latin": {
+      "name": "Archivo Black",
+      "stack": [
+       "Archivo Black",
+       "LXGW Marker Gothic"
+      ],
+      "src": "局部规则",
+      "selectors": [
+       ".masthead-latin",
+       ".foot-grid .latin"
+      ]
+     }
     },
     "radius": "全站方角，仅圆形徽标/圆点为 50%",
     "radiusBare": false,
@@ -1274,7 +1319,20 @@ window.STYLE_PROMPTS = {
      "bodyStack": [
       "Noto Serif SC",
       "Georgia"
-     ]
+     ],
+     "latin": {
+      "name": "Spectral",
+      "stack": [
+       "Spectral",
+       "Noto Serif SC",
+       "Georgia"
+      ],
+      "src": "局部规则",
+      "selectors": [
+       ".mast__en",
+       ".xc__la"
+      ]
+     }
     },
     "radius": "全直角 0",
     "radiusBare": true,

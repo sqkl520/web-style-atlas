@@ -46,6 +46,20 @@ const GENERIC = /^(serif|sans-serif|monospace|system-ui|ui-[a-z]+|cursive|fantas
 /* 等宽识别。注意别把 "Monospace" 当族名 —— 它在 GENERIC 里，只会出现在栈尾。 */
 const MONO_RE = /(mono|courier|consolas|typewriter|vt323|overprint|fragment|martian|jetbrains|sometype|departure)/i;
 
+/* 拉丁（第四）字体角色的识别素材。
+ *
+ * 为什么要这个字段：dna.fonts 只有 display / body / mono 三个槽，而 5/35 案
+ * 为一处**局部拉丁字排版**单独排了一款字体（S01 Archivo、S03 Space Grotesk、
+ * S04 Unbounded、S16 Archivo Black、S19 Spectral）。三个槽全被占满，
+ * 这一角色无处可去，整个从提示词里蒸发。
+ * 在此之前它挂在 score.mjs 的 KNOWN_EXEMPT 上 —— 那是把产品缺陷登记成判据豁免。
+ * 详见 deliverables/78-northstar/_probe/79-measurement-layer-audit.md §四十五。 */
+const CJK_FAMILY_RE = /(Noto (Serif|Sans) (SC|TC|JP)|LXGW|WenKai|WenJin|文津|Zhuque|Fangsong|Songti|SimSun|KaiTi|Kaiti|STKaiti|PingFang|Microsoft YaHei|Source Han|思源|宋体|黑体|楷)/i;
+/* 选择器上的拉丁语义标记。`.mast__en` / `.xc__la` / `.board__latin` / `.masthead-latin`
+ * 都落在这个集合里；`.h2` 不落 —— 所以光靠它不够，还要靠「局部出现」那条兜。 */
+const LATIN_SEL_RE = /(latin|[^a-z]en$|[^a-z]en\b|__la\b|_la\b|-la\b|\.en\b)/i;
+
+
 function stripComments(css) {
   return css.replace(CSS_COMMENT_RE, "");
 }
@@ -433,6 +447,62 @@ function monoFamily(decls, rules, vars) {
     }
   }
   return "";
+}
+
+/* 拉丁（第四）字体角色：为一处局部拉丁字单独排的那款字体。
+ *
+ * 返回 { name, stack, src, selectors } 或 null。
+ *
+ * 两条来源，按可靠性排序：
+ *   ① 作者显式命名的变量 `--f-latin` —— 直接声明，最可靠
+ *   ② 规则里换了字体，且该字体不在三个已知角色里
+ *
+ * ⚠️ 三条守卫，缺一条就会误报。这不是理论上的谨慎 —— 前两版各踩了一次：
+ *   · 只靠选择器命名 → S01 误报（`.latin` 那条其实是正文链，Archivo 写在
+ *     `--f-latin` 变量里，根本没进选择器）、S03 漏报（换字体的规则叫 `.h2`）
+ *   · 没挡等宽体 → S18 误报成「拉丁角色 = Martian Mono」（它只是 code 的宿主）
+ * 所以守卫是：已占角色（taken）/ 中文字族 / 等宽族与等宽宿主。 */
+function latinFamily(decls, rules, vars, taken) {
+  const isTaken = function (f) { return taken.has(String(f || "").replace(/\s+/g, "").toLowerCase()); };
+  const usable = function (f) {
+    return !!f && !GENERIC.test(f) && !CJK_FAMILY_RE.test(f) && !isTaken(f);
+  };
+
+  /* ① 作者显式命名的变量 */
+  const KEYS = ["--f-latin", "--latin", "--font-latin", "--f-en", "--en"];
+  for (const key of KEYS) {
+    const d = decls.find(function (x) { return x.name === key; });
+    if (!d) continue;
+    const f = firstFamily(d.value, vars);
+    if (!usable(f)) continue;
+    return { name: f, stack: fullStack(d.value, vars, 4), src: "变量 " + key, selectors: [] };
+  }
+
+  /* ② 规则里换字体的地方 */
+  const hits = new Map();
+  for (const r of rules) {
+    const f = firstFamily(r.value, vars);
+    if (!usable(f)) continue;
+    /* 等宽不是拉丁角色 —— 族名本身是等宽的，或宿主是等宽元素 */
+    if (MONO_RE.test(f)) continue;
+    if (/(^|[\s,>+~])(code|pre|kbd|samp|tt)(?![\w-])/i.test(r.selector)) continue;
+    if (!hits.has(f)) hits.set(f, { name: f, stack: fullStack(r.value, vars, 4), sel: [] });
+    hits.get(f).sel.push(r.selector.trim());
+  }
+
+  /* ②-a 带拉丁语义选择器的最可信（S04 .board__latin / S16 .masthead-latin / S19 .mast__en） */
+  let best = null;
+  for (const v of hits.values()) {
+    if (v.sel.some(function (s) { return LATIN_SEL_RE.test(s); })) {
+      if (!best || v.sel.length > best.sel.length) best = v;
+    }
+  }
+  /* ②-b 没有拉丁语义选择器时，出现次数极少的也算局部角色（S03 的 .h2 只出现 1 处） */
+  if (!best) {
+    for (const v of hits.values()) if (v.sel.length <= 2) { if (!best || v.sel.length < best.sel.length) best = v; }
+  }
+  if (!best) return null;
+  return { name: best.name, stack: best.stack, src: "局部规则", selectors: best.sel };
 }
 
 /* ── 圆角 ──────────────────────────────────────────────────────────────
@@ -1444,6 +1514,19 @@ for (const r of raw.rows) {
       return dominantStack(rawCss, vars, 4);
     })(),
   };
+  /* 第四角色：在三个槽都定下来之后才算，否则「已占角色」这个守卫拿不到完整集合。
+   * 算出来是 null 就不写这个字段 —— 30/35 案确实没有这个角色，不能强塞。 */
+  const fLatin = (function () {
+    var taken = new Set();
+    for (const k of ["display", "body", "mono"]) {
+      if (fonts[k]) taken.add(String(fonts[k]).replace(/\s+/g, "").toLowerCase());
+    }
+    for (const k of ["displayStack", "bodyStack"]) {
+      for (const f of (fonts[k] || [])) taken.add(String(f).replace(/\s+/g, "").toLowerCase());
+    }
+    return latinFamily(decls, rules, vars, taken);
+  })();
+  if (fLatin) fonts.latin = fLatin;
 
   const pal = pickPalette(decls, r.colors, rawCss, { dir: r.dir, id: r.id });
   let palette = pal.list.map(function (c) { return c.hex + " " + c.name; });
