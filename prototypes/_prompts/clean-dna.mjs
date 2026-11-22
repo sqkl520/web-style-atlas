@@ -1682,11 +1682,48 @@ function shadowText(r, css, vars) {
   return map[sh.kind] || sh.kind;
 }
 
-writeFileSync(
+/* ── 等宽覆盖率自检（2026-11-22 加）──────────────────────────────────
+ *
+ * 加这条是因为 `monoFamily()` 的正则刚修过一个静默缺陷：
+ * `--num` 匹配不到 `--font-num`（num 前面只有一个横线），S34 的 `dna.fonts.mono`
+ * 因此是空串，提示词里「编号/价格等数字用等宽 X」那一整句不生成。
+ *
+ * 而这个缺陷**不可能被闸门发现**：原型用 `var(--font-num)` 画数字（对的）、
+ * 数据空、提示词空、判据不展开变量也读不到 —— 四层里三层是空的，互相吻合。
+ *
+ * 所以这条自检不问「等宽对不对」，只问一个能算的数：
+ * **有等宽的案数 ÷ 总案数**。一旦这个数掉了，说明正则又不匹配某种命名。
+ *
+ * 已知允许的例外：S25 全文 0 处 mono/courier/consolas，它是真的没有等宽体。
+ * 例外表必须显式列出 —— 否则「少数案没有」和「正则坏了」长得一样。 */
+let shouldWrite = true;
+{
+  const MONO_LESS_OK = new Set(["S25"]);
+  const withMono = out.filter(function (x) { return x.fonts && x.fonts.mono; });
+  const missing = out.filter(function (x) { return !(x.fonts && x.fonts.mono); }).map(function (x) { return x.id; });
+  const unexpected = missing.filter(function (id) { return !MONO_LESS_OK.has(id); });
+  console.log("");
+  console.log("=== 等宽覆盖率（正则会漏某种命名，这条守它）===");
+  console.log("  有等宽的案：" + withMono.length + "/" + out.length
+    + "；空的：" + (missing.join(" ") || "无"));
+  if (unexpected.length) {
+    console.error("  ✗ 不该空的案空了：" + unexpected.join(" ")
+      + " —— 先查 monoFamily 的正则是否漏了某种变量命名（如 --font-num / --fs-num）");
+    process.exitCode = 1;
+    shouldWrite = false;
+  } else {
+    console.log("  ✓ 只有已登记的例外为空（" + [...MONO_LESS_OK].join(" ") + "）");
+  }
+}
+
+if (shouldWrite) {
+  writeFileSync(
   join(ROOT, "prototypes/_prompts/dna-clean.json"),
   JSON.stringify(out, null, 2),
   "utf8"
 );
+
+
 
 // 报数
 const noFont = out.filter(function (x) { return !x.fonts.display; }).map(function (x) { return x.id; });
@@ -1722,3 +1759,4 @@ console.log("=== 圆角形态（P0-1）===");
 for (const k in radKinds) console.log("  " + k + "：" + radKinds[k] + " 案");
 console.log("");
 console.log("  产物：prototypes/_prompts/dna-clean.json");
+}

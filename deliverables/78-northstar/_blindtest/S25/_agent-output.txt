@@ -1,0 +1,504 @@
+  <!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>老周鞋钥匙铺｜手工目录</title>
+<style>
+:root{
+  --spot-a:#914A27;
+  --paper:#E8E4DE;
+  --ink:#1E1A16;
+  --spot-b:#2E6B5E;
+  --paper-deep:#DFDAD2;
+  --paper-white:#FFFFFF;
+  --derived:#181C0D;
+  --spine:72px;
+}
+*{box-sizing:border-box}
+html{background:var(--paper);color:var(--ink);scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Noto Serif SC","Songti SC",Georgia,serif;
+  font-size:16px;
+  line-height:1.55;
+  cursor:none;
+}
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background:var(--paper);
+  z-index:-2;
+}
+h1,h2,h3,p,ul{margin:0}
+h1,h2,h3,.display,.index-mark,.label{
+  font-family:Besley,"Noto Serif SC",Georgia,serif;
+  font-weight:400;
+}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+.page{
+  width:min(1440px,100%);
+  margin:auto;
+  position:relative;
+  padding:32px 4vw 56px;
+}
+.spine{
+  position:fixed;
+  z-index:10;
+  top:0;
+  bottom:0;
+  left:calc(30% + var(--spine) / 2);
+  width:var(--spine);
+  pointer-events:none;
+}
+.spine-line{
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:calc(50% + 12px);
+  width:1.2px;
+  background:var(--spot-a);
+  transform:rotate(.14deg);
+  transform-origin:center;
+}
+.spine-line:after{
+  content:"";
+  position:absolute;
+  top:calc(50% - 112px);
+  left:0;
+  width:3px;
+  height:84px;
+  background:var(--spot-a);
+  transform:skewY(2deg);
+}
+.holes{
+  position:absolute;
+  inset:0 0 0 calc(50% + 12px);
+  display:flex;
+  flex-direction:column;
+  justify-content:space-around;
+  padding:42px 0;
+}
+.hole{
+  width:1.6px;
+  height:1.6px;
+  margin-left:-.2px;
+  background:var(--ink);
+  display:block;
+  transition:background 120ms ease;
+}
+.hole.active{background:var(--paper-white)}
+.thread{
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:calc(50% + 10.8px);
+  width:1.2px;
+  border-left:1.2px solid var(--spot-b);
+  transform:rotate(-.18deg);
+}
+.cursor{
+  position:fixed;
+  z-index:50;
+  width:22px;
+  height:22px;
+  pointer-events:none;
+  transform:translate(-2px,-2px);
+}
+.cursor:before,.cursor:after{
+  content:"";
+  position:absolute;
+  background:var(--spot-a);
+}
+.cursor:before{width:1.2px;height:22px;left:10px;top:0;transform:rotate(38deg)}
+.cursor:after{width:1.2px;height:22px;left:10px;top:0;transform:rotate(-38deg)}
+.layout{
+  display:grid;
+  grid-template-columns:3fr 7fr;
+  column-gap:var(--spine);
+  align-items:start;
+}
+.left{
+  min-width:0;
+  position:relative;
+  z-index:2;
+}
+.right{
+  min-width:0;
+  position:relative;
+  z-index:1;
+  transform-origin:top center;
+}
+.kicker{
+  color:var(--spot-b);
+  letter-spacing:.08em;
+  font-size:13px;
+  border-bottom:1.2px solid var(--spot-b);
+  padding-bottom:8px;
+  margin-bottom:34px;
+}
+.display{
+  font-size:clamp(48px,6.2vw,68px);
+  line-height:1.02;
+  letter-spacing:-.06em;
+  margin-left:0;
+  max-width:5em;
+}
+.display em{
+  color:var(--spot-a);
+  font-style:normal;
+  display:block;
+  margin-left:24px;
+}
+.intro{
+  margin-top:34px;
+  margin-left:12px;
+  max-width:23em;
+  font-size:17px;
+}
+.intro strong{
+  color:var(--spot-b);
+  font-weight:400;
+}
+.contents{
+  margin-top:70px;
+  border-top:2px solid var(--ink);
+}
+.contents a{
+  display:block;
+  padding:12px 0 12px var(--indent,0);
+  border-bottom:1px solid var(--ink);
+  position:relative;
+  transition:padding-left 120ms ease;
+}
+.contents a:after{
+  content:"····";
+  position:absolute;
+  right:0;
+  top:11px;
+  letter-spacing:5px;
+  color:var(--spot-a);
+  transition:letter-spacing 120ms ease, right 120ms ease;
+}
+.contents a:hover:after{letter-spacing:7px;right:1px}
+.contents a:nth-child(1){--indent:0}
+.contents a:nth-child(2){--indent:12px}
+.contents a:nth-child(3){--indent:24px}
+.contents a:nth-child(4){--indent:12px}
+.contents a:nth-child(5){--indent:24px}
+.contents small{display:block;color:var(--spot-b);font-size:12px;line-height:1.2}
+.contents span{display:block;padding-right:50px}
+.issue{
+  margin-top:40px;
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  border-top:1.2px solid var(--ink);
+  padding-top:12px;
+  font-size:12px;
+}
+.issue b{font-weight:400;color:var(--spot-a)}
+.cta{
+  display:inline-block;
+  margin-top:28px;
+  padding:13px 18px 12px;
+  border:2px solid var(--spot-a);
+  color:var(--spot-a);
+  background:var(--paper);
+  transition:background 120ms ease,color 120ms ease;
+}
+.cta:hover{background:var(--spot-a);color:var(--paper-white)}
+.section-head{
+  display:grid;
+  grid-template-columns:1.1fr 1.9fr;
+  gap:24px;
+  border-bottom:2px solid var(--ink);
+  padding-bottom:18px;
+  margin-bottom:28px;
+}
+.section-head h2{font-size:34px;line-height:1.08}
+.section-head p{max-width:29em;margin-left:24px}
+.entry{
+  display:grid;
+  grid-template-columns:1.05fr 1.65fr;
+  gap:28px;
+  border-bottom:1.2px solid var(--ink);
+  padding:0 0 28px;
+  margin-bottom:28px;
+  position:relative;
+}
+.entry:nth-of-type(2){grid-template-columns:1.55fr 1fr}
+.entry:nth-of-type(3){grid-template-columns:1fr 1.35fr}
+.entry:nth-of-type(4){grid-template-columns:1.3fr 1fr}
+.entry:nth-of-type(5){grid-template-columns:1fr 1.55fr}
+.entry figure{
+  margin:0;
+  background:var(--paper-deep);
+  border:1.2px solid var(--ink);
+  padding:8px;
+  position:relative;
+}
+.entry figure:before{
+  content:"";
+  position:absolute;
+  top:8px;
+  left:8px;
+  right:-7px;
+  bottom:-7px;
+  border:1px solid var(--spot-b);
+  pointer-events:none;
+  mix-blend-mode:multiply;
+}
+.entry img{
+  display:block;
+  width:100%;
+  height:auto;
+  aspect-ratio:var(--ratio);
+  object-fit:cover;
+  border:0;
+  background:var(--paper-white);
+  filter:sepia(.12) saturate(.7);
+}
+.entry figcaption{
+  font-size:11px;
+  color:var(--spot-b);
+  padding-top:6px;
+}
+.entry-copy{padding-top:3px}
+.entry-number{
+  color:var(--spot-a);
+  font-size:13px;
+  letter-spacing:.12em;
+  margin-bottom:12px;
+}
+.entry h3{
+  font-size:29px;
+  line-height:1.12;
+  margin-bottom:12px;
+}
+.entry p{max-width:31em}
+.entry-meta{
+  display:flex;
+  justify-content:space-between;
+  gap:18px;
+  margin-top:18px;
+  padding-top:9px;
+  border-top:1px solid var(--spot-b);
+  color:var(--spot-b);
+  font-size:12px;
+}
+.overprint{
+  position:absolute;
+  width:68px;
+  height:68px;
+  right:14%;
+  top:26px;
+  border:3px solid var(--spot-a);
+  mix-blend-mode:multiply;
+  pointer-events:none;
+}
+.overprint:after{
+  content:"";
+  position:absolute;
+  inset:8px -7px -7px 8px;
+  border:3px solid var(--spot-b);
+  mix-blend-mode:multiply;
+}
+.overprint:hover{filter:brightness(.96);transition:filter 150ms ease}
+.footer{
+  margin-top:20px;
+  padding-top:14px;
+  border-top:2px solid var(--ink);
+  display:flex;
+  justify-content:space-between;
+  font-size:12px;
+  color:var(--spot-b);
+}
+@media (max-width:800px){
+  body{cursor:auto}
+  .cursor{display:none}
+  .page{padding:22px 20px 42px}
+  .spine{position:absolute;left:auto;right:24px;top:0;bottom:0;width:18px}
+  .spine-line{left:12px}
+  .thread{left:10.8px}
+  .holes{inset:0 auto 0 12px;width:2px}
+  .layout{display:block}
+  .left{padding-right:30px}
+  .right{margin-top:54px}
+  .display{font-size:clamp(48px,15vw,68px)}
+  .contents{margin-top:44px}
+  .section-head{grid-template-columns:1fr;gap:12px}
+  .section-head p{margin-left:12px}
+  .entry,.entry:nth-of-type(n){grid-template-columns:1fr;gap:18px}
+  .entry figure{max-width:calc(100% - 12px)}
+  .overprint{right:10%;top:18px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*:before,*:after{transition-duration:120ms!important;animation-duration:120ms!important}
+  .right{transform:none!important}
+}
+</style>
+</head>
+<body>
+<div class="cursor" aria-hidden="true"></div>
+
+<div class="spine" aria-hidden="true">
+  <div class="spine-line"></div>
+  <div class="thread"></div>
+  <div class="holes">
+    <i class="hole"></i><i class="hole"></i><i class="hole"></i><i class="hole"></i>
+    <i class="hole"></i><i class="hole"></i><i class="hole"></i><i class="hole"></i>
+    <i class="hole"></i><i class="hole"></i><i class="hole"></i><i class="hole"></i>
+    <i class="hole"></i><i class="hole"></i><i class="hole"></i><i class="hole"></i>
+    <i class="hole"></i><i class="hole"></i><i class="hole"></i><i class="hole"></i>
+    <i class="hole"></i><i class="hole"></i><i class="hole"></i><i class="hole"></i>
+  </div>
+</div>
+
+<main class="page">
+  <div class="layout">
+    <aside class="left">
+      <div class="kicker">NORTHSTAR · 鞋与钥匙 · 01—05</div>
+      <h1 class="display">把旧日子<br><em>再穿一遍</em></h1>
+      <p class="intro">我们在街角做修补。鞋跟、拉链、钥匙，都是日子留下的小问题。<strong>拿来吧，慢慢看。</strong></p>
+
+      <nav class="contents" aria-label="目录">
+        <a href="#entry-01"><small>01 / 鞋底</small><span>走得久的鞋，也值得一双新脚</span></a>
+        <a href="#entry-02"><small>02 / 钥匙</small><span>给门配一把，给心留一把</span></a>
+        <a href="#entry-03"><small>03 / 拉链</small><span>卡住的地方，不一定要换掉</span></a>
+        <a href="#entry-04"><small>04 / 鞋面</small><span>皮面上的小伤，交给手工</span></a>
+        <a href="#entry-05"><small>05 / 见面</small><span>打电话，约一个不赶的时间</span></a>
+      </nav>
+
+      <div class="issue"><span>小店目录 · 2024</span><b>页码 005</b></div>
+      <a class="cta" href="tel:010-58260127">打电话约时间　→</a>
+    </aside>
+
+    <section class="right" aria-label="服务目录">
+      <header class="section-head">
+        <h2>修补目录<br>给熟悉的东西</h2>
+        <p>这里没有流水线。每一件东西到了柜台，我们先看它还能陪你多久，再决定怎么动手。价格和时间，当面说清楚。</p>
+      </header>
+
+      <article class="entry" id="entry-01">
+        <figure style="--ratio:4 / 3">
+          <img src="images/占位-1.jpg" width="720" height="540" alt="一双磨旧的皮鞋放在木台上">
+          <figcaption>图 01 · 鞋底与脚步</figcaption>
+        </figure>
+        <div class="entry-copy">
+          <div class="entry-number">01　SOLE / 鞋底</div>
+          <h3>旧鞋换底，<br>走路还是你的样子。</h3>
+          <p>先拆开，再判断能不能救。橡胶底、皮底、半掌，我们按你平常走的路来选，不把鞋修成陌生的样子。</p>
+          <div class="entry-meta"><span>通常 1—3 天</span><span>到店看鞋报价</span></div>
+        </div>
+      </article>
+
+      <article class="entry" id="entry-02">
+        <div class="entry-copy">
+          <div class="entry-number">02　KEY / 钥匙</div>
+          <h3>一把新钥匙，<br>先替你试过门。</h3>
+          <p>普通门钥匙、信箱钥匙、老式铜钥匙都可以拿来。我们配好后会在机器上试转，再交到你手里。</p>
+          <div class="entry-meta"><span>通常 5 分钟</span><span>常用胚有现货</span></div>
+        </div>
+        <figure style="--ratio:3 / 4">
+          <img src="images/占位-2.jpg" width="540" height="720" alt="一串钥匙和配钥匙工具">
+          <figcaption>图 02 · 黄铜、钢与一点耐心</figcaption>
+        </figure>
+      </article>
+
+      <article class="entry" id="entry-03">
+        <figure style="--ratio:16 / 10">
+          <img src="images/占位-3.jpg" width="800" height="500" alt="皮包上的拉链细节">
+          <figcaption>图 03 · 拉链齿一颗颗对齐</figcaption>
+        </figure>
+        <div class="entry-copy">
+          <div class="entry-number">03　ZIP / 拉链</div>
+          <h3>卡住的地方，<br>不用马上告别。</h3>
+          <p>拉链头、齿、底止，坏的地方不一样，修法也不一样。包、外套、鞋靴，带来让我们摸一摸。</p>
+          <div class="entry-meta"><span>通常 30 分钟起</span><span>复杂情况需留店</span></div>
+        </div>
+      </article>
+
+      <article class="entry" id="entry-04">
+        <div class="entry-copy">
+          <div class="entry-number">04　LEATHER / 鞋面</div>
+          <h3>小伤口缝好，<br>旧皮面继续发亮。</h3>
+          <p>刮痕、开线、脱胶，我们尽量保留原来的颜色和手感。留下的痕迹不是难看，是它走过的路。</p>
+          <div class="entry-meta"><span>通常 2—5 天</span><span>颜色需现场比对</span></div>
+        </div>
+        <figure style="--ratio:5 / 6">
+          <img src="images/占位-4.jpg" width="600" height="720" alt="手工缝补皮革的针线">
+          <figcaption>图 04 · 针脚不必假装一样</figcaption>
+        </figure>
+      </article>
+
+      <article class="entry" id="entry-05">
+        <figure style="--ratio:3 / 2">
+          <img src="images/占位-5.jpg" width="750" height="500" alt="店门口的工作台和暖光">
+          <figcaption>图 05 · 门口见，别在电话里猜</figcaption>
+        </figure>
+        <div class="entry-copy">
+          <div class="entry-number">05　MEET / 见面</div>
+          <h3>打个电话，<br>约一个不赶的时间。</h3>
+          <p>我们在老街北口，周一到周六都在。你说说是什么东西，我们先告诉你值不值得修，再为你留时间。</p>
+          <div class="entry-meta"><span>010-58260127</span><span>老街北口 · 12 号</span></div>
+        </div>
+      </article>
+
+      <div class="overprint" aria-hidden="true"></div>
+      <footer class="footer"><span>老周鞋钥匙铺 / 手工目录</span><span>01—05 · 纸上见</span></footer>
+    </section>
+  </div>
+</main>
+
+<script>
+(function(){
+  const cursor=document.querySelector('.cursor');
+  const right=document.querySelector('.right');
+  const holes=[...document.querySelectorAll('.hole')];
+  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  window.addEventListener('mousemove',e=>{
+    cursor.style.left=e.clientX+'px';
+    cursor.style.top=e.clientY+'px';
+  });
+
+  if(!reduce){
+    let ticking=false;
+    window.addEventListener('scroll',()=>{
+      if(ticking)return;
+      ticking=true;
+      requestAnimationFrame(()=>{
+        const progress=Math.min(window.scrollY/900,1);
+        right.style.transform='scaleY('+(1-progress*.06)+')';
+        ticking=false;
+      });
+    },{passive:true});
+  }
+
+  document.querySelectorAll('.contents a').forEach((link,index)=>{
+    link.addEventListener('click',()=>{
+      holes[(index*4+3)%holes.length].classList.add('active');
+      setTimeout(()=>holes[(index*4+3)%holes.length].classList.remove('active'),520);
+    });
+  });
+
+  document.querySelectorAll('.entry').forEach((entry,index)=>{
+    entry.style.animation='entryIn 180ms ease '+(120+index*80)+'ms both';
+  });
+})();
+</script>
+<style>
+@keyframes entryIn{
+  from{opacity:0;transform:translateY(8px)}
+  to{opacity:1;transform:translateY(0)}
+}
+</style>
+</body>
+</html>
