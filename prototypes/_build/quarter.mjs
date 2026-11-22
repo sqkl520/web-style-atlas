@@ -106,6 +106,11 @@ const STEPS = [
    * （_probe/79 §三十八）。只报不判 —— 该传的是"占几栏/什么比例"而不是原图像素，
    * 改法是产品决定。 */
   { id: 'check-image-slots', label: '图片位宽高（只报不判）', kind: 'gate', script: join(B, 'check-image-slots.mjs') },
+  /* 2026-11-22 新增。`audit`（去 AI 味审查点）2026-11-22 逐案改写成正面处方后
+   * 接进了提示词。这条闸门守它**不许回退成负面评审记录** ——
+   * 一旦有人把「反 C-2.11『24px 圆角』」这类写法加回去，它会红。
+   * 脚本在 _probe/ 下（那是它的原始开发位置），路径用绝对量。 */
+  { id: 'check-audit-prescription', label: 'audit 不许回退成负面评审', kind: 'gate', script: join(ROOT, 'deliverables/78-northstar/_probe/_check-audit-prescription.mjs') },
 
   /* 自测：证明闸门不是恒真。这一组本身不判定产品状态，但它决定了
    * 上面那些绿是不是可信的 —— 所以它失败要单独标出来。 */
@@ -119,6 +124,7 @@ const STEPS = [
   { id: 'selftest-prose-counts', label: '自测：散文序数闸门', kind: 'gate', script: join(B, 'check-prose-counts.mjs'), args: ['--selftest'] },
   { id: 'selftest-quality', label: '自测：质量分布闸门', kind: 'gate', script: join(B, 'check-quality-distribution.mjs'), args: ['--selftest'] },
   { id: 'selftest-image-slots', label: '自测：图片位闸门', kind: 'gate', script: join(B, 'check-image-slots.mjs'), args: ['--selftest'] },
+  { id: 'selftest-audit-prescription', label: '自测：audit 改写闸门', kind: 'gate', script: join(ROOT, 'deliverables/78-northstar/_probe/_check-audit-prescription.mjs'), args: ['--selftest'] },
 
   { id: 'probe-ui', label: '运行时探针（真浏览器）', kind: 'slow', script: join(B, 'probe-ui.mjs') },
 ];
