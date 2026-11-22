@@ -1884,7 +1884,7 @@ window.STYLE_PROMPTS = {
     "fonts": {
      "display": "Jost",
      "body": "Noto Serif SC",
-     "mono": "",
+     "mono": "Sometype Mono",
      "displayStack": [
       "Jost",
       "Noto Sans SC"
@@ -1931,7 +1931,7 @@ window.STYLE_PROMPTS = {
     "fonts": {
      "display": "Jost",
      "body": "Noto Serif SC",
-     "mono": "",
+     "mono": "Sometype Mono",
      "displayStack": [
       "Jost",
       "Noto Sans SC"
@@ -1978,7 +1978,7 @@ window.STYLE_PROMPTS = {
     "fonts": {
      "display": "Jost",
      "body": "Noto Serif SC",
-     "mono": "",
+     "mono": "Sometype Mono",
      "displayStack": [
       "Jost",
       "Noto Sans SC"
@@ -2025,7 +2025,7 @@ window.STYLE_PROMPTS = {
     "fonts": {
      "display": "Jost",
      "body": "Noto Serif SC",
-     "mono": "",
+     "mono": "Sometype Mono",
      "displayStack": [
       "Jost",
       "Noto Sans SC"
@@ -2072,7 +2072,7 @@ window.STYLE_PROMPTS = {
     "fonts": {
      "display": "Jost",
      "body": "Noto Serif SC",
-     "mono": "",
+     "mono": "Sometype Mono",
      "displayStack": [
       "Jost",
       "Noto Sans SC"

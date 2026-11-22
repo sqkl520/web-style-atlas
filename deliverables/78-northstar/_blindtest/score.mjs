@@ -509,13 +509,36 @@ function judgeFontChain(prompt, html) {
   }
   if (!allowed.size) { if (process.env.DBG) console.error('[dbg] allowed empty'); return null; }
 
-  const decls = [...stripCssComments(html).matchAll(/font-family\s*:\s*([^;}]+)/g)].map((m) => m[1].trim());
+  /* 声明值必须先展开 CSS 变量再判。
+   *
+   * ⚠️ 2026-11-22 修：原来这里只取 `font-family:` 后面的字面值，遇到
+   * `font-family: var(--title)` 就跳过，于是**全用变量的产物判不了**。
+   * `undecided` 那个标志就是为这种情况加的（S13/S15 曾因此显示「未判」）。
+   *
+   * 但同一份产物，判据②（`out.fonts`）**自己写了 expandVars**、报出「字体 5/5」。
+   * 同一个产品两份读字体的逻辑，一份展开一份不展开，对同一份产物给出相反结论 ——
+   * 这不是「两种问法」，是**同一个能力缺口**。判据⑤要判「写出来的族名在不在链上」，
+   * 它当然需要先知道写出了什么族名，而这必须展开变量。
+   *
+   * 展开之后 `varOnly` 这个计数的语义也变了：它原来统计「有几条声明全是 var()」，
+   * 用来判断「这条判据是不是什么都读不到」。现在读得到了，它只在
+   * **展开后仍然为空**（变量没定义）时才有意义 —— 保留它，但含义改成后者。 */
+  const cssVarMap = {};
+  for (const m of html.matchAll(/(--[\w-]+)\s*:\s*([^;}]+)/g)) cssVarMap[m[1]] = m[2];
+  const expandVarsIn = (s, depth = 0) => {
+    if (depth > 5) return s;
+    return s.replace(/var\(\s*(--[\w-]+)\s*(?:,[^)]*)?\)/g,
+      (_, name) => (cssVarMap[name] !== undefined ? expandVarsIn(cssVarMap[name], depth + 1) : ''));
+  };
+  const decls = [...stripCssComments(html).matchAll(/font-family\s*:\s*([^;}]+)/g)]
+    .map((m) => expandVarsIn(m[1]).trim());
   if (!decls.length) { if (process.env.DBG) console.error('[dbg] decls empty'); return { allowed: [...allowed], used: [], outside: [], fontSource: 'none', note: 'no decl' }; }
   const used = new Set();
   let varOnly = 0;
   for (const d of decls) {
     const parts = d.split(',').map((x) => x.trim().replace(/^["']|["']$/g, ''));
-    if (parts.every((p) => p.startsWith('var('))) varOnly++;
+    /* 展开后仍然全是空/变量 → 变量没定义，这条确实读不到 */
+    if (parts.every((p) => !p || p.startsWith('var('))) varOnly++;
     for (const p of parts) {
       if (!p || p.startsWith('var(')) continue;
       used.add(p);

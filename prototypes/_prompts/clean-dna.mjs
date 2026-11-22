@@ -433,12 +433,30 @@ function bodyFamily(rules, vars) {
  * 没有再扫全文件找等宽栈。两个都空就返回 ""，提示词里就不写等宽那句，
  * 而不是编一个等宽字体 —— S25 这种真的没有等宽字体的案子不能被强塞一个。 */
 function monoFamily(decls, rules, vars) {
+  /* ⚠️ 2026-11-22 修：`--num` 这个写法匹配不到 `--font-num`、`--fs-num`、`--text-num`。
+   * 实测 S34 的等宽变量叫 `--font-num`，于是 `dna.fonts.mono` 是**空字符串**，
+   * 提示词里整条等宽句消失（「编号/价格等数字用等宽 X」那一句不生成）。
+   *
+   * 这个缺陷此前一直看不见，因为判据⑤不展开 CSS 变量 —— 产物的
+   * `font-family: var(--font-num)` 读不到，所以「提示词没给等宽」和
+   * 「产物没用等宽」两边都是空的，对上了。展开变量之后，产物那边冒出
+   * `Sometype Mono`，判据报「字体链外×5」，正对照立刻红 —— **红得对**。
+   *
+   * 改法：按**词**匹配而不是按带横线的前缀匹配。
+   * `--font-num` / `--num` / `--fs-num` / `--text-num` / `--numeral` 都要命中。 */
   const named = decls.filter(function (d) {
-    return /(mono|--num|figure|term|code)/i.test(d.name) && d.value;
+    return /(mono|num|figure|digit|term|code)/i.test(d.name) && d.value;
   });
+  /* 但要排除「只是名字里带 num 却不是等宽」的变量 —— 实测 S35 有个
+   * `--num-count` 是计数用的数值，不是字体。判据：值里必须至少有一个族名，
+   * 且这个族名要被 MONO_RE 认出来**或者**它自己就是唯一的族（没有逗号栈）。
+   * 这一条是防「改宽了之后反而抓到非字体变量」。 */
   for (const d of named) {
     const v = firstFamily(d.value, vars);
-    if (v && !/^(monospace|ui-monospace)$/i.test(v)) return v;
+    if (!v || /^(monospace|ui-monospace)$/i.test(v)) continue;
+    /* 值是纯数字/长度（不是字体栈）→ 跳过 */
+    if (/^[\d.]+(px|rem|em|%|vh|vw)?$/i.test(v)) continue;
+    if (MONO_RE.test(v) || !/,/.test(d.value)) return v;
   }
   for (const r of rules) {
     if (MONO_RE.test(r.value) || /monospace/i.test(r.value)) {

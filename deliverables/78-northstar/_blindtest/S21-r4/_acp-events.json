@@ -1,0 +1,141 @@
+[
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "112f49b6-f94f-4b4b-95d8-cbb22d04dec1",
+      "update": {
+        "sessionUpdate": "agent_message_chunk",
+        "messageId": "af0a4feb-69d9-415c-a7ad-c3d74a50275c",
+        "content": {
+          "type": "text",
+          "text": " "
+        }
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "112f49b6-f94f-4b4b-95d8-cbb22d04dec1",
+      "update": {
+        "sessionUpdate": "usage_update",
+        "used": 11339,
+        "size": 200000
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "112f49b6-f94f-4b4b-95d8-cbb22d04dec1",
+      "update": {
+        "sessionUpdate": "tool_call",
+        "toolCallId": "call_4a8177955fe84312bd41a76c0dbd666e",
+        "title": "glob",
+        "kind": "other",
+        "status": "in_progress",
+        "rawInput": {
+          "path": ".",
+          "pattern": "*"
+        }
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "112f49b6-f94f-4b4b-95d8-cbb22d04dec1",
+      "update": {
+        "sessionUpdate": "tool_call_update",
+        "toolCallId": "call_4a8177955fe84312bd41a76c0dbd666e",
+        "status": "completed",
+        "content": [
+          {
+            "type": "content",
+            "content": {
+              "type": "text",
+              "text": "No files found"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "112f49b6-f94f-4b4b-95d8-cbb22d04dec1",
+      "update": {
+        "sessionUpdate": "tool_call",
+        "toolCallId": "call_ce20f73e68ca4be29be10637a34cf816",
+        "title": "working_directory",
+        "kind": "other",
+        "status": "in_progress",
+        "rawInput": {}
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "112f49b6-f94f-4b4b-95d8-cbb22d04dec1",
+      "update": {
+        "sessionUpdate": "tool_call_update",
+        "toolCallId": "call_ce20f73e68ca4be29be10637a34cf816",
+        "status": "completed",
+        "content": [
+          {
+            "type": "content",
+            "content": {
+              "type": "text",
+              "text": "D:\\Web\\style\\deliverables\\78-northstar\\_blindtest\\S21-r4"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "112f49b6-f94f-4b4b-95d8-cbb22d04dec1",
+      "update": {
+        "sessionUpdate": "agent_message_chunk",
+        "messageId": "49e59db9-30c6-4b83-a86a-cfcde4e6dfeb",
+        "content": {
+          "type": "text",
+          "text": " <!DOCTYPE html>\n<html lang=\"zh-CN\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <title>鞋钥值班台｜联锁释放簿</title>\n  <style>\n    :root {\n      --ink: #3E3A34;\n      --paper: #E4DCC9;\n      --amber: #924307;\n      --fibre: #6E6A5E;\n      --white: #FFFFFF;\n      --line: 1px;\n      --line-heavy: 2px;\n    }\n\n    * {\n      box-sizing: border-box;\n      border-radius: 0;\n    }\n\n    html {\n      background: var(--paper);\n      color: var(--ink);\n      scroll-behavior: auto;\n    }\n\n    body {\n      margin: 0;\n      min-width: 320px;\n      background: var(--paper);\n      color: var(--ink);\n      font-family: \"WenJin Mincho\", Georgia, \"Songti SC\", STSong, serif;\n      font-size: 16px;\n      line-height: 1.45;\n      cursor: default;\n    }\n\n    a,\n    button {\n      color: inherit;\n      font: inherit;\n    }\n\n    button {\n      border: 0;\n      padding: 0;\n      background: transparent;\n      cursor: pointer;\n    }\n\n    .mono,\n    .record-no,\n    .price,\n    .dial,\n    .bar-no,\n    .stamp,\n    .time,\n    .phone {\n      font-family: \"IBM Plex Mono\", \"Courier New\", monospace;\n      font-variant-numeric: tabular-nums;\n      font-feature-settings: \"tnum\";\n    }\n\n    .page {\n      min-height: 100vh;\n      overflow: hidden;\n    }\n\n    .masthead {\n      min-height: 100vh;\n      display: grid;\n      grid-template-columns: 1.08fr 0.92fr;\n      border-bottom: var(--line-heavy) solid var(--ink);\n    }\n\n    .masthead-left,\n    .masthead-right {\n      padding: 34px 42px;\n    }\n\n    .masthead-left {\n      border-right: var(--line) solid var(--ink);\n      display: flex;\n      flex-direction: column;\n      justify-content: space-between;\n    }\n\n    .masthead-right {\n      display: flex;\n      flex-direction: column;\n      justify-content: space-between;\n    }\n\n    .eyebrow {\n      display: flex;\n      justify-content: space-between;\n      align-items: baseline;\n      padding-bottom: 13px;\n      border-bottom: var(--line) solid var(--ink);\n      letter-spacing: 0.1em;\n      text-transform: uppercase;\n      font-size: 12px;\n    }\n\n    .eyebrow strong {\n      color: var(--amber);\n      font-weight: normal;\n    }\n\n    h1,\n    h2,\n    h3,\n    p {\n      margin: 0;\n    }\n\n    h1 {\n      max-width: 770px;\n      margin-top: 48px;\n      font-family: Antonio, \"WenJin Mincho\", Georgia, \"Songti SC\", serif;\n      font-size: clamp(62px, 8vw, 86px);\n      font-weight: 400;\n      line-height: 0.97;\n      letter-spacing: -0.045em;\n    }\n\n    .title-line {\n      display: block;\n    }\n\n    .title-line:last-child {\n      color: var(--amber);\n    }\n\n    .lead {\n      max-width: 520px;\n      margin-top: 30px;\n      font-size: 18px;\n      line-height: 1.65;\n    }\n\n    .lead em {\n      color: var(--amber);\n      font-style: normal;\n    }\n\n    .station-mark {\n      width: 178px;\n      height: 178px;\n      margin-top: 42px;\n      border: var(--line-heavy) solid var(--ink);\n      box-shadow: inset 0 0 0 8px var(--paper), inset 0 0 0 9px var(--ink);\n      display: grid;\n      place-items: center;\n      position: relative;\n    }\n\n    .station-mark::before,\n    .station-mark::after {\n      content: \"\";\n      position: absolute;\n      background: var(--ink);\n    }\n\n    .station-mark::before {\n      width: 1px;\n      height: 100%;\n    }\n\n    .station-mark::after {\n      width: 100%;\n      height: 1px;\n    }\n\n    .mark-copy {\n      position: relative;\n      z-index: 1;\n      background: var(--paper);\n      padding: 10px;\n      text-align: center;\n      line-height: 1.2;\n    }\n\n    .mark-copy b {\n      display: block;\n      font-family: Antonio, \"WenJin Mincho\", Georgia, \"Songti SC\", serif;\n      font-size: 42px;\n      font-weight: 400;\n    }\n\n    .mark-copy small {\n      display: block;\n      margin-top: 6px;\n      font-family: \"IBM Plex Mono\", \"Courier New\", monospace;\n      font-size: 10px;\n      letter-spacing: 0.08em;\n    }\n\n    .duty-note {\n      max-width: 450px;\n      border-top: var(--line) solid var(--ink);\n      padding-top: 15px;\n      display: grid;\n      grid-template-columns: 100px 1fr;\n      gap: 20px;\n      font-size: 13px;\n    }\n\n    .duty-note dt {\n      color: var(--fibre);\n      text-transform: uppercase;\n      letter-spacing: 0.08em;\n    }\n\n    .duty-note dd {\n      margin: 0;\n    }\n\n    .ledger-head {\n      display: flex;\n      justify-content: space-between;\n      align-items: end;\n      padding-bottom: 13px;\n      border-bottom: var(--line) solid var(--ink);\n    }\n\n    .ledger-head h2 {\n      font-size: 21px;\n      font-weight: normal;\n      letter-spacing: 0.03em;\n    }\n\n    .ledger-head p {\n      color: var(--fibre);\n      font-size: 12px;\n    }\n\n    .release-path {\n      position: relative;\n      margin: 30px 0;\n      padding: 18px 0 25px;\n      border-top: var(--line) solid var(--ink);\n      border-bottom: var(--line) solid var(--ink);\n    }\n\n    .path-label {\n      display: flex;\n      justify-content: space-between;\n      margin-bottom: 18px;\n      color: var(--fibre);\n      font-size: 11px;\n      letter-spacing: 0.08em;\n      text-transform: uppercase;\n    }\n\n    .bars {\n      display: grid;\n      grid-template-columns: repeat(7, 1fr);\n      gap: 8px 7px;\n      align-items: center;\n    }\n\n    .lock-bar {\n      position: relative;\n      display: block;\n      width: 100%;\n      height: 24px;\n      border: var(--line) solid var(--ink);\n      background: var(--paper);\n      box-shadow: inset 0 0 0 3px var(--paper), inset 0 0 0 4px var(--ink);\n      clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%);\n      transition: border-color 0ms steps(1);\n    }\n\n    .lock-bar::after {\n      content: \"\";\n      position: absolute;\n      width: 1.5px;\n      height: 1.5px;\n      right: calc(5px - var(--drift));\n      bottom: calc(3px - var(--drift));\n      background: var(--ink);\n    }\n\n    .lock-bar.is-set {\n      background: var(--ink);\n      box-shadow: inset 0 0 0 3px var(--ink), inset 0 0 0 4px var(--paper);\n    }\n\n    .lock-bar.is-set::after {\n      background: var(--paper);\n    }\n\n    .lock-bar.is-related {\n      border-color: var(--amber);\n      box-shadow: inset 0 0 0 3px var(--paper), inset 0 0 0 4px var(--amber);\n    }\n\n    .bar-no {\n      position: absolute;\n      top: 29px;\n      right: 4px;\n      color: var(--fibre);\n      font-size: 9px;\n      line-height: 1;\n    }\n\n    .release-path::after {\n      content: \"30° / 45° / 60°  ·  释放顺序由切口读取\";\n      display: block;\n      margin-top: 25px;\n      color: var(--fibre);\n      font-family: \"IBM Plex Mono\", \"Courier New\", monospace;\n      font-size: 10px;\n      letter-spacing: 0.04em;\n    }\n\n    .access-panel {\n      border: var(--line) solid var(--ink);\n      box-shadow: inset 0 0 0 5px var(--paper), inset 0 0 0 6px var(--ink);\n      padding: 18px 20px 20px;\n    }\n\n    .access-panel h3 {\n      margin-bottom: 11px;\n      font-size: 18px;\n      font-weight: normal;\n    }\n\n    .access-grid {\n      display: grid;\n      grid-template-columns: 1fr 1fr;\n      gap: 0 22px;\n      border-top: var(--line) solid var(--ink);\n    }\n\n    .access-grid div {\n      display: flex;\n      justify-content: space-between;\n      gap: 15px;\n      padding: 9px 0;\n      border-bottom: var(--line) solid var(--ink);\n      font-size: 13px;\n    }\n\n    .access-grid dt {\n      color: var(--fibre);\n    }\n\n    .access-grid dd {\n      margin: 0;\n      text-align: right;\n    }\n\n    .phone-action {\n      display: block;\n      width: 100%;\n      margin-top: 20px;\n      padding: 15px 17px;\n      border: var(--line-heavy) solid var(--ink);\n      background: var(--amber);\n      color: var(--white);\n      text-align: left;\n      box-shadow: inset 0 0 0 4px var(--amber), inset 0 0 0 5px var(--ink);\n      transition: background 140ms steps(1), color 140ms steps(1);\n    }\n\n    .phone-action:hover,\n    .phone-action:focus-visible {\n      background: var(--ink);\n      color: var(--white);\n    }\n\n    .phone-action span {\n      display: block;\n    }\n\n    .phone-action .phone-label {\n      margin-bottom: 5px;\n      color: var(--paper);\n      font-size: 11px;\n      letter-spacing: 0.1em;\n      text-transform: uppercase;\n    }\n\n    .phone-action .phone {\n      font-size: 24px;\n      letter-spacing: 0.03em;\n    }\n\n    .records {\n      padding: 42px;\n      border-bottom: var(--line-heavy) solid var(--ink);\n    }\n\n    .records-header {\n      display: grid;\n      grid-template-columns: 1.08fr 0.92fr;\n      gap: 42px;\n      margin-bottom: 27px;\n    }\n\n    .records-header h2 {\n      font-family: Antonio, \"WenJin Mincho\", Georgia, \"Songti SC\", serif;\n      font-size: 46px;\n      font-weight: 400;\n      line-height: 1;\n    }\n\n    .records-header p {\n      align-self: end;\n      max-width: 440px;\n      border-left: 2px solid var(--amber);\n      padding-left: 14px;\n      font-size: 14px;\n    }\n\n    .record-grid {\n      display: grid;\n      grid-template-columns: 1.08fr 0.92fr;\n      gap: 0 42px;\n    }\n\n    .record {\n      display: grid;\n      grid-template-columns: 76px 1fr;\n      min-height: 188px;\n      border-top: var(--line) solid var(--ink);\n      padding: 21px 0 24px;\n    }\n\n    .record:nth-child(2) {\n      grid-template-columns: 1fr 76px;\n    }\n\n    .record:nth-child(2) .record-body {\n      order: -1;\n      padding-right: 19px;\n      padding-left: 0;\n    }\n\n    .record:nth-child(3),\n    .record:nth-child(5) {\n      grid-template-columns: 96px 1fr;\n    }\n\n    .record-no {\n      color: var(--amber);\n      font-size: 25px;\n      line-height: 1;\n    }\n\n    .record-body {\n      padding-left: 19px;\n      border-left: var(--line) solid var(--ink);\n    }\n\n    .record h3 {\n      font-size: 22px;\n      font-weight: normal;\n      line-height: 1.2;\n    }\n\n    .record-meta {\n      display: flex;\n      justify-content: space-between;\n      gap: 15px;\n      margin-top: 11px;\n      padding-bottom: 10px;\n      border-bottom: var(--line) solid var(--ink);\n      color: var(--fibre);\n      font-size: 12px;\n    }\n\n    .record p {\n      margin-top: 12px;\n      font-size: 14px;\n      line-height: 1.55;\n    }\n\n    .record-image {\n      width: 100%;\n      height: auto;\n      display: block;\n      border: var(--line) solid var(--ink);\n      object-fit: cover;\n      filter: none;\n    }\n\n    .record:nth-child(1) .record-image {\n      aspect-ratio: 4 / 3;\n      margin-top: 16px;\n    }\n\n    .record:nth-child(2) .record-image {\n      aspect-ratio: 1 / 1;\n      margin-top: 4px;\n    }\n\n    .record:nth-child(3) .record-image {\n      aspect-ratio: 16 / 9;\n      margin-top: 14px;\n    }\n\n    .record:nth-child(4) .record-image {\n      aspect-ratio: 3 / 4;\n      margin-top: 2px;\n    }\n\n    .record:nth-child(5) .record-image {\n      aspect-ratio: 5 / 3;\n      margin-top: 16px;\n    }\n\n    .record-text-block {\n      min-height: 126px;\n      margin-top: 15px;\n      border: var(--line) solid var(--ink);\n      padding: 14px;\n      box-shadow: inset 0 0 0 4px var(--paper), inset 0 0 0 5px var(--ink);\n    }\n\n    .record-text-block strong {\n      display: block;\n      margin-bottom: 8px;\n      color: var(--amber);\n      font-weight: normal;\n      font-size: 11px;\n      letter-spacing: 0.08em;\n      text-transform: uppercase;\n    }\n\n    .footer {\n      display: grid;\n      grid-template-columns: 1fr 1fr 1fr;\n      gap: 30px;\n      padding: 22px 42px 28px;\n      font-size: 12px;\n    }\n\n    .footer > div {\n      border-top: var(--line) solid var(--ink);\n      padding-top: 10px;\n    }\n\n    .footer .stamp {\n      color: var(--amber);\n      text-align: right;\n    }\n\n    .table-cursor {\n      position: fixed;\n      z-index: 10;\n      top: 0;\n      right: 9px;\n      width: 1px;\n      height: 100vh;\n      background: var(--ink);\n      animation: cursor-blink 1200ms steps(1) infinite;\n      pointer-events: none;\n    }\n\n    @keyframes cursor-blink {\n      0%, 46% { background: var(--ink); }\n      47%, 100% { background: var(--paper); }\n    }\n\n    @keyframes lock-set {\n      0% { transform: translateX(-9px); }\n      100% { transform: translateX(0); }\n    }\n\n    .release-path.animate .lock-bar {\n      animation: lock-set 70ms steps(1) forwards;\n      animation-delay: calc(var(--bar-index) * 64ms);\n    }\n\n    .switch-plate {\n      display: inline-block;\n      border: var(--line) solid var(--ink);\n      padding: 2px 5px;\n      color: var(--amber);\n      cursor: pointer;\n      user-select: none;\n    }\n\n    .switch-plate.flipped {\n      color: var(--ink);\n      background: var(--amber);\n    }\n\n    @media (max-width: 820px) {\n      .masthead,\n      .records-header,\n      .record-grid {\n        grid-template-columns: 1fr;\n      }\n\n      .masthead {\n        min-height: auto;\n      }\n\n      .masthead-left {\n        min-height: 100vh;\n        border-right: 0;\n        border-bottom: var(--line-heavy) solid var(--ink);\n      }\n\n      .masthead-left,\n      .masthead-right,\n      .records,\n      .footer {\n        padding-left: 22px;\n        padding-right: 22px;\n      }\n\n      .masthead-right {\n        min-height: 760px;\n      }\n\n      h1 {\n        font-size: clamp(58px, 18vw, 86px);\n      }\n\n      .records-header {\n        gap: 20px;\n      }\n\n      .record-grid {\n        gap: 0;\n      }\n\n      .record,\n      .record:nth-child(2),\n      .record:nth-child(3),\n      .record:nth-child(5) {\n        grid-template-columns: 76px 1fr;\n      }\n\n      .record:nth-child(2) .record-body {\n        order: initial;\n        padding-right: 0;\n        padding-left: 19px;\n      }\n\n      .record:nth-child(2) .record-image {\n        margin-top: 16px;\n      }\n\n      .footer {\n        grid-template-columns: 1fr;\n        gap: 18px;\n      }\n\n      .footer .stamp {\n        text-align: left;\n      }\n    }\n\n    @media (max-width: 520px) {\n      .eyebrow,\n      .path-label {\n        gap: 12px;\n        flex-direction: column;\n      }\n\n      .station-mark {\n        width: 150px;\n        height: 150px;\n      }\n\n      .bars {\n        grid-template-columns: repeat(2, 1fr);\n        gap: 19px 8px;\n      }\n\n      .access-grid {\n        grid-template-columns: 1fr;\n      }\n\n      .record {\n        min-height: 0;\n      }\n    }\n\n    @media (prefers-reduced-motion: reduce) {\n      html {\n        scroll-behavior: auto;\n      }\n\n      *,\n      *::before,\n      *::after {\n        animation: none !important;\n        transition: none !important;\n      }\n\n      .table-cursor {\n        background: var(--ink);\n      }\n    }\n  </style>\n</head>\n<body>\n  <div class=\"page\">\n    <header class=\"masthead\">\n      <section class=\"masthead-left\">\n        <div>\n          <div class=\"eyebrow\">\n            <span>鞋钥值班台 / Interlocking Release Book</span>\n            <strong>SR-05</strong>\n          </div>\n\n          <h1>\n            <span class=\"title-line\">修补之前</span>\n            <span class=\"title-line\">先报号。</span>\n          </h1>\n\n          <p class=\"lead\">\n            这里不收临时插单。<em>先把鞋、钥匙和时间说清楚</em>，值班台才给出释放号。\n            每一项都留痕，每一次交接都能回查。\n          </p>\n\n          <div class=\"station-mark\" aria-label=\"鞋钥值班台印记\">\n            <div class=\"mark-copy\">\n              <b>鞋钥</b>\n              <small>LOCK / RELEASE</small>\n            </div>\n          </div>\n        </div>\n\n        <dl class=\"duty-note\">\n          <dt>值班说明</dt>\n          <dd>鞋底、鞋跟、配钥均按到店顺序办理。急件先电话确认，不在台面上抢道。</dd>\n        </dl>\n      </section>\n\n      <section class=\"masthead-right\">\n        <div>\n          <div class=\"ledger-head\">\n            <h2>今日释放路径</h2>\n            <p class=\"time\">09:00—18:30</p>\n          </div>\n\n          <div class=\"release-path\" id=\"releasePath\">\n            <div class=\"path-label\">\n              <span>锁闭表 / 释放顺序</span>\n              <span>14 LOCKS</span>\n            </div>\n\n            <div class=\"bars\" aria-label=\"十四枚锁闭条\">\n              <button class=\"lock-bar is-set\" style=\"--bar-index:0;--drift:0px\" data-id=\"1\" data-pair=\"8\"><span class=\"bar-no\">01</span></button>\n              <button class=\"lock-bar is-set\" style=\"--bar-index:1;--drift:0.25px\" data-id=\"2\" data-pair=\"11\"><span class=\"bar-no\">02</span></button>\n              <button class=\"lock-bar is-set\" style=\"--bar-index:2;--drift:0.5px\" data-id=\"3\" data-pair=\"6\"><span class=\"bar-no\">03</span></button>\n              <button class=\"lock-bar is-set\" style=\"--bar-index:3;--drift:0.75px\" data-id=\"4\" data-pair=\"13\"><span class=\"bar-no\">04</span></button>\n              <button class=\"lock-bar is-set\" style=\"--bar-index:4;--drift:1px\" data-id=\"5\" data-pair=\"10\"><span class=\"bar-no\">05</span></button>\n              <button class=\"lock-bar is-set\" style=\"--bar-index:5;--drift:1.25px\" data-id=\"6\" data-pair=\"3\"><span class=\"bar-no\">06</span></button>\n              <button class=\"lock-bar is-set\" style=\"--bar-index:6;--drift:1.5px\" data-id=\"7\" data-pair=\"12\"><span class=\"bar-no\">07</span></button>\n              <button class=\"lock-bar is-set\" style=\"--bar-index:7;--drift:1.75px\" data-id=\"8\" data-pair=\"1\"><span class=\"bar-no\">08</span></button>\n              <button class=\"lock-bar is-set\" style=\"--bar-index:8;--drift:2px\" data-id=\"9\" data-pair=\"14\"><span class=\"bar-no\">09</span></button>\n              <button class=\"lock-bar is-set\" style=\"--bar-index:9;--drift:2.25px\" data-id=\"10\" data-pair=\"5\"><span class=\"bar-no\">10</span></button>\n              <button class=\"lock-bar is-set\" style=\"--bar-index:10;--drift:2.5px\" data-id=\"11\" data-pair=\"2\"><span class=\"bar-no\">11</span></button>\n              <button class=\"lock-bar is-set\" style=\"--bar-index:11;--drift:2.75px\" data-id=\"12\" data-pair=\"7\"><span class=\"bar-no\">12</span></button>\n              <button class=\"lock-bar is-set\" style=\"--bar-index:12;--drift:3.25px\" data-id=\"13\" data-pair=\"4\"><span class=\"bar-no\">13</span></button>\n              <button class=\"lock-bar is-set\" style=\"--bar-index:13;--drift:3.5px\" data-id=\"14\" data-pair=\"9\"><span class=\"bar-no\">14</span></button>\n            </div>\n          </div>\n\n          <div class=\"access-panel\">\n            <h3>预约入口 / 单一行动</h3>\n            <div class=\"access-grid\">\n              <div><dt>接听时段</dt><dd class=\"mono\">09:00—18:30</dd></div>\n              <div><dt>最后收件</dt><dd class=\"mono\">18:00</dd></div>\n              <div><dt>当前工位</dt><dd>鞋修 02 / 配钥 01</dd></div>\n              <div><dt>交接状态</dt><dd>可预约</dd></div>\n            </div>\n            <a class=\"phone-action\" href=\"tel:010-6851-2307\">\n              <span class=\"phone-label\">拨号预约 / 先报需要办理的项目</span>\n              <span class=\"phone\">010—6851—2307</span>\n            </a>\n          </div>\n        </div>\n\n        <div class=\"duty-note\">\n          <dt>道岔号牌</dt>\n          <dd>\n            <button class=\"switch-plate\" id=\"switchPlate\" type=\"button\" aria-label=\"点击翻转道岔号牌\">\n              <span class=\"dial\" data-normal=\"D-05\" data-flipped=\"L-14\">D-05</span>\n            </button>\n            <span>　点按查看锁别号，140ms 后复位。</span>\n          </dd>\n        </div>\n      </section>\n    </header>\n\n    <main class=\"records\">\n      <div class=\"records-header\">\n        <h2>办理条目 / 逐条留痕</h2>\n        <p>把问题说到能登记的程度。到店后按同一串编号交接，不重复问，不漏一项。</p>\n      </div>\n\n      <section class=\"record-grid\" aria-label=\"五项办理内容\">\n        <article class=\"record\">\n          <div class=\"record-no\">01</div>\n          <div class=\"record-body\">\n            <h3>鞋底换新</h3>\n            <div class=\"record-meta\">\n              <span>底材 / 耐磨橡胶</span>\n              <span class=\"price\">¥ 80 起</span>\n            </div>\n            <p>先看鞋底磨损和中底状态，再定同厚度材料。需要留鞋时，现场给出释放时间。</p>\n            <img class=\"record-image\" src=\"images/占位-1.jpg\" width=\"640\" height=\"480\" alt=\"鞋底换新工序占位图\">\n          </div>\n        </article>\n\n        <article class=\"record\">\n          <div class=\"record-no\">02</div>\n          <div class=\"record-body\">\n            <h3>鞋跟修复</h3>\n            <div class=\"record-meta\">\n              <span>跟面 / 跟芯</span>\n              <span class=\"price\">¥ 35 起</span>\n            </div>\n            <p>只换磨掉的部分，不把整只鞋拆散。左右高低不一致，先登记再放行。</p>\n            <img class=\"record-image\" src=\"images/占位-2.jpg\" width=\"480\" height=\"480\" alt=\"鞋跟修复工序占位图\">\n          </div>\n        </article>\n\n        <article class=\"record\">\n          <div class=\"record-no\">03</div>\n          <div class=\"record-body\">\n            <h3>配钥匙</h3>\n            <div class=\"record-meta\">\n              <span>普通 / 防盗 / 门禁</span>\n              <span class=\"price\">¥ 10 起</span>\n            </div>\n            <p>带原钥匙来。无法确认齿形的，不盲配；先留号，再确认能否复制。</p>\n            <img class=\"record-image\" src=\"images/占位-3.jpg\" width=\"720\" height=\"405\" alt=\"配钥匙工序占位图\">\n          </div>\n        </article>\n\n        <article class=\"record\">\n          <div class=\"record-no\">04</div>\n          <div class=\"record-body\">\n            <h3>皮面补强</h3>\n            <div class=\"record-meta\">\n              <span>开裂 / 脱线 / 边油</span>\n              <span class=\"price\">¥ 45 起</span>\n            </div>\n            <p>裂口先清理，颜色和纹理不做遮掩式处理。成色差异会在登记时说明。</p>\n            <div class=\"record-text-block\">\n              <strong>留白位 / 检查记录</strong>\n              <p>此项不放图片。需要看实物边缘、内里和受力位置，照片不能替代现场判断。</p>\n            </div>\n          </div>\n        </article>\n\n        <article class=\"record\">\n          <div class=\"record-no\">05</div>\n          <div class=\"record-body\">\n            <h3>拉链与缝线</h3>\n            <div class=\"record-meta\">\n              <span>鞋带孔 / 拉链 / 线脚</span>\n              <span class=\"price\">¥ 25 起</span>\n            </div>\n            <p>先判定是五金失效还是布面受力。能局部处理的，不做整件替换。</p>\n            <img class=\"record-image\" src=\"images/占位-5.jpg\" width=\"750\" height=\"450\" alt=\"拉链与缝线修复工序占位图\">\n          </div>\n        </article>\n      </section>\n    </main>\n\n    <footer class=\"footer\">\n      <div>\n        <span class=\"mono\">SR-05 / RELEASE LOG</span><br>\n        今天登记，今天可回查。\n      </div>\n      <div>\n        <span class=\"mono\">LOCATION</span><br>\n        北街 17 号，门口灰色卷帘下。\n      </div>\n      <div class=\"stamp\">\n        <span class=\"mono\">STAMP 2024—05</span><br>\n        值班台留档\n      </div>\n    </footer>\n  </div>\n\n  <div class=\"table-cursor\" aria-hidden=\"true\"></div>\n\n  <script>\n    (() => {\n      const path = document.getElementById(\"releasePath\");\n      const bars = [...document.querySelectorAll(\".lock-bar\")];\n      const switchPlate = document.getElementById(\"switchPlate\");\n      const dial = switchPlate.querySelector(\".dial\");\n\n      const revealPath = () => {\n        if (window.matchMedia(\"(prefers-reduced-motion: reduce)\").matches) return;\n        path.classList.add(\"animate\");\n      };\n\n      const observer = new IntersectionObserver((entries, obs) => {\n        entries.forEach((entry) => {\n          if (entry.isIntersecting) {\n            revealPath();\n            obs.disconnect();\n          }\n        });\n      }, { threshold: 0.2 });\n\n      observer.observe(path);\n\n      bars.forEach((bar) => {\n        bar.addEventListener(\"mouseenter\", () => {\n          const pair = document.querySelector(`[data-id=\"${bar.dataset.pair}\"]`);\n          bar.classList.add(\"is-related\");\n          if (pair) pair.classList.add(\"is-related\");\n        });\n\n        bar.addEventListener(\"mouseleave\", () => {\n          document.querySelectorAll(\".is-related\").forEach((item) => {\n            item.classList.remove(\"is-related\");\n          });\n        });\n      });\n\n      switchPlate.addEventListener(\"click\", () => {\n        switchPlate.classList.add(\"flipped\");\n        dial.textContent = dial.dataset.flipped;\n        window.setTimeout(() => {\n          dial.textContent = dial.dataset.normal;\n          switchPlate.classList.remove(\"flipped\");\n        }, 140);\n      });\n\n      if (document.readyState === \"complete\") revealPath();\n      else window.addEventListener(\"load\", revealPath, { once: true });\n    })();\n  </script>\n</body>\n</html>"
+        }
+      }
+    }
+  },
+  {
+    "kind": "notify",
+    "method": "session/update",
+    "params": {
+      "sessionId": "112f49b6-f94f-4b4b-95d8-cbb22d04dec1",
+      "update": {
+        "sessionUpdate": "usage_update",
+        "used": 18997,
+        "size": 200000
+      }
+    }
+  },
+  {
+    "kind": "result",
+    "msg": {
+      "jsonrpc": "2.0",
+      "id": 3,
+      "result": {
+        "stopReason": "end_turn"
+      }
+    }
+  }
+]
