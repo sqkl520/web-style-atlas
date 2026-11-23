@@ -831,6 +831,59 @@ const lens = [];
 const offPaletteAll = [];
 const lwMismatch = [];
 
+/* 输出要求段应有几行 —— 2026-11-23 加。
+ *
+ * 原来硬编码 3，那时模板 4 行，删 1 行还剩 3 行刚好通过（自测那条变异就靠这个边界）。
+ * 加了「字体来源」两行之后模板变 6 行，阈值 3 就形同虚设 —— 自测立刻报「没响」。
+ *
+ * ⚠️ 第一版改成「从当前这批提示词取众数」，仍然不响 —— 因为自测会变异
+ * `prompts.js`，众数跟着一起变小，两边同步，永远追不上。
+ * 这是第⑤类缺陷（闸门与被测物共享同一个盲区）的教科书形态：
+ * **阈值的来源和被判的对象是同一个**。
+ *
+ * 正确做法：阈值从**落盘的源文件**算，不从被测的构建结果算。
+ * 自测把 `prompts.js` 改坏时，`prompt-copy.js` 不动，阈值就钉住了。
+ * 这一步同时暴露一个设计事实：输出要求的**行数是模板的固有属性**，
+ * 不该从产物反推。 */
+const outLineMode = (function () {
+  /* 用**未被变异**的 prompt-copy.js 构建一次，得到模板应有的行数。
+   *
+   * 关键在 `COPY_OVERRIDE`：自测跑模板变异时会把它指到临时文件，
+   * 而这里强制读磁盘上那份真实的。这样「阈值」和「被判的对象」不同源 ——
+   * 第一版两者同源，变异时一起变小，永远追不上（第⑤类缺陷）。
+   *
+   * 同理也不能用 PROMPTS_OVERRIDE 那份 prompts.js：变异可能改数据。
+   * 这里只关心模板项数，与数据无关，所以用真实 data.js + 真实 prompt-copy.js。 */
+  try {
+    const dataSrc = readFileSync(join(ROOT, 'prototypes/_selection/data.js'), 'utf8');
+    const copySrc = readFileSync(join(ROOT, 'prototypes/_selection/prompt-copy.js'), 'utf8');
+    const w = { STYLE_PROMPTS, console: { warn() {}, log() {} } };
+    w.window = w;
+    try { new Function('window', dataSrc)(w); } catch { /* DOM 相关，忽略 */ }
+    const stubEl = () => ({
+      style: {}, classList: { add() {}, remove() {}, toggle() {}, contains: () => false },
+      setAttribute() {}, appendChild() {}, addEventListener() {},
+      querySelector: () => null, querySelectorAll: () => [], innerHTML: '', textContent: '',
+      insertBefore() {}, removeChild() {}, remove() {}, focus() {}, cloneNode() { return stubEl(); },
+    });
+    w.document = {
+      createElement: stubEl, getElementById: () => null,
+      querySelector: () => null, querySelectorAll: () => [],
+      body: stubEl(), addEventListener() {}, documentElement: stubEl(),
+    };
+    w.navigator = { clipboard: { writeText: async () => {} } };
+    w.setTimeout = () => {}; w.clearTimeout = () => {};
+    new Function('window', 'document', 'navigator', 'setTimeout', 'clearTimeout', copySrc)(w, w.document, w.navigator, w.setTimeout, w.clearTimeout);
+    const t = w.buildStylePrompt(DIRS[0] ? DIRS[0].slice(0, 3) : 'S01') || '';
+    const oj = t.search(/^输出要求：/m);
+    if (oj < 0) return 3;
+    const n = t.slice(oj).split('\n').filter((l) => l.trim() && !/^输出要求：/.test(l)).length;
+    return n || 3;
+  } catch {
+    return 3;
+  }
+})();
+
 for (const d of DIRS) {
   const id = d.slice(0, 3);
   const css = readFileSync(join(PROTOS, d, 'style.css'), 'utf8');
@@ -1904,12 +1957,24 @@ for (const d of DIRS) {
         }
       }
 
-      /* T-20：输出要求段至少 3 行实质内容（模板是 4 行，第 1 行是段标题） */
+      /* T-20：输出要求段不能比「应有行数」少。
+       *
+       * ⚠️ 2026-11-23 改。原来是硬编码 `outLines.length < 3`，
+       * 那时模板恰好 4 行 —— 删掉 1 行还剩 3 行，**刚好卡在边界上通过**。
+       * 自测里那条 `shape-output-short`（删掉「移动端单列」那行）之所以一直能响，
+       * 是因为它删的正好让 4 变 3。
+       *
+       * 这一轮给输出要求加了「字体来源」两行 → 模板变 6 行 → 删 1 行还剩 5 行，
+       * 那条变异**不响了**。自测报「没响！断言无效」，红得对：
+       * 阈值 3 在模板 6 行的情况下已经形同虚设。
+       *
+       * 改成与模板实际行数挂钩：**少一行就报**。这样加内容时阈值自动跟上，
+       * 不会因为「内容变多」让旧阈值失效。 */
       if (oj >= 0) {
         const outLines = text.slice(oj).split('\n').filter((l) => l.trim() && !/^输出要求：/.test(l));
-        if (outLines.length < 3) {
+        if (outLines.length < outLineMode) {
           add('FAIL', id, 'shape-output-short',
-            `输出要求段只有 ${outLines.length} 行实质内容，应有 3 行以上`);
+            `输出要求段只有 ${outLines.length} 行实质内容，应有 ${outLineMode} 行（众数）`);
         }
       }
 
