@@ -126,6 +126,31 @@ if (!existsSync(OUT)) mkdirSync(OUT, { recursive: true });
 console.log(`[blinпtest] ${id} ${scheme.cn} → ${OUT}`);
 console.log(`[blindtest] 提示词 ${PROMPT.length} 字`);
 
+/* ── 开跑即记账 ──────────────────────────────────────────────────────
+ *
+ * ⚠️ 2026-11-23 加。台账原来只在 `finish()` 里写，而这一轮实测：
+ * 进程猝死时 `finish()` 根本执行不到，于是**跑过但失败了这件事也没记录**。
+ * S22-r5 连挂四次，台账里一行都没有 —— 那个「成功率」还是算不出来。
+ *
+ * 这和 `_acp-events.json` 是同一个病（只在收尾写），修法也一样：
+ * **开始时就落一笔，结束时补结果**。
+ *
+ * 记录用 `phase` 区分：'start' 是开跑时的占位，'end' 是正常收尾。
+ * 统计时只看 'end'；只有 'start' 没有对应 'end' 的，就是猝死的那次 ——
+ * 这反而是以前完全拿不到的信息。
+ */
+const LEDGER_PATH = join(ROOT, 'deliverables/78-northstar/_blindtest/_runs.jsonl');
+const RUN_KEY = `${id}@${STARTED_AT}`;
+try {
+  appendFileSync(LEDGER_PATH, JSON.stringify({
+    phase: 'start', key: RUN_KEY, id,
+    at: new Date(STARTED_AT).toISOString(),
+    promptBytes: Buffer.byteLength(PROMPT, 'utf8'),
+    promptMd5: createHash('md5').update(PROMPT).digest('hex').slice(0, 8),
+    fromFile: !!PROMPT_FILE,
+  }) + '\n');
+} catch { /* 台账写失败不影响主流程 */ }
+
 /* 让 agent 在 OUT 里干活。cwd 用 OUT —— ACP 的 fs 工具以它为基址。
  *
  * 【为什么要 --patch】profile 的 bundle 层把模型钉死在 deepseek-official，
@@ -233,20 +258,18 @@ function finish(code, note) {
    *
    * 用 JSONL 而不是 JSON 数组：追加写不会因为进程被杀而破坏已有记录。 */
   try {
-    const ledger = join(ROOT, 'deliverables/78-northstar/_blindtest/_runs.jsonl');
     const rec = {
+      phase: 'end',
+      key: RUN_KEY,
       id,
       at: new Date().toISOString(),
       ok: hadFile,
       code,
       ms: Date.now() - STARTED_AT,
       bytes: hadFile ? statSync(join(OUT, 'index.html')).size : 0,
-      promptBytes: Buffer.byteLength(PROMPT, 'utf8'),
-      promptMd5: createHash('md5').update(PROMPT).digest('hex').slice(0, 8),
-      fromFile: !!PROMPT_FILE,
       note: String(note || '').slice(0, 80),
     };
-    appendFileSync(ledger, JSON.stringify(rec) + '\n');
+    appendFileSync(LEDGER_PATH, JSON.stringify(rec) + '\n');
   } catch { /* 台账写失败不该影响主流程 */ }
 
   process.exit(code);

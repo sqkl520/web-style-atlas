@@ -32,13 +32,33 @@ const runs = [];
 function fromLedger() {
   if (!existsSync(LEDGER)) return 0;
   const lines = readFileSync(LEDGER, 'utf8').split('\n').filter(Boolean);
+  const starts = new Map();
+  const ends = new Map();
   for (const l of lines) {
-    try {
-      const r = JSON.parse(l);
+    let r;
+    try { r = JSON.parse(l); } catch { continue; }   // 半行（写入被打断）
+    /* 兼容两种格式：有 phase 的新格式，和只有 ok 的旧格式（这一轮早期写的）。 */
+    if (r.phase === 'start') { starts.set(r.key, r); continue; }
+    if (r.phase === 'end') { ends.set(r.key, r); continue; }
+    if (typeof r.ok === 'boolean') {   // 旧格式
       const at = new Date(r.at).getTime();
-      runs.push({ id: r.id, at, ok: !!r.ok, hour: new Date(at).getHours() });
-    } catch { /* 半行（写入被打断）跳过 */ }
+      runs.push({ id: r.id, at, ok: !!r.ok, hour: new Date(at).getHours(), died: false });
+    }
   }
+  /* 有 end 的：正常收尾，成败看 ok
+   * 只有 start 没有 end 的：**猝死** —— 以前完全拿不到的信息 */
+  let died = 0;
+  for (const [key, s] of starts) {
+    const e = ends.get(key);
+    const at = new Date(s.at).getTime();
+    if (e) {
+      runs.push({ id: s.id, at, ok: !!e.ok, hour: new Date(at).getHours(), died: false });
+    } else {
+      died++;
+      runs.push({ id: s.id, at, ok: false, hour: new Date(at).getHours(), died: true });
+    }
+  }
+  if (died) console.log(`  · 其中 ${died} 次是「有开始记录、无结束记录」的猝死`);
   return runs.length;
 }
 
