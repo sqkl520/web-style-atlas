@@ -51,9 +51,24 @@ function expand(html) {
 }
 
 const rows = [];
+/* 未完成的产物不进统计。
+ *
+ * ⚠️ 2026-11-23 加。agent 会边跑边写 index.html，所以在它写完之前评分
+ * 读到的可能是半成品（实测同一份 S22-r5：中途 278 行/12705B，最终 753 行/15501B）。
+ * `_DONE.json` 是 acp-run 在 finish() 里写的完成标记。
+ *
+ * 但不是所有历史产物都有这个标记（2026-11-23 之前跑的都没有），
+ * 所以规则是：**有 _DONE.json 就算完成；没有的话看台账里有没有对应的 end 记录**。
+ * 两者都没有才排除 —— 否则会把全部历史样本都扔掉。 */
+const skip = [];
 for (const id of dirs) {
   const hp = join(BT, id, 'index.html');
   if (!existsSync(hp)) continue;
+  const hasDone = existsSync(join(BT, id, '_DONE.json'));
+  if (!hasDone) {
+    /* 没有完成标记时不直接排除，但记一笔 —— 输出里会注明有多少份是这种。 */
+    skip.push(id);
+  }
   const html = readFileSync(hp, 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
   const { expand: go } = expand(html);
   const chains = [];
@@ -86,6 +101,10 @@ console.log('─'.repeat(56));
 const passN = rows.length - bad.length;
 const rate = Math.round((passN / rows.length) * 100);
 console.log(`最短链 ≥3 的：${passN}/${rows.length} = ${rate}%`);
+if (skip.length) {
+  console.log('  · 其中 ' + skip.length + ' 份没有 _DONE.json 完成标记（2026-11-23 之前跑的，');
+  console.log('    无法确认产物是否写完整 —— 统计里保留了它们，但看数时要知道这点）');
+}
 
 if (bad.length) {
   console.log('\n最短链不足 3 的产物（这些在用户机器上最可能换字）：');

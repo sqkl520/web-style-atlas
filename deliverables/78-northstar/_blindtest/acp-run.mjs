@@ -281,6 +281,31 @@ function finish(code, note) {
     appendFileSync(LEDGER_PATH, JSON.stringify(rec) + '\n');
   } catch { /* 台账写失败不该影响主流程 */ }
 
+  /* 完成标记 —— 明确告诉后来者「这份产物已经写完了」。
+   *
+   * ⚠️ 2026-11-23 加的。起因是一次真实的误判：
+   * agent 会**边跑边用 fs 工具写 index.html**，而我在它刚写出第一版时就评分，
+   * 读到的是一份 278 行的半成品（图片 4/5、五类里有一项不合格）。
+   * 几分钟后再看，同一个文件变成 753 行、五类全过。
+   *
+   * 也就是说：**目录里有 index.html ≠ 这份产物写完了。**
+   * 而这个区别在之前只能靠「等一会儿再看」来规避 —— 那不是机制，是运气。
+   *
+   * 判据：只有 `finish()` 走完（也就是跑批进程自己认为结束了）才写这个文件。
+   * 任何分析脚本（score / repeatability / fallback-chain）都应当先看它，
+   * 没有就跳过并注明「产物未完成」。
+   *
+   * 内容带上耗时与退出码，让人一眼看出这次是正常结束还是超时结束。 */
+  try {
+    writeFileSync(join(OUT, '_DONE.json'), JSON.stringify({
+      at: new Date().toISOString(),
+      ms: Date.now() - STARTED_AT,
+      code,
+      note: String(note || '').slice(0, 200),
+      promptMd5: createHash('md5').update(PROMPT).digest('hex').slice(0, 8),
+    }, null, 1));
+  } catch { /* 同上，不影响主流程 */ }
+
   process.exit(code);
 }
 
