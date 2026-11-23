@@ -38,7 +38,7 @@ const BIN = join(PROFILE, 'node_modules/@deepseek-ai/dsh/lib/bin.js');
 
 const id = process.argv[2];
 if (!id || !/^S\d{2}$/.test(id)) {
-  console.error('用法：node acp-run.mjs <Sxx> [--out DIR] [--timeout MS]');
+  console.error('用法：node acp-run.mjs <Sxx> [--out DIR] [--timeout MS] [--prompt-file FILE]');
   process.exit(2);
 }
 const argOf = (k, d) => {
@@ -47,6 +47,18 @@ const argOf = (k, d) => {
 };
 const OUT = resolve(ROOT, argOf('--out', `deliverables/78-northstar/_blindtest/${id}`));
 const TIMEOUT = Number(argOf('--timeout', '600000'));
+/* `--prompt-file <路径>`：用指定的提示词文本，而不是从当前代码现生成。
+ *
+ * 为什么需要：做「同一案、不同提示词」的 A/B 对照。
+ * 2026-11-23 想验证「字体来源约束有没有提高概率」，需要同一个案在
+ * 有约束/无约束两种提示词下各跑若干次。而原来这个脚本总是从
+ * `buildStylePrompt()` 现取 —— 也就是**只能测当前这一版提示词**。
+ * 没有这个参数，对照组只能跨案（拿 S21 当 S22 的对照），
+ * 而那会引入「案本身不同」这个混淆变量。
+ *
+ * 用 `git show <commit>:<prompt-copy.js>` 之类的办法造出旧版提示词文本，
+ * 存成文件，再用这个参数喂进来。 */
+const PROMPT_FILE = argOf('--prompt-file', '');
 
 /* 提示词从选型台现取 —— 不在本文件里另存一份。
    存一份就等于把被测对象复制进测试里，改了那边这边不知道（本仓库反复踩的坑）。 */
@@ -94,7 +106,13 @@ function buildPrompt(sid) {
   return { text: g.buildStylePrompt(sid, { biz: '一家修鞋配钥匙的小店', action: '打电话约个时间', have: 5 }), scheme };
 }
 
-const { text: PROMPT, scheme } = buildPrompt(id);
+const { text: _generated, scheme } = buildPrompt(id);
+/* 指定了 --prompt-file 就用它，否则用现生成的。
+ * 两者都要写进 _prompt.txt（在 finish 里），这样事后能确认这一轮用的到底是哪份。 */
+const PROMPT = PROMPT_FILE
+  ? readFileSync(resolve(ROOT, PROMPT_FILE), 'utf8')
+  : _generated;
+if (PROMPT_FILE) console.log(`[blindtest] 提示词来自文件：${PROMPT_FILE}（不是现生成的）`);
 if (!existsSync(OUT)) mkdirSync(OUT, { recursive: true });
 /* ⚠️ 不要往 cwd 里放 README 或任何说明文件（2026-11-05 实测）。
  * 我加过一条「这是空目录，不用探索」的 README，本意是降低 agent 卡死率。
