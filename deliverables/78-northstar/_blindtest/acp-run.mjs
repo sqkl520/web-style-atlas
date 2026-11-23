@@ -166,6 +166,24 @@ function finish(code, note) {
   const hadFile = existsSync(join(OUT, 'index.html'));
   console.log(`[blindtest] ${note}`);
   console.log(`[blindtest] 产物：${hadFile ? (html.trim() ? '从消息提取 index.html' : 'agent 自己写的文件') : '**没有 HTML**'}`);
+  /* 失败时明确提示「别删这个目录」。
+   *
+   * 2026-11-23 加的。这一轮 S10 连续失败三次，每次我都是 `rm -rf` 掉目录重跑，
+   * 于是**唯一能区分失败形态的证据被我自己删了**：
+   *   ① 会话建立了、上游没吐字   → _acp-events.json 是 []
+   *   ② 会话压根没建立           → 连事件文件都没有
+   *   ③ 会话建立了、调了工具、然后进程死 → 事件文件里有记录但不完整
+   *
+   * 三者的处置完全不同（①等窗口 ②查链路 ③查那个案），而删掉目录之后
+   * 只剩「失败了」这一个事实。这条提示是为了让下一个人（包括我自己）
+   * 在 rm 之前先看一眼。 */
+  if (!hadFile) {
+    console.log(`[blindtest] ⚠️ 别急着删 ${OUT.replace(/\\/g, '/')}`);
+    console.log('[blindtest]    里面的事件文件能区分三种失败形态：');
+    console.log('[blindtest]    ① 事件文件是 []            → 会话建了，上游没吐字');
+    console.log('[blindtest]    ② 连事件文件都没有          → 会话压根没建立');
+    console.log('[blindtest]    ③ 有事件但不完整            → 调了工具后进程死');
+  }
   process.exit(code);
 }
 
