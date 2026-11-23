@@ -157,6 +157,70 @@ console.log('');
 console.log('  ⇒ 如果两组比例接近，说明「写来源」和「链够长」是两件独立的事 ——');
 console.log('    那么该修的是链长（确定性、可判），而不是来源（概率性、测不出）。');
 
-/* 这条判据只报不判：阈值 3 取自提示词自己的例子，但个别案可能真的只有 2 个族可用
- * （比如只指定一款中文族 + 一款拉丁族）。红了要人看，不是自动 FAIL。 */
-process.exit(0);
+/* ── 正对照（2026-11-23 加）────────────────────────────────────────
+ *
+ * 加这一段的直接原因：这条判据的初版把「通用族」过滤掉再数长度，
+ * 于是报出「38 份里 37 份不达标」。拿原型一跑就垮了 ——
+ * 5 个原型自己就是「单族等宽链」的形态（其实它们有 monospace 兜底）。
+ *
+ * **这一步只要 3 秒，而它推翻了 76 个百分点的差距。**
+ * 所以它必须成为这条判据的一部分，而不是我某一次手工做的检查。
+ *
+ * 判据：原型是「手工做的合格样品」。如果原型的无退路比例 **不低于** 产物，
+ * 说明「无退路」不是产物特有的缺陷，这条判据就没有可靠的合格线。
+ */
+import { existsSync as _ex, readdirSync as _rd } from 'node:fs';
+import { join as _join } from 'node:path';
+import { resolve as _res } from 'node:path';
+import { dirname as _dn } from 'node:path';
+import { fileURLToPath as _fu } from 'node:url';
+
+const _HERE = _dn(_fu(import.meta.url));
+const PROTOS = _res(_HERE, '..', '..', '..', 'prototypes');
+
+function noFallbackRate(base, isArtifact) {
+  const re = isArtifact ? /^S\d{2}(-r\d+)?$/ : /^S\d{2}-/;
+  const list = _rd(base, { withFileTypes: true })
+    .filter((d) => d.isDirectory() && re.test(d.name)).map((d) => d.name);
+  let bare = 0, tot = 0;
+  for (const id of list) {
+    const p = isArtifact ? _join(base, id, 'index.html') : _join(base, id, 'style.css');
+    if (!_ex(p)) continue;
+    tot++;
+    const h = readFileSync(p, 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
+    const vars = {};
+    for (const m of h.matchAll(/(--[\w-]+)\s*:\s*([^;}]+)/g)) vars[m[1]] = m[2];
+    const go = (s, d = 0) => {
+      if (d > 5) return s;
+      return s.replace(/var\(\s*(--[\w-]+)\s*(?:,[^)]*)?\)/g,
+        (_, n) => (vars[n] !== undefined ? go(vars[n], d + 1) : ''));
+    };
+    let hasBare = false;
+    for (const m of h.matchAll(/font-family\s*:\s*([^;}]+)/g)) {
+      const all = go(m[1]).split(',').map((x) => x.trim().replace(/^["']|["']$/g, '')).filter(Boolean);
+      if (all.length === 1) hasBare = true;
+    }
+    if (hasBare) bare++;
+  }
+  return { bare, tot, rate: tot ? bare / tot : 0 };
+}
+
+const art = noFallbackRate(BT, true);
+const pro = noFallbackRate(PROTOS, false);
+
+console.log('\n━━ 正对照（原型是手工做的合格样品）━━');
+console.log(`  产物：${art.bare}/${art.tot} = ${Math.round(art.rate * 100)}% 有「无退路」声明`);
+console.log(`  原型：${pro.bare}/${pro.tot} = ${Math.round(pro.rate * 100)}% 同样如此`);
+
+if (pro.rate >= art.rate) {
+  console.log('');
+  console.log('  ⇒ 原型的比例不低于产物 —— 「无退路」不是产物特有的缺陷。');
+  console.log('    这条判据没有可靠合格线：原型是基准，基准自己也这样，');
+  console.log('    要求产物达标等于要求它超过基准。**保持 fail: false（只报不判）**。');
+} else if (art.rate > pro.rate * 1.5) {
+  console.log('');
+  console.log('  ⇒ 产物明显高于原型（超 1.5 倍）—— 这可能真是产物的问题，值得细看。');
+} else {
+  console.log('');
+  console.log('  ⇒ 产物略高于原型，但差距不大 —— 只能说「倾向」，不能说「缺陷」。');
+}
