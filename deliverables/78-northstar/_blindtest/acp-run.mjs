@@ -27,6 +27,7 @@
  */
 import { spawn } from 'node:child_process';
 import { readFileSync, existsSync, mkdirSync, writeFileSync, appendFileSync, readdirSync, statSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { join, resolve } from 'node:path';
 import { homedir } from 'node:os';
 
@@ -47,6 +48,7 @@ const argOf = (k, d) => {
 };
 const OUT = resolve(ROOT, argOf('--out', `deliverables/78-northstar/_blindtest/${id}`));
 const TIMEOUT = Number(argOf('--timeout', '600000'));
+const STARTED_AT = Date.now();
 /* `--prompt-file <路径>`：用指定的提示词文本，而不是从当前代码现生成。
  *
  * 为什么需要：做「同一案、不同提示词」的 A/B 对照。
@@ -218,6 +220,35 @@ function finish(code, note) {
     console.log('[blindtest]    ② 连事件文件都没有          → 会话压根没建立');
     console.log('[blindtest]    ③ 有事件但不完整            → 调了工具后进程死');
   }
+  /* 往仓库内追加一行跑批台账。
+   *
+   * 2026-11-23 加。起因：把 23 次跑批按时间排开、算出「凌晨 10/10、深夜 3/11」
+   * 之后十分钟，那些日志被系统清理了，只剩 3 个。而 `%TEMP%` 里的日志
+   * **是唯一能回答「成功率是多少」这个问题的材料**。
+   * 仓库里已经有一条同类教训（`C:\tmp` 清掉 13 条 stream），这次换了个马甲又踩一遍。
+   *
+   * 只存统计需要的字段，**不存上游原始输出**：
+   *   id / 时间 / 成败 / 耗时 / 产物字节 / 用的哪份提示词
+   * 一行约 120 字节，几百次跑批也就几十 KB，可以放心入库。
+   *
+   * 用 JSONL 而不是 JSON 数组：追加写不会因为进程被杀而破坏已有记录。 */
+  try {
+    const ledger = join(ROOT, 'deliverables/78-northstar/_blindtest/_runs.jsonl');
+    const rec = {
+      id,
+      at: new Date().toISOString(),
+      ok: hadFile,
+      code,
+      ms: Date.now() - STARTED_AT,
+      bytes: hadFile ? statSync(join(OUT, 'index.html')).size : 0,
+      promptBytes: Buffer.byteLength(PROMPT, 'utf8'),
+      promptMd5: createHash('md5').update(PROMPT).digest('hex').slice(0, 8),
+      fromFile: !!PROMPT_FILE,
+      note: String(note || '').slice(0, 80),
+    };
+    appendFileSync(ledger, JSON.stringify(rec) + '\n');
+  } catch { /* 台账写失败不该影响主流程 */ }
+
   process.exit(code);
 }
 

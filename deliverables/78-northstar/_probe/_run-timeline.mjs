@@ -13,50 +13,81 @@
  * 磁盘目录算出来的成功率会偏高（失败的目录常被清理），
  * 2026-11-23 实测：磁盘 100% vs 日志 61% —— 差了 39 个百分点。
  */
-import { readdirSync, readFileSync, statSync } from 'node:fs';
-import { join } from 'node:path';
 
-/* 日志落在系统 Temp 目录。⚠️ 不能「取第一个有日志的目录」——
- * 实测 `process.env.TEMP` 指向的目录只有最近的几条，而完整历史在另一个路径。
- * 只取第一个会让统计严重偏少（首次跑只数到 3 条，实际 23 条）。
- * 所以：**遍历所有候选，取样本最多的那个**。 */
-const CANDIDATES = [
-  process.env.TEMP || '',
-  process.env.TMP || '',
-  '/tmp',
-  'C:/Users/ADMINI~1/AppData/Local/Temp',
-].filter(Boolean);
+/* 数据来源优先级：
+ *   ① 仓库内的 `_blindtest/_runs.jsonl`（2026-11-23 起 acp-run 自动追加）
+ *      —— 不会被系统清理，是**权威来源**
+ *   ② `%TEMP%` 里的 stdout 日志 —— 易失（实测 23 条十分钟内变 3 条），
+ *      只用来补台账启用之前的历史
+ *
+ * 先读台账；台账为空才回落到日志扫描。两者都读会重复计数。 */
+import { readdirSync, readFileSync, statSync, existsSync } from 'node:fs';
+import { join, resolve, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-let D = null;
-let bestN = 0;
-for (const c of [...new Set(CANDIDATES)]) {
-  try {
-    const n = readdirSync(c).filter((f) => /^s\d+r\d+\w*\.log$/i.test(f)).length;
-    if (n > bestN) { D = c; bestN = n; }
-  } catch { /* 目录不存在 */ }
+const HERE = dirname(fileURLToPath(import.meta.url));
+const LEDGER = resolve(HERE, '..', '_blindtest', '_runs.jsonl');
+const runs = [];
+
+function fromLedger() {
+  if (!existsSync(LEDGER)) return 0;
+  const lines = readFileSync(LEDGER, 'utf8').split('\n').filter(Boolean);
+  for (const l of lines) {
+    try {
+      const r = JSON.parse(l);
+      const at = new Date(r.at).getTime();
+      runs.push({ id: r.id, at, ok: !!r.ok, hour: new Date(at).getHours() });
+    } catch { /* 半行（写入被打断）跳过 */ }
+  }
+  return runs.length;
 }
-if (!D) {
-  console.log('找不到跑批日志目录（试过 TEMP / TMP / /tmp）—— 无数据可统计');
+
+function fromLogs() {
+  const CANDIDATES = [
+    process.env.TEMP || '',
+    process.env.TMP || '',
+    '/tmp',
+    'C:/Users/ADMINI~1/AppData/Local/Temp',
+  ].filter(Boolean);
+  let D = null, bestN = 0;
+  for (const c of [...new Set(CANDIDATES)]) {
+    try {
+      const n = readdirSync(c).filter((f) => /^s\d+r\d+\w*\.log$/i.test(f)).length;
+      if (n > bestN) { D = c; bestN = n; }
+    } catch { /* 目录不存在 */ }
+  }
+  if (!D) return { n: 0, dir: null };
+  const files = readdirSync(D)
+    .filter((f) => /^s\d+r\d+\w*\.log$/i.test(f))
+    .map((f) => ({ f, m: statSync(join(D, f)).mtimeMs }))
+    .sort((a, b) => a.m - b.m);
+  for (const { f, m } of files) {
+    const t = readFileSync(join(D, f), 'utf8');
+    if (!/提示词 \d+ 字/.test(t)) continue;
+    const ok = /产物：从消息提取|产物：agent 自己写的文件/.test(t);
+    runs.push({ id: f.replace(/\.log$/, ''), at: m, ok, hour: new Date(m).getHours() });
+  }
+  return { n: runs.length, dir: D, files: bestN };
+}
+
+const ledgerN = fromLedger();
+let logInfo = { n: 0, dir: null, files: 0 };
+if (ledgerN) {
+  console.log(`（数据来源：仓库台账 _runs.jsonl，${ledgerN} 条 —— 权威来源，不会被系统清理）`);
+} else {
+  logInfo = fromLogs();
+  if (logInfo.files) {
+    console.log(`（数据来源：%TEMP% 日志 ${logInfo.dir}，找到 ${logInfo.files} 个文件）`);
+    console.log('  ⚠️ 日志是易失的（实测 23 条十分钟内变 3 条）—— 数字偏少不代表跑得少');
+    console.log('  ⚠️ 台账 _runs.jsonl 为空：acp-run 从 2026-11-23 起才会自动写');
+  }
+}
+
+if (!runs.length) {
+  console.log('没有有效跑批记录');
   process.exit(0);
 }
-console.log(`（日志目录：${D}，找到 ${bestN} 个日志文件）`);
-
-const files = readdirSync(D)
-  .filter((f) => /^s\d+r\d+\w*\.log$/i.test(f))
-  .map((f) => ({ f, m: statSync(join(D, f)).mtimeMs }))
-  .sort((a, b) => a.m - b.m);
-
-const runs = [];
-for (const { f, m } of files) {
-  const t = readFileSync(join(D, f), 'utf8');
-  /* 只算真的跑起来的（有「提示词 N 字」那行）。
-   * 参数错误 / 路径错误之类的早退不算 —— 那不是上游的问题。 */
-  if (!/提示词 \d+ 字/.test(t)) continue;
-  const ok = /产物：从消息提取|产物：agent 自己写的文件/.test(t);
-  runs.push({ id: f.replace(/\.log$/, ''), at: m, ok, hour: new Date(m).getHours() });
-}
-
-if (!runs.length) { console.log('没有有效跑批记录'); process.exit(0); }
+runs.sort((a, b) => a.at - b.at);
 
 const okN = runs.filter((r) => r.ok).length;
 console.log(`跑批记录：${runs.length} 次，成功 ${okN}，失败 ${runs.length - okN}，`
