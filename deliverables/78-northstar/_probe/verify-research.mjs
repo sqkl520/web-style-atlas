@@ -236,6 +236,20 @@ const STEPS = [
    * fail: false —— 原型自己也部分不达标，而原型是基准。
    * **这条判据目前没有可靠的合格线**，只能只报不判。 */
   { id: '_font-fallback-chain', label: '字体回退链（无退路 21%，与原型持平）', fail: false },
+  /* 2026-11-23 新增：读字体的公共实现 + 等价性证明。
+   *
+   * 一天之内同一个坑踩了三次（不展开 CSS 变量），三次都在**新写的代码**里。
+   * 说明问题不是「不知道要展开」，是「每次写新代码都会忘」。
+   * 解法只有让实现只有一个 —— `_blindtest/_css-fonts.mjs`。
+   *
+   * 但收成一份的时候必须证明**新的一份和旧的那几份等价**，
+   * 否则只是把「四份可能漂移的」变成「五份」。这个脚本就是那个证明：
+   *   73 份样本（38 产物 + 35 原型）上，新实现与 _repeatability 的抽取结果完全一致
+   * 另外它还证明了新实现**更正确**：嵌套 fallback `var(--a, var(--b))`
+   * 旧的 4 份都会截断，新的能展开。
+   *
+   * fail: true —— 等价性是可断言的。一旦漂移，红得对。 */
+  { id: '_css-fonts-selftest', dir: '../_blindtest', label: '字体读取共享模块（73 份等价 + 嵌套 fallback）', fail: true },
 ];
 
 const results = [];
@@ -272,7 +286,12 @@ function detectCrash(code, out) {
 }
 
 for (const s of STEPS) {
-  const file = join(HERE, `${s.id}.mjs`);
+  /* `dir` 让某个步骤从别的目录跑（比如 `_blindtest/` 下的脚本）。
+   * 2026-11-23 加：字体读取的共享模块 `_css-fonts.mjs` 必须放在 `_blindtest/`
+   * 旁边（`score.mjs` 在那儿），但它的自测脚本也要进这条验证线 ——
+   * 原来这里硬拼 `HERE/${id}.mjs`，那个脚本就找不到。
+   * 与其把模块挪来挪去，不如让跑批器支持子目录。 */
+  const file = join(HERE, s.dir ? s.dir : '', `${s.id}.mjs`);
   const started = Date.now();
   let out = '', code = 0;
   try {
