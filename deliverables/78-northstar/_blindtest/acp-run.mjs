@@ -26,7 +26,7 @@
  *   node deliverables/78-northstar/_blindtest/acp-run.mjs <Sxx> [--out DIR] [--timeout MS]
  */
 import { spawn } from 'node:child_process';
-import { readFileSync, existsSync, mkdirSync, writeFileSync, readdirSync, statSync } from 'node:fs';
+import { readFileSync, existsSync, mkdirSync, writeFileSync, appendFileSync, readdirSync, statSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { homedir } from 'node:os';
 
@@ -142,6 +142,22 @@ function send(obj) {
   child.stdin.write(JSON.stringify(obj) + '\n');
 }
 
+/* 每收到一个事件就落盘一次 —— 不等 finish()。
+ *
+ * ⚠️ 2026-11-23 加。原来只在 finish() 里一次性写 `_acp-events.json`，
+ * 而实测失败时（进程被上游断开、被系统杀掉）**finish() 根本没机会执行**，
+ * 于是目录里空空如也 —— 而我今天在失败提示里写的「看事件文件判断三种形态」
+ * 前提就不成立：连文件都没有，形态①②③全都长成同一个样子。
+ *
+ * 逐条追加的代价是每个事件一次 write，量很小（一次跑通常几十条），
+ * 换来的是**进程猝死时也有迹可循**。`appendFileSync` 用同步写，
+ * 不依赖事件循环，被杀之前那一条一定能落盘。 */
+function persistEvents() {
+  try {
+    appendFileSync(join(OUT, '_acp-events.jsonl'), JSON.stringify(events[events.length - 1]) + '\n');
+  } catch { /* 目录不存在等情况，不影响主流程 */ }
+}
+
 function finish(code, note) {
   if (done) return;
   done = true;
@@ -221,14 +237,14 @@ child.stdout.on('data', (chunk) => {
     /* prompt 结束 */
     if (msg.id === 3) {
       clearTimeout(timer);
-      events.push({ kind: 'result', msg });
+      events.push({ kind: 'result', msg }); persistEvents();
       if (msg.error) { finish(5, 'prompt 出错：' + JSON.stringify(msg.error)); return; }
       finish(0, 'prompt 完成：' + JSON.stringify(msg.result));
       return;
     }
     /* agent 的中间通知 */
     if (msg.method) {
-      events.push({ kind: 'notify', method: msg.method, params: msg.params });
+      events.push({ kind: 'notify', method: msg.method, params: msg.params }); persistEvents();
       const p = msg.params || {};
       if (msg.method === 'session/update' && p.update && p.update.sessionUpdate) {
         const u = p.update;
