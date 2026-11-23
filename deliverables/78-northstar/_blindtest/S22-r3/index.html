@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>老周修鞋配钥匙｜留一双鞋，也留一把钥匙</title>
+<style>
+:root{--matcha:#565B49;--paper:#DDDAD4;--ink:#2E2A24;--crease:#6B6558;--fold-pos:50.4%;--gutter:88px;--outer:56px;--col-gap:22px;}
+*{box-sizing:border-box;border-radius:0!important}
+html{background:var(--paper);scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Zhuque Fangsong","Petrona",Georgia,serif;font-size:17px;line-height:1.58;cursor:none;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:20;background:repeating-linear-gradient(0deg,rgba(46,42,36,.035) 0 1px,transparent 1px 5px);mix-blend-mode:multiply}
+a{color:var(--ink);text-decoration:none}
+.paper-shell{min-height:100vh;padding:0 var(--outer);position:relative}
+.masthead{height:82px;border-bottom:1px solid var(--crease);display:flex;align-items:center;justify-content:space-between;letter-spacing:.08em}
+.masthead .mark{font-family:"Petrona","Zhuque Fangsong",Georgia,serif;font-size:19px;color:var(--matcha)}
+.masthead nav{display:flex;gap:28px;font-size:14px}
+.masthead nav a{border-bottom:1px solid transparent}
+.masthead nav a:hover{border-color:var(--matcha)}
+.fold-page{position:relative;max-width:1380px;margin:0 auto;perspective:1200px}
+.half{position:relative;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));column-gap:var(--col-gap);padding:34px 0 38px}
+.half.upper{min-height:416px;border-bottom:3px solid var(--crease)}
+.half.lower{min-height:416px;margin-left:8px;padding-top:42px}
+.half:after{content:"";position:absolute;top:0;bottom:0;left:calc(50% - var(--gutter)/2);width:var(--gutter);background:var(--paper);z-index:4;box-shadow:inset 3px 0 0 rgba(107,101,88,.22),inset -3px 0 0 rgba(107,101,88,.22);pointer-events:none}
+.ghost{position:absolute;inset:0;pointer-events:none;z-index:1;opacity:.18;transform:scaleX(-1);transform-origin:center;color:var(--matcha);mix-blend-mode:multiply}
+.upper .ghost{padding:34px 0}.lower .ghost{padding:42px 0}
+.cell{position:relative;z-index:2;min-width:0}
+.cell:nth-child(1){grid-column:1 / span 2}.cell:nth-child(2){grid-column:3 / span 2}.cell:nth-child(3){grid-column:5 / span 2}
+.eyebrow{font-family:"IBM Plex Mono","Courier New",monospace;font-size:11px;letter-spacing:.12em;color:var(--matcha);margin:0 0 10px}
+.hero-title{grid-column:1 / span 3;grid-row:2;align-self:end;margin:0;font-family:"Petrona","Zhuque Fangsong",Georgia,serif;font-size:clamp(48px,5.7vw,81px);font-weight:400;line-height:.98;letter-spacing:-.045em}
+.hero-note{grid-column:4 / span 2;grid-row:2;align-self:end;border-left:1px solid var(--crease);padding-left:18px;max-width:250px}
+.hero-note p{margin:0 0 14px}.small-label{font-size:13px;color:var(--crease)}
+.call{display:inline-block;background:var(--matcha);color:var(--paper);padding:12px 18px;border:3px solid var(--matcha);font-family:"IBM Plex Mono","Courier New",monospace;font-size:14px;letter-spacing:.02em;box-shadow:inset 0 -3px 0 rgba(46,42,36,.35)}
+.call:hover{background:var(--ink);border-color:var(--ink)}
+.image-frame{height:150px;border:1px solid var(--crease);overflow:hidden;margin-bottom:14px;background:var(--paper);box-shadow:inset 0 0 0 3px rgba(107,101,88,.12)}
+.image-frame img{display:block;width:100%;height:100%;object-fit:cover;filter:sepia(.16) saturate(.62) contrast(.9)}
+.image-frame.tall{height:176px}.image-frame.blank{display:flex;align-items:center;padding:18px;background:var(--matcha);color:var(--paper);font-size:15px;line-height:1.45}
+.card-title{font-family:"Petrona","Zhuque Fangsong",Georgia,serif;font-size:25px;line-height:1.08;margin:0 0 8px;font-weight:400}
+.card-copy{margin:0;font-size:16px}
+.card-meta{display:flex;justify-content:space-between;border-top:1px solid var(--crease);padding-top:7px;margin-top:14px;font-family:"IBM Plex Mono","Courier New",monospace;font-size:11px;color:var(--crease);font-variant-numeric:tabular-nums}
+.lower .cell:nth-child(1){grid-column:1 / span 2}.lower .cell:nth-child(2){grid-column:3 / span 2}.lower .cell:nth-child(3){grid-column:5 / span 2}
+.lower .cell{align-self:start}.lower .cell:nth-child(2){padding-top:26px}.lower .cell:nth-child(3){padding-top:8px}
+.section-rule{height:96px;border-bottom:1px solid var(--crease);display:flex;align-items:center;justify-content:space-between}
+.section-rule h2{font-family:"Petrona","Zhuque Fangsong",Georgia,serif;font-size:35px;font-weight:400;margin:0}.section-rule span{font-family:"IBM Plex Mono","Courier New",monospace;color:var(--matcha);font-size:12px}
+.story{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:var(--col-gap);padding:42px 0 80px;margin:0 auto;max-width:1380px}.story-intro{grid-column:1 / span 2}.story-body{grid-column:3 / span 3;border-left:1px solid var(--crease);padding-left:22px}.story-body p{margin:0 0 28px}.story-aside{grid-column:6;border-top:3px solid var(--matcha);padding-top:12px;font-size:14px}
+.footer{border-top:3px solid var(--crease);padding:22px 0 30px;display:flex;justify-content:space-between;font-family:"IBM Plex Mono","Courier New",monospace;font-size:12px}.footer .dot{width:6px;height:6px;background:var(--ink);display:inline-block;margin-right:8px}
+.fiber-cursor{position:fixed;z-index:50;width:24px;height:24px;border:1px solid var(--ink);pointer-events:none;transform:translate(-3px,-3px);background:var(--paper)}.fiber-cursor:before{content:"";position:absolute;left:-1px;top:-1px;border-top:9px solid var(--paper);border-right:9px solid transparent}.fiber-cursor.is-link:before{left:auto;top:auto;right:-1px;bottom:-1px;border-top:0;border-bottom:9px solid var(--paper);border-left:9px solid transparent}
+.crease-fray{position:absolute;top:var(--fold-pos);left:calc(50% - var(--gutter)/2 - 1px);width:4px;height:4px;background:var(--crease);z-index:7;box-shadow:0 0 0 1px var(--paper),0 2px 0 var(--crease)}.crease-fray.right{left:calc(50% + var(--gutter)/2 - 3px)}
+.fold-page.deep .half:after{box-shadow:inset 6px 0 0 rgba(107,101,88,.35),inset -6px 0 0 rgba(107,101,88,.35);transition:box-shadow 300ms cubic-bezier(.34,1.2,.64,1)}
+.flip{animation:fold 420ms cubic-bezier(.34,1.2,.64,1) forwards;transform-origin:50% 100%}
+@keyframes fold{to{transform:rotateX(-88deg)}}
+@media (max-width:760px){body{cursor:auto}.paper-shell{padding:0 22px}.masthead{height:72px}.masthead nav{gap:12px;font-size:12px}.half{display:block;padding:28px 0}.half.upper{min-height:auto}.half.lower{margin-left:0;min-height:auto;padding-top:32px}.half:after,.ghost,.crease-fray{display:none}.cell,.hero-title,.hero-note{display:block;margin-bottom:34px}.hero-title{font-size:clamp(48px,15vw,70px);margin-top:32px}.hero-note{border-left:0;border-top:1px solid var(--crease);padding:12px 0 0;max-width:none}.image-frame,.image-frame.tall{height:210px}.lower .cell:nth-child(2),.lower .cell:nth-child(3){padding-top:0}.section-rule{height:72px}.story{display:block;padding-top:32px}.story-intro,.story-body,.story-aside{margin-bottom:34px}.story-body{border-left:0;border-top:1px solid var(--crease);padding:18px 0 0}.footer{display:block}.footer>*{display:block;margin-bottom:8px}.fiber-cursor{display:none}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.fold-page.deep .half:after{transition:opacity 120ms ease}.flip{animation:none}.ghost{opacity:.18}}
+</style>
+</head>
+<body>
+<div class="fiber-cursor" aria-hidden="true"></div>
+<div class="paper-shell">
+<header class="masthead"><div class="mark">老周修鞋 · 配钥匙</div><nav><a href="#work">手上做的事</a><a href="#about">关于这间小店</a><a href="tel:13800138000">电话预约</a></nav></header>
+<main>
+<section class="fold-page" id="fold-page" aria-label="店铺首页，对折纸页布局">
+<div class="half upper">
+<div class="ghost">让旧东西继续陪你走一段。每一双鞋都有它的脾气，慢慢做，才不辜负。</div>
+<div class="cell"><p class="eyebrow">01 / OPENING HOURS</p><p class="small-label">周一至周六　09:00—19:00<br>午间不关门，人在就接活。</p></div>
+<h1 class="hero-title">鞋还好着，<br>别急着换。</h1>
+<div class="hero-note"><p>我在巷口修鞋，也配钥匙。先打个电话，留一盏灯给你。</p><a class="call" href="tel:13800138000">打电话约时间</a></div>
+</div>
+<div class="half lower" id="work">
+<div class="ghost">一针一线，边角磨圆。钥匙转得顺，鞋底走得稳，这就是小店的好消息。</div>
+<article class="cell"><div class="image-frame"><img src="images/占位-1.jpg" width="640" height="420" alt="手工修补鞋面"></div><p class="eyebrow">02 / SHOE REPAIR</p><h2 class="card-title">鞋底换新</h2><p class="card-copy">走路硌脚了，拿来看看。该换底就换底，不该换的，我也会告诉你。</p><div class="card-meta"><span>从 ¥35</span><span>02</span></div></article>
+<article class="cell"><div class="image-frame tall"><img src="images/占位-2.jpg" width="560" height="680" alt="擦亮后的皮鞋"></div><p class="eyebrow">03 / CARE</p><h2 class="card-title">皮面养护</h2><p class="card-copy">皮子也会口渴。擦一层油，颜色慢慢回来，像老朋友又见面。</p><div class="card-meta"><span>从 ¥25</span><span>03</span></div></article>
+<article class="cell"><div class="image-frame blank">这里不放照片。<br>有些修补，要把鞋翻过来，才看得见。</div><p class="eyebrow">04 / SMALL FIX</p><h2 class="card-title">小地方，慢慢补</h2><p class="card-copy">断线、开胶、掉跟，带来就好。小毛病不值得让一双鞋退休。</p><div class="card-meta"><span>先看再说</span><span>04</span></div></article>
+</div>
+<div class="crease-fray"></div><div class="crease-fray right"></div>
+</section>
+<section class="section-rule"><h2>手上做的事</h2><span>一间店，五种耐心</span></section>
+<section class="story" id="about">
+<div class="story-intro"><p class="eyebrow">05 / ABOUT THE SHOP</p><h2 class="card-title" style="font-size:40px">我不赶时间，<br>你也不用。</h2></div>
+<div class="story-body"><p>这间店开在菜市场后面，门脸不大，桌面总有一点皮屑和铜屑。老周说，修东西和做人差不多：先找出哪里不对，再决定要不要动它。</p><p>钥匙要对得上锁，鞋底要对得上脚。每一件送到手里的东西，我都当作还要陪你走很久。要是着急，提前来个电话；不着急，就坐一会儿，听听机器响。</p><a class="call" href="tel:13800138000">138 0013 8000</a></div>
+<aside class="story-aside"><p class="eyebrow">06 / NOTE</p><p>“修好以后，别忘了多走几步试试。”</p><span class="small-label">— 老周</span></aside>
+</section>
+</main>
+<footer class="footer"><span><i class="dot"></i>北京市南锣鼓巷 17 号旁</span><span>预约电话 138 0013 8000</span><span>© 2024 老周</span></footer>
+</div>
+<script>
+(function(){
+ const page=document.getElementById('fold-page'), cursor=document.querySelector('.fiber-cursor');
+ const onScroll=()=>{const r=page.getBoundingClientRect();if(r.top<innerHeight*.5&&r.bottom>innerHeight*.5)page.classList.add('deep')};
+ addEventListener('scroll',onScroll,{passive:true});onScroll();
+ addEventListener('pointermove',e=>{cursor.style.left=e.clientX+'px';cursor.style.top=e.clientY+'px'});
+ document.querySelectorAll('a').forEach(a=>{a.addEventListener('mouseenter',()=>cursor.classList.add('is-link'));a.addEventListener('mouseleave',()=>cursor.classList.remove('is-link'))});
+ const button=document.querySelector('.hero-note .call');button.addEventListener('click',()=>{if(!matchMedia('(prefers-reduced-motion: reduce)').matches){page.classList.add('flip');setTimeout(()=>page.classList.remove('flip'),430)}});
+})();
+</script>
+</body>
+</html>
