@@ -10,7 +10,7 @@
 //   若 cwd 设成原型目录，root 就变成原型目录，../_fonts/ 会 403。
 //
 import { spawnSync } from 'node:child_process';
-import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 
 // 仓库根由脚本自身位置推得（模板 = check-stale.mjs:16；含 Windows 盘符修正与 39 §3-N10 的 decodeURIComponent）。
@@ -48,6 +48,9 @@ if (!existsSync(INSPECT)) {
 // 记下渲染前的报告指纹：跑完必须变，防止"打印旧数据"再次发生
 const rep = join(dir, '.inspect', 'report.json');
 const before = existsSync(rep) ? readFileSync(rep, 'utf8') : null;
+/* mtime 必须在 spawn **之前**取 —— spawn 之后取到的已经是本次渲染的时间，
+ * 那样比较恒成立，等于没有检查。 */
+const repMtimeBefore = existsSync(rep) ? statSync(rep).mtimeMs : 0;
 
 const outRel = `prototypes/${name}/.inspect`;
 const r = spawnSync(process.execPath, [
@@ -65,9 +68,26 @@ if (r.error || r.signal) {
 }
 
 if (!existsSync(rep)) { console.error('\n没有生成 report.json —— 渲染失败。'); process.exit(3); }
-if (before !== null && readFileSync(rep, 'utf8') === before) {
-  console.error('\nreport.json 与渲染前逐字节相同（inspect exit=' + r.status + '）—— 声称成功但没写报告，判为失败。');
+/* ⚠️ 2026-11-23 修：这个守卫原来只比**内容**，内容没变就判失败。
+ *
+ * 它的本意是「inspect 声称成功但压根没写报告」。但有两件事被混在了一起：
+ *   · **没写** —— 真的是失败
+ *   · **写了，但和上次逐字节相同** —— 完全正常：页面没改动，报告当然一样
+ *
+ * 实测踩到：`prompt-copy.js` 改了（给提示词补字体来源），但选型台的**页面**
+ * 一个字没变 —— 它渲染的是方案卡片列表，提示词是点开详情才生成的。
+ * 于是 report.json 内容不变，这个守卫报「声称成功但没写报告」，渲染被判失败，
+ * 而 `check-stale-git` 也因此认为源比报告新 —— **一个假缺陷卡住整条链**。
+ *
+ * 正确判据是 **mtime**：报告文件的修改时间晚于本次渲染开始，就说明写了。
+ * 内容相同不等于没写。 */
+const contentUnchanged = before !== null && readFileSync(rep, 'utf8') === before;
+if (contentUnchanged && existsSync(rep) && statSync(rep).mtimeMs <= repMtimeBefore) {
+  console.error('\nreport.json 内容未变且 mtime 未更新（inspect exit=' + r.status + '）—— 报告没被重写，判为失败。');
   process.exit(6);
+}
+if (contentUnchanged) {
+  console.log('\nreport.json 内容与上次相同（页面未改动，属正常；mtime 已刷新）—— 继续。');
 }
 const j = JSON.parse(readFileSync(rep, 'utf8'));
 
