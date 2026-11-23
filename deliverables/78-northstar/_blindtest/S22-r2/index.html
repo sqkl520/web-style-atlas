@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>缝好一双鞋，也配好一把钥匙</title>
+  <meta name="description" content="一家修鞋配钥匙的小店。慢一点，把东西修到还能陪你走很久。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Petrona:opsz,wght@8..144,400;8..144,500;8..144,600&family=Zhuque+Fangsong&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --matcha: #565B49;
+      --paper: #DDDAD4;
+      --ink: #2E2A24;
+      --crease: #6B6558;
+      --outer: 56px;
+      --gutter: 88px;
+      --column-gap: 22px;
+      --section-gap: 96px;
+      --paragraph-gap: 28px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--paper);
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Zhuque Fangsong", Petrona, Georgia;
+      font-size: 17px;
+      line-height: 1.72;
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M3 3h10L3 13z' fill='%23DDDAD4' stroke='%232E2A24' stroke-width='1.5'/%3E%3C/svg%3E") 3 3, auto;
+    }
+
+    body:has(a:hover),
+    body:has(button:hover) {
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M21 21H11l10-10z' fill='%23DDDAD4' stroke='%232E2A24' stroke-width='1.5'/%3E%3C/svg%3E") 21 21, pointer;
+    }
+
+    a,
+    button {
+      color: inherit;
+      font: inherit;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    button {
+      border: 0;
+      border-radius: 0;
+      background: var(--matcha);
+      color: var(--paper);
+      padding: 13px 18px;
+      cursor: inherit;
+    }
+
+    button:focus-visible,
+    a:focus-visible {
+      outline: 3px solid var(--crease);
+      outline-offset: 4px;
+    }
+
+    .site-header {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 22px var(--outer) 17px;
+      border-bottom: 1px solid var(--crease);
+    }
+
+    .brand {
+      font-family: Petrona, "Zhuque Fangsong", Georgia;
+      font-size: 21px;
+      letter-spacing: .04em;
+    }
+
+    .brand small {
+      display: block;
+      margin-top: 2px;
+      color: var(--crease);
+      font-family: "IBM Plex Mono";
+      font-size: 10px;
+      letter-spacing: .08em;
+    }
+
+    .site-nav {
+      display: flex;
+      gap: 28px;
+      font-size: 14px;
+    }
+
+    .site-nav a {
+      border-bottom: 1px solid var(--crease);
+    }
+
+    .spread {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) var(--gutter) minmax(0, 1fr);
+      min-height: calc(100svh - 82px);
+      padding: 0 var(--outer);
+      overflow: hidden;
+    }
+
+    .spread::before {
+      content: "";
+      position: absolute;
+      top: 50.4%;
+      bottom: 0;
+      left: calc(50% - 1px);
+      width: 3px;
+      background: var(--crease);
+      box-shadow: inset 1px 0 0 var(--paper), inset -1px 0 0 var(--ink);
+      z-index: 2;
+    }
+
+    .spread::after {
+      content: "";
+      position: absolute;
+      top: calc(50.4% - 4px);
+      left: calc(50% - 5px);
+      width: 13px;
+      height: 4px;
+      background: var(--crease);
+      transform: rotate(-3deg);
+      z-index: 3;
+    }
+
+    .half {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      grid-template-rows: auto 1fr auto;
+      gap: var(--column-gap);
+      padding: 34px 0 38px;
+    }
+
+    .half-upper {
+      grid-column: 1;
+      grid-row: 1;
+      padding-right: 0;
+    }
+
+    .half-lower {
+      grid-column: 3;
+      grid-row: 1;
+      transform: translateX(8px);
+      padding-left: 0;
+    }
+
+    .half-upper::before,
+    .half-lower::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: var(--matcha);
+      opacity: .14;
+      mix-blend-mode: multiply;
+    }
+
+    .half-lower::before {
+      opacity: .22;
+    }
+
+    .fold-label {
+      grid-column: 1 / 4;
+      position: relative;
+      z-index: 1;
+      color: var(--crease);
+      font-family: "IBM Plex Mono";
+      font-size: 11px;
+      letter-spacing: .11em;
+      line-height: 1.4;
+    }
+
+    .hero-copy {
+      grid-column: 1 / 7;
+      grid-row: 2;
+      align-self: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-copy .eyebrow {
+      margin: 0 0 18px;
+      color: var(--matcha);
+      font-family: "IBM Plex Mono";
+      font-size: 12px;
+      letter-spacing: .09em;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      font-family: Petrona, "Zhuque Fangsong", Georgia;
+      font-weight: 500;
+      line-height: 1.03;
+    }
+
+    h1 {
+      max-width: 5.6em;
+      font-size: clamp(54px, 6.5vw, 81px);
+      letter-spacing: -.045em;
+    }
+
+    .hero-copy .intro {
+      max-width: 31em;
+      margin: 28px 0 0;
+      font-size: 17px;
+    }
+
+    .hero-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 30px;
+      border-bottom: 3px solid var(--matcha);
+      padding: 7px 0 8px;
+      color: var(--ink);
+    }
+
+    .hero-action::after {
+      content: "↗";
+      font-family: "IBM Plex Mono";
+      font-size: 16px;
+    }
+
+    .hero-note {
+      grid-column: 1 / 4;
+      grid-row: 3;
+      position: relative;
+      z-index: 1;
+      align-self: end;
+      color: var(--crease);
+      font-size: 14px;
+    }
+
+    .hero-note strong {
+      color: var(--ink);
+      font-weight: 400;
+    }
+
+    .mirror-list {
+      grid-column: 1 / 7;
+      grid-row: 2;
+      align-self: center;
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1.1fr .85fr 1.35fr;
+      gap: 22px;
+      align-items: end;
+    }
+
+    .mirror-intro {
+      grid-column: 1 / 4;
+      margin-bottom: 22px;
+      color: var(--crease);
+      font-size: 15px;
+    }
+
+    .mirror-intro h2 {
+      margin-top: 8px;
+      color: var(--ink);
+      font-size: clamp(30px, 3.4vw, 48px);
+    }
+
+    .mirror-item {
+      min-height: 176px;
+      border-top: 3px solid var(--matcha);
+      padding-top: 13px;
+    }
+
+    .mirror-item:nth-child(2) {
+      min-height: 214px;
+    }
+
+    .mirror-item:nth-child(3) {
+      min-height: 158px;
+    }
+
+    .mirror-item:nth-child(4) {
+      min-height: 194px;
+    }
+
+    .mirror-number {
+      display: block;
+      margin-bottom: 12px;
+      color: var(--matcha);
+      font-family: "IBM Plex Mono";
+      font-size: 12px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .mirror-item h3 {
+      margin-bottom: 9px;
+      font-size: 23px;
+    }
+
+    .mirror-item p {
+      margin: 0;
+      font-size: 15px;
+    }
+
+    .page-anchor {
+      grid-column: 4 / 7;
+      grid-row: 3;
+      position: relative;
+      z-index: 1;
+      align-self: end;
+      justify-self: end;
+      color: var(--crease);
+      font-family: "IBM Plex Mono";
+      font-size: 12px;
+      text-align: right;
+    }
+
+    .page-anchor::before {
+      content: "";
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      margin-right: 9px;
+      background: var(--ink);
+    }
+
+    .fiber {
+      position: absolute;
+      pointer-events: none;
+      opacity: .16;
+      transition: opacity 160ms ease;
+    }
+
+    .half:hover .fiber,
+    .article-card:hover .fiber {
+      opacity: .16;
+    }
+
+    .fiber-a {
+      right: 9%;
+      top: 20%;
+      width: 64px;
+      height: 1px;
+      background: var(--crease);
+      transform: rotate(-14deg);
+    }
+
+    .fiber-b {
+      left: 6%;
+      bottom: 13%;
+      width: 42px;
+      height: 1px;
+      background: var(--matcha);
+      transform: rotate(18deg);
+    }
+
+    .fiber-c {
+      right: 3%;
+      bottom: 24%;
+      width: 28px;
+      height: 1px;
+      background: var(--crease);
+      transform: rotate(26deg);
+    }
+
+    .content {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: var(--section-gap) var(--outer);
+    }
+
+    .section-heading {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: var(--gutter);
+      margin-bottom: 40px;
+      border-top: 3px solid var(--matcha);
+      padding-top: 17px;
+    }
+
+    .section-heading .section-number {
+      color: var(--matcha);
+      font-family: "IBM Plex Mono";
+      font-size: 12px;
+    }
+
+    .section-heading h2 {
+      max-width: 12em;
+      font-size: clamp(35px, 4vw, 58px);
+    }
+
+    .article-grid {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .article-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      border-top: 3px solid var(--crease);
+      padding-top: 14px;
+      overflow: hidden;
+      transition: box-shadow 160ms ease;
+    }
+
+    .article-card:hover {
+      box-shadow: inset 0 3px 0 var(--matcha);
+    }
+
+    .article-card:nth-child(1) {
+      grid-column: span 5;
+    }
+
+    .article-card:nth-child(2) {
+      grid-column: span 3;
+      margin-top: 58px;
+    }
+
+    .article-card:nth-child(3) {
+      grid-column: span 4;
+    }
+
+    .article-card:nth-child(4) {
+      grid-column: span 4;
+      margin-top: 42px;
+    }
+
+    .article-card:nth-child(5) {
+      grid-column: span 5;
+      margin-top: 18px;
+    }
+
+    .article-card:nth-child(6) {
+      grid-column: span 3;
+      min-height: 280px;
+      justify-content: center;
+      border-top-color: var(--matcha);
+      padding: 25px;
+      background: var(--paper);
+      box-shadow: inset 0 0 0 1px var(--crease);
+    }
+
+    .article-card img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      border: 1px solid var(--crease);
+      filter: grayscale(100%) sepia(12%);
+    }
+
+    .article-card:nth-child(2) img {
+      aspect-ratio: 3 / 4;
+    }
+
+    .article-card:nth-child(3) img {
+      aspect-ratio: 5 / 4;
+    }
+
+    .article-card:nth-child(4) img {
+      aspect-ratio: 1 / 1;
+    }
+
+    .article-card:nth-child(5) img {
+      aspect-ratio: 16 / 10;
+    }
+
+    .card-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      margin-top: 16px;
+      color: var(--matcha);
+      font-family: "IBM Plex Mono";
+      font-size: 11px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .article-card h3 {
+      margin-top: 11px;
+      font-size: clamp(24px, 2.4vw, 35px);
+    }
+
+    .article-card p {
+      margin: 13px 0 0;
+      font-size: 16px;
+    }
+
+    .blank-card h3 {
+      font-size: 28px;
+    }
+
+    .blank-card p {
+      color: var(--crease);
+    }
+
+    .long-reading {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: var(--gutter);
+      margin-top: var(--section-gap);
+      border-top: 1px solid var(--crease);
+      padding-top: 30px;
+    }
+
+    .reading-index {
+      color: var(--matcha);
+      font-family: "IBM Plex Mono";
+      font-size: 12px;
+    }
+
+    .reading-copy {
+      max-width: 44em;
+    }
+
+    .reading-copy h2 {
+      margin-bottom: 25px;
+      font-size: clamp(36px, 4vw, 56px);
+    }
+
+    .reading-copy p {
+      margin: 0 0 var(--paragraph-gap);
+    }
+
+    .reading-copy p:last-child {
+      margin-bottom: 0;
+    }
+
+    .price-line {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 22px;
+      margin-top: 35px;
+      border-top: 1px solid var(--crease);
+      padding-top: 14px;
+      font-family: "IBM Plex Mono";
+      font-size: 13px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .price-line span:last-child {
+      text-align: right;
+    }
+
+    .contact-panel {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--gutter);
+      margin: var(--section-gap) var(--outer) 0;
+      border-top: 3px solid var(--matcha);
+      border-bottom: 1px solid var(--crease);
+      padding: 26px 0 32px;
+    }
+
+    .contact-panel h2 {
+      max-width: 8em;
+      font-size: clamp(38px, 4.6vw, 66px);
+    }
+
+    .contact-panel p {
+      max-width: 28em;
+      margin: 0 0 22px;
+    }
+
+    .phone-link {
+      display: inline-block;
+      border-bottom: 3px solid var(--matcha);
+      padding-bottom: 6px;
+      font-family: "IBM Plex Mono";
+      font-size: clamp(20px, 2.4vw, 32px);
+      font-variant-numeric: tabular-nums;
+    }
+
+    footer {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: var(--gutter);
+      padding: 30px var(--outer) 40px;
+      color: var(--crease);
+      font-size: 13px;
+    }
+
+    footer ol {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 22px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      font-family: "IBM Plex Mono";
+      font-size: 11px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    footer li {
+      border-top: 1px solid var(--crease);
+      padding-top: 8px;
+    }
+
+    .crease-deep {
+      box-shadow: inset 0 3px 0 var(--crease);
+    }
+
+    .page-turn {
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      pointer-events: none;
+      transform-origin: 50% 50.4%;
+      transform: perspective(1200px) rotateX(0deg);
+      background: var(--paper);
+      opacity: 0;
+    }
+
+    .page-turn.is-turning {
+      animation: foldPage 420ms cubic-bezier(.34, 1.2, .64, 1);
+    }
+
+    @keyframes foldPage {
+      0% {
+        opacity: 0;
+        transform: perspective(1200px) rotateX(0deg);
+      }
+      12% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+        transform: perspective(1200px) rotateX(-180deg);
+      }
+    }
+
+    @media (min-width: 761px) {
+      .spread::before {
+        transition: width 300ms cubic-bezier(.34, 1.2, .64, 1);
+      }
+
+      .spread.crease-active::before {
+        width: 6px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      :root {
+        --outer: 24px;
+        --gutter: 44px;
+        --column-gap: 16px;
+      }
+
+      body {
+        font-size: 17px;
+      }
+
+      .site-header {
+        align-items: flex-start;
+        padding: 18px var(--outer) 15px;
+      }
+
+      .site-nav {
+        gap: 14px;
+        font-size: 12px;
+      }
+
+      .spread {
+        display: block;
+        min-height: auto;
+        padding: 0 var(--outer);
+      }
+
+      .spread::before {
+        top: 50.4%;
+        bottom: auto;
+        left: var(--outer);
+        right: var(--outer);
+        width: auto;
+        height: 3px;
+      }
+
+      .spread::after {
+        top: calc(50.4% - 4px);
+        left: calc(50% - 5px);
+      }
+
+      .half,
+      .half-upper,
+      .half-lower {
+        display: grid;
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        min-height: 82svh;
+        transform: none;
+        padding: 30px 0 35px;
+      }
+
+      .half-lower {
+        margin-top: 1px;
+      }
+
+      .half-upper {
+        grid-column: auto;
+        grid-row: auto;
+      }
+
+      .half-lower {
+        grid-column: auto;
+        grid-row: auto;
+      }
+
+      .hero-copy {
+        grid-column: 1 / 7;
+      }
+
+      h1 {
+        font-size: clamp(51px, 15vw, 72px);
+      }
+
+      .hero-copy .intro {
+        max-width: none;
+      }
+
+      .mirror-list {
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+
+      .mirror-intro {
+        grid-column: 1 / 3;
+      }
+
+      .mirror-item:nth-child(2),
+      .mirror-item:nth-child(3),
+      .mirror-item:nth-child(4) {
+        min-height: 0;
+      }
+
+      .mirror-item:last-child {
+        grid-column: 1 / 3;
+      }
+
+      .page-anchor {
+        grid-column: 4 / 7;
+      }
+
+      .content {
+        padding: 72px var(--outer);
+      }
+
+      .section-heading,
+      .long-reading,
+      .contact-panel,
+      footer {
+        display: block;
+      }
+
+      .section-heading h2 {
+        margin-top: 20px;
+      }
+
+      .article-grid {
+        display: block;
+      }
+
+      .article-card,
+      .article-card:nth-child(2),
+      .article-card:nth-child(4),
+      .article-card:nth-child(5),
+      .article-card:nth-child(6) {
+        margin: 0 0 38px;
+      }
+
+      .article-card:nth-child(6) {
+        min-height: 220px;
+      }
+
+      .long-reading {
+        margin-top: 54px;
+      }
+
+      .reading-copy {
+        margin-top: 22px;
+      }
+
+      .contact-panel {
+        margin: 42px var(--outer) 0;
+      }
+
+      .contact-panel > div + div {
+        margin-top: 30px;
+      }
+
+      footer {
+        padding-top: 25px;
+      }
+
+      footer ol {
+        margin-top: 24px;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 9px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 120ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 120ms !important;
+      }
+
+      .spread::before {
+        width: 3px !important;
+      }
+
+      .page-turn {
+        display: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .spread {
+        animation: paperAppear 240ms ease-out both;
+      }
+
+      .half-lower {
+        animation: mirrorAppear 240ms 200ms ease-out both;
+      }
+
+      @keyframes paperAppear {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes mirrorAppear {
+        from {
+          opacity: .12;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#top">
+      老周修鞋配钥匙
+      <small>SHOE REPAIR · KEY CUTTING</small>
+    </a>
+    <nav class="site-nav" aria-label="主导航">
+      <a href="#work">手上的活</a>
+      <a href="#story">店里的人</a>
+      <a href="#call">打电话</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="spread" aria-label="店铺介绍">
+      <div class="half half-upper">
+        <span class="fold-label">PAPER / 01<br>上半页</span>
+        <div class="hero-copy">
+          <p class="eyebrow">修鞋，配钥匙，也替你把日子接上</p>
+          <h1>缝好一双鞋，<br>也配好一把钥匙。</h1>
+          <p class="intro">鞋底开了口，钥匙拧不动，都是小事。拿来吧，我们坐在这张台子边，慢慢看一眼。</p>
+          <a class="hero-action" href="tel:021-6258-1620">打电话，约个时间</a>
+        </div>
+        <p class="hero-note"><strong>店在巷口第三间。</strong><br>不用预约也可以来，怕白跑的话，先打个电话给我。</p>
+        <i class="fiber fiber-a" aria-hidden="true"></i>
+        <i class="fiber fiber-b" aria-hidden="true"></i>
+      </div>
+
+      <div class="half half-lower">
+        <span class="fold-label">PAPER / 01<br>下半页</span>
+        <div class="mirror-list">
+          <div class="mirror-intro">
+            同一张台子的另一面
+            <h2>东西坏了，先别急着换新的。</h2>
+          </div>
+
+          <article class="mirror-item">
+            <span class="mirror-number">01 / 鞋底</span>
+            <h3>让脚再走一段路</h3>
+            <p>磨偏的鞋跟、开胶的鞋底，我会先看它还能不能继续陪你走。</p>
+          </article>
+
+          <article class="mirror-item">
+            <span class="mirror-number">02 / 钥匙</span>
+            <h3>照原来的样子配</h3>
+            <p>带一把旧钥匙来就好。齿口要稳，转起来不能勉强。</p>
+          </article>
+
+          <article class="mirror-item">
+            <span class="mirror-number">03 / 手艺</span>
+            <h3>一件一件做</h3>
+            <p>店里不放流水线。每双鞋、每把钥匙，都从手里过一遍。</p>
+          </article>
+        </div>
+        <p class="page-anchor">PAGE 01 · <span>ANCHOR</span></p>
+        <i class="fiber fiber-c" aria-hidden="true"></i>
+      </div>
+    </section>
+
+    <section class="content" id="work">
+      <div class="section-heading">
+        <span class="section-number">02 / 手上的活</span>
+        <h2>五件常做的事，<br>各有各的脾气。</h2>
+      </div>
+
+      <div class="article-grid">
+        <article class="article-card">
+          <img src="images/占位-1.jpg" width="800" height="600" alt="一双正在修补鞋底的旧皮鞋">
+          <div class="card-meta"><span>01</span><span>鞋底修补</span></div>
+          <h3>先把鞋翻过来，看它哪里累了。</h3>
+          <p>鞋底磨薄了，不一定要换鞋。补一层耐磨底，走路的力气会重新均匀起来。</p>
+          <i class="fiber fiber-a" aria-hidden="true"></i>
+        </article>
+
+        <article class="article-card">
+          <img src="images/占位-2.jpg" width="600" height="800" alt="手工缝补皮鞋边缘">
+          <div class="card-meta"><span>02</span><span>边缘缝补</span></div>
+          <h3>线脚要藏好。</h3>
+          <p>鞋边开了线，先不急着上胶。线要顺着原来的孔走，穿起来才不会硌脚。</p>
+          <i class="fiber fiber-b" aria-hidden="true"></i>
+        </article>
+
+        <article class="article-card">
+          <img src="images/占位-3.jpg" width="750" height="600" alt="一把放在木桌上的钥匙">
+          <div class="card-meta"><span>03</span><span>普通钥匙</span></div>
+          <h3>配一把顺手的钥匙。</h3>
+          <p>家门、抽屉、信箱，拿旧钥匙来比一比。配好以后，转动应该是干净的。</p>
+          <i class="fiber fiber-c" aria-hidden="true"></i>
+        </article>
+
+        <article class="article-card">
+          <img src="images/占位-4.jpg" width="700" height="700" alt="钥匙在机器上进行复制">
+          <div class="card-meta"><span>04</span><span>特殊钥匙</span></div>
+          <h3>有些钥匙，要多看一眼。</h3>
+          <p>长柄、异形、老锁的钥匙，不能只凭尺寸。拿过来，我先帮你看看能不能配。</p>
+          <i class="fiber fiber-a" aria-hidden="true"></i>
+        </article>
+
+        <article class="article-card">
+          <img src="images/占位-5.jpg" width="960" height="600" alt="修补完成后放在纸面上的鞋">
+          <div class="card-meta"><span>05</span><span>清洁保养</span></div>
+          <h3>修完以后，再替它擦一遍。</h3>
+          <p>皮面干了、鞋带旧了、灰落进了缝里，都可以顺手处理。东西收拾干净，人也会轻松一点。</p>
+          <i class="fiber fiber-b" aria-hidden="true"></i>
+        </article>
+
+        <article class="article-card blank-card">
+          <div class="card-meta"><span>06</span><span>留给下一双</span></div>
+          <h3>这里不放假话。</h3>
+          <p>如果一件东西已经不能修，我会直接告诉你。少花一笔冤枉钱，也算帮上忙。</p>
+        </article>
+      </div>
+
+      <div class="long-reading" id="story">
+        <div class="reading-index">03 / 店里的人</div>
+        <div class="reading-copy">
+          <h2>我喜欢看东西<br>慢慢恢复原样。</h2>
+          <p>我在这里修鞋、配钥匙，已经有些年头了。早上先把卷帘门拉到一半，让光进来一点；再把昨天没收好的鞋放回架子上。店不大，东西却都有自己的位置。</p>
+          <p>有人拿来一双穿了十年的鞋，说舍不得。有人只带来一把钥匙，说这是家里最后一把。这样的东西，我不敢做得太快。先摸一摸皮面，再试一试锁芯，听它自己告诉我该从哪里下手。</p>
+          <p>修理不是把旧东西变成新的。是让它保留原来的样子，再多陪你一阵子。</p>
+          <div class="price-line">
+            <span>看一眼，不收钱</span>
+            <span>先说清楚，再动手</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-panel" id="call">
+      <div>
+        <span class="section-number">04 / 约个时间</span>
+        <h2>你先打电话，<br>我把台子空出来。</h2>
+      </div>
+      <div>
+        <p>如果是急着出门，或者东西比较特别，提前说一声比较好。电话里讲不清也没关系，带过来让我看。</p>
+        <a class="phone-link" href="tel:021-6258-1620">021-6258-1620</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>老周修鞋配钥匙<br>上海市安静路 18 号，巷口第三间</div>
+    <ol aria-label="页面编号">
+      <li>01<br>折页</li>
+      <li>02<br>手上的活</li>
+      <li>03<br>店里的人</li>
+      <li>04<br>约时间</li>
+      <li>05<br>再见</li>
+    </ol>
+  </footer>
+
+  <div class="page-turn" aria-hidden="true"></div>
+
+  <script>
+    (function () {
+      var spread = document.querySelector(".spread");
+      var pageTurn = document.querySelector(".page-turn");
+      var callLink = document.querySelector(".hero-action");
+
+      if ("IntersectionObserver" in window && spread) {
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+              spread.classList.add("crease-active");
+            }
+          });
+        }, { threshold: [0.5] });
+        observer.observe(spread);
+      }
+
+      if (callLink && pageTurn && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        callLink.addEventListener("click", function () {
+          pageTurn.classList.remove("is-turning");
+          void pageTurn.offsetWidth;
+          pageTurn.classList.add("is-turning");
+        });
+      }
+    }());
+  </script>
+</body>
+</html>
