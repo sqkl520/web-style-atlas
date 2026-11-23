@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>一针一匙｜修鞋配钥匙</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Petrona:wght@400;500;600;700&family=Zhuque+Fangsong&display=swap');
+    :root {
+      --matcha: #565B49;
+      --paper: #DDDAD4;
+      --ink: #2E2A24;
+      --crease: #6B6558;
+      --outer: 56px;
+      --gutter: 22px;
+      --fold: 88px;
+      --section-gap: 96px;
+      --para-gap: 28px;
+      --title: "Petrona", "Zhuque Fangsong", Georgia, serif;
+      --body: "Zhuque Fangsong", "Petrona", Georgia, serif;
+      --mono: "IBM Plex Mono", ui-monospace, monospace;
+    }
+    * { box-sizing: border-box; }
+    html { background: var(--paper); scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: var(--body);
+      font-size: 17px;
+      line-height: 1.65;
+      cursor: none;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: repeating-linear-gradient(0deg, var(--paper) 0 3px, var(--matcha) 4px 5px);
+      opacity: .06;
+      z-index: 20;
+      mix-blend-mode: multiply;
+    }
+    a, button { color: inherit; }
+    a { text-decoration: none; }
+    button { font: inherit; cursor: none; }
+    .cursor-mark {
+      position: fixed;
+      z-index: 50;
+      width: 24px;
+      height: 24px;
+      pointer-events: none;
+      border: 1px solid var(--ink);
+      background: var(--paper);
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 35% 100%, 35% 35%, 0 35%);
+      transform: translate(-2px, -2px);
+    }
+    .cursor-mark.is-link { clip-path: polygon(0 0, 65% 0, 65% 65%, 100% 65%, 100% 100%, 0 100%); }
+    .page {
+      min-height: 100vh;
+      padding: 26px var(--outer) 70px;
+      position: relative;
+      overflow: hidden;
+    }
+    .masthead {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      column-gap: var(--gutter);
+      min-height: 72px;
+      align-items: start;
+      position: relative;
+      z-index: 2;
+    }
+    .brand { grid-column: 1 / span 2; letter-spacing: .12em; font-size: 14px; }
+    .brand strong { display: block; font-size: 22px; font-weight: 500; letter-spacing: .08em; }
+    .nav { grid-column: 5 / span 2; display: flex; justify-content: space-between; gap: 18px; font-size: 13px; letter-spacing: .08em; }
+    .nav a { border-bottom: 1px solid var(--crease); padding-bottom: 3px; }
+    .spread {
+      display: grid;
+      grid-template-columns: minmax(0, 6fr) var(--fold) minmax(0, 6fr);
+      min-height: calc(100vh - 118px);
+      position: relative;
+    }
+    .half { position: relative; padding-top: 18px; }
+    .half.left { padding-right: 18px; }
+    .half.right { padding-left: 18px; transform: translateX(8px); }
+    .fold-line {
+      position: relative;
+      background: var(--crease);
+      width: 3px;
+      justify-self: center;
+      min-height: 100%;
+      box-shadow: inset 1px 0 0 var(--paper), inset -1px 0 0 var(--matcha);
+      transition: width 300ms cubic-bezier(.34,1.2,.64,1), background-color 300ms cubic-bezier(.34,1.2,.64,1);
+    }
+    .fold-line::before, .fold-line::after {
+      content: "";
+      position: absolute;
+      left: -1px;
+      width: 5px;
+      height: 4px;
+      background: var(--matcha);
+    }
+    .fold-line::before { top: 50.4%; transform: translateY(-1px) rotate(-8deg); }
+    .fold-line::after { top: 50.4%; transform: translateY(3px) rotate(7deg); }
+    .crease-deeper .fold-line { width: 6px; background: var(--crease); }
+    .mirror {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: var(--matcha);
+      opacity: .14;
+      mix-blend-mode: multiply;
+      transition: opacity 240ms ease;
+    }
+    .half.right .mirror { opacity: .22; transform: scaleX(-1); transform-origin: center; }
+    .hero { min-height: 310px; display: flex; flex-direction: column; justify-content: center; position: relative; }
+    .eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; margin-bottom: 14px; }
+    h1, h2, h3 { font-family: var(--title); font-weight: 500; margin: 0; }
+    h1 { font-size: clamp(58px, 7vw, 81px); line-height: .98; letter-spacing: -.04em; max-width: 5ch; }
+    .hero p { max-width: 31em; margin: 28px 0 0; }
+    .call { display: inline-flex; align-items: center; gap: 16px; align-self: flex-start; margin-top: 28px; padding: 11px 14px; border: 3px solid var(--matcha); box-shadow: inset 0 -3px 0 var(--matcha); background: var(--paper); }
+    .call strong { font-family: var(--mono); font-size: 16px; font-variant-numeric: tabular-nums; }
+    .chapter-note { margin: 0 0 28px auto; max-width: 24ch; border-left: 3px solid var(--matcha); padding-left: 14px; }
+    .chapter-note h2 { font-size: 31px; line-height: 1.08; margin-bottom: 12px; }
+    .index { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; }
+    .entries { display: grid; grid-template-columns: 1.22fr .86fr; gap: var(--gutter); align-items: start; }
+    .entry { border-top: 1px solid var(--crease); padding-top: 10px; }
+    .entry:nth-child(2) { margin-top: 56px; }
+    .entry:nth-child(3) { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1.4fr; gap: 18px; margin-top: 20px; }
+    .entry:nth-child(4) { margin-top: 15px; }
+    .entry:nth-child(5) { margin-top: 78px; }
+    .entry h3 { font-size: 25px; line-height: 1.12; margin: 4px 0 8px; }
+    .entry p { margin: 0; }
+    .entry-image { display: block; width: 100%; height: auto; border: 1px solid var(--crease); filter: grayscale(1) sepia(.12); }
+    .entry-image.tall { aspect-ratio: 4 / 5; object-fit: cover; }
+    .entry-image.wide { aspect-ratio: 3 / 2; object-fit: cover; }
+    .blank-image { min-height: 150px; border: 1px solid var(--crease); padding: 14px; display: flex; align-items: end; background: var(--paper); }
+    .blank-image span { font-family: var(--mono); font-size: 11px; }
+    .price { float: right; font-family: var(--mono); font-size: 13px; font-variant-numeric: tabular-nums; }
+    .footer { margin-top: var(--section-gap); display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--gutter); border-top: 3px solid var(--matcha); padding-top: 16px; }
+    .footer-note { grid-column: 1 / span 3; }
+    .footer-number { grid-column: 6; text-align: right; font-family: var(--mono); font-size: 12px; }
+    .ink-dot { width: 6px; height: 6px; background: var(--ink); display: inline-block; margin-left: 8px; vertical-align: middle; }
+    .load-top, .load-bottom { opacity: 1; transform: none; }
+    .js-ready .load-top { animation: reveal 240ms ease-out both; }
+    .js-ready .load-bottom { animation: reveal 240ms 240ms ease-out both; }
+    @keyframes reveal { from { opacity: .12; } to { opacity: 1; } }
+    @media (max-width: 760px) {
+      body { cursor: auto; }
+      .cursor-mark { display: none; }
+      .page { padding: 20px 22px 48px; }
+      .masthead { grid-template-columns: repeat(2, 1fr); min-height: 88px; }
+      .brand { grid-column: 1; }
+      .nav { grid-column: 2; display: block; text-align: right; }
+      .nav a { display: block; width: max-content; margin-left: auto; margin-bottom: 7px; }
+      .spread { display: block; min-height: auto; }
+      .half.left, .half.right { padding: 0; transform: none; }
+      .fold-line { height: 3px; min-height: 3px; width: 100%; margin: 42px 0; transition: height 300ms cubic-bezier(.34,1.2,.64,1), width 300ms cubic-bezier(.34,1.2,.64,1); }
+      .crease-deeper .fold-line { width: 100%; height: 6px; }
+      .fold-line::before, .fold-line::after { top: 50%; left: 50%; }
+      .half.right .mirror { transform: scaleY(-1); }
+      h1 { font-size: 64px; }
+      .hero { min-height: 520px; }
+      .entries { grid-template-columns: 1fr; }
+      .entry:nth-child(2), .entry:nth-child(4), .entry:nth-child(5) { margin-top: 28px; }
+      .entry:nth-child(3) { grid-column: auto; display: block; margin-top: 28px; }
+      .entry:nth-child(3) .entry-image { margin-top: 16px; }
+      .footer { grid-template-columns: 1fr 1fr; }
+      .footer-note { grid-column: 1; }
+      .footer-number { grid-column: 2; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: 120ms !important; transition-duration: 120ms !important; }
+      .crease-deeper .fold-line { width: 3px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="cursor-mark" aria-hidden="true"></div>
+  <main class="page" id="top">
+    <header class="masthead">
+      <a class="brand" href="#top"><strong>一针一匙</strong>修鞋 · 配钥匙</a>
+      <nav class="nav" aria-label="页面导航"><a href="#work">手上的活</a><a href="#visit">来坐坐</a></nav>
+    </header>
+
+    <section class="spread" aria-label="店铺介绍与服务目录">
+      <div class="half left load-top">
+        <div class="mirror"></div>
+        <div class="hero">
+          <div class="eyebrow">A SMALL REPAIR SHOP · 01—05</div>
+          <h1>鞋底有路，钥匙有门。</h1>
+          <p>我们在街角做一点慢工：把穿旧的鞋再缝牢，把手里那把钥匙配得顺手。进门不用预约，电话告诉我一声，我给你留个时间。</p>
+          <a class="call" href="tel:010-6288-1726"><span>电话约时间</span><strong>010—6288—1726</strong></a>
+        </div>
+        <div class="footer">
+          <div class="footer-note">不赶着把东西换掉。能修的，先好好修。</div>
+          <div class="footer-number">PAGE 01 <span class="ink-dot"></span></div>
+        </div>
+      </div>
+
+      <div class="fold-line" aria-hidden="true"></div>
+
+      <div class="half right load-bottom" id="work">
+        <div class="mirror"></div>
+        <div class="chapter-note">
+          <div class="index">手上的活 / 05 件</div>
+          <h2>每一件，都从手感开始。</h2>
+          <p>你带来的东西，我们先摸一遍，再说怎么做。下面是店里常做的五件小事。</p>
+        </div>
+        <div class="entries">
+          <article class="entry">
+            <div class="index">01</div><span class="price">¥35 起</span>
+            <h3>鞋底补一补</h3>
+            <p>磨到薄处补一层，走路不硌脚。黑、棕、米色的底都有，尽量找和原来一样的。</p>
+            <img class="entry-image wide" src="images/占位-1.jpg" width="640" height="427" alt="正在修补的鞋底">
+          </article>
+          <article class="entry">
+            <div class="index">02</div><span class="price">¥60 起</span>
+            <h3>鞋面缝合</h3>
+            <p>线头松了别急着扔，针脚能接回去。留下些手工痕迹，也不妨碍它继续陪你走。</p>
+            <img class="entry-image tall" src="images/占位-2.jpg" width="512" height="640" alt="手工缝合鞋面">
+          </article>
+          <article class="entry">
+            <div>
+              <div class="index">03</div><span class="price">¥20 起</span>
+              <h3>配一把钥匙</h3>
+              <p>带原钥匙来就好。我们会把边缘磨顺，插进锁里，不顶、不涩，转起来轻一点。</p>
+            </div>
+            <img class="entry-image wide" src="images/占位-3.jpg" width="640" height="427" alt="钥匙坯与工具">
+          </article>
+          <article class="entry">
+            <div class="index">04</div><span class="price">¥15</span>
+            <h3>换鞋带</h3>
+            <p>旧鞋带断在半路，换一副合脚的。棉的、蜡的，颜色都在抽屉里。</p>
+            <img class="entry-image tall" src="images/占位-4.jpg" width="512" height="640" alt="整齐放置的鞋带">
+          </article>
+          <article class="entry">
+            <div class="index">05</div><span class="price">¥10 起</span>
+            <h3>小地方整理</h3>
+            <p>鞋跟松动、鞋垫卷边、钥匙圈缺一环——小问题也值得被认真对待。</p>
+            <div class="blank-image"><span>这里留给你带来的那一件</span></div>
+          </article>
+        </div>
+        <div class="footer" id="visit">
+          <div class="footer-note">周一至周六 09:30—19:00<br>周日给自己留半天，下午见。</div>
+          <div class="footer-number">PAGE 01 <span class="ink-dot"></span></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script>
+    (function () {
+      document.documentElement.classList.add('js-ready');
+      var page = document.querySelector('.page');
+      var fold = document.querySelector('.fold-line');
+      var cursor = document.querySelector('.cursor-mark');
+      var links = document.querySelectorAll('a, button');
+      window.addEventListener('pointermove', function (event) {
+        cursor.style.left = event.clientX + 'px';
+        cursor.style.top = event.clientY + 'px';
+      });
+      links.forEach(function (link) {
+        link.addEventListener('pointerenter', function () { cursor.classList.add('is-link'); });
+        link.addEventListener('pointerleave', function () { cursor.classList.remove('is-link'); });
+      });
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting && entry.intersectionRatio >= .5) page.classList.add('crease-deeper');
+        });
+      }, { threshold: [.5] });
+      observer.observe(fold);
+    }());
+  </script>
+</body>
+</html>

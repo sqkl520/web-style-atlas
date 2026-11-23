@@ -116,6 +116,15 @@ const PROMPT = PROMPT_FILE
   : _generated;
 if (PROMPT_FILE) console.log(`[blindtest] 提示词来自文件：${PROMPT_FILE}（不是现生成的）`);
 if (!existsSync(OUT)) mkdirSync(OUT, { recursive: true });
+/* 提示词**开跑就落盘**，不等 finish()。
+ *
+ * ⚠️ 2026-11-23 实测：agent 会自己用 fs 工具写 `index.html`，然后进程可能在
+ * `finish()` 之前就被回收 —— 于是目录里有产物、却没有 `_prompt.txt`。
+ * 而「这份产物是用哪份提示词做的」是事后一切分析的前提
+ * （`_font-source-rate.mjs` 就是按提示词 md5 分组的，没提示词就分不进组）。
+ *
+ * 一句话：产物可能是 agent 写的，提示词必须是我们写的，而且越早越好。 */
+writeFileSync(join(OUT, '_prompt.txt'), PROMPT);
 /* ⚠️ 不要往 cwd 里放 README 或任何说明文件（2026-11-05 实测）。
  * 我加过一条「这是空目录，不用探索」的 README，本意是降低 agent 卡死率。
  * 结果相反：它引发 glob × 2 → read → 挂住。去掉之后 S19 一次通过。
