@@ -144,7 +144,7 @@ node deliverables/78-northstar/_probe/_pipeline-health.mjs
 
 | 文件 | 内容 |
 |---|---|
-| `_probe/79-measurement-layer-audit.md` | **本轮主报告**。要点：测量层的六类缺陷逐类举证，含正对照接入前后的对比 |
+| `_probe/79-measurement-layer-audit.md` | **本轮主报告**。58 节 / 4200 行，**开头有一张「怎么读」的索引表**，按问题挑节，不要从头读 |
 | `_probe/PLAN-hours-20261122.md` | 本轮五阶段长任务计划与执行记录 |
 | `_probe/82-s34-seven-tiers-question.md` | S34 七档的裁决数据（两轮都排 7 条，缩进值与原型逐字相同） |
 | `_probe/79` §十六 | **红队推翻了「hard 四案缺交互」这个判断**（缩水 80%），真缺陷是 `motion` 全库蒸发 |
