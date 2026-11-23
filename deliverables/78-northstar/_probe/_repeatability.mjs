@@ -80,6 +80,18 @@ function features(html) {
     lis,
     fontSet: [...fams].sort().join('|'),
     fontN: fams.size,
+    /* 字体来源类型。2026-11-23 加：同一份提示词跑两次，如果一次写 CDN 一次
+     * 什么都不写，那「字体来源」就是波动项 —— 那时改提示词没用，只能重跑。
+     * 判据与 score.mjs 的 judgeFontChain 同口径（remote/embedded/local-only/none）。 */
+    fontSrc: (() => {
+      const hasImport = /@import\s+url\([^)]*fonts|fonts\.googleapis/i.test(html);
+      const hasLink = /<link[^>]+(?:fonts\.googleapis|\.css)[^>]*>/i.test(html);
+      const hasFace = /@font-face/i.test(html);
+      const localOnly = /src\s*:\s*local\(/i.test(html) && !/url\(/i.test((html.match(/@font-face\{[^}]*\}/gi) || []).join(''));
+      if (hasImport || hasLink) return 'remote';
+      if (hasFace) return localOnly ? 'local-only' : 'embedded';
+      return 'none';
+    })(),
     bytes: Buffer.byteLength(html, 'utf8'),
   };
 }
@@ -101,7 +113,7 @@ for (const [key, ids] of comparable) {
   const [base, md5] = key.split('@');
   console.log(`══ ${base}  提示词 md5=${md5}  产出 ${ids.length} 次：${ids.join(' / ')}`);
   const rows = ids.map((id) => ({ id, ...features(readFileSync(join(BT, id, 'index.html'), 'utf8')) }));
-  for (const c of ['imgs', 'arts', 'lis', 'fontN', 'bytes']) {
+  for (const c of ['imgs', 'arts', 'lis', 'fontN', 'fontSrc', 'bytes']) {
     const vals = rows.map((r) => r[c]);
     const same = vals.every((v) => v === vals[0]);
     console.log(`   ${c.padEnd(8)} ${vals.join(' / ').padEnd(24)} ${same ? '一致' : '不一致'}`);
