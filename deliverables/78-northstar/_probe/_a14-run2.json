@@ -1,0 +1,689 @@
+[
+ {
+  "id": "S01",
+  "ships": {
+   "fontFace": 0,
+   "googleImport": false,
+   "selfHostedLink": false,
+   "localSrc": 0
+  },
+  "out": {
+   "title": {
+    "decl": "\"Noto Sans SC\", \"Source Han Sans SC\"",
+    "first": "Noto Sans SC",
+    "real": [
+     "Noto Sans SC"
+    ],
+    "isWeb": false,
+    "chain": [
+     "Noto Sans SC",
+     "Source Han Sans SC"
+    ],
+    "verdict": "FIRST-OK"
+   },
+   "body": {
+    "decl": "\"Noto Sans SC\", \"Source Han Sans SC\"",
+    "first": "Noto Sans SC",
+    "real": [
+     "Noto Sans SC"
+    ],
+    "isWeb": false,
+    "chain": [
+     "Noto Sans SC",
+     "Source Han Sans SC"
+    ],
+    "verdict": "FIRST-OK"
+   }
+  }
+ },
+ {
+  "id": "S05",
+  "ships": {
+   "fontFace": 3,
+   "googleImport": false,
+   "selfHostedLink": false,
+   "localSrc": 3
+  },
+  "out": {
+   "title": {
+    "decl": "Barlow, \"Glow Sans SC\"",
+    "first": "Barlow",
+    "real": [
+     "Noto Sans SC"
+    ],
+    "isWeb": false,
+    "chain": [
+     "Barlow",
+     "Glow Sans SC"
+    ],
+    "verdict": "OUTSIDE"
+   },
+   "body": {
+    "decl": "\"Glow Sans SC\"",
+    "first": "Glow Sans SC",
+    "real": [
+     "Noto Sans SC"
+    ],
+    "isWeb": false,
+    "chain": [],
+    "verdict": "OUTSIDE"
+   }
+  }
+ },
+ {
+  "id": "S09",
+  "ships": {
+   "fontFace": 0,
+   "googleImport": true,
+   "selfHostedLink": false,
+   "localSrc": 0
+  },
+  "out": {
+   "title": {
+    "decl": "\"LXGW Marker Gothic\", Syne",
+    "first": "LXGW Marker Gothic",
+    "real": [
+     "Noto Sans SC"
+    ],
+    "isWeb": false,
+    "chain": [
+     "LXGW Marker Gothic",
+     "Syne"
+    ],
+    "verdict": "OUTSIDE"
+   },
+   "body": {
+    "decl": "\"LXGW Marker Gothic\", Syne",
+    "first": "LXGW Marker Gothic",
+    "real": [
+     "Noto Sans SC"
+    ],
+    "isWeb": false,
+    "chain": [],
+    "verdict": "OUTSIDE"
+   }
+  }
+ },
+ {
+  "id": "S13",
+  "ships": {
+   "fontFace": 0,
+   "googleImport": false,
+   "selfHostedLink": false,
+   "localSrc": 0
+  },
+  "out": {
+   "title": {
+    "decl": "\"EB Garamond\", \"Noto Serif SC\", serif",
+    "first": "EB Garamond",
+    "real": [
+     "SimSun"
+    ],
+    "isWeb": false,
+    "chain": [
+     "EB Garamond",
+     "Noto Serif SC"
+    ],
+    "verdict": "GENERIC"
+   },
+   "body": {
+    "decl": "\"Noto Serif SC\", \"Songti SC\", SimSun, serif",
+    "first": "Noto Serif SC",
+    "real": [
+     "SimSun"
+    ],
+    "isWeb": false,
+    "chain": [
+     "Noto Serif SC",
+     "Songti SC",
+     "SimSun"
+    ],
+    "verdict": "FALLBACK"
+   }
+  }
+ },
+ {
+  "id": "S15",
+  "ships": {
+   "fontFace": 0,
+   "googleImport": false,
+   "selfHostedLink": false,
+   "localSrc": 0
+  },
+  "out": {
+   "title": {
+    "decl": "Newsreader, \"Noto Serif SC\", Georgia, serif",
+    "first": "Newsreader",
+    "real": [
+     "SimSun"
+    ],
+    "isWeb": false,
+    "chain": [
+     "Newsreader",
+     "Noto Serif SC",
+     "Georgia"
+    ],
+    "verdict": "GENERIC"
+   },
+   "body": {
+    "decl": "\"Noto Serif SC\", Newsreader, Georgia, serif",
+    "first": "Noto Serif SC",
+    "real": [
+     "SimSun"
+    ],
+    "isWeb": false,
+    "chain": [
+     "Noto Serif SC",
+     "Newsreader",
+     "Georgia"
+    ],
+    "verdict": "GENERIC"
+   }
+  }
+ },
+ {
+  "id": "S17",
+  "ships": {
+   "fontFace": 0,
+   "googleImport": true,
+   "selfHostedLink": false,
+   "localSrc": 0
+  },
+  "out": {
+   "title": {
+    "decl": "Literata, 文津宋体, \"Noto Serif SC\", serif",
+    "first": "Literata",
+    "real": [
+     "Noto Serif SC ExtraLight"
+    ],
+    "isWeb": true,
+    "chain": [
+     "Literata",
+     "文津宋体",
+     "Noto Serif SC"
+    ],
+    "verdict": "FALLBACK"
+   },
+   "body": {
+    "decl": "文津宋体, \"WenJin Mincho SC\", \"Noto Serif SC\", \"Source Han Serif",
+    "first": "文津宋体",
+    "real": [
+     "Noto Serif SC ExtraLight",
+     "SimSun"
+    ],
+    "isWeb": true,
+    "chain": [
+     "文津宋体",
+     "WenJin Mincho SC",
+     "Noto Serif SC",
+     "Source Han Serif SC"
+    ],
+    "verdict": "OUTSIDE"
+   }
+  }
+ },
+ {
+  "id": "S18",
+  "ships": {
+   "fontFace": 1,
+   "googleImport": false,
+   "selfHostedLink": false,
+   "localSrc": 1
+  },
+  "out": {
+   "title": {
+    "decl": "GlowSansSC, \"Songti SC\", Georgia, \"Times New Roman\", serif",
+    "first": "GlowSansSC",
+    "real": [
+     "SimSun"
+    ],
+    "isWeb": false,
+    "chain": [
+     "Glow Sans SC",
+     "Songti SC",
+     "Georgia",
+     "Times New Roman"
+    ],
+    "verdict": "GENERIC"
+   },
+   "body": {
+    "decl": "VT323, \"Courier New\", monospace",
+    "first": "VT323",
+    "real": [
+     "Courier New"
+    ],
+    "isWeb": false,
+    "chain": [
+     "Glow Sans SC",
+     "Songti SC",
+     "Georgia",
+     "Times New Roman"
+    ],
+    "verdict": "GENERIC"
+   }
+  }
+ },
+ {
+  "id": "S19",
+  "ships": {
+   "fontFace": 0,
+   "googleImport": false,
+   "selfHostedLink": false,
+   "localSrc": 0
+  },
+  "out": {
+   "title": {
+    "decl": "\"Noto Serif SC\", Georgia",
+    "first": "Noto Serif SC",
+    "real": [
+     "Noto Sans SC"
+    ],
+    "isWeb": false,
+    "chain": [
+     "Noto Serif SC",
+     "Georgia"
+    ],
+    "verdict": "OUTSIDE"
+   },
+   "body": {
+    "decl": "\"Noto Serif SC\", Georgia",
+    "first": "Noto Serif SC",
+    "real": [
+     "Noto Sans SC"
+    ],
+    "isWeb": false,
+    "chain": [
+     "Noto Serif SC",
+     "Georgia"
+    ],
+    "verdict": "OUTSIDE"
+   }
+  }
+ },
+ {
+  "id": "S21",
+  "ships": {
+   "fontFace": 0,
+   "googleImport": false,
+   "selfHostedLink": false,
+   "localSrc": 0
+  },
+  "out": {
+   "title": {
+    "decl": "Antonio, \"WenJin Mincho\", Georgia, \"Songti SC\"",
+    "first": "Antonio",
+    "real": [
+     "Noto Sans SC"
+    ],
+    "isWeb": false,
+    "chain": [
+     "Antonio",
+     "WenJin Mincho",
+     "Georgia",
+     "Songti SC"
+    ],
+    "verdict": "OUTSIDE"
+   },
+   "body": {
+    "decl": "\"IBM Plex Mono\", monospace",
+    "first": "IBM Plex Mono",
+    "real": [
+     "NSimSun"
+    ],
+    "isWeb": false,
+    "chain": [
+     "WenJin Mincho",
+     "Georgia",
+     "Songti SC",
+     "STSong"
+    ],
+    "verdict": "GENERIC"
+   }
+  }
+ },
+ {
+  "id": "S22",
+  "ships": {
+   "fontFace": 0,
+   "googleImport": false,
+   "selfHostedLink": false,
+   "localSrc": 0
+  },
+  "out": {
+   "title": {
+    "decl": "Petrona, \"Zhuque Fangsong\", Georgia, serif",
+    "first": "Petrona",
+    "real": [
+     "SimSun"
+    ],
+    "isWeb": false,
+    "chain": [
+     "Petrona",
+     "Zhuque Fangsong",
+     "Georgia"
+    ],
+    "verdict": "GENERIC"
+   },
+   "body": {
+    "decl": "\"Zhuque Fangsong\", Petrona, Georgia, serif",
+    "first": "Zhuque Fangsong",
+    "real": [
+     "Georgia",
+     "SimSun"
+    ],
+    "isWeb": false,
+    "chain": [
+     "Zhuque Fangsong",
+     "Petrona",
+     "Georgia"
+    ],
+    "verdict": "GENERIC"
+   }
+  }
+ },
+ {
+  "id": "S23",
+  "ships": {
+   "fontFace": 0,
+   "googleImport": true,
+   "selfHostedLink": false,
+   "localSrc": 0
+  },
+  "out": {
+   "title": {
+    "decl": "\"Noto Serif SC\", \"Alfa Slab One\", serif",
+    "first": "Noto Serif SC",
+    "real": [
+     "Noto Serif SC ExtraLight"
+    ],
+    "isWeb": true,
+    "chain": [
+     "Noto Serif SC",
+     "Alfa Slab One"
+    ],
+    "verdict": "FALLBACK"
+   },
+   "body": {
+    "decl": "\"Noto Serif SC\", \"Alfa Slab One\", serif",
+    "first": "Noto Serif SC",
+    "real": [
+     "Noto Serif SC ExtraLight",
+     "SimSun"
+    ],
+    "isWeb": true,
+    "chain": [
+     "Noto Serif SC",
+     "Alfa Slab One"
+    ],
+    "verdict": "OUTSIDE"
+   }
+  }
+ },
+ {
+  "id": "S24",
+  "ships": {
+   "fontFace": 0,
+   "googleImport": false,
+   "selfHostedLink": false,
+   "localSrc": 0
+  },
+  "out": {
+   "title": {
+    "decl": "Spectral, \"LXGW WenKai\", Georgia, \"Times New Roman\", serif",
+    "first": "Spectral",
+    "real": [
+     "SimSun"
+    ],
+    "isWeb": false,
+    "chain": [
+     "Spectral",
+     "LXGW WenKai",
+     "Georgia",
+     "Times New Roman"
+    ],
+    "verdict": "GENERIC"
+   },
+   "body": {
+    "decl": "\"LXGW WenKai\", \"Songti SC\", Georgia, \"Times New Roman\", seri",
+    "first": "LXGW WenKai",
+    "real": [
+     "SimSun"
+    ],
+    "isWeb": false,
+    "chain": [
+     "LXGW WenKai",
+     "Songti SC",
+     "Georgia",
+     "Times New Roman"
+    ],
+    "verdict": "GENERIC"
+   }
+  }
+ },
+ {
+  "id": "S29",
+  "ships": {
+   "fontFace": 0,
+   "googleImport": false,
+   "selfHostedLink": false,
+   "localSrc": 0
+  },
+  "out": {
+   "title": {
+    "decl": "\"Saira Condensed\", \"Noto Sans SC\"",
+    "first": "Saira Condensed",
+    "real": [
+     "Noto Sans SC"
+    ],
+    "isWeb": false,
+    "chain": [
+     "Saira Condensed",
+     "Noto Sans SC"
+    ],
+    "verdict": "FALLBACK"
+   },
+   "body": {
+    "decl": "\"Noto Sans SC\"",
+    "first": "Noto Sans SC",
+    "real": [
+     "Noto Sans SC"
+    ],
+    "isWeb": false,
+    "chain": [],
+    "verdict": "OUTSIDE"
+   }
+  }
+ },
+ {
+  "id": "S31",
+  "ships": {
+   "fontFace": 0,
+   "googleImport": false,
+   "selfHostedLink": false,
+   "localSrc": 0
+  },
+  "out": {
+   "title": {
+    "decl": "Jost, \"Noto Sans SC\"",
+    "first": "Jost",
+    "real": [
+     "Noto Sans SC"
+    ],
+    "isWeb": false,
+    "chain": [
+     "Jost",
+     "Noto Sans SC"
+    ],
+    "verdict": "FALLBACK"
+   },
+   "body": {
+    "decl": "Jost, \"Noto Sans SC\"",
+    "first": "Jost",
+    "real": [
+     "Noto Sans SC"
+    ],
+    "isWeb": false,
+    "chain": [
+     "Noto Serif SC",
+     "Literata",
+     "Georgia"
+    ],
+    "verdict": "OUTSIDE"
+   }
+  }
+ },
+ {
+  "id": "S32",
+  "ships": {
+   "fontFace": 0,
+   "googleImport": false,
+   "selfHostedLink": false,
+   "localSrc": 0
+  },
+  "out": {
+   "title": {
+    "decl": "Jost, \"Noto Sans SC\", sans-serif",
+    "first": "Jost",
+    "real": [
+     "Noto Sans SC"
+    ],
+    "isWeb": false,
+    "chain": [
+     "Jost",
+     "Noto Sans SC"
+    ],
+    "verdict": "FALLBACK"
+   },
+   "body": {
+    "decl": "Jost, \"Noto Sans SC\", sans-serif",
+    "first": "Jost",
+    "real": [
+     "Noto Sans SC"
+    ],
+    "isWeb": false,
+    "chain": [
+     "Noto Serif SC",
+     "Literata",
+     "Georgia"
+    ],
+    "verdict": "OUTSIDE"
+   }
+  }
+ },
+ {
+  "id": "S34",
+  "ships": {
+   "fontFace": 0,
+   "googleImport": true,
+   "selfHostedLink": false,
+   "localSrc": 0
+  },
+  "out": {
+   "title": {
+    "decl": "Jost, \"Noto Sans SC\", sans-serif",
+    "first": "Jost",
+    "real": [
+     "Noto Sans SC Thin",
+     "Noto Sans SC"
+    ],
+    "isWeb": true,
+    "chain": [
+     "Jost",
+     "Noto Sans SC"
+    ],
+    "verdict": "FALLBACK"
+   },
+   "body": {
+    "decl": "Jost, \"Noto Sans SC\", sans-serif",
+    "first": "Jost",
+    "real": [
+     "Jost"
+    ],
+    "isWeb": true,
+    "chain": [
+     "Noto Serif SC",
+     "Literata",
+     "Georgia"
+    ],
+    "verdict": "OUTSIDE"
+   }
+  }
+ },
+ {
+  "id": "S34-r2",
+  "ships": {
+   "fontFace": 0,
+   "googleImport": true,
+   "selfHostedLink": false,
+   "localSrc": 0
+  },
+  "out": {
+   "title": {
+    "decl": "Jost, \"Noto Sans SC\"",
+    "first": "Jost",
+    "real": [
+     "Noto Sans SC Thin"
+    ],
+    "isWeb": true,
+    "chain": [
+     "Jost",
+     "Noto Sans SC"
+    ],
+    "verdict": "FALLBACK"
+   },
+   "body": {
+    "decl": "\"Noto Serif SC\", Literata, Georgia",
+    "first": "Noto Serif SC",
+    "real": [
+     "Noto Serif SC ExtraLight"
+    ],
+    "isWeb": true,
+    "chain": [
+     "Noto Serif SC",
+     "Literata",
+     "Georgia"
+    ],
+    "verdict": "FALLBACK"
+   }
+  }
+ },
+ {
+  "id": "S35",
+  "ships": {
+   "fontFace": 0,
+   "googleImport": true,
+   "selfHostedLink": false,
+   "localSrc": 0
+  },
+  "out": {
+   "title": {
+    "decl": "Jost, \"Noto Sans SC\", sans-serif",
+    "first": "Jost",
+    "real": [
+     "Noto Sans SC"
+    ],
+    "isWeb": false,
+    "chain": [
+     "Jost",
+     "Noto Sans SC"
+    ],
+    "verdict": "FALLBACK"
+   },
+   "body": {
+    "decl": "Jost, \"Noto Sans SC\", sans-serif",
+    "first": "Jost",
+    "real": [
+     "Noto Sans SC",
+     "Noto Sans SC"
+    ],
+    "isWeb": false,
+    "chain": [
+     "Noto Serif SC",
+     "Literata",
+     "Georgia"
+    ],
+    "verdict": "OUTSIDE"
+   }
+  }
+ }
+]

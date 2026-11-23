@@ -1,0 +1,240 @@
+[
+ {
+  "id": "S13",
+  "k": "A",
+  "label": "原链（2，全不可用）",
+  "decl": "\"EB Garamond\",\"Noto Serif SC\",serif",
+  "len": 2,
+  "avail": false,
+  "real": [
+   {
+    "fam": "SimSun",
+    "glyphs": 13,
+    "custom": false
+   }
+  ],
+  "first": "SimSun",
+  "switched": true
+ },
+ {
+  "id": "S13",
+  "k": "B",
+  "label": "加长到 4（仍全不可用）",
+  "decl": "\"EB Garamond\",\"Noto Serif SC\",\"Spectral\",\"Petrona\",serif",
+  "len": 4,
+  "avail": false,
+  "real": [
+   {
+    "fam": "SimSun",
+    "glyphs": 13,
+    "custom": false
+   }
+  ],
+  "first": "SimSun",
+  "switched": true
+ },
+ {
+  "id": "S13",
+  "k": "C",
+  "label": "加长到 4（末位塞 SimSun）",
+  "decl": "\"EB Garamond\",\"Noto Serif SC\",\"Spectral\",\"SimSun\",serif",
+  "len": 4,
+  "avail": true,
+  "real": [
+   {
+    "fam": "SimSun",
+    "glyphs": 13,
+    "custom": false
+   }
+  ],
+  "first": "SimSun",
+  "switched": true
+ },
+ {
+  "id": "S13",
+  "k": "D",
+  "label": "最短 1（只 SimSun）",
+  "decl": "SimSun,serif",
+  "len": 1,
+  "avail": true,
+  "real": [
+   {
+    "fam": "SimSun",
+    "glyphs": 13,
+    "custom": false
+   }
+  ],
+  "first": "SimSun",
+  "switched": true
+ },
+ {
+  "id": "S13",
+  "k": "E",
+  "label": "最短 1（只 EB Garamond）",
+  "decl": "\"EB Garamond\",serif",
+  "len": 1,
+  "avail": false,
+  "real": [
+   {
+    "fam": "SimSun",
+    "glyphs": 13,
+    "custom": false
+   }
+  ],
+  "first": "SimSun",
+  "switched": true
+ },
+ {
+  "id": "S13",
+  "k": "F",
+  "label": "最短 1（只 Noto Sans SC，已装）",
+  "decl": "\"Noto Sans SC\",serif",
+  "len": 1,
+  "avail": true,
+  "real": [
+   {
+    "fam": "Noto Sans SC",
+    "glyphs": 13,
+    "custom": false
+   }
+  ],
+  "first": "Noto Sans SC",
+  "switched": false
+ },
+ {
+  "id": "S13",
+  "k": "G",
+  "label": "原链但首族换成已装 Noto Sans SC",
+  "decl": "\"Noto Sans SC\",\"Source Han Sans SC\",serif",
+  "len": 2,
+  "avail": true,
+  "real": [
+   {
+    "fam": "Noto Sans SC",
+    "glyphs": 13,
+    "custom": false
+   }
+  ],
+  "first": "Noto Sans SC",
+  "switched": false
+ },
+ {
+  "id": "S01",
+  "k": "A",
+  "label": "原链（2，全不可用）",
+  "decl": "\"EB Garamond\",\"Noto Serif SC\",serif",
+  "len": 2,
+  "avail": false,
+  "real": [
+   {
+    "fam": "SimSun",
+    "glyphs": 9,
+    "custom": false
+   }
+  ],
+  "first": "SimSun",
+  "switched": true
+ },
+ {
+  "id": "S01",
+  "k": "B",
+  "label": "加长到 4（仍全不可用）",
+  "decl": "\"EB Garamond\",\"Noto Serif SC\",\"Spectral\",\"Petrona\",serif",
+  "len": 4,
+  "avail": false,
+  "real": [
+   {
+    "fam": "SimSun",
+    "glyphs": 9,
+    "custom": false
+   }
+  ],
+  "first": "SimSun",
+  "switched": true
+ },
+ {
+  "id": "S01",
+  "k": "C",
+  "label": "加长到 4（末位塞 SimSun）",
+  "decl": "\"EB Garamond\",\"Noto Serif SC\",\"Spectral\",\"SimSun\",serif",
+  "len": 4,
+  "avail": true,
+  "real": [
+   {
+    "fam": "SimSun",
+    "glyphs": 9,
+    "custom": false
+   }
+  ],
+  "first": "SimSun",
+  "switched": true
+ },
+ {
+  "id": "S01",
+  "k": "D",
+  "label": "最短 1（只 SimSun）",
+  "decl": "SimSun,serif",
+  "len": 1,
+  "avail": true,
+  "real": [
+   {
+    "fam": "SimSun",
+    "glyphs": 9,
+    "custom": false
+   }
+  ],
+  "first": "SimSun",
+  "switched": true
+ },
+ {
+  "id": "S01",
+  "k": "E",
+  "label": "最短 1（只 EB Garamond）",
+  "decl": "\"EB Garamond\",serif",
+  "len": 1,
+  "avail": false,
+  "real": [
+   {
+    "fam": "SimSun",
+    "glyphs": 9,
+    "custom": false
+   }
+  ],
+  "first": "SimSun",
+  "switched": true
+ },
+ {
+  "id": "S01",
+  "k": "F",
+  "label": "最短 1（只 Noto Sans SC，已装）",
+  "decl": "\"Noto Sans SC\",serif",
+  "len": 1,
+  "avail": true,
+  "real": [
+   {
+    "fam": "Noto Sans SC",
+    "glyphs": 9,
+    "custom": false
+   }
+  ],
+  "first": "Noto Sans SC",
+  "switched": false
+ },
+ {
+  "id": "S01",
+  "k": "G",
+  "label": "原链但首族换成已装 Noto Sans SC",
+  "decl": "\"Noto Sans SC\",\"Source Han Sans SC\",serif",
+  "len": 2,
+  "avail": true,
+  "real": [
+   {
+    "fam": "Noto Sans SC",
+    "glyphs": 9,
+    "custom": false
+   }
+  ],
+  "first": "Noto Sans SC",
+  "switched": false
+ }
+]

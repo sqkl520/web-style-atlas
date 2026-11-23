@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A7-NEG-01 负对照：五类全绿，字体全错</title>
+<link rel="stylesheet" href="fonts/site.css">
+<style>
+/* 这一份是**负对照**，不是产物。见 _blindtest/A7-NEG-01/README.md。
+   它故意让 score.mjs 的 ①②③④⑤ 全部报"通过"，而页面的实际情况是：
+     · 真正渲染的字体是 Papyrus / Impact，与提示词给的三条链没有任何关系
+     · 配色是黑底红字，提示词要的纸色 #EFE7D7 只出现在一个 2px 的点上
+     · 卡片 18px 圆角、上边 9px 粗线、标题 40px（要 96px）、阴影用 drop-shadow
+     · 条目与图片全被 display:none 藏起来，页面上一条内容、一张图都看不到
+   下面这一行是让 ② 判据满分的机关：它是一座 CSS 注释，
+   里面写着的 font-family 永远不会被浏览器使用，但 score.mjs:900 不剥注释。 */
+/* 字体计划：font-family: "Noto Sans SC", "Source Han Sans SC", "Martian Mono"; */
+/* 配色计划：#C1121F #EFE7D7 #1A1614 #6E6A5E */
+
+:root {
+  --paper: #EFE7D7;
+  --red: #C1121F;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  background: #000000;
+  color: #C1121F;
+  font-family: Papyrus, sans-serif;
+}
+
+.masthead {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 18px 24px 10px;
+  border-bottom: 1px solid #C1121F;
+}
+
+.masthead h1 {
+  margin: 0;
+  font-size: 40px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-family: Impact, sans-serif;
+}
+
+.masthead .stamp {
+  width: 2px;
+  height: 2px;
+  background: #EFE7D7;
+}
+
+/* 幽灵规则：页面上没有任何元素用这个 class。
+   ③ 字号判据取"全页最大的 font-size"，于是它看到的标题是 96px。 */
+.never-mounted-headline {
+  font-size: 96px;
+}
+
+.lede {
+  padding: 24px;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.card {
+  margin: 24px;
+  padding: 20px;
+  background: #111111;
+  border-top-width: 9px;
+  border-top-style: solid;
+  border-top-color: #C1121F;
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+  border-bottom-right-radius: 18px;
+  border-bottom-left-radius: 18px;
+  filter: drop-shadow(0 6px 8px rgba(0, 0, 0, .85));
+}
+
+.hidden-item {
+  display: none;
+}
+
+footer {
+  padding: 24px;
+  font-size: 12px;
+  border-top: 3px solid #6E6A5E;
+  font-family: Papyrus, sans-serif;
+}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <h1>修鞋 · 配钥匙</h1>
+  <span class="stamp"></span>
+</header>
+
+<p class="lede">店里只做两件事：把鞋修好，把钥匙配准。上门时间打电话约，修完当场试穿、当场开门试锁。</p>
+
+<section class="item">
+  <h2>换跟</h2>
+  <p>鞋跟磨偏了、走路外八，换一副橡胶跟。三十分钟。</p>
+</section>
+
+<section class="item">
+  <h2>配钥匙</h2>
+  <p>门禁卡、防盗门、老式挂锁都能配。带原件来。</p>
+</section>
+
+<div class="card">
+  <h2>价目</h2>
+  <p>换跟 30 起 · 配钥匙 25 起 · 开锁 80 起。价钱当场说清，不加价。</p>
+</div>
+
+<!-- ── 以下是让 ④ 结构判据满分的东西：5 个条目 + 5 个图片位，全部 display:none ── -->
+<article class="item hidden-item"><h2>补鞋面</h2><p>划口、开线、掉色。</p></article>
+<article class="item hidden-item"><h2>换底</h2><p>整片大底更换。</p></article>
+<article class="item hidden-item"><h2>撑鞋</h2><p>新鞋挤脚，撑半码。</p></article>
+<article class="item hidden-item"><h2>改拉链</h2><p>外套、箱包拉链。</p></article>
+<article class="item hidden-item"><h2>门禁钥匙</h2><p>带原件来配。</p></article>
+
+<figure class="hidden-item"><img src="images/01.jpg" width="800" height="600" alt=""></figure>
+<figure class="hidden-item"><img src="images/02.jpg" width="800" height="600" alt=""></figure>
+<figure class="hidden-item"><img src="images/03.jpg" width="800" height="600" alt=""></figure>
+<figure class="hidden-item"><img src="images/04.jpg" width="800" height="600" alt=""></figure>
+<figure class="hidden-item"><img src="images/05.jpg" width="800" height="600" alt=""></figure>
+
+<footer>营业时间 9:00–19:00　周三休息　电话 010-0000-0000</footer>
+
+</body>
+</html>
