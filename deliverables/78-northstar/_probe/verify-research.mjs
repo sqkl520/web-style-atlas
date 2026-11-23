@@ -159,7 +159,7 @@ const STEPS = [
    * `_scorer-diff.mjs` 就是补这个的：取旧版评分器跑一遍、换回新版再跑一遍、diff。
    * 这里只验它自己能跑通且恢复正确（用改前 commit 7eba54a）。
    * fail: true —— 如果它恢复校验失败，仓库里会留下旧版评分器而毫无提示。 */
-  { id: '_scorer-diff', label: '判据前后对比（5 案变化 / 违规数不变）', fail: true, args: ['7eba54a'] },
+  { id: '_scorer-diff', label: '判据前后对比（16 案变化，含覆盖面从漏到全）', fail: true, args: ['e1c3478'] },
 ];
 
 const results = [];
