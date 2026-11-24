@@ -5488,3 +5488,38 @@ if (allowedNorm.has(norm(head)) || GENERIC_FAMILIES.has(head.toLowerCase())) con
 但它的存在说明了同一件事：**`GENERIC_FAMILIES` 这个白名单同时承担两个职责**
 （判「链尾回退合法」和判「通用族本身合法」），而这两个职责在极端输入下会冲突。
 下次有人动这个白名单时，应当知道这一点。
+
+### 我复验了 A6 的修法：blocked 口径确实可复现
+
+A6 说 `_render-audit16.mjs` 加 `MODE=open|blocked` 双跑、blocked 下 18/18 稳定。
+我自己跑了两遍 blocked：
+
+```
+第一遍  11 个 h1=Noto Sans SC   7 个 h1=SimSun
+第二遍  11 个 h1=Noto Sans SC   7 个 h1=SimSun
+✓ 两次完全相同
+```
+
+而 `net=无`（网络被阻断）出现在每一份 —— 说明字体域名确实挡住了。
+
+**这是这一轮唯一一个「可复现的渲染结论」。** 它的代价是放弃了「真实网络环境」这个变量，
+但换来的确定性远比那个变量重要：`open` 模式下的 verdict 是网络天况的函数（§六十八），
+那种数据连「这次和上次一样吗」都答不了。
+
+### 该接进验证线
+
+`_render-audit16.mjs` 现在是一个独立脚本，没进 `verify-research`。
+但它跑一次要几分钟（起浏览器 + 18 份产物），而 `verify-research` 的全部 27 项
+加起来才 30-90 秒。
+
+**所以不该无条件接进去。** 合理的做法是：
+- 平时不跑（`fail: false` 且带 `skip` 标记）
+- 只在「要动渲染相关判据」时手动跑 blocked 口径
+
+这一轮没接。记录在这里，让下一个人知道该用什么命令：
+
+```bash
+MODE=blocked node deliverables/78-northstar/_probe/_render-audit16.mjs
+```
+
+**跑两次看结果是否相同 —— 这是检验「这次结论可信吗」的最便宜办法。**
