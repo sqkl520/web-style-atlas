@@ -5523,3 +5523,120 @@ MODE=blocked node deliverables/78-northstar/_probe/_render-audit16.mjs
 ```
 
 **跑两次看结果是否相同 —— 这是检验「这次结论可信吗」的最便宜办法。**
+
+---
+
+## 七十四、A7 的负对照：一份五类全过、实际四维全错的产物
+
+> 2026-11-24。A7（判据盲区审计者）造了一份合成产物 `_blindtest/A7-NEG-01/`，
+> 用 S01 的**真实提示词一字未改**，而页面在六个维度上都是错的。
+
+### 判据说
+
+```
+══ A7-NEG-01   137 行 / 3377 字节
+  ① 配色   4/4 个 hex 出现        底色 #EFE7D7 → ✓ 用在 background 上
+  ② 字体   3/3（Noto Sans SC, Source Han Sans SC, Martian Mono）
+  ③ 圆角   违反 0 条　线宽 全在允许级内　字号 96px ✓
+  ④ 结构   条目 5 ✓　图片 5/5 ✓
+  ⑤ 禁项   无违反　〔字体 3 个在链上〕〔来源：远程〕
+```
+
+### 真浏览器量到
+
+| 项 | 判据报 | 实际 |
+|---|---|---|
+| 底色 | `#EFE7D7` 用在 background ✓ | `html/body` 都是 **#000000** |
+| 标题字号 | 96px ✓ | 可见最大 **40px**（96px 挂在一个页面上不存在的 class） |
+| 正文字体 | 3/3 在链上 | **`Papyrus`**（body）/ **`Impact`**（h1），链上一个字没用 |
+| 字体来源 | 远程 ✓ | `<link href="fonts/site.css">` **指向不存在的文件** |
+| 圆角 | 违反 0 条 | 一张卡片 **18px**（四个 longhand，判据只认简写） |
+| 线宽 | 全在允许级内 | 上边 **9px**（`border-top-width` longhand） |
+| 图片 | 5 个、5 个唯一 src ✓ | **5 张全部 `display:none`**，解码 0 张 |
+| 条目 | `<article>=5` ✓ | 5 条全部 `display:none`，屏上只有 2 条 |
+| 阴影 | 无违反 | `filter: drop-shadow(...)`（判据只查 `box-shadow`） |
+
+### 12 处坏，各对准一个判据的读法
+
+| 位置 | 写法 | 绕过的判据 |
+|---|---|---|
+| `:17` | CSS **注释**里的 `font-family:"Noto Sans SC",…` | ② `:900` 不剥注释 |
+| `:33,92` | `font-family: Papyrus` ×2 | ⑤ `:595` 的 `localUse`：文件里出现 `masthead` 就放行 |
+| `:98` | `class="masthead"` | 同上（`masthead` 是这个词的唯一来源） |
+| `:60-62` | `.never-mounted-headline{font-size:96px}` | ③ `:762` 取全页最大 font-size，不查元素是否存在 |
+| `:77-80` | `border-top-left-radius` 等四条 longhand | ③ `:383` 只匹配 `border-radius:` |
+| `:81` | `filter: drop-shadow(...)` | ⑤ `:986` 只查 `box-shadow` |
+| `:74` | `border-top-width:9px` | ③ `:433` 只匹配 `border:`/`border-top:` 简写 |
+| `:7` | `<link href="fonts/site.css">`（文件不存在） | ⑤ `:621` 只要串里有 `.css` 就记 `remote` |
+| `:121-125` | 5 个 `<article class="item hidden-item">` | ④ `:65` 数标签，不管可见性 |
+| `:127-131` | 5 个 `<img>` 在 `.hidden-item` 里 | ④ `:128` 同上 |
+| `:18` | 四个 hex 写在 CSS 注释里 | ① `:855` 全文匹配 hex，注释里的也算「出现」 |
+
+### 消融：每一处改回正常写法，哪一处让判据变红
+
+```
+V0 原样              ②3/3  ⑤无违反   圆角 v=0  线宽[]   max=96 ok=true
+V1 去掉 masthead     ②3/3  ⑤链外:Papyrus/Impact/Papyrus   ← ⑤ 变红
+V2 删注释里的字体     ②0/3  ⑤无违反                        ← ② 变红
+V3 删 96px 幽灵规则  ②3/3  ⑤无违反               max=40 ok=false  ← ③ 变红
+V4 圆角改简写        ②3/3  ⑤无违反   圆角 v=1               ← ③ 变红
+V5 线宽改简写        ②3/3  ⑤无违反            线宽["9px"]    ← ③ 变红
+V6 条目图片改可见    （全部仍全过）                        ← 什么都没变
+```
+
+**V6 是最刺眼的一行**：把 5 个 article 和 5 个 img 从 `display:none` 改成可见，
+判据**一条都没变**。也就是说 ④ 结构这一类的「条目 5 ✓、图片 5/5 ✓」
+对「内容到底看不看得见」完全无感。
+
+### 这些盲区我自己抽验了两条
+
+**① `<link href="fonts/site.css">` 指向不存在的文件，判据⑤记 `remote`**
+```
+$ grep -n "fonts/site.css" index.html
+7:<link rel="stylesheet" href="fonts/site.css">
+$ ls A7-NEG-01/fonts/
+  → 目录不存在
+```
+判据只看串里有 `.css`，不查文件在不在。**「来源：远程 ✓」是假的。**
+
+**② 11 处 `hidden-item`**
+```
+$ grep -c "hidden-item" index.html
+11
+```
+5 个 article + 5 个 img 全在 `display:none` 里，判据④照数。
+
+### 这批盲区的共同结构
+
+12 处里有 **8 处**是同一个病：**判据按「声明的字面形态」判，而浏览器按「层叠后的实际效果」判**。
+
+| 判据看 | 浏览器看 |
+|---|---|
+| `border-radius:` 简写 | 四个 longhand 也算 |
+| `border:` 简写 | `border-top-width` 也算 |
+| `box-shadow` | `filter: drop-shadow` 也投影 |
+| 全页最大 `font-size` | 那个元素挂载了没有 |
+| `<article>` 标签数 | 那个元素可不可见 |
+| `<link href="*.css">` | 那个文件存不存在 |
+| 全文有 hex | 那个 hex 在不在注释里 |
+| `font-family` 声明 | 注释里的声明不算 |
+
+**这和 §四十五、§五十 那些是同一族 —— 第⑥类缺陷（判据在错误的解析层）。**
+只在文本层读，不在渲染层读。
+
+而这一轮已经有渲染层的能力（`_render-audit16` 的 blocked 口径可复现，见 §六十八 补记），
+**只是那些判据没有一条接进去。**
+
+### 该不该修
+
+按准入双条件逐条判：
+
+| 盲区 | 原型有吗 | 产物有吗 | 能否升级 |
+|---|---|---|---|
+| `<link>` 指向不存在文件 | 需查 | 需查 | 未知 |
+| display:none 的内容被计数 | 需查 | 需查 | 未知 |
+| longhand vs 简写 | **原型有**（S16 用 longhand？需查） | — | 需查 |
+| 注释里的 hex / font-family | 原型有（S13 注释含 monospace，§五十 修过字体那条但 hex 没修） | — | 需查 |
+
+**这一轮没有查完。** 但 A7 已经把「该查什么」列得很清楚，
+下一个人照着这张表查就行 —— 这比一份「这里有盲区」的模糊报告有用得多。
