@@ -305,26 +305,95 @@ export function shorthandChain(value, vars) {
   return fam ? chainOf(fam, vars) : [];
 }
 
-/** 去掉 `@font-face` 块（修正 A：定义不是使用）。 */
+/** 从 `start` 起扫一条声明的值，停在**顶层的** `;` 或 `}`。
+ *
+ * 为什么不能用 `([^;}]+)`（修正 G，2026-11-24 A2 夹具 13 号）：
+ * `font-family:"A;B", serif` 里的 `;` 在引号内，它不是分隔符。
+ * 用字符类切会在那里截断，得到 `"A` —— 这不是「切错族名」，
+ * 是**整条值被腰斩**，族数从 2 掉到 1。语料 0 处，但形态是静默的。
+ *
+ * 括号也要算进去：`font-family:var(--a, var(--b))` 里的 `;` 若出现在
+ * 函数实参里同样不是分隔符（虽然 CSS 里罕见，但 `url(data:...;base64,...)`
+ * 天天有 —— 那个 `;` 会让 `@font-face` 的 `src` 被腰斩）。 */
+function scanDeclValue(s, start) {
+  let quote = null, depth = 0, i = start;
+  for (; i < s.length; i++) {
+    const ch = s[i];
+    if (quote) {
+      if (ch === quote && s[i - 1] !== '\\') quote = null;
+      continue;
+    }
+    if (ch === '"' || ch === "'") { quote = ch; continue; }
+    if (ch === '(') { depth++; continue; }
+    if (ch === ')') { depth = Math.max(0, depth - 1); continue; }
+    if (depth === 0 && (ch === ';' || ch === '}')) break;
+  }
+  return s.slice(start, i);
+}
+
+/** 去掉 `@font-face` 块（修正 A：定义不是使用）。
+ *
+ * ⚠️ 用**花括号配对**，不用 `@font-face[^{]*\{[^{}]*\}`（修正 H，夹具 16 号）。
+ * 那条正则一旦块内出现花括号就配不上，定义会漏出来变成一条使用链。
+ * 实测触发形态：`src:url(data:font/woff2;base64,{AA})`（data URI 里带花括号）。
+ * 语料 0 处，但同一段代码决定「@font-face 里有嵌套块时怎么办」——
+ * 配不上就是静默多算一条链，而多算的方向正好是**抬高**「有退路」的比例。 */
 export function stripFontFaceRules(css) {
-  return String(css || '').replace(/@font-face\b[^{]*\{[^{}]*\}/gi, ' ');
+  const s = String(css || '');
+  let out = '', i = 0;
+  const re = /@font-face\b/gi;
+  let m;
+  while ((m = re.exec(s))) {
+    out += s.slice(i, m.index);
+    const b = s.indexOf('{', m.index + m[0].length);
+    if (b < 0) { out += s.slice(m.index); return out; }
+    let lvl = 0, j = b;
+    for (; j < s.length; j++) {
+      if (s[j] === '{') lvl++;
+      else if (s[j] === '}') { lvl--; if (lvl === 0) { j++; break; } }
+    }
+    /* 用空格占位，保持偏移量不变 —— 调用方可能在用 index 做定位。 */
+    out += ' '.repeat(j - m.index);
+    i = j;
+    re.lastIndex = j;
+  }
+  out += s.slice(i);
+  return out;
 }
 
 /** 从整份 HTML/CSS 里抽出所有 **font-family 使用声明** 的值。
  *
  * 不含 `@font-face` 里的定义，也不含 `font:` 简写 —— 后者见 `shorthandDeclarations`
- * 与 `fontChains`。已剥注释，未展开变量。 */
+ * 与 `fontChains`。已剥注释，未展开变量。
+ *
+ * ⚠️ 两条左边界都是必需的（修正 I，夹具 15/25 号）：
+ *   `(?<![-\w])` 排除 `--font-family:`（自定义属性定义）与
+ *   `my-font-family:`（未知属性）。没有它，`:root{--font-family:"A",serif}`
+ *   会被当成一条**使用**，凭空多一条链 —— 而多算的方向是抬高「有退路」。
+ *   同一个左边界坑在 `--font-num` / `--num` 上已经踩过一次（79 审计 §四十五）。 */
 export function fontDeclarations(src) {
   const css = stripFontFaceRules(cssText(stripCssComments(src)));
-  return [...css.matchAll(/font-family\s*:\s*([^;}]+)/gi)].map((m) => stripImportant(m[1]));
+  const out = [];
+  const re = /(?<![-\w])font-family\s*:/gi;
+  let m;
+  while ((m = re.exec(css))) out.push(stripImportant(scanDeclValue(css, re.lastIndex)));
+  return out;
 }
 
 /** 从整份 HTML/CSS 里抽出所有 `font:` 简写的值（不含 @font-face）。 */
 export function shorthandDeclarations(src) {
   const css = stripFontFaceRules(cssText(stripCssComments(src)));
-  return [...css.matchAll(/(?<![-\w])font\s*:\s*([^;}]+)/gi)]
-    .map((m) => stripImportant(m[1]))
-    .filter((v) => !/^(?:font-family|font-style|font-weight|font-size|font-stretch|font-variant)\b/i.test(v));
+  const out = [];
+  const re = /(?<![-\w])font\s*:/gi;
+  let m;
+  while ((m = re.exec(css))) {
+    const v = stripImportant(scanDeclValue(css, re.lastIndex));
+    /* `font-family:` / `font-size:` 等不会被上面的 `font\s*:` 命中（它们是 `font-`），
+     * 这个过滤器是第二道保险：万一将来有人放宽正则，别让长属性名漏进来。 */
+    if (/^(?:font-family|font-style|font-weight|font-size|font-stretch|font-variant)\b/i.test(v)) continue;
+    out.push(v);
+  }
+  return out;
 }
 
 /** 这条声明值**只有 CSS 关键字**（inherit / initial / unset / revert）。
