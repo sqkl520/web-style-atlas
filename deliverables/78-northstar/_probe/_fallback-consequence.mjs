@@ -40,14 +40,35 @@ const OFFENDERS = [
   ['S34-r2', 'Noto Serif SC, Literata, Georgia'],
 ];
 
-/* 按链上第一个实名族推断该补哪个通用族。
- * 规则很简单：族名里有 serif 且不是 sans → serif；否则 sans-serif。
- * 这不是精确分类，但足以回答「补与不补渲染有没有区别」。 */
+/* 按链上族的语义推断该补哪个通用族。
+ *
+ * ⚠️ 第一版只看**链首族**：`/serif/i.test(first)`。这错得很严重 ——
+ * S21 的链是 `WenJin Mincho, Georgia, Songti SC, STSong`，首族 `WenJin Mincho`
+ * （文津宋体）是**衬线**，但名字里没有 "serif" 这个词，于是被判成 sans-serif，
+ * 补了等于没补，渲染当然不变。S22-r2 的 `Zhuque Fangsong`（朱雀仿宋）同理。
+ *
+ * 是 A5（修法反例猎手）抓出来的：真实结果是 5/10 不是 3/10，
+ * 而那两份**恰好都是收益案** —— 不是「补错一份」，是「补错方向的全都是本该有收益的」。
+ *
+ * 修法：不只看首族，按**整条链的族名语义**判，并显式列出中文字族的类别。
+ * 这个表比第一版准，但仍然不完美（见脚本末尾的说明）——
+ * A4 的 V8 是按链尾族精确判定的 64/66，比这里准。 */
+const SERIF_HINTS = /\b(Song|Sung|Ming|Mincho|Myeongjo|Batang|Kai|SimSun|STSong|FangSong|Zhuque|WenJin|Songti)\b/i;
+const SANS_HINTS = /\b(Glow|Han Sans|YaHei|PingFang|Gothic|Hei|Jost|Inter|Barlow|Antonio|Syne|Archivo|Space Grotesk|Petrona?|Instrument|Saira|Chivo)\b/i;
+
 function guessGeneric(chain) {
-  const first = chain.split(',')[0].trim().replace(/^["']|["']$/g, '');
-  if (/mono|courier|consolas/i.test(first)) return 'monospace';
-  if (/serif/i.test(first) && !/sans/i.test(first)) return 'serif';
-  return 'sans-serif';
+  const fams = chain.split(',').map((s) => s.trim().replace(/^["']|["']$/g, ''));
+  const joined = fams.join(' ');
+  /* 等宽优先 —— 这条第一版是对的 */
+  if (/mono|courier|consolas/i.test(joined)) return 'monospace';
+  /* 明确的无衬线提示词优先于衬线（Glow Sans SC 里有 "Sans"，比 Song 更精确） */
+  if (/sans/i.test(joined)) return 'sans-serif';
+  if (SANS_HINTS.test(joined) && !SERIF_HINTS.test(joined)) return 'sans-serif';
+  if (SERIF_HINTS.test(joined)) return 'serif';
+  if (/serif/i.test(joined)) return 'serif';
+  /* 兜底：看链尾 —— A4 的 V8 用这条规则得到 64/66 */
+  const last = fams[fams.length - 1] || '';
+  return /serif/i.test(last) && !/sans/i.test(last) ? 'serif' : 'sans-serif';
 }
 
 /* 生成两个臂的样本 HTML。
