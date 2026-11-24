@@ -100,3 +100,8 @@ _readme-skill-fetch/
 .claude/
 
 _commitmsg.txt
+
+# ── 实验中间产物：由脚本可复现生成，不入库 ──────────────────────────
+# _fallback-consequence.mjs 生成的 20 份对照 HTML（链末补/不补终止符）。
+# 它们每次跑都会重新生成，且内容能从脚本推出来 —— 入库只会变成 20 个噪音文件。
+deliverables/78-northstar/_probe/_fa-out/
